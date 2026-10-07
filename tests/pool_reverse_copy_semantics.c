@@ -60,7 +60,7 @@ static void test_rounding_and_scalar_tail(void)
         fill_words(source, 40, 0x10293847UL);
         for (i = 0; i < 40; ++i)
             destination[i] = sentinel;
-        reverse_copy_dwords(&destination[5], &source[3], lengths[test]);
+        reverse_dword_copy(&destination[5], &source[3], lengths[test]);
         for (i = 0; i < words; ++i)
             expect(destination[5+i] == source[3+i], "rounded dword content");
         for (i = 0; i < 40; ++i)
@@ -84,7 +84,7 @@ static void test_nonpositive_counts(void)
         fill_words(destination, 48, 0xa1b2c3d4UL);
         memcpy(source_before, source, sizeof(source));
         memcpy(destination_before, destination, sizeof(destination));
-        reverse_copy_dwords(&destination[24], &source[24], lengths[test]);
+        reverse_dword_copy(&destination[24], &source[24], lengths[test]);
         for (i = 0; i < 48; ++i) {
             expect(source[i] == source_before[i], "nonpositive count preserves source");
             expect(destination[i] == destination_before[i], "nonpositive count performs no writes");
@@ -105,7 +105,7 @@ static void test_compactor_overlap(void)
         fill_words(arena, 64, 0x55667788UL);
         for (i = 0; i < words; ++i)
             saved[i] = arena[source_index+i];
-        reverse_copy_dwords(&arena[source_index+shifts[test]],
+        reverse_dword_copy(&arena[source_index+shifts[test]],
                             &arena[source_index], words*4);
         for (i = 0; i < words; ++i)
             expect(arena[source_index+shifts[test]+i] == saved[i], "rightward overlapping compactor move");
@@ -120,7 +120,7 @@ static void test_backward_only_direction(void)
     fill_words(actual, 16, 0x11223344UL);
     memcpy(expected, actual, sizeof(actual));
     reference_reverse(&expected[4], &expected[5], 16);
-    reverse_copy_dwords(&actual[4], &actual[5], 16);
+    reverse_dword_copy(&actual[4], &actual[5], 16);
     for (i = 0; i < 16; ++i)
         expect(actual[i] == expected[i], "overlap follows reverse-copy traversal");
     expect(actual[4] == actual[5], "leftward overlap is not treated as forward memmove");

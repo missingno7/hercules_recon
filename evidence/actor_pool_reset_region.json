@@ -1,0 +1,123 @@
+{
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "actor_pool_reset",
+    "ownership": "inferred_region",
+    "rationale": "Combined allocation/initialization/reset dependency region; original translation-unit ownership remains unproved."
+  },
+  "source": "calibration/actor_pool_reset_repaired.c",
+  "functions": [
+    {
+      "symbol": "_allocate_normal_actor",
+      "rva": "0x26f70",
+      "size": 336,
+      "body_size": 332,
+      "target_sha256": "0e30c8e93d6e67f7a47ee7ca6ffe634db3e9bb17016d23397befa42df98faec6",
+      "control": true,
+      "boundary_evidence": "Reachable RET paths at 0x26fd3, 0x2701e, 0x27073, 0x270b6 and 0x270bb; four trailing NOPs at 0x270bc..0x270bf. Two direct callers at 0x270cc and 0x271d7; no callees."
+    },
+    {
+      "symbol": "_allocate_alternate_actor",
+      "rva": "0x27b00",
+      "size": 320,
+      "body_size": 308,
+      "target_sha256": "3312ae39137e728e11c77e9fe2995db11e2c5ab26cf8df3efe959dea6dadc8dd",
+      "control": true,
+      "boundary_evidence": "Reachable RET paths at 0x27b5d, 0x27ba2, 0x27bf1, 0x27c2e and 0x27c33; twelve trailing NOPs at 0x27c34..0x27c3f. Two direct callers at 0x27c4c and 0x27db7; no callees."
+    },
+    {
+      "symbol": "_initialize_alternate_actor",
+      "rva": "0x27fe0",
+      "size": 272,
+      "body_size": 264,
+      "target_sha256": "8b8c2737815548fbaf4b771cb5ee28774740b408216aa4ebf52122c1efd9fad1",
+      "control": true,
+      "boundary_evidence": "Reachable RET at 0x280e7; eight trailing NOPs at 0x280e8..0x280ef. Six direct callers including middle initializer at 0x27a56."
+    },
+    {
+      "symbol": "_initialize_middle_actor",
+      "rva": "0x27a50",
+      "size": 176,
+      "body_size": 176,
+      "target_sha256": "87d5aea0c646659a527183b97a8bab365620bb2cc44803362c243133fe70763f",
+      "control": true,
+      "boundary_evidence": "Reachable RET at final byte 0x27aff; thirteen direct callers including normal initializer at 0x27526."
+    },
+    {
+      "symbol": "_initialize_normal_actor",
+      "rva": "0x27520",
+      "size": 176,
+      "body_size": 168,
+      "target_sha256": "9f720340cddaa513ee2c1ec16159fa6fec34bbb9c09754d5a48b69e6e738a766",
+      "control": true,
+      "boundary_evidence": "Reachable RET at 0x275c7; eight trailing NOPs at 0x275c8..0x275cf. Eight direct callers."
+    },
+    {
+      "symbol": "_allocate_middle_actor",
+      "rva": "0x275d0",
+      "size": 336,
+      "body_size": 336,
+      "target_sha256": "5f7f1729ea779b285ac88a1af6fa94085e5125bd77ffbd8f812f306bff7d9986",
+      "control": true,
+      "boundary_evidence": "Reachable RETs at 0x276cf, 0x2771a and 0x2771f. Next function entry begins 0x27720. Direct callers at 0x2772c (argument from [EDI+0x10]) and 0x277e7 (argument EDI)."
+    },
+    {
+      "symbol": "_reset_normal_actor_pool",
+      "rva": "0x27490",
+      "size": 80,
+      "body_size": 77,
+      "target_sha256": "de41d5a3a59e1a197845768e57a5528ef856b459e7bd6354e816b443794bba5d",
+      "control": false,
+      "boundary_evidence": "Reachable RET at 0x274dc; three trailing NOPs through 0x274df. Calls remove_actor 0x27260, then initialize_normal_actor 0x27520 on nonzero or clear_actor 0x55b0 on zero."
+    },
+    {
+      "symbol": "_reset_middle_actor_pool",
+      "rva": "0x279a0",
+      "size": 80,
+      "body_size": 77,
+      "target_sha256": "df67355b6ff5affc8b106aa49b48df1666c43e0753ac6ed01b8ff7ed909b5ad0",
+      "control": false,
+      "boundary_evidence": "Reachable RET at 0x279ec; three trailing NOPs through 0x279ef. Calls middle removal 0x27860, then initialize_middle_actor 0x27a50 on nonzero or clear_actor 0x55b0 on zero."
+    },
+    {
+      "symbol": "_reset_alternate_actor_pool",
+      "rva": "0x27f50",
+      "size": 80,
+      "body_size": 77,
+      "target_sha256": "1c9c53ec0651e4a7f0e179637ad3b7c49efd8b1395f030726ad15caae970af6d",
+      "control": false,
+      "boundary_evidence": "Reachable RET at 0x27f9c; three trailing NOPs through 0x27f9f. Calls release_actor 0x27e20, then initialize_alternate_actor 0x27fe0 on nonzero or clear_actor 0x55b0 on zero."
+    }
+  ],
+  "symbol_rvas": {
+    "_g_normal_actor_pool": "0x72860",
+    "_g_alternate_actor_pool": "0x734e0",
+    "_g_normal_cursor_primary": "0x71308",
+    "_g_normal_limit_primary": "0x713b4",
+    "_g_normal_limit_wrap": "0x713a8",
+    "_g_normal_cursor_alternate": "0x713c4",
+    "_g_normal_limit_wrap_start": "0x71378",
+    "_g_alternate_cursor_primary": "0x71374",
+    "_g_alternate_limit_primary": "0x713ba",
+    "_g_alternate_limit_wrap": "0x713b6",
+    "_g_alternate_cursor_alternate": "0x71430",
+    "_g_alternate_limit_wrap_start": "0x7138c",
+    "_initialize_alternate_actor": "0x27fe0",
+    "_initialize_middle_actor": "0x27a50",
+    "_initialize_normal_actor": "0x27520",
+    "_g_middle_actor_pool": "0x73494",
+    "_g_middle_cursor_primary": "0x713ac",
+    "_g_middle_limit_primary": "0x71432",
+    "_g_middle_wrap_start_primary": "0x713a0",
+    "_g_middle_cursor_alternate": "0x713b8",
+    "_g_middle_wrap_start_alternate": "0x713aa",
+    "_remove_actor": "0x27260",
+    "_remove_middle_actor": "0x27860",
+    "_release_actor": "0x27e20",
+    "_clear_actor": "0x55b0"
+  }
+}

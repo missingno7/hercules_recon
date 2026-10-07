@@ -22,7 +22,7 @@
       "4": "unsigned short entry count",
       "6": "unknown short",
       "8": "32-bit loaded length",
-      "12": "allocated paired-short reference buffer pointer",
+      "12": "Combined resource blob pointer; paired-short reference rows form its leading prefix.",
       "16": "16-bit residency state",
       "18": "16-bit auxiliary flags"
     },
@@ -30,9 +30,14 @@
     "table_sha256": "4ba542e0c2ac3b325b4ac9a1a9e68699cfd9ec288b80b17abe6885509bdcd4be",
     "reference_allocation": {
       "rva": "0x3540",
-      "bytes": "(entry_count + 1) * 4",
       "initialization": "0x3648..0x3666",
-      "row": "short[2]: reference count and cached chain key"
+      "row": "short[2]: reference count and cached chain key",
+      "prefix_bytes": "(entry_count + 1) * 4",
+      "request_bytes": "((file_length + prefix_bytes) & 0xfffff800) + 0x1000; 32-bit machine arithmetic",
+      "flags": "0x20",
+      "file_destination": "buffer + prefix_bytes",
+      "metadata_start": "buffer + prefix_bytes + 4",
+      "proof": "evidence/resource_blob_allocation.json"
     },
     "state_writes": {
       "1": "0x3532",

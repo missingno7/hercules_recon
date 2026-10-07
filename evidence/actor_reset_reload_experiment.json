@@ -1,0 +1,25 @@
+{
+  "scope": "Factual callback-visible base reload correction; all reset code remains unaccepted.",
+  "metadata": {
+    "region": "actor_pool_reset",
+    "lane": "integration_actor_reload",
+    "family": "reset-loop-reload-pool-base-each-iteration-after-callback",
+    "prediction": "The three reviewed PC loops reload the pool global on every iteration and combine it with a cumulative byte offset. Replacing the cached advancing pointer with &pool[index] should make a callback mutation of the pool base affect the next actor while preserving the selected current actor for the post-callback initializer/clear call. Six allocator/initializer peer contributions should retain their baseline bytes and ordered relocations. Prediction for the reset functions is only directional: the ordinary indexed source may still differ in codegen.",
+    "falsifier": "Reject this family if callback mutation does not keep the just-selected actor for second-stage initialization/clear, if the next iteration does not use the reloaded base plus one stride, if a post-callback count change is ignored, if any of the six peer contribution identities changes, or if a reset contribution is still not exact after this one measured family; freeze that outcome without another source-form sweep.",
+    "new_evidence": "Fresh PC reread verified exact 80-byte spans at ENG1 RVAs 0x27490, 0x279a0, 0x27f50 and SHA-256s matching reviewed evidence. At 0x274a0/0x279b0/0x27f60 each iteration starts with MOV EAX,[pool_global], then LEA ESI,[EAX+EDI]; after the callback branches the target reloads the count word and adds 0x134/0xec/0x94 to EDI. The earlier source cached pool pointer and incremented it, which fails a callback that changes the pool global.",
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "Pinned MSVC 5.0 compile, raw target comparison, COFF contribution identity, focused callback mutation fixture.",
+    "elapsed_seconds": null,
+    "compiler_builds": 2,
+    "tokens": null,
+    "cost": null,
+    "verdict": "falsified",
+    "compile_cycles": 1,
+    "actual_model_identity": null,
+    "reentry_condition": "New independent source/control evidence; no index/pointer spelling grid. Actual callback-visible base reload must remain."
+  },
+  "worker_handoff": "work/actor_reset_reload/handoff.md",
+  "source": "calibration/actor_pool_reset_repaired.c",
+  "six_peers_unchanged": true
+}

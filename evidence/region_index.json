@@ -67,7 +67,13 @@
       ],
       "references": [
         "docs/cleanup_dependency_progress.md",
-        "evidence/resource_writer_layout.json"
+        "evidence/resource_writer_layout.json",
+        "evidence/resource_blob_allocation.json",
+        "evidence/resource_data_source.json",
+        "evidence/resource_empty_literal.json",
+        "evidence/resource_blob_allocation.json",
+        "evidence/resource_data_source.json",
+        "evidence/resource_empty_literal.json"
       ]
     },
     {
@@ -137,7 +143,11 @@
         "evidence/host_pool_control.json",
         "evidence/crt_copy.json",
         "evidence/host_pool_natural_link.json",
-        "evidence/host_pool_residual_control.json"
+        "evidence/host_pool_residual_control.json",
+        "evidence/host_pool_full_link.json",
+        "evidence/host_pool_type_consistency.json",
+        "evidence/host_pool_full_link.json",
+        "evidence/host_pool_type_consistency.json"
       ]
     },
     {
@@ -150,7 +160,9 @@
       "references": [
         "docs/pool_dependency_progress.md",
         "evidence/actor_pools_experiment.json",
-        "evidence/pool_type_audit.json"
+        "evidence/pool_type_audit.json",
+        "evidence/actor_prefix_types.json",
+        "evidence/actor_prefix_types.json"
       ]
     },
     {
@@ -174,13 +186,16 @@
       "baseline": "calibration/pool_reverse_copy.c",
       "receipts": [
         "evidence/regions/pool_reverse_copy_first.json",
-        "evidence/regions/pool_reverse_groups.json"
+        "evidence/regions/pool_reverse_groups.json",
+        "evidence/regions/pool_reverse_copy_common.json"
       ],
       "references": [
         "docs/pool_dependency_progress.md",
         "evidence/pool_reverse_copy_experiment.json",
         "evidence/pool_type_audit.json",
-        "evidence/pool_reverse_groups_experiment.json"
+        "evidence/pool_reverse_groups_experiment.json",
+        "evidence/host_pool_full_link.json",
+        "evidence/host_reverse_signature.json"
       ]
     },
     {
@@ -188,12 +203,15 @@
       "spec": "evidence/host_pool_counts_region.json",
       "baseline": "calibration/host_pool_counts.c",
       "receipts": [
-        "evidence/regions/host_pool_counts_first.json"
+        "evidence/regions/host_pool_counts_first.json",
+        "evidence/regions/host_pool_counts_common.json"
       ],
       "references": [
         "docs/pool_dependency_progress.md",
         "evidence/host_pool_counts_layout.json",
-        "evidence/host_pool_counts_experiment.json"
+        "evidence/host_pool_counts_experiment.json",
+        "evidence/host_pool_full_link.json",
+        "evidence/host_reverse_signature.json"
       ]
     },
     {
@@ -214,14 +232,32 @@
       "spec": "evidence/host_pool_shrink_region.json",
       "baseline": "calibration/host_pool_shrink.c",
       "receipts": [
-        "evidence/regions/host_pool_shrink_first.json"
+        "evidence/regions/host_pool_shrink_first.json",
+        "evidence/regions/host_pool_shrink_common.json"
       ],
       "references": [
         "docs/host_callback_progress.md",
         "evidence/host_pool_shrink_experiment.json",
         "evidence/host_pool_shrink_alias.json",
         "evidence/shrink_alias_negative.json",
-        "evidence/crt_copy.json"
+        "evidence/crt_copy.json",
+        "evidence/host_pool_full_link.json",
+        "evidence/host_reverse_signature.json"
+      ]
+    },
+    {
+      "id": "actor_pool_reset",
+      "spec": "evidence/actor_pool_reset_region.json",
+      "baseline": "calibration/actor_pool_reset_repaired.c",
+      "receipts": [
+        "evidence/regions/actor_pool_reset_first.json",
+        "evidence/regions/actor_reset_reload.json"
+      ],
+      "references": [
+        "docs/actor_pool_dependency_progress.md",
+        "evidence/actor_prefix_types.json",
+        "evidence/actor_pool_reset_experiment.json",
+        "evidence/actor_reset_reload_experiment.json"
       ]
     }
   ]

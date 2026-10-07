@@ -1,0 +1,400 @@
+{
+  "scope": "Read-only shared reverse-copy declaration and all-word arithmetic diagnosis. No compiler/link attempt or canonical/source edits.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "inputs": {
+    "helper": {
+      "path": "candidates/pool_reverse_groups/reverse_copy_v2.c",
+      "sha256": "559e3d5c67fdd56daf862498e1f8d25ba5d5e8cf21885ed1227cfcb9b486aa0b"
+    },
+    "caller": {
+      "path": "calibration/host_pool_lifecycle.c",
+      "sha256": "58a3a0bc374ed5895972ffa96efc5edd7b2cfbd67b8dd55adb0cb6092b0f58e3"
+    },
+    "link_blocker": {
+      "path": "work/host_pool_full_link/symbol_unification.json",
+      "sha256": "40e4c2e5acc2a9e2fb7f9d88d09a6859fac2faa2ff264d7ab4476afc19960786"
+    }
+  },
+  "blocker": {
+    "caller": "void reverse_dword_copy(void *, const void *, U32)",
+    "definition": "void reverse_copy_dwords(unsigned long *, const unsigned long *, int)",
+    "meaning": "These are incompatible ordinary C function types and different symbols. Same physical three-dword cdecl layout alone does not provide a common source declaration. Do not use a linker alias to erase the distinction."
+  },
+  "supported_common_view": {
+    "signature": "void __cdecl reverse_dword_copy(void *destination, const void *source, U32 byte_count)",
+    "types": "U32 = unsigned long; S32 = signed long; both must be32-bit in the pinned toolchain.",
+    "body_count": "S32 dword_count = (S32)(byte_count + 3UL) >> 2;",
+    "word_views": [
+      "unsigned long *destination_end = (unsigned long *)destination + dword_count;",
+      "const unsigned long *source_end = (const unsigned long *)source + dword_count;"
+    ],
+    "meaning": "Opaque interface pointers are viewed as dword buffers for this existing word-copy body. U32 formal preserves the caller raw32-bit count word; only the wrapped sum is interpreted as signed for the target SAR/guards.",
+    "source_identity_limit": "This is a supported common declaration hypothesis, not proof of the historical signature or TU. Original helper formal signedness is not recoverable from physical argument slots alone.",
+    "symbol_policy": "Use one ordinary source symbol and identical prototype in caller/header/definition. Rename the helper definition consistently or choose its existing name consistently at caller. No /ALTERNATENAME, wrapper, ordinal dispatch, alias flag or copied code."
+  },
+  "all_word_interpretation": {
+    "cpu": "43ab adds3 with32-bit LEA wraparound;43b4 SAR interprets the resultingword as signed and shifts by2.43c8/43cb use signed dword_count>7;4436/4438 use signed dword_count>0.",
+    "why_order_matters": "Unsigned addition must happen first, signed interpretation second, arithmetic shift third. Casting byte_count before a signed+3 retains signed-overflow holes. Casting after an unsigned>>2 produces a different high-bit quotient.",
+    "boundary_examples": [
+      {
+        "argument": "0x7ffffffc",
+        "wrapped_sum": "0x7fffffff",
+        "signed_count": 536870911
+      },
+      {
+        "argument": "0x7ffffffd",
+        "wrapped_sum": "0x80000000",
+        "signed_count": -536870912
+      },
+      {
+        "argument": "0x7fffffff",
+        "wrapped_sum": "0x80000002",
+        "signed_count": -536870912
+      },
+      {
+        "argument": "0x80000000",
+        "wrapped_sum": "0x80000003",
+        "signed_count": -536870912
+      },
+      {
+        "argument": "0xfffffffc",
+        "wrapped_sum": "0xffffffff",
+        "signed_count": -1
+      },
+      {
+        "argument": "0xfffffffd",
+        "wrapped_sum": "0x00000000",
+        "signed_count": 0
+      },
+      {
+        "argument": "0xffffffff",
+        "wrapped_sum": "0x00000002",
+        "signed_count": 0
+      }
+    ],
+    "producer": "Compactor computes bytes=(descriptor &0x3fffffff)<<2 at4919/4922. This proves dwordalignment and permits raw count words through0xfffffffc; it does not prove count<=INT_MAX.",
+    "cap_limit": "The moved-word cap is checked after copying and cannot justify an input high-bit bound. The optional mixed budget is not a universal bound because zero disables it.",
+    "static_audit": {
+      "path": "work/host_reverse_signature/arithmetic_audit.json",
+      "sha256": "d254801556e2432cce6d77a9be19050f6687a88a4bb0e681b0e9e0557dcadd32",
+      "boundary_cases": 28,
+      "deterministic_sample_cases": 65536,
+      "meaning": "Mathematical CPU/conditional-C interpretation agreement, not a historical compiler execution."
+    },
+    "implementation_gate": "Unsigned-to-signed conversion for values above LONG_MAX and signed rightshift are implementation-defined C behavior. The hypothesis requires pinned VC5 to retain the32-bit word on conversion and emit arithmetic SAR. Do not mark this resolved until a fresh historical scalar boundary fixture and body comparison establish it."
+  },
+  "pointer_domain_limit": {
+    "meaning": "No count high-bit or positivity assumption is used in the scalar arithmetic. However, source/target memory-access validity remains governed by actual buffer extents and overlap. Existing endpoint expressions can form out-of-object pointers for large/negative counts; the static arithmetic proof is not a proof of fully defined ISO C pointer behavior for arbitrary addresses/counts.",
+    "restriction": "Do not add integer-address casts, wrappers, positive-only clamps or reordered endpoint declarations just to make this evidence appear stronger. Test dangerous INT boundary values only in the scalar rounding/guard fixture, not by allocating/copying giant buffers or executing original images."
+  },
+  "bounded_family": {
+    "family": "shared unsigned-word ABI with signed wrapped rounding",
+    "prediction": "One common void-pointer/U32 declaration plus cast of the unsigned wrapped sum toS32 reproduces all target scalar count interpretations and fixes C declaration compatibility. Meaningful pointer-view casts should compile away; preserve current endpoint declaration order, eight-word access order, unsigned positive group expression and scalar tail.",
+    "falsifier": "Pinned compiler fails any boundary expected count or signed guard, emits SHR for initial rounding, narrows any physical argument word, changes pointer constness/return contract at the call, regresses frozen peer bytes/relocations, or requires a wrapper/alias/placement directive. Stop without an alternate casting grid.",
+    "validation": [
+      "Fresh pinned compiler scalar test for all28 listed cases, especially0x7ffffffc/d/e/f,0x80000000 and0xfffffffc/d/e/f.",
+      "Compare target count prologue/guards and complete176-byte helper contribution; no exactness claim unless allbytes match.",
+      "Run existing1772 copy behavior cases unchanged for real valid buffers and overlaps.",
+      "Fresh whole-region contributions preserve all accepted diagnostic and frozen pool/lifecycle peers with ordered references.",
+      "One actual source symbol/prototype resolves the link; no linker alias."
+    ],
+    "remaining": "No compiler ran in this diagnosis. The common prototype is ready for a bounded experiment; arithmetic implementation and frozen-contribution preservation remain gates."
+  },
+  "target_spans": [
+    {
+      "start_rva": "0x43a0",
+      "end_rva_exclusive": "0x4450",
+      "bytes": 176,
+      "sha256": "839312a1bb5bce7a7c63aa43948b8a5ecdb556c1691209d05634d9c72154ac54"
+    },
+    {
+      "start_rva": "0x48a0",
+      "end_rva_exclusive": "0x49f0",
+      "bytes": 336,
+      "sha256": "5a467aee3f0214f1e9cb79a3ebae63ba607129eea37cb826dd985fb0ed2d8459"
+    }
+  ],
+  "selected_target_instructions": {
+    "helper_rounding": [
+      {
+        "rva": "0x43a0",
+        "bytes": "8b44240c",
+        "mnemonic": "mov",
+        "operands": "eax, dword ptr [esp + 0xc]"
+      },
+      {
+        "rva": "0x43a4",
+        "bytes": "8b4c2408",
+        "mnemonic": "mov",
+        "operands": "ecx, dword ptr [esp + 8]"
+      },
+      {
+        "rva": "0x43a8",
+        "bytes": "83ec08",
+        "mnemonic": "sub",
+        "operands": "esp, 8"
+      },
+      {
+        "rva": "0x43ab",
+        "bytes": "8d5003",
+        "mnemonic": "lea",
+        "operands": "edx, [eax + 3]"
+      },
+      {
+        "rva": "0x43ae",
+        "bytes": "8b44240c",
+        "mnemonic": "mov",
+        "operands": "eax, dword ptr [esp + 0xc]"
+      },
+      {
+        "rva": "0x43b2",
+        "bytes": "53",
+        "mnemonic": "push",
+        "operands": "ebx"
+      },
+      {
+        "rva": "0x43b3",
+        "bytes": "55",
+        "mnemonic": "push",
+        "operands": "ebp"
+      },
+      {
+        "rva": "0x43b4",
+        "bytes": "c1fa02",
+        "mnemonic": "sar",
+        "operands": "edx, 2"
+      },
+      {
+        "rva": "0x43b7",
+        "bytes": "56",
+        "mnemonic": "push",
+        "operands": "esi"
+      },
+      {
+        "rva": "0x43b8",
+        "bytes": "57",
+        "mnemonic": "push",
+        "operands": "edi"
+      },
+      {
+        "rva": "0x43b9",
+        "bytes": "8d349500000000",
+        "mnemonic": "lea",
+        "operands": "esi, [edx*4]"
+      },
+      {
+        "rva": "0x43c0",
+        "bytes": "89542424",
+        "mnemonic": "mov",
+        "operands": "dword ptr [esp + 0x24], edx"
+      },
+      {
+        "rva": "0x43c4",
+        "bytes": "03ce",
+        "mnemonic": "add",
+        "operands": "ecx, esi"
+      },
+      {
+        "rva": "0x43c6",
+        "bytes": "03c6",
+        "mnemonic": "add",
+        "operands": "eax, esi"
+      },
+      {
+        "rva": "0x43c8",
+        "bytes": "83fa07",
+        "mnemonic": "cmp",
+        "operands": "edx, 7"
+      },
+      {
+        "rva": "0x43cb",
+        "bytes": "7e69",
+        "mnemonic": "jle",
+        "operands": "0x404436"
+      },
+      {
+        "rva": "0x43cd",
+        "bytes": "c1ea03",
+        "mnemonic": "shr",
+        "operands": "edx, 3"
+      },
+      {
+        "rva": "0x43d0",
+        "bytes": "89542420",
+        "mnemonic": "mov",
+        "operands": "dword ptr [esp + 0x20], edx"
+      }
+    ],
+    "producer_copy": [
+      {
+        "rva": "0x4919",
+        "bytes": "81e5ffffff3f",
+        "mnemonic": "and",
+        "operands": "ebp, 0x3fffffff"
+      },
+      {
+        "rva": "0x491f",
+        "bytes": "8b1cae",
+        "mnemonic": "mov",
+        "operands": "ebx, dword ptr [esi + ebp*4]"
+      },
+      {
+        "rva": "0x4922",
+        "bytes": "8d04ad00000000",
+        "mnemonic": "lea",
+        "operands": "eax, [ebp*4]"
+      },
+      {
+        "rva": "0x4929",
+        "bytes": "8bcb",
+        "mnemonic": "mov",
+        "operands": "ecx, ebx"
+      },
+      {
+        "rva": "0x492b",
+        "bytes": "81e100000080",
+        "mnemonic": "and",
+        "operands": "ecx, 0x80000000"
+      },
+      {
+        "rva": "0x4931",
+        "bytes": "81f900000080",
+        "mnemonic": "cmp",
+        "operands": "ecx, 0x80000000"
+      },
+      {
+        "rva": "0x4937",
+        "bytes": "757e",
+        "mnemonic": "jne",
+        "operands": "0x4049b7"
+      },
+      {
+        "rva": "0x4939",
+        "bytes": "8b4c2424",
+        "mnemonic": "mov",
+        "operands": "ecx, dword ptr [esp + 0x24]"
+      },
+      {
+        "rva": "0x493d",
+        "bytes": "8b5604",
+        "mnemonic": "mov",
+        "operands": "edx, dword ptr [esi + 4]"
+      },
+      {
+        "rva": "0x4940",
+        "bytes": "81e3ffffff3f",
+        "mnemonic": "and",
+        "operands": "ebx, 0x3fffffff"
+      },
+      {
+        "rva": "0x4946",
+        "bytes": "89542418",
+        "mnemonic": "mov",
+        "operands": "dword ptr [esp + 0x18], edx"
+      },
+      {
+        "rva": "0x494a",
+        "bytes": "85c9",
+        "mnemonic": "test",
+        "operands": "ecx, ecx"
+      },
+      {
+        "rva": "0x494c",
+        "bytes": "8d3c9e",
+        "mnemonic": "lea",
+        "operands": "edi, [esi + ebx*4]"
+      },
+      {
+        "rva": "0x494f",
+        "bytes": "740a",
+        "mnemonic": "je",
+        "operands": "0x40495b"
+      },
+      {
+        "rva": "0x4951",
+        "bytes": "8b542410",
+        "mnemonic": "mov",
+        "operands": "edx, dword ptr [esp + 0x10]"
+      },
+      {
+        "rva": "0x4955",
+        "bytes": "03d0",
+        "mnemonic": "add",
+        "operands": "edx, eax"
+      },
+      {
+        "rva": "0x4957",
+        "bytes": "3bd1",
+        "mnemonic": "cmp",
+        "operands": "edx, ecx"
+      },
+      {
+        "rva": "0x4959",
+        "bytes": "7778",
+        "mnemonic": "ja",
+        "operands": "0x4049d3"
+      },
+      {
+        "rva": "0x495b",
+        "bytes": "50",
+        "mnemonic": "push",
+        "operands": "eax"
+      },
+      {
+        "rva": "0x495c",
+        "bytes": "56",
+        "mnemonic": "push",
+        "operands": "esi"
+      },
+      {
+        "rva": "0x495d",
+        "bytes": "57",
+        "mnemonic": "push",
+        "operands": "edi"
+      },
+      {
+        "rva": "0x495e",
+        "bytes": "e83dfaffff",
+        "mnemonic": "call",
+        "operands": "0x4043a0"
+      }
+    ],
+    "postcopy_cap": [
+      {
+        "rva": "0x49a7",
+        "bytes": "8b442420",
+        "mnemonic": "mov",
+        "operands": "eax, dword ptr [esp + 0x20]"
+      },
+      {
+        "rva": "0x49ab",
+        "bytes": "83c410",
+        "mnemonic": "add",
+        "operands": "esp, 0x10"
+      },
+      {
+        "rva": "0x49ae",
+        "bytes": "3d00800000",
+        "mnemonic": "cmp",
+        "operands": "eax, 0x8000"
+      },
+      {
+        "rva": "0x49b3",
+        "bytes": "771e",
+        "mnemonic": "ja",
+        "operands": "0x4049d3"
+      }
+    ]
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compiler_builds": 0
+  }
+}

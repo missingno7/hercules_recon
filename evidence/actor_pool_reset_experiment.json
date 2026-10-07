@@ -1,0 +1,241 @@
+{
+  "scope": "Private first-family provenance; all new functions remain unaccepted.",
+  "evidence": {
+    "oracle": {
+      "path": "assets/pc/HERCULES/ENG1.DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "database_sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+    },
+    "layout_evidence": {
+      "views": {
+        "base94": {
+          "bytes": 148,
+          "allocation_and_reset_stride": "0x94",
+          "reset_rva": "0x27fe0",
+          "highest_reset_field": "word+0x92",
+          "kind_offset": "0x2e",
+          "normal_globals": "Alternate pool base at0x734e0, not normal pool.",
+          "source_hypothesis": "Ordinary C BasicActor view of0x94 bytes with documented byte/word/dword fields; no vtable or inheritance claim."
+        },
+        "middleec": {
+          "bytes": 236,
+          "allocation_and_reset_stride": "0xec",
+          "reset_rva": "0x27a50",
+          "composition": "Calls base94 initializer first, then resets fields from+0x94 through dword+0xe8.",
+          "source_hypothesis": "Ordinary embedded BasicActor prefix followed by a0x58-byte extension; medium actor pointer global0x73494."
+        },
+        "normal134": {
+          "bytes": 308,
+          "allocation_and_reset_stride": "0x134",
+          "reset_rva": "0x27520",
+          "composition": "Calls middleec initializer first, then resets fields from+0xec through dword+0x130.",
+          "source_hypothesis": "Ordinary embedded middleec prefix plus0x48-byte extension; normal actor pointer global0x72860."
+        },
+        "limits": "Stride plus reset extent support these exact private views. They do not prove original typedefs, language inheritance, TU or fixed array capacities. Use sizeof views only after explicit offset/size checks."
+      },
+      "counts_and_bases": {
+        "normal_count": "0x713b4",
+        "normal_pool": "0x72860",
+        "middle_count": "0x71432",
+        "middle_pool": "0x73494",
+        "alternate_count": "0x713ba",
+        "alternate_pool": "0x734e0"
+      },
+      "capacity_limit": "Runtime word count bounds are observed; fixed physical array capacity is not proven."
+    },
+    "functions": [
+      {
+        "symbol": "_allocate_middle_actor",
+        "rva": "0x275d0",
+        "size": 336,
+        "body_size": 336,
+        "target_sha256": "5f7f1729ea779b285ac88a1af6fa94085e5125bd77ffbd8f812f306bff7d9986",
+        "control": false,
+        "boundary_evidence": "Reachable RETs at 0x276cf, 0x2771a and 0x2771f. Next function entry begins 0x27720. Direct callers at 0x2772c (argument from [EDI+0x10]) and 0x277e7 (argument EDI)."
+      },
+      {
+        "symbol": "_reset_normal_actor_pool",
+        "rva": "0x27490",
+        "size": 80,
+        "body_size": 77,
+        "target_sha256": "de41d5a3a59e1a197845768e57a5528ef856b459e7bd6354e816b443794bba5d",
+        "control": false,
+        "boundary_evidence": "Reachable RET at 0x274dc; three trailing NOPs through 0x274df. Calls remove_actor 0x27260, then initialize_normal_actor 0x27520 on nonzero or clear_actor 0x55b0 on zero."
+      },
+      {
+        "symbol": "_reset_middle_actor_pool",
+        "rva": "0x279a0",
+        "size": 80,
+        "body_size": 77,
+        "target_sha256": "df67355b6ff5affc8b106aa49b48df1666c43e0753ac6ed01b8ff7ed909b5ad0",
+        "control": false,
+        "boundary_evidence": "Reachable RET at 0x279ec; three trailing NOPs through 0x279ef. Calls middle removal 0x27860, then initialize_middle_actor 0x27a50 on nonzero or clear_actor 0x55b0 on zero."
+      },
+      {
+        "symbol": "_reset_alternate_actor_pool",
+        "rva": "0x27f50",
+        "size": 80,
+        "body_size": 77,
+        "target_sha256": "1c9c53ec0651e4a7f0e179637ad3b7c49efd8b1395f030726ad15caae970af6d",
+        "control": false,
+        "boundary_evidence": "Reachable RET at 0x27f9c; three trailing NOPs through 0x27f9f. Calls release_actor 0x27e20, then initialize_alternate_actor 0x27fe0 on nonzero or clear_actor 0x55b0 on zero."
+      }
+    ],
+    "allocator_observation": {
+      "middle_stride": "0xec",
+      "kind_offset": "0x2e",
+      "pool_slot": "0x73494",
+      "primary_cursor": "0x713ac",
+      "primary_end": "0x71432",
+      "primary_wrap_start": "0x713a0",
+      "alternate_cursor": "0x713b8",
+      "alternate_end": "0x713a0",
+      "alternate_wrap_start": "0x713aa",
+      "selection": "argument bit 0x8000 selects primary; otherwise alternate; first zero kind word in [cursor,end), then [wrap_start,cursor); cursor stores selected index only on success; no reservation write."
+    },
+    "reset_observations": [
+      {
+        "rva": "0x27490",
+        "count": "0x713b4",
+        "pool": "0x72860",
+        "stride": "0x134",
+        "remove": "0x27260",
+        "success_init": "0x27520",
+        "failure_clear": "0x55b0"
+      },
+      {
+        "rva": "0x279a0",
+        "count": "0x71432",
+        "pool": "0x73494",
+        "stride": "0xec",
+        "remove": "0x27860",
+        "success_init": "0x27a50",
+        "failure_clear": "0x55b0"
+      },
+      {
+        "rva": "0x27f50",
+        "count": "0x713ba",
+        "pool": "0x734e0",
+        "stride": "0x94",
+        "release": "0x27e20",
+        "success_init": "0x27fe0",
+        "failure_clear": "0x55b0"
+      }
+    ],
+    "middle_allocator_callers": [
+      "0x2772c (pushes word from [EDI+0x10])",
+      "0x277e7 (pushes EDI)"
+    ],
+    "prior_source_sha256": "e78b5425177d743611b2b3ab7ba65f49576178eb08fc16b1c34b4244041c52d7"
+  },
+  "metadata": {
+    "region": "actor_pools",
+    "lane": "actor_pool_reset",
+    "family": "typed-middle-allocation-and-three-pool-reset-loops-v1",
+    "status": "falsified by fresh full-contribution comparison; semantic fixture passed",
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compiler_builds": 2,
+    "capability": "Ordinary typed C using the reviewed nested ActorCore/ActorMiddle/ActorNormal views; fresh pinned Visual C++ 5.0 compilation and target-derived fixture.",
+    "new_discriminator": "The prior actor-pool family excluded the middle allocator and all reset loops. Independent PC evidence now fixes the middle pool partitions, its zero-kind scan/update/no-reservation behavior, and three helper-driven reset loops over the exact actor strides.",
+    "prediction": "Adding the middle actor allocator and all three reset loops to the stable typed actor-prefix source should preserve the PC half-open primary/wrap scans and cursor updates, and make each reset iterate its runtime word count at its measured stride, calling its remove/release helper before either its type-specific initializer (nonzero) or shared clear helper (zero). The existing five allocator/initializer functions remain byte-for-byte source-identical to the baseline.",
+    "falsifier": "Reject this one family if fresh full-contribution comparison changes helper or initializer call targets, pool/count globals, partition scan bounds, cursor writes, returned actor addresses, reset count/stride, or reset branch order; or if the target-derived fixture finds a wrong selected slot, cursor mutation on failure, incorrect no-reservation behavior, skipped/extra reset entry, or wrong helper branch.",
+    "target": "assets/pc/HERCULES/ENG1.DLL",
+    "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "boundary_evidence": [
+      {
+        "symbol": "_allocate_middle_actor",
+        "rva": "0x275d0",
+        "size": 336,
+        "body_size": 336,
+        "target_sha256": "5f7f1729ea779b285ac88a1af6fa94085e5125bd77ffbd8f812f306bff7d9986",
+        "control": false,
+        "boundary_evidence": "Reachable RETs at 0x276cf, 0x2771a and 0x2771f. Next function entry begins 0x27720. Direct callers at 0x2772c (argument from [EDI+0x10]) and 0x277e7 (argument EDI)."
+      },
+      {
+        "symbol": "_reset_normal_actor_pool",
+        "rva": "0x27490",
+        "size": 80,
+        "body_size": 77,
+        "target_sha256": "de41d5a3a59e1a197845768e57a5528ef856b459e7bd6354e816b443794bba5d",
+        "control": false,
+        "boundary_evidence": "Reachable RET at 0x274dc; three trailing NOPs through 0x274df. Calls remove_actor 0x27260, then initialize_normal_actor 0x27520 on nonzero or clear_actor 0x55b0 on zero."
+      },
+      {
+        "symbol": "_reset_middle_actor_pool",
+        "rva": "0x279a0",
+        "size": 80,
+        "body_size": 77,
+        "target_sha256": "df67355b6ff5affc8b106aa49b48df1666c43e0753ac6ed01b8ff7ed909b5ad0",
+        "control": false,
+        "boundary_evidence": "Reachable RET at 0x279ec; three trailing NOPs through 0x279ef. Calls middle removal 0x27860, then initialize_middle_actor 0x27a50 on nonzero or clear_actor 0x55b0 on zero."
+      },
+      {
+        "symbol": "_reset_alternate_actor_pool",
+        "rva": "0x27f50",
+        "size": 80,
+        "body_size": 77,
+        "target_sha256": "1c9c53ec0651e4a7f0e179637ad3b7c49efd8b1395f030726ad15caae970af6d",
+        "control": false,
+        "boundary_evidence": "Reachable RET at 0x27f9c; three trailing NOPs through 0x27f9f. Calls release_actor 0x27e20, then initialize_alternate_actor 0x27fe0 on nonzero or clear_actor 0x55b0 on zero."
+      }
+    ],
+    "scope": "One new four-function candidate family. Preserve all five existing actor-pool function bodies in the original calibration source. No fixed pool capacity is inferred from runtime counts or allocation formulas.",
+    "measurement": "work/actor_pool_reset/metrics_v1.json",
+    "candidate_sha256": "df7e1447a8c62195f999f550824050e01ea587d9b8fd42baf66780c32cd0ec10",
+    "unchanged_prefix": {
+      "baseline_raw_sha256": "e78b5425177d743611b2b3ab7ba65f49576178eb08fc16b1c34b4244041c52d7",
+      "candidate_prefix_sha256": "e78b5425177d743611b2b3ab7ba65f49576178eb08fc16b1c34b4244041c52d7",
+      "bytes": 10330,
+      "five_existing_functions_source_identical": true
+    },
+    "fixture": {
+      "source": "candidates/actor_pool_reset/fixture_v1.c",
+      "source_sha256": "7e0f4ac6d793ac5f9fd8ac0bb0519117a305c872cb15bf162c2e36fbbd00fb08",
+      "exe": "work/actor_pool_reset/fixture_v1.exe",
+      "exe_sha256": "306d1e00ec18537198e1b8a25ec7e335fbb7a38e8d0517956cd89dee1e5f0224",
+      "object": "work/actor_pool_reset/fixture_v1.obj",
+      "object_sha256": "2f07f9ffa533a0655b0a47c2414f25f65353b5e89b92bdc7cb9fc158fe8c7c9b",
+      "result": "pass (exit code 0)"
+    }
+  },
+  "typed_view": {
+    "region": "actor_pools",
+    "lane": "actor_prefix_typing",
+    "family": "reader-backed-actor-core-scalar-flags-and-pointer-views-v1",
+    "status": "semantic view consistent; all five function output identities unchanged from frozen baseline",
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compiler_builds": 2,
+    "capability": "One ordinary C field-view update in the existing five-function actor-pool source; pinned VC5 full-contribution comparison against the five-function region and the 262408-check target-derived fixture.",
+    "new_discriminator": "Independent PC consumer evidence now supports a signed scalar at ActorCore+0x4c, flag words at +0x50/+0x54, and ActorCore pointers at +0x5c/+0x60. The prior allocation/initializer frame used opaque unsigned-long fields and did not test these reader-backed semantics.",
+    "prediction": "Replacing only the five measured ActorCore member views with a signed 32-bit scalar, 32-bit flag aliases, and two ActorCore pointers, while pinning their offsets and widths with compile-time checks, should leave sizes 0x94/0xec/0x134, initializer store order, all five full COFF contribution identities and ordered relocations, and the middle initializer relocation-normalized equality unchanged. Reuse the 262408-case fixture unchanged apart from its private source include.",
+    "falsifier": "Any actor size/field offset or width changes, the fixture fails, any of the five complete contributions or ordered relocation identities changes from the frozen baseline object, or the middle initializer loses its existing relocation-normalized equality. Field role names and original declaration identities remain hypotheses; no source-spelling or declaration-order grid follows.",
+    "target": "assets/pc/HERCULES/ENG1.DLL",
+    "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "evidence": "evidence/actor_prefix_types.json",
+    "baseline_source_sha256": "e78b5425177d743611b2b3ab7ba65f49576178eb08fc16b1c34b4244041c52d7",
+    "fixture_original": "work/actor_pools/semantics_v1.c",
+    "fixture_original_sha256": "1df6e231e7aaa5411024060dba58e6afe6d05e0ac717ce6d33339fadb9a67841",
+    "measurement": "work/actor_prefix_typing/metrics_v1.json",
+    "identity_comparison": "work/actor_prefix_typing/identity_comparison_v1.json",
+    "fixture_result": {
+      "result": "checks=262408 failures=0",
+      "source": "work/actor_prefix_typing/semantics_v1.c",
+      "source_sha256": "230d3f7e154aa0e8cd5ad6f9b19ba296190973d851f16dbda0d4aba9892fab1d",
+      "exe": "work/actor_prefix_typing/actor_prefix_typing_semantics_v1.exe",
+      "exe_sha256": "28901f83d1d078cf504b732983f6479c45c792efa731601c2ec5a3cd2cb532f2",
+      "object": "work/actor_prefix_typing/actor_prefix_typing_semantics_v1.obj",
+      "object_sha256": "4a4a527100ac05a951c16c8259c91e89b8c1cfa534382d1eab1f319b293bbf76"
+    },
+    "candidate_sha256": "6e7258018049a3f914462c5eb15af40a5e5bd8b8b770462394987ec06762feb1",
+    "output_conclusion": "All five complete COFF function byte contributions and ordered relocations are exactly identical to the frozen actor_pools baseline object; measured member typing changes semantics/layout only and is not the codegen cause."
+  },
+  "integration": "Fresh all9 contributions retained both frozen outcome sets; no acceptance inferred."
+}

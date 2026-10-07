@@ -1,0 +1,187 @@
+{
+  "scope": "Verified combined resource-blob allocation/prefix correction and read-only release audit. No compiler, original execution, canonical/source/Git changes.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "database_sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+  },
+  "baseline": {
+    "source": "calibration/cleanup_helpers_writers.c",
+    "sha256": "967edcf7cbf135e4fd3e47cc8bb95df1364893371e52818ac682d5689cf1c7e5",
+    "packet_region": "cleanup_resource_writers",
+    "context_id": "c41eb63021e43a45a66ec56dd872fffc6f97bf168da6d1f990b33bdfe87c89af"
+  },
+  "correction": {
+    "old_claim": "reference_allocation.bytes = (entry_count+1)*4",
+    "verified_meaning": "That expression is the leading paired-reference-row prefix span, not the allocation request. Member+12 of the20-byte resource record points to one combined allocation: leading count/key pairs followed by loaded file bytes and further requested slack.",
+    "prefix_bytes": "4*(unsigned16 entry_count+1)",
+    "full_request_bytes": "((loaded_file_length + prefix_bytes) &0xfffff800) +0x1000, with32-bit machine arithmetic.",
+    "caution": "Do not infer physical maximum, original array declaration, exact usable capacity or purpose of added slack. The existing short[2] prefix view remains valid for observed leading rows; no need to rewrite it."
+  },
+  "allocation_proof": {
+    "resource_record_base": "0x5cee0 +20*resource_id",
+    "fields": {
+      "entry_count": "unsignedword+4",
+      "loaded_file_length": "dword+8",
+      "combined_buffer_pointer": "dword+12"
+    },
+    "sites": [
+      {
+        "rva": "0x35c0",
+        "effect": "ECX gets zero-extended wordrecord+4;35c9 ESI=ECX*4+4."
+      },
+      {
+        "rva": "0x35d0",
+        "effect": "Save prefix_bytes at local stack+10."
+      },
+      {
+        "rva": "0x35c4",
+        "effect": "EBX gets cached loaded_file_length fromrecord+8; ifzero,35de calls file-length wrapper2c2f0 and35ed cachesresult."
+      },
+      {
+        "rva": "0x35f0",
+        "effect": "EAX=loaded_file_length+prefix_bytes."
+      },
+      {
+        "rva": "0x35f3",
+        "effect": "EDI=address ofresource record buffer pointer member+12."
+      },
+      {
+        "rva": "0x35fd",
+        "effect": "Mask EAX with0xfffff800."
+      },
+      {
+        "rva": "0x3602..0x360c",
+        "effect": "Pushflags0x20; ESI=maskedtotal+0x1000; pushESI requestedbytes; pushEDI outputslot; call host allocation wrapper2c3c0."
+      },
+      {
+        "rva": "0x3618..0x362a",
+        "effect": "If first allocationreturnsNULL, call1f6a0 withzero, thenretry same flags/request/outputslot. No inferred alteredrequest."
+      },
+      {
+        "rva": "0x3648..0x3666",
+        "effect": "Zero word0/word1 ofleading rows, advance4bytes, loopentry_count+1 times."
+      }
+    ]
+  },
+  "loader_destination": {
+    "async_path": {
+      "sites": [
+        "36b4 pushes original EBX loaded_file_length",
+        "36b5 reloads prefix_bytes intoEBX fromstack+14 afterpush (original stack+10)",
+        "36c8 ECX=record+12 buffer pointer",
+        "36cd adds prefix_bytes toECX",
+        "36cf pushes destinationbuffer+prefix",
+        "36d8 calls2c230;36dd caller-cleans20bytes"
+      ],
+      "meaning": "Async path supplies loaded file length separately and writes file bytes after the paired-row prefix."
+    },
+    "sync": {
+      "sites": [
+        "36eb EAX=record+12 buffer pointer",
+        "36ee ECX=prefix_bytes fromstack+10",
+        "36f2 destination=buffer+prefix",
+        "36f6 pushes loaded_file_length EBX",
+        "36f7 pushes destination",
+        "36fe calls2c390;3703 caller-cleans16bytes"
+      ],
+      "meaning": "Synchronous path has the same destination and separate length."
+    }
+  },
+  "metadata_reader": {
+    "function": "0x31080..0x310e0",
+    "sites": [
+      "310b4 ECX=combined_buffer_pointer",
+      "310bc EAX=unsigned16 entry_count",
+      "310c3 EDX=sign-extended inputwordDI",
+      "310c6 ECX=buffer+entry_count*4+8",
+      "310ca EAX=DWORD atthatmetadata_basis+index*4",
+      "310d4 SAR EAX,8;310d8 addrelativeoffset tobasis"
+    ],
+    "basis": "buffer+entry_count*4+8 = buffer+prefix_bytes+4",
+    "meaning": "Reader basis is four bytes into the loaded file region. It then indexes file-backed metadata entries and forms a relative data pointer; this corroborates a combined allocation, not a separately allocated reference-only table.",
+    "limits": "Relative field names and original resource format remain unproved; do not infer metadata entry capacity from this address calculation."
+  },
+  "release_audit": {
+    "no_calls": "The complete320-byte51d0 span containszero direct or indirect CALL instructions. No synchronous callback boundary occurs between its snapshot and chain mutations.",
+    "captured": "Load chainA key at51e3, capture residency word once at51fb. Both chain decisions use this captured value.",
+    "live": "Reference pointer loaded perchain at5204 and528b; chainB resourceindex is reread at5284. Signed reference index selects one stable row; decrement/test operate on that selected word. Map loaded before rowmask mutation (524a/52d2 versus5259/52df); nextword loaded afterward (5260/52e6).",
+    "terminal": "Read live actor initialindex+34 andcategorybyte+22 afterchains andcopy to+40/+44; preserve+42.",
+    "abi": "Only indexed direct callers5346 and55c2. Field-sync caller5310 overwrites AX andusesonlywordfields aftercall; its four reviewed callers discard the result. Clear_actor calls token next anddoesnot consume release EAX. No source return-value evidence warrants ABI steering.",
+    "callbacks": "Actual allocation/file/free callbacks occur in provider3540 anddestroy38d0, not51d0. Async mutation or arbitrary aliases are not excluded by static evidence, but no source change/volatile interpretation is justified.",
+    "semantic_status": "Current writer-backed source agrees with reviewed field widths, predicates, counts, mask/next order and captured-versus-live reads. No factual release discrepancy or genuinely new source family found.",
+    "outcome": "No supported discriminator for another51d0 compiler family. Continue actual provider/file-format/dependency recovery and independent historical source/TU/compiler context; do not replay native-int, six-word-row, signed-key or cache/declaration grids."
+  },
+  "freeze": {
+    "peers": [
+      "clear_actor full80-byte normalized equality",
+      "release_actor_token full48-byte normalized equality"
+    ],
+    "restriction": "No peer source edits or rewriting relocation-only equality. Raw acceptance gate unchanged."
+  },
+  "code_spans": [
+    {
+      "label": "resource provider",
+      "start_rva": "0x3540",
+      "end_rva_exclusive": "0x3750",
+      "bytes": 528,
+      "sha256": "d2d22b30a4d8b3f2d029ccd560a9936a4e694036d12ec28bdb84840dcc8c1c72"
+    },
+    {
+      "label": "reference-row initialization",
+      "start_rva": "0x3637",
+      "end_rva_exclusive": "0x3668",
+      "bytes": 49,
+      "sha256": "9a7bcf469859c64cb53e45e64c4c63dfded7c87c43fa0a0cbefb0b757f0933cd"
+    },
+    {
+      "label": "metadata reader",
+      "start_rva": "0x31080",
+      "end_rva_exclusive": "0x310e0",
+      "bytes": 96,
+      "sha256": "04c1f9d66daf72d4c5d1903088225d8cf76f987d52b7bea9a79caf4a2489f13d"
+    },
+    {
+      "label": "resource destroy",
+      "start_rva": "0x38d0",
+      "end_rva_exclusive": "0x3910",
+      "bytes": 64,
+      "sha256": "e8f2c829cdb43f58fae82600e10063112f171ddb68e704a0f1b94babee47cb50"
+    },
+    {
+      "label": "release state",
+      "start_rva": "0x51d0",
+      "end_rva_exclusive": "0x5310",
+      "bytes": 320,
+      "sha256": "8130287b031d9e3defb7645c1b9efe3c0bd0a601bf39810ea00c9568b78a7be3"
+    },
+    {
+      "label": "field synchronization",
+      "start_rva": "0x5310",
+      "end_rva_exclusive": "0x5370",
+      "bytes": 96,
+      "sha256": "a8c30cd7bb80f226550ec7743a125b16724e50e9e4b7ff29d7929f9df9cb6e58"
+    }
+  ],
+  "queries": {
+    "release_callers_query": "SELECT source_rva,kind FROM refs WHERE module=? AND target_rva=? ORDER BY source_rva",
+    "rows": [
+      {
+        "source_rva": "0x5346",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x55c2",
+        "kind": "linear_call"
+      }
+    ]
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compiler_builds": 0
+  }
+}

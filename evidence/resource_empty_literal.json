@@ -1,0 +1,198 @@
+{
+  "scope": "Read-only row0 path identity/alias investigation. No compiler, original execution, canonical or Git changes.",
+  "oracle": {
+    "eng1": {
+      "path": "assets\\pc\\HERCULES\\ENG1.DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+    },
+    "host": {
+      "path": "work\\discs\\pc_install\\HERCULES.EXE",
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+    },
+    "database_sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+  },
+  "conclusion": {
+    "status": "Shared compiler empty-string COMDAT is positively supported; no mutable path-buffer writer established.",
+    "meaning": "RVA6ffc0 is shared by resource row0, a direct game file-callback argument, and two CRT getqloc locale table entries. Identifying the CRT relocation target proves more than initial zero-byte equivalence: both entries target the one-byte compiler string literal symbol ??_C@_00A@?$AA@.",
+    "minimum_extent_bytes": 1,
+    "extent_limit": "The original mapped zero-fill region is larger, but neither nearby globals nor section slack proves a path-buffer capacity. Library literal COMDAT contribution is exactly one byte.",
+    "mutability_limit": "Original .data is physically writable. Static indexed refs and the verified default host callback show no writes; absence of arbitrary computed writes, runtime callback replacement or external mutation is not proved.",
+    "source_recommendation": "Keep ordinary empty literal as the supported data-source hypothesis. Current compiled candidate uses the same external COMDAT symbol; normal library linking may merge identical COMDATs. Do not introduce a separately named mutable buffer or force placement. Verify natural final link alias identity before claiming complete data layout.",
+    "falsifier": "A validated writer to6ffc0 through a concrete alias, or a real consumer observing row0/path address identity independently of pooled COMDAT, would invalidate a content-only replacement. Such proof would require shared ordinary-C storage; this audit finds neither."
+  },
+  "exact_refs": [
+    {
+      "source_rva": "0x32b93",
+      "target_rva": "0x6ffc0",
+      "kind": "linear_immediate"
+    },
+    {
+      "source_rva": "0x32b94",
+      "target_rva": "0x6ffc0",
+      "kind": "pe_highlow_pointer"
+    },
+    {
+      "source_rva": "0x5cee0",
+      "target_rva": "0x6ffc0",
+      "kind": "pe_highlow_pointer"
+    },
+    {
+      "source_rva": "0x6dc40",
+      "target_rva": "0x6ffc0",
+      "kind": "pe_highlow_pointer"
+    },
+    {
+      "source_rva": "0x6df58",
+      "target_rva": "0x6ffc0",
+      "kind": "pe_highlow_pointer"
+    }
+  ],
+  "library_proof": {
+    "library": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libc.lib",
+    "library_sha256": "4ae22c6f35a87c55c453ad388ada649ea3ba190614be3d1ab95935ba0faa7416",
+    "getqloc_member": "build/intel/st_obj/getqloc.obj",
+    "member_sha256": "5889a255104d908d229988a4d788bb7b1bec7f76ccef80cb0d56ac8df93bbd3a",
+    "mapped_data": {
+      "start_rva": "0x6dc40",
+      "end_rva_exclusive": "0x6e432",
+      "bytes": 2034,
+      "sha256": "fe5b1fcf7ea2a703b40efbbb2efb4177f5f0fa7f40f61c3cfe97226e345c3f0a"
+    },
+    "normalized_nonpointer_differences": 0,
+    "pointer_count": 186,
+    "all_pointer_contents_equal": true,
+    "empty_relocations": [
+      {
+        "offset": "0x0",
+        "target_rva": "0x6ffc0",
+        "symbol": "??_C@_00A@?$AA@",
+        "symbol_section": 169,
+        "section_name": ".rdata",
+        "section_size": 1,
+        "expected_bytes": "00",
+        "equal": true
+      },
+      {
+        "offset": "0x318",
+        "target_rva": "0x6ffc0",
+        "symbol": "??_C@_00A@?$AA@",
+        "symbol_section": 169,
+        "section_name": ".rdata",
+        "section_size": 1,
+        "expected_bytes": "00",
+        "equal": true
+      }
+    ],
+    "compiler_literal": {
+      "symbol": "??_C@_00A@?$AA@",
+      "section_index": 169,
+      "section": ".rdata",
+      "size": 1,
+      "content_hex": "00",
+      "COMDAT": true
+    },
+    "comparison_receipt": "work/resource_row0_path/table_comparison.json"
+  },
+  "callback_flow": {
+    "eng1_sites": [
+      "32b83 loads argument2 from[4da18]",
+      "32b8c pushes length21000",
+      "32b91 pushes destinationallocationpointer",
+      "32b92 pushes argument2",
+      "32b93 pushes empty-string argument1",
+      "32b98 calls2c390",
+      "2c3a4 forwards samefourarguments to[70f88]"
+    ],
+    "argument2_pointer_rva": "0x4db00",
+    "argument2_string": "m:\\language\\srclang\\stpanel1.dat",
+    "interface_slot": "0x1a",
+    "interface_byte_offset": "0x68",
+    "host_static_cell_rva": "0x36220",
+    "host_callback_rva": "0x3b50",
+    "host_sites": [
+      "3b58 reads originalarg2 atESP+14 after3savedregisters",
+      "3b5c reads originalarg1 atESP+10",
+      "3b60..3b6c calls sprintf(0x615c10,\"%s%s\",arg1,arg2)",
+      "3b78..3b7d opens builtfilename at615c10",
+      "3ba1/3ba5 capture arg4size/arg3destination",
+      "3bc9..3bcc reads file into arg3destination witharg4size"
+    ],
+    "destination_separation": "The sprintf destination is host VA615c10, not the ENG1 empty string. Actual file bytes are written to arg3 allocation pointer.",
+    "sprintf": {
+      "member_sha256": "950b4bc196eb0b8dfffb0458c37ce0900526dc87b7c3f79746190b5a8b7ad261",
+      "full_contribution": {
+        "start_rva": "0x10f40",
+        "end_rva_exclusive": "0x10fb0",
+        "bytes": 112,
+        "sha256": "6610c29280fe7b1a3f52e3a00b3300b5f1fae6246e17cccc89cef6b7c4afcdc6"
+      },
+      "normalized_differences": [],
+      "relocations": [
+        {
+          "offset": "0x30",
+          "symbol": "__output",
+          "type": 20,
+          "target_operand": "0x31ec"
+        },
+        {
+          "offset": "0x5a",
+          "symbol": "__flsbuf",
+          "type": 20,
+          "target_operand": "0x1be2"
+        }
+      ]
+    }
+  },
+  "candidate": {
+    "source": "candidates/resource_data_source/resource_data_source_v1.c",
+    "source_sha256": "00f107052b193b1d36d44d6125e56ff5ecb82029378f80b7b7f12287df32064e",
+    "object_sha256": "0d8997b152491a448f6e7a903f78d7825cf63e07a581533fccb3aeae9ea23de7",
+    "row0": {
+      "index": 0,
+      "record_slot_offset": "0x0",
+      "original_target_rva": "0x6ffc0",
+      "original_storage": "virtual-zero-fill empty string",
+      "literal_symbol": "??_C@_00A@?$AA@",
+      "literal_section": ".bss",
+      "literal_bytes": 1,
+      "literal_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+      "original_bytes": 1,
+      "original_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+      "equal": true
+    },
+    "note": "Existing candidate emits identical decorated compiler literal symbol, rather than a separately named local empty-buffer symbol. This is source-level support and not a final natural placement/alias proof."
+  },
+  "source_spans": [
+    {
+      "start_rva": "0x32b10",
+      "end_rva_exclusive": "0x32bc0",
+      "bytes": 176,
+      "sha256": "b64bf6eee9d1fc368f2a0e05c811793fd57d92b92eb6ecb80eb8be7a6c558e18"
+    },
+    {
+      "start_rva": "0x2c390",
+      "end_rva_exclusive": "0x2c3b0",
+      "bytes": 32,
+      "sha256": "0135a32a1544166cd3e9b3321cf87671b59a7caa8551ce42a66407211690964e"
+    },
+    {
+      "start_rva": "0x3b50",
+      "end_rva_exclusive": "0x3c50",
+      "bytes": 256,
+      "sha256": "4a6573324e29443c08f7def1e3db71f8a129ecacdcf03feb5425e9e2eb371528"
+    }
+  ],
+  "zero_byte": {
+    "rva": "0x6ffc0",
+    "mapped_hex": "00",
+    "storage": "Loader virtual-zero-fill; not file-backed"
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compiler_builds": 0
+  }
+}

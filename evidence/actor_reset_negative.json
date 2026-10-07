@@ -1,0 +1,45 @@
+{
+  "exit_code": 1,
+  "stdout": "FAIL normal next actor uses reloaded base plus stride\nFAIL normal initializer processes reloaded actor\nFAIL normal next actor uses reloaded base plus stride\nFAIL normal clear uses reloaded selected actor\nFAIL middle next actor uses reloaded base plus stride\nFAIL middle initializer processes reloaded actor\nFAIL middle next actor uses reloaded base plus stride\nFAIL middle clear uses reloaded selected actor\nFAIL alternate next actor uses reloaded base plus stride\nFAIL alternate initializer processes reloaded actor\nFAIL alternate next actor uses reloaded base plus stride\nFAIL alternate clear uses reloaded selected actor\nchecks=39 failures=12",
+  "harness_sha256": "1fd1a177ed289b1a505164f6116aca9f35da579288a5bc91a612a5cbb5a28174",
+  "executable_sha256": "2b5e8b0fca6316e2cc6b36599bee16cb2e5e4011be443759ca67af98b8d4435c",
+  "scope_note": "Read-only rerun of already freshly compiled negative-control fixture after report-only assertion correction; no additional compile.",
+  "scope": "Expected rejection of cached pool-base source by 39-check callback-mutation fixture; twelve expected next-actor/post-callback assertions fail across three pools and two callback outcomes. Reconstructed code only.",
+  "baseline": "calibration/actor_pool_reset_repaired.c",
+  "source_patch": {
+    "base_sha256": "19a760e844bfcf4044efa2b03c3eca2b014734c7ee960df381d820fb9a1fbc21",
+    "result_sha256": "ecbd7ca9bdce74ab3be06c8150138de632bcb61fcd2a0f6ebcc82b49a8d116bb",
+    "edits": [
+      {
+        "line": 438,
+        "old": "",
+        "new": "    ActorNormal *actor;\n"
+      },
+      {
+        "line": 442,
+        "old": "    for (index = 0; index < g_normal_limit_primary; ++index) {\n        ActorNormal *actor = &g_normal_actor_pool[index];\n",
+        "new": "    actor = g_normal_actor_pool;\n    for (index = 0; index < g_normal_limit_primary; ++index, ++actor) {\n"
+      },
+      {
+        "line": 453,
+        "old": "",
+        "new": "    ActorMiddle *actor;\n"
+      },
+      {
+        "line": 457,
+        "old": "    for (index = 0; index < g_middle_limit_primary; ++index) {\n        ActorMiddle *actor = &g_middle_actor_pool[index];\n",
+        "new": "    actor = g_middle_actor_pool;\n    for (index = 0; index < g_middle_limit_primary; ++index, ++actor) {\n"
+      },
+      {
+        "line": 468,
+        "old": "",
+        "new": "    ActorCore *actor;\n"
+      },
+      {
+        "line": 472,
+        "old": "    for (index = 0; index < g_alternate_limit_primary; ++index) {\n        ActorCore *actor = &g_alternate_actor_pool[index];\n",
+        "new": "    actor = g_alternate_actor_pool;\n    for (index = 0; index < g_alternate_limit_primary; ++index, ++actor) {\n"
+      }
+    ]
+  }
+}

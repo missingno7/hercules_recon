@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T23:34:51.333294+00:00",
+  "region": "host_pool_shrink",
+  "ownership": {
+    "id": "host_pool_shrink",
+    "ownership": "inferred_region",
+    "rationale": "ReMalloc-style shrink/relocate entry belongs to the host-pool lifecycle; original TU ownership unproved."
+  },
+  "context_id": "498a95d6b95452bfb1d5c125f9de1d16d4ba7bf80f13ecb0d617ea0082e45c06",
+  "source_sha256": "9e7c250a8e48eb0e60aec6c09099a2f5ac0ec8576fa360a594b89b65eac309dc",
+  "baseline_sha256": "9e7c250a8e48eb0e60aec6c09099a2f5ac0ec8576fa360a594b89b65eac309dc",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "9e7c250a8e48eb0e60aec6c09099a2f5ac0ec8576fa360a594b89b65eac309dc",
+  "source_patch": {
+    "base_sha256": "9e7c250a8e48eb0e60aec6c09099a2f5ac0ec8576fa360a594b89b65eac309dc",
+    "result_sha256": "9e7c250a8e48eb0e60aec6c09099a2f5ac0ec8576fa360a594b89b65eac309dc",
+    "edits": []
+  },
+  "output_id": "79777733e631fbf365e213992b2b561016bccc26d3918bf9cab1d7610e3b6378",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_shrink_relocate",
+      "target_size": 192,
+      "candidate_size": 192,
+      "raw_different_bytes": 159,
+      "normalized_different_bytes": 162,
+      "instruction_percent": 53.425,
+      "ordered_cfg_equal": false,
+      "category": "structural/source-form investigation",
+      "strict_equal": false,
+      "relocation_count": 4,
+      "target_relocation_count": 0,
+      "output_id": "51626cf97c44f3e6533b5c766bf9841b375046b84b8a88e8b426c17cf9f9bd5e",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 1,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 0,
+    "ordered_cfg_equal": 0,
+    "instruction_over_90": 0,
+    "nonexact_instruction_over_90": 0,
+    "categories": {
+      "structural/source-form investigation": 1
+    }
+  },
+  "family": "source-declaration-consistency",
+  "prediction": "Full code bytes and ordered relocations remain unchanged while common source declarations become compatible.",
+  "falsifier": "Any complete contribution or ordered relocation changes; no prototype/grid retries.",
+  "verdict": "observed",
+  "blocker": null,
+  "reentry_condition": "Original declarations/layout remain unproved; new independent body discriminator required.",
+  "next_discriminator": null,
+  "ungated_work": [],
+  "new_evidence": "work/host_pool_type_consistency/audit_v1.json; work/host_reverse_signature/report.json",
+  "new_discriminator": null,
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "Fresh integrator replay of supported shared state/CRT/helper declarations; no body/layout steering.",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 1,
+    "semantic_result": null,
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "c548a3623cc9292ca4887385f00ea2e4150093f63c44761d75d729dbd347b480",
+    "report_sha256": "971fa396ea93ef7071707b8135680d5ef6894ca72c6fdd01e64003c970339c9f",
+    "object_sha256": "9c18bd3a6ccd702d83b262fdd9efd3a34ae9ade2c54d2adc86a1d8b4d7f239c8",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-_dvtqsr7\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\host_pool_shrink.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "c5e3db09eb88338880e9f0ebdcef65c6729a01590c8ed11e1e9a2424dfffa0be"
+}

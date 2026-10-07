@@ -1,10 +1,10 @@
+#include <string.h>
 typedef unsigned long U32;
 typedef union PoolWord PoolWord;
 union PoolWord { U32 descriptor; void **owner_slot; };
 #define POOL_FREE 0x80000000UL
 #define POOL_PINNED 0x40000000UL
 #define POOL_SIZE 0x3fffffffUL
-extern void *__cdecl memmove(void *, const void *, U32);
 extern void __cdecl coalesce_pool(U32);
 extern void __cdecl host_diagnostic(const char *, ...);
 extern const char g_fmt_remalloc[];

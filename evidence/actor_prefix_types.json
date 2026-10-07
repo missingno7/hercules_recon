@@ -1,0 +1,97 @@
+{
+  "scope": "Read-backed semantic prefix views only; no original declarations, names, source modification, new compile or function acceptance.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "fields": [
+    {
+      "offset": "0x4c",
+      "view": "signed 32-bit scalar",
+      "evidence": "Exact follow_owner_scale source uses signed division/arithmetic; this supports a signed interpretation, not an original signed member declaration."
+    },
+    {
+      "offset": "0x50",
+      "view": "32-bit flags",
+      "evidence": "Exact initialize_linked_particle ORs 0x10000."
+    },
+    {
+      "offset": "0x54",
+      "view": "32-bit render flags",
+      "evidence": "Exact initialize_linked_particle ORs0x684; cleanup reads flags from this offset."
+    },
+    {
+      "offset": "0x5c",
+      "view": "related actor pointer",
+      "evidence": "Exact follow_owner_scale dereferences this word for x/y/z; related-actor role names remain provisional."
+    },
+    {
+      "offset": "0x60",
+      "view": "child actor pointer",
+      "evidence": "Clear actor loads this word, guards nonzero, recursively clears that actor and releases its token; full normalized equality is diagnostic only."
+    }
+  ],
+  "accepted_consumers": [
+    {
+      "id": "eng1.initialize_linked_particle",
+      "source": "src/shared/linked_particle.c",
+      "source_sha256": "72571feafe33b993c316a5895af3ff6ef0a8c7adb128e2fa16f44352708e13cc",
+      "rva": "0x21ed0",
+      "bytes": 48,
+      "span_sha256": "a81dd9b0bd23d9d3355f60d8e586d324534f360219c631ebed93bdc1f9228b45",
+      "selected_sites": [
+        {
+          "rva": "0x21ed4",
+          "instruction": "mov ecx, dword ptr [eax + 0x50]"
+        },
+        {
+          "rva": "0x21ee9",
+          "instruction": "mov dword ptr [eax + 0x50], ecx"
+        },
+        {
+          "rva": "0x21eec",
+          "instruction": "mov ecx, dword ptr [eax + 0x54]"
+        },
+        {
+          "rva": "0x21ef5",
+          "instruction": "mov dword ptr [eax + 0x54], ecx"
+        }
+      ]
+    },
+    {
+      "id": "eng1.follow_owner_scale",
+      "source": "src/shared/linked_particle.c",
+      "source_sha256": "72571feafe33b993c316a5895af3ff6ef0a8c7adb128e2fa16f44352708e13cc",
+      "rva": "0x21f00",
+      "bytes": 96,
+      "span_sha256": "cc436fbb28a6f41a234822a479898f3a32c19ff257c73e0869e819c944279b6b",
+      "selected_sites": [
+        {
+          "rva": "0x21f0a",
+          "instruction": "mov eax, dword ptr [ecx + 0x5c]"
+        },
+        {
+          "rva": "0x21f23",
+          "instruction": "mov edx, dword ptr [ecx + 0x4c]"
+        }
+      ]
+    }
+  ],
+  "clear_consumer": {
+    "rva": "0x55b0",
+    "bytes": 80,
+    "span_sha256": "0a577637ef4b48fd2a35f4545dd5633b4188df4348dc544b021073f3b460c0c5",
+    "source": "calibration/cleanup_helpers_writers.c",
+    "source_sha256": "967edcf7cbf135e4fd3e47cc8bb95df1364893371e52818ac682d5689cf1c7e5",
+    "selected_sites": [
+      {
+        "rva": "0x55db",
+        "instruction": "mov esi, dword ptr [esi + 0x60]"
+      }
+    ]
+  },
+  "next_family": {
+    "prediction": "A reader-backed ActorCore view can express these scalar/flag/pointer fields while retaining all148/236/308-byte layouts, initializer store order and frozen contributions. Zero stores alone previously did not prove these semantic interpretations.",
+    "falsifier": "Any offset/size, fixture behavior, complete peer bytes or ordered relocations changes; no declaration-order or source-spelling grid follows. This is a typed-view investigation, not an equality or original-source claim."
+  }
+}

@@ -1,5 +1,8 @@
 # Host callback reconstruction
 
+The following [actor and data dependency continuation](actor_pool_dependency_progress.md)
+records the full natural pool link, consistent declarations and resource data.
+
 The accepted total remains **40 instances / 4,352 bytes**. This continuation
 recovers missing source dependencies and corrects two target-behavior errors in
 experimental source. No new function passed the raw gate.

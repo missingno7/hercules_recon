@@ -1,26 +1,28 @@
-typedef char dword_is_32_bits[(sizeof(unsigned long) == 4) ? 1 : -1];
-typedef char int_is_32_bits[(sizeof(int) == 4) ? 1 : -1];
+typedef unsigned long U32;
+typedef signed long S32;
+typedef char dword_is_32_bits[(sizeof(U32) == 4) ? 1 : -1];
+typedef char long_is_32_bits[(sizeof(S32) == 4) ? 1 : -1];
 
-void reverse_copy_dwords(unsigned long *destination,
-                         const unsigned long *source,
-                         int byte_count)
+void __cdecl reverse_dword_copy(void *destination,
+                                const void *source,
+                                U32 byte_count)
 {
-    int dword_count = (byte_count + 3) >> 2;
-    int group_count;
-    unsigned long *destination_end = destination + dword_count;
-    const unsigned long *source_end = source + dword_count;
+    S32 dword_count = (S32)(byte_count + 3UL) >> 2;
+    S32 group_count;
+    U32 *destination_end = (U32 *)destination + dword_count;
+    const U32 *source_end = (const U32 *)source + dword_count;
 
     if (dword_count > 7) {
-        group_count = dword_count >> 3;
+        group_count = (unsigned int)dword_count >> 3;
         do {
-            unsigned long value0;
-            unsigned long value1;
-            unsigned long value2;
-            unsigned long value3;
-            unsigned long value4;
-            unsigned long value5;
-            unsigned long value6;
-            unsigned long value7;
+            U32 value0;
+            U32 value1;
+            U32 value2;
+            U32 value3;
+            U32 value4;
+            U32 value5;
+            U32 value6;
+            U32 value7;
 
             destination_end -= 8;
             source_end -= 8;

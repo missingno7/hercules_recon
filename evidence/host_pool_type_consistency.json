@@ -1,0 +1,85 @@
+{
+  "status": "declaration_consistency_audit_completed_diagnostic_only",
+  "prediction": {
+    "path": "work/host_pool_type_consistency/prediction_v1.json",
+    "sha256": "5b5e94b4eb5965657a15ab5e920c1433be5d143576155240e7a9ac93eb865a84",
+    "prediction_falsified": false
+  },
+  "shared_declarations": {
+    "pool_word": "The count unit now uses the evidenced two-member union: U32 descriptor; void **owner_slot.",
+    "host_pool_state": "The count unit now uses the full member sequence shared by core, lifecycle, arena-reset and data units: starts[4], ends[4], saved_arena, saved_bytes, bulk_first_header, bulk_first_words; 48 bytes on the pinned 32-bit target.",
+    "count_function": "Only type declarations changed. Function body is unchanged; starts/ends remain at offsets 0 and 16.",
+    "memmove": "The shrink unit now includes the pinned <string.h> declaration. That header defines size_t as unsigned int and memmove as _CRTIMP void *__cdecl memmove(void *, const void *, size_t); the old local declaration using U32 (unsigned long) was removed. Function body is unchanged.",
+    "other_cross_unit_interfaces_reviewed": [
+      "count_used: U32 __cdecl count_used(U32)",
+      "coalesce_pool: void __cdecl coalesce_pool(U32)",
+      "host_free: void __cdecl host_free(void *)",
+      "reverse_dword_copy: void __cdecl reverse_dword_copy(void *, const void *, U32)",
+      "host_diagnostic: void __cdecl host_diagnostic(const char *, ...)"
+    ]
+  },
+  "pinned_header": {
+    "path": "C:/tools/hercules/msvc500-8abf95ce980161ad87b0b02402269cce76988953/include/string.h",
+    "sha256": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec"
+  },
+  "fresh_compile": {
+    "metrics": "work/host_pool_type_consistency/compile_metrics_v1.json",
+    "metrics_sha256": "dc8345324ff85dd852507bc3de7902ee599a4c5c84d25368527a7792a420831a",
+    "fresh_pinned_compiler_invocations": 2,
+    "count_candidate": {
+      "source": "candidates/host_pool_type_consistency/host_pool_counts_v1.c",
+      "source_sha256": "ff418b1edf16fed6e6dce68c17801d490565cb14d10f30a83945115f14fe6a90",
+      "symbol": "_count_used",
+      "size": 64,
+      "code_sha256": "7904a59aa6a8255f9c75c61e05bafffc928172b850ada45144e85d0b0add7ca8",
+      "ordered_relocations_unchanged": true,
+      "full_contribution_unchanged": true
+    },
+    "shrink_candidate": {
+      "source": "candidates/host_pool_type_consistency/host_pool_shrink_v1.c",
+      "source_sha256": "92d91e1efe3061537ceae8ebc5419c9aea85c2dfc7094e85091d1e7671b7d04d",
+      "symbol": "_shrink_relocate",
+      "size": 192,
+      "code_sha256": "431255da2dc711cde397b90e73b038fc5010c726fc07d0ee64d539c5c8ab0f89",
+      "ordered_relocations_unchanged": true,
+      "full_contribution_unchanged": true
+    }
+  },
+  "natural_relink": {
+    "report": "work/host_pool_type_consistency/relink_report_v1.json",
+    "report_sha256": "0d95fe7837c3dfd236bd66269c1489f702265a39d2a9f2051b8ab2724d9738cb",
+    "prior_report_preserved": {
+      "path": "work/host_pool_full_link/link_report_v1.json",
+      "sha256": "df3af4c35826ac12c0e08a28c787dbade33bbb95522cdc94c579174f1364d242"
+    },
+    "linker_invocations": 1,
+    "exports": 13,
+    "unresolved_externals": 0,
+    "linked_state_bytes": 48,
+    "linked_state_virtual_zero_fill": true,
+    "observed_format_strings_equal": "7/7",
+    "memmove_provider": "pinned LIBC archive member libc:memmove.obj",
+    "original_crt_variant_proven": false,
+    "linked_function_contributions_and_target_difference_counts_unchanged_from_prior_link": "13/13",
+    "raw_exact_target_functions": [
+      "_host_diagnostic"
+    ],
+    "linked_image_sha256": "df465c356942937066aa3a597da372c817e6f001b57eb5a954a6f795749c7f49",
+    "previous_linked_image_sha256": "761f940bc8c678bf9c3c5896b19fe1029095f451ea28b639c3bfed754cf89a58",
+    "interpretation": "The new and previous linked DLL hashes differ; this audit claims only unchanged linked function contributions, unchanged target-byte diagnostics, verified state/string observations, and successful external resolution. It does not claim whole-image equality."
+  },
+  "limits": [
+    "This confirms consistency of the reconstructed C declarations and unchanged measured contributions, not the original source declarations or source identity.",
+    "The observed 48-byte state and field sequence do not establish original module layout, linker flags, or whole-binary equality.",
+    "The selected pinned LIBC archive is experimental evidence; the original CRT archive variant remains unknown.",
+    "No original executable was run; canonical source, recovery state, and assets were not modified."
+  ],
+  "provenance": {
+    "toolchain": "msvc5_rtm; manifest SHA-256 cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "actual_model": null,
+    "tokens": null,
+    "cost_usd": null
+  }
+}
