@@ -17,6 +17,8 @@ SUITES = {
     "engine": ["src/shared/motion.c", "src/shared/relative.c", "src/shared/frame_motion.c",
                "src/shared/bounds.c"],
     "macro": ["calibration/macro_actor.c"],
+    "frame_state": ["src/shared/frame_state.c"],
+    "refinery_blind": ["calibration/refinery_blind.c"],
 }
 
 

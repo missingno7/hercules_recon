@@ -50,6 +50,11 @@ The [bounded macro experiment](docs/macro_experiment.md) compares five whole-fil
 reconstruction waves over an 18-function actor subsystem slice. Its candidate
 and reproducible ledger are diagnostic; canonical recovery was not changed.
 
+The follow-up [near-match refinery experiment](docs/refinery_experiment.md) tests
+bounded compiler-guided C families and a fresh twelve-function blind region.
+One blind tail became raw exact; the four calibration targets did not converge.
+Six earlier macro matches subsequently passed the normal canonical promotion gate.
+
 ## References
 
 [icytower_rerecon](https://github.com/missingno7/icytower_rerecon) and
