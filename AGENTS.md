@@ -24,3 +24,21 @@ No port, modernization, renderer replacement, or gameplay changes in this phase.
 - Use tools under `C:\tools`; inspect existing tools before adding dependencies.
   External tools need documented origin, version, and SHA-256. Do not patch them.
 
+## Workers and context
+
+- Default to GPT-6 Luna **xhigh** for bounded reconstruction and compiler iteration.
+  Use GPT-6.1 Sol **high** when the explanation is uncertain or a shared question
+  has leverage; hand diagnosed experiments back to Luna. Other tiers are exceptional.
+  Neither size, similarity nor a first failed candidate determines routing.
+- Do not add model review after deterministic acceptance, a retry ladder, routing
+  ledger, or automatic difficulty scoring. Every model passes the same gate.
+- Choose coherent regions while shared representation is uncertain, then shrink
+  to local hypotheses. Do not rewrite relocation-only equals to solve link layout;
+  recover the real missing contributions and dependencies.
+- Start with `python scripts/region.py packet <region>` when indexed; use `--more`
+  for spans. See `docs/workflow.md` for private receipts and compact handoffs.
+  Packets are disposable context; `recovery.json` alone decides acceptance.
+- Record a prediction and falsifier before a family. Reopen exhausted work only
+  with new evidence, a new discriminator, or changed context. Keep outcome identity
+  separate from source spelling and accepted proof. Preserve exact peers.
+

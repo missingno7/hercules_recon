@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T17:36:24.590352+00:00",
+  "region": "actor_continuation",
+  "ownership": {
+    "start": "0x219e0",
+    "end": "0x21f60",
+    "size": 1408,
+    "identity": "eng1_actor_continuation_219e0_21f60",
+    "historical_tu": false,
+    "id": "actor_continuation",
+    "ownership": "inferred_region",
+    "rationale": "Contiguous actor/effect callbacks share measured actor layout, RNG, spawn and owner context; no original TU claim."
+  },
+  "context_id": "06995e049c80496bdedc2bdb8c75b8538fe2b387a3e9274e7415872d420f18f5",
+  "source_sha256": "ca40f17a8fc8edbe7a9c0fa3f9cc26244d4e5f8e2d508c0894d65d1554565e1c",
+  "baseline_sha256": "0bf51abc80dddd98b5fe064223fa95a673dd4c082654dac3699d3a390d69e29c",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "c11e0a9ef58bb645cdbca46fdc32996ae28b82e50c3a18fc762782f6395ae4bc",
+  "source_patch": {
+    "base_sha256": "0bf51abc80dddd98b5fe064223fa95a673dd4c082654dac3699d3a390d69e29c",
+    "result_sha256": "ca40f17a8fc8edbe7a9c0fa3f9cc26244d4e5f8e2d508c0894d65d1554565e1c",
+    "edits": [
+      {
+        "line": 81,
+        "old": "",
+        "new": "            if(child) g_callbacks[52].initialize(child);\n"
+      },
+      {
+        "line": 88,
+        "old": "",
+        "new": "            if(child) g_callbacks[52].initialize(child);\n"
+      },
+      {
+        "line": 89,
+        "old": "        if(child) g_callbacks[52].initialize(child);\n",
+        "new": ""
+      },
+      {
+        "line": 124,
+        "old": "    unsigned int n=0;\n",
+        "new": "    unsigned int n;\n"
+      },
+      {
+        "line": 136,
+        "old": "",
+        "new": "        n=0;\n"
+      },
+      {
+        "line": 145,
+        "old": "        case 0:case 1:case 2:play_actor_sound(0xd1cf,child,p);break;\n        case 3:case 4:case 5:play_actor_sound(0xd1d0,child,p);break;\n        case 6:case 7:case 8:play_actor_sound(0xd1d2,child,p);break;\n",
+        "new": "        case 0:play_actor_sound(0xd1cf,child,p);break;\n        case 1:play_actor_sound(0xd1cf,child,p);break;\n        case 2:play_actor_sound(0xd1cf,child,p);break;\n        case 3:play_actor_sound(0xd1d0,child,p);break;\n        case 4:play_actor_sound(0xd1d0,child,p);break;\n        case 5:play_actor_sound(0xd1d0,child,p);break;\n        case 6:play_actor_sound(0xd1d2,child,p);break;\n        case 7:play_actor_sound(0xd1d2,child,p);break;\n        case 8:play_actor_sound(0xd1d2,child,p);break;\n"
+      },
+      {
+        "line": 164,
+        "old": "",
+        "new": "    p->x=p->owner->x;\n"
+      },
+      {
+        "line": 165,
+        "old": "    p->x=p->owner->x;\n",
+        "new": ""
+      }
+    ]
+  },
+  "output_id": "e09562b8c3c97293eb38069bc18730a82597c94fe60b216a78e5feb60f38b2b0",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_tick_scripted_actor",
+      "target_size": 96,
+      "candidate_size": 96,
+      "raw_different_bytes": 10,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 3,
+      "target_relocation_count": 2,
+      "output_id": "ae4892de2b4ebb5e398dc13e122c14de932f717fd5b7f895db4982129035ac5f",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_start_spawn_phase",
+      "target_size": 96,
+      "candidate_size": 96,
+      "raw_different_bytes": 14,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 4,
+      "target_relocation_count": 2,
+      "output_id": "be47dd255f4d67f7ff8efaf12e404b5d620d9e4238bd4b8323bb1114f22b2644",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_tick_spawn_phase",
+      "target_size": 352,
+      "candidate_size": 352,
+      "raw_different_bytes": 60,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 20,
+      "target_relocation_count": 9,
+      "output_id": "36cd65e06c2c42da90f1d93c2efa7970d26fd487929b85f5b2656e974c53acc9",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_initialize_spinning_particle",
+      "target_size": 272,
+      "candidate_size": 272,
+      "raw_different_bytes": 39,
+      "normalized_different_bytes": 0,
+      "instruction_percent": null,
+      "ordered_cfg_equal": null,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 15,
+      "target_relocation_count": 5,
+      "output_id": "79df9e42e89546a29a090231904e5633f106b779febc47264ee5f52eb4e150cb",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_tick_spinning_particle",
+      "target_size": 448,
+      "candidate_size": 448,
+      "raw_different_bytes": 84,
+      "normalized_different_bytes": 0,
+      "instruction_percent": null,
+      "ordered_cfg_equal": null,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 25,
+      "target_relocation_count": 15,
+      "output_id": "df4b44584790c0a63d0cf6c461029d364b32847c8b823eadd5f8287b4a92ac42",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_initialize_linked_particle",
+      "target_size": 48,
+      "candidate_size": 48,
+      "raw_different_bytes": 0,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "raw exact",
+      "strict_equal": true,
+      "relocation_count": 0,
+      "target_relocation_count": 0,
+      "output_id": "b2e3dcbb26040b73e7d354dfdff37c27a99d5af0113f10a17237aadf161ee95a",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_follow_owner_scale",
+      "target_size": 96,
+      "candidate_size": 96,
+      "raw_different_bytes": 0,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "raw exact",
+      "strict_equal": true,
+      "relocation_count": 0,
+      "target_relocation_count": 0,
+      "output_id": "de2018abc60471edf1b68b28873cfafbcaa9825c5cc21e92006f1684498a4b68",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 7,
+    "exact": 2,
+    "exact_bytes": 144,
+    "diagnostic_equal": 7,
+    "full_bytes": 1408
+  },
+  "family": "diagnosed-actor-source-order-and-branches",
+  "prediction": "Owner-scale store order, independent spawn callback tails, and loop-index lifetime should improve their named contributions without changing peer contributions; separate natural-C switch arms should recover the target ten-entry sound table.",
+  "falsifier": "Any prepared form leaves its predicted structural difference unchanged, changes a frozen contribution, or fails the deterministic semantic harness.",
+  "verdict": "codegen_closed",
+  "blocker": "Five relocation-bearing contributions await actual recovered dependencies and natural link/data layout.",
+  "reentry_condition": "New linkage/context evidence, not another source spelling.",
+  "next_discriminator": "Recover real release/data dependencies; no further algebraic forms for these diagnostic equals.",
+  "ungated_work": [
+    "Five diagnostic-equal contributions are not FUNCTION_MATCH."
+  ],
+  "new_evidence": null,
+  "new_discriminator": null,
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "Fresh MSVC 5.00 /O2 /Gy object builds, full raw contribution comparison, relocation-resolved diagnostics, and deterministic semantic harness.",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 14,
+    "semantic_result": {
+      "candidate_runs": 7,
+      "checks_per_run": 479026,
+      "failures_per_run": 0
+    },
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "28411947c6c8fe797a4b00dee9651dd1141b2da1c8812c97ef02ef5a7b38ed0f",
+    "report_sha256": "962b3323d773ed8f0b0fbac8da30f73149f0beab417d06883481edfe9190751a",
+    "object_sha256": "52c00e3004db106848772ffb99dacdda67f696a14dc8d8c0fdb562843e8f6075",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-f_fmsd_0\\candidate.obj",
+      "D:\\prog\\hercules_recon\\candidates\\bounded_followup\\tail_audit\\loop_counter_before_rng.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "0d78862f4d20f0bfb4f570f49f40b8133b696828a0daca421438fffddd5a27db"
+}

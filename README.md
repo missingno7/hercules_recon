@@ -60,6 +60,11 @@ code-generation differences, promotes four raw matches, and measures the first
 natural caller/callee link. Its remaining call displacement difference records a
 real layout problem; relocation-only equality is still not accepted as a match.
 
+The [current worker workflow](docs/workflow.md) uses Luna xhigh for normal bounded
+matching and Sol high for unresolved explanations. Compact context is derived
+from existing evidence and recovery state; it adds no routing ledger. The
+[production continuation](docs/workflow_experiment.md) records its first real run.
+
 ## References
 
 [icytower_rerecon](https://github.com/missingno7/icytower_rerecon) and

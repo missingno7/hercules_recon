@@ -20,6 +20,9 @@ SUITES = {
     "frame_state": ["src/shared/frame_state.c"],
     "refinery_blind": ["calibration/refinery_blind.c"],
     "effect_state": ["src/shared/effect_state.c"],
+    "linked_particle": ["src/shared/linked_particle.c"],
+    "actor_continuation": ["calibration/actor_continuation.c"],
+    "release_actor_probe": ["calibration/release_actor.c"],
 }
 
 

@@ -1,0 +1,167 @@
+{
+  "scope": "Production experiment; recovery.json alone grants acceptance.",
+  "first_pass": {
+    "raw_functions": 1,
+    "raw_bytes": 48,
+    "relocation_only_functions": 3,
+    "relocation_only_bytes": 464,
+    "residual_functions": 3
+  },
+  "final": {
+    "raw_functions": 2,
+    "raw_bytes": 144,
+    "relocation_only_functions": 5,
+    "relocation_only_bytes": 1264,
+    "residual_functions": 0
+  },
+  "promoted": [
+    "eng1.initialize_linked_particle",
+    "eng1.follow_owner_scale"
+  ],
+  "accepted_totals": {
+    "instances": 38,
+    "source_functions": 29,
+    "mapped_bytes": 4320
+  },
+  "discovery_builds": {
+    "sol_high_objects": 1,
+    "sol_high_semantic_executables": 1,
+    "luna_xhigh_objects": 7,
+    "luna_xhigh_semantic_executables": 7,
+    "failed": 0
+  },
+  "integrator_verification_builds": {
+    "replay_objects": 4,
+    "replay_semantic_attempts": 2,
+    "replay_semantic_failed": 1,
+    "failure_reason": "Relative output path passed to harness runner; fixed by resolving CLI output before invocation.",
+    "canonical_isolation_object": 1,
+    "canonical_isolation_semantic": 1,
+    "promotion_fresh_objects": 38,
+    "registered_semantic_suites": 9
+  },
+  "measured_discovery_object_compare_seconds": 7.653,
+  "tokens": null,
+  "cost_usd": null,
+  "model_only_wall_seconds": null,
+  "semantics": {
+    "checks_per_full_region_run": 479026,
+    "canonical_only_checks": 521,
+    "registered_suite_checks": 600020,
+    "failures": 0
+  },
+  "gate_tests": 26,
+  "original_hashes_verified": 12,
+  "experiments": [
+    {
+      "name": "scale_x_first",
+      "source_sha256": "276b8c2995f3a6c5a993e0179adcb352498b8e5a04aae5a977d1620171d727fe",
+      "object_contributions_identity": "f569ac1034aa7eba641a8c9de0e3864ccf0b7c7ffb78014ee8c899ba23ab5fd2",
+      "changed_symbols": [
+        "_follow_owner_scale"
+      ],
+      "prediction": "Move the owner-x store before the constant y store.",
+      "observed_prediction": "All nine differences disappear while six unrelated contributions remain frozen.",
+      "falsifier": "Any remaining raw difference or changed surrounding contribution.",
+      "semantic_checks": 479026,
+      "semantic_failures": 0,
+      "elapsed_seconds_object_compile": 0.934
+    },
+    {
+      "name": "spawn_independent_checks",
+      "source_sha256": "b7c966649cf1c3915e108fd6b3a5f079411fe925edba39768409f3e237df5660",
+      "object_contributions_identity": "b56744d80b161d9927f990909aa892ca02a3cd0cba753703dc2b34870f529fe9",
+      "changed_symbols": [
+        "_tick_spawn_phase"
+      ],
+      "prediction": "Keep each child null check and callback inside its own spawn_normal branch.",
+      "observed_prediction": "Two independent direct calls and the target call/test graph return.",
+      "falsifier": "The compiler still merges calls or the relocation-resolved control-flow topology differs.",
+      "semantic_checks": 479026,
+      "semantic_failures": 0,
+      "elapsed_seconds_object_compile": 0.904
+    },
+    {
+      "name": "particle_index_lifetime",
+      "source_sha256": "7f856a7b31af622353a21730353f49e14676e19de5457829cd498242ee6e3cdb",
+      "object_contributions_identity": "2abdc369935f4010e961bffe9f3274e3916cba1493303e2538add3472c9d1c59",
+      "changed_symbols": [
+        "_tick_spinning_particle"
+      ],
+      "prediction": "Initialize n after the discarded random_limit(4) call.",
+      "observed_prediction": "EDI is free for the original early z-value allocation.",
+      "falsifier": "Early register allocation remains different.",
+      "semantic_checks": 479026,
+      "semantic_failures": 0,
+      "elapsed_seconds_object_compile": 0.918
+    },
+    {
+      "name": "particle_separate_sound_arms",
+      "source_sha256": "6747a0379fcab29c5dec9be6400a8ead19c1e962f3e3324f24463f81e727a8d2",
+      "object_contributions_identity": "cb6dca2c6aa363e5cbee78ee1a6160f6f2dc02298494e285c5887106e3dc6e2a",
+      "changed_symbols": [
+        "_tick_spinning_particle"
+      ],
+      "prediction": "Spell out repeated natural-C sound call arms for each switch value.",
+      "observed_prediction": "A 404-byte code body and ten-entry pointer table match the target destinations.",
+      "falsifier": "The compiler retains a byte map or the candidate table destinations/branch body differ.",
+      "semantic_checks": 479026,
+      "semantic_failures": 0,
+      "elapsed_seconds_object_compile": 0.877
+    },
+    {
+      "name": "combined_index_lifetime",
+      "source_sha256": "54e29785d35a6449ac865c92993a0419317aaafb54838edb0e52e14df2f327b8",
+      "object_contributions_identity": "7f92451aa740b5a5a2c39341e273a86514906af335608c456d56f7b58b4dafd2",
+      "changed_symbols": [
+        "_follow_owner_scale",
+        "_tick_spawn_phase",
+        "_tick_spinning_particle"
+      ],
+      "prediction": "Combine the three initial prepared forms.",
+      "observed_prediction": "All three independent changes compose while peer contributions remain frozen.",
+      "falsifier": "A changed peer contribution, semantic failure, or a candidate contribution regresses.",
+      "semantic_checks": 479026,
+      "semantic_failures": 0,
+      "elapsed_seconds_object_compile": 1.3
+    },
+    {
+      "name": "best_combined",
+      "source_sha256": "7aca3723a111801fd6bd8bb1f2529286bdf3bd3f9bf3de72e57e710e148a909c",
+      "object_contributions_identity": "402a3c9f5c7370a0d8a5184df1de403423e35d1fbd07d996ae225efc800e05a7",
+      "changed_symbols": [
+        "_follow_owner_scale",
+        "_tick_spawn_phase",
+        "_tick_spinning_particle"
+      ],
+      "prediction": "Combine the scale reorder, independent spawn tails, delayed index lifetime, and separate sound arms.",
+      "observed_prediction": "Two contributions become raw exact; spawn topology and the ten-entry switch table become diagnostic matches without peer changes.",
+      "falsifier": "Any raw-exact leaf regresses, the table destinations differ, a peer contribution changes, or semantics fail.",
+      "semantic_checks": 479026,
+      "semantic_failures": 0,
+      "elapsed_seconds_object_compile": 0.897
+    },
+    {
+      "name": "loop_counter_before_rng",
+      "source_sha256": "c11e0a9ef58bb645cdbca46fdc32996ae28b82e50c3a18fc762782f6395ae4bc",
+      "output_id": "e09562b8c3c97293eb38069bc18730a82597c94fe60b216a78e5feb60f38b2b0",
+      "prediction": "Initialize loop index before discarded RNG call to match remaining setup order.",
+      "falsifier": "Remaining full-span diagnostic differences or any changed peer.",
+      "observed": "All 448 bytes including table equal diagnostically; 84 raw differences remain at relocations.",
+      "semantic_checks": 479026,
+      "semantic_failures": 0,
+      "peers_unchanged": 6,
+      "elapsed_seconds_object_compile": 0.878
+    }
+  ],
+  "replay": [
+    "python scripts/region.py materialize --receipt evidence/regions/actor_final.json --baseline calibration/actor_continuation.c --output candidates/resume_actor/final.c",
+    "python scripts/actor_region.py --source candidates/resume_actor/final.c --output work/resume_actor --semantics"
+  ],
+  "core_wall_observation": {
+    "started_utc": "2026-10-07 17:01:04 UTC",
+    "consolidated_utc": "2026-10-07 17:36:39 UTC",
+    "elapsed_seconds": 2135,
+    "scope": "Research, workflow implementation, production reconstruction and integration; overlapping agents, not model-only latency. Release dependency follow-up continues separately."
+  }
+}

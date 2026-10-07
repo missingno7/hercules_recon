@@ -1,0 +1,138 @@
+{
+  "scope": "Negative experiment and dependency evidence only; no acceptance.",
+  "target": "ENG1.DLL",
+  "rva": "0x29670",
+  "full_span": 64,
+  "toolchain": "msvc5_rtm",
+  "flags": [
+    "/O2",
+    "/Gy"
+  ],
+  "requested_model": "gpt-6-luna",
+  "requested_effort": "xhigh",
+  "actual_model_identity": null,
+  "tokens": null,
+  "cost_usd": null,
+  "baseline_source_sha256": "864af8d400a22f568e09e2a063f474b7cbe690a00cda2f3e0bda4a1f87f8f3f5",
+  "object_builds": 3,
+  "semantic_builds": 2,
+  "experiments": [
+    {
+      "family": "cached-key-cache_key_guarded_do",
+      "prediction": "Caching the search key separates count guard from cursor setup.",
+      "falsifier": "Guard/cursor ordering remains wrong or CFG/size regresses.",
+      "verdict": "falsified",
+      "new_discriminator": "Explicit cached key, absent from previous loop spelling families.",
+      "measured": {
+        "symbol": "_find_tag",
+        "control": false,
+        "target_size": 64,
+        "candidate_size": 80,
+        "strict_equal": false,
+        "raw_different_bytes": 73,
+        "raw_byte_percent": 8.75,
+        "normalized_different_bytes": 69,
+        "normalized_byte_percent": 13.75,
+        "instruction_percent": 53.125,
+        "original_instruction_count": 23,
+        "candidate_instruction_count": 32,
+        "ordered_cfg_equal": false,
+        "original_blocks": 6,
+        "candidate_blocks": 7,
+        "direct_call_targets_equal": true,
+        "original_direct_calls": [],
+        "candidate_direct_calls": [],
+        "original_indirect_calls": [],
+        "candidate_indirect_calls": [],
+        "relocation_count": 3,
+        "category": "structural/source-form investigation"
+      },
+      "source_function": "Actor *find_tag(int tag)\n{\n    int i, count = g_tag_list[0];\n    unsigned long *entry;\n    Actor *p;\n    if (count > 0) {\n        int wanted = tag;\n        entry = g_tag_list;\n        i = 0;\n        do {\n            p = (Actor *)*++entry;\n            ++i;\n            if (p->tag == wanted) return p;\n        } while (i < count);\n    }\n    return 0;\n}",
+      "source_sha256": "af827490ceba428d29ec6f79997cf0fac155ee4e22eb1ae25a966f047f603d29",
+      "output_id": "aaa92176c8a8ba9815275cc05e8af479216a26a0051d5768396f790bd80c0d10",
+      "peers_unchanged": true,
+      "semantic_checks": 40,
+      "semantic_failures": 0,
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\prog\\hercules_recon\\work\\linkage_dependency\\cache_key_guarded_do\\candidate.obj",
+        "D:\\prog\\hercules_recon\\candidates\\linkage_dependency\\cache_key_guarded_do.c"
+      ],
+      "runner_seconds": 1.397,
+      "reentry_condition": "New declaration/context evidence explaining cursor initialization scheduling; no repeated guarded loop spellings."
+    },
+    {
+      "family": "cached-key-cache_key_early_for",
+      "prediction": "Caching the search key separates count guard from cursor setup.",
+      "falsifier": "Guard/cursor ordering remains wrong or CFG/size regresses.",
+      "verdict": "falsified",
+      "new_discriminator": "Explicit cached key, absent from previous loop spelling families.",
+      "measured": {
+        "symbol": "_find_tag",
+        "control": false,
+        "target_size": 64,
+        "candidate_size": 64,
+        "strict_equal": false,
+        "raw_different_bytes": 51,
+        "raw_byte_percent": 20.312,
+        "normalized_different_bytes": 47,
+        "normalized_byte_percent": 26.562,
+        "instruction_percent": 84.0,
+        "original_instruction_count": 23,
+        "candidate_instruction_count": 25,
+        "ordered_cfg_equal": false,
+        "original_blocks": 6,
+        "candidate_blocks": 7,
+        "direct_call_targets_equal": true,
+        "original_direct_calls": [],
+        "candidate_direct_calls": [],
+        "original_indirect_calls": [],
+        "candidate_indirect_calls": [],
+        "relocation_count": 2,
+        "category": "structural/source-form investigation"
+      },
+      "source_function": "Actor *find_tag(int tag)\n{\n    int i, count = g_tag_list[0];\n    unsigned long *entry;\n    Actor *p;\n    int wanted;\n    if (count <= 0) goto not_found;\n    wanted = tag;\n    entry = g_tag_list;\n    for (i = 0; i < count; ) {\n        p = (Actor *)*++entry;\n        ++i;\n        if (p->tag == wanted) return p;\n    }\nnot_found:\n    return 0;\n}",
+      "source_sha256": "a965a82ea281e50eec907345ff0977613d98dc23000c1e748e712640adbc5fa9",
+      "output_id": "5c20ed3bc38e18e371b6392f7a95da4bf874c85e44fa5a46951c49b171a0a3e1",
+      "peers_unchanged": true,
+      "semantic_checks": 40,
+      "semantic_failures": 0,
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\prog\\hercules_recon\\work\\linkage_dependency\\cache_key_early_for\\candidate.obj",
+        "D:\\prog\\hercules_recon\\candidates\\linkage_dependency\\cache_key_early_for.c"
+      ],
+      "runner_seconds": 1.372,
+      "reentry_condition": "New declaration/context evidence explaining cursor initialization scheduling; no repeated guarded loop spellings."
+    }
+  ],
+  "blocker": "Original loads tag and materializes cursor after count guard; best source hoists cursor before guard.",
+  "real_dependencies": [
+    {
+      "name": "release_actor",
+      "rva": "0x27e20"
+    },
+    {
+      "name": "release_buffer",
+      "rva": "0x7cde"
+    },
+    {
+      "name": "g_scene_anchor",
+      "rva": "0x6fed8",
+      "extent": "unknown"
+    },
+    {
+      "name": "g_tag_list",
+      "rva": "0x716c0",
+      "extent": "unknown"
+    }
+  ]
+}

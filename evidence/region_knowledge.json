@@ -1,0 +1,274 @@
+{
+  "scope": "Compact negative evidence, never accepted state. Legacy contexts are advisory until remeasured.",
+  "observations": [
+    {
+      "region": "prior_refinery",
+      "family": "change_kind",
+      "symbols": [
+        "_change_kind"
+      ],
+      "context_id": null,
+      "verdict": "blocked",
+      "prediction": [
+        "indexed/base_offset/offset_base/pointer integer and short variants did not improve baseline outcome",
+        "table/index-first array/pointer/byte-offset variants yielded a worse distinct outcome"
+      ],
+      "falsifier": "No improvement in complete compiler output, or protected peer regression.",
+      "outcome": {
+        "target": "ENG1.DLL",
+        "strict_equal": false,
+        "baseline": {
+          "size": 208,
+          "raw_different_bytes": 52,
+          "normalized_different_bytes": 8,
+          "instruction_percent": 85.965,
+          "ordered_cfg_equal": true
+        },
+        "development_families": [
+          "kind",
+          "kind2",
+          "kind_tables"
+        ],
+        "replay_best": {
+          "raw_different_bytes": 52,
+          "normalized_different_bytes": 8,
+          "instruction_percent": 85.965
+        },
+        "falsified_predictions": [
+          "indexed/base_offset/offset_base/pointer integer and short variants did not improve baseline outcome",
+          "table/index-first array/pointer/byte-offset variants yielded a worse distinct outcome"
+        ]
+      },
+      "blocker": "Prior source-form families mostly collapsed to baseline or one poor alternate; raw mismatch remains 52 bytes. This is a codegen mismatch only, with no evidence of semantic failure.",
+      "reentry_condition": "Re-enter when fresh PC-level evidence distinguishes the table/index representation, element width, or store timing and a bounded source experiment has a measured hypothesis; verify semantics and exact function bytes before acceptance.",
+      "recipe": {
+        "report": "work/refinery_replay/kind/report.json",
+        "baseline_source_sha256": "8e5573535c58ed16cf5da403cdb4f833a933cb450182ab3f54ee45d09e419fb7",
+        "additional_refs": [
+          "evidence/refinery.json: development kind, kind2, kind_tables; replay kind and kind_tables"
+        ]
+      },
+      "output_ids": [
+        "4486a12ff72e14335af79cc4445da99a0c0943510fc50725d3e14c52b9beea8f",
+        "66c3454f0c68b3b72b8a72716f45bc40dd2150aa1dbf451d9d5aa838fb41bab8",
+        "4486a12ff72e14335af79cc4445da99a0c0943510fc50725d3e14c52b9beea8f",
+        "aceb1828c68d3f564a6e66de0f76f3201d9098f8e5a0bd175d30b4b74c1291ef"
+      ]
+    },
+    {
+      "region": "prior_refinery",
+      "family": "create_command",
+      "symbols": [
+        "_create_command"
+      ],
+      "context_id": null,
+      "verdict": "blocked",
+      "prediction": [
+        "flags false/true \u00d7 direct/early/late \u00d7 chained/individual writes generated only three distinct outputs",
+        "direct forms alias baseline; early and late forms differ but remain farther from target"
+      ],
+      "falsifier": "No improvement in complete compiler output, or protected peer regression.",
+      "outcome": {
+        "target": "ENG1.DLL",
+        "strict_equal": false,
+        "baseline_and_best": {
+          "size": 96,
+          "raw_different_bytes": 59,
+          "normalized_different_bytes": 55,
+          "instruction_percent": 73.333,
+          "candidate_instructions": 28,
+          "target_instructions": 30,
+          "ordered_cfg_equal": true
+        },
+        "development_variants": 12,
+        "replay_variants": 12,
+        "falsified_predictions": [
+          "flags false/true \u00d7 direct/early/late \u00d7 chained/individual writes generated only three distinct outputs",
+          "direct forms alias baseline; early and late forms differ but remain farther from target"
+        ]
+      },
+      "blocker": "Mismatch is distributed through the initializer and repeated field writes; all measured order/flag recipes retain broad byte differences. Allocator call relocation identity and CFG agree, which does not identify source semantics.",
+      "reentry_condition": "Re-enter when recovered object layout and initialization order provide a specific alternative recipe prediction; test that source hypothesis semantically, then require raw equality.",
+      "recipe": {
+        "report": "work/refinery_replay/command/report.json",
+        "baseline_source_sha256": "8e5573535c58ed16cf5da403cdb4f833a933cb450182ab3f54ee45d09e419fb7",
+        "best_source": "work/refinery_replay/command/000-baseline/candidate.c",
+        "additional_refs": [
+          "evidence/refinery.json: development command; replay command"
+        ]
+      },
+      "output_ids": [
+        "ef2cefab6d473b34a02c5fd5c5cdb77b824162fb3279b37f42ca47be1ad93c6a",
+        "3bf1571ac490a3e4e1c1bec10b5241c4b871f369c0e195be3574beefbd0bc180",
+        "17ad33b795f6fb62003060041bd0538690c10d719807564232ce4a4af1da6d47"
+      ]
+    },
+    {
+      "region": "prior_refinery",
+      "family": "find_tag",
+      "symbols": [
+        "_find_tag"
+      ],
+      "context_id": null,
+      "verdict": "blocked",
+      "prediction": [
+        "moving loop update after the body and index-based after-body loops did not improve output",
+        "guarded/positive-loop variants did not match"
+      ],
+      "falsifier": "No improvement in complete compiler output, or protected peer regression.",
+      "outcome": {
+        "target": "ENG1.DLL",
+        "strict_equal": false,
+        "baseline": {
+          "raw_different_bytes": 46,
+          "normalized_different_bytes": 42,
+          "instruction_percent": 60.87
+        },
+        "best": {
+          "recipe": "pre-for-before",
+          "raw_different_bytes": 14,
+          "normalized_different_bytes": 10,
+          "instruction_percent": 95.652,
+          "ordered_cfg_equal": true
+        },
+        "falsified_predictions": [
+          "moving loop update after the body and index-based after-body loops did not improve output",
+          "guarded/positive-loop variants did not match"
+        ]
+      },
+      "blocker": "Best recipe improves disassembly similarity while retaining one normalized mismatch span and two global-list relocations; it is still not byte-equal. Guarded variants revert to baseline-level diagnostics.",
+      "reentry_condition": "Re-enter when loop termination and global-list access details are independently supported by PC evidence; recompile the best source recipe as a candidate and test strict bytes.",
+      "recipe": {
+        "report": "work/refinery_replay/tag/report.json",
+        "best_source": "work/refinery_replay/tag/001-pre-for-before/candidate.c",
+        "best_source_sha256": "864af8d400a22f568e09e2a063f474b7cbe690a00cda2f3e0bda4a1f87f8f3f5",
+        "additional_refs": [
+          "evidence/refinery.json: development tag and tag_guarded; replay tag and tag_guarded"
+        ]
+      },
+      "output_ids": [
+        "176ecbb873100c41f35f8de40a3079ef40121a778ce15d8b60ab0b0494258d65",
+        "70df235cd842df9ae9160d8f5cb561f3457e09a7ea017aa641a926df0d58a82d",
+        "a218ba7303796acccbe2d3a2405fc3b9a92f709c3cac114a7a1be27d9352efff",
+        "ea617167d19976513b4fcccd06be7a4a4564c60418624a389046049b421476ca",
+        "1a9068b532ad12dde763c98153f044552fef4d7a09433d8fe11c3ca3a271d8af",
+        "afe368559df871b5182d0e85a805d51abecd02746b85362d2d154f9d2575d653",
+        "176ecbb873100c41f35f8de40a3079ef40121a778ce15d8b60ab0b0494258d65",
+        "cd66278bb19dfd82872eb99a607987e80639cf5446d5b831fd05ccea153a42d8",
+        "9488bdb814774ab1fd627839c6f4b6b31914a06d0b66a5cf1402efaff6b0a5cd"
+      ]
+    },
+    {
+      "region": "prior_refinery",
+      "family": "ENG3_relative",
+      "symbols": [
+        "_measure_relative_vector"
+      ],
+      "context_id": null,
+      "verdict": "blocked",
+      "prediction": [
+        "10 of 12 arithmetic width/order/temp variants emitted the same full function outcome as baseline",
+        "two integer-temp variants emitted a substantially different outcome, not a close match"
+      ],
+      "falsifier": "No improvement in complete compiler output, or protected peer regression.",
+      "outcome": {
+        "target": "ENG3.DLL",
+        "status": "CODEGEN_SIMILAR",
+        "strict_equal": false,
+        "size": 224,
+        "replay_best": {
+          "raw_different_bytes": 2,
+          "normalized_different_bytes": 2,
+          "instruction_percent": 97.333,
+          "mismatch_offsets": [
+            145,
+            151
+          ]
+        },
+        "target_known_difference": "recovery.json records ENG3 shift constants 2 and 3 exchanged at offsets 0x91 and 0x97; RTM and SP2 retain it.",
+        "falsified_predictions": [
+          "10 of 12 arithmetic width/order/temp variants emitted the same full function outcome as baseline",
+          "two integer-temp variants emitted a substantially different outcome, not a close match"
+        ]
+      },
+      "blocker": "ENG1 exact source reproduces the two-byte ENG3 constant-order discrepancy; most tested expression forms compile identically. The linker probe demonstrates function-local equality cannot establish module layout and says nothing that explains this body mismatch.",
+      "reentry_condition": "Re-enter after validating from the ENG3 bytes which axis-swap/constant mapping is intended; vary only evidence-supported source semantics, compare against both ENG1 and ENG3, and protect ENG1 exactness. Require fresh exact bytes for any FUNCTION_MATCH claim.",
+      "recipe": {
+        "report": "work/refinery_replay/relative/report.json",
+        "baseline_source_sha256": "76e1231d90e607a1440ce0f064895cde91ec7739f2a6823257c569d93d85e8a2",
+        "near_source_recipe": "src/shared/relative.c; same source that exactly matches ENG1",
+        "additional_refs": [
+          "evidence/refinery.json: development/replay relative",
+          "recovery.json: eng1.measure_relative_vector and eng3.measure_relative_vector"
+        ]
+      },
+      "output_ids": [
+        "11fc2d4c48d66a90baa40c00d986652757844830a2e4d4619de0678d2932f3d7",
+        "044cacc45d54724ac08fb38c9f5303bde799571dbca4514955f32cf7abd30845",
+        "75d44ad794f87d7fa802f7634719f2af76bec2d11130b00f4f5b5d555120264b"
+      ]
+    },
+    {
+      "region": "release_actor",
+      "family": "sidecar-cleanup-branch-reconstruction",
+      "context_id": "6545c417e04e49dd9385d5dc1b85b83a83ce2fa17b5cd18434f5f50960d97304",
+      "prediction": "Observed branch/call topology and full contribution shape.",
+      "falsifier": "Mismatched branch topology or complete bytes.",
+      "verdict": "blocked",
+      "blocker": "Flag/control-flow and type interpretation is provisional; function size/CFG do not match.",
+      "reentry_condition": "New PC evidence or discriminator for cleanup branches/field meanings.",
+      "output_id": "b86965c41b4e3ca26b0a635b11a46c59f29ba4df180c956cea78f1b03c08ef21"
+    }
+  ],
+  "outcome_audit": {
+    "fingerprint": "SHA-256 of full selected function section raw bytes followed by ordered relocation tuples (offset,type,symbol); timestamps and paths excluded. Group identity separately includes symbol, target SHA-256, toolchain, and compile flags.",
+    "source_attempts": 68,
+    "available_metrics_and_objects": 60,
+    "distinct_function_outcomes": 19,
+    "duplicate_attempts_within_available_set": 41,
+    "unavailable_attempts": 8,
+    "unavailable_artifacts": [
+      {
+        "label": "indexed-unsigned int",
+        "artifact": "work/refinery_replay/kind/002-indexed-unsigned int/metrics.json"
+      },
+      {
+        "label": "indexed-unsigned short",
+        "artifact": "work/refinery_replay/kind/003-indexed-unsigned short/metrics.json"
+      },
+      {
+        "label": "base_offset-unsigned int",
+        "artifact": "work/refinery_replay/kind/006-base_offset-unsigned int/metrics.json"
+      },
+      {
+        "label": "base_offset-unsigned short",
+        "artifact": "work/refinery_replay/kind/007-base_offset-unsigned short/metrics.json"
+      },
+      {
+        "label": "offset_base-unsigned int",
+        "artifact": "work/refinery_replay/kind/010-offset_base-unsigned int/metrics.json"
+      },
+      {
+        "label": "offset_base-unsigned short",
+        "artifact": "work/refinery_replay/kind/011-offset_base-unsigned short/metrics.json"
+      },
+      {
+        "label": "pointer-unsigned int",
+        "artifact": "work/refinery_replay/kind/014-pointer-unsigned int/metrics.json"
+      },
+      {
+        "label": "pointer-unsigned short",
+        "artifact": "work/refinery_replay/kind/015-pointer-unsigned short/metrics.json"
+      }
+    ]
+  },
+  "audit_worker": {
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "high",
+    "exception_reason": "Dispatched before two-configuration refinement.",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 0
+  }
+}

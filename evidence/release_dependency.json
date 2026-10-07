@@ -1,0 +1,153 @@
+{
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "flags": [
+    "/O2"
+  ],
+  "functions": [
+    {
+      "symbol": "_release_actor",
+      "rva": "0x27e20",
+      "size": 304,
+      "control": false,
+      "target_sha256": "f1204ab183d95adb935f5d9a243b84fa4a22ea410c7debc5657a58e9792202e5"
+    }
+  ],
+  "symbol_rvas": {
+    "_release_actor": "0x27e20",
+    "_detach_child": "0x29530",
+    "_detach_buffer": "0x29570",
+    "_detach_attachment": "0x294f0",
+    "_clear_actor": "0x55b0",
+    "_remove_actor": "0x27260",
+    "_g_kind_info": "0x6fee8",
+    "_g_special_kind": "0x70cfe"
+  },
+  "scope": "Unaccepted dependency probe; ownership, field meanings and return ABI provisional.",
+  "region": {
+    "id": "release_actor",
+    "ownership": "function_task",
+    "rationale": "Actual release dependency of the earlier natural-link interval."
+  },
+  "source": "calibration/release_actor.c",
+  "source_sha256": "8517b148996116b0ff5ffb5e3e0e217d3068902ff87a111250cece93c9c4bc70",
+  "compiled_input_sha256": "62be0e2006d6081baf968b57927d0798f6f1b09ae70f576878a67b0a4bb41026",
+  "source_hash_convention": "Preserved source UTF-8/LF; actual compiler input hash kept separately.",
+  "requested_model": "gpt-6-luna",
+  "requested_effort": "xhigh",
+  "actual_model_identity": null,
+  "tokens": null,
+  "cost_usd": null,
+  "hypothesis": "Ordinary conditional cleanup with kind-indexed owner sidecar and observed detach call order.",
+  "prediction": "Observed branch/call topology and full contribution shape.",
+  "falsifier": "Mismatched branch topology or complete bytes.",
+  "verdict": "not matched; no additional syntax family justified",
+  "measurement": {
+    "symbol": "_release_actor",
+    "control": false,
+    "target_size": 304,
+    "candidate_size": 288,
+    "strict_equal": false,
+    "raw_different_bytes": 192,
+    "raw_byte_percent": 36.842,
+    "normalized_different_bytes": 181,
+    "normalized_byte_percent": 40.461,
+    "instruction_percent": 83.673,
+    "original_instruction_count": 98,
+    "candidate_instruction_count": 96,
+    "ordered_cfg_equal": false,
+    "original_blocks": 17,
+    "candidate_blocks": 15,
+    "direct_call_targets_equal": true,
+    "original_direct_calls": [
+      "0x100055b0",
+      "0x10029530",
+      "0x10029570",
+      "0x100294f0",
+      "0x100055b0",
+      "0x10029530",
+      "0x10029570",
+      "0x100294f0",
+      "0x100055b0",
+      "0x10027260"
+    ],
+    "candidate_direct_calls": [
+      "0x100055b0",
+      "0x10029530",
+      "0x10029570",
+      "0x100294f0",
+      "0x100055b0",
+      "0x10029530",
+      "0x10029570",
+      "0x100294f0",
+      "0x100055b0",
+      "0x10027260"
+    ],
+    "original_indirect_calls": [],
+    "candidate_indirect_calls": [],
+    "relocation_count": 13,
+    "category": "structural/source-form investigation"
+  },
+  "object_sha256": "7b0472714b2c1237021d1b16b8c95d579d048aeb034c78a6077c6e4fadf87085",
+  "output_id": "e1db9a6e519a2e33364c1adb5610c78deff08bf45b7487e1fcd64323c713f352",
+  "discovery_builds": {
+    "objects": 1,
+    "semantic_executables": 1
+  },
+  "semantics": {
+    "checks": 12,
+    "failures": 0,
+    "scope": "Small synthetic branch probe; not general equivalence."
+  },
+  "provenance": {
+    "toolchain": "msvc5_rtm",
+    "compiler_manifest": "toolchains/manifest.json",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\work\\linkage_dependency\\release_actor_hypothesis.obj",
+      "D:\\prog\\hercules_recon\\candidates\\linkage_dependency\\release_actor_hypothesis.c"
+    ],
+    "semantic_command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/O2",
+      "/Gy",
+      "/ML",
+      "/FoD:\\prog\\hercules_recon\\work\\linkage_dependency\\release_actor_semantics.obj",
+      "/FeD:\\prog\\hercules_recon\\work\\linkage_dependency\\release_actor_semantics.exe",
+      "D:\\prog\\hercules_recon\\work\\linkage_dependency\\release_actor_semantics.c",
+      "/link",
+      "/INCREMENTAL:NO"
+    ]
+  },
+  "release_buffer": {
+    "rva": "0x7cde",
+    "size": 137,
+    "classification": "Provisional resource-manager code; no standard-library provenance identified.",
+    "resource_table_rva": "0x72210",
+    "observed_entries": 24,
+    "entry_stride": 64,
+    "called_helpers": [
+      "0x2c650",
+      "0x2cb70",
+      "0x2c660"
+    ],
+    "helper_indirect_cells": [
+      "0x71098",
+      "0x710a0",
+      "0x712a4"
+    ],
+    "cell_storage": "Zero-filled virtual .data beyond raw file contents.",
+    "blocker": "Initializer/owning module and calling ABI of indirect cells not identified. Do not substitute CRT/Win32 free."
+  },
+  "next_discriminator": "Trace actual writes/initialization of indirect cells and reconcile cleanup field/flag meanings; no call-target alignment alone proves semantics.",
+  "replay": "python scripts/macro_compare.py --source calibration/release_actor.c --spec evidence/release_dependency.json --output work/release_actor_replay/metrics.json",
+  "integrator_replay_builds": {
+    "objects": 1,
+    "semantic_executables": 1
+  }
+}
