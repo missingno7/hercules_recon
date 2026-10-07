@@ -94,6 +94,11 @@ interfaces/data conventions; PSX revision findings are documented separately.
 They do not change the PC matching oracle or establish cross-platform function
 identity by themselves.
 
+Further instruction-level work identified identical complete object-command,
+unlink and motion contributions across PC DLLs, plus the same decimal-display
+operation in both PSX TITLE revisions. See `docs/shared_code.md` and
+`evidence/shared_functions.json` for function-level locations and proof limits.
+
 ## Pilot and evidence queries
 
 TITLE is the smallest game code section and offers clean non-library functions

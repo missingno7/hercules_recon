@@ -72,6 +72,12 @@ loop. Their full contributions total 240 bytes, including compiler-generated
 NOP padding that also occurs in the oracle. `/G6` changes 17 bytes of the
 64-byte `make_colour` contribution; the other three remain exact.
 
+The later shared-engine milestone adds exact three-axis motion and fixed-point
+vector arithmetic under the same pinned RTM `/O2 /Gy` configuration. ENG3's
+vector variant remains two shift-immediate bytes away under both RTM and SP2;
+see `docs/shared_code.md`. This expands the tested code shapes without proving
+the original compiler patch level or complete translation-unit context.
+
 The two diagnostic functions in `calibration/title_control.c` cover an 18-step
 loop with two calls per iteration (RVA `0x4a10`, 48-byte contribution) and a
 switch with eight calls (RVA `0x6430`, 80-byte contribution). Every external

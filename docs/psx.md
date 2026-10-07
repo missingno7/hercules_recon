@@ -31,9 +31,10 @@ The supplied installed, `WIN_X64`, and `NOCD` copies all hash to
 `b3ab3ee9e5c973bb245d8eed795e8e7065d7dfc371e412e602b2059af894a551`.
 Both are 275,968 bytes. At file offset `0x94b0`, VA `0x0040a0b0`, the archive
 contains `0x53` (`push ebx`) and the other copies contain `0xc3` (`ret`). This is
-direct evidence of an entry-point patch to one function. The directory name
-suggests a CD-check bypass; that semantic purpose still requires examination of
-the complete function. Use the archive version as the historical EXE baseline,
+direct evidence of an entry-point patch to one function. On 2026-10-07 the project
+owner confirmed that this is the no-CD patch used to run on modern systems.
+That purpose is owner-supplied provenance, not a new compatibility test; see
+`evidence/pc_variants.json`. Use the archive version as the historical EXE baseline,
 while retaining both hashes and the provenance qualification that the enclosing
 disc is a repack.
 

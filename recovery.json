@@ -151,7 +151,263 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "Larger integer arithmetic and control-flow hypothesis; /O2 emits240 bytes vs224. Register allocation and arithmetic scheduling differ. No exact claim."
+      "evidence": "Signed decimal decomposition and sprite updates corroborated by both PSX TITLE revisions; see evidence/shared_functions.json. The current /O2 source emits 240 bytes versus 224; source-expression and scheduling differences remain unresolved."
+    },
+    {
+      "id": "title.clear_command_high_bit",
+      "status": "FUNCTION_MATCH",
+      "name_status": "provisional semantic/offset label",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x9770",
+      "size": 64,
+      "body_size": 56,
+      "source": "src/shared/object_commands.c",
+      "symbol": "_clear_command_high_bit",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Flag-guarded pointer dereference and conditional bit clearing. Complete identical body across all three DLLs; reviewed direct-call entries.",
+      "boundary": "Direct-call entry and closed decoded control flow; complete body plus natural NOP padding to the next aligned entry.",
+      "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "e92d4b8ebc642b566c93731208c059d94a049c6e1db8b4c0d3618876a376e4f2",
+        "compiled_sha256": "d2561bb4849aa0b6b01d4c7479f22f485a693a75f0bf975ba7f9f7f0d3380050",
+        "target_sha256": "d2561bb4849aa0b6b01d4c7479f22f485a693a75f0bf975ba7f9f7f0d3380050",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "eng1.clear_command_high_bit",
+      "status": "FUNCTION_MATCH",
+      "name_status": "provisional semantic/offset label",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x283a0",
+      "size": 64,
+      "body_size": 56,
+      "source": "src/shared/object_commands.c",
+      "symbol": "_clear_command_high_bit",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Flag-guarded pointer dereference and conditional bit clearing. Complete identical body across all three DLLs; reviewed direct-call entries.",
+      "boundary": "Direct-call entry and closed decoded control flow; complete body plus natural NOP padding to the next aligned entry.",
+      "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "e92d4b8ebc642b566c93731208c059d94a049c6e1db8b4c0d3618876a376e4f2",
+        "compiled_sha256": "d2561bb4849aa0b6b01d4c7479f22f485a693a75f0bf975ba7f9f7f0d3380050",
+        "target_sha256": "d2561bb4849aa0b6b01d4c7479f22f485a693a75f0bf975ba7f9f7f0d3380050",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "eng3.clear_command_high_bit",
+      "status": "FUNCTION_MATCH",
+      "name_status": "provisional semantic/offset label",
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x1db80",
+      "size": 64,
+      "body_size": 56,
+      "source": "src/shared/object_commands.c",
+      "symbol": "_clear_command_high_bit",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Flag-guarded pointer dereference and conditional bit clearing. Complete identical body across all three DLLs; reviewed direct-call entries.",
+      "boundary": "Direct-call entry and closed decoded control flow; complete body plus natural NOP padding to the next aligned entry.",
+      "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "e92d4b8ebc642b566c93731208c059d94a049c6e1db8b4c0d3618876a376e4f2",
+        "compiled_sha256": "d2561bb4849aa0b6b01d4c7479f22f485a693a75f0bf975ba7f9f7f0d3380050",
+        "target_sha256": "d2561bb4849aa0b6b01d4c7479f22f485a693a75f0bf975ba7f9f7f0d3380050",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "eng1.advance_object_motion",
+      "status": "FUNCTION_MATCH",
+      "name_status": "provisional semantic/offset label",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x2b4c0",
+      "size": 288,
+      "body_size": 280,
+      "source": "src/shared/motion.c",
+      "symbol": "_advance_object_motion",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Three-axis acceleration/deceleration, ordered lower/upper clamps, and signed position updates. Complete byte-identical contributions in both gameplay DLLs.",
+      "boundary": "Direct-call entry and closed decoded control flow; complete body plus natural NOP padding to the next aligned entry.",
+      "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "3c79eb91890aed9038da16929c3cd27fe1d8ec26d964955d874dae06cf42dc42",
+        "compiled_sha256": "8befa93bda0b4a11abf7c51b0e8d3fd54e6965db510766e826cc3585b1f16bca",
+        "target_sha256": "8befa93bda0b4a11abf7c51b0e8d3fd54e6965db510766e826cc3585b1f16bca",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "eng3.advance_object_motion",
+      "status": "FUNCTION_MATCH",
+      "name_status": "provisional semantic/offset label",
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x1f690",
+      "size": 288,
+      "body_size": 280,
+      "source": "src/shared/motion.c",
+      "symbol": "_advance_object_motion",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Three-axis acceleration/deceleration, ordered lower/upper clamps, and signed position updates. Complete byte-identical contributions in both gameplay DLLs.",
+      "boundary": "Direct-call entry and closed decoded control flow; complete body plus natural NOP padding to the next aligned entry.",
+      "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "3c79eb91890aed9038da16929c3cd27fe1d8ec26d964955d874dae06cf42dc42",
+        "compiled_sha256": "8befa93bda0b4a11abf7c51b0e8d3fd54e6965db510766e826cc3585b1f16bca",
+        "target_sha256": "8befa93bda0b4a11abf7c51b0e8d3fd54e6965db510766e826cc3585b1f16bca",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "eng1.measure_relative_vector",
+      "status": "FUNCTION_MATCH",
+      "name_status": "provisional semantic/offset label",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x2ab30",
+      "size": 224,
+      "body_size": 209,
+      "source": "src/shared/relative.c",
+      "symbol": "_measure_relative_vector",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Fixed-point deltas, two-complement short absolute values, axis swaps, direction code and approximate distances. See evidence/shared_functions.json.",
+      "boundary": "Direct-call entry and closed decoded control flow; complete body plus natural NOP padding to the next aligned entry.",
+      "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "6e7b39199534eff1404f2e9cd23fe5912fde7980a9d1bbf835b1712a151788fa",
+        "compiled_sha256": "ab702c9965e6fb87633cc4e6b5571b46ec17a133942ae09fe3d1139eaa47fc48",
+        "target_sha256": "ab702c9965e6fb87633cc4e6b5571b46ec17a133942ae09fe3d1139eaa47fc48",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "eng1.unlink_12c",
+      "status": "FUNCTION_MATCH",
+      "name_status": "provisional semantic/offset label",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x294b0",
+      "size": 64,
+      "body_size": 49,
+      "source": "src/title/pilot.c",
+      "symbol": "_unlink_12c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Identical complete function contribution and pointer offsets to TITLE; reuse measured pilot translation-unit context.",
+      "boundary": "Direct-call entry and closed decoded control flow; complete body plus natural NOP padding to the next aligned entry.",
+      "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "b52f52a2e17d2fc7bb26951a4b6212182804ed248705a66dfae8ba0706465372",
+        "compiled_sha256": "fe68ebb357b48fd8f7e835f3ac9b15ee87b19d92c744a0ed718ef8545fa4fd95",
+        "target_sha256": "fe68ebb357b48fd8f7e835f3ac9b15ee87b19d92c744a0ed718ef8545fa4fd95",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "eng1.unlink_0e4",
+      "status": "FUNCTION_MATCH",
+      "name_status": "provisional semantic/offset label",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x29620",
+      "size": 80,
+      "body_size": 74,
+      "source": "src/title/pilot.c",
+      "symbol": "_unlink_0e4",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Identical complete function contribution and pointer offsets to TITLE; reuse measured pilot translation-unit context.",
+      "boundary": "Direct-call entry and closed decoded control flow; complete body plus natural NOP padding to the next aligned entry.",
+      "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "b52f52a2e17d2fc7bb26951a4b6212182804ed248705a66dfae8ba0706465372",
+        "compiled_sha256": "1fda9bbdff578bced2106f579ffc9d474dff091fae74c33d3233a30ba3f9ad75",
+        "target_sha256": "1fda9bbdff578bced2106f579ffc9d474dff091fae74c33d3233a30ba3f9ad75",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "eng3.unlink_12c",
+      "status": "FUNCTION_MATCH",
+      "name_status": "provisional semantic/offset label",
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x1e350",
+      "size": 64,
+      "body_size": 49,
+      "source": "src/title/pilot.c",
+      "symbol": "_unlink_12c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Identical complete function contribution and pointer offsets to TITLE; reuse measured pilot translation-unit context.",
+      "boundary": "Direct-call entry and closed decoded control flow; complete body plus natural NOP padding to the next aligned entry.",
+      "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "b52f52a2e17d2fc7bb26951a4b6212182804ed248705a66dfae8ba0706465372",
+        "compiled_sha256": "fe68ebb357b48fd8f7e835f3ac9b15ee87b19d92c744a0ed718ef8545fa4fd95",
+        "target_sha256": "fe68ebb357b48fd8f7e835f3ac9b15ee87b19d92c744a0ed718ef8545fa4fd95",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "eng3.unlink_0e4",
+      "status": "FUNCTION_MATCH",
+      "name_status": "provisional semantic/offset label",
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x1e4c0",
+      "size": 80,
+      "body_size": 74,
+      "source": "src/title/pilot.c",
+      "symbol": "_unlink_0e4",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Identical complete function contribution and pointer offsets to TITLE; reuse measured pilot translation-unit context.",
+      "boundary": "Direct-call entry and closed decoded control flow; complete body plus natural NOP padding to the next aligned entry.",
+      "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "b52f52a2e17d2fc7bb26951a4b6212182804ed248705a66dfae8ba0706465372",
+        "compiled_sha256": "1fda9bbdff578bced2106f579ffc9d474dff091fae74c33d3233a30ba3f9ad75",
+        "target_sha256": "1fda9bbdff578bced2106f579ffc9d474dff091fae74c33d3233a30ba3f9ad75",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "eng3.measure_relative_vector",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional semantic label",
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x1f280",
+      "size": 224,
+      "body_size": 209,
+      "source": "src/shared/relative.c",
+      "symbol": "_measure_relative_vector",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Same source matches ENG1; ENG3 differs at offsets 0x91 and 0x97: shift constants 2 and 3 exchange positions. RTM and SP2 both retain the discrepancy. Exact gate must reject."
     }
   ]
 }

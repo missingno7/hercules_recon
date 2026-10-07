@@ -7,7 +7,7 @@ PlayStation versions are secondary evidence; no port or modernization is in scop
 ## Current findings
 
 - The supplied CD image is a later repack. Its InstallShield `DATA/DATA32.Z`
-  preserves a baseline EXE; the installed EXE has a one-byte modification.
+  preserves a baseline EXE; the installed EXE has an owner-confirmed one-byte no-CD patch.
   All three installed engine DLLs equal their installer counterparts.
 - The PC EXE owns the Windows/DirectX shell; engine DLLs receive a callback table.
   PSX discs have corresponding ENGINE1, ENGINE3 and TITLE overlays.
@@ -39,6 +39,8 @@ Install pinned dependencies with `scripts/setup_analysis.ps1` and compiler trees
 with `scripts/setup_toolchain.ps1`. See [toolchain evidence](docs/toolchain.md),
 [disc extraction and PSX comparison](docs/psx.md), [binary inventory](docs/inventory.md),
 [architecture/source map](docs/architecture.md), and [matching policy](docs/matching.md).
+The [shared-engine continuation](docs/shared_code.md) records exact motion and
+vector routines, measured reuse across DLLs, and the remaining ENG3 variant.
 Extraction must precede indexing the baseline EXE. Compiler invocation on this
 host requires running outside the Codex sandbox because Windows rejects its old
 DLL layout inside the sandbox; compiler binaries are unchanged.

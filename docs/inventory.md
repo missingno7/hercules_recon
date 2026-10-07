@@ -29,7 +29,9 @@ The authoritative EXE for matching is extracted from `DATA/DATA32.Z` into
 It differs from the supplied installed EXE at exactly file offset `0x94b0`
 (VA `0x0040a0b0`): baseline byte `53` (`push ebx`) becomes `c3` (`ret`). The
 installed EXE equals the disc's `NOCD` and `WIN_X64` copies. This establishes a
-modification; an independently authenticated original retail disc remains useful
+modification. The project owner confirmed on 2026-10-07 that it is the no-CD patch
+used to run on modern systems (`evidence/pc_variants.json`). The installed copy
+remains useful runtime evidence. An independently authenticated retail disc remains useful
 for further provenance. No binary was patched to establish the target.
 
 All three installer DLLs are identical to the installed DLLs. Their immutable

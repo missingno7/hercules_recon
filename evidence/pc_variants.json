@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "baseline": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "role": "historical matching baseline extracted without modification from DATA/DATA32.Z"
+  },
+  "installed": {
+    "path": "assets/pc/HERCULES/HERCULES.EXE",
+    "sha256": "b3ab3ee9e5c973bb245d8eed795e8e7065d7dfc371e412e602b2059af894a551",
+    "role": "no-CD variant retained as immutable runtime/provenance evidence",
+    "purpose": "User confirms the change disables the CD requirement to allow running on modern systems.",
+    "purpose_provenance": "Project owner clarification in chat on 2026-10-07; not a new runtime compatibility test."
+  },
+  "differences": [
+    {
+      "file_offset": "0x94b0",
+      "rva": "0xa0b0",
+      "baseline_byte": "53",
+      "installed_byte": "c3",
+      "effect": "Replace the function's opening push ebx with ret."
+    }
+  ]
+}

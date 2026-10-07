@@ -5,6 +5,9 @@ hashes, RVAs, extents, provisional names, source locations, compiler flags and
 accepted proof hashes. Generated logs and objects are disposable. No whole
 module is reconstructed yet.
 
+The subsequent [shared-engine milestone](shared_code.md) extends the initial
+pilot below. Current source/module acceptance is always read from `recovery.json`.
+
 ## Initial measured pilot
 
 | ID | Shape | Compared bytes | Initial result |
@@ -48,6 +51,7 @@ python scripts/match.py candidate title.unlink_12c --source candidates/my/pilot.
 python scripts/match.py verify --report build/verification.json
 python scripts/calibrate_control.py
 python scripts/test_pilot.py
+python scripts/shared_evidence.py
 python -m unittest discover -s tests -p 'test_*.py'
 ```
 

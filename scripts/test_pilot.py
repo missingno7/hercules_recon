@@ -10,13 +10,19 @@ from env import ROOT
 from match import DEFAULT_TOOLCHAIN, digest, verify_toolchain
 
 
-def run(toolchain):
+SUITES = {
+    "pilot": ["src/title/pilot.c"],
+    "shared": ["src/shared/object_commands.c", "src/shared/motion.c", "src/shared/relative.c"],
+}
+
+
+def run(toolchain, suite="pilot"):
     identity = verify_toolchain(toolchain)
     parent = ROOT / "build/tests"
     parent.mkdir(parents=True, exist_ok=True)
-    output = Path(tempfile.mkdtemp(prefix="pilot-", dir=parent))
-    source = ROOT / "tests/pilot_semantics.c"
-    executable = output / "pilot_semantics.exe"
+    output = Path(tempfile.mkdtemp(prefix=suite+"-", dir=parent))
+    source = ROOT / f"tests/{suite}_semantics.c"
+    executable = output / "semantics.exe"
     environment = os.environ.copy()
     for key in ("CL", "_CL_", "LINK", "_LINK_"):
         environment.pop(key, None)
@@ -24,7 +30,7 @@ def run(toolchain):
     environment["INCLUDE"] = str(toolchain / "include")
     environment["LIB"] = str(toolchain / "lib")
     command = [str(toolchain / "bin/cl.exe"), "/nologo", "/O2", "/Gy", "/ML",
-               "/Fo" + str(output / "pilot_semantics.obj"),
+               "/Fo" + str(output / "semantics.obj"),
                "/Fe" + str(executable), str(source), "/link", "/INCREMENTAL:NO"]
     compiled = subprocess.run(command, cwd=output, env=environment, capture_output=True,
                               text=True, timeout=60)
@@ -37,12 +43,12 @@ def run(toolchain):
     report = {"toolchain": identity, "command": command, "exit_code": result.returncode,
               "stdout": result.stdout.strip(), "stderr": result.stderr.strip(),
               "harness_sha256": digest(source.read_bytes()),
-              "source_sha256": digest((ROOT / "src/title/pilot.c").read_bytes()),
+              "source_sha256": {s: digest((ROOT / s).read_bytes()) for s in SUITES[suite]},
               "executable_sha256": digest(executable.read_bytes()),
               "output_directory": str(output.relative_to(ROOT)),
               "scope": "semantic tests of reconstructed C source; no original executable or DLL is loaded or run"}
     (output / "report.json").write_text(json.dumps(report, indent=2) + "\n")
-    print(json.dumps(report, indent=2))
+    print(f"{suite}: {report['stdout']}; report: {output.relative_to(ROOT) / 'report.json'}")
     if result.returncode:
         raise SystemExit(result.returncode)
     return report
@@ -51,4 +57,7 @@ def run(toolchain):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--toolchain", type=Path, default=DEFAULT_TOOLCHAIN)
-    run(parser.parse_args().toolchain)
+    parser.add_argument("--suite", choices=["all", *SUITES], default="all")
+    args = parser.parse_args()
+    for suite in SUITES if args.suite == "all" else [args.suite]:
+        run(args.toolchain, suite)
