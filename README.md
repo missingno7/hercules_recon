@@ -39,8 +39,8 @@ Install pinned dependencies with `scripts/setup_analysis.ps1` and compiler trees
 with `scripts/setup_toolchain.ps1`. See [toolchain evidence](docs/toolchain.md),
 [disc extraction and PSX comparison](docs/psx.md), [binary inventory](docs/inventory.md),
 [architecture/source map](docs/architecture.md), and [matching policy](docs/matching.md).
-The [shared-engine continuation](docs/shared_code.md) records exact motion,
-vector, counted-list and bounds routines, measured reuse across DLLs, and the
+The [shared-engine continuation](docs/shared_code.md) records exact target and
+frame motion, vector, counted-list and bounds routines, measured reuse across DLLs, and the
 remaining ENG3 vector variant.
 Extraction must precede indexing the baseline EXE. Compiler invocation on this
 host requires running outside the Codex sandbox because Windows rejects its old

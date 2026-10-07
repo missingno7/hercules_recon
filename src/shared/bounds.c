@@ -10,3 +10,9 @@ int bounds_overlap(Bounds3D *a, Bounds3D *b)
              (a->max_z < b->min_z) | (b->max_z < a->min_z) |
              (a->max_x < b->min_x) | (b->max_x < a->min_x));
 }
+
+int planar_bounds_overlap(Bounds3D *a, Bounds3D *b)
+{
+    return !((a->max_y < b->min_y) | (b->max_y < a->min_y) |
+             (a->max_x < b->min_x) | (b->max_x < a->min_x));
+}

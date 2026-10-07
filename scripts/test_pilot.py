@@ -14,6 +14,8 @@ SUITES = {
     "pilot": ["src/title/pilot.c"],
     "shared": ["src/shared/object_commands.c", "src/shared/motion.c", "src/shared/relative.c",
                "src/shared/counted_list.c", "src/shared/bounds.c"],
+    "engine": ["src/shared/motion.c", "src/shared/relative.c", "src/shared/frame_motion.c",
+               "src/shared/bounds.c"],
 }
 
 
