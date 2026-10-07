@@ -1,0 +1,77 @@
+{
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "actor_pools",
+    "ownership": "inferred_region",
+    "rationale": "Two leaf pool allocators and the three nested actor initialization levels form a verified allocation/data-frame dependency. Original TU and source declarations remain unproved."
+  },
+  "source": "calibration/actor_pools.c",
+  "functions": [
+    {
+      "symbol": "_allocate_normal_actor",
+      "rva": "0x26f70",
+      "size": 336,
+      "body_size": 332,
+      "target_sha256": "0e30c8e93d6e67f7a47ee7ca6ffe634db3e9bb17016d23397befa42df98faec6",
+      "control": false,
+      "boundary_evidence": "Reachable RET paths at 0x26fd3, 0x2701e, 0x27073, 0x270b6 and 0x270bb; four trailing NOPs at 0x270bc..0x270bf. Two direct callers at 0x270cc and 0x271d7; no callees."
+    },
+    {
+      "symbol": "_allocate_alternate_actor",
+      "rva": "0x27b00",
+      "size": 320,
+      "body_size": 308,
+      "target_sha256": "3312ae39137e728e11c77e9fe2995db11e2c5ab26cf8df3efe959dea6dadc8dd",
+      "control": false,
+      "boundary_evidence": "Reachable RET paths at 0x27b5d, 0x27ba2, 0x27bf1, 0x27c2e and 0x27c33; twelve trailing NOPs at 0x27c34..0x27c3f. Two direct callers at 0x27c4c and 0x27db7; no callees."
+    },
+    {
+      "symbol": "_initialize_alternate_actor",
+      "rva": "0x27fe0",
+      "size": 272,
+      "body_size": 264,
+      "target_sha256": "8b8c2737815548fbaf4b771cb5ee28774740b408216aa4ebf52122c1efd9fad1",
+      "control": false,
+      "boundary_evidence": "Reachable RET at 0x280e7; eight trailing NOPs at 0x280e8..0x280ef. Six direct callers including middle initializer at 0x27a56."
+    },
+    {
+      "symbol": "_initialize_middle_actor",
+      "rva": "0x27a50",
+      "size": 176,
+      "body_size": 176,
+      "target_sha256": "87d5aea0c646659a527183b97a8bab365620bb2cc44803362c243133fe70763f",
+      "control": false,
+      "boundary_evidence": "Reachable RET at final byte 0x27aff; thirteen direct callers including normal initializer at 0x27526."
+    },
+    {
+      "symbol": "_initialize_normal_actor",
+      "rva": "0x27520",
+      "size": 176,
+      "body_size": 168,
+      "target_sha256": "9f720340cddaa513ee2c1ec16159fa6fec34bbb9c09754d5a48b69e6e738a766",
+      "control": false,
+      "boundary_evidence": "Reachable RET at 0x275c7; eight trailing NOPs at 0x275c8..0x275cf. Eight direct callers."
+    }
+  ],
+  "symbol_rvas": {
+    "_g_normal_actor_pool": "0x72860",
+    "_g_alternate_actor_pool": "0x734e0",
+    "_g_normal_cursor_primary": "0x71308",
+    "_g_normal_limit_primary": "0x713b4",
+    "_g_normal_limit_wrap": "0x713a8",
+    "_g_normal_cursor_alternate": "0x713c4",
+    "_g_normal_limit_wrap_start": "0x71378",
+    "_g_alternate_cursor_primary": "0x71374",
+    "_g_alternate_limit_primary": "0x713ba",
+    "_g_alternate_limit_wrap": "0x713b6",
+    "_g_alternate_cursor_alternate": "0x71430",
+    "_g_alternate_limit_wrap_start": "0x7138c",
+    "_initialize_alternate_actor": "0x27fe0",
+    "_initialize_middle_actor": "0x27a50",
+    "_initialize_normal_actor": "0x27520"
+  }
+}

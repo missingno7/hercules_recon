@@ -1,0 +1,151 @@
+{
+  "scope": "Read-only host pool control diagnosis and copy-helper classification. No compiler builds or source/canonical/Git changes.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "baseline": {
+    "source": "calibration/host_pool.c",
+    "sha256": "f6fd8c738743c4fef8ae06e9f99b8417a42966e4af391a3a9ccd8bdead3c029c",
+    "packet_region": "host_pool_core",
+    "context_id": "cc02fcf1efe21bef6ee2ccc3d9c3c8dfd4c49bd2d538080b19abf02a483bdfc4",
+    "report": "work/host_pool_integrated_metrics.json",
+    "report_sha256": "3d28317dfbe83cf8d85141117941add7637f805c76d0737577184f89d5dcc711"
+  },
+  "shared_discriminator": {
+    "name": "Explicit equality of the full free-mask value",
+    "target_sites": [
+      {
+        "routine": "allocate",
+        "and_rva": "0x45e5",
+        "compare_rva": "0x45eb",
+        "branch_rva": "0x45f1",
+        "register": "EBX"
+      },
+      {
+        "routine": "coalesce current header",
+        "and_rva": "0x484c",
+        "compare_rva": "0x4851",
+        "branch_rva": "0x4856",
+        "register": "EAX"
+      },
+      {
+        "routine": "coalesce successor header",
+        "and_rva": "0x4864",
+        "compare_rva": "0x486a",
+        "branch_rva": "0x4870",
+        "register": "EDI"
+      }
+    ],
+    "target_form": "Copy descriptor to a scratch register, AND with 0x80000000, compare result with 0x80000000, then JNE for non-free.",
+    "candidate_form": "if (descriptor & POOL_FREE) and if (next_descriptor & POOL_FREE), compiling to TEST and JE.",
+    "semantics": "The predicates are identical for every unsigned 32-bit descriptor. This is a source-expression discriminator supported by three separate target sites, not a changed game predicate.",
+    "contrast_in_same_body": "Allocation flags 0x10 and 0x20 use TEST AL,imm truth predicates at 0x459c/0x45ad; the target distinguishes those from the descriptor free predicate."
+  },
+  "cfg_explanation": {
+    "coalesce": "Target 9 blocks versus candidate 7 does not imply two missing semantic cases. Explicit AND/CMP needs EDI for successor masked value; target pushes EDI only after the initial cursor<end guard and pops it only after the loop. The initial push block and conditional restore block account for the extra structural blocks.",
+    "loop": "Both bodies already merge without advancing and otherwise advance to the next header, using the same final cursor<end condition. Do not add a new loop case or replay the rejected masked coalesce stride.",
+    "allocation": "Target keeps a masked descriptor value for scan advancement at 0x4600 and uses a positive selected-block success body followed by failure epilogue. Candidate uses an early failure guard and the unmasked descriptor scaled by four. These are additional literal/control distinctions; the mask-equality family alone does not promise exact allocation CFG or full byte equality.",
+    "free": "Target scans end-cell addresses until VA0xba29e0, with a found-body branch and direct out-of-pool return. Candidate bounds its pool-id counter to four, breaks, then checks pool-id again. Both encode the same observed range behavior; do not add casts or pointer placement to force its branch opcode.",
+    "initialize": "Target computes/shifts its byte count after the diagnostic call; current source initializes a separate words local before that call, allowing earlier calculation. This is a subsequent parameter-lifetime question, outside the shared predicate experiment."
+  },
+  "luna_family": {
+    "family": "full-free-mask-equality",
+    "prediction": "Replacing only the three free truth predicates with ((value & POOL_FREE) == POOL_FREE) emits the target AND/CMP form. In coalesce this should create the target EDI scratch lifetime and its conditional save/restore, moving the 80-byte/7-block candidate toward the 96-byte/9-block target.",
+    "falsifier": "Fresh VC5 compilation still emits TEST, adds a new semantic case, changes any descriptor mutation or merge/advance behavior, or changes frozen save_arena bytes/ordered relocations or accepted diagnostic code. If falsified, stop rather than grid casts or truth spellings.",
+    "source_changes": [
+      "In coalesce, use explicit full-mask equality for current descriptor and successor descriptor.",
+      "In allocate, use explicit full-mask equality for the scanned descriptor.",
+      "Retain flags0x10/0x20 truth tests, all existing loop/control bodies, request rounding, split/last-fit logic and pointer mutations."
+    ],
+    "gate": "Record a prediction before one fresh full-region compile; compare complete contributions including padding and all references. Existing semantic behavior must remain unchanged; raw equality alone grants FUNCTION_MATCH.",
+    "closed_peers": [
+      "Accepted host_diagnostic contribution.",
+      "Frozen relocation-only-equal save_arena complete contribution and ordered relocations."
+    ],
+    "not_replayed": "The explicit masked coalesce stride family is exhausted; its failed variant added AND without solving the 80/96-byte discrepancy."
+  },
+  "copy_helpers": {
+    "crt_copy_10fb0": {
+      "classification": "Positively identified as the historical Microsoft CRT memcpy/memmove shared implementation.",
+      "boundary": {
+        "start_rva": "0x10fb0",
+        "end_rva_exclusive": "0x112e5",
+        "bytes": 821,
+        "sha256": "d5aefd5446c9ed2d5c2efd0eff4a02e3e0bdc4d2da1e147708814438334688da"
+      },
+      "library_matches": [
+        {
+          "library_member": "memcpy",
+          "object_sha256": "729866e5d900c7b7e385e7506e0f3ca62845b72d11e1ad4b30b79a12eb5f0a1a",
+          "text_size": 821,
+          "relocations": 46,
+          "target_rva": "0x10fb0",
+          "target_end_rva": "0x112e5",
+          "target_sha256": "d5aefd5446c9ed2d5c2efd0eff4a02e3e0bdc4d2da1e147708814438334688da",
+          "diagnostic_equal": true,
+          "diagnostic_different_bytes": 0,
+          "first_differences": []
+        },
+        {
+          "library_member": "memmove",
+          "object_sha256": "7b2c811f096108b54c27b5ab77051d578e712ec05cf42012075e37036a21b8a2",
+          "text_size": 821,
+          "relocations": 46,
+          "target_rva": "0x10fb0",
+          "target_end_rva": "0x112e5",
+          "target_sha256": "d5aefd5446c9ed2d5c2efd0eff4a02e3e0bdc4d2da1e147708814438334688da",
+          "diagnostic_equal": true,
+          "diagnostic_different_bytes": 0,
+          "first_differences": []
+        }
+      ],
+      "identity_limit": "Both public members have identical code; the original linked public symbol name cannot be distinguished. 46 internal absolute references were resolved in a diagnostic buffer only. This is library identification, not fresh source compilation or raw relocation-free acceptance.",
+      "next_boundary": "The identified text ends at0x112e5; target padding/next unrelated entry are outside the identified821-byte library member extent.",
+      "abi": "Three caller-cleaned dword arguments, destination/source/byte count. Entry compares destination and source ranges and selects overlap-safe forward/backward copying; byte tail tables are part of the library text.",
+      "integrator_corroboration": "work/copy_library/comparison.json and inspection.json independently corroborate pinned RTM LIBC/LIBCMT memcpy/memmove."
+    },
+    "reverse_copy_43a0": {
+      "classification": "Evidence favors a project pool utility; no standard library-member identity established.",
+      "boundary": {
+        "start_rva": "0x43a0",
+        "end_rva_exclusive": "0x4450",
+        "bytes": 176,
+        "sha256": "839312a1bb5bce7a7c63aa43948b8a5ecdb556c1691209d05634d9c72154ac54"
+      },
+      "boundary_proof": "RET at0x444f, immediately followed by save_arena entry0x4450. No trailing NOPs or unresolved indirect branches in this span.",
+      "abi": "Three caller-cleaned dword arguments: destination, source, byte count. No return value is used by its only indexed direct caller0x495e.",
+      "behavior": "Computes (byte_count+3)>>2 using arithmetic SAR, copies that many whole dwords in descending order. Eight-dword groups are unrolled, followed by remaining words. It always copies backward and can copy rounded bytes beyond an unaligned byte count; no direction/overlap or byte-tail cases exist.",
+      "provenance": "Only indexed direct caller is the project pool compactor at0x495e; the function immediately precedes the pool configuration region. This plus its restricted rounding/direction differs from the positively identified CRT body. Adjacency and one caller support a project hypothesis, not proven original TU.",
+      "lifecycle_limit": "Do not replace with modern byte-count memcpy/memmove or invent a safety fix. For its actual compactor call, verify the request is a whole-block dword multiple and destination moves upward. Signed formal count type remains inferred from SAR; exact original prototype is unknown."
+    }
+  },
+  "code_spans": [
+    {
+      "start_rva": "0x4570",
+      "end_rva_exclusive": "0x4690",
+      "bytes": 288,
+      "sha256": "e48ecfc3ad18a93d8db699a85ce8f65a1f36455ef3b83df272b39a4f6f61b8cc"
+    },
+    {
+      "start_rva": "0x4750",
+      "end_rva_exclusive": "0x47c0",
+      "bytes": 112,
+      "sha256": "2821bcaacbccbe4ac565f590bc7177515592123db78805c07c166e645ea92faa"
+    },
+    {
+      "start_rva": "0x4830",
+      "end_rva_exclusive": "0x4890",
+      "bytes": 96,
+      "sha256": "f2efd2e0c8e0f626e66e71c8e25e7f8f9b4d4cc5aaa21571ffed5513bae6be62"
+    }
+  ],
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compiler_builds": 0
+  }
+}

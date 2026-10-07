@@ -1,0 +1,123 @@
+{
+  "scope": "One private ordinary-C source family and target-derived fixture for project reverse-copy helper; no canonical/recovery/Git/assets modifications.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "helper_rva": "0x43a0",
+    "extent_bytes": 176,
+    "target_function_sha256": "839312a1bb5bce7a7c63aa43948b8a5ecdb556c1691209d05634d9c72154ac54"
+  },
+  "packet": {
+    "region": "host_pool_core",
+    "context_id": "cc02fcf1efe21bef6ee2ccc3d9c3c8dfd4c49bd2d538080b19abf02a483bdfc4"
+  },
+  "evidence": {
+    "path": "work/pool_reverse_copy/evidence_v1.json",
+    "sha256": "d52c8157607020892fb282b40c30674aa66a5dbfdd65ac9ef9eba04491f50a2e",
+    "host_pool_control_report_sha256": "c105fc7fc43e06aade0586958df14c5cde0f0b09f9d816251fa7c02157bd04cd",
+    "host_pool_lifecycle_evidence_sha256": "f0c36cbaa4c2eac70c572d2ae46cb049144e457fa99b5d75afefe5f41444fd25"
+  },
+  "prediction": {
+    "path": "work/pool_reverse_copy/prediction_v1.json",
+    "sha256": "51778e937dd42cbecff6695d99c9cf0a145a22191233dfc335f7f3775ca08933",
+    "verdict": "One-family source/codegen hypothesis did not reproduce target bytes. Stop; no equivalent-spelling grid."
+  },
+  "candidate": {
+    "path": "candidates/pool_reverse_copy/reverse_copy_v1.c",
+    "sha256": "4d7f966a9a0926bf7feacb8e0976ef945e2fb2bc89d119335a7ec5e65d90fdc7",
+    "bytes": 1728,
+    "lines": 53
+  },
+  "spec": {
+    "path": "work/pool_reverse_copy/spec_v1.json",
+    "sha256": "31205ee819cde2e0ce43b81f12daf92e36c49997b4e8d6bbe815278af3593fed"
+  },
+  "measurement": {
+    "path": "work/pool_reverse_copy/metrics_v1.json",
+    "sha256": "a05fe7af7111f0d18fb0b947859815e6f82a98558854a5cd22a6ff3904aaf244",
+    "candidate_object_sha256": "68972b4d86f139b81665d3dcc405febfbf4960302e14c2584dba0518925665e2",
+    "summary": {
+      "functions": 1,
+      "exact": 0,
+      "new_exact": 0,
+      "exact_bytes": 0,
+      "diagnostic_equal": 0,
+      "ordered_cfg_equal": 1,
+      "instruction_over_90": 0,
+      "nonexact_instruction_over_90": 0,
+      "categories": {
+        "uncertain allocation/type/source-form": 1
+      }
+    },
+    "function": {
+      "symbol": "_reverse_copy_dwords",
+      "control": false,
+      "target_size": 176,
+      "candidate_size": 176,
+      "strict_equal": false,
+      "raw_different_bytes": 171,
+      "raw_byte_percent": 2.841,
+      "normalized_different_bytes": 171,
+      "normalized_byte_percent": 2.841,
+      "instruction_percent": 76.19,
+      "original_instruction_count": 63,
+      "candidate_instruction_count": 62,
+      "ordered_cfg_equal": true,
+      "original_blocks": 6,
+      "candidate_blocks": 6,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [],
+      "candidate_direct_calls": [],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 0,
+      "category": "uncertain allocation/type/source-form"
+    },
+    "diagnosis": "Candidate is 176 bytes with the same six-block CFG and no relocations/calls, but only 2.841% raw bytes match (171 bytes differ) and instruction-token alignment is 76.19%. Target loads count/source before reserving 8 stack bytes, forms rounded byte offset separately, then forms end pointers before the eight-dword threshold. Candidate reserves stack first, computes end pointers by indexed LEAs before the branch, uses SAR for the positive group-count divide where target uses SHR, and ends with five NOPs after RET while target RET is the final contribution byte. These measured prologue/register/stack-lifetime differences falsify the bounded byte-reproduction prediction; no tuning followed.",
+    "acceptance": "No raw equality and no FUNCTION_MATCH. Leave the compactor caller/helper relationship external if integrated."
+  },
+  "fixture": {
+    "source": "work/pool_reverse_copy/semantics_v1.c",
+    "source_sha256": "14e98b4eac122e2586d6a4df1120eafe243f0ec2b53ced32a1409fefa8593a57",
+    "runner": "work/pool_reverse_copy/run_semantics_v1.py",
+    "runner_sha256": "6e5f087c4fba8140f1bf8da7a6a285088dbece4a0d67a657811eed460f409047",
+    "result": "checks=1772 failures=0",
+    "coverage": "Rounded lengths 0..96 with scalar tails and multi-group cases; nonpositive signed lengths with in-bounds end-pointer arithmetic; unchanged source and neighboring destination cells; upward overlapping compactor moves by 1, 2, and 7 dwords; scalar leftward-overlap case confirms reverse-only behavior rather than forward memmove.",
+    "exe_sha256": "b871e334d9974eabe4d0bc693825cd36ee162041298208060e20a46c647b85eb",
+    "object_sha256": "a7109bf90e62df51acb6f1a5544d4d286733da67f82144b1ebc9eb6d48be0525"
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-fjorq2bi\\candidate.obj",
+      "D:\\prog\\hercules_recon\\candidates\\pool_reverse_copy\\reverse_copy_v1.c"
+    ],
+    "candidate_object": "D:\\prog\\hercules_recon\\build\\match\\compile-fjorq2bi\\candidate.obj",
+    "candidate_object_sha256": "68972b4d86f139b81665d3dcc405febfbf4960302e14c2584dba0518925665e2"
+  },
+  "builds": {
+    "historical_compiler_invocations": 2,
+    "commands": [
+      "scripts/macro_compare.py --source candidates/pool_reverse_copy/reverse_copy_v1.c --spec work/pool_reverse_copy/spec_v1.json --output work/pool_reverse_copy/metrics_v1.json",
+      "work/pool_reverse_copy/run_semantics_v1.py"
+    ],
+    "note": "One historical source comparison compile and one fixture compile/link; no source family retry."
+  },
+  "provenance": {
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null
+  },
+  "status": "Private diagnostic only; candidate fails raw equality and is not promoted.",
+  "integration": {
+    "status": "Experimental calibration only; recovery.json unchanged.",
+    "replay": "Fresh integration measurements recorded separately."
+  }
+}

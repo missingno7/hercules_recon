@@ -1,0 +1,107 @@
+{
+  "scope": "Private evidence and one bounded whole-object lifecycle experiment; no canonical/Git/assets/original-file changes.",
+  "target_exe_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "evidence": {
+    "file": "work/host_pool_lifecycle/evidence.json",
+    "sha256": "f0c36cbaa4c2eac70c572d2ae46cb049144e457fa99b5d75afefe5f41444fd25",
+    "layout_spec": "work/host_pool_lifecycle/lifecycle_spec.json",
+    "layout_spec_sha256": "096d8c6cfc13beefb1920c427b74fd814886e6a2619fbd9ee0fdabdc9e3c469f",
+    "target_spans": [
+      {
+        "rva": "0x47c0",
+        "name": "bulk_free",
+        "bytes": 112,
+        "sha256": "86dc6c00b25ee6317cd48e8504914e13db8c57682e85a3361009dd95e2e97c34"
+      },
+      {
+        "rva": "0x4890",
+        "name": "compact_all_wrapper",
+        "bytes": 16,
+        "sha256": "76bfc4000f25ebd6a543d70832fbeee4478c47f9af732aea88ae0f5a646c42b3"
+      },
+      {
+        "rva": "0x48a0",
+        "name": "compact_pool",
+        "bytes": 336,
+        "sha256": "5a467aee3f0214f1e9cb79a3ebae63ba607129eea37cb826dd985fb0ed2d8459"
+      },
+      {
+        "rva": "0x43a0",
+        "name": "reverse_dword_copy helper",
+        "bytes": 176,
+        "sha256": "839312a1bb5bce7a7c63aa43948b8a5ecdb556c1691209d05634d9c72154ac54"
+      }
+    ],
+    "reverse_copy_classification": "Internal tail-to-head dword copy, reached from compact_pool at 0x495e; caller passes byte count current_words*4 and destination source+following_free_words. The observed reachable length is 4-aligned. Implementation is bounded, but source/TU identity is unproven and remains external to the candidate."
+  },
+  "experiment": {
+    "prediction_falsifier_record": "work/host_pool_lifecycle/lifecycle_meta.json and work/host_pool_lifecycle/owner_word1_correction_meta.json",
+    "corrected_candidate": "candidates/host_pool_lifecycle/lifecycle_word1.c",
+    "candidate_sha256": "58a3a0bc374ed5895972ffa96efc5edd7b2cfbd67b8dd55adb0cb6092b0f58e3",
+    "correction": "The first candidate incorrectly read the owner slot from descriptor word0. Target instructions read and update word1 (+4); the corrected source uses cursor[1].owner_slot and destination[1].owner_slot. The initial semantic AV confirmed the mismatch."
+  },
+  "fresh_build": {
+    "toolchain": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe /nologo /c /Gy /O2",
+    "object": "build/match/compile-myfkw5v7/candidate.obj",
+    "object_sha256": "862de86947dc051c556345c0b0577c282da0798ef56fa6b9f73a8891a9938d03",
+    "metrics": "work/host_pool_lifecycle/lifecycle_word1_metrics.json",
+    "metrics_sha256": "b01e514cbb2c38a8f3cb740f8e0fe53dbf1bf3ab38600e4f94c9c4cd5f153965",
+    "full_metrics": {
+      "bulk_free": {
+        "target_bytes": 112,
+        "candidate_bytes": 112,
+        "raw_percent": 46.429,
+        "normalized_percent": 57.143,
+        "instruction_percent": 94.595,
+        "target_candidate_instructions": "35/37",
+        "target_candidate_cfg_blocks": "8/9",
+        "exact": false
+      },
+      "compact_all_wrapper": {
+        "target_bytes": 16,
+        "candidate_bytes": 16,
+        "raw_percent": 93.75,
+        "normalized_percent": 100.0,
+        "instruction_percent": 100.0,
+        "target_candidate_instructions": "6/6",
+        "target_candidate_cfg_blocks": "equal",
+        "exact": false
+      },
+      "compact_pool": {
+        "target_bytes": 336,
+        "candidate_bytes": 320,
+        "raw_percent": 7.143,
+        "normalized_percent": 6.845,
+        "instruction_percent": 40.741,
+        "target_candidate_instructions": "108/108",
+        "target_candidate_cfg_blocks": "18/17",
+        "exact": false
+      },
+      "aggregate": {
+        "functions": 3,
+        "exact": 0,
+        "diagnostic_equal": 1,
+        "ordered_cfg_equal": 1,
+        "regressions": 0
+      }
+    },
+    "strict_gate": "Unchanged. Diagnostic similarity does not accept/promote any contribution."
+  },
+  "semantic_fixture": {
+    "source": "work/host_pool_lifecycle/lifecycle_semantics_word1.c",
+    "source_sha256": "3874ec951ea8048221d1250e51d5e674f6e84be6856ca4e9db47fbc7cc4c195f",
+    "result": "work/host_pool_lifecycle/lifecycle_semantics_word1_result.json",
+    "result_sha256": "20ca1e4f0045d9c7a7c3f9830d96009f9b1377ac05d7ee8bc4a878b2067f4039",
+    "status": "pass: 34 checks, 0 failures; includes overlap/rightward movement, pinned blocks, owner-slot rewrites, zero-owner skip, one-word free, eligible frees, and repeated bulk free. Test-only target-derived helper models are not candidate source claims."
+  },
+  "receipt": {
+    "id": "d6cbcc9886ca5ba5e8b035bd9e51fe8182321d9d870fbdf811271d10d180b2e9",
+    "file": "work/host_pool_lifecycle/receipt-d6cbcc9886ca5ba5e8b035bd9e51fe8182321d9d870fbdf811271d10d180b2e9.json",
+    "sha256": "e45169f07b38dfba06663245d0d0464da80e8170c7aacc0910174105cd5b5a60"
+  },
+  "result": "Family frozen: the exact lifecycle spans remain unmatched; continue only with a separately diagnosed discriminator. No canonical recovery state or Git was changed.",
+  "integration": {
+    "status": "Experimental calibration only; recovery.json unchanged.",
+    "replay": "Fresh integration measurements recorded separately."
+  }
+}

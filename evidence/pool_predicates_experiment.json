@@ -1,0 +1,130 @@
+{
+  "scope": "Private one-family pool predicate experiment; no canonical source/recovery/Git/assets/original binary changes.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "new_evidence": {
+    "report": "work/host_pool_control/report.json",
+    "sha256": "c105fc7fc43e06aade0586958df14c5cde0f0b09f9d816251fa7c02157bd04cd",
+    "target_sites": [
+      "allocate 0x45e5/0x45eb",
+      "coalesce current 0x484c/0x4851",
+      "coalesce successor 0x4864/0x486a"
+    ],
+    "discriminator": "Three target descriptor free predicates use AND with 0x80000000 followed by CMP against 0x80000000; flags 0x10/0x20 in allocation still use TEST truth checks."
+  },
+  "prebuild_record": {
+    "check": "python scripts/region.py check --spec work/pool_predicates/pool_spec.json --baseline calibration/host_pool.c --meta work/pool_predicates/meta.json",
+    "result": "New discriminator/context allowed; no proof or compilation cached.",
+    "prediction_falsifier": "work/pool_predicates/meta.json",
+    "meta_sha256_after_outcome": "9b2b7c99d9a09713545dffdbeef6a74d640e016b204554023a4f6bd8d67901e1"
+  },
+  "source": {
+    "baseline": "calibration/host_pool.c",
+    "baseline_sha256": "f6fd8c738743c4fef8ae06e9f99b8417a42966e4af391a3a9ccd8bdead3c029c",
+    "candidate": "candidates/pool_predicates/pool_predicates.c",
+    "candidate_sha256": "115c5e969b4cfff3470d2f08e1a8923b03a392536448ebe14815df17d2bc4ac0",
+    "source_delta": "Exactly three predicate expressions changed to full-mask equality. No flags 0x10/0x20, descriptor mutation, loop body, or other function source changed."
+  },
+  "fresh_build": {
+    "candidate_builds": 1,
+    "toolchain": "msvc5_rtm; C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe /nologo /c /Gy /O2",
+    "object": "build/match/compile-b2wk6i56/candidate.obj",
+    "object_sha256": "64d362b23bbc245a0211f74dae203dcd6aec29f782d53403fd9a2c0783e3f7c5",
+    "metrics": "work/pool_predicates/metrics.json",
+    "metrics_sha256": "eb01bf21996697305fa52877af378fc5fe3f50dcf5008059bb08f2a6312f5062",
+    "summary": {
+      "functions": 5,
+      "exact": 0,
+      "diagnostic_equal": 2,
+      "ordered_cfg_equal": 3,
+      "regressions": 0
+    },
+    "functions": [
+      {
+        "symbol": "_save_arena",
+        "target_candidate_bytes": "32/32",
+        "raw_percent": 81.25,
+        "normalized_percent": 100.0,
+        "instruction_percent": 100.0,
+        "target_candidate_blocks": "1/1",
+        "relocations": 2,
+        "strict_raw_equal": false
+      },
+      {
+        "symbol": "_initialize_pool",
+        "target_candidate_bytes": "96/96",
+        "raw_percent": 36.458,
+        "normalized_percent": 38.542,
+        "instruction_percent": 45.161,
+        "target_candidate_blocks": "3/3",
+        "relocations": 4,
+        "strict_raw_equal": false
+      },
+      {
+        "symbol": "_host_allocate",
+        "target_candidate_bytes": "288/288",
+        "raw_percent": 10.069,
+        "normalized_percent": 9.028,
+        "instruction_percent": 43.137,
+        "target_candidate_blocks": "20/20, ordered CFG differs",
+        "relocations": 6,
+        "strict_raw_equal": false
+      },
+      {
+        "symbol": "_host_free",
+        "target_candidate_bytes": "112/112",
+        "raw_percent": 29.464,
+        "normalized_percent": 28.571,
+        "instruction_percent": 69.231,
+        "target_candidate_blocks": "9/8",
+        "relocations": 4,
+        "strict_raw_equal": false
+      },
+      {
+        "symbol": "_coalesce_pool",
+        "target_candidate_bytes": "96/96",
+        "raw_percent": 93.75,
+        "normalized_percent": 100.0,
+        "instruction_percent": 100.0,
+        "target_candidate_blocks": "9/9",
+        "relocations": 2,
+        "strict_raw_equal": false
+      }
+    ],
+    "target_emission_review": "All three sites emit AND/CMP of the full 0x80000000 mask. Coalesce matches target after diagnostic relocation normalization. Allocation still has a dataflow/register difference: target copies descriptor EAX to EBX before AND/CMP; candidate AND/CMPs EAX directly."
+  },
+  "frozen_peer_comparison": {
+    "report": "work/pool_predicates/peer_comparison.json",
+    "sha256": "f5729adbcdf2d257377390e102d58794a6c9a6fee492d9d4f1e92f7677afd5e2",
+    "baseline_object": "build/match/compile-hncunmd0/candidate.obj",
+    "baseline_object_sha256": "174955e43c064d0ddc6ced1be7056b708491b98547db4d1f4445563005563a88",
+    "unchanged_complete_contributions": [
+      "_save_arena (32 bytes and ordered relocations identical)",
+      "_initialize_pool (96 bytes and ordered relocations identical)",
+      "_host_free (112 bytes and ordered relocations identical)"
+    ],
+    "_host_allocate": "Changed as the targeted predicate expression lowers differently; still 288 bytes and non-exact.",
+    "_coalesce_pool": "Changed from 80 to 96 bytes; matches target after relocation normalization, but raw gate rejects the two COFF global relocations.",
+    "accepted_diagnostic": "Its separate host_diagnostic source/contribution was not part of or changed by this candidate."
+  },
+  "semantic_fixture": {
+    "result": "work/pool_predicates/semantic_result.json",
+    "sha256": "8cb7e6caa0157fd961e2567dc80c12b52a573bc60baeca90cbaf4287482414a5",
+    "status": "57 checks, 0 failures",
+    "coverage": "Existing lifecycle fixture retained, with only its include relocated to the candidate; exercises allocator policy, initialization, flags, one-word free and owner clearing/coalescing."
+  },
+  "receipt": {
+    "id": "54b1e504fa4294a7d70a2b18b63bf344008836abfe464a5af8ebf9b2d84acc7d",
+    "file": "work/pool_predicates/receipt-54b1e504fa4294a7d70a2b18b63bf344008836abfe464a5af8ebf9b2d84acc7d.json",
+    "sha256": "fbc7386cda360de18b3494dbd2201b3e8056f11f86526c2bd4757abf7834071e",
+    "safe_frontier_eligible": true,
+    "output_id": "10b4d31c3bd6100d52a0e46b2003904d1d700837d71227829175760734b0ee44"
+  },
+  "result": "The predicate discriminator is evidenced and emits the expected AND/CMP family. It closes the 16-byte coalesce size/normalized-code gap but does not yield strict raw equality. Stop this family; no source grid or canonical promotion.",
+  "integration": {
+    "status": "Experimental calibration only; recovery.json unchanged.",
+    "replay": "Fresh integration measurements recorded separately."
+  }
+}

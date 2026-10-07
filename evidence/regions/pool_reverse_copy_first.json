@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T21:42:55.718461+00:00",
+  "region": "pool_reverse_copy",
+  "ownership": {
+    "id": "pool_reverse_copy",
+    "ownership": "inferred_region",
+    "rationale": "The bounded helper is a project pool compactor dependency; its original translation unit and source identity are unproved."
+  },
+  "context_id": "b0bc37ded164cd8830ada0ac0069adbec7683f338c3b33df622920b52b53fa98",
+  "source_sha256": "a61badb117146811ffae221268e1fd7b96455d02643626842ba871887d8504de",
+  "baseline_sha256": "a61badb117146811ffae221268e1fd7b96455d02643626842ba871887d8504de",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "4d7f966a9a0926bf7feacb8e0976ef945e2fb2bc89d119335a7ec5e65d90fdc7",
+  "source_patch": {
+    "base_sha256": "a61badb117146811ffae221268e1fd7b96455d02643626842ba871887d8504de",
+    "result_sha256": "a61badb117146811ffae221268e1fd7b96455d02643626842ba871887d8504de",
+    "edits": []
+  },
+  "output_id": "482b7c9f653a160e88c447ef4795dad6c12d6fbf71c5f835542920c7cce89cf5",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_reverse_copy_dwords",
+      "target_size": 176,
+      "candidate_size": 176,
+      "raw_different_bytes": 171,
+      "normalized_different_bytes": 171,
+      "instruction_percent": 76.19,
+      "ordered_cfg_equal": true,
+      "category": "uncertain allocation/type/source-form",
+      "strict_equal": false,
+      "relocation_count": 0,
+      "target_relocation_count": 0,
+      "output_id": "45769aa5e6dff8a22a709efa371bf8cbb7744b0084e08f33f23a09b3f3422bfe",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 1,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 0,
+    "ordered_cfg_equal": 1,
+    "instruction_over_90": 0,
+    "nonexact_instruction_over_90": 0,
+    "categories": {
+      "uncertain allocation/type/source-form": 1
+    }
+  },
+  "family": "rounded-reverse-dword-copy-v1",
+  "prediction": "A signed 32-bit byte count rounded by (count + 3) >> 2, followed by reverse copying of the rounded dword count in staged eight-dword blocks and a scalar reverse tail, should preserve the observed 176-byte helper contract: destination/source/count cdecl arguments, always-backward copying, no return value observed, and no callee calls.",
+  "falsifier": "Reject this family if the candidate differs from the target-derived result for positive lengths (including 1-3 byte rounding), zero/negative no-op, staged eight-word chunks, scalar tail, and rightward overlap; if fresh full-span comparison is non-exact, retain only diagnostic evidence and stop without trying equivalent spellings or tuning. Raw equality is the only strict match gate.",
+  "verdict": "falsified",
+  "blocker": null,
+  "reentry_condition": "New independent evidence or discriminator; freeze relocation-normalized equals and preserve accepted peers.",
+  "next_discriminator": null,
+  "ungated_work": [],
+  "new_evidence": null,
+  "new_discriminator": null,
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "Integrator fresh replay of the evidenced ordinary-C candidate; no new source family.",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 1,
+    "semantic_result": "1772 checks, 0 failures",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "9b413a9ba6964f46629ddcad19af2355c15fc863403519c04e9c95c69882a047",
+    "report_sha256": "c1d633793ce213884ffe99f5a585cf70096db801d811429b01c3afb6fc1a7529",
+    "object_sha256": "edaa836ea5ec08fb72056b647479bb176cf3dc15bce7d38c2a2ff160bb06d87f",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-ed3s6g25\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\pool_reverse_copy.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "1be8721994090c079f8bb87a8a3bfef5a720890e193cf31e230d0749499fc83a"
+}

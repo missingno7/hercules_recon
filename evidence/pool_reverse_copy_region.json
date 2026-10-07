@@ -1,0 +1,25 @@
+{
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "pool_reverse_copy",
+    "ownership": "inferred_region",
+    "rationale": "The bounded helper is a project pool compactor dependency; its original translation unit and source identity are unproved."
+  },
+  "source": "calibration/pool_reverse_copy.c",
+  "functions": [
+    {
+      "symbol": "_reverse_copy_dwords",
+      "rva": "0x43a0",
+      "size": 176,
+      "body_size": 176,
+      "target_sha256": "839312a1bb5bce7a7c63aa43948b8a5ecdb556c1691209d05634d9c72154ac54",
+      "control": false,
+      "boundary_evidence": "Complete body 0x43a0..0x4450 is file-backed in the immutable CD EXE; RET at 0x444f is the last byte and the next entry begins at 0x4450. Unique indexed direct caller is compact at 0x495e; no direct callees or unresolved indirect branches."
+    }
+  ],
+  "symbol_rvas": {}
+}

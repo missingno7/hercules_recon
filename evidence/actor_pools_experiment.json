@@ -1,0 +1,220 @@
+{
+  "scope": "Private diagnostic reconstruction only; no canonical source, recovery.json, Git, or assets modified.",
+  "region": "actor_pools",
+  "packet": {
+    "region": "actor_factories",
+    "context_id": "3679a6d717d6d9060b7928dfab3661b9bea73fd18df889698d002964f05cd649"
+  },
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "reviewed_frame": {
+    "kind_field_offset": "0x2e",
+    "kind_domain": "16-bit ActorKind hypothesis; allocators branch only on bit 0x8000",
+    "pool_strides": {
+      "normal": "0x134",
+      "alternate": "0x94"
+    },
+    "initializer_chain": [
+      "0x27fe0 alternate prefix",
+      "0x27a50 middle extension calls alternate",
+      "0x27520 normal extension calls middle"
+    ],
+    "runtime_scan_bounds": "The named cursor/limit words are observed loop inputs; they do not prove physical capacity or source allocation extents.",
+    "original_type_limit": "Member identities, original struct declarations, source TU and pool capacities remain unproved."
+  },
+  "candidate": {
+    "path": "candidates/actor_pools/actor_pools_v1.c",
+    "sha256": "e78b5425177d743611b2b3ab7ba65f49576178eb08fc16b1c34b4244041c52d7",
+    "bytes": 10330,
+    "lines": 365
+  },
+  "prediction": {
+    "path": "work/actor_pools/prediction_v1.json",
+    "sha256": "8c168899d615b35727b05c1c6251a075eda0cab1b81c958b2939944e58bdd6ee",
+    "outcome": "Falsified for allocator topology: target 26-block control flow compiled to 28 blocks in each allocator. Keep the source-family stopped; no spelling sweep."
+  },
+  "spec": {
+    "path": "work/actor_pools/spec_v1.json",
+    "sha256": "96819e51439ceda55f9efcbe14d442bf7657aaabc8f273f597446a848500bd18",
+    "functions": [
+      {
+        "symbol": "_allocate_normal_actor",
+        "rva": "0x26f70",
+        "size": 336,
+        "body_size": 332,
+        "target_sha256": "0e30c8e93d6e67f7a47ee7ca6ffe634db3e9bb17016d23397befa42df98faec6",
+        "boundary": "Reachable RET paths at 0x26fd3, 0x2701e, 0x27073, 0x270b6 and 0x270bb; four trailing NOPs at 0x270bc..0x270bf. Two direct callers at 0x270cc and 0x271d7; no callees."
+      },
+      {
+        "symbol": "_allocate_alternate_actor",
+        "rva": "0x27b00",
+        "size": 320,
+        "body_size": 308,
+        "target_sha256": "3312ae39137e728e11c77e9fe2995db11e2c5ab26cf8df3efe959dea6dadc8dd",
+        "boundary": "Reachable RET paths at 0x27b5d, 0x27ba2, 0x27bf1, 0x27c2e and 0x27c33; twelve trailing NOPs at 0x27c34..0x27c3f. Two direct callers at 0x27c4c and 0x27db7; no callees."
+      },
+      {
+        "symbol": "_initialize_alternate_actor",
+        "rva": "0x27fe0",
+        "size": 272,
+        "body_size": 264,
+        "target_sha256": "8b8c2737815548fbaf4b771cb5ee28774740b408216aa4ebf52122c1efd9fad1",
+        "boundary": "Reachable RET at 0x280e7; eight trailing NOPs at 0x280e8..0x280ef. Six direct callers including middle initializer at 0x27a56."
+      },
+      {
+        "symbol": "_initialize_middle_actor",
+        "rva": "0x27a50",
+        "size": 176,
+        "body_size": 176,
+        "target_sha256": "87d5aea0c646659a527183b97a8bab365620bb2cc44803362c243133fe70763f",
+        "boundary": "Reachable RET at final byte 0x27aff; thirteen direct callers including normal initializer at 0x27526."
+      },
+      {
+        "symbol": "_initialize_normal_actor",
+        "rva": "0x27520",
+        "size": 176,
+        "body_size": 168,
+        "target_sha256": "9f720340cddaa513ee2c1ec16159fa6fec34bbb9c09754d5a48b69e6e738a766",
+        "boundary": "Reachable RET at 0x275c7; eight trailing NOPs at 0x275c8..0x275cf. Eight direct callers."
+      }
+    ]
+  },
+  "measurement": {
+    "path": "work/actor_pools/metrics_v1.json",
+    "sha256": "7dd23f4e4a032680b4c60448ce4f48903b99a949c291bbc81ab9a303f20fd535",
+    "candidate_object_sha256": "ca01df4c11efc24db0c408aee7a4d1f9e6f576969c7a70dfb502baf0e737e7ce",
+    "summary": {
+      "functions": 5,
+      "exact": 0,
+      "new_exact": 0,
+      "exact_bytes": 0,
+      "diagnostic_equal": 1,
+      "ordered_cfg_equal": 3,
+      "instruction_over_90": 2,
+      "nonexact_instruction_over_90": 2,
+      "categories": {
+        "structural/source-form investigation": 2,
+        "uncertain allocation/type/source-form": 1,
+        "relocation-only diagnostic equality": 1,
+        "near codegen candidate": 1
+      }
+    },
+    "functions": [
+      {
+        "symbol": "_allocate_normal_actor",
+        "target_size": 336,
+        "candidate_size": 320,
+        "raw_different_bytes": 275,
+        "normalized_different_bytes": 265,
+        "instruction_percent": 43.966,
+        "original_blocks": 26,
+        "candidate_blocks": 28,
+        "calls_equal": true,
+        "relocations": 10,
+        "category": "structural/source-form investigation"
+      },
+      {
+        "symbol": "_allocate_alternate_actor",
+        "target_size": 320,
+        "candidate_size": 304,
+        "raw_different_bytes": 264,
+        "normalized_different_bytes": 252,
+        "instruction_percent": 43.119,
+        "original_blocks": 26,
+        "candidate_blocks": 28,
+        "calls_equal": true,
+        "relocations": 10,
+        "category": "structural/source-form investigation"
+      },
+      {
+        "symbol": "_initialize_alternate_actor",
+        "target_size": 272,
+        "candidate_size": 272,
+        "raw_different_bytes": 209,
+        "normalized_different_bytes": 209,
+        "instruction_percent": 83.582,
+        "original_blocks": 1,
+        "candidate_blocks": 1,
+        "calls_equal": true,
+        "relocations": 0,
+        "category": "uncertain allocation/type/source-form"
+      },
+      {
+        "symbol": "_initialize_middle_actor",
+        "target_size": 176,
+        "candidate_size": 176,
+        "raw_different_bytes": 2,
+        "normalized_different_bytes": 0,
+        "instruction_percent": 100.0,
+        "original_blocks": 1,
+        "candidate_blocks": 1,
+        "calls_equal": true,
+        "relocations": 1,
+        "category": "relocation-only diagnostic equality"
+      },
+      {
+        "symbol": "_initialize_normal_actor",
+        "target_size": 176,
+        "candidate_size": 176,
+        "raw_different_bytes": 146,
+        "normalized_different_bytes": 144,
+        "instruction_percent": 96.875,
+        "original_blocks": 1,
+        "candidate_blocks": 1,
+        "calls_equal": true,
+        "relocations": 1,
+        "category": "near codegen candidate"
+      }
+    ],
+    "interpretation": "No FUNCTION_MATCH. Middle initializer is only relocation-normalized equal: full 176-byte contribution, same call target, one internal-call relocation and two raw bytes differ. All other contributions remain non-exact."
+  },
+  "fixture": {
+    "source": "work/actor_pools/semantics_v1.c",
+    "source_sha256": "1df6e231e7aaa5411024060dba58e6afe6d05e0ac717ce6d33339fadb9a67841",
+    "runner": "work/actor_pools/run_semantics_v1.py",
+    "runner_sha256": "5c52374a76ea00a998780abce1774d44729b5b75900b3c037a5ca30f721d7e62",
+    "command": "C:\\Users\\Jiri\\AppData\\Local\\Programs\\Python\\Python312\\python.exe work/actor_pools/run_semantics_v1.py",
+    "result": "checks=262408 failures=0",
+    "coverage": "For both allocators the fixture tests every 16-bit kind value, bit-15 primary versus wrap partition, returned slot and selected cursor update, no update on full/empty bounds, and reuse at the current cursor. It tests target-observed byte/word/dword initializer values, the alternate->middle->normal prefix chain, and untouched sentinel gaps. Arrays contain eight synthetic slots strictly for bounded tests and do not assert real capacity.",
+    "exe_sha256": "004460944c8c8653e0820733ce1257cd5113acaf6d8b49fd4ac87f170b3de65b",
+    "object_sha256": "e03fa1964b4f7ec1f3e9d3a5323e86941cc5acb0a422935ab47ae39916e3cb44"
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "compiler": "msvc5_rtm /O2",
+    "directory": "msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+    "commit": "8abf95ce980161ad87b0b02402269cce76988953",
+    "archive_sha256": "5f7728d1b3b8b8c61bb35e42a7680211019d290b30376c1a0a8faaa6d166cd1f",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb"
+  },
+  "compiler_builds": {
+    "count": 3,
+    "details": [
+      "Two macro_compare historical compile invocations; the first compiled but comparison stopped at a spec symbol-map naming error (_g_ COFF names), and the corrected second invocation produced metrics.",
+      "One historical fixture compile/link and execution."
+    ],
+    "successful_candidate_compile_command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-rg3xq7mz\\candidate.obj",
+      "D:\\prog\\hercules_recon\\candidates\\actor_pools\\actor_pools_v1.c"
+    ]
+  },
+  "provenance": {
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null
+  },
+  "status": "Diagnostic only; no acceptance request or recovery-state change.",
+  "integration": {
+    "status": "Experimental calibration only; recovery.json unchanged.",
+    "replay": "Fresh integration measurements recorded separately."
+  }
+}

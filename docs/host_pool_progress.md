@@ -1,5 +1,9 @@
 # Host pool and actor factory continuation
 
+The next evidence and measured candidates are recorded in
+[pool dependency progress](pool_dependency_progress.md). That continuation
+preserves this first-family baseline and the accepted total below.
+
 The accepted total is **40 instances / 4,352 bytes**. The new match is the host
 diagnostic at immutable CD EXE RVA `0x63c0`: its observed body is RET followed by
 15 natural NOPs. An ordinary empty variadic C function reproduces all 16 bytes

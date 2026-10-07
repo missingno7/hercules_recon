@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../calibration/host_pool.c"
+#include "../calibration/host_pool_repaired.c"
 
 HostPoolState g_host_pool;
 const char g_fmt_init_pool[] = "init";

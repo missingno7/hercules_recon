@@ -1,0 +1,356 @@
+{
+  "scope": "Historical library identification only; no reconstructed source, original-binary dispatch, patched object or FUNCTION_MATCH.",
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "target_rva": "0x10fb0",
+  "size": 821,
+  "toolchain": "msvc5_rtm",
+  "toolchain_manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+  "conclusion": "The entire821-byte CRT memcpy/memmove .text implementation matches after computing all46 section-local DIR32 operands from actual member symbol values/addends. Both public names and LIBC/LIBCMT code bytes are identical here, so symbol/runtime variant cannot be identified from this member.",
+  "method": "Parse pinned COFF library archive into ignored scratch; read complete executable .text member section including inline tables; compare all nonrelocation bytes and individually verify every resolved original operand. Diagnostic buffer never written as linkable code.",
+  "comparisons": [
+    {
+      "member": "libc.lib-memcpy.obj",
+      "member_sha256": "729866e5d900c7b7e385e7506e0f3ca62845b72d11e1ad4b30b79a12eb5f0a1a",
+      "section_size": 821,
+      "symbol": [
+        "_memcpy"
+      ],
+      "raw_differences": 140,
+      "diagnostic_differences": 0,
+      "relocations": 46,
+      "oracle_span_sha256": "d5aefd5446c9ed2d5c2efd0eff4a02e3e0bdc4d2da1e147708814438334688da",
+      "archive_member": "build\\intel\\st_obj\\memcpy.obj",
+      "library": "libc.lib",
+      "library_sha256": "4ae22c6f35a87c55c453ad388ada649ea3ba190614be3d1ab95935ba0faa7416"
+    },
+    {
+      "member": "libc.lib-memmove.obj",
+      "member_sha256": "7b2c811f096108b54c27b5ab77051d578e712ec05cf42012075e37036a21b8a2",
+      "section_size": 821,
+      "symbol": [
+        "_memmove"
+      ],
+      "raw_differences": 140,
+      "diagnostic_differences": 0,
+      "relocations": 46,
+      "oracle_span_sha256": "d5aefd5446c9ed2d5c2efd0eff4a02e3e0bdc4d2da1e147708814438334688da",
+      "archive_member": "build\\intel\\st_obj\\memmove.obj",
+      "library": "libc.lib",
+      "library_sha256": "4ae22c6f35a87c55c453ad388ada649ea3ba190614be3d1ab95935ba0faa7416"
+    },
+    {
+      "member": "libcmt.lib-memcpy.obj",
+      "member_sha256": "3dd0abcf089c5d5cb1f111ec785218ae4bdc431e44699f7dbc0135f913149eb0",
+      "section_size": 821,
+      "symbol": [
+        "_memcpy"
+      ],
+      "raw_differences": 140,
+      "diagnostic_differences": 0,
+      "relocations": 46,
+      "oracle_span_sha256": "d5aefd5446c9ed2d5c2efd0eff4a02e3e0bdc4d2da1e147708814438334688da",
+      "archive_member": "build\\intel\\mt_obj\\memcpy.obj",
+      "library": "libcmt.lib",
+      "library_sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b"
+    },
+    {
+      "member": "libcmt.lib-memmove.obj",
+      "member_sha256": "0f29aab09e6fc7a2a24f13e6be7a9404c5226ab776a9f60b7d7bcc33a29b3078",
+      "section_size": 821,
+      "symbol": [
+        "_memmove"
+      ],
+      "raw_differences": 140,
+      "diagnostic_differences": 0,
+      "relocations": 46,
+      "oracle_span_sha256": "d5aefd5446c9ed2d5c2efd0eff4a02e3e0bdc4d2da1e147708814438334688da",
+      "archive_member": "build\\intel\\mt_obj\\memmove.obj",
+      "library": "libcmt.lib",
+      "library_sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b"
+    }
+  ],
+  "section_local_operands": [
+    {
+      "offset": 56,
+      "symbol": "TrailUpVec",
+      "section_offset": 328,
+      "target_rva": "0x110f8"
+    },
+    {
+      "offset": 80,
+      "symbol": "LeadUpVec",
+      "section_offset": 100,
+      "target_rva": "0x11010"
+    },
+    {
+      "offset": 87,
+      "symbol": "TrailUpVec",
+      "section_offset": 328,
+      "target_rva": "0x11108"
+    },
+    {
+      "offset": 95,
+      "symbol": "UnwindUpVec",
+      "section_offset": 220,
+      "target_rva": "0x1108c"
+    },
+    {
+      "offset": 100,
+      "symbol": "LeadUp1",
+      "section_offset": 112,
+      "target_rva": "0x11020"
+    },
+    {
+      "offset": 104,
+      "symbol": "LeadUp2",
+      "section_offset": 156,
+      "target_rva": "0x1104c"
+    },
+    {
+      "offset": 108,
+      "symbol": "LeadUp3",
+      "section_offset": 192,
+      "target_rva": "0x11070"
+    },
+    {
+      "offset": 149,
+      "symbol": "TrailUpVec",
+      "section_offset": 328,
+      "target_rva": "0x110f8"
+    },
+    {
+      "offset": 187,
+      "symbol": "TrailUpVec",
+      "section_offset": 328,
+      "target_rva": "0x110f8"
+    },
+    {
+      "offset": 213,
+      "symbol": "TrailUpVec",
+      "section_offset": 328,
+      "target_rva": "0x110f8"
+    },
+    {
+      "offset": 220,
+      "symbol": "UnwindUp0",
+      "section_offset": 319,
+      "target_rva": "0x110ef"
+    },
+    {
+      "offset": 224,
+      "symbol": "UnwindUp1",
+      "section_offset": 300,
+      "target_rva": "0x110dc"
+    },
+    {
+      "offset": 228,
+      "symbol": "UnwindUp2",
+      "section_offset": 292,
+      "target_rva": "0x110d4"
+    },
+    {
+      "offset": 232,
+      "symbol": "UnwindUp3",
+      "section_offset": 284,
+      "target_rva": "0x110cc"
+    },
+    {
+      "offset": 236,
+      "symbol": "UnwindUp4",
+      "section_offset": 276,
+      "target_rva": "0x110c4"
+    },
+    {
+      "offset": 240,
+      "symbol": "UnwindUp5",
+      "section_offset": 268,
+      "target_rva": "0x110bc"
+    },
+    {
+      "offset": 244,
+      "symbol": "UnwindUp6",
+      "section_offset": 260,
+      "target_rva": "0x110b4"
+    },
+    {
+      "offset": 248,
+      "symbol": "UnwindUp7",
+      "section_offset": 252,
+      "target_rva": "0x110ac"
+    },
+    {
+      "offset": 322,
+      "symbol": "TrailUpVec",
+      "section_offset": 328,
+      "target_rva": "0x110f8"
+    },
+    {
+      "offset": 328,
+      "symbol": "TrailUp0",
+      "section_offset": 344,
+      "target_rva": "0x11108"
+    },
+    {
+      "offset": 332,
+      "symbol": "TrailUp1",
+      "section_offset": 352,
+      "target_rva": "0x11110"
+    },
+    {
+      "offset": 336,
+      "symbol": "TrailUp2",
+      "section_offset": 364,
+      "target_rva": "0x1111c"
+    },
+    {
+      "offset": 340,
+      "symbol": "TrailUp3",
+      "section_offset": 384,
+      "target_rva": "0x11130"
+    },
+    {
+      "offset": 442,
+      "symbol": "TrailDownVec",
+      "section_offset": 736,
+      "target_rva": "0x11290"
+    },
+    {
+      "offset": 453,
+      "symbol": "UnwindDownVec",
+      "section_offset": 628,
+      "target_rva": "0x11240"
+    },
+    {
+      "offset": 480,
+      "symbol": "LeadDownVec",
+      "section_offset": 492,
+      "target_rva": "0x11198"
+    },
+    {
+      "offset": 487,
+      "symbol": "TrailDownVec",
+      "section_offset": 736,
+      "target_rva": "0x11290"
+    },
+    {
+      "offset": 492,
+      "symbol": "LeadDown1",
+      "section_offset": 504,
+      "target_rva": "0x111a8"
+    },
+    {
+      "offset": 496,
+      "symbol": "LeadDown2",
+      "section_offset": 536,
+      "target_rva": "0x111c8"
+    },
+    {
+      "offset": 500,
+      "symbol": "LeadDown3",
+      "section_offset": 576,
+      "target_rva": "0x111f0"
+    },
+    {
+      "offset": 529,
+      "symbol": "TrailDownVec",
+      "section_offset": 736,
+      "target_rva": "0x11290"
+    },
+    {
+      "offset": 571,
+      "symbol": "TrailDownVec",
+      "section_offset": 736,
+      "target_rva": "0x11290"
+    },
+    {
+      "offset": 621,
+      "symbol": "TrailDownVec",
+      "section_offset": 736,
+      "target_rva": "0x11290"
+    },
+    {
+      "offset": 628,
+      "symbol": "UnwindDown7",
+      "section_offset": 660,
+      "target_rva": "0x11244"
+    },
+    {
+      "offset": 632,
+      "symbol": "UnwindDown6",
+      "section_offset": 668,
+      "target_rva": "0x1124c"
+    },
+    {
+      "offset": 636,
+      "symbol": "UnwindDown5",
+      "section_offset": 676,
+      "target_rva": "0x11254"
+    },
+    {
+      "offset": 640,
+      "symbol": "UnwindDown4",
+      "section_offset": 684,
+      "target_rva": "0x1125c"
+    },
+    {
+      "offset": 644,
+      "symbol": "UnwindDown3",
+      "section_offset": 692,
+      "target_rva": "0x11264"
+    },
+    {
+      "offset": 648,
+      "symbol": "UnwindDown2",
+      "section_offset": 700,
+      "target_rva": "0x1126c"
+    },
+    {
+      "offset": 652,
+      "symbol": "UnwindDown1",
+      "section_offset": 708,
+      "target_rva": "0x11274"
+    },
+    {
+      "offset": 656,
+      "symbol": "UnwindDown0",
+      "section_offset": 727,
+      "target_rva": "0x11287"
+    },
+    {
+      "offset": 730,
+      "symbol": "TrailDownVec",
+      "section_offset": 736,
+      "target_rva": "0x11290"
+    },
+    {
+      "offset": 736,
+      "symbol": "TrailDown0",
+      "section_offset": 752,
+      "target_rva": "0x112a0"
+    },
+    {
+      "offset": 740,
+      "symbol": "TrailDown1",
+      "section_offset": 760,
+      "target_rva": "0x112a8"
+    },
+    {
+      "offset": 744,
+      "symbol": "TrailDown2",
+      "section_offset": 776,
+      "target_rva": "0x112b8"
+    },
+    {
+      "offset": 748,
+      "symbol": "TrailDown3",
+      "section_offset": 796,
+      "target_rva": "0x112cc"
+    }
+  ],
+  "limits": [
+    "Target821-byte member span is proved; link padding/TU/whole-image placement is not.",
+    "Original compiler/library patch revision unproved.",
+    "Use real historical library contributions, not a rewritten game-copy routine."
+  ]
+}

@@ -32,7 +32,10 @@ SUITES = {
     "action_registry_writers": ["calibration/action_registry_writers.c"],
     "registry_allocation": ["calibration/registry_allocation.c"],
     "actor_factories": ["calibration/actor_factories.c"],
-    "host_pool": ["calibration/host_pool.c"],
+    "host_pool": ["calibration/host_pool_repaired.c"],
+    "actor_pools": ["calibration/actor_pools.c"],
+    "host_pool_lifecycle": ["calibration/host_pool_lifecycle.c"],
+    "pool_reverse_copy": ["calibration/pool_reverse_copy.c"],
 }
 
 

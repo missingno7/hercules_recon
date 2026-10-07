@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T21:42:55.310486+00:00",
+  "region": "host_pool_core",
+  "ownership": {
+    "id": "host_pool_core",
+    "ownership": "inferred_region",
+    "rationale": "The selected host memory/pool functions form a coherent lifecycle dependency; original translation-unit boundaries and names are unknown."
+  },
+  "context_id": "cc02fcf1efe21bef6ee2ccc3d9c3c8dfd4c49bd2d538080b19abf02a483bdfc4",
+  "source_sha256": "115c5e969b4cfff3470d2f08e1a8923b03a392536448ebe14815df17d2bc4ac0",
+  "baseline_sha256": "f6fd8c738743c4fef8ae06e9f99b8417a42966e4af391a3a9ccd8bdead3c029c",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "115c5e969b4cfff3470d2f08e1a8923b03a392536448ebe14815df17d2bc4ac0",
+  "source_patch": {
+    "base_sha256": "f6fd8c738743c4fef8ae06e9f99b8417a42966e4af391a3a9ccd8bdead3c029c",
+    "result_sha256": "115c5e969b4cfff3470d2f08e1a8923b03a392536448ebe14815df17d2bc4ac0",
+    "edits": [
+      {
+        "line": 64,
+        "old": "        if (descriptor & POOL_FREE) {\n",
+        "new": "        if ((descriptor & POOL_FREE) == POOL_FREE) {\n"
+      },
+      {
+        "line": 67,
+        "old": "            if (next_descriptor & POOL_FREE) {\n",
+        "new": "            if ((next_descriptor & POOL_FREE) == POOL_FREE) {\n"
+      },
+      {
+        "line": 106,
+        "old": "        if (descriptor & POOL_FREE) {\n",
+        "new": "        if ((descriptor & POOL_FREE) == POOL_FREE) {\n"
+      }
+    ]
+  },
+  "output_id": "10b4d31c3bd6100d52a0e46b2003904d1d700837d71227829175760734b0ee44",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_save_arena",
+      "target_size": 32,
+      "candidate_size": 32,
+      "raw_different_bytes": 6,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 2,
+      "target_relocation_count": 0,
+      "output_id": "adffba64c602279fb164329ae54325ecb9782b78f27f3686d5b3b9363094c12a",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_initialize_pool",
+      "target_size": 96,
+      "candidate_size": 96,
+      "raw_different_bytes": 61,
+      "normalized_different_bytes": 59,
+      "instruction_percent": 45.161,
+      "ordered_cfg_equal": true,
+      "category": "uncertain allocation/type/source-form",
+      "strict_equal": false,
+      "relocation_count": 4,
+      "target_relocation_count": 0,
+      "output_id": "f7f7bcfe68f901ec75112a9580cf2346ab6af5d693793b68659ed77b1c4c7624",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_host_allocate",
+      "target_size": 288,
+      "candidate_size": 288,
+      "raw_different_bytes": 259,
+      "normalized_different_bytes": 262,
+      "instruction_percent": 43.137,
+      "ordered_cfg_equal": false,
+      "category": "structural/source-form investigation",
+      "strict_equal": false,
+      "relocation_count": 6,
+      "target_relocation_count": 0,
+      "output_id": "989b82a6c955af50799a9973915acd3bfaaeb7bbab254d6aceb90d4e4fd55656",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_host_free",
+      "target_size": 112,
+      "candidate_size": 112,
+      "raw_different_bytes": 79,
+      "normalized_different_bytes": 80,
+      "instruction_percent": 69.231,
+      "ordered_cfg_equal": false,
+      "category": "structural/source-form investigation",
+      "strict_equal": false,
+      "relocation_count": 4,
+      "target_relocation_count": 0,
+      "output_id": "98958f23da19216a931c8e55dc8f446cb772bef6c49405c0cf0a64109a75e9a9",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_coalesce_pool",
+      "target_size": 96,
+      "candidate_size": 96,
+      "raw_different_bytes": 6,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 2,
+      "target_relocation_count": 0,
+      "output_id": "aa26d7d1051a7262f884238ae64565abd5d9712815eeb90d82b0049446342397",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 5,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 2,
+    "ordered_cfg_equal": 3,
+    "instruction_over_90": 2,
+    "nonexact_instruction_over_90": 2,
+    "categories": {
+      "relocation-only diagnostic equality": 2,
+      "uncertain allocation/type/source-form": 1,
+      "structural/source-form investigation": 2
+    }
+  },
+  "family": "full-free-mask-equality",
+  "prediction": "Replace only the three descriptor free tests at allocate 0x45e5/0x45eb, coalesce current 0x484c/0x4851, and coalesce successor 0x4864/0x486a with explicit equality to the complete POOL_FREE mask. VC5 should emit target AND/CMP/JNE at these sites; the coalesce successor comparison may induce the target EDI temporary lifetime, with its save after the initial cursor guard and restore on the skip path. The predicates are equivalent for every U32 descriptor; flags 0x10/0x20 truth tests, descriptor mutation, traversal, allocation policy, all five function peers, accepted diagnostic, and save_arena full bytes/ordered relocations must remain unchanged.",
+  "falsifier": "A fresh compile fails to emit the target full-mask AND/CMP sequence at all three sites; the 57-case fixture changes behavior; any unrelated source text or control/data behavior changes; or the complete save_arena bytes/ordered relocations or diagnostic leaf regress. Raw full-span mismatches remain non-acceptance. If the discriminator fails or merely leaves exact codegen unresolved, stop; do not grid casts, Boolean spellings, loop forms, masks, or padding.",
+  "verdict": "observed",
+  "blocker": null,
+  "reentry_condition": "New independent evidence or discriminator; freeze relocation-normalized equals and preserve accepted peers.",
+  "next_discriminator": null,
+  "ungated_work": [],
+  "new_evidence": null,
+  "new_discriminator": "Independent target control evidence in work/host_pool_control/report.json (SHA-256 c105fc7fc43e06aade0586958df14c5cde0f0b09f9d816251fa7c02157bd04cd): three separate descriptor sites use AND mask, CMP with 0x80000000, JNE. The same allocation body distinguishes this from TEST-based flags 0x10/0x20 predicates. This is a new ordinary-C expression discriminator, not a semantic predicate change.",
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "Integrator fresh replay of the evidenced ordinary-C candidate; no new source family.",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 1,
+    "semantic_result": "57 checks, 0 failures",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "e2bfa5f3b67dea2d83495aab0cdca2327cdb74310a0fdf4d16b0d1daa8e011f3",
+    "report_sha256": "b82036a3bdac25e3c9e15af7d9a33d39180f2fd2099ed413ed659c931223dad9",
+    "object_sha256": "1340d156bd0de4665491efeb1bd4a6565efeecaf3a6597b0cb3acfec33b02369",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-606qx240\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\host_pool_repaired.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "963ba885aac1856335c4c2b7cb7b56b731685ba321ee9b4ca308a56718ccf6b6"
+}

@@ -1,0 +1,47 @@
+{
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "host_pool_lifecycle",
+    "ownership": "inferred_region",
+    "rationale": "Bulk free and reverse compaction are a coherent caller/callee lifecycle slice; original TU ownership is unproven."
+  },
+  "symbol_rvas": {
+    "_g_host_pool": "0x7a29c0",
+    "_host_free": "0x4750",
+    "_compact_all_wrapper": "0x4890",
+    "_compact_pool": "0x48a0",
+    "_count_used": "0x49f0",
+    "_reverse_dword_copy": "0x43a0",
+    "_coalesce_pool": "0x4830",
+    "_host_diagnostic": "0x63c0",
+    "_g_fmt_compact": "0x36130"
+  },
+  "functions": [
+    {
+      "symbol": "_bulk_free",
+      "rva": "0x47c0",
+      "size": 112,
+      "target_sha256": "86dc6c00b25ee6317cd48e8504914e13db8c57682e85a3361009dd95e2e97c34",
+      "control": false
+    },
+    {
+      "symbol": "_compact_all_wrapper",
+      "rva": "0x4890",
+      "size": 16,
+      "target_sha256": "76bfc4000f25ebd6a543d70832fbeee4478c47f9af732aea88ae0f5a646c42b3",
+      "control": false
+    },
+    {
+      "symbol": "_compact_pool",
+      "rva": "0x48a0",
+      "size": 336,
+      "target_sha256": "5a467aee3f0214f1e9cb79a3ebae63ba607129eea37cb826dd985fb0ed2d8459",
+      "control": false
+    }
+  ],
+  "source": "calibration/host_pool_lifecycle.c"
+}

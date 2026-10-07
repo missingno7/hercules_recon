@@ -8,7 +8,8 @@ from pe import PE
 
 def verify():
     total = 0
-    for name in ('host_pool_layout', 'actor_factory_layout'):
+    names = ('host_pool_layout', 'actor_factory_layout', 'actor_pool_layout', 'host_pool_control')
+    for name in names:
         evidence = json.loads((ROOT / ('evidence/' + name + '.json')).read_text())
         oracle = evidence['oracle']
         path = ROOT / oracle['path']
@@ -26,7 +27,7 @@ def verify():
             if digest(image.read_rva(int(table['rva'], 0), table['bytes'])) != table['sha256']:
                 raise ValueError('Changed default host interface table')
     result = dict(scope='Reviewed static bytes only; no original declarations or runtime outcome proof.',
-                  images=2, code_spans=total)
+                  images=2, evidence_sets=len(names), code_spans=total)
     print(json.dumps(result, indent=2))
     return result
 

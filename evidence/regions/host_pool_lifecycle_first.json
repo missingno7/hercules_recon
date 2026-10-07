@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T21:42:55.681462+00:00",
+  "region": "host_pool_lifecycle",
+  "ownership": {
+    "id": "host_pool_lifecycle",
+    "ownership": "inferred_region",
+    "rationale": "Bulk free and reverse compaction are a coherent caller/callee lifecycle slice; original TU ownership is unproven."
+  },
+  "context_id": "7c66a7bf9530556ded9bb3211503b8cf67cc00bde390c7c1ec140e2ebc2a495c",
+  "source_sha256": "97202b662b5f2412d1418c0671f41d252fd35d4a3453e006d1c1a4530644048a",
+  "baseline_sha256": "97202b662b5f2412d1418c0671f41d252fd35d4a3453e006d1c1a4530644048a",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "58a3a0bc374ed5895972ffa96efc5edd7b2cfbd67b8dd55adb0cb6092b0f58e3",
+  "source_patch": {
+    "base_sha256": "97202b662b5f2412d1418c0671f41d252fd35d4a3453e006d1c1a4530644048a",
+    "result_sha256": "97202b662b5f2412d1418c0671f41d252fd35d4a3453e006d1c1a4530644048a",
+    "edits": []
+  },
+  "output_id": "ff0be50b9522d39913003c5f7b7c8bad8aea376c097caee29ea47df77f2cd358",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_bulk_free",
+      "target_size": 112,
+      "candidate_size": 112,
+      "raw_different_bytes": 60,
+      "normalized_different_bytes": 48,
+      "instruction_percent": 94.595,
+      "ordered_cfg_equal": false,
+      "category": "structural/source-form investigation",
+      "strict_equal": false,
+      "relocation_count": 6,
+      "target_relocation_count": 0,
+      "output_id": "c9e240ef52a6b70cda96edff911cbbe6b5c18caaa3b2056581e52a86bc99eaa2",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_compact_all_wrapper",
+      "target_size": 16,
+      "candidate_size": 16,
+      "raw_different_bytes": 1,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 1,
+      "target_relocation_count": 0,
+      "output_id": "c8fc80a021569b43444b8b9d41d33f2e25abfed177bc1843ccf686131c139a85",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_compact_pool",
+      "target_size": 336,
+      "candidate_size": 320,
+      "raw_different_bytes": 312,
+      "normalized_different_bytes": 313,
+      "instruction_percent": 40.741,
+      "ordered_cfg_equal": false,
+      "category": "structural/source-form investigation",
+      "strict_equal": false,
+      "relocation_count": 7,
+      "target_relocation_count": 0,
+      "output_id": "a5db0b0383bb09081c8d6bcf275e920370e8aef0ca0a0c23e2a3d058a58f6885",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 3,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 1,
+    "ordered_cfg_equal": 1,
+    "instruction_over_90": 2,
+    "nonexact_instruction_over_90": 2,
+    "categories": {
+      "structural/source-form investigation": 2,
+      "relocation-only diagnostic equality": 1
+    }
+  },
+  "family": "ordinary-c owner-handle bulk-free and compaction lifecycle",
+  "prediction": "Changing only owner-slot accesses to `cursor[1].owner_slot` and `destination[1].owner_slot` will make the synthetic owner skip/update cases complete without fault, restore the proven +4 member accesses and correct overlapping reverse-move owner pointer, and retain the three-function call graph. It may improve bulk/compact code shape but does not predict raw equality.",
+  "falsifier": "The corrected candidate still reads/stores word0, crashes or fails pinned/zero-owner/rightward-overlap/repeated-free checks, loses any reviewed call target, changes other lifecycle semantics, or fails to preserve full target extents. Stop if falsified; do not grid field spellings.",
+  "verdict": "falsified",
+  "blocker": null,
+  "reentry_condition": "New independent evidence or discriminator; freeze relocation-normalized equals and preserve accepted peers.",
+  "next_discriminator": null,
+  "ungated_work": [],
+  "new_evidence": null,
+  "new_discriminator": "The first candidate and semantic trace exposed that the C union member `PoolWord.owner_slot` is word0 at offset0; target loads the owner-slot address from word1 at offset+4 (bulk free 0x47f6, compact 0x493d) and writes it to destination word1 at +4 (0x4982). The existing reviewed frame proves allocated word1 is the caller handle. This is a concrete layout correction, not an operator/codegen spelling family.",
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "Integrator fresh replay of the evidenced ordinary-C candidate; no new source family.",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 1,
+    "semantic_result": "34 checks, 0 failures",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "8366d0b0d095f900c4293cb9a54af005c3b14aa16ab0afcc4a099123b928301c",
+    "report_sha256": "0fbad3a9029b906d3713f1265bde88f886515886c237d6895ccd91c9638c5046",
+    "object_sha256": "c32b5f2e11d333bed976646fe37425bed53730adf2699a4d72f6cc0676f740a6",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-q0ylki8f\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\host_pool_lifecycle.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "202bba9b86bbf105501c7ea140b5ce0ae7244067fca6d647a21070ec9c1bd4eb"
+}

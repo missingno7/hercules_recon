@@ -1,0 +1,246 @@
+{
+  "scope": "Read-only actor-pool data frame, provider arithmetic and prior label correction. No compile, original execution, canonical/source/Git changes.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "database_sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+  },
+  "requested_four_function_scope": {
+    "routines": [
+      "26f70 normal allocator",
+      "27520 normal initializer",
+      "27b00 alternate allocator",
+      "27fe0 alternate initializer"
+    ],
+    "full_bytes": 1104,
+    "dependency": "Normal initializer calls actual medium initializer27a50, which calls27fe0. Keep27a50 as external dependency unless explicitly assigned its176-byte contribution. Provider/config/reset are structural evidence, not part of this four-function ownership."
+  },
+  "views": {
+    "base94": {
+      "bytes": 148,
+      "allocation_and_reset_stride": "0x94",
+      "reset_rva": "0x27fe0",
+      "highest_reset_field": "word+0x92",
+      "kind_offset": "0x2e",
+      "normal_globals": "Alternate pool base at0x734e0, not normal pool.",
+      "source_hypothesis": "Ordinary C BasicActor view of0x94 bytes with documented byte/word/dword fields; no vtable or inheritance claim."
+    },
+    "middleec": {
+      "bytes": 236,
+      "allocation_and_reset_stride": "0xec",
+      "reset_rva": "0x27a50",
+      "composition": "Calls base94 initializer first, then resets fields from+0x94 through dword+0xe8.",
+      "source_hypothesis": "Ordinary embedded BasicActor prefix followed by a0x58-byte extension; medium actor pointer global0x73494."
+    },
+    "normal134": {
+      "bytes": 308,
+      "allocation_and_reset_stride": "0x134",
+      "reset_rva": "0x27520",
+      "composition": "Calls middleec initializer first, then resets fields from+0xec through dword+0x130.",
+      "source_hypothesis": "Ordinary embedded middleec prefix plus0x48-byte extension; normal actor pointer global0x72860."
+    },
+    "limits": "Stride plus reset extent support these exact private views. They do not prove original typedefs, language inheritance, TU or fixed array capacities. Use sizeof views only after explicit offset/size checks."
+  },
+  "provider_requests": {
+    "normal": {
+      "output_slot_rva": "0x72860",
+      "count_rva": "0x713b4",
+      "formula": "count * 0x134",
+      "flags": "0x10",
+      "call_rva": "0x1f112",
+      "arithmetic": "n ->9*n ->19*n ->77*n ->308*n"
+    },
+    "middle": {
+      "output_slot_rva": "0x73494",
+      "count_rva": "0x71432",
+      "formula": "count * 0xec +0x134",
+      "flags": "0x10",
+      "call_rva": "0x1f13e",
+      "arithmetic": "n ->7*n ->29*n ->59*n ->236*n +308"
+    },
+    "alternate": {
+      "output_slot_rva": "0x734e0",
+      "count_rva": "0x713ba",
+      "formula": "count * 0x94 +0x134",
+      "flags": "0x10",
+      "call_rva": "0x1f163",
+      "arithmetic": "n ->9*n ->37*n ->148*n +308"
+    },
+    "correction": "Alternate per-count multiplier is148, not308. Both alternate and middle allocations include an additional308-byte tail; its purpose is unproved. Preserve exactly and do not derive another object count or safety padding claim."
+  },
+  "configuration": {
+    "table_rva": "0x68af0",
+    "record_stride": 72,
+    "selection": "Selected by signed level byte from sharedstate[0]; ID sentinel999; copies reviewed selected record fields.",
+    "normal_count": {
+      "destination": "0x713b4",
+      "source": "row+0x02",
+      "transformation": "unsigned16 direct copy; no+5"
+    },
+    "middle_count": {
+      "destination": "0x71432",
+      "source": "row+0x04",
+      "transformation": "word addition of5"
+    },
+    "alternate_count": {
+      "destination": "0x713ba",
+      "source": "row+0x06",
+      "transformation": "word addition of5"
+    },
+    "normal_partitions": {
+      "flag8000": {
+        "start": "word713a8 = row+0x0e",
+        "cursor": "word71308 initially same",
+        "end": "word713b4"
+      },
+      "flag_clear": {
+        "start": "word71378 = row+0x08",
+        "cursor": "word713c4 initially same",
+        "end": "word713a8"
+      }
+    },
+    "alternate_partitions": {
+      "flag8000": {
+        "start": "word713b6 = row+0x12",
+        "cursor": "word71374 initially same",
+        "end": "word713ba"
+      },
+      "flag_clear": {
+        "start": "word7138c = row+0x0c",
+        "cursor": "word71430 initially same",
+        "end": "word713b6"
+      }
+    },
+    "count_limits": "These are runtime bounds copied from selected rows. Existing record values are observations, not declarations of maxima or original array capacities."
+  },
+  "allocation_behavior": {
+    "kind": "Physical argument is four bytes; actual allocator consumes only bit0x8000. Word-typed packed-kind hypothesis remains supported by callers and writes.",
+    "scan": "For chosen partition, scan[cursor,end) for kindword==0, then[start,cursor). ReturnNULL if no free slot. Store selected index back to partition cursor; do not increment it on success.",
+    "reservation": "Allocator only returns the slot and updates cursor; it does not set kind or otherwise reserve the actor. Factory/reset caller supplies later writes. Calling allocator repeatedly without kind assignment can return the same slot.",
+    "loads": "Indices/bounds loaded from word globals and zero-extended to32-bit integer loop indices. Pointer computation uses exactly view stride, not provider tail formula."
+  },
+  "reset_context": {
+    "normal": "27490 scans308-byte entries; remove_actor27260 returningnonzero triggers normal init27520, otherwise clear_actor55b0 only.",
+    "middle": "279a0 scans236-byte entries; removal27860 returningnonzero triggers middle init27a50, otherwise clear_actor55b0.",
+    "alternate": "27f50 scans148-byte entries; release_actor27e20 returningnonzero triggers base94 init27fe0, otherwise clear_actor55b0.",
+    "preservation": "Initialize only the fields listed by the PC stores, in observed dependency order. Whole-object memset would change untouched fields and is unsupported."
+  },
+  "prior_focus_label": {
+    "slot_rva": "0x72860",
+    "proven_role": "Host-written normal actor pool base. Provider passes the address of this cell to allocator callback, and normal scan/reset address entries from its stored pointer.",
+    "prior_names": [
+      "g_focus in calibration/refinery_blind.c and calibration/actor_continuation.c; maps in evidence/refinery_blind.json and evidence/actor_continuation_region.json"
+    ],
+    "precise_update": "Consumers that dereference g_focus at this cell access normal pool element0. A separate dynamically selected focus pointer is not proved by the label. Pool element0 may have a gameplay focus/hero role, but that requires separate writer/type evidence.",
+    "encoded_pointer_population_refs": [
+      {
+        "rva": "0x1f10d",
+        "kind": "linear_immediate",
+        "instruction": "push 0x10072860"
+      }
+    ],
+    "regression_rule": "Correct descriptive evidence/provisional names only. Do not rewrite equal accepted code, move the cell, or change the consumers field access semantics."
+  },
+  "luna_hypothesis": {
+    "family": "stride-specific embedded actor prefix views",
+    "prediction": "Using distinct148/236/308-byte ordinary C views with common prefix composition naturally gives typed array indexing at the two proven allocator strides and correct init call nesting/field widths, without translating provider requested bytes into capacities.",
+    "falsifier": "Wrong stride or bounds, cursor reservation/increment absent from PC, different failed-allocation result, memset touching unlisted fields, altered initializer call order, altered literal provider requests, or regression of any accepted/frozen caller contribution.",
+    "scope": "One bounded four-function source frame. Keep all actual globals and helper relocations mapped. Compare complete contributions including padding after fresh historical compilation; semantics first do not grant raw acceptance.",
+    "semantic_needs": [
+      "Both partition-bit choices, cursor-to-end and wrap-to-cursor scans, no free slot, first free slot, and success cursor notincremented.",
+      "Repeated allocation without kind assignment returns same slot; with a populated kind it advances by one true view stride.",
+      "Initializer sentinel/constants and untouched-field preservation using patterned objects.",
+      "Normal init delegates to middle init, which delegates to base94 init, before extension stores; failed removal invokes only clear_actor in reset evidence.",
+      "Keep provider formulas count*308;count*236+308;count*148+308 exactly; no invented extra actors or capacity.",
+      "Define pool0 pointer consumers as first normal actor view without changing existing code behavior."
+    ],
+    "compiler_builds": 0
+  },
+  "code_spans": [
+    {
+      "label": "normal_allocator",
+      "start_rva": "0x26f70",
+      "end_rva_exclusive": "0x270c0",
+      "bytes": 336,
+      "sha256": "0e30c8e93d6e67f7a47ee7ca6ffe634db3e9bb17016d23397befa42df98faec6"
+    },
+    {
+      "label": "normal_initializer",
+      "start_rva": "0x27520",
+      "end_rva_exclusive": "0x275d0",
+      "bytes": 176,
+      "sha256": "9f720340cddaa513ee2c1ec16159fa6fec34bbb9c09754d5a48b69e6e738a766"
+    },
+    {
+      "label": "alternate_allocator",
+      "start_rva": "0x27b00",
+      "end_rva_exclusive": "0x27c40",
+      "bytes": 320,
+      "sha256": "3312ae39137e728e11c77e9fe2995db11e2c5ab26cf8df3efe959dea6dadc8dd"
+    },
+    {
+      "label": "alternate_initializer",
+      "start_rva": "0x27fe0",
+      "end_rva_exclusive": "0x280f0",
+      "bytes": 272,
+      "sha256": "8b8c2737815548fbaf4b771cb5ee28774740b408216aa4ebf52122c1efd9fad1"
+    },
+    {
+      "label": "medium_initializer_dependency",
+      "start_rva": "0x27a50",
+      "end_rva_exclusive": "0x27b00",
+      "bytes": 176,
+      "sha256": "87d5aea0c646659a527183b97a8bab365620bb2cc44803362c243133fe70763f"
+    },
+    {
+      "label": "pool_provider",
+      "start_rva": "0x1f0f0",
+      "end_rva_exclusive": "0x1f220",
+      "bytes": 304,
+      "sha256": "3873fe0120fd045ed084e40648c9cd3a7937eb425ae6b0b66e5739e006dcb3e3"
+    },
+    {
+      "label": "select_configuration",
+      "start_rva": "0x280f0",
+      "end_rva_exclusive": "0x28290",
+      "bytes": 416,
+      "sha256": "a151f3196e1813aea80fcd7dc6a4b203845db44186f02bddde506424027dc2c7"
+    },
+    {
+      "label": "normal_pool_reset",
+      "start_rva": "0x27490",
+      "end_rva_exclusive": "0x274e0",
+      "bytes": 80,
+      "sha256": "de41d5a3a59e1a197845768e57a5528ef856b459e7bd6354e816b443794bba5d"
+    },
+    {
+      "label": "medium_pool_reset",
+      "start_rva": "0x279a0",
+      "end_rva_exclusive": "0x279f0",
+      "bytes": 80,
+      "sha256": "df67355b6ff5affc8b106aa49b48df1666c43e0753ac6ed01b8ff7ed909b5ad0"
+    },
+    {
+      "label": "alternate_pool_reset",
+      "start_rva": "0x27f50",
+      "end_rva_exclusive": "0x27fa0",
+      "bytes": 80,
+      "sha256": "1c9c53ec0651e4a7f0e179637ad3b7c49efd8b1395f030726ad15caae970af6d"
+    }
+  ],
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compiler_builds": 0
+  },
+  "unresolved": [
+    "Original declarations/TU and exact field names.",
+    "Purpose and users of the308-byte tail in alternate/middle requests.",
+    "Actual gameplay role of normal pool element0 and runtime pointer alias mutation.",
+    "Provider allocation failures and later lifetime callbacks were not executed."
+  ],
+  "private_report": "work/actor_pool_shape/report.json"
+}
