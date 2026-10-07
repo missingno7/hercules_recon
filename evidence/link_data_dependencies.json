@@ -1,0 +1,243 @@
+{
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "scope": "Read-only data dependency evidence; no data extent or layout acceptance.",
+  "data": [
+    {
+      "rva": "0x716c0",
+      "storage": "virtual .data, loader zero fill",
+      "file_backed": false,
+      "references": [
+        {
+          "source_rva": "0x1029",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x1030",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x1036",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x11972",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x1197e",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x11989",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x11a97",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x11aa4",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x11aaa",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x25654",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x25991",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x25c03",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x25c0a",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x25c10",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x29671",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x29683",
+          "kind": "linear_immediate"
+        }
+      ]
+    },
+    {
+      "rva": "0x6fed8",
+      "storage": "virtual .data, loader zero fill",
+      "file_backed": false,
+      "references": [
+        {
+          "source_rva": "0x295bd",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x29710",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x29828",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x29848",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x29879",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x29997",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x29a00",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x29b23",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x29b43",
+          "kind": "linear_memory"
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "commands": [
+      "python scripts/archaeology.py context ENG1.DLL 0x1010 0x30",
+      "python scripts/archaeology.py context ENG1.DLL 0x296e0 0x190",
+      "python scripts/archaeology.py context ENG1.DLL 0x29870 0x160"
+    ],
+    "reference_query": "SELECT source_rva,kind FROM refs WHERE module=? AND target_rva=? AND kind!=? ORDER BY source_rva",
+    "reference_parameters": [
+      "ENG1.DLL",
+      "each data_rva",
+      "pe_highlow_pointer"
+    ],
+    "compiler_builds": 0
+  },
+  "inspected_extents": [
+    {
+      "rva": "0x1010",
+      "size": 48,
+      "sha256": "38a6aed00006d63998876783a3dcd473141906efe9c54a41d2a75126ba50c8fe",
+      "scope": "Reviewed contiguous entry-to-next-entry extent; data findings only, no reconstruction acceptance.",
+      "incoming": [
+        {
+          "source_rva": "0x4e418",
+          "kind": "pe_highlow_pointer"
+        },
+        {
+          "source_rva": "0x580c0",
+          "kind": "pe_highlow_pointer"
+        },
+        {
+          "source_rva": "0x598d0",
+          "kind": "pe_highlow_pointer"
+        },
+        {
+          "source_rva": "0x5c838",
+          "kind": "pe_highlow_pointer"
+        },
+        {
+          "source_rva": "0x60928",
+          "kind": "pe_highlow_pointer"
+        },
+        {
+          "source_rva": "0x62130",
+          "kind": "pe_highlow_pointer"
+        },
+        {
+          "source_rva": "0x677b8",
+          "kind": "pe_highlow_pointer"
+        },
+        {
+          "source_rva": "0x6ab18",
+          "kind": "pe_highlow_pointer"
+        }
+      ]
+    },
+    {
+      "rva": "0x296e0",
+      "size": 400,
+      "sha256": "5f18d2c4204954604ebff00c5c3daeb33634a50d062ca001b243081dbb837af0",
+      "scope": "Reviewed contiguous entry-to-next-entry extent; data findings only, no reconstruction acceptance.",
+      "incoming": [
+        {
+          "source_rva": "0x29cc5",
+          "kind": "linear_call"
+        }
+      ]
+    },
+    {
+      "rva": "0x29870",
+      "size": 352,
+      "sha256": "07edfcbbed5d706b49015966add6fa42693301722ff26df7b6cac7283204404f",
+      "scope": "Reviewed contiguous entry-to-next-entry extent; data findings only, no reconstruction acceptance.",
+      "incoming": [
+        {
+          "source_rva": "0x29e8d",
+          "kind": "linear_call"
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "data_rva": "0x716c0",
+      "interpretation": "Signed count word followed by 32-bit actor pointer slots; no pointer indirection at the table base.",
+      "verified_writer_rva": "0x1010",
+      "writer": "Sets render flags=0, flags=0x81, tag=0x2a; increments count then stores actor pointer at base+4*new_count.",
+      "additional_count_store_sites": [
+        "0x25654",
+        "0x25991"
+      ],
+      "other_append_sites": [
+        "0x11972",
+        "0x11a97",
+        "0x25c03"
+      ],
+      "extent": "Declaration capacity not proven; no bound is checked at verified append site. Neighbor table addresses are not a declaration-size proof."
+    },
+    {
+      "data_rva": "0x6fed8",
+      "interpretation": "One selected actor pointer, used as default insertion anchor; not proven to be a persistent list head.",
+      "selection_functions": [
+        "0x296e0",
+        "0x29870",
+        "0x299d0"
+      ],
+      "zero_then_selection_sites": [
+        "0x29710",
+        "0x29879",
+        "0x29a00"
+      ],
+      "selected_actor_sites": [
+        "0x29828",
+        "0x29848",
+        "0x29997",
+        "0x29b23",
+        "0x29b43"
+      ],
+      "minimum_accessed_width": 4,
+      "extent": "Original variable grouping and surrounding data contribution unresolved."
+    }
+  ],
+  "next_discriminator": "Recover actual global contribution declarations/initialization grouping and tag-list capacity from supported evidence before any natural-data layout proof."
+}

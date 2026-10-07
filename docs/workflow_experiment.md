@@ -180,3 +180,7 @@ Reusable lesson: broad context helped establish representation, then ordinary lo
 diagnoses gave Luna useful work. The evidence supports that coarse-to-fine sequence
 here; it does not establish a universal best region size or prove one model tier's
 cost superiority. Process overhead should remain subordinate to actual recovery.
+
+The subsequent [release continuation](release_closure.md) corrects the tentative
+release hypothesis recorded above, widens its semantic fixture, and traces the
+host interface initialization. This page retains the earlier experiment's results.

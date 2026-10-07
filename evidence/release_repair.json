@@ -1,0 +1,147 @@
+{
+  "scope": "Corrected experimental source; no FUNCTION_MATCH or natural link proof.",
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "rva": "0x27e20",
+  "size": 304,
+  "target_contribution_sha256": "f1204ab183d95adb935f5d9a243b84fa4a22ea410c7debc5657a58e9792202e5",
+  "source": "calibration/release_actor_repaired.c",
+  "source_sha256": "33cb16935fa5ca50eaf04dfa735a1723ccbadecc6e6e1ea56f9f515f27b42ede",
+  "compiler": "msvc5_rtm",
+  "flags": [
+    "/O2",
+    "/Gy"
+  ],
+  "requested_model": "gpt-6.1-sol",
+  "requested_effort": "high",
+  "actual_model_identity": null,
+  "tokens": null,
+  "cost_usd": null,
+  "diagnosis": [
+    "0x100 coordinate/word copy and 0x80 word copy are independent predicates.",
+    "Every nonblocked sidecar then performs detach child, buffer, attachment, kind clear, sidecar flag clear and actor clear.",
+    "Signed special-kind byte is compared as a 16-bit word; second predicate reloads actor profile.",
+    "Callbacks observe pre-clear kind; post-callback sidecar flags are read again before high-bit clear."
+  ],
+  "result": {
+    "symbol": "_release_actor",
+    "control": false,
+    "target_size": 304,
+    "candidate_size": 304,
+    "strict_equal": false,
+    "raw_different_bytes": 40,
+    "raw_byte_percent": 86.842,
+    "normalized_different_bytes": 0,
+    "normalized_byte_percent": 100.0,
+    "instruction_percent": 100.0,
+    "original_instruction_count": 98,
+    "candidate_instruction_count": 98,
+    "ordered_cfg_equal": true,
+    "original_blocks": 17,
+    "candidate_blocks": 17,
+    "direct_call_targets_equal": true,
+    "original_direct_calls": [
+      "0x100055b0",
+      "0x10029530",
+      "0x10029570",
+      "0x100294f0",
+      "0x100055b0",
+      "0x10029530",
+      "0x10029570",
+      "0x100294f0",
+      "0x100055b0",
+      "0x10027260"
+    ],
+    "candidate_direct_calls": [
+      "0x100055b0",
+      "0x10029530",
+      "0x10029570",
+      "0x100294f0",
+      "0x100055b0",
+      "0x10029530",
+      "0x10029570",
+      "0x100294f0",
+      "0x100055b0",
+      "0x10027260"
+    ],
+    "original_indirect_calls": [],
+    "candidate_indirect_calls": [],
+    "relocation_count": 13,
+    "category": "relocation-only diagnostic equality"
+  },
+  "semantics": {
+    "checks": 2244629,
+    "failures": 0,
+    "scope": "Finite target-derived flags/profile/side-effects/alias/offset test cases."
+  },
+  "builds": {
+    "objects": 2,
+    "semantic_executables": 2,
+    "failed": 0
+  },
+  "original_hypothesis_known_incorrect": true,
+  "old_probe": "Prior twelve-case fixture missed independent-flag and negative-byte/profile cases; removed from normal registered suites.",
+  "provenance": {
+    "compile": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\work\\release_diagnosis\\structured_cleanup.obj",
+      "D:\\prog\\hercules_recon\\candidates\\release_diagnosis\\structured_cleanup.c"
+    ],
+    "semantic": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/O2",
+      "/Gy",
+      "/ML",
+      "/FoD:\\prog\\hercules_recon\\work\\release_diagnosis\\semantics.obj",
+      "/FeD:\\prog\\hercules_recon\\work\\release_diagnosis\\semantics.exe",
+      "D:\\prog\\hercules_recon\\work\\release_diagnosis\\semantics.c",
+      "/link",
+      "/INCREMENTAL:NO"
+    ]
+  },
+  "next_discriminator": "Real recovered callees and global data/layout; source spelling iteration has no remaining diagnostic mismatch.",
+  "replay": "python scripts/macro_compare.py --source calibration/release_actor_repaired.c --spec evidence/release_dependency.json --output work/release_repair_replay/metrics.json",
+  "integrator_semantic_validation": {
+    "release_actor_repaired": {
+      "exit_code": 0,
+      "stdout": "2244629 checks; 0 failures",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/O2",
+        "/Gy",
+        "/ML",
+        "/FoD:\\prog\\hercules_recon\\work\\release_repair_verification\\release_actor_repaired\\semantics.obj",
+        "/FeD:\\prog\\hercules_recon\\work\\release_repair_verification\\release_actor_repaired\\semantics.exe",
+        "D:\\prog\\hercules_recon\\work\\release_repair_verification\\release_actor_repaired\\semantics.c",
+        "/link",
+        "/INCREMENTAL:NO"
+      ],
+      "harness_sha256": "bc1d5865336d027b3418a9d61ad5c6198756c60288d6e6d7518ed29f640aaff6",
+      "executable_sha256": "23ef391e9e2f802ed4867e6366f15842bbe4567461a88a6a716528ab3d5ea66c"
+    },
+    "release_actor": {
+      "exit_code": 1,
+      "stdout": "FAIL line 35\nFAIL line 37\nFAIL line 38\nFAIL line 39\nFAIL line 35\nFAIL line 37\nFAIL line 38\nFAIL line 39\nFAIL line 35\nFAIL line 37\n2244629 checks; 1120002 failures",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/O2",
+        "/Gy",
+        "/ML",
+        "/FoD:\\prog\\hercules_recon\\work\\release_repair_verification\\release_actor\\semantics.obj",
+        "/FeD:\\prog\\hercules_recon\\work\\release_repair_verification\\release_actor\\semantics.exe",
+        "D:\\prog\\hercules_recon\\work\\release_repair_verification\\release_actor\\semantics.c",
+        "/link",
+        "/INCREMENTAL:NO"
+      ],
+      "harness_sha256": "9d0468955bf65745224b3212da2950268ac833477ac35707c5d068d21c14a752",
+      "executable_sha256": "b4fae1ddd6705050311221755582eac0329f28582f9dd4e31dce8d1028da8bdd"
+    }
+  }
+}

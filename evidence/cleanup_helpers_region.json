@@ -1,0 +1,99 @@
+{
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "flags": [
+    "/O2"
+  ],
+  "functions": [
+    {
+      "symbol": "_release_actor_resource_state",
+      "rva": "0x51d0",
+      "size": 320,
+      "control": false,
+      "target_sha256": "8130287b031d9e3defb7645c1b9efe3c0bd0a601bf39810ea00c9568b78a7be3"
+    },
+    {
+      "symbol": "_clear_actor",
+      "rva": "0x55b0",
+      "size": 80,
+      "control": false,
+      "target_sha256": "0a577637ef4b48fd2a35f4545dd5633b4188df4348dc544b021073f3b460c0c5"
+    },
+    {
+      "symbol": "_release_actor_token",
+      "rva": "0x5750",
+      "size": 48,
+      "control": false,
+      "target_sha256": "c71747b9d0aea603b560defd7f5aebad8a97760e12f7baa75f6d52039993b585"
+    }
+  ],
+  "symbol_rvas": {
+    "_release_actor_resource_state": "0x51d0",
+    "_clear_actor": "0x55b0",
+    "_release_actor_token": "0x5750",
+    "_g_actor_resources": "0x5ceec",
+    "_g_actor_link_map": "0x5e128",
+    "_g_actor_link_rows": "0x72880",
+    "_g_actor_token_references": "0x727e0"
+  },
+  "region": {
+    "id": "cleanup_helpers",
+    "ownership": "inferred_region",
+    "rationale": "Measured actor resource/token state and recursive clear dependency group; original TU ownership unproved."
+  },
+  "source": "calibration/cleanup_helpers.c",
+  "boundary_evidence": [
+    {
+      "symbol": "_release_actor_resource_state",
+      "rva": "0x51d0",
+      "size": 320,
+      "target_sha256": "8130287b031d9e3defb7645c1b9efe3c0bd0a601bf39810ea00c9568b78a7be3",
+      "target_relocations": [
+        "0x51fe",
+        "0x5206",
+        "0x524d",
+        "0x525c",
+        "0x5264",
+        "0x528e",
+        "0x52d5",
+        "0x52e2",
+        "0x52ea"
+      ],
+      "decoded_bytes": 320,
+      "decoded_instructions": 91,
+      "final_instruction": {
+        "rva": "0x530f",
+        "mnemonic": "ret"
+      }
+    },
+    {
+      "symbol": "_clear_actor",
+      "rva": "0x55b0",
+      "size": 80,
+      "target_sha256": "0a577637ef4b48fd2a35f4545dd5633b4188df4348dc544b021073f3b460c0c5",
+      "target_relocations": [],
+      "decoded_bytes": 80,
+      "decoded_instructions": 35,
+      "final_instruction": {
+        "rva": "0x55ff",
+        "mnemonic": "nop"
+      }
+    },
+    {
+      "symbol": "_release_actor_token",
+      "rva": "0x5750",
+      "size": 48,
+      "target_sha256": "c71747b9d0aea603b560defd7f5aebad8a97760e12f7baa75f6d52039993b585",
+      "target_relocations": [
+        "0x5766",
+        "0x5773"
+      ],
+      "decoded_bytes": 48,
+      "decoded_instructions": 19,
+      "final_instruction": {
+        "rva": "0x577f",
+        "mnemonic": "nop"
+      }
+    }
+  ]
+}

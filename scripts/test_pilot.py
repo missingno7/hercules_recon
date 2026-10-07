@@ -22,7 +22,9 @@ SUITES = {
     "effect_state": ["src/shared/effect_state.c"],
     "linked_particle": ["src/shared/linked_particle.c"],
     "actor_continuation": ["calibration/actor_continuation.c"],
-    "release_actor_probe": ["calibration/release_actor.c"],
+    "release_actor": ["calibration/release_actor_repaired.c"],
+    "clear_actor": ["calibration/cleanup_helpers.c"],
+    "state_helpers": ["calibration/cleanup_helpers.c"],
 }
 
 

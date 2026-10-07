@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T19:06:11.664640+00:00",
+  "region": "cleanup_helpers",
+  "ownership": {
+    "id": "cleanup_helpers",
+    "ownership": "inferred_region",
+    "rationale": "Measured actor resource/token state and recursive clear dependency group; original TU ownership unproved."
+  },
+  "context_id": "98fbb23b1f5c051b7949303067f56d4023ceccdb6eb7d6c382b773ea3dff3c87",
+  "source_sha256": "d5c674bfed8bc00a41309edc849f739b408ff8945dda20fbb11d95220886caf2",
+  "baseline_sha256": "d5c674bfed8bc00a41309edc849f739b408ff8945dda20fbb11d95220886caf2",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "d5c674bfed8bc00a41309edc849f739b408ff8945dda20fbb11d95220886caf2",
+  "source_patch": {
+    "base_sha256": "d5c674bfed8bc00a41309edc849f739b408ff8945dda20fbb11d95220886caf2",
+    "result_sha256": "d5c674bfed8bc00a41309edc849f739b408ff8945dda20fbb11d95220886caf2",
+    "edits": []
+  },
+  "output_id": "d9efa3193025fe5e15bcccacd9dea06f3fde7a3c6377f407dddaeb803dabae9b",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_release_actor_resource_state",
+      "target_size": 320,
+      "candidate_size": 320,
+      "raw_different_bytes": 289,
+      "normalized_different_bytes": 288,
+      "instruction_percent": 26.374,
+      "ordered_cfg_equal": true,
+      "category": "uncertain allocation/type/source-form",
+      "strict_equal": false,
+      "relocation_count": 7,
+      "target_relocation_count": 9,
+      "output_id": "7a69d8d1a8a8812c58f9aff20124ef901059a9d48ae3c024af6331c975433927",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_clear_actor",
+      "target_size": 80,
+      "candidate_size": 80,
+      "raw_different_bytes": 12,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 4,
+      "target_relocation_count": 0,
+      "output_id": "dcd1f3de34624569b2153f37c3f817bd9420f8230efa157d177101a074415e93",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_release_actor_token",
+      "target_size": 48,
+      "candidate_size": 48,
+      "raw_different_bytes": 25,
+      "normalized_different_bytes": 21,
+      "instruction_percent": 72.727,
+      "ordered_cfg_equal": true,
+      "category": "uncertain allocation/type/source-form",
+      "strict_equal": false,
+      "relocation_count": 1,
+      "target_relocation_count": 2,
+      "output_id": "8c652586f446b5621d7ae27aec699712696eac106e8791e934bf361701f26cfa",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 3,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 1,
+    "ordered_cfg_equal": 3,
+    "instruction_over_90": 1,
+    "nonexact_instruction_over_90": 1,
+    "categories": {
+      "uncertain allocation/type/source-form": 2,
+      "relocation-only diagnostic equality": 1
+    }
+  },
+  "family": "reviewed-cleanup-first-pass",
+  "prediction": "Ordinary C using the reviewed field offsets, 4-byte reference strides, 12-byte link rows, and observed call order will reproduce the helpers' branch/data behavior and expose any remaining source-form gaps.",
+  "falsifier": "A field write, branch condition, table stride, loop edge, or call order cannot be explained by the candidate statements, or any function's full target span differs after all explicitly mapped external references.",
+  "verdict": "partial diagnostic reconstruction",
+  "blocker": "Two complete contributions remain source/codegen nonexact; token return ABI unproved.",
+  "reentry_condition": "A new field-use trace, writer path, or table-layout discriminator for the opaque actor cleanup state.",
+  "next_discriminator": "New actor-field writer/table-layout evidence; do not repeat rejected combined rewrite or pointer return.",
+  "ungated_work": [
+    "Field semantics remain provisional where only offsets and table behavior are proven."
+  ],
+  "new_evidence": "Reviewed complete PC spans and internal call/reference paths for 0x51d0, 0x55b0, and 0x5750.",
+  "new_discriminator": null,
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "Bounded PC cleanup helper reconstruction and synthetic semantic fixture",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 3,
+    "semantic_result": {
+      "checks": 38,
+      "failures": 0,
+      "scope": "Two synthetic fixtures: clear_actor callback order/recursion/field preservation and helper reference/table mutations."
+    },
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "f9762c3cffb5ca188bc6b1cadf8f9fd81aa8affc27457a7a18980e6de8af6b7b",
+    "report_sha256": "a2ee058e232b59e80c6386764728d23a904dfa31f5178c76a07b8140917b0d2b",
+    "object_sha256": "a804483ee6b15f3dd59a53ddbb74765a1c9e36f4005464d3a0666230221ae0bc",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-g2kcmlug\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\cleanup_helpers.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "40d3c7b046a58221c59b34dcb32f12e7e34557cd2b8b5031d03bf8192a247cc7"
+}

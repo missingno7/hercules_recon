@@ -1,0 +1,372 @@
+{
+  "scope": "Exploration and failed-family history; no acceptance.",
+  "requested_model_from_dispatch": "gpt-6-luna",
+  "requested_effort_from_dispatch": "xhigh",
+  "actual_model_identity": null,
+  "tokens": null,
+  "cost_usd": null,
+  "metadata_correction": "Worker receipts incorrectly labeled their requested route Sol/high; integrator uses actual dispatched Luna/xhigh configuration.",
+  "artifact_correction": "Private metrics.json was reused for later measurements. Frozen first-pass source is recompiled for the durable best receipt.",
+  "attempts": [
+    {
+      "private_receipt_id": "600c2d781dfd223a6613d3c6fc8bc735ee693781938ea763813128b880cdac2e",
+      "family": "actor-resource-release-and-recursive-clear",
+      "prediction": "The active path's LEA returns the token reference-table entry, matching a pointer-return helper; reviewed callers discard EAX, so an explicit null return on the sentinel path preserves caller behavior.",
+      "falsifier": "The isolated signature/return change alters any other function contribution, fails synthetic pointer/counter/field checks, or worsens the token helper without supporting the pointer-return hypothesis.",
+      "verdict": "falsified",
+      "source_sha256": "a37599c5ee2a17ca9290607932484f3814d00d5e850d1c793333a5c4d092776d",
+      "output_id": "0e68d4731648975f99d72aa9d62113ada01ab99047c3740644478ecaf1572bf0",
+      "summary": {
+        "functions": 3,
+        "exact": 0,
+        "new_exact": 0,
+        "exact_bytes": 0,
+        "diagnostic_equal": 1,
+        "ordered_cfg_equal": 2,
+        "instruction_over_90": 1,
+        "nonexact_instruction_over_90": 1,
+        "categories": {
+          "uncertain allocation/type/source-form": 1,
+          "relocation-only diagnostic equality": 1,
+          "structural/source-form investigation": 1
+        }
+      },
+      "functions": [
+        {
+          "symbol": "_release_actor_resource_state",
+          "target_size": 320,
+          "candidate_size": 320,
+          "raw_different_bytes": 289,
+          "normalized_different_bytes": 288,
+          "instruction_percent": 26.374,
+          "ordered_cfg_equal": true,
+          "category": "uncertain allocation/type/source-form",
+          "strict_equal": false,
+          "relocation_count": 7,
+          "target_relocation_count": 9,
+          "output_id": "7a69d8d1a8a8812c58f9aff20124ef901059a9d48ae3c024af6331c975433927",
+          "scope": "experimental contribution; not acceptance"
+        },
+        {
+          "symbol": "_clear_actor",
+          "target_size": 80,
+          "candidate_size": 80,
+          "raw_different_bytes": 12,
+          "normalized_different_bytes": 0,
+          "instruction_percent": 100.0,
+          "ordered_cfg_equal": true,
+          "category": "relocation-only diagnostic equality",
+          "strict_equal": false,
+          "relocation_count": 4,
+          "target_relocation_count": 0,
+          "output_id": "dcd1f3de34624569b2153f37c3f817bd9420f8230efa157d177101a074415e93",
+          "scope": "experimental contribution; not acceptance"
+        },
+        {
+          "symbol": "_release_actor_token",
+          "target_size": 48,
+          "candidate_size": 48,
+          "raw_different_bytes": 33,
+          "normalized_different_bytes": 29,
+          "instruction_percent": 61.538,
+          "ordered_cfg_equal": false,
+          "category": "structural/source-form investigation",
+          "strict_equal": false,
+          "relocation_count": 2,
+          "target_relocation_count": 2,
+          "output_id": "947ac900e8434dd37dec136b5da449b98b7e35b72aab91381ecf744542695d8a",
+          "scope": "experimental contribution; not acceptance"
+        }
+      ],
+      "next_discriminator": "A writer path or caller that observes EAX would be needed to resolve the token helper's source-level return type.",
+      "reentry_condition": "A new field-use trace, writer path, or table-layout discriminator for the opaque actor cleanup state.",
+      "source_patch": {
+        "base_sha256": "d5c674bfed8bc00a41309edc849f739b408ff8945dda20fbb11d95220886caf2",
+        "result_sha256": "a37599c5ee2a17ca9290607932484f3814d00d5e850d1c793333a5c4d092776d",
+        "edits": [
+          {
+            "line": 66,
+            "old": "extern void release_actor_token(Actor *p);\n",
+            "new": "extern ActorTokenReference *release_actor_token(Actor *p);\n"
+          },
+          {
+            "line": 132,
+            "old": "void release_actor_token(Actor *p)\n",
+            "new": "ActorTokenReference *release_actor_token(Actor *p)\n"
+          },
+          {
+            "line": 141,
+            "old": "",
+            "new": "        return &g_actor_token_references[token];\n"
+          },
+          {
+            "line": 142,
+            "old": "",
+            "new": "    return 0;\n"
+          }
+        ]
+      },
+      "source_patch_baseline": "calibration/cleanup_helpers.c; UTF-8/LF recipe identity",
+      "reported_model": "gpt-6.1-sol",
+      "reported_effort": "high"
+    },
+    {
+      "private_receipt_id": "7bea3912b5495db28c38ed712120ae352f0c7de83fc5926cce542288d92641d5",
+      "family": "actor-resource-release-and-recursive-clear",
+      "prediction": "Direct actor-table expressions and one cached release-mode value will retain the target's per-link reloads and loop address calculations; a pointer result on the active token path explains the final LEA.",
+      "falsifier": "The revised full spans grow or become less relocation-normalized, or the ordinary-C return statement changes any observed caller-visible behavior.",
+      "verdict": "falsified",
+      "source_sha256": "c542de73ac74f5b051d84389f6c9ad25ec88929fe0226fb62d395b29d2f42af0",
+      "output_id": "f8d1c8f7ac1b6846d01d6e0eb01568862eac0b8d9f1eb9394bf3435b54ef9aab",
+      "summary": {
+        "functions": 3,
+        "exact": 0,
+        "new_exact": 0,
+        "exact_bytes": 0,
+        "diagnostic_equal": 1,
+        "ordered_cfg_equal": 3,
+        "instruction_over_90": 1,
+        "nonexact_instruction_over_90": 1,
+        "categories": {
+          "uncertain allocation/type/source-form": 2,
+          "relocation-only diagnostic equality": 1
+        }
+      },
+      "functions": [
+        {
+          "symbol": "_release_actor_resource_state",
+          "target_size": 320,
+          "candidate_size": 352,
+          "raw_different_bytes": 317,
+          "normalized_different_bytes": 313,
+          "instruction_percent": 29.67,
+          "ordered_cfg_equal": true,
+          "category": "uncertain allocation/type/source-form",
+          "strict_equal": false,
+          "relocation_count": 9,
+          "target_relocation_count": 9,
+          "output_id": "e0d430a3fc2d11a7820143520854fe4765b8f23b65f896be9738e470d606a47c",
+          "scope": "experimental contribution; not acceptance"
+        },
+        {
+          "symbol": "_clear_actor",
+          "target_size": 80,
+          "candidate_size": 80,
+          "raw_different_bytes": 12,
+          "normalized_different_bytes": 0,
+          "instruction_percent": 100.0,
+          "ordered_cfg_equal": true,
+          "category": "relocation-only diagnostic equality",
+          "strict_equal": false,
+          "relocation_count": 4,
+          "target_relocation_count": 0,
+          "output_id": "dcd1f3de34624569b2153f37c3f817bd9420f8230efa157d177101a074415e93",
+          "scope": "experimental contribution; not acceptance"
+        },
+        {
+          "symbol": "_release_actor_token",
+          "target_size": 48,
+          "candidate_size": 48,
+          "raw_different_bytes": 34,
+          "normalized_different_bytes": 34,
+          "instruction_percent": 84.615,
+          "ordered_cfg_equal": true,
+          "category": "uncertain allocation/type/source-form",
+          "strict_equal": false,
+          "relocation_count": 2,
+          "target_relocation_count": 2,
+          "output_id": "9364414a07ccf1b7d8740c1d66db3aba2763975bb6d945b5171af23c9c3b1b26",
+          "scope": "experimental contribution; not acceptance"
+        }
+      ],
+      "next_discriminator": "New actor-field writer or caller use of the token helper return value.",
+      "reentry_condition": "A new field-use trace, writer path, or table-layout discriminator for the opaque actor cleanup state.",
+      "source_patch": {
+        "base_sha256": "d5c674bfed8bc00a41309edc849f739b408ff8945dda20fbb11d95220886caf2",
+        "result_sha256": "c542de73ac74f5b051d84389f6c9ad25ec88929fe0226fb62d395b29d2f42af0",
+        "edits": [
+          {
+            "line": 66,
+            "old": "extern void release_actor_token(Actor *p);\n",
+            "new": "extern ActorTokenReference *release_actor_token(Actor *p);\n"
+          },
+          {
+            "line": 72,
+            "old": "    ActorResource *resource;\n",
+            "new": ""
+          },
+          {
+            "line": 74,
+            "old": "    ActorResourceLinkRow *row;\n",
+            "new": ""
+          },
+          {
+            "line": 79,
+            "old": "",
+            "new": "    unsigned short release_mode;\n    short reference_index;\n"
+          },
+          {
+            "line": 83,
+            "old": "    resource = g_actor_resources + p->resource_index;\n    references = resource->references;\n\n",
+            "new": ""
+          },
+          {
+            "line": 87,
+            "old": "",
+            "new": "    release_mode = g_actor_resources[p->resource_index].release_mode;\n"
+          },
+          {
+            "line": 89,
+            "old": "",
+            "new": "        references = g_actor_resources[p->resource_index].references;\n"
+          },
+          {
+            "line": 90,
+            "old": "            --references[p->reference_index_a].count;\n            if (references[p->reference_index_a].count == 0) remove_links = 1;\n",
+            "new": "            reference_index = p->reference_index_a;\n            --references[reference_index].count;\n            if (references[reference_index].count == 0) remove_links = 1;\n"
+          },
+          {
+            "line": 93,
+            "old": "        if (resource->release_mode == 0) remove_links = 1;\n",
+            "new": "        if (release_mode == 0) remove_links = 1;\n"
+          },
+          {
+            "line": 98,
+            "old": "                row = g_actor_link_rows + group;\n                row->live_mask &= (unsigned short)(0x0f - item);\n",
+            "new": "                g_actor_link_rows[group].live_mask &= (unsigned short)(0x0f - item);\n"
+          },
+          {
+            "line": 101,
+            "old": "                key = row->next[slot];\n",
+            "new": "                key = g_actor_link_rows[group].next[slot];\n"
+          },
+          {
+            "line": 110,
+            "old": "",
+            "new": "        references = g_actor_resources[p->resource_index].references;\n"
+          },
+          {
+            "line": 111,
+            "old": "            --references[p->reference_index_b].count;\n            if (references[p->reference_index_b].count == 0) remove_links = 1;\n",
+            "new": "            reference_index = p->reference_index_b;\n            --references[reference_index].count;\n            if (references[reference_index].count == 0) remove_links = 1;\n"
+          },
+          {
+            "line": 114,
+            "old": "        if (resource->release_mode == 0) remove_links = 1;\n",
+            "new": "        if (release_mode == 0) remove_links = 1;\n"
+          },
+          {
+            "line": 119,
+            "old": "                row = g_actor_link_rows + group;\n                row->live_mask &= (unsigned short)(0x0f - item);\n",
+            "new": "                g_actor_link_rows[group].live_mask &= (unsigned short)(0x0f - item);\n"
+          },
+          {
+            "line": 122,
+            "old": "                key = row->next[slot];\n",
+            "new": "                key = g_actor_link_rows[group].next[slot];\n"
+          },
+          {
+            "line": 132,
+            "old": "void release_actor_token(Actor *p)\n",
+            "new": "ActorTokenReference *release_actor_token(Actor *p)\n"
+          },
+          {
+            "line": 134,
+            "old": "    unsigned int token;\n",
+            "new": "    unsigned char token;\n"
+          },
+          {
+            "line": 141,
+            "old": "",
+            "new": "        return &g_actor_token_references[token];\n"
+          }
+        ]
+      },
+      "source_patch_baseline": "calibration/cleanup_helpers.c; UTF-8/LF recipe identity",
+      "reported_model": "gpt-6.1-sol",
+      "reported_effort": "high"
+    },
+    {
+      "private_receipt_id": "84856712882c63f0eeed62d3ed0a583bab4aad109d2a5c5faa38f907323a852d",
+      "family": "actor-resource-release-and-recursive-clear",
+      "prediction": "Ordinary C using the reviewed field offsets, 4-byte reference strides, 12-byte link rows, and observed call order will reproduce the helpers' branch/data behavior and expose any remaining source-form gaps.",
+      "falsifier": "A field write, branch condition, table stride, loop edge, or call order cannot be explained by the candidate statements, or any function's full target span differs after all explicitly mapped external references.",
+      "verdict": "exploratory",
+      "source_sha256": "d5c674bfed8bc00a41309edc849f739b408ff8945dda20fbb11d95220886caf2",
+      "output_id": "d9efa3193025fe5e15bcccacd9dea06f3fde7a3c6377f407dddaeb803dabae9b",
+      "summary": {
+        "functions": 3,
+        "exact": 0,
+        "new_exact": 0,
+        "exact_bytes": 0,
+        "diagnostic_equal": 1,
+        "ordered_cfg_equal": 3,
+        "instruction_over_90": 1,
+        "nonexact_instruction_over_90": 1,
+        "categories": {
+          "uncertain allocation/type/source-form": 2,
+          "relocation-only diagnostic equality": 1
+        }
+      },
+      "functions": [
+        {
+          "symbol": "_release_actor_resource_state",
+          "target_size": 320,
+          "candidate_size": 320,
+          "raw_different_bytes": 289,
+          "normalized_different_bytes": 288,
+          "instruction_percent": 26.374,
+          "ordered_cfg_equal": true,
+          "category": "uncertain allocation/type/source-form",
+          "strict_equal": false,
+          "relocation_count": 7,
+          "target_relocation_count": 9,
+          "output_id": "7a69d8d1a8a8812c58f9aff20124ef901059a9d48ae3c024af6331c975433927",
+          "scope": "experimental contribution; not acceptance"
+        },
+        {
+          "symbol": "_clear_actor",
+          "target_size": 80,
+          "candidate_size": 80,
+          "raw_different_bytes": 12,
+          "normalized_different_bytes": 0,
+          "instruction_percent": 100.0,
+          "ordered_cfg_equal": true,
+          "category": "relocation-only diagnostic equality",
+          "strict_equal": false,
+          "relocation_count": 4,
+          "target_relocation_count": 0,
+          "output_id": "dcd1f3de34624569b2153f37c3f817bd9420f8230efa157d177101a074415e93",
+          "scope": "experimental contribution; not acceptance"
+        },
+        {
+          "symbol": "_release_actor_token",
+          "target_size": 48,
+          "candidate_size": 48,
+          "raw_different_bytes": 25,
+          "normalized_different_bytes": 21,
+          "instruction_percent": 72.727,
+          "ordered_cfg_equal": true,
+          "category": "uncertain allocation/type/source-form",
+          "strict_equal": false,
+          "relocation_count": 1,
+          "target_relocation_count": 2,
+          "output_id": "8c652586f446b5621d7ae27aec699712696eac106e8791e934bf361701f26cfa",
+          "scope": "experimental contribution; not acceptance"
+        }
+      ],
+      "next_discriminator": "Compare fresh VC5 full contributions and synthetic field/callback/recursion behavior against the reviewed spans.",
+      "reentry_condition": "A new field-use trace, writer path, or table-layout discriminator for the opaque actor cleanup state.",
+      "source_patch": {
+        "base_sha256": "d5c674bfed8bc00a41309edc849f739b408ff8945dda20fbb11d95220886caf2",
+        "result_sha256": "d5c674bfed8bc00a41309edc849f739b408ff8945dda20fbb11d95220886caf2",
+        "edits": []
+      },
+      "source_patch_baseline": "calibration/cleanup_helpers.c; UTF-8/LF recipe identity",
+      "reported_model": "gpt-6.1-sol",
+      "reported_effort": "high"
+    }
+  ],
+  "blocker": "Resource-loop allocation/source form remains nonexact; token ABI unproved and all known callers discard EAX.",
+  "next_discriminator": "Recover supporting field/table writer evidence; pointer-return isolation already falsified and combined rewrite worsened output."
+}

@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T18:46:01.684347+00:00",
+  "region": "release_actor",
+  "ownership": {
+    "id": "release_actor",
+    "ownership": "function_task",
+    "rationale": "Actual release dependency of the earlier natural-link interval."
+  },
+  "context_id": "6545c417e04e49dd9385d5dc1b85b83a83ce2fa17b5cd18434f5f50960d97304",
+  "source_sha256": "33cb16935fa5ca50eaf04dfa735a1723ccbadecc6e6e1ea56f9f515f27b42ede",
+  "baseline_sha256": "8517b148996116b0ff5ffb5e3e0e217d3068902ff87a111250cece93c9c4bc70",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "33cb16935fa5ca50eaf04dfa735a1723ccbadecc6e6e1ea56f9f515f27b42ede",
+  "source_patch": {
+    "base_sha256": "8517b148996116b0ff5ffb5e3e0e217d3068902ff87a111250cece93c9c4bc70",
+    "result_sha256": "33cb16935fa5ca50eaf04dfa735a1723ccbadecc6e6e1ea56f9f515f27b42ede",
+    "edits": [
+      {
+        "line": 56,
+        "old": "    if (!(kind & 0x2000)) return remove_actor(p);\n",
+        "new": "    if (kind & 0x2000) {\n"
+      },
+      {
+        "line": 62,
+        "old": "\n",
+        "new": ""
+      },
+      {
+        "line": 72,
+        "old": "\n",
+        "new": ""
+      },
+      {
+        "line": 78,
+        "old": "    if ((owner_flags & 0x0100) && profile == g_special_kind) {\n",
+        "new": "    if ((owner_flags & 0x0100) && profile == (unsigned short)g_special_kind) {\n"
+      },
+      {
+        "line": 83,
+        "old": "        if ((owner_flags & 0x0080) && profile == g_special_kind) {\n            owner->field_00e = p->field_02a;\n            detach_child(p);\n            detach_buffer(p);\n            detach_attachment(p);\n            p->kind = 0;\n            owner->flags &= 0x7fff;\n            clear_actor(p);\n            return 1;\n        }\n",
+        "new": "    }\n    if ((owner_flags & 0x0080) && p->profile == (unsigned short)g_special_kind) {\n        owner->field_00e = p->field_02a;\n    }\n    detach_child(p);\n    detach_buffer(p);\n    detach_attachment(p);\n    p->kind = 0;\n    owner->flags &= 0x7fff;\n    clear_actor(p);\n    return 1;\n"
+      }
+    ]
+  },
+  "output_id": "895541622d6fcbc2ee3b3824f913cc08cd867e1b4f5f81de5f11e0059dca9304",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_release_actor",
+      "target_size": 304,
+      "candidate_size": 304,
+      "raw_different_bytes": 40,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 13,
+      "target_relocation_count": 3,
+      "output_id": "f7728b0909b35fe548c2c1119ed51c9458a68190d40b5334fa7cf53961a4dce1",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 1,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 1,
+    "ordered_cfg_equal": 1,
+    "instruction_over_90": 1,
+    "nonexact_instruction_over_90": 1,
+    "categories": {
+      "relocation-only diagnostic equality": 1
+    }
+  },
+  "family": "pc-independent-flags-unconditional-cleanup",
+  "prediction": "Independent 0x100/0x80 copy predicates join unconditional cleanup for every nonblocked sidecar. Word comparisons use signed-byte value modulo65536. Staged effective-address load matches sidecar ordering; expect target17block CFG and full304-byte contribution.",
+  "falsifier": "Any nonblocked sidecar flag combination falls through remove_actor, profileff80/negative-special mismatch, callback-visible store ordering mismatch, or target CFG/full contribution mismatch.",
+  "verdict": "diagnostic_equal",
+  "blocker": "13 unresolved object relocations and 3 target base relocations; raw equality false. Real dependency/data/link closure required.",
+  "reentry_condition": "New dependency/link evidence; no source spelling family justified while normalized equality holds.",
+  "next_discriminator": "Recover actual called contributions, g_kind_info/g_special_kind definitions and historically supported layout; verify final linked target bytes without normalizing.",
+  "ungated_work": [
+    "Function remains unaccepted; normalized equality does not prove natural link layout or source identity."
+  ],
+  "new_evidence": "PC27ebb..27f00 skip edges join cleanup at27f00; second test independent. PC27ec0/27eea signextends byte to16bit, second comparison reloads Actor+38.",
+  "new_discriminator": "Independent sidecar flag truth table, negative signedchar/profile16bit equivalence, callback-visible writes including sidecar mutation before postcall flags clear.",
+  "metrics": {
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "capability": "Shared structural/control-flow diagnosis",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 4,
+    "semantic_result": {
+      "checks": 2244629,
+      "failures": 0,
+      "scope": "Target-derived finite flag/profile/callback/alias/offset tests; no universal equivalence claim."
+    },
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "d3d4348470c5f1d83f52756a4755039e87be91933f4e5195c3869677900c01c4",
+    "report_sha256": "0a6a60af017c3f58b75c58b3f05a52566489013f02d3c7ea0345b36304376d2b",
+    "object_sha256": "490658c0f7143fe082e086059bd4010010954044ccd270b056b915b8eacdee07",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\work\\release_diagnosis\\structured_cleanup.obj",
+      "D:\\prog\\hercules_recon\\candidates\\release_diagnosis\\structured_cleanup.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "6fe98268b3544efa738b1cdb2c115a8346e742012aa76edd6608caf6fd605c22"
+}

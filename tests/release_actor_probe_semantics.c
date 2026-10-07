@@ -1,3 +1,5 @@
+/* Historical twelve-case probe. It missed the PC's independent sidecar flag
+ * paths and is excluded from registered suites. Use release_actor_semantics.c. */
 #include <stdio.h>
 #include <string.h>
 #include "../calibration/release_actor.c"

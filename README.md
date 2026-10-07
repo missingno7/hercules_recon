@@ -65,6 +65,11 @@ matching and Sol high for unresolved explanations. Compact context is derived
 from existing evidence and recovery state; it adds no routing ledger. The
 [production continuation](docs/workflow_experiment.md) records its first real run.
 
+The [release-dependency continuation](docs/release_closure.md) repairs the actor
+cleanup semantics, traces the copied engine interface from the original EXE, and
+accepts its actual empty callback. Three cleanup helpers retain a measured partial
+reconstruction; natural code/data linkage is still open.
+
 ## References
 
 [icytower_rerecon](https://github.com/missingno7/icytower_rerecon) and

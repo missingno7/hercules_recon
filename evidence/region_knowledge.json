@@ -214,10 +214,35 @@
       "context_id": "6545c417e04e49dd9385d5dc1b85b83a83ce2fa17b5cd18434f5f50960d97304",
       "prediction": "Observed branch/call topology and full contribution shape.",
       "falsifier": "Mismatched branch topology or complete bytes.",
-      "verdict": "blocked",
-      "blocker": "Flag/control-flow and type interpretation is provisional; function size/CFG do not match.",
-      "reentry_condition": "New PC evidence or discriminator for cleanup branches/field meanings.",
-      "output_id": "b86965c41b4e3ca26b0a635b11a46c59f29ba4df180c956cea78f1b03c08ef21"
+      "verdict": "falsified",
+      "blocker": "Prior nested-copy/conditional-cleanup hypothesis is semantically wrong: widened target-derived harness detects 1,120,002 failures.",
+      "reentry_condition": "Use repaired independent-predicate source; old nested cleanup may reopen only with contradictory new PC evidence.",
+      "output_id": "b86965c41b4e3ca26b0a635b11a46c59f29ba4df180c956cea78f1b03c08ef21",
+      "new_evidence_reference": "evidence/release_repair.json"
+    },
+    {
+      "region": "cleanup_helpers",
+      "family": "explicit-token-pointer-return",
+      "context_id": "98fbb23b1f5c051b7949303067f56d4023ceccdb6eb7d6c382b773ea3dff3c87",
+      "prediction": "The active path's LEA returns the token reference-table entry, matching a pointer-return helper; reviewed callers discard EAX, so an explicit null return on the sentinel path preserves caller behavior.",
+      "falsifier": "The isolated signature/return change alters any other function contribution, fails synthetic pointer/counter/field checks, or worsens the token helper without supporting the pointer-return hypothesis.",
+      "verdict": "falsified",
+      "output_id": "0e68d4731648975f99d72aa9d62113ada01ab99047c3740644478ecaf1572bf0",
+      "blocker": "Fresh compilation worsened complete contribution equality; no supported source signature established.",
+      "reentry_condition": "A new field-use trace, writer path, or table-layout discriminator for the opaque actor cleanup state.",
+      "evidence": "evidence/cleanup_helpers_attempts.json"
+    },
+    {
+      "region": "cleanup_helpers",
+      "family": "combined-resource-table-cache-and-token-return",
+      "context_id": "98fbb23b1f5c051b7949303067f56d4023ceccdb6eb7d6c382b773ea3dff3c87",
+      "prediction": "Direct actor-table expressions and one cached release-mode value will retain the target's per-link reloads and loop address calculations; a pointer result on the active token path explains the final LEA.",
+      "falsifier": "The revised full spans grow or become less relocation-normalized, or the ordinary-C return statement changes any observed caller-visible behavior.",
+      "verdict": "falsified",
+      "output_id": "f8d1c8f7ac1b6846d01d6e0eb01568862eac0b8d9f1eb9394bf3435b54ef9aab",
+      "blocker": "Fresh compilation worsened complete contribution equality; no supported source signature established.",
+      "reentry_condition": "A new field-use trace, writer path, or table-layout discriminator for the opaque actor cleanup state.",
+      "evidence": "evidence/cleanup_helpers_attempts.json"
     }
   ],
   "outcome_audit": {

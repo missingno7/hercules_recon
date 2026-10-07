@@ -1,0 +1,353 @@
+{
+  "scope": "Static interface-binding evidence only; runtime alias mutation not excluded.",
+  "images": {
+    "HERCULES.EXE": {
+      "path": "work/discs/pc_install/HERCULES.EXE",
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "image_base": "0x400000",
+      "exports": []
+    },
+    "ENG1.DLL": {
+      "path": "assets/pc/HERCULES/ENG1.DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "image_base": "0x10000000",
+      "exports": [
+        {
+          "name": "PC_DLLEngineMain",
+          "rva": "0x2c180"
+        }
+      ]
+    },
+    "ENG3.DLL": {
+      "path": "assets/pc/HERCULES/ENG3.DLL",
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "image_base": "0x10000000",
+      "exports": [
+        {
+          "name": "PC_DLLEngineMain",
+          "rva": "0x1f830"
+        }
+      ]
+    },
+    "TITLE.DLL": {
+      "path": "assets/pc/HERCULES/TITLE.DLL",
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "image_base": "0x10000000",
+      "exports": [
+        {
+          "name": "PC_DLLEngineMain",
+          "rva": "0xc1f0"
+        }
+      ]
+    }
+  },
+  "source_table": {
+    "va": "0x4361b8",
+    "rva": "0x361b8",
+    "dword_count": 250,
+    "raw_sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "signature_dword": "0x5ac00cac",
+    "pointer_slot_va": "0x4365a0",
+    "pointer_slot_rva": "0x365a0",
+    "pointer_slot_value": "0x4361b8",
+    "entries": {
+      "0x5e": {
+        "eng1_destination_rva": "0x71098",
+        "source_rva": "0x36330",
+        "source_va": "0x436330",
+        "target_va": "0x40be30"
+      },
+      "0x60": {
+        "eng1_destination_rva": "0x710a0",
+        "source_rva": "0x36338",
+        "source_va": "0x436338",
+        "target_va": "0x40be30"
+      },
+      "0xe1": {
+        "eng1_destination_rva": "0x712a4",
+        "source_rva": "0x3653c",
+        "source_va": "0x43653c",
+        "target_va": "0x40c140"
+      }
+    }
+  },
+  "destination_table": {
+    "rva": "0x70f20",
+    "dword_count": 250,
+    "end_rva_exclusive": "0x71308"
+  },
+  "export_copy": {
+    "name": "PC_DLLEngineMain",
+    "signature": "0x5ac00cac",
+    "copied_dwords": 250,
+    "export_rvas": {
+      "ENG1.DLL": "0x2c180",
+      "ENG3.DLL": "0x1f830",
+      "TITLE.DLL": "0xc1f0"
+    }
+  },
+  "host_dispatch": {
+    "getprocaddress_export_name": "PC_DLLEngineMain",
+    "getprocaddress_call_rva": "0x5c8f",
+    "resolved_pointer_va": "0x91c45c",
+    "source_table_pointer_read_rva": "0x5ef3",
+    "indirect_call_rva": "0x5f17",
+    "argument1": "Value loaded from VA 0x4365a0, statically pointing to VA 0x4361b8.",
+    "argument2": "Observed byte flag; complete prototype not established."
+  },
+  "code_spans": [
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x2c180",
+      "size": 128,
+      "sha256": "597f7923e45606e27c452f9f52794e777d60d9f5a04119e9b0b8f08303f656c4"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x2c650",
+      "size": 22,
+      "sha256": "fe5895dd7e5bd79e42947acd6e9b6d1cd5abd864a9ec3027325a211ba8489e7e"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x2c660",
+      "size": 6,
+      "sha256": "a8fe2427fb92b590e6d3cc029e1c1a9f27224caf5fc8813957744403a67b7909"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x2cb70",
+      "size": 15,
+      "sha256": "34afb602d946a56713408b92c66b53810913b478fe73f6202e52074d58cb931f"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x7cea",
+      "size": 125,
+      "sha256": "727b7d1d59192ffc01fe418fef38185c393c85e21e0470a100a48420975be783"
+    },
+    {
+      "module": "ENG3.DLL",
+      "rva": "0x1f830",
+      "size": 121,
+      "sha256": "856441d73880be288bb62460b1332dcf56bdc544116fb85ec0004d2d71ecf510"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0xc1f0",
+      "size": 121,
+      "sha256": "7f70098bc5be27c61bcd63df56c61b218f7884173466650025c3396b3b88048f"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5c20",
+      "size": 170,
+      "sha256": "83789132ba26c1b816a56f39b77a2ee73b36595319f01b3c90b2b4be782cd053"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5d31",
+      "size": 162,
+      "sha256": "46173463090411e96826f5ac621e38fa6d13357cae4883623bec93fb16ed115d"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5ef3",
+      "size": 33,
+      "sha256": "bb510118a009562e228a77b4362e20ccb31ec87bbf92dc19ef1e0ea369ab9046"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xbe10",
+      "size": 80,
+      "sha256": "d1014f3cad40ce8d2112e2a106fd21023dee8e673abbc7b1c6199ada680d1fd7"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xc140",
+      "size": 19,
+      "sha256": "5a59f3c9af4afa912559019c10cf453e3a6bfba89685e312792950e52915d2ad"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xfa10",
+      "size": 96,
+      "sha256": "4ac88b3a271d1bebae37ffdd98299c7ca6f43fa52e9a9ed5c7672f91c0a9345e"
+    }
+  ],
+  "callback_references": {
+    "0xbe30": [
+      {
+        "source_rva": "0x1068",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x10a6",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x1249",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x1408",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x15ee",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x1601",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x1609",
+        "kind": "linear_branch"
+      },
+      {
+        "source_rva": "0x1683",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x1692",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x1697",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x1746",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x175a",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x1898",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x19a9",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x1a4b",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x1a6b",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x1a73",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x1aa6",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x1d60",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x1dc2",
+        "kind": "linear_branch"
+      },
+      {
+        "source_rva": "0x1ed8",
+        "kind": "linear_branch"
+      },
+      {
+        "source_rva": "0x408c",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x42ef",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x5ea7",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x106da",
+        "kind": "linear_call"
+      }
+    ],
+    "0xc140": [
+      {
+        "source_rva": "0x1675",
+        "kind": "linear_call"
+      }
+    ]
+  },
+  "empty_function_probe": {
+    "prediction": "A plain empty void C function under pinned VC5 /Gy /O2 emits the target's complete aligned contribution.",
+    "falsifier": "Different contribution size or any different raw byte.",
+    "candidate_source": "candidates/callback_initializers/empty_host_callback.c",
+    "source_sha256": "766399e0014e9209c675437648ec514c1b806d4c953f517fe58b53f27e53a281",
+    "object": "work/callback_initializers/empty_host_callback.obj",
+    "object_sha256": "1ae56b82403da7598e001aa31fc1a059f7581b5b834ebdc5fe5c635f73cc1342",
+    "comdat_section": ".text",
+    "candidate_size": 16,
+    "candidate_relocations": [],
+    "target_span_rva": "0xbe30",
+    "target_span_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+    "strict_raw_equal": true,
+    "recovery_reference": "exe.empty_host_callback in recovery.json",
+    "canonical_source": "src/pc/interface_callbacks.c"
+  },
+  "wrapper": {
+    "rva": "0xc140",
+    "observed": "Forwards one dword plus -1 to host RVA0xfa10, caller-cleans8bytes, zeroesAX.",
+    "limitation": "Formal ABI and helper meaning unresolved."
+  },
+  "source_table_mutation_limit": "Indexed code has no direct xrefs to source-table start or callback slots; the adjacent pointer global at RVA 0x365a0 is read at 0x5ef3 to pass the table into PC_DLLEngineMain. This supports static-file initialization but does not rule out runtime mutation through a register-computed alias; no original execution was performed.",
+  "requested_model": "gpt-6-luna",
+  "requested_effort": "xhigh",
+  "actual_model_identity": null,
+  "tokens": null,
+  "cost_usd": null,
+  "worker_compile_cycles": 1,
+  "original_execution": false,
+  "provenance": {
+    "compiler": {
+      "toolchain_id": "msvc5_rtm",
+      "compiler": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+      "compiler_file_version": "11.00.7022",
+      "flags": [
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2"
+      ],
+      "semantic_fixture": null,
+      "original_execution": false
+    },
+    "analysis": {
+      "command": "C:\\Users\\Jiri\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe work/callback_initializers/trace_chain.py",
+      "trace_script_sha256": "8b2b0f58d3131a1c45c35f5400afa3d3fbf62ac6f5a86b7f49ed7ac1e703ed64",
+      "python": "C:\\Users\\Jiri\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "capstone": "5.0.7",
+      "pefile": "2024.8.26",
+      "archaeology_script": "scripts/archaeology.py",
+      "archaeology_script_sha256": "1dd177a7fc45a4f418051deaf4afa8adde908c9646b7c004e3b069568655be1a",
+      "index": "work/archaeology.sqlite",
+      "index_sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+    },
+    "durable_replay": "python scripts/interface_evidence.py",
+    "instruction_context_commands": [
+      "C:\\Users\\Jiri\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe scripts/archaeology.py context ENG1.DLL 0x2c180 0x180",
+      "C:\\Users\\Jiri\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe scripts/archaeology.py context ENG1.DLL 0x2c650 0x40",
+      "C:\\Users\\Jiri\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe scripts/archaeology.py context ENG1.DLL 0x2cb70 0x40",
+      "C:\\Users\\Jiri\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe scripts/archaeology.py context ENG1.DLL 0x7cde 137",
+      "C:\\Users\\Jiri\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe scripts/archaeology.py context HERCULES.EXE 0x5c20 0xa9",
+      "C:\\Users\\Jiri\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe scripts/archaeology.py context HERCULES.EXE 0x5d31 0xa2"
+    ]
+  }
+}
