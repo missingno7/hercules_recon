@@ -26,8 +26,15 @@ def verify():
             table = evidence['source_table']
             if digest(image.read_rva(int(table['rva'], 0), table['bytes'])) != table['sha256']:
                 raise ValueError('Changed default host interface table')
+    counts = json.loads((ROOT / 'evidence/host_pool_counts_layout.json').read_text())
+    path = ROOT / counts['oracle']['path']
+    if digest(path.read_bytes()) != counts['oracle']['sha256']:
+        raise ValueError('Changed count-helper oracle')
+    span = counts['function_extent']
+    if digest(PE(path).read_rva(int(span['rva'], 0), span['bytes'])) != span['sha256']:
+        raise ValueError('Changed count-helper span')
     result = dict(scope='Reviewed static bytes only; no original declarations or runtime outcome proof.',
-                  images=2, evidence_sets=len(names), code_spans=total)
+                  images=2, evidence_sets=len(names)+1, code_spans=total+1)
     print(json.dumps(result, indent=2))
     return result
 

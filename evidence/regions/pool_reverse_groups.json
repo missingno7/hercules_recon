@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T21:48:00.362645+00:00",
+  "region": "pool_reverse_copy",
+  "ownership": {
+    "id": "pool_reverse_copy",
+    "ownership": "inferred_region",
+    "rationale": "The bounded helper is a project pool compactor dependency; its original translation unit and source identity are unproved."
+  },
+  "context_id": "b0bc37ded164cd8830ada0ac0069adbec7683f338c3b33df622920b52b53fa98",
+  "source_sha256": "7294d10872810fb001631ff42d5af047186ef81c9c2f4afadf8525375f0ea494",
+  "baseline_sha256": "a61badb117146811ffae221268e1fd7b96455d02643626842ba871887d8504de",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "559e3d5c67fdd56daf862498e1f8d25ba5d5e8cf21885ed1227cfcb9b486aa0b",
+  "source_patch": {
+    "base_sha256": "a61badb117146811ffae221268e1fd7b96455d02643626842ba871887d8504de",
+    "result_sha256": "7294d10872810fb001631ff42d5af047186ef81c9c2f4afadf8525375f0ea494",
+    "edits": [
+      {
+        "line": 13,
+        "old": "        group_count = dword_count >> 3;\n",
+        "new": "        group_count = (unsigned int)dword_count >> 3;\n"
+      }
+    ]
+  },
+  "output_id": "7f20717ef812d552af0f7568ce4cbbdcf7feb1ea4db8867758675524ed1d29b7",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_reverse_copy_dwords",
+      "target_size": 176,
+      "candidate_size": 176,
+      "raw_different_bytes": 172,
+      "normalized_different_bytes": 172,
+      "instruction_percent": 77.778,
+      "ordered_cfg_equal": true,
+      "category": "uncertain allocation/type/source-form",
+      "strict_equal": false,
+      "relocation_count": 0,
+      "target_relocation_count": 0,
+      "output_id": "0ef22f0c0f140367383fea41203c087662a5238a08da8b3281a30fc3fea50e5a",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 1,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 0,
+    "ordered_cfg_equal": 1,
+    "instruction_over_90": 0,
+    "nonexact_instruction_over_90": 0,
+    "categories": {
+      "uncertain allocation/type/source-form": 1
+    }
+  },
+  "family": "rounded-reverse-dword-copy-v1",
+  "prediction": "With the unchanged signed dword_count and unchanged if (dword_count > 7) guard, declaring the positive-path group_count as unsigned and computing (unsigned int)dword_count >> 3 should make pinned VC5 emit target SHR at 0x43cd. Initial rounding remains signed SAR; the 8-word load/store schedule, endpoint formation, scalar reverse tail, behavior, CFG, and 176-byte contribution are otherwise unchanged.",
+  "falsifier": "Falsify this single family if fresh full-span compilation does not change only the guarded group-count operation toward SHR, if signed initial/tail behavior or access order changes, if any of the same 1,772 target-derived checks fail, or if the complete contribution differs from the reviewed target. A remaining raw mismatch ends this family; no endpoint, load-order, declaration, or spelling variants follow.",
+  "verdict": "observed",
+  "blocker": null,
+  "reentry_condition": null,
+  "next_discriminator": null,
+  "ungated_work": [],
+  "new_evidence": null,
+  "new_discriminator": "Independent Sol report work/pool_reverse_copy_shape/report.json (SHA-256 bb1055696d2d6a06a06e2c9ee05b0ae3b252d4f56c446b25afbf61b5b96d947b) identifies target SHR at 0x43cd only after signed CMP count,7 / JLE guard, while prior v1 emits SAR for signed group_count. Unsigned positive cardinality is behaviorally identical under that guard and is one supported source discriminator.",
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "One evidence-bounded ordinary-C source discriminator using the pinned historical compiler; full 176-byte diagnostic and unchanged target-derived 1,772-check fixture.",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 1,
+    "semantic_result": "1772 checks, 0 failures",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "e91d9de58e84ac63e14e05582283036bde01f85c2de219551ec9076519f2deff",
+    "report_sha256": "c7f3a07171908f97389ad800455c56267db333d13cb374f46c421bd74bd83d6f",
+    "object_sha256": "f49301fe312b2d36a45e7afffb96f9fff554eaed23cdfa72330c7d65e79afc1c",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-h_rh6zjb\\candidate.obj",
+      "D:\\prog\\hercules_recon\\candidates\\pool_reverse_groups\\reverse_copy_v2.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "d30caf3384d58d222bd4d28486b2946d65fd2e5806671570f062ec5291aebed0"
+}

@@ -1,0 +1,61 @@
+{
+  "scope": "Read-only static evidence for one bounded pool helper; no original execution or canonical edits.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "archaeology_database": {
+    "path": "work/archaeology.sqlite",
+    "sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390",
+    "oracle_verified": true
+  },
+  "function_extent": {
+    "rva": "0x49f0",
+    "end_exclusive": "0x4a30",
+    "bytes": 64,
+    "sha256": "42d40cb66ba3ebe315981338aa46ee9ba41aa4a902b0bf8efcc7bdf27fd640fb",
+    "last_nonpadding_instruction": {
+      "rva": "0x4a2c",
+      "bytes": "c3",
+      "mnemonic": "ret"
+    },
+    "post_return_padding": [
+      "0x4a2d",
+      "0x4a2e",
+      "0x4a2f"
+    ],
+    "next_entry_evidence": "0x4a30 begins a distinct stack-frame prologue (sub esp,8); archaeology index has incoming direct-call lead from 0x76c2."
+  },
+  "callers": {
+    "indexed_direct_callers": [
+      {
+        "source_rva": "0x48b4",
+        "kind": "linear_call"
+      }
+    ],
+    "verified_site": "0x48b4 calls 0x49f0; caller pushes pool id EDI at 0x48b3, then uses EAX-1 at 0x48b9 for compact reverse ordinal loop.",
+    "limitation": "SQLite linear decode exposes direct-call leads; absence of additional leads does not exclude opaque indirect use."
+  },
+  "precise_behavior": [
+    "cdecl one-dword pool_id argument; EAX starts at zero and is returned as the count.",
+    "Loads start and end pointer cells at g_host_pool base plus 4*pool_id and +0x10 respectively; no pool-id bounds check is present.",
+    "The range is end-exclusive: if start >= end, returns zero.",
+    "For each cursor < end, reads only descriptor word0. Counts one iff bit31 (POOL_FREE) is clear; pinned bit30 does not exclude a block from the count.",
+    "Advances by (descriptor & 0x3fffffff) dword words (scale four bytes), then repeats. The target has no zero-size guard; no malformed-block behavior is invented."
+  ],
+  "reinitializer_scope_decision": {
+    "rva": "0x4470",
+    "extent": "0x4470..0x4510, 160 bytes",
+    "target_sha256": "1e3673c1caed6ca64df8e6402a0471166c6b02c4d75b29833ac4896271d38849",
+    "direct_call_leads": [],
+    "observed_context": "callback slot 0x29 points to 0x4470 per evidence/host_pool_layout.json; it mutates saved arena/size, rebuilds pool0 header, calls coalesce and diagnostic.",
+    "decision": "Do not pair: count_used is directly called only from compact_pool and needs only the already-reviewed start/end cells and descriptor stride/free bit. The arena reinitializer is separately callback-bound and is not needed to establish the helper boundary, callers, or semantics."
+  },
+  "relevant_prior_evidence": {
+    "host_pool_layout": "evidence/host_pool_layout.json",
+    "host_pool_layout_sha256": "e417a93f8523b0fb0626be4325c26ea9bcea1935be6b7d7e6f7aad97a17e6617",
+    "host_pool_shape": "work/host_pool_shape/pool_report.json",
+    "host_pool_shape_sha256": "60bfea71d9c2ca95fb9f6aec5f97864353ae45e453ee29d4ecb728cf142acf13"
+  },
+  "candidate_model_limits": "Private alias count_used; original name, declaration and translation unit are not proven. The minimal PoolWord and HostPoolState view expresses observed field offsets only."
+}

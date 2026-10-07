@@ -1,0 +1,93 @@
+{
+  "scope": "Read-only reverse-copy count/endpoint diagnosis plus independent actor initializer factual audit. No compiler iteration, source/Git/canonical changes.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "function_rva": "0x43a0",
+    "full_size": 176,
+    "target_sha256": "839312a1bb5bce7a7c63aa43948b8a5ecdb556c1691209d05634d9c72154ac54"
+  },
+  "baseline": {
+    "source": "candidates/pool_reverse_copy/reverse_copy_v1.c",
+    "sha256": "4d7f966a9a0926bf7feacb8e0976ef945e2fb2bc89d119335a7ec5e65d90fdc7",
+    "handoff": "work/pool_reverse_copy/handoff_v1.json",
+    "handoff_sha256": "fca91d97f8bb1e0b92187b1a3a03f3cd4f30aa1cb6580b507c3ef828781ee9f5",
+    "metrics": "work/pool_reverse_copy/metrics_v1.json"
+  },
+  "positive_group_evidence": {
+    "initial_rounding": "Target 43b4 SAR EDX,2 computes signed (byte_count+3)>>2. Initial signed count is retained for the 43c8 CMP EDX,7 /43cb JLE group guard and the 4436 TEST EDX/4438 JLE scalar guard.",
+    "group_rounding": "Only the positive count>7 path reaches43cd SHR EDX,3. Candidate has SAR for its signed int group expression.",
+    "supported_meaning": "The group count is a nonnegative cardinality derived only inside a positive guard. Unsigned grouping is a narrower, supported type/expression discriminator; changing the entire byte/count domain to unsigned would contradict the signed guards.",
+    "proof_limit": "Signed and unsigned shifts agree for every value reaching this branch. SHR alone does not prove original local type or exact source expression; it supplies a testable codegen discriminator."
+  },
+  "recommended_family": {
+    "family": "unsigned positive group cardinality",
+    "prediction": "Declare group_count as unsigned int and compute group_count = (unsigned int)dword_count >>3 inside the unchanged dword_count>7 guard. Pinned VC5 should emit SHR at the group operation while retaining initial SAR, signed guards, six-block CFG and the already correct block/scalar access schedule.",
+    "falsifier": "Fresh compilation keeps SAR, changes the signed initial/tail behavior, moves unsigned interpretation before the positive guard, alters copying/overlap behavior or changes an accepted contribution. If falsified, stop; no signedness or division spelling sweep.",
+    "source_scope": "Only the meaningful positive group cardinality declaration/expression. No endpoint declaration reorder, dummy temporary, volatile, load reorder, padding, assembly or register placement.",
+    "semantic_gate": "Run the existing1772-check target-derived fixture unchanged: rounded0..96, nonpositive lengths, upward overlapping moves, source/neighbor preservation and reverse-only left-overlap behavior. Full176-byte comparison remains mandatory; resolving SHR does not claim full equality.",
+    "compiler_builds": 0
+  },
+  "endpoint_diagnosis": {
+    "target": "Source and count are loaded before local stack reservation; destination is loaded afterward. Rounded offset is formed once as LEA ESI,[EDX*4] at43b9, then added to source ECX and destination EAX at43c4/43c6.",
+    "candidate": "Forms destination endpoint by indexed LEA, then loads source parameter and forms source endpoint by indexed LEA. Each combines its base with count*4 independently.",
+    "exact_body_gap": "Target shared scaled offset sequence occupies11 bytes (7-byte LEA plus two2-byte ADDs); candidate endpoint LEAs occupy6 bytes total. This accounts for the entire five-byte code body difference: targetRET444f, candidateRET444a plusfiveNOPs, despite equal176-byte contribution extents.",
+    "meaning": "A shared rounded-byte offset used to advance two cursor endpoints is a natural data abstraction. It is consistent with this byte-count helper and its word-aligned compactor caller.",
+    "limits": "No independent source declaration proves byte-cursor parameters, a separately stored offset or mutable parameters. Swapping local declarations merely to force prologue scheduling would be unsupported. Keep this as an uncompiled subsequent context question, not an endpoint spelling grid.",
+    "possible_reentry": "Independent evidence of the helper declaration or a discriminating coherent byte-cursor source frame; do not introduce an arbitrary offset solely to consume the missing five bytes."
+  },
+  "load_schedule": {
+    "status": "Already reproduced; no new load-scheduling family justified.",
+    "order": "Both target and candidate load eight source words in order5,6,1,2,3,4,7,0 and store destination words in order1,5,6,7,2,0,3,4. Both read the entire group before its writes, supporting upward overlap.",
+    "residual": "Two stack slots exchange roles for group_count and value5; literal body is displaced byfive bytes. Those spill choices are not evidence for dummy locals or manual register assignment.",
+    "scalar": "Scalar backward load/decrement/store loop is equivalent with the same operation schedule and signed positive tail guard."
+  },
+  "actor_initializer_audit": {
+    "report": "work/pool_reverse_copy_shape/actor_field_audit.json",
+    "sha256": "779e066881da4f790f6aca866bc52507bb3eb261d847a04157348641eb2d1d49",
+    "results": [
+      {
+        "function": "initialize_alternate_actor",
+        "view": "ActorCore",
+        "view_bytes": 148,
+        "target_writes": 58,
+        "candidate_writes": 58,
+        "ordered_offset_width_value_equal": true,
+        "target_only": [],
+        "candidate_only": []
+      },
+      {
+        "function": "initialize_middle_actor",
+        "view": "ActorMiddle",
+        "view_bytes": 236,
+        "target_writes": 26,
+        "candidate_writes": 26,
+        "ordered_offset_width_value_equal": true,
+        "target_only": [],
+        "candidate_only": []
+      },
+      {
+        "function": "initialize_normal_actor",
+        "view": "ActorNormal",
+        "view_bytes": 308,
+        "target_writes": 23,
+        "candidate_writes": 23,
+        "ordered_offset_width_value_equal": true,
+        "target_only": [],
+        "candidate_only": []
+      }
+    ],
+    "conclusion": "No factual offset, storage-width, constant or ordered-write mismatch in actor_pools_v1:58 alternate stores,26 middle extension stores,23 normal extension stores. Sizes148/236/308 agree independently with PC stride/reset extents.",
+    "type_limits": "Initializer zero stores cannot establish original signedness or pointer-versus-integer types. Candidate opaque unsigned-long fields are four-byte storage views; broader pointer users and signed reference-index readers need typed interpretations when frames are shared. This audit does not justify changing current initializer behavior or claiming original struct types.",
+    "callee_order": "Middle calls alternate prefix initializer first; normal calls middle prefix initializer first. Dependencies and untouched bytes must remain unchanged."
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compiler_builds": 0
+  },
+  "private_report": "work/pool_reverse_copy_shape/report.json"
+}

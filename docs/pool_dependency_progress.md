@@ -51,8 +51,25 @@ eight-word backward groups; its group division emits SAR where the target uses
 SHR after a positive-count guard. This is a possible independent type discriminator,
 not permission to tune register allocation or sweep equivalent spellings.
 
-Fresh integration reproduces all four whole-source measurements. **23 semantic
-suites / 3,251,289 checks**, **30 Python tests**, and all **40 accepted raw matches**
+The single guarded unsigned-group experiment then emitted the target SHR and
+retained all 1,772 fixture checks. The full contribution still differs in 172
+bytes; only the count-operation discriminator was confirmed. Its recipe and
+stopping condition are published without replacing the first baseline.
+
+An independent static audit found identical offsets, widths, values and order
+for all 107 actor initializer stores (58 alternate, 26 middle, 23 normal). This
+does not prove original signedness or pointer-versus-integer declarations.
+
+The compactor's real `count_used` dependency at `0x49f0..0x4a30` counts non-free
+headers, including pinned blocks, through an end-exclusive walk. Its stride
+explicitly masks the low 30 bits before scaling by four. The 64-byte candidate
+has the same seven-block CFG and matching loop suffix after resolving globals;
+17 bytes differ in entry register/dataflow ordering. Six focused synthetic checks
+pass. No bounds or malformed-block guard was added, and no entry-order grid was
+attempted. The callback-bound arena reinitializer is a separate next dependency.
+
+Fresh integration reproduces the measured sources. **24 semantic
+suites / 3,251,295 checks**, **30 Python tests**, and all **40 accepted raw matches**
 pass. Reviewed static spans and original hashes are independently rechecked.
 Region receipts retain recipes, measurements and family limits; `recovery.json`
 is still the sole acceptance authority. Natural module closure remains incomplete

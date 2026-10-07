@@ -1,0 +1,105 @@
+{
+  "scope": "One pre-registered ordinary-C unsigned positive group-cardinality discriminator for the project reverse-copy helper; private diagnostic only. No canonical/recovery/Git/assets changes.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "function_rva": "0x43a0",
+    "extent_bytes": 176,
+    "function_sha256": "839312a1bb5bce7a7c63aa43948b8a5ecdb556c1691209d05634d9c72154ac54"
+  },
+  "context": {
+    "packet_context_id": "b0bc37ded164cd8830ada0ac0069adbec7683f338c3b33df622920b52b53fa98",
+    "packet": "work/packets/pool_reverse_copy-728116a490be458e.json",
+    "prior": "evidence/regions/pool_reverse_copy_first.json",
+    "prior_verdict": "falsified",
+    "region_check": "New discriminator/context allowed; no proof or compilation cached.",
+    "sol_report": "work/pool_reverse_copy_shape/report.json",
+    "sol_report_sha256": "bb1055696d2d6a06a06e2c9ee05b0ae3b252d4f56c446b25afbf61b5b96d947b"
+  },
+  "prediction": {
+    "path": "work/pool_reverse_groups/prediction_v2.json",
+    "sha256": "fd43d2c969c7c68e34c48659f04484349873ecb6c592f7ff3a35d2edaff4264e",
+    "discriminator": "Inside the unchanged signed dword_count > 7 guard, compute unsigned positive group cardinality (unsigned int)dword_count >> 3; no other source changes.",
+    "target_observation": "SHR EDX,3 at 0x43cd follows CMP EDX,7 / JLE; initial rounding at 0x43b4 remains signed SAR."
+  },
+  "candidate": {
+    "path": "candidates/pool_reverse_groups/reverse_copy_v2.c",
+    "sha256": "559e3d5c67fdd56daf862498e1f8d25ba5d5e8cf21885ed1227cfcb9b486aa0b",
+    "bytes": 1742,
+    "changed_expression": "group_count = (unsigned int)dword_count >> 3;"
+  },
+  "spec": {
+    "path": "work/pool_reverse_groups/spec_v2.json",
+    "sha256": "e91d9de58e84ac63e14e05582283036bde01f85c2de219551ec9076519f2deff",
+    "flags": [
+      "/O2"
+    ],
+    "reviewed_extent": "_reverse_copy_dwords 0x43a0..0x4450 (176 bytes)"
+  },
+  "measurement": {
+    "path": "work/pool_reverse_groups/metrics_v2.json",
+    "sha256": "c7f3a07171908f97389ad800455c56267db333d13cb374f46c421bd74bd83d6f",
+    "candidate_object": "D:\\prog\\hercules_recon\\build\\match\\compile-h_rh6zjb\\candidate.obj",
+    "candidate_object_sha256": "f49301fe312b2d36a45e7afffb96f9fff554eaed23cdfa72330c7d65e79afc1c",
+    "strict_equal": false,
+    "full_size": 176,
+    "raw_different_bytes": 172,
+    "normalized_different_bytes": 172,
+    "instruction_percent": 77.778,
+    "ordered_cfg_equal": true,
+    "direct_calls": [],
+    "relocations": 0,
+    "interpretation": "The targeted codegen discriminator succeeded: candidate emits SHR EDX,3 at 0x43c8 after the signed CMP/JLE guard. The routine remains non-exact (172/176 raw bytes differ), with unchanged CFG and no relocations/calls. No further source family was run."
+  },
+  "diagnostic": {
+    "path": "work/pool_reverse_groups/diagnostic_v2.txt",
+    "sha256": "f5b324bd0d0a717d95be3240ab99481d7bf59d4b751c45d5fe8be3763371f6f7",
+    "target_group_sequence": "0x43c8 CMP EDX,7; 0x43cb JLE; 0x43cd SHR EDX,3",
+    "candidate_group_sequence": "0x43b4 CMP EDX,7; 0x43c6 JLE; 0x43c8 SHR EDX,3"
+  },
+  "fixture": {
+    "source": "work/pool_reverse_groups/semantics_v2.c",
+    "source_sha256": "943d18edf10601d87c0c1ef2f319325d9f9d62a6d949b721d6151dfaac766ad1",
+    "runner": "work/pool_reverse_groups/run_semantics_v2.py",
+    "runner_sha256": "5b5457200725d4150065365aed6db0a6fe1c19fd7d14508e4d3fd6a59146cde2",
+    "result": "checks=1772 failures=0",
+    "coverage": "Unchanged prior target-derived suite: rounded lengths 0..96, nonpositive signed lengths, unchanged source and destination neighbors, upward-overlap moves by 1/2/7 dwords, and reverse-only left-overlap behavior.",
+    "exe_sha256": "e12ab6b62e2ad1758720e34d06cb853380f417e23ed0af07f4249fbc17ef164f",
+    "object_sha256": "73a9ea8223db18b29aed0b5620be940a90031d817430c2f0aa9993184b341a94",
+    "compile_log_sha256": "8b3edbf20e9761099c9bf832144925a296e62a128a30c5210547d70b945b0648"
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+    "measurement_command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-h_rh6zjb\\candidate.obj",
+      "D:\\prog\\hercules_recon\\candidates\\pool_reverse_groups\\reverse_copy_v2.c"
+    ],
+    "fixture_command": "C:\\Users\\Jiri\\AppData\\Local\\Programs\\Python\\Python312\\python.exe work/pool_reverse_groups/run_semantics_v2.py"
+  },
+  "builds": {
+    "historical_compiler_invocations": 2,
+    "source_measurement_invocations": 1,
+    "fixture_compile_link_invocations": 1,
+    "source_families": 1,
+    "note": "One fresh full-span historical comparison plus one historical fixture compile/link; no retry or additional candidate build."
+  },
+  "provenance": {
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null
+  },
+  "status": "Frozen private diagnostic. Targeted SHR discriminator reproduced; semantics passed; complete raw contribution not exact. No FUNCTION_MATCH or promotion claim.",
+  "receipt": {
+    "path": "work/pool_reverse_groups/receipt-d30caf3384d58d222bd4d28486b2946d65fd2e5806671570f062ec5291aebed0.json",
+    "sha256": "68f436cffd8178e482657a0e254a6ef39c4ac2a4dd5c9f383ccf0b0ff178ef3c",
+    "scope": "private exploratory receipt; recovery.json unchanged"
+  }
+}

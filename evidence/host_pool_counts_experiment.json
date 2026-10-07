@@ -1,0 +1,142 @@
+{
+  "scope": "Private bounded count_used reconstruction and read-only static evidence; no canonical/Git/recovery/assets/original-execution changes.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "boundary_and_callers": {
+    "function_alias": "count_used (private evidence alias; original symbol/name and TU unproven)",
+    "span": {
+      "start_rva": "0x49f0",
+      "end_rva_exclusive": "0x4a30",
+      "bytes": 64,
+      "sha256": "42d40cb66ba3ebe315981338aa46ee9ba41aa4a902b0bf8efcc7bdf27fd640fb",
+      "last_instruction": "RET at 0x4a2c",
+      "padding": "0x4a2d..0x4a2f are three NOPs"
+    },
+    "next_entry": "0x4a30 starts a separate prologue (sub esp,8); archaeology has direct incoming call at 0x76c2 to 0x4a30.",
+    "observed_direct_callers": [
+      {
+        "rva": "0x48b4",
+        "caller": "compact_pool 0x48a0..0x49f0",
+        "evidence": "caller pushes EDI pool_id at 0x48b3; callee returns count in EAX; caller forms EAX-1 at 0x48b9 for reverse ordinal traversal"
+      }
+    ],
+    "index_limit": "SQLite direct xrefs are verified leads; opaque indirect uses are not excluded.",
+    "archaeology_db_sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+  },
+  "semantics": [
+    "One cdecl U32 pool_id argument; result is returned in EAX.",
+    "Reads starts[pool_id] and ends[pool_id] from the established g_host_pool prefix; no pool-id bounds check is present.",
+    "Walks an end-exclusive range and returns zero when start >= end.",
+    "Reads descriptor word0, increments the count when bit31 POOL_FREE is clear; pinned allocated blocks count as used.",
+    "Advances by (descriptor & 0x3fffffff) dword words, i.e. four bytes per word. No zero-descriptor guard is present.",
+    "No external/helper calls; no C runtime member identity is implicated."
+  ],
+  "arena_reinitializer_decision": {
+    "span": "0x4470..0x4510, 160 bytes",
+    "sha256": "1e3673c1caed6ca64df8e6402a0471166c6b02c4d75b29833ac4896271d38849",
+    "indexed_direct_callers": [],
+    "context": "Registered in callback slot 0x29 per evidence/host_pool_layout.json; changes saved arena/byte count, rebuilds pool0 header, calls coalesce and diagnostic.",
+    "decision": "Kept out of this family. count_used is bounded by the one compact_pool direct call and depends only on already-reviewed start/end and descriptor fields; reinitializer state is not needed to determine its boundary or behavior."
+  },
+  "source_and_prebuild": {
+    "candidate": "candidates/host_pool_counts/count_used.c",
+    "candidate_sha256": "d486026805ba864ca8e49b39059dc7f459facf26a8735c54fe407c1675497ed4",
+    "candidate_bytes": 673,
+    "baseline": "work/host_pool_counts/baseline.c",
+    "baseline_sha256": "9cbb88dadf728c907ed1385e5c5eb2d534774fd0755d2f20224fbf1dceb57d79",
+    "spec": "work/host_pool_counts/count_used_spec.json",
+    "spec_sha256": "152fda18812f0436f5c2a1caded28db2e3dd4e3d4563d8068e05821f0d6b9ad0",
+    "evidence": "work/host_pool_counts/evidence.json",
+    "evidence_sha256": "f224ac329e9899afaac91e9e7f3655d716433e646bbb9f5879036ffdcf391543",
+    "prebuild_check": "region.py check allowed the new count-used-header-walk discriminator before compilation.",
+    "prebuild_meta_sha256": "e1b1cee9388ca11315925b5d5062277936a6540b0b11c30ad71019cd03248295",
+    "prediction_falsifier": "work/host_pool_counts/count_used_meta.json (recorded before build; contains full prediction/falsifier)"
+  },
+  "core_abstraction_comparison": {
+    "source": "calibration/host_pool_repaired.c",
+    "sha256": "115c5e969b4cfff3470d2f08e1a8923b03a392536448ebe14815df17d2bc4ac0",
+    "shared_frame": "Same four-byte PoolWord descriptor/owner-slot union; starts[4] at offset0 and ends[4] at offset16. Candidate uses a minimal view of this established prefix.",
+    "stride_control_difference": "count_used target explicitly masks descriptor with 0x3fffffff before scale-four LEA. Existing coalesce source uses cursor += descriptor; its 32-bit pointer scaling drops high flag bits modulo32. Do not transfer that unmasked source form into count_used."
+  },
+  "fresh_candidate_build": {
+    "build_count": 1,
+    "toolchain": "msvc5_rtm",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-gxwpe8n5\\candidate.obj",
+      "D:\\prog\\hercules_recon\\candidates\\host_pool_counts\\count_used.c"
+    ],
+    "object": "D:\\prog\\hercules_recon\\build\\match\\compile-gxwpe8n5\\candidate.obj",
+    "object_sha256": "c5625610c1f818ebb8dede6b3573bdf8757385821722bf69b3a6142a9e0eea06",
+    "metrics": "work/host_pool_counts/count_used_metrics.json",
+    "metrics_sha256": "7198fb561e293cff603a77b35ea892458de2704eb56c89adf4059544d9762748",
+    "full_contribution": {
+      "target_bytes": 64,
+      "candidate_bytes": 64,
+      "target_sha256": "42d40cb66ba3ebe315981338aa46ee9ba41aa4a902b0bf8efcc7bdf27fd640fb",
+      "candidate_data_sha256": "7904a59aa6a8255f9c75c61e05bafffc928172b850ada45144e85d0b0add7ca8",
+      "candidate_ordered_relocations": [
+        {
+          "offset": 8,
+          "symbol": "_g_host_pool",
+          "type": 6
+        },
+        {
+          "offset": 15,
+          "symbol": "_g_host_pool",
+          "type": 6
+        }
+      ],
+      "target_base_relocations": []
+    },
+    "raw_metrics": {
+      "strict_equal": false,
+      "raw_different_bytes": 17,
+      "raw_byte_percent": 73.438,
+      "normalized_different_bytes": 17,
+      "normalized_byte_percent": 73.438,
+      "instruction_similarity_percent": 85.714,
+      "target_candidate_instructions": "21/21",
+      "ordered_cfg_equal": true,
+      "target_candidate_blocks": "7/7"
+    },
+    "difference_diagnosis": "After diagnostic relocation resolution, only offsets 0x1 and 0x5..0x14 differ. Target keeps pool_id in ECX and zeros EAX before the two global loads; candidate uses EAX for pool_id and zeros it after loading pointers. The remaining loop, free-bit comparison, explicit low-30 mask, scale-four advance, save/restore and padding match byte-for-byte.",
+    "relocations": [
+      {
+        "offset": 8,
+        "symbol": "_g_host_pool",
+        "type": 6
+      },
+      {
+        "offset": 15,
+        "symbol": "_g_host_pool",
+        "type": 6
+      }
+    ],
+    "no_retry": "One family/one candidate only; no type, register, spelling, or loop-form variants."
+  },
+  "semantic_fixture": {
+    "file": "work/host_pool_counts/count_used_semantics.c",
+    "sha256": "40557f143d0051964ecff5cbf12db48e0c4f6a0ab5e3573b13cc3aa3961f6228",
+    "result": "work/host_pool_counts/count_used_semantics_result.json",
+    "result_sha256": "67721280baa2904586bfa6c41da5af90a97dc33647394c1025e8e716addd1695",
+    "checks": 6,
+    "failures": 0,
+    "fixture_build_attempts": 2,
+    "note": "First fixture-only compile failed because the harness had not declared test constant POOL_PINNED; added that constant and rebuilt. The measured candidate was unchanged."
+  },
+  "receipt": {
+    "id": "f89823bb1cc65233f17e2b3a23ece311c1985386c6bd40ba59ed601911eb4c5f",
+    "file": "work/host_pool_counts/receipt-f89823bb1cc65233f17e2b3a23ece311c1985386c6bd40ba59ed601911eb4c5f.json",
+    "sha256": "d8393cbe66282a9a92156903d92f6dcf066b4fa4e2177ef195a0009edacb113b",
+    "safe_frontier_eligible": true,
+    "output_id": "1d4593c940f9455058de8b43b45f98cf007f96a016594aca2db47669c9db5314"
+  },
+  "result": "Function semantics and 64-byte extent are independently bounded; ordinary C candidate matches the loop/body CFG and suffix but retains an entry dataflow/register residual. No FUNCTION_MATCH or promotion."
+}
