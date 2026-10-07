@@ -1,0 +1,115 @@
+{
+  "scope": "Read-only PC registry writer evidence; no source/TU identity, physical capacity or data-placement proof.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "module_index_row": {
+      "name": "ENG1.DLL",
+      "path": "assets/pc/HERCULES/ENG1.DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "base": 268435456
+    },
+    "archaeology_db": {
+      "path": "work/archaeology.sqlite",
+      "sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+    }
+  },
+  "analysis": {
+    "dependency_root": "C:/tools/hercules/python",
+    "capstone": "5.0.7",
+    "pefile": "2024.8.26"
+  },
+  "private_report": {
+    "path": "work/resource_data_writers/action_registry_evidence-01b78ae81489-v2.json",
+    "sha256": "603b04f7959438babf108869587e50ec417b5ce8d8a0bafe57cee9f6af114bff"
+  },
+  "selected_record": {
+    "base_rva": "0x68af0",
+    "stride": 72,
+    "selection_routine": "0x280f0",
+    "caller_rva": "0x1f0f1",
+    "index_multiplication": [
+      "0x28129",
+      "0x2812c"
+    ],
+    "fields": [
+      {
+        "offset": "0x14",
+        "type": "unsigned16",
+        "destination_rva": "0x71394",
+        "meaning": "per-group append limit",
+        "read_rva": "0x281e4",
+        "write_rva": "0x28215"
+      },
+      {
+        "offset": "0x16",
+        "type": "unsigned16",
+        "destination_rva": "0x71380",
+        "meaning": "registry scan count",
+        "read_rva": "0x2821c",
+        "write_rva": "0x28266"
+      }
+    ],
+    "observed_records": {
+      "non_sentinel_records": 8,
+      "sentinel_id": 999,
+      "registry_counts": [
+        2,
+        4,
+        8,
+        12,
+        20
+      ],
+      "append_limits": [
+        12,
+        20,
+        24,
+        30
+      ],
+      "scope": "File-backed selectable records. A selected count20 row requires20 valid slots in that execution; no physical maximum or allocation size is proved."
+    }
+  },
+  "registry": {
+    "pointer_table_rva": "0x713e0",
+    "pointer_stride": 4,
+    "storage": "Virtual zero-filled tail of ENG1 .data; not file-backed.",
+    "count_rva": "0x71380",
+    "bound": "Unsigned16 scan bound supplied by selected record.",
+    "direct_pointer_slot_stores": "No direct indexed absolute store in ENG1; output-slot-address flow through host callback1e establishes indirect population.",
+    "pointed_count_reset_rva": "0x27a39",
+    "initializer_effect": "Block0x27a25..0x27a4a traverses pointer slots and writes -1 to pointed group count, not the pointer slots.",
+    "cautions": [
+      "Direct cross references cannot exclude indirect pointer population.",
+      "Nearby20-dword clear0x71320..0x71370 does not establish this table capacity."
+    ],
+    "pointer_population_followup": {
+      "status": "Statically established under reviewed default host-interface binding.",
+      "evidence": "evidence/registry_population.json"
+    }
+  },
+  "group": {
+    "count_offset": 0,
+    "count_type": "signed32",
+    "retired_count": -1,
+    "acquired_count": 0,
+    "pointer_entries": "One-based dword pointer entries at +4*i; entry0 overlays count.",
+    "append_rva": "0x2b070",
+    "append_limit_rva": "0x71394",
+    "release_rva": "0x2b370",
+    "release_effect": "Rereads pointed count after actor-variant callback; writes -1 through matched table slot after callbacks."
+  },
+  "provenance": {
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compiler_builds": 0
+  },
+  "unresolved": [
+    "Physical pointer-table capacity and allocation ownership/source declarations.",
+    "Actual pointed child payload extents.",
+    "Original names and source/TU ownership.",
+    "Runtime callback replacement/mutation and allocation failure outcomes."
+  ]
+}

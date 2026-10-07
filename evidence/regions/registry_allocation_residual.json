@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T20:33:53.084582+00:00",
+  "region": "registry_allocation",
+  "ownership": {
+    "id": "registry_allocation",
+    "ownership": "inferred_region",
+    "rationale": "Engine registry initialization and generic three-argument host-interface forwarding share the observed allocation flow; original translation-unit ownership is unknown."
+  },
+  "context_id": "f9c0d2ba80ada32c6ee75ad2c0156edb0401e4f24dfe1dacd5f79f5d4f4e7ee0",
+  "source_sha256": "3277c703daa2e4475a799ece50423bbca6b5c5e50f719768fd0cfba6ab0db832",
+  "baseline_sha256": "3277c703daa2e4475a799ece50423bbca6b5c5e50f719768fd0cfba6ab0db832",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "3277c703daa2e4475a799ece50423bbca6b5c5e50f719768fd0cfba6ab0db832",
+  "source_patch": {
+    "base_sha256": "3277c703daa2e4475a799ece50423bbca6b5c5e50f719768fd0cfba6ab0db832",
+    "result_sha256": "3277c703daa2e4475a799ece50423bbca6b5c5e50f719768fd0cfba6ab0db832",
+    "edits": []
+  },
+  "output_id": "dffc677b2fdcb4dfe671d43b98a7d332b6b6d5aa6543d157a057b1597582eb5c",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_initialize_pending_action_groups",
+      "target_size": 96,
+      "candidate_size": 96,
+      "raw_different_bytes": 24,
+      "normalized_different_bytes": 14,
+      "instruction_percent": 97.222,
+      "ordered_cfg_equal": false,
+      "category": "structural/source-form investigation",
+      "strict_equal": false,
+      "relocation_count": 5,
+      "target_relocation_count": 4,
+      "output_id": "2f5276843f95ff4df48d606186b5695f72a4011875e3fa71bf8bb7336c730e9d",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_forward_host_allocation",
+      "target_size": 32,
+      "candidate_size": 32,
+      "raw_different_bytes": 4,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 1,
+      "target_relocation_count": 1,
+      "output_id": "77310587764763cda98a67e4f519b3465dda06e75b60e409f254f374c4ed30ca",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 2,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 1,
+    "ordered_cfg_equal": 1,
+    "instruction_over_90": 2,
+    "nonexact_instruction_over_90": 2,
+    "categories": {
+      "structural/source-form investigation": 1,
+      "relocation-only diagnostic equality": 1
+    }
+  },
+  "family": "signed promoted index and single top-tested allocation loop",
+  "prediction": "The signed promoted loop preserves observed live count/limit reads, output-slot allocation and failure semantics; the wrapper retains full diagnostic equality.",
+  "falsifier": "Extra predicates or changed callback/slot/failure behavior, frozen wrapper regression, or remaining normalized differences.",
+  "verdict": "Wrapper32 bytes are relocation-only equal. Initializer96 bytes retain14 normalized differences and different zero-path/table-base topology; tested source family stopped.",
+  "blocker": "Initializer table-base load precedes target guard; original return/save topology not reproduced. Host allocation payload and real data dependencies remain.",
+  "reentry_condition": "Independent new structural discriminator about zero-path/local lifetime or TU context; do not replay guarded-loop spelling families.",
+  "next_discriminator": "Recover actual host allocator/pool lifecycle while preserving equal wrapper and other peers.",
+  "ungated_work": [],
+  "new_evidence": null,
+  "new_discriminator": null,
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "bounded reconstruction",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 1,
+    "semantic_result": "Fresh durable allocation callback fixture replay required.",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "5926586000c762280f369113b134073a67b30c69d092af370f2419f2343eb565",
+    "report_sha256": "740c25dd1060b0e480ce6de42a766a6802012c93c1d2bba0d1c69e7ad793686d",
+    "object_sha256": "cd3acb054628d9e2af248d5c88a8205e862fc1ebe519850e39b5a13c463463e1",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-wws6hm0h\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\registry_allocation.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "c411d5c721c9e33ee5fdc83e28e7231d9e996c4a441ed3056b9a57656387ad22"
+}

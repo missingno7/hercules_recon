@@ -1,0 +1,54 @@
+{
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "action_registry_writers",
+    "ownership": "inferred_region",
+    "rationale": "Three adjacent PC-proven pending-action group retirement/append helpers share one observed count-entry overlay; original translation-unit ownership is unproved."
+  },
+  "source": "calibration/action_registry_writers.c",
+  "functions": [
+    {
+      "symbol": "_retire_pending_action_group",
+      "rva": "0x2b030",
+      "size": 64,
+      "body_size": 57,
+      "target_sha256": "a56cb647588b34f59b3bbb535b9faf652d587ce8672e32da423bace97fd3d52b",
+      "control": false,
+      "boundary_evidence": "Reachable RET 0x2b068; seven alignment NOPs through 0x2b06f; next entry 0x2b070 has five direct callers. Only direct caller is 0x3b9a5."
+    },
+    {
+      "symbol": "_append_normal_action",
+      "rva": "0x2b070",
+      "size": 96,
+      "body_size": 95,
+      "target_sha256": "056bba6310953d34febd9eb9c18ff085a75f411470a19694a27725f3f952b924",
+      "control": false,
+      "boundary_evidence": "Reachable RETs 0x2b0c8 and 0x2b0ce; one alignment NOP at 0x2b0cf; next entry 0x2b0d0 is directly called from 0x22217. Direct callers: 0x3b5e2, 0x3b6d2, 0x3b795, 0x3b854, 0x3b912."
+    },
+    {
+      "symbol": "_append_kind_action",
+      "rva": "0x2b0d0",
+      "size": 96,
+      "body_size": 94,
+      "target_sha256": "8951d5bf3e3f4a7a63af7e9d7211a518bd1a536f1eeb9e56e32f524e44030ffc",
+      "control": false,
+      "boundary_evidence": "Reachable RETs 0x2b127 and 0x2b12d; two alignment NOPs at 0x2b12e..0x2b12f; next body begins at 0x2b130. Direct caller: 0x22217."
+    }
+  ],
+  "symbol_rvas": {
+    "_retire_pending_action_group": "0x2b030",
+    "_append_normal_action": "0x2b070",
+    "_append_kind_action": "0x2b0d0",
+    "_pending_action_group_count": "0x71380",
+    "_pending_action_group_table": "0x713e0",
+    "_pending_action_group_limit": "0x71394",
+    "_pending_action_callbacks": "0x71370",
+    "_alternate_action_callbacks": "0x7139c",
+    "_spawn_normal": "0x271d0",
+    "_spawn_kind": "0x27db0"
+  }
+}

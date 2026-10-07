@@ -1,0 +1,41 @@
+{
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "registry_allocation",
+    "ownership": "inferred_region",
+    "rationale": "Engine registry initialization and generic three-argument host-interface forwarding share the observed allocation flow; original translation-unit ownership is unknown."
+  },
+  "functions": [
+    {
+      "symbol": "_initialize_pending_action_groups",
+      "rva": "0x2af80",
+      "size": 96,
+      "body_size": 91,
+      "target_sha256": "b704900e0c5bf8e77b1d8428632c960964edf776cdf65a2f0c734677b1ab960a",
+      "control": false,
+      "boundary_evidence": "Reachable RETs at 0x2afcd, 0x2afd2, and 0x2afda; five trailing alignment NOPs through 0x2afdf. The next entry at 0x2afe0 has seven direct callers; this initializer has one direct caller at 0x2560c."
+    },
+    {
+      "symbol": "_forward_host_allocation",
+      "rva": "0x2c3c0",
+      "size": 32,
+      "body_size": 25,
+      "target_sha256": "1c60046001f8a8a88b8aa1a13af0df22b739087388c2f71e3a351cab38fcdfc0",
+      "control": false,
+      "boundary_evidence": "Reachable RET at 0x2c3d8; seven trailing alignment NOPs through 0x2c3df. The next entry at 0x2c3e0 has callers at 0xe98e and 0xedb2. This wrapper has 24 direct callers."
+    }
+  ],
+  "symbol_rvas": {
+    "_initialize_pending_action_groups": "0x2af80",
+    "_forward_host_allocation": "0x2c3c0",
+    "_pending_action_group_count": "0x71380",
+    "_pending_action_group_table": "0x713e0",
+    "_pending_action_group_limit": "0x71394",
+    "_host_allocation_callback": "0x70f98"
+  },
+  "source": "calibration/registry_allocation.c"
+}

@@ -1,0 +1,109 @@
+{
+  "scope": "Experimental complete contributions; wrapper is diagnostic equal, initializer remains a source/codegen residual. No acceptance, original declaration or module layout proof.",
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "source": "calibration/registry_allocation.c",
+  "source_sha256": "3277c703daa2e4475a799ece50423bbca6b5c5e50f719768fd0cfba6ab0db832",
+  "compiler": "msvc5_rtm",
+  "command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/c",
+    "/Gy",
+    "/O2",
+    "/FoD:\\prog\\hercules_recon\\build\\match\\compile-wws6hm0h\\candidate.obj",
+    "D:\\prog\\hercules_recon\\calibration\\registry_allocation.c"
+  ],
+  "object_sha256": "cd3acb054628d9e2af248d5c88a8205e862fc1ebe519850e39b5a13c463463e1",
+  "functions": [
+    {
+      "symbol": "_initialize_pending_action_groups",
+      "control": false,
+      "target_size": 96,
+      "candidate_size": 96,
+      "strict_equal": false,
+      "raw_different_bytes": 24,
+      "raw_byte_percent": 75.0,
+      "normalized_different_bytes": 14,
+      "normalized_byte_percent": 85.417,
+      "instruction_percent": 97.222,
+      "original_instruction_count": 36,
+      "candidate_instruction_count": 36,
+      "ordered_cfg_equal": false,
+      "original_blocks": 7,
+      "candidate_blocks": 6,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x1002c3c0"
+      ],
+      "candidate_direct_calls": [
+        "0x1002c3c0"
+      ],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 5,
+      "category": "structural/source-form investigation"
+    },
+    {
+      "symbol": "_forward_host_allocation",
+      "control": false,
+      "target_size": 32,
+      "candidate_size": 32,
+      "strict_equal": false,
+      "raw_different_bytes": 4,
+      "raw_byte_percent": 87.5,
+      "normalized_different_bytes": 0,
+      "normalized_byte_percent": 100.0,
+      "instruction_percent": 100.0,
+      "original_instruction_count": 9,
+      "candidate_instruction_count": 9,
+      "ordered_cfg_equal": true,
+      "original_blocks": 1,
+      "candidate_blocks": 1,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [],
+      "candidate_direct_calls": [],
+      "original_indirect_calls": [
+        "dword ptr [0x10070f98]"
+      ],
+      "candidate_indirect_calls": [
+        "dword ptr [0x10070f98]"
+      ],
+      "relocation_count": 1,
+      "category": "relocation-only diagnostic equality"
+    }
+  ],
+  "provenance": {
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "private_handoff": "work/registry_allocation/handoff.json",
+    "private_handoff_sha256": "415d77aee06e3dbfe687c70a4c7b0bc795d9278dfeed4f0d0da3ccda5d0e6a4c"
+  },
+  "facts": [
+    "Initializer requests exactly4*unsigned16 limit bytes, flags0, through the address of each pointer slot.",
+    "It initializes the pointed group count from the output slot, not from the callback return pointer.",
+    "Count and limit are read live; failure returns0 while preserving earlier initialized groups and untouched later slots.",
+    "Wrapper forwards three cdecl arguments to the reviewed callback cell70f98 and passes through its result.",
+    "Initializer differences are offsets4..17, table-base load before initial guard; wrapper contribution and ordered relocations remain frozen."
+  ],
+  "stopped_families": [
+    "unsigned index with guarded loop",
+    "signed index with redundant guards",
+    "single signed top-tested loop (selected residual)",
+    "same-predicate guarded do-loop"
+  ],
+  "semantics": {
+    "harness": "tests/registry_allocation_semantics.c",
+    "checks": 50,
+    "failures": 0,
+    "scope": "Synthetic callback only; no original image loaded or executed."
+  },
+  "reentry": "Independent new structural discriminator or source/TU context; no guarded-loop spelling replay.",
+  "limits": [
+    "The callback-cell extern is a descriptive view; original interface/data declarations remain unproved.",
+    "Original physical pointer-table capacity and pointed child payload extent are unknown."
+  ]
+}

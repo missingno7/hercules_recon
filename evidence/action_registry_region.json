@@ -1,0 +1,40 @@
+{
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "action_dependency",
+    "ownership": "inferred_region",
+    "rationale": "Two private PC-proven action-group registry helpers with a shared global count/table and a known internal actor-variant dependency; original translation-unit ownership is unproved."
+  },
+  "source": "calibration/action_registry.c",
+  "functions": [
+    {
+      "symbol": "_acquire_pending_action_group",
+      "rva": "0x2afe0",
+      "size": 80,
+      "body_size": 74,
+      "target_sha256": "6bb4840b9c3e6e04923d47f4dd313758f95238866d2cccc4981fe9fdbfe9a1c3",
+      "control": false,
+      "boundary_evidence": "Reachable returns at 0x2b00a, 0x2b026, and 0x2b029; all 22 decoded reachable instructions stay within [0x2afe0,0x2b02a). Six NOPs pad to 0x2b030, which is independently called from 0x3b9a5. Seven direct callers enter at 0x2afe0."
+    },
+    {
+      "symbol": "_release_pending_action",
+      "rva": "0x2b370",
+      "size": 128,
+      "body_size": 122,
+      "target_sha256": "1d67eef6f606565881e9b8b2f333e60b109e87bd4f0040cc62a22473a7977374",
+      "control": false,
+      "boundary_evidence": "All paths reach RET 0x2b3e9 within [0x2b370,0x2b3ea); six NOPs pad to 0x2b3f0, independently called from 0x1d86. Direct callers at 0x272ce and 0x2b2fa."
+    }
+  ],
+  "symbol_rvas": {
+    "_acquire_pending_action_group": "0x2afe0",
+    "_release_pending_action": "0x2b370",
+    "_remove_actor_variant": "0x27860",
+    "_pending_action_group_count": "0x71380",
+    "_pending_action_group_table": "0x713e0"
+  }
+}

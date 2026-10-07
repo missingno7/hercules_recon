@@ -1,0 +1,154 @@
+{
+  "scope": "Reviewed static cross-image registry pointer population; no runtime outcome, allocation capacity, function acceptance or module layout proof.",
+  "oracle": {
+    "eng1": {
+      "path": "assets/pc/HERCULES/ENG1.DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+    },
+    "host": {
+      "path": "work/discs/pc_install/HERCULES.EXE",
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+    },
+    "archaeology_db": {
+      "path": "work/archaeology.sqlite",
+      "sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+    }
+  },
+  "population": {
+    "status": "Statically established through output-pointer host allocation callback under existing interface initializer binding.",
+    "registry_base_rva": "0x713e0",
+    "loop": "ENG1 2af80: for each index below current unsigned16 [71380], advance ESI output slot by4. On success write -1 through loaded table slot.",
+    "argument_flow": [
+      {
+        "rva": "0x2af8d",
+        "effect": "ESI = VA100713e0; pointer slot address retained through call."
+      },
+      {
+        "rva": "0x2af94",
+        "effect": "Push callback arg3=0 (allocation flags)."
+      },
+      {
+        "rva": "0x2af96..0x2af9f",
+        "effect": "Read unsigned16 append limit [71394], shiftleft2, push arg2=requested byte count."
+      },
+      {
+        "rva": "0x2afa0",
+        "effect": "Push arg1=ESI, address of current dword pointer slot."
+      },
+      {
+        "rva": "0x2afa1",
+        "effect": "Call wrapper2c3c0."
+      },
+      {
+        "rva": "0x2c3cf",
+        "effect": "Wrapper forwards identical three args to indirect callback at70f98."
+      },
+      {
+        "module": "HERCULES.EXE",
+        "rva": "0x4573",
+        "effect": "Read arg1 slot address intoECX after8-byte local allocation."
+      },
+      {
+        "module": "HERCULES.EXE",
+        "rva": "0x465e..0x4667",
+        "effect": "After allocation/logcall reload originalarg1 from[ESP+2c], clean16bytes, setEAX to allocationpointer and store allocationpointer through[ECX]."
+      },
+      {
+        "rva": "0x2afad..0x2afb5",
+        "effect": "Reload newlywritten pointer from[ESI], advanceESI, set[allocatedgroup]=-1."
+      }
+    ],
+    "failure_path": {
+      "host_rvas": "0x4671..0x468c",
+      "flags0_effect": "Host writesNULL through originalarg1 at467d and returnsEAX=0. ENG1 initializer returns0 at2afce. Caller2560c ignoresEAX and next calls reset279f0; successful allocation is not statically guaranteed.",
+      "no_runtime_claim": true
+    }
+  },
+  "host_binding": {
+    "eng1_interface_base_rva": "0x70f20",
+    "callback_cell_rva": "0x70f98",
+    "slot_index": "0x1e",
+    "offset_bytes": "0x78",
+    "copy": "Initial nonnull setup path copies250 dwords at2c19f before signaturecheck2c1a1.",
+    "host_static_source_table_rva": "0x361b8",
+    "source_table_sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "source_callback_cell_rva": "0x36230",
+    "source_callback_bytes": "70454000",
+    "source_callback_va": "0x404570",
+    "source_callback_rva": "0x4570",
+    "assumption": "Static default table passed through reviewed host dispatch. Runtime replacement/mutation of callback cells is not excluded."
+  },
+  "allocation_shape": {
+    "requested_payload_bytes": "4 * unsigned16 [71394] per pointed group",
+    "host_header_accounting": "Host4570 rounds requested payload bytes to dwords using(size+3)>>2, adds2 header dwords; successful returned pointer is8bytes beyond block header. Flags0 selects pool index0.",
+    "logical_pointer_slots": "Allocated by initialization iteration count [71380], supplied by selected level record+16. No table-slot array allocation occurs here: the slots are DLL zero-fill storage.",
+    "physical_table_capacity": "Still not independently established. Known selected counts require that many valid slots; allocation loop is not a declaration-bound proof.",
+    "pointed_group_extent": "Allocation request is now proven. Do not infer declared C array extent or append safety from request alone; append is one-based and its boundary needs a separate exact read.",
+    "ownership": "Pointed allocations supplied by EXE allocator callback; registry pointer-slot storage is in ENG1 zero-filled .data. Original declaration/TU unknown."
+  },
+  "setup_order": {
+    "selection_call": "ENG1 1f0f1 calls280f0 to populate counts/limits.",
+    "registry_caller": "Only indexed direct call to2af80 is2560c.",
+    "reviewed_calls_in_initializer": [
+      "25607->282e0 clears separate71320 table",
+      "2560c->2af80 allocates action groups through pointer-slot aliases",
+      "25611->279f0 resets actors and existing group counts"
+    ],
+    "interpretation": "279f0 reset is subsequent to the allocation initializer in this direct caller; its dereferences do not populate pointer slots."
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compiler_builds": 0
+  },
+  "unresolved": [
+    "Runtime callback mutation/replacement and allocation failure outcomes.",
+    "Original physical pointer-slot capacity, declarations and TU.",
+    "Append bound relative to requested group payload; separate exact-body review needed before any array extent claim."
+  ],
+  "code_spans": [
+    {
+      "module": "ENG1.DLL",
+      "start_rva": "0x2af80",
+      "end_rva_exclusive": "0x2afe0",
+      "sha256": "b704900e0c5bf8e77b1d8428632c960964edf776cdf65a2f0c734677b1ab960a"
+    },
+    {
+      "module": "ENG1.DLL",
+      "start_rva": "0x2c3c0",
+      "end_rva_exclusive": "0x2c3e0",
+      "sha256": "1c60046001f8a8a88b8aa1a13af0df22b739087388c2f71e3a351cab38fcdfc0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "start_rva": "0x4570",
+      "end_rva_exclusive": "0x468d",
+      "sha256": "b1e4d867ed2dff0ee6cf1c3eebe1b0455a832d32ab16c5d161fbf9d337019787"
+    },
+    {
+      "module": "ENG1.DLL",
+      "start_rva": "0x255f0",
+      "end_rva_exclusive": "0x25620",
+      "sha256": "42d54593f012ae1fe998e107a93420b51cf6509dd8ff3c7cc383580d98ce8f28"
+    },
+    {
+      "module": "ENG1.DLL",
+      "start_rva": "0x279f0",
+      "end_rva_exclusive": "0x27a50",
+      "sha256": "74b7e6744fa8f30e24bb24914cb5c2a53c6bfba534af6935e8691d9950570e46"
+    },
+    {
+      "module": "ENG1.DLL",
+      "start_rva": "0x2c180",
+      "end_rva_exclusive": "0x2c1ad",
+      "sha256": "1260dbfb8db35a9671d06dc4d31cc4537651dd67c888f47224dbcab71445e576"
+    }
+  ],
+  "private_report": {
+    "path": "work/resource_shape/registry_population.json",
+    "sha256": "a2b37b2c4fe46d8a9af077475fee56ce886b242ebce8cc103a6f31d7680ff96d"
+  }
+}

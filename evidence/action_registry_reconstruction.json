@@ -1,0 +1,100 @@
+{
+  "scope": "Complete experimental helper contributions; no FUNCTION_MATCH, original source identity or module layout proof.",
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "source": "calibration/action_registry.c",
+  "source_sha256": "ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424",
+  "compiler": "msvc5_rtm",
+  "command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/c",
+    "/Gy",
+    "/O2",
+    "/FoD:\\prog\\hercules_recon\\build\\match\\compile-l2o5vggy\\candidate.obj",
+    "D:\\prog\\hercules_recon\\calibration\\action_registry.c"
+  ],
+  "object_sha256": "43fd042afd791bd41a6d8fcfcc2232d1b66b1ebb4eb7860928f342bba8d7e9e7",
+  "functions": [
+    {
+      "symbol": "_acquire_pending_action_group",
+      "control": false,
+      "target_size": 80,
+      "candidate_size": 80,
+      "strict_equal": false,
+      "raw_different_bytes": 16,
+      "raw_byte_percent": 80.0,
+      "normalized_different_bytes": 0,
+      "normalized_byte_percent": 100.0,
+      "instruction_percent": 100.0,
+      "original_instruction_count": 22,
+      "candidate_instruction_count": 22,
+      "ordered_cfg_equal": true,
+      "original_blocks": 6,
+      "candidate_blocks": 6,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [],
+      "candidate_direct_calls": [],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 4,
+      "category": "relocation-only diagnostic equality"
+    },
+    {
+      "symbol": "_release_pending_action",
+      "control": false,
+      "target_size": 128,
+      "candidate_size": 128,
+      "strict_equal": false,
+      "raw_different_bytes": 20,
+      "raw_byte_percent": 84.375,
+      "normalized_different_bytes": 0,
+      "normalized_byte_percent": 100.0,
+      "instruction_percent": 100.0,
+      "original_instruction_count": 45,
+      "candidate_instruction_count": 45,
+      "ordered_cfg_equal": true,
+      "original_blocks": 11,
+      "candidate_blocks": 11,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x10027860"
+      ],
+      "candidate_direct_calls": [
+        "0x10027860"
+      ],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 5,
+      "category": "relocation-only diagnostic equality"
+    }
+  ],
+  "provenance": {
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "private_handoff": "work/action_dependency/handoff.json",
+    "private_handoff_sha256": "e00a0119432c565d309e079124fb379e7ebb28c53ba28864211ea03ead79a718"
+  },
+  "evidence": [
+    "Registry count is unsigned16 at0x71380; pointer slots start at0x713e0.",
+    "Group count occupies offset0; one-based pointer entries start at+4. Union source is a descriptive representation, not proof of original declaration.",
+    "Acquisition resets first -1 count to0 and returns that slot, or null.",
+    "Release scans registry pointers, reloads group count after every actor-variant callback, and marks the current matched slot -1 after callbacks.",
+    "Release loop index is initialized before the signed positive-count guard.",
+    "Raw residuals are four COFF relocations for acquire and five for release."
+  ],
+  "semantics": {
+    "harness": "tests/action_registry_semantics.c",
+    "checks": 86,
+    "failures": 0,
+    "coverage": "Sentinel reuse, duplicate slots, absent groups, negative counts, callback changes to group count, table slot and registry count; candidate only."
+  },
+  "limits": [
+    "Fixture capacity16 does not establish registry capacity.",
+    "Allocation size and writer-owned capacity require separate evidence.",
+    "Names and TU ownership remain unknown."
+  ]
+}

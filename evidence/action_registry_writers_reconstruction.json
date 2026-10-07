@@ -1,0 +1,134 @@
+{
+  "scope": "Complete experimental lifecycle contributions; no FUNCTION_MATCH, data/TU/source identity or module layout proof.",
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "source": "calibration/action_registry_writers.c",
+  "source_sha256": "94b56ae7b1b5347c973f2e7b13cb84fc3064cd9609a12548132d88f923e68666",
+  "compiler": "msvc5_rtm",
+  "command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/c",
+    "/Gy",
+    "/O2",
+    "/FoD:\\prog\\hercules_recon\\build\\match\\compile-1d7ft5xn\\candidate.obj",
+    "D:\\prog\\hercules_recon\\calibration\\action_registry_writers.c"
+  ],
+  "object_sha256": "ddb14406f40666219d26f1fbc0e26ea2c4629831c720ebabebd47d7e8cc1a725",
+  "functions": [
+    {
+      "symbol": "_retire_pending_action_group",
+      "control": false,
+      "target_size": 64,
+      "candidate_size": 64,
+      "strict_equal": false,
+      "raw_different_bytes": 12,
+      "raw_byte_percent": 81.25,
+      "normalized_different_bytes": 0,
+      "normalized_byte_percent": 100.0,
+      "instruction_percent": 100.0,
+      "original_instruction_count": 18,
+      "candidate_instruction_count": 18,
+      "ordered_cfg_equal": true,
+      "original_blocks": 5,
+      "candidate_blocks": 5,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [],
+      "candidate_direct_calls": [],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 3,
+      "category": "relocation-only diagnostic equality"
+    },
+    {
+      "symbol": "_append_normal_action",
+      "control": false,
+      "target_size": 96,
+      "candidate_size": 96,
+      "strict_equal": false,
+      "raw_different_bytes": 12,
+      "raw_byte_percent": 87.5,
+      "normalized_different_bytes": 0,
+      "normalized_byte_percent": 100.0,
+      "instruction_percent": 100.0,
+      "original_instruction_count": 41,
+      "candidate_instruction_count": 41,
+      "ordered_cfg_equal": true,
+      "original_blocks": 4,
+      "candidate_blocks": 4,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x100271d0"
+      ],
+      "candidate_direct_calls": [
+        "0x100271d0"
+      ],
+      "original_indirect_calls": [
+        "dword ptr [edx + ecx*4]"
+      ],
+      "candidate_indirect_calls": [
+        "dword ptr [edx + ecx*4]"
+      ],
+      "relocation_count": 3,
+      "category": "relocation-only diagnostic equality"
+    },
+    {
+      "symbol": "_append_kind_action",
+      "control": false,
+      "target_size": 96,
+      "candidate_size": 96,
+      "strict_equal": false,
+      "raw_different_bytes": 12,
+      "raw_byte_percent": 87.5,
+      "normalized_different_bytes": 0,
+      "normalized_byte_percent": 100.0,
+      "instruction_percent": 100.0,
+      "original_instruction_count": 41,
+      "candidate_instruction_count": 41,
+      "ordered_cfg_equal": true,
+      "original_blocks": 4,
+      "candidate_blocks": 4,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x10027db0"
+      ],
+      "candidate_direct_calls": [
+        "0x10027db0"
+      ],
+      "original_indirect_calls": [
+        "dword ptr [ecx + ebx*8]"
+      ],
+      "candidate_indirect_calls": [
+        "dword ptr [ecx + ebx*8]"
+      ],
+      "relocation_count": 3,
+      "category": "relocation-only diagnostic equality"
+    }
+  ],
+  "provenance": {
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "private_handoff": "work/action_registry_writers/handoff.json",
+    "private_handoff_sha256": "dd7f114d2f37234095a5a2dd493dcea472756fd71503ae0e7af24002a47ae379"
+  },
+  "diagnosis": [
+    "Retirement writes through the loaded matching slot pointer, and returns null if found or its input otherwise.",
+    "Both appenders use a common null failure path for full groups and failed factories.",
+    "A successful factory call precedes the masked9-bit callback-row lookup; original full kind argument reaches the factory.",
+    "Callback runs before append; group count is reloaded afterwards, incremented, and the new actor pointer stored at one-based index.",
+    "Accepted advance_planar_motion at0x2b3f0 was excluded and preserved."
+  ],
+  "semantics": {
+    "harness": "tests/action_registry_writers_semantics.c",
+    "checks": 33,
+    "failures": 0,
+    "scope": "Reconstructed source only."
+  },
+  "limits": [
+    "Actual pointed group payload extents and append-bound safety remain unproved.",
+    "Descriptive callback record sizes12/8 are access evidence, not original declarations."
+  ]
+}

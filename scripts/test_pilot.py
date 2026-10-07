@@ -28,6 +28,9 @@ SUITES = {
     "remove_actor": ["calibration/remove_actor.c"],
     "resource_cleanup": ["calibration/cleanup_helpers_writers.c"],
     "token_release": ["calibration/cleanup_helpers_writers.c"],
+    "action_registry": ["calibration/action_registry.c"],
+    "action_registry_writers": ["calibration/action_registry_writers.c"],
+    "registry_allocation": ["calibration/registry_allocation.c"],
 }
 
 

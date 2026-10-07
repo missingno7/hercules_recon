@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T20:15:04.867593+00:00",
+  "region": "action_dependency",
+  "ownership": {
+    "id": "action_dependency",
+    "ownership": "inferred_region",
+    "rationale": "Two private PC-proven action-group registry helpers with a shared global count/table and a known internal actor-variant dependency; original translation-unit ownership is unproved."
+  },
+  "context_id": "8f99482b9607d608cd073405f78088de6ad2f32ce00f9533d82c95a0ea9f097a",
+  "source_sha256": "ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424",
+  "baseline_sha256": "ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424",
+  "source_patch": {
+    "base_sha256": "ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424",
+    "result_sha256": "ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424",
+    "edits": []
+  },
+  "output_id": "72c5ea49411a95d7088840ef76b2cfefdc45a3fc488939561c9fcc096204fd74",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_acquire_pending_action_group",
+      "target_size": 80,
+      "candidate_size": 80,
+      "raw_different_bytes": 16,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 4,
+      "target_relocation_count": 4,
+      "output_id": "0d2d94dbefd58118ca3280226313952d5ce2272f832b9b4fdef3a83b587e200e",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_release_pending_action",
+      "target_size": 128,
+      "candidate_size": 128,
+      "raw_different_bytes": 20,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 5,
+      "target_relocation_count": 4,
+      "output_id": "062150911a1f49dabf524e5e6d6ec76f7edd72824a05f4d6d78e6f4af453b94b",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 2,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 2,
+    "ordered_cfg_equal": 2,
+    "instruction_over_90": 2,
+    "nonexact_instruction_over_90": 2,
+    "categories": {
+      "relocation-only diagnostic equality": 2
+    }
+  },
+  "family": "one-based entry overlay and counter initialization before count guard",
+  "prediction": "The count occupies entry zero; one-based pointer entries start at +4. Preserve registry slot reload and initialize loop index before signed positive-count guard to recover full contributions.",
+  "falsifier": "Non-relocation difference, wrong first-entry offset, changed acquire peer, or failed sentinel/duplicate-slot/callback-mutation tests.",
+  "verdict": "Both complete contributions are relocation-only diagnostic equals.",
+  "blocker": "Real registry data and remove_actor_variant dependency remain unresolved.",
+  "reentry_condition": "New evidence about actual registry data/initializers or real callee closure; preserve equal code outputs.",
+  "next_discriminator": "Read actual registry initialization and allocation writers; do not infer capacity from fixture arrays.",
+  "ungated_work": [],
+  "new_evidence": null,
+  "new_discriminator": null,
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "bounded reconstruction",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 1,
+    "semantic_result": "Worker70/0; fresh durable fixture replay required.",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "dce7bdb0708aece79e96caef03094aee81684543fc3fce0fd4a82f483804af6a",
+    "report_sha256": "57e3ea7ed7b5817bc4a5c33f9dd0f3376979c027d27547aab33a35ad0e637ce7",
+    "object_sha256": "43fd042afd791bd41a6d8fcfcc2232d1b66b1ebb4eb7860928f342bba8d7e9e7",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-l2o5vggy\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\action_registry.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "95c5c7241285a4055462f71c9abe7fb08b9659ef7828611fee395148ce24798f"
+}

@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T20:27:22.445870+00:00",
+  "region": "action_registry_writers",
+  "ownership": {
+    "id": "action_registry_writers",
+    "ownership": "inferred_region",
+    "rationale": "Three adjacent PC-proven pending-action group retirement/append helpers share one observed count-entry overlay; original translation-unit ownership is unproved."
+  },
+  "context_id": "cd794c5c07155632c1909c861190e34ad6c269ea56a33294e073fd7e9394c435",
+  "source_sha256": "94b56ae7b1b5347c973f2e7b13cb84fc3064cd9609a12548132d88f923e68666",
+  "baseline_sha256": "94b56ae7b1b5347c973f2e7b13cb84fc3064cd9609a12548132d88f923e68666",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "94b56ae7b1b5347c973f2e7b13cb84fc3064cd9609a12548132d88f923e68666",
+  "source_patch": {
+    "base_sha256": "94b56ae7b1b5347c973f2e7b13cb84fc3064cd9609a12548132d88f923e68666",
+    "result_sha256": "94b56ae7b1b5347c973f2e7b13cb84fc3064cd9609a12548132d88f923e68666",
+    "edits": []
+  },
+  "output_id": "47fd0fe4f70dde9e86e7010d8f3e8f0860710c537cd2baa8cd24de09f065dde4",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_retire_pending_action_group",
+      "target_size": 64,
+      "candidate_size": 64,
+      "raw_different_bytes": 12,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 3,
+      "target_relocation_count": 3,
+      "output_id": "83ec4c721b68075e710a3dfb346a4128139aee63e805256779ad7fbff5cc9cbc",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_append_normal_action",
+      "target_size": 96,
+      "candidate_size": 96,
+      "raw_different_bytes": 12,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 3,
+      "target_relocation_count": 2,
+      "output_id": "34bf2e39afb72aa35950ce39a4a63d556a77242bca8cbce14b0695963e06d970",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_append_kind_action",
+      "target_size": 96,
+      "candidate_size": 96,
+      "raw_different_bytes": 12,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 3,
+      "target_relocation_count": 2,
+      "output_id": "a0976a00645dc4324a56ec45e20042af6a75dad67af8c2dfcdabe7368bf0f8e8",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 3,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 3,
+    "ordered_cfg_equal": 3,
+    "instruction_over_90": 3,
+    "nonexact_instruction_over_90": 3,
+    "categories": {
+      "relocation-only diagnostic equality": 3
+    }
+  },
+  "family": "loaded registry entry and common append failure epilogue",
+  "prediction": "Retirement writes through the loaded matching slot pointer; nested append success uses one null failure path and retains post-callback count reload, yielding complete contribution equality after relocation normalization.",
+  "falsifier": "Any non-relocation difference, changed callback/factory operands, wrong child offset, or failed behavior fixture.",
+  "verdict": "Three complete contributions are relocation-only diagnostic equals.",
+  "blocker": "Real registry/callback globals and actor factory contributions remain unresolved.",
+  "reentry_condition": "New evidence for actual data or actor factory dependencies; preserve equal code outputs.",
+  "next_discriminator": "Trace real pointer-table population and actor factories rather than rewrite equal peers.",
+  "ungated_work": [],
+  "new_evidence": null,
+  "new_discriminator": null,
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "bounded reconstruction",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 1,
+    "semantic_result": "Fresh durable replay required.",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "8319167f1261360f529e60fc1da64d7b820911c43527e1fc978e5c56d6b62df4",
+    "report_sha256": "3b195c995d7d02745bc4199b87e35ba4b09586e97cd9937cbe44ac1a915ede69",
+    "object_sha256": "ddb14406f40666219d26f1fbc0e26ea2c4629831c720ebabebd47d7e8cc1a725",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-1d7ft5xn\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\action_registry_writers.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "c7c575e7a9a1762429d505edd611254cd99843812c6e3dc266654b200b82df67"
+}
