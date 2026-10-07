@@ -55,6 +55,11 @@ bounded compiler-guided C families and a fresh twelve-function blind region.
 One blind tail became raw exact; the four calibration targets did not converge.
 Six earlier macro matches subsequently passed the normal canonical promotion gate.
 
+The [effect follow-up](docs/effect_followup.md) closes the three remaining effect
+code-generation differences, promotes four raw matches, and measures the first
+natural caller/callee link. Its remaining call displacement difference records a
+real layout problem; relocation-only equality is still not accepted as a match.
+
 ## References
 
 [icytower_rerecon](https://github.com/missingno7/icytower_rerecon) and

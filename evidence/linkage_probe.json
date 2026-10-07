@@ -1,0 +1,102 @@
+{
+  "scope": "Exploratory natural linked-image byte comparison only; does not grant FUNCTION_MATCH.",
+  "toolchain": "msvc5_rtm",
+  "source_sha256": "e10d56cec3ac76b1702864e6309fe3f70c7e3191e5ff983ab759ce69f7fabd8a",
+  "baseline_source_sha256": "8e5573535c58ed16cf5da403cdb4f833a933cb450182ab3f54ee45d09e419fb7",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "linked_sha256": "8cb3bd2e4e556f3ef8b5dda33b6d3ba3f7ddaa6358df17a33270374da455ebbb",
+  "map_sha256": "cb1bb88e996df89a6e2f37d2d70c34f910e575624d214b9ceadb8c42f0a59b08",
+  "linked_base_relocations": [],
+  "natural_caller_minus_callee": 64,
+  "original_caller_minus_callee": 512,
+  "compile_command": [
+    "cl.exe",
+    "/nologo",
+    "/c",
+    "/Gy",
+    "/O2",
+    "/Fo<fresh-object>",
+    "work/linkage_probe/caller_callee.c"
+  ],
+  "link_command": [
+    "link.exe",
+    "/nologo",
+    "/DLL",
+    "/NOENTRY",
+    "/NODEFAULTLIB",
+    "/INCREMENTAL:NO",
+    "/OPT:NOREF",
+    "/OUT:work/linkage_probe/caller_callee.dll",
+    "/MAP:work/linkage_probe/caller_callee.map",
+    "/EXPORT:unlink_12c",
+    "/EXPORT:hide_and_unlink",
+    "<fresh-object>"
+  ],
+  "functions": [
+    {
+      "symbol": "_unlink_12c",
+      "linked_rva": "0x1000",
+      "original_rva": "0x294b0",
+      "linked_size": 64,
+      "target_size": 64,
+      "linked_sha256": "fe68ebb357b48fd8f7e835f3ac9b15ee87b19d92c744a0ed718ef8545fa4fd95",
+      "target_sha256": "fe68ebb357b48fd8f7e835f3ac9b15ee87b19d92c744a0ed718ef8545fa4fd95",
+      "raw_linked_equal": true,
+      "raw_differing_offsets": [],
+      "call_destinations_rva": [],
+      "object_relocations": []
+    },
+    {
+      "symbol": "_hide_and_unlink",
+      "linked_rva": "0x1040",
+      "original_rva": "0x296b0",
+      "linked_size": 48,
+      "target_size": 48,
+      "linked_sha256": "5924756ebdd1db7bcb689241be967368a87a6f8cc73a9c648aed7f20bc03c074",
+      "target_sha256": "7cd7815e6df0cff1e6f5f3c57c2b2825f4847b75b050f564b6da0e127d53bf92",
+      "raw_linked_equal": false,
+      "raw_differing_offsets": [
+        14,
+        15
+      ],
+      "call_destinations_rva": [
+        "0x1000"
+      ],
+      "object_relocations": [
+        {
+          "offset": 14,
+          "symbol": "_unlink_12c",
+          "type": 20
+        }
+      ]
+    }
+  ],
+  "script_sha256": "2d6e1a38214098380e8dc791dc1e1cf55030a5a89f6db87f533cd9ec347f680b",
+  "intervening_original_contributions": [
+    {
+      "symbol": "_detach_attachment",
+      "size": 64
+    },
+    {
+      "symbol": "_detach_child",
+      "size": 64
+    },
+    {
+      "symbol": "_detach_buffer",
+      "size": 48
+    },
+    {
+      "symbol": "_insert_scene",
+      "size": 128
+    },
+    {
+      "symbol": "_unlink_0e4",
+      "size": 80
+    },
+    {
+      "symbol": "_find_tag",
+      "size": 64
+    }
+  ],
+  "interpretation": "The natural two-function image is not raw equal at the caller. Its relative call resolves correctly but original code has 448 bytes of real intervening function contributions. No placement manipulation or gate change was performed."
+}
