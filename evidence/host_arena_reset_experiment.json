@@ -1,0 +1,302 @@
+{
+  "scope": "Private evidence and one candidate experiment; no canonical, recovery or Git changes.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "database_sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+  },
+  "static_identity": {
+    "host_pool_layout_sha256": "4acb70f9eafe868779ec2b263d2855c33cfa155216399e70050e18e985640ec1",
+    "modules": {
+      "ENG1.DLL": {
+        "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+        "image_base": "0x10000000"
+      },
+      "ENG3.DLL": {
+        "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+        "image_base": "0x10000000"
+      },
+      "HERCULES.EXE": {
+        "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+        "image_base": "0x400000"
+      },
+      "TITLE.DLL": {
+        "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+        "image_base": "0x10000000"
+      }
+    }
+  },
+  "source_table": {
+    "rva": "0x361b8",
+    "va": "0x4361b8",
+    "bytes": 1000,
+    "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "slots": 250,
+    "slot_index": "0x29",
+    "slot_offset_bytes": "0xa4",
+    "slot_cell_rva": "0x3625c",
+    "slot_pointer_va": "0x404470",
+    "slot_target_rva": "0x4470",
+    "table_end_rva": "0x365a0",
+    "following_self_pointer_cell_rva": "0x365a0",
+    "following_self_pointer_va": "0x4361b8"
+  },
+  "engine_table_binding": {
+    "module_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+    "exe_resolved_entry_call": {
+      "callsite_rva": "0x5f03",
+      "instruction": "call eax",
+      "callee_loaded_from_va": "0x91c45c",
+      "entry_name": "PC_DLLEngineMain (GetProcAddress result at RVA0x5c9d)",
+      "first_argument_setup": [
+        "0x5ef3 mov edx,[0x4365a0]",
+        "read value at VA0x4365a0 = 0x4361b8 (source-table base)",
+        "0x5f02 push edx"
+      ],
+      "second_argument_setup": [
+        "0x5efb mov cl,[0xba01fc]",
+        "0x5f01 push ecx"
+      ],
+      "caller_cleanup": "0x5f05 add esp,8"
+    },
+    "title_copy": {
+      "rva": "0xc203..0xc20f",
+      "instructions": [
+        "mov ecx,0xfa",
+        "mov esi,edx",
+        "mov edi,0x1002bb40",
+        "rep movsd"
+      ],
+      "source_argument": "[esp+0xc] after two register pushes; original first stack argument",
+      "destination": "0x1002bb40",
+      "bytes": 1000,
+      "magic_check_rva": "0xc211",
+      "magic": "0x5ac00cac"
+    },
+    "slot_29_va": "0x1002bbe4",
+    "wrapper": {
+      "rva": "0xc4b0..0xc4be",
+      "instructions": [
+        "0xc4b0 mov eax,[esp+4]",
+        "0xc4b4 push eax",
+        "0xc4b5 call dword ptr [0x1002bbe4]",
+        "0xc4bb add esp,4",
+        "0xc4be ret"
+      ],
+      "abi": "one caller-cleaned 32-bit argument; cdecl-compatible wrapper evidence"
+    },
+    "direct_callers": [
+      {
+        "caller_rva": "0x6017",
+        "instruction": "call 0x1000c4b0",
+        "argument_push_rva": "0x5fde",
+        "argument": "0 (EBX was cleared at0x5fb6)",
+        "cleanup_rva": "0x601c",
+        "instruction_cleanup": "add esp,4"
+      }
+    ],
+    "other_engine_consumers": "No absolute slot-cell operand in indexed ENG1.DLL/ENG3.DLL instructions at expected table cells 0x10070fc4/0x10040844; no direct consumers found by literal query."
+  },
+  "target_span": {
+    "rva": "0x4470",
+    "size": 160,
+    "sha256": "1e3673c1caed6ca64df8e6402a0471166c6b02c4d75b29833ac4896271d38849",
+    "precondition_and_rebase": [
+      "0x4470 loads one stack dword; zero skips rebase",
+      "0x4478..0x4490: delta = arg - saved_arena; saved_arena += delta; saved_bytes -= delta"
+    ],
+    "header_and_calls": [
+      "0x4496..0x44bf: first words = ((saved_bytes - 8) >> 2) - ((ends[0] - starts[0]) >> 2) + bulk_first_words",
+      "0x44c1..0x44c9: push pool id 0; OR first descriptor with 0x80000000 and store at saved_arena",
+      "0x44cb..0x44df: starts[0]=saved_arena; ends[0]=saved_arena+saved_bytes-8",
+      "0x44e5: direct call coalesce at RVA0x4830",
+      "0x44ea..0x4506: diagnostic args (format0x36068,pool0,saved_arena,saved_bytes); direct call stub RVA0x63c0",
+      "0x4509 ret; six NOPs to exclusive 0x4510"
+    ],
+    "reinitialized_state_frame": {
+      "starts_va": "0xba29c0",
+      "ends_va": "0xba29d0",
+      "saved_arena_va": "0xba29e0",
+      "saved_bytes_va": "0xba29e4",
+      "bulk_first_words_va": "0xba29ec",
+      "bulk_first_header_va": "0xba29e8 (not loaded by0x4470)"
+    }
+  },
+  "experiment": {
+    "packet_context_id": "cc02fcf1efe21bef6ee2ccc3d9c3c8dfd4c49bd2d538080b19abf02a483bdfc4",
+    "prebuild_check": "allowed",
+    "meta_sha256": "bccd28e5b451c8b53a786ac461a0c5a1d8f0b52dbc9152c9caa4b6a891380e47",
+    "baseline_sha256": "de75ae9d2a526f23cfcc950f17cb2f95dc0e2dc40e0f76913da3bce01714128c",
+    "spec_sha256": "d94d4eb99d93b696466882dd447fa0cc5051937a7539f849f553b9087ed52f14",
+    "candidate": "candidates/host_arena_reset/reinitialize.c",
+    "candidate_sha256": "d41bcae08d68fd97b8794220c612c301f513c21f877772a24e0a95242e4130a3",
+    "object": "D:\\prog\\hercules_recon\\build\\match\\compile-9llvyize\\candidate.obj",
+    "object_sha256": "6a16e5a3204140a8b76350f2059a00651fdf805882a627ae873921e1a76bc0aa",
+    "toolchain": "msvc5_rtm",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-9llvyize\\candidate.obj",
+      "D:\\prog\\hercules_recon\\candidates\\host_arena_reset\\reinitialize.c"
+    ],
+    "candidate_contribution": {
+      "bytes": 160,
+      "sha256": "180d07ceb0514a61b0908100096f7bf7bf42f141a77eb4fc5534e82daa38e3fc",
+      "relocations": [
+        {
+          "offset": 10,
+          "symbol": "_g_host_pool",
+          "type": 6
+        },
+        {
+          "offset": 18,
+          "symbol": "_g_host_pool",
+          "type": 6
+        },
+        {
+          "offset": 24,
+          "symbol": "_g_host_pool",
+          "type": 6
+        },
+        {
+          "offset": 34,
+          "symbol": "_g_host_pool",
+          "type": 6
+        },
+        {
+          "offset": 39,
+          "symbol": "_g_host_pool",
+          "type": 6
+        },
+        {
+          "offset": 45,
+          "symbol": "_g_host_pool",
+          "type": 6
+        },
+        {
+          "offset": 51,
+          "symbol": "_g_host_pool",
+          "type": 6
+        },
+        {
+          "offset": 62,
+          "symbol": "_g_host_pool",
+          "type": 6
+        },
+        {
+          "offset": 75,
+          "symbol": "_g_host_pool",
+          "type": 6
+        },
+        {
+          "offset": 92,
+          "symbol": "_g_host_pool",
+          "type": 6
+        },
+        {
+          "offset": 98,
+          "symbol": "_g_host_pool",
+          "type": 6
+        },
+        {
+          "offset": 103,
+          "symbol": "_g_host_pool",
+          "type": 6
+        },
+        {
+          "offset": 113,
+          "symbol": "_g_host_pool",
+          "type": 6
+        },
+        {
+          "offset": 118,
+          "symbol": "_coalesce_pool",
+          "type": 20
+        },
+        {
+          "offset": 123,
+          "symbol": "_g_host_pool",
+          "type": 6
+        },
+        {
+          "offset": 129,
+          "symbol": "_g_host_pool",
+          "type": 6
+        },
+        {
+          "offset": 141,
+          "symbol": "_g_fmt_reinit_pool",
+          "type": 6
+        },
+        {
+          "offset": 146,
+          "symbol": "_host_diagnostic",
+          "type": 20
+        }
+      ]
+    },
+    "metrics_path": "work/host_arena_reset/reinitialize_metrics.json",
+    "metrics_sha256": "5c63fcb4472684259ba4afdadab54aff3125b1f230eb6b8ac49be237195257eb",
+    "raw_metrics": {
+      "symbol": "_reinitialize_pool0",
+      "control": false,
+      "target_size": 160,
+      "candidate_size": 160,
+      "strict_equal": false,
+      "raw_different_bytes": 64,
+      "raw_byte_percent": 60.0,
+      "normalized_different_bytes": 18,
+      "normalized_byte_percent": 88.75,
+      "instruction_percent": 87.5,
+      "original_instruction_count": 40,
+      "candidate_instruction_count": 40,
+      "ordered_cfg_equal": true,
+      "original_blocks": 3,
+      "candidate_blocks": 3,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x404830",
+        "0x4063c0"
+      ],
+      "candidate_direct_calls": [
+        "0x404830",
+        "0x4063c0"
+      ],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 18,
+      "category": "uncertain allocation/type/source-form"
+    }
+  },
+  "semantics": {
+    "fixture": "work/host_arena_reset/reinitialize_semantics.c",
+    "fixture_sha256": "dded1fcd8d367cc69ae2650c35eb2d00dc4ee1eb724e816c09bfcc713fcb0324",
+    "result_file": "work/host_arena_reset/reinitialize_semantics_result.json",
+    "result_sha256": "be18ec069aeeeb70175bf223a73211a139106d73dbe8a94be5fce934015305dd",
+    "exe": "work/host_arena_reset/reinitialize_semantics.exe",
+    "exe_sha256": "69568ccb922245c80df40b9e9a8b77f54a0aeb89f22b8b28496c192571a84041",
+    "checks": 18,
+    "failures": 0,
+    "cases": [
+      "zero argument preserves saved start/size and recomputes header/bounds",
+      "nonzero argument rebases to absolute start, subtracts delta from size while preserving end, uses snapshot header equation",
+      "both cases call coalesce(0) and diagnostic with pool0/start/size"
+    ]
+  },
+  "receipt": {
+    "path": "work/host_arena_reset/receipt-43e7683997bd1f529ccd59ca0f53bd4156db83d33b90f2ebccd5ac008afc54ad.json",
+    "receipt_id": "43e7683997bd1f529ccd59ca0f53bd4156db83d33b90f2ebccd5ac008afc54ad",
+    "sha256": "91bb8d2b8ee6686274abec5f39e9d68200369669c23e91894018dbfb877975e1"
+  },
+  "compiler_build_accounting": {
+    "measured_candidate_build_count": 1,
+    "sandbox_createprocess_failures": 1,
+    "semantic_harness_build_attempts": 2,
+    "semantic_harness_link_failures": 1,
+    "semantic_harness_successful_builds": 1,
+    "semantic_harness_exit_code": 0
+  }
+}

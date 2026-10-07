@@ -1,0 +1,28 @@
+{
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "host_arena_reset",
+    "ownership": "inferred_region",
+    "rationale": "One callback-registered host-pool reinitializer; original source ownership is unknown."
+  },
+  "symbol_rvas": {
+    "_g_host_pool": "0x7a29c0",
+    "_coalesce_pool": "0x4830",
+    "_host_diagnostic": "0x63c0",
+    "_g_fmt_reinit_pool": "0x36068"
+  },
+  "functions": [
+    {
+      "symbol": "_reinitialize_pool0",
+      "rva": "0x4470",
+      "size": 160,
+      "target_sha256": "1e3673c1caed6ca64df8e6402a0471166c6b02c4d75b29833ac4896271d38849",
+      "control": false
+    }
+  ],
+  "source": "calibration/host_arena_reset.c"
+}

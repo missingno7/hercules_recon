@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T22:05:51.909349+00:00",
+  "region": "host_arena_reset",
+  "ownership": {
+    "id": "host_arena_reset",
+    "ownership": "inferred_region",
+    "rationale": "One callback-registered host-pool reinitializer; original source ownership is unknown."
+  },
+  "context_id": "77e2fc3c5f9a61457338eb33ba8f2d61ca0b317dfd00b7d737be79c8cbe7c3f2",
+  "source_sha256": "1d89def889f17ec4ac28fba9eacf3388e72e67b08bb72c58eeb1aacfdcb9662b",
+  "baseline_sha256": "1d89def889f17ec4ac28fba9eacf3388e72e67b08bb72c58eeb1aacfdcb9662b",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "d41bcae08d68fd97b8794220c612c301f513c21f877772a24e0a95242e4130a3",
+  "source_patch": {
+    "base_sha256": "1d89def889f17ec4ac28fba9eacf3388e72e67b08bb72c58eeb1aacfdcb9662b",
+    "result_sha256": "1d89def889f17ec4ac28fba9eacf3388e72e67b08bb72c58eeb1aacfdcb9662b",
+    "edits": []
+  },
+  "output_id": "673f744ce036b7abb3f19bad10741e55592dba3d67eff98e841c91aaf64adc99",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_reinitialize_pool0",
+      "target_size": 160,
+      "candidate_size": 160,
+      "raw_different_bytes": 64,
+      "normalized_different_bytes": 18,
+      "instruction_percent": 87.5,
+      "ordered_cfg_equal": true,
+      "category": "uncertain allocation/type/source-form",
+      "strict_equal": false,
+      "relocation_count": 18,
+      "target_relocation_count": 0,
+      "output_id": "d201a91853e12165a776b9078bcfdffabd2dc30af13adca888370b8bfa18f438",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 1,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 0,
+    "ordered_cfg_equal": 1,
+    "instruction_over_90": 0,
+    "nonexact_instruction_over_90": 0,
+    "categories": {
+      "uncertain allocation/type/source-form": 1
+    }
+  },
+  "family": "callback-arena-start-rebase-and-header-rebuild",
+  "prediction": "The 0x4470 callback has one cdecl dword argument. A nonzero argument is the replacement absolute saved-arena start: delta = argument - old_start, new_start = argument, saved_bytes -= delta. The target then rebuilds first descriptor words as ((saved_bytes - 8) >> 2) - ((old_end - old_start) >> 2) + bulk_first_words, ORs POOL_FREE, updates starts[0]/ends[0], calls coalesce_pool(0), and invokes the no-op diagnostic with format, pool 0, new start and adjusted byte count. A single explicit-C formulation with these evidence-backed state fields and calls should produce a 160-byte full contribution; all relocations must resolve to the reviewed data and direct call destinations. The callback wrapper in TITLE.DLL forwards one stack dword and cleans four bytes, and its only direct caller supplies zero.",
+  "falsifier": "Original instructions or table evidence contradict the one-dword caller-cleaned ABI, nonzero absolute-start rebase, byte-count adjustment, old-span/snapshot header equation, pool0 bounds, or call order; the synthetic fixture disagrees with these target-derived cases; or a fresh full-span comparison shows code/control differences after reviewed relocation resolution. The family is one candidate only; if it misses, stop without a spelling/type/loop/placement grid.",
+  "verdict": "falsified",
+  "blocker": null,
+  "reentry_condition": "New independently grounded source/control discriminator; no spelling or placement grid.",
+  "next_discriminator": null,
+  "ungated_work": [],
+  "new_evidence": "Host-pool layout report identifies slot 0x29 cell 0x3625c -> 0x404470 and 0x4470..0x4510 hash 1e3673c1caed6ca64df8e6402a0471166c6b02c4d75b29833ac4896271d38849. TITLE.DLL export copies 0xfa dwords from its first stack argument to 0x1002bb40; wrapper at 0xc4b0 forwards one stack dword through slot 0x29 at 0x1002bbe4 and caller-cleans. Its one direct caller at 0x6017 supplies zero from push at 0x5fde. Evidence SQL database SHA-256 41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390; host_pool_layout.json SHA-256 to be recorded in evidence report.",
+  "new_discriminator": null,
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "One ordinary-C reconstruction of the callback-registered 160-byte pool0 reinitializer, one fresh pinned VC5 /O2 object build and one target-derived arena fixture.",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 1,
+    "semantic_result": "18 fixture checks; 0 failures; first link attempt failed from malformed /Fe path and second passed; no candidate-source changes.",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "b41164270088914bd7c964ea34f63b7142826d077c70b4437218c25d6b2d7b6f",
+    "report_sha256": "16ca3eb301c0f434b3245e82fdd040a94fcfcea4457fdb2ea4e05375d111ecff",
+    "object_sha256": "84937c0752454d9366ae034ff049567d50621bf2db5bc3147b89f075befdc8a3",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-17uvbps6\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\host_arena_reset.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "9d484f546cc2ebf66311f8cc7e31e445057a38fe770fd92fac2c5060bb4cf667"
+}

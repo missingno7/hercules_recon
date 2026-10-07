@@ -34,7 +34,9 @@ SUITES = {
     "actor_factories": ["calibration/actor_factories.c"],
     "host_pool": ["calibration/host_pool_repaired.c"],
     "actor_pools": ["calibration/actor_pools.c"],
-    "host_pool_lifecycle": ["calibration/host_pool_lifecycle.c"],
+    "host_pool_lifecycle": ["calibration/host_pool_lifecycle_repaired.c"],
+    "host_arena_reset": ["calibration/host_arena_reset.c"],
+    "host_pool_shrink": ["calibration/host_pool_shrink.c"],
     "host_pool_counts": ["calibration/host_pool_counts.c"],
     "pool_reverse_copy": ["calibration/pool_reverse_copy.c"],
 }

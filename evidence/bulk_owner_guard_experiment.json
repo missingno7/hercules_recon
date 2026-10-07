@@ -1,0 +1,74 @@
+{
+  "scope": "Private bounded experiment handoff. No canonical source, recovery state, assets, or Git state changed.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "function": "bulk_free",
+    "rva": "0x47c0",
+    "extent_bytes": 112,
+    "target_sha256": "86dc6c00b25ee6317cd48e8504914e13db8c57682e85a3361009dd95e2e97c34"
+  },
+  "reviewed_evidence": {
+    "report": "work/host_pool_residual_shape/report.json",
+    "report_sha256": "95d1bfa3d635a3c811fa5050d0a48307ad7a19f1edcfd99fa97cbd70f7db9d43",
+    "target_order": "At 0x47f6 load owner-slot address from header+4; at 0x47f9 dereference immediately; at 0x47fb test the loaded content; at 0x47fd skip when that content is zero. No address-null predicate is present.",
+    "producer_invariant": "Successful exact-fit and split allocation paths store the caller's output-slot address in header word1 at 0x4626 or 0x463e. The production-backed allocated header therefore has a dereferenceable owner-slot address; free and pinned headers are filtered before this read.",
+    "fixture_domain": "Keep the existing nonnull &empty_owner slot with null content. There is no null-address fixture and none was added. No original executable was run."
+  },
+  "prediction_falsifier": {
+    "family": "remove-bulk-owner-slot-address-guard",
+    "prediction": "Removing only `if (owner_slot != 0)` should remove the extra branch/block and produce target counts 35 instructions and 8 CFG blocks while retaining the content check. It should preserve the fixture's zero-content and pinned/free cases, callback order and all peer contributions.",
+    "falsifier": "Any change to the valid zero-content/pinned/free behavior or callbacks, any peer byte/ordered-relocation change, or a remaining address-null branch mismatch falsifies the hypothesis. Raw full contribution equality is still required for exact acceptance.",
+    "region_check": "python scripts/region.py check --spec work/bulk_owner_guard/spec.json --baseline calibration/host_pool_lifecycle.c --meta work/bulk_owner_guard/meta.json --prior work/host_pool_lifecycle/receipt-d6cbcc9886ca5ba5e8b035bd9e51fe8182321d9d870fbdf811271d10d180b2e9.json",
+    "region_check_result": "New discriminator/context allowed; no proof or compilation cached."
+  },
+  "source": {
+    "path": "candidates/bulk_owner_guard/bulk_free_guard_v1.c",
+    "sha256": "a2f8b1186bc56878dfeb4a7b567c51e538cac035d2e3e41aa0c3f003e0d58a73",
+    "baseline": "calibration/host_pool_lifecycle.c",
+    "baseline_sha256": "58a3a0bc374ed5895972ffa96efc5edd7b2cfbd67b8dd55adb0cb6092b0f58e3",
+    "only_source_change": "Replace the owner_slot != 0 nested guard with direct `void *owner = *owner_slot; if (owner != 0) host_free(owner);`. No compact_pool or wrapper source change."
+  },
+  "fresh_vc5_measurement": {
+    "metrics": "work/bulk_owner_guard/metrics.json",
+    "metrics_sha256": "0f45a265dfd4dbba072d2ef2d0a74923074aff9e39cb40d337570b6c39ac337a",
+    "object_sha256": "9ad6f2aee2a7c551ae9541f55a3878694ba1b2b71a4f482b27dfbe4842a3dec1",
+    "toolchain": "msvc5_rtm, pinned at C:/tools/hercules/msvc500-8abf95ce980161ad87b0b02402269cce76988953/bin/cl.exe",
+    "command": "cl /nologo /c /Gy /O2 <candidate source>",
+    "object_measurements": 1,
+    "result": {
+      "bulk_free": "112/112 bytes; strict false; 19 raw bytes differ; 2 relocation-normalized bytes differ (diagnostic only); 35/35 instructions; CFG 8/8 equal; direct calls match 0x404750 and 0x404890; six relocations.",
+      "compact_all_wrapper": "16 bytes; same six instructions and CFG; one raw relocation byte differs and normalized bytes are equal.",
+      "compact_pool": "Candidate 320 bytes vs target 336; 312 raw bytes differ; 108 target/candidate instructions; CFG unequal. This peer was not edited.",
+      "region_summary": "3 functions, exact 0, diagnostic_equal 1, ordered_cfg_equal 2. No FUNCTION_MATCH."
+    },
+    "compile_object_sha256": "9ad6f2aee2a7c551ae9541f55a3878694ba1b2b71a4f482b27dfbe4842a3dec1"
+  },
+  "peer_preservation": {
+    "comparison": "work/bulk_owner_guard/peer_compare.json",
+    "comparison_sha256": "db5996c68cb051599e519533eeda2df75a083e63864141183094d53450b60ff5",
+    "previous_object": "build/match/compile-myfkw5v7/candidate.obj",
+    "previous_object_sha256": "862de86947dc051c556345c0b0577c282da0798ef56fa6b9f73a8891a9938d03",
+    "compared_to": "The previous full candidate compiled from lifecycle_word1 source with the same pinned VC5 flags.",
+    "wrapper_full_bytes_and_ordered_relocations_equal": true,
+    "wrapper_contribution_identity": "c8fc80a021569b43444b8b9d41d33f2e25abfed177bc1843ccf686131c139a85",
+    "compact_full_bytes_and_ordered_relocations_equal": true,
+    "compact_contribution_identity": "a5db0b0383bb09081c8d6bcf275e920370e8aef0ca0a0c23e2a3d058a58f6885"
+  },
+  "fixture": {
+    "harness": "work/bulk_owner_guard/lifecycle_semantics_v1.c",
+    "harness_sha256": "ca3eb1c19084256111f2bd131f941f281fe065cbe3f9733a7d2f5075ca306220",
+    "result": "work/bulk_owner_guard/fixture_result.json",
+    "result_sha256": "069ff6d19b424143fa9fc1236997076eaae47fac0a7cd0737d22015a8b8b710a",
+    "checks": 34,
+    "failures": 0,
+    "executable_sha256": "c6989f001460adc4fdcd94c2391c7d3797e356f7a6ce4d23b119b5b1c879537f",
+    "build_accounting": "One successful synthetic fixture compile/run; one initial direct cl invocation failed before compiling because INCLUDE was unset (C1034 stdio.h); rerun through the private runner with pinned INCLUDE/LIB/PATH passed. The whole-source comparison compiled once."
+  },
+  "receipt": {
+    "path": "work/bulk_owner_guard/receipt-5af5ef7932e691e83424eeaa4964d6d20ac056dfb58d343d7f68156aee7262a1.json",
+    "sha256": "0ed79668b316297160482980a0feaaf802a587deb4d21f27314145a34961adb6",
+    "scope": "Experimental contribution only; no promotion."
+  },
+  "limits": "This is a source-semantic correction with target-shaped code and passing fixture, but `bulk_free` remains two normalized bytes from the target and strict equality is false. Do not promote or infer source/TU identity, interface declarations, or whole-binary equality from the diagnostic."
+}

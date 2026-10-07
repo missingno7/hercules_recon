@@ -1,0 +1,30 @@
+{
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "host_pool_shrink",
+    "ownership": "inferred_region",
+    "rationale": "ReMalloc-style shrink/relocate entry belongs to the host-pool lifecycle; original TU ownership unproved."
+  },
+  "source": "calibration/host_pool_shrink.c",
+  "functions": [
+    {
+      "symbol": "_shrink_relocate",
+      "rva": "0x4690",
+      "size": 192,
+      "body_size": 184,
+      "target_sha256": "f098dcf07e89a8375836ae9e68eafe2efa37e518266b4f4b5fcc2921e6b25055",
+      "control": false,
+      "boundary_evidence": "Complete 0x4690..0x4750 extent; RET at0x4747 and8 natural NOPs. Table slot0x28 at RVA0x36258 points to VA0x404690; direct cdecl callers0x1320/0x14db clean four dwords; no original TU/prototype claim."
+    }
+  ],
+  "symbol_rvas": {
+    "_memmove": "0x10fb0",
+    "_coalesce_pool": "0x4830",
+    "_host_diagnostic": "0x63c0",
+    "_g_fmt_remalloc": "0x360f0"
+  }
+}

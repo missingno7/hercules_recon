@@ -1,0 +1,125 @@
+{
+  "scope": "Read-only factual bulk owner-slot guard correction and compact budget audit; no compiler, original execution or canonical/source/Git changes.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "baselines": {
+    "core": {
+      "path": "calibration/host_pool_repaired.c",
+      "sha256": "115c5e969b4cfff3470d2f08e1a8923b03a392536448ebe14815df17d2bc4ac0"
+    },
+    "lifecycle": {
+      "path": "calibration/host_pool_lifecycle.c",
+      "sha256": "58a3a0bc374ed5895972ffa96efc5edd7b2cfbd67b8dd55adb0cb6092b0f58e3"
+    },
+    "fixture": {
+      "path": "work/host_pool_lifecycle/lifecycle_semantics_word1.c",
+      "sha256": "3874ec951ea8048221d1250e51d5e674f6e84be6856ca4e9db47fbc7cc4c195f"
+    }
+  },
+  "bulk_guard_error": {
+    "target": "For allocated, unpinned blocks, PC47f6 reads owner-slot ADDRESS from header+4;47f9 dereferences that address immediately;47fb tests the CONTENT for zero;47fd skips only when content iszero. No owner-address NULL guard exists.",
+    "candidate": "bulk_free first guards owner_slot!=0, then reads *owner_slot and guards the content. The extra address guard is a factual additional predicate, not a remaining register-allocation hypothesis.",
+    "production_invariant": "Allocation4570 reads *output_slot at457a before any conditional allocation branch. Every successful exact-fit/split path stores that same output-slot address in header word1 at4626 or463e. A producer-backed allocated header therefore carries the required dereferenceable slot address. Free headers and pinned headers are skipped before this read in bulk_free.",
+    "limits": "Arbitrary manually forged headers with a NULL owner-slot address are outside the established producer-backed domain. The candidate currently skips them while the PC attempts the dereference; do not describe that as faithful PC behavior or add a safety fix.",
+    "corrected_meaning": "Dereference owner slot without the extra address predicate; retain if(*owner_slot!=0) before host_free. Preserve free/pinned mask predicate, headerword1, traversal, snapshots, and final compact wrapper."
+  },
+  "fixture_case": {
+    "function": "test_bulk_free_skips_and_repeats_safely",
+    "actual_source_function": "test_bulk_free_skips_and_repeats_safely",
+    "source_lines": [
+      "empty_owner = 0;",
+      "test_pool[2].owner_slot = &empty_owner;"
+    ],
+    "case": "Existing used block has a valid nonnull address &empty_owner whose CONTENT isNULL. This is a real PC skip case and must remain.",
+    "required_preservation": [
+      "Keep the empty-owner content case and assertion empty_owner==0.",
+      "Keep pinned-owner and ordinary-owned block cases, owner-slot updates, free/compact callback order and one-word free remainder.",
+      "Do not substitute a NULL headerword1 address for &empty_owner; that changes the valid producer-backed domain."
+    ],
+    "test_limits": "No original executable was run. The fixture is a target-derived synthetic model; its valid-address/zero-content case supports the real content guard."
+  },
+  "bounded_family": {
+    "family": "remove unsupported bulk owner-address guard",
+    "prediction": "Removing only if(owner_slot!=0) leaves the target immediate owner dereference/content test and should remove exactly the extra two instructions and one CFG block (current37/9 versus target35/8), potentially achieving complete112-byte diagnostic equality. This is a factual semantic/control correction, not a spelling grid.",
+    "falsifier": "The retained zero-content or pinned cases change, host_free is called on zero content, header word0 is read as owner, any unrelated function contribution changes, or the owner dereference/content branch still differs from the PC. Raw full-span equality is still required for acceptance.",
+    "source_scope": "Only bulk_free owner-address predicate removal. Do not alter compact budget, word accounting, guard on owner content, callback order, global state view or masks.",
+    "gate": "One fresh historical whole-source compile plus unchanged valid-domain fixture; compare full112-byte bulk contribution and full frozen lifecycle/core peer bytes with ordered relocations. Do not execute original images."
+  },
+  "compact_budget": {
+    "status": "Candidate faithfully preserves a mixed-unit PC budget; no source unit correction justified.",
+    "before_copy": {
+      "sites": [
+        "4922 EAX=EBP*4 current block bytes",
+        "4951 EDX=accumulator from stack+10",
+        "4955 ADD EDX,EAX",
+        "4957 CMP EDX,limit ECX",
+        "4959 JA failure"
+      ],
+      "expression": "if(limit!=0 && accumulated_words + current_block_bytes > limit) return0;"
+    },
+    "after_copy": {
+      "sites": [
+        "4963 reload accumulator after3 pushed arguments",
+        "496d ADD EAX,EBP (current block words)",
+        "4972 write accumulator stack+10",
+        "49ae CMP accumulated words,0x8000",
+        "49b3 JA failure"
+      ],
+      "expression": "accumulated_words += current_block_words; if(accumulated_words>0x8000) return0;"
+    },
+    "example": "For two8-word blocks and limit40: first check0+32<=40, accumulatorbecomes8; secondcheck8+32<=40, so64 actualbytescanbemoved. The PC and current source agree. This demonstrates why multiplying prior accumulator by4 would change behavior.",
+    "naming": "byte_limit is an inferred name. Prefer describing the literal budget/units rather than claiming a consistent total-byte limit. Preserve all arithmetic and unsigned comparisons."
+  },
+  "core_residual_audit": {
+    "conclusion": "No new well-formed pool semantic mismatch identified in init/allocate/free after the descriptor equality repair. Operand widths, flagbits, request rounding, last-fit/high-end split, range endpoints and owner mutation agree. Remaining differences are source/control/allocation residuals.",
+    "unsupported_search": "No new shared original-type proof supports a union/array cast change. Initializer calculation timing, allocation positive-success versus early-failure arrangement, and free pointer versus counter scan bounds remain documented distinctions; they do not justify declaration-order, register-steering or loop grids.",
+    "frozen_peers": [
+      {
+        "symbol": "_save_arena",
+        "bytes": 32,
+        "raw_data_sha256": "cf1bc26a34de85942721591261631dc275951d9044cb4ebf552ee383248256c0",
+        "ordered_relocations": [
+          {
+            "offset": 9,
+            "symbol": "_g_host_pool",
+            "type": 6
+          },
+          {
+            "offset": 15,
+            "symbol": "_g_host_pool",
+            "type": 6
+          }
+        ]
+      },
+      {
+        "symbol": "_coalesce_pool",
+        "bytes": 96,
+        "raw_data_sha256": "154278f71352862693747442027b0fe5a9e8aa2d39cd4630cd31a5b28f6d5d74",
+        "ordered_relocations": [
+          {
+            "offset": 8,
+            "symbol": "_g_host_pool",
+            "type": 6
+          },
+          {
+            "offset": 15,
+            "symbol": "_g_host_pool",
+            "type": 6
+          }
+        ]
+      }
+    ],
+    "restriction": "Freeze save_arena and coalesce complete contributions/ordered references; preserve accepted diagnostic. Do not replay the exhausted masked coalesce stride family."
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compiler_builds": 0
+  },
+  "private_report": "work/host_pool_residual_shape/report.json"
+}

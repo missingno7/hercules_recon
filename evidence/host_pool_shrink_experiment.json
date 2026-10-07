@@ -1,0 +1,73 @@
+{
+  "scope": "Private reconstruction handoff only; no canonical source or recovery state changes.",
+  "target": {
+    "binary": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "rva_extent": "0x4690..0x4750",
+    "bytes": 192,
+    "sha256_extent": "f098dcf07e89a8375836ae9e68eafe2efa37e518266b4f4b5fcc2921e6b25055",
+    "return": "0x4747; eight natural NOP bytes through 0x474f"
+  },
+  "reviewed_behavior": [
+    "cdecl(old_payload, requested_bytes, pool_id, owner_only); direct callers at 0x1320 and 0x14db clean 16 stack bytes and discard EAX",
+    "round requested bytes upward to dwords; null and equal-capacity requests return zero unchanged, growth returns the old payload unchanged, and only a strict shrink relocates",
+    "on shrink, split off a new header at the high end; preserve pinned bit, mark low remainder free, copy old owner-word plus payload via memmove unless owner_only, update the saved owner-slot pointee, coalesce using pool_id, then emit diagnostic",
+    "target-specific remainder_words==1 alias: new descriptor store at 0x46f6 overwrites old_header[1] before owner-only source load at 0x4713; new header word1 therefore receives the descriptor, while the separately saved owner_slot is still updated at 0x471a"
+  ],
+  "dependencies": {
+    "memmove": "ordinary CRT external call resolving to 0x10fb0 in the inspected image; this is an 821-byte historical CRT memcpy/memmove implementation, exact symbol/runtime variant unresolved",
+    "coalesce": "0x4830",
+    "diagnostic": "0x63c0",
+    "format": "RVA 0x360f0, 'ReMalloc Heap%d @ 0x%x,Size %d\\n'"
+  },
+  "source_candidates": [
+    {
+      "path": "candidates/host_pool_shrink/shrink_relocate_v1.c",
+      "sha256": "83edfa775c53282db4bfb4c0aefb1619a5abb053cbd15cda3c3b2508fe4df5c3",
+      "status": "frozen prior candidate; semantic fixture last had 159 checks and one failure (old owner-header expectation)"
+    },
+    {
+      "path": "candidates/host_pool_shrink/shrink_relocate_v2.c",
+      "sha256": "ec08d8371458b91420df1865de74ab1b50661d12307abbe4634448eabfdd1cd0",
+      "status": "frozen corrected candidate; only owner-only source expression reads old_header[1] after descriptor store; no promotion"
+    }
+  ],
+  "prediction_and_falsifier": "work/host_pool_shrink/correction_prediction_v2.json; the sole v2 discriminator is the directly observed instruction-order alias at remainder_words==1. Falsifier and new evidence are recorded there.",
+  "measurement": {
+    "toolchain": "pinned msvc5_rtm at C:/tools/hercules/msvc500-8abf95ce980161ad87b0b02402269cce76988953/bin/cl.exe",
+    "command": "cl /nologo /c /Gy /O2 <candidate source>",
+    "source_object_measurements": 2,
+    "v2_metrics": "work/host_pool_shrink/metrics_v2.json",
+    "v2_metrics_sha256": "dc1030ac14413a7c62c7f8a5870179626ad3bb2bcd9b0077d871f89630232471",
+    "v2_object_sha256": "4e652a51bcd1a3be2d1fb74b058594db647ebab1be0e6087dd7d3edb4154eb57",
+    "v2_result": "192/192 bytes; strict false; raw 159 different (17.19%); relocation-normalized 162 different (15.62%, diagnostic only); instruction similarity 53.425%; CFG unequal 9 vs 10 blocks; direct call targets match; 4 COFF relocations.",
+    "receipt": "work/host_pool_shrink/receipt-5327bc192c3ae7885ce5532fd9037945d24e6e30893d1c56729cb0e3b77c8461.json",
+    "receipt_sha256": "7293533274be96978c9fe925c54e2828ac8e1718aaa5479e7344e7427c0634b2",
+    "decision": "not FUNCTION_MATCH; do not promote or infer source identity, module layout, or binary equality"
+  },
+  "fixture": {
+    "source": "work/host_pool_shrink/shrink_semantics_v2.c",
+    "source_sha256": "8b883c697320a542b3d0d4440ad5ddd85630891f209f1303f36d170a1e30593d",
+    "copy_mock": "work/host_pool_shrink/copy_mock_v1.c",
+    "copy_mock_sha256": "f2d5380f88297e34507b62044de11ea9a5ed614a8560b7600385b27e29a5dd71",
+    "checks": 222,
+    "failures": 0,
+    "exe_sha256": "34e396cc072024c273bd5cd978f26d609b2898164e33d773138136df66396681",
+    "object_sha256": "6109476bef6b25990c9f32696f603ee19af68b5ca0c34b379e35bf381fe1471f",
+    "coverage": "null/equal/larger requests; rightward overlapping move; pinned prefix and descriptor; owner-only normal and one-word remainder; zero request; saved owner-slot update; coalesce id/order; diagnostic args/order"
+  },
+  "review_sources": {
+    "shape_evidence": "work/host_pool_shrink/shape_evidence_v1.json",
+    "shape_evidence_sha256": "13dc9e426e2834a23fb223d358eab5e5a6f276a8761a0c979c5209a93858bf59",
+    "spec": "work/host_pool_shrink/spec_v2.json",
+    "spec_sha256": "17de8f570f6b5b12a6e76240837a618a51971917e17ffe0da9e06e589ccc40f1",
+    "prior_context": "scripts/region.py packet host_pool_core --more",
+    "calibration_reference": "calibration/host_pool.c",
+    "related_evidence": [
+      "evidence/host_pool_layout.json",
+      "evidence/crt_copy.json"
+    ]
+  },
+  "known_limits": "Physical interface declarations and exact CRT import name/runtime variant remain unproved. Candidate raw code is materially nonmatching. No original executable was run.",
+  "build_accounting": "Two fresh pinned historical source-object measurements (v1, v2); three fixture compile/run attempts, of which the final v2 run passed 222/0; one initial fixture link setup failure was corrected. Actual model identity, tokens, and cost were unavailable (null)."
+}

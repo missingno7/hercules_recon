@@ -135,7 +135,9 @@
         "evidence/host_pool_layout.json",
         "docs/pool_dependency_progress.md",
         "evidence/host_pool_control.json",
-        "evidence/crt_copy.json"
+        "evidence/crt_copy.json",
+        "evidence/host_pool_natural_link.json",
+        "evidence/host_pool_residual_control.json"
       ]
     },
     {
@@ -156,11 +158,14 @@
       "spec": "evidence/host_pool_lifecycle_region.json",
       "baseline": "calibration/host_pool_lifecycle.c",
       "receipts": [
-        "evidence/regions/host_pool_lifecycle_first.json"
+        "evidence/regions/host_pool_lifecycle_first.json",
+        "evidence/regions/bulk_owner_guard.json"
       ],
       "references": [
         "docs/pool_dependency_progress.md",
-        "evidence/host_pool_lifecycle_experiment.json"
+        "evidence/host_pool_lifecycle_experiment.json",
+        "evidence/host_pool_residual_control.json",
+        "evidence/bulk_owner_guard_experiment.json"
       ]
     },
     {
@@ -189,6 +194,34 @@
         "docs/pool_dependency_progress.md",
         "evidence/host_pool_counts_layout.json",
         "evidence/host_pool_counts_experiment.json"
+      ]
+    },
+    {
+      "id": "host_arena_reset",
+      "spec": "evidence/host_arena_reset_region.json",
+      "baseline": "calibration/host_arena_reset.c",
+      "receipts": [
+        "evidence/regions/host_arena_reset_first.json"
+      ],
+      "references": [
+        "docs/host_callback_progress.md",
+        "evidence/host_arena_reset_experiment.json",
+        "scripts/host_callback_evidence.py"
+      ]
+    },
+    {
+      "id": "host_pool_shrink",
+      "spec": "evidence/host_pool_shrink_region.json",
+      "baseline": "calibration/host_pool_shrink.c",
+      "receipts": [
+        "evidence/regions/host_pool_shrink_first.json"
+      ],
+      "references": [
+        "docs/host_callback_progress.md",
+        "evidence/host_pool_shrink_experiment.json",
+        "evidence/host_pool_shrink_alias.json",
+        "evidence/shrink_alias_negative.json",
+        "evidence/crt_copy.json"
       ]
     }
   ]

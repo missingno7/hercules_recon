@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T22:05:52.206352+00:00",
+  "region": "host_pool_shrink",
+  "ownership": {
+    "id": "host_pool_shrink",
+    "ownership": "inferred_region",
+    "rationale": "ReMalloc-style shrink/relocate entry belongs to the host-pool lifecycle; original TU ownership unproved."
+  },
+  "context_id": "e52a5bc9b86e5fce2f36a9105bbbf1118cea955b19858bd4b1eb0ff64a63bbc7",
+  "source_sha256": "ec08d8371458b91420df1865de74ab1b50661d12307abbe4634448eabfdd1cd0",
+  "baseline_sha256": "ec08d8371458b91420df1865de74ab1b50661d12307abbe4634448eabfdd1cd0",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "ec08d8371458b91420df1865de74ab1b50661d12307abbe4634448eabfdd1cd0",
+  "source_patch": {
+    "base_sha256": "ec08d8371458b91420df1865de74ab1b50661d12307abbe4634448eabfdd1cd0",
+    "result_sha256": "ec08d8371458b91420df1865de74ab1b50661d12307abbe4634448eabfdd1cd0",
+    "edits": []
+  },
+  "output_id": "79777733e631fbf365e213992b2b561016bccc26d3918bf9cab1d7610e3b6378",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_shrink_relocate",
+      "target_size": 192,
+      "candidate_size": 192,
+      "raw_different_bytes": 159,
+      "normalized_different_bytes": 162,
+      "instruction_percent": 53.425,
+      "ordered_cfg_equal": false,
+      "category": "structural/source-form investigation",
+      "strict_equal": false,
+      "relocation_count": 4,
+      "target_relocation_count": 0,
+      "output_id": "51626cf97c44f3e6533b5c766bf9841b375046b84b8a88e8b426c17cf9f9bd5e",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 1,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 0,
+    "ordered_cfg_equal": 0,
+    "instruction_over_90": 0,
+    "nonexact_instruction_over_90": 0,
+    "categories": {
+      "structural/source-form investigation": 1
+    }
+  },
+  "family": "rightward-shrink-owner-header-transition",
+  "prediction": "In addition to v1 behavior, when remainder_words==1 the new descriptor store aliases old_header[1] before the copy branch reads that address. Therefore both arg4 modes write the just-stored descriptor value into new_header[1], while the separately saved owner_slot still receives the new payload pointer. V2 changes only the owner-only RHS to read old_header[1] after the descriptor store.",
+  "falsifier": "Falsify if a fresh target-derived fixture using remainder_words==1 and both arg4 modes disagrees with the post-store alias result, or if any previously covered sizing/header/payload/owner update/helper ordering changes. Only the owner-only RHS is changed in source; no arithmetic or codegen variants.",
+  "verdict": "falsified",
+  "blocker": null,
+  "reentry_condition": "New independently grounded source/control discriminator; no spelling or placement grid.",
+  "next_discriminator": null,
+  "ungated_work": [],
+  "new_evidence": "work/host_pool_shrink/shape_evidence_v1.json records the slot0x28 callback cell, two direct caller stack sequences and owner/header transitions; cross-checked with evidence/host_pool_layout.json and evidence/crt_copy.json.",
+  "new_discriminator": "At 0x46d0 target sets EDX=ESI-4, the old owner-word address. At 0x46e6 EDI=ESI+remainder*4-8 (new header); at 0x46f6 it stores the new descriptor to [EDI]. For remainder_words==1, EDI==ESI-4, so this overwrites the source word. Only afterward does target branch at0x46fb/0x46fd; arg4==0 passes EDX to memmove at0x4709, while arg4!=0 loads [EDX] at0x4713 and copies that value to [EDI+4] at0x4715. Thus the one-word remainder leaves the new owner-header word equal to the new descriptor, even though EBP captured the real owner_slot earlier and target updates *EBP at0x471a.",
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "One target-ordering correction to the owner-only store, freshly measured once with pinned VC5 and tested against the new one-word alias fixture plus the prior edge cases.",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 1,
+    "semantic_result": "checks=222 failures=0",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "c548a3623cc9292ca4887385f00ea2e4150093f63c44761d75d729dbd347b480",
+    "report_sha256": "c4ffbe8100984d876416ef052a0c4d3c312c3dbea8c954e395f3ccfdebfc810e",
+    "object_sha256": "a7b8fe3358d559c4824410ca8c4d51791fe82aa90c8a74a078356939c8d0200c",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-hatv17x2\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\host_pool_shrink.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "b208db0e8922fc11ee839cb504de66db82658cf785ca754928f79aef559b7d37"
+}

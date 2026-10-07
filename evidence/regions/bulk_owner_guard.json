@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T22:07:53.631834+00:00",
+  "region": "host_pool_lifecycle",
+  "ownership": {
+    "id": "host_pool_lifecycle",
+    "ownership": "inferred_region",
+    "rationale": "Bulk free and reverse compaction are a coherent caller/callee lifecycle slice; original TU ownership is unproven."
+  },
+  "context_id": "7c66a7bf9530556ded9bb3211503b8cf67cc00bde390c7c1ec140e2ebc2a495c",
+  "source_sha256": "cb108687a63c3864891ade8b95b605f0c731fa0eae35f5cbaaa5aec13c9c7bf2",
+  "baseline_sha256": "97202b662b5f2412d1418c0671f41d252fd35d4a3453e006d1c1a4530644048a",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "a2f8b1186bc56878dfeb4a7b567c51e538cac035d2e3e41aa0c3f003e0d58a73",
+  "source_patch": {
+    "base_sha256": "97202b662b5f2412d1418c0671f41d252fd35d4a3453e006d1c1a4530644048a",
+    "result_sha256": "cb108687a63c3864891ade8b95b605f0c731fa0eae35f5cbaaa5aec13c9c7bf2",
+    "edits": [
+      {
+        "line": 54,
+        "old": "            if (owner_slot != 0) {\n                void *owner = *owner_slot;\n                if (owner != 0)\n                    host_free(owner);\n            }\n",
+        "new": "            void *owner = *owner_slot;\n            if (owner != 0)\n                host_free(owner);\n"
+      }
+    ]
+  },
+  "output_id": "0e72c3e16e913f54d363e1b11c49d96078c37ced6324cc7226dc1d87fb831521",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_bulk_free",
+      "target_size": 112,
+      "candidate_size": 112,
+      "raw_different_bytes": 19,
+      "normalized_different_bytes": 2,
+      "instruction_percent": 94.286,
+      "ordered_cfg_equal": true,
+      "category": "near codegen candidate",
+      "strict_equal": false,
+      "relocation_count": 6,
+      "target_relocation_count": 0,
+      "output_id": "aa88cb6f00be6670ecd344d7225a5b18794aab7fb8592fbf95952c4ce20285a2",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_compact_all_wrapper",
+      "target_size": 16,
+      "candidate_size": 16,
+      "raw_different_bytes": 1,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 1,
+      "target_relocation_count": 0,
+      "output_id": "c8fc80a021569b43444b8b9d41d33f2e25abfed177bc1843ccf686131c139a85",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_compact_pool",
+      "target_size": 336,
+      "candidate_size": 320,
+      "raw_different_bytes": 312,
+      "normalized_different_bytes": 313,
+      "instruction_percent": 40.741,
+      "ordered_cfg_equal": false,
+      "category": "structural/source-form investigation",
+      "strict_equal": false,
+      "relocation_count": 7,
+      "target_relocation_count": 0,
+      "output_id": "a5db0b0383bb09081c8d6bcf275e920370e8aef0ca0a0c23e2a3d058a58f6885",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 3,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 1,
+    "ordered_cfg_equal": 2,
+    "instruction_over_90": 2,
+    "nonexact_instruction_over_90": 2,
+    "categories": {
+      "near codegen candidate": 1,
+      "relocation-only diagnostic equality": 1,
+      "structural/source-form investigation": 1
+    }
+  },
+  "family": "remove-bulk-owner-slot-address-guard",
+  "prediction": "The PC reads header+4 at 0x47f6, dereferences that slot address at 0x47f9, then tests the loaded content at 0x47fb; there is no address-null guard. Removing only the candidate's owner_slot != 0 predicate should remove the extra branch/block and bring the 112-byte bulk_free instruction and CFG counts from 37/9 to 35/8, with the zero-content skip and pinned/free filters unchanged. The wrapper and compact_pool source remain byte-for-byte unchanged.",
+  "falsifier": "Falsify if the existing valid &empty_owner / zero-content case changes, host_free is called for zero content, pinned/free blocks or callback order change, either peer function contribution or ordered relocations change, or the owner dereference/content branch still differs from the reviewed target. Full raw contributions are required for any exact claim.",
+  "verdict": "observed",
+  "blocker": null,
+  "reentry_condition": "Independent source/target evidence for the remaining two normalized bytes; no register or spelling grid.",
+  "next_discriminator": null,
+  "ungated_work": [],
+  "new_evidence": "work/host_pool_residual_shape/report.json SHA-256 95d1bfa3d635a3c811fa5050d0a48307ad7a19f1edcfd99fa97cbd70f7db9d43; directly reviewed target instructions 0x47f6..0x47fd and producer writes 0x4626/0x463e.",
+  "new_discriminator": "This is a target/fixture-verified semantic predicate difference: target dereferences owner_slot before testing *owner_slot. Existing fixture has a nonnull slot address whose pointee is null; it does not include a null slot address and must remain unchanged.",
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "One removal-only ordinary-C source family, one fresh pinned VC5 /O2 /Gy whole three-function measurement, and the unchanged 34-check synthetic valid-domain fixture. No changes to compact_pool or wrapper.",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 1,
+    "semantic_result": "34 checks=0 failures",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "2404673f76be2f843dd8ac402fdad6c9c97bc39d387be1ce7ef761b664a25841",
+    "report_sha256": "cc288c94b31672c71f48e5bd277a36a9a6cb923b293103c8fe56b18713b61810",
+    "object_sha256": "b6d1a82099ae5e1472995d84fb85dad06a6e75141dd305856cbf347700f2268b",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-bisbkw0w\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\host_pool_lifecycle_repaired.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "f6ad0551f736797202b02938fc2ee3538133c953214879390653211d77672b85"
+}

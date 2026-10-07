@@ -1,5 +1,8 @@
 # Pool dependencies and initializer frame
 
+The subsequent [host callback reconstruction](host_callback_progress.md) records
+arena reset, shrink sequencing, the bulk-free correction and the natural link.
+
 The accepted total remains **40 instances / 4,352 bytes**. Fresh historical
 compilation preserves every accepted raw match. The following sources are
 experimental calibration; no new recovery entry was accepted.

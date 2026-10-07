@@ -119,12 +119,12 @@
     "coalesce": "4830 traverses selected pool; when current and successor word0 have FREE, adds masked successor wordcount to current descriptor and repeats without advancing. Otherwise advances by current descriptor*4; that scale discards high flag bits modulo32.",
     "bulk_free": "47c0 snapshots poolfirstheader/size; traverses blocks and frees only descriptor with neitherFREE norPINNED whose owner-slot content is nonzero; then4890 compacts.",
     "compact": "48a0 walks used blocks in reverse ordinal order; pinned prevents movement. If following block isfree, copies current block upward into higher address via43a0, updates owner-slot to moved payload, leaves residual free header and coalesces. No fixed extent or source declaration claim.",
-    "shrink": "4690 can relocate payload upward when shrinking, preserving pinned flag and owner; optional header-only versus full block copy path. Calls10fb0 copy helper and4830; its library/source identity unresolved."
+    "shrink": "4690 can relocate payload upward when shrinking, preserving pinned flag and owner; optional header-only versus full block copy path. Calls the historical CRT copy implementation at10fb0 (evidence/crt_copy.json; public memcpy/memmove and runtime variant remain indistinguishable) and4830. Original project source identity remains unknown."
   },
   "classification": {
     "assessment": "Project/platform memory subsystem is strongly supported by staticarena interface, owner-handle relocation and matching diagnostic labels Initheap/Malloc/ReMalloc/Free/CompactMalloc. No standard CRT/MFC allocator identity established; do not count it as CRT code based on names or rewrite its semantics.",
     "diagnostic": "63c0 is RET plus15 naturalNOPs. Calls with format strings/varargs are retained no-op diagnostics; no sprintf/printf allocation or behavior occurs in this target body.",
-    "library_boundary": "43a0 reverse dword copy and10fb0 copy helper need separate identification/matching. They are outside proposed initial chunk; do not casually replace them with modern memcpy/memmove."
+    "library_boundary": "43a0 is a distinct reverse-DWORD helper with experimental source. The complete10fb0 implementation is identified as historical CRT copy code in evidence/crt_copy.json; no public name/runtime variant selection or FUNCTION_MATCH follows. Preserve that real library dependency."
   },
   "smallest_coherent_chunk": {
     "ownership": "Inferred host pool operation dependency region, not provenTU.",

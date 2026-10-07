@@ -1,0 +1,90 @@
+{
+  "scope": "Independent static verification of one-word shrink alias. No compiler, original execution, source/canonical/Git changes or game behavior repair.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "function": {
+    "start_rva": "0x4690",
+    "end_rva_exclusive": "0x4750",
+    "full_bytes": 192,
+    "body_bytes": 184,
+    "natural_nop_bytes": 8,
+    "target_sha256": "f098dcf07e89a8375836ae9e68eafe2efa37e518266b4f4b5fcc2921e6b25055"
+  },
+  "source": {
+    "path": "candidates/host_pool_shrink/shrink_relocate_v1.c",
+    "bytes": 1855,
+    "sha256": "83edfa775c53282db4bfb4c0aefb1619a5abb053cbd15cda3c3b2508fe4df5c3"
+  },
+  "fixture": {
+    "path": "work/host_pool_shrink/shrink_semantics_v1.c",
+    "bytes": 8737,
+    "sha256": "37fcb20465669164765d9a7725132a41d034b8cf0d64432eed4f829dd4ab9305"
+  },
+  "spec": {
+    "path": "work/host_pool_shrink/spec_v1.json",
+    "sha256": "585b70cf6766bfc556c9a6b63f7a0a468351d1842bdbdc048a38303333547b9d"
+  },
+  "alias_proof": {
+    "capture": "46c7 loads EBP from old_payload-4, capturing the legitimate original owner-slot address before descriptor stores.46d0 sets EDX=old_payload-4, the address of old_header[1].",
+    "new_header": "46e2 computes remainder_words=old_words-new_words;46e6 forms EDI=old_payload+4*remainder_words-8 = old_header+remainder_words.",
+    "stores": "46ef stores FREE|remainder_words at old_header[0].46f6 stores retained_flags|new_words at new_header[0]. For remainder1, new_header[0] aliases old_header[1], replacing the original owner-address bits before either transfer path.",
+    "owner_only": "46f8 advances EDI to new_header[1]. Nonzero owner_only branches at46fd to4713, which loads the CURRENT word at[EDX]=old_header[1] and stores it at[EDI] at4715. The loaded value is the newly stored descriptor, not the captured owner address inEBP.",
+    "copy_path": "Zero owner_only calls identified CRT copy implementation10fb0 at4709 with destination=new_header[1], source=old_header[1], bytes=new_words*4-4. The source is read after46f6, so its first copied dword is also the new descriptor. Its retained payload prefix follows that dword.",
+    "external_update": "4717 advances EDI to new_header[2], then471a writes this new payload through the captured legitimate owner-slot address inEBP. This succeeds independently of the now corrupted new_header[1] word when the owner slot is external/nonaliasing, as in the fixture.",
+    "later_calls": "471d loads pool_id;4722 calls coalesce;4739 calls diagnostic with new payload and new_words*4-8;4741 sets EAX=old_payload for the observed return value."
+  },
+  "example": {
+    "old_total_words": 10,
+    "requested_bytes": 27,
+    "rounded_payload_bytes": 28,
+    "new_total_words": 9,
+    "remainder_words": 1,
+    "pinned_flag": "0x40000000",
+    "new_descriptor": "0x40000009",
+    "relations": [
+      "new_header = old_header+1",
+      "new_header[1] = old_header[2] = old_payload",
+      "new_payload = old_header+3 = old_payload+4 bytes"
+    ],
+    "expected_after_both_modes": [
+      "old_header[0].descriptor = 0x80000001",
+      "new_header[0].descriptor = 0x40000009",
+      "new_header[1].descriptor = 0x40000009 (owner-address word contains descriptor bits)",
+      "external owner_value = new_header+2 = old_header+3",
+      "return value = old_payload = old_header+2"
+    ],
+    "unpinned": "With the same sizes and no pinned flag, the transferred owner word is9, not the original address."
+  },
+  "candidate_assessment": {
+    "copy_mode": "V1 already performs its descriptor stores before memmove and therefore observes this same alias overwrite in copy mode. The fixture assertion new_header[1].owner_slot==owner_slot is wrong for remainder1.",
+    "owner_only": "V1 incorrectly assigns cached owner_slot to new_header[1] after stores. Target instead rereads old_header[1]. Those differ for remainder1; for larger residuals the old owner word is not aliased by the new descriptor.",
+    "factual_change": "Keep cached owner_slot solely for updating its pointee, but transfer the live source word after the descriptor stores in the owner-only path. Preserve the descriptor-first/copy-after ordering in copy mode.",
+    "preserve_history": "Retain V1 source/failing result as negative historical evidence; correct the target-derived expectation explicitly. Do not hide the alias by moving descriptor stores after the transfer or restoring the new header owner word."
+  },
+  "fixture_expectation": {
+    "required_cases": [
+      "Remainder1 with owner_only zero and nonzero, both pinned and unpinned.",
+      "For both modes compare new_header[1] as raw descriptor bits, not dereference it as a valid owner-slot pointer.",
+      "Check legitimate external owner_value is updated before coalesce and diagnostic and return remains old_payload.",
+      "Copy mode still copies owner-word plus retained payload prefix from the post-store source bytes; owner-only does not call copy.",
+      "Keep a larger residual control case where new_header[1] genuinely contains the original owner-slot address."
+    ],
+    "existing_failure": "test_overlapping_copy_shrink uses old_words10 and request27 with pinned flag. Its blanket assertion in coalesce that new_header transfers the original owner pointer contradicts PC46f6->4709 for this remainder1 case.",
+    "negative_control": "The frozen V1 cached-owner-only source should fail a new remainder1 owner-only expectation while its copy-mode alias bytes remain target-consistent.",
+    "domain": "Fixture external owner slot must remain a valid nonaliasing local address. Coalesce/diagnostic models should inspect the corrupted owner word as bits and avoid inventing an owner-pointer dereference absent from those target callees."
+  },
+  "prediction_falsifier": {
+    "prediction": "Only live-source-word owner-only transfer plus corrected remainder1 expectations reproduces both target paths while keeping captured external owner update, calls and return unchanged.",
+    "falsifier": "New header owner word remains the original owner address for remainder1, external captured slot is not updated, copy/descriptor store order changes, helper arguments differ or return is changed to new payload."
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compiler_builds": 0
+  }
+}

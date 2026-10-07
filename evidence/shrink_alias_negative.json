@@ -1,0 +1,34 @@
+{
+  "exit_code": 1,
+  "stdout": "FAIL new header transfers the owner-slot pointer\nFAIL owner-only copy reads the aliased word after descriptor store\nchecks=222 failures=2\\n",
+  "command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/O2",
+    "/Gy",
+    "/ML",
+    "/FoD:\\prog\\hercules_recon\\work\\shrink_alias_negative\\semantics.obj",
+    "/FeD:\\prog\\hercules_recon\\work\\shrink_alias_negative\\semantics.exe",
+    "D:\\prog\\hercules_recon\\work\\shrink_alias_negative\\semantics.c",
+    "/link",
+    "/INCREMENTAL:NO"
+  ],
+  "harness_sha256": "43e185fbdcc7369c49381ceab22753a55831bf3c325534c5fda0d758acf7aad4",
+  "executable_sha256": "1b9363f7c116a0d3dcaef9c0af2e9ea35525224f83dadd459d579b59aaafc084",
+  "scope": "Expected failure of frozen v1 cached owner-word source against the corrected target-derived fixture; no original execution.",
+  "baseline": "calibration/host_pool_shrink.c",
+  "source_patch": {
+    "base_sha256": "ec08d8371458b91420df1865de74ab1b50661d12307abbe4634448eabfdd1cd0",
+    "result_sha256": "83edfa775c53282db4bfb4c0aefb1619a5abb053cbd15cda3c3b2508fe4df5c3",
+    "edits": [
+      {
+        "line": 39,
+        "old": "        new_header[1].owner_slot = old_header[1].owner_slot;\n",
+        "new": "        new_header[1].owner_slot = owner_slot;\n"
+      }
+    ]
+  },
+  "compiled_candidate_sha256": "83edfa775c53282db4bfb4c0aefb1619a5abb053cbd15cda3c3b2508fe4df5c3",
+  "reproducer": "Materialize source_patch against calibration/host_pool_shrink.c into ignored candidates/, then use tests/host_pool_shrink_semantics.c with only its candidate include relocated. Expect the same two owner-word assertions to fail; compile fresh.",
+  "harness_note": "Recorded execution precedes a printf-only newline logging correction; assertion cases and source code are unchanged."
+}
