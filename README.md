@@ -46,6 +46,10 @@ Extraction must precede indexing the baseline EXE. Compiler invocation on this
 host requires running outside the Codex sandbox because Windows rejects its old
 DLL layout inside the sandbox; compiler binaries are unchanged.
 
+The [bounded macro experiment](docs/macro_experiment.md) compares five whole-file
+reconstruction waves over an 18-function actor subsystem slice. Its candidate
+and reproducible ledger are diagnostic; canonical recovery was not changed.
+
 ## References
 
 [icytower_rerecon](https://github.com/missingno7/icytower_rerecon) and

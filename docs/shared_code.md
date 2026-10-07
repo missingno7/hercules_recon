@@ -150,7 +150,7 @@ it does not fix the PC code-generation mismatch or promote a PSX match.
 python scripts/shared_evidence.py --output build/shared_evidence.json
 python scripts/archaeology.py function eng1.measure_relative_vector
 python scripts/match.py verify --report build/verification.json
-python scripts/test_pilot.py                  # all three semantic suites
+python scripts/test_pilot.py                  # all registered semantic suites
 python scripts/test_pilot.py --suite shared
 python scripts/test_pilot.py --suite engine
 python -m unittest discover -s tests -p 'test_*.py'
