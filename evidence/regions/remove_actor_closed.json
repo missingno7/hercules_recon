@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T20:08:49.488086+00:00",
+  "region": "remove_actor_region",
+  "ownership": {
+    "id": "remove_actor_region",
+    "ownership": "inferred_region",
+    "rationale": "Two adjacent actor cleanup implementations share the PC-confirmed actor and sidecar frame; original TU ownership is unproved."
+  },
+  "context_id": "0bab68d0fcf545df8942707aa1b38f23cf5f6ee30a939142f65c7a4fede5a1eb",
+  "source_sha256": "f0b3bd4b6d1189fa45eded65d9c8d7c81579b2aacd67d65dd5054f992a34c990",
+  "baseline_sha256": "f0b3bd4b6d1189fa45eded65d9c8d7c81579b2aacd67d65dd5054f992a34c990",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "f0b3bd4b6d1189fa45eded65d9c8d7c81579b2aacd67d65dd5054f992a34c990",
+  "source_patch": {
+    "base_sha256": "f0b3bd4b6d1189fa45eded65d9c8d7c81579b2aacd67d65dd5054f992a34c990",
+    "result_sha256": "f0b3bd4b6d1189fa45eded65d9c8d7c81579b2aacd67d65dd5054f992a34c990",
+    "edits": []
+  },
+  "output_id": "c39dfe1e2a116efebbca6226e9159037884fd5ac263471b4e6128190108490fb",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_remove_actor",
+      "target_size": 432,
+      "candidate_size": 432,
+      "raw_different_bytes": 56,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 22,
+      "target_relocation_count": 3,
+      "output_id": "761d7ad08f03113d6060d30add8cad973fb2f5092a5e6d3257b4b9456f4aa482",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_remove_actor_variant",
+      "target_size": 320,
+      "candidate_size": 320,
+      "raw_different_bytes": 42,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 15,
+      "target_relocation_count": 3,
+      "output_id": "0f33466d72cce9581e5df10fafc013f995d41b532d30c867ccfbe196310c9b97",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 2,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 2,
+    "ordered_cfg_equal": 2,
+    "instruction_over_90": 2,
+    "nonexact_instruction_over_90": 2,
+    "categories": {
+      "relocation-only diagnostic equality": 2
+    }
+  },
+  "family": "PC render bit 11 and independent sidecar cleanup",
+  "prediction": "Correcting TEST AH,8 to render mask 0x800 and preserving literal null-owner kind clears yields full relocation-normalized equality for both complete contributions.",
+  "falsifier": "Any non-relocation byte difference, changed call order, failed bit 11/bit 19 fixture, or accepted-peer regression.",
+  "verdict": "Full relocation-normalized equality; unresolved real dependencies prevent acceptance.",
+  "blocker": "22 and 15 unresolved COFF relocations; real data and callees remain.",
+  "reentry_condition": "New evidence about real callees or data contributions; keep these function outputs frozen.",
+  "next_discriminator": "Inspect real release_pending_action at ENG1 RVA 0x2b370.",
+  "ungated_work": [],
+  "new_evidence": null,
+  "new_discriminator": null,
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "bounded reconstruction",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 1,
+    "semantic_result": "474 checks; 0 failures in worker fixture; durable fixture requires fresh replay.",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "e9e23dcc652e5adeeeca238b126fbdfa4b82f905ba465286ac1a4d1a33f0920b",
+    "report_sha256": "11f1cde225976b0baf3df86707eff33d3dbae69f16eefd40426bb3813364ee4a",
+    "object_sha256": "d6d838b14507ff3d4e901d0a5faf83c6540cb13c77b16681e22a85af3699a0f4",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-lvjdjccn\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\remove_actor.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "0927e3e4df897929d0de5caa6fd174144149be36022ccff5df9ff8f63cfe41b9"
+}

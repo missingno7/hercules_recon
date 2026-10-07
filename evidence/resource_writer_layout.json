@@ -1,0 +1,139 @@
+{
+  "scope": "Static PC writer evidence; descriptive types only. No acceptance, source ownership, runtime execution or natural data-placement proof.",
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "private_report": {
+    "path": "work/resource_data_writers/report-20261007T194212Z.json",
+    "sha256": "62a84e8a1b7bf0cb10e995150f91e0829cb97dd46b0459e67a53137ed31a04d3"
+  },
+  "analysis": {
+    "capstone": "5.0.7",
+    "pefile": "2024.8.26",
+    "dependency_root": "C:/tools/hercules/python"
+  },
+  "resource_records": {
+    "base_rva": "0x5cee0",
+    "count": 81,
+    "stride": 20,
+    "end_rva_exclusive": "0x5d534",
+    "observed_runtime_ids": "1..80",
+    "fields": {
+      "0": "relocated path pointer",
+      "4": "unsigned short entry count",
+      "6": "unknown short",
+      "8": "32-bit loaded length",
+      "12": "allocated paired-short reference buffer pointer",
+      "16": "16-bit residency state",
+      "18": "16-bit auxiliary flags"
+    },
+    "pointer_relocations": 81,
+    "table_sha256": "4ba542e0c2ac3b325b4ac9a1a9e68699cfd9ec288b80b17abe6885509bdcd4be",
+    "reference_allocation": {
+      "rva": "0x3540",
+      "bytes": "(entry_count + 1) * 4",
+      "initialization": "0x3648..0x3666",
+      "row": "short[2]: reference count and cached chain key"
+    },
+    "state_writes": {
+      "1": "0x3532",
+      "2": "0x3675",
+      "3": "0x3823",
+      "4": [
+        "0x388b",
+        "0x38b6"
+      ],
+      "0": "0x38f8",
+      "6": [
+        "0x61a2",
+        "0x61c4"
+      ]
+    },
+    "cautions": [
+      "The old 0x5ceec symbol view denotes member +12, not the physical table base.",
+      "Operational residency naming is provisional; a complete state enum is unproved.",
+      "Signed reference indices occur in PC loads; negative production indices are not established."
+    ]
+  },
+  "token_rows": {
+    "base_rva": "0x727e0",
+    "count": 32,
+    "stride": 4,
+    "initializer_rva": "0x5710",
+    "row": "short[2]: count, cached key",
+    "allocator_rvas": [
+      "0x5660",
+      "0x56a5",
+      "0x56ad"
+    ],
+    "actor_offsets": {
+      "0x1d": "resource byte",
+      "0x1e": "slot byte"
+    },
+    "slot_mask_writers": [
+      "0x3e95",
+      "0x3ea0"
+    ],
+    "sentinel": "0xff preserves both actor bytes",
+    "cautions": [
+      "Do not infer a different capacity from adjacent arrays.",
+      "Void direct-field indexing generates the full token contribution; original source declaration remains unproved."
+    ]
+  },
+  "link_rows": {
+    "base_rva": "0x72880",
+    "count": 256,
+    "stride": 12,
+    "initializer_rva": "0x39b0",
+    "fields": {
+      "0": "occupied four-bit mask",
+      "2": "computed render descriptor word",
+      "4": "four 16-bit successor keys"
+    },
+    "allocator_rva": "0x4ca0",
+    "observed_masks": [
+      1,
+      2,
+      4,
+      8,
+      3,
+      12,
+      5,
+      9
+    ],
+    "successor_sentinel_writer": "0x4f0c",
+    "key": "packed group << 4 | occupancy mask; low nibble is not an ordinal slot",
+    "mask_update": "live_mask &= 0x0f - (key & 15)",
+    "signed_map_base": "0x5e128",
+    "signed_map_entries": 16,
+    "cautions": [
+      "No indexed map writer was found; mutation through runtime aliases is not excluded."
+    ]
+  },
+  "resource_release_order": {
+    "rva": "0x51d0",
+    "size": 320,
+    "blocks": 21,
+    "observations": [
+      "Load chain A key before residency snapshot.",
+      "Initialize release flag to zero before decrement; count zero and saved state zero independently set it.",
+      "Load signed map slot before mask mutation.",
+      "Both loops encode distinct row +0 and +4 addresses.",
+      "Copy actor +0x34 to +0x40 and byte +0x22 to +0x44; preserve +0x42."
+    ]
+  },
+  "exhausted_discriminators": [
+    {
+      "family": "native int group/mask",
+      "outcome": "Identical complete function bytes and ordered relocations to baseline 8a6."
+    },
+    {
+      "family": "six unsigned-short link row",
+      "outcome": "Identical complete function bytes and ordered relocations to baseline 8a6."
+    },
+    {
+      "family": "signed local key with unsigned packed group",
+      "source_sha256": "846c0e7a40db2d537586a8fc9925fe8ab49b4364752315be239811a0b764f08e",
+      "outcome": "Changed mask promotion but failed target register/lifetime identity; full320/21blocks/9relocations, 270 normalized byte differences; resource20/0, peers unchanged."
+    }
+  ]
+}

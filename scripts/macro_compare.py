@@ -84,6 +84,30 @@ def tokens_and_calls(code, address):
     return tokens, calls, indirect
 
 
+def audit_symbol_map(spec, coff, direct_destinations, absolute_operands):
+    """Audit actual addresses, including ordinary COFF struct-member addends.
+
+    A source symbol can name a record base while the PC references its members.
+    No operand is masked and no acceptance comparison is changed here.
+    """
+    defined={f['symbol']:int(f['rva'],0) for f in spec['functions']}
+    for name,value in spec['symbol_rvas'].items():
+        destination=int(value,0)
+        if name in defined:
+            if defined[name]!=destination:raise ValueError('Internal symbol map disagrees with region')
+            continue
+        if destination in direct_destinations | absolute_operands:continue
+        addresses=[]
+        for f in spec['functions']:
+            c=coff.function(f['symbol'])
+            for relocation in c['relocations']:
+                if relocation['symbol']==name and relocation['type']==6:
+                    addend=struct.unpack_from('<I',c['data'],relocation['offset'])[0]
+                    addresses.append((destination+addend)&0xffffffff)
+        if not addresses or not set(addresses).issubset(absolute_operands):
+            raise ValueError('External symbol lacks a decoded original reference: '+name)
+
+
 def evaluate(source, spec_path, output, obj=None):
     started = time.perf_counter()
     spec = json.loads(spec_path.read_text())
@@ -103,19 +127,12 @@ def evaluate(source, spec_path, output, obj=None):
         for relocation in base_relocations:
             if rva <= relocation and relocation+4 <= rva+f['size']:
                 absolute_operands.add(struct.unpack_from('<I',original,relocation-rva)[0]-pe.image_base)
-    defined = {f['symbol']:int(f['rva'],0) for f in spec['functions']}
-    for name,value in spec['symbol_rvas'].items():
-        destination = int(value,0)
-        if name in defined:
-            if defined[name] != destination:
-                raise ValueError('Internal symbol map disagrees with region')
-        elif destination not in direct_destinations | absolute_operands:
-            raise ValueError('External symbol lacks a decoded original reference: '+name)
     source_hash = digest(source.read_bytes())
     command = None
     if obj is None:
         obj, command = compile_source(source, spec['flags'])
     coff = COFF(obj)
+    audit_symbol_map(spec,coff,direct_destinations,absolute_operands)
     rows = []
     for f in spec['functions']:
         rva = int(f['rva'], 0)

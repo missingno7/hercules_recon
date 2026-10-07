@@ -1,0 +1,49 @@
+{
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "remove_actor_region",
+    "ownership": "inferred_region",
+    "rationale": "Two adjacent actor cleanup implementations share the PC-confirmed actor and sidecar frame; original TU ownership is unproved."
+  },
+  "source": "calibration/remove_actor.c",
+  "functions": [
+    {
+      "symbol": "_remove_actor",
+      "rva": "0x27260",
+      "size": 432,
+      "body_size": 418,
+      "target_sha256": "8eeed3adebef0211f4e644fda9207d2ccc113d9b064fd5adcc8b372fcfe475aa",
+      "control": false,
+      "boundary_evidence": "All reachable paths from 0x27260 terminate at RET 0x27401 (418 bytes through RET). Bytes 0x27402..0x2740f are 14 NOPs; independently referenced next entry begins 0x27410. Full measured allocation extent is [0x27260, 0x27410), 432 bytes."
+    },
+    {
+      "symbol": "_remove_actor_variant",
+      "rva": "0x27860",
+      "size": 320,
+      "body_size": 310,
+      "target_sha256": "5fe8c4050cad85d2e38b467a920cde31f1123e584da895aeee0e27f11510a249",
+      "control": false,
+      "boundary_evidence": "All reachable paths from 0x27860 terminate at RET 0x27995 (310 bytes through RET). Bytes 0x27996..0x2799f are 10 NOPs; next entry begins 0x279a0. Full measured allocation extent is [0x27860, 0x279a0), 320 bytes."
+    }
+  ],
+  "symbol_rvas": {
+    "_remove_actor": "0x27260",
+    "_remove_actor_variant": "0x27860",
+    "_release_actor": "0x27e20",
+    "_clear_actor": "0x55b0",
+    "_clear_command_high_bit": "0x283a0",
+    "_detach_attachment": "0x294f0",
+    "_detach_child": "0x29530",
+    "_detach_buffer": "0x29570",
+    "_actor_cleanup_294b0": "0x294b0",
+    "_actor_cleanup_29620": "0x29620",
+    "_actor_refusal_296b0": "0x296b0",
+    "_release_pending_action": "0x2b370",
+    "_g_kind_info": "0x6fee8",
+    "_g_special_kind": "0x70cfe"
+  }
+}

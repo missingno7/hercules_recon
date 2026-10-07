@@ -25,6 +25,9 @@ SUITES = {
     "release_actor": ["calibration/release_actor_repaired.c"],
     "clear_actor": ["calibration/cleanup_helpers.c"],
     "state_helpers": ["calibration/cleanup_helpers.c"],
+    "remove_actor": ["calibration/remove_actor.c"],
+    "resource_cleanup": ["calibration/cleanup_helpers_writers.c"],
+    "token_release": ["calibration/cleanup_helpers_writers.c"],
 }
 
 

@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T20:11:25.388750+00:00",
+  "region": "cleanup_resource_writers",
+  "ownership": {
+    "id": "cleanup_resource_writers",
+    "ownership": "inferred_region",
+    "rationale": "Writer-backed representation and two frozen cleanup peers; original source/TU ownership unproved."
+  },
+  "context_id": "c41eb63021e43a45a66ec56dd872fffc6f97bf168da6d1f990b33bdfe87c89af",
+  "source_sha256": "967edcf7cbf135e4fd3e47cc8bb95df1364893371e52818ac682d5689cf1c7e5",
+  "baseline_sha256": "967edcf7cbf135e4fd3e47cc8bb95df1364893371e52818ac682d5689cf1c7e5",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "967edcf7cbf135e4fd3e47cc8bb95df1364893371e52818ac682d5689cf1c7e5",
+  "source_patch": {
+    "base_sha256": "967edcf7cbf135e4fd3e47cc8bb95df1364893371e52818ac682d5689cf1c7e5",
+    "result_sha256": "967edcf7cbf135e4fd3e47cc8bb95df1364893371e52818ac682d5689cf1c7e5",
+    "edits": []
+  },
+  "output_id": "3a7054c2e4587553256353d5e56f0c52d5938427f99eeee096da21bd09c8b6ea",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_release_actor_resource_state",
+      "target_size": 320,
+      "candidate_size": 320,
+      "raw_different_bytes": 140,
+      "normalized_different_bytes": 120,
+      "instruction_percent": 41.758,
+      "ordered_cfg_equal": true,
+      "category": "uncertain allocation/type/source-form",
+      "strict_equal": false,
+      "relocation_count": 9,
+      "target_relocation_count": 9,
+      "output_id": "c3effd29d438c237991b9a85f32f304ae3c8247fa5c5788fe9a08ad30f9b8564",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_clear_actor",
+      "target_size": 80,
+      "candidate_size": 80,
+      "raw_different_bytes": 12,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 4,
+      "target_relocation_count": 0,
+      "output_id": "dcd1f3de34624569b2153f37c3f817bd9420f8230efa157d177101a074415e93",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_release_actor_token",
+      "target_size": 48,
+      "candidate_size": 48,
+      "raw_different_bytes": 8,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 2,
+      "target_relocation_count": 2,
+      "output_id": "ce1fcebec64f7d295ac65939b24e9d348b55003401b053e86ada7de5652fa7cc",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 3,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 2,
+    "ordered_cfg_equal": 3,
+    "instruction_over_90": 2,
+    "nonexact_instruction_over_90": 2,
+    "categories": {
+      "uncertain allocation/type/source-form": 1,
+      "relocation-only diagnostic equality": 2
+    }
+  },
+  "family": "writer-backed physical record base and ordered memory operands",
+  "prediction": "True resource base plus member addends, independent flag initialization, key-before-state read, and distinct row member references preserve behavior and recover target topology and nine relocations.",
+  "falsifier": "Wrong actual member addresses, changed frozen peers, incorrect mutation order, or failed resource/token fixtures.",
+  "verdict": "320-byte resource contribution has 21 matching CFG blocks and nine audited relocations but retains 120 normalized byte differences; token and clear are full-span relocation-only equals.",
+  "blocker": "Resource register/index lifetime still differs; real globals and callees unresolved.",
+  "reentry_condition": "Independent new source/TU/compiler context evidence; native-int, six-word-row and signed-local-key discriminators exhausted.",
+  "next_discriminator": "Continue real dependency recovery rather than an algebraic spelling grid.",
+  "ungated_work": [],
+  "new_evidence": null,
+  "new_discriminator": null,
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "bounded reconstruction",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 1,
+    "semantic_result": "Worker resource20/0 and token2178/0; fresh durable fixture replay required.",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "82a6ce3ea968ff4602769160d9fdad844079b4359694964d6766a8a97d823222",
+    "report_sha256": "1e93f2ffb452313fe4b0e4a5f4e285b65c3e545747f48df01cfbf1accfa5f9e9",
+    "object_sha256": "4720d85e725d2bb868859cf828e4503972551ea28fe072056972b810360b8b29",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-z_ob97kh\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\cleanup_helpers_writers.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "739516dafebe6371c88d65a23c48129ae8795353007f54abdbb0bea1a216dcac"
+}

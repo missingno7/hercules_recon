@@ -59,8 +59,9 @@ references, reviewed code extents and reproducing queries.
 ## Callback interface and helper reconstruction
 
 The cells at ENG1 `0x71098`, `0x710a0` and `0x712a4` are slots `0x5e`, `0x60`
-and `0xe1` of the interface block starting at `0x70f20`. `PC_DLLEngineMain` checks
-signature `0x5ac00cac` and copies **250 dwords** from its first argument. ENG3
+and `0xe1` of the interface block starting at `0x70f20`. On its initial nonnull-input
+path, `PC_DLLEngineMain` copies **250 dwords** from its first argument, then checks
+the copied signature `0x5ac00cac`. ENG3
 and TITLE corroborate the same signature and copy length at their exports.
 
 The original CD EXE resolves that named export through `GetProcAddress`, then

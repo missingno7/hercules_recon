@@ -7,10 +7,28 @@ import unittest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from env import ROOT
 from match import digest
-from macro_compare import structure, tokens_and_calls, restore_wave
+from macro_compare import structure, tokens_and_calls, restore_wave, audit_symbol_map
+import struct
 
 
 class MacroMetricsTests(unittest.TestCase):
+    def test_member_symbol_requires_all_observed_member_addresses(self):
+        class Object:
+            def function(self,name):
+                return dict(data=struct.pack('<II',12,16),relocations=[
+                    dict(offset=0,type=6,symbol='_records'),dict(offset=4,type=6,symbol='_records')])
+        spec=dict(functions=[dict(symbol='_fn',rva='0x1000')],symbol_rvas={'_records':'0x2000'})
+        audit_symbol_map(spec,Object(),set(),{0x200c,0x2010})
+        with self.assertRaises(ValueError):audit_symbol_map(spec,Object(),set(),{0x200c})
+        wrong=dict(spec,symbol_rvas={'_records':'0x2001'})
+        with self.assertRaises(ValueError):audit_symbol_map(wrong,Object(),set(),{0x200c,0x2010})
+
+    def test_unreferenced_symbol_base_is_not_member_evidence(self):
+        class Object:
+            def function(self,name):return dict(data=b'',relocations=[])
+        spec=dict(functions=[dict(symbol='_fn',rva='0x1000')],symbol_rvas={'_unknown':'0x2000'})
+        with self.assertRaises(ValueError):audit_symbol_map(spec,Object(),set(),{0x200c})
+
     def test_cfg_ignores_layout_but_preserves_predicate(self):
         original = bytes.fromhex('85c0740240c348c3')
         shifted = b'\x90'+original
