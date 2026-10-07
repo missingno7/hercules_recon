@@ -261,6 +261,40 @@
       "blocker": "Table-base load precedes initial target guard; zero-path/save topology differs.",
       "reentry_condition": "New independent structural/source/TU evidence; do not replay exhausted guarded-loop spellings.",
       "evidence": "evidence/registry_allocation_reconstruction.json"
+    },
+    {
+      "region": "registry_allocation",
+      "family": "explicit-empty-return-before-slot-lifetime-with-live-do-loop",
+      "verdict": "The empty-return-before-slot source did not realize the predicted target topology. The initializer is 112 bytes with two calls to 0x2c3c0, 42 candidate instructions versus 36 target, and 16.071% normalized byte identity; ordered CFG differs. The unchanged wrapper remains 32 bytes with zero normalized differences and equal CFG.",
+      "prediction": "Starting from immutable calibration/registry_allocation.c, keep signed int index=0; return 1 explicitly when the unsigned count equals zero before assigning the slot pointer; only then assign slot=table and execute one ordinary do-while body whose repeated condition reloads the live global count. Preserve the callback request (unsigned limit<<2), flags 0, immediate failure return 0, callback-populated slot reload, -1 store and wrapper text. A fresh VC5 /O2 /Gy object should place the table-base load after the initial empty branch, produce one allocation body and reproduce the target's separate empty return epilogue plus the 96-byte initializer / 32-byte wrapper contributions, with fewer than the v3 residual 14 normalized initializer differences and no wrapper regression.",
+      "falsifier": "The fresh initializer still loads the table base before the empty check, uses a merged/shared empty return instead of the target's distinct path, duplicates the first allocation body or adds a redundant count predicate, fails to reload live count after successful store, changes allocation argument/order/failure behavior, differs in contribution extent/CFG/normalized bytes, or changes the wrapper's full normalized bytes or ordered relocation. Stop this family after its single fresh comparison; do not try equivalent guard or loop spellings.",
+      "blocker": "Fresh candidate duplicates the first allocation body and does not match initializer extent/CFG; no further guarded-loop spelling search is warranted.",
+      "reentry_condition": "Independent new source/TU or structural evidence, not another guarded-loop spelling.",
+      "correction": "Earlier premise that empty path restores only EDI was wrong: target restores EDI and ESI on every return, with different epilogue ordering.",
+      "metrics": {
+        "candidate_size": 112,
+        "target_size": 96,
+        "normalized_differences": 94,
+        "semantic_checks": 50,
+        "failures": 0,
+        "candidate_builds": 1
+      },
+      "source_sha256": "f0b121c0cfa2c0d3ae04b160b6de707ce05cc03ded22a0528b24d5c97bdd9501",
+      "evidence": "evidence/registry_allocation_reconstruction.json"
+    },
+    {
+      "region": "actor_factories",
+      "family": "packed unsigned-short ActorKind",
+      "verdict": "Both complete sizes/CFG/calls reproduced;4/2 remaining normalized bytes are scale1 SIB base/index reversal. Stop.",
+      "reentry_condition": "Independent source abstraction/TU evidence; do not sweep equivalent pointer-addition spellings.",
+      "evidence": "evidence/actor_factory_layout.json"
+    },
+    {
+      "region": "host_pool_core",
+      "family": "explicit masked descriptor stride",
+      "verdict": "One measured variant added AND and retained80/96 coalesce mismatch; peers preserved. Stop.",
+      "reentry_condition": "New target control-flow/lifecycle evidence; do not replay mask variants.",
+      "evidence": "evidence/host_pool_experiment.json"
     }
   ],
   "outcome_audit": {

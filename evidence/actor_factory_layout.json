@@ -1,0 +1,144 @@
+{
+  "scope": "Read-only PC factory type/data-frame diagnosis. No compiler build, original execution, canonical/source/Git changes.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "database_sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+  },
+  "baseline": {
+    "source": "candidates/actor_factories/actor_factories_v1.c",
+    "sha256": "24621d4c448b0e67e4fa448a43f2276d84abe67fda8d765456f9207fb0b78a09",
+    "handoff": "work/actor_factories/handoff_v1.json",
+    "spec": "work/actor_factories/spec_v1.json"
+  },
+  "kind_frame": {
+    "actor_field_offset": "0x2e",
+    "storage": "16-bit kind token; zero means unused in pools.",
+    "allocation_selector": "Both pool allocators load the physical four-byte argument and inspect only bit 0x8000 with TEST AH,80. They never read the original argument again; subsequent EAX values are pool indices and pointers.",
+    "record_storage": "Record factories load the word at record+0x10 into BX, push EBX without clearing its upper half, and later store BX at actor+0x2e.",
+    "descriptor_indices": {
+      "normal": "Unsigned low16 kind indexes16-byte records; normalrecordfactory explicitly zeroextends eachwordload.",
+      "alternate": "Low12 kind indexes8-byte records.",
+      "type_bits": "kind_change29320 tests oldactor highbytebits0x60 and0x40 toselect normal/alternate/other8-byte descriptorfamily. Alternate factory ensures bit0x2000 in storedword.",
+      "callback_domain": "Groupappenders maskkindto0x1ff AFTER factorycall before callbackselection; do notconflatecallbackindex withdescriptorindex."
+    },
+    "meaning": "A packed word carries family/pool flags and a descriptor code. Its original formal type, signedness and name remain unproved."
+  },
+  "data_frame": {
+    "pool_object_stride": {
+      "normal": "0x134",
+      "alternate": "0x94",
+      "evidence": [
+        "Normal26faa..26fb1/2704a..27051 scanswordkind atstride0x134.",
+        "Alternate27b37..27b3e scanswordkind atstride0x94."
+      ]
+    },
+    "shared_prefix": "Positionlongs+0/+4/+8, kindword+2e, categorybyte+22,imagepointer+64. Full originalsharedstruct/derivedactor definitionsunproved.",
+    "normal_extension": "Initialize27520 clears pointerfields+110/+118. Normalfactories storeduplicate x/y/z at+9c/+a0/+a4 and descriptorrow+4/+8 into+110/+118; names/originalabstraction unknown.",
+    "descriptor_widths": "Normal16byte row: pointers+0/+4/+8, categorybyte+12. Alternate8byte row: pointer+0, word+4, categorybyte+6, sparebyte+7. Repeatedglobalpointerreloads afteractorwrites areobserved; no capacity/declaration inferred.",
+    "coordinate_order": "Normalrecordfactory andnormalparameterfactory bothwrite x andcopy, then y andcopy, then z andcopy. Thisagrees semantically withbaseline butdoesnotprovechainedassignment/macro/vector spelling."
+  },
+  "abi_limits": {
+    "physical": "Four4-bytecdeclslots, factoryreturnsactorpointerEAX. Allocation andinitialization calleesreceiveone4-bytecaller-cleanedslot.",
+    "formal_width": "Stack-slot width and MOV EDI,dword do not prove an int formal parameter. Record-factory PUSH EBX with only BX defined corroborates that the allocator does not observe upper 16 bits.",
+    "originalkind_forwarding": "The target forwards physical argument bits before masking. The real allocator observes only bit 15. The old fixture assertion that a mock receives meaningful upper 16 kind bits adds an observation absent from the actual allocator; replacing that assertion with the proven low-word token and bit-15 predicate does not weaken a proven game predicate.",
+    "semantic_domain": "For an unsigned-short prototype experiment, the defined source argument domain is the full 16-bit word. Preserve every low-word flag and field, including 0x8000, 0x2000 and 0x4000. High physical slot bits may still pass through but are outside a 16-bit C formal contract."
+  },
+  "luna_hypothesis": {
+    "family": "shared-packed-word-kind-type",
+    "source_change": "Use typedef unsigned short ActorKind consistently for factory kind parameters, actor kind storage, and allocation-helper kind parameter declarations. Remove the artificial unsigned-int index local: normal descriptor accesses use kind directly; alternate accesses use kind & 0xfff. Store alternate kind | 0x2000 through the word field. Preserve coordinate statements, descriptor field order and all calls from the frozen baseline.",
+    "prediction": "A shared word-typed kind expression may generate OR AH,20 and retain parameter EDI as the normalized descriptor index, removing the separate normal MOV EAX,EDI. This could resolve the four-byte body gap without padding tricks. Coordinate scheduling may change naturally but its exact source cause remains unproved.",
+    "falsifier": "Fresh compilation adds a pre-allocation zero-extension absent from the target, retains OR EDI,2000 and the separate index copy, changes call order or the three-block CFG, or fails the defined word-domain behavior. If falsified, stop this family.",
+    "semantic_needs": [
+      "Verify allocation before initialization, failure skipping initialization, and original low-word token supplied before descriptor masking.",
+      "Verify bit 0x8000 selects the actual allocator partition; upper physical slot bits are not observable kind semantics in either allocator.",
+      "Preserve every lower-16 flag combination and stored word: alternate ensures 0x2000 but indexes with low 12 bits; normal indexes with the full unsigned word.",
+      "Keep coordinate extremes, normal duplicate coordinate copies, descriptor field offsets, category/image fields and initializer overwrite order.",
+      "Explicitly document removal of the unsupported full-32 mock assertion. Do not remove any proven lower-word predicate or callback-order assertion."
+    ],
+    "compiles_run": 0
+  },
+  "classification": "InternalENG1 engine factories/pools/initializers, notidentifiedcompiler/runtime/library routines.",
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compiler_builds": 0
+  },
+  "unresolved": [
+    "Original formaltype/signedness,names, sharedactorstruct/macros andTU.",
+    "No deterministic explanation ofcoordinate scheduling isproved; typehypothesis isoneboundeddiscriminator.",
+    "Runtime descriptordata extents andsourceallocation capacities."
+  ],
+  "code_spans": [
+    {
+      "label": "normal_pool",
+      "start_rva": "0x26f70",
+      "end_rva_exclusive": "0x270c0",
+      "sha256": "0e30c8e93d6e67f7a47ee7ca6ffe634db3e9bb17016d23397befa42df98faec6",
+      "extent_scope": "Reviewed function pluspadding"
+    },
+    {
+      "label": "normal_from_record",
+      "start_rva": "0x270c0",
+      "end_rva_exclusive": "0x271d0",
+      "sha256": "920eed6a01798e680955cfc14f3bf10415aaf079b5121b5716ae095caebb3b65",
+      "extent_scope": "Reviewed function pluspadding"
+    },
+    {
+      "label": "spawn_normal",
+      "start_rva": "0x271d0",
+      "end_rva_exclusive": "0x27260",
+      "sha256": "69679a3fd12afec1c93803b5bc8030e094946e859259b63a432ed9c0d8002f61",
+      "extent_scope": "Reviewed function pluspadding"
+    },
+    {
+      "label": "normal_init",
+      "start_rva": "0x27520",
+      "end_rva_exclusive": "0x275d0",
+      "sha256": "9f720340cddaa513ee2c1ec16159fa6fec34bbb9c09754d5a48b69e6e738a766",
+      "extent_scope": "Reviewed function pluspadding"
+    },
+    {
+      "label": "alternate_pool",
+      "start_rva": "0x27b00",
+      "end_rva_exclusive": "0x27c40",
+      "sha256": "3312ae39137e728e11c77e9fe2995db11e2c5ab26cf8df3efe959dea6dadc8dd",
+      "extent_scope": "Reviewed function pluspadding"
+    },
+    {
+      "label": "alternate_from_record",
+      "start_rva": "0x27c40",
+      "end_rva_exclusive": "0x27cd0",
+      "sha256": "2aed926b5aa8224e36836cdfd01b986796ff77cb92757517fd4118a73e8b8e0c",
+      "extent_scope": "Reviewed function pluspadding"
+    },
+    {
+      "label": "spawn_alternate",
+      "start_rva": "0x27db0",
+      "end_rva_exclusive": "0x27e20",
+      "sha256": "34f1109ad0d59d20d2e887162820550a37eb4f93c11ae823f75552a477185c02",
+      "extent_scope": "Reviewed function pluspadding"
+    },
+    {
+      "label": "alternate_init",
+      "start_rva": "0x27fe0",
+      "end_rva_exclusive": "0x280f0",
+      "sha256": "8b8c2737815548fbaf4b771cb5ee28774740b408216aa4ebf52122c1efd9fad1",
+      "extent_scope": "Reviewed function pluspadding"
+    },
+    {
+      "label": "kind_change_reviewed_body_prefix",
+      "start_rva": "0x29320",
+      "end_rva_exclusive": "0x293df",
+      "sha256": "5aab1cbbc1b876a0c64d983c4314b9397abc022c148342f7f58c94e8e8dc4af7",
+      "extent_scope": "Explicit reviewed bodyprefix; notfullcontributionboundary."
+    }
+  ],
+  "private_report": {
+    "path": "work/actor_factory_shape/report.json",
+    "sha256": "64bed63ad9cdb73f7a81d87aec578b8cee64a5a6fdca9f5cfa0d85349c410a88"
+  }
+}

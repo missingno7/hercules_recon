@@ -7,11 +7,23 @@ import unittest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from env import ROOT
 from match import digest
-from macro_compare import structure, tokens_and_calls, restore_wave, audit_symbol_map
+from macro_compare import structure, tokens_and_calls, restore_wave, audit_symbol_map, decode, encoded_absolute_references
 import struct
 
 
 class MacroMetricsTests(unittest.TestCase):
+    def test_fixed_image_references_include_absolute_memory_and_pointer_loads(self):
+        sections=[dict(virtual_address=0x7a0000,virtual_size=0x10000,raw_size=0)]
+        # Absolute memory, indexed absolute memory, address load and address push.
+        code=bytes.fromhex('a1c029ba008b0485d029ba00b8e029ba0068e429ba00c3')
+        refs=encoded_absolute_references(decode(code,0x404450),0x400000,sections)
+        self.assertEqual(refs,{0x7a29c0,0x7a29d0,0x7a29e0,0x7a29e4})
+
+    def test_fixed_image_audit_rejects_relative_offsets_scalar_arithmetic_and_unmapped_values(self):
+        sections=[dict(virtual_address=0x7a0000,virtual_size=0x10000,raw_size=0)]
+        code=bytes.fromhex('8b80c029ba003dc029ba0005c029ba00a10000007fc3')
+        self.assertEqual(encoded_absolute_references(decode(code,0x404450),0x400000,sections),set())
+
     def test_member_symbol_requires_all_observed_member_addresses(self):
         class Object:
             def function(self,name):

@@ -1,0 +1,43 @@
+{
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "actor_factories",
+    "ownership": "inferred_region",
+    "rationale": "The normal and alternate actor factories form the real allocation dependency called by the already measured action appenders; original TU ownership is unknown."
+  },
+  "source": "calibration/actor_factories.c",
+  "functions": [
+    {
+      "symbol": "_spawn_normal",
+      "rva": "0x271d0",
+      "size": 144,
+      "body_size": 141,
+      "target_sha256": "69679a3fd12afec1c93803b5bc8030e094946e859259b63a432ed9c0d8002f61",
+      "control": false,
+      "boundary_evidence": "Reachable RET at 0x2725c; three trailing NOPs at 0x2725d..0x2725f. Next entry 0x27260 has 165 indexed direct call references; this function has 60 direct callers."
+    },
+    {
+      "symbol": "_spawn_kind",
+      "rva": "0x27db0",
+      "size": 112,
+      "body_size": 97,
+      "target_sha256": "34f1109ad0d59d20d2e887162820550a37eb4f93c11ae823f75552a477185c02",
+      "control": false,
+      "boundary_evidence": "Reachable RET at 0x27e10; fifteen trailing NOPs at 0x27e11..0x27e1f. Next entry 0x27e20 has 34 indexed direct call references; this function has 37 direct callers."
+    }
+  ],
+  "symbol_rvas": {
+    "_spawn_normal": "0x271d0",
+    "_spawn_kind": "0x27db0",
+    "_allocate_normal_actor": "0x26f70",
+    "_initialize_normal_actor": "0x27520",
+    "_allocate_alternate_actor": "0x27b00",
+    "_initialize_alternate_actor": "0x27fe0",
+    "_g_normal_factory_assets": "0x71388",
+    "_g_alternate_factory_assets": "0x713a4"
+  }
+}

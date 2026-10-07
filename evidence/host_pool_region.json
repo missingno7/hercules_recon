@@ -1,0 +1,59 @@
+{
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "host_pool_core",
+    "ownership": "inferred_region",
+    "rationale": "The selected host memory/pool functions form a coherent lifecycle dependency; original translation-unit boundaries and names are unknown."
+  },
+  "symbol_rvas": {
+    "_g_host_pool": "0x7a29c0",
+    "_g_fmt_init_pool": "0x3608c",
+    "_g_fmt_alloc_failed": "0x360cc",
+    "_g_fmt_alloc": "0x360ac",
+    "_g_fmt_free": "0x36110",
+    "_host_diagnostic": "0x63c0",
+    "_coalesce_pool": "0x4830"
+  },
+  "functions": [
+    {
+      "symbol": "_save_arena",
+      "rva": "0x4450",
+      "size": 32,
+      "target_sha256": "12caab25e829c7c8d0b29f751b37ee6fde0fe3b1417196d09010b2bb6939e69a",
+      "control": false
+    },
+    {
+      "symbol": "_initialize_pool",
+      "rva": "0x4510",
+      "size": 96,
+      "target_sha256": "0d9229795772b7b9445a4247ae3e18a2e82607154b50a14e137fa4384987b497",
+      "control": false
+    },
+    {
+      "symbol": "_host_allocate",
+      "rva": "0x4570",
+      "size": 288,
+      "target_sha256": "e48ecfc3ad18a93d8db699a85ce8f65a1f36455ef3b83df272b39a4f6f61b8cc",
+      "control": false
+    },
+    {
+      "symbol": "_host_free",
+      "rva": "0x4750",
+      "size": 112,
+      "target_sha256": "2821bcaacbccbe4ac565f590bc7177515592123db78805c07c166e645ea92faa",
+      "control": false
+    },
+    {
+      "symbol": "_coalesce_pool",
+      "rva": "0x4830",
+      "size": 96,
+      "target_sha256": "f2efd2e0c8e0f626e66e71c8e25e7f8f9b4d4cc5aaa21571ffed5513bae6be62",
+      "control": false
+    }
+  ],
+  "source": "calibration/host_pool.c"
+}

@@ -31,6 +31,8 @@ SUITES = {
     "action_registry": ["calibration/action_registry.c"],
     "action_registry_writers": ["calibration/action_registry_writers.c"],
     "registry_allocation": ["calibration/registry_allocation.c"],
+    "actor_factories": ["calibration/actor_factories.c"],
+    "host_pool": ["calibration/host_pool.c"],
 }
 
 

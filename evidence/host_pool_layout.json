@@ -1,0 +1,293 @@
+{
+  "scope": "Static PC host pool/header/lifecycle diagnosis only. No compilation, original execution, source or canonical/Git modifications.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "database_sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+  },
+  "analysis": {
+    "capstone": "5.0.7",
+    "reproducer": "work/host_pool_shape/report_pool.py"
+  },
+  "source_table": {
+    "rva": "0x361b8",
+    "bytes": 1000,
+    "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "arena_pointer_cell_rva": "0x361c0",
+    "arena_pointer_va": "0x6177d0",
+    "arena_size_cell_rva": "0x361c4",
+    "arena_size_bytes": 3145728,
+    "arena_storage": "Virtual zero-filled host .data; default static source values only, runtime alias mutation not excluded.",
+    "pool_callback_slots": [
+      {
+        "slot": "0xd",
+        "source_cell_rva": "0x361ec",
+        "target_rva": "0x4890"
+      },
+      {
+        "slot": "0xe",
+        "source_cell_rva": "0x361f0",
+        "target_rva": "0x48a0"
+      },
+      {
+        "slot": "0x10",
+        "source_cell_rva": "0x361f8",
+        "target_rva": "0x4750"
+      },
+      {
+        "slot": "0x11",
+        "source_cell_rva": "0x361fc",
+        "target_rva": "0x47c0"
+      },
+      {
+        "slot": "0x14",
+        "source_cell_rva": "0x36208",
+        "target_rva": "0x4450"
+      },
+      {
+        "slot": "0x15",
+        "source_cell_rva": "0x3620c",
+        "target_rva": "0x4510"
+      },
+      {
+        "slot": "0x1e",
+        "source_cell_rva": "0x36230",
+        "target_rva": "0x4570"
+      },
+      {
+        "slot": "0x28",
+        "source_cell_rva": "0x36258",
+        "target_rva": "0x4690"
+      },
+      {
+        "slot": "0x29",
+        "source_cell_rva": "0x3625c",
+        "target_rva": "0x4470"
+      },
+      {
+        "slot": "0x2a",
+        "source_cell_rva": "0x36260",
+        "target_rva": "0x4830"
+      }
+    ]
+  },
+  "pool_frame": {
+    "starts_va": "0xba29c0",
+    "ends_va": "0xba29d0",
+    "slots": 4,
+    "slot_proof": [
+      "Allocator45b9 masks selector to2bits.",
+      "Free4750 scans end-pointer cellsba29d0..ba29df, comparing payload above paired start cell ataddress-16."
+    ],
+    "saved_arena_va": "0xba29e0",
+    "saved_bytes_va": "0xba29e4",
+    "bulk_snapshot_first_header_va": "0xba29e8",
+    "bulk_snapshot_first_words_va": "0xba29ec",
+    "ordinary_c_frame": "Four dword-word pointers for starts and ends; cursor word0 unsigned size/flags, allocated word1 caller output-slot address. A four-byte union PoolWord { unsigned long descriptor; void **owner_slot; } supports ordinary word-stride traversal without inventing fixed block sizes.",
+    "block_descriptor": {
+      "low30_bits": "Total dword count including2 header words for allocated blocks.",
+      "bit31": "Free block marker0x80000000.",
+      "bit30": "Pinned/retained flag0x40000000 set by allocationflag0x10; bulk_free and compact honor it.",
+      "allocated_word1": "Owner pointer-slot address, not another block pointer.",
+      "payload": "Header address+8 bytes.",
+      "free_blocks": "Traversal needs only word0; residual free block can have one word, so do not require a two-word header read on every free block."
+    }
+  },
+  "initialization": {
+    "save": "1ff0 zeroes default sharedstate and arena from interfacecells then2028 calls4450 to save arena+size;2043 calls10690;106b3 calls4510 with savedarena/savedbytes/pool0.",
+    "initialize_formula": "N=(arena_bytes>>2)-2; starts[id]=arena; ends[id]=arena+4*N; arena_word0=N|FREE. Starting atword2, store1 forN-1 consecutive words, including wordN at end marker; no initialization of word1.",
+    "end_reserved_bytes": 8,
+    "conditions": "Unsigned shift/subtract and decrement loop have no small-arena guard. Preserve observed behavior; do not add checks.",
+    "reinitialize": "4470 optionally slides saved arena and adjusts saved bytes, rebuilds pool0 first free size using old span and47c0 snapshot, then coalesces. Exact body/hash retained; source identity not reconstructed."
+  },
+  "allocation": {
+    "signature_scope": "Three caller-cleaned dword arguments: output-slot address, requested byte count, flags. EAX allocated pointer orNULL. Exact original typedef/prototype names unknown.",
+    "request_rounding": "need_words=((requested_bytes+3)>>2)+2 using unsigned32 wraparound; payloadmetadata bytes=4*need_words-8. No overflow or zero-request guard observed.",
+    "selection": "Scan all blocks from starts[flags&3] to ends[flags&3], advancing by word0&0x3fffffff. Replace selected pointer/wordcount for every free block with size>=need_words; therefore LAST fitting block in address order.",
+    "split": "remaining_words=chosen_words-need_words. Equal size: use selected block, write descriptor flags|need_words and owner word1. Larger: leave FREE|remaining_words at old base; write allocated descriptor and owner at base+4*remaining_words. Return allocated header+8.",
+    "flags": {
+      "pool_selector": "flags&3",
+      "pinned": "flags0x10 maps to descriptor0x40000000",
+      "preserve_output_on_failure": "flags0x20 leaves existing owner-slot contents alone; otherwise writeNULL through output slot."
+    },
+    "preexisting_output": "Read initial *output and issue diagnostic call if nonnull; there is no automatic free/realloc before allocation.",
+    "success": "Store resulting payload through original outputslot at4667, return same pointer inEAX.",
+    "failure": "No selected block: optionally clear outputslot (flags0x20 control), returnNULL."
+  },
+  "lifecycle": {
+    "free": "4750 acceptsNULL as no-op; finds pool by start<payload<end among4slots; sets FREE bit atpayload-8, calls4830 coalesce, reads owner frompayload-4 and clears it ifnonnull. Out-of-pool pointer returns without mutation.",
+    "coalesce": "4830 traverses selected pool; when current and successor word0 have FREE, adds masked successor wordcount to current descriptor and repeats without advancing. Otherwise advances by current descriptor*4; that scale discards high flag bits modulo32.",
+    "bulk_free": "47c0 snapshots poolfirstheader/size; traverses blocks and frees only descriptor with neitherFREE norPINNED whose owner-slot content is nonzero; then4890 compacts.",
+    "compact": "48a0 walks used blocks in reverse ordinal order; pinned prevents movement. If following block isfree, copies current block upward into higher address via43a0, updates owner-slot to moved payload, leaves residual free header and coalesces. No fixed extent or source declaration claim.",
+    "shrink": "4690 can relocate payload upward when shrinking, preserving pinned flag and owner; optional header-only versus full block copy path. Calls10fb0 copy helper and4830; its library/source identity unresolved."
+  },
+  "classification": {
+    "assessment": "Project/platform memory subsystem is strongly supported by staticarena interface, owner-handle relocation and matching diagnostic labels Initheap/Malloc/ReMalloc/Free/CompactMalloc. No standard CRT/MFC allocator identity established; do not count it as CRT code based on names or rewrite its semantics.",
+    "diagnostic": "63c0 is RET plus15 naturalNOPs. Calls with format strings/varargs are retained no-op diagnostics; no sprintf/printf allocation or behavior occurs in this target body.",
+    "library_boundary": "43a0 reverse dword copy and10fb0 copy helper need separate identification/matching. They are outside proposed initial chunk; do not casually replace them with modern memcpy/memmove."
+  },
+  "smallest_coherent_chunk": {
+    "ownership": "Inferred host pool operation dependency region, not provenTU.",
+    "routines": [
+      "4450 savearena",
+      "4510 initializepool",
+      "4570 allocation",
+      "4750 free",
+      "4830 coalesce",
+      "63c0 no-op diagnostic"
+    ],
+    "full_contribution_bytes": 640,
+    "excluded": "Reinitialize/shrink/bulkfree/compaction are documented context and subsequentdependencies; not required to express the initial allocation/free pool frame."
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compiler_builds": 0
+  },
+  "unresolved": [
+    "Original declaration/TU/library identity and compiler flags.",
+    "Runtime alternateinterface binding and alternatepool initialization.",
+    "Pool arena lifetime under host shutdown/reset, and explicit registry append boundary versus ownertrackedpayload; no gameplay fixes."
+  ],
+  "code_spans": [
+    {
+      "label": "save_arena",
+      "start_rva": "0x4450",
+      "end_rva_exclusive": "0x4470",
+      "sha256": "12caab25e829c7c8d0b29f751b37ee6fde0fe3b1417196d09010b2bb6939e69a",
+      "trailing_nop_bytes": 12,
+      "last_nonpadding_instruction": {
+        "rva": "0x4463",
+        "mnemonic": "ret"
+      }
+    },
+    {
+      "label": "reinitialize_pool0",
+      "start_rva": "0x4470",
+      "end_rva_exclusive": "0x4510",
+      "sha256": "1e3673c1caed6ca64df8e6402a0471166c6b02c4d75b29833ac4896271d38849",
+      "trailing_nop_bytes": 6,
+      "last_nonpadding_instruction": {
+        "rva": "0x4509",
+        "mnemonic": "ret"
+      }
+    },
+    {
+      "label": "initialize_pool",
+      "start_rva": "0x4510",
+      "end_rva_exclusive": "0x4570",
+      "sha256": "0d9229795772b7b9445a4247ae3e18a2e82607154b50a14e137fa4384987b497",
+      "trailing_nop_bytes": 10,
+      "last_nonpadding_instruction": {
+        "rva": "0x4565",
+        "mnemonic": "ret"
+      }
+    },
+    {
+      "label": "allocate",
+      "start_rva": "0x4570",
+      "end_rva_exclusive": "0x4690",
+      "sha256": "e48ecfc3ad18a93d8db699a85ce8f65a1f36455ef3b83df272b39a4f6f61b8cc",
+      "trailing_nop_bytes": 3,
+      "last_nonpadding_instruction": {
+        "rva": "0x468c",
+        "mnemonic": "ret"
+      }
+    },
+    {
+      "label": "shrink_relocate",
+      "start_rva": "0x4690",
+      "end_rva_exclusive": "0x4750",
+      "sha256": "f098dcf07e89a8375836ae9e68eafe2efa37e518266b4f4b5fcc2921e6b25055",
+      "trailing_nop_bytes": 8,
+      "last_nonpadding_instruction": {
+        "rva": "0x4747",
+        "mnemonic": "ret"
+      }
+    },
+    {
+      "label": "free",
+      "start_rva": "0x4750",
+      "end_rva_exclusive": "0x47c0",
+      "sha256": "2821bcaacbccbe4ac565f590bc7177515592123db78805c07c166e645ea92faa",
+      "trailing_nop_bytes": 10,
+      "last_nonpadding_instruction": {
+        "rva": "0x47b5",
+        "mnemonic": "ret"
+      }
+    },
+    {
+      "label": "bulk_free",
+      "start_rva": "0x47c0",
+      "end_rva_exclusive": "0x4830",
+      "sha256": "86dc6c00b25ee6317cd48e8504914e13db8c57682e85a3361009dd95e2e97c34",
+      "trailing_nop_bytes": 13,
+      "last_nonpadding_instruction": {
+        "rva": "0x4822",
+        "mnemonic": "ret"
+      }
+    },
+    {
+      "label": "coalesce",
+      "start_rva": "0x4830",
+      "end_rva_exclusive": "0x4890",
+      "sha256": "f2efd2e0c8e0f626e66e71c8e25e7f8f9b4d4cc5aaa21571ffed5513bae6be62",
+      "trailing_nop_bytes": 9,
+      "last_nonpadding_instruction": {
+        "rva": "0x4886",
+        "mnemonic": "ret"
+      }
+    },
+    {
+      "label": "compact_all_wrapper",
+      "start_rva": "0x4890",
+      "end_rva_exclusive": "0x48a0",
+      "sha256": "76bfc4000f25ebd6a543d70832fbeee4478c47f9af732aea88ae0f5a646c42b3",
+      "trailing_nop_bytes": 0,
+      "last_nonpadding_instruction": {
+        "rva": "0x489f",
+        "mnemonic": "ret"
+      }
+    },
+    {
+      "label": "compact",
+      "start_rva": "0x48a0",
+      "end_rva_exclusive": "0x49f0",
+      "sha256": "5a467aee3f0214f1e9cb79a3ebae63ba607129eea37cb826dd985fb0ed2d8459",
+      "trailing_nop_bytes": 6,
+      "last_nonpadding_instruction": {
+        "rva": "0x49e9",
+        "mnemonic": "ret"
+      }
+    },
+    {
+      "label": "count_used",
+      "start_rva": "0x49f0",
+      "end_rva_exclusive": "0x4a30",
+      "sha256": "42d40cb66ba3ebe315981338aa46ee9ba41aa4a902b0bf8efcc7bdf27fd640fb",
+      "trailing_nop_bytes": 3,
+      "last_nonpadding_instruction": {
+        "rva": "0x4a2c",
+        "mnemonic": "ret"
+      }
+    },
+    {
+      "label": "diagnostic_stub",
+      "start_rva": "0x63c0",
+      "end_rva_exclusive": "0x63d0",
+      "sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+      "trailing_nop_bytes": 15,
+      "last_nonpadding_instruction": {
+        "rva": "0x63c0",
+        "mnemonic": "ret"
+      }
+    }
+  ],
+  "private_report": {
+    "path": "work/host_pool_shape/pool_report.json",
+    "sha256": "60bfea71d9c2ca95fb9f6aec5f97864353ae45e453ee29d4ecb728cf142acf13"
+  }
+}

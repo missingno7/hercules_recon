@@ -16,7 +16,7 @@ from match import compile_source, compare, digest, DEFAULT_TOOLCHAIN, verify_too
 from coff import COFF
 from pe import PE
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
-from capstone.x86 import X86_OP_IMM
+from capstone.x86 import X86_OP_IMM, X86_OP_MEM
 
 
 def decode(code, address):
@@ -84,6 +84,29 @@ def tokens_and_calls(code, address):
     return tokens, calls, indirect
 
 
+def encoded_absolute_references(instructions, image_base, sections):
+    """Collect encoded address references even in fixed-base, relocation-free EXEs.
+
+    Register-relative displacements and arithmetic/comparison immediates are not
+    address evidence. Pointer semantics still require reviewed source evidence;
+    this helper audits literal operands only and never changes target bytes.
+    """
+    references = set()
+    for instruction in instructions:
+        for operand in instruction.operands:
+            value = None
+            if operand.type == X86_OP_MEM and operand.mem.base == 0 and instruction.disp_size == 4:
+                value = operand.mem.disp & 0xffffffff
+            elif operand.type == X86_OP_IMM and instruction.mnemonic in ('mov', 'push') and instruction.imm_size == 4:
+                value = operand.imm & 0xffffffff
+            if value is None:
+                continue
+            rva = value - image_base
+            if any(s['virtual_address'] <= rva < s['virtual_address'] + max(s['virtual_size'], s['raw_size']) for s in sections):
+                references.add(rva)
+    return references
+
+
 def audit_symbol_map(spec, coff, direct_destinations, absolute_operands):
     """Audit actual addresses, including ordinary COFF struct-member addends.
 
@@ -121,7 +144,9 @@ def evaluate(source, spec_path, output, obj=None):
     for f in spec['functions']:
         rva = int(f['rva'],0)
         original = pe.read_rva(rva,f['size'])
-        for i in decode(original,pe.image_base+rva):
+        instructions = decode(original,pe.image_base+rva)
+        absolute_operands.update(encoded_absolute_references(instructions, pe.image_base, pe.sections))
+        for i in instructions:
             if i.mnemonic == 'call' and i.operands[0].type == X86_OP_IMM:
                 direct_destinations.add(i.operands[0].imm-pe.image_base)
         for relocation in base_relocations:

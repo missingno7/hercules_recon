@@ -1,0 +1,133 @@
+{
+  "scope": "Actual no-op diagnostic leaf; acceptance authority is recovery.json. Original name/prototype/library/TU identity remain unproved.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "function": {
+    "entry_rva": "0x63c0",
+    "full_size": 16,
+    "body_size": 1,
+    "padding_size": 15,
+    "target_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+    "body": "RET with no stack cleanup, register changes or memory accesses.",
+    "boundary_proof": "Prior reviewed entry63b0 ends RET4 at63bd..63bf, exactly before63c0. Next entry63d0 hasRET4;63c1..63cf are15NOPs. Thirtyseven indexed directCALLs resolveexactly63c0.",
+    "spans": [
+      {
+        "start_rva": "0x63b0",
+        "end_rva_exclusive": "0x63c0",
+        "bytes": 16,
+        "sha256": "fb1e0b55eeb8d0c90bd76e02a8d0234e0a6c2cc904c01784d23744568265dd2a"
+      },
+      {
+        "start_rva": "0x63c0",
+        "end_rva_exclusive": "0x63d0",
+        "bytes": 16,
+        "sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca"
+      },
+      {
+        "start_rva": "0x63d0",
+        "end_rva_exclusive": "0x63e0",
+        "bytes": 16,
+        "sha256": "c4e48398aa494fd8abf1c3e8e6cc058bcdca3836fdfe6744b7d353c518e1c019"
+      }
+    ]
+  },
+  "classification": {
+    "assessment": "Actual no-op host diagnostic function, supported by callers passing formatting strings from host game-sound/file/memory services. No printf-family formatting body and no CRT/MFC identity established.",
+    "source_identity": "Original name, return type and prototype unknown. Labels are inferred; cannot claim originalsource identity or library provenance.",
+    "proposed_ordinary_signature": "void host_diagnostic(const char *format, ...)",
+    "signature_support": "One fixed formatstring argument, additional variable arguments at reviewed callers, callerstack cleanup, no return value consumed in selected paths; cdecl/variadic-compatible.",
+    "signature_limitations": "Empty body imposes no parameter type checks; constqualifier and void return remain source-level hypotheses."
+  },
+  "call_evidence": {
+    "indexed_direct_callers": 37,
+    "reviewed": "Format-string callers use one or four caller-cleaned arguments and ignore EAX; not all prototypes proven."
+  },
+  "source": "src/pc/host_diagnostic.c",
+  "source_sha256": "e711786516b772583c5b2e83fdc581d15bfdd9fe0db1e0c6ef811af5a5355ec1",
+  "accepted_id": "exe.host_diagnostic",
+  "raw_proof": {
+    "scope": "complete relocation-free function COFF contribution",
+    "source_sha256": "e711786516b772583c5b2e83fdc581d15bfdd9fe0db1e0c6ef811af5a5355ec1",
+    "compiled_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+    "target_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+    "toolchain": "msvc5_rtm"
+  },
+  "integration_compare": {
+    "exact": true,
+    "scope": "complete relocation-free function COFF contribution",
+    "target_size": 16,
+    "compiled_size": 16,
+    "target_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+    "compiled_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+    "different_bytes": 0,
+    "mismatch_regions": [],
+    "relocations": [],
+    "target_relocations": [],
+    "object": "D:\\prog\\hercules_recon\\build\\match\\compile-9qqnp_wc\\candidate.obj",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-9qqnp_wc\\candidate.obj",
+      "D:\\prog\\hercules_recon\\work\\host_diagnostic_promotion.c"
+    ],
+    "source_sha256": "e711786516b772583c5b2e83fdc581d15bfdd9fe0db1e0c6ef811af5a5355ec1"
+  },
+  "discovery_provenance": {
+    "exact": true,
+    "scope": "complete relocation-free function COFF contribution",
+    "target_size": 16,
+    "compiled_size": 16,
+    "target_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+    "compiled_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+    "different_bytes": 0,
+    "mismatch_regions": [],
+    "relocations": [],
+    "target_relocations": [],
+    "object": "D:\\prog\\hercules_recon\\work\\host_pool\\diagnostic.obj",
+    "function_id": "host_pool.host_diagnostic",
+    "source": "candidates/host_pool/host_diagnostic.c",
+    "source_sha256": "42c9d4088035d7e0820d08e7bf51d58bb2e4c13e493e14f1910f37d1519a48e8",
+    "object_sha256": "e45ecab68e7229caddc6542e69b579a37f6bf5815be3f2e794a4b9d4a1f03df0",
+    "target_path": "work/discs/pc_install/HERCULES.EXE",
+    "target_file_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "rva": "0x63c0",
+    "flags": [
+      "/O2"
+    ],
+    "compile_command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\work\\host_pool\\diagnostic.obj",
+      "D:\\prog\\hercules_recon\\candidates\\host_pool\\host_diagnostic.c"
+    ],
+    "toolchain": "msvc5_rtm",
+    "toolchain_directory": "msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "fresh_candidate_compile_count": 1,
+    "original_image_executed": false
+  },
+  "structural_provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compiler_builds": 0
+  },
+  "private_report": {
+    "path": "work/host_pool_shape/diagnostic_leaf.json",
+    "sha256": "2d343d4e30a9eb8b190ff1207433d0f125772ff374ecb1a3246bd3d5419dcd03"
+  }
+}
