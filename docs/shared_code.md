@@ -10,11 +10,15 @@ Names and filenames are provisional semantic groupings, not recovered symbols.
 | unlink_12c | 0x97b0 | 0x294b0 | 0x1e350 | 64 bytes, exact in all three |
 | unlink_0e4 | 0x98a0 | 0x29620 | 0x1e4c0 | 80 bytes, exact in all three |
 | advance_object_motion | — | 0x2b4c0 | 0x1f690 | 288 bytes, exact in both engines |
+| advance_planar_motion | — | 0x2b3f0 | 0x1f550 | 208 bytes, exact in both engines |
+| advance_vertical_motion | — | — | 0x1f620 | 112 bytes, exact in ENG3 |
+| remove_counted_value | — | 0x2b320 | 0x1f480 | 80 bytes, exact in both engines |
+| bounds_overlap | — | 0x2a7a0 | — | 112 bytes, exact in ENG1 |
 | measure_relative_vector | — | 0x2ab30 | 0x1f280 | 224 bytes: ENG1 exact; ENG3 differs by two bytes |
 
 Together with the earlier colour and sentinel routines, acceptance now covers
-**seven distinct source functions and fourteen exact module instances**: 816
-bytes of unique contributions, 1,520 mapped target bytes including original
+**eleven distinct source functions and twenty exact module instances**: 1,328
+bytes of unique contributions, 2,320 mapped target bytes including original
 alignment. Repeated engine copies do not count as additional reconstructed
 algorithms. Every instance was freshly compiled and passed the same strict gate;
 matching a byte pattern alone did not change recovery status.
@@ -37,7 +41,31 @@ inner pointer is not null-checked because the original does not check it.
 0xa8, 0xb8 and 0xc8, clamps each first to zero and then its axis limit, and updates
 the three positions according to direction bytes at 0x94–0x96. The clamp order
 is preserved even when a negative limit produces a negative result. The whole
-280-byte body plus eight NOPs is exact in ENG1 and ENG3.
+280-byte body plus eight NOPs is exact in ENG1 and ENG3. The adjacent planar
+variant updates only x/y (194-byte body plus 14 NOPs, both engines); the vertical
+variant updates only z (106-byte body plus six NOPs, ENG3). Both use the same
+measured fields and clamp order. Adding these two functions to the source file
+preserved the accepted full-motion bytes. These names describe coordinate
+components; world-axis orientation has not been established here.
+
+`counted_list.c` treats element zero as a signed count and searches slots 1
+through count. It removes the first matching DWORD by shifting the suffix left,
+then decrements the count. The scan and shift share an index, so a duplicate
+later in the list remains. The old last slot is not cleared. Null, zero-count
+and negative-count inputs make no writes. The original post-decrement lower
+check remains even though a positive count is required to enter the loop.
+Both engine copies have a 79-byte body and one NOP.
+
+`bounds.c` tests six signed-short bounds at offsets 0 through 10. It combines
+strict separation comparisons with bitwise OR, then negates the result;
+face/edge/corner contact therefore counts as overlap. ENG1's complete 106-byte
+body plus six NOPs matches the direct C expression. This proves the routine's
+bytes and field access, not the original type name or callers' geometry policy.
+
+The nearby point-containment routines (ENG1 0x2a810, ENG3 0x1f130) were also
+examined. Natural grouped and accumulated comparison expressions under VC5
+RTM `/O2 /Gy` did not reproduce their instruction ordering. Those scratch
+experiments did not change acceptance or introduce compiler-steering code.
 
 `relative.c` computes signed 16-bit deltas from 16.16 position differences,
 classifies direction, and forms planar and spatial distance approximations.
@@ -76,8 +104,12 @@ python scripts/test_pilot.py --suite shared
 python -m unittest discover -s tests -p 'test_*.py'
 ```
 
-The shared harness passed 65,598 checks, including all 65,536 command words,
+The shared harness passed 67,719 checks, including all 65,536 command words,
 all motion sign combinations, clamping and untouched-memory checks, vector
-octants, fractional negative coordinates and the signed-short minimum. The
+octants, fractional negative coordinates and the signed-short minimum. New
+checks compare planar/vertical composition with the independently accepted full
+motion routine, exhaust short counted lists with duplicate values, and compare
+bounds overlap against finite-set intersection, including degenerate and
+touching intervals. Signed extremes are checked separately. The
 original 64 checks and 13 acceptance/recovery tests also passed. Semantic tests
 execute only reconstructed code; fresh target-byte equality remains the proof.

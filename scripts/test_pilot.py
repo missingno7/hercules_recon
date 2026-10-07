@@ -12,7 +12,8 @@ from match import DEFAULT_TOOLCHAIN, digest, verify_toolchain
 
 SUITES = {
     "pilot": ["src/title/pilot.c"],
-    "shared": ["src/shared/object_commands.c", "src/shared/motion.c", "src/shared/relative.c"],
+    "shared": ["src/shared/object_commands.c", "src/shared/motion.c", "src/shared/relative.c",
+               "src/shared/counted_list.c", "src/shared/bounds.c"],
 }
 
 

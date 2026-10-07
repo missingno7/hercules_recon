@@ -5,6 +5,8 @@
 #include "../src/shared/object_commands.c"
 #include "../src/shared/motion.c"
 #include "../src/shared/relative.c"
+#include "../src/shared/counted_list.c"
+#include "../src/shared/bounds.c"
 
 #define LAYOUT(name, expression) typedef char name[(expression) ? 1 : -1]
 LAYOUT(long_is_32_bit, sizeof(long) == 4);
@@ -15,6 +17,8 @@ LAYOUT(motion_axis, offsetof(MovingObject, axis) == 0xa8);
 LAYOUT(motion_axis_size, sizeof(AxisMotion) == 16);
 LAYOUT(relative_direction, offsetof(RelativeMeasure, direction) == 10);
 LAYOUT(relative_size, sizeof(RelativeMeasure) == 12);
+LAYOUT(bounds_max_x, offsetof(Bounds3D, max_x) == 6);
+LAYOUT(bounds_size, sizeof(Bounds3D) == 12);
 
 static unsigned checks, failures;
 #define CHECK(test) do { ++checks; if (!(test)) { ++failures; \
@@ -126,9 +130,106 @@ static void test_relative(void)
     CHECK(result.distance == 0 && result.planar_distance == 0 && result.direction == 4);
 }
 
+static void test_split_motion(void)
+{
+    MovingObject split, full, planar, vertical;
+    int speed, limit, signs, axis;
+    for (speed = -5; speed <= 15; speed += 5) {
+        for (limit = -3; limit <= 12; limit += 5) {
+            for (signs = 0; signs < 8; ++signs) {
+                memset(&full, 0xa5, sizeof(full));
+                full.x = 100; full.y = -200; full.z = 300;
+                full.negative_x = signs & 1;
+                full.negative_y = signs & 2;
+                full.negative_z = signs & 4;
+                for (axis = 0; axis < 3; ++axis) {
+                    full.axis[axis].speed = speed;
+                    full.axis[axis].limit = limit;
+                    full.axis[axis].acceleration = axis * 3;
+                    full.axis[axis].deceleration = 2;
+                }
+                split = planar = vertical = full;
+                advance_object_motion(&full);
+                advance_planar_motion(&split);
+                /* Planar update must preserve z and the entire z motion state. */
+                CHECK(split.z == planar.z &&
+                      memcmp(&split.axis[2], &planar.axis[2], sizeof(AxisMotion)) == 0);
+                advance_vertical_motion(&split);
+                CHECK(memcmp(&split, &full, sizeof(full)) == 0);
+                advance_vertical_motion(&vertical);
+                CHECK(vertical.x == planar.x && vertical.y == planar.y &&
+                      memcmp(vertical.axis, planar.axis, 2 * sizeof(AxisMotion)) == 0);
+                advance_planar_motion(&vertical);
+                CHECK(memcmp(&vertical, &full, sizeof(full)) == 0);
+            }
+        }
+    }
+}
+
+static void test_counted_list(void)
+{
+    long list[8], expected[8];
+    int count, pattern, i, first;
+    remove_counted_value(0, 7);
+    for (count = -1; count <= 6; ++count) {
+        for (pattern = 0; pattern < (1 << (count > 0 ? count : 0)); ++pattern) {
+            for (i = 0; i < 8; ++i) list[i] = 123456;
+            list[0] = count;
+            first = 0;
+            for (i = 1; i <= count; ++i) {
+                list[i] = (pattern & (1 << (i-1))) ? 7 : -4;
+                if (list[i] == 7 && first == 0) first = i;
+            }
+            memcpy(expected, list, sizeof(list));
+            /* Build the expected retained prefix/suffix, preserving unused slots. */
+            if (first) {
+                expected[0] = count - 1;
+                memcpy(expected + first, list + first + 1,
+                       (count - first) * sizeof(long));
+            }
+            remove_counted_value(list, 7);
+            CHECK(memcmp(list, expected, sizeof(list)) == 0);
+        }
+    }
+}
+
+static void test_bounds(void)
+{
+    Bounds3D a, b;
+    int axis, lo_a, hi_a, lo_b, hi_b, point, common;
+    for (axis = 0; axis < 3; ++axis) {
+        for (lo_a = -2; lo_a <= 2; ++lo_a) for (hi_a = lo_a; hi_a <= 2; ++hi_a) {
+            for (lo_b = -2; lo_b <= 2; ++lo_b) for (hi_b = lo_b; hi_b <= 2; ++hi_b) {
+                a.min_x = a.min_y = a.min_z = -3;
+                a.max_x = a.max_y = a.max_z = 3;
+                b = a;
+                if (axis == 0) { a.min_x = lo_a; a.max_x = hi_a; b.min_x = lo_b; b.max_x = hi_b; }
+                if (axis == 1) { a.min_y = lo_a; a.max_y = hi_a; b.min_y = lo_b; b.max_y = hi_b; }
+                if (axis == 2) { a.min_z = lo_a; a.max_z = hi_a; b.min_z = lo_b; b.max_z = hi_b; }
+                /* Independent finite-set intersection oracle, including touch. */
+                common = 0;
+                for (point = -2; point <= 2; ++point)
+                    if (point >= lo_a && point <= hi_a && point >= lo_b && point <= hi_b)
+                        common = 1;
+                CHECK(bounds_overlap(&a, &b) == common);
+                CHECK(bounds_overlap(&b, &a) == common);
+            }
+        }
+    }
+    a.min_x = a.min_y = a.min_z = -32768;
+    a.max_x = a.max_y = a.max_z = -1;
+    b.min_x = b.min_y = b.min_z = 0;
+    b.max_x = b.max_y = b.max_z = 32767;
+    CHECK(bounds_overlap(&a, &b) == 0);
+    b.min_x = b.min_y = b.min_z = -1;
+    CHECK(bounds_overlap(&a, &b) == 1);
+    CHECK(bounds_overlap(&a, &a) == 1);
+}
+
 int main(void)
 {
     test_command(); test_motion(); test_relative();
+    test_split_motion(); test_counted_list(); test_bounds();
     printf("%u semantic checks; %u failures\n", checks, failures);
     return failures ? 1 : 0;
 }
