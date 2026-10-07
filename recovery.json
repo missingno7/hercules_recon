@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "policy": "Only fresh historical compilation with complete raw byte equality and zero unresolved relocations can be FUNCTION_MATCH. Function scope is not whole-module reconstruction.",
+  "statuses": {
+    "UNKNOWN": "No reviewed identification",
+    "IDENTIFIED": "Reviewed location and context",
+    "RECONSTRUCTED": "Source hypothesis exists, no codegen acceptance",
+    "CODEGEN_SIMILAR": "Diagnostic similarity only; unresolved differences/relocations remain",
+    "FUNCTION_MATCH": "Fresh pinned historical compilation equals complete target bytes; no unresolved relocations"
+  },
+  "functions": [
+    {
+      "id": "title.unlink_12c",
+      "status": "FUNCTION_MATCH",
+      "name_status": "provisional semantic/offset label",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x97b0",
+      "size": 64,
+      "body_size": 49,
+      "source": "src/title/pilot.c",
+      "symbol": "_unlink_12c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Two conditional doubly linked list neighbour updates; incoming calls and subsequent aligned entry delimit span.",
+      "boundary": "Complete /Gy COMDAT: body plus original NOP alignment to next 16-byte boundary.",
+      "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "b52f52a2e17d2fc7bb26951a4b6212182804ed248705a66dfae8ba0706465372",
+        "compiled_sha256": "fe68ebb357b48fd8f7e835f3ac9b15ee87b19d92c744a0ed718ef8545fa4fd95",
+        "target_sha256": "fe68ebb357b48fd8f7e835f3ac9b15ee87b19d92c744a0ed718ef8545fa4fd95",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "title.unlink_0e4",
+      "status": "FUNCTION_MATCH",
+      "name_status": "provisional semantic/offset label",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x98a0",
+      "size": 80,
+      "body_size": 74,
+      "source": "src/title/pilot.c",
+      "symbol": "_unlink_0e4",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Flag-guarded list removal and clearing two pointer fields.",
+      "boundary": "Complete /Gy COMDAT: body plus original NOP alignment to next 16-byte boundary.",
+      "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "b52f52a2e17d2fc7bb26951a4b6212182804ed248705a66dfae8ba0706465372",
+        "compiled_sha256": "1fda9bbdff578bced2106f579ffc9d474dff091fae74c33d3233a30ba3f9ad75",
+        "target_sha256": "1fda9bbdff578bced2106f579ffc9d474dff091fae74c33d3233a30ba3f9ad75",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "title.make_colour",
+      "status": "FUNCTION_MATCH",
+      "name_status": "provisional semantic/offset label",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x189a0",
+      "size": 64,
+      "body_size": 60,
+      "source": "src/title/pilot.c",
+      "symbol": "_make_colour",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Unsigned short load, retained signed lower clamp, upper clamp, packed primitive colour and flag.",
+      "boundary": "Complete /Gy COMDAT: body plus original NOP alignment to next 16-byte boundary.",
+      "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "b52f52a2e17d2fc7bb26951a4b6212182804ed248705a66dfae8ba0706465372",
+        "compiled_sha256": "d282b6417d6da950922d67a163d4bcac20698c1993c851d08c335d477d12699a",
+        "target_sha256": "d282b6417d6da950922d67a163d4bcac20698c1993c851d08c335d477d12699a",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "title.sentinel_count",
+      "status": "FUNCTION_MATCH",
+      "name_status": "provisional semantic/offset label",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0xcee0",
+      "size": 32,
+      "body_size": 26,
+      "source": "src/title/pilot.c",
+      "symbol": "_sentinel_count",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Signed short sentinel loop, returning count minus one.",
+      "boundary": "Complete /Gy COMDAT: body plus original NOP alignment to next 16-byte boundary.",
+      "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "b52f52a2e17d2fc7bb26951a4b6212182804ed248705a66dfae8ba0706465372",
+        "compiled_sha256": "2cc6d8c3ac6ca356cac20f4c2e8798e6e49c2167c612036cca94b66cdcb8128b",
+        "target_sha256": "2cc6d8c3ac6ca356cac20f4c2e8798e6e49c2167c612036cca94b66cdcb8128b",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "title.loop_calls",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional semantic/address label",
+      "source": "calibration/title_control.c",
+      "symbol": "_title_4a10",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x4a10",
+      "size": 48,
+      "body_size": 43,
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Exact only after independent REL32 diagnostic resolution; two unresolved calls. See evidence/toolchain_calibration.json."
+    },
+    {
+      "id": "title.switch_calls",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional semantic/address label",
+      "source": "calibration/title_control.c",
+      "symbol": "_title_6430",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x6430",
+      "size": 80,
+      "body_size": 71,
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Exact only after independent REL32 diagnostic resolution; eight unresolved calls. See evidence/toolchain_calibration.json."
+    },
+    {
+      "id": "title.decimal_digits",
+      "status": "RECONSTRUCTED",
+      "name_status": "provisional semantic/address label",
+      "source": "calibration/title_digits.c",
+      "symbol": "_set_decimal_digits",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x1a2c0",
+      "size": 224,
+      "body_size": 219,
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Larger integer arithmetic and control-flow hypothesis; /O2 emits240 bytes vs224. Register allocation and arithmetic scheduling differ. No exact claim."
+    }
+  ]
+}

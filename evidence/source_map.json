@@ -1,0 +1,632 @@
+{
+  "schema_version": 1,
+  "scope": "Reviewed initial PC architecture/source-provenance evidence. Not function recovery status; recovery.json is authoritative for that.",
+  "address_convention": "All addresses are module-relative RVAs; original image bases are in manifest/PE metadata.",
+  "limitations": [
+    "P:\\SRC paths have no .c/.cpp suffix: they support a historical hierarchy/database naming scheme, not proven translation-unit filenames.",
+    "Function-like diagnostic names are stronger semantic labels than address-only placeholders but still need boundary/caller review.",
+    "No PDB/CodeView/debug-directory or COFF symbol table survives in the four installed PE files.",
+    "No trustworthy compiler build number is embedded; linker 5.0 is a family clue. Exact compiler-patch identification remains experimental."
+  ],
+  "modules": [
+    {
+      "file": "work/discs/pc_install/HERCULES.EXE",
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "role_hypothesis": "Windows platform shell, static MFC UI, DirectDraw/DirectSound/WinMM, resource/archive I/O and DLL loading",
+      "exports": [],
+      "source_tree_or_database_path_evidence": [
+        {
+          "rva": "0x35130",
+          "value": "\\ENGINE3\\ENGINE\\ENGINE3"
+        },
+        {
+          "rva": "0x35148",
+          "value": "\\ENGINE1\\ENGINE\\ENGINE1"
+        },
+        {
+          "rva": "0x35160",
+          "value": "\\TITLE\\ENGINE\\TITLE"
+        },
+        {
+          "rva": "0x3687c",
+          "value": "m:\\pc\\eng3\\release\\eng3.dll"
+        },
+        {
+          "rva": "0x368a0",
+          "value": "m:\\pc\\eng1\\release\\eng1.dll"
+        },
+        {
+          "rva": "0x368c4",
+          "value": "m:\\pc\\title\\release\\title.dll"
+        }
+      ],
+      "provenance": "Extracted from immutable PC CD installer. Installed EXE differs by one byte at file offset0x94b0 and is retained as variant evidence only."
+    },
+    {
+      "file": "assets/pc/HERCULES/ENG1.DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "role_hypothesis": "Main engine family; SRC1/HERO, SRC1/ALIEN1, SRC1/ALIEN2 and SRC1/BOSS naming evidence",
+      "exports": [
+        {
+          "name": "PC_DLLEngineMain",
+          "ordinal": 1,
+          "rva": 180608,
+          "forwarder": null
+        }
+      ],
+      "source_tree_or_database_path_evidence": [
+        {
+          "rva": "0x4dabc",
+          "value": "\\TITLE\\ENGINE\\TITLE"
+        },
+        {
+          "rva": "0x4dad0",
+          "value": "\\ENGINE1\\ENGINE\\ENGINE1"
+        },
+        {
+          "rva": "0x4dae8",
+          "value": "\\ENGINE3\\ENGINE\\ENGINE3"
+        },
+        {
+          "rva": "0x5d534",
+          "value": "P:\\SRC1\\BOSS\\HADES"
+        },
+        {
+          "rva": "0x5d548",
+          "value": "P:\\SRC1\\BOSS\\HYDRA"
+        },
+        {
+          "rva": "0x5d55c",
+          "value": "P:\\SRC1\\BOSS\\SKELWAR"
+        },
+        {
+          "rva": "0x5d574",
+          "value": "P:\\SRC1\\BOSS\\MEDUSA"
+        },
+        {
+          "rva": "0x5d588",
+          "value": "P:\\SRC1\\ALIEN2\\Meg"
+        },
+        {
+          "rva": "0x5d59c",
+          "value": "P:\\SRC1\\ALIEN2\\NESSUS\\Defeat"
+        },
+        {
+          "rva": "0x5d5bc",
+          "value": "P:\\SRC1\\ALIEN2\\NESSUS\\Finish"
+        },
+        {
+          "rva": "0x5d5dc",
+          "value": "P:\\SRC1\\ALIEN2\\NESSUS\\Reject"
+        },
+        {
+          "rva": "0x5d5fc",
+          "value": "P:\\SRC1\\ALIEN2\\NESSUS\\Ride"
+        },
+        {
+          "rva": "0x5d618",
+          "value": "P:\\SRC1\\ALIEN2\\NESSUS\\Look"
+        },
+        {
+          "rva": "0x5d634",
+          "value": "P:\\SRC1\\ALIEN2\\NESSUS\\Kick"
+        },
+        {
+          "rva": "0x5d650",
+          "value": "P:\\SRC1\\ALIEN2\\NESSUS\\Punch"
+        },
+        {
+          "rva": "0x5d66c",
+          "value": "P:\\SRC1\\ALIEN2\\NESSUS\\Basic"
+        },
+        {
+          "rva": "0x5d688",
+          "value": "P:\\SRC1\\ALIEN2\\Merv"
+        },
+        {
+          "rva": "0x5d69c",
+          "value": "P:\\SRC1\\ALIEN2\\Grif"
+        },
+        {
+          "rva": "0x5d6b0",
+          "value": "P:\\SRC1\\ALIEN2\\Pig"
+        },
+        {
+          "rva": "0x5d6c4",
+          "value": "P:\\SRC1\\ALIEN2\\Spy"
+        },
+        {
+          "rva": "0x5d6d8",
+          "value": "P:\\SRC1\\ALIEN2\\Harp"
+        },
+        {
+          "rva": "0x5d6ec",
+          "value": "P:\\SRC1\\ALIEN2\\RtRock"
+        },
+        {
+          "rva": "0x5d704",
+          "value": "P:\\SRC1\\ALIEN2\\Zeus"
+        },
+        {
+          "rva": "0x5d718",
+          "value": "P:\\SRC1\\ALIEN2\\Griffon"
+        },
+        {
+          "rva": "0x5d730",
+          "value": "P:\\SRC1\\ALIEN2\\RcRock"
+        },
+        {
+          "rva": "0x5d748",
+          "value": "P:\\SRC1\\ALIEN2\\Water"
+        },
+        {
+          "rva": "0x5d760",
+          "value": "P:\\SRC1\\ALIEN2\\Bacchus"
+        },
+        {
+          "rva": "0x5d778",
+          "value": "P:\\SRC1\\ALIEN2\\Athena"
+        },
+        {
+          "rva": "0x5d790",
+          "value": "P:\\SRC1\\ALIEN2\\Ares"
+        },
+        {
+          "rva": "0x5d7a4",
+          "value": "P:\\SRC1\\ALIEN2\\Apollo"
+        },
+        {
+          "rva": "0x5d7bc",
+          "value": "P:\\SRC1\\ALIEN2\\Aphrod"
+        },
+        {
+          "rva": "0x5d7d4",
+          "value": "P:\\SRC1\\ALIEN2\\TornadoT"
+        },
+        {
+          "rva": "0x5d7ec",
+          "value": "P:\\SRC1\\ALIEN2\\LavaT"
+        },
+        {
+          "rva": "0x5d804",
+          "value": "P:\\SRC1\\ALIEN2\\IceT"
+        },
+        {
+          "rva": "0x5d818",
+          "value": "P:\\SRC1\\ALIEN2\\RockT"
+        },
+        {
+          "rva": "0x5d830",
+          "value": "P:\\SRC1\\ALIEN2\\PEGASUS"
+        },
+        {
+          "rva": "0x5d848",
+          "value": "P:\\SRC1\\ALIEN2\\FPHIL"
+        },
+        {
+          "rva": "0x5d860",
+          "value": "P:\\SRC1\\ALIEN2\\STYBIRD"
+        },
+        {
+          "rva": "0x5d878",
+          "value": "P:\\SRC1\\ALIEN2\\ALEXFISH"
+        },
+        {
+          "rva": "0x5d890",
+          "value": "P:\\SRC1\\ALIEN2\\ARCHERC"
+        },
+        {
+          "rva": "0x5d8a8",
+          "value": "P:\\SRC1\\ALIEN2\\WRESTLEC"
+        },
+        {
+          "rva": "0x5d8c0",
+          "value": "P:\\SRC1\\ALIEN2\\ROCKC"
+        },
+        {
+          "rva": "0x5d8d8",
+          "value": "P:\\SRC1\\ALIEN1\\HARPIES"
+        },
+        {
+          "rva": "0x5d8f0",
+          "value": "P:\\SRC1\\ALIEN1\\MINOTAUR"
+        },
+        {
+          "rva": "0x5d908",
+          "value": "P:\\SRC1\\ALIEN1\\ALIEN1"
+        },
+        {
+          "rva": "0x5d920",
+          "value": "P:\\SRC1\\ALIEN1\\GENERIC1"
+        },
+        {
+          "rva": "0x5d938",
+          "value": "P:\\SRC1\\ALIEN1\\SKELETON"
+        },
+        {
+          "rva": "0x5d950",
+          "value": "P:\\SRC1\\ALIEN1\\FANGIRLS"
+        },
+        {
+          "rva": "0x5d968",
+          "value": "P:\\SRC1\\ALIEN1\\TRAINING\\TRAINFX"
+        },
+        {
+          "rva": "0x5d988",
+          "value": "P:\\SRC1\\ALIEN1\\TRAINING\\PEG"
+        },
+        {
+          "rva": "0x5d9a4",
+          "value": "P:\\SRC1\\ALIEN1\\TRAINING\\SHARK"
+        },
+        {
+          "rva": "0x5d9c4",
+          "value": "P:\\SRC1\\ALIEN1\\TRAINING\\TOPS"
+        },
+        {
+          "rva": "0x5d9e4",
+          "value": "P:\\SRC1\\ALIEN1\\TRAINING"
+        },
+        {
+          "rva": "0x5d9fc",
+          "value": "P:\\SRC1\\ALIEN1\\THEBIANS\\THHAFOOD"
+        },
+        {
+          "rva": "0x5da20",
+          "value": "P:\\SRC1\\ALIEN1\\THEBIANS\\THCHAR"
+        },
+        {
+          "rva": "0x5da40",
+          "value": "P:\\SRC1\\ALIEN1\\THEBIANS\\THEWGUY"
+        },
+        {
+          "rva": "0x5da60",
+          "value": "P:\\SRC1\\ALIEN1\\THEBIANS\\THUGS"
+        },
+        {
+          "rva": "0x5da80",
+          "value": "P:\\SRC1\\ALIEN1\\THEBIANS\\THBURNT"
+        },
+        {
+          "rva": "0x5daa0",
+          "value": "P:\\SRC1\\ALIEN1\\THEBIANS\\THFLASH"
+        },
+        {
+          "rva": "0x5dac0",
+          "value": "P:\\SRC1\\ALIEN1\\THEBIANS\\THOLD"
+        },
+        {
+          "rva": "0x5dae0",
+          "value": "P:\\SRC1\\ALIEN1\\THEBIANS\\THFAT"
+        },
+        {
+          "rva": "0x5db00",
+          "value": "P:\\SRC1\\ALIEN1\\THEBIANS\\THEQ"
+        },
+        {
+          "rva": "0x5db20",
+          "value": "P:\\SRC1\\ALIEN1\\THEBIANS\\THFLOOD"
+        },
+        {
+          "rva": "0x5db40",
+          "value": "P:\\SRC1\\ALIEN1\\THEBIANS\\THSNOW"
+        },
+        {
+          "rva": "0x5db60",
+          "value": "P:\\SRC1\\ALIEN1\\PANIC"
+        },
+        {
+          "rva": "0x5db78",
+          "value": "P:\\SRC1\\ALIEN1\\PAIN"
+        },
+        {
+          "rva": "0x5db8c",
+          "value": "P:\\SRC1\\ALIEN1\\PHIL\\DANCE"
+        },
+        {
+          "rva": "0x5dba8",
+          "value": "P:\\SRC1\\ALIEN1\\PHIL\\MACHINE"
+        },
+        {
+          "rva": "0x5dbc4",
+          "value": "P:\\SRC1\\ALIEN1\\PHIL\\REACT"
+        },
+        {
+          "rva": "0x5dbe0",
+          "value": "P:\\SRC1\\ALIEN1\\PHIL\\CLIMB"
+        },
+        {
+          "rva": "0x5dbfc",
+          "value": "P:\\SRC1\\ALIEN1\\PHIL"
+        },
+        {
+          "rva": "0x5dc10",
+          "value": "P:\\SRC1\\HERO\\XTRA_DB1\\LETTERS"
+        },
+        {
+          "rva": "0x5dc30",
+          "value": "P:\\SRC1\\HERO\\XTRA_DB1\\LETTERL"
+        },
+        {
+          "rva": "0x5dc50",
+          "value": "P:\\SRC1\\HERO\\XTRA_DB1\\LETTERU"
+        },
+        {
+          "rva": "0x5dc70",
+          "value": "P:\\SRC1\\HERO\\XTRA_DB1\\LETTERC"
+        },
+        {
+          "rva": "0x5dc90",
+          "value": "P:\\SRC1\\HERO\\XTRA_DB1\\LETTERR"
+        },
+        {
+          "rva": "0x5dcb0",
+          "value": "P:\\SRC1\\HERO\\XTRA_DB1\\LETTERE"
+        },
+        {
+          "rva": "0x5dcd0",
+          "value": "P:\\SRC1\\HERO\\XTRA_DB1\\LETTERH"
+        },
+        {
+          "rva": "0x5dcf0",
+          "value": "P:\\SRC1\\HERO\\HERCULES\\HC_DUNIT"
+        },
+        {
+          "rva": "0x5dd10",
+          "value": "P:\\SRC1\\HERO\\HERCULES\\HC_DIE"
+        },
+        {
+          "rva": "0x5dd30",
+          "value": "P:\\SRC1\\HERO\\HERCULES\\HC_THROW"
+        },
+        {
+          "rva": "0x5dd50",
+          "value": "P:\\SRC1\\HERO\\XTRA_DB1"
+        },
+        {
+          "rva": "0x5dd68",
+          "value": "P:\\SRC1\\HERO\\HERCULES"
+        }
+      ]
+    },
+    {
+      "file": "assets/pc/HERCULES/ENG3.DLL",
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "role_hypothesis": "Separate engine family; SRC3/HERO and SRC3/ALIEN1 naming evidence",
+      "exports": [
+        {
+          "name": "PC_DLLEngineMain",
+          "ordinal": 1,
+          "rva": 129072,
+          "forwarder": null
+        }
+      ],
+      "source_tree_or_database_path_evidence": [
+        {
+          "rva": "0x35340",
+          "value": "\\TITLE\\ENGINE\\TITLE"
+        },
+        {
+          "rva": "0x35354",
+          "value": "\\ENGINE1\\ENGINE\\ENGINE1"
+        },
+        {
+          "rva": "0x3536c",
+          "value": "\\ENGINE3\\ENGINE\\ENGINE3"
+        },
+        {
+          "rva": "0x39610",
+          "value": "P:\\SRC3\\ALIEN1\\SOULS"
+        },
+        {
+          "rva": "0x39628",
+          "value": "P:\\SRC3\\HERO\\LETTERS"
+        },
+        {
+          "rva": "0x39640",
+          "value": "P:\\SRC3\\ALIEN1\\CYEND"
+        },
+        {
+          "rva": "0x39658",
+          "value": "P:\\SRC3\\ALIEN1\\PEOPLE"
+        },
+        {
+          "rva": "0x39670",
+          "value": "P:\\SRC3\\ALIEN1\\CYCLOPS"
+        },
+        {
+          "rva": "0x39688",
+          "value": "P:\\SRC3\\ALIEN1\\TORMENT"
+        },
+        {
+          "rva": "0x396a0",
+          "value": "P:\\SRC3\\ALIEN1\\ALIEN1"
+        },
+        {
+          "rva": "0x396b8",
+          "value": "P:\\SRC3\\HERO\\XTRA_DB1"
+        },
+        {
+          "rva": "0x396d0",
+          "value": "P:\\SRC3\\HERO\\HERCULES"
+        }
+      ]
+    },
+    {
+      "file": "assets/pc/HERCULES/TITLE.DLL",
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "role_hypothesis": "Title/menu, password, credits, tally, save/card-era logic and shared engine utilities",
+      "exports": [
+        {
+          "name": "PC_DLLEngineMain",
+          "ordinal": 1,
+          "rva": 49648,
+          "forwarder": null
+        }
+      ],
+      "source_tree_or_database_path_evidence": [
+        {
+          "rva": "0x2323c",
+          "value": "\\SRC3\\ENGINE\\ENGINE3"
+        },
+        {
+          "rva": "0x23254",
+          "value": "\\SRC1\\ENGINE\\ENGINE1"
+        },
+        {
+          "rva": "0x23604",
+          "value": "\\SRC3\\ENGINE\\"
+        },
+        {
+          "rva": "0x23640",
+          "value": "\\SRC1\\ENGINE\\"
+        }
+      ]
+    }
+  ],
+  "interface": {
+    "confidence": "verified instruction evidence",
+    "module": "TITLE.DLL",
+    "export": "PC_DLLEngineMain",
+    "rva": "0xc1f0",
+    "end_before_padding": "0xc269",
+    "table_copy_rva": "0xc203",
+    "table_rva": "0x2bb40",
+    "table_dwords": 250,
+    "magic": "0x5ac00cac",
+    "magic_check_rva": "0xc211",
+    "state_pointer_slot": 1,
+    "wrappers": {
+      "range_start_rva": "0xc270",
+      "example_one_argument_rva": "0xc310",
+      "example_callback_slot_rva": "0x2bb74",
+      "example_vector_callback_rva": "0xc7e0",
+      "example_vector_slot_rva": "0x2bcf8"
+    },
+    "notes": [
+      "First-call path copies 1000 bytes of caller-supplied data/function pointers then checks magic.",
+      "A large adjacent family of cdecl forwarding wrappers calls or tail-jumps through this table.",
+      "The zero-check loop at c21d repeatedly tests the loaded first word; do not silently reinterpret it as checking all 250 words.",
+      "Caller owns platform implementation; export also calls title scheduler/game logic."
+    ]
+  },
+  "library_evidence": [
+    {
+      "module": "HERCULES.EXE",
+      "kind": "static MFC 4.2-family",
+      "confidence": "strong",
+      "evidence": [
+        {
+          "rva": "0x30320",
+          "value": "AfxWnd42s"
+        },
+        {
+          "rva": "0x30330",
+          "value": "AfxControlBar42s"
+        },
+        {
+          "rva": "0x30348",
+          "value": "AfxMDIFrame42s"
+        },
+        {
+          "rva": "0x3e0a8",
+          "value": ".?AVCWinApp@@"
+        }
+      ],
+      "notes": "39 .?AV class descriptors found; MFC DLL absent from imports. Exact MFC library archive/member matching pending."
+    },
+    {
+      "modules": [
+        "HERCULES.EXE",
+        "ENG1.DLL",
+        "ENG3.DLL",
+        "TITLE.DLL"
+      ],
+      "kind": "statically linked Microsoft CRT",
+      "confidence": "strong",
+      "evidence": "Microsoft Visual C++ Runtime Library/R60xx strings plus kernel/TLS/heap/import patterns, no imported MSVCRT library"
+    },
+    {
+      "module": "TITLE.DLL",
+      "kind": "CRT rand candidate",
+      "rva": "0x1d7b0",
+      "confidence": "strong algorithm fingerprint",
+      "evidence": "TLS data access, state = state * 214013 + 2531011 at offset0x14, return (state >>16)&0x7fff",
+      "notes": "Treat as library code. Member-level byte confirmation belongs to toolchain calibration."
+    }
+  ],
+  "named_logic_evidence": [
+    {
+      "module": "TITLE.DLL",
+      "name": "RemoveFxLinks",
+      "function_rva": "0x5a70",
+      "diagnostic_rva": "0x221c4",
+      "diagnostic_reference_rva": "0x5a82",
+      "confidence": "strong; bounded disassembly inspected"
+    },
+    {
+      "module": "TITLE.DLL",
+      "name": "RemoveFxIdLinks",
+      "diagnostic_rva": "0x221dc",
+      "diagnostic_reference_rva": "0x5b14",
+      "confidence": "diagnostic xref, function boundary pending"
+    },
+    {
+      "module": "TITLE.DLL",
+      "name": "LinkedSoundFx",
+      "diagnostic_rva": "0x221a8",
+      "diagnostic_reference_rva": "0x553c",
+      "confidence": "diagnostic xref, function boundary pending"
+    },
+    {
+      "module": "TITLE.DLL",
+      "name": "ClearAllSoundFx_Excpt",
+      "diagnostic_rva": "0x221f8",
+      "diagnostic_reference_rva": "0x5be3",
+      "confidence": "diagnostic xref, function boundary pending"
+    },
+    {
+      "module": "TITLE.DLL",
+      "name": "LSGameMemoryCardLoop",
+      "diagnostic_rva": "0x25f24",
+      "diagnostic_reference_rva": "0x11001",
+      "confidence": "diagnostic xref, function boundary pending"
+    }
+  ],
+  "console_lineage_evidence": [
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x23498",
+      "value": "bu00:B-sces-00891",
+      "interpretation": "PSX-style memory-card filename; not evidence that this PC build is that regional console release"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x2214c",
+      "value": "\\ANIMPSX.BIN"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x3666c",
+      "value": "o:\\cyclops\\map_psx.bin"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x253a4",
+      "value": "\\MV\\M26.;1",
+      "interpretation": "console/CD ISO-style movie naming survives"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x25e90",
+      "value": "Detected a formatted card",
+      "interpretation": "save/menu diagnostics retain memory-card logic"
+    }
+  ],
+  "regenerate_queries": [
+    "python scripts/archaeology.py index",
+    "python scripts/archaeology.py strings \"P:\\SRC\"",
+    "python scripts/archaeology.py strings \"SoundFx\" --module TITLE.DLL",
+    "python scripts/archaeology.py context TITLE.DLL 0xc1f0 0x80"
+  ]
+}

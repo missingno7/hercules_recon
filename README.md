@@ -31,7 +31,7 @@ $python = 'C:\Users\Jiri\AppData\Local\Programs\Python\Python312\python.exe'
 & $python scripts/inventory.py --verify
 & $python scripts/archaeology.py index
 & $python scripts/archaeology.py strings 'ENGINE' --module TITLE.DLL
-& $python scripts/archaeology.py context TITLE.DLL 0x97b0 64
+& $python scripts/archaeology.py function title.unlink_12c
 & $python scripts/match.py verify
 ```
 

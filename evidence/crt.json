@@ -1,0 +1,429 @@
+{
+  "schema_version": 1,
+  "target": "assets/pc/HERCULES/TITLE.DLL",
+  "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+  "conclusion": "TITLE uses Microsoft static multithreaded CRT (LIBCMT /MT family). RTM and SP2 selected rand/tidtable contributions and relocations are identical; complete member hashes differ and patch revision remains unresolved.",
+  "scope": "Library identification only; no copied library code is promoted as reconstructed source and no FUNCTION_MATCH state is awarded.",
+  "method": "Extract exact members with pinned RTM lib.exe /nologo /extract:build\\intel\\mt_obj\\rand.obj /out:<scratch> <libcmt.lib>; similarly tidtable.obj and st_obj/rand.obj from libc.lib. Read independently delimited COFF contributions. Compare every nonrelocation byte including padding; inspect all relocation operands. Import identities checked against PE IAT; internal/data identities remain fingerprint inferences.",
+  "comparisons": [
+    {
+      "toolchain": "rtm-mt",
+      "member": "rtm-mt-rand.obj",
+      "symbol": "_rand",
+      "target_rva": "0x1d7b0",
+      "contribution_size": 48,
+      "member_sha256": "d02d282d74293e0030f86506ed1d5ec224fc115e8d435fe813a012eb47866180",
+      "object_contribution_sha256": "3bc8b61265fb486ac43c5b9b62d5bc0977a214f337df8e4711f84f97ff37a67e",
+      "oracle_contribution_sha256": "c8ca22d14762432cb33d7cfce85338e45a5df8e7b81991fabe576046fb986915",
+      "nonrelocation_different_bytes": 0,
+      "relocations": [
+        {
+          "offset": 1,
+          "symbol": "__getptd",
+          "type": 20,
+          "oracle_destination": "0x1daf0",
+          "basis": "oracle direct call; symbol identity inferred from library fingerprint"
+        }
+      ]
+    },
+    {
+      "toolchain": "sp2-mt",
+      "member": "sp2-mt-rand.obj",
+      "symbol": "_rand",
+      "target_rva": "0x1d7b0",
+      "contribution_size": 48,
+      "member_sha256": "3b6f5649b130feab578383b169a69de6b68bc2cb5047f6655711fa0d059b75f4",
+      "object_contribution_sha256": "3bc8b61265fb486ac43c5b9b62d5bc0977a214f337df8e4711f84f97ff37a67e",
+      "oracle_contribution_sha256": "c8ca22d14762432cb33d7cfce85338e45a5df8e7b81991fabe576046fb986915",
+      "nonrelocation_different_bytes": 0,
+      "relocations": [
+        {
+          "offset": 1,
+          "symbol": "__getptd",
+          "type": 20,
+          "oracle_destination": "0x1daf0",
+          "basis": "oracle direct call; symbol identity inferred from library fingerprint"
+        }
+      ]
+    },
+    {
+      "toolchain": "rtm-st",
+      "member": "rtm-st-rand.obj",
+      "symbol": "_rand",
+      "target_rva": "0x1d7b0",
+      "contribution_size": 48,
+      "member_sha256": "47ae6a31112698af9348c8a63703be6326e493e5d23deeca6b021a7ac7297bfe",
+      "object_contribution_sha256": "749b65888b2952cf2091b9ad523edc70209eee4e93a1b30ac9605fcf9e8104b2",
+      "oracle_contribution_sha256": "c8ca22d14762432cb33d7cfce85338e45a5df8e7b81991fabe576046fb986915",
+      "nonrelocation_different_bytes": 35,
+      "relocations": [
+        {
+          "offset": 1,
+          "symbol": "_holdrand$S191",
+          "type": 6,
+          "basis": "Candidate relocation only; corresponding oracle operand is not established because this function code differs."
+        },
+        {
+          "offset": 29,
+          "symbol": "_holdrand$S191",
+          "type": 6,
+          "basis": "Candidate relocation only; corresponding oracle operand is not established because this function code differs."
+        }
+      ]
+    },
+    {
+      "toolchain": "rtm-mt",
+      "member": "rtm-mt-tidtable.obj",
+      "symbol": "__getptd",
+      "target_rva": "0x1daf0",
+      "contribution_size": 128,
+      "member_sha256": "3298314af911a3d980c1d0893cf21abed2acbcbe20b01a9e78c092ba910837b9",
+      "object_contribution_sha256": "df10bf66ae50b5a7451bae8af2aa716a08f193f99690a08b1bdba0e9467b1226",
+      "oracle_contribution_sha256": "efb9ff90b4f973e0cc5978fa4b76bc22345009f80299ac2130f8e56cee338abe",
+      "nonrelocation_different_bytes": 0,
+      "relocations": [
+        {
+          "offset": 4,
+          "symbol": "__imp__GetLastError@0",
+          "type": 6,
+          "oracle_destination": "0x10030108",
+          "basis": "independently verified PE import-table symbol"
+        },
+        {
+          "offset": 11,
+          "symbol": "___tlsindex",
+          "type": 6,
+          "oracle_destination": "0x100269cc",
+          "basis": "oracle data address; symbol identity inferred from library fingerprint"
+        },
+        {
+          "offset": 18,
+          "symbol": "__imp__TlsGetValue@4",
+          "type": 6,
+          "oracle_destination": "0x10030104",
+          "basis": "independently verified PE import-table symbol"
+        },
+        {
+          "offset": 33,
+          "symbol": "_calloc",
+          "type": 20,
+          "oracle_destination": "0x1eab0",
+          "basis": "oracle direct call; symbol identity inferred from library fingerprint"
+        },
+        {
+          "offset": 48,
+          "symbol": "___tlsindex",
+          "type": 6,
+          "oracle_destination": "0x100269cc",
+          "basis": "oracle data address; symbol identity inferred from library fingerprint"
+        },
+        {
+          "offset": 56,
+          "symbol": "__imp__TlsSetValue@8",
+          "type": 6,
+          "oracle_destination": "0x100300f4",
+          "basis": "independently verified PE import-table symbol"
+        },
+        {
+          "offset": 66,
+          "symbol": "__initptd",
+          "type": 20,
+          "oracle_destination": "0x1dad0",
+          "basis": "oracle direct call; symbol identity inferred from library fingerprint"
+        },
+        {
+          "offset": 75,
+          "symbol": "__imp__GetCurrentThreadId@0",
+          "type": 6,
+          "oracle_destination": "0x100300f0",
+          "basis": "independently verified PE import-table symbol"
+        },
+        {
+          "offset": 91,
+          "symbol": "__imp__SetLastError@4",
+          "type": 6,
+          "oracle_destination": "0x10030100",
+          "basis": "independently verified PE import-table symbol"
+        },
+        {
+          "offset": 103,
+          "symbol": "__amsg_exit",
+          "type": 20,
+          "oracle_destination": "0x1da00",
+          "basis": "oracle direct call; symbol identity inferred from library fingerprint"
+        },
+        {
+          "offset": 113,
+          "symbol": "__imp__SetLastError@4",
+          "type": 6,
+          "oracle_destination": "0x10030100",
+          "basis": "independently verified PE import-table symbol"
+        }
+      ]
+    },
+    {
+      "toolchain": "sp2-mt",
+      "member": "sp2-mt-tidtable.obj",
+      "symbol": "__getptd",
+      "target_rva": "0x1daf0",
+      "contribution_size": 128,
+      "member_sha256": "498a125ef7988979f25bdc9eab35b68eee8fdf5fdc9fd686ae562b827b5af5f9",
+      "object_contribution_sha256": "df10bf66ae50b5a7451bae8af2aa716a08f193f99690a08b1bdba0e9467b1226",
+      "oracle_contribution_sha256": "efb9ff90b4f973e0cc5978fa4b76bc22345009f80299ac2130f8e56cee338abe",
+      "nonrelocation_different_bytes": 0,
+      "relocations": [
+        {
+          "offset": 4,
+          "symbol": "__imp__GetLastError@0",
+          "type": 6,
+          "oracle_destination": "0x10030108",
+          "basis": "independently verified PE import-table symbol"
+        },
+        {
+          "offset": 11,
+          "symbol": "___tlsindex",
+          "type": 6,
+          "oracle_destination": "0x100269cc",
+          "basis": "oracle data address; symbol identity inferred from library fingerprint"
+        },
+        {
+          "offset": 18,
+          "symbol": "__imp__TlsGetValue@4",
+          "type": 6,
+          "oracle_destination": "0x10030104",
+          "basis": "independently verified PE import-table symbol"
+        },
+        {
+          "offset": 33,
+          "symbol": "_calloc",
+          "type": 20,
+          "oracle_destination": "0x1eab0",
+          "basis": "oracle direct call; symbol identity inferred from library fingerprint"
+        },
+        {
+          "offset": 48,
+          "symbol": "___tlsindex",
+          "type": 6,
+          "oracle_destination": "0x100269cc",
+          "basis": "oracle data address; symbol identity inferred from library fingerprint"
+        },
+        {
+          "offset": 56,
+          "symbol": "__imp__TlsSetValue@8",
+          "type": 6,
+          "oracle_destination": "0x100300f4",
+          "basis": "independently verified PE import-table symbol"
+        },
+        {
+          "offset": 66,
+          "symbol": "__initptd",
+          "type": 20,
+          "oracle_destination": "0x1dad0",
+          "basis": "oracle direct call; symbol identity inferred from library fingerprint"
+        },
+        {
+          "offset": 75,
+          "symbol": "__imp__GetCurrentThreadId@0",
+          "type": 6,
+          "oracle_destination": "0x100300f0",
+          "basis": "independently verified PE import-table symbol"
+        },
+        {
+          "offset": 91,
+          "symbol": "__imp__SetLastError@4",
+          "type": 6,
+          "oracle_destination": "0x10030100",
+          "basis": "independently verified PE import-table symbol"
+        },
+        {
+          "offset": 103,
+          "symbol": "__amsg_exit",
+          "type": 20,
+          "oracle_destination": "0x1da00",
+          "basis": "oracle direct call; symbol identity inferred from library fingerprint"
+        },
+        {
+          "offset": 113,
+          "symbol": "__imp__SetLastError@4",
+          "type": 6,
+          "oracle_destination": "0x10030100",
+          "basis": "independently verified PE import-table symbol"
+        }
+      ]
+    },
+    {
+      "toolchain": "rtm-mt",
+      "member": "rtm-mt-tidtable.obj",
+      "symbol": "__initptd",
+      "target_rva": "0x1dad0",
+      "contribution_size": 32,
+      "member_sha256": "3298314af911a3d980c1d0893cf21abed2acbcbe20b01a9e78c092ba910837b9",
+      "object_contribution_sha256": "fafbc224ed2b230294200a16ba67ee3b9331681088b5fd6635d32974e68d6ba4",
+      "oracle_contribution_sha256": "349e86c1ef30fdf1fe951f7bfe60b8053195d0fc1a9d0337e0fac19759d10110",
+      "nonrelocation_different_bytes": 0,
+      "relocations": [
+        {
+          "offset": 7,
+          "symbol": "__XcptActTab",
+          "type": 6,
+          "oracle_destination": "0x10026c48",
+          "basis": "oracle data address; symbol identity inferred from library fingerprint"
+        }
+      ]
+    },
+    {
+      "toolchain": "sp2-mt",
+      "member": "sp2-mt-tidtable.obj",
+      "symbol": "__initptd",
+      "target_rva": "0x1dad0",
+      "contribution_size": 32,
+      "member_sha256": "498a125ef7988979f25bdc9eab35b68eee8fdf5fdc9fd686ae562b827b5af5f9",
+      "object_contribution_sha256": "fafbc224ed2b230294200a16ba67ee3b9331681088b5fd6635d32974e68d6ba4",
+      "oracle_contribution_sha256": "349e86c1ef30fdf1fe951f7bfe60b8053195d0fc1a9d0337e0fac19759d10110",
+      "nonrelocation_different_bytes": 0,
+      "relocations": [
+        {
+          "offset": 7,
+          "symbol": "__XcptActTab",
+          "type": 6,
+          "oracle_destination": "0x10026c48",
+          "basis": "oracle data address; symbol identity inferred from library fingerprint"
+        }
+      ]
+    }
+  ],
+  "bundled_directx": [
+    {
+      "toolchain": "msvc5_rtm",
+      "files": [
+        {
+          "path": "include/ddraw.h",
+          "size": 102313,
+          "sha256": "fcaadaaf15d5ee85db3dd6a40f1eee2f0dd7aabcecc494579022c55d063ecf34"
+        },
+        {
+          "path": "include/dsound.h",
+          "size": 13356,
+          "sha256": "e1d10405620bf8fb08d355662c1b559b1348ae8d51ea95c38d56b6f45c68a085"
+        },
+        {
+          "path": "include/d3d.h",
+          "size": 18414,
+          "sha256": "7e0b47e62ee61ec33b6c147e59faac1fbeab66672c643f7d6b46f939f7c17afe"
+        },
+        {
+          "path": "include/d3dcaps.h",
+          "size": 13527,
+          "sha256": "b21928defb7ca29d013d21bd0d3c5b475b88378c037d374066b26023352f8685"
+        },
+        {
+          "path": "include/d3dtypes.h",
+          "size": 31957,
+          "sha256": "faa7c8bb2870b42ef0b65adf50c252ee836bc0694c54f0afb3f2eedb5afd1b62"
+        },
+        {
+          "path": "include/d3drm.h",
+          "size": 5488,
+          "sha256": "7297a094c5fbab3b69c47e541c1d266021f1d093d5351f339866fc5f5e59b9c3"
+        },
+        {
+          "path": "include/dplay.h",
+          "size": 10913,
+          "sha256": "1f8918161fd2f2e0b0c1cac127d966cdf89c31b161fc3e5319123518a87f6c86"
+        },
+        {
+          "path": "lib/ddraw.lib",
+          "size": 19282,
+          "sha256": "d2150aeb8c09eed04a566751c98ccd1738d186d304f0268f22d5f6f655e80a97"
+        },
+        {
+          "path": "lib/dsound.lib",
+          "size": 4550,
+          "sha256": "4d6e8e1e0af841da16eb621f52ef40cab455b9bd31d4b9407a549e827d257773"
+        },
+        {
+          "path": "lib/d3drm.lib",
+          "size": 21640,
+          "sha256": "f165fd9b6e49e24a6eb4d1bff5f62953d710ed80c2be2cbdda0aba188c68a80d"
+        },
+        {
+          "path": "lib/dplay.lib",
+          "size": 3314,
+          "sha256": "c2442965d9c0dfe330554a015731c9d439a56f2af82cb2053c26d6ebf4e20a7d"
+        }
+      ],
+      "absent": [
+        "include/dinput.h",
+        "lib/dinput.lib",
+        "lib/dxguid.lib"
+      ],
+      "note": "ddraw.h declares IDirectDraw2 and IDirectDrawSurface2; no SDK release assertion or Hercules header compatibility test."
+    },
+    {
+      "toolchain": "msvc5_sp2",
+      "files": [
+        {
+          "path": "include/ddraw.h",
+          "size": 102313,
+          "sha256": "fcaadaaf15d5ee85db3dd6a40f1eee2f0dd7aabcecc494579022c55d063ecf34"
+        },
+        {
+          "path": "include/dsound.h",
+          "size": 13356,
+          "sha256": "e1d10405620bf8fb08d355662c1b559b1348ae8d51ea95c38d56b6f45c68a085"
+        },
+        {
+          "path": "include/d3d.h",
+          "size": 18414,
+          "sha256": "7e0b47e62ee61ec33b6c147e59faac1fbeab66672c643f7d6b46f939f7c17afe"
+        },
+        {
+          "path": "include/d3dcaps.h",
+          "size": 13527,
+          "sha256": "b21928defb7ca29d013d21bd0d3c5b475b88378c037d374066b26023352f8685"
+        },
+        {
+          "path": "include/d3dtypes.h",
+          "size": 31957,
+          "sha256": "faa7c8bb2870b42ef0b65adf50c252ee836bc0694c54f0afb3f2eedb5afd1b62"
+        },
+        {
+          "path": "include/d3drm.h",
+          "size": 5488,
+          "sha256": "7297a094c5fbab3b69c47e541c1d266021f1d093d5351f339866fc5f5e59b9c3"
+        },
+        {
+          "path": "include/dplay.h",
+          "size": 10913,
+          "sha256": "1f8918161fd2f2e0b0c1cac127d966cdf89c31b161fc3e5319123518a87f6c86"
+        },
+        {
+          "path": "lib/ddraw.lib",
+          "size": 19282,
+          "sha256": "d2150aeb8c09eed04a566751c98ccd1738d186d304f0268f22d5f6f655e80a97"
+        },
+        {
+          "path": "lib/dsound.lib",
+          "size": 4550,
+          "sha256": "4d6e8e1e0af841da16eb621f52ef40cab455b9bd31d4b9407a549e827d257773"
+        },
+        {
+          "path": "lib/d3drm.lib",
+          "size": 21640,
+          "sha256": "f165fd9b6e49e24a6eb4d1bff5f62953d710ed80c2be2cbdda0aba188c68a80d"
+        },
+        {
+          "path": "lib/dplay.lib",
+          "size": 3314,
+          "sha256": "c2442965d9c0dfe330554a015731c9d439a56f2af82cb2053c26d6ebf4e20a7d"
+        }
+      ],
+      "absent": [
+        "include/dinput.h",
+        "lib/dinput.lib",
+        "lib/dxguid.lib"
+      ],
+      "note": "ddraw.h declares IDirectDraw2 and IDirectDrawSurface2; no SDK release assertion or Hercules header compatibility test."
+    }
+  ]
+}
