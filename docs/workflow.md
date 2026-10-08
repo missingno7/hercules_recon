@@ -16,6 +16,26 @@ Compile broadly once, freeze exact contributions, investigate shared causes once
 and shrink to local families when common representation is stable. Relocation-only
 equals belong to the dependency/linkage problem, not an algebraic source search.
 
+For a recovered dependency family, attempt a natural historical link before
+reopening relocation-only equals. Use an explicit list of actual source providers,
+identified library inputs and frozen contribution receipts. For the frame family:
+
+```
+python scripts/dependency_link.py --plan evidence/frame_link_plan.json --output work/frame_dependency_links
+```
+
+This freshly compiles the selected units, rejects stale source/header/specification
+receipts and changed oracles, checks complete recorded contributions, then links
+without production stubs, symbol aliases or placement controls. Unresolved symbols
+are an expected diagnostic outcome. The report is disposable; it grants no recovery
+state. Review whether each error denotes a missing body, inconsistent name or
+prototype, missing data contribution, library dependency, or incorrect unit owner.
+Correct identity only with address and ABI evidence, then independently compile
+the canonical result and verify affected semantic pipelines and accepted matches.
+Coalescing two names for one cell does not provide its storage. Successful linkage
+does not prove original module layout. See `docs/frame_dependency_binding.md` for
+the first measured use and remaining blockers.
+
 ## Start and resume
 
 `python scripts/region.py packet <region>` derives a small HOT packet from the

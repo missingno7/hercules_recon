@@ -5,10 +5,10 @@
 
 extern void __cdecl dispatch_local_1f220(void);
 extern void __cdecl dispatch_local_1f320(void);
-extern void __cdecl dispatch_engine_2c3c0(void **, u32, u32);
+extern void *__cdecl engine_pool_allocate(void **, u32, u32);
 extern void __cdecl dispatch_engine_2c7e0(void);
 extern EngineNoArgCallback __cdecl dispatch_engine_2c640(EngineNoArgCallback);
-extern void __cdecl dispatch_engine_2c260(void);
+extern int __cdecl engine_file_cancel(void);
 extern void __cdecl dispatch_engine_2c280(void);
 extern void __cdecl dispatch_engine_2c2d0(void *);
 extern void __cdecl dispatch_engine_2c2e0(u32);
@@ -33,9 +33,28 @@ u8 g_dispatch_key_7286c;
 u8 *g_dispatch_frame_current_71ec4;
 u8 *g_dispatch_frame_base_71ec8;
 
-u16 g_frame_count_713b4;
-u16 g_frame_count_71432;
-u16 g_frame_count_713ba;
+#include "../calibration/frame_configuration_row.h"
+ConfigurationRow72 g_configuration_rows_68af0[9];
+unsigned char g_configuration_selected_71860;
+unsigned short g_configuration_word_71378, g_configuration_word_713c4;
+unsigned short g_configuration_word_713aa, g_configuration_word_713b8;
+unsigned short g_configuration_word_7138c, g_configuration_word_71430;
+unsigned short g_configuration_word_713a8, g_configuration_word_71308;
+unsigned short g_configuration_word_713a0, g_configuration_word_713ac;
+unsigned short g_configuration_word_713b6, g_configuration_word_71374;
+unsigned short g_configuration_word_71394, g_configuration_word_71380;
+unsigned long g_configuration_dword_71388, g_configuration_dword_71370;
+unsigned long g_configuration_dword_71390, g_configuration_dword_7137c;
+unsigned long g_configuration_dword_713a4, g_configuration_dword_7139c;
+unsigned long g_configuration_dword_713b0, g_configuration_dword_71384;
+unsigned long g_configuration_dword_713c0, g_configuration_dword_71398;
+unsigned long g_configuration_dword_713bc;
+unsigned long g_context_default_dword_721a8, g_context_default_dword_72190;
+
+
+u16 g_configuration_word_713b4;
+u16 g_configuration_word_71432;
+u16 g_configuration_word_713ba;
 void *g_frame_owner_72860;
 void *g_frame_owner_73494;
 void *g_frame_owner_734e0;
@@ -97,7 +116,6 @@ static void *descriptor_args[2];
 static void *callback0_value;
 static int setup_callback_count;
 static int cancel_callback_count;
-static int config_count;
 static int setup_calls_2f30;
 static int setup_calls_15090;
 static int setup_calls_5dc0;
@@ -143,19 +161,13 @@ static void __cdecl cleanup_failed_current(void)
     record(503);
 }
 
-void __cdecl dispatch_local_280f0(void)
-{
-    ++config_count;
-    record(10);
-}
-
-void __cdecl dispatch_engine_2c3c0(void **owner, u32 bytes, u32 flags)
+static void *__cdecl observe_allocate(void **owner, u32 bytes, u32 flags)
 {
     int index;
     index = alloc_count;
     CHECK(index < 8);
     if (index >= 8)
-        return;
+        return 0;
     alloc_slots[index] = owner;
     alloc_bytes[index] = bytes;
     alloc_flags[index] = flags;
@@ -164,16 +176,22 @@ void __cdecl dispatch_engine_2c3c0(void **owner, u32 bytes, u32 flags)
     record(20 + index);
     ++alloc_count;
 
-    if (index == 0)
-        g_frame_count_71432 = 3;
+    if (index == 0) {
+        CHECK(g_configuration_word_713b4 == 2);
+        CHECK(g_configuration_word_71432 == 9);
+        CHECK(g_configuration_word_713ba == 9);
+        CHECK(g_configuration_word_71378 == 0x1234);
+        g_configuration_word_71432 = 3;
+    }
     if (index == 1)
-        g_frame_count_713ba = 4;
+        g_configuration_word_713ba = 4;
     if (index == 3)
         g_engine_interface.context_004 = (ResourceCallbackContext *)context_late;
     if (index == 7) {
         g_frame_owner_72870 = late_zero_72870;
         g_frame_owner_734e8 = late_zero_734e8;
     }
+    return *owner;
 }
 
 static void __cdecl observe_dispatch_engine_2c7e0(void)
@@ -184,11 +202,6 @@ static void __cdecl observe_dispatch_engine_2c7e0(void)
 void __cdecl dispatch_local_05710(void)
 {
     record(40);
-}
-
-void __cdecl dispatch_local_15600(void)
-{
-    record(41);
 }
 
 static EngineNoArgCallback __cdecl observe_dispatch_engine_2c640(EngineNoArgCallback callback)
@@ -204,11 +217,12 @@ static EngineNoArgCallback __cdecl observe_dispatch_engine_2cc40(EngineNoArgCall
     return callback;
 }
 
-void __cdecl dispatch_engine_2c260(void)
+static int __cdecl observe_cancel(void)
 {
     record(502);
     g_engine_interface.context_004 =
         (ResourceCallbackContext *)context_cleanup_after_cancel;
+    return 37;
 }
 
 static void __cdecl observe_dispatch_engine_2c280(void)
@@ -406,10 +420,23 @@ static void clear_bootstrap_state(void)
     memset(late_zero_72870, 0x66, sizeof(late_zero_72870));
     memset(late_zero_734e8, 0x66, sizeof(late_zero_734e8));
     alloc_count = 0;
-    config_count = 0;
-    g_frame_count_713b4 = 2;
-    g_frame_count_71432 = 9;
-    g_frame_count_713ba = 9;
+    memset(g_configuration_rows_68af0, 0, sizeof(g_configuration_rows_68af0));
+    g_configuration_rows_68af0[0].word_000 = 0;
+    g_configuration_rows_68af0[1].word_000 = 3;
+    g_configuration_rows_68af0[1].word_002 = 2;
+    g_configuration_rows_68af0[1].word_004 = 4;
+    g_configuration_rows_68af0[1].word_006 = 4;
+    g_configuration_rows_68af0[1].word_008 = 0x1234;
+    g_configuration_rows_68af0[2].word_000 = 999;
+    memset(context_config, 0x7b, sizeof(context_config));
+    context_config[0] = 3;
+    memset(context_late, 0x6b, sizeof(context_late));
+    context_late[0x0c] = 10;
+    g_context_default_dword_721a8 = 0;
+    g_context_default_dword_72190 = 99;
+    g_configuration_word_713b4 = 2;
+    g_configuration_word_71432 = 9;
+    g_configuration_word_713ba = 9;
     g_engine_interface.context_004 = (ResourceCallbackContext *)context_config;
     context_late[0] = 0;
     *(u16 *)(g_frame_config_5df08 + 6) = 2;
@@ -426,7 +453,7 @@ static void clear_bootstrap_state(void)
 static void test_bootstrap(void)
 {
     static const int expected[] = {
-        10, 20, 21, 22, 30, 23, 24, 25, 26, 27, 40, 41
+        20, 21, 22, 30, 23, 24, 25, 26, 27, 40
     };
     static const u32 sizes[] = {
         616, 1016, 900, 0x2910, 160, 0x4000, 0x8000, 0x300
@@ -437,7 +464,17 @@ static void test_bootstrap(void)
 
     clear_bootstrap_state();
     dispatch_local_1f0f0();
-    CHECK(config_count == 1);
+    CHECK(g_configuration_selected_71860 == 0);
+    CHECK(g_configuration_word_71378 == 0x1234);
+    CHECK(g_context_default_dword_721a8 == 1);
+    CHECK(g_context_default_dword_72190 == 0);
+    CHECK(context_late[0x0c] == 9 && context_late[0x0d] == 0);
+    CHECK(context_late[0x11] == 0);
+    CHECK(*(u16 *)(context_late + 0x1e) == 0x80);
+    CHECK(*(u16 *)(context_late + 0x1c) == 0);
+    CHECK(*(u16 *)(context_late + 0x20) == 0);
+    CHECK(context_config[0x0c] == 0x7b);
+    CHECK(context_config[0x1e] == 0x7b);
     CHECK(alloc_count == 8);
     slots[0] = &g_frame_owner_72860;
     slots[1] = &g_frame_owner_73494;
@@ -675,6 +712,8 @@ int main(void)
     g_engine_interface.dispatch_2c630_16c = observe_dispatch_engine_2c630;
     g_engine_interface.dispatch_2c570_0e0 = observe_dispatch_engine_2c570;
     g_engine_interface.dispatch_2cc30_3e0 = observe_dispatch_engine_2cc30;
+    g_engine_interface.allocate_078 = observe_allocate;
+    g_engine_interface.cancel_load_024 = observe_cancel;
     test_bootstrap();
     test_cleanup();
     test_setup();

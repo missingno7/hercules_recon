@@ -2,11 +2,11 @@
 #include "engine_dispatch_externs.h"
 
 /* Address-backed views used by the reviewed bootstrap/setup callers.  These
- * aliases describe observed cells and table bases only; they do not claim the
+ * names describe observed cells and table bases only; they do not claim the
  * original global names, declarations, or full table extents. */
-extern u16 g_frame_count_713b4;
-extern u16 g_frame_count_71432;
-extern u16 g_frame_count_713ba;
+extern u16 g_configuration_word_713b4;
+extern u16 g_configuration_word_71432;
+extern u16 g_configuration_word_713ba;
 extern void *g_frame_owner_72860;
 extern void *g_frame_owner_73494;
 extern void *g_frame_owner_734e0;
@@ -32,13 +32,14 @@ extern u8 g_frame_config_5df08[];
 extern u8 g_frame_descriptor_links_5a69c[];
 extern const u8 g_frame_setup_callback_58a60[];
 
-extern void __cdecl dispatch_local_280f0(void);
-extern void __cdecl dispatch_engine_2c3c0(void **, u32, u32);
+/* Recovered providers share these PC addresses; names remain diagnostic. */
+extern void __cdecl frame_configuration_280f0(void);
+extern void *__cdecl engine_pool_allocate(void **, u32, u32);
 extern void __cdecl dispatch_engine_2c7e0(void);
 extern void __cdecl dispatch_local_05710(void);
-extern void __cdecl dispatch_local_15600(void);
+extern void __cdecl frame_context_defaults_15600(void);
 extern EngineNoArgCallback __cdecl dispatch_engine_2c640(EngineNoArgCallback);
-extern void __cdecl dispatch_engine_2c260(void);
+extern int __cdecl engine_file_cancel(void);
 extern void __cdecl dispatch_engine_2c280(void);
 extern void __cdecl dispatch_engine_2c2d0(void *);
 extern void __cdecl dispatch_engine_2c2e0(u32);
@@ -67,35 +68,35 @@ void __cdecl dispatch_local_1f0f0(void)
     int level;
     unsigned long bytes;
 
-    dispatch_local_280f0();
+    frame_configuration_280f0();
 
-    bytes = 0x134UL * (unsigned long)g_frame_count_713b4;
-    dispatch_engine_2c3c0(&g_frame_owner_72860, bytes, 16UL);
+    bytes = 0x134UL * (unsigned long)g_configuration_word_713b4;
+    engine_pool_allocate(&g_frame_owner_72860, bytes, 16UL);
 
-    bytes = 0xecUL * (unsigned long)g_frame_count_71432 + 0x134UL;
-    dispatch_engine_2c3c0(&g_frame_owner_73494, bytes, 16UL);
+    bytes = 0xecUL * (unsigned long)g_configuration_word_71432 + 0x134UL;
+    engine_pool_allocate(&g_frame_owner_73494, bytes, 16UL);
 
-    bytes = 0x94UL * (unsigned long)g_frame_count_713ba + 0x134UL;
-    dispatch_engine_2c3c0(&g_frame_owner_734e0, bytes, 16UL);
+    bytes = 0x94UL * (unsigned long)g_configuration_word_713ba + 0x134UL;
+    engine_pool_allocate(&g_frame_owner_734e0, bytes, 16UL);
 
     dispatch_engine_2c7e0();
-    dispatch_engine_2c3c0((void **)&g_dispatch_frame_base_71ec8,
+    engine_pool_allocate((void **)&g_dispatch_frame_base_71ec8,
                           0x2910UL, 16UL);
 
     level = (int)(s8)g_engine_interface.context_004->unknown_000[0];
     bytes = 80UL * (unsigned long)*(u16 *)(g_frame_config_5df08 +
                                            level * 28 + 6);
-    dispatch_engine_2c3c0(&g_frame_owner_70c80, bytes, 16UL);
+    engine_pool_allocate(&g_frame_owner_70c80, bytes, 16UL);
 
-    dispatch_engine_2c3c0(&g_frame_owner_7348c, 0x4000UL, 0UL);
-    dispatch_engine_2c3c0(&g_frame_owner_72870, 0x8000UL, 0UL);
-    dispatch_engine_2c3c0(&g_frame_owner_734e8, 0x300UL, 0UL);
+    engine_pool_allocate(&g_frame_owner_7348c, 0x4000UL, 0UL);
+    engine_pool_allocate(&g_frame_owner_72870, 0x8000UL, 0UL);
+    engine_pool_allocate(&g_frame_owner_734e8, 0x300UL, 0UL);
 
     memset(g_frame_owner_72870, 0, 0x8000UL);
     memset(g_frame_owner_734e8, 0, 0x300UL);
 
     dispatch_local_05710();
-    dispatch_local_15600();
+    frame_context_defaults_15600();
 }
 
 void __cdecl dispatch_local_1f220(void)
@@ -108,7 +109,7 @@ void __cdecl dispatch_local_1f220(void)
 
     context = g_engine_interface.context_004;
     if (context->mode_09c == 1) {
-        dispatch_engine_2c260();
+        engine_file_cancel();
         context = g_engine_interface.context_004;
         if (context->load_failed != 0)
             context->load_failed(0);
