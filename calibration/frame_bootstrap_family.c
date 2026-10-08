@@ -37,7 +37,7 @@ extern void __cdecl dispatch_engine_2c3c0(void **, u32, u32);
 extern void __cdecl dispatch_engine_2c7e0(void);
 extern void __cdecl dispatch_local_05710(void);
 extern void __cdecl dispatch_local_15600(void);
-extern void __cdecl dispatch_engine_2c640(EngineNoArgCallback);
+extern EngineNoArgCallback __cdecl dispatch_engine_2c640(EngineNoArgCallback);
 extern void __cdecl dispatch_engine_2c260(void);
 extern void __cdecl dispatch_engine_2c280(void);
 extern void __cdecl dispatch_engine_2c2d0(void *);

@@ -1210,6 +1210,30 @@
         "target_sha256": "f96f2d7ab105a7bf13f0eaf9738ea9919ce0a8e6734f82eb15f5067938396a09",
         "toolchain": "msvc5_rtm"
       }
+    },
+    {
+      "id": "exe.host_mode_packet_adapter",
+      "status": "FUNCTION_MATCH",
+      "name_status": "Provisional PC compatibility-role label; original SDK/function/prototype/TU identity unproved.",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0xa540",
+      "size": 32,
+      "body_size": 23,
+      "source": "src/pc/host_mode_packet.c",
+      "symbol": "_host_mode_packet_adapter",
+      "flags": [
+        "/O2"
+      ],
+      "boundary": "Full A540..A560 callable interval including natural trailing NOPs; RET/next entry reviewed in host_frame_targets_contract.",
+      "evidence": "evidence/host_frame_targets_contract.json and evidence/host_mode_packet.json: actual12-byte PC writes preservetag, replacecodehighbyteE1, copyrawarg5 andignorephysicalargs2/3. SDKroleinference secondary; no standardSonyimplementation substituted.",
+      "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "ee2cc748de687792a1f20ac13061ddbe86f6fd4583e7477fd9ded2c5131c4236",
+        "compiled_sha256": "b34e51a54345f5e3571f33bb39d18fe1710bf6d71b68c216f6e91a34355bba92",
+        "target_sha256": "b34e51a54345f5e3571f33bb39d18fe1710bf6d71b68c216f6e91a34355bba92",
+        "toolchain": "msvc5_rtm"
+      }
     }
   ]
 }

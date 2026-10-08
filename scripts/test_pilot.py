@@ -11,7 +11,12 @@ from match import DEFAULT_TOOLCHAIN, digest, verify_toolchain
 
 
 SUITES = {
-    "frame_bootstrap_family": ["calibration/frame_bootstrap_family.c", "calibration/frame_chain_bridge.c", "src/pc/frame_chain_write.c", "calibration/engine_dispatch_externs.h", "calibration/engine_interface.h", "calibration/resource_context.h"],
+    "host_frame_adapters": ["calibration/host_frame_adapters.c", "src/pc/host_mode_packet.c", "src/pc/host_zero_callback.c"],
+    "host_mode_packet": ["src/pc/host_mode_packet.c"],
+    "host_frame_protocol": ["calibration/host_frame_protocol.c", "calibration/virtual_file.c", "calibration/host_callback_protocol.c", "calibration/host_callback_protocol_externs.h", "calibration/resource_context.h", "calibration/engine_interface.h"],
+    "frame_configuration": ["calibration/frame_configuration.c", "calibration/frame_configuration_row.h", "calibration/engine_interface.h", "calibration/resource_context.h"],
+    "frame_lifecycle_bridges": ["calibration/frame_lifecycle_bridges.c", "calibration/frame_lifecycle_bridges.h", "calibration/engine_interface.h", "calibration/resource_context.h"],
+    "frame_bootstrap_family": ["calibration/frame_bootstrap_family.c", "calibration/frame_lifecycle_bridges.c", "calibration/frame_lifecycle_bridges.h", "calibration/dispatcher_bridges.c", "calibration/frame_chain_bridge.c", "src/pc/frame_chain_write.c", "calibration/engine_dispatch_externs.h", "calibration/engine_interface.h", "calibration/resource_context.h"],
     "frame_chain_pipeline": ["src/pc/frame_chain_write.c", "calibration/frame_chain_bridge.c", "calibration/engine_interface.h", "calibration/resource_context.h"],
     "frame_chain_writer": ["src/pc/frame_chain_write.c"],
     "engine_control": ["calibration/engine_control.c", "calibration/engine_interface.h", "calibration/resource_context.h", "calibration/resource_record.h"],
@@ -72,7 +77,12 @@ SUITES = {
 # Most fixtures include one reconstructed source directly. Integration fixtures
 # link actual separate translation units instead of replacing callees.
 EXTRA_UNITS = {
-    "frame_bootstrap_family": ["calibration/frame_bootstrap_family.c", "calibration/frame_chain_bridge.c", "src/pc/frame_chain_write.c"],
+    "host_frame_adapters": ["calibration/host_frame_adapters.c", "src/pc/host_mode_packet.c", "src/pc/host_zero_callback.c"],
+    "host_mode_packet": ["src/pc/host_mode_packet.c"],
+    "host_frame_protocol": ["calibration/host_frame_protocol.c", "calibration/virtual_file.c", "calibration/host_callback_protocol.c"],
+    "frame_configuration": ["calibration/frame_configuration.c"],
+    "frame_lifecycle_bridges": ["calibration/frame_lifecycle_bridges.c"],
+    "frame_bootstrap_family": ["calibration/frame_bootstrap_family.c", "calibration/frame_lifecycle_bridges.c", "calibration/dispatcher_bridges.c", "calibration/frame_chain_bridge.c", "src/pc/frame_chain_write.c"],
     "frame_chain_pipeline": ["src/pc/frame_chain_write.c", "calibration/frame_chain_bridge.c"],
     "frame_chain_writer": ["src/pc/frame_chain_write.c"],
     "engine_control": ["calibration/engine_control.c"],

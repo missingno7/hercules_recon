@@ -1,0 +1,293 @@
+{
+  "scope": "Read-only five default host targets and SDK-role/data-view audit. No compiler, canonical/Git/assets/gate changes or original execution.",
+  "oracle": {
+    "host_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "engine_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "full_targets": [
+    {
+      "name": "file-state target",
+      "start_rva": "0x3d30",
+      "end_rva_exclusive": "0x3d90",
+      "size": 96,
+      "sha256": "646b60d107ffb4d6ec154c1b45a6370b5d3eb621af2b06a7592db4610e87e6aa",
+      "refs": [],
+      "body_bytes": 86,
+      "padding_bytes": 10,
+      "last_ret_rva": "0x3d85",
+      "table_refs": [
+        {
+          "slot": 12,
+          "source_cell_rva": "0x361e8",
+          "engine_cell_rva": "0x70f50",
+          "host_target_rva": "0x3d30"
+        }
+      ],
+      "boundary_limit": "Full reviewed callable interval with actualRET/NOP tail and next independently referenced entry. This is PC boundary evidence, not original COFF/TU identity."
+    },
+    {
+      "name": "paired-frame target",
+      "start_rva": "0x4300",
+      "end_rva_exclusive": "0x43a0",
+      "size": 160,
+      "sha256": "4ce666d3ddb44b7fb4fd045ade65a41488a0411f0d09764eb9d8aaf536680152",
+      "refs": [
+        {
+          "source_rva": "0x1c15",
+          "target_rva": "0x4300",
+          "kind": "linear_call"
+        }
+      ],
+      "body_bytes": 151,
+      "padding_bytes": 9,
+      "last_ret_rva": "0x4396",
+      "table_refs": [
+        {
+          "slot": 50,
+          "source_cell_rva": "0x36280",
+          "engine_cell_rva": "0x70fe8",
+          "host_target_rva": "0x4300"
+        }
+      ],
+      "boundary_limit": "Full reviewed callable interval with actualRET/NOP tail and next independently referenced entry. This is PC boundary evidence, not original COFF/TU identity."
+    },
+    {
+      "name": "frame callback target",
+      "start_rva": "0xa4a0",
+      "end_rva_exclusive": "0xa4c0",
+      "size": 32,
+      "sha256": "adde41c646a6ff880c4e7d6b40a344c310ed312a87cbcccd04b86e237a155b59",
+      "refs": [
+        {
+          "source_rva": "0x4246",
+          "target_rva": "0xa4a0",
+          "kind": "linear_call"
+        }
+      ],
+      "body_bytes": 23,
+      "padding_bytes": 9,
+      "last_ret_rva": "0xa4b6",
+      "table_refs": [
+        {
+          "slot": 160,
+          "source_cell_rva": "0x36438",
+          "engine_cell_rva": "0x711a0",
+          "host_target_rva": "0xa4a0"
+        }
+      ],
+      "boundary_limit": "Full reviewed callable interval with actualRET/NOP tail and next independently referenced entry. This is PC boundary evidence, not original COFF/TU identity."
+    },
+    {
+      "name": "five-word forwarding target",
+      "start_rva": "0xa540",
+      "end_rva_exclusive": "0xa560",
+      "size": 32,
+      "sha256": "b34e51a54345f5e3571f33bb39d18fe1710bf6d71b68c216f6e91a34355bba92",
+      "refs": [],
+      "body_bytes": 23,
+      "padding_bytes": 9,
+      "last_ret_rva": "0xa556",
+      "table_refs": [
+        {
+          "slot": 171,
+          "source_cell_rva": "0x36464",
+          "engine_cell_rva": "0x711cc",
+          "host_target_rva": "0xa540"
+        }
+      ],
+      "boundary_limit": "Full reviewed callable interval with actualRET/NOP tail and next independently referenced entry. This is PC boundary evidence, not original COFF/TU identity."
+    },
+    {
+      "name": "four-word forwarding target",
+      "start_rva": "0xac00",
+      "end_rva_exclusive": "0xac10",
+      "size": 16,
+      "sha256": "8a3d64479f3c8be3419c246d4f47056f87cbf5776942bcc25ce7d3003ab4f970",
+      "refs": [
+        {
+          "source_rva": "0x1073a",
+          "target_rva": "0xac00",
+          "kind": "linear_call"
+        }
+      ],
+      "body_bytes": 8,
+      "padding_bytes": 8,
+      "last_ret_rva": "0xac07",
+      "table_refs": [
+        {
+          "slot": 80,
+          "source_cell_rva": "0x362f8",
+          "engine_cell_rva": "0x71060",
+          "host_target_rva": "0xac00"
+        }
+      ],
+      "boundary_limit": "Full reviewed callable interval with actualRET/NOP tail and next independently referenced entry. This is PC boundary evidence, not original COFF/TU identity."
+    }
+  ],
+  "close_adapter": {
+    "ABI": "3d30 no argument loads; return physical32-bit0 on close error,1 on success. int __cdecl function(void) is supported; original prototype/name unproved.",
+    "steps": [
+      "3d30 captures current context361bc and loads its virtual handleB8. Call actualA350(handle), the recovered virtual_file_close adapter.",
+      "If close returns nonzero:diagnostic63c0(address36044), then return0 without clearing context fields.",
+      "If close returns0:reload LIVE context, clearDWORDAC;reload context again, clearWORD9C;diagnostic63c0(address36038);return1."
+    ],
+    "diagnostic_inputs": [
+      {
+        "rva": "0x36038",
+        "initial_text": "- Closed \n",
+        "initial_NUL_terminated_bytes": 11,
+        "sha256": "5126c1860b8847957cf9cd9c7276297f4a9255924fb8115a98c1e08d171ddfb9",
+        "limit": "Diagnostic input; original constness/declared extent remains unproved."
+      },
+      {
+        "rva": "0x36044",
+        "initial_text": "- Failed \n",
+        "initial_NUL_terminated_bytes": 11,
+        "sha256": "ce0934869d56f6b9056cb8670c7595d222cf39fc5b7c9e85e27fd08755507f9e",
+        "limit": "Diagnostic input; original constness/declared extent remains unproved."
+      }
+    ],
+    "distinction": "No mode!=0 guard, no forced handle clearing, no cancel callback, and no delay/countdown changes. Preserve AC-before-mode order; do not substitute the existing3ea0 cancellation function.",
+    "dependencies": "Reuse existing virtual_file_closeA350/archive chain and accepted63c0 diagnostic. No library rewrite.",
+    "classification": "Host file/resource state adapter, distinct from CRT. Actual virtual_file_close membership already identified in the project archive-adapter region."
+  },
+  "pair_initializer": {
+    "ABI": "4300 reads two physical pointer arguments and saves them; reviewed callers ignore return. void __cdecl function(void*,void*) is a consistent source view; original formal types unproved.",
+    "calls": [
+      "A340(first,0,0,320,240)",
+      "A340(second,0,256,320,240)",
+      "A340(first+0x5c,0,256,320,240)",
+      "A340(second+0x5c,0,0,320,240)"
+    ],
+    "actual_writes": [
+      "second WORD+64=0",
+      "first WORD+64=0",
+      "second WORD+66=0",
+      "first WORD+66=0",
+      "second WORD+6a=240",
+      "first WORD+6a=240",
+      "second WORD+68=0",
+      "first WORD+68=0"
+    ],
+    "limits": "A340 is the actual accepted zero-return leaf and consumes none of these arguments. These four calls therefore prove no additional rectangle/frame writes. Do not replace A340 with standard environment initialization. Minimum directly accessed extent is0x6c bytes per pointer, not a whole frame.",
+    "classification": "Pair setup orchestrator calling the PC compatibility callbacks; original project versus non-CRT SDK compatibility TU ownership remains unproved."
+  },
+  "header_copy": {
+    "ABI": "A4A0 reads one physical pointer argument, copies23 DWORDs from it, and explicitly leavesEAX0. An integer-zero-return one-pointer source is consistent; engine2c8f0 forwards one pointer and ignores return.",
+    "operations": "A4AB sets destination96e680; A4A6 sets count23; A4B0 clearsEAX; A4B2 REP MOVSD copies exactly92 bytes. No callees. Forward-copy behavior is observed; no overlap/memmove repair inferred.",
+    "source_minimum_bytes": 92,
+    "destination": {
+      "va": "0x96e680",
+      "rva": "0x56e680",
+      "written_end_exclusive": "0x96e6dc",
+      "minimum_bytes": 92,
+      "initial": "PE loader-zero-fill",
+      "other_encoded_refs": [
+        "A1eb takes address96e680",
+        "A24d takes address96e680"
+      ],
+      "alias_limit": "The validated16-slot public-file array96e640..96e680 ends immediately before this destination. No actual overlap is shown; original shared aggregate/data layout/declared extent remains unproved."
+    },
+    "caller": "Host4246 callsA4A0, and engine1f666 passes current frame through2c8f0. Complete caller protocols outside these verified sites remain separate dependencies.",
+    "classification": "Leaf with a real copy, SDK-compatible environment-view role. No pinned PC library member was identified; memcpy-style inlining does not identify this whole adapter as CRT."
+  },
+  "mode_packet": {
+    "ABI": "A540 reads physical arg1 pointer and raw32 arg4/arg5, ignores arg2/arg3, and returns withEAX equal to the input pointer. Engine caller ignoresEAX; incidental pointer value does not prove an original pointer-return prototype.",
+    "operations": [
+      "A54C:packet DWORD+4=arg4",
+      "A54F:packet DWORD+8=arg5",
+      "A552:packet BYTE+7=e1",
+      "A556:RET"
+    ],
+    "leaf": true,
+    "minimum_writable_bytes": 12,
+    "untouched": "Packet DWORD0/tag is not written. Low24bits ofarg4 survive; its original high byte is replaced, yielding(arg4&0x00ffffff)|0xe1000000. Arg5 is copied as raw32bits; no pointer dereference occurs.",
+    "engine_views": "Four1f320 calls use current LIVE owner+70,owner+14f8,owner+7c,owner+1504. Each is a12-byte packet. Packets+70 and+7c are adjacent and end at+88, the start of the independently writer-proven0x500-link region.",
+    "limits": "Preserve ignored arg2/arg3 and firstDWORD. Do not infer they need flag processing or replace rawarg5 with texture-window dereferences.",
+    "classification": "Nonempty leaf compatibility packet adapter, not an identified CRT or byte-identical Sony library member."
+  },
+  "channel0_notification": {
+    "ABI": "AC00 itself loads no arguments and returns0; engine2c5e0 and direct EXE1073a callers physically push four words. Formal C arity remains unproved. Preserve forwarding shapes; no cast/extra wrapper or assertion of an original zero-arg declaration.",
+    "body": "AC00 CALL BD80;AC05 XOR EAX,EAX;AC07 RET;+8NOP. BD80 captures channel0 callbackA8E780 once, checks shared32-bit gateA8E788, and conditionally tail-calls it without arguments.",
+    "no_writes": "AC00 performs no rectangle/pixel/frame write and no callback registration. Positive channel0 registration remains unresolved in the audited default ENG1 chain.",
+    "dependencies": "Real BD80 full32 invoker is a missing dependency unless already assigned; reuse accepted BDA0 setter and known gate proof, do not invent a callback producer.",
+    "classification": "Callback-notification adapter with an inferred SDK-compatible operation role; no original archive/member/source identity established."
+  },
+  "supported_frame_view": {
+    "PC_only": [
+      "Bytes0..5b: copied byA4A0 into host state.",
+      "A+5c:20-byte coordinate region suggested by next packet at70; directly proved WORD fields at relative8/a/c/e via4300. Unwritten bytes remain opaque.",
+      "A+70 andA+7c:two12-byte native32 packets, header/tag preserved, raw payload writes plus e1 byte.",
+      "A+88:0x500 native32 link slots, actualAC20 writer.",
+      "Second view beginsA+1488 and has the same proved offsets; requested allocation remains exactly2910."
+    ],
+    "limits": "Observed view relationships do not prove a complete original frame struct, array capacity, framebuffer allocation, original type names, or rendering replacement design."
+  },
+  "SDK_role": {
+    "source": {
+      "title": "Sony Run-Time Library Reference4.7",
+      "publication": "March2000",
+      "author": "Sony Computer Entertainment Inc.",
+      "URL": "https://psx.arthus.net/sdk/Psy-Q/DOCS/LibRef47.pdf",
+      "role": "Primary documentation, later than1997; cited only for shape/role comparison.",
+      "downloaded": false,
+      "sha256": null
+    },
+    "comparison": "Native32 documented DRAWENV calculates92 bytes; DISPENV20; DR_MODE12. DRAWENV flags align with PC bytes16/17/18; DISPENV screen words align with64/66/68/6a. PutDrawEnv, SetDrawMode and ClearImage argument roles resembleA4A0/A540/AC00. DrawSyncCallback old-pointer return resemblesBDA0. These are inferences, not names/prototypes/implementation identity.",
+    "divergences": "PC A4A0 returns0; A540 ignores flag inputs and stores rawarg5; AC00 only delivers a callback. Therefore no standard Sony implementation may substitute for the PC bodies.",
+    "pages_1based": [
+      241,
+      242,
+      244,
+      246,
+      261,
+      274,
+      285,
+      326,
+      336
+    ],
+    "local_secondary": "Verified original PSX SLUS_005.29 contains PutDrawEnv/PutDispEnv/DrawSyncCallback diagnostic strings. No MIPS-to-PC function cross-map is claimed.",
+    "identity_limit": "No matching PC SDK/library archive was identified. Classify these as compatibility adapters with unresolved original ownership, not confirmed Sony library bodies or ordinary CRT. Preserve actual PC semantics."
+  },
+  "next_worker": {
+    "closest": "Parent plans3d30 full96 plusAC00 full16 first, retaining the realBD80 full32 dependency unless already assigned. Next coherent frame family is4300+A4A0+A540 full224, with actual observed views and acceptedA340 reused. A4A0+A540 alone form its64-byte writer core.",
+    "prediction": "One ordinary C observed view preserves92-byte copy, ordered12-byte packet stores, paired word writes, and actual callback/close protocol. Fresh complete contributions and ordered relocations are required; this report grants no acceptance.",
+    "falsifier": "Packet tag touched, arg4 high byte ORed without clearing, arg2/3 applied, arg5 dereferenced, extra frame fields filled by a substituted A340, zero/one close returns reversed, success/failure context writes changed, four-word forwarding lost, callback registration invented, or frozen peers changed.",
+    "fixtures": [
+      "Fill92-byte header and prove exact copy with outside canaries unchanged; returnedEAX0 physical contract.",
+      "Packet arg4=ffffffff -> e1ffffff; arg5=deadbeef remains exact; tag and outside bytes remain unchanged.",
+      "Packets+70/+7c stay within their12-byte intervals and end exactly+88; do not clear whole header.",
+      "Both pair pointers get only WORD64/66/68=0 and6a=240 after four real callback calls in order.",
+      "Close error leaves contextAC/mode unchanged and returns0; success clearsAC thenmode and returns1.",
+      "Virtual close or diagnostic can mutate the shared context pointer; later stores use actual post-close LIVE context, not captured entry context.",
+      "Channel0 gate NULL/zero/nonzero and callback mutation use existing BD80 protocol; AC00 must not clear or register anything."
+    ],
+    "restriction": "No original SDK body substitution, library rewrite, renderer replacement, compiler/source/flags grid, forced data placement, or canonical changes. Preserve43 accepted functions and all parent-preserved outputs."
+  },
+  "evidence": {
+    "full_decode": "work/host_frame_targets_audit/decode.json",
+    "table_and_callers": "work/host_frame_targets_audit/context.json",
+    "PSX": "work/host_frame_targets_audit/psx_secondary.json",
+    "prior_frame": "evidence/frame_bootstrap_contract.json",
+    "prediction": "work/host_frame_targets_audit/prediction.json"
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "compiler_builds": 0,
+    "tokens": null,
+    "cost_usd": null
+  },
+  "evidence_sha256": {
+    "decode.json": "5ac541b160ed1254edad5863586d75f7ca44bcc113d884c57b7f36c18952a93e",
+    "context.json": "6edde0ed0825545e59783d97d2909a91f9b69a8d6ce80366474d919df424a832",
+    "psx_secondary.json": "6cfd8e01639a41aa1f5395308160afc0c5d3d87ebdb152f840fe18eea5fbd46b",
+    "prediction.json": "a858cb024b256eed56a26e3164c83faed94947981199cde6cea012e8a445196c"
+  },
+  "publication": {
+    "private_report": "work/host_frame_targets_audit/report.json",
+    "sha256": "849cffac97f1b046c5358ff8a5bfadd29e90225e2ec3c3ab558b367565fb3698",
+    "root_verification": "All five full span hashes and CD executable identity independently checked; detailed disassembly stays ignored. SDK resemblance remains secondary-role inference."
+  }
+}

@@ -7,7 +7,7 @@ extern void __cdecl dispatch_local_1f220(void);
 extern void __cdecl dispatch_local_1f320(void);
 extern void __cdecl dispatch_engine_2c3c0(void **, u32, u32);
 extern void __cdecl dispatch_engine_2c7e0(void);
-extern void __cdecl dispatch_engine_2c640(EngineNoArgCallback);
+extern EngineNoArgCallback __cdecl dispatch_engine_2c640(EngineNoArgCallback);
 extern void __cdecl dispatch_engine_2c260(void);
 extern void __cdecl dispatch_engine_2c280(void);
 extern void __cdecl dispatch_engine_2c2d0(void *);
@@ -176,7 +176,7 @@ void __cdecl dispatch_engine_2c3c0(void **owner, u32 bytes, u32 flags)
     }
 }
 
-void __cdecl dispatch_engine_2c7e0(void)
+static void __cdecl observe_dispatch_engine_2c7e0(void)
 {
     record(30);
 }
@@ -191,13 +191,14 @@ void __cdecl dispatch_local_15600(void)
     record(41);
 }
 
-void __cdecl dispatch_engine_2c640(EngineNoArgCallback callback)
+static EngineNoArgCallback __cdecl observe_dispatch_engine_2c640(EngineNoArgCallback callback)
 {
     (void)callback;
     record(500);
+    return 0;
 }
 
-EngineNoArgCallback __cdecl dispatch_engine_2cc40(EngineNoArgCallback callback)
+static EngineNoArgCallback __cdecl observe_dispatch_engine_2cc40(EngineNoArgCallback callback)
 {
     record(501);
     return callback;
@@ -210,12 +211,12 @@ void __cdecl dispatch_engine_2c260(void)
         (ResourceCallbackContext *)context_cleanup_after_cancel;
 }
 
-void __cdecl dispatch_engine_2c280(void)
+static void __cdecl observe_dispatch_engine_2c280(void)
 {
     record(506);
 }
 
-void __cdecl dispatch_engine_2c2d0(void *owner)
+static void __cdecl observe_dispatch_engine_2c2d0(void *owner)
 {
     if (free_count < 8)
         free_values[free_count] = owner;
@@ -223,20 +224,20 @@ void __cdecl dispatch_engine_2c2d0(void *owner)
     record(510 + free_count - 1);
 }
 
-u32 __cdecl dispatch_engine_2cc30(u32 value)
+static u32 __cdecl observe_dispatch_engine_2cc30(u32 value)
 {
     (void)value;
     record(505);
     return 0;
 }
 
-void __cdecl dispatch_engine_2c630(u32 value)
+static void __cdecl observe_dispatch_engine_2c630(u32 value)
 {
     (void)value;
     record(504);
 }
 
-void __cdecl dispatch_engine_2c2e0(u32 value)
+static void __cdecl observe_dispatch_engine_2c2e0(u32 value)
 {
     u8 *context;
     (void)value;
@@ -250,7 +251,7 @@ void __cdecl dispatch_engine_2c2e0(u32 value)
     g_engine_interface.context_004 = (ResourceCallbackContext *)context;
 }
 
-void __cdecl dispatch_engine_2c5e0(const void *descriptor,
+static void __cdecl observe_dispatch_engine_2c5e0(const void *descriptor,
                                     u32 a, u32 b, u32 c)
 {
     (void)a;
@@ -313,7 +314,7 @@ void __cdecl dispatch_local_25620(void)
     record(608);
 }
 
-void __cdecl dispatch_engine_2c500(void *first, void *second)
+static void __cdecl observe_dispatch_engine_2c500(void *first, void *second)
 {
     chain_pair[0] = first;
     chain_pair[1] = second;
@@ -321,7 +322,7 @@ void __cdecl dispatch_engine_2c500(void *first, void *second)
     record(610);
 }
 
-void __cdecl dispatch_engine_2c980(void *pointer, u32 a, u32 b, u32 c, u32 d)
+static void __cdecl observe_dispatch_engine_2c980(void *pointer, u32 a, u32 b, u32 c, u32 d)
 {
     CHECK(callback_count < 4);
     if (callback_count < 4) {
@@ -343,7 +344,7 @@ void __cdecl dispatch_local_058b0(void)
     record(630);
 }
 
-void __cdecl dispatch_engine_2c570(void *pointer)
+static void __cdecl observe_dispatch_engine_2c570(void *pointer)
 {
     if (current_callback_count < 2)
         current_callback_values[current_callback_count] = pointer;
@@ -383,14 +384,14 @@ void __cdecl dispatch_local_050d0(void)
     record(637);
 }
 
-void __cdecl dispatch_engine_2c8f0(void *pointer)
+static void __cdecl observe_dispatch_engine_2c8f0(void *pointer)
 {
     last_2c8f0 = pointer;
     record(638);
     g_dispatch_frame_current_71ec4 = frame_b;
 }
 
-void __cdecl dispatch_engine_2c8e0(void *pointer)
+static void __cdecl observe_dispatch_engine_2c8e0(void *pointer)
 {
     last_2c8e0 = pointer;
     record(639);
@@ -660,6 +661,20 @@ static void test_setup(void)
 int main(void)
 {
     memset(&g_engine_interface, 0, sizeof(g_engine_interface));
+    g_engine_interface.dispatch_2c280_030 = observe_dispatch_engine_2c280;
+    g_engine_interface.free_allocation_040 = observe_dispatch_engine_2c2d0;
+    g_engine_interface.bulk_release_044 = observe_dispatch_engine_2c2e0;
+    g_engine_interface.dispatch_2c5e0_140 = observe_dispatch_engine_2c5e0;
+    g_engine_interface.dispatch_2c500_0c8 = observe_dispatch_engine_2c500;
+    g_engine_interface.dispatch_2c980_2ac = observe_dispatch_engine_2c980;
+    g_engine_interface.dispatch_2c8f0_280 = observe_dispatch_engine_2c8f0;
+    g_engine_interface.dispatch_2c8e0_27c = observe_dispatch_engine_2c8e0;
+    g_engine_interface.dispatch_2c7e0_1f8 = observe_dispatch_engine_2c7e0;
+    g_engine_interface.dispatch_2c640_170 = observe_dispatch_engine_2c640;
+    g_engine_interface.dispatch_2cc40_3e4 = observe_dispatch_engine_2cc40;
+    g_engine_interface.dispatch_2c630_16c = observe_dispatch_engine_2c630;
+    g_engine_interface.dispatch_2c570_0e0 = observe_dispatch_engine_2c570;
+    g_engine_interface.dispatch_2cc30_3e0 = observe_dispatch_engine_2cc30;
     test_bootstrap();
     test_cleanup();
     test_setup();

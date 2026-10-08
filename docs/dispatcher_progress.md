@@ -72,8 +72,8 @@ unresolved storage: empty default reads do not justify placeholder literals or
 capacity claims. Two actual CRT path/string reader members (592 bytes) are
 identified rather than rewritten.
 
-Current verification passes 54 semantic suites with 3,650,790 checks, 32 Python
-tests and 12 immutable-file hashes. All 43 accepted functions remain raw equal
+Current verification passes 59 semantic suites with 3,699,886 checks, 32 Python
+tests and 12 immutable-file hashes. All 44 accepted functions remain raw equal
 after fresh historical compilation. `evidence/dispatcher_measurements.json`
 records current source/header/command/output identities for 52 experimental
 contributions; the callback/dispatcher regions are indexed for packets.
@@ -132,3 +132,40 @@ initializer uses a signed byte comparison, preserving 0x80 and 0xff rather than
 clamping them. The 32 token rows end exactly before the independent owner slot.
 `evidence/frame_configuration_contract.json` records these writer-backed facts;
 table capacities, original aggregates and final module data/layout remain open.
+
+Ten additional lifecycle wrappers (224 bytes) now use direct observed interface
+members. All ten preserve the private complete bytes and ordered relocations;
+all 56 previously measured contributions and the control handler's shared section
+remain unchanged. Cleanup's setter declaration now agrees with its observed
+previous-pointer return. The 181-check lifecycle fixture links fourteen real
+forwarding functions; observing host callbacks and remaining local dependencies
+are explicit boundaries. Current header-bound receipts are indexed.
+
+Configuration and context defaults are retained as a separate experimental family.
+The corrected WORD stores preserve the 112-byte defaults contribution, which is
+relocation-normalized equal. One new index-selection discriminator recovers the
+target's selected-index representation; configuration remains 352 versus 416
+bytes and structurally different. The shared 72-byte row view defines no original
+table data or capacity. Its fixture counts 48,783 checks, including preservation
+of unrelated context bytes; those checks do not establish original source identity.
+
+Actual host close-state and callback-only notification source now composes with
+the real virtual-close and callback protocol bodies in a 21-check fixture.
+Notification is relocation-normalized equal; close-state remains nonexact.
+The environment snapshot copy and paired initializer are also normalized equals:
+one target-backed `memcpy` discriminator emits the target's `REP MOVSD` while
+preserving the other private contributions. The 261-check adapter fixture links
+the accepted zero and packet leaves rather than replacing them.
+
+The packet adapter at A540 is newly accepted through the unchanged fresh gate:
+32 complete bytes, zero relocations, all 44 functions verified (4,448 bytes).
+It preserves the first DWORD, copies raw arguments four/five, and replaces byte
+seven with E1; ignored inputs stay ignored. It does not implement standard Sony
+packet behavior. PC writes and local PSX diagnostics suggest SDK compatibility
+roles; Sony's March 2000 reference is later than the game and proves neither
+original SDK version nor implementation. Detailed disassembly stays in ignored
+scratch. `evidence/host_frame_targets_contract.json` separates PC facts from that
+secondary inference. `evidence/frame_dependency_integration.json` and
+`evidence/frame_dependency_validation.json` bind the current sources, outputs and
+checks. Actual dependency/global aliases and natural data/linker closure remain
+the next work; normalized equals are not rewritten to force placement.
