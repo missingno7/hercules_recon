@@ -58,3 +58,14 @@ needing flags or non-ordinary constructs. Functions of 1 KB or more (23 spans,
 - `scripts/leaf.py packet|data|check`: worker context; `check` reports masked equality.
 - `scripts/similar.py stage|verify`: integrator staging and regression of masked rows.
 - `work/title_lanes/BRIEF.md` (ignored scratch): the worker brief and lane lists.
+
+## Finding: TITLE mixes C and C++ translation units
+
+The most frequent near-miss, base/index operand order in `[global + index]` addresses, is a
+front-end effect. In a minimal sweep of nine ordinary spellings, VC5's C++ front end always
+uses the loaded global pointer as the SIB base and the C front end never does. Functions
+`0x8a50` and `0x8ed0` are masked-equal only as C++ (`.cpp` region files with an `extern "C"`
+block to keep link names). Function `0x65e0` matches only as C: the C front end turns a
+constant `strcpy` into immediate stores. Language is therefore a per-unit discriminator.
+It also bears on translation-unit boundaries. Every compiler revision on hand (RTM, SP2,
+NT5 SDK builds, SP3) behaves identically in both front ends.

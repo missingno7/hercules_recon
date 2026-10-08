@@ -1,6 +1,6 @@
 """Diagnostic function map of a module's first-party code (leads, not reviewed extents).
 
-Starts: direct call targets, address-taken immediates in code, code pointers held in
+Starts: exports, direct call targets, address-taken immediates in code, code pointers held in
 non-code sections, and entries after RET + NOP alignment (unreferenced functions).
 Pointers stored inside code are jump-table entries and never start a function.
 Library code located by scripts/library_map.py is excluded. Each span is decoded
@@ -54,6 +54,9 @@ def build(module):
             if (lo + k) % 16 == 0 and k > j and k < end - lo and code[k] != 0x90:
                 starts.add(lo + k)
     starts.add(lo)
+    for export in pe.metadata().get('exports') or []:
+        if lo <= export['rva'] < end:
+            starts.add(export['rva'])
     ordered = sorted(s for s in starts if s % 16 == 0)
     rows = []
     for i, s in enumerate(ordered):
