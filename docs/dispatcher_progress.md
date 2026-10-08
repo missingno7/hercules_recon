@@ -72,7 +72,7 @@ unresolved storage: empty default reads do not justify placeholder literals or
 capacity claims. Two actual CRT path/string reader members (592 bytes) are
 identified rather than rewritten.
 
-Current verification passes 52 semantic suites with 3,649,303 checks, 32 Python
+Current verification passes 53 semantic suites with 3,650,609 checks, 32 Python
 tests and 12 immutable-file hashes. All 43 accepted functions remain raw equal
 after fresh historical compilation. `evidence/dispatcher_measurements.json`
 records current source/header/command/output identities for 52 experimental
@@ -95,8 +95,20 @@ the unsigned count and casts only for the signed predicate. Its full 32-byte
 contribution matches with no relocations. Extracting the writer into a
 self-contained source preserves those bytes; the unchanged promotion gate freshly
 verifies all 43 functions (4,416 bytes). A separate canonical-source fixture passes
-1,298 checks. The 2c600 forwarding peer remains relocation-only and private until
-shared slot-81 declarations are integrated with the larger bootstrap family.
+1,298 checks. The 2c600 forwarding peer remains relocation-only; it now has a
+supported slot-81 member at offset 0x144 and a canonical experimental source.
 `evidence/frame_chain_writer.json` and `evidence/frame_chain_validation.json`
 record the accepted scope and current verification. No complete frame structure,
 original prototype or natural module layout has been established.
+
+The actual slot-81 callback view preserves the complete byte/relocation identities
+of all 52 existing measured contributions and the control handler's full shared
+section. `calibration/frame_chain_bridge.c` preserves the private forwarding
+contribution, including its single member relocation. Its 1,306-check pipeline
+links the real bridge and accepted host writer as separate translation units.
+The fixture also replaces the live table callback and verifies argument bits,
+return forwarding and untouched storage. All 53 suites were freshly rebuilt and
+run after the header change; all 43 accepted functions remain raw exact.
+Current header-bound receipts and `evidence/slot81_integration.json` preserve the
+new context. Bootstrap/setup reconstruction uses these real dependencies while
+its other actual callees remain unresolved.

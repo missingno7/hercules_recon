@@ -45,7 +45,9 @@ typedef struct EngineInterface {
     void (__cdecl *dispatch_2c570_0e0)(void *);
     unsigned long opaque_0e4[2];
     void (__cdecl *dispatch_2c5a0_0ec)(unsigned long);
-    unsigned long opaque_0f0[29];
+    unsigned long opaque_0f0[21];
+    int (__cdecl *frame_chain_write_144)(void *, unsigned long);
+    unsigned long opaque_148[7];
     void (__cdecl *dispatch_2c620_164)(void *);
     unsigned long opaque_168[1];
     void (__cdecl *dispatch_2c630_16c)(unsigned long);
@@ -89,6 +91,7 @@ typedef char engine_interface_observed_offsets[
      offsetof(EngineInterface,dispatch_2c540_0d4)==0xd4 &&
      offsetof(EngineInterface,dispatch_2c570_0e0)==0xe0 &&
      offsetof(EngineInterface,dispatch_2c5a0_0ec)==0xec &&
+     offsetof(EngineInterface,frame_chain_write_144)==0x144 &&
      offsetof(EngineInterface,dispatch_2c620_164)==0x164 &&
      offsetof(EngineInterface,dispatch_2c630_16c)==0x16c &&
      offsetof(EngineInterface,dispatch_2c840_244)==0x244 &&
