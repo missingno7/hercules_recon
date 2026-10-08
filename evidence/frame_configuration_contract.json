@@ -1,0 +1,391 @@
+{
+  "scope": "Static bootstrap dependency/configuration evidence only. No compiler/candidate/canonical/Git/assets edits or original execution.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "functions": [
+    {
+      "name": "configuration",
+      "start_rva": "0x280f0",
+      "end_rva_exclusive": "0x28290",
+      "bytes": 416,
+      "sha256": "a151f3196e1813aea80fcd7dc6a4b203845db44186f02bddde506424027dc2c7",
+      "external_refs": [
+        {
+          "source_rva": "0x1f0f1",
+          "target_rva": "0x280f0",
+          "kind": "linear_call"
+        }
+      ],
+      "body_bytes": 411,
+      "padding_bytes": 5,
+      "last_ret_rva": "0x2828a",
+      "next_called_entry": "0x28290",
+      "ABI": "No argument loads; reviewed caller ignores incidental return bits. void __cdecl function(void) is a consistent ordinary C hypothesis.",
+      "boundary_limit": "Full callable interval and following NOPs reviewed; no original COFF/TU/source identity inferred."
+    },
+    {
+      "name": "reference row initialization",
+      "start_rva": "0x5710",
+      "end_rva_exclusive": "0x5750",
+      "bytes": 64,
+      "sha256": "12ee1a99e75c1f5e7403d62d5d99ac1545c5ffc6f367fd1453347f52ac501d61",
+      "external_refs": [
+        {
+          "source_rva": "0x1f20c",
+          "target_rva": "0x5710",
+          "kind": "linear_call"
+        }
+      ],
+      "body_bytes": 58,
+      "padding_bytes": 6,
+      "last_ret_rva": "0x5749",
+      "next_called_entry": "0x5750",
+      "ABI": "No argument loads; reviewed caller ignores incidental return bits. void __cdecl function(void) is a consistent ordinary C hypothesis.",
+      "boundary_limit": "Full callable interval and following NOPs reviewed; no original COFF/TU/source identity inferred."
+    },
+    {
+      "name": "context defaults",
+      "start_rva": "0x15600",
+      "end_rva_exclusive": "0x15670",
+      "bytes": 112,
+      "sha256": "838ba807dc142b35eeb5ae3a5f1f3d03de77b1496f74b4491fd0adc0dee26387",
+      "external_refs": [
+        {
+          "source_rva": "0x1f211",
+          "target_rva": "0x15600",
+          "kind": "linear_call"
+        }
+      ],
+      "body_bytes": 97,
+      "padding_bytes": 15,
+      "last_ret_rva": "0x15660",
+      "next_called_entry": "0x15670",
+      "ABI": "No argument loads; reviewed caller ignores incidental return bits. void __cdecl function(void) is a consistent ordinary C hypothesis.",
+      "boundary_limit": "Full callable interval and following NOPs reviewed; no original COFF/TU/source identity inferred."
+    }
+  ],
+  "configuration": {
+    "body": "280f0..28290 full416, no callees; preceding alternate initializer RET280e7 with8NOP, next independent28290 argument-consuming entry. Only reviewed caller1f0f1.",
+    "selection": [
+      "280f0 loads initial row dword;280fa tests its lowWORD ID against999. Clear byte71860 before any selection result.",
+      "If initial ID999, select row0 without reading context. Otherwise28107 reads copied interface slot1 and2810d sign-extends context byte0 toSI.",
+      "Compare row ID to signed byte bit pattern in16bits. If not equal, advance row pointer72, increment row index, load next ID, stop on ID999.",
+      "28129..2812c computes selected index*72 and copies that row even if selection stopped at sentinel. Missing IDs do not abort or fall back to row0."
+    ],
+    "source_frame": "Observed row stride72: twelve16-bit positions0..0x16 followed by twelve32-bit positions0x18..0x44 is a consistent ordinary C view (2-byte word prefix24 bytes, DWORD tail48). Field0x3c is not read here. The final actual DWORD read at+0x44 reaches byte72, so this is a writer/reader-supported row view rather than padding guessed from stride.",
+    "count_outputs": [
+      {
+        "field_rva": "0x713b4",
+        "store_rva": "0x281eb",
+        "source_row_offset": "0x02",
+        "transform": "Copy16 bits, bootstrap zero-extends them to32 at1f0fa."
+      },
+      {
+        "field_rva": "0x71432",
+        "store_rva": "0x2822a",
+        "source_row_offset": "0x04",
+        "transform": "Add5 in BX and store low16 bits; modulo65536, bootstrap zero-extends at1f11c."
+      },
+      {
+        "field_rva": "0x713ba",
+        "store_rva": "0x281dd",
+        "source_row_offset": "0x06",
+        "transform": "Add5 in BP and store low16 bits; modulo65536, bootstrap zero-extends at1f148."
+      }
+    ],
+    "other_outputs": [
+      {
+        "row_offset": "0x08",
+        "output_rvas": [
+          "0x71378",
+          "0x713c4"
+        ],
+        "width": 2
+      },
+      {
+        "row_offset": "0x0e",
+        "output_rvas": [
+          "0x713a8",
+          "0x71308"
+        ],
+        "width": 2
+      },
+      {
+        "row_offset": "0x12",
+        "output_rvas": [
+          "0x713b6",
+          "0x71374"
+        ],
+        "width": 2
+      },
+      {
+        "row_offset": "0x18",
+        "output_rvas": [
+          "0x71388"
+        ],
+        "width": 4
+      },
+      {
+        "row_offset": "0x1c",
+        "output_rvas": [
+          "0x71370"
+        ],
+        "width": 4
+      },
+      {
+        "row_offset": "0x20",
+        "output_rvas": [
+          "0x71390"
+        ],
+        "width": 4
+      },
+      {
+        "row_offset": "0x24",
+        "output_rvas": [
+          "0x7137c"
+        ],
+        "width": 4
+      },
+      {
+        "row_offset": "0x28",
+        "output_rvas": [
+          "0x713a4"
+        ],
+        "width": 4
+      },
+      {
+        "row_offset": "0x2c",
+        "output_rvas": [
+          "0x7139c"
+        ],
+        "width": 4
+      },
+      {
+        "row_offset": "0x30",
+        "output_rvas": [
+          "0x713b0"
+        ],
+        "width": 4
+      },
+      {
+        "row_offset": "0x14",
+        "output_rvas": [
+          "0x71394"
+        ],
+        "width": 2
+      },
+      {
+        "row_offset": "0x10",
+        "output_rvas": [
+          "0x713a0",
+          "0x713ac"
+        ],
+        "width": 2
+      },
+      {
+        "row_offset": "0x0a",
+        "output_rvas": [
+          "0x713aa",
+          "0x713b8"
+        ],
+        "width": 2
+      },
+      {
+        "row_offset": "0x34",
+        "output_rvas": [
+          "0x71384"
+        ],
+        "width": 4
+      },
+      {
+        "row_offset": "0x38",
+        "output_rvas": [
+          "0x713c0"
+        ],
+        "width": 4
+      },
+      {
+        "row_offset": "0x16",
+        "output_rvas": [
+          "0x71380"
+        ],
+        "width": 2
+      },
+      {
+        "row_offset": "0x0c",
+        "output_rvas": [
+          "0x7138c",
+          "0x71430"
+        ],
+        "width": 2
+      },
+      {
+        "row_offset": "0x40",
+        "output_rvas": [
+          "0x71398"
+        ],
+        "width": 4
+      },
+      {
+        "row_offset": "0x44",
+        "output_rvas": [
+          "0x713bc"
+        ],
+        "width": 4
+      }
+    ],
+    "static_prefix": {
+      "ids": [
+        0,
+        1,
+        3,
+        5,
+        6,
+        7,
+        9,
+        11,
+        999
+      ],
+      "sentinel_index": 8,
+      "sentinel_rva": "0x68d30",
+      "observed_prefix_bytes": 648,
+      "prefix_sha256": "266456aaa3b8b1ac3d3b226d6febed915b40817d59e156398a5f9903500933e2",
+      "row0_count_words": [
+        20,
+        60,
+        40
+      ],
+      "sentinel_count_words": [
+        10,
+        10,
+        10
+      ],
+      "limit": "Nine initial scanned rows through the first sentinel are evidenced, not complete table capacity, constness, or absence of a computed writer."
+    },
+    "writers": "Direct count writers decoded against original bytes are only281eb/2822a/281dd among indexed exact-address operands; other indexed references are readers. This is not whole-program computed-alias absence.",
+    "alias_limit": "Cells713b4/71432/713ba are outside the observed250-word interface copy70f20..71308. The cursor output71308 begins exactly at its exclusive end, with no overlap. Original object/aggregate ownership beyond that copied prefix remains unproved.",
+    "library_role": "Selected gameplay allocation/partition configuration copies, no library calls. Not identified CRT; original project versus SDK ownership and source names remain unproved."
+  },
+  "profile28": {
+    "distinction": "The profile readers address5df08..5df14 +28*S8(context byte0). This is not the72-byte ID-search table at68af0, and280f0 neither reads nor writes this profile in its complete body.",
+    "members": [
+      {
+        "address": "0x5df08",
+        "width": 1,
+        "consumer": "1f45f -> byte734f0"
+      },
+      {
+        "address": "0x5df09",
+        "width": 1,
+        "consumer": "1f476 -> byte734f1"
+      },
+      {
+        "address": "0x5df0a",
+        "width": 1,
+        "consumer": "1f494 -> byte734f2"
+      },
+      {
+        "address": "0x5df0b",
+        "width": 1,
+        "consumer": "2080b -> byte70d00;25f70 other reviewed-reader lead"
+      },
+      {
+        "address": "0x5df0c",
+        "width": 1,
+        "consumer": "1f556 bit0 to paired view bytes16;1f59b bit1 to paired view bytes18"
+      },
+      {
+        "address": "0x5df0e",
+        "width": 2,
+        "consumer": "1f198 unsigned word*80 allocation;1f502 unsigned word*40 half selection;5639 iteration helper"
+      },
+      {
+        "address": "0x5df10",
+        "width": 1,
+        "consumer": "2db48 reader"
+      },
+      {
+        "address": "0x5df11",
+        "width": 1,
+        "consumer": "2db69 reader"
+      },
+      {
+        "address": "0x5df14",
+        "width": 4,
+        "consumer": "1f3c2 -> DWORD70d24"
+      }
+    ],
+    "source_coordinate": "5df00 is a convenient coordinate used to express member offsets, not an independently proven original record base. Use member-relative views/unsized storage until complete representation is grounded.",
+    "initialization": "These member bytes are file-backed initial data. No indexed exact-base writer found. Row1 member+14 (address5df30) is an actual HIGHLOW absolute pointer initially10042320; row0 corresponding DWORD isNULL. Pointer-shaped initialization supports a pointer/opaque-word view, not a proved pointee type or capacity.",
+    "signed_index": "Real readers sign-extend context byte0 and compute7*level then scale4. No profile bounds check is introduced by this evidence; table capacity and all valid runtime indices are unresolved.",
+    "limits": "Profile initial bytes and HIGHLOW aliases are in dependencies.json. Do not copy data or define capacities from neighboring addresses. Encoded writer absence is narrower than immutability; do not infer original const-qualified declaration."
+  },
+  "reference_init": {
+    "function": "5710..5750 full64; loop initializes exactly32 four-byte rows at727e0..72860, each WORD0=0 andWORD2=ffff, then calls56c0 and stores low return byte to734ec.",
+    "alias": "The initialized interval ends at72860 exclusively;72860 is the separately host-written normal pool pointer cell, not a33rd token row. The32-row extent is proven by literal loop count32 and stride4, consistent with existing cleanup token view.",
+    "call": "573c:56c0(address4d818,0x7641,0x20,5). Actual4d818 starts0000ffffffff...; it is not proved a filename string despite byte0 beingNUL.",
+    "dependency": {
+      "span": "56c0..5710 full80, RET5701+14NOP",
+      "ABI": "Four physical32-bit arguments; only low8 return bits are consumed by5710.",
+      "protocol": "5660(arg2,arg4) returns token byte. Capture AL. If bit7 set, clear bit7 and call5780(arg1,index_low7,arg3); return the resulting selected byte inAL. If bit7 clear, skip5780 and return captured byte.",
+      "limits": "Original parameter widths/types and semantics of5660/5780 remain dependencies. No invented sound/resource name or stub. Existing token release5750 contribution must remain unchanged."
+    },
+    "library_role": "Custom reference-row setup and byte-token dispatch, not identified CRT."
+  },
+  "context_defaults": {
+    "function": "15600..15670 full112, no callees; next independent15670 entry touches normal actor pool. Only reviewed caller1f211.",
+    "stores": [
+      "DWORD721a8=1;DWORD72190=0",
+      "LIVE context WORD1e=128;WORD20=0;WORD1c=0;BYTE11=0",
+      "If context BYTEc equals0, replace with1 and reload context",
+      "Compare BYTEc to9 with signed JLE. If signed value>9, replace with9 and reload context",
+      "Clear context BYTEd=0"
+    ],
+    "signed_fixtures": "Initial C values0->1,1->1,9->9,10->9,0x7f->9,0x80->0x80,0xff->0xff. Do not unsigned-clamp negative physical byte values.",
+    "source_limits": "Low context fields are in the observed opaque prefix. Typed field views can be added from actual widths/predicate; original logical names and full declaration remain unproved. There are no intervening callbacks: repeated pointer loads do not establish volatile/asynchronous mutation semantics.",
+    "library_role": "Custom shared context/gameplay defaults, not identified CRT."
+  },
+  "bounded_followup": {
+    "closest": "Configuration280f0 full416 and context-defaults15600 full112 are self-contained ordinary C functions with only observed data dependencies. Recover them as a bounded528-byte family while keeping separate source contexts if ownership is unknown.",
+    "reference_family": "5710 full64 can be a later coherent dependency task with56c0 full80 and actual5660/5780 definitions audited before natural link closure. Keep opaque real extern dependencies rather than inventing implementations.",
+    "prediction": "An ordinary selected-row search/copy and signed-byte default initializer preserve exact record strides/count transformations, sentinel behavior, store widths, and ABI. Fresh full-byte+ordered-relocation measurement is future work, not granted by this static report.",
+    "falsifier": "Sentinel causes early return, all missing IDs pickrow0, signed level becomes unsigned, +5 does not wrap to16 bits, count/profile tables conflated, BYTEc negatives clamp9, token loop overruns72860, callbacks or whole-object clears are added, or accepted peers change.",
+    "fixtures": [
+      "Select known first/later ID and missing2/ff: verify sentinel copied on miss and71860 cleared.",
+      "Initial first-row ID999 avoids context read; choose initial sentinel directly.",
+      "Wordsfff9/fffa/fffb/ffff test +5 truncation and bootstrap zero-extension.",
+      "All other output fields retain exact per-row copies, including duplicate partition/cursor writes.",
+      "Context byteC boundary mapping above; only observed fields change.",
+      "Token sentinel rows32 only; next pointer cell72860 unchanged;56c0 calls/lowAL capture obey bit7 path."
+    ],
+    "ownership": "No overlap with workers owning1f0f0/1f220/1f320 or missing wrappers. Preserve43 exact functions and all previously preserved module outputs. No compiler/declaration/flags/source grids."
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "compiler_builds": 0,
+    "tokens": null,
+    "cost_usd": null
+  },
+  "evidence": {
+    "full": "work/frame_configuration_audit/full.json",
+    "field_refs": "work/frame_configuration_audit/fields.json",
+    "dependencies": "work/frame_configuration_audit/dependencies.json",
+    "prediction": "work/frame_configuration_audit/prediction.json",
+    "prior_frame": "evidence/frame_bootstrap_contract.json"
+  },
+  "evidence_sha256": {
+    "full.json": "82a5ec3615395cb10948887e51b5ac3a295147bb5a395b155f266bba50649f5d",
+    "fields.json": "cb520f33291eb3610ee799ca1cbe1352c20db145859dae7a6f4ecc67304b8bc7",
+    "dependencies.json": "497818581a432e3aea8f3c978584d498ebbd62cee627e10c7013cde8c73b49af",
+    "prediction.json": "7da69d6667b7616876007928c3c81939533425220e362d8035604bf68af8010a"
+  },
+  "root_publication": {
+    "source": "work/frame_configuration_audit/report.json",
+    "source_sha256": "f0c014944682bbe7a6fab8a5b77dfa20a27a67519e2b92450926feef2ab672d0",
+    "verification": "Oracle identity and all three complete callable span hashes independently rechecked. Static audit only, no acceptance or original execution."
+  }
+}

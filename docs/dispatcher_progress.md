@@ -72,7 +72,7 @@ unresolved storage: empty default reads do not justify placeholder literals or
 capacity claims. Two actual CRT path/string reader members (592 bytes) are
 identified rather than rewritten.
 
-Current verification passes 53 semantic suites with 3,650,609 checks, 32 Python
+Current verification passes 54 semantic suites with 3,650,790 checks, 32 Python
 tests and 12 immutable-file hashes. All 43 accepted functions remain raw equal
 after fresh historical compilation. `evidence/dispatcher_measurements.json`
 records current source/header/command/output identities for 52 experimental
@@ -112,3 +112,23 @@ run after the header change; all 43 accepted functions remain raw exact.
 Current header-bound receipts and `evidence/slot81_integration.json` preserve the
 new context. Bootstrap/setup reconstruction uses these real dependencies while
 its other actual callees remain unresolved.
+
+The coherent bootstrap/cleanup/setup source is now retained in
+`calibration/frame_bootstrap_family.c`. Integration preserves all three private
+complete output identities. Bootstrap matches the target's 304 bytes only after
+relocation resolution; cleanup is 272 versus 256 bytes, and setup is 832 versus
+896. Their 181-check fixture links the real bridge and accepted writer; the other
+callees and initial storage are explicit synthetic boundaries. It verifies live
+allocation/context/owner changes, request tuples, cleanup callback/free/copy
+order, config masks, descriptor arguments and the final current/base toggle.
+The family remains experimental and indexed; no normalized equal is rewritten
+to force module placement. `evidence/frame_bootstrap_family.json` binds its source,
+headers, complete contributions and narrow claims.
+
+The next real configuration dependency explains the allocation counts. Its
+72-byte selected-row scan copies the sentinel row on a miss, adds five modulo
+65536 to two count words and keeps a separate 28-byte profile view. The default
+initializer uses a signed byte comparison, preserving 0x80 and 0xff rather than
+clamping them. The 32 token rows end exactly before the independent owner slot.
+`evidence/frame_configuration_contract.json` records these writer-backed facts;
+table capacities, original aggregates and final module data/layout remain open.
