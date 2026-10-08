@@ -86,6 +86,9 @@ The [dispatcher continuation](docs/dispatcher_progress.md) accepts a real host
 callback, reconstructs dispatcher/callback dependencies and tests their native
 cross-module callback chain. Header dependencies now identify compiler context.
 
+The [current handoff](docs/handoff.md) records the verified frame dependency
+checkpoint, reproducible diagnostics and the next bounded reconstruction work.
+
 ## References
 
 [icytower_rerecon](https://github.com/missingno7/icytower_rerecon) and
