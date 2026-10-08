@@ -19,7 +19,8 @@ def read(path):
 
 
 def run(plan_path, output):
-    if not output.resolve().is_relative_to(ROOT / 'work'):
+    output = output.resolve()
+    if not output.is_relative_to(ROOT / 'work'):
         raise ValueError('Diagnostic outputs belong in ignored work/')
     plan = read(plan_path)
     tc = DEFAULT_TOOLCHAIN

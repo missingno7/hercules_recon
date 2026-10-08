@@ -1,23 +1,36 @@
-# Hercules reconstruction handoff, 2026-10-09
+# Hercules reconstruction handoff, 2026-10-09 (updated after the leaf harvest)
 
-This closes the current work chunk. Reconstruction changes are committed in
-`42dd3a3`; the Blood2 assessment is in `7fe7377`. Both were pushed to `origin/main`.
-No unfinished canonical experiment is left in the working tree. This handoff does
-not claim module closure or change accepted recovery state.
+The project moved to a new host (user `jiriv`). Originals, pinned VC5 RTM/SP2 trees
+(`setup_toolchain.ps1 -VerifyOnly`) and analysis packages verified unchanged; VC5
+runs there without sandbox escalation. Python is the WindowsApps CPython 3.11.9
+(see README). No Codex workers were used for this chunk; Claude integrated, with
+Haiku 5.5 lanes for bounded candidate grinding.
 
 ## Authoritative checkpoint
 
-- `recovery.json`: 44 accepted instances, 4,448 bytes. Its SHA-256 is
-  `5164b17b53419eabfc5bc0e6b50d1266955c371d1ff111373f4092364474bbae`.
-- All 44 passed fresh historical compilation and the unchanged complete raw-byte
-  gate after the latest source integration. No new match was added in this chunk.
+- `recovery.json`: 113 accepted instances. Its SHA-256 is
+  `e9c169bedbeb01536019d4cd223cd1a0505669b8f75d56f96eadef987069d639`.
+- All 113 passed fresh historical compilation and the unchanged complete raw-byte
+  gate. The leaf harvest added 69 ([docs/leaf_harvest.md](leaf_harvest.md),
+  `evidence/leaf_harvest.json`). The frame-family state below is unchanged: its
+  link diagnostic still reports 8 objects and 114 unresolved names.
 - The primary EXE oracle remains `work/discs/pc_install/HERCULES.EXE`, SHA-256
   `587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d`.
   The installed asset EXE has the user-confirmed one-byte no-CD modification.
 - Original files remain immutable; the last inventory check verified all 12.
   No original executable or DLL was loaded or run.
+- `scripts/dependency_link.py` now resolves `--output` before the linker runs in
+  its lane, so the relative command below works as documented.
 
-## Finished work
+## Leaf pool status
+
+The relocation-free leaf pool is essentially exhausted. Nine genuine leaves stay open
+with recorded families and re-entry conditions in `evidence/leaf_harvest.json`.
+Do not rerun their falsified families without a new discriminator. The measured
+TU-context effect at ENG1 `0x2a520` is the most useful new input for TU recovery.
+New acceptance otherwise depends on the natural-link dependency work below.
+
+## Earlier finished work (frame dependency binding)
 
 `calibration/frame_bootstrap_family.c` now calls recovered configuration/defaults
 and allocator/cancellation providers directly. Three count references share the

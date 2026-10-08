@@ -24,10 +24,11 @@ diagnostic cases; `scripts/` analysis and matching tools. `work/`, `build/` and
 `candidates/` are disposable and ignored. Historical tools live under `C:\tools`.
 Never add game files or compiler installations to Git.
 
-Use Python 3.12 (the WindowsApps `python` alias may be unusable). On the initial host:
+Use CPython 3.11 or later; pinned analysis packages load from `C:\tools\hercules\python`.
+On the current host the WindowsApps CPython 3.11.9 works (the initial host used 3.12):
 
 ```powershell
-$python = 'C:\Users\Jiri\AppData\Local\Programs\Python\Python312\python.exe'
+$python = 'C:\Users\jiriv\AppData\Local\Microsoft\WindowsApps\python.exe'
 & $python scripts/inventory.py --verify
 & $python scripts/archaeology.py index
 & $python scripts/archaeology.py strings 'ENGINE' --module TITLE.DLL
@@ -42,9 +43,9 @@ with `scripts/setup_toolchain.ps1`. See [toolchain evidence](docs/toolchain.md),
 The [shared-engine continuation](docs/shared_code.md) records exact target and
 frame motion, vector, counted-list and bounds routines, measured reuse across DLLs, and the
 remaining ENG3 vector variant.
-Extraction must precede indexing the baseline EXE. Compiler invocation on this
-host requires running outside the Codex sandbox because Windows rejects its old
-DLL layout inside the sandbox; compiler binaries are unchanged.
+Extraction must precede indexing the baseline EXE. Inside the Codex sandbox the
+historical compiler must run outside it, because Windows rejects its old DLL layout
+there; compiler binaries are unchanged.
 
 The [bounded macro experiment](docs/macro_experiment.md) compares five whole-file
 reconstruction waves over an 18-function actor subsystem slice. Its candidate
@@ -86,8 +87,13 @@ The [dispatcher continuation](docs/dispatcher_progress.md) accepts a real host
 callback, reconstructs dispatcher/callback dependencies and tests their native
 cross-module callback chain. Header dependencies now identify compiler context.
 
-The [current handoff](docs/handoff.md) records the verified frame dependency
-checkpoint, reproducible diagnostics and the next bounded reconstruction work.
+The [leaf harvest](docs/leaf_harvest.md) measures every relocation-free leaf the
+raw gate can accept without a natural link, identifies 83 library contributions,
+and raises accepted functions from 44 to 113. It also records a measured VC5
+translation-unit context effect usable for TU recovery.
+
+The [current handoff](docs/handoff.md) records the verified checkpoint, reproducible
+diagnostics and the next bounded reconstruction work.
 
 ## References
 

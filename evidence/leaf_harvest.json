@@ -1,0 +1,1020 @@
+{
+ "scope": "Relocation-free leaf harvest under the unchanged raw FUNCTION_MATCH gate. Spans are leads from direct-call and code-pointer starts; acceptance is recovery.json only. Function equality proves neither original names, types, translation units nor module layout.",
+ "date": "2026-10-09",
+ "toolchain": "msvc5_rtm, /O2 /Gy (compile_source in scripts/match.py)",
+ "commands": [
+  "python scripts/leaf_survey.py --output work/leaf_survey/leaves_v2.json",
+  "python scripts/leaf.py packet|check MODULE RVA SIZE ...",
+  "python scripts/leaf_integrate.py review|stage ...",
+  "python scripts/promote.py IDS --source CANDIDATE"
+ ],
+ "tools": {
+  "scripts/leaf_survey.py": "2f140f21392fbe2dfde3a37db7734c87ccc5e4066701650ac6414ca14dbfa7dc",
+  "scripts/leaf.py": "19c2aa36997a098d421984b0cfefe29bc7e05937ddf67407b5b9f7fe1bb8ad86",
+  "scripts/leaf_integrate.py": "5556fd5dd2b7bce2bd66a60375e99bf210000fbf22b99680c02b928ac0c42aa4"
+ },
+ "prediction": "At least 70% of the distinct open leaf spans reproduce exactly under pinned RTM /O2 with ordinary C and no flag changes.",
+ "falsifier": "Fewer than 50% exact, or exactness requiring non-/O2 flags or non-ordinary constructs.",
+ "survey": {
+  "leaf_spans": 224,
+  "library": 83,
+  "tracked_before": 42,
+  "open": 101,
+  "open_bytes": 6800
+ },
+ "filters": [
+  "no base relocation inside span",
+  "no call/memory/immediate/pointer reference to image addresses",
+  "no branch leaving the span",
+  "extent: entry decode covers body ending in ret/jmp, <16 NOP padding bytes, no call/pointer entries into the interior, code-section references must be instruction immediates (otherwise jump table)"
+ ],
+ "library_identifications": [
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0xa340",
+   "size": 16,
+   "contribution": [
+    "lib/libcmt.lib:___init_collate",
+    "lib/libcmt.lib:___init_dummy",
+    "lib/libcmt.lib:__matherr"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x10a70",
+   "size": 64,
+   "contribution": [
+    "lib/libcmt.lib:_strncmp"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x10d90",
+   "size": 48,
+   "contribution": [
+    "lib/libcmt.lib:__ftol"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x116b0",
+   "size": 64,
+   "contribution": [
+    "lib/libcmt.lib:?_JumpToContinuation@@YGXPAXPAUEHRegistrationNode@@@Z"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x11e30",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x12910",
+   "size": 384,
+   "contribution": [
+    "lib/libcmt.lib:___sbh_alloc_block_from_page"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x12a90",
+   "size": 208,
+   "contribution": [
+    "lib/libcmt.lib:___sbh_resize_block"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x14bc0",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x14be0",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x14c00",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x159e0",
+   "size": 48,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x15ca0",
+   "size": 48,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x182c0",
+   "size": 160,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x18360",
+   "size": 144,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x18620",
+   "size": 112,
+   "contribution": [
+    "lib/libcmt.lib:__ZeroTail"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x187a0",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:__CopyMan"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x187c0",
+   "size": 16,
+   "contribution": [
+    "lib/libcmt.lib:__FillZeroMan"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x187d0",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:__IsZeroMan"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x187f0",
+   "size": 192,
+   "contribution": [
+    "lib/libcmt.lib:__ShrMan"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x18b40",
+   "size": 160,
+   "contribution": [
+    "lib/libcmt.lib:__fptostr"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x18e30",
+   "size": 112,
+   "contribution": [
+    "lib/libcmt.lib:__aulldiv"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x18ea0",
+   "size": 128,
+   "contribution": [
+    "lib/libcmt.lib:__aullrem"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x192e0",
+   "size": 64,
+   "contribution": [
+    "lib/libcmt.lib:__allmul"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x19320",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:__allshl"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x193d0",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:_wcslen"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x19da0",
+   "size": 48,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x19dd0",
+   "size": 48,
+   "contribution": [
+    "lib/libcmt.lib:___addl"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x19e70",
+   "size": 48,
+   "contribution": [
+    "lib/libcmt.lib:___shl_12"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x19ea0",
+   "size": 48,
+   "contribution": [
+    "lib/libcmt.lib:___shr_12"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x1b710",
+   "size": 64,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x20590",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:__EH_prolog"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x205b0",
+   "size": 96,
+   "contribution": [
+    "lib/libcmt.lib:_memset"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x20aa0",
+   "size": 176,
+   "contribution": [
+    "lib/libcmt.lib:_memcmp"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x1000",
+   "size": 16,
+   "contribution": [
+    "lib/libcmt.lib:?",
+    "lib/libcmt.lib:__fpclear"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0xc720",
+   "size": 16,
+   "contribution": [
+    "lib/libcmt.lib:?",
+    "lib/libcmt.lib:__fpclear"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x22180",
+   "size": 16,
+   "contribution": [
+    "lib/libcmt.lib:?",
+    "lib/libcmt.lib:__fpclear"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x46550",
+   "size": 48,
+   "contribution": [
+    "lib/libcmt.lib:__allshr"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x46580",
+   "size": 64,
+   "contribution": [
+    "lib/libcmt.lib:__allmul"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x473b0",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x473d0",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x473f0",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x47550",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x48250",
+   "size": 16,
+   "contribution": [
+    "lib/libcmt.lib:_DllMain@12"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x48a70",
+   "size": 112,
+   "contribution": [
+    "lib/libcmt.lib:__aulldiv"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x48ae0",
+   "size": 128,
+   "contribution": [
+    "lib/libcmt.lib:__aullrem"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x49520",
+   "size": 384,
+   "contribution": [
+    "lib/libcmt.lib:___sbh_alloc_block_from_page"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x49730",
+   "size": 256,
+   "contribution": [
+    "lib/libcmt.lib:_strncpy"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x4a9b0",
+   "size": 64,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x4ad20",
+   "size": 208,
+   "contribution": [
+    "lib/libcmt.lib:___init_collate",
+    "lib/libcmt.lib:___init_dummy",
+    "lib/libcmt.lib:__matherr"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x4bde0",
+   "size": 252,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x1000",
+   "size": 16,
+   "contribution": [
+    "lib/libcmt.lib:?",
+    "lib/libcmt.lib:__fpclear"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2390",
+   "size": 16,
+   "contribution": [
+    "lib/libcmt.lib:?",
+    "lib/libcmt.lib:__fpclear"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2b100",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2b120",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2b140",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2b8a0",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2c5a0",
+   "size": 16,
+   "contribution": [
+    "lib/libcmt.lib:_DllMain@12"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2cdc0",
+   "size": 112,
+   "contribution": [
+    "lib/libcmt.lib:__aulldiv"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2ce30",
+   "size": 128,
+   "contribution": [
+    "lib/libcmt.lib:__aullrem"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2cf10",
+   "size": 160,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2cfb0",
+   "size": 144,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2d270",
+   "size": 112,
+   "contribution": [
+    "lib/libcmt.lib:__ZeroTail"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2d3f0",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:__CopyMan"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2d410",
+   "size": 16,
+   "contribution": [
+    "lib/libcmt.lib:__FillZeroMan"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2d420",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:__IsZeroMan"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2d440",
+   "size": 192,
+   "contribution": [
+    "lib/libcmt.lib:__ShrMan"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2d790",
+   "size": 160,
+   "contribution": [
+    "lib/libcmt.lib:__fptostr"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2d8c0",
+   "size": 192,
+   "contribution": [
+    "lib/libcmt.lib:___dtold"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2e690",
+   "size": 384,
+   "contribution": [
+    "lib/libcmt.lib:___sbh_alloc_block_from_page"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2e8a0",
+   "size": 256,
+   "contribution": [
+    "lib/libcmt.lib:_strncpy"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2f2d0",
+   "size": 48,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2f300",
+   "size": 48,
+   "contribution": [
+    "lib/libcmt.lib:___addl"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2f3a0",
+   "size": 48,
+   "contribution": [
+    "lib/libcmt.lib:___shl_12"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x2f3d0",
+   "size": 48,
+   "contribution": [
+    "lib/libcmt.lib:___shr_12"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x30b00",
+   "size": 64,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x310b0",
+   "size": 208,
+   "contribution": [
+    "lib/libcmt.lib:___init_collate",
+    "lib/libcmt.lib:___init_dummy",
+    "lib/libcmt.lib:__matherr"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "TITLE.DLL",
+   "rva": "0x16e0",
+   "size": 16,
+   "contribution": [
+    "lib/libcmt.lib:?",
+    "lib/libcmt.lib:__fpclear"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "TITLE.DLL",
+   "rva": "0x1dd0",
+   "size": 16,
+   "contribution": [
+    "lib/libcmt.lib:?",
+    "lib/libcmt.lib:__fpclear"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "TITLE.DLL",
+   "rva": "0x1dd50",
+   "size": 32,
+   "contribution": [
+    "lib/libcmt.lib:?"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "TITLE.DLL",
+   "rva": "0x1e880",
+   "size": 16,
+   "contribution": [
+    "lib/libcmt.lib:_DllMain@12"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "TITLE.DLL",
+   "rva": "0x1f470",
+   "size": 384,
+   "contribution": [
+    "lib/libcmt.lib:___sbh_alloc_block_from_page"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "TITLE.DLL",
+   "rva": "0x1f680",
+   "size": 256,
+   "contribution": [
+    "lib/libcmt.lib:_strncpy"
+   ],
+   "match": "complete"
+  },
+  {
+   "module": "TITLE.DLL",
+   "rva": "0x20cc0",
+   "size": 47,
+   "contribution": [
+    "lib/libcmt.lib:__alloca_probe"
+   ],
+   "match": "complete"
+  }
+ ],
+ "data_tables": [
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x2100",
+   "kind": "switch index byte table (mov dl,[ecx+0x10002100]; jmp [edx*4+0x100020e4])"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rvas": [
+    "0x99a0",
+    "0xdc70",
+    "0xe130",
+    "0xf760",
+    "0x18ea0",
+    "0x1df20",
+    "0x1fde0",
+    "0x35090",
+    "0x472a0"
+   ],
+   "kind": "switch index tables referenced from the preceding function"
+  },
+  {
+   "module": "ENG1.DLL",
+   "rvas": [
+    "0x4b8e0",
+    "0x4ba70"
+   ],
+   "kind": "switch case fragments behind jump tables at 0x4b8cc/0x4ba60"
+  },
+  {
+   "module": "ENG3.DLL",
+   "rvas": [
+    "0x74f0",
+    "0x204b0",
+    "0x2aff0",
+    "0x2dae0",
+    "0x2dc70"
+   ],
+   "kind": "switch tables/case fragments"
+  },
+  {
+   "module": "TITLE.DLL",
+   "rva": "0xc0e0",
+   "kind": "switch index table"
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x116f0",
+   "kind": "return-address swapping thunk ending in jmp eax; not expressible as ordinary C"
+  }
+ ],
+ "workers": "Six Haiku 5.5 lanes produced private per-function candidates; two Haiku merges unified each region onto the shared Effect/Actor layout. The integrator reviewed and naturalized sources (compound assignments, while loops, sibling forms) and every row passed promote.py.",
+ "accepted_ids": [
+  "eng1.adjust_bounds_3f070",
+  "eng1.advance_cycle_effect",
+  "eng1.advance_sequence_effect",
+  "eng1.apply_scaled_offsets_40ab0",
+  "eng1.attach_entries",
+  "eng1.clear_effect_animation",
+  "eng1.copy_link_state_41fa0",
+  "eng1.copy_pair_14de0",
+  "eng1.follow_attachment_scale",
+  "eng1.init_defaults_117d0",
+  "eng1.init_fields_1d50",
+  "eng1.init_flags_f070",
+  "eng1.initialize_flagged_effect",
+  "eng1.initialize_high_backdrop",
+  "eng1.initialize_low_backdrop",
+  "eng1.initialize_wide_effect",
+  "eng1.initialize_wider_effect",
+  "eng1.load_coords_10380",
+  "eng1.overlap_wrapped_bounds",
+  "eng1.point_in_planar_bounds",
+  "eng1.reset_extent_36b60",
+  "eng1.reset_links_45a50",
+  "eng1.reset_placement",
+  "eng1.reset_render_parameter",
+  "eng1.select_side_sprite",
+  "eng1.set_collide_flags_3eaa0",
+  "eng1.set_collide_flags_3eac0",
+  "eng1.set_flags_3f040",
+  "eng1.set_flags_459e0",
+  "eng1.set_flags_461d0",
+  "eng1.set_flags_two",
+  "eng1.set_kind_422d0",
+  "eng1.set_limit_e610",
+  "eng1.set_mode_13c90",
+  "eng1.set_mode_flags_36120",
+  "eng1.set_render_flags_3e9b0",
+  "eng1.set_scale_2c20",
+  "eng1.set_state_flags_41300",
+  "eng1.set_wide_scale",
+  "eng1.show_sprite_7a",
+  "eng1.show_sprite_82",
+  "eng1.signed_step",
+  "eng1.start_cycle_effect",
+  "eng1.start_sequence_effect",
+  "eng1.wrap_delta_461a0",
+  "eng1.wrapped_ratio",
+  "eng3.advance_frame",
+  "eng3.append_chain",
+  "eng3.copy_vec_adjust_15410",
+  "eng3.init_defaults_13840",
+  "eng3.init_defaults_e790",
+  "eng3.init_flags_12190",
+  "eng3.init_state_27130",
+  "eng3.reset_frame_state",
+  "eng3.reset_state_53a0",
+  "eng3.select_frame",
+  "eng3.set_field34_121b0",
+  "eng3.set_field34_121f0",
+  "eng3.setup_flags_145a0",
+  "eng3.setup_flags_14820",
+  "eng3.vec_diff_fixed_1420",
+  "eng3.within_radius_1140",
+  "exe.identity_value",
+  "exe.name_hash",
+  "exe.reset_slots",
+  "exe.return_false",
+  "exe.return_true",
+  "exe.reverse_low_bits",
+  "title.init_title_fields_d410"
+ ],
+ "negative_knowledge": [
+  {
+   "module": "ENG3.DLL",
+   "rva": "0x1f130",
+   "size": 112,
+   "family": "point-in-Bounds3D as & chain of six signed short comparisons",
+   "prediction": "One of the 720 operand orders reproduces VC5's reassociated comparison order.",
+   "falsifier": "No order exact.",
+   "verdict": "falsified",
+   "best_differing_bytes": 13,
+   "notes": "All 720 orders under one spelling: best 21. A pointer-local Haiku variant reached 13 (shift register order). Negated-OR bounds_overlap form is worse (36).",
+   "reentry_condition": "New evidence on shift/argument register assignment or a different parameter type."
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x44740",
+   "size": 128,
+   "family": "cursor init with interleaved array copies",
+   "verdict": "inconclusive",
+   "best_differing_bytes": 23,
+   "notes": "Haiku brute-forced 720 statement orders without a hypothesis; register placement of esi differs.",
+   "reentry_condition": "Caller-derived types for the copied arrays."
+  },
+  {
+   "module": "HERCULES.EXE",
+   "rva": "0x43a0",
+   "size": 176,
+   "family": "overlap-safe backward dword copy unrolled by 8, loads before stores",
+   "verdict": "inconclusive",
+   "best_differing_bytes": 44,
+   "notes": "Compiler-generated, not CRT assembly. Structure exact; src/dst register roles and prologue load order differ. Pointer-local and declaration-order variants were worse.",
+   "reentry_condition": "Evidence for the parameter types or a sibling with the same idiom."
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x2b30",
+   "size": 240,
+   "family": "row fill from a counted int stream",
+   "verdict": "inconclusive",
+   "best_differing_bytes": 232,
+   "notes": "Register allocation wrong throughout; semantics unproved. ENG3 0x7f10 is a byte-identical peer."
+  },
+  {
+   "module": "TITLE.DLL",
+   "rva": "0x94c0",
+   "size": 272,
+   "family": "whole-object reset; store-order transcription and chained assignments",
+   "verdict": "falsified",
+   "best_differing_bytes": 74,
+   "notes": "Assigning -1 to the signed short at 0x32 (the shared phase field) reproduces the lone immediate and the first 97 bytes; VC5 then reorders independent stores differently. ENG1 0x27fe0 and ENG3 0x1d8a0 are the same 272-byte reset family (byte-identical to each other).",
+   "prediction": "Chained assignments (innermost stored first) explain descending-offset store groups and the schedule.",
+   "falsifier": "Chained and plain store forms compile identically and remain non-exact.",
+   "reentry_condition": "Evidence for the original field order/types of the reset, e.g. a PSX counterpart or a declaration-order discriminator."
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x2a810",
+   "size": 112,
+   "family": "point in 3-D box, & chain",
+   "verdict": "falsified",
+   "best_differing_bytes": 11,
+   "notes": "Haiku swept all 720 comparison orders; && form branches. Same open problem as ENG3 0x1f130.",
+   "reentry_condition": "As ENG3 0x1f130."
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x2c030",
+   "size": 48,
+   "family": "weighted min/max",
+   "verdict": "inconclusive",
+   "best_differing_bytes": 4,
+   "notes": "All expression forms tried compile identically; shift registers swapped in both branches; semantics uncertain."
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x2a570",
+   "size": 240,
+   "family": "object in box with flag-mirrored extents",
+   "verdict": "inconclusive",
+   "best_differing_bytes": 199
+  },
+  {
+   "module": "ENG1.DLL",
+   "rva": "0x2ad70",
+   "size": 224,
+   "family": "outcode computation",
+   "verdict": "inconclusive",
+   "best_differing_bytes": 170
+  }
+ ],
+ "context_sensitivity": {
+  "function": "eng1.point_in_planar_bounds (ENG1 0x2a520, 80 bytes)",
+  "observation": "Identical source is raw exact standalone and as the first function of bounds.c, but 6-8 bytes off after any preceding function that dereferences a struct pointer, 0 off after pure arithmetic functions, and 9 off directly after planar_bounds_overlap (its contiguous predecessor at 0x2a4d0), in current or address order. 33 off at the end of the merged region file.",
+  "implication": "VC5 code generation depends on preceding TU content. Either a TU boundary lies between 0x2a4d0 and 0x2a520, or the predecessor original spelling differs. Neither is proved; all region files remain grouping hypotheses and every member is verified in place."
+ },
+ "outcome": {
+  "new_function_matches": 69,
+  "new_bytes": 3392,
+  "accepted_total": 113,
+  "genuine_functions_attempted": 78,
+  "open_functions": 9,
+  "non_function_spans": "data tables and one thunk; see data_tables",
+  "prediction_verdict": "held: 69/78 genuine functions exact under RTM /O2 with ordinary C"
+ }
+}
