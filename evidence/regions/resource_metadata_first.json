@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T23:49:52.724449+00:00",
+  "region": "resource_metadata",
+  "ownership": {
+    "id": "resource_metadata",
+    "ownership": "function_task",
+    "rationale": "One bounded reader span with reviewed exact extent, indexed caller leads, and actual resource/helper address evidence; no broader TU ownership claim."
+  },
+  "context_id": "df65aa2ea29a9322e668fe3651d50cdb6750c13c6abc052ceccb10f49432220a",
+  "source_sha256": "98274e83ab3239965a391f39df967bdd49cb0e5145bfd1bf0c3e26d95aa459e9",
+  "baseline_sha256": "98274e83ab3239965a391f39df967bdd49cb0e5145bfd1bf0c3e26d95aa459e9",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "98274e83ab3239965a391f39df967bdd49cb0e5145bfd1bf0c3e26d95aa459e9",
+  "source_patch": {
+    "base_sha256": "98274e83ab3239965a391f39df967bdd49cb0e5145bfd1bf0c3e26d95aa459e9",
+    "result_sha256": "98274e83ab3239965a391f39df967bdd49cb0e5145bfd1bf0c3e26d95aa459e9",
+    "edits": []
+  },
+  "output_id": "ea3a7f12bb8192117f195ae2ec5337a43b8c73efb997d36b84c8474937d2a279",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_resource_metadata_pointer",
+      "target_size": 96,
+      "candidate_size": 96,
+      "raw_different_bytes": 16,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 4,
+      "target_relocation_count": 3,
+      "output_id": "07f2b9bb5ff3fc941320357207d516b1d54184eb0921a40e98a9c3d85ee8fade",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 1,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 1,
+    "ordered_cfg_equal": 1,
+    "instruction_over_90": 1,
+    "nonexact_instruction_over_90": 1,
+    "categories": {
+      "relocation-only diagnostic equality": 1
+    }
+  },
+  "family": "ordinary-c-resource-metadata-relative-pointer-reader",
+  "prediction": "The reader is a two-dword cdecl function: unsigned resource_id and raw int metadata_index. It returns NULL for raw index zero; otherwise state 3 bypasses the mapped resource-ready helper, while other states require a nonzero helper result. The metadata base is the combined buffer plus zero-extended entry_count*4+8. The low 16 index bits are sign-extended only for dword indexing; a zero descriptor returns NULL; a nonzero descriptor is arithmetic-shifted right by 8 and added to the base. A direct-field ActorResource view consistent with the established 20-byte data definition should reproduce this boundary and ABI using mapped global/helper relocations.",
+  "falsifier": "Reject this one ordinary-C family if any caller disagrees with the argument order/width or 16-bit sign extension, state/helper gate, zero-descriptor return, signed arithmetic descriptor shift, metadata basis, or returned pointer semantics; also reject if the fresh full 96-byte contribution differs. The fixture must check signed and boundary indices, state 3 and non-3, helper success/failure, zero descriptor, and raw index zero against an independent byte-level reference. No type/spelling grid follows a mismatch.",
+  "verdict": "observed",
+  "blocker": null,
+  "reentry_condition": null,
+  "next_discriminator": "Recover3750 and37a0 readiness dependencies, actual data/link contributions; preserve normalized-equal reader.",
+  "ungated_work": [],
+  "new_evidence": "Fresh target reread confirms the 96-byte span/hash at 0x31080. Exact verified archaeology refs query finds callers at 0x30e9c and 0x31037; both push masked 16-bit index then resource ID. The body loads resource_id as a dword, checks full metadata_index for zero, later MOVSXs DI, uses count+4 and buffer+12 from resource table base 0x5cee0, gates on residency_state+16==3 or helper 0x3750 success, and returns basis plus signed arithmetic descriptor>>8. Database SHA-256 is 41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390.",
+  "new_discriminator": null,
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "Fresh pinned MSVC5 whole-function comparison with actual resource/helper symbol mapping; independent target-derived fixture.",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 3,
+    "semantic_result": "43 checks/0 failures",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "bac46c811db0dc953db327adaaa59620b7da2608b397346cf0518e2ce4b1ba2c",
+    "report_sha256": "08390e5fc670e41cfd00107ca19651bda9e5b5bd66555bd041a4e8327cfad2c6",
+    "object_sha256": "d6f733ee32749a9ab32ac23088fafe165fd5d538bb7ab260bcde4c8853b29a37",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-u7ehllnf\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\resource_metadata.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "b8f6551aee803138e1e833e0975dfd77fd5bb0954b0b6b71fc082209c8c4cb23"
+}

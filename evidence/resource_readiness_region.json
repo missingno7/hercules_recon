@@ -1,0 +1,38 @@
+{
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "resource_readiness",
+    "ownership": "function_task",
+    "rationale": "Two directly connected ENG1 readiness dependencies with independently bounded spans; the larger resource-loading source unit remains unknown."
+  },
+  "source": "calibration/resource_readiness.c",
+  "functions": [
+    {
+      "symbol": "_ensure_actor_resource_ready",
+      "rva": "0x3750",
+      "size": 80,
+      "target_sha256": "973527cbd6f9743c548863ba6075843f562e6687591a74aee2d3472b8fbfaf4e",
+      "control": false,
+      "boundary_evidence": "Reviewed interval 0x3750..0x37a0, immediately followed by the direct callee 0x37a0; final RET at 0x3792 and NOP fill through 0x379f."
+    },
+    {
+      "symbol": "_resource_metadata_scan",
+      "rva": "0x37a0",
+      "size": 112,
+      "target_sha256": "363ffa438de6702fa22ca47950823b6437a89c0cf2b65db70ea4f1d99c4dbf9d",
+      "control": false,
+      "boundary_evidence": "Reviewed interval 0x37a0..0x3810; final RET at 0x380f and next entry begins at 0x3810."
+    }
+  ],
+  "symbol_rvas": {
+    "_g_actor_resources": "0x5cee0",
+    "_g_resource_context": "0x70f24",
+    "_resource_reset": "0x3520",
+    "_ensure_actor_resource_ready": "0x3750",
+    "_resource_metadata_scan": "0x37a0"
+  }
+}

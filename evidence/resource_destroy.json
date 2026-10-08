@@ -1,0 +1,59 @@
+{
+  "scope": "Resource free dependency; not FUNCTION_MATCH.",
+  "target": {
+    "symbol": "_resource_destroy",
+    "rva": "0x38d0",
+    "size": 64,
+    "body_size": 60,
+    "target_sha256": "e8f2c829cdb43f58fae82600e10063112f171ddb68e704a0f1b94babee47cb50",
+    "control": false,
+    "boundary_evidence": "Body 0x38d0..0x390b ends with RET; four alignment NOPs through 0x390f; 0x3910 begins the next function. Direct callers are 0x34e8, 0x34f6, 0x3852, 0x6194 and 0x61b6."
+  },
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "contract": "Capture indexed record; if+12 nonnull free it through wrapper2c2d0 while oldfields remain visible; after callback clear+12/+16/+18. Preserve all other recordfields.",
+  "callers": [
+    "0x34e8",
+    "0x34f6",
+    "0x3852",
+    "0x6194",
+    "0x61b6"
+  ],
+  "callee": "2c2d0 -> interface70f60",
+  "source_sha256": "47a83ab2e3e5c935567920a17d6008e3537143659430e2dc5e3c5d8cb2ad063e",
+  "header_sha256": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+  "metrics": [
+    {
+      "symbol": "_resource_destroy",
+      "target_size": 64,
+      "candidate_size": 64,
+      "strict_equal": false,
+      "raw_different_bytes": 49,
+      "normalized_different_bytes": 49,
+      "instruction_percent": 60.0,
+      "ordered_cfg_equal": true,
+      "category": "source/codegen residual"
+    }
+  ],
+  "map_validator_limit": "Standard local symbol map requires the base itself as a decoded operand; this target contains only member addresses. Separate81-row data evidence anchors the base.",
+  "fixture": {
+    "checks": 32,
+    "failures": 0,
+    "scope": "Synthetic ABI/read-order callback mutation, not asserted shipped default host behavior."
+  },
+  "provenance": {
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-n1abbpev\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\resource_destroy.c"
+    ],
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null
+  }
+}

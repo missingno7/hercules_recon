@@ -70,6 +70,7 @@ function bytes equal the target; this is dependency evidence, not module closure
 The original game files remain immutable, generated outputs stay ignored, and
 `recovery.json` remains the only function acceptance authority. The long-run goal
 continues through the remaining source/control and real module dependencies.
+The next loading work is recorded in [resource_loading_progress.md](resource_loading_progress.md).
 
 Final verification: all **40 raw matches**, **29 semantic suites / 3,251,611
 checks**, **30 Python tests**, and **12 immutable original-file hashes** pass.

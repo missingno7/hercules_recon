@@ -1,0 +1,26 @@
+{
+  "scope": "Negative control of reconstructed source; no original execution.",
+  "mutation": "Remove only post-allocation/init runtime context reload; retain entry-time pointer.",
+  "baseline_sha256": "b5f3ff5758e7b441fda862264aabf1bda44109fd64f9c516af4eeccdf3a8815d",
+  "negative_source_sha256": "6e17119199e48902c09b6729fb4aa572423f175e18f81c508bc6aae299c03be6",
+  "expected_failures": 3,
+  "expected": "Wrong start tick, write to old completion slot, missing new completion slot; failure-slot reload remains correct.",
+  "result": {
+    "exit_code": 1,
+    "stdout": "checks=88 failures=3",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/O2",
+      "/Gy",
+      "/ML",
+      "/FoD:\\prog\\hercules_recon\\work\\resource_provider\\negative_integrated\\semantics.obj",
+      "/FeD:\\prog\\hercules_recon\\work\\resource_provider\\negative_integrated\\semantics.exe",
+      "D:\\prog\\hercules_recon\\work\\resource_provider\\negative_integrated\\semantics.c",
+      "/link",
+      "/INCREMENTAL:NO"
+    ],
+    "harness_sha256": "d9e5a51e1701d0057e6d3aca3cc931b7bd704cd521e084397bc7df5da921a44b",
+    "executable_sha256": "6939413f0f2f2d06deae8314f995a1769dfe1479c584a924e684876329ad924d"
+  }
+}

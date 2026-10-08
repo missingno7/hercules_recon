@@ -1,0 +1,28 @@
+{
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "resource_metadata",
+    "ownership": "function_task",
+    "rationale": "One bounded reader span with reviewed exact extent, indexed caller leads, and actual resource/helper address evidence; no broader TU ownership claim."
+  },
+  "source": "calibration/resource_metadata.c",
+  "functions": [
+    {
+      "symbol": "_resource_metadata_pointer",
+      "rva": "0x31080",
+      "size": 96,
+      "body_size": 92,
+      "target_sha256": "04c1f9d66daf72d4c5d1903088225d8cf76f987d52b7bea9a79caf4a2489f13d",
+      "control": false,
+      "boundary_evidence": "Reviewed interval 0x31080..0x310e0; final RET at 0x310db and four trailing NOPs at 0x310dc..0x310df. Verified direct callers at 0x30e9c and 0x31037; helper call at 0x310a5 targets 0x3750."
+    }
+  ],
+  "symbol_rvas": {
+    "_g_actor_resources": "0x5cee0",
+    "_ensure_actor_resource_ready": "0x3750"
+  }
+}

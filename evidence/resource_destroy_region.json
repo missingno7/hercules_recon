@@ -1,0 +1,28 @@
+{
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "resource_destroy",
+    "ownership": "function_task",
+    "rationale": "One bounded destroy helper using the independently writer-backed 20-byte resource record and observed free callback wrapper; original source/TU ownership is unknown."
+  },
+  "source": "calibration/resource_destroy.c",
+  "functions": [
+    {
+      "symbol": "_resource_destroy",
+      "rva": "0x38d0",
+      "size": 64,
+      "body_size": 60,
+      "target_sha256": "e8f2c829cdb43f58fae82600e10063112f171ddb68e704a0f1b94babee47cb50",
+      "control": false,
+      "boundary_evidence": "Body 0x38d0..0x390b ends with RET; four alignment NOPs through 0x390f; 0x3910 begins the next function. Direct callers are 0x34e8, 0x34f6, 0x3852, 0x6194 and 0x61b6."
+    }
+  ],
+  "symbol_rvas": {
+    "_g_actor_resources": "0x5cee0",
+    "_release_resource_buffer": "0x2c2d0"
+  }
+}

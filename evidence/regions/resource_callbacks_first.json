@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T23:47:11.940461+00:00",
+  "region": "resource_callbacks",
+  "ownership": {
+    "id": "resource_callbacks",
+    "ownership": "inferred_region",
+    "rationale": "Three provider-installed callbacks/state dependencies; historical TU unknown."
+  },
+  "context_id": "1227ea687ba975f3998e636a41fe44034afd03acf65e95cc226d360010aded75",
+  "source_sha256": "2aad5896d71263cc61095d42fdba8c50427cfd8794abe0637a037ebe76e6a6f9",
+  "baseline_sha256": "2aad5896d71263cc61095d42fdba8c50427cfd8794abe0637a037ebe76e6a6f9",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "2aad5896d71263cc61095d42fdba8c50427cfd8794abe0637a037ebe76e6a6f9",
+  "source_patch": {
+    "base_sha256": "2aad5896d71263cc61095d42fdba8c50427cfd8794abe0637a037ebe76e6a6f9",
+    "result_sha256": "2aad5896d71263cc61095d42fdba8c50427cfd8794abe0637a037ebe76e6a6f9",
+    "edits": []
+  },
+  "output_id": "214d26380be99f15b8f5829d027d415f23fa119dd142044fbcb54b44255871a9",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_resource_load_complete",
+      "target_size": 32,
+      "candidate_size": 32,
+      "raw_different_bytes": 12,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 3,
+      "target_relocation_count": 3,
+      "output_id": "a8445d92fc6a17d53fa4894dd54b3bb761c8a8ee699019bdf5524237b9861cc7",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_resource_load_failed",
+      "target_size": 64,
+      "candidate_size": 64,
+      "raw_different_bytes": 22,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 7,
+      "target_relocation_count": 4,
+      "output_id": "4046aeb315dd0b5efc30294f04b06e2579fe776078a258be1f3f05e43d481874",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_resource_cancel",
+      "target_size": 96,
+      "candidate_size": 80,
+      "raw_different_bytes": 75,
+      "normalized_different_bytes": 70,
+      "instruction_percent": 91.304,
+      "ordered_cfg_equal": false,
+      "category": "structural/source-form investigation",
+      "strict_equal": false,
+      "relocation_count": 5,
+      "target_relocation_count": 5,
+      "output_id": "8dd9aeba18a25112a9576f2b2aec5c6eb87711ec89765b057d800bf743551385",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_resource_reset",
+      "target_size": 32,
+      "candidate_size": 32,
+      "raw_different_bytes": 8,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 2,
+      "target_relocation_count": 2,
+      "output_id": "3bacfd6f28e3bb2112d942fe2c204bf54d48f8e190c9c5edf04c23f55c12973f",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 4,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 3,
+    "ordered_cfg_equal": 3,
+    "instruction_over_90": 4,
+    "nonexact_instruction_over_90": 4,
+    "categories": {
+      "relocation-only diagnostic equality": 3,
+      "structural/source-form investigation": 1
+    }
+  },
+  "family": "live_callback_state",
+  "prediction": "Ordinary state switch and uncached loading ID across callbacks preserve PC transitions and callback sequencing; complete callback may normalize equal.",
+  "falsifier": "Any callback mutation fixture changes captured ID behavior, or complete byte/control-flow diagnostics contradict observed transitions.",
+  "verdict": "observed",
+  "blocker": null,
+  "reentry_condition": "New original control/source evidence; no case-label spelling grid.",
+  "next_discriminator": "Real context/module contributions and independently supported cancel branch abstraction; preserve three relocation-only equals.",
+  "ungated_work": [],
+  "new_evidence": "Real failure callback dependency3520 conditional0->1. Predict this ordinary conditional normalizes equal without changing first three identities.",
+  "new_discriminator": null,
+  "metrics": {
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "capability": "state and dependency reconstruction",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 3,
+    "semantic_result": "393226 checks; exhaustive16-bit states plus ID changes across cancel/destroy",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "b89396122bac2b283dd44aa6f0e898cc9ba8b31d1252424fffa721a77b126cc8",
+    "report_sha256": "e6fd6a2c7be63c9cb2c58cf5a0805e295ba702eee3a6a831b278981cd3d1f4bf",
+    "object_sha256": "c19e4b7bf18a59b6016d9b5128e557ed2589c52e7a9f7daa55dcf6b21ccb1834",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-dw8zrb_i\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\resource_callbacks.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "80836a331af0d840b6a85b22608fff7a5286b29c497093f69b7b9d7d68b582b3"
+}

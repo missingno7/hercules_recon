@@ -1,0 +1,43 @@
+{
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "resource_provider_v2",
+    "ownership": "function_task",
+    "rationale": "Evidence-backed post-allocation runtime-context recapture correction to the private provider candidate; historical source/TU ownership remains unknown."
+  },
+  "source": "calibration/resource_provider.c",
+  "functions": [
+    {
+      "symbol": "_resource_provider",
+      "rva": "0x3540",
+      "size": 528,
+      "body_size": 518,
+      "target_sha256": "d2d22b30a4d8b3f2d029ccd560a9936a4e694036d12ec28bdb84840dcc8c1c72",
+      "control": false,
+      "boundary_evidence": "Frozen Sol audit: return at 0x3745, ten alignment NOPs through 0x374f; readiness starts at 0x3750. Direct callers at 0x3448 and 0x34bf pass (id,0) and (id,1)."
+    }
+  ],
+  "symbol_rvas": {
+    "_g_actor_resources": "0x5cee0",
+    "_g_active_resource_record": "0x72864",
+    "_g_loading_resource": "0x4d7f8",
+    "_g_reported_total_bytes": "0x6ee6c",
+    "_g_resource_start_tick": "0x6ee70",
+    "_g_resource_context": "0x70f24",
+    "_g_resource_suffix": "0x4d914",
+    "_g_provider_bad_id_format": "0x4d924",
+    "_engine_diagnostic": "0x1000",
+    "_resource_file_length": "0x2c2f0",
+    "_resource_allocate": "0x2c3c0",
+    "_resource_reclaim": "0x1f6a0",
+    "_resource_load_async": "0x2c230",
+    "_resource_load_sync": "0x2c390",
+    "_resource_cancel": "0x3870",
+    "_resource_load_complete": "0x3810",
+    "_resource_load_failed": "0x3830"
+  }
+}

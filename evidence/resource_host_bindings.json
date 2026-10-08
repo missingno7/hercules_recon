@@ -1,0 +1,1355 @@
+{
+  "scope": "Read-only static cross-image dependencies and bounded source tasks. No compiler, original execution or canonical/Git/source changes. Existing copy/allocation proofs reused.",
+  "oracle": {
+    "eng1_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "host_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "database_sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+  },
+  "interface": {
+    "engine_base_rva": "0x70f20",
+    "host_source_rva": "0x361b8",
+    "count": 250,
+    "bytes": 1000,
+    "table_sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "binding": "Reviewed PC_DLLEngineMain copies250dwords before signature comparison; host dispatch passes pointer loaded from365a0 to this source table.",
+    "limit": "These are static default bindings. Runtime replacement or mutation remains possible; no complete module/link layout proved."
+  },
+  "mapping": [
+    {
+      "name": "async",
+      "engine": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x2c230",
+        "end_rva_exclusive": "0x2c260",
+        "size": 48,
+        "sha256": "d9d38bca5949fc7f736961fd8dbc93e148c6f7ba8a3ac6a9e28d209d86c9ab8c"
+      },
+      "engine_callback_cell_rva": "0x70f40",
+      "slot": "0x8",
+      "host_cell_rva": "0x361d8",
+      "host_target": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x3d90",
+        "end_rva_exclusive": "0x3ea0",
+        "size": 272,
+        "sha256": "bc4fc927aebd2336261d48f86d24b729da30180806db69411a687503511f5302"
+      },
+      "abi": "Five caller-cleaned32-bit args: path prefix, suffix, signed sector offset, destination pointer, byte count. Return32-bit status; provider ignores it.",
+      "engine_callers": [
+        {
+          "source_rva": "0x36d8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe8ae",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xed26",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1fb6f",
+          "kind": "linear_call"
+        }
+      ],
+      "host_entry_refs": []
+    },
+    {
+      "name": "cancel",
+      "engine": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x2c260",
+        "end_rva_exclusive": "0x2c270",
+        "size": 16,
+        "sha256": "cb5d9f72ecd8b0a401fe4870754258c387575b900edd4af2ae0ef2e133507d70"
+      },
+      "engine_callback_cell_rva": "0x70f44",
+      "slot": "0x9",
+      "host_cell_rva": "0x361dc",
+      "host_target": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x3ea0",
+        "end_rva_exclusive": "0x3f00",
+        "size": 96,
+        "sha256": "63be1b78e72f384da80b3fcd8b7eaaaee014b75326e584c015b04fb7145f7431"
+      },
+      "abi": "No-argument tail jump. Host closes active virtual handle, clears runtime state9c and fieldac on successful close; returns0. Failure invokes actual host diagnostic then returns0 if it returns.",
+      "engine_callers": [
+        {
+          "source_rva": "0x38b1",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x61e0",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x6266",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x62ed",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f250",
+          "kind": "linear_call"
+        }
+      ],
+      "host_entry_refs": [
+        {
+          "source_rva": "0x3ffe",
+          "kind": "linear_call"
+        }
+      ]
+    },
+    {
+      "name": "free",
+      "engine": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x2c2d0",
+        "end_rva_exclusive": "0x2c2e0",
+        "size": 16,
+        "sha256": "69c9769d56710f785c8b9faf201052f3984c98b91e3da16587a557c914dcdc06"
+      },
+      "engine_callback_cell_rva": "0x70f60",
+      "slot": "0x10",
+      "host_cell_rva": "0x361f8",
+      "host_target": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x4750",
+        "end_rva_exclusive": "0x47c0",
+        "size": 112,
+        "sha256": "2821bcaacbccbe4ac565f590bc7177515592123db78805c07c166e645ea92faa"
+      },
+      "abi": "One pointer argument, caller cleaned. Custom pool release; result ignored by resource destroy. Reuse existing pool proof.",
+      "engine_callers": [
+        {
+          "source_rva": "0x2f3d",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x38e6",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x62a6",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe6a9",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe6c8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe7fb",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xeb4e",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xeb6a",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xedcd",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xee07",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f296",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f2a8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f2ba",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f2cc",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f2de",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f8fc",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1fa2a",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1fc28",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1fc7a",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x32bc0",
+          "kind": "linear_call"
+        }
+      ],
+      "host_entry_refs": [
+        {
+          "source_rva": "0x1650",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x405a",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x4800",
+          "kind": "linear_call"
+        }
+      ]
+    },
+    {
+      "name": "length",
+      "engine": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x2c2f0",
+        "end_rva_exclusive": "0x2c310",
+        "size": 32,
+        "sha256": "49ffb61df01b8bd22d4c87ea7dca488267491ef8ce8a969d87b31c6e063584d7"
+      },
+      "engine_callback_cell_rva": "0x70f68",
+      "slot": "0x12",
+      "host_cell_rva": "0x36200",
+      "host_target": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x40d0",
+        "end_rva_exclusive": "0x4180",
+        "size": 176,
+        "sha256": "9208567c1495dd781eafb059df63975dc91f458438719a49e73ada20222159a4"
+      },
+      "abi": "Two string pointer args: prefix and suffix. Returns32-bit virtual file length via end seek and position. Nominal open-failure branch returns0.",
+      "engine_callers": [
+        {
+          "source_rva": "0x35de",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe7e3",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xec4b",
+          "kind": "linear_call"
+        }
+      ],
+      "host_entry_refs": [
+        {
+          "source_rva": "0x1159",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x137c",
+          "kind": "linear_call"
+        }
+      ]
+    },
+    {
+      "name": "sync",
+      "engine": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x2c390",
+        "end_rva_exclusive": "0x2c3b0",
+        "size": 32,
+        "sha256": "0135a32a1544166cd3e9b3321cf87671b59a7caa8551ce42a66407211690964e"
+      },
+      "engine_callback_cell_rva": "0x70f88",
+      "slot": "0x1a",
+      "host_cell_rva": "0x36220",
+      "host_target": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x3b50",
+        "end_rva_exclusive": "0x3c50",
+        "size": 256,
+        "sha256": "4a6573324e29443c08f7def1e3db71f8a129ecacdcf03feb5425e9e2eb371528"
+      },
+      "abi": "Four caller-cleaned32-bit args: prefix, suffix, destination, byte count. Returns requested count after nominal successful virtual close,0 on nominal open failure. Read result is not checked.",
+      "engine_callers": [
+        {
+          "source_rva": "0x36fe",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x5f60",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f788",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f7f8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x32b98",
+          "kind": "linear_call"
+        }
+      ],
+      "host_entry_refs": [
+        {
+          "source_rva": "0x11af",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x13d9",
+          "kind": "linear_call"
+        }
+      ]
+    },
+    {
+      "name": "allocation",
+      "engine": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x2c3c0",
+        "end_rva_exclusive": "0x2c3e0",
+        "size": 32,
+        "sha256": "1c60046001f8a8a88b8aa1a13af0df22b739087388c2f71e3a351cab38fcdfc0"
+      },
+      "engine_callback_cell_rva": "0x70f98",
+      "slot": "0x1e",
+      "host_cell_rva": "0x36230",
+      "host_target": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x4570",
+        "end_rva_exclusive": "0x4690",
+        "size": 288,
+        "sha256": "e48ecfc3ad18a93d8db699a85ce8f65a1f36455ef3b83df272b39a4f6f61b8cc"
+      },
+      "abi": "Three caller-cleaned32-bit args: owner/output pointer slot, requested bytes, flags. Returns payload pointer and writes it through slot on success; reuse existing full pool proof.",
+      "engine_callers": [
+        {
+          "source_rva": "0x25de",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x2f5b",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x360c",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x3625",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x5f3e",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe81a",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe84a",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xec96",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xecd4",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f112",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f13e",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f163",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f17c",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f1ac",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f1c0",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f1d4",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f1e8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f7b0",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1fa58",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1fa94",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x260be",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x28334",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x2afa1",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x32b7a",
+          "kind": "linear_call"
+        }
+      ],
+      "host_entry_refs": [
+        {
+          "source_rva": "0x1183",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x13aa",
+          "kind": "linear_call"
+        }
+      ]
+    },
+    {
+      "name": "compact dependency",
+      "engine": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x2c290",
+        "end_rva_exclusive": "0x2c2a0",
+        "size": 16,
+        "sha256": "931a12ae38c9d95131a58f501047440ff5d7df27b32dacc858d15e0d02a46e17"
+      },
+      "engine_callback_cell_rva": "0x70f54",
+      "slot": "0xd",
+      "host_cell_rva": "0x361ec",
+      "host_target": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x4890",
+        "end_rva_exclusive": "0x48a0",
+        "size": 16,
+        "sha256": "76bfc4000f25ebd6a543d70832fbeee4478c47f9af732aea88ae0f5a646c42b3"
+      },
+      "abi": "One32-bit pool id, caller cleaned. Host wrapper calls compact_pool(pool_id,0); preserve existing lifecycle semantics.",
+      "engine_callers": [
+        {
+          "source_rva": "0x3296",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f6aa",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f6b8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f6c6",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f760",
+          "kind": "linear_call"
+        }
+      ],
+      "host_entry_refs": [
+        {
+          "source_rva": "0x4817",
+          "kind": "linear_call"
+        }
+      ]
+    }
+  ],
+  "diagnostic": {
+    "engine_leaf_receipt": "work/resource_host_bindings/diagnostic_leaf.json",
+    "sha256": "fb24ebf581407e22d085fa9451e3f210dfcbcb484eb728a592a2c04851e03a6e",
+    "meaning": "ENG1 diagnostic1000 is actual empty game leafRET+15NOP. It is not an interface wrapper, CRT formatter or accepted EXE diagnostic63c0. Root owns fresh gate/promotion.",
+    "classification": "custom game diagnostic"
+  },
+  "reclaim": {
+    "full": {
+      "module": "ENG1.DLL",
+      "start_rva": "0x1f6a0",
+      "end_rva_exclusive": "0x1f6f0",
+      "size": 80,
+      "sha256": "1811acee3f31a9c0f77fdb8c094df10718c54bb2b72f9e6322db6a1da8db37f2"
+    },
+    "argument": "One32-bit wait_mode; provider passes0 and ignoresresult.",
+    "sequence": [
+      "1f6a4 pushespool_id0. wait_mode0 invokes wrapper2c290 once; nonzero invokes it at leastonce and repeats while returnEAX==0.",
+      "1f6ce reads liveglobal70ed4 after callback(s). Ifzero,RET. Ifnonzero,1f6d7 calls20670 then1f6dc tail-jumps208f0."
+    ],
+    "classification": "custom engine reclamation orchestration, with host pool compaction callback; no CRT identity.",
+    "dependencies": [
+      "ENG1 wrappers2c290",
+      "existing custom EXE compact wrapper4890 andcompact_pool48a0",
+      "ENG1 global70ed4; project functions20670 and208f0 remain source dependencies"
+    ],
+    "limits": "Original prototype/return type and full cleanup helper contracts unproved. Do not replace this with genericfree, no-op or callback stub.",
+    "callers": [
+      {
+        "source_rva": "0x3619",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x6206",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0xe828",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0xeca4",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x1fa77",
+        "kind": "linear_call"
+      }
+    ]
+  },
+  "custom_file_contributions": [
+    {
+      "name": "virtual open",
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0xa210",
+        "end_rva_exclusive": "0xa280",
+        "size": 112,
+        "sha256": "5e2e31dd895a7d9fc3a97d6f3d7c41598b401f3a1f84a8603ef52c2ea428f4f0"
+      },
+      "abi": "int PCopen(const char *path,int mode,int ignored): only first two physical args consumed; nonzero mode and handle pressure invoke fatal diagnostic; third argument is ignored.",
+      "callers": [
+        {
+          "source_rva": "0x3b7d",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x3bf5",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x3c8c",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x3dcf",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x40f6",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x414b",
+          "kind": "linear_call"
+        }
+      ],
+      "classification": "custom project/game adapter"
+    },
+    {
+      "name": "virtual seek",
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0xa280",
+        "end_rva_exclusive": "0xa2f0",
+        "size": 112,
+        "sha256": "5d818f54c985ac8202ff500d3fcdff548f1f834d251fc8edefb91e3833fbc3c7"
+      },
+      "abi": "int PCseek(int public_handle,int offset,int mode): maps mode0->0,mode1->1,all other nonzero->2; delegates backend seek then returns backend position.",
+      "callers": [
+        {
+          "source_rva": "0x3cf7",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x3e20",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x411f",
+          "kind": "linear_call"
+        }
+      ],
+      "classification": "custom project/game adapter"
+    },
+    {
+      "name": "virtual read",
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0xa2f0",
+        "end_rva_exclusive": "0xa340",
+        "size": 80,
+        "sha256": "eda64377fc12b4de21ae3e7ca615737afe3ba16516afbed0a38d878ee2cae8dd"
+      },
+      "abi": "32-bit PCread(int public_handle,void *dest,32-bit bytes): delegates backend_read(dest,1,bytes,archive_handle).",
+      "callers": [
+        {
+          "source_rva": "0x3bcc",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x3d1a",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x3fc9",
+          "kind": "linear_call"
+        }
+      ],
+      "classification": "custom project/game adapter"
+    },
+    {
+      "name": "virtual close",
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0xa350",
+        "end_rva_exclusive": "0xa3a0",
+        "size": 80,
+        "sha256": "74e5acc8b0fd27523edf1e01c303170605fd770982eb2bd68bf1cac7d0f17305"
+      },
+      "abi": "int PCclose(int public_handle): invalid handle returns-1; valid close clears public slot and decrements active count whenpositive; returns backend0.",
+      "callers": [
+        {
+          "source_rva": "0x3be0",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x3d3c",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x3eb6",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x4136",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xa1df",
+          "kind": "linear_call"
+        }
+      ],
+      "classification": "custom project/game adapter"
+    },
+    {
+      "name": "archive open",
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x5130",
+        "end_rva_exclusive": "0x51f0",
+        "size": 192,
+        "sha256": "a524edfd0599cbcf54fe9df073d4917cbc2074516b9674dab176411ec55d3d26"
+      },
+      "abi": "int archive_open(const char *path,const char *ignored_mode): normalizes+hashes name, binary searches keys, resets matching logical position and returns one-based archive handle. Second physical parameter passed by adapter is not read.",
+      "callers": [
+        {
+          "source_rva": "0x5777",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x68ce",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xa25e",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xf43d",
+          "kind": "linear_call"
+        }
+      ],
+      "classification": "custom project/game adapter"
+    },
+    {
+      "name": "archive close",
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x51f0",
+        "end_rva_exclusive": "0x5210",
+        "size": 32,
+        "sha256": "68a5b3e9e3da016d6fdb28456826ba02d0bb05b111e33e2693466444e2ffdda7"
+      },
+      "abi": "int archive_close(int handle): position[handle-1]=-1;return0; no validation.",
+      "callers": [
+        {
+          "source_rva": "0x57a7",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x6950",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xa36f",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xf6f7",
+          "kind": "linear_call"
+        }
+      ],
+      "classification": "custom project/game adapter"
+    },
+    {
+      "name": "archive read",
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x5210",
+        "end_rva_exclusive": "0x52c0",
+        "size": 176,
+        "sha256": "92f167b47039281c2bab31c80d27bdd43d1efb75b2b2b7aef5634152bd1127ac"
+      },
+      "abi": "32-bit archive_read(void *destination,32-bit item_size,32-bit item_count,int handle): shared stream seek if needed, clips count against row length, calls real CRT fread, advances logical position by returned_items*item_size.",
+      "callers": [
+        {
+          "source_rva": "0x579e",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x68e8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x691f",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x6933",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x6947",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xa32f",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xf459",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xf57f",
+          "kind": "linear_call"
+        }
+      ],
+      "classification": "custom project/game adapter"
+    },
+    {
+      "name": "archive seek",
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x52c0",
+        "end_rva_exclusive": "0x5340",
+        "size": 128,
+        "sha256": "ffe28812f341c3ae91a73777e6a88d3cac6ee4347bbe2192643acd223aeaeea1"
+      },
+      "abi": "int archive_seek(int handle,int offset,int origin): computes logical position for origin0/current/end, unsigned-clamps above rowlength, seeks shared archive stream to rowoffset+position. Returns CRT fseek status.",
+      "callers": [
+        {
+          "source_rva": "0x5786",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xa2cc",
+          "kind": "linear_call"
+        }
+      ],
+      "classification": "custom project/game adapter"
+    },
+    {
+      "name": "archive position",
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x5340",
+        "end_rva_exclusive": "0x5350",
+        "size": 16,
+        "sha256": "48fc4fc555ef9207ab7280da33552fa1ef687f1da73e7e63eeb0ca7b2511b0c5"
+      },
+      "abi": "32-bit archive_position(int handle): returnposition[handle-1], no validation.",
+      "callers": [
+        {
+          "source_rva": "0xa2dc",
+          "kind": "linear_call"
+        }
+      ],
+      "classification": "custom project/game adapter"
+    },
+    {
+      "name": "archive initialization",
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x5020",
+        "end_rva_exclusive": "0x5110",
+        "size": 240,
+        "sha256": "3cb3693bc3b96b93b67a04d47681f836ff4d12aff54f81129eba47b06d096aa5"
+      },
+      "abi": "No observed argument loads. Initializes directory/positions, opens hercules.fs with real CRT fopen, reads directory, counts keys and checks strict unsigned key ordering. Original return type unknown.",
+      "callers": [
+        {
+          "source_rva": "0x5e27",
+          "kind": "linear_call"
+        }
+      ],
+      "classification": "custom project/game adapter"
+    },
+    {
+      "name": "archive shutdown",
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x5110",
+        "end_rva_exclusive": "0x5130",
+        "size": 32,
+        "sha256": "c17c21c6847fb290ddf409cc787eefc65a9b86be7999794dc8b2e476201250e3"
+      },
+      "abi": "No arguments. If archive stream nonnull calls real CRT fclose, then clears stream pointer. Original return type unknown.",
+      "callers": [
+        {
+          "source_rva": "0x5eb1",
+          "kind": "linear_branch"
+        }
+      ],
+      "classification": "custom project/game adapter"
+    },
+    {
+      "name": "filename normalization",
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x4e10",
+        "end_rva_exclusive": "0x4fe0",
+        "size": 464,
+        "sha256": "de59b4119887e3266b5c60f483c87ebbc8b793bcc4a9d9b0617891cb6645302a"
+      },
+      "abi": "One string argument, pointer return; actual uppercase/path rewrite into shared storage. Contains inline switch table4fba..4fd6; full transformations not yet contracted.",
+      "callers": [
+        {
+          "source_rva": "0x5142",
+          "kind": "linear_call"
+        }
+      ],
+      "classification": "custom project path helper"
+    },
+    {
+      "name": "filename hash",
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x4fe0",
+        "end_rva_exclusive": "0x5020",
+        "size": 64,
+        "sha256": "65e4d1cece7d7c802a430e50df78c796de6a936deef5890d1eaae5bfb8ac1600"
+      },
+      "abi": "One string pointer,32-bit result. Sum sign-extended bytes shifted by cycling0/8/16/24 plus string length, with machine32-bit arithmetic.",
+      "callers": [
+        {
+          "source_rva": "0x514b",
+          "kind": "linear_call"
+        }
+      ],
+      "classification": "custom project/game adapter"
+    },
+    {
+      "name": "prepare file state",
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x1d60",
+        "end_rva_exclusive": "0x1d80",
+        "size": 32,
+        "sha256": "211dc21fe6f0856055948d46798a358946a9ebbcbeac74aea817a5efc23bd997"
+      },
+      "abi": "No arguments. Calls accepted empty project callbackBE30; clears runtime+1b00 and scalar352b0.",
+      "callers": [
+        {
+          "source_rva": "0x3b53",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x3c62",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x3da5",
+          "kind": "linear_call"
+        }
+      ],
+      "classification": "custom project/game adapter"
+    },
+    {
+      "name": "host fatal diagnostic",
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x10460",
+        "end_rva_exclusive": "0x104d0",
+        "size": 112,
+        "sha256": "46c79880c758ed707eacd9cc5b6944a38dffcfcfba326a9c2548fa68e2fe0287"
+      },
+      "abi": "First argument message string. Project UI/error path calls MessageBoxA,SendNotifyMessageA and termination helper11d10; not CRT printf. Return behavior/type unproved without exit-callee proof.",
+      "callers": [
+        {
+          "source_rva": "0x5061",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x508d",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x50e8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x51c0",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x5cc0",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x72e6",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x730c",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x7358",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x73f5",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x7434",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x7459",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x7483",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x74a8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x7a54",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xa220",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xa235",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xa2a3",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xa313",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xf472",
+          "kind": "linear_call"
+        }
+      ],
+      "classification": "custom project/game adapter"
+    }
+  ],
+  "archive_frame": {
+    "directory_base_va": "0x9177d0",
+    "stride": 12,
+    "fields": {
+      "0": "32-bit unsigned search key/hash",
+      "4": "32-bit archive stream offset",
+      "8": "32-bit logical file length"
+    },
+    "writer_sites": [
+      "5024/502b/5035 clear0xc00DWORDs at9177d0: leading0x3000-byte directory,1024rows at12bytes.",
+      "506e..507b calls actual CRT fread(directory,0x3000,1,shared_stream);507b is the CALL instruction.",
+      "5095..50be count nonzero rowkeys on12-byte stride, guardat91a7d0.",
+      "50da..50e1 compare rowkeys with unsignedJA; diagnostic ifnotstrictlygreater."
+    ],
+    "position_base_va": "0x91a7d0",
+    "position_stride": 4,
+    "position_initialization": "5037..5049 sets0x400DWORDs to-1: leading1024position slots.",
+    "position_access": "51f4/5344 use base91a7cc+4*handle = position_base+4*(handle-1).",
+    "handle_translation": "Open5130 binary-search indexi compares directory[i].key; returnsi+1. Read5210 handleH addresses offset9177c8+12H = directory_base+12*(H-1)+4, length9177cc+12H = same row+8. This resolves apparent index/base mismatch without a behavior fix.",
+    "shared_stream_va": "0x91bbd0",
+    "directory_count_va": "0x91bbd4",
+    "last_stream_handle_va": "0x4365a4",
+    "archive_name": "hercules.fs",
+    "limits": "The observed initialized leading1024rows/positions are supported views, not proof of original declaration/TU, complete capacity, on-disk item format beyond fields or safety of all invalidhandles. No data/assets modified or game files executed."
+  },
+  "public_handle_frame": {
+    "active_count_va": "0x96e638",
+    "leading_slots_va": "0x96e640",
+    "slot_count_observed": 16,
+    "proof": "A23f..A252 scans16DWORDslots ending96e680; slot stores archivehandle, notFILE*. Publichandle=slotindex+1.",
+    "limits": "Preserve exactvalidation usinghandle<=active_count andoccupiedslot. Do not replace with a conventional maximum-slot validation or alter active-count semantics."
+  },
+  "library": {
+    "classification": "Pinned VC5 RTM LIBCMT members identified for actual stdio calls; no source rewrite or function-match promotion.",
+    "library_path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+    "library_sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b",
+    "sections": [
+      {
+        "name": "__fsopen",
+        "entry_rva": "0x10bf0",
+        "end_rva_exclusive": "0x10c30",
+        "size": 64,
+        "section": 1,
+        "symbol_offset": 0,
+        "member_sha256": "a2647a1473b643662652ef3c5f05a9515a63880bf4ed69dac626cacbe72d1689",
+        "target_sha256": "67ed245e198e929412669e59df773e35471dcc2541cfa13fefe4eea3f73d17b1",
+        "normalized_differences": 0,
+        "relocations": [
+          {
+            "offset": "0x2",
+            "symbol": "__getstream",
+            "type": 20,
+            "actual_target_rva": "0x13290"
+          },
+          {
+            "offset": "0x20",
+            "symbol": "__openfile",
+            "type": 20,
+            "actual_target_rva": "0x130c0"
+          },
+          {
+            "offset": "0x2b",
+            "symbol": "__unlock_file",
+            "type": 20,
+            "actual_target_rva": "0x12300"
+          }
+        ]
+      },
+      {
+        "name": "_fopen",
+        "entry_rva": "0x10c30",
+        "end_rva_exclusive": "0x10c50",
+        "size": 32,
+        "section": 3,
+        "symbol_offset": 0,
+        "member_sha256": "a2647a1473b643662652ef3c5f05a9515a63880bf4ed69dac626cacbe72d1689",
+        "target_sha256": "47266e3267ceb95f5145252791e6e15145d5ef488edc7f11431d95a94b30d14e",
+        "normalized_differences": 0,
+        "relocations": [
+          {
+            "offset": "0xd",
+            "symbol": "__fsopen",
+            "type": 20,
+            "actual_target_rva": "0x10bf0"
+          }
+        ]
+      },
+      {
+        "name": "_fclose",
+        "entry_rva": "0x10c50",
+        "end_rva_exclusive": "0x10c90",
+        "size": 64,
+        "section": 1,
+        "symbol_offset": 0,
+        "member_sha256": "9f0016bccd4ad445df157e8b98a4443781a60b3664c64f83225b8e7298aa7db8",
+        "target_sha256": "a93e4d22067c7339ca936bcd2e32db4ce646cd6aeaae449f9803337ece4b7e55",
+        "normalized_differences": 0,
+        "relocations": [
+          {
+            "offset": "0x1d",
+            "symbol": "__lock_file",
+            "type": 20,
+            "actual_target_rva": "0x12290"
+          },
+          {
+            "offset": "0x26",
+            "symbol": "__fclose_lk",
+            "type": 20,
+            "actual_target_rva": "0x10c90"
+          },
+          {
+            "offset": "0x31",
+            "symbol": "__unlock_file",
+            "type": 20,
+            "actual_target_rva": "0x12300"
+          }
+        ]
+      },
+      {
+        "name": "__fclose_lk",
+        "entry_rva": "0x10c90",
+        "end_rva_exclusive": "0x10d00",
+        "size": 112,
+        "section": 3,
+        "symbol_offset": 0,
+        "member_sha256": "9f0016bccd4ad445df157e8b98a4443781a60b3664c64f83225b8e7298aa7db8",
+        "target_sha256": "f30b7960ce101e6cbcaf07896d6005109b93cc6b990cb6832ff92b567f6556e8",
+        "normalized_differences": 0,
+        "relocations": [
+          {
+            "offset": "0x11",
+            "symbol": "__flush",
+            "type": 20,
+            "actual_target_rva": "0x12f80"
+          },
+          {
+            "offset": "0x1c",
+            "symbol": "__freebuf",
+            "type": 20,
+            "actual_target_rva": "0x13470"
+          },
+          {
+            "offset": "0x28",
+            "symbol": "__close",
+            "type": 20,
+            "actual_target_rva": "0x13370"
+          },
+          {
+            "offset": "0x4b",
+            "symbol": "_free",
+            "type": 20,
+            "actual_target_rva": "0x10ab0"
+          }
+        ]
+      },
+      {
+        "name": "_fread",
+        "entry_rva": "0x10dc0",
+        "end_rva_exclusive": "0x10e00",
+        "size": 64,
+        "section": 1,
+        "symbol_offset": 0,
+        "member_sha256": "86dfcd211fc9c66a0bd459f633f3547c405b00354eb79eb682ce572be1a330be",
+        "target_sha256": "d92f159f90f3db3d8cc2adc828aa8459db7a6afa8268650f52c51b9aff2001e1",
+        "normalized_differences": 0,
+        "relocations": [
+          {
+            "offset": "0x8",
+            "symbol": "__lock_file",
+            "type": 20,
+            "actual_target_rva": "0x12290"
+          },
+          {
+            "offset": "0x20",
+            "symbol": "__fread_lk",
+            "type": 20,
+            "actual_target_rva": "0x10e00"
+          },
+          {
+            "offset": "0x2b",
+            "symbol": "__unlock_file",
+            "type": 20,
+            "actual_target_rva": "0x12300"
+          }
+        ]
+      },
+      {
+        "name": "__fread_lk",
+        "entry_rva": "0x10e00",
+        "end_rva_exclusive": "0x10f40",
+        "size": 320,
+        "section": 3,
+        "symbol_offset": 0,
+        "member_sha256": "86dfcd211fc9c66a0bd459f633f3547c405b00354eb79eb682ce572be1a330be",
+        "target_sha256": "ce0eaacc5dd64da656d4809400e33c80fbd903994961dbcf68d5e7af2b845921",
+        "normalized_differences": 0,
+        "relocations": [
+          {
+            "offset": "0xa7",
+            "symbol": "__read",
+            "type": 20,
+            "actual_target_rva": "0x13eb0"
+          },
+          {
+            "offset": "0xc3",
+            "symbol": "__filbuf",
+            "type": 20,
+            "actual_target_rva": "0x13dc0"
+          }
+        ]
+      },
+      {
+        "name": "_fseek",
+        "entry_rva": "0x112f0",
+        "end_rva_exclusive": "0x11330",
+        "size": 64,
+        "section": 1,
+        "symbol_offset": 0,
+        "member_sha256": "b1f3a192d0c6c94564b2ec1c211c037a277809204a624290834754803619101b",
+        "target_sha256": "f758f349b5559362d890f86695498a3aaf15adad7d3248d266e6fa1c084a9ca5",
+        "normalized_differences": 0,
+        "relocations": [
+          {
+            "offset": "0x8",
+            "symbol": "__lock_file",
+            "type": 20,
+            "actual_target_rva": "0x12290"
+          },
+          {
+            "offset": "0x1b",
+            "symbol": "__fseek_lk",
+            "type": 20,
+            "actual_target_rva": "0x11330"
+          },
+          {
+            "offset": "0x26",
+            "symbol": "__unlock_file",
+            "type": 20,
+            "actual_target_rva": "0x12300"
+          }
+        ]
+      },
+      {
+        "name": "__fseek_lk",
+        "entry_rva": "0x11330",
+        "end_rva_exclusive": "0x113d0",
+        "size": 160,
+        "section": 3,
+        "symbol_offset": 0,
+        "member_sha256": "b1f3a192d0c6c94564b2ec1c211c037a277809204a624290834754803619101b",
+        "target_sha256": "85658ccdfc8bae3c139790d858fe99cdc83f479e9063e7e229f0d0a450be292b",
+        "normalized_differences": 0,
+        "relocations": [
+          {
+            "offset": "0x2b",
+            "symbol": "__ftell_lk",
+            "type": 20,
+            "actual_target_rva": "0x14cc0"
+          },
+          {
+            "offset": "0x40",
+            "symbol": "__flush",
+            "type": 20,
+            "actual_target_rva": "0x12f80"
+          },
+          {
+            "offset": "0x74",
+            "symbol": "__lseek",
+            "type": 20,
+            "actual_target_rva": "0x134b0"
+          },
+          {
+            "offset": "0x87",
+            "symbol": "__errno",
+            "type": 20,
+            "actual_target_rva": "0x14ca0"
+          }
+        ]
+      }
+    ],
+    "total_bytes": 880,
+    "normalized_differences": 0,
+    "ordered_relocation_count": 23,
+    "remaining_library_dependencies": [
+      "__close",
+      "__errno",
+      "__filbuf",
+      "__flush",
+      "__freebuf",
+      "__ftell_lk",
+      "__getstream",
+      "__lock_file",
+      "__lseek",
+      "__openfile",
+      "__read",
+      "__unlock_file",
+      "_free"
+    ],
+    "sprintf": "EXE10f40..10fb0 full112bytes normalizedequal to pinned LIBC sprintf.obj,2refs; existing work/resource_row0_path/report.json. This contribution is shared across static/MT variants and does not settle complete CRT variant.",
+    "copy": "Reuse existing work/copy_library/comparison.json for memcpy/memmove821bytes. No duplicate selection/build.",
+    "limits": "Identifying these selected members does not prove full CRT variant, original library selection, linker flags or full-binary equality. Calls11d10 and remaining CRT transitive members need independent library identification, never replacement stubs."
+  },
+  "smallest_next_tasks": [
+    {
+      "family": "archive logical position leaves",
+      "scope": [
+        "51f0..5210 intclose32bytes",
+        "5340..5350 position16bytes"
+      ],
+      "frame": "Leading1024-element32-bit logical position view at91a7d0 from actual initialization; int one-based handle.",
+      "source": "close: positions[handle-1]=-1;return0. position: returnpositions[handle-1]. No extra bounds checks.",
+      "prediction": "Fresh ordinaryC paired leaf contributions reproduce complete32/16bytes and oneDIR32member-addend relocation each; naturally shared data view preserves one-based addressing.",
+      "falsifier": "Any semantic change, wrong base/member addend, nonexactfull contribution or addedpadding/placement hack. Stopratherthanintroduce declaration/registergrid.",
+      "limits": "Rawacceptance stillrequiresrealdata/linkcontext;normalizedequality is onlydiagnostic."
+    },
+    {
+      "family": "custom file service region",
+      "scope": [
+        "host3b50sync256bytes",
+        "host3d90async272bytes",
+        "host3ea0cancel96bytes",
+        "host40d0length176bytes",
+        "prepare1d60leaf32bytes"
+      ],
+      "frame": "Runtimecontextsharedwithprovider, public virtual handles, filename sprintf%s%s, real customarchiveadapters; preserve immediate statuses/callback lifecycle.",
+      "dependencies": "AcceptedEXE63c0/BE30, actualCRT sprintf, customA210/A280/A2F0/A350 andarchivebackends. Recovertheseordinarycontributions ratherthanstuborfunctiondispatch.",
+      "prediction": "One consistent ordinary-C virtual-handle/context view preserves actual callback/status semantics; exact natural-link acceptance remains futurework.",
+      "falsifier": "FILE* replacement, changederror/retry/readcount behavior, silentlibraryrewrite, orfailedtargetderivedsemanticfixture."
+    }
+  ],
+  "private_evidence": {
+    "decode": "work/resource_host_bindings/decode.txt",
+    "file_io": "work/resource_host_bindings/file_io_decode.txt",
+    "archive": "work/resource_host_bindings/archive_decode.txt",
+    "library": "work/resource_host_bindings/library_sections.json",
+    "prior_provider": "work/resource_provider_audit/report.json"
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "compiler_builds": 0,
+    "tokens": null,
+    "cost_usd": null
+  }
+}

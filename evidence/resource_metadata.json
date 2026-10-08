@@ -1,0 +1,76 @@
+{
+  "scope": "Metadata reader contract, measured source and semantic fixture; no function acceptance.",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "target": {
+    "symbol": "_resource_metadata_pointer",
+    "rva": "0x31080",
+    "size": 96,
+    "body_size": 92,
+    "target_sha256": "04c1f9d66daf72d4c5d1903088225d8cf76f987d52b7bea9a79caf4a2489f13d",
+    "control": false,
+    "boundary_evidence": "Reviewed interval 0x31080..0x310e0; final RET at 0x310db and four trailing NOPs at 0x310dc..0x310df. Verified direct callers at 0x30e9c and 0x31037; helper call at 0x310a5 targets 0x3750."
+  },
+  "abi": "Two32-bit caller-cleaned slots; resource ID and raw int index. Raw indexzero returnsNULL; signed lowword used only for descriptor address.",
+  "callers": [
+    "0x30e9c",
+    "0x31037"
+  ],
+  "contract": "State3 bypasses readiness3750; otherstates require nonzero helper. Basis=combinedbuffer+4*unsignedentrycount+8; zero descriptorNULL, otherwise basis+(signed32descriptor>>8).",
+  "limits": [
+    "No valid metadata index extent or whole resource format inferred.",
+    "Original signedness/name/TU unknown.",
+    "Complete96byte contribution is relocation-normalized equal only."
+  ],
+  "source_sha256": "98274e83ab3239965a391f39df967bdd49cb0e5145bfd1bf0c3e26d95aa459e9",
+  "metrics": [
+    {
+      "symbol": "_resource_metadata_pointer",
+      "control": false,
+      "target_size": 96,
+      "candidate_size": 96,
+      "strict_equal": false,
+      "raw_different_bytes": 16,
+      "raw_byte_percent": 83.333,
+      "normalized_different_bytes": 0,
+      "normalized_byte_percent": 100.0,
+      "instruction_percent": 100.0,
+      "original_instruction_count": 39,
+      "candidate_instruction_count": 39,
+      "ordered_cfg_equal": true,
+      "original_blocks": 8,
+      "candidate_blocks": 8,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x10003750"
+      ],
+      "candidate_direct_calls": [
+        "0x10003750"
+      ],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 4,
+      "category": "relocation-only diagnostic equality"
+    }
+  ],
+  "fixture": {
+    "checks": 43,
+    "failures": 0,
+    "source": "tests/resource_metadata_semantics.c"
+  },
+  "provenance": {
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-u7ehllnf\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\resource_metadata.c"
+    ]
+  }
+}

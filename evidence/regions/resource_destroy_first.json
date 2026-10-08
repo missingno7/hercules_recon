@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-07T23:52:27.294599+00:00",
+  "region": "resource_destroy",
+  "ownership": {
+    "id": "resource_destroy",
+    "ownership": "function_task",
+    "rationale": "One bounded destroy helper using the independently writer-backed 20-byte resource record and observed free callback wrapper; original source/TU ownership is unknown."
+  },
+  "context_id": "b1336ce2b49c3032eef778bafd2d44d7fc5e43c11112266ce2659915d957246f",
+  "source_sha256": "47a83ab2e3e5c935567920a17d6008e3537143659430e2dc5e3c5d8cb2ad063e",
+  "baseline_sha256": "47a83ab2e3e5c935567920a17d6008e3537143659430e2dc5e3c5d8cb2ad063e",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "47a83ab2e3e5c935567920a17d6008e3537143659430e2dc5e3c5d8cb2ad063e",
+  "source_patch": {
+    "base_sha256": "47a83ab2e3e5c935567920a17d6008e3537143659430e2dc5e3c5d8cb2ad063e",
+    "result_sha256": "47a83ab2e3e5c935567920a17d6008e3537143659430e2dc5e3c5d8cb2ad063e",
+    "edits": []
+  },
+  "output_id": "681d9ead5a06adbdf277ee304dc42a97249500ff96e03e1ef8a64caf4e9bdf56",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_resource_destroy",
+      "target_size": 64,
+      "candidate_size": 64,
+      "raw_different_bytes": 49,
+      "normalized_different_bytes": 49,
+      "instruction_percent": 60.0,
+      "ordered_cfg_equal": true,
+      "category": "source/codegen residual",
+      "strict_equal": false,
+      "relocation_count": 3,
+      "target_relocation_count": 4,
+      "output_id": "a8d6bd60714a27ee1aeb19de68384ecfcdc0b403739dc4254584e515876d17eb",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 1,
+    "exact": 0,
+    "diagnostic_equal": 0
+  },
+  "family": "captured-record-free-and-postcall-clear",
+  "prediction": "Consistent32-bit resource ID and shared name resolve the callback dependency while preserving full measured bytes/relocations.",
+  "falsifier": "Any changed code or relocation, old-field callback observation, postcallback clear, or preservation of unrelated fields.",
+  "verdict": "observed",
+  "blocker": null,
+  "reentry_condition": null,
+  "next_discriminator": "Actual free wrapper and source/frame context; no declaration spelling grid.",
+  "ungated_work": [],
+  "new_evidence": "Real root callback dependency now namedresource_destroy(int); original signedness/name unproved.",
+  "new_discriminator": null,
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "bounded resource dependency reconstruction",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 3,
+    "semantic_result": "32 checks/0 failures",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "796e0a0a25f784341a12bdfb63af483f80076070e5c202d509171b04d17143fe",
+    "report_sha256": "eee5f8ee6b5972136238dbbf120d8ed78680f9a6f8dc09f533ce377c35a8f657",
+    "object_sha256": "498b1aacc7087a7cfd88ade4ade2f4ff58e790921ff602941d4c7dfc2f7bc3f9",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-n1abbpev\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\resource_destroy.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "e02a04d6d226230d64076b65fe1e224cfe7b9b66c71f00c9c3da41a035f68a3a"
+}

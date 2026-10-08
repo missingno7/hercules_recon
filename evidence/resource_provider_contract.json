@@ -1,0 +1,572 @@
+{
+  "scope": "Static PC contracts for real resource loading dependencies; no function acceptance, original execution or compiler build.",
+  "oracle": {
+    "eng1_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "host_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "database_sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+  },
+  "baseline": {
+    "corrected_allocation_evidence": "evidence\\resource_blob_allocation.json",
+    "sha256": "712a665f3f50024a95798169a995efa13db1d6a23d669f67a92b971eb7f4b127",
+    "context_id": "c41eb63021e43a45a66ec56dd872fffc6f97bf168da6d1f990b33bdfe87c89af"
+  },
+  "data_frame": {
+    "record_base_rva": "0x5cee0",
+    "record_stride": 20,
+    "observed_records": 81,
+    "fields": {
+      "0": "const path prefix string pointer",
+      "4": "unsigned16 reference/entry count",
+      "6": "unresolved16 field",
+      "8": "cached32 file length",
+      "12": "combined allocation pointer",
+      "16": "unsigned16 state",
+      "18": "unsigned16 auxiliary"
+    },
+    "prefix": "4*(original unsigned16 count+1)",
+    "request": "((captured file_length+captured prefix_bytes)&0xfffff800)+0x1000,32-bit machine arithmetic",
+    "suffix_string": "\\ANIMPSX.BIN at4d914",
+    "active_record_pointer_rva": "0x72864",
+    "callback_resource_id_rva": "0x4d7f8",
+    "reported_total_bytes_rva": "0x6ee6c",
+    "start_tick_rva": "0x6ee70",
+    "runtime_pointer_cell_rva": "0x70f24",
+    "limits": "No declaration/TU identity, maximum payload capacity or meaning of unknownword+6 proved. Positive operational naming is provisional."
+  },
+  "provider": {
+    "full": {
+      "start_rva": "0x3540",
+      "end_rva_exclusive": "0x3750",
+      "size": 528,
+      "sha256": "d2d22b30a4d8b3f2d029ccd560a9936a4e694036d12ec28bdb84840dcc8c1c72"
+    },
+    "signature": "int provider(int resource_id,int async_mode),cdecl-compatible two32-bit caller-cleaned arguments",
+    "signature_evidence": [
+      "3545 loads originalarg1 after16stackbytes",
+      "366c loads originalarg1 after24stackbytes",
+      "369c/372c read originalarg2",
+      "3445..344d calls(id,0),cleans8;34b8..34c4 calls(id,1),cleans8"
+    ],
+    "guards": [
+      "354a signed resource_id>=81: diagnostic1000(\"Illegal Dbase %d \\n\",id),return1. No lower-bound guard.",
+      "356b..3597 runtime->word9c==1 orbyte df!=0:return0.",
+      "359f originalrecord.state==3:return0."
+    ],
+    "sequence": [
+      "35b3..35d0 publish originalrecord address to72864; capture originalunsignedcount prefix andcachedlength.",
+      "If cachedlength==0:35d6..35de callback length(originalrecord.path,suffix);35e5 reload liveactivepointer;35ed cache callbackresult into that live record+8. Capturedprefix remains unchanged.",
+      "35f0 captures total=length+prefix;35f3 originalrecord outputslot address;36c/3625 allocator(slot,rounded_request,0x20),retry once after1f6a0(0) onzero. Capturedrequest andslot survive retry.",
+      "3637..3666 starts zeroing pairedushort rows using allocator returnedpointer; liveactivepointer count+4 is reloaded before guard and each backedge.",
+      "3668..3696 originalrecord.state=2;6ee6c=capturedtotal;4d7f8=originalid;originalrecord.aux=1;6ee70=runtime->dword38.",
+      "Async:366a4 installs completion3810 in capturedruntime+b0;36ae reloadruntime before storing3830 at+b4;36c3 reloadactivepointer for path andbuffer, destination=livebuffer+capturedprefix;call2c230(path,suffix,0,destination,capturedlength). Ignore hostreturn,return-1.",
+      "Sync:36eb usesactive-record pointer left by initializationloop, reloadbuffer/path;2c390(path,suffix,destination,capturedlength). Nonzero callbackresult calls3810(),returns0. Zero calls3870(originalid),returns0.",
+      "If both allocatorcalls returnedzero:372c..3732 set originalrecord.state=0 only whenasync_mode==0;return1. No other success-stage globals/state/aux writes."
+    ],
+    "returns": {
+      "1": "upper-id rejection or allocation failure",
+      "0": "runtime/loaded guard or completed sync path, including sync loadfailure",
+      "-1": "async request submitted, regardless of immediate hoststatus"
+    },
+    "live_vs_captured": {
+      "captured": [
+        "originalid for record-indexed state/outputslot/aux andsync-failure argument",
+        "originalcount prefix even if later activepointer/count changes",
+        "lengthcallbackreturn or originalcachedlength",
+        "roundedrequest across retry",
+        "currentruntimepointer at3670 for+b0 and+38",
+        "lastactivepointer before sync branch"
+      ],
+      "live": [
+        "35e5 activepointer cache target after lengthcallback",
+        "3637/3653 activepointer/count after allocator/reclaim callbacks",
+        "36c3 activepointer/path/buffer forasync callback",
+        "36ae runtimepointer for+b4 afterstore+b0",
+        "3810 callbackresourceid after sync callback; providerdoes not passoriginalid tocompletion"
+      ],
+      "production_limit": "Only indexed writer to72864 is provider35bb. The default host callbacks do not directly encode this ENG1 cell. Reentry/externally changed callbacks can explain why ordinary global reads remain live, but such mutation is not asserted to occur in the shipped default path. Preserve observed reads without adding volatile or lock semantics."
+    },
+    "callers": [
+      {
+        "source_rva": "0x3448",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x34bf",
+        "kind": "linear_call"
+      }
+    ]
+  },
+  "readiness_dispatch": {
+    "full": {
+      "start_rva": "0x3750",
+      "end_rva_exclusive": "0x37a0",
+      "size": 80,
+      "sha256": "973527cbd6f9743c548863ba6075843f562e6687591a74aee2d3472b8fbfaf4e"
+    },
+    "signature": "int readiness(int resource_id,int index),two32-bit caller-cleaned arguments",
+    "sites": [
+      "375d zeroextendstate16;3764 compare2",
+      "state2:3769..3778 return next_offset_available(id,index)",
+      "state0:377d..3786 call root-owned3520(id),write originalrecord.aux=3",
+      "378f..3792 return0 forstate0 and allotherstates"
+    ],
+    "callers": [
+      {
+        "source_rva": "0x5443",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x3051d",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x310a5",
+        "kind": "linear_call"
+      }
+    ]
+  },
+  "next_offset_available": {
+    "full": {
+      "start_rva": "0x37a0",
+      "end_rva_exclusive": "0x3810",
+      "size": 112,
+      "sha256": "363ffa438de6702fa22ca47950823b6437a89c0cf2b65db70ea4f1d99c4dbf9d"
+    },
+    "signature": "int next_offset_available(int resource_id,int index),two32-bit caller-cleaned arguments",
+    "sites": [
+      "37a0 capture runtimepointer once",
+      "37a7 remaining=signextendedword(runtime+9e);37ae total=signextendedword(runtime+a0)",
+      "37b5..37c0 available=(total-remaining)<<11;signed available<4096 returns0",
+      "37c7..37de loadoriginalid/index;count=unsigned16 record+4;buffer=record+12",
+      "37e4 signed index>=count returns0",
+      "37e6 basis=buffer+count*4+8;37ec cursor=basis+index*4",
+      "37ef..37f9 raw=DWORD(cursor+4);cursor+=4;index++;signed offset=raw>>8;nonzero offset exitsloop",
+      "37fb..37fd continuewhile signed index<count;allzero return0",
+      "3804..380c return signed available>=signedoffset"
+    ],
+    "scan_contract": "Read entries originalindex+1 through count inclusive, stopping on first signed offset!=0. Current entry is not loaded. The last count entry is included when originalindex<count.",
+    "capture": "No calls, callbacks or activepointer72864 access in this function. Runtime pointer, signedsector values,count andbuffer are captured once.",
+    "limits": "The difference of two signed16 sector fields is in [-65535,65535]; converting sectors to bytes by multiplication by2048 stays within signed32. No arithmetic overflow is possible in this observed calculation. Negative signed shift semantics are VC5-specific if source uses <<11; ordinary signed multiplication by2048 expresses the same full domain without changing units. Metadata/table capacity remains unproved.",
+    "callers": [
+      {
+        "source_rva": "0x376f",
+        "kind": "linear_call"
+      }
+    ]
+  },
+  "metadata": {
+    "full": {
+      "start_rva": "0x31080",
+      "end_rva_exclusive": "0x310e0",
+      "size": 96,
+      "sha256": "04c1f9d66daf72d4c5d1903088225d8cf76f987d52b7bea9a79caf4a2489f13d"
+    },
+    "signature": "void *metadata(int resource_id,int index),two32-bit arguments; full32 index nullguard but signedlow16 metadata addressing",
+    "sites": [
+      "31086 full32 index==0 returnsNULL",
+      "31099 state==3 bypasses readiness",
+      "310a5 calls3750(originalid,full32index);zero returnsNULL",
+      "310b4 reload originalindexedrecord.buffer aftercall",
+      "310bc reload countunsigned16 aftercall",
+      "310c3 signextendlow16 index for lookup",
+      "310c6 basis=buffer+4*count+8",
+      "310ca lookupDWORD atbasis+4*signedlow16index;raw==0returnsNULL",
+      "310d4 SAR signedrawby8;310d8 returnbasis+signedoffset"
+    ],
+    "limits": "Do not change full32 early guard toshort guard:0x10000 is nonzero then selectsentry0. Callerszeroextendwordindices, so broaderphysicalslot highbit behavior is ABI evidence but productionuse notproved.",
+    "callers": [
+      {
+        "source_rva": "0x30e9c",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x31037",
+        "kind": "linear_call"
+      }
+    ]
+  },
+  "destroy": {
+    "full": {
+      "start_rva": "0x38d0",
+      "end_rva_exclusive": "0x3910",
+      "size": 64,
+      "sha256": "e8f2c829cdb43f58fae82600e10063112f171ddb68e704a0f1b94babee47cb50"
+    },
+    "signature": "void destroy(int resource_id),cdecl-compatible; everyindexedcallerdiscardsEAX",
+    "sites": [
+      "38db capture originalrecord.buffer",
+      "38e1 ifbuffer!=NULL:freewrapper2c2d0(buffer);38ee clearoriginalrecord.buffer aftercallback",
+      "38f8/3901 clearoriginalrecord.state andaux regardless ofbuffer",
+      "Path,count,unknownword andcachedlength remainunchanged"
+    ],
+    "callers": [
+      {
+        "source_rva": "0x34e8",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x34f6",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x3852",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x6194",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x61b6",
+        "kind": "linear_call"
+      }
+    ]
+  },
+  "wrappers": [
+    {
+      "label": "async_wrapper",
+      "full": {
+        "start_rva": "0x2c230",
+        "end_rva_exclusive": "0x2c260",
+        "size": 48,
+        "sha256": "d9d38bca5949fc7f736961fd8dbc93e148c6f7ba8a3ac6a9e28d209d86c9ab8c"
+      },
+      "callers": [
+        {
+          "source_rva": "0x36d8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe8ae",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xed26",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1fb6f",
+          "kind": "linear_call"
+        }
+      ]
+    },
+    {
+      "label": "length_wrapper",
+      "full": {
+        "start_rva": "0x2c2f0",
+        "end_rva_exclusive": "0x2c310",
+        "size": 32,
+        "sha256": "49ffb61df01b8bd22d4c87ea7dca488267491ef8ce8a969d87b31c6e063584d7"
+      },
+      "callers": [
+        {
+          "source_rva": "0x35de",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe7e3",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xec4b",
+          "kind": "linear_call"
+        }
+      ]
+    },
+    {
+      "label": "sync_wrapper",
+      "full": {
+        "start_rva": "0x2c390",
+        "end_rva_exclusive": "0x2c3b0",
+        "size": 32,
+        "sha256": "0135a32a1544166cd3e9b3321cf87671b59a7caa8551ce42a66407211690964e"
+      },
+      "callers": [
+        {
+          "source_rva": "0x36fe",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x5f60",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f788",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f7f8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x32b98",
+          "kind": "linear_call"
+        }
+      ]
+    },
+    {
+      "label": "allocation_wrapper",
+      "full": {
+        "start_rva": "0x2c3c0",
+        "end_rva_exclusive": "0x2c3e0",
+        "size": 32,
+        "sha256": "1c60046001f8a8a88b8aa1a13af0df22b739087388c2f71e3a351cab38fcdfc0"
+      },
+      "callers": [
+        {
+          "source_rva": "0x25de",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x2f5b",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x360c",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x3625",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x5f3e",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe81a",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe84a",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xec96",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xecd4",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f112",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f13e",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f163",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f17c",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f1ac",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f1c0",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f1d4",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f1e8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f7b0",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1fa58",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1fa94",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x260be",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x28334",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x2afa1",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x32b7a",
+          "kind": "linear_call"
+        }
+      ]
+    },
+    {
+      "label": "free_wrapper",
+      "full": {
+        "start_rva": "0x2c2d0",
+        "end_rva_exclusive": "0x2c2e0",
+        "size": 16,
+        "sha256": "69c9769d56710f785c8b9faf201052f3984c98b91e3da16587a557c914dcdc06"
+      },
+      "callers": [
+        {
+          "source_rva": "0x2f3d",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x38e6",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x62a6",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe6a9",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe6c8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe7fb",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xeb4e",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xeb6a",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xedcd",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xee07",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f296",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f2a8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f2ba",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f2cc",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f2de",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f8fc",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1fa2a",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1fc28",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1fc7a",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x32bc0",
+          "kind": "linear_call"
+        }
+      ]
+    }
+  ],
+  "wrapper_abis": {
+    "2c230": "Five32-bitargs pathprefix,suffix,sectoroffset,destination,bytes; forwardsunchangedtoslot8(cell70f40);returnEAX. Host3d90 returns1busy,3openfailure,2started;providerignores.",
+    "2c2f0": "Two pointerargs pathprefix,suffix; forwardsunchangedtoslot18(cell70f68);return32-bitlength. Host40d0 builds%s%s,lengthviaendseek,returns0onopenfailure.",
+    "2c390": "Four32-bitargs pathprefix,suffix,destination,bytes; slot1a70f88;host3b50 returnsrequestedbytes onsuccess,0onfailure.",
+    "2c3c0": "Three32-bitargs outputslot,bytes,flags; slot1e70f98;host4570 arenaallocation callback.",
+    "2c2d0": "One pointerarg;slot1070f60;host4750 free. Returnnotconsumedbydestroy; sourcevoidsupported.",
+    "2c260": "No-arg tailjump slot970f44 host3ea0cancel; root-owned cancel3870usesit."
+  },
+  "bindings": [
+    {
+      "name": "async",
+      "engine_cell_rva": "0x70f40",
+      "index": 8,
+      "host_cell_rva": "0x361d8",
+      "host_entry_rva": "0x3d90"
+    },
+    {
+      "name": "file_length",
+      "engine_cell_rva": "0x70f68",
+      "index": 18,
+      "host_cell_rva": "0x36200",
+      "host_entry_rva": "0x40d0"
+    },
+    {
+      "name": "sync",
+      "engine_cell_rva": "0x70f88",
+      "index": 26,
+      "host_cell_rva": "0x36220",
+      "host_entry_rva": "0x3b50"
+    },
+    {
+      "name": "cancel",
+      "engine_cell_rva": "0x70f44",
+      "index": 9,
+      "host_cell_rva": "0x361dc",
+      "host_entry_rva": "0x3ea0"
+    }
+  ],
+  "callback_delivery": {
+    "owner": "parent/root owns3520/3810/3830/3870; no source/build collision",
+    "host_proof": "EXE3f00..4040 progressbody. Failure3f62pushes0,3f63call runtime+b4;completion4031pushes0,4032callruntime+b0;bothcaller-clean4. ENG1 callbacksignorethatoptionalphysicalslot andalso3810hasnoargdirectcall370a.",
+    "signature_limit": "Callbackscanbeordinaryvoid callback(void) as directnoargumentcallshows; originalprototypesunknown. Do not inventrequiredargumentsemantics from ignoredphysicalslot.",
+    "state_transitions": {
+      "0->1": "root3520 markqueued",
+      "originalstate->2": "providerafterallocation",
+      "2->3": "rootcompletion3810 if currentidstate==2",
+      "1/2/3->4": "rootcancel3870;state2clearslivecontext+b0,+b4 beforehostcancel",
+      "4->0->1": "rootfailure3830 cancellationthen conditionaldestroy+requeue",
+      "any->0": "destroybufferoptional,state/auxalwaysclear"
+    }
+  },
+  "disassembly": {
+    "core": "work/resource_provider_audit/disassembly.txt",
+    "context": "work/resource_provider_audit/context_disassembly.txt",
+    "bindings": "work/resource_provider_audit/binding_disassembly.txt",
+    "edges": "work/resource_provider_audit/edge_disassembly.txt",
+    "progress": "work/resource_provider_audit/progress_disassembly.txt"
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compiler_builds": 0
+  }
+}

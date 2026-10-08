@@ -1,0 +1,60 @@
+{
+  "scope": "PC-backed callback state and dependencies; no function acceptance or original execution.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "source_sha256": "fb6ebb809cfaf05fb9d477ee73b813ac7b06fcf0cd99fd3f5d77a8d6187eaa4f",
+  "state": {
+    "reset": "0->1 only",
+    "complete": "2->3 only",
+    "cancel": "1/2/3->4; all other16-bit states preserved",
+    "case2": "Clear context+0xb0/+0xb4 before host cancellation2c260; write captured resource ID state4 after callback",
+    "failure": "cancel(live ID); test live ID state4; destroy(live ID); reset(live ID). Global ID reread after both callbacks."
+  },
+  "abi": "cdecl32-bit resource IDs and no-arg installed callbacks; original signedness/negative production IDs/full context extent unproved.",
+  "diagnostics": {
+    "functions": 4,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 3,
+    "ordered_cfg_equal": 3,
+    "instruction_over_90": 4,
+    "nonexact_instruction_over_90": 4,
+    "categories": {
+      "relocation-only diagnostic equality": 3,
+      "structural/source-form investigation": 1
+    }
+  },
+  "limits": [
+    "Three relocation-normalized equals remain raw nonexact.",
+    "Cancel80bytes vs96; branch merging residual frozen.",
+    "Context is observed prefix only, not proof of allocation extent or original declaration."
+  ],
+  "semantics": {
+    "checks": 393226,
+    "failures": 0,
+    "source": "tests/resource_callbacks_semantics.c",
+    "coverage": "Every ushort state for reset, completion,cancel plus concrete loading-ID mutations in cancellation and destruction.",
+    "scope": "Synthetic ABI/read-order callback mutation, not asserted shipped default behavior."
+  },
+  "provenance": {
+    "fresh_compiler": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-3osza985\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\resource_callbacks.c"
+    ],
+    "originals_executed": false,
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null
+  },
+  "header_sha256": "d679b1ff0395c3d734ee24ff00c2af145624c6f4240365732df0e168b090b475",
+  "header": "calibration/resource_context.h",
+  "declaration_change": "Common observed224byte runtime prefix preserves all four contribution identities. No original fulltype/extent claim."
+}

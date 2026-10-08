@@ -70,6 +70,11 @@ cleanup semantics, traces the copied engine interface from the original EXE, and
 accepts its actual empty callback. Three cleanup helpers retain a measured partial
 reconstruction; natural code/data linkage is still open.
 
+The [resource loading continuation](docs/resource_loading_progress.md) adds an
+exact engine diagnostic and reconstructs metadata, readiness, callbacks and
+buffer destruction. It preserves callback-visible reloads and identifies the
+archive-backed host dependencies; whole-module equality remains open.
+
 ## References
 
 [icytower_rerecon](https://github.com/missingno7/icytower_rerecon) and

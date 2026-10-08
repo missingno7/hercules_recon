@@ -1,0 +1,87 @@
+{
+  "scope": "Ordinary provider and callback read-order reconstruction; no function acceptance.",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "target": {
+    "symbol": "_resource_provider",
+    "rva": "0x3540",
+    "size": 528,
+    "body_size": 518,
+    "target_sha256": "d2d22b30a4d8b3f2d029ccd560a9936a4e694036d12ec28bdb84840dcc8c1c72",
+    "control": false,
+    "boundary_evidence": "Frozen Sol audit: return at 0x3745, ten alignment NOPs through 0x374f; readiness starts at 0x3750. Direct callers at 0x3448 and 0x34bf pass (id,0) and (id,1)."
+  },
+  "source_sha256": "b5f3ff5758e7b441fda862264aabf1bda44109fd64f9c516af4eeccdf3a8815d",
+  "headers": {
+    "resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+    "resource_context.h": "d679b1ff0395c3d734ee24ff00c2af145624c6f4240365732df0e168b090b475"
+  },
+  "correction": "Reload runtime context after allocation/init at3670, before tick and completion-slot writes; entry-time pointer was incorrect.",
+  "metrics": [
+    {
+      "symbol": "_resource_provider",
+      "control": false,
+      "target_size": 528,
+      "candidate_size": 496,
+      "strict_equal": false,
+      "raw_different_bytes": 471,
+      "raw_byte_percent": 10.795,
+      "normalized_different_bytes": 473,
+      "normalized_byte_percent": 10.417,
+      "instruction_percent": 57.222,
+      "original_instruction_count": 180,
+      "candidate_instruction_count": 158,
+      "ordered_cfg_equal": false,
+      "original_blocks": 23,
+      "candidate_blocks": 21,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x10001000",
+        "0x1002c2f0",
+        "0x1002c3c0",
+        "0x1001f6a0",
+        "0x1002c3c0",
+        "0x1002c230",
+        "0x1002c390",
+        "0x10003810",
+        "0x10003870"
+      ],
+      "candidate_direct_calls": [
+        "0x10001000",
+        "0x1002c2f0",
+        "0x1002c3c0",
+        "0x1001f6a0",
+        "0x1002c3c0",
+        "0x1002c230",
+        "0x1002c390",
+        "0x10003810",
+        "0x10003870"
+      ],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 28,
+      "category": "structural/source-form investigation"
+    }
+  ],
+  "fixture": {
+    "worker_checks": 94,
+    "failures": 0,
+    "source": "tests/resource_provider_semantics.c",
+    "scope": "Synthetic ABI/read-order matrix, not assertion of shipped callback reentry."
+  },
+  "provenance": {
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-1n6_f1gi\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\resource_provider.c"
+    ],
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null
+  }
+}

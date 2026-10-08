@@ -1,0 +1,110 @@
+{
+  "scope": "Readiness dispatch and next-offset scan; no acceptance.",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "functions": [
+    {
+      "symbol": "_ensure_actor_resource_ready",
+      "rva": "0x3750",
+      "size": 80,
+      "target_sha256": "973527cbd6f9743c548863ba6075843f562e6687591a74aee2d3472b8fbfaf4e",
+      "control": false,
+      "boundary_evidence": "Reviewed interval 0x3750..0x37a0, immediately followed by the direct callee 0x37a0; final RET at 0x3792 and NOP fill through 0x379f."
+    },
+    {
+      "symbol": "_resource_metadata_scan",
+      "rva": "0x37a0",
+      "size": 112,
+      "target_sha256": "363ffa438de6702fa22ca47950823b6437a89c0cf2b65db70ea4f1d99c4dbf9d",
+      "control": false,
+      "boundary_evidence": "Reviewed interval 0x37a0..0x3810; final RET at 0x380f and next entry begins at 0x3810."
+    }
+  ],
+  "contract": "State2 delegates scan; state0 calls conditional reset then setsaux3; othersreturn0. Scan captures signedshortsector difference*2048; below4096 returns before record reads. Scan index+1..unsignedcount inclusive for first signeddescriptor>>8 nonzero; compare signedavailablebytes tooffset.",
+  "correction": "Move indexed record reads after budgetguard; use existingvoid reset(int) declaration.",
+  "source_sha256": "d431881a13b544a3e9bc9b4b799f680d47d079927b5834076b52e3592ba69c07",
+  "headers": {
+    "resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+    "resource_context.h": "d679b1ff0395c3d734ee24ff00c2af145624c6f4240365732df0e168b090b475"
+  },
+  "metrics": [
+    {
+      "symbol": "_ensure_actor_resource_ready",
+      "control": false,
+      "target_size": 80,
+      "candidate_size": 80,
+      "strict_equal": false,
+      "raw_different_bytes": 44,
+      "raw_byte_percent": 45.0,
+      "normalized_different_bytes": 36,
+      "normalized_byte_percent": 55.0,
+      "instruction_percent": 62.5,
+      "original_instruction_count": 24,
+      "candidate_instruction_count": 23,
+      "ordered_cfg_equal": true,
+      "original_blocks": 5,
+      "candidate_blocks": 5,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x100037a0",
+        "0x10003520"
+      ],
+      "candidate_direct_calls": [
+        "0x100037a0",
+        "0x10003520"
+      ],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 4,
+      "category": "uncertain allocation/type/source-form"
+    },
+    {
+      "symbol": "_resource_metadata_scan",
+      "control": false,
+      "target_size": 112,
+      "candidate_size": 128,
+      "strict_equal": false,
+      "raw_different_bytes": 105,
+      "raw_byte_percent": 17.969,
+      "normalized_different_bytes": 101,
+      "normalized_byte_percent": 21.094,
+      "instruction_percent": 40.909,
+      "original_instruction_count": 42,
+      "candidate_instruction_count": 44,
+      "ordered_cfg_equal": false,
+      "original_blocks": 8,
+      "candidate_blocks": 9,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [],
+      "candidate_direct_calls": [],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 3,
+      "category": "structural/source-form investigation"
+    }
+  ],
+  "fixture": {
+    "checks": 20,
+    "failures": 0,
+    "source": "tests/resource_readiness_semantics.c"
+  },
+  "limits": [
+    "Observed prefix only; no fullcontext or metadata capacity proof.",
+    "Both functions remain raw and normalized nonexact; frozen family."
+  ],
+  "provenance": {
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-7yigf669\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\resource_readiness.c"
+    ],
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null
+  }
+}
