@@ -11,9 +11,12 @@ from match import DEFAULT_TOOLCHAIN, digest, verify_toolchain
 
 
 SUITES = {
+    "resource_pool_pipeline": ['calibration/engine_file_bridge.c', 'calibration/engine_dependency_bridges.c', 'calibration/resource_rebind.c', 'calibration/host_pool_repaired.c', 'calibration/host_pool_lifecycle_repaired.c', 'calibration/host_pool_counts.c', 'calibration/pool_reverse_copy.c', 'src/pc/host_diagnostic.c', 'calibration/engine_interface.h', 'calibration/resource_context.h'],
+    "resource_rebind": ["calibration/resource_rebind.c", "calibration/engine_interface.h", "calibration/resource_context.h"],
+    "engine_dependency_bridges": ["calibration/engine_dependency_bridges.c", "calibration/engine_file_bridge.c", "calibration/engine_interface.h", "calibration/resource_context.h"],
     "host_archive_pipeline": ["calibration/host_file_service.c", "calibration/virtual_file.c", "calibration/archive_positions.c", "calibration/archive_backend.c", "calibration/archive_lifecycle.c", "calibration/archive_names.c", "src/pc/interface_callbacks.c", "src/pc/host_diagnostic.c", "calibration/resource_context.h"],
     "host_file_service": ["calibration/host_file_service.c", "calibration/resource_context.h"],
-    "engine_file_bridge": ["calibration/engine_file_bridge.c", "calibration/resource_context.h"],
+    "engine_file_bridge": ["calibration/engine_file_bridge.c", "calibration/engine_interface.h", "calibration/resource_context.h"],
     "pilot": ["src/title/pilot.c"],
     "shared": ["src/shared/object_commands.c", "src/shared/motion.c", "src/shared/relative.c",
                "src/shared/counted_list.c", "src/shared/bounds.c"],
@@ -61,6 +64,7 @@ SUITES = {
 # Most fixtures include one reconstructed source directly. Integration fixtures
 # link actual separate translation units instead of replacing callees.
 EXTRA_UNITS = {
+    "resource_pool_pipeline": [s for s in SUITES["resource_pool_pipeline"] if s.endswith(".c")],
     "host_archive_pipeline": [s for s in SUITES["host_archive_pipeline"] if s.endswith(".c")],
     "archive_pipeline": SUITES["archive_pipeline"],
 }

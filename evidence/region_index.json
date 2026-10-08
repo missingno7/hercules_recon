@@ -387,13 +387,16 @@
       "spec": "evidence/engine_file_bridge_region.json",
       "baseline": "calibration/engine_file_bridge.c",
       "receipts": [
-        "evidence/regions/engine_file_bridge_first.json"
+        "evidence/regions/engine_file_bridge_first.json",
+        "evidence/regions/engine_file_bridge_shared.json"
       ],
       "references": [
         "docs/file_services_progress.md",
         "evidence/engine_file_bridge_contract.json",
         "evidence/resource_context_extension.json",
-        "evidence/file_services_validation.json"
+        "evidence/file_services_validation.json",
+        "docs/resource_rebind_progress.md",
+        "evidence/resource_rebind_measurements.json"
       ]
     },
     {
@@ -408,6 +411,34 @@
         "evidence/host_file_service_contract.json",
         "evidence/resource_context_extension.json",
         "evidence/file_services_validation.json"
+      ]
+    },
+    {
+      "id": "resource_rebind",
+      "spec": "evidence/resource_rebind_region.json",
+      "baseline": "calibration/resource_rebind.c",
+      "receipts": [
+        "evidence/regions/resource_rebind_shared.json"
+      ],
+      "references": [
+        "docs/resource_rebind_progress.md",
+        "evidence/engine_file_bridge_contract.json",
+        "evidence/resource_rebind_measurements.json",
+        "evidence/resource_rebind_validation.json"
+      ]
+    },
+    {
+      "id": "engine_dependency_bridges",
+      "spec": "evidence/engine_dependency_bridges_region.json",
+      "baseline": "calibration/engine_dependency_bridges.c",
+      "receipts": [
+        "evidence/regions/engine_dependency_bridges_shared.json"
+      ],
+      "references": [
+        "docs/resource_rebind_progress.md",
+        "evidence/engine_file_bridge_contract.json",
+        "evidence/resource_rebind_measurements.json",
+        "evidence/resource_rebind_validation.json"
       ]
     }
   ]

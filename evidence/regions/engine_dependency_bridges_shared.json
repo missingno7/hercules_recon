@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-08T01:52:58.930001+00:00",
+  "region": "engine_dependency_bridges",
+  "ownership": {
+    "id": "engine_dependency_bridges",
+    "ownership": "function_task",
+    "rationale": "Two real interface bridges and reclaim caller; shared original TU identity remains unproved."
+  },
+  "context_id": "b7ca9024720478e6295ffc62de47ecb053915449576aed9c833afb1467ea5fbb",
+  "source_sha256": "c4c5f4c6a554c9d08d098dbc6143664b6cb60282c9c4e4df19944a64f017252e",
+  "baseline_sha256": "c4c5f4c6a554c9d08d098dbc6143664b6cb60282c9c4e4df19944a64f017252e",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "c4c5f4c6a554c9d08d098dbc6143664b6cb60282c9c4e4df19944a64f017252e",
+  "source_patch": {
+    "base_sha256": "c4c5f4c6a554c9d08d098dbc6143664b6cb60282c9c4e4df19944a64f017252e",
+    "result_sha256": "c4c5f4c6a554c9d08d098dbc6143664b6cb60282c9c4e4df19944a64f017252e",
+    "edits": []
+  },
+  "output_id": "9f50082c952798f53a98887f1f659c86e94529d42e3cd436a2836a986c83946a",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_engine_pool_save_arena",
+      "target_size": 32,
+      "candidate_size": 32,
+      "raw_different_bytes": 4,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 1,
+      "target_relocation_count": 1,
+      "output_id": "280bd26d9405d1873ea48b793d455e5fbc528c2ea82cd9d1e3c0776153d03bfb",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_resource_reclaim",
+      "target_size": 80,
+      "candidate_size": 80,
+      "raw_different_bytes": 14,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": false,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 6,
+      "target_relocation_count": 1,
+      "output_id": "2ffeed57243e61689ab74b0d91ea18a6914b213e2b077365f110234dd9f3006a",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_engine_host_update",
+      "target_size": 16,
+      "candidate_size": 16,
+      "raw_different_bytes": 4,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": false,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 1,
+      "target_relocation_count": 1,
+      "output_id": "c3421faf418b151fef6b394291fef0fef99a8380ba8572706e1be5cdefc11c38",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 3,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 3,
+    "ordered_cfg_equal": 1,
+    "instruction_over_90": 3,
+    "nonexact_instruction_over_90": 3,
+    "categories": {
+      "relocation-only diagnostic equality": 3
+    }
+  },
+  "family": "typed-slot20-slot150-bridges-and-live-root-reclaim",
+  "prediction": "Including the existing EngineInterface view, two direct member calls should preserve the slot20 (arena,bytes) and slot150 (no-argument) call contracts. For reclaim, mode zero calls compact_pool(0) once; nonzero repeats while the live slot result is zero. After compaction, a fresh read of g_resource_root gates resource_rebuild_blob followed by resource_rebuild_group_rows. The two rebuilt dependencies remain external. Full output contributions for the existing six bridges should be unchanged; all three selected spans should be measured in one fresh object.",
+  "falsifier": "Any target-span mismatch, incorrect callback argument/return contract, wrong retry count, stale root use, incorrect rebuild order, or failing relocation/callback fixture falsifies the family.",
+  "verdict": "All3 fullcontributions normalizedequal; none rawexact. SeparateTUintegration preserves complete private bytes+orderedrelocs. Fixture7/0; realcompaction/root/rowpipeline19/0.",
+  "blocker": null,
+  "reentry_condition": null,
+  "next_discriminator": null,
+  "ungated_work": [],
+  "new_evidence": [
+    "calibration/engine_interface.h",
+    "evidence/engine_file_bridge_contract.json",
+    "evidence/resource_reclaim_negative.json"
+  ],
+  "new_discriminator": "The complete reclaim span reads wait_mode once, makes one compact call for mode 0 but loops on zero for nonzero mode, then loads root cell 0x70ed4 after compaction and calls 0x20670 followed by tail 0x208f0 only when nonnull. The two bridge functions directly forward to copied interface members at offsets 0x50 and 0x258.",
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "ordinary C source reconstruction, pinned MSVC 5 compile, full-span metrics, and synthetic callback/reclaim fixture",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": null,
+    "semantic_result": "All3 fullcontributions normalizedequal; none rawexact. SeparateTUintegration preserves complete private bytes+orderedrelocs. Fixture7/0; realcompaction/root/rowpipeline19/0.",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "c0660bdac1aff53ca1e094b94fcca9ef5bb59642669482246816695917ac81b6",
+    "report_sha256": "2f79bf6132605815eb4577effdefaca9b48053189cd11709f8b057b7f8083afc",
+    "object_sha256": "f49d14860e75ae37528b26e13d5327c63ff4f4dc2c51a7819470b75659b3f50b",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-_a_bb6lh\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\engine_dependency_bridges.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "2dd5c66db36d6b29eaa614e4c1a661e26f93e92f0fccba9223cfaebe53e08a1a"
+}

@@ -131,6 +131,22 @@ def audit_symbol_map(spec, coff, direct_destinations, absolute_operands):
             raise ValueError('External symbol lacks a decoded original reference: '+name)
 
 
+def direct_external_references(instructions, image_base, start, size):
+    """Calls and outgoing unconditional tail jumps are actual code references.
+
+    Local branches and conditional transfers do not identify an external callee.
+    This only audits the diagnostic symbol map; strict comparison is unchanged.
+    """
+    references = set()
+    for instruction in instructions:
+        if instruction.mnemonic not in ('call', 'jmp') or instruction.operands[0].type != X86_OP_IMM:
+            continue
+        destination = instruction.operands[0].imm - image_base
+        if instruction.mnemonic == 'call' or not start <= destination < start + size:
+            references.add(destination)
+    return references
+
+
 def evaluate(source, spec_path, output, obj=None):
     started = time.perf_counter()
     spec = json.loads(spec_path.read_text())
@@ -146,9 +162,7 @@ def evaluate(source, spec_path, output, obj=None):
         original = pe.read_rva(rva,f['size'])
         instructions = decode(original,pe.image_base+rva)
         absolute_operands.update(encoded_absolute_references(instructions, pe.image_base, pe.sections))
-        for i in instructions:
-            if i.mnemonic == 'call' and i.operands[0].type == X86_OP_IMM:
-                direct_destinations.add(i.operands[0].imm-pe.image_base)
+        direct_destinations.update(direct_external_references(instructions, pe.image_base, rva, f['size']))
         for relocation in base_relocations:
             if rva <= relocation and relocation+4 <= rva+f['size']:
                 absolute_operands.add(struct.unpack_from('<I',original,relocation-rva)[0]-pe.image_base)

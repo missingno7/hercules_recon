@@ -1,0 +1,43 @@
+{
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "engine_dependency_bridges",
+    "ownership": "function_task",
+    "rationale": "Two real interface bridges and reclaim caller; shared original TU identity remains unproved."
+  },
+  "functions": [
+    {
+      "symbol": "_engine_pool_save_arena",
+      "rva": "0x2c330",
+      "size": 32,
+      "target_sha256": "7281bd72fb8ec603baee0c06d1e3a89ac058b5fda754ff9eb4b97f0694bebf84",
+      "control": false
+    },
+    {
+      "symbol": "_resource_reclaim",
+      "rva": "0x1f6a0",
+      "size": 80,
+      "target_sha256": "1811acee3f31a9c0f77fdb8c094df10718c54bb2b72f9e6322db6a1da8db37f2",
+      "control": false
+    },
+    {
+      "symbol": "_engine_host_update",
+      "rva": "0x2c880",
+      "size": 16,
+      "target_sha256": "63b0910a61ca3576334a8de0b145b224bd77da08379c00bc3edde811fbe03833",
+      "control": false
+    }
+  ],
+  "symbol_rvas": {
+    "_g_engine_interface": "0x70f20",
+    "_g_resource_root": "0x70ed4",
+    "_engine_pool_compact": "0x2c290",
+    "_resource_rebuild_blob": "0x20670",
+    "_resource_rebuild_group_rows": "0x208f0"
+  },
+  "source": "calibration/engine_dependency_bridges.c"
+}

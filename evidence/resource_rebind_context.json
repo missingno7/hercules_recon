@@ -1,0 +1,126 @@
+{
+  "scope": "Read-only comparison of context/source/compile evidence. No compiler test or source/type mutation; separate from dispatcher contract.",
+  "files": {
+    "private": {
+      "path": "candidates/resource_rebind/resource_rebind.c",
+      "sha256": "56fce31c6cfac36c1da5aa70cda46a4236323747ffb80614516390af391cd8e0"
+    },
+    "shared": {
+      "path": "calibration/resource_rebind.c",
+      "sha256": "be8d036ff366d04aa83036a7827f17edb47eaf4ea2086e3a5c4687850915c2f9"
+    },
+    "interface": {
+      "path": "calibration/engine_interface.h",
+      "sha256": "ca6f6335bd32072599cfcf143a484b594ae565f7dd74f32f5f89ed3d3251c145"
+    },
+    "context": {
+      "path": "calibration/resource_context.h",
+      "sha256": "2543f9f3adf0be433f511cd4b97b8a21a3d978e44b05cf8e53802d42497f42fc"
+    },
+    "old_metrics": {
+      "path": "work/resource_rebind/metrics.json",
+      "sha256": "bd4fd0df38f57afe0369f77657c5e8f5c15b72559b7d723e2625b13e5b530a59"
+    },
+    "new_metrics": {
+      "path": "work/resource_rebind/integrated_metrics.json",
+      "sha256": "ece469fec69b5e751d77cb8a95e8e1edaca716671a61b0493ee1ad325a7edd85"
+    },
+    "diff": {
+      "path": "work/resource_rebind/context_diff.txt",
+      "sha256": "8dbe5be6a70230ad54a81016ae7b724bb22855ed1bd94c073d8d2ccc34964d06"
+    },
+    "old_provenance": {
+      "path": "work/resource_rebind/provenance.json",
+      "sha256": "27f7a089afe59fc16740b90c300ff69f170a011ac9bd0cc0ad77c9f885ed3b91"
+    }
+  },
+  "source": {
+    "function_bodies_identical": true,
+    "comparison": "From resource_rebuild_blob definition throughallthreefunctions toEOF, UTF8/LFnormalizedtext isidentical.",
+    "body_sha256": "d8f2bfb3f0ad6158431208a666b7f00fc944eefe1bcc17cd8250009ab7622960",
+    "macros": "RELATIVE_FIELD unchanged;localu8/s8/u16/s16/u32types unchanged.",
+    "old_global_type": "EngineInterfacePrefix: signatureunsignedlong+ResourceCallbackContext*context_004;8bytes undernative32ABI.",
+    "new_global_type": "EngineInterface: samefirst2members,plusactualcopiedtabletypedcallbacks/opaque slots;1000bytes. context_004 remainsResourceCallbackContext * at4.",
+    "type_correction": "Shared1000-byteview andconsistentcross-TUexternalobjecttype are supportedbyreal250wordcopy. Private8byteconsumerprefix describesaccesses butcannotbeusedasconflictingdefinition ofsameexternobject alongside1000byteview."
+  },
+  "measured": [
+    {
+      "symbol": "_resource_rebuild_blob",
+      "old_size": 448,
+      "new_size": 432,
+      "old_instructions": 120,
+      "new_instructions": 116,
+      "old_relocation_count": 28,
+      "new_relocation_count": 28,
+      "old_CFG": true,
+      "new_CFG": true
+    },
+    {
+      "symbol": "_resource_select_group",
+      "old_size": 176,
+      "new_size": 176,
+      "old_instructions": 51,
+      "new_instructions": 51,
+      "old_relocation_count": 12,
+      "new_relocation_count": 12,
+      "old_CFG": false,
+      "new_CFG": false
+    },
+    {
+      "symbol": "_resource_rebuild_group_rows",
+      "old_size": 160,
+      "new_size": 160,
+      "old_instructions": 48,
+      "new_instructions": 48,
+      "old_relocation_count": 7,
+      "new_relocation_count": 7,
+      "old_CFG": false,
+      "new_CFG": false
+    }
+  ],
+  "object_identity": {
+    "old_object": "build\\match\\compile-hop98w9u\\candidate.obj",
+    "old_sha256": "21fac4c84949375536e42432a6ffb32f73734346a67e9b0b344a949859530dc0",
+    "new_object": "D:\\prog\\hercules_recon\\build\\match\\compile-0ow693f0\\candidate.obj",
+    "new_sha256": "cfacf5b5e054decbf9890f058297278c7129c25b798459397e2c60794a1a56bc",
+    "old_command": null,
+    "new_command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-0ow693f0\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\resource_rebind.c"
+    ],
+    "flags_recorded_old": [
+      "/O2"
+    ],
+    "flags_recorded_new": [
+      "/O2"
+    ],
+    "old_provenance_note": "The first candidate build used a duplicated absolute-symbol alias for the 0x70e0c-based offset table; target PC showed the same table also accessed at +0x20, so the source was corrected to one base array. The final object is candidate.obj, freshly built after that correction. A later missing-internal-symbol diagnostic was fixed in spec.json only; the same object was reanalyzed with --object and not rebuilt. Exact candidate compiler argv was not retained in the metrics report."
+  },
+  "supported_explanation": {
+    "findings": [
+      "Only resource_rebuild_blob changes448->432/120->116instructions;its28relocations and4-blockCFGremain. Helpersize/instruction/relocationmetrics unchanged.",
+      "context_diff shows earlywordloadrescheduling,changedwordtemporaryregisters/stackoffsets,loss ofEBPsave/restore anddifferentadds/LEAs nearheaderpointerstores. Finalcontextload remains_g_engine_interface+4 andsignedbyte0 read.",
+      "Usedmemberoffsetandpointertype didnotchange. Thisisameasuredcompiler-context/codegenchange,not evidence thatactualcontextpointerorslot changed ornewtypeiswrong.",
+      "Wholeexternaggregatetype,number/typesofmembers anddeclarations availabletohistoricalfrontend changed. These canaffectalias/optimization/registerdecisions, butno specificVC5 mechanism isdemonstratedbyavailabledata."
+    ],
+    "limits": [
+      "Do notassertthe16-bytechange provesaliasanalysis, sizeof-drivenruntimebehavior, original8byteobject orparticularoriginaldeclaration.",
+      "Oldexactcompilerargv isnull/notretained, onlystandardflags inprovenance. Theold included resource_context.h hash/snapshot wasnotrecorded; currentprivateCinclude resolvescurrentheader. Thus strictone-variable/isolation claim cannotbeverifiedfromretainedartifacts,even thoughcurrentfunctionbodycomparisonisexact.",
+      "No exactpeer oracceptanceproperty islost here: both resource_rebuild_blob outcomeswerenonexactdiagnostics. Keepchangedcontextidentityseparate;do notreplayprefixsizes orrestoreinconsistenttype solelytorecover448size."
+    ]
+  },
+  "next": "Usecorrectsharedview forfuturecomposition; preservehelpercontributionchecks. Anewhypothesisrequiresindependenttarget/source/TU/compiler evidence. No supportednormalCrepairidentifiedfromstaticdiffalone.",
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "compiler_builds": 0,
+    "tokens": null,
+    "cost_usd": null
+  }
+}

@@ -1,0 +1,1104 @@
+{
+  "scope": "Complete PC dispatcher function contract and bounded next dependencies. No compiler,candidate,canonical/Git/assets edits ororiginalexecution.",
+  "oracle": {
+    "engine_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "host_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "database_sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+  },
+  "function": {
+    "full": {
+      "module": "ENG1.DLL",
+      "start_rva": "0x20300",
+      "end_rva_exclusive": "0x20670",
+      "size": 880,
+      "sha256": "71f7f168b63e75e99fedb3f292420de5aa7682b328ef9d9eb527939ac8b86779"
+    },
+    "body_size": 872,
+    "padding_size": 8,
+    "entry_refs": [
+      {
+        "source_rva": "0x2c1f1",
+        "target_rva": "0x20300",
+        "kind": "linear_call"
+      }
+    ],
+    "signature": "void-like engine_dispatch(void),noargumentloads;callee-savedEBX/EBP/ESI/EDI. Onlyindexedcallerbinder2c1f1 ignoresreturn. Originalname/returntype/prototype/TU unproved.",
+    "classification": "Project/game state andresource/render orchestration supportedbyruntimefields,levelresources,callbackregistration andactualcalleegraph. NotCRTlibrarycode;no CRTrewrite/identityinference.",
+    "boundary": {
+      "previous_called_entry": "0x20250",
+      "previous_last_ret_rva": "0x202f7",
+      "previous_padding": "8NOP202f8..20300",
+      "verified_previous_tail": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x202e6",
+        "end_rva_exclusive": "0x20300",
+        "size": 26,
+        "sha256": "e4b18611cfadaa02295bfded77efebdae87411e3144912967dcdec37395fa1ef"
+      },
+      "last_ret_rva": "0x20667",
+      "padding": "8NOP20668..20670",
+      "next_independently_called_entry": "0x20670",
+      "external_into_interior": "Noneinverifiedindexedrefs;onlyexternalentryref20300 is2c1f1. Wholefunctiondecodecomplete;noinline table/data found in20300..20670."
+    },
+    "entry_dispatch": "CaptureDWORD6fcec once. State0 takesinitialsetup;state1 skipsinitial andcommonsetup,joins204d0;allother32-bitstatesreturnimmediately. Itdoesnotresample6fcec inside continuationloop.",
+    "phase_call_order": {
+      "initial_state0": [
+        "20329:2c860(8,8)",
+        "20336/2033f:LIVEctx.bytes1/2=0",
+        "20348:LIVEctx.byteA=1",
+        "20357/20368:LIVEctx.dword8c=global58b00;dword94=global58af8",
+        "20374/20381:LIVEctx.dword48=13546547;dword4c=ecab9ab8",
+        "20388:2c350();2038d:83d3();20393:82b7(0)",
+        "203a0..203ae:level=SIGNEDctx.byte0;descriptorword=DWORD(5a6a4+24*level);2c3b0(descriptorword)",
+        "203bc:2cc30(1);203c5:827f(1);203cd:byte6fce8=0",
+        "203d3:1f0f0();203d8:1f750();203dd:32b10();203e2:255f0();203e7:5ea0()",
+        "203f2..203f6:2c840(SIGNED LIVEctx.byte0,0)"
+      ],
+      "common_restart_block_203fe": [
+        "203fe:1f320();20405:2c5a0(4);2040d:2c360()",
+        "20412:ifLIVEbyte6fce8==0 call2c540(0,0)",
+        "20429:byte6fce8=1;20430:DWORD71ec0=0;20436:2cc40(pointer1f0e0)",
+        "2043e:byte7286c=8;20445:WORD4d858=128;2044c:WORD6ee80=0",
+        "20454:2c4e0(0);20462/20463:LIVEctx.dword1b30=256;20469:2c520(1)",
+        "2047c:LIVEctx.dword3c=LIVEglobal6ff88",
+        "20486/2048e:LIVEctx.byte4=0;byte5=1;20498:LIVEctx.dword40=0;204a1:LIVEctx.byte3=5",
+        "204a5:2cc30(1);204b8:store returned32bits toLIVEctx.dword54;204bb:acceptedengine_diagnostic(pointer58ac8)",
+        "204c3:DWORD6fcec=1;thenjoin204d0"
+      ],
+      "iteration_204d0": [
+        "204d0:2c270() forwards realhostfileprogress3f00",
+        "204db:ifLIVEctx.byte0==3 callE670()",
+        "204e5..204f0:input=LIVEengine_interface.word4+400 (32-bit);2ca40(input);204fe store EAX32bits toLIVEctx.dword34",
+        "20501:2c420();20506:6005();2050b:2180();20511:1f870(1);20519:2c440();2051e:5600()",
+        "20529:ifLIVEctx.byte4==0 call2fb70,2f840,258e0,34d0,156a0,1fd90,25d00 inthatorder;else call34d0,256e0 inthatorder",
+        "2055d:3470();20562:5d50();20567:3a50()",
+        "20571:ifLIVEctx.dword40==0 call32bd0();20581 independentlyrereadLIVEctx.dword40 andif0 call2da90()",
+        "2058b:1f6f0();20591:2c630(0)",
+        "205a5..205ab:next=LIVEctx.dword3c+1(mod32);ifUNSIGNEDglobal6ff88<next call2cc30(0) anddiscardEAX",
+        "205b7:DWORD71ec0=0;205bd:2cc30(0);205cb:storeEAX32bits toLIVEctx.dword54",
+        "205d9:DWORD71ec0=1;205df:LIVEctx.dword3c=LIVEglobal6ff88",
+        "205e9:2c570(LIVEcurrentpointer71ec4)",
+        "205f7:ifLIVEctx.byte4==0 call2cb0();20601:50d0();20606:58b0()",
+        "20616:2c620(LIVEcurrentpointer71ec4+88);2061e:666b()",
+        "20623..2062d:2ca40(LIVEctx.dword34),returnignored",
+        "20632..20649:ifLIVEcurrent71ec4==LIVEbase71ec8,current=base+1488;elsecurrent=base;store71ec4",
+        "2064e/20653:incrementLIVEctx.dword38(mod32)",
+        "20656:60f9();ifreturned32bits!=0 jumpto203fe,not20300or204d0;elsereturn"
+      ]
+    },
+    "control": "State0 falls throughinitial->commonsetup->iteration andsetsstate1. State1 beginsiterationonly. Nonzero60f9 result repeatsexactcommonsetup203fe theniteration;initial20325..203f6 isnotrepeated. Zero60f9 returns. HelperscanmutateLIVEcontext/globalfields betweenchecks;preserveindependentreads."
+  },
+  "data_ownership": {
+    "interface": "LIVEg_engine_interface.context_004/slot1 copiedpointer,notindependentcontextglobal. Dispatchalso readsopaqueinterface.word4(offset10) as32bitvalue; add400 thenpasscallback withoutprovedpointer/numericpurpose.",
+    "entry_state": {
+      "rva": "0x6fcec",
+      "width": 4,
+      "initial": "virtualzero-fill0",
+      "indexed_access": "Onlyindexedread20300 andwrite204c3=1;no broaderwrite-absenceorfulldeclarationproof."
+    },
+    "startup_gate": {
+      "rva": "0x6fce8",
+      "width": 1,
+      "writes": [
+        "203cd=0",
+        "20429=1"
+      ],
+      "read": "20412guard"
+    },
+    "callback_gate": {
+      "rva": "0x71ec0",
+      "width": 4,
+      "writes": [
+        "20430=0",
+        "205b7=0",
+        "205d9=1",
+        "otherlevelsetupsoutsidefunction"
+      ],
+      "consumer": "Realnoargcallback1f0e0 reads gate;nonnulltailcalls2caa0. Itdoesnotsetgate;do notlabelitcompletion notification."
+    },
+    "paired_frame_storage": {
+      "base_owner_slot_rva": "0x71ec8",
+      "current_pointer_rva": "0x71ec4",
+      "writer": "1f170..1f17c allocates0x2910 bytes(flags10) throughthebaseowner-slot. Selectedactualwriter,notoriginalextentclaim.",
+      "allocation_request_bytes": 10512,
+      "dispatch_stride_bytes": 5256,
+      "known_leading_views": 2,
+      "toggle": "current==base?base+1488:base, afterallframecalls.",
+      "fields": "Current+88 passed to2c620;current passedto2c570;5600 clearstable atcurrent+88. Fullframeheader/type meaningremainsunproved.",
+      "limits": "Request2*1488 supports twostride-leadingviews,notcompleteoriginalCstructure/capacity/TU/globalordering. Do notmodeltwoseparateglobals withforcedaddresses."
+    },
+    "descriptor_table": {
+      "member_rva": "0x5a6a4",
+      "stride_bytes": 24,
+      "index": "SIGNEDruntimebyte0",
+      "field": "DWORDmember+20 relativebase5a690",
+      "meaning": "Argumentbitsforwardedto2c3b0; originalfieldtype/purpose/countunproved."
+    },
+    "context_observed_fields": [
+      {
+        "offset": "0",
+        "width": 1,
+        "meaning": "signedlevel/categoryselector ininitialization;exactbyte==3 gateiniteration"
+      },
+      {
+        "offset": "1",
+        "width": 1,
+        "meaning": "write0duringinitial"
+      },
+      {
+        "offset": "2",
+        "width": 1,
+        "meaning": "write0duringinitial"
+      },
+      {
+        "offset": "3",
+        "width": 1,
+        "meaning": "write5duringcommonrestart;nextcontrolhelperusesunsignedbyteasstate"
+      },
+      {
+        "offset": "4",
+        "width": 1,
+        "meaning": "zero/nonzeropathselection;write0duringrestart"
+      },
+      {
+        "offset": "5",
+        "width": 1,
+        "meaning": "write1duringrestart"
+      },
+      {
+        "offset": "a",
+        "width": 1,
+        "meaning": "write1duringinitial"
+      },
+      {
+        "offset": "34",
+        "width": 4,
+        "meaning": "opaque32-bitcallbackresult saved/restored"
+      },
+      {
+        "offset": "38",
+        "width": 4,
+        "meaning": "incrementonceperiteration;existingresource tickview"
+      },
+      {
+        "offset": "3c",
+        "width": 4,
+        "meaning": "32-bitvaluecapturedfrom6ff88;unsignedcomparison ofvalue+1"
+      },
+      {
+        "offset": "40",
+        "width": 4,
+        "meaning": "independentlivezero predicates;restartwrites0 overridingbinderflag"
+      },
+      {
+        "offset": "48",
+        "width": 4,
+        "meaning": "write13546547"
+      },
+      {
+        "offset": "4c",
+        "width": 4,
+        "meaning": "writeecab9ab8"
+      },
+      {
+        "offset": "54",
+        "width": 4,
+        "meaning": "store32-bitresultsfrom2cc30"
+      },
+      {
+        "offset": "8c",
+        "width": 4,
+        "meaning": "valuefromglobal58b00"
+      },
+      {
+        "offset": "94",
+        "width": 4,
+        "meaning": "valuefromglobal58af8"
+      },
+      {
+        "offset": "1b30",
+        "width": 4,
+        "meaning": "write256"
+      }
+    ],
+    "limits": "Onlyexactaccesswidths/predicates/typesforcedbysignednessareproved;names/statusunits/contextfullextentremainprovisional. Parentintegratorownsheaderchanges."
+  },
+  "callees": {
+    "call_site_count": 57,
+    "unique_count": 52,
+    "interface_wrapper_count": 18,
+    "inventory": "work/engine_dispatch_audit/callees.json",
+    "instructions": "work/engine_dispatch_audit/decode.json",
+    "mapping": [
+      {
+        "entry_rva": "0x2c860",
+        "calls": [
+          "0x20329"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2c860",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [esp + 8]"
+          },
+          {
+            "rva": "0x2c864",
+            "mnemonic": "mov",
+            "operands": "ecx, dword ptr [esp + 4]"
+          },
+          {
+            "rva": "0x2c868",
+            "mnemonic": "push",
+            "operands": "eax"
+          },
+          {
+            "rva": "0x2c869",
+            "mnemonic": "push",
+            "operands": "ecx"
+          },
+          {
+            "rva": "0x2c86a",
+            "mnemonic": "call",
+            "operands": "dword ptr [0x1007116c]"
+          }
+        ],
+        "slot": 147,
+        "cell_rva": "0x7116c",
+        "host_target_rva": "0x7f10"
+      },
+      {
+        "entry_rva": "0x2c350",
+        "calls": [
+          "0x20388"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2c350",
+            "mnemonic": "jmp",
+            "operands": "dword ptr [0x10070f7c]"
+          }
+        ],
+        "slot": 23,
+        "cell_rva": "0x70f7c",
+        "host_target_rva": "0x10760"
+      },
+      {
+        "entry_rva": "0x83d3",
+        "calls": [
+          "0x2038d"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x82b7",
+        "calls": [
+          "0x20393"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x2c3b0",
+        "calls": [
+          "0x203ae"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2c3b0",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [esp + 4]"
+          },
+          {
+            "rva": "0x2c3b4",
+            "mnemonic": "push",
+            "operands": "eax"
+          },
+          {
+            "rva": "0x2c3b5",
+            "mnemonic": "call",
+            "operands": "dword ptr [0x10070f8c]"
+          }
+        ],
+        "slot": 27,
+        "cell_rva": "0x70f8c",
+        "host_target_rva": "0x16b0"
+      },
+      {
+        "entry_rva": "0x2cc30",
+        "calls": [
+          "0x203bc",
+          "0x204a5",
+          "0x205ae",
+          "0x205bd"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2cc30",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [esp + 4]"
+          },
+          {
+            "rva": "0x2cc34",
+            "mnemonic": "push",
+            "operands": "eax"
+          },
+          {
+            "rva": "0x2cc35",
+            "mnemonic": "call",
+            "operands": "dword ptr [0x10071300]"
+          }
+        ],
+        "slot": 248,
+        "cell_rva": "0x71300",
+        "host_target_rva": "0xac10"
+      },
+      {
+        "entry_rva": "0x827f",
+        "calls": [
+          "0x203c5"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x1f0f0",
+        "calls": [
+          "0x203d3"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x1f750",
+        "calls": [
+          "0x203d8"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x32b10",
+        "calls": [
+          "0x203dd"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x255f0",
+        "calls": [
+          "0x203e2"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x5ea0",
+        "calls": [
+          "0x203e7"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x2c840",
+        "calls": [
+          "0x203f6"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2c840",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [esp + 8]"
+          },
+          {
+            "rva": "0x2c844",
+            "mnemonic": "mov",
+            "operands": "ecx, dword ptr [esp + 4]"
+          },
+          {
+            "rva": "0x2c848",
+            "mnemonic": "push",
+            "operands": "eax"
+          },
+          {
+            "rva": "0x2c849",
+            "mnemonic": "push",
+            "operands": "ecx"
+          },
+          {
+            "rva": "0x2c84a",
+            "mnemonic": "call",
+            "operands": "dword ptr [0x10071164]"
+          }
+        ],
+        "slot": 145,
+        "cell_rva": "0x71164",
+        "host_target_rva": "0x5760"
+      },
+      {
+        "entry_rva": "0x1f320",
+        "calls": [
+          "0x203fe"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x2c5a0",
+        "calls": [
+          "0x20405"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2c5a0",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [esp + 4]"
+          },
+          {
+            "rva": "0x2c5a4",
+            "mnemonic": "push",
+            "operands": "eax"
+          },
+          {
+            "rva": "0x2c5a5",
+            "mnemonic": "call",
+            "operands": "dword ptr [0x1007100c]"
+          }
+        ],
+        "slot": 59,
+        "cell_rva": "0x7100c",
+        "host_target_rva": "0xbe30"
+      },
+      {
+        "entry_rva": "0x2c360",
+        "calls": [
+          "0x2040d"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2c360",
+            "mnemonic": "jmp",
+            "operands": "dword ptr [0x10070f80]"
+          }
+        ],
+        "slot": 24,
+        "cell_rva": "0x70f80",
+        "host_target_rva": "0x1d00"
+      },
+      {
+        "entry_rva": "0x2c540",
+        "calls": [
+          "0x2041c"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2c540",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [esp + 8]"
+          },
+          {
+            "rva": "0x2c544",
+            "mnemonic": "mov",
+            "operands": "ecx, dword ptr [esp + 4]"
+          },
+          {
+            "rva": "0x2c548",
+            "mnemonic": "push",
+            "operands": "eax"
+          },
+          {
+            "rva": "0x2c549",
+            "mnemonic": "push",
+            "operands": "ecx"
+          },
+          {
+            "rva": "0x2c54a",
+            "mnemonic": "call",
+            "operands": "dword ptr [0x10070ff4]"
+          }
+        ],
+        "slot": 53,
+        "cell_rva": "0x70ff4",
+        "host_target_rva": "0x17d0"
+      },
+      {
+        "entry_rva": "0x2cc40",
+        "calls": [
+          "0x20436"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2cc40",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [esp + 4]"
+          },
+          {
+            "rva": "0x2cc44",
+            "mnemonic": "push",
+            "operands": "eax"
+          },
+          {
+            "rva": "0x2cc45",
+            "mnemonic": "call",
+            "operands": "dword ptr [0x10071304]"
+          }
+        ],
+        "slot": 249,
+        "cell_rva": "0x71304",
+        "host_target_rva": "0xbdd0"
+      },
+      {
+        "entry_rva": "0x2c4e0",
+        "calls": [
+          "0x20454"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2c4e0",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [esp + 4]"
+          },
+          {
+            "rva": "0x2c4e4",
+            "mnemonic": "push",
+            "operands": "eax"
+          },
+          {
+            "rva": "0x2c4e5",
+            "mnemonic": "call",
+            "operands": "dword ptr [0x10070fd8]"
+          }
+        ],
+        "slot": 46,
+        "cell_rva": "0x70fd8",
+        "host_target_rva": "0x1b90"
+      },
+      {
+        "entry_rva": "0x2c520",
+        "calls": [
+          "0x20469"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2c520",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [esp + 4]"
+          },
+          {
+            "rva": "0x2c524",
+            "mnemonic": "push",
+            "operands": "eax"
+          },
+          {
+            "rva": "0x2c525",
+            "mnemonic": "call",
+            "operands": "dword ptr [0x10070fec]"
+          }
+        ],
+        "slot": 51,
+        "cell_rva": "0x70fec",
+        "host_target_rva": "0x42e0"
+      },
+      {
+        "entry_rva": "0x1000",
+        "calls": [
+          "0x204bb"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x2c270",
+        "calls": [
+          "0x204d0"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2c270",
+            "mnemonic": "jmp",
+            "operands": "dword ptr [0x10070f4c]"
+          }
+        ],
+        "slot": 11,
+        "cell_rva": "0x70f4c",
+        "host_target_rva": "0x3f00"
+      },
+      {
+        "entry_rva": "0xe670",
+        "calls": [
+          "0x204e0"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x2ca40",
+        "calls": [
+          "0x204f0",
+          "0x2062d"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2ca40",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [esp + 4]"
+          },
+          {
+            "rva": "0x2ca44",
+            "mnemonic": "push",
+            "operands": "eax"
+          },
+          {
+            "rva": "0x2ca45",
+            "mnemonic": "call",
+            "operands": "dword ptr [0x1007120c]"
+          }
+        ],
+        "slot": 187,
+        "cell_rva": "0x7120c",
+        "host_target_rva": "0xa340"
+      },
+      {
+        "entry_rva": "0x2c420",
+        "calls": [
+          "0x20501"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2c420",
+            "mnemonic": "jmp",
+            "operands": "dword ptr [0x10070fa4]"
+          }
+        ],
+        "slot": 33,
+        "cell_rva": "0x70fa4",
+        "host_target_rva": "0x41a0"
+      },
+      {
+        "entry_rva": "0x6005",
+        "calls": [
+          "0x20506"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x2180",
+        "calls": [
+          "0x2050b"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x1f870",
+        "calls": [
+          "0x20511"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x2c440",
+        "calls": [
+          "0x20519"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2c440",
+            "mnemonic": "jmp",
+            "operands": "dword ptr [0x10070fac]"
+          }
+        ],
+        "slot": 35,
+        "cell_rva": "0x70fac",
+        "host_target_rva": "0x1d80"
+      },
+      {
+        "entry_rva": "0x5600",
+        "calls": [
+          "0x2051e"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x2fb70",
+        "calls": [
+          "0x2052e"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x2f840",
+        "calls": [
+          "0x20533"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x258e0",
+        "calls": [
+          "0x20538"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x34d0",
+        "calls": [
+          "0x2053d",
+          "0x20553"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x156a0",
+        "calls": [
+          "0x20542"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x1fd90",
+        "calls": [
+          "0x20547"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x25d00",
+        "calls": [
+          "0x2054c"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x256e0",
+        "calls": [
+          "0x20558"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x3470",
+        "calls": [
+          "0x2055d"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x5d50",
+        "calls": [
+          "0x20562"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x3a50",
+        "calls": [
+          "0x20567"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x32bd0",
+        "calls": [
+          "0x20576"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x2da90",
+        "calls": [
+          "0x20586"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x1f6f0",
+        "calls": [
+          "0x2058b"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x2c630",
+        "calls": [
+          "0x20591"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2c630",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [esp + 4]"
+          },
+          {
+            "rva": "0x2c634",
+            "mnemonic": "push",
+            "operands": "eax"
+          },
+          {
+            "rva": "0x2c635",
+            "mnemonic": "call",
+            "operands": "dword ptr [0x1007108c]"
+          }
+        ],
+        "slot": 91,
+        "cell_rva": "0x7108c",
+        "host_target_rva": "0xa340"
+      },
+      {
+        "entry_rva": "0x2c570",
+        "calls": [
+          "0x205e9"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2c570",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [esp + 4]"
+          },
+          {
+            "rva": "0x2c574",
+            "mnemonic": "push",
+            "operands": "eax"
+          },
+          {
+            "rva": "0x2c575",
+            "mnemonic": "call",
+            "operands": "dword ptr [0x10071000]"
+          }
+        ],
+        "slot": 56,
+        "cell_rva": "0x71000",
+        "host_target_rva": "0x4240"
+      },
+      {
+        "entry_rva": "0x2cb0",
+        "calls": [
+          "0x205fc"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x50d0",
+        "calls": [
+          "0x20601"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x58b0",
+        "calls": [
+          "0x20606"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x2c620",
+        "calls": [
+          "0x20616"
+        ],
+        "kind": "engine interface wrapper",
+        "instructions_to_transfer": [
+          {
+            "rva": "0x2c620",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [esp + 4]"
+          },
+          {
+            "rva": "0x2c624",
+            "mnemonic": "push",
+            "operands": "eax"
+          },
+          {
+            "rva": "0x2c625",
+            "mnemonic": "call",
+            "operands": "dword ptr [0x10071084]"
+          }
+        ],
+        "slot": 89,
+        "cell_rva": "0x71084",
+        "host_target_rva": "0xac60"
+      },
+      {
+        "entry_rva": "0x666b",
+        "calls": [
+          "0x2061e"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      },
+      {
+        "entry_rva": "0x60f9",
+        "calls": [
+          "0x20656"
+        ],
+        "kind": "custom engine direct callee; complete ABI/extent not inferred from prefix"
+      }
+    ],
+    "limits": "Wrappertransfers/defaulthosttargetsverified. Nonwrappercompleteprototypes/extents notdeducedfromaddressorprefix; theyremainrealmissingcontributions,notstubs. Existingaccepted diagnostic1000 andemptyhostBE30 arepreserved."
+  },
+  "bounded_next_regions": [
+    {
+      "region": "runtime continuation/state handler",
+      "full": {
+        "start_rva": "0x60f9",
+        "end_rva_exclusive": "0x646c",
+        "size": 883,
+        "sha256": "710d0b206f94feb5f0392f7a9877deb454c153493bed4e7b3040035433a26b3f"
+      },
+      "entry_read": "LIVEcontextunsignedbyte3;>33 default6364;else34-byteindexmapselects6DWORDcode targets.",
+      "code_end": "RET6431;inlineDWORDtable6432..644a;byteindexmap644a..646c;nextindependentlycalledentry646c.",
+      "relation": "Itsreturned32bits decidewhether20300 repeatscommonrestart203fe. Recoveritscompletecallee/fieldprotocol next;initial60f9prefix isinsufficienttosourceentirephasehandler.",
+      "tables": {
+        "entry_rva": "0x60f9",
+        "end_rva_exclusive": "0x646c",
+        "size": 883,
+        "body_end_rva_exclusive": "0x6432",
+        "full_sha256": "710d0b206f94feb5f0392f7a9877deb454c153493bed4e7b3040035433a26b3f",
+        "selector": "unsigned runtimebyte3;greaterthan33 usesdefaultbranch6364, otherwisebyte-map-indexed6DWORDjump table",
+        "table_rva": "0x6432",
+        "map_rva": "0x644a",
+        "jump_targets": [
+          "0x6128",
+          "0x6158",
+          "0x612f",
+          "0x6253",
+          "0x62da",
+          "0x6364"
+        ],
+        "index_map": [
+          0,
+          1,
+          1,
+          5,
+          5,
+          2,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          3,
+          3,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          4
+        ],
+        "independently_called_next_rva": "0x646c",
+        "limits": "Full boundary/table shape verified; complete state/callee source contract deferred to next coherent audit. No decoding tables as instructions."
+      },
+      "ownership": "Currentworkers20670..20990 andbridge2c330/2c880/reclaim1f6a0 protected;thisstatehandlerisaseparateprojectregion."
+    },
+    {
+      "region": "guarded registered frame callback",
+      "full": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x1f0e0",
+        "end_rva_exclusive": "0x1f0f0",
+        "size": 16,
+        "sha256": "47fd8b3c5a8e51688699850b43a8834d7453f8bc61ff0c3f17d5be4fd8144734"
+      },
+      "source_contract": "void callback(void){if(g_dispatch_gate!=0)interface_callback_204();}",
+      "dependencies": [
+        {
+          "bridge": {
+            "module": "ENG1.DLL",
+            "start_rva": "0x2caa0",
+            "end_rva_exclusive": "0x2cab0",
+            "size": 16,
+            "sha256": "d1f50e0f989bdeeb646c35b3279f85764577947d06c30686e06a1962ba2b8fdc"
+          },
+          "slot": 204,
+          "host_target_rva": "0xbe30"
+        },
+        {
+          "register_bridge": {
+            "module": "ENG1.DLL",
+            "start_rva": "0x2cc40",
+            "end_rva_exclusive": "0x2cc50",
+            "size": 16,
+            "sha256": "67e25c41260bfd96ce6b1bfd18b4c0dadaa4335e0d6a51f695fd93cd24056d42"
+          },
+          "slot": 249,
+          "host_target": {
+            "module": "HERCULES.EXE",
+            "start_rva": "0xbdd0",
+            "end_rva_exclusive": "0xbde0",
+            "size": 16,
+            "sha256": "969cf0580788e85301e859cdfb9e3cd6e3eb140e34a1b4288647e7958d12b1c0"
+          },
+          "contract": "Hosttakesonecallbackpointer,arg+4,returnspreviousA8E784pointerandstoresnewone;physicalcallbackaritynotprovedfromregisterleafalone."
+        }
+      ],
+      "limits": "Realguardedleafandrealhostregistercontribution;nostubinvented. Sharedtablemembers/gateaddressmustresolve naturally before rawclosure."
+    },
+    {
+      "region": "actual shared no-op host callback",
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0xa340",
+        "end_rva_exclusive": "0xa350",
+        "size": 16,
+        "sha256": "33cb7c6b5695e070548b4e7f33d43173b10670c306067b684edf21470a662ef2"
+      },
+      "body": "XOR EAX,EAX;RET;+13naturalNOP",
+      "contracts": "Mappedbydispatchwrappers2ca40(slot187) and2c630(slot91);eachpassesone32-bitarg. Functionignoresargandreturns0. Thisisactualcustomhostleaf,notsyntheticdependency stub.",
+      "bounded_source": "int __cdecl callback(unsignedlong ignored){return0;} isoneABI-compatiblehypothesis;originalparameter/name/TUunproved. Freshraw16bytes+zerorelocations neededbeforeacceptance."
+    }
+  ],
+  "ordinary_source_task": {
+    "family": "whole sampled-state dispatcher with exactcommon-restart backedge andliveinterface/context fields",
+    "prediction": "OneordinaryC no-arg state dispatcher preservescomplete57-callorder,livepredicates,250-wordinterfacealiasandpaired-frameprotocol,withstate0/1 andnonzero continuationgotoexactcommonsetup. Freshfull880-byte measurement isfuturework; sourcecontractdoesnotgrantFUNCTION_MATCH.",
+    "falsifier": "Changedcaseentry/setupfrequency,collapsedlivefield40tests,cachedcontextacrosscallbacks,changedunsignedtimepredicate,wrongframe stride/toggle,failedsemanticfixtureorfullcontributiondifference. Do notadddeclaration/registersteering orstandalonestubcallees.",
+    "fixtures": [
+      "state2/ffffffff returnwithoutcalls orwrites;state1 skipsinitial/commonsetuponentry",
+      "state0initialonce;continuationsequence1,1,0 repeatscommonsetupthree times,totalinitialonce",
+      "callbackbetweenfield40tests changesmode;secondgateusesLIVEfield40 independently",
+      "contextbyte4 mutation choosesbranchat20529 andlater205f7independently",
+      "unsignedcounter3c=ffffffff wrapsnext0;timingpredicate andextra2cc30call preserveunsignedbehavior",
+      "guard71ec0 toggles0/1 beforecallbackregistration/timewait;registeredcallbackreadsgate",
+      "current=base selectsbase+1488;othercurrentselectsbase;allocationrequest2910 supports2leadingviews",
+      "LIVEcontextpointer mutation afterhostcalls applieslaterstores/counterincrements tocurrenttable.slot1",
+      "iteration incrementsLIVEtick38 before60f9,thenbranchesexact203fe onnonzero"
+    ],
+    "scope_limit": "Firstcandidatecanreferencerealuncaptureddependenciesasexterns;natural-linkclosure remainsblockedbyactualmissingcallees/types,notapprovalorlayout tricks."
+  },
+  "evidence": {
+    "full_disassembly": "work/engine_dispatch_audit/decode.txt",
+    "call_inventory": "work/engine_dispatch_audit/callees.json",
+    "neighbors": "work/engine_dispatch_audit/callee_leads.txt",
+    "control_boundary": "work/engine_dispatch_audit/control_neighbors.txt",
+    "phase_next": "work/engine_dispatch_audit/phase_next_region.json"
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "compiler_builds": 0,
+    "tokens": null,
+    "cost_usd": null
+  }
+}

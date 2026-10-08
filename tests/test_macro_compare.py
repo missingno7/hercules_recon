@@ -7,11 +7,23 @@ import unittest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from env import ROOT
 from match import digest
-from macro_compare import structure, tokens_and_calls, restore_wave, audit_symbol_map, decode, encoded_absolute_references
+from macro_compare import structure, tokens_and_calls, restore_wave, audit_symbol_map, decode, encoded_absolute_references, direct_external_references
 import struct
 
 
 class MacroMetricsTests(unittest.TestCase):
+    def test_tail_callee_audit_requires_actual_outgoing_jump_destination(self):
+        # CALL4000, JMP5000, conditional external branch, local unconditional JMP.
+        code=bytes.fromhex('e8fb2f0000e9f63f00007505ebfec3')
+        refs=direct_external_references(decode(code,0x1000),0,0x1000,len(code))
+        self.assertEqual(refs,{0x4000,0x5000})
+        class Object:
+            def function(self,name):return dict(data=b'',relocations=[])
+        spec=dict(functions=[dict(symbol='_fn',rva='0x1000')],symbol_rvas={'_tail':'0x5000'})
+        audit_symbol_map(spec,Object(),refs,set())
+        wrong=dict(spec,symbol_rvas={'_tail':'0x5001'})
+        with self.assertRaises(ValueError):audit_symbol_map(wrong,Object(),refs,set())
+
     def test_fixed_image_references_include_absolute_memory_and_pointer_loads(self):
         sections=[dict(virtual_address=0x7a0000,virtual_size=0x10000,raw_size=0)]
         # Absolute memory, indexed absolute memory, address load and address push.

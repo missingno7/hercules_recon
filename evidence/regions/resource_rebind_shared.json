@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-08T01:52:58.745003+00:00",
+  "region": "resource_rebind",
+  "ownership": {
+    "id": "resource_rebind",
+    "ownership": "function_task",
+    "rationale": "Three bounded custom blob and row setup/rebuild routines from ENG1; actual source translation unit and original declarations remain unproved."
+  },
+  "context_id": "3324ffd7ef9c12b5e4a921a3afe2844c17964d1e7fef052dce556d4190b01fd9",
+  "source_sha256": "be8d036ff366d04aa83036a7827f17edb47eaf4ea2086e3a5c4687850915c2f9",
+  "baseline_sha256": "be8d036ff366d04aa83036a7827f17edb47eaf4ea2086e3a5c4687850915c2f9",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "be8d036ff366d04aa83036a7827f17edb47eaf4ea2086e3a5c4687850915c2f9",
+  "source_patch": {
+    "base_sha256": "be8d036ff366d04aa83036a7827f17edb47eaf4ea2086e3a5c4687850915c2f9",
+    "result_sha256": "be8d036ff366d04aa83036a7827f17edb47eaf4ea2086e3a5c4687850915c2f9",
+    "edits": []
+  },
+  "output_id": "3671be30451ce88c544b1e0f3f8ad8d3e55cdbdc5d6a5a6059f9af5071ae2b01",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_resource_rebuild_blob",
+      "target_size": 448,
+      "candidate_size": 432,
+      "raw_different_bytes": 399,
+      "normalized_different_bytes": 383,
+      "instruction_percent": 60.465,
+      "ordered_cfg_equal": true,
+      "category": "uncertain allocation/type/source-form",
+      "strict_equal": false,
+      "relocation_count": 28,
+      "target_relocation_count": 27,
+      "output_id": "1ffdbf5d343f5516de521335312eff6881c1d07115fe2baa01fb543b65ac99aa",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_resource_select_group",
+      "target_size": 192,
+      "candidate_size": 176,
+      "raw_different_bytes": 187,
+      "normalized_different_bytes": 182,
+      "instruction_percent": 12.963,
+      "ordered_cfg_equal": false,
+      "category": "structural/source-form investigation",
+      "strict_equal": false,
+      "relocation_count": 12,
+      "target_relocation_count": 15,
+      "output_id": "bd14cee84c30e7c3e53961de76c6ea880c726a7cbdb66d61e424d548c6af6f71",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_resource_rebuild_group_rows",
+      "target_size": 160,
+      "candidate_size": 160,
+      "raw_different_bytes": 138,
+      "normalized_different_bytes": 129,
+      "instruction_percent": 27.083,
+      "ordered_cfg_equal": false,
+      "category": "structural/source-form investigation",
+      "strict_equal": false,
+      "relocation_count": 7,
+      "target_relocation_count": 8,
+      "output_id": "2a2d677052c2cc3be0d02c1ecb3c48ba8e4e76b84de8354613bf82069207f56b",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 3,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 0,
+    "ordered_cfg_equal": 1,
+    "instruction_over_90": 0,
+    "nonexact_instruction_over_90": 0,
+    "categories": {
+      "uncertain allocation/type/source-form": 1,
+      "structural/source-form investigation": 2
+    }
+  },
+  "family": "separate-root-relative-header-and-row-owner-slots",
+  "prediction": "A byte-addressed native32 view will preserve unknown header semantics while using only observed ushort/dword loads: relative dwords resolve from their own field, root rows are read through the derived 0x70d5c pointer table, and rebuilt row data comes from an independent 0x71e40 owner-slot array indexed by signed category*8+row. One ordinary-C source family should match all three complete spans and pass a synthetic fixture checking pointer derivation, inclusive selector boundary, reset lengths, cumulative offsets, row block strides, and root/owner-slot independence.",
+  "falsifier": "Any contradiction in direct-PC load widths, relative-pointer origin/alignment, signed selector/row indexing, root table loop bounds, row owner-slot address or row-block stride; fixture failure; or any full-span diagnostic mismatch falsifies the prediction. No invented format names, capacity declarations, root-relative row ownership, stubs, or code-generation steering.",
+  "verdict": "Shared observed interface declaration changes blob rebuild from448 to432bytes; both versions remain nonexact. Two helper contributions preserve private bytes+orderedrelocations. Fixture8/0 and realcompaction pipeline19/0 pass; no original type or source claim.",
+  "blocker": null,
+  "reentry_condition": null,
+  "next_discriminator": null,
+  "ungated_work": [],
+  "new_evidence": [
+    "calibration/engine_interface.h",
+    "evidence/engine_file_bridge_contract.json",
+    "evidence/resource_reclaim_negative.json"
+  ],
+  "new_discriminator": "Replace incompatible private8byte interface prefix with one shared observed250wordnativeview required for real separately linked engine/resource units. This is a source context change, not a compiler-steering family. Compiler output changes; underlying explanation remains unproved.",
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "bounded PC-derived native32 blob/header and separate row owner-slot reconstruction with pinned full-span diagnostics and synthetic fixture",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 4,
+    "semantic_result": "Shared observed interface declaration changes blob rebuild from448 to432bytes; both versions remain nonexact. Two helper contributions preserve private bytes+orderedrelocations. Fixture8/0 and realcompaction pipeline19/0 pass; no original type or source claim.",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "0d0c300de1d958505d2aebdc855eafb677271a521abaad06581612d2cfba7e24",
+    "report_sha256": "ece469fec69b5e751d77cb8a95e8e1edaca716671a61b0493ee1ad325a7edd85",
+    "object_sha256": "cfacf5b5e054decbf9890f058297278c7129c25b798459397e2c60794a1a56bc",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-0ow693f0\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\resource_rebind.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "7ceca5329fe14e29ae19bdf62593b0f0d5836b473fc9a09b1d65102c8c3d3fe8"
+}

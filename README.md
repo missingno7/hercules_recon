@@ -79,6 +79,9 @@ dependencies and links them in an isolated synthetic-file integration fixture.
 The [file-service continuation](docs/file_services_progress.md) adds host services
 and six typed engine bridges, preserving all accepted matches and exercising the
 combined host/archive pipeline with historical stdio.
+The [resource-rebind continuation](docs/resource_rebind_progress.md) exercises real
+owner relocation through host compaction and engine rebuilds, and identifies
+thirteen additional CRT dependencies without rewriting library code.
 
 ## References
 
