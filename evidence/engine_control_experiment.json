@@ -1,0 +1,96 @@
+{
+  "scope": "Experimental ordinary-C control reconstruction; shared-text diagnostic only. No FUNCTION_MATCH or original contribution/TU/flags claim. recovery.json is unchanged.",
+  "prediction": "A fresh pinned VC5 /Od build without /Gy emits a six-entry 24-byte dispatch table and 34-byte selector map; the 110-check fixture remains green.",
+  "falsifier": "A generated table other than six entries, selector-group mismatch against the reviewed target, or fixture behavior change.",
+  "discriminator": "Frozen v1 explicitly labels selectors 3, 4, 6-17, and 20-32 as case labels sharing the default body. Target evidence has six distinct branch groups. This source enumeration concretely predicts that the redundant labels caused v1's 19-entry generated switch table.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "logical_interval_start_rva": "0x60f9",
+    "callable_body_bytes": 825,
+    "dispatch_table_rva": "0x6432",
+    "dispatch_table_bytes": 24,
+    "selector_map_rva": "0x644a",
+    "selector_map_bytes": 34,
+    "logical_interval_bytes": 883,
+    "logical_interval_sha256": "710d0b206f94feb5f0392f7a9877deb454c153493bed4e7b3040035433a26b3f"
+  },
+  "result": {
+    "target_selector_map_different_bytes": 0,
+    "target_selector_map_equal_percent": 100.0,
+    "target_semantic_dispatch_matches": true,
+    "semantic_selectors_checked": 34,
+    "raw_body_differences_with_length_penalty": 708,
+    "relocation_resolved_body_differences_with_length_penalty": 754,
+    "whole_logical_span_raw_differences_with_length_penalty": 741,
+    "whole_logical_span_raw_equal_percent": 16.082,
+    "v1_v2_candidate_body_bytes_identical": true,
+    "v1_v2_candidate_body_relocations_identical": true,
+    "v1_v2_shared_body_bytes": 820,
+    "v1_v2_candidate_table_delta_bytes": -52
+  },
+  "frozen_private_comparison": {
+    "scope": "Comparison of private v1 and v2 objects only; no target layout or contribution claim.",
+    "shared_code_body_bytes": 820,
+    "body_bytes_equal": true,
+    "body_sha256": "be3d4fa8bd6ec05fc488b9594fb0e7955fc1b6345ff07070db68de8febd2762a",
+    "body_relocations_equal": true,
+    "body_relocation_count": 70,
+    "v1_text_bytes": 930,
+    "v2_text_bytes": 878,
+    "v1_text_sha256": "778a437d173285babd548dfb220d99a4172cd527290d519101857d63894a2d64",
+    "v2_text_sha256": "a35281c5196c84c145b28c3103959ff80d3c769987ff58dd733ff8d511dc2b05",
+    "v1_source_sha256": "dd385b68641939fb59333444d46c2b9c05d91ad875c8e410b11bac14c6b06d48",
+    "v1_object_sha256": "4b5e5b6f4ba9d2525db820ffa2944978466ca58f9c66c75062845718c8ecbf35",
+    "v2_source_sha256": "f3543f83eab4e577027375984b820edff0f675b9852e2381843840702439dc0c",
+    "v2_object_sha256": "39c202d37c76739eecfdd5d89dea2c17cd0239aabeaa0a7f178a4e18975c159c"
+  },
+  "canonical_experiment": {
+    "source": "calibration/engine_control.c",
+    "source_sha256": "5d52be788992905b3a2bbf93f02295ffdd70e13a3c705f8cd4c76cecdd7cf13a",
+    "transformation": "Only repository include paths changed from private v2; complete emitted executable section and ordered relocations remained identical.",
+    "object_sha256": "2f44b253f0262554af254329e172266f58593da14788d63bfe1487c5bd19e4dd",
+    "text_bytes": 878,
+    "text_sha256": "a35281c5196c84c145b28c3103959ff80d3c769987ff58dd733ff8d511dc2b05",
+    "ordered_relocations": 76,
+    "ordered_relocations_sha256": "36779de73dfef2a47952637b8661a45562c890a5d436e135fb772cfca93d6a41",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/Od",
+      "/ML",
+      "/FoD:\\prog\\hercules_recon\\build\\tests\\engine_control-yizpnwyg\\",
+      "/FeD:\\prog\\hercules_recon\\build\\tests\\engine_control-yizpnwyg\\semantics.exe",
+      "D:\\prog\\hercules_recon\\tests\\engine_control_semantics.c",
+      "D:\\prog\\hercules_recon\\calibration\\engine_control.c",
+      "/link",
+      "/INCREMENTAL:NO"
+    ],
+    "headers": {
+      "calibration/engine_interface.h": "b2b4c05aa53ffe5359dc34a1cd6fb1ae6307f6b1b92036adec3ed7fcfab16bc4",
+      "calibration/resource_context.h": "b6ea023320d1bf3f2862fc3b1cb7db051227a89fb5e553bb5bf08ace386c4093",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92"
+    }
+  },
+  "semantics": {
+    "suite": "engine_control",
+    "checks": 110,
+    "failures": 0,
+    "harness": "tests/engine_control_semantics.c",
+    "harness_sha256": "27a5d4b5075dcc6109cc4b2b2443b36d20c5d1caddf48c2477cc363ad61a28e1",
+    "report": "build/tests/engine_control-yizpnwyg/report.json",
+    "report_sha256": "9799f611be4225fa63eb64533e1b93e9009d14b67fe63e880c162196e7dab268",
+    "scope": "Independent synthetic observing callees/storage test the control source in a separate translation unit. Terminal infinite loop is escaped by fixture callback longjmp; production source keeps the unconditional loop. Real full dependency chain is not exercised."
+  },
+  "toolchain": "msvc5_rtm",
+  "limits": [
+    "The 883-byte target interval is a reviewed PC logical body-plus-tables extent, not proof of an original COFF contribution or original translation-unit boundary.",
+    "The v2 selector map exactly matches target map bytes and resolves all 34 selectors to the same reviewed branch categories, but body bytes, ordered relocations, and the 878-byte candidate text section do not match the 883-byte target interval.",
+    "This is diagnostic source/compiler evidence, not FUNCTION_MATCH, source identity, original build flags, or whole-binary identity."
+  ],
+  "private_evidence": {
+    "work/engine_control/v2/provenance.json": "53ae1189a1ea794b9e2d09dde8cc086f504d25f17c12be754991789eda023b10",
+    "work/engine_control/v2/metrics.json": "ff361c10ed13bcd057c7b46596ffeab5faa18043ff5e930c87b46572935b7744",
+    "work/engine_control/v2/v1_v2_comparison.json": "44152b63a4ea404265d2e369162b0738872ed0a115433894dffb08b603e636f4"
+  }
+}

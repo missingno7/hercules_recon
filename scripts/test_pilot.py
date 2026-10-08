@@ -11,6 +11,7 @@ from match import DEFAULT_TOOLCHAIN, digest, verify_toolchain
 
 
 SUITES = {
+    "engine_control": ["calibration/engine_control.c", "calibration/engine_interface.h", "calibration/resource_context.h", "calibration/resource_record.h"],
     "callback_pipeline": ["calibration/dispatcher_bridges.c", "calibration/host_callback_protocol.c", "calibration/host_callback_protocol_externs.h", "calibration/engine_interface.h", "calibration/resource_context.h"],
     "host_callback_protocol": ["calibration/host_callback_protocol.c", "calibration/host_callback_protocol_externs.h", "calibration/engine_interface.h", "calibration/resource_context.h"],
     "dispatcher_bridges": ["calibration/dispatcher_bridges.c", "calibration/engine_file_bridge.c", "calibration/engine_dependency_bridges.c", "calibration/engine_interface.h", "calibration/resource_context.h"],
@@ -68,6 +69,7 @@ SUITES = {
 # Most fixtures include one reconstructed source directly. Integration fixtures
 # link actual separate translation units instead of replacing callees.
 EXTRA_UNITS = {
+    "engine_control": ["calibration/engine_control.c"],
     "callback_pipeline": ["calibration/dispatcher_bridges.c", "calibration/host_callback_protocol.c"],
     "host_callback_protocol": ["calibration/host_callback_protocol.c"],
     "engine_dispatch": ["calibration/engine_dispatch.c"],
@@ -92,7 +94,9 @@ def run(toolchain, suite="pilot"):
     environment["LIB"] = str(toolchain / "lib")
     units = [ROOT / s for s in EXTRA_UNITS.get(suite, [])]
     object_output = str(output) + os.sep if units else str(output / "semantics.obj")
-    command = [str(toolchain / "bin/cl.exe"), "/nologo", "/O2", "/Gy", "/ML",
+    # This shared-text control experiment was diagnosed under /Od without /Gy.
+    flags = ["/Od"] if suite == "engine_control" else ["/O2", "/Gy"]
+    command = [str(toolchain / "bin/cl.exe"), "/nologo", *flags, "/ML",
                "/Fo" + object_output,
                "/Fe" + str(executable), str(source), *map(str, units), "/link", "/INCREMENTAL:NO"]
     compiled = subprocess.run(command, cwd=output, env=environment, capture_output=True,

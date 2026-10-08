@@ -1,0 +1,269 @@
+{
+  "scope": "Read-only frame/bootstrap lifecycle and actual host callback audit. No compiler, source/canonical/Git/assets/gate changes or original execution.",
+  "oracle": {
+    "engine_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "host_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "functions": [
+    {
+      "name": "bootstrap",
+      "start_rva": "0x1f0f0",
+      "end_rva_exclusive": "0x1f220",
+      "size": 304,
+      "sha256": "3873fe0120fd045ed084e40648c9cd3a7937eb425ae6b0b66e5739e006dcb3e3",
+      "external_refs": [
+        {
+          "source_rva": "0x203d3",
+          "target_rva": "0x1f0f0",
+          "kind": "linear_call"
+        }
+      ],
+      "body_bytes": 296,
+      "padding_bytes": 8,
+      "last_ret_rva": "0x1f217",
+      "call_count": 12,
+      "signature": "void-like __cdecl function(void): no argument loads; actual indexed caller ignores incidental EAX.",
+      "boundary_limit": "Complete reviewed callable interval including following NOPs; original COFF/TU/contribution identity is not inferred from PC bytes."
+    },
+    {
+      "name": "cleanup",
+      "start_rva": "0x1f220",
+      "end_rva_exclusive": "0x1f320",
+      "size": 256,
+      "sha256": "ee33bfc33aed913f73786391a67d2bb4936362568c77ba0ea482419d3881b925",
+      "external_refs": [
+        {
+          "source_rva": "0x62ae",
+          "target_rva": "0x1f220",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x63d0",
+          "target_rva": "0x1f220",
+          "kind": "linear_call"
+        }
+      ],
+      "body_bytes": 253,
+      "padding_bytes": 3,
+      "last_ret_rva": "0x1f31c",
+      "call_count": 13,
+      "signature": "void-like __cdecl function(void): no argument loads; actual indexed caller ignores incidental EAX.",
+      "boundary_limit": "Complete reviewed callable interval including following NOPs; original COFF/TU/contribution identity is not inferred from PC bytes."
+    },
+    {
+      "name": "setup",
+      "start_rva": "0x1f320",
+      "end_rva_exclusive": "0x1f6a0",
+      "size": 896,
+      "sha256": "75dd4af37b63815680219a31a6be97ec35d64858fbba2a81cde40aaac6ddb52e",
+      "external_refs": [
+        {
+          "source_rva": "0x203fe",
+          "target_rva": "0x1f320",
+          "kind": "linear_call"
+        }
+      ],
+      "body_bytes": 891,
+      "padding_bytes": 5,
+      "last_ret_rva": "0x1f69a",
+      "call_count": 26,
+      "signature": "void-like __cdecl function(void): no argument loads; actual indexed caller ignores incidental EAX.",
+      "boundary_limit": "Complete reviewed callable interval including following NOPs; original COFF/TU/contribution identity is not inferred from PC bytes."
+    }
+  ],
+  "bootstrap": {
+    "call_order": [
+      "1f0f1 configuration280f0()",
+      "Eight allocations in requests array order, with 1f16b interface2c7e0() between request3 and request4",
+      "Zero LIVE72870 for0x8000 bytes, then LIVE734e8 for0x300 bytes",
+      "1f20c initialize5710();1f211 initialize15600()"
+    ],
+    "requests": [
+      {
+        "call_rva": "0x1f112",
+        "owner_slot": "0x72860",
+        "bytes": "0x134 * U16[0x713b4]",
+        "flags": 16
+      },
+      {
+        "call_rva": "0x1f13e",
+        "owner_slot": "0x73494",
+        "bytes": "0xec * U16[0x71432] + 0x134",
+        "flags": 16
+      },
+      {
+        "call_rva": "0x1f163",
+        "owner_slot": "0x734e0",
+        "bytes": "0x94 * U16[0x713ba] + 0x134",
+        "flags": 16
+      },
+      {
+        "call_rva": "0x1f17c",
+        "owner_slot": "0x71ec8",
+        "bytes": "0x2910",
+        "flags": 16
+      },
+      {
+        "call_rva": "0x1f1ac",
+        "owner_slot": "0x70c80",
+        "bytes": "80 * U16[0x5df0e + 28 * S8(LIVE context byte0)]",
+        "flags": 16
+      },
+      {
+        "call_rva": "0x1f1c0",
+        "owner_slot": "0x7348c",
+        "bytes": "0x4000",
+        "flags": 0
+      },
+      {
+        "call_rva": "0x1f1d4",
+        "owner_slot": "0x72870",
+        "bytes": "0x8000",
+        "flags": 0
+      },
+      {
+        "call_rva": "0x1f1e8",
+        "owner_slot": "0x734e8",
+        "bytes": "0x300",
+        "flags": 0
+      }
+    ],
+    "arithmetic_proof": [
+      "1f100..1f109: (n+4*(n+2*9*n))*4 =308*n =0x134*n.",
+      "1f122..1f131: (n+2*(n+4*7*n))*4 +308 =236*n+308.",
+      "1f150..1f156: (n+4*9*n)*4+308 =148*n+308.",
+      "1f18a..1f1a3: signed level selects28-byte row; unsigned word+6 is multiplied by80."
+    ],
+    "live_reads": "Counts are loaded separately after earlier allocation callbacks. The level/context pointer is reloaded after the frame allocation before the table-derived request. Zero-fill pointers are loaded from current global slots after all requests; no request result is cached as their destination.",
+    "failure": "No allocation return or owner-slot NULL check occurs. Keep unconditional later writes and exact call order; do not add allocation safety behavior.",
+    "allocator_dependency": "2c3c0 -> interface slot30 -> original EXE4570. Physical first argument is the actual address of an owner pointer slot; request and flags are32-bit. Reuse existing pool proof; do not infer logical capacity from requested bytes or allocator padding.",
+    "naming_limit": "Allocation shapes and local scan strides differ; do not rename every allocation as one Actor type or infer total element capacity. Original names/declared extents remain unproved."
+  },
+  "owner_current": {
+    "owner_slot_rva": "0x71ec8",
+    "current_slot_rva": "0x71ec4",
+    "minimum_cell_width": 4,
+    "initial": "Both are ENG1 loader-zero-fill cells.",
+    "allocation": "1f177 supplies owner-slot address to host allocator; owner may later move through the actual pool owner protocol.",
+    "setup_assignment": "1f38f loads LIVE owner and1f39b stores it into current, before AC00 callback delivery.",
+    "final_toggle": "1f67c loads LIVE owner;1f681 loads LIVE current; equality chooses owner+0x1488, otherwise owner;1f694 stores selected current.",
+    "dispatch_toggle": "20300 repeats the same live equality/toggle at20632..20649, after its frame callbacks.",
+    "limits": "Pointer-cell relationships and request are proven. Adjacency does not prove a single original global aggregate or source declaration; no overlapping fake globals or forced placement."
+  },
+  "setup": {
+    "entry": "203fe calls1f320 on every common restart. One indexed external entry; no reviewed alternate interior entry.",
+    "early": "Clear global70c54; six LIVE context words60/5e/5c/66/64/62; key7286c=0; signed word6ee84=0; LIVE phase byte3=0; LIVE tick38=0; active row70d01=ff. Assign owner to current before pending four-argument host callback.",
+    "callback": "1f3a1 calls2c5e0(address58a60,0,0,0), slot80 -> EXE AC00. Reload context afterward at1f3a6.",
+    "full_order": "Full instruction and26-call inventory in full.json. Significant later sequence:20670,2f30,3270,15090,1f870(0),208f0; byte128|=4; config bytes to734f0/f1/f2;5dc0(0),25620; two2c600 calls;2c500(base,base+1488); four2c980 calls;73498=1;58b0; two separately live2c570(current);2f840,2fb70,2da90,262a0,50d0;2c8f0(current),2c8e0(current+5c); final toggle.",
+    "descriptor_reads": "Signed context bytes0/1 index24-byte rows at5a690;1f40f loads field+12 pointer,1f415 loads field+16,1f41b reads nested row+8 at24*subindex. These are observed readers, not complete table/capacity definitions.",
+    "paired_fields": [
+      "Byte offset16 and1488+16 receive config[5df0c+28*S8(level)]&1 (0/1).",
+      "Byte offsets17 and1488+17 are cleared.",
+      "Byte offset1488+18 receives config byte&2 (0/2); offset18 copies that stored byte. Do not booleanize bit1."
+    ],
+    "captured": "The bit0 value is retained in EBX across all four2c980 callbacks. Their argument tuples are(ptr+70,0,bit0,0x9c,0),(ptr+1488+70,0,bit0,0x9c,0),(ptr+7c,0,bit0,0x9e,0),(ptr+1488+7c,0,bit0,0x9e,0). Owner pointers are fetched separately before each call.",
+    "live": "Context reload after AC00 and each later callback is explicit where needed; owner/current pointers are fetched separately throughout. Do not capture entry context/owner for the entire function.",
+    "limits": "Forwarded pointer+70/+7c/+5c shapes alone do not prove complete descriptor types. AC20 provides actual link writer extent separately below. 5df08..5df14 observed members share28-byte stride; table extent is unproved."
+  },
+  "link_writer": {
+    "function": {
+      "module": "HERCULES.EXE",
+      "start_rva": "0xac20",
+      "end_rva_exclusive": "0xac40",
+      "bytes": 32,
+      "sha256": "f96f2d7ab105a7bf13f0eaf9738ea9919ce0a8e6734f82eb15f5067938396a09",
+      "body_bytes": 32,
+      "padding_bytes": 0,
+      "last_ret_rva": "0xac3f"
+    },
+    "bridge": "2c600..2c620 full32 (body20+12NOP), SHA2565da8d177d24e5b78b2257bdf280a41888383225e733fd31dbe1ee034590e0bb9. Two-argument forwarding wrapper for slot81, engine cell71064. Host input is(ptr,raw32_count), returnEAX=0; caller cleans arguments. Exact decode and entry refs in link_handoff.json.",
+    "operations": [
+      "AC20 loads count intoEDX, pointer intoEAX.",
+      "AC28 decrements raw32 count;AC29/AC2b signed-test remainder and skip link loop if<=0.",
+      "AC2d computes next pointer=current+4;AC30 decrements remainder;AC31 stores next pointer bits into current dword;AC33 advances current;AC35 repeats if remainder!=0.",
+      "AC37 writes NULL to the final dword unconditionally;AC3d clearsEAX;AC3f returns. No callback or allocation occurs."
+    ],
+    "signedness_limit": "Physical raw32 argument and signed post-decrement predicate are proven. Positive0x500 callers are established. Original signed/unsigned C parameter is not proved; for0/negative remainder the function still writes one NULL dword. Do not assume zero count means no write.",
+    "setup_sites": [
+      {
+        "call_rva": "0x1f4bf",
+        "base_offset": "0x88",
+        "count": "0x500",
+        "written_bytes": "0x1400",
+        "end_offset_exclusive": "0x1488"
+      },
+      {
+        "call_rva": "0x1f4d9",
+        "base_offset": "0x1510",
+        "count": "0x500",
+        "written_bytes": "0x1400",
+        "end_offset_exclusive": "0x2910"
+      }
+    ],
+    "minimum_view": "Two observed views each have an opaque0x88-byte leading interval followed by0x500 native32 pointer links. Positive-call chain extent is writer-proven and matches the requested0x2910 bytes. Original struct identity, complete header semantics, rendering purpose, and declared capacity remain unproved.",
+    "classification": "Real non-CRT host pointer-chain builder. Original custom project versus non-CRT SDK/library ownership remains unproved; no casual CRT rewrite."
+  },
+  "cleanup": {
+    "entry": "Control calls1f220 at62ae/63d0; it is a separate full256-byte callable interval before setup.",
+    "steps": [
+      "Clear gate71ec0, register NULL through2c640(slot92) then2cc40(slot249).",
+      "Read LIVE mode09c. If1:cancel2c260, reload context, fetch failed callback once, ifnonnull invoke with physical argument0. If nonzero mode other than1:call2c280(); if0:skip.",
+      "2c630(0),2cc30(0).",
+      "Individually test then free LIVE owner contents72860,73494,734e0,70c80,71ec8 in that order.",
+      "Call2c2e0(0), actual slot17 -> EXE47c0 bulk pool release.",
+      "Reload LIVE context; copy four DWORDs from offsets7c..8c to6c..7c, then reload context and copy byteF tobyteE."
+    ],
+    "limits": "Do not add manual owner clears; actual pool free protocol handles registered owner slots. This routine does not individually free7348c/72870/734e8; its actual bulk-release dependency remains part of the lifecycle. Header/record meaning of the16-byte copy is unproved."
+  },
+  "callback0": {
+    "registration": "2c640 -> slot92 -> EXE BDA0 full16: return old pointerA8E780 and store supplied new pointer. Initial A8E780 is loader zero.",
+    "observed_engine_producers": "All indexed ENG1 calls to2c640 are control632a and cleanup1f22c. Both passNULL. Neither bootstrap nor setup performs a proven non-NULL registration.",
+    "invocation": "Setup2c5e0 -> slot80 -> AC00 full16: CALL BD80;return0. BD80 full32 capturesA8E780, then tests shared32-bit gateA8E788; tail-JMP captured nonnull pointer when gate!=0.",
+    "other_writers": "BDF0 resets gate to1 and clearsA8E780/A8E784; BDE0 clears gate without changing registrations. Existing control_storage_audit proof reused.",
+    "uncertainty": "Positive callback0 registration remains unresolved in this audited default ENG1 chain. Do not substitute callback1, assume setup registers, or define a nonnull placeholder. Other modules, computed flows, or replaced interface tables require independent evidence."
+  },
+  "next_worker": {
+    "closest": "Bootstrap1f0f0 full304 is a stable bounded ordinary-C task: exact eight owner-slot requests, call order, two live zero fills, actual missing config5710/15600 dependencies. Cleanup1f220 full256 is a coherent lifecycle peer if shared context copy fields are added from this evidence.",
+    "smallest_missing_link": "Host AC20 full32 plus real wrapper2c600 is an even smaller writer-grounded dependency; use a native pointer-link view, not copied bytes. Avoid zero-count no-write assumption.",
+    "prediction": "Ordinary C can preserve the exact request arithmetic, owner/live-context relationships, call/clear order, signed post-decrement link predicate, and pair-link extents. Fresh full contributions and ordered relocation verification are required; this report grants no FUNCTION_MATCH.",
+    "falsifier": "Wrong requested size/flags, added allocation guard, cached pointer across callbacks, missing1f16b callback, reordered zero fills/frees, bit1 changed0/2 to0/1, wrong zero-count writer semantics, a claimed positive registration without a real producer, or changed accepted peers.",
+    "fixtures": [
+      "Configuration or allocation callbacks mutate counts/context: later requests use actual later values.",
+      "Record all8 owner addresses/bytes/flags including ushortffff and signed level0/ff indexing in valid synthetic table views.",
+      "Allocation callbacks mutate72870/734e8 slots; zero fills use post-request pointers and exact byte extents.",
+      "Setup AC00 callback replaces context/owner: later reads use new context/owner; current assignment before callback remains observable.",
+      "For valid positive link count1/2/0x500, verify all next pointers and finalNULL; for count0/remainder<=0 verify unconditional firstNULL write.",
+      "Bit0 and bit1 values use masks1/2, and callback0 producer staysNULL unless fixture deliberately registers through real setter.",
+      "Setup final owner/current mutations choose exact live equality toggle; cleanup failed callback reload occurs after cancel and later context copy uses post-bulk context."
+    ],
+    "ownership": "Preserve root dispatcher/control ownership, resource_rebind20670..20990 worker, remove_actor_region1f6a0 ownership, all accepted leaves and existing pool/library proofs. No declaration/flags/register/source grid."
+  },
+  "evidence": {
+    "full": "work/frame_bootstrap_audit/full.json",
+    "callback_and_host": "work/frame_bootstrap_audit/registration.json",
+    "refs": "work/frame_bootstrap_audit/refs.json",
+    "prior_context": "evidence/engine_dispatch_contract.json",
+    "source_inspected": "calibration/engine_dispatch.c"
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "compiler_builds": 0,
+    "tokens": null,
+    "cost_usd": null,
+    "canonical_files_changed": false
+  },
+  "evidence_sha256": {
+    "full.json": "f2db54e83051da9a65465b2889007c1fea742b424a52e6a0a77355812de46abe",
+    "registration.json": "2fae7a1fb4cad6248f432f43bfedf8630c796fb08d465e339ff58571dcd04aa1",
+    "refs.json": "8ff587a3b946c38c2bfaa810bebd0e5ff1d6b68679447046f2dd92c1fbd4d379",
+    "link_handoff.json": "4de22838eec26e1a2a9378e97d6d2a5dd3d8368d1979ffcfe60503b247f8f532"
+  },
+  "inspected_source_sha256": "9747581a56dd8ed32e41773c1995294c7a0b99d7ee638f52adec3eebd3e27752",
+  "published_from": {
+    "path": "work/frame_bootstrap_audit/report.json",
+    "sha256": "f0a048e9a8f084f8527e86d395d27bae4c83d1edb0ef6cc215978b4ea20c759e",
+    "root_verification": "Original hashes and all three full engine spans plus complete host writer span independently rechecked. No original execution."
+  }
+}

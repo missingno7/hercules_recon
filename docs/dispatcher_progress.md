@@ -58,9 +58,15 @@ The control handler remains a logical 883-byte interval with embedded tables,
 not a proved independent COFF contribution. A bounded historical diagnostic
 shows that ordinary `while (1)` under `/Od` emits its literal-test loop, while
 shared text can pack unaligned neighboring entries. This supports one shared-text
-experiment, not original flags or source identity. The private candidate passes
-110 checks but emits 930 bytes and a different dispatch-table representation;
-all 34 composed selectors retain the reviewed case groups. It is not accepted.
+experiment, not original flags or source identity. Removing only redundant
+default-equivalent case labels compresses the candidate from 930 to 878 bytes:
+820 body bytes, a six-entry 24-byte table and a 34-byte selector map. The map
+matches the target exactly; the body and its 70 relocations are unchanged from
+the first experiment. The target body is 825 bytes and remains nonexact.
+`calibration/engine_control.c` preserves this ordinary-C experiment; its separate
+translation-unit fixture passes 110 checks under the diagnosed compiler settings.
+`evidence/engine_control_experiment.json` binds complete section and relocation
+identities. The existing COMDAT acceptance gate remains unchanged.
 Default terminal looping is preserved. The three prefix addresses remain
 unresolved storage: empty default reads do not justify placeholder literals or
 capacity claims. Two actual CRT path/string reader members (592 bytes) are
@@ -72,3 +78,13 @@ after fresh historical compilation. `evidence/dispatcher_measurements.json`
 records current source/header/command/output identities for 52 experimental
 contributions; the callback/dispatcher regions are indexed for packets.
 Whole-module source, data definitions and natural linker closure remain open.
+
+The subsequent frame bootstrap audit identifies eight actual allocation requests
+and the live owner-slot protocol across setup and cleanup. A real host writer at
+AC20 builds two chains of 0x500 native DWORD slots beginning at offsets 0x88 and
+0x1510. Those writes end at 0x1488 and 0x2910, establishing the observed extent
+without guessing a framebuffer or original aggregate type. Count zero still
+writes one NULL slot. Setup invokes the first callback channel through AC00;
+it does not establish a positive callback registration. The compact contract is
+`evidence/frame_bootstrap_contract.json`. Reconstruction follows these real
+dependencies while preserving the unresolved producer and storage definitions.
