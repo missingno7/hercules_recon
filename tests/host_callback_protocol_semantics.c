@@ -141,4 +141,3 @@ int main(void)
     printf("host callback protocol fixture: %d checks, %d failures\n", checks, failures);
     return failures ? 1 : 0;
 }
-

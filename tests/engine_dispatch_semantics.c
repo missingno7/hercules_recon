@@ -400,4 +400,3 @@ int main(void)
     printf("engine dispatch fixture: %d checks, %d failures\n", checks, failures);
     return failures ? 1 : 0;
 }
-
