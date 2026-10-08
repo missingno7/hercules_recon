@@ -11,6 +11,9 @@ from match import DEFAULT_TOOLCHAIN, digest, verify_toolchain
 
 
 SUITES = {
+    "host_archive_pipeline": ["calibration/host_file_service.c", "calibration/virtual_file.c", "calibration/archive_positions.c", "calibration/archive_backend.c", "calibration/archive_lifecycle.c", "calibration/archive_names.c", "src/pc/interface_callbacks.c", "src/pc/host_diagnostic.c", "calibration/resource_context.h"],
+    "host_file_service": ["calibration/host_file_service.c", "calibration/resource_context.h"],
+    "engine_file_bridge": ["calibration/engine_file_bridge.c", "calibration/resource_context.h"],
     "pilot": ["src/title/pilot.c"],
     "shared": ["src/shared/object_commands.c", "src/shared/motion.c", "src/shared/relative.c",
                "src/shared/counted_list.c", "src/shared/bounds.c"],
@@ -55,9 +58,10 @@ SUITES = {
     "pool_reverse_copy": ["calibration/pool_reverse_copy.c"],
 }
 
-# Most fixtures include one reconstructed source directly. This integration
-# fixture links actual separate translation units instead of replacing callees.
+# Most fixtures include one reconstructed source directly. Integration fixtures
+# link actual separate translation units instead of replacing callees.
 EXTRA_UNITS = {
+    "host_archive_pipeline": [s for s in SUITES["host_archive_pipeline"] if s.endswith(".c")],
     "archive_pipeline": SUITES["archive_pipeline"],
 }
 

@@ -1,0 +1,90 @@
+{
+  "region": {
+    "id": "host_file_service",
+    "ownership": "function_task",
+    "rationale": "Six host file services sharing observed callback context and archive adapters; original TU ownership remains unproved."
+  },
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "source": "calibration/host_file_service.c",
+  "flags": [
+    "/O2"
+  ],
+  "functions": [
+    {
+      "name": "prepare",
+      "symbol": "_host_file_prepare",
+      "rva": "0x1d60",
+      "size": 32,
+      "target_sha256": "211dc21fe6f0856055948d46798a358946a9ebbcbeac74aea817a5efc23bd997",
+      "control": false
+    },
+    {
+      "name": "sync",
+      "symbol": "_host_file_sync",
+      "rva": "0x3b50",
+      "size": 256,
+      "target_sha256": "4a6573324e29443c08f7def1e3db71f8a129ecacdcf03feb5425e9e2eb371528",
+      "control": false
+    },
+    {
+      "name": "async",
+      "symbol": "_host_file_async",
+      "rva": "0x3d90",
+      "size": 272,
+      "target_sha256": "bc4fc927aebd2336261d48f86d24b729da30180806db69411a687503511f5302",
+      "control": false
+    },
+    {
+      "name": "cancel",
+      "symbol": "_host_cancel_load",
+      "rva": "0x3ea0",
+      "size": 96,
+      "target_sha256": "63be1b78e72f384da80b3fcd8b7eaaaee014b75326e584c015b04fb7145f7431",
+      "control": false
+    },
+    {
+      "name": "progress",
+      "symbol": "_host_file_progress",
+      "rva": "0x3f00",
+      "size": 320,
+      "target_sha256": "283181a9bd796fdff733b4cb0b2d5daec911b52d0f6309e654bb008befc3bb3d",
+      "control": false
+    },
+    {
+      "name": "length",
+      "symbol": "_resource_file_length",
+      "rva": "0x40d0",
+      "size": 176,
+      "target_sha256": "9208567c1495dd781eafb059df63975dc91f458438719a49e73ada20222159a4",
+      "control": false
+    }
+  ],
+  "symbol_rvas": {
+    "_g_resource_context": "0x361bc",
+    "_g_resource_filename": "0x215c10",
+    "_g_resource_filename_format": "0x36024",
+    "_g_resource_loading_format": "0x36008",
+    "_g_resource_async_open_failure_format": "0x36050",
+    "_g_resource_sync_open_failure_format": "0x35ff4",
+    "_g_resource_sync_loaded_format": "0x35fe8",
+    "_g_resource_close_failure_format": "0x36044",
+    "_g_resource_prepare_scalar": "0x352b0",
+    "_host_diagnostic": "0x63c0",
+    "_empty_host_callback": "0xbe30",
+    "_sprintf": "0x10f40",
+    "_virtual_file_open": "0xa210",
+    "_virtual_file_seek": "0xa280",
+    "_virtual_file_read": "0xa2f0",
+    "_virtual_file_close": "0xa350",
+    "_host_file_prepare": "0x1d60",
+    "_host_cancel_load": "0x3ea0"
+  },
+  "evidence": {
+    "contract": "evidence/host_file_service_contract.json",
+    "service_disassembly": "work/host_file_service_audit/services_disassembly.txt",
+    "service_spans": "work/host_file_service_audit/services.json",
+    "virtual_file_api": "calibration/virtual_file.c",
+    "context_prefix": "calibration/resource_context.h"
+  }
+}

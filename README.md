@@ -76,6 +76,9 @@ buffer destruction. It preserves callback-visible reloads and identifies the
 archive-backed host dependencies; whole-module equality remains open.
 The [archive continuation](docs/archive_dependency_progress.md) measures thirteen
 dependencies and links them in an isolated synthetic-file integration fixture.
+The [file-service continuation](docs/file_services_progress.md) adds host services
+and six typed engine bridges, preserving all accepted matches and exercising the
+combined host/archive pipeline with historical stdio.
 
 ## References
 

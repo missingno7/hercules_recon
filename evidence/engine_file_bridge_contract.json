@@ -1,0 +1,691 @@
+{
+  "scope": "Static engine-file bridge/binder storage and ABI contract. No compiler, source/canonical/Git/assets modifications ororiginalexecution.",
+  "oracle": {
+    "engine_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "host_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "database_sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+  },
+  "baseline": {
+    "resource_context_header": "calibration/resource_context.h",
+    "sha256": "2543f9f3adf0be433f511cd4b97b8a21a3d978e44b05cf8e53802d42497f42fc",
+    "prior_binding": "evidence/engine_interface_binding.json",
+    "prior_host": "evidence/resource_host_bindings.json"
+  },
+  "storage": {
+    "engine_base_rva": "0x70f20",
+    "copied_words": 250,
+    "copy_bytes": 1000,
+    "end_rva_exclusive": "0x71308",
+    "initial": "Entirecopiedrangeisimage-loader virtualzero-fill inENG1 .data(rawends6e800,virtualends74658). Thisisone actual destinationstorage region;no separateinitialcontextpointerobject elsewhere.",
+    "extent_limit": "Exactly1000bytes arewrittenbybinder and required. Originaldeclaredtotalextent/TU/layout beyond copiedprefix remainunproved.",
+    "source_table": {
+      "module": "HERCULES.EXE",
+      "base_rva": "0x361b8",
+      "bytes": 1000,
+      "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+      "self_pointer_cell_rva": "0x365a0",
+      "self_pointer_value": "0x4361b8",
+      "slot1_context_value": "0x615c98"
+    },
+    "alias": "ENG1g_resource_context at70f24 is copiedtable.slot1 (base+4). EXEglobalcontextpointercell361bc is hostsource.slot1 (base+4). Theyare distinctcopiedpointercells initiallypointing SAMEhostcontext,not independentlyallocatedpointerdefinitions overlaid atoneRVA.",
+    "copy_semantics": "REP MOVSD250,forward. Laterhostsourcecells changesarenotautomaticallymirrored inENG1 copy; pointedhostcontext mutationsare sharedthroughcopiedpointervalue. WrappersloadtheirLIVEenginecallbackcell eachcall. Do notretain sourcepointer andskipcopy."
+  },
+  "ordinary_view": {
+    "hypothesis": "One native32-bit EngineInterface aggregate for thecopied250-word view: typedobservedmembers below, unsigned32 opaque slots between/afterthem. Size1000 andmemberoffsets assertedunderpinnedcompiler. Originalarray/struct/uniondeclaration unproved.",
+    "slots": [
+      {
+        "index": 0,
+        "name": "signature",
+        "byte_offset": 0,
+        "engine_cell_rva": "0x70f20",
+        "host_cell_rva": "0x361b8",
+        "host_initial_value": "0x5ac00cac",
+        "ordinary_view": "unsigned32",
+        "limits": "Names/sourceprototypeareprovisional;32-bitphysicalslot/consumptionisproved."
+      },
+      {
+        "index": 1,
+        "name": "context",
+        "byte_offset": 4,
+        "engine_cell_rva": "0x70f24",
+        "host_cell_rva": "0x361bc",
+        "host_initial_value": "0x615c98",
+        "ordinary_view": "ResourceCallbackContext *",
+        "limits": "Names/sourceprototypeareprovisional;32-bitphysicalslot/consumptionisproved."
+      },
+      {
+        "index": 2,
+        "name": "arena",
+        "byte_offset": 8,
+        "engine_cell_rva": "0x70f28",
+        "host_cell_rva": "0x361c0",
+        "host_initial_value": "0x6177d0",
+        "ordinary_view": "void *",
+        "limits": "Names/sourceprototypeareprovisional;32-bitphysicalslot/consumptionisproved."
+      },
+      {
+        "index": 3,
+        "name": "arena_bytes",
+        "byte_offset": 12,
+        "engine_cell_rva": "0x70f2c",
+        "host_cell_rva": "0x361c4",
+        "host_initial_value": "0x300000",
+        "ordinary_view": "unsigned32",
+        "limits": "Names/sourceprototypeareprovisional;32-bitphysicalslot/consumptionisproved."
+      },
+      {
+        "index": 8,
+        "name": "load_async",
+        "byte_offset": 32,
+        "engine_cell_rva": "0x70f40",
+        "host_cell_rva": "0x361d8",
+        "host_initial_value": "0x403d90",
+        "ordinary_view": "int (__cdecl *)(const char *,const char *,int,void *,unsigned32)",
+        "limits": "Names/sourceprototypeareprovisional;32-bitphysicalslot/consumptionisproved."
+      },
+      {
+        "index": 9,
+        "name": "cancel_load",
+        "byte_offset": 36,
+        "engine_cell_rva": "0x70f44",
+        "host_cell_rva": "0x361dc",
+        "host_initial_value": "0x403ea0",
+        "ordinary_view": "int (__cdecl *)(void)",
+        "limits": "Names/sourceprototypeareprovisional;32-bitphysicalslot/consumptionisproved."
+      },
+      {
+        "index": 13,
+        "name": "compact_pool",
+        "byte_offset": 52,
+        "engine_cell_rva": "0x70f54",
+        "host_cell_rva": "0x361ec",
+        "host_initial_value": "0x404890",
+        "ordinary_view": "unsigned32 (__cdecl *)(int)",
+        "limits": "Names/sourceprototypeareprovisional;32-bitphysicalslot/consumptionisproved."
+      },
+      {
+        "index": 16,
+        "name": "free_allocation",
+        "byte_offset": 64,
+        "engine_cell_rva": "0x70f60",
+        "host_cell_rva": "0x361f8",
+        "host_initial_value": "0x404750",
+        "ordinary_view": "void (__cdecl *)(void *)",
+        "limits": "Names/sourceprototypeareprovisional;32-bitphysicalslot/consumptionisproved."
+      },
+      {
+        "index": 18,
+        "name": "file_length",
+        "byte_offset": 72,
+        "engine_cell_rva": "0x70f68",
+        "host_cell_rva": "0x36200",
+        "host_initial_value": "0x4040d0",
+        "ordinary_view": "unsigned32 (__cdecl *)(const char *,const char *)",
+        "limits": "Names/sourceprototypeareprovisional;32-bitphysicalslot/consumptionisproved."
+      },
+      {
+        "index": 20,
+        "name": "save_arena",
+        "byte_offset": 80,
+        "engine_cell_rva": "0x70f70",
+        "host_cell_rva": "0x36208",
+        "host_initial_value": "0x404450",
+        "ordinary_view": "void (__cdecl *)(void *,unsigned32)",
+        "limits": "Names/sourceprototypeareprovisional;32-bitphysicalslot/consumptionisproved."
+      },
+      {
+        "index": 26,
+        "name": "load_sync",
+        "byte_offset": 104,
+        "engine_cell_rva": "0x70f88",
+        "host_cell_rva": "0x36220",
+        "host_initial_value": "0x403b50",
+        "ordinary_view": "unsigned32 (__cdecl *)(const char *,const char *,void *,unsigned32)",
+        "limits": "Names/sourceprototypeareprovisional;32-bitphysicalslot/consumptionisproved."
+      },
+      {
+        "index": 30,
+        "name": "allocate",
+        "byte_offset": 120,
+        "engine_cell_rva": "0x70f98",
+        "host_cell_rva": "0x36230",
+        "host_initial_value": "0x404570",
+        "ordinary_view": "void *(__cdecl *)(void **,unsigned32,unsigned32)",
+        "limits": "Names/sourceprototypeareprovisional;32-bitphysicalslot/consumptionisproved."
+      },
+      {
+        "index": 150,
+        "name": "update_host",
+        "byte_offset": 600,
+        "engine_cell_rva": "0x71178",
+        "host_cell_rva": "0x36410",
+        "host_initial_value": "0x40bcf0",
+        "ordinary_view": "void (__cdecl *)(void)",
+        "limits": "Names/sourceprototypeareprovisional;32-bitphysicalslot/consumptionisproved."
+      }
+    ],
+    "gaps": [
+      "slots4..7",
+      "10..12",
+      "14..15",
+      "17",
+      "19",
+      "21..25",
+      "27..29",
+      "31..149",
+      "151..249"
+    ],
+    "source_alias_rule": "Define oneEngineInterface g_engine_interface. Access g_engine_interface.context andnamedcallbackmembers directly. Alternatively Cpreprocessorfieldaliases canpreserveoldsource names,butremove conflictingstandaloneextern declarations. Do notdefine g_resource_context orcallbacksasseparateobjects overlayingtable storage;no linker /alternatename, forcedaddresses, aliasflags orbinarypatches.",
+    "allocation_signature": "Generic pointer-to-pointer outputslot ABI isproved. ExistingtypedActorReference ** provider declaration andgeneric void ** registrycallbackmustbe reconciled consistentlyinsharedheader; anypointer-viewconversionmustbe actualgenericallocatorboundary,not register/type steering. Returnvoid * mayimplicitlyconvert totypedpointer inC.",
+    "typed_unknown_slots": "Opaque unsigned32storage preserves physicalcopiedbits,not aclaimtheseunknownslots arenumeric. Do notfill missingcallbackcontributions withhardcodedoracleaddresses orstubs toclose linking.",
+    "preservation": "Integratorextends commonheader only with freshfrozenpeer fullbytes+orderedrelocationchecks; allcurrent Csources untouchedhere."
+  },
+  "wrappers": [
+    {
+      "name": "async bridge",
+      "full": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x2c230",
+        "end_rva_exclusive": "0x2c260",
+        "size": 48,
+        "sha256": "d9d38bca5949fc7f736961fd8dbc93e148c6f7ba8a3ac6a9e28d209d86c9ab8c"
+      },
+      "entry_refs": [
+        {
+          "source_rva": "0x36d8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe8ae",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xed26",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1fb6f",
+          "kind": "linear_call"
+        }
+      ],
+      "contract": "Forwardallphysicalargsunchanged,right-to-left,cdecl-compatible;preserve hostEAXreturn. Cancel isnoargtailJMP; allotherselectedbridges CALLindirectmember thencaller-cleanthe forwardedargs."
+    },
+    {
+      "name": "cancel bridge",
+      "full": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x2c260",
+        "end_rva_exclusive": "0x2c270",
+        "size": 16,
+        "sha256": "cb5d9f72ecd8b0a401fe4870754258c387575b900edd4af2ae0ef2e133507d70"
+      },
+      "entry_refs": [
+        {
+          "source_rva": "0x38b1",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x61e0",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x6266",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x62ed",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f250",
+          "kind": "linear_call"
+        }
+      ],
+      "contract": "Forwardallphysicalargsunchanged,right-to-left,cdecl-compatible;preserve hostEAXreturn. Cancel isnoargtailJMP; allotherselectedbridges CALLindirectmember thencaller-cleanthe forwardedargs."
+    },
+    {
+      "name": "compact bridge",
+      "full": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x2c290",
+        "end_rva_exclusive": "0x2c2a0",
+        "size": 16,
+        "sha256": "931a12ae38c9d95131a58f501047440ff5d7df27b32dacc858d15e0d02a46e17"
+      },
+      "entry_refs": [
+        {
+          "source_rva": "0x3296",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f6aa",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f6b8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f6c6",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f760",
+          "kind": "linear_call"
+        }
+      ],
+      "contract": "Forwardallphysicalargsunchanged,right-to-left,cdecl-compatible;preserve hostEAXreturn. Cancel isnoargtailJMP; allotherselectedbridges CALLindirectmember thencaller-cleanthe forwardedargs."
+    },
+    {
+      "name": "length bridge",
+      "full": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x2c2f0",
+        "end_rva_exclusive": "0x2c310",
+        "size": 32,
+        "sha256": "49ffb61df01b8bd22d4c87ea7dca488267491ef8ce8a969d87b31c6e063584d7"
+      },
+      "entry_refs": [
+        {
+          "source_rva": "0x35de",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe7e3",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xec4b",
+          "kind": "linear_call"
+        }
+      ],
+      "contract": "Forwardallphysicalargsunchanged,right-to-left,cdecl-compatible;preserve hostEAXreturn. Cancel isnoargtailJMP; allotherselectedbridges CALLindirectmember thencaller-cleanthe forwardedargs."
+    },
+    {
+      "name": "sync bridge",
+      "full": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x2c390",
+        "end_rva_exclusive": "0x2c3b0",
+        "size": 32,
+        "sha256": "0135a32a1544166cd3e9b3321cf87671b59a7caa8551ce42a66407211690964e"
+      },
+      "entry_refs": [
+        {
+          "source_rva": "0x36fe",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x5f60",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f788",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f7f8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x32b98",
+          "kind": "linear_call"
+        }
+      ],
+      "contract": "Forwardallphysicalargsunchanged,right-to-left,cdecl-compatible;preserve hostEAXreturn. Cancel isnoargtailJMP; allotherselectedbridges CALLindirectmember thencaller-cleanthe forwardedargs."
+    },
+    {
+      "name": "allocate bridge",
+      "full": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x2c3c0",
+        "end_rva_exclusive": "0x2c3e0",
+        "size": 32,
+        "sha256": "1c60046001f8a8a88b8aa1a13af0df22b739087388c2f71e3a351cab38fcdfc0"
+      },
+      "entry_refs": [
+        {
+          "source_rva": "0x25de",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x2f5b",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x360c",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x3625",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x5f3e",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe81a",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xe84a",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xec96",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0xecd4",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f112",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f13e",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f163",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f17c",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f1ac",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f1c0",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f1d4",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f1e8",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1f7b0",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1fa58",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1fa94",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x260be",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x28334",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x2afa1",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x32b7a",
+          "kind": "linear_call"
+        }
+      ],
+      "contract": "Forwardallphysicalargsunchanged,right-to-left,cdecl-compatible;preserve hostEAXreturn. Cancel isnoargtailJMP; allotherselectedbridges CALLindirectmember thencaller-cleanthe forwardedargs."
+    }
+  ],
+  "wrapper_declaration_notes": {
+    "async_bridge": "Fiveargs:prefix,suffix,signedsectoroffset,destination,unsigned32bytes;returnintstatus.",
+    "cancel_bridge": "Noargs; returnintstatus sourcehypothesis matches actualhostreturn0. ENG1resourcecancel caller ignoresresult.",
+    "compact_bridge": "Onepool_id32;returncompactionresult. Namepollingdoesnotmeanfile-I/O polling:staticdefaulttarget4890 iscustom poolcompaction wrapper.",
+    "length_bridge": "Two stringpointers;returnunsigned32filelength.",
+    "sync_bridge": "Fourargs prefix/suffix/destination/bytes;returnrequested32-bitbytesonsuccessor0nominalfailure.",
+    "allocation_bridge": "Threeargs owner/output pointer-slot,bytes,flags;returnpayloadpointer.",
+    "other_needed": "Freebridge2c2d0..2c2e0 isexistingproved slot16 dependency; binderuses savearenabridge2c330..2c350 slot20 andupdatebridge2c880..2c890 slot150."
+  },
+  "binder": {
+    "full": {
+      "module": "ENG1.DLL",
+      "start_rva": "0x2c180",
+      "end_rva_exclusive": "0x2c200",
+      "bytes": 128,
+      "sha256": "597f7923e45606e27c452f9f52794e777d60d9f5a04119e9b0b8f08303f656c4"
+    },
+    "export": "PC_DLLEngineMain",
+    "signature": "void-like __cdecl PC_DLLEngineMain(const EngineInterface *source,unsigned32 flags). Two32-bitcaller-cleanedargs. HostdoesnotconsumeEAX; originalreturntypeunknown.",
+    "initial_gate": {
+      "cell_rva": "0x5b648",
+      "initial_dword": 1,
+      "writes": "Onlyindexedwriteis2c1d6,stores0afterarena callback.",
+      "entry_refs": [
+        {
+          "source_rva": "0x2c180",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x2c181",
+          "kind": "pe_highlow_pointer"
+        },
+        {
+          "source_rva": "0x2c1d6",
+          "kind": "linear_memory"
+        },
+        {
+          "source_rva": "0x2c1d7",
+          "kind": "pe_highlow_pointer"
+        }
+      ]
+    },
+    "first_call": [
+      "Ifinitial_gate!=0 andsource==NULL:returnwithoutcopy/callbacks.",
+      "2c19f copies250words fromsource toengine_table beforeANYmagiccheck. Invalidsignature canthereforealreadyreplace context/callbackcells.",
+      "2c1a1 checksCOPIEDtable.signature==5ac00cac;wrongreturnsgateunchanged.",
+      "2c1ad capturesONEsource[0]DWORD;2c1b1..2c1bb tests samecapturedword250times. No pointer/indexedmemberadvance;NOTvalidationof250callbacks. Zero wordreturnsbeforeinit. Under actualdisjointvalidsource,signaturecheck makesitnonzero.",
+      "2c1bd/1c2 readCOPIEDarena_bytes(slot3) andarena(slot2);call2c330( arena,bytes). Thisbridgeinvokes slot20 defaultEXE4450save_arena.",
+      "2c1cf XOR EAX0 discardscalleeEAX;2c1d6 storesgate0. TEST/JNE2c1d4/1db usesknown0,sofailurebranchisunreachableinthisPCbody. No arena-save returnstatus predicate."
+    ],
+    "every_success_call": [
+      "2c1dd calls2c880(),whoseenginecell71178 isslot150;defaultEXEBCF0customupdate-host body.",
+      "2c1e2 reloadoriginalflags arg;2c1e6 reloadLIVE COPIEDtable.context afterupdatecallback;setcontextDWORD+40=flags&1 at2c1ee.",
+      "2c1f1 callsengine20300 dispatch; EAXreturnnotreadbyreviewedhostcaller."
+    ],
+    "subsequent_call": "Oncegate0,ignore sourcearg entirely (canbeNULL,badmagic,anotherhosttable); do notrecopy/revalidate/savearena. Stillupdatehost,writeflagbit,dispatch.",
+    "context_extension": {
+      "offset": "0x40",
+      "width": 4,
+      "ordinary_type": "unsigned32",
+      "behavior": "Storeflags&1 fullDWORD; splitcurrentresource_context.h unknown_03c regionintoopaque3c..3f,field40..43,opaque44..9b withoutchangingother offsets. Abyte/boolfieldwouldbe wrong."
+    },
+    "limits": "Originalsourceorigin ofredundantconstant-test loop andknown-zero JNE isunproved. Do notinventdummyloop/caches,volatile orfailurechecks tosteercompiler. Bindersemanticcontract isgrounded; exactoriginalsource mayremainunresolved until broader TU/compilercontext.",
+    "indexed_entry_refs": []
+  },
+  "host_caller": {
+    "pointer_resolution": "GetProcAddress(\"PC_DLLEngineMain\") returnsstoredpointerat5c9d tohost91c45c. Onlyindexedread5eea loadsit intoEAX.",
+    "entry_argument_sites": [
+      "5ef3 loadsource pointercell365a0 (static361b8)",
+      "5ef9 clearECX;5efb loadunsignedbyteflagBA01fc",
+      "5f01 pushflag;5f02 pushsource;5f03 CALL EAX;5f05 clean8",
+      "5f08 writes91c464=0,doesnotreadbinderresult"
+    ],
+    "span": {
+      "module": "HERCULES.EXE",
+      "start_rva": "0x5eea",
+      "end_rva_exclusive": "0x5f14",
+      "bytes": 42,
+      "sha256": "e9980a4b3c00f35f44a9e2f0f2caac3cfcc2a75a705b15e1a89b2e05160b7ebc"
+    },
+    "source_extent": "OneGetProcAddress-backedindirecthostcaller identified; exportmaybecalledexternally, notclaimclosed-world runtime.",
+    "correction": "Older evidence/engine_interface_binding.json host_dispatch indirect_call_rva5f17 isNOP inoracle; actualcall5f03. Do notuseoldsiteforcodeproof."
+  },
+  "binder_dependencies": [
+    {
+      "engine": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x2c330",
+        "end_rva_exclusive": "0x2c350",
+        "bytes": 32,
+        "sha256": "7281bd72fb8ec603baee0c06d1e3a89ac058b5fda754ff9eb4b97f0694bebf84"
+      },
+      "slot": 20,
+      "host": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0x4450",
+        "end_rva_exclusive": "0x4470",
+        "bytes": 32,
+        "sha256": "12caab25e829c7c8d0b29f751b37ee6fde0fe3b1417196d09010b2bb6939e69a"
+      },
+      "meaning": "Existingcustom save_arena32-byteproof reused, no re-audit/build."
+    },
+    {
+      "engine": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x2c880",
+        "end_rva_exclusive": "0x2c890",
+        "bytes": 16,
+        "sha256": "63b0910a61ca3576334a8de0b145b224bd77da08379c00bc3edde811fbe03833"
+      },
+      "slot": 150,
+      "host": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0xbcf0",
+        "end_rva_exclusive": "0xbd30",
+        "bytes": 64,
+        "sha256": "ad8b0a6bef1ea2081ad5fb6bacc4750323a5587a2fb1c3c176de1300d3ae7b10"
+      },
+      "meaning": "Custom hostupdatebody64bytes:optionalinputpacket write usingA8E78C andcall8040,thencallsF820/BDB0 andtailBE40. Thesearefuturedependencies,notacceptedemptyBE30."
+    },
+    {
+      "engine_entry": "0x20300",
+      "selected_prefix": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x20300",
+        "end_rva_exclusive": "0x20380",
+        "bytes": 128,
+        "sha256": "7858717b7f1b05c5a5e3cd68056730ebd7ca6fe6ec8e95c5b7631307ac528071"
+      },
+      "meaning": "Customenginegame-state dispatch reads6fcec andmodifiespointedcontext. Fullsourcecontract outofscope; neverreplace withstubororiginaldispatch."
+    }
+  ],
+  "reclaim": {
+    "full": {
+      "module": "ENG1.DLL",
+      "start_rva": "0x1f6a0",
+      "end_rva_exclusive": "0x1f6f0",
+      "bytes": 80,
+      "sha256": "1811acee3f31a9c0f77fdb8c094df10718c54bb2b72f9e6322db6a1da8db37f2"
+    },
+    "mode": "One32-bitwait_mode; actualproviderspass0. Initialpushpool_id0;mode0 callscompactbridge2c290once;nonzero repeatswhile return0. Preserveloop evenifproductionpurposeunclear.",
+    "after_compact": "Read LIVErootpointer70ed4 afterhostcalls. Ifnonzero,call20670 thentail208f0;pointer mayhavebeenupdatedthroughallocatorowner_slot duringcompaction.",
+    "root_owner_proof": {
+      "span": {
+        "module": "ENG1.DLL",
+        "start_rva": "0x1f79c",
+        "end_rva_exclusive": "0x1f7b5",
+        "bytes": 25,
+        "sha256": "638cebbc30287455dc66663c895c008b27fd2e4a2d45c78d746c9a43bdf3a90a"
+      },
+      "sites": [
+        "1f7ab pushesADDRESS70ed4",
+        "1f7b0 allocatorbridge(slot,requestedbytes,flags0)",
+        "1f7de/1f7fd reloadpointerforload/metadata"
+      ]
+    },
+    "row_owner_proof": {
+      "sites": [
+        "1fa4f LEA outputslot71e40+4*(signedcategory*8+row)",
+        "1fa58 allocatorbridge writesallocatedrowpointer throughthatslot",
+        "1fa6a reloadslot;onfailure1fa77 callsreclaimbefore retry"
+      ],
+      "meaning": "71e40table stores independentlyallocatedrowblocks; do notassume theseare root-relative pointers."
+    },
+    "next_coherent_readonly_dependencies": [
+      {
+        "full": {
+          "module": "ENG1.DLL",
+          "start_rva": "0x20670",
+          "end_rva_exclusive": "0x20830",
+          "bytes": 448,
+          "sha256": "b34b843f0f787b58a21d8d63b15b06e59fdbd1b6f950b5609bb7b010c834efa0"
+        },
+        "meaning": "Noargroot-header rebuild. ReadsLIVE70ed4 once,zeroextends6headerwords,+8..+18; parsesDWORDrelativeoffsets roundeddown4 viaSHR2/LEA; populatesderivedpointer/countglobals. Calls20830(selectedcategory)."
+      },
+      {
+        "full": {
+          "module": "ENG1.DLL",
+          "start_rva": "0x20830",
+          "end_rva_exclusive": "0x208f0",
+          "bytes": 192,
+          "sha256": "3da95f069411f342b1fad416d3e0c83793051d667fff5c20b6799edaaef81db2"
+        },
+        "meaning": "One signed32selector;compares tosignextendedbyte70ed0, readsheader-derivedtable70d5c[selector], cachesbyte/worddimensions/relativeptr,cumulativeushortcounts andclearsderivedarrays."
+      },
+      {
+        "full": {
+          "module": "ENG1.DLL",
+          "start_rva": "0x208f0",
+          "end_rva_exclusive": "0x20990",
+          "bytes": 160,
+          "sha256": "6134247626e8c2774886207babae014ef4e561dd729958dcf079a12dc165bcff"
+        },
+        "meaning": "Noargderivedrow-pointer rebuild:signextendscategorybyte70cfe androwbyte70d01;readsLIVE allocatedrowtable71e40[group*8+row]. Readsrowleadingushort, signedrowcount70ece andsignedwordwidth70d14; builds70dccpointerarrayand70e0c/70e2cushortarrays usingwordcounts andrelativebyteoffsetcalculation."
+      }
+    ],
+    "limits": "Theseareproject blob/row lifecycle functions,notCRT/freealiases. Only boundedreader/owner flows andtrueboundaries established; originalformat/types/capacities/TU andallcallee contracts neednextcoherentchunk. 20670 fullboundaryis20830,not208f0(whichincludesitscallee)."
+  },
+  "bounded_worker": {
+    "family": "one copied typed interface view with ordinary forwarding bridges",
+    "scope": [
+      "2c23048bytes",
+      "2c26016bytes",
+      "2c29016bytes",
+      "2c2f032bytes",
+      "2c39032bytes",
+      "2c3c032bytes"
+    ],
+    "total_target_bytes": 176,
+    "extended_source_dependencies": [
+      "save_arena2c33032",
+      "update_host2c88016",
+      "existingfreebridge2c2d016"
+    ],
+    "prediction": "Oneuninitializednative32 typed250-wordaggregate anddirectmemberfunction-pointercalls preserveforwardedbits/orderedargs/hostreturns andcontextslot alias, emittingfullselectedbridgecontributions naturally. Current independent externslot globals becomeordinarymemberaccess onlyafterfresh preservationmeasurement.",
+    "falsifier": "Wrongoffset,size/stride,independentpointerstorageoverlappingtable,alteredcallbackreturn/argumentorder,failedfixtureorfullcontributiondifference. Do notuseplacement,aliasflags,dummywrapper/sourcetuninggrid.",
+    "fixtures": [
+      "snapshotcopy:hostchangescallbacksourceafterbinderdoNOTupdateenginecallbackcopy; pointedcontextfieldmutationsAREshared",
+      "callbackreplacementinengine slot usedonnextbridgecall; all32args forwardedincludinghighbits",
+      "contextpointermembermutationduringupdate_host:flag40writtenthroughnewLIVEslot1",
+      "firstgate1 NULL/badmagic paths;badmagiccopiesall250beforeabort;gateunchanged",
+      "validtablewithunusedNULLslots accepted;onlyknownbinder-neededcallbacks mustbeactualcallable",
+      "arena callbackEAXnonzero doesnotreject;gate0 nextentry ignoresnewsource/magic andskipsarena",
+      "reclaim mode0onecall;modenonzeroret0,0,1 repeats3calls;postcompact LIVEownerrootcheck/rebuildordering"
+    ],
+    "binder_restriction": "Binder128bytes canbeaddedassemanticcontractcandidate,but exactsourcefamily forredundantloop/deadbranch isunresolved; noartificialsourcecontrols justified. Reportsemanticcorrectness separatelyfromrawbyteacceptance.",
+    "regression": "Keep41acceptedfunctions andallfrozenengine/host/archivepeersfullbytes+relocations; neverredefinecurrent standaloneexternasoverlappingcommonstorage. Integratorowns sharedheader/source changes."
+  },
+  "private_evidence": {
+    "core": "work/engine_file_bridge_audit/decode.txt",
+    "dependencies": "work/engine_file_bridge_audit/dependencies.txt",
+    "host": "work/engine_file_bridge_audit/host_callers.txt",
+    "reclaim": "work/engine_file_bridge_audit/reclaim_roots.txt",
+    "row_owner": "work/engine_file_bridge_audit/row_table_leads.txt",
+    "limits": "Compactselectedinstructionspans only, notwholeDB/disassemblydump."
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "compiler_builds": 0,
+    "tokens": null,
+    "cost_usd": null
+  }
+}
