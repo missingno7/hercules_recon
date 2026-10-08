@@ -11,6 +11,7 @@ from match import DEFAULT_TOOLCHAIN, digest, verify_toolchain
 
 
 SUITES = {
+    "frame_chain_writer": ["src/pc/frame_chain_write.c"],
     "engine_control": ["calibration/engine_control.c", "calibration/engine_interface.h", "calibration/resource_context.h", "calibration/resource_record.h"],
     "callback_pipeline": ["calibration/dispatcher_bridges.c", "calibration/host_callback_protocol.c", "calibration/host_callback_protocol_externs.h", "calibration/engine_interface.h", "calibration/resource_context.h"],
     "host_callback_protocol": ["calibration/host_callback_protocol.c", "calibration/host_callback_protocol_externs.h", "calibration/engine_interface.h", "calibration/resource_context.h"],
@@ -69,6 +70,7 @@ SUITES = {
 # Most fixtures include one reconstructed source directly. Integration fixtures
 # link actual separate translation units instead of replacing callees.
 EXTRA_UNITS = {
+    "frame_chain_writer": ["src/pc/frame_chain_write.c"],
     "engine_control": ["calibration/engine_control.c"],
     "callback_pipeline": ["calibration/dispatcher_bridges.c", "calibration/host_callback_protocol.c"],
     "host_callback_protocol": ["calibration/host_callback_protocol.c"],

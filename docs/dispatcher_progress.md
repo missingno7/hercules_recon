@@ -72,8 +72,8 @@ unresolved storage: empty default reads do not justify placeholder literals or
 capacity claims. Two actual CRT path/string reader members (592 bytes) are
 identified rather than rewritten.
 
-Current verification passes 50 semantic suites with 3,647,895 checks, 32 Python
-tests and 12 immutable-file hashes. All 42 accepted functions remain raw equal
+Current verification passes 52 semantic suites with 3,649,303 checks, 32 Python
+tests and 12 immutable-file hashes. All 43 accepted functions remain raw equal
 after fresh historical compilation. `evidence/dispatcher_measurements.json`
 records current source/header/command/output identities for 52 experimental
 contributions; the callback/dispatcher regions are indexed for packets.
@@ -88,3 +88,15 @@ writes one NULL slot. Setup invokes the first callback channel through AC00;
 it does not establish a positive callback registration. The compact contract is
 `evidence/frame_bootstrap_contract.json`. Reconstruction follows these real
 dependencies while preserving the unresolved producer and storage definitions.
+
+The writer's initial separate signed remainder emitted a LEA where the target
+decrements its incoming raw32 count. One target-backed dataflow experiment reuses
+the unsigned count and casts only for the signed predicate. Its full 32-byte
+contribution matches with no relocations. Extracting the writer into a
+self-contained source preserves those bytes; the unchanged promotion gate freshly
+verifies all 43 functions (4,416 bytes). A separate canonical-source fixture passes
+1,298 checks. The 2c600 forwarding peer remains relocation-only and private until
+shared slot-81 declarations are integrated with the larger bootstrap family.
+`evidence/frame_chain_writer.json` and `evidence/frame_chain_validation.json`
+record the accepted scope and current verification. No complete frame structure,
+original prototype or natural module layout has been established.

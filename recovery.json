@@ -1186,6 +1186,30 @@
         "target_sha256": "33cb7c6b5695e070548b4e7f33d43173b10670c306067b684edf21470a662ef2",
         "toolchain": "msvc5_rtm"
       }
+    },
+    {
+      "id": "exe.frame_chain_write",
+      "status": "FUNCTION_MATCH",
+      "name_status": "Descriptive label; original source name and formal count signedness unproved.",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0xac20",
+      "size": 32,
+      "body_size": 32,
+      "source": "src/pc/frame_chain_write.c",
+      "symbol": "_frame_chain_write",
+      "flags": [
+        "/O2"
+      ],
+      "boundary": "Complete AC20..AC40 callable interval: entry loads two physical arguments; RET at AC3f; no padding before next entry. Ordinary-C fresh /Gy full contribution required.",
+      "evidence": "evidence/frame_bootstrap_contract.json and evidence/frame_chain_writer.json: actual native pointer-chain writer through slot81, raw32 decrement then signed predicate and unconditional final NULL; original full frame type and TU remain unproved.",
+      "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "188b1dcc299eb311b9f9950539486add1eba170520448d898009fb357f7c2566",
+        "compiled_sha256": "f96f2d7ab105a7bf13f0eaf9738ea9919ce0a8e6734f82eb15f5067938396a09",
+        "target_sha256": "f96f2d7ab105a7bf13f0eaf9738ea9919ce0a8e6734f82eb15f5067938396a09",
+        "toolchain": "msvc5_rtm"
+      }
     }
   ]
 }

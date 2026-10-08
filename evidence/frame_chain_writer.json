@@ -1,0 +1,39 @@
+{
+  "scope": "Complete 32-byte native chain writer accepted by unchanged fresh historical compilation/raw-equality gate. Original names, formal signedness, TU and full frame aggregate are unproved.",
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "rva": "0xac20",
+  "bytes": 32,
+  "span_sha256": "f96f2d7ab105a7bf13f0eaf9738ea9919ce0a8e6734f82eb15f5067938396a09",
+  "discriminator": "Target reuses incoming raw32 count with DEC; first candidate creates distinct signed remainder and emits LEA. Single v2 change decrements unsigned raw_count in place, casting only at signed predicate. Same flags/header.",
+  "prediction": "New discriminator from the measured v1 code and target instructions: HERCULES.EXE loads the raw count directly into EDX and performs DEC before its signed JLE. V1 instead calculated `(int)(raw_count - 1UL)` into a distinct remainder, which MSVC emitted as LEA; the candidate contribution grew to 48 bytes.\n\nSingle v2 change: retain unsigned modulo-32 semantics but decrement `raw_count` in place before the signed predicate, and decrement that same variable at the target loop point. Cast only when evaluating the signed initial predicate; keep the wrapper, interface access, headers, and all other source unchanged.\n\nPrediction: with the same pinned `/O2` `/Gy` flags and header, the writer begins with DEC rather than LEA and its contribution becomes the target's 32 bytes. Wrapper bytes/relocation remain as v1. The same synthetic cases pass, including high-bit counts whose decremented value is signed-nonpositive. Falsifiers: any fixture behavior change, a non-DEC initial instruction / contribution-size discrepancy, or wrapper regression.\n",
+  "private_candidate": {
+    "source": "candidates/frame_chain_writer/frame_chain_writer_v2.c",
+    "source_sha256": "62b2d4d3db822a18eaa58aafb662f8a48c4b8e68e62fd270885851d5297e44d8",
+    "object_sha256": "816bedd4d4b631c6a0e5e0abd0e50850ecededea0405d04eb37064d7687dce08",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-il9y9vvp\\candidate.obj",
+      "D:\\prog\\hercules_recon\\candidates\\frame_chain_writer\\frame_chain_writer_v2.c"
+    ],
+    "metrics_sha256": "d4c236ea989b1b43f531f9e54e31880358e189cb170178fddd2eb34e2fd3ceaa"
+  },
+  "canonical_source": "src/pc/frame_chain_write.c",
+  "source_sha256": "188b1dcc299eb311b9f9950539486add1eba170520448d898009fb357f7c2566",
+  "extraction": "Writer function only; removed unrelated interface header, callback typedef and forwarding function. Complete emitted contribution remains identical; fresh gate passed all43 functions.",
+  "proof_scope": "complete relocation-free function COFF contribution",
+  "semantics": {
+    "checks": 1298,
+    "failures": 0,
+    "report": "build/tests/frame_chain_writer-f4o4tiaf/report.json",
+    "report_sha256": "7433440fcfd279c8208a2f23e5629ebb11c8838eb11309be0613664eb88e2775",
+    "cases": "0/1/2/0x500 and high-bit counts whose post-decrement signed remainder is nonpositive; guard slot remains intact; original not executed."
+  },
+  "wrapper": "2c600 full32 remains relocation-only: one DIR32 g_engine_interface+0x144, actual slot81. Private until coherent shared typed-member integration.",
+  "role": "Real host pointer-chain writer; zero count still writes NULL. Actual two0x500-slot setup calls prove leading extents ending1488/2910.",
+  "gate": "scripts/promote.py; recovery.json alone authorizes FUNCTION_MATCH."
+}
