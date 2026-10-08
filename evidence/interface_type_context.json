@@ -1,0 +1,161 @@
+{
+  "scope": "Shared header/compiler-context diagnosis only. No candidate repair, canonical edits, source-body edits, original execution, or acceptance.",
+  "inputs": {
+    "calibration/resource_rebind.c": "be8d036ff366d04aa83036a7827f17edb47eaf4ea2086e3a5c4687850915c2f9",
+    "calibration/resource_context.h": "317aa8aa66adf96176343ac1a9c735a1c132453d9dcd4fa612010dcdac24d619",
+    "work/dispatcher_bridges/before_engine_interface.h": "ca6f6335bd32072599cfcf143a484b594ae565f7dd74f32f5f89ed3d3251c145",
+    "calibration/engine_interface.h": "b2b4c05aa53ffe5359dc34a1cd6fb1ae6307f6b1b92036adec3ed7fcfab16bc4",
+    "work/dispatch_context_extension/resource_rebind.json": "b914c095ef6d717c331eaf72eb9b26e959c02b71263ba67b4bbae10acfb41d08",
+    "work/dispatcher_interface_extension/resource_rebind.json": "cb59d2611a079b595c4faf2e1417961dda1688fd01e00d31781a050bcaac77c4",
+    "work/interface_type_context/prediction.json": "6aaeffac6e39434088671d15361e6b80d8a0636a0edf013533f21170297e45ca",
+    "work/interface_type_context/isolation.json": "6736bbf77988ad9850d7c4295edb6db350e7a94249994614ab7c38410cce3892"
+  },
+  "existing_measurements": {
+    "before_size": 432,
+    "after_size": 464,
+    "target_size": 448,
+    "before_instructions": 116,
+    "after_instructions": 123,
+    "target_instructions": 129,
+    "blocks_each": 4,
+    "relocations_each": 28,
+    "source_body_sha256": "be8d036ff366d04aa83036a7827f17edb47eaf4ea2086e3a5c4687850915c2f9"
+  },
+  "structural_read": {
+    "used_member": "EngineInterface.context_004: ResourceCallbackContext *, offset 4",
+    "object_size_each": 1000,
+    "new_callback_members_accessed_by_blob": 0,
+    "observed_read": "ENG1 0x207e9 MOV context pointer from table slot 1, followed at 0x207f9 by signed byte read from context offset 0; PC storage/ABI evidence supports this relationship.",
+    "context_header_each_sha256": "317aa8aa66adf96176343ac1a9c735a1c132453d9dcd4fa612010dcdac24d619",
+    "layout_conclusion": "No factual mismatch in the accessed member, pointer width, table size, or context offset was found. The expanded table remains a consistent observed shared declaration; original full type and prototypes remain unproved."
+  },
+  "instruction_diff": {
+    "first_change": "Function offset 0x0b: word+0x0e is allocated to CX before, SI after; this precedes the sole interface member read.",
+    "other_changes": [
+      "Header-word register assignments and their schedules change at offsets 0x0b..0x2c.",
+      "Additional stack spills/reloads appear after offset 0x130 in the 464-byte form.",
+      "Independent g_header_pointer_70d3c/70d4c stores exchange order; source arithmetic and 28 relocation symbol targets persist.",
+      "Interface reference moves from offset 0x173 to 0x188, still carrying addend 4 and symbol _g_engine_interface.",
+      "Actual RET shifts from offset 0x1ad to 0x1c6; complete /Gy contributions include their original NOP padding."
+    ],
+    "full_diff": "work/interface_type_context/diff.txt"
+  },
+  "isolation": {
+    "change": "Insert only typedef void (__cdecl *EngineNoArgCallback)(void); before the old EngineInterface declaration. This typedef has no use in the old struct or unchanged C body.",
+    "method": "Same copied C source, resource context header, interface input path, pinned compiler, cleared CL/_CL_ environment, /nologo /c /Gy /O2. Exactly two fresh historical builds. Snapshot both headers; assertions validate only the insertion changed.",
+    "receipt": "work/interface_type_context/isolation.json",
+    "checks": [
+      {
+        "local": "old",
+        "matches": "before",
+        "symbol": "_resource_rebuild_blob",
+        "full_bytes_equal": true,
+        "ordered_relocations_equal": true,
+        "size": 432,
+        "sha256": "bafca9c05623d797d06c5dc65ed453c8bd9c1abe25c73b287451aa677cb6be19"
+      },
+      {
+        "local": "old",
+        "matches": "before",
+        "symbol": "_resource_select_group",
+        "full_bytes_equal": true,
+        "ordered_relocations_equal": true,
+        "size": 176,
+        "sha256": "03570a2c49bb34196643eeb210015e48d9c8ababcac244fada9ab91fde71af43"
+      },
+      {
+        "local": "old",
+        "matches": "before",
+        "symbol": "_resource_rebuild_group_rows",
+        "full_bytes_equal": true,
+        "ordered_relocations_equal": true,
+        "size": 160,
+        "sha256": "ef11527a98e5d25ba4a609a3ad8e21287b7dbc3377d15bcb42b8ba605e801dd1"
+      },
+      {
+        "local": "old_plus_callback_typedef",
+        "matches": "after",
+        "symbol": "_resource_rebuild_blob",
+        "full_bytes_equal": true,
+        "ordered_relocations_equal": true,
+        "size": 464,
+        "sha256": "6d150e376fc3e137083c8234851f93f427c440676e5ab59886679f67002d903b"
+      },
+      {
+        "local": "old_plus_callback_typedef",
+        "matches": "after",
+        "symbol": "_resource_select_group",
+        "full_bytes_equal": true,
+        "ordered_relocations_equal": true,
+        "size": 176,
+        "sha256": "03570a2c49bb34196643eeb210015e48d9c8ababcac244fada9ab91fde71af43"
+      },
+      {
+        "local": "old_plus_callback_typedef",
+        "matches": "after",
+        "symbol": "_resource_rebuild_group_rows",
+        "full_bytes_equal": true,
+        "ordered_relocations_equal": true,
+        "size": 160,
+        "sha256": "ef11527a98e5d25ba4a609a3ad8e21287b7dbc3377d15bcb42b8ba605e801dd1"
+      }
+    ],
+    "verdict": "The unused typedef alone reproduces all complete new function bytes and ordered relocations. The 19 field substitutions are not necessary for the observed 432-to-464 shift."
+  },
+  "explanation": {
+    "supported": "Semantically unused translation-unit declaration context can perturb this pinned VC5 code generation. The controlled typedef insertion establishes a context cause independently of field layout or callback alias semantics.",
+    "unproved": "Specific internal compiler mechanism (type numbering, symbol identity, optimizer traversal, hash order, or allocator tie-breaking) is not established. This does not identify original source/TU or predict effects in other functions.",
+    "declaration_error": "No independently supported ordinary-C representation error was found here. An unused typedef changes no accessed object layout or runtime operations."
+  },
+  "recommendation": {
+    "action": "Keep the evidence-backed shared declaration consistent across composing TUs. Bind compiler receipts to source and transitive header hashes; preserve fresh full bytes plus ordered relocations when shared context changes.",
+    "stop": "No further typedef/member/name/declaration/flag/register grid. Do not remove or rename the new typedef merely to restore a smaller nonexact contribution.",
+    "next_discriminator": "Only independently grounded source/runtime evidence for the still-nonexact blob function warrants a reconstruction family; this diagnosis provides no new body repair."
+  },
+  "preservation": {
+    "canonical_source_or_headers_changed": false,
+    "accepted_recovery_state_changed": false,
+    "prior_root_result": "All 42 accepted functions and other relocation-equal peers preserved by parent shared-header verification. This private diagnostic compiled only the three nonexact rebind functions.",
+    "helpers": "Both isolated helper full bytes and ordered relocations equal their original before and after objects."
+  },
+  "provenance": {
+    "toolchain": "msvc5_rtm",
+    "pinned_files": [
+      {
+        "path": "bin/cl.exe",
+        "size": 46080,
+        "sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+        "file_version": "11.00.7022"
+      },
+      {
+        "path": "bin/c1.dll",
+        "size": 563984,
+        "sha256": "e519dfe6f45cc0503b7aac43d125b2f156305269b89f0dc765c40d29627c0943",
+        "file_version": "11.00"
+      },
+      {
+        "path": "bin/c2.exe",
+        "size": 630544,
+        "sha256": "6d1406af5f62647347cfa7175cd7e108b838d6841a546396f29252198a14d73d",
+        "file_version": "11.00"
+      }
+    ],
+    "commands_in": "work/interface_type_context/isolation.json",
+    "compiler_builds": 2,
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null
+  },
+  "evidence": {
+    "comparison": "work/interface_type_context/comparison.json",
+    "target": "work/interface_type_context/target.txt",
+    "prediction": "work/interface_type_context/prediction.json",
+    "reproduce": [
+      "python work/interface_type_context/compare_context.py",
+      "python work/interface_type_context/isolate.py",
+      "python work/interface_type_context/finalize.py"
+    ]
+  }
+}

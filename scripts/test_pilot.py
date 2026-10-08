@@ -11,6 +11,10 @@ from match import DEFAULT_TOOLCHAIN, digest, verify_toolchain
 
 
 SUITES = {
+    "callback_pipeline": ["calibration/dispatcher_bridges.c", "calibration/host_callback_protocol.c", "calibration/host_callback_protocol_externs.h", "calibration/engine_interface.h", "calibration/resource_context.h"],
+    "host_callback_protocol": ["calibration/host_callback_protocol.c", "calibration/host_callback_protocol_externs.h", "calibration/engine_interface.h", "calibration/resource_context.h"],
+    "dispatcher_bridges": ["calibration/dispatcher_bridges.c", "calibration/engine_file_bridge.c", "calibration/engine_dependency_bridges.c", "calibration/engine_interface.h", "calibration/resource_context.h"],
+    "engine_dispatch": ["calibration/engine_dispatch.c", "calibration/engine_dispatch_externs.h", "calibration/engine_interface.h", "calibration/resource_context.h"],
     "resource_pool_pipeline": ['calibration/engine_file_bridge.c', 'calibration/engine_dependency_bridges.c', 'calibration/resource_rebind.c', 'calibration/host_pool_repaired.c', 'calibration/host_pool_lifecycle_repaired.c', 'calibration/host_pool_counts.c', 'calibration/pool_reverse_copy.c', 'src/pc/host_diagnostic.c', 'calibration/engine_interface.h', 'calibration/resource_context.h'],
     "resource_rebind": ["calibration/resource_rebind.c", "calibration/engine_interface.h", "calibration/resource_context.h"],
     "engine_dependency_bridges": ["calibration/engine_dependency_bridges.c", "calibration/engine_file_bridge.c", "calibration/engine_interface.h", "calibration/resource_context.h"],
@@ -64,6 +68,9 @@ SUITES = {
 # Most fixtures include one reconstructed source directly. Integration fixtures
 # link actual separate translation units instead of replacing callees.
 EXTRA_UNITS = {
+    "callback_pipeline": ["calibration/dispatcher_bridges.c", "calibration/host_callback_protocol.c"],
+    "host_callback_protocol": ["calibration/host_callback_protocol.c"],
+    "engine_dispatch": ["calibration/engine_dispatch.c"],
     "resource_pool_pipeline": [s for s in SUITES["resource_pool_pipeline"] if s.endswith(".c")],
     "host_archive_pipeline": [s for s in SUITES["host_archive_pipeline"] if s.endswith(".c")],
     "archive_pipeline": SUITES["archive_pipeline"],

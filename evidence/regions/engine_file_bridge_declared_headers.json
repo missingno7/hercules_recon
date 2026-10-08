@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-08T03:13:39.532782+00:00",
+  "region": "engine_file_bridge",
+  "ownership": {
+    "id": "engine_file_bridge",
+    "ownership": "function_task",
+    "rationale": "Six independently bounded engine-interface forwarding bridges; source/TU ownership and the original 250-slot aggregate declaration remain unproved."
+  },
+  "context_id": "75181474783e0c843af116f4fe047936a6d0dbec465bfa3c33c82190248bb719",
+  "source_sha256": "0860ba3c4e242f3810bdbb15d1f70bfbf266b48b96715b3ba3c56f3ef96a62c2",
+  "baseline_sha256": "0860ba3c4e242f3810bdbb15d1f70bfbf266b48b96715b3ba3c56f3ef96a62c2",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "0860ba3c4e242f3810bdbb15d1f70bfbf266b48b96715b3ba3c56f3ef96a62c2",
+  "source_patch": {
+    "base_sha256": "0860ba3c4e242f3810bdbb15d1f70bfbf266b48b96715b3ba3c56f3ef96a62c2",
+    "result_sha256": "0860ba3c4e242f3810bdbb15d1f70bfbf266b48b96715b3ba3c56f3ef96a62c2",
+    "edits": []
+  },
+  "output_id": "e4624da3c8a93ed67d707b38f8f1eba3c6aab2306e546a2d0de8d1599d2f49c3",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_engine_file_load_async",
+      "target_size": 48,
+      "candidate_size": 48,
+      "raw_different_bytes": 4,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 1,
+      "target_relocation_count": 1,
+      "output_id": "c8a2b9391c3e6e21c53350c3f95355b82be7207cbb86ed97dc2ceaa9d718041e",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_engine_file_cancel",
+      "target_size": 16,
+      "candidate_size": 16,
+      "raw_different_bytes": 4,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": false,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 1,
+      "target_relocation_count": 1,
+      "output_id": "b62bf84cdace4208cdaf118f5754fa3b40e59ab1f58d25addcfe8c95fcda91cf",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_engine_pool_compact",
+      "target_size": 16,
+      "candidate_size": 16,
+      "raw_different_bytes": 4,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 1,
+      "target_relocation_count": 1,
+      "output_id": "c34befc4b0ba69bfc5524b3c13552f23762f8ce423176c291e67cbf5f07258f2",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_engine_file_length",
+      "target_size": 32,
+      "candidate_size": 32,
+      "raw_different_bytes": 4,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 1,
+      "target_relocation_count": 1,
+      "output_id": "370d1e44abb64e27b5eb4c649d44c4b39728f80cedd1e056960abfc79f246eef",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_engine_file_load_sync",
+      "target_size": 32,
+      "candidate_size": 32,
+      "raw_different_bytes": 4,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 1,
+      "target_relocation_count": 1,
+      "output_id": "c3025cc6ddaff28dce36fb1da5fc8b43ad049f9bc0e7c851caa1de44b28e116c",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_engine_pool_allocate",
+      "target_size": 32,
+      "candidate_size": 32,
+      "raw_different_bytes": 4,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 1,
+      "target_relocation_count": 1,
+      "output_id": "0d658282c42a252543d79eeff9fc19b24707f2803c3817c32130264135304db0",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 6,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 6,
+    "ordered_cfg_equal": 5,
+    "instruction_over_90": 6,
+    "nonexact_instruction_over_90": 6,
+    "categories": {
+      "relocation-only diagnostic equality": 6
+    }
+  },
+  "family": "native32-engine-interface-member-forwarding-bridges",
+  "prediction": "One typed native32 EngineInterface view over the 250 copied DWORD region, with context at slot 1 and observed function members at slots 8,9,13,18,26,30, will let ordinary C forward the six bridge arguments and preserve each callback EAX return. All six complete spans (176 bytes total) should match under the pinned compiler. The independent fixture should verify exact physical arguments, return values, and callback-cell reload after live table mutation.",
+  "falsifier": "Any member/size offset assertion failure, raw full-span difference or unsupported/unresolved relocation, wrong arity/calling convention/return, mutation not observed on the next bridge call, or callback fixture failure falsifies this typed forwarding family. Do not use casts, wrappers that change arity, independent overlapping context globals, binder reconstruction, address remapping, or source spelling grids.",
+  "verdict": "Current measured context recorded; no source retry or new acceptance from this receipt.",
+  "blocker": null,
+  "reentry_condition": null,
+  "next_discriminator": null,
+  "ungated_work": [],
+  "new_evidence": [
+    "calibration/engine_interface.h",
+    "evidence/engine_file_bridge_contract.json",
+    "evidence/resource_reclaim_negative.json"
+  ],
+  "new_discriminator": "Controlled unused-typedef experiment proves header-only compiler context can change complete bytes. Explicit declared headers now participate in existing context IDs; no acceptance cache.",
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "native32 C interface view reconstruction, full pinned COFF diagnostics, and callback forwarding fixture",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 3,
+    "semantic_result": "Current 50suite regression passed; narrow source fixtures only.",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "b32710f9e11cf7482c84b82c9b8ebe23f6392255b6deea0834742d9f411daf1a",
+    "report_sha256": "110d0560bafc03c60316a34379fe90556204820528581ab021ebc58a3d453ef4",
+    "context_files": {
+      "calibration/engine_interface.h": "b2b4c05aa53ffe5359dc34a1cd6fb1ae6307f6b1b92036adec3ed7fcfab16bc4",
+      "calibration/resource_context.h": "b6ea023320d1bf3f2862fc3b1cb7db051227a89fb5e553bb5bf08ace386c4093"
+    },
+    "object_sha256": "cba1b1d8e6bab9433bfc917f2dc5b52675da09d3750699f88fd86b106d5398e1",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-hrxb559x\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\engine_file_bridge.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "62b8b70a75c28e2e4407f4d0d62d66900f0201ed604d31a40c7111eee880d390"
+}

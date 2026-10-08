@@ -266,11 +266,14 @@
       "baseline": "calibration/resource_callbacks.c",
       "receipts": [
         "evidence/regions/resource_callbacks_first.json",
-        "evidence/regions/resource_callbacks_context.json"
+        "evidence/regions/resource_callbacks_context.json",
+        "evidence/regions/resource_callbacks_declared_headers.json"
       ],
       "references": [
         "evidence/resource_blob_allocation.json",
-        "docs/resource_loading_progress.md"
+        "docs/resource_loading_progress.md",
+        "docs/dispatcher_progress.md",
+        "evidence/dispatcher_measurements.json"
       ]
     },
     {
@@ -302,11 +305,14 @@
       "spec": "evidence/resource_readiness_region.json",
       "baseline": "calibration/resource_readiness.c",
       "receipts": [
-        "evidence/regions/resource_readiness_first.json"
+        "evidence/regions/resource_readiness_first.json",
+        "evidence/regions/resource_readiness_declared_headers.json"
       ],
       "references": [
         "evidence/resource_provider_contract.json",
-        "docs/resource_loading_progress.md"
+        "docs/resource_loading_progress.md",
+        "docs/dispatcher_progress.md",
+        "evidence/dispatcher_measurements.json"
       ]
     },
     {
@@ -314,12 +320,15 @@
       "spec": "evidence/resource_provider_region.json",
       "baseline": "calibration/resource_provider.c",
       "receipts": [
-        "evidence/regions/resource_provider_first.json"
+        "evidence/regions/resource_provider_first.json",
+        "evidence/regions/resource_provider_declared_headers.json"
       ],
       "references": [
         "evidence/resource_provider_contract.json",
         "evidence/resource_host_bindings.json",
-        "docs/resource_loading_progress.md"
+        "docs/resource_loading_progress.md",
+        "docs/dispatcher_progress.md",
+        "evidence/dispatcher_measurements.json"
       ]
     },
     {
@@ -388,7 +397,8 @@
       "baseline": "calibration/engine_file_bridge.c",
       "receipts": [
         "evidence/regions/engine_file_bridge_first.json",
-        "evidence/regions/engine_file_bridge_shared.json"
+        "evidence/regions/engine_file_bridge_shared.json",
+        "evidence/regions/engine_file_bridge_declared_headers.json"
       ],
       "references": [
         "docs/file_services_progress.md",
@@ -396,7 +406,9 @@
         "evidence/resource_context_extension.json",
         "evidence/file_services_validation.json",
         "docs/resource_rebind_progress.md",
-        "evidence/resource_rebind_measurements.json"
+        "evidence/resource_rebind_measurements.json",
+        "docs/dispatcher_progress.md",
+        "evidence/dispatcher_measurements.json"
       ]
     },
     {
@@ -404,13 +416,16 @@
       "spec": "evidence/host_file_service_region.json",
       "baseline": "calibration/host_file_service.c",
       "receipts": [
-        "evidence/regions/host_file_service_first.json"
+        "evidence/regions/host_file_service_first.json",
+        "evidence/regions/host_file_service_declared_headers.json"
       ],
       "references": [
         "docs/file_services_progress.md",
         "evidence/host_file_service_contract.json",
         "evidence/resource_context_extension.json",
-        "evidence/file_services_validation.json"
+        "evidence/file_services_validation.json",
+        "docs/dispatcher_progress.md",
+        "evidence/dispatcher_measurements.json"
       ]
     },
     {
@@ -418,13 +433,16 @@
       "spec": "evidence/resource_rebind_region.json",
       "baseline": "calibration/resource_rebind.c",
       "receipts": [
-        "evidence/regions/resource_rebind_shared.json"
+        "evidence/regions/resource_rebind_shared.json",
+        "evidence/regions/resource_rebind_declared_headers.json"
       ],
       "references": [
         "docs/resource_rebind_progress.md",
         "evidence/engine_file_bridge_contract.json",
         "evidence/resource_rebind_measurements.json",
-        "evidence/resource_rebind_validation.json"
+        "evidence/resource_rebind_validation.json",
+        "docs/dispatcher_progress.md",
+        "evidence/dispatcher_measurements.json"
       ]
     },
     {
@@ -432,13 +450,61 @@
       "spec": "evidence/engine_dependency_bridges_region.json",
       "baseline": "calibration/engine_dependency_bridges.c",
       "receipts": [
-        "evidence/regions/engine_dependency_bridges_shared.json"
+        "evidence/regions/engine_dependency_bridges_shared.json",
+        "evidence/regions/engine_dependency_bridges_declared_headers.json"
       ],
       "references": [
         "docs/resource_rebind_progress.md",
         "evidence/engine_file_bridge_contract.json",
         "evidence/resource_rebind_measurements.json",
-        "evidence/resource_rebind_validation.json"
+        "evidence/resource_rebind_validation.json",
+        "docs/dispatcher_progress.md",
+        "evidence/dispatcher_measurements.json"
+      ]
+    },
+    {
+      "id": "dispatcher_bridges",
+      "spec": "evidence/dispatcher_bridges_region.json",
+      "baseline": "calibration/dispatcher_bridges.c",
+      "receipts": [
+        "evidence/regions/dispatcher_bridges_declared_headers.json"
+      ],
+      "references": [
+        "docs/dispatcher_progress.md",
+        "evidence/engine_dispatch_contract.json",
+        "evidence/control_storage_contract.json",
+        "evidence/dispatcher_measurements.json",
+        "evidence/dispatcher_validation.json"
+      ]
+    },
+    {
+      "id": "engine_dispatch",
+      "spec": "evidence/engine_dispatch_region.json",
+      "baseline": "calibration/engine_dispatch.c",
+      "receipts": [
+        "evidence/regions/engine_dispatch_declared_headers.json"
+      ],
+      "references": [
+        "docs/dispatcher_progress.md",
+        "evidence/engine_dispatch_contract.json",
+        "evidence/control_storage_contract.json",
+        "evidence/dispatcher_measurements.json",
+        "evidence/dispatcher_validation.json"
+      ]
+    },
+    {
+      "id": "host_callback_protocol",
+      "spec": "evidence/host_callback_protocol_region.json",
+      "baseline": "calibration/host_callback_protocol.c",
+      "receipts": [
+        "evidence/regions/host_callback_protocol_declared_headers.json"
+      ],
+      "references": [
+        "docs/dispatcher_progress.md",
+        "evidence/engine_dispatch_contract.json",
+        "evidence/control_storage_contract.json",
+        "evidence/dispatcher_measurements.json",
+        "evidence/dispatcher_validation.json"
       ]
     }
   ]

@@ -1,0 +1,470 @@
+{
+  "scope": "Read-only audit of control argument storage and host callback registration/invocation. No builds, placeholder definitions, canonical/Git/assets edits, or original execution.",
+  "oracle": {
+    "engine_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "host_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "database_sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+  },
+  "control_argument_storage": {
+    "arguments": [
+      {
+        "rva": "0x6eef8",
+        "VA": "0x1006eef8",
+        "initial_first_byte_hex": "00",
+        "mapped_first4_hex": "00000000",
+        "source_refs": [
+          {
+            "source_rva": "0x6215",
+            "kind": "linear_immediate"
+          },
+          {
+            "source_rva": "0x6216",
+            "kind": "pe_highlow_pointer"
+          }
+        ],
+        "callsite_rva": "0x6215",
+        "wrapper_rva": "0x2c210",
+        "meaning": "Default slot 7 calls EXE A340, which ignores its physical arguments. The argument is passed but not dereferenced.",
+        "minimum_reader_extent": 0,
+        "extent_limit": "Four mapped zero bytes do not prove a four-byte object. The active string reader needs at least its first NUL byte. Capacity, declared extent, and immutable literal identity remain unproved."
+      },
+      {
+        "rva": "0x6eefc",
+        "VA": "0x1006eefc",
+        "initial_first_byte_hex": "00",
+        "mapped_first4_hex": "00000000",
+        "source_refs": [
+          {
+            "source_rva": "0x62cd",
+            "kind": "linear_immediate"
+          },
+          {
+            "source_rva": "0x62ce",
+            "kind": "pe_highlow_pointer"
+          }
+        ],
+        "callsite_rva": "0x62cd",
+        "wrapper_rva": "0x2c370",
+        "meaning": "Default slot 25 calls EXE 4040 then 5cd0, which reads argument 1 as an input string prefix.",
+        "minimum_reader_extent": 1,
+        "extent_limit": "Four mapped zero bytes do not prove a four-byte object. The active string reader needs at least its first NUL byte. Capacity, declared extent, and immutable literal identity remain unproved."
+      },
+      {
+        "rva": "0x6ef00",
+        "VA": "0x1006ef00",
+        "initial_first_byte_hex": "00",
+        "mapped_first4_hex": "00000000",
+        "source_refs": [
+          {
+            "source_rva": "0x640f",
+            "kind": "linear_immediate"
+          },
+          {
+            "source_rva": "0x6410",
+            "kind": "pe_highlow_pointer"
+          }
+        ],
+        "callsite_rva": "0x640f",
+        "wrapper_rva": "0x2c370",
+        "meaning": "The same 4040 -> 5cd0 prefix reader receives this distinct address at a separate PC callsite.",
+        "minimum_reader_extent": 1,
+        "extent_limit": "Four mapped zero bytes do not prove a four-byte object. The active string reader needs at least its first NUL byte. Capacity, declared extent, and immutable literal identity remain unproved."
+      }
+    ],
+    "initialization": "All three addresses are inside ENG1 loader zero-fill .data (raw end 0x6e800, virtual end 0x74658). No explicit runtime initialization or writer was established.",
+    "encoded_aliases": "Each address has one PUSH instruction reference and its operand HIGHLOW relocation. No data HIGHLOW alias or encoded writer was found. Neighbor addresses 0x6eef4/0x6ef04/0x6ef08 are also single-use zero prefixes; no observed write field covers these three addresses.",
+    "default_consumption_proof": [
+      "62cd/640f PUSHactualprefixaddress;2c370forwards2argsunchangedtoslot25;EXE4040preservesarg1/arg2andrepassesat40c4 to5cd0.",
+      "5cd0nonnullprefix/suffixguards;5cf3..5cff callsrealCRT sprintf(VA91bbd8,\"%s%s\",arg1,arg2). Prefixinputisread;destinationisdistincthostglobal91bbd8.",
+      "5d07..5d17 actualCRT _splitpath takesconstructed91bbd8 inputandlocalfilenameoutputatESP+8;drive,dir,ext outputsNULL. ItdoesnotreceiveoriginalENG1prefixasanoutput.",
+      "5d1f..5dcacaseinsensitivecompares/copies affecthostlocalfilename/91bbd8,notENG1prefix. Later5c20moduleload receivesconstructedhoststring.",
+      "6215->2c210->slot7->actualA340zero-returnleafignoresallargumentcontent;staticdefaultpathoffersnostring-read/writerprooffor6eef8."
+    ],
+    "module_suffix": {
+      "pointer_cell_rva": "0x4d968",
+      "pointer_value_rva": "0x4dabc",
+      "initial_string": "\\TITLE\\ENGINE\\TITLE",
+      "live": "Fiveindexedreads620e/62c6/6409/6530/65fc;first3relevantcasecallers. No encodedwritertocellfound;originalsourceconstnessunproved."
+    },
+    "conclusion": "Read-only empty-prefix behavior is verified for the actual default call chains. No mutable path-buffer writer was found. Immutable literal identity, source origin, complete extent, and pooling are not established.",
+    "source_status": "Preserve distinct original addresses and unresolved storage ownership. Unsized extern char views can express consumers; this audit does not justify separate empty literal or buffer definitions.",
+    "next_discriminator": "The nearby unaligned control code and four-byte-spaced single-use zero prefixes are compatible with unmerged empty-string compiler storage, but do not prove it. Obtain independent producer/alias evidence or the actual historical TU/compiler data contribution before defining the objects. Do not run literal/extent grids.",
+    "limits": "Indexed absence does not exclude computed aliases or external callback writes. Runtime interface replacement can interpret the arguments differently. Adjacency and initial emptiness do not establish capacity or literal identity."
+  },
+  "callback_protocol": {
+    "classification": "Custom host/platform callback protocol, exposed through interface slot 249 and BCF0. No CRT identity was established for BDD0/BDB0. Original project versus non-CRT SDK ownership, source names, and TU remain unproved.",
+    "registration": {
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0xbdd0",
+        "end_rva_exclusive": "0xbde0",
+        "bytes": 16,
+        "sha256": "969cf0580788e85301e859cdfb9e3cd6e3eb140e34a1b4288647e7958d12b1c0"
+      },
+      "signature": "HostCallback __cdecl register_callback(HostCallback new_callback)",
+      "ordinary_callback_type": "void (__cdecl *HostCallback)() is a consistent historical C hypothesis. The physical function pointer is four bytes; the original prototype remains unproved.",
+      "steps": [
+        "BDD0 loadsarg1 intoECX.",
+        "BDD4 capturesOLDfptrfromVA A8E784 intoEAX.",
+        "BDD9 storesNEWfptrthroughsamecell.",
+        "BDDF RET,noargcleanup,nomemory/pointervalidation,returnsOLDfptrbits."
+      ],
+      "entry_refs": [
+        {
+          "source_rva": "0x1d02",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1d32",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x1d51",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x4093",
+          "kind": "linear_call"
+        }
+      ],
+      "slot249": {
+        "engine_cell_rva": "0x71304",
+        "host_source_cell_rva": "0x3659c",
+        "host_callback_value": "0x40bdd0"
+      },
+      "actual_engine_registration": "20300 at20424 passes1f0e0 guardedcallbackto2cc40;runtimecontrol6334passes0;EXE4040direct4093passes0. Setterreturnisignoredbythese reviewedcallersbutactualbit-returncontractproved."
+    },
+    "invocation": {
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0xbdb0",
+        "end_rva_exclusive": "0xbdd0",
+        "bytes": 32,
+        "sha256": "92841cbb801b698151024c3b065ba5148d818baa5c2a2338fbba3a0e18fbf43e"
+      },
+      "signature": "void __cdecl invoke_callback(void),noargumentloads;incidentalEAXnotconsumedbyBCF0.",
+      "body_bytes": 22,
+      "padding_bytes": 10,
+      "steps": [
+        "BDB0 captures the current callback at VA A8E784 once in EAX.",
+        "A null callback returns. Otherwise BDB9 reads the 32-bit gate at VA A8E788; a zero gate returns.",
+        "BDC3 jumps to captured EAX with no pushed arguments or stack cleanup, preserving the caller return address.",
+        "No callback cleanup or reset follows. Callback/gate changes during delivery affect the next invocation, not the current captured destination."
+      ],
+      "entry_refs": [
+        {
+          "source_rva": "0xbd21",
+          "kind": "linear_call"
+        }
+      ]
+    },
+    "storage": {
+      "callback_va": "0xa8e784",
+      "gate_va": "0xa8e788",
+      "initial": "Both4-bytecellsarehostloaderzero-fill.",
+      "known_callback_writers": [
+        "BDD9 newcallbackargument",
+        "BE01 resetsNULLaspartenable/resetroutineBDF0"
+      ],
+      "known_gate_writers": [
+        "BDE0 sets0(disableroutine)",
+        "BDF2 sets1(enable/resetroutine)"
+      ],
+      "gate_width": 4,
+      "gate_values": "Test!=0 acceptsallnonzero32-bitvalues;only0/1knownproducers.",
+      "adjacency": "AdjacentcallbackA8E780 usesparallelsetterBDA0/invokerBD80andsharedgate. InputpacketA8E78C isneighbor. Awholeoriginalaggregate/capacity isnotprovedbyadjacency;allknownfields canbeordinarysharedprefixview orconsistentglobalswithoutforcedplacement."
+    },
+    "warm_delivery": {
+      "full": {
+        "module": "HERCULES.EXE",
+        "start_rva": "0xbcf0",
+        "end_rva_exclusive": "0xbd30",
+        "bytes": 64,
+        "sha256": "ad8b0a6bef1ea2081ad5fb6bacc4750323a5587a2fb1c3c176de1300d3ae7b10"
+      },
+      "steps": [
+        "BCF0 ifpacketpointerA8E78Cnonnullcalls8040(),reloadspointer,writesNOT(EAX)low16 atpacket+2,byte1=40,byte0=0.",
+        "BD1c callsF820(),thenBD21 callsBDB0(),thenBD26 tailBE40().",
+        "Thusregistration/gateupdatesbyF820events areobservedbyfreshBDB0loads;updatesinsideBDB0 callbackareseenonlynextBDB0invocation. BCF0preservesrealafter-eventdeliveryorder."
+      ],
+      "limits": "Packetminimum4bytesused,capacity/sourceidentityunproved. Do notidentifyF820asCRT orskipit;event-deliverypurposeisproject-host inferencefromcaller/othercode,fullsourcecontractstillmissing."
+    },
+    "adjacent_bounds": [
+      {
+        "label": "parallel callback invocation",
+        "start_rva": "0xbd80",
+        "end_rva_exclusive": "0xbda0",
+        "size": 32,
+        "sha256": "f7a025f60d10546c25ab438b6975f01529c9c4067cc99327b7d461c081d90d8e",
+        "refs": [
+          {
+            "source_rva": "0xa7f7",
+            "kind": "linear_call"
+          },
+          {
+            "source_rva": "0xa8db",
+            "kind": "linear_call"
+          },
+          {
+            "source_rva": "0xaa5f",
+            "kind": "linear_call"
+          },
+          {
+            "source_rva": "0xabe4",
+            "kind": "linear_call"
+          },
+          {
+            "source_rva": "0xac00",
+            "kind": "linear_call"
+          },
+          {
+            "source_rva": "0xac40",
+            "kind": "linear_branch"
+          },
+          {
+            "source_rva": "0xb2e2",
+            "kind": "linear_call"
+          }
+        ]
+      },
+      {
+        "label": "parallel callback registration",
+        "start_rva": "0xbda0",
+        "end_rva_exclusive": "0xbdb0",
+        "size": 16,
+        "sha256": "5ba421e35d332be3cb442c8f333e689fdd0f60fb09f6e2c475df0d51e36c5c87",
+        "refs": []
+      },
+      {
+        "label": "invocation",
+        "start_rva": "0xbdb0",
+        "end_rva_exclusive": "0xbdd0",
+        "size": 32,
+        "sha256": "92841cbb801b698151024c3b065ba5148d818baa5c2a2338fbba3a0e18fbf43e",
+        "refs": [
+          {
+            "source_rva": "0xbd21",
+            "kind": "linear_call"
+          }
+        ]
+      },
+      {
+        "label": "registration",
+        "start_rva": "0xbdd0",
+        "end_rva_exclusive": "0xbde0",
+        "size": 16,
+        "sha256": "969cf0580788e85301e859cdfb9e3cd6e3eb140e34a1b4288647e7958d12b1c0",
+        "refs": [
+          {
+            "source_rva": "0x1d02",
+            "kind": "linear_call"
+          },
+          {
+            "source_rva": "0x1d32",
+            "kind": "linear_call"
+          },
+          {
+            "source_rva": "0x1d51",
+            "kind": "linear_call"
+          },
+          {
+            "source_rva": "0x4093",
+            "kind": "linear_call"
+          }
+        ]
+      },
+      {
+        "label": "disable gate",
+        "start_rva": "0xbde0",
+        "end_rva_exclusive": "0xbdf0",
+        "size": 16,
+        "sha256": "e53daadaab20d81e481b446c50d3090229bb110213f579e8fec82a687710d92a",
+        "refs": []
+      },
+      {
+        "label": "enable/reset registration",
+        "start_rva": "0xbdf0",
+        "end_rva_exclusive": "0xbe10",
+        "size": 32,
+        "sha256": "69ffe655cec97686417a498c09a827b2e3681492c4395c1de4acfaf528ee0d97",
+        "refs": [
+          {
+            "source_rva": "0x106e2",
+            "kind": "linear_call"
+          }
+        ]
+      }
+    ],
+    "boundary": "BD80full32 precedesBDA016 setter;BDB0 followsBDA0 RETBDAF;BDD0followsBDB0tail/RETwith10NOP;BDE0separatevalidentryafterBDD0RETBDDF. BDF0full32 endsBE07thenpaddingthroughBE10;noadditionalcode includedincore16/32spans."
+  },
+  "real_CRT_readers": {
+    "scope": "Boundedidentificationofnewactualreadercontributions,noCRTsource rewrite.",
+    "library": [
+      {
+        "library": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+        "library_sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b",
+        "member": "build\\intel\\mt_obj\\splitpat.obj",
+        "member_sha256": "78a24ccb16ded3c7d95b4448cdca8abffad57ef1d094345d1996c3c0385537bf",
+        "symbol": "__splitpath",
+        "symbol_offset": 0,
+        "target_rva": "0x11420",
+        "size": 384,
+        "normalized_differences": 0,
+        "relocations": [
+          {
+            "offset": "0x35",
+            "symbol": "__mbsnbcpy",
+            "type": 20,
+            "actual_target_rva": "0x15180"
+          },
+          {
+            "offset": "0x6d",
+            "symbol": "__mbctype",
+            "type": 6,
+            "actual_target_rva": "0x7a0321"
+          },
+          {
+            "offset": "0xbb",
+            "symbol": "__mbsnbcpy",
+            "type": 20,
+            "actual_target_rva": "0x15180"
+          },
+          {
+            "offset": "0xff",
+            "symbol": "__mbsnbcpy",
+            "type": 20,
+            "actual_target_rva": "0x15180"
+          },
+          {
+            "offset": "0x129",
+            "symbol": "__mbsnbcpy",
+            "type": 20,
+            "actual_target_rva": "0x15180"
+          },
+          {
+            "offset": "0x155",
+            "symbol": "__mbsnbcpy",
+            "type": 20,
+            "actual_target_rva": "0x15180"
+          }
+        ]
+      },
+      {
+        "library": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+        "library_sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b",
+        "member": "build\\intel\\mt_obj\\stricmp.obj",
+        "member_sha256": "a02804730780cdbc4e0c3a675c777c752185be9bcad4c816a807e5db632746e8",
+        "symbol": "__stricmp",
+        "symbol_offset": 0,
+        "target_rva": "0x1c270",
+        "size": 208,
+        "normalized_differences": 0,
+        "relocations": [
+          {
+            "offset": "0xe",
+            "symbol": "___lc_handle",
+            "type": 6,
+            "actual_target_rva": "0x7a0558"
+          },
+          {
+            "offset": "0x56",
+            "symbol": "___unguarded_readlc_active",
+            "type": 6,
+            "actual_target_rva": "0x7a2e9c"
+          },
+          {
+            "offset": "0x5c",
+            "symbol": "___setlc_active",
+            "type": 6,
+            "actual_target_rva": "0x7a2e98"
+          },
+          {
+            "offset": "0x6a",
+            "symbol": "___unguarded_readlc_active",
+            "type": 6,
+            "actual_target_rva": "0x7a2e9c"
+          },
+          {
+            "offset": "0x71",
+            "symbol": "__lock",
+            "type": 20,
+            "actual_target_rva": "0x121f0"
+          },
+          {
+            "offset": "0x95",
+            "symbol": "__tolower_lk",
+            "type": 20,
+            "actual_target_rva": "0x18520"
+          },
+          {
+            "offset": "0x9f",
+            "symbol": "__tolower_lk",
+            "type": 20,
+            "actual_target_rva": "0x18520"
+          },
+          {
+            "offset": "0xb9",
+            "symbol": "___unguarded_readlc_active",
+            "type": 6,
+            "actual_target_rva": "0x7a2e9c"
+          },
+          {
+            "offset": "0xc2",
+            "symbol": "__unlock",
+            "type": 20,
+            "actual_target_rva": "0x12270"
+          }
+        ]
+      }
+    ],
+    "normalized_difference_count": 0,
+    "total_bytes": 592,
+    "sprintf": "Reuse prioridentified112bytes10f40..10fb0; no duplicatebuild.",
+    "limits": "Onlyselectedmembersidentified;notcompleteCRT/linker/sourceidentityproof."
+  },
+  "bounded_worker": {
+    "family": "actualhost callback registration/invocation",
+    "core_scope": [
+      "BDD0..BDE0 register16bytes",
+      "BDB0..BDD0 invoke32bytes"
+    ],
+    "core_bytes": 48,
+    "optional_coherent_peers": [
+      "BD80 invokecallback0:32",
+      "BDA0 registercallback0:16",
+      "BDE0 disable:16",
+      "BDF0 enable/reset:32"
+    ],
+    "ordinary_source": [
+      "register:previous=g_callback;g_callback=new_callback;returnprevious;",
+      "invoke:callback=g_callback;if(callback!=0&&g_gate!=0)callback();",
+      "disable:g_gate=0;return0; enable/reset:g_gate=1;g_callback0=0;g_callback=0;return0;"
+    ],
+    "prediction": "A single historical C function-pointer view and shared 32-bit gate can preserve the old-pointer return and conditional tail call without wrappers, casts, or volatile. Measure fresh complete 16/32-byte contributions and ordered data relocations; natural global/link context remains a dependency.",
+    "falsifier": "Wrong callback destination, omitted gate, lookup cached before F820, added argument/cleanup/reset, lost old return bits, failed target-derived fixture, changed accepted peers, or nonexact full contribution. Do not follow with declaration/register grids.",
+    "fixtures": [
+      "Register A from NULL returns NULL; register B returns A; register NULL returns B.",
+      "NULL callback skips gate/call. A with gate 0 skips; gates 1, 2, and 0x80000000 invoke A.",
+      "A registers B or disables the gate while running: the current delivery stays A; the next delivery sees the new state.",
+      "F820 registers B before BDB0 performs its fresh lookup, so B runs.",
+      "Disable retains registrations. Enable/reset sets gate 1 and clears both callback cells.",
+      "Module callback 4040 registers NULL and discards the old return without invoking it.",
+      "Preserve all 42 raw accepted functions and 25 header consumers. Do not add control-prefix placeholder definitions."
+    ]
+  },
+  "evidence": {
+    "core": "work/control_storage_audit/decode.txt",
+    "near_refs": "work/control_storage_audit/near_refs.json",
+    "callback_functions": "work/control_storage_audit/callback_functions.json",
+    "loader": "work/control_storage_audit/extra.txt",
+    "CRT": "work/control_storage_audit/library_readers.json"
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "compiler_builds": 0,
+    "tokens": null,
+    "cost_usd": null
+  }
+}

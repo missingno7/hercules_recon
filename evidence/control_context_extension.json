@@ -1,0 +1,183 @@
+{
+  "scope": "Target-observed DWORD prefix extension. No original complete type or new function acceptance claim.",
+  "before_header_sha256": "317aa8aa66adf96176343ac1a9c735a1c132453d9dcd4fa612010dcdac24d619",
+  "header_sha256": "b6ea023320d1bf3f2862fc3b1cb7db051227a89fb5e553bb5bf08ace386c4093",
+  "interface_header_sha256": "b2b4c05aa53ffe5359dc34a1cd6fb1ae6307f6b1b92036adec3ed7fcfab16bc4",
+  "minimum_observed_end": "0x1b34",
+  "slots": {
+    "0xe4": "pointer-sized load/nonnull test/pass to free",
+    "0x128": "byte clear",
+    "0x12c": "16bit clear"
+  },
+  "evidence": "work/engine_control_audit/report.json",
+  "consumer_functions": 25,
+  "consumer_rows": [
+    {
+      "source": "calibration/resource_callbacks.c",
+      "source_sha256": "fb6ebb809cfaf05fb9d477ee73b813ac7b06fcf0cd99fd3f5d77a8d6187eaa4f",
+      "functions": 4,
+      "changed": [],
+      "output_ids": {
+        "_resource_cancel": "8dd9aeba18a25112a9576f2b2aec5c6eb87711ec89765b057d800bf743551385",
+        "_resource_load_complete": "a8445d92fc6a17d53fa4894dd54b3bb761c8a8ee699019bdf5524237b9861cc7",
+        "_resource_load_failed": "4046aeb315dd0b5efc30294f04b06e2579fe776078a258be1f3f05e43d481874",
+        "_resource_reset": "3bacfd6f28e3bb2112d942fe2c204bf54d48f8e190c9c5edf04c23f55c12973f"
+      },
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\prog\\hercules_recon\\build\\match\\compile-trmtmzwn\\candidate.obj",
+        "D:\\prog\\hercules_recon\\calibration\\resource_callbacks.c"
+      ],
+      "object_sha256": "7acaab1a8ffee4cb4467ea663b8297c3c8fbc5579adaecdc3100d16da3350a8f",
+      "report": "work/control_context_extension/resource_callbacks.json",
+      "report_sha256": "6334f3142bf0f693b28ea0caee6b2f465e0c9f9617d88c988a8723705e893ee0"
+    },
+    {
+      "source": "calibration/resource_readiness.c",
+      "source_sha256": "d431881a13b544a3e9bc9b4b799f680d47d079927b5834076b52e3592ba69c07",
+      "functions": 2,
+      "changed": [],
+      "output_ids": {
+        "_ensure_actor_resource_ready": "1ff6d2a9e84ce85cfbf3ce2e0e8e2500fcff68da9feb6e9478929d2e66da51f1",
+        "_resource_metadata_scan": "36bea5135efb8ed0d3cc97b71501b925de032ce84645b041d7987958d46b3818"
+      },
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\prog\\hercules_recon\\build\\match\\compile-i7xn5l0q\\candidate.obj",
+        "D:\\prog\\hercules_recon\\calibration\\resource_readiness.c"
+      ],
+      "object_sha256": "17168e61a7809bec6dbfbdf5089dca733a8250b189af7f532902a49aa6c56ffd",
+      "report": "work/control_context_extension/resource_readiness.json",
+      "report_sha256": "9c72c4e9342e7997ba9a4236b1b3f8b45576b3a258f5771befa461fff34b6183"
+    },
+    {
+      "source": "calibration/resource_provider.c",
+      "source_sha256": "b5f3ff5758e7b441fda862264aabf1bda44109fd64f9c516af4eeccdf3a8815d",
+      "functions": 1,
+      "changed": [],
+      "output_ids": {
+        "_resource_provider": "8f835b11080436ae93f988c1b29d77e7807b2989a4e9c6f41001856f55045493"
+      },
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\prog\\hercules_recon\\build\\match\\compile-_zcfzyy_\\candidate.obj",
+        "D:\\prog\\hercules_recon\\calibration\\resource_provider.c"
+      ],
+      "object_sha256": "7520c0ca1775b3f532c2cc16865bbf975e974e992e03edc591a66cee08f9bf70",
+      "report": "work/control_context_extension/resource_provider.json",
+      "report_sha256": "3944743965b327d772deb8feeed8e07cfe148cc5078853388b2ced86138a3e52"
+    },
+    {
+      "source": "calibration/host_file_service.c",
+      "source_sha256": "13ec8004a49e2364c8b3618baa1da62a1059e089811cfc3b32e621986b0b2776",
+      "functions": 6,
+      "changed": [],
+      "output_ids": {
+        "_host_cancel_load": "51e2ee4d40154a4a23fabfd67c4c29bb778127981731620a687483cf5b907f01",
+        "_host_file_async": "54e8b1e548856ab640b86047aab856ea642c3f4c5beb23f3e2e7f1fe1dbc5a5b",
+        "_host_file_prepare": "9d7bf01fb2836731a7f0827fba04b18deb26d59139c15ff56eb0601e66d7f934",
+        "_host_file_progress": "0bd5c50cd5e8d87531a5c73ab275d86bb0fa8ef789f2a0df680187c5176c9569",
+        "_host_file_sync": "8903e99c23d7c57498592f8e98d1160fb65f8f5c9eb3688789dccaa058d05489",
+        "_resource_file_length": "c8c2de0ff74be1a28f8bf7ff27003e8f035fe4b8b63a982a08408b41a1fc92c2"
+      },
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\prog\\hercules_recon\\build\\match\\compile-7_jjduer\\candidate.obj",
+        "D:\\prog\\hercules_recon\\calibration\\host_file_service.c"
+      ],
+      "object_sha256": "fb84beeafa6a80ca540eef2fdca3853164242b521027f6a1095846caeb57f25f",
+      "report": "work/control_context_extension/host_file_service.json",
+      "report_sha256": "f2dff297d8ee0d8a99ed11d8c3c8c10e50cbac6fef7e8694f27afe32c3876763"
+    },
+    {
+      "source": "calibration/resource_rebind.c",
+      "source_sha256": "be8d036ff366d04aa83036a7827f17edb47eaf4ea2086e3a5c4687850915c2f9",
+      "functions": 3,
+      "changed": [],
+      "output_ids": {
+        "_resource_rebuild_blob": "d375489a854955184205c6d6874eb80e315f34b44118013ba7303e5b239a51bf",
+        "_resource_rebuild_group_rows": "2a2d677052c2cc3be0d02c1ecb3c48ba8e4e76b84de8354613bf82069207f56b",
+        "_resource_select_group": "bd14cee84c30e7c3e53961de76c6ea880c726a7cbdb66d61e424d548c6af6f71"
+      },
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\prog\\hercules_recon\\build\\match\\compile-7xwmi6n1\\candidate.obj",
+        "D:\\prog\\hercules_recon\\calibration\\resource_rebind.c"
+      ],
+      "object_sha256": "3b027cf446004022e96ace1c276088eb8b69795a4a17c1215684f80a270d7d4f",
+      "report": "work/control_context_extension/resource_rebind.json",
+      "report_sha256": "1bc290f134d76f94d18340ea20aef4d7695d4de2bf3028ae99c3b13606165823"
+    },
+    {
+      "source": "calibration/engine_file_bridge.c",
+      "source_sha256": "0860ba3c4e242f3810bdbb15d1f70bfbf266b48b96715b3ba3c56f3ef96a62c2",
+      "functions": 6,
+      "changed": [],
+      "output_ids": {
+        "_engine_file_cancel": "b62bf84cdace4208cdaf118f5754fa3b40e59ab1f58d25addcfe8c95fcda91cf",
+        "_engine_file_length": "370d1e44abb64e27b5eb4c649d44c4b39728f80cedd1e056960abfc79f246eef",
+        "_engine_file_load_async": "c8a2b9391c3e6e21c53350c3f95355b82be7207cbb86ed97dc2ceaa9d718041e",
+        "_engine_file_load_sync": "c3025cc6ddaff28dce36fb1da5fc8b43ad049f9bc0e7c851caa1de44b28e116c",
+        "_engine_pool_allocate": "0d658282c42a252543d79eeff9fc19b24707f2803c3817c32130264135304db0",
+        "_engine_pool_compact": "c34befc4b0ba69bfc5524b3c13552f23762f8ce423176c291e67cbf5f07258f2"
+      },
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\prog\\hercules_recon\\build\\match\\compile-uubnpw4j\\candidate.obj",
+        "D:\\prog\\hercules_recon\\calibration\\engine_file_bridge.c"
+      ],
+      "object_sha256": "afd4e2872a870c2cc7f6fce6d0400aaf0e966cb3d8ae8d2f603706dfdaf4c26f",
+      "report": "work/control_context_extension/engine_file_bridge.json",
+      "report_sha256": "6b05bbd78404ffaee2165ef626ed1c445df80f37a52c0ee9bb2963f9772b5412"
+    },
+    {
+      "source": "calibration/engine_dependency_bridges.c",
+      "source_sha256": "c4c5f4c6a554c9d08d098dbc6143664b6cb60282c9c4e4df19944a64f017252e",
+      "functions": 3,
+      "changed": [],
+      "output_ids": {
+        "_engine_host_update": "c3421faf418b151fef6b394291fef0fef99a8380ba8572706e1be5cdefc11c38",
+        "_engine_pool_save_arena": "280bd26d9405d1873ea48b793d455e5fbc528c2ea82cd9d1e3c0776153d03bfb",
+        "_resource_reclaim": "2ffeed57243e61689ab74b0d91ea18a6914b213e2b077365f110234dd9f3006a"
+      },
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\prog\\hercules_recon\\build\\match\\compile-wnr0bijt\\candidate.obj",
+        "D:\\prog\\hercules_recon\\calibration\\engine_dependency_bridges.c"
+      ],
+      "object_sha256": "726289c3878f6f37daa53995bd6f25723644c31faca61f26ea75e7e2edd564ee",
+      "report": "work/control_context_extension/engine_dependency_bridges.json",
+      "report_sha256": "626bf55f3e945640c85e915d21a9a77b43910a73c3b65a7ff97c61bbee773e07"
+    }
+  ],
+  "changed_functions": [],
+  "originals_executed": false
+}

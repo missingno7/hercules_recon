@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-08T03:13:41.147780+00:00",
+  "region": "host_callback_protocol",
+  "ownership": {
+    "id": "host_callback_protocol",
+    "ownership": "function_task",
+    "rationale": "Six adjacent host callback invocation/registration/gate routines; no original TU, names, or complete storage aggregate proved."
+  },
+  "context_id": "720be3d2ae105a28628f6c48f995f78c2fd1ff645094224f100dfcf9d5e20b04",
+  "source_sha256": "70c2092b271ef9d2992cdf4fece42bbb041dbdb8d249aadac2b10523952dc437",
+  "baseline_sha256": "70c2092b271ef9d2992cdf4fece42bbb041dbdb8d249aadac2b10523952dc437",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "70c2092b271ef9d2992cdf4fece42bbb041dbdb8d249aadac2b10523952dc437",
+  "source_patch": {
+    "base_sha256": "70c2092b271ef9d2992cdf4fece42bbb041dbdb8d249aadac2b10523952dc437",
+    "result_sha256": "70c2092b271ef9d2992cdf4fece42bbb041dbdb8d249aadac2b10523952dc437",
+    "edits": []
+  },
+  "output_id": "c852a6d9f8c7cdb5219cea12fda76a4a96c36875005e33ac4bef24a29610d003",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_host_invoke_callback_zero",
+      "target_size": 32,
+      "candidate_size": 32,
+      "raw_different_bytes": 6,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": false,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 2,
+      "target_relocation_count": 0,
+      "output_id": "127dece3c84106500b85ebb469a98e1fae1bb47543390f47a64589dce633da48",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_host_set_callback_zero",
+      "target_size": 16,
+      "candidate_size": 16,
+      "raw_different_bytes": 6,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 2,
+      "target_relocation_count": 0,
+      "output_id": "2a48e6350b37ab54224021cf81905f0fdefb95322c7d00929322461b9e120abb",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_host_invoke_callback_one",
+      "target_size": 32,
+      "candidate_size": 32,
+      "raw_different_bytes": 6,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": false,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 2,
+      "target_relocation_count": 0,
+      "output_id": "859bd6ed95fb3e3c0e3aa2eb6a1ac6dbcb8e3cf02ab775ae430af0c1338d5514",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_host_set_callback_one",
+      "target_size": 16,
+      "candidate_size": 16,
+      "raw_different_bytes": 6,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 2,
+      "target_relocation_count": 0,
+      "output_id": "2b546216be1171e453e210f7661967e7a5cbfffc42bb03ca8c7e0db177b75272",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_host_disable_callback_gate",
+      "target_size": 16,
+      "candidate_size": 16,
+      "raw_different_bytes": 3,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 1,
+      "target_relocation_count": 0,
+      "output_id": "17882dc3fb403346b9c16c238b4e6fdc7424cf54d18b6e033946bb4453e5e896",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_host_enable_clear_callbacks",
+      "target_size": 32,
+      "candidate_size": 32,
+      "raw_different_bytes": 9,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 3,
+      "target_relocation_count": 0,
+      "output_id": "4d4b54666059d044d9413f41f5aaddf96a4974a27c80d320cd054e7a7c5de525",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 6,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 6,
+    "ordered_cfg_equal": 4,
+    "instruction_over_90": 6,
+    "nonexact_instruction_over_90": 6,
+    "categories": {
+      "relocation-only diagnostic equality": 6
+    }
+  },
+  "family": "typed-two-channel-callback-prefix-and-shared-gate",
+  "prediction": "One ordinary-C typed 12-byte observed storage prefix using the shared EngineNoArgCallback type, two old-pointer-return setters, two capture-before-gate invokers, and gate-only disable / gate-first enable-reset functions will preserve both callback channels and the reviewed protocol. The target-derived fixture will test NULL and nonzero gates, old-pointer returns, mutation during delivery, cross-channel independence, and disable/reset behavior. Fresh pinned compilation will compare all six complete spans and ordered relocations.",
+  "falsifier": "Any fixture mismatch in captured callback, gate tests, old return bits, channel separation, callback/gate mutation timing, disable preservation, or enable/reset order; or any full-span byte/relocation mismatch. No source type/declaration spelling grid follows.",
+  "verdict": "Current measured context recorded; no source retry or new acceptance from this receipt.",
+  "blocker": null,
+  "reentry_condition": null,
+  "next_discriminator": null,
+  "ungated_work": [],
+  "new_evidence": [
+    "work/control_storage_audit/report.json",
+    "work/control_storage_audit/callback_functions.txt",
+    "work/control_storage_audit/callback_functions.json",
+    "work/control_storage_audit/decode.txt",
+    "work/control_storage_audit/near_refs.json",
+    "work/control_storage_audit/extra.txt",
+    "calibration/engine_interface.h"
+  ],
+  "new_discriminator": "Controlled unused-typedef experiment proves header-only compiler context can change complete bytes. Explicit declared headers now participate in existing context IDs; no acceptance cache.",
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "bounded native32 host callback storage protocol reconstruction and six-span historical measurement",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 2,
+    "semantic_result": "Current 50suite regression passed; narrow source fixtures only.",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "4ddc991773e29b41739c68123397149705cc96e3751285fdaa95217028d2ea83",
+    "report_sha256": "fc18d4ca2269058dbf53d8df6690dca3515e41a8c24b196a7fc984656179c141",
+    "context_files": {
+      "calibration/engine_interface.h": "b2b4c05aa53ffe5359dc34a1cd6fb1ae6307f6b1b92036adec3ed7fcfab16bc4",
+      "calibration/host_callback_protocol_externs.h": "52ad7798ac5c4e6ff8b4979947465abac540b88a2cb26d9e500230b040637661",
+      "calibration/resource_context.h": "b6ea023320d1bf3f2862fc3b1cb7db051227a89fb5e553bb5bf08ace386c4093"
+    },
+    "object_sha256": "c5151c41e4a9fbbdd3c695cbbf6aecf3e3ab487a33c422d3676061b8ef07afdc",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-cd5ncxvi\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\host_callback_protocol.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "634717f5a9f2934a274bf6ad7b65fb27233b34aef80e91caabd98b90ee38b805"
+}

@@ -82,6 +82,9 @@ combined host/archive pipeline with historical stdio.
 The [resource-rebind continuation](docs/resource_rebind_progress.md) exercises real
 owner relocation through host compaction and engine rebuilds, and identifies
 thirteen additional CRT dependencies without rewriting library code.
+The [dispatcher continuation](docs/dispatcher_progress.md) accepts a real host
+callback, reconstructs dispatcher/callback dependencies and tests their native
+cross-module callback chain. Header dependencies now identify compiler context.
 
 ## References
 

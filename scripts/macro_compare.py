@@ -147,9 +147,23 @@ def direct_external_references(instructions, image_base, start, size):
     return references
 
 
+def declared_context_files(spec, root):
+    """Explicit repository compile dependencies, not a preprocessor or cache."""
+    result = {}
+    for name in spec.get('context_files', []):
+        path = (root / name).resolve()
+        if Path(name).is_absolute() or not path.is_relative_to(root.resolve()) or name in result:
+            raise ValueError('Invalid or duplicate context file: ' + name)
+        result[name] = digest(path.read_bytes())
+    return result
+
+
 def evaluate(source, spec_path, output, obj=None):
     started = time.perf_counter()
     spec = json.loads(spec_path.read_text())
+    context_files = declared_context_files(spec, ROOT)
+    if obj is not None and context_files:
+        raise ValueError('Declared dependencies require a fresh compile; use a legacy analysis spec for existing objects')
     target = ROOT / spec['target']
     pe = PE(target)
     if digest(pe.data) != spec['target_sha256']:
@@ -234,6 +248,8 @@ def evaluate(source, spec_path, output, obj=None):
                          category=category))
     if digest(source.read_bytes()) != source_hash or digest(target.read_bytes()) != spec['target_sha256']:
         raise ValueError('Source or target changed during measurement')
+    if context_files != declared_context_files(spec, ROOT):
+        raise ValueError('Declared compile dependencies changed during measurement')
     summary = dict(functions=len(rows), exact=sum(r['strict_equal'] for r in rows),
                    new_exact=sum(r['strict_equal'] and not r['control'] for r in rows),
                    exact_bytes=sum(r['target_size'] for r in rows if r['strict_equal']),
@@ -250,6 +266,8 @@ def evaluate(source, spec_path, output, obj=None):
                   target_sha256=spec['target_sha256'],flags=spec['flags'],
                   elapsed_seconds=round(time.perf_counter()-started,3),
                   summary=summary,functions=rows)
+    if 'context_files' in spec:
+        report['context_files_sha256'] = context_files
     output.parent.mkdir(parents=True,exist_ok=True)
     output.write_bytes((json.dumps(report,indent=2)+'\n').encode())
     print(json.dumps(summary))

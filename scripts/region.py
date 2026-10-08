@@ -13,6 +13,7 @@ import re
 from env import ROOT
 from coff import COFF
 from match import digest,compare,verify_toolchain,DEFAULT_TOOLCHAIN
+from macro_compare import declared_context_files
 
 
 def identity(value):
@@ -94,8 +95,10 @@ def ownership(spec):
 
 
 def context_identity(spec,baseline):
-    return identity(dict(target=spec['target_sha256'],functions=spec['functions'],symbols=spec.get('symbol_rvas',{}),
-        flags=spec['flags'],baseline_source=digest(baseline.encode()),toolchain_manifest=digest((ROOT/'toolchains/manifest.json').read_bytes())))
+    value=dict(target=spec['target_sha256'],functions=spec['functions'],symbols=spec.get('symbol_rvas',{}),
+        flags=spec['flags'],baseline_source=digest(baseline.encode()),toolchain_manifest=digest((ROOT/'toolchains/manifest.json').read_bytes()))
+    if 'context_files' in spec:value['context_files']=declared_context_files(spec,ROOT)
+    return identity(value)
 
 
 def record(spec_path,source,baseline,report_path,meta_path,parents=()):
@@ -107,6 +110,8 @@ def record(spec_path,source,baseline,report_path,meta_path,parents=()):
     if report['source_sha256']!=digest(source.read_bytes()):raise ValueError('Source changed since compile')
     if report['target_sha256']!=spec['target_sha256']:raise ValueError('Wrong oracle report')
     if report.get('flags')!=spec['flags']:raise ValueError('Compile flags disagree')
+    if 'context_files' in spec and report.get('context_files_sha256')!=declared_context_files(spec,ROOT):
+        raise ValueError('Missing or changed declared compile dependency provenance')
     verify_toolchain(DEFAULT_TOOLCHAIN)
     if digest((ROOT/spec['target']).read_bytes())!=spec['target_sha256']:raise ValueError('Oracle changed')
     obj=Path(report['object'])
@@ -157,6 +162,7 @@ def record(spec_path,source,baseline,report_path,meta_path,parents=()):
             compile_cycles=meta.get('compile_cycles'),semantic_result=meta.get('semantic_result'),
             actual_model_identity=meta.get('actual_model_identity')),
         provenance=dict(spec_sha256=digest(Path(spec_path).read_bytes()),report_sha256=digest(Path(report_path).read_bytes()),
+            context_files=report.get('context_files_sha256'),
             object_sha256=report['object_sha256'],command=report.get('command'),
             toolchain_manifest=digest((ROOT/'toolchains/manifest.json').read_bytes())))
     payload['receipt_id']=identity(payload)

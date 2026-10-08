@@ -1,0 +1,40 @@
+{
+  "scope": "Full contribution raw equality only. Original name, formal argument list, return declaration, TU and final link layout remain unproved.",
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "rva": "0xa340",
+  "end_rva_exclusive": "0xa350",
+  "size": 16,
+  "body_size": 3,
+  "target_span_sha256": "33cb7c6b5695e070548b4e7f33d43173b10670c306067b684edf21470a662ef2",
+  "boundary": "PreviousRET a338 thenNOPs througha33f; XOR EAX,EAX at a340,RET a342,NOPs througha34f; next independently called entrya350.",
+  "role": "Actual custom host interface zero-return callback. Static copied table and referenced wrappers identify it; not an invented dependency stub or rewritten CRT.",
+  "references": [
+    {
+      "engine_entry": "0x2c630",
+      "slot": 91,
+      "physical_arguments": 1
+    },
+    {
+      "engine_entry": "0x2ca40",
+      "slot": 187,
+      "physical_arguments": 1
+    }
+  ],
+  "source_hypothesis": "int __cdecl host_zero_callback(void){return0;} models the ignored-stack zero-return body; original formal prototype unproved.",
+  "initial_measurement": {
+    "report": "work/host_zero_callback/metrics_v1.json",
+    "report_sha256": "101e521b38da7129695d836c2cd75937d204fd8b5c93ec66c133d874589a8111",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-3gfs8ahu\\candidate.obj",
+      "D:\\prog\\hercules_recon\\candidates\\host_zero_callback\\host_zero_callback_v1.c"
+    ],
+    "object_sha256": "e0d7c85512b1ebf4d429ac977be5c1844d4895934b5c0a27d86fd65d41189841"
+  },
+  "gate": "scripts/promote.py: fresh full raw verification of all accepted functions and this candidate under serialized promotion; recovery.json alone authorizes acceptance."
+}

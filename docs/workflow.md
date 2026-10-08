@@ -28,6 +28,12 @@ Packets identify source/context, unresolved functions, selected frontier, tried
 families, blockers, re-entry evidence, next discriminator and ungated work. Changed
 baseline/oracle/flags/symbol context invalidates old receipts. Canonical closure is
 overlaid from recovery state each time; fully closed regions expose no frontier.
+For header-using regions, `context_files` lists the bounded transitive repository
+dependencies. Their hashes participate in context identity and are captured
+before/after fresh compilation. Receipt writing rejects missing/stale hashes;
+an existing-object analysis cannot establish current header provenance. Historical
+specs without this list retain their old identity. These hashes are not a compiler
+or acceptance cache; SDK/toolchain inputs remain pinned by the toolchain manifest.
 Workers own disjoint `work/<lane>` and `candidates/<lane>` paths. One integrator
 publishes compact durable evidence and promotes source; workers never edit shared
 status logs or accepted state.

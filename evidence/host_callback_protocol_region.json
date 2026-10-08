@@ -1,0 +1,65 @@
+{
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "host_callback_protocol",
+    "ownership": "function_task",
+    "rationale": "Six adjacent host callback invocation/registration/gate routines; no original TU, names, or complete storage aggregate proved."
+  },
+  "functions": [
+    {
+      "symbol": "_host_invoke_callback_zero",
+      "rva": "0xbd80",
+      "size": 32,
+      "target_sha256": "f7a025f60d10546c25ab438b6975f01529c9c4067cc99327b7d461c081d90d8e",
+      "control": false
+    },
+    {
+      "symbol": "_host_set_callback_zero",
+      "rva": "0xbda0",
+      "size": 16,
+      "target_sha256": "5ba421e35d332be3cb442c8f333e689fdd0f60fb09f6e2c475df0d51e36c5c87",
+      "control": false
+    },
+    {
+      "symbol": "_host_invoke_callback_one",
+      "rva": "0xbdb0",
+      "size": 32,
+      "target_sha256": "92841cbb801b698151024c3b065ba5148d818baa5c2a2338fbba3a0e18fbf43e",
+      "control": false
+    },
+    {
+      "symbol": "_host_set_callback_one",
+      "rva": "0xbdd0",
+      "size": 16,
+      "target_sha256": "969cf0580788e85301e859cdfb9e3cd6e3eb140e34a1b4288647e7958d12b1c0",
+      "control": false
+    },
+    {
+      "symbol": "_host_disable_callback_gate",
+      "rva": "0xbde0",
+      "size": 16,
+      "target_sha256": "e53daadaab20d81e481b446c50d3090229bb110213f579e8fec82a687710d92a",
+      "control": false
+    },
+    {
+      "symbol": "_host_enable_clear_callbacks",
+      "rva": "0xbdf0",
+      "size": 32,
+      "target_sha256": "69ffe655cec97686417a498c09a827b2e3681492c4395c1de4acfaf528ee0d97",
+      "control": false
+    }
+  ],
+  "symbol_rvas": {
+    "_g_host_callback_prefix": "0x68e780"
+  },
+  "source": "calibration/host_callback_protocol.c",
+  "context_files": [
+    "calibration/engine_interface.h",
+    "calibration/host_callback_protocol_externs.h",
+    "calibration/resource_context.h"
+  ]
+}

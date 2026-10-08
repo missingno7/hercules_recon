@@ -1,0 +1,149 @@
+{
+  "scope": "Ordinary C compiler framing diagnostic only; no handler source candidate, body promotion, canonical/Git/gate/tool changes, or original execution.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "target": {
+    "observed_intervals": {
+      "callable_entry": "0x60f9",
+      "executable_body": {
+        "start_rva": "0x60f9",
+        "end_rva_exclusive": "0x6432",
+        "bytes": 825,
+        "sha256": "8caa96c9a03e206e764d7cb262fd15ea5ce5e17fb9ed007fdae78d5e301b370e"
+      },
+      "jump_table": {
+        "start_rva": "0x6432",
+        "end_rva_exclusive": "0x644a",
+        "bytes": 24,
+        "sha256": "246e54871b0ed72c205be5771c1ea41f68b4fc4caf810116e6e8c95f4289c596"
+      },
+      "byte_index_map": {
+        "start_rva": "0x644a",
+        "end_rva_exclusive": "0x646c",
+        "bytes": 34,
+        "sha256": "b3c0b63d2307920da7a7da145dfb4b38d561e69bed8d21b50a2e9b16027c2448"
+      },
+      "observed_combined_interval": {
+        "start_rva": "0x60f9",
+        "end_rva_exclusive": "0x646c",
+        "bytes": 883,
+        "sha256": "710d0b206f94feb5f0392f7a9877deb454c153493bed4e7b3040035433a26b3f"
+      },
+      "previous_ret": "0x60f8",
+      "next_independently_called_entry": "0x646c",
+      "next_proof": "62b3 directCALL646c;newEBPprologandnewlocals start646c. NoNOPbetweenpreviousRET60f8andentry60f9 orbetweenembeddedmapend646candnextentry.",
+      "COFF_limit": "883bytes is logicalPCbody+twoowneddispatch-tableinterval, not independentlydelimited originalCOFF/COMDAT/fullcontribution proof. No /Gy/16-bytealignment/trailingpadding identity inferred;entrymod16=9,endmod16=12. Priorphase_next_region/report fullsize wordingisnarrowedexplicitlyhere.",
+      "future_gate": "Do notpromotean883-byteFUNCTION_MATCH merelybyforcing/Gysectionlength orcomparisonbounds. Freshhistoricalcompile pluscompleteactualbyteequality anddefensiblecontribution/TU-context boundaries remainrequired. Acoherentshared-text region maybeneeded."
+    },
+    "terminal_sites": [
+      "641c MOV ECX,1",
+      "6421 TEST ECX,ECX",
+      "6423 JE 642c (constant-false exit)",
+      "6425 CALL 2c430",
+      "642a JMP 641c",
+      "642c XOR EAX,EAX;642e MOV ESP,EBP;6430 POP EBP;6431 RET"
+    ],
+    "callback": "2c430 tail-JMPs through the live table slot34 at VA10070fa8. Actual default host callback BE30 is an accepted empty leaf; the caller still calls a distinct externally visible wrapper, so the loop does not become a return.",
+    "classification": "Custom engine/game control cluster, not identified CRT.",
+    "original_flags_or_TU_proved": false
+  },
+  "diagnostic": {
+    "prediction": "work/control_compiler_context/prediction.json",
+    "source": "work/control_compiler_context/probe.c",
+    "source_sha256": "c91dda3fb694cdf7053ae6ad005c13d72e52fb6d03caaed55b13d9ea44ab17c7",
+    "build_count": 2,
+    "configurations": [
+      "Pinned VC5 /Od without /Gy",
+      "Pinned VC5 /Od with /Gy"
+    ],
+    "measurement": "work/control_compiler_context/measurement.json",
+    "result": "Both emit plain while(1) as literal MOV1 / TEST / JE exit / CALL / JMP backedge, followed by unreachable zero return and epilogue. Probe uses EAX, target uses ECX; this is instruction-form compatibility, not target equality.",
+    "body_local_comparison": [
+      {
+        "symbol": "_preceding_probe",
+        "shared_offset": 0,
+        "length": 10,
+        "body_local_bytes_equal": true,
+        "body_local_relocations_equal": true
+      },
+      {
+        "symbol": "_terminal_probe",
+        "shared_offset": 10,
+        "length": 23,
+        "body_local_bytes_equal": true,
+        "body_local_relocations_equal": true
+      },
+      {
+        "symbol": "_following_probe",
+        "shared_offset": 33,
+        "length": 10,
+        "body_local_bytes_equal": true,
+        "body_local_relocations_equal": true
+      }
+    ],
+    "shared_text": {
+      "section_flags": "0x60500020",
+      "section_alignment_bytes": 16,
+      "functions_at_offsets": [
+        0,
+        10,
+        33
+      ],
+      "section_bytes": 43,
+      "internal_function_padding_bytes": 0
+    },
+    "Gy": {
+      "section_flags": "0x60501020",
+      "section_alignment_bytes_each": 16,
+      "complete_COMDAT_sizes": [
+        10,
+        23,
+        10
+      ],
+      "tail_padding_bytes_each": 0,
+      "interpretation": "Function grouping produces independently delimited sections requesting 16-byte section alignment; /Od does not automatically pad their code contributions to 16 bytes. A standard linker respecting those requests would align their starts. No original linker alignment overrides are established."
+    }
+  },
+  "conclusions": [
+    "An ordinary historical C loop can explain the preserved literal test and unreachable return without volatile, assembly, explicit constant temporaries, or an exit condition.",
+    "Unaligned internal function entries naturally occur in a shared text section even when that section itself requests 16-byte alignment. The two probe objects differ in framing rather than body-local bytes.",
+    "The PC 60f9..646c body/tables interval remains a logical callable interval, not proof of a single original COFF section or /Gy contribution. Neither /Od nor noGy original source identity is established.",
+    "The observed expanded common-header context must stay stable for any later handler source test; prior typedef-only diagnostic proved unused declarations can affect pinned code generation."
+  ],
+  "bounded_next": {
+    "source_task": "One ordinary C semantic handler from the frozen PC contract; terminal while(1), captured selector, case18/19 fallthrough33, real callback/context reads. A single /Od shared-text diagnostic is justified by observed forms, but must not be called original flag recovery.",
+    "framing": "Recover actual adjacent callable bodies/data and ownership before declaring a complete shared-text comparison interval. Convenience probe neighbors are diagnostic only, never reconstructed missing contributions.",
+    "prohibition": "No source/flags/version/alignment grid, padding insertion, forced placement, pragma/volatile workaround, embedded-table source copy, or selection by similarity.",
+    "remaining_evidence": "Original COFF/PDB/map or independently recovered contiguous natural-source contributions plus measured link framing would be needed to establish original TU/contribution bounds. Exact independent /Gy promotion cannot be inferred from the observed 883 bytes."
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null,
+    "toolchain": "msvc5_rtm",
+    "commands_in": "work/control_compiler_context/measurement.json",
+    "toolchain_verified_by": "scripts/match.py verify_toolchain against toolchains/manifest.json",
+    "originals_executed": false,
+    "canonical_files_changed": false
+  },
+  "evidence": {
+    "target_sites": "work/control_compiler_context/target_sites.json",
+    "full_PC_contract": "work/engine_control_audit/report.json",
+    "shared_text_listing": "work/control_compiler_context/shared_text.txt",
+    "Gy_listing": "work/control_compiler_context/Gy.txt",
+    "reproduce": [
+      "python work/control_compiler_context/diagnose.py",
+      "python work/control_compiler_context/finalize.py"
+    ]
+  },
+  "evidence_sha256": {
+    "target_sites.json": "a8455d515f7efb198c89f8604eeb15d3908e94ee6c2320dc77092fe00e779495",
+    "measurement.json": "779494d2e8b247f0e2ca1368defc39cd1729adcb8f45c7b588739f1d04018c04",
+    "prediction.json": "c0f5d38094e4b48bd90bc9c44c72f8d0dd4eb50d575bdd4463539546a289deea",
+    "probe.c": "c91dda3fb694cdf7053ae6ad005c13d72e52fb6d03caaed55b13d9ea44ab17c7"
+  }
+}

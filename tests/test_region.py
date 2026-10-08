@@ -14,6 +14,18 @@ from region import contribution_identity,make_patch,apply_patch_text,check_reent
 
 
 class RegionTests(unittest.TestCase):
+    def test_header_change_invalidates_context_without_source_change(self):
+        scratch=Path(__file__).resolve().parents[1]/'work'
+        with tempfile.TemporaryDirectory(dir=scratch) as temp,patch('region.ROOT',Path(temp)):
+            root=Path(temp);(root/'toolchains').mkdir();(root/'toolchains/manifest.json').write_text('{}')
+            header=root/'view.h';header.write_text('typedef int T;')
+            spec=dict(target_sha256='oracle',functions=[],flags=['/O2'],context_files=['view.h'])
+            before=context_identity(spec,'same source')
+            header.write_text('typedef int T; typedef void (*Callback)(void);')
+            self.assertNotEqual(before,context_identity(spec,'same source'))
+            with self.assertRaises(ValueError):context_identity(dict(spec,context_files=['../outside.h']),'same source')
+            with self.assertRaises(FileNotFoundError):context_identity(dict(spec,context_files=['missing.h']),'same source')
+
     def test_output_identity_preserves_bytes_and_relocations(self):
         base=dict(data=b'\x90\xc3',size=2,relocations=[dict(offset=0,type=6,symbol='_real')])
         same=dict(base,path='other.obj',timestamp=123)

@@ -1,0 +1,830 @@
+{
+  "scope": "Complete static runtime-control callable interval/embedded tables and source contract. No builds/source/canonical/Git/assets changes ororiginalexecution. OriginalCOFF contribution bounds remainunproved.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "intervals": {
+    "callable_entry": "0x60f9",
+    "executable_body": {
+      "start_rva": "0x60f9",
+      "end_rva_exclusive": "0x6432",
+      "bytes": 825,
+      "sha256": "8caa96c9a03e206e764d7cb262fd15ea5ce5e17fb9ed007fdae78d5e301b370e"
+    },
+    "jump_table": {
+      "start_rva": "0x6432",
+      "end_rva_exclusive": "0x644a",
+      "bytes": 24,
+      "sha256": "246e54871b0ed72c205be5771c1ea41f68b4fc4caf810116e6e8c95f4289c596"
+    },
+    "byte_index_map": {
+      "start_rva": "0x644a",
+      "end_rva_exclusive": "0x646c",
+      "bytes": 34,
+      "sha256": "b3c0b63d2307920da7a7da145dfb4b38d561e69bed8d21b50a2e9b16027c2448"
+    },
+    "observed_combined_interval": {
+      "start_rva": "0x60f9",
+      "end_rva_exclusive": "0x646c",
+      "bytes": 883,
+      "sha256": "710d0b206f94feb5f0392f7a9877deb454c153493bed4e7b3040035433a26b3f"
+    },
+    "previous_ret": "0x60f8",
+    "next_independently_called_entry": "0x646c",
+    "next_proof": "62b3 directCALL646c;newEBPprologandnewlocals start646c. NoNOPbetweenpreviousRET60f8andentry60f9 orbetweenembeddedmapend646candnextentry.",
+    "COFF_limit": "883bytes is logicalPCbody+twoowneddispatch-tableinterval, not independentlydelimited originalCOFF/COMDAT/fullcontribution proof. No /Gy/16-bytealignment/trailingpadding identity inferred;entrymod16=9,endmod16=12. Priorphase_next_region/report fullsize wordingisnarrowedexplicitlyhere.",
+    "future_gate": "Do notpromotean883-byteFUNCTION_MATCH merelybyforcing/Gysectionlength orcomparisonbounds. Freshhistoricalcompile pluscompleteactualbyteequality anddefensiblecontribution/TU-context boundaries remainrequired. Acoherentshared-text region maybeneeded."
+  },
+  "ABI": {
+    "signature": "int runtime_control(void) is supported: noargloads, soleknowncaller20656 testsreturned32bits;reachable returningpaths yield0or33. Originalname/type/TU unproved.",
+    "entry_refs": [
+      {
+        "source_rva": "0x20656",
+        "target_rva": "0x60f9",
+        "kind": "linear_call"
+      }
+    ],
+    "selector": "Captureunsignedcontextbyte3 onceintolocalDWORD;>33 goesdefault6364;else34-byteindexmapselectsoneof6DWORDtargets. Changingphase3duringcallbacks doesnotredispatch thisentry.",
+    "source_view": "LIVEcontext isenginecopiedtable.slot1. Useobservedbyte/word/pointerfields,commonCunprototypedcallbacktypealreadyapprovedfornoarg/zeroargforms. Noindependentcontextpointerglobal orcallbackcasts."
+  },
+  "dispatch": {
+    "target_groups": {
+      "0x6128": [
+        0
+      ],
+      "0x6158": [
+        1,
+        2
+      ],
+      "0x6364": [
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ],
+      "0x612f": [
+        5
+      ],
+      "0x6253": [
+        18,
+        19
+      ],
+      "0x62da": [
+        33
+      ]
+    },
+    "default_for_above33": "0x6364",
+    "table_targets": [
+      "0x6128",
+      "0x6158",
+      "0x612f",
+      "0x6253",
+      "0x62da",
+      "0x6364"
+    ],
+    "index_map": [
+      0,
+      1,
+      1,
+      5,
+      5,
+      2,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      3,
+      3,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      4
+    ]
+  },
+  "cases": {
+    "0": {
+      "entry": "0x6128",
+      "contract": "Return0immediately,nootherwrites/calls."
+    },
+    "5": {
+      "entry": "0x612f",
+      "contract": [
+        "ReadSIGNEDword6ee84;threshold128 (signedJL).",
+        "Ifvalue>=128,setLIVEctx.byte5=0;reloadcontext,setphasebyte3=0.",
+        "Return0inbothpaths."
+      ]
+    },
+    "1/2": {
+      "entry": "0x6158",
+      "contract": [
+        "IfLIVEctx.bytee0!=0 OR(when e0==0)LIVEctx.pointere4!=NULL,setLIVEphasebyte3=0andreturn0. PreserveORshort-circuit.",
+        "Otherwise:localresource_id=3;callresource_destroy38d0(id),thenoriginalindexedresource.stateword16=6. localid=1;destroy(id),state16=6. Order3then1.",
+        "ReadLIVEcontext.mode_09c unsignedword;onlyif==1 callhostcancel2c260.",
+        "AFTERcancelreloadcontext,checkload_failed pointerb4. Ifnonnull,reloadcontextagain,invokeitsCURRENTload_failed withphysical32-bitargument0;caller-cleans4. Resultignored.",
+        "Callreclaim1f6a0(1);returnignored.",
+        "Callwrapper2c210(address6eef8,LIVEDWORDpointer/value4d968);realdefaultslot7->EXEA340returns0withoutconsumingargs.",
+        "Reloadcontext,setbyte5=1;reload,setblockedbytedf=1;reloadphasebyte3=0;reloadandwritephasebyte3=0AGAIN. Return0. DoublewriteisrealPCeffect;nointerveningcallback."
+      ]
+    },
+    "18/19": {
+      "entry": "0x6253",
+      "contract": [
+        "ReadLIVEcontext.mode_09c unsignedword;onlyif==1 callhostcancel2c260.",
+        "AFTERcancelreloadcontext,checkload_failed pointerb4. Ifnonnull,reloadcontextagain,invokeitsCURRENTload_failed withphysical32-bitargument0;caller-cleans4. Resultignored.",
+        "IfLIVEctx.pointere4!=NULL,reloaditandcallfree2c2d0(payload). Noexplicitfieldclearinthisroutine;hostowner-slotsemantics mayclearit.",
+        "Call1f220();call646c();call2c580().",
+        "Reloadcontext,setSIGNEDlevelbyte0=ff;call2c370(address6eefc,LIVEDWORD4d968). Returnignored.",
+        "FALLTHROUGHdirectly to33case62da ifthemodulecallbackreturns;noswitchredispatch."
+      ]
+    },
+    "33": {
+      "entry": "0x62da",
+      "contract": [
+        "ReadLIVEcontext.mode_09c unsignedword;onlyif==1 callhostcancel2c260.",
+        "AFTERcancelreloadcontext,checkload_failed pointerb4. Ifnonnull,reloadcontextagain,invokeitsCURRENTload_failed withphysical32-bitargument0;caller-cleans4. Resultignored.",
+        "Reloadcontext,clearbyte128=0;globalDWORD71ec0=0.",
+        "Call2c640(0),2cc40(0),2c630(0),2cc30(0),8117(),256a0() inthatorder.",
+        "Return33 (DWORD21), whichdispatcher20300 interpretsasnonzero/commonrestartrequest. Noassumedsemanticmeaningof33beyondactualcallback/returnprotocol."
+      ]
+    },
+    "all_other_values": {
+      "entry": "0x6364",
+      "contract": [
+        "IfentryLIVEctx.pointere4==NULL,skipinitialpoll-loop. Ifnonnull,execute loopbodyonce:2c270(),2cc30(0),666b(),2c430().",
+        "Afterthese calls,reloadLIVEcontext.bytee0;ife0!=0,reloadLIVEctx.pointere4;ifnonnull continue loop. Eitherfalsebreaks. Thisisnotwhile(e4)only;changesfromrealcallbacks canendit.",
+        "Afterloop,ifunsignedLIVEctx.byte6==3,setLIVEphasebyte3=19.",
+        "Call1f220(),2c580(),2cc30(0). Reloadcontext,clearWORD12c=0.",
+        "IfLIVEctx.pointere4!=NULL call2c200();elsecall2c370(address6ef00,LIVEDWORD4d968).",
+        "ThenenterUNCONDITIONALterminal loop:641c MOVECX1;TEST/JZdeadfalse;6425 call2c430();642ajump641c. Terminal loopdoesnotrecheckcontextorreturn0. Nominal642cXOREAX returnpathisunreachablefromthisconstanttruecondition."
+      ]
+    }
+  },
+  "live_capture": {
+    "captured": [
+      "Entryphasebyte3selectsonlyonecase",
+      "ResourceIDlocalused3then1",
+      "Eachsignedthreshold/readpredicate aslisted"
+    ],
+    "live": [
+      "ContextandfailedcallbackAFTERhostcancel",
+      "Pointere4beforefree,reloadagainforargument",
+      "Contextpointerafterdestroy/reclaim/interfacecalls",
+      "Defaultpollcompletion checks e0/e4 afterallfourcalls",
+      "Contextphase writesapplynewLIVEslot1 aftercallbacks",
+      "GLOBAL4d968 reloadedbeforeevery2-argmodule/servicewrappercall"
+    ],
+    "limits": "No synchronouscallbackbetweenfirstb4nonnulltestandsecondb4load,butbothactualreads recorded. Do notinventvolatile/asynchronousmutationrequirement toforce reloadinstructions."
+  },
+  "frame": {
+    "existing": "UsecurrentobservedResourceCallbackContextandEngineInterface250-wordsharedview;integratorownschanges.",
+    "additional": [
+      {
+        "offset": "0x3",
+        "width": 1,
+        "type": "unsignedchar",
+        "meaning": "capturedcontrolselector/livephasewriter"
+      },
+      {
+        "offset": "0x5",
+        "width": 1,
+        "type": "unsignedchar",
+        "meaning": "set0instate5threshold,set1incase1/2"
+      },
+      {
+        "offset": "0x6",
+        "width": 1,
+        "type": "unsignedchar",
+        "meaning": "defaultexact==3 predicate"
+      },
+      {
+        "offset": "0xe4",
+        "width": 4,
+        "type": "void * physicalallocationpointer",
+        "meaning": "nonnullguards andpassedtoactualfreecallback;originalobject/purposeunknown"
+      },
+      {
+        "offset": "0x128",
+        "width": 1,
+        "type": "unsignedchar",
+        "meaning": "clear0inshutdown;otherwriters1f44a/1f7d3and6570corroboratewidth"
+      },
+      {
+        "offset": "0x12c",
+        "width": 2,
+        "type": "unsignedshort",
+        "meaning": "clear0indefault;hostwrites1ca8/1cd2/2065corroboratewidth"
+      }
+    ],
+    "globals": [
+      {
+        "rva": "0x6ee84",
+        "width": 2,
+        "type": "signedshort",
+        "meaning": "case5threshold128"
+      },
+      {
+        "rva": "0x4d968",
+        "width": 4,
+        "type": "physical32-bitargvalue/pointer",
+        "meaning": "forwardedsecondargtocustomhostmodule/servicecallback"
+      },
+      {
+        "rvas": [
+          "0x6eef8",
+          "0x6eefc",
+          "0x6ef00"
+        ],
+        "meaning": "Actualfirstargumentaddresses;zero-fillstarts. Totalextent/writers/originalliteraldefinitionunproved;do notreplacewithseparateliterals ordeclare3independentbuffersbasedoninitialemptycontent."
+      }
+    ],
+    "limits": "Minimumaccesswidths andphysicalABIsupported. Fullcontext/source declaration,capacities,loaderpayloadformat,concurrency andoriginalsourceidentity remainunproved."
+  },
+  "callees": {
+    "direct_call_count": 28,
+    "indirect_callback_count": 3,
+    "unique_direct": 19,
+    "inventory": {
+      "direct_calls": [
+        {
+          "call_rva": "0x6194",
+          "operand": "0x100038d0",
+          "target_rva": "0x38d0"
+        },
+        {
+          "call_rva": "0x61b6",
+          "operand": "0x100038d0",
+          "target_rva": "0x38d0"
+        },
+        {
+          "call_rva": "0x61e0",
+          "operand": "0x1002c260",
+          "target_rva": "0x2c260"
+        },
+        {
+          "call_rva": "0x6206",
+          "operand": "0x1001f6a0",
+          "target_rva": "0x1f6a0"
+        },
+        {
+          "call_rva": "0x621a",
+          "operand": "0x1002c210",
+          "target_rva": "0x2c210"
+        },
+        {
+          "call_rva": "0x6266",
+          "operand": "0x1002c260",
+          "target_rva": "0x2c260"
+        },
+        {
+          "call_rva": "0x62a6",
+          "operand": "0x1002c2d0",
+          "target_rva": "0x2c2d0"
+        },
+        {
+          "call_rva": "0x62ae",
+          "operand": "0x1001f220",
+          "target_rva": "0x1f220"
+        },
+        {
+          "call_rva": "0x62b3",
+          "operand": "0x1000646c",
+          "target_rva": "0x646c"
+        },
+        {
+          "call_rva": "0x62b8",
+          "operand": "0x1002c580",
+          "target_rva": "0x2c580"
+        },
+        {
+          "call_rva": "0x62d2",
+          "operand": "0x1002c370",
+          "target_rva": "0x2c370"
+        },
+        {
+          "call_rva": "0x62ed",
+          "operand": "0x1002c260",
+          "target_rva": "0x2c260"
+        },
+        {
+          "call_rva": "0x632a",
+          "operand": "0x1002c640",
+          "target_rva": "0x2c640"
+        },
+        {
+          "call_rva": "0x6334",
+          "operand": "0x1002cc40",
+          "target_rva": "0x2cc40"
+        },
+        {
+          "call_rva": "0x633e",
+          "operand": "0x1002c630",
+          "target_rva": "0x2c630"
+        },
+        {
+          "call_rva": "0x6348",
+          "operand": "0x1002cc30",
+          "target_rva": "0x2cc30"
+        },
+        {
+          "call_rva": "0x6350",
+          "operand": "0x10008117",
+          "target_rva": "0x8117"
+        },
+        {
+          "call_rva": "0x6355",
+          "operand": "0x100256a0",
+          "target_rva": "0x256a0"
+        },
+        {
+          "call_rva": "0x6373",
+          "operand": "0x1002c270",
+          "target_rva": "0x2c270"
+        },
+        {
+          "call_rva": "0x637a",
+          "operand": "0x1002cc30",
+          "target_rva": "0x2cc30"
+        },
+        {
+          "call_rva": "0x6382",
+          "operand": "0x1000666b",
+          "target_rva": "0x666b"
+        },
+        {
+          "call_rva": "0x6387",
+          "operand": "0x1002c430",
+          "target_rva": "0x2c430"
+        },
+        {
+          "call_rva": "0x63d0",
+          "operand": "0x1001f220",
+          "target_rva": "0x1f220"
+        },
+        {
+          "call_rva": "0x63d5",
+          "operand": "0x1002c580",
+          "target_rva": "0x2c580"
+        },
+        {
+          "call_rva": "0x63dc",
+          "operand": "0x1002cc30",
+          "target_rva": "0x2cc30"
+        },
+        {
+          "call_rva": "0x6402",
+          "operand": "0x1002c200",
+          "target_rva": "0x2c200"
+        },
+        {
+          "call_rva": "0x6414",
+          "operand": "0x1002c370",
+          "target_rva": "0x2c370"
+        },
+        {
+          "call_rva": "0x6425",
+          "operand": "0x1002c430",
+          "target_rva": "0x2c430"
+        }
+      ],
+      "indirect_calls": [
+        {
+          "call_rva": "0x61fb",
+          "operand": "dword ptr [eax + 0xb4]"
+        },
+        {
+          "call_rva": "0x6281",
+          "operand": "dword ptr [eax + 0xb4]"
+        },
+        {
+          "call_rva": "0x6308",
+          "operand": "dword ptr [eax + 0xb4]"
+        }
+      ],
+      "unique_callees": [
+        {
+          "entry_rva": "0x38d0",
+          "sites": [
+            "0x6194",
+            "0x61b6"
+          ]
+        },
+        {
+          "entry_rva": "0x2c260",
+          "sites": [
+            "0x61e0",
+            "0x6266",
+            "0x62ed"
+          ],
+          "slot": 9,
+          "host_target_rva": "0x3ea0",
+          "wrapper_instructions": [
+            {
+              "rva": "0x2c260",
+              "mnemonic": "jmp",
+              "operands": "dword ptr [0x10070f44]"
+            }
+          ]
+        },
+        {
+          "entry_rva": "0x1f6a0",
+          "sites": [
+            "0x6206"
+          ]
+        },
+        {
+          "entry_rva": "0x2c210",
+          "sites": [
+            "0x621a"
+          ],
+          "slot": 7,
+          "host_target_rva": "0xa340",
+          "wrapper_instructions": [
+            {
+              "rva": "0x2c210",
+              "mnemonic": "mov",
+              "operands": "eax, dword ptr [esp + 8]"
+            },
+            {
+              "rva": "0x2c214",
+              "mnemonic": "mov",
+              "operands": "ecx, dword ptr [esp + 4]"
+            },
+            {
+              "rva": "0x2c218",
+              "mnemonic": "push",
+              "operands": "eax"
+            },
+            {
+              "rva": "0x2c219",
+              "mnemonic": "push",
+              "operands": "ecx"
+            },
+            {
+              "rva": "0x2c21a",
+              "mnemonic": "call",
+              "operands": "dword ptr [0x10070f3c]"
+            }
+          ]
+        },
+        {
+          "entry_rva": "0x2c2d0",
+          "sites": [
+            "0x62a6"
+          ],
+          "slot": 16,
+          "host_target_rva": "0x4750",
+          "wrapper_instructions": [
+            {
+              "rva": "0x2c2d0",
+              "mnemonic": "mov",
+              "operands": "eax, dword ptr [esp + 4]"
+            },
+            {
+              "rva": "0x2c2d4",
+              "mnemonic": "push",
+              "operands": "eax"
+            },
+            {
+              "rva": "0x2c2d5",
+              "mnemonic": "call",
+              "operands": "dword ptr [0x10070f60]"
+            }
+          ]
+        },
+        {
+          "entry_rva": "0x1f220",
+          "sites": [
+            "0x62ae",
+            "0x63d0"
+          ]
+        },
+        {
+          "entry_rva": "0x646c",
+          "sites": [
+            "0x62b3"
+          ]
+        },
+        {
+          "entry_rva": "0x2c580",
+          "sites": [
+            "0x62b8",
+            "0x63d5"
+          ],
+          "slot": 57,
+          "host_target_rva": "0x1610",
+          "wrapper_instructions": [
+            {
+              "rva": "0x2c580",
+              "mnemonic": "jmp",
+              "operands": "dword ptr [0x10071004]"
+            }
+          ]
+        },
+        {
+          "entry_rva": "0x2c370",
+          "sites": [
+            "0x62d2",
+            "0x6414"
+          ],
+          "slot": 25,
+          "host_target_rva": "0x4040",
+          "wrapper_instructions": [
+            {
+              "rva": "0x2c370",
+              "mnemonic": "mov",
+              "operands": "eax, dword ptr [esp + 8]"
+            },
+            {
+              "rva": "0x2c374",
+              "mnemonic": "mov",
+              "operands": "ecx, dword ptr [esp + 4]"
+            },
+            {
+              "rva": "0x2c378",
+              "mnemonic": "push",
+              "operands": "eax"
+            },
+            {
+              "rva": "0x2c379",
+              "mnemonic": "push",
+              "operands": "ecx"
+            },
+            {
+              "rva": "0x2c37a",
+              "mnemonic": "call",
+              "operands": "dword ptr [0x10070f84]"
+            }
+          ]
+        },
+        {
+          "entry_rva": "0x2c640",
+          "sites": [
+            "0x632a"
+          ],
+          "slot": 92,
+          "host_target_rva": "0xbda0",
+          "wrapper_instructions": [
+            {
+              "rva": "0x2c640",
+              "mnemonic": "mov",
+              "operands": "eax, dword ptr [esp + 4]"
+            },
+            {
+              "rva": "0x2c644",
+              "mnemonic": "push",
+              "operands": "eax"
+            },
+            {
+              "rva": "0x2c645",
+              "mnemonic": "call",
+              "operands": "dword ptr [0x10071090]"
+            }
+          ]
+        },
+        {
+          "entry_rva": "0x2cc40",
+          "sites": [
+            "0x6334"
+          ],
+          "slot": 249,
+          "host_target_rva": "0xbdd0",
+          "wrapper_instructions": [
+            {
+              "rva": "0x2cc40",
+              "mnemonic": "mov",
+              "operands": "eax, dword ptr [esp + 4]"
+            },
+            {
+              "rva": "0x2cc44",
+              "mnemonic": "push",
+              "operands": "eax"
+            },
+            {
+              "rva": "0x2cc45",
+              "mnemonic": "call",
+              "operands": "dword ptr [0x10071304]"
+            }
+          ]
+        },
+        {
+          "entry_rva": "0x2c630",
+          "sites": [
+            "0x633e"
+          ],
+          "slot": 91,
+          "host_target_rva": "0xa340",
+          "wrapper_instructions": [
+            {
+              "rva": "0x2c630",
+              "mnemonic": "mov",
+              "operands": "eax, dword ptr [esp + 4]"
+            },
+            {
+              "rva": "0x2c634",
+              "mnemonic": "push",
+              "operands": "eax"
+            },
+            {
+              "rva": "0x2c635",
+              "mnemonic": "call",
+              "operands": "dword ptr [0x1007108c]"
+            }
+          ]
+        },
+        {
+          "entry_rva": "0x2cc30",
+          "sites": [
+            "0x6348",
+            "0x637a",
+            "0x63dc"
+          ],
+          "slot": 248,
+          "host_target_rva": "0xac10",
+          "wrapper_instructions": [
+            {
+              "rva": "0x2cc30",
+              "mnemonic": "mov",
+              "operands": "eax, dword ptr [esp + 4]"
+            },
+            {
+              "rva": "0x2cc34",
+              "mnemonic": "push",
+              "operands": "eax"
+            },
+            {
+              "rva": "0x2cc35",
+              "mnemonic": "call",
+              "operands": "dword ptr [0x10071300]"
+            }
+          ]
+        },
+        {
+          "entry_rva": "0x8117",
+          "sites": [
+            "0x6350"
+          ]
+        },
+        {
+          "entry_rva": "0x256a0",
+          "sites": [
+            "0x6355"
+          ]
+        },
+        {
+          "entry_rva": "0x2c270",
+          "sites": [
+            "0x6373"
+          ],
+          "slot": 11,
+          "host_target_rva": "0x3f00",
+          "wrapper_instructions": [
+            {
+              "rva": "0x2c270",
+              "mnemonic": "jmp",
+              "operands": "dword ptr [0x10070f4c]"
+            }
+          ]
+        },
+        {
+          "entry_rva": "0x666b",
+          "sites": [
+            "0x6382"
+          ]
+        },
+        {
+          "entry_rva": "0x2c430",
+          "sites": [
+            "0x6387",
+            "0x6425"
+          ],
+          "slot": 34,
+          "host_target_rva": "0xbe30",
+          "wrapper_instructions": [
+            {
+              "rva": "0x2c430",
+              "mnemonic": "jmp",
+              "operands": "dword ptr [0x10070fa8]"
+            }
+          ]
+        },
+        {
+          "entry_rva": "0x2c200",
+          "sites": [
+            "0x6402"
+          ],
+          "slot": 6,
+          "host_target_rva": "0xbe30",
+          "wrapper_instructions": [
+            {
+              "rva": "0x2c200",
+              "mnemonic": "jmp",
+              "operands": "dword ptr [0x10070f38]"
+            }
+          ]
+        }
+      ]
+    },
+    "ownership": "resource_destroy38d0/rootcallbacksand20670..20990workerpreserved;1f6a0/bridges2c330/2c880workerpreserved. Newcallees1f220,646c,8117,256a0,666b remainrealmissingprojectcontributions.",
+    "classification": "Runtime-control/game resource-module state function,notCRT. Interfacewrappersmaptorealcustomhostcallbacks;defaultslots6/34->acceptedBE30emptyprojectcallback,slot7->actualA340zero-returnleaf,slot25->custom4040teardown/module-loader. Do notrewriteCRT/copy/pooldependencies."
+  },
+  "compiler_evidence": {
+    "PE": {
+      "linker_major": 5,
+      "linker_minor": 0,
+      "coff_symbol_pointer": 0,
+      "coff_symbol_count": 0,
+      "debug_entries": []
+    },
+    "observed": [
+      "Unalignedentry/end,nointerfunctionNOPpaddinginthispartoftext.",
+      "EBPprolog,stack8 withphaseat-8andresourceIDat-4 spilled/reloaded.",
+      "Repeateduneliminatedphasebyte0writes;explicit MOVconstant1/TEST/Jcc loops;smallconstantmultiplicationviaIMUL20.",
+      "Two-stagebyteindexmap/DWORDjump-table switchownedbyhandler."
+    ],
+    "supported": "Compatiblewithhistoricalnonoptimized/smallalignmentshared-text codecontext. Linker5.0 isheaderprovenance,notcompiler/optimization/TUproof.",
+    "limits": "NooriginalCOFF/debugsymbols/compilerflags recorded. PinnedVC5/Od isaplausibleboundedlaterdiagnosticconfiguration ifprotocolsourceisreconstructed,not evidenceoforiginalflags;no flaggrid orpragmas/volatilecontrolpermitted."
+  },
+  "PSX_secondary": {
+    "evidence": "evidence/psx.json",
+    "role": "AvailableUSAoriginal/rereleaseexecutableinventory/metadata only. No validated counterpartforPC60f9 suppliedbyexistingcontext;PSXnames/sourcepaths do notprovePCfunction/table/TUidentity. No speculativecross-map used."
+  },
+  "bounded_source_family": {
+    "status": "Instruction-supportedordinaryCsemanticframe is stable; exactsourcecompiler/contributionframe remainsunresolved.",
+    "scope": "Onefullnoarg int controlhandlerwithcapturedunsignedbyte switch,case18/19fallthrough33,cancelthenfailedcallback,realresourceIDlocal3/1,defaultpollandterminalwhile(1) loops.",
+    "prediction": "OrdinaryCimplementedfromthiscontract preserves0/33returns andnonreturningdefault,fieldwidths,short-circuit/livecallbackorder andactualdependencies. Aone-timefreshhistoricalnonoptimized-context diagnostic canlater assessmachineforms;rawalignment/COMDATacceptancecannotbeassumedfrom883-byteinterval.",
+    "falsifier": "Defaultreturnsorchecksphaseagain,case18/19doesnotfallthrough33,callbackfetchedbeforecancel,signedselector/unsigned6ee84comparison,addedpointerguards/clearings,orfailedsourcefixtureinvalidatesfamily. No source/flags/declarationgrid.",
+    "fixtures": [
+      "Selector0returns0untouched;selector5 signedthreshold127/128/-1/8000 cases",
+      "Selectors1/2 e0/e4 ORshortcircuit;blockedonlyphase0write;activepathdestroys3then1,marksstate6,cancel/callback/reclaim(1)/serviceorder,blockeddf1",
+      "Selectors18/19freeLIVEe4ifnonnull,continue33cleanupaftermodulecallback;callbacksandcontextmutationtraces applylivewrites",
+      "Selector33returns33afterexactteardowncallorder",
+      "Defaulte4nonnull initiallyrunsonepolliteration evenife0=0;new e0/e4 controlsrepeat",
+      "Defaultbyte6==3 writesphase19;terminalwhile(1) observedwithfixture-onlylongjmp/exit inmockcallback afterboundedprefix,neverbyaddingexitconditiontocandidate",
+      "Nooriginalexecution andnocopyofembeddedmap/codebytesassource"
+    ],
+    "next_real_dependencies": [
+      "Bounded646c helper buildsrect/frameviews;framefieldrelationships alreadywriter-supported,fullfunctionboundaryneedsnextaudit.",
+      "1f220cleanup andhost4040moduleteardown needactualpayload/owner-slotview;missingcalleesnotstubs.",
+      "Three6eef8/6eefc/6ef00firstargument storagealiases needwriter/typeauditbeforenaturaldata definitions."
+    ]
+  },
+  "correction": "Priorengine_dispatch_audit phase_next_region/report full883 wordingdescribesobservedPCinterval only;thisreportexplicitlywithholdsoriginalindependentCOFF/Gycontributionproof.",
+  "evidence": {
+    "full_body": "work/engine_control_audit/decode.txt",
+    "tables": "work/engine_control_audit/decode.json",
+    "callee_mapping": "work/engine_control_audit/callees.json",
+    "host_leads": "work/engine_control_audit/host_leads.txt",
+    "writer_leads": "work/engine_control_audit/context_writer_leads.json",
+    "writer_limit": "Boundedpathsfromdirectcontextloads,nocompletealias/writeabsenceproof."
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "compiler_builds": 0,
+    "tokens": null,
+    "cost_usd": null
+  }
+}
