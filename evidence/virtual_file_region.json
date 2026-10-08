@@ -1,0 +1,58 @@
+{
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "flags": [
+    "/O2"
+  ],
+  "source": "calibration/virtual_file.c",
+  "region": {
+    "id": "virtual_file",
+    "ownership": "inferred_region",
+    "rationale": "Four real public-handle adapters share16-slot/count view; original TU unproved."
+  },
+  "functions": [
+    {
+      "symbol": "_virtual_file_open",
+      "rva": "0xa210",
+      "size": 112,
+      "target_sha256": "5e2e31dd895a7d9fc3a97d6f3d7c41598b401f3a1f84a8603ef52c2ea428f4f0",
+      "control": false
+    },
+    {
+      "symbol": "_virtual_file_seek",
+      "rva": "0xa280",
+      "size": 112,
+      "target_sha256": "5d818f54c985ac8202ff500d3fcdff548f1f834d251fc8edefb91e3833fbc3c7",
+      "control": false
+    },
+    {
+      "symbol": "_virtual_file_read",
+      "rva": "0xa2f0",
+      "size": 80,
+      "target_sha256": "eda64377fc12b4de21ae3e7ca615737afe3ba16516afbed0a38d878ee2cae8dd",
+      "control": false
+    },
+    {
+      "symbol": "_virtual_file_close",
+      "rva": "0xa350",
+      "size": 80,
+      "target_sha256": "74e5acc8b0fd27523edf1e01c303170605fd770982eb2bd68bf1cac7d0f17305",
+      "control": false
+    }
+  ],
+  "symbol_rvas": {
+    "_g_public_file_count": "0x56e638",
+    "_g_public_file_handles": "0x56e640",
+    "_g_open_capacity_error": "0x3745c",
+    "_g_open_mode_error": "0x37450",
+    "_g_seek_handle_error": "0x37468",
+    "_g_read_handle_error": "0x37474",
+    "_g_archive_read_mode": "0x35fe4",
+    "_archive_fatal": "0x10460",
+    "_archive_open": "0x5130",
+    "_archive_close": "0x51f0",
+    "_archive_position": "0x5340",
+    "_archive_seek": "0x52c0",
+    "_archive_read": "0x5210"
+  }
+}

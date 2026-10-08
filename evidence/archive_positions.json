@@ -1,0 +1,96 @@
+{
+  "scope": "Archive logical-position leaves; no acceptance.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "functions": [
+    {
+      "symbol": "_archive_close",
+      "rva": "0x51f0",
+      "size": 32,
+      "target_sha256": "68a5b3e9e3da016d6fdb28456826ba02d0bb05b111e33e2693466444e2ffdda7",
+      "control": false,
+      "boundary_evidence": "Reviewed interval 0x51f0..0x5210; RET at 0x5201 and NOP fill to the next entry."
+    },
+    {
+      "symbol": "_archive_position",
+      "rva": "0x5340",
+      "size": 16,
+      "target_sha256": "48fc4fc555ef9207ab7280da33552fa1ef687f1da73e7e63eeb0ca7b2511b0c5",
+      "control": false,
+      "boundary_evidence": "Reviewed interval 0x5340..0x5350; RET at 0x534b and NOP fill to the next entry."
+    }
+  ],
+  "source_sha256": "5fe0c3028cc40915434423f5fb015bb0270875fd53d13e2db73b2644023ee260",
+  "contract": "One-based handle: close writes positions[handle-1]=-1 andreturns0; position returns rawsigned32 dword throughlong API. No validation.",
+  "data_view": "1024 leading intdwords initializedat5037; original fullcapacity/TU unproved.",
+  "metrics": [
+    {
+      "symbol": "_archive_close",
+      "control": false,
+      "target_size": 32,
+      "candidate_size": 32,
+      "strict_equal": false,
+      "raw_different_bytes": 4,
+      "raw_byte_percent": 87.5,
+      "normalized_different_bytes": 0,
+      "normalized_byte_percent": 100.0,
+      "instruction_percent": 100.0,
+      "original_instruction_count": 4,
+      "candidate_instruction_count": 4,
+      "ordered_cfg_equal": true,
+      "original_blocks": 1,
+      "candidate_blocks": 1,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [],
+      "candidate_direct_calls": [],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 1,
+      "category": "relocation-only diagnostic equality"
+    },
+    {
+      "symbol": "_archive_position",
+      "control": false,
+      "target_size": 16,
+      "candidate_size": 16,
+      "strict_equal": false,
+      "raw_different_bytes": 4,
+      "raw_byte_percent": 75.0,
+      "normalized_different_bytes": 0,
+      "normalized_byte_percent": 100.0,
+      "instruction_percent": 100.0,
+      "original_instruction_count": 3,
+      "candidate_instruction_count": 3,
+      "ordered_cfg_equal": true,
+      "original_blocks": 1,
+      "candidate_blocks": 1,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [],
+      "candidate_direct_calls": [],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 1,
+      "category": "relocation-only diagnostic equality"
+    }
+  ],
+  "fixture": {
+    "checks": 23,
+    "failures": 0,
+    "source": "tests/archive_positions_semantics.c"
+  },
+  "provenance": {
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-7zufeihs\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\archive_positions.c"
+    ],
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null
+  }
+}

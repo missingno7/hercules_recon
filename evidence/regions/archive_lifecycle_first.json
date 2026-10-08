@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-08T00:28:27.380063+00:00",
+  "region": "archive_lifecycle",
+  "ownership": {
+    "id": "archive_lifecycle",
+    "ownership": "function_task",
+    "rationale": "A bounded initializer/shutdown pair over actual archive storage and CRT calls; original translation-unit ownership and complete capacities remain unproved."
+  },
+  "context_id": "c11fa864af0c8262357e698b864fe8dd2571b72ee73f6fc3099f523f3ceed967",
+  "source_sha256": "9f436e66f2f4c13acd733becc417a4478cff2a3fa132cd919fbdbd5a9ddbfcda",
+  "baseline_sha256": "9f436e66f2f4c13acd733becc417a4478cff2a3fa132cd919fbdbd5a9ddbfcda",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "9f436e66f2f4c13acd733becc417a4478cff2a3fa132cd919fbdbd5a9ddbfcda",
+  "source_patch": {
+    "base_sha256": "9f436e66f2f4c13acd733becc417a4478cff2a3fa132cd919fbdbd5a9ddbfcda",
+    "result_sha256": "9f436e66f2f4c13acd733becc417a4478cff2a3fa132cd919fbdbd5a9ddbfcda",
+    "edits": []
+  },
+  "output_id": "4db306e2d2d6f3eeb5061e5f542fb04b12d13728144233509c868242339b4b23",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_archive_initialize",
+      "target_size": 240,
+      "candidate_size": 240,
+      "raw_different_bytes": 148,
+      "normalized_different_bytes": 117,
+      "instruction_percent": 83.333,
+      "ordered_cfg_equal": false,
+      "category": "structural/source-form investigation",
+      "strict_equal": false,
+      "relocation_count": 21,
+      "target_relocation_count": 0,
+      "output_id": "8fca2a24e5644672e7c682cf465effc65a89977c2c40e1d2b03642494e356323",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_archive_shutdown",
+      "target_size": 32,
+      "candidate_size": 32,
+      "raw_different_bytes": 25,
+      "normalized_different_bytes": 30,
+      "instruction_percent": 55.556,
+      "ordered_cfg_equal": true,
+      "category": "uncertain allocation/type/source-form",
+      "strict_equal": false,
+      "relocation_count": 3,
+      "target_relocation_count": 0,
+      "output_id": "3a866db56a282b64c77a03b59353ba76b56df34c441e77aa911a294e92ebb675",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 2,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 0,
+    "ordered_cfg_equal": 1,
+    "instruction_over_90": 0,
+    "nonexact_instruction_over_90": 0,
+    "categories": {
+      "structural/source-form investigation": 1,
+      "uncertain allocation/type/source-form": 1
+    }
+  },
+  "family": "ordinary-c-archive-initialize-and-shutdown-pair",
+  "prediction": "The observed initializer span will be represented by one no-argument initializer that clears the 1024 leading 12-byte directory records and 1024 leading 32-bit position slots, opens the oracle-backed `hercules.fs`/`rb` strings, reads one 0x3000-byte directory block, stores the leading nonzero-key count, and diagnoses each non-strictly-increasing unsigned key pair. The adjacent shutdown closes a nonnull shared FILE pointer, clears that pointer, and returns fclose's status (or zero for null). These are source/API hypotheses, not proof of original symbol names, translation-unit ownership, or complete table capacities.",
+  "falsifier": "Reject the family if direct target instructions or caller evidence contradict the observable file calls, byte extents, diagnostic order, unsigned pair checks, one-time shared stream behavior, pointer clearing, or shutdown EAX result. A raw mismatch, normalized mismatch, incomplete target contribution, incorrect address mapping, or fixture semantic failure falsifies the prediction as a function match; diagnostic similarity does not establish acceptance. Do not respond with source-spelling or declaration grids.",
+  "verdict": "falsified",
+  "blocker": null,
+  "reentry_condition": "New independently supported source/control discriminator; no declaration grid.",
+  "next_discriminator": "Correct boundedtargetspan and real data/stdio/fatal contributions, then newsource evidence only.",
+  "ungated_work": [],
+  "new_evidence": [
+    "work/archive_lifecycle/pc_evidence.json",
+    "evidence/resource_host_bindings.json",
+    "work/resource_host_bindings/archive_decode.txt",
+    "work/resource_host_bindings/file_io_decode.txt",
+    "work/archive_positions/handoff.md"
+  ],
+  "new_discriminator": "Fresh direct PC decoding confirms that the proposed 0x5020..0x5120 partition cuts the shutdown body: initializer RET is at 0x510c, shutdown begins at 0x5110, and shutdown RET is at 0x512c. The direct shutdown caller is a tail JMP at 0x5eb1; the initializer call at 0x5e27 has its EAX discarded by the next call.",
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "ordinary-C static reconstruction, fixed-base EXE diagnostics, and pinned historical compiler testing",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 2,
+    "semantic_result": "20 checks/0 failures",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "6572856dee4bcc6efe14e433ed57f175cc36b86d0801519ba4856f29adf2bcd0",
+    "report_sha256": "d57d7af495cf41084925340ee1670dddf9779b28bc7e57fe73780f309c442c2d",
+    "object_sha256": "e8ddd91b7240cae738e7eb4cc00b58fceccfbdd0e64dde039387289f6e149f2c",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-g_8w_ffh\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\archive_lifecycle.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "3b5ef450c93c7da1792c8156e2cc638c31bf5c82dc62e251bdb71e2b853fe357"
+}

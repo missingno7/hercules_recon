@@ -1,0 +1,25 @@
+{
+  "scope": "Reconstructed-only negative control; callback mutation is synthetic ABI/read-order proof.",
+  "mutation": "Remove only the post-fseek logicalposition reload; retain pre-call physical offset and post-fread live advance.",
+  "baseline_sha256": "5249980d9f3ec719ce6dc13ac5afbe4cab40469539d0ea788168596ed49db0cc",
+  "negative_source_sha256": "7096f18b10fe1111c4f8e59e289fd8fae96b638156934a68df4df7a04920a8f2",
+  "expected_failures": 1,
+  "result": {
+    "exit_code": 1,
+    "stdout": "FAIL: post-seek bounds use reloaded logical position\nchecks=30 failures=1",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/O2",
+      "/Gy",
+      "/ML",
+      "/FoD:\\prog\\hercules_recon\\work\\archive_backend\\negative_integrated\\semantics.obj",
+      "/FeD:\\prog\\hercules_recon\\work\\archive_backend\\negative_integrated\\semantics.exe",
+      "D:\\prog\\hercules_recon\\work\\archive_backend\\negative_integrated\\semantics.c",
+      "/link",
+      "/INCREMENTAL:NO"
+    ],
+    "harness_sha256": "45c4902f47c3632534720a6181980d4e2910c6519cdbe3529127160e5f48af08",
+    "executable_sha256": "ff8d11df758c93374891e64eb6539ca2cedc8ec95dcc5f4bbc455edb53123ffc"
+  }
+}

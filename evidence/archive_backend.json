@@ -1,0 +1,131 @@
+{
+  "scope": "Three custom archive backends, not CRT replacements; no acceptance.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "source_sha256": "5249980d9f3ec719ce6dc13ac5afbe4cab40469539d0ea788168596ed49db0cc",
+  "metrics": [
+    {
+      "symbol": "_archive_open",
+      "control": false,
+      "target_size": 192,
+      "candidate_size": 176,
+      "strict_equal": false,
+      "raw_different_bytes": 122,
+      "raw_byte_percent": 36.458,
+      "normalized_different_bytes": 108,
+      "normalized_byte_percent": 43.75,
+      "instruction_percent": 75.41,
+      "original_instruction_count": 61,
+      "candidate_instruction_count": 59,
+      "ordered_cfg_equal": false,
+      "original_blocks": 9,
+      "candidate_blocks": 9,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x404e10",
+        "0x404fe0",
+        "0x410f40",
+        "0x410460"
+      ],
+      "candidate_direct_calls": [
+        "0x404e10",
+        "0x404fe0",
+        "0x410f40",
+        "0x410460"
+      ],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 9,
+      "category": "structural/source-form investigation"
+    },
+    {
+      "symbol": "_archive_read",
+      "control": false,
+      "target_size": 176,
+      "candidate_size": 176,
+      "strict_equal": false,
+      "raw_different_bytes": 166,
+      "raw_byte_percent": 5.682,
+      "normalized_different_bytes": 166,
+      "normalized_byte_percent": 5.682,
+      "instruction_percent": 53.571,
+      "original_instruction_count": 56,
+      "candidate_instruction_count": 55,
+      "ordered_cfg_equal": true,
+      "original_blocks": 8,
+      "candidate_blocks": 8,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x4112f0",
+        "0x410dc0"
+      ],
+      "candidate_direct_calls": [
+        "0x4112f0",
+        "0x410dc0"
+      ],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 12,
+      "category": "uncertain allocation/type/source-form"
+    },
+    {
+      "symbol": "_archive_seek",
+      "control": false,
+      "target_size": 128,
+      "candidate_size": 128,
+      "strict_equal": false,
+      "raw_different_bytes": 120,
+      "raw_byte_percent": 6.25,
+      "normalized_different_bytes": 121,
+      "normalized_byte_percent": 5.469,
+      "instruction_percent": 30.556,
+      "original_instruction_count": 36,
+      "candidate_instruction_count": 35,
+      "ordered_cfg_equal": false,
+      "original_blocks": 9,
+      "candidate_blocks": 8,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x4112f0"
+      ],
+      "candidate_direct_calls": [
+        "0x4112f0"
+      ],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 9,
+      "category": "structural/source-form investigation"
+    }
+  ],
+  "corrections": [
+    "Read captures physical fseek offset then reloads logicalposition before bounds; reloads again afterfread before positionadvance.",
+    "Open >= pivot branch computes next midpoint from oldlower before assigning lower=oldpivot."
+  ],
+  "abi": "Signed32 one-based handles; signedlong seekoffset; pinnedstdio size_t itemsize/count/result; unsigneddirectory keys/offset/length.",
+  "contract": "Read seeks on handlechange/positionzero; clamps unsignedrequested end tological length using size-or1 divisor; fread result advances live logicalposition. Seek origin1=current,2=end,other=absolute; unsigned clamp means negative offset can clamp toend.",
+  "integration": "Unified actualfatalcallee name10460 without alias/wrapper. Completecode unchanged; only thatorderedrelocationidentifier changes.",
+  "fixture": {
+    "checks": 30,
+    "failures": 0,
+    "source": "tests/archive_backend_semantics.c"
+  },
+  "limits": [
+    "Full contribution lengths/bytes remain nonexact; preserve semanticcorrection despite diagnosticresidual.",
+    "Directory/position leadingextent and source names/types remain hypotheses, not full capacity/TU proof."
+  ],
+  "provenance": {
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-22egv_i8\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\archive_backend.c"
+    ],
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null
+  }
+}

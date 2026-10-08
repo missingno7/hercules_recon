@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-08T00:44:02.277783+00:00",
+  "region": "archive_names",
+  "ownership": {
+    "id": "archive_names",
+    "ownership": "function_task",
+    "rationale": "Two bounded archive path/hash helpers with a shared scratch buffer; original source names and translation-unit ownership remain unproved."
+  },
+  "context_id": "ea901ff7a93b633f58e1319a870d9fb961a76620198465d473372d83301df1e0",
+  "source_sha256": "7a2a7ce0af0e6153573037d432a2ae856dd72fbaf09d07dec8157103f40976d2",
+  "baseline_sha256": "7a2a7ce0af0e6153573037d432a2ae856dd72fbaf09d07dec8157103f40976d2",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "7a2a7ce0af0e6153573037d432a2ae856dd72fbaf09d07dec8157103f40976d2",
+  "source_patch": {
+    "base_sha256": "7a2a7ce0af0e6153573037d432a2ae856dd72fbaf09d07dec8157103f40976d2",
+    "result_sha256": "7a2a7ce0af0e6153573037d432a2ae856dd72fbaf09d07dec8157103f40976d2",
+    "edits": []
+  },
+  "output_id": "113f728adf2ff89428a7277749ba86ac08b0a837466308b8c7ec79c961d7eeae",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_archive_normalize_name",
+      "target_size": 464,
+      "candidate_size": 416,
+      "raw_different_bytes": 428,
+      "normalized_different_bytes": 437,
+      "instruction_percent": null,
+      "ordered_cfg_equal": null,
+      "category": null,
+      "strict_equal": false,
+      "relocation_count": 40,
+      "target_relocation_count": 0,
+      "output_id": "9b1de9957e34764584a03885dd257a3e82347ad67f15daadf6a6e60df0971ad9",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_archive_name_hash",
+      "target_size": 64,
+      "candidate_size": 64,
+      "raw_different_bytes": 3,
+      "normalized_different_bytes": 3,
+      "instruction_percent": 91.667,
+      "ordered_cfg_equal": true,
+      "category": null,
+      "strict_equal": false,
+      "relocation_count": 0,
+      "target_relocation_count": 0,
+      "output_id": "73112cd0a3dad787eb22611257afcb223fe54bf60c56b306d250c6c8bcf86c95",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 2,
+    "exact": 0,
+    "full_bytes": 528,
+    "candidate_full_bytes": 480,
+    "normalized_equal_diagnostic_only": 0,
+    "diagnostic_equal": 0
+  },
+  "family": "shared-scratch-archive-normalizer-and-signed-byte-hash",
+  "prediction": "One ordinary-C shared scratch view will preserve the full 464-byte normalizer contribution including its compiler-generated inline six-entry switch table and the 64-byte hash contribution. The normalizer copies forward at offset 100, uppercases ASCII only, retains stale tail bytes, returns an alias into the shared buffer, handles M/N/O/P/Q/R through the observed switch, and uses only the target's three fixed prefix strings. The hash sign-extends each input byte, cycles shifts 0/8/16/24, and wraps 32-bit accumulation. The candidate does not assert total scratch capacity or original source/TU identity.",
+  "falsifier": "Reject the family if the independent fixture disagrees on path bytes, return offsets, shared-buffer aliasing, no-write null/empty behavior, stale-tail behavior, signed-byte hash vectors, lane reset, or modulo-32 wrap; also reject if any full function contribution differs in raw bytes or has an unsupported address resolution. The normalizer's inline table is included in full byte comparisons but excluded from linear instruction/CFG metrics. Do not respond with declaration, register-allocation, string-copy, or spelling grids.",
+  "verdict": "falsified",
+  "blocker": null,
+  "reentry_condition": "New independent source/TU/control discriminator; no type/register spelling grid.",
+  "next_discriminator": "Shared scratch/data ownership and real host service callers; preserve complete inline table proof.",
+  "ungated_work": [],
+  "new_evidence": [
+    "work/archive_name_audit/report.json",
+    "work/archive_name_audit/decode.json",
+    "work/archive_name_audit/decode.txt",
+    "work/archive_name_audit/fixture_contract.json",
+    "work/archive_backend/spec_v2.json",
+    "evidence/resource_host_bindings.json"
+  ],
+  "new_discriminator": "Fresh Sol PC audit resolves the actual switch branch at RVA 0x4eb3 to an inline table at 0x4fbc, not 0x4fba; there are two alignment bytes before the six DWORD entries and twelve NOP bytes after them. It also establishes one aliased shared scratch base at VA 0x91b7d0 with copy offset 100, stale-tail behavior for short C: after a prior long path, and signed-byte four-lane hash semantics.",
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "ordinary-C helper reconstruction, inline-table-aware full contribution diagnostics, and pinned historical compiler testing",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 2,
+    "semantic_result": "27 checks/0 failures",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "d34b541f8d82b2c4127c978e6b75e6855c01a5553d30d612426e275a23ab4e73",
+    "report_sha256": "4bbe40d115f777bd728d97cdc2994e6819e893efa1bf23c91ef154812c762525",
+    "object_sha256": "c11fa39df7f36a0de8c7d3714329c6ff230cb3c511ab9b1e43b6691338ae5d58",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-ghhhhld2\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\archive_names.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "619f51f89a0e8d2c56d233905720c48b2448f467d222428a1db46f16b69c2a58"
+}

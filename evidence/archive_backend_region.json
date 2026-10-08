@@ -1,0 +1,53 @@
+{
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "archive_backend_v2",
+    "ownership": "function_task",
+    "rationale": "A factual ordering correction to the same three bounded archive backend contributions, based on the exact post-fseek position reload and open pivot instructions; does not claim original TU ownership."
+  },
+  "source": "calibration/archive_backend.c",
+  "functions": [
+    {
+      "symbol": "_archive_open",
+      "rva": "0x5130",
+      "size": 192,
+      "target_sha256": "a524edfd0599cbcf54fe9df073d4917cbc2074516b9674dab176411ec55d3d26",
+      "control": false,
+      "boundary_evidence": "Reviewed complete interval 0x5130..0x51f0, including local diagnostic path, return at 0x51e0 and NOP fill."
+    },
+    {
+      "symbol": "_archive_read",
+      "rva": "0x5210",
+      "size": 176,
+      "target_sha256": "92f167b47039281c2bab31c80d27bdd43d1efb75b2b2b7aef5634152bd1127ac",
+      "control": false,
+      "boundary_evidence": "Reviewed complete interval 0x5210..0x52c0; RET at 0x52bb and NOP fill."
+    },
+    {
+      "symbol": "_archive_seek",
+      "rva": "0x52c0",
+      "size": 128,
+      "target_sha256": "ffe28812f341c3ae91a73777e6a88d3cac6ee4347bbe2192643acd223aeaeea1",
+      "control": false,
+      "boundary_evidence": "Reviewed complete interval 0x52c0..0x5340; RET at 0x533d and NOP fill."
+    }
+  ],
+  "symbol_rvas": {
+    "_g_archive_directory": "0x5177d0",
+    "_g_archive_directory_count": "0x51bbd4",
+    "_g_archive_logical_positions": "0x51a7d0",
+    "_g_archive_stream": "0x51bbd0",
+    "_g_archive_last_stream_handle": "0x365a4",
+    "_archive_normalize_name": "0x4e10",
+    "_archive_name_hash": "0x4fe0",
+    "_g_archive_open_error_format": "0x36624",
+    "_sprintf": "0x10f40",
+    "_fseek": "0x112f0",
+    "_fread": "0x10dc0",
+    "_archive_fatal": "0x10460"
+  }
+}

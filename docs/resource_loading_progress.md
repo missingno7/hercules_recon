@@ -94,6 +94,8 @@ stubs, original-binary dispatch, or address placement tricks.
 Next work recovers the readiness/provider implementations and their actual
 interface/reclamation contributions. None of this proves historical TU ownership,
 final addresses, original source names, or natural module closure.
+The subsequent [archive dependency work](archive_dependency_progress.md) recovers
+thirteen real functions and tests their shared stream/handle composition.
 
 Validation passes all 41 accepted raw contributions, 34 reconstructed-source
 semantic suites / 3,645,020 checks, 30 Python tests, and 12 immutable original-file

@@ -1,0 +1,113 @@
+{
+  "scope": "Archive initialization/shutdown pair; no acceptance.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "source_sha256": "9f436e66f2f4c13acd733becc417a4478cff2a3fa132cd919fbdbd5a9ddbfcda",
+  "functions": [
+    {
+      "symbol": "_archive_initialize",
+      "rva": "0x5020",
+      "size": 240,
+      "target_sha256": "3cb3693bc3b96b93b67a04d47681f836ff4d12aff54f81129eba47b06d096aa5",
+      "control": false,
+      "boundary_evidence": "Fresh PC span 0x5020..0x5110; RET at 0x510c and three NOPs through 0x510f. The only direct caller is 0x5e27 and its next instruction is another CALL, discarding initializer EAX."
+    },
+    {
+      "symbol": "_archive_shutdown",
+      "rva": "0x5110",
+      "size": 32,
+      "target_sha256": "c17c21c6847fb290ddf409cc787eefc65a9b86be7999794dc8b2e476201250e3",
+      "control": false,
+      "boundary_evidence": "Fresh PC span 0x5110..0x5130; body loads/conditionally closes stream, clears it at 0x5122, RET at 0x512c and NOPs through 0x512f. The next entry begins at 0x5130."
+    }
+  ],
+  "metrics": [
+    {
+      "symbol": "_archive_initialize",
+      "control": false,
+      "target_size": 240,
+      "candidate_size": 240,
+      "strict_equal": false,
+      "raw_different_bytes": 148,
+      "raw_byte_percent": 38.333,
+      "normalized_different_bytes": 117,
+      "normalized_byte_percent": 51.25,
+      "instruction_percent": 83.333,
+      "original_instruction_count": 78,
+      "candidate_instruction_count": 78,
+      "ordered_cfg_equal": false,
+      "original_blocks": 18,
+      "candidate_blocks": 17,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x410c30",
+        "0x410460",
+        "0x410dc0",
+        "0x410460",
+        "0x410460"
+      ],
+      "candidate_direct_calls": [
+        "0x410c30",
+        "0x410460",
+        "0x410dc0",
+        "0x410460",
+        "0x410460"
+      ],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 21,
+      "category": "structural/source-form investigation"
+    },
+    {
+      "symbol": "_archive_shutdown",
+      "control": false,
+      "target_size": 32,
+      "candidate_size": 32,
+      "strict_equal": false,
+      "raw_different_bytes": 25,
+      "raw_byte_percent": 21.875,
+      "normalized_different_bytes": 30,
+      "normalized_byte_percent": 6.25,
+      "instruction_percent": 55.556,
+      "original_instruction_count": 8,
+      "candidate_instruction_count": 9,
+      "ordered_cfg_equal": true,
+      "original_blocks": 3,
+      "candidate_blocks": 3,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x410c50"
+      ],
+      "candidate_direct_calls": [
+        "0x410c50"
+      ],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 3,
+      "category": "uncertain allocation/type/source-form"
+    }
+  ],
+  "boundary_correction": "Init5020..5110 is240bytes; shutdown5110..5130 is32bytes. Prior5120split cuts add/clear/ret shutdown sequence.",
+  "contract": "Clear leading1024directoryrows/positions; openhercules.fs/rb; fread one0x3000block; countleadingnonzerokeys; verify strict unsigned order pairwise. Shutdown fclose(nonnull), clearsstream, returnsfclose result or0.",
+  "data_limit": "Only initialized leadingextent proved. Next-key terminalprobe aliases firstposition; no independent1025-row declaration or capacity claim.",
+  "fixture": {
+    "checks": 20,
+    "failures": 0,
+    "source": "tests/archive_lifecycle_semantics.c"
+  },
+  "provenance": {
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-g_8w_ffh\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\archive_lifecycle.c"
+    ],
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null
+  }
+}

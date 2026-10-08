@@ -1,0 +1,48 @@
+{
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "flags": [
+    "/O2"
+  ],
+  "region": {
+    "id": "archive_lifecycle",
+    "ownership": "function_task",
+    "rationale": "A bounded initializer/shutdown pair over actual archive storage and CRT calls; original translation-unit ownership and complete capacities remain unproved."
+  },
+  "functions": [
+    {
+      "symbol": "_archive_initialize",
+      "rva": "0x5020",
+      "size": 240,
+      "target_sha256": "3cb3693bc3b96b93b67a04d47681f836ff4d12aff54f81129eba47b06d096aa5",
+      "control": false,
+      "boundary_evidence": "Fresh PC span 0x5020..0x5110; RET at 0x510c and three NOPs through 0x510f. The only direct caller is 0x5e27 and its next instruction is another CALL, discarding initializer EAX."
+    },
+    {
+      "symbol": "_archive_shutdown",
+      "rva": "0x5110",
+      "size": 32,
+      "target_sha256": "c17c21c6847fb290ddf409cc787eefc65a9b86be7999794dc8b2e476201250e3",
+      "control": false,
+      "boundary_evidence": "Fresh PC span 0x5110..0x5130; body loads/conditionally closes stream, clears it at 0x5122, RET at 0x512c and NOPs through 0x512f. The next entry begins at 0x5130."
+    }
+  ],
+  "symbol_rvas": {
+    "_g_archive_directory": "0x5177d0",
+    "_g_archive_logical_positions": "0x51a7d0",
+    "_g_archive_stream": "0x51bbd0",
+    "_g_archive_directory_count": "0x51bbd4",
+    "_g_archive_mode": "0x35fe4",
+    "_g_archive_init_open_failure": "0x36604",
+    "_g_archive_init_read_failure": "0x365f0",
+    "_g_archive_init_sort_failure": "0x365dc",
+    "_g_archive_filename": "0x36618",
+    "_fopen": "0x10c30",
+    "_fread": "0x10dc0",
+    "_fclose": "0x10c50",
+    "_archive_initialize": "0x5020",
+    "_archive_shutdown": "0x5110",
+    "_archive_fatal": "0x10460"
+  },
+  "source": "calibration/archive_lifecycle.c"
+}

@@ -1,0 +1,156 @@
+{
+  "scope": "Four real virtual-handle adapters; no acceptance or original execution.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "source_sha256": "e23ff8ecc9bdc14df52204033ebc34b15bc590b3f509d41fdb90fc2d4d717ca7",
+  "metrics": [
+    {
+      "symbol": "_virtual_file_open",
+      "control": false,
+      "target_size": 112,
+      "candidate_size": 112,
+      "strict_equal": false,
+      "raw_different_bytes": 35,
+      "raw_byte_percent": 68.75,
+      "normalized_different_bytes": 0,
+      "normalized_byte_percent": 100.0,
+      "instruction_percent": 100.0,
+      "original_instruction_count": 33,
+      "candidate_instruction_count": 33,
+      "ordered_cfg_equal": true,
+      "original_blocks": 8,
+      "candidate_blocks": 8,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x410460",
+        "0x410460",
+        "0x405130"
+      ],
+      "candidate_direct_calls": [
+        "0x410460",
+        "0x410460",
+        "0x405130"
+      ],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 12,
+      "category": "relocation-only diagnostic equality"
+    },
+    {
+      "symbol": "_virtual_file_seek",
+      "control": false,
+      "target_size": 112,
+      "candidate_size": 112,
+      "strict_equal": false,
+      "raw_different_bytes": 28,
+      "raw_byte_percent": 75.0,
+      "normalized_different_bytes": 0,
+      "normalized_byte_percent": 100.0,
+      "instruction_percent": 100.0,
+      "original_instruction_count": 34,
+      "candidate_instruction_count": 34,
+      "ordered_cfg_equal": true,
+      "original_blocks": 7,
+      "candidate_blocks": 7,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x410460",
+        "0x4052c0",
+        "0x405340"
+      ],
+      "candidate_direct_calls": [
+        "0x410460",
+        "0x4052c0",
+        "0x405340"
+      ],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 8,
+      "category": "relocation-only diagnostic equality"
+    },
+    {
+      "symbol": "_virtual_file_read",
+      "control": false,
+      "target_size": 80,
+      "candidate_size": 80,
+      "strict_equal": false,
+      "raw_different_bytes": 20,
+      "raw_byte_percent": 75.0,
+      "normalized_different_bytes": 0,
+      "normalized_byte_percent": 100.0,
+      "instruction_percent": 100.0,
+      "original_instruction_count": 24,
+      "candidate_instruction_count": 24,
+      "ordered_cfg_equal": true,
+      "original_blocks": 5,
+      "candidate_blocks": 5,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x410460",
+        "0x405210"
+      ],
+      "candidate_direct_calls": [
+        "0x410460",
+        "0x405210"
+      ],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 6,
+      "category": "relocation-only diagnostic equality"
+    },
+    {
+      "symbol": "_virtual_file_close",
+      "control": false,
+      "target_size": 80,
+      "candidate_size": 80,
+      "strict_equal": false,
+      "raw_different_bytes": 21,
+      "raw_byte_percent": 73.75,
+      "normalized_different_bytes": 0,
+      "normalized_byte_percent": 100.0,
+      "instruction_percent": 100.0,
+      "original_instruction_count": 24,
+      "candidate_instruction_count": 24,
+      "ordered_cfg_equal": true,
+      "original_blocks": 7,
+      "candidate_blocks": 7,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x4051f0"
+      ],
+      "candidate_direct_calls": [
+        "0x4051f0"
+      ],
+      "original_indirect_calls": [],
+      "candidate_indirect_calls": [],
+      "relocation_count": 6,
+      "category": "relocation-only diagnostic equality"
+    }
+  ],
+  "contract": "Open scans16slots, uses archive handle, increments live count, returns slot+1. Seek/read validate against signed activecount andoccupiedslot, and continue ifdiagnosticreturns. Seek reloads slot after backendseek thenreturnsposition. Close returns backendresult, reloadscount aftercall and clears capturedslot.",
+  "limits": [
+    "Capacity/hole handling intentionally follows target; no max-slot validation repair.",
+    "Synthetic callbacks/diagnostic return paths test ABI/readorder, not shipped termination behavior.",
+    "All384bytes normalizeequal but remain rawnonexact; freeze source, recoveractualdependencies."
+  ],
+  "fixture": {
+    "checks": 2528,
+    "failures": 0,
+    "source": "tests/virtual_file_semantics.c"
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-quri19qc\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\virtual_file.c"
+    ],
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null
+  }
+}

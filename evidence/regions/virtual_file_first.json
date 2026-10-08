@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-08T00:23:21.886418+00:00",
+  "region": "virtual_file",
+  "ownership": {
+    "id": "virtual_file",
+    "ownership": "inferred_region",
+    "rationale": "Four real public-handle adapters share16-slot/count view; original TU unproved."
+  },
+  "context_id": "9ee457ff7fe17f62885a18e72c138c088364bf6254ec7f47a32e69c5146aa73a",
+  "source_sha256": "e23ff8ecc9bdc14df52204033ebc34b15bc590b3f509d41fdb90fc2d4d717ca7",
+  "baseline_sha256": "e23ff8ecc9bdc14df52204033ebc34b15bc590b3f509d41fdb90fc2d4d717ca7",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "e23ff8ecc9bdc14df52204033ebc34b15bc590b3f509d41fdb90fc2d4d717ca7",
+  "source_patch": {
+    "base_sha256": "e23ff8ecc9bdc14df52204033ebc34b15bc590b3f509d41fdb90fc2d4d717ca7",
+    "result_sha256": "e23ff8ecc9bdc14df52204033ebc34b15bc590b3f509d41fdb90fc2d4d717ca7",
+    "edits": []
+  },
+  "output_id": "08b15641bfa48874b47e817b45186407756b11ce8b4ec15f281a6956f9cbe2a6",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_virtual_file_open",
+      "target_size": 112,
+      "candidate_size": 112,
+      "raw_different_bytes": 35,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 12,
+      "target_relocation_count": 0,
+      "output_id": "dc2d8af6b45ff39249237326cde5450e03084545e606dfa2828b2e2f76ee482c",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_virtual_file_seek",
+      "target_size": 112,
+      "candidate_size": 112,
+      "raw_different_bytes": 28,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 8,
+      "target_relocation_count": 0,
+      "output_id": "ec8ca748e8e56187e821bdf5c63f091b2c4fef755664aaa637b614b8a9ecacee",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_virtual_file_read",
+      "target_size": 80,
+      "candidate_size": 80,
+      "raw_different_bytes": 20,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 6,
+      "target_relocation_count": 0,
+      "output_id": "8676fbfdcb4e3b2c90154fbae10b5d8bc260eeed65633eddfc2fe624247ea4d6",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_virtual_file_close",
+      "target_size": 80,
+      "candidate_size": 80,
+      "raw_different_bytes": 21,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 6,
+      "target_relocation_count": 0,
+      "output_id": "edae116a3a8c0b26fcc92cec6cfb2fdfaab98f7ac1361938028594eb6a6c7afe",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 4,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 4,
+    "ordered_cfg_equal": 4,
+    "instruction_over_90": 4,
+    "nonexact_instruction_over_90": 4,
+    "categories": {
+      "relocation-only diagnostic equality": 4
+    }
+  },
+  "family": "public-slot-mapping-and-live-callback-reads",
+  "prediction": "Ordinary16-slot search and signed active-count/occupied-slot guards preserve PC behavior. Seek reloads slot after callback; close preserves callback result and reloads count before clear.",
+  "falsifier": "Any changed handle validation, cached slot/count across callbacks, hard return after diagnostic, added max guard, or full contribution equality failure disproves exact source reconstruction.",
+  "verdict": "observed",
+  "blocker": null,
+  "reentry_condition": null,
+  "next_discriminator": "Actual data/backend dependencies and independent source/control facts; no spelling grid.",
+  "ungated_work": [],
+  "new_evidence": null,
+  "new_discriminator": null,
+  "metrics": {
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "capability": "Integrator resolves shared public/archive ABI and callback reads",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 2,
+    "semantic_result": "2528 checks/0 failures; guards,holes,slot/count callback mutation.",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "17b9e36e7bc8a2f603d9a518c8cf7eaac1a82f814c8011fca64a6cc45e10a077",
+    "report_sha256": "0d1bfbe867cfb7d3dae14921cbe5558fb4eed1ca6bffab42f945af72444e3c4f",
+    "object_sha256": "edd482444353aefbab9c636275f188141f122867a418dbfc961ab2636e05684d",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-quri19qc\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\virtual_file.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "0b51b60757dd62ef8fa291bd85645c6ed134bd4fa7bc71a180aa7ec3912430a0"
+}

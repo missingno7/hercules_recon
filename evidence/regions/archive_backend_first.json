@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-08T00:28:27.041614+00:00",
+  "region": "archive_backend_v2",
+  "ownership": {
+    "id": "archive_backend_v2",
+    "ownership": "function_task",
+    "rationale": "A factual ordering correction to the same three bounded archive backend contributions, based on the exact post-fseek position reload and open pivot instructions; does not claim original TU ownership."
+  },
+  "context_id": "245aa70db7747379432f866313a7a1df309252b4fd2723796d4a1667226e4450",
+  "source_sha256": "5249980d9f3ec719ce6dc13ac5afbe4cab40469539d0ea788168596ed49db0cc",
+  "baseline_sha256": "5249980d9f3ec719ce6dc13ac5afbe4cab40469539d0ea788168596ed49db0cc",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "5249980d9f3ec719ce6dc13ac5afbe4cab40469539d0ea788168596ed49db0cc",
+  "source_patch": {
+    "base_sha256": "5249980d9f3ec719ce6dc13ac5afbe4cab40469539d0ea788168596ed49db0cc",
+    "result_sha256": "5249980d9f3ec719ce6dc13ac5afbe4cab40469539d0ea788168596ed49db0cc",
+    "edits": []
+  },
+  "output_id": "4bd4515e7a6c2e380f95108beffadff4961b1417b6f0d863803d4c72513a2bcb",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_archive_open",
+      "target_size": 192,
+      "candidate_size": 176,
+      "raw_different_bytes": 122,
+      "normalized_different_bytes": 108,
+      "instruction_percent": 75.41,
+      "ordered_cfg_equal": false,
+      "category": "structural/source-form investigation",
+      "strict_equal": false,
+      "relocation_count": 9,
+      "target_relocation_count": 0,
+      "output_id": "8855c7e3ad1f6f90e3a4bc1b6969af06701b62402b12a26bb33ae901b4b3de67",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_archive_read",
+      "target_size": 176,
+      "candidate_size": 176,
+      "raw_different_bytes": 166,
+      "normalized_different_bytes": 166,
+      "instruction_percent": 53.571,
+      "ordered_cfg_equal": true,
+      "category": "uncertain allocation/type/source-form",
+      "strict_equal": false,
+      "relocation_count": 12,
+      "target_relocation_count": 0,
+      "output_id": "f6ccbe466fe07ceb17f2bcc4b232aea74d9d8b5752e1d685c9c23465ab2aeaed",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_archive_seek",
+      "target_size": 128,
+      "candidate_size": 128,
+      "raw_different_bytes": 120,
+      "normalized_different_bytes": 121,
+      "instruction_percent": 30.556,
+      "ordered_cfg_equal": false,
+      "category": "structural/source-form investigation",
+      "strict_equal": false,
+      "relocation_count": 9,
+      "target_relocation_count": 0,
+      "output_id": "82ab5de2ca54086c1291da02f0e612b9293d8fa30e54dd55776401d2e46e4894",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 3,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 0,
+    "ordered_cfg_equal": 1,
+    "instruction_over_90": 0,
+    "nonexact_instruction_over_90": 0,
+    "categories": {
+      "structural/source-form investigation": 2,
+      "uncertain allocation/type/source-form": 1
+    }
+  },
+  "family": "post-fseek-position-reload-and-open-pivot-order",
+  "prediction": "work/archive_backend/prediction_v2.json",
+  "falsifier": "If frozen v1 passes the post-fseek mutation assertion, or v2 fails it, the live-position hypothesis is falsified. Also reject if v2 changes physical fseek offset to use the reloaded position, violates the target >= pivot sequencing/old-lower midpoint, fails the remaining archived backend fixture, or alters unrelated source beyond these two evidence-backed corrections. No further source family or declaration/spelling grid follows.",
+  "verdict": "observed",
+  "blocker": null,
+  "reentry_condition": null,
+  "next_discriminator": "Real normalizer/hash/sharedstorage/library dependencies. No codegen spelling grid.",
+  "ungated_work": [],
+  "new_evidence": "Disassembly at 0x522b/0x525d separates the position used to compute the physical seek from the reloaded position used in bounds arithmetic; 0x5182..0x518c computes the >= midpoint from old lower before assigning the old pivot as lower. The frozen v1 candidate and its metrics are preserved.",
+  "new_discriminator": null,
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "target-site read-order correction and pinned historical full-contribution diagnostics",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 3,
+    "semantic_result": "30 checks/0 failures; v1 live-position negative30/1",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "eae115f3750caee178428283be15777e55e14ef28e019bb272ed641f2a561994",
+    "report_sha256": "ed38784c2f4d062edb2a4c4320077c2b417bc70900f16f928e9d662cc4016dd6",
+    "object_sha256": "b53b5213b77c23732c0d0f5bb56b2c92d79d1dcadd4c277cc104ca6c78dc9456",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-22egv_i8\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\archive_backend.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "7b86f639c3de0b29625232a7633ca47a9f6520eb5e0f0928b4e12ef4a147278a"
+}

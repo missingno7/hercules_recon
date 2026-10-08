@@ -1,0 +1,449 @@
+{
+  "scope": "Static instruction-supported host file service contract. No compiler, original execution, canonical/Git/source/type changes. Existing CRT/archive/pool proofs reused.",
+  "oracle": {
+    "path": "work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "baseline": [
+    {
+      "path": "calibration/resource_context.h",
+      "sha256": "d679b1ff0395c3d734ee24ff00c2af145624c6f4240365732df0e168b090b475"
+    },
+    {
+      "path": "evidence/resource_host_bindings.json",
+      "sha256": "945912790d6855ec31d26649fdc122b2712a2cd6f766101e98b223334d4c1d5b"
+    },
+    {
+      "path": "evidence/resource_blob_allocation.json",
+      "sha256": "712a665f3f50024a95798169a995efa13db1d6a23d669f67a92b971eb7f4b127"
+    }
+  ],
+  "full_targets": [
+    {
+      "name": "sync",
+      "start_rva": "0x3b50",
+      "end_rva_exclusive": "0x3c50",
+      "size": 256,
+      "sha256": "4a6573324e29443c08f7def1e3db71f8a129ecacdcf03feb5425e9e2eb371528",
+      "indexed_callers": [
+        {
+          "source_rva": "0x11af",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x13d9",
+          "kind": "linear_call"
+        }
+      ]
+    },
+    {
+      "name": "async",
+      "start_rva": "0x3d90",
+      "end_rva_exclusive": "0x3ea0",
+      "size": 272,
+      "sha256": "bc4fc927aebd2336261d48f86d24b729da30180806db69411a687503511f5302",
+      "indexed_callers": []
+    },
+    {
+      "name": "cancel",
+      "start_rva": "0x3ea0",
+      "end_rva_exclusive": "0x3f00",
+      "size": 96,
+      "sha256": "63be1b78e72f384da80b3fcd8b7eaaaee014b75326e584c015b04fb7145f7431",
+      "indexed_callers": [
+        {
+          "source_rva": "0x3ffe",
+          "kind": "linear_call"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "start_rva": "0x3f00",
+      "end_rva_exclusive": "0x4040",
+      "size": 320,
+      "sha256": "283181a9bd796fdff733b4cb0b2d5daec911b52d0f6309e654bb008befc3bb3d",
+      "indexed_callers": []
+    },
+    {
+      "name": "length",
+      "start_rva": "0x40d0",
+      "end_rva_exclusive": "0x4180",
+      "size": 176,
+      "sha256": "9208567c1495dd781eafb059df63975dc91f458438719a49e73ada20222159a4",
+      "indexed_callers": [
+        {
+          "source_rva": "0x1159",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x137c",
+          "kind": "linear_call"
+        }
+      ]
+    },
+    {
+      "name": "prepare",
+      "start_rva": "0x1d60",
+      "end_rva_exclusive": "0x1d80",
+      "size": 32,
+      "sha256": "211dc21fe6f0856055948d46798a358946a9ebbcbeac74aea817a5efc23bd997",
+      "indexed_callers": [
+        {
+          "source_rva": "0x3b53",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x3c62",
+          "kind": "linear_call"
+        },
+        {
+          "source_rva": "0x3da5",
+          "kind": "linear_call"
+        }
+      ]
+    }
+  ],
+  "shared_prefix_extension": {
+    "existing": "calibration/resource_context.h has observed prefix throughdf, callbackfields atb0/b4, modeword9c,signedsectorwords9e/a0.",
+    "fields": [
+      {
+        "offset": "0xa4",
+        "width": 4,
+        "ordinary_type": "unsigned char *",
+        "name": "destination_cursor",
+        "evidence": "3e32 stores asyncarg4;3fc0 loads forPCread;3fd6 advances livefield afterreadcall.",
+        "limits": "Pointer provenance/capacity unproved; captures bytes chosen for request, not returned bytecount."
+      },
+      {
+        "offset": "0xac",
+        "width": 4,
+        "ordinary_type": "opaque32-bit field",
+        "name": "unknown_0ac",
+        "evidence": "3ee7 cancel and3d65 synchronousclosehelper clear0; no meaning proved."
+      },
+      {
+        "offset": "0xb8",
+        "width": 4,
+        "ordinary_type": "signed32-bit handle",
+        "name": "virtual_handle",
+        "evidence": "PCopen results stored3b8e/3ddd/4104; compared with-1 then passed to virtualadapters."
+      },
+      {
+        "offset": "0xbc",
+        "width": 4,
+        "ordinary_type": "unsigned32-bit scalar",
+        "name": "countdown",
+        "evidence": "3f0f/3f11 unsignedpositiveguard;3f14 decrement;3e87 writes0;4018 writes12."
+      },
+      {
+        "offset": "0xd8",
+        "width": 4,
+        "ordinary_type": "signed32-bit or opaque32 status",
+        "name": "transfer_result",
+        "evidence": "3f41 compares-1;failurecallback returns then3f7b clears0.",
+        "limits": "No nonzero producer found in bounded tracedENG1/EXEcontextaccesses. Do not invent its source/purpose beyond the observed predicate."
+      },
+      {
+        "offset": "0xdc",
+        "width": 2,
+        "ordinary_type": "unsigned16-bit scalar",
+        "name": "transfer_status",
+        "evidence": "3c39 syncsuccesswrites0;3f4a failurewrites0x100;3fea completionwrites0;10781 initializationwrites0.",
+        "limits": "No complete statusenum/bitmeaning inferred."
+      },
+      {
+        "offset": "0xe0",
+        "width": 1,
+        "ordinary_type": "unsigned char",
+        "name": "suppress_auto_close",
+        "evidence": "3ff6 testsbyte against0;nonzero skipscancel/mode4/countdown12, but completioncallback stillruns.",
+        "limits": "Operational name only. No writer found in reviewedENG1/EXEboundedcontexttrace; unknownaliases/othermodules/initcopies remainpossible."
+      },
+      {
+        "offset": "0x1b00",
+        "width": 4,
+        "ordinary_type": "opaque32-bit field",
+        "name": "prepare_state",
+        "evidence": "1d6d clears0 afteracceptedemptyBE30;otherhelperwrites1e6e value2 corroborates32-bit field.",
+        "limits": "Samecontext pointercell, hence minimumobservedphysicalprefixthrough1b04 ifincluded inoneview. Originalfullextent/type/TU remainsunproved."
+      }
+    ],
+    "gaps": "Preserve unknownbytes at a2..a3,a8..ab,c0..d7,de,df existingblockedbyte,e1..1aff ifoneexpandedview. Document observed prefix only; no fabricated game fields.",
+    "callback_abi": {
+      "current": "Fields void(__cdecl*)(void) in resource_context.h.",
+      "host": "3f62/4031 push32-bitzero;3f63/4032 indirectcall;caller-cleans4.",
+      "engine": "ENG1 direct370a calls3810 withnoargs; callbacksconsume noargument.",
+      "supported_hypothesis": "A historicalC unprototyped callback field void(__cdecl*)() represents both observed physical call forms without requiredargumentsemantics. Alternatively separate module-specific host ABI view can retain observed one-slot call while existingENG1view remainsunchanged.",
+      "limits": "Originalcallbackprototype unknown. Do not silentlycall(0) through currentvoid(void) prototype, add wrappers, use arbitraryfunctionpointercasts or rewritefrozen callbackbodies. Fresh ordinaryC build must test chosen consistentdeclaration and preserve peers."
+    }
+  },
+  "functions": {
+    "sync": {
+      "signature": "32-bit host_sync(const char *prefix,const char *suffix,void *destination,32-bit byte_count)",
+      "contract": [
+        "3b53 callprepare beforeformatting. sprintf(sharedfilename,\"%s%s\",prefix,suffix).",
+        "PCopen(filename,0,0);store return to LIVEcontext+b8;reloadcontext andcomparehandle -1.",
+        "Capture destination andbyte_count fromoriginalargs once. Eachloop logsLoading; reload LIVEcontext handle afterdiagnostic;callPCread(handle,captured_destination,captured_bytes). Ignore itsreturnedcount.",
+        "Reload LIVEcontext handle afterread;callPCclose(handle). Ifclose result!=0, reopencurrent sharedfilename,store toLIVEcontext;reloadhandle;retry read+close unlesshandle==-1. Destination,byte_count remainoriginal;filenamebuffer remains sharedlive storage.",
+        "Open/reopen failure logsRead Failed,returns0. Successfulclose writes LIVEcontext.status16=0 beforeComplete diagnostic,returnscapturedbyte_count. No mode9c orcallback changes."
+      ],
+      "captured": [
+        "destination",
+        "byte_count"
+      ],
+      "live": [
+        "filenamecontents acrossretries",
+        "context/handle afterprepare,open,diagnostic,read,close,reopen",
+        "context forstatus store before finaldiagnostic"
+      ]
+    },
+    "asynchronous": {
+      "signature": "32-bit host_async(const char *prefix,const char *suffix,32-bit sector_offset,void *destination,32-bit byte_count)",
+      "contract": [
+        "Entry LIVEcontext.mode16==1 returns1 withoutprepare/filecalls. Otherwiseprepare,formatsharedfilename,PCopen(filename,0,0).",
+        "Store openresult toLIVEcontext.handle;reloadcontext/handle. Ifhandle==-1 logRead Failed andreturn3;no cursor/mode/sectors/countdown writes.",
+        "If full32sector_offset!=0,PCseek(captured_currenthandle,sector_offset<<11,0). Seekresultignored.",
+        "Reloadcontext;store originaldestination cursor+a4. Reloadcontext;write mode9c=1. Compute signedtruncation ofwrapped byte_count+2047 dividedby2048. Reloadcontext;store low16total+a0. Reloadcontext;read THAT LIVEtotalword andstore remaining+9e. Reloadcontext;countdownbc=0. Return2."
+      ],
+      "rounding": "t=(S32)((U32)byte_count+2047U);q=t/2048 with truncationtowardzero;storeq mod65536. Preserveall32inputbits and low16 narrowing. Do not replace with unsignedceildivision.",
+      "captured": [
+        "arguments",
+        "handle for optional seek"
+      ],
+      "live": [
+        "context afterprepare/open/seek",
+        "totalword reread afterstore instead ofcachedq whenwritingremaining"
+      ]
+    },
+    "cancel": {
+      "signature": "int host_cancel(void)",
+      "contract": [
+        "Read entrycontext.mode16. Ifzero return0 withoutclose.",
+        "Capture handle fromentrycontext;PCclose(handle). Ifnonzero logClose Failed thenreturn0 without clearingstate/ac.",
+        "Ifclosezero reloadcontext;setmode16=0. Reloadcontext;clearunknown_ac32. Return0. Callbacks,handle,cursor,sectors,status,countdown arepreserved."
+      ]
+    },
+    "length": {
+      "signature": "32-bit host_length(const char *prefix,const char *suffix)",
+      "contract": [
+        "No preparecall. Formatsharedfilename,PCopen(filename,0,0);store resulttoLIVEcontext.handle;reloadhandle.",
+        "Handle -1 returns0. Else PCseek(capturedhandle,0,2);captureEAX full32length,ignore otherseekstatusinterpretations.",
+        "Reloadcontext.handle;PCclose(handle). Ifclosezero returncapturedlength. Ifnonzero reopencurrent sharedfilename,store resulttoLIVEcontext,reloadhandle andrepeat seek+close unless-1 thenreturn0.",
+        "No cursor,modes,sectors,callbacks/countdown/status writes."
+      ]
+    },
+    "progress": {
+      "signature": "void host_progress(void),noargumentloads;returnEAX incidental/unconsumed in knowncaller contract",
+      "contract": [
+        "Capturecontext. Ifunsignedcountdown>0,decrementthatcontext field;reloadcontext,ifnewcountdown==0 clear THATcontext.mode16. Reloadcontext.",
+        "IfLIVEcontext.mode16!=1 return. Onmode1 currentcontext.transfer_result32==-1:write THATcontext.status16=0x100;reloadcontext;fetchfailurecallback;nonnullcallwithonezero32-bitarg. Aftercallbackreloadcontext,setmode16=0;reloadcontext,cleartransfer_result32=0;return.",
+        "Normalpath capture signed16remaining. Ifremaining<5,chosen_count=signextendedremaining andsetremainingword0 in capturedcontext;otherwisechosen_count=5 andsubtract5 fromcapturedremainingword. Negativephysicalremaining isnotclamped.",
+        "Ifchosen_count!=0,capturechosen_bytes=chosen_count*2048 (fullsigned32domainfits). Reloadcontext;capturehandle andcursor;PCread(handle,cursor,chosen_bytes physical32bits). Ignore returnedcount. Reloadcontext;advance LIVEcursor bycapturedchosen_bytes.",
+        "Reloadcontext;remainingword!=0 returns. Elsewrite THATcontext.status16=0;reloadcontext;bytee0==0 calls host_cancel. Regardlesscancelresult,aftercancelreloadcontext,setmode16=4;reloadcontext,countdown32=12. Bytee0!=0 skipsallthreeactions.",
+        "Reloadcontext;fetchcompletioncallback AFTER precedingactions. Nonnullcallwithonezero32-bitarg. Return withoutcleanup aftercompletioncall."
+      ],
+      "captured": [
+        "chosen sectorcount andbytes acrossPCread",
+        "entryremainingword usedforchunkchoice",
+        "handle/cursor suppliedtoonePCread"
+      ],
+      "live": [
+        "countdown/mode afterdecrement",
+        "failurecallback pointer aftererrorstatuswrite",
+        "mode/result cleanup contextafterfailurecallback",
+        "cursor afterPCread",
+        "remaining afterPCread",
+        "bytee0 beforecancel",
+        "context for mode/countdown aftercancel",
+        "completioncallback aftercancel/statewrites"
+      ],
+      "repeat_completion": "Withbytee0!=0,mode1/remaining0 preservedunlesscallback changesit; subsequentprogress calls canrepeatcompletion. Preserveobservedbehavior; no automaticreset.",
+      "transfer_units": "Normalprogress requestswholechosen sectors,includingfinalpartial file sector; alwaysadvancescursor byrequestedchosen_bytes,notactualPCread result. Archive backend clips actualread; do notadd finalpartialadjustment."
+    },
+    "prepare": {
+      "signature": "void host_prepare(void),noargs; returntype notconsumedbyselectedfilecallers",
+      "contract": [
+        "CallacceptedemptyprojectBE30 first.",
+        "Reloadcontext;clear32-bitfield+1b00. ClearseparatescalarVA4352b0. No file/callback/state9c changes."
+      ]
+    }
+  },
+  "context_mutation_scope": "Callbacks and PC adapter calls provide real call boundaries. Preserve observedcaptured/live reads in source and target-derived adversarialfixtures; arbitrary replacementcontext is notasserted tooccur in the shippeddefaultpath. No volatile/sourcealiasflags.",
+  "filename": {
+    "address_va": "0x615c10",
+    "format": "%s%s at436024",
+    "writer_calls": [
+      "sync3b6c",
+      "async3dbe",
+      "length40e5",
+      "adjacentopenhelper3c7b"
+    ],
+    "storage": "Shared writable hostzero-fill; functionsoverwrite samebuffer. Reopen/logs consume current contents.",
+    "capacity": "No validatedcapacity/boundsestablished. All exactencodedrefs areformatdestination/open/logarguments; noneprovidesize. Neighborcontext VA615c98 cannotprovefilenamearrayextent. Useexternchar filename[] in taskcontractuntilrealdefinition recovered;no invented128/136byteextent.",
+    "contents": "sprintf reads prefix/suffix suppliedbycaller; provider suffix\\ANIMPSX.BIN andrecordprefix distinguish archivevirtualfilename from filesystemdirectory capacity."
+  },
+  "state_transitions": {
+    "started": "async writesmode1,total/remaininglow16,countdown0;return2",
+    "busy": "async entrymode1 return1",
+    "open_failure": "async return3;sync/length0;nominalbranch preserved despitecustombackendsnormallyfatalmissingname.",
+    "cancel_success": "mode0,unknown_ac0",
+    "failure_delivery": "status256;callback0;postcallbackLIVE mode0/result0",
+    "completion_auto_close": "status0;cancel;LIVE mode4,countdown12;callback0",
+    "completion_keep_open": "status0;callback0;noauto mode/countdown change",
+    "cooldown": "unsignedcountdown decrement eachprogress;whenbecomes0 clearsLIVE mode0 beforetransferstatecheck"
+  },
+  "smallest_coherent_worker": {
+    "scope": [
+      "prepare32",
+      "sync256",
+      "async272",
+      "cancel96",
+      "progress320",
+      "length176"
+    ],
+    "total_target_bytes": 1152,
+    "external_dependencies": [
+      "acceptedproject host_diagnostic63c0 andemptyBE30",
+      "identifiedCRT sprintf10f40",
+      "customPCopenA210,PCseekA280,PCreadA2F0,PCcloseA350",
+      "sharedcontextpointer cell4361bc,filename615c10,scalar4352b0"
+    ],
+    "ownership": "Fresh private Luna lane; root-ownedENG1callbacks/provider/readiness andacceptedpeers remainfrozen. Headerextension is integrator-only; no sharedsource wasedited here.",
+    "prediction": "One consistentobservedcontextview plusordinaryfile-service sourcepreservesfield widths, wrappedrounding,virtualhandle retries andlivecallbackorder;measurecompletefunctions andrelocations withfreshhistoricalcompile.",
+    "falsifier": "Changedentrycontextcapture,missingpostcallreload,roundedunsignedquotient,read-resultbasedcursoradvance,callbackorder/argumentchange,extraerrorguards or failedsemanticfixture falsifiescandidate. Stop ratherthansource/declarationgrid.",
+    "fixtures": [
+      "syncprepare->sprintf->open->log->read->close->status0->log;returnoriginalrequestedbytes even shortread",
+      "syncclose failure thenfilename/context mutation before reopen; destination/count remaincaptured",
+      "length no prepare; closefailure retriesseekonnewhandle andreturnslastcapturedseeklength",
+      "asyncmode1 earlyguard; open-1 retainsstatefields; nonzerosectoroffset seeks; modes/status1/2/3returnexact",
+      "asyncfull32rounding boundariesandlow16 truncation below;notonlypositiveceil cases",
+      "unsignedcountdown0,1,12,80000000 cases;1clearsmodebeforetransfer",
+      "remaining1/5/6 andnegativephysicalvalues; chosenbytes ignore readreturn; livecursor updatedaftercallbackmutation",
+      "failurecallback mutation ofcontext/completeptr/status;cleanup applies newlylivecontext andpreservesstatus256",
+      "auto-completion cancelreturnsnonzero stillmode4/countdown12;completion callback fetchedaftercancel mutatespointer",
+      "bytee0!=0 suppressesclose/statewrites; repeatedcompletion retained",
+      "callbackslot onezeroarg observed; preserve ENG1 directzero-argcall withconsistenthistoricalCdeclaration, no wrappers/casts"
+    ]
+  },
+  "rounding": {
+    "proof": "MachineCDQ/AND2047/ADD/SAR11 givesfloor((t+2047)/2048) fornegative t andfloor(t/2048) fornonnegative t, i.e. truncationtowardzero of signedwrapped t=(bytes+2047)mod2^32. Correctionaddition cannotoverflow signeddomain.",
+    "boundary_cases": [
+      {
+        "bytes_hex": "0x0",
+        "sum_signed": 2047,
+        "sector_result": 0,
+        "stored_word": "0x0",
+        "stored_signed16": 0
+      },
+      {
+        "bytes_hex": "0x1",
+        "sum_signed": 2048,
+        "sector_result": 1,
+        "stored_word": "0x1",
+        "stored_signed16": 1
+      },
+      {
+        "bytes_hex": "0x7ff",
+        "sum_signed": 4094,
+        "sector_result": 1,
+        "stored_word": "0x1",
+        "stored_signed16": 1
+      },
+      {
+        "bytes_hex": "0x800",
+        "sum_signed": 4095,
+        "sector_result": 1,
+        "stored_word": "0x1",
+        "stored_signed16": 1
+      },
+      {
+        "bytes_hex": "0x801",
+        "sum_signed": 4096,
+        "sector_result": 2,
+        "stored_word": "0x2",
+        "stored_signed16": 2
+      },
+      {
+        "bytes_hex": "0x7fff800",
+        "sum_signed": 134217727,
+        "sector_result": 65535,
+        "stored_word": "0xffff",
+        "stored_signed16": -1
+      },
+      {
+        "bytes_hex": "0x7fff801",
+        "sum_signed": 134217728,
+        "sector_result": 65536,
+        "stored_word": "0x0",
+        "stored_signed16": 0
+      },
+      {
+        "bytes_hex": "0x7ffff7ff",
+        "sum_signed": 2147483646,
+        "sector_result": 1048575,
+        "stored_word": "0xffff",
+        "stored_signed16": -1
+      },
+      {
+        "bytes_hex": "0x7ffff800",
+        "sum_signed": 2147483647,
+        "sector_result": 1048575,
+        "stored_word": "0xffff",
+        "stored_signed16": -1
+      },
+      {
+        "bytes_hex": "0x7ffff801",
+        "sum_signed": -2147483648,
+        "sector_result": -1048576,
+        "stored_word": "0x0",
+        "stored_signed16": 0
+      },
+      {
+        "bytes_hex": "0x80000000",
+        "sum_signed": -2147481601,
+        "sector_result": -1048575,
+        "stored_word": "0x1",
+        "stored_signed16": 1
+      },
+      {
+        "bytes_hex": "0xfffff800",
+        "sum_signed": -1,
+        "sector_result": 0,
+        "stored_word": "0x0",
+        "stored_signed16": 0
+      },
+      {
+        "bytes_hex": "0xfffff801",
+        "sum_signed": 0,
+        "sector_result": 0,
+        "stored_word": "0x0",
+        "stored_signed16": 0
+      },
+      {
+        "bytes_hex": "0xffffffff",
+        "sum_signed": 2046,
+        "sector_result": 0,
+        "stored_word": "0x0",
+        "stored_signed16": 0
+      }
+    ]
+  },
+  "evidence": {
+    "service_instructions": "work/host_file_service_audit/services_disassembly.txt",
+    "service_spans": "work/host_file_service_audit/services.json",
+    "straight_context_fields": "work/host_file_service_audit/field_leads.json",
+    "branch_context_writers": "work/host_file_service_audit/branch_field_writers.json",
+    "engine_context_leads": "work/host_file_service_audit/engine_field_leads.json",
+    "direct_static_context_refs": "work/host_file_service_audit/direct_context_refs.json",
+    "writer_limits": "Bounded paths from directcontextcell loads, directalias tracking andverifiedPCinstructionbranches only. Notanexhaustivewholeprogramalias/writeabsence proof. No fullDB/disassemblydump."
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "compiler_builds": 0,
+    "tokens": null,
+    "cost_usd": null
+  }
+}

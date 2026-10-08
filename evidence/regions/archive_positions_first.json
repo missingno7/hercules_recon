@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-08T00:23:22.205417+00:00",
+  "region": "archive_positions",
+  "ownership": {
+    "id": "archive_positions",
+    "ownership": "function_task",
+    "rationale": "Two bounded direct leaves over the archive logical-position table; this is not a claim about the full archive source unit or complete table capacity."
+  },
+  "context_id": "935a88f2f5686248e0b9ac3fc58ee10c6c0daccc657ff193f7ae14def55c605a",
+  "source_sha256": "5fe0c3028cc40915434423f5fb015bb0270875fd53d13e2db73b2644023ee260",
+  "baseline_sha256": "5fe0c3028cc40915434423f5fb015bb0270875fd53d13e2db73b2644023ee260",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "5fe0c3028cc40915434423f5fb015bb0270875fd53d13e2db73b2644023ee260",
+  "source_patch": {
+    "base_sha256": "5fe0c3028cc40915434423f5fb015bb0270875fd53d13e2db73b2644023ee260",
+    "result_sha256": "5fe0c3028cc40915434423f5fb015bb0270875fd53d13e2db73b2644023ee260",
+    "edits": []
+  },
+  "output_id": "430f83d5b53e6ce3fc882942bc18eb35ef0150c009f5da95717d0fe4033ff5fb",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_archive_close",
+      "target_size": 32,
+      "candidate_size": 32,
+      "raw_different_bytes": 4,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 1,
+      "target_relocation_count": 0,
+      "output_id": "f073a6ded8ccfe1fdcd990e2fdb8c1415f7e4d7833460ae78897290387f91502",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_archive_position",
+      "target_size": 16,
+      "candidate_size": 16,
+      "raw_different_bytes": 4,
+      "normalized_different_bytes": 0,
+      "instruction_percent": 100.0,
+      "ordered_cfg_equal": true,
+      "category": "relocation-only diagnostic equality",
+      "strict_equal": false,
+      "relocation_count": 1,
+      "target_relocation_count": 0,
+      "output_id": "15bdc6b8cd767a493d9d2fd1f5f7a3b25ec24cc24c710768394470e2ce3593cc",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 2,
+    "exact": 0,
+    "new_exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 2,
+    "ordered_cfg_equal": 2,
+    "instruction_over_90": 2,
+    "nonexact_instruction_over_90": 2,
+    "categories": {
+      "relocation-only diagnostic equality": 2
+    }
+  },
+  "family": "ordinary-c-one-based-archive-position-leaves",
+  "prediction": "The API-facing cdecl leaves `int archive_close(int handle)` and `long archive_position(int handle)` use one signed 32-bit handle. `archive_close(handle)` stores -1 at logical_positions[handle-1] and returns 0; `archive_position(handle)` returns the stored 32-bit value. A shared unsized external array view at RVA 0x51a7d0 should yield one table relocation with member addend -4 in each full contribution, preserving the target's one-based addressing and no-validation semantics.",
+  "falsifier": "Reject if either caller ABI or target instructions disagree with the signed 32-bit handle, one-based translation, close sentinel/return, raw position return, or if the fixture finds changed neighboring slots or boundary behavior. Reject any incorrect table base/addend or nonexact full contribution as acceptance; do not respond with a declaration/register/spelling grid.",
+  "verdict": "observed",
+  "blocker": null,
+  "reentry_condition": null,
+  "next_discriminator": "Real logical-position data contribution and natural link; no source rewrite for relocations.",
+  "ungated_work": [],
+  "new_evidence": [
+    "work/archive_positions/pc_evidence.json",
+    "evidence/resource_host_bindings.json",
+    "work/resource_host_bindings/archive_decode.txt",
+    "work/resource_host_bindings/file_io_decode.txt"
+  ],
+  "new_discriminator": "The archived host-binding report establishes that archive open returns binary-search index+1 and that the archive initializer writes 1024 leading dwords of -1 at VA 0x91a7d0; fresh instruction decoding confirms both position leaves use VA 0x91a7cc+4*handle.",
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "ordinary-C static reconstruction, fixed-base EXE mapping, and pinned historical compiler diagnostics",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 2,
+    "semantic_result": "23 checks/0 failures",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "35be5c509b0550d36856dbd8036e33389ecc346bc100267b5b9ea5116de1c6de",
+    "report_sha256": "6f457e5aac0ccca9df04ef2617f5bd75f85769719b617557d507e1bc977a0728",
+    "object_sha256": "e93a174663404e8bbb3890b7694e271fc744259ccbd952dfb49fc3ad6f959b5f",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-7zufeihs\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\archive_positions.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "579e1a62da33fa100cdd0e3749885dec86fa256c60f0265e0c335c920a3a9579"
+}

@@ -1,0 +1,79 @@
+{
+  "scope": "PC-backed path/hash helpers; no acceptance.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "source_sha256": "7a2a7ce0af0e6153573037d432a2ae856dd72fbaf09d07dec8157103f40976d2",
+  "functions": [
+    {
+      "symbol": "_archive_normalize_name",
+      "rva": "0x4e10",
+      "size": 464,
+      "target_sha256": "de59b4119887e3266b5c60f483c87ebbc8b793bcc4a9d9b0617891cb6645302a",
+      "control": false,
+      "boundary_evidence": "Verified complete interval 0x4e10..0x4fe0. Includes RET/body through 0x4fb9, alignment bytes 0x4fba..0x4fbb, the six-DWORD inline switch table 0x4fbc..0x4fd3, and trailing NOPs 0x4fd4..0x4fdf.",
+      "data_spans": [
+        {
+          "start_rva": "0x4fbc",
+          "end_rva_exclusive": "0x4fd4",
+          "kind": "inline six-entry switch table"
+        }
+      ]
+    },
+    {
+      "symbol": "_archive_name_hash",
+      "rva": "0x4fe0",
+      "size": 64,
+      "target_sha256": "65e4d1cece7d7c802a430e50df78c796de6a936deef5890d1eaae5bfb8ac1600",
+      "control": false,
+      "boundary_evidence": "Verified complete interval 0x4fe0..0x5020; RET at 0x5011 and 14 trailing NOP bytes through 0x501f."
+    }
+  ],
+  "metrics": [
+    {
+      "symbol": "_archive_normalize_name",
+      "target_size": 464,
+      "candidate_size": 416,
+      "strict_equal": false,
+      "raw_different_bytes": 428,
+      "normalized_different_bytes": 437,
+      "instruction_percent": null,
+      "ordered_cfg_equal": null
+    },
+    {
+      "symbol": "_archive_name_hash",
+      "target_size": 64,
+      "candidate_size": 64,
+      "strict_equal": false,
+      "raw_different_bytes": 3,
+      "normalized_different_bytes": 3,
+      "instruction_percent": 91.667,
+      "ordered_cfg_equal": true
+    }
+  ],
+  "contract": "One shared scratch: uppercase at+100 then rewrite/prepend in sameobject. Preserve M directalias,N/default first-directorystrip,O/P/Q/R fixedprefixes including O:FOO losingF and C: stale-tail search. Hash signextendedbytes in four cycling8bit lanes modulo32 pluslength.",
+  "limits": [
+    "Scratch capacity and original declarations/TU unproved.",
+    "Full normalizer retains generated inline table; no linearCFG claim through data.",
+    "Hash64bytes has3actual differences, no relocations; not a match and not a source-grid invitation."
+  ],
+  "fixture": {
+    "checks": 27,
+    "failures": 0,
+    "source": "tests/archive_names_semantics.c"
+  },
+  "provenance": {
+    "requested_model": "gpt-6-luna",
+    "requested_effort": "xhigh",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\prog\\hercules_recon\\build\\match\\compile-ghhhhld2\\candidate.obj",
+      "D:\\prog\\hercules_recon\\calibration\\archive_names.c"
+    ],
+    "actual_model_identity": null,
+    "tokens": null,
+    "cost_usd": null
+  }
+}

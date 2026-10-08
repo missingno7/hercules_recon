@@ -1,0 +1,406 @@
+{
+  "scope": "PC-instruction-supported name normalization/hash contract and bounded CRT exit identification. No compiler, original execution, source/canonical/Git/assets changes.",
+  "oracle": {
+    "path": "work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "database_sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390"
+  },
+  "baseline": {
+    "host_binding_evidence": "evidence/resource_host_bindings.json",
+    "sha256": "945912790d6855ec31d26649fdc122b2712a2cd6f766101e98b223334d4c1d5b"
+  },
+  "normalizer": {
+    "full": {
+      "start_rva": "0x4e10",
+      "end_rva_exclusive": "0x4fe0",
+      "bytes": 464,
+      "sha256": "de59b4119887e3266b5c60f483c87ebbc8b793bcc4a9d9b0617891cb6645302a"
+    },
+    "signature": "char *normalize_archive_name(const char *input),one32-bitcaller-cleanedpointerargument;returns pointer into sharedscratch orNULL.",
+    "boundary": "Onlyindexedcaller5142 targets4e10;previousfunctionnotneededhere. Nextindependentlycalledhashentry4fe0;full464span includes bodythroughRET4fb9,2alignmentbytes4fba..4fbc,6inlineDWORDpointers4fbc..4fd4,12NOP4fd4..4fe0.",
+    "inline_table": {
+      "branch_rva": "0x4eb3",
+      "encoded_base_rva": "0x4fbc",
+      "selector": "sign-extendedscratch[start] minusM;unsignedindex>5 usesdefault4f83;M..R select6rows.",
+      "entries": [
+        {
+          "rva": "0x4fbc",
+          "case": "M",
+          "target_rva": "0x4fb6"
+        },
+        {
+          "rva": "0x4fc0",
+          "case": "N",
+          "target_rva": "0x4f83"
+        },
+        {
+          "rva": "0x4fc4",
+          "case": "O",
+          "target_rva": "0x4eba"
+        },
+        {
+          "rva": "0x4fc8",
+          "case": "P",
+          "target_rva": "0x4efd"
+        },
+        {
+          "rva": "0x4fcc",
+          "case": "Q",
+          "target_rva": "0x4f40"
+        },
+        {
+          "rva": "0x4fd0",
+          "case": "R",
+          "target_rva": "0x4f40"
+        }
+      ],
+      "bytes": 24,
+      "sha256": "8b041746adc0f3cd34a3c8bebd558f8a86ac8c6e58214b592c03cd6321f3dde1",
+      "alignment_hex": "8bff",
+      "padding_hex": "909090909090909090909090"
+    },
+    "sequence": [
+      "4e17..4e28 nullinput orfirstNUL returnsNULL withoutscratchwrites.",
+      "4e19 initialize startindex100. 4e2e..4e66 copy inputbytesforward toscratch[100+i], convert onlyASCIIa..z toA..Z withunsignedrange predicates, thenwriteoneNUL. Doesnotclearoldtail.",
+      "4e6c ifscratch[101]==colon,usecopiedinputdriveandstart100. Otherwise,ifinputfirstbyteisnotbackslash,writebackslashatscratch99andsetstart99;thenprependcolon andM bydecrementingtwice. Inputwithoutdrive/withoutleadingbackslashreturnsat97;withleadingbackslashreturnsat98.",
+      "4e9a..4eb3 switch onsignedcharscratch[start], afternormalization. M returnsalreadycomputedpointeratscratch+start via4fb6;N mapsdefault, O/P/Q/R mapfixedprefixcopy,otherbytesdefault.",
+      "O/P subtract12 fromstart andcopy15bytes includingNUL;Q/R subtract15 andcopy18bytes includingNUL. OverwritecopiedlastNUL withbackslash atoldstart+2;originaltailoldstart+3 remains.",
+      "Default4f83 beginsatstart+3, scansforwarduntilbackslash orNUL. Rewrite twocharactersimmediatelybeforethatterminator asM: andreturnpointertothem. Reachedbackslash isretained. OnNUL, resultM: can discardentiretail."
+    ],
+    "prefixes": [
+      {
+        "cases": "O",
+        "rva": "0x365cc",
+        "bytes_including_NUL": 15,
+        "text": "M:\\GRAFIX\\MAPS",
+        "sha256": "65c028b47fc8af6e0e175dd4b1a029f3de8d0c6937df16b6e21baea7d9a76568",
+        "prepend_before_input_start_bytes": 12,
+        "copy": "Complete fixedstring includingNUL is copied;lastcopiedNUL isoverwrittenwithbackslash, retaining originalinputtailat+3."
+      },
+      {
+        "cases": "P",
+        "rva": "0x365bc",
+        "bytes_including_NUL": 15,
+        "text": "M:\\GRAFIX\\CHOP",
+        "sha256": "849bb12a1f2f84441de1d76f68c7e2df3a32b5c11efc7fc0f48086b70b2a6203",
+        "prepend_before_input_start_bytes": 12,
+        "copy": "Complete fixedstring includingNUL is copied;lastcopiedNUL isoverwrittenwithbackslash, retaining originalinputtailat+3."
+      },
+      {
+        "cases": "Q/R",
+        "rva": "0x365a8",
+        "bytes_including_NUL": 18,
+        "text": "M:\\LANGUAGE\\SONIX",
+        "sha256": "8f5953c8845fe0683f40d65acf3b9e8987423831355f1c530cef33b578154d15",
+        "prepend_before_input_start_bytes": 15,
+        "copy": "Complete fixedstring includingNUL is copied;lastcopiedNUL isoverwrittenwithbackslash, retaining originalinputtailat+3."
+      }
+    ],
+    "properties": [
+      "No calls atall in normalizer. The fixedcopy instructiongroups are compatiblewith compiler-inlinedCstringcopy; no realstrcpy/memcpycallee requiresrecovery here. Originalcopyspelling unproved.",
+      "Onlybackslash isseparator. Forwardslash,dotsegments,drivelessabsoluteforms are notOS/filesystemcanonicalized.",
+      "Returnedpointeraliases sharedscratch,notoriginalinputornewallocation; futurecalls overwrite it.",
+      "Both fullbyte contents and returnedoffset matter. O:FOO losesfirstcharacterF because oldstart+2 is overwritten separator;preservethispathformratherthaninsertinganextracharacter.",
+      "Defaultlookaheadstart+3 canbeginbeyondthenewNUL forshortinputlikeC:. Oldscratchtailthenaffectsreturnedoffset/output. Do notclearbuffer or addshortlengthguards."
+    ],
+    "caller": [
+      {
+        "source_rva": "0x5142",
+        "kind": "linear_call"
+      }
+    ]
+  },
+  "scratch_frame": {
+    "base_va": "0x91b7d0",
+    "upper_copy_va": "0x91b834",
+    "difference_bytes": 100,
+    "evidence": [
+      "4e19 EDX=100;4e2e ESI=91b834;4e35 subtractinputpointer soforwardstores4e5a landat91b834+i.",
+      "4e8b/4e93 writeprefixbytesusingbase91b7d0+start;driveaccess4e9a uses samebase;copybrancheswriteintoearlierpart ofthissameallocation.",
+      "4e84 writes91b833,onebytebeforeuppercopy, demonstratingalias directly."
+    ],
+    "ordinary_view": "Oneexternchar scratch[] withinputcopyoffset100 is supportedsharedview. Separatinguppercopy intoindependentarraywouldbreakprefixwrites/returnalias.",
+    "extent": "Exactly100bytes are reservedbeforecopyposition bysourcealgorithm; copiedrangeextends through100+strlen(input) andcaseprefixesrewritetheknownleadingregion. No fixedtotalcapacity isestablishedbywrites. Neighborstream91bbd0 difference1024 doesnotprovea1024-bytefilenamearray.",
+    "bounds": "No inputlengthlimit or destinationcapacity guard ispresent. Do notinfercapacityfromadjacency, repairbehavior, orinventpadding/placement. Forwardcopyofaliasedinput mustnotbereplacedbyOSpath/stringclasses ormemmove assumptions.",
+    "literal_limit": "Prefix bytes andnoindexedwriter areknown, but externalmutationabsence/originalliteraldeclaration unproved. Candidateordinaryfixedliteralstrings areboundedsourcehypothesis, notsourceidentity."
+  },
+  "hash": {
+    "full": {
+      "start_rva": "0x4fe0",
+      "end_rva_exclusive": "0x5020",
+      "bytes": 64,
+      "sha256": "65e4d1cece7d7c802a430e50df78c796de6a936deef5890d1eaae5bfb8ac1600"
+    },
+    "signature": "32-bit hash_archive_name(const char *input),onepointerarg; requires readableNULterminated input. No nullpointerguard.",
+    "body_size": 50,
+    "padding_size": 14,
+    "sequence": [
+      "4fe6/4fe8/4fea set32-bitsum,shift,length to0.",
+      "Readbyteatinput[length]. FirstNULreturnssum+length immediately.",
+      "4ff2 sign-extendsnonzerobyte to32bits;4ff5 shiftsleftbycurrentshift0/8/16/24.",
+      "4ff7 shift+=8;4ffa addswrappedword tosum;4ffc..5001 signedshift>24 reset0.",
+      "5003 loadnextbyte;5007 length++;repeatuntilNUL. Return32-bitwrapped sum+length at500c."
+    ],
+    "units": "Oneunit perbyte,beforeNUL. No locale,widecharacter,unsignedbyte reinterpretation orCRC.",
+    "ordinary_defined_contract": "Useunsigned32 sum/length andsignedint shift bounded0..24; accumulate ((U32)(S32)(signedchar)input[i])<<shift, thenreturn sum+length modulo2^32. Casting signedbyte toU32 beforeleftshift preservesallbytepatterns withoutnegativeCshiftUB.",
+    "discriminator": "Highbytes are sign-extended: hash([80])=ffffff81;hash([ff])=0;hash([ff,01])=101. Unsignedchar hashing orsize_t/64-bit accumulation doesnotrepresenttarget.",
+    "limits": "Originaltype ofsum/length andsourcecastspelling unproved; returnbits andsignextensionareproved. Hash(empty)=0 andnonemptycollisionff=0 areobserved,notbugfix targets.",
+    "callers": [
+      {
+        "source_rva": "0x514b",
+        "kind": "linear_call"
+      }
+    ]
+  },
+  "exit_library": {
+    "status": "Identified CRT library code; do not reconstructasprojectsource.",
+    "library_path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+    "library_sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b",
+    "member": "build\\intel\\mt_obj\\crt0dat.obj",
+    "member_sha256": "2280d8a706d5c07df8ac38f5528d3c3d98aca3acae08e40041e0266acd8aa80e",
+    "contributions": [
+      {
+        "library": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+        "library_sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b",
+        "member": "build\\intel\\mt_obj\\crt0dat.obj",
+        "member_sha256": "2280d8a706d5c07df8ac38f5528d3c3d98aca3acae08e40041e0266acd8aa80e",
+        "symbol": "_exit",
+        "symbol_offset": 0,
+        "target_rva": "0x11d10",
+        "size": 32,
+        "normalized_differences": 0,
+        "relocations": [
+          {
+            "offset": "0xa",
+            "symbol": "_doexit",
+            "type": 20,
+            "actual_target_rva": "0x11d50"
+          }
+        ]
+      },
+      {
+        "library": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+        "library_sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b",
+        "member": "build\\intel\\mt_obj\\crt0dat.obj",
+        "member_sha256": "2280d8a706d5c07df8ac38f5528d3c3d98aca3acae08e40041e0266acd8aa80e",
+        "symbol": "__exit",
+        "symbol_offset": 0,
+        "target_rva": "0x11d30",
+        "size": 32,
+        "normalized_differences": 0,
+        "relocations": [
+          {
+            "offset": "0xa",
+            "symbol": "_doexit",
+            "type": 20,
+            "actual_target_rva": "0x11d50"
+          }
+        ]
+      },
+      {
+        "library": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+        "library_sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b",
+        "member": "build\\intel\\mt_obj\\crt0dat.obj",
+        "member_sha256": "2280d8a706d5c07df8ac38f5528d3c3d98aca3acae08e40041e0266acd8aa80e",
+        "symbol": "_doexit",
+        "symbol_offset": 0,
+        "target_rva": "0x11d50",
+        "size": 192,
+        "normalized_differences": 0,
+        "relocations": [
+          {
+            "offset": "0x4",
+            "symbol": "__lockexit",
+            "type": 20,
+            "actual_target_rva": "0x11e10"
+          },
+          {
+            "offset": "0x9",
+            "symbol": "__C_Exit_Done",
+            "type": 6,
+            "actual_target_rva": "0x7a02a0"
+          },
+          {
+            "offset": "0x19",
+            "symbol": "__imp__GetCurrentProcess@0",
+            "type": 6,
+            "actual_target_rva": "0x7a5780"
+          },
+          {
+            "offset": "0x20",
+            "symbol": "__imp__TerminateProcess@8",
+            "type": 6,
+            "actual_target_rva": "0x7a5880"
+          },
+          {
+            "offset": "0x30",
+            "symbol": "__C_Termination_Done",
+            "type": 6,
+            "actual_target_rva": "0x7a029c"
+          },
+          {
+            "offset": "0x3a",
+            "symbol": "__exitflag",
+            "type": 6,
+            "actual_target_rva": "0x7a0298"
+          },
+          {
+            "offset": "0x42",
+            "symbol": "___onexitbegin",
+            "type": 6,
+            "actual_target_rva": "0x7a3ff0"
+          },
+          {
+            "offset": "0x4c",
+            "symbol": "___onexitend",
+            "type": 6,
+            "actual_target_rva": "0x7a3fec"
+          },
+          {
+            "offset": "0x61",
+            "symbol": "___onexitbegin",
+            "type": 6,
+            "actual_target_rva": "0x7a3ff0"
+          },
+          {
+            "offset": "0x6d",
+            "symbol": "___xp_z",
+            "type": 6,
+            "actual_target_rva": "0x35078"
+          },
+          {
+            "offset": "0x72",
+            "symbol": "___xp_a",
+            "type": 6,
+            "actual_target_rva": "0x35070"
+          },
+          {
+            "offset": "0x77",
+            "symbol": "__initterm",
+            "type": 20,
+            "actual_target_rva": "0x11e30"
+          },
+          {
+            "offset": "0x7f",
+            "symbol": "___xt_z",
+            "type": 6,
+            "actual_target_rva": "0x35084"
+          },
+          {
+            "offset": "0x84",
+            "symbol": "___xt_a",
+            "type": 6,
+            "actual_target_rva": "0x3507c"
+          },
+          {
+            "offset": "0x89",
+            "symbol": "__initterm",
+            "type": 20,
+            "actual_target_rva": "0x11e30"
+          },
+          {
+            "offset": "0x95",
+            "symbol": "__unlockexit",
+            "type": 20,
+            "actual_target_rva": "0x11e20"
+          },
+          {
+            "offset": "0xa0",
+            "symbol": "__C_Exit_Done",
+            "type": 6,
+            "actual_target_rva": "0x7a02a0"
+          },
+          {
+            "offset": "0xaa",
+            "symbol": "__imp__ExitProcess@4",
+            "type": 6,
+            "actual_target_rva": "0x7a5878"
+          }
+        ]
+      }
+    ],
+    "normalized_differences": 0,
+    "total_identified_bytes": 256,
+    "relocation_count": 20,
+    "C_names": "COFF _exit at11d10 is C exit,whileCOFF __exit at11d30 is C _exit. BothdelegateCRTdoexit11d50.",
+    "ABI": "exit(int status),one32-bitarg,caller-cleanedcallsite;CRTdoexit(status,quick,retcaller) receives0,0 for11d10 and1,0 for11d30.",
+    "termination": "Matcheddoexit hasactualExitProcess importoperand plus GetCurrentProcess/TerminateProcess andCRTcleanup callbacks. Projectfatal10460 callsrealCRT exit at11d10;nominalRET bytes afterthatcalldo notjustify a returningmock foracceptedproductionfatalcontract.",
+    "limits": "Zero normalizedwhole-sectiondifferences andactualrelocationoperands areidentified. Fullnatural link, completeCRT transitiveclosure, originallibraryselection andwholebinaryidentity remainunproved. No rawFUNCTION_MATCH claim.",
+    "callers": [
+      {
+        "source_rva": "0x1046e",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x104bc",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x104de",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x1050a",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x11f52",
+        "kind": "linear_call"
+      },
+      {
+        "source_rva": "0x11ff6",
+        "kind": "linear_call"
+      }
+    ]
+  },
+  "shared_terminal_probe": {
+    "source": "Root-confirmed archiveinitializer5020..5110;includedasrepresentationconstraint, notsourceedit.",
+    "sites": [
+      "50ab endguard checks currentcursor<91a7d0;50b3 probesnextkey atcursor+12 beforeincrementandnextguard.",
+      "When currentcursor islast ofleading1024rows,probeaddress is91a7d0: samephysicalfirstpositionword initializedffffffff at503f/5049."
+    ],
+    "meaning": "Leading1024directoryrows areprovedinitialization/readextent. Onepast-keyprobe overlapsposition[0]; do notinvent1025independentrecords or claimfixed1024completecapacity toclosedatalink.",
+    "connection": "Positionsleading4096bytes end91b7d0; scratchstarts91b7d0 withuppercopypart+100. Exactadjacency isdata-layout evidence, notoriginalaggregate/arraydeclaration proof."
+  },
+  "bounded_luna": {
+    "family": "one shared scratch prefix normalizer plus signed-byte four-lane hash",
+    "scope": [
+      "normalizer full464 including compiler-inline switchtable/padding",
+      "hash full64 includingnaturalNOPs"
+    ],
+    "external_data": [
+      "onealiasedscratchbase unsizedview",
+      "three fixedprefix strings or writer-supported definitions matching15/15/18 bytes"
+    ],
+    "prediction": "OneordinaryC sharedscratch source withbyteforwarduppercasecopy,start100,realdrive switch/defaultscan andsigned-byte32-bithash preserves completecontent/returnalias andtargettopology. Fresh pinnedcompilemeasuresall528bytes andallrelocations; no explicitjump-tablebytes/padding.",
+    "falsifier": "Separate scratchbuffers, changedseparator/shortpath semantics, unsignedbytehash, wrongcallers/ABI, failedsourcefixtures ornonexactfull contribution falsifiesfamily. Recorddiagnosticthenstop;no declaration/register/spellinggrid.",
+    "fixtures": "work/archive_name_audit/fixture_contract.json. PC-derived independentcontract model, notoriginalexecution or byteacceptance.",
+    "required_checks": [
+      "NULL/empty no-write; driveless with/withoutleadingbackslash;M:/O:/P:/Q:/R: outputsandreturnedoffsets",
+      "N/defaultdrives dropfirstdirectory;C:\\FOO returnsM:;forwardslashes/dotsegments remainuncanonicalized",
+      "O:FOO overwritesF;shortC: afterpriorlonginput retainsoldtailandchangesreturnoffset",
+      "sameglobalscratch aliasandpersistenceacrosscalls;prefixcopyincludingNULoverwriteslastwithbackslash",
+      "empty/highbytehashes,lane resetafter4bytes,signedbytes80..ff,32-bitwrapped sums",
+      "all frozenarchive/engine/hostpeer contributions unchanged;no independent1025thdirectoryrow orfictionalbuffercapacity"
+    ]
+  },
+  "correction": {
+    "supersedes": "Older work/resource_host_bindings/archive_decode.txt and evidence/resource_host_bindings.json genericdescription of inline table4fba..4fd6.",
+    "correct": "Actual branch4eb3 encodes tablebase4fbc. SixDWORDs occupy4fbc..4fd4. Thetwo4fba bytes8bff arealignment;12trailingNOPbegin4fd4. Fullnormalizer464span unchanged."
+  },
+  "private_evidence": {
+    "disassembly": "work/archive_name_audit/decode.txt",
+    "instructions": "work/archive_name_audit/decode.json",
+    "prefix_reader": "work/archive_name_audit/read_data.py",
+    "library_receipt": "work/archive_name_audit/exit_library.json",
+    "fixture_model": "work/archive_name_audit/fixture_contract.py"
+  },
+  "provenance": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "high",
+    "actual_model_identity": null,
+    "compiler_builds": 0,
+    "tokens": null,
+    "cost_usd": null
+  }
+}

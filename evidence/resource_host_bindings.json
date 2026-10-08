@@ -863,7 +863,7 @@
         "size": 464,
         "sha256": "de59b4119887e3266b5c60f483c87ebbc8b793bcc4a9d9b0617891cb6645302a"
       },
-      "abi": "One string argument, pointer return; actual uppercase/path rewrite into shared storage. Contains inline switch table4fba..4fd6; full transformations not yet contracted.",
+      "abi": "One string argument, pointer return; uppercase/path rewrite uses one shared scratch. Inline six-entry table is4fbc..4fd4, with2 alignmentbytes before and12 NOPs after. Full contract: evidence/archive_name_contract.json.",
       "callers": [
         {
           "source_rva": "0x5142",
@@ -1351,5 +1351,14 @@
     "compiler_builds": 0,
     "tokens": null,
     "cost_usd": null
+  },
+  "boundary_corrections": {
+    "evidence": "evidence/archive_lifecycle.json",
+    "changes": [
+      "archive initialization",
+      "archive shutdown"
+    ],
+    "note": "Verified initializer ends5110; shutdown begins5110, not5120. Earlier fragment boundaries are superseded.",
+    "table_evidence": "evidence/archive_name_contract.json"
   }
 }

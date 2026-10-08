@@ -74,6 +74,8 @@ The [resource loading continuation](docs/resource_loading_progress.md) adds an
 exact engine diagnostic and reconstructs metadata, readiness, callbacks and
 buffer destruction. It preserves callback-visible reloads and identifies the
 archive-backed host dependencies; whole-module equality remains open.
+The [archive continuation](docs/archive_dependency_progress.md) measures thirteen
+dependencies and links them in an isolated synthetic-file integration fixture.
 
 ## References
 

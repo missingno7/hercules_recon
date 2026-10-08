@@ -32,6 +32,12 @@ SUITES = {
     "resource_destroy": ["calibration/resource_destroy.c", "calibration/resource_record.h"],
     "resource_readiness": ["calibration/resource_readiness.c", "calibration/resource_record.h", "calibration/resource_context.h"],
     "resource_provider": ["calibration/resource_provider.c", "calibration/resource_record.h", "calibration/resource_context.h"],
+    "virtual_file": ["calibration/virtual_file.c"],
+    "archive_positions": ["calibration/archive_positions.c"],
+    "archive_backend": ["calibration/archive_backend.c"],
+    "archive_lifecycle": ["calibration/archive_lifecycle.c"],
+    "archive_pipeline": ["calibration/virtual_file.c", "calibration/archive_positions.c", "calibration/archive_backend.c", "calibration/archive_lifecycle.c", "calibration/archive_names.c"],
+    "archive_names": ["calibration/archive_names.c"],
     "token_release": ["calibration/cleanup_helpers_writers.c"],
     "action_registry": ["calibration/action_registry.c"],
     "action_registry_writers": ["calibration/action_registry_writers.c"],
@@ -49,6 +55,12 @@ SUITES = {
     "pool_reverse_copy": ["calibration/pool_reverse_copy.c"],
 }
 
+# Most fixtures include one reconstructed source directly. This integration
+# fixture links actual separate translation units instead of replacing callees.
+EXTRA_UNITS = {
+    "archive_pipeline": SUITES["archive_pipeline"],
+}
+
 
 def run(toolchain, suite="pilot"):
     identity = verify_toolchain(toolchain)
@@ -63,9 +75,11 @@ def run(toolchain, suite="pilot"):
     environment["PATH"] = str(toolchain / "bin") + os.pathsep + environment.get("PATH", "")
     environment["INCLUDE"] = str(toolchain / "include")
     environment["LIB"] = str(toolchain / "lib")
+    units = [ROOT / s for s in EXTRA_UNITS.get(suite, [])]
+    object_output = str(output) + os.sep if units else str(output / "semantics.obj")
     command = [str(toolchain / "bin/cl.exe"), "/nologo", "/O2", "/Gy", "/ML",
-               "/Fo" + str(output / "semantics.obj"),
-               "/Fe" + str(executable), str(source), "/link", "/INCREMENTAL:NO"]
+               "/Fo" + object_output,
+               "/Fe" + str(executable), str(source), *map(str, units), "/link", "/INCREMENTAL:NO"]
     compiled = subprocess.run(command, cwd=output, env=environment, capture_output=True,
                               text=True, timeout=60)
     (output / "compile.log").write_text(compiled.stdout + compiled.stderr)
