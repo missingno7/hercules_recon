@@ -9,7 +9,7 @@ Haiku 5.5 lanes for bounded candidate grinding.
 ## Authoritative checkpoint
 
 - `recovery.json`: 113 accepted instances. Its SHA-256 is
-  `e9c169bedbeb01536019d4cd223cd1a0505669b8f75d56f96eadef987069d639`.
+  `4bb3ea675b42893bfb0302bf883de16548d021a3c3d19a0c9c162fcc74ce4ce5`.
 - All 113 passed fresh historical compilation and the unchanged complete raw-byte
   gate. The leaf harvest added 69 ([docs/leaf_harvest.md](leaf_harvest.md),
   `evidence/leaf_harvest.json`). The frame-family state below is unchanged: its
