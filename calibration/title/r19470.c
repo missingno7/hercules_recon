@@ -42,7 +42,7 @@ typedef struct TitleSlot {
     unsigned short unknown_074;
 } TitleSlot;
 
-extern short *g_2bb54;
+
 extern int g_2cbe8;
 extern int g_2b1e8[];
 extern int g_2aea8[];
@@ -80,8 +80,8 @@ int title_194e0(char *obj, int *vec, int k)
 {
     short v[3];
 
-    v[0] = (short)((g_2bb54[(k * 4 - 0x400) & 0xfff] * (short)(vec[0] >> 16)) >> 12);
-    v[1] = (short)((g_2bb54[(k & 0x3ff) * 4] * (short)(vec[0] >> 16)) >> 12);
+    v[0] = (short)((((short *)g_engine_interface.data_014)[(k * 4 - 0x400) & 0xfff] * (short)(vec[0] >> 16)) >> 12);
+    v[1] = (short)((((short *)g_engine_interface.data_014)[(k & 0x3ff) * 4] * (short)(vec[0] >> 16)) >> 12);
     v[2] = 0;
     title_0c760(v);
     title_0c7b0();

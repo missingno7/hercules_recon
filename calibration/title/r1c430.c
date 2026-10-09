@@ -38,7 +38,6 @@ typedef struct TitleBlock {
 extern TitleObject *g_2b058[2];
 extern TitleObject *g_2b104[2];
 extern TitleObject *g_2b1d8[4];
-extern TitleHost *g_2bb44;
 extern TitleBlock *g_2cc04;
 extern TitleBlock *g_2cc08;
 extern unsigned short g_2bf6c;
@@ -157,13 +156,13 @@ void title_1d4e0(void)
 
     title_0c6e0(0);
     title_0c6d0(0);
-    if (g_2bb44->word_09c == 1) {
+    if (((TitleHost *)g_engine_interface.context_004)->word_09c == 1) {
         title_0c2d0();
-        handler = g_2bb44->handler_0b4;
+        handler = ((TitleHost *)g_engine_interface.context_004)->handler_0b4;
         if (handler) {
             handler(0);
         }
-    } else if (g_2bb44->word_09c) {
+    } else if (((TitleHost *)g_engine_interface.context_004)->word_09c) {
         title_0c300();
     }
     if (g_2d320) {
@@ -183,11 +182,11 @@ void title_1d4e0(void)
 
 void title_1d590(void)
 {
-    g_2bb44->word_05e = 0;
-    g_2bb44->word_05c = 0;
-    g_2bb44->word_064 = 0;
-    g_2bb44->word_062 = 0;
-    g_2bb44->dword_038 = 0;
+    ((TitleHost *)g_engine_interface.context_004)->word_05e = 0;
+    ((TitleHost *)g_engine_interface.context_004)->word_05c = 0;
+    ((TitleHost *)g_engine_interface.context_004)->word_064 = 0;
+    ((TitleHost *)g_engine_interface.context_004)->word_062 = 0;
+    ((TitleHost *)g_engine_interface.context_004)->dword_038 = 0;
     g_2cbe0[0] = 0xa0;
     g_2cbe0[1] = 0x78;
     g_2cbe0[2] = 0x100;

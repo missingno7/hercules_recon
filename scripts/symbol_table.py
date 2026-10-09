@@ -43,6 +43,16 @@ def build(module):
         if name in defined and defined[name] not in addresses:
             problems.append(dict(kind='reference disagrees with definition', symbol=name,
                                  defined=hex(defined[name]), implied=sorted(hex(a) for a in addresses)))
+    # Known object extents: a reference strictly inside one must use that object's symbol.
+    extents = {'_g_engine_interface': 1000}
+    for obj, size in extents.items():
+        base = next(iter(implied.get(obj, [])), None)
+        if base is None:
+            continue
+        for name, addresses in implied.items():
+            if name != obj and any(base < a < base + size for a in addresses):
+                problems.append(dict(kind='reference inside another object', symbol=name, object=obj,
+                                     users=users[name][:6]))
     by_address = defaultdict(set)
     for name, addresses in implied.items():
         for a in addresses:

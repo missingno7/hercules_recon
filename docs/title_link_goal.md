@@ -88,3 +88,14 @@ hypothesis. The original performs reads whose results are unused, and no non-vol
 construct reproduces them under the pinned compiler. This is not proof of the original
 declaration. The exception does not generalize, and `volatile` must never be used to
 influence register allocation.
+
+## Preliminary closure (stage 2 groundwork)
+
+`scripts/closure.py` maps the data addresses implied by masked rows back to their functions.
+Uninitialized data up to about `0x2b360` follows code order, consistent with per-object
+contributions in link order. From about `0x2b370` it is shared and out of order, consistent
+with communal C globals placed after all objects. The engine interface and the ordering
+tables sit there. Screen-handler groups own contiguous `.bss` blocks. These are hypotheses
+for unit boundaries and link order, recorded with alternatives in
+`evidence/title_closure.json`. Two interior references to interface fields were replaced by
+the fields themselves, and the symbol check now rejects that pattern.

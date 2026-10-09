@@ -1,0 +1,54 @@
+{
+ "scope": "Preliminary TITLE.DLL symbol/data closure from implied link symbols of masked rows. Diagnostic only: it informs translation-unit and link-order hypotheses; it proves no layout and grants no acceptance.",
+ "date": "2026-10-09",
+ "tool": "python scripts/closure.py TITLE.DLL  (writes work/closure/title.dll_clusters.json)",
+ "tool_sha256": "90b1b2ad5680b72a87ed1cf235fe0964074c810fa3828598ea4c14e04153763d",
+ "basis": {
+  "masked_rows": 272,
+  "covered_functions": 280
+ },
+ "sections": {
+  ".text": "0x1000-0x20cef (first-party to 0x1d7b0, then LIBCMT)",
+  ".rdata": "0x21000 (0x39d bytes)",
+  ".data": "0x22000; initialized to 0x29200, uninitialized to 0x2f0f8",
+  ".idata": "0x30000",
+  ".reloc": "0x31000"
+ },
+ "findings": [
+  {
+   "claim": "Uninitialized data near 0x29570-0x2b360 is laid out in code order.",
+   "evidence": "163 single-owner .bss addresses form 38 non-decreasing runs; the long runs follow code order across many functions (e.g. 0x2aa54-0x2af68 for code 0x10ce0-0x1beb0).",
+   "interpretation": "Consistent with per-object .bss contributions in link order (static or C++ globals)."
+  },
+  {
+   "claim": "From about 0x2b370, uninitialized data is shared across units and out of code order.",
+   "evidence": "g_engine_interface (0x2bb40, 150 referencing rows), ordering-table pointers g_2cc04/g_2cc08, primitive pool 0x2df40.",
+   "interpretation": "Consistent with C communal (uninitialized non-static) globals placed after all per-object .bss; their order is a linker decision that a natural link must reproduce. Boundary is approximate."
+  },
+  {
+   "claim": "Screen-handler groups own contiguous .bss blocks.",
+   "evidence": "e.g. 0x12280/0x12710/0x12810 -> 0x2ab1c-0x2ab44; 0x128e0/0x12cc0/0x12dc0 -> 0x2ab48-0x2ab74.",
+   "interpretation": "Candidate unit = handler + its init/step helpers; not proven (unreconstructed neighbours unknown)."
+  },
+  {
+   "claim": "Handlers reference consecutive initialized dwords 0x22308..0x2232c.",
+   "evidence": "0x22308 0x12280, 0x2230c 0x12e90, 0x22310 0x13500, 0x22314 0x13ba0, 0x22318 0x14300, 0x2231c 0x14970, 0x22320 0x14ff0, 0x22324 0x15650, 0x22328 0x15cb0, 0x2232c 0x128e0.",
+   "interpretation": "Two readings: per-unit 4-byte .data in link order, or one unit declaring them consecutively. 0x128e0 being last despite early code favours the second."
+  }
+ ],
+ "fixes": [
+  "Interior references to g_engine_interface fields replaced by the field (0x2bb44 context_004 in r1c430.c, 0x2bb54 data_014 in r19470.c); scripts/symbol_table.py now flags references inside the 1000-byte interface."
+ ],
+ "link_requirements": [
+  "Object order for code, .data and .bss (candidate evidence above).",
+  "Communal variable set and linker ordering for the shared .bss tail.",
+  "Initialized data and string literal contents per unit (contents via leaf.py data).",
+  "LIBCMT member order after first-party code (library map) and C/C++ unit languages (evidence/title_stage1.json).",
+  "Unified prototypes and names for callees (known_names, aliases flagged by symbol_table.py)."
+ ],
+ "next": [
+  "Extend runs with string-literal and constant-table owners to sharpen unit boundaries.",
+  "Model communal ordering with a pinned-linker experiment on synthetic objects.",
+  "Test whether candidate unit boundaries coincide with C/C++ language changes."
+ ]
+}
