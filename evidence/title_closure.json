@@ -212,5 +212,17 @@
    "explicitly zero-initialized ints 0x290f8..0x29144 (in initialized .data, so written with = 0)",
    "323 .bss globals: per-object order follows code order up to about 0x2b360, then a communal-like tail (C files only)"
   ]
+ },
+ "name_tables": {
+  "date": "2026-10-09",
+  "range": "0x22288..0x223ff (pointer lists) with their path strings at 0x228e8..0x23270 below them, emitted in reverse entry order",
+  "structure": [
+   "0x22288: 12 engine paths (\\SRC1\\ENGINE\\ENGINE1 or \\SRC3\\ENGINE\\ENGINE3), indexed [reg*4] by 0x16300 and 0x164b0: an array",
+   "0x222b8..0x222f0: 15 screen files (PLATE.PIC .. OPTNSC.TGA), then NULL at 0x222f4",
+   "0x222f8..0x223a8: PSWD/PSWDB/CHEAT/CONTINUE, SEQ1-11, PSWD\\LEV1-12, t001-t018, then NULL at 0x223ac",
+   "0x223b0..: LANGUAGE screens (endeasy, c1, c2, ...), indexed by 0x1a70: an array"
+  ],
+  "users": "Screen handlers read fixed entries: SEQ1..SEQ9 by 0x12280..0x15cb0, SEQ10 by 0x128e0, lsgame.TGA by 0x102f0/0x10670/0x109f0, LEV1-12 by 0xd910, t00x by 0x71e0.",
+  "consequence": "The staged g_22308..g_2239c and g_222d8 symbols are entries of these lists, not separate globals. Closure should define the lists once (with literal initializers) in their owning unit and index them; the owner is shared by many units, so it awaits the object-order decision."
  }
 }
