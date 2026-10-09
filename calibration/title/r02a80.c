@@ -1,21 +1,7 @@
-/* TITLE.DLL lane w04 region: functions reaching MASKED EQUAL, ascending RVA.
- * Shared types and externs first; the display buffers are in title_gpu.h. */
+/* TITLE 0x2a80: initializes both display buffers' drawing and display environments. Its unit is
+   open: it lies between the 0x1de0..0x28c0 unit and the 0x2b70..0x4b70 unit (u02b70.c). */
 #include "title_screen.h"
 #include "title_gpu.h"
-extern int g_2d328;
-extern int (*g_220d0[])(TitleObject *);
-
-extern int g_2cbe8;
-void title_04470(int a, int b, int c);
-int title_189e0(int a);
-int title_195f0(TitleObject *p);
-void title_01dd0(TitleObject *p, unsigned char *q);
-void title_02cc0(TitleObject *p);
-void title_02dc0(TitleObject *p);
-void title_03100(int a, TitleObject *p, int c);
-void title_03420(int a, TitleObject *p, int c);
-void title_03740(int a, TitleObject *p, int c, int v1, int v2);
-void title_039b0(int a, TitleObject *p, int c, int v1, int v2);
 
 void title_02a80(void)
 {
@@ -33,67 +19,3 @@ void title_02a80(void)
     g_2cc08[0].disp.screen.w = 0;
 }
 
-void title_02cc0(TitleObject *p)
-{
-    unsigned long flags;
-    unsigned long sel;
-    unsigned long saved34;
-    unsigned long saved46;
-
-    flags = p->unknown_054;
-    sel = flags & 0x10000;
-    if (sel) {
-        title_01dd0(p, (unsigned char *)&g_2cc04->ot[TITLE_OT_SIZE - 2] - (p->unknown_010 << 2));
-    }
-    if ((flags & 0x8000000) && p->unknown_036 != 0) {
-        if (!(flags & 0x4000000)) {
-            title_02dc0(p);
-            g_2d328 = 0;
-        }
-        saved34 = p->unknown_034;
-        saved46 = p->unknown_046;
-        p->unknown_034 = p->unknown_036;
-        p->unknown_046 = p->unknown_048;
-        title_02dc0(p);
-        g_2d328 = 0;
-        p->unknown_048 = p->unknown_046;
-        p->unknown_034 = saved34;
-        p->unknown_046 = saved46;
-        if (flags & 0x4000000) {
-            title_02dc0(p);
-        }
-        g_2d328 = 1;
-    } else {
-        title_02dc0(p);
-    }
-    if (sel) {
-        title_01dd0(p, (unsigned char *)&g_2cc04->ot[TITLE_OT_SIZE - 2] - (p->unknown_010 << 2));
-    }
-}
-
-void title_03050(int a1, TitleObject *p, int a3)
-{
-    long v1;
-    long v2;
-    short d;
-    long half;
-
-    d = p->unknown_010;
-    if (d <= 0)
-        return;
-    half = g_2cbe8 >> 1;
-    v1 = v2 = (long)p->unknown_03a * half / d;
-    if (p->unknown_054 & 0x80)
-        v2 = (long)p->unknown_03c * half / d;
-    if ((v2 | v1) == 0x100) {
-        if (p->unknown_074 != 0)
-            title_03420(a1, p, a3);
-        else
-            title_03100(a1, p, a3);
-        return;
-    }
-    if (p->unknown_074 != 0)
-        title_039b0(a1, p, a3, v1, v2);
-    else
-        title_03740(a1, p, a3, v1, v2);
-}

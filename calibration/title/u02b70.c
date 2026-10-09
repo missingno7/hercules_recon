@@ -1,8 +1,49 @@
-/* w06 shared views (scratch). Field names are by offset; unknown bytes kept as pad_XX. */
+/* TITLE unit 0x2b70..0x4b70 (C): one object by its private .bss (0x29590..0x29da0, shared by 0x2b70,
+   0x3da0, 0x41d0, 0x48a0, 0x4b70) and its .data (0x220d0..0x2214b with 0x4b70's literals last).
+   Consolidated from the region files r02a80.c, r03d10.c and r04610.c; functions in address order. */
 #include "title_engine.h"
 #include "title_screen.h"
 #include "title_slots.h"
 #include "title_gpu.h"
+
+/* Object passed as the second argument of 0x3420/0x3740/0x39b0/0x3d10. */
+/* 40-byte primitive record taken from the pool at g_2df40. */
+typedef struct TitlePrim {
+    struct TitlePrim *next_000;
+    unsigned long tex_004;
+    unsigned long xy_008;
+    unsigned short w_00c;
+    unsigned short w_00e;
+    unsigned long xy_010;
+    unsigned short w_014;
+    unsigned short w_016;
+    unsigned long xy_018;
+    unsigned short w_01c;
+    unsigned short unknown_01e;
+    unsigned long xy_020;
+    unsigned short w_024;
+    unsigned short unknown_026;
+} TitlePrim;
+
+extern TitlePrim *g_2df40;
+
+unsigned long title_189a0(TitleObject *obj);
+void title_03100(unsigned char *stream, TitleObject *obj, unsigned long count);
+void title_03420(unsigned char *stream, TitleObject *obj, unsigned char count);
+void title_03740(unsigned char *stream, TitleObject *obj, unsigned long count, unsigned long y, unsigned long x);
+void title_039b0(unsigned char *stream, TitleObject *obj, unsigned long count, unsigned long y, unsigned long x);
+
+extern int g_2d328;
+extern int (*g_220d0[])(TitleObject *);
+
+extern int g_2cbe8;
+void title_04470(int a, int b, int c);
+int title_189e0(int a);
+int title_195f0(TitleObject *p);
+void title_01dd0(TitleObject *p, unsigned char *q);
+void title_02cc0(TitleObject *p);
+void title_02dc0(TitleObject *p);
+
 typedef struct TitleTabEntry { unsigned short a_00; unsigned short b_02; } TitleTabEntry;
 extern TitleTabEntry g_2d2a0[];
 extern unsigned char g_2df50;
@@ -11,7 +52,6 @@ extern char g_22100[];
 extern char g_22108[];
 extern unsigned char g_2dfac;
 extern int g_2bb24;
-extern int g_2df40;
 unsigned char title_04710(char *p, int b, int c, int d);
 unsigned char title_046b0(unsigned short key, unsigned int f);
 void title_047d0(int a, int v, int b);
@@ -21,6 +61,96 @@ extern int g_29d94;
 extern int g_2d32c;
 extern unsigned short g_2df60[0x20];
 void title_0c890(void *p, int n);
+
+void title_02cc0(TitleObject *p)
+{
+    unsigned long flags;
+    unsigned long sel;
+    unsigned long saved34;
+    unsigned long saved46;
+
+    flags = p->unknown_054;
+    sel = flags & 0x10000;
+    if (sel) {
+        title_01dd0(p, (unsigned char *)&g_2cc04->ot[TITLE_OT_SIZE - 2] - (p->unknown_010 << 2));
+    }
+    if ((flags & 0x8000000) && p->unknown_036 != 0) {
+        if (!(flags & 0x4000000)) {
+            title_02dc0(p);
+            g_2d328 = 0;
+        }
+        saved34 = p->unknown_034;
+        saved46 = p->unknown_046;
+        p->unknown_034 = p->unknown_036;
+        p->unknown_046 = p->unknown_048;
+        title_02dc0(p);
+        g_2d328 = 0;
+        p->unknown_048 = p->unknown_046;
+        p->unknown_034 = saved34;
+        p->unknown_046 = saved46;
+        if (flags & 0x4000000) {
+            title_02dc0(p);
+        }
+        g_2d328 = 1;
+    } else {
+        title_02dc0(p);
+    }
+    if (sel) {
+        title_01dd0(p, (unsigned char *)&g_2cc04->ot[TITLE_OT_SIZE - 2] - (p->unknown_010 << 2));
+    }
+}
+
+void title_03050(int a1, TitleObject *p, int a3)
+{
+    long v1;
+    long v2;
+    short d;
+    long half;
+
+    d = p->unknown_010;
+    if (d <= 0)
+        return;
+    half = g_2cbe8 >> 1;
+    v1 = v2 = (long)p->unknown_03a * half / d;
+    if (p->unknown_054 & 0x80)
+        v2 = (long)p->unknown_03c * half / d;
+    if ((v2 | v1) == 0x100) {
+        if (p->unknown_074 != 0)
+            title_03420(a1, p, a3);
+        else
+            title_03100(a1, p, a3);
+        return;
+    }
+    if (p->unknown_074 != 0)
+        title_039b0(a1, p, a3, v1, v2);
+    else
+        title_03740(a1, p, a3, v1, v2);
+}
+
+void title_03d10(unsigned char *stream, TitleObject *obj, unsigned long count)
+{
+    unsigned long edx; unsigned long eax; unsigned long esi;
+    obj->unknown_010 = obj->unknown_03e;
+    eax = obj->unknown_03a;
+    edx = eax;
+    if (obj->unknown_054 & 0x80) {
+        eax = obj->unknown_03c;
+    }
+    esi = eax | edx;
+    if (esi == 0x100) {
+        if (obj->unknown_074 != 0) {
+            title_03420(stream, obj, (unsigned char)count);
+        } else {
+            title_03100(stream, obj, count);
+        }
+    } else {
+        if (obj->unknown_074 != 0) {
+            title_039b0(stream, obj, count, edx, eax);
+        } else {
+            title_03740(stream, obj, count, edx, eax);
+        }
+    }
+}
 
 void title_041d0(void)
 {
@@ -170,9 +300,9 @@ void title_04660(void)
 {
     title_0c690(g_2cc04->ot, TITLE_OT_SIZE);
     if (g_2cc04 == g_2cc08)
-        g_2df40 = g_2bb24 + 0x11800;
+        g_2df40 = (TitlePrim *)(g_2bb24 + 0x11800);
     else
-        g_2df40 = g_2bb24;
+        g_2df40 = (TitlePrim *)g_2bb24;
 }
 
 /* f_46b0 */
