@@ -560,3 +560,583 @@ void title_10fa0(void)
     g_2aa44 = 1;
     g_2a9d8 = 1;
 }
+
+
+static int g_2aa34;
+static int g_2aa38[3];
+static int g_2ab0c;
+unsigned int title_06350(int a);
+int title_063c0(int a);
+void title_066c0(void);
+int title_066e0(void);
+int title_06840(int a, TitleObj *rec, int size, int b, int c);
+int title_06a50(int a, TitleObj *rec, int size);
+void title_01dd0(int a);
+void title_12070(TitleObj *rec);
+void title_121d0(TitleObj *rec);
+
+void title_10fe0(int command)
+{
+    unsigned long pad = (unsigned short)((ScreenContext *)g_engine_interface.context_004)->cursor_5c;
+    unsigned long buttons = (unsigned short)((ScreenContext *)g_engine_interface.context_004)->cursor_5e;
+
+    title_016e0("\n LSGameMemoryCardLoop LSStatus %d\n\n", g_2a9e4);
+    if (g_2a9e4 != 0) {
+        g_2a9d8 = 1;
+    }
+    if (g_2a9e4 != 2) {
+        g_2aa44 = 1;
+    }
+
+    switch (g_2a9e4) {
+    case 0:
+        g_2aa48->unknown_054 &= 0x7fffffff;
+        g_2aa0c->unknown_054 &= 0x7fffffff;
+        g_2a9c8->unknown_04a = 0x40;
+        g_2a9cc->unknown_04a = 0x40;
+        g_2a9d0->unknown_04a = 0x40;
+        switch (title_06350(0)) {
+        case 0:
+            g_2aa28 = 0;
+            g_2a9f4->unknown_034 = 5;
+            g_2a9f4->unknown_054 |= 0x80000000;
+            if (g_2a9d8 != 0) {
+                if (g_2aa24 != 2) {
+                    title_0c4e0();
+                    title_0c4d0(0x4d);
+                }
+                g_2a9d8 = 0;
+                g_2aa2c->unknown_054 &= 0x7fffffff;
+                g_2a9c8->unknown_054 &= 0x7fffffff;
+                g_2aa08->unknown_034 = 0x1e;
+            }
+            title_016e0("\n No card detected");
+            return;
+        case 1:
+            g_2a9e4 = 0xa;
+            if (g_2a9d8 == 0) {
+                title_0c4e0();
+            }
+            g_2a9f4->unknown_034 = 3;
+            g_2a9f4->unknown_054 |= 0x80000000;
+            title_016e0("\n Check Card Format");
+            return;
+        case 2:
+            if (command == 2) {
+                g_2aa04 = 1;
+                return;
+            }
+            g_2a9f4->unknown_034 = 3;
+            g_2a9f4->unknown_054 |= 0x80000000;
+            title_016e0("\n Detected a newly connected card and marked it");
+            return;
+        case 3:
+            if (command == 2) {
+                g_2aa04 = 1;
+                return;
+            }
+            g_2aa28 = 0;
+            g_2a9f4->unknown_034 = 3;
+            g_2a9f4->unknown_054 |= 0x80000000;
+            title_016e0("\n Communication error happened");
+            return;
+        }
+        break;
+
+    case 10:
+        switch (title_063c0(0)) {
+        case 0:
+        case 1:
+        case 3:
+            g_2a9e4 = 0;
+            return;
+        case 2:
+            title_016e0("\n Detected a formatted card");
+            g_2a9f4->unknown_054 &= 0x7fffffff;
+            g_2a9e4 = command == 2 ? 0xb : 3;
+            return;
+        case 4:
+            g_2ab0c = 0;
+            if (command == 2) {
+                g_2aa04 = 1;
+                return;
+            }
+            title_016e0("\n Detected a unformatted card");
+            if (command == 1) {
+                g_2a9f4->unknown_034 = 0x1d;
+                g_2a9f4->unknown_054 |= 0x80000000;
+                return;
+            }
+            g_2a9f4->unknown_034 = 4;
+            g_2a9f4->unknown_054 |= 0x80000000;
+            g_2ab0c = 0;
+            g_2a9e4 = 4;
+            return;
+        }
+        break;
+
+    case 4:
+        switch (title_06350(0)) {
+        case 0:
+            g_2aa48->unknown_054 &= 0x7fffffff;
+            g_2aa0c->unknown_054 &= 0x7fffffff;
+            g_2a9f4->unknown_034 = 3;
+            g_2a9e4 = 0;
+            title_016e0("\n No card detected");
+            return;
+        case 1:
+            title_016e0("\n Detected a formatted card");
+            break;
+        case 2:
+            g_2aa48->unknown_054 &= 0x7fffffff;
+            g_2aa0c->unknown_054 &= 0x7fffffff;
+            g_2a9f4->unknown_034 = 3;
+            g_2a9e4 = 0;
+            title_016e0("\n Detected a newly connected card and marked it");
+            return;
+        case 3:
+            g_2aa48->unknown_054 &= 0x7fffffff;
+            g_2aa0c->unknown_054 &= 0x7fffffff;
+            g_2a9f4->unknown_034 = 6;
+            g_2a9e4 = 0;
+            title_016e0("\n Communication error happened");
+            return;
+        case 4:
+            g_2aa48->unknown_054 &= 0x7fffffff;
+            g_2aa0c->unknown_054 &= 0x7fffffff;
+            g_2a9f4->unknown_034 = 3;
+            g_2a9e4 = 0;
+            title_016e0("\n Detected an unformatted card");
+            return;
+        }
+        g_2aa08->unknown_034 = 8;
+        g_2aa48->unknown_054 |= 0x80000000;
+        g_2aa0c->unknown_054 |= 0x80000000;
+        switch (g_2ab0c) {
+        case 0:
+            g_2aa48->unknown_04a = 0x40;
+            g_2aa0c->unknown_04a = 0x80;
+            break;
+        case 1:
+            g_2aa48->unknown_04a = 0x80;
+            g_2aa0c->unknown_04a = 0x40;
+            break;
+        }
+        if (pad == 0) {
+            g_2a9dc = 0;
+        }
+        if (g_2a9dc == 0) {
+            if (g_2ab0c == 1 && (pad & 0x20)) {
+                g_2ab0c = 0;
+                g_2a9dc = 0xf;
+                title_054f0(0x301, 0);
+            }
+            if (g_2ab0c == 0 && (pad & 0x80)) {
+                g_2ab0c = 1;
+                g_2a9dc = 0xf;
+                title_054f0(0x300, 0);
+            }
+        } else {
+            g_2a9dc = g_2a9dc - 1;
+        }
+        if (buttons & 0x4000) {
+            title_054f0(0x302, 0);
+            if (g_2ab0c == 0) {
+                g_2aa48->unknown_054 &= 0x7fffffff;
+                g_2aa0c->unknown_054 &= 0x7fffffff;
+                g_2aa04 = 1;
+                return;
+            }
+            g_2aa48->unknown_054 &= 0x7fffffff;
+            g_2aa0c->unknown_054 &= 0x7fffffff;
+            g_2a9f4->unknown_034 = 0x1b;
+            g_2a9e4 = 7;
+            g_2aa34 = 0;
+            return;
+        }
+        break;
+
+    case 7:
+        if (g_2aa34 < 0x3c) {
+            g_2aa34 = g_2aa34 + 1;
+            return;
+        }
+        if (title_066e0() != 1) {
+            g_2a9f4->unknown_034 = 0xd;
+            return;
+        }
+        g_2a9f4->unknown_034 = 3;
+        g_2a9e4 = 0;
+        return;
+
+    case 3:
+        g_2a9c8->unknown_04a = 0x40;
+        g_2a9cc->unknown_04a = 0x40;
+        g_2a9d0->unknown_04a = 0x40;
+        if (title_06670() == -1) {
+            g_2a9f4->unknown_034 = 3;
+            g_2a9e4 = 0;
+        }
+        g_2aa38[0] = title_06a50(0x41, &g_2aa50[0], 0x3c);
+        if (g_2aa38[0] == 6) {
+            if (g_2aa24 == 1) {
+                g_2aa2c->unknown_054 &= 0x7fffffff;
+                g_2a9c8->unknown_054 &= 0x7fffffff;
+                g_2a9cc->unknown_054 &= 0x7fffffff;
+                g_2a9d0->unknown_054 &= 0x7fffffff;
+                g_2a9f4->unknown_054 |= 0x80000000;
+                g_2aa30 = 3;
+                g_2aa08->unknown_034 = 0x1e;
+                g_2a9f4->unknown_034 = 0x20;
+                title_0c4e0();
+                title_0c4d0(0x4c);
+                g_2a9e4 = 0xd;
+                return;
+            }
+            g_2aa38[0] = title_06840(0x44, &g_2aa50[0], 0x3c, 1, 1);
+            title_01dd0(0x44);
+            if (g_2aa38[0] == 3) {
+                g_2aa50[0].field_04 = 0;
+                g_2aa2c->unknown_054 |= 0x80000000;
+                g_2a9c8->unknown_054 |= 0x80000000;
+                g_2aa08->unknown_034 = 8;
+            } else {
+                g_2aa2c->unknown_054 &= 0x7fffffff;
+                g_2a9c8->unknown_054 &= 0x7fffffff;
+                g_2a9cc->unknown_054 &= 0x7fffffff;
+                g_2a9d0->unknown_054 &= 0x7fffffff;
+                g_2aa08->unknown_034 = 0x1e;
+                g_2aa30 = 3;
+                g_2a9e4 = 0xd;
+                return;
+            }
+        }
+        title_10ce0();
+        g_2a9e4 = 2;
+        return;
+
+    case 1:
+        g_2a9c8->unknown_04a = 0x40;
+        g_2a9cc->unknown_04a = 0x40;
+        g_2a9d0->unknown_04a = 0x40;
+        return;
+
+    case 2:
+        if (command == 1 && g_2aa44 != 0) {
+            title_0c4e0();
+            title_0c4d0(0x49);
+            g_2aa44 = 0;
+        }
+        switch (title_06350(0)) {
+        case 0:
+            title_100e0();
+            g_2a9f4->unknown_034 = 3;
+            g_2a9e4 = 0;
+            title_016e0("\n No card detected");
+            return;
+        case 1:
+            title_016e0("\n Detected a formatted card");
+            break;
+        case 2:
+            title_100e0();
+            g_2a9f4->unknown_034 = 3;
+            g_2a9e4 = 0;
+            title_016e0("\n Detected a newly connected card and marked it");
+            return;
+        case 3:
+            title_100e0();
+            g_2a9f4->unknown_034 = 3;
+            g_2a9e4 = 0;
+            title_016e0("\n Communication error happened");
+            return;
+        case 4:
+            title_100e0();
+            g_2a9f4->unknown_034 = 3;
+            g_2a9e4 = 0;
+            title_016e0("\n Detected an unformatted card");
+            return;
+        }
+        title_066c0();
+        title_016e0("\n SlotChoice %d", g_2ab08);
+        if (pad == 0) {
+            g_2a9dc = 0;
+        }
+        g_2aa2c->unknown_054 |= 0x80000000;
+        g_2a9c8->unknown_054 |= 0x80000000;
+        g_2aa08->unknown_034 = 8;
+        if (command == 0) {
+            if (buttons & 0x4000) {
+                if (g_2aa38[g_2ab08] == 8) {
+                    g_2a9f4->unknown_034 = 0x1c;
+                    g_2a9f4->unknown_054 |= 0x80000000;
+                    g_2ab0c = 0;
+                    g_2a9e4 = 8;
+                    g_2aa34 = 0;
+                } else {
+                    g_2a9f4->unknown_034 = 0xa;
+                    g_2a9f4->unknown_054 |= 0x80000000;
+                    g_2a9e4 = 6;
+                    g_2ab04 = 1;
+                    g_2aa34 = 0;
+                }
+                title_054f0(0x302, 0);
+            }
+        } else {
+            if (buttons & 0x4000) {
+                if (g_2aa38[g_2ab08] == 8) {
+                    title_121d0(&g_2aa50[g_2ab08]);
+                    g_2aa04 = 1;
+                    title_054f0(0x302, 0);
+                } else {
+                    title_0c4e0();
+                    title_0c4d0(0x4c);
+                    title_054f0(0x303, 0);
+                }
+            }
+        }
+        switch (g_2ab08) {
+        case 0:
+            g_2a9c8->unknown_04a = 0x80;
+            g_2a9cc->unknown_04a = 0x40;
+            g_2a9d0->unknown_04a = 0x40;
+            return;
+        case 1:
+            g_2a9c8->unknown_04a = 0x40;
+            g_2a9cc->unknown_04a = 0x80;
+            g_2a9d0->unknown_04a = 0x40;
+            return;
+        case 2:
+            g_2a9c8->unknown_04a = 0x40;
+            g_2a9cc->unknown_04a = 0x40;
+            g_2a9d0->unknown_04a = 0x80;
+            return;
+        }
+        break;
+
+    case 6:
+        if (g_2aa34 < 0x3c) {
+            g_2aa34 = g_2aa34 + 1;
+            return;
+        }
+        switch (g_2ab08) {
+        case 0:
+            title_12070(&g_2aa50[0]);
+            g_2aa38[0] = title_06840(0x41, &g_2aa50[0], 0x3c, 1, 0);
+            break;
+        case 1:
+            title_12070(&g_2aa50[1]);
+            g_2aa38[1] = title_06840(0x42, &g_2aa50[1], 0x3c, 1, 0);
+            break;
+        case 2:
+            title_12070(&g_2aa50[2]);
+            g_2aa38[2] = title_06840(0x43, &g_2aa50[2], 0x3c, 1, 0);
+            break;
+        }
+        g_2aa50[0].field_04 = (char)((ScreenContext *)g_engine_interface.context_004)->unknown_00[0] + 1;
+        title_10ce0();
+        g_2aa34 = -60;
+        g_2a9e4 = 5;
+        switch (g_2aa38[g_2ab08]) {
+        case 1:
+            g_2aa34 = -240;
+            g_2a9f4->unknown_034 = 0xb;
+            g_2a9f4->unknown_054 |= 0x80000000;
+            return;
+        case 3:
+            g_2aa38[g_2ab08] = 8;
+            g_2a9f4->unknown_034 = 9;
+            g_2a9f4->unknown_054 |= 0x80000000;
+            title_10ce0();
+            return;
+        case 4:
+            g_2aa34 = -240;
+            g_2a9f4->unknown_034 = 7;
+            g_2a9f4->unknown_054 |= 0x80000000;
+            return;
+        }
+        break;
+
+    case 8:
+        switch (title_06350(0)) {
+        case 0:
+            title_100e0();
+            g_2a9f4->unknown_034 = 3;
+            g_2a9e4 = 0;
+            title_016e0("\n No card detected");
+            break;
+        case 1:
+            title_016e0("\n Detected a formatted card");
+            break;
+        case 2:
+            title_100e0();
+            g_2a9f4->unknown_034 = 3;
+            g_2a9e4 = 0;
+            title_016e0("\n Detected a newly connected card and marked it");
+            break;
+        case 3:
+            title_100e0();
+            g_2a9f4->unknown_034 = 3;
+            g_2a9e4 = 0;
+            title_016e0("\n Communication error happened");
+            break;
+        case 4:
+            title_100e0();
+            g_2a9f4->unknown_034 = 3;
+            g_2a9e4 = 0;
+            title_016e0("\n Detected an unformatted card");
+            break;
+        }
+        g_2aa48->unknown_054 |= 0x80000000;
+        g_2aa0c->unknown_054 |= 0x80000000;
+        g_2aa08->unknown_034 = 8;
+        switch (g_2ab0c) {
+        case 0:
+            g_2aa48->unknown_04a = 0x40;
+            g_2aa0c->unknown_04a = 0x80;
+            break;
+        case 1:
+            g_2aa48->unknown_04a = 0x80;
+            g_2aa0c->unknown_04a = 0x40;
+            break;
+        }
+        if (pad == 0) {
+            g_2a9dc = 0;
+        }
+        if (g_2a9dc == 0) {
+            if (g_2ab0c == 1 && (pad & 0x20)) {
+                g_2ab0c = 0;
+                g_2a9dc = 0xf;
+                title_054f0(0x301, 0);
+            }
+            if (g_2ab0c == 0 && (pad & 0x80)) {
+                g_2ab0c = 1;
+                g_2a9dc = 0xf;
+                title_054f0(0x300, 0);
+            }
+        } else {
+            g_2a9dc = g_2a9dc - 1;
+        }
+        if (buttons & 0x4000) {
+            title_054f0(0x302, 0);
+            if (g_2ab0c == 0) {
+                g_2a9f4->unknown_054 &= 0x7fffffff;
+                g_2aa48->unknown_054 &= 0x7fffffff;
+                g_2aa0c->unknown_054 &= 0x7fffffff;
+                g_2a9e4 = 2;
+                return;
+            }
+            g_2aa48->unknown_054 &= 0x7fffffff;
+            g_2aa0c->unknown_054 &= 0x7fffffff;
+            g_2a9f4->unknown_034 = 0xa;
+            g_2ab04 = 1;
+            g_2a9e4 = 9;
+            g_2aa34 = 0;
+            return;
+        }
+        break;
+
+    case 9:
+        if (g_2aa34 < 0x3c) {
+            g_2aa34 = g_2aa34 + 1;
+            return;
+        }
+        switch (g_2ab08) {
+        case 0:
+            title_12070(&g_2aa50[0]);
+            g_2aa38[0] = title_06840(0x41, &g_2aa50[0], 0x3c, 0, 0);
+            break;
+        case 1:
+            title_12070(&g_2aa50[1]);
+            g_2aa38[1] = title_06840(0x42, &g_2aa50[1], 0x3c, 0, 0);
+            break;
+        case 2:
+            title_12070(&g_2aa50[2]);
+            g_2aa38[2] = title_06840(0x43, &g_2aa50[2], 0x3c, 0, 0);
+            break;
+        }
+        g_2aa50[0].field_04 = (char)((ScreenContext *)g_engine_interface.context_004)->unknown_00[0] + 1;
+        title_10ce0();
+        g_2aa34 = -60;
+        g_2a9e4 = 5;
+        switch (g_2aa38[g_2ab08]) {
+        case 1:
+            g_2aa34 = -240;
+            g_2a9f4->unknown_034 = 0xb;
+            g_2a9f4->unknown_054 |= 0x80000000;
+            return;
+        case 3:
+            g_2aa38[g_2ab08] = 8;
+            g_2a9f4->unknown_034 = 9;
+            g_2a9f4->unknown_054 |= 0x80000000;
+            title_10ce0();
+            return;
+        case 4:
+            g_2aa34 = -240;
+            g_2a9f4->unknown_034 = 7;
+            g_2a9f4->unknown_054 |= 0x80000000;
+            return;
+        }
+        break;
+
+    case 5:
+        g_2ab04 = 0;
+        if (g_2aa34 < 0) {
+            g_2aa34 = g_2aa34 + 1;
+            return;
+        }
+        g_2a9f4->unknown_054 &= 0x7fffffff;
+        g_2a9e4 = 2;
+        return;
+
+    case 11:
+        g_2aa38[0] = title_06a50(0x41, &g_2aa50[0], 0x3c);
+        if (g_2aa24 == 2 && g_2aa38[0] == 8) {
+            title_121d0(&g_2aa50[0]);
+            ((ScreenContext *)g_engine_interface.context_004)->unknown_00[0] = 0;
+            ((ScreenContext *)g_engine_interface.context_004)->unknown_00[0x10] = 0;
+        }
+        g_2aa38[0] = title_06840(0x44, &g_2aa50[0], 0x3c, 1, 1);
+        title_01dd0(0x44);
+        if (g_2aa38[0] == 3) {
+            g_2aa04 = 1;
+            return;
+        }
+        if (g_2aa38[0] == 1) {
+            g_2aa38[0] = title_06a50(0x41, &g_2aa50[0], 0x3c);
+            if (g_2aa38[0] == 8) {
+                g_2aa04 = 1;
+                return;
+            }
+            g_2a9e4 = 0xd;
+            g_2aa34 = 0;
+            return;
+        }
+        g_2a9e4 = 0;
+        return;
+
+    case 13:
+        switch (title_06350(0)) {
+        default:
+            if (g_2aa24 == 1) {
+                g_2a9f4->unknown_034 = 0x20;
+            } else if (g_2aa24 == 2) {
+                g_2a9f4->unknown_034 = 0xb;
+            } else if (g_2aa24 == 0) {
+                g_2a9f4->unknown_034 = 0x21;
+            }
+            g_2aa08->unknown_054 |= 0x80000000;
+            g_2a9f4->unknown_054 |= 0x80000000;
+            return;
+        case 0:
+        case 2:
+        case 3:
+        case 4:
+            title_100e0();
+            g_2a9e4 = 0;
+            title_016e0("\n No card detected");
+            g_2a9f4->unknown_054 &= 0x7fffffff;
+            break;
+        }
+        break;
+    }
+}

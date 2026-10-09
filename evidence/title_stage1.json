@@ -10,7 +10,7 @@
   "first_party_end": "0x1d7b0",
   "note": "v3: proven extents (masked/accepted rows) end where the next function starts, and no start may lie inside a proven extent. Adds 0x9480, removes the jump-table span 0x1ab30. A RET-on-boundary + prologue heuristic was tried and rejected: 9 of its 10 extra starts were inside functions whose extents workers had established."
  },
- "masked_rows": 275,
+ "masked_rows": 327,
  "masked_bytes": 45088,
  "cpp_units": [
   "title.08a50",
@@ -165,7 +165,6 @@
   "0x7510": 0,
   "0xf460": 0,
   "0x9c90": 271,
-  "0x10fe0": 6,
   "0xa450": 6,
   "0xd910": 40,
   "0x193e0": 44
@@ -274,7 +273,8 @@
   "R6": "Plain reference counts do not fully explain weights (adding references to self lowered its rank); some normalisation is involved, not established.",
   "results": "0x13ba0 masked equal with case 1 writing its own tail and return (as seq1 does); 0x3050 masked equal with v1 = v2 = expr (one fewer v1 reference). 0x9a40/0xa020 are scratch-register rotations (eax->edx->ecx carried across cases, mod 3 temporaries), not callee-saved; re-entry: find the source form in cases 7/2 that changes the temporary count by one.",
   "R6_refined": "Weights are counted before tail merging and a reference in a common tail weighs more than the same reference repeated inside switch cases (0x10670: four out stores in the common tail move out from 4th to 2nd rank; seven are needed inside one case). Constant weights depend on the pointer they are stored through. Leaf functions also rank scratch registers (eax, ecx, edx, esi, edi, ebx); references folded into a shared address temporary do not count for the index variable (0xcd30). Main lever for screen-handler parameter roles: per-case tails versus one common tail. 0x102f0 gets the original roles with the common-tail form (604 -> 365 bytes; structural residue remains). 0x18b20 (14) is scratch allocation/scheduling, not callee-saved; 0x3100 (648) still ranks stream below cell and gives flags no callee-saved register.",
-  "screen_handlers": "0x102f0, 0x109f0, 0x16f0 masked equal with one form: the inner cases break to a tail written inside case 1, while 0xffff breaks to the outer tail. The two uses of the constant 1 then have separate live ranges, so each path loads its register where the original does. All-common-tail and all-own-tail forms each miss (365/439/578 vs 277 bytes). The B6 blocker for this family is resolved."
+  "screen_handlers": "0x102f0, 0x109f0, 0x16f0 masked equal with one form: the inner cases break to a tail written inside case 1, while 0xffff breaks to the outer tail. The two uses of the constant 1 then have separate live ranges, so each path loads its register where the original does. All-common-tail and all-own-tail forms each miss (365/439/578 vs 277 bytes). The B6 blocker for this family is resolved.",
+  "tail_duplication_10fe0": "0x10fe0: a message call duplicated inside an if block and after it (both followed by return) is tail-merged to identical code but shifts the scratch rotation of the statements before it by one step (edi/edx vs the original's edx/ecx); writing the call once after the block gives masked equality. Duplicated tails are a rotation lever even when the merged bytes are identical."
  },
  "B1_update_2026_10_09": "Worker wb1 (unit 0x1de0..0x2a80; records are PSX SPRT/POLY_F4/DR_TPAGE; title_0c650 = AddPrim(&g_2cc04->ot[depth], p)): 0x28c0 88 -> 8, 0x1de0 361 -> 33, 0x2090 32; all residue is now B1 at the AddPrim sites. In C the add's destination follows declaration order: the later-declared symbol becomes the left operand, and compiler CSE temporaries are latest, so the offset temporary wins against the file-scope global (a block-scope extern or a local copy of the global declared after the offset flips it, but neither is proposed as natural source). In C++ small functions keep the global as destination but flip past a store-count threshold. Diagnosis: B1 is a liveness question for the global-load register. Re-entry: a source form where that temporary dies at the add in a large function, tested first on the C++ threshold probe candidates/wb1/s11.cpp.",
  "B2_update_2026_10_09": "Declaring g_2a244 before g_engine_interface (title_engine.h) leaves 0x5fb0 at 7 bytes in the C++ scheduler unit: declaration order is not the B2 lever there.",
@@ -284,7 +284,16 @@
   "R2": "A call-argument push is hoisted right after its operand is computed, past later stores, unless a register-indexed global store using that register comes first (0x5db0 lever: link the record into the list after filling it).",
   "R3": "Commutative operand order (+, |) is not source order; it flips with unrelated declarations earlier in the TU, non-monotonically (an internal tie-break; consistent with the TU-count fragile rows). 0x4fe0's OR order is of this kind: it needs the unit's real headers, not expression edits or padding.",
   "R4": "Inline memset setup is always count, zero, destination; 0x66f0 is the only rep stosd in TITLE with the destination first (no source form found).",
-  "R5": "For ctx->field = global the original assigns the value's register first; a separate value local reproduces it in a probe but shifts every later register in 0x5fb0 (B2 stays at 7)."
+  "R5": "For ctx->field = global the original assigns the value's register first; a separate value local reproduces it in a probe but shifts every later register in 0x5fb0 (B2 stays at 7).",
+  "R6_a450_join_remat": {
+   "residue": "0xa450 (6 bytes): three constants rematerialized at a join block that uses none of them; original xor edi,edi; mov esi,0xf; mov ebp,1, ours mov esi,0xf; xor edi,edi; mov ebp,1; code after the join identical",
+   "tested_no_effect": [
+    "g_2a210 = 0xf / 0x0f spelling instead of 15",
+    "0xa020 sibling body inserted before title_0a450 in the u09a40 context (candidates/wa450/t_sib.c)"
+   ],
+   "probes": "candidates/tail/k1.c, k2.c: VC5 normally materializes constants near first use; the grouped join materialization did not reproduce in isolation",
+   "status": "open; classified with R3 (TU-dependent tie-break), not a source-shape lever found yet"
+  }
  },
  "rotation_study": {
   "date": "2026-10-09",
