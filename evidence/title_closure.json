@@ -393,5 +393,14 @@
   "date": "2026-10-09",
   "measured": "Communal arrays align to the largest power of two not above their size, capped at 32 (4->4, 8->8, 12->8, 16->16, 32->32, 64->32); scalars to their size. In-group order follows scripts/symbol_order.py (re-confirmed on this probe). Initialized .data: 8+ byte arrays 8-aligned.",
   "dll_wide_group": "In the 0x2cbe0 group, the item at 0x2cc00 must be 16-aligned (gap 0x2cbf8..0x2cbff) and end by 0x2cc10 (the 64-byte g_2cc20 needs 32-alignment): a 16-byte aggregate. g_2cc04 (19 users), g_2cc08 and g_2cc0c, and the bytes 0x2cc02/0x2cc03, are its fields, not independent globals. Rewriting their users across six files is pending (masked equality is unaffected: same addresses)."
+ },
+ "scheduler_functions": {
+  "date": "2026-10-09",
+  "prediction": "Earlier lane drafts of the scheduler unit's functions were written as C outside the unit; in the C++ unit context with the shared types (TitleProc, TitleObject) natural source reproduces them.",
+  "falsifier": "No ordinary C++ spelling in title_proc.cpp gives masked equality.",
+  "result": "0x5cc0 (was 103 differing) and 0x5e90 (was 51) are masked equal in title_proc.cpp; the four earlier rows stay equal with title_screen.h included. 0x5e90 needs an unsigned index loop (original anchors the pointer at +0x0c and uses an unsigned bound).",
+  "data": "0x5e90's three trace literals are the first literals of the unit (0x232ec..0x23351, reverse code order); the link now keeps all 6 data symbols of the unit at their relative offsets. 0x5fb0's literals 'i2.1'/'i1.4' (0x23354, 0x2335c, read as dwords) follow them, placing 0x5fb0 in this object too.",
+  "open": "0x5db0 (30 differing, TU-count insensitive 0..119): the original pushes the call argument right after computing it; ours pushes it before the call. 0x5fb0 (B2, 7 bytes) is unchanged in the C++ unit context (count insensitive 0..199; an inline context accessor is worse). Neither is referenced by reconstructed code.",
+  "link": "unresolved 87 -> 85 (title functions 36 -> 34)."
  }
 }

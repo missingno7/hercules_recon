@@ -31,7 +31,8 @@
   "B1": "global base/index order and add destination; partly resolved by C++ + record indexing; 0x1de0 (33), 0x2090 (32), 0x2860 (41), 0x8770 (43) remain.",
   "B2": {
    "summary": "ctx->field = global load order after a call (0x5fb0, 7 bytes).",
-   "update_2026_10_09": "Count-insensitive (N 0..255). Further forms falsified in C and C++: 4-byte struct assignment, *&ctx->field, pointer and unsigned typing, array element source. blood2_recon store-order levers concern adjacent stores, not this pointer-before-value load order."
+   "update_2026_10_09": "Count-insensitive (N 0..255). Further forms falsified in C and C++: 4-byte struct assignment, *&ctx->field, pointer and unsigned typing, array element source. blood2_recon store-order levers concern adjacent stores, not this pointer-before-value load order.",
+   "update_scheduler_unit": "In the C++ scheduler unit (title_proc.cpp with title_screen.h, title_engine.h) still 7 bytes; count-insensitive 0..199; an inline accessor for the context makes it far worse (456)."
   },
   "B3": "PC_DLLEngineMain unfolded zero test (0xc1f0, 30 bytes): folded forms, status variable, inline helpers, /Ob2, if(g=0) all falsified.",
   "B4": "SOLVED: screen-handler entry loads come from volatile context fields at +0x5c/+0x5e read into unused locals (only sanctioned volatile use); the argument-area out-handle is an ordinary local that VC5 places there when the request is one typed pointer parameter. Ten screen handlers masked equal with this template.",
@@ -116,9 +117,9 @@
   "0x4fe0": 130,
   "0x5ad0": 141,
   "0x5bc0": 105,
-  "0x5cc0": 103,
-  "0x5db0": 110,
-  "0x5e90": 51,
+  "0x5cc0": 0,
+  "0x5db0": 30,
+  "0x5e90": 0,
   "0x5fb0": 7,
   "0x66f0": 10,
   "0x6a50": 65,

@@ -7,9 +7,7 @@
 
 extern "C" {
 
-#include "title_proc.h"
-
-struct TitleObject;
+#include "title_screen.h"
 
 /* .bss of this unit (only variables used by reconstructed code; layout order is not reproduced). */
 struct TitleObject *g_29e08;    /* current object, read across the DLL */
@@ -26,8 +24,36 @@ signed char g_23290[32] = {0, 0, 1, 0, 8, 1, 9, 1, 10, 1, 11, 1, 12, 1, 13, 1, 2
 short g_232b0[30] = {11, 11, 11, 12, 12, 12, 13, 13, 13, 14, 14, 14, -1, 0, 0, 0, 15, 15, 15, 16, 16, 16, 17, 17, 17, 18, 18, 18, -1, 0};
 extern TitleProc *g_2cc20[16];
 extern int g_2cc04;
+extern int g_2cc60;
+extern int g_2cc68;
 
 int title_0c5b0(int a);
+void title_016e0(const char *format, ...);
+
+/* Steps the current object's animation through a (frame, delay) table ending in -1, and moves it
+   by (dx, dy) whole pixels, mirrored in x when flag 0x10 is set. Returns 1 when the table wraps. */
+int title_05cc0(int base, signed char *table, int restart, int dx, int dy)
+{
+    int done = 0;
+
+    if (g_2cc68 <= 0) {
+        g_29e08->unknown_034 = table[g_2cc60] + base;
+        g_2cc60++;
+        g_2cc68 = table[g_2cc60++];
+        if (table[g_2cc60] == -1) {
+            g_2cc60 = restart;
+            done = 1;
+        }
+    } else {
+        g_2cc68--;
+    }
+    if (g_29e08->unknown_054 & 0x10)
+        g_29e08->unknown_000 -= dx << 16;
+    else
+        g_29e08->unknown_000 += dx << 16;
+    g_29e08->unknown_004 += dy << 16;
+    return done;
+}
 
 void title_05d60(void)
 {
@@ -60,6 +86,25 @@ void title_05e40(void)
             o = o->next_10;
         }
     }
+}
+
+/* Wakes the process running fn with argument arg (its next tick calls it); traces the pool if none. */
+void title_05e90(void (*fn)(TitleProc *), unsigned long arg)
+{
+    unsigned int i;
+    TitleProc *s;
+
+    for (i = 0; i < 16; i++) {
+        if (g_29e18[i].fn_00 == fn && g_29e18[i].unknown_0c == arg)
+            goto found;
+    }
+    title_016e0("\n Error specified process does not exist ! 0x%x 0x%x ...", fn, arg);
+    for (s = g_29e18; s < g_29e18 + 16; s++)
+        title_016e0("\n proc %d :: 0x%x 0x%x", s->fn_00, s->unknown_0c);
+    return;
+found:
+    g_29e18[i].delay_08 = 1;
+    title_016e0("\n Wake Up procedd");
 }
 
 void title_05f10(TitleProc *target)
