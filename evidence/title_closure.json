@@ -417,5 +417,12 @@
   "result": "calibration/title/title_levels.c (C, data only) links 424/424 bytes with all 36 pointer slots equal; r16110's 24 slots now resolve to the same places (24/24).",
   "hypothesis": "Position among the code units between 0x6350 and 0x8140 (none of them has other initialized data, so the layout is the same anywhere there; link_before 0x6bb0); 0x23540/0x23544 as two ints rather than int[2]; field names.",
   "tool": "scripts/title_link.py now counts a pointer slot equal when it targets the same place (same offset in this or another measured data unit, or the same reconstructed function); pointer_targets_unplaced counts targets in neither."
+ },
+ "unit_u06350_data": {
+  "date": "2026-10-09",
+  "block": ".data 0x23368..0x2348b: icon palette (16 shorts) and icon pixels (one 4-bit pixel per byte, 16x16, read by 0x66f0 as 0x23389 - 1), then the unit's literals '*', 'bu00:', 'bu00:B-sces-00891' to 0x234aa.",
+  "result": "Defined in u06350.c; block with literals 324/324 bytes equal; the 11 rows stay masked equal (restaged).",
+  "hypothesis": "The pixel array's extent to the first literal (260 bytes; the last 4 are zero and could be padding or an unreferenced item).",
+  "layout_note": "Measured data units now follow one another: scheduler (delta -0x240), u06350 and the level table (-0x250; the 16-byte step is 0x5fb0's two literals 'i2.1'/'i1.4', not reconstructed), object-system tables (-0x258; an unreferenced 8-byte zero item at 0x23660..0x23667 precedes them)."
  }
 }
