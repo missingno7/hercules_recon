@@ -75,7 +75,7 @@ def build(module, function_map, all_data=False):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('module', nargs='?', default='TITLE.DLL')
-    parser.add_argument('--function-map', default=str(ROOT / 'work/function_map/title_v2.json'))
+    parser.add_argument('--function-map', default=str(ROOT / 'work/function_map/title_v4.json'))
     parser.add_argument('--output', type=Path)
     parser.add_argument('--all-data', action='store_true', help='include non-string initialized data targets')
     args = parser.parse_args()

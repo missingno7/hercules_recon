@@ -50,7 +50,7 @@ extern int g_2a220;
 
 void title_05a70(TitleObj *p);
 void title_09350(TitleObj *p);
-void title_097b0(TitleObj *p);
+void unlink_12c(TitleObj *p);
 void title_0ca30(void);
 void title_1d770(void);
 void title_0c9c0(int a, int b);
@@ -99,7 +99,7 @@ void title_09870(TitleObj *p)
 void title_098f0(TitleObj *p)
 {
     p->flags_054 &= 0x7fffffff;
-    title_097b0(p);
+    unlink_12c(p);
     p->unknown_12c = 0;
     p->unknown_130 = 0;
 }

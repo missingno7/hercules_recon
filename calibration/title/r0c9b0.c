@@ -48,7 +48,7 @@ extern TitleEntry g_25a30[43];
 void *title_17ad0(int a, int b, int c, int d, int e);
 int title_0c4a0(int a);
 int title_0c4c0(void);
-int title_1d7b0(int a);
+int rand();  /* LIBCMT; called with an argument, so unprototyped */
 
 void title_0c9b0(int a) { g_engine_interface.slot_248(a); }
 
@@ -225,6 +225,6 @@ void title_0d250(TitleObj *s) {
     s->dword_054 |= 5;
     s->byte_023 = 6;
     s->word_034 = title_0c4a0(3) + 0xb6;
-    s->word_074 += title_1d7b0(0x400);
+    s->word_074 += rand(0x400);
 }
 

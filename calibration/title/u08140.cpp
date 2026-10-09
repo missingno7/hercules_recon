@@ -149,9 +149,9 @@ void *title_091a0(unsigned long flags);
 void title_094c0(void *slot);
 void title_01dd0(void *p);
 void title_04610(TitleObj *p);
-void title_097b0(TitleObj *p);
+void unlink_12c(TitleObj *p);
 void title_098f0(TitleObj *p);
-void title_09770(TitleObj *p);
+void clear_command_high_bit(TitleObj *p);
 void title_097f0(TitleObj *p);
 void title_09830(TitleObj *p);
 void title_09870(TitleObj *p);
@@ -325,7 +325,7 @@ int title_08ae0(TitleObj *p)
         return 0;
     }
     if (p->d50 & 0x10000000) {
-        title_097b0(p);
+        unlink_12c(p);
         p->w2e = 0;
         title_04610(p);
         return 1;
@@ -334,11 +334,11 @@ int title_08ae0(TitleObj *p)
         title_01dd0(p->p120);
     frame = p->p58;
     if (p->p58 == 0) {
-        title_09770(p);
+        clear_command_high_bit(p);
         title_097f0(p);
         title_09830(p);
         title_09870(p);
-        title_097b0(p);
+        unlink_12c(p);
         unlink_0e4(p);
         /* Original stores the low word of the (null) frame register. */
         p->w2e = (unsigned short)(unsigned long)frame;
@@ -366,11 +366,11 @@ int title_08ae0(TitleObj *p)
         if ((short)p->w38 == (short)g_2cc03)
             *(unsigned short *)(frame + 0xe) = p->w2a;
     }
-    title_09770(p);
+    clear_command_high_bit(p);
     title_09830(p);
     title_09870(p);
     title_097f0(p);
-    title_097b0(p);
+    unlink_12c(p);
     unlink_0e4(p);
     p->w2e = 0;
     *(unsigned short *)(frame + 0xc) &= 0x7fff;

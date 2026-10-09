@@ -43,6 +43,8 @@ def build(module):
             starts.add(target)
         elif kind == 'linear_immediate' and lo <= source < hi:
             starts.add(target)
+        elif kind == 'linear_branch' and target % 16 == 0 and code[target - lo - 1] == 0x90:
+            starts.add(target)  # tail-jump target right after NOP alignment padding
     md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
     # Entries after RET followed by NOP alignment.
     for i in range(0, end - lo - 1):

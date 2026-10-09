@@ -61,7 +61,7 @@ def build(module, function_map, bss_lo, tail, exclude):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('module', nargs='?', default='TITLE.DLL')
-    parser.add_argument('--function-map', default=str(ROOT / 'work/function_map/title_v3.json'))
+    parser.add_argument('--function-map', default=str(ROOT / 'work/function_map/title_v4.json'))
     parser.add_argument('--bss', default='0x29200')
     parser.add_argument('--tail', default='0x2b370', help='start of the communal tail')
     parser.add_argument('--exclude', nargs='*', default=['0x29e08', '0x29f98'], help='C++-defined shared variables')
