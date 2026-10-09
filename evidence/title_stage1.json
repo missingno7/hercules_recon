@@ -312,5 +312,23 @@
   "supporting": "0x2a244 has no writer anywhere in TITLE.DLL; its only references are the two reads in 0x5fb0, so it is an externally or never-written flag, which is consistent with a volatile declaration.",
   "negative": "int/unsigned long/pointer/4-byte struct/array-element spellings stay at 7; unsigned short breaks the function.",
   "status": "not staged: the volatile ruling covers only the +0x5c/+0x5e context fields and is not generalizable; owner decision needed."
+ },
+ "emitters_wspr_2026_10_09": {
+  "result": "0x3100, 0x3420, 0x3740, 0x39b0: none masked equal; all four stall on callee-saved role choice (scratch: candidates/wspr/, build.py keeps the u02b70 unit 22/22 masked equal with the drafts inserted).",
+  "levers": [
+   "quadrant pointer q = &g_264f8[cell & 15]; g = *q; ... next_04[*q] gives the original address-first lea + movsx (0x3740, 0x3420, 0x39b0; not 0x3100)",
+   "unsigned u/v: signed u/v makes VC5 rewrite (g>>1)<<4 as (g&~1)<<3",
+   "0x3740 products: A *= sx; Vn *= sx; W = (B + h) * sy; B *= sy; then progressive x1, y1, xy_008, x2 reproduce the imul order; one combined (((B*sy)>>8)+y0)<<16 triggers an and dl,0 / shl 8 strength reduction",
+   "hb = *stream++ after y0 gives separate inc; hb = stream[1] merges into add ebp,2",
+   "0x3100: B = *stream++ * 2; y = B + y0 gives shl/add instead of lea and moves h into the parameter slot"
+  ],
+  "roles": {
+   "0x3740": "original obj=edi stream=ebp cell=si flag=bl; best roles r3.c (45 renamed instructions, needs int flags/unsigned w), best structure k8_x12_ushort.c (frame identical, roles rotated)",
+   "0x3100": "original obj=esi stream=edi flags=ebx cell=ebp; best b2_yB.c (101 renamed)",
+   "0x3420": "original cell=si stream=edi flag=bl obj=ebp; frame 0x44 vs ours 0x40 (one more spill); best t3420.best.c (118 renamed)",
+   "0x39b0": "original obj=esi stream=edi flags=ebx; -sin products negated once and reused; draft d39b0.c (225 renamed)"
+  },
+  "count_sensitivity": "0x3740 is count-sensitive in the C unit (12-27 extra extern declarations: 101 -> 109 standalone; 530 -> 560 masked bytes inside the combined unit).",
+  "reopen": "only with a new discriminator, e.g. one source style that yields the original roles in all four functions at once."
  }
 }
