@@ -1,16 +1,7 @@
 /* TITLE region 0x4d80..0x5c60 (sound-effect unit and its neighbours), ascending RVA. */
 #include <string.h>
 #include "title_engine.h"
-
-typedef struct TitleSlot {
-    void *ptr_00;
-    unsigned short count_04;
-    unsigned short unknown_06;
-    void *ptr_08;
-    void *ptr_0c;
-    unsigned short state_10;
-    unsigned short state_12;
-} TitleSlot;
+#include "title_slots.h"
 
 typedef struct TitlePair {
     unsigned short lo;
@@ -32,7 +23,6 @@ typedef struct TitleCtxView {
 } TitleCtxView;
 
 extern int g_22148;
-extern TitleSlot g_26110[];
 
 typedef struct TitleRec64 {
     unsigned long unknown_00;
@@ -124,9 +114,9 @@ int title_0c330(int a);
 
 void title_04f00(int idx)
 {
-    if (g_26110[idx].ptr_0c != 0) {
-        title_0c330((int)g_26110[idx].ptr_0c);
-        g_26110[idx].ptr_0c = 0;
+    if (g_26110[idx].table_0c != 0) {
+        title_0c330((int)g_26110[idx].table_0c);
+        g_26110[idx].table_0c = 0;
     }
     g_26110[idx].state_10 = 0;
     g_26110[idx].state_12 = 0;

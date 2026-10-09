@@ -1,7 +1,7 @@
 /* w06 shared views (scratch). Field names are by offset; unknown bytes kept as pad_XX. */
 #include "title_engine.h"
+#include "title_slots.h"
 #include "title_gpu.h"
-typedef struct TitleSlot { unsigned char pad_00[0x0c]; unsigned int ptr_0c; unsigned short state_10; unsigned short state_12; } TitleSlot;
 typedef struct TitleTabEntry { unsigned short a_00; unsigned short b_02; } TitleTabEntry;
 typedef struct TitleCtx {
     unsigned char pad_00[0x1d];
@@ -29,7 +29,6 @@ typedef struct TitleGame {
     unsigned char pad_9e[0xdf - 0x9e];
     unsigned char b_df;
 } TitleGame;
-extern TitleSlot g_26110[18];
 extern TitleTabEntry g_2d2a0[];
 extern unsigned char g_2df50;
 extern int g_2df44;
@@ -169,7 +168,7 @@ void title_04a40(const unsigned char *s, int x)
     if (c == 0xff)
         return;
     do {
-        if (c == (unsigned int)x && g_26110[c].ptr_0c == 0) {
+        if (c == (unsigned int)x && g_26110[c].table_0c == 0) {
             title_04b70(c, 0);
             g_26110[c].state_12 = 2;
         }
