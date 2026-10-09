@@ -49,7 +49,8 @@ def sources(module):
     out = {s: list(next(iter(f))) for s, f in grouped.items()}
     for unit in data_units():
         out.setdefault(unit['source'], ['/O2'])
-        key[unit['source']] = int(unit['link_before'], 16) - 0.5
+        if unit['source'] not in key:
+            key[unit['source']] = int(unit['link_before'], 16) - 0.5
     return {s: out[s] for s in sorted(out, key=lambda s: key[s])}
 
 

@@ -352,5 +352,12 @@
   "validation": "Exact on 120 random names, 40 digit names, a 40-name mixed set (C statics), a 7-name C++ global set and a 14-variable C communal group; tests/test_symbol_order.py.",
   "how_found": "Names up to six characters sorted by h mod 1024; the 50 longer names fell inside the windows of their short neighbours only with the h ^ (h >> 16) fold.",
   "consequence": "In-object order is a pure function of the identifiers. The original order constrains the original names (bucket order along addresses); reproducing layout with chosen names awaits a project-owner decision on name policy."
+ },
+ "object_system_tables": {
+  "date": "2026-10-09",
+  "alignment_rule": "Measured (candidates/communal/dalign.c, align.c): in .data and in communal groups, arrays of 8 or more bytes are 8-aligned, smaller ones aligned to 4; an address that is not 8-aligned cannot start an array of 8+ bytes.",
+  "structure": "u08140.cpp defines .data 0x23668..0x242e7: five 0xffff-terminated frame tables of 292 shorts (0x23668, 0x238b0, 0x23af8, 0x23d40, 0x23f88) and offset tables g_241d0[16], g_241f0[32], g_24230[36], g_24278[32], g_242b8[24]. The former symbols 0x241a4, 0x241e2 and 0x24202 are entries (g_23f88[i + 270], g_241d0[i + 9], g_241f0[i + 9]) because they are not 8-aligned.",
+  "result": "Linked block 3200/3200 bytes equal and 10/10 tables at their original relative offsets; all 14 rows masked equal. The first attempt with eleven separate arrays shifted 6 tables by 4..8 bytes, which is what exposed the alignment rule.",
+  "values": "Table contents are recovered initializers (like string literals); their meaning is not reconstructed yet."
  }
 }

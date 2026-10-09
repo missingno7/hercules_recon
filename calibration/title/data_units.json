@@ -1,5 +1,5 @@
 {
- "scope": "Data-only translation units of TITLE.DLL that own no function rows; compiled with /O2 by scripts/title_link.py.",
+ "scope": "Data blocks measured by scripts/title_link.py. Units that own no function rows are compiled from here and linked at link_before; units with function rows keep their code-order position.",
  "units": [
   {
    "source": "calibration/title/title_files.c",
@@ -10,6 +10,15 @@
    ],
    "evidence": "evidence/title_closure.json name_tables",
    "link_before": "0x5e90"
+  },
+  {
+   "source": "calibration/title/u08140.cpp",
+   "first_symbol": "_g_23668",
+   "original": [
+    "0x23668",
+    "0x242e8"
+   ],
+   "evidence": "evidence/title_closure.json units (object-system tables)"
   }
  ],
  "ordering": "Objects link in code order (lowest owned function RVA). A data unit sorts at link_before: just before the object whose code starts at that RVA."
