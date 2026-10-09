@@ -5,6 +5,11 @@
  * No includes are needed: none of the bodies uses the engine interface header. */
 
 extern "C" {
+#include "title_engine.h"
+#include "title_screen.h"
+#include "title_files.h"
+#include "title_slots.h"
+
 
 /* ---- shared record types ---- */
 
@@ -52,7 +57,9 @@ typedef struct TitleObj {
     unsigned short frame_34;
     unsigned char unknown_36[2];
     unsigned short w38;
-    unsigned char unknown_3a[22];
+    unsigned char unknown_3a[16];
+    unsigned short w4a;
+    unsigned char unknown_4c[4];
     unsigned long d50;
     unsigned long d54;
     char *p58;
@@ -72,7 +79,9 @@ typedef struct TitleRec {
     unsigned short w2e;
     unsigned char unknown_30[4];
     unsigned short field_34;
-    unsigned char unknown_36[0x2e];
+    unsigned char unknown_36[0x14];
+    unsigned short w4a;
+    unsigned char unknown_4c[0x18];
     unsigned long d64;
     unsigned char unknown_68[0x2c];
     unsigned char b94, b95, b96, b97;
@@ -290,12 +299,12 @@ extern unsigned short g_2bf44;
 /* ---- callees ---- */
 
 void title_054f0(int a, int b);
-int title_0c4a0(int a);
+unsigned int title_0c4a0(int a);
 TitleRec *title_08900(int flags);
 void *title_08d80(unsigned long flags);
 void *title_091a0(unsigned long flags);
 void title_094c0(void *slot);
-void title_01dd0(void *p);
+void title_01dd0(...);
 void title_04610(TitleObj *p);
 void unlink_12c(TitleObj *p);
 void title_098f0(TitleObj *p);
@@ -315,7 +324,504 @@ int title_08ae0(TitleObj *p);
 int title_08f50(TitleObj *p);
 int title_09350(TitleObj *p);
 
+/* ---- main menu (0x7510) ---- */
+
+/* Game-state view of g_engine_interface.context_004 (offsets observed in 0x7510). */
+typedef struct TitleMenuState {
+    unsigned char level_000;
+    unsigned char unknown_001[6 - 1];
+    unsigned char byte_006;
+    unsigned char unknown_007[0xb - 7];
+    unsigned char byte_00b;
+    unsigned char byte_00c;
+    unsigned char unknown_00d;
+    unsigned char byte_00e;
+    unsigned char unknown_00f[0x30 - 0xf];
+    unsigned long flags_030;
+    unsigned char unknown_034[0x9c - 0x34];
+    short word_09c;
+} TitleMenuState;
+
+/* Sparkle positions on the menu picture (x, y pairs): .data 0x242e8. */
+int g_242e8[50] = {
+    125, 27, 144, 41, 153, 38, 159, 41, 167, 39, 182, 35, 178, 40, 187, 38,
+    91, 49, 105, 64, 133, 67, 122, 79, 153, 59, 155, 79, 182, 71, 196, 69,
+    202, 80, 211, 63, 220, 79, 233, 60, 234, 80, 71, 78, 84, 64, 74, 57,
+    234, 78,
+};
+
+unsigned long g_29fec;     /* buttons (cursor_5e) */
+int g_29ff0;               /* chosen menu entry */
+int g_29ff8;
+int g_2a01c;               /* fade level */
+unsigned long g_2a028;     /* directions (cursor_5c) */
+unsigned int g_2a030;      /* highlighted entry */
+int g_2a038;               /* idle ticks */
+int g_2a040;               /* key repeat delay */
+int g_2a068;
+unsigned int g_2a074;      /* last entry */
+int g_2a08c;               /* menu already shown */
+
+extern int g_29f98;
+extern int g_2bb30;
+extern int g_2bb34;
+extern char g_29128[];
+
+void title_0c990(int a, int b);
+void title_0c940(int a);
+void title_0c9c0(int a, int b);
+void title_197f0(void);
+void title_0c560(int a, int b);
+void title_1d790(int a);
+void title_0c450(int *out, int size, int flags);
+int title_0c3f0(char *a, char *name, int c, int d);
+void title_0c8b0(int a0, int a1, int a2, int a3, int a4, int a5, int a6);
+void title_0c6d0(int a);
+void title_04b50(int a);
+void title_04b70(int a, int b);
+void title_06bb0(void);
+void title_06fb0(void);
+void title_071e0(int a);
+void title_0c5d0(int a);
+void title_0c3c0(void);
+void title_01de0(int a0, int a1, int a2, int a3, int a4);
+int title_04d80(int idx, int key);
+int title_0c910(int a);
+int title_0c9b0(int a);
+void title_08320(void);
+void title_08140(void);
+void title_199b0(int limit);
+void title_19a40(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
+void title_028c0(int a0, int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10);
+int title_0c950(void);
+void title_19820(void);
+void title_0c4f0(int a);
+void title_0c2d0(void);
+void title_0c330(int p);
+void title_04ea0(int a);
+void title_05db0(void (*fn)(TitleProc *), int a, int b, int c);
+void title_05e90(void (*fn)(TitleProc *), int a);
+void title_05f10(TitleProc *self);
+void title_0f460(TitleProc *self);
+void title_0a450(TitleProc *self);
+void title_016f0(TitleProc *self);
+void title_164b0(TitleProc *self);
+
 /*@FUNCS@*/
+
+/* TITLE.DLL 0x7510 (3120 bytes): main menu process (TitleProc callback). Started by the title
+   controller 0x164b0 and by 0x16f0 with title_05db0(title_07510, 0, 1, 0). Phases: 1 load menu
+   pictures, 10 wait for the menu1 slot (first entry: Hercules walk-in), 2 menu loop (cursor
+   0x2a028/buttons 0x29fec, highlighted entry 0x2a030, idle timeout 900 ticks), 4/5 fade out,
+   6 release objects, 7 dispatch the chosen entry (0x29ff0), 0x14 load-game check,
+   0xffff init, 0xfffe hand back to 0x164b0.
+   Unit/language: its .data table 0x242e8 follows the u08140.cpp tables (0x23668..0x242e7) in the
+   same object, so 0x7510 belongs to the C++ object-system unit (unit start 0x7510, not 0x8140).
+   Lever: case 7's entry 2 breaks to the shared tail (compiler duplicates it); every other tail
+   is explicit. */
+/*@BEGIN_FUNC 0x7510 _title_07510*/
+void title_07510(TitleProc *self)
+{
+    int pick;
+    int kind;
+    int code;
+
+    g_2a028 = (unsigned short)((ScreenContext *)g_engine_interface.context_004)->cursor_5c;
+    g_29fec = (unsigned short)((ScreenContext *)g_engine_interface.context_004)->cursor_5e;
+    switch (self->state_04) {
+    case 1:
+        title_0c990(-4, 0);
+        title_0c940(1);
+        title_0c9c0(0, 0x4000);
+        title_197f0();
+        g_2a080 = 0;
+        if (g_2bb34 != 0) {
+            self->state_04 = 0xfffe;
+            self->delay_08 = 1;
+            return;
+        }
+        title_0c560(0, 4);
+        title_1d790(1);
+        g_2a078 = 0;
+        title_0c450(&g_2a078, 0x15000, 0);
+        title_0c3f0(g_29128, g_sequence_files[TITLE_SEQ_T015], g_2a078, 0x14312);
+        title_01dd0(g_2a078);
+        title_0c8b0(g_2a078 + 0x312, 2, 0, 0x140, 0, 0xa0, 0x100);
+        title_0c6d0(0);
+        title_0c3f0(g_29128, g_screen_files[11], g_2a078, 0x14312);
+        title_0c8b0(g_2a078 + 0x312, 2, 0, 0x140, 0x100, 0xa0, 0x100);
+        title_0c6d0(0);
+        title_01dd0();
+        g_2a020 = 0;
+        g_2a01c = 0;
+        g_2a018 = 0x80;
+        if (g_2a08c == 0) {
+            title_04b50(1);
+            g_2a044 = -0x204;
+            g_2a03c = 0;
+            g_2a07c = 0;
+            g_2a01c = 0x80;
+            title_0c5d0(4);
+            title_0c3c0();
+            self->state_04 = 10;
+            self->delay_08 = 1;
+            return;
+        }
+        title_04b70(1, 0);
+        title_06bb0();
+        title_06fb0();
+        g_2a01c = 0x80;
+        g_2a03c = 0;
+        g_2a044 = 0;
+        g_2a07c = 2;
+        title_0c5d0(4);
+        title_0c3c0();
+        self->state_04 = 2;
+        self->delay_08 = 1;
+        return;
+    case 10:
+        title_01de0(0x140, 0x100, g_2a01c, 0, 0);
+        if (g_2a01c < 0x80) {
+            g_2a01c += 0x10;
+        }
+        if (g_26110[1].state_10 != 3 && title_04d80(1, 0xf8) == 0) {
+            self->state_04 = 10;
+            self->delay_08 = 1;
+            return;
+        }
+        title_06bb0();
+        title_06fb0();
+        g_2a07c = 1;
+        g_2cc64 = 0;
+        g_2cc60 = 0;
+        self->state_04 = 2;
+        self->delay_08 = 1;
+        return;
+    case 2:
+        if (title_0c910(-1) != 0) {
+            g_29ff0 = 3;
+            self->state_04 = 4;
+            self->delay_08 = 1;
+            return;
+        }
+        if (g_29f98 == 0) {
+            title_08320();
+            title_08140();
+            title_199b0(0xf8);
+            if (title_0c4a0(100) < 7) {
+                pick = title_0c4a0(0x18) * 2;
+                kind = title_0c4a0(3);
+                title_19a40(0xf8, 0x2002,
+                            (g_242e8[pick] + g_2a044 - 0x98) << 16,
+                            (g_242e8[pick + 1] + g_2a03c - 0x84) << 16,
+                            0, kind, 0x80);
+            }
+            title_06fb0();
+        }
+        switch (g_2a07c) {
+        case 0:
+            title_01de0(0x140, 0x100, g_2a01c, 0, 0);
+            if (g_2a01c < 0x80) {
+                g_2a01c += 0x10;
+            } else {
+                g_2a07c = 1;
+                g_2cc64 = 0;
+                g_2cc60 = 0;
+            }
+            g_2a068 = 1;
+            break;
+        case 1:
+            title_01de0(0x140, 0x100, 0x80, 0, 0);
+            title_071e0(0x80);
+            g_2a068 = 1;
+            break;
+        case 2:
+            title_071e0(0x80);
+            g_2a038++;
+            g_2a068 = 0;
+            if (g_2a038 == 900) {
+                g_29ff0 = 5;
+                g_2bb30 = 1;
+                self->state_04 = 4;
+                self->delay_08 = 1;
+                return;
+            }
+            break;
+        }
+        if (g_2a020 > 0) {
+            g_2a020 -= 8;
+            title_028c0(0, 0, 0x140, 0x100, 0xff, 0xff, 0xff, g_2a020, 1, 0, 0x4fe);
+        }
+        if (g_2a028 == 0) {
+            g_2a040 = 0;
+        } else {
+            g_2a038 = 0;
+        }
+        if (g_2a068 != 0) {
+            if (g_2a07c != 2 && (g_29fec & 0x4008)) {
+                g_2a01c = 0x80;
+                g_2a03c = 0;
+                g_2a044 = 0;
+                g_2a07c = 2;
+                g_2cc64 = 4;
+                g_29e08->d54 &= 0x7fffffff;
+                g_2a020 = 0x80;
+                title_054f0(0x303, 0);
+            }
+            g_29fec = 0;
+        } else if (g_2a040 == 0) {
+            if ((g_2a028 & 0x10) && g_2a030 > 0) {
+                title_054f0(0x301, 0);
+                g_2a030--;
+                if (g_2a030 == 2) {
+                    g_2a030 = 1;
+                }
+                g_2a040 = 0xf;
+            }
+            g_2a074 = (((TitleMenuState *)g_engine_interface.context_004)->flags_030 & 0x80000000) ? 4 : 3;
+            if ((g_2a028 & 0x40) && g_2a030 < g_2a074) {
+                title_054f0(0x300, 0);
+                g_2a030++;
+                if (g_2a030 == 2) {
+                    g_2a030 = 3;
+                }
+                g_2a040 = 0xf;
+            }
+        } else {
+            g_2a040--;
+        }
+        switch (g_2a030) {
+        case 0:
+            g_2a004->field_34 = 2;
+            g_29ff4->field_34 = 2;
+            if (g_29fec & 0x4008) {
+                title_054f0(0x302, 0);
+                g_29ff0 = 1;
+                self->state_04 = 4;
+                self->delay_08 = 1;
+                return;
+            }
+            break;
+        case 1:
+            g_2a004->field_34 = 3;
+            g_29ff4->field_34 = 3;
+            if (g_29fec & 0x4008) {
+                title_054f0(0x302, 0);
+                g_29ff0 = 0;
+                self->state_04 = 4;
+                self->delay_08 = 1;
+                return;
+            }
+            break;
+        case 3:
+            g_2a004->field_34 = 4;
+            g_29ff4->field_34 = 4;
+            if (g_29fec & 0x4008) {
+                title_054f0(0x302, 0);
+                title_0c950();
+            }
+            break;
+        case 4:
+            g_2a004->field_34 = 5;
+            g_29ff4->field_34 = 5;
+            if (g_29fec & 0x4008) {
+                title_054f0(0x302, 0);
+                g_29ff0 = 4;
+                self->state_04 = 4;
+                self->delay_08 = 1;
+                return;
+            }
+            break;
+        }
+        self->state_04 = 2;
+        self->delay_08 = 1;
+        return;
+    case 4:
+        title_19820();
+        title_0c4f0(1);
+        g_2a01c = 0x80;
+        /* fall through */
+    case 5:
+        title_071e0(g_2a01c);
+        if (g_29f98 == 0) {
+            title_08140();
+            g_2a058->w4a = g_2a01c;
+            g_2a04c->w4a = g_2a01c;
+            g_2a048->w4a = g_2a01c;
+            g_2a054->w4a = g_2a01c;
+            g_2a050->w4a = g_2a01c;
+            g_29e08->w4a = g_2a01c;
+            g_2a004->w4a = g_2a01c;
+            g_29ff4->w4a = g_2a01c * 2;
+            g_2a000->w4a = g_2a01c;
+            g_29ffc->w4a = g_2a01c * 2;
+            if (g_2a01c > 0) {
+                g_2a01c -= 8;
+            } else {
+                self->state_04 = 6;
+                self->delay_08 = 1;
+                return;
+            }
+        }
+        self->state_04 = 5;
+        self->delay_08 = 1;
+        return;
+    case 6:
+        if (g_2a050) {
+            title_09350((TitleObj *)g_2a050);
+            g_2a050 = 0;
+        }
+        if (g_2a054) {
+            title_09350((TitleObj *)g_2a054);
+            g_2a054 = 0;
+        }
+        if (g_2a048) {
+            title_09350((TitleObj *)g_2a048);
+            g_2a048 = 0;
+        }
+        if (g_2a04c) {
+            title_09350((TitleObj *)g_2a04c);
+            g_2a04c = 0;
+        }
+        if (g_2a058) {
+            title_09350((TitleObj *)g_2a058);
+            g_2a058 = 0;
+        }
+        if (g_2a064) {
+            title_09350((TitleObj *)g_2a064);
+            g_2a064 = 0;
+        }
+        if (g_2a05c) {
+            title_09350((TitleObj *)g_2a05c);
+            g_2a05c = 0;
+        }
+        if (g_2a060) {
+            title_09350((TitleObj *)g_2a060);
+            g_2a060 = 0;
+        }
+        if (g_2a06c) {
+            title_09350((TitleObj *)g_2a06c);
+            g_2a06c = 0;
+        }
+        if (g_2a070) {
+            title_09350((TitleObj *)g_2a070);
+            g_2a070 = 0;
+        }
+        if (g_29e08) {
+            title_09350(g_29e08);
+            g_29e08 = 0;
+        }
+        if (g_2a004) {
+            title_09350((TitleObj *)g_2a004);
+            g_2a004 = 0;
+        }
+        if (g_29ff4) {
+            title_09350((TitleObj *)g_29ff4);
+            g_29ff4 = 0;
+        }
+        if (g_2a000) {
+            title_09350((TitleObj *)g_2a000);
+            g_2a000 = 0;
+        }
+        if (g_29ffc) {
+            title_09350((TitleObj *)g_29ffc);
+            g_29ffc = 0;
+        }
+        if (((TitleMenuState *)g_engine_interface.context_004)->word_09c == 1) {
+            title_0c2d0();
+        }
+        title_0c330(g_2a078);
+        title_04ea0(1);
+        self->state_04 = 7;
+        self->delay_08 = 1;
+        return;
+    case 7:
+        if (g_29ff0 >= 0 && g_29ff0 <= 5) {
+            title_0c940(0);
+            code = title_0c910(-2);
+            ((TitleMenuState *)g_engine_interface.context_004)->byte_00e = code >> 8;
+            ((TitleMenuState *)g_engine_interface.context_004)->byte_00c = code;
+            ((TitleMenuState *)g_engine_interface.context_004)->byte_00b = ((TitleMenuState *)g_engine_interface.context_004)->byte_00c;
+            title_0c9c0(0, 0);
+        }
+        switch (g_29ff0) {
+        case 0:
+            title_05db0(title_0f460, 0, 1, 0);
+            break;
+        case 1:
+            ((TitleMenuState *)g_engine_interface.context_004)->level_000 = 0;
+            self->state_04 = 0xfffe;
+            self->delay_08 = 1;
+            return;
+        case 2:
+            title_05db0(title_0a450, 0, 1, 0);
+            break;
+        case 4:
+            title_05db0(title_016f0, 0, 1, 0);
+            ((TitleMenuState *)g_engine_interface.context_004)->level_000--;
+            self->state_04 = 0xfffe;
+            self->delay_08 = 0;
+            return;
+        case 3:
+            code = title_0c910(-1);
+            if (code != 0) {
+                code = title_0c910(-2);
+            }
+            if (code == 0) {
+                code = title_0c9b0(-1);
+            }
+            ((TitleMenuState *)g_engine_interface.context_004)->level_000 = code >> 16;
+            ((TitleMenuState *)g_engine_interface.context_004)->byte_00e = code >> 8;
+            ((TitleMenuState *)g_engine_interface.context_004)->byte_00c = code;
+            ((TitleMenuState *)g_engine_interface.context_004)->byte_00b = ((TitleMenuState *)g_engine_interface.context_004)->byte_00c;
+            self->state_04 = 0x14;
+            self->delay_08 = 1;
+            return;
+        case 5:
+            if (((TitleMenuState *)g_engine_interface.context_004)->byte_006 == 0) {
+                title_01dd0();
+            }
+            self->state_04 = 0xfffe;
+            self->delay_08 = 1;
+            return;
+        }
+        g_2a08c = 1;
+        self->state_04 = 1;
+        self->delay_08 = 0;
+        return;
+    case 0x14:
+        if (((TitleMenuState *)g_engine_interface.context_004)->level_000 == 0) {
+            g_2a08c = 1;
+            self->state_04 = 1;
+            self->delay_08 = 1;
+            return;
+        }
+        self->state_04 = 0xfffe;
+        self->delay_08 = 1;
+        return;
+    case 0xffff:
+        g_2a014 = 1;
+        g_2a030 = 0;
+        g_2a040 = 0;
+        g_2a038 = 0;
+        title_1d790(1);
+        g_2bb30 = 0;
+        g_2bb34 = 0;
+        g_29ff8 = 0;
+        self->state_04 = 1;
+        self->delay_08 = 1;
+        return;
+    case 0xfffe:
+        title_0c940(0);
+        title_0c910(0);
+        title_0c9c0(0, 0);
+        title_05e90(title_164b0, 0);
+        title_05f10(self);
+        return;
+    }
+}
+/*@END_FUNC*/
+
 
 /*@BEGIN_FUNC 0x8140 _title_08140*/
 void title_08140(void)
