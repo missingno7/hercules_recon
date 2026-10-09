@@ -184,5 +184,10 @@
    "detail": "Three staged views used different bases: r04d80 g_26110 (state at +0x10), r04610 g_2611c (state at +4) with g_26134 and g_26288 as loop pointers, r18680 g_26114 (type at +0xc).",
    "resolution": "Base is 0x26110: 18 records of 20 bytes. The original takes the record address with lea [i*20+0x26110], field references span +0x00..+0x13, loop bounds 0x2627c and 0x26288 are &g_26110[18] plus 4 and 0x10, and the next referenced object starts at 0x26278. r04610 (0x4b00 now a plain index loop) and r18680 were restaged with the same field offsets as r04d80, all masked equal. The fake symbols g_2611c, g_26114, g_26134 and g_26288 are gone."
   }
- ]
+ ],
+ "table_base_review": {
+  "date": "2026-10-09",
+  "tool": "scripts/table_bases.py (oracle-only diagnostic)",
+  "result": "77 staged array symbols checked. 12 leads remain after skipping accesses inside staged functions that use the symbol. On review all are separate objects: function-pointer tables (0x220d0, 0x260f0), and parallel arrays with scale 2/4/8 at 0x20..0x40 below (0x26068, 0x265d8, 0x265f8, 0x2ae88, 0x2b018, 0x2b038, 0x2b068, 0x2b158, 0x2df60), mostly indexed from the open function 0x1b150. None requires re-basing a staged symbol."
+ }
 }
