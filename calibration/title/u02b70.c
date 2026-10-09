@@ -43,6 +43,10 @@ int title_195f0(TitleObject *p);
 void title_01dd0(TitleObject *p, unsigned char *q);
 void title_02cc0(TitleObject *p);
 void title_02dc0(TitleObject *p);
+void title_03050(unsigned char *stream, TitleObject *p, unsigned char count);
+unsigned short title_03da0(unsigned char *q, int n, int m);
+void title_17f50(unsigned char *stream, TitleObject *p, unsigned char count);
+int title_184c0(TitleObject *p, unsigned char *box, int pass);
 
 typedef struct TitleTabEntry { unsigned short a_00; unsigned short b_02; } TitleTabEntry;
 extern TitleTabEntry g_2d2a0[];
@@ -99,6 +103,114 @@ void title_02cc0(TitleObject *p)
         title_01dd0(p, (unsigned char *)&g_2cc04->ot[TITLE_OT_SIZE - 2] - (p->unknown_010 << 2));
     }
 }
+
+void title_02dc0(TitleObject *p)
+{
+    unsigned int off;
+    unsigned char count;
+    unsigned char *stream;
+    int clipped;
+    unsigned long flags;
+    unsigned char *base;
+    long frame;
+    unsigned char *s;
+    unsigned short n;
+    TitleTabEntry *use;
+    unsigned long *src;
+    unsigned int pal;
+    unsigned int slot;
+    unsigned short cell;
+    unsigned char *pals;
+    int y;
+    unsigned int key;
+    unsigned char *q;
+
+    n = g_26110[p->unknown_022].count_04;
+    if (p->unknown_034 > n)
+        return;
+    if (p->unknown_010 <= 0)
+        return;
+    base = g_26110[p->unknown_022].table_0c + n * 4 + 8;
+    frame = ((long *)base)[(short)p->unknown_034];
+    if (frame == 0)
+        return;
+    s = base + (frame >> 8);
+    count = *s++;
+    if (count == 0)
+        return;
+    clipped = 0;
+    s += *(signed char *)s * 6 + 1;
+    flags = p->unknown_054;
+    if (!(flags & 0x80000)) {
+        y = p->unknown_00e;
+        if ((unsigned short)p->unknown_00c > 0x140 || (unsigned int)y > 0xf0) {
+            clipped = title_184c0(p, s, 0);
+            if (clipped) {
+                if (!(flags & 8))
+                    return;
+                if (title_184c0(p, s, 1))
+                    return;
+            }
+        }
+    }
+    s += 4;
+    stream = s;
+    if (p->unknown_046 == 0xffff) {
+        use = &((TitleTabEntry *)g_26110[p->unknown_022].table_0c)[(short)p->unknown_034];
+        if (use->a_00 == 0) {
+            src = (unsigned long *)(base + 4) + *(unsigned short *)base;
+            ((unsigned long *)g_engine_interface.data_010)[0] = src[0];
+            ((unsigned long *)g_engine_interface.data_010)[1] = src[1];
+            cell = title_03da0(s += 2, count, frame);
+            if (cell == 0xffff)
+                return;
+            use->b_02 = cell;
+            if (frame & 0x40)
+                use->a_00 = 0x40;
+        }
+        p->unknown_046 = use->b_02;
+        use->a_00++;
+    }
+    if (p->unknown_01c != 0xff)
+        pal = p->unknown_01c;
+    else
+        pal = frame & 0x1f;
+    if (p->unknown_01d != pal) {
+        title_047a0(p);
+        if (p->unknown_01d == 0xff) {
+            off = pal * 2;
+            key = (p->unknown_022 << 8) + pal;
+        } else {
+            off = p->unknown_01d * 2;
+            key = (p->unknown_022 << 8) + p->unknown_01d;
+        }
+        p->unknown_01e = title_046b0(key, frame);
+        if (p->unknown_01e & 0x80) {
+            p->unknown_01e &= 0x7f;
+            pals = (unsigned char *)((unsigned long *)(base + 4) + *(unsigned short *)base + 2);
+            slot = *(unsigned short *)(pals + off);
+            q = base + slot;
+            title_047d0((int)(q + 4), p->unknown_01e, *(unsigned short *)q);
+        }
+        p->unknown_01d = (unsigned char)pal;
+    }
+    if (!clipped) {
+        p->unknown_01f |= 2;
+        if (g_engine_interface.context_004->unknown_040)
+            return;
+        if (p->unknown_023 == 0)
+            title_03050(stream, p, count);
+        else
+            g_220d0[p->unknown_023](stream, p, count);
+    }
+    if (flags & 8) {
+        p->unknown_01f |= 2;
+        if (g_engine_interface.context_004->unknown_040)
+            return;
+        title_17f50(stream, p, count);
+    }
+}
+
 
 void title_03050(int a1, TitleObject *p, int a3)
 {
