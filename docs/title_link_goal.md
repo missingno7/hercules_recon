@@ -267,6 +267,45 @@ Levers measured along the way:
   - 0x18b20, 0x94c0, 0x3100 and 0x39b0 are count-insensitive. Their residues are register roles
     or store scheduling.
 
+## Layout-compatible names (owner ruling 2026-10-09)
+
+Identifiers may be chosen so that VC5's identifier-hash order reproduces the original layout of
+uninitialized data. The ground rules:
+
+- Prefer meaningful names. Keep address names where the meaning is unknown.
+- Document the chosen names as layout choices.
+- Use no dummy variables or placement tricks.
+- Establish ownership first, and apply only to complete blocks.
+
+`scripts/layout_names.py` picks, for each variable, the most natural candidate word under one
+prefix so that hash buckets increase in address order. The hash mixes trailing characters
+weakly, so variety comes from the words and the prefix, and numeric suffixes are the last resort.
+
+Results:
+
+- **Sequence units.** All ten link their private .bss exactly as in the original: 112 variables
+  over 0x2ab1c..0x2acdb share one link delta.
+- **Memory-card communal group (u06350).** It is now defined, and the PSX card-sample names
+  (`ev0..ev3`, `card_dir`, `load_image`, `save_image`, `ev10..ev13`) already hash into the
+  original order.
+
+## Callee-saved register rules (register study, 2026-10-09)
+
+- Candidates ranked by weight take esi, edi, ebx and ebp, in that order.
+- Ties go to the first source reference.
+- Constants weigh less than variables. A constant used only as a call argument is never
+  enregistered.
+- A ranked constant can hold a register slot while being emitted as immediates, which leaves
+  the slot unused.
+- Weights are not plain reference counts. This part is still open.
+
+Levers found with these rules:
+- **0x13ba0:** case 1 writes its own tail and `return`, as seq1 does.
+- **0x3050:** `v1 = v2 = expr`.
+
+The frame-table state machines (0x9a40, 0xa020) differ in scratch-register rotation instead.
+That rotation is carried across cases and depends on the number of temporaries modulo 3.
+
 ## Preliminary closure (stage 2 groundwork)
 
 `scripts/closure.py` maps the data addresses implied by masked rows back to their functions.
