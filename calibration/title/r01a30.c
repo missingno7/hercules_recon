@@ -1,5 +1,5 @@
-extern int g_29134;
-extern int g_29144;
+static int g_29134;
+static int g_29144;
 
 void title_01a30(void)
 {

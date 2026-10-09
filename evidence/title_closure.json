@@ -298,7 +298,8 @@
    "exceptions": {
     "0x2a244": "read by 0x5fb0 but placed after the 0x9a40 unit's block (definer exports it)",
     "0x29c2c": "indexed access from 0xd910; base unknown"
-   }
+   },
+   "correction_2026_10_09": "Initialized .data ends at 0x290e8 (last nonzero byte 0x290e4); 0x290f0..0x291ff is per-object .bss of the first units, not explicitly zeroed data. With that start: 0x1000..0x16f0 (bss 0x290f0..0x29124) and 0x1a30..0x1a70 (0x2912c..0x29144) are units, and 0x29128 (24 users DLL-wide, first argument of the file loader) is a shared per-object variable: one of these two units is a C++ object. Initialized data keeps definition order (measured, C and C++), unlike .bss."
   },
   "sequence_units": {
    "evidence": "Handlers load SEQ1 (0x12280), SEQ10 (0x128e0), SEQ2 (0x12e90), SEQ3 .. SEQ9 (0x13500 .. 0x15cb0) from g_sequence_files. Code order SEQ1, SEQ10, SEQ2 .. SEQ9 is the alphabetical order of names seq1, seq10, seq2 .. seq9: consistent with an msdev link in alphabetical source-file order (blood2_recon measured that rule for its game).",

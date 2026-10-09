@@ -23,16 +23,16 @@ typedef struct TitleContextView {
     unsigned short word_02e;
 } TitleContextView;
 
-extern TitleObject *g_290f8;
-extern TitleObject *g_290fc;
-extern TitleObject *g_29100;
-extern TitleObject *g_29104;
-extern TitleObject *g_29108;
-extern TitleObject *g_29110;
-extern TitleObject *g_29114;
-extern TitleObject *g_29118;
-extern TitleObject *g_2911c;
-extern TitleObject *g_29120;
+static TitleObject *g_290f8;
+static TitleObject *g_290fc;
+static TitleObject *g_29100;
+static TitleObject *g_29104;
+static TitleObject *g_29108;
+static TitleObject *g_29110;
+static TitleObject *g_29114;
+static TitleObject *g_29118;
+static TitleObject *g_2911c;
+static TitleObject *g_29120;
 
 TitleObject *title_17ad0(int a0, int a1, int a2, int size, int a4);
 void title_09350(void *block);
