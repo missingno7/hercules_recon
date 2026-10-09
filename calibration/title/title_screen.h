@@ -23,10 +23,13 @@ struct TitleObject {
     short unknown_00c;
     short unknown_00e;
     short unknown_010;                /* depth: ordering-table slot */
-    unsigned char unknown_012[0x01e - 0x012];
+    unsigned char unknown_012[0x01c - 0x012];
+    unsigned char unknown_01c;
+    unsigned char unknown_01d;
     unsigned char unknown_01e;
     unsigned char unknown_01f;
-    unsigned char unknown_020[0x023 - 0x020];
+    unsigned char unknown_020[0x022 - 0x020];
+    unsigned char unknown_022;
     unsigned char unknown_023;        /* render mode */
     unsigned char unknown_024[0x034 - 0x024];
     unsigned short unknown_034;       /* frame */
@@ -35,7 +38,9 @@ struct TitleObject {
     unsigned short unknown_03a;
     unsigned short unknown_03c;
     unsigned short unknown_03e;
-    unsigned char unknown_040[0x046 - 0x040];
+    unsigned short unknown_040;
+    unsigned short unknown_042;
+    unsigned short unknown_044;
     unsigned short unknown_046;
     unsigned short unknown_048;
     unsigned short unknown_04a;
@@ -44,7 +49,7 @@ struct TitleObject {
     unsigned long unknown_054;        /* render flags (0x10 mirrors x movement in 0x5cc0) */
     void *unknown_058;
     TitleObject *unknown_05c;
-    void *unknown_060;
+    TitleObject *unknown_060;
     unsigned long unknown_064;
     TitleObject *unknown_068;         /* next object in a list */
     void *unknown_06c;

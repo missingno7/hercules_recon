@@ -1,28 +1,9 @@
 /* w06 shared views (scratch). Field names are by offset; unknown bytes kept as pad_XX. */
 #include "title_engine.h"
+#include "title_screen.h"
 #include "title_slots.h"
 #include "title_gpu.h"
 typedef struct TitleTabEntry { unsigned short a_00; unsigned short b_02; } TitleTabEntry;
-typedef struct TitleCtx {
-    unsigned char pad_00[0x1d];
-    unsigned char b_1d;
-    unsigned char b_1e;
-    unsigned char pad_1f[3];
-    unsigned char b_22;
-    unsigned char pad_23[0x34 - 0x23];
-    unsigned short w_34;
-    unsigned short w_36;
-    unsigned char pad_38[0x40 - 0x38];
-    unsigned short w_40;
-    unsigned short w_42;
-    unsigned short w_44;
-    unsigned short w_46;
-    unsigned short w_48;
-    unsigned char pad_4a[0x54 - 0x4a];
-    unsigned int d_54;
-    unsigned char pad_58[0x60 - 0x58];
-    struct TitleCtx *p_60;
-} TitleCtx;
 extern TitleTabEntry g_2d2a0[];
 extern unsigned char g_2df50;
 extern int g_2df44;
@@ -34,8 +15,8 @@ extern int g_2df40;
 unsigned char title_04710(char *p, int b, int c, int d);
 unsigned char title_046b0(unsigned short key, unsigned int f);
 void title_047d0(int a, int v, int b);
-void title_042d0(TitleCtx *p);
-TitleTabEntry *title_047a0(TitleCtx *c);
+void title_042d0(TitleObject *p);
+TitleTabEntry *title_047a0(TitleObject *c);
 /* 0x42d0: release a context's two cell chains in the 0x2d340 cell table (12-byte cells:
    bit mask, word, four next links). A link k names cell k >> 4 and one quadrant bit k & 15;
    g_264f8 maps the bit to its link slot. The cell is addressed through a byte offset: only
@@ -50,7 +31,7 @@ typedef struct TitleCell {
 extern TitleCell g_2d340[];
 extern signed char g_264f8[];
 
-void title_042d0(TitleCtx *p)
+void title_042d0(TitleObject *p)
 {
     unsigned short k;
     int last;
@@ -58,15 +39,15 @@ void title_042d0(TitleCtx *p)
     unsigned int off;
     TitleTabEntry *t;
 
-    if (p->w_44 == 0xffff)
+    if (p->unknown_044 == 0xffff)
         return;
-    state = g_26110[p->w_44].state_10;
-    k = p->w_46;
+    state = g_26110[p->unknown_044].state_10;
+    k = p->unknown_046;
     if (k != 0xffff) {
         last = 0;
-        t = (TitleTabEntry *)g_26110[p->w_44].table_0c;
+        t = (TitleTabEntry *)g_26110[p->unknown_044].table_0c;
         if (t) {
-            t += (short)p->w_40;
+            t += (short)p->unknown_040;
             if (--t->a_00 == 0)
                 last = 1;
         }
@@ -79,14 +60,14 @@ void title_042d0(TitleCtx *p)
                 k = ((TitleCell *)((char *)g_2d340 + off))->next_04[g_264f8[k & 15]];
             } while (k != 0xffff);
         }
-        p->w_46 = 0xffff;
+        p->unknown_046 = 0xffff;
     }
-    k = p->w_48;
+    k = p->unknown_048;
     if (k != 0xffff) {
         last = 0;
-        t = (TitleTabEntry *)g_26110[p->w_44].table_0c;
+        t = (TitleTabEntry *)g_26110[p->unknown_044].table_0c;
         if (t) {
-            t += (short)p->w_42;
+            t += (short)p->unknown_042;
             if (--t->a_00 == 0)
                 last = 1;
         }
@@ -99,13 +80,13 @@ void title_042d0(TitleCtx *p)
                 k = ((TitleCell *)((char *)g_2d340 + off))->next_04[g_264f8[k & 15]];
             } while (k != 0xffff);
         }
-        p->w_48 = 0xffff;
+        p->unknown_048 = 0xffff;
     }
-    p->w_40 = p->w_34;
-    p->w_44 = p->b_22;
+    p->unknown_040 = p->unknown_034;
+    p->unknown_044 = p->unknown_022;
 }
 
-void title_04610(TitleCtx *p);
+void title_04610(TitleObject *p);
 void title_04b70(int c, int d);
 void title_04f00(int i);
 void title_0c690(void *p, int n);
@@ -113,15 +94,15 @@ void title_0c890(void *p, int n);
 
 /* ---- MASKED EQUAL functions, ascending RVA ---- */
 /* f_4610 */
-void title_04610(TitleCtx *p)
+void title_04610(TitleObject *p)
 {
-    unsigned int f = p->d_54;
+    unsigned int f = p->unknown_054;
     if (f & 0x10000800)
         return;
     title_042d0(p);
     title_047a0(p);
     if (f & 0x800000) {
-        TitleCtx *q = p->p_60;
+        TitleObject *q = p->unknown_060;
         if (q) {
             title_04610(q);
             title_047a0(q);
@@ -184,14 +165,14 @@ void title_04870(void)
 }
 
 /* f_47a0 (integrator) */
-TitleTabEntry *title_047a0(TitleCtx *c)
+TitleTabEntry *title_047a0(TitleObject *c)
 {
     TitleTabEntry *entry;
-    if (c->b_1e != 0xff) {
-        entry = &g_2d2a0[c->b_1e];
+    if (c->unknown_01e != 0xff) {
+        entry = &g_2d2a0[c->unknown_01e];
         entry->a_00--;
-        c->b_1e = 0xff;
-        c->b_1d = 0xff;
+        c->unknown_01e = 0xff;
+        c->unknown_01d = 0xff;
         return entry;
     }
 }
