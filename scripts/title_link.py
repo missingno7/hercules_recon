@@ -68,20 +68,25 @@ def read_map(path):
     return symbols
 
 
-def compare_object(ours, o_base, orig, lo, hi):
-    """Bytes of [lo, hi) in the original against the same span at o_base in ours; pointers by relative target."""
+def compare_object(ours, o_base, orig, lo, hi, places):
+    """Bytes of [lo, hi) in the original against the same span at o_base in ours. A pointer slot is equal
+    when it targets the same place: the same offset in this or another measured data unit, or the
+    same reconstructed function (places maps an original RVA to our RVA)."""
     size = hi - lo
     a, b = orig.read_rva(lo, size), ours.read_rva(o_base, size)
     rel = lambda pe, base: {e.rva - base for blk in pe.pe.DIRECTORY_ENTRY_BASERELOC for e in blk.entries
                             if e.type and 0 <= e.rva - base < size}
     ra, rb = rel(orig, lo), rel(ours, o_base)
-    slots_equal = sum(1 for off in ra & rb
-                      if int.from_bytes(a[off:off + 4], 'little') - orig.image_base - lo
-                      == int.from_bytes(b[off:off + 4], 'little') - ours.image_base - o_base)
+    slots_equal = unplaced = 0
+    for off in ra & rb:
+        expected = places(int.from_bytes(a[off:off + 4], 'little') - orig.image_base)
+        unplaced += expected is None
+        slots_equal += expected == int.from_bytes(b[off:off + 4], 'little') - ours.image_base
     covered = {i for r in ra | rb for i in range(r, r + 4)}
     plain = [i for i in range(size) if i not in covered]
     return dict(size=size, pointer_slots=len(ra), pointer_slots_equal=slots_equal, pointer_slots_extra=len(rb - ra),
-                plain_bytes=len(plain), plain_bytes_differing=sum(a[i] != b[i] for i in plain))
+                pointer_targets_unplaced=unplaced, plain_bytes=len(plain),
+                plain_bytes_differing=sum(a[i] != b[i] for i in plain))
 
 
 def layout(module, lane, objects, env, tc, definitions):
@@ -115,16 +120,22 @@ def layout(module, lane, objects, env, tc, definitions):
     sections = {s['name']: dict(ours=[hex(s['virtual_address']), s['virtual_size']]) for s in ours.sections}
     for s in orig.sections:
         sections.setdefault(s['name'], {})['original'] = [hex(s['virtual_address']), s['virtual_size']]
+    spans = [(*(int(x, 16) for x in u['original']), symbols[u['first_symbol']] - ours.image_base) for u in data_units()]
+    functions = {int(r['rva'], 16): symbols[r['symbol']] - ours.image_base for r in rows if r['symbol'] in symbols}
+
+    def places(target):
+        if target in functions:
+            return functions[target]
+        return next((base + target - lo for lo, hi, base in spans if lo <= target < hi), None)
+
     units = []
-    for unit in data_units():
-        lo, hi = (int(x, 16) for x in unit['original'])
-        base = symbols[unit['first_symbol']] - ours.image_base
+    for unit, (lo, hi, base) in zip(data_units(), spans):
         data = next(s for s in ours.sections if s['virtual_address'] <= base < s['virtual_address'] + s['virtual_size'])
         o_data = next(s for s in orig.sections if s['virtual_address'] <= lo < s['virtual_address'] + s['virtual_size'])
         units.append(dict(source=unit['source'], ours=hex(base), original=hex(lo),
                           section_offset_ours=hex(base - data['virtual_address']),
                           section_offset_original=hex(lo - o_data['virtual_address']),
-                          bytes=compare_object(ours, base, orig, lo, hi)))
+                          bytes=compare_object(ours, base, orig, lo, hi, places)))
     # Data symbols defined by our sources with an implied original address: per defining object,
     # do they keep their original offsets relative to each other (one common delta)?
     implied = {}

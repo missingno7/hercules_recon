@@ -409,5 +409,13 @@
   "block": ".data 0x254e8..0x257cb is the 0x9a40 unit's ordinary data; its literal '\n Unable to malloc memory' (0x257cc, used by 0xa450) ends the object. object_map's literal flags at 0x25680.. were printable short tables, not literals.",
   "contents": "TitlePadMap g_254e8[4] (16-byte records of eight button masks, copied by 4-dword struct assignment in 0xa450 and 0x164b0), then eleven short frame tables ending in -1 (999 marks a sound request in the next entry) read by 0x9a40 (0x25528, 0x25568, 0x255d0), 0x9c90 (0x25600, 0x25638, 0x25680, 0x256c8) and 0xa020 (0x25710, 0x25748, 0x25778, 0x25790); every base is 8-aligned.",
   "result": "Defined in u09a40.c in address order: linked block 740/740 bytes equal. Hypothesis: each table's extent to the next base (trailing zeros could be padding of a shorter array; bytes are identical either way); the record type name."
+ },
+ "level_table": {
+  "date": "2026-10-09",
+  "finding": ".data 0x234b0..0x2355f is referenced by no code and no data slot (base relocations checked): a 12-entry (name, engine path, engine) level table, ints 64 and 1, and a 12-entry short permutation, followed by its literals 0x23560..0x23658 in reverse order of first use. It is its own object: it follows the 0x6350 unit's literals ('bu00:B-sces-00891') and precedes the object-system tables (0x23668).",
+  "consequence": "Its literals are the first, folded copies of the engine strings that the 0x16300 unit's engine table (g_26008) points to, which is why that table's 24 pointers differed when this object was missing.",
+  "result": "calibration/title/title_levels.c (C, data only) links 424/424 bytes with all 36 pointer slots equal; r16110's 24 slots now resolve to the same places (24/24).",
+  "hypothesis": "Position among the code units between 0x6350 and 0x8140 (none of them has other initialized data, so the layout is the same anywhere there; link_before 0x6bb0); 0x23540/0x23544 as two ints rather than int[2]; field names.",
+  "tool": "scripts/title_link.py now counts a pointer slot equal when it targets the same place (same offset in this or another measured data unit, or the same reconstructed function); pointer_targets_unplaced counts targets in neither."
  }
 }
