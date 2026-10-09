@@ -266,5 +266,9 @@ typedef struct TitleEngineInterface {
     int (__cdecl *slot_3e4)(TITLE_SLOT_ARGS);
 } TitleEngineInterface;
 
+#ifdef __cplusplus
+extern "C" TitleEngineInterface g_engine_interface;
+#else
 extern TitleEngineInterface g_engine_interface;
+#endif
 #endif
