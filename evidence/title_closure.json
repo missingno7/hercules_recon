@@ -306,6 +306,20 @@
    "types": "title_screen.h (ScreenContext, TitleObject) and title_proc.h. The handler argument is the scheduler's process record: fn_00 is the handler, state_04 its phase, delay_08 the countdown the scheduler decrements (handlers set 1 or 2), next_10 the list link. r10ce0's TitleSprite was the same TitleObject.",
    "hypothesis": "alphabetical link order for the whole DLL; the original file names themselves",
    "statics": "103 private .bss variables of the ten units are file statics in seq1.c .. seq10.c (each used only by its unit; every block fully referenced, so block sizes match). Diagnostic link: unresolved data 358 -> 255. Order inside each block follows the unrecovered name rule: 2-3 of 7-12 variables per unit keep their original relative offsets."
+  },
+  "consolidated": {
+   "date": "2026-10-09",
+   "files": {
+    "u197f0.c": "0x197f0..0x1c430, 23 rows from six region files; 68 statics (types unified by a Haiku worker, verified by the integrator)",
+    "u0ff70.c": "0xff70..0x10fa0, 6 rows from r0d380/r10ce0; 20 statics",
+    "u06350.c": "2 statics",
+    "seq1..seq10.c": "103 statics"
+   },
+   "link": "Diagnostic link: unresolved data 380 -> 165 over this phase; 34 functions missing; 0 duplicates.",
+   "open": [
+    "0x6bb0..0x8320 shares .bss 0x29fec..0x2a08c with the C++ object-system unit (u08140.cpp): shared per-object variables need a C++ definer, either u08140 or a C++ unit around 0x6840..0x7510; .data segments are ambiguous",
+    "early units 0x1de0..0x28c0 and 0x2b70..0x48a0: mostly open functions"
+   ]
   }
  },
  "aliases": {

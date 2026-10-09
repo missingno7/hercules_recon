@@ -2,7 +2,7 @@
    0x65e0/0x66e0 use the "bu00:" memory-card device string). Functions in RVA order. */
 #include <string.h>
 
-extern int g_29fc0;
+static int g_29fc0;
 extern int g_2c144;
 extern int g_2c148;
 extern int g_2c14c;
@@ -12,7 +12,7 @@ extern int g_2cbc4;
 extern int g_2cbc8;
 extern int g_2cbcc;
 extern char g_2c160[];
-extern int g_29fbc;
+static int g_29fbc;
 
 int title_0c610(int a);
 int title_0c600(int a);
