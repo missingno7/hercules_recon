@@ -87,43 +87,6 @@ void title_0ca20(void *p);
 void title_0ca10(void *p);
 void title_1d770(void);
 
-void title_1c430(void)
-{
-    if (g_2b104[0]) {
-        title_09350(g_2b104[0]);
-        g_2b104[0] = 0;
-    }
-    if (g_2b058[0]) {
-        title_09350(g_2b058[0]);
-        g_2b058[0] = 0;
-    }
-    if (g_2b104[1]) {
-        title_09350(g_2b104[1]);
-        g_2b104[1] = 0;
-    }
-    if (g_2b058[1]) {
-        title_09350(g_2b058[1]);
-        g_2b058[1] = 0;
-    }
-    if (g_2b1d8[0]) {
-        title_09350(g_2b1d8[0]);
-        g_2b1d8[0] = 0;
-    }
-    if (g_2b1d8[1]) {
-        title_09350(g_2b1d8[1]);
-        g_2b1d8[1] = 0;
-    }
-    if (g_2b1d8[2]) {
-        title_09350(g_2b1d8[2]);
-        g_2b1d8[2] = 0;
-    }
-    if (g_2b1d8[3]) {
-        title_09350(g_2b1d8[3]);
-        g_2b1d8[3] = 0;
-    }
-    title_19820();
-}
-
 void title_1d380(void)
 {
     unsigned short rect[4];
