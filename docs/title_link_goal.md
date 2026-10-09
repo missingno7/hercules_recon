@@ -180,19 +180,34 @@ file-static ties its users to one object, and one object's .bss is contiguous.
 
 - **Sequence screens:** `seq1.c` .. `seq10.c` hold ten units, each a handler and two helpers.
   The handlers load SEQ1, SEQ10, SEQ2..SEQ9 in code order, which is alphabetical file order.
-- **Other units:** `u197f0.c` (0x197f0..0x1c430), `u0ff70.c` (0xff70..0x10fa0), `u06350.c`
-  (from 0x6350), and the C++ scheduler `title_proc.cpp`.
-- **Statics:** each unit's private .bss variables are file statics.
+- **Other units:**
+  - `u197f0.c` (0x197f0..0x1c430);
+  - `u0ff70.c` (0xff70..0x10fa0);
+  - `u0cc90.c` (0xcc90..0xd6c0);
+  - `u09a40.c` (0x9a40..0xc140);
+  - `u06350.c` (0x6350..0x6840);
+  - `u06bb0.c` (0x6bb0..0x71e0);
+  - the C++ scheduler `title_proc.cpp`.
+- **The engine unit `u0c1f0.c`.** It holds the export and 117 interface-slot wrappers, and it
+  tentatively defines the engine interface.
+- **The C++ object-system unit `u08140.cpp`.** It defines the .bss block it shares with
+  `u06bb0.c`. Per-object variables read by other units need a C++ definer.
+- **Statics:** each unit's private .bss variables are file statics. Per-object .bss starts at
+  0x290e8.
 - **Shared types:**
   - `title_proc.h`: the process record, where a handler's argument is its process;
-  - `title_screen.h`: the screen context and the sprite object.
+  - `title_screen.h`: the screen context and the sprite object, whose x and y are signed 16.16.
 
-The diagnostic link has gone from 433 unresolved symbols to 199 (165 of them data), with no
-duplicates.
+The diagnostic link has gone from 433 unresolved symbols to 108 (34 functions and 74 data),
+with no duplicates. `title_link.py` reports in-object offsets for initialized data, per-object
+.bss and communal data separately.
 
-**Layout blocker L1.** Within one object, the order of statics, C++ globals and communals
-follows an unrecovered function of the identifiers. Ownership and object order are
-reproducible now; in-object order is not. The leads are recorded in `evidence/title_closure.json`.
+**In-object order (L1, rule recovered).** VC5 orders the uninitialized variables of one object
+by the bucket of the c1 identifier hash: `h = (h >> 4) + 4*h + c`, folded `h ^ (h >> 16)`, 1024
+buckets. Within a bucket, the later-defined name comes first. `scripts/symbol_order.py`
+implements it and `tests/test_symbol_order.py` covers it; it is exact on every probe.
+Initialized data keeps definition order. Reproducing the original in-object order now depends
+only on the identifier names, which is a naming-policy decision.
 
 ## Preliminary closure (stage 2 groundwork)
 
