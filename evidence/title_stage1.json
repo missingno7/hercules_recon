@@ -133,7 +133,7 @@
   "0x94c0": 210,
   "0x95d0": 256,
   "0x9a40": 191,
-  "0xcd30": 241,
+  "0xcd30": 238,
   "0xd290": 191,
   "0xd720": 188,
   "0x102f0": 553,
@@ -224,6 +224,7 @@
   "0x66f0": "In its own C unit (u06350.c, which also holds the C-only 0x65e0) the memory-card header builder reaches 10 differing bytes, the same as the earlier C++ lead, so the 'needs C++' note above is superseded. Residue: the memset destination lea is scheduled before the count/zero setup in the original; memset spellings, typed parameter, statement order tried. Count-insensitive below a size change at N=25.",
   "0x9a40": "In u09a40.c: the jump table gives an explicit case 0 and source case order 6, 7, 1..5 (recovered); structure then equals the original, 191 bytes remain from per-case register assignment rotated by one register (index/pointer/value) and the resulting short-form mov. Insensitive to TU count (0..79), post/pre-increment, typing of the index, field and tables, static vs extern. Treated like B6.",
   "0x5db0": "In title_proc.cpp: 30 bytes, the original pushes the call argument right after computing it; count-insensitive.",
-  "0x3050": "With the shared TitleObject in r02a80.c context: 6 bytes, the divisor and v1 swap ebx/edi (B6 class); removing the depth local, inlining half, reordering declarations and the or operands leave it at 6; long/int depth or if/else for v2 are far worse. Not referenced by reconstructed code; stopped."
+  "0x3050": "With the shared TitleObject in r02a80.c context: 6 bytes, the divisor and v1 swap ebx/edi (B6 class); removing the depth local, inlining half, reordering declarations and the or operands leave it at 6; long/int depth or if/else for v2 are far worse. Not referenced by reconstructed code; stopped.",
+  "0xcd30": "Password checker (43 x 24-byte entries: four keys, code, flags) in u0cc90.c with the shared TitleObject: loop with goto found, returns re-reading the table code (stores to the flags may alias it). Structure equal; 238 bytes remain from register roles (index in ebx vs ecx, key0 target in edi vs ebx) and the original recomputing the entry address after the aliasing stores. B6 class; stopped."
  }
 }
