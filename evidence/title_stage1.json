@@ -159,7 +159,7 @@
   "0x13ba0": 0,
   "0x164b0": 17,
   "0x1c500": 1715,
-  "0x3da0": 888,
+  "0x3da0": 710,
   "0x7510": 0,
   "0xf460": 0,
   "0x9c90": 271,
@@ -371,5 +371,16 @@
    "rotation": "loader one step behind (a diagnostic one-temporary statement in case 4/0xfffe/end of case 2 fixes it; no natural source found); loop index/level registers swapped with the else-if form",
    "scheduling": "one push 0x302 placement"
   }
+ },
+ "lane_w3da0b_2026_10_09": {
+  "best": "candidates/w3da0b/u_v02.c (710 masked, 237/308 aligned instructions) and u_v03.c (711, 239/308); all 22 u02b70.c rows stay masked equal.",
+  "levers": [
+   "quad-0 cascade testing the running bit variable (if (mask & bits)) reproduces and ecx,0xffff; xor edi,edi; test cl,1; mov esi,1",
+   "slot = 0 at the end of every iteration makes edi a known zero everywhere (cmp cnt,edi; cmp ..,di; push edi)",
+   "w computed before rows gives the copy loop the original scratch roles",
+   "overflow exit storing g_29d90 before g_29d94 gives the original store order"
+  ],
+  "blocker": "The RLE source pointer src stays in ebx for the whole function; the original keeps it in its parameter slot and loads it into edx only in the found region. Diagnostics: removing src references from the loop nest, the flush calls, or one *src++ frees ebx and restores cur/cnt/pos roles. Extra cur/cnt references flip it only in a 14..20 window, so the weight is capped or per-loop, not a plain count. No natural form found.",
+  "other": "quad term order flips to the original with 3+ extra declarations before the function (TU tie-break, R3); the new-cell byte load needs the double conversion form once the roles are right."
  }
 }
