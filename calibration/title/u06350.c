@@ -251,3 +251,47 @@ int title_06840(char a1, const void *a2, int a3, int a4, int a5)
     _close(fd);
     return 3;
 }
+
+int title_06a50(char a1, void *a2, int a3)
+{
+    char path[0x100];
+    int r;
+    int fd;
+
+    title_0c610(0);
+    r = title_06480();
+    if (r == 1 || r == 2) {
+        return 0;
+    }
+    if (r == 3) {
+        title_065a0();
+        title_0c600(0);
+        return 2;
+    }
+    title_064f0();
+    title_0c620(0);
+    title_06480();
+
+    strcpy(path, "bu00:B-sces-00891");
+    path[6] = 'A';
+    path[0x11] = ' ';
+    path[0x12] = ' ';
+    path[0x13] = a1;
+    path[0x14] = ' ';
+    path[0x15] = 'S';
+    path[0x16] = 'A';
+    path[0x17] = 'V';
+    path[0x18] = 'E';
+    path[0x19] = 0;
+
+    fd = _open(path, 0);
+    if (fd == -1) {
+        return 6;
+    }
+    if (_read(fd, load_image, 0x400) != 0x400) {
+        return 7;
+    }
+    _close(fd);
+    memcpy(a2, (char *)load_image + 0x200, a3);
+    return 8;
+}

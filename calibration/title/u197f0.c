@@ -87,6 +87,8 @@ static int g_2affc;
 static int g_2b000;
 static int g_2b004;
 
+static int g_2b010;
+static int g_2b358;
 void title_09350(void *p);
 unsigned int title_0c4a0(int a);
 int title_0c4d0(int a);
@@ -438,6 +440,42 @@ void title_19fa0(void)
         g_2b0e8->unknown_04a = g_2afe4;
         break;
     }
+}
+
+void title_1a180(void)
+{
+    g_2b358 ^= 1;
+    if (g_2b358 != 0) {
+        return;
+    }
+    switch (g_2b010) {
+    case 0:
+        g_2b31c = title_17ad0(0, 0, 0, 0x2012, 0);
+        g_2b31c->unknown_034 = 0x1eb;
+        g_2b31c->unknown_000 = 0x6e0000;
+        g_2b31c->unknown_004 = 0x420000;
+        g_2b31c->unknown_023 = 6;
+        g_2b31c->unknown_03e = 0x32;
+        g_2b31c->unknown_054 |= 0x10;
+        g_2b010 = 1;
+        break;
+    case 1:
+        if (title_0c4a0(100) <= 10) {
+            g_2b010 = 2;
+        }
+        break;
+    case 2:
+        g_2b31c->unknown_034++;
+        if (g_2b31c->unknown_034 == 0x1f7) {
+            g_2b31c->unknown_034 = 0x1eb;
+            g_2b010 = 1;
+            if (title_0c4a0(100) < 25 && g_2b0ec == 0) {
+                title_054f0(0x4320, (int)g_2b31c);
+            }
+        }
+        break;
+    }
+    g_2b31c->unknown_04a = g_2afe4;
 }
 
 void title_1a3a0(void)
