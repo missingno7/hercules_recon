@@ -14,16 +14,18 @@ typedef struct TitleContextView {
     unsigned long dword_030;
 } TitleContextView;
 
-static TitleObject *g_290f8;
-static TitleObject *g_290fc;
-static TitleObject *g_29100;
-static TitleObject *g_29104;
-static TitleObject *g_29108;
-static TitleObject *g_29110;
-static TitleObject *g_29114;
-static TitleObject *g_29118;
-static TitleObject *g_2911c;
-static TitleObject *g_29120;
+/* Private .bss of the 0x1000 unit (0x290f0..0x29127) in address order: names chosen for meaning and
+   for VC5's identifier-hash layout order (scripts/layout_names.py), not recovered identifiers. */
+static TitleObject *item0;
+static TitleObject *item1;
+static TitleObject *item2;
+static TitleObject *item3;
+static TitleObject *item4;
+static TitleObject *twin0;
+static TitleObject *twin1;
+static TitleObject *twin2;
+static TitleObject *twin3;
+static TitleObject *twin4;
 
 TitleObject *title_17ad0(int a0, int a1, int a2, int size, int a4);
 void title_09350(void *block);
@@ -32,51 +34,51 @@ void title_01000(void)
 {
     TitleContextView *ctx;
 
-    g_29108 = 0;
-    g_29104 = 0;
-    g_29100 = 0;
-    g_290fc = 0;
-    g_290f8 = 0;
+    item4 = 0;
+    item3 = 0;
+    item2 = 0;
+    item1 = 0;
+    item0 = 0;
     ctx = (TitleContextView *)g_engine_interface.context_004;
     if (ctx->word_02e == 0) {
-        g_290f8 = title_17ad0(0, 0, 0, 0x2018, 0);
-        g_290f8->unknown_034 = 0x11;
-        g_290fc = title_17ad0(0, 0, 0, 0x2018, 0);
-        g_290fc->unknown_034 = 7;
-        g_29100 = title_17ad0(0, 0, 0, 0x2018, 0);
-        g_29100->unknown_034 = 1;
-        g_29104 = title_17ad0(0, 0, 0, 0x2018, 0);
-        g_29104->unknown_034 = 2;
-        g_29108 = title_17ad0(0, 0, 0, 0x2018, 0);
-        g_29108->unknown_034 = 3;
+        item0 = title_17ad0(0, 0, 0, 0x2018, 0);
+        item0->unknown_034 = 0x11;
+        item1 = title_17ad0(0, 0, 0, 0x2018, 0);
+        item1->unknown_034 = 7;
+        item2 = title_17ad0(0, 0, 0, 0x2018, 0);
+        item2->unknown_034 = 1;
+        item3 = title_17ad0(0, 0, 0, 0x2018, 0);
+        item3->unknown_034 = 2;
+        item4 = title_17ad0(0, 0, 0, 0x2018, 0);
+        item4->unknown_034 = 3;
     } else {
-        g_290f8 = title_17ad0(0, 0, 0, 0x2018, 0);
-        g_290f8->unknown_034 = 0x1d;
-        g_290fc = title_17ad0(0, 0, 0, 0x2018, 0);
-        g_290fc->unknown_034 = 0x14;
-        g_29100 = title_17ad0(0, 0, 0, 0x2018, 0);
-        g_29100->unknown_034 = 0x13;
+        item0 = title_17ad0(0, 0, 0, 0x2018, 0);
+        item0->unknown_034 = 0x1d;
+        item1 = title_17ad0(0, 0, 0, 0x2018, 0);
+        item1->unknown_034 = 0x14;
+        item2 = title_17ad0(0, 0, 0, 0x2018, 0);
+        item2->unknown_034 = 0x13;
     }
-    g_29120 = 0;
-    g_2911c = 0;
-    g_29118 = 0;
-    g_29114 = 0;
-    g_29110 = 0;
-    g_29110 = title_17ad0(0, 0, 0, 0x2018, 0);
-    g_29110->unknown_034 = g_290f8->unknown_034;
-    g_29114 = title_17ad0(0, 0, 0, 0x2018, 0);
-    g_29114->unknown_034 = g_290fc->unknown_034;
+    twin4 = 0;
+    twin3 = 0;
+    twin2 = 0;
+    twin1 = 0;
+    twin0 = 0;
+    twin0 = title_17ad0(0, 0, 0, 0x2018, 0);
+    twin0->unknown_034 = item0->unknown_034;
+    twin1 = title_17ad0(0, 0, 0, 0x2018, 0);
+    twin1->unknown_034 = item1->unknown_034;
     ctx = (TitleContextView *)g_engine_interface.context_004;
     if (ctx->word_02e == 0) {
-        g_29118 = title_17ad0(0, 0, 0, 0x2018, 0);
-        g_29118->unknown_034 = 1;
-        g_2911c = title_17ad0(0, 0, 0, 0x2018, 0);
-        g_2911c->unknown_034 = 2;
-        g_29120 = title_17ad0(0, 0, 0, 0x2018, 0);
-        g_29120->unknown_034 = 3;
+        twin2 = title_17ad0(0, 0, 0, 0x2018, 0);
+        twin2->unknown_034 = 1;
+        twin3 = title_17ad0(0, 0, 0, 0x2018, 0);
+        twin3->unknown_034 = 2;
+        twin4 = title_17ad0(0, 0, 0, 0x2018, 0);
+        twin4->unknown_034 = 3;
     } else {
-        g_29118 = title_17ad0(0, 0, 0, 0x2018, 0);
-        g_29118->unknown_034 = 0x13;
+        twin2 = title_17ad0(0, 0, 0, 0x2018, 0);
+        twin2->unknown_034 = 0x13;
     }
 }
 
@@ -84,50 +86,50 @@ void title_011f0(void)
 {
     TitleContextView *ctx;
 
-    if (g_290f8) {
-        title_09350(g_290f8);
-        g_290f8 = 0;
+    if (item0) {
+        title_09350(item0);
+        item0 = 0;
     }
-    if (g_290fc) {
-        title_09350(g_290fc);
-        g_290fc = 0;
+    if (item1) {
+        title_09350(item1);
+        item1 = 0;
     }
-    if (g_29100) {
-        title_09350(g_29100);
-        g_29100 = 0;
-    }
-    ctx = (TitleContextView *)g_engine_interface.context_004;
-    if (ctx->word_02e == 0) {
-        if (g_29104) {
-            title_09350(g_29104);
-            g_29104 = 0;
-        }
-        if (g_29108) {
-            title_09350(g_29108);
-            g_29108 = 0;
-        }
-    }
-    if (g_29110) {
-        title_09350(g_29110);
-        g_29110 = 0;
-    }
-    if (g_29114) {
-        title_09350(g_29114);
-        g_29114 = 0;
-    }
-    if (g_29118) {
-        title_09350(g_29118);
-        g_29118 = 0;
+    if (item2) {
+        title_09350(item2);
+        item2 = 0;
     }
     ctx = (TitleContextView *)g_engine_interface.context_004;
     if (ctx->word_02e == 0) {
-        if (g_2911c) {
-            title_09350(g_2911c);
-            g_2911c = 0;
+        if (item3) {
+            title_09350(item3);
+            item3 = 0;
         }
-        if (g_29120) {
-            title_09350(g_29120);
-            g_29120 = 0;
+        if (item4) {
+            title_09350(item4);
+            item4 = 0;
+        }
+    }
+    if (twin0) {
+        title_09350(twin0);
+        twin0 = 0;
+    }
+    if (twin1) {
+        title_09350(twin1);
+        twin1 = 0;
+    }
+    if (twin2) {
+        title_09350(twin2);
+        twin2 = 0;
+    }
+    ctx = (TitleContextView *)g_engine_interface.context_004;
+    if (ctx->word_02e == 0) {
+        if (twin3) {
+            title_09350(twin3);
+            twin3 = 0;
+        }
+        if (twin4) {
+            title_09350(twin4);
+            twin4 = 0;
         }
     }
 }
@@ -136,10 +138,10 @@ void title_016e0(const char *format, ...)
 {
 }
 
-static unsigned int g_290f0;
-static unsigned int g_290f4;
-static int g_2910c;
-static int g_29124;
+static unsigned int unknown_f0;
+static unsigned int fade2;
+static int selection;
+static int step;
 extern char g_29128[];
 void title_0c990(int a, int b);
 void title_0c9c0(int a, int b);
@@ -167,13 +169,13 @@ void title_016f0(TitleProc *out)
 
     switch (out->state_04) {
     case 1:
-        title_01de0(0x140, 0, g_290f4, 0, 0);
-        switch (g_29124) {
+        title_01de0(0x140, 0, fade2, 0, 0);
+        switch (step) {
         case 0:
-            if (g_290f4 < 0x80) {
-                g_290f4 = g_290f4 + 0x10;
+            if (fade2 < 0x80) {
+                fade2 = fade2 + 0x10;
             } else {
-                g_29124 = 1;
+                step = 1;
             }
             break;
         case 1:
@@ -192,33 +194,33 @@ void title_016f0(TitleProc *out)
                 }
             }
             if (buttons & 8) {
-                g_29124 = 2;
+                step = 2;
             }
             if (((TitleContextView *)g_engine_interface.context_004)->word_02e != 0) {
                 if (buttons & 0x40) {
-                    g_2910c = g_2910c + 1;
+                    selection = selection + 1;
                     title_054f0(0x301, 0);
                 }
                 if (buttons & 0x10) {
-                    g_2910c = g_2910c - 1;
+                    selection = selection - 1;
                     title_054f0(0x300, 0);
                 }
             } else {
                 if (buttons & 0x20) {
-                    g_2910c = g_2910c + 1;
+                    selection = selection + 1;
                     title_054f0(0x301, 0);
                 }
             }
-            if (g_2910c == -1) {
-                g_2910c = 9;
+            if (selection == -1) {
+                selection = 9;
             }
-            if (g_2910c == 10) {
-                g_2910c = 0;
+            if (selection == 10) {
+                selection = 0;
             }
             break;
         case 2:
-            if (g_290f4 > 0) {
-                g_290f4 = g_290f4 - 0x10;
+            if (fade2 > 0) {
+                fade2 = fade2 - 0x10;
             } else {
                 out->state_04 = 0xfffe;
                 out->delay_08 = 1;
@@ -241,8 +243,8 @@ void title_016f0(TitleProc *out)
     case 0xffff:
         title_0c990(-1, 0);
         title_0c9c0(0, 8);
-        g_2910c = 0;
-        g_290f0 = 0xf;
+        selection = 0;
+        unknown_f0 = 0xf;
         title_0c560(0, 2);
         title_1d790(1);
         local = 0;
@@ -254,8 +256,8 @@ void title_016f0(TitleProc *out)
         title_04b70(0x11, 0);
         title_01000();
         title_01300();
-        g_290f4 = 0;
-        g_29124 = 0;
+        fade2 = 0;
+        step = 0;
         ((TitleContextView *)g_engine_interface.context_004)->dword_030 |= 0x80000000;
         break;
     default:
