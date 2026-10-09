@@ -2,10 +2,9 @@
    0x3da0, 0x41d0, 0x48a0, 0x4b70) and its .data (0x220d0..0x2214b with 0x4b70's literals last).
    Consolidated from the region files r02a80.c, r03d10.c and r04610.c; functions in address order.
    TU-context hypothesis (owner-approved ruling 2026-10-09, decided per unit): the unit is compiled with
-   WIN32_LEAN_AND_MEAN <windows.h> first. Measured: the cell allocator 0x3da0 matches only with it (without:
-   the quad term order and one base/index pair flip, 6-7 bytes; full <windows.h>: 6 bytes); every other row
-   of the unit is unchanged. Recorded as a hypothesis about the translation unit, not as proven source. */
-#define WIN32_LEAN_AND_MEAN
+   <windows.h> first. Measured with every function of the unit present (0x2b70 included): all 24 rows match
+   only with the full header (none: 0x3da0 differs by 1 byte; WIN32_LEAN_AND_MEAN: 6 bytes). Recorded as a
+   hypothesis about the translation unit, not as proven source. */
 #include <windows.h>
 #include "title_engine.h"
 #include "title_screen.h"
@@ -71,6 +70,57 @@ static int g_29d94;
 extern int g_2d32c;
 extern unsigned short g_2df60[0x20];
 void title_0c890(void *p, int n);
+
+extern TitleRect g_220f0[2];
+static int g_29d90;
+extern unsigned short g_2bf58;
+extern unsigned short g_2bf60;
+extern unsigned short g_2bf6e;
+extern void *g_2d320;
+extern TitleObject *g_2df48;
+extern void *g_2df4c;
+extern void *g_2dfa0;
+extern TitleObject *g_2dfa4;
+extern TitleObject *g_2dfb4;
+
+void title_02b70(void)
+{
+    TitleObject *p;
+    unsigned long f;
+
+    g_2d328 = 1;
+    g_2dfa4 = (TitleObject *)-1;
+    g_2df48 = (TitleObject *)-1;
+    g_2dfb4 = (TitleObject *)-1;
+    title_04470(g_2dfa0, g_2bf6e, 0x94);
+    title_04470(g_2df4c, g_2bf58, 0xec);
+    title_04470(g_2d320, g_2bf60, 0x134);
+    g_220f0[0].h = 0xf0;
+    g_220f0[0].y = (g_2cc04 != g_2cc08) * 0x100;
+    g_29d94 = 0;
+    g_29d90 = 0;
+    p = g_2df48;
+    title_189e0((int)p);
+    p = g_2dfa4;
+    if (p != (TitleObject *)-1) {
+        do {
+            f = p->unknown_054;
+            if ((f & 0x40000000) == 0x40000000) {
+                p->unknown_00c = (short)(p->unknown_000 >> 16);
+                p->unknown_00e = (short)(p->unknown_004 >> 16);
+                p->unknown_010 = 4;
+                title_02dc0(p);
+            } else if (f & 0x20000000) {
+                g_220d0[p->unknown_023](p);
+            } else if (title_195f0(p) == -1) {
+                p->unknown_01f |= 8;
+            } else {
+                title_02cc0(p);
+            }
+            p = p->unknown_068;
+        } while (p != (TitleObject *)-1);
+    }
+}
 
 void title_02cc0(TitleObject *p)
 {
@@ -277,7 +327,6 @@ typedef struct TitleCell {
 } TitleCell;
 extern TitleCell g_2d340[];
 extern signed char g_264f8[];
-static int g_29d90;
 /* 0x3da0: place n sprite parts (4-byte headers at q, RLE pixel data after them) into free
    quadrants of the 0x2d340 cells; returns the first link (cell * 16 + quadrant bits). */
 extern signed char g_264f0[4];
