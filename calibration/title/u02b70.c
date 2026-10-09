@@ -1,6 +1,12 @@
 /* TITLE unit 0x2b70..0x4b70 (C): one object by its private .bss (0x29590..0x29da0, shared by 0x2b70,
    0x3da0, 0x41d0, 0x48a0, 0x4b70) and its .data (0x220d0..0x2214b with 0x4b70's literals last).
-   Consolidated from the region files r02a80.c, r03d10.c and r04610.c; functions in address order. */
+   Consolidated from the region files r02a80.c, r03d10.c and r04610.c; functions in address order.
+   TU-context hypothesis (owner-approved ruling 2026-10-09, decided per unit): the unit is compiled with
+   WIN32_LEAN_AND_MEAN <windows.h> first. Measured: the cell allocator 0x3da0 matches only with it (without:
+   the quad term order and one base/index pair flip, 6-7 bytes; full <windows.h>: 6 bytes); every other row
+   of the unit is unchanged. Recorded as a hypothesis about the translation unit, not as proven source. */
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
 #include "title_engine.h"
 #include "title_screen.h"
 #include "title_slots.h"
@@ -264,6 +270,209 @@ void title_03d10(unsigned char *stream, TitleObject *obj, unsigned long count)
     }
 }
 
+typedef struct TitleCell {
+    unsigned short mask_00;
+    unsigned short w_02;
+    unsigned short next_04[4];
+} TitleCell;
+extern TitleCell g_2d340[];
+extern signed char g_264f8[];
+static int g_29d90;
+/* 0x3da0: place n sprite parts (4-byte headers at q, RLE pixel data after them) into free
+   quadrants of the 0x2d340 cells; returns the first link (cell * 16 + quadrant bits). */
+extern signed char g_264f0[4];
+extern unsigned char g_26508[0x70];
+extern unsigned char g_29590[0x400];
+void title_0c6d0(int a);
+void title_041d0(void);
+
+unsigned short title_03da0(unsigned char *q, int n, int m)
+{
+    unsigned char *src;
+    unsigned short *link;
+    int first;
+    int cur;
+    int cnt;
+    int c;
+    int quad;
+    int i;
+    int k;
+    int pos;
+    int bits;
+    int slot;
+    int rows;
+    int w;
+    int t;
+    unsigned short mask;
+    unsigned char *buf;
+    unsigned short *dst;
+    unsigned short *p;
+    char b;
+    unsigned int off;
+    unsigned char *s;
+
+    src = q + n * 4;
+    link = 0;
+    first = -1;
+    cur = g_29d90;
+    cnt = g_29d94;
+    slot = 0;
+    do {
+        c = (char)*q;
+        if (!(c & 0x80)) {
+            quad = ((c >> 1) & 1) + ((c >> 2) & 2);
+            if (quad != 3) {
+                i = 0;
+                if (i < cnt) {
+                next:
+                    pos = i;
+                    k = g_2df60[i];
+                    mask = g_2d340[k].mask_00;
+                    if (mask != 15) {
+                        if (quad == 0)
+                            goto hit0;
+                        if (quad == 1) {
+                            if (!(mask & 3))
+                                goto hit3;
+                            if (!(mask & 12))
+                                goto hit12;
+                        }
+                        if (quad == 2) {
+                            if (!(mask & 5))
+                                goto hit5;
+                            if (mask == 0)
+                                goto hit9;
+                        }
+                    }
+                    if (++i < cnt)
+                        goto next;
+                }
+                goto miss;
+            hit0:
+                slot = 0;
+                bits = 1;
+                if (mask & bits) {
+                    bits = 2;
+                    slot = 1;
+                    if (mask & bits) {
+                        bits = 4;
+                        slot = 2;
+                        if (mask & bits) {
+                            bits = 8;
+                            slot = 3;
+                        }
+                    }
+                }
+                g_2d340[k].mask_00 |= bits;
+                goto found;
+            hit3:
+                bits = 3;
+                slot = 0;
+                g_2d340[k].mask_00 |= bits;
+                goto found;
+            hit12:
+                bits = 12;
+                slot = 2;
+                g_2d340[k].mask_00 |= bits;
+                goto found;
+            hit5:
+                bits = 5;
+                slot = 0;
+                g_2d340[k].mask_00 |= bits;
+                goto found;
+            hit9:
+                bits = 9;
+                slot = 1;
+                g_2d340[k].mask_00 |= bits;
+                goto found;
+            miss:
+                slot = 0;
+            }
+            bits = g_264f0[quad];
+            if (m & 0x40) {
+                for (i = 0x6f; i > 0x54; i--) {
+                    if (g_2d340[g_26508[i]].mask_00 == 0) {
+                        cur = i;
+                        goto got;
+                    }
+                }
+            }
+            for (t = 0; t < 0x54; t++) {
+                if (++cur > 0x53)
+                    cur = 0;
+                if (g_2d340[g_26508[cur]].mask_00 == 0)
+                    goto got;
+            }
+            g_29d90 = cur;
+            g_29d94 = cnt;
+            k = first;
+            while ((unsigned short)k != 0xffff) {
+                off = (k >> 4) * sizeof(TitleCell);
+                ((TitleCell *)((char *)g_2d340 + off))->mask_00 &= 15 - (k & 15);
+                k = ((TitleCell *)((char *)g_2d340 + off))->next_04[g_264f8[k & 15]];
+            }
+            return 0xffff;
+        got:
+            if (cnt >= 0x20) {
+                title_0c6d0(0);
+                g_29d94 = cnt;
+                title_041d0();
+                title_0c6d0(0);
+                cnt = 0;
+            }
+            k = g_26508[cur];
+            g_2df60[cnt] = g_26508[cur];
+            pos = cnt++;
+            g_2d340[k].mask_00 = bits;
+        found:
+            if (link)
+                *link = (k << 4) + bits;
+            else
+                first = (k << 4) + bits;
+            link = &g_2d340[k].next_04[slot];
+            *link = 0xffff;
+            c = (char)*q;
+            w = (c & 3) * 2 + 2;
+            rows = (c & 12) * 2 + 8;
+            dst = (unsigned short *)(g_2d32c + ((((slot & 2) + pos * 4) << 4) + (slot & 1) << 4));
+            buf = g_29590;
+            s = src;
+            for (;;) {
+                b = *s++;
+                if (b <= 0) {
+                    *buf++ = b;
+                    continue;
+                }
+                if (b == 2)
+                    break;
+                if (buf + (unsigned char)b > g_29590 + sizeof(g_29590)) {
+                    if (cur > 0x53)
+                        cur = 0;
+                    g_29d90 = cur;
+                    g_29d94 = cnt;
+                    return first;
+                }
+                memset(buf, *s++, (unsigned char)b);
+                buf += (unsigned char)b;
+            }
+            p = (unsigned short *)g_29590;
+            do {
+                for (i = 0; i < w * 2; i++)
+                    *dst++ = *p++;
+                dst += (8 - w) * 2;
+            } while (--rows != 0);
+            src = s;
+        }
+        slot = 0;
+        q += 4;
+    } while (--n != 0);
+    if (cur > 0x53)
+        cur = 0;
+    g_29d94 = cnt;
+    g_29d90 = cur;
+    return first;
+}
+
 void title_041d0(void)
 {
     int a;
@@ -308,13 +517,6 @@ void title_041d0(void)
    that spelling gives the explicit row*12 base register + table displacement the original
    uses here (and at the 0x33a7/0x36c9/0x392f/0x3c92/0x18145 loads); indexing g_2d340[k >> 4] directly
    makes VC5 refactor the address as ((row*6 + j)*2) or fold the table into an lea. */
-typedef struct TitleCell {
-    unsigned short mask_00;
-    unsigned short w_02;
-    unsigned short next_04[4];
-} TitleCell;
-extern TitleCell g_2d340[];
-extern signed char g_264f8[];
 
 void title_042d0(TitleObject *p)
 {
@@ -720,7 +922,6 @@ int title_04b70(int idx, int flag)
    part list, after the slot's 8-byte header entry (d + d[0].w * 4 + 4) is copied to *g_2bb50. */
 extern long *g_2bb50;
 extern signed char g_2cc02;
-static int g_29d90;
 int title_0c310(int a);
 void title_04f40(const unsigned char *a, const unsigned char *b);
 void title_04a10(const unsigned char *a, const unsigned char *b);
