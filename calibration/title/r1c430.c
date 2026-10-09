@@ -4,21 +4,6 @@
 
 typedef struct TitleObject TitleObject;
 
-typedef struct TitleHost {
-    unsigned char unknown_000[0x38];
-    unsigned long dword_038;
-    unsigned char unknown_03c[0x5c - 0x3c];
-    unsigned short word_05c;
-    unsigned short word_05e;
-    unsigned char unknown_060[0x62 - 0x60];
-    unsigned short word_062;
-    unsigned short word_064;
-    unsigned char unknown_066[0x9c - 0x66];
-    unsigned short word_09c;
-    unsigned char unknown_09e[0xb4 - 0x9e];
-    int (*handler_0b4)(int);
-} TitleHost;
-
 extern unsigned short g_2bf6c;
 extern unsigned short g_2bff2;
 extern unsigned short g_2bf72;
@@ -95,17 +80,17 @@ void title_1d380(void)
 
 void title_1d4e0(void)
 {
-    int (*handler)(int);
+    void (__cdecl *handler)();
 
     title_0c6e0(0);
     title_0c6d0(0);
-    if (((TitleHost *)g_engine_interface.context_004)->word_09c == 1) {
+    if (g_engine_interface.context_004->mode_09c == 1) {
         title_0c2d0();
-        handler = ((TitleHost *)g_engine_interface.context_004)->handler_0b4;
+        handler = g_engine_interface.context_004->load_failed;
         if (handler) {
             handler(0);
         }
-    } else if (((TitleHost *)g_engine_interface.context_004)->word_09c) {
+    } else if (g_engine_interface.context_004->mode_09c) {
         title_0c300();
     }
     if (g_2d320) {
@@ -125,11 +110,11 @@ void title_1d4e0(void)
 
 void title_1d590(void)
 {
-    ((TitleHost *)g_engine_interface.context_004)->word_05e = 0;
-    ((TitleHost *)g_engine_interface.context_004)->word_05c = 0;
-    ((TitleHost *)g_engine_interface.context_004)->word_064 = 0;
-    ((TitleHost *)g_engine_interface.context_004)->word_062 = 0;
-    ((TitleHost *)g_engine_interface.context_004)->dword_038 = 0;
+    g_engine_interface.context_004->unknown_05e = 0;
+    g_engine_interface.context_004->unknown_05c = 0;
+    g_engine_interface.context_004->unknown_064 = 0;
+    g_engine_interface.context_004->unknown_062 = 0;
+    g_engine_interface.context_004->tick_038 = 0;
     g_2cbe0[0] = 0xa0;
     g_2cbe0[1] = 0x78;
     g_2cbe0[2] = 0x100;

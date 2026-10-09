@@ -3,20 +3,6 @@
 #include "title_engine.h"
 #include "title_slots.h"
 
-typedef struct TitleCtxView {
-    unsigned char pad_000[0x38];
-    unsigned long field_38;
-    unsigned char pad_3c[0x9c - 0x3c];
-    unsigned short field_9c;
-    short field_9e;
-    short field_a0;
-    unsigned char pad_a2[0xb0 - 0xa2];
-    unsigned long field_b0;
-    unsigned long field_b4;
-    unsigned char pad_b8[0xdf - 0xb8];
-    unsigned char field_df;
-} TitleCtxView;
-
 extern int g_22148;
 
 typedef struct TitleRec64 {
@@ -92,8 +78,8 @@ void title_04ea0(int idx)
         g_26110[idx].state_10 = 4;
         break;
     case 2:
-        ((TitleCtxView *)g_engine_interface.context_004)->field_b0 = 0;
-        ((TitleCtxView *)g_engine_interface.context_004)->field_b4 = 0;
+        g_engine_interface.context_004->load_complete = 0;
+        g_engine_interface.context_004->load_failed = 0;
         title_0c2d0();
         g_26110[idx].state_10 = 4;
         break;

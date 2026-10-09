@@ -14,7 +14,13 @@ typedef struct ResourceCallbackContext {
     unsigned long unknown_04c;
     unsigned char unknown_050[0x54 - 0x50];
     unsigned long unknown_054;
-    unsigned char unknown_058[0x8c - 0x58];
+    unsigned char unknown_058[0x5c - 0x58];
+    unsigned short unknown_05c;      /* TITLE: cursor words, cleared by 0x1d590 */
+    unsigned short unknown_05e;
+    unsigned short unknown_060;
+    unsigned short unknown_062;
+    unsigned short unknown_064;
+    unsigned char unknown_066[0x8c - 0x66];
     unsigned long unknown_08c;
     unsigned char unknown_090[0x94 - 0x90];
     unsigned long unknown_094;
