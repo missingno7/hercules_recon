@@ -54,7 +54,8 @@ extern char *g_2dfb0;
 extern char *g_2df40;
 extern unsigned char g_2df50;
 extern int g_2b370;
-extern int g_2674c;
+/* Loading-screen data file; the first initialized data of this unit (.data 0x2674c, literal after it). */
+char *g_2674c = "M:\\LANGUAGE\\SRCLANG\\LOADING.DAT";
 extern int g_2cbe0[3];
 extern char g_29128[];
 
@@ -68,7 +69,7 @@ int title_0c6e0(int a);
 void title_0c6d0(int a);
 int title_0c310(int a);
 int title_0c450(void *out, int size, int flags);
-int title_0c3f0(char *a, int b, int c, int d);
+int title_0c3f0(char *a, char *name, int c, int d);
 int title_0c880(void);
 void title_0c890(unsigned short *rect, int value);
 void title_0c3c0(void);
