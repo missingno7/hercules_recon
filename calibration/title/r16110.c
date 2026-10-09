@@ -46,8 +46,7 @@ extern int g_2acd8;
 extern unsigned short g_25f50[];
 static int g_2acf0;
 extern int g_2b370;
-extern int g_2cc04;
-extern int g_2cc08;
+#include "title_gpu.h"
 extern char g_29128[];
 extern char *g_engine_paths[];  /* title_files.c */
 /* Initialized data of this unit (TITLE.DLL .data 0x25f50..0x2609f), in address order. The sequence

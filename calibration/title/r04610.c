@@ -1,5 +1,6 @@
 /* w06 shared views (scratch). Field names are by offset; unknown bytes kept as pad_XX. */
 #include "title_engine.h"
+#include "title_gpu.h"
 typedef struct TitleSlot { unsigned char pad_00[0x0c]; unsigned int ptr_0c; unsigned short state_10; unsigned short state_12; } TitleSlot;
 typedef struct TitleTabEntry { unsigned short a_00; unsigned short b_02; } TitleTabEntry;
 typedef struct TitleCtx {
@@ -35,8 +36,6 @@ extern int g_2df44;
 extern char g_22100[];
 extern char g_22108[];
 extern unsigned char g_2dfac;
-extern char *g_2cc04;
-extern char *g_2cc08;
 extern int g_2bb24;
 extern int g_2df40;
 extern int g_29da0;
@@ -72,7 +71,7 @@ void title_04610(TitleCtx *p)
 /* f_4660 */
 void title_04660(void)
 {
-    title_0c690(g_2cc04 + 0x70, 0x500);
+    title_0c690(g_2cc04->ot, TITLE_OT_SIZE);
     if (g_2cc04 == g_2cc08)
         g_2df40 = g_2bb24 + 0x11800;
     else

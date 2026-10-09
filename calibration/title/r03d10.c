@@ -41,7 +41,6 @@ typedef struct TitlePrim {
 } TitlePrim;
 
 extern TitlePrim *g_2df40;
-extern TitlePrim **g_2cc04;
 extern short g_243e0[];
 extern signed char g_264f8[];
 extern unsigned short g_2d342[][6];

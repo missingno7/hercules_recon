@@ -73,7 +73,6 @@ struct TitleObj {
 };
 
 extern int g_29fa4;
-extern int g_2cc04;
 extern TitleRec64 g_2cca0[24];
 extern unsigned long g_29e18[];
 extern unsigned long g_29f9c;

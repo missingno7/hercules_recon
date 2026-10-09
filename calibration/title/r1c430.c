@@ -1,5 +1,6 @@
 /* TITLE.DLL lane w28 region: 0x1c430, 0x1d380, 0x1d4e0, 0x1d590, 0x1d770, 0x1d790. */
 #include "title_engine.h"
+#include "title_gpu.h"
 
 typedef struct TitleObject TitleObject;
 
@@ -18,28 +19,9 @@ typedef struct TitleHost {
     int (*handler_0b4)(int);
 } TitleHost;
 
-typedef struct TitleBlock {
-    unsigned char unknown_000[0x16];
-    unsigned char byte_016;
-    unsigned char unknown_017;
-    unsigned char byte_018;
-    unsigned char byte_019;
-    unsigned char byte_01a;
-    unsigned char byte_01b;
-    unsigned char unknown_01c[0x148e - 0x1c];
-    unsigned char byte_148e;
-    unsigned char unknown_148f;
-    unsigned char byte_1490;
-    unsigned char byte_1491;
-    unsigned char byte_1492;
-    unsigned char byte_1493;
-} TitleBlock;
-
 extern TitleObject *g_2b058[2];
 extern TitleObject *g_2b104[2];
 extern TitleObject *g_2b1d8[4];
-extern TitleBlock *g_2cc04;
-extern TitleBlock *g_2cc08;
 extern unsigned short g_2bf6c;
 extern unsigned short g_2bff2;
 extern unsigned short g_2bf72;
@@ -158,24 +140,24 @@ void title_1d590(void)
     g_2dfb0 = g_2d320;
     title_048a0(0, 0);
     title_01dd0();
-    title_0c690((char *)g_2cc08 + 0x70, 0x500);
-    title_0c690((char *)g_2cc08 + 0x14e8, 0x500);
+    title_0c690(g_2cc08[0].ot, 0x500);
+    title_0c690(g_2cc08[1].ot, 0x500);
     if (g_2cc04 == g_2cc08) {
         g_2df40 = g_2bb24 + 0x11800;
     } else {
         g_2df40 = g_2bb24;
     }
-    title_0c520(g_2cc08, (char *)g_2cc08 + 0x1478);
-    g_2cc08->byte_019 = 0;
-    g_2cc08->byte_01a = 0;
-    g_2cc08->byte_01b = 0;
-    g_2cc08->byte_1491 = 0;
-    g_2cc08->byte_1492 = 0;
-    g_2cc08->byte_1493 = 0;
-    g_2cc08->byte_016 = 1;
-    g_2cc08->byte_148e = 1;
-    g_2cc08->byte_018 = 0;
-    g_2cc08->byte_1490 = 0;
+    title_0c520(&g_2cc08[0], &g_2cc08[1]);
+    g_2cc08[0].draw.r0 = 0;
+    g_2cc08[0].draw.g0 = 0;
+    g_2cc08[0].draw.b0 = 0;
+    g_2cc08[1].draw.r0 = 0;
+    g_2cc08[1].draw.g0 = 0;
+    g_2cc08[1].draw.b0 = 0;
+    g_2cc08[0].draw.dtd = 1;
+    g_2cc08[1].draw.dtd = 1;
+    g_2cc08[0].draw.isbg = 0;
+    g_2cc08[1].draw.isbg = 0;
     g_2df50 = 1;
     title_04870();
     title_0cb10(g_2cbe0[0], g_2cbe0[1]);
@@ -183,10 +165,10 @@ void title_1d590(void)
     title_0c5b0(g_2cc04);
     title_0c5b0(g_2cc04);
     title_041d0();
-    title_0ca20(g_2cc04);
-    title_0ca10((char *)g_2cc04 + 0x5c);
+    title_0ca20(&g_2cc04->draw);
+    title_0ca10(&g_2cc04->disp);
     if (g_2cc04 == g_2cc08) {
-        g_2cc04 = (TitleBlock *)((char *)g_2cc08 + 0x1478);
+        g_2cc04 = &g_2cc08[1];
     } else {
         g_2cc04 = g_2cc08;
     }
@@ -202,6 +184,6 @@ void title_1d770(void)
 
 void title_1d790(int value)
 {
-    g_2cc08->byte_018 = value;
-    g_2cc08->byte_1490 = value;
+    g_2cc08[0].draw.isbg = value;
+    g_2cc08[1].draw.isbg = value;
 }

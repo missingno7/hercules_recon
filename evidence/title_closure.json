@@ -424,5 +424,13 @@
   "result": "Defined in u06350.c; block with literals 324/324 bytes equal; the 11 rows stay masked equal (restaged).",
   "hypothesis": "The pixel array's extent to the first literal (260 bytes; the last 4 are zero and could be padding or an unreferenced item).",
   "layout_note": "Measured data units now follow one another: scheduler (delta -0x240), u06350 and the level table (-0x250; the 16-byte step is 0x5fb0's two literals 'i2.1'/'i1.4', not reconstructed), object-system tables (-0x258; an unreferenced 8-byte zero item at 0x23660..0x23667 precedes them)."
+ },
+ "display_buffers": {
+  "date": "2026-10-09",
+  "finding": "g_2cc08 points to two 0x1478-byte display buffers allocated together (title_0c450(&g_2cc08, 0x28f0, 0) in 0x1d380) and g_2cc04 to the one being drawn (swapped each frame in 0x1d590 and 0x5fb0). Every field the users touch appears in both buffers 0x1478 apart: bytes +0x16/+0x18/+0x19..+0x1b (set to 1, 0/value, 0,0,0), screen rectangle words +0x64..+0x6a, environment pointers +0x00 and +0x5c; the ordering table at +0x70 is cleared with 0x500 entries for each buffer (+0x70, +0x14e8) and indexed at +0x1468 - 4*depth.",
+  "interpretation": "The PSX libgpu double buffer kept by the port: DRAWENV (0x5c bytes; dtd +0x16, isbg +0x18, r0/g0/b0 +0x19..+0x1b), DISPENV (0x14 bytes at +0x5c; screen rectangle +0x64), u_long ot[0x500] at +0x70, 8 bytes at +0x1470. The engine wrappers taking these addresses correspond to SetDefDrawEnv/SetDefDispEnv/ClearOTag/PutDrawEnv/PutDispEnv-like calls.",
+  "change": "calibration/title/title_gpu.h defines TitleRect, TitleDrawEnv, TitleDispEnv and TitleBuffer and declares g_2cc04/g_2cc08 as TitleBuffer *. r1c430.c (TitleBlock), r02a80.c (TitleView), r04610.c (char *), r16110.c and title_proc.cpp (int) now use it; r03d10.c, seq9.c and r04d80.c drop unused declarations. All 37 affected rows stay masked equal (0x2cc0 needs the slot address minus the byte depth offset, as the original int arithmetic did).",
+  "exception": "r17ad0.c keeps its two unused int declarations: 0x17bf0 is TU-count sensitive and both removing them and including the header change it (51 bytes). Its real header set is unknown, so no count is chosen to match.",
+  "hypothesis": "Record and field names (PSX libgpu names, not recovered identifiers); the 8 bytes at +0x1470."
  }
 }
