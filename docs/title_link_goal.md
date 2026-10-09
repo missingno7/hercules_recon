@@ -109,8 +109,10 @@ and scheduling, and function size stays the same. One declaration counts 1, a pr
 named parameter counts 2, and each opened file counts 1. `scripts/count_scan.py` ports their
 diagnostic count scan. Results are in `evidence/title_stage1.json` (`context_count_scan`):
 
-- **C units are insensitive.** All C near-misses keep their residue at every count. Their
-  blockers (B1 in 0x1de0, B2, B3, B6, B7) are source-form questions.
+- **The tested C near-misses are insensitive.** B1 in 0x1de0, B2, B6 in 0x10670 and the
+  others keep their residue at every count, so they are source-form questions. C code is not
+  immune, though: staged 0x17bf0 is count-sensitive, so any header change needs a full
+  masked verify. Its "C-only" language claim was withdrawn for that reason.
 - **C++ units are sensitive.** In 0x8770 each `[base+index]` order flips at a count threshold,
   so C++ near-misses must be judged at a realistic count. The real headers set that count.
 - **Staged C++ rows are robust.** All 19 masked-equal C++ rows hold for every count in 0..255.
@@ -129,6 +131,29 @@ Other blood2 principles that apply to the natural link:
   of names.
 - **`/YX`.** It shifts the count of C++ TUs.
 - **Rebuild check.** A second clean build must reproduce the objects and the image byte for byte.
+
+## First data unit: the file-name lists (`title_files.c`)
+
+The pointer lists at 0x22288 and their strings now live in one C data unit with four arrays:
+engine paths per level, screen files, sequence files and language files. The users index
+these arrays instead of 16 per-entry pseudo-globals. Evidence is in `evidence/title_closure.json`
+(`name_tables.experiment`).
+
+- **Proven by bytes:** the unit reproduces the 4064-byte object exactly when linked, both
+  alone and in the full diagnostic link. That covers every pointer slot by relative target and
+  every string, NULL entry and padding byte. Every user still matches masked.
+- **Proven by measured linker behaviour:**
+  - Each object contributes its ordinary data first, then its string literals.
+  - Literals of one initializer are emitted in reverse order.
+  - The lists' strings follow the lists directly, after the trace strings of code up to 0x5bc0.
+
+  So the lists are a separate object, linked before the unit starting at 0x5e90.
+- **Hypothesis:** the split into four arrays, their names, and whether the object also owns code
+  without literals.
+
+`calibration/title/data_units.json` lists data-only units and their link position.
+`scripts/title_link.py` links in code order. It reports natural function RVAs, section sizes and
+each data unit's placement and linked bytes. The forced image used for layout is never accepted.
 
 ## Preliminary closure (stage 2 groundwork)
 

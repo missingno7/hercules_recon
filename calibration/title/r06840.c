@@ -1,6 +1,7 @@
 #include <string.h>
 #include <io.h>
 #include "title_engine.h"
+#include "title_files.h"
 
 /* TITLE.DLL lane w09 region: functions in ascending RVA order. */
 
@@ -13,7 +14,7 @@ extern void title_0c610(int x);
 extern void title_0c620(int x);
 extern void title_01dd0(int a);
 extern void title_02090(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8);
-extern void title_0c2a0(char *s, int a, int b, int c, int d);
+extern void title_0c2a0(char *s, char *name, int b, int c, int d);
 extern void title_0c8b0(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
 
 extern int g_2c7c0[];
@@ -40,13 +41,6 @@ extern int g_2a018;
 extern int g_2a080;
 extern int g_2a088;
 extern int g_2a078;
-extern int g_2239c;
-extern int g_22394;
-extern int g_2236c;
-extern int g_22364;
-extern int g_22390;
-extern int g_22370;
-extern int g_22388;
 extern char g_29128[];
 
 int title_06840(char a1, const void *a2, int a3, int a4, int a5)
@@ -150,20 +144,20 @@ void title_06fb0(void)
 
 void title_071e0(int a1)
 {
-    int tbl[7];
+    char *tbl[7];
     int x;
     int y;
     int s;
 
     x = (a1 * g_2a018) >> 7;
     y = ((0x80 - g_2a018) * a1) >> 7;
-    tbl[0] = g_2239c;
-    tbl[1] = g_22394;
-    tbl[2] = g_2236c;
-    tbl[3] = g_22364;
-    tbl[4] = g_22390;
-    tbl[5] = g_22388;
-    tbl[6] = g_22370;
+    tbl[0] = g_sequence_files[TITLE_SEQ_T015];
+    tbl[1] = g_sequence_files[TITLE_SEQ_T013];
+    tbl[2] = g_sequence_files[TITLE_SEQ_T003];
+    tbl[3] = g_sequence_files[TITLE_SEQ_T001];
+    tbl[4] = g_sequence_files[TITLE_SEQ_T012];
+    tbl[5] = g_sequence_files[TITLE_SEQ_T010];
+    tbl[6] = g_sequence_files[TITLE_SEQ_T004];
 
     switch (g_2a080) {
     case 0:

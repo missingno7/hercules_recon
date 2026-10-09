@@ -1,4 +1,5 @@
 #include "title_engine.h"
+#include "title_files.h"
 
 typedef struct ScreenContext {
     unsigned char unknown_00[0x5c];
@@ -36,7 +37,6 @@ extern int g_2ac1c;
 extern int g_2ac20;
 extern int g_2ac24;
 extern int g_29f98;
-extern int g_22318;
 extern char g_29128[];
 
 void title_01dd0();
@@ -49,7 +49,7 @@ void title_0c330(void *p);
 void title_0c450(void **out, int size, int flags);
 void title_0c6d0(int a);
 void title_0c8b0(char *a0, int a1, int a2, int a3, int a4, int a5, int a6);
-int title_0c3f0(char *a, int b, char *c, int d);
+int title_0c3f0(char *a, char *name, char *c, int d);
 void title_0c4f0(int a);
 void title_14790(void);
 void title_14860(void);
@@ -68,7 +68,6 @@ extern int g_2ab60;
 extern int g_2ab68;
 extern int g_2ab6c;
 extern int g_2ab70;
-extern int g_2232c;
 extern unsigned short g_25f50[];
 void title_12cc0(void);
 void title_12dc0(void);
@@ -98,7 +97,7 @@ void title_128e0(TitleRequest *self)
         title_01dd0(handle);
         title_0c8b0((char *)handle + 0x312, 2, 0, 0x140, 0, 0xa0, 0x100);
         title_0c6d0(0);
-        title_0c3f0(g_29128, g_2232c, (char *)handle, 0x14312);
+        title_0c3f0(g_29128, g_sequence_files[TITLE_SEQ_SEQ10], (char *)handle, 0x14312);
         title_01dd0(handle);
         title_0c8b0((char *)handle + 0x312, 2, 0, 0x280, 0x100, 0xa0, 0x100);
         title_0c6d0(0);
@@ -218,7 +217,7 @@ void title_14300(TitleRequest *self)
         title_01dd0(handle);
         title_0c8b0((char *)handle + 0x312, 2, 0, 0x140, 0x100, 0xa0, 0x100);
         title_0c6d0(0);
-        title_0c3f0(g_29128, g_22318, (char *)handle, 0x14312);
+        title_0c3f0(g_29128, g_sequence_files[TITLE_SEQ_SEQ5], (char *)handle, 0x14312);
         title_01dd0(handle);
         title_0c8b0((char *)handle + 0x312, 2, 0, 0x280, 0x100, 0xa0, 0x100);
         title_0c6d0(0);

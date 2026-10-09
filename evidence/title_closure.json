@@ -144,8 +144,7 @@
   "result": "262 of 264 C-region functions are masked equal under both front ends: most code does not discriminate.",
   "c_only": {
    "0x47a0": "falls off the end of a non-void function; C++ rejects it (C2202) and the explicit return differs by 4 bytes",
-   "0x65e0": "constant strcpy/strcat lowered to immediate stores only by the C front end (132 bytes as C++)",
-   "0x17bf0": "51 bytes as C++ with identical source; casts ruled out"
+   "0x65e0": "constant strcpy/strcat lowered to immediate stores only by the C front end (132 bytes as C++)"
   },
   "cpp_only": {
    "0x8a50": "global table as SIB base (4 bytes as C)",
@@ -155,7 +154,10 @@
    "0x66f0": "near miss: 10 bytes as C++, 104 as C",
    "0x9480": "slot reset loop over g_2dfa0 (26 bytes as C); same object-system unit"
   },
-  "boundaries": "Implied unit changes: between 0x65e0 (C) and 0x66f0 (C++ candidate); somewhere in 0x66f0..0x8a50 or within the C++ object-system range 0x85d0..0x92e0; between 0x92e0 (C++) and 0x17bf0 (C); between 0x17bf0 (C) and 0x18a90 (C++). Consistent with the data-ownership run starts 0x65e0 and 0x16470."
+  "boundaries": "Implied unit changes: between 0x65e0 (C) and 0x66f0 (C++ candidate); somewhere in 0x66f0..0x8a50 or within the C++ object-system range 0x85d0..0x92e0; between 0x92e0 (C++) and 0x17bf0 (C); between 0x17bf0 (C) and 0x18a90 (C++). Consistent with the data-ownership run starts 0x65e0 and 0x16470.",
+  "withdrawn": {
+   "0x17bf0": "Not language evidence: 0x17bf0 is count-sensitive in C (masked equal at N = 0, 5-12, 14-16, ...; 51 bytes elsewhere). Its 51-byte C++ residue is the same count effect."
+  }
  },
  "unit_tests": [
   {
@@ -223,6 +225,29 @@
    "0x223b0..: LANGUAGE screens (endeasy, c1, c2, ...), indexed by 0x1a70: an array"
   ],
   "users": "Screen handlers read fixed entries: SEQ1..SEQ9 by 0x12280..0x15cb0, SEQ10 by 0x128e0, lsgame.TGA by 0x102f0/0x10670/0x109f0, LEV1-12 by 0xd910, t00x by 0x71e0.",
-  "consequence": "The staged g_22308..g_2239c and g_222d8 symbols are entries of these lists, not separate globals. Closure should define the lists once (with literal initializers) in their owning unit and index them; the owner is shared by many units, so it awaits the object-order decision."
+  "consequence": "The staged g_22308..g_2239c and g_222d8 symbols are entries of these lists, not separate globals. Closure should define the lists once (with literal initializers) in their owning unit and index them; the owner is shared by many units, so it awaits the object-order decision.",
+  "experiment": {
+   "date": "2026-10-09",
+   "unit": "calibration/title/title_files.c (C, /O2): g_engine_paths[12], g_screen_files[] (15 + NULL), g_sequence_files[] (45 + NULL), g_language_files[32]; header title_files.h names the sequence entries.",
+   "standalone_link": "Object 0x22288..0x23267 (4064 bytes) reproduced: 104/104 pointer slots resolve to the same relative targets, 3648/3648 other bytes equal (arrays, NULL entries, strings, padding).",
+   "full_link": "scripts/title_link.py places the unit at .data+0x48 against the original .data+0x288; its 4064 linked bytes compare equal (pointer slots by relative target). The 0x240-byte offset is data of earlier units that no source defines yet.",
+   "not_distinguished_by_bytes": [
+    "four arrays versus one array of 106 entries (identical bytes)",
+    "C versus C++ (identical bytes; C chosen as the default language)"
+   ],
+   "linker_model_measured": [
+    "Per object, ordinary .data comes first, then the object's string-literal COMDATs.",
+    "Literals of one initializer, or of one function, are emitted in reverse order of appearance; across functions the order follows the source.",
+    "Identical literals fold to one copy (the six ENGINE1 entries share one string)."
+   ],
+   "ownership_inference": "In the original, the literals used by code up to 0x5bc0 (0x2214c..0x22214) come before the lists, and the lists' literals follow the lists directly. A single object holding both would place the lists and all their literals before those trace literals (measured), so the lists are a separate object. It is linked after the object whose literals end at 0x22214 and before the object whose code starts at 0x5e90; it has no literals of its own code (data-only, or code without literals).",
+   "users_rewritten": "r06840 (0x71e0 builds its t-file list from g_sequence_files), r12280, r128e0, r13500, r14ff0 (SEQ1..SEQ10 screens), r16110 (0x16300 indexes g_engine_paths by the level byte); all rows stay masked equal. title_0c3f0 and title_0c2a0 now take the name as char *.",
+   "symbols_removed": "g_22288, g_22308, g_2230c, g_22310, g_22318, g_2231c, g_22320, g_22324, g_2232c, g_22364, g_2236c, g_22370, g_22388, g_22390, g_22394, g_2239c (16 pseudo-globals; unresolved data 380 -> 364)",
+   "hypothetical": [
+    "the array split and names",
+    "whether the object also owns code before 0x5e90",
+    "the exact link position beyond \"between the 0x5bc0 literals and the 0x5e90 unit\""
+   ]
+  }
  }
 }

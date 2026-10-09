@@ -1,4 +1,5 @@
 #include "title_engine.h"
+#include "title_files.h"
 
 typedef struct TitleObject {
     unsigned long unknown_000;
@@ -43,8 +44,6 @@ extern TitleObject *g_2ab78;
 extern TitleObject *g_2ab80;
 extern TitleObject *g_2ab98;
 extern int g_29f98;
-extern int g_22308;
-extern int g_2230c;
 extern char g_29128[];
 
 extern void title_164b0(void);
@@ -55,7 +54,7 @@ void title_04ea0(int a);
 void title_05e90();
 void title_05f10(void *target);
 void title_09350(void *block);
-int title_0c3f0(char *a, int b, char *c, int d);
+int title_0c3f0(char *a, char *name, char *c, int d);
 void title_0c450(void **out, int size, int flags);
 void title_0c4f0(int a);
 void title_0c330(void *value);
@@ -95,7 +94,7 @@ void title_12280(TitleStep *self)
         title_01dd0(handle);
         title_0c8b0((char *)handle + 0x312, 2, 0, 0x140, 0x100, 0xa0, 0x100);
         title_0c6d0(0);
-        title_0c3f0(g_29128, g_22308, (char *)handle, 0x14312);
+        title_0c3f0(g_29128, g_sequence_files[TITLE_SEQ_SEQ1], (char *)handle, 0x14312);
         title_01dd0(handle);
         title_0c8b0((char *)handle + 0x312, 2, 0, 0x280, 0x100, 0xa0, 0x100);
         title_0c6d0(0);
@@ -224,7 +223,7 @@ void title_12e90(TitleStep *self)
         title_01dd0(handle);
         title_0c8b0((char *)handle + 0x312, 2, 0, 0x140, 0x100, 0xa0, 0x100);
         title_0c6d0(0);
-        title_0c3f0(g_29128, g_2230c, (char *)handle, 0x14312);
+        title_0c3f0(g_29128, g_sequence_files[TITLE_SEQ_SEQ2], (char *)handle, 0x14312);
         title_01dd0(handle);
         title_0c8b0((char *)handle + 0x312, 2, 0, 0x280, 0x100, 0xa0, 0x100);
         title_0c6d0(0);

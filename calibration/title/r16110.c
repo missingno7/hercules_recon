@@ -49,7 +49,7 @@ extern int g_2b370;
 extern int g_2cc04;
 extern int g_2cc08;
 extern char g_29128[];
-extern char *g_22288[];
+extern char *g_engine_paths[];  /* title_files.c */
 extern TitleVtable8 *g_2bf34;
 extern TitleVtable8 *g_2bf54;
 extern TitleVtable12 *g_2bf2c;
@@ -191,7 +191,7 @@ void title_16300(void)
     if (g_engine_interface.context_004->unknown_0e4 != 0) {
         title_0c270();
     } else {
-        title_0c3d0(g_29128, g_22288[(char)g_engine_interface.context_004->unknown_000[0]]);
+        title_0c3d0(g_29128, g_engine_paths[(char)g_engine_interface.context_004->unknown_000[0]]);
     }
 }
 

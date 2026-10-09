@@ -211,11 +211,11 @@
   "prediction": "Some TITLE near-misses are TU-context residue reproduced by a count shift.",
   "falsifier": "No near-miss changes over N = 0..255 (0..1023 for 0x10670).",
   "results": {
-   "c_front_end": "Insensitive. 0x10670 (N 0..1023), 0x1de0 (extern, global, typedef, prototype and struct-tag padding, N 0..159), 0x4aa0, 0x5fb0, 0x13ba0, 0x1a180 (N 0..255): residue constant at every N.",
+   "c_front_end": "Insensitive. 0x10670 (N 0..1023), 0x1de0 (extern, global, typedef, prototype and struct-tag padding, N 0..159), 0x4aa0, 0x5fb0, 0x13ba0, 0x1a180 (N 0..255): residue constant at every N. CORRECTION 2026-10-09: not universal. Staged C row 0x17bf0 is count-sensitive (windows of N with 51 differing bytes, prototypes counting 2); adding one header to r16110 broke it, so that file keeps its declaration count (a local extern for g_engine_paths).",
    "cpp_front_end": "0x8770 is count-sensitive with thresholds: 43 bytes for N < 48, 41 for 48-56, 39 for 57-59, 37 for N >= 60. Each step is one [base+index] operand-order flip. Prototype padding halves the thresholds (24/29/30), so a prototype counts as 2, as blood2 measured. 0x66f0 changes size above N = 69. 0x2090, 0x2860, 0x3050 are insensitive in 0..255.",
    "staged_cpp_rows": "All 19 masked-equal C++ rows (u08140.cpp, r189e0.cpp) stay masked equal for every N in 0..255.",
    "0x8770_follow_up": "At N >= 60 the remaining residue is the B5 loop anchor plus an esi/edi swap. The spelling `p++; reca = *p;` reproduces the original anchor ([edi+4], add edi,4), leaving 21 bytes: the counter and the pointer swap esi and edi. That swap does not respond to count, kind, declaration order, or reuse of the earlier loop counter."
   },
-  "verdict": "Partly confirmed. In C++ units, base/index order (B1-like) is TU-count context, so C++ near-misses must be judged at realistic counts. The real headers decide that count; padding is never a fix. C units are not count-sensitive, so their residues (B1 in 0x1de0, B6 in 0x10670, B2, B3, B7) are source-form questions, not TU context."
+  "verdict": "Partly confirmed. In C++ units, base/index order (B1-like) is TU-count context, so C++ near-misses must be judged at realistic counts. The real headers decide that count; padding is never a fix. The tested C near-misses (B1 in 0x1de0, B6 in 0x10670, B2, 0x4aa0, 0x13ba0, 0x1a180) are count-insensitive, so they are source-form questions; but C code can be count-sensitive (0x17bf0), so header changes need a full masked verify."
  }
 }
