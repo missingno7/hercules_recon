@@ -27,6 +27,11 @@ static TitleObject *twin2;
 static TitleObject *twin3;
 static TitleObject *twin4;
 
+static unsigned int unknown_f0;
+static unsigned int fade2;
+static int selection;
+static int step;
+
 TitleObject *title_17ad0(int a0, int a1, int a2, int size, int a4);
 void title_09350(void *block);
 
@@ -134,14 +139,119 @@ void title_011f0(void)
     }
 }
 
+typedef struct TitleMenuEntry {
+    int frame;
+    int level;
+} TitleMenuEntry;
+/* Level-select menu tables (.data 0x22030..0x220cf, the first first-party initialized data, so this
+   unit links first): frame and level per menu entry, normal and alternate (word_02e) menus. */
+TitleMenuEntry g_22030[10] = {{7, 1}, {8, 2}, {9, 3}, {10, 5}, {11, 6}, {12, 7}, {13, 8}, {14, 9}, {15, 10}, {16, 11}};
+TitleMenuEntry g_22080[10] = {{20, 1}, {21, 2}, {22, 3}, {23, 5}, {24, 6}, {25, 7}, {26, 8}, {27, 9}, {28, 10}, {18, 11}};
+
+void title_01300(void)
+{
+    if (((TitleContextView *)g_engine_interface.context_004)->word_02e == 0) {
+        item1->unknown_034 = g_22030[selection].frame;
+        ((TitleContextView *)g_engine_interface.context_004)->byte_000 = g_22030[selection].level;
+    } else {
+        item1->unknown_034 = g_22080[selection].frame;
+        ((TitleContextView *)g_engine_interface.context_004)->byte_000 = g_22080[selection].level;
+    }
+    if (((TitleContextView *)g_engine_interface.context_004)->word_02e == 0) {
+        if (((TitleContextView *)g_engine_interface.context_004)->dword_030 & 8)
+            item2->unknown_034 = 1;
+        else
+            item2->unknown_034 = 4;
+        if (((TitleContextView *)g_engine_interface.context_004)->dword_030 & 0x10)
+            item3->unknown_034 = 2;
+        else
+            item3->unknown_034 = 5;
+        if (((TitleContextView *)g_engine_interface.context_004)->dword_030 & 0x800000)
+            item4->unknown_034 = 3;
+        else
+            item4->unknown_034 = 6;
+    }
+    twin0->unknown_054 |= 6;
+    twin1->unknown_054 |= 6;
+    twin2->unknown_054 |= 6;
+    if (((TitleContextView *)g_engine_interface.context_004)->word_02e == 0) {
+        twin3->unknown_054 |= 6;
+        twin4->unknown_054 |= 6;
+    }
+    twin0->unknown_000 = 0x10000;
+    twin0->unknown_004 = 0x10000;
+    twin1->unknown_000 = 0x10000;
+    twin1->unknown_004 = 0x10000;
+    twin2->unknown_000 = 0x10000;
+    twin2->unknown_004 = 0x10000;
+    if (((TitleContextView *)g_engine_interface.context_004)->word_02e == 0) {
+        twin3->unknown_000 = 0x10000;
+        twin3->unknown_004 = 0x10000;
+        twin4->unknown_000 = 0x10000;
+        twin4->unknown_004 = 0x10000;
+    }
+    item2->unknown_023 = 6;
+    item1->unknown_023 = 6;
+    item0->unknown_023 = 6;
+    if (((TitleContextView *)g_engine_interface.context_004)->word_02e == 0) {
+        item4->unknown_023 = 6;
+        item3->unknown_023 = 6;
+    }
+    if (((TitleContextView *)g_engine_interface.context_004)->word_02e == 0) {
+        item0->unknown_03e = 10;
+        item1->unknown_03e = 10;
+        item2->unknown_03e = 0;
+        item3->unknown_03e = 0;
+        item4->unknown_03e = 0;
+    } else {
+        item0->unknown_03e = 10;
+        item1->unknown_03e = 10;
+        item2->unknown_03e = 20;
+    }
+    twin1->unknown_023 = 6;
+    twin2->unknown_023 = 6;
+    twin0->unknown_023 = 6;
+    if (((TitleContextView *)g_engine_interface.context_004)->word_02e == 0) {
+        twin0->unknown_03e = 40;
+        twin1->unknown_03e = 40;
+        twin2->unknown_03e = 40;
+        twin3->unknown_03e = 10;
+        twin4->unknown_03e = 10;
+        twin4->unknown_023 = 6;
+        twin3->unknown_023 = 6;
+    } else {
+        twin0->unknown_03e = 40;
+        twin1->unknown_03e = 40;
+        twin2->unknown_03e = 40;
+    }
+    item1->unknown_04a = fade2;
+    item2->unknown_04a = fade2;
+    item0->unknown_04a = fade2;
+    if (((TitleContextView *)g_engine_interface.context_004)->word_02e == 0) {
+        item4->unknown_04a = fade2;
+        item3->unknown_04a = fade2;
+    }
+    twin1->unknown_04a = fade2 * 2;
+    twin2->unknown_04a = twin1->unknown_04a;
+    twin0->unknown_04a = twin2->unknown_04a;
+    if (((TitleContextView *)g_engine_interface.context_004)->word_02e == 0) {
+        twin4->unknown_04a = fade2 * 2;
+        twin3->unknown_04a = twin4->unknown_04a;
+    }
+    twin0->unknown_034 = item0->unknown_034;
+    twin1->unknown_034 = item1->unknown_034;
+    twin2->unknown_034 = item2->unknown_034;
+    if (((TitleContextView *)g_engine_interface.context_004)->word_02e == 0) {
+        twin3->unknown_034 = item3->unknown_034;
+        twin4->unknown_034 = item4->unknown_034;
+    }
+}
+
+/* @1300 */
 void title_016e0(const char *format, ...)
 {
 }
 
-static unsigned int unknown_f0;
-static unsigned int fade2;
-static int selection;
-static int step;
 extern char g_29128[];
 void title_0c990(int a, int b);
 void title_0c9c0(int a, int b);
