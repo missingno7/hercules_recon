@@ -157,7 +157,8 @@
   "0x50b0": 0,
   "0x54f0": 849,
   "0x15cb0": 0,
-  "0x13ba0": 0
+  "0x13ba0": 0,
+  "0x164b0": 17
  },
  "tooling": [
   "scripts/masked.py",
@@ -239,7 +240,8 @@
   "w17cb0": "Worker w17cb0 in the C++ unit u17cb0: 0x18600, 0x19120, 0x19270, 0x196f0 masked equal (0x196f0's local order found by search over natural orders). 0x195f0 (29 bytes) is TU-count sensitive (0 at N=18..36 prepended externs): the real unit likely declares more symbols before it (0x17cb0..0x184c0 and callees are missing); not padded. 0x18b20 (14 bytes) is count-insensitive (0..119): result-to-ebp timing after make_colour and base/index roles in the list loop. 0x18bf0 (912, primitive builder) has a full structural draft; remaining register/scheduling differences; it returns int 1.",
   "w4410": "0x4410, 0x4710, 0x41d0, 0x4dd0, 0x5ad0 masked equal in their region files with the shared records. Levers: correct argument semantics (0x4710), a sized extern array (g_2df60[0x20], from data references) changes the load idiom (0x41d0), constant-side-left comparisons for cmp operand order (0x5ad0), and a context local where naming the global twice reverses two field loads (0x4dd0) - the cached-local lever is not universal.",
   "w50b0": "Sound unit first drafts: 0x50b0 (sound tick) and 0x4b70 (database slot load) masked equal. 0x50b0 needs a shared static __inline pan helper (also inlined in 0x54f0) and the squares written as a store then *=. 0x54f0 (LinkedSoundFx, 849 bytes) misses an early-exit path whose dead byte load and own epilogue only a volatile read reproduced (rejected), plus callee-saved role permutations. resource_context.h gains the host sound table (unsigned char sound_2f0[0x800][3] at +0x2f0; a separate entry typedef shifted the TU count of r17ad0.c and broke the count-sensitive 0x17bf0, so the table is a plain 2-D array) and +0x1b18/+0x1b24/+0x1b28/+0x1b2c; the mute flag is read as unknown_000[4] so the shared prefix array used by engine_control.c stays intact.",
-  "wseq49": "0x15cb0 (seq9 handler) masked equal; its direct 13-entry jump table needs a seventh case label (case 2 falling into case 3). 0x13ba0 (seq4 handler) is structurally complete at 41 bytes: self in edi instead of ebx (only 5 push ebx; mov ebx,[esp+8] prologues exist in TITLE); ~35 natural variants keep it; insensitive to TU context and order."
+  "wseq49": "0x15cb0 (seq9 handler) masked equal; its direct 13-entry jump table needs a seventh case label (case 2 falling into case 3). 0x13ba0 (seq4 handler) is structurally complete at 41 bytes: self in edi instead of ebx (only 5 push ebx; mov ebx,[esp+8] prologues exist in TITLE); ~35 natural variants keep it; insensitive to TU context and order.",
+  "0x164b0": "Title-flow controller process (5664 bytes): intro fades and movies, menu load, per-level start of the sequence-screen processes, retry/skip, demo/attract via the pad map g_254e8[1] and the level table g_26068, init dispatch on the context's start mode. Structural draft (worker w164b0) is size-exact with all five jump tables and every relocation consistent; 17 bytes remain: in cases 0xd2 and 0xe6 the first stack-local store after title_0cc80(title_0c320) is scheduled above that call's add esp,4 in ours and below it in the original (120 statement orders, typing and prototype variants tried). Owns .bss 0x2ace0..0x2acec (fade level, hold counter, intro-variant flag, retry flag). Unit placement open: unit_bounds gives it its own .bss interval, the 0x16300 data evidence puts it in the object ending at 0x17ad0. Needs a signed game-state view of context_004 (level byte read with movsx) and TitlePadMap in a shared header."
  },
  "register_study": {
   "date": "2026-10-09",
