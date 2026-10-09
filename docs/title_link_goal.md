@@ -89,6 +89,18 @@ construct reproduces them under the pinned compiler. This is not proof of the or
 declaration. The exception does not generalize, and `volatile` must never be used to
 influence register allocation.
 
+## Finding: callee-saved priority follows live source references
+
+This is the B6 allocation probe, recorded in `evidence/title_stage1.json`. A cut-down pair of
+the 0x10670 lead has the same shape but swaps the roles of `buttons` and `out`. One added live
+reference flips the pair. Weights count source references before the compiler merges identical
+tails. References in unreachable code don't count. References in a switch `default` count for
+less. References inside an `if` count fully. Translation-unit context has no effect.
+
+Three sibling handlers use three different role permutations in the original. Under this rule,
+the original 0x10670 must carry more live `buttons` weight than its two visible tests provide.
+The investigation stopped at its bound with that as the re-entry condition.
+
 ## Preliminary closure (stage 2 groundwork)
 
 `scripts/closure.py` maps the data addresses implied by masked rows back to their functions.

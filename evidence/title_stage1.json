@@ -51,7 +51,28 @@
     "0x109f0 (495)",
     "0x7510 (3120-byte)"
    ],
-   "reentry": "A positive control pair: two masked-equal functions of the same shape whose register assignment differs, to isolate the tie-break; or a source construct that changes allocation priority without changing use counts."
+   "reentry": "A source form for 0x10670 or a sibling in which buttons carries more live references than are visible as separate code (references merged by the compiler), or in which out references fall in discounted positions; test such a form on a second sibling before generalizing.",
+   "allocation_probe": {
+    "date": "2026-10-09",
+    "method": "Synthetic and cut-down variants of the 0x10670 lead compiled with pinned VC5 RTM /O2; roles read from the listing (about 45 probes, bounded). Scratch: candidates/b6-alloc (ignored).",
+    "prediction": "Register priority among callee-saved candidates follows reference weight; a cut-down pair of the same shape with different roles isolates the weight rule.",
+    "falsifier": "No single-feature change flips the roles of the buttons local and the out parameter.",
+    "positive_control_pair": "Cut-down 0x10670 with only inner cases 1 and 3 as a flat switch: buttons->esi, out->edi. Adding one more live reference to out anywhere (entry block, a case, inside an if) flips to out->esi, buttons->edi; adding three live references to buttons moves it to the top.",
+    "findings": [
+     "Priority follows source-level live reference counts: two variants with identical machine-level register occurrence counts (tails merged by the compiler) differ in roles, so weights are counted before tail merging.",
+     "References in unreachable code (if (0)) and self-assignments do not count.",
+     "References inside if statements are not discounted; one reference in a switch default case did not flip where one elsewhere did, two did: default references weigh less.",
+     "Translation-unit context does not affect roles: renaming the variables, 40 preceding functions, 300 preceding externs or 200 preceding string initializers left 0x10670 unchanged.",
+     "Equivalent spellings of the buttons definition (mask, extra statement, separate unsigned short local) either keep buttons last or change its load instruction."
+    ],
+    "sibling_roles_in_original": {
+     "0x102f0": "buttons edi, out ebx, one ebp, zero esi",
+     "0x10670": "buttons esi, out ebp, one edi, zero ebx",
+     "0x109f0": "buttons edi, out esi, one ebp, zero ebx"
+    },
+    "sibling_roles_ours": "out esi and buttons ebp in both reconstructed siblings (0x102f0, 0x10670) regardless of the probes above",
+    "verdict": "Rule partly characterized (count-based, pre-merge, default discounted). Under it the original 0x10670 needs buttons to outweigh both out (about 20 references) and the constant 1, which its two visible tests cannot do; the source must hold live buttons references that the binary does not show as separate code, or out references the compiler discounts. Not resolved; stopped at the bound."
+   }
   },
   "B7": {
    "status": "stopped after bounded experiment (2026-10-09)",
