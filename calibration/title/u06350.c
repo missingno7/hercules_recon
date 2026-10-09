@@ -5,14 +5,14 @@
 
 
 static int g_29fc0;
-extern int g_2c144;
-extern int g_2c148;
-extern int g_2c14c;
-extern int g_2c150;
-extern int g_2cbc0;
-extern int g_2cbc4;
-extern int g_2cbc8;
-extern int g_2cbcc;
+int g_2c144;
+int g_2c148;
+int g_2c14c;
+int g_2c150;
+int g_2cbc0;
+int g_2cbc4;
+int g_2cbc8;
+int g_2cbcc;
 extern char g_2c160[];
 static int g_29fbc;
 int title_0c610(int a);

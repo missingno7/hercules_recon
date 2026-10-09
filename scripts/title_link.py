@@ -134,14 +134,15 @@ def layout(module, lane, objects, env, tc, definitions):
     objects_data = defaultdict(list)
     for name, owners in definitions.items():
         if name in implied and name in symbols and name not in function_symbols and len(owners) == 1:
-            objects_data[owners[0]].append((name, symbols[name] - ours.image_base - implied[name]))
+            region = 'data' if implied[name] < 0x290e8 else 'bss' if implied[name] < 0x2b370 else 'communal'
+            objects_data[(owners[0], region)].append((name, symbols[name] - ours.image_base - implied[name]))
     data_objects = []
-    for source, items in sorted(objects_data.items()):
+    for (source, region), items in sorted(objects_data.items()):
         counts = defaultdict(int)
         for _, d in items:
             counts[d] += 1
         modal, n = max(counts.items(), key=lambda kv: kv[1])
-        data_objects.append(dict(source=source, symbols=len(items), common_delta=hex(modal) if modal >= 0 else '-' + hex(-modal),
+        data_objects.append(dict(source=source, region=region, symbols=len(items), common_delta=hex(modal) if modal >= 0 else '-' + hex(-modal),
                                  at_common_delta=n, off=[(s, hex(d - modal)) for s, d in items if d != modal][:8]))
     top = sorted(deltas.items(), key=lambda kv: -kv[1])[:8]
     return dict(sections=sections, function_rows_placed=sum(deltas.values()),
@@ -158,7 +159,9 @@ def build(module):
         obj, _ = compile_source(ROOT / source, flags)
         objects.append(obj)
         for sym in COFF(obj).symbols.values():
-            if (sym['storage'] == 2 or (sym['storage'] == 3 and '$S' in sym['name'])) and sym['section'] > 0:
+            defined = (sym['storage'] == 2 or (sym['storage'] == 3 and '$S' in sym['name'])) and sym['section'] > 0
+            communal = sym['storage'] == 2 and sym['section'] == 0 and sym['value'] > 0 and not sym['type'] & 0x20
+            if defined or communal:
                 definitions[sym['name']].append(source)
         rows.append(dict(source=source, flags=flags, source_sha256=digest((ROOT / source).read_bytes())))
     env = os.environ.copy()
@@ -209,7 +212,7 @@ def main():
         print(f"  data unit {unit['source']}: section offset ours {unit['section_offset_ours']} vs original "
               f"{unit['section_offset_original']}; bytes {unit['bytes']}")
     for obj in lay.get('data_objects', []):
-        print(f"  data in {obj['source']}: {obj['at_common_delta']}/{obj['symbols']} symbols keep their relative offsets"
+        print(f"  {obj['region']} in {obj['source']}: {obj['at_common_delta']}/{obj['symbols']} symbols keep their relative offsets"
               + (f"; off: {obj['off']}" if obj['off'] else ''))
     for name in u.get('other', [])[:40]:
         print('  other:', name)
