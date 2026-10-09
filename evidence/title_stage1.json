@@ -158,7 +158,7 @@
   "0x15cb0": 0,
   "0x13ba0": 0,
   "0x164b0": 17,
-  "0x1c500": 1735,
+  "0x1c500": 1715,
   "0x3da0": 888,
   "0x7510": 0,
   "0xf460": 0,
@@ -358,5 +358,18 @@
   "int_return_test": "Owner-requested alternative (return type mis-inferred as void): negative. EAX is not live through the early exit: title_0c700 (0xc700) is int title_0c700(void), a jmp to the host slot slot_180, so the call between the byte load and the ret overwrites EAX, and the common exit (call title_0c700; pop; ret) never sets EAX after the call either. An int-returning title_054f0 with `title_0c700(); return owner->unknown_022;` produces the exact instructions (xor eax,eax; mov al,[ebx+0x22]) but after the call, as semantics require (instruction diff unchanged at 134; masked bytes 849 -> 530 only because the 2-byte longer form realigns later code). `int kind = owner->unknown_022; title_0c700(); return kind;` keeps the value in esi (842); `return title_0c700();` on both exits equals the void form. None of the 117 call sites reads EAX after calling 0x54f0 (scan of the following instructions; apparent hits were partial ax writes or join points). No prototype changed; nothing staged."
  },
  "diag_2b70_2026_10_09": "Residue: the g_2cc04/g_2cc08 compare temporary takes ebx in the original (shrink-wrapped push ebp on the loop path; bl=8, ebp=4 inside the loop) but ebp in ours; the g_2df48 call argument is hoisted above the stores in ours; plus the loop scratch rotation. Reversing the 0x40000000 test or the title_195f0 test order does not move it (136 -> 138/144).",
- "diag_95d0_2026_10_09": "0x95d0 (61, store scheduling): writing the 28 copy statements in the original store order gives 194, reversed 179; the annealed order (worker w85d0) remains the best."
+ "diag_95d0_2026_10_09": "0x95d0 (61, store scheduling): writing the 28 copy statements in the original store order gives 194, reversed 179; the annealed order (worker w85d0) remains the best.",
+ "lane_w1c500b_2026_10_09": {
+  "best": "candidates/w1c500b/f_best.c (canonical u197f0.c + candidates/w1c500b/best.body.c): size-exact 3712, masked 1715 (dominated by internal length shifts); 60 original lines differ after relocation normalisation (old draft 149). All 24 u197f0.c rows stay masked equal in it.",
+  "levers": [
+   "percentage sums in CSE form (a+b)==0 ? 0 : num*100/(a+b) give the original lea esi,[edx+eax] / cmp esi,ebp in all 12 places; a sum variable, inline helper or embedded assignment folds back to add/jne",
+   "that form alone breaks allocation through the weight of the constant 0 in the loader; writing the loop 0xc test as an else-if chain restores the original callee-saved roles (except the constant 6)"
+  ],
+  "residue": {
+   "callee_saved": "constant 6 in esi in case 2 (original mov eax,6); diagnostic removal of 6 from the candidate list gives the exact register summary; no natural form moves it (volatile g_2aff8 diagnostic: no effect)",
+   "commutative_order": "level cases 3/5/6 OR operands reversed and not merged into the shared tail; numerator (+0x18 + +0x14) reversed twice - classified with scheduler R3 tie-breaks",
+   "rotation": "loader one step behind (a diagnostic one-temporary statement in case 4/0xfffe/end of case 2 fixes it; no natural source found); loop index/level registers swapped with the else-if form",
+   "scheduling": "one push 0x302 placement"
+  }
+ }
 }
