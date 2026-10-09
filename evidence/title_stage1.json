@@ -99,14 +99,14 @@
   "0x2860": 41,
   "0x28c0": 88,
   "0x2b70": 193,
-  "0x2dc0": null,
+  "0x2dc0": 260,
   "0x3050": 6,
-  "0x3100": null,
+  "0x3100": 648,
   "0x3420": 708,
   "0x3740": 727,
-  "0x39b0": null,
+  "0x39b0": 738,
   "0x41d0": 209,
-  "0x42d0": null,
+  "0x42d0": 0,
   "0x4410": 69,
   "0x4470": null,
   "0x4710": 66,
@@ -226,6 +226,7 @@
   "0x5db0": "In title_proc.cpp: 30 bytes, the original pushes the call argument right after computing it; count-insensitive.",
   "0x3050": "With the shared TitleObject in r02a80.c context: 6 bytes, the divisor and v1 swap ebx/edi (B6 class); removing the depth local, inlining half, reordering declarations and the or operands leave it at 6; long/int depth or if/else for v2 are far worse. Not referenced by reconstructed code; stopped.",
   "0xcd30": "Password checker (43 x 24-byte entries: four keys, code, flags) in u0cc90.c with the shared TitleObject: loop with goto found, returns re-reading the table code (stores to the flags may alias it). Structure equal; 238 bytes remain from register roles (index in ebx vs ecx, key0 target in edi vs ebx) and the original recomputing the entry address after the aliasing stores. B6 class; stopped.",
-  "u08140_allocators": "0x8900/0x8d80/0x91a0 (free-record allocators over the 0x134, 0xec and 0x94-byte pools) are masked equal in the C++ unit once the loop bounds name the cursor globals directly; copying them into start/end locals gave the register permutation of the earlier lanes (same lever as blood2_recon's 'drop decompiler-style cached locals'). 0x94c0 (object header reset, 74 bytes) remains: store scheduling in one window, count- and flag-insensitive; 720 window orders and annealed statement orders tried (best 49)."
+  "u08140_allocators": "0x8900/0x8d80/0x91a0 (free-record allocators over the 0x134, 0xec and 0x94-byte pools) are masked equal in the C++ unit once the loop bounds name the cursor globals directly; copying them into start/end locals gave the register permutation of the earlier lanes (same lever as blood2_recon's 'drop decompiler-style cached locals'). 0x94c0 (object header reset, 74 bytes) remains: store scheduling in one window, count- and flag-insensitive; 720 window orders and annealed statement orders tried (best 49).",
+  "w2dc0_first_drafts": "First reconstructions (worker w2dc0). 0x42d0 masked equal. 0x2dc0 (frame draw: clip test via 0x184c0, cell allocation via 0x3da0, palette switch, render-mode dispatch through g_220d0) is equal except the palette-upload address association (original base + n*4 + 12 then + offset; VC5 reassociates) and the resulting 3-byte jump shifts. 0x3100 (unrotated sprite prims into the ordering table) and 0x39b0 (rotated/scaled, sine table g_243e0) keep a register-role swap (obj/stream/cell/flags), not a declaration-order effect (400 random orders). Needed later: TitleObject members +0x01c/+0x01d/+0x022/+0x040/+0x042/+0x044; 0x3100/0x39b0 take an unsigned char count; g_220d0 entries are called with three arguments. The row*12 cell addressing (explicit byte offset) recurs at 0x33a7, 0x36c9, 0x392f, 0x3c92, 0x18145, suggesting one macro in the original."
  }
 }

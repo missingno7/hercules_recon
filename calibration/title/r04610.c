@@ -36,6 +36,75 @@ unsigned char title_046b0(unsigned short key, unsigned int f);
 void title_047d0(int a, int v, int b);
 void title_042d0(TitleCtx *p);
 TitleTabEntry *title_047a0(TitleCtx *c);
+/* 0x42d0: release a context's two cell chains in the 0x2d340 cell table (12-byte cells:
+   bit mask, word, four next links). A link k names cell k >> 4 and one quadrant bit k & 15;
+   g_264f8 maps the bit to its link slot. The cell is addressed through a byte offset: only
+   that spelling gives the explicit row*12 base register + table displacement the original
+   uses here (and at the 0x33a7/0x36c9/0x392f/0x3c92/0x18145 loads); indexing g_2d340[k >> 4] directly
+   makes VC5 refactor the address as ((row*6 + j)*2) or fold the table into an lea. */
+typedef struct TitleCell {
+    unsigned short mask_00;
+    unsigned short w_02;
+    unsigned short next_04[4];
+} TitleCell;
+extern TitleCell g_2d340[];
+extern signed char g_264f8[];
+
+void title_042d0(TitleCtx *p)
+{
+    unsigned short k;
+    int last;
+    int state;
+    unsigned int off;
+    TitleTabEntry *t;
+
+    if (p->w_44 == 0xffff)
+        return;
+    state = g_26110[p->w_44].state_10;
+    k = p->w_46;
+    if (k != 0xffff) {
+        last = 0;
+        t = (TitleTabEntry *)g_26110[p->w_44].table_0c;
+        if (t) {
+            t += (short)p->w_40;
+            if (--t->a_00 == 0)
+                last = 1;
+        }
+        if (state == 0)
+            last = 1;
+        if (last) {
+            do {
+                off = (k >> 4) * sizeof(TitleCell);
+                ((TitleCell *)((char *)g_2d340 + off))->mask_00 &= 15 - (k & 15);
+                k = ((TitleCell *)((char *)g_2d340 + off))->next_04[g_264f8[k & 15]];
+            } while (k != 0xffff);
+        }
+        p->w_46 = 0xffff;
+    }
+    k = p->w_48;
+    if (k != 0xffff) {
+        last = 0;
+        t = (TitleTabEntry *)g_26110[p->w_44].table_0c;
+        if (t) {
+            t += (short)p->w_42;
+            if (--t->a_00 == 0)
+                last = 1;
+        }
+        if (state == 0)
+            last = 1;
+        if (last) {
+            do {
+                off = (k >> 4) * sizeof(TitleCell);
+                ((TitleCell *)((char *)g_2d340 + off))->mask_00 &= 15 - (k & 15);
+                k = ((TitleCell *)((char *)g_2d340 + off))->next_04[g_264f8[k & 15]];
+            } while (k != 0xffff);
+        }
+        p->w_48 = 0xffff;
+    }
+    p->w_40 = p->w_34;
+    p->w_44 = p->b_22;
+}
+
 void title_04610(TitleCtx *p);
 void title_04b70(int c, int d);
 void title_04f00(int i);
