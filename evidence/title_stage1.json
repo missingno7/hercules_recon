@@ -343,6 +343,7 @@
   "context": "candidates/w3da0/u02b70_3da0.c (canonical u02b70.c + candidates/w1300/f_3da0.c appended): 888 bytes, same as standalone; C++ compilation identical; quad term order canonicalised.",
   "structure": "The original lays the free-quadrant hit paths out inline right after the search loop latch (cmp i,cnt; jge miss; jmp top; then the quad-0 cascade, the 3/12/5/9 blocks, then the miss path), in source order. Ours rotates the loop (jl top) and moves all hit paths to the function end.",
   "quad0": "Original quad-0 cascade assigns before testing: slot=0; bits=1; test 1 -> common or; bits=2, slot=1; test 2 -> common; bits=4, slot=2; test 4 -> common; else own block bits=8, slot=3 with its own or + jmp found. The 9/1 block falls into the common or.",
-  "next": "Lane task: reshape the loop and hit paths (labelled blocks after the loop, or an if-chain whose assignments precede the tests) and re-measure; then the register residue (RLE source pointer vs cur/pos for ebx)."
+  "next": "Lane task: reshape the loop and hit paths (labelled blocks after the loop, or an if-chain whose assignments precede the tests) and re-measure; then the register residue (RLE source pointer vs cur/pos for ebx).",
+  "layout_lever": "A goto-built search loop (i = 0; if (i < cnt) { next: ... if (++i < cnt) goto next; } goto miss;) reproduces the original unrotated latch (cmp; jge miss; jmp top) and inline hit blocks: 888 -> 843 with the assign-before-test quad-0 cascade (candidates/w3da0/v_gloop.c). Moving the hit blocks after a for loop as labels alone changes nothing; the for loop is rotated regardless. Register roles remain (lane w3da0b). Not a general lever: for 0x1b150 a goto loop peels the first iteration (worse)."
  }
 }
