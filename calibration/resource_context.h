@@ -4,7 +4,7 @@
 
 /* Observed prefix extension only. Field meanings and original full extent remain unproved. */
 typedef struct ResourceCallbackContext {
-    unsigned char unknown_000[0x34];
+    unsigned char unknown_000[0x34];   /* TITLE sound unit: [4] nonzero mutes effect panning */
     unsigned long unknown_034;
     unsigned long tick_038;
     unsigned long unknown_03c;
@@ -48,9 +48,19 @@ typedef struct ResourceCallbackContext {
     unsigned char unknown_128;
     unsigned char unknown_129[0x12c - 0x129];
     unsigned short unknown_12c;
-    unsigned char unknown_12e[0x1b00 - 0x12e];
+    unsigned char unknown_12e[0x150 - 0x12e];
+    unsigned long unknown_150[10];
+    unsigned long unknown_178[5];
+    unsigned long unknown_18c[(0x2f0 - 0x18c) / 4];
+    unsigned char sound_2f0[0x800][3]; /* per sound id: bank, sample, volume */
+    unsigned char unknown_1af0[0x1b00 - 0x1af0];
     unsigned long prepare_state_1b00;
-    unsigned char unknown_1b04[0x1b30 - 0x1b04];
+    unsigned char unknown_1b04[0x1b18 - 0x1b04];
+    unsigned long unknown_1b18;      /* effect volume scale */
+    unsigned char unknown_1b1c[0x1b24 - 0x1b1c];
+    unsigned long unknown_1b24;      /* stereo mode */
+    unsigned long unknown_1b28;
+    unsigned long unknown_1b2c;
     unsigned long unknown_1b30;
 } ResourceCallbackContext;
 

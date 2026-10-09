@@ -142,7 +142,7 @@ void title_04410(TitleObject *p)
 }
 
 void title_04610(TitleObject *p);
-void title_04b70(int c, int d);
+int title_04b70(int idx, int flag);
 void title_04f00(int i);
 void title_0c690(void *p, int n);
 void title_0c890(void *p, int n);
@@ -306,3 +306,81 @@ void title_04b50(int idx)
         g_26110[idx].state_10 = 1;
 }
 
+
+/* f_4b70 */
+extern TitleRecord *g_2d324;
+static unsigned long g_29d98;
+static unsigned long g_29d9c;
+extern int g_22148;
+int title_016e0(const char *fmt, ...);
+int title_0c350(char *path, const char *archive);
+int title_0c450(unsigned char **slot, unsigned long size, int align);
+void title_1d770(int a);
+int title_0c2a0(char *path, const char *archive, int a, unsigned char *dst, void *pos);
+int title_0c3f0(char *path, const char *archive, unsigned char *dst, void *pos);
+void title_04e40(void);
+void title_04e60(void);
+void title_04ea0(int idx);
+
+int title_04b70(int idx, int flag)
+{
+    unsigned long size;
+    unsigned long end;
+    unsigned short *p;
+    void *pos;
+    int i;
+
+    if (idx >= 18) {
+        title_016e0("Illegal Dbase %d \n", idx);
+        return 1;
+    }
+    if (g_engine_interface.context_004->mode_09c == 1) {
+        return 0;
+    }
+    if (g_engine_interface.context_004->blocked_0df != 0) {
+        return 0;
+    }
+    if (g_26110[idx].state_10 == 3) {
+        return 0;
+    }
+    g_2d324 = &g_26110[idx];
+    size = g_2d324->count_04 * 4 + 4;
+    pos = g_2d324->unknown_08;
+    if (pos == 0) {
+        pos = (void *)title_0c350(g_2d324->path_00, "\ANIMPSX.BIN");
+        g_2d324->unknown_08 = pos;
+    }
+    end = (unsigned long)pos + size;
+    p = (unsigned short *)title_0c450(&g_26110[idx].table_0c, (end & ~0x7ff) + 0x1000, 0x20);
+    if (p == 0) {
+        title_1d770(0);
+        p = (unsigned short *)title_0c450(&g_26110[idx].table_0c, (end & ~0x7ff) + 0x1000, 0x20);
+    }
+    if (p != 0) {
+        for (i = 0; i < g_2d324->count_04 + 1; i++) {
+            p[i * 2] = 0;
+            p[i * 2 + 1] = 0;
+        }
+        g_26110[idx].state_10 = 2;
+        g_29d98 = end;
+        g_22148 = idx;
+        g_26110[idx].state_12 = 1;
+        g_29d9c = g_engine_interface.context_004->tick_038;
+        if (flag != 0) {
+            g_engine_interface.context_004->load_complete = title_04e40;
+            g_engine_interface.context_004->load_failed = title_04e60;
+            title_0c2a0(g_2d324->path_00, "\ANIMPSX.BIN", 0, g_2d324->table_0c + size, pos);
+            return -1;
+        }
+        if (title_0c3f0(g_2d324->path_00, "\ANIMPSX.BIN", g_2d324->table_0c + size, pos) != 0) {
+            title_04e40();
+            return 0;
+        }
+        title_04ea0(idx);
+        return 0;
+    }
+    if (flag == 0) {
+        g_26110[idx].state_10 = 0;
+    }
+    return 1;
+}

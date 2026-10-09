@@ -13,17 +13,32 @@ typedef struct TitleRec64 {
     short unknown_0a;
     short word_0c;
     short unknown_0e;
-    unsigned char unknown_10[0x30 - 0x10];
-    unsigned long owner_30;
+    long unknown_10;
+    long unknown_14;
+    long unknown_18;
+    long unknown_1c;
+    long unknown_20;
+    long unknown_24;
+    unsigned char unknown_28[0x30 - 0x28];
+    TitleObject *owner_30;
     unsigned long flags_34;
-    unsigned long unknown_38;
-    void *ptr_3c;
+    long unknown_38;
+    unsigned long active_3c;
 } TitleRec64;
 
 extern TitleRec64 g_2cca0[24];
 
+extern int g_2cc6c;
+extern int g_2cc70;
+extern int g_2cc74;
+extern int g_2cc78;
+extern int g_2cc7c;
+extern int g_2cc80;
+extern int g_2cc84;
+
 static unsigned long g_29dac;
 static unsigned long g_29db8;
+static unsigned long g_29e04;
 
 /* ---- f_4d80 ---- */
 
@@ -176,7 +191,7 @@ int title_05080(int id)
     int i;
 
     for (i = 0; i < 24; i++) {
-        if (g_2cca0[i].ptr_3c != 0) {
+        if (g_2cca0[i].active_3c != 0) {
             if (g_2cca0[i].id_08 == id) {
                 count++;
             }
@@ -185,12 +200,184 @@ int title_05080(int id)
     return count;
 }
 
+/* ---- f_50b0 ---- */
+
+int title_0c490(void);
+int title_0cb70(unsigned char *playing);
+int title_0cb80(int channel, unsigned long *info);
+int title_0cba0(void);
+int title_0cbb0(short left, short right);
+int title_0cbd0(void);
+int title_0cbe0(int channel, short *left, short *right);
+int title_0cc40(int channel, short left, short right);
+
+static __inline void title_fx_pan(TitleRec64 *rec)
+{
+    int l;
+    int r;
+
+    g_2cc6c = rec->owner_30->unknown_00c - 160;
+    if (g_2cc6c > -20 && g_2cc6c < 20) {
+        l = 0;
+        r = 0;
+    } else {
+        l = g_2cc6c > -20 ? g_2cc6c * 2 - 40 : -20 - g_2cc6c;
+        r = g_2cc6c > 20 ? g_2cc6c - 20 : (-20 - g_2cc6c) * 2;
+    }
+    if (l < -640) {
+        l = -640;
+    } else if (l > 640) {
+        l = 640;
+    }
+    if (r < -640) {
+        r = -640;
+    } else if (r > 640) {
+        r = 640;
+    }
+    g_2cc70 = 127 - l / 5;
+    g_2cc74 = 127 - r / 5;
+    if (g_2cc70 < 0) {
+        g_2cc70 = 0;
+    }
+    if (g_2cc70 > 127) {
+        g_2cc70 = 127;
+    }
+    if (g_2cc74 < 0) {
+        g_2cc74 = 0;
+    }
+    if (g_2cc74 > 127) {
+        g_2cc74 = 127;
+    }
+    g_2cc78 = rec->owner_30->unknown_010 * 2 - 320;
+    if (rec->flags_34 & 0x1000) {
+        g_2cc78 <<= 1;
+    }
+    if (rec->flags_34 & 0x2000) {
+        g_2cc78 >>= 1;
+    }
+    g_2cc7c = 0x800 - g_2cc78;
+    if (g_2cc7c < 0) {
+        g_2cc7c = 0;
+    }
+    if (g_2cc7c > 0x800) {
+        g_2cc7c = 0x800;
+    }
+    g_2cc70 = (g_2cc7c * g_2cc70) >> 11;
+    g_2cc74 = (g_2cc7c * g_2cc74) >> 11;
+    if (rec->flags_34 & 0x4000) {
+        rec->unknown_10 = g_2cc70;
+        rec->unknown_14 = g_2cc74;
+    } else {
+        rec->unknown_10 += (g_2cc70 - rec->unknown_10) >> 1;
+        rec->unknown_14 += (g_2cc74 - rec->unknown_14) >> 1;
+    }
+    if (g_engine_interface.context_004->unknown_000[4] != 0) {
+        rec->unknown_10 = 0;
+        rec->unknown_14 = 0;
+    }
+    g_2cc80 = rec->unknown_38 * rec->unknown_10;
+    g_2cc80 *= g_2cc80;
+    g_2cc84 = rec->unknown_38 * rec->unknown_14;
+    g_2cc84 *= g_2cc84;
+    rec->unknown_18 = g_2cc80 / 0x4000 * 129 / 128;
+    rec->unknown_1c = g_2cc84 / 0x4000 * 129 / 128;
+}
+
+void title_050b0(void)
+{
+    short left;
+    short right;
+    unsigned long info;
+    unsigned char playing[24];
+    int i;
+    unsigned int j;
+
+    g_29e04 = (g_29e04 - 1) & 1;
+    if (g_29e04 != 0) {
+        title_0c490();
+    }
+    title_0cbd0();
+    title_0cb70(playing);
+    for (i = 0; i < 24; i++) {
+        if (playing[i] != 0) {
+            title_0cb80(i, &info);
+            g_2cca0[i].active_3c = 1;
+            if (g_2cca0[i].owner_30 != 0) {
+                if (g_2cca0[i].flags_34 & 0x800) {
+                    if (g_2cca0[i].unknown_0a > 1) {
+                        if (g_2cca0[i].owner_30->unknown_068 != 0) {
+                            if (g_2cca0[i].owner_30->unknown_010 != 0) {
+                                title_fx_pan(&g_2cca0[i]);
+                                if (g_engine_interface.context_004->unknown_1b24 == 0) {
+                                    title_0cc40(i,
+                                                (short)((g_2cca0[i].unknown_18 + g_2cca0[i].unknown_1c) * g_engine_interface.context_004->unknown_1b18 >> 8),
+                                                (short)((g_2cca0[i].unknown_18 + g_2cca0[i].unknown_1c) * g_engine_interface.context_004->unknown_1b18 >> 8));
+                                } else {
+                                    title_0cc40(i,
+                                                (short)(g_2cca0[i].unknown_18 * g_engine_interface.context_004->unknown_1b18 >> 7),
+                                                (short)(g_2cca0[i].unknown_1c * g_engine_interface.context_004->unknown_1b18 >> 7));
+                                }
+                            } else if (g_engine_interface.context_004->unknown_000[4] != 0) {
+                                title_0cc40(i, 0, 0);
+                            }
+                        }
+                    } else {
+                        g_2cca0[i].unknown_0a++;
+                    }
+                } else if (g_engine_interface.context_004->unknown_000[4] != 0) {
+                    title_0cc40(i, 0, 0);
+                }
+            } else if (g_engine_interface.context_004->unknown_000[4] != 0) {
+                if (g_29db8 == 0) {
+                    title_0cc40(i, 0, 0);
+                }
+                g_29dac = 1;
+            } else {
+                if (g_29dac == 1) {
+                    title_0cc40(i, (short)g_2cca0[i].unknown_18, (short)g_2cca0[i].unknown_1c);
+                }
+                title_0cbe0(i, &left, &right);
+                g_2cca0[i].unknown_18 = left;
+                g_2cca0[i].unknown_1c = right;
+            }
+        } else {
+            g_2cca0[i].active_3c = 0;
+        }
+    }
+    if (g_engine_interface.context_004->unknown_000[4] != 0) {
+        g_29db8 = 1;
+    } else {
+        g_29db8 = 0;
+        g_29dac = 0;
+    }
+    title_0cba0();
+    if (g_engine_interface.context_004->unknown_1b28 != g_engine_interface.context_004->unknown_1b2c) {
+        for (j = 0; j < g_engine_interface.context_004->unknown_1b30; j++) {
+            if (g_engine_interface.context_004->unknown_1b28 != g_engine_interface.context_004->unknown_1b2c) {
+                if (g_engine_interface.context_004->unknown_1b28 > g_engine_interface.context_004->unknown_1b2c) {
+                    g_engine_interface.context_004->unknown_1b28--;
+                } else {
+                    g_engine_interface.context_004->unknown_1b28++;
+                }
+            }
+        }
+        title_0cbb0((short)g_engine_interface.context_004->unknown_1b28, (short)g_engine_interface.context_004->unknown_1b28);
+    }
+}
+
+/* ---- f_54f0 ---- */
+
+void title_0c6f0(void);
+void title_0c700(void);
+int title_016e0(const char *fmt, ...);
+short title_0cc10(short a, short b, short c, short d, short e, short f, short g);
+
 /* ---- f_5a70 ---- */
 
 void title_0c6f0(void);
 void title_0c700(void);
 void title_0cc00(int a);
-int title_016e0(const char *s, int a);
+int title_016e0(const char *fmt, ...);
 
 void title_05a70(int arg)
 {
@@ -204,7 +391,7 @@ void title_05a70(int arg)
     title_0c6f0();
     title_016e0("\n RemoveFxLinks(0x%x)", arg);
     for (i = 0; i < 24; i++) {
-        if (g_2cca0[i].owner_30 == (unsigned long)arg) {
+        if (g_2cca0[i].owner_30 == (TitleObject *)arg) {
             if ((g_2cca0[i].flags_34 & mask) == 0) {
                 title_0cc00(i);
             }
@@ -214,7 +401,7 @@ void title_05a70(int arg)
     title_0c700();
 }
 
-void title_05ad0(unsigned short id, unsigned long owner)
+void title_05ad0(unsigned short id, TitleObject *owner)
 {
     int bank;
     int sample;
@@ -229,7 +416,7 @@ void title_05ad0(unsigned short id, unsigned long owner)
             if (bank == g_2cca0[i].word_0c && sample == g_2cca0[i].unknown_0e) {
                 title_0cc00(i);
                 if (g_2cca0[i].owner_30 != 0) {
-                    ((TitleObject *)g_2cca0[i].owner_30)->unknown_06c = 0;
+                    g_2cca0[i].owner_30->unknown_06c = 0;
                     g_2cca0[i].owner_30 = 0;
                 }
             }
@@ -239,7 +426,7 @@ void title_05ad0(unsigned short id, unsigned long owner)
             if (owner == g_2cca0[i].owner_30 && bank == g_2cca0[i].word_0c && sample == g_2cca0[i].unknown_0e) {
                 title_0cc00(i);
                 if (g_2cca0[i].owner_30 != 0) {
-                    ((TitleObject *)g_2cca0[i].owner_30)->unknown_06c = 0;
+                    g_2cca0[i].owner_30->unknown_06c = 0;
                     g_2cca0[i].owner_30 = 0;
                 }
             }
