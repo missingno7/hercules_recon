@@ -32,7 +32,32 @@
   "B3": "PC_DLLEngineMain unfolded zero test (0xc1f0, 30 bytes): folded forms, status variable, inline helpers, /Ob2, if(g=0) all falsified.",
   "B4": "SOLVED: screen-handler entry loads come from volatile context fields at +0x5c/+0x5e read into unused locals (only sanctioned volatile use); the argument-area out-handle is an ordinary local that VC5 places there when the request is one typed pointer parameter. Ten screen handlers masked equal with this template.",
   "B5": "candidate: record-loop anchor register (VC5 anchors strength-reduced loops at the first accessed field).",
-  "B6": "constant 0/1 enregistered in callee-saved registers across calls (ebx/ebp) in 0x109f0, 0x102f0, 0x16f0, 0x7510 and related register-role swaps (0x10670 35 bytes, 0x13ba0 41 bytes); one-locals, declaration order, C++ falsified."
+  "B6": {
+   "status": "stopped after bounded experiment (2026-10-09)",
+   "observation": "VC5 does enregister 0/1 constants in callee-saved registers across calls for ordinary source: 43 masked-equal TITLE functions show it (smallest 0x4b00, 80 bytes: 1 in ebx, 0 in esi). The residue is register-assignment priority, not enregistration itself.",
+   "representative": "0x10670 (896 bytes, 35 differing): original buttons->esi and out->ebp; ours the reverse, with identical use counts per register in both binaries (26 vs 19).",
+   "falsified": [
+    "buttons type: unsigned short, short, int, unsigned int, unsigned long from unsigned short",
+    "declaration order of the volatile locals; unused local type (unsigned short, int)",
+    "counter update spelling and placement; flag store before or after the trace call",
+    "C++ front end (variadic prototypes, extern \"C\")"
+   ],
+   "affected": [
+    "0x10670 (35)",
+    "0x13ba0 (41, self in ebx)",
+    "0x16f0 (314)",
+    "0x102f0 (359)",
+    "0x109f0 (495)",
+    "0x7510 (3120-byte)"
+   ],
+   "reentry": "A positive control pair: two masked-equal functions of the same shape whose register assignment differs, to isolate the tie-break; or a source construct that changes allocation priority without changing use counts."
+  },
+  "B7": {
+   "status": "stopped after bounded experiment (2026-10-09)",
+   "function": "0x1b150 (306 differing)",
+   "observation": "Not an xor-vs-mov zero: the original keeps a byte index from 0 with the array address as displacement; VC5 emits a pointer walk in all 13 ordinary loop forms tried, in C and C++, with and without the preceding fill loop.",
+   "reentry": "Evidence that the index is live or shared beyond the loop in the original, or another function showing the same shape."
+  }
  },
  "open_functions": {
   "0x1300": 557,
