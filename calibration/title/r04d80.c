@@ -50,10 +50,16 @@ extern char g_2215c[];
 #endif
 
 typedef struct TitleRec64 {
-    short id_00;
-    unsigned char unknown_02[0x32];
-    void *ptr_34;
-    unsigned char unknown_38[0x40 - 0x38];
+    unsigned long unknown_00;
+    unsigned long unknown_04;
+    short id_08;
+    short unknown_0a;
+    unsigned short word_0c;
+    unsigned char unknown_0e[0x30 - 0x0e];
+    unsigned long owner_30;
+    unsigned long flags_34;
+    unsigned long unknown_38;
+    void *ptr_3c;
 } TitleRec64;
 
 typedef struct TitleObj TitleObj;
@@ -68,24 +74,13 @@ struct TitleObj {
 
 extern int g_29fa4;
 extern int g_2cc04;
-extern TitleRec64 g_2cca8[];
+extern TitleRec64 g_2cca0[24];
 extern unsigned long g_29e18[];
 extern unsigned long g_29f9c;
 extern unsigned long g_29e10;
 extern TitleObj *g_2cc20[];
 
-typedef struct TitleCell12 {
-    unsigned short w0_00;
-    unsigned short w2_02;
-    unsigned char unknown_04[8];
-} TitleCell12;
 
-extern TitleCell12 g_2d340[];
-extern unsigned short g_2d400;
-extern unsigned short g_2d370;
-extern unsigned short g_2d34c;
-
-extern char g_2d2d0[];
 extern char g_221c4[];
 extern unsigned long g_29dac;
 extern unsigned long g_29db8;
@@ -96,7 +91,6 @@ extern char g_23318[];
 extern char g_23300[];
 extern char g_232ec[];
 
-extern char g_2d2ae[];
 extern char g_221f8[];
 
 typedef struct TitleCursor {
@@ -116,7 +110,6 @@ extern char g_221dc[];
 
 #endif
 
-extern TitleRec64 g_2d2a8[];
 
 /* ---- f_4d80 ---- */
 
@@ -243,22 +236,19 @@ void title_04f40(const unsigned char *a, const unsigned char *b)
 
 /* ---- f_5080 ---- */
 
-extern TitleRec64 g_2d2a8[];
 
 int title_05080(int id)
 {
     int count = 0;
-    TitleRec64 *p;
+    int i;
 
-    p = g_2cca8;
-    do {
-        if (p->ptr_34 != 0) {
-            if (p->id_00 == id) {
+    for (i = 0; i < 24; i++) {
+        if (g_2cca0[i].ptr_3c != 0) {
+            if (g_2cca0[i].id_08 == id) {
                 count++;
             }
         }
-        p++;
-    } while ((int)p < (int)g_2d2a8);
+    }
     return count;
 }
 
@@ -272,7 +262,6 @@ int title_016e0(const char *s, int a);
 void title_05a70(int arg)
 {
     int i;
-    unsigned long *p;
     unsigned long mask;
 
     if (arg == 0) {
@@ -281,18 +270,14 @@ void title_05a70(int arg)
     mask = 0x8000;
     title_0c6f0();
     title_016e0(g_221c4, arg);
-    i = 0;
-    p = (unsigned long *)((char *)g_2cca8 + 0x28);
-    do {
-        if (p[0] == (unsigned long)arg) {
-            if ((p[1] & mask) == 0) {
+    for (i = 0; i < 24; i++) {
+        if (g_2cca0[i].owner_30 == (unsigned long)arg) {
+            if ((g_2cca0[i].flags_34 & mask) == 0) {
                 title_0cc00(i);
             }
-            p[0] = 0;
+            g_2cca0[i].owner_30 = 0;
         }
-        p += 16;
-        i++;
-    } while ((int)p < (int)g_2d2d0);
+    }
     title_0c700();
 }
 
@@ -304,7 +289,7 @@ void title_050b0(void);
 
 void title_05c60(int a)
 {
-    char *p;
+    int i;
 
     title_0c5e0();
     g_29dac = 0;
@@ -314,12 +299,10 @@ void title_05c60(int a)
     } else {
         title_0c550(0);
     }
-    p = (char *)g_2cca8 + 0x28;
-    do {
-        *(unsigned short *)(p - 0x24) = 0xff;
-        *(unsigned long *)p = 0;
-        p += 0x40;
-    } while ((int)p < (int)g_2d2d0);
+    for (i = 0; i < 24; i++) {
+        g_2cca0[i].word_0c = 0xff;
+        g_2cca0[i].owner_30 = 0;
+    }
 }
 
 /* ---- f_5d60 ---- */
