@@ -45,25 +45,26 @@ def build(module):
             starts.add(target)
     md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
     # Entries after RET followed by NOP alignment.
-    prologue = {0x53, 0x55, 0x56, 0x57, 0x83, 0x8b, 0xa1}  # push reg, sub/mov esp forms, mov eax,[abs]
-    heuristic = set()
-    proven = [(int(r['rva'], 16), r['size']) for r in json.loads((ROOT / 'recovery.json').read_text())['functions']
-              if Path(r['target']).name.upper() == module.upper() and r['status'] in ('CODEGEN_SIMILAR', 'FUNCTION_MATCH')]
     for i in range(0, end - lo - 1):
-        if code[i] in (0xc3, 0xc2):
+        if code[i] in (0xc3, 0xc2) and (lo + i + 1) % 16:
             j = i + (3 if code[i] == 0xc2 else 1)
             k = j
             while k < end - lo and code[k] == 0x90:
                 k += 1
             if (lo + k) % 16 == 0 and k > j and k < end - lo and code[k] != 0x90:
                 starts.add(lo + k)
-            elif k == j and (lo + j) % 16 == 0 and j < end - lo and code[j] in prologue:
-                # RET ending exactly on an alignment boundary, followed by a typical prologue. This is
-                # a lead only (about 30% were mid-function on first measurement); never inside a
-                # proven (masked/accepted) extent.
-                if lo + j not in starts and not any(r < lo + j < r + s for r, s in proven):
-                    starts.add(lo + j)
-                    heuristic.add(lo + j)
+    # Proven extents (masked or accepted rows) end where the next function starts; this finds
+    # entries reached by neither calls nor pointers whose predecessor needs no NOP padding.
+    # (A RET-on-boundary + prologue heuristic was tried and rejected: most hits were mid-function.)
+    proven = [(int(r['rva'], 16), r['size']) for r in json.loads((ROOT / 'recovery.json').read_text())['functions']
+              if Path(r['target']).name.upper() == module.upper() and r['status'] in ('CODEGEN_SIMILAR', 'FUNCTION_MATCH')]
+    from_proven = set()
+    for r, s in proven:
+        if lo <= r + s < end and (r + s) not in starts:
+            starts.add(r + s)
+            from_proven.add(r + s)
+    for r, s in proven:  # no start may lie inside a proven extent
+        starts = {x for x in starts if not r < x < r + s}
     starts.add(lo)
     for export in pe.metadata().get('exports') or []:
         if lo <= export['rva'] < end:
@@ -82,7 +83,7 @@ def build(module):
         callers = db.execute("select count(*) from refs where module=? and target_rva=? and kind='linear_call'",
                              (module, s)).fetchone()[0]
         rows.append(dict(rva=hex(s), size=e - s, body_size=len(body), decoded=decoded, last=last,
-                         references=relocs, callers=callers, heuristic_start=s in heuristic))
+                         references=relocs, callers=callers, start_from_proven_extent=s in from_proven))
     return dict(module=module, first_party_end=hex(end), functions=rows)
 
 

@@ -5,10 +5,10 @@
  "falsifier": "Under a quarter, or exactness needing flags or non-ordinary constructs.",
  "verdict": "held by count; covered 283 functions, 45568/116656 first-party bytes (39.1%); counters from `scripts/similar.py summary`",
  "function_map": {
-  "spans": 370,
+  "spans": 361,
   "bytes": 116656,
   "first_party_end": "0x1d7b0",
-  "note": "v3 adds RET-on-boundary starts followed by a typical prologue, excluded inside proven extents and flagged heuristic_start (4 of 13 first candidates were mid-function). 0x9350 is 304 bytes; 0x9480 is a separate function."
+  "note": "v3: proven extents (masked/accepted rows) end where the next function starts, and no start may lie inside a proven extent. Adds 0x9480, removes the jump-table span 0x1ab30. A RET-on-boundary + prologue heuristic was tried and rejected: 9 of its 10 extra starts were inside functions whose extents workers had established."
  },
  "masked_rows": 275,
  "masked_bytes": 45088,
@@ -148,7 +148,7 @@
   "function_match_bytes": 352,
   "covered_functions": 283,
   "covered_bytes": 45568,
-  "first_party_spans": 370,
+  "first_party_spans": 361,
   "first_party_bytes": 116656
  },
  "volatile_ruling": "Project owner approved volatile only for the context fields at +0x5c/+0x5e as an evidence-supported reconstruction hypothesis (unremovable unused reads); not proof of the original declaration; not generalizable.",
