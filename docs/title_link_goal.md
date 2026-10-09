@@ -246,6 +246,27 @@ Functions retried in their real unit context:
   - 0x9a40 and 0xa020: the frame-table state machines keep a per-case register rotation. It
     is insensitive to flags, language, TU count, prototypes and loop spelling.
 
+## Worker round results (2026-10-09)
+
+Reconstructing missing functions inside their real unit context added nine masked-equal rows:
+- the u08140 allocators 0x8900, 0x8d80 and 0x91a0;
+- 0x42d0;
+- the u17cb0 functions 0x18600, 0x19120, 0x19270 and 0x196f0.
+
+Levers measured along the way:
+
+- **Name globals, fields and parameters directly.** Copying them into start/end or cache locals
+  is what produced the register-role permutations in the earlier lane drafts. blood2_recon
+  found the same lever.
+- **Spell cell-table access as a byte offset used twice:** `off = row * sizeof(cell)`. That is
+  what gives row*12 plus table displacement addressing. The same shape recurs at 0x33a7,
+  0x36c9, 0x392f, 0x3c92 and 0x18145, which suggests a macro in the original.
+- **Count sensitivity still splits the residues:**
+  - 0x195f0 matches only with more symbols declared before it, presumably those of the missing
+    0x17cb0..0x184c0 code. It is left unpadded.
+  - 0x18b20, 0x94c0, 0x3100 and 0x39b0 are count-insensitive. Their residues are register roles
+    or store scheduling.
+
 ## Preliminary closure (stage 2 groundwork)
 
 `scripts/closure.py` maps the data addresses implied by masked rows back to their functions.
