@@ -10,8 +10,8 @@
   "first_party_end": "0x1d7b0",
   "note": "v3: proven extents (masked/accepted rows) end where the next function starts, and no start may lie inside a proven extent. Adds 0x9480, removes the jump-table span 0x1ab30. A RET-on-boundary + prologue heuristic was tried and rejected: 9 of its 10 extra starts were inside functions whose extents workers had established."
  },
- "masked_rows": 330,
- "masked_bytes": 80784,
+ "masked_rows": 331,
+ "masked_bytes": 80928,
  "cpp_units": [
   "title.08a50",
   "title.08ed0",
@@ -162,7 +162,6 @@
   "0x9c90": 256,
   "0xa450": 6,
   "0xd910": 40,
-  "0x193e0": 33,
   "0xc1f0": 19
  },
  "tooling": [
@@ -437,5 +436,9 @@
  },
  "lane_wregstudy_3da0": "0x3da0 710 -> 6 (candidates/wregstudy/u_3da0_best.c, all 22 u02b70.c rows equal): a region-local cursor for the RLE source (s = src; *s++ in the RLE loop; src = s after the copy loop) takes srcs heavy depth-2 references off ebx (W1/A1); got block k = g_26508[cur]; g_2df60[cnt] = g_26508[cur]; pos = cnt++; overflow exit stores g_29d90 first. Residue: the quad term order only (TU tie-break). In address order (before 0x41d0, with the TitleCell block, g_29d90 and two prototypes moved up; candidates/wr4/place3da0.py) all unit rows stay equal but 0x3da0 is 7: the quad order stays and a base/index pair flips. Not stageable yet; the tie-breaks likely need the units true declaration context.",
  "windows_h_hypothesis_u02b70": "2026-10-10 (revised): u02b70.c is compiled with the full <windows.h> first. With every function of the unit present (0x2b70 added by lane wm3), all 24 rows match only with the full header (none: 0x3da0 differs by 1 byte; WIN32_LEAN_AND_MEAN: 6). The earlier lean result was measured on the unit without 0x2b70 and was an artifact of the incomplete translation unit. Lesson: decide TU-context headers on units that are as complete as possible; re-measure when a unit grows.",
- "windows_h_hypothesis_u06350": "2026-10-10: u06350.c compiled with WIN32_LEAN_AND_MEAN <windows.h> first (owner ruling, per unit). Measured: 0x66f0 then matches in address order before 0x6840 (without: one base/index pair flips, 2 bytes; full <windows.h>: 94); all 12 other rows unchanged; data unit and communal offsets unchanged. Third unit with a windows.h context. Caveat: the 0x6350 units end is not yet bounded; re-measure the header when it grows."
+ "windows_h_hypothesis_u06350": "2026-10-10: u06350.c compiled with WIN32_LEAN_AND_MEAN <windows.h> first (owner ruling, per unit). Measured: 0x66f0 then matches in address order before 0x6840 (without: one base/index pair flips, 2 bytes; full <windows.h>: 94); all 12 other rows unchanged; data unit and communal offsets unchanged. Third unit with a windows.h context. Caveat: the 0x6350 units end is not yet bounded; re-measure the header when it grows.",
+ "lane_wm1_2026_10_10": {
+  "0x193e0": "masked equal (staged): components written into v[] with the translation added in place; W table of the old form o 40 > C7 32 > w 28 > k 24 > oy/oz 20 > ox/y/z 16 > x 12; the vd form removes x/y/z as variables so the forwarded v[0] value takes esi and o/C7/oy follow in W order. Caveat: the model does not explain why the forwarded value is allocated first.",
+  "0x184c0": "natural pre3 form (sx = scale; if (mode == 1) { sx = scale * 2; y += ...; }) matches in a standalone unit and in the full u17cb0 TU only at symbol counts 351..476 (diagnostic count scan); the canonical TU gives 227 (ternary form 157 remains best). sx vs the scaled l/r webs sits in a count-dependent tie band; no real header set keeps 0x17cb0 and 0x184c0 equal together (72 sets tested). Files candidates/wm1/u_pre3.cpp, u_tern.cpp."
+ }
 }

@@ -64,7 +64,8 @@ typedef struct TitleObj {
     struct TitleObj *next_068;
     unsigned char unknown_06c[0x70 - 0x6c];
     TitleSVec rot_070;
-    unsigned char unknown_078[0x120 - 0x78];
+    int trans_078[3];
+    unsigned char unknown_084[0x120 - 0x84];
     unsigned int *list_120;
 } TitleObj;
 typedef struct TitleRec {
@@ -81,11 +82,13 @@ typedef struct TitleShape {
     short unknown_00c;
     short unknown_00e;
     short unknown_010;
-    unsigned char unknown_012[0x3a - 0x12];
+    unsigned char unknown_012[0x28 - 0x12];
+    short unknown_028;
+    unsigned char unknown_02a[0x3a - 0x2a];
     unsigned short unknown_03a;
     unsigned short unknown_03c;
     unsigned char unknown_03e[0x54 - 0x3e];
-    unsigned char unknown_054;
+    unsigned long unknown_054;
 } TitleShape;
 typedef struct TitleSlot {
     int unknown_000;
@@ -579,6 +582,27 @@ void title_19270(TitleObj *o, int *vals, int count)
         i++;
     } while (i != count);
     g_2bb28 = src + 1;
+}
+
+void title_193e0(TitleObj *o, int k)
+{
+    int v[4];
+    int ox = (signed char)k;
+    int oy = (short)(k >> 8);
+    int oz = k >> 24;
+
+    v[0] = (ox * o->w_03a) >> 7;
+    if (o->flags_054 & 0x80) {
+        v[1] = (o->w_03c * oy) >> 7;
+        v[2] = (o->w_03e * oz) >> 7;
+    } else {
+        v[1] = (oy * o->w_03a) >> 7;
+        v[2] = (oz * o->w_03a) >> 7;
+    }
+    v[0] += o->trans_078[0];
+    v[1] += o->trans_078[1];
+    v[2] += o->trans_078[2];
+    title_0c7e0(v);
 }
 
 int title_19470(char *obj, int *vec)
