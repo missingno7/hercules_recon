@@ -2,19 +2,16 @@
 #include "title_screen.h"
 
 typedef struct TitleCtxView {
-    unsigned char unknown_000[0x12];
+    unsigned char unknown_000[6];
+    unsigned char byte_006;
+    unsigned char unknown_007[0x0e - 0x07];
+    unsigned char byte_00e;
+    unsigned char unknown_00f[0x12 - 0x0f];
     unsigned char byte_012;
+    unsigned char unknown_013[0x2e - 0x13];
+    unsigned short word_02e;
+    unsigned long dword_030;
 } TitleCtxView;
-
-typedef struct TitleEntry {
-    int key0;
-    int key1;
-    int key2;
-    int key3;
-    int code_010;
-    unsigned char flags_014;
-    unsigned char unknown_015[3];
-} TitleEntry;
 
 static TitleObject *g_2a38c;
 static TitleObject *g_2a3a4;
@@ -27,7 +24,7 @@ static int g_2a254;
 extern unsigned int g_25a28;
 static TitleObject *g_2a288[64];
 static int g_2a9b8;
-extern TitleEntry g_25a30[43];
+extern int g_25a30[43 * 6];
 extern int g_29f98;
 static int g_2a250;
 extern int g_2bb3c;
@@ -37,6 +34,9 @@ static int g_2a3a0;
 static int g_2a39c;
 static int g_2a9bc;
 static int g_2a9c0;
+static int g_2a388;
+static int g_2a268;
+static int g_2a260;
 
 TitleObject *title_17ad0(int a, int b, int c, int d, int e);
 int title_0c4a0(int a);
@@ -76,6 +76,51 @@ int title_0cd00(int v) {
         p += 4;
     }
     return -1;
+}
+
+int title_0cd30(void)
+{
+    int k;
+
+    for (k = 0; k < 43; k++) {
+        if (g_25a30[k * 6 + 0] == g_2a278->unknown_034 - 0x1e3 &&
+            g_25a30[k * 6 + 1] == g_2a27c->unknown_034 - 0x121 &&
+            g_25a30[k * 6 + 2] == g_2a280->unknown_034 - 0x182 &&
+            g_25a30[k * 6 + 3] == g_2a274->unknown_034 - 0xc0)
+            goto found;
+    }
+    return -1;
+found:
+    if (g_25a30[k * 6 + 4] == 0x64) {
+        g_2a388 = 1;
+        return g_25a30[k * 6 + 4];
+    }
+    if (g_25a30[k * 6 + 4] == 0x65 && g_2a388 == 1) {
+        ((TitleCtxView *)g_engine_interface.context_004)->dword_030 |= 0x80000000;
+        ((TitleCtxView *)g_engine_interface.context_004)->word_02e = 0;
+        return g_25a30[k * 6 + 4];
+    }
+    if (g_25a30[k * 6 + 4] == 0x66) {
+        g_2a268 = 1;
+        return g_25a30[k * 6 + 4];
+    }
+    if (g_25a30[k * 6 + 4] == 0x67 && g_2a268 == 1) {
+        ((TitleCtxView *)g_engine_interface.context_004)->dword_030 |= 0x80000000;
+        ((TitleCtxView *)g_engine_interface.context_004)->word_02e = 1;
+        return g_25a30[k * 6 + 4];
+    }
+    if (g_25a30[k * 6 + 4] == 0x68) {
+        g_2a260 = 1;
+        return g_25a30[k * 6 + 4];
+    }
+    if (g_25a30[k * 6 + 4] == 0x69 && g_2a260 == 1) {
+        ((TitleCtxView *)g_engine_interface.context_004)->dword_030 |= 0x80000008;
+        ((TitleCtxView *)g_engine_interface.context_004)->byte_006 = 3;
+        return 1;
+    }
+    ((TitleCtxView *)g_engine_interface.context_004)->byte_00e = (unsigned char)g_25a30[k * 6 + 5];
+    ((TitleCtxView *)g_engine_interface.context_004)->byte_012 = (unsigned char)k;
+    return g_25a30[k * 6 + 4];
 }
 
 void title_0cf00(void) {
@@ -148,13 +193,13 @@ void title_0cf00(void) {
         int idx;
         if (((TitleCtxView *)g_engine_interface.context_004)->byte_012 == 0xff) return;
         idx = (signed char)((TitleCtxView *)g_engine_interface.context_004)->byte_012;
-        g_2a278->unknown_034 = g_25a30[idx].key0 + 0x1e3;
+        g_2a278->unknown_034 = g_25a30[idx * 6 + 0] + 0x1e3;
         idx = (signed char)((TitleCtxView *)g_engine_interface.context_004)->byte_012;
-        g_2a27c->unknown_034 = g_25a30[idx].key1 + 0x121;
+        g_2a27c->unknown_034 = g_25a30[idx * 6 + 1] + 0x121;
         idx = (signed char)((TitleCtxView *)g_engine_interface.context_004)->byte_012;
-        g_2a280->unknown_034 = g_25a30[idx].key2 + 0x182;
+        g_2a280->unknown_034 = g_25a30[idx * 6 + 2] + 0x182;
         idx = (signed char)((TitleCtxView *)g_engine_interface.context_004)->byte_012;
-        g_2a274->unknown_034 = g_25a30[idx].key3 + 0xc0;
+        g_2a274->unknown_034 = g_25a30[idx * 6 + 3] + 0xc0;
     }
 }
 
