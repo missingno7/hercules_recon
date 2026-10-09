@@ -209,6 +209,43 @@ implements it and `tests/test_symbol_order.py` covers it; it is exact on every p
 Initialized data keeps definition order. Reproducing the original in-object order now depends
 only on the identifier names, which is a naming-policy decision.
 
+## Shared records and data units (2026-10-09, continued)
+
+Records recovered from cross-file evidence (details in `evidence/title_closure.json`):
+
+- **Display double buffer (`title_gpu.h`).** `g_2cc08` holds two 0x1478-byte buffers and
+  `g_2cc04` the one being drawn. Every touched field recurs 0x1478 bytes apart. The layout is
+  the PSX libgpu one: DRAWENV (0x5c), DISPENV (0x14), and a 0x500-entry ordering table at +0x70.
+  Five per-file views were replaced. `r17ad0.c` keeps two unused declarations because 0x17bf0
+  is TU-count sensitive.
+- **Object record (`title_screen.h`).** The 0x134-byte pooled object is now the union of eleven
+  per-file views. All their rows stay masked equal, so the conflicting signedness in the old
+  views was not load-bearing.
+- **Not an aggregate.** The communal gap before 0x2cc00 also admits unreferenced tentative
+  definitions. The would-be fields have unrelated meanings, so they stay separate globals.
+
+New data units:
+
+| Unit | Content | Linked result |
+|---|---|---|
+| `title_levels.c` (data-only C) | Unreferenced level table at 0x234b0; its literals are the first copies of the strings r16110's engine table points to | 424 bytes, 36 pointers |
+| `u06350.c` | Icon palette and pixels, plus the unit's literals | 324 bytes |
+| `u09a40.c` | Button maps and eleven frame tables | 740 bytes |
+
+Every measured data unit now links byte-equal. `title_link.py` compares pointer slots by place:
+the same offset in any measured unit, or the same reconstructed function. Consecutive units
+now differ only by missing contributions, such as 0x5fb0's two literals.
+
+Functions retried in their real unit context:
+
+- **Now masked equal:** 0x5cc0 and 0x5e90 in the C++ scheduler.
+- **Characterized and stopped:**
+  - 0x5db0 (30 bytes): argument push placement.
+  - 0x5fb0 (B2, 7 bytes).
+  - 0x66f0 (10 bytes): it is C in its unit, which supersedes the "needs C++" note.
+  - 0x9a40 and 0xa020: the frame-table state machines keep a per-case register rotation. It
+    is insensitive to flags, language, TU count, prototypes and loop spelling.
+
 ## Preliminary closure (stage 2 groundwork)
 
 `scripts/closure.py` maps the data addresses implied by masked rows back to their functions.
