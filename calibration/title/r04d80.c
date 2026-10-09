@@ -81,7 +81,6 @@ extern unsigned long g_29e10;
 extern TitleObj *g_2cc20[];
 
 
-extern char g_221c4[];
 extern unsigned long g_29dac;
 extern unsigned long g_29db8;
 
@@ -269,7 +268,7 @@ void title_05a70(int arg)
     }
     mask = 0x8000;
     title_0c6f0();
-    title_016e0(g_221c4, arg);
+    title_016e0("\n RemoveFxLinks(0x%x)", arg);
     for (i = 0; i < 24; i++) {
         if (g_2cca0[i].owner_30 == (unsigned long)arg) {
             if ((g_2cca0[i].flags_34 & mask) == 0) {

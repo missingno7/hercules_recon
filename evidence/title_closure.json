@@ -189,5 +189,28 @@
   "date": "2026-10-09",
   "tool": "scripts/table_bases.py (oracle-only diagnostic)",
   "result": "77 staged array symbols checked. 12 leads remain after skipping accesses inside staged functions that use the symbol. On review all are separate objects: function-pointer tables (0x220d0, 0x260f0), and parallel arrays with scale 2/4/8 at 0x20..0x40 below (0x26068, 0x265d8, 0x265f8, 0x2ae88, 0x2b018, 0x2b038, 0x2b068, 0x2b158, 0x2df60), mostly indexed from the open function 0x1b150. None requires re-basing a staged symbol."
+ },
+ "diagnostic_link": {
+  "date": "2026-10-09",
+  "tool": "scripts/title_link.py (all canonical TITLE sources + LIBCMT + KERNEL32; no stubs; not acceptance)",
+  "history": [
+   "first run: 433 unresolved (38 functions, 387 data, 8 legacy 4-digit names), 0 duplicates",
+   "legacy control renamed to 5-digit names: 424",
+   "three string symbols written as literals (strcpy of \"bu00:B-sces-00891\" replaces five fake dword/word symbols; two trace strings): 417"
+  ],
+  "current": {
+   "unresolved": 417,
+   "title_functions": 37,
+   "data": 380,
+   "data_initialized": 57,
+   "data_bss": 323,
+   "duplicates": 0
+  },
+  "data_worklist": [
+   "string-pointer globals 0x22308..0x2239c (one or more per screen handler, pointing at strings in .data): defined in the owning unit, in code order",
+   "short lookup tables 0x23270..0x25200 used by 0x8140/0x8320 (object-system unit u08140) and 0x1a7c0",
+   "explicitly zero-initialized ints 0x290f8..0x29144 (in initialized .data, so written with = 0)",
+   "323 .bss globals: per-object order follows code order up to about 0x2b360, then a communal-like tail (C files only)"
+  ]
  }
 }

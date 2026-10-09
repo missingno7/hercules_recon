@@ -16,11 +16,6 @@ extern void title_02090(int a1, int a2, int a3, int a4, int a5, int a6, int a7, 
 extern void title_0c2a0(char *s, int a, int b, int c, int d);
 extern void title_0c8b0(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
 
-extern int g_23498;
-extern int g_2349c;
-extern int g_234a0;
-extern int g_234a4;
-extern short g_234a8;
 extern int g_2c7c0[];
 extern char g_2c9c0[];
 
@@ -76,11 +71,7 @@ int title_06840(char a1, const void *a2, int a3, int a4, int a5)
     title_0c620(0);
     title_06480();
 
-    *(int *)&path[0] = g_23498;
-    *(int *)&path[4] = g_2349c;
-    *(int *)&path[8] = g_234a0;
-    *(int *)&path[0xc] = g_234a4;
-    *(short *)&path[0x10] = g_234a8;
+    strcpy(path, "bu00:B-sces-00891");
     path[6] = 'A';
     path[0x11] = ' ';
     path[0x12] = ' ';

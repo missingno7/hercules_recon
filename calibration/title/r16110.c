@@ -45,7 +45,6 @@ extern int g_2acd0;
 extern int g_2acd8;
 extern unsigned short g_25f50[];
 extern int g_2acf0;
-extern char g_260a0[];
 extern int g_2b370;
 extern int g_2cc04;
 extern int g_2cc08;
@@ -199,7 +198,7 @@ void title_16300(void)
 void title_16470(void)
 {
     if (g_2acf0 != 0) {
-        title_016e0(g_260a0);
+        title_016e0("\n No Need to reload music !");
         return;
     }
     g_2acf0 = 1;
