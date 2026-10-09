@@ -69,6 +69,34 @@ void title_05d90(void)
     memset(g_29e18, 0, 0x180);
 }
 
+/* Starts a process: takes the first free pool record, fills it, links it at the head of list `list`
+   and runs it once. */
+TitleProc *title_05db0(void (*fn)(TitleProc *), unsigned long arg, int list, unsigned long param)
+{
+    unsigned int i;
+    TitleProc *head;
+    TitleProc *p;
+
+    head = g_2cc20[list];
+    for (i = 0; i < 16; i++) {
+        if (g_29e18[i].fn_00 == 0)
+            goto found;
+    }
+    return 0;
+found:
+    p = &g_29e18[i];
+    g_29e18[i].fn_00 = fn;
+    g_29e18[i].unknown_14 = arg;
+    g_29e18[i].delay_08 = 1;
+    g_29e18[i].state_04 = 0xffff;
+    g_29e18[i].unknown_0c = param;
+    g_29e18[i].next_10 = head;
+    g_2cc20[list] = p;
+    g_29e10 = (unsigned long)p->fn_00;
+    p->fn_00(p);
+    return p;
+}
+
 void title_05e40(void)
 {
     TitleProc **pp;
