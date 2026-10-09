@@ -403,5 +403,11 @@
   "data": "0x5e90's three trace literals are the first literals of the unit (0x232ec..0x23351, reverse code order); the link now keeps all 6 data symbols of the unit at their relative offsets. 0x5fb0's literals 'i2.1'/'i1.4' (0x23354, 0x2335c, read as dwords) follow them, placing 0x5fb0 in this object too.",
   "open": "0x5db0 (30 differing, TU-count insensitive 0..119): the original pushes the call argument right after computing it; ours pushes it before the call. 0x5fb0 (B2, 7 bytes) is unchanged in the C++ unit context (count insensitive 0..199; an inline context accessor is worse). Neither is referenced by reconstructed code.",
   "link": "unresolved 87 -> 85 (title functions 36 -> 34)."
+ },
+ "unit_u09a40_data": {
+  "date": "2026-10-09",
+  "block": ".data 0x254e8..0x257cb is the 0x9a40 unit's ordinary data; its literal '\n Unable to malloc memory' (0x257cc, used by 0xa450) ends the object. object_map's literal flags at 0x25680.. were printable short tables, not literals.",
+  "contents": "TitlePadMap g_254e8[4] (16-byte records of eight button masks, copied by 4-dword struct assignment in 0xa450 and 0x164b0), then eleven short frame tables ending in -1 (999 marks a sound request in the next entry) read by 0x9a40 (0x25528, 0x25568, 0x255d0), 0x9c90 (0x25600, 0x25638, 0x25680, 0x256c8) and 0xa020 (0x25710, 0x25748, 0x25778, 0x25790); every base is 8-aligned.",
+  "result": "Defined in u09a40.c in address order: linked block 740/740 bytes equal. Hypothesis: each table's extent to the next base (trailing zeros could be padding of a shorter array; bytes are identical either way); the record type name."
  }
 }
