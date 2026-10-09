@@ -7,15 +7,7 @@
 
 extern "C" {
 
-typedef struct TitleProc TitleProc;
-struct TitleProc {
-    void (*fn_00)(TitleProc *);
-    unsigned long unknown_04;
-    long refs_08;
-    unsigned long unknown_0c;
-    TitleProc *next_10;
-    unsigned long unknown_14;
-};
+#include "title_proc.h"
 
 struct TitleObject;
 
@@ -55,8 +47,8 @@ void title_05e40(void)
     for (pp = g_2cc20; pp < &g_2cc20[16]; pp++) {
         o = *pp;
         while (o != 0) {
-            o->refs_08--;
-            if (o->refs_08 == 0) {
+            o->delay_08--;
+            if (o->delay_08 == 0) {
                 g_29e10 = (unsigned long)o->fn_00;
                 o->fn_00(o);
             }

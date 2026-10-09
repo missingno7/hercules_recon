@@ -1,0 +1,237 @@
+/* Sequence screen 10 unit: handler 0x128e0 and helpers 0x12cc0, 0x12dc0.
+   One object: these functions share a private .bss block (scripts/unit_bounds.py), and the
+   alphabetical file order seq1, seq10, seq2 .. seq9 is the code order of the ten units. */
+#include "title_engine.h"
+#include "title_files.h"
+#include "title_screen.h"
+
+
+extern TitleObject *g_2ac04;
+extern TitleObject *g_2ac0c;
+extern TitleObject *g_2ac18;
+extern int g_2ac00;
+extern int g_2ac14;
+extern int g_2ac1c;
+extern int g_2ac20;
+extern int g_2ac24;
+extern int g_29f98;
+extern char g_29128[];
+void title_01dd0();
+void title_04b70(int c, int d);
+void title_04ea0(int a);
+void title_05e90(void (*fn)(void *), int n);
+void title_05f10(TitleProc *req);
+void title_09350(void *block);
+void title_0c330(void *p);
+void title_0c450(void **out, int size, int flags);
+void title_0c6d0(int a);
+void title_0c8b0(char *a0, int a1, int a2, int a3, int a4, int a5, int a6);
+int title_0c3f0(char *a, char *name, char *c, int d);
+void title_0c4f0(int a);
+void title_14790(void);
+void title_14860(void);
+void title_164b0(void *req);
+void title_16300(void);
+void title_1d790(int a);
+void title_01de0(int a0, int a1, int a2, int a3, int a4);
+extern TitleObject *g_2ab48;
+extern TitleObject *g_2ab54;
+extern TitleObject *g_2ab64;
+extern int g_2ab50;
+extern int g_2ab5c;
+extern int g_2ab60;
+extern int g_2ab68;
+extern int g_2ab6c;
+extern int g_2ab70;
+extern unsigned short g_25f50[];
+void title_12cc0(void);
+void title_12dc0(void);
+extern TitleObject *g_2ab78;
+extern TitleObject *g_2ab80;
+extern TitleObject *g_2ab98;
+extern TitleObject *g_2aba4;
+extern TitleObject *g_2abac;
+extern TitleObject *g_2abc0;
+extern int g_2ab4c;
+extern int g_2ab58;
+extern int g_2ab74;
+extern int g_2ab7c;
+extern int g_2ab84;
+extern int g_2ab9c;
+extern int g_2aba0;
+extern int g_2aba8;
+extern int g_2abb0;
+extern int g_2abc4;
+extern int g_2abcc;
+
+void title_128e0(TitleProc *self)
+{
+    void *handle;
+    short cursor_y = ((ScreenContext *)g_engine_interface.context_004)->cursor_5e;
+
+    switch (self->state_04) {
+    case 0xfffd:
+        title_05e90(title_164b0, 0);
+        title_05f10(self);
+        return;
+    case 0xfffe:
+        title_01dd0();
+        self->state_04 = 0xfffd;
+        self->delay_08 = 2;
+        return;
+    case 0xffff:
+        g_2ab5c = 0;
+        g_2ab68 = 0x0a;
+        g_2ab60 = 0;
+        g_2ab50 = 0x0f;
+        handle = 0;
+        title_0c450(&handle, 0x15000, 0);
+        title_01dd0(handle);
+        title_0c8b0((char *)handle + 0x312, 2, 0, 0x140, 0, 0xa0, 0x100);
+        title_0c6d0(0);
+        title_0c3f0(g_29128, g_sequence_files[TITLE_SEQ_SEQ10], (char *)handle, 0x14312);
+        title_01dd0(handle);
+        title_0c8b0((char *)handle + 0x312, 2, 0, 0x280, 0x100, 0xa0, 0x100);
+        title_0c6d0(0);
+        title_0c330(handle);
+        title_04b70(0x0f, 0);
+        title_12cc0();
+        title_1d790(1);
+        g_2ab6c = 0x80;
+        g_2ab70 = 0;
+        self->state_04 = 1;
+        self->delay_08 = 1;
+        return;
+    case 1:
+        title_05e90(title_164b0, 0);
+        break;
+    case 2:
+        switch (g_2ab68) {
+        case 0:
+            title_01de0(0x140, 0, g_2ab70, 3, 0);
+            title_1d790(0);
+            if (g_2ab70 < 0x80) {
+                g_2ab70 += 8;
+            }
+            break;
+        case 1:
+            title_0c4f0(1);
+            g_2ab68 = 2;
+            /* fall through */
+        case 2:
+            title_01de0(0x140, 0, g_2ab70, 3, 0);
+            title_1d790(0);
+            if (g_2ab70 > 0) {
+                g_2ab70 -= 8;
+            } else {
+                g_2ab68 = 3;
+            }
+            break;
+        case 11:
+            if (g_2ab48->unknown_04a < 0x80) {
+                g_2ab48->unknown_04a += 8;
+                g_2ab64->unknown_04a = g_2ab48->unknown_04a * 2;
+            }
+            /* fall through */
+        case 10:
+            title_01de0(0x280, 0x100, 0x80, 0, 0);
+            break;
+        case 12:
+            title_01de0(0x280, 0x100, g_2ab6c, 0, 0);
+            g_2ab54->unknown_04a = (unsigned short)g_2ab6c;
+            g_2ab48->unknown_04a = (unsigned short)g_2ab6c;
+            g_2ab64->unknown_04a = (unsigned short)(g_2ab6c * 2);
+            if (g_2ab6c > 0) {
+                g_2ab6c -= 8;
+            } else {
+                g_2ab54->unknown_054 &= 0x7fffffff;
+                g_2ab48->unknown_054 &= 0x7fffffff;
+                g_2ab68 = 0;
+            }
+            break;
+        default:
+            break;
+        }
+        title_12dc0();
+        if (g_2ab68 == 0x0c) {
+            if (g_2ab48 != 0) {
+                title_09350(g_2ab48);
+                g_2ab48 = 0;
+            }
+            if (g_2ab64 != 0) {
+                title_09350(g_2ab64);
+                g_2ab64 = 0;
+            }
+            if (g_2ab54 != 0) {
+                title_09350(g_2ab54);
+                g_2ab54 = 0;
+            }
+            title_04ea0(0x0f);
+            title_16300();
+            self->state_04 = 0xfffe;
+            self->delay_08 = 2;
+            return;
+        }
+        break;
+    default:
+        return;
+    }
+    self->state_04 = 2;
+    self->delay_08 = 1;
+}
+
+void title_12cc0(void)
+{
+    g_2ab48 = title_17ad0(0, 0, 0, 0x2016, 0);
+    g_2ab48->unknown_034 = 0x10;
+    g_2ab48->unknown_054 |= 5;
+    g_2ab48->unknown_04a = 0;
+    g_2ab64 = title_17ad0(0, 0, 0, 0x2016, 0);
+    g_2ab64->unknown_034 = 0x10;
+    g_2ab64->unknown_054 |= 6;
+    g_2ab64->unknown_04a = 0;
+    g_2ab48->unknown_023 = 6;
+    g_2ab48->unknown_03e = 0x0a;
+    g_2ab64->unknown_023 = 6;
+    g_2ab64->unknown_03e = 0x14;
+    g_2ab64->unknown_000 = 0x10000;
+    g_2ab64->unknown_004 = 0x10000;
+    g_2ab54 = title_17ad0(0, 0, 0, 0x2016, 0);
+    g_2ab54->unknown_034 = 1;
+    g_2ab54->unknown_000 = 0xff9c0000;
+    g_2ab54->unknown_004 = 0x280000;
+    g_2ab58 = 0;
+    g_2ab4c = 0;
+}
+
+void title_12dc0(void)
+{
+    g_2ab74 ^= 1;
+    if (g_2ab74 != 0) {
+        return;
+    }
+    switch (g_2ab58) {
+    case 0:
+        g_2ab54->unknown_034 = g_25f50[g_2ab4c];
+        g_2ab4c++;
+        if (g_25f50[g_2ab4c] == 0x0a && g_2ab68 == 0x0a) {
+            g_2ab68 = 0x0b;
+        }
+        if (g_25f50[g_2ab4c] == 0xffff) {
+            title_0c4f0(1);
+            g_engine_interface.context_004->unknown_1b30 = 4;
+            g_2ab58 = 1;
+        }
+        return;
+    case 1:
+        g_2ab54->unknown_034++;
+        if (g_2ab54->unknown_034 == 0x0f) {
+            g_2ab58 = 2;
+        }
+        return;
+    case 2:
+        g_2ab68 = 0x0c;
+        g_2ab58 = 3;
+        return;
+    }
+}

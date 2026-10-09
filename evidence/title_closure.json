@@ -284,6 +284,26 @@
    "measured": "Within one object, .bss order of C statics and C++ globals depends on the identifiers only: definition order and extra declarations do not change it, renaming one variable moves it.",
    "falsified_models": "additive, PJW, multiplicative (2..65599) and shift-xor hashes modulo 2..1099 and powers of two, on bare and underscore-decorated names (best 13/120 positions, chance level).",
    "consequence": "Reproducing a unit's .bss order needs the order function or names that satisfy it. The scheduler unit keeps 4 of its 6 variables at their original relative offsets. The others move, together with three 4-byte slots no code references (0x29e0c, 0x29e14, 0x29fa0), which are not invented."
+  },
+  "bss_intervals": {
+   "tool": "scripts/unit_bounds.py (C file statics in per-object .bss tie their users to one object; interleaving .bss ranges merge; DLL-wide shared C++ variables and unclear indexed bases excluded)",
+   "results": [
+    "0x1de0..0x28c0 is one object (its .bss blocks interleave)",
+    "0x2b70..0x48a0 is another (0x29590..0x29d94)",
+    "0x50b0..0x5c60 sound-effect unit; 0x5d60..0x5fb0 scheduler (as measured earlier)",
+    "ten sequence-screen units 0x12280..0x16230, each a handler and two helpers with a private .bss block",
+    "0x9980..0xf460 merges into one interval through variables whose definer language is unclear; not used"
+   ],
+   "exceptions": {
+    "0x2a244": "read by 0x5fb0 but placed after the 0x9a40 unit's block (definer exports it)",
+    "0x29c2c": "indexed access from 0xd910; base unknown"
+   }
+  },
+  "sequence_units": {
+   "evidence": "Handlers load SEQ1 (0x12280), SEQ10 (0x128e0), SEQ2 (0x12e90), SEQ3 .. SEQ9 (0x13500 .. 0x15cb0) from g_sequence_files. Code order SEQ1, SEQ10, SEQ2 .. SEQ9 is the alphabetical order of names seq1, seq10, seq2 .. seq9: consistent with an msdev link in alphabetical source-file order (blood2_recon measured that rule for its game).",
+   "canonical": "calibration/title/seq1.c .. seq10.c, one unit each (staged handler + helpers; 0x13ba0 and 0x15cb0 are still open). r12280, r128e0, r12cc0, r13500, r14120, r14ff0 are removed; r10ce0 and r16110 keep their other functions. All 28 moved rows stay masked equal.",
+   "types": "title_screen.h (ScreenContext, TitleObject) and title_proc.h. The handler argument is the scheduler's process record: fn_00 is the handler, state_04 its phase, delay_08 the countdown the scheduler decrements (handlers set 1 or 2), next_10 the list link. r10ce0's TitleSprite was the same TitleObject.",
+   "hypothesis": "alphabetical link order for the whole DLL; the original file names themselves"
   }
  }
 }
