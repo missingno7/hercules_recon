@@ -50,5 +50,15 @@
   "Extend runs with string-literal and constant-table owners to sharpen unit boundaries.",
   "Model communal ordering with a pinned-linker experiment on synthetic objects.",
   "Test whether candidate unit boundaries coincide with C/C++ language changes."
- ]
+ ],
+ "linker_probe": {
+  "tool": "python scripts/communal_probe.py (synthetic C objects, pinned RTM CL/LINK 5.00.7022, /OPT:NOREF)",
+  "rule": [
+   "Initialized definitions (.data) come first, in object order.",
+   "Communal (tentatively defined, uninitialized non-static) variables are grouped by the first object in link order that defines them; extern references do not own.",
+   "Groups are emitted in reverse link order (the last object's communals first).",
+   "Within a group, variables follow that object's symbol order (observed: first-use order in its code); arrays larger than a word are aligned (0x20 observed)."
+  ],
+  "title_check": "TITLE shared .bss tail (>= ~0x2b370) shows grouping by subsystem (e.g. 0x2bf2c-0x2bffc for the object/sprite code 0x85b0-0x9300 and 0x17ad0; 0x2c144-0x2c160 for 0x6480/0x6670). Ordering against first-referencing function is inconclusive (21/57 descending violations vs 24/57 ascending) because owners are defining objects, which references cannot identify. Supports grouping; reverse order neither confirmed nor refuted."
+ }
 }
