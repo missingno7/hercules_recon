@@ -17,16 +17,16 @@ PILOT_SOURCE = 'src/title/pilot.c'
 # Original CALL operand offsets and their independently decoded destination RVAs.
 # No bytes from this mapping or oracle enter compilation or an output executable.
 CONTROL = [
-    ('_title_4a10', 0x4a10, 48, [(16, '_title_4a40', 0x4a40),
-                               (26, '_title_4a40', 0x4a40)]),
-    ('_title_6430', 0x6430, 80, [(3, '_title_c610', 0xc610),
-                               (11, '_title_6480', 0x6480),
-                               (31, '_title_65a0', 0x65a0),
-                               (38, '_title_c600', 0xc600),
-                               (46, '_title_6530', 0x6530),
-                               (51, '_title_64f0', 0x64f0),
-                               (58, '_title_c620', 0xc620),
-                               (66, '_title_6480', 0x6480)]),
+    ('_title_04a10', 0x4a10, 48, [(16, '_title_04a40', 0x4a40),
+                                (26, '_title_04a40', 0x4a40)]),
+    ('_title_06430', 0x6430, 80, [(3, '_title_0c610', 0xc610),
+                                (11, '_title_06480', 0x6480),
+                                (31, '_title_065a0', 0x65a0),
+                                (38, '_title_0c600', 0xc600),
+                                (46, '_title_06530', 0x6530),
+                                (51, '_title_064f0', 0x64f0),
+                                (58, '_title_0c620', 0xc620),
+                                (66, '_title_06480', 0x6480)]),
 ]
 PILOT = [('_unlink_12c', 0x97b0, 64), ('_unlink_0e4', 0x98a0, 80),
          ('_make_colour', 0x189a0, 64), ('_sentinel_count', 0xcee0, 32)]
