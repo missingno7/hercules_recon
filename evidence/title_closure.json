@@ -59,7 +59,8 @@
    "Groups are emitted in reverse link order (the last object's communals first).",
    "Within a group, variables follow that object's symbol order (observed: first-use order in its code); arrays larger than a word are aligned (0x20 observed)."
   ],
-  "title_check": "TITLE shared .bss tail (>= ~0x2b370) shows grouping by subsystem (e.g. 0x2bf2c-0x2bffc for the object/sprite code 0x85b0-0x9300 and 0x17ad0; 0x2c144-0x2c160 for 0x6480/0x6670). Ordering against first-referencing function is inconclusive (21/57 descending violations vs 24/57 ascending) because owners are defining objects, which references cannot identify. Supports grouping; reverse order neither confirmed nor refuted."
+  "title_check": "TITLE shared .bss tail (>= ~0x2b370) shows grouping by subsystem (e.g. 0x2bf2c-0x2bffc for the object/sprite code 0x85b0-0x9300 and 0x17ad0; 0x2c144-0x2c160 for 0x6480/0x6670). Ordering against first-referencing function is inconclusive (21/57 descending violations vs 24/57 ascending) because owners are defining objects, which references cannot identify. Supports grouping; reverse order neither confirmed nor refuted.",
+  "cpp": "A C++ object's namespace-scope `int x;` (extern \"C\") is an ordinary per-object .bss definition, never communal; C statics are per-object definitions too. Communals therefore come only from C units. Per-object .bss precedes all communals. TITLE's object-system tables at 0x2bf2c-0x2bffc lie in the shared tail and are read by C++-only functions, so they are probably defined (tentatively) in a C unit such as the one containing 0x17ad0."
  },
  "oracle_data_ownership": {
   "tool": "python scripts/literal_owners.py [--all-data]  (base relocations in first-party code -> initialized .data, owner = containing span)",
@@ -135,5 +136,22 @@
    "0x6840/0x6a50": "memory-card file bu00:B-sces-00891"
   },
   "platform": "SCES-00891 is the PAL PlayStation product code for Hercules: TITLE code is ported from the PSX build (see docs/psx.md for PSX evidence)."
+ },
+ "language_map": {
+  "method": "All 32 C region files were made valid C++ with minimal meaning-preserving edits (extern \"C\" wrap, casts from void*, explicit prototypes) and every function re-checked; plus the earlier C++-only results.",
+  "result": "262 of 264 C-region functions are masked equal under both front ends: most code does not discriminate.",
+  "c_only": {
+   "0x47a0": "falls off the end of a non-void function; C++ rejects it (C2202) and the explicit return differs by 4 bytes",
+   "0x65e0": "constant strcpy/strcat lowered to immediate stores only by the C front end (132 bytes as C++)",
+   "0x17bf0": "51 bytes as C++ with identical source; casts ruled out"
+  },
+  "cpp_only": {
+   "0x8a50": "global table as SIB base (4 bytes as C)",
+   "0x8ed0": "(2 bytes as C)",
+   "0x92e0": "(2 bytes as C)",
+   "0x18a90": "(3 bytes as C)",
+   "0x66f0": "near miss: 10 bytes as C++, 104 as C"
+  },
+  "boundaries": "Implied unit changes: between 0x65e0 (C) and 0x66f0 (C++ candidate); somewhere in 0x66f0..0x8a50 or within the C++ object-system range 0x85d0..0x92e0; between 0x92e0 (C++) and 0x17bf0 (C); between 0x17bf0 (C) and 0x18a90 (C++). Consistent with the data-ownership run starts 0x65e0 and 0x16470."
  }
 }

@@ -16,6 +16,8 @@ SOURCES = {
     'b.c': 'extern int zeta;\nint beta[8]; int gamma;\nint delta = 5;\nint fb(void) { return zeta + beta[2] + gamma + delta; }\n',
     'c.c': 'int aaa_first; int alpha;\nint epsilon[100];\nint fc(void) { return aaa_first + alpha + epsilon[3]; }\n'
            'int __stdcall DllMain(void *h, unsigned long r, void *p) { return 1; }\n',
+    'd.cpp': 'extern "C" { int cpp_one; int cpp_two[16]; static int cpp_static;\n'
+             'int fd(void) { return cpp_one + cpp_two[1] + cpp_static; } }\n',
 }
 work = Path(tempfile.mkdtemp(prefix='communal-', dir=ROOT / 'work'))
 env = dict(os.environ, PATH=str(RTM / 'bin') + os.pathsep + os.environ['PATH'], INCLUDE=str(RTM / 'include'),
@@ -24,7 +26,15 @@ for name, text in SOURCES.items():
     (work / name).write_text(text)
     subprocess.run([str(RTM / 'bin/cl.exe'), '/nologo', '/c', '/O2', '/Gy', name], cwd=work, env=env, check=True,
                    capture_output=True)
-for order in (['a', 'b', 'c'], ['c', 'b', 'a']):
+    # COFF storage class of each data symbol: communal (external, section 0, value = size) vs defined.
+    import sys
+    sys.path.insert(0, str(ROOT / 'scripts'))
+    from coff import COFF
+    obj = COFF(work / (Path(name).stem + '.obj'))
+    kinds = {s['name']: ('communal' if s['section'] == 0 and s['value'] else 'defined' if s['section'] > 0 else 'extern')
+             for s in obj.symbols.values() if s['storage'] in (2, 3) and not s['type'] & 0x20 and s['name'].startswith('_')}
+    print(name, {k: v for k, v in kinds.items() if not k.startswith('_f')})
+for order in (['a', 'b', 'c'], ['c', 'b', 'a'], ['a', 'd', 'b', 'c'], ['d', 'a', 'b', 'c']):
     out = f'probe_{"".join(order)}'
     r = subprocess.run([str(RTM / 'bin/link.exe'), '/nologo', '/DLL', '/NOENTRY', '/NODEFAULTLIB', '/INCREMENTAL:NO', '/OPT:NOREF',
                         f'/OUT:{out}.dll', f'/MAP:{out}.map'] + [f'{o}.obj' for o in order],
