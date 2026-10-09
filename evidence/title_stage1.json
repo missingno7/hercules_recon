@@ -93,12 +93,12 @@
   "0x1300": 0,
   "0x16f0": 0,
   "0x1a70": null,
-  "0x1de0": 361,
+  "0x1de0": 33,
   "0x2090": 32,
   "0x23c0": 294,
   "0x25c0": null,
   "0x2860": 41,
-  "0x28c0": 88,
+  "0x28c0": 8,
   "0x2b70": 193,
   "0x2dc0": 260,
   "0x3050": 0,
@@ -260,5 +260,6 @@
   "results": "0x13ba0 masked equal with case 1 writing its own tail and return (as seq1 does); 0x3050 masked equal with v1 = v2 = expr (one fewer v1 reference). 0x9a40/0xa020 are scratch-register rotations (eax->edx->ecx carried across cases, mod 3 temporaries), not callee-saved; re-entry: find the source form in cases 7/2 that changes the temporary count by one.",
   "R6_refined": "Weights are counted before tail merging and a reference in a common tail weighs more than the same reference repeated inside switch cases (0x10670: four out stores in the common tail move out from 4th to 2nd rank; seven are needed inside one case). Constant weights depend on the pointer they are stored through. Leaf functions also rank scratch registers (eax, ecx, edx, esi, edi, ebx); references folded into a shared address temporary do not count for the index variable (0xcd30). Main lever for screen-handler parameter roles: per-case tails versus one common tail. 0x102f0 gets the original roles with the common-tail form (604 -> 365 bytes; structural residue remains). 0x18b20 (14) is scratch allocation/scheduling, not callee-saved; 0x3100 (648) still ranks stream below cell and gives flags no callee-saved register.",
   "screen_handlers": "0x102f0, 0x109f0, 0x16f0 masked equal with one form: the inner cases break to a tail written inside case 1, while 0xffff breaks to the outer tail. The two uses of the constant 1 then have separate live ranges, so each path loads its register where the original does. All-common-tail and all-own-tail forms each miss (365/439/578 vs 277 bytes). The B6 blocker for this family is resolved."
- }
+ },
+ "B1_update_2026_10_09": "Worker wb1 (unit 0x1de0..0x2a80; records are PSX SPRT/POLY_F4/DR_TPAGE; title_0c650 = AddPrim(&g_2cc04->ot[depth], p)): 0x28c0 88 -> 8, 0x1de0 361 -> 33, 0x2090 32; all residue is now B1 at the AddPrim sites. In C the add's destination follows declaration order: the later-declared symbol becomes the left operand, and compiler CSE temporaries are latest, so the offset temporary wins against the file-scope global (a block-scope extern or a local copy of the global declared after the offset flips it, but neither is proposed as natural source). In C++ small functions keep the global as destination but flip past a store-count threshold. Diagnosis: B1 is a liveness question for the global-load register. Re-entry: a source form where that temporary dies at the add in a large function, tested first on the C++ threshold probe candidates/wb1/s11.cpp."
 }
