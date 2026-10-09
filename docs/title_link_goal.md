@@ -155,6 +155,24 @@ these arrays instead of 16 per-entry pseudo-globals. Evidence is in `evidence/ti
 `scripts/title_link.py` links in code order. It reports natural function RVAs, section sizes and
 each data unit's placement and linked bytes. The forced image used for layout is never accepted.
 
+## Unit boundaries from data order (2026-10-09)
+
+Per object, LINK emits ordinary data first and the object's literals last. So a literal block
+ends an object, and per-object .bss blocks follow link order. `scripts/object_map.py` segments
+.data this way. It can't see data that no code references, so its segments are leads.
+
+The measured boundaries are recorded in `evidence/title_closure.json` (`units`):
+
+- **After 0x5c60.** The sound-effect unit's .bss and literals end here.
+- **0x5cc0 to 0x6350 is a C++ process scheduler (`title_proc.cpp`).** Two of its .bss variables
+  are read across the whole DLL. Only 2 of 525 per-object .bss addresses are shared like that,
+  and a C unit could provide them only as communals. The unit defines its six used variables.
+- **From 0x6350 is a C unit (`u06350.c`, 0x65e0 is C-only).** It reaches at least to 0x6a50.
+
+Rule measured along the way: within one object, the .bss order of C statics and C++ globals
+follows the identifiers only, by a function not yet identified. The scheduler keeps 4 of its 6
+variables at their original relative offsets. Three unreferenced 4-byte slots are not invented.
+
 ## Preliminary closure (stage 2 groundwork)
 
 `scripts/closure.py` maps the data addresses implied by masked rows back to their functions.
