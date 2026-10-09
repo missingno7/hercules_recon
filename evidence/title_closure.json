@@ -338,5 +338,11 @@
   "owner_hypothesis": "The DLL-wide group sits where an object linked between the sound unit and the 0x6350 unit places its communals. The scheduler is C++ (no communals), so the C file-name data unit title_files.c is the natural owner (a globals file). Not yet integrated.",
   "order_probe": "Tentative definitions of that group in address order, linked alone: 1/14 at original relative offsets. Communal order inside a group is name-dependent like statics and C++ globals."
  },
- "layout_blocker_L1": "Within one object, the order of statics, C++ globals and communals follows an unrecovered function of the identifiers (bucket-like: single letters ascending, digit names ~h*4+c, random names near chance under shift/xor/multiply/truncation models). Ownership and object order can be reproduced now; in-object order needs this function. Leads: read-only analysis of the compiler symbol table code (c1.dll), or a name policy decision. Lead (read-only analysis of the pinned toolchain, 2026-10-09): c1.dll interns identifiers with h = h*4 + (h >> 4) + c (copy-and-hash loops at 0x1060a47b/0x1060a4a6, then lookup 0x10609733). Sorting by h mod 1024 with later-defined names first matches 105/200 probe positions, so emission order depends on more than this bucket (symbol numbering or the back end). Scripts: candidates/bss (scratch)."
+ "layout_blocker_L1": {
+  "status": "rule recovered 2026-10-09 (technical); applying it to names is a policy decision",
+  "rule": "Within one object VC5 lays out file statics, C++ globals and C communals by ascending bucket of a 1024-entry identifier hash, later-defined name first within a bucket. h = (h >> 4) + 4*h + c over the identifier (the c1.dll interning hash, loop at 0x1060a47b); bucket = (h ^ (h >> 16)) & 0x3ff. scripts/symbol_order.py.",
+  "validation": "Exact on 120 random names, 40 digit names, a 40-name mixed set (C statics), a 7-name C++ global set and a 14-variable C communal group; tests/test_symbol_order.py.",
+  "how_found": "Names up to six characters sorted by h mod 1024; the 50 longer names fell inside the windows of their short neighbours only with the h ^ (h >> 16) fold.",
+  "consequence": "In-object order is a pure function of the identifiers. The original order constrains the original names (bucket order along addresses); reproducing layout with chosen names awaits a project-owner decision on name policy."
+ }
 }
