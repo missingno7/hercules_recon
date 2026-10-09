@@ -167,5 +167,14 @@
    "0x1a180": 7
   },
   "conclusion": "In-context, declarations-only and standalone differences are identical for all seven; every region function stayed masked equal. File context does not explain these residues (unlike ENG1 0x2a520)."
+ },
+ "first_attempts_large": {
+  "date": "2026-10-09",
+  "result": {
+   "0x54f0 (LinkedSoundFx, 1408 bytes, 117 callers)": "control flow complete; 973 bytes differ; register roles from the prologue (B6 family); C++ identical",
+   "0x10fe0 (LSGameMemoryCardLoop, 4240 bytes)": "14-state machine and 6 jump tables complete; 2708 bytes differ, 128 bytes long; B6 constants plus block layout; C++ identical"
+  },
+  "decision": "Not launching the remaining never-attempted 1.6-7.4 KB functions (0xa450, 0xd910, 0x1c500, 0xf460, 0x9c90) until B6 has a re-entry: both first attempts reached complete control flow and stopped on the same allocation blocker.",
+  "drafts": "candidates/title-n1/f_54f0.c, candidates/title-n2/f_10fe0.c (ignored scratch; starting points)"
  }
 }

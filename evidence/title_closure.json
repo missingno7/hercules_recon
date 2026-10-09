@@ -168,5 +168,11 @@
    ],
    "limits": "Shows the members are compatible as one unit; does not prove the original file boundaries, member set (several functions in the range are unreconstructed), declaration order, or link layout."
   }
+ ],
+ "open_conflicts": [
+  {
+   "table": "64-byte records near 0x2cca0",
+   "detail": "Staged 0x5080 (r04d80.c) models the table as g_2cca8 with an id at +0; the 0x54f0 draft writes an index word at 0x2cca8+64k and dwords at 0x2cca0+64k, implying the record base is 0x2cca0 (index at +8). One object start must be chosen before data closure; the symbol check cannot see it without the object extent."
+  }
  ]
 }
