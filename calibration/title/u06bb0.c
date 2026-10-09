@@ -1,24 +1,8 @@
 #include <string.h>
 #include <io.h>
 #include "title_engine.h"
+#include "title_screen.h"
 #include "title_files.h"
-
-typedef struct TitleObject {
-    long unknown_000;
-    long unknown_004;
-    unsigned char unknown_008[0x23 - 0x08];
-    unsigned char unknown_023;
-    unsigned char unknown_024[0x34 - 0x24];
-    unsigned short unknown_034;
-    unsigned char unknown_036[0x3e - 0x36];
-    unsigned short unknown_03e;
-    unsigned char unknown_040[0x4a - 0x40];
-    unsigned short unknown_04a;
-    unsigned char unknown_04c[0x54 - 0x4c];
-    unsigned long unknown_054;
-    unsigned char unknown_058[0x74 - 0x58];
-    unsigned short unknown_074;
-} TitleObject;
 
 extern TitleObject *g_29e08;
 extern TitleObject *g_29ff4;

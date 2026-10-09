@@ -1,13 +1,5 @@
-/* Lane w07 region: MASKED EQUAL candidates in ascending RVA order (scratch). */
+/* TITLE region 0x4d80..0x5c60 (sound-effect unit and its neighbours), ascending RVA. */
 #include <string.h>
-/* Lane w07 extra declarations (scratch). */
-#ifndef TITLE_W07_COMMON2_H
-#define TITLE_W07_COMMON2_H
-
-/* Lane w07 shared declarations (scratch). */
-#ifndef TITLE_W07_COMMON_H
-#define TITLE_W07_COMMON_H
-
 #include "title_engine.h"
 
 typedef struct TitleSlot {
@@ -41,13 +33,6 @@ typedef struct TitleCtxView {
 
 extern int g_22148;
 extern TitleSlot g_26110[];
-extern TitleSlot *g_2d324;
-extern int g_29d98;
-extern int g_29d9c;
-extern char g_2214c[];
-extern char g_2215c[];
-
-#endif
 
 typedef struct TitleRec64 {
     unsigned long unknown_00;
@@ -62,52 +47,10 @@ typedef struct TitleRec64 {
     void *ptr_3c;
 } TitleRec64;
 
-typedef struct TitleObj TitleObj;
-struct TitleObj {
-    void (*fn_00)(void *);
-    unsigned long unknown_04;
-    long refs_08;
-    unsigned long unknown_0c;
-    TitleObj *next_10;
-    unsigned long unknown_14;
-};
-
-extern int g_29fa4;
 extern TitleRec64 g_2cca0[24];
-extern unsigned long g_29e18[];
-extern unsigned long g_29f9c;
-extern unsigned long g_29e10;
-extern TitleObj *g_2cc20[];
-
 
 static unsigned long g_29dac;
 static unsigned long g_29db8;
-
-extern char g_29f98[];
-
-extern char g_23318[];
-extern char g_23300[];
-extern char g_232ec[];
-
-extern char g_221f8[];
-
-typedef struct TitleCursor {
-    int pos_00;
-    int pos_04;
-    unsigned char unknown_08[0x34 - 8];
-    short off_34;
-    unsigned char unknown_36[0x54 - 0x36];
-    unsigned char flags_54;
-} TitleCursor;
-
-extern TitleCursor *g_29e08;
-extern int g_2cc60;
-extern int g_2cc68;
-
-extern char g_221dc[];
-
-#endif
-
 
 /* ---- f_4d80 ---- */
 
@@ -233,7 +176,6 @@ void title_04f40(const unsigned char *a, const unsigned char *b)
 }
 
 /* ---- f_5080 ---- */
-
 
 int title_05080(int id)
 {

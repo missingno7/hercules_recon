@@ -1,19 +1,6 @@
 #include "title_engine.h"
+#include "title_screen.h"
 
-typedef struct TitleObj {
-    unsigned char unknown_000[0x50];
-    unsigned long flags_050;
-    unsigned long flags_054;
-    void *ptr_058;
-    struct TitleObj *ptr_05c;
-    void *ptr_060;
-    unsigned long unknown_064;
-    unsigned long unknown_068;
-    void *ptr_06c;
-    unsigned char unknown_070[0x12c - 0x70];
-    unsigned long unknown_12c;
-    unsigned long unknown_130;
-} TitleObj;
 typedef struct TitleCtx {
     unsigned char unknown_000[6];
     unsigned char state_006;
@@ -107,9 +94,9 @@ static int g_2a1e0;
 static int g_2a1e8;
 static int g_2a208;
 static int g_2a220;
-void title_05a70(TitleObj *p);
-void title_09350(TitleObj *p);
-void unlink_12c(TitleObj *p);
+void title_05a70(TitleObject *p);
+void title_09350(TitleObject *p);
+void unlink_12c(TitleObject *p);
 void title_0ca30(void);
 void title_1d770(void);
 void title_0c9c0(int a, int b);

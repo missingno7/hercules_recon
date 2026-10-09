@@ -1,30 +1,7 @@
 /* TITLE.DLL lane w21 region: 7 functions that reached MASKED EQUAL, ascending RVA.
  * Shared types, externs and prototypes first. Field names are offsets, not recovered types. */
 #include "title_engine.h"
-
-typedef struct TitleObject {
-    unsigned long unknown_000;
-    unsigned long unknown_004;
-    unsigned char unknown_008[0x00c - 0x008];
-    unsigned char unknown_00c[0x01f - 0x00c];
-    unsigned char unknown_01f;
-    unsigned char unknown_020[0x023 - 0x020];
-    unsigned char unknown_023;
-    unsigned char unknown_024[0x034 - 0x024];
-    unsigned short unknown_034;
-    unsigned char unknown_036[0x03e - 0x036];
-    unsigned short unknown_03e;
-    unsigned char unknown_040[0x04a - 0x040];
-    unsigned short unknown_04a;
-    unsigned char unknown_04c[0x054 - 0x04c];
-    unsigned long unknown_054;
-    unsigned char unknown_058[0x070 - 0x058];
-    unsigned short unknown_070;
-    unsigned short unknown_072;
-    unsigned short unknown_074;
-    unsigned char unknown_076[0x120 - 0x076];
-    int *unknown_120;
-} TitleObject;
+#include "title_screen.h"
 
 typedef struct TitleVtable8 {
     void (*fn)(void *obj);

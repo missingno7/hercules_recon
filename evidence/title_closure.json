@@ -432,5 +432,11 @@
   "change": "calibration/title/title_gpu.h defines TitleRect, TitleDrawEnv, TitleDispEnv and TitleBuffer and declares g_2cc04/g_2cc08 as TitleBuffer *. r1c430.c (TitleBlock), r02a80.c (TitleView), r04610.c (char *), r16110.c and title_proc.cpp (int) now use it; r03d10.c, seq9.c and r04d80.c drop unused declarations. All 37 affected rows stay masked equal (0x2cc0 needs the slot address minus the byte depth offset, as the original int arithmetic did).",
   "exception": "r17ad0.c keeps its two unused int declarations: 0x17bf0 is TU-count sensitive and both removing them and including the header change it (51 bytes). Its real header set is unknown, so no count is chosen to match.",
   "hypothesis": "Record and field names (PSX libgpu names, not recovered identifiers); the 8 bytes at +0x1470."
+ },
+ "object_record": {
+  "date": "2026-10-09",
+  "finding": "Eleven per-file views of the display/actor object (TitleObject, TitleObj, Actor) describe one 0x134-byte record: the pool is allocated as 0x134 * count (0x1d380), and the views agree at every shared offset except signedness at +0x074 (short in two views) and +0x000/+0x004 (unsigned long in three).",
+  "change": "title_screen.h TitleObject is now the union of the users' members (signed x/y as required by 0x6fb0, unsigned short +0x074, +0x068 a TitleObject pointer). r01000, r16110, u06bb0, u197f0 (also its private ScreenContext), r03d10, r097f0, u09a40, u0c1f0 and r02a80 use it; all 157 of their rows stay masked equal, so the conflicting signedness was not load-bearing. r04d80.c drops 19 unused leftover declarations, a process-record view and an object view.",
+  "not_yet": "r17ad0.c (0x17bf0 is TU-count sensitive), u17cb0.cpp and u08140.cpp (C++, count-sensitive; workers use them as context) keep private views for now. seq1/r10ce0/u0ff70 TitleObj is a different 0x3c-byte record."
  }
 }

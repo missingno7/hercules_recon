@@ -1,21 +1,7 @@
 /* TITLE.DLL lane w12 region: functions that reached MASKED EQUAL, ascending RVA.
  * Shared engine include, struct views, externs and prototypes first. */
 #include "title_engine.h"
-
-typedef struct TitleObj {
-    unsigned char unknown_000[0x50];
-    unsigned long flags_050;
-    unsigned long flags_054;
-    void *ptr_058;
-    struct TitleObj *ptr_05c;
-    void *ptr_060;
-    unsigned long unknown_064;
-    unsigned long unknown_068;
-    void *ptr_06c;
-    unsigned char unknown_070[0x12c - 0x70];
-    unsigned long unknown_12c;
-    unsigned long unknown_130;
-} TitleObj;
+#include "title_screen.h"
 
 typedef struct TitleCtx {
     unsigned char unknown_000[6];
@@ -81,9 +67,9 @@ extern int g_2a1e8;
 extern int g_2a208;
 extern int g_2a220;
 
-void title_05a70(TitleObj *p);
-void title_09350(TitleObj *p);
-void unlink_12c(TitleObj *p);
+void title_05a70(TitleObject *p);
+void title_09350(TitleObject *p);
+void unlink_12c(TitleObject *p);
 void title_0ca30(void);
 void title_1d770(void);
 void title_0c9c0(int a, int b);
@@ -95,43 +81,43 @@ void title_0a020(void);
 void title_01de0(int a, int b, int c, int d, int e);
 void title_02090(int a, int b, int c, int d, int e, int f, int g, int h);
 
-void title_097f0(TitleObj *p)
+void title_097f0(TitleObject *p)
 {
-    TitleObj *q = p->ptr_05c;
+    TitleObject *q = p->unknown_05c;
 
-    if (q && !(p->flags_050 & 0x20000)) {
-        if (p->flags_050 & 0x10000)
+    if (q && !(p->unknown_050 & 0x20000)) {
+        if (p->unknown_050 & 0x10000)
             p = q;
-        p->ptr_05c = 0;
-        if (q->flags_050 & 0x10000)
+        p->unknown_05c = 0;
+        if (q->unknown_050 & 0x10000)
             title_09350(q);
     }
 }
 
-void title_09830(TitleObj *p)
+void title_09830(TitleObject *p)
 {
-    void *q = p->ptr_060;
+    void *q = p->unknown_060;
 
-    if (q && !(p->flags_050 & 0x40000000)) {
-        p->flags_054 &= 0xff7fffff;
-        p->ptr_060 = 0;
+    if (q && !(p->unknown_050 & 0x40000000)) {
+        p->unknown_054 &= 0xff7fffff;
+        p->unknown_060 = 0;
         title_09350(q);
     }
 }
 
-void title_09870(TitleObj *p)
+void title_09870(TitleObject *p)
 {
-    if (!(p->flags_050 & 0x10000000)) {
-        if (p->ptr_06c) {
-            p->ptr_06c = 0;
+    if (!(p->unknown_050 & 0x10000000)) {
+        if (p->unknown_06c) {
+            p->unknown_06c = 0;
             title_05a70(p);
         }
     }
 }
 
-void title_098f0(TitleObj *p)
+void title_098f0(TitleObject *p)
 {
-    p->flags_054 &= 0x7fffffff;
+    p->unknown_054 &= 0x7fffffff;
     unlink_12c(p);
     p->unknown_12c = 0;
     p->unknown_130 = 0;

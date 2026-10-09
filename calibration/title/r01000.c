@@ -1,21 +1,7 @@
 /* TITLE.DLL lane w01 region: 0x1000, 0x11f0, 0x16e0 (ascending). Shared types and externs first.
  * Layouts agree with every function in this file; 0x1300 is not part of this region (see result.json). */
 #include "title_engine.h"
-
-typedef struct TitleObject {
-    unsigned long unknown_000;
-    unsigned long unknown_004;
-    unsigned char unknown_008[0x23 - 0x08];
-    unsigned char unknown_023;
-    unsigned char unknown_024[0x34 - 0x24];
-    unsigned short unknown_034;
-    unsigned char unknown_036[0x3e - 0x36];
-    unsigned short unknown_03e;
-    unsigned char unknown_040[0x4a - 0x40];
-    unsigned short unknown_04a;
-    unsigned char unknown_04c[0x54 - 0x4c];
-    unsigned long unknown_054;
-} TitleObject;
+#include "title_screen.h"
 
 typedef struct TitleContextView {
     unsigned char byte_000;

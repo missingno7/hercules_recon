@@ -2,28 +2,7 @@
    block (scripts/unit_bounds.py). Declarations unified from six region files; title_0c4a0 is
    unsigned here because callers compare its result unsigned. */
 #include "title_engine.h"
-
-typedef struct TitleObject {
-    long unknown_000;
-    long unknown_004;
-    long unknown_008;
-    unsigned char unknown_00c[0x23 - 0x0c];
-    unsigned char unknown_023;
-    unsigned char unknown_024[0x34 - 0x24];
-    unsigned short unknown_034;
-    unsigned char unknown_036[0x3e - 0x36];
-    unsigned short unknown_03e;
-    unsigned char unknown_040[0x4a - 0x40];
-    unsigned short unknown_04a;
-    unsigned char unknown_04c[0x54 - 0x4c];
-    unsigned long unknown_054;
-    unsigned char unknown_058[0x74 - 0x58];
-    unsigned short unknown_074;
-} TitleObject;
-
-typedef struct ScreenContext {
-    unsigned char unknown_00[0x5c];
-} ScreenContext;
+#include "title_screen.h"
 
 struct title_pos {
     short x;

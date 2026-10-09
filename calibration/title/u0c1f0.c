@@ -3,23 +3,10 @@
    (private .bss) starts at 0xcc90. Its link position matches the tail group of g_engine_interface,
    so the interface record is tentatively defined here (a C communal, 1000 bytes). */
 #include "title_engine.h"
+#include "title_screen.h"
 
 TitleEngineInterface g_engine_interface;  /* copied in by PC_DLLEngineMain */
 
-typedef struct TitleObj {
-    unsigned char unknown_000[0x50];
-    unsigned long flags_050;
-    unsigned long flags_054;
-    void *ptr_058;
-    struct TitleObj *ptr_05c;
-    void *ptr_060;
-    unsigned long unknown_064;
-    unsigned long unknown_068;
-    void *ptr_06c;
-    unsigned char unknown_070[0x12c - 0x70];
-    unsigned long unknown_12c;
-    unsigned long unknown_130;
-} TitleObj;
 typedef struct TitleCtx {
     unsigned char unknown_000[6];
     unsigned char state_006;
@@ -62,9 +49,9 @@ extern int g_2a1e0;
 extern int g_2a1e8;
 extern int g_2a208;
 extern int g_2a220;
-void title_05a70(TitleObj *p);
-void title_09350(TitleObj *p);
-void unlink_12c(TitleObj *p);
+void title_05a70(TitleObject *p);
+void title_09350(TitleObject *p);
+void unlink_12c(TitleObject *p);
 void title_0ca30(void);
 void title_1d770(void);
 void title_0c9c0(int a, int b);
@@ -75,13 +62,13 @@ void title_09c90(void);
 void title_0a020(void);
 void title_01de0(int a, int b, int c, int d, int e);
 void title_02090(int a, int b, int c, int d, int e, int f, int g, int h);
-extern TitleObj *g_2a38c;
-extern TitleObj *g_2a3a4;
-extern TitleObj *g_2a264;
-extern TitleObj *g_2a278;
-extern TitleObj *g_2a27c;
-extern TitleObj *g_2a280;
-extern TitleObj *g_2a274;
+extern TitleObject *g_2a38c;
+extern TitleObject *g_2a3a4;
+extern TitleObject *g_2a264;
+extern TitleObject *g_2a278;
+extern TitleObject *g_2a27c;
+extern TitleObject *g_2a280;
+extern TitleObject *g_2a274;
 extern int g_2a254;
 extern int g_25a28;
 extern int g_2a288[64];
