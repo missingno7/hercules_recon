@@ -1,3 +1,9 @@
+/* TITLE memory-card unit 0x6350.. (C). TU-context hypothesis (owner-approved ruling 2026-10-09, decided per
+   unit): compiled with WIN32_LEAN_AND_MEAN <windows.h> first. Measured: the card-header builder 0x66f0 matches
+   in address order only with it (without: one base/index pair flips, 2 bytes; full <windows.h>: 94 bytes);
+   every other row of the unit is unchanged. A hypothesis about the translation unit, not proven source. */
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
 #include <string.h>
 #include <io.h>
 #include "title_engine.h"
@@ -199,6 +205,40 @@ void title_066e0(void)
     title_0c730((int)"bu00:");
 }
 
+void title_066f0(CardHeader *header, int blank)
+{
+    unsigned short title[32] = {
+        0xe181, 0x6782, 0x6482, 0x7182, 0x6282, 0x7482, 0x6b82, 0x6482,
+        0x7282, 0xe281, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081,
+        0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081,
+        0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081
+    };
+    int i, row, column;
+    unsigned char *source, *pixel;
+
+    header->magic[0] = 'S';
+    header->magic[1] = 'C';
+    header->icon_flag = 0x11;
+    header->block_count = 1;
+    for (i = 0; i < 0x1c; i++)
+        header->reserved[i] = 0;
+    for (i = 0; i < 16; i++)
+        header->clut[i] = g_23368[i];
+    memcpy(header->title, title, sizeof(title));
+    source = g_23389;
+    for (row = 0; row < 16; row++) {
+        column = 0;
+        pixel = source;
+        source += 16;
+        for (; column < 8; pixel += 2, column++) {
+            if (blank != 0)
+                header->icon[row][column] = 0;
+            else
+                header->icon[row][column] = (*pixel << 4) | pixel[-1];
+        }
+    }
+}
+
 int title_06840(char a1, const void *a2, int a3, int a4, int a5)
 {
     char path[0x100];
@@ -308,38 +348,4 @@ int title_06a50(char a1, void *a2, int a3)
     _close(fd);
     memcpy(a2, (char *)load_image + 0x200, a3);
     return 8;
-}
-
-void title_066f0(CardHeader *header, int blank)
-{
-    unsigned short title[32] = {
-        0xe181, 0x6782, 0x6482, 0x7182, 0x6282, 0x7482, 0x6b82, 0x6482,
-        0x7282, 0xe281, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081,
-        0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081,
-        0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081
-    };
-    int i, row, column;
-    unsigned char *source, *pixel;
-
-    header->magic[0] = 'S';
-    header->magic[1] = 'C';
-    header->icon_flag = 0x11;
-    header->block_count = 1;
-    for (i = 0; i < 0x1c; i++)
-        header->reserved[i] = 0;
-    for (i = 0; i < 16; i++)
-        header->clut[i] = g_23368[i];
-    memcpy(header->title, title, sizeof(title));
-    source = g_23389;
-    for (row = 0; row < 16; row++) {
-        column = 0;
-        pixel = source;
-        source += 16;
-        for (; column < 8; pixel += 2, column++) {
-            if (blank != 0)
-                header->icon[row][column] = 0;
-            else
-                header->icon[row][column] = (*pixel << 4) | pixel[-1];
-        }
-    }
 }
