@@ -167,7 +167,8 @@
   "0x9c90": 271,
   "0xa450": 6,
   "0xd910": 40,
-  "0x193e0": 44
+  "0x193e0": 44,
+  "0x1b150": 306
  },
  "tooling": [
   "scripts/masked.py",
@@ -330,5 +331,11 @@
   },
   "count_sensitivity": "0x3740 is count-sensitive in the C unit (12-27 extra extern declarations: 101 -> 109 standalone; 530 -> 560 masked bytes inside the combined unit).",
   "reopen": "only with a new discriminator, e.g. one source style that yields the original roles in all four functions at once."
+ },
+ "near_miss_1b150": {
+  "date": "2026-10-09",
+  "context": "candidates/w1b150/u197f0_b.c: canonical u197f0.c plus the draft (candidates/lead/f1b150.cpp) as C before 0x1b710, with seven new unit statics g_2ae88[8], g_2b018[8], g_2b038[8], g_2b068[8], g_2b138[8], g_2b158[8], g_2b320 (used only by 0x1b150 and 0x1c500) and a context view with the player mask at +0x1c.",
+  "residue": "One instruction: case 13 stores g_2b068[k] = v (v = 0x3c, step -4, while v > 0x1c) with a byte-offset induction variable in the original (xor eax,eax; mov [eax+g_2b068],edx; add eax,4), ours folds the base into a pointer (mov eax,offset g_2b068; mov [eax],edx). The 306 masked bytes are the 1-byte shift of everything after it. The original form is unique in TITLE.",
+  "tested_no_effect": "extern/unsized/struct-member/2-D declarations, post-increment, for/do forms, unsigned/short k, k used after the loop, initialisation order; char k breaks the function."
  }
 }
