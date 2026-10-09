@@ -142,7 +142,7 @@
   "0x17cb0": 0,
   "0x17f50": 385,
   "0x181e0": 620,
-  "0x184c0": 177,
+  "0x184c0": 157,
   "0x18600": 0,
   "0x186e0": 499,
   "0x18b20": 14,
@@ -345,5 +345,6 @@
   "quad0": "Original quad-0 cascade assigns before testing: slot=0; bits=1; test 1 -> common or; bits=2, slot=1; test 2 -> common; bits=4, slot=2; test 4 -> common; else own block bits=8, slot=3 with its own or + jmp found. The 9/1 block falls into the common or.",
   "next": "Lane task: reshape the loop and hit paths (labelled blocks after the loop, or an if-chain whose assignments precede the tests) and re-measure; then the register residue (RLE source pointer vs cur/pos for ebx).",
   "layout_lever": "A goto-built search loop (i = 0; if (i < cnt) { next: ... if (++i < cnt) goto next; } goto miss;) reproduces the original unrotated latch (cmp; jge miss; jmp top) and inline hit blocks: 888 -> 843 with the assign-before-test quad-0 cascade (candidates/w3da0/v_gloop.c). Moving the hit blocks after a for loop as labels alone changes nothing; the for loop is rotated regardless. Register roles remain (lane w3da0b). Not a general lever: for 0x1b150 a goto loop peels the first iteration (worse)."
- }
+ },
+ "diag_184c0_2026_10_09": "Clip test: the original hoists sx = scale into ecx before the mode == 1 branch (then-path lea ecx,[eax+eax]); ours ranks sx into esi, which blocks the hoist because o is still live in esi on that path. Best: sx = (mode == 1) ? scale * 2 : scale after a separate y update (177 -> 157, candidates/w184c0/v_tern.cpp; the compare is repeated). No effect or worse: sx = scale before the if (227), duplicated multiplies per branch (285), scale *= 2 (309), register / block-scoped sx (177/227)."
 }
