@@ -7,48 +7,6 @@
 
 TitleEngineInterface g_engine_interface;  /* copied in by PC_DLLEngineMain */
 
-typedef struct TitleCtx {
-    unsigned char unknown_000[6];
-    unsigned char state_006;
-    unsigned char unknown_007[0x30 - 7];
-    unsigned long flags_030;
-} TitleCtx;
-typedef struct TitleRec16 {
-    unsigned char unknown_000[8];
-    unsigned short w8;
-    unsigned short wa;
-    unsigned char unknown_00c[4];
-} TitleRec16;
-typedef struct TitleCtxView {
-    unsigned char unknown_000[0x12];
-    unsigned char byte_012;
-} TitleCtxView;
-typedef struct TitleEntry {
-    int key0;
-    int key1;
-    int key2;
-    int key3;
-    int code_010;
-    unsigned char flags_014;
-    unsigned char unknown_015[3];
-} TitleEntry;
-
-extern TitleRec16 g_251e0[];
-extern int g_253a0;
-extern int g_2a178;
-extern int g_2a17c;
-extern int g_2a180;
-extern int g_2a184;
-extern int g_2a190;
-extern int g_2a194;
-extern int g_2a19c;
-extern int g_2a1a0;
-extern int g_2a1b8;
-extern int g_2a1c4;
-extern int g_2a1e0;
-extern int g_2a1e8;
-extern int g_2a208;
-extern int g_2a220;
 void title_05a70(TitleObject *p);
 void title_09350(TitleObject *p);
 void unlink_12c(TitleObject *p);
@@ -62,18 +20,6 @@ void title_09c90(void);
 void title_0a020(void);
 void title_01de0(int a, int b, int c, int d, int e);
 void title_02090(int a, int b, int c, int d, int e, int f, int g, int h);
-extern TitleObject *g_2a38c;
-extern TitleObject *g_2a3a4;
-extern TitleObject *g_2a264;
-extern TitleObject *g_2a278;
-extern TitleObject *g_2a27c;
-extern TitleObject *g_2a280;
-extern TitleObject *g_2a274;
-extern int g_2a254;
-extern int g_25a28;
-extern int g_2a288[64];
-extern int g_2a9b8;
-extern TitleEntry g_25a30[43];
 void *title_17ad0(int a, int b, int c, int d, int e);
 int title_0c4a0(int a);
 

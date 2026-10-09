@@ -6,41 +6,19 @@
 #include "title_screen.h"
 
 
-extern TitleObject *g_2ab48;
-extern TitleObject *g_2ab54;
-extern TitleObject *g_2ab64;
-extern TitleObject *g_2ab78;
-extern TitleObject *g_2ab80;
-extern TitleObject *g_2ab98;
 static TitleObject *g_2aba4;
 static TitleObject *g_2abac;
 static TitleObject *g_2abc0;
-extern int g_2ab4c;
-extern int g_2ab58;
-extern int g_2ab68;
-extern int g_2ab74;
-extern int g_2ab7c;
-extern int g_2ab84;
-extern int g_2ab9c;
-extern int g_2aba0;
 static int g_2aba8;
 static int g_2abb0;
 static int g_2abc4;
 static int g_2abcc;
 extern unsigned short g_25f50[];
 void title_0c4f0(int a);
-extern TitleObject *g_2ac2c;
-extern TitleObject *g_2ac34;
-extern TitleObject *g_2ac48;
 static int g_2abb4;
 static int g_2abb8;
 static int g_2abbc;
 static int g_2abc8;
-extern int g_2ac3c;
-extern int g_2ac40;
-extern int g_2ac44;
-extern int g_2ac4c;
-extern int g_2ac50;
 extern int g_29f98;
 extern char g_29128[];
 void title_01dd0();

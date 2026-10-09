@@ -60,12 +60,6 @@ static int g_2a190;
 static int g_2a194;
 static int g_2a19c;
 static int g_2a1a0;
-extern int g_2a1b8;
-extern int g_2a1c4;
-extern int g_2a1e0;
-extern int g_2a1e8;
-extern int g_2a208;
-extern int g_2a220;
 
 void title_05a70(TitleObject *p);
 void title_09350(TitleObject *p);

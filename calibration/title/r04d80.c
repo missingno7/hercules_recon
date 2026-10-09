@@ -3,11 +3,6 @@
 #include "title_engine.h"
 #include "title_slots.h"
 
-typedef struct TitlePair {
-    unsigned short lo;
-    unsigned short hi;
-} TitlePair;
-
 typedef struct TitleCtxView {
     unsigned char pad_000[0x38];
     unsigned long field_38;

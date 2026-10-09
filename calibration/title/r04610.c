@@ -23,12 +23,6 @@ typedef struct TitleCtx {
     unsigned char pad_58[0x60 - 0x58];
     struct TitleCtx *p_60;
 } TitleCtx;
-typedef struct TitleGame {
-    unsigned char pad_00[0x9c];
-    unsigned short w_9c;
-    unsigned char pad_9e[0xdf - 0x9e];
-    unsigned char b_df;
-} TitleGame;
 extern TitleTabEntry g_2d2a0[];
 extern unsigned char g_2df50;
 extern int g_2df44;
@@ -37,7 +31,6 @@ extern char g_22108[];
 extern unsigned char g_2dfac;
 extern int g_2bb24;
 extern int g_2df40;
-extern int g_29da0;
 unsigned char title_04710(char *p, int b, int c, int d);
 unsigned char title_046b0(unsigned short key, unsigned int f);
 void title_047d0(int a, int v, int b);

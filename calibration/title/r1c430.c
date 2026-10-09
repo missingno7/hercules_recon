@@ -19,9 +19,6 @@ typedef struct TitleHost {
     int (*handler_0b4)(int);
 } TitleHost;
 
-extern TitleObject *g_2b058[2];
-extern TitleObject *g_2b104[2];
-extern TitleObject *g_2b1d8[4];
 extern unsigned short g_2bf6c;
 extern unsigned short g_2bff2;
 extern unsigned short g_2bf72;

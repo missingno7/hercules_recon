@@ -6,14 +6,6 @@
 #include "title_screen.h"
 
 
-extern int g_2ab2c;
-extern int g_2ab30;
-extern int g_2ab38;
-extern int g_2ab3c;
-extern int g_2ab40;
-extern TitleObject *g_2ab1c;
-extern TitleObject *g_2ab24;
-extern TitleObject *g_2ab34;
 static int g_2ab88;
 static int g_2ab8c;
 static int g_2ab90;
@@ -44,23 +36,9 @@ void title_13310(void);
 void title_13430(void);
 void title_16300(void);
 void title_1d790(int a);
-extern TitleObject *g_2ab48;
-extern TitleObject *g_2ab54;
-extern TitleObject *g_2ab64;
-extern TitleObject *g_2aba4;
-extern TitleObject *g_2abac;
-extern TitleObject *g_2abc0;
-extern int g_2ab4c;
-extern int g_2ab58;
-extern int g_2ab68;
-extern int g_2ab74;
 static int g_2ab7c;
 static int g_2ab84;
 static int g_2aba0;
-extern int g_2aba8;
-extern int g_2abb0;
-extern int g_2abc4;
-extern int g_2abcc;
 extern unsigned short g_25f50[];
 
 void title_12e90(TitleProc *self)

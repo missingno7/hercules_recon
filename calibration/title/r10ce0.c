@@ -65,27 +65,6 @@ typedef struct TitleObj {
     unsigned char field_3b;
 } TitleObj;
 
-extern TitleSprite *g_2a9c8;
-extern TitleSprite *g_2a9cc;
-extern TitleSprite *g_2a9d0;
-extern TitleSprite *g_2ab24;
-extern TitleSprite *g_2ab1c;
-extern TitleSprite *g_2ab34;
-extern int g_2aa54;
-extern int g_2aa60;
-extern int g_2aa90;
-extern int g_2aacc;
-extern int g_2a9d8;
-extern int g_2a9dc;
-extern int g_2a9e4;
-extern int g_2aa28;
-extern int g_2aa44;
-extern int g_2ab08;
-extern int g_2ab20;
-extern int g_2ab28;
-extern int g_2ab38;
-extern int g_2ab44;
-extern unsigned short g_25f50[];
 
 int title_06670(void);
 void title_0c4f0(int a);

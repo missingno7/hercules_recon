@@ -63,27 +63,6 @@ extern void title_0c2a0(char *s, char *name, int b, int c, int d);
 extern void title_0c8b0(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
 extern int g_2c7c0[];
 extern char g_2c9c0[];
-extern int g_2a044;
-extern int g_2a03c;
-extern int *g_2a048;
-extern int *g_2a050;
-extern int *g_2a058;
-extern int *g_2a054;
-extern int *g_2a04c;
-extern int *g_2a060;
-extern int *g_2a064;
-extern int *g_2a070;
-extern int *g_2a05c;
-extern int *g_2a06c;
-extern int *g_2a000;
-extern int *g_2a004;
-extern int *g_29ffc;
-extern int *g_29ff4;
-extern int g_2a018;
-extern int g_2a080;
-extern int g_2a088;
-extern int g_2a078;
-extern char g_29128[];
 
 int title_06350(int a)
 {

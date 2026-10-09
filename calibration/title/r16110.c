@@ -3,23 +3,6 @@
 #include "title_engine.h"
 #include "title_screen.h"
 
-typedef struct TitleVtable8 {
-    void (*fn)(void *obj);
-    unsigned long unknown_004;
-} TitleVtable8;
-
-typedef struct TitleVtable12 {
-    void (*fn)(void *obj);
-    unsigned char unknown_004[0x0c - 0x04];
-} TitleVtable12;
-
-extern TitleObject *g_2acb0;
-extern TitleObject *g_2acc8;
-extern TitleObject *g_2acbc;
-extern int g_2acc0;
-extern int g_2acb8;
-extern int g_2acd0;
-extern int g_2acd8;
 extern unsigned short g_25f50[];
 static int g_2acf0;
 extern int g_2b370;
@@ -55,9 +38,6 @@ int g_26068[14] = {
     1, 1, 1, 2, 1, 3, 2, 4, 3, 5, 5, 6, 5, 7,
 };
 
-extern TitleVtable8 *g_2bf34;
-extern TitleVtable8 *g_2bf54;
-extern TitleVtable12 *g_2bf2c;
 
 TitleObject *title_17ad0(int a0, int a1, int a2, int size, int a4);
 int title_0c4f0(int a);

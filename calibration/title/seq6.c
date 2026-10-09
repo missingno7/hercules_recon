@@ -6,17 +6,9 @@
 #include "title_screen.h"
 
 
-extern TitleObject *g_2aba4;
-extern TitleObject *g_2abac;
-extern TitleObject *g_2abc0;
 static TitleObject *g_2ac2c;
 static TitleObject *g_2ac34;
 static TitleObject *g_2ac48;
-extern int g_2abb4;
-extern int g_2abb8;
-extern int g_2abbc;
-extern int g_2abc4;
-extern int g_2abc8;
 static int g_2ac3c;
 static int g_2ac40;
 static int g_2ac44;
@@ -45,38 +37,10 @@ void title_164b0(void *req);
 void title_16300(void);
 void title_1d790(int a);
 void title_01de0(int a0, int a1, int a2, int a3, int a4);
-extern TitleObject *g_2abd0;
-extern int g_2abd4;
-extern TitleObject *g_2abd8;
-extern int g_2abdc;
-extern TitleObject *g_2abf0;
-extern int g_2abf4;
-extern int g_2abfc;
 extern unsigned short g_25f50[];
-extern TitleObject *g_2ac0c;
-extern int g_2ac08;
-extern int g_2ac10;
-extern int g_2ac1c;
-extern int g_2ac28;
-extern TitleObject *g_2ac04;
-extern TitleObject *g_2ac18;
 static int g_2ac30;
 static int g_2ac38;
 static int g_2ac54;
-extern TitleObject *g_2ac58;
-extern TitleObject *g_2ac64;
-extern TitleObject *g_2ac70;
-extern int g_2ac5c;
-extern int g_2ac68;
-extern int g_2ac74;
-extern int g_2ac80;
-extern TitleObject *g_2ac84;
-extern TitleObject *g_2ac8c;
-extern TitleObject *g_2aca0;
-extern int g_2ac88;
-extern int g_2ac90;
-extern int g_2aca4;
-extern int g_2acac;
 int title_0c4f0(int a);
 
 void title_14970(TitleProc *self)

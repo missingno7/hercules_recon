@@ -5,53 +5,6 @@
 #include "title_files.h"
 #include "title_screen.h"
 
-typedef struct TitleRect {
-    int a;
-    int b;
-    int c;
-    int d;
-} TitleRect;
-typedef struct TitleCtxView {
-    signed char kind_00;
-    unsigned char unknown_01[0x0b - 0x01];
-    signed char field_0b;
-    signed char field_0c;
-    unsigned char unknown_0d;
-    signed char field_0e;
-    unsigned char unknown_0f;
-    unsigned char field_10;
-    unsigned char field_11;
-    unsigned char unknown_12[0x30 - 0x12];
-    int field_30;
-    unsigned char unknown_34[0x6c - 0x34];
-    TitleRect rect_6c;
-    unsigned char unknown_7c[0x1b0c - 0x7c];
-    int field_1b0c;
-    int field_1b10;
-    unsigned char unknown_1b14[0x1b24 - 0x1b14];
-    int field_1b24;
-} TitleCtxView;
-typedef struct TitleObj {
-    unsigned char field_00;
-    unsigned char field_01;
-    unsigned char field_02;
-    unsigned char field_03;
-    int field_04;
-    int field_08;
-    int field_0c;
-    int field_10;
-    int field_14;
-    int field_18;
-    int field_1c;
-    TitleRect rect_20;
-    int field_30;
-    int field_34;
-    unsigned char field_38;
-    unsigned char field_39;
-    unsigned char field_3a;
-    unsigned char field_3b;
-} TitleObj;
-
 static int g_2ab2c;
 static int g_2ab30;
 static int g_2ab38;
@@ -60,14 +13,6 @@ static int g_2ab40;
 static TitleObject *g_2ab1c;
 static TitleObject *g_2ab24;
 static TitleObject *g_2ab34;
-extern int g_2ab88;
-extern int g_2ab8c;
-extern int g_2ab90;
-extern int g_2ab94;
-extern int g_2ab9c;
-extern TitleObject *g_2ab78;
-extern TitleObject *g_2ab80;
-extern TitleObject *g_2ab98;
 extern int g_29f98;
 extern char g_29128[];
 extern void title_164b0(void);
@@ -90,19 +35,6 @@ void title_13310(void);
 void title_13430(void);
 void title_16300(void);
 void title_1d790(int a);
-extern TitleObject *g_2a9c8;
-extern TitleObject *g_2a9cc;
-extern TitleObject *g_2a9d0;
-extern int g_2aa54;
-extern int g_2aa60;
-extern int g_2aa90;
-extern int g_2aacc;
-extern int g_2a9d8;
-extern int g_2a9dc;
-extern int g_2a9e4;
-extern int g_2aa28;
-extern int g_2aa44;
-extern int g_2ab08;
 static int g_2ab20;
 static int g_2ab28;
 static int g_2ab44;

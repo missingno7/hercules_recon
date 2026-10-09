@@ -36,8 +36,6 @@ extern void title_01dd0(int a);
 extern void title_02090(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8);
 extern void title_0c2a0(char *s, char *name, int b, int c, int d);
 extern void title_0c8b0(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
-extern int g_2c7c0[];
-extern char g_2c9c0[];
 extern int g_2a044;
 extern int g_2a03c;
 extern int g_2a018;

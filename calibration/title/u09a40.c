@@ -1,19 +1,6 @@
 #include "title_engine.h"
 #include "title_screen.h"
 
-typedef struct TitleCtx {
-    unsigned char unknown_000[6];
-    unsigned char state_006;
-    unsigned char unknown_007[0x30 - 7];
-    unsigned long flags_030;
-} TitleCtx;
-typedef struct TitleRec16 {
-    unsigned char unknown_000[8];
-    unsigned short w8;
-    unsigned short wa;
-    unsigned char unknown_00c[4];
-} TitleRec16;
-
 /* Initialized data of this unit (TITLE.DLL .data 0x254e8..0x257cb), in address order. */
 typedef struct TitlePadMap {         /* eight button masks, copied whole by 0xa450 and 0x164b0 */
     unsigned short button[8];
@@ -78,16 +65,6 @@ short g_25790[30] = {  /* read by 0xa020 */
     999, 783, 21, 21, 22, 22, 23, 23, 24, 24, 999, 775,
     25, 25, 26, 26, -1, 0,
 };
-extern TitleRec16 g_251e0[];
-extern int g_253a0;
-extern int g_2a178;
-extern int g_2a17c;
-extern int g_2a180;
-extern int g_2a184;
-extern int g_2a190;
-extern int g_2a194;
-extern int g_2a19c;
-extern int g_2a1a0;
 static int g_2a1b8;
 static int g_2a1c4;
 static int g_2a1e0;

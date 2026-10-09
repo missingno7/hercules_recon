@@ -2,21 +2,7 @@
  * Shared types and externs first; the display buffers are in title_gpu.h. */
 #include "title_screen.h"
 #include "title_gpu.h"
-extern int g_2dfa0;
-extern unsigned short g_2bf6e;
 extern int g_2d328;
-extern TitleObject *g_2dfa4;
-extern int g_2df48;
-extern int g_2dfb4;
-extern int g_2df4c;
-extern unsigned short g_2bf58;
-extern int g_2d320;
-extern int g_2cbe8;
-extern unsigned short g_2bf60;
-extern unsigned short g_220f2;
-extern short g_220f6;
-extern int g_29d94;
-extern int g_29d90;
 extern int (*g_220d0[])(TitleObject *);
 
 void title_04470(int a, int b, int c);

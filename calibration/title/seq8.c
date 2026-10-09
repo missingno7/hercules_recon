@@ -6,35 +6,7 @@
 #include "title_screen.h"
 
 
-extern TitleObject *g_2abd0;
-extern int g_2abd4;
-extern TitleObject *g_2abd8;
-extern int g_2abdc;
-extern TitleObject *g_2abf0;
-extern int g_2abf4;
-extern int g_2abfc;
 extern unsigned short g_25f50[];
-extern TitleObject *g_2ac0c;
-extern int g_2ac08;
-extern int g_2ac10;
-extern int g_2ac1c;
-extern int g_2ac28;
-extern TitleObject *g_2ac04;
-extern TitleObject *g_2ac18;
-extern TitleObject *g_2ac2c;
-extern TitleObject *g_2ac34;
-extern TitleObject *g_2ac48;
-extern int g_2ac30;
-extern int g_2ac38;
-extern int g_2ac4c;
-extern int g_2ac54;
-extern TitleObject *g_2ac58;
-extern TitleObject *g_2ac64;
-extern TitleObject *g_2ac70;
-extern int g_2ac5c;
-extern int g_2ac68;
-extern int g_2ac74;
-extern int g_2ac80;
 static TitleObject *g_2ac84;
 static TitleObject *g_2ac8c;
 static TitleObject *g_2aca0;
@@ -43,10 +15,6 @@ static int g_2ac90;
 static int g_2aca4;
 static int g_2acac;
 int title_0c4f0(int a);
-extern int g_2ac60;
-extern int g_2ac6c;
-extern int g_2ac78;
-extern int g_2ac7c;
 static int g_2ac94;
 static int g_2ac98;
 static int g_2ac9c;

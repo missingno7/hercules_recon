@@ -5,15 +5,6 @@
 #include "title_files.h"
 #include "title_screen.h"
 
-typedef struct TitleVtable8 {
-    void (*fn)(void *obj);
-    unsigned long unknown_004;
-} TitleVtable8;
-typedef struct TitleVtable12 {
-    void (*fn)(void *obj);
-    unsigned char unknown_004[0x0c - 0x04];
-} TitleVtable12;
-
 static TitleObject *g_2acb0;
 static TitleObject *g_2acc8;
 static TitleObject *g_2acbc;
@@ -22,12 +13,6 @@ static int g_2acb8;
 static int g_2acd0;
 static int g_2acd8;
 extern unsigned short g_25f50[];
-extern int g_2acf0;
-extern int g_2b370;
-extern char g_29128[];
-extern TitleVtable8 *g_2bf34;
-extern TitleVtable8 *g_2bf54;
-extern TitleVtable12 *g_2bf2c;
 int title_0c4f0(int a);
 void title_016e0(char *text);
 void title_0c410(int a, int b);

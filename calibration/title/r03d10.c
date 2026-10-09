@@ -23,9 +23,6 @@ typedef struct TitlePrim {
 } TitlePrim;
 
 extern TitlePrim *g_2df40;
-extern short g_243e0[];
-extern signed char g_264f8[];
-extern unsigned short g_2d342[][6];
 
 unsigned long title_189a0(TitleObject *obj);
 void title_03100(unsigned char *stream, TitleObject *obj, unsigned long count);
