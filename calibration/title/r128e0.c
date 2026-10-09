@@ -56,7 +56,7 @@ void title_14860(void);
 void title_164b0(void *req);
 void title_16300(void);
 void title_1d790(int a);
-void title_1de0(int a0, int a1, int a2, int a3, int a4);
+void title_01de0(int a0, int a1, int a2, int a3, int a4);
 
 
 extern TitleObject *g_2ab48;
@@ -117,7 +117,7 @@ void title_128e0(TitleRequest *self)
     case 2:
         switch (g_2ab68) {
         case 0:
-            title_1de0(0x140, 0, g_2ab70, 3, 0);
+            title_01de0(0x140, 0, g_2ab70, 3, 0);
             title_1d790(0);
             if (g_2ab70 < 0x80) {
                 g_2ab70 += 8;
@@ -128,7 +128,7 @@ void title_128e0(TitleRequest *self)
             g_2ab68 = 2;
             /* fall through */
         case 2:
-            title_1de0(0x140, 0, g_2ab70, 3, 0);
+            title_01de0(0x140, 0, g_2ab70, 3, 0);
             title_1d790(0);
             if (g_2ab70 > 0) {
                 g_2ab70 -= 8;
@@ -143,10 +143,10 @@ void title_128e0(TitleRequest *self)
             }
             /* fall through */
         case 10:
-            title_1de0(0x280, 0x100, 0x80, 0, 0);
+            title_01de0(0x280, 0x100, 0x80, 0, 0);
             break;
         case 12:
-            title_1de0(0x280, 0x100, g_2ab6c, 0, 0);
+            title_01de0(0x280, 0x100, g_2ab6c, 0, 0);
             g_2ab54->unknown_04a = (unsigned short)g_2ab6c;
             g_2ab48->unknown_04a = (unsigned short)g_2ab6c;
             g_2ab64->unknown_04a = (unsigned short)(g_2ab6c * 2);
@@ -237,14 +237,14 @@ void title_14300(TitleRequest *self)
     case 2:
         switch (g_2ac1c) {
         case 0:
-            title_1de0(0x140, 0x100, g_2ac14, 0, 0);
+            title_01de0(0x140, 0x100, g_2ac14, 0, 0);
             if (g_2ac14 < 0x80) {
                 g_2ac14 += step;
             }
             break;
         case 1:
-            title_1de0(0x140, 0, g_2ac20, 0, 0);
-            title_1de0(0x140, 0x100, g_2ac14, 1, 1);
+            title_01de0(0x140, 0, g_2ac20, 0, 0);
+            title_01de0(0x140, 0x100, g_2ac14, 1, 1);
             if (g_2ac20 < 0x80) {
                 g_2ac20 += step;
             } else {
@@ -261,7 +261,7 @@ void title_14300(TitleRequest *self)
             g_2ac1c = 3;
             /* fall through */
         case 3:
-            title_1de0(0x140, 0, g_2ac20, 0, 0);
+            title_01de0(0x140, 0, g_2ac20, 0, 0);
             if (g_2ac20 > 0) {
                 g_2ac20 -= 4;
             }
@@ -273,10 +273,10 @@ void title_14300(TitleRequest *self)
             }
             /* fall through */
         case 10:
-            title_1de0(0x280, 0x100, 0x80, 0, 0);
+            title_01de0(0x280, 0x100, 0x80, 0, 0);
             break;
         case 12:
-            title_1de0(0x280, 0x100, g_2ac20, 0, 0);
+            title_01de0(0x280, 0x100, g_2ac20, 0, 0);
             g_2ac0c->unknown_04a = (unsigned short)g_2ac20;
             g_2ac04->unknown_04a = (unsigned short)g_2ac20;
             g_2ac18->unknown_04a = (unsigned short)(g_2ac20 * 2);

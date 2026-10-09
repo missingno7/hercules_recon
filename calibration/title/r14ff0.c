@@ -67,7 +67,7 @@ void title_15be0(void);
 void title_164b0(void *req);
 void title_16300(void);
 void title_1d790(int a);
-void title_1de0(int a0, int a1, int a2, int a3, int a4);
+void title_01de0(int a0, int a1, int a2, int a3, int a4);
 
 void title_14ff0(TitleRequest *self)
 {
@@ -115,14 +115,14 @@ void title_14ff0(TitleRequest *self)
     case 2:
         switch (g_2ac74) {
         case 0:
-            title_1de0(0x140, 0x100, g_2ac6c, 0, 0);
+            title_01de0(0x140, 0x100, g_2ac6c, 0, 0);
             if (g_2ac6c < 0x80) {
                 g_2ac6c += 2;
             }
             break;
         case 1:
-            title_1de0(0x140, 0, g_2ac78, 0, 0);
-            title_1de0(0x140, 0x100, g_2ac6c, 1, 1);
+            title_01de0(0x140, 0, g_2ac78, 0, 0);
+            title_01de0(0x140, 0x100, g_2ac6c, 1, 1);
             if (g_2ac78 < 0x80) {
                 g_2ac78 += 8;
             } else {
@@ -135,7 +135,7 @@ void title_14ff0(TitleRequest *self)
             }
             break;
         case 2:
-            title_1de0(0x140, 0, g_2ac78, 0, 0);
+            title_01de0(0x140, 0, g_2ac78, 0, 0);
             if (g_2ac78 > 0) {
                 g_2ac78 -= 4;
             }
@@ -147,10 +147,10 @@ void title_14ff0(TitleRequest *self)
             }
             /* fall through */
         case 10:
-            title_1de0(0x280, 0x100, 0x80, 0, 0);
+            title_01de0(0x280, 0x100, 0x80, 0, 0);
             break;
         case 12:
-            title_1de0(0x280, 0x100, g_2ac78, 0, 0);
+            title_01de0(0x280, 0x100, g_2ac78, 0, 0);
             g_2ac64->unknown_04a = (unsigned short)g_2ac78;
             g_2ac58->unknown_04a = (unsigned short)g_2ac78;
             g_2ac70->unknown_04a = (unsigned short)g_2ac78;
@@ -242,14 +242,14 @@ void title_15650(TitleRequest *self)
     case 2:
         switch (g_2aca4) {
         case 0:
-            title_1de0(0x140, 0x100, g_2aca8, 0, 0);
+            title_01de0(0x140, 0x100, g_2aca8, 0, 0);
             if (g_2aca8 < 0x80) {
                 g_2aca8 += 8;
             }
             break;
         case 1:
-            title_1de0(0x140, 0, g_2ac98, 0, 0);
-            title_1de0(0x140, 0x100, g_2aca8, 1, 1);
+            title_01de0(0x140, 0, g_2ac98, 0, 0);
+            title_01de0(0x140, 0x100, g_2aca8, 1, 1);
             if (g_2ac98 < 0x80) {
                 g_2ac98 += 8;
             } else {
@@ -266,7 +266,7 @@ void title_15650(TitleRequest *self)
             g_2aca4 = 3;
             /* fall through */
         case 3:
-            title_1de0(0x140, 0, g_2ac98, 0, 0);
+            title_01de0(0x140, 0, g_2ac98, 0, 0);
             if (g_2ac98 > 0) {
                 g_2ac98 -= 4;
             }
@@ -278,10 +278,10 @@ void title_15650(TitleRequest *self)
             g_2aca0->unknown_04a = (unsigned short)(g_2ac84->unknown_04a * 2);
             /* fall through */
         case 10:
-            title_1de0(0x280, 0x100, 0x80, 0, 0);
+            title_01de0(0x280, 0x100, 0x80, 0, 0);
             break;
         case 12:
-            title_1de0(0x280, 0x100, g_2ac98, 0, 0);
+            title_01de0(0x280, 0x100, g_2ac98, 0, 0);
             g_2ac8c->unknown_04a = (unsigned short)g_2ac98;
             g_2ac84->unknown_04a = (unsigned short)g_2ac98;
             g_2aca0->unknown_04a = (unsigned short)(g_2ac98 * 2);

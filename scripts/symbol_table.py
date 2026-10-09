@@ -14,6 +14,7 @@ from pathlib import Path
 from env import ROOT
 
 ENCODED = re.compile(r'_([0-9a-f]{4,5})$')
+re_short = re.compile(r'^(title|g)_[0-9a-f]{1,4}$')
 
 
 def build(module):
@@ -36,6 +37,9 @@ def build(module):
         if m and len(addresses) == 1 and int(m.group(1), 16) != next(iter(addresses)):
             problems.append(dict(kind='name/address disagreement', symbol=name,
                                  address=hex(next(iter(addresses))), users=users[name][:6]))
+        stem = name.lstrip('_').split('@')[0]
+        if stem.startswith(('title_', 'g_')) and re_short.search(stem):
+            problems.append(dict(kind='address name not 5 hex digits', symbol=name, users=users[name][:6]))
         if name in defined and defined[name] not in addresses:
             problems.append(dict(kind='reference disagrees with definition', symbol=name,
                                  defined=hex(defined[name]), implied=sorted(hex(a) for a in addresses)))
