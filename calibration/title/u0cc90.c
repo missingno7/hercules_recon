@@ -1,5 +1,7 @@
+#include <string.h>
 #include "title_engine.h"
 #include "title_screen.h"
+#include "title_files.h"
 
 typedef struct TitleCtxView {
     unsigned char unknown_000[6];
@@ -47,6 +49,45 @@ void title_0c4e0(void);
 void title_054f0(int a, TitleObject *b);
 int title_0c4d0(int a);
 int rand();
+
+static int g_2a284;
+static int g_2a258;
+static int g_2a26c;
+static int g_2a394;
+static int g_2a398;
+static int g_2a3a8;
+static int g_2a3b0;
+static int g_2a3b8[96];
+static int g_2a538[96];
+static int g_2a6b8[96];
+static int g_2a838[96];
+extern char g_29128[];
+void title_01dd0();
+void title_01de0(int a, int b, int c, int d, int e);
+void title_02350(void);
+void title_023c0(int a, int b);
+void title_025c0(int a, int b);
+void title_02860(void);
+void title_04b70(int c, int d);
+void title_04ea0(int a);
+void title_05bc0(int a);
+void title_05e90();
+void title_05f10(void *target);
+void title_07510();
+void title_09350(TitleObject *p);
+void title_0c330();
+void title_0c3f0();
+void title_0c450();
+void title_0c4f0(int a);
+void title_0c560(int a, int b);
+void title_0c5a0(void);
+void title_0c6d0(int a);
+void title_0c8b0();
+void title_0c920(int a);
+void title_0c930(int a);
+void title_0c990(int a, int b);
+void title_0c9c0(int a, int b);
+void title_1d790(int a);
 
 int title_0cc90(void) {
     int d = title_0c4c0();
@@ -343,4 +384,303 @@ void title_0d6c0(void)
     if (g_2a9bc == 5) {
         g_2a9bc = 0;
     }
+}
+
+void title_0f460(TitleProc *out)
+{
+    g_2a284 = (unsigned short)((ScreenContext *)g_engine_interface.context_004)->cursor_5c;
+    g_2a250 = (unsigned short)((ScreenContext *)g_engine_interface.context_004)->cursor_5e;
+
+    switch (out->state_04) {
+    case 1:
+        switch (g_2a394) {
+        case 0:
+            title_01de0(0x140, 0, g_2a26c, 0, 0);
+            title_01de0(0x140, 0x100, g_2a26c - (g_2a26c >> 1), 1, 0x4fe);
+            if (g_29f98 == 0) {
+                if (g_2a26c < 0x80) {
+                    g_2a26c = g_2a26c + 0x10;
+                } else {
+                    g_2a26c = 0x80;
+                    g_2a394 = 1;
+                }
+                g_2a274->unknown_04a = g_2a26c;
+                g_2a280->unknown_04a = g_2a26c;
+                g_2a27c->unknown_04a = g_2a26c;
+                g_2a278->unknown_04a = g_2a26c;
+                g_2a3a4->unknown_04a = g_2a26c;
+                g_2a38c->unknown_04a = g_2a26c;
+                g_2a264->unknown_04a = g_2a26c;
+            }
+            break;
+        case 1:
+            title_01de0(0x140, 0, 0x80, 0, 0);
+            title_01de0(0x140, 0x100, 0x40, 1, 0x4fe);
+            break;
+        case 2:
+            title_01de0(0x140, 0, g_2a26c, 0, 0);
+            title_01de0(0x140, 0x100, g_2a26c - (g_2a26c >> 1), 1, 0x4fe);
+            g_2a394 = 3;
+            g_2a258 = 0;
+            g_2a26c = 0x80;
+            break;
+        case 3:
+            title_01de0(0x140, 0, g_2a26c, 0, 0);
+            title_01de0(0x140, 0x100, g_2a26c - (g_2a26c >> 1), 1, 0x4fe);
+            title_025c0(g_2a258, 1);
+            title_02860();
+            if (g_29f98 == 0) {
+                g_2a264->unknown_054 |= 5;
+                g_2a274->unknown_04a = g_2a26c;
+                g_2a280->unknown_04a = g_2a26c;
+                g_2a27c->unknown_04a = g_2a26c;
+                g_2a278->unknown_04a = g_2a26c;
+                g_2a264->unknown_04a = g_2a26c;
+                g_2a38c->unknown_04a = g_2a26c;
+                g_2a3a4->unknown_04a = g_2a26c;
+                if (g_2a26c > 0) {
+                    g_2a26c = g_2a26c - 0x10;
+                }
+                if (g_2a258 < 0x80) {
+                    g_2a258 = g_2a258 + 0x10;
+                } else {
+                    g_2a38c->unknown_054 &= 0x7fffffff;
+                    g_2a3a4->unknown_054 &= 0x7fffffff;
+                    g_2a264->unknown_054 &= 0x7fffffff;
+                    g_2a278->unknown_054 &= 0x7fffffff;
+                    g_2a27c->unknown_054 &= 0x7fffffff;
+                    g_2a280->unknown_054 &= 0x7fffffff;
+                    g_2a274->unknown_054 &= 0x7fffffff;
+                }
+            }
+            break;
+        case 4:
+            title_0c4f0(1);
+            title_025c0(g_2a258, 1);
+            title_02860();
+            if (g_29f98 == 0) {
+                if (g_2a258 > 0) {
+                    g_2a258 = g_2a258 - 4;
+                } else {
+                    out->state_04 = 10;
+                    out->delay_08 = 1;
+                    return;
+                }
+            }
+            break;
+        case 5:
+            title_01de0(0x140, 0, g_2a26c, 0, 0);
+            title_01de0(0x140, 0x100, g_2a26c - (g_2a26c >> 1), 1, 0x4fe);
+            if (g_29f98 == 0) {
+                if (g_2a26c > 0) {
+                    g_2a26c = g_2a26c - 8;
+                    g_2a274->unknown_04a = g_2a26c;
+                    g_2a280->unknown_04a = g_2a26c;
+                    g_2a27c->unknown_04a = g_2a26c;
+                    g_2a278->unknown_04a = g_2a26c;
+                    g_2a3a4->unknown_04a = g_2a26c;
+                    g_2a38c->unknown_04a = g_2a26c;
+                    g_2a264->unknown_04a = g_2a26c;
+                } else {
+                    g_2a26c = 0;
+                    out->state_04 = 10;
+                    out->delay_08 = 1;
+                    return;
+                }
+            }
+            break;
+        }
+        if (g_2a284 == 0) {
+            g_2a398 = 0;
+        }
+        if (g_2a398 == 0) {
+            if ((g_2a284 & 0x1000) && g_2a394 != 5) {
+                title_054f0(0x303, 0);
+                title_0c4e0();
+                g_2a270 = 0;
+                title_0c4f0(1);
+                g_2a394 = 5;
+            }
+        } else {
+            g_2a398 = g_2a398 - 1;
+        }
+        out->state_04 = 1;
+        out->delay_08 = 1;
+        return;
+    case 10:
+        title_0c5a0();
+        title_0c4e0();
+        g_2a270 = 0;
+        title_05bc0(0x303);
+        {
+            int i;
+            for (i = 0; i < 64; i++) {
+                if (g_2a288[i] != 0) {
+                    title_09350(g_2a288[i]);
+                    g_2a288[i] = 0;
+                }
+            }
+        }
+        if (g_2a38c != 0) {
+            title_09350(g_2a38c);
+            g_2a38c = 0;
+        }
+        if (g_2a3a4 != 0) {
+            title_09350(g_2a3a4);
+            g_2a3a4 = 0;
+        }
+        if (g_2a278 != 0) {
+            title_09350(g_2a278);
+            g_2a278 = 0;
+        }
+        if (g_2a27c != 0) {
+            title_09350(g_2a27c);
+            g_2a27c = 0;
+        }
+        if (g_2a280 != 0) {
+            title_09350(g_2a280);
+            g_2a280 = 0;
+        }
+        if (g_2a274 != 0) {
+            title_09350(g_2a274);
+            g_2a274 = 0;
+        }
+        if (g_2a264 != 0) {
+            title_09350(g_2a264);
+            g_2a264 = 0;
+        }
+        title_02350();
+        title_04ea0(3);
+        out->state_04 = 0xfffe;
+        out->delay_08 = 1;
+        return;
+    case 0xffff:
+        title_0c920(0x3e9);
+        title_0c920(0x3ea);
+        title_0c920(0x3eb);
+        title_0c920(0x3ec);
+        title_0c920(0x3ed);
+        title_0c920(0x3e8);
+        title_0c920(0x3ef);
+        title_0c920(0x3fc);
+        title_0c920(0x3ee);
+        title_0c920(0x3fd);
+        title_0c920(0x3fb);
+        title_0c920(0x3f1);
+        title_0c920(0x3f2);
+        title_0c920(0x3f4);
+        title_0c920(0x3fa);
+        title_0c920(0x3f0);
+        title_0c920(0x3f6);
+        title_0c920(0x3f7);
+        title_0c920(0x3f8);
+        title_0c920(0x3f1);
+        title_0c920(0x3f9);
+        title_0c9c0(0x1000, 0x4000);
+        title_0c990(-5, 0);
+        g_2a3b8[8] = 1;
+        g_2a3b8[16] = 1;
+        g_2a3b8[24] = 1;
+        g_2a3b8[32] = 1;
+        g_2a3b8[40] = 1;
+        g_2a3b8[48] = 1;
+        g_2a3b8[56] = 1;
+        g_2a3b8[64] = 1;
+        g_2a3b8[72] = 1;
+        g_2a3b8[80] = 1;
+        g_2a3b8[89] = 1;
+        g_2a538[8] = 1;
+        g_2a538[16] = 1;
+        g_2a538[24] = 1;
+        g_2a538[32] = 1;
+        g_2a538[40] = 1;
+        g_2a538[48] = 1;
+        g_2a538[56] = 1;
+        g_2a538[65] = 1;
+        g_2a538[73] = 1;
+        g_2a538[81] = 1;
+        g_2a538[89] = 1;
+        g_2a6b8[8] = 1;
+        g_2a6b8[16] = 1;
+        g_2a6b8[24] = 1;
+        g_2a6b8[32] = 1;
+        g_2a6b8[40] = 1;
+        g_2a6b8[48] = 1;
+        g_2a6b8[56] = 1;
+        g_2a6b8[64] = 1;
+        g_2a6b8[72] = 1;
+        g_2a6b8[81] = 1;
+        g_2a6b8[89] = 1;
+        g_2a838[8] = 1;
+        g_2a838[16] = 1;
+        g_2a838[24] = 1;
+        g_2a838[32] = 1;
+        g_2a838[40] = 1;
+        g_2a838[48] = 1;
+        g_2a838[56] = 1;
+        g_2a838[64] = 1;
+        g_2a838[72] = 1;
+        g_2a838[80] = 1;
+        g_2a838[89] = 1;
+        g_2a388 = 0;
+        g_2a268 = 0;
+        g_2a260 = 0;
+        g_engine_interface.context_004->unknown_048 = 0x13546547;
+        g_engine_interface.context_004->unknown_04c = 0xecab9ab8;
+        memset(g_2a288, 0, sizeof(g_2a288));
+        g_2a3a8 = 0;
+        g_2a398 = 0xf;
+        title_0c560(0, 1);
+        title_1d790(1);
+        g_2a3b0 = 0;
+        title_0c450(&g_2a3b0, 0x29000, 0);
+        title_0c3f0(g_29128, g_sequence_files[TITLE_SEQ_PSWD], g_2a3b0, 0x14312);
+        memset((void *)(g_2a3b0 + 0x14312), 0, 0x14312);
+        title_01dd0(g_2a3b0);
+        title_0c8b0(g_2a3b0 + 0x312, 2, 0, 0x140, 0, 0xa0, 0x100);
+        title_0c6d0(0);
+        title_01dd0(g_2a3b0 + 0x14312);
+        title_0c8b0(g_2a3b0 + 0x14624, 2, 0, 0x140, 0x100, 0xa0, 0x100);
+        title_0c6d0(0);
+        title_0c330(g_2a3b0);
+        title_04b70(3, 0);
+        title_0cf00();
+        title_023c0(0x140, 0x100);
+        g_2a394 = 0;
+        g_2a26c = 0;
+        g_2a258 = 0;
+        break;
+    case 0xfffe:
+        title_0c930(0x3e9);
+        title_0c930(0x3ea);
+        title_0c930(0x3eb);
+        title_0c930(0x3ec);
+        title_0c930(0x3ed);
+        title_0c930(0x3e8);
+        title_0c930(0x3ef);
+        title_0c930(0x3fc);
+        title_0c930(0x3ee);
+        title_0c930(0x3fd);
+        title_0c930(0x3fb);
+        title_0c930(0x3f1);
+        title_0c930(0x3f2);
+        title_0c930(0x3f4);
+        title_0c930(0x3fa);
+        title_0c930(0x3f0);
+        title_0c930(0x3f6);
+        title_0c930(0x3f7);
+        title_0c930(0x3f8);
+        title_0c930(0x3f1);
+        title_0c930(0x3f9);
+        title_0c9c0(0, 0);
+        title_0c4e0();
+        g_2a270 = 0;
+        title_05e90(title_07510, 0);
+        title_05f10(out);
+        return;
+    default:
+        return;
+    }
+    out->state_04 = 1;
+    out->delay_08 = 1;
 }
