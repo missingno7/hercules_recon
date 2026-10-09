@@ -201,38 +201,3 @@ void title_0c140(void)
         g_2a220 += 320;
 }
 
-void title_0c270(void)
-{
-    g_engine_interface.slot_018();
-}
-
-int title_0c280(int a, int b)
-{
-    return g_engine_interface.slot_01c(a, b);
-}
-
-int title_0c2a0(int a, int b, int c, int d, int e)
-{
-    return g_engine_interface.slot_020(a, b, c, d, e);
-}
-
-void title_0c2d0(void)
-{
-    g_engine_interface.slot_024();
-}
-
-void title_0c2e0(void)
-{
-    g_engine_interface.slot_028();
-}
-
-void title_0c2f0(void)
-{
-    g_engine_interface.slot_02c();
-}
-
-void title_0c300(void)
-{
-    g_engine_interface.slot_030();
-}
-
