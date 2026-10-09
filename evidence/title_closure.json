@@ -382,5 +382,11 @@
   "date": "2026-10-09",
   "data": "title_proc.cpp defines .data 0x23270..0x232eb (signed char g_23270[32], g_23290[32], short g_232b0[30]): frame/delay tables read by 0x1a7c0 and 0x8320, placed before the scheduler literals.",
   "result": "Linked block 124/124 bytes equal. With title_files.c linked before the scheduler unit (link_before 0x5cc0), the two adjacent objects keep their original relative distance (0xfe8): the first inter-object layout match."
+ },
+ "movie_table": {
+  "date": "2026-10-09",
+  "data": "r097f0.c (unit of 0x9980) defines TitleRec16 g_251e0[28] = {file name, 320, 240, start, length, flags} for \\MV\\M1..M26 and MT3 (CD movie files) and int g_253a0 = 1; the names are its literals in reverse order.",
+  "result": "Linked block 776/776 bytes equal, all 28 name pointers resolve to the right strings.",
+  "also_seen": ".data 0x254e8..0x257cb (tables read by 0x9a40, 0x9c90, 0xa020, 0xa450, ending with 0xa450's literal) belongs to the 0x9a40 unit; not defined until its readers are reconstructed (element types unknown)."
  }
 }

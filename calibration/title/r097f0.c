@@ -24,15 +24,48 @@ typedef struct TitleCtx {
     unsigned long flags_030;
 } TitleCtx;
 
-typedef struct TitleRec16 {
-    unsigned char unknown_000[8];
+typedef struct TitleRec16 {         /* movie: file, frame size, start frame, length, flags */
+    char *name_000;
+    unsigned short width_004;
+    unsigned short height_006;
     unsigned short w8;
     unsigned short wa;
-    unsigned char unknown_00c[4];
+    unsigned short flags_00c;
+    unsigned short unknown_00e;
 } TitleRec16;
 
-extern TitleRec16 g_251e0[];
-extern int g_253a0;
+/* Movie table (TITLE.DLL .data 0x251e0..0x253a3); the file names are its literals (reverse order). */
+TitleRec16 g_251e0[28] = {
+    {"\\MV\\M1.;1", 320, 240, 1, 495, 0x8fff, 0},
+    {"\\MV\\M1.;1", 320, 240, 1, 104, 0xffff, 0},
+    {"\\MV\\M2.;1", 320, 240, 1, 233, 0xffff, 0},
+    {"\\MV\\M3.;1", 320, 240, 1, 105, 0xffff, 0},
+    {"\\MV\\M4.;1", 320, 240, 1, 165, 0xcfff, 0},
+    {"\\MV\\M5.;1", 320, 240, 1, 148, 0xcfff, 0},
+    {"\\MV\\M6.;1", 320, 240, 1, 141, 0xcfff, 0},
+    {"\\MV\\M7.;1", 320, 240, 1, 148, 0xefff, 0},
+    {"\\MV\\M8.;1", 320, 240, 1, 115, 0xcfff, 0},
+    {"\\MV\\M9.;1", 320, 240, 1, 295, 0xcfff, 0},
+    {"\\MV\\M10.;1", 320, 240, 1, 166, 0xcfff, 0},
+    {"\\MV\\MT3.;1", 320, 240, 1, 2193, 0xcfff, 0},
+    {"\\MV\\M11.;1", 320, 240, 1, 298, 0xcfff, 0},
+    {"\\MV\\M12.;1", 320, 240, 1, 528, 0xcfff, 0},
+    {"\\MV\\M13.;1", 320, 240, 1, 418, 0xcfff, 0},
+    {"\\MV\\M14.;1", 320, 240, 1, 1846, 0xcfff, 0},
+    {"\\MV\\M15.;1", 320, 240, 1, 348, 0xcfff, 0},
+    {"\\MV\\M16.;1", 320, 240, 1, 1045, 0xcfff, 0},
+    {"\\MV\\M17.;1", 320, 240, 1, 1093, 0xcfff, 0},
+    {"\\MV\\M18.;1", 320, 240, 1, 797, 0xcfff, 0},
+    {"\\MV\\M19.;1", 320, 240, 1, 174, 0xcfff, 0},
+    {"\\MV\\M20.;1", 320, 240, 1, 66, 0xcfff, 0},
+    {"\\MV\\M21.;1", 320, 240, 1, 270, 0xcfff, 0},
+    {"\\MV\\M22.;1", 320, 240, 1, 60, 0xcfff, 0},
+    {"\\MV\\M23.;1", 320, 240, 1, 82, 0xcfff, 0},
+    {"\\MV\\M24.;1", 320, 240, 1, 421, 0xcfff, 0},
+    {"\\MV\\M25.;1", 320, 240, 1, 280, 0x8fff, 0},
+    {"\\MV\\M26.;1", 320, 240, 1, 927, 0xcfff, 0},
+};
+int g_253a0 = 1;
 static int g_2a178;
 static int g_2a17c;
 static int g_2a180;
