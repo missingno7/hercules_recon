@@ -1,4 +1,5 @@
-/* Hypothesis: TITLE.DLL 0x8140..0x94bf is one C++ translation unit.
+/* Hypothesis: TITLE.DLL 0x8140..0x94bf is one C++ translation unit. It defines the shared .bss block
+ * 0x29fec..0x2a0b0 (per-object variables read by other units need a C++ definer).
  * Shared declarations first, then the 14 MASKED EQUAL functions in ascending RVA.
  * No includes are needed: none of the 14 bodies uses the engine interface header. */
 
@@ -84,23 +85,23 @@ typedef struct TitleRec {
 
 /* ---- globals ---- */
 
-extern int g_2a008;
-extern int g_2a010;
-extern int g_2a024;
-extern int g_2a02c;
-extern int g_2a034;
-extern int g_2a080;
-extern int g_2a084;
-extern TitleRec *g_2a048;
-extern TitleRec *g_2a04c;
-extern TitleRec *g_2a050;
-extern TitleRec *g_2a054;
-extern TitleRec *g_2a058;
-extern TitleRec *g_2a05c;
-extern TitleRec *g_2a060;
-extern TitleRec *g_2a064;
-extern TitleRec *g_2a06c;
-extern TitleRec *g_2a070;
+int g_2a008;
+int g_2a010;
+int g_2a024;
+int g_2a02c;
+int g_2a034;
+int g_2a080;
+int g_2a084;
+TitleRec *g_2a048;
+TitleRec *g_2a04c;
+TitleRec *g_2a050;
+TitleRec *g_2a054;
+TitleRec *g_2a058;
+TitleRec *g_2a05c;
+TitleRec *g_2a060;
+TitleRec *g_2a064;
+TitleRec *g_2a06c;
+TitleRec *g_2a070;
 extern unsigned short g_23af8[];
 extern unsigned short g_23668[];
 extern unsigned short g_238b0[];
@@ -109,11 +110,11 @@ extern unsigned short g_23f88[];
 
 extern int g_2cc64;
 extern int g_2cc60;
-extern int g_2a044;
-extern int g_2a03c;
-extern int g_2a020;
-extern int g_2a014;
-extern int g_2a07c;
+int g_2a044;
+int g_2a03c;
+int g_2a020;
+int g_2a014;
+int g_2a07c;
 extern TitleObj *g_29e08;
 extern short g_24230[];
 extern short g_241a4[];
@@ -126,7 +127,15 @@ extern short g_232b0[];
 extern int g_2bffc;
 extern int g_2bf7c;
 extern TitleCfg *g_2bf40;
-extern TitleTab g_2a0a0[];
+TitleTab g_2a0a0[2];
+/* Also in this object's .bss block (0x29fec..0x2a0b0), used by the C unit at 0x6bb0. */
+TitleRec *g_29ff4;
+TitleRec *g_29ffc;
+TitleRec *g_2a000;
+TitleRec *g_2a004;
+int g_2a018;
+int g_2a078;
+int g_2a088;
 extern signed char g_2cc03;
 extern char *g_2d320;
 extern char *g_2df4c;
