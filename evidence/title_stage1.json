@@ -446,6 +446,7 @@
   "files": "candidates/wm2/best_cfi.cpp (HEAD u17cb0.cpp + f17f50 (wemit2b), f181e0_cfi.inc, f186e0_best.inc; all 18 rows equal).",
   "0x186e0": "367 -> 2 bytes: (vv + h) << 8 in both arms; sy = (signed char)*stream++ * 2; sy += y0; store orders xy_018/xy_020 and uv_01c/uv_024; prologue more = *stream; code = more; blend; clut; more &= 0x80; stream++. Implied W order sy > vv > sx (sy esi, vv edi, sx spilled to the obj argument slot) reproduced. Residue: in the else arm sx + x0 loads x0 first (original sx first); operand order, 462 declaration placements, types, reuse, a precomputed x (integrator: 337-454) and headers (none/lean equal 2; full breaks 0x17cb0) are inert or worse. In the near-complete unit (with 0x184c0/0x18b20 drafts) it becomes 255.",
   "0x181e0": "607 -> 246 (52 instructions): family-C tail more = *stream; code = more; more &= 0x80; stream++ keeps more in bl and splits vv as in the original; int flip moves flags to ebp. Residue: flip test width (cmp word [esp+28],0 in the original needs a 16-bit flip, which pins flags to the byte class) and x vs the h piece for ebp in L4-L6.",
-  "margins": "diagnostic sink stores to distinct globals measured the weight margins (repeated stores to one global are eliminated): more needs about +2 L6 references, x +3 in the flip arm or +1 in L6."
+  "margins": "diagnostic sink stores to distinct globals measured the weight margins (repeated stores to one global are eliminated): more needs about +2 L6 references, x +3 in the flip arm or +1 in L6.",
+  "count_scan_186e0": "scripts/count_scan.py --tp 0..160 on candidates/wm2/best_cfi.cpp: outcomes only 2 / 255 / size 688, periodic in steps of 16; no count gives 0, so the 2-byte sx/x0 load-order residue is a source-form question, not TU context."
  }
 }
