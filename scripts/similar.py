@@ -161,15 +161,45 @@ def verify(report=None):
         raise SystemExit(1)
 
 
+def summary(module, function_map=None):
+    """Counters with explicit definitions (one source for reports and evidence)."""
+    state = json.loads(STATE.read_text())
+    rows = [r for r in state['functions'] if Path(r['target']).name.upper() == module.upper()]
+    masked = [r for r in rows if r['status'] == 'CODEGEN_SIMILAR' and r.get('proof', {}).get('scope') == SCOPE]
+    legacy = [r for r in rows if r['status'] == 'CODEGEN_SIMILAR' and r not in masked]
+    exact = [r for r in rows if r['status'] == 'FUNCTION_MATCH']
+    out = dict(module=module,
+               definitions=dict(masked_rows='CODEGEN_SIMILAR rows with the relocation-masked proof scope',
+                                legacy_similar_rows='older CODEGEN_SIMILAR calibration rows (relocation-only diagnostics)',
+                                function_match_rows='raw-exact accepted rows',
+                                covered='masked + legacy similar + function match rows (one row per function)'),
+               masked_rows=len(masked), masked_bytes=sum(r['size'] for r in masked),
+               legacy_similar_rows=len(legacy), legacy_similar_bytes=sum(r['size'] for r in legacy),
+               function_match_rows=len(exact), function_match_bytes=sum(r['size'] for r in exact))
+    covered = masked + legacy + exact
+    out['covered_functions'] = len({(r['target'], r['rva']) for r in covered})
+    out['covered_bytes'] = sum(r['size'] for r in covered)
+    if function_map and Path(function_map).exists():
+        spans = json.loads(Path(function_map).read_text())['functions']
+        out['first_party_spans'] = len(spans)
+        out['first_party_bytes'] = sum(f['size'] for f in spans)
+    return out
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest='command', required=True)
     s = sub.add_parser('stage')
     s.add_argument('plan', type=Path)
     sub.add_parser('verify')
+    m = sub.add_parser('summary')
+    m.add_argument('module', nargs='?', default='TITLE.DLL')
+    m.add_argument('--function-map', default=str(ROOT / 'work/function_map/title_v2.json'))
     args = parser.parse_args()
     if args.command == 'stage':
         stage(args.plan)
+    elif args.command == 'summary':
+        print(json.dumps(summary(args.module, args.function_map), indent=1))
     else:
         verify()
 

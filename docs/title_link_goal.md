@@ -81,3 +81,10 @@ the unremovable dead load itself; it is not used to steer register allocation. T
 these handlers keep in the caller's argument area is an ordinary local. VC5 places it there
 itself when the request is a single typed pointer parameter. `0x128e0` and `0x14300` are
 masked-equal with this shape.
+
+Project-owner ruling (2026-10-09): the `volatile` declarations of the two context fields at
+`+0x5c` and `+0x5e` are approved as a narrowly scoped, evidence-supported reconstruction
+hypothesis. The original performs reads whose results are unused, and no non-volatile
+construct reproduces them under the pinned compiler. This is not proof of the original
+declaration. The exception does not generalize, and `volatile` must never be used to
+influence register allocation.
