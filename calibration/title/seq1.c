@@ -1,18 +1,20 @@
 /* Sequence screen 1 unit: handler 0x12280 and helpers 0x12710, 0x12810.
    One object: these functions share a private .bss block (scripts/unit_bounds.py), and the
    alphabetical file order seq1, seq10, seq2 .. seq9 is the code order of the ten units. */
+/* Private .bss (0x2ab1c..0x2ab47, address order): names chosen for meaning and for VC5's
+   identifier-hash layout order (scripts/layout_names.py), not recovered identifiers. */
 #include "title_engine.h"
 #include "title_files.h"
 #include "title_screen.h"
 
-static int g_2ab2c;
-static int g_2ab30;
-static int g_2ab38;
-static int g_2ab3c;
-static int g_2ab40;
-static TitleObject *g_2ab1c;
-static TitleObject *g_2ab24;
-static TitleObject *g_2ab34;
+static int seq1_unknown_2c;
+static int seq1_unknown_30;
+static int seq1_state;
+static int seq1_fade_bottom2;
+static int seq1_upper_fade;
+static TitleObject *seq1_obj_main;
+static TitleObject *seq1_sprite;
+static TitleObject *seq1_twin_obj;
 extern int g_29f98;
 extern char g_29128[];
 extern void title_164b0(void);
@@ -35,9 +37,9 @@ void title_13310(void);
 void title_13430(void);
 void title_16300(void);
 void title_1d790(int a);
-static int g_2ab20;
-static int g_2ab28;
-static int g_2ab44;
+static int seq1_cel;
+static int seq1_anim_phase;
+static int seq1_tick_parity;
 extern unsigned short g_25f50[];
 int title_06670(void);
 void title_0c2e0(void);
@@ -58,9 +60,9 @@ void title_12280(TitleProc *self)
         self->delay_08 = 2;
         return;
     case 0xffff:
-        g_2ab38 = 0xa;
-        g_2ab30 = 0;
-        g_2ab2c = 0xf;
+        seq1_state = 0xa;
+        seq1_unknown_30 = 0;
+        seq1_unknown_2c = 0xf;
         handle = 0;
         title_0c450(&handle, 0x15000, 0);
         title_01dd0(handle);
@@ -77,8 +79,8 @@ void title_12280(TitleProc *self)
         title_04b70(4, 0);
         title_12710();
         title_1d790(1);
-        g_2ab40 = 0x80;
-        g_2ab3c = 0;
+        seq1_upper_fade = 0x80;
+        seq1_fade_bottom2 = 0;
         self->state_04 = 1;
         self->delay_08 = 1;
         return;
@@ -93,55 +95,55 @@ void title_12280(TitleProc *self)
         return;
     }
 
-    switch (g_2ab38) {
+    switch (seq1_state) {
     case 0:
-        title_01de0(0x140, 0x100, g_2ab3c, 0, 0);
-        if (g_2ab3c < 0x80) {
-            g_2ab3c += 8;
+        title_01de0(0x140, 0x100, seq1_fade_bottom2, 0, 0);
+        if (seq1_fade_bottom2 < 0x80) {
+            seq1_fade_bottom2 += 8;
         }
         break;
     case 1:
-        g_2ab24->unknown_054 &= 0x7fffffff;
-        g_2ab1c->unknown_054 &= 0x7fffffff;
-        title_01de0(0x140, 0, g_2ab40, 0, 0);
-        title_01de0(0x140, 0x100, g_2ab3c, 1, 1);
-        if (g_2ab40 < 0x80) {
-            g_2ab40 += 8;
+        seq1_sprite->unknown_054 &= 0x7fffffff;
+        seq1_obj_main->unknown_054 &= 0x7fffffff;
+        title_01de0(0x140, 0, seq1_upper_fade, 0, 0);
+        title_01de0(0x140, 0x100, seq1_fade_bottom2, 1, 1);
+        if (seq1_upper_fade < 0x80) {
+            seq1_upper_fade += 8;
         }
-        if (g_2ab3c > 0) {
-            g_2ab3c -= 8;
+        if (seq1_fade_bottom2 > 0) {
+            seq1_fade_bottom2 -= 8;
         }
         break;
     case 2:
         title_0c4f0(1);
-        g_2ab38 = 3;
+        seq1_state = 3;
         /* fall through */
     case 3:
-        title_01de0(0x140, 0, g_2ab40, 0, 0);
-        if (g_2ab40 > 0) {
-            g_2ab40 -= 4;
+        title_01de0(0x140, 0, seq1_upper_fade, 0, 0);
+        if (seq1_upper_fade > 0) {
+            seq1_upper_fade -= 4;
         }
         break;
     case 11:
-        if (g_2ab1c->unknown_04a < 0x80) {
-            g_2ab1c->unknown_04a += 8;
-            g_2ab34->unknown_04a = g_2ab1c->unknown_04a * 2;
+        if (seq1_obj_main->unknown_04a < 0x80) {
+            seq1_obj_main->unknown_04a += 8;
+            seq1_twin_obj->unknown_04a = seq1_obj_main->unknown_04a * 2;
         }
         /* fall through */
     case 10:
         title_01de0(0x280, 0x100, 0x80, 0, 0);
         break;
     case 12:
-        title_01de0(0x280, 0x100, g_2ab40, 0, 0);
-        g_2ab24->unknown_04a = g_2ab40;
-        g_2ab1c->unknown_04a = g_2ab40;
-        g_2ab34->unknown_04a = g_2ab40 * 2;
-        if (g_2ab40 > 0) {
-            g_2ab40 -= 8;
+        title_01de0(0x280, 0x100, seq1_upper_fade, 0, 0);
+        seq1_sprite->unknown_04a = seq1_upper_fade;
+        seq1_obj_main->unknown_04a = seq1_upper_fade;
+        seq1_twin_obj->unknown_04a = seq1_upper_fade * 2;
+        if (seq1_upper_fade > 0) {
+            seq1_upper_fade -= 8;
         } else {
-            g_2ab24->unknown_054 &= 0x7fffffff;
-            g_2ab1c->unknown_054 &= 0x7fffffff;
-            g_2ab38 = 0;
+            seq1_sprite->unknown_054 &= 0x7fffffff;
+            seq1_obj_main->unknown_054 &= 0x7fffffff;
+            seq1_state = 0;
         }
         break;
     }
@@ -149,18 +151,18 @@ void title_12280(TitleProc *self)
     if (g_29f98 == 0) {
         title_12810();
     }
-    if (g_2ab38 == 0xc) {
-        if (g_2ab1c != 0) {
-            title_09350(g_2ab1c);
-            g_2ab1c = 0;
+    if (seq1_state == 0xc) {
+        if (seq1_obj_main != 0) {
+            title_09350(seq1_obj_main);
+            seq1_obj_main = 0;
         }
-        if (g_2ab34 != 0) {
-            title_09350(g_2ab34);
-            g_2ab34 = 0;
+        if (seq1_twin_obj != 0) {
+            title_09350(seq1_twin_obj);
+            seq1_twin_obj = 0;
         }
-        if (g_2ab24 != 0) {
-            title_09350(g_2ab24);
-            g_2ab24 = 0;
+        if (seq1_sprite != 0) {
+            title_09350(seq1_sprite);
+            seq1_sprite = 0;
         }
         title_04ea0(4);
         title_16300();
@@ -174,57 +176,57 @@ void title_12280(TitleProc *self)
 
 void title_12710(void)
 {
-    g_2ab1c = title_17ad0(0, 0, 0, 0x2009, 0);
-    g_2ab1c->unknown_034 = 1;
-    g_2ab34 = title_17ad0(0, 0, 0, 0x2009, 0);
-    g_2ab34->unknown_034 = 1;
-    g_2ab1c->unknown_054 |= 5;
-    g_2ab34->unknown_054 |= 6;
-    g_2ab34->unknown_04a = 0;
-    g_2ab1c->unknown_04a = 0;
-    g_2ab34->unknown_023 = 6;
-    g_2ab1c->unknown_023 = 6;
-    g_2ab1c->unknown_03e = 10;
-    g_2ab34->unknown_03e = 20;
-    g_2ab34->unknown_000 = 0x10000;
-    g_2ab34->unknown_004 = 0x10000;
-    g_2ab24 = title_17ad0(0, 0, 0, 0x2009, 0);
-    g_2ab24->unknown_034 = 2;
-    g_2ab24->unknown_000 = 0x640000;
-    g_2ab24->unknown_004 = 0x640000;
-    g_2ab24->unknown_054 |= 0x10;
-    g_2ab28 = 0;
-    g_2ab20 = 0;
+    seq1_obj_main = title_17ad0(0, 0, 0, 0x2009, 0);
+    seq1_obj_main->unknown_034 = 1;
+    seq1_twin_obj = title_17ad0(0, 0, 0, 0x2009, 0);
+    seq1_twin_obj->unknown_034 = 1;
+    seq1_obj_main->unknown_054 |= 5;
+    seq1_twin_obj->unknown_054 |= 6;
+    seq1_twin_obj->unknown_04a = 0;
+    seq1_obj_main->unknown_04a = 0;
+    seq1_twin_obj->unknown_023 = 6;
+    seq1_obj_main->unknown_023 = 6;
+    seq1_obj_main->unknown_03e = 10;
+    seq1_twin_obj->unknown_03e = 20;
+    seq1_twin_obj->unknown_000 = 0x10000;
+    seq1_twin_obj->unknown_004 = 0x10000;
+    seq1_sprite = title_17ad0(0, 0, 0, 0x2009, 0);
+    seq1_sprite->unknown_034 = 2;
+    seq1_sprite->unknown_000 = 0x640000;
+    seq1_sprite->unknown_004 = 0x640000;
+    seq1_sprite->unknown_054 |= 0x10;
+    seq1_anim_phase = 0;
+    seq1_cel = 0;
 }
 
 void title_12810(void)
 {
-    g_2ab44 ^= 1;
-    if (g_2ab44 != 0) {
+    seq1_tick_parity ^= 1;
+    if (seq1_tick_parity != 0) {
         return;
     }
-    switch (g_2ab28) {
+    switch (seq1_anim_phase) {
     case 0:
-        g_2ab24->unknown_034 = g_25f50[g_2ab20] + 1;
-        g_2ab20++;
-        if (g_25f50[g_2ab20] == 0x0a && g_2ab38 == 0x0a) {
-            g_2ab38 = 0x0b;
+        seq1_sprite->unknown_034 = g_25f50[seq1_cel] + 1;
+        seq1_cel++;
+        if (g_25f50[seq1_cel] == 0x0a && seq1_state == 0x0a) {
+            seq1_state = 0x0b;
         }
-        if (g_25f50[g_2ab20] == 0xffff) {
+        if (g_25f50[seq1_cel] == 0xffff) {
             title_0c4f0(1);
             g_engine_interface.context_004->unknown_1b30 = 4;
-            g_2ab28 = 1;
+            seq1_anim_phase = 1;
         }
         break;
     case 1:
-        g_2ab24->unknown_034++;
-        if (g_2ab24->unknown_034 == 0x10) {
-            g_2ab28 = 2;
+        seq1_sprite->unknown_034++;
+        if (seq1_sprite->unknown_034 == 0x10) {
+            seq1_anim_phase = 2;
         }
         break;
     case 2:
-        g_2ab38 = 0x0c;
-        g_2ab28 = 3;
+        seq1_state = 0x0c;
+        seq1_anim_phase = 3;
         break;
     }
 }

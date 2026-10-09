@@ -439,5 +439,12 @@
   "finding": "Eleven per-file views of the display/actor object (TitleObject, TitleObj, Actor) describe one 0x134-byte record: the pool is allocated as 0x134 * count (0x1d380), and the views agree at every shared offset except signedness at +0x074 (short in two views) and +0x000/+0x004 (unsigned long in three).",
   "change": "title_screen.h TitleObject is now the union of the users' members (signed x/y as required by 0x6fb0, unsigned short +0x074, +0x068 a TitleObject pointer). r01000, r16110, u06bb0, u197f0 (also its private ScreenContext), r03d10, r097f0, u09a40, u0c1f0 and r02a80 use it; all 157 of their rows stay masked equal, so the conflicting signedness was not load-bearing. r04d80.c drops 19 unused leftover declarations, a process-record view and an object view.",
   "not_yet": "r17ad0.c (0x17bf0 is TU-count sensitive), u17cb0.cpp and u08140.cpp (C++, count-sensitive; workers use them as context) keep private views for now. seq1/r10ce0/u0ff70 TitleObj is a different 0x3c-byte record."
+ },
+ "layout_names": {
+  "date": "2026-10-09",
+  "policy": "Project-owner ruling 2026-10-09: identifiers may be chosen so that VC5's recovered hash ordering reproduces the original uninitialized-data layout. Prefer meaningful names; keep address names where semantics are unknown unless renaming is needed for demonstrated layout convergence; document layout-chosen names; no dummy variables, padding or placement tricks; ownership must come from independent evidence first.",
+  "tool": "scripts/layout_names.py: per variable a list of meaningful candidate words (or a fixed name), one prefix style; dynamic programming over strictly increasing buckets in address order, preferring earlier words; numeric suffixes last. The hash mixes trailing characters weakly, so variety comes from words and prefixes.",
+  "experiment_seq1": "seq1.c (0x2ab1c..0x2ab47: 11 contiguous 4-byte statics, all private to the unit, no gaps). Address names cannot work (g_2ab30 would need to hash above g_2ab2c). Chosen: seq1_obj_main, seq1_cel, seq1_sprite, seq1_anim_phase, seq1_unknown_2c, seq1_unknown_30, seq1_twin_obj, seq1_state, seq1_fade_bottom2, seq1_upper_fade, seq1_tick_parity. Result in the natural link: 11/11 keep their original relative offsets (was 2/11); the 3 rows stay masked equal.",
+  "scope": "Apply only to objects whose whole uninitialized block is accounted for by reconstructed, owned variables (no unexplained gaps)."
  }
 }
