@@ -284,5 +284,13 @@
   "R3": "Commutative operand order (+, |) is not source order; it flips with unrelated declarations earlier in the TU, non-monotonically (an internal tie-break; consistent with the TU-count fragile rows). 0x4fe0's OR order is of this kind: it needs the unit's real headers, not expression edits or padding.",
   "R4": "Inline memset setup is always count, zero, destination; 0x66f0 is the only rep stosd in TITLE with the destination first (no source form found).",
   "R5": "For ctx->field = global the original assigns the value's register first; a separate value local reproduces it in a probe but shifts every later register in 0x5fb0 (B2 stays at 7)."
+ },
+ "rotation_study": {
+  "date": "2026-10-09",
+  "R1": "A hidden allocation counter carries the scratch rotation between cases (inserting one temporary-producing statement in an earlier case rotates every later case even across byte-identical cases); roles move eax->ecx->edx per step; base triple idx eax, ptr edx, val ecx.",
+  "R2": "Counter steps mod 3: one-temporary statements +1, two-temporary +2, three-temporary 0, read-modify-write 0, constant-only global stores 0; break/return/goto, default, switch range, static/extern, C/C++, neighbouring functions: no effect. Spellings (copies, casts, increments, loops, inline helpers, index forms, prototypes, types) are canonicalised by the front end.",
+  "R3": "Loops absorb a +1 phase, propagate +2; the original's loop state L(ac) with adc downstream is unreachable from any incoming phase with argument temporaries allocated left to right.",
+  "R4": "Call arguments get temporaries in source order whatever the push order. Allocating the pointer argument of title_054f0(T[i+1] | 0x4000, obj) before the value reproduces 0xa020's and 0x9a40's rotation except loop 2's index/lea pair (diagnostic with a reversed-parameter prototype, not usable). No ordinary form evaluates the pointer first while pushing it second.",
+  "open": "Source form giving pointer-first allocation with cdecl push order; the loop-carried index/lea pair (eax/ecx in later original loops, always ecx/eax in ours); 0xd910's loop value pinned to eax; 0x9c90 does not fit R4 alone. Back ends SP2/SP3/NT5 behave like RTM (diagnostic)."
  }
 }
