@@ -2,6 +2,29 @@
 #include "title_screen.h"
 #include "title_files.h"
 
+/* Memory-card save record (0x3c bytes; same layout as TitleObj in r10ce0.c, filled by
+   title_12070 and applied by title_121d0). Three slots at 0x2aa50, 0x2aa8c, 0x2aac8. */
+typedef struct TitleObj {
+    unsigned char field_00;
+    unsigned char field_01;
+    unsigned char field_02;
+    unsigned char field_03;
+    int field_04;
+    int field_08;
+    int field_0c;
+    int field_10;
+    int field_14;
+    int field_18;
+    int field_1c;
+    int rect_20[4];
+    int field_30;
+    int field_34;
+    unsigned char field_38;
+    unsigned char field_39;
+    unsigned char field_3a;
+    unsigned char field_3b;
+} TitleObj;
+static TitleObj g_2aa50[3];
 static TitleObject *g_2aa14;
 static TitleObject *g_2aa2c;
 static TitleObject *g_2a9c8;
@@ -20,10 +43,6 @@ void title_054f0(int a, int b);
 int title_0c4d0(int a);
 void title_09350(TitleObject *p);
 void title_04ea0(int a);
-static int g_2aa54;
-static int g_2aa60;
-static int g_2aa90;
-static int g_2aacc;
 static int g_2a9d8;
 static int g_2a9dc;
 static int g_2a9e4;
@@ -475,7 +494,7 @@ void title_109f0(TitleProc *out)
 
 void title_10ce0(void)
 {
-    switch (g_2aa54) {
+    switch (g_2aa50[0].field_04) {
     case 0: g_2a9c8->unknown_034 = 0x1a; break;
     case 1: g_2a9c8->unknown_034 = 0x10; break;
     case 2: g_2a9c8->unknown_034 = 0x11; break;
@@ -487,19 +506,19 @@ void title_10ce0(void)
     case 8: g_2a9c8->unknown_034 = 0x16; break;
     case 9: g_2a9c8->unknown_034 = 0x17; break;
     case 10:
-        if (g_2aa60) g_2a9c8->unknown_034 = 0x18;
+        if (g_2aa50[0].field_10) g_2a9c8->unknown_034 = 0x18;
         else g_2a9c8->unknown_034 = 0x10;
         break;
     case 11:
-        if (g_2aa60) g_2a9c8->unknown_034 = 0x19;
+        if (g_2aa50[0].field_10) g_2a9c8->unknown_034 = 0x19;
         else g_2a9c8->unknown_034 = 0x10;
         break;
     case 12: /* same shape as cases 10 and 11; both arms happen to be 0x10 */
-        if (g_2aa60) g_2a9c8->unknown_034 = 0x10;
+        if (g_2aa50[0].field_10) g_2a9c8->unknown_034 = 0x10;
         else g_2a9c8->unknown_034 = 0x10;
         break;
     }
-    switch (g_2aa90) {
+    switch (g_2aa50[1].field_04) {
     case 0: g_2a9cc->unknown_034 = 0x1a; break;
     case 1: g_2a9cc->unknown_034 = 0x10; break;
     case 2: g_2a9cc->unknown_034 = 0x11; break;
@@ -514,7 +533,7 @@ void title_10ce0(void)
     case 11: g_2a9cc->unknown_034 = 0x19; break;
     case 12: g_2a9cc->unknown_034 = 0x10; break;
     }
-    switch (g_2aacc) {
+    switch (g_2aa50[2].field_04) {
     case 0: g_2a9d0->unknown_034 = 0x1a; break;
     case 1: g_2a9d0->unknown_034 = 0x10; break;
     case 2: g_2a9d0->unknown_034 = 0x11; break;

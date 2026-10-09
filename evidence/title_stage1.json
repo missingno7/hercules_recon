@@ -164,7 +164,8 @@
   "0x3da0": 888,
   "0x7510": 0,
   "0xf460": 0,
-  "0x9c90": 271
+  "0x9c90": 271,
+  "0x10fe0": 6
  },
  "tooling": [
   "scripts/masked.py",
@@ -253,7 +254,8 @@
   "w1300": "0x1300 masked equal (level-select menu refresh). 0x4fe0 is the libgpu getTPage(1, 0, (c/2)*128 + 768, (c&1)*256) macro over 256 cells; 45 bytes remain only from the order of OR operands (y&0x200 term first in ours), invariant under ~400 spellings - needs a new discriminator. 0x3da0 (cell allocator with RLE decode into staging; 888 bytes) is semantically decoded; residue is the RLE source pointer outranking cur/pos for ebx (removing one source-pointer reference flips it), plus block placement of the hit paths.",
   "wemit": "0x17cb0 masked equal but TU-count fragile (operand order of two adds flips with one extra declaration). Emitters 0x17f50 (POLY_FT4 textured quads, 385), 0x186e0 (2D flat quads, 499) and 0x181e0 (620) are structural drafts in candidates/wemit/ with register-role residues; levers found: a flags local restores the dword load, code & 0x80 as a CSE expression, statement order of tpage/tex stores, explicit unsigned char more variable.",
   "w85d0": "0x85d0 and 0x8770 masked equal in the current C++ unit context (their old residues were TU-context base/index flips that the real includes now settle). 0x95d0 (object-system init from the 0x48-byte config rows at .data 0x26980) is at 119 bytes, pure store scheduling of 28 field copies; 0x94c0 at 74 (object-head reset, scheduler windows).",
-  "wf460": "0xf460 masked equal (password screen handler, u0cc90 unit). 0x9c90 (third frame-table animator) structurally equal at 271 bytes; only the scratch rotation differs (carried between neighbouring cases, not a simple global temporary count) - same open class as 0x9a40/0xa020."
+  "wf460": "0xf460 masked equal (password screen handler, u0cc90 unit). 0x9c90 (third frame-table animator) structurally equal at 271 bytes; only the scratch rotation differs (carried between neighbouring cases, not a simple global temporary count) - same open class as 0x9a40/0xa020.",
+  "w10fe0": "0x10fe0 (LSGameMemoryCardLoop, 4240 bytes) is size-exact at 6 bytes: in state 0 / card result 0 the scratch registers of two flag updates differ (edi treated as free in ours; the original keeps it live) - register-priority family. Case source order 0, 10, 4, 7, 3, 1, 2, 6, 8, 9, 5, 11, 13 from code layout and reverse-order literals. Structural result applied: 0x2aa54/0x2aa60/0x2aa90/0x2aacc are fields +4/+0x10 of three 0x3c-byte memory-card save records at 0x2aa50, 0x2aa8c, 0x2aac8 (static TitleObj g_2aa50[3]); 0x10ce0 stays masked equal."
  },
  "register_study": {
   "date": "2026-10-09",
