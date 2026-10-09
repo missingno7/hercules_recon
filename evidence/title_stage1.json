@@ -218,5 +218,11 @@
    "0x8770_follow_up": "At N >= 60 the remaining residue is the B5 loop anchor plus an esi/edi swap. The spelling `p++; reca = *p;` reproduces the original anchor ([edi+4], add edi,4), leaving 21 bytes: the counter and the pointer swap esi and edi. That swap does not respond to count, kind, declaration order, or reuse of the earlier loop counter."
   },
   "verdict": "Partly confirmed. In C++ units, base/index order (B1-like) is TU-count context, so C++ near-misses must be judged at realistic counts. The real headers decide that count; padding is never a fix. The tested C near-misses (B1 in 0x1de0, B6 in 0x10670, B2, 0x4aa0, 0x13ba0, 0x1a180) are count-insensitive, so they are source-form questions; but C code can be count-sensitive (0x17bf0), so header changes need a full masked verify."
+ },
+ "unit_context_retries": {
+  "date": "2026-10-09",
+  "0x66f0": "In its own C unit (u06350.c, which also holds the C-only 0x65e0) the memory-card header builder reaches 10 differing bytes, the same as the earlier C++ lead, so the 'needs C++' note above is superseded. Residue: the memset destination lea is scheduled before the count/zero setup in the original; memset spellings, typed parameter, statement order tried. Count-insensitive below a size change at N=25.",
+  "0x9a40": "In u09a40.c: the jump table gives an explicit case 0 and source case order 6, 7, 1..5 (recovered); structure then equals the original, 191 bytes remain from per-case register assignment rotated by one register (index/pointer/value) and the resulting short-form mov. Insensitive to TU count (0..79), post/pre-increment, typing of the index, field and tables, static vs extern. Treated like B6.",
+  "0x5db0": "In title_proc.cpp: 30 bytes, the original pushes the call argument right after computing it; count-insensitive."
  }
 }

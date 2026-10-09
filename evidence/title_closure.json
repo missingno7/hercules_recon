@@ -392,7 +392,8 @@
  "communal_alignment": {
   "date": "2026-10-09",
   "measured": "Communal arrays align to the largest power of two not above their size, capped at 32 (4->4, 8->8, 12->8, 16->16, 32->32, 64->32); scalars to their size. In-group order follows scripts/symbol_order.py (re-confirmed on this probe). Initialized .data: 8+ byte arrays 8-aligned.",
-  "dll_wide_group": "In the 0x2cbe0 group, the item at 0x2cc00 must be 16-aligned (gap 0x2cbf8..0x2cbff) and end by 0x2cc10 (the 64-byte g_2cc20 needs 32-alignment): a 16-byte aggregate. g_2cc04 (19 users), g_2cc08 and g_2cc0c, and the bytes 0x2cc02/0x2cc03, are its fields, not independent globals. Rewriting their users across six files is pending (masked equality is unaffected: same addresses)."
+  "dll_wide_group": "Corrected 2026-10-09 (the earlier 'a 16-byte aggregate' wording overclaimed). The gap 0x2cbf8..0x2cbff and the end bound 0x2cc10 (g_2cc20, 64 bytes, is 32-aligned) admit two readings: one object of 16+ bytes at 0x2cc00 (16-aligned), or ordinary scalars (char 0x2cc02/0x2cc03, ints 0x2cc04/0x2cc08/0x2cc0c) with unreferenced tentative definitions filling the gaps (a shared header defines globals in every C object, so unreferenced communals are expected). The users suggest unrelated meanings: 0x2cc03 is compared with object indexes in u08140, 0x2cc04/0x2cc08 are the current and base display buffers swapped by the main loop 0x5fb0 (0x2cc08 is allocated with 2 x 0x1478 bytes in 0x1d590), 0x2cc0c saves the timer callback in 0x5fb0. No aggregate refactor is made.",
+  "consequence": "Reproducing communal group layout exactly would need any unreferenced members, which no code evidences; they are not invented (no placeholder globals). Group membership and order of the referenced members remain testable."
  },
  "scheduler_functions": {
   "date": "2026-10-09",
