@@ -4,6 +4,10 @@
    unsigned here because callers compare its result unsigned. */
 #include "title_engine.h"
 #include "title_screen.h"
+typedef struct TitleTallyContext {   /* engine context: player-presence mask at +0x1c */
+    unsigned char unknown_00[0x1c];
+    unsigned short unknown_1c;
+} TitleTallyContext;
 
 struct title_pos {
     short x;
@@ -81,6 +85,13 @@ static int g_2af68;
 static int g_2aff4;
 static TitleObject *g_2afd0;
 static TitleObject *g_2b330[8];
+static int g_2ae88[8];
+static int g_2b018[8];
+static int g_2b038[8];
+static int g_2b068[8];
+static int g_2b138[8];
+static int g_2b158[8];
+static int g_2b320;
 static TitleObject *g_2b31c;
 static int g_2afcc;
 static int g_2affc;
@@ -891,6 +902,156 @@ void title_1ac90(void)
         }
         if (g_2aff8[i] != 5)
             g_2b1d8[i]->unknown_04a = (unsigned short)g_2afe4;
+    }
+}
+
+void title_1b150(void)
+{
+    int i;
+    int k;
+    int v;
+
+    g_2b308 = 0;
+    for (i = 0; i < 8; i++) {
+        switch (g_2ae88[i]) {
+        case 0:
+            g_2b330[i] = title_17ad0(0, 0, 0, 0x2012, 0);
+            g_2b018[i] = (i << 21) - 0x700000;
+            g_2b038[i] = 0xffd60000;
+            g_2b138[i] = 0;
+            g_2b158[i] = 0;
+            g_2b330[i]->unknown_034 = (unsigned short)g_265d8[i];
+            g_2b330[i]->unknown_023 = 6;
+            g_2b330[i]->unknown_03e = 0x1e;
+            g_2b330[i]->unknown_000 = (title_0c4a0(0x140) - 0xa0) << 16;
+            g_2b330[i]->unknown_004 = (title_0c4a0(0x100) - 0x80) << 16;
+            g_2b330[i]->unknown_008 = g_2b320;
+            g_2b330[i]->unknown_054 &= 0x7fffffff;
+            g_2b068[i] = 0;
+            g_2ae88[i] = 4;
+            break;
+        case 1:
+            g_2b330[i]->unknown_034++;
+            if ((int)g_2b330[i]->unknown_034 == g_265f8[i] + g_265d8[i])
+                g_2b330[i]->unknown_034 = (unsigned short)g_265d8[i];
+            if (g_2b320 > 0)
+                g_2b320 -= 0x4b0000;
+            else
+                g_2b320 = 0;
+            g_2b330[i]->unknown_008 = g_2b320;
+            if (g_2b320 == 0)
+                g_2ae88[i] = 2;
+            break;
+        case 2:
+            if (g_2b1d0 != 4 && g_2b068[i] != -1) {
+                g_2b068[i]++;
+                if ((int)g_2b330[i]->unknown_034 == g_265d8[i] && g_2b068[i] >= 5 * (5 * i) + 0x1e) {
+                    g_2b068[i] = -1;
+                    if (((TitleTallyContext *)g_engine_interface.context_004)->unknown_1c == 0xff && g_2af68 == 1)
+                        g_2af68 = 2;
+                    if (i == 7) {
+                        if (((TitleTallyContext *)g_engine_interface.context_004)->unknown_1c == 0xff) {
+                            if (g_2b0ec == 0)
+                                title_054f0(0x325, 0);
+                            switch (title_0c4a0(2)) {
+                            case 0:
+                                title_0c4d0(0x5f);
+                                break;
+                            case 1:
+                                title_0c4d0(0x5a);
+                                break;
+                            case 2:
+                                title_0c4d0(0x55);
+                                break;
+                            }
+                        }
+                        g_2ae88[0] = 9;
+                    }
+                } else {
+                    g_2b330[i]->unknown_034++;
+                    if ((int)g_2b330[i]->unknown_034 == g_265f8[i] + g_265d8[i])
+                        g_2b330[i]->unknown_034 = (unsigned short)g_265d8[i];
+                }
+            }
+            break;
+        case 4:
+            g_2b330[i]->unknown_054 |= 0x80000000;
+            if (!(((TitleTallyContext *)g_engine_interface.context_004)->unknown_1c & 1))
+                g_2b330[0]->unknown_054 |= 5;
+            if (!(((TitleTallyContext *)g_engine_interface.context_004)->unknown_1c & 2))
+                g_2b330[1]->unknown_054 |= 5;
+            if (!(((TitleTallyContext *)g_engine_interface.context_004)->unknown_1c & 4))
+                g_2b330[2]->unknown_054 |= 5;
+            if (!(((TitleTallyContext *)g_engine_interface.context_004)->unknown_1c & 8))
+                g_2b330[3]->unknown_054 |= 5;
+            if (!(((TitleTallyContext *)g_engine_interface.context_004)->unknown_1c & 0x10))
+                g_2b330[4]->unknown_054 |= 5;
+            if (!(((TitleTallyContext *)g_engine_interface.context_004)->unknown_1c & 0x20))
+                g_2b330[5]->unknown_054 |= 5;
+            if (!(((TitleTallyContext *)g_engine_interface.context_004)->unknown_1c & 0x40))
+                g_2b330[6]->unknown_054 |= 5;
+            if (!(((TitleTallyContext *)g_engine_interface.context_004)->unknown_1c & 0x80))
+                g_2b330[7]->unknown_054 |= 5;
+            g_2ae88[i] = 1;
+            break;
+        case 9:
+            if (((TitleTallyContext *)g_engine_interface.context_004)->unknown_1c == 0xff) {
+                if (g_2acfc == 0x63)
+                    g_2acfc = 1;
+                if (g_2af68 == 4 && g_2acfc == 2)
+                    g_2ae88[0] = 13;
+            } else {
+                g_2ae88[0] = 13;
+            }
+            break;
+        case 13:
+            v = 0x3c;
+            k = 0;
+            do {
+                g_2ae88[k] = 0xa;
+                g_2b068[k] = v;
+                v -= 4;
+                k++;
+            } while (v > 0x1c);
+            break;
+        case 10:
+            if (++g_2b068[i] >= 0x3c) {
+                g_2b158[i] = 0;
+                g_2ae88[i] = 11;
+            }
+            break;
+        case 11:
+            g_2b330[i]->unknown_004 += g_2b158[i];
+            g_2b158[i] += -0x10000;
+            if (g_2b330[i]->unknown_004 < (int)0xff600000)
+                g_2ae88[i] = 12;
+            break;
+        case 12:
+            g_2b308++;
+            break;
+        default:
+            break;
+        }
+        if (g_2ae88[i] != 12) {
+            if (!(g_2b330[i]->unknown_054 & 5) && g_2ae88[i] != 3 && title_0c4a0(0x64) < 3) {
+                title_19a40(0x23f, 0x2012,
+                            ((title_0c4a0(0x10) - 8) << 16) + g_2b330[i]->unknown_000,
+                            g_2b330[i]->unknown_004 - (int)(title_0c4a0(0x18) << 16),
+                            g_2b330[i]->unknown_008,
+                            title_0c4a0(3),
+                            g_2afe4);
+            }
+            if (!(g_2b330[i]->unknown_054 & 5))
+                g_2b330[i]->unknown_04a = (unsigned short)g_2afe4;
+            else
+                g_2b330[i]->unknown_04a = (unsigned short)(g_2afe4 >> 1);
+            if (g_2ae88[i] > 0 && g_2ae88[i] <= 2) {
+                g_2b330[i]->unknown_000 += g_2b138[i];
+                g_2b330[i]->unknown_004 += g_2b158[i];
+                g_2b138[i] = (g_2b018[i] - g_2b330[i]->unknown_000) >> 3;
+                g_2b158[i] = (g_2b038[i] - g_2b330[i]->unknown_004) >> 3;
+            }
+        }
     }
 }
 

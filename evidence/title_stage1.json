@@ -10,8 +10,8 @@
   "first_party_end": "0x1d7b0",
   "note": "v3: proven extents (masked/accepted rows) end where the next function starts, and no start may lie inside a proven extent. Adds 0x9480, removes the jump-table span 0x1ab30. A RET-on-boundary + prologue heuristic was tried and rejected: 9 of its 10 extra starts were inside functions whose extents workers had established."
  },
- "masked_rows": 326,
- "masked_bytes": 77568,
+ "masked_rows": 327,
+ "masked_bytes": 79040,
  "cpp_units": [
   "title.08a50",
   "title.08ed0",
@@ -165,8 +165,7 @@
   "0x9c90": 271,
   "0xa450": 6,
   "0xd910": 40,
-  "0x193e0": 44,
-  "0x1b150": 306
+  "0x193e0": 44
  },
  "tooling": [
   "scripts/masked.py",
@@ -293,7 +292,8 @@
    ],
    "probes": "candidates/tail/k1.c, k2.c: VC5 normally materializes constants near first use; the grouped join materialization did not reproduce in isolation",
    "status": "open; classified with R3 (TU-dependent tie-break), not a source-shape lever found yet"
-  }
+  },
+  "R7_loop_distribution": "VC5 distributes a constant array fill out of a loop into rep stosd while keeping the remaining indexed stores on a shared byte-offset index ([reg + array]); with only one indexed store the base is folded into a pointer induction variable (0x1b150)."
  },
  "rotation_study": {
   "date": "2026-10-09",
@@ -336,7 +336,8 @@
   "date": "2026-10-09",
   "context": "candidates/w1b150/u197f0_b.c: canonical u197f0.c plus the draft (candidates/lead/f1b150.cpp) as C before 0x1b710, with seven new unit statics g_2ae88[8], g_2b018[8], g_2b038[8], g_2b068[8], g_2b138[8], g_2b158[8], g_2b320 (used only by 0x1b150 and 0x1c500) and a context view with the player mask at +0x1c.",
   "residue": "One instruction: case 13 stores g_2b068[k] = v (v = 0x3c, step -4, while v > 0x1c) with a byte-offset induction variable in the original (xor eax,eax; mov [eax+g_2b068],edx; add eax,4), ours folds the base into a pointer (mov eax,offset g_2b068; mov [eax],edx). The 306 masked bytes are the 1-byte shift of everything after it. The original form is unique in TITLE.",
-  "tested_no_effect": "extern/unsized/struct-member/2-D declarations, post-increment, for/do forms, unsigned/short k, k used after the loop, initialisation order; char k breaks the function."
+  "tested_no_effect": "extern/unsized/struct-member/2-D declarations, post-increment, for/do forms, unsigned/short k, k used after the loop, initialisation order; char k breaks the function.",
+  "resolved": "2026-10-10, Haiku lane h1b150: the byte-offset induction variable appears only when the loop body has a second k-indexed store; one loop writing g_2ae88[k] = 10 and g_2b068[k] = v (exit on v) is split by VC5 into rep stosd plus the shared offset index. Exit on k gives the offset form but a 5-byte compare difference. Staged in u197f0.c."
  },
  "volatile_ruling_2026_10_09b": "Owner extended the volatile allowance (AskUserQuestion, 'Allow both, documented') to two globals as codegen-evidenced hypotheses: g_25a28 (0xd720 re-reads it at every access; all u0cc90 rows unchanged) and g_2a244 (0x5fb0 value-first load; never written in TITLE). Not proof of the original declarations; decided per variable with measurements, not a general license.",
  "volatile_sweep_2026_10_09": "Diagnostic sweep (candidates/wvol/sweep.py): making each referenced global volatile, one at a time, converts none of 0x2b70, 0x4fe0, 0x184c0, 0x95d0, 0x18b20, 0xa450, 0x164b0, 0x66f0, 0x1b150, 0xa020 (every change is worse or neutral); the signature is specific to 0xd720/0x5fb0.",
