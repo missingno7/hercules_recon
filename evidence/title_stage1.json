@@ -10,8 +10,8 @@
   "first_party_end": "0x1d7b0",
   "note": "v3: proven extents (masked/accepted rows) end where the next function starts, and no start may lie inside a proven extent. Adds 0x9480, removes the jump-table span 0x1ab30. A RET-on-boundary + prologue heuristic was tried and rejected: 9 of its 10 extra starts were inside functions whose extents workers had established."
  },
- "masked_rows": 324,
- "masked_bytes": 76144,
+ "masked_rows": 326,
+ "masked_bytes": 77568,
  "cpp_units": [
   "title.08a50",
   "title.08ed0",
@@ -121,7 +121,6 @@
   "0x5cc0": 0,
   "0x5db0": 0,
   "0x5e90": 0,
-  "0x5fb0": 7,
   "0x66f0": 10,
   "0x6a50": 0,
   "0x85d0": 0,
@@ -136,7 +135,6 @@
   "0x9a40": 191,
   "0xcd30": 0,
   "0xd290": 0,
-  "0xd720": 188,
   "0x102f0": 0,
   "0x10670": 0,
   "0x109f0": 0,
@@ -312,7 +310,7 @@
   "finding": "Declaring the global read as `extern volatile int g_2a244;` makes 0x5fb0 masked equal (candidates/w10fe0b/v5f_volatile.cpp): a volatile right-hand side is loaded before the context pointer, giving the original value-first register order in both `CTX->unknown_03c = g_2a244;` statements.",
   "supporting": "0x2a244 has no writer anywhere in TITLE.DLL; its only references are the two reads in 0x5fb0, so it is an externally or never-written flag, which is consistent with a volatile declaration.",
   "negative": "int/unsigned long/pointer/4-byte struct/array-element spellings stay at 7; unsigned short breaks the function.",
-  "status": "not staged: the volatile ruling covers only the +0x5c/+0x5e context fields and is not generalizable; owner decision needed."
+  "status": "staged after the owner ruling (volatile_ruling_2026_10_09b)"
  },
  "emitters_wspr_2026_10_09": {
   "result": "0x3100, 0x3420, 0x3740, 0x39b0: none masked equal; all four stall on callee-saved role choice (scratch: candidates/wspr/, build.py keeps the u02b70 unit 22/22 masked equal with the drafts inserted).",
@@ -337,5 +335,6 @@
   "context": "candidates/w1b150/u197f0_b.c: canonical u197f0.c plus the draft (candidates/lead/f1b150.cpp) as C before 0x1b710, with seven new unit statics g_2ae88[8], g_2b018[8], g_2b038[8], g_2b068[8], g_2b138[8], g_2b158[8], g_2b320 (used only by 0x1b150 and 0x1c500) and a context view with the player mask at +0x1c.",
   "residue": "One instruction: case 13 stores g_2b068[k] = v (v = 0x3c, step -4, while v > 0x1c) with a byte-offset induction variable in the original (xor eax,eax; mov [eax+g_2b068],edx; add eax,4), ours folds the base into a pointer (mov eax,offset g_2b068; mov [eax],edx). The 306 masked bytes are the 1-byte shift of everything after it. The original form is unique in TITLE.",
   "tested_no_effect": "extern/unsized/struct-member/2-D declarations, post-increment, for/do forms, unsigned/short k, k used after the loop, initialisation order; char k breaks the function."
- }
+ },
+ "volatile_ruling_2026_10_09b": "Owner extended the volatile allowance (AskUserQuestion, 'Allow both, documented') to two globals as codegen-evidenced hypotheses: g_25a28 (0xd720 re-reads it at every access; all u0cc90 rows unchanged) and g_2a244 (0x5fb0 value-first load; never written in TITLE). Not proof of the original declarations; decided per variable with measurements, not a general license."
 }

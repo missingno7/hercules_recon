@@ -4,6 +4,7 @@
    block (0x29e08, 0x29f98) are read across the whole DLL, so they are ordinary definitions of a C++
    object: a C file would make them communal (shared .bss tail) and C statics cannot be shared. */
 #include <string.h>
+#include "title_engine.h"
 
 extern "C" {
 
@@ -161,6 +162,144 @@ void title_05f10(TitleProc *target)
             }
         }
     }
+}
+
+static int g_29fa8;
+static int g_29fac;
+static int g_29fb0;
+static int g_29fb4;
+static int g_29fb8;
+extern int g_2cc0c;
+extern volatile int g_2a244;   /* volatile: owner-approved codegen hypothesis (0x5fb0) */
+
+void title_164b0(TitleProc *p);
+int title_0c4b0(int a);
+void title_0c3b0(void);
+void title_01dd0(void);
+void title_095d0(void);
+void title_1d380(void);
+void title_085b0(void);
+void title_1d590(void);
+int title_0c540(int a);
+void title_04b70(int a, int b);
+int title_17ad0(int a, int b, int c, int d, int e);
+int title_0cb60(int a);
+void title_0c470(void);
+void title_04660(void);
+void title_0c2f0(void);
+void title_085d0(void);
+void title_04b00(void);
+void title_08770(void);
+void title_04aa0(void);
+void title_028c0(int a, int b, int c, int d, int e, int f, int g, int h, int i, int j, int k);
+void title_02b70(void);
+int title_0c6d0(int a);
+int title_0cc80(int a);
+int title_0cc70(int a);
+void title_0c4c0(void);
+void title_041d0(void);
+void title_04870(void);
+int title_0c960(int a);
+int title_0c6b0(unsigned long *ot);
+
+#define CTX (g_engine_interface.context_004)
+
+void title_05fb0(void)
+{
+    TitleBuffer *t;
+
+    switch (g_29fb8) {
+    case 0:
+        g_29fb4 = 0;
+        CTX->unknown_000[1] = 0;
+        CTX->unknown_000[2] = 0;
+        CTX->unknown_000[10] = 4;
+        memcpy(&CTX->unknown_08c, "i2.1", 4);
+        memcpy(&CTX->unknown_094, "i1.4", 4);
+        title_0c4b0(0);
+        title_0c3b0();
+        title_01dd0();
+        title_095d0();
+        title_1d380();
+        title_085b0();
+        CTX->unknown_03c = g_2a244;
+        CTX->unknown_040 = 0;
+        title_1d590();
+        title_05d90();
+        title_05db0(title_164b0, 0, 0, 0);
+        title_0c540(1);
+        title_04b70(0xe, 0);
+        g_29fa8 = title_17ad0(0, 0, 0, 0x2014, 0);
+        ((TitleObject *)g_29fa8)->unknown_034 = 1;
+        ((TitleObject *)g_29fa8)->unknown_023 = 6;
+        ((TitleObject *)g_29fa8)->unknown_03e = 0;
+        ((TitleObject *)g_29fa8)->unknown_054 &= 0x7fffffff;
+        ((TitleObject *)g_29fa8)->unknown_054 |= 5;
+        g_29fac = title_17ad0(0, 0, 0, 0x2014, 0);
+        ((TitleObject *)g_29fac)->unknown_034 = 1;
+        ((TitleObject *)g_29fac)->unknown_023 = 6;
+        ((TitleObject *)g_29fac)->unknown_03e = 1;
+        ((TitleObject *)g_29fac)->unknown_054 &= 0x7fffffff;
+        ((TitleObject *)g_29fac)->unknown_000 += 0x20000;
+        ((TitleObject *)g_29fac)->unknown_004 += 0x20000;
+        ((TitleObject *)g_29fac)->unknown_04a = 0;
+        ((TitleObject *)g_29fa8)->unknown_004 += 0xffc80000;
+        ((TitleObject *)g_29fac)->unknown_004 += 0xffc80000;
+        g_29fb8 = 1;
+    case 1:
+        break;
+    default:
+        return;
+    }
+    CTX->unknown_034 = title_0cb60((int)g_engine_interface.data_010 + 0x400);
+    title_0c470();
+    title_04660();
+    title_0c2f0();
+    title_085d0();
+    title_04b00();
+    title_08770();
+    title_04aa0();
+    title_0cb60(CTX->unknown_034);
+    if (*(unsigned short *)&CTX->unknown_058[0x60 - 0x58] != 0) {
+        if ((CTX->unknown_128 & 0x0a) == 0) {
+            g_29fb0 += 1;
+            if (g_29fb0 > 2) {
+                ((TitleObject *)g_29fa8)->unknown_054 |= 0x80000000;
+                ((TitleObject *)g_29fac)->unknown_054 |= 0x80000000;
+            }
+        }
+    } else {
+        g_29fb0 = 0;
+        ((TitleObject *)g_29fa8)->unknown_054 &= 0x7fffffff;
+        ((TitleObject *)g_29fac)->unknown_054 &= 0x7fffffff;
+    }
+    title_05e40();
+    if (g_29fb0 > 2) {
+        title_028c0(0x26, 0x64, 0xe6, 0x5c, 0x80, 0x80, 0x80, 0x40, 2, 3, 0x4fc);
+    }
+    CTX->unknown_034 = title_0cb60((int)g_engine_interface.data_010 + 0x400);
+    title_02b70();
+    title_0cb60(CTX->unknown_034);
+    title_0c6d0(0);
+    g_29fa4 = 1;
+    g_2cc0c = title_0cc80((int)title_05d60);
+    title_0cc70(0);
+    title_0cc80(g_2cc0c);
+    title_0c4c0();
+    CTX->unknown_03c = g_2a244;
+    CTX->unknown_054 = title_0cc70(1);
+    CTX->unknown_034 = title_0cb60((int)g_engine_interface.data_010 + 0x400);
+    title_041d0();
+    title_04870();
+    title_0cb60(CTX->unknown_034);
+    title_0c960(0x80);
+    title_0c6b0(g_2cc04->ot);
+    t = g_2cc08;
+    if (g_2cc04 == t) {
+        t++;
+    }
+    g_2cc04 = t;
+    CTX->tick_038 += 1;
 }
 
 } /* extern "C" */

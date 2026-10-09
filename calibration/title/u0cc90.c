@@ -23,7 +23,7 @@ static TitleObject *g_2a27c;
 static TitleObject *g_2a280;
 static TitleObject *g_2a274;
 static int g_2a254;
-extern unsigned int g_25a28;
+extern volatile unsigned int g_25a28;  /* volatile: owner-approved codegen hypothesis (0xd720) */
 static TitleObject *g_2a288[64];
 static int g_2a9b8;
 extern int g_25a30[43 * 6];
@@ -414,6 +414,74 @@ void title_0d6c0(void)
     g_2a9bc++;
     if (g_2a9bc == 5) {
         g_2a9bc = 0;
+    }
+}
+
+void title_0d720(void)
+{
+    if ((g_2a250 & 0x8) || (g_2a250 & 0x4000)) {
+        g_2bb3c = title_0cd30();
+        if (g_2bb3c != -1) {
+            if (g_2bb3c < 0x64) {
+                g_2a254 = 0x18;
+            } else {
+                title_054f0(0x302, 0);
+            }
+        } else {
+            g_2a254 = 0x14;
+        }
+    }
+    if (g_2a250 & 0x80) {
+        if (g_25a28 > 0) {
+            g_2a3ac = 0;
+            g_2a254 = 0xf;
+            title_0c4e0();
+            g_2a270 = 0;
+            title_054f0(0x301, 0);
+        }
+    }
+    if (g_2a250 & 0x20) {
+        if (g_25a28 < 3) {
+            title_0c4e0();
+            g_2a270 = 0;
+            g_2a3ac = 0;
+            g_2a254 = 0x12;
+        } else {
+            title_0c4e0();
+            g_2a270 = 0;
+            g_2a3ac = 0;
+            g_2a3a0 = 4;
+            g_2a254 = 0x1b;
+        }
+        title_054f0(0x300, 0);
+    }
+    if (g_2a250 & 0x10) {
+        g_2a3a0 = 4;
+        g_2a3ac = 0;
+        g_2a254 = 9;
+        g_2a39c = 0;
+        switch (g_25a28) {
+        case 0: title_054f0(0x4311, g_2a278); break;
+        case 1: title_054f0(0x4311, g_2a27c); break;
+        case 2: title_054f0(0x4311, g_2a280); break;
+        case 3: title_054f0(0x4311, g_2a274); break;
+        }
+        title_0c4e0();
+        g_2a270 = 0;
+    }
+    if (g_2a250 & 0x40) {
+        g_2a3a0 = 4;
+        g_2a3ac = 0;
+        g_2a254 = 8;
+        g_2a39c = 0;
+        switch (g_25a28) {
+        case 0: title_054f0(0x4311, g_2a278); break;
+        case 1: title_054f0(0x4311, g_2a27c); break;
+        case 2: title_054f0(0x4311, g_2a280); break;
+        case 3: title_054f0(0x4311, g_2a274); break;
+        }
+        title_0c4e0();
+        g_2a270 = 0;
     }
 }
 
