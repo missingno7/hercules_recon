@@ -1,4 +1,4 @@
-/* TITLE.DLL lane w28 region: 0x1c430, 0x1d380, 0x1d4e0, 0x1d590, 0x1d770, 0x1d790. */
+/* TITLE region from 0x1d380 (0x1d380, 0x1d4e0, 0x1d590, 0x1d770, 0x1d790): display and pool setup. */
 #include "title_engine.h"
 #include "title_gpu.h"
 

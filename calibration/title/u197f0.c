@@ -1,4 +1,5 @@
-/* TITLE unit 0x197f0..0x1c500 (hypothesis: one C object). Its functions share one private .bss
+/* TITLE unit 0x197f0..0x1d380 (one C object; 0x1c500, the tally screen, is its last function and owns
+   the literal that ends its .data). Its functions share one private .bss
    block (scripts/unit_bounds.py). Declarations unified from six region files; title_0c4a0 is
    unsigned here because callers compare its result unsigned. */
 #include "title_engine.h"
