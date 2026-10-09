@@ -159,7 +159,8 @@
   "0x54f0": 849,
   "0x15cb0": 0,
   "0x13ba0": 0,
-  "0x164b0": 17
+  "0x164b0": 17,
+  "0x1c500": 1735
  },
  "tooling": [
   "scripts/masked.py",
@@ -243,7 +244,8 @@
   "w50b0": "Sound unit first drafts: 0x50b0 (sound tick) and 0x4b70 (database slot load) masked equal. 0x50b0 needs a shared static __inline pan helper (also inlined in 0x54f0) and the squares written as a store then *=. 0x54f0 (LinkedSoundFx, 849 bytes) misses an early-exit path whose dead byte load and own epilogue only a volatile read reproduced (rejected), plus callee-saved role permutations. resource_context.h gains the host sound table (unsigned char sound_2f0[0x800][3] at +0x2f0; a separate entry typedef shifted the TU count of r17ad0.c and broke the count-sensitive 0x17bf0, so the table is a plain 2-D array) and +0x1b18/+0x1b24/+0x1b28/+0x1b2c; the mute flag is read as unknown_000[4] so the shared prefix array used by engine_control.c stays intact.",
   "wseq49": "0x15cb0 (seq9 handler) masked equal; its direct 13-entry jump table needs a seventh case label (case 2 falling into case 3). 0x13ba0 (seq4 handler) is structurally complete at 41 bytes: self in edi instead of ebx (only 5 push ebx; mov ebx,[esp+8] prologues exist in TITLE); ~35 natural variants keep it; insensitive to TU context and order.",
   "0x164b0": "Title-flow controller process (5664 bytes): intro fades and movies, menu load, per-level start of the sequence-screen processes, retry/skip, demo/attract via the pad map g_254e8[1] and the level table g_26068, init dispatch on the context's start mode. Structural draft (worker w164b0) is size-exact with all five jump tables and every relocation consistent; 17 bytes remain: in cases 0xd2 and 0xe6 the first stack-local store after title_0cc80(title_0c320) is scheduled above that call's add esp,4 in ours and below it in the original (120 statement orders, typing and prototype variants tried). Owns .bss 0x2ace0..0x2acec (fade level, hold counter, intro-variant flag, retry flag). Unit placement open: unit_bounds gives it its own .bss interval, the 0x16300 data evidence puts it in the object ending at 0x17ad0. Needs a signed game-state view of context_004 (level byte read with movsx) and TitlePadMap in a shared header.",
-  "w3420": "0x48a0 masked equal (cell allocation rebuild). 0x3420 (rotated sprite, 670) and 0x3740 (scaled sprite, 550) are structural drafts in candidates/w3420/: residues are callee-saved roles, the evaluation order of four CSE'd rotation products (0x3420) and cell never enregistered (0x3740). Evidence for later header changes: TitleObject +0x074 is read with movsx by 0x3420/0x39b0 (signed short); 0x3740's count argument is a byte and its scales are signed (narrowed prototype keeps 0x3d10 equal)."
+  "w3420": "0x48a0 masked equal (cell allocation rebuild). 0x3420 (rotated sprite, 670) and 0x3740 (scaled sprite, 550) are structural drafts in candidates/w3420/: residues are callee-saved roles, the evaluation order of four CSE'd rotation products (0x3420) and cell never enregistered (0x3740). Evidence for later header changes: TitleObject +0x074 is read with movsx by 0x3420/0x39b0 (signed short); 0x3740's count argument is a byte and its scales are signed (narrowed prototype keeps 0x3d10 equal).",
+  "0x1c500": "Tally screen process (worker w1c500): load/score computation (targets from the flat password/target table g_25a30 by difficulty x level), fade/flash state machine, unit draw helpers, return paths to 0x102f0/0x164b0. Draft size-exact (3712) with prologue, dispatch, case 1, all four jump tables and code layout equal; 1735 bytes remain from register allocation (k = ctx->e * 12 local needed; constant 6 in esi vs eax temp) and scratch rotation. Needs a signed/unsigned game-state view of context_004 (+0x0c..+0x0e signed chars, +0x14..+0x1a unsigned shorts here vs short in the 0x164b0 draft)."
  },
  "register_study": {
   "date": "2026-10-09",
