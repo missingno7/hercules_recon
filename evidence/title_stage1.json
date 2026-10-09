@@ -139,10 +139,10 @@
   "0x128e0": 632,
   "0x17cb0": 0,
   "0x17f50": 41,
-  "0x181e0": 607,
+  "0x181e0": 246,
   "0x184c0": 157,
   "0x18600": 0,
-  "0x186e0": 367,
+  "0x186e0": 2,
   "0x18b20": 14,
   "0x18bf0": null,
   "0x1a180": 0,
@@ -441,5 +441,11 @@
   "0x193e0": "masked equal (staged): components written into v[] with the translation added in place; W table of the old form o 40 > C7 32 > w 28 > k 24 > oy/oz 20 > ox/y/z 16 > x 12; the vd form removes x/y/z as variables so the forwarded v[0] value takes esi and o/C7/oy follow in W order. Caveat: the model does not explain why the forwarded value is allocated first.",
   "0x184c0": "natural pre3 form (sx = scale; if (mode == 1) { sx = scale * 2; y += ...; }) matches in a standalone unit and in the full u17cb0 TU only at symbol counts 351..476 (diagnostic count scan); the canonical TU gives 227 (ternary form 157 remains best). sx vs the scaled l/r webs sits in a count-dependent tie band; no real header set keeps 0x17cb0 and 0x184c0 equal together (72 sets tested). Files candidates/wm1/u_pre3.cpp, u_tern.cpp.",
   "unit_complete_test": "u17cb0.cpp with 0x184c0 (pre3), the three emitter drafts and 0x18b20 inserted in address order (all but 0x18bf0; candidates/wr4/u17full.py): all 18 canonical rows stay equal; 0x184c0 stays 227, 0x18b20 14, 0x17f50 41, 0x181e0 607, 0x186e0 398. Completeness alone does not reach the 351..476 count band."
+ },
+ "lane_wm2_2026_10_10": {
+  "files": "candidates/wm2/best_cfi.cpp (HEAD u17cb0.cpp + f17f50 (wemit2b), f181e0_cfi.inc, f186e0_best.inc; all 18 rows equal).",
+  "0x186e0": "367 -> 2 bytes: (vv + h) << 8 in both arms; sy = (signed char)*stream++ * 2; sy += y0; store orders xy_018/xy_020 and uv_01c/uv_024; prologue more = *stream; code = more; blend; clut; more &= 0x80; stream++. Implied W order sy > vv > sx (sy esi, vv edi, sx spilled to the obj argument slot) reproduced. Residue: in the else arm sx + x0 loads x0 first (original sx first); operand order, 462 declaration placements, types, reuse, a precomputed x (integrator: 337-454) and headers (none/lean equal 2; full breaks 0x17cb0) are inert or worse. In the near-complete unit (with 0x184c0/0x18b20 drafts) it becomes 255.",
+  "0x181e0": "607 -> 246 (52 instructions): family-C tail more = *stream; code = more; more &= 0x80; stream++ keeps more in bl and splits vv as in the original; int flip moves flags to ebp. Residue: flip test width (cmp word [esp+28],0 in the original needs a 16-bit flip, which pins flags to the byte class) and x vs the h piece for ebp in L4-L6.",
+  "margins": "diagnostic sink stores to distinct globals measured the weight margins (repeated stores to one global are eliminated): more needs about +2 L6 references, x +3 in the flip arm or +1 in L6."
  }
 }
