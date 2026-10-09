@@ -1,8 +1,7 @@
-/* Hypothesis: TITLE.DLL 0x8140..0x97ef is one C++ translation unit. It defines the shared .bss block
- * 0x29fec..0x2a0b0 (per-object variables read by other units need a C++ definer).
- * Shared declarations first, then the MASKED EQUAL functions in ascending RVA (w08140 lane adds the
- * three free-slot allocators 0x8900, 0x8d80 and 0x91a0).
- * No includes are needed: none of the bodies uses the engine interface header. */
+/* TITLE object-system unit (C++), 0x6bb0..0x97ef: menu objects (0x6bb0, 0x6fb0, 0x71e0), the main menu
+ * process (0x7510) and the object pools (0x8140..0x97ef). One object: it defines the per-object .bss
+ * block 0x29fec..0x2a0b0, whose 0x2a088 is used only by 0x71e0; its .data 0x23668..0x243af follows the
+ * level table; code is contiguous. C++ by 0x8a50/0x8ed0 (masked equal only as C++). */
 
 extern "C" {
 #include "title_engine.h"
@@ -57,7 +56,9 @@ typedef struct TitleObj {
     unsigned long dw08;
     unsigned char unknown_0c[16];
     unsigned char b1c;
-    unsigned char unknown_1d[13];
+    unsigned char unknown_1d[6];
+    unsigned char b23;
+    unsigned char unknown_24[6];
     unsigned short w2a;
     unsigned short unknown_2c;
     unsigned short w2e;
@@ -65,7 +66,9 @@ typedef struct TitleObj {
     unsigned short frame_34;
     unsigned char unknown_36[2];
     unsigned short w38;
-    unsigned char unknown_3a[16];
+    unsigned char unknown_3a[4];
+    unsigned short w3e;
+    unsigned char unknown_40[10];
     unsigned short w4a;
     unsigned char unknown_4c[4];
     unsigned long d50;
@@ -78,22 +81,28 @@ typedef struct TitleObj {
 /* 0x134-byte record: 0x8a50/0x8ed0/0x92e0 record views, 0x8cd0 view, and the
  * 0xec-prefix view used by 0x90f0 (b94..de8). Field offsets are the union of all. */
 typedef struct TitleRec {
-    unsigned long d00;
-    unsigned long d04;
+    long d00;
+    long d04;
     unsigned long d08;
     unsigned char unknown_0c[0x16];
     unsigned char b22;
-    unsigned char unknown_23[0x0b];
+    unsigned char b23;
+    unsigned char unknown_24[0x0a];
     unsigned short w2e;
     unsigned char unknown_30[4];
     unsigned short field_34;
-    unsigned char unknown_36[0x14];
+    unsigned char unknown_36[8];
+    unsigned short w3e;
+    unsigned char unknown_40[0x0a];
     unsigned short w4a;
     unsigned char unknown_4c[4];
     unsigned long d50;
-    unsigned char unknown_54[0x10];
+    unsigned long d54;
+    unsigned char unknown_58[0x0c];
     unsigned long d64;
-    unsigned char unknown_68[0x2c];
+    unsigned char unknown_68[0x0c];
+    unsigned short w74;
+    unsigned char unknown_76[0x1e];
     unsigned char b94, b95, b96, b97;
     unsigned short w98, w9a;
     unsigned long d9c, da0, da4, da8, dac, db0, db4, db8, dbc, dc0;
@@ -438,6 +447,226 @@ extern int g_2bff4;
 extern int g_2bff8;
 
 /*@FUNCS@*/
+
+/* ---- title object set (0x6bb0..0x7510) ---- */
+
+TitleRec *title_17ad0(int a0, int a1, int a2, int size, int a4);
+void title_0c2a0(char *s, char *name, int b, int c, int d);
+void title_02090(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8);
+
+/*@BEGIN_FUNC 0x6bb0 _title_06bb0*/
+void title_06bb0(void)
+{
+    g_2a004 = title_17ad0(0, 0, 0, 0x2002, 0);
+    g_2a004->d54 |= 5;
+    g_29ff4 = title_17ad0(0, 0, 0, 0x2002, 0);
+    g_29ff4->d54 |= 6;
+    g_2a000 = title_17ad0(0, 0, 0, 0x2002, 0);
+    g_2a000->d54 |= 5;
+    g_29ffc = title_17ad0(0, 0, 0, 0x2002, 0);
+    g_29ffc->d54 |= 6;
+    g_2a000->field_34 = 1;
+    g_29ffc->field_34 = 1;
+    g_29e08 = (TitleObj *)title_17ad0(0, 0, 0, 0x2002, 0);
+    g_29e08->frame_34 = 0x16;
+    g_29e08->x_00 = 0xfea20000;
+    g_29e08->y_04 = 0x500000;
+    g_2cc64 = -1;
+
+    g_2a050 = title_17ad0(0, 0, 0, 0x2002, 0);
+    g_2a050->field_34 = 0x3d;
+    g_2a054 = title_17ad0(0, 0, 0, 0x2002, 0);
+    g_2a054->field_34 = 0x5c;
+    g_2a048 = title_17ad0(0, 0, 0, 0x2002, 0);
+    g_2a048->field_34 = 0x7d;
+    g_2a04c = title_17ad0(0, 0, 0, 0x2002, 0);
+    g_2a04c->field_34 = 0xb0;
+    g_2a058 = title_17ad0(0, 0, 0, 0x2002, 0);
+    g_2a058->field_34 = 0xcf;
+    g_2a064 = title_17ad0(0, 0, 0, 0x2002, 0);
+    g_2a064->field_34 = 0x3d;
+    g_2a05c = title_17ad0(0, 0, 0, 0x2002, 0);
+    g_2a05c->field_34 = 0x5c;
+    g_2a060 = title_17ad0(0, 0, 0, 0x2002, 0);
+    g_2a060->field_34 = 0x7d;
+    g_2a06c = title_17ad0(0, 0, 0, 0x2002, 0);
+    g_2a06c->field_34 = 0xb0;
+    g_2a070 = title_17ad0(0, 0, 0, 0x2002, 0);
+    g_2a070->field_34 = 0xcf;
+
+    g_29e08->b23 = 6;
+    g_29e08->w3e = 0x1e;
+    g_2a048->b23 = 6;
+    g_2a048->w3e = 0x18;
+    g_2a050->b23 = 6;
+    g_2a050->w3e = 0x17;
+    g_2a058->b23 = 6;
+    g_2a058->w3e = 0x14;
+    g_2a054->b23 = 6;
+    g_2a054->w3e = 0x15;
+    g_2a04c->b23 = 6;
+    g_2a04c->w3e = 0x16;
+    g_2a064->b23 = 6;
+    g_2a064->w3e = 0x1e;
+    g_2a05c->b23 = 6;
+    g_2a05c->w3e = 0x1e;
+    g_2a060->b23 = 6;
+    g_2a060->w3e = 0x1e;
+    g_2a06c->b23 = 6;
+    g_2a06c->w3e = 0x1e;
+    g_2a070->b23 = 6;
+    g_2a070->w3e = 0x1e;
+
+    g_2a064->d54 |= 4;
+    g_2a05c->d54 |= 4;
+    g_2a060->d54 |= 4;
+    g_2a06c->d54 |= 4;
+    g_2a070->d54 |= 4;
+
+    g_2a060->w74 = 0x80;
+    g_2a064->w74 = 0x70;
+    g_2a070->w74 = 0xff80;
+    g_2a05c->w74 = 0xff90;
+    g_2a06c->w74 = 0xffa0;
+
+    g_2a070->w4a = 0;
+    g_2a06c->w4a = 0;
+    g_2a060->w4a = 0;
+    g_2a05c->w4a = 0;
+    g_2a064->w4a = 0;
+
+    g_2a004->b23 = 6;
+    g_2a004->w3e = 10;
+    g_29ff4->b23 = 6;
+    g_29ff4->w3e = 0xf;
+    g_2a000->b23 = 6;
+    g_2a000->w3e = 10;
+    g_29ffc->b23 = 6;
+    g_29ffc->w3e = 0xf;
+
+    g_2a010 = 0;
+    g_2a008 = 0;
+    g_2a024 = 0;
+    g_2a02c = 0;
+    g_2a034 = 0;
+}
+/*@END_FUNC*/
+
+/*@BEGIN_FUNC 0x6fb0 _title_06fb0*/
+void title_06fb0(void)
+{
+    g_2a048->d00 = (g_2a044 - 0x7d) << 16;
+    g_2a048->d04 = (g_2a03c + 0x55) << 16;
+    g_2a050->d00 = (g_2a044 - 0x50) << 16;
+    g_2a050->d04 = (g_2a03c + 0x69) << 16;
+    g_2a058->d00 = (g_2a044 + 0x50) << 16;
+    g_2a058->d04 = (g_2a03c + 0x69) << 16;
+    g_2a054->d00 = (g_2a044 + 0x6e) << 16;
+    g_2a054->d04 = (g_2a03c + 0x5f) << 16;
+    g_2a04c->d00 = (g_2a044 + 0x87) << 16;
+    g_2a04c->d04 = (g_2a03c + 0x4b) << 16;
+    g_2a060->d00 = (g_2a044 - 0x7d) << 16;
+    g_2a060->d04 = (g_2a03c + 0x49) << 16;
+    g_2a064->d00 = (g_2a044 - 0x50) << 16;
+    g_2a064->d04 = (g_2a03c + 0x5d) << 16;
+    g_2a070->d00 = (g_2a044 + 0x50) << 16;
+    g_2a070->d04 = (g_2a03c + 0x5d) << 16;
+    g_2a05c->d00 = (g_2a044 + 0x6e) << 16;
+    g_2a05c->d04 = (g_2a03c + 0x53) << 16;
+    g_2a06c->d00 = (g_2a044 + 0x87) << 16;
+    g_2a06c->d04 = (g_2a03c + 0x3f) << 16;
+    g_2a000->d00 = g_2a044 << 16;
+    g_2a000->d04 = g_2a03c << 16;
+    g_29ffc->d00 = (g_2a044 + 2) << 16;
+    g_29ffc->d04 = (g_2a03c + 2) << 16;
+    g_2a004->d00 = g_2a044 << 16;
+    g_2a004->d04 = g_2a03c << 16;
+    g_29ff4->d00 = (g_2a044 + 2) << 16;
+    g_29ff4->d04 = (g_2a03c + 2) << 16;
+}
+/*@END_FUNC*/
+
+/*@BEGIN_FUNC 0x71e0 _title_071e0*/
+void title_071e0(int a1)
+{
+    char *tbl[7];
+    int x;
+    int y;
+    int s;
+
+    x = (a1 * g_2a018) >> 7;
+    y = ((0x80 - g_2a018) * a1) >> 7;
+    tbl[0] = g_sequence_files[TITLE_SEQ_T015];
+    tbl[1] = g_sequence_files[TITLE_SEQ_T013];
+    tbl[2] = g_sequence_files[TITLE_SEQ_T003];
+    tbl[3] = g_sequence_files[TITLE_SEQ_T001];
+    tbl[4] = g_sequence_files[TITLE_SEQ_T012];
+    tbl[5] = g_sequence_files[TITLE_SEQ_T010];
+    tbl[6] = g_sequence_files[TITLE_SEQ_T004];
+
+    switch (g_2a080) {
+    case 0:
+        title_0c2a0(g_29128, tbl[g_2a088], 0, g_2a078, 0x14312);
+        g_2a088 += 1;
+        if (g_2a088 == 6) {
+            g_2a088 = 0;
+        }
+        g_2a080 = 1;
+        /* fall through */
+    case 1:
+        if (*(short *)((char *)g_engine_interface.context_004 + 0x9c) == 0) {
+            title_01dd0(g_2a078);
+            title_0c8b0(g_2a078 + 0x312, 2, 0, 0x280, 0x100, 0xa0, 0x100);
+            g_2a080 = 2;
+        }
+        /* fall through */
+    case 2:
+        title_02090(0x140, 0, x, 0, g_2a044, g_2a03c, 0, 1);
+        return;
+    case 3:
+        title_02090(0x140, 0, x, 0, g_2a044, g_2a03c, 0, 1);
+        title_02090(0x280, 0x100, y, 1, g_2a044, g_2a03c, 1, 2);
+        if (g_2a018 > 0) {
+            g_2a018 -= 0x10;
+            return;
+        }
+        g_2a018 = 0;
+        g_2a080 = 4;
+        return;
+    case 4:
+        title_0c2a0(g_29128, tbl[g_2a088], 0, g_2a078, 0x14312);
+        g_2a088 += 1;
+        if (g_2a088 == 6) {
+            g_2a088 = 0;
+        }
+        g_2a080 = 5;
+        /* fall through */
+    case 5:
+        if (*(short *)((char *)g_engine_interface.context_004 + 0x9c) == 0) {
+            title_01dd0(g_2a078);
+            title_0c8b0(g_2a078 + 0x312, 2, 0, 0x140, 0, 0xa0, 0x100);
+            g_2a080 = 6;
+        }
+        /* fall through */
+    case 6:
+        title_02090(0x280, 0x100, y, 0, g_2a044, g_2a03c, 1, 1);
+        return;
+    case 7:
+        title_02090(0x140, 0, x, 0, g_2a044, g_2a03c, 0, 1);
+        title_02090(0x280, 0x100, y, 1, g_2a044, g_2a03c, 1, 2);
+        s = g_2a018;
+        if (s < 0x80) {
+            g_2a018 = s + 0x10;
+            return;
+        }
+        g_2a018 = 0x80;
+        g_2a080 = 0;
+        return;
+    default:
+        return;
+    }
+}
+/*@END_FUNC*/
 
 /*@BEGIN_FUNC 0x7510 _title_07510*/
 /* TITLE.DLL 0x7510 (3120 bytes): main menu process (TitleProc callback). Started by the title
