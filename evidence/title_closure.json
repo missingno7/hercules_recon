@@ -60,5 +60,80 @@
    "Within a group, variables follow that object's symbol order (observed: first-use order in its code); arrays larger than a word are aligned (0x20 observed)."
   ],
   "title_check": "TITLE shared .bss tail (>= ~0x2b370) shows grouping by subsystem (e.g. 0x2bf2c-0x2bffc for the object/sprite code 0x85b0-0x9300 and 0x17ad0; 0x2c144-0x2c160 for 0x6480/0x6670). Ordering against first-referencing function is inconclusive (21/57 descending violations vs 24/57 ascending) because owners are defining objects, which references cannot identify. Supports grouping; reverse order neither confirmed nor refuted."
+ },
+ "oracle_data_ownership": {
+  "tool": "python scripts/literal_owners.py [--all-data]  (base relocations in first-party code -> initialized .data, owner = containing span)",
+  "tool_sha256": "79f0638e0084ace335c626cc63c8f09e663a0d545372d1023aac2253401b8c77",
+  "string_literals": {
+   "referenced": 34,
+   "single_owner": 26,
+   "runs": [
+    {
+     "data": [
+      "0x2214c",
+      "0x260a0"
+     ],
+     "code": [
+      "0x4b70",
+      "0x16470"
+     ],
+     "owners": 11
+    },
+    {
+     "data": [
+      "0x2627c",
+      "0x26718"
+     ],
+     "code": [
+      "0x48a0",
+      "0x1c500"
+     ],
+     "owners": 2
+    }
+   ]
+  },
+  "initialized_targets": {
+   "referenced": 233,
+   "single_owner": 185,
+   "runs": 22
+  },
+  "interpretation": "String literals appear in ascending owner code order (one run spans 11 owners, 0x4b70-0x16470), consistent with per-object .data in link order. All initialized targets form a sawtooth whose run starts rise through the code (0x1a70, 0x5e90, 0x65e0, 0x7510, 0x9a40, 0xcd30, 0x16470): candidate unit starts, with breaks explained by cross-unit references. Hypotheses only; definition order inside a unit is unknown.",
+  "candidate_unit_starts": [
+   "0x1300",
+   "0x4760",
+   "0x16f0",
+   "0x128e0",
+   "0xd910",
+   "0x71e0",
+   "0x71e0",
+   "0x1a70",
+   "0x8320",
+   "0x5e90",
+   "0x65e0",
+   "0x7510",
+   "0x9a40",
+   "0xcd30",
+   "0xcd30",
+   "0x16470",
+   "0x4b70",
+   "0x48a0",
+   "0x48a0",
+   "0x3da0",
+   "0x95d0",
+   "0x16f0"
+  ]
+ },
+ "naming_leads": {
+  "note": "Debug format strings name their functions; leads, not proof of original names.",
+  "leads": {
+   "0x5a70": "RemoveFxLinks",
+   "0x5ad0": "RemoveFxIdLinks",
+   "0x5bc0": "ClearAllSoundFx_Excpt",
+   "0x10fe0": "LSGameMemoryCardLoop",
+   "0x54f0": "LinkedSoundFx (log)",
+   "0x4b70": "loads \\ANIMPSX.BIN",
+   "0x6840/0x6a50": "memory-card file bu00:B-sces-00891"
+  },
+  "platform": "SCES-00891 is the PAL PlayStation product code for Hercules: TITLE code is ported from the PSX build (see docs/psx.md for PSX evidence)."
  }
 }
