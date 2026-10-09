@@ -1,7 +1,8 @@
-/* Hypothesis: TITLE.DLL 0x8140..0x94bf is one C++ translation unit. It defines the shared .bss block
+/* Hypothesis: TITLE.DLL 0x8140..0x97ef is one C++ translation unit. It defines the shared .bss block
  * 0x29fec..0x2a0b0 (per-object variables read by other units need a C++ definer).
- * Shared declarations first, then the 14 MASKED EQUAL functions in ascending RVA.
- * No includes are needed: none of the 14 bodies uses the engine interface header. */
+ * Shared declarations first, then the MASKED EQUAL functions in ascending RVA (w08140 lane adds the
+ * three free-slot allocators 0x8900, 0x8d80 and 0x91a0).
+ * No includes are needed: none of the bodies uses the engine interface header. */
 
 extern "C" {
 
@@ -26,8 +27,16 @@ typedef struct Rec8 {
 } Rec8;
 
 typedef struct TitleCell94 {
-    unsigned char unknown_00[0x94];
+    unsigned char unknown_00[0x2e];
+    unsigned short w2e;
+    unsigned char unknown_30[0x64];
 } TitleCell94;
+
+typedef struct TitleRecEC {
+    unsigned char unknown_00[0x2e];
+    unsigned short w2e;
+    unsigned char unknown_30[0xbc];
+} TitleRecEC;
 
 typedef struct TitleObj {
     int x_00;                      /* signed in 0x8320; copied as dw00 by 0x8ae0/0x8f50 */
@@ -265,6 +274,18 @@ extern Rec8 *g_2bf48;
 extern Rec8 *g_2bf5c;
 extern TitleCell94 *g_2dfa0;
 extern unsigned short g_2bf72;
+extern unsigned short g_2bf28;
+extern unsigned short g_2bf60;
+extern unsigned short g_2bf80;
+extern unsigned short g_2bf32;
+extern unsigned short g_2bf64;
+extern unsigned short g_2bf58;
+extern unsigned short g_2bf70;
+extern unsigned short g_2bf62;
+extern unsigned short g_2bf30;
+extern unsigned short g_2bf6e;
+extern unsigned short g_2bff0;
+extern unsigned short g_2bf44;
 
 /* ---- callees ---- */
 
@@ -409,6 +430,50 @@ void title_085b0(void)
     title_08c90();
     title_09090();
     title_09480();
+}
+/*@END_FUNC*/
+
+/*@BEGIN_FUNC 0x8900 _title_08900*/
+TitleRec *title_08900(int flags)
+{
+    int i;
+
+    if (flags & 0x8000) {
+        for (i = g_2bf28; i < g_2bf6c; i++) {
+            if (((TitleRec *)g_2d320)[i].w2e == 0)
+                break;
+        }
+        if (i < g_2bf6c) {
+            g_2bf28 = i;
+            return &((TitleRec *)g_2d320)[i];
+        }
+        for (i = g_2bf60; i < g_2bf28; i++) {
+            if (((TitleRec *)g_2d320)[i].w2e == 0)
+                break;
+        }
+        if (i < g_2bf28) {
+            g_2bf28 = i;
+            return &((TitleRec *)g_2d320)[i];
+        }
+        return 0;
+    }
+    for (i = g_2bf80; i < g_2bf60; i++) {
+        if (((TitleRec *)g_2d320)[i].w2e == 0)
+            break;
+    }
+    if (i < g_2bf60) {
+        g_2bf80 = i;
+        return &((TitleRec *)g_2d320)[i];
+    }
+    for (i = g_2bf32; i < g_2bf80; i++) {
+        if (((TitleRec *)g_2d320)[i].w2e == 0)
+            break;
+    }
+    if (i < g_2bf80) {
+        g_2bf80 = i;
+        return &((TitleRec *)g_2d320)[i];
+    }
+    return 0;
 }
 /*@END_FUNC*/
 
@@ -567,6 +632,50 @@ void title_08cd0(void *pv)
 }
 /*@END_FUNC*/
 
+/*@BEGIN_FUNC 0x8d80 _title_08d80*/
+void *title_08d80(unsigned long flags)
+{
+    int i;
+
+    if (flags & 0x8000) {
+        for (i = g_2bf64; i < g_2bff2; i++) {
+            if (((TitleRecEC *)g_2df4c)[i].w2e == 0)
+                break;
+        }
+        if (i < g_2bff2) {
+            g_2bf64 = i;
+            return &((TitleRecEC *)g_2df4c)[i];
+        }
+        for (i = g_2bf58; i < g_2bf64; i++) {
+            if (((TitleRecEC *)g_2df4c)[i].w2e == 0)
+                break;
+        }
+        if (i < g_2bf64) {
+            g_2bf64 = i;
+            return &((TitleRecEC *)g_2df4c)[i];
+        }
+        return 0;
+    }
+    for (i = g_2bf70; i < g_2bf58; i++) {
+        if (((TitleRecEC *)g_2df4c)[i].w2e == 0)
+            break;
+    }
+    if (i < g_2bf58) {
+        g_2bf70 = i;
+        return &((TitleRecEC *)g_2df4c)[i];
+    }
+    for (i = g_2bf62; i < g_2bf70; i++) {
+        if (((TitleRecEC *)g_2df4c)[i].w2e == 0)
+            break;
+    }
+    if (i < g_2bf70) {
+        g_2bf70 = i;
+        return &((TitleRecEC *)g_2df4c)[i];
+    }
+    return 0;
+}
+/*@END_FUNC*/
+
 /*@BEGIN_FUNC 0x8ed0 _title_08ed0*/
 TitleRec *title_08ed0(unsigned long a1, unsigned long a2, unsigned long a3, unsigned long a4)
 {
@@ -710,6 +819,50 @@ void title_090f0(void *pv)
     p->dd8 = z;
     p->de8 = z;
     p->de4 = z;
+}
+/*@END_FUNC*/
+
+/*@BEGIN_FUNC 0x91a0 _title_091a0*/
+void *title_091a0(unsigned long flags)
+{
+    int i;
+
+    if (flags & 0x8000) {
+        for (i = g_2bf30; i < g_2bf72; i++) {
+            if (g_2dfa0[i].w2e == 0)
+                break;
+        }
+        if (i < g_2bf72) {
+            g_2bf30 = i;
+            return &g_2dfa0[i];
+        }
+        for (i = g_2bf6e; i < g_2bf30; i++) {
+            if (g_2dfa0[i].w2e == 0)
+                break;
+        }
+        if (i < g_2bf30) {
+            g_2bf30 = i;
+            return &g_2dfa0[i];
+        }
+        return 0;
+    }
+    for (i = g_2bff0; i < g_2bf6e; i++) {
+        if (g_2dfa0[i].w2e == 0)
+            break;
+    }
+    if (i < g_2bf6e) {
+        g_2bff0 = i;
+        return &g_2dfa0[i];
+    }
+    for (i = g_2bf44; i < g_2bff0; i++) {
+        if (g_2dfa0[i].w2e == 0)
+            break;
+    }
+    if (i < g_2bff0) {
+        g_2bff0 = i;
+        return &g_2dfa0[i];
+    }
+    return 0;
 }
 /*@END_FUNC*/
 
