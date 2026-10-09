@@ -164,7 +164,7 @@
   "0x9c90": 271,
   "0xa450": 6,
   "0xd910": 40,
-  "0x193e0": 44,
+  "0x193e0": 33,
   "0xc1f0": 19
  },
  "tooling": [
@@ -388,5 +388,6 @@
  },
  "lane_h164b0_2026_10_10": "0x164b0 stays at 17 (candidates/h164b0/). VC5 emits the pending add esp,4 right before the first store through the context pointer; stack-local stores scheduled earlier get the pre-pop displacement. The original pops right after the context load. No tested form moves it: rect as struct or array, &rect, declaration orders, callback forms, stores through pointers, the immediate value, the C++ front end. Moving the GS store before rect[0] puts add esp first but reverses the byte/word store order (31).",
  "lane_h18b20_2026_10_10": "0x18b20 stays at 14 (candidates/h18b20/, drive.py). The top residue is one rotation phase: the original frees eax by copying make_colours result to ebp before add esp, so the count-- temporary takes eax; ours takes edx. Spellings, temporaries, types and declaration placement are canonical; reorders of the c store or list reads are worse (64-158); the duplicated-tail lever does not merge here (code grows, no shift). Needs a real phase change before count-- (different control flow or expression for the make_colour/title_0c7e0 chain).",
- "B3_update_2026_10_10": "PC_DLLEngineMain (candidates/wc1f0/v.py): an unsigned slot-loop index gives the original jb; with the arena call wrapped in an __inline helper returning 0, the only residue is the unfolded zero test itself (xor eax,eax; test eax,eax; mov [g_257e8],eax; jne) plus the one-step rotation after it (19 bytes). Still falsified: a status flag set in the loop (kept as a real value, 69), the loop counter reused as the status (folded), the inline helper result (folded)."
+ "B3_update_2026_10_10": "PC_DLLEngineMain (candidates/wc1f0/v.py): an unsigned slot-loop index gives the original jb; with the arena call wrapped in an __inline helper returning 0, the only residue is the unfolded zero test itself (xor eax,eax; test eax,eax; mov [g_257e8],eax; jne) plus the one-step rotation after it (19 bytes). Still falsified: a status flag set in the loop (kept as a real value, 69), the loop counter reused as the status (folded), the inline helper result (folded).",
+ "lane_h193e0_2026_10_10": "0x193e0: best candidates/h193e0/best.cpp (v[1], v[0], v[2] statement order) 44 -> 33, scheduling only; roles still o=esi, x=ebx, oy=edi, ebp unused (original x=esi, o=edi, constant 7 holding ebx, oy=ebp). Probes: os rank comes from the three o->trans_078 loads in the common tail (removing them drops o to rank 4); folded references and copies do not count (weights taken after optimisation); declaration order changes scheduling only (44/60); a short oy moves oy to ebp and leaves ebx unused (consistent with R5) but changes the code shape (89). No natural form flips x above o."
 }
