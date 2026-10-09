@@ -313,13 +313,20 @@
    "files": {
     "u197f0.c": "0x197f0..0x1c430, 23 rows from six region files; 68 statics (types unified by a Haiku worker, verified by the integrator)",
     "u0ff70.c": "0xff70..0x10fa0, 6 rows from r0d380/r10ce0; 20 statics",
-    "u06350.c": "2 statics",
-    "seq1..seq10.c": "103 statics"
+    "u06350.c": "now with 0x6840; tentative definitions of its eight tail ints",
+    "seq1..seq10.c": "103 statics",
+    "u06bb0.c": "0x6bb0, 0x6fb0, 0x71e0 (C; shares the object-system block)",
+    "u0cc90.c": "0xcc90..0xd6c0 masked rows, 17 statics (Haiku-unified, integrator-verified)",
+    "u0c1f0.c": "117 engine-slot wrappers 0xc270..0xcc80 (+ PC_DLLEngineMain 0xc1f0 open); tentatively defines g_engine_interface",
+    "u09a40.c": "0xa300, 0xc140 with the 0x9a40 unit statics",
+    "u08140.cpp": "defines the shared .bss block 0x29fec..0x2a0b0"
    },
-   "link": "Diagnostic link: unresolved data 380 -> 165 over this phase; 34 functions missing; 0 duplicates.",
+   "link": "Diagnostic link: unresolved 433 -> 108 (34 functions, 74 data); 0 duplicates.",
    "open": [
-    "0x6bb0..0x8320 shares .bss 0x29fec..0x2a08c with the C++ object-system unit (u08140.cpp): shared per-object variables need a C++ definer, either u08140 or a C++ unit around 0x6840..0x7510; .data segments are ambiguous",
-    "early units 0x1de0..0x28c0 and 0x2b70..0x48a0: mostly open functions"
+    "DLL-wide communal group 0x2cbe0..0x2cc68: owner by tail position is title_files.c (the only C object linked between the sound unit and the 0x6350 unit), but its representation is ambiguous (0x2cbe0 as int[3] vs scalars with 0x2cbe8 separate; an 8-byte gap before 0x2cc00 suggests an aggregate or an unreferenced variable). Not defined yet.",
+    "Communal alignment measured: arrays of 8+ bytes align to 8, 4-byte arrays to 4 (candidates/communal/align.c).",
+    "Initialized tables 0x23270/0x23290/0x232b0 sit in the scheduler unit's ordinary data (used by 0x1a7c0 and 0x8320).",
+    "0x29128 (DLL-wide, per-object): its C++ definer is the 0x1000 or the 0x1a30 unit; language tests do not discriminate."
    ]
   }
  },
