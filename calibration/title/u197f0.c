@@ -56,7 +56,6 @@ static int g_2b328;
 static int g_2b350;
 static int g_2b354;
 extern int g_2cc64;
-extern int g_265b8[7];
 static int g_2b098[20];
 static int g_2b180[20];
 static TitleObject *g_2af70[20];
@@ -101,9 +100,6 @@ static TitleObject *g_2b05c;
 static int g_2af68;
 static int g_2aff4;
 static TitleObject *g_2afd0;
-extern int g_26618[];
-extern int g_26630[];
-extern int g_26634[];
 static TitleObject *g_2b330[8];
 static TitleObject *g_2b31c;
 static int g_2afcc;
@@ -123,6 +119,50 @@ void title_19820(void);
 void title_19a40(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
 void set_decimal_digits(struct DigitSprite *thousands, struct DigitSprite *hundreds,
                         struct DigitSprite *tens, struct DigitSprite *units, int value);
+
+/* Initialized data of this unit (TITLE.DLL .data 0x264f0..0x26717), in address order. Arrays of 8+ bytes
+   are 8-aligned, so 0x265b4 and 0x26634 are not arrays of their own (0x26634 is g_26630[i + 1]). */
+unsigned char g_264f0[4] = {  /* read by 0x3da0 (element type pending) */
+    1, 3, 5, 15,
+};
+unsigned char g_264f8[16] = {  /* read by 0x3100..0x3da0 and 0x17f50..0x186e0 (element type pending) */
+    0, 0, 1, 0, 2, 0, 0, 0, 3, 1, 0, 0, 2, 0, 0, 0,
+};
+unsigned char g_26508[172] = {  /* read by 0x3da0 (element type pending) */
+    16, 17, 18, 19, 20, 21, 22, 32, 33, 34, 35, 36, 37, 38, 48, 49,
+    50, 51, 52, 53, 54, 64, 65, 66, 67, 68, 69, 70, 80, 81, 82, 83,
+    84, 85, 86, 96, 97, 98, 99, 100, 101, 102, 144, 145, 146, 147, 148, 149,
+    150, 160, 161, 162, 163, 164, 165, 166, 176, 177, 178, 179, 180, 181, 182, 192,
+    193, 194, 195, 196, 197, 198, 208, 209, 210, 211, 212, 213, 214, 224, 225, 226,
+    227, 228, 229, 230, 240, 241, 242, 243, 244, 245, 246, 134, 133, 132, 131, 130,
+    129, 128, 112, 113, 114, 115, 116, 117, 118, 6, 5, 4, 3, 2, 1, 0,
+    4, 12, 20, 28, 6, 14, 22, 30, 7, 15, 23, 31, 8, 16, 24, 32,
+    9, 17, 25, 33, 10, 18, 26, 34, 12, 20, 28, 36, 12, 28, 44, 60,
+    14, 30, 46, 62, 15, 31, 47, 63, 17, 33, 49, 65, 18, 34, 50, 66,
+    20, 36, 52, 68, 31, 63, 95, 127, 33, 65, 97, 129,
+};
+int g_265b8[7] = {
+    32, 96, 104, 116, 128, 140, 156,
+};
+int g_265d8[8] = {  /* read by 0x1b150 */
+    597, 621, 645, 669, 693, 717, 621, 741,
+};
+int g_265f8[8] = {  /* read by 0x1b150 */
+    24, 24, 24, 24, 24, 24, 24, 24,
+};
+int g_26618[6] = {  /* frame list ending in -1 */
+    821, 821, 822, 822, -1, 0,
+};
+int g_26630[58] = {  /* frame/delay pairs ending in -1, -1 */
+    797, 5, 797, 5, 798, 5, 798, 5,
+    799, 5, 799, 5, 800, 5, 800, 5,
+    801, 5, 801, 5, 802, 5, 802, 5,
+    803, 100, 803, 100, 804, 100, 804, 100,
+    805, 100, 805, 100, 806, 100, 806, 100,
+    807, 100, 807, 100, 808, 100, 808, 100,
+    809, 100, 809, 100, 821, 5, 821, 5,
+    -1, -1,
+};
 
 void title_197f0(void)
 {
@@ -1091,7 +1131,7 @@ void title_1beb0(void)
                     ((title_0c4a0(0x10) + pos.y - 8) << 16) + g_2afd0->unknown_004,
                     0, title_0c4a0(1), g_2afe4);
         g_2afd0->unknown_034 = g_26630[g_2aff4];
-        g_2afd0->unknown_03e = g_26634[g_2aff4];
+        g_2afd0->unknown_03e = g_26630[g_2aff4 + 1];
         g_2aff4 += 2;
         if (g_26630[g_2aff4] == -1) {
             g_2aff4 = 0;
