@@ -3,14 +3,15 @@
  "date": "2026-10-09",
  "prediction": "At least half of the sub-1 KB first-party functions in wave-1 lanes reach masked equality with ordinary C under RTM /O2.",
  "falsifier": "Under a quarter, or exactness needing flags or non-ordinary constructs.",
- "verdict": "held by count; covered 280 functions, 44880/116656 first-party bytes (38.5%); counters from `scripts/similar.py summary`",
+ "verdict": "held by count; covered 283 functions, 45568/116656 first-party bytes (39.1%); counters from `scripts/similar.py summary`",
  "function_map": {
-  "spans": 361,
+  "spans": 370,
   "bytes": 116656,
-  "first_party_end": "0x1d7b0"
+  "first_party_end": "0x1d7b0",
+  "note": "v3 adds RET-on-boundary starts followed by a typical prologue, excluded inside proven extents and flagged heuristic_start (4 of 13 first candidates were mid-function). 0x9350 is 304 bytes; 0x9480 is a separate function."
  },
- "masked_rows": 272,
- "masked_bytes": 44400,
+ "masked_rows": 275,
+ "masked_bytes": 45088,
  "cpp_units": [
   "title.08a50",
   "title.08ed0",
@@ -139,15 +140,15 @@
    "function_match_rows": "raw-exact accepted rows",
    "covered": "masked + legacy similar + function match rows (one row per function)"
   },
-  "masked_rows": 272,
-  "masked_bytes": 44400,
+  "masked_rows": 275,
+  "masked_bytes": 45088,
   "legacy_similar_rows": 2,
   "legacy_similar_bytes": 128,
   "function_match_rows": 6,
   "function_match_bytes": 352,
-  "covered_functions": 280,
-  "covered_bytes": 44880,
-  "first_party_spans": 361,
+  "covered_functions": 283,
+  "covered_bytes": 45568,
+  "first_party_spans": 370,
   "first_party_bytes": 116656
  },
  "volatile_ruling": "Project owner approved volatile only for the context fields at +0x5c/+0x5e as an evidence-supported reconstruction hypothesis (unremovable unused reads); not proof of the original declaration; not generalizable."

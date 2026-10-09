@@ -194,7 +194,7 @@ def main():
     sub.add_parser('verify')
     m = sub.add_parser('summary')
     m.add_argument('module', nargs='?', default='TITLE.DLL')
-    m.add_argument('--function-map', default=str(ROOT / 'work/function_map/title_v2.json'))
+    m.add_argument('--function-map', default=str(ROOT / 'work/function_map/title_v3.json'))
     args = parser.parse_args()
     if args.command == 'stage':
         stage(args.plan)
