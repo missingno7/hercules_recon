@@ -154,5 +154,19 @@
    "0x9480": "slot reset loop over g_2dfa0 (26 bytes as C); same object-system unit"
   },
   "boundaries": "Implied unit changes: between 0x65e0 (C) and 0x66f0 (C++ candidate); somewhere in 0x66f0..0x8a50 or within the C++ object-system range 0x85d0..0x92e0; between 0x92e0 (C++) and 0x17bf0 (C); between 0x17bf0 (C) and 0x18a90 (C++). Consistent with the data-ownership run starts 0x65e0 and 0x16470."
- }
+ },
+ "unit_tests": [
+  {
+   "unit": "0x8140-0x94bf (object/slot system)",
+   "file": "calibration/title/u08140.cpp",
+   "language": "C++",
+   "result": "all 14 masked rows remain masked equal compiled together in one C++ file (and each alone with the shared declarations)",
+   "support": [
+    "C++-only members 0x8a50, 0x8ed0, 0x92e0, 0x9480",
+    "shared record types reconcile without contradiction",
+    "callee 0x98a0 resolves to the accepted name unlink_0e4"
+   ],
+   "limits": "Shows the members are compatible as one unit; does not prove the original file boundaries, member set (several functions in the range are unreconstructed), declaration order, or link layout."
+  }
+ ]
 }

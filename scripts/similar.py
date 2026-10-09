@@ -84,19 +84,35 @@ def stage(plan_path):
     state_before = STATE.read_bytes()
     state = json.loads(state_before)
     taken = {(Path(r['target']).name.upper(), int(r['rva'], 16)): r for r in state['functions']}
+    # Optional consolidation: rows of these masked sources move into `source`; the old files
+    # are removed only after every moved row verifies in the new file.
+    replaces = [s for s in plan.get('replaces', []) if s != source]
+    for old in replaces:
+        if not (ROOT / old).resolve().is_relative_to((ROOT / 'calibration').resolve()):
+            raise ValueError('Only calibration sources can be replaced')
+    moved = [r for r in state['functions'] if r.get('source') in replaces]
+    if any(r['status'] != 'CODEGEN_SIMILAR' or r.get('proof', {}).get('scope') != SCOPE for r in moved):
+        raise ValueError('Only masked rows can be moved')
     existing = [r for r in state['functions'] if r.get('source') == source]
+    prior_evidence = {(r['rva'], r['symbol']): r['evidence'] for r in moved}
     rows = []
     for f in plan['functions']:
         key = (module.upper(), int(f['rva'], 16))
-        if key in taken and taken[key].get('source') != source:
+        if key in taken and taken[key].get('source') not in [source] + replaces:
             raise ValueError(f"{f['rva']} already tracked as {taken[key]['id']}")
+    if {(r['rva'], r['symbol']) for r in moved} - {(f['rva'], f['symbol']) for f in plan['functions']}:
+        raise ValueError('A replaced source has rows missing from the plan')
+    for f in plan['functions']:
         name = f['symbol'].lstrip('_@').split('@')[0]
         if name.startswith(prefix + '_'):
             name = name[len(prefix) + 1:]
+        evidence = f['evidence']
+        if (f['rva'], f['symbol']) in prior_evidence:
+            evidence = f"{evidence} Previously: {prior_evidence[(f['rva'], f['symbol'])]}"
         rows.append(dict(id=f'{prefix}.{name}', status='CODEGEN_SIMILAR',
                          name_status='provisional address label', target=target_rel,
                          target_sha256=digest((ROOT / target_rel).read_bytes()), rva=f['rva'], size=f['size'],
-                         source=source, symbol=f['symbol'], flags=['/O2'], evidence=f['evidence'],
+                         source=source, symbol=f['symbol'], flags=['/O2'], evidence=evidence,
                          boundary=BOUNDARY))
     keep = [r for r in existing if (r['rva'], r['symbol']) not in {(x['rva'], x['symbol']) for x in rows}]
     content = (ROOT / plan['candidate']).read_bytes().replace(b'\r\n', b'\n')
@@ -121,7 +137,7 @@ def stage(plan_path):
             destination.write_bytes(before)
         raise
     toolchain = verify_toolchain(DEFAULT_TOOLCHAIN)
-    replaced = {r['id'] for r in existing}
+    replaced = {r['id'] for r in existing} | {r['id'] for r in moved}
     state['functions'] = [r for r in state['functions'] if r['id'] not in replaced]
     for r in keep + rows:
         res = results[r['id']]
@@ -130,7 +146,10 @@ def stage(plan_path):
                           toolchain=toolchain)
         state['functions'].append(r)
     write_state(state)
-    print(f'Staged {len(rows)} CODEGEN_SIMILAR rows ({len(keep)} retained) in {source}')
+    for old in replaces:
+        (ROOT / old).unlink(missing_ok=True)
+    print(f'Staged {len(rows)} CODEGEN_SIMILAR rows ({len(keep)} retained) in {source}'
+          + (f'; replaced {len(replaces)} sources' if replaces else ''))
 
 
 def verify(report=None):
