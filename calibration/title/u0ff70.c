@@ -152,6 +152,120 @@ void title_10fa0(void);
 void title_10fe0(int a);
 void title_1d790(int a);
 
+static int g_2ab10;
+static int g_2a9e8;
+static int g_2aa20;
+void title_1c500();
+
+void title_102f0(TitleProc *out)
+{
+    int local;
+    int x = ((ScreenContext *)g_engine_interface.context_004)->cursor_5c;
+    unsigned long buttons = (unsigned short)((ScreenContext *)g_engine_interface.context_004)->cursor_5e;
+
+    title_016e0("\n TICK %d", g_2ab10);
+    g_2ab10 = g_2ab10 + 1;
+    g_2aa24 = 0;
+
+    switch (out->state_04) {
+    case 1:
+        title_01de0(0x140, 0, g_2a9f0, 0, 0);
+        switch (g_2aa30) {
+        case 0:
+            if (g_2a9f0 < 0x80) {
+                g_2a9f0 = g_2a9f0 + 8;
+            } else {
+                g_2aa30 = 1;
+            }
+            title_10200();
+            g_2aa2c->unknown_054 &= 0x7fffffff;
+            g_2a9c8->unknown_054 &= 0x7fffffff;
+            g_2a9cc->unknown_054 &= 0x7fffffff;
+            g_2a9d0->unknown_054 &= 0x7fffffff;
+            g_2aa08->unknown_034 = 0x1e;
+            break;
+        case 1:
+            title_10fe0(0);
+            if (g_2ab04 == 0 && (buttons & 0x1000)) {
+                g_2aa30 = 2;
+                title_054f0(0x303, 0);
+            }
+            if (g_2aa04 != 0) {
+                g_2aa30 = 2;
+                title_054f0(0x303, 0);
+            }
+            break;
+        case 2:
+            title_10200();
+            if (g_2a9f0 > 0) {
+                g_2a9f0 = g_2a9f0 - 8;
+            } else {
+                out->state_04 = 0xfffe;
+                out->delay_08 = 1;
+                return;
+            }
+            break;
+        case 3:
+            title_10fe0(2);
+            if (g_2ab04 == 0 && (buttons & 0x1000)) {
+                g_2aa30 = 2;
+                title_054f0(0x303, 0);
+            }
+            if (g_2aa04 != 0) {
+                g_2aa30 = 4;
+            }
+            break;
+        case 4:
+            g_2aa04 = 0;
+            g_2aa30 = 1;
+            title_10200();
+            title_10fa0();
+            g_2aa2c->unknown_054 &= 0x7fffffff;
+            g_2a9c8->unknown_054 &= 0x7fffffff;
+            g_2aa08->unknown_034 = 0x1e;
+            g_2a9e4 = 0;
+            g_2a9f4->unknown_054 &= 0x7fffffff;
+            break;
+        }
+        out->state_04 = 1;
+        out->delay_08 = 1;
+        return;
+    case 0xfffe:
+        title_0c4e0();
+        title_10110();
+        title_0c5a0();
+        title_0c4e0();
+        title_05e90(title_1c500, 0);
+        title_05f10(out);
+        return;
+    case 0xffff:
+        title_0c560(0, 4);
+        g_2aa04 = 0;
+        g_2a9e8 = 0;
+        g_2aa20 = 0xf;
+        title_0c560(0, 2);
+        title_1d790(1);
+        local = 0;
+        title_0c450(&local, 0x15000, 0);
+        title_0c3f0(g_29128, g_screen_files[8], local, 0x14312);
+        title_0c8b0(local + 0x312, 2, 0, 0x140, 0, 0xa0, 0x100);
+        title_0c6d0(0);
+        title_0c330(local);
+        title_04b70(0x10, 0);
+        g_2a9f0 = 0;
+        g_2aa30 = 0;
+        title_10fa0();
+        title_0ff70();
+        title_10200();
+        g_2ab04 = 0;
+        break;
+    default:
+        return;
+    }
+    out->state_04 = 1;
+    out->delay_08 = 1;
+}
+
 void title_10670(TitleProc *out)
 {
     int local;
@@ -253,6 +367,104 @@ void title_10670(TitleProc *out)
         title_0ff70();
         title_10200();
         g_2aa14->unknown_034 = 1;
+        break;
+    default:
+        return;
+    }
+    out->state_04 = 1;
+    out->delay_08 = 1;
+}
+
+static int g_2ab18;
+static int g_2aa18;
+static unsigned int g_2aa1c;
+void title_164b0();
+
+void title_109f0(TitleProc *out)
+{
+    int local;
+    int x = ((ScreenContext *)g_engine_interface.context_004)->cursor_5c;
+    unsigned long buttons = (unsigned short)((ScreenContext *)g_engine_interface.context_004)->cursor_5e;
+
+    g_2aa24 = 2;
+    title_016e0("\n TICK %d", g_2ab18);
+    g_2ab18 = g_2ab18 + 1;
+
+    switch (out->state_04) {
+    case 1:
+        title_01de0(0x140, 0, g_2a9f0, 0, 0);
+        switch (g_2aa30) {
+        case 0:
+            if (g_2a9f0 < 0x80) {
+                g_2a9f0 = g_2a9f0 + 8;
+            } else {
+                g_2aa1c = g_2aa1c + 1;
+                if (g_2aa1c > 0x78) {
+                    g_2aa30 = 1;
+                }
+            }
+            title_10200();
+            break;
+        case 1:
+            title_10fe0(2);
+            if (buttons & 0x1000) {
+                g_2aa30 = 2;
+                title_054f0(0x303, 0);
+            }
+            if (g_2aa04 != 0) {
+                g_2aa30 = 2;
+                title_054f0(0x303, 0);
+            }
+            break;
+        case 2:
+            title_10200();
+            if (g_2a9f0 > 0) {
+                g_2a9f0 = g_2a9f0 - 8;
+            } else {
+                out->state_04 = 0xfffe;
+                out->delay_08 = 1;
+                return;
+            }
+            break;
+        }
+        out->state_04 = 1;
+        out->delay_08 = 1;
+        return;
+    case 0xfffe:
+        title_0c4e0();
+        title_10110();
+        title_0c5a0();
+        title_0c4e0();
+        title_05e90(title_164b0, 0);
+        title_05f10(out);
+        return;
+    case 0xffff:
+        title_0c560(0, 4);
+        ((ScreenContext *)g_engine_interface.context_004)->unknown_00[0] = 0;
+        g_2aa04 = 0;
+        g_2aa18 = 0;
+        g_2aa1c = 0xf;
+        title_0c560(0, 2);
+        title_1d790(1);
+        local = 0;
+        title_0c450(&local, 0x15000, 0);
+        title_0c3f0(g_29128, g_screen_files[8], local, 0x14312);
+        title_0c8b0(local + 0x312, 2, 0, 0x140, 0, 0xa0, 0x100);
+        title_0c6d0(0);
+        title_0c330(local);
+        title_04b70(0x10, 0);
+        g_2a9f0 = 0;
+        g_2aa30 = 0;
+        title_10fa0();
+        title_0ff70();
+        title_10200();
+        g_2aa2c->unknown_054 &= 0x7fffffff;
+        g_2a9c8->unknown_054 &= 0x7fffffff;
+        g_2a9cc->unknown_054 &= 0x7fffffff;
+        g_2a9d0->unknown_054 &= 0x7fffffff;
+        g_2aa14->unknown_054 &= 0x7fffffff;
+        g_2aa08->unknown_034 = 0x1e;
+        g_2aa08->unknown_054 &= 0x7fffffff;
         break;
     default:
         return;
