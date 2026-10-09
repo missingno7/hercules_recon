@@ -630,6 +630,32 @@ int title_19570(TitleShape *obj, int k)
     return (unsigned int)(m * 2 + 0xf0) < (unsigned int)b;
 }
 
+extern int g_2cbe0;
+extern int g_2cbe4;
+
+typedef struct TitleBox {
+    int unknown_000;
+    int unknown_004;
+    int unknown_008;
+    short unknown_00c;
+    short unknown_00e;
+    short unknown_010;
+} TitleBox;
+
+int title_195f0(TitleObj *o)
+{
+    TitleBox *box = (TitleBox *)o;
+    int r = title_196c0(box);
+    int d = 0x400 - (box->unknown_008 >> 16);
+
+    title_0c810(&box->unknown_00c);
+    title_0c850(&box->unknown_010);
+    box->unknown_00c = (short)(((box->unknown_000 >> 16) * d >> 10) + g_2cbe0);
+    box->unknown_00e = (short)(((box->unknown_004 >> 16) * d >> 10) + g_2cbe4);
+    box->unknown_010 = (short)((box->unknown_008 >> 16) + (g_2cbe8 >> 1));
+    return r;
+}
+
 void title_19680(TitleRec *rec)
 {
     rec->unknown_076 = (unsigned short)title_196c0(rec);
