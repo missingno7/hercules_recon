@@ -332,3 +332,29 @@ tables sit there. Screen-handler groups own contiguous `.bss` blocks. These are 
 for unit boundaries and link order, recorded with alternatives in
 `evidence/title_closure.json`. Two interior references to interface fields were replaced by
 the fields themselves, and the symbol check now rejects that pattern.
+
+## Levers and rulings from the tail work (2026-10-09, late)
+
+- **A duplicated tail shifts the scratch rotation.** In 0x10fe0 a message call was written both
+  inside an `if` block and after it, each followed by `return`. VC5 merges the two into identical
+  code, but the duplicate still moves the register rotation of the statements before it by one
+  step. Writing the call once after the block gave masked equality.
+- **A goto-built loop is not rotated.** In 0x3da0 the original keeps the search loop's latch at
+  the top (`cmp; jge miss; jmp top`) with the hit paths inline. A `for` loop is always rotated
+  and its hit paths moved to the function end, wherever they appear in source.
+  `i = 0; if (i < cnt) { next: ... if (++i < cnt) goto next; }` reproduces the original layout.
+  This does not generalise: for 0x1b150 it peels the first iteration.
+- **Volatile, per variable, owner-approved.** `g_25a28` (0xd720 re-reads it at every access) and
+  `g_2a244` (0x5fb0 loads the value before the pointer) are declared volatile as documented
+  codegen hypotheses. A sweep over the other near-misses found no further candidates.
+  - For 0x54f0 a function-local volatile read reproduces the early exit's dead byte load and its
+    own epilogue, but not the original's widen-to-int form.
+  - Declaring the shared `TitleObject` field volatile breaks three u02b70 rows, so it was not
+    adopted.
+  - An int return type cannot explain the load: the following call overwrites EAX, and no caller
+    reads it.
+- **Unit merge.** r10ce0.c (0x12070/0x121d0) joined u0ff70.c. Both fill and apply the memory-card
+  records that 0x10fe0 passes them, and they fill the code gap up to seq1.
+- **Canonicalised forms (no effect).** Constant spellings, OR-term order (all 120 orders of
+  `getTPage`), address association, a tail duplicated where VC5 already merges it, inline
+  helpers with swapped parameter order, and the language of the unit for 0x3da0/0xa020.
