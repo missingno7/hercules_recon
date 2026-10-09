@@ -306,6 +306,22 @@ Levers found with these rules:
 The frame-table state machines (0x9a40, 0xa020) differ in scratch-register rotation instead.
 That rotation is carried across cases and depends on the number of temporaries modulo 3.
 
+## Units and data placed at original offsets (2026-10-09, later)
+
+- **First-party .data 0x22030..0x2216f links at its original offsets:**
+  - the 0x1000 unit's menu tables `g_22030`/`g_22080`;
+  - the consolidated C unit `u02b70.c` (0x2b70..0x4b70): emitter table, rectangles, palette and
+    slot, plus 0x4b70's literals.
+
+  Comparing the data caught a literal bug that masked function comparison cannot see:
+  `"\ANIMPSX.BIN"` had lost its backslash. A scan of all sources found no other bad escapes.
+- **The C++ object-system unit starts at 0x7510, the main-menu process.** Its sparkle table follows
+  the unit's tables in .data. Its data block links 3400/3400 bytes equal.
+- **The u197f0 unit extends to 0x1d380.** The tally screen 0x1c500 owns the literal that ends the
+  unit's .data.
+- **Screen-handler family:** the B6 blocker is resolved by tail placement. Case 1 writes its own
+  tail; the inner cases break to it, and 0xffff breaks to the outer tail.
+
 ## Preliminary closure (stage 2 groundwork)
 
 `scripts/closure.py` maps the data addresses implied by masked rows back to their functions.
