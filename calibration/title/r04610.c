@@ -17,6 +17,49 @@ unsigned char title_046b0(unsigned short key, unsigned int f);
 void title_047d0(int a, int v, int b);
 void title_042d0(TitleObject *p);
 TitleTabEntry *title_047a0(TitleObject *c);
+extern int g_29d94;
+extern int g_2d32c;
+extern unsigned short g_2df60[0x20];
+void title_0c890(void *p, int n);
+
+void title_041d0(void)
+{
+    int a;
+    TitleRect rect;
+    unsigned short *p;
+    int cnt;
+    int x, hi, lo;
+    int ohi, olo;
+
+    if (g_29d94 == 0)
+        return;
+    a = g_2d32c;
+    x = g_2df60[0];
+    hi = x / 16;
+    lo = x & 15;
+    p = g_2df60;
+    rect.w = 0x10;
+    do {
+        rect.x = (hi + 0x30) << 4;
+        rect.y = lo << 5;
+        cnt = 0x20;
+        while (--g_29d94 != 0) {
+            ohi = hi;
+            olo = lo;
+            x = *++p;
+            hi = x / 16;
+            lo = x & 15;
+            if ((hi - ohi) | (lo - olo - 1))
+                break;
+            cnt += 0x20;
+        }
+        rect.h = cnt;
+        title_0c890(&rect, a);
+        a += cnt << 5;
+    } while (g_29d94 != 0);
+}
+
+
 /* 0x42d0: release a context's two cell chains in the 0x2d340 cell table (12-byte cells:
    bit mask, word, four next links). A link k names cell k >> 4 and one quadrant bit k & 15;
    g_264f8 maps the bit to its link slot. The cell is addressed through a byte offset: only
@@ -86,6 +129,18 @@ void title_042d0(TitleObject *p)
     p->unknown_044 = p->unknown_022;
 }
 
+void title_04410(TitleObject *p)
+{
+    if (p->unknown_044 == p->unknown_022 && p->unknown_040 == p->unknown_034 && p->unknown_042 == p->unknown_036)
+        return;
+    if (p->unknown_044 != p->unknown_022)
+        title_047a0(p);
+    title_042d0(p);
+    p->unknown_042 = p->unknown_036;
+    p->unknown_040 = p->unknown_034;
+    p->unknown_044 = p->unknown_022;
+}
+
 void title_04610(TitleObject *p);
 void title_04b70(int c, int d);
 void title_04f00(int i);
@@ -140,6 +195,16 @@ unsigned char title_046b0(unsigned short key, unsigned int f)
         }
     }
     return (unsigned char)(i | 0xff);
+}
+
+unsigned char title_04710(char *p, int b, int c, int d)
+{
+    unsigned int v = title_046b0(b, d);
+    if ((v & 0x80) == 0x80) {
+        v &= 0x7f;
+        title_047d0((int)p, v, c);
+    }
+    return v;
 }
 
 /* f_4760 */

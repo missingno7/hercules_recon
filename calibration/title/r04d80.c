@@ -2,6 +2,7 @@
 #include <string.h>
 #include "title_engine.h"
 #include "title_slots.h"
+#include "title_screen.h"
 
 extern int g_22148;
 
@@ -10,8 +11,9 @@ typedef struct TitleRec64 {
     unsigned long unknown_04;
     short id_08;
     short unknown_0a;
-    unsigned short word_0c;
-    unsigned char unknown_0e[0x30 - 0x0e];
+    short word_0c;
+    short unknown_0e;
+    unsigned char unknown_10[0x30 - 0x10];
     unsigned long owner_30;
     unsigned long flags_34;
     unsigned long unknown_38;
@@ -41,6 +43,26 @@ int title_04d80(int idx, int arg2)
     }
     return 0;
 }
+
+int title_04dd0(int idx, int start)
+{
+    ResourceCallbackContext *ctx = g_engine_interface.context_004;
+    int loaded = (ctx->total_sectors_0a0 - ctx->remaining_sectors_09e) << 11;
+    int *p;
+    int v;
+
+    if (loaded < 0x1000)
+        return 0;
+    p = (int *)g_26110[idx].table_0c + 2 + g_26110[idx].count_04;
+    for (;;) {
+        if (start >= g_26110[idx].count_04)
+            return 0;
+        v = p[++start] >> 8;
+        if (v != 0)
+            return loaded >= v;
+    }
+}
+
 
 /* ---- f_4e40 ---- */
 
@@ -191,6 +213,41 @@ void title_05a70(int arg)
     }
     title_0c700();
 }
+
+void title_05ad0(unsigned short id, unsigned long owner)
+{
+    int bank;
+    int sample;
+    int i;
+
+    title_0c6f0();
+    bank = ((unsigned char *)g_engine_interface.context_004)[id * 3 + 0x2f0];
+    sample = ((unsigned char *)g_engine_interface.context_004)[id * 3 + 0x2f1];
+    title_016e0("\n RemoveFxIdLinks(%d,0x%x)", id & ~0xf800, owner);
+    if (owner == 0) {
+        for (i = 0; i < 24; i++) {
+            if (bank == g_2cca0[i].word_0c && sample == g_2cca0[i].unknown_0e) {
+                title_0cc00(i);
+                if (g_2cca0[i].owner_30 != 0) {
+                    ((TitleObject *)g_2cca0[i].owner_30)->unknown_06c = 0;
+                    g_2cca0[i].owner_30 = 0;
+                }
+            }
+        }
+    } else {
+        for (i = 0; i < 24; i++) {
+            if (owner == g_2cca0[i].owner_30 && bank == g_2cca0[i].word_0c && sample == g_2cca0[i].unknown_0e) {
+                title_0cc00(i);
+                if (g_2cca0[i].owner_30 != 0) {
+                    ((TitleObject *)g_2cca0[i].owner_30)->unknown_06c = 0;
+                    g_2cca0[i].owner_30 = 0;
+                }
+            }
+        }
+    }
+    title_0c700();
+}
+
 
 /* ---- f_5c60 ---- */
 
