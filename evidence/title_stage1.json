@@ -144,12 +144,16 @@
   "0x17f50": null,
   "0x181e0": null,
   "0x184c0": 231,
-  "0x18600": 49,
+  "0x18600": 0,
   "0x186e0": 635,
-  "0x18b20": 124,
+  "0x18b20": 14,
   "0x18bf0": null,
   "0x1a180": 7,
-  "0x1ab30": null
+  "0x1ab30": null,
+  "0x19120": 0,
+  "0x19270": 0,
+  "0x196f0": 0,
+  "0x195f0": 29
  },
  "tooling": [
   "scripts/masked.py",
@@ -227,6 +231,7 @@
   "0x3050": "With the shared TitleObject in r02a80.c context: 6 bytes, the divisor and v1 swap ebx/edi (B6 class); removing the depth local, inlining half, reordering declarations and the or operands leave it at 6; long/int depth or if/else for v2 are far worse. Not referenced by reconstructed code; stopped.",
   "0xcd30": "Password checker (43 x 24-byte entries: four keys, code, flags) in u0cc90.c with the shared TitleObject: loop with goto found, returns re-reading the table code (stores to the flags may alias it). Structure equal; 238 bytes remain from register roles (index in ebx vs ecx, key0 target in edi vs ebx) and the original recomputing the entry address after the aliasing stores. B6 class; stopped.",
   "u08140_allocators": "0x8900/0x8d80/0x91a0 (free-record allocators over the 0x134, 0xec and 0x94-byte pools) are masked equal in the C++ unit once the loop bounds name the cursor globals directly; copying them into start/end locals gave the register permutation of the earlier lanes (same lever as blood2_recon's 'drop decompiler-style cached locals'). 0x94c0 (object header reset, 74 bytes) remains: store scheduling in one window, count- and flag-insensitive; 720 window orders and annealed statement orders tried (best 49).",
-  "w2dc0_first_drafts": "First reconstructions (worker w2dc0). 0x42d0 masked equal. 0x2dc0 (frame draw: clip test via 0x184c0, cell allocation via 0x3da0, palette switch, render-mode dispatch through g_220d0) is equal except the palette-upload address association (original base + n*4 + 12 then + offset; VC5 reassociates) and the resulting 3-byte jump shifts. 0x3100 (unrotated sprite prims into the ordering table) and 0x39b0 (rotated/scaled, sine table g_243e0) keep a register-role swap (obj/stream/cell/flags), not a declaration-order effect (400 random orders). Needed later: TitleObject members +0x01c/+0x01d/+0x022/+0x040/+0x042/+0x044; 0x3100/0x39b0 take an unsigned char count; g_220d0 entries are called with three arguments. The row*12 cell addressing (explicit byte offset) recurs at 0x33a7, 0x36c9, 0x392f, 0x3c92, 0x18145, suggesting one macro in the original."
+  "w2dc0_first_drafts": "First reconstructions (worker w2dc0). 0x42d0 masked equal. 0x2dc0 (frame draw: clip test via 0x184c0, cell allocation via 0x3da0, palette switch, render-mode dispatch through g_220d0) is equal except the palette-upload address association (original base + n*4 + 12 then + offset; VC5 reassociates) and the resulting 3-byte jump shifts. 0x3100 (unrotated sprite prims into the ordering table) and 0x39b0 (rotated/scaled, sine table g_243e0) keep a register-role swap (obj/stream/cell/flags), not a declaration-order effect (400 random orders). Needed later: TitleObject members +0x01c/+0x01d/+0x022/+0x040/+0x042/+0x044; 0x3100/0x39b0 take an unsigned char count; g_220d0 entries are called with three arguments. The row*12 cell addressing (explicit byte offset) recurs at 0x33a7, 0x36c9, 0x392f, 0x3c92, 0x18145, suggesting one macro in the original.",
+  "w17cb0": "Worker w17cb0 in the C++ unit u17cb0: 0x18600, 0x19120, 0x19270, 0x196f0 masked equal (0x196f0's local order found by search over natural orders). 0x195f0 (29 bytes) is TU-count sensitive (0 at N=18..36 prepended externs): the real unit likely declares more symbols before it (0x17cb0..0x184c0 and callees are missing); not padded. 0x18b20 (14 bytes) is count-insensitive (0..119): result-to-ebp timing after make_colour and base/index roles in the list loop. 0x18bf0 (912, primitive builder) has a full structural draft; remaining register/scheduling differences; it returns int 1."
  }
 }

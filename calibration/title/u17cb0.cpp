@@ -32,11 +32,23 @@ typedef struct TitleObj {
     unsigned char byte_023;
     unsigned char unknown_024[0x34 - 0x24];
     unsigned short w_034;
-    unsigned char unknown_036[0x54 - 0x36];
+    unsigned short w_036;
+    unsigned char unknown_038[0x3a - 0x38];
+    unsigned short w_03a;
+    unsigned short w_03c;
+    unsigned short w_03e;
+    unsigned char unknown_040[0x4c - 0x40];
+    int dword_04c;
+    unsigned char unknown_050[0x54 - 0x50];
     unsigned int flags_054;
-    unsigned char unknown_058[0x68 - 0x58];
+    unsigned char unknown_058[0x5c - 0x58];
+    unsigned char *stream_05c;
+    unsigned char unknown_060[0x68 - 0x60];
     struct TitleObj *next_068;
-    unsigned char unknown_06c[0x76 - 0x6c];
+    unsigned char unknown_06c[0x70 - 0x6c];
+    unsigned short w_070;
+    unsigned short w_072;
+    unsigned short w_074;
     short w_076;
     unsigned char unknown_078[0x120 - 0x78];
     unsigned int *list_120;
@@ -86,8 +98,8 @@ int g_260e0[4] = {8192, 8192, 8192, 0};
 void title_18f80(int a1, int *vals, int count);
 void title_19040(TitleStream *s, int *vals, int n);
 void title_190d0(TitleStream *s);
-int title_19120();
-int title_19270();
+void title_19120(TitleObj *o, int *vals, int count);
+void title_19270(TitleObj *o, int *vals, int count);
 void *g_260f0[8] = {  /* handler table, NULL-terminated */
     (void *)title_18f80, (void *)title_18f80, (void *)title_19040, (void *)title_19120, (void *)title_18f80, (void *)title_190d0, (void *)title_19270, 0,
 };
@@ -142,6 +154,36 @@ void title_0c7f0(void *p);
 void title_0c810(void *p);
 void title_0c850(void *p);
 int title_196c0(void *unused);
+
+struct title_pos {
+    short x;
+    short y;
+};
+unsigned char *title_18680(int index, int key);
+
+int title_18600(TitleObj *o, struct title_pos *pos)
+{
+    unsigned char *p;
+    int n;
+
+    pos->y = 0;
+    pos->x = 0;
+    if (o->w_034 > g_26110[o->b_022].count_04) {
+        return 0;
+    }
+    p = title_18680(o->b_022, o->w_034);
+    if (p == 0) {
+        return 0;
+    }
+    n = (signed char)*++p;
+    p += n * 6 + 5;
+    pos->x = (signed char)p[0];
+    pos->y = (signed char)p[1];
+    if (o->flags_054 & 0x10) {
+        pos->x = -pos->x;
+    }
+    return 1;
+}
 
 unsigned char *title_18680(int index, int key)
 {
@@ -315,6 +357,108 @@ void title_190d0(TitleStream *s)
     } while (--n);
 }
 
+extern int *g_2bb28;
+
+void title_19120(TitleObj *o, int *vals, int count)
+{
+    int t;
+    unsigned char *q;
+    char *dst;
+    char *dst4;
+    int a, b, mid, hi;
+    int pair[2];
+    int *src;
+
+    t = o->dword_04c;
+    if (t == 0) {
+        title_18f80((int)o, vals, count);
+        return;
+    }
+    if (g_2bb28 != 0) {
+        src = g_2bb28;
+    } else {
+        q = (unsigned char *)(g_2cbf0 + *(int *)(g_2cbf0 + o->w_036 * 4));
+        q += o->w_036 * 4 + 2;
+        src = (int *)(q + *q * 8 + 0xa);
+    }
+    dst = (char *)g_engine_interface.data_010 + 0x10;
+    dst4 = dst + 4;
+    do {
+        a = *vals++;
+        b = *src++;
+        mid = (a << 8) >> 16;
+        title_0c810(dst);
+        title_0c840(dst4);
+        dst4 += 8;
+        hi = (((b >> 24) - (a >> 24)) * t >> 8) + (a >> 24);
+        pair[0] = ((((b << 8) >> 16) - mid) * t >> 8) + mid + (hi << 16);
+        dst += 8;
+        pair[1] = (((signed char)b - (signed char)a) * t >> 8) + (signed char)a;
+        title_0c760(pair);
+        title_0c7b0();
+    } while (--count);
+    title_0c810(dst);
+    title_0c840(dst + 4);
+    g_2bb28 = src + 1;
+}
+
+void title_19270(TitleObj *o, int *vals, int count)
+{
+    int *src;
+    unsigned char *s;
+    unsigned char *q;
+    int t;
+    int i;
+    int n;
+    int c;
+    int a, b, mid, hi;
+    int *dst;
+    int *dst4;
+    int pair[2];
+
+    if (g_2bb28 != 0) {
+        src = g_2bb28;
+    } else {
+        q = (unsigned char *)(g_2cbf0 + *(int *)(g_2cbf0 + o->w_036 * 4));
+        q += o->w_036 * 4 + 2;
+        src = (int *)(q + *q * 8 + 0xa);
+    }
+    dst = (int *)((char *)g_engine_interface.data_010 + 0x18);
+    t = o->dword_04c;
+    s = o->stream_05c + 1;
+    n = *s;
+    i = 0;
+    dst4 = dst + 1;
+    do {
+        if (i == n) {
+            vals++;
+            c = s[1];
+            s += 2;
+            *dst = g_2b720[c].a_00;
+            *dst4 = g_2b720[c].b_04;
+            n = *s;
+            src++;
+        } else {
+            a = *vals++;
+            b = *src++;
+            hi = a >> 24;
+            hi += ((b >> 24) - hi) * t >> 8;
+            mid = (a << 8) >> 16;
+            pair[0] = ((((b << 8) >> 16) - mid) * t >> 8) + mid + (hi << 16);
+            mid = (signed char)a;
+            pair[1] = (((signed char)b - mid) * t >> 8) + mid;
+            title_0c760(pair);
+            title_0c7b0();
+            title_0c810(dst);
+            title_0c840(dst4);
+        }
+        dst += 2;
+        dst4 += 2;
+        i++;
+    } while (i != count);
+    g_2bb28 = src + 1;
+}
+
 int title_19470(char *obj, int *vec)
 {
     short v[3];
@@ -384,5 +528,45 @@ int title_196c0(void *unused)
     return 0;
 }
 
+
+void title_0ca40(void *a, void *b);
+void title_0ca60(void *a, void *b);
+void title_0c7d0(void *p);
+
+void title_196f0(TitleObj *o, int v)
+{
+    short src[3];
+    int scale[4];
+    int m[8];
+    int s;
+    unsigned short z, y, x;
+
+    src[0] = (short)(o->w_070 << 2);
+    src[1] = (short)(o->w_072 << 2);
+    src[2] = (short)(o->w_074 << 2);
+    title_0ca40(src, m);
+    if (o->flags_054 & 0x80) {
+        z = o->w_03e;
+        y = o->w_03c;
+        x = o->w_03a;
+        if ((x | y | z) != 0x100) {
+            scale[0] = x << 5;
+            scale[1] = y << 5;
+            scale[2] = z << 5;
+        }
+        title_0ca60(m, scale);
+        title_0c7d0(m);
+    } else if (o->w_03a != 0x100) {
+        s = o->w_03a << 5;
+        scale[2] = s;
+        scale[1] = s;
+        scale[0] = s;
+        title_0ca60(m, scale);
+        title_0c7d0(m);
+    } else {
+        title_0ca60(m, g_260e0);
+        title_0c7d0(m);
+    }
+}
 
 } /* extern "C" */
