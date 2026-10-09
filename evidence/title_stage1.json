@@ -158,7 +158,7 @@
   "0x13ba0": 0,
   "0x164b0": 17,
   "0x1c500": 1715,
-  "0x3da0": 710,
+  "0x3da0": 6,
   "0x7510": 0,
   "0xf460": 0,
   "0x9c90": 256,
@@ -310,7 +310,8 @@
    "loop_call": "In a 999-loop body calling f(T[i+1] | 0x4000, g_o) (candidates/wr4/probe.py, k*.c), VC5 allocates the POINTER argument first and the value second, as consecutive round-robin registers at every phase: (ptr, value) = (ecx, edx) at phases 0 and 2, (edx, eax) at phase 1. So pointer-first is the normal order, not the R4 anomaly.",
    "reframed_R4": "The originals of 0xa020/0x9a40 have (ptr, value) = (ecx, eax), which skips edx: in the original edx must be busy at that point (or the round-robin start differs). The question is what occupies edx, not argument order. 0x17f50s three-address call fits the same frame (arg2 eax, arg1 ecx, arg3 edx).",
    "non_canonical": "A pointer local inside the loop body (O *o = g_o;) changes the shape (the pointer is pushed before the value is computed); casts, prototype types and local value copies are canonical."
-  }
+  },
+  "R4_resolved_order": "Probes (candidates/wr4/argord.py, a3_*.c, ltr.py): VC5 allocates call-argument temporaries RIGHT TO LEFT (push order) as consecutive round-robin registers, for two and three arguments, prototypes of any type, varargs, __stdcall, function pointers and struct-member calls; __fastcall differs. This corrects R4s \"source order\" statement. The originals of 0xa020/0x9a40 (pointer ecx, value eax reusing its base) therefore look like left-to-right allocation or a skipped edx; no call form tested reproduces it."
  },
  "windows_h_hypothesis": "Worker w23c0: the 0x1de0 unit (0x1de0, 0x2090, 0x23c0, 0x25c0, 0x2860, 0x28c0 with 0x2350, 0x2a20) is fully masked equal only with a large prior symbol count (>= ~400 declarations); a single #include <windows.h> supplies it, and B1 (add destination with the global as SIB base) disappears: the C front end also uses the global as base at high counts. Without it the six functions are 8..249 bytes off. A uniform windows.h include keeps every other canonical C unit equal except 0x4dd0 (31) and the count-fragile 0x17bf0, so it is not a uniform project-wide property. 0x25c0 is fragile under extra declarations. Candidate file candidates/w23c0/u01de0.c; Owner ruling 2026-10-09: allowed as a documented TU-context hypothesis (a real header only, never padding); staged as calibration/title/u01de0.c (8 rows), replacing r02350.c.",
  "B1_resolved_2026_10_09": "Resolved for the 0x1de0 unit by TU context (large prior symbol count via <windows.h>), owner-approved hypothesis.",
@@ -420,5 +421,20 @@
   },
   "integrator_17f50": "Integrator sweep (candidates/wemit2b/v.py) over the y-block store order: v0.x, v2.x, v1.y, v0.y = y + h, v2.y, v1.x (and other orders with v0.y before the last y store) take 0x17f50 from 180 to 41 (candidates/wemit2b/best.cpp, f17f50_b.inc); y + h then goes into a new register as in the original. Remaining: the argument addresses of title_0c770(&v2, &v1, &v0) are materialised middle-first in the original (lea eax = &v1 early, then ecx = &v2, edx = &v0) - the same unexplained argument-order pattern as R4 (0xa020/0x9a40: second argument allocated before the first) - plus its rotation consequences. Vertex declaration order and form are inert."
  },
- "lane_h94c0_2026_10_10": "0x94c0 (74, store scheduling; candidates/h94c0/): no order reaches 0. Best single move 54 bytes (w88 after w48); greedy descent reaches 4 unmatched instructions (63 bytes); annealing stays at 6. The residue is the placement of mov edx,0x100 before w72/w70 in the original. The three constant groups (0x100/0xffff/0x80) share edx, so their materialisations are sequential. Chained assignments are not canonicalised but do not help."
+ "lane_h94c0_2026_10_10": "0x94c0 (74, store scheduling; candidates/h94c0/): no order reaches 0. Best single move 54 bytes (w88 after w48); greedy descent reaches 4 unmatched instructions (63 bytes); annealing stays at 6. The residue is the placement of mov edx,0x100 before w72/w70 in the original. The three constant groups (0x100/0xffff/0x80) share edx, so their materialisations are sequential. Chained assignments are not canonicalised but do not help.",
+ "register_model_2026_10_10": {
+  "source": "lane wregstudy (candidates/wregstudy/: h.py, ruler.py, free.py, slope.py, ctx.py, probe templates in t/)",
+  "W1": "priority W(v) = sum over blocks of refs(v,B) * freq(B) * N(B), N(B) = number of distinct candidates referenced in B (variables, qualifying constants, a memory-compare zero once qualifying); calls do not split blocks. Blind predictions t/p1-p4 matched.",
+  "W2": "freq 1 outside loops (if/else arms not discounted); structured loops 2^(depth+1) (4, 8, ... 128), no cap through depth 6",
+  "W2b": "unstructured (goto or for(;;)+break) loop header block weighs 3 at depth 1, 12 nested; switch-case / nested-if bodies about 0.83-0.875 (measured, not explained)",
+  "W3": "R6 explained: a variables first reference in a block raises N(B) and so every other candidates weight there",
+  "W4": "ties go to the first source reference; live-range span does not normalise",
+  "A1": "greedy assignment in W order: each candidate takes the first register free over its whole range; ranges containing a call use esi, edi, ebx, ebp; call-free ranges try eax, ecx, edx first",
+  "A2": "a byte candidate takes ebx; an int candidate overlapping a pending byte candidate takes ebp before ebx",
+  "A3": "a candidate without a register free over its whole range is split into pieces; one-reference pieces stay in memory",
+  "K1": "a store constant becomes a candidate at frequency-weighted refs >= 4 (one reference in a loop suffices); a memory-compare zero from 2 tests",
+  "K2": "one constant forms a single web across pieces; pieces with 2+ references in sibling switch cases merge",
+  "open": "unstructured-loop and switch-case frequencies; the constant-web case behind 0x1c500s constant 6; the 14..20 window of lane w3da0b not reproduced"
+ },
+ "lane_wregstudy_3da0": "0x3da0 710 -> 6 (candidates/wregstudy/u_3da0_best.c, all 22 u02b70.c rows equal): a region-local cursor for the RLE source (s = src; *s++ in the RLE loop; src = s after the copy loop) takes srcs heavy depth-2 references off ebx (W1/A1); got block k = g_26508[cur]; g_2df60[cnt] = g_26508[cur]; pos = cnt++; overflow exit stores g_29d90 first. Residue: the quad term order only (TU tie-break). In address order (before 0x41d0, with the TitleCell block, g_29d90 and two prototypes moved up; candidates/wr4/place3da0.py) all unit rows stay equal but 0x3da0 is 7: the quad order stays and a base/index pair flips. Not stageable yet; the tie-breaks likely need the units true declaration context."
 }
