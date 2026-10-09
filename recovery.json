@@ -3521,61 +3521,6 @@
       }
     },
     {
-      "id": "title.02a80",
-      "status": "CODEGEN_SIMILAR",
-      "name_status": "provisional address label",
-      "target": "assets/pc/HERCULES/TITLE.DLL",
-      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
-      "rva": "0x2a80",
-      "size": 240,
-      "source": "calibration/title/r02a80.c",
-      "symbol": "_title_02a80",
-      "flags": [
-        "/O2"
-      ],
-      "evidence": "docs/title_link_goal.md stage 1, lane w04: Resets the TitleView g_2cc08 layout: four 320x240-class rect setup calls (title_0cab0 / title_0ca80) on sub-objects, then zeroes or sets six 16-bit fields. Buffers 2026-10-09: g_2cc04/g_2cc08 are typed TitleBuffer * (title_gpu.h: PSX DRAWENV/DISPENV/ordering-table double buffer). Object record 2026-10-09: private views replaced by title_screen.h TitleObject (0x134 bytes, union of users).",
-      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
-      "link_symbols": {
-        "_g_2cc08": "0x2cc08",
-        "_title_0ca80": "0xca80",
-        "_title_0cab0": "0xcab0"
-      },
-      "proof": {
-        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "55d2513c419278c3dd9b712b2e04e30cb188c5cce2aa6c33d20fd9ead54057dd",
-        "masked_sha256": "bd70b9b9993aae574bbb07f58d2cdeded15f1b49bc43e30269a476bb8a644986",
-        "toolchain": "msvc5_rtm"
-      }
-    },
-    {
-      "id": "title.02cc0",
-      "status": "CODEGEN_SIMILAR",
-      "name_status": "provisional address label",
-      "target": "assets/pc/HERCULES/TITLE.DLL",
-      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
-      "rva": "0x2cc0",
-      "size": 256,
-      "source": "calibration/title/r02a80.c",
-      "symbol": "_title_02cc0",
-      "flags": [
-        "/O2"
-      ],
-      "evidence": "docs/title_link_goal.md stage 1, lane w04: Per-actor update: optional title_01dd0 call with address g_2cc04 - unknown_10*4 + 0x1468 before and after; when flag 0x8000000 and unknown_36 != 0 runs title_02 Buffers 2026-10-09: g_2cc04/g_2cc08 are typed TitleBuffer * (title_gpu.h: PSX DRAWENV/DISPENV/ordering-table double buffer). Object record 2026-10-09: private views replaced by title_screen.h TitleObject (0x134 bytes, union of users).",
-      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
-      "link_symbols": {
-        "_g_2cc04": "0x2cc04",
-        "_g_2d328": "0x2d328",
-        "_title_01dd0": "0x1dd0",
-        "_title_02dc0": "0x2dc0"
-      },
-      "proof": {
-        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "55d2513c419278c3dd9b712b2e04e30cb188c5cce2aa6c33d20fd9ead54057dd",
-        "masked_sha256": "e2ab97efe8df5a5c19b30a8c2fc68b3cf93232a41d4055e1a906893f933801a2",
-        "toolchain": "msvc5_rtm"
-      }
-    },
-    {
       "id": "title.03d10",
       "status": "CODEGEN_SIMILAR",
       "name_status": "provisional address label",
@@ -9378,69 +9323,6 @@
       }
     },
     {
-      "id": "title.14120",
-      "status": "CODEGEN_SIMILAR",
-      "name_status": "provisional address label",
-      "target": "assets/pc/HERCULES/TITLE.DLL",
-      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
-      "rva": "0x14120",
-      "size": 272,
-      "source": "calibration/title/seq4.c",
-      "symbol": "_title_14120",
-      "flags": [
-        "/O2"
-      ],
-      "evidence": "docs/title_link_goal.md stage 1, lane w20: Slot-0 init: allocates three TitleObject records via title_17ad0 (size 0x200c) into g_2abd0, g_2abf0, g_2abd8, sets their word/flag fields, then resets the sequ Unit 2026-10-09: sequence-screen unit seq4.c (handler + two helpers share a private .bss block; alphabetical seq1, seq10, seq2..seq9 is code order). Statics 2026-10-09: the unit's private .bss block variables are file statics (only this unit uses them).",
-      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
-      "link_symbols": {
-        "_g_2abd0$S153": "0x2abd0",
-        "_g_2abd4$S154": "0x2abd4",
-        "_g_2abd8$S155": "0x2abd8",
-        "_g_2abdc$S156": "0x2abdc",
-        "_g_2abf0$S157": "0x2abf0",
-        "_g_2abf4$S158": "0x2abf4",
-        "_title_17ad0": "0x17ad0"
-      },
-      "proof": {
-        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "169d95991c4dee4c41195d360654bdc6b65a6b56ac10b61a8293d6124d17002e",
-        "masked_sha256": "617e308c6299354a5c9c9e90a7fdb79710b3d956f420cba836c6105c3e526492",
-        "toolchain": "msvc5_rtm"
-      }
-    },
-    {
-      "id": "title.14230",
-      "status": "CODEGEN_SIMILAR",
-      "name_status": "provisional address label",
-      "target": "assets/pc/HERCULES/TITLE.DLL",
-      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
-      "rva": "0x14230",
-      "size": 208,
-      "source": "calibration/title/seq4.c",
-      "symbol": "_title_14230",
-      "flags": [
-        "/O2"
-      ],
-      "evidence": "docs/title_link_goal.md stage 1, lane w20: Sequencer step for slot 0: toggles g_2abfc every call and runs only on the even phase. State 0 walks the word table g_25f50, writes the next value to the object Unit 2026-10-09: sequence-screen unit seq4.c (handler + two helpers share a private .bss block; alphabetical seq1, seq10, seq2..seq9 is code order). Statics 2026-10-09: the unit's private .bss block variables are file statics (only this unit uses them).",
-      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
-      "link_symbols": {
-        "_g_25f50": "0x25f50",
-        "_g_2abd4$S154": "0x2abd4",
-        "_g_2abd8$S155": "0x2abd8",
-        "_g_2abdc$S156": "0x2abdc",
-        "_g_2abf4$S158": "0x2abf4",
-        "_g_2abfc$S159": "0x2abfc",
-        "_g_engine_interface": "0x2bb40",
-        "_title_0c4f0": "0xc4f0"
-      },
-      "proof": {
-        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "169d95991c4dee4c41195d360654bdc6b65a6b56ac10b61a8293d6124d17002e",
-        "masked_sha256": "8aaa3d7b2d9e80ace632f7df68253dd93027829fee628536f7ebb7bae7d8e23c",
-        "toolchain": "msvc5_rtm"
-      }
-    },
-    {
       "id": "title.14300",
       "status": "CODEGEN_SIMILAR",
       "name_status": "provisional address label",
@@ -11592,6 +11474,209 @@
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
         "source_sha256": "a7db4768802d30f79a33a5c8925c20c6cbe8f10ea287c83071557e19e32c5ccb",
         "masked_sha256": "4640210dab6edbe9fe8d73a9fba85f79b1a2567684e4abe9156b2ef9fa241c53",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "title.02a80",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x2a80",
+      "size": 240,
+      "source": "calibration/title/r02a80.c",
+      "symbol": "_title_02a80",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "docs/title_link_goal.md stage 1, lane w04: Resets the TitleView g_2cc08 layout: four 320x240-class rect setup calls (title_0cab0 / title_0ca80) on sub-objects, then zeroes or sets six 16-bit fields. Buffers 2026-10-09: g_2cc04/g_2cc08 are typed TitleBuffer * (title_gpu.h: PSX DRAWENV/DISPENV/ordering-table double buffer). Object record 2026-10-09: private views replaced by title_screen.h TitleObject (0x134 bytes, union of users).",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_2cc08": "0x2cc08",
+        "_title_0ca80": "0xca80",
+        "_title_0cab0": "0xcab0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "5ae471c6127934d06648ac027dcd507a837c7b7f611b1f756c0f213ce95ea521",
+        "masked_sha256": "bd70b9b9993aae574bbb07f58d2cdeded15f1b49bc43e30269a476bb8a644986",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "title.02cc0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x2cc0",
+      "size": 256,
+      "source": "calibration/title/r02a80.c",
+      "symbol": "_title_02cc0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "docs/title_link_goal.md stage 1, lane w04: Per-actor update: optional title_01dd0 call with address g_2cc04 - unknown_10*4 + 0x1468 before and after; when flag 0x8000000 and unknown_36 != 0 runs title_02 Buffers 2026-10-09: g_2cc04/g_2cc08 are typed TitleBuffer * (title_gpu.h: PSX DRAWENV/DISPENV/ordering-table double buffer). Object record 2026-10-09: private views replaced by title_screen.h TitleObject (0x134 bytes, union of users).",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_2cc04": "0x2cc04",
+        "_g_2d328": "0x2d328",
+        "_title_01dd0": "0x1dd0",
+        "_title_02dc0": "0x2dc0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "5ae471c6127934d06648ac027dcd507a837c7b7f611b1f756c0f213ce95ea521",
+        "masked_sha256": "e2ab97efe8df5a5c19b30a8c2fc68b3cf93232a41d4055e1a906893f933801a2",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "title.03050",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x3050",
+      "size": 176,
+      "source": "calibration/title/r02a80.c",
+      "symbol": "_title_03050",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Chooses the sprite emitter: scales +0x3a/+0x3c by half the projection distance over depth; 0x100 scale with +0x074 selects 0x3420/0x3100, else 0x39b0/0x3740. The chained assignment v1 = v2 = ... removes one v1 reference so the divisor outranks it, as in the original. Register study 2026-10-09 (callee-saved rank esi, edi, ebx, ebp by reference weight; a ranked constant can hold a slot without code).",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_2cbe8": "0x2cbe8",
+        "_title_03100": "0x3100",
+        "_title_03420": "0x3420",
+        "_title_03740": "0x3740",
+        "_title_039b0": "0x39b0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "5ae471c6127934d06648ac027dcd507a837c7b7f611b1f756c0f213ce95ea521",
+        "masked_sha256": "384a5707e20ad5ca4b204899d34773388113b944884e744d35b6faa54b1b41ec",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "title.13ba0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x13ba0",
+      "size": 1408,
+      "source": "calibration/title/seq4.c",
+      "symbol": "_title_13ba0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "seq4 screen handler (worker wseq49 draft). Case 1 writes its own tail and returns, as in seq1, which shifts reference weights so self lands in ebx as in the original. Register study 2026-10-09 (callee-saved rank esi, edi, ebx, ebp by reference weight; a ranked constant can hold a slot without code). Names 2026-10-09: private statics carry layout-compatible names (scripts/layout_names.py), not recovered identifiers.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_29128": "0x29128",
+        "_g_29f98": "0x29f98",
+        "_g_engine_interface": "0x2bb40",
+        "_g_sequence_files": "0x222f8",
+        "_seq4_anim_sprite2$S155": "0x2abd8",
+        "_seq4_echo_obj$S157": "0x2abf0",
+        "_seq4_fade_lo$S165": "0x2abe8",
+        "_seq4_flash_level$S163": "0x2abe0",
+        "_seq4_main_obj2$S153": "0x2abd0",
+        "_seq4_stage$S158": "0x2abf4",
+        "_seq4_unknown_f8$S167": "0x2abf8",
+        "_seq4_upper_fade$S164": "0x2abe4",
+        "_seq4_var_ec$S166": "0x2abec",
+        "_title_01dd0": "0x1dd0",
+        "_title_01de0": "0x1de0",
+        "_title_028c0": "0x28c0",
+        "_title_04b70": "0x4b70",
+        "_title_04ea0": "0x4ea0",
+        "_title_05e90": "0x5e90",
+        "_title_05f10": "0x5f10",
+        "_title_09350": "0x9350",
+        "_title_0c330": "0xc330",
+        "_title_0c3f0": "0xc3f0",
+        "_title_0c450": "0xc450",
+        "_title_0c4f0": "0xc4f0",
+        "_title_0c6d0": "0xc6d0",
+        "_title_0c8b0": "0xc8b0",
+        "_title_14120": "0x14120",
+        "_title_14230": "0x14230",
+        "_title_16300": "0x16300",
+        "_title_164b0": "0x164b0",
+        "_title_1d790": "0x1d790"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "c09e6fa2d497aa46a50dbbe7bc700849fbc03045e7289778549646a44a0fdb52",
+        "masked_sha256": "b46feaa3b7d34abb1e7c36288137328122d04e2eb87c17032ac437b12eff2927",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "title.14120",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x14120",
+      "size": 272,
+      "source": "calibration/title/seq4.c",
+      "symbol": "_title_14120",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "docs/title_link_goal.md stage 1, lane w20: Slot-0 init: allocates three TitleObject records via title_17ad0 (size 0x200c) into g_2abd0, g_2abf0, g_2abd8, sets their word/flag fields, then resets the sequ Unit 2026-10-09: sequence-screen unit seq4.c (handler + two helpers share a private .bss block; alphabetical seq1, seq10, seq2..seq9 is code order). Statics 2026-10-09: the unit's private .bss block variables are file statics (only this unit uses them). Names 2026-10-09: private statics carry layout-compatible names (scripts/layout_names.py), not recovered identifiers.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_seq4_anim_phase$S156": "0x2abdc",
+        "_seq4_anim_sprite2$S155": "0x2abd8",
+        "_seq4_cel$S154": "0x2abd4",
+        "_seq4_echo_obj$S157": "0x2abf0",
+        "_seq4_main_obj2$S153": "0x2abd0",
+        "_seq4_stage$S158": "0x2abf4",
+        "_title_17ad0": "0x17ad0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "c09e6fa2d497aa46a50dbbe7bc700849fbc03045e7289778549646a44a0fdb52",
+        "masked_sha256": "617e308c6299354a5c9c9e90a7fdb79710b3d956f420cba836c6105c3e526492",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "title.14230",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x14230",
+      "size": 208,
+      "source": "calibration/title/seq4.c",
+      "symbol": "_title_14230",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "docs/title_link_goal.md stage 1, lane w20: Sequencer step for slot 0: toggles g_2abfc every call and runs only on the even phase. State 0 walks the word table g_25f50, writes the next value to the object Unit 2026-10-09: sequence-screen unit seq4.c (handler + two helpers share a private .bss block; alphabetical seq1, seq10, seq2..seq9 is code order). Statics 2026-10-09: the unit's private .bss block variables are file statics (only this unit uses them). Names 2026-10-09: private statics carry layout-compatible names (scripts/layout_names.py), not recovered identifiers.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_25f50": "0x25f50",
+        "_g_engine_interface": "0x2bb40",
+        "_seq4_anim_phase$S156": "0x2abdc",
+        "_seq4_anim_sprite2$S155": "0x2abd8",
+        "_seq4_cel$S154": "0x2abd4",
+        "_seq4_stage$S158": "0x2abf4",
+        "_seq4_tick_parity2$S159": "0x2abfc",
+        "_title_0c4f0": "0xc4f0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "c09e6fa2d497aa46a50dbbe7bc700849fbc03045e7289778549646a44a0fdb52",
+        "masked_sha256": "8aaa3d7b2d9e80ace632f7df68253dd93027829fee628536f7ebb7bae7d8e23c",
         "toolchain": "msvc5_rtm"
       }
     }

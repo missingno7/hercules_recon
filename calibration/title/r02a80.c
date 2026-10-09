@@ -5,6 +5,7 @@
 extern int g_2d328;
 extern int (*g_220d0[])(TitleObject *);
 
+extern int g_2cbe8;
 void title_04470(int a, int b, int c);
 int title_189e0(int a);
 int title_195f0(TitleObject *p);
@@ -68,4 +69,31 @@ void title_02cc0(TitleObject *p)
     if (sel) {
         title_01dd0(p, (unsigned char *)&g_2cc04->ot[TITLE_OT_SIZE - 2] - (p->unknown_010 << 2));
     }
+}
+
+void title_03050(int a1, TitleObject *p, int a3)
+{
+    long v1;
+    long v2;
+    short d;
+    long half;
+
+    d = p->unknown_010;
+    if (d <= 0)
+        return;
+    half = g_2cbe8 >> 1;
+    v1 = v2 = (long)p->unknown_03a * half / d;
+    if (p->unknown_054 & 0x80)
+        v2 = (long)p->unknown_03c * half / d;
+    if ((v2 | v1) == 0x100) {
+        if (p->unknown_074 != 0)
+            title_03420(a1, p, a3);
+        else
+            title_03100(a1, p, a3);
+        return;
+    }
+    if (p->unknown_074 != 0)
+        title_039b0(a1, p, a3, v1, v2);
+    else
+        title_03740(a1, p, a3, v1, v2);
 }
