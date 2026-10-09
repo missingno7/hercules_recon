@@ -69,3 +69,15 @@ block to keep link names). Function `0x65e0` matches only as C: the C front end 
 constant `strcpy` into immediate stores. Language is therefore a per-unit discriminator.
 It also bears on translation-unit boundaries. Every compiler revision on hand (RTM, SP2,
 NT5 SDK builds, SP3) behaves identically in both front ends.
+
+## Finding: screen handlers read volatile context fields
+
+TITLE's screen handlers begin with `mov cx,[ctx+0x5c]; mov dx,[ctx+0x5e]` and never use the
+values. VC5 removes such reads in every non-volatile form tried: plain locals, struct copies,
+inline helpers, constructors, references and macros, in C and C++. Declaring the two context
+fields `volatile` reproduces the sequence exactly, which is consistent with host-updated input
+state. This is the only sanctioned use of `volatile` in TITLE reconstruction. Its evidence is
+the unremovable dead load itself; it is not used to steer register allocation. The out-handle
+these handlers keep in the caller's argument area is an ordinary local. VC5 places it there
+itself when the request is a single typed pointer parameter. `0x128e0` and `0x14300` are
+masked-equal with this shape.
