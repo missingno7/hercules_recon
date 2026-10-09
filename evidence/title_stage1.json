@@ -166,7 +166,8 @@
   "0xf460": 0,
   "0x9c90": 271,
   "0x10fe0": 6,
-  "0xa450": 6
+  "0xa450": 6,
+  "0xd910": 40
  },
  "tooling": [
   "scripts/masked.py",
@@ -257,7 +258,8 @@
   "w85d0": "0x85d0 and 0x8770 masked equal in the current C++ unit context (their old residues were TU-context base/index flips that the real includes now settle). 0x95d0 (object-system init from the 0x48-byte config rows at .data 0x26980) is at 119 bytes, pure store scheduling of 28 field copies; 0x94c0 at 74 (object-head reset, scheduler windows).",
   "wf460": "0xf460 masked equal (password screen handler, u0cc90 unit). 0x9c90 (third frame-table animator) structurally equal at 271 bytes; only the scratch rotation differs (carried between neighbouring cases, not a simple global temporary count) - same open class as 0x9a40/0xa020.",
   "w10fe0": "0x10fe0 (LSGameMemoryCardLoop, 4240 bytes) is size-exact at 6 bytes: in state 0 / card result 0 the scratch registers of two flag updates differ (edi treated as free in ours; the original keeps it live) - register-priority family. Case source order 0, 10, 4, 7, 3, 1, 2, 6, 8, 9, 5, 11, 13 from code layout and reverse-order literals. Structural result applied: 0x2aa54/0x2aa60/0x2aa90/0x2aacc are fields +4/+0x10 of three 0x3c-byte memory-card save records at 0x2aa50, 0x2aa8c, 0x2aac8 (static TitleObj g_2aa50[3]); 0x10ce0 stays masked equal.",
-  "wa450": "0xa450 (options screen, 7408 bytes; candidates/wa450/) is size-exact with control flow, calls, registers and jump tables equal; 6 bytes remain from the order of three independent constant reloads at one join (xor edi,edi; mov esi,0xf; mov ebp,1 in the original). TU-dependent tie-break (standalone it flips to 16 bytes): expected to settle with the unit's real neighbours (0x9a40/0x9c90/0xa020) and headers. Levers: pad buttons read as short (& 0x4000 gives mov ax/and/test ax,ax), case order 4,2,1,0,6,7,8 by jump-table layout, the delay test as if/else. Needs TitlePadMap.button signed and an options view of context_004 (+0x0b, +0x0e, pad map +0x6c, volumes +0x1b0c/+0x1b10, stereo +0x1b24); statics 0x2a1b4..0x2a240 roles recorded in the report."
+  "wa450": "0xa450 (options screen, 7408 bytes; candidates/wa450/) is size-exact with control flow, calls, registers and jump tables equal; 6 bytes remain from the order of three independent constant reloads at one join (xor edi,edi; mov esi,0xf; mov ebp,1 in the original). TU-dependent tie-break (standalone it flips to 16 bytes): expected to settle with the unit's real neighbours (0x9a40/0x9c90/0xa020) and headers. Levers: pad buttons read as short (& 0x4000 gives mov ax/and/test ax,ax), case order 4,2,1,0,6,7,8 by jump-table layout, the delay test as if/else. Needs TitlePadMap.button signed and an options view of context_004 (+0x0b, +0x0e, pad map +0x6c, volumes +0x1b0c/+0x1b10, stereo +0x1b24); statics 0x2a1b4..0x2a240 roles recorded in the report.",
+  "wd910": "0xd910 (password-screen 'Meg' sprite update, 6992 bytes, object-type callback at .data 0x268c4; candidates/wd910/) is instruction-equal modulo register names (1708/1708; all 19 jump tables, merged tails, out-of-line cases equal); 40 instructions differ only by scratch-register rotation (cases 5, 6, 7 sub-cases), the same class as 0x9a40/0xa020/0x9c90. Identical sub-case sources advance the rotation differently in the original, pointing to something invisible in source (a hidden temporary or inlined helper). Data roles recorded: 0x257e8 int[30] walk x-steps (16.16), short frame tables 0x25860..0x259e8, 0x25a28 selected wheel = 1."
  },
  "register_study": {
   "date": "2026-10-09",
