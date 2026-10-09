@@ -1,6 +1,8 @@
 /* Sequence screen 10 unit: handler 0x128e0 and helpers 0x12cc0, 0x12dc0.
    One object: these functions share a private .bss block (scripts/unit_bounds.py), and the
    alphabetical file order seq1, seq10, seq2 .. seq9 is the code order of the ten units. */
+/* Private .bss in address order; names chosen for meaning and for VC5's identifier-hash
+   layout order (scripts/layout_names.py), not recovered identifiers. */
 #include "title_engine.h"
 #include "title_files.h"
 #include "title_screen.h"
@@ -25,21 +27,21 @@ void title_164b0(void *req);
 void title_16300(void);
 void title_1d790(int a);
 void title_01de0(int a0, int a1, int a2, int a3, int a4);
-static TitleObject *g_2ab48;
-static TitleObject *g_2ab54;
-static TitleObject *g_2ab64;
-static int g_2ab50;
-static int g_2ab5c;
-static int g_2ab60;
-static int g_2ab68;
-static int g_2ab6c;
-static int g_2ab70;
+static TitleObject *seq10_main_sprite;
+static TitleObject *seq10_anim_obj;
+static TitleObject *seq10_echo_obj;
+static int seq10_value_50;
+static int seq10_unknown_5c2;
+static int seq10_unk_602;
+static int seq10_phase;
+static int seq10_out_fade;
+static int seq10_top_fade;
 extern unsigned short g_25f50[];
 void title_12cc0(void);
 void title_12dc0(void);
-static int g_2ab4c;
-static int g_2ab58;
-static int g_2ab74;
+static int seq10_cel;
+static int seq10_anim_phase2;
+static int seq10_tick_parity2;
 
 void title_128e0(TitleProc *self)
 {
@@ -57,10 +59,10 @@ void title_128e0(TitleProc *self)
         self->delay_08 = 2;
         return;
     case 0xffff:
-        g_2ab5c = 0;
-        g_2ab68 = 0x0a;
-        g_2ab60 = 0;
-        g_2ab50 = 0x0f;
+        seq10_unknown_5c2 = 0;
+        seq10_phase = 0x0a;
+        seq10_unk_602 = 0;
+        seq10_value_50 = 0x0f;
         handle = 0;
         title_0c450(&handle, 0x15000, 0);
         title_01dd0(handle);
@@ -74,8 +76,8 @@ void title_128e0(TitleProc *self)
         title_04b70(0x0f, 0);
         title_12cc0();
         title_1d790(1);
-        g_2ab6c = 0x80;
-        g_2ab70 = 0;
+        seq10_out_fade = 0x80;
+        seq10_top_fade = 0;
         self->state_04 = 1;
         self->delay_08 = 1;
         return;
@@ -83,65 +85,65 @@ void title_128e0(TitleProc *self)
         title_05e90(title_164b0, 0);
         break;
     case 2:
-        switch (g_2ab68) {
+        switch (seq10_phase) {
         case 0:
-            title_01de0(0x140, 0, g_2ab70, 3, 0);
+            title_01de0(0x140, 0, seq10_top_fade, 3, 0);
             title_1d790(0);
-            if (g_2ab70 < 0x80) {
-                g_2ab70 += 8;
+            if (seq10_top_fade < 0x80) {
+                seq10_top_fade += 8;
             }
             break;
         case 1:
             title_0c4f0(1);
-            g_2ab68 = 2;
+            seq10_phase = 2;
             /* fall through */
         case 2:
-            title_01de0(0x140, 0, g_2ab70, 3, 0);
+            title_01de0(0x140, 0, seq10_top_fade, 3, 0);
             title_1d790(0);
-            if (g_2ab70 > 0) {
-                g_2ab70 -= 8;
+            if (seq10_top_fade > 0) {
+                seq10_top_fade -= 8;
             } else {
-                g_2ab68 = 3;
+                seq10_phase = 3;
             }
             break;
         case 11:
-            if (g_2ab48->unknown_04a < 0x80) {
-                g_2ab48->unknown_04a += 8;
-                g_2ab64->unknown_04a = g_2ab48->unknown_04a * 2;
+            if (seq10_main_sprite->unknown_04a < 0x80) {
+                seq10_main_sprite->unknown_04a += 8;
+                seq10_echo_obj->unknown_04a = seq10_main_sprite->unknown_04a * 2;
             }
             /* fall through */
         case 10:
             title_01de0(0x280, 0x100, 0x80, 0, 0);
             break;
         case 12:
-            title_01de0(0x280, 0x100, g_2ab6c, 0, 0);
-            g_2ab54->unknown_04a = (unsigned short)g_2ab6c;
-            g_2ab48->unknown_04a = (unsigned short)g_2ab6c;
-            g_2ab64->unknown_04a = (unsigned short)(g_2ab6c * 2);
-            if (g_2ab6c > 0) {
-                g_2ab6c -= 8;
+            title_01de0(0x280, 0x100, seq10_out_fade, 0, 0);
+            seq10_anim_obj->unknown_04a = (unsigned short)seq10_out_fade;
+            seq10_main_sprite->unknown_04a = (unsigned short)seq10_out_fade;
+            seq10_echo_obj->unknown_04a = (unsigned short)(seq10_out_fade * 2);
+            if (seq10_out_fade > 0) {
+                seq10_out_fade -= 8;
             } else {
-                g_2ab54->unknown_054 &= 0x7fffffff;
-                g_2ab48->unknown_054 &= 0x7fffffff;
-                g_2ab68 = 0;
+                seq10_anim_obj->unknown_054 &= 0x7fffffff;
+                seq10_main_sprite->unknown_054 &= 0x7fffffff;
+                seq10_phase = 0;
             }
             break;
         default:
             break;
         }
         title_12dc0();
-        if (g_2ab68 == 0x0c) {
-            if (g_2ab48 != 0) {
-                title_09350(g_2ab48);
-                g_2ab48 = 0;
+        if (seq10_phase == 0x0c) {
+            if (seq10_main_sprite != 0) {
+                title_09350(seq10_main_sprite);
+                seq10_main_sprite = 0;
             }
-            if (g_2ab64 != 0) {
-                title_09350(g_2ab64);
-                g_2ab64 = 0;
+            if (seq10_echo_obj != 0) {
+                title_09350(seq10_echo_obj);
+                seq10_echo_obj = 0;
             }
-            if (g_2ab54 != 0) {
-                title_09350(g_2ab54);
-                g_2ab54 = 0;
+            if (seq10_anim_obj != 0) {
+                title_09350(seq10_anim_obj);
+                seq10_anim_obj = 0;
             }
             title_04ea0(0x0f);
             title_16300();
@@ -159,56 +161,56 @@ void title_128e0(TitleProc *self)
 
 void title_12cc0(void)
 {
-    g_2ab48 = title_17ad0(0, 0, 0, 0x2016, 0);
-    g_2ab48->unknown_034 = 0x10;
-    g_2ab48->unknown_054 |= 5;
-    g_2ab48->unknown_04a = 0;
-    g_2ab64 = title_17ad0(0, 0, 0, 0x2016, 0);
-    g_2ab64->unknown_034 = 0x10;
-    g_2ab64->unknown_054 |= 6;
-    g_2ab64->unknown_04a = 0;
-    g_2ab48->unknown_023 = 6;
-    g_2ab48->unknown_03e = 0x0a;
-    g_2ab64->unknown_023 = 6;
-    g_2ab64->unknown_03e = 0x14;
-    g_2ab64->unknown_000 = 0x10000;
-    g_2ab64->unknown_004 = 0x10000;
-    g_2ab54 = title_17ad0(0, 0, 0, 0x2016, 0);
-    g_2ab54->unknown_034 = 1;
-    g_2ab54->unknown_000 = 0xff9c0000;
-    g_2ab54->unknown_004 = 0x280000;
-    g_2ab58 = 0;
-    g_2ab4c = 0;
+    seq10_main_sprite = title_17ad0(0, 0, 0, 0x2016, 0);
+    seq10_main_sprite->unknown_034 = 0x10;
+    seq10_main_sprite->unknown_054 |= 5;
+    seq10_main_sprite->unknown_04a = 0;
+    seq10_echo_obj = title_17ad0(0, 0, 0, 0x2016, 0);
+    seq10_echo_obj->unknown_034 = 0x10;
+    seq10_echo_obj->unknown_054 |= 6;
+    seq10_echo_obj->unknown_04a = 0;
+    seq10_main_sprite->unknown_023 = 6;
+    seq10_main_sprite->unknown_03e = 0x0a;
+    seq10_echo_obj->unknown_023 = 6;
+    seq10_echo_obj->unknown_03e = 0x14;
+    seq10_echo_obj->unknown_000 = 0x10000;
+    seq10_echo_obj->unknown_004 = 0x10000;
+    seq10_anim_obj = title_17ad0(0, 0, 0, 0x2016, 0);
+    seq10_anim_obj->unknown_034 = 1;
+    seq10_anim_obj->unknown_000 = 0xff9c0000;
+    seq10_anim_obj->unknown_004 = 0x280000;
+    seq10_anim_phase2 = 0;
+    seq10_cel = 0;
 }
 
 void title_12dc0(void)
 {
-    g_2ab74 ^= 1;
-    if (g_2ab74 != 0) {
+    seq10_tick_parity2 ^= 1;
+    if (seq10_tick_parity2 != 0) {
         return;
     }
-    switch (g_2ab58) {
+    switch (seq10_anim_phase2) {
     case 0:
-        g_2ab54->unknown_034 = g_25f50[g_2ab4c];
-        g_2ab4c++;
-        if (g_25f50[g_2ab4c] == 0x0a && g_2ab68 == 0x0a) {
-            g_2ab68 = 0x0b;
+        seq10_anim_obj->unknown_034 = g_25f50[seq10_cel];
+        seq10_cel++;
+        if (g_25f50[seq10_cel] == 0x0a && seq10_phase == 0x0a) {
+            seq10_phase = 0x0b;
         }
-        if (g_25f50[g_2ab4c] == 0xffff) {
+        if (g_25f50[seq10_cel] == 0xffff) {
             title_0c4f0(1);
             g_engine_interface.context_004->unknown_1b30 = 4;
-            g_2ab58 = 1;
+            seq10_anim_phase2 = 1;
         }
         return;
     case 1:
-        g_2ab54->unknown_034++;
-        if (g_2ab54->unknown_034 == 0x0f) {
-            g_2ab58 = 2;
+        seq10_anim_obj->unknown_034++;
+        if (seq10_anim_obj->unknown_034 == 0x0f) {
+            seq10_anim_phase2 = 2;
         }
         return;
     case 2:
-        g_2ab68 = 0x0c;
-        g_2ab58 = 3;
+        seq10_phase = 0x0c;
+        seq10_anim_phase2 = 3;
         return;
     }
 }

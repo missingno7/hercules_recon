@@ -1,19 +1,21 @@
 /* Sequence screen 5 unit: handler 0x14300 and helpers 0x14790, 0x14860.
    One object: these functions share a private .bss block (scripts/unit_bounds.py), and the
    alphabetical file order seq1, seq10, seq2 .. seq9 is the code order of the ten units. */
+/* Private .bss in address order; names chosen for meaning and for VC5's identifier-hash
+   layout order (scripts/layout_names.py), not recovered identifiers. */
 #include "title_engine.h"
 #include "title_files.h"
 #include "title_screen.h"
 
 
-static TitleObject *g_2ac04;
-static TitleObject *g_2ac0c;
-static TitleObject *g_2ac18;
-static int g_2ac00;
-static int g_2ac14;
-static int g_2ac1c;
-static int g_2ac20;
-static int g_2ac24;
+static TitleObject *s5_base_obj2;
+static TitleObject *s5_anim_sprite;
+static TitleObject *s5_echo_obj;
+static int s5_value_002;
+static int s5_fade_low2;
+static int s5_screen_phase2;
+static int s5_fade_top;
+static int s5_var_24;
 extern int g_29f98;
 extern char g_29128[];
 void title_01dd0();
@@ -37,9 +39,9 @@ void title_01de0(int a0, int a1, int a2, int a3, int a4);
 extern unsigned short g_25f50[];
 void title_12cc0(void);
 void title_12dc0(void);
-static int g_2ac08;
-static int g_2ac10;
-static int g_2ac28;
+static int s5_anim_index;
+static int s5_anim_mode;
+static int s5_parity2;
 int title_0c4f0(int a);
 
 void title_14300(TitleProc *self)
@@ -60,9 +62,9 @@ void title_14300(TitleProc *self)
         self->delay_08 = 2;
         return;
     case 0xffff:
-        g_2ac24 = 0;
-        g_2ac00 = 0x0f;
-        g_2ac1c = 0;
+        s5_var_24 = 0;
+        s5_value_002 = 0x0f;
+        s5_screen_phase2 = 0;
         handle = 0;
         title_0c450(&handle, 0x15000, 0);
         title_01dd0(handle);
@@ -79,8 +81,8 @@ void title_14300(TitleProc *self)
         title_04b70(8, 0);
         title_14860();
         title_1d790(1);
-        g_2ac20 = 0x80;
-        g_2ac14 = 0;
+        s5_fade_top = 0x80;
+        s5_fade_low2 = 0;
         self->state_04 = 1;
         self->delay_08 = 1;
         return;
@@ -88,74 +90,74 @@ void title_14300(TitleProc *self)
         title_05e90(title_164b0, 0);
         break;
     case 2:
-        switch (g_2ac1c) {
+        switch (s5_screen_phase2) {
         case 0:
-            title_01de0(0x140, 0x100, g_2ac14, 0, 0);
-            if (g_2ac14 < 0x80) {
-                g_2ac14 += step;
+            title_01de0(0x140, 0x100, s5_fade_low2, 0, 0);
+            if (s5_fade_low2 < 0x80) {
+                s5_fade_low2 += step;
             }
             break;
         case 1:
-            title_01de0(0x140, 0, g_2ac20, 0, 0);
-            title_01de0(0x140, 0x100, g_2ac14, 1, 1);
-            if (g_2ac20 < 0x80) {
-                g_2ac20 += step;
+            title_01de0(0x140, 0, s5_fade_top, 0, 0);
+            title_01de0(0x140, 0x100, s5_fade_low2, 1, 1);
+            if (s5_fade_top < 0x80) {
+                s5_fade_top += step;
             } else {
-                g_2ac20 = 0x80;
+                s5_fade_top = 0x80;
             }
-            if (g_2ac14 > 0) {
-                g_2ac14 -= step;
+            if (s5_fade_low2 > 0) {
+                s5_fade_low2 -= step;
             } else {
-                g_2ac14 = 0;
+                s5_fade_low2 = 0;
             }
             break;
         case 2:
             title_0c4f0(1);
-            g_2ac1c = 3;
+            s5_screen_phase2 = 3;
             /* fall through */
         case 3:
-            title_01de0(0x140, 0, g_2ac20, 0, 0);
-            if (g_2ac20 > 0) {
-                g_2ac20 -= 4;
+            title_01de0(0x140, 0, s5_fade_top, 0, 0);
+            if (s5_fade_top > 0) {
+                s5_fade_top -= 4;
             }
             break;
         case 11:
-            if (g_2ac04->unknown_04a < 0x80) {
-                g_2ac04->unknown_04a += 8;
-                g_2ac18->unknown_04a = g_2ac04->unknown_04a * 2;
+            if (s5_base_obj2->unknown_04a < 0x80) {
+                s5_base_obj2->unknown_04a += 8;
+                s5_echo_obj->unknown_04a = s5_base_obj2->unknown_04a * 2;
             }
             /* fall through */
         case 10:
             title_01de0(0x280, 0x100, 0x80, 0, 0);
             break;
         case 12:
-            title_01de0(0x280, 0x100, g_2ac20, 0, 0);
-            g_2ac0c->unknown_04a = (unsigned short)g_2ac20;
-            g_2ac04->unknown_04a = (unsigned short)g_2ac20;
-            g_2ac18->unknown_04a = (unsigned short)(g_2ac20 * 2);
-            if (g_2ac20 > 0) {
-                g_2ac20 -= step;
+            title_01de0(0x280, 0x100, s5_fade_top, 0, 0);
+            s5_anim_sprite->unknown_04a = (unsigned short)s5_fade_top;
+            s5_base_obj2->unknown_04a = (unsigned short)s5_fade_top;
+            s5_echo_obj->unknown_04a = (unsigned short)(s5_fade_top * 2);
+            if (s5_fade_top > 0) {
+                s5_fade_top -= step;
             } else {
-                g_2ac0c->unknown_054 &= 0x7fffffff;
-                g_2ac04->unknown_054 &= 0x7fffffff;
-                g_2ac1c = 0;
+                s5_anim_sprite->unknown_054 &= 0x7fffffff;
+                s5_base_obj2->unknown_054 &= 0x7fffffff;
+                s5_screen_phase2 = 0;
             }
             break;
         default:
             break;
         }
-        if (g_2ac1c == 0x0c) {
-            if (g_2ac04 != 0) {
-                title_09350(g_2ac04);
-                g_2ac04 = 0;
+        if (s5_screen_phase2 == 0x0c) {
+            if (s5_base_obj2 != 0) {
+                title_09350(s5_base_obj2);
+                s5_base_obj2 = 0;
             }
-            if (g_2ac18 != 0) {
-                title_09350(g_2ac18);
-                g_2ac18 = 0;
+            if (s5_echo_obj != 0) {
+                title_09350(s5_echo_obj);
+                s5_echo_obj = 0;
             }
-            if (g_2ac0c != 0) {
-                title_09350(g_2ac0c);
-                g_2ac0c = 0;
+            if (s5_anim_sprite != 0) {
+                title_09350(s5_anim_sprite);
+                s5_anim_sprite = 0;
             }
             title_04ea0(step);
             title_16300();
@@ -178,64 +180,64 @@ void title_14790(void)
 {
     unsigned short code;
 
-    g_2ac28 ^= 1;
-    if (g_2ac28 != 0) {
+    s5_parity2 ^= 1;
+    if (s5_parity2 != 0) {
         return;
     }
-    switch (g_2ac10) {
+    switch (s5_anim_mode) {
     case 0:
         break;
     case 1:
-        g_2ac0c->unknown_034++;
-        if (g_2ac0c->unknown_034 != 0x10) {
+        s5_anim_sprite->unknown_034++;
+        if (s5_anim_sprite->unknown_034 != 0x10) {
             return;
         }
-        g_2ac10 = 2;
+        s5_anim_mode = 2;
         return;
     case 2:
-        g_2ac1c = 0xc;
-        g_2ac10 = 3;
+        s5_screen_phase2 = 0xc;
+        s5_anim_mode = 3;
         return;
     default:
         return;
     }
-    g_2ac0c->unknown_034 = g_25f50[g_2ac08] + 1;
-    g_2ac08++;
-    code = g_25f50[g_2ac08];
-    if (code == 0xa && g_2ac1c == 0xa) {
-        g_2ac1c = 0xb;
+    s5_anim_sprite->unknown_034 = g_25f50[s5_anim_index] + 1;
+    s5_anim_index++;
+    code = g_25f50[s5_anim_index];
+    if (code == 0xa && s5_screen_phase2 == 0xa) {
+        s5_screen_phase2 = 0xb;
     }
     if (code != 0xffff) {
         return;
     }
     title_0c4f0(1);
     g_engine_interface.context_004->unknown_1b30 = 4;
-    g_2ac10 = 1;
+    s5_anim_mode = 1;
 }
 
 void title_14860(void)
 {
-    g_2ac1c = 10;
-    g_2ac04 = title_17ad0(0, 0, 0, 0x200d, 0);
-    g_2ac04->unknown_034 = 1;
-    g_2ac04->unknown_054 |= 5;
-    g_2ac04->unknown_04a = 0;
-    g_2ac18 = title_17ad0(0, 0, 0, 0x200d, 0);
-    g_2ac18->unknown_034 = 1;
-    g_2ac18->unknown_054 |= 6;
-    g_2ac18->unknown_04a = 0;
-    g_2ac04->unknown_023 = 6;
-    g_2ac04->unknown_03e = 10;
-    g_2ac18->unknown_023 = 6;
-    g_2ac18->unknown_03e = 20;
-    g_2ac04->unknown_000 = 0;
-    g_2ac04->unknown_004 = 0xfff00000;
-    g_2ac18->unknown_000 = 0x10000;
-    g_2ac18->unknown_004 = 0xfff10000;
-    g_2ac0c = title_17ad0(0, 0, 0, 0x200d, 0);
-    g_2ac0c->unknown_034 = 2;
-    g_2ac0c->unknown_000 = 0xff9c0000;
-    g_2ac0c->unknown_004 = 0x640000;
-    g_2ac10 = 0;
-    g_2ac08 = 0;
+    s5_screen_phase2 = 10;
+    s5_base_obj2 = title_17ad0(0, 0, 0, 0x200d, 0);
+    s5_base_obj2->unknown_034 = 1;
+    s5_base_obj2->unknown_054 |= 5;
+    s5_base_obj2->unknown_04a = 0;
+    s5_echo_obj = title_17ad0(0, 0, 0, 0x200d, 0);
+    s5_echo_obj->unknown_034 = 1;
+    s5_echo_obj->unknown_054 |= 6;
+    s5_echo_obj->unknown_04a = 0;
+    s5_base_obj2->unknown_023 = 6;
+    s5_base_obj2->unknown_03e = 10;
+    s5_echo_obj->unknown_023 = 6;
+    s5_echo_obj->unknown_03e = 20;
+    s5_base_obj2->unknown_000 = 0;
+    s5_base_obj2->unknown_004 = 0xfff00000;
+    s5_echo_obj->unknown_000 = 0x10000;
+    s5_echo_obj->unknown_004 = 0xfff10000;
+    s5_anim_sprite = title_17ad0(0, 0, 0, 0x200d, 0);
+    s5_anim_sprite->unknown_034 = 2;
+    s5_anim_sprite->unknown_000 = 0xff9c0000;
+    s5_anim_sprite->unknown_004 = 0x640000;
+    s5_anim_mode = 0;
+    s5_anim_index = 0;
 }

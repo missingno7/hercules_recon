@@ -1,24 +1,26 @@
 /* Sequence screen 8 unit: handler 0x15650 and helpers 0x15ae0, 0x15be0.
    One object: these functions share a private .bss block (scripts/unit_bounds.py), and the
    alphabetical file order seq1, seq10, seq2 .. seq9 is the code order of the ten units. */
+/* Private .bss in address order; names chosen for meaning and for VC5's identifier-hash
+   layout order (scripts/layout_names.py), not recovered identifiers. */
 #include "title_engine.h"
 #include "title_files.h"
 #include "title_screen.h"
 
 
 extern unsigned short g_25f50[];
-static TitleObject *g_2ac84;
-static TitleObject *g_2ac8c;
-static TitleObject *g_2aca0;
-static int g_2ac88;
-static int g_2ac90;
-static int g_2aca4;
-static int g_2acac;
+static TitleObject *seq8_main_obj9;
+static TitleObject *seq8_animated;
+static TitleObject *seq8_twin_obj;
+static int seq8_frame;
+static int seq8_anim_state;
+static int seq8_phase;
+static int seq8_odd_tick;
 int title_0c4f0(int a);
-static int g_2ac94;
-static int g_2ac98;
-static int g_2ac9c;
-static int g_2aca8;
+static int seq8_unknown_94;
+static int seq8_upper_fade;
+static int seq8_unk_9c2;
+static int seq8_fade_low;
 extern int g_29f98;
 extern char g_29128[];
 void title_01dd0();
@@ -58,9 +60,9 @@ void title_15650(TitleProc *self)
         self->delay_08 = 2;
         return;
     case 0xffff:
-        g_2ac94 = 0;
-        g_2ac9c = 0x0f;
-        g_2aca4 = 0;
+        seq8_unknown_94 = 0;
+        seq8_unk_9c2 = 0x0f;
+        seq8_phase = 0;
         handle = 0;
         title_0c450(&handle, 0x15000, 0);
         title_01dd0(handle);
@@ -77,8 +79,8 @@ void title_15650(TitleProc *self)
         title_04b70(0x0b, 0);
         title_15ae0();
         title_1d790(1);
-        g_2ac98 = 0x80;
-        g_2aca8 = 0;
+        seq8_upper_fade = 0x80;
+        seq8_fade_low = 0;
         self->state_04 = 1;
         self->delay_08 = 1;
         return;
@@ -86,74 +88,74 @@ void title_15650(TitleProc *self)
         title_05e90(title_164b0, 0);
         break;
     case 2:
-        switch (g_2aca4) {
+        switch (seq8_phase) {
         case 0:
-            title_01de0(0x140, 0x100, g_2aca8, 0, 0);
-            if (g_2aca8 < 0x80) {
-                g_2aca8 += 8;
+            title_01de0(0x140, 0x100, seq8_fade_low, 0, 0);
+            if (seq8_fade_low < 0x80) {
+                seq8_fade_low += 8;
             }
             break;
         case 1:
-            title_01de0(0x140, 0, g_2ac98, 0, 0);
-            title_01de0(0x140, 0x100, g_2aca8, 1, 1);
-            if (g_2ac98 < 0x80) {
-                g_2ac98 += 8;
+            title_01de0(0x140, 0, seq8_upper_fade, 0, 0);
+            title_01de0(0x140, 0x100, seq8_fade_low, 1, 1);
+            if (seq8_upper_fade < 0x80) {
+                seq8_upper_fade += 8;
             } else {
-                g_2ac98 = 0x80;
+                seq8_upper_fade = 0x80;
             }
-            if (g_2aca8 > 0) {
-                g_2aca8 -= 8;
+            if (seq8_fade_low > 0) {
+                seq8_fade_low -= 8;
             } else {
-                g_2aca8 = 0;
+                seq8_fade_low = 0;
             }
             break;
         case 2:
             title_0c4f0(1);
-            g_2aca4 = 3;
+            seq8_phase = 3;
             /* fall through */
         case 3:
-            title_01de0(0x140, 0, g_2ac98, 0, 0);
-            if (g_2ac98 > 0) {
-                g_2ac98 -= 4;
+            title_01de0(0x140, 0, seq8_upper_fade, 0, 0);
+            if (seq8_upper_fade > 0) {
+                seq8_upper_fade -= 4;
             }
             break;
         case 11:
-            if (g_2ac84->unknown_04a < 0x80) {
-                g_2ac84->unknown_04a += 8;
+            if (seq8_main_obj9->unknown_04a < 0x80) {
+                seq8_main_obj9->unknown_04a += 8;
             }
-            g_2aca0->unknown_04a = (unsigned short)(g_2ac84->unknown_04a * 2);
+            seq8_twin_obj->unknown_04a = (unsigned short)(seq8_main_obj9->unknown_04a * 2);
             /* fall through */
         case 10:
             title_01de0(0x280, 0x100, 0x80, 0, 0);
             break;
         case 12:
-            title_01de0(0x280, 0x100, g_2ac98, 0, 0);
-            g_2ac8c->unknown_04a = (unsigned short)g_2ac98;
-            g_2ac84->unknown_04a = (unsigned short)g_2ac98;
-            g_2aca0->unknown_04a = (unsigned short)(g_2ac98 * 2);
-            if (g_2ac98 > 0) {
-                g_2ac98 -= 8;
+            title_01de0(0x280, 0x100, seq8_upper_fade, 0, 0);
+            seq8_animated->unknown_04a = (unsigned short)seq8_upper_fade;
+            seq8_main_obj9->unknown_04a = (unsigned short)seq8_upper_fade;
+            seq8_twin_obj->unknown_04a = (unsigned short)(seq8_upper_fade * 2);
+            if (seq8_upper_fade > 0) {
+                seq8_upper_fade -= 8;
             } else {
-                g_2ac8c->unknown_054 &= 0x7fffffff;
-                g_2ac84->unknown_054 &= 0x7fffffff;
-                g_2aca4 = 0;
+                seq8_animated->unknown_054 &= 0x7fffffff;
+                seq8_main_obj9->unknown_054 &= 0x7fffffff;
+                seq8_phase = 0;
             }
             break;
         default:
             break;
         }
-        if (g_2aca4 == 0x0c) {
-            if (g_2ac8c != 0) {
-                title_09350(g_2ac8c);
-                g_2ac8c = 0;
+        if (seq8_phase == 0x0c) {
+            if (seq8_animated != 0) {
+                title_09350(seq8_animated);
+                seq8_animated = 0;
             }
-            if (g_2ac84 != 0) {
-                title_09350(g_2ac84);
-                g_2ac84 = 0;
+            if (seq8_main_obj9 != 0) {
+                title_09350(seq8_main_obj9);
+                seq8_main_obj9 = 0;
             }
-            if (g_2aca0 != 0) {
-                title_09350(g_2aca0);
-                g_2aca0 = 0;
+            if (seq8_twin_obj != 0) {
+                title_09350(seq8_twin_obj);
+                seq8_twin_obj = 0;
             }
             title_04ea0(0x0b);
             title_16300();
@@ -174,64 +176,64 @@ void title_15650(TitleProc *self)
 
 void title_15ae0(void)
 {
-    g_2aca4 = 10;
-    g_2ac84 = title_17ad0(0, 0, 0, 0x2010, 0);
-    g_2ac84->unknown_034 = 1;
-    g_2ac84->unknown_054 |= 5;
-    g_2ac84->unknown_04a = 0;
-    g_2aca0 = title_17ad0(0, 0, 0, 0x2010, 0);
-    g_2aca0->unknown_034 = 1;
-    g_2aca0->unknown_054 |= 6;
-    g_2aca0->unknown_04a = 0;
-    g_2ac84->unknown_023 = 6;
-    g_2ac84->unknown_03e = 10;
-    g_2aca0->unknown_023 = 6;
-    g_2aca0->unknown_03e = 20;
-    g_2aca0->unknown_000 = 0x10000;
-    g_2aca0->unknown_004 = 0x10000;
-    g_2ac8c = title_17ad0(0, 0, 0, 0x2010, 0);
-    g_2ac8c->unknown_034 = 2;
-    g_2ac8c->unknown_000 = 0xff9c0000;
-    g_2ac8c->unknown_004 = 0x280000;
-    g_2ac90 = 0;
-    g_2ac88 = 0;
+    seq8_phase = 10;
+    seq8_main_obj9 = title_17ad0(0, 0, 0, 0x2010, 0);
+    seq8_main_obj9->unknown_034 = 1;
+    seq8_main_obj9->unknown_054 |= 5;
+    seq8_main_obj9->unknown_04a = 0;
+    seq8_twin_obj = title_17ad0(0, 0, 0, 0x2010, 0);
+    seq8_twin_obj->unknown_034 = 1;
+    seq8_twin_obj->unknown_054 |= 6;
+    seq8_twin_obj->unknown_04a = 0;
+    seq8_main_obj9->unknown_023 = 6;
+    seq8_main_obj9->unknown_03e = 10;
+    seq8_twin_obj->unknown_023 = 6;
+    seq8_twin_obj->unknown_03e = 20;
+    seq8_twin_obj->unknown_000 = 0x10000;
+    seq8_twin_obj->unknown_004 = 0x10000;
+    seq8_animated = title_17ad0(0, 0, 0, 0x2010, 0);
+    seq8_animated->unknown_034 = 2;
+    seq8_animated->unknown_000 = 0xff9c0000;
+    seq8_animated->unknown_004 = 0x280000;
+    seq8_anim_state = 0;
+    seq8_frame = 0;
 }
 
 void title_15be0(void)
 {
     unsigned short code;
 
-    g_2acac ^= 1;
-    if (g_2acac != 0) {
+    seq8_odd_tick ^= 1;
+    if (seq8_odd_tick != 0) {
         return;
     }
-    switch (g_2ac90) {
+    switch (seq8_anim_state) {
     case 0:
         break;
     case 1:
-        g_2ac8c->unknown_034++;
-        if (g_2ac8c->unknown_034 != 0x10) {
+        seq8_animated->unknown_034++;
+        if (seq8_animated->unknown_034 != 0x10) {
             return;
         }
-        g_2ac90 = 2;
+        seq8_anim_state = 2;
         return;
     case 2:
-        g_2aca4 = 0xc;
-        g_2ac90 = 3;
+        seq8_phase = 0xc;
+        seq8_anim_state = 3;
         return;
     default:
         return;
     }
-    g_2ac8c->unknown_034 = g_25f50[g_2ac88] + 1;
-    g_2ac88++;
-    code = g_25f50[g_2ac88];
-    if (code == 0xa && g_2aca4 == 0xa) {
-        g_2aca4 = 0xb;
+    seq8_animated->unknown_034 = g_25f50[seq8_frame] + 1;
+    seq8_frame++;
+    code = g_25f50[seq8_frame];
+    if (code == 0xa && seq8_phase == 0xa) {
+        seq8_phase = 0xb;
     }
     if (code != 0xffff) {
         return;
     }
     title_0c4f0(1);
     g_engine_interface.context_004->unknown_1b30 = 4;
-    g_2ac90 = 1;
+    seq8_anim_state = 1;
 }

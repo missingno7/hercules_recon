@@ -1,24 +1,26 @@
 /* Sequence screen 7 unit: handler 0x14ff0 and helpers 0x15480, 0x15580.
    One object: these functions share a private .bss block (scripts/unit_bounds.py), and the
    alphabetical file order seq1, seq10, seq2 .. seq9 is the code order of the ten units. */
+/* Private .bss in address order; names chosen for meaning and for VC5's identifier-hash
+   layout order (scripts/layout_names.py), not recovered identifiers. */
 #include "title_engine.h"
 #include "title_files.h"
 #include "title_screen.h"
 
 
 extern unsigned short g_25f50[];
-static TitleObject *g_2ac58;
-static TitleObject *g_2ac64;
-static TitleObject *g_2ac70;
-static int g_2ac5c;
-static int g_2ac68;
-static int g_2ac74;
-static int g_2ac80;
+static TitleObject *s7_picture;
+static TitleObject *s7_animated2;
+static TitleObject *s7_obj_double;
+static int s7_anim_index;
+static int s7_anim_state2;
+static int s7_state;
+static int s7_parity2;
 int title_0c4f0(int a);
-static int g_2ac60;
-static int g_2ac6c;
-static int g_2ac78;
-static int g_2ac7c;
+static int s7_value_602;
+static int s7_fade_low2;
+static int s7_fade_top;
+static int s7_value_7c;
 extern int g_29f98;
 extern char g_29128[];
 void title_01dd0();
@@ -58,8 +60,8 @@ void title_14ff0(TitleProc *self)
         self->delay_08 = 2;
         return;
     case 0xffff:
-        g_2ac7c = 0;
-        g_2ac60 = 0x0f;
+        s7_value_7c = 0;
+        s7_value_602 = 0x0f;
         handle = 0;
         title_0c450(&handle, 0x15000, 0);
         title_01dd0(handle);
@@ -76,8 +78,8 @@ void title_14ff0(TitleProc *self)
         title_04b70(0x0a, 0);
         title_15480();
         title_1d790(1);
-        g_2ac78 = 0x80;
-        g_2ac6c = 0;
+        s7_fade_top = 0x80;
+        s7_fade_low2 = 0;
         title_05e90(title_164b0, 0);
         self->state_04 = 1;
         self->delay_08 = 1;
@@ -86,71 +88,71 @@ void title_14ff0(TitleProc *self)
         title_05e90(title_164b0, 0);
         break;
     case 2:
-        switch (g_2ac74) {
+        switch (s7_state) {
         case 0:
-            title_01de0(0x140, 0x100, g_2ac6c, 0, 0);
-            if (g_2ac6c < 0x80) {
-                g_2ac6c += 2;
+            title_01de0(0x140, 0x100, s7_fade_low2, 0, 0);
+            if (s7_fade_low2 < 0x80) {
+                s7_fade_low2 += 2;
             }
             break;
         case 1:
-            title_01de0(0x140, 0, g_2ac78, 0, 0);
-            title_01de0(0x140, 0x100, g_2ac6c, 1, 1);
-            if (g_2ac78 < 0x80) {
-                g_2ac78 += 8;
+            title_01de0(0x140, 0, s7_fade_top, 0, 0);
+            title_01de0(0x140, 0x100, s7_fade_low2, 1, 1);
+            if (s7_fade_top < 0x80) {
+                s7_fade_top += 8;
             } else {
-                g_2ac78 = 0x80;
+                s7_fade_top = 0x80;
             }
-            if (g_2ac6c > 0) {
-                g_2ac6c -= 8;
+            if (s7_fade_low2 > 0) {
+                s7_fade_low2 -= 8;
             } else {
-                g_2ac6c = 0;
+                s7_fade_low2 = 0;
             }
             break;
         case 2:
-            title_01de0(0x140, 0, g_2ac78, 0, 0);
-            if (g_2ac78 > 0) {
-                g_2ac78 -= 4;
+            title_01de0(0x140, 0, s7_fade_top, 0, 0);
+            if (s7_fade_top > 0) {
+                s7_fade_top -= 4;
             }
             break;
         case 11:
-            if (g_2ac58->unknown_04a < 0x80) {
-                g_2ac58->unknown_04a += 8;
-                g_2ac70->unknown_04a = g_2ac58->unknown_04a;
+            if (s7_picture->unknown_04a < 0x80) {
+                s7_picture->unknown_04a += 8;
+                s7_obj_double->unknown_04a = s7_picture->unknown_04a;
             }
             /* fall through */
         case 10:
             title_01de0(0x280, 0x100, 0x80, 0, 0);
             break;
         case 12:
-            title_01de0(0x280, 0x100, g_2ac78, 0, 0);
-            g_2ac64->unknown_04a = (unsigned short)g_2ac78;
-            g_2ac58->unknown_04a = (unsigned short)g_2ac78;
-            g_2ac70->unknown_04a = (unsigned short)g_2ac78;
-            if (g_2ac78 > 0) {
-                g_2ac78 -= 8;
+            title_01de0(0x280, 0x100, s7_fade_top, 0, 0);
+            s7_animated2->unknown_04a = (unsigned short)s7_fade_top;
+            s7_picture->unknown_04a = (unsigned short)s7_fade_top;
+            s7_obj_double->unknown_04a = (unsigned short)s7_fade_top;
+            if (s7_fade_top > 0) {
+                s7_fade_top -= 8;
             } else {
-                g_2ac64->unknown_054 &= 0x7fffffff;
-                g_2ac58->unknown_054 &= 0x7fffffff;
-                g_2ac70->unknown_054 &= 0x7fffffff;
-                g_2ac74 = 0;
+                s7_animated2->unknown_054 &= 0x7fffffff;
+                s7_picture->unknown_054 &= 0x7fffffff;
+                s7_obj_double->unknown_054 &= 0x7fffffff;
+                s7_state = 0;
             }
             break;
         default:
             break;
         }
-        if (g_2ac74 == 0x0c) {
-            if (g_2ac64 != 0) {
-                title_09350(g_2ac64);
-                g_2ac64 = 0;
+        if (s7_state == 0x0c) {
+            if (s7_animated2 != 0) {
+                title_09350(s7_animated2);
+                s7_animated2 = 0;
             }
-            if (g_2ac58 != 0) {
-                title_09350(g_2ac58);
-                g_2ac58 = 0;
+            if (s7_picture != 0) {
+                title_09350(s7_picture);
+                s7_picture = 0;
             }
-            if (g_2ac70 != 0) {
-                title_09350(g_2ac70);
-                g_2ac70 = 0;
+            if (s7_obj_double != 0) {
+                title_09350(s7_obj_double);
+                s7_obj_double = 0;
             }
             title_04ea0(0x0a);
             title_16300();
@@ -171,64 +173,64 @@ void title_14ff0(TitleProc *self)
 
 void title_15480(void)
 {
-    g_2ac74 = 10;
-    g_2ac58 = title_17ad0(0, 0, 0, 0x200f, 0);
-    g_2ac58->unknown_034 = 1;
-    g_2ac58->unknown_054 |= 5;
-    g_2ac58->unknown_04a = 0;
-    g_2ac70 = title_17ad0(0, 0, 0, 0x200f, 0);
-    g_2ac70->unknown_034 = 1;
-    g_2ac70->unknown_054 |= 6;
-    g_2ac70->unknown_04a = 0;
-    g_2ac58->unknown_023 = 6;
-    g_2ac58->unknown_03e = 10;
-    g_2ac70->unknown_023 = 6;
-    g_2ac70->unknown_03e = 20;
-    g_2ac70->unknown_000 = 0x10000;
-    g_2ac70->unknown_004 = 0x10000;
-    g_2ac64 = title_17ad0(0, 0, 0, 0x200f, 0);
-    g_2ac64->unknown_034 = 2;
-    g_2ac64->unknown_000 = 0xff9c0000;
-    g_2ac64->unknown_004 = 0x640000;
-    g_2ac68 = 0;
-    g_2ac5c = 0;
+    s7_state = 10;
+    s7_picture = title_17ad0(0, 0, 0, 0x200f, 0);
+    s7_picture->unknown_034 = 1;
+    s7_picture->unknown_054 |= 5;
+    s7_picture->unknown_04a = 0;
+    s7_obj_double = title_17ad0(0, 0, 0, 0x200f, 0);
+    s7_obj_double->unknown_034 = 1;
+    s7_obj_double->unknown_054 |= 6;
+    s7_obj_double->unknown_04a = 0;
+    s7_picture->unknown_023 = 6;
+    s7_picture->unknown_03e = 10;
+    s7_obj_double->unknown_023 = 6;
+    s7_obj_double->unknown_03e = 20;
+    s7_obj_double->unknown_000 = 0x10000;
+    s7_obj_double->unknown_004 = 0x10000;
+    s7_animated2 = title_17ad0(0, 0, 0, 0x200f, 0);
+    s7_animated2->unknown_034 = 2;
+    s7_animated2->unknown_000 = 0xff9c0000;
+    s7_animated2->unknown_004 = 0x640000;
+    s7_anim_state2 = 0;
+    s7_anim_index = 0;
 }
 
 void title_15580(void)
 {
     unsigned short code;
 
-    g_2ac80 ^= 1;
-    if (g_2ac80 != 0) {
+    s7_parity2 ^= 1;
+    if (s7_parity2 != 0) {
         return;
     }
-    switch (g_2ac68) {
+    switch (s7_anim_state2) {
     case 0:
         break;
     case 1:
-        g_2ac64->unknown_034++;
-        if (g_2ac64->unknown_034 != 0x10) {
+        s7_animated2->unknown_034++;
+        if (s7_animated2->unknown_034 != 0x10) {
             return;
         }
-        g_2ac68 = 2;
+        s7_anim_state2 = 2;
         return;
     case 2:
-        g_2ac74 = 0xc;
-        g_2ac68 = 3;
+        s7_state = 0xc;
+        s7_anim_state2 = 3;
         return;
     default:
         return;
     }
-    g_2ac64->unknown_034 = g_25f50[g_2ac5c] + 1;
-    g_2ac5c++;
-    code = g_25f50[g_2ac5c];
-    if (code == 0xa && g_2ac74 == 0xa) {
-        g_2ac74 = 0xb;
+    s7_animated2->unknown_034 = g_25f50[s7_anim_index] + 1;
+    s7_anim_index++;
+    code = g_25f50[s7_anim_index];
+    if (code == 0xa && s7_state == 0xa) {
+        s7_state = 0xb;
     }
     if (code != 0xffff) {
         return;
     }
     title_0c4f0(1);
     g_engine_interface.context_004->unknown_1b30 = 4;
-    g_2ac68 = 1;
+    s7_anim_state2 = 1;
 }
