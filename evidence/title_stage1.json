@@ -290,7 +290,8 @@
    ],
    "probes": "candidates/tail/k1.c, k2.c: VC5 normally materializes constants near first use; the grouped join materialization did not reproduce in isolation",
    "status": "open; classified with R3 (TU-dependent tie-break), not a source-shape lever found yet",
-   "lane_ha450_2026_10_10": "No change (candidates/ha450/, results.tsv). All 24 pad-switch case orders keep 6; any layout-changing edit (case moves, block swaps, if/else instead of switch, shared copy tail) costs hundreds of bytes; constant and condition spellings are inert. The 13-entry jump table is the 0x91..0x9d range of a 4-label switch whose holes and default go to the reload block. Only the relative order of 0 and 15 differs; 1 is last at both joins."
+   "lane_ha450_2026_10_10": "No change (candidates/ha450/, results.tsv). All 24 pad-switch case orders keep 6; any layout-changing edit (case moves, block swaps, if/else instead of switch, shared copy tail) costs hundreds of bytes; constant and condition spellings are inert. The 13-entry jump table is the 0x91..0x9d range of a 4-label switch whose holes and default go to the reload block. Only the relative order of 0 and 15 differs; 1 is last at both joins.",
+   "unit_complete_test": "u09a40 with all open functions present (0x9a40/0x9c90/0xa020 drafts + 0xa450; candidates/wr4/full_u09a40.py): 0xa450 16 (worse than 6), siblings unchanged (191/256/284), canonical rows equal; none/lean/full <windows.h> identical. Not a header effect; non-matching sibling drafts can perturb it."
   },
   "R7_loop_distribution": "VC5 distributes a constant array fill out of a loop into rep stosd while keeping the remaining indexed stores on a shared byte-offset index ([reg + array]); with only one indexed store the base is folded into a pointer induction variable (0x1b150)."
  },
