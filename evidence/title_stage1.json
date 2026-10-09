@@ -3,14 +3,14 @@
  "date": "2026-10-09",
  "prediction": "At least half of the sub-1 KB first-party functions in wave-1 lanes reach masked equality with ordinary C under RTM /O2.",
  "falsifier": "Under a quarter, or exactness needing flags or non-ordinary constructs.",
- "verdict": "held by count (about 75% of sub-1 KB functions); byte coverage is 27.5% because large functions remain",
+ "verdict": "held by count; coverage 279 functions, 43664/116656 bytes",
  "function_map": {
   "spans": 361,
   "bytes": 116656,
   "first_party_end": "0x1d7b0"
  },
- "masked_rows": 252,
- "masked_bytes": 31584,
+ "masked_rows": 271,
+ "masked_bytes": 43184,
  "cpp_units": [
   "title.08a50",
   "title.08ed0",
@@ -30,7 +30,9 @@
   "B1": "global base/index order and add destination; partly resolved by C++ + record indexing; 0x1de0 (33), 0x2090 (32), 0x2860 (41), 0x8770 (43) remain.",
   "B2": "ctx->field = global load order after a call (0x5fb0, 7 bytes).",
   "B3": "PC_DLLEngineMain unfolded zero test (0xc1f0, 30 bytes): folded forms, status variable, inline helpers, /Ob2, if(g=0) all falsified.",
-  "B4": "screen-handler family entry dead word loads of ctx+0x5c/0x5e and permuted register roles (0x102f0, 0x10670, 0x109f0, 0x128e0, 0x14300 group)."
+  "B4": "SOLVED: screen-handler entry loads come from volatile context fields at +0x5c/+0x5e read into unused locals (only sanctioned volatile use); the argument-area out-handle is an ordinary local that VC5 places there when the request is one typed pointer parameter. Ten screen handlers masked equal with this template.",
+  "B5": "candidate: record-loop anchor register (VC5 anchors strength-reduced loops at the first accessed field).",
+  "B6": "constant 0/1 enregistered in callee-saved registers across calls (ebx/ebp) in 0x109f0, 0x102f0, 0x16f0, 0x7510 and related register-role swaps (0x10670 35 bytes, 0x13ba0 41 bytes); one-locals, declaration order, C++ falsified."
  },
  "open_functions": {
   "0x1300": 557,
@@ -103,5 +105,10 @@
   "scripts/library_map.py",
   "scripts/leaf.py diff/data"
  ],
- "workers": "Haiku 5.5 lanes (28 regular + 2 C++ retries) with an integrator review of every region; integrator fixes recorded in row evidence."
+ "workers": "Haiku 5.5 lanes (28 regular + 2 C++ retries) with an integrator review of every region; integrator fixes recorded in row evidence.",
+ "coverage": {
+  "functions": 279,
+  "bytes": 43664,
+  "first_party_bytes": 116656
+ }
 }
