@@ -14,8 +14,8 @@ typedef struct ScreenContext {
 
 /* Display object (sprite) record. */
 typedef struct TitleObject {
-    unsigned long unknown_000;
-    unsigned long unknown_004;
+    long unknown_000;                 /* x, 16.16 fixed point (signed) */
+    long unknown_004;                 /* y, 16.16 fixed point (signed) */
     unsigned char unknown_008[0x00c - 0x008];
     unsigned char unknown_00c[0x01f - 0x00c];
     unsigned char unknown_01f;
