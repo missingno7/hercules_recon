@@ -9908,68 +9908,6 @@
       }
     },
     {
-      "id": "title.16110",
-      "status": "CODEGEN_SIMILAR",
-      "name_status": "provisional address label",
-      "target": "assets/pc/HERCULES/TITLE.DLL",
-      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
-      "rva": "0x16110",
-      "size": 288,
-      "source": "calibration/title/seq9.c",
-      "symbol": "_title_16110",
-      "flags": [
-        "/O2"
-      ],
-      "evidence": "docs/title_link_goal.md stage 1, lane w21: Pool/object init: allocates three objects via title_17ad0(0,0,0,0x2013,0) into g_2acb0, g_2acc8, g_2acbc, sets their fields (0x34, 0x54 flag bits, 0x4a, 0x23, 0 Unit 2026-10-09: sequence-screen unit seq9.c (handler + two helpers share a private .bss block; alphabetical seq1, seq10, seq2..seq9 is code order). Statics 2026-10-09: the unit's private .bss block variables are file statics (only this unit uses them).",
-      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
-      "link_symbols": {
-        "_g_2acb0$S153": "0x2acb0",
-        "_g_2acb8$S157": "0x2acb8",
-        "_g_2acbc$S155": "0x2acbc",
-        "_g_2acc0$S156": "0x2acc0",
-        "_g_2acc8$S154": "0x2acc8",
-        "_title_17ad0": "0x17ad0"
-      },
-      "proof": {
-        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "c083aba547ec443a0818043bdf334fd450530640bc41bef305a9a6e4106ec5c6",
-        "masked_sha256": "3df236a7ba0b467462c3dd8523830f1757065c101a7144bbacb0a05796efe4a4",
-        "toolchain": "msvc5_rtm"
-      }
-    },
-    {
-      "id": "title.16230",
-      "status": "CODEGEN_SIMILAR",
-      "name_status": "provisional address label",
-      "target": "assets/pc/HERCULES/TITLE.DLL",
-      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
-      "rva": "0x16230",
-      "size": 208,
-      "source": "calibration/title/seq9.c",
-      "symbol": "_title_16230",
-      "flags": [
-        "/O2"
-      ],
-      "evidence": "docs/title_link_goal.md stage 1, lane w21: Per-tick state machine on g_2acc0 (0/1/2) that walks the g_25f50 word table into g_2acbc->unknown_034; on terminator 0xffff calls title_0c4f0(1) and sets engine Unit 2026-10-09: sequence-screen unit seq9.c (handler + two helpers share a private .bss block; alphabetical seq1, seq10, seq2..seq9 is code order). Statics 2026-10-09: the unit's private .bss block variables are file statics (only this unit uses them).",
-      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
-      "link_symbols": {
-        "_g_25f50": "0x25f50",
-        "_g_2acb8$S157": "0x2acb8",
-        "_g_2acbc$S155": "0x2acbc",
-        "_g_2acc0$S156": "0x2acc0",
-        "_g_2acd0$S158": "0x2acd0",
-        "_g_2acd8$S159": "0x2acd8",
-        "_g_engine_interface": "0x2bb40",
-        "_title_0c4f0": "0xc4f0"
-      },
-      "proof": {
-        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "c083aba547ec443a0818043bdf334fd450530640bc41bef305a9a6e4106ec5c6",
-        "masked_sha256": "8aaa3d7b2d9e80ace632f7df68253dd93027829fee628536f7ebb7bae7d8e23c",
-        "toolchain": "msvc5_rtm"
-      }
-    },
-    {
       "id": "title.06350",
       "status": "CODEGEN_SIMILAR",
       "name_status": "provisional address label",
@@ -11540,6 +11478,121 @@
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
         "source_sha256": "c0a8f901b95e014b96c9afa35ee402a61bfa3174c24e1bdf585c0f7b7af55b63",
         "masked_sha256": "4bceb0c704b65349ba32586bf1e553cfb01a11744625ecc8ded466c4c6cd7e93",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "title.15cb0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x15cb0",
+      "size": 1120,
+      "source": "calibration/title/seq9.c",
+      "symbol": "_title_15cb0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Worker wseq49 2026-10-09: seq9 screen handler (sibling of the other sequence handlers). Its jump table needs a seventh case label (case 2 falling into case 3), which makes VC5 emit a direct 13-entry table; title_16230 is called unconditionally before the release check; fades are signed ints. Defines the unit's remaining four statics. Names 2026-10-09: private statics carry layout-compatible names (scripts/layout_names.py), not recovered identifiers.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_29128": "0x29128",
+        "_g_engine_interface": "0x2bb40",
+        "_g_sequence_files": "0x222f8",
+        "_s9_fade_high$S230": "0x2accc",
+        "_s9_fade_low$S229": "0x2acc4",
+        "_s9_field_d4$S231": "0x2acd4",
+        "_s9_image$S153": "0x2acb0",
+        "_s9_obj_twin$S154": "0x2acc8",
+        "_s9_screen_phase$S158": "0x2acd0",
+        "_s9_sprite$S155": "0x2acbc",
+        "_s9_unknown_b4$S228": "0x2acb4",
+        "_title_01dd0": "0x1dd0",
+        "_title_01de0": "0x1de0",
+        "_title_04b70": "0x4b70",
+        "_title_04ea0": "0x4ea0",
+        "_title_05e90": "0x5e90",
+        "_title_05f10": "0x5f10",
+        "_title_09350": "0x9350",
+        "_title_0c330": "0xc330",
+        "_title_0c3f0": "0xc3f0",
+        "_title_0c450": "0xc450",
+        "_title_0c4f0": "0xc4f0",
+        "_title_0c6d0": "0xc6d0",
+        "_title_0c8b0": "0xc8b0",
+        "_title_16110": "0x16110",
+        "_title_16230": "0x16230",
+        "_title_16300": "0x16300",
+        "_title_164b0": "0x164b0",
+        "_title_1d790": "0x1d790"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "02f1a8ec500025b459387057305e02c38b204f301589b04276ab2db24bb38b52",
+        "masked_sha256": "ccf3d3c6092818913b86cadcfadc6a38f0e6ef5ce748e09822099177d1652f50",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "title.16110",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x16110",
+      "size": 288,
+      "source": "calibration/title/seq9.c",
+      "symbol": "_title_16110",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "docs/title_link_goal.md stage 1, lane w21: Pool/object init: allocates three objects via title_17ad0(0,0,0,0x2013,0) into g_2acb0, g_2acc8, g_2acbc, sets their fields (0x34, 0x54 flag bits, 0x4a, 0x23, 0 Unit 2026-10-09: sequence-screen unit seq9.c (handler + two helpers share a private .bss block; alphabetical seq1, seq10, seq2..seq9 is code order). Statics 2026-10-09: the unit's private .bss block variables are file statics (only this unit uses them). Names 2026-10-09: private statics carry layout-compatible names (scripts/layout_names.py), not recovered identifiers.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_s9_anim_index$S157": "0x2acb8",
+        "_s9_anim_state$S156": "0x2acc0",
+        "_s9_image$S153": "0x2acb0",
+        "_s9_obj_twin$S154": "0x2acc8",
+        "_s9_sprite$S155": "0x2acbc",
+        "_title_17ad0": "0x17ad0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "02f1a8ec500025b459387057305e02c38b204f301589b04276ab2db24bb38b52",
+        "masked_sha256": "3df236a7ba0b467462c3dd8523830f1757065c101a7144bbacb0a05796efe4a4",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "title.16230",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x16230",
+      "size": 208,
+      "source": "calibration/title/seq9.c",
+      "symbol": "_title_16230",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "docs/title_link_goal.md stage 1, lane w21: Per-tick state machine on g_2acc0 (0/1/2) that walks the g_25f50 word table into g_2acbc->unknown_034; on terminator 0xffff calls title_0c4f0(1) and sets engine Unit 2026-10-09: sequence-screen unit seq9.c (handler + two helpers share a private .bss block; alphabetical seq1, seq10, seq2..seq9 is code order). Statics 2026-10-09: the unit's private .bss block variables are file statics (only this unit uses them). Names 2026-10-09: private statics carry layout-compatible names (scripts/layout_names.py), not recovered identifiers.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_25f50": "0x25f50",
+        "_g_engine_interface": "0x2bb40",
+        "_s9_anim_index$S157": "0x2acb8",
+        "_s9_anim_state$S156": "0x2acc0",
+        "_s9_half_rate5$S159": "0x2acd8",
+        "_s9_screen_phase$S158": "0x2acd0",
+        "_s9_sprite$S155": "0x2acbc",
+        "_title_0c4f0": "0xc4f0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "02f1a8ec500025b459387057305e02c38b204f301589b04276ab2db24bb38b52",
+        "masked_sha256": "8aaa3d7b2d9e80ace632f7df68253dd93027829fee628536f7ebb7bae7d8e23c",
         "toolchain": "msvc5_rtm"
       }
     }
