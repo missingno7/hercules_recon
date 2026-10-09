@@ -173,6 +173,27 @@ Rule measured along the way: within one object, the .bss order of C statics and 
 follows the identifiers only, by a function not yet identified. The scheduler keeps 4 of its 6
 variables at their original relative offsets. Three unreferenced 4-byte slots are not invented.
 
+## Units consolidated so far
+
+`scripts/unit_bounds.py` turns per-object .bss sharing into minimal unit intervals. A C
+file-static ties its users to one object, and one object's .bss is contiguous.
+
+- **Sequence screens:** `seq1.c` .. `seq10.c` hold ten units, each a handler and two helpers.
+  The handlers load SEQ1, SEQ10, SEQ2..SEQ9 in code order, which is alphabetical file order.
+- **Other units:** `u197f0.c` (0x197f0..0x1c430), `u0ff70.c` (0xff70..0x10fa0), `u06350.c`
+  (from 0x6350), and the C++ scheduler `title_proc.cpp`.
+- **Statics:** each unit's private .bss variables are file statics.
+- **Shared types:**
+  - `title_proc.h`: the process record, where a handler's argument is its process;
+  - `title_screen.h`: the screen context and the sprite object.
+
+The diagnostic link has gone from 433 unresolved symbols to 199 (165 of them data), with no
+duplicates.
+
+**Layout blocker L1.** Within one object, the order of statics, C++ globals and communals
+follows an unrecovered function of the identifiers. Ownership and object order are
+reproducible now; in-object order is not. The leads are recorded in `evidence/title_closure.json`.
+
 ## Preliminary closure (stage 2 groundwork)
 
 `scripts/closure.py` maps the data addresses implied by masked rows back to their functions.
