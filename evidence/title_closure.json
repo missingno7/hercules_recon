@@ -317,5 +317,12 @@
   },
   "function_map_v4": "scripts/function_map.py also starts functions at 16-byte-aligned tail-jump targets right after NOP padding: adds 0xa020 (736 bytes, reached from 0xa440), which splits the former 0x9c90 span. Tools default to title_v4.json.",
   "scheduler_cpp_retry": "The open scheduler functions 0x5cc0 (103), 0x5db0 (110), 0x5e90 (50) and 0x5fb0 (7, B2) keep identical residues as C++: the unit language is not their discriminator."
- }
+ },
+ "communal_tail": {
+  "date": "2026-10-09",
+  "structure": "Tail groups in ascending address follow descending link order: late-code globals (0x2b370..), the engine interface (0x2bb40, 1000 bytes; slots read by the 0xc270..0xcc80 wrappers), the object-system group (0x2bf28..0x2c0a0), the 0x6350 unit (0x2c144..0x2cbcc), a DLL-wide group (0x2cbe0..0x2cc68: g_2cc04 19 users, g_2cc08, list heads g_2cc20), the sound unit (0x2cc6c..0x2d2d0, with the record table g_2cca0), then the earliest units (0x2d2a0.., 0x2df40..).",
+  "owner_hypothesis": "The DLL-wide group sits where an object linked between the sound unit and the 0x6350 unit places its communals. The scheduler is C++ (no communals), so the C file-name data unit title_files.c is the natural owner (a globals file). Not yet integrated.",
+  "order_probe": "Tentative definitions of that group in address order, linked alone: 1/14 at original relative offsets. Communal order inside a group is name-dependent like statics and C++ globals."
+ },
+ "layout_blocker_L1": "Within one object, the order of statics, C++ globals and communals follows an unrecovered function of the identifiers (bucket-like: single letters ascending, digit names ~h*4+c, random names near chance under shift/xor/multiply/truncation models). Ownership and object order can be reproduced now; in-object order needs this function. Leads: read-only analysis of the compiler symbol table code (c1.dll), or a name policy decision."
 }
