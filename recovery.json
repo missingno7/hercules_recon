@@ -3252,57 +3252,6 @@
       }
     },
     {
-      "id": "title.12070",
-      "status": "CODEGEN_SIMILAR",
-      "name_status": "provisional address label",
-      "target": "assets/pc/HERCULES/TITLE.DLL",
-      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
-      "rva": "0x12070",
-      "size": 352,
-      "source": "calibration/title/r10ce0.c",
-      "symbol": "_title_12070",
-      "flags": [
-        "/O2"
-      ],
-      "evidence": "docs/title_link_goal.md stage 1, lane w18: Fills a 0x3c-byte record (TitleObj) from the engine context g_engine_interface.context_004: a signed kind byte at ctx+0 maps through a switch (1..11, case 4 lea",
-      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
-      "link_symbols": {
-        "_g_engine_interface": "0x2bb40"
-      },
-      "proof": {
-        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d8cc9e3e36374c616c2d0655048d287918fbfc7044f6f949e110202eea3377e4",
-        "masked_sha256": "2709a35590e18a3d84d0c2aaf5d0637b594d9c797abea937718d03288487f75b",
-        "toolchain": "msvc5_rtm"
-      }
-    },
-    {
-      "id": "title.121d0",
-      "status": "CODEGEN_SIMILAR",
-      "name_status": "provisional address label",
-      "target": "assets/pc/HERCULES/TITLE.DLL",
-      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
-      "rva": "0x121d0",
-      "size": 176,
-      "source": "calibration/title/r10ce0.c",
-      "symbol": "_title_121d0",
-      "flags": [
-        "/O2"
-      ],
-      "evidence": "docs/title_link_goal.md stage 1, lane w18: Inverse of title_12070: clears ctx->+0x11, copies obj fields (+0x34, +0x04 as byte, +0x08, +0x0c, +0x10, +0x14, +0x30, +0x18, +0x1c) into the context and a 16-b",
-      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
-      "link_symbols": {
-        "_g_engine_interface": "0x2bb40",
-        "_title_0c2e0": "0xc2e0"
-      },
-      "proof": {
-        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "d8cc9e3e36374c616c2d0655048d287918fbfc7044f6f949e110202eea3377e4",
-        "masked_sha256": "6e17e16d8742c0a782c9fee569076aaa68b374bee50c5460f0ae2039435d3ba2",
-        "toolchain": "msvc5_rtm"
-      }
-    },
-    {
       "id": "title.0c270",
       "status": "CODEGEN_SIMILAR",
       "name_status": "provisional address label",
@@ -12474,6 +12423,57 @@
       }
     },
     {
+      "id": "title.12070",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x12070",
+      "size": 352,
+      "source": "calibration/title/u0ff70.c",
+      "symbol": "_title_12070",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Unit 2026-10-09: merged into u0ff70.c. It fills/applies the 0x3c-byte memory-card save records that 0x10fe0 passes it (&g_2aa50[i]), sits contiguously between 0x10fe0 and seq1's code at 0x12280 (seq1's .bss starts at 0x2ab1c, right after this unit's block), and has no .bss of its own. The context copy at +0x6c and the record copy at +0x20 are the 16-byte pad map (TitlePadMap) also copied whole by 0xa450 and 0x164b0. Previously: docs/title_link_goal.md stage 1, lane w18: Fills a 0x3c-byte record (TitleObj) from the engine context g_engine_interface.context_004: a signed kind byte at ctx+0 maps through a switch (1..11, case 4 lea",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_engine_interface": "0x2bb40"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "9529122d9c813ca01e63945c66a7421f582bb2f0a4f026ba6470be1ccc2d8159",
+        "masked_sha256": "2709a35590e18a3d84d0c2aaf5d0637b594d9c797abea937718d03288487f75b",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "title.121d0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "assets/pc/HERCULES/TITLE.DLL",
+      "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x121d0",
+      "size": 176,
+      "source": "calibration/title/u0ff70.c",
+      "symbol": "_title_121d0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Unit 2026-10-09: merged into u0ff70.c. It fills/applies the 0x3c-byte memory-card save records that 0x10fe0 passes it (&g_2aa50[i]), sits contiguously between 0x10fe0 and seq1's code at 0x12280 (seq1's .bss starts at 0x2ab1c, right after this unit's block), and has no .bss of its own. The context copy at +0x6c and the record copy at +0x20 are the 16-byte pad map (TitlePadMap) also copied whole by 0xa450 and 0x164b0. Previously: docs/title_link_goal.md stage 1, lane w18: Inverse of title_12070: clears ctx->+0x11, copies obj fields (+0x34, +0x04 as byte, +0x08, +0x0c, +0x10, +0x14, +0x30, +0x18, +0x1c) into the context and a 16-b",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_engine_interface": "0x2bb40",
+        "_title_0c2e0": "0xc2e0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "9529122d9c813ca01e63945c66a7421f582bb2f0a4f026ba6470be1ccc2d8159",
+        "masked_sha256": "6e17e16d8742c0a782c9fee569076aaa68b374bee50c5460f0ae2039435d3ba2",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
       "id": "title.10fe0",
       "status": "CODEGEN_SIMILAR",
       "name_status": "provisional address label",
@@ -12498,28 +12498,28 @@
         "??_C@_0BP@KGMO@?6?5Detected?5an?5unformatted?5card?$AA@": "0x25e50",
         "??_C@_0CF@NNMN@?6?5LSGameMemoryCardLoop?5LSStatus?5@": "0x25f24",
         "??_C@_0DA@JCMK@?6?5Detected?5a?5newly?5connected?5car@": "0x25ecc",
-        "_g_2a9c8$S158": "0x2a9c8",
-        "_g_2a9cc$S159": "0x2a9cc",
-        "_g_2a9d0$S160": "0x2a9d0",
-        "_g_2a9d8$S181": "0x2a9d8",
-        "_g_2a9dc$S182": "0x2a9dc",
-        "_g_2a9e4$S183": "0x2a9e4",
-        "_g_2a9f4$S161": "0x2a9f4",
-        "_g_2aa04$S209": "0x2aa04",
-        "_g_2aa08$S164": "0x2aa08",
-        "_g_2aa0c$S163": "0x2aa0c",
-        "_g_2aa24$S210": "0x2aa24",
-        "_g_2aa28$S184": "0x2aa28",
-        "_g_2aa2c$S157": "0x2aa2c",
-        "_g_2aa30$S211": "0x2aa30",
-        "_g_2aa34$S406": "0x2aa34",
-        "_g_2aa38$S407": "0x2aa38",
-        "_g_2aa44$S185": "0x2aa44",
-        "_g_2aa48$S162": "0x2aa48",
-        "_g_2aa50$S155": "0x2aa50",
-        "_g_2ab04$S214": "0x2ab04",
-        "_g_2ab08$S186": "0x2ab08",
-        "_g_2ab0c$S408": "0x2ab0c",
+        "_g_2a9c8$S162": "0x2a9c8",
+        "_g_2a9cc$S163": "0x2a9cc",
+        "_g_2a9d0$S164": "0x2a9d0",
+        "_g_2a9d8$S185": "0x2a9d8",
+        "_g_2a9dc$S186": "0x2a9dc",
+        "_g_2a9e4$S187": "0x2a9e4",
+        "_g_2a9f4$S165": "0x2a9f4",
+        "_g_2aa04$S213": "0x2aa04",
+        "_g_2aa08$S168": "0x2aa08",
+        "_g_2aa0c$S167": "0x2aa0c",
+        "_g_2aa24$S214": "0x2aa24",
+        "_g_2aa28$S188": "0x2aa28",
+        "_g_2aa2c$S161": "0x2aa2c",
+        "_g_2aa30$S215": "0x2aa30",
+        "_g_2aa34$S410": "0x2aa34",
+        "_g_2aa38$S411": "0x2aa38",
+        "_g_2aa44$S189": "0x2aa44",
+        "_g_2aa48$S166": "0x2aa48",
+        "_g_2aa50$S159": "0x2aa50",
+        "_g_2ab04$S218": "0x2ab04",
+        "_g_2ab08$S190": "0x2ab08",
+        "_g_2ab0c$S412": "0x2ab0c",
         "_g_engine_interface": "0x2bb40",
         "_title_016e0": "0x16e0",
         "_title_01dd0": "0x1dd0",
@@ -12540,7 +12540,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "0f0950fad22fd3fcd4a20e61a14ed065f409dfa7fd97d48c4470c9b1ef8750c2",
+        "source_sha256": "9529122d9c813ca01e63945c66a7421f582bb2f0a4f026ba6470be1ccc2d8159",
         "masked_sha256": "1436e0f421a43d09d81d800e51a64337a84a3893bedae5b594f8406ecdf3381c",
         "toolchain": "msvc5_rtm"
       }
@@ -12561,20 +12561,20 @@
       "evidence": "docs/title_link_goal.md stage 1, lane w16: Creates nine W16Slot objects through title_17ad0 into globals g_2aa14, g_2aa2c, g_2a9c8, g_2a9cc, g_2a9d0, g_2a9f4, g_2aa48, g_2aa0c, g_2aa08, setting field_34  Unit 2026-10-09: moved to u0ff70.c (one object 0xff70..0x10fe0 by its private .bss block). Statics 2026-10-09: the unit's private .bss variables used only here are file statics.",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
-        "_g_2a9c8$S158": "0x2a9c8",
-        "_g_2a9cc$S159": "0x2a9cc",
-        "_g_2a9d0$S160": "0x2a9d0",
-        "_g_2a9f4$S161": "0x2a9f4",
-        "_g_2aa08$S164": "0x2aa08",
-        "_g_2aa0c$S163": "0x2aa0c",
-        "_g_2aa14$S156": "0x2aa14",
-        "_g_2aa2c$S157": "0x2aa2c",
-        "_g_2aa48$S162": "0x2aa48",
+        "_g_2a9c8$S162": "0x2a9c8",
+        "_g_2a9cc$S163": "0x2a9cc",
+        "_g_2a9d0$S164": "0x2a9d0",
+        "_g_2a9f4$S165": "0x2a9f4",
+        "_g_2aa08$S168": "0x2aa08",
+        "_g_2aa0c$S167": "0x2aa0c",
+        "_g_2aa14$S160": "0x2aa14",
+        "_g_2aa2c$S161": "0x2aa2c",
+        "_g_2aa48$S166": "0x2aa48",
         "_title_17ad0": "0x17ad0"
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "0f0950fad22fd3fcd4a20e61a14ed065f409dfa7fd97d48c4470c9b1ef8750c2",
+        "source_sha256": "9529122d9c813ca01e63945c66a7421f582bb2f0a4f026ba6470be1ccc2d8159",
         "masked_sha256": "b217085d91d73f14b1c2554d4bfc5d8220c577f0d4489f8807039181425f70c0",
         "toolchain": "msvc5_rtm"
       }
@@ -12595,13 +12595,13 @@
       "evidence": "docs/title_link_goal.md stage 1, lane w16: Sets field_34 = 0x1a on the slot objects g_2a9c8, g_2a9cc and g_2a9d0. Unit 2026-10-09: moved to u0ff70.c (one object 0xff70..0x10fe0 by its private .bss block). Statics 2026-10-09: the unit's private .bss variables used only here are file statics.",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
-        "_g_2a9c8$S158": "0x2a9c8",
-        "_g_2a9cc$S159": "0x2a9cc",
-        "_g_2a9d0$S160": "0x2a9d0"
+        "_g_2a9c8$S162": "0x2a9c8",
+        "_g_2a9cc$S163": "0x2a9cc",
+        "_g_2a9d0$S164": "0x2a9d0"
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "0f0950fad22fd3fcd4a20e61a14ed065f409dfa7fd97d48c4470c9b1ef8750c2",
+        "source_sha256": "9529122d9c813ca01e63945c66a7421f582bb2f0a4f026ba6470be1ccc2d8159",
         "masked_sha256": "768820049bc46e7a4fad91a1b51161df423d44a4233e229cfd8b24d770efcf2c",
         "toolchain": "msvc5_rtm"
       }
@@ -12622,21 +12622,21 @@
       "evidence": "docs/title_link_goal.md stage 1, lane w16: Releases the nine slot globals (g_2aa14, g_2aa2c, g_2a9c8, g_2a9cc, g_2a9d0, g_2a9f4, g_2aa48, g_2aa0c, g_2aa08): each non-null one is passed to title_09350 and Unit 2026-10-09: moved to u0ff70.c (one object 0xff70..0x10fe0 by its private .bss block). Statics 2026-10-09: the unit's private .bss variables used only here are file statics.",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
-        "_g_2a9c8$S158": "0x2a9c8",
-        "_g_2a9cc$S159": "0x2a9cc",
-        "_g_2a9d0$S160": "0x2a9d0",
-        "_g_2a9f4$S161": "0x2a9f4",
-        "_g_2aa08$S164": "0x2aa08",
-        "_g_2aa0c$S163": "0x2aa0c",
-        "_g_2aa14$S156": "0x2aa14",
-        "_g_2aa2c$S157": "0x2aa2c",
-        "_g_2aa48$S162": "0x2aa48",
+        "_g_2a9c8$S162": "0x2a9c8",
+        "_g_2a9cc$S163": "0x2a9cc",
+        "_g_2a9d0$S164": "0x2a9d0",
+        "_g_2a9f4$S165": "0x2a9f4",
+        "_g_2aa08$S168": "0x2aa08",
+        "_g_2aa0c$S167": "0x2aa0c",
+        "_g_2aa14$S160": "0x2aa14",
+        "_g_2aa2c$S161": "0x2aa2c",
+        "_g_2aa48$S166": "0x2aa48",
         "_title_04ea0": "0x4ea0",
         "_title_09350": "0x9350"
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "0f0950fad22fd3fcd4a20e61a14ed065f409dfa7fd97d48c4470c9b1ef8750c2",
+        "source_sha256": "9529122d9c813ca01e63945c66a7421f582bb2f0a4f026ba6470be1ccc2d8159",
         "masked_sha256": "ee0a59c900ef7219257da036e3ab0650a2c03fe9b29dc41613b03ecb1cf3b9b4",
         "toolchain": "msvc5_rtm"
       }
@@ -12657,20 +12657,20 @@
       "evidence": "docs/title_link_goal.md stage 1, lane w16: Copies 16-bit value g_2a9f0 into field_4a of the nine slot globals, then sets g_2a9d0.field_4a = g_2a9f0>>1, propagates field_4a from g_2a9d0 to g_2a9cc and fro Unit 2026-10-09: moved to u0ff70.c (one object 0xff70..0x10fe0 by its private .bss block). Statics 2026-10-09: the unit's private .bss variables used only here are file statics.",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
-        "_g_2a9c8$S158": "0x2a9c8",
-        "_g_2a9cc$S159": "0x2a9cc",
-        "_g_2a9d0$S160": "0x2a9d0",
-        "_g_2a9f0$S165": "0x2a9f0",
-        "_g_2a9f4$S161": "0x2a9f4",
-        "_g_2aa08$S164": "0x2aa08",
-        "_g_2aa0c$S163": "0x2aa0c",
-        "_g_2aa14$S156": "0x2aa14",
-        "_g_2aa2c$S157": "0x2aa2c",
-        "_g_2aa48$S162": "0x2aa48"
+        "_g_2a9c8$S162": "0x2a9c8",
+        "_g_2a9cc$S163": "0x2a9cc",
+        "_g_2a9d0$S164": "0x2a9d0",
+        "_g_2a9f0$S169": "0x2a9f0",
+        "_g_2a9f4$S165": "0x2a9f4",
+        "_g_2aa08$S168": "0x2aa08",
+        "_g_2aa0c$S167": "0x2aa0c",
+        "_g_2aa14$S160": "0x2aa14",
+        "_g_2aa2c$S161": "0x2aa2c",
+        "_g_2aa48$S166": "0x2aa48"
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "0f0950fad22fd3fcd4a20e61a14ed065f409dfa7fd97d48c4470c9b1ef8750c2",
+        "source_sha256": "9529122d9c813ca01e63945c66a7421f582bb2f0a4f026ba6470be1ccc2d8159",
         "masked_sha256": "ed67847f91a0b0fd10cd374be29e2f452ad136356aa845ef248592e5ee5fe671",
         "toolchain": "msvc5_rtm"
       }
@@ -12693,21 +12693,21 @@
       "link_symbols": {
         "??_C@_09ELOM@?6?5TICK?5?$CFd?$AA@": "0x25e34",
         "_g_29128": "0x29128",
-        "_g_2a9c8$S158": "0x2a9c8",
-        "_g_2a9cc$S159": "0x2a9cc",
-        "_g_2a9d0$S160": "0x2a9d0",
-        "_g_2a9e4$S183": "0x2a9e4",
-        "_g_2a9e8$S248": "0x2a9e8",
-        "_g_2a9f0$S165": "0x2a9f0",
-        "_g_2a9f4$S161": "0x2a9f4",
-        "_g_2aa04$S209": "0x2aa04",
-        "_g_2aa08$S164": "0x2aa08",
-        "_g_2aa20$S249": "0x2aa20",
-        "_g_2aa24$S210": "0x2aa24",
-        "_g_2aa2c$S157": "0x2aa2c",
-        "_g_2aa30$S211": "0x2aa30",
-        "_g_2ab04$S214": "0x2ab04",
-        "_g_2ab10$S247": "0x2ab10",
+        "_g_2a9c8$S162": "0x2a9c8",
+        "_g_2a9cc$S163": "0x2a9cc",
+        "_g_2a9d0$S164": "0x2a9d0",
+        "_g_2a9e4$S187": "0x2a9e4",
+        "_g_2a9e8$S252": "0x2a9e8",
+        "_g_2a9f0$S169": "0x2a9f0",
+        "_g_2a9f4$S165": "0x2a9f4",
+        "_g_2aa04$S213": "0x2aa04",
+        "_g_2aa08$S168": "0x2aa08",
+        "_g_2aa20$S253": "0x2aa20",
+        "_g_2aa24$S214": "0x2aa24",
+        "_g_2aa2c$S161": "0x2aa2c",
+        "_g_2aa30$S215": "0x2aa30",
+        "_g_2ab04$S218": "0x2ab04",
+        "_g_2ab10$S251": "0x2ab10",
         "_g_engine_interface": "0x2bb40",
         "_g_screen_files": "0x222b8",
         "_title_016e0": "0x16e0",
@@ -12734,7 +12734,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "0f0950fad22fd3fcd4a20e61a14ed065f409dfa7fd97d48c4470c9b1ef8750c2",
+        "source_sha256": "9529122d9c813ca01e63945c66a7421f582bb2f0a4f026ba6470be1ccc2d8159",
         "masked_sha256": "391aacb8b232813c51176b85840842bbf6de1aee2b5da8c17574bfd90b1171e9",
         "toolchain": "msvc5_rtm"
       }
@@ -12757,22 +12757,22 @@
       "link_symbols": {
         "??_C@_09ELOM@?6?5TICK?5?$CFd?$AA@": "0x25e34",
         "_g_29128": "0x29128",
-        "_g_2a9c8$S158": "0x2a9c8",
-        "_g_2a9cc$S159": "0x2a9cc",
-        "_g_2a9d0$S160": "0x2a9d0",
-        "_g_2a9e4$S183": "0x2a9e4",
-        "_g_2a9ec$S213": "0x2a9ec",
-        "_g_2a9f0$S165": "0x2a9f0",
-        "_g_2a9f4$S161": "0x2a9f4",
-        "_g_2aa04$S209": "0x2aa04",
-        "_g_2aa08$S164": "0x2aa08",
-        "_g_2aa14$S156": "0x2aa14",
-        "_g_2aa24$S210": "0x2aa24",
-        "_g_2aa2c$S157": "0x2aa2c",
-        "_g_2aa30$S211": "0x2aa30",
-        "_g_2aa4c$S212": "0x2aa4c",
-        "_g_2ab04$S214": "0x2ab04",
-        "_g_2ab14$S215": "0x2ab14",
+        "_g_2a9c8$S162": "0x2a9c8",
+        "_g_2a9cc$S163": "0x2a9cc",
+        "_g_2a9d0$S164": "0x2a9d0",
+        "_g_2a9e4$S187": "0x2a9e4",
+        "_g_2a9ec$S217": "0x2a9ec",
+        "_g_2a9f0$S169": "0x2a9f0",
+        "_g_2a9f4$S165": "0x2a9f4",
+        "_g_2aa04$S213": "0x2aa04",
+        "_g_2aa08$S168": "0x2aa08",
+        "_g_2aa14$S160": "0x2aa14",
+        "_g_2aa24$S214": "0x2aa24",
+        "_g_2aa2c$S161": "0x2aa2c",
+        "_g_2aa30$S215": "0x2aa30",
+        "_g_2aa4c$S216": "0x2aa4c",
+        "_g_2ab04$S218": "0x2ab04",
+        "_g_2ab14$S219": "0x2ab14",
         "_g_engine_interface": "0x2bb40",
         "_g_screen_files": "0x222b8",
         "_title_016e0": "0x16e0",
@@ -12799,7 +12799,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "0f0950fad22fd3fcd4a20e61a14ed065f409dfa7fd97d48c4470c9b1ef8750c2",
+        "source_sha256": "9529122d9c813ca01e63945c66a7421f582bb2f0a4f026ba6470be1ccc2d8159",
         "masked_sha256": "4a9958a0c474a2bab93c56cef6bcd88c23b0e34be6f756c9af2b7ada98ae7fa7",
         "toolchain": "msvc5_rtm"
       }
@@ -12822,19 +12822,19 @@
       "link_symbols": {
         "??_C@_09ELOM@?6?5TICK?5?$CFd?$AA@": "0x25e34",
         "_g_29128": "0x29128",
-        "_g_2a9c8$S158": "0x2a9c8",
-        "_g_2a9cc$S159": "0x2a9cc",
-        "_g_2a9d0$S160": "0x2a9d0",
-        "_g_2a9f0$S165": "0x2a9f0",
-        "_g_2aa04$S209": "0x2aa04",
-        "_g_2aa08$S164": "0x2aa08",
-        "_g_2aa14$S156": "0x2aa14",
-        "_g_2aa18$S315": "0x2aa18",
-        "_g_2aa1c$S316": "0x2aa1c",
-        "_g_2aa24$S210": "0x2aa24",
-        "_g_2aa2c$S157": "0x2aa2c",
-        "_g_2aa30$S211": "0x2aa30",
-        "_g_2ab18$S314": "0x2ab18",
+        "_g_2a9c8$S162": "0x2a9c8",
+        "_g_2a9cc$S163": "0x2a9cc",
+        "_g_2a9d0$S164": "0x2a9d0",
+        "_g_2a9f0$S169": "0x2a9f0",
+        "_g_2aa04$S213": "0x2aa04",
+        "_g_2aa08$S168": "0x2aa08",
+        "_g_2aa14$S160": "0x2aa14",
+        "_g_2aa18$S319": "0x2aa18",
+        "_g_2aa1c$S320": "0x2aa1c",
+        "_g_2aa24$S214": "0x2aa24",
+        "_g_2aa2c$S161": "0x2aa2c",
+        "_g_2aa30$S215": "0x2aa30",
+        "_g_2ab18$S318": "0x2ab18",
         "_g_engine_interface": "0x2bb40",
         "_g_screen_files": "0x222b8",
         "_title_016e0": "0x16e0",
@@ -12861,7 +12861,7 @@
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "0f0950fad22fd3fcd4a20e61a14ed065f409dfa7fd97d48c4470c9b1ef8750c2",
+        "source_sha256": "9529122d9c813ca01e63945c66a7421f582bb2f0a4f026ba6470be1ccc2d8159",
         "masked_sha256": "3d1d4c764693ba691c3b7323e481a0139abcd763a2d4912b46a7fbe9d79426dd",
         "toolchain": "msvc5_rtm"
       }
@@ -12882,14 +12882,14 @@
       "evidence": "docs/title_link_goal.md stage 1, lane w18: Updates the word at +0x34 of three TitleSprite slots (g_2a9c8, g_2a9cc, g_2a9d0) from three state ints (g_2aa54, g_2aa90, g_2aacc) via three 13-case switches; g Unit 2026-10-09: moved to u0ff70.c (one object 0xff70..0x10fe0 by its private .bss block). Statics 2026-10-09: the unit's private .bss variables used only here are file statics. Records 2026-10-09: reads the memory-card save records g_2aa50[3] (0x3c bytes each), not four separate statics.",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
-        "_g_2a9c8$S158": "0x2a9c8",
-        "_g_2a9cc$S159": "0x2a9cc",
-        "_g_2a9d0$S160": "0x2a9d0",
-        "_g_2aa50$S155": "0x2aa50"
+        "_g_2a9c8$S162": "0x2a9c8",
+        "_g_2a9cc$S163": "0x2a9cc",
+        "_g_2a9d0$S164": "0x2a9d0",
+        "_g_2aa50$S159": "0x2aa50"
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "0f0950fad22fd3fcd4a20e61a14ed065f409dfa7fd97d48c4470c9b1ef8750c2",
+        "source_sha256": "9529122d9c813ca01e63945c66a7421f582bb2f0a4f026ba6470be1ccc2d8159",
         "masked_sha256": "ad9642d92e3bf2040c6c1d70d4c76f42181418450d64d565637124fc4d796274",
         "toolchain": "msvc5_rtm"
       }
@@ -12910,17 +12910,17 @@
       "evidence": "docs/title_link_goal.md stage 1, lane w18: Reset/initialise: clears g_2a9e4, g_2ab08, g_2a9dc, g_2aa28 to 0, sets g_2aa44 and g_2a9d8 to 1, and calls title_06670 between the stores. Guess: module init or Unit 2026-10-09: moved to u0ff70.c (one object 0xff70..0x10fe0 by its private .bss block). Statics 2026-10-09: the unit's private .bss variables used only here are file statics.",
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {
-        "_g_2a9d8$S181": "0x2a9d8",
-        "_g_2a9dc$S182": "0x2a9dc",
-        "_g_2a9e4$S183": "0x2a9e4",
-        "_g_2aa28$S184": "0x2aa28",
-        "_g_2aa44$S185": "0x2aa44",
-        "_g_2ab08$S186": "0x2ab08",
+        "_g_2a9d8$S185": "0x2a9d8",
+        "_g_2a9dc$S186": "0x2a9dc",
+        "_g_2a9e4$S187": "0x2a9e4",
+        "_g_2aa28$S188": "0x2aa28",
+        "_g_2aa44$S189": "0x2aa44",
+        "_g_2ab08$S190": "0x2ab08",
         "_title_06670": "0x6670"
       },
       "proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
-        "source_sha256": "0f0950fad22fd3fcd4a20e61a14ed065f409dfa7fd97d48c4470c9b1ef8750c2",
+        "source_sha256": "9529122d9c813ca01e63945c66a7421f582bb2f0a4f026ba6470be1ccc2d8159",
         "masked_sha256": "f5c8be3e410c1625c983370020d3d682e3e397675bd526da72162d78493e7989",
         "toolchain": "msvc5_rtm"
       }
