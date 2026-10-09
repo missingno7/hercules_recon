@@ -1,6 +1,6 @@
 /* w06 shared views (scratch). Field names are by offset; unknown bytes kept as pad_XX. */
 #include "title_engine.h"
-typedef struct TitleSlot { unsigned int ptr_00; unsigned short state_04; unsigned short w_06; unsigned char pad_08[12]; } TitleSlot;
+typedef struct TitleSlot { unsigned char pad_00[0x0c]; unsigned int ptr_0c; unsigned short state_10; unsigned short state_12; } TitleSlot;
 typedef struct TitleTabEntry { unsigned short a_00; unsigned short b_02; } TitleTabEntry;
 typedef struct TitleCtx {
     unsigned char pad_00[0x1d];
@@ -28,11 +28,8 @@ typedef struct TitleGame {
     unsigned char pad_9e[0xdf - 0x9e];
     unsigned char b_df;
 } TitleGame;
-typedef struct TitleAnim { unsigned short state_00; unsigned char pad_02[18]; } TitleAnim;
-extern TitleSlot g_2611c[];
+extern TitleSlot g_26110[18];
 extern TitleTabEntry g_2d2a0[];
-extern TitleAnim g_26134[];
-extern char g_26288[];
 extern unsigned char g_2df50;
 extern int g_2df44;
 extern char g_22100[];
@@ -173,9 +170,9 @@ void title_04a40(const unsigned char *s, int x)
     if (c == 0xff)
         return;
     do {
-        if (c == (unsigned int)x && g_2611c[c].ptr_00 == 0) {
+        if (c == (unsigned int)x && g_26110[c].ptr_0c == 0) {
             title_04b70(c, 0);
-            g_2611c[c].w_06 = 2;
+            g_26110[c].state_12 = 2;
         }
         c = *s++;
     } while (c != 0xff);
@@ -184,27 +181,22 @@ void title_04a40(const unsigned char *s, int x)
 /* f_4b00 */
 void title_04b00(void)
 {
-    int p;
     int i;
-    i = 1;
-    p = (int)g_26134;
-    do {
-        int s = *(unsigned short *)p;
+    for (i = 1; i < 18; i++) {
+        int s = g_26110[i].state_10;
         if (s == 4)
             title_04f00(i);
         if (s == 7) {
             title_04f00(i);
-            *(unsigned short *)p = 6;
+            g_26110[i].state_10 = 6;
         }
-        p += 20;
-        i++;
-    } while (p < (int)g_26288);
+    }
 }
 
 /* f_4b50 */
 void title_04b50(int idx)
 {
-    if (g_2611c[idx].state_04 == 0)
-        g_2611c[idx].state_04 = 1;
+    if (g_26110[idx].state_10 == 0)
+        g_26110[idx].state_10 = 1;
 }
 

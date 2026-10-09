@@ -35,7 +35,8 @@
    "evidence": "0x22308 0x12280, 0x2230c 0x12e90, 0x22310 0x13500, 0x22314 0x13ba0, 0x22318 0x14300, 0x2231c 0x14970, 0x22320 0x14ff0, 0x22324 0x15650, 0x22328 0x15cb0, 0x2232c 0x128e0.",
    "interpretation": "Two readings: per-unit 4-byte .data in link order, or one unit declaring them consecutively. 0x128e0 being last despite early code favours the second."
   },
-  "Index loops over a record table compile to a walking pointer biased to the first accessed field, with a signed compare against the biased end address. A pointer bound past a table therefore names the table, not the object that follows it."
+  "Index loops over a record table compile to a walking pointer biased to the first accessed field, with a signed compare against the biased end address. A pointer bound past a table therefore names the table, not the object that follows it.",
+  "Several region drafts named a record table by the first field they used, so one table appeared under several symbols. Before data closure, every array symbol needs an oracle check that no indexed access sits below it within one record stride."
  ],
  "fixes": [
   "Interior references to g_engine_interface fields replaced by the field (0x2bb44 context_004 in r1c430.c, 0x2bb54 data_014 in r19470.c); scripts/symbol_table.py now flags references inside the 1000-byte interface."
@@ -176,6 +177,12 @@
    "detail": "Staged 0x5080 (r04d80.c) models the table as g_2cca8 with an id at +0; the 0x54f0 draft writes an index word at 0x2cca8+64k and dwords at 0x2cca0+64k, implying the record base is 0x2cca0 (index at +8). One object start must be chosen before data closure; the symbol check cannot see it without the object extent.",
    "resolution": "Base is 0x2cca0: 24 records of 64 bytes. Every field reference lies in 0x00..0x3b from 0x2cca0. The loop bound 0x2d2a8 equals &g_2cca0[24].id_08, and with base 0x2cca8 the table would overlap the next referenced object 0x2d2a0 (32 x 4 bytes). Restaged r04d80.c with plain index loops over g_2cca0 (0x5080, 0x5a70, 0x5c60 masked equal); VC5 chooses the +8 walking pointer itself. The fake end symbols g_2d2a8 and g_2d2d0 (inside g_2d2a0) are gone, and unused interior declarations were removed. symbol_table.py now knows both table extents.",
    "date": "2026-10-09"
+  },
+  {
+   "table": "20-byte slot records near 0x26110",
+   "date": "2026-10-09",
+   "detail": "Three staged views used different bases: r04d80 g_26110 (state at +0x10), r04610 g_2611c (state at +4) with g_26134 and g_26288 as loop pointers, r18680 g_26114 (type at +0xc).",
+   "resolution": "Base is 0x26110: 18 records of 20 bytes. The original takes the record address with lea [i*20+0x26110], field references span +0x00..+0x13, loop bounds 0x2627c and 0x26288 are &g_26110[18] plus 4 and 0x10, and the next referenced object starts at 0x26278. r04610 (0x4b00 now a plain index loop) and r18680 were restaged with the same field offsets as r04d80, all masked equal. The fake symbols g_2611c, g_26114, g_26134 and g_26288 are gone."
   }
  ]
 }

@@ -44,8 +44,9 @@ def build(module):
             problems.append(dict(kind='reference disagrees with definition', symbol=name,
                                  defined=hex(defined[name]), implied=sorted(hex(a) for a in addresses)))
     # Known object extents: a reference strictly inside one must use that object's symbol.
-    # Tables: g_2cca0 is 24 x 64 bytes (index-loop bound, ends at the next object); g_2d2a0 is 32 x 4 bytes.
-    extents = {'_g_engine_interface': 1000, '_g_2cca0': 0x600, '_g_2d2a0': 0x80}
+    # Tables: g_2cca0 is 24 x 64 bytes (index-loop bound, ends at the next object); g_2d2a0 is 32 x 4 bytes;
+    # g_26110 is 18 x 20 bytes (&g_26110[i] is taken; loop bounds and the next object at 0x26278).
+    extents = {'_g_engine_interface': 1000, '_g_2cca0': 0x600, '_g_2d2a0': 0x80, '_g_26110': 0x168}
     for obj, size in extents.items():
         base = next(iter(implied.get(obj, [])), None)
         if base is None:
