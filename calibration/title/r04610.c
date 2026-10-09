@@ -384,3 +384,72 @@ int title_04b70(int idx, int flag)
     }
     return 1;
 }
+
+/* 0x48a0: reset the title animation state and rebuild every loaded slot's frame index.
+   For each loaded slot (state 3) the count+1 index words are cleared; then each entry i whose
+   descriptor word (in the descriptor array that follows the index, d = table + (count + 2) * 4)
+   has bit 0x40 and a nonzero part count gets index flag 0x40 and the result of 0x3da0 over its
+   part list, after the slot's 8-byte header entry (d + d[0].w * 4 + 4) is copied to *g_2bb50. */
+extern long *g_2bb50;
+extern signed char g_2cc02;
+extern int g_29d90;
+int title_0c310(int a);
+void title_04f40(const unsigned char *a, const unsigned char *b);
+void title_04a10(const unsigned char *a, const unsigned char *b);
+void title_04fe0(void);
+void title_0c6f0(void);
+void title_0c6d0(int a);
+void title_0c700(void);
+unsigned short title_03da0(unsigned char *q, int n, int m);
+
+void title_048a0(const unsigned char *a, const unsigned char *b)
+{
+    int j;
+    unsigned short *p;
+    long *d;
+    long *src;
+    unsigned char *s;
+    unsigned char *q;
+    unsigned short *e;
+    unsigned char n;
+    int i;
+
+    g_29d94 = 0;
+    g_29d90 = 0;
+    title_04f40(a, b);
+    title_0c310(0);
+    title_04fe0();
+    title_04a10(a, b);
+    if (g_2cc02)
+        g_26110[0].state_10 = 3;
+    for (j = 1; j < 18; j++) {
+        p = (unsigned short *)g_26110[j].table_0c;
+        if (p != 0 && g_26110[j].state_10 == 3) {
+            for (i = 0; i <= g_26110[j].count_04; i++) {
+                p[0] = 0;
+                p[1] = 0;
+                p += 2;
+            }
+            for (i = 1; i <= g_26110[j].count_04; i++) {
+                d = (long *)g_26110[j].table_0c + g_26110[j].count_04 + 2;
+                if (d[i] & 0x40) {
+                    s = (unsigned char *)d + (d[i] >> 8);
+                    n = *s++;
+                    if (n != 0) {
+                        e = (unsigned short *)g_26110[j].table_0c + i * 2;
+                        e[0] = 0x40;
+                        q = s + (signed char)*s * 6 + 5;
+                        src = d + *(unsigned short *)d + 1;
+                        g_2bb50[0] = src[0];
+                        g_2bb50[1] = src[1];
+                        e[1] = title_03da0(q + 2, n, 0x40);
+                    }
+                }
+            }
+        }
+    }
+    title_0c6f0();
+    title_041d0();
+    title_0c6d0(0);
+    title_0c700();
+}
