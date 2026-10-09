@@ -6,13 +6,13 @@
 #include "title_screen.h"
 
 
-extern TitleObject *g_2abd0;
-extern int g_2abd4;
-extern TitleObject *g_2abd8;
-extern int g_2abdc;
-extern TitleObject *g_2abf0;
-extern int g_2abf4;
-extern int g_2abfc;
+static TitleObject *g_2abd0;
+static int g_2abd4;
+static TitleObject *g_2abd8;
+static int g_2abdc;
+static TitleObject *g_2abf0;
+static int g_2abf4;
+static int g_2abfc;
 extern unsigned short g_25f50[];
 extern TitleObject *g_2ac0c;
 extern int g_2ac08;

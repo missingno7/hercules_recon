@@ -91,6 +91,19 @@ def layout(module, lane, objects, env, tc, definitions):
     if not (lane / 'layout.dll').exists():
         return dict(error='forced layout link produced no image')
     ours, symbols = PE(lane / 'layout.dll'), read_map(lane / 'layout.map')
+    # File statics are absent from the map: recover each from a placed function's relocation to it
+    # (linked dword minus the object's addend).
+    for obj in objects:
+        coff = COFF(obj)
+        for sym in coff.symbols.values():
+            if not (sym['type'] & 0x20 and sym['section'] > 0 and sym['name'] in symbols):
+                continue
+            fn = coff.function(sym['name'])
+            for r in fn['relocations']:
+                if r['type'] == 0x06 and '$S' in r['symbol'] and '$SG' not in r['symbol'] and r['symbol'] not in symbols:
+                    addend = int.from_bytes(fn['data'][r['offset']:r['offset'] + 4], 'little')
+                    linked = int.from_bytes(ours.read_rva(symbols[sym['name']] - ours.image_base + r['offset'], 4), 'little')
+                    symbols[r['symbol']] = linked - addend
     state = json.loads((ROOT / 'recovery.json').read_text())
     rows = [r for r in state['functions'] if Path(r['target']).name.upper() == module.upper()]
     orig = PE(ROOT / rows[0]['target'])
@@ -145,7 +158,7 @@ def build(module):
         obj, _ = compile_source(ROOT / source, flags)
         objects.append(obj)
         for sym in COFF(obj).symbols.values():
-            if sym['storage'] == 2 and sym['section'] > 0:
+            if (sym['storage'] == 2 or (sym['storage'] == 3 and '$S' in sym['name'])) and sym['section'] > 0:
                 definitions[sym['name']].append(source)
         rows.append(dict(source=source, flags=flags, source_sha256=digest((ROOT / source).read_bytes())))
     env = os.environ.copy()

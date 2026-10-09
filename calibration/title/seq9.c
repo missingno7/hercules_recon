@@ -14,13 +14,13 @@ typedef struct TitleVtable12 {
     unsigned char unknown_004[0x0c - 0x04];
 } TitleVtable12;
 
-extern TitleObject *g_2acb0;
-extern TitleObject *g_2acc8;
-extern TitleObject *g_2acbc;
-extern int g_2acc0;
-extern int g_2acb8;
-extern int g_2acd0;
-extern int g_2acd8;
+static TitleObject *g_2acb0;
+static TitleObject *g_2acc8;
+static TitleObject *g_2acbc;
+static int g_2acc0;
+static int g_2acb8;
+static int g_2acd0;
+static int g_2acd8;
 extern unsigned short g_25f50[];
 extern int g_2acf0;
 extern int g_2b370;
