@@ -34,7 +34,7 @@ void title_03740(unsigned char *stream, TitleObject *obj, unsigned long count, u
 void title_039b0(unsigned char *stream, TitleObject *obj, unsigned long count, unsigned long y, unsigned long x);
 
 extern int g_2d328;
-extern int (*g_220d0[])(TitleObject *);
+extern void (*g_220d0[8])();
 
 extern int g_2cbe8;
 void title_04470(int a, int b, int c);
@@ -48,8 +48,8 @@ typedef struct TitleTabEntry { unsigned short a_00; unsigned short b_02; } Title
 extern TitleTabEntry g_2d2a0[];
 extern unsigned char g_2df50;
 extern int g_2df44;
-extern char g_22100[];
-extern char g_22108[];
+extern TitleRect g_22100;
+extern unsigned short g_22108[32];
 extern unsigned char g_2dfac;
 extern int g_2bb24;
 unsigned char title_04710(char *p, int b, int c, int d);
@@ -347,14 +347,14 @@ void title_04760(void)
         p->a_00 = 0;
         p++;
     } while (--i != 0);
-    g_2dfac = title_04710(g_22108, 0x7641, 0x20, 5);
+    g_2dfac = title_04710((char *)g_22108, 0x7641, 0x20, 5);
 }
 
 /* f_4870 */
 void title_04870(void)
 {
     if (g_2df50) {
-        title_0c890(g_22100, g_2df44);
+        title_0c890(&g_22100, g_2df44);
         g_2df50 = 0;
     }
 }
@@ -477,7 +477,7 @@ int title_04b70(int idx, int flag)
     size = g_2d324->count_04 * 4 + 4;
     pos = g_2d324->unknown_08;
     if (pos == 0) {
-        pos = (void *)title_0c350(g_2d324->path_00, "\ANIMPSX.BIN");
+        pos = (void *)title_0c350(g_2d324->path_00, "\\ANIMPSX.BIN");
         g_2d324->unknown_08 = pos;
     }
     end = (unsigned long)pos + size;
@@ -499,10 +499,10 @@ int title_04b70(int idx, int flag)
         if (flag != 0) {
             g_engine_interface.context_004->load_complete = title_04e40;
             g_engine_interface.context_004->load_failed = title_04e60;
-            title_0c2a0(g_2d324->path_00, "\ANIMPSX.BIN", 0, g_2d324->table_0c + size, pos);
+            title_0c2a0(g_2d324->path_00, "\\ANIMPSX.BIN", 0, g_2d324->table_0c + size, pos);
             return -1;
         }
-        if (title_0c3f0(g_2d324->path_00, "\ANIMPSX.BIN", g_2d324->table_0c + size, pos) != 0) {
+        if (title_0c3f0(g_2d324->path_00, "\\ANIMPSX.BIN", g_2d324->table_0c + size, pos) != 0) {
             title_04e40();
             return 0;
         }
@@ -583,3 +583,29 @@ void title_048a0(const unsigned char *a, const unsigned char *b)
     title_0c6d0(0);
     title_0c700();
 }
+
+/* Initialized data of this unit (TITLE.DLL .data 0x220d0..0x2214b), in address order; the literals
+   of 0x4b70 follow it. */
+void title_03100();
+void title_17b90();
+void title_17bf0();
+void title_17cb0();
+void title_181e0();
+void title_186e0();
+/* Render-mode emitters, indexed by the object's render mode (read by 0x2b70 and 0x2dc0). */
+void (*g_220d0[8])() = {
+    title_03050, title_03100, title_17b90, title_17bf0, title_17cb0, title_181e0, title_03d10, title_186e0,
+};
+/* Screen clip rectangles of the two display buffers (read by 0x2b70). */
+TitleRect g_220f0[2] = {{0, 0, 0x140, 0xf0}, {0, 0, 0x140, 0xf0}};
+/* VRAM rectangle of the palette upload (0x4870). */
+TitleRect g_22100 = {0x300, 0xe0, 0x100, 0x20};
+/* 32-entry palette uploaded through 0x4710 (0x4760). */
+unsigned short g_22108[32] = {
+    0x0000, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff,
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff,
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff,
+    0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff,
+};
+/* Slot of the database being loaded asynchronously (-1: none; 0x4b70, 0x4e40, 0x4e60). */
+int g_22148 = -1;
