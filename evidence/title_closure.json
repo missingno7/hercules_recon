@@ -388,5 +388,10 @@
   "data": "r097f0.c (unit of 0x9980) defines TitleRec16 g_251e0[28] = {file name, 320, 240, start, length, flags} for \\MV\\M1..M26 and MT3 (CD movie files) and int g_253a0 = 1; the names are its literals in reverse order.",
   "result": "Linked block 776/776 bytes equal, all 28 name pointers resolve to the right strings.",
   "also_seen": ".data 0x254e8..0x257cb (tables read by 0x9a40, 0x9c90, 0xa020, 0xa450, ending with 0xa450's literal) belongs to the 0x9a40 unit; not defined until its readers are reconstructed (element types unknown)."
+ },
+ "communal_alignment": {
+  "date": "2026-10-09",
+  "measured": "Communal arrays align to the largest power of two not above their size, capped at 32 (4->4, 8->8, 12->8, 16->16, 32->32, 64->32); scalars to their size. In-group order follows scripts/symbol_order.py (re-confirmed on this probe). Initialized .data: 8+ byte arrays 8-aligned.",
+  "dll_wide_group": "In the 0x2cbe0 group, the item at 0x2cc00 must be 16-aligned (gap 0x2cbf8..0x2cbff) and end by 0x2cc10 (the 64-byte g_2cc20 needs 32-alignment): a 16-byte aggregate. g_2cc04 (19 users), g_2cc08 and g_2cc0c, and the bytes 0x2cc02/0x2cc03, are its fields, not independent globals. Rewriting their users across six files is pending (masked equality is unaffected: same addresses)."
  }
 }
