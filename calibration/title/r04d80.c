@@ -436,6 +436,30 @@ void title_05ad0(unsigned short id, TitleObject *owner)
 }
 
 
+/* 0x5bc0 160 */
+/* 0x5bc0: stop every playing effect except the given effect id's bank/sample pair and
+   unlink it from its owner. */
+void title_05bc0(unsigned short id)
+{
+    int bank;
+    int sample;
+    int i;
+
+    title_0c6f0();
+    bank = ((unsigned char *)g_engine_interface.context_004)[(id & ~0xf800) * 3 + 0x2f0];
+    sample = ((unsigned char *)g_engine_interface.context_004)[(id & ~0xf800) * 3 + 0x2f1];
+    title_016e0("\n ClearAllSoundFx_Excpt(%d)", id & ~0xf800u);
+    for (i = 0; i < 24; i++) {
+        if (bank != g_2cca0[i].word_0c || sample != g_2cca0[i].unknown_0e) {
+            title_0cc00(i);
+            g_2cca0[i].word_0c = 0xff;
+            g_2cca0[i].unknown_0e = 0;
+            g_2cca0[i].owner_30 = 0;
+        }
+    }
+    title_0c700();
+}
+
 /* ---- f_5c60 ---- */
 
 void title_0c5e0(void);

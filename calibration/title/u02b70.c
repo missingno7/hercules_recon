@@ -37,7 +37,7 @@ extern int g_2d328;
 extern void (*g_220d0[8])();
 
 extern int g_2cbe8;
-void title_04470(int a, int b, int c);
+void title_04470(TitleObject *p, int count, int stride);
 int title_189e0(int a);
 int title_195f0(TitleObject *p);
 void title_01dd0(TitleObject *p, unsigned char *q);
@@ -277,6 +277,71 @@ void title_04f00(int i);
 void title_0c690(void *p, int n);
 void title_0c890(void *p, int n);
 
+/* 0x4470 416 */
+/* 0x4470: link the live objects of one pool (count records of stride bytes, walked from the
+   last) into the per-frame lists: 0x800 objects onto g_2dfb4, 0x10000000 objects onto g_2df48,
+   the rest (once their slot data is resident) onto the draw list g_2dfa4, an attached
+   0x800000 partner first or after it by its 0x4000000 flag; hidden objects are released. */
+extern TitleObject *g_2dfa4;
+extern TitleObject *g_2df48;
+extern TitleObject *g_2dfb4;
+int title_04d80(int idx, int arg2);
+
+void title_04470(TitleObject *p, int count, int stride)
+{
+    TitleObject *q;
+    unsigned long f;
+    int slot;
+
+    p = (TitleObject *)((char *)p + (count - 1) * stride);
+    while (count-- != 0) {
+        if (p->unknown_02e != 0) {
+            f = p->unknown_054;
+            if ((f & 0x80000000) && ((f & 0x20000000) || p->unknown_034 != 0)) {
+                if (f & 0x800) {
+                    p->unknown_068 = g_2dfb4;
+                    g_2dfb4 = p;
+                } else if (f & 0x10000000) {
+                    p->unknown_044 = p->unknown_022;
+                    p->unknown_068 = g_2df48;
+                    g_2df48 = p;
+                } else {
+                    slot = p->unknown_022;
+                    title_04410(p);
+                    if (slot != 0 && (g_26110[slot].state_10 == 3 || title_04d80(p->unknown_022, p->unknown_034) != 0)) {
+                        if (f & 0x800000) {
+                            q = p->unknown_060;
+                            if (q != 0) {
+                                title_04410(q);
+                                q->unknown_000 = p->unknown_000 += p->unknown_014 << 16;
+                                q->unknown_004 = p->unknown_004 += p->unknown_016 << 16;
+                                q->unknown_008 = p->unknown_008 += p->unknown_018 << 16;
+                                if (!(q->unknown_054 & 0x4000000)) {
+                                    q->unknown_068 = g_2dfa4;
+                                    g_2dfa4 = q;
+                                }
+                                p->unknown_068 = g_2dfa4;
+                                g_2dfa4 = p;
+                                if (q->unknown_054 & 0x4000000) {
+                                    q->unknown_068 = g_2dfa4;
+                                    g_2dfa4 = q;
+                                }
+                            }
+                        } else {
+                            p->unknown_068 = g_2dfa4;
+                            g_2dfa4 = p;
+                        }
+                    }
+                }
+            } else {
+                title_04610(p);
+            }
+        }
+        p->unknown_01f = 1;
+        p = (TitleObject *)((char *)p - stride);
+    }
+}
+
 /* ---- MASKED EQUAL functions, ascending RVA ---- */
 /* f_4610 */
 void title_04610(TitleObject *p)
@@ -412,6 +477,27 @@ void title_04a40(const unsigned char *s, int x)
         }
         c = *s++;
     } while (c != 0xff);
+}
+
+/* 0x4aa0 96 */
+/* 0x4aa0: start the asynchronous load of the next requested slot (state 1) after the last one. */
+extern int g_29da0;
+
+void title_04aa0(void)
+{
+    int n;
+
+    if (g_engine_interface.context_004->mode_09c != 0 || g_engine_interface.context_004->blocked_0df != 0)
+        return;
+    for (n = 1; n < 18; n++) {
+        g_29da0++;
+        if (g_29da0 >= 18)
+            g_29da0 = 1;
+        if (g_26110[g_29da0].state_10 == 1) {
+            title_04b70(g_29da0, 1);
+            return;
+        }
+    }
 }
 
 /* f_4b00 */

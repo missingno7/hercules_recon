@@ -252,6 +252,37 @@ void title_0d250(TitleObject *s) {
     s->unknown_074 += rand(0x400);
 }
 
+/* 0xd290 240 */
+/* 0xd290: per-frame update of a password-screen sprite: step its frame down to 0xb6 on odd
+   ticks, run its 0x4a timer down by two, wobble x by a 16-entry table indexed by the y
+   coordinate while it rises by one pixel; when the timer is out, release it and clear its
+   table entry. */
+void title_0d290(TitleObject *p)
+{
+    int wobble[16] = {0, 0, 2, 0, 1, 0, 0, 0, 0, 0, -2, 0, -1, 0, 0, 0};
+
+    if (g_29f98 != 0)
+        return;
+    if (((unsigned char *)g_engine_interface.context_004)[0x38] & 1) {
+        if (p->unknown_034 > 0xb6)
+            p->unknown_034--;
+    }
+    if (p->unknown_04a > 0)
+        p->unknown_04a--;
+    if (p->unknown_04a > 0)
+        p->unknown_04a--;
+    p->unknown_074++;
+    p->unknown_000 += wobble[(p->unknown_004 >> 16) & 15] << 16;
+    p->unknown_004 += 0x10000;
+    if (p->unknown_04a == 0) {
+        if (p) {
+            title_09350(p);
+            p = 0;
+        }
+        title_0cd00((int)p);
+    }
+}
+
 int title_0d380(int a, int b)
 {
     int idx;

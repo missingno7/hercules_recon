@@ -23,7 +23,11 @@ struct TitleObject {
     short unknown_00c;
     short unknown_00e;
     short unknown_010;                /* depth: ordering-table slot */
-    unsigned char unknown_012[0x01c - 0x012];
+    unsigned char unknown_012[0x014 - 0x012];
+    short unknown_014;
+    short unknown_016;
+    short unknown_018;
+    unsigned char unknown_01a[0x01c - 0x01a];
     unsigned char unknown_01c;
     unsigned char unknown_01d;
     unsigned char unknown_01e;
@@ -31,7 +35,9 @@ struct TitleObject {
     unsigned char unknown_020[0x022 - 0x020];
     unsigned char unknown_022;
     unsigned char unknown_023;        /* render mode */
-    unsigned char unknown_024[0x034 - 0x024];
+    unsigned char unknown_024[0x02e - 0x024];
+    unsigned short unknown_02e;
+    unsigned char unknown_030[0x034 - 0x030];
     unsigned short unknown_034;       /* frame */
     unsigned short unknown_036;
     unsigned char unknown_038[0x03a - 0x038];
