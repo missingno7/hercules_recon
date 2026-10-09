@@ -5,15 +5,24 @@
 
 
 static int g_29fc0;
-int g_2c144;
-int g_2c148;
-int g_2c14c;
-int g_2c150;
-int g_2cbc0;
-int g_2cbc4;
-int g_2cbc8;
-int g_2cbcc;
-extern char g_2c160[];
+/* Memory-card communals of this unit (.bss 0x2c144..0x2cbcf), defined here: the software and hardware
+   card events tested by 0x6480/0x6530 (IOE, error, timeout, new card), the card directory (15 entries of
+   40 bytes, walked by 0x65e0), and the load and save card images (0x400 bytes each, written whole by
+   0x6a50/0x6840; the data half starts at +0x200). Names follow the PSX card sample conventions and were
+   chosen so VC5's identifier-hash order reproduces the original layout (scripts/layout_names.py). */
+typedef struct TitleDirEntry {
+    char name[20];
+    long attr;
+    long size;
+    struct TitleDirEntry *next;
+    long head;
+    char system[4];
+} TitleDirEntry;
+int ev0, ev1, ev2, ev3;
+TitleDirEntry card_dir[15];
+int load_image[0x100];
+int save_image[0x100];
+int ev10, ev11, ev12, ev13;
 static int g_29fbc;
 int title_0c610(int a);
 int title_0c600(int a);
@@ -61,8 +70,6 @@ extern void title_01dd0(int a);
 extern void title_02090(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8);
 extern void title_0c2a0(char *s, char *name, int b, int c, int d);
 extern void title_0c8b0(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
-extern int g_2c7c0[];
-extern char g_2c9c0[];
 
 int title_06350(int a)
 {
@@ -100,37 +107,37 @@ int title_063c0(int a)
 int title_06480(void)
 {
     while (1) {
-        if (title_0cc60(g_2c144) == 1) return 0;
-        if (title_0cc60(g_2c148) == 1) return 1;
-        if (title_0cc60(g_2c14c) == 1) return 2;
-        if (title_0cc60(g_2c150) == 1) return 3;
+        if (title_0cc60(ev0) == 1) return 0;
+        if (title_0cc60(ev1) == 1) return 1;
+        if (title_0cc60(ev2) == 1) return 2;
+        if (title_0cc60(ev3) == 1) return 3;
     }
 }
 
 void title_064f0(void)
 {
-    title_0cc60(g_2c144);
-    title_0cc60(g_2c148);
-    title_0cc60(g_2c14c);
-    title_0cc60(g_2c150);
+    title_0cc60(ev0);
+    title_0cc60(ev1);
+    title_0cc60(ev2);
+    title_0cc60(ev3);
 }
 
 int title_06530(void)
 {
     while (1) {
-        if (title_0cc60(g_2cbc0) == 1) return 0;
-        if (title_0cc60(g_2cbc4) == 1) return 1;
-        if (title_0cc60(g_2cbc8) == 1) return 2;
-        if (title_0cc60(g_2cbcc) == 1) return 3;
+        if (title_0cc60(ev10) == 1) return 0;
+        if (title_0cc60(ev11) == 1) return 1;
+        if (title_0cc60(ev12) == 1) return 2;
+        if (title_0cc60(ev13) == 1) return 3;
     }
 }
 
 void title_065a0(void)
 {
-    title_0cc60(g_2cbc0);
-    title_0cc60(g_2cbc4);
-    title_0cc60(g_2cbc8);
-    title_0cc60(g_2cbcc);
+    title_0cc60(ev10);
+    title_0cc60(ev11);
+    title_0cc60(ev12);
+    title_0cc60(ev13);
 }
 
 int title_065e0(int a)
@@ -155,7 +162,7 @@ int title_06670(void)
     switch (title_06430(0)) {
     case 0:
         title_0c5f0();
-        g_29fbc = title_065e0((int)g_2c160);
+        g_29fbc = title_065e0((int)card_dir);
         return 0;
     case 1:
         return -1;
@@ -170,7 +177,7 @@ int title_06670(void)
 
 void title_066c0(void)
 {
-    g_29fbc = title_065e0((int)g_2c160);
+    g_29fbc = title_065e0((int)card_dir);
 }
 
 void title_066e0(void)
@@ -208,14 +215,14 @@ int title_06840(char a1, const void *a2, int a3, int a4, int a5)
     path[0x16] = 'A';
     path[0x15] = 'S';
     for (i = 0; i < 0x100; i++) {
-        g_2c7c0[i] = -1;
+        save_image[i] = -1;
     }
     path[0x13] = a1;
     path[0x17] = 'V';
     path[0x18] = 'E';
     path[0x19] = 0;
-    title_066f0(g_2c7c0, a5);
-    memcpy(g_2c9c0, a2, a3);
+    title_066f0(save_image, a5);
+    memcpy((char *)save_image + 0x200, a2, a3);
 
     if (a4 == 1) {
         fd = _open(path, 0x10100);
@@ -229,7 +236,7 @@ int title_06840(char a1, const void *a2, int a3, int a4, int a5)
     if (fd == -1) {
         return 4;
     }
-    if (_write(fd, g_2c7c0, 0x400) != 0x400) {
+    if (_write(fd, save_image, 0x400) != 0x400) {
         return 4;
     }
     _close(fd);
