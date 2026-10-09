@@ -83,7 +83,7 @@ def compare_object(ours, o_base, orig, lo, hi):
                 plain_bytes=len(plain), plain_bytes_differing=sum(a[i] != b[i] for i in plain))
 
 
-def layout(module, lane, objects, env, tc):
+def layout(module, lane, objects, env, tc, definitions):
     command = [str(tc / 'bin/link.exe'), '/nologo', '/DLL', '/NODEFAULTLIB', '/INCREMENTAL:NO', '/OPT:NOREF',
                '/FORCE:UNRESOLVED', '/OUT:' + str(lane / 'layout.dll'), '/MAP:' + str(lane / 'layout.map'),
                *map(str, objects), *LIBRARIES]
@@ -111,11 +111,30 @@ def layout(module, lane, objects, env, tc):
                           section_offset_ours=hex(base - data['virtual_address']),
                           section_offset_original=hex(lo - o_data['virtual_address']),
                           bytes=compare_object(ours, base, orig, lo, hi)))
+    # Data symbols defined by our sources with an implied original address: per defining object,
+    # do they keep their original offsets relative to each other (one common delta)?
+    implied = {}
+    for r in rows:
+        for name, address in (r.get('link_symbols') or {}).items():
+            implied[name] = int(address, 16)
+    function_symbols = {r['symbol'] for r in rows}
+    objects_data = defaultdict(list)
+    for name, owners in definitions.items():
+        if name in implied and name in symbols and name not in function_symbols and len(owners) == 1:
+            objects_data[owners[0]].append((name, symbols[name] - ours.image_base - implied[name]))
+    data_objects = []
+    for source, items in sorted(objects_data.items()):
+        counts = defaultdict(int)
+        for _, d in items:
+            counts[d] += 1
+        modal, n = max(counts.items(), key=lambda kv: kv[1])
+        data_objects.append(dict(source=source, symbols=len(items), common_delta=hex(modal) if modal >= 0 else '-' + hex(-modal),
+                                 at_common_delta=n, off=[(s, hex(d - modal)) for s, d in items if d != modal][:8]))
     top = sorted(deltas.items(), key=lambda kv: -kv[1])[:8]
     return dict(sections=sections, function_rows_placed=sum(deltas.values()),
                 function_rows_at_original_rva=deltas.get(0, 0),
                 function_rva_deltas_most_common=[(hex(d) if d >= 0 else '-' + hex(-d), n) for d, n in top],
-                data_units=units)
+                data_units=units, data_objects=data_objects)
 
 
 def build(module):
@@ -150,7 +169,7 @@ def build(module):
             classes['data'].append(name)
         else:
             classes['other'].append(name)
-    placed = layout(module, lane, objects, env, tc)
+    placed = layout(module, lane, objects, env, tc, definitions)
     return dict(scope='Diagnostic natural link of canonical TITLE sources; no stubs, aliases or placement; not acceptance.',
                 toolchain=toolchain, libraries=LIBRARIES, sources=rows, link_exit_code=result.returncode, layout=placed,
                 unresolved_count=len(unresolved), unresolved=dict(classes), duplicates=duplicates,
@@ -176,6 +195,9 @@ def main():
     for unit in lay.get('data_units', []):
         print(f"  data unit {unit['source']}: section offset ours {unit['section_offset_ours']} vs original "
               f"{unit['section_offset_original']}; bytes {unit['bytes']}")
+    for obj in lay.get('data_objects', []):
+        print(f"  data in {obj['source']}: {obj['at_common_delta']}/{obj['symbols']} symbols keep their relative offsets"
+              + (f"; off: {obj['off']}" if obj['off'] else ''))
     for name in u.get('other', [])[:40]:
         print('  other:', name)
     for name in report['duplicates'][:40]:

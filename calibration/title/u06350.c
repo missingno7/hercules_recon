@@ -1,16 +1,7 @@
+/* TITLE unit from 0x6350 (hypothesis: its ordinary data 0x23368.. follows the scheduler unit's literals;
+   0x65e0/0x66e0 use the "bu00:" memory-card device string). Functions in RVA order. */
 #include <string.h>
 
-struct title_slot {
-    int id_000;
-    int unknown_004;
-    int unknown_008;
-    int unknown_00c;
-    struct title_slot *next_010;
-    int unknown_014;
-};
-
-extern struct title_slot g_29e18[16];
-extern struct title_slot *g_2cc20[16];
 extern int g_29fc0;
 extern int g_2c144;
 extern int g_2c148;
@@ -37,34 +28,6 @@ int title_06430(int a);
 void title_0c5f0(void);
 int title_0c730(int a);
 
-void title_05f10(struct title_slot *target)
-{
-    int i;
-    unsigned int j;
-    struct title_slot *s;
-
-    for (i = 0, s = g_29e18; s < g_29e18 + 16; i++, s++) {
-        if (s == target) {
-            for (j = 0; j < 16; j++) {
-                if (g_2cc20[j] == s) {
-                    g_2cc20[j] = g_29e18[i].next_010;
-                    g_29e18[i].next_010 = 0;
-                    g_29e18[i].id_000 = 0;
-                    return;
-                }
-            }
-            for (j = 0; j < 16; j++) {
-                if (g_29e18[j].next_010 == s) {
-                    g_29e18[j].next_010 = g_29e18[i].next_010;
-                    g_29e18[i].next_010 = 0;
-                    g_29e18[i].id_000 = 0;
-                    return;
-                }
-            }
-        }
-    }
-}
-
 int title_06350(int a)
 {
     int r;
@@ -84,26 +47,6 @@ int title_06350(int a)
     return r;
 }
 
-int title_06480(void)
-{
-    while (1) {
-        if (title_0cc60(g_2c144) == 1) return 0;
-        if (title_0cc60(g_2c148) == 1) return 1;
-        if (title_0cc60(g_2c14c) == 1) return 2;
-        if (title_0cc60(g_2c150) == 1) return 3;
-    }
-}
-
-int title_06530(void)
-{
-    while (1) {
-        if (title_0cc60(g_2cbc0) == 1) return 0;
-        if (title_0cc60(g_2cbc4) == 1) return 1;
-        if (title_0cc60(g_2cbc8) == 1) return 2;
-        if (title_0cc60(g_2cbcc) == 1) return 3;
-    }
-}
-
 int title_063c0(int a)
 {
     char buf[0x80];
@@ -118,12 +61,32 @@ int title_063c0(int a)
     return 4;
 }
 
+int title_06480(void)
+{
+    while (1) {
+        if (title_0cc60(g_2c144) == 1) return 0;
+        if (title_0cc60(g_2c148) == 1) return 1;
+        if (title_0cc60(g_2c14c) == 1) return 2;
+        if (title_0cc60(g_2c150) == 1) return 3;
+    }
+}
+
 void title_064f0(void)
 {
     title_0cc60(g_2c144);
     title_0cc60(g_2c148);
     title_0cc60(g_2c14c);
     title_0cc60(g_2c150);
+}
+
+int title_06530(void)
+{
+    while (1) {
+        if (title_0cc60(g_2cbc0) == 1) return 0;
+        if (title_0cc60(g_2cbc4) == 1) return 1;
+        if (title_0cc60(g_2cbc8) == 1) return 2;
+        if (title_0cc60(g_2cbcc) == 1) return 3;
+    }
 }
 
 void title_065a0(void)

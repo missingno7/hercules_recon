@@ -249,5 +249,41 @@
     "the exact link position beyond \"between the 0x5bc0 literals and the 0x5e90 unit\""
    ]
   }
+ },
+ "units": {
+  "date": "2026-10-09",
+  "method": "Per object, LINK emits ordinary .data, then that object's literals; .bss blocks follow link order. Literal blocks therefore end objects, and ordinary data after a literal block starts a new object.",
+  "boundaries": [
+   {
+    "between": [
+     "0x5c60",
+     "0x5cc0"
+    ],
+    "evidence": "0x5c60 shares .bss 0x29dac/0x29db8 with 0x50b0 (sound-effect unit). The next .bss block 0x29e08..0x29fb8 belongs to 0x5cc0..0x5fb0: 0x29e08 opens it, 0x5d60..0x5e40 share it with 0x5e90..0x5fb0. The file-name list object sits between the two units in .data.",
+    "confidence": "boundary after 0x5c60 supported; 0x5cc0 placed with the scheduler because 0x29e08 opens its block"
+   },
+   {
+    "between": [
+     "0x5fb0",
+     "0x6350"
+    ],
+    "evidence": "0x5fb0 (928 bytes) ends exactly at 0x6350. The ordinary data of 0x66f0/0x65e0 (0x23368, 0x2348c) follows the scheduler literals (0x232ec..0x2335c), so 0x65e0 is in a later object. 0x6350's .bss (0x29fc0) follows 0x29fbc of 0x6670.",
+    "confidence": "supported; end of the 0x6350 unit not yet bounded (0x6840 literal follows its literals)"
+   }
+  ],
+  "languages": {
+   "scheduler_0x5cc0": "C++: only 2 of 525 per-object .bss addresses are read across distant code (0x29e08, 0x29f98), both in this unit's block. A C file would make shared uninitialized globals communal (the shared tail; also under /Za), and C statics cannot be shared. Its 4 staged functions match as C and C++ alike, at every count 0..63.",
+   "unit_0x6350": "C (0x65e0 matches only as C). The boundary at 0x6350 also separates languages."
+  },
+  "canonical": [
+   "r04d80.c now ends at 0x5c60",
+   "title_proc.cpp: scheduler 0x5d60, 0x5d90, 0x5e40, 0x5f10 with one TitleProc type (pool g_29e18[16], lists g_2cc20[16]) and its six used .bss variables defined",
+   "u06350.c: 0x6350..0x66e0 in RVA order (from r05f10.c, which is removed)"
+  ],
+  "bss_order_rule": {
+   "measured": "Within one object, .bss order of C statics and C++ globals depends on the identifiers only: definition order and extra declarations do not change it, renaming one variable moves it.",
+   "falsified_models": "additive, PJW, multiplicative (2..65599) and shift-xor hashes modulo 2..1099 and powers of two, on bare and underscore-decorated names (best 13/120 positions, chance level).",
+   "consequence": "Reproducing a unit's .bss order needs the order function or names that satisfy it. The scheduler unit keeps 4 of its 6 variables at their original relative offsets. The others move, together with three 4-byte slots no code references (0x29e0c, 0x29e14, 0x29fa0), which are not invented."
+  }
  }
 }
