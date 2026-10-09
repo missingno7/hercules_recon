@@ -1,11 +1,11 @@
 /* TITLE.DLL lane w03 region: functions that reached MASKED EQUAL, ascending RVA. */
 
-extern int g_29570;
-extern int g_29574;
-extern int g_29578;
-extern int g_2957c;
-extern int g_29580;
-extern int g_29584;
+static int g_29570;
+static int g_29574;
+static int g_29578;
+static int g_2957c;
+static int g_29580;
+static int g_29584;
 
 void title_0c330(int value);
 void title_0c6d0(int a);

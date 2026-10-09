@@ -44,7 +44,7 @@ extern int g_2acb8;
 extern int g_2acd0;
 extern int g_2acd8;
 extern unsigned short g_25f50[];
-extern int g_2acf0;
+static int g_2acf0;
 extern int g_2b370;
 extern int g_2cc04;
 extern int g_2cc08;

@@ -81,8 +81,8 @@ extern unsigned long g_29e10;
 extern TitleObj *g_2cc20[];
 
 
-extern unsigned long g_29dac;
-extern unsigned long g_29db8;
+static unsigned long g_29dac;
+static unsigned long g_29db8;
 
 extern char g_29f98[];
 
