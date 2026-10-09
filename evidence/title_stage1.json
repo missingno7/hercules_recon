@@ -354,5 +354,6 @@
   "non_volatile": "Expression statements, (void) casts, debug-style comma expressions, an empty if/switch, a dead int local and inline helpers taking the byte (with or without a call) all drop the load and merge the exit into the common tail: no non-volatile source form found.",
   "shared_field": "TitleObject.unknown_022 declared volatile in a shadow copy of title_screen.h breaks three masked rows of u02b70.c (0x2dc0, 0x4410, 0x4470, which read the field normally) and gives 0x54f0 the same 833-byte result as the local access. A global volatile field is therefore inconsistent with existing matches.",
   "conclusion": "Evidence for a volatile-read codegen mechanism in the 0x54f0 early exit, not for a globally volatile field. Kept as a documented hypothesis; the int-conversion form of the original load and the callee-saved permutation (id & 0x4000 in edi originally, esi in ours) remain open."
- }
+ },
+ "diag_2b70_2026_10_09": "Residue: the g_2cc04/g_2cc08 compare temporary takes ebx in the original (shrink-wrapped push ebp on the loop path; bl=8, ebp=4 inside the loop) but ebp in ours; the g_2df48 call argument is hoisted above the stores in ours; plus the loop scratch rotation. Reversing the 0x40000000 test or the title_195f0 test order does not move it (136 -> 138/144)."
 }
