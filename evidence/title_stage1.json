@@ -10,8 +10,8 @@
   "first_party_end": "0x1d7b0",
   "note": "v3: proven extents (masked/accepted rows) end where the next function starts, and no start may lie inside a proven extent. Adds 0x9480, removes the jump-table span 0x1ab30. A RET-on-boundary + prologue heuristic was tried and rejected: 9 of its 10 extra starts were inside functions whose extents workers had established."
  },
- "masked_rows": 327,
- "masked_bytes": 79040,
+ "masked_rows": 328,
+ "masked_bytes": 79376,
  "cpp_units": [
   "title.08a50",
   "title.08ed0",
@@ -121,7 +121,6 @@
   "0x5cc0": 0,
   "0x5db0": 0,
   "0x5e90": 0,
-  "0x66f0": 10,
   "0x6a50": 0,
   "0x85d0": 0,
   "0x8770": 0,
@@ -282,7 +281,7 @@
   "R1": "The list scheduler orders ready instructions by chain length; a following store through a pointer lengthens the chain behind an earlier stack-local store and keeps it above a call's add esp, while a following global store (or none) lets it sink below (explains 0x164b0's 17 bytes; no source form found that breaks the pointer chain there).",
   "R2": "A call-argument push is hoisted right after its operand is computed, past later stores, unless a register-indexed global store using that register comes first (0x5db0 lever: link the record into the list after filling it).",
   "R3": "Commutative operand order (+, |) is not source order; it flips with unrelated declarations earlier in the TU, non-monotonically (an internal tie-break; consistent with the TU-count fragile rows). 0x4fe0's OR order is of this kind: it needs the unit's real headers, not expression edits or padding.",
-  "R4": "Inline memset setup is always count, zero, destination; 0x66f0 is the only rep stosd in TITLE with the destination first (no source form found).",
+  "R4": "Inline memset setup is always count, zero, destination; 0x66f0 is the only rep stosd in TITLE with the destination first (no source form found). Resolved 2026-10-10: a byte loop (for i < 0x1c: reserved[i] = 0) is converted by VC5 into rep stosd with the destination first (lea edi; mov ecx,7; xor eax,eax), the original order; memset is the count-first intrinsic. In address order the icon stores of 0x66f0 flip base/index (TU tie-break), so it is staged at the end of u06350.c.",
   "R5": "For ctx->field = global the original assigns the value's register first; a separate value local reproduces it in a probe but shifts every later register in 0x5fb0 (B2 stays at 7).",
   "R6_a450_join_remat": {
    "residue": "0xa450 (6 bytes): three constants rematerialized at a join block that uses none of them; original xor edi,edi; mov esi,0xf; mov ebp,1, ours mov esi,0xf; xor edi,edi; mov ebp,1; code after the join identical",
@@ -384,5 +383,6 @@
   ],
   "blocker": "The RLE source pointer src stays in ebx for the whole function; the original keeps it in its parameter slot and loads it into edx only in the found region. Diagnostics: removing src references from the loop nest, the flush calls, or one *src++ frees ebx and restores cur/cnt/pos roles. Extra cur/cnt references flip it only in a 14..20 window, so the weight is capped or per-loop, not a plain count. No natural form found.",
   "other": "quad term order flips to the original with 3+ extra declarations before the function (TU tie-break, R3); the new-cell byte load needs the double conversion form once the roles are right."
- }
+ },
+ "lane_h164b0_2026_10_10": "0x164b0 stays at 17 (candidates/h164b0/). VC5 emits the pending add esp,4 right before the first store through the context pointer; stack-local stores scheduled earlier get the pre-pop displacement. The original pops right after the context load. No tested form moves it: rect as struct or array, &rect, declaration orders, callback forms, stores through pointers, the immediate value, the C++ front end. Moving the GS store before rect[0] puts add esp first but reverses the byte/word store order (31)."
 }

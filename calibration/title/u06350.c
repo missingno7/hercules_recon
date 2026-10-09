@@ -62,7 +62,21 @@ unsigned char g_23388[260] = {
     0, 0, 0, 0, 2, 6, 11, 13, 14, 12, 6, 2, 0, 0, 0, 0,
     0, 0, 0, 0,
 };
-extern void title_066f0(void *buf, int n);
+/* PlayStation memory-card file header (title frame). */
+typedef struct CardHeader {
+    char magic[2];
+    unsigned char icon_flag;
+    unsigned char block_count;
+    unsigned short title[32];
+    unsigned char reserved[0x1c];
+    unsigned short clut[16];
+    unsigned char icon[16][8];
+} CardHeader;
+
+extern unsigned short g_23368[16];
+extern unsigned char g_23389[];
+
+void title_066f0(CardHeader *header, int blank);
 
 
 extern void title_0c620(int x);
@@ -294,4 +308,38 @@ int title_06a50(char a1, void *a2, int a3)
     _close(fd);
     memcpy(a2, (char *)load_image + 0x200, a3);
     return 8;
+}
+
+void title_066f0(CardHeader *header, int blank)
+{
+    unsigned short title[32] = {
+        0xe181, 0x6782, 0x6482, 0x7182, 0x6282, 0x7482, 0x6b82, 0x6482,
+        0x7282, 0xe281, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081,
+        0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081,
+        0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081, 0x4081
+    };
+    int i, row, column;
+    unsigned char *source, *pixel;
+
+    header->magic[0] = 'S';
+    header->magic[1] = 'C';
+    header->icon_flag = 0x11;
+    header->block_count = 1;
+    for (i = 0; i < 0x1c; i++)
+        header->reserved[i] = 0;
+    for (i = 0; i < 16; i++)
+        header->clut[i] = g_23368[i];
+    memcpy(header->title, title, sizeof(title));
+    source = g_23389;
+    for (row = 0; row < 16; row++) {
+        column = 0;
+        pixel = source;
+        source += 16;
+        for (; column < 8; pixel += 2, column++) {
+            if (blank != 0)
+                header->icon[row][column] = 0;
+            else
+                header->icon[row][column] = (*pixel << 4) | pixel[-1];
+        }
+    }
 }
