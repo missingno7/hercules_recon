@@ -32,7 +32,10 @@
   "B2": "ctx->field = global load order after a call (0x5fb0, 7 bytes).",
   "B3": "PC_DLLEngineMain unfolded zero test (0xc1f0, 30 bytes): folded forms, status variable, inline helpers, /Ob2, if(g=0) all falsified.",
   "B4": "SOLVED: screen-handler entry loads come from volatile context fields at +0x5c/+0x5e read into unused locals (only sanctioned volatile use); the argument-area out-handle is an ordinary local that VC5 places there when the request is one typed pointer parameter. Ten screen handlers masked equal with this template.",
-  "B5": "candidate: record-loop anchor register (VC5 anchors strength-reduced loops at the first accessed field).",
+  "B5": {
+   "summary": "candidate: record-loop anchor register (VC5 anchors strength-reduced loops at the first accessed field).",
+   "update_2026_10_09": "0x8770 (C++): a pointer bumped before the load (`p++; x = *p;`) anchors the walking pointer at the base with [p+4] as in the original; `x = p[1]; p++;` folds the +4 into the start address."
+  },
   "B6": {
    "status": "stopped after bounded experiment (2026-10-09)",
    "observation": "VC5 does enregister 0/1 constants in callee-saved registers across calls for ordinary source: 43 masked-equal TITLE functions show it (smallest 0x4b00, 80 bytes: 1 in ebx, 0 in esi). The residue is register-assignment priority, not enregistration itself.",
@@ -197,5 +200,19 @@
   },
   "decision": "Not launching the remaining never-attempted 1.6-7.4 KB functions (0xa450, 0xd910, 0x1c500, 0xf460, 0x9c90) until B6 has a re-entry: both first attempts reached complete control flow and stopped on the same allocation blocker.",
   "drafts": "candidates/title-n1/f_54f0.c, candidates/title-n2/f_10fe0.c (ignored scratch; starting points)"
+ },
+ "context_count_scan": {
+  "date": "2026-10-09",
+  "origin": "Adopted from blood2_recon docs/object_residue.md: VC5 C++ codegen (register choice, operand order, scheduling) depends on the translation-unit symbol count, often periodically or with thresholds.",
+  "tool": "scripts/count_scan.py (diagnostic; prepends N dummy declarations to a scratch copy; never staged or promoted)",
+  "prediction": "Some TITLE near-misses are TU-context residue reproduced by a count shift.",
+  "falsifier": "No near-miss changes over N = 0..255 (0..1023 for 0x10670).",
+  "results": {
+   "c_front_end": "Insensitive. 0x10670 (N 0..1023), 0x1de0 (extern, global, typedef, prototype and struct-tag padding, N 0..159), 0x4aa0, 0x5fb0, 0x13ba0, 0x1a180 (N 0..255): residue constant at every N.",
+   "cpp_front_end": "0x8770 is count-sensitive with thresholds: 43 bytes for N < 48, 41 for 48-56, 39 for 57-59, 37 for N >= 60. Each step is one [base+index] operand-order flip. Prototype padding halves the thresholds (24/29/30), so a prototype counts as 2, as blood2 measured. 0x66f0 changes size above N = 69. 0x2090, 0x2860, 0x3050 are insensitive in 0..255.",
+   "staged_cpp_rows": "All 19 masked-equal C++ rows (u08140.cpp, r189e0.cpp) stay masked equal for every N in 0..255.",
+   "0x8770_follow_up": "At N >= 60 the remaining residue is the B5 loop anchor plus an esi/edi swap. The spelling `p++; reca = *p;` reproduces the original anchor ([edi+4], add edi,4), leaving 21 bytes: the counter and the pointer swap esi and edi. That swap does not respond to count, kind, declaration order, or reuse of the earlier loop counter."
+  },
+  "verdict": "Partly confirmed. In C++ units, base/index order (B1-like) is TU-count context, so C++ near-misses must be judged at realistic counts. The real headers decide that count; padding is never a fix. C units are not count-sensitive, so their residues (B1 in 0x1de0, B6 in 0x10670, B2, B3, B7) are source-form questions, not TU context."
  }
 }

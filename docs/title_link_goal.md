@@ -101,6 +101,35 @@ Three sibling handlers use three different role permutations in the original. Un
 the original 0x10670 must carry more live `buttons` weight than its two visible tests provide.
 The investigation stopped at its bound with that as the re-entry condition.
 
+## Adopted from blood2_recon: translation-unit symbol count
+
+blood2_recon measured that VC5 C++ code generation depends on how many symbols the TU declares
+(`../blood2_recon/docs/object_residue.md`). The affected code is register choice, operand order
+and scheduling, and function size stays the same. One declaration counts 1, a prototype with a
+named parameter counts 2, and each opened file counts 1. `scripts/count_scan.py` ports their
+diagnostic count scan. Results are in `evidence/title_stage1.json` (`context_count_scan`):
+
+- **C units are insensitive.** All C near-misses keep their residue at every count. Their
+  blockers (B1 in 0x1de0, B2, B3, B6, B7) are source-form questions.
+- **C++ units are sensitive.** In 0x8770 each `[base+index]` order flips at a count threshold,
+  so C++ near-misses must be judged at a realistic count. The real headers set that count.
+- **Staged C++ rows are robust.** All 19 masked-equal C++ rows hold for every count in 0..255.
+
+Rules carried over:
+
+- Padding is a diagnostic only, never a fix.
+- Equal size with only register or operand-order differences means "source up to TU context",
+  not a match.
+- Promote a context change only with real evidence, such as a real header or include.
+
+Other blood2 principles that apply to the natural link:
+
+- **Link order.** msdev links in `.dsp` order, which is usually alphabetical by file name.
+- **Identical COMDAT folding.** One address can carry several names, so callee identity is a set
+  of names.
+- **`/YX`.** It shifts the count of C++ TUs.
+- **Rebuild check.** A second clean build must reproduce the objects and the image byte for byte.
+
 ## Preliminary closure (stage 2 groundwork)
 
 `scripts/closure.py` maps the data addresses implied by masked rows back to their functions.
