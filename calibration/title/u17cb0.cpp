@@ -1,6 +1,7 @@
 #include "title_engine.h"
 
 extern "C" {
+#include "title_gpu.h"
 
 
 typedef struct TitleRecord {      /* resource slot: file path and entry count */
@@ -19,8 +20,19 @@ typedef struct TitlePair8 {
     unsigned int a_00;
     unsigned int b_04;
 } TitlePair8;
+typedef struct TitleSVec {        /* PSX SVECTOR */
+    short vx;
+    short vy;
+    short vz;
+    short pad;
+} TitleSVec;
+typedef struct TitleXY {
+    int x;
+    int y;
+} TitleXY;
 typedef struct TitleObj {
-    unsigned char unknown_000[0x0c];
+    TitleXY pos_000;
+    unsigned char unknown_008[0x0c - 0x08];
     unsigned short w_0c;
     unsigned short w_0e;
     short w_10;
@@ -30,14 +42,19 @@ typedef struct TitleObj {
     unsigned char b_021;
     unsigned char b_022;
     unsigned char byte_023;
-    unsigned char unknown_024[0x34 - 0x24];
+    unsigned char unknown_024[0x2c - 0x24];
+    unsigned short w_02c;
+    unsigned char unknown_02e[0x34 - 0x2e];
     unsigned short w_034;
     unsigned short w_036;
     unsigned char unknown_038[0x3a - 0x38];
     unsigned short w_03a;
     unsigned short w_03c;
     unsigned short w_03e;
-    unsigned char unknown_040[0x4c - 0x40];
+    unsigned char unknown_040[0x46 - 0x40];
+    unsigned short w_046;
+    unsigned char unknown_048[0x4a - 0x48];
+    unsigned short w_04a;
     int dword_04c;
     unsigned char unknown_050[0x54 - 0x50];
     unsigned int flags_054;
@@ -46,10 +63,7 @@ typedef struct TitleObj {
     unsigned char unknown_060[0x68 - 0x60];
     struct TitleObj *next_068;
     unsigned char unknown_06c[0x70 - 0x6c];
-    unsigned short w_070;
-    unsigned short w_072;
-    unsigned short w_074;
-    short w_076;
+    TitleSVec rot_070;
     unsigned char unknown_078[0x120 - 0x78];
     unsigned int *list_120;
 } TitleObj;
@@ -154,6 +168,114 @@ void title_0c7f0(void *p);
 void title_0c810(void *p);
 void title_0c850(void *p);
 int title_196c0(void *unused);
+
+typedef struct TitleSpanXY {
+    int x;
+    int y;
+} TitleSpanXY;
+typedef struct TitleSpan {         /* 16-byte child record of a group object */
+    TitleSpanXY pos_000;
+    int z_008;
+    unsigned short id_00c;
+    unsigned short flags_00e;
+} TitleSpan;
+typedef struct TitleTile {         /* 12-byte single-pixel tile primitive (code 0x68) */
+    unsigned long *next_000;
+    unsigned char r0, g0, b0, code;
+    unsigned long xy_008;
+} TitleTile;
+
+extern TitleObj *g_2dfa0;
+extern TitleTile *g_2df40;
+int title_195f0(TitleObj *o);
+void title_0c790(void);
+void title_02cc0(TitleObj *o);
+void title_02dc0(TitleObj *o);
+int title_19470(char *obj, int *vec);
+int title_194e0(char *obj, int *vec, int k);
+
+void title_17cb0(TitleObj *obj)
+{
+    unsigned int flags;
+    int z;
+    int xy[2];
+    TitleSpan *span;
+    int acc;
+    unsigned long *ot;
+    int count;
+    int r;
+    unsigned short id;
+    unsigned short *e;
+
+    flags = obj->flags_054;
+    if (g_26110[obj->b_022].type_10 != 3) {
+        if (title_04d80(obj->b_022, obj->w_034) == 0) {
+            return;
+        }
+    }
+    r = title_195f0(obj);
+    if (r == -1) {
+        obj->flags_01f |= 8;
+        return;
+    }
+    title_196f0(obj, r);
+    title_0c790();
+    span = (TitleSpan *)obj->stream_05c - 1;
+    count = obj->w_036;
+    g_2dfa0->byte_023 = 0;
+    g_2dfa0->w_02c = obj->w_02c;
+    acc = 0;
+    g_2dfa0->b_022 = obj->b_022;
+    g_2dfa0->w_04a = obj->w_04a;
+    if (flags & 0x100000) {
+        g_2dfa0->rot_070 = obj->rot_070;
+    } else {
+        g_2dfa0->rot_070.vx = g_2dfa0->rot_070.vy = g_2dfa0->rot_070.vz = 0;
+    }
+    z = obj->rot_070.vz;
+    ot = &g_2cc04->ot[TITLE_OT_SIZE - 2 - obj->w_10];
+    while (count--) {
+        span++;
+        if (span->flags_00e & 0x8000) {
+            title_19470((char *)xy, (int *)span);
+            g_2df40->xy_008 = xy[0];
+            *(unsigned long *)&g_2df40->r0 = 0xffffff;
+            g_2df40->code = 0x68;
+            g_2df40->next_000 = (unsigned long *)*ot;
+            *ot = (unsigned long)g_2df40;
+            g_2df40++;
+        } else if (span->id_00c != 0) {
+            if (flags & 0x200000) {
+                if (flags & 0x400000) {
+                    title_0c790();
+                    acc += span->z_008;
+                } else {
+                    acc = span->z_008;
+                }
+                g_2dfa0->rot_070.vz = z - acc;
+                title_194e0((char *)&g_2dfa0->w_0c, (int *)span, acc);
+            } else {
+                if (flags & 0x400000) {
+                    title_0c790();
+                }
+                title_19470((char *)&g_2dfa0->w_0c, (int *)span);
+            }
+            id = span->id_00c;
+            e = (unsigned short *)g_26110[g_2dfa0->b_022].table_0c + (short)(id * 2);
+            if (e[0] != 0) {
+                g_2dfa0->w_034 = id;
+                g_2dfa0->flags_054 = (obj->flags_054 & 0xffff0000) | span->flags_00e;
+                if ((g_2dfa0->flags_054 & 0x600) == 0x600) {
+                    g_2dfa0->pos_000.x = obj->pos_000.x + span->pos_000.x;
+                    g_2dfa0->pos_000.y = span->pos_000.y + obj->pos_000.y;
+                }
+                g_2dfa0->w_046 = e[1];
+                title_02cc0(g_2dfa0);
+                title_02dc0(g_2dfa0);
+            }
+        }
+    }
+}
 
 struct title_pos {
     short x;
@@ -273,7 +395,7 @@ int title_18a90(TitleObj *o)
             return 0;
         }
     }
-    title_196f0(o, o->w_076);
+    title_196f0(o, o->rot_070.pad);
     title_18bf0(o, q, make_colour(o));
     return 0;
 }
@@ -541,9 +663,9 @@ void title_196f0(TitleObj *o, int v)
     int s;
     unsigned short z, y, x;
 
-    src[0] = (short)(o->w_070 << 2);
-    src[1] = (short)(o->w_072 << 2);
-    src[2] = (short)(o->w_074 << 2);
+    src[0] = (short)(o->rot_070.vx << 2);
+    src[1] = (short)(o->rot_070.vy << 2);
+    src[2] = (short)(o->rot_070.vz << 2);
     title_0ca40(src, m);
     if (o->flags_054 & 0x80) {
         z = o->w_03e;
