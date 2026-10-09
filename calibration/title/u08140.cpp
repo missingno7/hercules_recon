@@ -32,15 +32,23 @@ typedef struct Rec8 {
 } Rec8;
 
 typedef struct TitleCell94 {
-    unsigned char unknown_00[0x2e];
+    unsigned char unknown_00[0x22];
+    unsigned char b22;
+    unsigned char unknown_23[0x0b];
     unsigned short w2e;
-    unsigned char unknown_30[0x64];
+    unsigned char unknown_30[0x20];
+    unsigned long d50;
+    unsigned char unknown_54[0x40];
 } TitleCell94;
 
 typedef struct TitleRecEC {
-    unsigned char unknown_00[0x2e];
+    unsigned char unknown_00[0x22];
+    unsigned char b22;
+    unsigned char unknown_23[0x0b];
     unsigned short w2e;
-    unsigned char unknown_30[0xbc];
+    unsigned char unknown_30[0x20];
+    unsigned long d50;
+    unsigned char unknown_54[0x98];
 } TitleRecEC;
 
 typedef struct TitleObj {
@@ -81,7 +89,9 @@ typedef struct TitleRec {
     unsigned short field_34;
     unsigned char unknown_36[0x14];
     unsigned short w4a;
-    unsigned char unknown_4c[0x18];
+    unsigned char unknown_4c[4];
+    unsigned long d50;
+    unsigned char unknown_54[0x10];
     unsigned long d64;
     unsigned char unknown_68[0x2c];
     unsigned char b94, b95, b96, b97;
@@ -407,8 +417,29 @@ void title_0a450(TitleProc *self);
 void title_016f0(TitleProc *self);
 void title_164b0(TitleProc *self);
 
+/* Per-type handler tables (one row per object type; 0x17ad0 calls fn_00 after allocation). */
+typedef struct TitleDisp8 {
+    void (*fn_00)(void *p);
+    void (*fn_04)(void *p);
+} TitleDisp8;
+
+typedef struct TitleDisp12 {
+    void (*fn_00)(void *p);
+    void (*fn_04)(void *p);
+    void (*fn_08)(void *p);
+} TitleDisp12;
+
+extern TitleDisp12 *g_2bf2c;
+extern TitleDisp8 *g_2bf34;
+extern TitleDisp8 *g_2bf54;
+extern long g_2c0a0[];
+extern unsigned char g_2c080[];
+extern int g_2bff4;
+extern int g_2bff8;
+
 /*@FUNCS@*/
 
+/*@BEGIN_FUNC 0x7510 _title_07510*/
 /* TITLE.DLL 0x7510 (3120 bytes): main menu process (TitleProc callback). Started by the title
    controller 0x164b0 and by 0x16f0 with title_05db0(title_07510, 0, 1, 0). Phases: 1 load menu
    pictures, 10 wait for the menu1 slot (first entry: Hercules walk-in), 2 menu loop (cursor
@@ -419,7 +450,6 @@ void title_164b0(TitleProc *self);
    same object, so 0x7510 belongs to the C++ object-system unit (unit start 0x7510, not 0x8140).
    Lever: case 7's entry 2 breaks to the shared tail (compiler duplicates it); every other tail
    is explicit. */
-/*@BEGIN_FUNC 0x7510 _title_07510*/
 void title_07510(TitleProc *self)
 {
     int pick;
@@ -822,7 +852,6 @@ void title_07510(TitleProc *self)
 }
 /*@END_FUNC*/
 
-
 /*@BEGIN_FUNC 0x8140 _title_08140*/
 void title_08140(void)
 {
@@ -936,6 +965,107 @@ void title_085b0(void)
     title_08c90();
     title_09090();
     title_09480();
+}
+/*@END_FUNC*/
+
+/*@BEGIN_FUNC 0x85d0 _title_085d0*/
+/* TITLE.DLL 0x85d0: per-frame update pass. Clears g_2bff4/g_2bff8, snapshots the load state of
+   the 18 resource slots into g_2c080, then walks the low slot ranges of the 0x94, 0xec and 0x134
+   pools: a live record whose resource slot (+0x22) is in state 4 is released (0x9350, 0x8f50,
+   0x8ae0); otherwise flag 1 at +0x50 calls its type handler fn_04. */
+void title_085d0(void)
+{
+    int i;
+    unsigned short t;
+    TitleRec *recc;
+    TitleRecEC *recb;
+    TitleCell94 *reca;
+
+    g_2bff4 = 0;
+    g_2bff8 = 0;
+    for (i = 0; i < 18; i++)
+        g_2c080[i] = (unsigned char)g_26110[i].state_10;
+    for (i = g_2bf44; i < g_2bf6e; i++) {
+        reca = &g_2dfa0[i];
+        t = reca->w2e;
+        if (t != 0) {
+            if (g_2c080[reca->b22] == 4)
+                title_09350((TitleObj *)reca);
+            else if (reca->d50 & 1)
+                g_2bf54[t & 0xfff].fn_04(reca);
+        }
+    }
+    for (i = g_2bf62; i < g_2bf58; i++) {
+        recb = &((TitleRecEC *)g_2df4c)[i];
+        t = recb->w2e;
+        if (t != 0) {
+            if (g_2c080[recb->b22] == 4)
+                title_08f50((TitleObj *)recb);
+            else if (recb->d50 & 1)
+                g_2bf34[t & 0xfff].fn_04(recb);
+        }
+    }
+    for (i = g_2bf32; i < g_2bf60; i++) {
+        recc = &((TitleRec *)g_2d320)[i];
+        t = recc->w2e;
+        if (t != 0) {
+            if (g_2c080[recc->b22] == 4)
+                title_08ae0((TitleObj *)recc);
+            else if (recc->d50 & 1)
+                g_2bf2c[t].fn_04(recc);
+        }
+    }
+}
+/*@END_FUNC*/
+
+/*@BEGIN_FUNC 0x8770 _title_08770*/
+/* TITLE.DLL 0x8770: second per-frame pass over the low (non-0x8000) slot ranges of the three
+   pools. Records with flag 2 at +0x50 get their type handler (0x134: g_2bf2c[t].fn_08,
+   0xec/0x94: fn_04); 0x94 records with flag 0x10000 are queued in g_2c0a0 (count in [0]) and
+   replayed after the pools. Lever: the replay loop increments k before reading g_2c0a0[k]. */
+void title_08770(void)
+{
+    int i;
+    int k;
+    unsigned short t;
+    TitleRec *recc;
+    TitleRecEC *recb;
+    TitleCell94 *reca;
+
+    g_2c0a0[0] = 0;
+    for (i = g_2bf32; i < g_2bf60; i++) {
+        recc = &((TitleRec *)g_2d320)[i];
+        t = recc->w2e;
+        if (t != 0) {
+            if (recc->d50 & 2)
+                g_2bf2c[t].fn_08(recc);
+        }
+    }
+    for (i = g_2bf62; i < g_2bf58; i++) {
+        recb = &((TitleRecEC *)g_2df4c)[i];
+        t = recb->w2e;
+        if (t != 0) {
+            if (recb->d50 & 2)
+                g_2bf34[t & 0xfff].fn_04(recb);
+        }
+    }
+    for (i = g_2bf44; i < g_2bf6e; i++) {
+        reca = &g_2dfa0[i];
+        t = reca->w2e;
+        if (t != 0) {
+            if (reca->d50 & 0x10000) {
+                g_2c0a0[0]++;
+                g_2c0a0[g_2c0a0[0]] = (long)reca;
+            }
+            if (reca->d50 & 2)
+                g_2bf54[t & 0xfff].fn_04(reca);
+        }
+    }
+    for (k = 0; k < g_2c0a0[0]; ) {
+        k++;
+        reca = (TitleCell94 *)g_2c0a0[k];
+        g_2bf54[reca->w2e & 0xfff].fn_04(reca);
+    }
 }
 /*@END_FUNC*/
 
