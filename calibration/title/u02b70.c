@@ -57,7 +57,7 @@ unsigned char title_046b0(unsigned short key, unsigned int f);
 void title_047d0(int a, int v, int b);
 void title_042d0(TitleObject *p);
 TitleTabEntry *title_047a0(TitleObject *c);
-extern int g_29d94;
+static int g_29d94;
 extern int g_2d32c;
 extern unsigned short g_2df60[0x20];
 void title_0c890(void *p, int n);
@@ -481,7 +481,7 @@ void title_04a40(const unsigned char *s, int x)
 
 /* 0x4aa0 96 */
 /* 0x4aa0: start the asynchronous load of the next requested slot (state 1) after the last one. */
-extern int g_29da0;
+static int g_29da0;
 
 void title_04aa0(void)
 {
@@ -608,7 +608,7 @@ int title_04b70(int idx, int flag)
    part list, after the slot's 8-byte header entry (d + d[0].w * 4 + 4) is copied to *g_2bb50. */
 extern long *g_2bb50;
 extern signed char g_2cc02;
-extern int g_29d90;
+static int g_29d90;
 int title_0c310(int a);
 void title_04f40(const unsigned char *a, const unsigned char *b);
 void title_04a10(const unsigned char *a, const unsigned char *b);
