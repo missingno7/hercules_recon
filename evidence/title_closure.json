@@ -359,5 +359,11 @@
   "structure": "u08140.cpp defines .data 0x23668..0x242e7: five 0xffff-terminated frame tables of 292 shorts (0x23668, 0x238b0, 0x23af8, 0x23d40, 0x23f88) and offset tables g_241d0[16], g_241f0[32], g_24230[36], g_24278[32], g_242b8[24]. The former symbols 0x241a4, 0x241e2 and 0x24202 are entries (g_23f88[i + 270], g_241d0[i + 9], g_241f0[i + 9]) because they are not 8-aligned.",
   "result": "Linked block 3200/3200 bytes equal and 10/10 tables at their original relative offsets; all 14 rows masked equal. The first attempt with eleven separate arrays shifted 6 tables by 4..8 bytes, which is what exposed the alignment rule.",
   "values": "Table contents are recovered initializers (like string literals); their meaning is not reconstructed yet."
+ },
+ "unit_0x16300_data": {
+  "date": "2026-10-09",
+  "boundary": "0x164b0 (5664 bytes) ends exactly at 0x17ad0 and the next object's ordinary data (0x260c0, used by 0x17f50) follows this unit's literal, so 0x17ad0/0x17b90/0x17bf0 move to r17ad0.c (all masked equal, including the count-sensitive 0x17bf0, which also stops sharing a symbol count with this data).",
+  "data": "r16110.c defines .data 0x25f50..0x2609f in address order: short g_25f50[90] (frame table read by every sequence-screen helper), struct TitleEnginePath g_26008[12] (directory/name pairs per level), int g_26068[14].",
+  "result": "Linked block: 240/240 plain bytes equal. The 24 pointer slots differ because their strings are folded literals whose first copy belongs to the 0x6350 unit (code not reconstructed yet); the same placement shifts this unit's own literal by 0x30."
  }
 }

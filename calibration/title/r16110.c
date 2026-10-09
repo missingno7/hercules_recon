@@ -50,6 +50,35 @@ extern int g_2cc04;
 extern int g_2cc08;
 extern char g_29128[];
 extern char *g_engine_paths[];  /* title_files.c */
+/* Initialized data of this unit (TITLE.DLL .data 0x25f50..0x2609f), in address order. The sequence
+   screens read g_25f50; the engine path pairs share their strings with the 0x6350 unit (folded literals). */
+short g_25f50[90] = {
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 10, 10, 10,
+    10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+    10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+    10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, -1, 10,
+    10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+    10, 10, 10, 10, 10, 10, 10, 10, 10, -1,
+};
+struct TitleEnginePath { char *dir; char *name; };
+struct TitleEnginePath g_26008[12] = {
+    {"\\SRC1\\ENGINE\\", "ENGINE1"},
+    {"\\SRC1\\ENGINE\\", "ENGINE1"},
+    {"\\SRC3\\ENGINE\\", "ENGINE3"},
+    {"\\SRC1\\ENGINE\\", "ENGINE1"},
+    {"\\SRC1\\ENGINE\\", "ENGINE1"},
+    {"\\SRC1\\ENGINE\\", "ENGINE1"},
+    {"\\SRC1\\ENGINE\\", "ENGINE1"},
+    {"\\SRC1\\ENGINE\\", "ENGINE1"},
+    {"\\SRC3\\ENGINE\\", "ENGINE3"},
+    {"\\SRC1\\ENGINE\\", "ENGINE1"},
+    {"\\SRC3\\ENGINE\\", "ENGINE3"},
+    {"\\SRC1\\ENGINE\\", "ENGINE1"},
+};
+int g_26068[14] = {
+    1, 1, 1, 2, 1, 3, 2, 4, 3, 5, 5, 6, 5, 7,
+};
+
 extern TitleVtable8 *g_2bf34;
 extern TitleVtable8 *g_2bf54;
 extern TitleVtable12 *g_2bf2c;
@@ -137,82 +166,3 @@ void title_16470(void)
     title_0c430(0x19, 2);
 }
 
-TitleObject *title_17ad0(int a0, int a1, int a2, int size, int a4)
-{
-    TitleObject *obj;
-
-    if (size & 0x6000) {
-        if (size & 0x4000) {
-            obj = title_08ed0(a0, a1, a2, size);
-            if (obj != 0) {
-                g_2bf34[size & 0xfff].fn(obj);
-            }
-        } else {
-            obj = title_092e0(a0, a1, a2, size);
-            if (obj != 0) {
-                g_2bf54[size & 0xfff].fn(obj);
-            }
-        }
-    } else {
-        obj = title_08a50(a0, a1, a2, size);
-        if (obj != 0) {
-            g_2bf2c[size & 0xfff].fn(obj);
-        }
-    }
-    return obj;
-}
-
-void title_17b90(TitleObject *obj)
-{
-    int *list;
-    int count;
-    TitleObject *item;
-
-    if (title_195f0(obj) == -1) {
-        obj->unknown_01f |= 8;
-        return;
-    }
-    list = obj->unknown_120;
-    count = *list++;
-    while (count--) {
-        item = (TitleObject *)*list++;
-        title_04410(item);
-        title_195f0(item);
-        title_02dc0(item);
-    }
-}
-
-void title_17bf0(TitleObject *obj)
-{
-    unsigned short buf[4];
-    unsigned char out[0x20];
-    int r;
-    int *list;
-    int count;
-    TitleObject *item;
-
-    r = title_195f0(obj);
-    if (r == -1) {
-        obj->unknown_01f |= 8;
-        return;
-    }
-    list = obj->unknown_120;
-    count = *list;
-    list++;
-    buf[0] = obj->unknown_070 << 2;
-    buf[1] = r / 2 + (obj->unknown_072 << 2);
-    buf[2] = obj->unknown_074 << 2;
-    title_0ca40(buf, out);
-    title_0c7d0(out);
-    title_0c790();
-
-    while (count--) {
-        item = (TitleObject *)*list++;
-        if (item != 0) {
-            if (title_19470(&item->unknown_00c, item) != 0) {
-                title_04410(item);
-                title_02dc0(item);
-            }
-        }
-    }
-}
