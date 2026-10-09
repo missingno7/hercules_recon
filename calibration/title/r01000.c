@@ -252,7 +252,11 @@ void title_016e0(const char *format, ...)
 {
 }
 
-extern char g_29128[];
+/* Shared buffer at .bss 0x29128 (passed by address to the file loaders by many units, and the
+   path of slot 0 in g_26110). Zero-initialized globals follow the file statics in VC5's per-object
+   .bss, so this definition lands exactly after the unit's private block (0x29128), where the next
+   unit's block starts at 0x2912c. Size 1..4 bytes and the initializer spelling are not evidenced. */
+char g_29128[4] = {0};
 void title_0c990(int a, int b);
 void title_0c9c0(int a, int b);
 void title_0c560(int a, int b);
