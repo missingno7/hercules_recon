@@ -19,6 +19,11 @@ int g_29f98;                    /* read across the DLL */
 unsigned long g_29f9c;          /* scheduler ticks */
 int g_29fa4;
 
+/* Initialized data of this unit (TITLE.DLL .data 0x23270..0x232eb), in address order: frame/delay
+   tables read by 0x1a7c0 and 0x8320 (terminated by -1). Each array takes its extent to the next one. */
+signed char g_23270[32] = {0, 6, 1, 3, 2, 3, 3, 3, 4, 3, 5, 3, 6, 3, 7, 14, 6, 3, 5, 3, 4, 3, 3, 3, 2, 3, 1, 3, 0, 6, -1, 0};
+signed char g_23290[32] = {0, 0, 1, 0, 8, 1, 9, 1, 10, 1, 11, 1, 12, 1, 13, 1, 2, 1, 3, 1, 4, 1, 5, 1, 6, 1, 7, 1, -1, 0, 0, 0};
+short g_232b0[30] = {11, 11, 11, 12, 12, 12, 13, 13, 13, 14, 14, 14, -1, 0, 0, 0, 15, 15, 15, 16, 16, 16, 17, 17, 17, 18, 18, 18, -1, 0};
 extern TitleProc *g_2cc20[16];
 extern int g_2cc04;
 

@@ -377,5 +377,10 @@
   "unit": "Object 0x17cb0..0x197ef: its ordinary data 0x260c0..0x26277 is read by 0x17f50..0x196f0 and its literals (the slot paths, reverse order) end at 0x264ef. It contains the C++-only 0x18a90, so it is a C++ unit; r18680.c, r189e0.cpp and r19470.c merge into u17cb0.cpp (all 11 rows masked equal as C++). make_colour (0x189a0, exact) stays in src/title/pilot.c.",
   "data": "int g_260c0[8], int g_260e0[4], void *g_260f0[8] (NULL-terminated handler table: 0x18f80, 0x18f80, 0x19040, 0x19120, 0x18f80, 0x190d0, 0x19270), TitleRecord g_26110[18] (resource slots: path and entry count; slot 0 points at the shared name buffer 0x29128; paths menu1, optns, pswd, seq1..seq10, tallyup, joypad, lsgame, cheats).",
   "result": "Linked block 1072 bytes: 972/972 plain bytes and all 17 path pointers equal; the 8 pointers to functions and to 0x29128 point outside the block and follow global layout."
+ },
+ "scheduler_tables": {
+  "date": "2026-10-09",
+  "data": "title_proc.cpp defines .data 0x23270..0x232eb (signed char g_23270[32], g_23290[32], short g_232b0[30]): frame/delay tables read by 0x1a7c0 and 0x8320, placed before the scheduler literals.",
+  "result": "Linked block 124/124 bytes equal. With title_files.c linked before the scheduler unit (link_before 0x5cc0), the two adjacent objects keep their original relative distance (0xfe8): the first inter-object layout match."
  }
 }
