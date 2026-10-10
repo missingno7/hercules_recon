@@ -2,9 +2,10 @@
    0x3da0, 0x41d0, 0x48a0, 0x4b70) and its .data (0x220d0..0x2214b with 0x4b70's literals last).
    Consolidated from the region files r02a80.c, r03d10.c and r04610.c; functions in address order.
    TU-context hypothesis (owner-approved ruling 2026-10-09, decided per unit): the unit is compiled with
-   <windows.h> first. Measured with every function of the unit present (0x2b70 included): all 24 rows match
-   only with the full header (none: 0x3da0 differs by 1 byte; WIN32_LEAN_AND_MEAN: 6 bytes). Recorded as a
-   hypothesis about the translation unit, not as proven source. */
+   <windows.h> first. All 24 current rows match with it (none: 0x3da0 differs by 1 byte; WIN32_LEAN_AND_MEAN: 6
+   bytes). The headers act as phases of a declaration-count tie-break (evidence/title_stage1.json,
+   tu_count_phase_2026_10_10), so this records TU context that reproduces the rows, not which header the
+   original included; re-decide once the four emitters are final. */
 #include <windows.h>
 #include "title_engine.h"
 #include "title_screen.h"
