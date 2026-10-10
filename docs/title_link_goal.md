@@ -358,3 +358,17 @@ the fields themselves, and the symbol check now rejects that pattern.
 - **Canonicalised forms (no effect).** Constant spellings, OR-term order (all 120 orders of
   `getTPage`), address association, a tail duplicated where VC5 already merges it, inline
   helpers with swapped parameter order, and the language of the unit for 0x3da0/0xa020.
+
+## Register model and TU-count phase (2026-10-10)
+
+- **Callee-saved priority.**
+  - VC5 ranks candidates by W(v) = refs x loop frequency x N(B), where N(B) is the number of distinct candidates in the block. Structured loops weigh 2^(depth+1).
+  - It then assigns registers greedily: ranges containing a call get esi, edi, ebx, ebp; call-free ranges try eax, ecx, edx first. A byte candidate takes ebx.
+  - Applying this model matched 0x3da0 (region-local RLE cursor), 0x2b70 and 0x193e0. It brought 0x186e0 to 2 bytes.
+- **Scratch registers.** Scratch temporaries are allocated round-robin (eax -> ecx -> edx). Call arguments are allocated right to left.
+- **TU-count phase.**
+  - Several tie-breaks depend on one counter: the number of declarations before the code.
+    - In u02b70.c, 0x3da0 flips with period 16.
+    - The 0x3740 product form flips with period 32.
+  - `<windows.h>` and its lean variant shift that phase.
+  - A header that makes a unit's rows match is therefore TU context, not proof of the original header. Re-decide it when the unit's remaining functions are final.
