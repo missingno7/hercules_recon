@@ -467,5 +467,22 @@
   "ownership": "0x10fe0 uses the unit statics (save records g_2aa50[3], g_2a9e4, g_2a9d8, g_2aa44, g_2aa28) and owns g_2aa34/g_2aa38[3]/g_2ab0c; 0x12070/0x121d0 operate on the same records, are called by 0x10fe0, and fill the code gap up to seq1 (code 0x12280, .bss from 0x2ab1c).",
   "bss_block": "0x2a9c8..0x2ab18, 33 statics; unreferenced gaps at 0x2a9d4, 0x2a9e0, 0x2a9f8..0x2aa00, 0x2aa10 (no direct reference in TITLE), so layout names are not applied yet.",
   "types": "TitlePadMap (eight button masks) now names the 16-byte copies at context +0x6c and record +0x20; it stays file-local because adding it to a shared header shifts count-sensitive units."
+ },
+ "full_link_2026_10_10": {
+  "source": "lane wlink (candidates/wlink/: assemble.py, link.py, analyze.py; diagnostic, nothing staged)",
+  "assembly": "All 362 first-party function spans present (340 rows + 22 best drafts) in their owning units; 31 objects; the six FUNCTION_MATCH rows outside calibration (pilot.c 0x97b0/0x98a0/0x189a0/0xcee0, object_commands.c 0x9770, title_handlers.c 0xd410) and title_control.c 0x4a10/0x6430 stay byte-exact inside their units.",
+  "result": ".text 133292 vs 130287; 57 of 362 functions at the original RVA (canonical link: 21). First divergence 0x5a70; every shift step equals the size error of the preceding draft: 0x54f0 -32, 0x9c90 -16, 0x186e0 -16 (in the full unit), 0x1a2c0 +16 (RECONSTRUCTED row in calibration/title_digits.c, 240 vs 224). No inter-object alignment, link-order or unit-boundary errors; every unit is internally contiguous. Strict link: 108 unresolved, all data (16 initialized without owner, 4 .bss, 88 communal), no functions, no duplicates.",
+  "raw_equal": "7 of the 57 aligned functions are raw-equal in the forced image (0x16e0, 0x1dd0, 0x3d10, 0x4410, 0x4610, 0x4710, 0x4a10, all relocation-free); the rest differ in REL32 calls to shifted code and absolute slots (data at other offsets, unresolved communals, .data base 0x23000 vs 0x22000 because .text is too large).",
+  "link_flags_evidence": "With /OPT:REF /OPT:NOICF /EXPORT:PC_DLLEngineMain and OLDNAMES.LIB after LIBCMT (u06350.c calling open/read/write/close): .rdata 925 = 925 (export directory at +0x350), .idata 1224 = 1224, the library block exact (rand first, then __CRT_INIT@12; 71/79 contributions at their original offsets; rand..end of .text 0x353f in both). The original lacks srand/_exit/__chsize/__setmode (=> /OPT:REF) and keeps identical stubs 0x16e0/0x1dd0 apart (=> NOICF; plain /OPT:REF folds them in LINK 5.00.7022). POSIX names through OLDNAMES are an inference.",
+  "blockers": [
+   "draft size errors (0x54f0, 0x9c90, 0x186e0, 0x1a2c0) are the only causes of .text shift",
+   "0xa450 needs TitlePadMap.button short to be size-correct in the full unit (canonical rows pass with short)",
+   "completing a unit changes earlier drafts (declaration-count phase): 0x186e0 2 -> 330 in the full u17cb0, 0x17cb0 regresses 2 bytes, 0x18bf0 143 -> 154",
+   "u02b70.c canonical source order is not address order (0x4870 before 0x47a0/0x47d0, 0x48a0 last); address order keeps all rows masked equal",
+   "missing data object after r1c430: object-system configuration/handler tables .data 0x26770..0x269c8, the only references to 0xd910/0xd250/0xd290/0xd410/0xd440 (under /OPT:REF 14 u0cc90 functions would be stripped)",
+   "unowned initialized data: 152 bytes in r04d80 (36-byte table 0x22170, int table 0x2220c..0x22288), 8 bytes at 0x23660, 3632 bytes 0x243b0..0x251e0 (g_243e0, 0x12345678 table used by 0x3420), 1592 bytes 0x257cc..0x25f50 (g_257e8, sound tables used by 0xd910)",
+   "two names for one function: drafts call title_189a0/title_0cee0 for rows make_colour/sentinel_count",
+   "type conflicts between drafts (TitlePrim uv width, unknown_078 vs trans_078, c1f0 prototypes, g_29590 extern inside its owner)"
+  ]
  }
 }
