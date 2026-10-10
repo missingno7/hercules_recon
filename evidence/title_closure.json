@@ -490,5 +490,10 @@
   "what": "calibration/title/title_objcfg.c: data-only object for .data 0x26770..0x269c7 (600 bytes), linked after the last code unit (link_before 0x1d7b0): TitleDisp12 g_26770[4] (pool 0x134 handlers), TitleDisp8 g_267a0[4] (pool 0xec), Rec8 g_267c0[27] (pool 0x94 config), TitleDisp8 g_26898[26] (pool 0x94 handlers incl. 0xd910, 0xd250, 0xd290, 0xd410, 0xd440), void (*g_26968[6])(void *) (5 stubs + NULL), TitleObjCfg g_26980[1] (the 999 default row read by 0x95d0, pointing at the tables and at .bss g_2b378/g_2b3b8).",
   "evidence": "Generated from the original bytes (candidates/wr4/gen_objcfg.py); standalone object: 600/600 bytes, 0 plain differences, 84 relocation slots = original. Diagnostic link: plain 264/264 equal, pointer slots 80/84 equal (the rest target unplaced 0xd910 and unowned g_2b378/g_2b3b8). Table extents follow the default rows pointers; the 0x2697c NULL is read as the terminator of the 6-entry handler list.",
   "hypotheses": "File and type names are labels; the objects ownership (a data-only C file) and link position follow the wlink layout evidence (data after r1c430s). Its presence makes 0xd910/0xd250/0xd290/0xd410/0xd440 referenced, which a natural /OPT:REF link needs."
+ },
+ "data_257cc_25f50": {
+  "date": "2026-10-10",
+  "layout": "0x257cc u09a40 literal (ends that object); 0x257e8 int 1 (g_257e8, used by 0xc1f0 and 0xd910: by link order the u0c1f0 objects .data); 0x257ec..0x25807 zeros, 0x25808..0x2584f eighteen dwords 0x00039999, zeros to 0x2585f - all unreferenced by code; 0x25860..0x25a27 short frame tables read only by 0xd910 (g_25860..g_259e8); 0x25a28 int 1 (g_25a28, volatile hypothesis); 0x25a30 int table read by 0xcf00/0xcd30/0x1c500 (u0cc90 ownership by its users).",
+  "decision": "Not defined yet: the unreferenced 116 bytes 0x257ec..0x2585f would need placeholder globals (policy: no placeholders); define the units data once the owning functions (0xc1f0, 0xd910) are recovered and the remaining variables are identified by their users."
  }
 }
