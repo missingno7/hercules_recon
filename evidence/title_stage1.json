@@ -497,5 +497,6 @@
   "0x3420": "candidates/wm4/best3420.c",
   "0x3740": "candidates/wm4/best3740.c / f9_3740_inline.c",
   "0x39b0": "candidates/wm4/d39b0v4.c"
- }
+ },
+ "diag_1a2c0_2026_10_10": "set_decimal_digits (0x1a2c0, RECONSTRUCTED in calibration/title_digits.c, 240 vs 224 bytes; a natural-link shift source). The original computes every remainder as rem - d*k with a positive multiply chain (lea/lea/shl) and sub; ours turns r -= d*100 and r -= d*10 into r + d*(-k) (neg/shl/sub/lea), +16 bytes; the 1000 step is positive in both. % gives the size (224) but separate idiv per remainder (wrong). No effect: =/-= spellings, separate digit variables, a running r, product temporaries, 100*d, short/long types (unsigned changes size to 208), the u197f0 TU context at the address position (candidates/wr4/v2c0.py, u197_2c0.py)."
 }
