@@ -1,0 +1,104 @@
+{
+  "date": "2026-10-11",
+  "scope": "Two observed audio WORD fields,4 supported loader-zero bytes; no original aggregate,TU,neighbor-gap or native placement proof.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "native_audit": {
+    "path": "work/audio_gain_cells_36/compact.json",
+    "sha256": "b70d08720b7db7af1dfc94612163ccc9f8dfaa1bbcdb715857e0165953e21cda"
+  },
+  "native_evidence": {
+    "path": "work/audio_gain_cells_36/evidence.json",
+    "sha256": "dd909d13fd58b6e20ccf3b47be30f9505c0336430c573dc1bd056707e8a2d056"
+  },
+  "private_control": {
+    "path": "work/audio_gain_storage_36/result.json",
+    "sha256": "9353ce063744af4f835fe8b710344d6435ccaacaadde37497b2bf39b6ef0a5ee"
+  },
+  "prediction": {
+    "path": "work/root_audio_gain_36/prediction.json",
+    "sha256": "69730654ad022a5da27ef71e86dfb0dde2e2b005d006ce26f936fa534c1fb2b7"
+  },
+  "canonical_provider": {
+    "source": "calibration/audio_gain_storage.c",
+    "source_sha256": "8acd5da42ad06765966f236b170ecfbaef68e4b4957dd39d2dd42bb3b999d9d4",
+    "cells": [
+      {
+        "name": "g_exe_79e438",
+        "rva": "0x79e438",
+        "bytes": 2,
+        "native_initial_origin": "loader-zero virtual tail",
+        "initializer": "0000",
+        "working_carrier": "unsigned short, matching existing accepted consumer externs; original declaration unproved"
+      },
+      {
+        "name": "g_exe_79e43c",
+        "rva": "0x79e43c",
+        "bytes": 2,
+        "native_initial_origin": "loader-zero virtual tail",
+        "initializer": "0000",
+        "working_carrier": "unsigned short, matching existing accepted consumer externs; original declaration unproved"
+      }
+    ]
+  },
+  "actual_headers": [],
+  "fresh_canonical": {
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-lakb_6hz\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\audio_gain_storage.c"
+    ],
+    "object": "work/root_audio_gain_36/audio_gain_storage.obj",
+    "object_sha256": "b180c60474732f7ee6a9171088ca493dfd5bed0cf18eff5c8d3ce55a9eb07b81",
+    "toolchain": "msvc5_rtm",
+    "code_bytes": 0,
+    "relocations": 0,
+    "undefined_symbols": 0,
+    "bss_bytes": 6,
+    "supported_fields_bytes": 4,
+    "uncredited_compiler_padding_bytes": 2,
+    "field_offsets": [
+      0,
+      4
+    ],
+    "worker_complete_contribution_preserved": true,
+    "recovery_unchanged": true
+  },
+  "limits": "Actual two signed WORD readers and WORD stores preserve16 bits; do not widen to DWORD or change accepted writer prototypes. Object gaps2..3 are compiler output, not declared native fields. Other original extent/ownership/context remains unknown.",
+  "native_write_proof": [
+    {
+      "rva": "0xfdda",
+      "bytes": 6,
+      "sha256": "41ec4d8a68983ae567616db2338c240830da250a5aa54cb0a0109706129582c9",
+      "role": "WORD store first gain",
+      "instruction_bytes": "66a338e4b900"
+    },
+    {
+      "rva": "0xfde0",
+      "bytes": 7,
+      "sha256": "5c3a80b38e120bcda0033cc27fa65d5e25491905b7e2a41d811ae9f76bd62744",
+      "role": "WORD store second gain",
+      "instruction_bytes": "66890d3ce4b900"
+    },
+    {
+      "rva": "0xfb2f",
+      "bytes": 7,
+      "sha256": "11a701c694d4bebc12ac63b95f8d37173cc294c3d0879211e6f5d6af6a9c4989",
+      "role": "MOVSX WORD read first gain",
+      "instruction_bytes": "0fbf1538e4b900"
+    },
+    {
+      "rva": "0xfb41",
+      "bytes": 7,
+      "sha256": "6abcd96b6845f07a4513cbb03089e9aa4f912548122388039a7c3250fedf3114",
+      "role": "MOVSX WORD read second gain",
+      "instruction_bytes": "0fbf053ce4b900"
+    }
+  ]
+}

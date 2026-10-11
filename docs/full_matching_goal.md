@@ -1273,3 +1273,30 @@ arguments distinct from the wrapper's two forwarded inputs. Current verified
 totals remain 121 strict / 8080 bytes and 446 masked / 89328 bytes; 69 tool tests
 pass. Detailed controls and corrected inventory scope are in
 `evidence/fx_followup_controls_2026_10_11.json`.
+
+## Audio dependency closure and runtime compiler controls
+
+Two independently observed WORD gain fields now have a minimal canonical provider.
+It contributes four supported loader-zero bytes; two compiler padding bytes are
+excluded. A fresh natural 54-source link removes precisely those two dependencies,
+14 to 12, preserving all 53 older complete contributions. No image or layout proof
+follows. Reuse the existing field verifier; no new storage framework is needed.
+
+Full-body native decoding also corrects the final default runtime call to the
+update method at interface offset 0x64. The revised 373-check observer rejects the
+old callee twice and passes the repaired source. A prior linear window began inside
+an instruction; its interpretation is withdrawn while the frozen receipt remains.
+
+One ordinary shared-break control recovers the complete 423-byte helper in each
+engine outside actual relocation operands, independently confirmed by a fresh root
+build. These 846 diagnostic bytes remain private. Runtime case order, polling exit
+graph and direct selector capture are separately measured controls; direct switch
+restores the native 8-byte frame/prologue and all 68 external reference roles, but
+the full 872-byte contribution still differs from 883. Combine only those diagnosed
+controls in one frozen experiment before investigating any new cause.
+
+Current checks preserve 121 strict functions / 8080 bytes, 446 masked functions / 89328
+bytes and 69 tool tests. EXE supported loader-zero data is 207789 bytes, initialized
+data 249 bytes. Accepted code totals and recovery.json are unchanged. Continue
+genuine missing tick/bank-removal source alongside compiler-context research.
+See `evidence/fx_runtime_gain_wave_2026_10_11.json` for identities and proof limits.

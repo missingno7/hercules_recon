@@ -75,6 +75,7 @@ for source_name,evidence_name,count,initialized,zero,bss_flags in (
  ('calibration/host_resource_storage.c','evidence/host_resource_storage_adoption_2026_10_11.json',2,4,6964,0xc0400080),
  ('calibration/movie_header_storage.c','evidence/movie_header_storage_adoption_2026_10_11.json',1,0,840,0xc0400080),
  ('calibration/movie_initializer_storage.c','evidence/movie_initializer_storage_adoption_2026_10_11.json',4,0,82116,0xc0400080),
+ ('calibration/audio_gain_storage.c','evidence/audio_gain_storage_adoption_2026_10_11.json',2,0,4,0xc0300080),
 ):
  source_path=root/source_name;proof_path=root/evidence_name
  if proof_path.exists() or source_path.exists():
@@ -179,6 +180,11 @@ for path in sources:
   assert initialized==expected_initialized and zero==expected_zero
   reports[path]['access_width_cells']=cells
   reports[path]['initialized_field_bytes']=initialized
+  if path=='calibration/audio_gain_storage.c':
+   assert {cell['name']:symbols['_'+cell['name']]['value'] for cell in cells}=={'g_exe_79e438':0,'g_exe_79e43c':4}
+   assert sum(s['size'] for s in c.sections if s['name']=='.bss')==6
+   reports[path]['compiler_bss_bytes']=6
+   reports[path]['uncredited_compiler_padding_bytes']=2
  else:
   cells=fatal_proof['canonical_provider']['cells']
   assert definitions=={'_'+cell['name'] for cell in cells}

@@ -1,0 +1,151 @@
+{
+  "date": "2026-10-11",
+  "scope": "Canonical data closure and native method repair; private compiler controls remain diagnostic. recovery.json is unchanged and remains sole recovery authority.",
+  "audio_gain_storage": {
+    "path": "evidence/audio_gain_storage_adoption_2026_10_11.json",
+    "sha256": "27e833c935188b7f3b5a15ea6f3c864ff7ed6bf5cb4102dc5c4cd5e65744a874"
+  },
+  "natural_dependency_link": {
+    "receipt": {
+      "path": "work/root_audio_gain_36/link.json",
+      "sha256": "b390974a1422156d155d3d6d8e4ae3ffaa6a3a13a45d722cbef1878dad54cf48"
+    },
+    "before_sources": 53,
+    "after_sources": 54,
+    "before_unresolved": 14,
+    "after_unresolved": 12,
+    "removed_names": [
+      "_g_exe_79e438",
+      "_g_exe_79e43c"
+    ],
+    "preserved_complete_old_sources": 53,
+    "image_produced": false,
+    "limits": "Actual sources, no stubs/aliases/placement. Four supported data bytes, two compiler padding bytes excluded; original layout and full table remain unproved."
+  },
+  "runtime_method_repair": {
+    "native_role": {
+      "path": "work/runtime_residual_36/final_default_binding_correction.json",
+      "sha256": "a4f999bed8624295b8e391586198f2cda740abdf453b5d7442479e24edafa1c1"
+    },
+    "aligned_window_correction": {
+      "path": "work/runtime_residual_36/native_window_correction.json",
+      "sha256": "395c46c1cab3f90b5d7fde1e2a01eeb2442db1dc68cb21f63a70e22c9bd42a48"
+    },
+    "root_negative_positive": {
+      "path": "work/root_runtime_binding_36/repair.json",
+      "sha256": "c5f556ef558f302be671abc6810c1d1775e9b4f935347f5e33a3271da165cc11"
+    },
+    "source": {
+      "path": "calibration/engine_control.c",
+      "sha256": "37d50adb3886d38b110917f0f11a93048691b574239c58956019707568e98931"
+    },
+    "fixture": {
+      "path": "tests/engine_control_semantics.c",
+      "sha256": "f4a23ee58d40f24ced9058de3231392af98d1c5a3d01e728a74b3cc19105ff20"
+    },
+    "change": "Only final default call uses host_two_argument_update, same actual slot0x64 as cases18/19, rather than case1/2 slot0x1c.",
+    "native_calls": {
+      "ENG1.DLL": "6414 -> 2c370",
+      "ENG3.DLL": "b2bb -> 1fa00"
+    },
+    "negative_checks": 373,
+    "negative_failures": 2,
+    "positive_checks": 373,
+    "positive_failures": 0,
+    "withdrawn_window": "Prior63f5 linear decode starts inside MOV at63f3..63f9; withdraw its instruction interpretation. Full contiguous body decode proves call roles independently. Frozen receipts unchanged.",
+    "limits": "Finite synthetic native-grounded checks; no original module execution, exhaustive behavior proof or code match."
+  },
+  "private_helper": {
+    "protocol": {
+      "path": "work/fx_helper_protocol_35/handoff.json",
+      "sha256": "1ce6e2ab51a1ce7ba04f4e7dadd7d619aa1182f12258f6da55eafc7ec8a9859b"
+    },
+    "diagnosis": {
+      "path": "work/fx_helper_residual_36/handoff.json",
+      "sha256": "c6aa562d89423afdc82874363729ac802c492eb4e575e268fa8a76a324df1b30"
+    },
+    "control": {
+      "path": "work/fx_helper_break_36/compact.json",
+      "sha256": "2309e6efd659a08b29f98e993ae279eba4365b483c943bb680e9b228642279cc"
+    },
+    "root_fresh": {
+      "path": "work/root_fx_helper_36/measurement.json",
+      "sha256": "a9e7b10924abd3a49d660cc2654c63873fd6d592dce80e56928f887bdfe84678"
+    },
+    "source": {
+      "path": "candidates/fx_helper_break_36/resource_helper_646c.c",
+      "sha256": "bd06cc60e15625e090ba88f71a0fcd3616ad8980057d780023aa9b034e94e596"
+    },
+    "mechanism": "Shared OR-break exit replaces two independent break jumps, removing2 bytes without changing live reads, callback returns or genuine escaped rectangle lifetime.",
+    "complete_bytes_per_peer": 423,
+    "peers": [
+      "ENG1.DLL:646c",
+      "ENG3.DLL:b313"
+    ],
+    "masked_differences": 0,
+    "absolute_references": 23,
+    "relative_calls": 13,
+    "binding_conflicts": 0,
+    "diagnostic_code_bytes": 846,
+    "accepted_code_gain": 0,
+    "limits": "Private/Gy/Od complete body diagnostic, raw operands differ; no original ABI/TU or packed-unit/function promotion."
+  },
+  "independent_runtime_controls": {
+    "case_order": {
+      "path": "work/runtime_graph_controls_36/case_order/result.json",
+      "sha256": "f23a086edc3e4610fd7356888d344e4f97a2c4b9fc23caeae081ab897fb0b454"
+    },
+    "default_break": {
+      "path": "work/runtime_graph_controls_36/default_break/result.json",
+      "sha256": "de5a888e119ed2fe9939af27facd12a5cf9d91b02b099c0ef6cd38101f484d39"
+    },
+    "direct_switch": {
+      "path": "work/runtime_direct_switch_36/result.json",
+      "sha256": "baa0b4cf15c160e422abe6d5af03960c4117849d833e525edb772085afab46cb"
+    },
+    "case_order_bytes": 878,
+    "default_break_bytes": 890,
+    "direct_switch_bytes": 872,
+    "native_eng1_bytes": 883,
+    "findings": "A restores native physical case order; B restores shared-break/literal-true initial polling graph; C restores native8-byte frame, selector capture and prologue outside the same3 references. Selector34-byte map equals native throughout.",
+    "reference_scope": "A/B preserve the old baseline external multiset, which still had wrong default callee. C uses repaired source and all68 external reference roles equal native.",
+    "next": "One separately frozen A+B+C union on C context. No assured byte match, flags/name/grid or padding. ENG3 omits genuine185-byte case1/2 behavior.",
+    "limits": "One logical function plus generated tables, not proof of original shared-text unit extent; complete-unit >=2-function and16-byte staging gates unchanged."
+  },
+  "tick_source_packet": {
+    "path": "work/fx_tick_protocol_36/handoff.json",
+    "sha256": "abd75470a54a7aba2bf769c69fe8d6ed54219c2abcf5231406454f89eb5e4a29"
+  },
+  "validation": {
+    "strict": {
+      "path": "work/root_audio_gain_36/strict_final.json",
+      "sha256": "b562e116862874bc29ca922d7f66af7e0c3e2f8322fdf15cc49155ccb3158fd5"
+    },
+    "masked": {
+      "path": "work/root_audio_gain_36/masked_final.txt",
+      "sha256": "8c799cc15da397f0a45b77c6a66fdd7886e3e2349f3437ba2da20349876172d9"
+    },
+    "tool_tests": {
+      "path": "work/root_audio_gain_36/tests_final.txt",
+      "sha256": "57a5fb83e8773b0ca142b85bc8619eb495a25f8a55d1ad240176952ecb7782c4"
+    },
+    "fresh_data": {
+      "path": "work/root_audio_gain_36/data_final.json",
+      "sha256": "928b81b051c7cbdb2de8bb87e0e8a612f562bc0fe8b70c01fdf9c4b8e86b3765"
+    },
+    "strict_functions": 121,
+    "strict_bytes": 8080,
+    "masked_functions": 446,
+    "masked_bytes": 89328,
+    "masked_sources": 70,
+    "tool_tests_passed": 69,
+    "exe_initialized_bytes": 249,
+    "exe_supported_zero_bytes": 207789,
+    "engine_interface_plus_fx_zero_bytes_each": 2536,
+    "title_buffer_zero_bytes": 8,
+    "strict_gain": 0,
+    "recovery_state_gain": 0,
+    "recovery_sha256": "566ee167b849f11ee8c98149d1cc2cefaebf4d91802c683e8086d7fb35ecb777"
+  },
+  "remaining_work": "Continue separate genuine missing FX source and reusable compiler-context diagnosis. Preserve second-producer frame-only blocker and exhausted TITLE controls; new original declaration/lifetime evidence is required."
+}

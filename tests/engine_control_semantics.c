@@ -105,7 +105,7 @@ void __cdecl resource_reclaim(int wait_mode) { record(EV_RECLAIM_1 + wait_mode -
 void __cdecl host_two_argument(void *first, unsigned long second)
 {
     record(EV_TWOARG);
-    CHECK(first == g_control_argument_6eef8 || first == g_control_argument_6ef00);
+    CHECK(first == g_control_argument_6eef8);
     CHECK(second == g_control_forwarded_value);
 }
 
@@ -122,7 +122,7 @@ void __cdecl host_worker(void) { record(EV_WORKER); }
 void __cdecl host_two_argument_update(void *first, unsigned long second)
 {
     record(EV_UPDATE);
-    CHECK(first == g_control_argument_6eefc);
+    CHECK(first == g_control_argument_6eefc || first == g_control_argument_6ef00);
     CHECK(second == g_control_forwarded_value);
 }
 
@@ -409,7 +409,7 @@ static void test_default_live_poll_and_terminal_loop(void)
     CHECK(event_is(8, EV_CLEANUP));
     CHECK(event_is(9, EV_WORKER));
     CHECK(event_is(10, EV_CLEAN_ZERO));
-    CHECK(event_is(11, EV_TWOARG));
+    CHECK(event_is(11, EV_UPDATE));
     CHECK(event_is(12, EV_BUSY));
 }
 

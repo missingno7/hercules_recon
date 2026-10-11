@@ -137,7 +137,7 @@ int __cdecl runtime_control(void)
         if (g_engine_interface.context_004->unknown_0e4 != 0)
             host_zero_argument();
         else
-            host_two_argument(g_control_argument_6ef00,
+            host_two_argument_update(g_control_argument_6ef00,
                               g_control_forwarded_value);
 
         while (1)
