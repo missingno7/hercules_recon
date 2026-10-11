@@ -640,3 +640,38 @@ evidence alongside the remaining shared compiler work. Archive draft canonical
 replacement remains private: function code preserves, but local relocation label
 identity and the fixtures' old shutdown return assumption require reconciliation.
 Scratch capacity and terminal directory owner remain unproved.
+
+## Canonical archive graph and compiler pilots
+
+The three archive drafts now replace their ignored source copies in the selected
+partial EXE control. Four retained code bodies / 960 bytes preserve exactly,
+including ordered physical relocation targets; local switch labels both resolve
+to offset 392. Duplicate read/hash/shutdown bodies are removed in favor of the
+already reconstructed providers. Current region scopes follow those units, and
+historical receipts remain unchanged.
+
+All 34 selected compilation sources are now canonical. A fresh natural link
+retains the same eight real unresolved names; this closes a source reproducibility
+gap, not whole-game linkage. Five rebuilt archive fixtures pass 126 checks. Their
+old unsupported shutdown return assumptions are replaced with the actual observed
+stream-clear invariant and correct void ABI. All 120 strict functions / 8,064
+bytes, 424 masked functions / 86,224 bytes and 54 tests pass. Recovery state and
+strict/masked byte totals are unchanged. See
+`evidence/full_goal_archive_compiler_wave_2026_10_11.json`.
+
+Independent source/compiler pilots recover the larger callback hypotheses without
+accepting failed bodies. F3D0's shared decoder/copy/duplicate cursor reproduces the
+native 316-byte frame; the SDK initializer MRE then justifies ordinary memset,
+reproducing native PCM16/descriptor20 clears and the 826-byte body plus six NOPs.
+The full diagnostic residual falls from 621 to 393 bytes, with 15 binding conflicts
+still retained. AC60's first complete source agrees on nine audited packet-store
+paths and all eleven linear call destinations but fails full equality. A8F0's two
+proven copy-direction errors are corrected in a frozen new recipe; it still fails
+and its span remains a lead. No compiler-only diagnosis is assigned to wrong
+source and no subrange is promoted.
+
+Next discriminators are genuine mixed-width header/row-address context for sound,
+packet declaration and register lifetime context for rendering, and complete
+raster callable/dataflow evidence. Scratch ownership and terminal archive source
+representation remain independent open dependencies. Avoid more initializer,
+loop, flags, order or type grids for the now-tested mechanisms.

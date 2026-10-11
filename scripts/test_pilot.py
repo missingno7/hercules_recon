@@ -27,7 +27,7 @@ SUITES = {
     "resource_pool_pipeline": ['calibration/engine_file_bridge.c', 'calibration/engine_dependency_bridges.c', 'calibration/resource_rebind.c', 'calibration/host_pool_repaired.c', 'calibration/host_pool_lifecycle_repaired.c', 'calibration/host_pool_counts.c', 'calibration/pool_reverse_copy.c', 'src/pc/host_diagnostic.c', 'calibration/engine_interface.h', 'calibration/resource_context.h'],
     "resource_rebind": ["calibration/resource_rebind.c", "calibration/engine_interface.h", "calibration/resource_context.h"],
     "engine_dependency_bridges": ["calibration/engine_dependency_bridges.c", "calibration/engine_file_bridge.c", "calibration/engine_interface.h", "calibration/resource_context.h"],
-    "host_archive_pipeline": ["calibration/host_file_service.c", "calibration/virtual_file.c", "calibration/archive_positions.c", "calibration/archive_backend.c", "calibration/archive_lifecycle.c", "calibration/archive_names.c", "src/pc/interface_callbacks.c", "src/pc/host_diagnostic.c", "calibration/resource_context.h"],
+    "host_archive_pipeline": ["calibration/host_file_service.c", "calibration/virtual_file.c", "calibration/archive_positions.c", "calibration/archive_backend.c", "calibration/archive_read.c", "calibration/archive_lifecycle.c", "calibration/archive_shutdown.c", "calibration/archive_names.c", "src/pc/exe_helpers.c", "src/pc/interface_callbacks.c", "src/pc/host_diagnostic.c", "calibration/resource_context.h"],
     "host_file_service": ["calibration/host_file_service.c", "calibration/resource_context.h"],
     "engine_file_bridge": ["calibration/engine_file_bridge.c", "calibration/engine_interface.h", "calibration/resource_context.h"],
     "pilot": ["src/title/pilot.c"],
@@ -53,10 +53,10 @@ SUITES = {
     "resource_provider": ["calibration/resource_provider.c", "calibration/resource_record.h", "calibration/resource_context.h"],
     "virtual_file": ["calibration/virtual_file.c"],
     "archive_positions": ["calibration/archive_positions.c"],
-    "archive_backend": ["calibration/archive_backend.c"],
-    "archive_lifecycle": ["calibration/archive_lifecycle.c"],
-    "archive_pipeline": ["calibration/virtual_file.c", "calibration/archive_positions.c", "calibration/archive_backend.c", "calibration/archive_lifecycle.c", "calibration/archive_names.c"],
-    "archive_names": ["calibration/archive_names.c"],
+    "archive_backend": ["calibration/archive_backend.c", "calibration/archive_read.c"],
+    "archive_lifecycle": ["calibration/archive_lifecycle.c", "calibration/archive_shutdown.c"],
+    "archive_pipeline": ["calibration/virtual_file.c", "calibration/archive_positions.c", "calibration/archive_backend.c", "calibration/archive_read.c", "calibration/archive_lifecycle.c", "calibration/archive_shutdown.c", "calibration/archive_names.c", "src/pc/exe_helpers.c"],
+    "archive_names": ["calibration/archive_names.c", "src/pc/exe_helpers.c"],
     "token_release": ["calibration/cleanup_helpers_writers.c"],
     "action_registry": ["calibration/action_registry.c"],
     "action_registry_writers": ["calibration/action_registry_writers.c"],
@@ -77,6 +77,9 @@ SUITES = {
 # Most fixtures include one reconstructed source directly. Integration fixtures
 # link actual separate translation units instead of replacing callees.
 EXTRA_UNITS = {
+    "archive_backend": ["calibration/archive_read.c"],
+    "archive_lifecycle": ["calibration/archive_shutdown.c"],
+    "archive_names": ["src/pc/exe_helpers.c"],
     "host_frame_adapters": ["calibration/host_frame_adapters.c", "src/pc/host_mode_packet.c", "src/pc/host_zero_callback.c"],
     "host_mode_packet": ["src/pc/host_mode_packet.c"],
     "host_frame_protocol": ["calibration/host_frame_protocol.c", "calibration/virtual_file.c", "calibration/host_callback_protocol.c"],

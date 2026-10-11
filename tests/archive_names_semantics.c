@@ -2,12 +2,13 @@
 #include <string.h>
 
 #include "../calibration/archive_names.c"
+extern int __cdecl name_hash(const char *);
 
 /* A synthetic test backing store, not a declaration of target capacity. */
 char g_archive_scratch[512];
-const char g_archive_prefix_maps[15] = "M:\\GRAFIX\\MAPS";
-const char g_archive_prefix_chop[15] = "M:\\GRAFIX\\CHOP";
-const char g_archive_prefix_sonix[18] = "M:\\LANGUAGE\\SONIX";
+char g_archive_prefix_maps[15] = "M:\\GRAFIX\\MAPS";
+char g_archive_prefix_chop[15] = "M:\\GRAFIX\\CHOP";
+char g_archive_prefix_sonix[18] = "M:\\LANGUAGE\\SONIX";
 
 static int checks;
 static int failures;
@@ -151,7 +152,7 @@ static void hash_case(const char *name, const char *input,
     unsigned long actual;
     unsigned long modeled;
 
-    actual = archive_name_hash(input);
+    actual = name_hash(input);
     modeled = reference_hash(input);
     check(name, actual == expected && modeled == expected);
 }

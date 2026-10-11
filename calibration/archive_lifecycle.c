@@ -14,11 +14,11 @@ extern FILE *g_archive_stream;
 extern unsigned long g_archive_directory_count;
 
 /* The byte strings are read directly from the verified PC image. */
-extern const char g_archive_mode[];
-extern const char g_archive_filename[];
-extern const char g_archive_init_open_failure[];
-extern const char g_archive_init_read_failure[];
-extern const char g_archive_init_sort_failure[];
+extern char g_archive_read_mode[];
+extern char g_archive_filename[];
+extern char g_archive_init_open_failure[];
+extern char g_archive_init_read_failure[];
+extern char g_archive_init_sort_failure[];
 extern void __cdecl archive_fatal(const char *message);
 
 void __cdecl archive_initialize(void)
@@ -32,7 +32,7 @@ void __cdecl archive_initialize(void)
     memset(g_archive_directory, 0, 0x3000UL);
     memset(g_archive_logical_positions, 0xff, 0x1000UL);
 
-    g_archive_stream = fopen(g_archive_filename, g_archive_mode);
+    g_archive_stream = fopen(g_archive_filename, g_archive_read_mode);
     if (g_archive_stream == NULL)
         archive_fatal(g_archive_init_open_failure);
 
@@ -62,15 +62,4 @@ void __cdecl archive_initialize(void)
                 archive_fatal(g_archive_init_sort_failure);
         }
     }
-}
-
-int __cdecl archive_shutdown(void)
-{
-    int result;
-
-    result = 0;
-    if (g_archive_stream != NULL)
-        result = fclose(g_archive_stream);
-    g_archive_stream = NULL;
-    return result;
 }

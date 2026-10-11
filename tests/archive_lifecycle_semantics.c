@@ -3,16 +3,17 @@
 #include <string.h>
 
 #include "../calibration/archive_lifecycle.c"
+extern void __cdecl archive_shutdown(void);
 
 ArchiveDirectoryEntry g_archive_directory[1024];
 int g_archive_logical_positions[1024];
 FILE *g_archive_stream;
 unsigned long g_archive_directory_count;
-const char g_archive_mode[] = "rb";
-const char g_archive_filename[] = "hercules.fs";
-const char g_archive_init_open_failure[] = "PC_InitFileSys(1)";
-const char g_archive_init_read_failure[] = "PC_InitFileSys(2)";
-const char g_archive_init_sort_failure[] = "PC_InitFileSys(3)";
+char g_archive_read_mode[] = "rb";
+char g_archive_filename[] = "hercules.fs";
+char g_archive_init_open_failure[] = "PC_InitFileSys(1)";
+char g_archive_init_read_failure[] = "PC_InitFileSys(2)";
+char g_archive_init_sort_failure[] = "PC_InitFileSys(3)";
 
 static jmp_buf diagnostic_jump;
 static int diagnostic_jump_enabled;
@@ -106,7 +107,7 @@ int main(void)
     check("all observed position slots initialize to -1", all_positions_are_minus_one());
     check("a zero directory tail is retained", g_archive_directory[3].key == 0UL && g_archive_directory[1023].length == 0UL);
     check("successful initializer leaves its stream open", g_archive_stream != NULL);
-    check("shutdown returns fclose status and clears stream", archive_shutdown() == 0 && g_archive_stream == NULL);
+    check("shutdown clears stream after closing", (archive_shutdown(), g_archive_stream == NULL));
 
     hole_keys[0] = 5UL;
     hole_keys[1] = 0UL;
@@ -116,7 +117,7 @@ int main(void)
     archive_initialize();
     check("count stops at the first zero key", g_archive_directory_count == 1UL);
     check("post-hole rows are not part of the counted prefix", g_archive_directory[2].key == 99UL && diagnostic_count == 0);
-    check("shutdown closes second opened stream", archive_shutdown() == 0 && g_archive_stream == NULL);
+    check("shutdown closes second opened stream", (archive_shutdown(), g_archive_stream == NULL));
 
     unsorted_keys[0] = 10UL;
     unsorted_keys[1] = 12UL;
@@ -125,14 +126,14 @@ int main(void)
     reset_diagnostics();
     archive_initialize();
     check("unsorted key pair is diagnosed without stopping later work", diagnostic_count == 1 && strcmp(diagnostic_last, g_archive_init_sort_failure) == 0 && g_archive_directory_count == 3UL);
-    check("shutdown closes unsorted-directory stream", archive_shutdown() == 0 && g_archive_stream == NULL);
+    check("shutdown closes unsorted-directory stream", (archive_shutdown(), g_archive_stream == NULL));
 
     short_keys[0] = 4UL;
     check("write one-record short file", make_archive(short_keys, 1, 0));
     reset_diagnostics();
     archive_initialize();
     check("short fread is diagnosed with the observed message", diagnostic_count >= 1 && strcmp(diagnostic_last, g_archive_init_read_failure) == 0);
-    check("short read still leaves a closable stream", g_archive_stream != NULL && archive_shutdown() == 0 && g_archive_stream == NULL);
+    check("short read still leaves a closable stream", g_archive_stream != NULL && (archive_shutdown(), g_archive_stream == NULL));
 
     remove("hercules.fs");
     reset_diagnostics();
@@ -144,7 +145,7 @@ int main(void)
         check("open failure diagnoses before the following fread", strcmp(diagnostic_last, g_archive_init_open_failure) == 0 && g_archive_stream == NULL);
     }
     diagnostic_jump_enabled = 0;
-    check("null-stream shutdown returns zero", archive_shutdown() == 0 && g_archive_stream == NULL);
+    check("null-stream shutdown preserves cleared stream", (archive_shutdown(), g_archive_stream == NULL));
 
     printf("archive lifecycle fixture: %d checks, %d failures\n", checks, failures);
     return failures ? 1 : 0;

@@ -1,0 +1,96 @@
+{
+  "date": "2026-10-11",
+  "scope": "Independent Hercules RTM compiler/source controls; no function acceptance or original source/initializer spelling proof.",
+  "compiler": {
+    "toolchain": "msvc5_rtm",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "flags": [
+      "/O2",
+      "/Gy"
+    ]
+  },
+  "sound_create": {
+    "module": "HERCULES.EXE",
+    "rva": "0xf3d0",
+    "target_bytes": 832,
+    "controls": [
+      {
+        "kind": "Separate decoder state and loop cursors; aggregate SDK initialization",
+        "compiled_bytes": 816,
+        "frame_bytes": 320,
+        "masked_residual_bytes": 658,
+        "binding_conflicts": 17
+      },
+      {
+        "kind": "Actual shared decoder/copy/duplicate phase cursor only",
+        "compiled_bytes": 832,
+        "frame_bytes": 316,
+        "masked_residual_bytes": 621,
+        "binding_conflicts": 17
+      },
+      {
+        "kind": "Shared cursor plus MRE-supported exact-size ordinary memset initializers",
+        "compiled_bytes": 832,
+        "frame_bytes": 316,
+        "body_bytes": 826,
+        "nop_bytes": 6,
+        "masked_residual_bytes": 393,
+        "binding_conflicts": 15
+      }
+    ],
+    "positive_scope": "Shared stack+10 cursor and316-byte frame reproduce; final complete body/padding boundary and PCM16/descriptor20 zero ranges reproduce. Final178-byte tail nonrelocation equality is diagnostic only. Whole function still fails.",
+    "full_builds": 3,
+    "stable_sdk_headers": 57,
+    "next_discriminator": "Actual mixed-width header/row-address expression and register context. No order/type/flags replay or partial-byte promotion."
+  },
+  "initializer_mre": {
+    "objects": 2,
+    "sdk_header_count": 56,
+    "pcm_bytes": 16,
+    "descriptor_bytes": 20,
+    "aggregate_zero_origins": {
+      "PCM": 2,
+      "descriptor": 4
+    },
+    "memset_zero_origins": {
+      "PCM": 0,
+      "descriptor": 0
+    },
+    "complete_memset_ranges": {
+      "PCM": 16,
+      "descriptor": 20
+    },
+    "both_function_sizes": 208,
+    "field_values_and_sink_order_equal_at_source_level": true,
+    "limit": "An ordinary external descriptor sink models address escape only. No COM behavior, full-function equality, original spelling or broader compiler rule proven."
+  },
+  "draw_packets": {
+    "rva": "0xac60",
+    "target_bytes": 1680,
+    "compiled_bytes": 1696,
+    "raw_residual_bytes": 1532,
+    "masked_residual_bytes": 1073,
+    "binding_conflicts": 89,
+    "object_builds": 1,
+    "selected_native_store_paths": 9,
+    "direct_call_destinations_in_linear_order": 11,
+    "limit": "Matching selected packet-read widths and ordered stores is not behavioral equivalence. Native triangle bugs retained; register allocation,page expression,branch sharing and unused group40 read remain."
+  },
+  "raster_callback": {
+    "rva": "0xa8f0",
+    "target_span_lead_bytes": 784,
+    "compiled_bytes": 928,
+    "corrected_masked_residual_bytes": 866,
+    "object_builds": 2,
+    "correction": "Only two proven memcpy source/destination argument reversals; old wrong recipe remains frozen. Forward-copy behavior retained, no overlap-safety inference or memmove substitution.",
+    "limit": "Initial wrong source is not a compiler-only negative. Corrected whole gate still fails, with conflicts retained and extent still a lead."
+  },
+  "receipts": {
+    "work/sound_create_22/compact.json": "27bc5c843590d8c72651cf67178c5763fc7dca34aeb312f450cbfae13820a167",
+    "work/sound_create_22/memset_compact.json": "71dc7977f3741b121638fe0854f4776b10347aec1236a475e005d00495e5d8a6",
+    "work/pcm_zeroing_22/compact.json": "bc1beca3a14dfd3c3b1d60a63895909c094f3cb443b7455e3ae0f34df523facd",
+    "work/draw_packets_22/compact.json": "01e8eca40d77102a94b763e22f3f393fee15c4818807412f024382394838de47",
+    "work/raster_callback_22/corrected/corrected_gate.json": "92737995ced0fd68986ef338e1e167b0f40760b6e6986e8f9230e5e93667df30"
+  },
+  "acceptance": "None of these whole bodies passes; no stage or recovery state changes. Positive narrow mechanisms do not grant FUNCTION_MATCH or behavior-exact labels."
+}

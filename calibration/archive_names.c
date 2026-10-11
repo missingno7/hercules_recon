@@ -2,9 +2,9 @@
 
 /* One shared-scratch view; these external bounds are intentionally unknown. */
 extern char g_archive_scratch[];
-extern const char g_archive_prefix_maps[15];
-extern const char g_archive_prefix_chop[15];
-extern const char g_archive_prefix_sonix[18];
+extern char g_archive_prefix_maps[15];
+extern char g_archive_prefix_chop[15];
+extern char g_archive_prefix_sonix[18];
 
 char * __cdecl archive_normalize_name(const char *input)
 {
@@ -73,28 +73,4 @@ char * __cdecl archive_normalize_name(const char *input)
     case 'M':
         return &g_archive_scratch[start];
     }
-}
-
-unsigned long __cdecl archive_name_hash(const char *path)
-{
-    const signed char *cursor;
-    unsigned long sum;
-    unsigned long length;
-    unsigned long value;
-    int shift;
-
-    cursor = (const signed char *)path;
-    sum = 0UL;
-    length = 0UL;
-    shift = 0;
-    while (*cursor != 0) {
-        value = (unsigned long)(long)*cursor;
-        sum += value << shift;
-        shift += 8;
-        if (shift > 24)
-            shift = 0;
-        ++length;
-        ++cursor;
-    }
-    return sum + length;
 }

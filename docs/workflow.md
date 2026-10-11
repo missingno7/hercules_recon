@@ -201,3 +201,24 @@ diagnostic map leads, never recovery state or relaxed function acceptance. The
 host interface pilot fixes the previously concatenated BDD0/BDE0 spans and yields
 two new strict callback leaves. See
 `evidence/host_interface_entry_seeds_2026_10_11.json`.
+
+Archive open/seek, normalizer and initializer now live in their canonical units
+without duplicate read/hash/shutdown definitions. The existing providers supply
+those functions; current region specs follow this partition while old receipts
+keep their original identities. Compare local COFF labels by proven own-function
+offsets when reviewing source preservation: label spelling alone is conservative
+diagnostic metadata, not a reason to alter the actual matching gate. The old and
+new normalizer switch labels both point to offset 392.
+
+The reconstructed-source fixtures link the actual separate providers and use the
+actual int hash and void shutdown views. Shutdown tests assert the observed
+cleared-stream invariant; no return-value guarantee follows from callers that
+discard EAX. This corrects the fixture's old assumption, not the matching rules.
+
+For SDK clear mismatches, transfer the controlled experiment, not a rule from
+another compiler. Hercules RTM controls independently show aggregate zeroing can
+elide overwritten fields while ordinary exact-size memset preserves full ranges.
+F3D0 also demonstrates a real escaped variable reused across sequential decoder,
+sample-copy and duplicate phases. These reproduce specific frame/clear patterns;
+the complete function still fails and is not partially promoted. See
+`evidence/sdk_cursor_initializer_controls_2026_10_11.json`.

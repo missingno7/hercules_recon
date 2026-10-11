@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <string.h>
 #include "../calibration/archive_backend.c"
+extern size_t __cdecl archive_read(void *, size_t, size_t, int);
 
 ArchiveDirectoryEntry g_archive_directory[1024];
 unsigned long g_archive_directory_count;
 int g_archive_logical_positions[1024];
 FILE *g_archive_stream;
 int g_archive_last_stream_handle;
-const char g_archive_open_error_format[] = "PC_fopen(\"%s\")";
+char g_archive_open_error_format[] = "PC_fopen(\"%s\")";
 
 static int checks, failures;
 static char normalized_path[128];
@@ -37,11 +38,11 @@ char * __cdecl archive_normalize_name(const char *path)
     strcpy(normalized_path, path);
     return normalized_path;
 }
-unsigned long __cdecl archive_name_hash(const char *path)
+int __cdecl name_hash(const char *path)
 {
     hash_argument = path;
     ++hash_calls;
-    return configured_hash;
+    return (int)configured_hash;
 }
 void __cdecl archive_fatal(const char *message)
 {

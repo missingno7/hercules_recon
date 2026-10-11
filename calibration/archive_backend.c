@@ -14,8 +14,8 @@ extern int g_archive_logical_positions[];
 extern FILE *g_archive_stream;
 extern int g_archive_last_stream_handle;
 extern char * __cdecl archive_normalize_name(const char *path);
-extern unsigned long __cdecl archive_name_hash(const char *path);
-extern const char g_archive_open_error_format[];
+extern int __cdecl name_hash(const char *path);
+extern char g_archive_open_error_format[];
 extern void __cdecl archive_fatal(const char *message);
 
 int __cdecl archive_open(const char *path, const char *ignored_mode)
@@ -29,7 +29,7 @@ int __cdecl archive_open(const char *path, const char *ignored_mode)
     int old_row;
 
     (void)ignored_mode;
-    key = archive_name_hash(archive_normalize_name(path));
+    key = name_hash(archive_normalize_name(path));
     lower = 0;
     upper = (int)g_archive_directory_count;
     row = upper >> 1;
@@ -54,39 +54,6 @@ int __cdecl archive_open(const char *path, const char *ignored_mode)
 
     g_archive_logical_positions[row] = 0;
     return row + 1;
-}
-
-size_t __cdecl archive_read(
-    void *destination, size_t item_size, size_t item_count, int handle)
-{
-    unsigned long position;
-    unsigned long file_length;
-    size_t read_count;
-    size_t divisor;
-    size_t items_read;
-
-    position = (unsigned long)g_archive_logical_positions[handle - 1];
-    if (g_archive_last_stream_handle != handle || position == 0) {
-        g_archive_last_stream_handle = handle;
-        (void)fseek(g_archive_stream,
-                    (long)(g_archive_directory[handle - 1].offset + position), 0);
-    }
-
-    position = (unsigned long)g_archive_logical_positions[handle - 1];
-    file_length = g_archive_directory[handle - 1].length;
-    read_count = item_count;
-    if (position + item_size * item_count >= file_length) {
-        divisor = item_size;
-        if (divisor == 0)
-            divisor = 1;
-        read_count = (size_t)((file_length - position) / divisor);
-    }
-
-    items_read = fread(destination, item_size, read_count, g_archive_stream);
-    g_archive_logical_positions[handle - 1] = (int)(
-        (unsigned long)g_archive_logical_positions[handle - 1] +
-        (unsigned long)(items_read * item_size));
-    return items_read;
 }
 
 int __cdecl archive_seek(int handle, long offset, int origin)
