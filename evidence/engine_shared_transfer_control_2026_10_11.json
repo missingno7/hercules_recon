@@ -1,0 +1,91 @@
+{
+  "scope": "Private audit of possible ENG1/ENG3 ordinary-C source transfer followed by one bounded ENG3 neighbor reconstruction; recovery state remains authoritative.",
+  "target_identity": {
+    "ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "ENG3.DLL": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+    "live_files_match_evidence": true
+  },
+  "audit_inputs": {
+    "evidence/shared_functions.json": "5ab82b49c4e04a9ce280d14a7e2e74b3dc4ce878d3402841ac96f3f03609800b",
+    "evidence/convergence_families.json": "866ff02c0c30a38cf1435fac607d01d08062d0839a261bb82f87bd15660abf0a",
+    "recovery.json": "da78de965de48a64fa1daaa76080388aee7227f40f1562430f79bb90a2c811e"
+  },
+  "maps": {
+    "ENG1.DLL": {
+      "path": "work/engine_shared_transfers_13/eng1_function_map.json",
+      "spans": 1218,
+      "mapped_bytes": 283872,
+      "map_end": "0x464e0",
+      "sha256": "c5283615f079f73de1c5b6d2ead95238f2cd57d4c5a64d0684e958cc308932f7"
+    },
+    "ENG3.DLL": {
+      "path": "work/engine_shared_transfers_13/eng3_function_map.json",
+      "spans": 549,
+      "mapped_bytes": 147520,
+      "map_end": "0x25040",
+      "sha256": "48d8e72cf454b4f3612638979be1fd1b6c3b4cc9d804fd6e78137452e470c019"
+    }
+  },
+  "transfer_audit": {
+    "exact_shared_groups_already_canonical_in_both_engines": [
+      "src/shared/object_commands.c:_clear_command_high_bit",
+      "src/shared/motion.c:_advance_object_motion",
+      "src/shared/motion.c:_advance_planar_motion",
+      "src/shared/counted_list.c:_remove_counted_value",
+      "src/title/pilot.c:_unlink_12c",
+      "src/title/pilot.c:_unlink_0e4"
+    ],
+    "other_shared_source_member_already_represented": "src/shared/relative.c:_measure_relative_vector is ENG1 FUNCTION_MATCH and ENG3 CODEGEN_SIMILAR; not a fresh transfer.",
+    "one_sided_exact_groups": [
+      "ENG3 only: src/shared/motion.c:_advance_vertical_motion",
+      "ENG1 only: src/shared/bounds.c:_bounds_overlap",
+      "ENG1 only: src/shared/motion.c:_advance_target_motion",
+      "ENG1 only: src/shared/relative.c:_measure_absolute_vector",
+      "ENG1 only: src/shared/relative.c:_measure_xz_vector",
+      "ENG1 only: src/shared/bounds.c:_planar_bounds_overlap",
+      "ENG1 only: src/shared/frame_motion.c:_apply_frame_motion_2d",
+      "ENG1 only: src/shared/frame_motion.c:_apply_frame_motion_3d"
+    ],
+    "decision": "No one-sided exact-source item had a defensible untracked counterpart identified from target-native extents, callers, and current recovery. Same-size heuristic map leads were insufficient; inspected ENG3 spans included unrelated bounds, list, and actor functions. No transfer was fabricated.",
+    "indexed_family_audit": {
+      "eng3_count_vector_anchor": "0 pending; both ENG3 members already CODEGEN_SIMILAR",
+      "tangent_binary_search_control": "ENG1/ENG3 128-byte leads remain untracked, but the existing ordinary-C control is falsified and provides no new reentry evidence",
+      "excluded_by_parent": [
+        "shared reset",
+        "ENG3 profile binder",
+        "ENG3 constructor",
+        "graphics lanes"
+      ]
+    }
+  },
+  "selected_neighbor": {
+    "target": "assets/pc/HERCULES/ENG3.DLL",
+    "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+    "rva": "0x19f30",
+    "size": 160,
+    "body_size": 151,
+    "next_entry": "0x19fd0",
+    "trailing_alignment_nops": 9,
+    "direct_callers": 10,
+    "native_behavior_evidence": "Per-axis speed/limit/accel/decel fields at +0xa8/+0xac/+0xb0/+0xb4; sign byte +0x94; writes position +0; uses long +0xf0; tail jump from +0x92 to native helper RVA 0x2390. Neighboring y-axis contribution begins at 0x19fd0.",
+    "native_packet": "work/engine_shared_transfers_13/eng3_x_axis_native_packet.txt"
+  },
+  "candidate_measurement": {
+    "source": "candidates/engine_shared_transfers_13/eng3_x_axis_motion.c",
+    "source_sha256": "a4d994161751ecdf2dfa0e18aaa110d66bb86b334ef7de5f3cafe161093f5097",
+    "prediction": "work/engine_shared_transfers_13/eng3_x_axis_motion_prediction.json",
+    "report": "work/engine_shared_transfers_13/eng3_x_axis_motion_residual.json",
+    "compile": "One fresh pinned msvc5_rtm /O2 /Gy compile; object build/match/compile-bskd6_x4/candidate.obj",
+    "object_sha256": "eef7a93d3320a96c3cb39633c9333b24d873b18a8f4f9412d5c887575d5d77ce",
+    "full_contribution_sizes": "160/160 bytes including padding",
+    "raw_gate": "FAIL; 40 differing bytes, 8 mismatch regions.",
+    "masked_gate": "FAIL; 20 non-relocation residual bytes. Four candidate DIR32 refs match target HIGHLOW offsets [1,36,73,100] and imply global RVA 0x42540. Native jump to helper RVA 0x2390 is at function offset 146; candidate REL32 to _eng3_empty_2390 is at offset 149 and therefore displaced. The masked tool's helper implication 0x90929fc7 is invalid and is not accepted as a coherent binding.",
+    "outcome": "Falsified by one compile; no source/type/order/flag retry. No FUNCTION_MATCH or CODEGEN_SIMILAR claim."
+  },
+  "source_plan": "Keep the source, prediction, map, native packet, and report only in this private lane. No recovery row or canonical source change is proposed. A future attempt requires new source/context evidence that predicts the native branch layout and tail-call placement.",
+  "date": "2026-10-11",
+  "worker_receipt": {
+    "path": "work/engine_shared_transfers_13/audit_handoff.json",
+    "sha256": "7c3622b67b6c5615e61e00ef6508470414879c77f37ae91f1da3dab2c444abca"
+  }
+}

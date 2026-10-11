@@ -1,0 +1,255 @@
+{
+  "scope": "Bounded causal paired MRE findings only; no full scaler retry, acceptance or source transfer.",
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "repository": "https://github.com/archaic-msvc/msvc500",
+    "commit": "8abf95ce980161ad87b0b02402269cce76988953",
+    "archive_sha256": "5f7728d1b3b8b8c61bb35e42a7680211019d290b30376c1a0a8faaa6d166cd1f"
+  },
+  "toolchain_manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+  "sdk": {
+    "actual_transitive_headers": 54,
+    "windows_header": {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\windows.h",
+      "bytes": 4903,
+      "sha256": "1de22ddc1b079d330a8f5b02338a5ad5681b060cf3ac86f984a243ff2bdd9303"
+    },
+    "all_before_after_digests_stable": true
+  },
+  "prediction": {
+    "region": "graphics_scaler_pointer_rows",
+    "lane": "graphics_scaler_expression_14",
+    "family": "paired minimal numeric row versus precomputed row pointer",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "capability": "native expression graph and bounded compiler controls",
+    "prediction": "With BYTE* source fixed, RTM /O2 /Gy will fold both source[row_offset+(int)x] and row_pointer[(int)x] into the same precomputed source+row address before the column loop. Complete reduced function bytes and ordered relocation identities should be equal. Neither isolated source expression should reproduce the native full-body numeric row register plus source reload inside the loop by itself.",
+    "falsifier": "A complete code/reference difference accompanied by the numeric control retaining its integer row product across __ftol and loading source inside the loop, while the pointer control forms source+row outside, falsifies the collapse prediction and supplies a source-expression discriminator. Mere instruction count, register difference or local label identity does not by itself establish the native graph.",
+    "basis": "Reviewed6530 native stores row product inEDI at65cd/65cf, reloads source at65df, adds convertedx to row at65e3 and fetches65e9. Frozen prior ordinary BYTE* candidate hoists source+row with LEA before its column loop despite numeric row source spelling. This motivates testing whether the two expression forms are independently meaningful in RTM, not a full-body retry.",
+    "controls": [
+      "A: one-row reduced scaler with signed source row/pitch and numeric row_offset, BYTE* source/destination, signed widths, float x step and converted x",
+      "B: identical types, constants, validation, float statements and loop order; only row_offset storage/expression becomes a precomputed BYTE* row_pointer"
+    ],
+    "fixed_context": "Same sole windows.h SDK include, same extern-C function name, isolated translation units, same physical six argument types BYTE*,int,int,int,BYTE*,int, same no-other-functions context and /O2 /Gy. No macros, volatile, aliases, extra barriers or flags.",
+    "build_limit": 2,
+    "scope": "Reduced compiler experiment only. No outer row loop/full scaler compile, frozen prior source edits, unique original source/compiler-pass claim, acceptance or source transfer unless the actual native graph is explained."
+  },
+  "fresh_builds": 2,
+  "results": [
+    {
+      "label": "numeric_row",
+      "source": "candidates/graphics_scaler_expression_14/numeric_row.cpp",
+      "source_sha256": "e8751d9447b3207bc4cd3954a2f8eabda5a6bd642df95ab386c975f5ded2ff00",
+      "object": "D:\\Prog\\hercules_recon\\work\\graphics_scaler_expression_14\\numeric_row.obj",
+      "object_sha256": "ef408a991087fa542e95de387c985e57590b38562ca39ab37db7c0db0ebdbb3f",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\graphics_scaler_expression_14\\numeric_row.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\graphics_scaler_expression_14\\numeric_row.cpp"
+      ],
+      "bytes": 96,
+      "code_sha256": "049dc529cf934126028bde8ab65a2092d6a34663e37abe984e3cd38e38f691f4",
+      "references": [
+        {
+          "offset": 38,
+          "symbol": "$T28984",
+          "type": 6,
+          "symbol_section": 3,
+          "symbol_value": 0,
+          "addend_hex": "00000000",
+          "defined_payload_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+          "defined_payload_bytes": 4
+        },
+        {
+          "offset": 64,
+          "symbol": "__ftol",
+          "type": 20,
+          "symbol_section": 0,
+          "symbol_value": 0,
+          "addend_hex": "00000000",
+          "defined_payload_sha256": null,
+          "defined_payload_bytes": null
+        }
+      ]
+    },
+    {
+      "label": "pointer_row",
+      "source": "candidates/graphics_scaler_expression_14/pointer_row.cpp",
+      "source_sha256": "ca2abe318f0383e705499511a279ae011d86b3987bcda10feb8bf4e36bd34114",
+      "object": "D:\\Prog\\hercules_recon\\work\\graphics_scaler_expression_14\\pointer_row.obj",
+      "object_sha256": "7eba5f2683a6d061e1300b36334548079328bd3dec4b798a6983fd1d28b94599",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\graphics_scaler_expression_14\\pointer_row.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\graphics_scaler_expression_14\\pointer_row.cpp"
+      ],
+      "bytes": 96,
+      "code_sha256": "f9f7a545f9aefbaa72f8667681b8a9e4c6892c2b2950c35bb7d420c3a1e27d87",
+      "references": [
+        {
+          "offset": 46,
+          "symbol": "$T28984",
+          "type": 6,
+          "symbol_section": 3,
+          "symbol_value": 0,
+          "addend_hex": "00000000",
+          "defined_payload_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+          "defined_payload_bytes": 4
+        },
+        {
+          "offset": 59,
+          "symbol": "__ftol",
+          "type": 20,
+          "symbol_section": 0,
+          "symbol_value": 0,
+          "addend_hex": "00000000",
+          "defined_payload_sha256": null,
+          "defined_payload_bytes": null
+        }
+      ]
+    }
+  ],
+  "complete_output": {
+    "code_equal": false,
+    "ordered_relocations_equal": false,
+    "raw_differing_bytes": 80,
+    "same_reference_payloads_and_identities_ignoring_positions": true,
+    "native_oracle_comparison": "Not attempted: one-row reductions have distinct argument semantics and omit the full native outer-row/control context."
+  },
+  "measured_address_forms": [
+    {
+      "label": "numeric_row",
+      "row_product": "EAX = source_pitch * source_row at15/1b",
+      "source_base_load": "ECX = source argument at32",
+      "row_pointer": "EBX = EAX + ECX via LEA at3a, before loop3d",
+      "converted_x": "__ftol REL32 at40; EAX result",
+      "byte_fetch": "DL = [EAX + EBX] at44 inside loop",
+      "source_reloaded_inside_loop": false,
+      "float_division": "FILD source_width; FILD destination_width; FDIVP",
+      "body_bytes": 90
+    },
+    {
+      "label": "pointer_row",
+      "row_product": "EDI = source_pitch * source_row at11/19",
+      "source_base_load": "ECX = source argument at15",
+      "row_pointer": "EDI += ECX at22, before loop38",
+      "converted_x": "__ftol REL32 at3b; EAX result",
+      "byte_fetch": "AL = [EDI + EAX] at3f inside loop",
+      "source_reloaded_inside_loop": false,
+      "float_division": "FILD source_width; FIDIV destination_width",
+      "body_bytes": 85
+    }
+  ],
+  "native_form": {
+    "rva": "0x65c8",
+    "bytes": 40,
+    "sha256": "13ec7877a30e5c7d36751501f7ec8e8f070d1dc5afb80aef9948ffa0c48f081e",
+    "instructions": [
+      {
+        "rva": "0x65c8",
+        "text": "call 0x410d90"
+      },
+      {
+        "rva": "0x65cd",
+        "text": "mov edi, eax"
+      },
+      {
+        "rva": "0x65cf",
+        "text": "imul edi, dword ptr [esp + 0x20]"
+      },
+      {
+        "rva": "0x65d4",
+        "text": "test ebx, ebx"
+      },
+      {
+        "rva": "0x65d6",
+        "text": "jle 0x4065f4"
+      },
+      {
+        "rva": "0x65d8",
+        "text": "fld st(0)"
+      },
+      {
+        "rva": "0x65da",
+        "text": "call 0x410d90"
+      },
+      {
+        "rva": "0x65df",
+        "text": "mov ecx, dword ptr [esp + 0x14]"
+      },
+      {
+        "rva": "0x65e3",
+        "text": "add eax, edi"
+      },
+      {
+        "rva": "0x65e5",
+        "text": "fadd dword ptr [esp + 0x28]"
+      },
+      {
+        "rva": "0x65e9",
+        "text": "mov dl, byte ptr [eax + ecx]"
+      },
+      {
+        "rva": "0x65ec",
+        "text": "mov byte ptr [esi + ebp], dl"
+      },
+      {
+        "rva": "0x65ef",
+        "text": "inc esi"
+      }
+    ]
+  },
+  "outcomes": {
+    "complete_output_collapse_prediction": "falsified: complete code and ordered reference offsets differ",
+    "native_numeric_vs_pointer_graph_discriminator": "not supported: both controls form a source row pointer outside the loop and keep it across __ftol",
+    "predeclared_joint_native_form_falsifier_triggered": false
+  },
+  "causal_conclusions": [
+    "The only predeclared source-expression change causes different RTM instruction scheduling/register choices and float denominator forms in this reduction. This does not identify a compiler pass or original source.",
+    "The numeric local does not guarantee a live numeric row at the byte load: RTM forms a pointer in both controls.",
+    "Same96-byte aligned extent hides different90/85-byte decoded bodies and reference placement. Size alone cannot support equality.",
+    "Both have one compiler __ftol reference and one zero float constant of the same four-byte payload; only their positions differ. No library function or literal provider is reconstructed here.",
+    "No control produces the native numeric-row/source-reload graph. The reduced evidence does not justify a complete-family retry or handoff to Luna."
+  ],
+  "next_discriminator": "Actual storage/address conversion or fuller documented live-value context that predicts keeping numeric row separate and reloading source inside the native loop. Do not infer it from numeric-versus-pointer local spelling alone.",
+  "frozen_full_source_sha256": "8e0f2f608ccc1ef131b34826c647b4b423fb18ad71ec7a43312b3765f81ff9e6",
+  "provenance": [
+    {
+      "path": "work/graphics_scaler_expression_14/prediction.json",
+      "sha256": "1c9afd9c127945a0e4ab1d025a8ed639968e80ce9032b99d19e81f65ab49fc0b"
+    },
+    {
+      "path": "work/graphics_scaler_expression_14/build.py",
+      "sha256": "ab086cc1cd41453b07911376623a45545bd6cf0e1871a8518c88ee93cefacdfb"
+    },
+    {
+      "path": "work/graphics_scaler_expression_14/measurement.json",
+      "sha256": "63220b73cfca2fbb7b5c1490bdd8c28aa2cdc74bb5746b8943c1b31f5cb5692f"
+    },
+    {
+      "path": "work/graphics_scaler_expression_14/finalize.py",
+      "sha256": "219a13c21823f13ccf2b09cede6c4a237eebb27091a76572fa351d08a195c19f"
+    },
+    {
+      "path": "work/graphics_scaler_expression_14/handoff.md",
+      "sha256": "1997ec18b09fcb18629304c0738d3bd71098c12e96084d131cf36e3d8b0e9e08"
+    }
+  ],
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "date": "2026-10-11",
+  "worker_receipt": {
+    "path": "work/graphics_scaler_expression_14/compact.json",
+    "sha256": "91fbba5b37aae95b33b1d34386a669c81b829e1dce845f9df0b18951d2db9805"
+  }
+}

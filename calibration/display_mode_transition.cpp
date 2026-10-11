@@ -24,20 +24,20 @@ extern LONG g_exe_91c480;
 extern unsigned char g_exe_96e410;
 extern IDirectDraw *g_exe_96e3e4;
 extern DWORD g_exe_ba0214;
-extern DWORD g_exe_ba0210;
-extern DWORD g_exe_96e3d8;
+extern unsigned char *g_exe_ba0210;
+extern unsigned char *g_exe_96e3d8;
 extern int g_exe_96e3d4;
 extern unsigned char g_exe_43a590;
 extern RECT g_exe_92e3c0;
 
 extern void __cdecl graphics_native_03770(void);
 extern void __cdecl graphics_native_05a50(void);
-extern void __cdecl graphics_native_06530(DWORD, DWORD,
-                                          DWORD, DWORD,
-                                          DWORD, DWORD,
-                                          DWORD, DWORD);
+extern void __cdecl graphics_native_06530(unsigned char *, int,
+                                          int, int,
+                                          unsigned char *, int,
+                                          int, int);
 extern void __cdecl graphics_native_06620(void);
-extern void __cdecl graphics_native_069a0(int value);
+extern void __cdecl graphics_native_069a0(unsigned char value);
 extern void __cdecl graphics_native_06a60(DWORD width,
                                           DWORD height);
 extern void __cdecl graphics_native_06ff0(void);

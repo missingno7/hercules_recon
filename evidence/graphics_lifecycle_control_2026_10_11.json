@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-11",
+  "scope": "Two private actual-SDK lifecycle source leads fail complete gates; no source/state promotion.",
+  "prediction": {
+    "scope": "Two HERCULES.EXE DirectDraw surface lifecycle helpers only: 0x6ff0..0x70c0 (208-byte aligned contribution) and 0x7140..0x7170 (48-byte aligned contribution). No source-TU claim.",
+    "oracle": "work/discs/pc_install/HERCULES.EXE",
+    "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "family": "genuine DirectDraw surface lock/restore/unlock helpers",
+    "prediction": "One ordinary C++ family using the pinned SDK IDirectDrawSurface methods and DDSURFACEDESC should reproduce both helper control flows. At 0x6ff0, the native sequence gates on the state byte and fatal-dialog byte, checks IsLost/Restore on the first surface, then zero-initializes a 0x6c descriptor, sets dwSize, and attempts Lock on the second surface. A nonzero Lock result calls the existing 0x6ec0 setter then 0x6bb0 transition; zero or a null second surface copies descriptor pitch/surface values and sets the state byte. At 0x7140, Unlock is conditional on the same three observed state/pointer predicates and the state byte is then cleared unconditionally. Expect exact full contribution sizes including alignment, equal non-relocation instruction bytes, and a consistent symbol map for direct helper calls and global cells; relocatable object bytes may differ at encoded relocation operands.",
+    "falsifier": "Reject this single family if either full COFF contribution size including padding differs from 208/48, any non-relocation byte or control-flow edge differs, the SDK method slot/argument shape disagrees with native calls, the Lock-result branch or descriptor-copy path is inverted, the Unlock gates/state clear differ, or any target global/helper binding is inconsistent. Stop after this measurement; do not run declaration, statement-order, or compiler-flag grids.",
+    "evidence": {
+      "native_spans": [
+        "work/graphics_tail_helpers_13/native_6ff0.txt",
+        "work/graphics_tail_helpers_13/native_7140.txt"
+      ],
+      "current_caller_source": "calibration/display_mode_transition.cpp",
+      "surface_roles": "evidence/directdraw_surface_control_2026_10_11.json",
+      "sdk_header": "C:/tools/hercules/msvc500-8abf95ce980161ad87b0b02402269cce76988953/include/ddraw.h"
+    },
+    "limits": [
+      "The 6ff0 span ends at the next aligned entry and includes nine NOP bytes; the 7140 span includes two NOP bytes.",
+      "Observed global labels identify access RVAs only; they do not prove original aggregate or TU ownership.",
+      "The SDK declaration supports method ABI and offsets, not the unique original DirectDraw interface revision or source spelling.",
+      "Function equality, if reached, would not establish module-wide layout or whole-image equality."
+    ],
+    "compiler": "pinned msvc5_rtm /O2 /Gy; one fresh measured family planned"
+  },
+  "source": "candidates\\graphics_tail_helpers_13\\surface_lifecycle_helpers.cpp",
+  "source_sha256": "73eb1377de11b679b6a0b81186daeec0f8a1d0d25896fb609638ba1c3e9b6a73",
+  "command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/c",
+    "/Gy",
+    "/O2",
+    "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-cglrxncq\\candidate.obj",
+    "D:\\Prog\\hercules_recon\\candidates\\graphics_tail_helpers_13\\surface_lifecycle_helpers.cpp"
+  ],
+  "object_sha256": "761e9b14ea0f218d423755cbe69e0621dc5fb17e5dc35dad2eb932825b1bcebf",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "functions": [
+    {
+      "symbol": "_graphics_native_06ff0",
+      "rva": "0x6ff0",
+      "target_bytes": 208,
+      "compiled_bytes": 208,
+      "raw_differing_bytes": 172,
+      "masked_equal": false,
+      "masked_differing_bytes": 127,
+      "conflicts": [
+        {
+          "symbol": "_g_exe_ba01f0",
+          "offset": 48,
+          "implied": "0xb358876",
+          "previous": "0x7a01f0"
+        },
+        {
+          "symbol": "_g_exe_96e3e8",
+          "offset": 81,
+          "implied": "0x3e444c7",
+          "previous": "0x6c12ff10"
+        },
+        {
+          "symbol": "_g_exe_ba0214",
+          "offset": 171,
+          "implied": "0x1d405c7",
+          "previous": "0xc0450096"
+        },
+        {
+          "symbol": "_g_exe_ba0210",
+          "offset": 177,
+          "implied": "0xffc00140",
+          "previous": "0x3d2051ff"
+        },
+        {
+          "symbol": "_g_exe_ba01f0",
+          "offset": 183,
+          "implied": "0x7a0210",
+          "previous": "0x7a01f0"
+        }
+      ]
+    },
+    {
+      "symbol": "_graphics_native_07140",
+      "rva": "0x7140",
+      "target_bytes": 48,
+      "compiled_bytes": 48,
+      "raw_differing_bytes": 13,
+      "masked_equal": false,
+      "masked_differing_bytes": 1,
+      "conflicts": []
+    }
+  ],
+  "native_roles": [
+    "0x6ff0 uses genuine IsLost,Restore,Lock; DDSURFACEDESC108bytes with lPitch+16 and lpSurface+36.",
+    "0x7140 uses Unlock+0x80; its one nonrelocation branch-displacement difference changes CFG6blocks vs5, so token equality is insufficient."
+  ],
+  "reentry": "New native branch/data-flow or caller lifecycle evidence predicting the precise residual. No spelling/order/flags retries.",
+  "provenance": [
+    {
+      "path": "work/graphics_tail_helpers_13/handoff.md",
+      "sha256": "2c0d7a31d7e53d88408281455593598a0cb29e36aad2efdde3274fee348fdc5c"
+    },
+    {
+      "path": "work/graphics_tail_helpers_13/fresh_residual.json",
+      "sha256": "256b57c6f66e39280805eaaa5f8248c936aa6c174cd61d5512b916a85f415f48"
+    },
+    {
+      "path": "work/graphics_tail_helpers_13/fresh_measurement.json",
+      "sha256": "840b3f763862ec16641a61a9e03a3061b17af4aa45ae89400bb04639d325f7ef"
+    },
+    {
+      "path": "work/graphics_tail_helpers_13/meta.json",
+      "sha256": "241e566ca914516feed0878b01822e5f3d1bb3be1e4759b782a6a22190d1c006"
+    }
+  ],
+  "limits": [
+    "Divergent6ff0layout makes offset-indexed binding conflicts diagnostic, not evidence of wrong globals.",
+    "7140consistentbindings do not permit ignoring its branch displacement."
+  ]
+}

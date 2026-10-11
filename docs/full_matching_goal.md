@@ -360,3 +360,44 @@ original-file checks pass. This wave adds no strict bytes. Missing-code map
 leads remain heuristic, not whole-image completeness measurements. See
 `evidence/full_goal_display_reset_wave_2026_10_11.json` and the bounded reset
 proof in `evidence/shared_actor_reset_behavior_2026_10_11.json`.
+
+## Palette and presentation helper wave
+
+The genuine SDK presentation helper at EXE 0x6620 (224 bytes) and palette refresh
+at 0x69a0 (192 bytes) pass the full masked gate. Native writers substantiate the
+HDC, bitmap-info, DIB pixel pointer and client-size views. The palette routine
+uses real `IDirectDraw`, `IDirectDrawPalette`, `LOGPALETTE` and `HPALETTE` APIs;
+its 256-entry API count does not establish original heap ownership or aggregate
+identity. Every actual storage owner remains external.
+
+The existing display caller now uses supported buffer-pointer/signed scaler
+arguments and a low-byte palette wait parameter. A combined fresh control
+preserves its complete 784 bytes and 92 ordered references. The single scaler
+candidate remains private: 240 bytes with 117 nonreference differences. Native
+numeric-row/address conversion differs from the candidate's precomputed row
+pointer; isolate that representation before another full-function experiment.
+
+Both first lock/unlock candidates fail. The 48-byte Unlock routine has just one
+nonrelocation branch displacement difference, but it changes CFG structure.
+Token agreement and coherent references do not allow masking that difference.
+Their next attempt requires new native branch/data-flow or lifecycle evidence.
+
+Current recovery is 117 strict functions / 7,904 bytes, 387 masked functions /
+84,848 bytes in 49 sources, four reconstructed functions / 880 bytes, and 352
+legacy similar bytes. Fresh raw and masked regression, 54 tests and twelve
+original-file checks pass. The 23-source natural dependency control preserves
+20 unchanged full COFF peers and the reconciled caller, removing two helpers
+while exposing two more helpers and three real cells (48 to 51 unresolved names).
+This wave adds 416 masked bytes and no strict bytes. The full goal stays active;
+actual palette followup dependencies continue in an independent source lane.
+See `evidence/full_goal_graphics_helpers_wave_2026_10_11.json`.
+
+The address-expression pair has now been measured: both controls have 96-byte
+contributions, but different 90/85-byte bodies and reference positions. Both
+hoist a source row pointer, so neither explains the native numeric-row/reload
+graph. Preserve this negative discriminator and keep the full scaler frozen.
+The fresh engine transfer audit finds the supported exact shared groups already
+represented; no same-size transfer is inferred. One new ENG3 axis neighbor at
+0x19f30 has 160 bytes and ten callers, but its first candidate fails with 20
+nonrelocation bytes and a displaced helper reference. That source also stays
+private. These results change reentry conditions, without adding accepted code.
