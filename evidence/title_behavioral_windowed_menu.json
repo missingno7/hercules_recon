@@ -3,6 +3,18 @@
   "sha256": "b3ab3ee9e5c973bb245d8eed795e8e7065d7dfc371e412e602b2059af894a551",
   "resource_rva": "0x7a87f0",
   "resource_sha256": "dbd2f470bd217b67c8b5a552ee18361dce53489ebefb7af6dadb7757f3bdc10e",
+  "native_mode_protocol": {
+    "resize_command": 32801,
+    "resize_handler_rva": "0x9a60",
+    "resize_helper_rva": "0x99a0",
+    "limitation": "Command32801 only resizes. It does not switch rendering mode despite the Window label.",
+    "startup_fullscreen_request_rva": "0x5e86",
+    "toggle_handlers": {"WM_SYSKEYDOWN": "0x9ab0", "WM_SYSKEYUP": "0x9b20"},
+    "messages": [{"message": "WM_SYSKEYDOWN", "wparam": 13, "lparam": "0x201c0001"}, {"message": "WM_SYSKEYUP", "wparam": 13, "lparam": "0xe01c0001"}],
+    "condition": "Send the native Alt+Enter pair only after requested/current fullscreen bytes are both1; wait for both0 before command32801.",
+    "mode_addresses": {"requested_fullscreen": "0x96e3d0", "current_mode": "0xba020c"},
+    "verification": "Both bytes0, visible caption/nonpopup menu window with client320x240. Native baseline and source runs verified this on2026-10-11."
+  },
   "items": [
     {
       "flags": "0x10",

@@ -2,8 +2,9 @@
 
 The verified installer is the host/data baseline. --no-cd applies the separately
 authorized one-byte change only to the disposable host copy at the final staging
-step; all original and matching build inputs remain unchanged. Original TITLE is
-deliberately omitted; attach requires the
+step; all original and matching build inputs remain unchanged. The behavioral
+runtime omits original TITLE; the separate baseline preserves it for comparison.
+Attach requires the
 fresh x86 DLL named and hashed by scripts/title_behavioral.py's report. Nothing
 in assets/ or the original installation is modified.
 """
@@ -22,6 +23,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 LANE = ROOT / "work/title_behavioral/integration"
 INSTALL = ROOT / "work/discs/pc_install"
 DEFAULT_RUNTIME = LANE / "runtime_nocd"
+BASELINE_RUNTIME = LANE / "runtime_baseline_nocd"
 BUILD_REPORT = ROOT / "work/title_behavioral/build/report.json"
 FIXTURE_SOURCE = ROOT / "tests/title_loader_fixture.c"
 DEBUGGER_SOURCE = ROOT / "tests/title_host_probe.c"
@@ -94,7 +96,7 @@ def load_report(path=BUILD_REPORT):
     return report, dll, digest
 
 
-def prepare(runtime, no_cd=True):
+def prepare(runtime, no_cd=True, baseline=False):
     runtime = check_runtime(runtime)
     runtime.mkdir(parents=True, exist_ok=True)
     source_hashes = {}
@@ -125,8 +127,10 @@ def prepare(runtime, no_cd=True):
     if title.exists():
         if not title.is_file():
             raise ValueError("Runtime TITLE.DLL path is not a file")
-        if sha256(title) == ORIGINAL_SHA256["TITLE.DLL"]:
+        if sha256(title) == ORIGINAL_SHA256["TITLE.DLL"] and not baseline:
             raise ValueError("Original TITLE.DLL appeared in the runtime copy")
+        if baseline and sha256(title) != ORIGINAL_SHA256["TITLE.DLL"]:
+            raise ValueError("Baseline directory already contains a different TITLE.DLL")
         # It may only be the same behavioral build already recorded below.
     manifest_path = runtime / "runtime_manifest.json"
     if manifest_path.exists():
@@ -149,11 +153,14 @@ def prepare(runtime, no_cd=True):
             "prepared_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             "game_launched": False,
         }
+    if baseline and not title.exists():
+        shutil.copy2(INSTALL / 'TITLE.DLL', title)
     if title.exists():
         manifest["runtime_title_sha256"] = sha256(title)
+    manifest['title_kind'] = 'original_baseline' if baseline else 'behavioral'
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"runtime": str(runtime), "files_copied_or_verified": len(source_hashes) - 1,
-                      "original_title_excluded": True, "host_sha256": manifest['host_sha256'],
+                      "original_title_excluded": not baseline, "host_sha256": manifest['host_sha256'],
                       "host_variant": manifest.get('host_variant', 'unmodified_installer')}))
 
 
@@ -271,7 +278,7 @@ def build_debugger():
     if compile_result.returncode or not obj.is_file():
         raise RuntimeError("VC5 failed to build debugger probe; see " + str(out / "compile.log"))
     link_command = [str(TOOLCHAIN / "bin/link.exe"), "/nologo", "/SUBSYSTEM:CONSOLE", "/INCREMENTAL:NO",
-                    "/OUT:" + str(exe), str(obj), "libcmt.lib", "kernel32.lib"]
+                    "/OUT:" + str(exe), str(obj), "libcmt.lib", "kernel32.lib", "user32.lib", "advapi32.lib", "gdi32.lib"]
     link_result = subprocess.run(link_command, cwd=out, env=env, capture_output=True, text=True)
     (out / "link.log").write_text(link_result.stdout + link_result.stderr, encoding="utf-8")
     if link_result.returncode or not exe.is_file():
@@ -291,9 +298,17 @@ def build_debugger():
     return exe
 
 
-def debug_runtime(runtime, timeout_ms=25000, title_trace=False):
+def debug_runtime(runtime, timeout_ms=25000, title_trace=False, baseline=False):
     runtime = check_runtime(runtime)
-    report, dll, title_digest = load_report()
+    if baseline:
+        title_digest = ORIGINAL_SHA256['TITLE.DLL']
+        title_trace = False
+        pool_rva = 0x29e18
+    else:
+        report, dll, title_digest = load_report()
+        from title_behavioral import read_map
+        from pe import PE
+        pool_rva = read_map(LANE.parent / 'build/TITLE.map')['_g_29e18'] - PE(dll).image_base
     manifest_path = runtime / "runtime_manifest.json"
     if not manifest_path.is_file():
         raise ValueError("Prepare the runtime copy before debug launch")
@@ -314,11 +329,13 @@ def debug_runtime(runtime, timeout_ms=25000, title_trace=False):
     build_report = json.loads((LANE / "debugger/build_report.json").read_text(encoding="utf-8"))
     if sha256(probe) != build_report.get("exe_sha256"):
         raise ValueError("Debugger executable differs from its build report")
-    events_path = LANE / "debugger/runtime_events.jsonl"
-    trace_path = LANE / "debugger/title_trace.jsonl"
+    suffix = 'baseline_windowed' if baseline else 'behavioral_windowed'
+    events_path = LANE / ('debugger/runtime_events_' + suffix + '.jsonl')
+    trace_path = LANE / ('debugger/title_trace_' + suffix + '.jsonl')
     if title_trace and trace_path.exists():
         trace_path.unlink()
-    command = [str(probe.resolve()), str(host.resolve()), str(runtime), str(events_path), str(timeout_ms)]
+    command = [str(probe.resolve()), str(host.resolve()), str(runtime), str(events_path), str(timeout_ms), '--windowed',
+               '--title-pool-rva', hex(pool_rva)]
     env = os.environ.copy()
     env.pop("HERCULES_TITLE_TRACE", None)
     if title_trace:
@@ -346,9 +363,12 @@ def debug_runtime(runtime, timeout_ms=25000, title_trace=False):
 
     summary = next((row for row in reversed(event_rows) if row.get("type") == "summary"), None)
     measurement = {
-        "scope": "Hidden DEBUG_ONLY_THIS_PROCESS launch of the verified original host with behavioral TITLE; debug events only, no code or memory edits.",
-        "host_sha256": sha256(host), "behavioral_title_sha256": title_digest,
-        "behavioral_build_report": str(BUILD_REPORT.relative_to(ROOT)),
+        "scope": "Windowed DEBUG_ONLY_THIS_PROCESS launch; native menu command, own-PID window observations and captures, no code or process-memory edits.",
+        "host_sha256": sha256(host), "title_sha256": title_digest,
+        "behavioral_title_sha256": None if baseline else title_digest,
+        "title_kind": 'original_baseline' if baseline else 'behavioral',
+        "windowed_requested": True,
+        "behavioral_build_report": None if baseline else str(BUILD_REPORT.relative_to(ROOT)),
         "debugger_sha256": sha256(probe), "debugger_toolchain": build_report.get("toolchain"),
         "timeout_ms": timeout_ms, "title_trace_enabled": bool(title_trace),
         "title_trace_file": str(trace_path.relative_to(ROOT)) if title_trace else None,
@@ -359,7 +379,7 @@ def debug_runtime(runtime, timeout_ms=25000, title_trace=False):
                                          r.get("image_name", "").replace("/", "\\").rstrip("\\").split("\\")[-1].upper() == "TITLE.DLL"
                                          for r in event_rows),
     }
-    output_path = LANE / "debugger/host_debugger_report.json"
+    output_path = LANE / ('debugger/host_debugger_report_' + suffix + '.json')
     output_path.write_text(json.dumps(measurement, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"probe_exit_code": result.returncode, "summary": summary,
                       "loaded_title_event_count": measurement["loaded_title_event_count"],
@@ -368,57 +388,14 @@ def debug_runtime(runtime, timeout_ms=25000, title_trace=False):
 
 
 def launch_game(runtime, timeout):
-    runtime = check_runtime(runtime)
-    report, dll, digest = load_report()
-    manifest_path = runtime / "runtime_manifest.json"
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    host = runtime / "HERCULES.EXE"
-    title = runtime / "TITLE.DLL"
-    if sha256(host) != runtime_host_hash(manifest):
-        raise ValueError("Refusing launch: host executable hash changed")
-    if sha256(title) != digest or manifest.get("runtime_title_sha256") != digest:
-        raise ValueError("Refusing launch: TITLE.DLL is not the attached behavioral build")
-    for name in ("ENG1.DLL", "ENG3.DLL", "HERCULES.FS", "HERCULES.GID", "HERCULES.HLP"):
-        if sha256(runtime / name) != ORIGINAL_SHA256[name]:
-            raise ValueError("Refusing launch: original support file hash changed: " + name)
-    start = time.time()
-    startup = subprocess.STARTUPINFO()
-    startup.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-    startup.wShowWindow = 0
-    proc = subprocess.Popen([str(host)], cwd=runtime, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                            text=True, startupinfo=startup)
-    status = "exited"
-    try:
-        stdout, stderr = proc.communicate(timeout=timeout)
-    except subprocess.TimeoutExpired:
-        status = "timed_out_then_terminated"
-        proc.terminate()
-        try:
-            stdout, stderr = proc.communicate(timeout=5)
-        except subprocess.TimeoutExpired:
-            proc.kill()
-            stdout, stderr = proc.communicate()
-    measurement = {
-        "scope": "Original-game process launch with a behavioral TITLE DLL; process survival does not prove gameplay correctness.",
-        "host": str(host), "host_sha256": sha256(host), "title_sha256": sha256(title),
-        "build_report": str(BUILD_REPORT.relative_to(ROOT)), "started": True,
-        "status": status, "exit_code": proc.returncode,
-        "elapsed_seconds": round(time.time() - start, 3), "timeout_seconds": timeout,
-        "stdout": stdout, "stderr": stderr, "game_launched": True,
-    }
-    report_path = LANE / "game_launch_report.json"
-    report_path.write_text(json.dumps(measurement, indent=2) + "\n", encoding="utf-8")
-    manifest.update({"game_launched": True, "last_launch_report": str(report_path.relative_to(ROOT))})
-    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({"status": status, "exit_code": proc.returncode,
-                      "elapsed_seconds": measurement["elapsed_seconds"],
-                      "report": str(report_path)}))
-    return 0 if status == "exited" and proc.returncode == 0 else 1
+    # Every game integration run uses the native windowed command and bounded
+    # debugger lifecycle, so launch cannot silently fall back to fullscreen.
+    return debug_runtime(runtime, timeout * 1000, False)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("prepare", "attach", "build-fixture", "build-debugger", "fixture", "debug-launch", "launch"))
+    parser.add_argument("command", choices=("prepare", "prepare-baseline", "attach", "build-fixture", "build-debugger", "fixture", "debug-launch", "debug-baseline", "launch"))
     parser.add_argument("--runtime", type=Path, default=DEFAULT_RUNTIME)
     parser.add_argument("--no-cd", action="store_true", default=True,
                         help="Apply the reviewed EXE-only patch to the disposable copy during prepare (default)")
@@ -428,7 +405,11 @@ def main():
     parser.add_argument("--timeout-ms", type=int, default=25000)
     parser.add_argument("--title-trace", action="store_true")
     args = parser.parse_args()
-    if args.command == "prepare":
+    if args.command in ('prepare-baseline', 'debug-baseline') and args.runtime == DEFAULT_RUNTIME:
+        args.runtime = BASELINE_RUNTIME
+    if args.command == 'prepare-baseline':
+        prepare(args.runtime, args.no_cd, True)
+    elif args.command == "prepare":
         prepare(args.runtime, args.no_cd)
     elif args.command == "attach":
         attach(args.runtime)
@@ -440,6 +421,8 @@ def main():
         return run_fixture(args.runtime)
     elif args.command == "debug-launch":
         return debug_runtime(args.runtime, args.timeout_ms, args.title_trace)
+    elif args.command == 'debug-baseline':
+        return debug_runtime(args.runtime, args.timeout_ms, False, True)
     else:
         return launch_game(args.runtime, args.timeout)
     return 0

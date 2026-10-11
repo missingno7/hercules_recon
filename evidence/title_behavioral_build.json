@@ -46,8 +46,8 @@
         "title_0ca00",
         "title_05fb0"
       ],
-      "uncertainty": "Caller discards EAX; full initialization and screen behavior remain unverified. Fourth frame stalled in fullscreen runtime; windowed comparison pending.",
-      "behavioral_verification": "Source protocol fixtures and linked native oracle rejection tests pass; actual host supplies expected interface and completes three frame calls.",
+      "uncertainty": "Caller discards EAX; title/menu initialization observed, but navigation, reinitialization, save/load and engine transitions still require broader validation.",
+      "behavioral_verification": "Source protocol fixtures and linked native oracle rejection tests pass; actual host supplies expected interface and reaches title menu in verified native windowed mode.",
       "tests": [
         "tests/title_entry_semantics.c",
         "tests/title_linked_differential.c"
@@ -214,7 +214,11 @@
       "module": "TITLE.DLL",
       "source": "calibration/title/u17cb0.cpp",
       "source_fragment": "src/title/behavioral/render.inc",
-      "implementation_status": "plausible_unverified"
+      "implementation_status": "behaviorally_validated_limited",
+      "behavioral_verification": "512 deterministic native x86 comparisons per renderer passed; selected host helpers are controlled identically.",
+      "tests": [
+        "tests/title_render_differential.c"
+      ]
     },
     {
       "rva": "0x181e0",
@@ -226,7 +230,11 @@
       "module": "TITLE.DLL",
       "source": "calibration/title/u17cb0.cpp",
       "source_fragment": "src/title/behavioral/render.inc",
-      "implementation_status": "plausible_unverified"
+      "implementation_status": "behaviorally_validated_limited",
+      "behavioral_verification": "512 deterministic native x86 comparisons per renderer passed; selected host helpers are controlled identically.",
+      "tests": [
+        "tests/title_render_differential.c"
+      ]
     },
     {
       "rva": "0x184c0",
@@ -238,7 +246,11 @@
       "module": "TITLE.DLL",
       "source": "calibration/title/u17cb0.cpp",
       "source_fragment": "src/title/behavioral/render.inc",
-      "implementation_status": "plausible_unverified"
+      "implementation_status": "behaviorally_validated_limited",
+      "behavioral_verification": "512 deterministic native x86 comparisons per renderer passed; selected host helpers are controlled identically.",
+      "tests": [
+        "tests/title_render_differential.c"
+      ]
     },
     {
       "rva": "0x186e0",
@@ -250,7 +262,11 @@
       "module": "TITLE.DLL",
       "source": "calibration/title/u17cb0.cpp",
       "source_fragment": "src/title/behavioral/render.inc",
-      "implementation_status": "plausible_unverified"
+      "implementation_status": "behaviorally_validated_limited",
+      "behavioral_verification": "512 deterministic native x86 comparisons per renderer passed; selected host helpers are controlled identically.",
+      "tests": [
+        "tests/title_render_differential.c"
+      ]
     },
     {
       "rva": "0x18b20",
@@ -274,7 +290,11 @@
       "module": "TITLE.DLL",
       "source": "calibration/title/u17cb0.cpp",
       "source_fragment": "src/title/behavioral/render.inc",
-      "implementation_status": "plausible_unverified"
+      "implementation_status": "behaviorally_validated_limited",
+      "behavioral_verification": "512 deterministic native x86 comparisons per renderer passed; selected host helpers are controlled identically.",
+      "tests": [
+        "tests/title_render_differential.c"
+      ]
     },
     {
       "module": "TITLE.DLL",
@@ -453,6 +473,32 @@
         "after": "    title_trace(\"host_draw_begin\", CTX->tick_038, (unsigned long)g_2cc04, (unsigned long)g_2cc04->ot);\n    title_0c6b0(g_2cc04->ot);\n    title_trace(\"host_draw_return\", CTX->tick_038, (unsigned long)g_2cc04, (unsigned long)g_2cc04->ot);",
         "count": 1,
         "reason": "Optional frame-stage diagnostics to identify earliest runtime divergence; matching source remains untouched."
+      },
+      {
+        "before": "                o->fn_00(o);",
+        "after": "                title_trace(\"process_begin\", (unsigned long)o->fn_00, o->state_04, (unsigned long)o);\n                o->fn_00(o);\n                title_trace(\"process_return\", (unsigned long)o->fn_00, o->state_04, (unsigned long)o);",
+        "count": 1,
+        "reason": "Optional scheduler callback/state diagnostics after measured fifth-frame windowed stall."
+      },
+      {
+        "before": "    p->fn_00(p);",
+        "after": "    title_trace(\"process_spawn_begin\", (unsigned long)p->fn_00, p->state_04, (unsigned long)p);\n    p->fn_00(p);\n    title_trace(\"process_spawn_return\", (unsigned long)p->fn_00, p->state_04, (unsigned long)p);",
+        "count": 1,
+        "reason": "Optional scheduler callback/state diagnostics after measured fifth-frame windowed stall."
+      }
+    ],
+    "calibration/title/r097f0.c": [
+      {
+        "before": "#include \"title_screen.h\"",
+        "after": "#include \"title_screen.h\"\nvoid title_trace(const char *, unsigned long, unsigned long, unsigned long);",
+        "count": 1,
+        "reason": "Optional movie-service diagnostics to distinguish original host playback from a reconstructed pre-movie helper stall."
+      },
+      {
+        "before": "    r = title_0c9e0(a, b);",
+        "after": "    title_trace(\"movie_begin\", a, b, ctx->flags_030);\n    r = title_0c9e0(a, b);\n    title_trace(\"movie_return\", a, r, ctx->flags_030);",
+        "count": 1,
+        "reason": "Optional movie-service diagnostics to distinguish original host playback from a reconstructed pre-movie helper stall."
       }
     ]
   },

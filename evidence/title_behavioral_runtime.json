@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-11",
+  "scope": "Actual original PC host execution with original ENG1/ENG3; no complete-game equivalence claim.",
+  "runs": [
+    {
+      "kind": "original_title_nocd",
+      "receipt": "work\\title_behavioral\\integration\\debugger\\host_debugger_report_original_title_nocd.json",
+      "receipt_sha256": "0ea2133ddada6bae0a4752806a672398e10a390d774e352e18104aa1f5540c88",
+      "host_sha256": "b3ab3ee9e5c973bb245d8eed795e8e7065d7dfc371e412e602b2059af894a551",
+      "title_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "probe_sha256": "e986814cf7fc18b7e2e3194f69bc3e4574a4aba2ca6a91d9c87b4ce6eb6df26f",
+      "timeout_ms": 45000,
+      "native_windowed_verified": true,
+      "client_size": [
+        320,
+        240
+      ],
+      "screenshot": "work\\title_behavioral\\integration\\debugger\\runtime_events_original_title_nocd.timeout.bmp",
+      "screenshot_sha256": "cc930267fbd221aab075d11251b627f43f4223044f828e4f27bca6fe7f18ee30",
+      "summary": {
+        "type": "summary",
+        "pid": 76028,
+        "created": true,
+        "timed_out": true,
+        "exited": true,
+        "exit_code": 49374,
+        "reason_code": 1,
+        "last_error": 0
+      },
+      "exceptions": []
+    },
+    {
+      "kind": "behavioral_nocd",
+      "receipt": "work\\title_behavioral\\integration\\debugger\\host_debugger_report_behavioral_nocd.json",
+      "receipt_sha256": "ffde9f09c7c5cd58eb4b93aa889cb32451adaa87fc5cf03907e723ac1721ad77",
+      "host_sha256": "b3ab3ee9e5c973bb245d8eed795e8e7065d7dfc371e412e602b2059af894a551",
+      "title_sha256": "d5dcb06f96831703e0763595f9f982d20813f700ff47f6f29b07291b555b33f9",
+      "probe_sha256": "e986814cf7fc18b7e2e3194f69bc3e4574a4aba2ca6a91d9c87b4ce6eb6df26f",
+      "timeout_ms": 45000,
+      "native_windowed_verified": true,
+      "client_size": [
+        320,
+        240
+      ],
+      "screenshot": "work\\title_behavioral\\integration\\debugger\\runtime_events_behavioral_nocd.timeout.bmp",
+      "screenshot_sha256": "b9958b835d80ed934a30ce0f705c6a5ae450d731e4bf1496cb314627f6f339b6",
+      "summary": {
+        "type": "summary",
+        "pid": 94564,
+        "created": true,
+        "timed_out": true,
+        "exited": true,
+        "exit_code": 49374,
+        "reason_code": 1,
+        "last_error": 0
+      },
+      "exceptions": []
+    }
+  ],
+  "observed": [
+    "Both reach the clear Hercules title menu with START GAME, PASSWORDS and EXIT.",
+    "Native Alt+Enter switches requested/current fullscreen bytes to zero; then resize command selects320x240.",
+    "Movie service calls are synchronous and returned in longer runs; short timeouts were not proof of indefinite hangs.",
+    "Original and replacement process callback identities and boot/menu states correspond in sampled45-second runs."
+  ],
+  "comparison_limits": [
+    "Wall-clock snapshots are not aligned to identical animation frames; observed source startup timing differs by approximately0.7seconds.",
+    "Correct-windowed screenshot pixel MAE8.83 is diagnostic; animated figures account for much of the difference. Top80rows MAE0.16.",
+    "Each run was deliberately terminated at its timeout by the probe; this does not validate natural shutdown.",
+    "Interactive navigation, passwords, settings, save/load, reinitialization and engine transitions remain under test."
+  ],
+  "superseded_diagnoses": [
+    "The apparent fourth/fifth-frame stall was inside a synchronous movie call; longer runs progressed.",
+    "Compressed/noisy captures happened with both original and replacement while mode remained fullscreen. Command32801 alone only resizes."
+  ],
+  "reproduction": [
+    "python scripts/title_behavioral.py",
+    "python scripts/title_integration.py prepare",
+    "python scripts/title_integration.py attach",
+    "python scripts/title_integration.py build-debugger",
+    "python scripts/title_integration.py debug-launch --title-trace --timeout-ms 45000",
+    "python scripts/title_integration.py prepare-baseline",
+    "python scripts/title_integration.py debug-baseline --timeout-ms 45000"
+  ]
+}

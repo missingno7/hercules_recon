@@ -135,6 +135,8 @@ def build(output):
     inventory = function_inventory('TITLE.DLL')['functions']
     by_rva = {int(r['rva'], 16): r for r in rows}
     additions = {int(r['rva'], 16): r for r in config.get('functions', [])}
+    validation = json.loads((ROOT / 'evidence/title_behavioral_validation.json').read_text())
+    validations = {int(r['rva'], 16): r for r in validation['functions']}
     coverage = []
     for entry in inventory:
         rva = int(entry['rva'], 16)
@@ -147,6 +149,8 @@ def build(output):
             row.update(source=provider, symbol=recovered['symbol'],
                        existing_evidence=recovered['status'],
                        evidence=recovered.get('evidence'),
+                       semantic_contract=recovered.get('evidence'),
+                       dependencies=sorted(recovered.get('link_symbols', {})),
                        compiled_definition=recovered['symbol'] in definitions,
                        original_proof_preserved=True,
                        original_compile_context=provider == recovered['source'] and
@@ -154,6 +158,9 @@ def build(output):
         if addition:
             row.update(addition)
             row['compiled_definition'] = addition['symbol'] in definitions
+        if rva in validations:
+            row['behavioral_validation'] = validations[rva]
+            row['behavioral_verification'] = validations[rva]['status']
         coverage.append(row)
     report.update(functions=coverage, inventory_count=len(inventory),
                   recorded_source_count=len(rows),

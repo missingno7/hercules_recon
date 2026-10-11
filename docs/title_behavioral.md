@@ -70,6 +70,21 @@ center. Pair-list, pointer-cache and replay-list capacities are provisional;
 neighbor boundaries do not prove the original complete object extents. Native
 placement, aggregate ownership and universal input safety are not established.
 
+The current build supplies all362 entries in the heuristic first-party inventory
+from44 source units, with no unresolved symbols, duplicate providers, or
+placeholders. Thirty-nine inventory spans still need boundary review. Six
+previously accepted functions remain raw-byte exact in the linked DLL. Twelve
+functions have limited native behavioral fixtures; the rest retain their
+existing matching/codegen evidence and unverified behavioral status.
+
+Actual isolated host runs reach the clear title menu and password screen. Real
+keyboard input navigates to Passwords and returns to the menu; F2 opens the
+original host Options dialog and Cancel closes it. Animations run, but matching
+wall-clock screenshots to identical animation frames is not yet deterministic.
+Save/load, changed settings, reinitialization and engine transitions need broader
+validation. Compact measurements are in `evidence/title_behavioral_runtime.json`;
+fresh detailed logs and screenshots remain ignored under `work/`.
+
 ## Original host provenance and integration
 
 The unmodified installer host is `work/discs/pc_install/HERCULES.EXE`, SHA-256
@@ -97,7 +112,9 @@ python scripts/title_integration.py attach
 python scripts/title_integration.py build-fixture
 python scripts/title_integration.py fixture
 python scripts/title_integration.py build-debugger
-python scripts/title_integration.py debug-launch --title-trace --timeout-ms 25000
+python scripts/title_integration.py debug-launch --title-trace --timeout-ms 45000
+python scripts/title_integration.py prepare-baseline
+python scripts/title_integration.py debug-baseline --timeout-ms 45000
 ```
 The debugger handles the initial OS loader breakpoint and passes later exceptions
 to application handlers; it does not modify code or process memory.
@@ -107,6 +124,11 @@ The user authorized a final no-CD staging step after compilation and verificatio
 copies the verified installer EXE, changes only file offset `0x94b0` from `53`
 to `c3`, and requires the result to equal the supplied no-CD EXE hash. It never
 changes assets or compilation/oracle outputs. The runtime manifest records the
-host identity and exact patch. The native menu command `32801` selects
-`320x240 Window`; fullscreen is command `32800` (Alt+Enter). Use windowed mode
-for modern-PC integration, as requested by the user.
+host identity and exact patch. The menu label `320x240 Window` is misleading:
+command `32801` only resizes the window. Startup requests fullscreen regardless
+of an earlier resize request. Native Alt+Enter switches the mode; verify both
+requested and current fullscreen bytes are zero and the caption/menu restored,
+then use `32801` to choose 320x240. A 330x293 popup with no menu is still in the
+fullscreen rendering path. Modern-PC integration must verify mode, not just the
+window size. `prepare-baseline` creates a separate guarded original-TITLE copy
+for comparison; the replacement has no runtime dependency on that copy.

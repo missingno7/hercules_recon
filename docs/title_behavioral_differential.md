@@ -38,6 +38,38 @@ PE/export/import metadata, stdout, and result are in
 scope is behavioral comparison for these inputs only; it grants no byte match,
 source identity, or whole-module equivalence.
 
+Renderer state comparisons are available as:
+
+```powershell
+python scripts/title_render_differential.py
+```
+
+The actual linked DLL matches original x86 execution for 512 deterministic cases
+each at `0x17f50`, `0x181e0`, `0x184c0`, `0x186e0`, and `0x18bf0` (2,560 total).
+The fixture compares complete FT4 pools, ordering tables, object/scratch changes,
+allocation cursors, and clipping return values. Both DLLs use the same test-buffer
+addresses, allowing pointer-bearing links to compare directly. Selected host
+helpers and mesh handlers are controlled identically. These bounded synthetic
+inputs do not validate actual game resources, host projection helpers, or every
+polygon form. Commands, hashes, assumptions and results are recorded under
+`work/title_behavioral/differential/render/`.
+
+Password lookup and its state writes are compared with:
+
+```powershell
+python scripts/title_password_differential.py
+```
+
+The linked `0xcd30` checker matches all 42 recovered rows and 43 invalid inputs.
+The fixture compares the complete table, four input objects, context, returns,
+and three special-code flags. It checks ordinary difficulty/index writes and
+codes100 through105 without RNG or callbacks. It does not validate the entire
+password UI. Native code iterates43 times over a42-row table; the final first-key
+read reaches the adjacent trace-string word. That value cannot match the tested
+keys, and both DLLs reject them. The formal C out-of-bounds read remains an
+explicit uncertainty; the fixture preserves it rather than silently repairing
+or accepting a fabricated43rd row.
+
 The oracle SHA-256 is `b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b`.
 `docs/inventory.md` records the matching asset's PE metadata and says the
 installer DLLs are byte-identical to the immutable asset copies; it also notes

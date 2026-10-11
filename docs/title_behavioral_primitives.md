@@ -39,7 +39,10 @@ or natural link establishes only that this behavioral source graph builds.
 
 Fresh build on 2026-10-11: both extended units compiled with pinned
 `msvc5_rtm` through `scripts/match.py`; all six added symbols are present in the
-builder report and there are no duplicate providers. The natural DLL link stops
-on 17 unresolved dependencies elsewhere in the current graph, so this run did
-not produce a DLL or exercise runtime behavior. See
-`work/title_behavioral/primitives/build/report.json` and `link.log`.
+builder report and there are no duplicate providers. The initial private link
+experiment stopped on 17 dependencies elsewhere in the graph. The complete
+behavioral build now supplies those providers and produces a DLL with zero
+unresolved symbols. The linked initializer also passed 64 randomized native
+oracle comparisons, including untouched fields; renderer and audio behavior
+remain unverified. See `docs/title_behavioral_differential.md` and the current
+`work/title_behavioral/build/report.json`.

@@ -16,58 +16,58 @@
     {
       "name": "PC_DLLEngineMain",
       "ordinal": 1,
-      "rva": 115168,
+      "rva": 115280,
       "forwarder": null
     }
   ],
-  "dll_sha256": "6b8b8caa905169c72ef8032dee23a3c5a85de3e13c4bd31f0acd0db479253ad9",
+  "dll_sha256": "0dde33225d04557aa81e3870674ea9b08edb7faa38ef3f6db978e08fe54ab775",
   "preserved_exact_functions": [
     {
       "symbol": "_unlink_12c",
       "original_rva": "0x97b0",
-      "linked_rva": "0x9850",
+      "linked_rva": "0x9890",
       "size": 64,
       "exact": true
     },
     {
       "symbol": "_unlink_0e4",
       "original_rva": "0x98a0",
-      "linked_rva": "0x9890",
+      "linked_rva": "0x98d0",
       "size": 80,
       "exact": true
     },
     {
       "symbol": "_make_colour",
       "original_rva": "0x189a0",
-      "linked_rva": "0x98e0",
+      "linked_rva": "0x9920",
       "size": 64,
       "exact": true
     },
     {
       "symbol": "_sentinel_count",
       "original_rva": "0xcee0",
-      "linked_rva": "0x9920",
+      "linked_rva": "0x9960",
       "size": 32,
       "exact": true
     },
     {
       "symbol": "_clear_command_high_bit",
       "original_rva": "0x9770",
-      "linked_rva": "0x9810",
+      "linked_rva": "0x9850",
       "size": 64,
       "exact": true
     },
     {
       "symbol": "_init_title_fields_d410",
       "original_rva": "0xd410",
-      "linked_rva": "0xffc0",
+      "linked_rva": "0x10030",
       "size": 48,
       "exact": true
     }
   ],
   "reproduction": {
     "command": "python scripts/title_behavioral.py --output work/title_behavioral/repro_build",
-    "dll_sha256": "cf064865d77615a483d4839826f3fe0b19deaea12d3cab241c31fb46521dd257",
+    "dll_sha256": "c207eccef0c0d144feb4fbef167cee8e78f9761eb8e509be8b609de6288281ee",
     "sections": [
       {
         "name": ".text",
@@ -119,12 +119,17 @@
       "scope": "Actual linked reset 1024 states, initializer 64 states, rejected cold entry"
     },
     {
+      "command": "python scripts/title_render_differential.py",
+      "result": "pass",
+      "scope": "Five renderers, 512 deterministic native cases each; host helpers controlled identically"
+    },
+    {
       "command": "python scripts/title_integration.py fixture",
       "result": "pass",
       "scope": "LoadLibrary/GetProcAddress and rejected entry cdecl stack"
     }
   ],
-  "runtime_status": "No-CD original host loads source DLL and verifies real interface/arena callback. Three frame calls complete; fourth stalls before frame return in fullscreen. Windowed baseline/source comparison pending.",
+  "runtime_status": "Verified no-CD original host loads source DLL, executes synchronous movie callbacks, and reaches a clear title menu in actual native windowed mode. Original and replacement 45-second runs reach corresponding process states; animation frames differ because wall-clock timing is not aligned.",
   "unverified": [
     "Screen display and interactions",
     "Animations and audio",
