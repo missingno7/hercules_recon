@@ -192,3 +192,12 @@ acceptance does not prove that initializer's source representation or safety for
 arbitrary input. Do not add a 1,025th directory row or force an aggregate/adjacency
 to hide this issue. The scratch buffer remains external because no actual bound
 has been recovered. See `evidence/archive_array_prefixes_adoption_2026_10_11.json`.
+
+Use `function_map.py MODULE --entry-evidence EVIDENCE --output work/LANE/map.json`
+for reviewed initialized pointer-table entries that the reference index missed.
+The evidence binds the complete oracle, initialized table bytes, entry bytes and
+actual pointer cells; recorded function extents still take precedence. These are
+diagnostic map leads, never recovery state or relaxed function acceptance. The
+host interface pilot fixes the previously concatenated BDD0/BDE0 spans and yields
+two new strict callback leaves. See
+`evidence/host_interface_entry_seeds_2026_10_11.json`.

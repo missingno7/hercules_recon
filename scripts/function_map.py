@@ -7,6 +7,7 @@ Library code located by scripts/library_map.py is excluded. Each span is decoded
 from its own entry with capstone.
 """
 import argparse
+import hashlib
 import json
 import sqlite3
 from pathlib import Path
@@ -19,7 +20,7 @@ from pe import PE
 DB = ROOT / 'work/archaeology.sqlite'
 
 
-def build(module):
+def build(module, entry_evidence=None):
     db = sqlite3.connect(DB)
     path = db.execute('select path from modules where name=?', (module,)).fetchone()[0]
     pe = PE(ROOT / path)
@@ -34,6 +35,30 @@ def build(module):
             lib.update(range(int(c['rva'], 16), int(c['rva'], 16) + c['size']))
     end = min([r for r in lib] + [hi])
     starts = set()
+    reviewed_boundaries = set()
+    if entry_evidence is not None:
+        evidence_bytes = entry_evidence.read_bytes()
+        evidence = json.loads(evidence_bytes)
+        assert evidence['module'].upper() == module.upper()
+        assert hashlib.sha256(pe.data).hexdigest() == evidence['target_sha256']
+        tables = evidence['pointer_tables']
+        for table in tables:
+            rva, size = int(table['rva'], 0), table['size']
+            section = next(s for s in pe.sections if s['virtual_address'] <= rva < s['virtual_address'] + s['virtual_size'])
+            assert not section['characteristics'] & 0x20000000
+            assert rva + size <= section['virtual_address'] + section['raw_size']
+            assert hashlib.sha256(pe.read_rva(rva, size)).hexdigest() == table['sha256']
+        for entry in evidence['entries']:
+            rva, size = int(entry['rva'], 0), entry['size']
+            assert lo <= rva < rva + size <= end
+            assert hashlib.sha256(pe.read_rva(rva, size)).hexdigest() == entry['sha256']
+            assert entry['source_cells']
+            for cell in entry['source_cells']:
+                cell = int(cell, 0)
+                assert cell % 4 == 0 and any(int(t['rva'], 0) <= cell and cell + 4 <= int(t['rva'], 0) + t['size'] for t in tables)
+                assert int.from_bytes(pe.read_rva(cell, 4), 'little') == pe.image_base + rva
+            reviewed_boundaries.update((rva, rva + size))
+        starts.update(s for s in reviewed_boundaries if s < end)
     for target, source, kind in db.execute('select target_rva, source_rva, kind from refs where module=?', (module,)):
         if not lo <= target < end:
             continue
@@ -60,6 +85,10 @@ def build(module):
     # (A RET-on-boundary + prologue heuristic was tried and rejected: most hits were mid-function.)
     proven = [(int(r['rva'], 16), r['size']) for r in json.loads((ROOT / 'recovery.json').read_text())['functions']
               if Path(r['target']).name.upper() == module.upper() and r['status'] in ('CODEGEN_SIMILAR', 'FUNCTION_MATCH')]
+    if entry_evidence is not None:
+        for entry in evidence['entries']:
+            start = int(entry['rva'], 0)
+            assert not any(r < start < r + size for r, size in proven), 'Reviewed entry conflicts with recorded extent'
     from_proven = set()
     proven_boundaries = set()
     for r, s in proven:
@@ -80,7 +109,7 @@ def build(module):
     # Reviewed contributions override the heuristic alignment filter, including
     # their actual entry and exclusive end. Omitting an entry can merge a caller
     # lead with an already recorded body; the downstream overlap guard rejects it.
-    ordered = sorted(s for s in starts if s % 16 == 0 or s in proven_boundaries)
+    ordered = sorted(s for s in starts if s % 16 == 0 or s in proven_boundaries or s in reviewed_boundaries)
     rows = []
     for i, s in enumerate(ordered):
         e = ordered[i + 1] if i + 1 < len(ordered) else end
@@ -95,18 +124,24 @@ def build(module):
                              (module, s)).fetchone()[0]
         rows.append(dict(rva=hex(s), size=e - s, body_size=len(body), decoded=decoded, last=last,
                          references=relocs, callers=callers, start_from_proven_extent=s in from_proven))
-    return dict(module=module, first_party_end=hex(end), functions=rows)
+    report = dict(module=module, first_party_end=hex(end), functions=rows)
+    if entry_evidence is not None:
+        assert entry_evidence.read_bytes() == evidence_bytes
+        assert (ROOT / path).read_bytes() == pe.data
+        report['entry_evidence'] = dict(path=str(entry_evidence.resolve()), sha256=hashlib.sha256(evidence_bytes).hexdigest(), scope='Reviewed address-taken leads only; recovery.json alone grants acceptance.')
+    return report
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('module')
     parser.add_argument('--output', type=Path)
+    parser.add_argument('--entry-evidence', type=Path, help='Oracle-bound initialized pointer-table entries; diagnostic leads only')
     args = parser.parse_args()
     output = (args.output or ROOT / f'work/function_map/{args.module.lower()}.json').resolve()
     if not output.is_relative_to(ROOT / 'work'):
         raise ValueError('Diagnostic outputs belong in ignored work/')
-    report = build(args.module)
+    report = build(args.module, args.entry_evidence)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, indent=1) + '\n', encoding='utf-8')
     rows = report['functions']

@@ -607,3 +607,36 @@ totals are 245 initialized and 35,945 observed zero bytes; engine prefixes remai
 separate. See `evidence/archive_prefix_dependency_2026_10_11.json`. The next useful
 dependencies are actual archive scratch ownership and the initialized EXE host
 table, alongside missing engine source and genuinely new compiler evidence.
+
+## Host callback source frontier
+
+The actual initialized host table contains 250 nonzero words: 244 code addresses,
+four data addresses and two scalars. The frozen pre-wave audit found 165 unique
+code targets, including 128 without a located canonical region provider; 206
+callback cells still have opaque integer views. No full initializer is supplied
+by guessing declarations, casting addresses into those fields or zero filling.
+
+Six table-backed entries were absent from the heuristic map. Reviewed evidence
+and the existing map builder now split BDD0 and BDE0 into separate 16-byte spans.
+The optional evidence input checks oracle/table/entry identities and actual
+initialized pointer cells; four corrupted-input controls fail before output.
+Matching and promotion rules remain unchanged.
+
+Two ordinary callback leaves now match strictly: A140 returns 0x22; AC50 performs
+the observed two-word linked insertion. Both complete 16-byte contributions,
+including natural padding, passed independent staging and journaled promotion.
+The old callback protocol source also passes all six functions / 144 masked
+bytes, avoiding a duplicate BDE0 implementation. Three existing engine dependency
+bridges add 128 masked bytes and two audio helpers add 64 masked bytes.
+
+Current recovery is 120 strict functions / 8,064 bytes and 424 complete masked
+functions / 86,224 bytes in 59 sources. This wave gains 32 strict and 336 masked
+bytes. Fresh full verification and all 54 tests pass. See
+`evidence/full_goal_host_callback_wave_2026_10_11.json`.
+
+The largest genuine callback source leads are AC60 (1,680 bytes), F3D0 (832),
+A8F0 (784), and 5450/5760 (752 each). Prioritize their actual ABI, control and data
+evidence alongside the remaining shared compiler work. Archive draft canonical
+replacement remains private: function code preserves, but local relocation label
+identity and the fixtures' old shutdown return assumption require reconciliation.
+Scratch capacity and terminal directory owner remain unproved.
