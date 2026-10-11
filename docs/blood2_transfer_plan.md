@@ -229,3 +229,46 @@ appears; arbitrary renaming is not a source-recovery method. These tools reduce
 ambiguous experiments and expose real missing contributions, but this increment
 adds no accepted code bytes. All 121 strict and 445 masked witnesses preserve;
 69 tests pass. See `evidence/fx_unit_convergence_2026_10_11.json`.
+
+The next pilot independently resolves two Hercules source-graph questions with
+paired minimal controls. Removing observed flag bits as `effect_id & ~0xf800`
+emits the native WORD normalization followed by `AND AH,7`; keeping the positive
+`0x07ff` mask does not. Binary `0 - (x + 20)` emits the native live-zero SUB
+graph, while unary negation emits NEG. These are measured RTM mechanisms in the
+fixed context, not Blood II allocator rules or original-source identity.
+
+Applying both controls with the actual 20-byte ActorResource member access
+produces a complete 2115-byte producer with zero masked byte differences in
+both engines. Four inconsistent row references reject that intermediate comparison:
+two equal-value assignment pairs are written left-before-right in the source
+and right-before-left in native code. One bounded control changes only
+those statement orders and resolves all four conflicts. An independent root
+fresh build confirms complete 2115-byte masked equality in each engine, with
+ordered references and all noncode sections preserved. This illustrates why relocation consistency remains a
+gate even when a masked byte view looks perfect.
+
+Priorities now are the distinct owner/spatial
+source producer, and genuine missing packed-unit contributions. TITLE constant
+families remain exhausted without new source/context evidence; a fresh caller
+audit instead exposes a real 32-byte host service dependency. The canonical
+24-row FX storage supplies 1536 observed loader-zero bytes per engine, with
+all existing strict and masked witnesses preserved. Keep private packed-function
+successes separate from recovery totals. See
+`evidence/fx_graph_controls_2026_10_11.json`.
+
+The independent TITLE missing-source pilot preserves all 13 existing complete
+unit contributions but fails at 1376/native1408 bytes. Native has two leave-helper
+calls versus one emitted call; diagnose actual exit topology before another
+candidate. The original pre-parsing include failure remains recorded separately
+from its frozen-source include-context retry.
+
+Source already contains two cleanup calls; the compiler merges the identical
+blocks. Native's distinct BYTE+22 read remains unexplained, so the static call
+count is no demonstrated missing runtime cleanup. Preserve the full failed
+baseline before another hypothesis.
+
+The real host-service lane adds 32 canonical masked bytes through existing fresh
+staging. Data cells remain external and raw address operands remain unresolved.
+Current totals are 121 strict / 8080 bytes, 446 masked / 89328 bytes, with 69 tests
+passing. The independently confirmed private engine producer contributes 4230
+diagnostic bytes outside recovery totals; no packed-unit gate changes follow.

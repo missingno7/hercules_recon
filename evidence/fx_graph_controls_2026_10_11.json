@@ -1,0 +1,486 @@
+{
+  "date": "2026-10-11",
+  "scope": "Independent historical compiler controls, private complete engine diagnostics, and one separately staged 32-byte host CODEGEN_SIMILAR provider. No strict promotion.",
+  "method": "Transfer Blood II prediction/falsifier, minimal paired source, fresh compiler and full reference comparison methodology; independently test Hercules compiler conclusions.",
+  "toolchain_manifest": {
+    "path": "toolchains/manifest.json",
+    "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "compiler": {
+    "id": "msvc5_rtm",
+    "version": "11.00.7022",
+    "cl_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb"
+  },
+  "controls": [
+    {
+      "receipt": {
+        "path": "work/fx_flag_mask_34/compact.json",
+        "sha256": "4d24f19859bb65c2170058664ca94aa1d6aaf91422d77e229816d03654a60e0e"
+      },
+      "prediction_receipt": {
+        "path": "work/fx_flag_mask_34/prediction.json",
+        "sha256": "346b21b6e7bc833df4683567cf75d23ca67ec18497435ba2556f14e25792f2ac"
+      },
+      "measurement_receipt": {
+        "path": "work/fx_flag_mask_34/measurement.json",
+        "sha256": "225a343ab8c069debee8d5aaaf01816fce222649f0bbb3e048fa6831546b77c7"
+      },
+      "prediction": "With the same ushort formal and DWORD external destination, effect_id & ~0xf800 preserves the high sixteen bits at the mask operation after low-WORD normalization. The pinned RTM backend may select AND AH,7 exactly, retaining preceding DWORD argument load and AND EAX,FFFF plus subsequent DWORD global store. Positive 07ff should retain the frozen full-width mask. This tests a real flag removal dependency graph, not original spelling.",
+      "falsifier": "One emitted two-function /Gy /Od C build. Reject the joint prediction if the remove-flags function lacks DWORD argument load -> AND EAX,FFFF (5 bytes) -> AND AH,7 (3 bytes) -> DWORD global store, adds conversion, or changes reference role. No grid or game retry follows a failure.",
+      "source": {
+        "path": "candidates/fx_flag_mask_34/word_flag_pair.c",
+        "sha256": "af86d53c3fd02f735798cd6b69d31eb7135aa16079d1c49e94a30e633d49f3f2",
+        "full_text": "extern unsigned long g_fx_effect_index_3fa48;\n\nvoid word_mask_original(unsigned short effect_id)\n{\n    g_fx_effect_index_3fa48 = effect_id & 0x07ff;\n}\n\nvoid word_mask_remove_flags(unsigned short effect_id)\n{\n    g_fx_effect_index_3fa48 = effect_id & ~0xf800;\n}\n"
+      },
+      "command_template": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/Od",
+        "/Fo<fresh private work/fx_flag_mask_34/build/match directory>/candidate.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\fx_flag_mask_34\\word_flag_pair.c"
+      ],
+      "result": {
+        "scope": "One fresh RTM /Gy /Od two-function C control; complete function bytes and ordered references, native prefix graph diagnostic.",
+        "prediction_sha256": "346b21b6e7bc833df4683567cf75d23ca67ec18497435ba2556f14e25792f2ac",
+        "measurement": "work/fx_flag_mask_34/measurement.json",
+        "measurement_sha256": "225a343ab8c069debee8d5aaaf01816fce222649f0bbb3e048fa6831546b77c7",
+        "source_sha256": "af86d53c3fd02f735798cd6b69d31eb7135aa16079d1c49e94a30e633d49f3f2",
+        "object_sha256": "ab085d2894a050f68302b7dd5d6f1dea1e496b0648d44c324fc3bcfa368a661f",
+        "emitted_builds": 1,
+        "functions": [
+          {
+            "symbol": "_word_mask_original",
+            "size": 23,
+            "mask_graph": [
+              [
+                "eax, 0xffff",
+                5
+              ],
+              [
+                "eax, 0x7ff",
+                5
+              ]
+            ],
+            "joint_native_graph_equal": false,
+            "ordered_relocations": [
+              {
+                "offset": 17,
+                "symbol": "_g_fx_effect_index_3fa48",
+                "type": 6
+              }
+            ]
+          },
+          {
+            "symbol": "_word_mask_remove_flags",
+            "size": 21,
+            "mask_graph": [
+              [
+                "eax, 0xffff",
+                5
+              ],
+              [
+                "ah, 7",
+                3
+              ]
+            ],
+            "joint_native_graph_equal": true,
+            "ordered_relocations": [
+              {
+                "offset": 15,
+                "symbol": "_g_fx_effect_index_3fa48",
+                "type": 6
+              }
+            ]
+          }
+        ],
+        "baseline_complete_code_and_ordered_refs_preserved": true,
+        "unsigned_short_expression_semantics_equal": true,
+        "outcome": "Genuine flag-removal expression reproduces joint native graph in fixed MRE.",
+        "limits": "Compiler causal control only. No original-source/compiler/TU identity, full producer equality, canonical recovery change, game retry or acceptance follows from a matching graph."
+      }
+    },
+    {
+      "receipt": {
+        "path": "work/fx_zero_minus_34/compact.json",
+        "sha256": "cb66f544a58bae97a15dc5d6662ab097792b0af0ab48920a3dd218debbd69998"
+      },
+      "prediction_receipt": {
+        "path": "work/fx_zero_minus_34/prediction.json",
+        "sha256": "08cad791f8e2aafba62d0d449a2b5e83ecb323b27c36fc2c9dbef40724efb6cd"
+      },
+      "measurement_receipt": {
+        "path": "work/fx_zero_minus_34/measurement.json",
+        "sha256": "b1e5213daef775c84cade3f52cdf47d12e35c38f30078f4a24394ba5f2c06887"
+      },
+      "prediction": "One fixed ordinary-C RTM /Gy /Od pair: unary -(g_x+20) retains LOAD X -> ADD20 -> NEG -> DWORD store. Binary 0-(g_x+20) may retain a separate zero-register value and produce LOAD X -> ADD20 -> XOR zero register -> SUB sum -> DWORD store as seen in native producers. Complete code and ordered references must be decoded; a small size change alone is insufficient.",
+      "falsifier": "If compiler folds binary zero-minus to unary NEG or any other graph lacking a live zero-register SUB, freeze after one emitted build and stop. No alternate form, flag/name grid or game retry.",
+      "source": {
+        "path": "candidates/fx_zero_minus_34/zero_minus_pair.c",
+        "sha256": "87c6fcda0e99d22c4d04ad3d172045d21f68ac3c79818e5564e6e94532e41c08",
+        "full_text": "extern long g_fx_x_41ea0;\nextern long g_fx_target_left_41ea4;\n\nvoid unary_minus(void)\n{\n    g_fx_target_left_41ea4 = -(g_fx_x_41ea0 + 20);\n}\n\nvoid binary_zero_minus(void)\n{\n    g_fx_target_left_41ea4 = 0 - (g_fx_x_41ea0 + 20);\n}\n"
+      },
+      "command_template": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/Od",
+        "/Fo<fresh private scratch>/candidate.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\fx_zero_minus_34\\zero_minus_pair.c"
+      ],
+      "result": {
+        "scope": "One fresh RTM /Gy /Od two-function C arithmetic control; full code and ordered references only, no producer retry.",
+        "prediction_sha256": "08cad791f8e2aafba62d0d449a2b5e83ecb323b27c36fc2c9dbef40724efb6cd",
+        "measurement": "work/fx_zero_minus_34/measurement.json",
+        "measurement_sha256": "b1e5213daef775c84cade3f52cdf47d12e35c38f30078f4a24394ba5f2c06887",
+        "source_sha256": "87c6fcda0e99d22c4d04ad3d172045d21f68ac3c79818e5564e6e94532e41c08",
+        "object_sha256": "b5e30e0879017707d8e11b8d83cd1baf7b396917817c9b0f641c829d430521fc",
+        "emitted_builds": 1,
+        "functions": [
+          {
+            "symbol": "_unary_minus",
+            "size": 20,
+            "arithmetic_graph": [
+              {
+                "offset": 8,
+                "size": 3,
+                "bytes": "83c014",
+                "mnemonic": "add",
+                "operands": "eax, 0x14"
+              },
+              {
+                "offset": 11,
+                "size": 2,
+                "bytes": "f7d8",
+                "mnemonic": "neg",
+                "operands": "eax"
+              }
+            ],
+            "native_zero_sub_graph_equal": false,
+            "ordered_relocations": [
+              {
+                "offset": 4,
+                "symbol": "_g_fx_x_41ea0",
+                "type": 6
+              },
+              {
+                "offset": 14,
+                "symbol": "_g_fx_target_left_41ea4",
+                "type": 6
+              }
+            ]
+          },
+          {
+            "symbol": "_binary_zero_minus",
+            "size": 23,
+            "arithmetic_graph": [
+              {
+                "offset": 8,
+                "size": 3,
+                "bytes": "83c014",
+                "mnemonic": "add",
+                "operands": "eax, 0x14"
+              },
+              {
+                "offset": 11,
+                "size": 2,
+                "bytes": "33c9",
+                "mnemonic": "xor",
+                "operands": "ecx, ecx"
+              },
+              {
+                "offset": 13,
+                "size": 2,
+                "bytes": "2bc8",
+                "mnemonic": "sub",
+                "operands": "ecx, eax"
+              }
+            ],
+            "native_zero_sub_graph_equal": true,
+            "ordered_relocations": [
+              {
+                "offset": 4,
+                "symbol": "_g_fx_x_41ea0",
+                "type": 6
+              },
+              {
+                "offset": 17,
+                "symbol": "_g_fx_target_left_41ea4",
+                "type": 6
+              }
+            ]
+          }
+        ],
+        "raw_code_equal": false,
+        "ordered_references_equal": false,
+        "reference_roles_equal": true,
+        "bounded_expression_semantics_equal": true,
+        "outcome": "Binary zero-minus reproduces native live-zero SUB graph in this fixed MRE.",
+        "limits": "No original-expression/spelling, unrestricted signed-overflow equivalence, full producer, compiler identity, TU or function-match claim. Spatial X is bounded by signed-WORD minus160 in the observed producer. No game retry, canonical/state changes or commits."
+      }
+    }
+  ],
+  "whole_producer_intermediate": {
+    "receipt": {
+      "path": "work/fx_native_graph_34/compact.json",
+      "sha256": "688f30fcc7389e1c0f1943b56db141d7f6a98259ce72e4506cfbefa22f567a03"
+    },
+    "measurement": {
+      "path": "work/fx_native_graph_34/baseline.json",
+      "sha256": "e9b4d3cc7181b21a1bf2e7f7230488b3a9b921ff1328c20f5806c830bb2d8dc3"
+    },
+    "source": {
+      "path": "candidates/fx_native_graph_34/play_sound.c",
+      "sha256": "acb11e1f101f146dd01ba1f7149653cbbaffce297ffc62f4670eaa07379d2ae1"
+    },
+    "native_targets": {
+      "ENG3.DLL": {
+        "rva": "0xbc47",
+        "size": 2115
+      },
+      "ENG1.DLL": {
+        "rva": "0x6da0",
+        "size": 2115
+      }
+    },
+    "result": "2115-byte contribution; zero masked byte differences, but four inconsistent row-base references in each peer. Full masked gate fails. Retain this failed control.",
+    "absolute_relocations": 205,
+    "relative_relocations": 9,
+    "next_discriminator": "Native right-before-left row stores in two equal-value arms; correct source order only, never alter struct layout or symbol map."
+  },
+  "whole_producer_row_order_result": {
+    "diagnosis": {
+      "path": "work/fx_row_conflicts_34/compact.json",
+      "sha256": "66371244465b3f112269c96b48a63419e6ab087401e389dc90893e0849ea9503"
+    },
+    "receipt": {
+      "path": "work/fx_row_order_34/compact.json",
+      "sha256": "af98d2cfa5cd0005c8f927f5b4d0a2713e6fe49c72b9eb4088f178aaa308f59d"
+    },
+    "measurement": {
+      "path": "work/fx_row_order_34/baseline.json",
+      "sha256": "383e73e4fbb3495b5e0c78eac0d7c7dba53672d5645fd57ee496ef41c3833530"
+    },
+    "measurement_scope_correction": {
+      "path": "work/fx_row_order_34/baseline_scope_correction.json",
+      "sha256": "cd3ee5c9c60c67e600341359e0d52ca23df4e6e42b7af52a12332f06dfe1a6a4"
+    },
+    "prediction": {
+      "path": "work/fx_row_order_34/prediction.json",
+      "sha256": "d6713b1a5044a88b40646c78cadb6432a9cfcf6a06fcd27e7b0ef83b8f7547b8"
+    },
+    "source": {
+      "path": "candidates/fx_row_order_34/play_sound.c",
+      "sha256": "c6337bb718529ed078162af9f2f6b19670377da85d759ff1b17cba42da1e9803"
+    },
+    "source_recipe": "--- candidates/fx_native_graph_34/play_sound.c\n+++ candidates/fx_row_order_34/play_sound.c\n@@ -202,8 +202,8 @@\n                                                     (unsigned short)g_fx_sample_value_3fa54,\n                                                     0, 0x3c, 0, 0, 0);\n         if (g_fx_channel_3faa0 >= 0) {\n+            g_fx_rows_view[g_fx_channel_3faa0].pan_right_014 = 0;\n             g_fx_rows_view[g_fx_channel_3faa0].pan_left_010 = 0;\n-            g_fx_rows_view[g_fx_channel_3faa0].pan_right_014 = 0;\n         }\n     } else {\n         default_volume = (g_engine_interface.context_004->unknown_1b18 * 0x7f) >> 7;\n@@ -213,8 +213,8 @@\n                                                     (short)default_volume,\n                                                     (short)default_volume);\n         if (g_fx_channel_3faa0 >= 0) {\n+            g_fx_rows_view[g_fx_channel_3faa0].pan_right_014 = default_volume;\n             g_fx_rows_view[g_fx_channel_3faa0].pan_left_010 = default_volume;\n-            g_fx_rows_view[g_fx_channel_3faa0].pan_right_014 = default_volume;\n         }\n     }\n \n",
+    "root_fresh_prediction": {
+      "path": "work/root_convergence_34/producer_verification_prediction.json",
+      "sha256": "1824113d2dcf96c8f10c9876d9eb911201e3371bd4b70fb520e241cc6d05ddcb"
+    },
+    "root_fresh_verification": {
+      "path": "work/root_convergence_34/producer_verification.json",
+      "sha256": "86c35ebb196465b36d23bf88443a32a035a6ef87239c9627fb4d3c36d5daed94"
+    },
+    "result": "Both complete2115-byte contributions pass masked equality with zero residuals/conflicts. Raw equality false,850 differing bytes per peer. Independent root fresh build confirms.",
+    "code_change": "Exactly four addend bytes at1714/1733/1834/1851; ordered references and all noncode sections preserved.",
+    "row_bases": {
+      "ENG3.DLL": "0x41ec0",
+      "ENG1.DLL": "0x721e0"
+    },
+    "private_diagnostic_bytes": 4230,
+    "accepted_code_gain": 0,
+    "next_discriminator": "Real missing producer/runtime/tick contributions and complete natural compilation-unit evidence; do not weaken packed-function gates."
+  },
+  "private_positive_source_controls": [
+    {
+      "receipt": {
+        "path": "work/fx_initializer_control_33/compact.json",
+        "sha256": "5aedbbcafa3f2bbee4de81f0dbf026bf5e0a5c5eef2715f1a3839622a4e492e3"
+      },
+      "native_bytes_per_peer": 357,
+      "peers": [
+        "ENG1.DLL",
+        "ENG3.DLL"
+      ],
+      "result": "Complete relocation-aware equality, private under existing packed-function gates."
+    },
+    {
+      "receipt": {
+        "path": "work/fx_tail_33/compact.json",
+        "sha256": "a00a84e0dad2de5379a3aa58385cb2679c4556a817a4cf1d58ad357000b4e900"
+      },
+      "native_bytes_per_peer": 131,
+      "peers": [
+        "ENG1.DLL",
+        "ENG3.DLL"
+      ],
+      "result": "Complete relocation-aware equality, private under existing packed-function gates."
+    }
+  ],
+  "resource_binding": {
+    "receipt": {
+      "path": "work/fx_resource_binding_33/compact.json",
+      "sha256": "742fe3ea9978ad0ee33e75e0e687dc1c482787cdac3441d71c9317e0613e32ba"
+    },
+    "source_header": {
+      "path": "calibration/resource_record.h",
+      "sha256": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92"
+    },
+    "facts": "Existing ActorResource20 record, residency_state WORD at+16. ENG1 base5cee0; ENG3 base39548. ENG3 loader domain<10 does not imply ENG1 capacity81 transfers."
+  },
+  "negative_based_pointer_control": {
+    "receipt": {
+      "path": "work/actor_offsets_34/handoff.json",
+      "sha256": "2ebd81dc6f09598fbaf095aa7a048d2d14d56835651fedb99f2feb5ae2afec5e"
+    },
+    "result": "Documented qualifiers compile, but guessed conversions omit native SUB and fail captured-address/null-arm graph. No game retry is justified.",
+    "reentry": "New conversion or original source/context evidence; no identifier/cast grid."
+  },
+  "title_audit": {
+    "receipt": {
+      "path": "work/title_lifetimes_34/handoff.json",
+      "sha256": "5c34babb4619aa90feefaec96572f1c017b335c6e5bfddcaab739f28cc6724a4"
+    },
+    "result": "No supported new retry for exhausted constant-lifetime families. Genuine initialized host slot248 exposes unrecovered EXE4bc0/32 source dependency."
+  },
+  "title_missing_source_pilot": {
+    "receipt": {
+      "path": "work/title_fx_source_33/final_compact.json",
+      "sha256": "54333239bd961e2e9fd8c6d0b236b4521fd5fed16aaa7b8c09544c3f35648b3d"
+    },
+    "include_failure": {
+      "path": "work/title_fx_source_33/candidate_attempt.json",
+      "sha256": "48ca0f4076e1b1065b84717a1321b9d79dedde7c414c81c695fe67e2bb9f6d7d"
+    },
+    "result": "Full private TITLE054f0 candidate1376/native1408;841 masked differences. All13 prior complete unit contributions preserve exact code and ordered references. Two emitted string contents match native.",
+    "build_context_correction": "Same frozen source retried with explicit /I calibration/title after C1083 pre-parsing failure. Failed invocation retained.",
+    "diagnosis": {
+      "path": "work/title_fx_residual_34/handoff.json",
+      "sha256": "4cc24d7812a120b2c66c3ac64198bddab57f0a7d51c32ab7fc06a7cc4848e335"
+    },
+    "next_discriminator": "Actual meaning of native owner BYTE+22 read and distinct early cleanup exit; source already has two textual leave calls, compiler merges identical blocks. Static two-versus-one call sites do not mean a missing runtime leave. Channel argument suffix sharing is a separate graph difference. No flags/name grid or engine source transplant."
+  },
+  "second_producer_diagnosis": {
+    "receipt": {
+      "path": "work/fx_second_diagnosis_34/compact.json",
+      "sha256": "b4aa5eac5e19d578dacf3218db21fa191f827abd09663fd6994c10bf31e61de2"
+    },
+    "preobject_failure": {
+      "path": "work/fx_second_control_34/final_compact.json",
+      "sha256": "9ff9a75fd5fef8af73bd6040bf4b7642584e9e3c6ac952fa96b54126c3c78c1c"
+    },
+    "control_result": {
+      "path": "work/fx_second_control_34/retry_final_compact.json",
+      "sha256": "92635541c27fd5b01ee29405ee249b29b8b930bffcf278683bb75376032ac1e8"
+    },
+    "result": "Shared graph corrections independently audited; preserve second/third owner/spatial formals and local smooth/volume state. First invocation emitted no object from missing extern; declaration-only retry preserved failure and emitted1774/native1787,242 masked differences and13 conflicts per peer. No further variants.",
+    "next_discriminator": "Read-only aligned instruction/control/ref-role diagnosis; shifted tail offsets invalidate inferred leave-hook binding and do not prove an actual callee semantic error. No dummy locals or identifier tuning."
+  },
+  "unit_context_audit": {
+    "receipt": {
+      "path": "work/fx_unit_evidence_34/handoff.json",
+      "sha256": "4feee6dc285bab455e84a2f61f2fc2e4a2831980f67c3027afac62f86f212571"
+    },
+    "result": "All reviewed peer entry spacing differs only by185 bytes in runtime-control switch cases1/2. ENG1 has genuine additional resource/context/callback behavior;17 other complete peer bodies agree outside actual address operands.",
+    "missing_reviewed_bytes": {
+      "ENG3.DLL": 3704,
+      "ENG1.DLL": 3889
+    },
+    "complete_shared_literal_pool_bytes": 271,
+    "literal_correction": "Prior provisional270-byte count omitted final NUL. Actual ranges ENG3 353a8..354b7, ENG1 4db24..4dc33.",
+    "next_pilot": "Real adjacent file-helper/empty-helper168-byte fragment at offsets0/163 with complete71-byte four-literal section. Source-fragment diagnostic only, not original native section boundary.",
+    "limits": "No original TU/flags/source identity or acceptance; module-specific behavior must be recovered independently."
+  },
+  "host_packed_code_adoption": {
+    "private_receipt": {
+      "path": "work/host_packed_code_34/compact.json",
+      "sha256": "ce8f50c22ee3327cab058523436ab8cd31e58b91ba16da05312cedb23dba844a"
+    },
+    "prediction": {
+      "path": "work/host_packed_code_34/prediction.json",
+      "sha256": "c53688a6d8b4a541a857e5e4fe090e903361f858053587842d56314acf936e4d"
+    },
+    "native_access_audit": {
+      "path": "work/host_packed_code_34/data_access_audit.json",
+      "sha256": "4f8c59d0ede7273c5bfd45a088022f54dac746c9b64e964828aa61a1ec1d42c0"
+    },
+    "root_adoption_prediction": {
+      "path": "work/root_convergence_34/host_adoption_prediction.json",
+      "sha256": "cce5194ffef6d479e68f12f3afa0adb40e7b64768530da7e6fedcf71dcd5e812"
+    },
+    "root_stage_plan": {
+      "path": "work/root_convergence_34/host_stage_plan.json",
+      "sha256": "a3dccef6bed2bbddde766371a1b012851da5791f3e2528c6bfd42ff0972e79f1"
+    },
+    "boundary_scope_correction": {
+      "path": "work/root_convergence_34/host_boundary_scope_correction.json",
+      "sha256": "0422d7abb3dae6391ca85c8d4831b35788afd166314b3f147a88c2bcf2a69def"
+    },
+    "canonical_source": {
+      "path": "calibration/host_packed_code.c",
+      "sha256": "4aeb0602d4e725c33c853ea4e86a658937a124445a1be30d843b938bbd213d53"
+    },
+    "source_text": "/* Reconstruction for HERCULES.EXE RVA 0x4bc0.\n   Data objects remain external; their aggregate extent and owner are unproved. */\nextern long g_packed_code_79e860;\nextern unsigned char g_packed_code_aux_79e864;\n\nlong __cdecl host_packed_code_04bc0(long value)\n{\n    if (value != -1) {\n        g_packed_code_79e860 = value;\n        return value;\n    }\n\n    value = g_packed_code_79e860;\n    g_packed_code_aux_79e864 = (unsigned char)(value >> 8);\n    return value;\n}\n",
+    "native_rva": "0x4bc0",
+    "native_size": 32,
+    "status": "CODEGEN_SIMILAR via existing fresh stage, not FUNCTION_MATCH",
+    "new_masked_code_bytes": 32,
+    "absolute_relocations": [
+      {
+        "offset": 10,
+        "symbol": "_g_packed_code_79e860",
+        "implied_rva": "0x79e860"
+      },
+      {
+        "offset": 16,
+        "symbol": "_g_packed_code_79e860",
+        "implied_rva": "0x79e860"
+      },
+      {
+        "offset": 27,
+        "symbol": "_g_packed_code_aux_79e864",
+        "implied_rva": "0x79e864"
+      }
+    ],
+    "limits": "Oracle has no PE base-relocation directory. Three COFF operands consistently bind observed accesses; no target HIGHLOW-offset proof exists. Data remains external; original owner/aggregate/runtime slot immutability remain unproved."
+  },
+  "canonical_data": {
+    "evidence": {
+      "path": "evidence/engine_fx_storage_adoption_2026_10_11.json",
+      "sha256": "02a3048ba1a93db600eb66e4f9fc6d32656f9c858e731faa25d3c917c1bd9b74"
+    },
+    "fresh_verification": {
+      "path": "work/root_fx_storage_33/data_final.json",
+      "sha256": "9604edabea98eaedfbaf22fb3b364f482a83d3355ca16c946d1e8d5795c545c6"
+    },
+    "new_loader_zero_bytes_per_engine": 1536,
+    "limits": "Observed minimum prefix only; no original full capacity, TU ownership or native placement."
+  },
+  "preserved_regressions": {
+    "strict_report": {
+      "path": "work/root_convergence_34/strict_final.json",
+      "sha256": "7c0998e8adda27e6958bd65ccce9d23bfbc4d5d887fec6fd001bb8e30f7c63ba"
+    },
+    "masked_report": {
+      "path": "work/root_convergence_34/masked_final.txt",
+      "sha256": "8c799cc15da397f0a45b77c6a66fdd7886e3e2349f3437ba2da20349876172d9"
+    },
+    "tests_report": {
+      "path": "work/root_convergence_34/tests_final.txt",
+      "sha256": "e7bc8653b148de1b751eaba5101474875b06f819106f2985c471a500ba61ebe6"
+    },
+    "strict_functions": 121,
+    "strict_code_bytes": 8080,
+    "masked_functions": 446,
+    "masked_code_bytes": 89328,
+    "tests_passed": 69,
+    "recovery": {
+      "path": "recovery.json",
+      "sha256": "062e96a8019898c7f57f11014a1eba37faee4ecce8da703c61b141964509e721"
+    }
+  },
+  "limits": "All controls use original gates. No original expression spelling, compiler revision, original language/TU/layout, exhaustive behavior or whole-image equality follows. Private successful bytes are excluded from authoritative totals."
+}

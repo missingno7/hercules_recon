@@ -1167,3 +1167,67 @@ unchanged SP2 control is byte-identical to RTM. Neither result identifies origin
 compiler revision or source spelling. An unchanged C++-frontend control also
 reproduces the C mask graph under actual symbol correspondence. Fresh checks preserve 121 strict functions /
 8080 bytes, 445 complete masked functions / 89296 bytes and all 69 tests.
+
+## Independently measured FX source graphs
+
+Two paired compiler experiments now distinguish real operator graphs without
+changing the compiler or flags. The observed F800 flag-removal expression
+`effect_id & ~0xf800` naturally emits WORD normalization and `AND AH,7` under
+pinned RTM `/Od`. Binary `0 - (x + 20)` emits the native zero-register SUB,
+whereas unary negation emits NEG. Earlier width, revision, language and cost
+controls remain immutable negative evidence.
+
+The combined full producer emits 2115 bytes and has zero masked byte differences
+in both engines, but four row references still fail symbol consistency. Native
+stores row+14 then row+10 in the zero and default-volume arms; the source reverses
+these same-value writes. Seventeen other row references consistently prove the
+existing row base and field layout. One frozen control reverses only the two
+assignment pairs and passes both complete 2115-byte masked gates with no conflicts.
+An independent root fresh compile confirms this result. Exactly four addend bytes
+change; all ordered references and noncode sections preserve. Keep the intermediate
+failed receipt. No strict or packed-unit promotion follows from this private result.
+
+The writer-backed actor based-pointer hypothesis is separately falsified by
+one documented-qualifier MRE: guessed conversions omit the native SUB and fail
+the captured-address/null-arm graph. No arbitrary cast or identifier retry is
+justified. A new TITLE lifetime audit also leaves exhausted compiler families
+closed and exposes a genuine EXE4bc0/32 host-table dependency for source recovery.
+
+The independently masked-equal 357-byte initializer and 131-byte tail remain
+private under packed-function gates. All canonical code totals remain unchanged:
+121 strict / 8080 bytes, 445 masked / 89296 bytes; 69 tests pass. The canonical FX
+storage gain is data, not code. Predictions, minimal sources, commands and receipt
+identities are in `evidence/fx_graph_controls_2026_10_11.json`.
+
+The first full TITLE054f0 source pilot independently preserves all 13 previous
+unit contributions. Its new 1376-byte body still fails the 1408-byte target and
+has one leave-helper call site versus native two. Source already has two calls;
+the compiler merges identical early cleanup blocks, whereas native first reads
+owner BYTE+22 on that path. Both paths still call cleanup once at runtime.
+The meaning of that read remains unknown. The frozen-source retry repairs
+only missing include context after C1083, preserving that failed invocation.
+Next work diagnoses source/exit topology while the distinct second engine
+producer and actual host service recovery continue in separate private lanes.
+
+The independently recovered EXE4bc0 host service now passes the existing fresh
+stage and adds 32 canonical relocation-masked bytes. The complete source uses
+two external data views with consistent operands; it supplies no guessed storage.
+The EXE has no base-relocation directory, so these operands have no target HIGHLOW
+positions to prove. Raw address operands remain unequal. Current totals are
+121 strict / 8080 bytes and 446 masked / 89328 bytes. The private engine producer's
+4230 diagnostic bytes remain excluded from those totals.
+
+The native unit audit localizes the entire 185-byte peer-region delta to genuine
+ENG1 runtime switch cases 1/2; the other 17 reviewed bodies agree outside address
+operands. Original TU boundaries remain unproved. Eight missing bodies account
+for 3704 ENG3 / 3889 ENG1 bytes in the reviewed receipts. The complete shared
+literal pool is 271 bytes, correcting a provisional count that omitted its final
+NUL. A bounded next source pilot covers the adjacent 163-byte file helper and
+5-byte empty helper, including all 71 emitted literal bytes and actual dependencies.
+
+The separately frozen second-producer control still fails: 1774/native1787 bytes,
+242 masked differences and 13 reference conflicts per peer. Its missing extern
+caused a recorded pre-object failure; a declaration-only retry emitted the single
+measured object. Shifted tail operands do not prove the cleanup callee identity
+is wrong. Diagnose the remaining instruction/control graph before another build;
+retain the distinct owner/spatial-source roles and local state.
