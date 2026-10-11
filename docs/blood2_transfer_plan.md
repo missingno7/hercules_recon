@@ -317,3 +317,29 @@ bytes and 69 tool tests. EXE supported loader-zero data is 207789 bytes, initial
 data 249 bytes. Accepted code totals and recovery.json are unchanged. Continue
 genuine missing tick/bank-removal source alongside compiler-context research.
 See `evidence/fx_runtime_gain_wave_2026_10_11.json` for identities and proof limits.
+
+## Parallel blocker pilot and strict source gain
+
+The host-interface audit found nine missing packet command callbacks, each a
+nine-byte BYTE store body with seven native NOPs. One frozen worker compile and
+the existing fresh stage/promotion gates accept all 144 bytes. Promotion freshly
+preserves every prior strict match: current totals are 130 functions / 8224 bytes.
+Original names/signatures/TU and the full interface initializer remain unproved.
+
+The separately diagnosed runtime controls combine to the complete native ENG1
+883-byte logical span. All 76 reference fields align and bind consistently; all
+579 remaining bytes agree. Independent root compilation reproduces every worker
+section/reference and passes 373 observations. The improved canonical source is
+still a diagnostic reconstruction; packed gates and raw acceptance are unchanged.
+
+The tick pretest control fixes a genuine zero-step error and restores the native
+1845-byte size, branches and references, leaving 71 local-displacement bytes.
+TITLE source evidence also recovers the distinct 393-byte bank-removal algorithm,
+leaving six slot bytes. Preserve both near-exact private implementations and freeze
+allocation rather than tune identifiers or invent local objects. The latest
+Blood II snapshot supplies no new supported constant/frame experiment.
+
+Continue genuine ENG3 runtime omission, adjacent packet callbacks and the existing
+FX prefix in disjoint lanes. Current fresh masked verification preserves 446 rows /
+89328 bytes; 69 tool tests pass. Private successes are excluded from recovery gains.
+See `evidence/parallel_blocker_pilot_2026_10_11.json` for proof identities and limits.

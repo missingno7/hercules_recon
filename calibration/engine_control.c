@@ -34,12 +34,17 @@ extern void __cdecl host_zero_argument(void);
 
 int __cdecl runtime_control(void)
 {
-    unsigned long selector;
     int resource_id;
 
-    selector = (unsigned long)g_engine_interface.context_004->unknown_000[3];
-    switch (selector) {
+    switch (g_engine_interface.context_004->unknown_000[3]) {
     case 0:
+        return 0;
+
+    case 5:
+        if (g_control_threshold >= 128) {
+            g_engine_interface.context_004->unknown_000[5] = 0;
+            g_engine_interface.context_004->unknown_000[3] = 0;
+        }
         return 0;
 
     case 1:
@@ -70,13 +75,6 @@ int __cdecl runtime_control(void)
         g_engine_interface.context_004->blocked_0df = 1;
         g_engine_interface.context_004->unknown_000[3] = 0;
         g_engine_interface.context_004->unknown_000[3] = 0;
-        return 0;
-
-    case 5:
-        if (g_control_threshold >= 128) {
-            g_engine_interface.context_004->unknown_000[5] = 0;
-            g_engine_interface.context_004->unknown_000[3] = 0;
-        }
         return 0;
 
     case 18:
@@ -122,8 +120,10 @@ int __cdecl runtime_control(void)
                 host_clean(0);
                 resource_test();
                 host_busy_callback();
-            } while (g_engine_interface.context_004->suppress_auto_close_0e0 != 0 &&
-                     g_engine_interface.context_004->unknown_0e4 != 0);
+                if (g_engine_interface.context_004->suppress_auto_close_0e0 == 0 ||
+                    g_engine_interface.context_004->unknown_0e4 == 0)
+                    break;
+            } while (1);
         }
 
         if (g_engine_interface.context_004->unknown_000[6] == 3)
