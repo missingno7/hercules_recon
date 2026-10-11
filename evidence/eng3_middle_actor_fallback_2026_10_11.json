@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-11",
+  "scope": "Canonical near-exact middle actor factory; no strict, masked or exhaustive behavior acceptance.",
+  "function": {
+    "id": "eng3.create_middle_actor",
+    "status": "RECONSTRUCTED",
+    "source": "calibration/eng3/actor_middle_create.c",
+    "symbol": "_create_eng3_middle_actor",
+    "rva": "0x1d110",
+    "size": 128,
+    "body_size": 115,
+    "target": "assets/pc/HERCULES/ENG3.DLL",
+    "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+    "link_symbols": {
+      "_allocate_eng3_middle_actor": "0x1cf00",
+      "_g_eng3_middle_kind_entries": "0x40bac",
+      "_reset_eng3_middle_actor": "0x1d380"
+    }
+  },
+  "source_sha256": "81e377354b74983fdfc55a3d8dca437cb84639a0dccd9a21019839ebf3ffa1b4",
+  "native_evidence": "Twenty-nine indexed callers reference 0x1d110. The factory uses the actual 0xec-stride allocation and reset providers, writes xyz at +0/+4/+8 and +0x9c/+0xa0/+0xa4, sets kind flag 0x4000 and reads eight-byte rows through cell 0x40bac. Full actor/table capacity, original declarations and TU remain unproved.",
+  "fresh": {
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-_1g2_1nw\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\eng3\\actor_middle_create.c"
+    ],
+    "object_sha256": "fa83e3e91cd5ad255360eef8a506fcdff2bd36eeb5fdc871b9c3b3fb6b29c4d2",
+    "output_id": "d88f7107431aad8e9eeda7b140c011f99263265270add4c88ac349773656e945",
+    "compiled_bytes": 128,
+    "target_bytes": 128,
+    "raw_differences": 16,
+    "nonrelocation_differences": 2,
+    "native_highlow_offsets": [
+      85,
+      100
+    ],
+    "ordered_code_relocations": [
+      {
+        "offset": 8,
+        "symbol": "_allocate_eng3_middle_actor",
+        "type": 20
+      },
+      {
+        "offset": 23,
+        "symbol": "_reset_eng3_middle_actor",
+        "type": 20
+      },
+      {
+        "offset": 85,
+        "symbol": "_g_eng3_middle_kind_entries",
+        "type": 6
+      },
+      {
+        "offset": 100,
+        "symbol": "_g_eng3_middle_kind_entries",
+        "type": 6
+      }
+    ],
+    "binding_conflicts": 0,
+    "unsupported_relocations": 0,
+    "sib_equivalence": [
+      {
+        "differing_byte": 94,
+        "native": {
+          "offset": "0x5c",
+          "instruction": "mov dl, byte ptr [ecx + edi + 6]",
+          "segment": "default ds",
+          "scale": 1
+        },
+        "compiled": {
+          "offset": "0x5c",
+          "instruction": "mov dl, byte ptr [edi + ecx + 6]",
+          "segment": "default ds",
+          "scale": 1
+        },
+        "same_effective_address_and_effect": true
+      },
+      {
+        "differing_byte": 106,
+        "native": {
+          "offset": "0x68",
+          "instruction": "mov ecx, dword ptr [eax + edi]",
+          "segment": "default ds",
+          "scale": 1
+        },
+        "compiled": {
+          "offset": "0x68",
+          "instruction": "mov ecx, dword ptr [edi + eax]",
+          "segment": "default ds",
+          "scale": 1
+        },
+        "same_effective_address_and_effect": true
+      }
+    ]
+  },
+  "proof": {
+    "scope": "fresh near-exact reconstructed contribution; neither raw nor masked equality",
+    "source_sha256": "81e377354b74983fdfc55a3d8dca437cb84639a0dccd9a21019839ebf3ffa1b4",
+    "compiled_sha256": "1640439fa416c0412cb0d7298fdf28fc7ff303bb7471102d819fefbd3bf7803d",
+    "nonrelocation_differences": 2,
+    "raw_differences": 16,
+    "toolchain": "msvc5_rtm"
+  },
+  "limits": [
+    "Raw and relocation-masked gates both fail; no SIB normalization is added to acceptance.",
+    "Equivalent encoded addresses do not prove all C alias/prototype/domain behavior or original source ownership.",
+    "The matching 128-byte worker/canonical contributions include the complete RET and 13 NOPs; neither proves linked layout.",
+    "No source spelling/type/flag grid or arbitrary assembly was used to choose SIB bytes."
+  ],
+  "receipts": [
+    {
+      "path": "work/engine_frontier_23/prediction.json",
+      "sha256": "9c70461b532962f12fe9306e40e8f04cd6b20f55f0828e67832ea7dc7dc4ef13"
+    },
+    {
+      "path": "work/engine_frontier_23/residual.json",
+      "sha256": "e37059a20317eefb6e382e68b05a162dc3c5a434701031ae5069d6ab402ae1e2"
+    },
+    {
+      "path": "work/root_host_sectors_23/middle_actor_prediction.json",
+      "sha256": "385eb18792eef4ae0f387f4c141b83741c09bb84b9dd8bd98101b0612d98d87a"
+    },
+    {
+      "path": "work/root_host_sectors_23/middle_actor_fresh.json",
+      "sha256": "4fc757576170811a5f9155d0bc8ca65b24bab532251416e80c56e64cdb35688b"
+    }
+  ]
+}

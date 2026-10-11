@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-11",
+  "scope": "Read-only PC protocol evidence before reconstruction; no compiler or acceptance change.",
+  "oracles": [
+    {
+      "path": "work/discs/pc_install/HERCULES.EXE",
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+    },
+    {
+      "path": "assets/pc/HERCULES/ENG1.DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+    }
+  ],
+  "distinction": {
+    "engine_context_cell": "ENG1 0x70f24",
+    "read_site": "ENG1 0xedaa",
+    "context_offset": "0x250",
+    "actual_service": "ENG1 0x2c3e0 -> host table +0x7c -> EXE 0x43a0 reverse DWORD copy",
+    "table_offset": "0x250",
+    "table_target": "EXE 0x5450 movie display callback",
+    "consequence": "Equal numeric offsets in the context and copied interface are different owners. EDAA does not invoke 5450 and supplies no callback/allocator arity evidence."
+  },
+  "movie_callback": {
+    "rva": "0x5450",
+    "span_lead_bytes": 752,
+    "observed_formals": [
+      "int movie_id",
+      "unsigned long input_abort_mask"
+    ],
+    "return_view": "Scalar status/mask; no returned object ownership.",
+    "format_rva": "0x36658",
+    "format_sha256": "196dca7d512b147e3c37e620d2b45ba8b10fd03da962e21647426baee91268e5",
+    "limit": "Only two consumed physical incoming slots are proved, not the original full prototype. Extent remains a source lead."
+  },
+  "movie_open_helper": {
+    "rva": "0x3140",
+    "observed_formals": [
+      "const char *filename",
+      "IDirectSound *device",
+      "unsigned char **pixels_output",
+      "unsigned long *width_output",
+      "unsigned long *height_output"
+    ],
+    "nullable_output_slots": true,
+    "return_view": "Header +0x0c scalar, consistent with frame count.",
+    "pixels": "Borrowed global storage at VA 0x601b88; no new heap ownership is returned.",
+    "device_lifetime": "Real DirectSound objects stay in globals and are released by helper 0x3680.",
+    "limit": "Native call/SDK/ownership evidence only; source identities and complete behavior remain unproved."
+  },
+  "compiler_builds": 0,
+  "receipt": {
+    "path": "work/graphics_factory_23/compact.json",
+    "sha256": "bac14950cdbfbb40ca4d3960105c2b8f30be28672a033fc1aae3db9c4b38c1ec"
+  },
+  "next_action": "Use these physical protocols for one faithful full callback source. Do not carry the rejected five-formal factory interpretation into compiler research."
+}

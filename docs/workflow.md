@@ -222,3 +222,27 @@ F3D0 also demonstrates a real escaped variable reused across sequential decoder,
 sample-copy and duplicate phases. These reproduce specific frame/clear patterns;
 the complete function still fails and is not partially promoted. See
 `evidence/sdk_cursor_initializer_controls_2026_10_11.json`.
+
+Loop-weighted literal comparisons in disjoint branches can affect RTM constant
+qualification and register class. A fixed two-arm control changes only a sibling
+comparison from 6 to 7: reset 6 changes from EBX to ESI. Neither form produces
+TITLE's two independent scratch-register pieces. Preserve the actual post-call
+state reload; an else-if changes the native sequential conditions. A register
+class change alone does not justify another full target build.
+
+Read-only asset formats can distinguish fields without proving their original
+source owner. All 559 reviewed PC ESF headers support independent bytes at +12
+and +13 and a low-WORD rate at +8. A same-TU mixed-prefix sound control reproduces
+wide initial loads and later byte loads, but the complete function still fails.
+Its shifted 387-byte suffix is diagnostic only. Keep the prior 393-residual
+recipe; the new seven-byte prefix difference is a row-address/index-context
+question, not permission to insert bytes or promote an aligned suffix. See
+`evidence/constant_header_controls_2026_10_11.json`.
+
+On the current Windows host, a sandboxed historical `cl.exe`/`link.exe` launch
+can fail in CreateProcess with WinError 623 before the compiler starts. Treat
+this as a launch failure, not a compiled negative or a reason to change flags,
+environment, DLLs or pinned tools. Run the same frozen command through approved
+escalated execution and record the unsuccessful launch separately from actual
+object builds. The working Python interpreter may also differ from the blocked
+Windows Store alias; resolve an available interpreter before the experiment.

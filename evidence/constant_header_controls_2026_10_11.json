@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-11",
+  "scope": "Independent pinned Hercules RTM causal controls and PC asset/consumer evidence; no new compiler-specific BloodII conclusions or native function acceptance.",
+  "compiler": {
+    "toolchain": "msvc5_rtm",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "flags": [
+      "/O2",
+      "/Gy"
+    ]
+  },
+  "title_constant": {
+    "module": "TITLE.DLL",
+    "rva": "0x1c500",
+    "target_bytes": 3712,
+    "controls": 2,
+    "successful_compiles": 4,
+    "compiled_bytes": 208,
+    "delta": "Only the sibling loop byte comparison changes from 6 to 7. Reset stores, sequential per-arm calls, CFG, declarations and variable interference are held fixed.",
+    "finding": "Shared 6 causes a BL comparison and an EBX store-6 web. Disjoint 7 leaves 7 immediate and puts reset 6 in ESI. Narrow evidence for shared literal qualification and a byte register constraint across disjoint branches, not an allocation formula.",
+    "repeat_complete_identity": true,
+    "native_discriminator": "Native retains immediate byte comparison 6 and two independent MOV EAX,6 reset pieces; both controls fail that form. Native state reload after the first call to 0x54f0 proves a sequential second test. An else-if changes behavior.",
+    "target_compiles": 0,
+    "next_discriminator": "Genuine source/type/TU evidence, or a distinct control yielding two independent scratch6 pieces with the native sequential post-call state reload and immediate loader byte comparison intact. A saved-register class change alone is insufficient."
+  },
+  "sound_header": {
+    "module": "HERCULES.EXE",
+    "rva": "0xf3d0",
+    "target_bytes": 832,
+    "controls": 1,
+    "actual_fs_headers": 559,
+    "fs_sha256": "affa380e45918448895932cd466ea9a02096b8dcf08644f91b9da5ec34cd48b4",
+    "projection_checks": 559,
+    "source_sha256": "4b31caead2092f68f4039f8880aa2c4f549e4fe40d4403eac75987e4330b1a72",
+    "object_sha256": "694a2123ae1d6bcdaf04af86b62656695ffc02cdcb167b54d9a40d42558519a3",
+    "compiled_bytes": 832,
+    "frame_bytes": 316,
+    "body_bytes": 819,
+    "nop_bytes": 13,
+    "masked_residual_bytes": 618,
+    "binding_conflicts": 17,
+    "previous_separate_recipe_masked_residual": 393,
+    "previous_recipe_preserved": true,
+    "positive_scope": "Independent encoded BYTE metadata at +12, BYTE PCM8 at +13 and WORD rate at +8. An ordinary same-TU 16-byte mixed-prefix hypothesis naturally emits wide initial reads plus later BYTE reads and preserves the 36 SDK clear bytes and eight actual COM slots.",
+    "definition_limit": "The 16-byte zero source definition is a tested hypothesis only, not accepted storage or proof of original owner, TU, type or layout.",
+    "shifted_diagnostic": {
+      "bytes": 387,
+      "candidate_start": "0x1b0",
+      "native_start": "0x1b7",
+      "nonrelocation_differences": 0,
+      "consistent_references": 16,
+      "partial_promotion": false
+    },
+    "remaining_cause": "A net seven-byte deficit precedes header initialization: the initial bank row sequence is six bytes shorter and the EAX accumulator AND saves one byte. The complete gate retains 618 residual bytes and 17 conflicts. Suffix alignment does not solve it.",
+    "next_discriminator": "Recover the common initial bank row address and separate indexed load from F3D0/F7C0 callers/consumers. The measured seven-byte deficit is six row-window bytes plus one accumulator-specific AND encoding byte, already present before header initialization. Do not retry row/type/order/flags spelling without new source evidence."
+  },
+  "blood2_methodology": {
+    "references": {
+      "docs/object_residue.md": "b9232a02c0bede907ce3186ebe9c93d2d0ef01839a5be9765a6c7401673e88a8",
+      "docs/vc5_codegen_map.md": "33c4b2f9df92973e6567cfad4b623aa868b2cf28a74659c1abe9ba3a152bdfd7",
+      "recon/knowledge/regions/engine-converge-1-packet-lifetime.json": "d1a9c4bc81aa2a0b792915d3e09e273f51c7fdfaa2bda08adbb2be8dc425b4da"
+    },
+    "transfer": "Distinguish actual source/lifetime/ownership contributions from codegen symptoms; hold declarations/control fixed, test one causal delta, protect complete coupled outputs. No BloodII compiler rule transferred.",
+    "limits": "Read-only causal transfer: distinguish lifecycle/source form from context and protect coupled functions. No SP3, ICL, packet-owner lifetime or normalized strict result assumed for Hercules RTM."
+  },
+  "receipts": [
+    {
+      "path": "work/title_constant_23/handoff.json",
+      "sha256": "7988c52b6b3fb27c501ddb57ac1faba37d525f874024e1c7e4fd2aec304c8dcf"
+    },
+    {
+      "path": "work/title_constant_23/report.json",
+      "sha256": "2f50d7eb94b22192a447387a46ec2b0f639d12cd900f681844e8f2d61d7ef96f"
+    },
+    {
+      "path": "work/sound_header_23/compact.json",
+      "sha256": "cdc9a289b6de1ece178a516cfac198aa1055591e901652fc46535f6d41bd53b1"
+    },
+    {
+      "path": "work/sound_header_23/fs_headers.json",
+      "sha256": "3d23a6542f2c269797c3f10899377106c0d6b7d0d1712608c8a388b05a3c6baf"
+    }
+  ],
+  "acceptance": "No complete target passes. No target source/state promotion, partial matching, flag changes or acceptance-rule changes."
+}

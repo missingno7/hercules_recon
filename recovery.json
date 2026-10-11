@@ -15960,6 +15960,139 @@
         "masked_sha256": "517b9b7e70bd62707a831fb90a9caa06f1cc6b1e7972895e1a8de99fa5d7c978",
         "toolchain": "msvc5_rtm"
       }
+    },
+    {
+      "id": "exe.host_sector_seek",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x3ce0",
+      "size": 32,
+      "source": "calibration/host_sector_io.c",
+      "symbol": "_host_sector_seek",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Native sector adapter passes LIVE interface.context_004.virtual_handle_0b8, sector << 11 and origin 0 to existing virtual_file_seek at 0xa280. The complete 32-byte contribution, including the final RET, freshly passes the masked gate. Existing interface and ResourceCallbackContext views are reused. Original return/formal types, source and TU remain unproved. work/root_host_sectors_23/measurement.json.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_host_engine_interface": "0x361b8",
+        "_virtual_file_seek": "0xa280"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "291c5feacd2db5db44eb9b921c2b20c1522c6c377e42a87674f003a900ea75a2",
+        "masked_sha256": "251e838293f76c2d4b42caf8b0ebc7f0a63d0e939cf65ba089621dcf6760af51",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_sector_read",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x3d00",
+      "size": 48,
+      "source": "calibration/host_sector_io.c",
+      "symbol": "_host_sector_read",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Initialized host table cell 0x36254 independently identifies 0x3d00. Native reads LIVE context + 0xb8 and passes destination and sectors << 11 to existing virtual_file_read at 0xa2f0. The complete 48-byte contribution, including 13 NOPs, freshly passes the masked gate. evidence/host_interface_entry_seeds_2026_10_11.json; work/root_host_sectors_23/measurement.json. Original types and TU remain unproved.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_host_engine_interface": "0x361b8",
+        "_virtual_file_read": "0xa2f0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "291c5feacd2db5db44eb9b921c2b20c1522c6c377e42a87674f003a900ea75a2",
+        "masked_sha256": "a854c63a2d51923c88a5fd9e198201dca48056696bbea7bcacebed3b31cbf92c",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_callback_42e0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x42e0",
+      "size": 32,
+      "source": "calibration/host_callback_42e0.c",
+      "symbol": "_host_callback_42e0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Initialized host table cell 0x36284 identifies independent entry 0x42e0. It calls the actual counter at 0xac10 with 0, then existing strict empty_host_callback at 0xbe30 with the incoming word. The complete 32-byte contribution, including eight NOPs, freshly passes the masked gate. BE30 has 22 indexed native callers with varying arity. The unspecified declaration is a physical ABI view, not a language-level cross-arity behavior or original signature/TU claim. evidence/host_interface_entry_seeds_2026_10_11.json; work/root_host_sectors_23/provider_rebind.json.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_empty_host_callback": "0xbe30",
+        "_host_sequence_next": "0xac10"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "005ac288c938f37b4e428e1ce5c61c58efc803c8359b8e2f589a9f7b2f478a69",
+        "masked_sha256": "2e50040d8efec93693e18266b6e3c41372df319aa31f43f8f066c819886e48e0",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_sequence_next",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0xac10",
+      "size": 16,
+      "source": "calibration/host_sequence.c",
+      "symbol": "_host_sequence_next",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Actual callee of 0x42e0, 0x1d00 and call site 0x169e. Its independent 16-byte body reads DWORD 0xa8e700, returns the old word and stores the increment. No argument is read despite observed 0/3 stack arguments. One ordinary unsigned-long postincrement passes the complete fresh masked gate. The counter remains external; original name, types, owner and TU are unproved. work/root_host_sectors_23/sequence_measurement.json.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_host_sequence": "0x68e700"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "f49c73b2ea7527f8e6c3c80dc38953ef3406622122bb7ebfd3a4911ad4df4dc6",
+        "masked_sha256": "cc53cc833363d2671a224cab7259b1f1c4bc5f946d39b2fae6ec01d4375ada37",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "eng3.create_middle_actor",
+      "status": "RECONSTRUCTED",
+      "name_status": "provisional semantic label; original types and TU unproved",
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x1d110",
+      "size": 128,
+      "body_size": 115,
+      "source": "calibration/eng3/actor_middle_create.c",
+      "symbol": "_create_eng3_middle_actor",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Four-argument middle actor factory: actual allocation/reset callees, duplicated xyz stores, 0x4000 kind flag and eight-byte descriptor rows through cell 0x40bac. Fresh canonical complete contribution preserves the worker output; exactly two equivalent scale-1 SIB encodings remain. Near-exact RECONSTRUCTED only; no raw/masked or exhaustive behavior proof. evidence/eng3_middle_actor_fallback_2026_10_11.json.",
+      "boundary": "Native RET at 0x1d182 and 13 NOPs through 0x1d18f precede independently called next entry 0x1d190; complete fresh contribution is 128 bytes.",
+      "link_symbols": {
+        "_allocate_eng3_middle_actor": "0x1cf00",
+        "_g_eng3_middle_kind_entries": "0x40bac",
+        "_reset_eng3_middle_actor": "0x1d380"
+      },
+      "proof": {
+        "scope": "fresh near-exact reconstructed contribution; neither raw nor masked equality",
+        "source_sha256": "81e377354b74983fdfc55a3d8dca437cb84639a0dccd9a21019839ebf3ffa1b4",
+        "compiled_sha256": "1640439fa416c0412cb0d7298fdf28fc7ff303bb7471102d819fefbd3bf7803d",
+        "nonrelocation_differences": 2,
+        "raw_differences": 16,
+        "toolchain": "msvc5_rtm"
+      }
     }
   ]
 }

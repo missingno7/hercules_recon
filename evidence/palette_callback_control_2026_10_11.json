@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-11",
+  "scope": "One failed full palette callback baseline; source/ABI/path leads only, no canonical source or recovery acceptance.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "rva": "0x5760",
+  "extent_lead_bytes": 752,
+  "candidate": {
+    "path": "candidates/graphics_callbacks_23/graphics_5760.c",
+    "sha256": "0e4a234d02300f8489daf64e032bb05ef64b3c42a87c9ba80c7492d02c547a65",
+    "source_unchanged_after_build": true
+  },
+  "successful_object_builds": 1,
+  "compiler_command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/c",
+    "/Gy",
+    "/O2",
+    "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-80qbbzfd\\candidate.obj",
+    "D:\\Prog\\hercules_recon\\candidates\\graphics_callbacks_23\\graphics_5760.c"
+  ],
+  "object_sha256": "fed8c5c4cbe0de171ba95620f8fa14f279843b524e13d83ded0797426be5f6b7",
+  "measurement": {
+    "report": "work/graphics_callbacks_23/residual_5760.json",
+    "scope": "Full 752-byte target contribution; raw and relocation-masked comparisons are separate diagnostics.",
+    "target_contribution_sha256": "717588ec85ad2caf68dda8ccb76ec2012324f2bab396b96837d029b448236a76",
+    "candidate_contribution_sha256": "0cbe3fbce68506f22d9bd60f96895c8bb556b3b19d300b71f945485011bea5a6",
+    "raw": {
+      "equal": false,
+      "target_bytes": 752,
+      "candidate_bytes": 816,
+      "different_bytes": 751
+    },
+    "relocation_masked": {
+      "equal": false,
+      "residual_nonrelocation_bytes": 580,
+      "binding_conflicts": 20,
+      "unsupported_relocations": 0
+    },
+    "interpretation": "This baseline does not pass either complete function gate and is not useful for adoption as matching source. It remains a semantic/path-map source lead only; conflicts and all residuals are retained in the diagnostic report."
+  },
+  "protocol": {
+    "observed_forwarded_slots": 2,
+    "original_second_argument_type_and_return_contract_unproved": true,
+    "archive": "One 0x300-byte read at archive offset 0x12; 128 palette entries use the first three bytes of successive records with reversed component argument order.",
+    "selector": "Six negative and ten positive selectors select 16 strings; 0,4 and out-of-range values return. Selected suffix becomes .cif before the actual map/palette loader and refresh calls."
+  },
+  "integrator_corrections": {
+    "exe_initialized_host_cell": "0x363fc",
+    "eng1_copied_interface_cell": "0x71164",
+    "table_offset": "0x244",
+    "table_bytes": 72,
+    "table_entries": 18,
+    "table_rva": "0x5a04",
+    "table_end_exclusive": "0x5a4c",
+    "table_sha256": "dab272f789cf904c6a963aa9382c4cfb03e51c9c85244d7717d7b52402849426",
+    "table_target_rvas": [
+      "0x5849",
+      "0x583e",
+      "0x5830",
+      "0x5822",
+      "0x5814",
+      "0x5806",
+      "0x59f7",
+      "0x5854",
+      "0x58ac",
+      "0x585f",
+      "0x59f7",
+      "0x586a",
+      "0x5875",
+      "0x5880",
+      "0x58b7",
+      "0x588b",
+      "0x58a1",
+      "0x5896"
+    ],
+    "native_discriminator": "CMP EAX,0x11 after selector+6; JMP [EAX*4+0x405a04]. The old receipt confuses the EXE cell with the copied ENG1 cell and says56 bytes for a72-byte interval. Historical source/build receipt is preserved."
+  },
+  "receipt": {
+    "path": "work/graphics_callbacks_23/baseline_5760.json",
+    "sha256": "e88f3eba9f18687b8879921e30c8b429c4846d684c1963ca18f8e50068fc9b81"
+  },
+  "next_discriminator": "Recover actual selector/path-buffer declarations, copy/argument-width context and callable boundaries before another full candidate. The failed baseline is not a compiler-only diagnosis, behavior-exact reconstruction or matching recipe."
+}

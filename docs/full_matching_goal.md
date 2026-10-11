@@ -675,3 +675,55 @@ packet declaration and register lifetime context for rendering, and complete
 raster callable/dataflow evidence. Scratch ownership and terminal archive source
 representation remain independent open dependencies. Avoid more initializer,
 loop, flags, order or type grids for the now-tested mechanisms.
+
+## Callback dependencies and independent constant controls
+
+Two sector adapters now reuse the actual live interface/context members and the
+existing virtual seek/read providers. A third table-backed callback uses the
+existing strict empty routine and its actual counter dependency. All four
+complete contributions pass the unchanged masked gate, adding 128 bytes across
+three canonical sources. The counter and initialized host table remain external;
+neither their owner nor whole-image layout is inferred.
+
+The thinner ENG3 source frontier also yields the middle actor factory at 0x1d110.
+Its fresh canonical 128-byte contribution preserves the native call/store flow,
+with exactly two equivalent scale-1 SIB differences, just like the separate kind
+constructor. It is retained as RECONSTRUCTED only. Both raw and masked gates fail;
+there is no instruction normalization or exhaustive C behavior claim. See
+`evidence/eng3_middle_actor_fallback_2026_10_11.json`.
+
+New TITLE controls isolate literal qualification from branch interference: only
+changing a sibling loop comparison from 6 to 7 changes reset 6 from EBX to ESI.
+Four fresh builds reproduce the two complete controls. Neither emits the native
+two independent EAX pieces, so no new full target attempt follows. The actual
+post-call state reload rules out an else-if rewrite.
+
+Read-only ESF evidence from 559 PC headers supports independent byte fields at
++12/+13 and a low-WORD rate at +8. One mixed-prefix sound control reproduces
+native load and downstream register patterns but fails complete equality. The
+seven-byte prefix difference is localized to row-address formation and the
+accumulator AND encoding; its shifted 387-byte suffix is diagnostic only. Keep
+the earlier 393-residual recipe alongside this distinct source hypothesis. See
+`evidence/constant_header_controls_2026_10_11.json`.
+
+The movie callback audit distinguishes context +0x250 data from host table
++0x250. ENG1's observed path goes through the reverse-copy service, not the movie
+callback. The actual movie callback consumes a movie ID and abort mask; its
+five-argument movie-open helper owns a different ABI. This correction precedes
+source compilation and prevents an invented factory signature.
+See `evidence/movie_callback_protocol_2026_10_11.json`.
+
+The palette callback's first full baseline covers both observed paths and all
+16 selected strings, but emits 816 bytes against the 752-byte lead, with 580
+masked residual bytes and 20 binding conflicts. It stays private. Direct-byte
+review also distinguishes the initialized EXE table cell from its copied ENG1
+cell and confirms an 18-entry, 72-byte switch table. See
+`evidence/palette_callback_control_2026_10_11.json`; retain the extent/type limits
+before another source experiment.
+
+Current totals are 120 strict functions / 8,064 bytes, 428 complete masked
+functions / 86,352 bytes, and five reconstructed non-strict functions / 1,008
+bytes. Fresh strict/masked regression and 54 tests pass. This wave adds 128
+masked bytes and 128 near-exact reconstructed bytes, with no strict-byte gain.
+All 551 pre-wave recovery rows remain unchanged. The checkpoint is
+`evidence/full_goal_callback_controls_wave_2026_10_11.json`.
