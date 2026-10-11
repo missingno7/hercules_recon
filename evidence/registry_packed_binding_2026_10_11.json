@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-11",
+  "scope": "Actual registry-prefix identity rebind; no new storage or code-byte gain, no strict or whole-image acceptance.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "source": {
+    "path": "calibration/host_packed_code.c",
+    "sha256": "185177cc02fef199523a2a67a766d538b06e285baec641700c272176c6e7c41d"
+  },
+  "source_text": "/* Reconstruction for HERCULES.EXE RVA 0x4bc0.\n   Working views reuse the observed registry prefix; original type/TU remain unproved. */\nextern unsigned char g_registry_config[72];\n\nlong __cdecl host_packed_code_04bc0(long value)\n{\n    if (value != -1) {\n        *(long *)(g_registry_config + 8) = value;\n        return value;\n    }\n\n    value = *(long *)(g_registry_config + 8);\n    g_registry_config[12] = (unsigned char)(value >> 8);\n    return value;\n}\n",
+  "existing_provider": {
+    "path": "calibration/registry_storage.c",
+    "sha256": "e9f7c60fd443f486260a622e2beb5cde2be2d7a500b2cd486afab6ccbe35eda7"
+  },
+  "existing_provider_evidence": {
+    "path": "evidence/registry_storage_adoption_2026_10_11.json",
+    "sha256": "4191b2b9f0e19a9ee8c8d6d8aefeea9a56b49817b29132f1930121d7a5dac7a4"
+  },
+  "native_owner_audit": {
+    "path": "work/settings_record_35/compact.json",
+    "sha256": "531ae9398eb514e84cdc94cafd376eed0a8d0888293b256636e71d8e78b53e00"
+  },
+  "native_evidence": {
+    "path": "work/settings_record_35/evidence.json",
+    "sha256": "f5fefc1fef1d99ab007a014e6bc53e4aa72a4f2d3b6d26ffd8ee4dc64d1aab3d"
+  },
+  "prediction": {
+    "path": "work/root_registry_binding_35/prediction.json",
+    "sha256": "ad51a16d1d3d0214295278aec6a13c43563660518f201713b718928fcd094dfd"
+  },
+  "fresh_control": {
+    "path": "work/root_registry_binding_35/control.json",
+    "sha256": "c280deab8c9c8b727df98bbbf0735a9446af892628877265f351ef282963674b"
+  },
+  "fresh_adoption": {
+    "path": "work/root_registry_binding_35/adoption.json",
+    "sha256": "6e78af5c53c13a8f180951ad2dd4ddca14acc4931bb3132577166aaf7c24c897"
+  },
+  "facts": {
+    "record_rva": "0x79e858",
+    "observed_prefix_bytes": 72,
+    "packed_long_offset": 8,
+    "auxiliary_byte_offset": 12,
+    "verified_indexed_native_references": 141,
+    "runtime_clear": "EXE4be0 clears18 DWORDs, then writes observed defaults; this is runtime state, not initial file bytes.",
+    "persistence": "EXE4ce0 requests72 registry bytes;4da0 refreshes BYTE+12, writes checksum DWORD+0 and persists REG_BINARY72.",
+    "checksum": "EXE4cc0 adds sliding DWORDs at offsets4..67, touching through70. Byte71 is cleared/persisted but unchecked.",
+    "apply_settings": "EXE4ac0 applies audio/context settings; it is not the checksum updater."
+  },
+  "fresh_source_result": {
+    "complete_bytes": 32,
+    "old_masked_identity_preserved": true,
+    "only_changed_object_byte_offsets": [
+      10,
+      16,
+      27
+    ],
+    "same_DIR32_offsets": [
+      10,
+      16,
+      27
+    ],
+    "new_addends": [
+      8,
+      8,
+      12
+    ],
+    "one_implied_symbol": {
+      "_g_registry_config": "0x79e858"
+    },
+    "other_recovery_rows_unchanged": 575,
+    "native_relocation_scope": "EXE has no base-relocation directory; consistent observed operand binding only, no native HIGHLOW-position proof."
+  },
+  "natural_link": {
+    "receipt": {
+      "path": "work/root_registry_binding_35/link_control.json",
+      "sha256": "eaa8286e6c74d9322f719cb8ce4ed7e27004ae63a7200d33ff1fa1fbf408e334"
+    },
+    "real_sources": 53,
+    "old_complete_sources_preserved": 52,
+    "unresolved_before": 16,
+    "unresolved_after": 14,
+    "removed": [
+      "g_packed_code_79e860",
+      "g_packed_code_aux_79e864"
+    ],
+    "added": [],
+    "image_produced": false,
+    "limits": "Partial source graph with actual existing providers and pinned libraries. No aliases, stubs, forced images or placement controls."
+  },
+  "limits": "BYTE+12 remains a BYTE view despite masked wide reads. Existing BYTE-buffer DWORD views are reused; no new header/provider/type grid. Minimum protocol prefix only, original aggregate extent/TU and placement unproved."
+}

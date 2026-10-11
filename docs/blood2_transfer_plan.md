@@ -272,3 +272,21 @@ staging. Data cells remain external and raw address operands remain unresolved.
 Current totals are 121 strict / 8080 bytes, 446 masked / 89328 bytes, with 69 tests
 passing. The independently confirmed private engine producer contributes 4230
 diagnostic bytes outside recovery totals; no packed-unit gate changes follow.
+
+The follow-up demonstrates the value of checking existing providers before
+adding infrastructure: the packed-code cells already belong to the 72-byte
+registry prefix. An ordinary fixed-offset source rebind preserves its complete
+contribution and removes two unresolved data names from a natural 53-source link.
+No new header or storage provider is needed. See
+`evidence/registry_packed_binding_2026_10_11.json`.
+
+Native-grounded fixture work also corrects a real callback-gating error in the
+existing runtime experiment. Its old green fixture encoded the wrong mode-0
+behavior; 373 revised checks cover the supported mode and live-mutation cases.
+Full code still fails matching, so semantic progress and strict progress remain
+separate. The second producer's complete CFG now agrees outside frame allocation;
+freeze it rather than tune unused stack space. A separate ordinary retry-edge
+control recovers the full file-helper fragment and all its literals after two
+preserved failures. Continue genuine missing-helper/runtime work in parallel;
+all accepted code/data checks and 69 tool tests preserve. See
+`evidence/fx_followup_controls_2026_10_11.json`.

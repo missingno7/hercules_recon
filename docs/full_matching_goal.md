@@ -1231,3 +1231,45 @@ caused a recorded pre-object failure; a declaration-only retry emitted the singl
 measured object. Shifted tail operands do not prove the cleanup callee identity
 is wrong. Diagnose the remaining instruction/control graph before another build;
 retain the distinct owner/spatial-source roles and local state.
+
+## Registry owner reuse and runtime correction
+
+The packed-code service's two data cells are already members of the canonical
+72-byte registry prefix: LONG+8 and BYTE+12. Rebind those views to
+`g_registry_config`, keeping the existing provider and consumer widths. Two fresh
+controls preserve all 32 code bytes outside the three actual relocation addends;
+fresh staging preserves its masked identity. A natural 53-source pair removes
+exactly two unresolved data names, 16 to 14, with all 52 older complete contributions
+unchanged. It produces no image and adds no data or code bytes. See
+`evidence/registry_packed_binding_2026_10_11.json`.
+
+The runtime controller was already a canonical semantic experiment. The earlier
+eight-body gap was an inventory of missing matches in reviewed FX receipts, not
+proof of eight absent source bodies. Reuse that source and its observer fixture.
+Native branches prove failure callbacks belong inside the mode-1 cancellation
+gate at three ENG1 sites and two shared ENG3 sites. The old 110-check fixture
+incorrectly expected a mode-0 callback. The source repair and revised fixture now
+pass 373 checks, including live context/callback replacement during cancellation.
+The complete 878-byte code/table contribution still differs from native; no
+recovery promotion or exhaustive behavior claim follows.
+
+The second producer now emits the complete 1787-byte body with all calls and
+relocations aligned. All 100 remaining differences are 99 local-displacement
+bytes and the 84-versus-64 frame immediate. Every actual branch destination,
+fallthrough, opcode and register outside those fields agrees. Freeze this
+allocation blocker; unaccessed native stack gaps do not justify filler locals.
+
+The real adjacent file-helper/empty-helper fragment now passes both complete
+168-byte text and 71-byte literal-section diagnostics in both engines. The
+173-byte early-return loop and 166-byte structured posttest remain failed
+controls. A conditional retry label naturally reproduces native's conditional
+skip over an unconditional retry edge. Independent root recompilation confirms
+the full result. These 336 private code bytes remain outside recovery totals.
+
+Next source work is the deduplicated 423-byte helper and the runtime controller's
+native switch order/explicit-break polling graph. Keep success return values,
+escaped rectangle lifetime, live context reads and the five physical caller
+arguments distinct from the wrapper's two forwarded inputs. Current verified
+totals remain 121 strict / 8080 bytes and 446 masked / 89328 bytes; 69 tool tests
+pass. Detailed controls and corrected inventory scope are in
+`evidence/fx_followup_controls_2026_10_11.json`.

@@ -20,16 +20,19 @@ enum {
     EV_FREE = 402, EV_CLEANUP = 403, EV_HELPER = 404, EV_WORKER = 405,
     EV_UPDATE = 406, EV_REG_A = 407, EV_REG_B = 408, EV_RESET = 409,
     EV_CLEAN_ZERO = 410, EV_INIT = 411, EV_SHUTDOWN = 412,
-    EV_POLL = 413, EV_RESOURCE_TEST = 414, EV_BUSY = 415, EV_ZEROARG = 416
+    EV_POLL = 413, EV_RESOURCE_TEST = 414, EV_BUSY = 415, EV_ZEROARG = 416,
+    EV_REPLACEMENT_CALLBACK = 417
 };
 
 static ResourceCallbackContext context_storage;
+static ResourceCallbackContext replacement_context;
 static int events[128];
 static int event_count;
 static int checks;
 static int failures;
 static int mode_for_callback;
 static int mutate_selector_in_callback;
+static int mutate_context_on_cancel;
 static int busy_case_active;
 static int busy_count;
 static jmp_buf terminal_loop_escape;
@@ -46,6 +49,7 @@ static void record(int event)
 static void reset_case(unsigned char selector)
 {
     memset(&context_storage, 0, sizeof(context_storage));
+    memset(&replacement_context, 0, sizeof(replacement_context));
     memset(g_actor_resources, 0, sizeof(g_actor_resources));
     memset(events, 0, sizeof(events));
     event_count = 0;
@@ -53,6 +57,7 @@ static void reset_case(unsigned char selector)
     busy_count = 0;
     mode_for_callback = 0;
     mutate_selector_in_callback = 0;
+    mutate_context_on_cancel = 0;
     g_engine_interface.context_004 = &context_storage;
     context_storage.unknown_000[3] = selector;
     g_control_threshold = 0;
@@ -77,12 +82,24 @@ static void __cdecl load_failed_callback(void)
         context_storage.unknown_000[3] = 33;
 }
 
+static void __cdecl replacement_load_failed_callback(void)
+{
+    record(EV_REPLACEMENT_CALLBACK);
+}
+
 void __cdecl resource_destroy(int id)
 {
     record(id == 3 ? EV_DESTROY_3 : EV_DESTROY_1);
 }
 
-void __cdecl host_cancel(void) { record(EV_CANCEL); }
+void __cdecl host_cancel(void)
+{
+    record(EV_CANCEL);
+    if (mutate_context_on_cancel) {
+        g_engine_interface.context_004 = &replacement_context;
+        mutate_context_on_cancel = 0;
+    }
+}
 void __cdecl resource_reclaim(int wait_mode) { record(EV_RECLAIM_1 + wait_mode - 1); }
 
 void __cdecl host_two_argument(void *first, unsigned long second)
@@ -95,7 +112,7 @@ void __cdecl host_two_argument(void *first, unsigned long second)
 void __cdecl host_free_allocation(void *allocation)
 {
     record(EV_FREE);
-    CHECK(allocation == context_storage.unknown_0e4);
+    CHECK(allocation == g_engine_interface.context_004->unknown_0e4);
 }
 
 void __cdecl resource_cleanup(void) { record(EV_CLEANUP); }
@@ -215,27 +232,140 @@ static void test_case_eighteen_nineteen_fallthrough(void)
         reset_case((unsigned char)selector);
         context_storage.load_failed = load_failed_callback;
         context_storage.unknown_0e4 = (void *)0x5678;
-        mode_for_callback = 1;
         CHECK(runtime_control() == 33);
-        CHECK(event_count == 14);
-        CHECK(event_is(0, EV_CALLBACK));
-        CHECK(event_is(1, EV_FREE));
-        CHECK(event_is(2, EV_CLEANUP));
-        CHECK(event_is(3, EV_HELPER));
-        CHECK(event_is(4, EV_WORKER));
-        CHECK(event_is(5, EV_UPDATE));
-        CHECK(event_is(6, EV_CANCEL));
-        CHECK(event_is(7, EV_CALLBACK));
-        CHECK(event_is(8, EV_REG_A));
-        CHECK(event_is(9, EV_REG_B));
-        CHECK(event_is(10, EV_RESET));
-        CHECK(event_is(11, EV_CLEAN_ZERO));
-        CHECK(event_is(12, EV_INIT));
-        CHECK(event_is(13, EV_SHUTDOWN));
+        CHECK(event_count == 11);
+        CHECK(event_is(0, EV_FREE));
+        CHECK(event_is(1, EV_CLEANUP));
+        CHECK(event_is(2, EV_HELPER));
+        CHECK(event_is(3, EV_WORKER));
+        CHECK(event_is(4, EV_UPDATE));
+        CHECK(event_is(5, EV_REG_A));
+        CHECK(event_is(6, EV_REG_B));
+        CHECK(event_is(7, EV_RESET));
+        CHECK(event_is(8, EV_CLEAN_ZERO));
+        CHECK(event_is(9, EV_INIT));
+        CHECK(event_is(10, EV_SHUTDOWN));
         CHECK(context_storage.unknown_000[0] == 0xff);
         CHECK(context_storage.unknown_128 == 0);
         CHECK(g_control_global_71ec0 == 0);
     }
+}
+
+static void append_expected(int *expected, int *count, int event)
+{
+    expected[*count] = event;
+    ++*count;
+}
+
+static void test_mode_matrix(void)
+{
+    int selectors[5] = { 1, 2, 18, 19, 33 };
+    int modes[3] = { 0, 1, 2 };
+    int expected[20];
+    int expected_count;
+    int selector_index;
+    int mode_index;
+    int selector;
+    int mode;
+    int i;
+
+    for (selector_index = 0; selector_index < 5; ++selector_index) {
+        for (mode_index = 0; mode_index < 3; ++mode_index) {
+            selector = selectors[selector_index];
+            mode = modes[mode_index];
+            reset_case((unsigned char)selector);
+            context_storage.mode_09c = (unsigned short)mode;
+            context_storage.load_failed = load_failed_callback;
+            if (selector == 18 || selector == 19)
+                context_storage.unknown_0e4 = (void *)0x5678;
+
+            expected_count = 0;
+            if (selector == 1 || selector == 2) {
+                append_expected(expected, &expected_count, EV_DESTROY_3);
+                append_expected(expected, &expected_count, EV_DESTROY_1);
+                if (mode == 1) {
+                    append_expected(expected, &expected_count, EV_CANCEL);
+                    append_expected(expected, &expected_count, EV_CALLBACK);
+                }
+                append_expected(expected, &expected_count, EV_RECLAIM_1);
+                append_expected(expected, &expected_count, EV_TWOARG);
+                CHECK(runtime_control() == 0);
+            } else if (selector == 18 || selector == 19) {
+                if (mode == 1) {
+                    append_expected(expected, &expected_count, EV_CANCEL);
+                    append_expected(expected, &expected_count, EV_CALLBACK);
+                }
+                append_expected(expected, &expected_count, EV_FREE);
+                append_expected(expected, &expected_count, EV_CLEANUP);
+                append_expected(expected, &expected_count, EV_HELPER);
+                append_expected(expected, &expected_count, EV_WORKER);
+                append_expected(expected, &expected_count, EV_UPDATE);
+                if (mode == 1) {
+                    append_expected(expected, &expected_count, EV_CANCEL);
+                    append_expected(expected, &expected_count, EV_CALLBACK);
+                }
+                append_expected(expected, &expected_count, EV_REG_A);
+                append_expected(expected, &expected_count, EV_REG_B);
+                append_expected(expected, &expected_count, EV_RESET);
+                append_expected(expected, &expected_count, EV_CLEAN_ZERO);
+                append_expected(expected, &expected_count, EV_INIT);
+                append_expected(expected, &expected_count, EV_SHUTDOWN);
+                CHECK(runtime_control() == 33);
+                CHECK(context_storage.unknown_000[0] == 0xff);
+            } else {
+                if (mode == 1) {
+                    append_expected(expected, &expected_count, EV_CANCEL);
+                    append_expected(expected, &expected_count, EV_CALLBACK);
+                }
+                append_expected(expected, &expected_count, EV_REG_A);
+                append_expected(expected, &expected_count, EV_REG_B);
+                append_expected(expected, &expected_count, EV_RESET);
+                append_expected(expected, &expected_count, EV_CLEAN_ZERO);
+                append_expected(expected, &expected_count, EV_INIT);
+                append_expected(expected, &expected_count, EV_SHUTDOWN);
+                CHECK(runtime_control() == 33);
+            }
+
+            CHECK(event_count == expected_count);
+            for (i = 0; i < expected_count && i < event_count; ++i)
+                CHECK(events[i] == expected[i]);
+            if (selector == 18 || selector == 19 || selector == 33) {
+                CHECK(context_storage.unknown_128 == 0);
+                CHECK(g_control_global_71ec0 == 0);
+            }
+        }
+    }
+}
+
+static void test_cancel_reloads_mutated_context_and_callback(void)
+{
+    int expected[13] = {
+        EV_CANCEL, EV_REPLACEMENT_CALLBACK, EV_FREE, EV_CLEANUP,
+        EV_HELPER, EV_WORKER, EV_UPDATE, EV_REG_A, EV_REG_B, EV_RESET,
+        EV_CLEAN_ZERO, EV_INIT, EV_SHUTDOWN
+    };
+    int i;
+
+    reset_case(18);
+    context_storage.mode_09c = 1;
+    context_storage.load_failed = load_failed_callback;
+    context_storage.unknown_128 = 0x5a;
+    context_storage.unknown_0e4 = (void *)0x5678;
+    replacement_context.mode_09c = 0;
+    replacement_context.load_failed = replacement_load_failed_callback;
+    replacement_context.unknown_128 = 0x6b;
+    replacement_context.unknown_0e4 = (void *)0x9876;
+    mutate_context_on_cancel = 1;
+
+    CHECK(runtime_control() == 33);
+    CHECK(event_count == 13);
+    for (i = 0; i < 13 && i < event_count; ++i)
+        CHECK(events[i] == expected[i]);
+    CHECK(g_engine_interface.context_004 == &replacement_context);
+    CHECK(replacement_context.unknown_000[0] == 0xff);
+    CHECK(replacement_context.unknown_128 == 0);
+    CHECK(context_storage.unknown_128 == 0x5a);
+    CHECK(g_control_global_71ec0 == 0);
 }
 
 static void test_case_thirty_three(void)
@@ -289,6 +419,8 @@ int main(void)
     test_case_one_two();
     test_case_eighteen_nineteen_fallthrough();
     test_case_thirty_three();
+    test_mode_matrix();
+    test_cancel_reloads_mutated_context_and_callback();
     test_default_live_poll_and_terminal_loop();
     printf("engine control fixture: %d checks, %d failures\n", checks, failures);
     return failures != 0;

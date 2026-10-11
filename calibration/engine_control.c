@@ -58,10 +58,11 @@ int __cdecl runtime_control(void)
         resource_destroy(resource_id);
         g_actor_resources[resource_id].residency_state = 6;
 
-        if (g_engine_interface.context_004->mode_09c == 1)
+        if (g_engine_interface.context_004->mode_09c == 1) {
             host_cancel();
-        if (g_engine_interface.context_004->load_failed != 0)
-            g_engine_interface.context_004->load_failed(0);
+            if (g_engine_interface.context_004->load_failed != 0)
+                g_engine_interface.context_004->load_failed(0);
+        }
         resource_reclaim(1);
         host_two_argument(g_control_argument_6eef8, g_control_forwarded_value);
 
@@ -80,10 +81,11 @@ int __cdecl runtime_control(void)
 
     case 18:
     case 19:
-        if (g_engine_interface.context_004->mode_09c == 1)
+        if (g_engine_interface.context_004->mode_09c == 1) {
             host_cancel();
-        if (g_engine_interface.context_004->load_failed != 0)
-            g_engine_interface.context_004->load_failed(0);
+            if (g_engine_interface.context_004->load_failed != 0)
+                g_engine_interface.context_004->load_failed(0);
+        }
 
         if (g_engine_interface.context_004->unknown_0e4 != 0)
             host_free_allocation(g_engine_interface.context_004->unknown_0e4);
@@ -97,10 +99,11 @@ int __cdecl runtime_control(void)
         /* PC code falls directly into case 33 without redispatch. */
 
     case 33:
-        if (g_engine_interface.context_004->mode_09c == 1)
+        if (g_engine_interface.context_004->mode_09c == 1) {
             host_cancel();
-        if (g_engine_interface.context_004->load_failed != 0)
-            g_engine_interface.context_004->load_failed(0);
+            if (g_engine_interface.context_004->load_failed != 0)
+                g_engine_interface.context_004->load_failed(0);
+        }
 
         g_engine_interface.context_004->unknown_128 = 0;
         g_control_global_71ec0 = 0;
