@@ -1043,3 +1043,14 @@ Totals are 121 strict functions / 8,080 bytes, 445 complete masked functions /
 89,296 bytes, and six reconstructed functions / 1,088 bytes. The checkpoint is
 `evidence/full_goal_movie_initializer_wave_2026_10_11.json`. Full matching remains
 active; complete masked equality is still diagnostic, with no new strict bytes.
+
+The FX pilot now emits a complete 137-byte /Gy /Od COMDAT, masked-equal to both
+engine peers with exact reference offsets and consistent symbol maps. A size
+assertion caught a wrong opaque tail before the first object; its failed receipt
+remains immutable and the separately pinned arithmetic repair produced the
+sole measured object. This is useful compiler evidence, excluded from recovery
+totals. The COMDAT requests 16-byte alignment despite its 137-byte extent, while
+native functions are packed. Keep the current staging gate intact. A two-function
+control without /Gy will test natural packing before genuine adjacent FX source
+and compilation-unit work. See
+`evidence/fx_low_optimization_pilot_2026_10_11.json`.
