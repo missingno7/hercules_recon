@@ -1,0 +1,124 @@
+{
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "actual_headers": [
+    {
+      "path": "calibration/resource_context.h",
+      "sha256": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608"
+    }
+  ],
+  "canonical_provider": {
+    "source": "calibration/host_resource_storage.c",
+    "source_sha256": "2586b96d5d1a1ef5362b020014991c4658b7e4483b156114665b6096b7ee10be",
+    "cells": [
+      {
+        "name": "g_resource_context_storage",
+        "rva": "0x215c98",
+        "bytes": 6964,
+        "working_type": "ResourceCallbackContext minimum observed prefix",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "evidence": "table27 context_004 pointer target and 1741-DWORD startup clear; current header size 0x1b34; excludes the four-byte gap and any full-capacity/TU claim."
+      },
+      {
+        "name": "g_resource_prepare_scalar",
+        "rva": "0x352b0",
+        "bytes": 4,
+        "working_type": "unsigned long",
+        "native_initial_origin": "file-backed initialized bytes",
+        "zero_initializer": false,
+        "initializer": "ffffffff",
+        "evidence": "File-backed FFFFFFFF initializer and host_file_prepare RVA 0x1d60 DWORD-zero store; original type/source/TU identity remain unproved."
+      }
+    ],
+    "bss_flags": "0xc0400080"
+  },
+  "native_initialization_evidence": {
+    "context_clear": {
+      "instructions_rva": "0x1ff2..0x2001",
+      "target_start_rva": "0x215c98",
+      "words": 1741,
+      "bytes": 6964,
+      "end_rva_exclusive": "0x2177cc",
+      "format": "table27 provider audit; target is native loader-zero .data virtual tail, so no raw-file byte hash is claimed"
+    },
+    "prepare_scalar": {
+      "function_rva": "0x1d60",
+      "data_rva": "0x352b0",
+      "file_backed_initializer": "ffffffff",
+      "write": "native DWORD-zero store; scalar is a separate cell"
+    },
+    "excluded_gap": {
+      "start_rva": "0x2177cc",
+      "end_rva_exclusive": "0x2177d0",
+      "bytes": 4
+    }
+  },
+  "date": "2026-10-11",
+  "scope": "Two actual host resource fields: minimum6964-byte typed clear prefix plus4-byteFFFFFFFF scalar. Data dependency diagnostic only, not function/layout/original type/TU acceptance.",
+  "private_proposal": {
+    "path": "work/host_resource_storage_28/archive_storage_proposal.json",
+    "sha256": "74b0a4eac0555772935d6c2e152e8619b7990f57d772426fa5a24f8123ec2ada"
+  },
+  "native_prefix_limit": "Context spans215c98..2177cc; four bytes to arena2177d0 excluded. No arena, host table, larger original context, independent declaration/TU or placement supplied.",
+  "limits": "The data-only historical control and following fresh canonical field verification establish storage class/values/widths only. No new function acceptance or callbacks. Current working header already proves sizeof0x1b34; original complete record remains open.",
+  "fresh_canonical": {
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-fonj3q99\\candidate.obj",
+    "object_sha256": "0914c322dbdcb37cf537a1b3da1d79b3d691c628ea364e14f4eb2ff5f0d39b03",
+    "source_sha256": "2586b96d5d1a1ef5362b020014991c4658b7e4483b156114665b6096b7ee10be",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-fonj3q99\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\host_resource_storage.c"
+    ],
+    "sections": [
+      {
+        "name": ".drectve",
+        "size": 38,
+        "flags": 1051136
+      },
+      {
+        "name": ".data",
+        "size": 4,
+        "flags": 3224371264
+      },
+      {
+        "name": ".bss",
+        "size": 6964,
+        "flags": 3225419904
+      }
+    ],
+    "access_width_cells": [
+      {
+        "name": "g_resource_context_storage",
+        "rva": "0x215c98",
+        "bytes": 6964,
+        "working_type": "ResourceCallbackContext minimum observed prefix",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "evidence": "table27 context_004 pointer target and 1741-DWORD startup clear; current header size 0x1b34; excludes the four-byte gap and any full-capacity/TU claim."
+      },
+      {
+        "name": "g_resource_prepare_scalar",
+        "rva": "0x352b0",
+        "bytes": 4,
+        "working_type": "unsigned long",
+        "native_initial_origin": "file-backed initialized bytes",
+        "zero_initializer": false,
+        "initializer": "ffffffff",
+        "evidence": "File-backed FFFFFFFF initializer and host_file_prepare RVA 0x1d60 DWORD-zero store; original type/source/TU identity remain unproved."
+      }
+    ],
+    "initialized_field_bytes": 4
+  },
+  "fresh_field_gate": {
+    "path": "work/root_actor_relative_28/data_final.json",
+    "sha256": "c0ef5cee0e2f4ee90e2b8a3ae6a6f916979e54da7ecf6078305ecd11920d9244"
+  }
+}

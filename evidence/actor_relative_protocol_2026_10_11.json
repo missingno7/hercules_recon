@@ -1,0 +1,242 @@
+{
+  "date": "2026-10-11",
+  "scope": "Writer-backed protocol and native cross-module evidence; original declarations and complete lifetime remain open.",
+  "oracles": {
+    "ENG3.DLL": {
+      "path": "work/discs/pc_install/ENG3.DLL",
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+    },
+    "ENG1.DLL": {
+      "path": "work/discs/pc_install/ENG1.DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+    },
+    "TITLE.DLL": {
+      "path": "work/discs/pc_install/TITLE.DLL",
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b"
+    }
+  },
+  "private_audit": {
+    "path": "work/actor_owner_28/compact.json",
+    "sha256": "266f4659ed9cbf73a91f0b58e28eb11f2cc761315533cd1db96405ed7ab9b783"
+  },
+  "facts": {
+    "path": "work/actor_owner_28/facts.json",
+    "sha256": "be97c944da9e17166dc9c9ba9c7bb261697c32c64522c7bd04dcc2b7b83d65ca"
+  },
+  "prediction": {
+    "path": "work/actor_owner_28/prediction.json",
+    "sha256": "757cbf9c9c6a8b0645ca296424d69ff1d0935a52da277169d4c2fc9ce3a72569"
+  },
+  "finding": "Actor+58 is a relative byte offset;8-byte table is allocation pointer/count; active20-byte records start at allocation+20. Exact original declarations/TU/static row capacity and full runtime lifetime remain unproved.",
+  "writer_evidence": {
+    "actor_058": "32-bit byte offset relative to row allocation base, with0 sentinel. Constructed from pointer subtraction, not a stored owner pointer.",
+    "row": "RVA3FBD0 is mutable8-byte {allocation pointer, DWORD record count}; first is passed by address to allocator1FA50. Calling it an offset reverses the actual allocation roles.",
+    "constructor_writers": [
+      {
+        "rva": "0x1cae4",
+        "bytes": "897e58",
+        "sha256": "9c7407f94929afc3d45ef91b7974bba8b599d6fce90ab1a996a11d94a003adcc",
+        "text": "mov dword ptr [esi + 0x58], edi",
+        "function_lead": {
+          "rva": "0x1c9f0",
+          "size_lead": 272
+        },
+        "memory": [
+          {
+            "base": "esi",
+            "index": null,
+            "scale": 1,
+            "disp": "0x58",
+            "width": 4,
+            "access": 2
+          }
+        ]
+      },
+      {
+        "rva": "0x1d0e0",
+        "bytes": "897e58",
+        "sha256": "9c7407f94929afc3d45ef91b7974bba8b599d6fce90ab1a996a11d94a003adcc",
+        "text": "mov dword ptr [esi + 0x58], edi",
+        "function_lead": {
+          "rva": "0x1d050",
+          "size_lead": 192
+        },
+        "memory": [
+          {
+            "base": "esi",
+            "index": null,
+            "scale": 1,
+            "disp": "0x58",
+            "width": 4,
+            "access": 2
+          }
+        ]
+      },
+      {
+        "rva": "0x1d5c2",
+        "bytes": "897e58",
+        "sha256": "9c7407f94929afc3d45ef91b7974bba8b599d6fce90ab1a996a11d94a003adcc",
+        "text": "mov dword ptr [esi + 0x58], edi",
+        "function_lead": {
+          "rva": "0x1d570",
+          "size_lead": 144
+        },
+        "memory": [
+          {
+            "base": "esi",
+            "index": null,
+            "scale": 1,
+            "disp": "0x58",
+            "width": 4,
+            "access": 2
+          }
+        ]
+      }
+    ],
+    "row_writer_span": {
+      "rva": "0x1c061",
+      "size": 66,
+      "sha256": "6d74401df00bd194599a30fc430bf0e8e38786a4ccf3173489214c1409737a63"
+    },
+    "base_reset": {
+      "rva": "0x1d8a0",
+      "size": 272,
+      "sha256": "8b8c2737815548fbaf4b771cb5ee28774740b408216aa4ebf52122c1efd9fad1"
+    },
+    "typed_record": {
+      "stride": 20,
+      "fields": [
+        {
+          "offset": "0x0",
+          "width": 4,
+          "role": "x signed/fixed-point32"
+        },
+        {
+          "offset": "0x4",
+          "width": 4,
+          "role": "y signed/fixed-point32"
+        },
+        {
+          "offset": "0x8",
+          "width": 4,
+          "role": "z signed/fixed-point32"
+        },
+        {
+          "offset": "0xc",
+          "width": 2,
+          "role": "flags copied from source WORD"
+        },
+        {
+          "offset": "0xe",
+          "width": 2,
+          "role": "mutable value initialized0"
+        },
+        {
+          "offset": "0x10",
+          "width": 2,
+          "role": "kind copied from source WORD"
+        }
+      ],
+      "highest_producer_access_byte": "0x11",
+      "unaccessed_tail": "0x12..0x13 untyped; ordinary aligned record can have natural2-byte tail padding, original declaration unproved.",
+      "producer_span": {
+        "rva": "0x1c0d2",
+        "size": 139,
+        "sha256": "f9894b295c3799ea5fc36ea5d4c2c4b103d2afa691100c1d3fcd85fc288cc256"
+      }
+    },
+    "allocation": "For source count n>0, request20*(n+1), flags0, output_slot=&rows[profile].base. First initialized record starts base+20; loop walks n active records at20-byte stride. The reserved first20bytes make each constructed offset20*(j+1),1<=j+1<=n, sozero is distinct from every such bound record.",
+    "bound_record_consumers": "1C290 and1C430 traverse row.base+20 at20-byte stride, select kind WORD+10, and pass (record_pointer, profile_index) to constructors1C9F0/1D050/1D570. Each stores record_pointer-row.base at actor+58 and profile narrowed WORD at+38.",
+    "runtime_bounds": {
+      "profile_count": "Parser1AF10 reads source WORD+0x0C and stores its lowBYTE at40786; builder sign-extends that BYTE into runtimeWORD40BC6. No fixed capacity inferred.",
+      "record_count": "Builder zero-extends source WORD at profile descriptor+0x0C into DWORD row+4; descriptor stride16, signedWORDrelative source stream at descriptor+0x0E and stream stride8. n is0..65535 physically; allocation path executes only when n>0.",
+      "index": "Builder profile loop is bounded by runtimeWORD40BC6. Binder1C430 similarly tests WORDloop index<count. 1C290 and transition1D190 use actor WORD+38 without local bounds check. Valid profile/record contracts are therefore producer/caller preconditions; malformed resource-domain handling and full static row capacity remain unproved.",
+      "signedness_limit": "Offset range is nonnegative on the measured constructor path. Exact original signedness of actor DWORD+58 is not established."
+    },
+    "lifetime": {
+      "create": "1C010 allocates on runtime count40BC6==0 and nonnull coordinate source40C34. Output-slot address registers row.base with the actual host allocator default slot+78 ->EXE4570.",
+      "reuse": "On nonzero runtimecount the second builder phase reuses existing nonnull row.base, updating only records selected by sourceflag bit2; it does not allocate each actor or each transition.",
+      "reset": "1B8F0 stores0 to runtime count40BC6, then calls1F360,1CE10,1D320 and tailcalls1D860 to reset actor pools; actual sidecar free invocation is not proved by that count reset alone. Actor base reset1D8A0 clears offset+58 and profile+38.",
+      "transition": "Transition clears actor.kind and the recordflags highbit; it does not free row allocation or erase actor offset itself on that path. Later reset clears offset. Actors borrow positions in a row allocation; they do not own its pointer.",
+      "host_limit": "Generic host allocation header preserves owner slot; host_free can clear it and shrink/compaction can move/update it. The observed relative offset can survive a base relocation, but no specific compaction/free call on these rows or global lifetime schedule is claimed."
+    }
+  },
+  "native_peers": [
+    {
+      "name": "normal_record_constructor",
+      "ENG1": {
+        "rva": "0x270c0",
+        "size": 272,
+        "sha256": "920eed6a01798e680955cfc14f3bf10415aaf079b5121b5716ae095caebb3b65"
+      },
+      "ENG3": {
+        "rva": "0x1c9f0",
+        "size": 272,
+        "sha256": "78e38cd0276768a48e6f85efc9916a385a7e0c642596506be2f15584a2957bf3"
+      },
+      "nonreference_bytes": 240,
+      "nonreference_differences": []
+    },
+    {
+      "name": "middle_record_constructor",
+      "ENG1": {
+        "rva": "0x27720",
+        "size": 192,
+        "sha256": "1cef7546932bbe9522eabca978218b59e42e637f39a88e17d0c04cb6f87b1072"
+      },
+      "ENG3": {
+        "rva": "0x1d050",
+        "size": 192,
+        "sha256": "516ee166cc5ce0a19e5f2ccf3f803bc9f31a4af3d1a12f23b67e4febccc99c8c"
+      },
+      "nonreference_bytes": 168,
+      "nonreference_differences": []
+    },
+    {
+      "name": "alternate_record_constructor",
+      "ENG1": {
+        "rva": "0x27c40",
+        "size": 144,
+        "sha256": "2aed926b5aa8224e36836cdfd01b986796ff77cb92757517fd4118a73e8b8e0c"
+      },
+      "ENG3": {
+        "rva": "0x1d570",
+        "size": 144,
+        "sha256": "5e48691a3c174ff069c0d0019bc34cd69f3b923a7668b9d91f280f71eadbc321"
+      },
+      "nonreference_bytes": 120,
+      "nonreference_differences": []
+    },
+    {
+      "name": "base_reset",
+      "ENG1": {
+        "rva": "0x27fe0",
+        "size": 272,
+        "sha256": "8b8c2737815548fbaf4b771cb5ee28774740b408216aa4ebf52122c1efd9fad1"
+      },
+      "ENG3": {
+        "rva": "0x1d8a0",
+        "size": 272,
+        "sha256": "8b8c2737815548fbaf4b771cb5ee28774740b408216aa4ebf52122c1efd9fad1"
+      },
+      "nonreference_bytes": 272,
+      "nonreference_differences": []
+    },
+    {
+      "name": "transition",
+      "ENG1": {
+        "rva": "0x27860",
+        "size": 320,
+        "sha256": "5fe8c4050cad85d2e38b467a920cde31f1123e584da895aeee0e27f11510a249"
+      },
+      "ENG3": {
+        "rva": "0x1d190",
+        "size": 320,
+        "sha256": "05b807db9137bf9f525e14ed9ac492554a015e02f2cae71e4c68384360fd18c1"
+      },
+      "nonreference_bytes": 260,
+      "nonreference_differences": []
+    }
+  ],
+  "limits": "Native offset/base roles are proved on these producer paths. Exact original signedness/type/static row capacity, complete lifetime and original compilation units are unproved. Unused strict-source views are unchanged."
+}

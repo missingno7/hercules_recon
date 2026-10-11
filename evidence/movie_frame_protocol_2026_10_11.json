@@ -1,0 +1,181 @@
+{
+  "scope": "Read-only native frame/state/decode protocol and precise declaration/lifetime handoff. Zero compiler/source-body controls, no execution, canonical/state writes, clock policy redesign or full bank provider.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "function": {
+    "rva": "0x37a0",
+    "size": 944,
+    "sha256": "e3751f9a2cd66c6bdcb73aabc960b998db071b5084bf037325b374e865cf7564",
+    "body_bytes": 932,
+    "ret_rva": "0x3b43",
+    "padding": 12
+  },
+  "source_correction": {
+    "path": "work/movie_frame_state_28/factual_correction.json",
+    "sha256": "a3d4ebaf879cea77246d3f9f21ebd14199ce340f2311cfdeb834db081f305bee"
+  },
+  "clock": {
+    "constants": [
+      {
+        "rva": "0x2e000",
+        "bytes": "00007a44",
+        "float32": 1000.0,
+        "sha256": "07883481b5c147464597d44401db095d88c2a6b049fbbcd7b278de98a5ceeb71"
+      },
+      {
+        "rva": "0x2e004",
+        "bytes": "000000bf",
+        "float32": -0.5,
+        "sha256": "c34fde18c1b8ec18aa9dd952cdbbcce00cf0505358e6cfcce5a6fe795e1d019b"
+      }
+    ],
+    "native_formula": "frame_milliseconds = __ftol((unsigned32 current_frame)*1000.0f/(signed32 fps) -(-0.5f)); deadline = clock_origin + low32(frame_milliseconds).",
+    "start_and_suspend": "Open setsstartflag1. Service startsetsframeindex1/opaque615B88=1/drop0. Onresync615BA8!=0, service clearsresync, computesclock_origin=now-frame_milliseconds, clearsdeadline/drop. Onstart afterbank selection, setsclock_origin=now andclearsstartflag.",
+    "waiting": "Ifnotstarting andsigned32(deadline-now)>0, arithmetic-shift delta by1 and Sleep(delta/2) onlywhen>1, thenreturnnegative remaining. This is actualinstruction policy; no wall-clock deadline guarantee orwraparound safety claimed.",
+    "skip": "Afterdecode/audio handling, skip/drop is1 iffprior_drop==0, unsignednow>=deadline, no paletteflag, andcurrent_frame differs from1 andheader frame_count. Storeflag, decrement remaining, increment frameindex, negatereturnifdrop1.",
+    "joint_field_discriminator": "Samefps cell uses signedFIDIV inservice butunsignedDIV inworker andopener. One ordinaryworkingLONGfps member with unsignedDWORDframe/audio counters can express both via usualarithmeticconversions, withoutcasts tosteer instructions. Originalmember signedness/name remainsunproved.",
+    "CRT": {
+      "symbol": "__ftol",
+      "rva": "0x10d90",
+      "size": 39,
+      "raw_complete_equal": true,
+      "library": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+      "library_sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b",
+      "member": 602,
+      "member_sha256": "4c68cac6975e7868a1ed4f422a2a3ef5333d930298ea2617e76a2366681eb79b",
+      "native_sha256": "d0a2aca68648a0ae9d5cbfae1b276d4a64d4f797fc0c60f28b64096cdfa3148c",
+      "scope": "Nontrivial pinned CRT contribution identification; never rewrite asgamecode orFUNCTION_MATCH."
+    }
+  },
+  "joint_header_declaration": {
+    "extent": 840,
+    "owner_base_rva": "0xa3838",
+    "working_members": [
+      {
+        "offset": "0x0",
+        "type": "DWORD",
+        "role": "magic"
+      },
+      {
+        "offset": "0x4",
+        "type": "DWORD",
+        "role": "width"
+      },
+      {
+        "offset": "0x8",
+        "type": "DWORD",
+        "role": "height"
+      },
+      {
+        "offset": "0xc",
+        "type": "DWORD",
+        "role": "frame_count"
+      },
+      {
+        "offset": "0x10",
+        "type": "LONG",
+        "role": "fps/divisor"
+      },
+      {
+        "offset": "0x14",
+        "type": "DWORD",
+        "role": "channels"
+      },
+      {
+        "offset": "0x18",
+        "type": "DWORD",
+        "role": "sample_rate"
+      },
+      {
+        "offset": "0x1c",
+        "type": "DWORD",
+        "role": "bits_per_sample"
+      }
+    ],
+    "remaining_prefix": "TwoopaqueDWORDs at+20/+24 then200DWORD chunk_sizes at+28..347; fixed read/clear provesexactprefix, not arbitraryETVbounds ororiginalschema.",
+    "alias_rule": "Worker privateextern scalars4A3844/4A3848/4A3854 andchunkarray4A3860 are interior views of theone840-byte header owner. Opener/worker/service should share one coherentdeclaredview ratherthan overlappingindependentdefinitions. No canonicalheader/provider rewrite inthislane."
+  },
+  "bank_extent_limit": {
+    "stride": "0xaf000",
+    "max_accepted_ReadFile_bytes": "0xaefff",
+    "last_ReadFile_written_offset_perbank": "0xaeffe",
+    "readfile_supported_ranges": [
+      {
+        "start_rva": "0xa3b80",
+        "end_rva_exclusive": "0x152b7f"
+      },
+      {
+        "start_rva": "0x152b80",
+        "end_rva_exclusive": "0x201b7f"
+      }
+    ],
+    "unproved_terminal_bytes": [
+      "RVA0x152b7f (bank0 laststridebyte)",
+      "RVA0x201b7f (bank1 laststridebyte)"
+    ],
+    "other_consumers": "DirectSoundcopy count isAPIreturned, decodedframe reads aredata-dependent andlacknativechunk bounds. They do notprovide an independent exact terminalbyte access proof; no fullbanksdataowner is supplied.",
+    "no_clear": "No bankclear is identified. Storage of2*stride bytes remainsprivateproposal; do not turn stride, gaps, unchecked dynamic reads orshort-read residue into provenarraycapacity."
+  },
+  "next_real_helper": {
+    "rva": "0x20c0",
+    "size": 112,
+    "native_sha256": "ebd955bc6dde80dd8ff8a09a9b254a93bd9c1e9d2929e84c2641d31a4bc0018e",
+    "protocol": "Consumeswidth/heightDWORDs intoVA4A3810/14; clears81920bytes atVA48F810; fills47DWORD motion/noiseoffsets atVA47F750 using2*47 realCRT rand()calls, each (rand()%5-2)*width+(rand()%5-2). Itisdirectmissingopenerdependency andshareddecoderinitialstate, distinctfrombankstorage.",
+    "source_limit": "A futureboundedinitializerhelper canuse this actual count/clear/randprotocol; no RNG policychange, sourceTUclaim orbankcapacity definition."
+  },
+  "coherent_next_family": {
+    "target": "EXE37A0 full944-byte service, newfamily afterreadonlyprotocol; rootcoordinatesLuna.",
+    "prediction": "One SDK-faithful body withshared840-byte headerview, explicitremaining/frame/deadline/progress roles, SHORTvolumecache,HANDLEthread/file,actualready/resumeloops andborrowedcursor/palette semantics canexpress thecomplete944-byte nativecontrol. Testactualunsignedcounter/signedfpsfloatingconversion asacontext discriminator, notgrid. Keep20C0/2130/21E0/3680 realexternaldependencies and__ftolhistoricalcompiler/librarycode.",
+    "falsifier": "Any invented timing/wrap/resume/errorhandling, clearingpaletteonwait, missedreturn-sign/store/callbacksequence, unsupportedbankextent, changedacceptedpeer, orfullcontribution/reference mismatch. Lowbyte distance/size equalitydonotgrantacceptance.",
+    "no_opener_retry": "Frame-count correctionisnewessentialfact; aloneitdoesnotjustifyreplayingfailed672-byteopenerfamily. Preserveoldsource/proofandreconstructseparatelynamedrecipeonlyafterbroaderjointcontextisvalidated."
+  },
+  "compiler_builds": 0,
+  "full_protocol": {
+    "path": "work/movie_frame_state_28/protocol.json",
+    "sha256": "54ff1f3daf1e450c2497a54fa532c4e87d6262ec86a9c66d616d6a0f4cfdf24b"
+  },
+  "date": "2026-10-11",
+  "private_audit": {
+    "path": "work/movie_frame_state_28/compact.json",
+    "sha256": "a951b8476624e096b1e2fcbc025e4c34cfaa52e1b196f76d5825c4c7d5bc55e8"
+  },
+  "factual_correction": {
+    "scope": "New read-only factual correction of a frozen failed private opener recipe; old source/prediction/proof remain unchanged and are not historical or matching authority.",
+    "old_source": {
+      "path": "candidates/movie_open_26/movie_open_03140.cpp",
+      "sha256": "99f09ec283a6e11eac8cd58d0a6eebfe72582ee7a4b684fbe98bb009f00dabb1",
+      "wrong_assignment_line": 109,
+      "wrong_assignment": "g_exe_615bac = g_exe_4a3838[7];"
+    },
+    "old_receipt": {
+      "path": "work/movie_open_26/baseline_3140.json",
+      "sha256": "504dc01563e20b46fd177b77f166140fac81c016c3000c0e45076cf7f91f0018",
+      "source_identity_rechecked": true
+    },
+    "native_full_writer_span": {
+      "rva": "0x3303",
+      "size": 34,
+      "bytes": "8b0d44384a0083c408be010000003bc3891da85b61008935a05b6100890dac5b6100",
+      "sha256": "8bf734fa56419b086d79cbd28eaad096928bb23ff3ec38a3ee3926ba78cedb8a"
+    },
+    "native_source_field": "DWORD header+0x0C at VA4A3844, not header+0x1C at VA4A3854",
+    "consumer_support": [
+      {
+        "rva": "0x37a0",
+        "size": 21,
+        "bytes": "a1ac5b610083ec0c53555657bf010000003bc7730a",
+        "sha256": "e9e48878e4b0ed4b116d82862df0bb40fbbdff48abadc3a9af47c36b46d4347b"
+      },
+      {
+        "rva": "0x3b18",
+        "size": 38,
+        "bytes": "a1ac5b61008b3528384a00484685c9890d30384a00a3ac5b6100893528384a007402f7d85f5e",
+        "sha256": "322b2e84aed54a0caadc56bb7f808a1580447f11d71ee5f966788ae5632e98a0"
+      }
+    ],
+    "meaning": "615BAC is remaining frames. It initializes from frame_count, is cleared onclose, decrements once perdecoded frame, and returns aspositive/negative remaining count. Using bits/sample8/16 in the old recipe can terminate a normal movie after8/16frames.",
+    "next_action": "Only a separately named corrected recipe may change this field later; this single correction does not authorize an opener retry or repair its other codegen/lifetime residuals."
+  }
+}

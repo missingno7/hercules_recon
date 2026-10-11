@@ -1,0 +1,147 @@
+{
+  "date": "2026-10-11",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "actual_headers": [],
+  "canonical_provider": {
+    "source": "calibration/movie_header_storage.c",
+    "source_sha256": "b0e1975498b08dc43f0ee80aedabed38c4ab6b2b960c6b67c5a3e0cbca868bc1",
+    "cells": [
+      {
+        "name": "g_exe_4a3838",
+        "rva": "0xa3838",
+        "bytes": 840,
+        "working_type": "unsigned long[210]",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true
+      }
+    ],
+    "bss_flags": "0xc0400080"
+  },
+  "native_write_proof": [
+    {
+      "rva": "0x3729",
+      "bytes": 19,
+      "sha256": "2879a381cb25a1de0572638e12c3023943089c50e015cea2c05360126fd9bdfa"
+    },
+    {
+      "rva": "0x3180",
+      "bytes": 22,
+      "sha256": "6813568cf07bd7acbf69e07d85eb84f3580d866be8b7cc0b93420b312e5ba0c7"
+    }
+  ],
+  "native_evidence": {
+    "native_va": "0x4a3838",
+    "rva": "0xa3838",
+    "range_rva_half_open": [
+      "0xa3838",
+      "0xa3b80"
+    ],
+    "bytes": 840,
+    "producer": "EXE 0x3140 calls ReadFile with destination VA 0x4a3838 and requested byte count 0x348 at RVA 0x3190. It tests only the Boolean return, not bytes_read == 0x348.",
+    "close_clear": "EXE 0x3680 sets ECX=0xd2 DWORDs, EDI=0x4a3838, EAX=0 and REP STOSD at RVA 0x3729..0x373b; this clears exactly 840 bytes.",
+    "observed_fields": [
+      {
+        "offset": "0x00",
+        "width": 4,
+        "view": "ETV magic 0x0a565445"
+      },
+      {
+        "offset": "0x04",
+        "width": 4,
+        "view": "width"
+      },
+      {
+        "offset": "0x08",
+        "width": 4,
+        "view": "height"
+      },
+      {
+        "offset": "0x0c",
+        "width": 4,
+        "view": "frame count"
+      },
+      {
+        "offset": "0x10",
+        "width": 4,
+        "view": "nonzero fps/divisor"
+      },
+      {
+        "offset": "0x14",
+        "width": 4,
+        "view": "channel-like value; low WORD feeds PCM format"
+      },
+      {
+        "offset": "0x18",
+        "width": 4,
+        "view": "sample rate"
+      },
+      {
+        "offset": "0x1c",
+        "width": 4,
+        "view": "bit-depth-like value; low WORD feeds PCM format"
+      }
+    ],
+    "unclassified": "Offsets +0x20..+0x27 are inside the exact read/clear window but have no field interpretation in this receipt.",
+    "chunk_table": {
+      "start_offset": "0x28",
+      "entry_width": 4,
+      "entries_in_read_window": 200,
+      "end_offset_exclusive": "0x348",
+      "native_index": "(next_frame - 1) / fps; next_frame begins at 1 and advances by fps, clamped to frame_count+1.",
+      "native_table_count_check": "No explicit <=200 table-count check; opener only rejects zero fps/divisor."
+    }
+  },
+  "private_receipt": {
+    "path": "work/movie_owner_28/ownership_28.json",
+    "sha256": "6b40c298519b2ec0c3af163c64de273296144c6516319c8ededa961d8b727b5d"
+  },
+  "prediction": {
+    "path": "work/root_actor_relative_28/header_provider_prediction.json",
+    "sha256": "bf7e9ce9c67854ce2d945d071dd6742992e46e791aeab95e5d63e2ade08a5d92"
+  },
+  "limits": "Only the840-byte read/clear window. No bank storage, full record type, original TU/placement or function acceptance. The original combined private bank candidate remains unchanged; strict chunk<0xaf000 reaches only0x15dfff bytes across the two banks, leaving its last logical-capacity byte unsupported.",
+  "fresh_canonical": {
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-ntvwc9vq\\candidate.obj",
+    "object_sha256": "db17d0291e04e7de9839a2bc8eb7f2e24b3a37359247c32c7ffaa166e50a55c1",
+    "source_sha256": "b0e1975498b08dc43f0ee80aedabed38c4ab6b2b960c6b67c5a3e0cbca868bc1",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-ntvwc9vq\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\movie_header_storage.c"
+    ],
+    "sections": [
+      {
+        "name": ".drectve",
+        "size": 38,
+        "flags": 1051136
+      },
+      {
+        "name": ".bss",
+        "size": 840,
+        "flags": 3225419904
+      }
+    ],
+    "access_width_cells": [
+      {
+        "name": "g_exe_4a3838",
+        "rva": "0xa3838",
+        "bytes": 840,
+        "working_type": "unsigned long[210]",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true
+      }
+    ],
+    "initialized_field_bytes": 0
+  },
+  "fresh_field_gate": {
+    "path": "work/root_actor_relative_28/data_final.json",
+    "sha256": "c0ef5cee0e2f4ee90e2b8a3ae6a6f916979e54da7ecf6078305ecd11920d9244"
+  }
+}

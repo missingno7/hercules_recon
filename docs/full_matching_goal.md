@@ -931,3 +931,66 @@ wave adds 16 strict bytes, with all 559 previous recovery rows literal unchanged
 The journaled promotion freshly verifies all 121 strict functions; independent
 masked verification and all 59 tests pass. The checkpoint is
 `evidence/full_goal_pointer_callback_wave_2026_10_11.json`.
+
+## Actor relative records and real storage closure
+
+The native writer audit establishes actor+0x58 as a relative byte offset with
+zero sentinel. The eight-byte kind row holds an allocation pointer and record
+count. Builder1c010 requests20*(count+1) bytes; active records start at base+20.
+Three constructors subtract that base before storing the offset. ENG1 peers
+share the same nonreference code. This supersedes the earlier owner-pointer
+hypothesis, while original types, static table capacity and full lifetime remain
+open. See `evidence/actor_relative_protocol_2026_10_11.json`.
+
+Existing complete remove/release witnesses now cover both engine images, and
+one shared source recovers the three attachment/child/buffer detach helpers.
+Twelve new CODEGEN_SIMILAR rows add2,464bytes. Fresh whole-contribution gates
+check code, natural tails, physical references, consistent bindings and the exact
+function set. The writer-corrected remove-unit control fails197/162masked bytes;
+the inherited carrier declarations therefore remain explicitly limited compiler
+witnesses. They do not prove original declarations or behavior-exact C. No
+source spelling grid or weakened comparison follows from that result. See
+`evidence/actor_transition_witness_adoption_2026_10_11.json` and
+`evidence/actor_detach_adoption_2026_10_11.json`.
+
+The middle-pool driver now calls the actual remove_actor_variant provider at
+ENG3 1d190. Its complete contribution preserves under the callee-name identity
+correction, including the remaining one-byte SIB difference. It stays
+RECONSTRUCTED; no additional matched bytes are claimed. See
+`evidence/eng3_pool_driver_binding_2026_10_11.json`.
+
+Two real EXE data sources supply the6,964-byte host context clear prefix, its
+four-byte FFFFFFFF preparation scalar and the840-byte movie header read/clear
+window. The four-byte context-to-arena gap and movie banks remain excluded.
+The strict chunk-size guard proves one fewer accessed byte than the combined
+private bank candidate's logical capacity; that last byte cannot be counted as
+an observed minimum. Fresh field verification preserves249initialized bytes
+and125,669zero-storage bytes, with zero functions or relocations. These are
+data widths/values, not native layout acceptance.
+
+The natural EXE graph builds50real sources, preserving all48previous complete
+contributions. The actual preparation scalar resolves one dependency:15to14
+unresolved names, no duplicate definitions and no produced or forced image.
+See `evidence/exe_resource_storage_graph_2026_10_11.json`.
+
+Totals are121strict functions/8,080bytes,442complete masked functions/89,024bytes
+and six reconstructed functions/1,088bytes. All121strict functions and all442
+masked functions freshly verify; all59tests pass. Of560previous recovery rows,
+559are literal unchanged and only the driver source/callee proof changes. The
+checkpoint is `evidence/full_goal_actor_relative_wave_2026_10_11.json`.
+
+The independent corrected release-unit control also fails: 157 masked differences
+over the complete 304 bytes in both engines. Its emitted object is retained;
+a later reporting error required analysis repair, with no recompile. The passing
+baseline still matches both engines. Compare the two actual dataflow changes
+before proposing another compiler experiment.
+
+The movie service audit establishes the complete 944-byte native protocol. The
+private opener stores bit depth into remaining-frame state where native
+3303..3325 reads header+0x0c (frame count). Preserve that failed source and receipt.
+The service uses signed integer fps in floating division, while unsigned frame
+counters cause unsigned integer division in the worker and opener. A shared
+working header can express both through ordinary arithmetic conversions.
+Parallel single baselines now recover the full service and its real 112-byte
+initializer. See `evidence/movie_frame_protocol_2026_10_11.json`. Neither this
+field correction nor the type evidence alone establishes a compiler match.

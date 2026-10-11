@@ -1,3 +1,10 @@
+/* Compiler-witness type caveat: native writers prove actor +0x58 contains
+ * relative byte-offset bits, and KindInfo.first contains allocation-address bits.
+ * The inherited pointer/integer carrier declarations below preserve measured
+ * code generation; they do not establish original declarations or a pointer
+ * owner at +0x58. Sidecar is a 16-byte accessed prefix of a 20-byte record.
+ * Do not derive storage/owner APIs or source-level behavior claims from these
+ * carrier types. The corrected representation control is retained privately. */
 /* Private ordinary-C reconstruction hypothesis for ENG1 release_actor @ 0x27e20.
  * Not canonical source; external mappings are diagnostic only. */
 typedef struct Actor Actor;

@@ -187,3 +187,17 @@ leaf and promotion gates. All 120 previous strict functions remain exact. The
 recovery alongside bounded compiler experiments; it does not justify a new
 framework or manufacture a complete table. See
 `evidence/full_goal_pointer_callback_wave_2026_10_11.json`.
+
+The next pilot transfers cross-module evidence and whole-family controls rather
+than a compiler rule: native actor constructors prove a relative-offset record
+protocol, and existing remove/release witnesses plus three shared helpers now
+cover twelve engine contributions/2,464new masked bytes. A writer-corrected
+source control fails while the complete witnesses preserve, so the type question
+stays explicit. Bounded real data providers reduce the natural EXE graph from15
+to14unresolved dependencies. All121strict functions and59tests preserve. See
+`evidence/full_goal_actor_relative_wave_2026_10_11.json`.
+
+The highest useful follow-up is coherent producer/consumer reconstruction of the
+movie service and actor records. Continue separate missing-source and shared
+compiler work. Reopen exhausted constant/register families only with a new
+native-supported discriminator; no Blood II allocator conclusion is imported.

@@ -5,7 +5,7 @@ enum { ENG3_MIDDLE_ACTOR_STRIDE = 0xec };
 
 extern unsigned short g_eng3_middle_limit_primary;
 extern Eng3MiddleActor *g_eng3_middle_actor_pool;
-extern int process_eng3_middle_actor(Eng3MiddleActor *actor);
+extern int remove_actor_variant(Eng3MiddleActor *actor);
 extern void reset_eng3_middle_actor(Eng3MiddleActor *actor);
 extern void cleanup_eng3_actor_0a6b0(Eng3MiddleActor *actor);
 
@@ -22,7 +22,7 @@ void eng3_process_middle_actor_pool(void)
     byte_offset = 0;
     do {
         actor = (Eng3MiddleActor *)((unsigned char *)g_eng3_middle_actor_pool + byte_offset);
-        if (process_eng3_middle_actor(actor) == 0)
+        if (remove_actor_variant(actor) == 0)
             cleanup_eng3_actor_0a6b0(actor);
         else
             reset_eng3_middle_actor(actor);
