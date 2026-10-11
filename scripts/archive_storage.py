@@ -268,6 +268,40 @@ if engine_source.exists() or engine_evidence.exists():
  for oracle in engine_proof['oracles']:
   assert digest((root/oracle['path']).read_bytes())==oracle['sha256']
  result['engine_interface_provider']={'source':provider['source'],'source_sha256':engine_sha,'evidence_sha256':digest(engine_before),'object':str(obj),'object_sha256':digest(Path(obj).read_bytes()),'command':command,'object_zero_bytes':1000,'native_zero_bytes_by_module':{o['module']:1000 for o in engine_proof['oracles']},'functions':0,'relocations':0,'uncredited_padding_bytes':0,'limit':'Separate image-local copies; EXE data totals above exclude these engine prefixes. No body/whole-image/TU/layout acceptance.'}
+fx_source=root/'calibration/engine_fx_storage.c'
+fx_evidence=root/'evidence/engine_fx_storage_adoption_2026_10_11.json'
+if fx_source.exists() or fx_evidence.exists():
+ assert fx_source.is_file() and fx_evidence.is_file()
+ fx_before=fx_evidence.read_bytes();fx_proof=json.loads(fx_before)
+ provider=fx_proof['canonical_provider'];fx_sha=digest(fx_source.read_bytes())
+ assert provider['source']=='calibration/engine_fx_storage.c' and fx_sha==provider['source_sha256']
+ assert provider['symbol']=='_g_engine_fx_records' and provider['bytes']==1536
+ assert provider['rows']==24 and provider['stride']==64 and provider['bss_flags']=='0xc0400080'
+ for header in fx_proof['actual_headers']:
+  assert digest(Path(header['path']).read_bytes())==header['sha256']
+ assert {o['module'] for o in fx_proof['oracles']}=={'ENG1.DLL','ENG3.DLL'} and len(fx_proof['oracles'])==2
+ for oracle in fx_proof['oracles']:
+  native=PE(root/oracle['path']);assert digest(native.data)==oracle['sha256']
+  rva=int(oracle['rva'],0);assert oracle['observed_zero_bytes']==1536 and int(oracle['end_rva'],0)==rva+1536
+  sec=next(s for s in native.sections if s['virtual_address']<=rva<s['virtual_address']+s['virtual_size'])
+  assert sec['name']=='.data' and sec['characteristics']&0x80000000
+  assert rva>=sec['virtual_address']+sec['raw_size'] and rva+1536<=sec['virtual_address']+sec['virtual_size']
+  for span in oracle['access_evidence']:
+   assert digest(native.read_rva(int(span['rva'],0),span['bytes']))==span['sha256']
+ obj,command=compile_source(fx_source,['/O2']);c=COFF(obj)
+ public={s['name']:s for s in c.symbols.values() if s['storage']==2}
+ assert set(public)=={'_g_engine_fx_records'} and public['_g_engine_fx_records']['section']>0
+ assert not any(s['type']&0x20 and s['section']>0 for s in c.symbols.values())
+ assert not any(s['relocations'] for s in c.sections)
+ symbol=public['_g_engine_fx_records'];sec=c.sections[symbol['section']-1]
+ assert symbol['value']==0 and sec['name']=='.bss' and sec['size']==1536 and sec['flags']==0xc0400080 and not sec['data']
+ assert not any(s['size'] for s in c.sections if s['name'] not in ('.drectve','.bss'))
+ assert digest(fx_source.read_bytes())==fx_sha and fx_evidence.read_bytes()==fx_before
+ for header in fx_proof['actual_headers']:
+  assert digest(Path(header['path']).read_bytes())==header['sha256']
+ for oracle in fx_proof['oracles']:
+  assert digest((root/oracle['path']).read_bytes())==oracle['sha256']
+ result['engine_fx_provider']={'source':provider['source'],'source_sha256':fx_sha,'evidence_sha256':digest(fx_before),'object':str(obj),'object_sha256':digest(Path(obj).read_bytes()),'command':command,'object_zero_bytes':1536,'native_zero_bytes_by_module':{o['module']:1536 for o in fx_proof['oracles']},'functions':0,'relocations':0,'uncredited_padding_bytes':0,'limit':'Minimum observed24-record storage in each engine; separate from EXE totals. Unknown members remain opaque. No original fullcapacity/TU/placement or function acceptance.'}
 title_source=root/'calibration/title/title_buffer_cells.c'
 title_evidence=root/'evidence/title_buffer_cells_adoption_2026_10_11.json'
 if title_source.exists() or title_evidence.exists():

@@ -1126,3 +1126,44 @@ nonspatial default-volume local. Bank/sample call instructions already match, so
 signedness is not a justified target rewrite. The early two-byte mask difference
 is value-equivalent and does not justify a spelling grid. These are next predicted
 families, not an accepted implementation or original macro/flag attribution.
+
+## Real FX storage and independent controls
+
+The observed 24-record FX table now has a canonical typed minimum-prefix provider,
+1536 loader-zero bytes in each engine. The counter's stride64 and last active
+DWORD at +0x3c establish the accessed end; both complete ranges lie in writable
+loader-zero tails. Opaque members retain no invented semantics. The extracted
+record header preserves the counter's complete 88-byte code and ordered references
+in a fresh `/Od` control. `archive_storage.py` freshly verifies this provider along
+with all older data. These engine bytes are separate from the unchanged EXE data
+totals, and do not prove original capacity, declaration, owner or native placement.
+See `evidence/engine_fx_storage_adoption_2026_10_11.json`.
+
+Independent producer controls now confirm both causes: removing repeated guards
+and `do/while(0)` scaffolding removes 56 bytes without changing the ordered
+reference sequence; staged outputs and independent mono expressions restore
+the predicted static reference counts. Their measured union emits 2113 bytes
+against 2115 in both engines and still fails the full gate. Native deadzone code
+explicitly loads the just-zeroed left target into the right target, explaining
+the remaining one-reference deficit. This is an actual memory-producer correction,
+not permission to alter identifiers or mask encodings.
+
+The initializer audit corrects a source error: native copies live context byte+1
+to context byte+2 after loading byte0, rather than reading loaded-buffer byte1.
+It also retains the embedded context+0x6c address through four DWORD stores;
+there is no pointer cell or heap owner at that offset. A typed four-DWORD aggregate
+MRE emits the observed retained-address transfer shape naturally, while the scalar
+control reloads context four times. Positive work-body guarding and the actual
+byte producer are separately supported hypotheses. Their separately frozen full
+control now reproduces the complete 357-byte initializer in both engines, all
+29 absolute references and both wrapper calls. It remains private under the
+existing packed-function/unit gates; no strict or recovery-state promotion follows.
+
+One newly recovered 131-byte tail helper is privately masked-equal in both engines.
+The separate 229-byte exception helper fails at 230 bytes and recomputes an ID
+that native retains in a local. Keep that negative source and receipt. Explicit
+short-result conversion fails to produce the native partial-register mask; an
+unchanged SP2 control is byte-identical to RTM. Neither result identifies original
+compiler revision or source spelling. An unchanged C++-frontend control also
+reproduces the C mask graph under actual symbol correspondence. Fresh checks preserve 121 strict functions /
+8080 bytes, 445 complete masked functions / 89296 bytes and all 69 tests.

@@ -1,0 +1,126 @@
+{
+  "date": "2026-10-11",
+  "scope": "Observed24-row minimum typed data prefix in eachengine; no function/TU/placement/original-full-capacity acceptance.",
+  "canonical_provider": {
+    "source": "calibration/engine_fx_storage.c",
+    "source_sha256": "81e09d693ec7f8439547f801407a3121af842cf8ad20465e9a984d69b1b8963e",
+    "symbol": "_g_engine_fx_records",
+    "bytes": 1536,
+    "bss_flags": "0xc0400080",
+    "rows": 24,
+    "stride": 64
+  },
+  "actual_headers": [
+    {
+      "path": "D:\\Prog\\hercules_recon\\calibration\\engine_fx_record.h",
+      "sha256": "39a59bc8f8c901bb58245d906e66b6e9499dc9641e4571e08b549b00873604a1"
+    }
+  ],
+  "oracles": [
+    {
+      "module": "ENG1.DLL",
+      "path": "assets/pc/HERCULES/ENG1.DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x721e0",
+      "end_rva": "0x727e0",
+      "observed_zero_bytes": 1536,
+      "access_evidence": [
+        {
+          "rva": "0x6613",
+          "bytes": 88,
+          "sha256": "3d8daa25b8da43cf9b58ae8cb3d2ac5ff12603395368f4586e98b067bc453786",
+          "reason": "Reviewed i<24 and row stride64; active DWORD+3c reaches observed exclusive end1536, ID signedWORD+8"
+        }
+      ]
+    },
+    {
+      "module": "ENG3.DLL",
+      "path": "assets/pc/HERCULES/ENG3.DLL",
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x41ec0",
+      "end_rva": "0x424c0",
+      "observed_zero_bytes": 1536,
+      "access_evidence": [
+        {
+          "rva": "0xb4ba",
+          "bytes": 88,
+          "sha256": "4451c7b9a5b1e533cca7f425067905ea17d5e4f11554acbc59c10b129615b251",
+          "reason": "Reviewed i<24 and row stride64; active DWORD+3c reaches observed exclusive end1536, ID signedWORD+8"
+        }
+      ]
+    }
+  ],
+  "fresh_canonical": {
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-9jk305ym\\candidate.obj",
+    "object_sha256": "45e816dfbcf964248d5b96b5fd7e64c30757ee188f512dfacc5b2a2f6c9629c1",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-9jk305ym\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\engine_fx_storage.c"
+    ],
+    "functions": 0,
+    "relocations": 0
+  },
+  "consumer_header_control": {
+    "source": "D:\\Prog\\hercules_recon\\candidates\\root_fx_storage_33\\counter_header_control.c",
+    "source_sha256": "70cc6d4f964266c35768b60c5045a1e3f6d2282f249c98399f3e0c859def83c4",
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-0b2izni4\\candidate.obj",
+    "object_sha256": "39b23c9ab655b5babce1a1149f0836eccdf36df87dd436d047a0f37b1ad2fb7d",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/Od",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-0b2izni4\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\candidates\\root_fx_storage_33\\counter_header_control.c"
+    ],
+    "baseline_object_sha256": "1b64927dd5e9fa8d4bd02624092071ba95df6558c9f7e0753d17c43de9520f68",
+    "complete_code_and_ordered_refs_preserved": true,
+    "peers": [
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x6613",
+        "comparison": {
+          "masked_equal": true,
+          "compiled_size": 88,
+          "target_size": 88,
+          "differing_bytes": 0,
+          "mismatch_regions": [],
+          "symbols": {
+            "_g_engine_fx_records": "0x721e0"
+          },
+          "conflicts": [],
+          "unsupported": [],
+          "relocations": 2
+        }
+      },
+      {
+        "module": "ENG3.DLL",
+        "rva": "0xb4ba",
+        "comparison": {
+          "masked_equal": true,
+          "compiled_size": 88,
+          "target_size": 88,
+          "differing_bytes": 0,
+          "mismatch_regions": [],
+          "symbols": {
+            "_g_engine_fx_records": "0x41ec0"
+          },
+          "conflicts": [],
+          "unsupported": [],
+          "relocations": 2
+        }
+      }
+    ]
+  },
+  "private_prediction": {
+    "path": "work/root_fx_storage_33/adoption_prediction.json",
+    "sha256": "30dea64a8a4b1da7ecaa8984012cba135155b2dc0aac05b8e69fe075ace897e2"
+  },
+  "limits": "Minimum observed allocation only; unknown members stay opaque. Explicit zero initialization/aggregate/source owner/native placement are working choices, not historical source evidence. Counter remains private and excluded from recovery totals."
+}
