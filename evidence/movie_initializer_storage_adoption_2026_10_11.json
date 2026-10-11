@@ -1,0 +1,175 @@
+{
+  "date": "2026-10-11",
+  "scope": "Four actual initializer clear/write storage spans only; no function/layout/TU acceptance.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "actual_headers": [],
+  "canonical_provider": {
+    "source": "calibration/movie_initializer_storage.c",
+    "source_sha256": "e601b923794a6dc66fbbbd15c00f7c135fd7e60d03dc83f8c3084f6f647fad8f",
+    "cells": [
+      {
+        "name": "g_exe_4a3810",
+        "rva": "0xa3810",
+        "bytes": 4,
+        "working_type": "unsigned long",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "private_object_section": ".bss",
+        "private_object_offset": "0x0"
+      },
+      {
+        "name": "g_exe_4a3814",
+        "rva": "0xa3814",
+        "bytes": 4,
+        "working_type": "unsigned long",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "private_object_section": ".bss",
+        "private_object_offset": "0x4"
+      },
+      {
+        "name": "g_exe_48f810",
+        "rva": "0x8f810",
+        "bytes": 81920,
+        "working_type": "unsigned char[81920]",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "private_object_section": ".bss",
+        "private_object_offset": "0x8"
+      },
+      {
+        "name": "g_exe_47f750",
+        "rva": "0x7f750",
+        "bytes": 188,
+        "working_type": "unsigned long[47]",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "private_object_section": ".bss",
+        "private_object_offset": "0x14008"
+      }
+    ],
+    "bss_flags": "0xc0400080"
+  },
+  "native_write_proof": [
+    {
+      "rva": "0x20c0",
+      "bytes": 112,
+      "sha256": "ebd955bc6dde80dd8ff8a09a9b254a93bd9c1e9d2929e84c2641d31a4bc0018e",
+      "observed": "Writes the two DWORD dimension cells, clears 0x5000 DWORDs (81920 bytes) beginning at VA 0x48f810, and fills the 47-entry DWORD noise table beginning at VA 0x47f750 using two rand calls per iteration."
+    },
+    {
+      "rva": "0x21e0",
+      "bytes": 560,
+      "sha256": "8034cb65b0ef59b5ab3a0b68e5baf4bc68f981cd48a7d852d741d73aee03c268",
+      "observed": "Aligned consumer function span reads width/height and history prefix."
+    },
+    {
+      "rva": "0x2362",
+      "bytes": 49,
+      "sha256": "3e1d9a379c4efdb1c5524dc508c35141173a0afa24583f4957485ca9f07ab4af",
+      "observed": "Counter wraps at 47 before loading the DWORD table entry; calculated offset reads history."
+    }
+  ],
+  "private_proposal": {
+    "path": "work/movie_initializer_storage_29/compact.json",
+    "sha256": "81e86b5d4452aefc4cc8c3aa2eaec69934bbcfb3a4f4396d1572e6b778b099bb"
+  },
+  "overlap_audit": {
+    "precompile_receipts_audited": 19,
+    "provider_cells_reviewed": 54,
+    "overlaps": [],
+    "specific_existing_providers": [
+      {
+        "source": "calibration/movie_scratch_storage.c",
+        "sha256": "cdb1620e86ef7d29c2ebe1f7548ee4ea0a3bf8be2d6070ea1ef7f12d3684ac6f",
+        "rva": "0x201b88",
+        "bytes": 81920,
+        "overlap": false
+      },
+      {
+        "source": "calibration/movie_header_storage.c",
+        "sha256": "b0e1975498b08dc43f0ee80aedabed38c4ab6b2b960c6b67c5a3e0cbca868bc1",
+        "rva": "0xa3838",
+        "bytes": 840,
+        "overlap": false
+      }
+    ]
+  },
+  "limits": "Observed prefixes/cells only. No aggregate, gaps, banks, original owner/TU, native placement, linked image, or function acceptance claim.",
+  "fresh_canonical": {
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-fej7yxg7\\candidate.obj",
+    "object_sha256": "ebefa8dc6c8974f064b1d1304dde0634693f5d08924b439c6811114177ef2a73",
+    "source_sha256": "e601b923794a6dc66fbbbd15c00f7c135fd7e60d03dc83f8c3084f6f647fad8f",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-fej7yxg7\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\movie_initializer_storage.c"
+    ],
+    "sections": [
+      {
+        "name": ".drectve",
+        "size": 38,
+        "flags": 1051136
+      },
+      {
+        "name": ".bss",
+        "size": 82116,
+        "flags": 3225419904
+      }
+    ],
+    "access_width_cells": [
+      {
+        "name": "g_exe_4a3810",
+        "rva": "0xa3810",
+        "bytes": 4,
+        "working_type": "unsigned long",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "private_object_section": ".bss",
+        "private_object_offset": "0x0"
+      },
+      {
+        "name": "g_exe_4a3814",
+        "rva": "0xa3814",
+        "bytes": 4,
+        "working_type": "unsigned long",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "private_object_section": ".bss",
+        "private_object_offset": "0x4"
+      },
+      {
+        "name": "g_exe_48f810",
+        "rva": "0x8f810",
+        "bytes": 81920,
+        "working_type": "unsigned char[81920]",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "private_object_section": ".bss",
+        "private_object_offset": "0x8"
+      },
+      {
+        "name": "g_exe_47f750",
+        "rva": "0x7f750",
+        "bytes": 188,
+        "working_type": "unsigned long[47]",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "private_object_section": ".bss",
+        "private_object_offset": "0x14008"
+      }
+    ],
+    "initialized_field_bytes": 0
+  },
+  "fresh_field_gate": {
+    "path": "work/root_clear_actor_29/data_final.json",
+    "sha256": "9581c69478f319d17a4788737e4e0d46f49e67028dc95ccd5e14baa06257c74c"
+  }
+}

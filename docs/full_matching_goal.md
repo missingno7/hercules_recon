@@ -994,3 +994,52 @@ working header can express both through ordinary arithmetic conversions.
 Parallel single baselines now recover the full service and its real 112-byte
 initializer. See `evidence/movie_frame_protocol_2026_10_11.json`. Neither this
 field correction nor the type evidence alone establishes a compiler match.
+
+## Counted initializer and FX owner correction
+
+The movie initializer at EXE 20c0 now has a complete 112-byte masked witness.
+Its first pointer-loop candidate differed only in unsigned JB versus native
+signed JL. A separately predicted signed counted loop over the actual 47-entry
+table restores the entire contribution and all eight reference bindings. It
+preserves the two ordered rand calls per entry, dimension stores and the
+81,920-byte history clear. See
+`evidence/movie_initializer_adoption_2026_10_11.json`.
+
+The existing recursive clear body now supplies complete 80-byte witnesses in
+both engines. Its cached render flags and child recursion preserve exactly;
+resource/token routines remain real missing dependencies. These three new rows
+add 272 masked bytes. See `evidence/clear_actor_peer_adoption_2026_10_11.json`.
+
+Four observed movie initializer data spans supply the dimension DWORDs,
+81,920-byte history clear prefix and 47-DWORD noise table. Fresh data verification
+preserves 249 initialized bytes and 207,785 loader-zero bytes. The natural EXE
+graph builds 52 sources, preserves all 50 prior complete contributions and
+supplies the initializer's new dependencies. The previous 14 unresolved names
+remain; no image is produced. See
+`evidence/movie_initializer_storage_adoption_2026_10_11.json` and
+`evidence/exe_movie_initializer_graph_2026_10_11.json`.
+
+Native FX producers and consumers establish actor+0x6c as a DWORD truth flag in
+these paths. Its consumer removes sound-owner links rather than freeing a
+buffer. One controlled flag declaration/callee label correction preserves all
+six complete detach helper identities and bindings. Unrelated source views
+stay unchanged. Eight complete engine peers share a low-optimization fingerprint;
+the existing optimized TITLE semantic peer supplies additional control evidence.
+The 137-byte unaligned RemoveFxLinks body is the next bounded compiler pilot.
+Its fingerprint does not identify exact /Od flags or original TU ownership, and
+the current 16-byte staging gate does not cover it. Preserve any pilot privately
+before considering a verification extension. See
+`evidence/fx_owner_flag_control_2026_10_11.json`.
+
+The paired actor zero-sentinel experiment fails: the compiler folds the captured
+integer zero into an immediate store, leaving all three failed contributions
+unchanged. Six prior witnesses still match. The movie service baseline also
+remains private at 880/944 bytes with 581 masked differences and 40 binding
+conflicts. Further attempts require new native-supported context or dataflow,
+not another source spelling or flag grid. See
+`evidence/independent_controls_2026_10_11_wave29.json`.
+
+Totals are 121 strict functions / 8,080 bytes, 445 complete masked functions /
+89,296 bytes, and six reconstructed functions / 1,088 bytes. The checkpoint is
+`evidence/full_goal_movie_initializer_wave_2026_10_11.json`. Full matching remains
+active; complete masked equality is still diagnostic, with no new strict bytes.

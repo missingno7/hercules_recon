@@ -201,3 +201,14 @@ The highest useful follow-up is coherent producer/consumer reconstruction of the
 movie service and actor records. Continue separate missing-source and shared
 compiler work. Reopen exhausted constant/register families only with a new
 native-supported discriminator; no Blood II allocator conclusion is imported.
+
+The counted-loop follow-up supplies a second measurable pilot: a native signed
+branch and actual 47-entry table distinguish two ordinary source induction
+forms. One separately predicted counted-loop control produces all 112 masked
+bytes with consistent references, while the failed pointer recipe remains
+immutable. The independent integer-zero reuse hypothesis fails because RTM
+constant-folds that sentinel store. Recording both outcomes prevents a plausible
+cross-call register explanation from becoming an unsupported compiler rule.
+The next shared FX pilot transfers coherent compilation-unit fingerprinting
+and existing TITLE semantics; exact optimization flags remain experimental.
+See `evidence/full_goal_movie_initializer_wave_2026_10_11.json`.

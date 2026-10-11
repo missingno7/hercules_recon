@@ -11,7 +11,7 @@ struct ActorDetachView {
     ActorDetachView *attachment_05c;
     ActorDetachView *child_060;
     unsigned char reserved_064[8];
-    void *buffer_06c;
+    unsigned long fx_linked_06c;
 };
 
 typedef char actor_detach_view_is_0x70[
@@ -25,11 +25,11 @@ typedef char actor_detach_attachment_at_0x5c[
 typedef char actor_detach_child_at_0x60[
     (offsetof(ActorDetachView, child_060) == 0x60) ? 1 : -1];
 typedef char actor_detach_buffer_at_0x6c[
-    (offsetof(ActorDetachView, buffer_06c) == 0x6c) ? 1 : -1];
+    (offsetof(ActorDetachView, fx_linked_06c) == 0x6c) ? 1 : -1];
 
 /* Physical helper roles are provisional labels, not recovered original names. */
 extern int release_actor(ActorDetachView *actor);
-extern void release_buffer(ActorDetachView *actor);
+extern void remove_fx_links(ActorDetachView *actor);
 
 void detach_attachment(ActorDetachView *actor)
 {
@@ -57,8 +57,8 @@ void detach_child(ActorDetachView *actor)
 
 void detach_buffer(ActorDetachView *actor)
 {
-    if (!(actor->flags_050 & 0x10000000) && actor->buffer_06c) {
-        actor->buffer_06c = 0;
-        release_buffer(actor);
+    if (!(actor->flags_050 & 0x10000000) && actor->fx_linked_06c) {
+        actor->fx_linked_06c = 0;
+        remove_fx_links(actor);
     }
 }

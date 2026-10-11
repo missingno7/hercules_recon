@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-11",
+  "status": "CODEGEN_SIMILAR",
+  "source": "calibration/movie_initializer.c",
+  "source_sha256": "bee9ca0ab3ee5874676b13f5b4c28db651066b074703b51f3ec84473647de5da",
+  "functions": [
+    {
+      "id": "exe.movie_native_020c0",
+      "rva": "0x20c0",
+      "size": 112,
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "symbol": "_movie_native_020c0",
+      "link_symbols": {
+        "_g_exe_47f750": "0x7f750",
+        "_g_exe_48f810": "0x8f810",
+        "_g_exe_4a3810": "0xa3810",
+        "_g_exe_4a3814": "0xa3814",
+        "_rand": "0x10a40"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "bee9ca0ab3ee5874676b13f5b4c28db651066b074703b51f3ec84473647de5da",
+        "masked_sha256": "9a5b7fe0c63186fef3739b6c3905fdc310b86d1d6a29c62360dad4a466eb5bf2",
+        "toolchain": "msvc5_rtm"
+      }
+    }
+  ],
+  "private_controls": [
+    {
+      "path": "work/movie_init_29/prediction.json",
+      "sha256": "f5613bf980287e21c7e4a8fde75e7f9f1b3eeb43c9e776ec16cead9f18e0c0d9"
+    },
+    {
+      "path": "work/movie_init_29/compact.json",
+      "sha256": "dc58f8786367189f5bf59aeabe65e1c2f00adfce960ce4bb3fec3c2d9091ff40"
+    },
+    {
+      "path": "work/movie_init_29/counted_prediction.json",
+      "sha256": "7353ae7824698d6940f0338b072a58b5cb72e7636cf8cf7b96a9028f06861cff"
+    },
+    {
+      "path": "work/movie_init_29/counted_compact.json",
+      "sha256": "cbe1475c0d1dc91092e4d3936b81f38730191c5b7da08d59ad2feaf67fa9d2f7"
+    }
+  ],
+  "reproducible_commands": [
+    "python scripts/similar.py stage work/root_clear_actor_29/movie_init_stage.json",
+    "python scripts/similar.py verify"
+  ],
+  "limits": "Complete112byte contribution with94actualrandcalls and native47entry iteration. Pointerloop baseline misses unsignedJB vs signedJL; separately predicted signedcountedloop restores entirecode/ref contribution. Nativeunsigneddimension arithmetic preserved. No RNG redesign,original source/TU/nativeplacement or rawbyte equality."
+}

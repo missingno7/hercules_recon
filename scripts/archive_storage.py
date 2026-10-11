@@ -74,6 +74,7 @@ for source_name,evidence_name,count,initialized,zero,bss_flags in (
  ('calibration/movie_scratch_storage.c','evidence/movie_storage_adoption_2026_10_11.json',1,0,81920,0xc0400080),
  ('calibration/host_resource_storage.c','evidence/host_resource_storage_adoption_2026_10_11.json',2,4,6964,0xc0400080),
  ('calibration/movie_header_storage.c','evidence/movie_header_storage_adoption_2026_10_11.json',1,0,840,0xc0400080),
+ ('calibration/movie_initializer_storage.c','evidence/movie_initializer_storage_adoption_2026_10_11.json',4,0,82116,0xc0400080),
 ):
  source_path=root/source_name;proof_path=root/evidence_name
  if proof_path.exists() or source_path.exists():
@@ -168,7 +169,7 @@ for path in sources:
     assert cell['native_initial_origin']=='loader-zero virtual tail'
     assert sec['name']=='.bss' and sec['flags']==bss_flags and not sec['data']
     assert rva>=native['virtual_address']+native['raw_size'] and rva+width<=native['virtual_address']+native['virtual_size']
-    if path in ('calibration/sound_bank_storage.cpp','calibration/archive_array_prefixes.c','calibration/movie_scratch_storage.c','calibration/host_resource_storage.c','calibration/movie_header_storage.c'):
+    if path in ('calibration/sound_bank_storage.cpp','calibration/archive_array_prefixes.c','calibration/movie_scratch_storage.c','calibration/host_resource_storage.c','calibration/movie_header_storage.c','calibration/movie_initializer_storage.c'):
      assert cell['zero_initializer'] is True
     else:
      assert bytes.fromhex(cell['initializer'])==bytes(width)

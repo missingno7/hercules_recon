@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-11",
+  "status": "CODEGEN_SIMILAR",
+  "source": "calibration/clear_actor.c",
+  "source_sha256": "3ff1bebf0bfc438924db0e8e5547daec9d68d2b2c217f88015b90de498ae145c",
+  "functions": [
+    {
+      "id": "eng1.clear_actor",
+      "rva": "0x55b0",
+      "size": 80,
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "symbol": "_clear_actor",
+      "link_symbols": {
+        "_release_actor_resource_state": "0x51d0",
+        "_release_actor_token": "0x5750"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "3ff1bebf0bfc438924db0e8e5547daec9d68d2b2c217f88015b90de498ae145c",
+        "masked_sha256": "a3c097e4c453e98b5e416f852d8190befa1c2ab2bed293bed9293794148041a4",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "eng3.clear_actor",
+      "rva": "0xa6b0",
+      "size": 80,
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "symbol": "_clear_actor",
+      "link_symbols": {
+        "_release_actor_resource_state": "0xa2d0",
+        "_release_actor_token": "0xa9a0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "3ff1bebf0bfc438924db0e8e5547daec9d68d2b2c217f88015b90de498ae145c",
+        "masked_sha256": "a3c097e4c453e98b5e416f852d8190befa1c2ab2bed293bed9293794148041a4",
+        "toolchain": "msvc5_rtm"
+      }
+    }
+  ],
+  "private_controls": [
+    {
+      "path": "work/root_clear_actor_29/prediction.json",
+      "sha256": "3fcadc6351ccaad779486eca7b289e3578b9827ff71e7d90dadf515d66028a8d"
+    },
+    {
+      "path": "work/root_clear_actor_29/measurement.json",
+      "sha256": "cd6a752321d33d3ef245e926be06e9bec88f2e60cb8ca644c801eb91b222226f"
+    }
+  ],
+  "reproducible_commands": [
+    "python scripts/similar.py stage work/root_clear_actor_29/eng1.dll.json",
+    "python scripts/similar.py verify"
+  ],
+  "limits": "Two80byte complete engine peers. Existing recursiveclear control preserved with only unused opaque prefix declarations removed. Original complete actor type/TU/symbol names unknown; resource/token helpers remain real missing dependencies."
+}
