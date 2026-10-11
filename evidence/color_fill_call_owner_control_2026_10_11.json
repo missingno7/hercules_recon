@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-11",
+  "scope": "Private source correctness correction; unrelated palette peer preserved, colorfill still fails complete gate.",
+  "prediction": {
+    "region": "palette_followups_14",
+    "lane": "palette_followups_14_call_owner",
+    "family": "genuine GDI palette-selection and DirectDraw/software fill helpers",
+    "prediction": "Removing only the unsupported direct graphics_native_06620 call from 0x6ee0 will make its candidate direct-call set match the native single direct callee 0x6850 and will change the full 0x6ee0 residual. It must leave the complete 0x6700 contribution at 128 bytes with its same 11 ordered relocations and zero normalized non-relocation differences; all SDK types, literals, flags, and other statements remain unchanged.",
+    "falsifier": "Reject the correction if 0x6ee0 still has a direct 0x6620 relocation or its direct call set disagrees with native, or if 0x6700 changes any of its 128 bytes, 11 ordered relocations, coherent GDI/data/helper bindings, or zero-difference normalized body. Stop after one fresh compile; no further type, order, source, or compiler-flag variants.",
+    "capability": "single evidence-driven call-ownership correction in ordinary genuine-SDK C++ source",
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 1,
+    "semantic_result": "Static native caller/callee direct-call ownership and pinned SDK layout; no original execution.",
+    "new_evidence": "The saved native 0x6ee0 packet has only direct target 0x6850; caller 0x69b6 calls 0x6620 after returning from 0x6ee0, and calibration/graphics_palette.cpp shows the same caller order. This disproves the candidate-local 0x6620 call.",
+    "new_discriminator": "Fresh corrected COFF direct-call set and same-build 0x6700 complete contribution/ordered relocation identity."
+  },
+  "source_sha256": "a088ebed3aad5d38e83e586e8ac43ea76f126cfa279e0213399bde8a07d0e4b2",
+  "object_sha256": "56ce921ae93b0ba85e7c9e97e62cd9c431e424f7010f3f769882fa4518d2e257",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "rva": "0x6ee0",
+  "target_bytes": 272,
+  "compiled_bytes": 256,
+  "raw_differing_bytes": 206,
+  "masked_differing_bytes": 152,
+  "masked_equal": false,
+  "conflicts": [
+    {
+      "symbol": "_g_exe_96e418",
+      "offset": 74,
+      "implied": "0x56e418",
+      "previous": "0x8ac096e4"
+    },
+    {
+      "symbol": "_g_exe_96e424",
+      "offset": 112,
+      "implied": "0x19794e74",
+      "previous": "0x1cca000"
+    },
+    {
+      "symbol": "_g_exe_43a590",
+      "offset": 246,
+      "implied": "0x8fc5c6ab",
+      "previous": "0x6484835f"
+    }
+  ],
+  "change": "Removed unsupported6620 call; actual native helper6850 only. Present/update call is owned by caller69a0. No type/order/literal/flags changes.",
+  "provenance": [
+    {
+      "path": "work/palette_followups_14_call_owner/fresh_residual.json",
+      "sha256": "70b7501b31dba6b952d85cb2506fdcbbe624ce3ea1c9ed66c6684bd2731329c1"
+    },
+    {
+      "path": "work/palette_followups_14_call_owner/fresh_measurement.json",
+      "sha256": "87799d82352b6b1c623d5617c5adb0b14a80b6855e24f3827d00beaa1e5d23f7"
+    },
+    {
+      "path": "work/palette_followups_14_call_owner/handoff.md",
+      "sha256": "df288f12d5775142f85b69cf9b67b3babd0c2d496abbe884c06e261cfdccf984"
+    }
+  ],
+  "reentry": "Actual minimal BYTE definition-context pilot is separately justified by evidence/byte_load_context_control_2026_10_11.json; no retry from size/similarity alone."
+}

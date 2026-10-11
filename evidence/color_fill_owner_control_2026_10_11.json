@@ -1,0 +1,216 @@
+{
+  "date": "2026-10-11",
+  "scope": "One genuine four-BYTE-cache/TU pilot confirms load forms but fails fullfunction gate; no canonical/state adoption.",
+  "prediction": {
+    "region": "palette_followups_14",
+    "lane": "color_fill_owner_16",
+    "family": "same-translation-unit zero-initialized BYTE cache ownership in color-fill helper",
+    "prediction": "Sol\u2019s RTM MRE demonstrates that a same-TU defined BYTE can compile to a DWORD load plus AND 0xff while the actual .bss object remains one byte. The four zero-initialized cache cells are each referenced only inside native 0x6ee0 and lie in the image\u2019s loader-zero .data tail. Defining those four cells as genuine BYTE objects in this TU should change the 0x96e424 color-value reads to the native DWORD-load/mask form without widening any source object; test complete 0x6ee0 bytes and relocation bindings, and preserve the previously equal 0x6700 peer unchanged.",
+    "falsifier": "Reject the hypothesis if the fresh 0x6ee0 object does not emit the expected DWORD load plus AND 0xff for g_exe_96e424, if any of the four definitions is not an initialized-zero one-byte object with the compiler\u2019s observed natural section alignment, if complete 0x6ee0 bytes/ordered relocations/bindings are not masked equal, or if 0x6700 changes from its 128-byte/11-relocation peer. One fresh compile only; no alternate types, storage classes, layouts, or compiler settings.",
+    "capability": "single evidence-driven same-TU BYTE ownership family with complete helper and data measurements",
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "wall_seconds": 0.149,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 1,
+    "semantic_result": "The same-TU BYTE context emits the two expected DWORD color reads and preserves four one-byte zero-initialized objects at naturally four-byte-separated locations; complete 0x6ee0 relocation-masked equality still fails. The 0x6700 peer remains relocation-masked equal. No original execution.",
+    "new_evidence": "work/byte_load_context_16/compact.json SHA-256 8da28165b548603f992f907581658a732cbd0d313d23962f96101a2da5500dd4: matched C/C++ controls show extern BYTE getters use byte loads, while same-TU global BYTE=0 getters use DWORD load plus AND 0xff with one-byte .bss storage and 4-byte section alignment. work/color_fill_owner_16/native_cells.json records that each cache has references confined to 0x6ee0 and loader-zero .data backing; g_exe_96e424 has byte store at 0x6f44 and DWORD reads at 0x6f5f/0x6fba. Existing calibration/graphics_storage.cpp defines the earlier provider through 0x96e3fc; these four are absent there and remain extern-only in the palette helper.",
+    "new_discriminator": "One fresh complete candidate object: 0x6ee0 full contribution, ordered relocation bindings, DWORD-load/mask form, and four independently inspected one-byte initialized-zero data symbols/alignment; 0x6700 full 128-byte contribution and 11 ordered relocations."
+  },
+  "source": "candidates\\color_fill_owner_16\\palette_followups.cpp",
+  "source_sha256": "9d6c5a5c84fb6d57a6c9a4ac83a31bcd11e89674b22322df1afb80c5474b7096",
+  "object_sha256": "84bab856218c38698e5fa2d5b352f69d0cfa7e48adcaa95bb319c3974c4efc02",
+  "command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/c",
+    "/Gy",
+    "/O2",
+    "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-3bfu__sf\\candidate.obj",
+    "D:\\Prog\\hercules_recon\\candidates\\color_fill_owner_16\\palette_followups.cpp"
+  ],
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "rva": "0x6ee0",
+  "target_bytes": 272,
+  "compiled_bytes": 272,
+  "raw_differing_bytes": 167,
+  "masked_differing_bytes": 113,
+  "masked_equal": false,
+  "conflicts": [
+    {
+      "symbol": "_g_exe_96e418",
+      "offset": 74,
+      "implied": "0x56e418",
+      "previous": "0x8ac096e4"
+    },
+    {
+      "symbol": "_g_exe_96e424",
+      "offset": 129,
+      "implied": "0xc6c096e4",
+      "previous": "0x56e424"
+    },
+    {
+      "symbol": "_g_exe_96e424",
+      "offset": 221,
+      "implied": "0x790096",
+      "previous": "0x56e424"
+    }
+  ],
+  "native_cells": [
+    {
+      "cell": "0x56e418",
+      "section": ".data",
+      "section_va": 217088,
+      "virtual_size": 7797544,
+      "raw_size": 38400,
+      "initial_4": null,
+      "initial_evidence": "loader-zero virtual tail (no file-backed bytes)",
+      "references": [
+        {
+          "source": "0x6ef4",
+          "kind": "linear_memory",
+          "instruction": [
+            "8a0d18e49600",
+            "mov",
+            "cl, byte ptr [0x96e418]"
+          ]
+        },
+        {
+          "source": "0x6f29",
+          "kind": "linear_memory",
+          "instruction": [
+            "a218e49600",
+            "mov",
+            "byte ptr [0x96e418], al"
+          ]
+        }
+      ]
+    },
+    {
+      "cell": "0x56e41c",
+      "section": ".data",
+      "section_va": 217088,
+      "virtual_size": 7797544,
+      "raw_size": 38400,
+      "initial_4": null,
+      "initial_evidence": "loader-zero virtual tail (no file-backed bytes)",
+      "references": [
+        {
+          "source": "0x6f07",
+          "kind": "linear_memory",
+          "instruction": [
+            "38151ce49600",
+            "cmp",
+            "byte ptr [0x96e41c], dl"
+          ]
+        },
+        {
+          "source": "0x6f1d",
+          "kind": "linear_memory",
+          "instruction": [
+            "88151ce49600",
+            "mov",
+            "byte ptr [0x96e41c], dl"
+          ]
+        }
+      ]
+    },
+    {
+      "cell": "0x56e420",
+      "section": ".data",
+      "section_va": 217088,
+      "virtual_size": 7797544,
+      "raw_size": 38400,
+      "initial_4": null,
+      "initial_evidence": "loader-zero virtual tail (no file-backed bytes)",
+      "references": [
+        {
+          "source": "0x6f0f",
+          "kind": "linear_memory",
+          "instruction": [
+            "380d20e49600",
+            "cmp",
+            "byte ptr [0x96e420], cl"
+          ]
+        },
+        {
+          "source": "0x6f17",
+          "kind": "linear_memory",
+          "instruction": [
+            "880d20e49600",
+            "mov",
+            "byte ptr [0x96e420], cl"
+          ]
+        }
+      ]
+    },
+    {
+      "cell": "0x56e424",
+      "section": ".data",
+      "section_va": 217088,
+      "virtual_size": 7797544,
+      "raw_size": 38400,
+      "initial_4": null,
+      "initial_evidence": "loader-zero virtual tail (no file-backed bytes)",
+      "references": [
+        {
+          "source": "0x6f44",
+          "kind": "linear_memory",
+          "instruction": [
+            "a224e49600",
+            "mov",
+            "byte ptr [0x96e424], al"
+          ]
+        },
+        {
+          "source": "0x6f5f",
+          "kind": "linear_memory",
+          "instruction": [
+            "a124e49600",
+            "mov",
+            "eax, dword ptr [0x96e424]"
+          ]
+        },
+        {
+          "source": "0x6fba",
+          "kind": "linear_memory",
+          "instruction": [
+            "a124e49600",
+            "mov",
+            "eax, dword ptr [0x96e424]"
+          ]
+        }
+      ]
+    }
+  ],
+  "measured_findings": [
+    "All four cache refs confined to6ee0; each initial minimumBYTE liesinloader-zero tail.",
+    "SameTU definitions emit four1byte objects at0/4/8/12 in13byte4-aligned.bss; ninealignmentbytes uncredited. BothDWORD+FF colorreads appear.",
+    "Contribution now272 and orderedCFG12blocks/native12; full equality still fails, with differentBlt receiver register.",
+    "6700peer remains complete128byte masked equal with11coherentreferences."
+  ],
+  "next_discriminator": "Actual aggregate-versus-memset initialization control in evidence/sdk_record_zeroing_control_2026_10_11.json; no type/order/flag grid.",
+  "provenance": [
+    {
+      "path": "work/color_fill_owner_16/fresh_measurement.json",
+      "sha256": "d3e87ada5ac7454f3448e2120f27e99cc58713f731aed1cf5c9cd15c4562a43d"
+    },
+    {
+      "path": "work/color_fill_owner_16/fresh_residual.json",
+      "sha256": "a1f9abe650fcb41d2935c11ddb795e90e7e292eccc4d0073fe782fd5ab34baaa"
+    },
+    {
+      "path": "work/color_fill_owner_16/meta.json",
+      "sha256": "c2b4768e67e609a9b9b8d0b671242892d1b4bae089cfc23bcc446065dc062f74"
+    },
+    {
+      "path": "work/color_fill_owner_16/native_cells.json",
+      "sha256": "b821c0c9619f692c44cd17fd554c1dd79ef1106fe6353b80094bf5a72cee5e6f"
+    },
+    {
+      "path": "work/color_fill_owner_16/handoff.md",
+      "sha256": "0924140c8513e5598b624a25275791175b8737a6bef4df62717fdb53a0cb24a7"
+    }
+  ]
+}

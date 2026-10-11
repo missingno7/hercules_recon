@@ -1,0 +1,1466 @@
+{
+  "scope": "Minimal mutable BYTE definition-context discriminator, not function matching or original type/TU/extent proof.",
+  "prediction": {
+    "region": "byte_load_context",
+    "lane": "byte_load_context_16",
+    "family": "mutable BYTE external versus same-TU global versus static definition",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "capability": "shared historical compiler load-width discriminator",
+    "prediction": "In at least one matched C or C++ set, a real aligned same-TU BYTE definition will permit a DWORD load followed by AND0xff for the unsigned-int getter, while an extern BYTE will use a byte load/zero-extension. A file-static mutable BYTE will test whether internal linkage/known storage changes that effect. Every setter still emits an actual byte write and no getter constant-folds.",
+    "falsifier": "If neither the global definition nor file-static definition produces a DWORD absolute load plus AND0xff in either language, same-TU BYTE ownership alone fails this native-form discriminator. If extern has the same wide form, known local ownership is not the distinguishing factor. Complete code/ordered-reference equality and storage/alignment evidence must be reported separately from instruction-shape observations.",
+    "basis": "Actual native6ee0 storesBYTE at6f44 but loadsDWORD96e424 at6f5f/6fba with AND0xff; native5a50 loadsDWORD436638/43663c at5a66/5a85 plusAND0xff, then writesBYTE at5bd3/5bdd. Existing external-BYTE source context did not reproduce these forms. Original source type/aggregate/alignment is not assumed.",
+    "controls": [
+      "extern BYTE byte_probe;",
+      "BYTE byte_probe = 0;",
+      "static BYTE byte_probe = 0;"
+    ],
+    "fixed_behavior": "Exported real setter takes BYTE and stores it; getter returns byte_probe as unsigned int. Same source function order, bodies, constants, no other functions, same sole windows.h header. Matching .c and.cpp inputs share identical source text with ordinary extern-C wrapper active only in C++. /O2 /Gy remains fixed.",
+    "build_limit": 6,
+    "scope": "One3-declaration x2-language paired control family, not a source/type/order grid or full5a50/6ee0 retry. No DWORD storage, unions, pointer casts, explicit alignment, volatile, barriers or original execution. Original ownership/type/compiler mechanism remains unproved."
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "repository": "https://github.com/archaic-msvc/msvc500",
+    "commit": "8abf95ce980161ad87b0b02402269cce76988953",
+    "archive_sha256": "5f7728d1b3b8b8c61bb35e42a7680211019d290b30376c1a0a8faaa6d166cd1f"
+  },
+  "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+  "native_oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "native_cells": [
+    {
+      "rva": "0x56e424",
+      "alignment_mod4": 0,
+      "section": ".data",
+      "file_backed4_bytes": null,
+      "loader_zero_tail": true,
+      "limits": "Observed read span4; this doesnot identify original variable extent."
+    },
+    {
+      "rva": "0x36638",
+      "alignment_mod4": 0,
+      "section": ".data",
+      "file_backed4_bytes": "ff000000",
+      "loader_zero_tail": false,
+      "limits": "Observed read span4; this doesnot identify original variable extent."
+    },
+    {
+      "rva": "0x3663c",
+      "alignment_mod4": 0,
+      "section": ".data",
+      "file_backed4_bytes": "ff000000",
+      "loader_zero_tail": false,
+      "limits": "Observed read span4; this doesnot identify original variable extent."
+    }
+  ],
+  "native_spans": [
+    {
+      "rva": "0x6f44",
+      "bytes": 5,
+      "sha256": "7258f5912e0e92a4eb45406b66afb70f7876af26af41d8e45075aea681d7ca36",
+      "role": "actual byte color store",
+      "instructions": [
+        {
+          "rva": "0x6f44",
+          "text": "mov byte ptr [0x96e424], al"
+        }
+      ]
+    },
+    {
+      "rva": "0x6f5f",
+      "bytes": 22,
+      "sha256": "b2396494da7936f9319db3e18766fb0eef63dc06e9085c8b4ca4299a2d3c1e3e",
+      "role": "actual DWORD color load and mask",
+      "instructions": [
+        {
+          "rva": "0x6f5f",
+          "text": "mov eax, dword ptr [0x96e424]"
+        },
+        {
+          "rva": "0x6f64",
+          "text": "mov dword ptr [esp + 4], 0x64"
+        },
+        {
+          "rva": "0x6f6c",
+          "text": "and eax, 0xff"
+        },
+        {
+          "rva": "0x6f71",
+          "text": "mov dword ptr [esp + 0x54], eax"
+        }
+      ]
+    },
+    {
+      "rva": "0x6fba",
+      "bytes": 15,
+      "sha256": "6592a6e95217e87295329fa0ac0f4c8dd8411e39f844153ef130db79124e8ab3",
+      "role": "second DWORD color load and mask",
+      "instructions": [
+        {
+          "rva": "0x6fba",
+          "text": "mov eax, dword ptr [0x96e424]"
+        },
+        {
+          "rva": "0x6fbf",
+          "text": "mov ecx, 0x4b00"
+        },
+        {
+          "rva": "0x6fc4",
+          "text": "and eax, 0xff"
+        }
+      ]
+    },
+    {
+      "rva": "0x5a66",
+      "bytes": 17,
+      "sha256": "604dcfa60e01799535165febee0302a2a0f8d93973bf0207f33b7f6bc6da7f15",
+      "role": "actual cached byte wide load,mask and comparison",
+      "instructions": [
+        {
+          "rva": "0x5a66",
+          "text": "mov ecx, dword ptr [0x436638]"
+        },
+        {
+          "rva": "0x5a6c",
+          "text": "movsx edx, al"
+        },
+        {
+          "rva": "0x5a6f",
+          "text": "and ecx, 0xff"
+        },
+        {
+          "rva": "0x5a75",
+          "text": "cmp ecx, edx"
+        }
+      ]
+    },
+    {
+      "rva": "0x5a85",
+      "bytes": 17,
+      "sha256": "22d655fb26bd19b2a0437a7bc1f8305b997e30f5e9b9a5ea799804e64b4096a6",
+      "role": "second cached wide load/mask",
+      "instructions": [
+        {
+          "rva": "0x5a85",
+          "text": "mov edi, dword ptr [0x43663c]"
+        },
+        {
+          "rva": "0x5a8b",
+          "text": "movsx ebx, dl"
+        },
+        {
+          "rva": "0x5a8e",
+          "text": "and edi, 0xff"
+        },
+        {
+          "rva": "0x5a94",
+          "text": "cmp edi, ebx"
+        }
+      ]
+    },
+    {
+      "rva": "0x5bd3",
+      "bytes": 5,
+      "sha256": "dde1bd64c79432d12c2308d2c568e2d96cfe224f49483c3a8758d48659db4198",
+      "role": "cached first byte store",
+      "instructions": [
+        {
+          "rva": "0x5bd3",
+          "text": "mov byte ptr [0x436638], al"
+        }
+      ]
+    },
+    {
+      "rva": "0x5bdd",
+      "bytes": 6,
+      "sha256": "7e0b179e1eba52307d724ff2e28cb8ed6da8f90360b273dae6db9ade6e623088",
+      "role": "cached second byte store",
+      "instructions": [
+        {
+          "rva": "0x5bdd",
+          "text": "mov byte ptr [0x43663c], cl"
+        }
+      ]
+    }
+  ],
+  "fresh_builds": 6,
+  "compiler_launches": {
+    "first": 5,
+    "resume_after_parser_fix": 1,
+    "reason": "First launch compiled five controls successfully, then analysis failed on genuine static COFF symbol suffix. This launch analyzes those unchanged objects and compiles only the sixth predeclared control."
+  },
+  "results": [
+    {
+      "declaration": "external",
+      "language": "C",
+      "source": "candidates/byte_load_context_16/external.c",
+      "source_sha256": "ccdb5d87ec63f2eee362167b67d8699182fb4100f8b9cf0b0c765b03e8ce3243",
+      "object": "D:\\Prog\\hercules_recon\\work\\byte_load_context_16\\external_c.obj",
+      "object_sha256": "d8c4ebc39c4c6624eebf6ad83b10aa52e021650fffd1447f6d2c0018f8a73c41",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\byte_load_context_16\\external_c.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\byte_load_context_16\\external.c"
+      ],
+      "storage": {
+        "symbol": "_byte_probe",
+        "storage_class": 2,
+        "section": 0,
+        "offset_or_common_size": 0,
+        "section_name": null,
+        "section_bytes": null,
+        "section_flags": null,
+        "section_alignment": null,
+        "section_file_bytes": null
+      },
+      "functions": [
+        {
+          "symbol": "_byte_probe_set",
+          "bytes": 16,
+          "code_sha256": "fda4e3b9e8d67ccf32ca288303d2d9fdd534b2d7b242059f2a0b69e36012f2b3",
+          "ordered_relocations": [
+            {
+              "offset": 5,
+              "symbol": "_byte_probe",
+              "type": 6
+            }
+          ],
+          "loads": [],
+          "stores": [
+            {
+              "offset": "0x4",
+              "width": 1
+            }
+          ],
+          "and_ff": [],
+          "wide_load_and_mask": false,
+          "instructions": [
+            {
+              "offset": "0x0",
+              "hex": "8a442404",
+              "text": "mov al, byte ptr [esp + 4]"
+            },
+            {
+              "offset": "0x4",
+              "hex": "a200000000",
+              "text": "mov byte ptr [0], al"
+            },
+            {
+              "offset": "0x9",
+              "hex": "c3",
+              "text": "ret "
+            },
+            {
+              "offset": "0xa",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xb",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xc",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xd",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xe",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xf",
+              "hex": "90",
+              "text": "nop "
+            }
+          ]
+        },
+        {
+          "symbol": "_byte_probe_get",
+          "bytes": 16,
+          "code_sha256": "44298ef0654ace9a8b82b98c56e5669a1a67159072f2488b4f9a6bbaa638546b",
+          "ordered_relocations": [
+            {
+              "offset": 3,
+              "symbol": "_byte_probe",
+              "type": 6
+            }
+          ],
+          "loads": [
+            {
+              "offset": "0x2",
+              "width": 1,
+              "destination": "al"
+            }
+          ],
+          "stores": [],
+          "and_ff": [],
+          "wide_load_and_mask": false,
+          "instructions": [
+            {
+              "offset": "0x0",
+              "hex": "33c0",
+              "text": "xor eax, eax"
+            },
+            {
+              "offset": "0x2",
+              "hex": "a000000000",
+              "text": "mov al, byte ptr [0]"
+            },
+            {
+              "offset": "0x7",
+              "hex": "c3",
+              "text": "ret "
+            },
+            {
+              "offset": "0x8",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0x9",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xa",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xb",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xc",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xd",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xe",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xf",
+              "hex": "90",
+              "text": "nop "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "declaration": "external",
+      "language": "C++",
+      "source": "candidates/byte_load_context_16/external.cpp",
+      "source_sha256": "ccdb5d87ec63f2eee362167b67d8699182fb4100f8b9cf0b0c765b03e8ce3243",
+      "object": "D:\\Prog\\hercules_recon\\work\\byte_load_context_16\\external_cpp.obj",
+      "object_sha256": "356294c0264659b414d708f3a94363a18a0dbfdd4c139518ddccce5dd9c4a012",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\byte_load_context_16\\external_cpp.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\byte_load_context_16\\external.cpp"
+      ],
+      "storage": {
+        "symbol": "_byte_probe",
+        "storage_class": 2,
+        "section": 0,
+        "offset_or_common_size": 0,
+        "section_name": null,
+        "section_bytes": null,
+        "section_flags": null,
+        "section_alignment": null,
+        "section_file_bytes": null
+      },
+      "functions": [
+        {
+          "symbol": "_byte_probe_set",
+          "bytes": 16,
+          "code_sha256": "fda4e3b9e8d67ccf32ca288303d2d9fdd534b2d7b242059f2a0b69e36012f2b3",
+          "ordered_relocations": [
+            {
+              "offset": 5,
+              "symbol": "_byte_probe",
+              "type": 6
+            }
+          ],
+          "loads": [],
+          "stores": [
+            {
+              "offset": "0x4",
+              "width": 1
+            }
+          ],
+          "and_ff": [],
+          "wide_load_and_mask": false,
+          "instructions": [
+            {
+              "offset": "0x0",
+              "hex": "8a442404",
+              "text": "mov al, byte ptr [esp + 4]"
+            },
+            {
+              "offset": "0x4",
+              "hex": "a200000000",
+              "text": "mov byte ptr [0], al"
+            },
+            {
+              "offset": "0x9",
+              "hex": "c3",
+              "text": "ret "
+            },
+            {
+              "offset": "0xa",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xb",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xc",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xd",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xe",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xf",
+              "hex": "90",
+              "text": "nop "
+            }
+          ]
+        },
+        {
+          "symbol": "_byte_probe_get",
+          "bytes": 16,
+          "code_sha256": "44298ef0654ace9a8b82b98c56e5669a1a67159072f2488b4f9a6bbaa638546b",
+          "ordered_relocations": [
+            {
+              "offset": 3,
+              "symbol": "_byte_probe",
+              "type": 6
+            }
+          ],
+          "loads": [
+            {
+              "offset": "0x2",
+              "width": 1,
+              "destination": "al"
+            }
+          ],
+          "stores": [],
+          "and_ff": [],
+          "wide_load_and_mask": false,
+          "instructions": [
+            {
+              "offset": "0x0",
+              "hex": "33c0",
+              "text": "xor eax, eax"
+            },
+            {
+              "offset": "0x2",
+              "hex": "a000000000",
+              "text": "mov al, byte ptr [0]"
+            },
+            {
+              "offset": "0x7",
+              "hex": "c3",
+              "text": "ret "
+            },
+            {
+              "offset": "0x8",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0x9",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xa",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xb",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xc",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xd",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xe",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xf",
+              "hex": "90",
+              "text": "nop "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "declaration": "global",
+      "language": "C",
+      "source": "candidates/byte_load_context_16/global.c",
+      "source_sha256": "4433dca08865651198f46dc6940ca6f729bf66a2839599a865e3f7d7799337b0",
+      "object": "D:\\Prog\\hercules_recon\\work\\byte_load_context_16\\global_c.obj",
+      "object_sha256": "59fb6a0ba5c5f2e97dc831a0296e29d3a98e80ff90111437fee88158164e6c2c",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\byte_load_context_16\\global_c.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\byte_load_context_16\\global.c"
+      ],
+      "storage": {
+        "symbol": "_byte_probe",
+        "storage_class": 2,
+        "section": 2,
+        "offset_or_common_size": 0,
+        "section_name": ".bss",
+        "section_bytes": 1,
+        "section_flags": "0xc0300080",
+        "section_alignment": 4,
+        "section_file_bytes": ""
+      },
+      "functions": [
+        {
+          "symbol": "_byte_probe_set",
+          "bytes": 16,
+          "code_sha256": "fda4e3b9e8d67ccf32ca288303d2d9fdd534b2d7b242059f2a0b69e36012f2b3",
+          "ordered_relocations": [
+            {
+              "offset": 5,
+              "symbol": "_byte_probe",
+              "type": 6
+            }
+          ],
+          "loads": [],
+          "stores": [
+            {
+              "offset": "0x4",
+              "width": 1
+            }
+          ],
+          "and_ff": [],
+          "wide_load_and_mask": false,
+          "instructions": [
+            {
+              "offset": "0x0",
+              "hex": "8a442404",
+              "text": "mov al, byte ptr [esp + 4]"
+            },
+            {
+              "offset": "0x4",
+              "hex": "a200000000",
+              "text": "mov byte ptr [0], al"
+            },
+            {
+              "offset": "0x9",
+              "hex": "c3",
+              "text": "ret "
+            },
+            {
+              "offset": "0xa",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xb",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xc",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xd",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xe",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xf",
+              "hex": "90",
+              "text": "nop "
+            }
+          ]
+        },
+        {
+          "symbol": "_byte_probe_get",
+          "bytes": 16,
+          "code_sha256": "3485b436a84f615026f05dd677f28188f773f41e4997df6ba7b3594f68f81074",
+          "ordered_relocations": [
+            {
+              "offset": 1,
+              "symbol": "_byte_probe",
+              "type": 6
+            }
+          ],
+          "loads": [
+            {
+              "offset": "0x0",
+              "width": 4,
+              "destination": "eax"
+            }
+          ],
+          "stores": [],
+          "and_ff": [
+            {
+              "offset": "0x5",
+              "register": "eax"
+            }
+          ],
+          "wide_load_and_mask": true,
+          "instructions": [
+            {
+              "offset": "0x0",
+              "hex": "a100000000",
+              "text": "mov eax, dword ptr [0]"
+            },
+            {
+              "offset": "0x5",
+              "hex": "25ff000000",
+              "text": "and eax, 0xff"
+            },
+            {
+              "offset": "0xa",
+              "hex": "c3",
+              "text": "ret "
+            },
+            {
+              "offset": "0xb",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xc",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xd",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xe",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xf",
+              "hex": "90",
+              "text": "nop "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "declaration": "global",
+      "language": "C++",
+      "source": "candidates/byte_load_context_16/global.cpp",
+      "source_sha256": "4433dca08865651198f46dc6940ca6f729bf66a2839599a865e3f7d7799337b0",
+      "object": "D:\\Prog\\hercules_recon\\work\\byte_load_context_16\\global_cpp.obj",
+      "object_sha256": "48a1ee29f239caac7fea61fb3957e776720702ca414b47b84cce25639bc18352",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\byte_load_context_16\\global_cpp.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\byte_load_context_16\\global.cpp"
+      ],
+      "storage": {
+        "symbol": "_byte_probe",
+        "storage_class": 2,
+        "section": 2,
+        "offset_or_common_size": 0,
+        "section_name": ".bss",
+        "section_bytes": 1,
+        "section_flags": "0xc0300080",
+        "section_alignment": 4,
+        "section_file_bytes": ""
+      },
+      "functions": [
+        {
+          "symbol": "_byte_probe_set",
+          "bytes": 16,
+          "code_sha256": "fda4e3b9e8d67ccf32ca288303d2d9fdd534b2d7b242059f2a0b69e36012f2b3",
+          "ordered_relocations": [
+            {
+              "offset": 5,
+              "symbol": "_byte_probe",
+              "type": 6
+            }
+          ],
+          "loads": [],
+          "stores": [
+            {
+              "offset": "0x4",
+              "width": 1
+            }
+          ],
+          "and_ff": [],
+          "wide_load_and_mask": false,
+          "instructions": [
+            {
+              "offset": "0x0",
+              "hex": "8a442404",
+              "text": "mov al, byte ptr [esp + 4]"
+            },
+            {
+              "offset": "0x4",
+              "hex": "a200000000",
+              "text": "mov byte ptr [0], al"
+            },
+            {
+              "offset": "0x9",
+              "hex": "c3",
+              "text": "ret "
+            },
+            {
+              "offset": "0xa",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xb",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xc",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xd",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xe",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xf",
+              "hex": "90",
+              "text": "nop "
+            }
+          ]
+        },
+        {
+          "symbol": "_byte_probe_get",
+          "bytes": 16,
+          "code_sha256": "3485b436a84f615026f05dd677f28188f773f41e4997df6ba7b3594f68f81074",
+          "ordered_relocations": [
+            {
+              "offset": 1,
+              "symbol": "_byte_probe",
+              "type": 6
+            }
+          ],
+          "loads": [
+            {
+              "offset": "0x0",
+              "width": 4,
+              "destination": "eax"
+            }
+          ],
+          "stores": [],
+          "and_ff": [
+            {
+              "offset": "0x5",
+              "register": "eax"
+            }
+          ],
+          "wide_load_and_mask": true,
+          "instructions": [
+            {
+              "offset": "0x0",
+              "hex": "a100000000",
+              "text": "mov eax, dword ptr [0]"
+            },
+            {
+              "offset": "0x5",
+              "hex": "25ff000000",
+              "text": "and eax, 0xff"
+            },
+            {
+              "offset": "0xa",
+              "hex": "c3",
+              "text": "ret "
+            },
+            {
+              "offset": "0xb",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xc",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xd",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xe",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xf",
+              "hex": "90",
+              "text": "nop "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "declaration": "static",
+      "language": "C",
+      "source": "candidates/byte_load_context_16/static.c",
+      "source_sha256": "1919c7852b06f6123f55e5bc086c53b1fac4cde60ab6024fae7dba3bed27b183",
+      "object": "D:\\Prog\\hercules_recon\\work\\byte_load_context_16\\static_c.obj",
+      "object_sha256": "98c5339a6475cc3c1898379168bf32cb3362c0bf8544e7f71eb2651c99f1f4a9",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\byte_load_context_16\\static_c.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\byte_load_context_16\\static.c"
+      ],
+      "storage": {
+        "symbol": "_byte_probe$S21816",
+        "storage_class": 3,
+        "section": 2,
+        "offset_or_common_size": 0,
+        "section_name": ".bss",
+        "section_bytes": 1,
+        "section_flags": "0xc0300080",
+        "section_alignment": 4,
+        "section_file_bytes": ""
+      },
+      "functions": [
+        {
+          "symbol": "_byte_probe_set",
+          "bytes": 16,
+          "code_sha256": "fda4e3b9e8d67ccf32ca288303d2d9fdd534b2d7b242059f2a0b69e36012f2b3",
+          "ordered_relocations": [
+            {
+              "offset": 5,
+              "symbol": "_byte_probe$S21816",
+              "type": 6
+            }
+          ],
+          "loads": [],
+          "stores": [
+            {
+              "offset": "0x4",
+              "width": 1
+            }
+          ],
+          "and_ff": [],
+          "wide_load_and_mask": false,
+          "instructions": [
+            {
+              "offset": "0x0",
+              "hex": "8a442404",
+              "text": "mov al, byte ptr [esp + 4]"
+            },
+            {
+              "offset": "0x4",
+              "hex": "a200000000",
+              "text": "mov byte ptr [0], al"
+            },
+            {
+              "offset": "0x9",
+              "hex": "c3",
+              "text": "ret "
+            },
+            {
+              "offset": "0xa",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xb",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xc",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xd",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xe",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xf",
+              "hex": "90",
+              "text": "nop "
+            }
+          ]
+        },
+        {
+          "symbol": "_byte_probe_get",
+          "bytes": 16,
+          "code_sha256": "3485b436a84f615026f05dd677f28188f773f41e4997df6ba7b3594f68f81074",
+          "ordered_relocations": [
+            {
+              "offset": 1,
+              "symbol": "_byte_probe$S21816",
+              "type": 6
+            }
+          ],
+          "loads": [
+            {
+              "offset": "0x0",
+              "width": 4,
+              "destination": "eax"
+            }
+          ],
+          "stores": [],
+          "and_ff": [
+            {
+              "offset": "0x5",
+              "register": "eax"
+            }
+          ],
+          "wide_load_and_mask": true,
+          "instructions": [
+            {
+              "offset": "0x0",
+              "hex": "a100000000",
+              "text": "mov eax, dword ptr [0]"
+            },
+            {
+              "offset": "0x5",
+              "hex": "25ff000000",
+              "text": "and eax, 0xff"
+            },
+            {
+              "offset": "0xa",
+              "hex": "c3",
+              "text": "ret "
+            },
+            {
+              "offset": "0xb",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xc",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xd",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xe",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xf",
+              "hex": "90",
+              "text": "nop "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "declaration": "static",
+      "language": "C++",
+      "source": "candidates/byte_load_context_16/static.cpp",
+      "source_sha256": "1919c7852b06f6123f55e5bc086c53b1fac4cde60ab6024fae7dba3bed27b183",
+      "object": "D:\\Prog\\hercules_recon\\work\\byte_load_context_16\\static_cpp.obj",
+      "object_sha256": "a29e01899ec1e611cc9b9a64093eba02caeb239b909c51bbd460eb42c8269379",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\byte_load_context_16\\static_cpp.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\byte_load_context_16\\static.cpp"
+      ],
+      "storage": {
+        "symbol": "_byte_probe$S28963",
+        "storage_class": 3,
+        "section": 2,
+        "offset_or_common_size": 0,
+        "section_name": ".bss",
+        "section_bytes": 1,
+        "section_flags": "0xc0300080",
+        "section_alignment": 4,
+        "section_file_bytes": ""
+      },
+      "functions": [
+        {
+          "symbol": "_byte_probe_set",
+          "bytes": 16,
+          "code_sha256": "fda4e3b9e8d67ccf32ca288303d2d9fdd534b2d7b242059f2a0b69e36012f2b3",
+          "ordered_relocations": [
+            {
+              "offset": 5,
+              "symbol": "_byte_probe$S28963",
+              "type": 6
+            }
+          ],
+          "loads": [],
+          "stores": [
+            {
+              "offset": "0x4",
+              "width": 1
+            }
+          ],
+          "and_ff": [],
+          "wide_load_and_mask": false,
+          "instructions": [
+            {
+              "offset": "0x0",
+              "hex": "8a442404",
+              "text": "mov al, byte ptr [esp + 4]"
+            },
+            {
+              "offset": "0x4",
+              "hex": "a200000000",
+              "text": "mov byte ptr [0], al"
+            },
+            {
+              "offset": "0x9",
+              "hex": "c3",
+              "text": "ret "
+            },
+            {
+              "offset": "0xa",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xb",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xc",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xd",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xe",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xf",
+              "hex": "90",
+              "text": "nop "
+            }
+          ]
+        },
+        {
+          "symbol": "_byte_probe_get",
+          "bytes": 16,
+          "code_sha256": "3485b436a84f615026f05dd677f28188f773f41e4997df6ba7b3594f68f81074",
+          "ordered_relocations": [
+            {
+              "offset": 1,
+              "symbol": "_byte_probe$S28963",
+              "type": 6
+            }
+          ],
+          "loads": [
+            {
+              "offset": "0x0",
+              "width": 4,
+              "destination": "eax"
+            }
+          ],
+          "stores": [],
+          "and_ff": [
+            {
+              "offset": "0x5",
+              "register": "eax"
+            }
+          ],
+          "wide_load_and_mask": true,
+          "instructions": [
+            {
+              "offset": "0x0",
+              "hex": "a100000000",
+              "text": "mov eax, dword ptr [0]"
+            },
+            {
+              "offset": "0x5",
+              "hex": "25ff000000",
+              "text": "and eax, 0xff"
+            },
+            {
+              "offset": "0xa",
+              "hex": "c3",
+              "text": "ret "
+            },
+            {
+              "offset": "0xb",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xc",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xd",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xe",
+              "hex": "90",
+              "text": "nop "
+            },
+            {
+              "offset": "0xf",
+              "hex": "90",
+              "text": "nop "
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "complete_comparisons": [
+    {
+      "language": "C",
+      "pair": [
+        "external",
+        "global"
+      ],
+      "functions": [
+        {
+          "symbol": "_byte_probe_set",
+          "complete_code_equal": true,
+          "complete_ordered_relocations_equal": true
+        },
+        {
+          "symbol": "_byte_probe_get",
+          "complete_code_equal": false,
+          "complete_ordered_relocations_equal": false
+        }
+      ]
+    },
+    {
+      "language": "C",
+      "pair": [
+        "external",
+        "static"
+      ],
+      "functions": [
+        {
+          "symbol": "_byte_probe_set",
+          "complete_code_equal": true,
+          "complete_ordered_relocations_equal": false
+        },
+        {
+          "symbol": "_byte_probe_get",
+          "complete_code_equal": false,
+          "complete_ordered_relocations_equal": false
+        }
+      ]
+    },
+    {
+      "language": "C",
+      "pair": [
+        "global",
+        "static"
+      ],
+      "functions": [
+        {
+          "symbol": "_byte_probe_set",
+          "complete_code_equal": true,
+          "complete_ordered_relocations_equal": false
+        },
+        {
+          "symbol": "_byte_probe_get",
+          "complete_code_equal": true,
+          "complete_ordered_relocations_equal": false
+        }
+      ]
+    },
+    {
+      "language": "C++",
+      "pair": [
+        "external",
+        "global"
+      ],
+      "functions": [
+        {
+          "symbol": "_byte_probe_set",
+          "complete_code_equal": true,
+          "complete_ordered_relocations_equal": true
+        },
+        {
+          "symbol": "_byte_probe_get",
+          "complete_code_equal": false,
+          "complete_ordered_relocations_equal": false
+        }
+      ]
+    },
+    {
+      "language": "C++",
+      "pair": [
+        "external",
+        "static"
+      ],
+      "functions": [
+        {
+          "symbol": "_byte_probe_set",
+          "complete_code_equal": true,
+          "complete_ordered_relocations_equal": false
+        },
+        {
+          "symbol": "_byte_probe_get",
+          "complete_code_equal": false,
+          "complete_ordered_relocations_equal": false
+        }
+      ]
+    },
+    {
+      "language": "C++",
+      "pair": [
+        "global",
+        "static"
+      ],
+      "functions": [
+        {
+          "symbol": "_byte_probe_set",
+          "complete_code_equal": true,
+          "complete_ordered_relocations_equal": false
+        },
+        {
+          "symbol": "_byte_probe_get",
+          "complete_code_equal": true,
+          "complete_ordered_relocations_equal": false
+        }
+      ]
+    }
+  ],
+  "cross_language_comparisons": [
+    {
+      "declaration": "external",
+      "functions": [
+        {
+          "symbol": "_byte_probe_set",
+          "complete_code_equal": true,
+          "complete_ordered_relocations_equal": true
+        },
+        {
+          "symbol": "_byte_probe_get",
+          "complete_code_equal": true,
+          "complete_ordered_relocations_equal": true
+        }
+      ]
+    },
+    {
+      "declaration": "global",
+      "functions": [
+        {
+          "symbol": "_byte_probe_set",
+          "complete_code_equal": true,
+          "complete_ordered_relocations_equal": true
+        },
+        {
+          "symbol": "_byte_probe_get",
+          "complete_code_equal": true,
+          "complete_ordered_relocations_equal": true
+        }
+      ]
+    },
+    {
+      "declaration": "static",
+      "functions": [
+        {
+          "symbol": "_byte_probe_set",
+          "complete_code_equal": true,
+          "complete_ordered_relocations_equal": false
+        },
+        {
+          "symbol": "_byte_probe_get",
+          "complete_code_equal": true,
+          "complete_ordered_relocations_equal": false
+        }
+      ]
+    }
+  ],
+  "header_provenance": {
+    "language_sets": [
+      {
+        "language": "C",
+        "actual_headers": 54,
+        "windows_header": {
+          "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\windows.h",
+          "bytes": 4903,
+          "sha256": "1de22ddc1b079d330a8f5b02338a5ad5681b060cf3ac86f984a243ff2bdd9303"
+        },
+        "preprocessed_sha256": "b0cb0062f862f2df3f317bae3e6e7919657b5c80e8a6a91dfc91bd5e4ff69231"
+      },
+      {
+        "language": "C++",
+        "actual_headers": 54,
+        "windows_header": {
+          "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\windows.h",
+          "bytes": 4903,
+          "sha256": "1de22ddc1b079d330a8f5b02338a5ad5681b060cf3ac86f984a243ff2bdd9303"
+        },
+        "preprocessed_sha256": "6db0fa9a091ef61f163f63b603b8a77dffdfa4acaaf6b4109edfee096c92d9e5"
+      }
+    ],
+    "timing": "First launch computed before-compile header hashes in memory but parser failure prevented final receipt writing. Persisted actual header hashes were captured before/after the sixth compile in the resume launch; earlier five objects, sources and logs were kept unchanged. No independently persisted before/after compile-time header receipt is claimed for those five.",
+    "actual_all_header_hashes": "work/byte_load_context_16/measurement.json"
+  },
+  "outcome": {
+    "prediction_supported": true,
+    "falsifier_triggered": false,
+    "sufficient_condition": "A genuine mutable same-TU definedBYTE with normal4-byte .bss section alignment emits a DWORD load and unsignedmask in bothC/C++; file-static produces same code form.",
+    "not_discriminated": [
+      "C versus C++",
+      "external-linkage definition versus internal-linkage definition for load shape",
+      "known storage/alignment versus other compiler-internal reasons for widening"
+    ]
+  },
+  "conclusions": [
+    "All setters emit real one-byte memory writes and all getters read mutable memory; no constant folding accounts for the result.",
+    "External versus global definition changes the complete getter code and reference offset while preserving setter complete code/ordered relocation identity.",
+    "Global versus static definitions give equal complete raw getter/setter bytes but different ordered symbols; no byte equality is manufactured by renaming.",
+    "Defined storage is exactly1 byte; observed DWORD loads do not prove an original DWORD declaration, padding field, union or four-byte original object.",
+    "This establishes a sufficient same-TU definition context in these probes, not a unique original compiler pass, type, language, TU or owner."
+  ],
+  "future_discriminator": "Recover actual cell ownership/declaration and a coherent real unit with its byte setters/readers and natural storage; freshly test one complete body under that independently justified context. Do not change scalar type toDWORD or force casts/volatile/placement, and do not merge units solely to obtain this instruction.",
+  "limits": [
+    "No full5a50/6ee0source was edited or compiled; no fullfunction handoff is supplied.",
+    "No original binary or produced candidate code was executed.",
+    "Object section alignment is natural compiler output, not proof of native aggregate layout or why the compiler widens.",
+    "A working4-byte accessed-span provider remains separate from proof of a one-byte original declared object."
+  ],
+  "frozen_sources": {
+    "candidates/graphics_owner_helpers_13/graphics_owner_helpers.cpp": "8e0f2f608ccc1ef131b34826c647b4b423fb18ad71ec7a43312b3765f81ff9e6",
+    "calibration/graphics_palette.cpp": "fd746f903183c69336c9437bc9d2b99536c59cea7dd5b57a09aff44b30b6c541",
+    "calibration/graphics_update.cpp": "cc369d39505ad4d0e0e084a992315b86a2d81e1fcdeb7c192368c98279defc51",
+    "calibration/display_mode_transition.cpp": "c051c7b23605f54b5e557a82601684e36d04ee499472ec3ea2961bc07e0ee9d3"
+  },
+  "provenance": [
+    {
+      "path": "work/byte_load_context_16/prediction.json",
+      "sha256": "5c7e1407258fe110cf3f0c5a7bec2cee7b4eb094c4c03c2f54d3fc06a5223c18"
+    },
+    {
+      "path": "work/byte_load_context_16/build.py",
+      "sha256": "ebc042691ccb2df0676e7af5746846c4d45b291d78c9818dbb5ca7fa14291a82"
+    },
+    {
+      "path": "work/byte_load_context_16/parser_resume.json",
+      "sha256": "25de15055388012308c9b57d7ec4dab51bbde8da9d3f79b95b857627214d3ffe"
+    },
+    {
+      "path": "work/byte_load_context_16/measurement.json",
+      "sha256": "1ab4decc18c6dc2d01cbc1dec9c46fa289803764d2b9ca0fb9d9d79719991a5a"
+    },
+    {
+      "path": "work/byte_load_context_16/finalize.py",
+      "sha256": "b72b29ba43f8ac58e465a1c16e6ac5f5d519af84ed3abc2a54ce6b322b39217f"
+    },
+    {
+      "path": "work/byte_load_context_16/handoff.md",
+      "sha256": "e00770182bd8a6786b2d41735bdf34894c97415b71c6a406b31989e81163858e"
+    }
+  ],
+  "date": "2026-10-11",
+  "worker_receipt": {
+    "path": "work/byte_load_context_16/compact.json",
+    "sha256": "8da28165b548603f992f907581658a732cbd0d313d23962f96101a2da5500dd4"
+  }
+}

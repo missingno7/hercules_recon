@@ -1,0 +1,218 @@
+{
+  "lane": "sdk_cleanup_types_16",
+  "family": "mechanical SDK declaration transfer for existing EXE cleanup services",
+  "prediction": "Replacing the local three-slot COM surrogate and handwritten Win32/MCI declarations with the pinned Windows/DirectDraw/MCI/IUnknown C-interface declarations, and using only the true lpVtbl->Release member spelling, will preserve complete code bytes and ordered COFF relocations for all three unchanged cleanup bodies (272+32+64 bytes). The SDK signatures encode the same x86 WINAPI/STDMETHODCALLTYPE contracts and data references; no code-generation difference is predicted.",
+  "falsifier": "Any function extent, code byte, ordered relocation offset/symbol/type, or required symbol binding differs between fresh current-canonical baseline and the one SDK-typed candidate; any baseline/candidate full-span masked native gate failure/conflict/unsupported relocation; any source/state/oracle/toolchain/header input changes during the experiment.",
+  "outcome": "PRESERVED: one fresh canonical baseline and one fresh candidate build produce identical complete contribution bytes and ordered relocations for all three functions; both sides pass the current native full-span masked gates. Candidate remains private and is not FUNCTION_MATCH acceptance.",
+  "candidate": {
+    "path": "candidates/sdk_cleanup_types_16/cleanup_services.c",
+    "sha256": "f13e879e4bb055bba8414c1db19f4ea5b9d4731da10c2873574b4089cc68f14f",
+    "body_invocations_unchanged": true,
+    "change_summary": [
+      "Replace local CleanupObject/CleanupVtable surrogate with SDK IDirectDraw/IDirectDrawSurface/IDirectDrawPalette/IUnknown lpVtbl Release declarations.",
+      "Replace handwritten imported Win32/MCI prototypes with pinned SDK declarations.",
+      "Use proved HWND, HPALETTE, HDC, HBITMAP, LOGPALETTE*, BITMAPINFO* global views.",
+      "Function bodies, control flow, call sites, and literals remain unchanged."
+    ]
+  },
+  "same_path_c_stageplan": {
+    "action": "For later root integration only, replace the existing canonical C file bytes at calibration/cleanup_services.c with the reviewed candidate bytes.",
+    "destination": "calibration/cleanup_services.c",
+    "expected_destination_sha256": "696ade2f4322bed79d923fa27fea82632c56da05fd5ca52f8e76e594da5039df",
+    "candidate": "candidates/sdk_cleanup_types_16/cleanup_services.c",
+    "candidate_sha256": "f13e879e4bb055bba8414c1db19f4ea5b9d4731da10c2873574b4089cc68f14f",
+    "not_applied_by_worker": true,
+    "post_integration_checks": [
+      "Fresh pinned MSVC 5.0 /O2 /Gy canonical build.",
+      "Recheck all three full extents and complete native masked gates against the current HERCULES.EXE oracle.",
+      "Preserve current recovery statuses unless root independently changes them with its own acceptance evidence."
+    ]
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "compiler": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "historical_compile_flags": [
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2"
+    ],
+    "fresh_build_count": 2,
+    "commands": {
+      "baseline": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\sdk_cleanup_types_16\\run_01\\baseline.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\cleanup_services.c"
+      ],
+      "candidate": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\sdk_cleanup_types_16\\run_01\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\sdk_cleanup_types_16\\cleanup_services.c"
+      ]
+    }
+  },
+  "stability": {
+    "canonical_source_sha256": "696ade2f4322bed79d923fa27fea82632c56da05fd5ca52f8e76e594da5039df",
+    "recovery_sha256_before_after": {
+      "before": "6a09720bc2f667fc5a406b1fd1a8719589b8959fa5bd475ccaba18577c547926",
+      "after": "6a09720bc2f667fc5a406b1fd1a8719589b8959fa5bd475ccaba18577c547926"
+    },
+    "oracle_sha256_before_after": {
+      "before": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "after": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+    },
+    "all_inputs_stable": true,
+    "native_target_hashes_ok": true,
+    "pinned_sdk_include_tree": {
+      "files": 429,
+      "sha256_before": "6768709a4df50d19d5dd3178d3f9788d8446cdb939e0a8addf4c00da7ade4427",
+      "sha256_after": "6768709a4df50d19d5dd3178d3f9788d8446cdb939e0a8addf4c00da7ade4427",
+      "stable": true
+    },
+    "actual_transitive_header_count": 55,
+    "baseline_transitive_header_count": 1,
+    "candidate_transitive_header_count": 55,
+    "key_header_sha256": {
+      "windows.h": "1de22ddc1b079d330a8f5b02338a5ad5681b060cf3ac86f984a243ff2bdd9303",
+      "ddraw.h": "fcaadaaf15d5ee85db3dd6a40f1eee2f0dd7aabcecc494579022c55d063ecf34",
+      "mmsystem.h": "3ba7c98ffc53b070a60d3ea18fb3b0cdb4c0ceb1743fad6239d6dda9cb8c09f0",
+      "unknwn.h": "c8aa825b43be35df38faea40dd4c6eda2874fbd50dd3af62ebf2896ecbe92ca1",
+      "objbase.h": "17bb4450555c046ad995c8af7d921296b510cf30f916f56f23c232b800b6c418",
+      "wingdi.h": "23f25eec95cf776f75add1c694f0cb920e8e54dd9bf26320755e864ac76f0554",
+      "winuser.h": "df89c70f2c4392643f25d8b7e70d19b2052041d3bf4e2cb08f671ee6483a20ea",
+      "stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67"
+    }
+  },
+  "functions": [
+    {
+      "symbol": "_cleanup_native_74c0",
+      "rva": "0x74c0",
+      "bytes": 272,
+      "baseline_code_sha256": "4c8eb34eca67aa103d97c7997ba355d1ad52445ff3a14d1cce8e0e2cd0a2f28d",
+      "candidate_code_sha256": "4c8eb34eca67aa103d97c7997ba355d1ad52445ff3a14d1cce8e0e2cd0a2f28d",
+      "baseline_candidate_code_equal": true,
+      "ordered_relocations_equal": true,
+      "native_masked_baseline": true,
+      "native_masked_candidate": true,
+      "nonrelocation_differing_bytes": 0,
+      "binding_conflicts": [],
+      "unsupported_relocations": [],
+      "relocation_count": 30,
+      "bindings": {
+        "__imp__DeleteObject@4": "0x7a5674",
+        "__imp__InvalidateRect@12": "0x7a5ad8",
+        "__imp__ReleaseDC@8": "0x7a5aa0",
+        "__imp__SelectPalette@12": "0x7a5660",
+        "_cleanup_native_6bb0": "0x6bb0",
+        "_cleanup_native_6ec0": "0x6ec0",
+        "_free": "0x10ab0",
+        "_g_exe_96e3dc": "0x56e3dc",
+        "_g_exe_96e3e4": "0x56e3e4",
+        "_g_exe_96e3e8": "0x56e3e8",
+        "_g_exe_96e3ec": "0x56e3ec",
+        "_g_exe_96e3f0": "0x56e3f0",
+        "_g_exe_96e3f4": "0x56e3f4",
+        "_g_exe_96e3f8": "0x56e3f8",
+        "_g_exe_96e3fc": "0x56e3fc",
+        "_g_exe_96e400": "0x56e400",
+        "_g_exe_96e404": "0x56e404",
+        "_g_fatal_owner_window": "0x7a0200"
+      }
+    },
+    {
+      "symbol": "_cleanup_native_a120",
+      "rva": "0xa120",
+      "bytes": 32,
+      "baseline_code_sha256": "298cf887603222a2d4bfa52442842a694e1e5fa26c306b97d4d4cdd54353c93d",
+      "candidate_code_sha256": "298cf887603222a2d4bfa52442842a694e1e5fa26c306b97d4d4cdd54353c93d",
+      "baseline_candidate_code_equal": true,
+      "ordered_relocations_equal": true,
+      "native_masked_baseline": true,
+      "native_masked_candidate": true,
+      "nonrelocation_differing_bytes": 0,
+      "binding_conflicts": [],
+      "unsupported_relocations": [],
+      "relocation_count": 4,
+      "bindings": {
+        "??_C@_0BD@MIAN@close?5cdaudio?5wait?$AA@": "0x37438",
+        "__imp__mciSendStringA@16": "0x7a5b14",
+        "_cleanup_native_9e10": "0x9e10",
+        "_g_exe_96e630": "0x56e630"
+      }
+    },
+    {
+      "symbol": "_cleanup_native_ff70",
+      "rva": "0xff70",
+      "bytes": 64,
+      "baseline_code_sha256": "2a790246892c7102cc367d33d4a05fb6342733d241cb35a92aa09feb978f38e6",
+      "candidate_code_sha256": "2a790246892c7102cc367d33d4a05fb6342733d241cb35a92aa09feb978f38e6",
+      "baseline_candidate_code_equal": true,
+      "ordered_relocations_equal": true,
+      "native_masked_baseline": true,
+      "native_masked_candidate": true,
+      "nonrelocation_differing_bytes": 0,
+      "binding_conflicts": [],
+      "unsupported_relocations": [],
+      "relocation_count": 5,
+      "bindings": {
+        "_cleanup_native_ff40": "0xff40",
+        "_g_exe_79e440": "0x79e440",
+        "_g_exe_79e444": "0x79e444"
+      }
+    }
+  ],
+  "external_dependencies": [
+    "__imp__DeleteObject@4 (GDI32)",
+    "__imp__InvalidateRect@12 (USER32)",
+    "__imp__ReleaseDC@8 (USER32)",
+    "__imp__SelectPalette@12 (GDI32)",
+    "__imp__mciSendStringA@16 (WINMM)",
+    "_free (CRT)"
+  ],
+  "type_provenance": {
+    "calibration/graphics_storage.cpp": {
+      "sha256": "178b70f31d0c850c3b6d8f4f90eebd3b028d1d3ff09c2d1e526a6ee0beaec1de",
+      "bytes": 1749
+    },
+    "calibration/display_mode_transition.cpp": {
+      "sha256": "c051c7b23605f54b5e557a82601684e36d04ee499472ec3ea2961bc07e0ee9d3",
+      "bytes": 4898
+    },
+    "evidence/graphics_storage_adoption_2026_10_11.json": {
+      "sha256": "4c8bd05aaafa0ba36f371adf612dc1513d6ff18e232193879c1d7099d077766a",
+      "bytes": 41417
+    },
+    "evidence/graphics_storage_dependency_2026_10_11.json": {
+      "sha256": "5b868efaa0864ee8011a53ae60be2ce9ebd8be7b0de4bd122c5810b876a60621",
+      "bytes": 41308
+    }
+  },
+  "detailed_measurement": "work/sdk_cleanup_types_16/measurement.json",
+  "header_path_inventory": "work/sdk_cleanup_types_16/run_01/candidate.headers.json",
+  "oracle": "work/discs/pc_install/HERCULES.EXE",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "limitations": [
+    "The source identity and original translation-unit ownership remain unknown.",
+    "The two sound globals are typed as IUnknown* only for the observed common Release operation; no more specific interface identity is claimed.",
+    "Masked equality is evidence for relocation-normalized native behavior, not raw FUNCTION_MATCH or whole-image equality."
+  ],
+  "date": "2026-10-11",
+  "worker_receipt": {
+    "path": "work/sdk_cleanup_types_16/receipt.json",
+    "sha256": "266f7f53dababe123c188898698ff4b21f358376d32941383d2f19fc993ba997"
+  },
+  "current_canonical": {
+    "source": "calibration/cleanup_services.c",
+    "source_sha256": "f13e879e4bb055bba8414c1db19f4ea5b9d4731da10c2873574b4089cc68f14f",
+    "integration": "Freshsimilar.stage and currentfullmasked regression pass; selected26-unit link preserves368complete codebytes/orderedrelocations."
+  }
+}

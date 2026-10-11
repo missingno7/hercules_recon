@@ -15,7 +15,7 @@ extern HPALETTE g_exe_96e3fc;
 extern void __cdecl graphics_native_07140(void);
 extern void __cdecl graphics_native_06ee0(int, int, int);
 extern void __cdecl graphics_native_06620(void);
-extern void __cdecl graphics_native_06700(int);
+extern UINT __cdecl graphics_native_06700(int);
 }
 
 extern "C" void __cdecl graphics_native_069a0(unsigned char wait)

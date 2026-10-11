@@ -142,3 +142,14 @@ proofs with the actual staged blob bytes. Historical scratch receipts keep their
 original identities; migrate a durable receipt only for its explicitly named,
 unchanged artifact when normalizing text. Do not replace historical source
 snapshots with the current source hash.
+
+Graphics storage uses the same fresh field verifier. Its 27 observed cells
+contribute one initialized byte and 150 loader-zero bytes; compiler alignment,
+heap targets and original aggregate/TU/placement remain outside that proof.
+
+Do not infer a DWORD source object from a DWORD load followed by an FF mask.
+Pinned RTM BYTE controls show that a same-TU one-byte definition can emit that
+form with ordinary alignment, while an external BYTE uses a byte load. Recover
+the actual minimum object and unit context, then run the complete function/data
+gates. Do not add DWORD storage, unions or pointer casts just to force the load.
+See `evidence/byte_load_context_control_2026_10_11.json`.

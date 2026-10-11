@@ -401,3 +401,56 @@ represented; no same-size transfer is inferred. One new ENG3 axis neighbor at
 0x19f30 has 160 bytes and ten callers, but its first candidate fails with 20
 nonrelocation bytes and a displaced helper reference. That source also stays
 private. These results change reentry conditions, without adding accepted code.
+
+## Graphics storage and BYTE definition-context wave
+
+Two actual helpers add 176 complete masked bytes: palette realization at EXE
+0x6700 (128) and the display-transition DirectSound stop at 0x3770 (48). The
+palette caller's discarded return declaration is reconciled to the working GDI
+UINT result while preserving all 192 bytes and ordered references. The cleanup
+source now uses genuine pinned COM, Win32 and MCI declarations; all three complete
+bodies / 368 bytes and ordered references remain unchanged.
+
+The graphics provider supplies 27 supported cells: the native initialized update
+byte has value 1, and 26 loader-zero cells cover 150 observed bytes. SDK writers
+and readers support pointer/handle cells and complete 44-byte WINDOWPLACEMENT and
+16-byte RECT buffers. It defines no heap/COM objects, capacities, original
+aggregate or source-unit ownership. Ten compiler alignment bytes remain
+uncredited. The reused `archive_storage.py` now verifies these fields too,
+bringing checked initialized fields to 227 bytes and observed zero storage to
+304 bytes, with no functions or relocations in the data providers.
+
+The fresh 26-source natural link preserves 21 unchanged full COFF units and the
+reconciled 192/368-byte bodies. It closes 29 real names and exposes three actual
+sound dependencies: unresolved names fall from 51 to 25. This is supported
+dependency closure, without a final linked/image matching claim.
+
+Six bounded RTM controls establish a useful counterexample: mutable same-TU
+global/static BYTE objects emit DWORD-load plus FF-mask even when the allocated
+object is one byte with ordinary four-byte alignment. Extern BYTE uses a byte
+load. C and C++ both show the distinction. Neither DWORD source variables nor
+unique original ownership/type/language follow from the native instruction shape.
+The first five header checks were transient before a reporting parser failure;
+only the sixth resume has an independently saved before/after-header receipt.
+Full-function acceptance remains a separate fresh gate. The color-fill source's
+unsupported extra presentation call was removed; its corrected body still fails.
+One real four-BYTE-cache owner pilot now tests the diagnosed TU discriminator.
+
+That pilot produces both native DWORD/FF load forms, the 272-byte contribution
+and matching 12-block structure, while the full byte gate still fails. Four
+one-byte objects occupy offsets 0/4/8/12 in a 13-byte, four-aligned `.bss`; the
+nine alignment bytes are uncredited and the entire failed source stays private.
+A separate paired SDK control isolates aggregate initialization from ordinary
+memset. Both final 100-byte DDBLTFX records agree, but `{0}` clears 96 bytes and
+memset clears all 100, matching the native clear. The two 64-byte contributions
+differ in exactly two instruction bytes; ordered references and setter code
+remain identical. One initialization pilot follows this specific result.
+See `evidence/color_fill_owner_control_2026_10_11.json` and
+`evidence/sdk_record_zeroing_control_2026_10_11.json`.
+
+Current recovery is 117 strict functions / 7,904 bytes, 389 masked functions /
+85,024 bytes in 51 sources, four reconstructed functions / 880 bytes, and 352
+legacy similar bytes. Fresh raw/masked regression, 54 tests, field verification
+and twelve original-file checks pass. No strict bytes are added. See
+`evidence/full_goal_graphics_storage_wave_2026_10_11.json` and
+`evidence/byte_load_context_control_2026_10_11.json`.

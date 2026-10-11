@@ -1,4 +1,4 @@
-"""Fresh archive/fatal/registry field diagnostic; never function or image acceptance."""
+"""Fresh archive/fatal/registry/graphics field diagnostic; never image acceptance."""
 import argparse
 import json
 import sys
@@ -42,6 +42,18 @@ if registry_evidence.exists() or any((root/p).exists() for p in registry_paths):
  for provider in registry_proof['canonical_providers']:
   assert digest((root/provider['source']).read_bytes())==provider['source_sha256']
  sources.extend(registry_paths)
+graphics_evidence=root/'evidence/graphics_storage_adoption_2026_10_11.json'
+graphics_source=root/'calibration/graphics_storage.cpp'
+graphics_before=None;graphics_proof=None
+if graphics_evidence.exists() or graphics_source.exists():
+ assert graphics_evidence.is_file() and graphics_source.is_file()
+ graphics_before=graphics_evidence.read_bytes();graphics_proof=json.loads(graphics_before)
+ assert graphics_proof['oracle']['sha256']==digest(pe.data)
+ assert graphics_proof['canonical_provider']['source']=='calibration/graphics_storage.cpp'
+ assert digest(graphics_source.read_bytes())==graphics_proof['canonical_provider']['source_sha256']
+ for header in graphics_proof['actual_headers']:
+  assert digest(Path(header['path']).read_bytes())==header['sha256']
+ sources.append('calibration/graphics_storage.cpp')
 before={p:digest((root/p).read_bytes()) for p in sources}
 pin=verify_toolchain(DEFAULT_TOOLCHAIN)
 reports={};commons={};bss_storage={}
@@ -96,6 +108,33 @@ for path in sources:
    assert sec['name']=='.data' and sec['flags']&0x80000000
    measured.append({'name':name,'rva':span['rva'],'bytes':len(data),'sha256':digest(data),'section':sec['name']})
   reports[path]['strings']=measured
+ elif path.endswith('graphics_storage.cpp'):
+  cells=graphics_proof['canonical_provider']['cells']
+  assert len(cells)==27 and definitions=={'_'+cell['name'] for cell in cells}
+  assert not any(s['section']==0 for s in symbols.values())
+  assert not any(s['size'] for s in c.sections if s['name'] not in ('.drectve','.data','.bss'))
+  spans={};initialized=0;zero=0
+  for cell in cells:
+   name='_'+cell['name'];s=symbols[name];sec=c.sections[s['section']-1]
+   start=s['value'];width=cell['bytes'];end=start+width;rva=int(cell['rva'],0)
+   assert end<=sec['size'] and sec['flags']&0x80000000
+   spans.setdefault(s['section'],[]).append((start,end,name))
+   native=next(n for n in pe.sections if n['virtual_address']<=rva<n['virtual_address']+n['virtual_size'])
+   assert native['name']=='.data' and native['characteristics']&0x80000000
+   if cell['native_initial_origin']=='file-backed initialized bytes':
+    assert sec['name']=='.data' and sec['data'][start:end]==pe.read_rva(rva,width)==bytes.fromhex(cell['initializer'])
+    initialized+=width
+   else:
+    assert cell['native_initial_origin']=='loader-zero virtual tail'
+    assert sec['name']=='.bss' and sec['flags']==0xc0400080 and not sec['data']
+    assert rva>=native['virtual_address']+native['raw_size'] and rva+width<=native['virtual_address']+native['virtual_size']
+    assert bytes.fromhex(cell['initializer'])==bytes(width)
+    bss_storage[name]=width;zero+=width
+  for intervals in spans.values():
+   intervals.sort();assert all(a[1]<=b[0] for a,b in zip(intervals,intervals[1:]))
+  assert initialized==1 and zero==150
+  reports[path]['access_width_cells']=cells
+  reports[path]['initialized_field_bytes']=initialized
  else:
   cells=fatal_proof['canonical_provider']['cells']
   assert definitions=={'_'+cell['name'] for cell in cells}
@@ -124,13 +163,20 @@ if fatal_before is not None:
  assert fatal_evidence.read_bytes()==fatal_before
 if registry_before is not None:
  assert registry_evidence.read_bytes()==registry_before
-result={'scope':'Fresh canonical data/object equality and source/loader-zero proofs; not native placement or whole-module acceptance.','evidence_sha256':digest(evidence_before),'toolchain':pin,'target_sha256':digest(pe.data),'providers':reports,'common_storage_bytes':commons,'bss_storage_bytes':bss_storage,'initialized_bytes':sum(s['bytes'] for provider in reports.values() for s in provider.get('strings',[]))+4,'zero_storage_bytes':sum(commons.values())+sum(bss_storage.values()),'functions':0,'relocations':0}
+if graphics_before is not None:
+ assert graphics_evidence.read_bytes()==graphics_before
+ for header in graphics_proof['actual_headers']:
+  assert digest(Path(header['path']).read_bytes())==header['sha256']
+result={'scope':'Fresh canonical data/object equality and source/loader-zero proofs; not native placement or whole-module acceptance.','evidence_sha256':digest(evidence_before),'toolchain':pin,'target_sha256':digest(pe.data),'providers':reports,'common_storage_bytes':commons,'bss_storage_bytes':bss_storage,'initialized_bytes':sum(s['bytes'] for provider in reports.values() for s in provider.get('strings',[]))+4+sum(p.get('initialized_field_bytes',0) for p in reports.values()),'zero_storage_bytes':sum(commons.values())+sum(bss_storage.values()),'functions':0,'relocations':0}
 if fatal_before is not None:
  result['fatal_evidence_sha256']=digest(fatal_before)
  result['fatal_storage_limit']='Only observed4+1+1byte zero cells; original declaration/aggregate extent, TU and native placement remain unproved.'
 if registry_before is not None:
  result['registry_evidence_sha256']=digest(registry_before)
  result['registry_storage_limit']='Only the72-byte protocol prefix and49 observed initialized string bytes; full record extent, original type/TU and literal spacing/native placement remain unproved.'
+if graphics_before is not None:
+ result['graphics_evidence_sha256']=digest(graphics_before)
+ result['graphics_storage_limit']='27observed cells/151bytes; ordinary alignment gaps, heap targets/capacities, original aggregate/TU/order/native placement remain unproved.'
 output.parent.mkdir(parents=True,exist_ok=True)
-output.write_text(json.dumps(result,indent=2)+'\n')
+output.write_bytes((json.dumps(result,indent=2)+'\n').encode())
 print(json.dumps({k:result[k] for k in ('initialized_bytes','zero_storage_bytes','functions','relocations')}))
