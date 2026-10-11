@@ -1,0 +1,162 @@
+{
+  "date": "2026-10-11",
+  "scope": "Preserved near-exact80-byte source with conditional address/CFG support; not byte matching or exhaustive behavior acceptance.",
+  "function": {
+    "id": "eng3.process_middle_actor_pool",
+    "status": "RECONSTRUCTED",
+    "name_status": "provisional semantic label; shared incomplete actor tag and original TU unproved",
+    "target": "assets/pc/HERCULES/ENG3.DLL",
+    "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+    "rva": "0x1d2d0",
+    "size": 80,
+    "body_size": 77,
+    "source": "calibration/eng3/actor_middle_pool_driver.c",
+    "symbol": "_eng3_process_middle_actor_pool",
+    "flags": [
+      "/O2"
+    ],
+    "evidence": "Complete pool driver reloads actual WORD count and pool pointer, walks0xec-byte records, calls step1d190 then cleanupA6B0 forzero/reset1d380 fornonzero. One ordinary zero-first conditional control predicts native branch/call placement and removes positional binding inversion; fresh canonical contribution reproduces it. Only the equivalent scale1SIB operand order remains. RECONSTRUCTED only: raw/masked gates both fail; behavior support remains conditional. evidence/eng3_pool_driver_fallback_2026_10_11.json. Driver uses the shared incomplete actor tag and measured byte stride, avoiding a conflicting opaque complete declaration; complete code/references preserve.",
+    "boundary": "Native and fresh complete80-byte contribution return at1d31c followed bythreeNOPs to independently called1d320. No original source/TU extent claim.",
+    "link_symbols": {
+      "_g_eng3_middle_limit_primary": "0x40c32",
+      "_g_eng3_middle_actor_pool": "0x43174",
+      "_process_eng3_middle_actor": "0x1d190",
+      "_reset_eng3_middle_actor": "0x1d380",
+      "_cleanup_eng3_actor_0a6b0": "0xa6b0"
+    },
+    "proof": {
+      "scope": "fresh near-exact reconstructed contribution; neither raw nor masked equality",
+      "source_sha256": "fe205e006e49d3363ec0838b0572965ccbbc92017e35f2bec07cba32d9415aad",
+      "compiled_sha256": "604eed6a4471ea8e8b7fe0da3b606eb622e1192da5143d0eeeb016aaa39dfcbd",
+      "nonrelocation_differences": 1,
+      "raw_differences": 22,
+      "toolchain": "msvc5_rtm"
+    }
+  },
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG3.DLL",
+    "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+  },
+  "worker_receipt": {
+    "path": "work/engine_frontier_26/handoff.json",
+    "sha256": "8c47e04f503656077b2e1a67741775b295fbc4147bf2c34a6670d1ed91361a4a"
+  },
+  "behavior_audit": {
+    "path": "work/engine_frontier_26/behavior_audit.json",
+    "sha256": "a305db469486a44fef194c5c35bdf880a3b4be6c70c51360f4ec1705e7c9c172"
+  },
+  "fresh_canonical": {
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-rppo3fzg\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\eng3\\actor_middle_pool_driver.c"
+    ],
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-rppo3fzg\\candidate.obj",
+    "object_sha256": "9523981c9eb8d93787668f11641a5e62b5bbd2550d140bff4b4268ea3fcb8031",
+    "complete_candidate_contribution_preserved": true,
+    "compiled_bytes": 80,
+    "raw_equal": false,
+    "raw_differing_bytes": 22,
+    "masked_equal": false,
+    "masked_differing_bytes": 1,
+    "unsupported_relocations": 0,
+    "conflicts": 0,
+    "all_implied_helper_and_data_bindings_match_expected": true
+  },
+  "physical_review": {
+    "residual_offsets": [
+      23
+    ],
+    "address": "LEA ESI:[EAX+EDI] versus[EDI+EAX], scale1, zero displacement,32-bit sum, no memory access or flag modification.",
+    "branch_paths": [
+      {
+        "result": "zero",
+        "native": "fallthrough cleanup at+0x26",
+        "compiled": "fallthrough cleanup at+0x26",
+        "callee": "0xa6b0"
+      },
+      {
+        "result": "nonzero",
+        "native": "JNE taken reset at+0x2d",
+        "compiled": "JNE taken reset at+0x2d",
+        "callee": "0x1d380"
+      }
+    ],
+    "absolute_refs": [
+      {
+        "offset": 6,
+        "symbol": "_g_eng3_middle_limit_primary",
+        "native_rva": "0x40c32"
+      },
+      {
+        "offset": 17,
+        "symbol": "_g_eng3_middle_actor_pool",
+        "native_rva": "0x43174"
+      },
+      {
+        "offset": 58,
+        "symbol": "_g_eng3_middle_limit_primary",
+        "native_rva": "0x40c32"
+      }
+    ],
+    "positional_binding_limit": "Initial nonzero-first source swapped blocks and made positional inferred bindings wrong. Current ordinary zero-first condition preserves both logical paths and matches native branch/call positions. The remaining SIB difference still fails both equality gates."
+  },
+  "assumptions": [
+    "g_eng3_middle_limit_primary is a valid nonnegative WORD record count at RVA 0x40c32.",
+    "g_eng3_middle_actor_pool at RVA 0x43174 addresses at least that many contiguous 0xec-byte records.",
+    "process_eng3_middle_actor at RVA 0x1d190 returns nonzero for the reset path and zero for the cleanup path.",
+    "reset_eng3_middle_actor at RVA 0x1d380 and cleanup helper at RVA 0x0a6b0 accept one actor pointer using caller cleanup."
+  ],
+  "missing_step_body": "The320-byte step at1d190 remains unowned; this driver preserves that external call rather than supplying an invented implementation.",
+  "toolchain": "msvc5_rtm",
+  "limits": "No actor fields, capacity, source/record/TU identity or exhaustive behavior is established. Only full reviewed driver source is retained; no compiler steering, bytes, assembly, comparator relaxation or strict/masked acceptance. Invalid pointer/count/callee contracts remain outside the conditional proof.",
+  "initial_canonical_control": {
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-58f8n_t5\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\eng3\\actor_middle_pool_driver.c"
+    ],
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-58f8n_t5\\candidate.obj",
+    "object_sha256": "efdab11d35e94a3a33ee9f6eb3428ddbad6c5697783d3ef2e43b9d429ee78ddf",
+    "complete_candidate_contribution_preserved": true,
+    "compiled_bytes": 80,
+    "raw_equal": false,
+    "raw_differing_bytes": 23,
+    "masked_equal": false,
+    "masked_differing_bytes": 2,
+    "unsupported_relocations": 0
+  },
+  "branch_control": {
+    "prediction_path": "work/root_prepare_26/driver_branch_prediction.json",
+    "prediction_sha256": "67bcd0232b1687e24213da9bbc8e2e2ab80e6c1bdadc47a247c377c6262e1bf2",
+    "receipt_path": "work/root_prepare_26/driver_branch_control.json",
+    "receipt_sha256": "75fa9dd5c765b3687a750a9c06173a3a20f4d026677406be3a6adac0229d0f85",
+    "candidate_builds": 1,
+    "canonical_validation_builds": 1,
+    "prior_source_sha256": "1e09f8b226dd5b14a6b0aeb1b515aadf173997d60c4359383b5c0c606116b8bb",
+    "ordinary_source_delta": "Express the same condition as process(actor)==0 with cleanup first/reset else; no other source line changes.",
+    "gain": "Removes one codebyte mismatch and restores positional reference coherence; no new strict/masked bytes.",
+    "stop": "The remaining scale1SIB ordering belongs to the already observed equivalent-address blocker; no further spelling/flags/type grid follows."
+  },
+  "source_type_control": {
+    "prediction_path": "work/root_prepare_26/driver_type_prediction.json",
+    "prediction_sha256": "6c615cf02c307492fb1ad7f33c7a07de0e90153d7d6ea433f811015e1d726837",
+    "receipt_path": "work/root_prepare_26/driver_type_control.json",
+    "receipt_sha256": "19160b799b721d2f243ea838745cf4417b655abfa127c640f683865934f0ccd9",
+    "candidate_builds": 1,
+    "canonical_validation_builds": 1,
+    "prior_source_sha256": "c073799d600418e3ae21bb9e77e6c4f733f5c2896dfb4843950848191e7e64af",
+    "source_delta": "Replace the unused conflicting complete byte-array actor definition with the same incomplete shared tag and the measured used0xec byte stride.",
+    "all_complete_code_references_and_noncode_preserved": true,
+    "byte_gain": 0,
+    "limit": "This fixes a working C declaration consistency issue; original actor declaration/TU/sizeof spelling and storage capacity remain unproved."
+  }
+}

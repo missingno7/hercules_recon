@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-11",
+  "scope": "Native-supported allocation-output pointer source view; complete24-function preservation. No new recovery bytes, cell owner or original TU acceptance.",
+  "oracles": [
+    {
+      "path": "work/discs/pc_install/TITLE.DLL",
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "canonical_oracle_identical": true
+    },
+    {
+      "path": "work/discs/pc_install/HERCULES.EXE",
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+    }
+  ],
+  "canonical_source": {
+    "path": "calibration/title/u02b70.c",
+    "before_sha256": "7a3590cbccdecb03dbbefced9cdfc43e083096bdae86ad04bb3fd747059d5c49",
+    "after_sha256": "dfb2184175a8370d501b6011acfeeb65a9c2d8a50f58cd7a5b1f89c5caea97dd",
+    "delta": "Only extern int g_2bb24 becomes extern char *g_2bb24; source expressions, headers, control flow and data definitions unchanged."
+  },
+  "preservation": {
+    "functions": 24,
+    "code_bytes": 5584,
+    "all_complete_code_and_ordered_references": true,
+    "complete_noncode_contributions": true,
+    "affected_strict_functions": 0
+  },
+  "native_protocol": {
+    "allocation": "TITLE1d380 passes &cell2bb24 and byte count23000 through the real allocation adapter. Existing r1c430 char* view agrees;4660/1d590 consumers select byte offset11800.",
+    "owner": "Host4570 stores the output-slot address in a block header;4750 can clear an owner slot and4690 can update one during shrink/relocate. No specific free/relocate invocation for this TITLE cell is claimed.",
+    "pair_cursor": "2bb20 resets to2b720 and advances by two DWORDs; an eight-byte pair index is stored in a byte.",
+    "motion_cursor": "2bb28 uses packed signed DWORDs and advances/skips whole words. Missing18bf0 resets the cursor before three-argument handler dispatch."
+  },
+  "cells": {
+    "minimum_zero_bytes_each": 4,
+    "supplied_definitions": 0,
+    "capacities": "unknown",
+    "original_independent_owner_aggregate_TU": "unknown"
+  },
+  "control": {
+    "builds": 2,
+    "source_recipe_manifest_sha256": "ec6c585229ed2c93a5d28e2c47a5e0b08b63196b29f6cd140467ab645096c510",
+    "guarded_sdk_header_files": 338,
+    "guarded_title_header_files": 6,
+    "guarded_sources": 39,
+    "limits": "Guarded header inventory is not the count of actual includes or proof of original include order."
+  },
+  "fresh_canonical": {
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-7i0nbp3a\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\title\\u02b70.c"
+    ],
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-7i0nbp3a\\candidate.obj",
+    "object_sha256": "8f4ab7071a4168cc7c713c15db4d15c81bc52a3d36075d3f03c0b1b0e95ca160",
+    "complete_worker_and_archived_contributions_equal": true
+  },
+  "selected_natural_link": {
+    "sources": 39,
+    "unresolved_before": 97,
+    "unresolved_after": 97,
+    "duplicates": 0,
+    "forced_image": false,
+    "unchanged_frozen_objects_reused": 38
+  },
+  "receipts": [
+    {
+      "path": "work/title_cursor_ownership_26/compact.json",
+      "sha256": "7acb06c193a4342b0556d421791d65838ca6a2951d68215a32f35852621db7ce"
+    },
+    {
+      "path": "work/title_cursor_ownership_26/native_audit.json",
+      "sha256": "0fa97ea9bc2b3132a31180fbc5f9849232d0eaf4440511ec81b0890d4f19bf8b"
+    },
+    {
+      "path": "work/title_cursor_ownership_26/control_manifest.json",
+      "sha256": "ec6c585229ed2c93a5d28e2c47a5e0b08b63196b29f6cd140467ab645096c510"
+    },
+    {
+      "path": "work/title_cursor_ownership_26/control_result.json",
+      "sha256": "8027c1c46c180f69a98b6838efce0dc045efaaab1c8441859c30dd961e9c2531"
+    }
+  ],
+  "limits": "Pointer type follows actual output-slot/byte-offset protocol, not source/TU identity or compiler tie-break speculation. No data capacities or definitions, original image layout, new byte matches or gate normalization are introduced."
+}

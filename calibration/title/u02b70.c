@@ -61,7 +61,7 @@ extern int g_2df44;
 extern TitleRect g_22100;
 extern unsigned short g_22108[32];
 extern unsigned char g_2dfac;
-extern int g_2bb24;
+extern char *g_2bb24;
 unsigned char title_04710(char *p, int b, int c, int d);
 unsigned char title_046b0(unsigned short key, unsigned int f);
 void title_047d0(int a, int v, int b);

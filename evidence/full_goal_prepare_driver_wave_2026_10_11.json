@@ -1,0 +1,142 @@
+{
+  "date": "2026-10-11",
+  "base_commit": "f4353c8",
+  "scope": "One native-masked host service, one near-exact engine driver, a native-supported TITLE pointer view and wider real source-graph evidence. Full matching remains active.",
+  "recovery_sha256": "9988359f98d7d903076ab6a001cb82ac6881361b0c48677a151e78889d9009d2",
+  "metrics": {
+    "strict": {
+      "functions": 120,
+      "bytes": 8064
+    },
+    "masked": {
+      "functions": 430,
+      "bytes": 86560
+    },
+    "reconstructed_non_strict": {
+      "functions": 6,
+      "bytes": 1088
+    },
+    "legacy_similar": {
+      "functions": 3,
+      "bytes": 352
+    },
+    "untracked_map_leads": {
+      "functions": 1970,
+      "bytes": 516128
+    }
+  },
+  "strict_gain_bytes": 0,
+  "masked_gain_bytes": 32,
+  "reconstructed_gain_bytes": 80,
+  "data_gain_bytes": 0,
+  "changed_existing_rows": 24,
+  "changed_function_bytes": 5584,
+  "unchanged_existing_rows": 533,
+  "previous_strict_functions_preserved": 120,
+  "previous_strict_bytes_preserved": 8064,
+  "new_functions": [
+    {
+      "id": "exe.host_file_prepare",
+      "source": "calibration/host_file_prepare.c",
+      "rva": "0x1d60",
+      "symbol": "_host_file_prepare",
+      "bytes": 32,
+      "status": "CODEGEN_SIMILAR",
+      "bindings": {
+        "_empty_host_callback": "0xbe30",
+        "_g_host_engine_interface": "0x361b8",
+        "_g_resource_prepare_scalar": "0x352b0"
+      }
+    },
+    {
+      "id": "eng3.process_middle_actor_pool",
+      "source": "calibration/eng3/actor_middle_pool_driver.c",
+      "rva": "0x1d2d0",
+      "symbol": "_eng3_process_middle_actor_pool",
+      "bytes": 80,
+      "status": "RECONSTRUCTED",
+      "bindings": {
+        "_g_eng3_middle_limit_primary": "0x40c32",
+        "_g_eng3_middle_actor_pool": "0x43174",
+        "_process_eng3_middle_actor": "0x1d190",
+        "_reset_eng3_middle_actor": "0x1d380",
+        "_cleanup_eng3_actor_0a6b0": "0xa6b0"
+      }
+    }
+  ],
+  "source_identities": {
+    "calibration/host_file_prepare.c": "24d921229d7f81d9f1041aa93cb39bbc7f4e2bc52be1bd28858c818583e0992c",
+    "calibration/eng3/actor_middle_pool_driver.c": "fe205e006e49d3363ec0838b0572965ccbbc92017e35f2bec07cba32d9415aad",
+    "calibration/title/u02b70.c": "dfb2184175a8370d501b6011acfeeb65a9c2d8a50f58cd7a5b1f89c5caea97dd"
+  },
+  "source_graphs": {
+    "TITLE": {
+      "selected_sources": 39,
+      "unresolved": 97,
+      "duplicates": 0,
+      "code_storage_refs_preserved": true
+    },
+    "EXE": {
+      "recorded_code_sources": 33,
+      "selected_sources": 47,
+      "unresolved": 15,
+      "old_selected_sources": 34,
+      "old_unresolved": 8,
+      "old_complete_contributions_preserved": true
+    }
+  },
+  "packet_capability": "Strict closure unchanged; separate recorded non-strict source and unrecorded-function lists prevent duplicate reconstruction. No alternate recovery authority or acceptance rule.",
+  "evidence": [
+    {
+      "path": "evidence/host_prepare_adoption_2026_10_11.json",
+      "sha256": "2cc5a82a0d2a62c218cff387cc857d7046a276c8814d5905c1279c29415dfe5e"
+    },
+    {
+      "path": "evidence/eng3_pool_driver_fallback_2026_10_11.json",
+      "sha256": "c73ecba316168199232d7ff88ef5f1f7f5be9d8e73a2a8d2752f276bf5651bb0"
+    },
+    {
+      "path": "evidence/title_cursor_source_view_2026_10_11.json",
+      "sha256": "bb766c5befb5e9c4d02350e5e38daa7ddbb2d9ce2d66e046a30720ade37090ff"
+    },
+    {
+      "path": "evidence/exe_recorded_graph_2026_10_11.json",
+      "sha256": "283812527ec1917d5631310d1f9027a0f9b3198b0fc5e6910d4df8bd2d0cddcf"
+    },
+    {
+      "path": "evidence/independent_controls_2026_10_11_wave26.json",
+      "sha256": "d823c04e3aa45e0baef54d79f261567ed8bd0c83b0cd70566b7e77e72105303f"
+    }
+  ],
+  "validation": [
+    {
+      "path": "work/root_prepare_26/strict_final.json",
+      "sha256": "700a3c26d5522d533ee7fdec80a6b83c58128989f110ea14dd55c5986834f59b"
+    },
+    {
+      "path": "work/root_prepare_26/masked_final.txt",
+      "sha256": "450da41c28587617233d56a9ec54edaf38bc5521cbe2ba0fc553edc1d47a17e3"
+    },
+    {
+      "path": "work/root_prepare_26/tests_final.txt",
+      "sha256": "f920bd4660b5c18411ec426498eccfda88b58bbc84714ad4c5214609429c1e64"
+    },
+    {
+      "path": "work/root_prepare_26/data_final.json",
+      "sha256": "d27e5a9e440125be4f46fa1b11fc9efdc0d85d9ba2db2a1416cd69634dbef858"
+    },
+    {
+      "path": "work/root_prepare_26/convergence.json",
+      "sha256": "5cccf05542db9256208bd81355ea2808ce0927d7bc06614938a1c1813f634d47"
+    },
+    {
+      "path": "work/root_prepare_26/title_link.json",
+      "sha256": "e6b55fe6db8cc5ae9723bc241898cce0899c562bfec7973291484cca3150832a"
+    },
+    {
+      "path": "work/root_prepare_26/exe_graph.json",
+      "sha256": "6c3639e2a97b53982be17b7be96a6106562c932bb81af353e9c615a64b532089"
+    }
+  ],
+  "limits": "No new strict bytes or whole-image equality. Driver valid-pool/callee support remains conditional; one SIB byte still fails both gates. Real pointer/cursor protocols do not establish full capacity, original types/TU or data owner. Failed full-service/movie recipes stay private. Assets, pinned tools and function gates unchanged."
+}

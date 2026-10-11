@@ -78,5 +78,26 @@ class RegionTests(unittest.TestCase):
             self.assertEqual(result['frontier'],[])
             self.assertEqual(result['canonical_in_region'],1)
 
+    def test_packet_reports_non_strict_source_without_closing_strict_frontier(self):
+        scratch=Path(__file__).resolve().parents[1]/'work'
+        with tempfile.TemporaryDirectory(dir=scratch) as temp,patch('region.ROOT',Path(temp)):
+            root=Path(temp)
+            def write(name,value):
+                p=root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(value))
+            write('toolchains/manifest.json',{})
+            spec=dict(region=dict(id='r',ownership='inferred_region'),target_sha256='oracle',flags=['/O2'],
+                      functions=[dict(symbol='_f',rva='0x1000',size=16),dict(symbol='_g',rva='0x1010',size=16)])
+            write('evidence/spec.json',spec);(root/'base.c').write_text('source')
+            write('evidence/region_index.json',dict(regions=[dict(id='r',spec='evidence/spec.json',baseline='base.c')]))
+            write('recovery.json',dict(functions=[dict(id='known',status='CODEGEN_SIMILAR',target_sha256='oracle',
+                rva='0x1000',size=16,source='calibration/f.c',proof=dict(scope='masked diagnostic'))]))
+            with redirect_stdout(io.StringIO()):p=packet('r')
+            result=json.loads(p.read_text())
+            self.assertEqual(result['unresolved'],['_f','_g'])
+            self.assertEqual(result['canonical_in_region'],0)
+            self.assertEqual(result['unrecorded_functions'],['_g'])
+            self.assertEqual(result['recorded_non_strict_functions'],[dict(region_symbol='_f',recovery_id='known',
+                status='CODEGEN_SIMILAR',source='calibration/f.c',bytes=16,extent_agrees=True,proof_scope='masked diagnostic')])
+
 
 if __name__=='__main__':unittest.main()

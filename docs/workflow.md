@@ -48,6 +48,11 @@ Packets identify source/context, unresolved functions, selected frontier, tried
 families, blockers, re-entry evidence, next discriminator and ungated work. Changed
 baseline/oracle/flags/symbol context invalidates old receipts. Canonical closure is
 overlaid from recovery state each time; fully closed regions expose no frontier.
+`unresolved` and `canonical_in_region` describe strict closure. The separate
+`recorded_non_strict_functions` list exposes existing source, recovery status,
+proof scope and extent agreement; `unrecorded_functions` means absent from
+`recovery.json`, and may still have private drafts. Use these lists to avoid
+duplicating recovered source while preserving every strict pending function.
 For header-using regions, `context_files` lists the bounded transitive repository
 dependencies. Their hashes participate in context identity and are captured
 before/after fresh compilation. Receipt writing rejects missing/stale hashes;

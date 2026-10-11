@@ -810,3 +810,61 @@ recovery row is unchanged; fresh strict/masked checks and all 58 tests pass.
 The data additions are accounted separately: 81,920 EXE zero bytes and eight
 TITLE zero bytes. The checkpoint is
 `evidence/full_goal_storage_context_wave_2026_10_11.json`.
+
+## File preparation, pool driver and pointer consistency
+
+The actual-interface view recovers the complete 32-byte host file preparation
+service at EXE 0x1d60: call the strict empty callback, clear the live context's
+DWORD at +0x1b00, then clear the scalar at 0x352b0. Both separate stores and a
+chained assignment produce identical native-masked code; the simpler source is
+staged. No original EXE HIGHLOW directory is asserted. The scalar's native
+FFFFFFFF initializer and the host table remain real ownership dependencies.
+See `evidence/host_prepare_adoption_2026_10_11.json`.
+
+The full six-service owner substitution fails all six byte gates and regresses
+the isolated preparation peer in that context. Its explicit pointer local is a
+different source graph from the direct member expression. This is a future
+controlled discriminator, not a reason to replay statement or header grids.
+The separate movie opener baseline also fails at 688/672 bytes with 394 masked
+residuals and 19 conflicts. Both controls remain private; see
+`evidence/independent_controls_2026_10_11_wave26.json`.
+
+ENG3 0x1d2d0 now has an 80-byte reconstructed pool driver. Independent native
+and COFF decoding establishes both helper paths. One zero-first conditional
+control reproduces the native branch and call placement, reducing two residual
+bytes to one and restoring positional reference coherence. The remaining
+scale-1 SIB swaps equivalent base/index roles. Both byte gates still fail;
+retain RECONSTRUCTED status and the valid-pool/callee assumptions. The adjacent
+320-byte actor step stays an external missing body. See
+`evidence/eng3_pool_driver_fallback_2026_10_11.json`.
+
+TITLE's allocation output at 0x2bb24 now uses the existing `char *` view from
+its writer and byte-offset consumers. Only one declaration changes; all 24
+functions / 5,584 bytes, references and noncode contributions preserve. The
+39-source selected natural link remains at 97 unresolved names. The related
+pair and motion cursors have stronger producer/dispatch evidence, with no
+capacity or new storage supplied. See `evidence/title_cursor_source_view_2026_10_11.json`.
+
+The EXE graph now includes every recorded EXE source, expanding the selected
+graph from 34 to 47 sources. Its 15 unresolved names expose wider missing
+ownership/body coverage while all old contributions preserve. Prior selected
+graphs and the current graph have different scopes; the larger count is not a
+lost-match regression. See `evidence/exe_recorded_graph_2026_10_11.json`.
+
+Next source work is the actor-step body and movie producer/thread helpers.
+For shared convergence, recover the real host table/callback prefix and scalar
+owners, and test the direct-member versus captured-local graph only as a bounded
+causal pair. The residual SIB family needs genuine declaration or live-value
+context; no source spelling, flags, type or placement grid follows.
+
+Totals are 120 strict functions / 8,064 bytes, 430 complete masked functions /
+86,560 bytes and six reconstructed non-strict functions / 1,088 bytes. This wave
+adds 32 masked bytes and 80 reconstructed bytes, with zero strict-byte gain.
+Packets now report existing non-strict source separately from strict closure,
+preventing duplicate recovery without hiding strict pending functions. The driver
+also uses its shared actor tag incompletely, avoiding an unnecessary conflicting
+complete record declaration; all compiled contributions preserve.
+All 120 strict functions remain exact; fresh masked verification and all 59
+tests pass. Of the 557 earlier rows, 533 remain literal unchanged and 24 update
+only the measured source-view evidence/proofs. The checkpoint is
+`evidence/full_goal_prepare_driver_wave_2026_10_11.json`.

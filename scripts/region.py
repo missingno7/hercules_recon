@@ -197,12 +197,23 @@ def packet(region_id,more=False):
     current=[r for r in receipts if r['context_id']==ctx]
     accepted={(r['target_sha256'],int(r['rva'],0)):r for r in state['functions'] if r['status']=='FUNCTION_MATCH'}
     unresolved=[f['symbol'] for f in spec['functions'] if (spec['target_sha256'],int(f['rva'],0)) not in accepted]
+    recorded={(r['target_sha256'],int(r['rva'],0)):r for r in state['functions']}
+    non_strict=[];unrecorded=[]
+    for f in spec['functions']:
+        row=recorded.get((spec['target_sha256'],int(f['rva'],0)))
+        if row is None:unrecorded.append(f['symbol'])
+        elif row['status']!='FUNCTION_MATCH':
+            non_strict.append(dict(region_symbol=f['symbol'],recovery_id=row['id'],status=row['status'],
+                source=row.get('source'),bytes=row.get('size'),extent_agrees=row.get('size')==f['size'],
+                proof_scope=row.get('proof',{}).get('scope')))
     closed={f['symbol'] for f in spec['functions'] if f['symbol'] not in unresolved}
     safe=[r for r in current if all(f['strict_equal'] for f in r['functions'] if f['symbol'] in closed)]
     candidates=frontier(safe) if unresolved else []
     notes=read(ROOT/'evidence/region_knowledge.json') if (ROOT/'evidence/region_knowledge.json').exists() else {'observations':[]}
     result=dict(authority='recovery.json only; this packet is disposable',region=scope,context_id=ctx,
         accepted_total=len(accepted),unresolved=unresolved,canonical_in_region=len(spec['functions'])-len(unresolved),
+        closure_scope='unresolved and canonical_in_region track strict closure only; recorded non-strict source does not close the frontier.',
+        recorded_non_strict_functions=non_strict,unrecorded_functions=unrecorded,
         frontier=[dict(receipt_id=r['receipt_id'],source_sha256=r['source_sha256'],output_id=r['output_id'],summary=r['summary'],
                        next_discriminator=r.get('next_discriminator'),ungated_work=r.get('ungated_work')) for r in candidates[:3]],
         additional_pareto_receipts=max(0,len(candidates)-3),stale_receipts=[r['receipt_id'] for r in receipts if r not in current],
