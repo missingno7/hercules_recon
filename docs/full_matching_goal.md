@@ -765,3 +765,48 @@ bytes. Fresh full strict/masked verification and 54 tests pass. The wave adds
 176 masked bytes, closes two actual TITLE dependencies and adds zero strict
 bytes. All earlier strict functions remain exact. The checkpoint is
 `evidence/full_goal_member_reset_wave_2026_10_11.json`.
+
+## Movie storage and display pointer closure
+
+The movie opener explicitly clears 0x5000 DWORDs at RVA 0x201b88 and
+exports that fixed address to its caller. The decoder writes DWORD blocks and
+BYTE corrections there. An ordinary data-only provider supplies the evidenced
+81,920-byte zero prefix, with no padding or overlap with 63 recorded providers.
+Dynamic movie dimensions have no proven capacity guard; original full extent,
+owner and TU remain unknown. This is data recovery, with no function-byte gain.
+See `evidence/movie_storage_adoption_2026_10_11.json`.
+
+TITLE now supplies its two observed display pointer cells through the existing
+`TitleBuffer` view. All direct accesses are DWORD-sized; the allocation writer
+takes the address of the second cell. The fresh selected graph grows from 38
+to 39 actual canonical sources and removes precisely these two unresolved
+names: 99 to 97, with no duplicates or changed old contributions. The eight
+loader-zero bytes do not establish historical independent declarations or TU
+ownership. See `evidence/title_buffer_cells_adoption_2026_10_11.json`.
+
+The existing TITLE data-layout diagnostic now reads loader-zero virtual tails
+explicitly and reports those bytes separately. It rejects outside-section ranges
+and truncated file bytes. Function gates remain unchanged; four focused tests
+cover this capability. The existing data-provider gate verifies both additions.
+
+The first pool-reset baseline at ENG3 0x1d320 and movie shutdown baseline at
+EXE 0x3680 both fail complete comparison and stay private. Native ENG1 0x279f0
+and ENG3 0x1d320 share all 72 non-reference bytes in their 96-byte contributions.
+One address-expression pair explains ADD versus LEA locally but fails coupled
+register lifetimes and guard placement. Keep both negative recipes; no full
+target follow-up is justified. See `evidence/pool_reset_address_control_2026_10_11.json`
+and `evidence/independent_controls_2026_10_11_wave25.json`.
+
+Next priorities are genuine source recovery around the movie opener/decoder,
+peer-informed engine regions with stable interfaces, and remaining TITLE
+allocation/cursor data owners. Reopen pool-reset or TITLE constant-lifetime
+families only when new owner or live-value context predicts their joint native
+constraints. Continue natural dependency closure before attempting link layout;
+do not infer layout from relocation-only function equality.
+
+Totals remain 120 strict functions / 8,064 bytes, 429 complete masked functions /
+86,528 bytes and five reconstructed non-strict functions / 1,008 bytes. Every
+recovery row is unchanged; fresh strict/masked checks and all 58 tests pass.
+The data additions are accounted separately: 81,920 EXE zero bytes and eight
+TITLE zero bytes. The checkpoint is
+`evidence/full_goal_storage_context_wave_2026_10_11.json`.

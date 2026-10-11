@@ -71,6 +71,7 @@ for source_name,evidence_name,count,initialized,zero,bss_flags in (
  ('calibration/sound_bank_storage.cpp','evidence/sound_bank_storage_adoption_2026_10_11.json',4,0,19209,0xc0400080),
  ('calibration/mci_storage.c','evidence/mci_storage_adoption_2026_10_11.json',7,18,24,0xc0300080),
  ('calibration/archive_array_prefixes.c','evidence/archive_array_prefixes_adoption_2026_10_11.json',2,0,16384,0xc0400080),
+ ('calibration/movie_scratch_storage.c','evidence/movie_storage_adoption_2026_10_11.json',1,0,81920,0xc0400080),
 ):
  source_path=root/source_name;proof_path=root/evidence_name
  if proof_path.exists() or source_path.exists():
@@ -81,6 +82,8 @@ for source_name,evidence_name,count,initialized,zero,bss_flags in (
   assert digest(source_path.read_bytes())==field_proof['canonical_provider']['source_sha256']
   for header in field_proof['actual_headers']:
    assert digest(Path(header['path']).read_bytes())==header['sha256']
+  for span in field_proof.get('native_write_proof',[]):
+   assert digest(pe.read_rva(int(span['rva'],0),span['bytes']))==span['sha256']
   extra_fields[source_name]=(field_proof,count,initialized,zero,bss_flags,proof_path,content)
   sources.append(source_name)
 field_specs={
@@ -163,7 +166,7 @@ for path in sources:
     assert cell['native_initial_origin']=='loader-zero virtual tail'
     assert sec['name']=='.bss' and sec['flags']==bss_flags and not sec['data']
     assert rva>=native['virtual_address']+native['raw_size'] and rva+width<=native['virtual_address']+native['virtual_size']
-    if path in ('calibration/sound_bank_storage.cpp','calibration/archive_array_prefixes.c'):
+    if path in ('calibration/sound_bank_storage.cpp','calibration/archive_array_prefixes.c','calibration/movie_scratch_storage.c'):
      assert cell['zero_initializer'] is True
     else:
      assert bytes.fromhex(cell['initializer'])==bytes(width)
@@ -262,6 +265,37 @@ if engine_source.exists() or engine_evidence.exists():
  for oracle in engine_proof['oracles']:
   assert digest((root/oracle['path']).read_bytes())==oracle['sha256']
  result['engine_interface_provider']={'source':provider['source'],'source_sha256':engine_sha,'evidence_sha256':digest(engine_before),'object':str(obj),'object_sha256':digest(Path(obj).read_bytes()),'command':command,'object_zero_bytes':1000,'native_zero_bytes_by_module':{o['module']:1000 for o in engine_proof['oracles']},'functions':0,'relocations':0,'uncredited_padding_bytes':0,'limit':'Separate image-local copies; EXE data totals above exclude these engine prefixes. No body/whole-image/TU/layout acceptance.'}
+title_source=root/'calibration/title/title_buffer_cells.c'
+title_evidence=root/'evidence/title_buffer_cells_adoption_2026_10_11.json'
+if title_source.exists() or title_evidence.exists():
+ assert title_source.is_file() and title_evidence.is_file()
+ title_before=title_evidence.read_bytes();title_proof=json.loads(title_before)
+ provider=title_proof['canonical_provider'];title_sha=digest(title_source.read_bytes())
+ assert provider['source']=='calibration/title/title_buffer_cells.c' and title_sha==provider['source_sha256']
+ assert provider['bytes']==8 and provider['bss_flags']=='0xc0300080'
+ native=PE(root/title_proof['oracle']['path']);assert digest(native.data)==title_proof['oracle']['sha256']
+ for header in title_proof['actual_headers']:
+  assert digest(Path(header['path']).read_bytes())==header['sha256']
+ obj,command=compile_source(title_source,['/O2']);c=COFF(obj)
+ public={s['name']:s for s in c.symbols.values() if s['storage']==2}
+ assert set(public)=={'_g_2cc04','_g_2cc08'} and len(provider['cells'])==2
+ assert not any(s['type']&0x20 and s['section']>0 for s in c.symbols.values())
+ assert not any(s['relocations'] for s in c.sections)
+ assert not any(s['size'] for s in c.sections if s['name'] not in ('.drectve','.bss'))
+ for cell in provider['cells']:
+  symbol=public['_'+cell['name']];sec=c.sections[symbol['section']-1]
+  assert symbol['section']>0 and symbol['value']==cell['object_offset'] and cell['bytes']==4
+  assert sec['name']=='.bss' and sec['size']==8 and sec['flags']==0xc0300080 and not sec['data']
+  assert cell['native_initial_origin']=='loader-zero virtual tail' and cell['zero_initializer'] is True
+  rva=int(cell['rva'],0);n=next(s for s in native.sections if s['virtual_address']<=rva<s['virtual_address']+s['virtual_size'])
+  assert n['name']=='.data' and n['characteristics']&0x80000000
+  assert rva>=n['virtual_address']+n['raw_size'] and rva+4<=n['virtual_address']+n['virtual_size']
+ assert sorted(cell['object_offset'] for cell in provider['cells'])==[0,4]
+ assert digest(title_source.read_bytes())==title_sha and title_evidence.read_bytes()==title_before
+ assert digest((root/title_proof['oracle']['path']).read_bytes())==title_proof['oracle']['sha256']
+ for header in title_proof['actual_headers']:
+  assert digest(Path(header['path']).read_bytes())==header['sha256']
+ result['title_buffer_provider']={'source':provider['source'],'source_sha256':title_sha,'evidence_sha256':digest(title_before),'object':str(obj),'object_sha256':digest(Path(obj).read_bytes()),'command':command,'object_zero_bytes':8,'functions':0,'relocations':0,'uncredited_padding_bytes':0,'limit':'Two observed pointer fields only; separate from EXE totals. No original aggregate/owner/TU/native placement or function acceptance.'}
 output.parent.mkdir(parents=True,exist_ok=True)
 output.write_bytes((json.dumps(result,indent=2)+'\n').encode())
 print(json.dumps({k:result[k] for k in ('initialized_bytes','zero_storage_bytes','functions','relocations')}))

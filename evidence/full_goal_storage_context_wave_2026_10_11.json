@@ -1,0 +1,172 @@
+{
+  "date": "2026-10-11",
+  "base_commit": "46d02ff",
+  "scope": "Observed movie prefix and TITLE pointer fields; controlled shared address blocker research. Full matching remains active.",
+  "recovery_sha256": "2f653c5c9838836a92be84c4ad040803fd3d72f3b7abe0b7b0880f7e5d84a62a",
+  "unchanged_recovery_rows": 557,
+  "metrics": {
+    "strict": {
+      "functions": 120,
+      "bytes": 8064
+    },
+    "masked": {
+      "functions": 429,
+      "bytes": 86528
+    },
+    "reconstructed_non_strict": {
+      "functions": 5,
+      "bytes": 1008
+    },
+    "legacy_similar": {
+      "functions": 3,
+      "bytes": 352
+    },
+    "untracked_map_leads": {
+      "functions": 1972,
+      "bytes": 516240
+    }
+  },
+  "strict_gain_bytes": 0,
+  "masked_gain_bytes": 0,
+  "reconstructed_gain_bytes": 0,
+  "data_gain": {
+    "EXE_loader_zero_prefix_bytes": 81920,
+    "TITLE_loader_zero_field_bytes": 8
+  },
+  "canonical_providers": [
+    {
+      "source": "calibration/movie_scratch_storage.c",
+      "source_sha256": "cdb1620e86ef7d29c2ebe1f7548ee4ea0a3bf8be2d6070ea1ef7f12d3684ac6f",
+      "cells": [
+        {
+          "name": "g_movie_frame_scratch",
+          "rva": "0x201b88",
+          "bytes": 81920,
+          "working_type": "BYTE[81920] minimum prefix",
+          "native_initial_origin": "loader-zero virtual tail",
+          "zero_initializer": true,
+          "evidence": "Native31c7..31da explicitly clears0x5000 DWORDs;3327 exports the fixed borrowed address;3a28 passes it to21e0 pixel decoder. Neighbor gap and asset dimensions are not capacity evidence."
+        }
+      ]
+    },
+    {
+      "source": "calibration/title/title_buffer_cells.c",
+      "source_sha256": "49ada3fbbf599700c49b1b8c768eee3eabdd804e4a23919e0e70cdbe782183f7",
+      "cells": [
+        {
+          "name": "g_2cc04",
+          "rva": "0x2cc04",
+          "bytes": 4,
+          "working_type": "TitleBuffer *",
+          "native_initial_origin": "loader-zero virtual tail",
+          "zero_initializer": true,
+          "object_offset": 0,
+          "native_access": {
+            "target_rva": "0x2cc04",
+            "cell_interval": [
+              "0x2cc04",
+              "0x2cc08"
+            ],
+            "native_direct_instruction_count": 41,
+            "native_direct_access_counts": {
+              "read:4": 38,
+              "write:4": 3
+            },
+            "native_direct_access_width_counts_bytes": {
+              "4": 41
+            },
+            "highlow_operand_count": 41,
+            "native_reference_table": "work/title_buffer_cells_25/native_audit.json"
+          }
+        },
+        {
+          "name": "g_2cc08",
+          "rva": "0x2cc08",
+          "bytes": 4,
+          "working_type": "TitleBuffer *",
+          "native_initial_origin": "loader-zero virtual tail",
+          "zero_initializer": true,
+          "object_offset": 4,
+          "native_access": {
+            "target_rva": "0x2cc08",
+            "cell_interval": [
+              "0x2cc08",
+              "0x2cc0c"
+            ],
+            "native_direct_instruction_count": 37,
+            "native_direct_access_counts": {
+              "read:4": 37
+            },
+            "native_direct_access_width_counts_bytes": {
+              "4": 37
+            },
+            "highlow_operand_count": 38,
+            "native_reference_table": "work/title_buffer_cells_25/native_audit.json"
+          }
+        }
+      ],
+      "bytes": 8,
+      "bss_flags": "0xc0300080"
+    }
+  ],
+  "title_selected_link": {
+    "before_sources": 38,
+    "after_sources": 39,
+    "unresolved_before": 99,
+    "unresolved_after": 97,
+    "removed_only": [
+      "_g_2cc04",
+      "_g_2cc08"
+    ],
+    "duplicates": 0,
+    "forced_image": false
+  },
+  "verification_capability": "TITLE mapped data diagnostics distinguish loader-zero bytes from file-backed bytes and reject truncation. All function acceptance gates unchanged.",
+  "previous_strict_functions_preserved": 120,
+  "previous_strict_bytes_preserved": 8064,
+  "evidence": [
+    {
+      "path": "evidence/movie_storage_adoption_2026_10_11.json",
+      "sha256": "94fee2dc06b4ceabbc499d2559ae83a721eaa45595c4cc469fc4189317129450"
+    },
+    {
+      "path": "evidence/title_buffer_cells_adoption_2026_10_11.json",
+      "sha256": "6542989bf9290800d2059055a0987a062eb8223c5f49d5f77e970397ed4615b7"
+    },
+    {
+      "path": "evidence/independent_controls_2026_10_11_wave25.json",
+      "sha256": "a3534bd716005cd00f29953a53360797bb21bff31416192084d6f855d65d2997"
+    },
+    {
+      "path": "evidence/pool_reset_address_control_2026_10_11.json",
+      "sha256": "8866039314e4bb949ba80a4ef4c04b4bf8d37d43cc0806e2f4db4a17cff54b95"
+    }
+  ],
+  "validation": [
+    {
+      "path": "work/root_storage_25/strict_final.json",
+      "sha256": "a03dd8b85a8aab72128ecb26f87d09729f3eb3accaa856bf6fd794b6d0d451aa"
+    },
+    {
+      "path": "work/root_storage_25/masked_final.txt",
+      "sha256": "898494c51a3627c61adf4d36df7b209df7f5d2dd0f34c77a9dd20ec8e5cf6c46"
+    },
+    {
+      "path": "work/root_storage_25/tests_final.txt",
+      "sha256": "3ba4ecbbfaa34aa80c7c37d082758b6883d043ee75f07543481721c17b4b093d"
+    },
+    {
+      "path": "work/root_storage_25/data_final.json",
+      "sha256": "7bafbf3c948eddf5264efad66b1d381168ca20fe2c9d96128273e33a25e2f7b9"
+    },
+    {
+      "path": "work/root_storage_25/convergence.json",
+      "sha256": "228c5e35337f0780a82c82b1320dedc8fa97c3c1877f88c2a96436df792b954c"
+    },
+    {
+      "path": "work/root_storage_25/title_link.json",
+      "sha256": "cebd3af40ac6a69fd3f0e8f7c4752845f82aa5559cb4e08d416c45600cef17a9"
+    }
+  ],
+  "limits": "No new function or strict-byte acceptance. Loader-zero field/prefix proofs do not establish full original capacity, independent aggregate, owner/TU, source identity, terminal safety or native placement. All failed recipes stay private. Assets/pinned tools and recovery state are unchanged."
+}

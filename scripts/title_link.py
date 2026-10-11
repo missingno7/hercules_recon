@@ -68,12 +68,34 @@ def read_map(path):
     return symbols
 
 
+def virtual_data(pe, rva, size):
+    """Read one mapped section, reporting loader-zero bytes separately.
+
+    This is a data-layout diagnostic, not file-backed or function equality.
+    Never turn missing/truncated file bytes into zeros.
+    """
+    if size < 0:
+        raise ValueError('negative data size')
+    section = next((s for s in pe.sections
+                    if s['virtual_address'] <= rva < s['virtual_address'] + s['virtual_size']), None)
+    if section is None or rva + size > section['virtual_address'] + section['virtual_size']:
+        raise ValueError('data range outside one mapped section')
+    offset = rva - section['virtual_address']
+    file_size = min(size, max(0, section['raw_size'] - offset))
+    data = pe.read_rva(rva, file_size) if file_size else b''
+    if len(data) != file_size:
+        raise ValueError('truncated file-backed data')
+    zero_size = size - file_size
+    return data + bytes(zero_size), zero_size
+
+
 def compare_object(ours, o_base, orig, lo, hi, places):
     """Bytes of [lo, hi) in the original against the same span at o_base in ours. A pointer slot is equal
     when it targets the same place: the same offset in this or another measured data unit, or the
     same reconstructed function (places maps an original RVA to our RVA)."""
     size = hi - lo
-    a, b = orig.read_rva(lo, size), ours.read_rva(o_base, size)
+    a, orig_zero = virtual_data(orig, lo, size)
+    b, ours_zero = virtual_data(ours, o_base, size)
     rel = lambda pe, base: {e.rva - base for blk in pe.pe.DIRECTORY_ENTRY_BASERELOC for e in blk.entries
                             if e.type and 0 <= e.rva - base < size}
     ra, rb = rel(orig, lo), rel(ours, o_base)
@@ -84,7 +106,9 @@ def compare_object(ours, o_base, orig, lo, hi, places):
         slots_equal += expected == int.from_bytes(b[off:off + 4], 'little') - ours.image_base
     covered = {i for r in ra | rb for i in range(r, r + 4)}
     plain = [i for i in range(size) if i not in covered]
-    return dict(size=size, pointer_slots=len(ra), pointer_slots_equal=slots_equal, pointer_slots_extra=len(rb - ra),
+    return dict(size=size, loader_zero_bytes_original=orig_zero, loader_zero_bytes_ours=ours_zero,
+                scope='Mapped data diagnostic; loader-zero equality is not file-backed byte acceptance.',
+                pointer_slots=len(ra), pointer_slots_equal=slots_equal, pointer_slots_extra=len(rb - ra),
                 pointer_targets_unplaced=unplaced, plain_bytes=len(plain),
                 plain_bytes_differing=sum(a[i] != b[i] for i in plain))
 

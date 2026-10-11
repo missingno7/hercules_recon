@@ -1,0 +1,118 @@
+{
+  "date": "2026-10-11",
+  "scope": "Two observed TITLE loader-zero pointer fields supplied as an ordinary working data unit; no original independence, aggregate/TU/native placement or function equality claim.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/TITLE.DLL",
+    "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b"
+  },
+  "canonical_provider": {
+    "source": "calibration/title/title_buffer_cells.c",
+    "source_sha256": "49ada3fbbf599700c49b1b8c768eee3eabdd804e4a23919e0e70cdbe782183f7",
+    "cells": [
+      {
+        "name": "g_2cc04",
+        "rva": "0x2cc04",
+        "bytes": 4,
+        "working_type": "TitleBuffer *",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "object_offset": 0,
+        "native_access": {
+          "target_rva": "0x2cc04",
+          "cell_interval": [
+            "0x2cc04",
+            "0x2cc08"
+          ],
+          "native_direct_instruction_count": 41,
+          "native_direct_access_counts": {
+            "read:4": 38,
+            "write:4": 3
+          },
+          "native_direct_access_width_counts_bytes": {
+            "4": 41
+          },
+          "highlow_operand_count": 41,
+          "native_reference_table": "work/title_buffer_cells_25/native_audit.json"
+        }
+      },
+      {
+        "name": "g_2cc08",
+        "rva": "0x2cc08",
+        "bytes": 4,
+        "working_type": "TitleBuffer *",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "object_offset": 4,
+        "native_access": {
+          "target_rva": "0x2cc08",
+          "cell_interval": [
+            "0x2cc08",
+            "0x2cc0c"
+          ],
+          "native_direct_instruction_count": 37,
+          "native_direct_access_counts": {
+            "read:4": 37
+          },
+          "native_direct_access_width_counts_bytes": {
+            "4": 37
+          },
+          "highlow_operand_count": 38,
+          "native_reference_table": "work/title_buffer_cells_25/native_audit.json"
+        }
+      }
+    ],
+    "bytes": 8,
+    "bss_flags": "0xc0300080"
+  },
+  "actual_headers": [
+    {
+      "path": "D:\\Prog\\hercules_recon\\calibration\\title\\title_gpu.h",
+      "sha256": "6533d696eb5d7ae7d7bc63c13dd0c955944355a0b5900f0d6976166f9fc1e860"
+    }
+  ],
+  "protocol": {
+    "allocation": "Native TITLE RVA 0x1d380 pushes address 0x1002cc08 then size 0x28f0 and zero flags to title_0c450; this is address-taking of the 4-byte g_2cc08 out-pointer cell. It does not establish owner/capacity/TU/layout.",
+    "display": "Native TITLE RVA 0x1d590 loads/stores g_2cc04 and loads g_2cc08 as DWORD values; it initializes g_2cc04 from g_2cc08 and selects between the two buffer addresses.",
+    "other_callers": "Every direct absolute reference, decoded instruction, width/access kind, and relocation operand is enumerated in native_audit.json.",
+    "claim_limit": "The allocator size argument is not evidence of original pointed-to capacity, aggregate, owner, TU, or layout."
+  },
+  "native_audit": {
+    "path": "work/title_buffer_cells_25/native_audit.json",
+    "sha256": "97613a9e798b466726eecc9c0861645c96c8aafb596b7efa560598fdae0eaa2c"
+  },
+  "worker_receipt": {
+    "path": "work/title_buffer_cells_25/handoff.json",
+    "sha256": "4aee2afa7d305732a449e5ec049c8ace134fbc29616687e1c1c1e78774a9bbe4"
+  },
+  "fresh_canonical": {
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-0mcwsgse\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\title\\title_buffer_cells.c"
+    ],
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-0mcwsgse\\candidate.obj",
+    "object_sha256": "3bdfabeb8ec6b55cc365fc1dd6aa40397e19f3f61a28dec10c30c1eb38914e89",
+    "complete_candidate_contribution_preserved": true,
+    "functions": 0,
+    "relocations": 0,
+    "padding_bytes": 0
+  },
+  "natural_link": {
+    "before_sources": 38,
+    "after_sources": 39,
+    "unresolved_before": 99,
+    "unresolved_after": 97,
+    "removed_only": [
+      "_g_2cc04",
+      "_g_2cc08"
+    ],
+    "duplicates": 0,
+    "forced_image": false,
+    "receipt": "work/root_storage_25/title_link.json"
+  },
+  "limits": "The pointed-to allocation and historical storage ownership are outside this proof. All old complete contributions preserve and all recovery rows are unchanged."
+}
