@@ -1,0 +1,513 @@
+{
+  "scope": "Static native profile/kind data providers and actual cross-function context; no capacity/TU/acceptance claims.",
+  "oracle_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "profile": {
+    "rva": "0x3b900",
+    "stride": 72,
+    "traversed_rows": 4,
+    "selectors": [
+      2,
+      8,
+      10,
+      999
+    ],
+    "bytes": 288,
+    "sha256": "38900ec0d8951e78c1968928541c5acde06a3e57ff5e12f0a80b1b9dc85de72c",
+    "original_array_extent_and_TU": "unproved"
+  },
+  "kind_regions": [
+    {
+      "selector": 2,
+      "rva": "0x36980",
+      "physical_envelope_bytes": 512,
+      "physical_envelope_records": 64,
+      "nonzero_rows": 42,
+      "pointer_valued_rows": [
+        {
+          "index": 2,
+          "target_rva": "0x37b30"
+        },
+        {
+          "index": 41,
+          "target_rva": "0x37b30"
+        }
+      ],
+      "limits": "64 is a512-byte envelope bounded by another independently used profile pointer; no original declared capacity/logical count or validity for all0xfff indices is proved."
+    },
+    {
+      "selector": 8,
+      "rva": "0x34410",
+      "physical_envelope_bytes": 512,
+      "physical_envelope_records": 64,
+      "nonzero_rows": 42,
+      "pointer_valued_rows": [
+        {
+          "index": 2,
+          "target_rva": "0x37b30"
+        },
+        {
+          "index": 41,
+          "target_rva": "0x37b30"
+        }
+      ],
+      "limits": "64 is a512-byte envelope bounded by another independently used profile pointer; no original declared capacity/logical count or validity for all0xfff indices is proved."
+    },
+    {
+      "selector": 10,
+      "rva": "0x3ac30",
+      "physical_envelope_bytes": 512,
+      "physical_envelope_records": 64,
+      "nonzero_rows": 42,
+      "pointer_valued_rows": [
+        {
+          "index": 2,
+          "target_rva": "0x37b30"
+        },
+        {
+          "index": 41,
+          "target_rva": "0x37b30"
+        }
+      ],
+      "limits": "64 is a512-byte envelope bounded by another independently used profile pointer; no original declared capacity/logical count or validity for all0xfff indices is proved."
+    }
+  ],
+  "actor_counts": [
+    {
+      "selector": 2,
+      "actor_pool_total_word_006": 68,
+      "actor_partition_word_012": 68,
+      "actor_lower_start_word_00c": 15,
+      "other_pool_count_word_002": 85,
+      "third_pool_count_word_004": 145
+    },
+    {
+      "selector": 8,
+      "actor_pool_total_word_006": 50,
+      "actor_partition_word_012": 50,
+      "actor_lower_start_word_00c": 11,
+      "other_pool_count_word_002": 107,
+      "third_pool_count_word_004": 140
+    },
+    {
+      "selector": 10,
+      "actor_pool_total_word_006": 88,
+      "actor_partition_word_012": 88,
+      "actor_lower_start_word_00c": 11,
+      "other_pool_count_word_002": 207,
+      "third_pool_count_word_004": 160
+    },
+    {
+      "selector": 999,
+      "actor_pool_total_word_006": 10,
+      "actor_partition_word_012": 10,
+      "actor_lower_start_word_00c": 2,
+      "other_pool_count_word_002": 10,
+      "third_pool_count_word_004": 10
+    }
+  ],
+  "shared_reset": [
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x27fe0",
+      "bytes": 272,
+      "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "span_sha256": "8b8c2737815548fbaf4b771cb5ee28774740b408216aa4ebf52122c1efd9fad1",
+      "raw_equal_to_eng3": true,
+      "different_bytes": 0
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x94c0",
+      "bytes": 272,
+      "oracle_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "span_sha256": "dd4d51286bc37a802998ecdc479e0a6617cda59b8759a00834ae2eb7181d0c1b",
+      "raw_equal_to_eng3": false,
+      "different_bytes": 210
+    }
+  ],
+  "existing_interface": {
+    "header": "calibration/engine_interface.h",
+    "module_table_rva": "0x407a0",
+    "context_cell_rva": "0x407a4",
+    "selector_read": "signed byte at g_engine_interface.context_004+0",
+    "evidence": "Canonical ENG3 wrapper link_symbols agree with407a0; selector1d9c7 reads407a4. Use existing actual member view, not an independent context pointer definition."
+  },
+  "controlled_provider": {
+    "prediction": {
+      "family": "actual static72-byte profile records plus observed kind-pointer cell",
+      "prediction": "An ordinary native32 profile view with12WORD fields followed by12pointer fields has72-byte stride and can reproduce the four actually traversed profile records (three levels plus999 sentinel) as a writable .data contribution. Real external data names carry the33 native HIGHLOW references; no original pointer value enters source. The kind-table cell is a minimum4-byte writable loader-zero pointer that receives profile.field028 in1d9b0. Fresh compilation gives exact complete numeric bytes and relocation offsets/types/addends, without any code or unsupported storage steering.",
+      "falsifier": "Incorrect72-byte layout, numeric payload mismatch, missing/extra pointer relocation versus native HIGHLOW records, source-embedded original addresses, generated code, unexpected data definitions or invented kind-array capacity. Target field identity must be recoverable from actual descriptor and writer evidence.",
+      "model": "gpt-6.1-sol",
+      "effort": "high",
+      "build_count": 1,
+      "scope": "Working bounded profile/table-cell contributions only. Four accessible profile records do not prove full original array declaration/TU;33 referenced payload owners stay unresolved. No constructor/source/SIB edits or function acceptance. No kind array is defined from its512-byte gap."
+    },
+    "toolchain": "msvc5_rtm",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\work\\sol_eng3_kind_storage_11\\kind_profile_storage.obj",
+      "D:\\Prog\\hercules_recon\\candidates\\sol_eng3_kind_storage_11\\kind_profile_storage.c"
+    ],
+    "source": "candidates/sol_eng3_kind_storage_11/kind_profile_storage.c",
+    "source_sha256": "7c366997aa3029e77c6895f1f929b095ac4b3e02f089191ff8b31459e0d56ef2",
+    "context_header": "candidates/sol_eng3_kind_storage_11/kind_profile_view.h",
+    "context_header_sha256": "e7152beef77023037e8fc3e8e89b7ebf14a2fc9ec169de350352fba6b18234a7",
+    "object": "D:\\Prog\\hercules_recon\\work\\sol_eng3_kind_storage_11\\kind_profile_storage.obj",
+    "object_sha256": "c1722f1ee10c0915b1f56448c13260fe2ef975f03250dda600c5ded3f3d04f97",
+    "oracle_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+    "definitions": [
+      "_g_eng3_kind_entries",
+      "_g_eng3_kind_profiles"
+    ],
+    "functions": 0,
+    "profile_contribution": {
+      "native_rva": "0x3b900",
+      "bytes": 288,
+      "writable_section": ".data",
+      "numeric_and_null_bytes": 156,
+      "numeric_and_null_bytes_equal": true,
+      "actual_address_fields": 33,
+      "ordered_DIR32_offsets_match_native_HIGHLOW": true,
+      "bindings": [
+        {
+          "offset": 24,
+          "symbol": "_g_eng3_profile_2_data_018",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x35e10"
+        },
+        {
+          "offset": 28,
+          "symbol": "_g_eng3_profile_2_data_01c",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x362e0"
+        },
+        {
+          "offset": 32,
+          "symbol": "_g_eng3_profile_2_data_020",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x36680"
+        },
+        {
+          "offset": 36,
+          "symbol": "_g_eng3_profile_2_data_024",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x36800"
+        },
+        {
+          "offset": 40,
+          "symbol": "_g_eng3_profile_2_kind_entries",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x36980"
+        },
+        {
+          "offset": 44,
+          "symbol": "_g_eng3_profile_2_data_02c",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x36b80"
+        },
+        {
+          "offset": 48,
+          "symbol": "_g_eng3_profile_2_data_030",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x36d80"
+        },
+        {
+          "offset": 52,
+          "symbol": "_g_eng3_profile_2_data_034",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x36d98"
+        },
+        {
+          "offset": 56,
+          "symbol": "_g_eng3_profile_2_data_038",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x36db0"
+        },
+        {
+          "offset": 64,
+          "symbol": "_g_eng3_profile_2_data_040",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x36dc8"
+        },
+        {
+          "offset": 68,
+          "symbol": "_g_eng3_profile_2_data_044",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x371b0"
+        },
+        {
+          "offset": 96,
+          "symbol": "_g_eng3_profile_8_data_018",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x338b8"
+        },
+        {
+          "offset": 100,
+          "symbol": "_g_eng3_profile_8_data_01c",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x33d58"
+        },
+        {
+          "offset": 104,
+          "symbol": "_g_eng3_profile_8_data_020",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x340d0"
+        },
+        {
+          "offset": 108,
+          "symbol": "_g_eng3_profile_8_data_024",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x34270"
+        },
+        {
+          "offset": 112,
+          "symbol": "_g_eng3_profile_8_kind_entries",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x34410"
+        },
+        {
+          "offset": 116,
+          "symbol": "_g_eng3_profile_8_data_02c",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x34610"
+        },
+        {
+          "offset": 120,
+          "symbol": "_g_eng3_profile_8_data_030",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x34810"
+        },
+        {
+          "offset": 124,
+          "symbol": "_g_eng3_profile_8_data_034",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x34828"
+        },
+        {
+          "offset": 128,
+          "symbol": "_g_eng3_profile_8_data_038",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x34850"
+        },
+        {
+          "offset": 136,
+          "symbol": "_g_eng3_profile_8_data_040",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x34868"
+        },
+        {
+          "offset": 140,
+          "symbol": "_g_eng3_profile_8_data_044",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x34c68"
+        },
+        {
+          "offset": 168,
+          "symbol": "_g_eng3_profile_10_data_018",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x3a158"
+        },
+        {
+          "offset": 172,
+          "symbol": "_g_eng3_profile_10_data_01c",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x3a5f8"
+        },
+        {
+          "offset": 176,
+          "symbol": "_g_eng3_profile_10_data_020",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x3a970"
+        },
+        {
+          "offset": 180,
+          "symbol": "_g_eng3_profile_10_data_024",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x3aad0"
+        },
+        {
+          "offset": 184,
+          "symbol": "_g_eng3_profile_10_kind_entries",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x3ac30"
+        },
+        {
+          "offset": 188,
+          "symbol": "_g_eng3_profile_10_data_02c",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x3ae30"
+        },
+        {
+          "offset": 192,
+          "symbol": "_g_eng3_profile_10_data_030",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x3b030"
+        },
+        {
+          "offset": 196,
+          "symbol": "_g_eng3_profile_10_data_034",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x3b048"
+        },
+        {
+          "offset": 200,
+          "symbol": "_g_eng3_profile_10_data_038",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x3b070"
+        },
+        {
+          "offset": 208,
+          "symbol": "_g_eng3_profile_10_data_040",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x3b088"
+        },
+        {
+          "offset": 212,
+          "symbol": "_g_eng3_profile_10_data_044",
+          "type": 6,
+          "addend": 0,
+          "target_rva": "0x3b398"
+        }
+      ],
+      "unresolved_payload_definitions": 33,
+      "limits": "Unresolved external payload addresses mean actual target-byte equality of the288-byte linked contribution has NOT been established."
+    },
+    "kind_pointer_cell": {
+      "native_rva": "0x40bbc",
+      "observed_bytes": 4,
+      "object_section": ".bss",
+      "flags": "0xc0300080",
+      "stored_bytes": 0,
+      "initial": "loader zero",
+      "limits": "Minimum access-width storage only; original declaration/TU and native placement unproved."
+    },
+    "sections": [
+      {
+        "name": ".drectve",
+        "size": 38,
+        "flags": "0x100a00",
+        "stored_bytes": 38,
+        "relocations": 0
+      },
+      {
+        "name": ".data",
+        "size": 288,
+        "flags": "0xc0400040",
+        "stored_bytes": 288,
+        "relocations": 33
+      },
+      {
+        "name": ".bss",
+        "size": 4,
+        "flags": "0xc0300080",
+        "stored_bytes": 0,
+        "relocations": 0
+      }
+    ],
+    "constructor": "Unchanged and not recompiled/reopened; twoSIB residuals remain as canonical evidence.",
+    "limits": [
+      "One controlled compile only. No function equality or recovery promotion.",
+      "Kind-record array capacities remain unresolved; no64 or4096 entry array defined.",
+      "Profile row WORD0 selector is physical view; signedness/original source type and generic remaining field interpretations are not identified.",
+      "33 payload labels are actual pointer target identities, not proof that each is an independent object/array owner. No provider alias/placement controls."
+    ]
+  },
+  "next_coherent_region": {
+    "rva": "0x1d9b0",
+    "bytes": 416,
+    "role": "static profile selector and typed field binder",
+    "contract": "work/sol_eng3_kind_storage_11/binding_contract.json",
+    "limits": "New producer context doesnot justifyreplaying stoppedallocator/SIB/resetsource spellings."
+  },
+  "limits": [
+    "Kind pointer is initialized from static profile+28; actor allocation is distinct dynamic storage.",
+    "Selected .data payloads and pointees have process-image lifetime, absent an unproved arithmetic-derived mutation; cell may be rebound on profile initialization.",
+    "Actor allocator checks bit15, zero-extends16-bit cursors/bounds, scanskindWORD+2e atstride94, then stores selected index; it does not mark the slot occupied itself.",
+    "Alternate actor-pool allocation request at1a388..1a3a3 is94*total_word006+134; extra134 is actual requested slack, not permission to invent an extra declared actor or exact capacity.",
+    "FirstDWORD of kind records has native data-pointer HIGHLOW relocations and is copied to actor+64; exact pointee/source type remains unproved.",
+    "No constructor SIB family or reset-store permutation is reopened."
+  ],
+  "provenance": [
+    {
+      "path": "work/sol_eng3_kind_storage_11/prediction.json",
+      "sha256": "8502f4c5eae3be86028ee0e5fc8b40ae07fc0407e20a56f18eee2a3fc8549503"
+    },
+    {
+      "path": "work/sol_eng3_kind_storage_11/provider_prediction.json",
+      "sha256": "8ece71a5f8802be3c01a09bfb98783a2081d38c03c592e90c72468d557a1eb83"
+    },
+    {
+      "path": "work/sol_eng3_kind_storage_11/scan.py",
+      "sha256": "523aa994ff4611c1dad234fa2c0a8181d835bb2d7f829a85644810b70c297f8c"
+    },
+    {
+      "path": "work/sol_eng3_kind_storage_11/owner.py",
+      "sha256": "cae6637bc3c5f0a14c6d02637540ea694b00aaef8c4d5fd2823d23b18adf330a"
+    },
+    {
+      "path": "work/sol_eng3_kind_storage_11/build_provider.py",
+      "sha256": "ccd4dc253041ad4ad589f0ee5c8b359e70d399636f3d8dbef80730e3750ef451"
+    },
+    {
+      "path": "work/sol_eng3_kind_storage_11/scan.json",
+      "sha256": "76a15964749c21147a1f5878589075141c4f1d7d314f83a6fb4f2f4ab279bed8"
+    },
+    {
+      "path": "work/sol_eng3_kind_storage_11/owner.json",
+      "sha256": "5c22a91c05a4873d19c25f7c4cd1cf9aaaa1c3c533ab02bac01ada6a288e65ef"
+    },
+    {
+      "path": "work/sol_eng3_kind_storage_11/provider.json",
+      "sha256": "b3fbd596ef201b8a118ab09f0d14b5bd0783df569220ea9f0890b9c08f37b20d"
+    },
+    {
+      "path": "work/sol_eng3_kind_storage_11/binding_contract.json",
+      "sha256": "c1694501dc3599130d79791bbb163cbdf0e0a1a801f096c22652049b37cb81df"
+    },
+    {
+      "path": "work/sol_eng3_kind_storage_11/handoff.md",
+      "sha256": "3b98cda01e0c3e18d9d042935fec0da70466d9823f6541ac0af1b90c0787f1c7"
+    }
+  ],
+  "worker_receipt": {
+    "path": "work/sol_eng3_kind_storage_11/compact.json",
+    "sha256": "98b40da5bfb190d61468994a082d16fb7fc7fdad5aa58106f26271ff41ab9cc8"
+  },
+  "date": "2026-10-11"
+}

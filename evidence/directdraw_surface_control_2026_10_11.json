@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-11",
+  "scope": "Private genuine-SDK surface setup family and actual descriptor-lifetime reentry; neither reached full raw/masked equality.",
+  "native": {
+    "direct_callers": [
+      {
+        "rva": "0x6d01",
+        "setup": "push height 0xf0, push width 0x140, direct cdecl call; caller cleanup is 8 bytes"
+      }
+    ],
+    "set_display_mode": {
+      "rva": "0x6a7f",
+      "vtable_byte_offset": "0x54",
+      "arguments": "this,width,height,8",
+      "supported_declaration": "Pinned IDirectDraw::SetDisplayMode(DWORD,DWORD,DWORD); ddraw.h's IDirectDraw2 declaration at the same slot takes five DWORD arguments."
+    },
+    "body_calls": "No direct code-call relocations. Remaining calls are indirect COM methods: Release (+0x8), IDirectDraw::CreateSurface (+0x18), IDirectDraw::CreatePalette (+0x14), IDirectDrawSurface::GetAttachedSurface (+0x30), and IDirectDrawSurface::SetPalette (+0x7c).",
+    "observed_globals": {
+      "g_exe_96e3d4": {
+        "rva": "0x56e3d4",
+        "use": "surface-creation count, set to 2 then fallback 1"
+      },
+      "g_exe_96e3e4": {
+        "rva": "0x56e3e4",
+        "use": "IDirectDraw interface pointer"
+      },
+      "g_exe_96e3e8": {
+        "rva": "0x56e3e8",
+        "use": "primary IDirectDrawSurface pointer/output"
+      },
+      "g_exe_96e3ec": {
+        "rva": "0x56e3ec",
+        "use": "attached back-buffer IDirectDrawSurface pointer/output"
+      },
+      "g_exe_96e3f0": {
+        "rva": "0x56e3f0",
+        "use": "IDirectDrawPalette pointer/output"
+      }
+    },
+    "behavior": "Set display mode at 8 bpp; release prior surface/palette objects; construct a 0x6c DDSURFACEDESC with flags 0x21 and caps 0xa18; try two back buffers then one; get an attached surface with caps 4; build 256 four-byte palette entries with zero RGB and peFlags=4; create a DDPCAPS_8BIT palette and assign it to the primary surface."
+  },
+  "target": {
+    "module": "work/discs/pc_install/HERCULES.EXE",
+    "module_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "function": "graphics_native_06a60",
+    "rva": "0x6a60",
+    "extent": 336,
+    "decoded_body": 330,
+    "tail": "six alignment NOPs",
+    "function_sha256": "d7a375148e079890768fc936c018314835aaf2cd4445cdf7cb0af7c3a0a0bead"
+  },
+  "first_candidate": {
+    "source": "candidates/luna_directdraw_mode_helpers_12/graphics_native_06a60.cpp",
+    "source_sha256": "df2f1742a92ce79c1c4dda54dd34a2e535cb5c9743f32cb4b23027833916e302",
+    "compiler": "pinned msvc5_rtm /O2 /Gy",
+    "toolchain_manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "object_sha256": "58c6420dcf04bc8e5050278422bb4eabd6347f5c64a41c080c3cf0be51be9a54",
+    "extent": 352,
+    "raw_object_comparison": "not exact; 334 differing bytes versus the 336-byte target",
+    "relocation_masked_diagnostic": "not equal; 19 candidate DIR32 relocations and broad code-layout differences produce conflicting implied bindings. This cannot be reduced to relocation-only mismatch.",
+    "residual": "The candidate's aggregate initialization zeros DDSURFACEDESC before the first SetDisplayMode call. Native code calls SetDisplayMode, releases three COM globals, and only then zeros the descriptor at target offset 0x63. The candidate also has a different contribution size, so the single natural-source prediction is falsified. No further spelling or flag iteration was run."
+  },
+  "reentry": {
+    "prediction": "Based on the first object diagnostic and the native sequence, placing the genuine SDK DDSURFACEDESC aggregate-initialization scope after SetDisplayMode and after releasing the prior back-buffer, primary-surface, and palette COM objects will defer the 108-byte clear to the observed point after those calls. Keeping the first candidate's SDK types, global aliases, values, fallback, palette ownership, and 256-entry behavior unchanged will reproduce the complete 336-byte contribution and coherent native global bindings in a fresh pinned MSVC 5 /O2 /Gy build.",
+    "falsifier": "Reject this one evidence-driven re-entry if the full candidate contribution is not exactly 336 bytes, any non-relocation code byte differs, any implied data binding conflicts with the target addresses, or the target absolute-field accesses cannot be bound consistently. Stop after this measurement; no further statement, type, flag, or spelling grid.",
+    "source": "candidates\\luna_directdraw_mode_helpers_12\\graphics_native_06a60_deferred.cpp",
+    "source_sha256": "63812c71687eac161705e347ae92f701d8ce004f2673ddd1e390f80dda8f3b7b",
+    "object_sha256": "696758f689f37a4843b271863448772c952cbcbe9292068b9cbaee166ba71d9d",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-0v7xg5wn\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\candidates\\luna_directdraw_mode_helpers_12\\graphics_native_06a60_deferred.cpp"
+    ],
+    "target_bytes": 336,
+    "compiled_bytes": 336,
+    "raw_differing_bytes": 80,
+    "nonrelocation_differences": 22,
+    "inconsistent_data_binding": "_g_exe_96e3ec at code offset231",
+    "full_raw_equal": false,
+    "full_masked_equal": false
+  },
+  "provenance": [
+    {
+      "path": "work/luna_directdraw_mode_helpers_12/handoff.json",
+      "sha256": "a62bda4e188b5a71597f869eb0dff8979295fc84fe72c28accece0b392667d24"
+    },
+    {
+      "path": "work/luna_directdraw_mode_helpers_12/deferred_meta.json",
+      "sha256": "f231de516b067d46bbf7bc794ce65141137c6e70d931218cf9abbfb1620b8d00"
+    },
+    {
+      "path": "work/luna_directdraw_mode_helpers_12/deferred_spec.json",
+      "sha256": "7bd3cf520529e8fc62714fd8cd0f22a8f188bca3e1a86420361ce1e01803486d"
+    },
+    {
+      "path": "work/luna_directdraw_mode_helpers_12/deferred_measurement.json",
+      "sha256": "d8e7a1d41f760de19373949b37a4bf85c1b2a43c5a72ea5b5aee99da5ac01d9c"
+    }
+  ],
+  "limits": [
+    "Correct336-byte extent does not prove matching or complete behavior.",
+    "Known256-entry palette loop establishes that buffer capacity; other owner/type/TU details stay unproved.",
+    "Descriptor clear timing follows native calls; this does not justify statement-order, declaration or flag grids.",
+    "No canonical/state changes or stubs; first family and new reentry receipts remain distinct."
+  ]
+}

@@ -1,0 +1,458 @@
+{
+  "scope": "Read-only actor interpretation evidence and three isolated compiler MREs; no reset/source recovery or acceptance.",
+  "field_interpretations": [
+    {
+      "offsets": [
+        "0x40",
+        "0x42"
+      ],
+      "width": 2,
+      "role": "signed resource-prefix index, signextendedbeforeword-row indexing",
+      "proof": [
+        "ENG1 5210/5296",
+        "ENG3 a310/a396"
+      ],
+      "source_limit": "Source couldstoreunsignedWORD andcasttosigned forindexing; signedread doesnotidentify memberdeclaration."
+    },
+    {
+      "offsets": [
+        "0x44",
+        "0x46",
+        "0x48"
+      ],
+      "width": 2,
+      "role": "FFFF sentinel-bearing resource IDs, zeroextended/masked for lookup",
+      "proof": [
+        "ENG1 51d5..51f6/5275..5288"
+      ],
+      "source_limit": "Unsigned interpretation isobserved; originalsource types/macros unproved."
+    },
+    {
+      "offsets": [
+        "0x3a",
+        "0x3c"
+      ],
+      "width": 2,
+      "role": "unsigned scale inputs inrender path",
+      "proof": [
+        "ENG1 3f7d/3f7f and3f93/3f95"
+      ],
+      "source_limit": "Lowwordeffect multiply inmatched21910 cannotdiscriminate signed fromunsigned. Do not infer scale signedness onlyfromexisting proxytype."
+    },
+    {
+      "offsets": [
+        "0x88",
+        "0x8a",
+        "0x8c",
+        "0x8e",
+        "0x90",
+        "0x92"
+      ],
+      "width": 2,
+      "role": "sixwordblock addressed atactor+88 and comparedsigned",
+      "proof": [
+        "ENG1 1d99/1da4 ->2a810 sixsignedSETGE/SETLE",
+        "ENG1 1181f..1183b"
+      ],
+      "source_limit": "Actualaddressed12-byte block supportsordinary bounded aggregate view; originalarray/struct declaration, fieldmeanings andusecasts remainunproved."
+    }
+  ],
+  "native_spans": [
+    {
+      "module": "ENG1.DLL",
+      "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x3f60",
+      "bytes": 65,
+      "role": "render scale unsigned zero-extension3a/3c",
+      "sha256": "ea9e7228c5a79a65bcabc0e719cfae8b7bfb0fc1bbda7f8560b689ecae4f7be5"
+    },
+    {
+      "module": "ENG1.DLL",
+      "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x51d0",
+      "bytes": 101,
+      "role": "resource IDs44/46 vs signed index40",
+      "sha256": "0ea6fda883fa173f8a3f1ddebb57d160e967d39d1b7d6a3c87a9b9a09af76dca"
+    },
+    {
+      "module": "ENG1.DLL",
+      "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x5275",
+      "bytes": 45,
+      "role": "resource ID48 vs signed index42",
+      "sha256": "db68b95f7d7aaccc546c42e380c004a8057d0edbf54798f3b767e79509ae2753"
+    },
+    {
+      "module": "ENG1.DLL",
+      "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x117d0",
+      "bytes": 64,
+      "role": "actor interpolation/bounds setup including negativeword92",
+      "sha256": "4baffb46977c1e912fa8577cf66928fad8e198c6a8c7ba5661c4a8912cc2cf4d"
+    },
+    {
+      "module": "ENG1.DLL",
+      "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x11810",
+      "bytes": 69,
+      "role": "signed interpretation88/8a/8e/90/92",
+      "sha256": "31d9c0200a1e8347797a3cea7df510a407306d0201393b1503e112fac543cb67"
+    },
+    {
+      "module": "ENG1.DLL",
+      "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x1d80",
+      "bytes": 42,
+      "role": "real actor bounds88 passedtosigned sixwordcomparison",
+      "sha256": "6d664f04b364f951cd7cbdc57b6cb4aef64e488b9bbf81cfc6667b45b6a0844a"
+    },
+    {
+      "module": "ENG1.DLL",
+      "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x2a810",
+      "bytes": 112,
+      "role": "signed sixword bound predicate",
+      "sha256": "f7e1d7f26a234502e73af8bf670447ec4545c6261b02f8ee6c0af90f2b6c1c70"
+    },
+    {
+      "module": "ENG3.DLL",
+      "oracle_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x1f130",
+      "bytes": 112,
+      "role": "signed bound predicate peer",
+      "sha256": "2b414c4bdc66d392a36acd631ae73f897c3e3d9269f45d8fa37ea995d58b8fb0"
+    },
+    {
+      "module": "ENG3.DLL",
+      "oracle_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0xa310",
+      "bytes": 8,
+      "role": "signed index40 peer",
+      "sha256": "618e4f33c484bb1a3040fcbd4d4fc7a91118b152fc38413d145396897df07d61"
+    },
+    {
+      "module": "ENG3.DLL",
+      "oracle_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0xa396",
+      "bytes": 8,
+      "role": "signed index42 peer",
+      "sha256": "a5e2be267cf54afbb17afba5198fefc23a4a56191346d33d970819b7662d15b0"
+    }
+  ],
+  "compiler": "msvc5_rtm",
+  "compiler_builds": 3,
+  "controls": [
+    {
+      "label": "A_unsigned_fields",
+      "source": "candidates/sol_actor_reset_constants_12/A_unsigned_fields.c",
+      "source_sha256": "7db24b22e8f92f8fbb58fe2977bcc4935c02022746e5873ca6320bbe0ae39abf",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\sol_actor_reset_constants_12\\A_unsigned_fields.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\sol_actor_reset_constants_12\\A_unsigned_fields.c"
+      ],
+      "object": "D:\\Prog\\hercules_recon\\work\\sol_actor_reset_constants_12\\A_unsigned_fields.obj",
+      "object_sha256": "bbb55bcba0f11364e01c0b000c697efa6daa53ebd4770b660b665948809c1e2f",
+      "bytes": 128,
+      "raw_code_sha256": "94ae466a6bf0791b59fd73987705b847f8cf04b419870988b3ccdd37fd1258dc",
+      "payloads_verified": true,
+      "relocations": [],
+      "store_order": [
+        "0x3e",
+        "0x3c",
+        "0x3a",
+        "0x1d",
+        "0x1e",
+        "0x1c",
+        "0x20",
+        "0x76",
+        "0x74",
+        "0x72",
+        "0x70",
+        "0x8c",
+        "0x8a",
+        "0x88",
+        "0x48",
+        "0x42",
+        "0x46",
+        "0x44",
+        "0x40",
+        "0x92",
+        "0x90",
+        "0x8e",
+        "0x23"
+      ],
+      "constant_materializations": [
+        {
+          "at": "0x4",
+          "register": "edx",
+          "value": "0x100"
+        },
+        {
+          "at": "0xa",
+          "register": "bl",
+          "value": "0xff"
+        },
+        {
+          "at": "0x1a",
+          "register": "edx",
+          "value": "0xffff"
+        }
+      ]
+    },
+    {
+      "label": "B_native_signed_fields",
+      "source": "candidates/sol_actor_reset_constants_12/B_native_signed_fields.c",
+      "source_sha256": "cec59fe173e91875327fee68a5bfe204231633ce811fb4fe7ae856cc01bcd0f3",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\sol_actor_reset_constants_12\\B_native_signed_fields.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\sol_actor_reset_constants_12\\B_native_signed_fields.c"
+      ],
+      "object": "D:\\Prog\\hercules_recon\\work\\sol_actor_reset_constants_12\\B_native_signed_fields.obj",
+      "object_sha256": "9997ef513f43571aa8c5594ca168f5b032aaf6ba095379defeba48a6ede25704",
+      "bytes": 144,
+      "raw_code_sha256": "3f5cbca724674dcd4e89c7fc6dfa3effa1063fa6034c43837b2e08cd83671892",
+      "payloads_verified": true,
+      "relocations": [],
+      "store_order": [
+        "0x3e",
+        "0x3c",
+        "0x3a",
+        "0x48",
+        "0x46",
+        "0x44",
+        "0x1d",
+        "0x1e",
+        "0x1c",
+        "0x76",
+        "0x74",
+        "0x72",
+        "0x70",
+        "0x8c",
+        "0x8a",
+        "0x88",
+        "0x42",
+        "0x40",
+        "0x92",
+        "0x90",
+        "0x20",
+        "0x8e",
+        "0x23"
+      ],
+      "constant_materializations": [
+        {
+          "at": "0x5",
+          "register": "esi",
+          "value": "0x100"
+        },
+        {
+          "at": "0xa",
+          "register": "dl",
+          "value": "0xff"
+        },
+        {
+          "at": "0x18",
+          "register": "esi",
+          "value": "0xffff"
+        }
+      ]
+    },
+    {
+      "label": "C_signed_bounds_array",
+      "source": "candidates/sol_actor_reset_constants_12/C_signed_bounds_array.c",
+      "source_sha256": "b7dc2bb93710eb7950c16fb823235528961f0b87d17d4a032eef3adc52f8b6d1",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\sol_actor_reset_constants_12\\C_signed_bounds_array.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\sol_actor_reset_constants_12\\C_signed_bounds_array.c"
+      ],
+      "object": "D:\\Prog\\hercules_recon\\work\\sol_actor_reset_constants_12\\C_signed_bounds_array.obj",
+      "object_sha256": "fac5f0e00308fe0f67fe56335a4d9d5f78ffd94a3c9421c2822753134854083e",
+      "bytes": 144,
+      "raw_code_sha256": "3f5cbca724674dcd4e89c7fc6dfa3effa1063fa6034c43837b2e08cd83671892",
+      "payloads_verified": true,
+      "relocations": [],
+      "store_order": [
+        "0x3e",
+        "0x3c",
+        "0x3a",
+        "0x48",
+        "0x46",
+        "0x44",
+        "0x1d",
+        "0x1e",
+        "0x1c",
+        "0x76",
+        "0x74",
+        "0x72",
+        "0x70",
+        "0x8c",
+        "0x8a",
+        "0x88",
+        "0x42",
+        "0x40",
+        "0x92",
+        "0x90",
+        "0x20",
+        "0x8e",
+        "0x23"
+      ],
+      "constant_materializations": [
+        {
+          "at": "0x5",
+          "register": "esi",
+          "value": "0x100"
+        },
+        {
+          "at": "0xa",
+          "register": "dl",
+          "value": "0xff"
+        },
+        {
+          "at": "0x18",
+          "register": "esi",
+          "value": "0xffff"
+        }
+      ]
+    }
+  ],
+  "H1": {
+    "complete_output_equal": false,
+    "falsified": false
+  },
+  "H2": {
+    "complete_output_equal": true,
+    "falsified": true
+  },
+  "conclusions": [
+    "Actual signed use interpretation doesnot identify source member signedness; reset mayuse a different compatible storage/readview.",
+    "Signed40/42 sentinel conversion splits immediate16-bitFFFF stores from shared unsignedFFFF register stores and changes scheduling/pressure in the MRE.",
+    "Addressedbounds short[6] andseparate SHORT members produce identical complete code in this reduction.",
+    "The fullnative reset shares oneFFFF register acrossallfive sentinel fields; this reduced signedproxy doesnot explain it.",
+    "Phase32-only andstatementorder families remainstopped; no fullreset compiled, source transferred or rawmatch claim."
+  ],
+  "frozen_sources": [
+    {
+      "path": "calibration/actor_pools.c",
+      "sha256": "2ff49187935e13c68d9a64ae477c009107871e12fc8b440848e5d862d7ecb5b4"
+    },
+    {
+      "path": "candidates/luna_shared_actor_reset_11/actor_reset_signed_phase.c",
+      "sha256": "3d23e4bb70151f51dd76e4e833f3c4ba8bf0fbc9cc58973ad57417b6477101ac"
+    },
+    {
+      "path": "calibration/eng3/actor_kind_create.c",
+      "sha256": "c5131584f722db9958d6868fd37a336794b50c9a947eb0c65d1c03baea7cf622"
+    }
+  ],
+  "provenance": [
+    {
+      "path": "work/sol_actor_reset_constants_12/prediction.json",
+      "sha256": "33f00a1818ee1c1ac6fece06a29369154db8c09ec8a06921df9c2a0b51ca7fc5"
+    },
+    {
+      "path": "work/sol_actor_reset_constants_12/mre_prediction.json",
+      "sha256": "8808526588995fa6b9172ca79130004eb5e6efd8b894c3e59410f58aa88ecd1d"
+    },
+    {
+      "path": "work/sol_actor_reset_constants_12/scan.py",
+      "sha256": "e656b17d16faa31e10e1c19432cb1dbef3fae793746f7b60881ab701223cf944"
+    },
+    {
+      "path": "work/sol_actor_reset_constants_12/evidence.py",
+      "sha256": "6bb2d28edbe7a69afebcb0aa0b9af24dc4627f100eabb53eed95726d662b8fa3"
+    },
+    {
+      "path": "work/sol_actor_reset_constants_12/mre.py",
+      "sha256": "4fc60a5cd8fc32c30e2ab07ba9c53d3a4eefdddd2c4356946405caf4d96fed5d"
+    },
+    {
+      "path": "work/sol_actor_reset_constants_12/scan.json",
+      "sha256": "a81286a2c15bebf46fd8d22b7b86915538e075ed8468566eec87c549739ab70e"
+    },
+    {
+      "path": "work/sol_actor_reset_constants_12/native_evidence.json",
+      "sha256": "1199b49f668fe877ce32bcf742b2911e7fd6a2d9a8bb2de1af634d9914c663d8"
+    },
+    {
+      "path": "work/sol_actor_reset_constants_12/mre.json",
+      "sha256": "5b51f86ad28969f260dcd56d957efadbd76d62938d26b7f9c0fe72b8145e1831"
+    },
+    {
+      "path": "work/sol_actor_reset_constants_12/handoff.md",
+      "sha256": "e183ae243bc993089a0f29ba3458e107d6d91a264671aa644a36f5e829fd30b6"
+    },
+    {
+      "path": "work/sol_actor_reset_constants_12/header_provenance.py",
+      "sha256": "4a6b0343120c980ac3d574a434bc5e30201c629b2f9185aff7eeac43cfeb3368"
+    },
+    {
+      "path": "work/sol_actor_reset_constants_12/header_provenance.json",
+      "sha256": "7a1ce8c0b06d68f2f7ec8d2eff96155c6ad1f338dc65be3aa65f6319d9b24a9a"
+    }
+  ],
+  "actual_header_provenance": {
+    "scope": "Actual sole MRE header and source/object stability verification; no historical compilation or full reset retry.",
+    "capture_timing": "Explicit header digest captured after the three MRE compilations. No independent before/after compile-time header digest claim.",
+    "toolchain": "msvc5_rtm",
+    "repository": "https://github.com/archaic-msvc/msvc500",
+    "commit": "8abf95ce980161ad87b0b02402269cce76988953",
+    "acquisition_archive_sha256": "5f7728d1b3b8b8c61bb35e42a7680211019d290b30376c1a0a8faaa6d166cd1f",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "actual_header": {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h",
+      "bytes": 2458,
+      "sha256": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
+      "direct_includes": [],
+      "identification": "Microsoft CRT stddef.h; copyright 1985-1997; from the acquired pinned VC5 RTM tree."
+    },
+    "checks": [
+      {
+        "source": "candidates/sol_actor_reset_constants_12/A_unsigned_fields.c",
+        "source_sha256": "7db24b22e8f92f8fbb58fe2977bcc4935c02022746e5873ca6320bbe0ae39abf",
+        "object": "D:\\Prog\\hercules_recon\\work\\sol_actor_reset_constants_12\\A_unsigned_fields.obj",
+        "object_sha256": "bbb55bcba0f11364e01c0b000c697efa6daa53ebd4770b660b665948809c1e2f",
+        "direct_headers": [
+          "stddef.h"
+        ]
+      },
+      {
+        "source": "candidates/sol_actor_reset_constants_12/B_native_signed_fields.c",
+        "source_sha256": "cec59fe173e91875327fee68a5bfe204231633ce811fb4fe7ae856cc01bcd0f3",
+        "object": "D:\\Prog\\hercules_recon\\work\\sol_actor_reset_constants_12\\B_native_signed_fields.obj",
+        "object_sha256": "9997ef513f43571aa8c5594ca168f5b032aaf6ba095379defeba48a6ede25704",
+        "direct_headers": [
+          "stddef.h"
+        ]
+      },
+      {
+        "source": "candidates/sol_actor_reset_constants_12/C_signed_bounds_array.c",
+        "source_sha256": "b7dc2bb93710eb7950c16fb823235528961f0b87d17d4a032eef3adc52f8b6d1",
+        "object": "D:\\Prog\\hercules_recon\\work\\sol_actor_reset_constants_12\\C_signed_bounds_array.obj",
+        "object_sha256": "fac5f0e00308fe0f67fe56335a4d9d5f78ffd94a3c9421c2822753134854083e",
+        "direct_headers": [
+          "stddef.h"
+        ]
+      }
+    ],
+    "limits": "Header/source/object provenance supports the compiler controls; it does not establish original compiler/header/source identity or function acceptance."
+  },
+  "date": "2026-10-11",
+  "worker_receipt": {
+    "path": "work/sol_actor_reset_constants_12/compact.json",
+    "sha256": "bfa089e39bc028893453157e4724f9a852789c627ad28947b6cadca45ab0409a"
+  }
+}

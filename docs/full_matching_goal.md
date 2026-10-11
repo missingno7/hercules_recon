@@ -315,3 +315,48 @@ legacy similar bytes. All strict peers remain exact; full masked regression,
 active. Next recover actual graphics/audio callees and host table contributions,
 while preserving stopped compiler families until new evidence permits reentry.
 See `evidence/full_goal_registry_storage_wave_2026_10_11.json`.
+
+## Display SDK and shared reset wave
+
+Two genuine display contributions add 816 complete relocation-masked bytes:
+the mode transition at EXE 0x6bb0 (784) and requested-mode setter at 0x6ec0 (32).
+The transition uses the pinned historical Win32 and `IDirectDraw` declarations.
+Replacing the provisional object view preserves all function bytes and 92 ordered
+relocations; 56 actual SDK headers stay stable during the fresh build. Native
+same-cell SetDisplayMode calls use three DWORD arguments. This supports the
+working ABI, without identifying the original SDK release, class, or source TU.
+The setter's working return declaration preserves all three cleanup caller
+contributions / 368 bytes and their ordered relocations.
+
+Fresh natural linking now includes 21 real source contributions. It removes two
+missing cleanup names and exposes eight actual graphics helpers and fourteen
+new global cells, changing 28 unresolved names to 48. All 18 unchanged prior
+full COFF units remain preserved. Dependency expansion is separate from closure;
+there is no accepted or executed image. Recover the actual helpers and data
+owners next, using the real SDK rather than placeholder interfaces or storage.
+
+ENG1 0x27fe0 and ENG3 0x1d8a0 are identical complete 272-byte native resets.
+TITLE 0x94c0 is different and is excluded from this identity claim. A fresh
+compile of existing `actor_pools.c` differs in 209 bytes, with no relocations.
+A reviewed fail-closed static trace shows equal final values for 130 written
+record bytes, preservation of the other 18 bytes, and the cdecl stack and saved
+register contract. This applies to an ordinary non-raced, writable, nonoverlapping
+0x94-byte record and valid call frame. The two source mappings are retained as
+`RECONSTRUCTED`; neither raw nor masked equality follows.
+
+Three reduced compiler controls distinguish storage conversion and constant
+grouping. Signed field declarations can split immediate stores from a shared
+FFFF constant register; changing six separate bounds fields to an array leaves
+the complete reduced output unchanged. Native signed reads do not establish
+signed storage declarations. These controls do not solve the full reset.
+The profile binder and scope-corrected DirectDraw surface candidate also fail
+their complete gates. Keep their evidence and reentry conditions; do not repeat
+type, spelling, or statement-order grids.
+
+Current recovery is 117 strict functions / 7,904 bytes, 385 masked functions /
+84,432 bytes in 47 sources, four reconstructed functions / 880 bytes, and 352
+legacy similar bytes. Fresh strict and masked regression, 54 tests and twelve
+original-file checks pass. This wave adds no strict bytes. Missing-code map
+leads remain heuristic, not whole-image completeness measurements. See
+`evidence/full_goal_display_reset_wave_2026_10_11.json` and the bounded reset
+proof in `evidence/shared_actor_reset_behavior_2026_10_11.json`.

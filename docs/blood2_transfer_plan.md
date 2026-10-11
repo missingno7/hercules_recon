@@ -109,6 +109,22 @@ The pilot establishes reproducibility, useful discrimination and stricter input
 identity checks. It does not claim a strict-byte gain. Broader infrastructure
 adoption should follow a measured target-family gain, not the number of variants.
 
+The 2026-10-11 extension transfers controlled experiments and cross-module
+evidence, using Hercules's own pinned RTM compiler. Three small actor-reset
+controls isolate storage conversion from constant sharing, and separate fields
+from an array. Their outputs distinguish hypotheses without solving the native
+full-function register allocation. ENG1/ENG3 reset spans are byte-identical;
+TITLE's related reset is not. The existing engine source now has two bounded
+behavior fallback mappings, with explicit memory and cdecl preconditions.
+
+The genuine historical SDK display pilot adds 816 complete masked code bytes
+while preserving every strict match and cleanup caller contribution. It also
+exposes real missing dependencies rather than forcing a link with placeholders.
+Continue recovering those bodies in parallel with evidence-driven compiler
+research. No new matching framework or relaxed acceptance is warranted by these
+results. Current metrics, negative controls and next discriminators are in
+`evidence/full_goal_display_reset_wave_2026_10_11.json`.
+
 ## Validation and continuation
 
 Before changes: fresh **113 FUNCTION_MATCH instances / 7,840 bytes** and

@@ -1,0 +1,276 @@
+{
+  "date": "2026-10-11",
+  "scope": "Bounded final-record memory and cdecl ABI equivalence of existing source, not raw/masked acceptance or whole-game behavior.",
+  "prediction": "One fresh unmodified MSVC5 RTM /O2 /Gy compile of calibration/actor_pools.c will produce the recorded 272-byte _initialize_alternate_actor contribution, and a fail-closed trace of its complete pre-RET body and both identical native bodies will show identical final writes to one 0x94-byte record. Store order/register allocation may differ, but each written byte will have the same constant final value, all other record bytes will remain unchanged, and only the argument slot, temporary saved-EBX stack slot and return address will be read/touched outside the record under a valid cdecl frame.",
+  "falsifier": "Stop the proof if input hashes or target spans differ, fresh raw measurements cannot cover both complete 272-byte extents, the two native spans differ, disassembly has incomplete coverage, any unsupported instruction/branch/call/unknown read or write appears, any actor access falls outside [0,0x94), final actor-byte maps differ, ESP/callee-saved state fails the cdecl check, or any non-record external data access appears.",
+  "preconditions": [
+    "32-bit x86 flat-address execution and a valid one-argument cdecl call frame: readable return address at entry ESP, readable ActorCore* at ESP+4, one writable dword at ESP-4 for the saved EBX, and ordinary caller-cleanup behavior.",
+    "ActorCore* points to a writable ordinary 0x94-byte record; its address range does not overlap the active call-frame bytes [entry ESP-4, entry ESP+8), globals, or memory-mapped/volatile storage.",
+    "The call is not concurrently observed or raced; normal memory semantics apply. The callee's temporary push may leave bytes in the abandoned stack slot, which is outside the caller's live frame after return."
+  ],
+  "source": "calibration/actor_pools.c",
+  "source_sha256": "2ff49187935e13c68d9a64ae477c009107871e12fc8b440848e5d862d7ecb5b4",
+  "symbol": "_initialize_alternate_actor",
+  "toolchain": "msvc5_rtm",
+  "compile_command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/c",
+    "/Gy",
+    "/O2",
+    "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-u41ilxnt\\candidate.obj",
+    "D:\\Prog\\hercules_recon\\calibration\\actor_pools.c"
+  ],
+  "object_sha256": "577ec10e02e89042580ee10ee5603472ea3ac96be09722ce952824958cd318e2",
+  "compiled_sha256": "9fd3950526b8164e72c12140bdbc3453f94c0f8a776ee97e854093c289858946",
+  "compiled_bytes": 272,
+  "relocations": 0,
+  "native_spans": [
+    {
+      "module": "ENG1",
+      "path": "assets\\pc\\HERCULES\\ENG1.DLL",
+      "module_sha256_before_after": {
+        "before": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+        "after": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+      },
+      "rva": "0x27fe0",
+      "size": 272,
+      "span_sha256": "8b8c2737815548fbaf4b771cb5ee28774740b408216aa4ebf52122c1efd9fad1"
+    },
+    {
+      "module": "ENG3",
+      "path": "assets\\pc\\HERCULES\\ENG3.DLL",
+      "module_sha256_before_after": {
+        "before": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+        "after": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+      },
+      "rva": "0x1d8a0",
+      "size": 272,
+      "span_sha256": "8b8c2737815548fbaf4b771cb5ee28774740b408216aa4ebf52122c1efd9fad1"
+    }
+  ],
+  "raw_differing_bytes_per_module": 209,
+  "strict_equal": false,
+  "masked_equal": false,
+  "final_record_byte_ranges": [
+    {
+      "offset": "0x00",
+      "size": 26,
+      "final_bytes_le": "0000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "offset": "0x1c",
+      "size": 92,
+      "final_bytes_le": "ffffff00ff0001008000000000000000000000000000ffff000000000000000100010001ffffffffffffffffffff80000000000002000000000000800000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "offset": "0x88",
+      "size": 12,
+      "final_bytes_le": "000000000000000000000000"
+    }
+  ],
+  "untouched_ranges": [
+    {
+      "start": "0x1a",
+      "end_exclusive": "0x1c"
+    },
+    {
+      "start": "0x78",
+      "end_exclusive": "0x88"
+    }
+  ],
+  "written_record_bytes": 130,
+  "semantic_checks": {
+    "native_modules_final_actor_map_equal": true,
+    "fresh_compiled_final_actor_map_equal": true,
+    "native_body_sizes_equal": true,
+    "all_actor_writes_within_0x94": true,
+    "no_actor_reads": true,
+    "no_branches_or_calls": true,
+    "all_callee_saved_preserved": true,
+    "cdecl_stack_restored_before_ret_and_return_consumed": true,
+    "same_touched_offsets": true
+  },
+  "trace_summary": {
+    "fresh_compiled_source": {
+      "body_size_through_ret": 263,
+      "tail_padding_size": 9,
+      "instruction_counts": {
+        "mov": 62,
+        "pop": 1,
+        "push": 1,
+        "ret": 1,
+        "xor": 1
+      },
+      "executed_straight_line_instruction_count": 66,
+      "stack_reads": [
+        {
+          "stack_offset_from_entry_esp": 4,
+          "width_bits": 32,
+          "instruction_offset": 0
+        },
+        {
+          "stack_offset_from_entry_esp": -4,
+          "width_bits": 32,
+          "instruction_offset": 261
+        },
+        {
+          "stack_offset_from_entry_esp": 0,
+          "width_bits": 32,
+          "instruction_offset": 262
+        }
+      ],
+      "stack_temporary_writes": [
+        {
+          "stack_offset_from_entry_esp": -4,
+          "width_bits": 32,
+          "instruction_offset": 4,
+          "value": "saved_entry_ebx"
+        }
+      ],
+      "stack_delta_before_ret": 0,
+      "stack_delta_after_ret": 4,
+      "callee_saved_registers_preserved": {
+        "ebx": true,
+        "esi": true,
+        "edi": true,
+        "ebp": true
+      },
+      "flags_clobbers_caller_saved": 1
+    },
+    "ENG1": {
+      "body_size_through_ret": 264,
+      "tail_padding_size": 8,
+      "instruction_counts": {
+        "mov": 63,
+        "pop": 1,
+        "push": 1,
+        "ret": 1,
+        "xor": 1
+      },
+      "executed_straight_line_instruction_count": 67,
+      "stack_reads": [
+        {
+          "stack_offset_from_entry_esp": 4,
+          "width_bits": 32,
+          "instruction_offset": 0
+        },
+        {
+          "stack_offset_from_entry_esp": -4,
+          "width_bits": 32,
+          "instruction_offset": 262
+        },
+        {
+          "stack_offset_from_entry_esp": 0,
+          "width_bits": 32,
+          "instruction_offset": 263
+        }
+      ],
+      "stack_temporary_writes": [
+        {
+          "stack_offset_from_entry_esp": -4,
+          "width_bits": 32,
+          "instruction_offset": 4,
+          "value": "saved_entry_ebx"
+        }
+      ],
+      "stack_delta_before_ret": 0,
+      "stack_delta_after_ret": 4,
+      "callee_saved_registers_preserved": {
+        "ebx": true,
+        "esi": true,
+        "edi": true,
+        "ebp": true
+      },
+      "flags_clobbers_caller_saved": 1
+    },
+    "ENG3": {
+      "body_size_through_ret": 264,
+      "tail_padding_size": 8,
+      "instruction_counts": {
+        "mov": 63,
+        "pop": 1,
+        "push": 1,
+        "ret": 1,
+        "xor": 1
+      },
+      "executed_straight_line_instruction_count": 67,
+      "stack_reads": [
+        {
+          "stack_offset_from_entry_esp": 4,
+          "width_bits": 32,
+          "instruction_offset": 0
+        },
+        {
+          "stack_offset_from_entry_esp": -4,
+          "width_bits": 32,
+          "instruction_offset": 262
+        },
+        {
+          "stack_offset_from_entry_esp": 0,
+          "width_bits": 32,
+          "instruction_offset": 263
+        }
+      ],
+      "stack_temporary_writes": [
+        {
+          "stack_offset_from_entry_esp": -4,
+          "width_bits": 32,
+          "instruction_offset": 4,
+          "value": "saved_entry_ebx"
+        }
+      ],
+      "stack_delta_before_ret": 0,
+      "stack_delta_after_ret": 4,
+      "callee_saved_registers_preserved": {
+        "ebx": true,
+        "esi": true,
+        "edi": true,
+        "ebp": true
+      },
+      "flags_clobbers_caller_saved": 1
+    }
+  },
+  "integrator_control": "Re-extracted current complete COFF/PE contributions, checked source/object/header/toolchain/oracle hashes, replayed reviewed fail-closed trace and compared full traces exactly; branch/call/unknown read/write controls rejected.",
+  "header": {
+    "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h",
+    "sha256_before_after": {
+      "before": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
+      "after": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9"
+    }
+  },
+  "toolchain_manifest": {
+    "before": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "after": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "worker_receipts": [
+    {
+      "path": "work/reset_behavior_trace_12/measurement.json",
+      "sha256": "97f3134c78a596964a0e80b1fb10f5fd918578bb611d714bb53a68ac1703c3e0"
+    },
+    {
+      "path": "work/reset_behavior_trace_12/scope.json",
+      "sha256": "cc49da8c93cf1211df6c25e0e31bce3eb3170d2f4dee2d753fb1d99b1a53c8e9"
+    },
+    {
+      "path": "work/reset_behavior_trace_12/trace_engine.py",
+      "sha256": "dde6bac53e0bffa147029f01abfd65b5738398dafe99f33a8736281c2a28b93e"
+    },
+    {
+      "path": "work/reset_behavior_trace_12/measure_and_trace.py",
+      "sha256": "c85b3a845cff298d5ad10edf56faddcd3806b03a845b8f1ca95febf8dab6626c"
+    },
+    {
+      "path": "work/reset_behavior_trace_12/handoff.md",
+      "sha256": "e620833be461192541a544b386a5715dae6acc6a0ba552a4f56b114656264993"
+    }
+  ],
+  "limits": [
+    "This proves only the observed reset behavior under the stated preconditions; it does not prove original source spelling, struct ownership, module layout, or whole-image identity.",
+    "Raw object mismatch remains a compiler/source diagnostic and is not promoted by this semantic trace.",
+    "Raw object equality is reported separately; this trace does not promote or mask a raw mismatch.",
+    "The push temporarily writes one dword in the callee stack slot at entry ESP-4. It is popped into EBX and lies below the returned caller ESP; ordinary cdecl callers cannot rely on that abandoned slot's contents.",
+    "The source is void: caller-saved registers and flags are not part of this cdecl result. Store order may differ; the record must be ordinary non-raced memory.",
+    "Two existing source mappings are recorded as RECONSTRUCTED. No new canonical source, strict match, relocation masking, struct ownership or original type identity follows."
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "lane": "luna_shared_actor_reset_11",
+  "result": "not exact; no stage-ready recovery plan",
+  "scope": {
+    "ENG1.DLL": {
+      "rva": "0x27fe0",
+      "size": 272,
+      "module_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+    },
+    "ENG3.DLL": {
+      "rva": "0x1d8a0",
+      "size": 272,
+      "module_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+    },
+    "target_contributions_byte_identical": true,
+    "target_function_sha256": "8b8c2737815548fbaf4b771cb5ee28774740b408216aa4ebf52122c1efd9fad1"
+  },
+  "evidence": {
+    "extent": "272 bytes including the 8-byte alignment tail; 264 bytes through RET",
+    "calls_or_data_references_inside_function": [],
+    "direct_callers": {
+      "ENG1.DLL": [
+        "0x12979",
+        "0x27a56",
+        "0x27c5b",
+        "0x27dc6",
+        "0x27f7d",
+        "0x27fb7"
+      ],
+      "ENG3.DLL": [
+        "0x1d386",
+        "0x1d58b",
+        "0x1d686",
+        "0x1d83d",
+        "0x1d877"
+      ]
+    },
+    "argument_evidence": "Each inspected caller pushes one pointer and performs cdecl cleanup; a pointer to a 0x94-byte actor record is consistent with calibration/actor_pools.c and calibration/eng3/actor_kind_create.c.",
+    "access_widths": "Stores match byte fields at 0x1c-0x25 (including category=1 at 0x22 and 0x24=0x80), 16-bit fields at offsets 0x0c-0x18, 0x26-0x4a, and 0x70-0x92, and 32-bit fields at 0x00-0x08 and 0x4c-0x6c. Repeated target constants are materialized in EDX as 0x100, 0xffff, and 0x80."
+  },
+  "attempts": [
+    {
+      "prediction": "The existing ordinary-C ActorCore reset with unsigned-short field 0x32 and value 0xffff will reproduce the full span.",
+      "falsifier": "Any raw target byte differs.",
+      "source": "calibration/actor_pools.c",
+      "source_sha256": "2ff49187935e13c68d9a64ae477c009107871e12fc8b440848e5d862d7ecb5b4",
+      "compiler": "msvc5_rtm /O2 /Gy",
+      "object_sha256": "ba852648393e457040d69c2c45a2135298fb48d4d9a4e11c5b9bed9ab610d7ab",
+      "result": "272-byte contribution, 209 differing bytes in each target; no object or target base relocations"
+    },
+    {
+      "prediction": "Changing only field 0x32 to signed short and assigning -1 will make the full contribution raw-identical in both modules.",
+      "falsifier": "Any raw byte differs, target hash or extent changes, or access width differs.",
+      "source": "candidates/luna_shared_actor_reset_11/actor_reset_signed_phase.c",
+      "source_sha256": "3d23e4bb70151f51dd76e4e833f3c4ba8bf0fbc9cc58973ad57417b6477101ac",
+      "compiler": "msvc5_rtm /O2 /Gy",
+      "object_sha256": "6032372063f4e23cfedc7749f1b9dd4b9ed7df572f52918b88621fdf21ee35ec",
+      "result": "272-byte contribution, 74 differing bytes in each target; no object or target base relocations",
+      "residual": "No-recompile instruction-window diagnostic identifies reordered independent stores. The target stores offset 0x72 before its 0x100 materialization, then zeroes 0x8c/0x8a/0x88 before materializing 0xffff and writing 0x48/0x42/0x46/0x44/0x40. VC5 groups same-value stores differently."
+    }
+  ],
+  "provenance": {
+    "toolchain_manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "measurements": [
+      "work/luna_shared_actor_reset_11/measurement.json",
+      "work/luna_shared_actor_reset_11/signed_phase_measurement.json"
+    ],
+    "diagnostic": "work/luna_shared_actor_reset_11/signed_phase_residual.json"
+  },
+  "state": "No canonical source or recovery state changed. The signedness family was falsified; no further spelling/ordering iteration was run.",
+  "worker_receipt": {
+    "path": "work/luna_shared_actor_reset_11/handoff.json",
+    "sha256": "6397d90c0cc61b278c937953e71568d1b83e7b47dcafef7710916859cc9c1ccb"
+  },
+  "date": "2026-10-11"
+}
