@@ -564,3 +564,22 @@ reconciling context and allocation callback aliases to actual structure members.
 Each affected consumer must preserve its complete code and ordered references.
 Continue genuine archive/host storage recovery and missing engine regions in
 parallel with causal compiler experiments. Full matching remains active.
+
+## Engine interface storage
+
+The canonical typed interface provider now passes a fresh data-only gate: one
+1,000-byte writable zero object, no padding, functions, relocations or undefined
+dependencies. Native exports support separate ENG1 and ENG3 copied prefixes; the
+initialized EXE host table remains external. These engine bytes are counted by
+module, separately from the unchanged EXE data totals.
+
+Separate selected dependency links preserve 48 complete current consumers /
+1,120 masked bytes. ENG1 unresolved names fall from four to three; ENG3 from one
+to zero. These use the existing diagnostic no-entry convention and establish
+neither engine startup nor whole-image equality. All 118 strict functions /
+8,032 bytes, 413 masked functions / 85,888 bytes and 54 tests pass. Recovery state
+is unchanged. See `evidence/engine_interface_dependency_2026_10_11.json`.
+
+Member rebind controls are underway for the older resource context and allocator
+aliases. The allocation forwarder is already owned by `engine_file_bridge.c`;
+avoid creating a second definition when reviewing the older registry region.

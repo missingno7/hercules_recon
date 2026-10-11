@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-11",
+  "base_commit": "73baeef",
+  "scope": "Actual typed engine storage prefixes and separate selected dependency diagnostics; full matching remains active.",
+  "recovery_sha256": "1b5b8ddc366ef2039e30f0726bfde6e91850a5c16a08ddeaf6059de69e80f4ea",
+  "source": "calibration/engine_interface_storage.c",
+  "source_sha256": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5",
+  "engine_zero_bytes": {
+    "ENG1.DLL": 1000,
+    "ENG3.DLL": 1000
+  },
+  "exe_data_totals_unchanged": {
+    "initialized_bytes": 245,
+    "observed_zero_bytes": 19561
+  },
+  "strict_gain_bytes": 0,
+  "masked_gain_bytes": 0,
+  "protected_consumers": {
+    "functions": 48,
+    "bytes": 1120,
+    "sources": [
+      "calibration/dispatcher_bridges.c",
+      "calibration/eng1/context_defaults.c",
+      "calibration/engine_file_bridge.c",
+      "calibration/eng3/interface_wrappers.c"
+    ]
+  },
+  "selected_links": {
+    "ENG1.DLL": {
+      "unresolved_before": [
+        "_g_context_default_dword_72190",
+        "_g_context_default_dword_721a8",
+        "_g_dispatch_callback_flag_71ec0",
+        "_g_engine_interface"
+      ],
+      "unresolved_after": [
+        "_g_context_default_dword_72190",
+        "_g_context_default_dword_721a8",
+        "_g_dispatch_callback_flag_71ec0"
+      ],
+      "removed": [
+        "_g_engine_interface"
+      ],
+      "introduced": []
+    },
+    "ENG3.DLL": {
+      "unresolved_before": [
+        "_g_engine_interface"
+      ],
+      "unresolved_after": [],
+      "removed": [
+        "_g_engine_interface"
+      ],
+      "introduced": []
+    }
+  },
+  "regression": {
+    "strict_functions": 118,
+    "strict_bytes": 8032,
+    "masked_functions": 413,
+    "masked_sources": 56,
+    "masked_failures": 0,
+    "tests": 54
+  },
+  "evidence": [
+    "evidence/engine_interface_storage_adoption_2026_10_11.json",
+    "evidence/full_goal_mci_sound_cursor_wave_2026_10_11.json"
+  ],
+  "validation_artifacts": {
+    "work/root_engine_storage_20/prediction.json": "805a43b76987c1148db6d402b6b5b5a384d231cdd0331b636bd389e88d286304",
+    "work/root_engine_storage_20/storage_final.json": "fd446cacb4765c1f7b02639bfba18cc4d1d609af406937b7722f61c64b724410",
+    "work/root_engine_storage_20/link_control.json": "a76e184892aca5064ddd848f09c6b6c7995e6fc7a45b403c4fb6f61155f22dce",
+    "work/root_engine_storage_20/strict_final.json": "e22bf72ebc322d4b9c803ef6bab69605e417cb95509a28f71ab4d2d589d155ad",
+    "work/root_engine_storage_20/masked_final.txt": "da076560834e7e14246a7cdb83e55dc081cdab200acd4f7528d70edf4643ae80",
+    "work/root_engine_storage_20/tests_final.txt": "e9c1b449e4e51449a35fd77aece3d33dd7ee3114a769081ddc73c4688ef36301"
+  },
+  "limits": "Prefix data support establishes no original larger owner/declaration/TU or native placement. Same provider source compiled separately into independent engine images; no separate overlaid context/callback cell definitions. Selected links use existing diagnostic no-entry conventions, do not prove CRT/startup or full-image match, and scratch images are unaccepted/unexecuted. EXE host initialized table is excluded.",
+  "next": "Reconcile supported member aliases under independent full consumer controls; recover genuine archive prefixes while scratch extent remains open."
+}

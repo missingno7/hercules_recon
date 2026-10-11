@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-11",
+  "scope": "Two separate engine-image copied prefixes; no host source table, larger original extent/TU/declaration/layout identity.",
+  "canonical_provider": {
+    "source": "calibration/engine_interface_storage.c",
+    "source_sha256": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5",
+    "symbol": "_g_engine_interface",
+    "working_type": "EngineInterface",
+    "bytes": 1000,
+    "bss_flags": "0xc0400080"
+  },
+  "oracles": [
+    {
+      "module": "ENG1.DLL",
+      "path": "assets/pc/HERCULES/ENG1.DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x70f20",
+      "end_rva": "0x71308",
+      "observed_zero_bytes": 1000,
+      "copy_evidence": [
+        {
+          "rva": "0x2c193",
+          "bytes": 24,
+          "sha256": "d6e94bccfaf6d69558928a7e723aa43a3a3aa0ae527eefb98f34e72b5434ac61",
+          "reason": "250-DWORD destination copy followed by signature check"
+        },
+        {
+          "rva": "0x2c1e2",
+          "bytes": 15,
+          "sha256": "be14429510d39a6cb214e9e5baf22295be01be2a455d577641200b37a0d65f22",
+          "reason": "True context pointer member consumed after initialization"
+        }
+      ]
+    },
+    {
+      "module": "ENG3.DLL",
+      "path": "assets/pc/HERCULES/ENG3.DLL",
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x407a0",
+      "end_rva": "0x40b88",
+      "observed_zero_bytes": 1000,
+      "copy_evidence": [
+        {
+          "rva": "0x1f843",
+          "bytes": 24,
+          "sha256": "347e5282e13bcd7885085615489e237cc4492b9f764bb874a1dca0f245749f5b",
+          "reason": "250-DWORD destination copy followed by signature check"
+        },
+        {
+          "rva": "0x1f892",
+          "bytes": 15,
+          "sha256": "f0b99f67e2d8400d12b4e7fcff89c3cb1543cec9567a7a3beeaeb7c3c326f228",
+          "reason": "True context pointer member consumed after initialization"
+        }
+      ]
+    }
+  ],
+  "actual_headers": [
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h",
+      "bytes": 2458,
+      "sha256": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9"
+    },
+    {
+      "path": "D:\\Prog\\hercules_recon\\calibration\\engine_interface.h",
+      "bytes": 6256,
+      "sha256": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529"
+    },
+    {
+      "path": "D:\\Prog\\hercules_recon\\calibration\\resource_context.h",
+      "bytes": 4438,
+      "sha256": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608"
+    }
+  ],
+  "toolchain": "msvc5_rtm",
+  "preprocess_command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/E",
+    "D:\\Prog\\hercules_recon\\calibration\\engine_interface_storage.c"
+  ],
+  "worker_receipt": {
+    "path": "work/engine_interface_storage_19/compact.json",
+    "sha256": "75f33cf8a1cd959d568dc0e95e19e0ab6373e7f881cb9ebcdcaa553a4c82b736"
+  },
+  "prediction": {
+    "path": "work/root_engine_storage_20/prediction.json",
+    "sha256": "805a43b76987c1148db6d402b6b5b5a384d231cdd0331b636bd389e88d286304"
+  },
+  "link_contract": "Compile this source once per separate engine image; never combine two definitions or overlay separate context/allocator cells. Host initialized table remains external."
+}

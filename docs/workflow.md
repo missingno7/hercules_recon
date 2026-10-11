@@ -176,3 +176,11 @@ cause remains unknown. Normal FPO metadata relocations in `.debug$F` are outside
 the function-scoped raw gate; do not turn a whole-object diagnostic into a new
 acceptance requirement. Existing promotion still checks the full code contribution
 and every prior strict function.
+
+The same field gate checks the canonical `EngineInterface` provider against two
+module-specific loader-zero ranges. Its 1,000-byte object is compiled separately
+into each engine image; it never supplies the initialized EXE host table. Engine
+prefix bytes are reported by module, separately from the EXE data totals. Context
+and allocator cells inside the prefix must use actual structure members rather
+than separate overlapping definitions. A diagnostic link that resolves the table
+symbol does not establish native placement, entry/startup or whole-image equality.
