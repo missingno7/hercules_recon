@@ -9,7 +9,7 @@ extern unsigned char g_audio_cleanup_iteration_flag;
 extern const char audio_stop_command[];
 
 extern int __cdecl cleanup_native_9c30(void);
-extern void __cdecl cleanup_native_f710(int index);
+extern void __cdecl cleanup_native_f710(unsigned int index);
 
 __declspec(dllimport) unsigned int __stdcall mciSendStringA(
     const char *command,

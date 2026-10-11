@@ -1,0 +1,295 @@
+{
+  "date": "2026-10-11",
+  "scope": "One causal initialization pilot; complete target gate fails, no adoption.",
+  "prediction": {
+    "region": "palette_followups_14",
+    "lane": "color_fill_zeroing_17",
+    "family": "DDBLTFX aggregate zero versus ordinary memset in same-TU color-fill helper",
+    "prediction": "The paired pinned-RTM MRE (compact SHA-256 afe4e24cbc8550f672ae8bd1d781fbcc9babf99590b3567362bbe69717cbd094) predicts only a record-clear difference: replacing aggregate initialization with ordinary memset will make 0x6ee0 clear all 25 DWORDs (100 bytes) from the DDBLTFX base before setting dwSize and dwFillColor, matching native clear start/range at 0x6f52..0x6f75. Both forms should still produce the same fully defined 100-byte final record. This predicts neither full 0x6ee0 function equality nor any change to the four one-byte cache owners or 0x6700 peer.",
+    "falsifier": "Reject the initializer discriminator if the fresh 0x6ee0 instruction trace does not clear 25 DWORDs from the record base before the member writes, or if the resulting 100-byte symbolic record differs from the aggregate/MRE result. Separately reject complete contribution or binding equality if any 0x6ee0 byte, ordered relocation, or coherent target binding remains different, or if the four zero-initialized BYTE symbols/storage alignment or the 0x6700 128-byte/11-relocation peer changes. One fresh compile only; no further source or compiler variants.",
+    "capability": "single evidence-driven SDK record-clear initializer test in the complete owner/body TU",
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "wall_seconds": 0.149,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 1,
+    "semantic_result": "The full-source clear sequence now starts at the DDBLTFX base and zeroes 25 DWORDs, matching the native clear span; the 100-byte record is fully defined. Full 0x6ee0 relocation-masked equality still fails. The 0x6700 peer and four one-byte zero-initialized cache definitions remain unchanged. No original execution.",
+    "new_evidence": "work/sdk_record_zeroing_17/compact.json SHA-256 afe4e24cbc8550f672ae8bd1d781fbcc9babf99590b3567362bbe69717cbd094: fresh before/after header and pinned tool proofs cover two 64-byte /Gy MRE contributions differing in only two bytes. Aggregate {0} clears 24 DWORDs from record+4; ordinary memset clears 25 DWORDs from record+0. Both symbolic traces fully define the same 100-byte DDBLTFX record before the ordinary sink. The native 0x6ee0 clear at 0x6f52..0x6f75 covers 25 DWORDs from record base. The private source is the measured same-TU four-BYTE-owner candidate; no other body, declaration, data, statement, or flag changes.",
+    "new_discriminator": "One fresh complete object inspection of 0x6ee0 clear count/base, full 272-byte function contribution and ordered relocations/bindings, 100-byte symbolic record writes, all four one-byte zero-initialized cache symbols/natural section alignment, and unchanged 0x6700 complete 128-byte/11-relocation contribution."
+  },
+  "source": "candidates\\color_fill_zeroing_17\\palette_followups.cpp",
+  "source_sha256": "5cd7cc45c71bde7559233204e71a93262cc8c83fcd26ce14c77f2a874a6ecda5",
+  "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-eyo8k7bu\\candidate.obj",
+  "object_sha256": "30ac6296d655cc217fe6ef26e52c27afc298538b4517c10b4548aa1a81a23aaa",
+  "command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/c",
+    "/Gy",
+    "/O2",
+    "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-eyo8k7bu\\candidate.obj",
+    "D:\\Prog\\hercules_recon\\candidates\\color_fill_zeroing_17\\palette_followups.cpp"
+  ],
+  "toolchain": "msvc5_rtm",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "mre_evidence": "evidence/sdk_record_zeroing_control_2026_10_11.json",
+  "mre_compact_sha256": "afe4e24cbc8550f672ae8bd1d781fbcc9babf99590b3567362bbe69717cbd094",
+  "functions": [
+    {
+      "measurement": {
+        "symbol": "_graphics_native_06700",
+        "control": false,
+        "target_size": 128,
+        "candidate_size": 128,
+        "strict_equal": false,
+        "raw_different_bytes": 31,
+        "raw_byte_percent": 75.781,
+        "normalized_different_bytes": 0,
+        "normalized_byte_percent": 100.0,
+        "instruction_percent": 100.0,
+        "original_instruction_count": 36,
+        "candidate_instruction_count": 36,
+        "ordered_cfg_equal": true,
+        "original_blocks": 7,
+        "candidate_blocks": 7,
+        "direct_call_targets_equal": true,
+        "original_direct_calls": [
+          "0x406620"
+        ],
+        "candidate_direct_calls": [
+          "0x406620"
+        ],
+        "original_indirect_calls": [
+          "dword ptr [0xba5670]",
+          "dword ptr [0xba5660]",
+          "dword ptr [0xba565c]"
+        ],
+        "candidate_indirect_calls": [
+          "dword ptr [0xba5670]",
+          "dword ptr [0xba5660]",
+          "dword ptr [0xba565c]"
+        ],
+        "relocation_count": 11,
+        "category": "relocation-only diagnostic equality"
+      },
+      "masked_equal": true,
+      "masked_differences": 0,
+      "binding_conflicts": [],
+      "ordered_relocations": [
+        {
+          "offset": 1,
+          "symbol": "_g_exe_96e400",
+          "type": 6
+        },
+        {
+          "offset": 11,
+          "symbol": "_g_exe_96e3fc",
+          "type": 6
+        },
+        {
+          "offset": 21,
+          "symbol": "_g_fatal_suppress_dialog",
+          "type": 6
+        },
+        {
+          "offset": 44,
+          "symbol": "__imp__UnrealizeObject@4",
+          "type": 6
+        },
+        {
+          "offset": 49,
+          "symbol": "_g_exe_96e3fc",
+          "type": 6
+        },
+        {
+          "offset": 55,
+          "symbol": "_g_exe_96e400",
+          "type": 6
+        },
+        {
+          "offset": 75,
+          "symbol": "__imp__SelectPalette@12",
+          "type": 6
+        },
+        {
+          "offset": 80,
+          "symbol": "_g_exe_96e400",
+          "type": 6
+        },
+        {
+          "offset": 87,
+          "symbol": "__imp__RealizePalette@4",
+          "type": 6
+        },
+        {
+          "offset": 95,
+          "symbol": "_g_exe_43a590",
+          "type": 6
+        },
+        {
+          "offset": 101,
+          "symbol": "_graphics_native_06620",
+          "type": 20
+        }
+      ]
+    },
+    {
+      "measurement": {
+        "symbol": "_graphics_native_06ee0",
+        "control": false,
+        "target_size": 272,
+        "candidate_size": 272,
+        "strict_equal": false,
+        "raw_different_bytes": 165,
+        "raw_byte_percent": 39.338,
+        "normalized_different_bytes": 145,
+        "normalized_byte_percent": 46.691,
+        "instruction_percent": 80.556,
+        "original_instruction_count": 72,
+        "candidate_instruction_count": 72,
+        "ordered_cfg_equal": true,
+        "original_blocks": 12,
+        "candidate_blocks": 12,
+        "direct_call_targets_equal": true,
+        "original_direct_calls": [
+          "0x406850"
+        ],
+        "candidate_direct_calls": [
+          "0x406850"
+        ],
+        "original_indirect_calls": [
+          "dword ptr [ecx + 0x14]"
+        ],
+        "candidate_indirect_calls": [
+          "dword ptr [edx + 0x14]"
+        ],
+        "relocation_count": 18,
+        "category": "uncertain allocation/type/source-form"
+      },
+      "masked_equal": false,
+      "masked_differences": 111,
+      "binding_conflicts": [
+        {
+          "symbol": "_g_exe_96e418",
+          "offset": 74,
+          "implied": "0x56e418",
+          "previous": "0x8ac096e4"
+        },
+        {
+          "symbol": "_g_exe_96e424",
+          "offset": 129,
+          "implied": "0xc6c096e4",
+          "previous": "0x56e424"
+        },
+        {
+          "symbol": "_g_exe_96e424",
+          "offset": 221,
+          "implied": "0x790096",
+          "previous": "0x56e424"
+        }
+      ],
+      "ordered_relocations": [
+        {
+          "offset": 1,
+          "symbol": "_g_exe_ba01f0",
+          "type": 6
+        },
+        {
+          "offset": 23,
+          "symbol": "_g_exe_96e418",
+          "type": 6
+        },
+        {
+          "offset": 41,
+          "symbol": "_g_exe_96e41c",
+          "type": 6
+        },
+        {
+          "offset": 49,
+          "symbol": "_g_exe_96e420",
+          "type": 6
+        },
+        {
+          "offset": 57,
+          "symbol": "_g_exe_96e420",
+          "type": 6
+        },
+        {
+          "offset": 63,
+          "symbol": "_g_exe_96e41c",
+          "type": 6
+        },
+        {
+          "offset": 74,
+          "symbol": "_g_exe_96e418",
+          "type": 6
+        },
+        {
+          "offset": 93,
+          "symbol": "_graphics_native_06850",
+          "type": 20
+        },
+        {
+          "offset": 101,
+          "symbol": "_g_exe_96e424",
+          "type": 6
+        },
+        {
+          "offset": 106,
+          "symbol": "_g_fatal_suppress_dialog",
+          "type": 6
+        },
+        {
+          "offset": 129,
+          "symbol": "_g_exe_96e424",
+          "type": 6
+        },
+        {
+          "offset": 134,
+          "symbol": "_g_exe_96e3ec",
+          "type": 6
+        },
+        {
+          "offset": 184,
+          "symbol": "_g_exe_43a590",
+          "type": 6
+        },
+        {
+          "offset": 196,
+          "symbol": "_g_exe_96e3d8",
+          "type": 6
+        },
+        {
+          "offset": 202,
+          "symbol": "_g_exe_ba0214",
+          "type": 6
+        },
+        {
+          "offset": 214,
+          "symbol": "_g_exe_ba0210",
+          "type": 6
+        },
+        {
+          "offset": 221,
+          "symbol": "_g_exe_96e424",
+          "type": 6
+        },
+        {
+          "offset": 251,
+          "symbol": "_g_exe_43a590",
+          "type": 6
+        }
+      ]
+    }
+  ],
+  "discriminator_result": "Ordinarymemset emits native25DWORD clear fromrecordbase and fullydefined100byte finalDDBLTFX; complete272byte body still111masked residuals/3bindingconflicts, improvedonly2bytes versusaggregateownercontrol.",
+  "protected_peer": "6700complete128byte body and11orderedrelocations remain equal; fourone-byte BSSownerdefinitions retain offsets0/4/8/12,size13align4. Ninealignmentbytesuncredited; failedfullsource remainsprivate.",
+  "remaining_cause": "Entrycompareoperandorder; colorscalarregister and surface-load schedule; vtablereceiverEDXversusECX; softwaretail+2byte displacement. EqualCFG does not permit acceptance.",
+  "next_discriminator": "New causal source/live-value or realunit evidence predicting those remaininginstruction/scheduling choices. No statement/type/order/flag grid and no further initializer variants.",
+  "receipt": {
+    "path": "work/color_fill_zeroing_17/receipt-4884e96453a6efa834b6c0a2d217c445a7d09f72ab7220519883bbd4dd6411c3.json",
+    "sha256": "0ab53f9b836158c2dfbcca7c7536c0170e217ed57c02e1bed41ba2ed131c60de"
+  },
+  "private_report_sha256": "d23ddb659f10895f90b42a593a53d0ef41d52383fb69372ea3369a428ea9d91b"
+}

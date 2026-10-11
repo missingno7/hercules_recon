@@ -1,0 +1,177 @@
+{
+  "scope": "Private compiler research only. No target compile, source transfer, acceptance, or canonical/state changes.",
+  "lane": "title_nested_literals_18",
+  "model": "gpt-6.1-sol",
+  "effort": "high",
+  "toolchain": "msvc5_rtm",
+  "flags": [
+    "/O2"
+  ],
+  "implicit_flags": [
+    "/Gy"
+  ],
+  "toolchain_manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+  "compile_cycles": 4,
+  "prior_reentry": "work/sol_join_11/handoff.json nested-switch literal piece creation; current docs/parallel_convergence_progress.md retain this discriminator",
+  "new_discriminator": "One pair freezes outer literal values/reference counts/order and two sibling short-store switch mappings; only boundary() between those mappings differs. Straight/loop literal controls did not test this graph.",
+  "prediction": "Both controls retain outer ESI=0 EBX=15 EDI=1; a call-spanning replacement web creates eviction/grouped rematerialization with a causal order difference.",
+  "falsifier": "Mapping changes, absent grouped reload, or protected peer difference.",
+  "verdict": "Falsified for this MRE. no_boundary has outer EBP=0 EDI=15 ESI=1; with_boundary has EBX=0 EDI=15 ESI=1. Replacement 0x92/0x93/0x91 values are scratch/immediate, not enregistered across the boundary. All outer constants survive; neither control emits a grouped reload.",
+  "finding": "The added external call forces g_code and g_sel live rereads and separates zero from the loop index. This does not explain TITLE join reload order; changed outer allocation prevents transfer.",
+  "protected_peer": "Complete peer bytes and ordered relocations equal across all four fresh compiles; both probe outputs reproduce independently.",
+  "limits": "Both full contributions are 480 bytes, including embedded switch data. Linear disassembly after first ret decodes tables as apparent instructions; those rows are excluded from definition interpretation here. No target equality measurement or target improvement claimed.",
+  "reentry": "No further count/order/type/flags grids. Genuine source/TU evidence, or a distinct control that proves target-like replacement enregistration and fixed outer mapping before a target experiment. The two-switch isolated call family is now negative evidence.",
+  "controls": [
+    {
+      "name": "no_boundary",
+      "source": "candidates\\title_nested_literals_18\\no_boundary.c",
+      "source_sha256": "7e8b75329311aece60118db86a79cbec9a47fbd53d8cefd0c65738b506416fd8",
+      "compiled_size": 480,
+      "code_prefix_end": 394,
+      "definitions_before_ret": [
+        {
+          "at": "0x7",
+          "instruction": "xor ebp, ebp"
+        },
+        {
+          "at": "0x18",
+          "instruction": "mov edi, 0xf"
+        },
+        {
+          "at": "0x1d",
+          "instruction": "mov esi, 1"
+        },
+        {
+          "at": "0xab",
+          "instruction": "xor ebx, ebx"
+        }
+      ],
+      "complete_function_sha256": "c32d480c9328643952dc6154c38f33925e86d41625232be7f901616ff21a3ebe",
+      "two_fresh_function_bytes_and_ordered_relocations_equal": true,
+      "peer_complete_function_sha256": "b9bbcc41afc944209403a85790f93a2320dad72aa47f3d0aea25865094665842",
+      "peer_size": 192,
+      "objects": [
+        {
+          "path": "D:\\Prog\\hercules_recon\\build\\match\\compile-keq_gpsa\\candidate.obj",
+          "sha256": "cd70732f911c061bb44f2a64928df8d298b14c96f15131bb6a61b132af0687cb",
+          "command": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/c",
+            "/Gy",
+            "/O2",
+            "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-keq_gpsa\\candidate.obj",
+            "D:\\Prog\\hercules_recon\\candidates\\title_nested_literals_18\\no_boundary.c"
+          ]
+        },
+        {
+          "path": "D:\\Prog\\hercules_recon\\build\\match\\compile-qvf9moh_\\candidate.obj",
+          "sha256": "cd70732f911c061bb44f2a64928df8d298b14c96f15131bb6a61b132af0687cb",
+          "command": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/c",
+            "/Gy",
+            "/O2",
+            "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-qvf9moh_\\candidate.obj",
+            "D:\\Prog\\hercules_recon\\candidates\\title_nested_literals_18\\no_boundary.c"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "with_boundary",
+      "source": "candidates\\title_nested_literals_18\\with_boundary.c",
+      "source_sha256": "92a52aa7c6b7d85b18f8ae38d4906984b8bef38d870c2096c4a8a62b72182cb5",
+      "compiled_size": 480,
+      "code_prefix_end": 405,
+      "definitions_before_ret": [
+        {
+          "at": "0x7",
+          "instruction": "xor ebx, ebx"
+        },
+        {
+          "at": "0x9",
+          "instruction": "xor ebp, ebp"
+        },
+        {
+          "at": "0x15",
+          "instruction": "mov edi, 0xf"
+        },
+        {
+          "at": "0x1a",
+          "instruction": "mov esi, 1"
+        }
+      ],
+      "complete_function_sha256": "2a5ff682d38464c81e0617defb62dfe3137d65709fce1327ceaeb2a19ce2e6df",
+      "two_fresh_function_bytes_and_ordered_relocations_equal": true,
+      "peer_complete_function_sha256": "b9bbcc41afc944209403a85790f93a2320dad72aa47f3d0aea25865094665842",
+      "peer_size": 192,
+      "objects": [
+        {
+          "path": "D:\\Prog\\hercules_recon\\build\\match\\compile-mh4tsszz\\candidate.obj",
+          "sha256": "3e230ce7eea5bb7d9658c8f48483d097e360782c726a0fbbceef540075e1c789",
+          "command": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/c",
+            "/Gy",
+            "/O2",
+            "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-mh4tsszz\\candidate.obj",
+            "D:\\Prog\\hercules_recon\\candidates\\title_nested_literals_18\\with_boundary.c"
+          ]
+        },
+        {
+          "path": "D:\\Prog\\hercules_recon\\build\\match\\compile-mwi_hp1q\\candidate.obj",
+          "sha256": "3e230ce7eea5bb7d9658c8f48483d097e360782c726a0fbbceef540075e1c789",
+          "command": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/c",
+            "/Gy",
+            "/O2",
+            "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-mwi_hp1q\\candidate.obj",
+            "D:\\Prog\\hercules_recon\\candidates\\title_nested_literals_18\\with_boundary.c"
+          ]
+        }
+      ]
+    }
+  ],
+  "reproduce": "& 'C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe' work/title_nested_literals_18/measure.py",
+  "artifacts": [
+    {
+      "path": "work\\title_nested_literals_18\\measure.py",
+      "sha256": "0cc7d078d70afa2f75c866cca33e7a33cb3e64b4d39901622397c8cdf9668461"
+    },
+    {
+      "path": "work\\title_nested_literals_18\\measurement.json",
+      "sha256": "e8f4b30120e367c085b920f3a3006f52b8dcb0e92a3949d8224d6bc19dbb332f"
+    },
+    {
+      "path": "work\\title_nested_literals_18\\no_boundary-0.asm",
+      "sha256": "e9208f3c7d0a576ae843cb1ead4b4b27f520f6dc108ab05c91df8d6a542d59d6"
+    },
+    {
+      "path": "work\\title_nested_literals_18\\no_boundary-1.asm",
+      "sha256": "e9208f3c7d0a576ae843cb1ead4b4b27f520f6dc108ab05c91df8d6a542d59d6"
+    },
+    {
+      "path": "work\\title_nested_literals_18\\prediction.md",
+      "sha256": "af182bda6cd9bd241724537365a171758454bfaede3d2535e59c22e17cb1edb1"
+    },
+    {
+      "path": "work\\title_nested_literals_18\\summarize.py",
+      "sha256": "3e00168dcddab8b1dde83235a87e24a8547be93956fa6de7ff1405e75a5f2530"
+    },
+    {
+      "path": "work\\title_nested_literals_18\\with_boundary-0.asm",
+      "sha256": "4d2abbcad9f4f44fc48ca77cb57d983a2edb7d2d8a28695e6c96a2cacf14c241"
+    },
+    {
+      "path": "work\\title_nested_literals_18\\with_boundary-1.asm",
+      "sha256": "4d2abbcad9f4f44fc48ca77cb57d983a2edb7d2d8a28695e6c96a2cacf14c241"
+    }
+  ],
+  "date": "2026-10-11",
+  "private_handoff_sha256": "ecb336e0d13ed3332013610e8314f9733c442ba196500f91eb24a7d4f3de4502"
+}

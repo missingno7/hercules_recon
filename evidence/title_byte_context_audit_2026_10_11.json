@@ -1,0 +1,96 @@
+{
+  "scope": "Read-only mechanism applicability audit. Zero historical compilations and no fullfunction source retry.",
+  "oracle": {
+    "path": "work/discs/pc_install/TITLE.DLL",
+    "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b"
+  },
+  "current_state": {
+    "title_rows": 340,
+    "statuses": {
+      "CODEGEN_SIMILAR": 333,
+      "FUNCTION_MATCH": 6,
+      "RECONSTRUCTED": 1
+    },
+    "recovery_sha256": "33dc71914ec66169a31c1dd13f16c509ced97ddedfd7f600e9f3d93516fab7f1",
+    "region_index_has_TITLE_entries": false
+  },
+  "scan": {
+    "instructions": 34734,
+    "direct_global_DWORD_load_and_mask_leads": 0,
+    "DWORD_read_BYTE_write_same_absolute_cell_overlaps": 0,
+    "stack_DWORD_and_FF_leads": 15,
+    "real_absolute_BYTE_write_cells": 3
+  },
+  "relevant_retry_candidates": [],
+  "supported_strict_byte_ceiling_for_this_discriminator": 0,
+  "decision": "No supported TITLE global-byte definition-context retry. The EXE sufficient-context result doesnot explain any observed TITLE fullunit discrepancy.",
+  "reason": [
+    "All15 native wide-load-andFF leads trace directly to ESP-relative arguments/locals, not an external unsigned-byte data cell.",
+    "No direct absolute DWORD-read/singleBYTE-write overlap is present among actual mapped native data references in the reviewed firstparty prefix.",
+    "The three actual writable byte cells either have byte-only direct accesses in matching bodies or lack a proven unique original owner/extent; adding definitions would be a dependency/layout exercise, not a measured wide-load code discriminator.",
+    "The fullunit17cb0 residue and186e0 UV branch scheduling/count families have no newly observed global-byte width discrepancy; do not reopen them from this EXE mechanism."
+  ],
+  "limits": [
+    "Linear native instruction scan is a lead audit, not exhaustive reachable CFG/indirect-owner proof. Mapped-data filtering removes two inline-data decodes masquerading as absolute byte stores.",
+    "Missing aliases/address-derived users could require independent evidence; none is supplied by this audit.",
+    "Existing fullunit objects are read-only historical receipts; no fresh compiler/regression or function equality is claimed.",
+    "No type widening, unions/casts, sameTU dummy definitions or automatic unit coalescing is proposed."
+  ],
+  "provenance": [
+    {
+      "path": "work/title_byte_context_18/inventory.py",
+      "sha256": "435ef48427db126ccef1bd77f08c17e6154a62ca3f973c13364699e6c6da949f"
+    },
+    {
+      "path": "work/title_byte_context_18/inventory.json",
+      "sha256": "300b83fa3eec4f876053e693d16d2cf1efaf7c89e7e7a06455ca211fe523518e"
+    },
+    {
+      "path": "work/title_byte_context_18/scan.py",
+      "sha256": "141e2e3d243975180e860065dbada171fa383e50abf0a130d29d0a480bc7fc69"
+    },
+    {
+      "path": "work/title_byte_context_18/scan.json",
+      "sha256": "75d87a326acf98c6928650445d73368a62f905fa61493bd50b3e3b44a488ce28"
+    },
+    {
+      "path": "work/title_byte_context_18/convergence.json",
+      "sha256": "fcadeac8c41256c5ae8278570046b05eda3df7ebf442ba6085b093247a90b011"
+    },
+    {
+      "path": "work/title_byte_context_18/assess.py",
+      "sha256": "0d492fde56927f62b42e0288a71fee62163c3b4b5e7bbd71c7548a13431afbff"
+    },
+    {
+      "path": "work/title_byte_context_18/handoff.md",
+      "sha256": "55ff57e58b957ee05169e9a35cce51b4854bb11bba65dc42da36e63cdd3da82f"
+    }
+  ],
+  "date": "2026-10-11",
+  "fullunit_inventory_scope": {
+    "rows": 362,
+    "units": 32,
+    "report_sha256": "416b8620e26e3f0d7787047618f376bee41f84b2a98bc591bb1035db3ea59092"
+  },
+  "private_compact": {
+    "path": "work/title_byte_context_18/compact.json",
+    "sha256": "a1602347eab437a2e778e927b4624f75f564eaa969260b0ea2e87ab299620812"
+  },
+  "real_byte_cells": [
+    {
+      "rva": "0x2dfac",
+      "initial_byte": "00",
+      "initial_origin": "loader zero tail"
+    },
+    {
+      "rva": "0x2df50",
+      "initial_byte": "00",
+      "initial_origin": "loader zero tail"
+    },
+    {
+      "rva": "0x2c000",
+      "initial_byte": "00",
+      "initial_origin": "loader zero tail"
+    }
+  ]
+}

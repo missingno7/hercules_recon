@@ -1,0 +1,97 @@
+{
+  "lane": "palette_nearest_18",
+  "target": "729384bf81eb173cb51b6089aeec5c7cf31e5f718226df11a55d6dd44bbabcd2",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "rva": "0x6850",
+  "target_size": 112,
+  "status": "FALSIFIED_FIRST_FAMILY_FROZEN",
+  "prediction": "One ordinary C function using the pinned LOGPALETTE/PALETTEENTRY SDK types, an unsigned 32-bit squared-RGB distance, index 0 forced to initialize the best value, strict less-than updates to preserve first-entry ties, a fixed 256-entry scan, early exit on zero distance, and BYTE index return will compile to a complete 112-byte contribution with the native LOGPALETTE global relocation and relocation-masked equality under pinned MSVC 5.0 /O2 /Gy.",
+  "falsifier": "The sole fresh compile does not emit exactly 112 bytes including final alignment, ordered relocation references differ from the native requirements, or any non-relocation bytes differ / binding conflicts / unsupported relocation occur in the full-span masked comparison. Any source/state/oracle/toolchain/header instability also invalidates the result. No second spelling or type family will be tried without new causal evidence.",
+  "candidate": {
+    "path": "candidates/palette_nearest_18/palette_nearest.c",
+    "sha256": "e62f35298915c33545fe97edd9f4634f3ab5b4161e2118dde2fe3c835c903416",
+    "symbol": "_graphics_native_06850",
+    "kind": "ordinary C with pinned LOGPALETTE/PALETTEENTRY SDK declarations"
+  },
+  "measurement": {
+    "path": "work/palette_nearest_18/measurement.json",
+    "fresh_codegen_builds": 1,
+    "toolchain": "msvc5_rtm",
+    "toolchain_manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "compile_command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\work\\palette_nearest_18\\palette_nearest.obj",
+      "D:\\Prog\\hercules_recon\\candidates\\palette_nearest_18\\palette_nearest.c"
+    ],
+    "compiled_extent_bytes": 128,
+    "compiled_code_sha256": "dcb9127d69f0eba3a21b6702864d748ea37e31189f850d859381ab50a79fa351",
+    "object_sha256": "855f6226a236d3b2bdedde9ac6bff9caa8f7fe553805b7f22a4b361a65a44877",
+    "raw_equal": false,
+    "raw_differing_bytes": 126,
+    "masked_equal": false,
+    "masked_differing_bytes": 123,
+    "masked_conflicts": [],
+    "masked_unsupported": [],
+    "target_relocation_offsets": [],
+    "compiled_ordered_relocations": [
+      {
+        "offset": 2,
+        "symbol": "_g_exe_96e3f8",
+        "type": 6
+      }
+    ],
+    "expected_ordered_relocation_from_reference": [
+      {
+        "offset": 1,
+        "symbol": "_g_exe_96e3f8",
+        "type": 6
+      }
+    ],
+    "ordered_relocation_identity_matches": false,
+    "candidate_binding": {
+      "_g_exe_96e3f8": "0x52c096e3"
+    },
+    "all_inputs_stable": true,
+    "headers_stable": true,
+    "header_tree_sha256": "6768709a4df50d19d5dd3178d3f9788d8446cdb939e0a8addf4c00da7ade4427",
+    "actual_header_count": 55,
+    "key_header_sha256": {
+      "windows.h": "1de22ddc1b079d330a8f5b02338a5ad5681b060cf3ac86f984a243ff2bdd9303",
+      "wingdi.h": "23f25eec95cf776f75add1c694f0cb920e8e54dd9bf26320755e864ac76f0554",
+      "ddraw.h": "fcaadaaf15d5ee85db3dd6a40f1eee2f0dd7aabcecc494579022c55d063ecf34"
+    }
+  },
+  "source_absence": {
+    "calibration_definition_absent": true,
+    "only_calibration_reference": "extern in calibration/graphics_palette_helpers.cpp",
+    "recovery_row_absent": true,
+    "recovery_sha256_before_after": {
+      "before": "5e0264ead525831784c7b04b5453555958654a891847b17a09de0ab19af7f59d",
+      "after": "5e0264ead525831784c7b04b5453555958654a891847b17a09de0ab19af7f59d"
+    }
+  },
+  "behavior_and_ABI_evidence": [
+    "The native leaf decodes to a LOGPALETTE pointer load and reads 256 four-byte PALETTEENTRY values beginning at offset +4.",
+    "RGB distance is the sum of three squared channel deltas; entry zero initializes unconditionally; subsequent updates use unsigned strict less-than; ties preserve the first index.",
+    "On zero distance, the candidate score/index stores happen before loop exit; result is an 8-bit index returned in AL.",
+    "The actual caller at 0x6f3c masks all three inputs to 0..255 before the cdecl call and consumes AL; no claim is made for other caller ranges."
+  ],
+  "failure_evidence": [
+    "Candidate extent is 128 bytes, not 112.",
+    "Full-span relocation-masked comparison is false with 123 differing non-relocation bytes; raw comparison differs in 126 byte positions.",
+    "Candidate has one DIR32 relocation to _g_exe_96e3f8 at object offset 2. The native entry uses an absolute pointer load at byte 0 with its operand starting at byte 1; the native PE has no base-relocation entries for this function. The masked binding derived across this mismatched field is diagnostic only."
+  ],
+  "prior_preflight_context_change": {
+    "before_compile_state_change_detected": true,
+    "compiler_was_not_invoked_during_first_preflight": true,
+    "prior_state_sha256": "33dc71914ec66169a31c1dd13f16c509ced97ddedfd7f600e9f3d93516fab7f1",
+    "re_frozen_state_sha256": "5e0264ead525831784c7b04b5453555958654a891847b17a09de0ab19af7f59d"
+  },
+  "next_action": "Freeze this source family. Reopen only with new causal compiler/source evidence or changed context; no stageplan is prepared because the complete masked gate failed.",
+  "private_receipt_sha256": "e38cda41edbe2e6578df9549ba93a9e18a8f4445ef7e3950a59af8428ccfba31",
+  "date": "2026-10-11"
+}

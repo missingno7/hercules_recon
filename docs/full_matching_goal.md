@@ -454,3 +454,48 @@ legacy similar bytes. Fresh raw/masked regression, 54 tests, field verification
 and twelve original-file checks pass. No strict bytes are added. See
 `evidence/full_goal_graphics_storage_wave_2026_10_11.json` and
 `evidence/byte_load_context_control_2026_10_11.json`.
+
+## Audio dependency and compiler discriminator wave
+
+The real Windows priority transition at EXE 0x35d0 adds a complete 176-byte
+masked contribution. Ordinary pinned SDK calls naturally reproduce the native
+four cached import pointers; no manual function-pointer cache is introduced.
+Its suspend caller preserves all 48 bytes and ordered references after the
+working BYTE argument declaration is reconciled. Six actual sound/thread/priority
+cells add 24 observed zero bytes, checked through the existing field verifier.
+The buffer and thread objects themselves remain owned by their real API creators.
+
+The new color-fill initializer pilot reproduces the native 100-byte record clear,
+but the full 272-byte contribution still fails with 111 masked residual bytes and
+three binding conflicts. Matching CFG and a correct local pattern grant no status.
+The 128-byte realization peer is preserved, and this family remains private.
+TITLE's full native scan finds 15 stack-only DWORD/FF leads and no absolute-global
+wide-read/byte-write overlap, so the BYTE-owner mechanism provides no supported
+TITLE retry. A separate nested-switch call-boundary pair fails fixed outer
+allocation and replacement enregistration; both outputs reproduce twice and the
+192-byte MRE peer stays identical. No full TITLE retry follows either result.
+The first palette-search source also fails its complete 112-byte target gate.
+
+Prioritize genuine dependencies that move the natural link frontier, alongside
+bounded new compiler discriminators. Recover the actual sound table readers and
+writers before defining its storage. Keep pursuing missing engine source in
+coherent indexed regions; use shared native code only where identity is proved.
+Reopen TITLE's large register blockers only with causal context or a control that
+first reproduces the required allocation. Current source spellings, size equality
+and byte ceilings alone do not justify a retry.
+
+The four-buffer release at EXE 0xf710 adds another complete 80 masked bytes using
+real SDK Stop/Release calls. Its table and shared flag remain external. Both
+cleanup caller bodies / 128 bytes preserve raw code and ordered references after
+the working unsigned argument declaration is reconciled. All unchanged prior
+full COFF units also preserve the natural 29-source dependency control, which
+reduces selected unresolved names from 25 to 22. The new table name is a real
+remaining dependency, rather than supplied storage or a fabricated stub.
+
+Current recovery: 117 strict functions / 7,904 bytes; 391 complete masked
+functions / 85,280 bytes in 53 sources; four reconstructed functions / 880 bytes;
+352 legacy similar bytes. The field gate verifies 227 initialized and 328
+observed zero bytes. Fresh strict/masked regression, 54 tests and twelve original
+checks pass. Strict gain is zero; masked gain is 256 bytes. See
+`evidence/full_goal_audio_dependency_wave_2026_10_11.json`. Full matching remains
+the active goal, with substantial engine code and final linkage still missing.

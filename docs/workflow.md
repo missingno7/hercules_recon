@@ -153,3 +153,9 @@ form with ordinary alignment, while an external BYTE uses a byte load. Recover
 the actual minimum object and unit context, then run the complete function/data
 gates. Do not add DWORD storage, unions or pointer casts just to force the load.
 See `evidence/byte_load_context_control_2026_10_11.json`.
+
+The field gate also checks six observed sound/thread/priority cells: 24 zero
+bytes with no compiler padding. Real SDK creators and save/restore users support
+the working pointer, HANDLE, DWORD, int and BOOL views. This establishes no
+pointed-to object, independent original declaration, aggregate, TU or placement.
+See `evidence/audio_storage_adoption_2026_10_11.json`.

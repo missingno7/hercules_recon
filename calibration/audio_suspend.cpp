@@ -5,7 +5,7 @@
 extern "C" {
 extern unsigned long g_exe_615ba8;
 extern IDirectSoundBuffer *g_exe_615b9c;
-extern void __cdecl audio_native_035d0(int);
+extern void __cdecl audio_native_035d0(BYTE);
 
 void __cdecl graphics_native_03770(void)
 {
