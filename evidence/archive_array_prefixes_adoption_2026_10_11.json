@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-11",
+  "scope": "Two independently observed archive data prefixes only; no full source/owner/TU/layout/terminal safety acceptance.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "canonical_provider": {
+    "source": "calibration/archive_array_prefixes.c",
+    "source_sha256": "887d92b73632542d96663b6fa782c8fb16e0474e69f39f23a7236e92f296952d",
+    "cells": [
+      {
+        "name": "g_archive_directory",
+        "rva": "0x5177d0",
+        "bytes": 12288,
+        "working_type": "ArchiveDirectoryEntry[1024]",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "evidence": "Initializer5024/502b/5035 clears3072 DWORDs, fread arguments5071/5076 request one0x3000-byte block; backend uses indexed12-byte key/offset/length records. Actual FS independently contains1024 header records."
+      },
+      {
+        "name": "g_archive_logical_positions",
+        "rva": "0x51a7d0",
+        "bytes": 4096,
+        "working_type": "int[1024]",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "evidence": "Initializer5037/503f/5049 fills1024 DWORDs withFFFFFFFF. Open writes indexed position0; one-based handle read/seek/close/position consumers read/write the same cells."
+      }
+    ]
+  },
+  "actual_headers": [
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h",
+      "bytes": 2458,
+      "sha256": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9"
+    }
+  ],
+  "toolchain": "msvc5_rtm",
+  "preprocess_command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/E",
+    "D:\\Prog\\hercules_recon\\calibration\\archive_array_prefixes.c"
+  ],
+  "worker_receipt": {
+    "path": "work/archive_remaining_ownership_20/compact.json",
+    "sha256": "bcf8be4bb170962c183e58eecd31912e37607ce95e6e7230ccd1b773770c76c1"
+  },
+  "terminal_owner_limit": {
+    "native_read_rva": "0x50b3",
+    "expression": "[cursor+12] with cursor advanced12bytes per row",
+    "last_nonzero_case": "When cursor=directory+1023*12, the next key address equals directory+0x3000 = positions[0]. The guard compares the current cursor before this load.",
+    "credited_directory_bytes": 12288,
+    "extra_directory_bytes_supplied": 0,
+    "source_safe_full_table_claim": false,
+    "actual_asset": {
+      "path": "assets/pc/HERCULES/HERCULES.FS",
+      "bytes": 46924407,
+      "sha256": "affa380e45918448895932cd466ea9a02096b8dcf08644f91b9da5ec34cd48b4",
+      "header_sha256": "6d7ed3277a6a2d295de17e41a7231b394be2b1899c202314a0eaa09e4b3a3ee9",
+      "rows": 1024,
+      "leading_nonzero_rows": 821,
+      "zero_rows": 203
+    },
+    "actual_asset_limit": "The verified archive821-row nonzero prefix stops before the boundary probe, but that data observation does not prove a general arbitrary-input/API invariant or original source declaration.",
+    "future_discriminator": "Recover the genuine source owner and terminal access representation, or independently establish and publish the real valid-input protocol restricting the initializer. Do not add a1025th directory row or an alias aggregate."
+  },
+  "scratch_limit": {
+    "rva": "0x51b7d0",
+    "copy_start_rva": "0x51b834",
+    "start_offset": 100,
+    "capacity": null,
+    "supplied": false,
+    "reviewed_writer": "Normalizer4e10 is the only direct encoded scratch user in the fresh instruction inventory: it copies each input byte until NUL, with no length comparison. Rewrites prepend bytes before offset100 and scans may inspect stale prior-call bytes after a short new NUL. Its sole direct caller5142 forwards the incoming path, without a length guard.",
+    "source_capacity_limit": "The0x400 gap to stream is adjacency, not an encoded allocation/size/clear bound. Fixed offsets100/101 and prefix lengths15/18 do not establish total scratch extent. The input string is an external runtime path; no general maximum was established from native callers.",
+    "next_action": "Find an actual owner/allocation/reset bound or a complete caller protocol that bounds live/stale scratch access. Otherwise keep scratch external. No scratch experiment was run."
+  },
+  "prediction": "The current task separates independent supported minimum storage prefixes from that full-declaration claim. The old actual-array experiment emitted tentative COMMON; previously pinned explicit-zero controls established the ordinary .bss storage-class alternative. This one genuine named-field control measures the two supported prefixes in the current33-source context, not another placement/type/capacity family.",
+  "limit": "Explicit-zero ordinaryC working prefix definitions only. Separate declarations and natural object offsets do not establish independent original owners, aggregate/TU/source order, full capacity, native placement, terminal initializer source safety or whole-image equivalence."
+}

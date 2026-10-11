@@ -70,6 +70,7 @@ extra_fields={}
 for source_name,evidence_name,count,initialized,zero,bss_flags in (
  ('calibration/sound_bank_storage.cpp','evidence/sound_bank_storage_adoption_2026_10_11.json',4,0,19209,0xc0400080),
  ('calibration/mci_storage.c','evidence/mci_storage_adoption_2026_10_11.json',7,18,24,0xc0300080),
+ ('calibration/archive_array_prefixes.c','evidence/archive_array_prefixes_adoption_2026_10_11.json',2,0,16384,0xc0400080),
 ):
  source_path=root/source_name;proof_path=root/evidence_name
  if proof_path.exists() or source_path.exists():
@@ -162,7 +163,7 @@ for path in sources:
     assert cell['native_initial_origin']=='loader-zero virtual tail'
     assert sec['name']=='.bss' and sec['flags']==bss_flags and not sec['data']
     assert rva>=native['virtual_address']+native['raw_size'] and rva+width<=native['virtual_address']+native['virtual_size']
-    if path=='calibration/sound_bank_storage.cpp':
+    if path in ('calibration/sound_bank_storage.cpp','calibration/archive_array_prefixes.c'):
      assert cell['zero_initializer'] is True
     else:
      assert bytes.fromhex(cell['initializer'])==bytes(width)
@@ -227,7 +228,7 @@ if audio_before is not None:
  result['audio_storage_limit']='Six observed4byte cells/24loader-zero bytes; pointed-to objects, original aggregate/TU/order/native placement remain unproved.'
 if extra_fields:
  result['additional_field_evidence']={name:digest(entry[6]) for name,entry in extra_fields.items()}
- result['additional_field_limit']='Observed sound-bank prefix and MCI cells/literal only; neighbor cache/gaps, pointed-to objects, original full extent/aggregate/TU/native placement remain unproved.'
+ result['additional_field_limit']='Observed sound-bank/archive prefixes and MCI cells/literal only; neighbor cache/gaps, scratch capacity, terminal source representation, pointed-to objects, original full extent/aggregate/TU/native placement remain unproved.'
 engine_source=root/'calibration/engine_interface_storage.c'
 engine_evidence=root/'evidence/engine_interface_storage_adoption_2026_10_11.json'
 if engine_source.exists() or engine_evidence.exists():

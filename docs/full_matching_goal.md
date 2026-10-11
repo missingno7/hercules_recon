@@ -583,3 +583,27 @@ is unchanged. See `evidence/engine_interface_dependency_2026_10_11.json`.
 Member rebind controls are underway for the older resource context and allocator
 aliases. The allocation forwarder is already owned by `engine_file_bridge.c`;
 avoid creating a second definition when reviewing the older registry region.
+
+## Archive prefixes and member controls
+
+Two independently supported archive prefixes now pass the canonical data gate:
+1,024 twelve-byte directory records and 1,024 four-byte logical positions,
+16,384 loader-zero bytes total. The new fresh 34-source selected EXE control
+preserves all 33 prior complete COFF units and reduces unresolved names from ten
+to eight. Scratch stays external. The full-directory terminal next-key probe
+still has an unresolved owner/source representation; no extra row, aggregate,
+forced adjacency or general initializer safety claim accompanies these fields.
+
+Private controls preserve complete baseline outputs when replacing context and
+allocator pseudo cells with real interface members. They leave existing body
+mismatches unchanged, so no whole resource/registry unit is promoted and no
+duplicate allocation wrapper is introduced. Three callback peers pass masked
+comparison, while cancel remains 80/96 bytes; readiness and provider remain
+nonmatching. Retain the measured recipes without another spelling or flags grid.
+
+Current state remains 118 strict functions / 8,032 bytes and 413 masked functions
+/ 85,888 bytes. Fresh strict/masked verification and 54 tests pass. EXE data-only
+totals are 245 initialized and 35,945 observed zero bytes; engine prefixes remain
+separate. See `evidence/archive_prefix_dependency_2026_10_11.json`. The next useful
+dependencies are actual archive scratch ownership and the initialized EXE host
+table, alongside missing engine source and genuinely new compiler evidence.

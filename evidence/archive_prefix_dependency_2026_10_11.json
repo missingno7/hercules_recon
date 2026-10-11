@@ -1,0 +1,152 @@
+{
+  "date": "2026-10-11",
+  "base_commit": "151dffc",
+  "scope": "Supported archive data-prefix dependency recovery and bounded member-binding controls; full matching remains active.",
+  "recovery_sha256": "1b5b8ddc366ef2039e30f0726bfde6e91850a5c16a08ddeaf6059de69e80f4ea",
+  "canonical_provider": {
+    "source": "calibration/archive_array_prefixes.c",
+    "source_sha256": "887d92b73632542d96663b6fa782c8fb16e0474e69f39f23a7236e92f296952d",
+    "cells": [
+      {
+        "name": "g_archive_directory",
+        "rva": "0x5177d0",
+        "bytes": 12288,
+        "working_type": "ArchiveDirectoryEntry[1024]",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "evidence": "Initializer5024/502b/5035 clears3072 DWORDs, fread arguments5071/5076 request one0x3000-byte block; backend uses indexed12-byte key/offset/length records. Actual FS independently contains1024 header records."
+      },
+      {
+        "name": "g_archive_logical_positions",
+        "rva": "0x51a7d0",
+        "bytes": 4096,
+        "working_type": "int[1024]",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "evidence": "Initializer5037/503f/5049 fills1024 DWORDs withFFFFFFFF. Open writes indexed position0; one-based handle read/seek/close/position consumers read/write the same cells."
+      }
+    ]
+  },
+  "data": {
+    "exe_initialized_bytes": 245,
+    "exe_observed_zero_bytes": 35945,
+    "new_exe_observed_zero_bytes": 16384,
+    "engine_zero_prefix_bytes_by_module": {
+      "ENG1.DLL": 1000,
+      "ENG3.DLL": 1000
+    },
+    "code_bytes_gain": 0
+  },
+  "selected_link": {
+    "sources": 34,
+    "complete_prior_coff_units_preserved": 33,
+    "unresolved_before": [
+      "_g_archive_directory",
+      "_g_archive_logical_positions",
+      "_g_archive_scratch",
+      "_g_host_engine_interface",
+      "_graphics_native_05a50",
+      "_graphics_native_06530",
+      "_graphics_native_06a60",
+      "_graphics_native_06ee0",
+      "_graphics_native_06ff0",
+      "_graphics_native_07140"
+    ],
+    "unresolved_after": [
+      "_g_archive_scratch",
+      "_g_host_engine_interface",
+      "_graphics_native_05a50",
+      "_graphics_native_06530",
+      "_graphics_native_06a60",
+      "_graphics_native_06ee0",
+      "_graphics_native_06ff0",
+      "_graphics_native_07140"
+    ],
+    "removed": [
+      "_g_archive_directory",
+      "_g_archive_logical_positions"
+    ],
+    "introduced": [],
+    "source_identities": {
+      "calibration/virtual_file.c": "79470d9b41da178ad02bdf701e54e875f6520bbe56c9e0848231ac95c0eb400c",
+      "calibration/archive_positions.c": "5fe0c3028cc40915434423f5fb015bb0270875fd53d13e2db73b2644023ee260",
+      "calibration/archive_read.c": "3040fd0af3c335c6c4fa860e31406a3a8c6eec4ee3887a580a3383eb905b492e",
+      "candidates/sol_archive_storage_closure_11/backend_open_seek.c": "3625a1b244b5f3dcee88bd4ec2da9a5d221309e830b18479c6e7db0f0f1960f6",
+      "candidates/sol_archive_storage_closure_11/normalizer.c": "90d58d71469fb35d8cfd0e8fa4a38b0a485fab2686b635577d951b55e6f9a018",
+      "candidates/sol_archive_storage_closure_11/lifecycle.c": "c8b34fdcb932cd28cb6a99a72fe55f06ffde33b5b5085e7f322543ae7795dbfb",
+      "calibration/archive_shutdown.c": "16e97adbba0fa0866f2ec5856f356b5ded56dd69713583e10acb3f98f4c2d2e1",
+      "src/pc/exe_helpers.c": "7dce6e81530a0e58c4deb439a1ca65041de1d20b5bb0b1126ff6dec394d3540e",
+      "calibration/archive_storage.c": "9f03160e1de3559ade75e8690c21601c648808e878b17b027a05f16be08695bd",
+      "calibration/public_file_handles.c": "3828456d1a203ac543b90e11db8feeaac7b06139d90221b019eecf88b6a26551",
+      "calibration/archive_fatal.c": "0ad4c3924473ca13eeb8e1a6722c80b7d1e792c21c7887eec8b74cdc94a8aa91",
+      "calibration/fatal_storage.c": "c69df3c20891c6229e061b74bebe2f8880948b34d356c7f4ce8124f13d9e562c",
+      "calibration/fatal_cleanup_chain.c": "e60a7c553dea3d468994fe8e844a01026642f80911d8633329b422a079818066",
+      "src/pc/interface_callbacks.c": "766399e0014e9209c675437648ec514c1b806d4c953f517fe58b53f27e53a281",
+      "calibration/cleanup_registry.c": "3bfc80aaed49ae46c779cc34ffe728d8b40cee7af212c3bcaf348cf96183adbc",
+      "calibration/cleanup_services.c": "d6e07a5cb3e870f39de612a502f0ad9f6769f39e81d7a3c9aac3ebf02b055152",
+      "calibration/registry_storage.c": "e9f7c60fd443f486260a622e2beb5cde2be2d7a500b2cd486afab6ccbe35eda7",
+      "calibration/registry_literals.c": "6e5afe589a440c634e0360c86be138a71a711c482ad00c08c75bc5a072e89d8e",
+      "calibration/audio_cleanup_dependencies.c": "174152b49b12549cb57891bcca50fc3630ffb18a177dfbab6b07f12731d3e4c9",
+      "calibration/display_mode_transition.cpp": "c051c7b23605f54b5e557a82601684e36d04ee499472ec3ea2961bc07e0ee9d3",
+      "calibration/display_mode_setter.c": "622d8fcccd24939676a506324b6927a68bfdeb01bcd6c1393a2dc44fdc0b2dff",
+      "calibration/graphics_palette.cpp": "fd746f903183c69336c9437bc9d2b99536c59cea7dd5b57a09aff44b30b6c541",
+      "calibration/graphics_update.cpp": "cc369d39505ad4d0e0e084a992315b86a2d81e1fcdeb7c192368c98279defc51",
+      "calibration/audio_suspend.cpp": "9a7cee1ff5f4208cd74982e35d005d2fc78869170101f79a4809a5fa382c4fe8",
+      "calibration/graphics_palette_helpers.cpp": "775870a84c64ef58d73446f8fbff901b444a35746e1ec2ab61b3b1010c39be65",
+      "calibration/graphics_storage.cpp": "178b70f31d0c850c3b6d8f4f90eebd3b028d1d3ff09c2d1e526a6ee0beaec1de",
+      "calibration/audio_priority.cpp": "4327edd729fc07c3429f8d63206630eddae3ef75b886d8e9774e9b63d3f315cc",
+      "calibration/audio_storage.cpp": "0fee17cc32df3460af4b4b74e9ee8e32d0ec9b42154f5354bb4091a8c46d0773",
+      "calibration/audio_bank_release.cpp": "325bf57df0ffcb2d4ff0fa895c4e46e5b08c4765f9d3c2629aa1cfaf00757e40",
+      "calibration/mci_readiness.cpp": "2e4e294275b2061fa530ccfbc8ef58f69be56fec7f3449b33b13463a7b52825f",
+      "calibration/mci_storage.c": "ffc36970d2cb0f507ea7598b0b9977b66c8e9b1609a92111d4d2e8b051d1ecab",
+      "calibration/sound_bank_storage.cpp": "015e5da7a8d81d5711437c40767e6abcb35506a76ff3fe2e7fd7b5a5d24c76fb",
+      "calibration/mci_pause.c": "d452ce81e79774f53048bb961f8d38270ad55cee3305d3104425c3558ba146e7",
+      "calibration/archive_array_prefixes.c": "887d92b73632542d96663b6fa782c8fb16e0474e69f39f23a7236e92f296952d"
+    },
+    "limits": "All33 prior complete COFF units preserved, provider matches fresh field gate. Three explicit archive scratch drafts remain selected. Terminal next-key source/owner issue remains open; storage prefix adoption does not validate that function or force native adjacency. Scratch remains external."
+  },
+  "regression": {
+    "strict_functions": 118,
+    "strict_bytes": 8032,
+    "masked_functions": 413,
+    "masked_bytes": 85888,
+    "masked_sources": 56,
+    "masked_failures": 0,
+    "tests": 54
+  },
+  "member_controls": {
+    "scope": "Private ordinary source rebinds only. No canonical draft/state adoption or stage plan.",
+    "mapping": {
+      "context": "_g_resource_context+0 -> _g_engine_interface+4",
+      "allocator": "_host_allocation_callback+0 -> _g_engine_interface+0x78"
+    },
+    "preservation": "All baseline/control contribution sizes and ordered relocation offsets/types preserve, with only predicted symbol/addend rebinds. This does not fix existing target body differences.",
+    "results": {
+      "registry_initializer": "Candidate96 bytes unchanged, still fails native gate with6 code residuals and mismatched absolute relocation offsets. Allocation wrapper32 masked bytes already owned by engine_file_bridge; no duplicate.",
+      "resource_callbacks": "Complete load_complete32/load_failed64/reset32 peers pass target masked gates in both builds. Cancel remains80/96 and fails. Whole unit not promoted.",
+      "readiness": "Ensure80 candidate bytes unchanged but fails native; scanner128/112 remains failed. One true context member relocation rebind only.",
+      "provider": "496/528 still fails native, expected context relocation addends changed only."
+    },
+    "semantic_limit": "Worker ran existing executables without rebuilding controls: registry50/0 and resource_rebind8/0; prior callback fixture retained two known failures. These runs do not validate changed source or grant behavior-exact acceptance."
+  },
+  "worker_receipts": {
+    "work/engine_member_rebind_20/measurements.json": "f15efcc1cb04f18777ddc3e7b2719ee6d922c7ab46805c0ae89d5db75a6471f5",
+    "work/engine_member_rebind_20/prediction.json": "f59b6856ca684c7381222cbd706d9a9c37bc79134249eea74399cf6445a2570a",
+    "work/engine_resource_members_20/compact.json": "a3d48fe4bf1f07f478fa98e3b63d135786e84df957ab54ea80b97a01945b86da",
+    "work/archive_remaining_ownership_20/compact.json": "bcf8be4bb170962c183e58eecd31912e37607ce95e6e7230ccd1b773770c76c1"
+  },
+  "validation_artifacts": {
+    "work/root_archive_prefix_20/storage_final.json": "a12cfe50b0663609c7f05465dc13054a44072b51c6928596f54dc7884dfadad9",
+    "work/root_archive_prefix_20/link_control.json": "b48b9ea49dce7c9bfff70146f47c0ed354e06dcf802c95c42d0e4097b2b140f6",
+    "work/root_archive_prefix_20/strict_final.json": "9c9acf580fb8a989e77378b1c720290361c070ed8819a7a6989672fc9746d85e",
+    "work/root_archive_prefix_20/masked_final.txt": "da076560834e7e14246a7cdb83e55dc081cdab200acd4f7528d70edf4643ae80",
+    "work/root_archive_prefix_20/tests_final.txt": "c78a03f745bc92a31412457ba997c7465ac4385a51bcde1d0c964e0cab94e19c"
+  },
+  "next_priorities": [
+    "Recover actual archive scratch owner/extent or complete valid input protocol. Do not infer its capacity from an address gap.",
+    "Recover terminal directory next-key owner/source representation before claiming full-table initializer equivalence.",
+    "Recover initialized EXE host table and genuine remaining graphics contributions; preserve all complete peers.",
+    "Retain the measured member rebind recipes for actual source-unit integration once whole bodies pass or ownership refactoring is independently justified."
+  ],
+  "limits": "No1025th row, larger object, aggregate alias, forced adjacency/placement or machine-code manufacture. Archive draft functions remain nonaccepted; three scratch drafts remain in partial EXE control. Neither data prefixes nor successful selected no-entry engine link prove full modules/startup/whole-binary matching."
+}

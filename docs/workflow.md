@@ -184,3 +184,11 @@ prefix bytes are reported by module, separately from the EXE data totals. Contex
 and allocator cells inside the prefix must use actual structure members rather
 than separate overlapping definitions. A diagnostic link that resolves the table
 symbol does not establish native placement, entry/startup or whole-image equality.
+
+Archive directory and logical-position prefixes now use ordinary explicit-zero
+definitions under the same field gate: 12,288 and 4,096 observed bytes. The full
+table's native next-key probe crosses into the first position word; storage
+acceptance does not prove that initializer's source representation or safety for
+arbitrary input. Do not add a 1,025th directory row or force an aggregate/adjacency
+to hide this issue. The scratch buffer remains external because no actual bound
+has been recovered. See `evidence/archive_array_prefixes_adoption_2026_10_11.json`.
