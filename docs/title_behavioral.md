@@ -70,10 +70,12 @@ center. Pair-list, pointer-cache and replay-list capacities are provisional;
 neighbor boundaries do not prove the original complete object extents. Native
 placement, aggregate ownership and universal input safety are not established.
 
-The current build supplies all362 entries in the heuristic first-party inventory
-from44 source units, with no unresolved symbols, duplicate providers, or
-placeholders. Thirty-nine inventory spans still need boundary review. Six
-previously accepted functions remain raw-byte exact in the linked DLL. Twelve
+The current build supplies all 362 entries in the first-party inventory
+from 44 source units, with no unresolved symbols, duplicate providers, or
+placeholders. Native references and source definitions support all 39 flagged
+entry identities; their exact byte extents remain provisional. Verify that compact
+evidence with `python scripts/title_inventory_review.py`. Six
+previously accepted functions remain raw-byte exact in the linked DLL. Thirteen
 functions have limited native behavioral fixtures; the rest retain their
 existing matching/codegen evidence and unverified behavioral status.
 
@@ -81,9 +83,29 @@ Actual isolated host runs reach the clear title menu and password screen. Real
 keyboard input navigates to Passwords and returns to the menu; F2 opens the
 original host Options dialog and Cancel closes it. Animations run, but matching
 wall-clock screenshots to identical animation frames is not yet deterministic.
-Save/load, changed settings, reinitialization and engine transitions need broader
-validation. Compact measurements are in `evidence/title_behavioral_runtime.json`;
+Start Game, followed by a native Escape movie skip, unloads TITLE and loads the
+original ENG1.DLL; both original and replacement runs reach its forest gameplay
+scene. Save/load, changed settings, reinitialization and ENG3 transitions need
+broader validation. Compact measurements are in `evidence/title_behavioral_runtime.json`
+and `evidence/title_behavioral_ui.json`;
 fresh detailed logs and screenshots remain ignored under `work/`.
+
+The user subsequently reported that manual testing appeared to work well, while
+explicitly leaving coverage non-exhaustive, and requested no further manual game
+runs. That observation is recorded separately from measured fixtures. The tested
+DLL is retained unchanged. An attempted ENG3 baseline input experiment was
+inconclusive because its private controller could release a key before the
+expected logical edge; that controller is not adopted as a canonical test.
+
+`python scripts/title_menu_differential.py` compares the linked menu callback
+against native RVA `0x7510` in a separate fixture process. Twenty cases cover
+navigation, skipped selection 2, both confirmation bits, held versus rising-edge
+input, repeat suppression, and selection 4 enabled by the high context flag.
+Each compares 21,752 bytes of affected state and normalized ordered callbacks;
+an explicit assertion checks Exit slot `0x238` invocation. Busy-state animation,
+sound playback, and real host teardown are outside this fixture's scope.
+The earlier apparent source Exit difference coincided with the normal 900-tick
+idle demo; it does not establish an Exit dispatch mismatch.
 
 ## Original host provenance and integration
 
@@ -107,6 +129,10 @@ Reproduce the native surface and linked-DLL comparisons with:
 ```powershell
 python scripts/title_differential.py
 python scripts/title_linked_differential.py
+python scripts/title_password_differential.py
+python scripts/title_render_differential.py
+python scripts/title_menu_differential.py
+python scripts/title_inventory_review.py
 python scripts/title_integration.py prepare
 python scripts/title_integration.py attach
 python scripts/title_integration.py build-fixture

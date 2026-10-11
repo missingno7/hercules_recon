@@ -6,7 +6,6 @@
   "build_command": "python scripts/title_behavioral.py",
   "inventory_entries": 362,
   "compiled_function_definitions": 362,
-  "inventory_boundary_review_leads": 39,
   "source_units": 44,
   "unresolved_symbols": [],
   "duplicate_symbols": [],
@@ -67,7 +66,7 @@
   ],
   "reproduction": {
     "command": "python scripts/title_behavioral.py --output work/title_behavioral/repro_build",
-    "dll_sha256": "c207eccef0c0d144feb4fbef167cee8e78f9761eb8e509be8b609de6288281ee",
+    "dll_sha256": "bb792a32b5e2274b54758a26804cce17e74513bfd1986913335b7c242eb59e27",
     "sections": [
       {
         "name": ".text",
@@ -100,7 +99,8 @@
         "same_bytes_export_timestamp_normalized": true
       }
     ],
-    "claim": "Independent source rebuild has identical PE section data and RVAs after normalizing the export-directory timestamp; whole-file identity is not claimed."
+    "claim": "Independent source rebuild has identical PE section data and RVAs after normalizing the export-directory timestamp; whole-file identity is not claimed.",
+    "link_map_sha256": "dc1bbef452afa2ce7856986bfa5d3dd1fe2cc3c832f3d0d58cd7402f1364de9a"
   },
   "tests": [
     {
@@ -127,16 +127,30 @@
       "command": "python scripts/title_integration.py fixture",
       "result": "pass",
       "scope": "LoadLibrary/GetProcAddress and rejected entry cdecl stack"
+    },
+    {
+      "command": "python scripts/title_password_differential.py",
+      "result": "pass",
+      "scope": "42 valid password rows and 43 invalid cases; controlled object/context state"
+    },
+    {
+      "command": "python scripts/title_menu_differential.py",
+      "result": "pass",
+      "scope": "20 native/linked menu cases and explicit Exit slot 0x238 callback count"
+    },
+    {
+      "command": "python scripts/title_inventory_review.py",
+      "result": "pass",
+      "scope": "39 flagged entry identities; no exact byte extents accepted"
     }
   ],
-  "runtime_status": "Verified no-CD original host loads source DLL, executes synchronous movie callbacks, and reaches a clear title menu in actual native windowed mode. Original and replacement 45-second runs reach corresponding process states; animation frames differ because wall-clock timing is not aligned.",
+  "runtime_status": "Measured native windowed menu/password/host Options Cancel and TITLE unload into original ENG1 gameplay. User reports manual testing appears to work, explicitly non-exhaustive. Further interactive tests stopped at user request.",
   "unverified": [
-    "Screen display and interactions",
-    "Animations and audio",
-    "Passwords",
-    "Settings and save/load",
-    "Shutdown and reinitialization",
-    "Transitions into ENG1/ENG3",
+    "All screen variants and input combinations",
+    "Deterministic animation/audio and RNG consumption",
+    "Settings changes and save/load",
+    "Natural shutdown and reinitialization",
+    "Valid-password transition into ENG3",
     "Provisional data capacities and aggregate ownership"
   ],
   "matching_regression": {
@@ -144,5 +158,18 @@
     "codegen_rows": 449,
     "failures": 0,
     "claim": "Baseline regression before new behavioral providers; six exact TITLE functions also checked in each linked build."
+  },
+  "inventory_entry_identities_reviewed": 39,
+  "inventory_provisional_extents": 39,
+  "behaviorally_validated_functions_limited": 13,
+  "missing_data_definitions_found_by_linker": [],
+  "manual_validation": {
+    "date": "2026-10-11",
+    "source": "Direct user report",
+    "observation": "I tested it manually, I am not saying I tried everything, but it seems to be working fine",
+    "exhaustive": false,
+    "artifact_identity_independently_recorded": false,
+    "source_dll_available_at_report_sha256": "0dde33225d04557aa81e3870674ea9b08edb7faa38ef3f6db978e08fe54ab775",
+    "further_manual_runs_stopped_at_user_request": true
   }
 }

@@ -195,6 +195,8 @@ def build(output):
         report.update(dll_sha256=digest(dll.read_bytes()), architecture='x86 PE32',
                       exports=metadata['exports'], imports=metadata['imports'],
                       dll=str(dll.relative_to(ROOT)), linked_symbols=len(linked),
+                      link_map=str((output / 'TITLE.map').relative_to(ROOT)),
+                      link_map_sha256=digest((output / 'TITLE.map').read_bytes()),
                       preserved_exact_functions=exact_peers)
     (output / 'report.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
     print(json.dumps({k: report.get(k) for k in ('link_exit_code', 'inventory_count',

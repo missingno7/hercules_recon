@@ -87,6 +87,13 @@ def load_report(path=BUILD_REPORT):
     digest = sha256(dll)
     if digest != report.get("dll_sha256"):
         raise ValueError("Behavioral DLL hash differs from its build report")
+    recorded_inputs = dict(report.get("context_sha256", {}))
+    recorded_inputs["recovery.json"] = report.get("recovery_sha256")
+    recorded_inputs["evidence/title_behavioral_build.json"] = report.get("config_sha256")
+    for relative, expected in recorded_inputs.items():
+        source = (ROOT / relative).resolve()
+        if not under(source, ROOT) or not source.is_file() or sha256(source) != expected:
+            raise ValueError("Rebuild TITLE: recorded build input changed: " + relative)
     if digest == ORIGINAL_SHA256["TITLE.DLL"]:
         raise ValueError("Refusing to use the unmodified original TITLE.DLL as a behavioral build")
     entry = [row for row in report.get("functions", [])
@@ -94,6 +101,27 @@ def load_report(path=BUILD_REPORT):
     if len(entry) != 1 or not entry[0].get("compiled_definition"):
         raise ValueError("Build report does not include a compiled PC_DLLEngineMain behavioral provider")
     return report, dll, digest
+
+
+def parse_title_link_map(report=None):
+    """Read the map belonging to the hash-verified source DLL, never native RVAs."""
+    from pe import PE
+    from title_link import read_map
+    verified, dll, _ = load_report()
+    if report is not None and report.get("dll_sha256") != verified["dll_sha256"]:
+        raise ValueError("TITLE address map and supplied build report differ")
+    path = (ROOT / verified.get("link_map", str(dll.with_suffix('.map').relative_to(ROOT)))).resolve()
+    if not under(path, ROOT / 'work') or not path.is_file():
+        raise ValueError("TITLE link map must exist under work/")
+    expected = verified.get('link_map_sha256')
+    if expected is not None and sha256(path) != expected:
+        raise ValueError("TITLE link map changed after linking")
+    pe = PE(dll)
+    symbols = read_map(path)
+    entry = symbols.get('_PC_DLLEngineMain')
+    if entry is None or entry - pe.image_base != verified['exports'][0]['rva']:
+        raise ValueError("TITLE link map disagrees with the DLL export")
+    return pe.image_base, symbols
 
 
 def prepare(runtime, no_cd=True, baseline=False):
@@ -298,7 +326,7 @@ def build_debugger():
     return exe
 
 
-def debug_runtime(runtime, timeout_ms=25000, title_trace=False, baseline=False):
+def debug_runtime(runtime, timeout_ms=45000, title_trace=False, baseline=False):
     runtime = check_runtime(runtime)
     if baseline:
         title_digest = ORIGINAL_SHA256['TITLE.DLL']
@@ -329,6 +357,8 @@ def debug_runtime(runtime, timeout_ms=25000, title_trace=False, baseline=False):
     build_report = json.loads((LANE / "debugger/build_report.json").read_text(encoding="utf-8"))
     if sha256(probe) != build_report.get("exe_sha256"):
         raise ValueError("Debugger executable differs from its build report")
+    if sha256(DEBUGGER_SOURCE) != build_report.get("source_sha256"):
+        raise ValueError("Rebuild debugger: probe source changed after compilation")
     suffix = 'baseline_windowed' if baseline else 'behavioral_windowed'
     events_path = LANE / ('debugger/runtime_events_' + suffix + '.jsonl')
     trace_path = LANE / ('debugger/title_trace_' + suffix + '.jsonl')
@@ -401,8 +431,8 @@ def main():
                         help="Apply the reviewed EXE-only patch to the disposable copy during prepare (default)")
     parser.add_argument("--original-host", action="store_false", dest="no_cd",
                         help="Stage the CD-requiring original installer EXE; choose a separate --runtime directory")
-    parser.add_argument("--timeout", type=int, default=25)
-    parser.add_argument("--timeout-ms", type=int, default=25000)
+    parser.add_argument("--timeout", type=int, default=45)
+    parser.add_argument("--timeout-ms", type=int, default=45000)
     parser.add_argument("--title-trace", action="store_true")
     args = parser.parse_args()
     if args.command in ('prepare-baseline', 'debug-baseline') and args.runtime == DEFAULT_RUNTIME:

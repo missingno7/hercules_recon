@@ -1112,6 +1112,8 @@ static int launch_debugged(const char *host, const char *cwd,
             break;
 
         case UNLOAD_DLL_DEBUG_EVENT:
+            if ((DWORD)event.u.UnloadDll.lpBaseOfDll == g_title_base)
+                g_title_base = 0;
             fprintf(out, "{\"type\":\"unload_dll\",\"pid\":%lu,\"tid\":%lu,\"base\":\"0x%08lx\"}\n",
                     (unsigned long)event.dwProcessId, (unsigned long)event.dwThreadId,
                     (unsigned long)event.u.UnloadDll.lpBaseOfDll);
