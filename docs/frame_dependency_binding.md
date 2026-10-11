@@ -43,3 +43,14 @@ Do not rewrite relocation-only equals to manipulate layout or invent empty
 production definitions to remove link errors. Reference evidence and validation
 are recorded in `evidence/frame_dependency_binding.json`; `recovery.json` remains
 the sole accepted state.
+
+The current plan now uses nine actual providers. Seven new compact receipts pin
+the current `resource_context.h` after fresh builds; their historical receipts
+remain intact. All 46 complete contributions (3504 bytes), ordered references and
+the strict chain writer preserve. The real 1000-byte engine interface storage
+provider removes exactly `_g_engine_interface`: 114 unresolved names become 113.
+An independent run of the existing dependency tool reproduces that result from
+nine fresh objects, with no duplicate source definitions. No verifier changes
+were needed. Its data receipt packages the existing field evidence; it does not
+replace the separate native storage gate or prove original engine/TU/CRT layout.
+See `evidence/graphics_frame_convergence_2026_10_11.json` for provenance.

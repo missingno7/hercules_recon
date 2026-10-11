@@ -408,3 +408,22 @@ each function: OR-root ownership and parameter-update lowering hypotheses are
 falsified. No spelling/type/flag retries follow. Continue real missing owners
 and source/unit contributions; preserve these private candidates and receipts.
 See `evidence/storage_capture_progress_2026_10_11.json` for proof limits and hashes.
+
+
+## Further measured transfer
+
+The controlled SDK initializer method now resolves complete 208-byte lock and
+336-byte surface-setup contributions with actual PC branch/input-lifetime
+corrections. Fresh canonical builds add 544 masked bytes, preserve 132 strict
+functions / 8304 bytes, and close two real EXE graph dependencies (eight to six).
+These RTM outcomes are Hercules measurements, not imported Blood II compiler
+rules. Keep the raw relocation differences and frozen negative families.
+
+Current-context frame receipts and the existing data provider restore the natural
+nine-unit diagnostic: 46 contributions / 3504 bytes preserve, and one real storage
+dependency resolves (114 to 113). The existing verifier and field evidence suffice;
+no infrastructure rewrite or scoring/routing system was needed. Continue genuine
+engine source/owner recovery alongside bounded shared lifetime research. The
+failed inline-bounds pilot and secondary SDK attribution remain evidence only.
+Details and current separate recovery totals are in
+`evidence/graphics_frame_convergence_2026_10_11.json` and `docs/full_matching_goal.md`.

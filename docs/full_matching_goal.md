@@ -1391,3 +1391,46 @@ each function: OR-root ownership and parameter-update lowering hypotheses are
 falsified. No spelling/type/flag retries follow. Continue real missing owners
 and source/unit contributions; preserve these private candidates and receipts.
 See `evidence/storage_capture_progress_2026_10_11.json` for proof limits and hashes.
+
+
+## Graphics input lifetimes and current frame dependencies
+
+Two complete graphics contributions now have canonical ordinary C++ source:
+208-byte lock and 336-byte surface setup, adding 544 relocation-masked bytes.
+The native fullscreen-first graph and full 108-byte descriptor clear resolve
+lock. Setup additionally requires the real unconditional caps-field store before
+its primary-surface null guard. Its 1136-byte frame and all 19 reference roles
+preserve. These are independently rebuilt complete contributions, with raw
+operand differences retained; neither is a strict promotion. The controlled
+initializer methodology transfers from Blood II, while these compiler outcomes
+are established independently with Hercules RTM and PC evidence.
+
+A fresh 63-source natural EXE graph preserves all 62 previous complete
+contributions and 25 strict EXE functions. Its unresolved set falls from eight
+through seven to six; no image or native layout is proved. Actual engine cleanup
+callee identity also replaces the driver placeholder with `clear_actor`.
+The full 80-byte driver contribution preserves; its one SIB-byte residual and
+RECONSTRUCTED status remain unchanged.
+
+The frame dependency plan is usable with the current header context again.
+Seven fresh compact receipts preserve 46 complete contributions / 3504 bytes,
+and the real engine-interface storage adds the ninth provider. An independent
+run of the existing tool reproduces 114 to 113 unresolved names, removing only
+that storage symbol. Old receipts and their failure context remain intact; no
+verification or infrastructure rewrite was required.
+
+The engine bounds-query pilot restores the native fresh upper epoch read through
+ordinary inline helper context, but the complete function still fails. Preserve
+both negative controls without return/type/name/flag retries. Existing PSX
+palette-transfer wrappers strengthen provisional compatibility-library roles,
+while PC prototype and library-unit identity remain unproved; bit-packer compiler
+families stay frozen. These findings explain the next experiment, not acceptance.
+
+Current recovery totals are 132 strict functions / 8304 bytes, 449 scoped masked
+functions / 89920 bytes, 6 reconstructed functions / 1088 bytes, and 3 legacy
+similar rows / 352 bytes. EXE data remains 249 initialized / 207854 supported
+loader-zero bytes. Fresh strict verification passes, all 449 masked rows verify in 73 sources,
+and the 69 tool tests pass.
+Missing code remains a separate source-recovery problem: refreshed ENG1/ENG3 maps
+provide untracked leads that may already have drafts and suspect extents.
+See `evidence/graphics_frame_convergence_2026_10_11.json` for scoped evidence.
