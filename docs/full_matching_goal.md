@@ -868,3 +868,66 @@ All 120 strict functions remain exact; fresh masked verification and all 59
 tests pass. Of the 557 earlier rows, 533 remain literal unchanged and 24 update
 only the measured source-view evidence/proofs. The checkpoint is
 `evidence/full_goal_prepare_driver_wave_2026_10_11.json`.
+
+## Pointer capture and a strict callback body
+
+The resource-pointer experiment identifies a narrow RTM cause. Keeping the
+actual interface owner, headers, call and stores fixed, a direct member read
+uses ECX for the pointer and EAX for zero; capturing the pointer locally swaps
+those roles and leaves ten nonrelocation differences. One full-unit confirmation
+restores preparation's complete 32 masked bytes while all five peers preserve
+their code and ordered references. The existing unaccepted six-service draft
+and its spec now use the proven copied-interface owner and direct preparation
+read. A fresh canonical build preserves all six measured contributions. The
+isolated preparation source remains its recovery provider; no duplicate row or
+new masked bytes are counted. See
+`evidence/resource_pointer_capture_control_2026_10_11.json`.
+
+The host table audit classifies all 250 words: 244 code pointers to 165 distinct
+targets, four data pointers and two scalars. Its return-one target at EXE 0xbd40
+now passes strict promotion across the complete 16 bytes, including ten natural
+NOPs. The body consumes no inputs, writes EAX=1 and returns. Six actual table
+cells point to it; the original full signature and initializer owner remain
+unknown. An identical `charNode::length` library contribution is a trivial
+collision and establishes no attribution. Other indirect calls at displacement
++0xf8 have no proven table-base relationship. See
+`evidence/host_return_one_adoption_2026_10_11.json`.
+
+After adding that provider, the selected graph covers 24 code targets / 102
+table cells. Twenty targets have located drafts; 121 targets / 122 cells and
+all four data targets still lack selected providers. The consumer header leaves
+206 code words in integer views, and some named physical call views disagree
+with provider declarations. Recover real slot-owner types from provider and
+caller evidence before a symbolic initializer. See
+`evidence/host_interface_provider_audit_2026_10_11.json`; its frozen counts precede
+the new callback, and the checkpoint records the overlay.
+
+Independent source lanes preserve a generic ENG3 actor transition and the EXE
+movie worker privately. The actor body accesses only a minimum prefix through
++0x6f; higher caller offsets load pointers passed to it. Its 320-byte baseline
+fails with 102 masked residuals and two positional conflicts. Recover the actual
+owner-sidecar writers and table domains before strengthening that view. The
+movie worker uses the actual thread and DirectSound SDK protocols; 23 ETV files
+support its chunk table and bank limits. Its 496-byte lead fails with 257 masked
+residuals and 12 conflicts, and complete function extent remains unproved.
+Neither result changes recovery state. See
+`evidence/independent_controls_2026_10_11_wave27.json`.
+
+Next, recover those genuine actor/movie ownership and lifetime facts, and use
+the 20 located host drafts for dependency closure with existing complete-peer
+gates. Transfer the direct/captured-pointer method only to native-supported
+single-use/reload graphs. A whole-table rewrite, universal callback casts,
+declaration padding or another exhausted compiler grid has no measured benefit.
+
+The natural EXE graph freshly builds 48 actual sources, including all 34 recorded
+EXE source files. All 47 old complete contributions preserve; 15 unresolved names
+remain because the host initializer and other real dependencies are missing.
+No image is forced, produced or executed. This is dependency evidence, not
+whole-binary equality. See `evidence/exe_return_one_graph_2026_10_11.json`.
+
+Totals are 121 strict functions / 8,080 bytes, 430 complete masked functions /
+86,560 bytes, and six reconstructed non-strict functions / 1,088 bytes. This
+wave adds 16 strict bytes, with all 559 previous recovery rows literal unchanged.
+The journaled promotion freshly verifies all 121 strict functions; independent
+masked verification and all 59 tests pass. The checkpoint is
+`evidence/full_goal_pointer_callback_wave_2026_10_11.json`.

@@ -1,0 +1,384 @@
+{
+  "date": "2026-10-11",
+  "scope": "Bounded causal compiler experiment, one full-unit confirmation, and a freshly verified correction of an existing unaccepted draft. Existing canonical preparation source already matches after masking; no recovery state changes.",
+  "toolchain": "msvc5_rtm",
+  "protected_inputs": {
+    "D:\\Prog\\hercules_recon\\recovery.json": "9988359f98d7d903076ab6a001cb82ac6881361b0c48677a151e78889d9009d2",
+    "D:\\Prog\\hercules_recon\\calibration\\engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+    "D:\\Prog\\hercules_recon\\calibration\\resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+    "D:\\Prog\\hercules_recon\\calibration\\host_file_prepare.c": "24d921229d7f81d9f1041aa93cb39bbc7f4e2bc52be1bd28858c818583e0992c",
+    "D:\\Prog\\hercules_recon\\toolchains\\manifest.json": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "prediction": {
+    "scope": "One direct member versus captured local pointer causal pair; same ordinary C body, call, ownership, headers, stores and flags.",
+    "reentry": "Wave26 actual-owner full service still differs from isolated helper; explicit local capture is a new isolated discriminator, not another owner substitution.",
+    "prediction": "Direct member reproduces native32 masked bytes and refs1/7/20; capturing the actual context after the callback selects EAX for the pointer and ECX for zero, changes the absolute-load encoding and causes the measured full-unit mismatch.",
+    "falsifier": "If both controls produce identical code/ref output, or captured local does not reproduce the predicted pointer/zero registers, local capture alone does not explain the full-unit difference. Any input drift or wrong complete symbol set invalidates measurement.",
+    "compiler_build_limit": 2,
+    "model": "root",
+    "source_changes": false
+  },
+  "controls": [
+    {
+      "tag": "direct",
+      "source": "candidates/root_prepare_lifetime_27/direct.c",
+      "source_sha256": "1cd88883a08e9a917d47f5f2e364296762da1890bc757ae4b2f41c3379856f61",
+      "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-dc17x5y1\\candidate.obj",
+      "object_sha256": "b800eb2554ceb8f7e7c14f3f1955df5296c595265791fe232c4f10f40c961ebf",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-dc17x5y1\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\root_prepare_lifetime_27\\direct.c"
+      ],
+      "compiled_bytes": 32,
+      "function_sha256": "3fa1f9c1307745e3c0282daa6e256f41a10e36bfd46f23b0631e0ab606cc287b",
+      "ordered_relocations": [
+        {
+          "offset": 1,
+          "symbol": "_empty_host_callback",
+          "type": 20
+        },
+        {
+          "offset": 7,
+          "symbol": "_g_host_engine_interface",
+          "type": 6
+        },
+        {
+          "offset": 20,
+          "symbol": "_g_resource_prepare_scalar",
+          "type": 6
+        }
+      ],
+      "raw_equal": false,
+      "body_instructions": [
+        {
+          "offset": 0,
+          "instruction": "call 5"
+        },
+        {
+          "offset": 5,
+          "instruction": "mov ecx, dword ptr [4]"
+        },
+        {
+          "offset": 11,
+          "instruction": "xor eax, eax"
+        },
+        {
+          "offset": 13,
+          "instruction": "mov dword ptr [ecx + 0x1b00], eax"
+        },
+        {
+          "offset": 19,
+          "instruction": "mov dword ptr [0], eax"
+        },
+        {
+          "offset": 24,
+          "instruction": "ret"
+        }
+      ],
+      "body_bytes": 25,
+      "nop_bytes": 7,
+      "masked_equal": true,
+      "masked_differing_bytes": 0,
+      "bindings": {
+        "_empty_host_callback": "0xbe30",
+        "_g_host_engine_interface": "0x361b8",
+        "_g_resource_prepare_scalar": "0x352b0"
+      },
+      "binding_conflicts": []
+    },
+    {
+      "tag": "captured",
+      "source": "candidates/root_prepare_lifetime_27/captured.c",
+      "source_sha256": "092ac20238a603728d0f76e7a834b4dab08c7ef4d682c3571e221fc4441902d0",
+      "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-o25mge_p\\candidate.obj",
+      "object_sha256": "d7d87f838e54b46c1ab455f4cc6148883f2036e8a2c39de0c29736e0dec84abe",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-o25mge_p\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\root_prepare_lifetime_27\\captured.c"
+      ],
+      "compiled_bytes": 32,
+      "function_sha256": "a391634a0e01c5e23877957e296d82f96c035bc41178ca0ba61e23288c1e0b1b",
+      "ordered_relocations": [
+        {
+          "offset": 1,
+          "symbol": "_empty_host_callback",
+          "type": 20
+        },
+        {
+          "offset": 6,
+          "symbol": "_g_host_engine_interface",
+          "type": 6
+        },
+        {
+          "offset": 20,
+          "symbol": "_g_resource_prepare_scalar",
+          "type": 6
+        }
+      ],
+      "raw_equal": false,
+      "body_instructions": [
+        {
+          "offset": 0,
+          "instruction": "call 5"
+        },
+        {
+          "offset": 5,
+          "instruction": "mov eax, dword ptr [4]"
+        },
+        {
+          "offset": 10,
+          "instruction": "xor ecx, ecx"
+        },
+        {
+          "offset": 12,
+          "instruction": "mov dword ptr [eax + 0x1b00], ecx"
+        },
+        {
+          "offset": 18,
+          "instruction": "mov dword ptr [0], ecx"
+        },
+        {
+          "offset": 24,
+          "instruction": "ret"
+        }
+      ],
+      "body_bytes": 25,
+      "nop_bytes": 7,
+      "masked_equal": false,
+      "masked_differing_bytes": 10,
+      "bindings": {
+        "_empty_host_callback": "0xbe30",
+        "_g_host_engine_interface": "0x4321bc09",
+        "_g_resource_prepare_scalar": "0x352b0"
+      },
+      "binding_conflicts": []
+    }
+  ],
+  "result": "With the actual interface owner fixed, an explicit local context pointer selects EAX for the pointer and ECX for zero. Direct member access selects ECX for the pointer and EAX for zero. The absolute-load and zero-store encodings account for the10nonrelocation-byte difference.",
+  "fullunit_confirmation": {
+    "prediction": {
+      "scope": "Single full six-service contextual confirmation against frozen actual-owner unit; no canonical change.",
+      "new_evidence": "Fresh isolated direct/captured pointer causal pair predicts register swap and10masked-byte residual.",
+      "prediction": "Replacing only the prepare helper local capture with its actual direct member read restores its native32masked contribution, while five complete peer contributions and ordered refs preserve.",
+      "falsifier": "Any of five peer code/ref changes or failure to restore complete prepare32 invalidates transfer of isolated result into this full unit.",
+      "compiler_build_limit": 1
+    },
+    "source": "candidates/root_prepare_lifetime_27/fullunit_direct.c",
+    "source_sha256": "9b3bb0595081e58d57ac109d1708c9eab12eeb7656900d2f1fd5a5a261ed4d07",
+    "baseline_source": {
+      "scope": "One copied full-unit source; only header owner and pointer-expression substitutions.",
+      "baseline": "calibration/host_file_service.c",
+      "baseline_sha256": "13ec8004a49e2364c8b3618baa1da62a1059e089811cfc3b32e621986b0b2776",
+      "candidate": "candidates/host_service_member_26/host_file_service_actual_interface.c",
+      "candidate_sha256": "78cbda370f1965a016468f0440fafa8073010c671687cfbbc097cad1a98538e0",
+      "resource_context_include_replaced": true,
+      "engine_interface_include_added": true,
+      "pseudo_extern_replaced": true,
+      "g_resource_context_expression_reads_replaced": 37,
+      "remaining_pseudo_owner_references": 0,
+      "all_other_source_text_byte_identical_after_inverse_substitution": true
+    },
+    "baseline_object": "D:\\Prog\\hercules_recon\\build\\match\\compile-9ctf4aie\\candidate.obj",
+    "baseline_object_sha256": "9d0280c20781e46cc1ea4dac3a6c9825fe2102223844658aea0080554ee52ab5",
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-6a8jeopf\\candidate.obj",
+    "object_sha256": "d34b7589149722fa8bbad8bcacec4248e3ab8aa0adc18de625f6b69c52705534",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-6a8jeopf\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\candidates\\root_prepare_lifetime_27\\fullunit_direct.c"
+    ],
+    "prepare_bytes": 32,
+    "prepare_masked_equal": true,
+    "prepare_raw_equal": false,
+    "peers": [
+      {
+        "symbol": "_host_cancel_load",
+        "target_rva": "0x3ea0",
+        "target_size": 96,
+        "compiled_bytes": 80,
+        "function_sha256": "4903f5945a58c66dbb30139b4a5183c06e27665ace420937b9407647011ca3dd",
+        "same_code": true,
+        "same_ordered_references": true
+      },
+      {
+        "symbol": "_host_file_async",
+        "target_rva": "0x3d90",
+        "target_size": 272,
+        "compiled_bytes": 256,
+        "function_sha256": "46a615d4a9b86ae631196333ffcc124144887fd6912d2f0e48ab91434757017e",
+        "same_code": true,
+        "same_ordered_references": true
+      },
+      {
+        "symbol": "_host_file_progress",
+        "target_rva": "0x3f00",
+        "target_size": 320,
+        "compiled_bytes": 320,
+        "function_sha256": "66e248edaf913e60a3fe839ac09ba10d3cbe6b7d07a92df566be8d1a5533cda6",
+        "same_code": true,
+        "same_ordered_references": true
+      },
+      {
+        "symbol": "_host_file_sync",
+        "target_rva": "0x3b50",
+        "target_size": 256,
+        "compiled_bytes": 336,
+        "function_sha256": "5ec2474ca918d4f186c10aeb64b98db005bcb0ce1415c7e96046259dd22adf1a",
+        "same_code": true,
+        "same_ordered_references": true
+      },
+      {
+        "symbol": "_resource_file_length",
+        "target_rva": "0x40d0",
+        "target_size": 176,
+        "compiled_bytes": 208,
+        "function_sha256": "407171a9ebe39de31866090c96843b1c342c813ad37e5ada51ea03c3263e3842",
+        "same_code": true,
+        "same_ordered_references": true
+      }
+    ]
+  },
+  "interpretation": "The local capture explains this preparation contribution in both isolated and current six-service context. Actual owner substitution alone did not cause convergence. Five larger peers remain unchanged and nonmatching; neither this result nor BloodII register rules imply a general RTM allocator law.",
+  "reuse": "When native code reloads one pointer for one access, compare real direct-read and captured-local value graphs in an isolated control, then confirm once in the genuine shared context. Preserve any genuinely reused live local and all call/memory ordering. No rewrite-all-locals, flags, declarations or spelling grid.",
+  "strict_gain_bytes": 0,
+  "masked_gain_bytes": 0,
+  "canonical_source_changes": 1,
+  "receipts": [
+    {
+      "path": "work/root_prepare_lifetime_27/prediction.json",
+      "sha256": "8faf78ab3887fd2074d2b5087ef5dfc0fbd27d991968c411c3d90d66c1c60473"
+    },
+    {
+      "path": "work/root_prepare_lifetime_27/measurement.json",
+      "sha256": "60f9b75a19d210033ac25b232c32a8203cabc7363931d729b745c33921d86352"
+    },
+    {
+      "path": "work/root_prepare_lifetime_27/fullunit_prediction.json",
+      "sha256": "40222e6799fbbdefac86f43d0cba430e666e5f9e6b848152d568cd79d7f75ff4"
+    },
+    {
+      "path": "work/root_prepare_lifetime_27/fullunit_measurement.json",
+      "sha256": "ef6abec8b42a0f1207009120111504f3375cb3e24c3ea03fd1b0886c863ec154"
+    }
+  ],
+  "limits": "No strict equality, original spelling/type/TU or full service recovery. Native EXE has no HIGHLOW directory. Address coherence and masking remain diagnostic. No assembly, placement, artificial lifetime or acceptance change.",
+  "canonical_draft_adoption": {
+    "scope": "Correct the existing unaccepted six-service draft and measurement spec; no new authoritative function or duplicate provider.",
+    "source": "calibration/host_file_service.c",
+    "source_sha256": "b59ee067faa8fa0967dda490588ec16e466349f3530a905c6555296c82b469e0",
+    "old_source_sha256": "13ec8004a49e2364c8b3618baa1da62a1059e089811cfc3b32e621986b0b2776",
+    "old_source_git": "4f3e2b5:calibration/host_file_service.c",
+    "spec": "evidence/host_file_service_region.json",
+    "spec_sha256": "58ae68dd84a3cddd39152a005f26799d730c93fda01c6b9ff3ef6c304e6ca63a",
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-9479ict1\\candidate.obj",
+    "object_sha256": "56fd2bbe4e3d54b8b9c89156a5021b5b24b42b0373bf979237bb82a4c508e1bb",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-9479ict1\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\host_file_service.c"
+    ],
+    "complete_function_results": [
+      {
+        "symbol": "_host_file_prepare",
+        "target_rva": "0x1d60",
+        "target_bytes": 32,
+        "compiled_bytes": 32,
+        "function_sha256": "3fa1f9c1307745e3c0282daa6e256f41a10e36bfd46f23b0631e0ab606cc287b",
+        "complete_code_and_ordered_refs_preserved": true,
+        "masked_differing_bytes": 0,
+        "masked_equal": true,
+        "binding_conflict_count": 0
+      },
+      {
+        "symbol": "_host_file_sync",
+        "target_rva": "0x3b50",
+        "target_bytes": 256,
+        "compiled_bytes": 336,
+        "function_sha256": "5ec2474ca918d4f186c10aeb64b98db005bcb0ce1415c7e96046259dd22adf1a",
+        "complete_code_and_ordered_refs_preserved": true,
+        "masked_differing_bytes": 160,
+        "masked_equal": false,
+        "binding_conflict_count": 20
+      },
+      {
+        "symbol": "_host_file_async",
+        "target_rva": "0x3d90",
+        "target_bytes": 272,
+        "compiled_bytes": 256,
+        "function_sha256": "46a615d4a9b86ae631196333ffcc124144887fd6912d2f0e48ab91434757017e",
+        "complete_code_and_ordered_refs_preserved": true,
+        "masked_differing_bytes": 84,
+        "masked_equal": false,
+        "binding_conflict_count": 3
+      },
+      {
+        "symbol": "_host_cancel_load",
+        "target_rva": "0x3ea0",
+        "target_bytes": 96,
+        "compiled_bytes": 80,
+        "function_sha256": "4903f5945a58c66dbb30139b4a5183c06e27665ace420937b9407647011ca3dd",
+        "complete_code_and_ordered_refs_preserved": true,
+        "masked_differing_bytes": 37,
+        "masked_equal": false,
+        "binding_conflict_count": 2
+      },
+      {
+        "symbol": "_host_file_progress",
+        "target_rva": "0x3f00",
+        "target_bytes": 320,
+        "compiled_bytes": 320,
+        "function_sha256": "66e248edaf913e60a3fe839ac09ba10d3cbe6b7d07a92df566be8d1a5533cda6",
+        "complete_code_and_ordered_refs_preserved": true,
+        "masked_differing_bytes": 91,
+        "masked_equal": false,
+        "binding_conflict_count": 4
+      },
+      {
+        "symbol": "_resource_file_length",
+        "target_rva": "0x40d0",
+        "target_bytes": 176,
+        "compiled_bytes": 208,
+        "function_sha256": "407171a9ebe39de31866090c96843b1c342c813ad37e5ada51ea03c3263e3842",
+        "complete_code_and_ordered_refs_preserved": true,
+        "masked_differing_bytes": 85,
+        "masked_equal": false,
+        "binding_conflict_count": 8
+      }
+    ],
+    "emitted_object_builds": 1,
+    "pre_object_include_failure": {
+      "source_sha256": "f73012e923678ef1a9568a13e75f0754ef1d5dd0e7fbec763478bdb61ebd9466",
+      "log": "build/match/compile-kj1f9tn2/compile.log",
+      "log_sha256": "0504946c4b99141dfa96bd7461377c9a6bb998407f203b4dc5c99ccacd6758cb",
+      "reason": "Scratch resource_context.h relative include was not normalized along with engine_interface.h; fixed path only before emitted-object verification."
+    },
+    "source_changes": 1,
+    "authoritative_rows_changed": 0,
+    "receipt": {
+      "path": "work/root_prepare_lifetime_27/canonical_draft_control.json",
+      "sha256": "ad60a3b319a22946e3402703a0eb7ea1b0a636888ad37a418225913617c4f87c"
+    }
+  },
+  "experiment_compiler_builds": 3,
+  "total_compiler_invocations": 5,
+  "emitted_object_builds": 4
+}

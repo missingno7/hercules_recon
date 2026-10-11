@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-11",
+  "scope": "One complete strict callback-body contribution; no original signature/source/TU/library or whole-image claim.",
+  "function": {
+    "id": "exe.host_return_one",
+    "rva": "0xbd40",
+    "status": "FUNCTION_MATCH",
+    "bytes": 16,
+    "body_bytes": 6,
+    "nop_bytes": 10,
+    "source": "src/host_return_one.c",
+    "symbol": "_host_return_one",
+    "source_sha256": "7d7c704265d516bad67f691f7fc48bb8d3ff5f09aa611fc8ec8254fc36b97059",
+    "native_function_sha256": "5a9bd1333a736806794087fa4c01765e17a6ad5adb9bf4b29fe6565e591b0e6f",
+    "compiled_function_sha256": "5a9bd1333a736806794087fa4c01765e17a6ad5adb9bf4b29fe6565e591b0e6f",
+    "references": 0
+  },
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "physical_protocol": {
+    "direct_caller": "0x106f6",
+    "consumed_inputs": "None read by the complete body; direct call has no observed stack setup.",
+    "result": "EAX=1; plain RET; direct caller does not use EAX afterward.",
+    "host_table_cells": [
+      {
+        "offset": "0xf8",
+        "rva": "0x362b0"
+      },
+      {
+        "offset": "0xfc",
+        "rva": "0x362b4"
+      },
+      {
+        "offset": "0x100",
+        "rva": "0x362b8"
+      },
+      {
+        "offset": "0x174",
+        "rva": "0x3632c"
+      },
+      {
+        "offset": "0x18c",
+        "rva": "0x36344"
+      },
+      {
+        "offset": "0x3ac",
+        "rva": "0x36564"
+      }
+    ]
+  },
+  "fresh_canonical_graph_compile": {
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-rg6xbq9f\\candidate.obj",
+    "object_sha256": "dbcbb6466bcb020660ac8b5d5c69b1934672345c16f3cef9f8051cdaac5a2c2e",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-rg6xbq9f\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\src\\host_return_one.c"
+    ],
+    "raw_equal": true,
+    "defined_function_symbols": [
+      "_host_return_one"
+    ]
+  },
+  "strict_promotion": {
+    "stage_command": "python scripts/leaf_integrate.py stage work/host_return_one_27/stage_plan.json",
+    "promotion_command": "python scripts/promote.py exe.host_return_one --source candidates/host_return_one_27/host_return_one.c",
+    "fresh_strict_functions_verified": 121,
+    "previous_strict_functions_preserved": 120,
+    "previous_strict_bytes_preserved": 8064
+  },
+  "strict_gain_bytes": 16,
+  "masked_gain_bytes": 0,
+  "receipts": [
+    {
+      "path": "work/host_return_one_27/prediction.json",
+      "sha256": "5c9add5b301bf9aae8a90b19f5acb62163d2abc49c821b63c9e42cf3d969c4e6"
+    },
+    {
+      "path": "work/host_return_one_27/measurement.json",
+      "sha256": "69d37d9662aa73a0b7a5f7136092213198d2a210443c131f2874efcb5c1ce741"
+    },
+    {
+      "path": "work/host_return_one_27/extent_review.json",
+      "sha256": "e687a0093089c83dfb94a53ccb5acbd45f9538d1a64306851fb7afc231f538a1"
+    },
+    {
+      "path": "work/host_return_one_27/stage_plan.json",
+      "sha256": "344fed9bc9cfbde59a0eacf8874f202f73180b4d008812bbde04a0e7ad5f7b37"
+    }
+  ],
+  "limits": "Original full formal list/calling convention and owner initializer declaration remain open; six pointer cells establish native address roles only. charNode::length is a trivial byte collision, not identified library source. Other EXE +f8 indirect calls have no proven table-base relationship and are not attributed here. No initializer casts, aliases, assembly, placement, padding declarations or gate changes."
+}

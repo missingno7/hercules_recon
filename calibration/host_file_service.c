@@ -1,8 +1,9 @@
 #include <stddef.h>
 #include <stdio.h>
 #include "resource_context.h"
+#include "engine_interface.h"
 
-extern ResourceCallbackContext *g_resource_context;
+extern EngineInterface g_host_engine_interface;
 extern char g_resource_filename[];
 extern const char g_resource_filename_format[];
 extern const char g_resource_loading_format[];
@@ -21,11 +22,8 @@ extern int __cdecl virtual_file_close(int handle);
 
 void __cdecl host_file_prepare(void)
 {
-    ResourceCallbackContext *context;
-
     empty_host_callback();
-    context = g_resource_context;
-    context->prepare_state_1b00 = 0;
+    g_host_engine_interface.context_004->prepare_state_1b00 = 0;
     g_resource_prepare_scalar = 0;
 }
 
@@ -39,34 +37,34 @@ unsigned long __cdecl host_file_sync(
     host_file_prepare();
     sprintf(g_resource_filename, g_resource_filename_format, prefix, suffix);
     handle = virtual_file_open(g_resource_filename, 0, 0);
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     context->virtual_handle_0b8 = handle;
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     if (context->virtual_handle_0b8 == -1)
         goto open_failed;
 
     for (;;) {
         host_diagnostic(g_resource_loading_format,
                         g_resource_filename, destination, (int)byte_count);
-        context = g_resource_context;
+        context = g_host_engine_interface.context_004;
         handle = context->virtual_handle_0b8;
         (void)virtual_file_read(handle, destination, byte_count);
 
-        context = g_resource_context;
+        context = g_host_engine_interface.context_004;
         handle = context->virtual_handle_0b8;
         close_result = virtual_file_close(handle);
         if (close_result == 0)
             break;
 
         handle = virtual_file_open(g_resource_filename, 0, 0);
-        context = g_resource_context;
+        context = g_host_engine_interface.context_004;
         context->virtual_handle_0b8 = handle;
-        context = g_resource_context;
+        context = g_host_engine_interface.context_004;
         if (context->virtual_handle_0b8 == -1)
             goto open_failed;
     }
 
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     context->transfer_status_0dc = 0;
     host_diagnostic(g_resource_sync_loaded_format);
     return byte_count;
@@ -87,16 +85,16 @@ int __cdecl host_file_async(
     long signed_corrected_count;
     short sector_count;
 
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     if (context->mode_09c == 1)
         return 1;
 
     host_file_prepare();
     sprintf(g_resource_filename, g_resource_filename_format, prefix, suffix);
     handle = virtual_file_open(g_resource_filename, 0, 0);
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     context->virtual_handle_0b8 = handle;
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     handle = context->virtual_handle_0b8;
     if (handle == -1) {
         host_diagnostic(g_resource_async_open_failure_format,
@@ -109,19 +107,19 @@ int __cdecl host_file_async(
         (void)virtual_file_seek(handle, (long)sector_byte_offset, 0);
     }
 
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     context->destination_cursor_a4 = (unsigned char *)destination;
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     context->mode_09c = 1;
 
     corrected_count = byte_count + 2047UL;
     signed_corrected_count = (long)corrected_count;
     sector_count = (short)(signed_corrected_count / 2048L);
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     context->total_sectors_0a0 = sector_count;
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     context->remaining_sectors_09e = context->total_sectors_0a0;
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     context->countdown_0bc = 0;
     return 2;
 }
@@ -131,7 +129,7 @@ void __cdecl host_cancel_load(void)
     ResourceCallbackContext *context;
     int handle;
 
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     if (context->mode_09c == 0)
         return;
 
@@ -141,9 +139,9 @@ void __cdecl host_cancel_load(void)
         return;
     }
 
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     context->mode_09c = 0;
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     context->unknown_0ac = 0;
 }
 
@@ -157,27 +155,27 @@ void __cdecl host_file_progress(void)
     int handle;
     unsigned char *destination;
 
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     if (context->countdown_0bc != 0) {
         --context->countdown_0bc;
-        context = g_resource_context;
+        context = g_host_engine_interface.context_004;
         if (context->countdown_0bc == 0)
             context->mode_09c = 0;
     }
 
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     if (context->mode_09c != 1)
         return;
 
     if (context->transfer_result_0d8 == -1) {
         context->transfer_status_0dc = 0x100;
-        context = g_resource_context;
+        context = g_host_engine_interface.context_004;
         callback = context->load_failed;
         if (callback != 0)
             callback(0);
-        context = g_resource_context;
+        context = g_host_engine_interface.context_004;
         context->mode_09c = 0;
-        context = g_resource_context;
+        context = g_host_engine_interface.context_004;
         context->transfer_result_0d8 = 0;
         return;
     }
@@ -194,30 +192,30 @@ void __cdecl host_file_progress(void)
     if (chosen_sectors != 0) {
         chosen_byte_count = (long)chosen_sectors * 2048L;
         byte_delta = (unsigned long)chosen_byte_count;
-        context = g_resource_context;
+        context = g_host_engine_interface.context_004;
         handle = context->virtual_handle_0b8;
         destination = context->destination_cursor_a4;
         (void)virtual_file_read(handle, destination, (size_t)byte_delta);
-        context = g_resource_context;
+        context = g_host_engine_interface.context_004;
         context->destination_cursor_a4 = (unsigned char *)
             ((unsigned long)context->destination_cursor_a4 + byte_delta);
     }
 
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     if (context->remaining_sectors_09e != 0)
         return;
 
     context->transfer_status_0dc = 0;
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     if (context->suppress_auto_close_0e0 == 0) {
         host_cancel_load();
-        context = g_resource_context;
+        context = g_host_engine_interface.context_004;
         context->mode_09c = 4;
-        context = g_resource_context;
+        context = g_host_engine_interface.context_004;
         context->countdown_0bc = 12;
     }
 
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     callback = context->load_complete;
     if (callback != 0)
         callback(0);
@@ -232,25 +230,25 @@ unsigned long __cdecl resource_file_length(const char *prefix, const char *suffi
 
     sprintf(g_resource_filename, g_resource_filename_format, prefix, suffix);
     handle = virtual_file_open(g_resource_filename, 0, 0);
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     context->virtual_handle_0b8 = handle;
-    context = g_resource_context;
+    context = g_host_engine_interface.context_004;
     handle = context->virtual_handle_0b8;
     if (handle == -1)
         return 0;
 
     for (;;) {
         length = (unsigned long)virtual_file_seek(handle, 0L, 2);
-        context = g_resource_context;
+        context = g_host_engine_interface.context_004;
         handle = context->virtual_handle_0b8;
         close_result = virtual_file_close(handle);
         if (close_result == 0)
             return length;
 
         handle = virtual_file_open(g_resource_filename, 0, 0);
-        context = g_resource_context;
+        context = g_host_engine_interface.context_004;
         context->virtual_handle_0b8 = handle;
-        context = g_resource_context;
+        context = g_host_engine_interface.context_004;
         handle = context->virtual_handle_0b8;
         if (handle == -1)
             return 0;

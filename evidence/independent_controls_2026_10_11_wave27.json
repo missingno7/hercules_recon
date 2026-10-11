@@ -1,0 +1,235 @@
+{
+  "date": "2026-10-11",
+  "scope": "Independent missing-source work alongside the pointer compiler pilot; both first emitted-object baselines fail. Preserve drafts without promoting a counter.",
+  "actor_transition": {
+    "scope": "One private generic actor-transition body; no canonical or recovery-state adoption.",
+    "target": {
+      "path": "assets/pc/HERCULES/ENG3.DLL",
+      "module_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x1d190",
+      "size": 320,
+      "native_contribution_sha256": "05b807db9137bf9f525e14ed9ac492554a015e02f2cae71e4c68384360fd18c1",
+      "native_body_size": 310,
+      "native_ret_rva": "0x1d2c5",
+      "native_padding": "10 NOP bytes at 0x1d2c6..0x1d2cf",
+      "direct_callers": 26,
+      "recovery_overlap_count": 0
+    },
+    "candidate": {
+      "path": "candidates/actor_step_27/process_eng3_middle_actor.c",
+      "source_sha256": "53ea72bae01d8a3fd4b29e37ce5322051b9656ee784e64deb24bca893a245bca",
+      "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-_6mezp1p\\candidate.obj",
+      "object_sha256": "aa977e4ad8945ccd5aeb72bf36164cc17e58f83c4063105e72dd0953383b01d7",
+      "compiled_contribution_sha256": "994660f7c681a8c2ccae45a0e1d82cab92cc5f55bcf723ef3a808e3f2ab4bbb0",
+      "compiled_size": 320,
+      "compiled_ret_offset": "0x135",
+      "compiled_padding": "10 NOP bytes; matching terminal extent only",
+      "defined_external_symbols": [
+        "_process_eng3_middle_actor"
+      ],
+      "undefined_external_symbols": [
+        "_cleanup_eng3_actor_0a6b0",
+        "_eng3_detach_attachment_1e390",
+        "_eng3_detach_buffer_1e410",
+        "_eng3_detach_child_1e3d0",
+        "_g_eng3_profile_selector_40638",
+        "_g_eng3_sidecar_offsets_3fbd0",
+        "_process_eng3_secondary_actor_1d6e0",
+        "_unlink_0e4"
+      ]
+    },
+    "single_build": {
+      "toolchain": "msvc5_rtm",
+      "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+      "toolchain_manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+      "flags": [
+        "/O2",
+        "/Gy"
+      ],
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-_6mezp1p\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\actor_step_27\\process_eng3_middle_actor.c"
+      ],
+      "build_count": 1,
+      "headers": {
+        "source_includes": [
+          "<stddef.h>"
+        ],
+        "resolved_include_search_root": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include",
+        "resolved_header_path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h",
+        "resolved_header_sha256": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
+        "repository_headers": []
+      }
+    },
+    "raw_equal": false,
+    "raw_differing_bytes": 144,
+    "masked_equal": false,
+    "masked_differing_bytes": 102,
+    "binding_conflicts": 2,
+    "unsupported_relocations": 0,
+    "source_and_semantic_scope": {
+      "candidate_view": "The candidate declares a minimum 0x70-byte view and the callee reads/writes no actor byte beyond +0x6f; separate ENG3 factory/reset sources support a 0x94-byte base prefix. Preflight retains real caller-side +0x110/+0x118 loads in their caller contexts; they are not accesses by this callee. No 0xec or 0x280 actor expansion is claimed.",
+      "candidate_branches": "Zero kind returns 1; 0x4000 kind follows the specialized path; non-0x4000 returns the external 0x1d6e0 processor result. Specialized path preserves 0x10000000 cleanup, null-owner detach/unlink/clear, owner 0x2000 rejection, selector-gated sidecar writes, ordered detach/unlink, kind clear, sidecar high-bit clear, and final cleanup.",
+      "supported_evidence": "Native widths/offsets and call targets; existing ENG3 base-prefix factory/reset; accepted exact shared unlink_0e4 at 0x1e4c0; direct helper disassembly for detach behaviors. All direct callees are below first-party end 0x25040; no library implementation was substituted.",
+      "unproved": "Original routine/helper/global names; common complete actor declaration across all 26 callers; 0x3fbd0 table bounds and owner-sidecar allocation; caller domain and valid pointer/index contracts; whole-program behavior or source/TU identity. The other direct helper bodies are external and not FUNCTION_MATCH providers in this lane.",
+      "behavior_claim": "The C source follows the measured branch and side-effect plan under valid actor/table/owner inputs and the stated one-pointer helper ABI. The full body is not proven behavior-equivalent; strict and masked gates fail."
+    },
+    "next_discriminator": "Native writers/initializers of actor+0x58 and8-byte table rows at3fbd0: establish selector domain, sidecar bounds and lifetime before strengthening source types or behavior claims.",
+    "prediction_provenance": "The original precompile prediction SHA fe1b99b760b28512ffab1788e50206771fc7f3d5b783a3fc2135c637f607a647 is retained by the baseline. Its bytes are unavailable after a postcompile factual amendment of candidate.type_scope. Current prediction is explicitly an amendment, not immutable precompile evidence; raw baseline/preflight stay unchanged.",
+    "receipts": [
+      {
+        "path": "work/actor_step_27/handoff.json",
+        "sha256": "8e3305248e061e900af60b202a2eecb41aa9acf8b6bdf362581fcd23d43f72d4"
+      },
+      {
+        "path": "work/actor_step_27/preflight.json",
+        "sha256": "fe371b680930a7d4ee29c9a05f6769b0c4a27d57404e8eb3744bb4f749ed3533"
+      },
+      {
+        "path": "work/actor_step_27/baseline.json",
+        "sha256": "a07dae436f0ecbe5281dcaf51a1b3bd23a0c68ec270ed6115dc2349704bfb9c9"
+      },
+      {
+        "path": "work/actor_step_27/object_audit.json",
+        "sha256": "ea64e349a78105de9a1a98c12a6d7d48ba6255c476a37610d39bc4644e4ef8e5"
+      },
+      {
+        "path": "work/actor_step_27/prediction.json",
+        "sha256": "f15901f087527c4e76ab67220c3f564d3a56d37f2bd80b65b640af5ca3a60db9"
+      }
+    ]
+  },
+  "movie_thread": {
+    "scope": "Private movie/audio worker protocol draft;496-byte lead only, no accepted extent or recovery state.",
+    "function": {
+      "module": "HERCULES.EXE",
+      "rva": "0x33e0",
+      "lead_bytes": 496,
+      "symbol": "_movie_native_033e0@4",
+      "thread_abi": "DWORD WINAPI (LPVOID), passed to CreateThread at 0x3354; the incoming parameter is not read.",
+      "extent_limit": "Lead ends at aligned entry 0x35d0. Native control back-edge is 0x35c0 -> 0x33ee, with 11 trailing NOP bytes 0x35c5..0x35cf included in the measured lead. The complete source/function extent is unproved."
+    },
+    "oracle": {
+      "path": "work/discs/pc_install/HERCULES.EXE",
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+    },
+    "source": {
+      "path": "candidates/movie_thread_27/movie_thread_033e0.cpp",
+      "sha256": "0037753ec76ded26b580e54bf01761ca9b77c9b3822b0760fb792913c3808b47",
+      "bytes": 3084
+    },
+    "toolchain": {
+      "id": "msvc5_rtm",
+      "compiler": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+      "compiler_version": "11.00.7022",
+      "manifest_path": "toolchains/manifest.json",
+      "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+      "pinned_sdk_headers": {
+        "windows.h": "1de22ddc1b079d330a8f5b02338a5ad5681b060cf3ac86f984a243ff2bdd9303",
+        "winbase.h": "343f4e188107520e0e215bcb074c95924a999d0debf36ecd5a74fbedc43c9e2f",
+        "dsound.h": "e1d10405620bf8fb08d355662c1b559b1348ae8d51ea95c38d56b6f45c68a085",
+        "string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec"
+      },
+      "corrected_compile_invocations": 1,
+      "cumulative_lane_compile_invocations": 2,
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-ojay3pwi\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\movie_thread_27\\movie_thread_033e0.cpp"
+      ],
+      "object_path": "build/match/compile-ojay3pwi/candidate.obj",
+      "object_sha256": "aae83d10623423401de3c25e7f549e077619c9660ba9429969a32384f280e641",
+      "object_bytes": 1734,
+      "compile_log_path": "build/match/compile-ojay3pwi/compile.log",
+      "compile_log_sha256": "176b75c7803a069687e476d398d8a571c13754eaef30023e85203936e3e4aa33"
+    },
+    "source_repair": {
+      "receipt_path": "work/movie_thread_27/compile_repair_33e0.json",
+      "receipt_sha256": "0190e8c8810c1861103b9f1c27f67afc36912f4f2d9d64558cfdb87f4cd3b700",
+      "first_compile_failure_receipt": "work/movie_thread_27/compile_failure_33e0.json",
+      "compile_failure_receipt_sha256": "cc10769d4f3ebc1c7a82322e71473deddfd0f39851cef034a1e5caaf306c0e87"
+    },
+    "diagnostics": {
+      "report_path": "work/movie_thread_27/residual_33e0.json",
+      "report_sha256": "02297ed1c0f41598697d0595e541d269bfefe6ad85c5a4ae3eea292aa00450a0",
+      "scope": "Complete 496-byte relocation-free target interval versus same-size compiled function contribution; includes the 11 lead NOPs.",
+      "raw": {
+        "exact": false,
+        "target_bytes": 496,
+        "compiled_bytes": 496,
+        "different_bytes": 354,
+        "target_sha256": "5185229e76c570b0758589a48aa33638766c2f1f05540b0e19a771eb75be0726",
+        "compiled_sha256": "c5d85aeb6e492f315ef576d76935d27d3cbe8219e02bfe81bdcf34f97ed0a2e6",
+        "candidate_relocations": 28,
+        "target_relocations": 0
+      },
+      "masked": {
+        "equal": false,
+        "target_bytes": 496,
+        "compiled_bytes": 496,
+        "differing_bytes": 257,
+        "conflicts": 12,
+        "unsupported_relocations": 0
+      },
+      "conflicts": "Preserved in residual_33e0.json; every conflict remains diagnostic and unresolved. The candidate binding map implies inconsistent addresses for 12 repeated global references, so masking is not proof of byte equality or coherent final placement.",
+      "islands": 1
+    },
+    "native_behavior_and_assumptions": {
+      "read": "Chunk length >= 0xaf000 sets error DWORD 0xffffffff and skips ReadFile. ReadFile FALSE sets the same error; success advances frame index by fps, clamped to frameCount+1, and writes the selected frame-progress cell. Native ignores ReadFile's bytes-read output even on a successful short read; source does likewise.",
+      "lock": "With a non-null shared IDirectSoundBuffer, the primary Lock is called with region-2 output pointers NULL and region-1 outputs initialized to NULL/0. Only HRESULT DSERR_BUFFERLOST triggers Restore, Stop, then retry Lock at offset 0/size 0x15888. All these HRESULTs are ignored except the first buffer-lost comparison. For non-lost HRESULTs, native copies only when region-1 pointer and byte count are nonzero, irrespective of other HRESULT values. For the retry, native retains the same output locals without another zeroing; source does too. It fills the returned region with 0x80 for 8-bit or 0 otherwise. Unlock is always called with region-1 pointer/count and NULL/0 for region 2 after a Lock sequence.",
+      "yield": "After optional DirectSound work, native sets ready=1, calls SuspendThread on the shared HANDLE, ignores its return, and loops. No sleep, timer, or natural return is observed; the appended return is compiler-unreachable.",
+      "shared_qualifiers": "volatile DWORD is supported for ready cell 0x615bc0 (worker stores; opener polls) and bank selector 0x615bc4 (frame service 0x37a0 toggles while worker reads).",
+      "sdk_declarations": "Candidate IDirectSoundBuffer* and HANDLE match canonical calibration/audio_storage.cpp definitions for 0x615b9c and 0x615bbc. No type or physical ABI disagreement found."
+    },
+    "extent_and_adoption": {
+      "complete_extent": "Not proved; only the 496-byte lead was measured.",
+      "strict_acceptance": "Not achieved: raw and masked gates both differ.",
+      "useful_adoption": "The body is useful as a protocol reconstruction, but it is not eligible as a FUNCTION_MATCH and must not change recovery.json. Residual layout and 12 binding conflicts remain unresolved; no compiler/layout steering was attempted."
+    },
+    "asset_evidence": {
+      "path": "work/movie_thread_27/etv_chunks_33e0.json",
+      "sha256": "f72852a2868b67a77f1fdd7ed9ac9531dbb9cbdb56592c2f3bb96331d300e055"
+    },
+    "next_discriminator": "Native bank/index/header lifetimes and full function ownership; preserve observed short-read/error/Lock retry behavior and actual SDK method order. No initialization, volatile, flags or source spelling grid.",
+    "receipts": [
+      {
+        "path": "work/movie_thread_27/baseline_33e0.json",
+        "sha256": "1f126c40dd723da143179e69181ba0723520e78fbdf22bf6d00c5423a12bce53"
+      },
+      {
+        "path": "work/movie_thread_27/native_protocol_33e0.json",
+        "sha256": "6b30370df903c4b03185a985d641d0d0d04021901ce5a5f05f7be4150f3ed963"
+      },
+      {
+        "path": "work/movie_thread_27/prediction_33e0.json",
+        "sha256": "8645c97ff2c8a4faa20f6f80cbb0686d1703916ddb7a2c9da68949ea1075e3dc"
+      },
+      {
+        "path": "work/movie_thread_27/compile_failure_33e0.json",
+        "sha256": "cc10769d4f3ebc1c7a82322e71473deddfd0f39851cef034a1e5caaf306c0e87"
+      },
+      {
+        "path": "work/movie_thread_27/compile_repair_33e0.json",
+        "sha256": "0190e8c8810c1861103b9f1c27f67afc36912f4f2d9d64558cfdb87f4cd3b700"
+      },
+      {
+        "path": "work/movie_thread_27/residual_33e0.json",
+        "sha256": "02297ed1c0f41598697d0595e541d269bfefe6ad85c5a4ae3eea292aa00450a0"
+      }
+    ]
+  },
+  "strict_gain_bytes": 0,
+  "masked_gain_bytes": 0,
+  "reconstructed_gain_bytes": 0,
+  "limits": "No masked conflicts discarded, comparator normalization or arbitrary assembly. Domain/ownership and behavior equivalence remain incomplete. Actual prototype counts and historical TU identity are not inferred from byte distance."
+}

@@ -167,3 +167,23 @@ ENG3 pointer-anchor blocker with an independent accepted Hercules layout anchor
 and a measured preincrement selection form: two new masked functions / 128 bytes.
 It also records new TITLE graph/edge discriminators and a newer Blood II reference
 snapshot. Compiler-specific conclusions and raw acceptance remain unchanged.
+
+The resource-pointer pilot now distinguishes a real source-value graph from
+ownership alone. With the actual copied interface fixed, direct member access
+uses ECX for the pointer and EAX for zero; capturing that pointer in a local
+uses EAX and ECX respectively and leaves ten nonrelocation differences. One
+full six-service confirmation restores the already recovered preparation helper
+and preserves all five peers byte-for-byte with ordered references. Three fresh
+RTM compilations support this narrow cause; no general allocator rule, new strict
+bytes or full-service equality follows. Reuse this experimental sequence only
+where native single-use/reload evidence supports it. See
+`evidence/resource_pointer_capture_control_2026_10_11.json`.
+
+The accompanying host-table audit found a measurable strict pilot: a genuine
+16-byte return-one body shared by six table entries, recovered with the existing
+leaf and promotion gates. All 120 previous strict functions remain exact. The
+48-source natural EXE build preserves all 47 older contributions and still has
+15 real unresolved dependencies. This supports continued actual body/owner
+recovery alongside bounded compiler experiments; it does not justify a new
+framework or manufacture a complete table. See
+`evidence/full_goal_pointer_callback_wave_2026_10_11.json`.
