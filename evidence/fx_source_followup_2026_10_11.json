@@ -1,0 +1,418 @@
+{
+  "date": "2026-10-11",
+  "status": "PRIVATE_FX_SOURCE_FOLLOWUP_NO_RECOVERY_CHANGE",
+  "prefix_counter": {
+    "receipt": {
+      "path": "work/fx_prefix_32/compact.json",
+      "sha256": "0e4282e6447f2b98aa74ac58a3d69ea042ca9487e2bd6b7a009c7fc0b03d82f6"
+    },
+    "prediction": {
+      "path": "work/fx_prefix_32/frozen.json",
+      "sha256": "c1d3348e7d1a2067fbdfdbaa7705348f750c0c24e36d60dd4e8c8ef23b878f1d"
+    },
+    "source": "candidates/fx_prefix_32/count_active_fx_id.c",
+    "source_sha256": "858d440df4f406dbf4f217ffd330c697f81f96529c3805f46cc6cbfdd5139d22",
+    "object_sha256": "1b64927dd5e9fa8d4bd02624092071ba95df6558c9f7e0753d17c43de9520f68",
+    "toolchain": {
+      "id": "msvc5_rtm",
+      "compiler": {
+        "path": "bin/cl.exe",
+        "size": 46080,
+        "sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+        "file_version": "11.00.7022"
+      },
+      "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    },
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/Od",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-z3f7gr_j\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\candidates\\fx_prefix_32\\count_active_fx_id.c"
+    ],
+    "builds": 1,
+    "native_extent": {
+      "ENG3.DLL": {
+        "rva": "0xb4ba",
+        "size": 88,
+        "terminal_ret": "0xb511",
+        "next_entry": "0xb512",
+        "sha256": "4451c7b9a5b1e533cca7f425067905ea17d5e4f11554acbc59c10b129615b251"
+      },
+      "ENG1.DLL": {
+        "rva": "0x6613",
+        "size": 88,
+        "terminal_ret": "0x666a",
+        "next_entry": "0x666b",
+        "sha256": "3d8daa25b8da43cf9b58ae8cb3d2ac5ff12603395368f4586e98b067bc453786"
+      }
+    },
+    "comparison": {
+      "compiled_comdat_size": 88,
+      "target_sizes": {
+        "ENG3.DLL": 88,
+        "ENG1.DLL": 88
+      },
+      "relocations": [
+        {
+          "offset": 45,
+          "symbol": "_g_engine_fx_records",
+          "type": 6
+        },
+        {
+          "offset": 61,
+          "symbol": "_g_engine_fx_records",
+          "type": 6
+        }
+      ],
+      "target_highlow_and_compiled_dir32_offsets": {
+        "ENG3.DLL": {
+          "target": [
+            45,
+            61
+          ],
+          "compiled": [
+            45,
+            61
+          ],
+          "equal": true
+        },
+        "ENG1.DLL": {
+          "target": [
+            45,
+            61
+          ],
+          "compiled": [
+            45,
+            61
+          ],
+          "equal": true
+        }
+      },
+      "ENG3_masked": {
+        "masked_equal": true,
+        "compiled_size": 88,
+        "target_size": 88,
+        "differing_bytes": 0,
+        "mismatch_regions": [],
+        "symbols": {
+          "_g_engine_fx_records": "0x41ec0"
+        },
+        "conflicts": [],
+        "unsupported": [],
+        "relocations": 2
+      },
+      "ENG1_masked": {
+        "masked_equal": true,
+        "compiled_size": 88,
+        "target_size": 88,
+        "differing_bytes": 0,
+        "mismatch_regions": [],
+        "symbols": {
+          "_g_engine_fx_records": "0x721e0"
+        },
+        "conflicts": [],
+        "unsupported": [],
+        "relocations": 2
+      },
+      "raw_object_comparison": {
+        "ENG3.DLL": {
+          "exact": false,
+          "different_bytes": 8,
+          "mismatch_regions": [
+            [
+              45,
+              49
+            ],
+            [
+              61,
+              65
+            ]
+          ]
+        },
+        "ENG1.DLL": {
+          "exact": false,
+          "different_bytes": 8,
+          "mismatch_regions": [
+            [
+              45,
+              49
+            ],
+            [
+              61,
+              65
+            ]
+          ]
+        },
+        "meaning": "All non-relocation bytes agree. Eight raw bytes are the two pre-link absolute table-address operands; masked maps are conflict-free to ENG3 base0x41ec0 and ENG1 base0x721e0. This is not FUNCTION_MATCH or linked raw equality."
+      },
+      "external_symbol_map": {
+        "_g_engine_fx_records": {
+          "ENG3.DLL": "0x41ec0",
+          "ENG1.DLL": "0x721e0"
+        }
+      },
+      "unsupported_relocations": [],
+      "binding_conflicts": []
+    },
+    "semantics": "int-like count of rows 0..23 where the observed DWORD active_03c is nonzero and the observed signed WORD effect_id_008 equals the DWORD formal; return count in EAX. Native row stride is 64 bytes. Both producer paths in both engines call the helper, clean the one argument, compare EAX with 5, and branch when it exceeds 5.",
+    "disposition": "Private unaligned 88-byte complete contributions; no promotion or FUNCTION_MATCH."
+  },
+  "producer_diagnosis": {
+    "receipt": {
+      "path": "work/fx_producer_diagnosis_32/compact.json",
+      "sha256": "ea76dbe424176bbdcd3be1e339498d11fa4bde7ea0c0795c7d908312d530454a"
+    },
+    "diagnosis_sha256": "ce3e55c49c9df86762fcad6f2e1283be0552721e5867896638bef53c2df55c44",
+    "prediction_sha256": "3cba39880a60d188f9c156f0143a5022302a64cb7f0f76a5e3e494eb32dfd1ed",
+    "source_sha256": "3a7780ce048eef72326468a85accf81b27645153dc34c91c02954a824821a99b",
+    "object_sha256": "04ff8d9da37c7ee71138b9c8a22ddb998142b7b85809bf722a5be8c487ff65ac",
+    "checklist": {
+      "path": "work/fx_producer_diagnosis_32/first_producer_checklist.json",
+      "sha256": "c12812721f222771eeb909084265b368240489d2744d6c1b6aeec8eaabe148c4"
+    },
+    "builds": 0,
+    "findings": [
+      "Native first producer uses static index/bank/sample and live interface reloads; failed source captures a context and redundant locals.",
+      "Native scaled-volume globals 3fa78/3fa7c are distinct from squared intermediates 41eb4/41eb8; failed source never references the output globals.",
+      "Native row volume uses these separate outputs; final row targets copy row pan fields rather than pre-suppression intermediate globals.",
+      "Preset bank/sample WORD stores occur only on spatial path; native channel calls and final row banks use low WORDs of DWORD bank/sample globals.",
+      "Second producer stores the masked index into row ID; failed source stores mutable flagged input. Successful input 0x8801 would yield native ID 1 versus candidate 0x8801.",
+      "Second producer bank/sample stack values are full DWORD zero-extended bytes, unlike failed source WORD locals. This is a representation mismatch before identifier allocation."
+    ],
+    "live_context_reference_offsets_from_bc47": [
+      37,
+      66,
+      125,
+      145,
+      165,
+      402,
+      1091,
+      1294,
+      1320,
+      1348,
+      1405,
+      1427,
+      1744,
+      2070
+    ],
+    "volume_output_reference_offsets": {
+      "left": [
+        1216,
+        1243,
+        1263,
+        1587
+      ],
+      "right": [
+        1238,
+        1268,
+        1288,
+        1607
+      ]
+    },
+    "scope": "Read-only ordered instruction/reference diagnosis. No build or modification of failed source, object or prior receipts."
+  },
+  "first_producer_control": {
+    "receipt": {
+      "path": "work/fx_producer_repair_32/compact.json",
+      "sha256": "8abeaaaccb505b40e2925266804d6a3db53f830df267d2467f8884340b116aab"
+    },
+    "prediction": {
+      "path": "work/fx_producer_repair_32/prediction.json",
+      "sha256": "4dbcb6875c911dca3bbc9c325dc3163661eb179e919fcbe12910b01fb4cf44dc"
+    },
+    "source": "candidates/fx_producer_repair_32/play_sound.c",
+    "source_sha256": "fabe2347ef44f7a61c74e004dff0fe95e0d4a496154ba876c79073da2dda07e7",
+    "object_sha256": "a87227d04153214cfb70bda67191c67dc48b16fd1cebe66dfca4f495736670b6",
+    "measurement": {
+      "path": "work/fx_producer_repair_32/baseline.json",
+      "sha256": "c5d26f973a71fb1f205c64ae26e627772a8ff7b3550ee06313b032fe0a2078f1"
+    },
+    "boundary_amendment": {
+      "path": "work/fx_producer_repair_32/boundary_arithmetic_correction.json",
+      "sha256": "c9e3f266d1c967023fc0082adb343f07ec69381c2add683aface78657e945dcc"
+    },
+    "builds": 1,
+    "flags": [
+      "/Od",
+      "/Gy"
+    ],
+    "compiled_bytes": 2133,
+    "target_bytes": 2115,
+    "compiled_dir32": 197,
+    "compiled_rel32": 9,
+    "native_highlow_per_engine": 205,
+    "masked_differences_per_engine": 1267,
+    "binding_conflicts_per_engine": 175,
+    "first_aligned_divergence": {
+      "relative_offset": "0x12",
+      "native": "and ah, 7 (after and eax, 0xffff)",
+      "candidate": "and eax, 0x7ff (after and eax, 0xffff)",
+      "note": "The entry frame and preceding argument load/low-WORD mask align. The call at offset 0x5 has an unresolved object REL32 placeholder and is excluded from this instruction-body divergence."
+    },
+    "source_dataflow_corrections": {
+      "single_masked_index_expression": "Source assigns effect_id & 0x07ff once to g_fx_effect_index_3fa48. Native and object each carry eight direct references to that cell; source no longer performs a separate 0xffff assignment before the 0x07ff mask.",
+      "bank_sample_state": "Source writes byte lookups directly to DWORD g_fx_bank_value_3fa50 and g_fx_sample_value_3fa54, then uses those globals for trace, guards, helper calls and row bank/sample fields. Candidate COFF reference counts (12/9) match native target counts (12/9). Preset WORD writes now occur only in the spatial branch; calls and final row fields use low WORDs of the DWORD cells.",
+      "captured_spatial_state": "The spatial arm stores owner and flags in g_fx_owner_3fa90 / g_fx_full_effect_id_3fa94 and the pan computation reads those globals. Their candidate COFF reference counts match native (3/4).",
+      "volume_stage": "Source preserves square intermediates in 41eb4/41eb8 and assigns separate output globals 3fa78/3fa7c. Those symbols now appear in the candidate object and supply row volume fields, but each has two references versus four in native; the staged static output reads/writes remain different.",
+      "row_targets": "Source final row target assignments read the row's pan_left_010/pan_right_014 values instead of the intermediate 41ea4/41ea8 targets. Candidate row-array reference count is 21, equal to the total native references across 41ec0..41ef8.",
+      "second_producer": "Not present in the new candidate source and not changed in the frozen fx_producer_31 source. No second-producer build or comparison was run."
+    },
+    "reference_count_residuals": [
+      {
+        "target": "0x407a4",
+        "object_symbol": "_g_engine_interface",
+        "object_count": 13,
+        "native_count": 14,
+        "difference": -1,
+        "meaning": "one fewer interface-context static reference; the mono spatial call computes a shared default_volume local once and passes it twice, while native performs two static smooth/context reads"
+      },
+      {
+        "target": "0x3fa70",
+        "object_symbol": "_g_fx_smooth_left_3fa70",
+        "object_count": 9,
+        "native_count": 10,
+        "difference": -1,
+        "meaning": "one fewer left-pan reference, consistent with the shared spatial default_volume expression"
+      },
+      {
+        "target": "0x3fa74",
+        "object_symbol": "_g_fx_smooth_right_3fa74",
+        "object_count": 9,
+        "native_count": 10,
+        "difference": -1,
+        "meaning": "one fewer right-pan reference, consistent with the shared spatial default_volume expression"
+      },
+      {
+        "target": "0x3fa78",
+        "object_symbol": "_g_fx_volume_left_3fa78",
+        "object_count": 2,
+        "native_count": 4,
+        "difference": -2,
+        "meaning": "output global is present, but native's staged output read/write sequence is not reproduced"
+      },
+      {
+        "target": "0x3fa7c",
+        "object_symbol": "_g_fx_volume_right_3fa7c",
+        "object_count": 2,
+        "native_count": 4,
+        "difference": -2,
+        "meaning": "output global is present, but native's staged output read/write sequence is not reproduced"
+      },
+      {
+        "target": "0x41ea4",
+        "object_symbol": "_g_fx_target_left_41ea4",
+        "object_count": 17,
+        "native_count": 18,
+        "difference": -1,
+        "meaning": "one fewer intermediate left-target reference"
+      }
+    ],
+    "conclusion": "Full gate fails. Static reference-count improvements and 31-byte extent reduction do not establish matching, behavior equality or source identity. Preserve one-body source and failed control; second producer is untouched."
+  },
+  "initializer_control": {
+    "receipt": {
+      "path": "work/fx_initializer_32/compact.json",
+      "sha256": "77bc8cbcebf7d7df268fd35befb21c493c843c4088bcfeccf07f8b3600098ad3"
+    },
+    "prediction": {
+      "path": "work/fx_initializer_32/prediction.json",
+      "sha256": "1b694cfb8b889d7775d089648703b0231ce79175c66826660531709c03f3784e"
+    },
+    "binding_amendment": {
+      "path": "work/fx_initializer_32/prebuild_binding_correction.json",
+      "sha256": "5d0cf14cd3b5b0c41ff1c38f3483e766a09150c51d4c56184a003bb6fd8c6b75"
+    },
+    "source": {
+      "path": "candidates/fx_initializer_32/resource_init_ae00.c",
+      "sha256": "474d39e4390ad0cd3ed607e91b8e6155f31fe0d1b47f055a62d68768053986f9"
+    },
+    "object": {
+      "path": "build/match/compile-q1fcxz1j/candidate.obj",
+      "sha256": "cfabf35ba3e980cf2bd6a592f7c62dc5c599559a303c079dea1312dee3a677ef",
+      "code_bytes": 373,
+      "defined_functions": [
+        "_fx_resource_initialize"
+      ]
+    },
+    "measurement": {
+      "path": "work/fx_initializer_32/measurement.json",
+      "sha256": "d9a02db12fcfbae2691e930d09bce6a45d91e62d693fd62959f27602c068f5d5"
+    },
+    "native": [
+      {
+        "module": "ENG3.DLL",
+        "oracle_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+        "entry": "0xae00",
+        "extent": "0xaf65 exclusive",
+        "bytes": 357,
+        "function_bytes_sha256": "25c7ad3a17e0be748471f760fcc88f8ea49992f55f60c82beccadb172f6a8cc3",
+        "external_zero_arg_call": "0x1ac97",
+        "helper_calls": [
+          "0x1fa50 (slot 0x78)",
+          "0x1fa20 (slot 0x68)"
+        ],
+        "HIGHLOW_count": 29
+      },
+      {
+        "module": "ENG1.DLL",
+        "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+        "entry": "0x5ea0",
+        "extent": "0x6005 exclusive",
+        "bytes": 357,
+        "function_bytes_sha256": "dc5dda0d89626b78d69b76b864b0a6cb931e8ddb113692012abbdc239f1f8cef",
+        "external_zero_arg_call": "0x203e7",
+        "helper_calls": [
+          "0x2c3c0 (slot 0x78)",
+          "0x2c390 (slot 0x68)"
+        ],
+        "HIGHLOW_count": 29
+      }
+    ],
+    "builds": 1,
+    "flags": [
+      "/Gy",
+      "/Od"
+    ],
+    "compiled_bytes": 373,
+    "target_bytes": 357,
+    "compiled_dir32": 32,
+    "compiled_rel32": 2,
+    "native_highlow": 29,
+    "semantic_scope": "First-party context/resource setup: reviewed context reads, slot-0x78 allocation of 0x1800 bytes, slot-0x68 load and prefix writes. A single caller per module passes no observed stack arguments and ignores EAX. Working void(void) source view; original formal list/return type unproved.",
+    "failure": "Candidate is a single 373-byte COMDAT with 34 relocations (32 DIR32, 2 REL32). Each native body is 357 bytes with 29 HIGHLOW sites and 2 direct helper calls. Masked comparison fails; same-offset diagnostic reports 160 differences. First nonrelocation mismatch is the epilogue-jump displacement at +0x3c; the first control-flow shape mismatch at +0x60 uses target near-JNE versus candidate JE+JMP. Native reuses the context+0x6c base across four writes; candidate recomputes it. No retry or variant.",
+    "provenance_caveat": "The wrapper receipt stored source hash fc47081b... but current calibration wrapper source is fc613070...; no source identity claim relies on that receipt. Slot indices and physical argument counts were checked from target wrapper instructions and current engine_interface.h.",
+    "conclusion": "Private complete-control failure, no second build. Native branch topology and retained context pointer give next discriminators; wrapper source identity remains qualified."
+  },
+  "producer_residual_diagnosis": {
+    "receipt": {
+      "path": "work/fx_producer_residual_32/compact.json",
+      "sha256": "a549dd6c2be14db82819102af82d1342897521dcef173fef7ee8fe82e9495d5a"
+    },
+    "diagnosis_sha256": "4270d14b78dfa092cf24987833323d3638694b633dc2c56f001912f2710bf5a8",
+    "prediction_sha256": "50c376bf191531f60db7e20aead80103b7b1e6e3baf57e34d5542e41f4e35d97",
+    "builds": 0,
+    "discriminators": [
+      "Remove actualduplicatedguards anddo/while0 wrapperCFG; preserveallnativecondition/read/call protocol.",
+      "Restoretwo-phase scaledoutputglobalwrites anddirecttwo-argument monoexpressionrecomputation; native staging/lifetime matters."
+    ],
+    "findings": [
+      "Candidate +0x11d..0x12a repeats actor/guard predicates already established by outer checks. Native +0x11b proceeds to category access.",
+      "Six literal-zero XOR/TEST/JNE tails are emitted by current do/while(0) macros under /Od; corresponding native blocks are absent. This control-flow effect is distinct from duplicate source guards.",
+      "Native stores both square/0x4000 outputs, then separately reads/scales/stores left and right by 129/128. Candidate writes each final output only once.",
+      "Native spatial mono path independently evaluates two arguments with two live context reloads; candidate computes default_volume once and pushes it twice. Keep the actual nonspatial default-volume local.",
+      "Early AND AH,7 versus AND EAX,0x07ff is value-equivalent after the low-WORD mask and explains the initial two-byte shift; original spelling is unknown. No mask grid is justified."
+    ],
+    "signedness": "ActualBF20 consumesSHORT, butcurrentBANK/SAMPLEemittedcallforms alreadymatch. No signedness-only rewritejustified.",
+    "scope": "Two bounded structural discriminator families only; other arithmetic grouping, source ownership and overflow questions remain unknown."
+  },
+  "validation": {
+    "previous_checkpoint": "evidence/fx_unit_convergence_2026_10_11.json",
+    "recovery_unchanged": true,
+    "accepted_byte_gain": 0,
+    "scope": "Only private source/research work since the 121-strict/445-masked/69-test checkpoint; no additional regression rerun is implied."
+  },
+  "next": "First-only repair and genuine initializer controls fail. Diagnose staged global writes, native expression widths and branch/pointer lifetimes before another compiler family. Preserve second producer and all prior failed recipes; no identifier tuning."
+}

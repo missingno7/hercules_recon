@@ -1097,3 +1097,32 @@ ownership remains unknown. Full fresh verification preserves 121 strict function
 accepted byte gain in this increment. See
 `evidence/fx_unit_convergence_2026_10_11.json` for predictions, commands, hashes,
 negative controls and the prioritized follow-up.
+
+The source follow-up supplies the genuine 88-byte FX row counter at ENG3 b4ba /
+ENG1 6613. One `/Gy /Od` compile reproduces both complete contributions after
+masking their two table references. Native callers establish the count limit,
+24-record traversal, signed WORD ID and nonzero DWORD active field. This remains
+private under the current unaligned-entry gate.
+
+Ordered producer diagnosis exposes source errors before frame allocation: the
+first producer needs live context reloads, actual static bank/sample state,
+separate scaled-volume outputs and final row-pan copies. The second incorrectly
+stores the flagged input where native code stores its masked index. Preserve
+both failed baselines. The first-only structural repair fails at 2133/2115 bytes;
+its static-state reference counts improve, but staged output reads/writes still
+differ. The initializer at ENG3 ae00 / ENG1 5ea0 fails at 373/357 bytes and exposes
+a branch-topology difference plus a retained context pointer across four stores.
+Each family emits only one object. Further work requires these native-supported
+discriminators; second-producer changes remain deferred. See
+`evidence/fx_source_followup_2026_10_11.json`.
+
+The repaired producer's aligned residual audit narrows the next experiment to
+two structural causes. Six `do/while(0)` macro tails generate literal-zero control
+flow under `/Od`; a guard macro separately repeats already-established predicates.
+Native code also stages both scaled-volume outputs before scaling each one again,
+and independently recomputes the two mono arguments through live context reads.
+The candidate combines those stores and shares one mono local. Retain the actual
+nonspatial default-volume local. Bank/sample call instructions already match, so
+signedness is not a justified target rewrite. The early two-byte mask difference
+is value-equivalent and does not justify a spelling grid. These are next predicted
+families, not an accepted implementation or original macro/flag attribution.
