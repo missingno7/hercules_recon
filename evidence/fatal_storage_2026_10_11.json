@@ -1,0 +1,425 @@
+{
+  "date": "2026-10-11",
+  "scope": "Working recovered access-width scalar storage for measured fatal/normal-exit/window consumers; not original full data declaration, TU or final placement.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "canonical_provider": {
+    "source": "calibration/fatal_storage.c",
+    "sha256": "c69df3c20891c6229e061b74bebe2f8880948b34d356c7f4ce8124f13d9e562c",
+    "cells": [
+      {
+        "name": "g_fatal_owner_window",
+        "rva": "0x7a0200",
+        "bytes": 4
+      },
+      {
+        "name": "g_fatal_suppress_dialog",
+        "rva": "0x7a020c",
+        "bytes": 1
+      },
+      {
+        "name": "g_fatal_entered",
+        "rva": "0x7a023c",
+        "bytes": 1
+      }
+    ],
+    "common_bytes": 6,
+    "functions": 0,
+    "relocations": 0
+  },
+  "native_roles": {
+    "date": "2026-10-11",
+    "scope": "Native fatal-cell roles, writers, related objects and minimum compatible storage; no original TU/aggregate declaration or layout acceptance.",
+    "oracle": {
+      "path": "work/discs/pc_install/HERCULES.EXE",
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+    },
+    "family": {
+      "region": "EXE fatal global storage ownership",
+      "lane": "sol_fatal_global_ownership_11",
+      "family": "native direct writers and global object context",
+      "prediction": "Native writers will establish at least the owner window's HWND lifetime and flag transitions. Nearby direct/indirect access patterns will discriminate independently addressed scalar cells from fields within an aggregate before any storage provider is considered.",
+      "falsifier": "Writers use incompatible widths/types, field references originate from a shared object base, any constructor/initializer covers the cells as part of an aggregate, or scan provenance does not use the pinned original PC oracle.",
+      "model": "gpt-6.1-sol",
+      "effort": "high",
+      "capability": "read-only native static analysis; optional bounded historical data compile",
+      "oracle": "work/discs/pc_install/HERCULES.EXE",
+      "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "limits": "No canonical edits, acceptance, aggregate extent guessing, duplicate storage, aliases, stubs or layout steering."
+    },
+    "native_cells": [
+      {
+        "rva": "0x7a0200",
+        "meaning": "main frame HWND snapshot",
+        "observed_width_bytes": 4,
+        "initial_value": 0,
+        "initial_value_evidence": "Writable .data virtual tail beyond SizeOfRawData, within VirtualSize",
+        "direct_read_count": 33,
+        "direct_read_rvas": [
+          "0x54ea",
+          "0x551e",
+          "0x56c6",
+          "0x5a52",
+          "0x5e67",
+          "0x6516",
+          "0x66b1",
+          "0x66c1",
+          "0x66e3",
+          "0x6bfb",
+          "0x6c20",
+          "0x6c2f",
+          "0x6c49",
+          "0x6c56",
+          "0x6c6a",
+          "0x6c7c",
+          "0x6ca7",
+          "0x6cd8",
+          "0x6de8",
+          "0x6e01",
+          "0x6e1d",
+          "0x6e34",
+          "0x6e60",
+          "0x72cc",
+          "0x7441",
+          "0x7490",
+          "0x7596",
+          "0x7980",
+          "0xa0f7",
+          "0xfee2",
+          "0x1048f",
+          "0x104a4",
+          "0x104f2"
+        ],
+        "direct_write_rvas": [
+          "0x77cf"
+        ],
+        "address_taken_or_indexed_in_linear_scan": false
+      },
+      {
+        "rva": "0x7a020c",
+        "meaning": "current fullscreen/display-mode state",
+        "observed_width_bytes": 1,
+        "initial_value": 0,
+        "initial_value_evidence": "Writable .data virtual tail beyond SizeOfRawData, within VirtualSize",
+        "direct_read_count": 14,
+        "direct_read_rvas": [
+          "0x646e",
+          "0x664b",
+          "0x6713",
+          "0x69c3",
+          "0x6bc2",
+          "0x6ec9",
+          "0x6f49",
+          "0x7001",
+          "0x7149",
+          "0x9762",
+          "0x988d",
+          "0x9ab9",
+          "0x9bc0",
+          "0x10482"
+        ],
+        "direct_write_rvas": [
+          "0x6cde",
+          "0x6dd8"
+        ],
+        "address_taken_or_indexed_in_linear_scan": false
+      },
+      {
+        "rva": "0x7a023c",
+        "meaning": "process-exit reentrancy guard",
+        "observed_width_bytes": 1,
+        "initial_value": 0,
+        "initial_value_evidence": "Writable .data virtual tail beyond SizeOfRawData, within VirtualSize",
+        "direct_read_count": 2,
+        "direct_read_rvas": [
+          "0x10460",
+          "0x104d0"
+        ],
+        "direct_write_rvas": [
+          "0x10476",
+          "0x104e6"
+        ],
+        "address_taken_or_indexed_in_linear_scan": false
+      }
+    ],
+    "owner_window": {
+      "native_writer_rva": "0x77cf",
+      "source": "Load esi from [new CMainFrame +0x1c] at 0x77cc after successful virtual frame creation; store HWND snapshot to absolute VA 0xba0200.",
+      "preceding_app_field_store": {
+        "rva": "0x77c9",
+        "field": "[CWinApp this+0x1c] = newly allocated CMainFrame pointer, distinct from subsequent HWND snapshot"
+      },
+      "frame": {
+        "allocation_rva": "0x7771",
+        "allocation_bytes": 188,
+        "constructor_rva": "0x94a0",
+        "base_constructor_rva": "0x29848",
+        "base_constructor_symbol": "??0CFrameWnd@@QAE@XZ",
+        "runtime_class_record_rva": "0x2e568",
+        "runtime_class_name_rva": "0x37324",
+        "runtime_class_name": "CMainFrame",
+        "runtime_class_object_size": 188
+      },
+      "lifetime": "Zero before successful main-frame creation; assigned once by native direct writer; no direct reset/destroy writer found. Fatal and normal exit read this HWND and issue WM_CLOSE."
+    },
+    "display_state": {
+      "native_write_rvas": [
+        "0x6cde",
+        "0x6dd8"
+      ],
+      "source_rva": "0x56e3d0",
+      "transition_entry_rva": "0x6bb0",
+      "entry_condition": "Proceed only when request byte VA 0x96e3d0 differs from current byte VA 0xba020c and busy guard is zero.",
+      "first_branch": "Nonzero request changes window styles/menu/size and DirectDraw cooperative level to 0x55, then records current byte.",
+      "second_branch": "Zero request restores display state, uses DirectDraw cooperative level 0xc, restores menu/styles/rectangle, then records current byte.",
+      "setter_rva": "0x6ec0",
+      "setter_behavior": "Copies incoming low argument byte to requested VA 0x96e3d0 and returns current state zero-extended into AX.",
+      "fatal_effect": "Current nonzero fullscreen state skips MessageBox; this is not a fatal-only suppression flag."
+    },
+    "exit_guard": {
+      "native_read_rvas": [
+        "0x10460",
+        "0x104d0"
+      ],
+      "native_write_rvas": [
+        "0x10476",
+        "0x104e6"
+      ],
+      "write_value": 1,
+      "second_service": "Native normal exit at RVA 0x104d0 shares cleanup chain and HWND close, then calls CRT exit(0); repeated entry calls exit(-321).",
+      "lifetime": "Loader-zero, set on first fatal/normal exit; no other direct reads/writes found."
+    },
+    "ownership_discriminators": {
+      "mfc_app_storage_rva": "0x56e428",
+      "mfc_app_initializer_rva": "0x7640",
+      "mfc_app_initializer": "mov ecx,0x96e428; jmp 0x4075e0 (derived CWinApp constructor)",
+      "main_frame": "Separately heap-allocated 0xbc-byte object; observed HWND is copied out of its inherited CWnd field into the fatal cell. Fatal cell storage is not the heap CMainFrame object.",
+      "neighboring_joystick_array": {
+        "start_rva": "0x79e8b0",
+        "zero_dwords": 1616,
+        "end_rva_exclusive": "0x7a01f0",
+        "proof_rvas": [
+          "0x7bb3",
+          "0x7bca",
+          "0x7bd1",
+          "0x7c17"
+        ],
+        "conclusion": "0x194-byte native records and their initial bulk clear end below all three fatal cells; no overlap."
+      },
+      "cluster": {
+        "start_rva": "0x7a01c0",
+        "end_rva_exclusive": "0x7a02c0",
+        "direct_reference_count": 356,
+        "raw_noncode_cluster_address_values": [
+          {
+            "source_rva": "0x3a6a4",
+            "target_rva": "0x7a02b0",
+            "section": ".data",
+            "aligned": true
+          }
+        ]
+      },
+      "pe_relocations_stripped": true,
+      "relocation_scan_limit": "Native relocations are stripped, so zero base-relocation results are not a no-pointer proof. Every noncode file-backed four-byte window additionally checked for cluster address values.",
+      "conclusion": "Roles and minimum widths support six bytes of bounded scalar provider storage. The distant MFC app and heap frame are distinct. Independent declarations versus fields in an otherwise unpassed plain aggregate, larger unused declarations and original TU remain unproved."
+    },
+    "private_provider_control": {
+      "report": "work/sol_fatal_global_ownership_11/data_control.json",
+      "sha256": "9f8f288241199c485bc75dfa4fc555f320ac188836e47c12a4e8a35d2fc3b1e0",
+      "source": "candidates/sol_fatal_global_ownership_11/fatal_storage.c",
+      "source_sha256": "c69df3c20891c6229e061b74bebe2f8880948b34d356c7f4ce8124f13d9e562c",
+      "common_sizes": 6,
+      "definition_sizes": {
+        "_g_fatal_owner_window": 4,
+        "_g_fatal_suppress_dialog": 1,
+        "_g_fatal_entered": 1
+      },
+      "unresolved_before": [
+        "_fatal_shutdown_chain",
+        "_g_archive_directory",
+        "_g_archive_logical_positions",
+        "_g_archive_scratch",
+        "_g_fatal_entered",
+        "_g_fatal_owner_window",
+        "_g_fatal_suppress_dialog"
+      ],
+      "unresolved_after": [
+        "_fatal_shutdown_chain",
+        "_g_archive_directory",
+        "_g_archive_logical_positions",
+        "_g_archive_scratch"
+      ],
+      "preserved_peers": {
+        "raw_functions": 6,
+        "raw_bytes": 224,
+        "masked_functions": 8,
+        "masked_bytes": 640,
+        "fatal_masked_bytes": 112
+      }
+    },
+    "provenance": {
+      "pinned_mfc_header": {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\include\\afxwin.h",
+        "sha256": "87603d834fcaa1d21b94ebc241f26164ab7698898b00ea774f249196540a7087",
+        "references": [
+          "CWnd::m_hWnd declaration line 1897",
+          "CWinThread::m_pMainWnd declaration line 3787"
+        ]
+      },
+      "library_name_evidence": {
+        "path": "work/library_map/library_map.json",
+        "sha256": "a9d3b07a9fef962d5832c72383391851a7f43c15ea384afdc792ee6626863a4e"
+      },
+      "private_files": [
+        {
+          "path": "work\\sol_fatal_global_ownership_11\\prediction.json",
+          "sha256": "0ee0bf0fd120ea1b4c9bbf748dd8372c4f50b67a6be2ea7d85a03df86d6fe8e9"
+        },
+        {
+          "path": "work\\sol_fatal_global_ownership_11\\provider_prediction.json",
+          "sha256": "d1929d6590aca2623a6543af9ae7fd4dc7da1142e4131acccfdd41cd89a52230"
+        },
+        {
+          "path": "work\\sol_fatal_global_ownership_11\\scan.py",
+          "sha256": "7d9de1e5792dcc9f60753d95fc83ea68dc80ea2fb5265e4c4369229e83ca5ee3"
+        },
+        {
+          "path": "work\\sol_fatal_global_ownership_11\\scan.json",
+          "sha256": "0bc58a04d0e698b0759c05d78fc20378fd7625527c4443d3e2eb5a8a10996757"
+        },
+        {
+          "path": "work\\sol_fatal_global_ownership_11\\decode.py",
+          "sha256": "8f397b6598ebf618d70a559141002c44b28b0acb884715ba0946311011a1c8b1"
+        },
+        {
+          "path": "work\\sol_fatal_global_ownership_11\\decode.json",
+          "sha256": "f6949371ce32de7f063a034c57e7371764bc5331e0b2b0d32b510e430484947c"
+        },
+        {
+          "path": "work\\sol_fatal_global_ownership_11\\context.py",
+          "sha256": "90866d14866b3dc9f34ea4650c3be0d67c69f0706d7ccca03a8826bd593e93eb"
+        },
+        {
+          "path": "work\\sol_fatal_global_ownership_11\\context.txt",
+          "sha256": "9f2e8a63ca031f3941118e31ec2e38249ab744481e8e05727c74b2d08ea97308"
+        },
+        {
+          "path": "work\\sol_fatal_global_ownership_11\\data_control.py",
+          "sha256": "35ab14f4aac4e5d097d51069dd87b8fc5728a242a5454bb773827f6af69458e0"
+        }
+      ]
+    },
+    "reproduce": [
+      "python work/sol_fatal_global_ownership_11/scan.py",
+      "python work/sol_fatal_global_ownership_11/decode.py",
+      "python work/sol_fatal_global_ownership_11/context.py",
+      "python work/sol_fatal_global_ownership_11/data_control.py (pinned historical process; require_escalated)",
+      "python work/sol_fatal_global_ownership_11/report.py"
+    ],
+    "limits": [
+      "No canonical/recovery edits and no strict gain.",
+      "No native address/layout control or global aggregate padding is supplied.",
+      "Provider is a supported minimum cell representation, not a recovered original declaration or complete native data contribution.",
+      "Direct scan is linear static evidence and does not exhaust pointers formed by arithmetic or hypothetical external writes."
+    ]
+  },
+  "natural_link": {
+    "unresolved_before": [
+      "_fatal_shutdown_chain",
+      "_g_archive_directory",
+      "_g_archive_logical_positions",
+      "_g_archive_scratch",
+      "_g_fatal_entered",
+      "_g_fatal_owner_window",
+      "_g_fatal_suppress_dialog"
+    ],
+    "unresolved_after": [
+      "_fatal_shutdown_chain",
+      "_g_archive_directory",
+      "_g_archive_logical_positions",
+      "_g_archive_scratch"
+    ],
+    "removed": [
+      "_g_fatal_entered",
+      "_g_fatal_owner_window",
+      "_g_fatal_suppress_dialog"
+    ],
+    "introduced": []
+  },
+  "limits": [
+    "Only native accessed4+1+1bytes are proved as zero storage; this does not establish larger unused declaration extent.",
+    "No source is accepted as the unique original independent/aggregate declaration or owning unit. The names are existing consumer address identities.",
+    "Definitions introduce no gap filler, objectalias, callbackstub, initializationchange or code. Any future conflicting real ownership evidence requires revising this working provider."
+  ],
+  "provenance": [
+    {
+      "path": "work/sol_fatal_global_ownership_11/ownership_report.json",
+      "sha256": "339d66509f8c7811bc15ba32bd0804ee87786b5b8118f5fe80316ce998664238"
+    },
+    {
+      "path": "work/sol_fatal_global_ownership_11/data_control.json",
+      "sha256": "9f8f288241199c485bc75dfa4fc555f320ac188836e47c12a4e8a35d2fc3b1e0"
+    },
+    {
+      "path": "work/sol_fatal_global_ownership_11/data_control.py",
+      "sha256": "35ab14f4aac4e5d097d51069dd87b8fc5728a242a5454bb773827f6af69458e0"
+    }
+  ],
+  "integrator_remeasurement": {
+    "command": "python work/root_title_mathdata_11/canonical_fatal_storage_control.py",
+    "exit_code": 0,
+    "report": {
+      "path": "work/root_title_mathdata_11/data_control.json",
+      "sha256": "67a70df442d0ea481302bc80b5b916dc343883d505fa6c2ade40c1b9da24f8f0"
+    },
+    "provider": {
+      "name": "fatal_storage",
+      "source": "calibration\\fatal_storage.c",
+      "source_sha256": "c69df3c20891c6229e061b74bebe2f8880948b34d356c7f4ce8124f13d9e562c",
+      "object": "D:\\Prog\\hercules_recon\\work\\root_title_mathdata_11\\fatal_storage.obj",
+      "object_sha256": "bbc4c0b8248c3e5e45c935ac09e06c6bacdccb025b5b0dc38f0ed253abf8bae7",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\root_title_mathdata_11\\fatal_storage.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\fatal_storage.c"
+      ]
+    },
+    "preserved_peers": {
+      "raw_functions": 6,
+      "raw_bytes": 224,
+      "masked_functions": 8,
+      "masked_bytes": 640,
+      "fatal_masked_bytes": 112
+    },
+    "link": {
+      "unresolved_before": [
+        "_fatal_shutdown_chain",
+        "_g_archive_directory",
+        "_g_archive_logical_positions",
+        "_g_archive_scratch",
+        "_g_fatal_entered",
+        "_g_fatal_owner_window",
+        "_g_fatal_suppress_dialog"
+      ],
+      "unresolved_after": [
+        "_fatal_shutdown_chain",
+        "_g_archive_directory",
+        "_g_archive_logical_positions",
+        "_g_archive_scratch"
+      ],
+      "removed": [
+        "_g_fatal_entered",
+        "_g_fatal_owner_window",
+        "_g_fatal_suppress_dialog"
+      ],
+      "introduced": []
+    },
+    "durable_verification": "python scripts/archive_storage.py --output work/archive_storage/report.json"
+  }
+}

@@ -1,0 +1,201 @@
+{
+  "date": "2026-10-11",
+  "scope": "Preserved near-exact ENG3 actor source; no raw/masked or exhaustivebehavior acceptance.",
+  "function": {
+    "id": "eng3.create_kind_actor",
+    "status": "RECONSTRUCTED",
+    "source": "calibration/eng3/actor_kind_create.c",
+    "source_sha256": "c5131584f722db9958d6868fd37a336794b50c9a947eb0c65d1c03baea7cf622",
+    "rva": "0x1d670",
+    "bytes": 112,
+    "body_bytes": 97,
+    "symbol": "_create_eng3_kind_actor"
+  },
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG3.DLL",
+    "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+  },
+  "source_evidence": "Four argument nativeconstructor calls allocation1d430/reset1d8a0, returnsNULLonallocationfailure, storesxyz andkindwordwith0x2000, copiesbytecategory anddwordvaluefrom8byte kindentry indexedbykind&0x0fff. Sparse148byte actorview and offsetsare asserted; originaltypes/names/ownershipunknown.",
+  "fresh_measurement": {
+    "scope": "Canonical non-strict preservation, not behavior-exact or originalsource/TU/module proof.",
+    "prediction": {
+      "prediction": "Canonical isolation preserves the measured112byte complete constructor andorderedrelocations, retaining exactlytwo semanticallyequivalent scale1SIB differences. It remains non-strict RECONSTRUCTED.",
+      "falsifier": "Anyothernonrelocationdifference, extent/binding/source/oracle conflict, differentmemorysegment/expression/destination, or change to existingrecovery state."
+    },
+    "source": "calibration/eng3/actor_kind_create.c",
+    "source_sha256": "c5131584f722db9958d6868fd37a336794b50c9a947eb0c65d1c03baea7cf622",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-aswz3lvb\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\eng3\\actor_kind_create.c"
+    ],
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-aswz3lvb\\candidate.obj",
+    "object_sha256": "20710bd0b12d09b280ce23e9177deb7f99bb04acd3fd3b89905d9ad6b83950f5",
+    "output_id": "24f05bfb4ba7f9da0c1b5c96820d759f3ed3fdd236488c6fc68b6a57497ea3e2",
+    "raw": {
+      "exact": false,
+      "scope": "complete relocation-free function COFF contribution",
+      "target_size": 112,
+      "compiled_size": 112,
+      "target_sha256": "7f026c80f29415c06b7fa769d32b3c13938b51a5894e88ead6a0bcdad4ea04e4",
+      "compiled_sha256": "a4fb9c636d667710d570fbe6089bb4be9a56d84728fc15a2c0ffa3438926f178",
+      "different_bytes": 16,
+      "mismatch_regions": [
+        [
+          8,
+          12
+        ],
+        [
+          23,
+          25
+        ],
+        [
+          67,
+          71
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          82,
+          86
+        ],
+        [
+          88,
+          89
+        ]
+      ],
+      "relocations": [
+        {
+          "offset": 8,
+          "symbol": "_allocate_eng3_actor",
+          "type": 20
+        },
+        {
+          "offset": 23,
+          "symbol": "_reset_eng3_actor",
+          "type": 20
+        },
+        {
+          "offset": 67,
+          "symbol": "_g_eng3_kind_entries",
+          "type": 6
+        },
+        {
+          "offset": 82,
+          "symbol": "_g_eng3_kind_entries",
+          "type": 6
+        }
+      ],
+      "target_relocations": [
+        67,
+        82
+      ],
+      "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-aswz3lvb\\candidate.obj"
+    },
+    "masked": {
+      "masked_equal": false,
+      "compiled_size": 112,
+      "target_size": 112,
+      "differing_bytes": 2,
+      "mismatch_regions": [
+        [
+          76,
+          77
+        ],
+        [
+          88,
+          89
+        ]
+      ],
+      "symbols": {
+        "_allocate_eng3_actor": "0x1d430",
+        "_g_eng3_kind_entries": "0x40bbc",
+        "_reset_eng3_actor": "0x1d8a0"
+      },
+      "conflicts": [],
+      "unsupported": [],
+      "relocations": 4
+    },
+    "sib_equivalence": [
+      {
+        "differing_byte": 76,
+        "target": {
+          "offset": "0x4a",
+          "instruction": "mov dl, byte ptr [ecx + edi + 6]",
+          "base": "ecx",
+          "index": "edi",
+          "scale": 1,
+          "displacement": 6,
+          "segment": "default ds"
+        },
+        "compiled": {
+          "offset": "0x4a",
+          "instruction": "mov dl, byte ptr [edi + ecx + 6]",
+          "base": "edi",
+          "index": "ecx",
+          "scale": 1,
+          "displacement": 6,
+          "segment": "default ds"
+        },
+        "same_effective_memory_expression": true
+      },
+      {
+        "differing_byte": 88,
+        "target": {
+          "offset": "0x56",
+          "instruction": "mov ecx, dword ptr [eax + edi]",
+          "base": "eax",
+          "index": "edi",
+          "scale": 1,
+          "displacement": 0,
+          "segment": "default ds"
+        },
+        "compiled": {
+          "offset": "0x56",
+          "instruction": "mov ecx, dword ptr [edi + eax]",
+          "base": "edi",
+          "index": "eax",
+          "scale": 1,
+          "displacement": 0,
+          "segment": "default ds"
+        },
+        "same_effective_memory_expression": true
+      }
+    ],
+    "worker_isolation_report_sha256": "6aadd334fdf088c0a54dd44a89852e424b25e63dcfd36b93105ae4ca6c832466"
+  },
+  "limits": [
+    "Onlytwo scale1SIB address encodings differ outside4 real relocationfields; raw andmasked equality arebothfalse.",
+    "Equivalent effectiveaddresses do notupgrade verification or prove allsource-language alias/prototype/domain behavior.",
+    "Source remainsRECONSTRUCTED while actualkindtable/allocator/resetproviders and originalsource/TUcontext remainunproved.",
+    "Failedpool-reset andbinary-searchsource families remainprivate. No frontendspellings/asm/placement wereusedtochooseSIBbytes."
+  ],
+  "provenance": [
+    {
+      "path": "work/root_title_mathdata_11/actor_fallback_prediction.json",
+      "sha256": "159bd95ac6e6b02532a0d13bb00e86a21d018cb15f36f0be53afa4281e3f508b"
+    },
+    {
+      "path": "work/root_title_mathdata_11/actor_fallback_fresh.json",
+      "sha256": "dd104f7e032c284e6b9fb2b4e4374ea7b53dbb7c8f9cd74f6413c75ee934473b"
+    },
+    {
+      "path": "work/luna_eng3_actor_neighbors_11/actor_kind_create_isolation_report.json",
+      "sha256": "6aadd334fdf088c0a54dd44a89852e424b25e63dcfd36b93105ae4ca6c832466"
+    },
+    {
+      "path": "work/luna_eng3_actor_neighbors_11/reconstructed_row_proposal.json",
+      "sha256": "883edbf725df2dfb35942670a644e506c6a4f646d3d6431ad096bf50a5b4358b"
+    },
+    {
+      "path": "work/luna_eng3_actor_neighbors_11/actor_kind_create_handoff.md",
+      "sha256": "c845b9e5f4ad70433b3cec305b5d023eb3daf7f59478e6147cef9499ff1e22d5"
+    }
+  ]
+}

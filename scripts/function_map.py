@@ -11,9 +11,9 @@ import json
 import sqlite3
 from pathlib import Path
 
+from env import ROOT
 import capstone
 
-from env import ROOT
 from pe import PE
 
 DB = ROOT / 'work/archaeology.sqlite'
@@ -61,7 +61,13 @@ def build(module):
     proven = [(int(r['rva'], 16), r['size']) for r in json.loads((ROOT / 'recovery.json').read_text())['functions']
               if Path(r['target']).name.upper() == module.upper() and r['status'] in ('CODEGEN_SIMILAR', 'FUNCTION_MATCH')]
     from_proven = set()
+    proven_boundaries = set()
     for r, s in proven:
+        if lo <= r < end:
+            starts.add(r)
+            proven_boundaries.add(r)
+        if lo <= r + s < end:
+            proven_boundaries.add(r + s)
         if lo <= r + s < end and (r + s) not in starts:
             starts.add(r + s)
             from_proven.add(r + s)
@@ -71,7 +77,10 @@ def build(module):
     for export in pe.metadata().get('exports') or []:
         if lo <= export['rva'] < end:
             starts.add(export['rva'])
-    ordered = sorted(s for s in starts if s % 16 == 0)
+    # Reviewed contributions override the heuristic alignment filter, including
+    # their actual entry and exclusive end. Omitting an entry can merge a caller
+    # lead with an already recorded body; the downstream overlap guard rejects it.
+    ordered = sorted(s for s in starts if s % 16 == 0 or s in proven_boundaries)
     rows = []
     for i, s in enumerate(ordered):
         e = ordered[i + 1] if i + 1 < len(ordered) else end

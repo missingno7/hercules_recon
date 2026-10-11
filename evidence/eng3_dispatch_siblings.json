@@ -1,0 +1,100 @@
+{
+  "scope": "Compact negative compiler/source-family evidence; no recovery row, stage or acceptance.",
+  "date": "2026-10-10",
+  "family": "shared_counted_vector_dispatch_template",
+  "prediction": "Two ordinary C functions expanded from one shared loop macro over count-prefixed ActorVector objects will compile as 64-byte peers with matching non-relocation bytes and relocation offsets [1,19,43,48] for both targets, resolving each vector symbol to its corresponding count-word base and sharing the callback-table base.",
+  "falsifier": "Either output extent differs from 64 bytes, any non-relocation byte differs, target relocation offsets differ from compiled offsets, or a relocation does not consistently imply the observed vector/callback VA. In particular, folding the first-slot +4 into the vector symbol instead of retaining [cursor+4] falsifies this representation/codegen hypothesis.",
+  "verdict": "falsified",
+  "target": {
+    "path": "assets/pc/HERCULES/ENG3.DLL",
+    "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+  },
+  "source": {
+    "path": "candidates/eng3_dispatch_siblings/dispatch_vectors.c",
+    "sha256": "bf4b6638098ff336cf8534185977d18131f787c6cdb064dcce32d78d1e37cc9d"
+  },
+  "provenance": {
+    "toolchain": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-7z_nkzjm\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\candidates\\eng3_dispatch_siblings\\dispatch_vectors.c"
+    ],
+    "object_sha256": "659c21d6b16c44f7b497e8983598462f95ae61524a59ae53ffc4ad7139ad463d",
+    "successful_builds": 1,
+    "targets_measured": 2,
+    "source_and_target_unchanged": true
+  },
+  "observations": [
+    "Fresh PC bodies at13a0 and13e0 are equal except vector bases40fa0/40e40; each is63 body bytes plus one NOP.",
+    "Producer1b9f0 has two count++ then base+count*4 pointer stores at1bd11/1bbe9.",
+    "Caller10df0 supplies the same context sequentially at10f35/10f3e; actor selector is byte+97 and callback operand33078.",
+    "Identical native bodies do not establish macro use, TU ownership, declaration identity or runtime table contents."
+  ],
+  "measurements": [
+    {
+      "rva": "0x13a0",
+      "target_size": 64,
+      "compiled_size": 64,
+      "raw_different_bytes": 46,
+      "masked_different_bytes": 30,
+      "compiled_relocation_offsets": [
+        1,
+        19,
+        42,
+        47
+      ],
+      "target_relocation_offsets": [
+        1,
+        19,
+        43,
+        48
+      ]
+    },
+    {
+      "rva": "0x13e0",
+      "target_size": 64,
+      "compiled_size": 64,
+      "raw_different_bytes": 46,
+      "masked_different_bytes": 30,
+      "compiled_relocation_offsets": [
+        1,
+        19,
+        42,
+        47
+      ],
+      "target_relocation_offsets": [
+        1,
+        19,
+        43,
+        48
+      ]
+    }
+  ],
+  "blocker": "Compiler folds first-slot+4 into the vector relocation and accesses[cursor]; native retains count-word base and accesses[cursor+4], shifting later relocation offsets by one byte.",
+  "reentry_condition": "Independent first-party counted-vector reader/writer with an accepted ordinary-C anchor retaining the count-word base; or new representation/control-flow evidence predicting this specific address form.",
+  "artifacts": [
+    {
+      "path": "work/eng3_dispatch_siblings/measurement.json",
+      "sha256": "ce99dc701d21434559e7bc9994339dd2ff8425d9a14406409d0bd2ed3be6e500"
+    },
+    {
+      "path": "work/eng3_dispatch_siblings/handoff.md",
+      "sha256": "195367d2be1562e42bb54455784a47b5a9ac8497fcd82f2436482d9d593a951f"
+    }
+  ],
+  "limits": "No strict/masked equality or behavior-exact implementation. Private candidate and failed-family receipts retained; no more spelling sweeps.",
+  "followup_2026_10_11": {
+    "evidence": "evidence/eng3_counted_dispatch.json",
+    "reason": "Fresh accepted Hercules counted-list anchor justified a raw-word/preincrement source discriminator. The old postincrement candidate remains falsified; both new twins are masked equal.",
+    "masked_byte_gain": 128,
+    "strict_byte_gain": 0
+  }
+}

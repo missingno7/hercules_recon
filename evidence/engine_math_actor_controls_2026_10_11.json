@@ -1,0 +1,358 @@
+{
+  "date": "2026-10-11",
+  "scope": "Falsified source-control experiments; no matching promotion.",
+  "tangent": {
+    "prediction": {
+      "lane": "luna_tangent_lookup_11",
+      "scope": "One bounded ordinary-C control for the duplicated ENG1/ENG3 tangent-table consumers; diagnostic only, no recovery promotion or source/formula/ownership claim.",
+      "evidence": {
+        "parent_readonly_analysis": "work/root_title_mathdata_11/analysis.json",
+        "table": "360 monotone 32-bit values, duplicated in TITLE.DLL and each engine DLL; target consumer table bindings are ENG1 RVA 0x5b048 and ENG3 RVA 0x38e88.",
+        "extent_map": [
+          {
+            "module": "TITLE.DLL",
+            "rva": "0x24be0",
+            "end_exclusive": "0x25180",
+            "size": 1440,
+            "sha256": "61ad1295704dc0f3afe2558cae0fca16addff281920c20ed9737ff37d54c195e"
+          },
+          {
+            "module": "ENG1.DLL",
+            "rva": "0x5b048",
+            "end_exclusive": "0x5b5e8",
+            "size": 1440,
+            "sha256": "61ad1295704dc0f3afe2558cae0fca16addff281920c20ed9737ff37d54c195e"
+          },
+          {
+            "module": "ENG3.DLL",
+            "rva": "0x38e88",
+            "end_exclusive": "0x39428",
+            "size": 1440,
+            "sha256": "61ad1295704dc0f3afe2558cae0fca16addff281920c20ed9737ff37d54c195e"
+          }
+        ],
+        "eng1_span": {
+          "module": "ENG1.DLL",
+          "rva": "0x2bf30",
+          "size": 128,
+          "next_entry": "0x2bfb0"
+        },
+        "eng3_span": {
+          "module": "ENG3.DLL",
+          "rva": "0x1f7b0",
+          "size": 128,
+          "next_entry": "0x1f830"
+        },
+        "decoded_shape": "Two unsigned-short arguments; first argument zero returns 0x5a0000. Otherwise compute signed ((long)second << 16) / first, binary-search the long table from initial midpoint 179 over [0,359], return the matching index or lower neighbor shifted left 14."
+      },
+      "family": "single ordinary typed-C binary-search source compiled with pinned VC5 RTM /O2 /Gy and compared against both complete 128-byte spans",
+      "prediction": "A plain C implementation with an extern long[360] table, early zero case, signed fixed-point quotient, initial comparison at entry 179 and a low/high binary search can reproduce both consumers as complete 128-byte contributions. If exact, object DIR32 relocation offsets will be 0x33 and 0x5f and correspond one-for-one to the two target HIGHLOW offsets; the full bytes will also agree.",
+      "falsifier": "Any complete-span raw mismatch, a compiled /Gy contribution not exactly 128 bytes, any non-relocation mismatch after binding, unsupported/conflicting relocation, or mismatch between candidate DIR32 and target HIGHLOW offsets falsifies this control. No spelling/flag retries are authorized by this prediction.",
+      "toolchain": "msvc5_rtm (pinned manifest); flags /O2 with /Gy supplied by the standard compiler wrapper",
+      "model": "GPT-6 Luna",
+      "effort": "xhigh",
+      "build_count": 1,
+      "elapsed_seconds": 0.36,
+      "status": "control falsified by one fresh compile; no retry",
+      "result": {
+        "object_size": 144,
+        "candidate_dir32_offsets": [
+          52,
+          101
+        ],
+        "candidate_addends": [
+          716,
+          0
+        ],
+        "both_target_highlow_offsets": [
+          51,
+          95
+        ],
+        "eng1_raw_different_bytes": 93,
+        "eng3_raw_different_bytes": 93,
+        "both_nonrelocation_mismatches": 85,
+        "relocation_conflicts": "The second candidate table reference implied a different symbol base than the first in each engine image; candidate DIR32 offsets also differ from the target HIGHLOW offsets.",
+        "conclusion": "The typed-C control captures the two table addends but produces a 144-byte contribution and fails both complete 128-byte consumers. It is diagnostic evidence only; it does not establish provider storage ownership, historical source spelling or ABI formal names."
+      }
+    },
+    "measurement": {
+      "scope": "Private diagnostic of one ordinary-C function contribution against two PC oracle spans. No FUNCTION_MATCH, provider, source identity, historical prototype or shared-storage ownership claim.",
+      "source": "candidates/luna_tangent_lookup_11/tangent_lookup.c",
+      "source_sha256": "c436ef41125091bf407cfcf3f43395dc17dfb7bb71e939e8560f1290fafa60e6",
+      "compiler": "pinned msvc5_rtm from toolchains/manifest.json",
+      "compiler_toolchain_manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+      "flags": [
+        "/O2",
+        "/Gy"
+      ],
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\candidates\\luna_tangent_lookup_11\\tangent_lookup.obj",
+        "D:\\Prog\\hercules_recon\\candidates\\luna_tangent_lookup_11\\tangent_lookup.c"
+      ],
+      "object": "work/candidates/luna_tangent_lookup_11/tangent_lookup.obj",
+      "object_sha256": "0aff266378c326c2585fb7f6ae1d5afc5f12e4452c812660d43d6c7dcbb59345",
+      "function_symbol": "_tangent_lookup",
+      "contribution": {
+        "section": ".text",
+        "size": 144,
+        "flags": "0x60501020"
+      },
+      "function_relocations": [
+        {
+          "offset": 52,
+          "symbol": "_g_tangent_quarter_degrees",
+          "type": 6
+        },
+        {
+          "offset": 101,
+          "symbol": "_g_tangent_quarter_degrees",
+          "type": 6
+        }
+      ],
+      "candidate_dir32_offsets": [
+        52,
+        101
+      ],
+      "candidate_dir32_addends": [
+        {
+          "offset": 52,
+          "symbol": "_g_tangent_quarter_degrees",
+          "addend": 716
+        },
+        {
+          "offset": 101,
+          "symbol": "_g_tangent_quarter_degrees",
+          "addend": 0
+        }
+      ],
+      "targets": [
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2bf30",
+          "target_span_size": 128,
+          "next_aligned_entry": "0x2bfb0",
+          "target_sha256": "a8ea1902e823918e26c9b1e23eb712db9f9ad8d3e047571600e691c6015b6a48",
+          "compiled_contribution_size": 144,
+          "compiled_sha256": "9ce939ff80fa46c61c1b701ac55f96a6b2b177de780acead9575ca6dc176f8bd",
+          "raw_exact_full_span": false,
+          "raw_differing_byte_count": 93,
+          "first_raw_differences": [
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            62,
+            63,
+            64,
+            65,
+            66
+          ],
+          "target_base_relocations": [
+            {
+              "offset": 51,
+              "rva": "0x2bf63",
+              "type": 3
+            },
+            {
+              "offset": 95,
+              "rva": "0x2bf8f",
+              "type": 3
+            }
+          ],
+          "target_highlow_offsets": [
+            51,
+            95
+          ],
+          "masked": {
+            "masked_equal": false,
+            "compiled_size": 144,
+            "target_size": 128,
+            "differing_bytes": 85,
+            "mismatch_regions": [
+              [
+                50,
+                52
+              ],
+              [
+                56,
+                61
+              ],
+              [
+                62,
+                101
+              ],
+              [
+                105,
+                144
+              ]
+            ],
+            "symbols": {
+              "_g_tangent_quarter_degrees": "0x7b1002e7"
+            },
+            "conflicts": [
+              {
+                "symbol": "_g_tangent_quarter_degrees",
+                "offset": 101,
+                "implied": "0xd0c1db75",
+                "previous": "0x7b1002e7"
+              },
+              {
+                "reason": "absolute relocation offsets differ from target base relocations",
+                "compiled": [
+                  52,
+                  101
+                ],
+                "target": [
+                  51,
+                  95
+                ]
+              }
+            ],
+            "unsupported": [],
+            "relocations": 2
+          }
+        },
+        {
+          "module": "ENG3.DLL",
+          "rva": "0x1f7b0",
+          "target_span_size": 128,
+          "next_aligned_entry": "0x1f830",
+          "target_sha256": "6db84f3788880eecf452cacede07177cea0efac0360058a95c5be2ae604ba586",
+          "compiled_contribution_size": 144,
+          "compiled_sha256": "9ce939ff80fa46c61c1b701ac55f96a6b2b177de780acead9575ca6dc176f8bd",
+          "raw_exact_full_span": false,
+          "raw_differing_byte_count": 93,
+          "first_raw_differences": [
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            62,
+            63,
+            64,
+            65,
+            66
+          ],
+          "target_base_relocations": [
+            {
+              "offset": 51,
+              "rva": "0x1f7e3",
+              "type": 3
+            },
+            {
+              "offset": 95,
+              "rva": "0x1f80f",
+              "type": 3
+            }
+          ],
+          "target_highlow_offsets": [
+            51,
+            95
+          ],
+          "masked": {
+            "masked_equal": false,
+            "compiled_size": 144,
+            "target_size": 128,
+            "differing_bytes": 85,
+            "mismatch_regions": [
+              [
+                50,
+                52
+              ],
+              [
+                56,
+                61
+              ],
+              [
+                62,
+                101
+              ],
+              [
+                105,
+                144
+              ]
+            ],
+            "symbols": {
+              "_g_tangent_quarter_degrees": "0x7b1000c5"
+            },
+            "conflicts": [
+              {
+                "symbol": "_g_tangent_quarter_degrees",
+                "offset": 101,
+                "implied": "0xd0c1db75",
+                "previous": "0x7b1000c5"
+              },
+              {
+                "reason": "absolute relocation offsets differ from target base relocations",
+                "compiled": [
+                  52,
+                  101
+                ],
+                "target": [
+                  51,
+                  95
+                ]
+              }
+            ],
+            "unsupported": [],
+            "relocations": 2
+          }
+        }
+      ],
+      "target_file_sha256": {
+        "ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+        "ENG3.DLL": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+      },
+      "prediction_falsified": true
+    },
+    "reentry": "Oneordinarybinary-searchcontrol compiled144bytes for both128byteconsumers with85nonrelocationdifferences andmisalignedDIR32 fields. Seek actualdeclaration/expression/early-preload context; do not repeat loopspelling/flagforms."
+  },
+  "eng3_pool": {
+    "source": "candidates/luna_eng3_actor_neighbors_11/eng3_actor_entry.c",
+    "source_sha256": "a0fd79ec8499383983ff967d232bef28984978a1136c316b9469c98774ba7454",
+    "falsified": "Counter-before-guard reduced39to26nonrelocationdifferences;64byte nativepoolreset stillfails with secondcount/call relocationoffset conflicts. Constructor outputstaysfrozen.",
+    "reentry": "Actual pooldeclaration/control/lifetime/sourceunit evidence; no counterspellinggrid."
+  },
+  "preserved_constructor": "evidence/eng3_actor_kind_fallback_2026_10_11.json",
+  "provenance": [
+    {
+      "path": "work/candidates/luna_tangent_lookup_11/prediction.json",
+      "sha256": "8e8fc9b3a8b7475ccfdabd6dff83c4d251b2fadd79a19ad4f0616b99f6b30463"
+    },
+    {
+      "path": "work/candidates/luna_tangent_lookup_11/measurement.json",
+      "sha256": "7f1531266c68407e5e117aa14eaa68e492c874a874b5599f69c3b363e371ad19"
+    },
+    {
+      "path": "work/luna_eng3_actor_neighbors_11/region_fresh.json",
+      "sha256": "755ec86e375a323c014f14b56662735f2c8d50f64b0b5e763318da4b815a6529"
+    },
+    {
+      "path": "work/luna_eng3_actor_neighbors_11/receipt-f4d7993b772d915ea4ffa8e33baf2b6967e1ff30c57982844717ccd37a7d2705.json",
+      "sha256": "35dea36cc93ae23e90bc604231190ff2a06ba7757beff3966db1ab62cf2a2bb8"
+    },
+    {
+      "path": "work/luna_eng3_actor_neighbors_11/HANDOFF.md",
+      "sha256": "3afd13928df6b3971205a42992dd07497285a641b78aa2f01c78b630f86e697f"
+    }
+  ]
+}

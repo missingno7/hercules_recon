@@ -1,0 +1,167 @@
+{
+  "date": "2026-10-11",
+  "scope": "Fresh canonical initialized fields and loader-zero working prefix plus actual host member binding; no original full data extent, placement, strict or behavior acceptance.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "config": {
+    "rva": "0x79e858",
+    "va": "0xb9e858",
+    "bytes": 72,
+    "mod32": 24,
+    "mod8": 0,
+    "section": {
+      "name": ".data",
+      "virtual_address": 217088,
+      "virtual_size": 7797544,
+      "raw_offset": 209920,
+      "raw_size": 38400,
+      "characteristics": 3221225536
+    },
+    "initial": "entire accessed prefix lies in loader zero-fill",
+    "limits": "72 is protocol clear/query/write extent, not original full declared extent or unique independent aggregate"
+  },
+  "strings": {
+    "g_registry_key": {
+      "rva": "0x36184",
+      "bytes": 42,
+      "text": "Software\\Disney Interactive\\Hercules\\1.00",
+      "sha256": "003e56b249ea79845fbee7b19163a5c808e3499bf8d1b876f340e2fa0c3c4d4f",
+      "section": ".data"
+    },
+    "g_registry_value_name": {
+      "rva": "0x361b0",
+      "bytes": 7,
+      "text": "Config",
+      "sha256": "6311e47dd6a74587febbd606ea4dd2bc88cdb282783965e06a8f41295992368f",
+      "section": ".data"
+    }
+  },
+  "source_cell": {
+    "cell_rva": "0x361bc",
+    "table_rva": "0x361b8",
+    "member_byte_offset": 4,
+    "initial_value_va": "0x615c98",
+    "table_bytes": 1000,
+    "table_sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "existing_header": "calibration/engine_interface.h",
+    "field": "EngineInterface.context_004",
+    "context_header": "calibration/resource_context.h",
+    "getter_read_offset": 14,
+    "getter_read_width": 1,
+    "limits": "Existing generic table view is shared physical layout; EXE source table is distinct from ENG1/ENG3/TITLE copied destination tables. Do not define independent context-pointer cell or duplicate engine destination storage in EXE."
+  },
+  "member_rebind": {
+    "before_symbol": "_g_registry_config_source",
+    "before_addend": 0,
+    "native_cell_rva": "0x361bc",
+    "after_symbol": "_g_host_engine_interface",
+    "after_addend": 4,
+    "implied_table_rva": "0x361b8",
+    "existing_layout_header": "calibration/engine_interface.h",
+    "field": "context_004",
+    "full_host_table_provider": "missing, left external"
+  },
+  "canonical_providers": [
+    {
+      "label": "zero",
+      "source": "calibration/registry_storage.c",
+      "source_sha256": "e9f7c60fd443f486260a622e2beb5cde2be2d7a500b2cd486afab6ccbe35eda7",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-nw24edz6\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\registry_storage.c"
+      ],
+      "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-nw24edz6\\candidate.obj",
+      "object_sha256": "a0ed82e67ddc712e73ef5806d93f985b254c166f06346b9b6aa82570bbfe986e",
+      "sections": [
+        {
+          "name": ".drectve",
+          "size": 38,
+          "stored_bytes": 38,
+          "flags": "0x100a00"
+        },
+        {
+          "name": ".bss",
+          "size": 72,
+          "stored_bytes": 0,
+          "flags": "0xc0400080"
+        }
+      ],
+      "definitions": [
+        "_g_registry_config"
+      ]
+    },
+    {
+      "label": "literals",
+      "source": "calibration/registry_literals.c",
+      "source_sha256": "6e5afe589a440c634e0360c86be138a71a711c482ad00c08c75bc5a072e89d8e",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-9r0fii3y\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\registry_literals.c"
+      ],
+      "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-9r0fii3y\\candidate.obj",
+      "object_sha256": "59f797052fd33023c2307252d4270aa1555d424db17901719803448e841b24ca",
+      "sections": [
+        {
+          "name": ".drectve",
+          "size": 38,
+          "stored_bytes": 38,
+          "flags": "0x100a00"
+        },
+        {
+          "name": ".data",
+          "size": 55,
+          "stored_bytes": 55,
+          "flags": "0xc0400040"
+        }
+      ],
+      "definitions": [
+        "_g_registry_key",
+        "_g_registry_value_name"
+      ]
+    }
+  ],
+  "canonical_consumer": {
+    "source": "calibration/cleanup_registry.c",
+    "source_sha256": "3bfc80aaed49ae46c779cc34ffe728d8b40cee7af212c3bcaf348cf96183adbc",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-bm5ybdtb\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\cleanup_registry.c"
+    ],
+    "object_sha256": "3bb0d2163849d6cd6594878b2b09603e35bd86be41ea7e6ebf3f046271a53e83",
+    "unchanged_raw_peer_bytes": 160,
+    "sole_getter_change": "One DIR32 symbol/addend from standalone cell+0 to actual host table+4",
+    "masked_functions": 4,
+    "masked_bytes": 176
+  },
+  "headers": {
+    "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+    "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608"
+  },
+  "worker_receipt": {
+    "path": "work/sol_registry_data_11/compact.json",
+    "sha256": "7659dbc7afa6d3cdc31b4e6d7292c6ad9c950b15334249fcd9488f4d2acd5ed4"
+  },
+  "limits": [
+    "No raw function acceptance or native absolute layout equality.",
+    "Original record complete extent/type/TU/source form remain unproved;72-byte prefix follows real clear/query/write protocol.",
+    "Literal array padding/inter-string distances are not original layout proof.",
+    "Real host source-table initializer and dependencies remain missing; no fabricated opaque slots/callback addresses or independent pointer-cell provider."
+  ]
+}

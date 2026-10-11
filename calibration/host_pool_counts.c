@@ -20,9 +20,9 @@ extern HostPoolState g_host_pool;
 
 U32 __cdecl count_used(U32 pool_id)
 {
+    U32 count = 0;
     PoolWord *cursor = g_host_pool.starts[pool_id];
     PoolWord *end = g_host_pool.ends[pool_id];
-    U32 count = 0;
 
     while (cursor < end) {
         U32 descriptor = cursor->descriptor;

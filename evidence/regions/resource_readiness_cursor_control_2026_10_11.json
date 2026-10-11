@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "scope": "Exploration/knowledge only; never accepted proof.",
+  "created_utc": "2026-10-11T00:29:31.298539+00:00",
+  "region": "resource_readiness",
+  "ownership": {
+    "id": "resource_readiness",
+    "ownership": "function_task",
+    "rationale": "Two directly connected ENG1 readiness dependencies with independently bounded spans; the larger resource-loading source unit remains unknown."
+  },
+  "context_id": "4a48ed4bb84b3d5179846d65d68d86835ef65478b06d32e5545eba17c8da3722",
+  "source_sha256": "0fb92d17857ec1379951b8d381600632925e54f75dbe9c46e0d0c10ead7d5ddc",
+  "baseline_sha256": "d431881a13b544a3e9bc9b4b799f680d47d079927b5834076b52e3592ba69c07",
+  "source_identity_convention": "UTF-8/LF recipe text; compiled_source_sha256 records actual compiler input bytes",
+  "compiled_source_sha256": "0fb92d17857ec1379951b8d381600632925e54f75dbe9c46e0d0c10ead7d5ddc",
+  "source_patch": {
+    "base_sha256": "d431881a13b544a3e9bc9b4b799f680d47d079927b5834076b52e3592ba69c07",
+    "result_sha256": "0fb92d17857ec1379951b8d381600632925e54f75dbe9c46e0d0c10ead7d5ddc",
+    "edits": [
+      {
+        "line": 1,
+        "old": "#include \"resource_record.h\"\n#include \"resource_context.h\"\n",
+        "new": "#include \"../../calibration/resource_record.h\"\n#include \"../../calibration/resource_context.h\"\n"
+      },
+      {
+        "line": 19,
+        "old": "",
+        "new": "    unsigned char *metadata_cursor;\n"
+      },
+      {
+        "line": 31,
+        "old": "    for (scan_index = (long)index + 1L;\n         scan_index <= (long)entry_count;\n         ++scan_index) {\n        descriptor = *(long *)(metadata_base + scan_index * 4L);\n",
+        "new": "    scan_index = (long)index;\n    metadata_cursor = metadata_base + scan_index * 4L;\n    do {\n        descriptor = *(long *)(metadata_cursor + 4L);\n        metadata_cursor += 4L;\n        ++scan_index;\n"
+      },
+      {
+        "line": 38,
+        "old": "    }\n",
+        "new": "    } while (scan_index < (long)entry_count);\n"
+      }
+    ]
+  },
+  "output_id": "e50977d0f78628312d58cfc8d36cba3be0a636428931594e5d7ac510e45b5e8a",
+  "equivalent_receipts": [],
+  "safe_frontier_eligible": true,
+  "regressions": [],
+  "functions": [
+    {
+      "symbol": "_ensure_actor_resource_ready",
+      "target_size": 80,
+      "candidate_size": 80,
+      "raw_different_bytes": 44,
+      "normalized_different_bytes": 36,
+      "instruction_percent": 62.5,
+      "ordered_cfg_equal": true,
+      "category": "source/codegen residual",
+      "strict_equal": false,
+      "relocation_count": 4,
+      "target_relocation_count": 2,
+      "output_id": "1ff6d2a9e84ce85cfbf3ce2e0e8e2500fcff68da9feb6e9478929d2e66da51f1",
+      "scope": "experimental contribution; not acceptance"
+    },
+    {
+      "symbol": "_resource_metadata_scan",
+      "target_size": 112,
+      "candidate_size": 128,
+      "raw_different_bytes": 119,
+      "normalized_different_bytes": 115,
+      "instruction_percent": 21.739,
+      "ordered_cfg_equal": false,
+      "category": "source/codegen residual",
+      "strict_equal": false,
+      "relocation_count": 3,
+      "target_relocation_count": 3,
+      "output_id": "7c32ae6012eeadf3ae63a5112c71211495d19cec0ebc9d75acd4f9e3e240cf1d",
+      "scope": "experimental contribution; not acceptance"
+    }
+  ],
+  "summary": {
+    "functions": 2,
+    "exact": 0,
+    "exact_bytes": 0,
+    "diagnostic_equal": 0,
+    "ordered_cfg_equal": 1,
+    "categories": {
+      "source/codegen residual": 2
+    }
+  },
+  "family": "metadata-scan-index-cursor-do-while-control",
+  "prediction": "The current fresh VC5 baseline produces a 128-byte scan contribution with a 93-byte relocation-masked residual. Native 0x37ec..0x37fd uses the original signed index as a cursor subscript, reads cursor+4, advances the pointer and index, then loops while index<count. Rewriting only this scan loop as a cursor-based do/while should move the ordinary /O2 /Gy contribution toward the reviewed 112-byte span and preserve the paired readiness contribution and all tested scan semantics.",
+  "falsifier": "Reject if a fresh whole-pair compile changes the 80-byte readiness contribution or the scan remains 128 bytes with no reduction in its full relocation-masked residual; reject any new unlisted relocation symbol or disagreement between repeated sites for one symbol and the reviewed binding map. Relocation offsets are compared within each output; they need not match target offsets when instruction layout differs. Reject if the independent fixture fails the low-budget no-record path, signed index guard, inclusive final slot, first nonzero arithmetic-shifted descriptor, or signed available>=offset result. Stop after this single control-shape family.",
+  "verdict": "falsified",
+  "blocker": "VC5 canonical output for the cursor do/while is still 128 bytes and 115 target-bound diagnostic differences versus the 112-byte target; ordered CFG remains different. The readiness contribution is unchanged from the fresh baseline. The 20-check fixture passes, so the semantic contract did not falsify the candidate; the code-generation prediction did.",
+  "reentry_condition": "No further scan-control form exploration. Reopen only with new native/source-ownership/declaration evidence or changed compiler/header context.",
+  "next_discriminator": "Seek independent evidence of original loop variable/type or translation-unit ownership before any new scan candidate.",
+  "ungated_work": [],
+  "new_evidence": [
+    "work/luna_eng1_resource_readiness_11/baseline.json",
+    "work/luna_eng1_resource_readiness_11/baseline_bindings.json",
+    "work/resource_readiness/pc_evidence.json",
+    "evidence/resource_metadata_adoption_2026_10_11.json",
+    "work/luna_eng1_resource_readiness_11/baseline_bindings.json",
+    "candidates/luna_eng1_resource_readiness_11/resource_readiness_cursor.c",
+    "work/luna_eng1_resource_readiness_11/candidate_report.json",
+    "work/luna_eng1_resource_readiness_11/fixture_result.json"
+  ],
+  "new_discriminator": "Fresh current-header build plus complete residual windows expose the target loop update order: native code starts from raw index, reads at cursor+4, advances cursor/index before the zero-offset backedge, and tests index<count. The current source starts scan_index at index+1 and uses an inclusive <= loop. The current accepted metadata reader passes the untruncated int index to readiness.",
+  "metrics": {
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "Evidence-backed ordinary-C control-flow hypothesis from fresh VC5 residual and reviewed native instruction order.",
+    "wall_seconds": null,
+    "tokens": null,
+    "cost_usd": null,
+    "compile_cycles": 2,
+    "semantic_result": "Existing resource_readiness_semantics.c: final cursor candidate 20 checks/0 failures; earlier declaration-only candidate also 20/0.",
+    "actual_model_identity": null
+  },
+  "provenance": {
+    "spec_sha256": "10069bd0af71b490012fa9162d14ace6d2849de8428c84a3047b23add3d10b22",
+    "report_sha256": "9c3664b2e1f6df223e28853f6a82f1e1dd7dde4b17502cf4b1442ed799a1059e",
+    "context_files": {
+      "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92"
+    },
+    "object_sha256": "c0fc202cb3ea2d0dd9c838e44dc3cd27579828e2138620ddf55ecf04b3dfcbde",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-kicscp60\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\candidates\\luna_eng1_resource_readiness_11\\resource_readiness_cursor.c"
+    ],
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "receipt_id": "1c6bf7a87ae85324712ff82963082bb2bc8ce2ee31255e0fb59632580e72ebd7"
+}

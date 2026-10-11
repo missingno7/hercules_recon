@@ -1,0 +1,454 @@
+{
+  "scope": "Synthetic storage-class discriminator and native static users; no recovery state/acceptance/canonical writes.",
+  "builds": 9,
+  "links": 12,
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "compiler_matrix": [
+    {
+      "definition": "c_tentative",
+      "sections": [
+        {
+          "name": ".drectve",
+          "size": 38,
+          "flags": "0x100a00",
+          "alignment": 1,
+          "stored_bytes": 38
+        }
+      ],
+      "tested_sizes": [
+        1,
+        4,
+        8,
+        16,
+        17,
+        31,
+        32,
+        33,
+        64,
+        100,
+        101,
+        1024,
+        4096,
+        12288,
+        3145728
+      ],
+      "large_residues": {
+        "1024": 0,
+        "4096": 0,
+        "12288": 0,
+        "3145728": 0
+      }
+    },
+    {
+      "definition": "c_zero",
+      "sections": [
+        {
+          "name": ".drectve",
+          "size": 38,
+          "flags": "0x100a00",
+          "alignment": 1,
+          "stored_bytes": 38
+        },
+        {
+          "name": ".bss",
+          "size": 3163568,
+          "flags": "0xc0400080",
+          "alignment": 4,
+          "stored_bytes": 0
+        }
+      ],
+      "tested_sizes": [
+        1,
+        4,
+        8,
+        16,
+        17,
+        31,
+        32,
+        33,
+        64,
+        100,
+        101,
+        1024,
+        4096,
+        12288,
+        3145728
+      ],
+      "large_residues": {
+        "1024": 16,
+        "4096": 16,
+        "12288": 16,
+        "3145728": 16
+      }
+    },
+    {
+      "definition": "cpp_extern_c_tentative",
+      "sections": [
+        {
+          "name": ".drectve",
+          "size": 38,
+          "flags": "0x100a00",
+          "alignment": 1,
+          "stored_bytes": 38
+        },
+        {
+          "name": ".bss",
+          "size": 3163568,
+          "flags": "0xc0400080",
+          "alignment": 4,
+          "stored_bytes": 0
+        }
+      ],
+      "tested_sizes": [
+        1,
+        4,
+        8,
+        16,
+        17,
+        31,
+        32,
+        33,
+        64,
+        100,
+        101,
+        1024,
+        4096,
+        12288,
+        3145728
+      ],
+      "large_residues": {
+        "1024": 0,
+        "4096": 0,
+        "12288": 16,
+        "3145728": 0
+      }
+    },
+    {
+      "definition": "cpp_extern_c_zero",
+      "sections": [
+        {
+          "name": ".drectve",
+          "size": 38,
+          "flags": "0x100a00",
+          "alignment": 1,
+          "stored_bytes": 38
+        },
+        {
+          "name": ".bss",
+          "size": 3163568,
+          "flags": "0xc0400080",
+          "alignment": 4,
+          "stored_bytes": 0
+        }
+      ],
+      "tested_sizes": [
+        1,
+        4,
+        8,
+        16,
+        17,
+        31,
+        32,
+        33,
+        64,
+        100,
+        101,
+        1024,
+        4096,
+        12288,
+        3145728
+      ],
+      "large_residues": {
+        "1024": 16,
+        "4096": 16,
+        "12288": 16,
+        "3145728": 16
+      }
+    }
+  ],
+  "per_object": [
+    {
+      "order": [
+        "state",
+        "c_tentative"
+      ],
+      "symbols": {
+        "_synthetic_state": {
+          "rva": "0x1000",
+          "mod32": 0
+        },
+        "_test_directory": {
+          "rva": "0x1020",
+          "mod32": 0
+        },
+        "_test_positions": {
+          "rva": "0x4020",
+          "mod32": 0
+        },
+        "_test_arena": {
+          "rva": "0x5020",
+          "mod32": 0
+        }
+      }
+    },
+    {
+      "order": [
+        "c_tentative",
+        "state"
+      ],
+      "symbols": {
+        "_synthetic_state": {
+          "rva": "0x1000",
+          "mod32": 0
+        },
+        "_test_directory": {
+          "rva": "0x1020",
+          "mod32": 0
+        },
+        "_test_positions": {
+          "rva": "0x4020",
+          "mod32": 0
+        },
+        "_test_arena": {
+          "rva": "0x5020",
+          "mod32": 0
+        }
+      }
+    },
+    {
+      "order": [
+        "state",
+        "c_zero"
+      ],
+      "symbols": {
+        "_synthetic_state": {
+          "rva": "0x1000",
+          "mod32": 0
+        },
+        "_test_arena": {
+          "rva": "0x1010",
+          "mod32": 16
+        },
+        "_test_directory": {
+          "rva": "0x301010",
+          "mod32": 16
+        },
+        "_test_positions": {
+          "rva": "0x304010",
+          "mod32": 16
+        }
+      }
+    },
+    {
+      "order": [
+        "c_zero",
+        "state"
+      ],
+      "symbols": {
+        "_test_arena": {
+          "rva": "0x1000",
+          "mod32": 0
+        },
+        "_test_directory": {
+          "rva": "0x301000",
+          "mod32": 0
+        },
+        "_test_positions": {
+          "rva": "0x304000",
+          "mod32": 0
+        },
+        "_synthetic_state": {
+          "rva": "0x305000",
+          "mod32": 0
+        }
+      }
+    },
+    {
+      "order": [
+        "state",
+        "cpp_extern_c_tentative"
+      ],
+      "symbols": {
+        "_synthetic_state": {
+          "rva": "0x1000",
+          "mod32": 0
+        },
+        "_test_directory": {
+          "rva": "0x1010",
+          "mod32": 16
+        },
+        "_test_positions": {
+          "rva": "0x4010",
+          "mod32": 16
+        },
+        "_test_arena": {
+          "rva": "0x5010",
+          "mod32": 16
+        }
+      }
+    },
+    {
+      "order": [
+        "cpp_extern_c_tentative",
+        "state"
+      ],
+      "symbols": {
+        "_test_directory": {
+          "rva": "0x1000",
+          "mod32": 0
+        },
+        "_test_positions": {
+          "rva": "0x4000",
+          "mod32": 0
+        },
+        "_test_arena": {
+          "rva": "0x5000",
+          "mod32": 0
+        },
+        "_synthetic_state": {
+          "rva": "0x305000",
+          "mod32": 0
+        }
+      }
+    },
+    {
+      "order": [
+        "state",
+        "cpp_extern_c_zero"
+      ],
+      "symbols": {
+        "_synthetic_state": {
+          "rva": "0x1000",
+          "mod32": 0
+        },
+        "_test_arena": {
+          "rva": "0x1010",
+          "mod32": 16
+        },
+        "_test_directory": {
+          "rva": "0x301010",
+          "mod32": 16
+        },
+        "_test_positions": {
+          "rva": "0x304010",
+          "mod32": 16
+        }
+      }
+    },
+    {
+      "order": [
+        "cpp_extern_c_zero",
+        "state"
+      ],
+      "symbols": {
+        "_test_arena": {
+          "rva": "0x1000",
+          "mod32": 0
+        },
+        "_test_directory": {
+          "rva": "0x301000",
+          "mod32": 0
+        },
+        "_test_positions": {
+          "rva": "0x304000",
+          "mod32": 0
+        },
+        "_synthetic_state": {
+          "rva": "0x305000",
+          "mod32": 0
+        }
+      }
+    }
+  ],
+  "native_context": {
+    "pointer_cell_rva": "0x361bc",
+    "value_va": "0x615c98",
+    "site_load": "0x1ff2",
+    "site_count": "0x1ff8",
+    "site_clear": "0x1fff",
+    "dwords": 1741,
+    "bytes": 6964,
+    "end_va": "0x6177cc",
+    "next_arena_va": "0x6177d0",
+    "unaccessed_gap_bytes": 4,
+    "round_up_8": "0x6177d0",
+    "round_up_32": "0x6177e0",
+    "limits": "Cleared span is not proof of original declared context extent/TU;4-byte gap is observed arithmetic, not proposed source padding."
+  },
+  "native_interface": {
+    "rva": "0x361b8",
+    "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "slot2": {
+      "cell_rva": "0x361c0",
+      "value_va": "0x6177d0",
+      "relocation": null
+    },
+    "slot3": {
+      "cell_rva": "0x361c4",
+      "value": "0x300000",
+      "relocation": null
+    },
+    "end_va": "0x9177d0"
+  },
+  "ownership": {
+    "coff_symbol_count": 0,
+    "debug": [],
+    "characteristics": "0x10f",
+    "relocation_count": 0,
+    "limits": "PE section table does not preserve original COFF .bss/COMMON owner boundaries; no ownership inference from absence of symbols."
+  },
+  "conclusions": [
+    "Pinned independent large COMMON definitions require32-aligned native bases in the tested controls; current16-mod32 native arena/archive bases need another supported storage representation or a real containing-object member. A future real section definition may supersede a tentative COMMON declaration; do not infer that no tentative declarations existed.",
+    "Explicit-zero C and C++ extern-C zero definitions emit8-aligned .bss and can naturally retain16mod32 bases across objects. This does not select language, TU, aggregate or original layout.",
+    "Native configured arena span directly reaches directory; the clear of preceding context is compatible with8-byte round-up at its boundary. Declared extents and ownership are not proved.",
+    "No supported archive-leading-array promotion: terminal next-key read representation and scratch extent remain unresolved.",
+    "Native relocation verification subprediction was falsified because EXE relocation records are stripped; pointer roles are supported by table/indirect users."
+  ],
+  "provenance": [
+    {
+      "path": "work/sol_archive_storage_class_11/prediction.json",
+      "sha256": "6a64c04f8e4260b9c48acb320d5995addddd1893abbe34ce2b0a3d182c8358da"
+    },
+    {
+      "path": "work/sol_archive_storage_class_11/object_prediction.json",
+      "sha256": "d791987a435efb0353b5c17a4988757428837f6629c00f287e07f6870903bd36"
+    },
+    {
+      "path": "work/sol_archive_storage_class_11/native_prediction.json",
+      "sha256": "a28f5eadc00875a5626cf060937d66e8231032609519c2fdafba8132e5fbe62d"
+    },
+    {
+      "path": "work/sol_archive_storage_class_11/probe.py",
+      "sha256": "40faf1fe52c238239b9db2fb8269f4d59ebaffff6f820442c2e4a5c243348b75"
+    },
+    {
+      "path": "work/sol_archive_storage_class_11/objects.py",
+      "sha256": "8fbf5fa812935c863f688c951eba2b2a68eea17b8e83aab7d456d18a10790d36"
+    },
+    {
+      "path": "work/sol_archive_storage_class_11/native.py",
+      "sha256": "a135af1bf4775a5579f661a592b7feeba8ce7395ab1e004841caf186a882cc8c"
+    },
+    {
+      "path": "work/sol_archive_storage_class_11/probe.json",
+      "sha256": "27ac0bb4b99760fd8f0fa77958797999a9704d917a8e590c2c6e064c3da3fc94"
+    },
+    {
+      "path": "work/sol_archive_storage_class_11/objects.json",
+      "sha256": "bf209e673bb4974ae46d93141cd5e53f0fd9ac66e452c0e2a17018bc90733a0f"
+    },
+    {
+      "path": "work/sol_archive_storage_class_11/native.json",
+      "sha256": "f6a67650854496fda07b35c664bd8ce5fbb7734ac7efa687e7a57a016e4f5d5a"
+    },
+    {
+      "path": "work/sol_archive_storage_class_11/handoff.md",
+      "sha256": "b68fe5e4354dbb600d3ec203c7b75c2308aa35dc2259d709b41c3fc2e36d0a01"
+    }
+  ],
+  "date": "2026-10-11",
+  "worker_report": {
+    "path": "work/sol_archive_storage_class_11/compact.json",
+    "sha256": "faf966e55b3ad9ab550714f0221bf1393737915c41a13fe808c501a6fb8adfc6"
+  }
+}

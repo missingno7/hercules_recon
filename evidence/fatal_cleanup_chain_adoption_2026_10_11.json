@@ -1,0 +1,130 @@
+{
+  "date": "2026-10-11",
+  "scope": "Fresh canonical complete masked cleanup chain, not raw acceptance or a shutdown alias.",
+  "prediction": "The complete native span at 0x5e90 is a no-argument ordinary-C cleanup helper: timeEndPeriod(1), five direct cleanup calls in observed order, then tail-call archive_shutdown at 0x5110. Each distinct callee remains a real external dependency; this candidate supplies no stub body or alias.",
+  "falsifier": "Reject if direct native code/callers contradict extent, order, arity, import, terminal tail-jump, or caller liveness, or if a fresh complete function contribution has any nonrelocation byte difference or inconsistent implied binding.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "target_span": {
+    "rva": "0x5e90",
+    "end_rva_exclusive": "0x5ec0",
+    "size": 48,
+    "sha256": "a58e1b3163e6d90b7ab6be33052a7018a1369becd9c2636318e36b28224dc487",
+    "boundary_evidence": "Fresh function map span begins at aligned entry 0x5e90 and ends at next aligned entry 0x5ec0; final instruction is a tail jump at 0x5eb1 to 0x5110 followed by ten NOPs. Direct callers are 0x9809, 0x1047d and 0x104ed."
+  },
+  "source": {
+    "path": "calibration/fatal_cleanup_chain.c",
+    "sha256": "e60a7c553dea3d468994fe8e844a01026642f80911d8633329b422a079818066"
+  },
+  "source_hypothesis": {
+    "path": "candidates/luna_fatal_cleanup_chain_11/fatal_cleanup_chain.c",
+    "sha256": "75c11542e99c2ae99b1784d21e638164a3cf990547272f0a4c16f380e32bd496",
+    "candidate_signature": "void __cdecl fatal_shutdown_chain(void)",
+    "formal_signature_and_TU_status": "No-argument, discarded EAX behavior is supported by all three callers; original prototype, source spelling and TU ownership remain unproved."
+  },
+  "call_sequence_and_bindings": [
+    {
+      "order": 1,
+      "candidate_symbol": "__imp__timeEndPeriod@4",
+      "native": "WINMM.dll!timeEndPeriod",
+      "native_import_cell_rva": "0x7a5b20",
+      "argument": 1
+    },
+    {
+      "order": 2,
+      "candidate_symbol": "_cleanup_native_4da0",
+      "native_target_rva": "0x4da0",
+      "label_status": "offset-derived provisional label"
+    },
+    {
+      "order": 3,
+      "candidate_symbol": "_cleanup_native_ff70",
+      "native_target_rva": "0xff70",
+      "label_status": "offset-derived provisional label"
+    },
+    {
+      "order": 4,
+      "candidate_symbol": "_cleanup_native_a120",
+      "native_target_rva": "0xa120",
+      "label_status": "offset-derived provisional label"
+    },
+    {
+      "order": 5,
+      "candidate_symbol": "_empty_host_callback",
+      "native_target_rva": "0xbe30",
+      "provider": "src/pc/interface_callbacks.c",
+      "recovery_status": "existing FUNCTION_MATCH"
+    },
+    {
+      "order": 6,
+      "candidate_symbol": "_cleanup_native_74c0",
+      "native_target_rva": "0x74c0",
+      "label_status": "offset-derived provisional label"
+    },
+    {
+      "order": 7,
+      "candidate_symbol": "_archive_shutdown",
+      "native_target_rva": "0x5110",
+      "provider": "calibration/archive_shutdown.c",
+      "recovery_status": "existing masked source; original prototype remains unproved"
+    }
+  ],
+  "import_library": {
+    "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\winmm.lib",
+    "sha256": "a996cf8e569b6f2dd0a478119a57c325733af545ffee2e6c6fa7dba40bfba260"
+  },
+  "measurement": {
+    "fresh_compile": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe /nologo /c /Gy /O2",
+    "toolchain_id": "msvc5_rtm",
+    "object_sha256": "8d0bef75986e770a5a056f7f7b63b4b6d5316c2f6e1b50281fb0edd35b5ccaa4",
+    "function_output_id": "7ec931e2eed1f1199cb46a83e70deebb6e546671bad3d7d96da4bfb26cab7835",
+    "raw_equal": false,
+    "raw_different_bytes": 19,
+    "masked_equal": true,
+    "compiled_and_target_size": 48,
+    "nonrelocation_differences": 0,
+    "relocations": 7,
+    "unsupported_relocations": [],
+    "binding_conflicts": [],
+    "bindings": {
+      "__imp__timeEndPeriod@4": "0x7a5b20",
+      "_cleanup_native_4da0": "0x4da0",
+      "_cleanup_native_ff70": "0xff70",
+      "_cleanup_native_a120": "0xa120",
+      "_empty_host_callback": "0xbe30",
+      "_cleanup_native_74c0": "0x74c0",
+      "_archive_shutdown": "0x5110"
+    }
+  },
+  "integrator_gate": {
+    "command": "python scripts/similar.py stage work/luna_fatal_cleanup_chain_11/stage_plan.json",
+    "id": "exe.fatal_shutdown_chain",
+    "masked_sha256": "ea1d770c302354be79ef28d2116a03fe0217ab892105d141e924434575d0ae97",
+    "strict_gain_bytes": 0
+  },
+  "limits": [
+    "The four cleanup target names are provisional offset labels; no provider bodies, aliases or stubs were supplied.",
+    "WINMM.lib identity is from the pinned historical toolchain. This function comparison is diagnostic only and proves no source identity, TU ownership, module layout or whole-image match.",
+    "The original target bytes are represented only by span hashes and reviewed boundary/call evidence, not copied into this handoff."
+  ],
+  "provenance": [
+    {
+      "path": "work/luna_fatal_cleanup_chain_11/handoff.json",
+      "sha256": "6102d4916ee1dfcf2810fd68c7c4034931582ab97f5bc45119c6592a30d621c1"
+    },
+    {
+      "path": "work/luna_fatal_cleanup_chain_11/prediction.json",
+      "sha256": "165160128b0daa2b41d40791c6d425388953d5e9e899cda160529d97a7295df5"
+    },
+    {
+      "path": "work/luna_fatal_cleanup_chain_11/stage_plan.json",
+      "sha256": "16535f688e4a351b9e91610b8065b21621c21c9dcff7ddbad5df344a7bd7b9c7"
+    },
+    {
+      "path": "work/luna_fatal_cleanup_chain_11/measurement.json",
+      "sha256": "fdc4faa47751f84e533201a22e41d9ee316f629ebbcf805f6c27e6345a231bf9"
+    }
+  ]
+}

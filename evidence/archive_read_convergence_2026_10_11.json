@@ -1,0 +1,137 @@
+{
+  "date": "2026-10-11",
+  "scope": "Complete archive read masked equality; no strict/image/prototype/TU identity claim.",
+  "source": {
+    "path": "calibration/archive_read.c",
+    "sha256": "3040fd0af3c335c6c4fa860e31406a3a8c6eec4ee3887a580a3383eb905b492e"
+  },
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "rva": "0x5210",
+  "bytes": 176,
+  "symbol": "_archive_read",
+  "bindings": {
+    "_fread": "0x10dc0",
+    "_fseek": "0x112f0",
+    "_g_archive_directory": "0x5177d0",
+    "_g_archive_last_stream_handle": "0x365a4",
+    "_g_archive_logical_positions": "0x51a7d0",
+    "_g_archive_stream": "0x51bbd0"
+  },
+  "evidence_backed_steps": [
+    "Target branches on last-stream-handle mismatch before loading/testing logical position; use the observed short-circuit condition rather than preloading position.",
+    "Target retains item_count through bound compare and overwrites it with clamp quotient; assign back to parameter instead of introducing a separate read_count range."
+  ],
+  "measurements": {
+    "raw_differences_before": 166,
+    "after_short_circuit": 71,
+    "after_in_place_count": 44,
+    "final_nonrelocation_differences": 0,
+    "object_relocations": 13,
+    "coherent_bound_symbols": 6
+  },
+  "isolation": {
+    "complete_bytes_equal": true,
+    "ordered_relocations_equal": true,
+    "single_defined_function": true
+  },
+  "sibling_negative": {
+    "schema_version": 1,
+    "scope": "Compact causal negative for archive_read-only provider plan; derived from the completed three-function /O2 measurement.",
+    "decision": "Only _archive_read belongs in the isolated provider. Its plan follows the similar.py exact-defined-function gate; including either sibling would make the plan reject and neither sibling independently passes the masked contribution gate.",
+    "sibling_results": [
+      {
+        "symbol": "_archive_open",
+        "rva": "0x5130",
+        "end_exclusive": "0x51f0",
+        "target_size": 192,
+        "candidate_size": 176,
+        "strict_equal": false,
+        "raw_different_bytes": 122,
+        "nonrelocation_different_bytes": 93,
+        "relocation_count": 9,
+        "target_relocation_count": 0,
+        "binding_conflicts": [],
+        "masked_category": "structural/source-form investigation",
+        "decision": "exclude from archive_read provider plan"
+      },
+      {
+        "symbol": "_archive_seek",
+        "rva": "0x52c0",
+        "end_exclusive": "0x5340",
+        "target_size": 128,
+        "candidate_size": 128,
+        "strict_equal": false,
+        "raw_different_bytes": 120,
+        "nonrelocation_different_bytes": 85,
+        "relocation_count": 9,
+        "target_relocation_count": 0,
+        "binding_conflicts": [
+          {
+            "symbol": "_g_archive_logical_positions",
+            "offset": 62,
+            "implied": "0xa78c8538",
+            "previous": "0x21ab0c28"
+          },
+          {
+            "symbol": "_g_archive_directory",
+            "offset": 71,
+            "implied": "0x8ac2e1c5",
+            "previous": "0x84cc8b10"
+          },
+          {
+            "symbol": "_g_archive_logical_positions",
+            "offset": 82,
+            "implied": "0x1449077a",
+            "previous": "0x21ab0c28"
+          },
+          {
+            "symbol": "_g_archive_directory",
+            "offset": 88,
+            "implied": "0x8ac091af",
+            "previous": "0x84cc8b10"
+          },
+          {
+            "symbol": "_g_archive_logical_positions",
+            "offset": 95,
+            "implied": "0x144b0095",
+            "previous": "0x21ab0c28"
+          }
+        ],
+        "masked_category": "structural/source-form investigation",
+        "decision": "exclude from archive_read provider plan"
+      }
+    ],
+    "gate_cause": "The isolated compile defines exactly _archive_read. similar.check_rows requires defined function symbols to equal the plan symbol set. Adding _archive_open or _archive_seek would fail this gate, while omitting them is justified because their measured contributions remain structural/source-form investigations.",
+    "reopen_condition": "Revisit a sibling only with new instruction/source evidence, a new discriminator, or changed context; do not replay the stopped family from this measurement alone."
+  },
+  "semantic_fixture": {
+    "checks": 30,
+    "passed": true,
+    "scope": "Finite reconstructed-only synthetic fixture; no exhaustive behavior proof or original execution."
+  },
+  "limits": [
+    "EXE has no base-relocation directory; noHIGHLOW equality claim.",
+    "Absolute globals and real CRT dependencies remain unresolved in the object; no address embedding or linker-placement change.",
+    "Legacy mixed archive_backend.c remains diagnostic for unmatched open/seek and is not a second matching read provider.",
+    "SDKstdio.h supplies real FILE/fseek/fread declarations; historical custom declarations and TU ownership unproved."
+  ],
+  "provenance": [
+    {
+      "path": "work/luna_engine_archive_region_11/archive_read_stage_plan.json",
+      "sha256": "fda9d843f8be1b2ec05adf89addcfd2af84468a281763c6947215cf423d3e3c6"
+    },
+    {
+      "path": "work/luna_engine_archive_region_11/archive_read_provider_rehearsal.json",
+      "sha256": "582fb2a29f8fe54163d6a0710170900d3822468e26023f328f7268e30103396c"
+    },
+    {
+      "path": "work/luna_engine_archive_region_11/archive_read_sibling_causal_negative.json",
+      "sha256": "3f5c54f595a7fb96f605c5c426905b6126c250ad45517aa131ca3d28b09a51cb"
+    },
+    {
+      "path": "work/luna_engine_archive_region_11/handoff.md",
+      "sha256": "49a3c9b53512d0d34f3d01a3ddb0926f6d775ad60fd0b487cd252157840b22de"
+    }
+  ]
+}

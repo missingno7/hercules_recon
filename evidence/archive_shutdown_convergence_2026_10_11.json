@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-11",
+  "scope": "Physical cleanup source/consumer hypothesis and complete32-byte masked equality; original formal return type unproved.",
+  "source": {
+    "path": "calibration/archive_shutdown.c",
+    "sha256": "16e97adbba0fa0866f2ec5856f356b5ded56dd69713583e10acb3f98f4c2d2e1"
+  },
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "rva": "0x5110",
+  "bytes": 32,
+  "bindings": {
+    "_fclose": "0x10c50",
+    "_g_archive_stream": "0x51bbd0"
+  },
+  "prediction": {
+    "region": "archive_lifecycle",
+    "family": "void-cleanup-consumer-ABI",
+    "prediction": "The native32-byte cleanup retains loaded-null EAX or fclose's EAX incidentally. Its sole direct entry reference is a tail jump from the cleanup chain, whose three reviewed callers discard EAX. Ordinary void cleanup should reproduce the complete body without an explicit return-value live range.",
+    "falsifier": "A caller consuming cleanup EAX, any nonrelocation difference, wrong fclose/stream binding, wrong full extent or changed accepted peer rejects adoption.",
+    "new_evidence": "Tail jump5eb1->5110; caller9809 immediately calls MFC afterward,1047d overwritesAL before checking it,104ed immediately overwritesEAX with a global. This is a physical consumer/result-liveness discriminator, not a declaration-order grid.",
+    "limits": "Caller result disuse does not identify the historical formal return type; fresh compiler equality is function-body scope only."
+  },
+  "references": [
+    {
+      "source": "0x5eb1",
+      "target": "0x5110",
+      "kind": "linear_branch"
+    }
+  ],
+  "caller_evidence": [
+    {
+      "site": "0x5eb1",
+      "effect": "Tail-jumps from cleanup chain to5110."
+    },
+    {
+      "site": "0x9809",
+      "effect": "Cleanup caller then passes ECX=this and calls MFC routine; no EAX parameter/result use before that call."
+    },
+    {
+      "site": "0x1047d",
+      "effect": "After cleanup, loadsAL andtestsAL; both branches overwritefullEAX at1048b or104a4 before any fullEAX use."
+    },
+    {
+      "site": "0x104ed",
+      "effect": "Immediately overwritesfullEAX at104f2 beforetest."
+    }
+  ],
+  "mechanism": "Void source has no explicit integer result range. The pinned compiler retains the loaded pointer inEAX onnullpath andfclose EAX onnon-nullpath, exactly as nativebody; no address or assembly steering.",
+  "raw_differences": 8,
+  "nonrelocation_differences": 0,
+  "relocations": [
+    {
+      "offset": 1,
+      "symbol": "_g_archive_stream",
+      "type": 6
+    },
+    {
+      "offset": 11,
+      "symbol": "_fclose",
+      "type": 20
+    },
+    {
+      "offset": 20,
+      "symbol": "_g_archive_stream",
+      "type": 6
+    }
+  ],
+  "extent": "Actual RET at512c and three nativeNOPs through512f; next independent archive-open entry5130. No indexed incoming entry inside32-byte span.",
+  "limits": [
+    "Observed caller disuse supports this source but does not recover the original formal type/prototype or TU.",
+    "Physical EAX behavior matches compiler bytes, not a portable C return-value promise.",
+    "Legacy int-return archive_lifecycle.c remains an unaccepted diagnostic hypothesis, not another matching owner.",
+    "Three unresolved COFF addresses; no strict or natural-layout claim."
+  ],
+  "fresh_provenance": [
+    {
+      "path": "work/root_archive_lifecycle_11/residual.json",
+      "sha256": "b28724bb4c4538afd3643c8182b17e047ecb72658202e973207a140ed61e0d1d"
+    },
+    {
+      "path": "work/root_archive_lifecycle_11/prediction.json",
+      "sha256": "6aa268680c0d5e2f08926add4a9e2a5c0f16473cbea3a5929ab7c53e2ac786dc"
+    },
+    {
+      "path": "work/root_archive_lifecycle_11/stage_plan.json",
+      "sha256": "6a6080d3f311b5345adc4b2ebaa51e03bceca79bc65f0d8a4ac96c0b0a887b61"
+    }
+  ]
+}

@@ -1,0 +1,365 @@
+{
+  "date": "2026-10-11",
+  "family": {
+    "region": "EXE CRT GUI entry/archive dependency closure",
+    "lane": "sol_crt_entry_closure_11",
+    "family": "native GUI startup plus pinned static MFC input",
+    "prediction": "The native PE entry is the pinned LIBCMT WinMainCRTStartup contribution, whose WinMain callee is pinned NAFXCW appmodul. A natural WINDOWS EXE link with these real library inputs selects wincrt0.obj for __amsg_exit instead of diagnostic DLL/NOENTRY selection of crt0.obj, eliminating _main without a replacement body or entry override.",
+    "falsifier": "Any non-relocation startup byte differs, startup operands contradict identified native WinMain/MFC providers, or natural WINDOWS library selection retains crt0.obj/_main.",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "capability": "read-only library/oracle analysis and historical natural link diagnostic",
+    "tokens": null,
+    "cost": null,
+    "limits": "No canonical edits, stubs, aliases, explicit ENTRY, original execution, object patching or placement controls. Library identity is not strict source recovery."
+  },
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "entry_rva": "0x11ea0",
+    "subsystem": 2
+  },
+  "native_library_chain": [
+    {
+      "symbol": "_WinMainCRTStartup",
+      "rva": "0x11ea0",
+      "bytes": 432,
+      "nonrelocation_bytes": 300,
+      "nonrelocation_differences": 0,
+      "relocations": 33,
+      "target_span_sha256": "bab587c5fed0625741762eae7b726e44687185873877acc7b5137b147f828a8f",
+      "object_section_sha256": "12117c6b7571c0985601a9aa5bf32a14a99fb5502e379eb3d720943f0b181001"
+    },
+    {
+      "symbol": "_WinMain@16",
+      "rva": "0x1cb75",
+      "bytes": 24,
+      "nonrelocation_bytes": 20,
+      "nonrelocation_differences": 0,
+      "relocations": 1,
+      "target_span_sha256": "f7ac4b264677d41e5842b84fc98123b03b4e9034654aac980bd86f6bc3b97ade",
+      "object_section_sha256": "42df7858dfe0012a8c21358d74962a427e257d3c900aa7b27a5b980df60ae3aa"
+    },
+    {
+      "symbol": "?AfxWinMain@@YGHPAUHINSTANCE__@@0PADH@Z",
+      "rva": "0x26e38",
+      "bytes": 101,
+      "nonrelocation_bytes": 89,
+      "nonrelocation_differences": 0,
+      "relocations": 3,
+      "target_span_sha256": "188d52e046b2a841b4979282de4cc05ab82dc3a1c2de4c31d26628e3a56718c5",
+      "object_section_sha256": "e7479b7e15cd4d3afb781650ac3c0cb0b36ac3b055bd735e30ff4d599366b72b"
+    },
+    {
+      "symbol": "__amsg_exit",
+      "rva": "0x12050",
+      "bytes": 48,
+      "nonrelocation_bytes": 32,
+      "nonrelocation_differences": 0,
+      "relocations": 4,
+      "target_span_sha256": "539d8e4f16eae670a573ab2d636e5e7a7ae1bd6e9095f729e29c65e26404306a",
+      "object_section_sha256": "0c24e075d186fffd0e0a5535853cf46ee5febeeea835002b44a4427a6231c60d"
+    }
+  ],
+  "pinned_members": [
+    {
+      "library": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+      "library_sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b",
+      "member": "build\\intel\\mt_obj\\wincrt0.obj",
+      "member_sha256": "025aa31151a6cf9cc912da0174b03c2266590a6254866d596cba654cd7b16b1c"
+    },
+    {
+      "library": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+      "library_sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b",
+      "member": "build\\intel\\mt_obj\\wwincrt0.obj",
+      "member_sha256": "ba473a3254c12963ee9538464fd9d64d9be9608fd27999008a0fcf0204115c3f"
+    },
+    {
+      "library": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\lib\\nafxcw.lib",
+      "library_sha256": "5d9c3585552412a9b94a9a0b7c3a4208061a76d48a6c3283518bfe9f674c9e22",
+      "member": "$NW\\appmodul.obj",
+      "member_sha256": "49a8a63e992e3172916030fd029610ef85c9059af45ed6e619d07df088bc41d7"
+    },
+    {
+      "library": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\lib\\nafxcw.lib",
+      "library_sha256": "5d9c3585552412a9b94a9a0b7c3a4208061a76d48a6c3283518bfe9f674c9e22",
+      "member": "$NW\\winmain.obj",
+      "member_sha256": "f46aa2ca256d656ead5cf166d7d140af4da2b593bb33b0d2f92fc2d0a23bec62"
+    }
+  ],
+  "library_provenance": {
+    "origin": {
+      "id": "msvc5_rtm",
+      "directory": "msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+      "repository": "https://github.com/archaic-msvc/msvc500",
+      "commit": "8abf95ce980161ad87b0b02402269cce76988953",
+      "archive_url": "https://codeload.github.com/archaic-msvc/msvc500/zip/8abf95ce980161ad87b0b02402269cce76988953",
+      "archive_sha256": "5f7728d1b3b8b8c61bb35e42a7680211019d290b30376c1a0a8faaa6d166cd1f",
+      "installed_tree": {
+        "bytes": 176448826,
+        "files": 1167,
+        "sha256": "29fc5aea67aa10a8135d65f8f371f7456bfc10ec8ef36dc0050ca5406bf9d92e"
+      },
+      "adjustments": [
+        "Copy unchanged redist/msvcp50.dll to bin/msvcp50.dll."
+      ]
+    },
+    "toolchain_manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "windows_libraries": [
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\lib\\nafxcw.lib",
+        "sha256": "5d9c3585552412a9b94a9a0b7c3a4208061a76d48a6c3283518bfe9f674c9e22"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+        "sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\kernel32.lib",
+        "sha256": "095f231e13cb3e6a6c4913d33ca8048506011034c89774b6ba0857466abba3cf"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\user32.lib",
+        "sha256": "5badb752dbcd6355a666d5b88aa9fd5e27291c16edc76f1b5258468d994f1809"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\gdi32.lib",
+        "sha256": "3c202569b76ec990be85393d484261fdb9b67614b35d7abd169eecf845d070f8"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\comdlg32.lib",
+        "sha256": "cf4320d34c6fa1cfa0738973bdf3e984dddaeadf5050ddf6a5054969e7a4d827"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\winspool.lib",
+        "sha256": "a27d801745ad55b08c4bc47fb21d2a9f374f38cb0821501858c1f41623641477"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\advapi32.lib",
+        "sha256": "2d7da3304b3f0b21fd5a3ddcec1aa91c7d64b270087793eb8e1dfd5be21e6ae5"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\shell32.lib",
+        "sha256": "2c717c106e8831b7b8dbc37ef93774f1978535b1122dbbcea2e29bd2bbe969c4"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\comctl32.lib",
+        "sha256": "c6ee0e9711255dad6cbf371221dfe7b47d38bea641cb31d462906f624e4a2a41"
+      }
+    ],
+    "mfc_header": {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\include\\afx.h",
+      "sha256": "3ca0caeb968ceb2c99b81251dc29f7ca5ad275358633ff3f514b4fcd08a72902",
+      "import_library_directive_lines": [
+        {
+          "line": 91,
+          "text": "#pragma comment(lib, \"kernel32.lib\")"
+        },
+        {
+          "line": 92,
+          "text": "#pragma comment(lib, \"user32.lib\")"
+        },
+        {
+          "line": 93,
+          "text": "#pragma comment(lib, \"gdi32.lib\")"
+        },
+        {
+          "line": 94,
+          "text": "#pragma comment(lib, \"comdlg32.lib\")"
+        },
+        {
+          "line": 95,
+          "text": "#pragma comment(lib, \"winspool.lib\")"
+        },
+        {
+          "line": 96,
+          "text": "#pragma comment(lib, \"advapi32.lib\")"
+        },
+        {
+          "line": 97,
+          "text": "#pragma comment(lib, \"shell32.lib\")"
+        },
+        {
+          "line": 98,
+          "text": "#pragma comment(lib, \"comctl32.lib\")"
+        }
+      ]
+    }
+  },
+  "peer_preservation": {
+    "raw_functions": 6,
+    "raw_bytes": 224,
+    "masked_functions": 8,
+    "masked_bytes": 640
+  },
+  "source_preservation": {
+    "fresh_sources": 11,
+    "all_complete_code_and_ordered_relocations_equal": true,
+    "all_complete_section_bytes_flags_and_sizes_equal": true
+  },
+  "canonical_supported_control": {
+    "unresolved": [
+      "_archive_fatal",
+      "_g_archive_directory",
+      "_g_archive_logical_positions",
+      "_g_archive_scratch"
+    ],
+    "scope": "Same frozen code and supported scalar/string/public-handle providers, excluding arrays.obj. The four unresolved names are real archive contributions; CRT _main/WinMain dependency closed naturally."
+  },
+  "canonical_supported_same_libraries_dll_noentry_control": {
+    "unresolved": [
+      "_archive_fatal",
+      "_g_archive_directory",
+      "_g_archive_logical_positions",
+      "_g_archive_scratch",
+      "_main"
+    ],
+    "unresolved_count": 5,
+    "scope": "Identical noarrays objects and explicit libraries; diagnostic DLL/NOENTRY chooses crt0.obj and adds _main. Actual Windows subsystem chooses wincrt0.obj and selects the MFC entry providers. Generic DLL dependency tooling remains unchanged."
+  },
+  "private_arrays_control": {
+    "unresolved": [
+      "_archive_fatal",
+      "_g_archive_scratch"
+    ],
+    "scope": "The two-unresolved control includes unpromoted independent directory/position arrays. Their full extents/ownership and terminal next-key overlap remain unproved; this is private dependency diagnostic only."
+  },
+  "operand_bindings": {
+    "imports": [
+      {
+        "symbol": "__imp__GetVersion@0",
+        "address": "0xba5870",
+        "native_import": "GetVersion"
+      },
+      {
+        "symbol": "__imp__GetCommandLineA@0",
+        "address": "0xba5874",
+        "native_import": "GetCommandLineA"
+      },
+      {
+        "symbol": "__imp__GetStartupInfoA@4",
+        "address": "0xba586c",
+        "native_import": "GetStartupInfoA"
+      },
+      {
+        "symbol": "__imp__GetModuleHandleA@4",
+        "address": "0xba587c",
+        "native_import": "GetModuleHandleA"
+      }
+    ],
+    "exception_scope_table": {
+      "bytes": 12,
+      "native_rva": "0x2edf0",
+      "nonrelocation_bytes": 4,
+      "nonrelocation_equal": true,
+      "operands": [
+        {
+          "symbol": "$L7928",
+          "offset": 4,
+          "value": "0x411ffd",
+          "equal": true
+        },
+        {
+          "symbol": "$L7929",
+          "offset": 8,
+          "value": "0x412012",
+          "equal": true
+        }
+      ]
+    },
+    "absolute_exception_list": {
+      "value": 0,
+      "section": -1,
+      "equal": true,
+      "provider": {
+        "member": "build\\intel\\mt_obj\\exsup.obj",
+        "sha256": "b2a6937dc1e98684da0dd76715386f6453fc40865a62b9f8a04229592e97349e"
+      }
+    },
+    "other_native_addresses": "Decoded operands provide binding fingerprints, not independently proven raw linked equality."
+  },
+  "reproduce": {
+    "python": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "script": "work/sol_crt_entry_closure_11/reproduce.py",
+    "requires_escalated": "Pinned historical compiler/linker execution on this host"
+  },
+  "limits": [
+    "Pinned library contribution identities do not uniquely identify original compiler/runtime revision.",
+    "The identified 605 library bytes are not new reconstructed game-code bytes or FUNCTION_MATCH.",
+    "Native absolute and relative external operands are decoded binding evidence; no linked raw equality asserted.",
+    "WINDOWS subsystem is evidenced by native PE. NODEFAULTLIB preserves explicit known inputs; INCREMENTAL:NO avoids incremental state; OPT:NOREF preserves frozen contributions. None establishes historical original flags or unit/module placement.",
+    "MFC header imports close selected dependencies. Preserving all member contributions may retain APIs absent from original import table; no original import set claim.",
+    "Canonical-supported providers still lack directory, logical positions, scratch and fatal body. Private arrays reduce four gaps to two without proving full array extents/ownership.",
+    "No linked consumer image produced due unresolved real archive names; no execution, assets/canonical/recovery edits, stubs, aliases, ENTRY override, patching, asm or placement tricks.",
+    "__except_list is a special absolute-zero FS exception-chain offset supplied by LIBCMT exsup.obj, not an image data pointer or normal masked-gate symbol binding.",
+    "NAFXCW reproduces the native entry contributions, which can be shared with other MFC linkage arrangements. This identifies working library providers and native code fingerprints, not the entire original static/dynamic MFC library set."
+  ],
+  "provenance": [
+    {
+      "path": "work/sol_crt_entry_closure_11/meta.json",
+      "sha256": "30b61147c3b1eb507a7ae77c977d6cecda1b4f06ebd5dd43a8362c2939d701c4"
+    },
+    {
+      "path": "work/sol_crt_entry_closure_11/analyze_entry.py",
+      "sha256": "f2a39530efc6dcfaaf1b94913bce030b5b2be8821852280e43a90bd3053577bd"
+    },
+    {
+      "path": "work/sol_crt_entry_closure_11/measure.py",
+      "sha256": "6bad1e70288e9d8e0ce4f6145671f038dc543aa6889884b5eb219120ccf0e57e"
+    },
+    {
+      "path": "work/sol_crt_entry_closure_11/link_control.py",
+      "sha256": "f5a263e5e9caa0671c3035b81d9542cafe82338a4f429ff5afed39940114aa6c"
+    },
+    {
+      "path": "work/sol_crt_entry_closure_11/import_control.py",
+      "sha256": "6aff6a9b1e348e77b4b7ae9c183ccb81c0df8d56c52bb4772d52161d2ea14e77"
+    },
+    {
+      "path": "work/sol_crt_entry_closure_11/binding_checks.py",
+      "sha256": "b9c6a73215d1e2890357eb1163e879866e6e7a144f8fc8395cad09626bf75859"
+    },
+    {
+      "path": "work/sol_crt_entry_closure_11/reproduce.py",
+      "sha256": "e2e8e486f69320349a98986088ee5e76d5536de5ca04c7340aab895b64e9571e"
+    },
+    {
+      "path": "work/sol_crt_entry_closure_11/summarize.py",
+      "sha256": "c65963690271dfea0153f41fe8aa305a20b6a3b23fff488481888fc52da9ecea"
+    },
+    {
+      "path": "work/sol_crt_entry_closure_11/inspect.json",
+      "sha256": "3068bc8193d9041737f4b2979cd6301fb45fbe261af4f3a73efeeef843b683ca"
+    },
+    {
+      "path": "work/sol_crt_entry_closure_11/measurement.json",
+      "sha256": "d49d945bbc450abb605cbbd1d00e5fc7e354a786def39421da105c9fafea58f1"
+    },
+    {
+      "path": "work/sol_crt_entry_closure_11/link_control.json",
+      "sha256": "9d20133bf148b126fe8f86c2a2a4b088527db4d23b9893d0e7dd69864ed8da2e"
+    },
+    {
+      "path": "work/sol_crt_entry_closure_11/import_control.json",
+      "sha256": "a1e4e388c8431c40647f34a0a380f6ceb34bfc006c0e20c3d5cf63b6e2813292"
+    },
+    {
+      "path": "work/sol_crt_entry_closure_11/binding_checks.json",
+      "sha256": "a717ec2d9fe152d241838b2f20b6beaa9dc24d04f80909c5bfd277b3c510349b"
+    }
+  ],
+  "scope": "Library identification and native GUI member-selection discriminator; no reconstructed function or module acceptance.",
+  "integrator_reproduction": {
+    "command": "python work/sol_crt_entry_closure_11/reproduce.py",
+    "exit_code": 0,
+    "private_proof": {
+      "path": "work/sol_crt_entry_closure_11/compact_proof.json",
+      "sha256": "011885967d35ff6d1727d5672497fef2ee975695d7d8dc74aea3a85b130137fc"
+    },
+    "log": {
+      "path": "work/root_engine_bridge_11/crt_reproduction.txt",
+      "sha256": "542022f34b7dcc6520cc8ebb1ee430002d1bd09a0329f468f6ce1406752d8741"
+    },
+    "strict_game_code_gain": 0
+  }
+}

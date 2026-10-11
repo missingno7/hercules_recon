@@ -3,9 +3,9 @@
 #include "../calibration/virtual_file.c"
 int g_public_file_count;
 int g_public_file_handles[16];
-const char g_open_capacity_error[]="PCopen(1)",g_open_mode_error[]="PCopen(2)";
-const char g_seek_handle_error[]="PCseek",g_read_handle_error[]="PCread";
-const char g_archive_read_mode[]="rb";
+char g_open_capacity_error[]="PCopen(1)",g_open_mode_error[]="PCopen(2)";
+char g_seek_handle_error[]="PCseek",g_read_handle_error[]="PCread";
+char g_archive_read_mode[]="rb";
 static unsigned long checks,failures;
 static int fatal_calls,open_calls,seek_calls,position_calls,read_calls,close_calls;
 static const char *fatal_message;

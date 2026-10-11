@@ -1,0 +1,159 @@
+{
+  "date": "2026-10-11",
+  "scope": "Fresh complete diagnostic equality for a real missing common fatal service; no raw function or module acceptance.",
+  "source": {
+    "path": "calibration/archive_fatal.c",
+    "sha256": "0ad4c3924473ca13eeb8e1a6722c80b7d1e792c21c7887eec8b74cdc94a8aa91"
+  },
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "function": {
+    "id": "exe.archive_fatal",
+    "symbol": "_archive_fatal",
+    "rva": "0x10460",
+    "end_rva_exclusive": "0x104d0",
+    "size": 112,
+    "target_sha256": "46c79880c758ed707eacd9cc5b6944a38dffcfcfba326a9c2548fa68e2fe0287",
+    "candidate_size": 112,
+    "raw_equal": false,
+    "raw_differing_bytes": 30,
+    "masked_equal": true,
+    "masked_nonrelocation_differences": 0,
+    "coff_relocations": 11,
+    "unsupported_relocations": [],
+    "binding_conflicts": [],
+    "receipt_id": "a5f349a9accab6393e32168f41d406f69ec8163115a5cdb8ed7869b6332a6e5a",
+    "output_id": "bd79b9378c0e209f30b2141eca0ae36bed8a07bd039f1852ca07b70bcdb23c8c"
+  },
+  "prediction": {
+    "family": "ordinary-c-host-fatal-dialog-and-exit",
+    "verdict": "observed",
+    "falsifier": "Any nonrelocation difference, incomplete extent, unsupported/conflicting relocation, wrong binding, caller ABI contradiction or changed oracle."
+  },
+  "source_hypothesis": {
+    "signature": "void __cdecl archive_fatal(const char *message)",
+    "formal_signature_status": "Compatible with measured callsites; original return type and source identity remain unproved.",
+    "body": "Guard repeated fatal entry with exit(-321); set the guard; call shared cleanup chain; display the message with title Hercules Error and style 0x10 unless suppressed; request WM_CLOSE (0x10) on the nonnull owner window; call exit(-123)."
+  },
+  "call_control": {
+    "full_target_evidence": "work/resource_host_bindings/file_io_decode.txt, work/resource_host_bindings/archive_decode.txt, evidence/resource_host_bindings.json",
+    "fatal_body": "The 112-byte target interval contains RET at 0x104c4 followed by 11 NOP bytes; distinct next entry begins at 0x104d0.",
+    "archive_callers": [
+      {
+        "call_rva": "0x5061",
+        "argument": "pushes native PC_InitFileSys(1) string at VA 0x436604",
+        "cleanup": "caller restores four bytes after the call",
+        "source_context": "archive initialization open failure"
+      },
+      {
+        "call_rva": "0x508d",
+        "argument": "pushes native PC_InitFileSys(2) string at VA 0x4365f0",
+        "cleanup": "caller restores four bytes immediately after the call",
+        "source_context": "archive initialization read failure"
+      },
+      {
+        "call_rva": "0x50e8",
+        "argument": "pushes native PC_InitFileSys(3) string at VA 0x4365dc",
+        "cleanup": "caller restores four bytes after loading the live count",
+        "source_context": "archive directory ordering failure"
+      },
+      {
+        "call_rva": "0x51c0",
+        "argument": "pushes a stack message pointer",
+        "cleanup": "caller restores four bytes immediately after the call",
+        "source_context": "host archive service error path"
+      }
+    ],
+    "other_indexed_callers": "The static index lists 15 additional call references at 0x5cc0, 0x72e6, 0x730c, 0x7358, 0x73f5, 0x7434, 0x7459, 0x7483, 0x74a8, 0x7a54, 0xa220, 0xa235, 0xa2a3, 0xa313 and 0xf472; existing host contract documents the virtual-file fatal calls. These support a common message-diagnostic service but do not identify TU ownership.",
+    "result_liveness": "Archive callers treat the fatal call as returning C code and clean one 32-bit argument; target exit is operationally terminal, but no noreturn attribute is claimed."
+  },
+  "measured_bindings": [
+    {
+      "coff_symbol": "_exit",
+      "target": "HERCULES.EXE RVA 0x11d10",
+      "evidence": "Identified as CRT exit(int); pinned LIBCMT crt0dat.obj contribution in evidence/archive_name_contract.json."
+    },
+    {
+      "coff_symbol": "__imp__MessageBoxA@16",
+      "target": "USER32.dll import cell RVA 0x7a5ad4",
+      "evidence": "PE import table names USER32.dll!MessageBoxA."
+    },
+    {
+      "coff_symbol": "__imp__SendNotifyMessageA@16",
+      "target": "USER32.dll import cell RVA 0x7a5a38",
+      "evidence": "PE import table names USER32.dll!SendNotifyMessageA."
+    },
+    {
+      "coff_symbol": "_fatal_shutdown_chain",
+      "target": "HERCULES.EXE RVA 0x5e90",
+      "evidence": "Target helper ends in a tail jump to archive shutdown at RVA 0x5110; this is a distinct cleanup chain, not an alias for shutdown."
+    },
+    {
+      "coff_symbol": "_g_fatal_entered",
+      "target": "HERCULES.EXE RVA 0x7a023c",
+      "observed_access": "1 byte read/write; zero-initialized non-file-backed .data."
+    },
+    {
+      "coff_symbol": "_g_fatal_suppress_dialog",
+      "target": "HERCULES.EXE RVA 0x7a020c",
+      "observed_access": "1 byte read; zero-initialized non-file-backed .data; other code also references this cell."
+    },
+    {
+      "coff_symbol": "_g_fatal_owner_window",
+      "target": "HERCULES.EXE RVA 0x7a0200",
+      "observed_access": "32-bit read; zero-initialized non-file-backed .data; other code also references this cell."
+    },
+    {
+      "coff_symbol": "compiler literal symbol",
+      "target": "HERCULES.EXE RVA 0x3a598",
+      "observed_value": "NUL-terminated Hercules Error."
+    }
+  ],
+  "dependency_limits": "The three guessed extern spellings for shared globals, the cleanup-chain source symbol, and original global prototypes/ownership are not established. Leave them external until an actual source/library provider is independently supported. Do not add duplicate data, aliases, or closure stubs. The measurement confirms each candidate relocation resolves to the observed target address only.",
+  "integrator_gate": {
+    "command": "python scripts/similar.py stage work/root_engine_bridge_11/fatal_stage_plan.json",
+    "row_id": "exe.archive_fatal",
+    "link_symbols": {
+      "??_C@_0P@OKEI@Hercules?5Error?$AA@": "0x3a598",
+      "__imp__MessageBoxA@16": "0x7a5ad4",
+      "__imp__SendNotifyMessageA@16": "0x7a5a38",
+      "_exit": "0x11d10",
+      "_fatal_shutdown_chain": "0x5e90",
+      "_g_fatal_entered": "0x7a023c",
+      "_g_fatal_owner_window": "0x7a0200",
+      "_g_fatal_suppress_dialog": "0x7a020c"
+    },
+    "masked_sha256": "1873814babb7fe6226645696873ff289e8345a2a6cabf37bca755e3828563826",
+    "strict_gain_bytes": 0,
+    "masked_gain_bytes": 112
+  },
+  "provenance": [
+    {
+      "path": "work/luna_archive_fatal_11/prediction.json",
+      "sha256": "affe23c26e2261bb1eb71be70ca81a058a6b108294f41d3fd460bbfdafa09b88"
+    },
+    {
+      "path": "work/luna_archive_fatal_11/stage_plan.json",
+      "sha256": "07e0b66b4e6564c049290ea9d235c7c643d2dcaf9e2875f5e527cb5b5da90b11"
+    },
+    {
+      "path": "work/luna_archive_fatal_11/archive_fatal_measurement.json",
+      "sha256": "332c8ed3cec45389bec77bf248b0b6fe7c44a62f63c4423edb8ef89302b76759"
+    },
+    {
+      "path": "work/luna_archive_fatal_11/receipt-a5f349a9accab6393e32168f41d406f69ec8163115a5cdb8ed7869b6332a6e5a.json",
+      "sha256": "258d858140ec51a224ed6a61ed8be1d1c8e5b2453ecf970ceb13e5bf4cfbb5c2"
+    },
+    {
+      "path": "work/root_engine_bridge_11/fatal_stage_plan.json",
+      "sha256": "caac8f32dc41f3c3a1d0dfc19f779083c147f67c6a83bf3f5eedd2adb46ca031"
+    }
+  ],
+  "limits": [
+    "Fresh gate verifies all complete function bytes outside real relocation operands, exact absolute operand positions and coherent implied bindings.",
+    "The three shared globals and distinct cleanup chain remain undefined; providing the fatal body exposes those real dependencies.",
+    "The original formal return type/TU/source spelling remain unproved. No standalone runtime fixture or behavior-exact classification is claimed."
+  ]
+}

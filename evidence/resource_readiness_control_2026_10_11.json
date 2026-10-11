@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-11",
+  "scope": "Falsified compiler-control family, not recovery status; canonical source unchanged.",
+  "region": "resource_readiness",
+  "family": "metadata-scan-index-cursor-do-while-control",
+  "verdict": "falsified",
+  "prediction": "The current fresh VC5 baseline produces a 128-byte scan contribution with a 93-byte relocation-masked residual. Native 0x37ec..0x37fd uses the original signed index as a cursor subscript, reads cursor+4, advances the pointer and index, then loops while index<count. Rewriting only this scan loop as a cursor-based do/while should move the ordinary /O2 /Gy contribution toward the reviewed 112-byte span and preserve the paired readiness contribution and all tested scan semantics.",
+  "falsifier": "Reject if a fresh whole-pair compile changes the 80-byte readiness contribution or the scan remains 128 bytes with no reduction in its full relocation-masked residual; reject any new unlisted relocation symbol or disagreement between repeated sites for one symbol and the reviewed binding map. Relocation offsets are compared within each output; they need not match target offsets when instruction layout differs. Reject if the independent fixture fails the low-budget no-record path, signed index guard, inclusive final slot, first nonzero arithmetic-shifted descriptor, or signed available>=offset result. Stop after this single control-shape family.",
+  "result": {
+    "scan_target_bytes": 112,
+    "baseline_scan_bytes": 128,
+    "candidate_scan_bytes": 128,
+    "baseline_raw_differences": 105,
+    "candidate_raw_differences": 119,
+    "baseline_target_bound_diagnostic_differences": 101,
+    "candidate_target_bound_diagnostic_differences": 115,
+    "ready_peer_bytes": 80,
+    "ready_peer_complete_output_unchanged": true,
+    "candidate_semantic_fixture_checks": 20,
+    "candidate_semantic_failures": 0
+  },
+  "caveat": "Target-bound diagnostic counts differ from bare relocation-masking counts because symbols are resolved at reviewed addresses. Neither comparison passes acceptance here; the preliminary prediction cited93 bare-mask differences.",
+  "reentry_condition": "No further scan-control form exploration. Reopen only with new native/source-ownership/declaration evidence or changed compiler/header context.",
+  "next_discriminator": "Seek independent evidence of original loop variable/type or translation-unit ownership before any new scan candidate.",
+  "durable_receipt": {
+    "path": "evidence/regions/resource_readiness_cursor_control_2026_10_11.json",
+    "sha256": "e85c5051acbbeb292f551b6874a0fd3f155ddddfa361d0e57c4b966b0b65ea7a"
+  },
+  "provenance": [
+    {
+      "path": "work/luna_eng1_resource_readiness_11/baseline.json",
+      "sha256": "24f4c94411138cd27b6b571c17d4beb36fa284e1557872bf7b4296c3ceafeebb"
+    },
+    {
+      "path": "work/luna_eng1_resource_readiness_11/baseline_bindings.json",
+      "sha256": "813e20919632ec5949f242f14381f7776d50b21eb2f41cec49919610aa08ccbf"
+    },
+    {
+      "path": "work/luna_eng1_resource_readiness_11/family_meta.json",
+      "sha256": "2dac497a9d9e04d4c556601cec66dff7ac77aef71b9b39fb4e629324df870070"
+    },
+    {
+      "path": "work/luna_eng1_resource_readiness_11/candidate_report.json",
+      "sha256": "9c3664b2e1f6df223e28853f6a82f1e1dd7dde4b17502cf4b1442ed799a1059e"
+    },
+    {
+      "path": "work/luna_eng1_resource_readiness_11/fixture_result.json",
+      "sha256": "3c128f74e83986bbaa763cd027f44684751779701eefff6334a14096c3124bb5"
+    },
+    {
+      "path": "work/luna_eng1_resource_readiness_11/receipt-1c6bf7a87ae85324712ff82963082bb2bc8ce2ee31255e0fb59632580e72ebd7.json",
+      "sha256": "e85c5051acbbeb292f551b6874a0fd3f155ddddfa361d0e57c4b966b0b65ea7a"
+    }
+  ]
+}

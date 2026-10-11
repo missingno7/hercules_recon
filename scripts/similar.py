@@ -48,7 +48,24 @@ def interior_entries(db, module, rva, size):
 
 
 def check_rows(rows, source):
+    # The complete oracle identity belongs to each row, even when a changed
+    # image happens to retain these function bytes. Masked equality cannot
+    # establish that identity by itself.
+    source_path = ROOT / source
+    source_before = digest(source_path.read_bytes())
+    targets = {}
+    for r in rows:
+        target = ROOT / r['target']
+        expected = r['target_sha256']
+        if target in targets and targets[target] != expected:
+            raise ValueError(f'Conflicting oracle identities for {target}')
+        targets[target] = expected
+    for target, expected in targets.items():
+        if digest(target.read_bytes()) != expected:
+            raise ValueError(f'Target hash mismatch: {target}')
     obj, _ = compile_source(ROOT / source, ['/O2'])
+    if digest(source_path.read_bytes()) != source_before:
+        raise ValueError('Source changed during compilation')
     db = sqlite3.connect(DB)
     expected = {r['symbol'] for r in rows}
     if defined_functions(obj) != expected:
@@ -63,6 +80,11 @@ def check_rows(rows, source):
         if not m['masked_equal']:
             raise ValueError(f"{r['id']} not masked equal: {m['differing_bytes']} bytes, {m['conflicts'][:2]}")
         results[r['id']] = dict(m, masked_sha256=masked_identity(obj, r['symbol']))
+    for target, expected in targets.items():
+        if digest(target.read_bytes()) != expected:
+            raise ValueError(f'Target changed during verification: {target}')
+    if digest(source_path.read_bytes()) != source_before:
+        raise ValueError('Source changed during verification')
     return results
 
 
@@ -199,7 +221,10 @@ def summary(module, function_map=None):
     out['covered_functions'] = len({(r['target'], r['rva']) for r in covered})
     out['covered_bytes'] = sum(r['size'] for r in covered)
     if function_map and Path(function_map).exists():
-        spans = json.loads(Path(function_map).read_text())['functions']
+        mapping = json.loads(Path(function_map).read_text())
+        if mapping['module'].upper() != module.upper():
+            raise ValueError('Function map belongs to a different module')
+        spans = mapping['functions']
         out['first_party_spans'] = len(spans)
         out['first_party_bytes'] = sum(f['size'] for f in spans)
     return out
@@ -213,12 +238,15 @@ def main():
     sub.add_parser('verify')
     m = sub.add_parser('summary')
     m.add_argument('module', nargs='?', default='TITLE.DLL')
-    m.add_argument('--function-map', default=str(ROOT / 'work/function_map/title_v4.json'))
+    m.add_argument('--function-map')
     args = parser.parse_args()
     if args.command == 'stage':
         stage(args.plan)
     elif args.command == 'summary':
-        print(json.dumps(summary(args.module, args.function_map), indent=1))
+        mapping = args.function_map
+        if mapping is None and args.module.upper() == 'TITLE.DLL':
+            mapping = ROOT / 'work/function_map/title_v4.json'
+        print(json.dumps(summary(args.module, mapping), indent=1))
     else:
         verify()
 

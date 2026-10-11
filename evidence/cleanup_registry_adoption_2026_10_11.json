@@ -1,0 +1,190 @@
+{
+  "date": "2026-10-11",
+  "scope": "Four canonical complete relocation-masked contributions, not strict or exhaustive behavior acceptance.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "source": {
+    "path": "candidates/luna_cleanup_registry_11/cleanup_registry.c",
+    "sha256": "521dbcc16e2cd9e82146d0eec8e88d1036b8f1e9839f42e20f2f826de74a08da"
+  },
+  "ownership": "Function-task reconstruction; original translation-unit ownership and source names remain unproved.",
+  "semantic_reading": {
+    "0x4da0": "Calls 0x4b00 and 0x4cc0, writes the helper result to the first DWORD of a 72-byte config buffer, calls RegCreateKeyExA(HKEY_LOCAL_MACHINE, \"Software\\Disney Interactive\\Hercules\\1.00\", reserved=0, class=NULL, options=0, access=0x20006, security=NULL, &key, &disposition), and if key is non-null writes the whole buffer as REG_BINARY value \"Config\" with size 0x48 then RegCloseKey.",
+    "0x4b00": "Calls 0x1fe0 and stores the low byte of its signed-byte result in config offset 12.",
+    "0x1fe0": "Loads a pointer from data cell RVA 0x361bc and returns the signed byte at pointer-value + 14, sign-extended to int.",
+    "0x4cc0": "Returns 0x94375494 plus 32-bit reads starting at each byte offset 4..67 in the config buffer (overlapping reads).",
+    "callers": "0x4b00 is also called at 0x966a; 0x4cc0 is also called at 0x4d4a."
+  },
+  "boundary_evidence": {
+    "source": "work/luna_fatal_cleanup_chain_11/function_map.json",
+    "spans": {
+      "0x1fe0": {
+        "size": 16,
+        "sha256": "0101dfb808eea614d0558405a41ad7c19016e3332fbb31b9bcd373be9ca6235e"
+      },
+      "0x4b00": {
+        "size": 16,
+        "sha256": "9f1101786b669fd30377194a6b78c5f6e834268b62c7ef1a9a2cf5614389c079"
+      },
+      "0x4cc0": {
+        "size": 32,
+        "sha256": "41fe5788af032541f86bfcfad6cf5343cd36ef17206e4f972c301d2f3cc9fe1b"
+      },
+      "0x4da0": {
+        "size": 112,
+        "sha256": "779020291758b5885fcbfa80f584f6770eb885f4f9c404a8c6be32adfa756238"
+      }
+    },
+    "sha256": "5df395109e9852ccc8b9fbeadbe38bc0f16e04ad35e50e89f418b64e289f410b"
+  },
+  "measurement": {
+    "path": "work/luna_cleanup_registry_11/measurement.json",
+    "sha256": "7acab8bdabd8f504a9962d232ab7f787367ebd68bf836d9d2ad0aee64fb9e0c5",
+    "first_measurement_path": "work/luna_cleanup_registry_11/first_measurement.json",
+    "first_measurement_sha256": "7ca2af837afbaa709539901ed238f62cfd67799b17071dfa7c400adaf9d824e5",
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-36wn654_\\candidate.obj",
+    "object_sha256": "0cbaec4f1c2b5863d337ed2dbb76183a1b5d5d0d2e6cf9dcfebc9db7472b6787",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-36wn654_\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\candidates\\luna_cleanup_registry_11\\cleanup_registry.c"
+    ],
+    "toolchain": "msvc5_rtm",
+    "source_sha256": "521dbcc16e2cd9e82146d0eec8e88d1036b8f1e9839f42e20f2f826de74a08da",
+    "all_four_spans_masked_equal": true,
+    "all_four_spans_raw_equal": false,
+    "measure_script": "work/luna_cleanup_registry_11/measure.py",
+    "measure_script_sha256": "4a38f1bff4ed890e647f5211185e847c682aaf85516e6223e2e095eb51aa6516"
+  },
+  "bindings_rva": {
+    "_cleanup_native_1fe0": 8160,
+    "_cleanup_native_4b00": 19200,
+    "_cleanup_native_4cc0": 19648,
+    "_g_registry_config_source": 221628,
+    "_g_registry_config": 7989336,
+    "_g_registry_key": 221572,
+    "_g_registry_value_name": 221616,
+    "__imp__RegCloseKey@4": 8017432,
+    "__imp__RegCreateKeyExA@36": 8017436,
+    "__imp__RegSetValueExA@24": 8017440
+  },
+  "library_evidence": {
+    "import_dll": "ADVAPI32.dll",
+    "import_names": [
+      "RegCloseKey",
+      "RegCreateKeyExA",
+      "RegSetValueExA"
+    ],
+    "candidate_import_library_path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\advapi32.lib",
+    "candidate_import_library_sha256": "2d7da3304b3f0b21fd5a3ddcec1aa91c7d64b270087793eb8e1dfd5be21e6ae5",
+    "provenance_note": "The import names and IAT RVAs are read directly from the primary EXE. The local advapi32.lib hash is recorded, but this file is not listed in the pinned MSVC5 manifest; verify its origin before using it for a link claim.",
+    "toolchain_manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "compiler": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb"
+  },
+  "limits": [
+    "All complete candidate code spans are 16/16, 16/16, 32/32, and 112/112 bytes with zero non-relocation differences and no binding conflicts or unsupported relocations.",
+    "Every candidate has relocations and the raw object contributions are not target-byte equal. This is masked diagnostic evidence only and does not satisfy FUNCTION_MATCH.",
+    "Data labels are offset-derived inferred providers; the exact original aggregate type, ownership, and translation-unit boundaries remain unknown.",
+    "Candidate uses external providers for the shared 72-byte buffer, pointer cell and existing strings. No stubs or placement controls were introduced.",
+    "Overlapping DWORD source loads rely on historical x86 compiler behavior; byte equality does not establish portable C defined behavior, original aggregate declarations or prototypes."
+  ],
+  "evidence_references": [
+    {
+      "path": "evidence/host_file_service_contract.json",
+      "use": "Independently documents the shared context pointer cell at VA 0x4361bc; the native 0x1fe0 reads that cell."
+    },
+    {
+      "path": "work/luna_fatal_cleanup_chain_11/function_map.json",
+      "use": "Function boundaries and complete span sizes for 0x1fe0, 0x4b00, 0x4cc0, and 0x4da0."
+    },
+    {
+      "path": "work/HERCULES.EXE.strings.txt",
+      "use": "Primary EXE strings include RegCloseKey, RegCreateKeyExA, RegSetValueExA, ADVAPI32.dll."
+    },
+    {
+      "path": "work/HERCULES.EXE.metadata.json",
+      "use": "Primary EXE import table supplies the API names and IAT RVAs recorded in bindings_rva."
+    }
+  ],
+  "canonical": {
+    "path": "calibration/cleanup_registry.c",
+    "sha256": "521dbcc16e2cd9e82146d0eec8e88d1036b8f1e9839f42e20f2f826de74a08da",
+    "rows": [
+      {
+        "id": "exe.cleanup_native_1fe0",
+        "rva": "0x1fe0",
+        "bytes": 16,
+        "symbols": {
+          "_g_registry_config_source": "0x361bc"
+        },
+        "proof": {
+          "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+          "source_sha256": "521dbcc16e2cd9e82146d0eec8e88d1036b8f1e9839f42e20f2f826de74a08da",
+          "masked_sha256": "5f4e19a1a87a7d1758c9e8b86994ee24add2d862271cc06e9f1e1d58e223fb43",
+          "toolchain": "msvc5_rtm"
+        }
+      },
+      {
+        "id": "exe.cleanup_native_4b00",
+        "rva": "0x4b00",
+        "bytes": 16,
+        "symbols": {
+          "_cleanup_native_1fe0": "0x1fe0",
+          "_g_registry_config": "0x79e858"
+        },
+        "proof": {
+          "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+          "source_sha256": "521dbcc16e2cd9e82146d0eec8e88d1036b8f1e9839f42e20f2f826de74a08da",
+          "masked_sha256": "278722cd86b17b2b8e30950088fc3ac19ece76870ae4f85a03d4690356be6cbe",
+          "toolchain": "msvc5_rtm"
+        }
+      },
+      {
+        "id": "exe.cleanup_native_4cc0",
+        "rva": "0x4cc0",
+        "bytes": 32,
+        "symbols": {
+          "_g_registry_config": "0x79e858"
+        },
+        "proof": {
+          "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+          "source_sha256": "521dbcc16e2cd9e82146d0eec8e88d1036b8f1e9839f42e20f2f826de74a08da",
+          "masked_sha256": "1d1d5c6f647da2b14d2c844ba64dfb512de9343bf2d61c57fe8a6c899b12b0f7",
+          "toolchain": "msvc5_rtm"
+        }
+      },
+      {
+        "id": "exe.cleanup_native_4da0",
+        "rva": "0x4da0",
+        "bytes": 112,
+        "symbols": {
+          "__imp__RegCloseKey@4": "0x7a5618",
+          "__imp__RegCreateKeyExA@36": "0x7a561c",
+          "__imp__RegSetValueExA@24": "0x7a5620",
+          "_cleanup_native_4b00": "0x4b00",
+          "_cleanup_native_4cc0": "0x4cc0",
+          "_g_registry_config": "0x79e858",
+          "_g_registry_key": "0x36184",
+          "_g_registry_value_name": "0x361b0"
+        },
+        "proof": {
+          "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+          "source_sha256": "521dbcc16e2cd9e82146d0eec8e88d1036b8f1e9839f42e20f2f826de74a08da",
+          "masked_sha256": "a966366735e887133376a6ccde866cdbfdf2fbd2e25400485bc4af6cc634bd47",
+          "toolchain": "msvc5_rtm"
+        }
+      }
+    ]
+  },
+  "worker_receipt": {
+    "path": "work/luna_cleanup_registry_11/handoff.json",
+    "sha256": "c1ae33ae24d9b9260e3b156daf894369666182fea1867f2df0073a33572b5807"
+  }
+}

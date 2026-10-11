@@ -1,0 +1,159 @@
+{
+  "date": "2026-10-11",
+  "scope": "Initialized table reconstruction and dependency evidence; no function or whole-module acceptance.",
+  "source": {
+    "path": "calibration/title/title_sine.c",
+    "sha256": "6a2d18982799ef5678279191ff1656b0a0d397c2b6544365fd5246389d85dc3b"
+  },
+  "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+  "range": [
+    "0x243e0",
+    "0x24be0"
+  ],
+  "provider": {
+    "bytes": 2048,
+    "data_sha256": "2b2d866b8efe4b0ee47853d0c292a9ffea6ebbf6379fc693b0bde2df6b056ac5",
+    "native_equal": true,
+    "relocations": [],
+    "functions": 0
+  },
+  "formula": "clamp(int(32768*sin(2*pi*i/1024)), -32767, 32767)",
+  "formula_equal_all_entries": true,
+  "generation_limit": "Compatible formula, not proof of the historical generator; checked-in literals keep builds independent of host trigonometric rounding.",
+  "duplicates": [
+    {
+      "module": "ENG1.DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x5a848"
+    },
+    {
+      "module": "ENG3.DLL",
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": "0x38688"
+    },
+    {
+      "module": "TITLE.DLL",
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "rva": "0x243e0"
+    }
+  ],
+  "native_users": {
+    "rva": "0x243e0",
+    "string": null,
+    "refs": [
+      {
+        "operand": "0x34a2",
+        "owner": "0x3420",
+        "instruction": [
+          "0x349e",
+          "movsx",
+          "ecx, word ptr [ecx*2 + 0x100243e0]"
+        ]
+      },
+      {
+        "operand": "0x34aa",
+        "owner": "0x3420",
+        "instruction": [
+          "0x34a6",
+          "movsx",
+          "eax, word ptr [eax*2 + 0x100243e0]"
+        ]
+      },
+      {
+        "operand": "0x3a25",
+        "owner": "0x39b0",
+        "instruction": [
+          "0x3a21",
+          "movsx",
+          "ecx, word ptr [ecx*2 + 0x100243e0]"
+        ]
+      },
+      {
+        "operand": "0x3a65",
+        "owner": "0x39b0",
+        "instruction": [
+          "0x3a61",
+          "movsx",
+          "ebp, word ptr [ebp*2 + 0x100243e0]"
+        ]
+      }
+    ]
+  },
+  "fresh_canonical": {
+    "scope": "Fresh canonical initialized-data equality; no function or layout acceptance.",
+    "identities": {
+      "D:\\Prog\\hercules_recon\\calibration\\title\\title_sine.c": "6a2d18982799ef5678279191ff1656b0a0d397c2b6544365fd5246389d85dc3b",
+      "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\TITLE.DLL": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b"
+    },
+    "toolchain": "msvc5_rtm",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-gbvpxc0y\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\title\\title_sine.c"
+    ],
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-gbvpxc0y\\candidate.obj",
+    "object_sha256": "0cf78a953bd6e1efe6f5eb56a0938848faa1d90c4fd1a048b90676bb971582a5",
+    "rva": "0x243e0",
+    "bytes": 2048,
+    "data_sha256": "2b2d866b8efe4b0ee47853d0c292a9ffea6ebbf6379fc693b0bde2df6b056ac5",
+    "native_equal": true,
+    "relocations": 0,
+    "functions": 0
+  },
+  "full_private_regression": {
+    "function_identities_preserved": 362,
+    "strict_TITLE_peers_raw_exact": 6,
+    "strict_link": {
+      "baseline_unresolved": 94,
+      "candidate_unresolved": 93,
+      "resolved": [
+        "_g_243e0"
+      ],
+      "new": [],
+      "duplicates": []
+    }
+  },
+  "canonical_partial_link": {
+    "sources": 38,
+    "unresolved": 101,
+    "functions": 21,
+    "data": 80,
+    "duplicates": 0,
+    "sine_plain_bytes_equal": 2048,
+    "limit": "The two sine consumers are unaccepted drafts absent from the partial build; dependency reduction occurs in the independent complete inventory."
+  },
+  "limits": [
+    "Standalone data-only provider is a compatible inferred owner; original TU, symbol spelling and visibility unknown.",
+    "Native preceding48 bytes and succeeding1536 bytes are not represented. Do not fill them or claim complete math-unit equality.",
+    "Natural sine placement24310 vs native243e0, delta-208; exact contribution does not prove module placement or whole binary.",
+    "Complete linked layout image is forced unresolved diagnostic only; never executed or accepted.",
+    "Function regression comparison uses fresh32 compiled inputs and prior complete output identities; all6 strict peers independently raw checked.",
+    "Generated formula is compatible with all1024 observed entries; original historical generation process unknown."
+  ],
+  "provenance": [
+    {
+      "path": "work/sol_title_missing_storage_goal_11/handoff.json",
+      "sha256": "2927ed4b1732976146fe310c0deeaff4bcce98af7b0eac755ad8a59327da754e"
+    },
+    {
+      "path": "work/sol_title_missing_storage_goal_11/regression.json",
+      "sha256": "13cdd47b70823b94f9cfb0eeb9965127b1fdf58c079912109c60227357058a51"
+    },
+    {
+      "path": "work/sol_title_missing_storage_goal_11/sine_analysis.json",
+      "sha256": "e77ba3fad88446b2fd030beac6c6276739baa199a9c6434af7c7255686700c62"
+    },
+    {
+      "path": "work/full_goal_integration_11/canonical_sine_report.json",
+      "sha256": "b9e7facb35c7f01291cc3b439a29b56645f7769c354c7f9c5ae8513a29ccc419"
+    },
+    {
+      "path": "work/full_goal_integration_11/canonical_title_sine_link.txt",
+      "sha256": "1b70bb257a6b183cd79ee3af9d48f751348d96208f2c998876219782b4e8649c"
+    }
+  ]
+}

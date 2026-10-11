@@ -6,7 +6,8 @@
 void title_01dd0(void *p);
 void title_0d250(void *p);
 void title_0d290(void *p);
-void title_0d410(void *p);
+/* Existing raw-matched body at TITLE RVA 0xd410; callback ABI view only. */
+void init_title_fields_d410(void *p);
 void title_0d440(void *p);
 void title_0d910(void *p);
 
@@ -23,7 +24,11 @@ typedef struct Rec8 {
     unsigned long d0;
     unsigned char b4, b5, b6, b7;
 } Rec8;
-typedef struct TitleCfg TitleCfg;
+/* Observed 16-byte runtime configuration row: three dwords and byte +0x0c. */
+typedef struct TitleCfg {
+    int a_00, b_04, c_08;
+    unsigned char d_0c;
+} TitleCfg;
 typedef struct TitleObjCfg {
     short id_00;
     unsigned short size134_02;
@@ -51,8 +56,10 @@ typedef struct TitleObjCfg {
     unsigned long d44;
 } TitleObjCfg;
 
-extern TitleCfg g_2b378[];
-extern Rec8 g_2b3b8[];
+/* Four default rows for each pool, ending at the independently identified CRT
+   .bss boundary. Native absolute placement remains unresolved. */
+static TitleCfg g_2b378[4];
+static Rec8 g_2b3b8[4];
 
 TitleDisp12 g_26770[4] = {
     {title_01dd0, title_01dd0, title_01dd0},
@@ -104,7 +111,7 @@ TitleDisp8 g_26898[26] = {
     {title_01dd0, title_0d910},
     {title_01dd0, title_01dd0},
     {title_0d250, title_0d290},
-    {title_0d410, title_0d440},
+    {init_title_fields_d410, title_0d440},
     {title_01dd0, title_01dd0},
     {title_01dd0, title_01dd0},
     {title_01dd0, title_01dd0},

@@ -47,7 +47,7 @@ SUITES = {
     "remove_actor": ["calibration/remove_actor.c"],
     "resource_cleanup": ["calibration/cleanup_helpers_writers.c"],
     "resource_callbacks": ["calibration/resource_callbacks.c", "calibration/resource_context.h"],
-    "resource_metadata": ["calibration/resource_metadata.c"],
+    "resource_metadata": ["calibration/resource_metadata.c", "calibration/resource_record.h"],
     "resource_destroy": ["calibration/resource_destroy.c", "calibration/resource_record.h"],
     "resource_readiness": ["calibration/resource_readiness.c", "calibration/resource_record.h", "calibration/resource_context.h"],
     "resource_provider": ["calibration/resource_provider.c", "calibration/resource_record.h", "calibration/resource_context.h"],

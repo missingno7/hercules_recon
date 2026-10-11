@@ -1,0 +1,141 @@
+{
+  "date": "2026-10-11",
+  "scope": "Two relocation-masked full-contribution matches, diagnostic only; recovery.json alone controls status.",
+  "target": {
+    "path": "assets/pc/HERCULES/ENG3.DLL",
+    "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+  },
+  "source": {
+    "path": "calibration/eng3/counted_dispatch.c",
+    "sha256": "0e2fee2c8743fa64732af03b99c62f61d86c10cc0b422ef2349d7aff2d55ea74"
+  },
+  "toolchain": "msvc5_rtm",
+  "flags": [
+    "/O2"
+  ],
+  "commands": [
+    [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-edv6ah5i\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\candidates\\parent_count_anchor_11\\counted_dispatch.c"
+    ],
+    [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-z4iu759r\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\candidates\\parent_count_anchor_11\\counted_dispatch.c"
+    ]
+  ],
+  "anchor": {
+    "source": "src/shared/counted_list.c",
+    "instances": [
+      "eng1.remove_counted_value",
+      "eng3.remove_counted_value"
+    ],
+    "fresh_raw_exact": true,
+    "interpretation": "Element zero is the count and later words contain entries. This supports a raw-word layout view, not shared source identity or TU ownership."
+  },
+  "prediction": "A raw-word count-prefixed list and preincrement selection can retain the count-word base instead of folding +4 into its initial address. Both twins must emit64 complete bytes with coherent bindings and original absolute relocation offsets.",
+  "falsifier": "Any residual byte, extent, relocation-offset or binding mismatch, or regression of the independent accepted anchor.",
+  "verdict": "Prediction met for both cleaned twins. Postincrement selection remains a negative control; no compiler or verification rule changed.",
+  "observations": [
+    "The native producer increments count then stores each pointer at base+count*4.",
+    "Word post-selection cursor[1];++cursor retains the old30 residual bytes.",
+    "Word and typed-pointer preincrement *++cursor both give zero residual bytes and coherent bindings.",
+    "Unused struct view was removed from the word candidate; cleaned source remains equal in two fresh compiles.",
+    "Both contributions are63 instruction bytes plus one naturalNOP; no interior incoming entry is indexed.",
+    "Cross-module whole64-byte HIGHLOW-pattern search found only these two twins among indexed aligned entry leads in TITLE, ENG1, ENG3 and the EXE. No claim about unindexed functions or other shapes."
+  ],
+  "measurements": [
+    {
+      "symbol": "_dispatch_primary",
+      "rva": "0x13a0",
+      "size": 64,
+      "raw_equal": false,
+      "raw_differing_bytes": 16,
+      "masked_equal": true,
+      "masked_differing_bytes": 0,
+      "bindings": {
+        "_g_actor_callbacks": "0x33078",
+        "_g_actor_vector_primary": "0x40fa0"
+      },
+      "compiled_relocation_offsets": [
+        1,
+        19,
+        43,
+        48
+      ],
+      "target_relocation_offsets": [
+        1,
+        19,
+        43,
+        48
+      ],
+      "binding_conflicts": []
+    },
+    {
+      "symbol": "_dispatch_secondary",
+      "rva": "0x13e0",
+      "size": 64,
+      "raw_equal": false,
+      "raw_differing_bytes": 16,
+      "masked_equal": true,
+      "masked_differing_bytes": 0,
+      "bindings": {
+        "_g_actor_callbacks": "0x33078",
+        "_g_actor_vector_secondary": "0x40e40"
+      },
+      "compiled_relocation_offsets": [
+        1,
+        19,
+        43,
+        48
+      ],
+      "target_relocation_offsets": [
+        1,
+        19,
+        43,
+        48
+      ],
+      "binding_conflicts": []
+    }
+  ],
+  "repeated_complete_contribution_and_noncode_output_equal": true,
+  "output_identity": "8db1282a987e964db601ae4a53dd63b85e2e5b7421b17e6d23bafe8305f11e7a",
+  "strict_byte_gain": 0,
+  "masked_byte_gain": 128,
+  "limits": [
+    "No original names, source spelling, macro ancestry, array capacity, runtime table content, storage owner or translation unit is established.",
+    "The external count/entry words and callback table are physical ABI views. No storage definitions, padding, placement or assembly were added.",
+    "The two functions remain CODEGEN_SIMILAR. Raw address equality, natural module layout and exhaustive behavior are not accepted by this measurement."
+  ],
+  "artifacts": [
+    {
+      "path": "work/parent_count_anchor_11/prediction.md",
+      "sha256": "73fcd5ca8771390d5c267cd1973fa1e7aa9cbaa45ab2fe3c0fa2d1d9ecf58715"
+    },
+    {
+      "path": "work/parent_count_anchor_11/report.json",
+      "sha256": "cc68b91aab59cd50ea37f79a5cda10620a943310c06296641186aa7e99536267"
+    },
+    {
+      "path": "work/parent_count_anchor_11/clean_report.json",
+      "sha256": "4d990f185ce83fc304be800adcae99f3a837979be9126cae8b59296483e34bb0"
+    },
+    {
+      "path": "work/parent_count_anchor_11/peer_search.json",
+      "sha256": "d4d851d5e75101a3fdffe9580d7e3169c9728a69b6029ffe50c82422840fbfc7"
+    },
+    {
+      "path": "work/parent_count_anchor_11/stage_plan.json",
+      "sha256": "b4a9cb4f5f423ddeff08ce9f7f3fcc24d71133e6053135dc01cb6bd4434c5ab3"
+    }
+  ]
+}

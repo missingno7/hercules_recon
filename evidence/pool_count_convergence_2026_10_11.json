@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-11",
+  "scope": "One complete relocation-masked EXE contribution; no strict or whole-layout acceptance.",
+  "source": {
+    "path": "calibration/host_pool_counts.c",
+    "sha256": "36f240917a4ac84ef47346f689f7557efb94af970fe0fd2b11e5b52c7bd84270"
+  },
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "rva": "0x49f0",
+  "bytes": 64,
+  "symbol": "_count_used",
+  "binding": {
+    "_g_host_pool": "0x7a29c0"
+  },
+  "prediction": "Initialize the existing count before pointer declarations to release pool_id from EAX and reproduce the native ECX pool_id / early EAX zero sequence; preserve header walk and descriptor predicates.",
+  "falsifier": "Any nonrelocation difference, unsupported relocation, inconsistent binding, incomplete extent or changed peer.",
+  "result": "Complete64-byte masked equality, two DIR32 relocations, six raw differing address operand bytes. Minimal-view and existing full48-byte view compile to identical bytes and ordered relocations.",
+  "mechanism_limit": "Measured entry-order/register allocation in this function only; no universal compiler rule or original source spelling claim.",
+  "extent": "49f0..4a30: RET4a2c, three naturalNOPs then distinct4a30 prologue; no indexed interior incoming entry.",
+  "limits": [
+    "EXE has no HIGHLOW directory; noHIGHLOW equivalence claimed.",
+    "g_host_pool remains extern. Native address binding and real source/TU/link dependencies are still open.",
+    "No loop, predicate, stride or ABI change; no dummy declaration, arbitrary assembly, source-address embedding or manufactured padding."
+  ],
+  "provenance": [
+    {
+      "path": "work/luna_host_pool_region_11/similar_stage_plan.json",
+      "sha256": "aa8bff1ef6f9191bfe0ed8dd026d311d4b3dede8d7162ea9323814355601048d"
+    },
+    {
+      "path": "work/luna_host_pool_region_11/provider_isolation_report.json",
+      "sha256": "4a157c78bb9d500810febc716c2ed7097b84e55a1d22e50fce37860bf7f5edb7"
+    },
+    {
+      "path": "work/luna_host_pool_region_11/similar_stage_check.json",
+      "sha256": "f0ff94c496981764718b8fe6a2036e0fd7e68e837d35243eb2394a715e2b9efd"
+    },
+    {
+      "path": "work/luna_host_pool_region_11/handoff.md",
+      "sha256": "53a117df7895b9f7ee0eb629fd357623c4ae2e7044742a21e099981166cae4bb"
+    }
+  ]
+}

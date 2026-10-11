@@ -1,0 +1,185 @@
+{
+  "date": "2026-10-11",
+  "scope": "Measured convergence increment plus compact compiler research; recovery.json alone grants recovery state.",
+  "accepted_diagnostic_gain": {
+    "evidence": "evidence/eng3_counted_dispatch.json",
+    "ids": [
+      "eng3.dispatch_primary",
+      "eng3.dispatch_secondary"
+    ],
+    "masked_functions": 2,
+    "masked_bytes": 128,
+    "strict_functions": 0,
+    "strict_bytes": 0
+  },
+  "compiler_findings": [
+    {
+      "id": "join_reload_order",
+      "source_receipt": "work/sol_join_11/handoff.json",
+      "prediction": "Incoming edge survival can constrain a skippable restore prefix independently of final register rank.",
+      "finding": "At fixed outer ESI=0, EBX=15, EDI=1, zero_all_killed restores 1,15,0 at +0x153; zero_first_sparse restores 0,1,15 at +0xf3. Its sparse incoming arm retains ESI=0 and jumps +0xf5, skipping the zero prefix and sharing the other two restores. Repeated complete function bytes and ordered relocations agree for both 464-byte controls. Incoming availability can impose a skippable reload prefix independently of final destination rank.",
+      "limits": "Control-level behavior only, not a complete scheduling model. Sparse arm changes CFG/layout. Target +0xff0 visible inputs all carry replacements ESI=0x91 EDI=0x93 EBP=0x92, so this cause is not proved for the target six-byte order.",
+      "verdict": "No target improvement. Keep candidates/wa450/u09a40_ctx.c; no canonical files changed by this lane.",
+      "reentry": "Nested-switch literal piece-creation control retaining target-like outer allocation, or genuine source/type/TU evidence. Do not rerun sparse-arm, predicate, straight/loop literal kernel families without a new discriminator.",
+      "fresh_historical_compiles": 18
+    },
+    {
+      "id": "decimal_formatter_ranges",
+      "source_receipt": "work/sol_decimal_11/receipt.json",
+      "prediction": "Separate pointer promotion from multiply lowering, then isolate the downstream terminal remainder graph.",
+      "finding": "The units second+90 use explains promotion in cut-down controls; negative100 persists without saved-register pressure. Adding a terminal remainder changes100 negative in scalar controls. Independent products recover positive100 but retain extra product ranges. Five decisive outputs reproduce.",
+      "preference_control": "Pinned /help documents /Os and /Ot. Only adding /Os changes full output to162/224 with216raw differences; scalar positive/negative partition persists. No production flags changed.",
+      "verdict": "No full target gain. Preserve canonical240-byte reconstruction.",
+      "reentry": "Real source/type/TU evidence or a causal scalar control explaining shared positive intermediate remainders without retained independent products. Do not repeat tested product, split-store or preference families.",
+      "fresh_historical_compiles": 35
+    }
+  ],
+  "blood2": {
+    "head": "00a56bd63ab4d155c28efb2a9a9d38be3a0fde18",
+    "previous_audit_head": "d71e4788b9befec6d8a4666c11812ef18264ab17",
+    "selected_files": [
+      {
+        "path": "docs/vc5_codegen_map.md",
+        "blob": "75e11f3dd04aedb221c6db890862201a5296a259",
+        "working_sha256": "33c4b2f9df92973e6567cfad4b623aa868b2cf28a74659c1abe9ba3a152bdfd7",
+        "matches_head_lf": true
+      },
+      {
+        "path": "docs/object_residue.md",
+        "blob": "652f530995a30007484f34e257a437a2ef7de692",
+        "working_sha256": "9ddc13112c9b69b283c9c196e33987090ff6221c9f84e2eedda4e888d393be67",
+        "matches_head_lf": true
+      },
+      {
+        "path": "docs/seed_pass/renderer_phase8.md",
+        "blob": "ad61eabe18b70ee0a61f8046604b358cbdd3421d",
+        "working_sha256": "e4b3f51159ee298462c41f2dd8b8ca64d1798f7bd6e969271da02e892d97d3d6",
+        "matches_head_lf": true
+      },
+      {
+        "path": "recon/engine/LOG.md",
+        "blob": "eec5fd3dfaa0ae394fc59635bc0c4437c1853c06",
+        "working_sha256": "11b508025a66a5602ad3c73d3bc843a446b22d53db10c8e2106d324385e693c2",
+        "matches_head_lf": true
+      },
+      {
+        "path": "recon/knowledge/engine/Huffman_obj_PopSmallest_YAPAVHBNode_AAV_CMoArray_PAVHBNode_V__2ca13d05e1.json",
+        "blob": "610769b8a84e4b7b9b5864ec66bcce91cea183c0",
+        "working_sha256": "ac2dea9d87d4fdc91ddf4073867d8b8e7817d38621ad8e365657ea6297026675",
+        "matches_head_lf": true
+      },
+      {
+        "path": "recon/knowledge/engine/model_construct_obj_model_CountFlaggedNodes_YAKPAUModelFlagg__be8f30c9e7.json",
+        "blob": "33aeda492eea37715eaf5bce0b9905624342ce64",
+        "working_sha256": "a8c2115c21785eb1087871bdd31a015af47c9492782818bf281636468aa3bd4d",
+        "matches_head_lf": true
+      },
+      {
+        "path": "recon/knowledge/engine/model_construct_obj_model_FillAnimNodeTable_YAXPAXPAUModelAn__654b54daab.json",
+        "blob": "1afe9e8ef520608d6cd89080bf1de6ddb4622508",
+        "working_sha256": "0bd683a4fd284cd001daa65a885c17b9b1cafd6f139c646cb05d1b70f36e95c3",
+        "matches_head_lf": true
+      }
+    ],
+    "head_unchanged_during_audit": true,
+    "clean_worktree_claim": false,
+    "finding": "Cumulative codegen-map proven labels conflict with current unproven compact knowledge and were excluded as acceptance controls. ICL pointer-to-array result is only a representation hypothesis; Hercules count-list anchor supplies measured local evidence.",
+    "transfer": "Current evidence checks, controlled discriminators and joint context validation. No SP3/ICL compiler conclusion or normalized strict label transferred."
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "commit": "8abf95ce980161ad87b0b02402269cce76988953",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "files": [
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+        "matches_pin": true,
+        "file_version_from_manifest": "11.00.7022"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\c1.dll",
+        "sha256": "e519dfe6f45cc0503b7aac43d125b2f156305269b89f0dc765c40d29627c0943",
+        "matches_pin": true,
+        "file_version_from_manifest": "11.00"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\c1xx.dll",
+        "sha256": "fea1e9fbbc2d204202f1a5ea61e5a938b17a92acda57e16dd53d4ec01c9d186b",
+        "matches_pin": true,
+        "file_version_from_manifest": "11.00"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\c2.exe",
+        "sha256": "6d1406af5f62647347cfa7175cd7e108b838d6841a546396f29252198a14d73d",
+        "matches_pin": true,
+        "file_version_from_manifest": "11.00"
+      }
+    ]
+  },
+  "primary_archived_sources": [
+    {
+      "url": "https://jeffpar.github.io/kbarchive/kb/165/Q165684/",
+      "scope": "Historical Microsoft VC5 language notes; no applicable integer rematerialization rule."
+    },
+    {
+      "url": "https://jeffpar.github.io/kbarchive/kb/168/Q168912/",
+      "scope": "Historical known-problem index; no applicable mechanism established."
+    },
+    {
+      "url": "https://ftp.zx.net.nz/pub/archive/ftp.microsoft.com/MISC/KB/en-us/170/514.HTM",
+      "scope": "Different floating-point/C++ context; excluded as Hercules integer evidence."
+    }
+  ],
+  "validation": {
+    "strict_functions": 113,
+    "strict_bytes": 7840,
+    "masked_functions": 344,
+    "masked_bytes": 81312,
+    "masked_sources": 31,
+    "masked_failures": 0,
+    "python_tests": 54,
+    "immutable_originals": 12,
+    "recovery_sha256": "c79174d0a9023554587ea52efb6d02e2a33eeeadaeab172920b7e66c1537662d",
+    "commands": [
+      "python scripts/match.py verify --report work/parent_count_anchor_11/strict_regression.json",
+      "python scripts/similar.py verify",
+      "python -m unittest discover -s tests -p 'test_*.py'",
+      "python scripts/inventory.py --verify"
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "work/sol_join_11/handoff.json",
+      "sha256": "b8a9c8103d6dd7e993965e53bb72a53e88b778ddef399d05b7be61831b310111"
+    },
+    {
+      "path": "work/sol_decimal_11/handoff.md",
+      "sha256": "46bc563bdcd72ad898c66a8cf812151137742e35c30e7502ec5ffae4d2230bc9"
+    },
+    {
+      "path": "work/sol_decimal_11/receipt.json",
+      "sha256": "eba833471c5a8d9b0def8cbc9f0b93906be4f308f32c1b3dfed0ce1d9758e5c2"
+    },
+    {
+      "path": "work/sol_decimal_11/preference.json",
+      "sha256": "a34d3b34e47d1ef5950b9c1c2918f2c4ec022c0535fc8e978decec4afd6ff048"
+    },
+    {
+      "path": "work/sol_blood2_research_11/research.md",
+      "sha256": "07d01234faad664e187f5736879dc78a0e9b433b75b49b3cef5ac7a3008058f6"
+    },
+    {
+      "path": "work/sol_blood2_research_11/provenance.json",
+      "sha256": "433c4cdf7736090073eaff57a7e66300fc81c70cc8d341f21d0865ade2383a05"
+    },
+    {
+      "path": "work/parent_count_anchor_11/strict_regression.json",
+      "sha256": "25bd2318bbd99341c0afde04f7e0b0002a8f72354064206a13a9766175d41464"
+    },
+    {
+      "path": "work/parent_count_anchor_11/convergence.json",
+      "sha256": "be92669ba92c95c56c2018ee16911631224d2b3095e4984f200f9fe310995fea"
+    }
+  ]
+}

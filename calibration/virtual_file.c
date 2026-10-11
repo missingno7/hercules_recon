@@ -2,9 +2,9 @@
 #include <stdio.h>
 extern int g_public_file_count;
 extern int g_public_file_handles[16];
-extern const char g_open_capacity_error[], g_open_mode_error[];
-extern const char g_seek_handle_error[], g_read_handle_error[];
-extern const char g_archive_read_mode[];
+extern char g_open_capacity_error[], g_open_mode_error[];
+extern char g_seek_handle_error[], g_read_handle_error[];
+extern char g_archive_read_mode[];
 extern void __cdecl archive_fatal(const char *message);
 extern int __cdecl archive_open(const char *path, const char *mode);
 extern int __cdecl archive_close(int handle);

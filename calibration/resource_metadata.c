@@ -1,26 +1,4 @@
-#include <stddef.h>
-
-typedef short ActorReference[2];
-
-typedef struct ActorResource ActorResource;
-struct ActorResource {
-    void *path;
-    unsigned short entry_count;
-    unsigned short unknown_006;
-    unsigned long file_length;
-    ActorReference *references;
-    unsigned short residency_state;
-    unsigned short unknown_012;
-};
-
-typedef char actor_reference_size_is_4[(sizeof(ActorReference) == 4) ? 1 : -1];
-typedef char actor_resource_size_is_20[(sizeof(ActorResource) == 20) ? 1 : -1];
-typedef char actor_resource_member_offsets_match[
-    (offsetof(ActorResource, entry_count) == 4 &&
-     offsetof(ActorResource, file_length) == 8 &&
-     offsetof(ActorResource, references) == 12 &&
-     offsetof(ActorResource, residency_state) == 16 &&
-     offsetof(ActorResource, unknown_012) == 18) ? 1 : -1];
+#include "resource_record.h"
 
 extern ActorResource g_actor_resources[];
 extern int ensure_actor_resource_ready(unsigned long resource_id, int metadata_index);

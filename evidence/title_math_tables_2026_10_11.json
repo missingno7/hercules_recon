@@ -1,0 +1,307 @@
+{
+  "date": "2026-10-11",
+  "scope": "Reconstructed real initialized math contributions, not function or final-layout acceptance.",
+  "source": {
+    "path": "calibration/title/title_sine.c",
+    "sha256": "b76cb7e792ad174e84074a87b2841f694f8966bcda1f7f17d3ca65bbbf3f88b5"
+  },
+  "target": {
+    "path": "assets/pc/HERCULES/TITLE.DLL",
+    "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b"
+  },
+  "ranges": {
+    "existing_sine": [
+      "0x243e0",
+      "0x24be0"
+    ],
+    "tangent": [
+      "0x24be0",
+      "0x25180"
+    ],
+    "squares": [
+      "0x25180",
+      "0x251e0"
+    ]
+  },
+  "formats": {
+    "tangent": "360 observed monotone32bit values, used by ENG1/ENG3 signed-comparison inverse-angle binarysearch over bounds0..359",
+    "squares": "48 observed unsigned-halfword values0^2..47^2; no known PCconsumer or originaltabledeclaration"
+  },
+  "table_evidence": [
+    {
+      "name": "tangent",
+      "rva": "0x24be0",
+      "bytes": 1440,
+      "sha256": "61ad1295704dc0f3afe2558cae0fca16addff281920c20ed9737ff37d54c195e",
+      "peers": [
+        {
+          "module": "ENG1.DLL",
+          "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+          "duplicates": [
+            "0x5b048"
+          ]
+        },
+        {
+          "module": "ENG3.DLL",
+          "oracle_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+          "duplicates": [
+            "0x38e88"
+          ]
+        }
+      ],
+      "bindings": [
+        {
+          "module": "TITLE.DLL",
+          "target_rva": "0x24be0",
+          "refs": []
+        },
+        {
+          "module": "ENG1.DLL",
+          "target_rva": "0x5b048",
+          "refs": [
+            {
+              "operand_rva": "0x2bf63",
+              "target_rva": "0x5b314",
+              "instruction": [
+                180065,
+                "mov",
+                "ecx, dword ptr [0x1005b314]"
+              ]
+            },
+            {
+              "operand_rva": "0x2bf8f",
+              "target_rva": "0x5b048",
+              "instruction": [
+                180108,
+                "mov",
+                "ecx, dword ptr [eax*4 + 0x1005b048]"
+              ]
+            }
+          ]
+        },
+        {
+          "module": "ENG3.DLL",
+          "target_rva": "0x38e88",
+          "refs": [
+            {
+              "operand_rva": "0x1f7e3",
+              "target_rva": "0x39154",
+              "instruction": [
+                128993,
+                "mov",
+                "ecx, dword ptr [0x10039154]"
+              ]
+            },
+            {
+              "operand_rva": "0x1f80f",
+              "target_rva": "0x38e88",
+              "instruction": [
+                129036,
+                "mov",
+                "ecx, dword ptr [eax*4 + 0x10038e88]"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "squares",
+      "rva": "0x25180",
+      "bytes": 96,
+      "sha256": "4a7c38d6819dd4625285e3d30ed5082b043e5f7a48f69303c989d224abd267de",
+      "peers": [
+        {
+          "module": "ENG1.DLL",
+          "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+          "duplicates": [
+            "0x5b5e8"
+          ]
+        },
+        {
+          "module": "ENG3.DLL",
+          "oracle_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+          "duplicates": [
+            "0x39428"
+          ]
+        }
+      ],
+      "bindings": [
+        {
+          "module": "TITLE.DLL",
+          "target_rva": "0x25180",
+          "refs": []
+        },
+        {
+          "module": "ENG1.DLL",
+          "target_rva": "0x5b5e8",
+          "refs": []
+        },
+        {
+          "module": "ENG3.DLL",
+          "target_rva": "0x39428",
+          "refs": []
+        }
+      ]
+    }
+  ],
+  "numeric_controls": {
+    "double_truncation_mismatches": [
+      {
+        "index": 180,
+        "native": 65536,
+        "formula": 65535
+      },
+      {
+        "index": 359,
+        "native": 15019650,
+        "formula": 15019649
+      }
+    ],
+    "float_value_control": {
+      "prediction": "Single-precision value conversion before truncation explains the two observed double-truncation boundary exceptions without changed angle inputs.",
+      "falsifier": "Any remaining complete-table numeric mismatch.",
+      "outcome": "falsified",
+      "differences": [
+        [
+          278,
+          175283,
+          175284
+        ],
+        [
+          356,
+          3754554,
+          3754555
+        ],
+        [
+          358,
+          7509681,
+          7509682
+        ]
+      ]
+    },
+    "limits": "Neithertruncationmodel exactlyreproduces all360values. Nativeconstantinitializers arepreserved; no originalgenerator or precisionrule claimed. Floatcontrolpredictionwasrecordedwithoutcome, not an independentpre-experiment receipt."
+  },
+  "fresh_canonical": {
+    "scope": "Fresh initialized-data payload comparison, not originalsource/TU/layout or functionacceptance.",
+    "source": "calibration/title/title_sine.c",
+    "source_sha256": "b76cb7e792ad174e84074a87b2841f694f8966bcda1f7f17d3ca65bbbf3f88b5",
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-fdpje8gn\\candidate.obj",
+    "object_sha256": "f79d6ad173ae52e7e006460d7688c88e303cccbb1e440ecacf09e693e5ff8f38",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-fdpje8gn\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\title\\title_sine.c"
+    ],
+    "functions": 0,
+    "relocations": 0,
+    "combined_bytes": 3584,
+    "new_bytes": 1536,
+    "whole_data_sha256": "c24955144d1f6c4bbf93718f2fe5689088adfdd93248901d50479406d19935ef",
+    "rows": [
+      {
+        "symbol": "_g_243e0",
+        "native_rva": "0x243e0",
+        "bytes": 2048,
+        "offset": 0,
+        "sha256": "2b2d866b8efe4b0ee47853d0c292a9ffea6ebbf6379fc693b0bde2df6b056ac5",
+        "equal": true
+      },
+      {
+        "symbol": "_g_tangent_quarter_degrees",
+        "native_rva": "0x24be0",
+        "bytes": 1440,
+        "offset": 2048,
+        "sha256": "61ad1295704dc0f3afe2558cae0fca16addff281920c20ed9737ff37d54c195e",
+        "equal": true
+      },
+      {
+        "symbol": "_g_integer_squares_48",
+        "native_rva": "0x25180",
+        "bytes": 96,
+        "offset": 3488,
+        "sha256": "4a7c38d6819dd4625285e3d30ed5082b043e5f7a48f69303c989d224abd267de",
+        "equal": true
+      }
+    ]
+  },
+  "natural_link": {
+    "sources": 38,
+    "before_unresolved": 101,
+    "after_unresolved": 101,
+    "duplicates": [],
+    "complete_data_plain_bytes": 3584,
+    "complete_data_differences": 0,
+    "other_data_metrics_nonregressing": true,
+    "section_delta": {
+      "source": "calibration/title/title_sine.c",
+      "ours": "0x1d2e0",
+      "original": "0x243e0",
+      "section_offset_ours": "0x22e0",
+      "section_offset_original": "0x23e0",
+      "bytes": {
+        "size": 3584,
+        "pointer_slots": 0,
+        "pointer_slots_equal": 0,
+        "pointer_slots_extra": 0,
+        "pointer_targets_unplaced": 0,
+        "plain_bytes": 3584,
+        "plain_bytes_differing": 0
+      }
+    },
+    "limits": "Forced unresolvedlayoutimage is diagnosticonly, never executed/accepted. Nativeplacement and historicalmathTU unknown."
+  },
+  "limits": [
+    "The2048byte sineprefix remainsunchanged; whole3584byte compiled.data contribution containsno inventedpadding, function or relocations.",
+    "Only the1536byte suffix wasnewly recovered. The48byte preceding243b0..243e0gap remainsunknown.",
+    "Arraynames, visibility, signedness beyond observed comparisons, originalgenerator, TU and unrelatedmathcontributions remainunproved.",
+    "CanonicalTITLE unresolvednames do notdecrease because thesetwo tables haveno knownTITLEoperand users; actualengineconsumers independentlyprove tangentuse.",
+    "Earlier sinecheckpoint suffixabsence is superseded by this measured contribution, not a complete math-object or moduleclaim."
+  ],
+  "provenance": [
+    {
+      "path": "work/root_title_mathdata_11/prediction.json",
+      "sha256": "6d122e6e3a2ea69432326dcfce8b6ad3bf472b5fa4f936578b0237b482769000"
+    },
+    {
+      "path": "work/root_title_mathdata_11/analysis.json",
+      "sha256": "af414e80fbc0a65eafa136a415c4db538975add4f4822f27ef418dc3ef4fc9bc"
+    },
+    {
+      "path": "work/root_title_mathdata_11/candidate_report.json",
+      "sha256": "714c6ba0cb519e7c399a67d78ba5b4fd4152f15a0090f751ea3ab2c44af5e052"
+    },
+    {
+      "path": "work/root_title_mathdata_11/canonical_report.json",
+      "sha256": "2ac22808d09062021a10b62b31c91e3aa352af7900ea7e394897d6543feca353"
+    },
+    {
+      "path": "work/root_title_mathdata_11/baseline_link.json",
+      "sha256": "fe73116aca1fe5caa6401ea26e25c82fde42d7da8cc92bf304dbae91d267ed72"
+    },
+    {
+      "path": "work/root_title_mathdata_11/candidate_link.json",
+      "sha256": "8ae5e0ae6df0690f6ee96696e2121f8c700fa99ffde8cc2fde275fc7ab267685"
+    },
+    {
+      "path": "work/root_title_mathdata_11/prepare.py",
+      "sha256": "e57d45304bb816199bd70722be9213a9dcd9ef1b029fca9107bd358f587f0f26"
+    },
+    {
+      "path": "work/root_title_mathdata_11/verify.py",
+      "sha256": "39a9317798c55282cb8e19bb304e290126a3dcfe31837bc3beff21e244637e4e"
+    },
+    {
+      "path": "work/root_title_mathdata_11/measure_link.py",
+      "sha256": "0fc37bd7116d405423854e0ee7a6f21aac960909cf0aa843f03ec9a851a53829"
+    }
+  ],
+  "commands": [
+    "python work/root_title_mathdata_11/verify.py calibration/title/title_sine.c",
+    "python scripts/title_link.py TITLE.DLL"
+  ]
+}

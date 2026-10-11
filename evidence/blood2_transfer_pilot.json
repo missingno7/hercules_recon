@@ -1,0 +1,284 @@
+{
+  "scope": "Historical audit and diagnostic measurements only. recovery.json remains the sole recovery authority; no accepted-state or source change.",
+  "date": "2026-10-10",
+  "hercules_head": "dce228831d759985ab2c4f9df054b0762a7411cd",
+  "blood2": {
+    "head": "d71e4788b9befec6d8a4666c11812ef18264ab17",
+    "origin": "https://github.com/missingno7/blood2_recon.git",
+    "worktree_status": "fatal: this operation must be run in a work tree",
+    "inspected_files": 17,
+    "head_comparison": "Decoded UTF-8 text comparison after CRLF-to-LF; SHA-256 is of actual working bytes.",
+    "provenance": {
+      "path": "work/transfer_audit/blood2/provenance.json",
+      "sha256": "e12330928b50a883c99472e33104ed7f33e65f3d595df4bd31d5c155efa551c3"
+    },
+    "limits": "Repository-reported methods; no Blood II build or oracle execution."
+  },
+  "analysis_runtime": {
+    "version": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "sha256": "31073dad142bc7f3374e3122aa668270052c9ad37d0aaab803ae73f184c3a43b",
+    "dependencies": "Existing C:/tools/hercules/python; no dependencies added."
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "manifest": {
+      "path": "toolchains/manifest.json",
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    },
+    "provenance": "Existing pinned RTM compiler; compile_source verifies manifest inputs; no binary changes."
+  },
+  "regression": {
+    "strict_before": {
+      "functions": 113,
+      "bytes": 7840
+    },
+    "strict_after": {
+      "functions": 113,
+      "bytes": 7840
+    },
+    "strict_contributions_unchanged": true,
+    "masked_before": {
+      "rows": 331,
+      "bytes": 80928,
+      "sources": 29,
+      "failures": 0
+    },
+    "masked_after": {
+      "rows": 331,
+      "bytes": 80928,
+      "sources": 29,
+      "failures": 0
+    },
+    "python_tests": {
+      "passed": 45,
+      "command": "python -m unittest discover -s tests -p 'test_*.py'"
+    },
+    "immutable_originals_verified": 12,
+    "recovery_git_blob_unchanged": "5033bec1d8e82da43f21879d5b4601478874834a",
+    "changed_recovered_sources": [],
+    "raw_reports": [
+      {
+        "path": "work/transfer_audit/raw_before.json",
+        "sha256": "bd970bfd37c64f80fe6db640d3adba7818a29f0a6ff7271ba8a3c9ad72a10178"
+      },
+      {
+        "path": "work/transfer_audit/raw_after.json",
+        "sha256": "78b5b9edfed9c922f2f57107e86172db5dc9398d1cf066901db6363c877d4ea9"
+      }
+    ]
+  },
+  "constant_pilot": {
+    "initial_family_builds": 8,
+    "clean_control_builds": 4,
+    "prediction": "A same-value store constant can share a web across independent conditionals and survive calls when reused later.",
+    "falsifier": "Controls retain the same allocation, or repeated fresh outputs differ.",
+    "result": "With calls: mov esi,6, saved esi, 96 bytes. Same declarations and stores without calls: mov eax,6, no saved register, 80 bytes.",
+    "rebuild_scope": "Complete decoded function contributions and noncode output identity; not timestamped whole-object or image equality.",
+    "cases": [
+      {
+        "name": "two_if_calls",
+        "size": 96,
+        "source_sha256": "c8808b85dd750358c11181f129766d2496671ddbfda2bcf98aa9f5a5ea057a2c",
+        "function_output_id": "78ad8f2f5af61b7c9f134f9d4443f7f041bbed0152cbe92e375aed7195009ba8",
+        "measured_output_id": "e55a51f6a346e80d18422c1ed4c0486e2f83bfef1e8be6b743a9cebfc6c60c38",
+        "repeated_output_equal": true
+      },
+      {
+        "name": "two_if_no_calls",
+        "size": 80,
+        "source_sha256": "dac1c32219c83c23c3809ad24eb1194f3c5ea016a967643e77cdffa79d32883e",
+        "function_output_id": "162ffc31dabbd135e29cf395101142a852b138e2a00702ffc320c24cc8265e24",
+        "measured_output_id": "8ec2e4bb90de77ad3590750c66ead5e50a2ac867b4b2b72eea8c98161c66a3bc",
+        "repeated_output_equal": true
+      }
+    ],
+    "report": {
+      "path": "work/transfer_audit/repro_constant_lifetime/report.json",
+      "sha256": "689a8f519f16f16a51c82dc05deb650c66557e851e089e745b92f915afd8c8c6"
+    },
+    "reproduction": "python scripts/probe_constant_lifetime.py",
+    "limits": "No target equality, historical source identity, or solution to the full 0x1c500 interference problem is claimed."
+  },
+  "derived_progress": {
+    "modules": {
+      "ENG1.DLL": {
+        "strict": {
+          "functions": 73,
+          "bytes": 5472
+        },
+        "masked": {
+          "functions": 0,
+          "bytes": 0
+        },
+        "legacy_similar": {
+          "functions": 0,
+          "bytes": 0
+        },
+        "reconstructed_non_strict": {
+          "functions": 0,
+          "bytes": 0
+        },
+        "untracked_map_leads": {
+          "functions": 1145,
+          "bytes": 278400
+        },
+        "map_scope": "heuristic first-party prefix; may contain drafts and suspect extents"
+      },
+      "ENG3.DLL": {
+        "strict": {
+          "functions": 23,
+          "bytes": 1680
+        },
+        "masked": {
+          "functions": 0,
+          "bytes": 0
+        },
+        "legacy_similar": {
+          "functions": 1,
+          "bytes": 224
+        },
+        "reconstructed_non_strict": {
+          "functions": 0,
+          "bytes": 0
+        },
+        "untracked_map_leads": {
+          "functions": 525,
+          "bytes": 145696
+        },
+        "map_scope": "heuristic first-party prefix; may contain drafts and suspect extents"
+      },
+      "HERCULES.EXE": {
+        "strict": {
+          "functions": 11,
+          "bytes": 336
+        },
+        "masked": {
+          "functions": 0,
+          "bytes": 0
+        },
+        "legacy_similar": {
+          "functions": 0,
+          "bytes": 0
+        },
+        "reconstructed_non_strict": {
+          "functions": 0,
+          "bytes": 0
+        },
+        "untracked_map_leads": null,
+        "map_scope": null
+      },
+      "TITLE.DLL": {
+        "strict": {
+          "functions": 6,
+          "bytes": 352
+        },
+        "masked": {
+          "functions": 331,
+          "bytes": 80928
+        },
+        "legacy_similar": {
+          "functions": 2,
+          "bytes": 128
+        },
+        "reconstructed_non_strict": {
+          "functions": 1,
+          "bytes": 224
+        },
+        "untracked_map_leads": {
+          "functions": 22,
+          "bytes": 35024
+        },
+        "map_scope": "heuristic first-party prefix; may contain drafts and suspect extents"
+      }
+    },
+    "shared_research_families": [
+      {
+        "id": "scratch_rotation",
+        "pending_codegen_byte_ceiling": 10096,
+        "unmeasured_members": 0
+      },
+      {
+        "id": "join_reload_order",
+        "pending_codegen_byte_ceiling": 8320,
+        "unmeasured_members": 0
+      },
+      {
+        "id": "constant_lifetime",
+        "pending_codegen_byte_ceiling": 4128,
+        "unmeasured_members": 0
+      },
+      {
+        "id": "real_tu_context",
+        "pending_codegen_byte_ceiling": 3952,
+        "unmeasured_members": 0
+      },
+      {
+        "id": "shared_reset_scheduling",
+        "pending_codegen_byte_ceiling": 816,
+        "unmeasured_members": 0
+      },
+      {
+        "id": "unfolded_zero",
+        "pending_codegen_byte_ceiling": 128,
+        "unmeasured_members": 0
+      }
+    ],
+    "inputs": {
+      "D:\\Prog\\hercules_recon\\recovery.json": "8fc21ee815b97f12c3164954138c1ca1767e4ee900f2c666380395573988602e",
+      "D:\\Prog\\hercules_recon\\evidence\\convergence_families.json": "87f91b118ed4429573fa3c118040cfc7b1f26e771f7bd3fc6dc1007737901fee",
+      "D:\\Prog\\hercules_recon\\work\\function_map\\title_v4.json": "5786baba52e3999bbdc717ffbe8df39cb7b13f11d0ae45050c5316a279263a20",
+      "D:\\Prog\\hercules_recon\\work\\transfer_audit\\engine\\eng1_map.json": "c5283615f079f73de1c5b6d2ead95238f2cd57d4c5a64d0684e958cc308932f7",
+      "D:\\Prog\\hercules_recon\\work\\transfer_audit\\engine\\eng3_map.json": "b10e811416c8271c8ead011aac95e133b7d586fb12949aa7989135712600bae2"
+    },
+    "limits": "Byte ceilings, not gains; maps are heuristic first-party prefixes. Untracked rows may have existing drafts; no EXE missing-code total is inferred."
+  },
+  "source_pilot": {
+    "module": "ENG3.DLL",
+    "rva": "0x13a0",
+    "target_span": 64,
+    "evidence": "Count-prefixed actor-pointer vector at 0x40fa0; writer 0x1bd11; actor kind byte +0x97; callback table 0x33078; callers 0x3101,0x57be,0x10f3e.",
+    "related_span": "0x13e0, using a separate count-vector at 0x40e40; both called at 0x10f35/0x10f3e.",
+    "family_builds": 4,
+    "retained_variants": "v1-v4; v1/v3 receipts recomputed from preserved prior objects, v4 measured fresh.",
+    "final_source": {
+      "path": "candidates/transfer_audit_engine/eng3_actor_dispatch.c",
+      "sha256": "e90467bdb4f13b13469671a36631a39f8b476d2278ec3ccabb76eb9a0c0320ef"
+    },
+    "final_report": {
+      "path": "work/transfer_audit/engine/eng3_actor_dispatch_v4_measurement.json",
+      "sha256": "15f1122ec15db69b9cd2db62710a9fa502a596fad18bb7e018398b01349aa544"
+    },
+    "final_measurement": {
+      "compiled_size": 64,
+      "raw_different_bytes": 46,
+      "masked_different_bytes": 30,
+      "masked_equal": false,
+      "compiled_relocation_offsets": [
+        1,
+        19,
+        42,
+        47
+      ],
+      "target_relocation_offsets": [
+        1,
+        19,
+        43,
+        48
+      ]
+    },
+    "next_discriminator": "Compare both sibling loops, caller sequences, vector writers and live-register roles before another source family; initial index lifetime alone did not resolve the offset shifts.",
+    "limits": "Private ordinary-C draft and failed measurements retained; no stage or acceptance."
+  },
+  "implemented": [
+    "Whole-oracle and source identity guards in similar.check_rows",
+    "Module-specific map validation in similar.summary",
+    "Derived byte coverage and shared-family reading list",
+    "Reproducible two-control constant-lifetime runner"
+  ],
+  "plan": "docs/blood2_transfer_plan.md",
+  "limits": "No whole-object timestamp equality, whole-image equality, linked acceptance, exhaustive behavior, or strict-byte improvement claimed."
+}

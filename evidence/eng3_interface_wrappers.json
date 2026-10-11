@@ -1,0 +1,283 @@
+{
+  "scope": "Recovered typed interface forwarders with fresh relocation-masked equality, not FUNCTION_MATCH.",
+  "date": "2026-10-11",
+  "source": {
+    "path": "calibration/eng3/interface_wrappers.c",
+    "sha256": "fc47081b373f61592d06ba45e145c48400eb79107a3be81e850cc39a19c7ef21"
+  },
+  "oracle": {
+    "path": "assets\\pc\\HERCULES\\ENG3.DLL",
+    "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+    "size": 272896
+  },
+  "headers": [
+    {
+      "path": "calibration/engine_interface.h",
+      "sha256": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529"
+    },
+    {
+      "path": "calibration/resource_context.h",
+      "sha256": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608"
+    }
+  ],
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "manifest": {
+      "path": "toolchains/manifest.json",
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    }
+  },
+  "prediction": {
+    "lane": "eng3_interface_recovery",
+    "region": "ENG3.DLL engine-interface forwarders after PC_DLLEngineMain",
+    "family": "typed wrapper family over shared copied interface slots",
+    "recorded_before_compile": true,
+    "prediction": "ENG3 RVAs 0x1f8e0, 0x1f910, 0x1f920, 0x1f930, 0x1f940, 0x1f980, 0x1f9e0, 0x1f9f0, 0x1fa20, 0x1fa50, and 0x1fa70 are first-party one-call wrappers over the shared 250-word engine interface at VA 0x100407a0. Their call-site stack setup and existing shared-header callback prototypes support ordinary typed C. Under pinned VC5 /O2, the non-padding instruction streams should match the target, each contribution should carry exactly one DIR32 relocation through the same external interface symbol, and the implied address should be 0x100407a0. A strict function match is not predicted because the target imports contain absolute relocations to the copied interface slots.",
+    "falsifier": "Any target body whose argument count, slot offset, return use, or tail-call shape conflicts with the shared header and TITLE wrapper evidence; any non-padding instruction mismatch; differing relocation topology or implied base across wrappers; or a compiler contribution whose complete extent cannot be defended from the target bytes.",
+    "evidence": [
+      "ENG3.DLL PC_DLLEngineMain at RVA 0x1f830 copies 250 dwords to VA 0x100407a0; evidence/engine_interface_binding.json records the host source-table pointer and the static cross-module binding scope.",
+      "calibration/engine_interface.h gives explicit physical callback signatures for slots 0x20, 0x24, 0x2c, 0x30, 0x34, 0x48, 0x5c, 0x60, 0x68, 0x78, and 0x84; original signedness and full declaration provenance remain limited to the header's stated ABI-view scope.",
+      "calibration/title/u0c1f0.c contains corresponding TITLE wrappers at RVAs 0xc2a0, 0xc2d0, 0xc2f0, 0xc300, 0xc310, 0xc350, 0xc3b0, 0xc3c0, 0xc3f0, 0xc450, and 0xc470.",
+      "Fresh leaf packets for ENG3 record direct call or tail-jump bodies, caller setup, and 16/32-byte spans to the following aligned entry; those spans include linker-filled NOPs and will be distinguished from decoded body extents during measurement."
+    ],
+    "targets": [
+      {
+        "rva": "0x1f8e0",
+        "span": 48,
+        "slot": "0x20",
+        "title_rva": "0xc2a0",
+        "prototype": "int(const char *, const char *, int, void *, unsigned long)"
+      },
+      {
+        "rva": "0x1f910",
+        "span": 16,
+        "slot": "0x24",
+        "title_rva": "0xc2d0",
+        "prototype": "void(void), discarding the callback's int result"
+      },
+      {
+        "rva": "0x1f920",
+        "span": 16,
+        "slot": "0x2c",
+        "title_rva": "0xc2f0",
+        "prototype": "void(void)"
+      },
+      {
+        "rva": "0x1f930",
+        "span": 16,
+        "slot": "0x30",
+        "title_rva": "0xc300",
+        "prototype": "void(void)"
+      },
+      {
+        "rva": "0x1f940",
+        "span": 16,
+        "slot": "0x34",
+        "title_rva": "0xc310",
+        "prototype": "unsigned long(int)"
+      },
+      {
+        "rva": "0x1f980",
+        "span": 32,
+        "slot": "0x48",
+        "title_rva": "0xc350",
+        "prototype": "unsigned long(const char *, const char *)"
+      },
+      {
+        "rva": "0x1f9e0",
+        "span": 16,
+        "slot": "0x5c",
+        "title_rva": "0xc3b0",
+        "prototype": "void(void)"
+      },
+      {
+        "rva": "0x1f9f0",
+        "span": 16,
+        "slot": "0x60",
+        "title_rva": "0xc3c0",
+        "prototype": "void(void)"
+      },
+      {
+        "rva": "0x1fa20",
+        "span": 32,
+        "slot": "0x68",
+        "title_rva": "0xc3f0",
+        "prototype": "unsigned long(const char *, const char *, void *, unsigned long)"
+      },
+      {
+        "rva": "0x1fa50",
+        "span": 32,
+        "slot": "0x78",
+        "title_rva": "0xc450",
+        "prototype": "void *(void **, unsigned long, unsigned long)"
+      },
+      {
+        "rva": "0x1fa70",
+        "span": 16,
+        "slot": "0x84",
+        "title_rva": "0xc470",
+        "prototype": "void(void)"
+      }
+    ],
+    "compile": null,
+    "result": null
+  },
+  "functions": [
+    {
+      "id": "eng3.slot_020",
+      "rva": "0x1f8e0",
+      "size": 48,
+      "symbol": "_eng3_slot_020",
+      "slot": "0x20",
+      "prototype_view": "int(const char *, const char *, int, void *, unsigned long)",
+      "relocation_offset": 27,
+      "raw_differing_bytes": 4,
+      "masked_differing_bytes": 0
+    },
+    {
+      "id": "eng3.slot_024",
+      "rva": "0x1f910",
+      "size": 16,
+      "symbol": "_eng3_slot_024",
+      "slot": "0x24",
+      "prototype_view": "void(void); shared callback is int(void), target tail-jumps and preserves EAX but callers' return use is not claimed",
+      "relocation_offset": 2,
+      "raw_differing_bytes": 4,
+      "masked_differing_bytes": 0
+    },
+    {
+      "id": "eng3.slot_02c",
+      "rva": "0x1f920",
+      "size": 16,
+      "symbol": "_eng3_slot_02c",
+      "slot": "0x2c",
+      "prototype_view": "void(void)",
+      "relocation_offset": 2,
+      "raw_differing_bytes": 4,
+      "masked_differing_bytes": 0
+    },
+    {
+      "id": "eng3.slot_030",
+      "rva": "0x1f930",
+      "size": 16,
+      "symbol": "_eng3_slot_030",
+      "slot": "0x30",
+      "prototype_view": "void(void)",
+      "relocation_offset": 2,
+      "raw_differing_bytes": 4,
+      "masked_differing_bytes": 0
+    },
+    {
+      "id": "eng3.slot_034",
+      "rva": "0x1f940",
+      "size": 16,
+      "symbol": "_eng3_slot_034",
+      "slot": "0x34",
+      "prototype_view": "unsigned long(int)",
+      "relocation_offset": 7,
+      "raw_differing_bytes": 4,
+      "masked_differing_bytes": 0
+    },
+    {
+      "id": "eng3.slot_048",
+      "rva": "0x1f980",
+      "size": 32,
+      "symbol": "_eng3_slot_048",
+      "slot": "0x48",
+      "prototype_view": "unsigned long(const char *, const char *)",
+      "relocation_offset": 12,
+      "raw_differing_bytes": 4,
+      "masked_differing_bytes": 0
+    },
+    {
+      "id": "eng3.slot_05c",
+      "rva": "0x1f9e0",
+      "size": 16,
+      "symbol": "_eng3_slot_05c",
+      "slot": "0x5c",
+      "prototype_view": "void(void)",
+      "relocation_offset": 2,
+      "raw_differing_bytes": 4,
+      "masked_differing_bytes": 0
+    },
+    {
+      "id": "eng3.slot_060",
+      "rva": "0x1f9f0",
+      "size": 16,
+      "symbol": "_eng3_slot_060",
+      "slot": "0x60",
+      "prototype_view": "void(void)",
+      "relocation_offset": 2,
+      "raw_differing_bytes": 4,
+      "masked_differing_bytes": 0
+    },
+    {
+      "id": "eng3.slot_068",
+      "rva": "0x1fa20",
+      "size": 32,
+      "symbol": "_eng3_slot_068",
+      "slot": "0x68",
+      "prototype_view": "unsigned long(const char *, const char *, void *, unsigned long)",
+      "relocation_offset": 22,
+      "raw_differing_bytes": 4,
+      "masked_differing_bytes": 0
+    },
+    {
+      "id": "eng3.slot_078",
+      "rva": "0x1fa50",
+      "size": 32,
+      "symbol": "_eng3_slot_078",
+      "slot": "0x78",
+      "prototype_view": "void *(void **, unsigned long, unsigned long)",
+      "relocation_offset": 17,
+      "raw_differing_bytes": 4,
+      "masked_differing_bytes": 0
+    },
+    {
+      "id": "eng3.slot_084",
+      "rva": "0x1fa70",
+      "size": 16,
+      "symbol": "_eng3_slot_084",
+      "slot": "0x84",
+      "prototype_view": "void(void)",
+      "relocation_offset": 2,
+      "raw_differing_bytes": 4,
+      "masked_differing_bytes": 0
+    }
+  ],
+  "result": {
+    "functions": 11,
+    "bytes": 256,
+    "all_masked_equal": true,
+    "all_same_table_rva": "0x407a0",
+    "table_va": "0x100407a0",
+    "one_dir32_per_function": true,
+    "no_interior_references": true,
+    "no_unsupported_relocations": true
+  },
+  "correction": "The worker raw report aggregate predicate compared image-relative0x407a0 to VA0x100407a0 and incorrectly returnedfalse. Per-function results agree; raw receipt is preserved and canonical independent stage confirms all11.",
+  "semantics": {
+    "evidence": "PC wrapper arity/order/slot offsets, target caller setups and compatible existing physical EngineInterface declarations.",
+    "finite_fixture_run": false,
+    "limits": "Original type identity/signedness remain unknown. Slot24 void outer return is a compatible code view; no return-value behavior claim."
+  },
+  "artifacts": [
+    {
+      "path": "work/eng3_interface_recovery/family_measurement.json",
+      "sha256": "f572eb06ef4c83264aaa622347dbef24141a296f3ded4595af6b90a87c8d82b2"
+    },
+    {
+      "path": "work/eng3_interface_recovery/extent_audit.json",
+      "sha256": "9b29a0c5512cc50000eba2ba7f1c37f84abafe01ef5469f0cc4e7eaeb4e8d2da"
+    },
+    {
+      "path": "work/eng3_interface_recovery/corrected_interpretation.json",
+      "sha256": "955331841e4d2dcec7566be58b9ed7abae0502d2bdebc602768f15c5df2c9570"
+    }
+  ],
+  "reproduction": "python scripts/similar.py verify",
+  "limits": "Function/code coverage gain is256 masked bytes only. Real interface provider and natural linked addresses are still required for strict acceptance."
+}

@@ -23,10 +23,92 @@ static TitleObject *g_2a27c;
 static TitleObject *g_2a280;
 static TitleObject *g_2a274;
 static int g_2a254;
-extern volatile unsigned int g_25a28;  /* volatile: owner-approved codegen hypothesis (0xd720) */
+/* Signed frame sequences consumed by the 0xd910 state handler.
+   Each sequence ends at its consumed -1 sentinel. The 999/776 pair is
+   an audio marker/argument pair consumed together by the reader. */
+short g_25860[] = { 1, 1, 2, 2, 3, 3, 4, 4, -1 };
+short g_25878[] = { 4, 4, 3, 3, 2, 2, 1, 1, -1 };
+short g_25890[] = { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, -1 };
+short g_258b0[] = {
+    8, 8, 9, 9, 9, 10, 10, 7, 7, 7, 8, 8, 9, 9, 9, 9,
+    10, 10, 8, 8, 9, 9, 9, 10, 10, 7, 7, 7, 8, 8, 9, 9,
+    9, 9, 10, 10, -1
+};
+short g_25900[] = {
+    10, 10, 9, 9, 9, 9, 8, 8, 7, 7, 7, 10, 10, 9, 9, 9,
+    8, 8, 10, 10, 9, 9, 9, 9, 8, 8, 7, 7, 7, 10, 10, 9,
+    9, 9, 8, 8, -1
+};
+short g_25950[] = { 11, 11, 12, 12, 13, 13, 14, 14, 14, 14, -1 };
+short g_25968[] = {
+    1, 1, 1, 2, 2, 3, 4, 5, 5, 6, 6, 7, 7, 8, 8, 8,
+    9, 9, 9, 9, 9, 10, 10, 11, 11, 12, 999, 776, 12, 12, 9, 9,
+    10, 10, 11, 11, -1
+};
+short g_259b8[] = { 12, 12, 999, 776, 12, 9, 9, 10, 10, 11, 11, -1 };
+short g_259d0[] = { 3, 3, 3, 2, 2, 2, 1, 1, 1, -1 };
+short g_259e8[] = {
+    1, 1, 2, 2, 3, 4, 5, 5, 6, 6, 7, 7, 7, 7, 7, 7,
+    7, 7, 9, 3, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, -1
+};
+
+volatile unsigned int g_25a28 = 1;  /* volatile: owner-approved codegen hypothesis (0xd720) */
 static TitleObject *g_2a288[64];
 static int g_2a9b8;
-extern int g_25a30[43 * 6];
+/* Password/level records: four sprite codes, result code, difficulty.
+   The PC data has 42 six-int rows at 0x25a30..0x25e1f, followed by the
+   0xd910 trace literal at 0x25e20. title_0cd30 intentionally retains its
+   native 43-iteration bound; the shipped extra read always rejects that
+   literal's first word. The named trace array below reproduces those bytes
+   and adjacency, but proves neither the original declaration nor defined C
+   behavior for the extra read. */
+int g_25a30[] = {
+    56, 65, 40, 72, 1, 0,
+    8, 48, 24, 24, 2, 0,
+    72, 56, 72, 16, 3, 0,
+    16, 81, 40, 72, 5, 0,
+    72, 89, 48, 56, 5, 0,
+    24, 56, 72, 16, 6, 0,
+    32, 65, 81, 72, 7, 0,
+    24, 32, 32, 40, 8, 0,
+    24, 24, 64, 56, 9, 0,
+    72, 48, 24, 56, 12, 0,
+    32, 40, 81, 16, 12, 0,
+    64, 48, 40, 64, 12, 0,
+    80, 89, 81, 48, 1, 1,
+    40, 48, 56, 48, 2, 1,
+    32, 8, 89, 16, 3, 1,
+    32, 56, 40, 8, 5, 1,
+    80, 40, 16, 80, 5, 1,
+    56, 65, 56, 80, 6, 1,
+    16, 24, 16, 32, 7, 1,
+    64, 24, 8, 16, 8, 1,
+    80, 56, 56, 72, 9, 1,
+    48, 81, 32, 24, 10, 1,
+    80, 73, 81, 32, 11, 1,
+    24, 81, 32, 80, 12, 1,
+    24, 16, 89, 48, 1, 2,
+    32, 40, 64, 72, 2, 2,
+    72, 89, 81, 80, 3, 2,
+    89, 48, 40, 48, 5, 2,
+    16, 65, 16, 56, 5, 2,
+    48, 81, 24, 56, 6, 2,
+    40, 81, 24, 32, 7, 2,
+    64, 24, 89, 48, 8, 2,
+    40, 24, 24, 64, 9, 2,
+    80, 8, 48, 56, 10, 2,
+    56, 40, 89, 80, 11, 2,
+    32, 48, 64, 40, 12, 2,
+    80, 89, 40, 56, 100, 0,
+    56, 8, 48, 80, 101, 0,
+    64, 40, 89, 56, 102, 0,
+    40, 48, 48, 80, 103, 0,
+    48, 32, 89, 56, 104, 0,
+    89, 48, 89, 32, 105, 0,
+};
+/* Address-labelled view of the format text consumed by0xd910. A named char
+   array is a reconstruction hypothesis; the original may use a pooled literal. */
+char g_25e20[] = " Meg_Speech_Time %d";
 extern int g_29f98;
 static int g_2a250;
 extern int g_2bb3c;

@@ -100,3 +100,45 @@ failed-family conclusions survive; no destructive scratch garbage collector runs
 Keep successful sources and reproducible recipes, not every candidate spelling.
 Measure progress in accepted bytes/functions and explained blockers, not variant
 counts. See `docs/workflow_experiment.md` for the actual transfer and production run.
+
+For a derived cross-module byte view, run `scripts/convergence.py` with explicit
+module function maps. It overlays `recovery.json` on the shared research reading
+list in `evidence/convergence_families.json`; untracked span leads may already have
+drafts. Byte ceilings are not gain forecasts, difficulty scores or routing state.
+See `docs/blood2_transfer_plan.md` for the audit, independent source/compiler
+workstreams and the reproducible constant-lifetime pilot. The existing strict
+promotion and negative-family reentry rules still apply.
+
+Use `python scripts/leaf.py residual MODULE RVA SIZE SYMBOL SOURCE --islands 1`
+to inspect the first grouped non-relocation mismatch without an entire listing.
+Add `--report work/LANE/residual.json` for raw/masked measurements and provenance.
+It recompiles with the pinned toolchain, retains binding conflicts, and explains
+complete instruction windows (ordering, register operands, or other differences).
+Linear decoding can include inline data; these labels never establish behavior or
+acceptance. `diff` now normalizes only the encoded relocation operand, preserving
+other constants and index scales in the same instruction. See
+`docs/solo_blocker_progress.md` for the measured pilot and stopped source families.
+
+`python scripts/archive_storage.py --output work/archive_storage/report.json`
+freshly checks the canonical archive scalar/string and public-handle providers
+against durable field evidence. It verifies initialized values, writable data
+class, supported loader-zero extents, exact public definitions, and stable inputs.
+This is a data dependency diagnostic, never function or whole-image acceptance.
+It also checks the fatal service's observed four-byte HWND and two byte flags
+when their canonical provider/evidence is present. Those six bytes establish
+access-width storage only; original aggregate extent, ownership and placement
+remain open. It rejects a missing half of the provider/evidence pair.
+
+The same verifier checks registry providers when their canonical proof is present:
+49 writable initialized string bytes and the 72-byte loader-zero protocol prefix.
+The prefix is not proof of the original record's full extent. The host context
+pointer belongs to `EngineInterface.context_004`; leave the actual host table
+external until its genuine initializer and dependencies are recovered.
+
+Write durable text as LF before hashing it, as required by `.gitattributes`.
+For example, write UTF-8 serialized bytes with `Path.write_bytes`, or explicitly
+set `newline="\n"` when writing text. Before a checkpoint, compare source SHA-256
+proofs with the actual staged blob bytes. Historical scratch receipts keep their
+original identities; migrate a durable receipt only for its explicitly named,
+unchanged artifact when normalizing text. Do not replace historical source
+snapshots with the current source hash.

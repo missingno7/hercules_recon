@@ -11,14 +11,15 @@ unsigned long g_archive_directory_count;
 int g_archive_last_stream_handle=-1;
 int g_public_file_count;
 int g_public_file_handles[16];
-const char g_archive_mode[]="rb",g_archive_read_mode[]="rb";
+const char g_archive_mode[]="rb";
+char g_archive_read_mode[]="rb";
 const char g_archive_filename[]="hercules.fs";
 const char g_archive_init_open_failure[]="PC_InitFileSys(1)";
 const char g_archive_init_read_failure[]="PC_InitFileSys(2)";
 const char g_archive_init_sort_failure[]="PC_InitFileSys(3)";
 const char g_archive_open_error_format[]="PC_fopen(\"%s\")";
-const char g_open_capacity_error[]="PCopen(1)",g_open_mode_error[]="PCopen(2)";
-const char g_seek_handle_error[]="PCseek",g_read_handle_error[]="PCread";
+char g_open_capacity_error[]="PCopen(1)",g_open_mode_error[]="PCopen(2)";
+char g_seek_handle_error[]="PCseek",g_read_handle_error[]="PCread";
 /* Synthetic backing extent; no assertion about target scratch capacity. */
 char g_archive_scratch[512];
 const char g_archive_prefix_maps[15]="M:\\GRAFIX\\MAPS";

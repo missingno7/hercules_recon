@@ -1,0 +1,190 @@
+{
+  "date": "2026-10-11",
+  "scope": "Solo compiler research and diagnostic-tool fix. No new game-source acceptance or recovery-state change.",
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "target": {
+    "path": "work/discs/pc_install/TITLE.DLL",
+    "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b"
+  },
+  "implemented": {
+    "files": [
+      "scripts/leaf.py",
+      "scripts/residual.py",
+      "tests/test_residual.py"
+    ],
+    "fixes": [
+      "Normalize only supported four-byte relocation operands; preserve unrelated constants and scales.",
+      "Refuse source/oracle mutation during diagnostic compilation.",
+      "Bound residual output and classify complete instruction windows; raw/masked comparisons remain separate."
+    ],
+    "limits": "Diagnostic linear decoding may include inline data. Labels prove neither behavior, source identity nor acceptance."
+  },
+  "pilot": {
+    "source": "candidates/wa450/u09a40_ctx.c",
+    "source_sha256": "cde7615c27a37dbce14f26a53cc75e12027dcdbf5e7008f2486329f984a458f7",
+    "rva": "0xa450",
+    "size": 7408,
+    "residual_bytes": 6,
+    "binding_conflicts": 0,
+    "first_island": {
+      "mismatch_span": [
+        4080,
+        4087
+      ],
+      "decoded_span": [
+        4080,
+        4087
+      ],
+      "kind": "instruction_order_difference",
+      "original": [
+        {
+          "offset": "0xff0",
+          "instruction": "xor edi, edi"
+        },
+        {
+          "offset": "0xff2",
+          "instruction": "mov esi, 0xf"
+        }
+      ],
+      "compiled": [
+        {
+          "offset": "0xff0",
+          "instruction": "mov esi, 0xf"
+        },
+        {
+          "offset": "0xff5",
+          "instruction": "xor edi, edi"
+        }
+      ],
+      "omitted_instructions": {
+        "original": 0,
+        "compiled": 0
+      }
+    },
+    "strict_equal": false,
+    "masked_equal": false
+  },
+  "families": [
+    {
+      "id": "join_reload_order",
+      "target_members": [
+        "0xa450",
+        "0x18bf0"
+      ],
+      "newly_measured_target": "0xa450",
+      "observations": [
+        "Call arguments remain immediate; store controls qualify constant webs.",
+        "Two-predecessor store control rematerializes EBX=1, ESI=15, EDI=0; earlier loads use ESI=15, EDI=0, EBX=1.",
+        "All twelve controls reproduce complete function bytes and ordered relocations in two fresh compiles each.",
+        "Five join forms retain 7408 bytes but increase residual from six to sixteen; duplicated tail emits 7824.",
+        "The two canonical u09a40 peers retain raw bytes and ordered relocations in all six target trials."
+      ],
+      "verdict": "No target gain; keep the six-byte draft.",
+      "reentry": "A cut-down control isolating incoming-edge constant survival/piece order without changing the observed allocation, or new genuine source/context evidence."
+    },
+    {
+      "id": "decimal_formatter_ranges",
+      "target_members": [
+        "0x1a2c0"
+      ],
+      "observations": [
+        "Fresh baseline is 240 bytes versus native 224.",
+        "The baseline 10 product is positive; the 100 product is negative. This supersedes the older arithmetic-only diagnosis.",
+        "Native retains value in EBX and loads units late; baseline retains units in EBX and value in EBP.",
+        "An explicit first-flag local changes value allocation to native EBX, but creates other allocation/scheduling differences.",
+        "All fifteen target trials remain 240 bytes. Four isolated arithmetic controls emit positive 100 chains under both signed and unsigned forms."
+      ],
+      "verdict": "No target gain; preserve the existing RECONSTRUCTED row.",
+      "reentry": "Cut-down quotient/store/flag control explaining units-pointer range selection, or new type/TU evidence; do not repeat the arithmetic-spelling family."
+    }
+  ],
+  "validation": {
+    "python_tests": 54,
+    "python_test_command": "python -m unittest discover -s tests -p 'test_*.py'",
+    "strict_functions": 113,
+    "strict_bytes": 7840,
+    "strict_report": "work/solo_reload/strict_regression.json",
+    "masked_functions": 342,
+    "masked_bytes": 81184,
+    "masked_sources": 30,
+    "masked_command": "python scripts/similar.py verify",
+    "masked_failures": 0,
+    "immutable_originals_verified": 12,
+    "inventory_command": "python scripts/inventory.py --verify",
+    "strict_byte_gain": 0,
+    "masked_byte_gain": 0,
+    "recovery_sha256": "ce4e572692e943c8502f831a3e592d9fe298068a75bdabc82da9cd85f790d564"
+  },
+  "artifacts": [
+    {
+      "path": "work/solo_reload/prediction.md",
+      "sha256": "e4d60dd3351c3e74d4d85895e5b1f9f5138ee7ab4c5fba32f197ef6b7bc00b59"
+    },
+    {
+      "path": "work/solo_reload/baseline.json",
+      "sha256": "76a218cc34e48cd7e6faee0b2cdbfce1e4eca3a34d2e158e8a6423989ada42dd"
+    },
+    {
+      "path": "work/solo_reload/controls.json",
+      "sha256": "d8267c7014ff9a7a15ed7f9676465e61d89e812a6d011ec9b852b65cf3d3f5ad"
+    },
+    {
+      "path": "work/solo_reload/store_controls.json",
+      "sha256": "41e0f27b7c91fda994aeff25dcd1c0e864b834c3ffb2427f05dfbb5291e940a2"
+    },
+    {
+      "path": "work/solo_reload/target_forms.json",
+      "sha256": "ef31cfd261cf924d90f8eb12cd37d8361f2798ee2e47fb82339d42da664a8b3f"
+    },
+    {
+      "path": "work/solo_reload/tail_forms.json",
+      "sha256": "d25d1ce957e00f36e913570502e7a566f937bd866fb84132be6fb2493dd1cd57"
+    },
+    {
+      "path": "work/solo_reload/residual_pilot_final.json",
+      "sha256": "b2e84e1aa427f9549f9c285d117fde26dba567589cdbda416a97d9ce31471995"
+    },
+    {
+      "path": "work/solo_reload/strict_regression.json",
+      "sha256": "c70346485ec503fe6021e79460ccfb8faf62292ebd8959f2869ff9b017a52c66"
+    },
+    {
+      "path": "work/solo_decimal/prediction.md",
+      "sha256": "2dc1645571cdf2564ffe2676931f531b50b7a2d26f5e8142be00b1f2e94dec34"
+    },
+    {
+      "path": "work/solo_decimal/flag_prediction.md",
+      "sha256": "121512f4f944df800fc6e37d81d2d5fef96d155776958b4850990efd1885b5ca"
+    },
+    {
+      "path": "work/solo_decimal/bitfield_prediction.md",
+      "sha256": "3f5676719f18318f23693184cb09e432c9ebf9f95fc8a76d9b671a9d23635608"
+    },
+    {
+      "path": "work/solo_decimal/store_prediction.md",
+      "sha256": "568a38d0241667cefed1104f82aff000dada3ba9724d31a395fb85ca98ede2a7"
+    },
+    {
+      "path": "work/solo_decimal/report.json",
+      "sha256": "c814e544cf8ae76f22ae9ab297b130685d1a5d4b5e776c8fab572fdc317cc7e5"
+    },
+    {
+      "path": "work/solo_decimal/flags.json",
+      "sha256": "0b1c5e258289140bd2e82a6c9325a1bbf7480e58baabf6b13f369643049008f0"
+    },
+    {
+      "path": "work/solo_decimal/bitfields.json",
+      "sha256": "946053ab7df61a05858c8cc12d5d6af84e446ae262b3049373d213eb59eaf04b"
+    },
+    {
+      "path": "work/solo_decimal/stores.json",
+      "sha256": "2da195040605163d3c2ce6497131e77f69970d9ea906ae8dd0f14cb9bab7bb66"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "scope": "Partial initialized-data recovery and protected code diagnostics; recovery.json alone controls function acceptance.",
+  "date": "2026-10-11",
+  "source": {
+    "path": "calibration/title/u0cc90.c",
+    "sha256": "6263b9c77533f48c7efb09be75033b2b0e028f1719d850d54b068a1260962a05"
+  },
+  "headers": [
+    {
+      "path": "calibration/title/title_engine.h",
+      "sha256": "c9129ad4b8fe6dc88b1a29815faec87b0c0064abb656a07df9fe8a665af6c466"
+    },
+    {
+      "path": "calibration/title/title_screen.h",
+      "sha256": "18ddb6112c5592b914e64880e1cc8426b2f556d95ef3dcd7c5ef4e1d14f7f3fd"
+    },
+    {
+      "path": "calibration/title/title_proc.h",
+      "sha256": "e47311fdfe6e88084912c8515ce6331498b63b76c8ecdb085bd4a97a391cb3fc"
+    },
+    {
+      "path": "calibration/title/title_files.h",
+      "sha256": "0e458448bf55074aeb0a8293c32cc31319958458dcc0e6e62b41bdeb31619cd4"
+    },
+    {
+      "path": "calibration/resource_context.h",
+      "sha256": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608"
+    }
+  ],
+  "oracle": {
+    "path": "assets/pc/HERCULES/TITLE.DLL",
+    "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b"
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "manifest": {
+      "path": "toolchains/manifest.json",
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    }
+  },
+  "prediction": "The ten sentinel-delimited short sequences and actual20-byte trace char array reproduce the complete1492-byte initialized contribution25860..25e34, with old13 function bytes/masked identities and addressbindings stable.",
+  "falsifier": "Any emitted data/extent/padding mismatch or changed raw code/masked bytes/normalized target binding.",
+  "data": {
+    "start": "0x25860",
+    "end_exclusive": "0x25e34",
+    "bytes": 1492,
+    "added_bytes": 476,
+    "complete_emitted_data_equal": true,
+    "compiled_sha256": "9d457b9c0350806a4af093b93e5451fd26e24f5b539dda682e6c0dfb3dcb86a4",
+    "sequences": 10,
+    "sequence_initializer_bytes": 418,
+    "natural_inter_array_padding_bytes": 38,
+    "prior_wheel_and_password_bytes": 1016,
+    "trace": {
+      "rva": "0x25e20",
+      "bytes": 20,
+      "text": " Meg_Speech_Time %d",
+      "caller": "0xd910",
+      "xref": "0xe915",
+      "declaration": "Named char array is an address-labelled source view; original literal pooling/visibility is not proved."
+    },
+    "roles": "Signed-short frame lists with consumed -1 terminators; 999 followed by776 is an audio marker/argument pair."
+  },
+  "code": {
+    "protected_unit_functions": 13,
+    "protected_bytes": 5952,
+    "raw_code_bytes_unchanged": true,
+    "masked_hashes_unchanged": true,
+    "normalized_address_bindings_unchanged": true,
+    "exact_coff_symbol_strings_unchanged": false,
+    "label_note": "Added declarations renumber compiler-generated $S/$L identifiers. Complete relocation-spelling identities are not claimed unchanged.",
+    "existing_bss_offsets_unchanged": true
+  },
+  "natural_link": {
+    "unresolved": 105,
+    "duplicates": [],
+    "data_differing_bytes": 0,
+    "native_placement": false,
+    "limit": "Forced unresolved layout is a data diagnostic only; no image execution or acceptance."
+  },
+  "unresolved_walk_ownership": {
+    "interval": [
+      "0x257e8",
+      "0x25860"
+    ],
+    "bytes": 120,
+    "forms": [
+      "One shared int[30] with first-call word at element0",
+      "First-call scalar, natural4 alignment bytes, motion int[28] accessed using frame-2"
+    ],
+    "compiler_result": "Both forms emit exact120-byte data and the same indexed operand after normal relocation addend-8; neither proves historical declaration.",
+    "inferred_split_link": {
+      "observed_gap": 4,
+      "native_gap": 8,
+      "prediction_held": false
+    },
+    "canonicalized": false,
+    "reentry": "Recover the missing preceding unit data and export/handler context, then repeat the natural link; no explicit padding or forced placement."
+  },
+  "regression": {
+    "strict_functions": 113,
+    "strict_bytes": 7840,
+    "strict_failures": 0,
+    "masked_rows": 342,
+    "masked_bytes": 81184,
+    "masked_sources": 30,
+    "masked_failures": 0
+  },
+  "artifacts": [
+    {
+      "path": "work/title_frame_integration/frame_trace_report.json",
+      "sha256": "a96b864acc02e4eb371f1c66648327653e212927c9811d981b5f91647e871420"
+    },
+    {
+      "path": "work/title_frame_integration/canonical_link.json",
+      "sha256": "ae337fcc70b5bd25f31d2b443a538bd2718450ef604813aed2837abb21b24745"
+    },
+    {
+      "path": "work/title_frame_integration/link_preview.json",
+      "sha256": "1a1bcbc2cf8e4cfd30d40b9857f34a20e9e205e90cc7b1cc6b7e3044ca134680"
+    },
+    {
+      "path": "work/title_walk_ownership/compile_results.json",
+      "sha256": "8b83ab87576540d6b62dfa68de75fd80892a0c53eb4b67162901ec83361b4a6d"
+    },
+    {
+      "path": "work/title_frame_tables/measurement.json",
+      "sha256": "606bc2f6d950a11082372008b2a13c97d0e53cecd53c5d16688245f0df351aea"
+    },
+    {
+      "path": "work/title_frame_integration/raw_regression.json",
+      "sha256": "0d9899d59a347890ca2f1f7b2e8471936b87a8f63f84511cbfba549072c131b9"
+    }
+  ],
+  "limits": [
+    "Partial data equality, not original unit/module equality.",
+    "Historical 43rd password-table read still lies outside the C array; literal bytes/adjoining order now recovered but defined C behavior not claimed.",
+    "No new strict function acceptance."
+  ]
+}

@@ -17,7 +17,9 @@ extern char *g_2bb24;
 extern char *g_2dfb0;
 extern char *g_2df40;
 extern unsigned char g_2df50;
-extern int g_2b370;
+/* Actual loading allocation cell. Explicit zero gives ordinary object .bss;
+   full native placement and historical ownership remain unproved. */
+int g_2b370 = 0;
 /* Loading-screen data file; the first initialized data of this unit (.data 0x2674c, literal after it). */
 char *g_2674c = "M:\\LANGUAGE\\SRCLANG\\LOADING.DAT";
 extern int g_2cbe0[3];

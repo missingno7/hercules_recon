@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-11",
+  "scope": "Fresh deterministic staging of existing untracked typed ENG1 forwarding contributions; no source algorithm change, strict gain or inferred module layout.",
+  "source": "calibration/engine_file_bridge.c",
+  "source_sha256": "0860ba3c4e242f3810bdbb15d1f70bfbf266b48b96715b3ba3c56f3ef96a62c2",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "headers": {
+    "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+    "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608"
+  },
+  "functions": [
+    {
+      "id": "eng1.engine_file_load_async",
+      "symbol": "_engine_file_load_async",
+      "rva": "0x2c230",
+      "bytes": 48,
+      "raw_differing_bytes": 4,
+      "relocations": 1
+    },
+    {
+      "id": "eng1.engine_file_cancel",
+      "symbol": "_engine_file_cancel",
+      "rva": "0x2c260",
+      "bytes": 16,
+      "raw_differing_bytes": 4,
+      "relocations": 1
+    },
+    {
+      "id": "eng1.engine_pool_compact",
+      "symbol": "_engine_pool_compact",
+      "rva": "0x2c290",
+      "bytes": 16,
+      "raw_differing_bytes": 4,
+      "relocations": 1
+    },
+    {
+      "id": "eng1.engine_file_length",
+      "symbol": "_engine_file_length",
+      "rva": "0x2c2f0",
+      "bytes": 32,
+      "raw_differing_bytes": 4,
+      "relocations": 1
+    },
+    {
+      "id": "eng1.engine_file_load_sync",
+      "symbol": "_engine_file_load_sync",
+      "rva": "0x2c390",
+      "bytes": 32,
+      "raw_differing_bytes": 4,
+      "relocations": 1
+    },
+    {
+      "id": "eng1.engine_pool_allocate",
+      "symbol": "_engine_pool_allocate",
+      "rva": "0x2c3c0",
+      "bytes": 32,
+      "raw_differing_bytes": 4,
+      "relocations": 1
+    }
+  ],
+  "prediction": "Unchanged typed live callback-cell forwarding retains complete native contributions and the independently evidenced copied aggregate base.",
+  "result": {
+    "masked_functions": 6,
+    "masked_bytes": 176,
+    "strict_gain_bytes": 0,
+    "nonrelocation_differences": 0,
+    "binding_conflicts": 0,
+    "implied_symbol": {
+      "_g_engine_interface": "0x70f20"
+    },
+    "semantic_fixture_checks": 8,
+    "semantic_failures": 0
+  },
+  "physical_evidence": "evidence/engine_file_bridge_contract.json documents copied-table slots and live callback semantics; each compiled DIR32 position exactly equals native HIGHLOW.",
+  "limits": [
+    "Formal source prototypes, names and original TU remain unproved.",
+    "The copied 1000-byte prefix does not establish full historical object extent or final placement.",
+    "This upgrades measured proof tracking, not source discovery or raw byte matching; finite fixtures do not prove exhaustive behavior."
+  ],
+  "provenance": [
+    {
+      "path": "work/root_engine_bridge_11/prediction.json",
+      "sha256": "77eb67378da9a59a7fed1248ddbe04573e4d4a65b40ba3cf129eae0ba8807d81"
+    },
+    {
+      "path": "work/root_engine_bridge_11/report.json",
+      "sha256": "aa81572bfd0ac043d5ccea718443fde459ce8c09fa3ef4dd3a09bd76cfc90556"
+    },
+    {
+      "path": "work/root_engine_bridge_11/stage_plan.json",
+      "sha256": "b0048d7a4db6a5134649ac70d904023153335a937e2932d09aae0373b6f52ac0"
+    },
+    {
+      "path": "build/tests/engine_file_bridge-hqgkw2p1/report.json",
+      "sha256": "198c09a5952d8ac31f9657afa742a310ce5c593a4683ea7034f4638d957e80ec"
+    },
+    {
+      "path": "evidence/engine_file_bridge_contract.json",
+      "sha256": "d5562049dc46a36eb24663268c26fd0f4ac99608e5d9f288a7ee743576aa7700"
+    }
+  ],
+  "command": "python work/root_engine_bridge_11/validate.py; python scripts/test_pilot.py --suite engine_file_bridge; python scripts/similar.py stage work/root_engine_bridge_11/stage_plan.json"
+}

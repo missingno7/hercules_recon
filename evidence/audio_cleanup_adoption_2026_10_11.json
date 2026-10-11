@@ -1,0 +1,162 @@
+{
+  "scope": "Two canonical complete relocation-masked cleanup contributions; no strict or exhaustive behavior acceptance.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "candidate": {
+    "path": "candidates/luna_audio_cleanup_dependencies_11/audio_cleanup_dependencies.c",
+    "sha256": "e5c32c9af07da1c8309328276be3a44b82dd34f0981aca16eacd2ba6e3519e85",
+    "functions": [
+      {
+        "symbol": "_cleanup_native_9e10",
+        "rva": "0x9e10",
+        "size": 80,
+        "target_sha256": "027c9a5bfa39dd769a1a9a3c022d7cdc8bd2e5196d4cec4a79c5c2992f5f1fc3",
+        "native_extent": "RET at 0x9e52 followed by 13 NOP bytes to aligned 0x9e60",
+        "callers": [
+          "0x5459",
+          "0x9e6a",
+          "0xa120"
+        ],
+        "measure": {
+          "compiled_size": 80,
+          "raw_equal": false,
+          "raw_differing_bytes": 28,
+          "masked_equal": true,
+          "masked_differing_bytes": 0,
+          "conflicts": [],
+          "unsupported_relocations": []
+        },
+        "observed_bindings": {
+          "_cleanup_native_9c30": "0x9c30",
+          "__imp__mciSendStringA@16": "0x7a5b14",
+          "_audio_stop_command": "0x37394",
+          "_g_exe_96e62c": "0x56e62c",
+          "_g_exe_96e620": "0x56e620",
+          "_g_exe_96e61c": "0x56e61c",
+          "_g_exe_96e628": "0x56e628",
+          "_g_exe_96e624": "0x56e624"
+        },
+        "behavior_evidence": "Checks the 0x96e62c dword; if nonzero and 0x9c30 returns nonzero, calls WINMM mciSendStringA with stop cdaudio wait and three zero arguments; clears five state dwords at 0x96e62c, 0x96e620, 0x96e61c, 0x96e628, and 0x96e624."
+      },
+      {
+        "symbol": "_cleanup_native_ff40",
+        "rva": "0xff40",
+        "size": 48,
+        "target_sha256": "c9e87e0b89cf85c8f4b0b8453d2a273660f19e06331ba382ed334c6d20a50f95",
+        "native_extent": "RET at 0xff66 followed by 9 NOP bytes to aligned 0xff70",
+        "callers": [
+          "0x5742",
+          "0xc12e",
+          "0xff72"
+        ],
+        "measure": {
+          "compiled_size": 48,
+          "raw_equal": false,
+          "raw_differing_bytes": 10,
+          "masked_equal": true,
+          "masked_differing_bytes": 0,
+          "conflicts": [],
+          "unsupported_relocations": []
+        },
+        "observed_bindings": {
+          "_cleanup_native_f710": "0xf710",
+          "_g_audio_cleanup_iteration_flag": "0x79e450"
+        },
+        "behavior_evidence": "Stores the caller argument's low byte in 0x79e450, calls 0xf710 with every integer index from 0 through 1199, then clears that byte."
+      }
+    ]
+  },
+  "dependencies": {
+    "cleanup_native_9c30": {
+      "kind": "unresolved first-party EXE function; not recovered in this lane",
+      "rva": "0x9c30",
+      "observed_inner_dependencies": [
+        "WINMM mciSendStringA import at RVA 0x7a5b14",
+        "g_exe_96e630 at RVA 0x56e630",
+        "MCI strings at RVAs 0x37378, 0x37358, 0x37350, 0x37338",
+        "__strcmpi/__stricmp implementation at EXE RVA 0x1c270 is pinned library code; identify and bind as library code"
+      ],
+      "observed_result": "Queries cdaudio media-present and ready states, compares returned text with true, and returns a boolean; conditionally opens cdaudio shareable wait when g_exe_96e630 is clear."
+    },
+    "cleanup_native_f710": {
+      "kind": "unresolved first-party EXE function; not recovered in this lane",
+      "rva": "0xf710",
+      "observed_data": [
+        "reads shared byte flag at RVA 0x79e450",
+        "indexes four-dword records from table base VA 0xb99908 (RVA 0x799908), stride 16, through index 1199"
+      ],
+      "observed_result": "For nonzero object entries, makes vtable calls at offsets 0x48 and 8 and clears each slot; when the shared flag is zero it skips index 0x338."
+    }
+  },
+  "provenance": {
+    "measurement": "work/luna_audio_cleanup_dependencies_11/measurement.json",
+    "toolchain": "msvc5_rtm",
+    "toolchain_manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "compile_command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "fresh output: build/match/compile-cp4blz45/candidate.obj"
+    ],
+    "object_sha256": "32bf73133d9fa7414b8fb525471c062855e99c9d19be896191d3619c36f5766a",
+    "successful_historical_builds": 1,
+    "raw_object_equality": "false for both contributions because their native absolute/call relocations contain target addresses; every non-relocation byte matches and all observed relocation symbols imply the target RVAs.",
+    "acceptance": "Masked equality is diagnostic only; neither function is a FUNCTION_MATCH from this evidence."
+  },
+  "gate_plan": [
+    "Keep the measured source, spec, metadata, and object/report private; the bodies are complete-span masked equals, not strict accepted matches.",
+    "Recover or identify genuine address-bound providers for 0x9c30, 0xf710, the five 0x96e6xx state cells, the byte at 0x79e450, and the MCI string at 0x37394; retain WINMM mciSendStringA as an import and __strcmpi/__stricmp as library code.",
+    "Once those actual dependencies have providers, use the repository natural dependency-link gate without production stubs, aliases, or placement controls. Resolve diagnostics by body/data/import/library ownership.",
+    "Grant strict function acceptance only after a fresh build and actual target-byte equality in the resulting measured contribution/image context; do not promote based on relocation masking alone."
+  ],
+  "canonical": {
+    "source": "calibration/audio_cleanup_dependencies.c",
+    "source_sha256": "e5c32c9af07da1c8309328276be3a44b82dd34f0981aca16eacd2ba6e3519e85",
+    "rows": [
+      {
+        "id": "exe.cleanup_native_9e10",
+        "rva": "0x9e10",
+        "bytes": 80,
+        "symbols": {
+          "__imp__mciSendStringA@16": "0x7a5b14",
+          "_audio_stop_command": "0x37394",
+          "_cleanup_native_9c30": "0x9c30",
+          "_g_exe_96e61c": "0x56e61c",
+          "_g_exe_96e620": "0x56e620",
+          "_g_exe_96e624": "0x56e624",
+          "_g_exe_96e628": "0x56e628",
+          "_g_exe_96e62c": "0x56e62c"
+        },
+        "proof": {
+          "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+          "source_sha256": "e5c32c9af07da1c8309328276be3a44b82dd34f0981aca16eacd2ba6e3519e85",
+          "masked_sha256": "83529e0efc53cacd36fb02961e8767b385d9924eb4209775ab9d6968ee993e79",
+          "toolchain": "msvc5_rtm"
+        }
+      },
+      {
+        "id": "exe.cleanup_native_ff40",
+        "rva": "0xff40",
+        "bytes": 48,
+        "symbols": {
+          "_cleanup_native_f710": "0xf710",
+          "_g_audio_cleanup_iteration_flag": "0x79e450"
+        },
+        "proof": {
+          "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+          "source_sha256": "e5c32c9af07da1c8309328276be3a44b82dd34f0981aca16eacd2ba6e3519e85",
+          "masked_sha256": "d80bc4bc045225df4bf5d9eeca9ea9e4ae440f4baef813ba0208b7e7e74affc5",
+          "toolchain": "msvc5_rtm"
+        }
+      }
+    ]
+  },
+  "worker_receipt": {
+    "path": "work/luna_audio_cleanup_dependencies_11/handoff.json",
+    "sha256": "f6fcfea7ac49153fef5a82be51ef836ab3f8573ea13f0695f4a36effb88c7259"
+  }
+}

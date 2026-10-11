@@ -3,6 +3,7 @@
 packet MODULE RVA SIZE     text listing, raw bytes and caller argument setup
 data   MODULE RVA SIZE     hex and ASCII of image bytes at RVA (strings, tables)
 diff   MODULE RVA SIZE SYMBOL SOURCE   aligned instruction diff of compiled vs original
+residual MODULE RVA SIZE SYMBOL SOURCE bounded raw/masked mismatch islands
 check  MODULE RVA SIZE SYMBOL SOURCE [--flags ...]
                            fresh pinned VC5 compile; raw compare of the full /Gy contribution
 """
@@ -72,64 +73,43 @@ def packet(module, rva, size, callers=4, before=8):
 def check(module, rva, size, symbol, source, flags):
     db = sqlite3.connect(DB)
     target = module_path(db, module)
+    source_before = digest(Path(source).read_bytes())
+    target_before = digest(target.read_bytes())
     obj, command = compile_source(source, flags)
     result = compare(obj, symbol, target, rva, size)
-    result.update(source_sha256=digest(Path(source).read_bytes()), command=command)
+    if digest(Path(source).read_bytes()) != source_before or digest(target.read_bytes()) != target_before:
+        raise ValueError('Source or oracle changed during diagnostic compilation')
+    result.update(source_sha256=source_before, target_file_sha256=target_before, command=command)
     return result
 
 
 def diff(module, rva, size, symbol, source, flags):
     import difflib
-    import re
-    import capstone
     from coff import COFF
+    from residual import instruction_rows
+    from masked import REL32, DIR32
     db = sqlite3.connect(DB)
-    obj, _ = compile_source(source, flags)
-    section = COFF(obj).function(symbol)
-    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
-    relocated = {r['offset'] for r in section['relocations']}
-
-    def rows(code, base, fields):
-        out = []
-        for i in md.disasm(code, base):
-            text = f'{i.mnemonic} {i.op_str}'.strip()
-            key = text
-            relocated = any(i.address - base <= f < i.address - base + i.size for f in fields)
-            if relocated:
-                # Operands holding relocation fields differ by design; keep only the shape.
-                key = re.sub(r'(0x[0-9a-f]+|[0-9]+)', 'R', text)
-                key = re.sub(r'\[([a-z]{3})\]', r'[ + R]', key)
-                if i.mnemonic == 'call' or i.mnemonic.startswith('j'):
-                    key = f'{i.mnemonic} EXTERNAL'
-            elif i.mnemonic.startswith('j') or i.mnemonic == 'call':
-                m = re.fullmatch(r'0x([0-9a-f]+)', i.op_str)
-                if m:
-                    target = int(m.group(1), 16) - base
-                    if 0 <= target < len(code):
-                        key = text = f'{i.mnemonic} +{target:#x}'
-                    else:
-                        key = f'{i.mnemonic} EXTERNAL'
-            out.append((i.address - base, key, text))
-        return out
+    result = check(module, rva, size, symbol, source, flags)
+    section = COFF(result['object']).function(symbol)
     pe = PE(module_path(db, module))
     target_fields = {e.rva - rva for b in getattr(pe.pe, 'DIRECTORY_ENTRY_BASERELOC', []) for e in b.entries
                      if e.type and rva <= e.rva < rva + size}
-    original = rows(pe.read_rva(rva, size), rva, target_fields)
-    compiled = rows(section['data'], 0, {r['offset'] for r in section['relocations']})
+    original = instruction_rows(pe.read_rva(rva, size), rva, target_fields)
+    compiled = instruction_rows(section['data'], 0, {r['offset'] for r in section['relocations'] if r['type'] in (REL32, DIR32)})
     lines = []
     matcher = difflib.SequenceMatcher(None, [r[1] for r in original], [r[1] for r in compiled], autojunk=False)
     for tag, a0, a1, b0, b1 in matcher.get_opcodes():
         if tag == 'equal':
             continue
         lines.append(f'--- {tag} original[{a0}:{a1}] compiled[{b0}:{b1}]')
-        lines += [f'  - {o:#05x}  {t}' for o, _, t in original[a0:a1]]
-        lines += [f'  + {o:#05x}  {t}' for o, _, t in compiled[b0:b1]]
+        lines += [f'  - {o:#05x}  {t}' for o, _, t, _ in original[a0:a1]]
+        lines += [f'  + {o:#05x}  {t}' for o, _, t, _ in compiled[b0:b1]]
     return chr(10).join(lines) or 'instruction streams equal after address normalization'
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('command', choices=['packet', 'check', 'data', 'diff'])
+    parser.add_argument('command', choices=['packet', 'check', 'data', 'diff', 'residual'])
     parser.add_argument('module')
     parser.add_argument('rva')
     parser.add_argument('size')
@@ -137,6 +117,8 @@ def main():
     parser.add_argument('source', nargs='?', type=Path)
     parser.add_argument('--flags', nargs='*', default=['/O2'])
     parser.add_argument('--callers', type=int, default=4)
+    parser.add_argument('--islands', type=int, default=4)
+    parser.add_argument('--report', type=Path)
     args = parser.parse_args()
     rva, size = int(args.rva, 0), int(args.size, 0)
     if args.command == 'packet':
@@ -152,6 +134,32 @@ def main():
         return
     if not args.symbol or not args.source:
         parser.error('check requires SYMBOL and SOURCE')
+    if args.command == 'residual':
+        from residual import residual
+        if args.islands < 1:
+            parser.error('--islands must be positive')
+        if args.report and not any(args.report.resolve().is_relative_to((ROOT / d).resolve()) for d in ('work', 'build')):
+            parser.error('Generated residual reports belong under work/ or build/')
+        result = residual(args.module, rva, size, args.symbol, args.source, args.flags, args.islands)
+        if args.report:
+            args.report.parent.mkdir(parents=True, exist_ok=True)
+            args.report.write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
+        print(f"RAW {'EXACT' if result['raw']['exact'] else 'DIFFERENT'}; "
+              f"MASKED {'EQUAL' if result['masked']['masked_equal'] else 'DIFFERENT'}; "
+              f"{result['masked']['compiled_size']}/{size} bytes; "
+              f"{result['masked']['differing_bytes']} residual bytes; "
+              f"{len(result['masked']['conflicts'])} binding conflicts; "
+              f"{len(result['masked']['unsupported'])} unsupported relocations")
+        for island in result['islands']:
+            print(f"{island['decoded_span']}: {island['kind']}")
+            for side in ('original', 'compiled'):
+                print(side + ':')
+                for row in island[side]:
+                    print(f"  {row['offset']} {row['instruction']}")
+                if island['omitted_instructions'][side]:
+                    print(f"  {island['omitted_instructions'][side]} further instructions omitted")
+        print(f"{result['omitted_islands']} further islands omitted; diagnostic only")
+        return
     if args.command == 'diff':
         print(diff(args.module, rva, size, args.symbol, args.source, args.flags))
         return
