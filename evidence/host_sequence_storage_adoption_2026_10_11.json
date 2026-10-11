@@ -1,0 +1,177 @@
+{
+  "date": "2026-10-11",
+  "scope": "One native loader-zero DWORD minimum,4 supported bytes; not original declaration/aggregate/TU/adjacency/native placement or function acceptance.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "canonical_provider": {
+    "source": "calibration/host_sequence_storage.c",
+    "private_source": "work/host_sequence_storage_40/host_sequence_storage.c",
+    "private_source_sha256": "7547c2c5cd29c59fc9fd426fb9b8fa47cf3260a0223f4958fac85cc282a249e7",
+    "cells": [
+      {
+        "name": "g_host_sequence",
+        "rva": "0x68e700",
+        "bytes": 4,
+        "end_rva_exclusive": "0x68e704",
+        "native_initial_origin": "loader-zero virtual tail",
+        "initializer": "00000000",
+        "working_carrier": "unsigned long, agreeing with existing actual DWORD postincrement consumer extern; original type/declaration unproved"
+      }
+    ],
+    "source_sha256": "7547c2c5cd29c59fc9fd426fb9b8fa47cf3260a0223f4958fac85cc282a249e7"
+  },
+  "actual_headers": [],
+  "native_write_proof": [
+    {
+      "rva": "0xac10",
+      "bytes": 16,
+      "sha256": "46d3c3e7e19af28b73282c1f7da37e3e420425167b997fa1b0ec43c2a3fdc859"
+    }
+  ],
+  "native_read_write_evidence": [
+    {
+      "rva": "0xac10",
+      "width": 4,
+      "role": "read",
+      "instruction": "mov ecx, dword ptr [0xa8e700]"
+    },
+    {
+      "rva": "0xac19",
+      "width": 4,
+      "role": "write",
+      "instruction": "mov dword ptr [0xa8e700], ecx"
+    }
+  ],
+  "native_initialization": {
+    "section": {
+      "name": ".data",
+      "virtual_address": 217088,
+      "virtual_size": 7797544,
+      "raw_offset": 209920,
+      "raw_size": 38400,
+      "characteristics": 3221225536
+    },
+    "bytes": 4,
+    "value": 0,
+    "file_backed": false,
+    "proof": "Exact68e700..68e704 interval is inside writable .data virtual size and entirely beyond raw size. Loader-zero initial value needs no invented startup writer."
+  },
+  "ownership": {
+    "classification": "Genuine missing minimum static cell contribution, already-consistent unsignedlong extern. No identified aggregate/prefix member or heap pointee owns it.",
+    "definition_missing": true,
+    "canonical_symbols_examined": [
+      {
+        "path": "calibration/host_sequence.c",
+        "line": 1,
+        "text": "extern unsigned long g_host_sequence;"
+      },
+      {
+        "path": "calibration/host_sequence.c",
+        "line": 5,
+        "text": "    return g_host_sequence++;"
+      }
+    ],
+    "natural_graph": {
+      "path": "work/root_audio_gain_36/link.json",
+      "sha256": "b390974a1422156d155d3d6d8e4ae3ffaa6a3a13a45d722cbef1878dad54cf48",
+      "source_count": 54,
+      "definitions": [],
+      "references": [
+        {
+          "source": "calibration/host_sequence.c",
+          "object_sha256": "e8d2015eba2b234edcceaa48b6cfd72d769117d4fd6d7f157bfa98273bac3d19",
+          "section": 0,
+          "storage": 2,
+          "value": 0
+        }
+      ]
+    },
+    "overlapping_adopted_provider": false,
+    "limit": "Standalone minimum provider models actual lvalue storage; does not prove the original independently declared object versus an unknown enclosing aggregate. No larger record is supplied."
+  },
+  "protected_consumers": [
+    {
+      "id": "exe.host_callback_42e0",
+      "status": "CODEGEN_SIMILAR",
+      "source": "calibration/host_callback_42e0.c",
+      "source_sha256": "005ac288c938f37b4e428e1ce5c61c58efc803c8359b8e2f589a9f7b2f478a69",
+      "symbol": "_host_callback_42e0",
+      "rva": "0x42e0",
+      "size": 32
+    },
+    {
+      "id": "exe.host_sequence_next",
+      "status": "CODEGEN_SIMILAR",
+      "source": "calibration/host_sequence.c",
+      "source_sha256": "f49c73b2ea7527f8e6c3c80dc38953ef3406622122bb7ebfd3a4911ad4df4dc6",
+      "symbol": "_host_sequence_next",
+      "rva": "0xac10",
+      "size": 16
+    }
+  ],
+  "caller_protocol": [
+    {
+      "call_rva": "0x169e",
+      "argument_value": 3,
+      "cleanup_bytes": 4,
+      "return_use": "EAX survives the outer epilogue; preserve actual old-value return, not assumed reset/mode behavior."
+    },
+    {
+      "call_rva": "0x1d16",
+      "argument_value": 0,
+      "cleanup_bytes": 4,
+      "return_use": "Following context-pointer load overwritesEAX."
+    },
+    {
+      "call_rva": "0x42e2",
+      "argument_value": 0,
+      "cleanup_bytes": 4,
+      "return_use": "Following incoming-argument load overwritesEAX before actualBE30 call."
+    }
+  ],
+  "limits": "No original full owner/type/TU/native placement, neighboring gaps, synchronization, pointer/heap target or full host initializer acceptance.",
+  "compiler_builds": 0,
+  "native_audit": {
+    "path": "work/host_sequence_storage_40/evidence.json",
+    "sha256": "9df1d012b60d70af1aed32a044ae1d4ad3c5c907fc20980ed0f37efce45fdd55"
+  },
+  "private_control": {
+    "path": "work/host_sequence_storage_gate_40/report.json",
+    "sha256": "58684df84c4771ce341c492717747f09fc50869af37c2eef45dbc801e24dcb95"
+  },
+  "prediction": {
+    "path": "work/root_sequence_storage_40/prediction.json",
+    "sha256": "8e7ca307ea9c05fbad037d892e031189a83dfe195ce3db272dfbc982124a6300"
+  },
+  "fresh_canonical": {
+    "object": "work\\root_sequence_storage_40\\sequence.obj",
+    "object_sha256": "aeb28362d7c8b633ecf335afbf16a0d519b0f7e1e93bf06720d3eff42af0995c",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-62m70qwb\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\host_sequence_storage.c"
+    ],
+    "toolchain": "msvc5_rtm",
+    "bss_bytes": 4,
+    "supported_fields_bytes": 4,
+    "uncredited_padding_bytes": 0,
+    "functions": 0,
+    "relocations": 0,
+    "undefined_symbols": 0,
+    "complete_worker_sections_preserved": true,
+    "inputs_stable": true,
+    "protected_inputs": {
+      "recovery.json": "39033a48213f8ffd5dec72d41bb68df3d37d93d72af1a1416eb2ff42652a0c01",
+      "calibration/host_sequence.c": "f49c73b2ea7527f8e6c3c80dc38953ef3406622122bb7ebfd3a4911ad4df4dc6",
+      "calibration/host_callback_42e0.c": "005ac288c938f37b4e428e1ce5c61c58efc803c8359b8e2f589a9f7b2f478a69",
+      "work/discs/pc_install/HERCULES.EXE": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "toolchains/manifest.json": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    }
+  }
+}

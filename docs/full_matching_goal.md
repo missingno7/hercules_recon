@@ -1326,3 +1326,38 @@ Continue genuine ENG3 runtime omission, adjacent packet callbacks and the existi
 FX prefix in disjoint lanes. Current fresh masked verification preserves 446 rows /
 89328 bytes; 69 tool tests pass. Private successes are excluded from recovery gains.
 See `evidence/parallel_blocker_pilot_2026_10_11.json` for proof identities and limits.
+
+## Shared engine fragments and natural dependency progress
+
+Two more packet-field helpers pass unchanged fresh strict gates, adding 80 bytes.
+All 130 prior matches preserve: current strict total is 132 functions / 8304 bytes.
+Their overlapping-buffer read/store sequence and final command-byte overwrite are
+retained. Complete original prototypes and packet ownership remain unproved.
+
+The genuine 185-byte ENG1-only runtime work is now an explicit experimental module
+guard in one common source. Both full logical 883/698 contributions reproduce in
+independent compilation; the original conditional define is not inferred. An actual
+main-first bound graph and sparse phase switch resolve the complete 244-byte prefix.
+The two genuinely adjacent bodies pass the existing complete-unit gate for 1127
+ENG1 / 942 ENG3 bytes, independently rebuilt from canonical source. Internal label
+spelling differs; complete data/ref targets agree and output identities stay distinct.
+These are inferred fragments and diagnostic equality, not original full TU or raw
+function/module acceptance.
+
+Two genuine missing mode/setup bodies now have canonical ordinary-C source, with
+fresh 177-byte whole-unit diagnostics in both engines. Keep full DWORD mode tests,
+real tick/NULL registration, separate reset DWORDs, and only the observed 24 bank WORD
+and owner DWORD clears. The existing rows/header and full-unit verifier are reused.
+
+A supported four-byte sequence cell supplies a real missing EXE dependency without
+changing its consumers. The fresh 57-source natural graph preserves all 54 older
+complete contributions and 11 new strict packet functions, reducing unresolved
+names 12 to 11. EXE observed data totals are 249 initialized / 207793 loader-zero
+bytes. No image or native placement is proved. All 446 masked rows and 69 tests pass.
+See `evidence/engine_unit_progress_2026_10_11.json` for scope, identities and failures.
+
+A subsequent single worker compile combines the genuine adjacent mode/setup and
+file/empty functions into 345 bytes with 71 literal bytes. Both complete-unit gates
+pass, with four explicit function offsets 0/56/177/340 and all initialized data
+mapped and equal. Preserve local symbol renumbering as separate output identity.
+This broader-context result remains diagnostic, outside recovery totals.

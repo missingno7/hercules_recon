@@ -76,6 +76,7 @@ for source_name,evidence_name,count,initialized,zero,bss_flags in (
  ('calibration/movie_header_storage.c','evidence/movie_header_storage_adoption_2026_10_11.json',1,0,840,0xc0400080),
  ('calibration/movie_initializer_storage.c','evidence/movie_initializer_storage_adoption_2026_10_11.json',4,0,82116,0xc0400080),
  ('calibration/audio_gain_storage.c','evidence/audio_gain_storage_adoption_2026_10_11.json',2,0,4,0xc0300080),
+ ('calibration/host_sequence_storage.c','evidence/host_sequence_storage_adoption_2026_10_11.json',1,0,4,0xc0300080),
 ):
  source_path=root/source_name;proof_path=root/evidence_name
  if proof_path.exists() or source_path.exists():

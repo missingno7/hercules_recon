@@ -1,3 +1,5 @@
+/* Module behavior selection for this experiment, not an original build define.
+ * HERCULES_ENGINE3 omits the measured ENG1-only case1/2 operations. */
 /* Ordinary-C semantic experiment for the observed ENG1 control handler.
  * The routine/prototype names are experiment labels, not recovered source names. */
 #include "engine_interface.h"
@@ -55,6 +57,7 @@ int __cdecl runtime_control(void)
             return 0;
         }
 
+#if !defined(HERCULES_ENGINE3)
         resource_id = 3;
         resource_destroy(resource_id);
         g_actor_resources[resource_id].residency_state = 6;
@@ -74,6 +77,7 @@ int __cdecl runtime_control(void)
         g_engine_interface.context_004->unknown_000[5] = 1;
         g_engine_interface.context_004->blocked_0df = 1;
         g_engine_interface.context_004->unknown_000[3] = 0;
+#endif
         g_engine_interface.context_004->unknown_000[3] = 0;
         return 0;
 
