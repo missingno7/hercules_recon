@@ -1,4 +1,4 @@
-"""Relocation-masked diagnostic comparison of one compiled function contribution.
+"""Relocation-masked diagnostics for complete function or shared-text contributions.
 
 Bytes outside relocation fields must be equal. Each relocation is resolved from the
 target bytes into the address its symbol must have; one symbol must always imply
@@ -17,8 +17,13 @@ def masked_compare(obj, symbol, target, rva, size):
     coff = COFF(obj)
     section = coff.function(symbol)
     number = coff.sections.index(section) + 1
-    actual = section['data']
     pe = PE(target)
+    return _compare_section(coff, section, number, pe, rva, size)
+
+
+def _compare_section(coff, section, number, pe, rva, size):
+    """Shared operand comparison; callers establish the contribution boundary."""
+    actual = section['data']
     expected = pe.read_rva(rva, size)
     fields, implied, conflicts, unsupported = set(), {}, [], []
     for r in section['relocations']:
@@ -38,7 +43,7 @@ def masked_compare(obj, symbol, target, rva, size):
             address = (value - pe.image_base - addend) & 0xffffffff
         sym = next((s for s in coff.symbols.values() if s['name'] == name), None)
         if sym and sym['section'] == number:
-            # Own COMDAT section (switch tables, local labels): base is the function itself.
+            # Own code section (switch tables, local labels): check the complete contribution base.
             address = (address - sym['value']) & 0xffffffff
             if address != rva:
                 conflicts.append(dict(symbol=name, offset=offset, implied=hex(address), reason='own section'))
@@ -65,3 +70,67 @@ def masked_compare(obj, symbol, target, rva, size):
                 differing_bytes=len(differing), mismatch_regions=regions,
                 symbols={k: hex(v) for k, v in sorted(implied.items())}, conflicts=conflicts,
                 unsupported=[dict(u) for u in unsupported], relocations=len(section['relocations']))
+
+
+def masked_unit_compare(obj, target, rva, size, expected_functions):
+    """Read-only full shared-text diagnostic; never a function or unit acceptance.
+
+    Require the complete object's code and an explicit native-derived function
+    offset inventory. No function slicing, RET boundary guessing, object changes,
+    or relaxation of COFF.function/the existing staging and promotion gates.
+    Initialized sections referenced by code must also have one consistent base
+    and match completely, including compiler-emitted alignment bytes.
+    """
+    coff, pe = COFF(obj), PE(target)
+    code = [(n, s) for n, s in enumerate(coff.sections, 1) if s['flags'] & 0x20 and s['size']]
+    if len(code) != 1 or code[0][1]['flags'] & 0x1000:
+        raise ValueError('Unit diagnostic requires exactly one complete non-COMDAT code section')
+    number, section = code[0]
+    if section['flags'] & 0x20000020 != 0x20000020 or len(section['data']) != section['size']:
+        raise ValueError('Unit text must be complete executable code')
+    functions = [s for s in coff.symbols.values() if s['section'] > 0 and s['type'] & 0x20]
+    offsets = {s['name']: s['value'] for s in functions}
+    if (len(functions) < 2 or len(offsets) != len(functions) or
+            any(s['section'] != number for s in functions) or offsets != expected_functions or
+            len(set(offsets.values())) != len(offsets) or min(offsets.values()) != 0 or
+            any(v < 0 or v >= section['size'] for v in offsets.values())):
+        raise ValueError('Complete function inventory/offsets differ from the explicit unit context')
+    if size <= 0 or not any(s['characteristics'] & 0x20000000 and
+                           s['virtual_address'] <= rva and
+                           rva + size <= s['virtual_address'] + min(s['virtual_size'], s['raw_size'])
+                           for s in pe.sections):
+        raise ValueError('Target unit interval must be wholly inside file-backed executable code')
+    for rel in section['relocations']:
+        if rel['offset'] < 0 or rel['offset'] + 4 > len(section['data']):
+            raise ValueError('Unit relocation exceeds the complete code contribution')
+    result = _compare_section(coff, section, number, pe, rva, size)
+    bases, conflicts = {}, []
+    for name, address in result['symbols'].items():
+        sym = next((s for s in coff.symbols.values() if s['name'] == name), None)
+        if sym and sym['section'] > 0 and sym['section'] != number:
+            base = (int(address, 0) - sym['value']) & 0xffffffff
+            other = sym['section']
+            if other in bases and bases[other] != base:
+                conflicts.append(dict(section=other, symbol=name, reason='defined section bases differ'))
+            bases.setdefault(other, base)
+    data, unmapped = [], []
+    for n, sec in enumerate(coff.sections, 1):
+        if n == number or not sec['size'] or sec['name'] == '.drectve' or sec['name'].startswith('.debug'):
+            continue
+        if n not in bases:
+            unmapped.append(dict(section=n, name=sec['name'], bytes=sec['size']))
+            continue
+        if sec['relocations'] or len(sec['data']) != sec['size']:
+            conflicts.append(dict(section=n, reason='mapped data needs a separate relocation/zero-storage proof'))
+            continue
+        base = bases[n]
+        if not any(s['virtual_address'] <= base and
+                   base + sec['size'] <= s['virtual_address'] + s['raw_size'] for s in pe.sections):
+            conflicts.append(dict(section=n, reason='mapped data exceeds file-backed target data'))
+            continue
+        native = pe.read_rva(base, sec['size'])
+        data.append(dict(section=n, name=sec['name'], rva=hex(base), bytes=sec['size'], equal=native == sec['data']))
+    return dict(result, scope='complete shared-text and mapped initialized-section diagnostic only; not acceptance',
+                function_offsets=offsets, text_flags=hex(section['flags']), mapped_data=data,
+                unmapped_sections=unmapped, section_conflicts=conflicts,
+                unit_equal=result['masked_equal'] and not conflicts and not unmapped and all(d['equal'] for d in data))

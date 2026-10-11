@@ -212,3 +212,20 @@ cross-call register explanation from becoming an unsupported compiler rule.
 The next shared FX pilot transfers coherent compilation-unit fingerprinting
 and existing TITLE semantics; exact optimization flags remain experimental.
 See `evidence/full_goal_movie_initializer_wave_2026_10_11.json`.
+
+The FX follow-up transfers compilation-unit experiments and negative-control
+tracking. A single plain `/Od` control demonstrates natural packing; the real
+688-byte cleanup fragment preserves all references and 74 literal bytes in both
+engines with six local-slot residuals. One fixed declaration-order MRE isolates
+a reduced identifier-bucket effect in RTM rather than importing a Blood II rule.
+The existing masked comparator now supports complete shared-text diagnostics with
+explicit function offsets and complete mapped-data checks. Existing function and
+strict promotion gates remain intact.
+
+Prioritize genuine prefix/runtime reconstruction of the inferred 9K engine FX
+context and instruction/reference diagnosis of the two failed producer baselines.
+Keep local-slot differences classified until original identifier/context evidence
+appears; arbitrary renaming is not a source-recovery method. These tools reduce
+ambiguous experiments and expose real missing contributions, but this increment
+adds no accepted code bytes. All 121 strict and 445 masked witnesses preserve;
+69 tests pass. See `evidence/fx_unit_convergence_2026_10_11.json`.

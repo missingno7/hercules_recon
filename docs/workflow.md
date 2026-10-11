@@ -265,3 +265,14 @@ storage bytes. Do not blindly normalize names or relax the native matching gate.
 The TITLE member pilot preserves all 32 complete functions / 8,816 bytes and
 removes two overlapping pseudo-globals from the actual source graph. See
 `evidence/title_interface_member_rebind_2026_10_11.json`.
+
+For an inferred plain-COFF region, use the read-only
+`masked.masked_unit_compare(obj, target, rva, size, expected_functions)` API.
+`expected_functions` must name every defined function and its native-derived
+offset from the proposed region start. It requires one complete non-COMDAT code
+section and compares the whole contribution; it does not extract function slices.
+`masked_equal` describes code only, while `unit_equal` additionally requires all
+initialized sections to have consistent inferred bases and complete raw equality,
+with no omitted storage. Neither result accepts a function, TU or native layout.
+Keep genuine-prefix uncertainty explicit and leave normal staging/promotion
+unchanged. See `evidence/fx_unit_convergence_2026_10_11.json` for a pinned example.

@@ -1054,3 +1054,46 @@ native functions are packed. Keep the current staging gate intact. A two-functio
 control without /Gy will test natural packing before genuine adjacent FX source
 and compilation-unit work. See
 `evidence/fx_low_optimization_pilot_2026_10_11.json`.
+
+## FX unit and local-slot discriminators
+
+The single plain `/Od` packing control succeeds: two 137-byte bodies occupy one
+complete 274-byte non-COMDAT text section at offsets 0 and 137. Section alignment
+remains 16. This establishes a compiler mechanism, not original flags or TU bounds.
+
+Three genuine cleanup functions now form a private 688-byte text fragment at
+offsets 0, 137 and 536. Both engines have the same six residual frame displacements
+in the middle 399-byte function; all references agree and the entire 74-byte
+literal section, including emitted alignment bytes, is raw-equal. The last
+152-byte body is independently masked-equal in both engines. These observations
+stay outside recovery totals because native entries are unaligned and the genuine
+preceding contributions remain missing.
+
+One two-function, 11-local compiler experiment isolates declaration order from
+identifier effects. Only the prepredicted 16-bucket reduced hash ordering agrees
+jointly; reversing declarations changes two collision pairs and leaves the other
+seven locals unchanged. This fixed-context result helps classify the six cleanup
+differences. It does not recover original identifiers or authorize name tuning.
+
+The two larger producer baselines fail at 2164/2115 and 1818/1787 compiled/native
+bytes. Diagnose their ordered instruction/reference differences before another
+compiler family. Current TITLE 54f0 has only a declaration; it is secondary native
+evidence for the two-argument producer, not recovered source. ENG1 callers prove
+the separate three-argument owner/spatial-source producer. Preserve native stale
+values where writes remain unknown; no invented initialization or behavior-exact
+claim follows from an uninitialized C witness.
+
+`masked_unit_compare` adds a read-only whole-contribution diagnostic to the
+existing comparison module. It checks one complete shared code section, an explicit
+function-offset inventory, reference consistency, native relocation positions and
+every mapped initialized section. It neither slices functions nor changes staging,
+16-byte boundary checks, compiler flags or promotion. Ten adversarial tests cover
+omitted contributions, incorrect boundaries, references and literal/data mismatches.
+
+The next high-value source work is the genuine prefix/runtime context around
+ENG3 ae00..d27f and ENG1 5ea0..83d8. Their inferred spans differ, and original TU
+ownership remains unknown. Full fresh verification preserves 121 strict functions /
+8080 bytes and 445 masked functions / 89296 bytes; all 69 tests pass. There is no
+accepted byte gain in this increment. See
+`evidence/fx_unit_convergence_2026_10_11.json` for predictions, commands, hashes,
+negative controls and the prioritized follow-up.
