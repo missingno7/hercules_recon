@@ -1,0 +1,211 @@
+{
+  "date": "2026-10-11",
+  "scope": "The first complete 5a50 source family failed; it remains private.",
+  "prediction": {
+    "region": "graphics_platform_transition_19",
+    "lane": "platform_transition_19",
+    "family": "full mode/cache transition with one-TU minimum-width cache owners",
+    "model": "gpt-6-luna",
+    "effort": "xhigh",
+    "capability": "bounded ordinary historical C++ source recovery",
+    "prediction": "A single ordinary C++ translation unit using the genuine Windows SDK API, the actual direct native callees, and seven independently justified cache definitions at their observed minimum access widths will produce the full 464-byte 0x5a50 contribution with native ordered references. The first two caches remain one-byte BYTE objects initialized to 0xff; prior RTM controls predict that this same-TU definition context can produce the native DWORD load plus AND 0xff while retaining byte stores. The other cells use only their observed byte or DWORD widths and 0xff file initial values.",
+    "falsifier": "Any direct reference to a cache cell outside 0x5a50, any observed writer/initializer inconsistent with this ownership, any object field that exceeds its evidenced minimum width or changes the 0xff initial byte, any wrong USER32 or first-party binding, or any mismatch in the complete function bytes/ordered relocations falsifies this single family. A mismatch ends the family; no type, spelling, statement-order, or flag variants are authorized.",
+    "new_evidence": "The actual 0x5a50 leaf shows all reads and writes to seven 4-byte-spaced cells; archaeology context xrefs for RVA 0x36638..0x36653 all originate in 0x5a66..0x5c0b. Native writes the first two as BYTE and file bytes at all seven cells begin ff000000. evidence/byte_load_context_control_2026_10_11.json provides the new ordinary RTM same-TU BYTE-load discriminator. No prior full 0x5a50 body compilation exists.",
+    "verdict": "observed",
+    "reentry_condition": "A distinct native ownership/type writer, an independent initialization/extent witness, or a newly proved compiler-context discriminator for this complete body.",
+    "compile_cycles": 1,
+    "tokens": null,
+    "cost_usd": null
+  },
+  "source": "candidates\\platform_transition_19\\graphics_native_05a50.cpp",
+  "source_sha256": "9cf9ee790ed0ba3519cc3fd6f473993e7797964c14b027e83814965481a25988",
+  "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-tggnhgeu\\candidate.obj",
+  "object_sha256": "63004a6337fffd3f1bb6df64423d84af19392c7421fd5b1135bdfdd70fc15e4a",
+  "command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/c",
+    "/Gy",
+    "/O2",
+    "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-tggnhgeu\\candidate.obj",
+    "D:\\Prog\\hercules_recon\\candidates\\platform_transition_19\\graphics_native_05a50.cpp"
+  ],
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "measurement": [
+    {
+      "symbol": "_graphics_native_05a50",
+      "control": false,
+      "target_size": 464,
+      "candidate_size": 448,
+      "strict_equal": false,
+      "raw_different_bytes": 430,
+      "raw_byte_percent": 7.328,
+      "normalized_different_bytes": 449,
+      "normalized_byte_percent": 3.233,
+      "instruction_percent": 44.348,
+      "original_instruction_count": 115,
+      "candidate_instruction_count": 115,
+      "ordered_cfg_equal": false,
+      "original_blocks": 32,
+      "candidate_blocks": 33,
+      "direct_call_targets_equal": true,
+      "original_direct_calls": [
+        "0x410030",
+        "0x410010",
+        "0x409f60",
+        "0x409db0",
+        "0x406ec0",
+        "0x403770",
+        "0x40ffb0",
+        "0x409d60"
+      ],
+      "candidate_direct_calls": [
+        "0x410030",
+        "0x410010",
+        "0x409f60",
+        "0x409db0",
+        "0x406ec0",
+        "0x403770",
+        "0x40ffb0",
+        "0x409d60"
+      ],
+      "original_indirect_calls": [
+        "dword ptr [0xba5aac]",
+        "dword ptr [0xba5aac]"
+      ],
+      "candidate_indirect_calls": [
+        "dword ptr [0xba5aac]",
+        "dword ptr [0xba5aac]"
+      ],
+      "relocation_count": 52,
+      "category": "structural/source-form investigation"
+    }
+  ],
+  "normalized_differing_bytes": 449,
+  "direct_call_targets_equal": true,
+  "native_direct_calls": [
+    "0x410030",
+    "0x410010",
+    "0x409f60",
+    "0x409db0",
+    "0x406ec0",
+    "0x403770",
+    "0x40ffb0",
+    "0x409d60"
+  ],
+  "candidate_direct_calls": [
+    "0x410030",
+    "0x410010",
+    "0x409f60",
+    "0x409db0",
+    "0x406ec0",
+    "0x403770",
+    "0x40ffb0",
+    "0x409d60"
+  ],
+  "native_indirect_calls": [
+    "dword ptr [0xba5aac]",
+    "dword ptr [0xba5aac]"
+  ],
+  "candidate_indirect_calls": [
+    "dword ptr [0xba5aac]",
+    "dword ptr [0xba5aac]"
+  ],
+  "field_control": [
+    {
+      "symbol": "_g_exe_436638",
+      "declaration": "BYTE",
+      "declared_bytes": 1,
+      "storage_class": 2,
+      "section_index": 2,
+      "section_name": ".data",
+      "symbol_value": 0,
+      "section_size": 28,
+      "section_flags": "0xc0300040",
+      "section_alignment_code": 3,
+      "initialized_field_bytes": "ff"
+    },
+    {
+      "symbol": "_g_exe_43663c",
+      "declaration": "BYTE",
+      "declared_bytes": 1,
+      "storage_class": 2,
+      "section_index": 2,
+      "section_name": ".data",
+      "symbol_value": 4,
+      "section_size": 28,
+      "section_flags": "0xc0300040",
+      "section_alignment_code": 3,
+      "initialized_field_bytes": "ff"
+    },
+    {
+      "symbol": "_g_exe_436640",
+      "declaration": "DWORD",
+      "declared_bytes": 4,
+      "storage_class": 2,
+      "section_index": 2,
+      "section_name": ".data",
+      "symbol_value": 8,
+      "section_size": 28,
+      "section_flags": "0xc0300040",
+      "section_alignment_code": 3,
+      "initialized_field_bytes": "ff000000"
+    },
+    {
+      "symbol": "_g_exe_436644",
+      "declaration": "BYTE",
+      "declared_bytes": 1,
+      "storage_class": 2,
+      "section_index": 2,
+      "section_name": ".data",
+      "symbol_value": 12,
+      "section_size": 28,
+      "section_flags": "0xc0300040",
+      "section_alignment_code": 3,
+      "initialized_field_bytes": "ff"
+    },
+    {
+      "symbol": "_g_exe_436648",
+      "declaration": "BYTE",
+      "declared_bytes": 1,
+      "storage_class": 2,
+      "section_index": 2,
+      "section_name": ".data",
+      "symbol_value": 16,
+      "section_size": 28,
+      "section_flags": "0xc0300040",
+      "section_alignment_code": 3,
+      "initialized_field_bytes": "ff"
+    },
+    {
+      "symbol": "_g_exe_43664c",
+      "declaration": "BYTE",
+      "declared_bytes": 1,
+      "storage_class": 2,
+      "section_index": 2,
+      "section_name": ".data",
+      "symbol_value": 20,
+      "section_size": 28,
+      "section_flags": "0xc0300040",
+      "section_alignment_code": 3,
+      "initialized_field_bytes": "ff"
+    },
+    {
+      "symbol": "_g_exe_436650",
+      "declaration": "DWORD",
+      "declared_bytes": 4,
+      "storage_class": 2,
+      "section_index": 2,
+      "section_name": ".data",
+      "symbol_value": 24,
+      "section_size": 28,
+      "section_flags": "0xc0300040",
+      "section_alignment_code": 3,
+      "initialized_field_bytes": "ff000000"
+    }
+  ],
+  "padding_limit": "Five BYTE fields and two DWORD fields provide 13 observed initialized bytes. The 28-byte object includes 15 natural alignment bytes, which are uncredited. Original TU, layout and full object extent remain unproved.",
+  "private_analysis_sha256": "dea280283b82dc55fbf4042eb2ff43f15d14e11987cedbc3040ce02da4961428",
+  "private_receipt_sha256": "aa26d6dded0da7890d46cfb42a900456b843147c099e133571eba066f037763a",
+  "next_discriminator": "Actual callee protocol, control or source-unit evidence that predicts the remaining branches and allocation. The BYTE-owner finding does not explain the 448/464 size or 33/32 CFG. No type, order, flag or count grids; real callee providers remain external."
+}

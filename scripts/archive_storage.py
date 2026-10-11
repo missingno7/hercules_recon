@@ -1,4 +1,4 @@
-"""Fresh archive/fatal/registry/graphics/audio field diagnostic; never image acceptance."""
+"""Fresh observed data-field diagnostic; never function or image acceptance."""
 import argparse
 import json
 import sys
@@ -66,6 +66,27 @@ if audio_evidence.exists() or audio_source.exists():
  for header in audio_proof['actual_headers']:
   assert digest(Path(header['path']).read_bytes())==header['sha256']
  sources.append('calibration/audio_storage.cpp')
+extra_fields={}
+for source_name,evidence_name,count,initialized,zero,bss_flags in (
+ ('calibration/sound_bank_storage.cpp','evidence/sound_bank_storage_adoption_2026_10_11.json',4,0,19209,0xc0400080),
+ ('calibration/mci_storage.c','evidence/mci_storage_adoption_2026_10_11.json',7,18,24,0xc0300080),
+):
+ source_path=root/source_name;proof_path=root/evidence_name
+ if proof_path.exists() or source_path.exists():
+  assert proof_path.is_file() and source_path.is_file()
+  content=proof_path.read_bytes();field_proof=json.loads(content)
+  assert field_proof['oracle']['sha256']==digest(pe.data)
+  assert field_proof['canonical_provider']['source']==source_name
+  assert digest(source_path.read_bytes())==field_proof['canonical_provider']['source_sha256']
+  for header in field_proof['actual_headers']:
+   assert digest(Path(header['path']).read_bytes())==header['sha256']
+  extra_fields[source_name]=(field_proof,count,initialized,zero,bss_flags,proof_path,content)
+  sources.append(source_name)
+field_specs={
+ 'calibration/graphics_storage.cpp':(graphics_proof,27,1,150,0xc0400080),
+ 'calibration/audio_storage.cpp':(audio_proof,6,0,24,0xc0300080),
+ **{name:entry[:5] for name,entry in extra_fields.items()},
+}
 before={p:digest((root/p).read_bytes()) for p in sources}
 pin=verify_toolchain(DEFAULT_TOOLCHAIN)
 reports={};commons={};bss_storage={}
@@ -120,11 +141,10 @@ for path in sources:
    assert sec['name']=='.data' and sec['flags']&0x80000000
    measured.append({'name':name,'rva':span['rva'],'bytes':len(data),'sha256':digest(data),'section':sec['name']})
   reports[path]['strings']=measured
- elif path.endswith(('graphics_storage.cpp','audio_storage.cpp')):
-  is_graphics=path.endswith('graphics_storage.cpp')
-  field_proof=graphics_proof if is_graphics else audio_proof
+ elif path in field_specs:
+  field_proof,count,expected_initialized,expected_zero,bss_flags=field_specs[path]
   cells=field_proof['canonical_provider']['cells']
-  assert len(cells)==(27 if is_graphics else 6) and definitions=={'_'+cell['name'] for cell in cells}
+  assert len(cells)==count and definitions=={'_'+cell['name'] for cell in cells}
   assert not any(s['section']==0 for s in symbols.values())
   assert not any(s['size'] for s in c.sections if s['name'] not in ('.drectve','.data','.bss'))
   spans={};initialized=0;zero=0
@@ -140,13 +160,16 @@ for path in sources:
     initialized+=width
    else:
     assert cell['native_initial_origin']=='loader-zero virtual tail'
-    assert sec['name']=='.bss' and sec['flags']==(0xc0400080 if is_graphics else 0xc0300080) and not sec['data']
+    assert sec['name']=='.bss' and sec['flags']==bss_flags and not sec['data']
     assert rva>=native['virtual_address']+native['raw_size'] and rva+width<=native['virtual_address']+native['virtual_size']
-    assert bytes.fromhex(cell['initializer'])==bytes(width)
+    if path=='calibration/sound_bank_storage.cpp':
+     assert cell['zero_initializer'] is True
+    else:
+     assert bytes.fromhex(cell['initializer'])==bytes(width)
     bss_storage[name]=width;zero+=width
   for intervals in spans.values():
    intervals.sort();assert all(a[1]<=b[0] for a,b in zip(intervals,intervals[1:]))
-  assert initialized==(1 if is_graphics else 0) and zero==(150 if is_graphics else 24)
+  assert initialized==expected_initialized and zero==expected_zero
   reports[path]['access_width_cells']=cells
   reports[path]['initialized_field_bytes']=initialized
  else:
@@ -185,6 +208,10 @@ if audio_before is not None:
  assert audio_evidence.read_bytes()==audio_before
  for header in audio_proof['actual_headers']:
   assert digest(Path(header['path']).read_bytes())==header['sha256']
+for field_proof,_,_,_,_,proof_path,content in extra_fields.values():
+ assert proof_path.read_bytes()==content
+ for header in field_proof['actual_headers']:
+  assert digest(Path(header['path']).read_bytes())==header['sha256']
 result={'scope':'Fresh canonical data/object equality and source/loader-zero proofs; not native placement or whole-module acceptance.','evidence_sha256':digest(evidence_before),'toolchain':pin,'target_sha256':digest(pe.data),'providers':reports,'common_storage_bytes':commons,'bss_storage_bytes':bss_storage,'initialized_bytes':sum(s['bytes'] for provider in reports.values() for s in provider.get('strings',[]))+4+sum(p.get('initialized_field_bytes',0) for p in reports.values()),'zero_storage_bytes':sum(commons.values())+sum(bss_storage.values()),'functions':0,'relocations':0}
 if fatal_before is not None:
  result['fatal_evidence_sha256']=digest(fatal_before)
@@ -198,6 +225,9 @@ if graphics_before is not None:
 if audio_before is not None:
  result['audio_evidence_sha256']=digest(audio_before)
  result['audio_storage_limit']='Six observed4byte cells/24loader-zero bytes; pointed-to objects, original aggregate/TU/order/native placement remain unproved.'
+if extra_fields:
+ result['additional_field_evidence']={name:digest(entry[6]) for name,entry in extra_fields.items()}
+ result['additional_field_limit']='Observed sound-bank prefix and MCI cells/literal only; neighbor cache/gaps, pointed-to objects, original full extent/aggregate/TU/native placement remain unproved.'
 output.parent.mkdir(parents=True,exist_ok=True)
 output.write_bytes((json.dumps(result,indent=2)+'\n').encode())
 print(json.dumps({k:result[k] for k in ('initialized_bytes','zero_storage_bytes','functions','relocations')}))

@@ -1,21 +1,16 @@
-typedef unsigned long AudioDword;
+#include <windows.h>
+#include <mmsystem.h>
 
-extern AudioDword g_exe_96e62c;
-extern AudioDword g_exe_96e620;
-extern AudioDword g_exe_96e61c;
-extern AudioDword g_exe_96e628;
-extern AudioDword g_exe_96e624;
+extern DWORD g_exe_96e62c;
+extern DWORD g_exe_96e620;
+extern DWORD g_exe_96e61c;
+extern DWORD g_exe_96e628;
+extern DWORD g_exe_96e624;
 extern unsigned char g_audio_cleanup_iteration_flag;
-extern const char audio_stop_command[];
+extern char audio_stop_command[];
 
 extern int __cdecl cleanup_native_9c30(void);
 extern void __cdecl cleanup_native_f710(unsigned int index);
-
-__declspec(dllimport) unsigned int __stdcall mciSendStringA(
-    const char *command,
-    char *return_buffer,
-    unsigned int return_length,
-    AudioDword callback);
 
 void __cdecl cleanup_native_9e10(void)
 {

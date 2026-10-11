@@ -2,7 +2,7 @@
 #include <windows.h>
 #include <ddraw.h>
 #include <mmsystem.h>
-#include <unknwn.h>
+#include <dsound.h>
 
 #define RELEASE_COM(slot) \
     do { \
@@ -29,8 +29,8 @@ extern LOGPALETTE *g_exe_96e3f8;
 extern BITMAPINFO *g_exe_96e3f4;
 extern HBITMAP g_exe_96e404;
 extern int g_exe_96e630;
-extern IUnknown *g_exe_79e444;
-extern IUnknown *g_exe_79e440;
+extern IDirectSoundBuffer *g_exe_79e444;
+extern IDirectSound *g_exe_79e440;
 
 void __cdecl cleanup_native_74c0(void)
 {

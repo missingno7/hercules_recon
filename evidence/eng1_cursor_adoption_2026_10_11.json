@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-11",
+  "scope": "Fresh complete rawFUNCTION_MATCH; no originalrecordtype/fullowner/TU/layout identity.",
+  "canonical_provider": {
+    "source": "src/eng1/cursor_init.c",
+    "source_sha256": "cef86012676701b45ae4632db5a9819a74c0c326644cd7bb186a8e5e765c460d",
+    "rva": "0x44740",
+    "bytes": 128,
+    "symbol": "_init_cursor_44740"
+  },
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "actual_protocol": {
+    "arguments": [
+      "array pointer",
+      "limit/index argument 20",
+      "cursor RVA701b8",
+      "extra0 in44720 or1 in45780"
+    ],
+    "known_call_sites": [
+      "0x4472e",
+      "0x45913"
+    ],
+    "array_a": {
+      "rva": "0x696e8",
+      "observed_prefix_bytes": 368,
+      "end_rva": "0x69858",
+      "origin": "Writable file-backed .data; rows0,1,22 initially allFFFFFFFF; rows2..21 contain signed fixed-point coordinate words and duration32."
+    },
+    "array_b": {
+      "rva": "0x70018",
+      "observed_prefix_bytes": 368,
+      "end_rva": "0x70188",
+      "origin": "Writable loader-zero .data virtual tail. Native45780 constructs rows2/3 and generated rows4..20 with three coordinate DWORDs and duration; row21 is finalized immediately before calling helper."
+    },
+    "cursor": {
+      "rva": "0x701b8",
+      "helper_written_prefix_bytes": 24,
+      "observed_consumer_minimum_bytes": 132,
+      "end_rva": "0x7023c",
+      "proof": "45010 receives this same cursor and writes/read fields through+80. Its+54/+64/+74 outputs are the globals read at44b50/44b4a/44b55. Thus prior24-byte Cursor is a helper prefix, not a full owner declaration."
+    },
+    "ownership_limit": "Arrays and132-byte cursor view are physically disjoint. Extents derive from actual accesses, not neighbor gaps. Original full extents, aggregate/TU/type identity remain unproved."
+  },
+  "historical_family": {
+    "prior_source": "candidates/leaf-d/44740.c",
+    "source_sha256": "d7e6c83f6edc8a4f08bfb3d284edb5f810dc740ff0ad5785a5cc19b5ec64784a",
+    "attempts": 722,
+    "historical_residual_bytes": 23,
+    "reentry": "Caller-derived copied-array types.",
+    "decision": "No source/codegen search was reopened. Producers/consumer refine field meaning and extent, but four DWORD fields remain compatible with prior Entry16 int[4]. The authorized unchanged-source behavior compile unexpectedly proves full raw equality; root should independently reproduce it rather than search another family.",
+    "historical_binding_limit": "Prior result.json reports 23 bytes and722 attempts but does not bind a compiler command, source SHA, object SHA or target SHA to that measurement. The durable harvest names RTM/O2/Gy overall. Cause of the historical/current discrepancy is unknown; no compiler mechanism or toolchain-change conclusion is inferred."
+  },
+  "private_compact_sha256": "6d40588841c3dfbe53f30198ca536708bf2637937ab66806fb21da4906b09c8d",
+  "line_ending_control": {
+    "frozen_sha256": "d7e6c83f6edc8a4f08bfb3d284edb5f810dc740ff0ad5785a5cc19b5ec64784a",
+    "normalized_sha256": "cef86012676701b45ae4632db5a9819a74c0c326644cd7bb186a8e5e765c460d",
+    "transformation": "CRLF to LF only; source statements unchanged"
+  },
+  "fresh_canonical": {
+    "exact": true,
+    "scope": "complete relocation-free function COFF contribution",
+    "target_size": 128,
+    "compiled_size": 128,
+    "target_sha256": "ce51d4433bc1904bcb2a9604170c1884f2843b3dca2e928777ab3e3e1d32d6b0",
+    "compiled_sha256": "ce51d4433bc1904bcb2a9604170c1884f2843b3dca2e928777ab3e3e1d32d6b0",
+    "different_bytes": 0,
+    "mismatch_regions": [],
+    "relocations": [],
+    "target_relocations": [],
+    "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-kcq7c87u\\candidate.obj",
+    "id": "eng1.init_cursor_44740",
+    "source_sha256": "cef86012676701b45ae4632db5a9819a74c0c326644cd7bb186a8e5e765c460d",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-kcq7c87u\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\src\\eng1\\cursor_init.c"
+    ],
+    "toolchain": "msvc5_rtm"
+  },
+  "acceptance": "Existingleaf_integrate independentlyrecompiled/reviewed113byteclosedbody+15NOP, thenjournaledpromote freshlyverifiedall118functions, followedbyactualcanonicalpath raw128comparison. No function/native relocations, no copiedcode/asm/flags or source-expressiongrid.",
+  "metadata": "Normal.debug$F FPO type7relocation referenceshelper; functionscopedbyte gate andexistingpromote objectpolicyretainthis noncode metadata. Earlierprivatewholeobjectzero-reloc assertion failed beforecorrectedfunctionscopeanalysis; no compilerretry.",
+  "behavioral_limit": "Supplementarynative/compiledsymbolictrace supportsactualcount20protocol, writable23Entry16rows/132bytecursor anddisjointaddresses, six24byteprefixstores/tworecordcopies andunchanged24..132tail. Rawbyteacceptance doesnotinferfull sourceobject/type/TU/wholemodulelayout.",
+  "provenance_limit": "Historical23residual/722countlacksmeasurement-boundsource/object/command/target hashes. Currentunchangedsourceexactness is proven; causeofhistoricaldiscrepancyunknown."
+}

@@ -159,3 +159,20 @@ bytes with no compiler padding. Real SDK creators and save/restore users support
 the working pointer, HANDLE, DWORD, int and BOOL views. This establishes no
 pointed-to object, independent original declaration, aggregate, TU or placement.
 See `evidence/audio_storage_adoption_2026_10_11.json`.
+
+The field verifier now checks the supported 4,800-pointer sound-bank prefix,
+two actual DirectSound pointer cells, a shared byte flag, six MCI state fields,
+and the writable stop command. The native 4,800-DWORD clear and creation/duplicate
+consumers prove the bank prefix; the neighboring 24-WORD cache and gaps remain
+excluded. No pointed-to objects, original full capacity, aggregate/TU or native
+placement follow from these providers.
+
+Keep legacy negative receipts separate when their measured input identity is
+missing. When new caller/type/unit evidence permits work, freeze and freshly
+measure the current ordinary source before changing it. ENG1 44740 illustrates
+why: the old 23-byte/722-attempt report lacks source/object/command/target binding,
+while the current frozen source independently matches all 128 bytes. Its exact
+cause remains unknown. Normal FPO metadata relocations in `.debug$F` are outside
+the function-scoped raw gate; do not turn a whole-object diagnostic into a new
+acceptance requirement. Existing promotion still checks the full code contribution
+and every prior strict function.

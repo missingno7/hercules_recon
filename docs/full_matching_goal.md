@@ -499,3 +499,68 @@ observed zero bytes. Fresh strict/masked regression, 54 tests and twelve origina
 checks pass. Strict gain is zero; masked gain is 256 bytes. See
 `evidence/full_goal_audio_dependency_wave_2026_10_11.json`. Full matching remains
 the active goal, with substantial engine code and final linkage still missing.
+
+## MCI, sound-bank and cursor wave
+
+ENG1 44740 now strictly matches its complete 128-byte contribution, including
+15 NOP alignment bytes. The unchanged ordinary record-copy source was frozen,
+normalized only from CRLF to LF, and independently compiled through the extent
+review and journaled strict promotion. All 118 strict functions passed that gate,
+followed by another compile from the actual canonical path. The old 23-byte
+residual report remains historical because it has no bound source/object/command
+identity; the reason for the discrepancy is unknown. The helper's 24-byte cursor
+view is a prefix of the 132-byte object observed in its real consumer.
+
+The MCI readiness body adds 160 complete masked bytes. An initial early-return
+source failed with 192 bytes; the native single failure exit justified one
+short-circuit graph correction, which matched all bytes outside coherent real
+references. SDK declarations preserve the old 128-byte cleanup pair, and actual
+DirectSound creators justify device/buffer views while preserving all 368 bytes
+of cleanup bodies. The isolated stop-and-timestamp helper adds another 80 masked
+bytes; its paired resume source remains private after five real arithmetic bytes
+and binding conflicts failed the full gate. Its caller discards EAX, so inventing
+a return value to retain a delta is not a supported fix.
+
+An explicit native 4,800-DWORD clear and real CreateSoundBuffer/DuplicateSoundBuffer
+users support a 19,200-byte bank prefix. Two SDK pointer cells and one byte flag
+bring the provider to 19,209 observed zero bytes. The neighboring 24-WORD cache
+and gap are excluded. Six MCI cells add 24 zero bytes and the writable stop
+command adds 18 initialized bytes. The reused field gate verifies all providers,
+with the earlier widths/classes/flags still enforced. Four readiness literals
+also reproduce 83 native bytes, reported separately from data-only totals.
+
+The natural 33-source selected link closes twelve real names, reducing unresolved
+names from 22 to 10; all unchanged prior contributions and reconciled bodies
+remain identical. Three byte-identical old scratch providers are replaced with
+already canonical sources. Three other archive drafts remain explicitly selected
+scratch inputs, so this is a fresh reproducible partial control, not a clean
+checkout or complete-game build claim. No stubs, aliases, forced placement or
+produced/executed accepted image are introduced.
+
+The first complete 5a50 source still fails (448/464 bytes and different CFG),
+although its seven minimum-width cache definitions produce the native wide loads
+and initialized pattern. Only 13 field bytes are observed; 15 natural alignment
+bytes are uncredited. It stays private. A bounded engine leaf audit initially
+found only exhausted families; current input evidence, rather than historical
+attempt counts, led to the cursor strict gain. Missing engine forwarders and
+real interpolation/table consumers are the next source frontier, alongside
+remaining graphics control and genuine archive/host storage ownership.
+
+The existing dispatcher bridge unit passes all twenty complete contributions /
+368 masked bytes without changing its canonical source. This reuses the shared
+typed interface rather than duplicating the four newly investigated forwarders.
+The function map was regenerated through the existing builder to reflect the
+verified contribution boundaries; the extent guards remain unchanged.
+
+Current recovery: 118 strict functions / 8,032 bytes; 413 complete masked
+functions / 85,888 bytes in 56 sources; four reconstructed functions / 880 bytes;
+352 legacy similar bytes. This wave gains 128 strict bytes and 608 masked bytes.
+Fresh strict/masked verification, 54 tests and twelve original-file checks pass.
+The data-only gate verifies 245 initialized and 19,561 observed zero bytes.
+See `evidence/full_goal_mci_sound_cursor_wave_2026_10_11.json` for the checkpoint.
+
+Next, adopt the native-supported 1,000-byte engine interface prefixes after
+reconciling context and allocation callback aliases to actual structure members.
+Each affected consumer must preserve its complete code and ordered references.
+Continue genuine archive/host storage recovery and missing engine regions in
+parallel with causal compiler experiments. Full matching remains active.

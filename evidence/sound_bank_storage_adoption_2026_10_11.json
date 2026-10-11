@@ -1,0 +1,1366 @@
+{
+  "date": "2026-10-11",
+  "scope": "Observed supported sound pointer-bank prefix and real SDK cells; no originalfullarray/aggregate/TU/placement acceptance.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "canonical_provider": {
+    "source": "calibration/sound_bank_storage.cpp",
+    "source_sha256": "015e5da7a8d81d5711437c40767e6abcb35506a76ff3fe2e7fd7b5a5d24c76fb",
+    "cells": [
+      {
+        "name": "g_exe_799908",
+        "rva": "0x799908",
+        "bytes": 19200,
+        "initial_value": 0,
+        "object_section": ".bss",
+        "object_flags": "0xc0400080",
+        "object_offset": 0,
+        "native_origin": "Writable.data loader-zero virtualtail",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "evidence": {
+          "name": "g_exe_799908",
+          "rva": "0x799908",
+          "working_type": "IDirectSoundBuffer *[4800]",
+          "observed_bytes": 19200,
+          "proof": "FE86/FE8B/FE8D/FE95 explicitly clear 4800 DWORDs. F3D0 bounds the unsigned row index below 1200, creates slot 0 with IDirectSound::CreateSoundBuffer and duplicates slots 1..3 with DuplicateSoundBuffer. F710 releases four slots; F760 advances by 16 to the explicit RVA 79e408 end anchor; FF40 visits all 1200 rows.",
+          "extent_limit": "Supported working prefix: 1200 rows of four pointer slots. No claim that 4800 is the entire original array/object capacity or that the source used this flat array declaration."
+        }
+      },
+      {
+        "name": "g_exe_79e440",
+        "rva": "0x79e440",
+        "bytes": 4,
+        "initial_value": 0,
+        "object_section": ".bss",
+        "object_flags": "0xc0400080",
+        "object_offset": 19200,
+        "native_origin": "Writable.data loader-zero virtualtail",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "evidence": {
+          "name": "g_exe_79e440",
+          "rva": "0x79e440",
+          "working_type": "IDirectSound *",
+          "observed_bytes": 4,
+          "proof": "FEC1 supplies its address to the native DirectSoundCreate thunk 10a26, whose jump targets the imported DSOUND.dll API at IAT RVA 7a5650. FEEE calls SetCooperativeLevel at SDK slot +18; F539 and F6B2 use CreateSoundBuffer +0c and DuplicateSoundBuffer +14. FFA2 clears it after Release."
+        }
+      },
+      {
+        "name": "g_exe_79e444",
+        "rva": "0x79e444",
+        "bytes": 4,
+        "initial_value": 0,
+        "object_section": ".bss",
+        "object_flags": "0xc0400080",
+        "object_offset": 19204,
+        "native_origin": "Writable.data loader-zero virtualtail",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "evidence": {
+          "name": "g_exe_79e444",
+          "rva": "0x79e444",
+          "working_type": "IDirectSoundBuffer *",
+          "observed_bytes": 4,
+          "proof": "FF23 supplies its address to IDirectSound::CreateSoundBuffer at FF2A with the native 20-byte descriptor and DSBCAPS_PRIMARYBUFFER flag 1. FF77..FF89 Release and clear this primary-buffer cell."
+        }
+      },
+      {
+        "name": "g_audio_cleanup_iteration_flag",
+        "rva": "0x79e450",
+        "bytes": 1,
+        "initial_value": 0,
+        "object_section": ".bss",
+        "object_flags": "0xc0400080",
+        "object_offset": 19208,
+        "native_origin": "Writable.data loader-zero virtualtail",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "evidence": {
+          "name": "g_audio_cleanup_iteration_flag",
+          "rva": "0x79e450",
+          "working_type": "BYTE",
+          "observed_bytes": 1,
+          "proof": "The encoded native reference inventory has exactly three uses: BYTE load F71E, BYTE low-argument store FF45 and BYTE zero store FF5E. No address-taken or indexed reference was found."
+        }
+      }
+    ]
+  },
+  "actual_headers": [
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\cderr.h",
+      "bytes": 2197,
+      "sha256": "da0d72c38f6268810b94f721845fb745979f290b2813e40796b7ea8f76fff2b0"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\cguid.h",
+      "bytes": 3497,
+      "sha256": "8febc26d3a317c29a53e1da0a7e9af9bf1e44c6e91b695970c8e860e90e08669"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\commdlg.h",
+      "bytes": 28166,
+      "sha256": "b7a108e6a73169d950e27f5e6cf66c673f52ec4b22088c8072fa3d88f962ec3d"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\ctype.h",
+      "bytes": 12848,
+      "sha256": "0e78f9365bbefc267bc828eb62a284b9e264242735e1f8d62978a1d41a8aabf6"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\dde.h",
+      "bytes": 5072,
+      "sha256": "ef0fa2aa9775651ba62e96ea1ebdad1f038b0c220d5a2faa3fabe2bfd0f99758"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\ddeml.h",
+      "bytes": 17868,
+      "sha256": "87280ef211e489bb59249143d61953843aa7b733a3f524b8face8731d59c0c75"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\dlgs.h",
+      "bytes": 5692,
+      "sha256": "574abaa60ee96ca80c660badf12201a26d705f0aa0d2fd8461b3dfb2f3a64c44"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\dsound.h",
+      "bytes": 13356,
+      "sha256": "e1d10405620bf8fb08d355662c1b559b1348ae8d51ea95c38d56b6f45c68a085"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\excpt.h",
+      "bytes": 3960,
+      "sha256": "f55feba8c0b082fd6fcb4b0c4994f45524663268201caacdd6debe7a11c57f40"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\imm.h",
+      "bytes": 20961,
+      "sha256": "d024b7cd9fd5db3fd5dbcf1431e0eb3744c1710409a790c40e6c44c4f1d83e5a"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\lzexpand.h",
+      "bytes": 1679,
+      "sha256": "a425be116f26a76708161a4ce687ab3cd3d4aa60efae9cb818f5498a60b9c452"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\mcx.h",
+      "bytes": 3915,
+      "sha256": "10e6cd5919883ed49ba3ea3fcf792b8c521cb9b2c9c80e2bcb6d7b04131927ac"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\mmsystem.h",
+      "bytes": 154496,
+      "sha256": "3ba7c98ffc53b070a60d3ea18fb3b0cdb4c0ceb1743fad6239d6dda9cb8c09f0"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\nb30.h",
+      "bytes": 12693,
+      "sha256": "ea9df4be61e7a50a2aae841d5da8344d45692c5a39bb0b327858509fb762fe72"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\oaidl.h",
+      "bytes": 197254,
+      "sha256": "7907293e23cab3f5f6993eb2f206d57692811b2da99eae9d180fe7a367d1ee73"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\objbase.h",
+      "bytes": 30028,
+      "sha256": "17bb4450555c046ad995c8af7d921296b510cf30f916f56f23c232b800b6c418"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\objidl.h",
+      "bytes": 330903,
+      "sha256": "dbfb3320d07a3944de5769fd8efba3b31e3e160921c35e2661889dfbff81226f"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\ole2.h",
+      "bytes": 12682,
+      "sha256": "a22c4339e6e64a90e7ef75fcdbacc752c59852e11bc15649cae3cdf5813d55ae"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\oleauto.h",
+      "bytes": 33100,
+      "sha256": "a34e06ca11208ed48bf83e3631a2901772088687d21bb949c9d41623d5ba5271"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\oleidl.h",
+      "bytes": 159627,
+      "sha256": "06d9e9bd79bd50902d56ced82d6dc310f3478e4d98f77cb0a98026e27d998f3d"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\poppack.h",
+      "bytes": 1023,
+      "sha256": "2285f7d4b158ae700dd5c2840fea412613238e7b90384ef8853bd5350e417e67"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\prsht.h",
+      "bytes": 12580,
+      "sha256": "21989b733a0ea8e0f74e95865239ebb349084608902aabf7bf7b13cd6d060bcd"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\pshpack1.h",
+      "bytes": 911,
+      "sha256": "28725bcd47f82df5b75ee8e8057cbbb9818386533f12ad538d8fbe0c1bc00953"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\pshpack2.h",
+      "bytes": 911,
+      "sha256": "e9bab3bee620c8af1adf83c49eb75910bb3cdd2a049123a13e6a60f5296ee921"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\pshpack4.h",
+      "bytes": 911,
+      "sha256": "e7fe25e42321b87ddac3f409523d363179b9d48841c013924a06df1f7dbfe416"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\pshpack8.h",
+      "bytes": 911,
+      "sha256": "52d62aa2959c87054194387de0e84f223fa88e8b4092e28f312f7e636dfc8658"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpc.h",
+      "bytes": 1983,
+      "sha256": "3d7e3afb3600d79164e3a63d7192ac70750e40d1cda11b8759d46e27a7cf03b4"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcdce.h",
+      "bytes": 42018,
+      "sha256": "8c23d02c36ae0e5a91996d8ffc1530ac0fc07c24f638d5349bbd8c7325049775"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcdcep.h",
+      "bytes": 9678,
+      "sha256": "05de5cf218e56e213ea9658341eaf60e393954309a880b05ac69ed4366ed7ac2"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcndr.h",
+      "bytes": 75799,
+      "sha256": "a2af090d449fe24f8218367e79630e803fcbaf992a432c98483cf4bf291a671f"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcnsi.h",
+      "bytes": 14654,
+      "sha256": "b9fb67d0f6b53dd16a262ded2d5099ef07465c9db8450b9ebfdc6d4a5ea4a8bf"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcnsip.h",
+      "bytes": 1176,
+      "sha256": "389e9ab616c887452ad891a7efea363a9f15c4bfe37b56c7ffa791bc83455972"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcnterr.h",
+      "bytes": 1569,
+      "sha256": "380678ead8758442cc7ad69e99c8b0fb887af547a7e522ee89afa28390cabdfa"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\shellapi.h",
+      "bytes": 16824,
+      "sha256": "494520fe788d0538cb27158d2dad7f6a5366852ad86f840643a8dc702f146e31"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdarg.h",
+      "bytes": 4730,
+      "sha256": "0b757d642e8c3825d898f8856c810c3d5b30709a28b76fb0f832f3c71b9b7a35"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h",
+      "bytes": 19150,
+      "sha256": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h",
+      "bytes": 9170,
+      "sha256": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\unknwn.h",
+      "bytes": 9289,
+      "sha256": "c8aa825b43be35df38faea40dd4c6eda2874fbd50dd3af62ebf2896ecbe92ca1"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winbase.h",
+      "bytes": 154540,
+      "sha256": "343f4e188107520e0e215bcb074c95924a999d0debf36ecd5a74fbedc43c9e2f"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\wincon.h",
+      "bytes": 14592,
+      "sha256": "e5f81f33185cade977c962bb25f46255dc71a51352a1cde230025f2cfdb3af8f"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\windef.h",
+      "bytes": 6760,
+      "sha256": "766cb00a0cfef84ae773f88426b3daf2be078651e3edb7f1e9c37a0ccdc55cd6"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\windows.h",
+      "bytes": 4903,
+      "sha256": "1de22ddc1b079d330a8f5b02338a5ad5681b060cf3ac86f984a243ff2bdd9303"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winerror.h",
+      "bytes": 203050,
+      "sha256": "c0c74a389028deb19cb407b2159bee4fc1c789f25f8bf212b46ee15083f119ce"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\wingdi.h",
+      "bytes": 147629,
+      "sha256": "23f25eec95cf776f75add1c694f0cb920e8e54dd9bf26320755e864ac76f0554"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winnetwk.h",
+      "bytes": 22739,
+      "sha256": "3ec8a55f41ea158638963d32fafdd068688e53083686416c3e106ea82bfe4cea"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winnls.h",
+      "bytes": 39651,
+      "sha256": "7fff71440b5eb8bc49ee2fef8586d815159c4f0632b513d7b3b9ef9d02012249"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winnt.h",
+      "bytes": 179078,
+      "sha256": "1dd56925da5382831a1cc2ce3dd35421608f495d5e17600ed49a723a265f6ea2"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winperf.h",
+      "bytes": 28279,
+      "sha256": "cd783635384bc6c59a79c17b1ff3c4045a2103fb827158d809f8a32c6dc3de15"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winreg.h",
+      "bytes": 14324,
+      "sha256": "0737d6be515977cf2e3574e9071b8f2f1d6e7bd835db538ab91d5ee4ca758f1d"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winsock.h",
+      "bytes": 33611,
+      "sha256": "4f74706eb39d851b15bfb2d05b473e9ec1f3ca331ac917e686081ad0d2fbbb11"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winspool.h",
+      "bytes": 52635,
+      "sha256": "9b94359ceaf4fa70e634e688c19345b5648dff46a9fba26380648a52fa961f71"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winsvc.h",
+      "bytes": 19076,
+      "sha256": "fef31bda20de40b9f769317ede721d0f3b897ebce4d9c1617d04c6617bd7fd42"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winuser.h",
+      "bytes": 192575,
+      "sha256": "df89c70f2c4392643f25d8b7e70d19b2052041d3bf4e2cb08f671ee6483a20ea"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winver.h",
+      "bytes": 9504,
+      "sha256": "3300c37a50556184b9350efed0340bd745543c90e5b4eb732b545c0e5ffbd9ab"
+    },
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\wtypes.h",
+      "bytes": 29754,
+      "sha256": "b78d73651e374bdb981ce3be29d255b9733165c8ea88234a36d68849357f6b7f"
+    }
+  ],
+  "prediction": {
+    "region": "sound_bank_ownership",
+    "lane": "sound_bank_ownership_19",
+    "family": "actual bounded DirectSound pointer-bank prefix and SDK owners",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "capability": "native creation/clear/row-bound ownership and conservative data provider",
+    "prediction": "A data-only SDK extern-C C++ provider defines exactlyfour existing public dependencies:4800 IDirectSoundBuffer pointer slots=19200loader-zero bytes, actualIDirectSound pointercell4, primaryIDirectSoundBuffer pointercell4 and sharedBYTEflag1. Fresh RTM/O2/Gy emits writable.bss with no functions/relocations/undefinedpublicdeps; natural padding is measured but not credited. All source/header/oracle/canonicalconsumer hashes remain stable.",
+    "falsifier": "Reject on any unsupported/minimum-overlap/extent mismatch, initializer/sectionclass failure, wrong or extra publicsymbol, function/relocation/dependency emission or source/header/oracle mutation. Actual creator outputs must support bothCOMtypes and allfourrow slots. Exclude neighboring caches/gaps rather than absorb them or infercapacity from spacing.",
+    "basis": "Native fe86ECX=4800,fe8bEAX=0,fe8dEDI=bank andfe95REP explicitly clear19200bytes. f3d0 unsigned index<1200 creates slot0 viaIDirectSound CreateSoundBuffer(+c),then duplicates into1..3 viaDuplicateSoundBuffer(+14). f760 walks16byterows to end79e408; ff40/f710 cover1200\u0102\u20144. DirectSoundCreate thunk10a26 writes79e440,primary CreateSoundBuffer ff23/ff2a writes79e444;79e450 isBYTE-only. Separate24WORD/48bytecache starts79e408,reset toFF by12DWORDREP,ends79e438; it is excluded and doesnot overlap COMcells79e440/444.",
+    "build_limit": 1,
+    "observed_zero_bytes": 19209,
+    "scope": "Working observed prefix/cells only, not full original array capacity,declaration,type/TU identity,independentaggregate/placement or function/image acceptance. No heapobjects,arraysfromgaps,aliases,SDKpadding,steeringflags,originalexecution,canonical/state/sharedtool/Git/assets writes."
+  },
+  "fresh_compile": {
+    "object": "D:\\Prog\\hercules_recon\\work\\sound_bank_ownership_19\\sound_bank_storage.obj",
+    "object_sha256": "05ef8e6fdb9d55643eb709829c3f170a5f58b23055e8b731d9741051452fc315",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\work\\sound_bank_ownership_19\\sound_bank_storage.obj",
+      "D:\\Prog\\hercules_recon\\candidates\\sound_bank_ownership_19\\sound_bank_storage.cpp"
+    ],
+    "preprocess_command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/E",
+      "D:\\Prog\\hercules_recon\\candidates\\sound_bank_ownership_19\\sound_bank_storage.cpp"
+    ],
+    "observed_zero_bytes": 19209,
+    "compiler_bss_bytes": 19209,
+    "uncredited_alignment_bytes": 0,
+    "functions": 0,
+    "relocations": 0,
+    "undefined_public_dependencies": 0,
+    "sections": [
+      {
+        "name": ".drectve",
+        "bytes": 38,
+        "flags": "0x100a00"
+      },
+      {
+        "name": ".bss",
+        "bytes": 19209,
+        "flags": "0xc0400080"
+      }
+    ],
+    "compiler_builds": 1
+  },
+  "excluded_neighbors": {
+    "channel_cache": {
+      "start_rva": "0x79e408",
+      "observed_bytes": 48,
+      "end_rva": "0x79e438",
+      "view": "24 WORDs",
+      "proof": "FEB4/FEB9/FEBC/FEC6 clear 12 DWORDs to FF. F900 allocates indices 0..23; F9D1 writes WORD[index*2+79e408], FCAD reads it and FCE3 writes FFFF."
+    },
+    "gap": {
+      "start_rva": "0x79e438",
+      "bytes": 8,
+      "end_rva": "0x79e440",
+      "supplied": false
+    },
+    "other_owners": "The 24-DWORD packed voice-key array at RVA 799848 and its counter/manager cells remain external. Table-end references in the broad audit belong to the separate WORD cache and are not credited to the pointer bank."
+  },
+  "initializer": {
+    "all_four_spans": "Loader zero in the writable native .data virtual tail, beyond SizeOfRawData and within VirtualSize.",
+    "runtime": "The bank also receives the explicit 4800-DWORD zero clear; COM cells are populated by real SDK creators and cleared by cleanup. The flag is mutable and reset to zero.",
+    "source_storage_limit": "C++ explicit zero .bss is a legitimate working provider. Native PE loader-zero origin does not prove original source storage class, language, independent objects, aggregate ownership, TU, source order or placement."
+  },
+  "native_spans": [
+    {
+      "label": "Creator unsigned bound and 16-byte row addressing",
+      "rva": "0xf3e1",
+      "bytes": 53,
+      "sha256": "8c2c13c082fc79483d8c149d72eb14872c715b48acf09e81e7a6e2df0367a720",
+      "instructions": [
+        {
+          "rva": "0xf3e1",
+          "text": "cmp edi, 0x4b0"
+        },
+        {
+          "rva": "0xf3e7",
+          "text": "mov dword ptr [esp + 0x10], eax"
+        },
+        {
+          "rva": "0xf3eb",
+          "text": "mov dword ptr [esp + 0x14], eax"
+        },
+        {
+          "rva": "0xf3ef",
+          "text": "mov dword ptr [esp + 0xc], eax"
+        },
+        {
+          "rva": "0xf3f3",
+          "text": "mov dword ptr [esp + 0x28], eax"
+        },
+        {
+          "rva": "0xf3f7",
+          "text": "jae 0x40f701"
+        },
+        {
+          "rva": "0xf3fd",
+          "text": "mov ecx, edi"
+        },
+        {
+          "rva": "0xf3ff",
+          "text": "shl ecx, 4"
+        },
+        {
+          "rva": "0xf402",
+          "text": "lea esi, [ecx + 0xb99908]"
+        },
+        {
+          "rva": "0xf408",
+          "text": "mov ecx, dword ptr [ecx + 0xb99908]"
+        },
+        {
+          "rva": "0xf40e",
+          "text": "cmp ecx, eax"
+        },
+        {
+          "rva": "0xf410",
+          "text": "jne 0x40f701"
+        }
+      ]
+    },
+    {
+      "label": "CreateSoundBuffer output is row slot zero",
+      "rva": "0xf525",
+      "bytes": 23,
+      "sha256": "526be72f9bda499fa01ec8c72704c6eb5006222ccb85795dd1c3f639d49b9758",
+      "instructions": [
+        {
+          "rva": "0xf525",
+          "text": "mov eax, dword ptr [0xb9e440]"
+        },
+        {
+          "rva": "0xf52a",
+          "text": "test eax, eax"
+        },
+        {
+          "rva": "0xf52c",
+          "text": "je 0x40f53c"
+        },
+        {
+          "rva": "0xf52e",
+          "text": "mov ecx, dword ptr [eax]"
+        },
+        {
+          "rva": "0xf530",
+          "text": "push 0"
+        },
+        {
+          "rva": "0xf532",
+          "text": "lea edx, [esp + 0x3c]"
+        },
+        {
+          "rva": "0xf536",
+          "text": "push esi"
+        },
+        {
+          "rva": "0xf537",
+          "text": "push edx"
+        },
+        {
+          "rva": "0xf538",
+          "text": "push eax"
+        },
+        {
+          "rva": "0xf539",
+          "text": "call dword ptr [ecx + 0xc]"
+        }
+      ]
+    },
+    {
+      "label": "DuplicateSoundBuffer outputs row slots one through three",
+      "rva": "0xf68b",
+      "bytes": 81,
+      "sha256": "c6426dda1d412d28ba14361d52709c2fe13dcabb642b8464a525934c4f520295",
+      "instructions": [
+        {
+          "rva": "0xf68b",
+          "text": "mov edi, dword ptr [esp + 0x150]"
+        },
+        {
+          "rva": "0xf692",
+          "text": "mov eax, 1"
+        },
+        {
+          "rva": "0xf697",
+          "text": "mov dword ptr [esp + 0x10], eax"
+        },
+        {
+          "rva": "0xf69b",
+          "text": "mov ecx, dword ptr [0xb9e440]"
+        },
+        {
+          "rva": "0xf6a1",
+          "text": "lea eax, [eax + edi*4]"
+        },
+        {
+          "rva": "0xf6a4",
+          "text": "mov edx, dword ptr [ecx]"
+        },
+        {
+          "rva": "0xf6a6",
+          "text": "lea eax, [eax*4 + 0xb99908]"
+        },
+        {
+          "rva": "0xf6ad",
+          "text": "push eax"
+        },
+        {
+          "rva": "0xf6ae",
+          "text": "mov eax, dword ptr [esi]"
+        },
+        {
+          "rva": "0xf6b0",
+          "text": "push eax"
+        },
+        {
+          "rva": "0xf6b1",
+          "text": "push ecx"
+        },
+        {
+          "rva": "0xf6b2",
+          "text": "call dword ptr [edx + 0x14]"
+        },
+        {
+          "rva": "0xf6b5",
+          "text": "mov eax, dword ptr [esp + 0x10]"
+        },
+        {
+          "rva": "0xf6b9",
+          "text": "lea ecx, [eax + edi*4]"
+        },
+        {
+          "rva": "0xf6bc",
+          "text": "mov edx, dword ptr [ecx*4 + 0xb99908]"
+        },
+        {
+          "rva": "0xf6c3",
+          "text": "test edx, edx"
+        },
+        {
+          "rva": "0xf6c5",
+          "text": "je 0x40f6d3"
+        },
+        {
+          "rva": "0xf6c7",
+          "text": "inc eax"
+        },
+        {
+          "rva": "0xf6c8",
+          "text": "cmp eax, 4"
+        },
+        {
+          "rva": "0xf6cb",
+          "text": "mov dword ptr [esp + 0x10], eax"
+        },
+        {
+          "rva": "0xf6cf",
+          "text": "jl 0x40f69b"
+        },
+        {
+          "rva": "0xf6d1",
+          "text": "jmp 0x40f6dc"
+        },
+        {
+          "rva": "0xf6d3",
+          "text": "push edi"
+        },
+        {
+          "rva": "0xf6d4",
+          "text": "call 0x40f710"
+        },
+        {
+          "rva": "0xf6d9",
+          "text": "add esp, 4"
+        }
+      ]
+    },
+    {
+      "label": "Complete bounded four-slot release body",
+      "rva": "0xf710",
+      "bytes": 80,
+      "sha256": "3316e3d79f320c871b6b95ae32c1b92cc9f9f574a0a25e574dc6c06ed75392d3",
+      "instructions": [
+        {
+          "rva": "0xf710",
+          "text": "push esi"
+        },
+        {
+          "rva": "0xf711",
+          "text": "mov esi, dword ptr [esp + 8]"
+        },
+        {
+          "rva": "0xf715",
+          "text": "cmp esi, 0x4b0"
+        },
+        {
+          "rva": "0xf71b",
+          "text": "push edi"
+        },
+        {
+          "rva": "0xf71c",
+          "text": "jae 0x40f75d"
+        },
+        {
+          "rva": "0xf71e",
+          "text": "mov al, byte ptr [0xb9e450]"
+        },
+        {
+          "rva": "0xf723",
+          "text": "test al, al"
+        },
+        {
+          "rva": "0xf725",
+          "text": "jne 0x40f72f"
+        },
+        {
+          "rva": "0xf727",
+          "text": "cmp esi, 0x338"
+        },
+        {
+          "rva": "0xf72d",
+          "text": "je 0x40f75d"
+        },
+        {
+          "rva": "0xf72f",
+          "text": "shl esi, 4"
+        },
+        {
+          "rva": "0xf732",
+          "text": "add esi, 0xb99908"
+        },
+        {
+          "rva": "0xf738",
+          "text": "mov edi, 4"
+        },
+        {
+          "rva": "0xf73d",
+          "text": "mov eax, dword ptr [esi]"
+        },
+        {
+          "rva": "0xf73f",
+          "text": "test eax, eax"
+        },
+        {
+          "rva": "0xf741",
+          "text": "je 0x40f757"
+        },
+        {
+          "rva": "0xf743",
+          "text": "mov ecx, dword ptr [eax]"
+        },
+        {
+          "rva": "0xf745",
+          "text": "push eax"
+        },
+        {
+          "rva": "0xf746",
+          "text": "call dword ptr [ecx + 0x48]"
+        },
+        {
+          "rva": "0xf749",
+          "text": "mov eax, dword ptr [esi]"
+        },
+        {
+          "rva": "0xf74b",
+          "text": "push eax"
+        },
+        {
+          "rva": "0xf74c",
+          "text": "mov edx, dword ptr [eax]"
+        },
+        {
+          "rva": "0xf74e",
+          "text": "call dword ptr [edx + 8]"
+        },
+        {
+          "rva": "0xf751",
+          "text": "mov dword ptr [esi], 0"
+        },
+        {
+          "rva": "0xf757",
+          "text": "add esi, 4"
+        },
+        {
+          "rva": "0xf75a",
+          "text": "dec edi"
+        },
+        {
+          "rva": "0xf75b",
+          "text": "jne 0x40f73d"
+        },
+        {
+          "rva": "0xf75d",
+          "text": "pop edi"
+        },
+        {
+          "rva": "0xf75e",
+          "text": "pop esi"
+        },
+        {
+          "rva": "0xf75f",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "label": "Complete status/restore body with explicit end anchor",
+      "rva": "0xf760",
+      "bytes": 82,
+      "sha256": "31c91edb4db8b690067539307c7651b40a29b57886447646b087ce6567c86cb2",
+      "instructions": [
+        {
+          "rva": "0xf760",
+          "text": "push ecx"
+        },
+        {
+          "rva": "0xf761",
+          "text": "push ebx"
+        },
+        {
+          "rva": "0xf762",
+          "text": "push esi"
+        },
+        {
+          "rva": "0xf763",
+          "text": "push edi"
+        },
+        {
+          "rva": "0xf764",
+          "text": "xor edi, edi"
+        },
+        {
+          "rva": "0xf766",
+          "text": "mov esi, 0xb99908"
+        },
+        {
+          "rva": "0xf76b",
+          "text": "mov ebx, 2"
+        },
+        {
+          "rva": "0xf770",
+          "text": "mov eax, dword ptr [esi]"
+        },
+        {
+          "rva": "0xf772",
+          "text": "test eax, eax"
+        },
+        {
+          "rva": "0xf774",
+          "text": "je 0x40f7a1"
+        },
+        {
+          "rva": "0xf776",
+          "text": "mov ecx, dword ptr [eax]"
+        },
+        {
+          "rva": "0xf778",
+          "text": "lea edx, [esp + 0xc]"
+        },
+        {
+          "rva": "0xf77c",
+          "text": "push edx"
+        },
+        {
+          "rva": "0xf77d",
+          "text": "push eax"
+        },
+        {
+          "rva": "0xf77e",
+          "text": "call dword ptr [ecx + 0x24]"
+        },
+        {
+          "rva": "0xf781",
+          "text": "cmp dword ptr [esp + 0xc], ebx"
+        },
+        {
+          "rva": "0xf785",
+          "text": "jne 0x40f7a1"
+        },
+        {
+          "rva": "0xf787",
+          "text": "mov eax, dword ptr [esi]"
+        },
+        {
+          "rva": "0xf789",
+          "text": "push eax"
+        },
+        {
+          "rva": "0xf78a",
+          "text": "mov ecx, dword ptr [eax]"
+        },
+        {
+          "rva": "0xf78c",
+          "text": "call dword ptr [ecx + 0x50]"
+        },
+        {
+          "rva": "0xf78f",
+          "text": "push edi"
+        },
+        {
+          "rva": "0xf790",
+          "text": "call 0x40f710"
+        },
+        {
+          "rva": "0xf795",
+          "text": "add esp, 4"
+        },
+        {
+          "rva": "0xf798",
+          "text": "push edi"
+        },
+        {
+          "rva": "0xf799",
+          "text": "call 0x40f3d0"
+        },
+        {
+          "rva": "0xf79e",
+          "text": "add esp, 4"
+        },
+        {
+          "rva": "0xf7a1",
+          "text": "add esi, 0x10"
+        },
+        {
+          "rva": "0xf7a4",
+          "text": "inc edi"
+        },
+        {
+          "rva": "0xf7a5",
+          "text": "cmp esi, 0xb9e408"
+        },
+        {
+          "rva": "0xf7ab",
+          "text": "jl 0x40f770"
+        },
+        {
+          "rva": "0xf7ad",
+          "text": "pop edi"
+        },
+        {
+          "rva": "0xf7ae",
+          "text": "pop esi"
+        },
+        {
+          "rva": "0xf7af",
+          "text": "pop ebx"
+        },
+        {
+          "rva": "0xf7b0",
+          "text": "pop ecx"
+        },
+        {
+          "rva": "0xf7b1",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "label": "Complete 1200-row cleanup body and byte flag lifecycle",
+      "rva": "0xff40",
+      "bytes": 48,
+      "sha256": "c9e87e0b89cf85c8f4b0b8453d2a273660f19e06331ba382ed334c6d20a50f95",
+      "instructions": [
+        {
+          "rva": "0xff40",
+          "text": "mov al, byte ptr [esp + 4]"
+        },
+        {
+          "rva": "0xff44",
+          "text": "push esi"
+        },
+        {
+          "rva": "0xff45",
+          "text": "mov byte ptr [0xb9e450], al"
+        },
+        {
+          "rva": "0xff4a",
+          "text": "xor esi, esi"
+        },
+        {
+          "rva": "0xff4c",
+          "text": "push esi"
+        },
+        {
+          "rva": "0xff4d",
+          "text": "call 0x40f710"
+        },
+        {
+          "rva": "0xff52",
+          "text": "add esp, 4"
+        },
+        {
+          "rva": "0xff55",
+          "text": "inc esi"
+        },
+        {
+          "rva": "0xff56",
+          "text": "cmp esi, 0x4b0"
+        },
+        {
+          "rva": "0xff5c",
+          "text": "jl 0x40ff4c"
+        },
+        {
+          "rva": "0xff5e",
+          "text": "mov byte ptr [0xb9e450], 0"
+        },
+        {
+          "rva": "0xff65",
+          "text": "pop esi"
+        },
+        {
+          "rva": "0xff66",
+          "text": "ret "
+        },
+        {
+          "rva": "0xff67",
+          "text": "nop "
+        },
+        {
+          "rva": "0xff68",
+          "text": "nop "
+        },
+        {
+          "rva": "0xff69",
+          "text": "nop "
+        },
+        {
+          "rva": "0xff6a",
+          "text": "nop "
+        },
+        {
+          "rva": "0xff6b",
+          "text": "nop "
+        },
+        {
+          "rva": "0xff6c",
+          "text": "nop "
+        },
+        {
+          "rva": "0xff6d",
+          "text": "nop "
+        },
+        {
+          "rva": "0xff6e",
+          "text": "nop "
+        },
+        {
+          "rva": "0xff6f",
+          "text": "nop "
+        }
+      ]
+    },
+    {
+      "label": "Explicit bank zero clear",
+      "rva": "0xfe86",
+      "bytes": 17,
+      "sha256": "ef81c4cbda3dc21185ead17ec287c82f20b8aa02573b4066ee4be222912f5da1",
+      "instructions": [
+        {
+          "rva": "0xfe86",
+          "text": "mov ecx, 0x12c0"
+        },
+        {
+          "rva": "0xfe8b",
+          "text": "xor eax, eax"
+        },
+        {
+          "rva": "0xfe8d",
+          "text": "mov edi, 0xb99908"
+        },
+        {
+          "rva": "0xfe92",
+          "text": "add esp, 8"
+        },
+        {
+          "rva": "0xfe95",
+          "text": "rep stosd dword ptr es:[edi], eax"
+        }
+      ]
+    },
+    {
+      "label": "Separate neighbor FF clear and DirectSoundCreate output",
+      "rva": "0xfeb4",
+      "bytes": 37,
+      "sha256": "4b95cd580c2cbf091912e4174d61ea3b5e06033f2203b7089846e92ea046b30a",
+      "instructions": [
+        {
+          "rva": "0xfeb4",
+          "text": "mov ecx, 0xc"
+        },
+        {
+          "rva": "0xfeb9",
+          "text": "or eax, 0xffffffff"
+        },
+        {
+          "rva": "0xfebc",
+          "text": "mov edi, 0xb9e408"
+        },
+        {
+          "rva": "0xfec1",
+          "text": "push 0xb9e440"
+        },
+        {
+          "rva": "0xfec6",
+          "text": "rep stosd dword ptr es:[edi], eax"
+        },
+        {
+          "rva": "0xfec8",
+          "text": "push 0"
+        },
+        {
+          "rva": "0xfeca",
+          "text": "mov dword ptr [0xb9e448], 0"
+        },
+        {
+          "rva": "0xfed4",
+          "text": "call 0x410a26"
+        }
+      ]
+    },
+    {
+      "label": "Cooperative level and primary buffer creation",
+      "rva": "0xfeee",
+      "bytes": 63,
+      "sha256": "b1978a9d7b41332cd875672d46485f6d3a58531b268a755134f0ae0b62bd858f",
+      "instructions": [
+        {
+          "rva": "0xfeee",
+          "text": "call dword ptr [edx + 0x18]"
+        },
+        {
+          "rva": "0xfef1",
+          "text": "xor edx, edx"
+        },
+        {
+          "rva": "0xfef3",
+          "text": "mov eax, dword ptr [0xb9e440]"
+        },
+        {
+          "rva": "0xfef8",
+          "text": "mov dword ptr [esp + 0xc], edx"
+        },
+        {
+          "rva": "0xfefc",
+          "text": "mov dword ptr [esp + 0xc], 0x14"
+        },
+        {
+          "rva": "0xff04",
+          "text": "mov dword ptr [esp + 0x10], edx"
+        },
+        {
+          "rva": "0xff08",
+          "text": "mov ecx, dword ptr [eax]"
+        },
+        {
+          "rva": "0xff0a",
+          "text": "mov dword ptr [esp + 0x14], edx"
+        },
+        {
+          "rva": "0xff0e",
+          "text": "mov dword ptr [esp + 0x10], 1"
+        },
+        {
+          "rva": "0xff16",
+          "text": "mov dword ptr [esp + 0x18], edx"
+        },
+        {
+          "rva": "0xff1a",
+          "text": "mov dword ptr [esp + 0x1c], edx"
+        },
+        {
+          "rva": "0xff1e",
+          "text": "push edx"
+        },
+        {
+          "rva": "0xff1f",
+          "text": "lea edx, [esp + 0x10]"
+        },
+        {
+          "rva": "0xff23",
+          "text": "push 0xb9e444"
+        },
+        {
+          "rva": "0xff28",
+          "text": "push edx"
+        },
+        {
+          "rva": "0xff29",
+          "text": "push eax"
+        },
+        {
+          "rva": "0xff2a",
+          "text": "call dword ptr [ecx + 0xc]"
+        }
+      ]
+    },
+    {
+      "label": "DirectSoundCreate import thunk",
+      "rva": "0x10a26",
+      "bytes": 6,
+      "sha256": "7141e405aa8b7653a83ca90efce6250414cdb22169d544dd95ea1bc11254ad18",
+      "instructions": [
+        {
+          "rva": "0x10a26",
+          "text": "jmp dword ptr [0xba5650]"
+        }
+      ]
+    },
+    {
+      "label": "Complete 24-channel slot allocator",
+      "rva": "0xf900",
+      "bytes": 51,
+      "sha256": "41fd6befd316f5bd2cf7565ee757be3479bbfe5b8a6e14b303f734bfad8cc905",
+      "instructions": [
+        {
+          "rva": "0xf900",
+          "text": "mov edx, dword ptr [0xb9e448]"
+        },
+        {
+          "rva": "0xf906",
+          "text": "push esi"
+        },
+        {
+          "rva": "0xf907",
+          "text": "or eax, 0xffffffff"
+        },
+        {
+          "rva": "0xf90a",
+          "text": "lea ecx, [edx + 1]"
+        },
+        {
+          "rva": "0xf90d",
+          "text": "cmp cx, 0x18"
+        },
+        {
+          "rva": "0xf911",
+          "text": "jl 0x40f915"
+        },
+        {
+          "rva": "0xf913",
+          "text": "xor ecx, ecx"
+        },
+        {
+          "rva": "0xf915",
+          "text": "movsx esi, cx"
+        },
+        {
+          "rva": "0xf918",
+          "text": "cmp dword ptr [esi*4 + 0xb99848], eax"
+        },
+        {
+          "rva": "0xf91f",
+          "text": "je 0x40f929"
+        },
+        {
+          "rva": "0xf921",
+          "text": "cmp cx, dx"
+        },
+        {
+          "rva": "0xf924",
+          "text": "je 0x40f931"
+        },
+        {
+          "rva": "0xf926",
+          "text": "inc ecx"
+        },
+        {
+          "rva": "0xf927",
+          "text": "jmp 0x40f90d"
+        },
+        {
+          "rva": "0xf929",
+          "text": "movsx eax, cx"
+        },
+        {
+          "rva": "0xf92c",
+          "text": "mov dword ptr [0xb9e448], eax"
+        },
+        {
+          "rva": "0xf931",
+          "text": "pop esi"
+        },
+        {
+          "rva": "0xf932",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "label": "Cleanup releases and clears primary buffer and device",
+      "rva": "0xff70",
+      "bytes": 64,
+      "sha256": "b79039e45380586fbdfaa5293a3049906de07eed31c5fd85b69658637ee41313",
+      "instructions": [
+        {
+          "rva": "0xff70",
+          "text": "push 1"
+        },
+        {
+          "rva": "0xff72",
+          "text": "call 0x40ff40"
+        },
+        {
+          "rva": "0xff77",
+          "text": "mov eax, dword ptr [0xb9e444]"
+        },
+        {
+          "rva": "0xff7c",
+          "text": "add esp, 4"
+        },
+        {
+          "rva": "0xff7f",
+          "text": "test eax, eax"
+        },
+        {
+          "rva": "0xff81",
+          "text": "je 0x40ff93"
+        },
+        {
+          "rva": "0xff83",
+          "text": "mov ecx, dword ptr [eax]"
+        },
+        {
+          "rva": "0xff85",
+          "text": "push eax"
+        },
+        {
+          "rva": "0xff86",
+          "text": "call dword ptr [ecx + 8]"
+        },
+        {
+          "rva": "0xff89",
+          "text": "mov dword ptr [0xb9e444], 0"
+        },
+        {
+          "rva": "0xff93",
+          "text": "mov eax, dword ptr [0xb9e440]"
+        },
+        {
+          "rva": "0xff98",
+          "text": "test eax, eax"
+        },
+        {
+          "rva": "0xff9a",
+          "text": "je 0x40ffac"
+        },
+        {
+          "rva": "0xff9c",
+          "text": "mov edx, dword ptr [eax]"
+        },
+        {
+          "rva": "0xff9e",
+          "text": "push eax"
+        },
+        {
+          "rva": "0xff9f",
+          "text": "call dword ptr [edx + 8]"
+        },
+        {
+          "rva": "0xffa2",
+          "text": "mov dword ptr [0xb9e440], 0"
+        },
+        {
+          "rva": "0xffac",
+          "text": "ret "
+        },
+        {
+          "rva": "0xffad",
+          "text": "nop "
+        },
+        {
+          "rva": "0xffae",
+          "text": "nop "
+        },
+        {
+          "rva": "0xffaf",
+          "text": "nop "
+        }
+      ]
+    }
+  ],
+  "reproducibility": {
+    "read_only_finalization": "python work/sound_bank_ownership_19/finalize.py",
+    "fresh_data_control": "python work/sound_bank_ownership_19/data_control.py (historical compiler requires escalation; consumes the one-family build allowance already used).",
+    "existing_verifier": "scripts/archive_storage.py field-loop pattern; retain this object section flag 0xc0400080 and exact four symbols rather than weakening other provider checks."
+  },
+  "limits": "Working physical declarations only. No original aggregate/TU/type spelling/full-object extent/native placement/source identity/function or whole-image acceptance claim.",
+  "private_compact_sha256": "7c4c6a47479027b2e0cfe3ff0937f6c96ef81d089ed3011621fa60d4d6de7966"
+}

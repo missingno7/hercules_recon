@@ -112,7 +112,7 @@ def stage(plan_path):
             row['callers'] = result['callers']
         rows.append(row)
     state['functions'].extend(rows)
-    STATE.write_text(json.dumps(state, indent=2) + '\n')
+    STATE.write_bytes((json.dumps(state, indent=2) + '\n').encode('utf-8'))
     print(f'Staged {len(rows)} IDENTIFIED rows for {source}; promote with:')
     print('  python scripts/promote.py ' + ' '.join(r['id'] for r in rows) + f' --source {plan["candidate"]}')
 
