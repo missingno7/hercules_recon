@@ -830,7 +830,6 @@ void title_04870(void)
    descriptor word (in the descriptor array that follows the index, d = table + (count + 2) * 4)
    has bit 0x40 and a nonzero part count gets index flag 0x40 and the result of 0x3da0 over its
    part list, after the slot's 8-byte header entry (d + d[0].w * 4 + 4) is copied to *g_2bb50. */
-extern long *g_2bb50;
 extern signed char g_2cc02;
 int title_0c310(int a);
 void title_04f40(const unsigned char *a, const unsigned char *b);
@@ -879,8 +878,8 @@ void title_048a0(const unsigned char *a, const unsigned char *b)
                         e[0] = 0x40;
                         q = s + (signed char)*s * 6 + 5;
                         src = d + *(unsigned short *)d + 1;
-                        g_2bb50[0] = src[0];
-                        g_2bb50[1] = src[1];
+                        ((long *)g_engine_interface.data_010)[0] = src[0];
+                        ((long *)g_engine_interface.data_010)[1] = src[1];
                         e[1] = title_03da0(q + 2, n, 0x40);
                     }
                 }

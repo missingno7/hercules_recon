@@ -6,6 +6,7 @@
 #include <windows.h>
 
 #include "title_gpu.h"
+#include "title_engine.h"
 
 typedef struct TitleSprt {            /* PSX SPRT, 0x14 bytes */
     unsigned long tag;
@@ -73,7 +74,6 @@ static int (*g_2957c)[25];                 /* shade delta */
 static int (*g_29580)[25];                 /* phase */
 static TitlePolyGT4 *g_29584;          /* 24 x 24 textured quads */
 
-extern short *g_2bb54;                /* sine table, 0x1000 entries */
 
 void title_0c330(void *p);
 void title_0c450(void *out, int size, int flags);
@@ -344,7 +344,7 @@ void title_02860(void)
         for (j = 0; j < 25; j++) {
             phase = g_29580[i][j];
             g_29580[i][j] = g_29578[i][j] + phase;
-            g_29574[i][j] += g_29578[i][j] * g_2bb54[phase & 0xfff] >> 4;
+            g_29574[i][j] += g_29578[i][j] * ((short *)g_engine_interface.data_014)[phase & 0xfff] >> 4;
         }
     }
 }

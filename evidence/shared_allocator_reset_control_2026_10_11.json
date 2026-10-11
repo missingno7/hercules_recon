@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-11",
+  "scope": "Passing ENG3 reset plus shared native allocator source/context evidence. No allocator acceptance, exhaustive behavior or original source/TU claim.",
+  "canonical_reset": {
+    "source": "calibration/eng3/actor_middle_reset.c",
+    "source_sha256": "1b93063e4ee221e0f78b5aceb5e1d72d930fd46c7ccf80ccab11724747ea64c8",
+    "rva": "0x1d380",
+    "bytes": 176,
+    "symbol": "_reset_eng3_middle_actor",
+    "status": "CODEGEN_SIMILAR",
+    "bindings": {
+      "_initialize_alternate_actor": "0x1d8a0"
+    },
+    "relocations": 1,
+    "full_masked_equal": true
+  },
+  "allocator": {
+    "native_bodies": [
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x275d0",
+        "bytes": 336
+      },
+      {
+        "module": "ENG3.DLL",
+        "rva": "0x1cf00",
+        "bytes": 336
+      }
+    ],
+    "equal_nonreference_bytes": 288,
+    "common_reference_positions": 12,
+    "compiled_bytes": 352,
+    "masked_residual_bytes": 274,
+    "source_error_established": false,
+    "bounded_states": 8000,
+    "bounded_failures": 0,
+    "high_word_argument_cases": 6,
+    "additional_compiles": 0,
+    "source_sha256": "ccf9f5fdb89cc1f33cded5a9ea9690f592c109f0c17821624448fff76813b6a6",
+    "object_sha256": "0297b62382593b35ee7097fcddc431f19bae86b2ea29fb357435aaec5c7b6a72",
+    "source_contract": "AH bit0x80 selects a partition. Five zero-extended WORD state cells control exclusive forward and wrap scans. Free slot is WORD kind==0 in 0xec-stride records; success writes the selected index, failure returns NULL without a cursor write.",
+    "residual_cause": "The source hoists the pool pointer and emits separate return paths. Native uses branch-local pool loads and shared return pieces. No concrete semantic/prototype/control error was found.",
+    "limits": "The 8000-state instruction/source model assumes stable globals and valid symbolic pool storage. Concurrent mutation, invalid pointers, all C alias/domain behavior and original declarations are not proved. The prior full gate remains failed."
+  },
+  "receipts": [
+    {
+      "path": "work/eng3_allocator_control_24/compact.json",
+      "sha256": "022e56370219dacd9155029c6f0ed706ee1b91ee74780822d6696f3ec1c41f70"
+    },
+    {
+      "path": "work/eng3_allocator_control_24/outcome_prediction.json",
+      "sha256": "c109d4f876d92ea23561b84e28aa47e3cde67afea4d02fa1b7ba7de0b7bafbf6"
+    },
+    {
+      "path": "work/eng3_allocator_control_24/outcome_report.json",
+      "sha256": "8709d0e3e5bdd5dbe4cd4cee95586505cec202d650ac6eecdb44a6a830ac61ab"
+    },
+    {
+      "path": "work/engine_dependencies_24/allocator_negative.json",
+      "sha256": "be7def6c227351db4d26fccefe5338deb7bb60c7f14b45b0791129a1f82938b8"
+    },
+    {
+      "path": "work/engine_dependencies_24/reset_isolation_residual.json",
+      "sha256": "053b0a645057b4af1842df4d4886af4f36a7c6d9b302156f4130d44ad7e99914"
+    }
+  ],
+  "next_discriminator": "Actual pool/state declaration, ownership or control/lifetime context predicting native branch-local reads and return sharing. Do not narrow formals or rewrite loops/pointers from byte distance."
+}

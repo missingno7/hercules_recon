@@ -246,3 +246,17 @@ environment, DLLs or pinned tools. Run the same frozen command through approved
 escalated execution and record the unsuccessful launch separately from actual
 object builds. The working Python interpreter may also differ from the blocked
 Windows Store alias; resolve an available interpreter before the experiment.
+
+Pass the exact COFF symbol to leaf comparison commands: ordinary x86 C cdecl
+names have a leading underscore. A symbol lookup failure after compilation does
+not invalidate the fresh object. Inspect its symbols and compare that same object
+with the corrected name; record the wrapper failure separately from actual
+compiler builds rather than recompiling unchanged source.
+
+Compiler-generated `$S` ordinals can change when a genuine header/member binding
+changes. A private preservation review may establish the same named source
+object through identical storage class, BSS section/value/type/addend and full
+storage bytes. Do not blindly normalize names or relax the native matching gate.
+The TITLE member pilot preserves all 32 complete functions / 8,816 bytes and
+removes two overlapping pseudo-globals from the actual source graph. See
+`evidence/title_interface_member_rebind_2026_10_11.json`.

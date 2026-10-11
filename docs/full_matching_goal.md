@@ -727,3 +727,41 @@ bytes. Fresh strict/masked regression and 54 tests pass. This wave adds 128
 masked bytes and 128 near-exact reconstructed bytes, with no strict-byte gain.
 All 551 pre-wave recovery rows remain unchanged. The checkpoint is
 `evidence/full_goal_callback_controls_wave_2026_10_11.json`.
+
+## Actual member closure and middle reset
+
+Two remaining TITLE pseudo-globals overlap the already copied interface. The
+borrowed DWORD destination now uses `data_010`; the borrowed WORD table uses
+`data_014`. All 32 complete functions / 8,816 bytes and their physical references
+preserve. Private BSS symbol ordinals change, but actual storage class, section,
+value, addends and complete storage prove the same objects. No new data provider
+or gate normalization is introduced.
+
+The fresh 38-source selected TITLE graph reduces unresolved symbols from 101 to
+99, removing only those two obsolete names. Both canonical changed units are
+recompiled at their actual paths. This is separate from the old 362-function
+private inventory; its historical unresolved totals are not refreshed here.
+See `evidence/title_interface_member_rebind_2026_10_11.json`.
+
+ENG3's middle actor reset now passes all 176 masked bytes with its single call
+bound to the existing alternate initializer. The allocator stays private:
+336-byte ENG1/ENG3 native bodies share all 288 non-reference bytes, but the
+352-byte source fails with 274 residual bytes. An independent decoded model
+agrees in 8,000 bounded states and six high-word argument cases, without proving
+exhaustive behavior or original source. Pool-load and common-return context is
+the next discriminator. See `evidence/shared_allocator_reset_control_2026_10_11.json`.
+
+The flat sound-bank visibility pair is byte-identical and fails to predict the
+native row/index forms; no full sound follow-up is justified. The correctly
+identified movie callback's first baseline emits 768/752 bytes and retains 558
+masked residual bytes and 13 conflicts. Existing TITLE object contributions also
+do not qualify as relocation-free raw leaves: earlier forced-link equality is a
+different scope. These controls remain frozen in
+`evidence/independent_controls_2026_10_11_wave24.json`.
+
+Current totals are 120 strict functions / 8,064 bytes, 429 complete masked
+functions / 86,528 bytes and five non-strict reconstructed functions / 1,008
+bytes. Fresh full strict/masked verification and 54 tests pass. The wave adds
+176 masked bytes, closes two actual TITLE dependencies and adds zero strict
+bytes. All earlier strict functions remain exact. The checkpoint is
+`evidence/full_goal_member_reset_wave_2026_10_11.json`.
