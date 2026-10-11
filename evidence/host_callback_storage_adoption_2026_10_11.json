@@ -1,0 +1,184 @@
+{
+  "date": "2026-10-11",
+  "scope": "Minimum observed 12-byte static callback prefix; fresh data diagnostic, not original declaration/TU/native placement or function acceptance.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "canonical_provider": {
+    "source": "calibration/host_callback_storage.c",
+    "private_source": "candidates/host_callback_storage_gate_42/host_callback_storage.c",
+    "private_source_sha256": "dec66adfc9e9dcfbb491f07363125286d59a55e2fb3f4568dab7693a1c08fdd0",
+    "source_sha256": "dec66adfc9e9dcfbb491f07363125286d59a55e2fb3f4568dab7693a1c08fdd0",
+    "symbol": "_g_host_callback_prefix",
+    "bytes": 12,
+    "bss_flags": "0xc0400080",
+    "cells": [
+      {
+        "name": "g_host_callback_prefix",
+        "rva": "0x68e780",
+        "end_rva_exclusive": "0x68e78c",
+        "bytes": 12,
+        "native_initial_origin": "loader-zero virtual tail",
+        "initializer": "000000000000000000000000",
+        "working_carrier": "Two EngineNoArgCallback cells + sharedunsignedlong gate in existing12-byte prefix"
+      }
+    ],
+    "fresh_private_control": "work/host_callback_storage_gate_42/report.json",
+    "fresh_private_object_sha256": "3d962e55d6c6378ea3a5da940dad5dd9722e8f8657e00e998dc40ef564731a15"
+  },
+  "actual_headers": [
+    {
+      "path": "calibration/host_callback_protocol_externs.h",
+      "sha256": "52ad7798ac5c4e6ff8b4979947465abac540b88a2cb26d9e500230b040637661"
+    },
+    {
+      "path": "calibration/engine_interface.h",
+      "sha256": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529"
+    },
+    {
+      "path": "calibration/resource_context.h",
+      "sha256": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608"
+    }
+  ],
+  "fields": [
+    {
+      "name": "callback_zero_000",
+      "offset": 0,
+      "rva": "0x68e780",
+      "bytes": 4,
+      "working_carrier": "EngineNoArgCallback"
+    },
+    {
+      "name": "callback_one_004",
+      "offset": 4,
+      "rva": "0x68e784",
+      "bytes": 4,
+      "working_carrier": "EngineNoArgCallback"
+    },
+    {
+      "name": "delivery_gate_008",
+      "offset": 8,
+      "rva": "0x68e788",
+      "bytes": 4,
+      "working_carrier": "unsigned long"
+    }
+  ],
+  "native_write_proof": [
+    {
+      "rva": "0xbd80",
+      "bytes": 32,
+      "sha256": "f7a025f60d10546c25ab438b6975f01529c9c4067cc99327b7d461c081d90d8e"
+    },
+    {
+      "rva": "0xbda0",
+      "bytes": 16,
+      "sha256": "5ba421e35d332be3cb442c8f333e689fdd0f60fb09f6e2c475df0d51e36c5c87"
+    },
+    {
+      "rva": "0xbdb0",
+      "bytes": 32,
+      "sha256": "92841cbb801b698151024c3b065ba5148d818baa5c2a2338fbba3a0e18fbf43e"
+    },
+    {
+      "rva": "0xbdd0",
+      "bytes": 16,
+      "sha256": "969cf0580788e85301e859cdfb9e3cd6e3eb140e34a1b4288647e7958d12b1c0"
+    },
+    {
+      "rva": "0xbde0",
+      "bytes": 16,
+      "sha256": "e53daadaab20d81e481b446c50d3090229bb110213f579e8fec82a687710d92a"
+    },
+    {
+      "rva": "0xbdf0",
+      "bytes": 32,
+      "sha256": "69ffe655cec97686417a498c09a827b2e3681492c4395c1de4acfaf528ee0d97"
+    },
+    {
+      "rva": "0xbe40",
+      "bytes": 32,
+      "sha256": "076844af32667e3b469502004be8202a3817ec2d1fd73552d3e6142b41f81dbf"
+    }
+  ],
+  "native_initialization": {
+    "section": {
+      "name": ".data",
+      "virtual_address": 217088,
+      "virtual_size": 7797544,
+      "raw_offset": 209920,
+      "raw_size": 38400,
+      "characteristics": 3221225536
+    },
+    "bytes": 12,
+    "zero": true,
+    "file_backed": false,
+    "proof": "Exact68e780..68e78c interval lies in writable .data virtual tail entirely beyond rawsize; null pointer bit-pattern agrees with actualMOV/TEST andNULL stores."
+  },
+  "claim_limit": "Existing observed contiguous prefix is reusable source representation. It does not prove original independent aggregate declaration or full record extent. Exclude neighboring packet68e78c and all gaps; no heap pointee or callback-body storage is supplied.",
+  "status": "fresh_canonical_data_diagnostic",
+  "native_audit": {
+    "path": "work/host_callback_storage_41/compact.json",
+    "sha256": "fc66f05871b2995e037540fa92104e2349adab820450f72a2d0f2ff6f7ff852e"
+  },
+  "private_control": {
+    "path": "work/host_callback_storage_gate_42/report.json",
+    "sha256": "121f25c1b1228692ad0d01eb8641aac0bb070f6eee0bfd1ddd495fb221e61e32"
+  },
+  "prediction": {
+    "path": "work/root_storage_closure_42/prediction.json",
+    "sha256": "a35b46d03ac4615a98cdbcc0ccf8dfc553df5bb5d5c72b55dab9d347ca45af46"
+  },
+  "protected_consumers": {
+    "source": "calibration/host_callback_protocol.c",
+    "source_sha256": "70c2092b271ef9d2992cdf4fece42bbb041dbdb8d249aadac2b10523952dc437",
+    "object_sha256": "b293584266de2435e92dc401b8dddcc3e69c5e573ec78cc991cedfec25475536",
+    "functions": 6
+  },
+  "fresh_canonical": {
+    "object": "work\\root_storage_closure_42\\callback.obj",
+    "object_sha256": "005939087ff9d66e863ddebdf085ee69765ef445d101cd00ff099e85d162af77",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-9j0dihrz\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\host_callback_storage.c"
+    ],
+    "toolchain": "msvc5_rtm",
+    "bss_bytes": 12,
+    "supported_fields_bytes": 12,
+    "uncredited_padding_bytes": 0,
+    "functions": 0,
+    "relocations": 0,
+    "undefined_symbols": 0,
+    "complete_worker_sections_preserved": true,
+    "inputs_stable": true,
+    "protected_inputs": {
+      "recovery.json": "e7dde23e3308778bd412dc12aa3fe1f32040c4468ea5d3a5ae240eb20d9673f3",
+      "toolchains/manifest.json": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+      "work/discs/pc_install/HERCULES.EXE": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "calibration/host_callback_protocol.c": "70c2092b271ef9d2992cdf4fece42bbb041dbdb8d249aadac2b10523952dc437",
+      "calibration/host_pool_counts.c": "36f240917a4ac84ef47346f689f7557efb94af970fe0fd2b11e5b52c7bd84270",
+      "calibration/host_arena_reset.c": "1d89def889f17ec4ac28fba9eacf3388e72e67b08bb72c58eeb1aacfdcb9662b",
+      "calibration/host_pool_repaired.c": "115c5e969b4cfff3470d2f08e1a8923b03a392536448ebe14815df17d2bc4ac0",
+      "calibration/host_pool_lifecycle_repaired.c": "cb108687a63c3864891ade8b95b605f0c731fa0eae35f5cbaaa5aec13c9c7bf2",
+      "calibration\\engine_dispatch_externs.h": "dfd2e116a88bec977cb3bf27cf68c859024f788a24a82ab46566c3967455cb31",
+      "calibration\\engine_fx_record.h": "39a59bc8f8c901bb58245d906e66b6e9499dc9641e4571e08b549b00873604a1",
+      "calibration\\engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+      "calibration\\frame_configuration_row.h": "228c2bd5d3d8b0545bb093fbdc3b13b8f636c5afdc3fbdd16dcf97d74aa49479",
+      "calibration\\frame_lifecycle_bridges.h": "c4dd6d415988c01f143b7868ebcedaf64756d05b4d57553fc2c43d7ce66aec3e",
+      "calibration\\host_callback_protocol_externs.h": "52ad7798ac5c4e6ff8b4979947465abac540b88a2cb26d9e500230b040637661",
+      "calibration\\resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "calibration\\resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "calibration\\title\\title_engine.h": "c9129ad4b8fe6dc88b1a29815faec87b0c0064abb656a07df9fe8a665af6c466",
+      "calibration\\title\\title_files.h": "0e458448bf55074aeb0a8293c32cc31319958458dcc0e6e62b41bdeb31619cd4",
+      "calibration\\title\\title_gpu.h": "6533d696eb5d7ae7d7bc63c13dd0c955944355a0b5900f0d6976166f9fc1e860",
+      "calibration\\title\\title_proc.h": "e47311fdfe6e88084912c8515ce6331498b63b76c8ecdb085bd4a97a391cb3fc",
+      "calibration\\title\\title_screen.h": "18ddb6112c5592b914e64880e1cc8426b2f556d95ef3dcd7c5ef4e1d14f7f3fd",
+      "calibration\\title\\title_slots.h": "301aded52d8e071ec0fd4788caeefed6b7528fe1d1fc6459cf27c693dc221a66"
+    }
+  }
+}

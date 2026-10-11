@@ -1,0 +1,137 @@
+{
+  "scope": "Minimum observed 48-byte static pool prefix; fresh data diagnostic, not original declaration/TU/native placement or function acceptance.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "actual_headers": [
+    {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h",
+      "sha256": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9"
+    }
+  ],
+  "canonical_provider": {
+    "source": "calibration/host_pool_storage.c",
+    "source_sha256": "a8cf197cec1b0310ccb4f2f1f27059e8e029be16708b09dd2966bdc05a7271de",
+    "symbol": "_g_host_pool",
+    "bytes": 48,
+    "bss_flags": "0xc0400080",
+    "cells": [
+      {
+        "name": "g_host_pool",
+        "rva": "0x7a29c0",
+        "end_rva_exclusive": "0x7a29f0",
+        "bytes": 48,
+        "object_offset": 0,
+        "working_type": "HostPoolState minimum observed metadata prefix; member sequence matches current host-pool consumers and previous private owner",
+        "native_initial_origin": "loader-zero virtual tail",
+        "zero_initializer": true,
+        "initializer": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "evidence": "Starts[4] at +0x00; ends[4] at +0x10; saved arena pointer +0x20; saved byte count +0x24; bulk first header +0x28; bulk first word count +0x2c."
+      }
+    ],
+    "private_source": "candidates/host_pool_storage_gate_42/host_pool_storage.c",
+    "private_source_sha256": "a8cf197cec1b0310ccb4f2f1f27059e8e029be16708b09dd2966bdc05a7271de"
+  },
+  "native_write_proof": [
+    {
+      "rva": "0x4450",
+      "bytes": 32,
+      "sha256": "12caab25e829c7c8d0b29f751b37ee6fde0fe3b1417196d09010b2bb6939e69a"
+    },
+    {
+      "rva": "0x4470",
+      "bytes": 160,
+      "sha256": "1e3673c1caed6ca64df8e6402a0471166c6b02c4d75b29833ac4896271d38849"
+    },
+    {
+      "rva": "0x4510",
+      "bytes": 96,
+      "sha256": "0d9229795772b7b9445a4247ae3e18a2e82607154b50a14e137fa4384987b497"
+    },
+    {
+      "rva": "0x4750",
+      "bytes": 112,
+      "sha256": "2821bcaacbccbe4ac565f590bc7177515592123db78805c07c166e645ea92faa"
+    },
+    {
+      "rva": "0x47c0",
+      "bytes": 112,
+      "sha256": "86dc6c00b25ee6317cd48e8504914e13db8c57682e85a3361009dd95e2e97c34"
+    }
+  ],
+  "native_access_evidence": {
+    "source": "work/host_pool_storage_41/native_storage.json",
+    "oracle_rva": "0x7a29c0",
+    "bytes": 48,
+    "selected_intervals": [
+      "save_arena@0x4450/32",
+      "reinitialize_pool0@0x4470/160",
+      "initialize_pool@0x4510/96",
+      "free_bounds@0x4750/112",
+      "bulk_snapshot@0x47c0/112"
+    ],
+    "interface_arena_separate": true
+  },
+  "limits": "The generic verifier can prove one writable48-byte BSS contribution and that its target interval is loader-zero. It does not prove original aggregate/TU/layout placement or the separate arena.",
+  "status": "fresh_canonical_data_diagnostic",
+  "date": "2026-10-11",
+  "native_audit": {
+    "path": "work/host_pool_storage_41/compact.json",
+    "sha256": "c405308e9419babce5994675b1eb3531b3ab8960e72c1113f21fe6e8e1170af6"
+  },
+  "private_control": {
+    "path": "work/host_pool_storage_gate_42/report.json",
+    "sha256": "6bc88cba00c1557a08ff0efea2ef1d5a345894ca85a62876773e5a3934c21d2e"
+  },
+  "prediction": {
+    "path": "work/root_storage_closure_42/prediction.json",
+    "sha256": "a35b46d03ac4615a98cdbcc0ccf8dfc553df5bb5d5c72b55dab9d347ca45af46"
+  },
+  "fresh_canonical": {
+    "object": "work\\root_storage_closure_42\\pool.obj",
+    "object_sha256": "b5a9b90f9273912d254847adc611f2992f52acea287e9c8b9e58bb81556fcea6",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-1qo8rmhi\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\host_pool_storage.c"
+    ],
+    "toolchain": "msvc5_rtm",
+    "bss_bytes": 48,
+    "supported_fields_bytes": 48,
+    "uncredited_padding_bytes": 0,
+    "functions": 0,
+    "relocations": 0,
+    "undefined_symbols": 0,
+    "complete_worker_sections_preserved": true,
+    "inputs_stable": true,
+    "protected_inputs": {
+      "recovery.json": "e7dde23e3308778bd412dc12aa3fe1f32040c4468ea5d3a5ae240eb20d9673f3",
+      "toolchains/manifest.json": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+      "work/discs/pc_install/HERCULES.EXE": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "calibration/host_callback_protocol.c": "70c2092b271ef9d2992cdf4fece42bbb041dbdb8d249aadac2b10523952dc437",
+      "calibration/host_pool_counts.c": "36f240917a4ac84ef47346f689f7557efb94af970fe0fd2b11e5b52c7bd84270",
+      "calibration/host_arena_reset.c": "1d89def889f17ec4ac28fba9eacf3388e72e67b08bb72c58eeb1aacfdcb9662b",
+      "calibration/host_pool_repaired.c": "115c5e969b4cfff3470d2f08e1a8923b03a392536448ebe14815df17d2bc4ac0",
+      "calibration/host_pool_lifecycle_repaired.c": "cb108687a63c3864891ade8b95b605f0c731fa0eae35f5cbaaa5aec13c9c7bf2",
+      "calibration\\engine_dispatch_externs.h": "dfd2e116a88bec977cb3bf27cf68c859024f788a24a82ab46566c3967455cb31",
+      "calibration\\engine_fx_record.h": "39a59bc8f8c901bb58245d906e66b6e9499dc9641e4571e08b549b00873604a1",
+      "calibration\\engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+      "calibration\\frame_configuration_row.h": "228c2bd5d3d8b0545bb093fbdc3b13b8f636c5afdc3fbdd16dcf97d74aa49479",
+      "calibration\\frame_lifecycle_bridges.h": "c4dd6d415988c01f143b7868ebcedaf64756d05b4d57553fc2c43d7ce66aec3e",
+      "calibration\\host_callback_protocol_externs.h": "52ad7798ac5c4e6ff8b4979947465abac540b88a2cb26d9e500230b040637661",
+      "calibration\\resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "calibration\\resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "calibration\\title\\title_engine.h": "c9129ad4b8fe6dc88b1a29815faec87b0c0064abb656a07df9fe8a665af6c466",
+      "calibration\\title\\title_files.h": "0e458448bf55074aeb0a8293c32cc31319958458dcc0e6e62b41bdeb31619cd4",
+      "calibration\\title\\title_gpu.h": "6533d696eb5d7ae7d7bc63c13dd0c955944355a0b5900f0d6976166f9fc1e860",
+      "calibration\\title\\title_proc.h": "e47311fdfe6e88084912c8515ce6331498b63b76c8ecdb085bd4a97a391cb3fc",
+      "calibration\\title\\title_screen.h": "18ddb6112c5592b914e64880e1cc8426b2f556d95ef3dcd7c5ef4e1d14f7f3fd",
+      "calibration\\title\\title_slots.h": "301aded52d8e071ec0fd4788caeefed6b7528fe1d1fc6459cf27c693dc221a66"
+    }
+  }
+}

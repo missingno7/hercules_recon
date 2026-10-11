@@ -378,3 +378,33 @@ file/empty functions into 345 bytes with 71 literal bytes. Both complete-unit ga
 pass, with four explicit function offsets 0/56/177/340 and all initialized data
 mapped and equal. Preserve local symbol renumbering as separate output identity.
 This broader-context result remains diagnostic, outside recovery totals.
+
+## Static owner closure and bounded compiler outcomes
+
+Three independently rebuilt data providers add 61 supported loader-zero bytes:
+12 callback-prefix bytes, 48 pool metadata bytes, and one graphics state byte.
+The existing field verifier is extended by three provider entries; consumers,
+SDK tools and verification rules are reused. The unchanged callback fixture
+passes 22 checks against the actual separate canonical provider.
+
+Graphics 07140 now preserves the native zero-state early return, which skips
+the clear. This corrects the old unconditional-clear wording while preserving
+its historical failed receipt. Fresh staging records one 48-byte masked match;
+it is not strict. The fixed-base EXE has no PE base-relocation directory.
+Its four COFF address references still have consistent native bindings.
+
+The fresh 61-source EXE graph preserves all 59 previous complete contributions
+and 25 strict EXE functions, reducing unresolved names from 11 through 9 to 8.
+No image or native layout is proved. Current totals are 132 strict functions /
+8304 bytes and 447 masked functions / 89376 bytes; all prior matches preserve.
+EXE data is 249 initialized / 207854 supported loader-zero bytes. All 69 tool
+tests pass, and all 447 masked rows freshly verify in 71 sources.
+
+A genuine normalized-ID capture restores the 229-byte FX exception graph,
+leaving only 17 local displacement bytes in each engine peer. Freeze this
+allocation family alongside the earlier 100/71/6-byte blockers. Three bounded
+bit-packer forms coalesce to identical output and remain seven bytes wrong in
+each function: OR-root ownership and parameter-update lowering hypotheses are
+falsified. No spelling/type/flag retries follow. Continue real missing owners
+and source/unit contributions; preserve these private candidates and receipts.
+See `evidence/storage_capture_progress_2026_10_11.json` for proof limits and hashes.

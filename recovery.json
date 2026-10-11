@@ -16922,6 +16922,33 @@
         "target_sha256": "b72c42161a5cf0a8df81828a90c20b1d7499687e7d81cdbe3af96c55c4202f09",
         "toolchain": "msvc5_rtm"
       }
+    },
+    {
+      "id": "exe.graphics_native_07140",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x7140",
+      "size": 48,
+      "source": "calibration/graphics_unlock.cpp",
+      "symbol": "_graphics_native_07140",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/storage_capture_progress_2026_10_11.json; work/graphics_unlock_gate_44/report.json; work/graphics_link_frontier_43/compact.json; native zero-state branch targets RET and skips clear; original ABI/source/TU/native placement unproved.",
+      "boundary": "Native entry at 7140 to distinct 7170 entry: 46-byte decoded body ending in RET plus 2 native NOPs. Fresh /O2 /Gy complete 48-byte contribution and binding-aware masked equality verify all four native absolute operand roles. Fixed-base EXE has no PE base-relocation directory. Zero-state branch skips the clear; working void cdecl/no-arg ABI agrees with observed callers, original signature/TU/native placement unproved.",
+      "link_symbols": {
+        "_g_exe_96e3ec": "0x56e3ec",
+        "_g_exe_ba01f0": "0x7a01f0",
+        "_g_fatal_suppress_dialog": "0x7a020c"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "4f0cc38ed937457e2fd892dd83487bed9a6189dc7bf18babd5b4d6faf172eefa",
+        "masked_sha256": "37830b7360805e5a020c60a23e8e1e8379b579183c09f7a96f0a8e03e01dc34c",
+        "toolchain": "msvc5_rtm"
+      }
     }
   ]
 }
