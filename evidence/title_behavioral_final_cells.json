@@ -1,0 +1,106 @@
+{
+  "scope": "Final two native-supported minimum zero cell views; no recovery acceptance.",
+  "oracle_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+  "cells": {
+    "g_2bb38": {
+      "type": "int",
+      "minimum_bytes": 4,
+      "original_loader_zero": true,
+      "native_references": [
+        {
+          "function_rva": "0xd910",
+          "rva": "0xe8cd",
+          "instruction": "mov dword ptr [0x1002bb38], eax",
+          "width": 4,
+          "kind": "memory"
+        },
+        {
+          "function_rva": "0x164b0",
+          "rva": "0x166e6",
+          "instruction": "mov dl, byte ptr [0x1002bb38]",
+          "width": 1,
+          "kind": "memory"
+        }
+      ],
+      "instruction_contexts": [
+        [
+          "0xe8cd mov dword ptr [0x1002bb38], eax",
+          "0xe8d2 dec eax",
+          "0xe8d3 cmp eax, 0xb",
+          "0xe8d6 ja 0x1000e90e",
+          "0xe8d8 jmp dword ptr [eax*4 + 0x1000f374]",
+          "0xe8df push 0xa",
+          "0xe8e1 jmp 0x1000e901",
+          "0xe8e3 push 0xc"
+        ],
+        [
+          "0x166e6 mov dl, byte ptr [0x1002bb38]",
+          "0x166ec mov eax, dword ptr [0x1002bb44]",
+          "0x166f1 dec dl",
+          "0x166f3 mov byte ptr [eax], dl",
+          "0x166f5 jmp 0x10016724",
+          "0x166f7 mov ecx, dword ptr [0x1002bb44]"
+        ]
+      ],
+      "all_encoded_address_occurrences": [
+        {
+          "section": ".text",
+          "encoded_operand_rva": "0xe8ce"
+        },
+        {
+          "section": ".text",
+          "encoded_operand_rva": "0x166e8"
+        }
+      ],
+      "binding": "New private provider definition; no existing separate source definition or interior array binding found."
+    },
+    "g_2b36c": {
+      "type": "int",
+      "minimum_bytes": 4,
+      "original_loader_zero": true,
+      "native_references": [
+        {
+          "function_rva": "0x1c500",
+          "rva": "0x1ca55",
+          "instruction": "mov dword ptr [0x1002b36c], esi",
+          "width": 4,
+          "kind": "memory"
+        },
+        {
+          "function_rva": "0x1c500",
+          "rva": "0x1d0fb",
+          "instruction": "mov eax, dword ptr [0x1002b36c]",
+          "width": 4,
+          "kind": "memory"
+        }
+      ],
+      "instruction_contexts": [
+        [
+          "0x1ca55 mov dword ptr [0x1002b36c], esi",
+          "0x1ca5b call 0x1000c4e0",
+          "0x1ca60 call 0x1000c5a0",
+          "0x1ca65 mov dword ptr [edi + 4], 0xffff"
+        ],
+        [
+          "0x1d0fb mov eax, dword ptr [0x1002b36c]",
+          "0x1d100 mov esi, 1",
+          "0x1d105 cmp eax, ebp",
+          "0x1d107 jne 0x1001d132",
+          "0x1d109 mov eax, dword ptr [0x1002aff0]"
+        ]
+      ],
+      "all_encoded_address_occurrences": [
+        {
+          "section": ".text",
+          "encoded_operand_rva": "0x1ca57"
+        },
+        {
+          "section": ".text",
+          "encoded_operand_rva": "0x1d0fc"
+        }
+      ],
+      "binding": "New private provider definition; no existing separate source definition or interior array binding found."
+    }
+  },
+  "limits": "DWORD writer/access proves minimum four-byte view; original independent declaration, aggregate, source owner and placement remain unknown. Absolute reference inventory alone does not exclude indirect writes."
+}

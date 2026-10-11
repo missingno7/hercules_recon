@@ -1,0 +1,33 @@
+{
+  "scope": "Three newly exposed render dependencies; private behavioral storage only, not recovery acceptance.",
+  "provider": "candidates/title_behavioral/data/title_data.c",
+  "fresh_receipt": "work/title_behavioral/data/provider_build.json",
+  "native_and_existing_owner_evidence": "work/title_behavioral/data/render_cells.json",
+  "indexed_consumer_evidence": "work/title_behavioral/data/inspection.json",
+  "source_adaptations": [],
+  "cells": [
+    {
+      "symbol": "g_2acf4",
+      "type": "int",
+      "minimum_zero_bytes": 4,
+      "consumer": "18bf0 DWORD load at 0x18d83; compared against zero to suppress primitive emission.",
+      "separation": "Current r16110 private g_2acf0 freshly compiles as one 4-byte .bss section, original cell 0x2acf0..0x2acf3. New cell starts at 0x2acf4 and is not its interior."
+    },
+    {
+      "symbol": "g_2cbec",
+      "type": "unsigned int *",
+      "minimum_zero_bytes": 4,
+      "consumer": "18bf0 DWORD load at 0x18c34; signed stream WORD multiplies by 4 to select a record prefix.",
+      "separation": "g_2cbe0[3] ends at 0x2cbec. The pointer cell is outside the supplied center prefix."
+    },
+    {
+      "symbol": "g_2cbf4",
+      "type": "unsigned char *",
+      "minimum_zero_bytes": 4,
+      "consumer": "18bf0 DWORD load at 0x18c7b; encoded byte offset selects texture UV data.",
+      "separation": "g_2cbf0 is a four-byte independent pointer cell at 0x2cbf0..0x2cbf3. New cell starts at 0x2cbf4."
+    }
+  ],
+  "initialization": "All three original addresses lie beyond .data file-backed end 0x29200 and inside its mapped virtual range. Each has exactly one encoded absolute address occurrence in all file-backed sections, the consumer read. No direct literal-address initializer write was found; indirect writers are not excluded by this test.",
+  "ownership": "No current source provider covers any of the cells. The private data-only provider now owns their minimum typed views. Historical independent declarations versus aggregate, full extent, original TU and placement remain unproved. No pointee storage or initializer values were invented."
+}

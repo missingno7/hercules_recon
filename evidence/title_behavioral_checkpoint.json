@@ -1,0 +1,143 @@
+{
+  "date": "2026-10-11",
+  "scope": "Source coverage and measured tests; not complete-game behavioral equivalence.",
+  "branch": "codex/title-behavioral-reconstruction",
+  "matching_base": "9306aa0288d6b064f8a555ca8acf7b28e401c6f1",
+  "build_command": "python scripts/title_behavioral.py",
+  "inventory_entries": 362,
+  "compiled_function_definitions": 362,
+  "inventory_boundary_review_leads": 39,
+  "source_units": 44,
+  "unresolved_symbols": [],
+  "duplicate_symbols": [],
+  "placeholders": [],
+  "architecture": "x86 PE32",
+  "exports": [
+    {
+      "name": "PC_DLLEngineMain",
+      "ordinal": 1,
+      "rva": 115168,
+      "forwarder": null
+    }
+  ],
+  "dll_sha256": "6b8b8caa905169c72ef8032dee23a3c5a85de3e13c4bd31f0acd0db479253ad9",
+  "preserved_exact_functions": [
+    {
+      "symbol": "_unlink_12c",
+      "original_rva": "0x97b0",
+      "linked_rva": "0x9850",
+      "size": 64,
+      "exact": true
+    },
+    {
+      "symbol": "_unlink_0e4",
+      "original_rva": "0x98a0",
+      "linked_rva": "0x9890",
+      "size": 80,
+      "exact": true
+    },
+    {
+      "symbol": "_make_colour",
+      "original_rva": "0x189a0",
+      "linked_rva": "0x98e0",
+      "size": 64,
+      "exact": true
+    },
+    {
+      "symbol": "_sentinel_count",
+      "original_rva": "0xcee0",
+      "linked_rva": "0x9920",
+      "size": 32,
+      "exact": true
+    },
+    {
+      "symbol": "_clear_command_high_bit",
+      "original_rva": "0x9770",
+      "linked_rva": "0x9810",
+      "size": 64,
+      "exact": true
+    },
+    {
+      "symbol": "_init_title_fields_d410",
+      "original_rva": "0xd410",
+      "linked_rva": "0xffc0",
+      "size": 48,
+      "exact": true
+    }
+  ],
+  "reproduction": {
+    "command": "python scripts/title_behavioral.py --output work/title_behavioral/repro_build",
+    "dll_sha256": "cf064865d77615a483d4839826f3fe0b19deaea12d3cab241c31fb46521dd257",
+    "sections": [
+      {
+        "name": ".text",
+        "same_rva": true,
+        "same_bytes": true,
+        "same_bytes_export_timestamp_normalized": true
+      },
+      {
+        "name": ".rdata",
+        "same_rva": true,
+        "same_bytes": false,
+        "same_bytes_export_timestamp_normalized": true
+      },
+      {
+        "name": ".data",
+        "same_rva": true,
+        "same_bytes": true,
+        "same_bytes_export_timestamp_normalized": true
+      },
+      {
+        "name": ".idata",
+        "same_rva": true,
+        "same_bytes": true,
+        "same_bytes_export_timestamp_normalized": true
+      },
+      {
+        "name": ".reloc",
+        "same_rva": true,
+        "same_bytes": true,
+        "same_bytes_export_timestamp_normalized": true
+      }
+    ],
+    "claim": "Independent source rebuild has identical PE section data and RVAs after normalizing the export-directory timestamp; whole-file identity is not claimed."
+  },
+  "tests": [
+    {
+      "command": "python scripts/test_title_behavioral.py",
+      "result": "pass",
+      "scope": "Entry protocol callback spies"
+    },
+    {
+      "command": "python scripts/title_differential.py",
+      "result": "pass",
+      "scope": "Decimal digits 31095 cases; color 198656 cases; sentinel 2177 cases"
+    },
+    {
+      "command": "python scripts/title_linked_differential.py",
+      "result": "pass",
+      "scope": "Actual linked reset 1024 states, initializer 64 states, rejected cold entry"
+    },
+    {
+      "command": "python scripts/title_integration.py fixture",
+      "result": "pass",
+      "scope": "LoadLibrary/GetProcAddress and rejected entry cdecl stack"
+    }
+  ],
+  "runtime_status": "No-CD original host loads source DLL and verifies real interface/arena callback. Three frame calls complete; fourth stalls before frame return in fullscreen. Windowed baseline/source comparison pending.",
+  "unverified": [
+    "Screen display and interactions",
+    "Animations and audio",
+    "Passwords",
+    "Settings and save/load",
+    "Shutdown and reinitialization",
+    "Transitions into ENG1/ENG3",
+    "Provisional data capacities and aggregate ownership"
+  ],
+  "matching_regression": {
+    "strict_instances": 132,
+    "codegen_rows": 449,
+    "failures": 0,
+    "claim": "Baseline regression before new behavioral providers; six exact TITLE functions also checked in each linked build."
+  }
+}

@@ -1,0 +1,483 @@
+{
+  "scope": "Behavioral source graph and contracts only; recovery.json remains the sole matching authority.",
+  "baseline_branch": "codex/full-matching-reconstruction",
+  "baseline_commit": "9306aa0288d6b064f8a555ca8acf7b28e401c6f1",
+  "behavioral_branch": "codex/title-behavioral-reconstruction",
+  "exports": "src/title/behavioral/title.def",
+  "libraries": [
+    "libcmt.lib",
+    "kernel32.lib"
+  ],
+  "additional_sources": [
+    {
+      "source": "src/title/behavioral/title_entry.c"
+    },
+    {
+      "source": "src/title/behavioral/title_data.c"
+    },
+    {
+      "source": "src/title/behavioral/title_trace.c",
+      "role": "Optional environment-enabled diagnostic support, no original RVA",
+      "flags": [
+        "/O2",
+        "/MT"
+      ]
+    },
+    {
+      "source": "src/title/behavioral/title_init_table.c"
+    },
+    {
+      "source": "src/title/behavioral/input_boot.c"
+    }
+  ],
+  "source_overrides": {},
+  "functions": [
+    {
+      "module": "TITLE.DLL",
+      "rva": "0xc1f0",
+      "symbol": "_PC_DLLEngineMain",
+      "source": "src/title/behavioral/title_entry.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "cdecl(interface pointer, unsigned flags); first-use copy/signature/arena initialization; every accepted call host frame callback then context[0x40]=flags&1 and TITLE frame loop; caller ignores EAX.",
+      "dependencies": [
+        "g_engine_interface",
+        "g_257e8[0]",
+        "title_0c390",
+        "title_0ca00",
+        "title_05fb0"
+      ],
+      "uncertainty": "Caller discards EAX; full initialization and screen behavior remain unverified. Fourth frame stalled in fullscreen runtime; windowed comparison pending.",
+      "behavioral_verification": "Source protocol fixtures and linked native oracle rejection tests pass; actual host supplies expected interface and completes three frame calls.",
+      "tests": [
+        "tests/title_entry_semantics.c",
+        "tests/title_linked_differential.c"
+      ]
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x3100",
+      "symbol": "_title_03100",
+      "source": "calibration/title/u02b70.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Decode count unrotated, unscaled sprite parts; map each atlas cell to a texture page and enqueue four-corner textured primitives in the active ordering table, including horizontal flip and linked-cell traversal.",
+      "dependencies": [
+        "g_2df40",
+        "g_2cc04",
+        "g_264f8",
+        "g_2d340",
+        "g_243e0",
+        "make_colour"
+      ],
+      "uncertainty": "The 40-byte primitive and 12-byte cell views are behaviorally supported by observed consumers; source identity and original declarations remain unproved.",
+      "source_fragment": "src/title/behavioral/emitters.c"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x3420",
+      "symbol": "_title_03420",
+      "source": "calibration/title/u02b70.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Decode and enqueue unscaled rotated sprite parts using the object's angle and the shared sine table, preserving cell UVs, flip, page, CLUT, and ordering-table links.",
+      "dependencies": [
+        "g_2df40",
+        "g_2cc04",
+        "g_264f8",
+        "g_2d340",
+        "g_243e0",
+        "make_colour"
+      ],
+      "uncertainty": "Behavior follows the emitter family draft; original source spelling and exact shared-record declarations remain unknown.",
+      "source_fragment": "src/title/behavioral/emitters.c"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x3740",
+      "symbol": "_title_03740",
+      "source": "calibration/title/u02b70.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Scale decoded part offsets and dimensions in signed fixed-point, then enqueue unrotated textured quads with the active page, CLUT, flip, and linked-cell behavior.",
+      "dependencies": [
+        "g_2df40",
+        "g_2cc04",
+        "g_264f8",
+        "g_2d340",
+        "make_colour"
+      ],
+      "uncertainty": "The signed scale view is inferred from callers; scale units and historical parameter types are not independently established.",
+      "source_fragment": "src/title/behavioral/emitters.c"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x39b0",
+      "symbol": "_title_039b0",
+      "source": "calibration/title/u02b70.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Scale and rotate decoded sprite-part corners from the object's angle, then enqueue textured quads and advance through the cell-link table.",
+      "dependencies": [
+        "g_2df40",
+        "g_2cc04",
+        "g_264f8",
+        "g_2d340",
+        "g_243e0",
+        "make_colour"
+      ],
+      "uncertainty": "Angle-table and object-field use are supported by the neighboring dispatchers; exact source declaration and allocation history remain unknown.",
+      "source_fragment": "src/title/behavioral/emitters.c"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x4fe0",
+      "symbol": "_title_04fe0",
+      "source": "calibration/title/r04d80.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Initialize all 256 12-byte sprite cells with empty masks and their texture-page selectors, then reserve the four observed corner cells.",
+      "dependencies": [
+        "g_2d340"
+      ],
+      "uncertainty": "The 256-cell writable view is supplied by title_data.c; this does not establish its original aggregate owner or extent.",
+      "source_fragment": "src/title/behavioral/cell_init.c",
+      "behavioral_verification": "Linked replacement versus original x86 execution passed deterministic guarded-state tests.",
+      "tests": [
+        "tests/title_linked_differential.c"
+      ]
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x54f0",
+      "symbol": "_title_054f0",
+      "source": "calibration/title/r04d80.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Resolve a sound ID into bank/sample/volume, apply mute/linked-owner and voice-count rules, compute fixed-point panning and volume, create a voice, and associate the successful channel with the owner and sound record.",
+      "dependencies": [
+        "g_2cca0",
+        "g_engine_interface.context_004",
+        "title_fx_pan",
+        "title_05080",
+        "title_0cc10",
+        "title_0c6f0",
+        "title_0c700"
+      ],
+      "uncertainty": "Uses the existing same-TU panning helper and only adds its missing private scratch record/cells. Full runtime integration and host audio behavior remain untested.",
+      "source_fragment": "src/title/behavioral/sound.c"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x9a40",
+      "symbol": "_title_09a40",
+      "source": "calibration/title/u09a40.c",
+      "source_fragment": "src/title/behavioral/screens.inc",
+      "implementation_status": "plausible_unverified",
+      "contract": "Advances the shared animation and phase handoff.",
+      "evidence": "docs/title_behavioral_screens.md",
+      "uncertainty": "Full original-game behavior has not been exercised."
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x9c90",
+      "symbol": "_title_09c90",
+      "source": "calibration/title/u09a40.c",
+      "source_fragment": "src/title/behavioral/screens.inc",
+      "implementation_status": "plausible_unverified",
+      "contract": "Advances four frame/audio sequences and shared object state.",
+      "evidence": "docs/title_behavioral_screens.md",
+      "uncertainty": "Full original-game behavior has not been exercised."
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0xa020",
+      "symbol": "_title_0a020",
+      "source": "calibration/title/u09a40.c",
+      "source_fragment": "src/title/behavioral/screens.inc",
+      "implementation_status": "plausible_unverified",
+      "contract": "Advances the third frame/audio sequence and object state.",
+      "evidence": "docs/title_behavioral_screens.md",
+      "uncertainty": "Full original-game behavior has not been exercised."
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0xa450",
+      "symbol": "_title_0a450",
+      "source": "calibration/title/u09a40.c",
+      "source_fragment": "src/title/behavioral/screens.inc",
+      "implementation_status": "plausible_unverified",
+      "contract": "Options process callback: resource load, object setup, input/settings transitions and cleanup.",
+      "evidence": "docs/title_behavioral_screens.md",
+      "uncertainty": "Full original-game behavior has not been exercised."
+    },
+    {
+      "rva": "0x17f50",
+      "symbol": "_title_17f50",
+      "signature": "void title_17f50(unsigned char *stream, TitleObj *obj, unsigned char count)",
+      "draft": "candidates/wemit2b/best.cpp",
+      "contract": "Consumes an encoded texture-cell stream and emits FT4 primitives with object flip and palette state.",
+      "uncertainty": "Object field names are rebound to the existing TitleObj fields; runtime behavior and function-level equality remain unverified.",
+      "module": "TITLE.DLL",
+      "source": "calibration/title/u17cb0.cpp",
+      "source_fragment": "src/title/behavioral/render.inc",
+      "implementation_status": "plausible_unverified"
+    },
+    {
+      "rva": "0x181e0",
+      "symbol": "_title_181e0",
+      "signature": "void title_181e0(unsigned char *stream, TitleObj *obj, unsigned char count)",
+      "draft": "candidates/wm2/best_cfi.cpp",
+      "contract": "Consumes an encoded texture-cell stream, applies object color/blend/z/selection state, and emits FT4 primitives.",
+      "uncertainty": "External helper/data providers are incomplete; runtime behavior and function-level equality remain unverified.",
+      "module": "TITLE.DLL",
+      "source": "calibration/title/u17cb0.cpp",
+      "source_fragment": "src/title/behavioral/render.inc",
+      "implementation_status": "plausible_unverified"
+    },
+    {
+      "rva": "0x184c0",
+      "symbol": "_title_184c0",
+      "signature": "int title_184c0(TitleShape *o, TitleFrameBox *f, int mode)",
+      "draft": "candidates/w184c0/v_tern.cpp",
+      "contract": "Returns whether a scaled frame box lies outside the 320x240 title viewport. Reads the screen-width member at g_2cbe0[2].",
+      "uncertainty": "The frame box interpretation and scaled clipping contract follow the structural draft; runtime behavior remains unverified.",
+      "module": "TITLE.DLL",
+      "source": "calibration/title/u17cb0.cpp",
+      "source_fragment": "src/title/behavioral/render.inc",
+      "implementation_status": "plausible_unverified"
+    },
+    {
+      "rva": "0x186e0",
+      "symbol": "_title_186e0",
+      "signature": "void title_186e0(unsigned char *stream, TitleObj *obj, unsigned char count)",
+      "draft": "candidates/wm2/best_cfi.cpp",
+      "contract": "Consumes an encoded texture-cell stream at an object anchor and emits flipped or unflipped FT4 primitives.",
+      "uncertainty": "External helper/data providers are incomplete; runtime behavior and function-level equality remain unverified.",
+      "module": "TITLE.DLL",
+      "source": "calibration/title/u17cb0.cpp",
+      "source_fragment": "src/title/behavioral/render.inc",
+      "implementation_status": "plausible_unverified"
+    },
+    {
+      "rva": "0x18b20",
+      "symbol": "_title_18b20",
+      "signature": "void title_18b20(TitleObj *o)",
+      "draft": "candidates/w18b20/base.cpp",
+      "contract": "Renders a grouped title object by setting its transform, invoking its base handler and emitting child meshes.",
+      "uncertainty": "The draft\u2019s unknown_078 member was rebound to existing TitleObj::trans_078; runtime behavior remains unverified.",
+      "module": "TITLE.DLL",
+      "source": "calibration/title/u17cb0.cpp",
+      "source_fragment": "src/title/behavioral/render.inc",
+      "implementation_status": "plausible_unverified"
+    },
+    {
+      "rva": "0x18bf0",
+      "symbol": "_title_18bf0",
+      "signature": "int title_18bf0(TitleObj *o, unsigned char *q, unsigned long c)",
+      "draft": "candidates/wm5/best_u17cb0.cpp",
+      "contract": "Decodes and emits indexed textured quads after handler, clipping, depth and UV processing; returns 1.",
+      "uncertainty": "The draft reports 143 raw-byte differences; runtime behavior and function-level equality remain unverified.",
+      "module": "TITLE.DLL",
+      "source": "calibration/title/u17cb0.cpp",
+      "source_fragment": "src/title/behavioral/render.inc",
+      "implementation_status": "plausible_unverified"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x94c0",
+      "symbol": "_title_094c0",
+      "source": "calibration/title/u06bb0.cpp",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Reset the observed 0x94-byte object header fields.",
+      "uncertainty": "Behavior reuses the structural candidate draft; original-game scenarios have not been exercised.",
+      "source_fragment": "src/title/behavioral/object_setup.inc",
+      "behavioral_verification": "Linked replacement versus original x86 execution passed deterministic guarded-state tests.",
+      "tests": [
+        "tests/title_linked_differential.c"
+      ]
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x95d0",
+      "symbol": "_title_095d0",
+      "source": "calibration/title/u06bb0.cpp",
+      "implementation_status": "plausible_unverified",
+      "contract": "Select the original configuration row by signed level byte and bind pool sizes, resource counts and dispatch tables.",
+      "uncertainty": "Behavior reuses the structural candidate draft; original-game scenarios have not been exercised.",
+      "source_fragment": "src/title/behavioral/object_setup.inc"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0xd910",
+      "symbol": "_title_0d910",
+      "source": "calibration/title/u0cc90.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Password-screen sprite state machine, frame/sound sequence consumption and movement table effects.",
+      "uncertainty": "Behavior reuses the structural candidate draft; original-game scenarios have not been exercised.",
+      "source_fragment": "src/title/behavioral/password_actor.inc"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x1c500",
+      "symbol": "_title_1c500",
+      "source": "calibration/title/u197f0.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Tally screen process: transitions, input, animations, score/digit updates and cleanup.",
+      "uncertainty": "Behavior reuses the structural candidate draft; original-game scenarios have not been exercised.",
+      "source_fragment": "src/title/behavioral/tally.inc"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x164b0",
+      "symbol": "_title_164b0",
+      "source": "src/title/behavioral/input_boot.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Input/boot process: level/sequence/game transitions, settings and callback handoff.",
+      "uncertainty": "Behavior reuses the structural candidate draft; original-game scenarios have not been exercised."
+    }
+  ],
+  "incomplete_manifest": "evidence/title_behavioral_incomplete.json",
+  "source_adaptations": {
+    "calibration/title/u06350.c": [
+      {
+        "before": "extern unsigned char g_23389[];",
+        "after": "/* RVA 0x23389 is the existing icon array g_23388 + 1. */",
+        "count": 1,
+        "reason": "Recovered interior identity and shared screen-center storage; see evidence/title_behavioral_data.json"
+      },
+      {
+        "before": "source = g_23389;",
+        "after": "source = g_23388 + 1;",
+        "count": 1,
+        "reason": "Recovered interior identity and shared screen-center storage; see evidence/title_behavioral_data.json"
+      }
+    ],
+    "calibration/title/u02b70.c": [
+      {
+        "before": "extern int g_2cbe8;",
+        "after": "extern int g_2cbe0[3];\n#define g_2cbe8 (g_2cbe0[2])",
+        "count": 1,
+        "reason": "Recovered interior identity and shared screen-center storage; see evidence/title_behavioral_data.json"
+      },
+      {
+        "before": "void title_03100(unsigned char *stream, TitleObject *obj, unsigned long count);",
+        "after": "void title_03100(unsigned char *stream, TitleObject *obj, unsigned char count);",
+        "count": 1,
+        "reason": "The emitter consumes the byte-sized sprite-part count from its stream."
+      },
+      {
+        "before": "void title_03740(unsigned char *stream, TitleObject *obj, unsigned long count, unsigned long y, unsigned long x);",
+        "after": "void title_03740(unsigned char *stream, TitleObject *obj, unsigned char count, long sx, long sy);",
+        "count": 1,
+        "reason": "Match the scaled-emitter prototype to its byte count and signed 8.8 scale inputs."
+      },
+      {
+        "before": "void title_039b0(unsigned char *stream, TitleObject *obj, unsigned long count, unsigned long y, unsigned long x);",
+        "after": "void title_039b0(unsigned char *stream, TitleObject *obj, unsigned char count, long sx, long sy);",
+        "count": 1,
+        "reason": "Match the rotated scaled-emitter prototype to its byte count and signed scale inputs."
+      },
+      {
+        "before": "void title_03050(int a1, TitleObject *p, int a3)",
+        "after": "void title_03050(unsigned char *a1, TitleObject *p, unsigned char a3)",
+        "count": 1,
+        "reason": "Match the existing dispatcher definition to its stream-pointer and byte-count prototype."
+      },
+      {
+        "before": "unsigned long title_189a0(TitleObject *obj);",
+        "after": "unsigned long make_colour(TitleObject *obj);",
+        "count": 1,
+        "reason": "RVA189a0 is the existing byte-exact make_colour provider in src/title/pilot.c; use its true linked source name."
+      }
+    ],
+    "calibration/title/u17cb0.cpp": [
+      {
+        "before": "extern int g_2cbe8;",
+        "after": "extern int g_2cbe0[3];\n#define g_2cbe8 (g_2cbe0[2])\n#define g_2cbe4 (g_2cbe0[1])",
+        "count": 1,
+        "reason": "Recovered interior identity and shared screen-center storage; see evidence/title_behavioral_data.json"
+      },
+      {
+        "before": "extern int g_2cbe0;\nextern int g_2cbe4;",
+        "after": "/* Screen-center members are provided by g_2cbe0[3]. */",
+        "count": 1,
+        "reason": "Recovered interior identity and shared screen-center storage; see evidence/title_behavioral_data.json"
+      },
+      {
+        "before": "+ g_2cbe0);",
+        "after": "+ g_2cbe0[0]);",
+        "count": 1,
+        "reason": "Recovered interior identity and shared screen-center storage; see evidence/title_behavioral_data.json"
+      },
+      {
+        "before": "void title_18bf0(TitleObj *o, unsigned char *q, unsigned long c);",
+        "after": "int title_18bf0(TitleObj *o, unsigned char *q, unsigned long c);",
+        "reason": "The renderer body returns 1; existing callers ignore the return value.",
+        "count": 1
+      },
+      {
+        "before": "unsigned char unknown_012[0x1f - 0x12];",
+        "after": "unsigned char unknown_012[0x1e - 0x12];\n    unsigned char b_01e;",
+        "reason": "Names the existing object byte consumed by the texture handlers while preserving its offset.",
+        "count": 1
+      },
+      {
+        "before": "unsigned char unknown_024[0x2c - 0x24];",
+        "after": "unsigned char unknown_024[0x26 - 0x24];\n    short w_026;\n    short w_028;\n    unsigned char unknown_02a[0x2c - 0x2a];",
+        "reason": "Names the existing object WORDs consumed by the renderers while preserving the 8-byte interval.",
+        "count": 1
+      }
+    ],
+    "calibration/title/title_proc.cpp": [
+      {
+        "before": "extern TitleProc *g_2cc20[16];",
+        "after": "TitleProc *g_2cc20[16] = {0};",
+        "count": 1,
+        "allow_already_applied": true,
+        "reason": "Real16-pointer scheduler head provider, already present in preserved uncommitted matching work; normalize the same observed storage in a clean behavioral checkout without modifying matching source."
+      },
+      {
+        "before": "#include \"title_gpu.h\"",
+        "after": "#include \"title_gpu.h\"\nvoid title_trace(const char *, unsigned long, unsigned long, unsigned long);",
+        "count": 1,
+        "reason": "Optional frame-stage diagnostics to identify earliest runtime divergence; matching source remains untouched."
+      },
+      {
+        "before": "    title_05e40();",
+        "after": "    title_trace(\"scheduler_begin\", CTX->tick_038, (unsigned long)g_2cc04, (unsigned long)g_2cc04->ot);\n    title_05e40();\n    title_trace(\"scheduler_return\", CTX->tick_038, (unsigned long)g_2cc04, (unsigned long)g_2cc04->ot);",
+        "count": 1,
+        "reason": "Optional frame-stage diagnostics to identify earliest runtime divergence; matching source remains untouched."
+      },
+      {
+        "before": "    title_02b70();",
+        "after": "    title_trace(\"emit_begin\", CTX->tick_038, (unsigned long)g_2cc04, (unsigned long)g_2cc04->ot);\n    title_02b70();\n    title_trace(\"emit_return\", CTX->tick_038, (unsigned long)g_2cc04, (unsigned long)g_2cc04->ot);",
+        "count": 1,
+        "reason": "Optional frame-stage diagnostics to identify earliest runtime divergence; matching source remains untouched."
+      },
+      {
+        "before": "    title_0c6b0(g_2cc04->ot);",
+        "after": "    title_trace(\"host_draw_begin\", CTX->tick_038, (unsigned long)g_2cc04, (unsigned long)g_2cc04->ot);\n    title_0c6b0(g_2cc04->ot);\n    title_trace(\"host_draw_return\", CTX->tick_038, (unsigned long)g_2cc04, (unsigned long)g_2cc04->ot);",
+        "count": 1,
+        "reason": "Optional frame-stage diagnostics to identify earliest runtime divergence; matching source remains untouched."
+      }
+    ]
+  },
+  "unit_extensions": {
+    "calibration/title/u02b70.c": [
+      "src/title/behavioral/emitters.c"
+    ],
+    "calibration/title/r04d80.c": [
+      "src/title/behavioral/cell_init.c",
+      "src/title/behavioral/sound.c"
+    ],
+    "calibration/title/u09a40.c": [
+      "src/title/behavioral/screens.inc"
+    ],
+    "calibration/title/u17cb0.cpp": [
+      "src/title/behavioral/render.inc"
+    ],
+    "calibration/title/u0cc90.c": [
+      "src/title/behavioral/password_actor.inc"
+    ],
+    "calibration/title/u197f0.c": [
+      "src/title/behavioral/tally.inc"
+    ],
+    "calibration/title/u06bb0.cpp": [
+      "src/title/behavioral/object_setup.inc"
+    ]
+  }
+}
