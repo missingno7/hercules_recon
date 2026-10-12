@@ -7,6 +7,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+from types import SimpleNamespace
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
@@ -15,6 +16,57 @@ from pe import PE
 from title_behavioral import context_files
 
 PROFILES = {
+    'query': dict(
+        sources=['tests/eng1_query_30010_differential.c',
+                 'src/eng1/behavioral/query_30010.c',
+                 'src/eng1/behavioral/initial_spatial_roots.c',
+                 'src/eng1/behavioral/spatial_read_guard.c'],
+        spans=[(0x30010, 64)], cases=4,
+        scope='Four native zero-index query comparisons with independently controlled writable table WORD/mask values. Five separately counted source spies, two prefix/owner guards and64 initial data WORD comparisons. Index-query2a170 remains unresolved; fixture713bc is isolated test storage. No nonzero native index, full collision or gameplay claim.'),
+    'actor-update': dict(
+        sources=['tests/eng1_actor_update_2a290_differential.c',
+                 'src/eng1/behavioral/actor_update_2a290.c',
+                 'calibration/engine_interface_storage.c'],
+        spans=[(0x2a290, 160)], cases=6,
+        scope='Six native/source full296B actor comparisons using test-only original20b50 service. Its7fff7fff result covers the upper-return path. A separate source-only signed-coordinate/parameter argument spy. Other arithmetic branches remain instruction-supported; no source identity, complete service or gameplay claim.'),
+    'player-setup': dict(
+        sources=['tests/eng1_player_setup_continuation_differential.c',
+                 'src/eng1/behavioral/player_setup_continuation.c',
+                 'src/eng1/behavioral/setup_shared_state.c',
+                 'src/eng1/behavioral/script_54558_owner.c',
+                 'src/eng1/behavioral/simulation_data_owners.c',
+                 'src/eng1/behavioral/simulation_storage.c',
+                 'src/eng1/behavioral/actor_storage.c',
+                 'src/eng1/behavioral/runtime_storage.c',
+                 'src/eng1/behavioral/actor_pipeline_storage.c',
+                 'src/eng1/behavioral/dispatch_storage.c',
+                 'calibration/engine_interface_storage.c'],
+        spans=[(0x15d00, 2704)], cases=8,
+        scope='Eight finite original-x86 player dispatcher cases: default53820 to53830, bounded54558 record21, timer return, child orientation aliasing and four collision-script operand discriminators. Separate source-only query/RNG mutation spy. Missing services are fixture endpoints; no full opcode, downstream service, gameplay or universal equivalence claim.'),
+    'setup-leaves': dict(
+        sources=['tests/eng1_setup_leaf_differential.c',
+                 'src/eng1/behavioral/setup_leaf_dependencies.c',
+                 'src/eng1/behavioral/setup_shared_state.c',
+                 'src/eng1/behavioral/viewport_state_data.c',
+                 'src/eng1/behavioral/actor_storage.c',
+                 'src/eng1/behavioral/runtime_storage.c',
+                 'calibration/engine_interface_storage.c'],
+        spans=[(0x11fc0, 128), (0x15670, 48)], cases=3,
+        scope='Three finite direct original-x86 memory comparisons for actual source11fc0/15670 and measured source providers. Exact-width context/global writes and overlapping pool/collision windows; no source identity, full setup, gameplay or universal acceptance.'),
+    'simulation-helpers': dict(
+        sources=['tests/eng1_simulation_helpers_differential.c',
+                 'src/shared/frame_state.c',
+                 'src/eng1/behavioral/simulation_data_owners.c',
+                 'src/eng1/behavioral/simulation_transition_storage.c',
+                 'src/eng1/behavioral/interpreters.c',
+                 'src/eng1/behavioral/actor_storage.c',
+                 'src/eng1/behavioral/resource_data.c',
+                 'calibration/engine_interface_storage.c',
+                 'calibration/engine_file_bridge.c',
+                 'calibration/resource_data.c',
+                 'calibration/resource_callbacks.c'],
+        spans=[(0x12620, 345), (0x12790, 269), (0x29260, 32)], cases=15,
+        scope='Fifteen original-x86 simulation mode/row cases, actual source lookup/program owners, reset, cancel, file bridge and WORD interpreter. Actor program pointers normalized by nativeRVA only for comparison; source pointer cells are relocatable. Only caller indices0..7 and positive-ending interpreter path tested. Audio expiry and wider capacities remain unverified.'),
     'payload-dispatch': dict(
         sources=['tests/eng1_payload_dispatch_differential.c',
                  'src/eng1/behavioral/payload_dispatch.c',
@@ -89,6 +141,29 @@ PROFILES = {
 def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
+def actor_update_cases(exe, oracle, out, env):
+    """Keep each native and source observation in a fresh fixture process."""
+    def case(kind, mode, flags):
+        args = [str(exe), str(oracle), kind, str(mode), hex(flags), '0']
+        result = subprocess.run(args, cwd=out, env=env, capture_output=True, text=True, timeout=60)
+        if result.returncode:
+            raise ValueError('Actor fixture failed: '+result.stdout+result.stderr)
+        match = re.fullmatch(r'mode=(\S+) helper_calls=(\d+) args=([0-9a-f]{8}),([0-9a-f]{8}),([0-9a-f]{8}),([0-9a-f]{8}) result=([0-9a-f]{8}) actor=([0-9a-f]{592})\n?', result.stdout)
+        if not match:
+            raise ValueError('Unrecognized actor fixture output: '+result.stdout)
+        return dict(args=[int(match[i],16) for i in range(3,7)],calls=int(match[2]),result=int(match[7],16),actor=bytes.fromhex(match[8]))
+    probe = case('probe',0,0)
+    rows=[]
+    for mode,flags in [(0,0),(2,0x10000000),(8,0x10000000),(10,0x10000000),(2,0),(4,0x10000000)]:
+        native=case('native',mode,flags);source=case('source',mode,flags)
+        if native['actor']!=source['actor'] or source['calls']!=1 or source['args']!=[160,128,320,0x100] or source['result']!=probe['result']:
+            raise ValueError('Native actor/argument mismatch for mode '+str(mode))
+        rows.append(dict(mode=mode,flags=hex(flags),actor_sha256=hashlib.sha256(source['actor']).hexdigest(),helper_result=hex(source['result'])))
+    negative=case('source-fixed-negative',2,0)
+    if negative['calls']!=1 or negative['args']!=[0xffffffff,0xffff8000,0x7fff,0xfffe]:
+        raise ValueError('Actor signed-coordinate/WORD argument mismatch')
+    return SimpleNamespace(returncode=0,stdout='actor_update_native_cases=6 checks=24 failures=0\nactor_update_source_spy_cases=1 checks=2 failures=0\n',stderr=''),dict(cases=6,checks=24,failures=0,source_spy_cases=1,source_spy_checks=2,source_spy_failures=0,native_observations=rows)
+
 def run(profile, oracle, captured_payload=None):
     cfg = dict(PROFILES[profile])
     oracle = oracle.resolve()
@@ -141,23 +216,56 @@ def run(profile, oracle, captured_payload=None):
         arguments = [str(exe), str(oracle)]
         if captured_payload is not None:
             arguments.append(str(captured_payload))
-        tested = subprocess.run(arguments, cwd=out, env=env, capture_output=True, text=True, timeout=60)
+        if profile == 'actor-update':
+            tested, actor_proof = actor_update_cases(exe, oracle, out, env)
+            report.update(actor_proof)
+        else:
+            tested = subprocess.run(arguments, cwd=out, env=env, capture_output=True, text=True, timeout=60)
         report.update(run_exit_code=tested.returncode, stdout=tested.stdout, stderr=tested.stderr, executable_sha256=sha(exe))
-        if profile == 'payload-dispatch':
+        if profile == 'query':
+            match = re.search(r'query_native_cases=(\d+) checks=(\d+) failures=(\d+) data_word_checks=(\d+)', tested.stdout)
+            spy = re.search(r'query_source_spy_cases=(\d+) checks=(\d+) failures=(\d+)', tested.stdout)
+            guards = re.search(r'query_source_guard_cases=(\d+) failures=(\d+)', tested.stdout)
+            if match:
+                report.update(cases=int(match[1]),checks=int(match[2]),failures=int(match[3]),data_word_checks=int(match[4]))
+            if spy:
+                report.update(source_spy_cases=int(spy[1]),source_spy_checks=int(spy[2]),source_spy_failures=int(spy[3]))
+            if guards:
+                report.update(source_guard_cases=int(guards[1]),source_guard_failures=int(guards[2]))
+        elif profile == 'player-setup':
+            match = re.search(r'player_setup_native_cases=(\d+) checks=(\d+) failures=(\d+)', tested.stdout)
+            spy = re.search(r'player_setup_source_spy_cases=(\d+) checks=(\d+) failures=(\d+)', tested.stdout)
+            if match:
+                report.update(cases=int(match[1]), checks=int(match[2]), failures=int(match[3]))
+            if spy:
+                report.update(source_spy_cases=int(spy[1]), source_spy_checks=int(spy[2]), source_spy_failures=int(spy[3]))
+        elif profile == 'payload-dispatch':
             match = re.search(r'native/source 0x4ca0 cases=(\d+)/(\d+)', tested.stdout)
             if match:
                 report.update(cases=int(match[1]), failures=int(match[2])-int(match[1]), checks=76 if captured_payload is not None else 67)
         elif 'success_marker' in cfg:
             if cfg['success_marker'] in tested.stdout:
                 report.update(cases=cfg['cases'], failures=0, source_guard_cases=1)
-        elif profile != 'command-writers':
+        elif profile not in ('command-writers','actor-update'):
             match = re.search(r'checks=(\d+) failures=(\d+)', tested.stdout)
             if match:
                 report.update(checks=int(match[1]), failures=int(match[2]), cases=cfg['cases'])
-        else:
+            if profile == 'simulation-helpers':
+                guards = re.search(r'simulation_source_guard_cases=(\d+) failures=(\d+)', tested.stdout)
+                if guards:
+                    report.update(source_guard_cases=int(guards[1]), source_guard_failures=int(guards[2]))
+        elif profile == 'command-writers':
             report.update(cases=len(re.findall(r'^differential .*: pass ', tested.stdout, re.M)), failures=0 if tested.returncode==0 else None)
     report['inputs_unchanged'] = all(sha(ROOT / p)==value for p,value in before.items()) and sha(oracle)==report['oracle_sha256']
     coverage = report.get('cases') == cfg['cases'] and (profile=='command-writers' or 'success_marker' in cfg or report.get('checks',0)>0)
+    if profile == 'simulation-helpers':
+        coverage = coverage and report.get('source_guard_cases') == 2 and report.get('source_guard_failures') == 0
+    if profile == 'player-setup':
+        coverage = coverage and report.get('source_spy_cases') == 1 and report.get('source_spy_failures') == 0
+    if profile == 'query':
+        coverage = coverage and report.get('source_spy_cases') == 5 and report.get('source_spy_failures') == 0 and report.get('source_guard_cases') == 2 and report.get('source_guard_failures') == 0 and report.get('data_word_checks') == 64
+    if profile == 'actor-update':
+        coverage = coverage and report.get('source_spy_cases') == 1 and report.get('source_spy_failures') == 0
     report['result'] = 'PASS' if report.get('run_exit_code')==0 and report.get('failures')==0 and report['inputs_unchanged'] and coverage else 'FAIL'
     (out / 'report.json').write_bytes((json.dumps(report, indent=2) + '\n').encode())
     print(report.get('stdout', ''.join(logs)))

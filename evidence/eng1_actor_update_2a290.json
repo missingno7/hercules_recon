@@ -1,0 +1,156 @@
+{
+  "scope": "Fresh VC5 x86 behavioral comparison of one ENG1 actor leaf; no FUNCTION_MATCH or module-layout claim.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "file_unchanged_before_after": true,
+    "target_entry_rva": "0x2a290",
+    "diagnostic_span_bytes": 160,
+    "diagnostic_body_bytes": 159,
+    "span_sha256": "892d5bc83ea380110f4b2c52a67bebc3f7560559be4c27739277d2a54611b3ba",
+    "extent_caveat": "The transfer map marks the inventory start as unproven; the 160-byte span is diagnostic evidence only. It has a 159-byte RET-terminated body followed by an alignment NOP."
+  },
+  "native_comparison_cases": [
+    {
+      "context_mode": 0,
+      "actor_flags": "0x0",
+      "native_helper_result_from_isolated_probe": "0x7fff7fff",
+      "source_helper_arguments": [
+        "0xa0",
+        "0x80",
+        "0x140",
+        "0x100"
+      ],
+      "source_actor_sha256": "8c0ed377896e7dc7befd736032a0a40bc32b0d0f1de6beb9d56babc61e037307",
+      "native_actor_sha256": "8c0ed377896e7dc7befd736032a0a40bc32b0d0f1de6beb9d56babc61e037307",
+      "all_0x128_actor_bytes_equal": true
+    },
+    {
+      "context_mode": 2,
+      "actor_flags": "0x10000000",
+      "native_helper_result_from_isolated_probe": "0x7fff7fff",
+      "source_helper_arguments": [
+        "0xa0",
+        "0x80",
+        "0x140",
+        "0x100"
+      ],
+      "source_actor_sha256": "27821a03cd28ee5e24738a6125a7b7448296a71eccd17ed25d8e359cc4a158cb",
+      "native_actor_sha256": "27821a03cd28ee5e24738a6125a7b7448296a71eccd17ed25d8e359cc4a158cb",
+      "all_0x128_actor_bytes_equal": true
+    },
+    {
+      "context_mode": 8,
+      "actor_flags": "0x10000000",
+      "native_helper_result_from_isolated_probe": "0x7fff7fff",
+      "source_helper_arguments": [
+        "0xa0",
+        "0x80",
+        "0x140",
+        "0x100"
+      ],
+      "source_actor_sha256": "27821a03cd28ee5e24738a6125a7b7448296a71eccd17ed25d8e359cc4a158cb",
+      "native_actor_sha256": "27821a03cd28ee5e24738a6125a7b7448296a71eccd17ed25d8e359cc4a158cb",
+      "all_0x128_actor_bytes_equal": true
+    },
+    {
+      "context_mode": 10,
+      "actor_flags": "0x10000000",
+      "native_helper_result_from_isolated_probe": "0x7fff7fff",
+      "source_helper_arguments": [
+        "0xa0",
+        "0x80",
+        "0x140",
+        "0x100"
+      ],
+      "source_actor_sha256": "27821a03cd28ee5e24738a6125a7b7448296a71eccd17ed25d8e359cc4a158cb",
+      "native_actor_sha256": "27821a03cd28ee5e24738a6125a7b7448296a71eccd17ed25d8e359cc4a158cb",
+      "all_0x128_actor_bytes_equal": true
+    },
+    {
+      "context_mode": 2,
+      "actor_flags": "0x0",
+      "native_helper_result_from_isolated_probe": "0x7fff7fff",
+      "source_helper_arguments": [
+        "0xa0",
+        "0x80",
+        "0x140",
+        "0x100"
+      ],
+      "source_actor_sha256": "8c0ed377896e7dc7befd736032a0a40bc32b0d0f1de6beb9d56babc61e037307",
+      "native_actor_sha256": "8c0ed377896e7dc7befd736032a0a40bc32b0d0f1de6beb9d56babc61e037307",
+      "all_0x128_actor_bytes_equal": true
+    },
+    {
+      "context_mode": 4,
+      "actor_flags": "0x10000000",
+      "native_helper_result_from_isolated_probe": "0x7fff7fff",
+      "source_helper_arguments": [
+        "0xa0",
+        "0x80",
+        "0x140",
+        "0x100"
+      ],
+      "source_actor_sha256": "27821a03cd28ee5e24738a6125a7b7448296a71eccd17ed25d8e359cc4a158cb",
+      "native_actor_sha256": "27821a03cd28ee5e24738a6125a7b7448296a71eccd17ed25d8e359cc4a158cb",
+      "all_0x128_actor_bytes_equal": true
+    }
+  ],
+  "negative_coordinate_argument_case": {
+    "query_arguments_unsigned_hex": [
+      "0xffffffff",
+      "0xffff8000",
+      "0x7fff",
+      "0xfffe"
+    ],
+    "actor_sha256": "8f15ff05808f4aae39ffc5be9e512270097a5d23f81662eb1f9315833fc6b75d",
+    "all_0x128_actor_bytes_equal_to_expectation": true
+  },
+  "dependency_classification": {
+    "eng1_native_dep_020b50": "Real external native helper; remains unresolved in the candidate. Native/source fixture uses a test-only call-through spy, and fixed-result cases use explicit deterministic fixture values.",
+    "g_engine_interface.context_004": "Existing 32-bit context pointer owner from calibration/engine_interface.h; target reads its pointed first byte only in the low-word-below-0x140 branch."
+  },
+  "native_observations": [
+    "0x2a290 saves ESI, reads one actor pointer from [ESP+8], and returns with RET; callers push one pointer then clean four stack bytes.",
+    "One direct call to 0x20b50 receives sign-extended high WORDs from actor +0/+4/+8 and zero-extended WORD at +0x38; the candidate keeps that helper external.",
+    "Actor bytes written are byte +0x25 and DWORD +0x04; flags DWORD +0x54 and context byte +0 are read.",
+    "The called helper's semantics and data dependencies are not part of this candidate."
+  ],
+  "implementation_status": "plausible_unverified",
+  "native_cases": 6,
+  "fixture": "tests/eng1_actor_update_2a290_differential.c",
+  "limits": "Six native cases use test-only original20b50 call-through, which returns7fff7fff and covers the high-threshold early return. Private eight fixed-return checks are source-only expectations, not native behavior; untested arithmetic branches remain instruction-supported.",
+  "source": "src/eng1/behavioral/actor_update_2a290.c",
+  "source_sha256": "2b1caee87d5a22d51a3253cce824b05920892d6cb0abdeb5a25645c9664281b4",
+  "private_candidate_sha256": "e2867d0c901c514f8d663894d2c0d4d96f6f724ab58ae3a9dd1cd60c6411c4df",
+  "private_report_sha256": "6345dd94eada662a60c997d08e48c98ed637fbeae7646b7182dbb55d00b497ce",
+  "reproduce": "python scripts/eng1_bounded_differential.py actor-update",
+  "canonical_proof": {
+    "scope": "Six native/source full296B actor comparisons using test-only original20b50 service. Its7fff7fff result covers the upper-return path. A separate source-only signed-coordinate/parameter argument spy. Other arithmetic branches remain instruction-supported; no source identity, complete service or gameplay claim.",
+    "input_sha256": {
+      "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+      "scripts/eng1_bounded_differential.py": "064f2914147d65d4a4aeb3953cef9adcbd0f4272d3f3cdf1b9b0c462a2ef5cf7",
+      "tests/eng1_actor_update_2a290_differential.c": "29f3c4d08d6edda18deab10e0b06f9d7eb402795ae6134e6907ed05f6fcfee72",
+      "calibration/engine_interface_storage.c": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5",
+      "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "src/eng1/behavioral/actor_update_2a290.c": "2b1caee87d5a22d51a3253cce824b05920892d6cb0abdeb5a25645c9664281b4"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x2a290": {
+        "size": 160,
+        "sha256": "892d5bc83ea380110f4b2c52a67bebc3f7560559be4c27739277d2a54611b3ba"
+      }
+    },
+    "stdout": "actor_update_native_cases=6 checks=24 failures=0\nactor_update_source_spy_cases=1 checks=2 failures=0\n",
+    "cases": 6,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 24,
+    "source_spy_cases": 1,
+    "source_spy_checks": 2,
+    "source_spy_failures": 0,
+    "private_report_sha256": "25fbc5403a2383cbc00b604cd615fe9c950dd2fe54b06d68b086b9e5558f4dbd"
+  }
+}

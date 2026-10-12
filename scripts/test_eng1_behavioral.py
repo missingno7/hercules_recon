@@ -59,6 +59,7 @@ def run(output, wrapper_fixture):
         'resource_completion': ['tests/eng1_resource_completion.c', 'src/eng1/behavioral/resource_completion.c', 'src/eng1/behavioral/resource_completion_data.c', 'calibration/engine_dependency_bridges.c'],
         'cold_start_32b10': ['tests/eng1_cold_start_32b10.c', 'src/eng1/behavioral/cold_start_32b10.c', 'src/eng1/behavioral/viewport_state_data.c', 'calibration/engine_file_bridge.c', 'calibration/dispatcher_bridges.c', 'calibration/frame_lifecycle_bridges.c', 'src/eng1/behavioral/host_wrappers.c', 'calibration/engine_interface_storage.c', 'src/eng1/behavioral/runtime_storage.c'],
         'cold_start_32bd0': ['tests/eng1_cold_start_32bd0.c', 'tests/eng1_cold_frame_fixture_state.c', 'src/eng1/behavioral/cold_start_32bd0.c', 'src/eng1/behavioral/cold_start_frame_data.c', 'src/eng1/behavioral/viewport_state_data.c', 'calibration/engine_interface_storage.c', 'calibration/frame_lifecycle_bridges.c'],
+        'setup_source_spies': ['tests/eng1_setup_source_spies.c', 'src/eng1/behavioral/setup_source.c', 'src/eng1/behavioral/setup_shared_state.c', 'src/eng1/behavioral/setup_leaf_dependencies.c', 'src/eng1/behavioral/script_54558_owner.c', 'src/eng1/behavioral/simulation_data_owners.c'],
         'pool_startup_spies': ['tests/eng1_pool_startup_spies.c', 'src/eng1/behavioral/pool_startup.c'],
         'pool_startup_initializers': ['tests/eng1_pool_startup_initializers.c', 'src/eng1/behavioral/pool_startup.c', 'calibration/actor_pool_reset_repaired.c'],
         'resource_rebind': ['tests/resource_rebind_semantics.c'],

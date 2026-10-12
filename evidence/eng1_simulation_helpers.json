@@ -1,0 +1,175 @@
+{
+  "scope": "Private provider-backed ordinary-C reconstruction of ENG1 entries 0x12620 and 0x12790 plus local body 0x29260. It uses the measured private source data owner, actual resource reset/cancel providers, the existing engine-file interface bridge, and eng1_interpret_word_stream. No recovery promotion.",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "native_entries": {
+    "0x3520": {
+      "reviewed_body_bytes_through_ret": 29,
+      "next_entry": "0x3540",
+      "semantics": "WORD resource residency_state changes from 0 to 1; otherwise unchanged"
+    },
+    "0x12620": {
+      "span_to_next_entry": 368,
+      "reviewed_body_bytes_through_ret": 345,
+      "hotpatch_padding": {
+        "start": "0x12779",
+        "size": 3
+      },
+      "switch_table": {
+        "start": "0x1277c",
+        "entries": 5,
+        "size": 20,
+        "targets": [
+          "0x1263b",
+          "0x12660",
+          "0x126db",
+          "0x126f8",
+          "0x12733"
+        ]
+      },
+      "next_entry": "0x12790"
+    },
+    "0x12790": {
+      "span_to_next_entry": 272,
+      "reviewed_body_bytes_through_ret": 269,
+      "trailing_nops": {
+        "start": "0x1289d",
+        "size": 3
+      }
+    }
+  },
+  "abi": {
+    "dispatch_local_12620": "cdecl void(void); reads one DWORD mode cell at 0x72174",
+    "dispatch_local_12790": "cdecl DWORD(void *actor_row, DWORD index); the caller ignores the return; its only proven caller supplies index 0..7",
+    "dispatch_local_29260": "cdecl void(void *actor_row); two ordered WORD-zero stores at +0x32 then +0x30",
+    "resource_reset_and_cancel": "existing cdecl functions with one signed int resource index; the measured selected values are 6..12",
+    "eng1_interpret_word_stream": "existing cdecl source interpreter on Actor*; source Actor program pointer is relocated into the private source byte provider",
+    "play_sound": "existing cdecl audio implementation play_sound(unsigned short effect_id, FxActorView *actor); the interpreter-facing prototype uses Actor * for the same physical pointer slot. The native call carries WORD id 13 in a 32-bit cdecl stack slot and a 32-bit null pointer"
+  },
+  "source": "src/eng1/behavioral/simulation_dependency.c",
+  "source_sha256": "60975efc2abba1496838e2b73db2fb5ed91ef84fdb6b1adadbcbc39b18e28faf",
+  "data_sources": [
+    "src/eng1/behavioral/simulation_data_owners.c",
+    "src/eng1/behavioral/simulation_transition_storage.c"
+  ],
+  "data_fields": [
+    [
+      {
+        "symbol": "_g_eng1_simulation_data_bytes_53620",
+        "rva": "0x53620",
+        "size": 448
+      },
+      {
+        "symbol": "_eng1_native_data_target_0052b70",
+        "rva": "0x52b70",
+        "size": 32
+      },
+      {
+        "symbol": "_g_eng1_simulation_lookup_owner_537e0",
+        "rva": "0x537e0",
+        "size": 288
+      }
+    ],
+    [
+      {
+        "symbol": "_eng1_sim_state_72174",
+        "rva": "0x72174",
+        "size": 4
+      },
+      {
+        "symbol": "_eng1_sim_state_72104",
+        "rva": "0x72104",
+        "size": 4
+      },
+      {
+        "symbol": "_eng1_sim_state_6ef40",
+        "rva": "0x6ef40",
+        "size": 2
+      }
+    ]
+  ],
+  "dependencies": {
+    "source_bound": {
+      "0x28820": "direct source binding to existing src/eng1/behavioral/interpreters.c::eng1_interpret_word_stream; the provider-backed fixture executes its positive-ending script with source-owned program bytes",
+      "0x29260": "Reused existing src/shared/frame_state.c::reset_frame_state, already FUNCTION_MATCH. Canonical fixture compiles that actual unit; no duplicate reconstruction or new recovery promotion.",
+      "0x3520": "existing calibration/resource_callbacks.c::resource_reset (region mapping to native 0x3520); updates only the shared g_actor_resources[index].residency_state WORD from zero to one and is differentially exercised in nested and nonzero-state cases",
+      "0x3870": "existing calibration/resource_callbacks.c::resource_cancel (region mapping to native 0x3870); source-bound paths are differentially exercised with residency_state 1, 2, and 3",
+      "0x2c260": "existing calibration/engine_file_bridge.c::engine_file_cancel; native entry tail-jumps through copied interface field 0x70f44. The state-2 test seeds that field and the source interface field with one callback spy and verifies forwarding/order; the host operation behind the endpoint is not tested.",
+      "0x6da0": "direct source binding to existing play_sound(unsigned short effect_id, FxActorView *actor), matching the physical WORD ID and 32-bit pointer cdecl arguments `(13, 0)`; audio expiry remains explicitly untested"
+    },
+    "unexercised_explicit": {
+      "0x6da0": "timer-expiry path reaches the source play_sound binding with `(13, 0)`; neither native nor source expiry is run because this fixture does not initialize or differentially validate audio state/host services",
+      "interpreter side-effect branches": "The tested source-owned script contains a positive-ending word stream and reaches no remove_actor, remove_actor_preserving_resource, mark_actor_resource_for_release, spawn_actor_at_group, sound, stop-sound, action-callback, or frame-helper branch. Fixture stubs fail visibly if one is reached.",
+      "0x12c00 / 0x12d80 / 0x2dfac": "Other 0x537e0/0x53800 consumers are outside this source recovery; their wider or absent local bounds are not inferred from the 0x12620 caller."
+    }
+  },
+  "ordering": "The candidate keeps 0x12790 order: timer/movement; selected-row reset and 0x29260; 0x28820 source interpreter; conditional second 0x29260 then 0x3870 cancellation; reload context pointer and apply mask/position flags. The cancellation fixture checks callback fields clear while residency remains 2 before source resource_cancel changes it to 4.",
+  "fixture_setup_resolution": [
+    "An initial residency_state=2 row-lifecycle test faulted because the test left the native copied-interface cancel slot at 0x70f44 null. The 0x2c260 disassembly is `jmp dword ptr [0x70f44]`; after seeding native and source interface views with the same no-argument callback spy, the state-2 case passes and confirms callbacks are cleared while residency is still 2, before the provider changes it to 4. The spy returns zero and does not model the external host operation."
+  ],
+  "private_proof_sha256": "ee997f8d9a6774f595a157190dced78493ea3acb94abe94f3b0c52a540e2ada7",
+  "private_data_proof_sha256": "e7e44a348816f5e9d7aa06d148322348d450b88a675d1e60b5caaf82ab95f58c",
+  "private_output": "case=mode0-clear-return source_word_reads=0\ncase=mode1-source-nested source_word_reads=4\ncase=mode2-signed-positive source_word_reads=0\ncase=mode2-zero-wrap source_word_reads=0\ncase=mode3-initialize source_word_reads=0\ncase=mode4-zero-expiry source_word_reads=0\ncase=mode4-negative-wrap source_word_reads=0\ncase=mode5-common source_word_reads=0\ncase=unsigned-default source_word_reads=0\ncase=source-mode1-reset-zero source_word_reads=4\ncase=source-mode1-reset-state2 source_word_reads=4\ncase=source-mode1-reset-state3 source_word_reads=4\ncase=source-row-lifecycle-state1 source_word_reads=4\ncase=source-row-lifecycle-state2 source_word_reads=4\ncase=source-row-lifecycle-state3 source_word_reads=4\nsimulation_dependency_cases=15 checks=1382 failures=0\n",
+  "cases": 15,
+  "checks": 1382,
+  "fixture": "tests/eng1_simulation_helpers_differential.c",
+  "limits": "Reviewed12790 caller supplies0..7 and resource IDs6..12. Source program pointers compare by nativeRVA, other pool bytes exact. Full table capacities, wider caller inputs, other interpreter branches, audio expiry and host cancel operation unverified. Added fail-visible bounds before unsupported64-DWORD/81-resource reads; valid native cases unaffected.",
+  "reproduce": "python scripts/eng1_bounded_differential.py simulation-helpers",
+  "canonical_proof": {
+    "scope": "Fifteen original-x86 simulation mode/row cases, actual source lookup/program owners, reset, cancel, file bridge and WORD interpreter. Actor program pointers normalized by nativeRVA only for comparison; source pointer cells are relocatable. Only caller indices0..7 and positive-ending interpreter path tested. Audio expiry and wider capacities remain unverified.",
+    "input_sha256": {
+      "src/eng1/behavioral/frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+      "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+      "calibration/resource_data.c": "f9c92023152194164535fa33ca7a7e2e82726897ed56b9c5dba7475f25ed1d47",
+      "src/eng1/behavioral/resource_data.c": "43d3b7dba919a3ee1b1577dadb602e49e2e14816cd418d3fb931197d54ca96a2",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "src/eng1/behavioral/actor_storage.c": "7c20021aee04622f627c1052d683962672c8aa9ed1e9d52df3166f2abe7b4c84",
+      "src/eng1/behavioral/simulation_data_owners.c": "ddef677a3dcf65501c43c8494f409c0896cce83c3a4c28752969ec35e44d7abd",
+      "calibration/resource_callbacks.c": "fb6ebb809cfaf05fb9d477ee73b813ac7b06fcf0cd99fd3f5d77a8d6187eaa4f",
+      "src/eng1/behavioral/simulation_transition_storage.c": "6b75b063220fc6956ee41259f54090c31722fc83bfd9027f9b6902923c91aa80",
+      "tests/eng1_simulation_helpers_differential.c": "ca39d7a4d4fecfd30b6b25242abebdb5628d6bb43bc5bdab8ecb21182b33a5af",
+      "src/eng1/behavioral/simulation_data_owners.h": "ab92a3f946f703049001b0b18941b3c802aa27d347ea126827377b8b76cab58b",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "calibration/engine_interface_storage.c": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5",
+      "src/eng1/behavioral/interpreters.c": "c67e315771b507b9677d6dcb4c3d63a2b267133ccbe2e62f11a50b4f1aa5fc0b",
+      "src/eng1/behavioral/simulation_dependency.c": "60975efc2abba1496838e2b73db2fb5ed91ef84fdb6b1adadbcbc39b18e28faf",
+      "src/eng1/behavioral/interpreters.h": "2284756dbb331f455596b2028b105a8bf788b9b43ffea9e84c8dcb5b859151dc",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "scripts/eng1_bounded_differential.py": "064f2914147d65d4a4aeb3953cef9adcbd0f4272d3f3cdf1b9b0c462a2ef5cf7",
+      "src/eng1/behavioral/read_guard.h": "3a52a684a11bc6cc800f07f0274f191106cc118fed623eef61e822356b4d6a7b",
+      "calibration/engine_file_bridge.c": "0860ba3c4e242f3810bdbb15d1f70bfbf266b48b96715b3ba3c56f3ef96a62c2",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src/shared/frame_state.c": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x12620": {
+        "size": 345,
+        "sha256": "83611496d13c3d0bc96f9c524c61e7717ae3864819ad5808694781ccc210cfdc"
+      },
+      "0x12790": {
+        "size": 269,
+        "sha256": "5d44fb0535765914370ccea1e4762ad9d664599eded8a58027a572e17502ccf8"
+      },
+      "0x29260": {
+        "size": 32,
+        "sha256": "a70119f9ea1fc68ba5be9b3d7b13abf90dfe494dba8bcabdad8bdf399529e84b"
+      }
+    },
+    "stdout": "case=mode0-clear-return source_word_reads=0\ncase=mode1-source-nested source_word_reads=4\ncase=mode2-signed-positive source_word_reads=0\ncase=mode2-zero-wrap source_word_reads=0\ncase=mode3-initialize source_word_reads=0\ncase=mode4-zero-expiry source_word_reads=0\ncase=mode4-negative-wrap source_word_reads=0\ncase=mode5-common source_word_reads=0\ncase=unsigned-default source_word_reads=0\ncase=source-mode1-reset-zero source_word_reads=4\ncase=source-mode1-reset-state2 source_word_reads=4\ncase=source-mode1-reset-state3 source_word_reads=4\ncase=source-row-lifecycle-state1 source_word_reads=4\ncase=source-row-lifecycle-state2 source_word_reads=4\ncase=source-row-lifecycle-state3 source_word_reads=4\nsimulation_source_guard_cases=2 failures=0\nsimulation_dependency_cases=15 checks=1382 failures=0\n",
+    "cases": 15,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 1382,
+    "source_guard_cases": 2,
+    "source_guard_failures": 0,
+    "private_report_sha256": "d6024879b21e222ec3ad594112790a834d33455e0cc4c8afcb556eb594ea1ad0"
+  },
+  "reuse_29260": {
+    "source": "src/shared/frame_state.c",
+    "symbol": "reset_frame_state",
+    "evidence": "evidence/macro_actor.json",
+    "status": "Existing FUNCTION_MATCH reused without source changes; canonical fixture links actual unit."
+  }
+}

@@ -1,0 +1,853 @@
+{
+  "scope": "Instruction-evidenced setup plus finite source-spy tests; two small helpers separately compared with unpatched native x86. No full15090 differential, FUNCTION_MATCH or gameplay acceptance.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "source": "src/eng1/behavioral/setup_source.c",
+  "source_sha256": "a095e85ea21a4daafabadd7a26a14e3d84b7a69704246601c6bd92f3e51b9791",
+  "native_inventory_spans": {
+    "0x15090_to_0x15600": {
+      "size": 1392,
+      "sha256": "22688eabb84a5ce483309ae3655a5f73619494d875cf45098632b887666a70e9"
+    },
+    "0x16790": {
+      "size": 176,
+      "sha256": "6ddc7e3f09c67ca958e83e662b9842526a076e6a9a8c560c6f6f7562f7584bd2"
+    },
+    "0x19440": {
+      "size": 64,
+      "sha256": "8acefc8cd05efa44fc90ff898de79c71f59ad4928d8e9369a0456c44d7bdb568"
+    }
+  },
+  "source_spy": {
+    "cases": 8,
+    "checks": 43,
+    "fixture": "tests/eng1_setup_source_spies.c",
+    "output": "setup_15090_cases=8 checks=43 failures=0\n",
+    "private_report_sha256": "ed583a65d3433275d05dd024aa0b7fee430d1f81f73096b5c3d19a1f9204da9f",
+    "limits": "Unknown nested15d00/18f60/19160/2a290/27d40/374c0 are test-only endpoints; pool initializers/actor attach are spies. Returning spies test caller order, not native endpoint behavior.",
+    "canonical_proof": {
+      "name": "setup_source_spies",
+      "input_sha256": {
+        "src\\eng1\\behavioral\\script_54558_owner.h": "565811993d93e6ade62c3f1a84bc33bc553545b54fdd7ba4c0bbca7612a5034f",
+        "tests\\eng1_setup_source_spies.c": "ad4f4851c473ad6a53ba07d7c6b2596d5dfd448ea5e2fd9aafee99c11c4cdd5e",
+        "src\\eng1\\behavioral\\frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+        "calibration\\resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+        "src\\eng1\\behavioral\\data_layouts.h": "310fe04a43cd1a73589d5b7bdb3058b3a16bdbbd1f9465b87ee768326f3671d3",
+        "src\\eng1\\behavioral\\simulation_data_owners.h": "ab92a3f946f703049001b0b18941b3c802aa27d347ea126827377b8b76cab58b",
+        "src\\eng1\\behavioral\\actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e",
+        "src\\eng1\\behavioral\\resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+        "calibration\\resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+        "src\\eng1\\behavioral\\setup_shared_state.h": "3f190988b41c625f893546085fe4276b7694291388fce78f511cc50c9b2a7e9e",
+        "src\\eng1\\behavioral\\incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+        "src\\eng1\\behavioral\\group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+        "calibration\\engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+        "src\\eng1\\behavioral\\setup_handler_assignments.inc": "09774f122b12bcb006db4cc6940895b4bab7d0b4669afb3a17148f3f101476c1",
+        "src\\eng1\\behavioral\\setup_source.c": "a095e85ea21a4daafabadd7a26a14e3d84b7a69704246601c6bd92f3e51b9791",
+        "src\\eng1\\behavioral\\setup_shared_state.c": "d9691a22411610a35bd4d1db4611679b4eaae6fd6ca3113cb685d3e22d3d6c06",
+        "src\\eng1\\behavioral\\setup_leaf_dependencies.c": "1f9b4277ecfa704b4ed59e94065a7d69e9dab7ea08cebfdff4582e5fd3c0f621",
+        "src\\eng1\\behavioral\\script_54558_owner.c": "15bd5ca04d1b451f1b9547aa369c46637ae05979de5e1e38822ea034212ae6f2",
+        "src\\eng1\\behavioral\\simulation_data_owners.c": "ddef677a3dcf65501c43c8494f409c0896cce83c3a4c28752969ec35e44d7abd"
+      },
+      "stdout": "setup_15090_cases=8 checks=43 failures=0\n",
+      "exit_code": 0,
+      "inputs_unchanged": true,
+      "limits": "Unknown nested15d00/18f60/19160/2a290/27d40/374c0 are test-only endpoints; pool initializers/actor attach are spies. Returning spies test caller order, not native endpoint behavior."
+    }
+  },
+  "leaf_native": {
+    "source": "src/eng1/behavioral/setup_leaf_dependencies.c",
+    "source_sha256": "1f9b4277ecfa704b4ed59e94065a7d69e9dab7ea08cebfdff4582e5fd3c0f621",
+    "cases": 3,
+    "checks": 26,
+    "fixture": "tests/eng1_setup_leaf_differential.c",
+    "native_spans": {
+      "0x11fc0": {
+        "size": 128,
+        "sha256": "6be1f5873d27f4f31f3b4b70bf45a00e0044000ef1f054f911d0686ed95f9615"
+      },
+      "0x15670": {
+        "size": 48,
+        "sha256": "178671f859583ee1d7c849ace5ff2ebcb1bf1465fd79c6ece9ff3797c8c9f2c3"
+      }
+    },
+    "private_report_sha256": "68e376ea414f3b896ac2aee91efaff919c520a13848c18d72f5c5adbd341b475",
+    "limits": "Finite direct native memory effects and overlapping pool/collision views; residual EAX ignored by verified15090 caller.",
+    "canonical_proof": {
+      "scope": "Three finite direct original-x86 memory comparisons for actual source11fc0/15670 and measured source providers. Exact-width context/global writes and overlapping pool/collision windows; no source identity, full setup, gameplay or universal acceptance.",
+      "input_sha256": {
+        "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+        "src/eng1/behavioral/setup_shared_state.h": "3f190988b41c625f893546085fe4276b7694291388fce78f511cc50c9b2a7e9e",
+        "src/eng1/behavioral/runtime_storage.c": "dce9ecb29ea41b26c65563216ed007e4d4f0fb2a313bf15425acd938e5e42a7e",
+        "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+        "src/eng1/behavioral/setup_shared_state.c": "d9691a22411610a35bd4d1db4611679b4eaae6fd6ca3113cb685d3e22d3d6c06",
+        "src/eng1/behavioral/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e",
+        "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+        "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+        "src/eng1/behavioral/setup_leaf_dependencies.c": "1f9b4277ecfa704b4ed59e94065a7d69e9dab7ea08cebfdff4582e5fd3c0f621",
+        "tests/eng1_setup_leaf_differential.c": "8160e997d259574c05231c77310bfea1bc9ae1a0047b70e5640046951a90d116",
+        "calibration/engine_interface_storage.c": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5",
+        "src/eng1/behavioral/viewport_state_data.c": "a4bffddb74770cbeee12e5541091537e89311e29c056d511b4eda690115c6c07",
+        "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+        "scripts/eng1_bounded_differential.py": "064f2914147d65d4a4aeb3953cef9adcbd0f4272d3f3cdf1b9b0c462a2ef5cf7",
+        "src/eng1/behavioral/actor_storage.c": "7c20021aee04622f627c1052d683962672c8aa9ed1e9d52df3166f2abe7b4c84"
+      },
+      "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "native_spans": {
+        "0x11fc0": {
+          "size": 128,
+          "sha256": "6be1f5873d27f4f31f3b4b70bf45a00e0044000ef1f054f911d0686ed95f9615"
+        },
+        "0x15670": {
+          "size": 48,
+          "sha256": "178671f859583ee1d7c849ace5ff2ebcb1bf1465fd79c6ece9ff3797c8c9f2c3"
+        }
+      },
+      "stdout": "setup_leaf_cases=3 checks=26 failures=0\n",
+      "cases": 3,
+      "failures": 0,
+      "inputs_unchanged": true,
+      "result": "PASS",
+      "checks": 26,
+      "private_report_sha256": "e9f84aff5c5bf28156e8175a1964adc37852a3ca5493f274bfbe9225957a41b5"
+    }
+  },
+  "storage": {
+    "source": "src/eng1/behavioral/setup_shared_state.c",
+    "fields": [
+      {
+        "symbol": "_g_eng1_setup_byte_6efb4",
+        "rva": "0x6efb4",
+        "size": 1,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_byte_72010",
+        "rva": "0x72010",
+        "size": 1,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_byte_72011",
+        "rva": "0x72011",
+        "size": 1,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_byte_7215c",
+        "rva": "0x7215c",
+        "size": 1,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_categories_55278",
+        "rva": "0x55278",
+        "size": 36,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_cell_6ef9c",
+        "rva": "0x6ef9c",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_clear_72140",
+        "rva": "0x72140",
+        "size": 24,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_dword_6ef5c",
+        "rva": "0x6ef5c",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_dword_6ef88",
+        "rva": "0x6ef88",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_dword_6efa0",
+        "rva": "0x6efa0",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_dword_6efa8",
+        "rva": "0x6efa8",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_dword_6efac",
+        "rva": "0x6efac",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_dword_72008",
+        "rva": "0x72008",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_dword_72014",
+        "rva": "0x72014",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_dword_7201c",
+        "rva": "0x7201c",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_dword_72114",
+        "rva": "0x72114",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_dword_72118",
+        "rva": "0x72118",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_dword_7211c",
+        "rva": "0x7211c",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_dword_72120",
+        "rva": "0x72120",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_dword_7216c",
+        "rva": "0x7216c",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_dword_72180",
+        "rva": "0x72180",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_dword_72188",
+        "rva": "0x72188",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_handlers_72040",
+        "rva": "0x72040",
+        "size": 192,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_pointer_72018",
+        "rva": "0x72018",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_pointer_72020",
+        "rva": "0x72020",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_pointer_72164",
+        "rva": "0x72164",
+        "size": 4,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_6ef74",
+        "rva": "0x6ef74",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_6ef78",
+        "rva": "0x6ef78",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_6ef7c",
+        "rva": "0x6ef7c",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_6ef80",
+        "rva": "0x6ef80",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_6ef84",
+        "rva": "0x6ef84",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_6ef8c",
+        "rva": "0x6ef8c",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_6ef90",
+        "rva": "0x6ef90",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_6ef94",
+        "rva": "0x6ef94",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_6ef98",
+        "rva": "0x6ef98",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_72012",
+        "rva": "0x72012",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_72158",
+        "rva": "0x72158",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_7216a",
+        "rva": "0x7216a",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_72194",
+        "rva": "0x72194",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_7219c",
+        "rva": "0x7219c",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_7219e",
+        "rva": "0x7219e",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_721a0",
+        "rva": "0x721a0",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_721a2",
+        "rva": "0x721a2",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_721a4",
+        "rva": "0x721a4",
+        "size": 2,
+        "scope": "prefix"
+      },
+      {
+        "symbol": "_g_eng1_setup_word_721a6",
+        "rva": "0x721a6",
+        "size": 2,
+        "scope": "prefix"
+      }
+    ],
+    "bytes": 370,
+    "table": {
+      "prefix_cells": 48,
+      "prefix_bytes": 192,
+      "mutable": true,
+      "initialized_by_runtime": true,
+      "assignments": [
+        {
+          "slot": 2,
+          "cell_rva": "0x72048",
+          "target_rva": "0x171b0",
+          "symbol": "eng1_setup_handler_0171b0",
+          "store_rva": "0x15098",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 4,
+          "cell_rva": "0x72050",
+          "target_rva": "0x171b0",
+          "symbol": "eng1_setup_handler_0171b0",
+          "store_rva": "0x1509d",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 19,
+          "cell_rva": "0x7208c",
+          "target_rva": "0x171b0",
+          "symbol": "eng1_setup_handler_0171b0",
+          "store_rva": "0x150a2",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 5,
+          "cell_rva": "0x72054",
+          "target_rva": "0x171b0",
+          "symbol": "eng1_setup_handler_0171b0",
+          "store_rva": "0x150a7",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 23,
+          "cell_rva": "0x7209c",
+          "target_rva": "0x171b0",
+          "symbol": "eng1_setup_handler_0171b0",
+          "store_rva": "0x150ac",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 0,
+          "cell_rva": "0x72040",
+          "target_rva": "0x16840",
+          "symbol": "eng1_setup_handler_016840",
+          "store_rva": "0x150be",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 1,
+          "cell_rva": "0x72044",
+          "target_rva": "0x16b40",
+          "symbol": "eng1_setup_handler_016b40",
+          "store_rva": "0x150c8",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 3,
+          "cell_rva": "0x7204c",
+          "target_rva": "0x16da0",
+          "symbol": "eng1_setup_handler_016da0",
+          "store_rva": "0x150d2",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 6,
+          "cell_rva": "0x72058",
+          "target_rva": "0x16f40",
+          "symbol": "eng1_setup_handler_016f40",
+          "store_rva": "0x150dc",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 7,
+          "cell_rva": "0x7205c",
+          "target_rva": "0x17400",
+          "symbol": "eng1_setup_handler_017400",
+          "store_rva": "0x150e6",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 8,
+          "cell_rva": "0x72060",
+          "target_rva": "0x177a0",
+          "symbol": "eng1_setup_handler_0177a0",
+          "store_rva": "0x150f0",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 9,
+          "cell_rva": "0x72064",
+          "target_rva": "0x178f0",
+          "symbol": "eng1_setup_handler_0178f0",
+          "store_rva": "0x150fa",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 11,
+          "cell_rva": "0x7206c",
+          "target_rva": "0x17a90",
+          "symbol": "eng1_setup_handler_017a90",
+          "store_rva": "0x15104",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 12,
+          "cell_rva": "0x72070",
+          "target_rva": "0x18240",
+          "symbol": "eng1_setup_handler_018240",
+          "store_rva": "0x1510e",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 14,
+          "cell_rva": "0x72078",
+          "target_rva": "0x17cd0",
+          "symbol": "eng1_setup_handler_017cd0",
+          "store_rva": "0x15118",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 16,
+          "cell_rva": "0x72080",
+          "target_rva": "0x18a10",
+          "symbol": "eng1_setup_handler_018a10",
+          "store_rva": "0x15122",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 17,
+          "cell_rva": "0x72084",
+          "target_rva": "0x18ed0",
+          "symbol": "eng1_setup_handler_018ed0",
+          "store_rva": "0x1512c",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 18,
+          "cell_rva": "0x72088",
+          "target_rva": "0x193f0",
+          "symbol": "eng1_setup_handler_0193f0",
+          "store_rva": "0x15136",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 20,
+          "cell_rva": "0x72090",
+          "target_rva": "0x18ba0",
+          "symbol": "eng1_setup_handler_018ba0",
+          "store_rva": "0x15140",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 22,
+          "cell_rva": "0x72098",
+          "target_rva": "0x19140",
+          "symbol": "eng1_setup_handler_019140",
+          "store_rva": "0x1514a",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 24,
+          "cell_rva": "0x720a0",
+          "target_rva": "0x19290",
+          "symbol": "eng1_setup_handler_019290",
+          "store_rva": "0x15154",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 25,
+          "cell_rva": "0x720a4",
+          "target_rva": "0x191e0",
+          "symbol": "eng1_setup_handler_0191e0",
+          "store_rva": "0x1515e",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 27,
+          "cell_rva": "0x720ac",
+          "target_rva": "0x19480",
+          "symbol": "eng1_setup_handler_019480",
+          "store_rva": "0x15168",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 28,
+          "cell_rva": "0x720b0",
+          "target_rva": "0x17eb0",
+          "symbol": "eng1_setup_handler_017eb0",
+          "store_rva": "0x15172",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 29,
+          "cell_rva": "0x720b4",
+          "target_rva": "0x19c20",
+          "symbol": "eng1_setup_handler_019c20",
+          "store_rva": "0x1517c",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 40,
+          "cell_rva": "0x720e0",
+          "target_rva": "0x379e0",
+          "symbol": "eng1_setup_handler_0379e0",
+          "store_rva": "0x15186",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 47,
+          "cell_rva": "0x720fc",
+          "target_rva": "0x18c30",
+          "symbol": "eng1_setup_handler_018c30",
+          "store_rva": "0x15190",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 13,
+          "cell_rva": "0x72074",
+          "target_rva": "0x19260",
+          "symbol": "eng1_setup_handler_019260",
+          "store_rva": "0x1519a",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 41,
+          "cell_rva": "0x720e4",
+          "target_rva": "0x17c30",
+          "symbol": "eng1_setup_handler_017c30",
+          "store_rva": "0x151a4",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 42,
+          "cell_rva": "0x720e8",
+          "target_rva": "0x17c70",
+          "symbol": "eng1_setup_handler_017c70",
+          "store_rva": "0x151ae",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 43,
+          "cell_rva": "0x720ec",
+          "target_rva": "0x182c0",
+          "symbol": "eng1_setup_handler_0182c0",
+          "store_rva": "0x151b8",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 44,
+          "cell_rva": "0x720f0",
+          "target_rva": "0x18550",
+          "symbol": "eng1_setup_handler_018550",
+          "store_rva": "0x151c2",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 45,
+          "cell_rva": "0x720f4",
+          "target_rva": "0x18770",
+          "symbol": "eng1_setup_handler_018770",
+          "store_rva": "0x151cc",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 46,
+          "cell_rva": "0x720f8",
+          "target_rva": "0x18830",
+          "symbol": "eng1_setup_handler_018830",
+          "store_rva": "0x151d6",
+          "provider_status": "explicit missing dependency"
+        },
+        {
+          "slot": 10,
+          "cell_rva": "0x72068",
+          "target_rva": "0x19440",
+          "symbol": "eng1_candidate_019440",
+          "store_rva": "0x151e0",
+          "provider_status": "private semantic candidate"
+        }
+      ],
+      "untouched_slots": [
+        15,
+        21,
+        26,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "dispatch": {
+        "call_rva": "0x1555b",
+        "physical_args": 0,
+        "convention": "cdecl",
+        "return_value": "discarded",
+        "index": "WORD72108 & 0x7fff",
+        "first_opcode": 10,
+        "first_target_rva": "0x19440"
+      }
+    },
+    "limitations": "Data prefix/ABI evidence only; no full-capacity, TU identity, placement, function equality or gameplay claim.",
+    "native_mixed_widths": {
+      "scope": "Native instruction width and fresh ordinary C storage evidence only; no15d00 body/function equality or gameplay claim.",
+      "oracle": {
+        "path": "assets/pc/HERCULES/ENG1.DLL",
+        "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+      },
+      "prediction": "Native fields require two newWORD cells and one4-byte owner with lowWORD write preserving high bytes.",
+      "falsifier": "Missing expected decoded access width, overlapping native intervals, or source still supplying separate WORD/DWORD owners at6ef9c.",
+      "windows": [
+        {
+          "rva": "0x1615f",
+          "bytes": 80,
+          "sha256": "cc77fee04b56e1657f56444358109b060c5430b43267dd83377a8b005747abe6"
+        },
+        {
+          "rva": "0x16618",
+          "bytes": 96,
+          "sha256": "e98d2eefec04ac6a3c965d1b067968272ef0f3c1ba9d97b00c9cbc9bac40531b"
+        }
+      ],
+      "sites": [
+        {
+          "instruction_rva": "0x1615f",
+          "mnemonic": "mov",
+          "operands": "word ptr [0x1006ef84], 0",
+          "cell_rva": "0x6ef84",
+          "access_bytes": 2,
+          "operand_index": 0
+        },
+        {
+          "instruction_rva": "0x1618c",
+          "mnemonic": "or",
+          "operands": "word ptr [0x10072012], ax",
+          "cell_rva": "0x72012",
+          "access_bytes": 2,
+          "operand_index": 0
+        },
+        {
+          "instruction_rva": "0x161a0",
+          "mnemonic": "and",
+          "operands": "word ptr [0x10072012], cx",
+          "cell_rva": "0x72012",
+          "access_bytes": 2,
+          "operand_index": 0
+        },
+        {
+          "instruction_rva": "0x1661d",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0x1006ef9c]",
+          "cell_rva": "0x6ef9c",
+          "access_bytes": 4,
+          "operand_index": 1
+        },
+        {
+          "instruction_rva": "0x16633",
+          "mnemonic": "mov",
+          "operands": "word ptr [0x1006ef9c], ax",
+          "cell_rva": "0x6ef9c",
+          "access_bytes": 2,
+          "operand_index": 0
+        }
+      ],
+      "provider_source_sha256": {
+        "candidates\\eng1_setup_shared_state\\setup_shared_state.c": "d9691a22411610a35bd4d1db4611679b4eaae6fd6ca3113cb685d3e22d3d6c06",
+        "calibration\\resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+        "candidates\\eng1_setup_shared_state\\setup_shared_state.h": "0fe06b2785eeeac8a2a250d67494f2db694e3aec16a4f8eddfc1497e40c60b07",
+        "src\\eng1\\behavioral\\actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e",
+        "src\\eng1\\behavioral\\group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+        "src\\eng1\\behavioral\\resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c"
+      },
+      "fresh_object": {
+        "path": "work\\eng1_behavioral\\setup_shared_state\\build\\setup_shared_state.obj",
+        "sha256": "3acabc9dfcdb2ec13c10d8912300c92cfd7962038e964a7163467ed6049230c6"
+      },
+      "fields": [
+        {
+          "symbol": "_g_eng1_setup_word_72012",
+          "rva": "0x72012",
+          "size": 2,
+          "scope": "prefix",
+          "native_backing": "loader_zero",
+          "native_section": ".data",
+          "native_flags": "0xc0000040",
+          "coff_section": "COMMON",
+          "coff_flags": null,
+          "exact_bytes": true,
+          "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_6ef84",
+          "rva": "0x6ef84",
+          "size": 2,
+          "scope": "prefix",
+          "native_backing": "loader_zero",
+          "native_section": ".data",
+          "native_flags": "0xc0000040",
+          "coff_section": "COMMON",
+          "coff_flags": null,
+          "exact_bytes": true,
+          "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+        },
+        {
+          "symbol": "_g_eng1_setup_cell_6ef9c",
+          "rva": "0x6ef9c",
+          "size": 4,
+          "scope": "prefix",
+          "native_backing": "loader_zero",
+          "native_section": ".data",
+          "native_flags": "0xc0000040",
+          "coff_section": "COMMON",
+          "coff_flags": null,
+          "exact_bytes": true,
+          "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+        }
+      ],
+      "shared_views": {
+        "owner": "_g_eng1_setup_cell_6ef9c",
+        "native_rva": "0x6ef9c",
+        "size": 4,
+        "dword_read": "g_eng1_setup_dword_6ef9c -> union.dword",
+        "low_word_write": "g_eng1_setup_word_6ef9c -> union.words[0]",
+        "upper_word": "union.words[1]; preserved by the low WORD lvalue store",
+        "exclusive_end": "0x6efa0"
+      },
+      "zero_duplicates": true,
+      "provider_total_fields": 45,
+      "provider_total_native_bytes": 370
+    }
+  },
+  "program": {
+    "source": "src/eng1/behavioral/script_54558_owner.c",
+    "rva": "0x54558",
+    "size": 380,
+    "records": 95,
+    "native_sha256": "48494bc090db453d920ccf716aed930bb3555c51ffc668c1413430ebaf1dda4b",
+    "limits": "Measured command-pair program through first-1 loop sentinel; no15d00 behavior proved."
+  },
+  "audit": {
+    "initial_false_positive_source_sha256": "1acc7801989770eb5173f9141179f49a3688dcf339468d7c1770476872567a54",
+    "private_findings_sha256": "2f7f3787d0491923c55327650b9a4e24d681066f2c48db511dabce62c7ca0e28",
+    "resolution_sha256": "80fdecacb2802420be5c6d023bddffc96a95a42771446bad1ee3bac2b5913216",
+    "note": "Source-spy4/26 PASS was superseded after independent native instruction review found address, stride, mask, actor pointer, conditional store, reset and live-load discrepancies. Corrected code passes8/43 with stronger discriminators."
+  },
+  "abi": "15090/16790/19440/11fc0/15670 retain cdecl void(void); no hidden source input inferred. Dependency15d00 has no stack arguments and DWORD return, discarded at these callers. Table48cells/35assignments preserves13holes; handler targets retain only observed noargcall ABI.",
+  "known_limits": "Descriptor levels/child rows and nine category rows have explicit prefix gates.30handler targets remain source dependencies. Source15d00 calls source30010 and now reaches missing2a170 in an actual isolated host run; broader input/player actions, frame output, audio and shutdown unverified.",
+  "reproduce": [
+    "python scripts/eng1_bounded_differential.py setup-leaves",
+    "python scripts/test_eng1_behavioral.py"
+  ]
+}

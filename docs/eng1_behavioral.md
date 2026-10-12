@@ -1,66 +1,80 @@
 # Behavioral ENG1 reconstruction
 
 The original host loads our source-built x86 ENG1 DLL and performs its expected
-250-DWORD interface initialization. The current transitional DLL contains 524
-explicit fail-on-entry definitions. Reconstructed resource reload `33e0/3410`
-and payload decoder `4ca0` advance the latest windowed run to missing routine
-`15090`. No reconstructed ENG1 gameplay frame, continuous gameplay, or normal
-engine shutdown is verified.
+250-DWORD interface initialization. Reconstructed setup and player script
+dispatch now advance the latest windowed run to missing routine `0x2a170`.
+No reconstructed ENG1 gameplay frame, continuous gameplay, or normal engine
+shutdown is verified.
 
-The genuine graph has 316 mapped compiled entries, 10 explicitly traced
-unindexed provider RVAs, and 346 function symbols across 155 source units.
+The genuine graph has 326 mapped compiled entries, 10 explicitly traced
+unindexed provider RVAs, and 356 function symbols across 165 source units.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
-denominator. The ordinary genuine link has 524 unresolved symbols and zero
-duplicate owners. The optional transitional profile adds generated diagnostics
-and links with zero unresolved symbols. `PC_DLLEngineMain` is the sole PE32
-export at ordinal 1. The replacement has no original-engine import or embedded
-original executable code.
+denominator. The genuine link has 560 unresolved function symbols and zero
+duplicate providers. The optional transitional profile adds 560 explicit
+fail-on-entry diagnostics and links with zero unresolved symbols.
+`PC_DLLEngineMain` is the sole PE32 export at ordinal 1. The replacement has
+no original-engine import or embedded original executable code.
 
 All 76 accepted ENG1 function instances remain exact under fresh pinned VC5
 compilation and actual linked-byte comparison. This work leaves `recovery.json`
 unchanged. The stable TITLE milestone and historical matching branch remain
 preserved.
 
-All 34 source fixture groups pass. The generic data gate verifies 47 providers,
-856 fields and 4,779 native-matching pointer relocations. Its seven boundary
-regressions cover explicit read-only classification and mixed file/loader-zero
-storage. A separate fresh legacy-resource gate verifies all 81 rows, 1,296
-non-pointer bytes and 81 actual NUL-terminated path contents; these are outside
-the generic count. Neither data gate proves native placement or full runtime
-ownership. Color retains one raw upper-DWORD callback disagreement; the actual
-host consumes the matching low byte.
+All 35 source fixture groups pass. The generic data gate verifies 51 providers,
+908 fields and 4,787 native-matching pointer relocations. Seven boundary
+regressions cover explicit read-only and mixed file/loader-zero storage.
+A separate legacy-resource gate verifies 81 rows, 1,296 non-pointer bytes and
+81 actual NUL-terminated path contents. These data comparisons do not establish
+full array capacities, runtime ownership or historical placement.
 
-Resource reload uses actual provider/completion source and passes three cases,
-81 native checks. Dialog helpers `1f40`, `2450`, `24d0`, `2c60` and `2c9b0`
-pass 147 finite native cases plus a missing-NUL guard discriminator. The tests
-cover live context/frame/cursor changes, mutable scripts and pointer cells,
-post-callback glyph width, and DWORD wrap. Command writers retain 14 passing
-native cases; host rendering endpoints are controlled spies, so pixel output
-is unverified. Simulation root `156a0` passes six cases/36 checks, but its
-standalone fixture still executes original `15780` and `12620` as nested
-helpers. Production retains those as separate source dependencies.
+Simulation helpers `12620/12790` pass 15 native cases/1,382 checks plus two
+source guards. They reuse the existing strict `29260` frame reset rather than
+reconstructing it. The fixture runs the actual source WORD interpreter and
+resource reset/cancel providers in its positive-ending bounded script path.
+Audio expiry and wider index/data capacities remain unverified.
 
-Payload decoder `4ca0` passes four synthetic controls and two real-source flush
-cases. A seventh case uses the privately captured first-game input and matches
-the return `0021`, all 256 link rows, queue/cursor, decode scratch and bounded
-frame owner. The capture is a stack candidate matched to a verified source CALL,
-not an entry breakpoint or complete live-global snapshot. Its 128-byte prefix
-remains under ignored `work/`; public evidence records its hash and provenance.
-Queue flushing preserves the first key and resumes at coordinate zero.
+Setup `15090/16790/19440` passes eight source-spy cases/43 checks; nested
+endpoints are controlled and the three roots remain plausible. Helpers
+`11fc0/15670` separately pass three native cases/26 checks. Measured storage
+supplies 45 fields and preserves the shared DWORD-read/low-WORD-write cell
+at `6ef9c`. Thirty handler targets remain missing; the 35 ordered assignments
+preserve 13 table holes.
 
-Earlier tests exposed and corrected packed-header cursor `20670` (`+24`, not
-`+26`) and cleanup `34d0` (residency state, not entry count). The real worklist
-factories pass six native cases/48 checks, descriptor scan passes 54 checks,
-and link initialization passes 6,146 checks. Wider simulation, collision,
-animation, audio and resource paths remain incomplete or unverified.
+Player dispatcher `15d00` has ordinary C bodies for opcodes -52 through -1,
+with explicit unknown-service and program-prefix boundaries. Eight native
+cases/37 checks cover bounded default/alternate scripts, timer return, the
+child orientation alias and collision-script operands. One separate source
+spy checks query/RNG order and live actor reload. Instruction audits corrected
+several accesses not covered by the initial tests; full opcode equivalence
+and wider programs remain unverified.
 
-`evidence/eng1_runtime_validation.json` records nine artifact-bound observations,
-including the historical access violation, two stops at `4ca0` (one with a
-read-only call capture), and the new `15090` stop. Each distinguishes historical
-source context from current source. The latest run uses original host/ENG3/data,
-stable source TITLE and the authorized no-CD change only in a disposable host
-copy. It is windowed. The observer captures state and aborts its owned process
-on the first explicit incomplete operation or invalid access.
+Query `30010` returns the table WORD masked by the incoming low WORD, after
+bit15 suppression. Four native cases keep the index zero while varying actual
+writable table data and mask values; five source spies cover nonzero indices
+and table reload, with two guards. An initial candidate incorrectly returned
+the index, and its zero-index test hid that error. The corrected source keeps
+`2a170` as a separate missing dependency. Actor leaf `2a290` passes six native
+cases using test-only original `20b50`; its observed upper-return path is
+validated, while other arithmetic branches remain instruction-supported.
+
+Resource reload retains three native cases/81 checks; dialog helpers retain
+147 native cases plus a missing-NUL discriminator. Command writers retain
+14 native cases. Payload decoder `4ca0` passes six synthetic/flush cases plus
+the pinned private startup capture. The extracted prefix stays in ignored
+`work/`; only its hash and provenance enter public evidence. Host endpoints
+are controlled in these fixtures, so final pixels are unverified.
+
+Earlier tests corrected packed-header cursor `20670` (+24) and cleanup `34d0`
+(residency-state predicate). The six-case simulation-root fixture still uses
+original `15780/12620` as test-only nested helpers; production has separate C
+dependencies. Color retains a raw upper-DWORD callback disagreement, while
+the actual host consumes the matching low byte.
+
+Runtime evidence records 13 artifact-bound observations. Each distinguishes
+historical source context from the current checkout. The latest run uses
+original host/ENG3/data, stable source TITLE and the authorized no-CD change
+only in a disposable host copy, in windowed mode. The observer captures the
+first explicit missing operation and aborts only its owned process.
 
 The centralized incomplete manifest distinguishes missing entries from guarded
 unsupported branches and finite data prefixes. A generated body reports its
@@ -132,13 +146,13 @@ cells. Some PC callbacks are real no-ops; retain each measured identity.
 
 ## Runtime-critical open graph
 
-Cold startup includes the source pool sweeps, descriptor scan/link initializer,
-resource reload and payload decoder. The first observed missing routine is now
-`15090`. Restart and warm iteration have compiled control, level, camera,
-geometry, dialog and orchestration providers. Roots `156a0` and `1fd90` are
-source-built; nested `15780`, `12620` and further simulation/animation/collision
-dependencies remain open. A missing root hides downstream dependencies, so unresolved-symbol
-count understates full work.
+Cold startup includes source pool sweeps, descriptor/link initialization,
+resource reload, payload decoding, setup and bounded player dispatch.
+The latest observed frontier is `0x2a170` in the index-query chain.
+Worklist, camera, geometry and dialog orchestration have compiled providers;
+many collision, actor, animation and input handlers remain missing. A missing
+root hides further dependencies, so the current unresolved count understates
+remaining work.
 
 Frame tables contain verified native references to both functions and data.
 References need real typed providers and initialization; zero arrays, empty
@@ -167,6 +181,11 @@ python scripts/eng1_bounded_differential.py command-writers
 python scripts/eng1_bounded_differential.py descriptor-reload
 python scripts/eng1_bounded_differential.py dialog-frame
 python scripts/eng1_bounded_differential.py simulation-root
+python scripts/eng1_bounded_differential.py actor-update
+python scripts/eng1_bounded_differential.py query
+python scripts/eng1_bounded_differential.py player-setup
+python scripts/eng1_bounded_differential.py setup-leaves
+python scripts/eng1_bounded_differential.py simulation-helpers
 python scripts/eng1_bounded_differential.py payload-dispatch
 python scripts/eng1_resource_initial_data.py
 python tests/test_eng1_data_evidence_contract.py

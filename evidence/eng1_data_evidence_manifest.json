@@ -10,7 +10,7 @@
     "evidence/actor_pool_layout.json": "13e4b6ea5c268ee49daba9e678d2edd5e8b97fe7c0dac820311996b996e6bd36",
     "evidence/actor_pool_reset_region.json": "0e7dee4128d0a061b335d94c67b73d006f93c0600c395d37acff4c18c2ae7de6",
     "evidence/eng1_actor_storage.json": "9bc63bc5f9d9cda03b66d6ec73cb7f2acc9fd8e95211ef1de595341c767710eb",
-    "evidence/eng1_behavioral_build.json": "e5df4cd6ddbbf92de45418ffddb6a18bebd706cc75882e10dbbfe4a689732e6e",
+    "evidence/eng1_behavioral_build.json": "02becb6d25c796dfa1f94a110cf55560d9d33b7bbee6e6bfe19abfe3106370c0",
     "evidence/eng1_camera.json": "42f52814b488bedabba5bfe41694fb43e7768e8c79457723de1d371eece46ecc",
     "evidence/eng1_descriptor_pointees.json": "2eb5a2f15638cadd140cac7c074758f84735d23cc12a72f7fe76e2a60ed131af",
     "evidence/eng1_dispatch_storage.json": "d0f8a47d6eef3024fa6ef69a20c787ee4bb67376ad579e1e1c1a17397273d272",
@@ -51,9 +51,11 @@
     "evidence/eng1_cold_start_32b10.json": "9ff86ff904d537f6ca069fcb7c32b2e5101f129de7ad48339b0dbf205754a99f",
     "evidence/eng1_descriptor_overlap_owners.json": "e326c733511b2fa341e922d78eb8eff1b56e0766623d6557238a1d312806a3be",
     "evidence/eng1_cold_frame_commands.json": "70d7a598383389f45e41ebba8dcc464517f700e4fb74755f6857f60b27211843",
-    "evidence/eng1_dialog_frame.json": "bd0b5a83bc9aac86f0ba67274eea4a3a0daece0f58d95127c2bbc5ab0f63d11e",
-    "evidence/eng1_simulation_iteration.json": "7b6720eba42d43e0ca614d5f56ce4a39d863d0d96bacb52b36035ffbafd45526",
-    "evidence/eng1_payload_dispatch.json": "09e60f1ec3fa07837474c05b0b4cf8967aecd3019e4ea1d7e085222a5ef82278"
+    "evidence/eng1_dialog_frame.json": "dcc13587ee892b1df2c27d0f64171cbb751b8e26fe52883577cf0aa8cf5a8013",
+    "evidence/eng1_simulation_iteration.json": "d62ebee21673fd3645f657ce54f67ef100c67520a7cb7b88a23641a624650998",
+    "evidence/eng1_payload_dispatch.json": "b99fe00788e92eee0ade3c4fd2a4f1a618f968e4d56bfc7e6401ebfb97d8cbf9",
+    "evidence/eng1_simulation_helpers.json": "3344031591c1326474c8c1b905ed6a6a5da49cb9c43e2088b07aaaf7253d730b",
+    "evidence/eng1_setup_source.json": "38f05b36ea3192dc4b2ec6710265811ff7da5567d4480e5ff2010291acc2e1af"
   },
   "providers": [
     {
@@ -5780,6 +5782,375 @@
           "allow_compiled_zero_fill": true
         }
       ]
+    },
+    {
+      "source": "src/eng1/behavioral/simulation_data_owners.c",
+      "source_sha256": "ddef677a3dcf65501c43c8494f409c0896cce83c3a4c28752969ec35e44d7abd",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_simulation_helpers.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_g_eng1_simulation_data_bytes_53620",
+          "rva": "0x53620",
+          "size": 448,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_eng1_native_data_target_0052b70",
+          "rva": "0x52b70",
+          "size": 32,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_simulation_lookup_owner_537e0",
+          "rva": "0x537e0",
+          "size": 288,
+          "scope": "prefix"
+        }
+      ],
+      "include_sha256": {
+        "src/eng1/behavioral/simulation_data_owners.h": "ab92a3f946f703049001b0b18941b3c802aa27d347ea126827377b8b76cab58b"
+      }
+    },
+    {
+      "source": "src/eng1/behavioral/simulation_transition_storage.c",
+      "source_sha256": "6b75b063220fc6956ee41259f54090c31722fc83bfd9027f9b6902923c91aa80",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_simulation_helpers.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_eng1_sim_state_72174",
+          "rva": "0x72174",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_eng1_sim_state_72104",
+          "rva": "0x72104",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_eng1_sim_state_6ef40",
+          "rva": "0x6ef40",
+          "size": 2,
+          "scope": "prefix"
+        }
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/setup_shared_state.c",
+      "source_sha256": "d9691a22411610a35bd4d1db4611679b4eaae6fd6ca3113cb685d3e22d3d6c06",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_setup_source.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_g_eng1_setup_byte_6efb4",
+          "rva": "0x6efb4",
+          "size": 1,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_byte_72010",
+          "rva": "0x72010",
+          "size": 1,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_byte_72011",
+          "rva": "0x72011",
+          "size": 1,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_byte_7215c",
+          "rva": "0x7215c",
+          "size": 1,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_categories_55278",
+          "rva": "0x55278",
+          "size": 36,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_cell_6ef9c",
+          "rva": "0x6ef9c",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_clear_72140",
+          "rva": "0x72140",
+          "size": 24,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_dword_6ef5c",
+          "rva": "0x6ef5c",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_dword_6ef88",
+          "rva": "0x6ef88",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_dword_6efa0",
+          "rva": "0x6efa0",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_dword_6efa8",
+          "rva": "0x6efa8",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_dword_6efac",
+          "rva": "0x6efac",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_dword_72008",
+          "rva": "0x72008",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_dword_72014",
+          "rva": "0x72014",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_dword_7201c",
+          "rva": "0x7201c",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_dword_72114",
+          "rva": "0x72114",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_dword_72118",
+          "rva": "0x72118",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_dword_7211c",
+          "rva": "0x7211c",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_dword_72120",
+          "rva": "0x72120",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_dword_7216c",
+          "rva": "0x7216c",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_dword_72180",
+          "rva": "0x72180",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_dword_72188",
+          "rva": "0x72188",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_handlers_72040",
+          "rva": "0x72040",
+          "size": 192,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_pointer_72018",
+          "rva": "0x72018",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_pointer_72020",
+          "rva": "0x72020",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_pointer_72164",
+          "rva": "0x72164",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_6ef74",
+          "rva": "0x6ef74",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_6ef78",
+          "rva": "0x6ef78",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_6ef7c",
+          "rva": "0x6ef7c",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_6ef80",
+          "rva": "0x6ef80",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_6ef84",
+          "rva": "0x6ef84",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_6ef8c",
+          "rva": "0x6ef8c",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_6ef90",
+          "rva": "0x6ef90",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_6ef94",
+          "rva": "0x6ef94",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_6ef98",
+          "rva": "0x6ef98",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_72012",
+          "rva": "0x72012",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_72158",
+          "rva": "0x72158",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_7216a",
+          "rva": "0x7216a",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_72194",
+          "rva": "0x72194",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_7219c",
+          "rva": "0x7219c",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_7219e",
+          "rva": "0x7219e",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_721a0",
+          "rva": "0x721a0",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_721a2",
+          "rva": "0x721a2",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_721a4",
+          "rva": "0x721a4",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_setup_word_721a6",
+          "rva": "0x721a6",
+          "size": 2,
+          "scope": "prefix"
+        }
+      ],
+      "include_sha256": {
+        "src/eng1/behavioral/setup_shared_state.h": "3f190988b41c625f893546085fe4276b7694291388fce78f511cc50c9b2a7e9e"
+      }
+    },
+    {
+      "source": "src/eng1/behavioral/script_54558_owner.c",
+      "source_sha256": "15bd5ca04d1b451f1b9547aa369c46637ae05979de5e1e38822ea034212ae6f2",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_setup_source.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_g_eng1_setup_program_54558",
+          "rva": "0x54558",
+          "size": 380,
+          "scope": "prefix"
+        }
+      ],
+      "include_sha256": {
+        "src/eng1/behavioral/script_54558_owner.h": "565811993d93e6ade62c3f1a84bc33bc553545b54fdd7ba4c0bbca7612a5034f"
+      }
     }
   ],
   "notes": [

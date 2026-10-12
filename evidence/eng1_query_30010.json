@@ -1,0 +1,134 @@
+{
+  "scope": "Four native zero-index query comparisons with independently controlled writable table WORD/mask values. Five separately counted source spies, two prefix/owner guards and64 initial data WORD comparisons. Index-query2a170 remains unresolved; fixture713bc is isolated test storage. No nonzero native index, full collision or gameplay claim.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "target": {
+    "module": "ENG1.DLL",
+    "rva": "0x30010",
+    "inventory_span_bytes": 64,
+    "span_sha256": "e3fd20eb898e7abd9bea0eed9af882ece8331f8985005a8f5cf33578c46fbdc3",
+    "native_contract": [
+      "0x30010 reads four DWORD cdecl arguments and returns EAX with plain RET.",
+      "Calls 0x2a170(x, y, z, 0), ignoring the incoming mask for the query.",
+      "After the call, reloads DWORD pointer cell 0x713bc and reads WORD [table + index*2].",
+      "If table WORD bit15 is set, return zero; otherwise return tableWORD & lowWORD(mask). MOV AX at3002f replaces the query index low WORD before AND EAX,ffff."
+    ]
+  },
+  "direct_dependency": {
+    "rva": "0x2a170",
+    "candidate_prototype": "unsigned long __cdecl eng1_native_code_target_002a170(DWORD x, DWORD y, DWORD z, DWORD plane)",
+    "status": "Still an explicit central incomplete alias; private fixture substitutes a controlled source spy.",
+    "bounded_native_fixture": "Sets native 0x71b20=0 and 0x70d01=0xff, which safely makes the original dependency produce index zero; compares the resulting native 0x30010 return with the candidate on a source-owned table. Nonzero index and bit-15 cases use a controlled source dependency spy only, not a native differential. The dependency's other state effects are outside scope.",
+    "unresolved_callees_inside_dependency": [
+      "0x2a880",
+      "0x2a810",
+      "0x20d30"
+    ]
+  },
+  "data_ownership": {
+    "pointer_cell": "g_configuration_dword_713bc at native RVA 0x713bc (shared existing source owner in frame_data.c)",
+    "table_prefixes": [
+      {
+        "symbol": "g_eng1_collision_map_04f1e0",
+        "rva": "0x4f1e0",
+        "bytes": 64,
+        "words": 32
+      },
+      {
+        "symbol": "g_eng1_collision_map_058830",
+        "rva": "0x58830",
+        "bytes": 48,
+        "words": 24
+      },
+      {
+        "symbol": "g_eng1_collision_map_059fd8",
+        "rva": "0x59fd8",
+        "bytes": 64,
+        "words": 32
+      },
+      {
+        "symbol": "g_eng1_collision_map_0616f8",
+        "rva": "0x616f8",
+        "bytes": 64,
+        "words": 32
+      },
+      {
+        "symbol": "g_eng1_collision_map_0630a8",
+        "rva": "0x630a8",
+        "bytes": 60,
+        "words": 30
+      },
+      {
+        "symbol": "g_eng1_collision_map_068590",
+        "rva": "0x68590",
+        "bytes": 72,
+        "words": 36
+      },
+      {
+        "symbol": "g_eng1_collision_map_06b118",
+        "rva": "0x6b118",
+        "bytes": 64,
+        "words": 32
+      }
+    ],
+    "guard": "Reuses initial_spatial_roots.c and eng1_guard_spatial_read; unowned pointer identity fails before read, known-prefix overruns fail through the shared guard."
+  },
+  "limitations": [
+    "The region packet command could not start the configured Python runtime in this shell; the read-only private Capstone disassembly helper decoded the 64-byte inventory span.",
+    "The 0x2a170 body remains unresolved and is neither duplicated nor reconstructed here.",
+    "Only the seven existing collision-map prefixes are accepted; no total capacity or maximum query-index claim is made.",
+    "The native differential exercises only the zero-index path. Source-spy tests establish nonzero result, mask, high-bit suppression, and post-call pointer reload behavior.",
+    "Native fixture edits only loaded-oracle runtime cells and stack-owned test buffers; no files or canonical providers are changed."
+  ],
+  "implementation_status": "known_incomplete",
+  "native_cases": 4,
+  "source_spy_cases": 5,
+  "source_guard_cases": 2,
+  "fixture": "tests/eng1_query_30010_differential.c",
+  "limits": "Four controlled native zero-index cases verify distinct tableWORD/mask and bit15 returns. Nonzero index, callback table reload and prefix rejection use source-only spies/guards; production2a170 remains unreconstructed.",
+  "source": "src/eng1/behavioral/query_30010.c",
+  "source_sha256": "fb85483dab01c2170c911e5f6978ffc00e57aa2bd006a70c697d06c2041921ba",
+  "private_candidate_sha256": "c4b7ac75a1655c3ab3f037d3f98477024ffd9d2f5262a135eb75655f99b7a677",
+  "private_report_sha256": "f6f36d4234b8cd7d71074df8035f084254be3a3a04070ec874657f132ede450b",
+  "reproduce": "python scripts/eng1_bounded_differential.py query",
+  "canonical_proof": {
+    "scope": "Four native zero-index query comparisons with independently controlled writable table WORD/mask values. Five separately counted source spies, two prefix/owner guards and64 initial data WORD comparisons. Index-query2a170 remains unresolved; fixture713bc is isolated test storage. No nonzero native index, full collision or gameplay claim.",
+    "input_sha256": {
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "src/eng1/behavioral/spatial_read_guard.c": "f46d6de85244e458e6a578ce9ef8457d9e2844e0333af691380c973597eaa01e",
+      "src/eng1/behavioral/initial_spatial_roots.h": "bfd823f8ce02ca7728dc40e25f2010e3de3fa5ce934620a4e3d4e9ef95454232",
+      "scripts/eng1_bounded_differential.py": "064f2914147d65d4a4aeb3953cef9adcbd0f4272d3f3cdf1b9b0c462a2ef5cf7",
+      "src/eng1/behavioral/spatial_read_guard.h": "6aeb3a8ee851a7dbdc89f5da36e7dcc785af652dce4987860d8401fac00ccdef",
+      "src/eng1/behavioral/query_30010.c": "fb85483dab01c2170c911e5f6978ffc00e57aa2bd006a70c697d06c2041921ba",
+      "tests/eng1_query_30010_differential.c": "9db1234dd9a456fc68aa933e04c6a3f64c95e76e7a7c99b8481f80b820dcdaee",
+      "src/eng1/behavioral/initial_spatial_roots.c": "4dcb1ce15a01503e195c298b86c0e9ea9be5163eb3f13fdd60f3373ed8380176"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x30010": {
+        "size": 64,
+        "sha256": "e3fd20eb898e7abd9bea0eed9af882ece8331f8985005a8f5cf33578c46fbdc3"
+      }
+    },
+    "stdout": "query_native_cases=4 checks=4 failures=0 data_word_checks=64\nquery_source_spy_cases=5 checks=9 failures=0\nquery_source_guard_cases=2 failures=0\n",
+    "cases": 4,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 4,
+    "source_guard_cases": 2,
+    "source_guard_failures": 0,
+    "source_spy_cases": 5,
+    "source_spy_checks": 9,
+    "source_spy_failures": 0,
+    "private_report_sha256": "f9aac304a80fbc92a060b86706214254a1cce76ae58073707a84ee2744f3a4e9"
+  },
+  "audit_correction": {
+    "failed_private_candidate_sha256": "c4b7ac75a1655c3ab3f037d3f98477024ffd9d2f5262a135eb75655f99b7a677",
+    "failed_private_report_sha256": "f6f36d4234b8cd7d71074df8035f084254be3a3a04070ec874657f132ede450b",
+    "reason": "Candidate returned index&mask instead of tableWORD&mask; zero-index native test and coincident source table values hid the error.",
+    "discriminator": "Native index kept zero while actual mutable table WORD is1234 or9234; compare low/upper mask controls without patching executable bytes."
+  }
+}

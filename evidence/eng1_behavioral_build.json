@@ -905,6 +905,76 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_payload_dispatch.json"
+    },
+    {
+      "source": "src/eng1/behavioral/simulation_dependency.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_simulation_helpers.json"
+    },
+    {
+      "source": "src/eng1/behavioral/simulation_data_owners.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_simulation_helpers.json"
+    },
+    {
+      "source": "src/eng1/behavioral/simulation_transition_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_simulation_helpers.json"
+    },
+    {
+      "source": "src/eng1/behavioral/setup_source.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_setup_source.json"
+    },
+    {
+      "source": "src/eng1/behavioral/setup_leaf_dependencies.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_setup_source.json"
+    },
+    {
+      "source": "src/eng1/behavioral/setup_shared_state.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_setup_source.json"
+    },
+    {
+      "source": "src/eng1/behavioral/script_54558_owner.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_setup_source.json"
+    },
+    {
+      "source": "src/eng1/behavioral/player_setup_continuation.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_player_setup_continuation.json"
+    },
+    {
+      "source": "src/eng1/behavioral/query_30010.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_query_30010.json"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_update_2a290.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_actor_update_2a290.json"
     }
   ],
   "functions": [
@@ -3257,6 +3327,100 @@
       "contract": "Three-arg cdecl WORD result; counted payload programs, group/mask linking and callback-ordered32-item flush.",
       "behavioral_test": "tests/eng1_payload_dispatch_differential.c",
       "uncertainty": "Six synthetic cases and captured first payload with measured seed state; dynamic flags, exhaustion and arbitrary pointer/stream extents unverified. Explicit measured-owner guards."
+    },
+    {
+      "rva": "0x12620",
+      "symbol": "_dispatch_local_12620",
+      "source": "src/eng1/behavioral/simulation_dependency.c",
+      "evidence": "evidence/eng1_simulation_helpers.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "No-arg mode/timer switch and eight alternate rows, live pool reload each iteration.",
+      "behavioral_test": "tests/eng1_simulation_helpers_differential.c",
+      "uncertainty": "Finite15cases with actual source data and nested providers, bounded valid interpreter ending. Audio expiry and wider state/caller domains unverified; prefix reads guarded explicitly."
+    },
+    {
+      "rva": "0x12790",
+      "symbol": "_dispatch_local_12790",
+      "source": "src/eng1/behavioral/simulation_dependency.c",
+      "evidence": "evidence/eng1_simulation_helpers.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "cdecl DWORD(void*actor,DWORD index), row timer/motion, source reset/interpreter/cancel, callback-aware context flags.",
+      "behavioral_test": "tests/eng1_simulation_helpers_differential.c",
+      "uncertainty": "Finite15cases with actual source data and nested providers, bounded valid interpreter ending. Audio expiry and wider state/caller domains unverified; prefix reads guarded explicitly."
+    },
+    {
+      "rva": "0x15090",
+      "symbol": "_dispatch_local_15090",
+      "source": "src/eng1/behavioral/setup_source.c",
+      "evidence": "evidence/eng1_setup_source.json",
+      "implementation_status": "plausible_unverified",
+      "contract": "Setup35handler writes, typed live-state/actor/camera initialization and source calls in native order.",
+      "behavioral_test": "tests/eng1_setup_source_spies.c",
+      "uncertainty": "Source-spy setup proof only; leaves finite original-x86 memory cases. Nested code remains explicit dependencies, no universal or gameplay claim."
+    },
+    {
+      "rva": "0x16790",
+      "symbol": "_dispatch_local_16790",
+      "source": "src/eng1/behavioral/setup_source.c",
+      "evidence": "evidence/eng1_setup_source.json",
+      "implementation_status": "plausible_unverified",
+      "contract": "State gates/tail continuations, actual default/alternate command pointers, live pool and ordered frame-state writes.",
+      "behavioral_test": "tests/eng1_setup_source_spies.c",
+      "uncertainty": "Source-spy setup proof only; leaves finite original-x86 memory cases. Nested code remains explicit dependencies, no universal or gameplay claim."
+    },
+    {
+      "rva": "0x19440",
+      "symbol": "_dispatch_local_19440",
+      "source": "src/eng1/behavioral/setup_source.c",
+      "evidence": "evidence/eng1_setup_source.json",
+      "implementation_status": "plausible_unverified",
+      "contract": "DWORD wrap decrement, live reread, conditional16790,15d00 then2a290(live collision).",
+      "behavioral_test": "tests/eng1_setup_source_spies.c",
+      "uncertainty": "Source-spy setup proof only; leaves finite original-x86 memory cases. Nested code remains explicit dependencies, no universal or gameplay claim."
+    },
+    {
+      "rva": "0x11fc0",
+      "symbol": "_dispatch_local_11fc0",
+      "source": "src/eng1/behavioral/setup_leaf_dependencies.c",
+      "evidence": "evidence/eng1_setup_source.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Ordered exact-width viewport/state writes and24-byte clear; captured context pointer.",
+      "behavioral_test": "tests/eng1_setup_leaf_differential.c",
+      "uncertainty": "Source-spy setup proof only; leaves finite original-x86 memory cases. Nested code remains explicit dependencies, no universal or gameplay claim."
+    },
+    {
+      "rva": "0x15670",
+      "symbol": "_dispatch_local_15670",
+      "source": "src/eng1/behavioral/setup_leaf_dependencies.c",
+      "evidence": "evidence/eng1_setup_source.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Captured normal-pool pointer, BYTE+ec zero, bit2clear in live collision+54, separate live reload forWORD+4a.",
+      "behavioral_test": "tests/eng1_setup_leaf_differential.c",
+      "uncertainty": "Source-spy setup proof only; leaves finite original-x86 memory cases. Nested code remains explicit dependencies, no universal or gameplay claim."
+    },
+    {
+      "rva": "0x15d00",
+      "symbol": "_dispatch_local_15d00",
+      "source": "src/eng1/behavioral/player_setup_continuation.c",
+      "implementation_status": "known_incomplete",
+      "evidence": "evidence/eng1_player_setup_continuation.json",
+      "contract": "Signed WORD timer/index and52-opcode player script dispatcher. Source-owned program views, live callback reloads and native EAX0/1. Missing services and program bounds terminate centrally."
+    },
+    {
+      "rva": "0x30010",
+      "symbol": "_dispatch_local_30010",
+      "source": "src/eng1/behavioral/query_30010.c",
+      "implementation_status": "known_incomplete",
+      "evidence": "evidence/eng1_query_30010.json",
+      "contract": "Calls2a170(x,y,z,0), reloads713bc WORD table, bit15 suppression else tableWORD&lowWORD(mask). Missing index query and unowned/past-prefix maps terminate explicitly."
+    },
+    {
+      "rva": "0x2a290",
+      "symbol": "_eng1_native_code_target_002a290",
+      "source": "src/eng1/behavioral/actor_update_2a290.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/eng1_actor_update_2a290.json",
+      "contract": "Actor pointer query from signed coordinate high WORDs and zero-extended parameter; ordered byte25 and DWORDy writes.20b50 remains unresolved; finite native evidence covers upper-return path only."
     }
   ],
   "source_adaptations": {
@@ -4095,6 +4259,27 @@
       "rva": "0x21a40",
       "evidence": "evidence/eng1_callback_21a40_abi.json",
       "signature": "cdecl void(Actor *); native callback consumers push one pointer and remove 4 bytes; result unused"
+    },
+    "eng1_native_code_target_0012620": {
+      "provider": "dispatch_local_12620",
+      "original_rva": "0x12620",
+      "evidence": "evidence/eng1_simulation_helpers.json",
+      "confidence": "same_native_entry_and_cdecl_noarg_ABI",
+      "limits": "Finite behavioral fixture; no exact or gameplay promotion."
+    },
+    "eng1_native_code_target_0015d00": {
+      "provider": "dispatch_local_15d00",
+      "original_rva": "0x15d00",
+      "evidence": "evidence/eng1_player_setup_continuation.json",
+      "confidence": "same_native_noarg_cdecl_entry",
+      "limits": "Three finite native cases and separate source spy; unsupported program/service paths remain explicit."
+    },
+    "eng1_native_code_target_0030010": {
+      "provider": "dispatch_local_30010",
+      "original_rva": "0x30010",
+      "evidence": "evidence/eng1_query_30010.json",
+      "confidence": "same_four_DWORD_cdecl_entry",
+      "limits": "Unrecovered index-query and map prefixes remain explicit."
     }
   },
   "omit_functions": {

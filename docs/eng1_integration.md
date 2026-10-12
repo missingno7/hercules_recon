@@ -2,7 +2,7 @@
 
 The original host has loaded the transitional source-built ENG1 DLL and copied
 the expected 250-DWORD interface with signature 0x5ac00cac and first-use gate
-change from 1 to 0. The latest windowed run stops at explicit missing RVA 0x15090.
+change from 1 to 0. The latest windowed run stops at explicit missing RVA 0x2a170.
 Initialization, a gameplay frame and normal engine shutdown remain unverified.
 
 Earlier runs stopped at 32b10 and 274e0, now implemented. Runtime testing then
@@ -16,7 +16,7 @@ The descriptor scan at 3910 and link initialization at 39b0 are now implemented
 and pass finite original-x86 comparisons. The scan fixture also caught a real
 cleanup discrepancy at 34d0: residency state selects destruction; entry count
 does not. Corrected windowed runs advanced through 3910, 39b0, 33e0 and 4ca0 before reaching
-the current explicit stop. Cold-frame command writers also pass 14 native cases,
+setup15090, player dispatcher15d00, query30010 and the current index-query stop. Cold-frame command writers also pass 14 native cases,
 but the runtime has not reached their frame submission yet.
 
 Preparation uses locally verified installer files and the stable source TITLE
@@ -42,6 +42,11 @@ python scripts/eng1_bounded_differential.py command-writers
 python scripts/eng1_bounded_differential.py descriptor-reload
 python scripts/eng1_bounded_differential.py dialog-frame
 python scripts/eng1_bounded_differential.py simulation-root
+python scripts/eng1_bounded_differential.py actor-update
+python scripts/eng1_bounded_differential.py query
+python scripts/eng1_bounded_differential.py player-setup
+python scripts/eng1_bounded_differential.py setup-leaves
+python scripts/eng1_bounded_differential.py simulation-helpers
 python scripts/eng1_bounded_differential.py payload-dispatch
 python scripts/eng1_resource_initial_data.py
 python tests/test_eng1_data_evidence_contract.py
@@ -63,7 +68,7 @@ PE32, the sole PC_DLLEngineMain export at ordinal 1, absence of original-engine
 imports, source/context hashes, DLL/map hashes and mapped interface addresses.
 Unknown or unrecorded runtime files are refused. Preparation does not launch.
 
-The source-built observer uses DEBUG_ONLY_THIS_PROCESS with a 5â€“120 second limit.
+The source-built observer uses DEBUG_ONLY_THIS_PROCESS with a 5Ă˘â‚¬â€ś120 second limit.
 It verifies native mode bytes and window caption/menu/client size, and sends
 the observed Alt+Enter and window-size commands. With --enter-game, it sends
 at most six real Enter pulses only while its own PID is foreground and windowed
