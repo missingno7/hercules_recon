@@ -1,0 +1,106 @@
+{
+  "module": "ENG1.DLL",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "source": "src/eng1/behavioral/actor_control_update_2cd30.c",
+  "source_sha256": "7d947153937908c6baf10973b5a298356d7f20ef1dae1bdc207309884a0b9493",
+  "private_candidate_sha256": "7fcd494fc171965f725706ce13f6a9e23f351274ee9eff33c417ef9b6f9e17e1",
+  "private_report_sha256": "5f051e74b061e6a92784f6800389badb25c32b3ad1e8ec002eef9f02f8a2791b",
+  "implementation_status": "plausible_unverified",
+  "rva": "0x2cd30",
+  "additional_rvas": [
+    "0x2c4c0"
+  ],
+  "native": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "unchanged_before_after": true,
+    "entry_rva": "0x2cd30",
+    "diagnostic_span_bytes": 1216,
+    "diagnostic_span_sha256": "4b8ccc65427bb17fc2d8c562db91ab0226fd1c1d209ebac66f32f3352a16b529",
+    "extent_limit": "The diagnostic span includes the RET at 0x2d1d2 and inline dispatch bytes; it is not a reviewed complete function extent."
+  },
+  "contract": "One cdecl Actor*; WORD timer wrapping and live state updates, selector-class host dispatch, collision/actor classification and signed x clamp, real actor-tail callbacks and common state clears.",
+  "historical_failures": {
+    "candidate_sha256": "23c59c580583ed363cca970e20ac5324b7bce71629d325e167ee2be0adece204",
+    "candidate_snapshot": "work/eng1_behavioral/eng1_call_2cd30/candidate_before_classifier_fix.c",
+    "preserved_receipt": "work/eng1_behavioral/eng1_call_2cd30/report_before_classifier_fix.json",
+    "preserved_receipt_sha256": "26b13fe61a47024ac2a76a8bae4c0f9a1ed76922bfd2f09ffd1ce8861927ef33",
+    "preserved_hypothesis": "work/eng1_behavioral/eng1_call_2cd30/hypothesis_before_classifier_fix.json",
+    "preserved_hypothesis_sha256": "12aceac17ed34d48bfcd3229290a5dc7e0146f590b7357e5a26af320a88b035e",
+    "falsified_details": [
+      "The old source tested the 0xffff trailing sentinel before comparing positive high WORD values, so it incorrectly returned 0xff for 0x7d00..0x7fff.",
+      "The old selector-8/class-1 arm used >0x14 instead of the native >0x0a."
+    ],
+    "reason": "The earlier PASS receipt covered selected source-spy cases; later native instruction audit and all-input 0x41fd0 differential exposed these untested semantics."
+  },
+  "corrections": {
+    "classifier_order": "Initial sentinel test remains before the loop. In each row the positive signed-high compare now precedes the trailing sentinel test; 0x7d00..0x7fff return AL 17, while zero and negative inputs return 0xff.",
+    "selector8_class1_threshold": "The selector 8 timer arm now uses the captured native unsigned WORD comparison >0x0a; selector classes 0 and 2 retain their distinct thresholds.",
+    "actor_x_live_read": "The candidate performs the fresh volatile DWORD actor+0 load at the native 0x2d0c4 clamp point after the classifier call, instead of reusing the earlier classifier input.",
+    "pointer_owner": "The 0x7217c cell is read through the existing actor_control_cells.c/h g_collision_context pointer owner; no duplicate pointer storage is defined.",
+    "classifier_source": "Classifier logic and writable 18x6 measured table are split into candidates/eng1_call_2cd30/eng1_call_41fd0.c, with a visibly bounded output-status API.",
+    "gate_owner_binding": "The candidate and fixture compile against the root-owned actor_control_cells.h declaration of g_eng1_setup_dword_6efa4 and the actual actor_control_cells.c provider."
+  },
+  "proof_scope": "Ten source-only actor-update cases with controlled spies. Native 2cd30 never executed. Separate classifier native differential is not whole-body validation.",
+  "limits": [
+    "2d3f0 and 2d440 remain explicit missing bodies.",
+    "6efa4 storage is real; its five writer bodies remain incomplete.",
+    "Collision pointer lifetime beyond observed setup remains unverified.",
+    "2c4c0 preserves a 32-bit callback result; the five 2cd30 sites discard it. Other direct caller bodies do not consume it, but two propagate residual EAX. Historical host return type and universal transitive use remain unproved."
+  ],
+  "private_audit_sha256": {
+    "work/eng1_behavioral/actor_control_semantics_audit/capture.json": "b784a115aa24944ce84d367d61e818648892d37a4ca9353c50a44e0aee000240",
+    "work/eng1_behavioral/actor_control_semantics_audit/return_use_capture.json": "84988ce407156cc643e5efedaaf4046119caf60cd8b76986564c5f982851e3dc",
+    "work/eng1_behavioral/actor_motion_5c3a0_data/handoff.json": "0ac8265d44ebef17ea180727218dd3ef4b1218a51f42b34067c35f0c97f496f1"
+  },
+  "fixture": "tests/eng1_actor_control_source_and_classifier.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py actor-control",
+  "canonical_proof": {
+    "scope": "Original classifier AL comparison for all 65536 high-WORD patterns, low WORD zero, initial table. Ten separate actor-control source-spy cases and two source-only table boundary controls; native 2cd30 never called. No whole-body or universal mutable-table equivalence.",
+    "input_sha256": {
+      "src/eng1/behavioral/actor_control_cells.c": "2bc12ffd0ada012a7fa5d027c326123d6a4a8a192755279643bcfc17df27abb4",
+      "src/eng1/behavioral/actor_position_classifier_41fd0.c": "9b9afccd3f972742ad7622c612806e23be09607b2a927e2136c03ece644461e9",
+      "src/eng1/behavioral/actor_control_cells.h": "b367659f10059f662f45acddd904ce50b19dc09d97ce3b495d7c6b5c1ecf2e6f",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src/eng1/behavioral/interpreters.h": "2284756dbb331f455596b2028b105a8bf788b9b43ffea9e84c8dcb5b859151dc",
+      "src/eng1/behavioral/simulation_storage.c": "e648368eda765ab181ed1aef96919e6a6ff3c9e52322e63405fee23314df2d7c",
+      "src/eng1/behavioral/actor_control_tables.c": "5c47227dca8cb2be2768cfda2b8d9554acf6edae3f2cf186725c40a97c2550c8",
+      "src/eng1/behavioral/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "src/eng1/behavioral/actor_control_state.h": "98a60b9fa15d9e5ae7955c4971068bc3f1f346b820eba384e23e0d444f5ddcf9",
+      "src/eng1/behavioral/actor_pipeline_storage.c": "900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668",
+      "tests/eng1_actor_control_source_and_classifier.c": "8a397f546ac124ab296ecc1a99de218243c6e46cf44a56f35a0ec2049d2e8ea9",
+      "calibration/engine_interface_storage.c": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5",
+      "src/eng1/behavioral/actor_control_update.h": "23105b1e10eaa2c8fb3999078925cf389e3ae2a1fb7ad66dfff596a5514ee01c",
+      "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "src/eng1/behavioral/incomplete.c": "0c1c44db64a0b18e52d51ba9efc1caf1942df7fd700c26bcf99532ee6a114c5a",
+      "scripts/eng1_bounded_differential.py": "b188632238c0199194cff4b60890996ef655667cdb06948929d018ade66c72eb",
+      "src/eng1/behavioral/forest_level_state.c": "079438de958e017e4a2514c7cd6ff1e1fd79b3c821918c0241eac81018a89bb7",
+      "src/eng1/behavioral/frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+      "src/eng1/behavioral/actor_control_tables.h": "a0fb4f055dc9e934d47674e952b9a0184d31975449f9800e6f824a510f1024cb",
+      "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+      "src/eng1/behavioral/actor_control_update_2cd30.c": "7d947153937908c6baf10973b5a298356d7f20ef1dae1bdc207309884a0b9493",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x41fd0": {
+        "size": 83,
+        "sha256": "6b766c46bc031005f57402974fe2c7d152eddf0f120672509940b7ff5a936a86"
+      }
+    },
+    "stdout": "PASS selector1-transition\nPASS selector8-cycle\nPASS selector8-threshold-11\nPASS selector12-transition\nPASS pipeline-table-transition\nPASS pipeline-table-gate-set\nPASS selector12-pipeline-table\nPASS selector9-noop\nPASS invalid-selector-signed-sentinel\nPASS classifier-transition-order\nPASS direct native 0x41fd0 differential: 65536 signed high-WORD inputs\nPASS initial DWORD sentinel and bounded 18-row helper guards\nactor_control_classifier_native_cases=65536 checks=65536 failures=0\nactor_control_source_spy_cases=10 failures=0\nclassifier_source_guard_cases=2 failures=0\n",
+    "cases": 65536,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 65536,
+    "source_control_cases": 2,
+    "source_control_failures": 0,
+    "source_spy_cases": 10,
+    "source_spy_failures": 0,
+    "production_derivations": [],
+    "private_report_sha256": "5d065cc559183c963a493ff79b0dffa08aa8094762bb120f1172b50e2c504afe"
+  }
+}

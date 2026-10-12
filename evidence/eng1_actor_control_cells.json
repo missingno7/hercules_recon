@@ -1,0 +1,71 @@
+{
+  "module": "ENG1.DLL",
+  "scope": "Measured storage and finite direct-reference audit only; no runtime pointer-lifetime or writer-behavior acceptance.",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "cells": [
+    {
+      "rva": "0x7217c",
+      "size": 4,
+      "symbol": "_g_collision_context",
+      "source": "src/eng1/behavioral/actor_control_cells.c",
+      "native_initial_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+      "storage": "loader_zero",
+      "section": {
+        "name": ".data",
+        "virtual_address": 315392,
+        "virtual_size": 161368,
+        "raw_offset": 311296,
+        "raw_size": 137216,
+        "characteristics": 3221225536
+      }
+    },
+    {
+      "rva": "0x6efa4",
+      "size": 4,
+      "symbol": "_g_eng1_setup_dword_6efa4",
+      "source": "src/eng1/behavioral/actor_control_cells.c",
+      "native_initial_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+      "storage": "loader_zero",
+      "section": {
+        "name": ".data",
+        "virtual_address": 315392,
+        "virtual_size": 161368,
+        "raw_offset": 311296,
+        "raw_size": 137216,
+        "characteristics": 3221225536
+      }
+    }
+  ],
+  "existing_pointer_contract": "Reuse the sole unsigned char *g_collision_context owner and the existing normal-setup assignment from 15090; preserve live pointer loads and cast at DWORD dereference sites.",
+  "gate_contract": "One unsigned long loader-zero cell. Native 15780 decrements a nonzero DWORD; 18240, 182c0, 18550 and 18770 store 50. These bodies are still incomplete; no writer behavior is fabricated by this storage provider.",
+  "counts": {
+    "0x7217c": {
+      "direct_instruction_refs": 256,
+      "highlow_refs": 256,
+      "immediate_address_escapes": 0
+    },
+    "0x6efa4": {
+      "direct_instruction_refs": 7,
+      "highlow_refs": 7,
+      "immediate_address_escapes": 0
+    }
+  },
+  "limits": [
+    "Direct exact-cell operands and native HIGHLOW references only; indirect aliases and bulk writes remain possible.",
+    "Normal setup assigns the normal-pool base. Level-9 writer 374c0, teardown and reinitialization lifetime remain incomplete or unverified.",
+    "Storage equality does not prove historical source type, translation unit or module placement."
+  ],
+  "audit_inputs_sha256": {
+    "work/eng1_behavioral/actor_control_semantics_audit/cells_capture.json": "81fa661b3fa14e035941409bba108e71a8b913341e1dcce37d75bf0eb97b29f2",
+    "work/eng1_behavioral/actor_control_semantics_audit/cells.py": "7144d5eaca747acda1b4b22d5d8dcbbd8f738001cbbc1387713c8254b0c7d220",
+    "work/eng1_behavioral/actor_control_semantics_audit/cells_handoff.md": "ff620a089389a4d182d90dbd58bfc68b88f7b114b0b7e02b5b9ec577ffbd36fb"
+  },
+  "source_sha256": {
+    "src/eng1/behavioral/actor_control_cells.c": "2bc12ffd0ada012a7fa5d027c326123d6a4a8a192755279643bcfc17df27abb4",
+    "src/eng1/behavioral/actor_control_cells.h": "b367659f10059f662f45acddd904ce50b19dc09d97ce3b495d7c6b5c1ecf2e6f",
+    "src/eng1/behavioral/runtime_storage.c": "496e70c4fe23f02c1e2a7b1a4cf4a02e26ff9f2d7ecd8a139e7b9e43d21fc8ae"
+  },
+  "reproduce": "python scripts/eng1_data_evidence.py",
+  "ownership_change": "Moved the existing collision-pointer definition unchanged from mixed runtime_storage.c to a pure data provider. Every public definition and relocation must have manifest evidence; partial mixed-provider coverage was rejected, and that deterministic gate was retained.",
+  "rejected_manifest_report_sha256": "5c8ce7472a90e610a0a729156e4958c547b8f1195667cca6c814dba3e6a88cdb"
+}

@@ -1222,14 +1222,6 @@ void __cdecl eng1_native_code_target_012b00(void)
     ExitProcess(0xe0484731UL);
 }
 
-/* INCOMPLETE: ENG1.DLL RVA 0x12c00; unimplemented_function. */
-void __cdecl eng1_native_code_target_012c00(void)
-{
-    eng1_incomplete_behavior(0x12c00UL,
-        "unimplemented entry eng1_native_code_target_012c00; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
 /* INCOMPLETE: ENG1.DLL RVA 0x12d80; unimplemented_function. */
 void __cdecl eng1_native_code_target_012d80(void)
 {
@@ -2035,14 +2027,6 @@ void __cdecl eng1_native_code_target_028290(void)
 {
     eng1_incomplete_behavior(0x28290UL,
         "unimplemented entry eng1_native_code_target_028290; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
-/* INCOMPLETE: ENG1.DLL RVA 0x2cd30; unimplemented_function. */
-void __cdecl eng1_native_code_target_02cd30(void)
-{
-    eng1_incomplete_behavior(0x2cd30UL,
-        "unimplemented entry eng1_native_code_target_02cd30; opaque arguments; no success return");
     ExitProcess(0xe0484731UL);
 }
 
@@ -4182,7 +4166,23 @@ void __cdecl eng1_native_code_target_04ad20(void)
     ExitProcess(0xe0484731UL);
 }
 
-/* INCOMPLETE: ENG1.DLL RVA 0xef10; unimplemented_function. */
+/* INCOMPLETE: ENG1.DLL RVA 0x2d3f0; unimplemented_function. */
+void __cdecl eng1_native_dep_002d3f0(void)
+{
+    eng1_incomplete_behavior(0x2d3f0UL,
+        "unimplemented entry eng1_native_dep_002d3f0; opaque arguments; no success return");
+    ExitProcess(0xe0484731UL);
+}
+
+/* INCOMPLETE: ENG1.DLL RVA 0x2d440; unimplemented_function. */
+void __cdecl eng1_native_dep_002d440(void)
+{
+    eng1_incomplete_behavior(0x2d440UL,
+        "unimplemented entry eng1_native_dep_002d440; opaque arguments; no success return");
+    ExitProcess(0xe0484731UL);
+}
+
+/* INCOMPLETE: ENG1.DLL RVA 0xef10; unimplemented_binding. */
 void __cdecl eng1_native_dep_00ef10(void)
 {
     eng1_incomplete_behavior(0xef10UL,

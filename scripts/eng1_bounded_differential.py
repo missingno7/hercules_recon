@@ -17,6 +17,51 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'z-query': dict(
+        sources=['tests/eng1_actor_z_query_differential.c',
+                 'src/eng1/behavioral/actor_z_query_ef10.c',
+                 'src/eng1/behavioral/grid_query_20b50.c',
+                 'src/eng1/behavioral/query_20990.c',
+                 'src/eng1/behavioral/grid_query_data.c',
+                 'src/eng1/behavioral/payload_dispatch_data.c',
+                 'src/eng1/behavioral/resource_data.c'],
+        spans=[(0xef10,144)], cases=5,
+        scope='Five original-x86 full-Actor comparisons using actual source grid query/decoder. Signed z boundary/one-below and low-WORD results zero, 0x100, 0x101 and sentinel 0x7fff. Loaded native and source data cells restored. No wider grid, raw-EAX or whole-game equivalence.'),
+    'actor-control': dict(
+        sources=['tests/eng1_actor_control_source_and_classifier.c',
+                 'src/eng1/behavioral/actor_control_update_2cd30.c',
+                 'src/eng1/behavioral/actor_position_classifier_41fd0.c',
+                 'src/eng1/behavioral/actor_control_tables.c',
+                 'src/eng1/behavioral/forest_level_state.c',
+                 'src/eng1/behavioral/actor_pipeline_storage.c',
+                 'src/eng1/behavioral/simulation_storage.c',
+                 'src/eng1/behavioral/actor_control_cells.c',
+                 'src/eng1/behavioral/incomplete.c',
+                 'calibration/engine_interface_storage.c'],
+        spans=[(0x41fd0,83)], cases=65536,
+        scope='Original classifier AL comparison for all 65536 high-WORD patterns, low WORD zero, initial table. Ten separate actor-control source-spy cases and two source-only table boundary controls; native 2cd30 never called. No whole-body or universal mutable-table equivalence.'),
+    'startup-callback': dict(
+        sources=['tests/eng1_startup_actor_callback_differential.c',
+                 'src/eng1/behavioral/startup_actor_callback_12c00.c',
+                 'src/shared/frame_state.c',
+                 'src/eng1/behavioral/action_spawn_27d40.c',
+                 'src/eng1/behavioral/actor_update_2a290.c',
+                 'src/eng1/behavioral/grid_query_20b50.c',
+                 'src/eng1/behavioral/grid_query_20d30.c',
+                 'src/eng1/behavioral/grid_query_data.c',
+                 'src/eng1/behavioral/query_20990.c',
+                 'src/eng1/behavioral/payload_dispatch_data.c',
+                 'src/eng1/behavioral/resource_data.c',
+                 'src/eng1/behavioral/frame_data_config_word_pool.c',
+                 'src/eng1/behavioral/simulation_data_owners.c',
+                 'src/eng1/behavioral/incomplete.c',
+                 'calibration/release_actor_repaired.c',
+                 'calibration/clear_actor.c',
+                 'calibration/engine_interface_storage.c'],
+        spans=[(0x12c00,272),(0x12d10,67)], cases=5,
+        flags={'src/eng1/behavioral/actor_update_2a290.c':[
+            '/Deng1_native_dep_020b50=grid_scan_20b50']},
+        scope='Five native actor comparisons on bounded context-return and guarded-release paths plus two source-only ef10 dispatch/order probes, 21 aggregate checks. Helper selected cases fall through from 2a290 to ef10; no native ef10 behavior or full startup/gameplay equivalence claim.'),
     'actor-initializer': dict(
         sources=['tests/eng1_actor_initializer_differential.c',
                  'src/eng1/behavioral/actor_initializer_2cc50.c',
@@ -191,7 +236,7 @@ PROFILES = {
                  'src/eng1/behavioral/simulation_data_owners.c',
                  'src/eng1/behavioral/simulation_storage.c',
                  'src/eng1/behavioral/actor_storage.c',
-                 'src/eng1/behavioral/runtime_storage.c',
+                 'src/eng1/behavioral/runtime_storage.c', 'src/eng1/behavioral/actor_control_cells.c',
                  'src/eng1/behavioral/actor_pipeline_storage.c',
                  'src/eng1/behavioral/dispatch_storage.c',
                  'calibration/engine_interface_storage.c'],
@@ -203,7 +248,7 @@ PROFILES = {
                  'src/eng1/behavioral/setup_shared_state.c',
                  'src/eng1/behavioral/viewport_state_data.c',
                  'src/eng1/behavioral/actor_storage.c',
-                 'src/eng1/behavioral/runtime_storage.c',
+                 'src/eng1/behavioral/runtime_storage.c', 'src/eng1/behavioral/actor_control_cells.c',
                  'calibration/engine_interface_storage.c'],
         spans=[(0x11fc0, 128), (0x15670, 48)], cases=3,
         scope='Three finite direct original-x86 memory comparisons for actual source11fc0/15670 and measured source providers. Exact-width context/global writes and overlapping pool/collision windows; no source identity, full setup, gameplay or universal acceptance.'),
@@ -243,7 +288,7 @@ PROFILES = {
                  'src/eng1/behavioral/cold_start_frame_data.c',
                  'src/eng1/behavioral/viewport_state_data.c',
                  'src/eng1/behavioral/color_storage.c',
-                 'src/eng1/behavioral/runtime_storage.c',
+                 'src/eng1/behavioral/runtime_storage.c', 'src/eng1/behavioral/actor_control_cells.c',
                  'calibration/engine_interface_storage.c',
                  'calibration/frame_lifecycle_bridges.c'],
         spans=[(0x1f40, 0x1a1), (0x2450, 0x73), (0x24d0, 0x10),
@@ -454,6 +499,21 @@ def run(profile, oracle, captured_payload=None):
                 report.update(source_spy_cases=int(spy[1]),source_spy_checks=int(spy[2]),source_spy_failures=int(spy[3]))
             if guards:
                 report.update(source_guard_cases=int(guards[1]),source_guard_failures=int(guards[2]))
+        elif profile == 'actor-control':
+            match = re.search(r'actor_control_classifier_native_cases=(\d+) checks=(\d+) failures=(\d+)', tested.stdout)
+            spy = re.search(r'actor_control_source_spy_cases=(\d+) failures=(\d+)', tested.stdout)
+            controls = re.search(r'classifier_source_guard_cases=(\d+) failures=(\d+)', tested.stdout)
+            if match:
+                report.update(cases=int(match[1]), checks=int(match[2]), failures=int(match[3]))
+            if spy:
+                report.update(source_spy_cases=int(spy[1]), source_spy_failures=int(spy[2]))
+            if controls:
+                report.update(source_control_cases=int(controls[1]), source_control_failures=int(controls[2]))
+        elif profile == 'startup-callback':
+            match = re.search(r'eng1_call_12c00 native_cases=(\d+) source_only_cases=(\d+) checks=(\d+) failures=(\d+)', tested.stdout)
+            if match:
+                report.update(cases=int(match[1]), source_spy_cases=int(match[2]),
+                              checks=int(match[3]), failures=int(match[4]))
         elif profile == 'player-setup':
             match = re.search(r'player_setup_native_cases=(\d+) checks=(\d+) failures=(\d+)', tested.stdout)
             spy = re.search(r'player_setup_source_spy_cases=(\d+) checks=(\d+) failures=(\d+)', tested.stdout)
@@ -484,6 +544,10 @@ def run(profile, oracle, captured_payload=None):
         coverage = coverage and report.get('source_guard_cases') == 2 and report.get('source_guard_failures') == 0
     if profile == 'player-setup':
         coverage = coverage and report.get('source_spy_cases') == 1 and report.get('source_spy_failures') == 0
+    if profile == 'startup-callback':
+        coverage = coverage and report.get('source_spy_cases') == 2
+    if profile == 'actor-control':
+        coverage = coverage and report.get('source_spy_cases') == 10 and report.get('source_spy_failures') == 0 and report.get('source_control_cases') == 2 and report.get('source_control_failures') == 0
     if profile == 'query':
         coverage = coverage and report.get('source_spy_cases') == 5 and report.get('source_spy_failures') == 0 and report.get('source_guard_cases') == 2 and report.get('source_guard_failures') == 0 and report.get('data_word_checks') == 64
     if profile == 'actor-update':

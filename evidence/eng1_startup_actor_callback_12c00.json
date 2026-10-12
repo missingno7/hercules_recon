@@ -1,0 +1,135 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x12c00",
+  "additional_rvas": [
+    "0x12d10"
+  ],
+  "source": "src/eng1/behavioral/startup_actor_callback_12c00.c",
+  "source_sha256": "519738b4ee3644a4c231590fa2385981de8f3e7a893d6893b7e3e6229e07d6d7",
+  "implementation_status": "behaviorally_validated_limited",
+  "private_candidate_sha256": "02120dab9908f8cd91e8147dc7e940e23c288923a5b023ea2f1e33d89f775430",
+  "private_report_sha256": "a0b7263b5b486d66d98d81afae9b0567712591a6d6cac945c7ae2e7aee0f5c08",
+  "native": {
+    "rva": "0x12c00",
+    "bytes": 272,
+    "sha256": "7122a54a2ef68733214d558eeca804f178b6cbe09c2f8ea7a17e67f368232bf2"
+  },
+  "helper": {
+    "rva": "0x12d10",
+    "bytes": 67,
+    "sha256": "29d4125c1d81848d9782c9e9b92e9ba48e79f4ca6ca069fcd5074aca425b7aed"
+  },
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "contract": "One cdecl Actor*; reset frame state, wrap DWORD x+y and derive frame bits, context-gated kind transitions, action a007 child initialization, 200b bounded owner/lookup or release, then local helper. Helper returns at context[0]==9; selected kinds call 2a290 before falling through to unresolved ef10.",
+  "limits": [
+    "0x12d10's default cases call typed unresolved 0x0ef10; its real behavior is not claimed.",
+    "The source-only 0x0ef10 spy verifies dispatch and argument only.",
+    "The 0x6fee8 provider is a measured one-row prefix; other frame-group values fail visibly before source reads.",
+    "0x53620 is a 0x1c0-byte owner; candidate bounds relative WORD accesses to that owner and fails visibly outside it.",
+    "0x537e0 is a 0x120-byte existing owner, but this target's masked maximum index reads only its first 0x100 bytes; no broader array claim is made.",
+    "The 0x533c8 configuration provider is 282 WORDs; both native interior reads are checked against that owner.",
+    "0x27e20 is CODEGEN_SIMILAR, not accepted; source uses its existing calibration hypothesis only for one guarded clear path. Native runs original body.",
+    "Action-spawn detach/factory spies are link-only and asserted unreachable in the chosen blocked path.",
+    "The query fixture uses the already measured active-row -1 sentinel; no wider grid behavior is claimed.",
+    "This is behavioral evidence, not FUNCTION_MATCH, historical source identity, or final module layout proof."
+  ],
+  "comparison": "Full 0x134-byte Actor compared per native case. Pointer-valued actor+0x64 is checked against corresponding native/source owners before normalization. Native/source global context and kind-info cells are seeded to corresponding bounded owners and restored before unloading ENG1.DLL.",
+  "return_contract": "Void cdecl one Actor*; native callers in this startup path discard EAX. 0x27d40 return pointer is used exactly for child stores.",
+  "data_bounds": {
+    "kind_info": {
+      "rva": "0x6fee8",
+      "source_owner": "g_kind_info[1]",
+      "fixture_row": 0,
+      "native_owner_pointer": "0x53620"
+    },
+    "simulation_lookup": {
+      "rva": "0x537e0",
+      "target_access_prefix_bytes": 256,
+      "indices": "0..63 (WORD source value masked by 0x3f)",
+      "existing_owner_bytes": 288,
+      "owner_proof": "work/eng1_behavioral/simulation_iteration/dependency_12620/data_owners/simulation_data_owners_manifest.json"
+    },
+    "byte_owner": {
+      "rva": "0x53620",
+      "bytes": 448,
+      "used_fixture_word": "0x5366c = 0x0002 for owner offset 0x40"
+    },
+    "config_pool": {
+      "rva": "0x533c8",
+      "bytes": 564,
+      "read_rvas": [
+        "0x53550 (WORD index 196)",
+        "0x534d4 (WORD index 134)"
+      ],
+      "provider_count_words": 282,
+      "last_byte_rva_exclusive": "0x535fc"
+    }
+  },
+  "historical_failures": {
+    "candidate": "work/eng1_behavioral/eng1_call_12c00/history/failed_candidate_before_12d10_fallthrough.c",
+    "candidate_sha256": "ccf3ad1941897a8c28cb719b7e81026cdb47caf39cccf063710deab66d33e722",
+    "receipt": "work/eng1_behavioral/eng1_call_12c00/history/failed_report_before_12d10_fallthrough.json",
+    "receipt_sha256": "3066431f045bb8c1920c6a4e0594fd919d4ea8d88e9ff9103297fdad8cc18a95",
+    "finding": "The first candidate returned after 0x2a290 in the local helper, although native falls through to 0x0ef10; and it cleared frame_state before reading the 0x537e0 lookup DWORD. Both order defects are corrected in the current candidate."
+  },
+  "proof_scope": "Five native actor comparisons on bounded context-return and guarded-release paths. Two source-only ef10 dispatch/order probes. 21 aggregate checks; unresolved ef10 behavior is not compared.",
+  "fixture": "tests/eng1_startup_actor_callback_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py startup-callback",
+  "integrator_audit": "Native 12d3f call falls through to 12d48 ef10; cached 537e0 DWORD load precedes actor WORD+32 zero at 12ce4. Volatile pointer-field stores preserve native store order. No extra source or raw-EAX equivalence claim.",
+  "canonical_proof": {
+    "scope": "Five native actor comparisons on bounded context-return and guarded-release paths plus two source-only ef10 dispatch/order probes, 21 aggregate checks. Helper selected cases fall through from 2a290 to ef10; no native ef10 behavior or full startup/gameplay equivalence claim.",
+    "input_sha256": {
+      "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+      "src/eng1/behavioral/frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+      "src/eng1/behavioral/incomplete.c": "0c1c44db64a0b18e52d51ba9efc1caf1942df7fd700c26bcf99532ee6a114c5a",
+      "src/eng1/behavioral/query_20990.c": "75458c849fc3bf850487af6f9fb23ba10191026e47bfd24f09bd7a49c76b8227",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src/eng1/behavioral/grid_query_20d30.h": "7438e69f3aac21e14c1bee23245236141472885325adc5638ac05989586a7cc0",
+      "calibration/clear_actor.c": "3ff1bebf0bfc438924db0e8e5547daec9d68d2b2c217f88015b90de498ae145c",
+      "src/eng1/behavioral/frame_data_config_word_pool.c": "f2a95bf7acd498e6fa369511c63b03df76d4f210dc28d4799e5e28e59c5aed72",
+      "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "src/eng1/behavioral/simulation_data_owners.h": "ab92a3f946f703049001b0b18941b3c802aa27d347ea126827377b8b76cab58b",
+      "src/eng1/behavioral/simulation_data_owners.c": "ddef677a3dcf65501c43c8494f409c0896cce83c3a4c28752969ec35e44d7abd",
+      "src/eng1/behavioral/grid_query_20b50.h": "1f5d103d645c56fcb11be46c1878f5d0b25ff512720cf93bfa0d569c6f4207e7",
+      "src/eng1/behavioral/payload_dispatch_data.c": "72c031fb55841dec4c33eb17a57f9c04a761fc66f79b423e418ee5eb7a312056",
+      "src/eng1/behavioral/startup_actor_callback_12c00.c": "519738b4ee3644a4c231590fa2385981de8f3e7a893d6893b7e3e6229e07d6d7",
+      "src/eng1/behavioral/grid_query_20b50.c": "5807ffe8b4d3530e0582bb921fe612e7c6bf1cd2290c9a02ff272b425b404be4",
+      "calibration/release_actor_repaired.c": "df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac",
+      "calibration/engine_interface_storage.c": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "src/eng1/behavioral/action_spawn_27d40.c": "e2650dd4152778b5599c4db4abef91854a04a38f461326108596241f7e0dbcf4",
+      "scripts/eng1_bounded_differential.py": "b188632238c0199194cff4b60890996ef655667cdb06948929d018ade66c72eb",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "src/shared/frame_state.c": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "src/eng1/behavioral/resource_data.c": "43d3b7dba919a3ee1b1577dadb602e49e2e14816cd418d3fb931197d54ca96a2",
+      "src/eng1/behavioral/actor_update_2a290.c": "2b1caee87d5a22d51a3253cce824b05920892d6cb0abdeb5a25645c9664281b4",
+      "tests/eng1_startup_actor_callback_differential.c": "e6223855c0c0540a32b18d912f908fba5f9000ead28034f0fde4c6bda4d1d9f3",
+      "src/eng1/behavioral/action_spawn_27d40.h": "0eb61799ffb2a5c4b3b9f6633034bfd47e3118db2fb5f6a9be642bed9fffd00c",
+      "src/eng1/behavioral/grid_query_20d30.c": "d705e1651297fe070e2f427df3c1a4692b38fee9e49df3b1a4b1280c279b3a1e",
+      "src/eng1/behavioral/query_20990.h": "c3687aea684cbcf9ed174f8109266a2b80aec0020ccb0ffa048448c84ebf67c6",
+      "src/eng1/behavioral/interpreters.h": "2284756dbb331f455596b2028b105a8bf788b9b43ffea9e84c8dcb5b859151dc",
+      "src/eng1/behavioral/grid_query_data.c": "841bb6c71cafb23a995421bb4f6a5560e486b61d377d33bd9fed81780b6be5b7"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x12c00": {
+        "size": 272,
+        "sha256": "7122a54a2ef68733214d558eeca804f178b6cbe09c2f8ea7a17e67f368232bf2"
+      },
+      "0x12d10": {
+        "size": 67,
+        "sha256": "29d4125c1d81848d9782c9e9b92e9ba48e79f4ca6ca069fcd5074aca425b7aed"
+      }
+    },
+    "stdout": "case=transition_2012 native/source actor bytes agree\ncase=transition_2002 native/source actor bytes agree\ncase=spawn_blocked_2015 native/source actor bytes agree\ncase=kind_200b_table_index_2 native/source actor bytes agree\ncase=source_only_actor_update_then_ef10_order\ncase=release_200b_guarded_clear native/source actor bytes agree\ncase=source_only_ef10_dispatch_spy\neng1_call_12c00 native_cases=5 source_only_cases=2 checks=21 failures=0\n",
+    "cases": 5,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 21,
+    "source_spy_cases": 2,
+    "production_derivations": [],
+    "private_report_sha256": "abb8f86794f8f6cf281ec0c669e0bfe36ffd4f89abcf7617a4cd933f264eab8c"
+  }
+}

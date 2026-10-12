@@ -15,4 +15,3 @@ long g_effect_phase;
 long g_effect_speed;
 long g_countdown;
 unsigned long g_clock;
-unsigned char *g_collision_context;

@@ -1101,6 +1101,48 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_actor_initializer_2cc50.json"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_control_cells.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_actor_control_cells.json"
+    },
+    {
+      "source": "src/eng1/behavioral/startup_actor_callback_12c00.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_startup_actor_callback_12c00.json"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_control_update_2cd30.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_actor_control_update_2cd30.json"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_position_classifier_41fd0.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_actor_position_classifier_41fd0.json"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_control_tables.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_actor_position_classifier_41fd0.json"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_z_query_ef10.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_actor_z_query_ef10.json"
     }
   ],
   "functions": [
@@ -3683,6 +3725,53 @@
       "implementation_status": "behaviorally_validated_limited",
       "evidence": "evidence/eng1_actor_initializer_2cc50.json",
       "contract": "One cdecl Actor* argument. Ordered shared DWORD/WORD stores, preserve selector70f0c; clear actor direction BYTE, reuse advance_frame; assign measured Step2 prefix/index1/active_step-1; clear action index; reuse source2a290; late render flags OR8."
+    },
+    {
+      "rva": "0x12c00",
+      "symbol": "_eng1_native_code_target_012c00",
+      "source": "src/eng1/behavioral/startup_actor_callback_12c00.c",
+      "evidence": "evidence/eng1_startup_actor_callback_12c00.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "One cdecl Actor*; reset frame state, wrap DWORD x+y and derive frame bits, context-gated kind transitions, action a007 child initialization, 200b bounded owner/lookup or release, then local helper. Helper returns at context[0]==9; selected kinds call 2a290 before falling through to unresolved ef10.",
+      "uncertainty": "Only context==9 and source dispatch/order controls cover the helper; ef10 remains incomplete."
+    },
+    {
+      "rva": "0x12d10",
+      "symbol": "_eng1_native_code_target_012d10",
+      "source": "src/eng1/behavioral/startup_actor_callback_12c00.c",
+      "evidence": "evidence/eng1_startup_actor_callback_12c00.json",
+      "implementation_status": "plausible_abi_audited",
+      "contract": "One cdecl Actor*; reset frame state, wrap DWORD x+y and derive frame bits, context-gated kind transitions, action a007 child initialization, 200b bounded owner/lookup or release, then local helper. Helper returns at context[0]==9; selected kinds call 2a290 before falling through to unresolved ef10.",
+      "uncertainty": "Only context==9 and source dispatch/order controls cover the helper; ef10 remains incomplete."
+    },
+    {
+      "rva": "0x2cd30",
+      "symbol": "_eng1_native_code_target_02cd30",
+      "source": "src/eng1/behavioral/actor_control_update_2cd30.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/eng1_actor_control_update_2cd30.json"
+    },
+    {
+      "rva": "0x2c4c0",
+      "symbol": "_eng1_native_code_target_002c4c0",
+      "source": "src/eng1/behavioral/actor_control_update_2cd30.c",
+      "implementation_status": "plausible_abi_audited",
+      "evidence": "evidence/eng1_actor_control_update_2cd30.json"
+    },
+    {
+      "rva": "0x41fd0",
+      "symbol": "_eng1_native_code_target_0041fd0",
+      "source": "src/eng1/behavioral/actor_position_classifier_41fd0.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "evidence": "evidence/eng1_actor_position_classifier_41fd0.json"
+    },
+    {
+      "rva": "0xef10",
+      "symbol": "_eng1_native_code_target_000ef10",
+      "source": "src/eng1/behavioral/actor_z_query_ef10.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "evidence": "evidence/eng1_actor_z_query_ef10.json",
+      "contract": "One cdecl Actor*. Signed z threshold, actual grid scan, low-WORD sentinel/result branching and ordered actor flag/WORD updates."
     }
   ],
   "source_adaptations": {

@@ -2,12 +2,12 @@
 
 The original host loads our source-built x86 ENG1 DLL and performs its expected
 250-DWORD interface initialization. Reconstructed setup and player script
-dispatch now advance the latest windowed run to missing routine `0x12c00`.
+dispatch now advance the latest windowed run to missing routine `0x13990`.
 No reconstructed ENG1 gameplay frame, continuous gameplay, or normal engine
 shutdown is verified.
 
-The genuine graph has 343 mapped compiled entries, 10 explicitly traced
-unindexed provider RVAs, and 373 function symbols across 183 source units.
+The genuine graph has 349 mapped compiled entries, 10 explicitly traced
+unindexed provider RVAs, and 380 function symbols across 189 source units.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
 denominator. The genuine link has 545 unresolved function symbols and zero
 duplicate providers. The optional transitional profile adds 545 explicit
@@ -20,8 +20,8 @@ compilation and actual linked-byte comparison. This work leaves `recovery.json`
 unchanged. The stable TITLE milestone and historical matching branch remain
 preserved.
 
-All 35 source fixture groups pass. The generic data gate verifies 55 providers,
-914 fields and 4,787 native-matching pointer relocations. Seven boundary
+All 35 source fixture groups pass. The generic data gate verifies 57 providers,
+918 fields and 4,787 native-matching pointer relocations. Seven boundary
 regressions cover explicit read-only and mixed file/loader-zero storage.
 A separate legacy-resource gate verifies 81 rows, 1,296 non-pointer bytes and
 81 actual NUL-terminated path contents. These data comparisons do not establish
@@ -134,6 +134,31 @@ owner preserves WORD/DWORD overlap. Its new six-pair motion prefix is 24 bytes
 and stops at the distinct `5c3b8` lookup root; guards reject wider motion reads.
 Active grid states and wider motion indices remain unverified.
 
+Startup actor callback `12c00` passes five native actor comparisons and two
+source-only dispatch/order probes (21 aggregate checks). The complete `12d10`
+helper falls through from `2a290` to `ef10`; only context level 9 returns early.
+Native lookup loads precede frame-state writes. The original failed candidate
+and its missed fall-through remain recorded; wider kind/owner prefixes fail
+explicitly. Its real downstream `ef10` now passes five native comparisons /
+25 checks using the source grid query, covering signed z and low-WORD result
+boundaries. Raw EAX and broader query states remain unverified.
+
+Actor control `2cd30` is plausible and instruction-audited, with ten source-only
+spy scenarios. Its native body has not been differentially executed. The
+separate one-DWORD cdecl classifier `41fd0` matches AL for all 65,536 high-WORD
+patterns with low WORD zero and the original table; two source-only mutated-key
+controls check initial sentinel and unsupported scan. A positive input at the
+final sentinel returns row 17. Mutable threshold rows and selector words retain
+their measured 216-byte and 80-byte owners. Unsupported scans and uninitialized
+collision pointers report and abort. Tail callbacks `2d3f0/2d440` remain missing.
+
+The collision pointer has one source definition in a pure data unit, moved
+unchanged from mixed runtime storage; normal setup supplies its actor address.
+The independent DWORD countdown gate is loader-zero. Its five native writers
+remain incomplete. Static zero equality establishes neither pointer lifetime
+nor countdown behavior. The data gate still requires every public definition
+and relocation in each measured provider to have evidence.
+
 Resource reload retains three native cases/81 checks; dialog helpers retain
 147 native cases plus a missing-NUL discriminator. Command writers retain
 14 native cases. Payload decoder `4ca0` passes six synthetic/flush cases plus
@@ -147,7 +172,7 @@ original `15780/12620` as test-only nested helpers; production has separate C
 dependencies. Color retains a raw upper-DWORD callback disagreement, while
 the actual host consumes the matching low byte.
 
-Runtime evidence records 21 artifact-bound observations. Each distinguishes
+Runtime evidence records 23 artifact-bound observations. Each distinguishes
 historical source context from the current checkout. The latest run uses
 original host/ENG3/data, stable source TITLE and the authorized no-CD change
 only in a disposable host copy, in windowed mode. The observer captures the
@@ -225,7 +250,7 @@ cells. Some PC callbacks are real no-ops; retain each measured identity.
 
 Cold startup includes source pool sweeps, descriptor/link initialization,
 resource reload, payload decoding, setup and bounded player dispatch.
-The latest observed frontier is `0x12c00` in the startup chain.
+The latest observed frontier is `0x13990` in the startup chain.
 Worklist, camera, geometry and dialog orchestration have compiled providers;
 many collision, actor, animation and input handlers remain missing. A missing
 root hides further dependencies, so the current unresolved count understates
@@ -258,6 +283,9 @@ python scripts/eng1_bounded_differential.py command-writers
 python scripts/eng1_bounded_differential.py descriptor-reload
 python scripts/eng1_bounded_differential.py dialog-frame
 python scripts/eng1_bounded_differential.py simulation-root
+python scripts/eng1_bounded_differential.py z-query
+python scripts/eng1_bounded_differential.py actor-control
+python scripts/eng1_bounded_differential.py startup-callback
 python scripts/eng1_bounded_differential.py actor-initializer
 python scripts/eng1_bounded_differential.py forest-update
 python scripts/eng1_bounded_differential.py forest-initializer

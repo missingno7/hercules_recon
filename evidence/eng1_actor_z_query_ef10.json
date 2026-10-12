@@ -1,0 +1,77 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0xef10",
+  "source": "src/eng1/behavioral/actor_z_query_ef10.c",
+  "source_sha256": "800a5735017c3ae17a622e408f687a40a91e2d577959d235d9fc28af217c33c0",
+  "implementation_status": "behaviorally_validated_limited",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "native": {
+    "rva": "0x0ef10",
+    "observed_inventory_size": 144,
+    "sha256": "1fb961fb6c152c877f2dbf030180db8442e53d1d3eced76d0ec94a6c9e0fa210",
+    "boundary": "Inventory lists size 0x90; native RET is at 0xef98 and bytes 0xef99..0xef9f are alignment NOPs. The size is an inventory span, not a new universal boundary claim."
+  },
+  "contract": [
+    "The signed z comparison is inclusive at -0x100000 for the 0x20b50 query branch; z < -0x100000 takes the short flag-update branch.",
+    "Fast and sentinel paths read BYTE actor+0x25 and DWORD actor+0x54, store the status byte first, then store the full flags DWORD after clearing low-byte bit 3.",
+    "Query path passes SAR(x,16), SAR(y,16), SAR(z,16), and zero-extended WORD actor+0x38 to cdecl 0x20b50; only its low WORD result is used.",
+    "Non-sentinel results read/store actor+0x25 after the query. Results <= 0x100 write WORD actor+0x28 and then reload/OR/store DWORD actor+0x54; results > 0x100 skip the WORD write and reload/clear/store the DWORD flags."
+  ],
+  "abi": "void __cdecl (Actor *). Eight recorded direct callers push one actor pointer, clean four stack bytes, and never consume post-call EAX. Native incidental EAX is outside the source claim.",
+  "callers": [
+    "0x0f6d0",
+    "0x105d3",
+    "0x113fc",
+    "0x1172f",
+    "0x12d48",
+    "0x13868",
+    "0x40039",
+    "0x43abf"
+  ],
+  "callsite_evidence": "All eight caller sites immediately push their actor register and add four to ESP after the call; inspection of the following instructions found no post-call EAX consumption.",
+  "private_candidate_sha256": "01139c03e83d30d2823c9c27d67f44a898efef00abdc36ec92365e9d19499f46",
+  "private_report_sha256": "5c3c63e86238d432ce44f70e920d359bd4115f71369601a36df4246b14f5ba9d",
+  "negative_hypothesis": "work/eng1_behavioral/eng1_call_ef10/history/reversed_cutoff_falsified.json records the first reversed-threshold interpretation and the native discriminator that corrected it.",
+  "scope": "Five finite direct native-x86 comparisons of complete actor records. The candidate calls the current ordinary-C 0x20b50 and 0x20990 providers with their measured data owners; those providers have independent bounded tests. No function-byte match, full behavior, historical TU/source, or whole-DLL claim.",
+  "state_restoration": "Before unloading the read-only mapped DLL, the fixture restores every changed original cell (0x70d01, 0x70ece, 0x70d14, 0x70d34, 0x70dcc, 0x70e0c, 0x70e2c). It also restores the source provider's corresponding mutable cells.",
+  "fixture": "tests/eng1_actor_z_query_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py z-query",
+  "integrator_audit": "Signed z >= -0x100000 selects query. Preserve DWORD flags load before BYTE state store on short/sentinel paths, unsigned low-WORD >0x100 branch, and post-query live reads. Only eight recorded direct callers support void return; incidental EAX remains unclaimed.",
+  "canonical_proof": {
+    "scope": "Five original-x86 full-Actor comparisons using actual source grid query/decoder. Signed z boundary/one-below and low-WORD results zero, 0x100, 0x101 and sentinel 0x7fff. Loaded native and source data cells restored. No wider grid, raw-EAX or whole-game equivalence.",
+    "input_sha256": {
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "src/eng1/behavioral/frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src/eng1/behavioral/grid_query_20d30.h": "7438e69f3aac21e14c1bee23245236141472885325adc5638ac05989586a7cc0",
+      "scripts/eng1_bounded_differential.py": "b188632238c0199194cff4b60890996ef655667cdb06948929d018ade66c72eb",
+      "src/eng1/behavioral/query_20990.c": "75458c849fc3bf850487af6f9fb23ba10191026e47bfd24f09bd7a49c76b8227",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "src/eng1/behavioral/resource_data.c": "43d3b7dba919a3ee1b1577dadb602e49e2e14816cd418d3fb931197d54ca96a2",
+      "src/eng1/behavioral/interpreters.h": "2284756dbb331f455596b2028b105a8bf788b9b43ffea9e84c8dcb5b859151dc",
+      "src/eng1/behavioral/actor_z_query_ef10.c": "800a5735017c3ae17a622e408f687a40a91e2d577959d235d9fc28af217c33c0",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "src/eng1/behavioral/grid_query_20b50.h": "1f5d103d645c56fcb11be46c1878f5d0b25ff512720cf93bfa0d569c6f4207e7",
+      "src/eng1/behavioral/grid_query_20b50.c": "5807ffe8b4d3530e0582bb921fe612e7c6bf1cd2290c9a02ff272b425b404be4",
+      "src/eng1/behavioral/payload_dispatch_data.c": "72c031fb55841dec4c33eb17a57f9c04a761fc66f79b423e418ee5eb7a312056",
+      "src/eng1/behavioral/query_20990.h": "c3687aea684cbcf9ed174f8109266a2b80aec0020ccb0ffa048448c84ebf67c6",
+      "src/eng1/behavioral/grid_query_data.c": "841bb6c71cafb23a995421bb4f6a5560e486b61d377d33bd9fed81780b6be5b7",
+      "tests/eng1_actor_z_query_differential.c": "2db6c51fa15f99b4e807652724d1ff148519166d5f9cfeb73f32d9bfb77d67fa"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0xef10": {
+        "size": 144,
+        "sha256": "1fb961fb6c152c877f2dbf030180db8442e53d1d3eced76d0ec94a6c9e0fa210"
+      }
+    },
+    "stdout": "observed: native state=f1 word=0000 flags=a1b2c3ad; source state=f1 word=0000 flags=a1b2c3ad\nquery: native=00000000 source=00000000\ncase: boundary z=-0x100000 enters query path\nobserved: native state=f3 word=beef flags=a1b2c3a5; source state=f3 word=beef flags=a1b2c3a5\nquery: native=7fff7fff source=7fff7fff\ncase: one below cutoff takes short flag update\nobserved: native state=f1 word=0100 flags=a1b2c3ad; source state=f1 word=0100 flags=a1b2c3ad\nquery: native=7fff0100 source=7fff0100\ncase: grid result 0x100 is inclusive success\nobserved: native state=f1 word=beef flags=a1b2c3a5; source state=f1 word=beef flags=a1b2c3a5\nquery: native=7fff0101 source=7fff0101\ncase: grid result 0x101 clears bit 3 and preserves WORD\nobserved: native state=f3 word=beef flags=a1b2c3a5; source state=f3 word=beef flags=a1b2c3a5\nquery: native=7fff7fff source=7fff7fff\ncase: grid sentinel sets actor state and clears bit 3\neng1_call_ef10_native_cases=5 checks=25 failures=0\n",
+    "cases": 5,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 25,
+    "production_derivations": [],
+    "private_report_sha256": "b175995cb0a780cd056b9c4073b36565bf9fc6df4c1a9520f296c8b98cce5f3e"
+  }
+}
