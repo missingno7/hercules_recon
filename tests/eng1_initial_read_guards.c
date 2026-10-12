@@ -6,6 +6,7 @@
 #include "../src/eng1/behavioral/initial_custom_roots.h"
 #include "../src/eng1/behavioral/initial_motion_roots.h"
 #include "../src/eng1/behavioral/initial_unreadable_identities.h"
+#include "../src/eng1/behavioral/descriptor_prefix_data.h"
 static jmp_buf escape;
 static unsigned long reported;
 void eng1_incomplete_behavior(unsigned long rva, const char *reason)
@@ -46,13 +47,19 @@ int main(void)
     eng1_guard_initial_read(g_eng1_initial_motion_05fa20,6,6,6,"last related triple");
     eng1_guard_initial_read(g_eng1_initial_motion_066230,0,6,6,"single proven triple");
     eng1_guard_initial_read(&g_eng1_custom_image_05ebf0,0,1,36,"full header");
+    eng1_guard_initial_read(eng1_resource_byte_list_04fec0,556,1,1,"last proven descriptor byte");
+    eng1_guard_initial_read(eng1_resource_byte_list_050d88,166,1,1,"last proven descriptor byte");
+    eng1_guard_initial_read(&g_eng1_descriptor_payload_4f350,15,1,1,"last header byte");
+    eng1_guard_initial_read((const unsigned char *)&g_eng1_descriptor_payload_4f350+4,11,1,1,"last interior header byte");
+    if (!reject(&g_eng1_descriptor_payload_4f350,16,1,1,0x4f350)) return 34;
+    if (!reject((const unsigned char *)&g_eng1_descriptor_payload_4f350+4,12,1,1,0x4f354)) return 35;
     if (!reject(g_eng1_initial_motion_0527d0,9,4,4,0x527d0)) return 2;
     if (!reject(g_eng1_initial_motion_060148,15,6,6,0x60148)) return 3;
     if (!reject(g_eng1_initial_motion_060148,0xffffffffUL,6,6,0x60148)) return 4;
     if (!reject(g_eng1_initial_motion_0527d0,0,0,4,0x527d0)) return 5;
     if (!reject(&g_eng1_custom_image_05ebf0,36,1,1,0x5ebf0)) return 6;
-    if (!reject(&g_eng1_unreadable_initialized_identity_04fec0,0,1,1,0x4fec0)) return 7;
-    if (!reject(&g_eng1_unreadable_initialized_identity_050d88,0,1,1,0x50d88)) return 8;
+    if (!reject(eng1_resource_byte_list_04fec0,557,1,1,0x4fec0)) return 7;
+    if (!reject(eng1_resource_byte_list_050d88,167,1,1,0x50d88)) return 8;
     if (!reject(&g_eng1_unreadable_initialized_identity_065750,0,1,1,0x65750)) return 9;
     if (!reject(g_eng1_initial_motion_05fa20,7,6,6,0x5fa20)) return 30;
     if (!reject(g_eng1_initial_motion_066230,1,6,6,0x66230)) return 31;

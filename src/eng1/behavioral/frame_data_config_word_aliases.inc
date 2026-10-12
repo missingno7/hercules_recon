@@ -20,7 +20,7 @@ extern unsigned short g_eng1_config_word_pool_55478[96];
 #define eng1_frame_target_055498 (g_eng1_config_word_pool_55478 + 16)
 #define eng1_frame_target_055508 (g_eng1_config_word_pool_55478 + 72)
 #define eng1_frame_target_055520 (g_eng1_config_word_pool_55478 + 84)
-extern unsigned short g_eng1_config_word_pool_50e20[159];
+#include "resource_overlap_owners.h"
 #define eng1_frame_target_050e20 (g_eng1_config_word_pool_50e20 + 0)
 #define eng1_frame_target_050e30 (g_eng1_config_word_pool_50e20 + 8)
 #define eng1_frame_target_050e48 (g_eng1_config_word_pool_50e20 + 20)

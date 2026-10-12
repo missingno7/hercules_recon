@@ -284,14 +284,14 @@ void __cdecl dispatch_local_03470(void)
 void __cdecl dispatch_local_034d0(void)
 {
     int resource_index;
-    unsigned short old_count;
+    unsigned short old_state;
 
     for (resource_index = 1; resource_index <= 80; ++resource_index) {
-        old_count = g_actor_resources[resource_index].entry_count;
-        if (old_count == 4 || old_count == 7) {
+        old_state = g_actor_resources[resource_index].residency_state;
+        if (old_state == 4 || old_state == 7) {
             resource_destroy(resource_index);
-            if (old_count == 7)
-                g_actor_resources[resource_index].entry_count = 6;
+            if (old_state == 7)
+                g_actor_resources[resource_index].residency_state = 6;
         }
     }
 }

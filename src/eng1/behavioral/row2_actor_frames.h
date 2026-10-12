@@ -1,6 +1,7 @@
 #ifndef ENG1_ROW2_ACTOR_FRAMES_H
 #define ENG1_ROW2_ACTOR_FRAMES_H
 #include "frame_programs.h"
+#include "resource_overlap_owners.h"
 extern Eng1CommandPair g_eng1_row2_actor_pair_04dc38[2];
 extern Eng1CommandPair g_eng1_row2_actor_pair_04f390[2];
 extern Eng1CommandPair g_eng1_row2_actor_pair_04f398[15];
@@ -33,7 +34,6 @@ extern Eng1CommandPair g_eng1_row2_actor_pair_04fd58[11];
 extern Eng1CommandPair g_eng1_row2_actor_pair_04fd88[14];
 extern Eng1CommandPair g_eng1_row2_actor_pair_04fdc0[35];
 extern Eng1CommandPair g_eng1_row2_actor_pair_04fe50[14];
-extern Eng1CommandPair g_eng1_row2_actor_pair_0500e8[2];
 extern Eng1CommandPair g_eng1_row2_actor_pair_0500f0[10];
 extern Eng1CommandPair g_eng1_row2_actor_pair_050118[25];
 extern Eng1CommandPair g_eng1_row2_actor_pair_050180[13];

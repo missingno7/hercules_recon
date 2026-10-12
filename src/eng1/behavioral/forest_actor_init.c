@@ -1,3 +1,4 @@
+#include "worklist_factory_types.h"
 /* Semantic ordinary-C recovery of PC26040/26480. The actual shipped-map
  * producer has one root group; unknown table indices fail explicitly rather
  * than extending the measured g_kind_info[1] owner with fabricated rows. */
@@ -14,9 +15,6 @@ extern long g_camera_x_70ca0, g_camera_center_x_70cdc;
 extern unsigned long g_frame_global_734f4;
 extern void *g_pipeline_actor_7200c;
 extern void *__cdecl engine_pool_allocate(void **,unsigned long,unsigned long);
-extern void __cdecl eng1_call_270c0(void *,unsigned long);
-extern void __cdecl eng1_call_27720(void *,unsigned long);
-extern void __cdecl eng1_call_27c40(void *,unsigned long);
 extern void __cdecl eng1_native_code_target_028290(unsigned long);
 
 static ResourceKindInfo *kind_row(unsigned int index)

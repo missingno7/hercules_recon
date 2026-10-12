@@ -1,3 +1,4 @@
+#include "worklist_factory_types.h"
 /*
  * Private ordinary-C candidate for seven ENG1 actor-pool orchestration roots.
  * Function names match the behavioral graph bindings; descriptive labels do
@@ -147,9 +148,6 @@ extern void __cdecl eng1_call_26480(void);
 extern void __cdecl eng1_call_26730(void);
 extern unsigned short __cdecl eng1_call_2a880(
     ActorPipelineView *, void *, unsigned long);
-extern void __cdecl eng1_call_270c0(void *, unsigned long);
-extern void __cdecl eng1_call_27720(void *, unsigned long);
-extern void __cdecl eng1_call_27c40(void *, unsigned long);
 
 /* ENG1 RVA 0x255f0. This is cold actor-pool initialization, not a generic
  * engine entry: five setup calls lead to the native tail target 0x27fa0. */

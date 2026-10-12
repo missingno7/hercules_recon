@@ -2,7 +2,7 @@
 
 The original host has loaded the transitional source-built ENG1 DLL and copied
 the expected 250-DWORD interface with signature 0x5ac00cac and first-use gate
-change from 1 to 0. The latest windowed run stops at explicit missing RVA 0x3910.
+change from 1 to 0. The latest windowed run stops at explicit missing RVA 0x33e0.
 Initialization, a gameplay frame and normal engine shutdown remain unverified.
 
 Earlier runs stopped at 32b10 and 274e0, now implemented. Runtime testing then
@@ -11,6 +11,13 @@ native uses root+0x24. The correction passes 46 original-x86 checks on the full
 shipped FOREST map and gets past the invalid row read in 20830. Artifact-bound
 observations and limits are in evidence/eng1_runtime_validation.json and
 evidence/eng1_resource_cursor_correction.json.
+
+The descriptor scan at 3910 and link initialization at 39b0 are now implemented
+and pass finite original-x86 comparisons. The scan fixture also caught a real
+cleanup discrepancy at 34d0: residency state selects destruction; entry count
+does not. Corrected windowed runs advanced through 3910 and 39b0 before reaching
+the current explicit stop. Cold-frame command writers also pass 14 native cases,
+but the runtime has not reached their frame submission yet.
 
 Preparation uses locally verified installer files and the stable source TITLE
 build/report required by scripts/title_integration.py. Source TITLE retains SHA
@@ -28,6 +35,10 @@ python scripts/eng1_behavioral.py --include-incomplete --output work/eng1_behavi
 python scripts/eng1_data_evidence.py
 python scripts/test_eng1_behavioral.py
 python scripts/eng1_resource_cursor_differential.py
+python scripts/eng1_worklist_factory_differential.py
+python scripts/eng1_descriptor_resource_differential.py
+python scripts/eng1_bounded_differential.py resource-links
+python scripts/eng1_bounded_differential.py command-writers
 python scripts/eng1_integration.py build-probe
 python scripts/eng1_integration.py prepare --runtime work/eng1_behavioral/integration/experiment
 python scripts/eng1_integration.py attach --runtime work/eng1_behavioral/integration/experiment --report work/eng1_behavioral/transition_build/report.json

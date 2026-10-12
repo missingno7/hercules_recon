@@ -603,19 +603,21 @@
       "module": "ENG1.DLL",
       "rva": "0x4fec0",
       "source": "src/eng1/behavioral/initial_read_guards.c",
-      "kind": "incomplete_data_read",
-      "condition": "always reject any read width>0",
-      "evidence": "evidence/eng1_initial_unreadable_identities.json",
-      "reporting": "Actual source-pointer guard reports original RVA before unsupported read."
+      "kind": "guarded_data_prefix",
+      "condition": "Exact byte-list view leaves its 557-byte first-FF measured prefix.",
+      "evidence": "evidence/eng1_descriptor_overlap_owners.json",
+      "reporting": "Actual source-pointer guard reports original RVA before unsupported read.",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
     },
     {
       "module": "ENG1.DLL",
       "rva": "0x50d88",
       "source": "src/eng1/behavioral/initial_read_guards.c",
-      "kind": "incomplete_data_read",
-      "condition": "always reject any read width>0",
-      "evidence": "evidence/eng1_initial_unreadable_identities.json",
-      "reporting": "Actual source-pointer guard reports original RVA before unsupported read."
+      "kind": "guarded_data_prefix",
+      "condition": "Exact byte-list view leaves its 167-byte first-FF measured prefix.",
+      "evidence": "evidence/eng1_descriptor_overlap_owners.json",
+      "reporting": "Actual source-pointer guard reports original RVA before unsupported read.",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
     },
     {
       "module": "ENG1.DLL",
@@ -665,6 +667,579 @@
       "condition": "Selected forest sound WORD table index>=8; only actual16-byte prefix measured.",
       "evidence": "evidence/eng1_forest_entry.json",
       "reporting": "eng1_incomplete_behavior before unsupported read. Missingff70 reader must also preflight before indexing."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x5c408",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_row0_config_action_5c408 read leaves 640 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x67118",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_config_assets_067118 read leaves 1264 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x4dcf8",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_config_assets_04dcf8 read leaves 1392 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x602c8",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_config_assets_0602c8 read leaves 1200 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x57bb0",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_config_assets_057bb0 read leaves 864 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x593c0",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_config_assets_0593c0 read leaves 864 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x61840",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_config_assets_061840 read leaves 1856 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x6a6b8",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_config_assets_06a6b8 read leaves 688 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x5c688",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_row0_handler_triples_5c688 read leaves 480 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x67608",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_block_067608 read leaves 948 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x4e268",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_block_04e268 read leaves 1044 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x60778",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_block_060778 read leaves 900 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x57f10",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_prefix_057f10 read leaves 648 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x59720",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_prefix_059720 read leaves 648 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x61f80",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_block_061f80 read leaves 1716 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x6a968",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_block_06a968 read leaves 516 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x5c868",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_row0_action_flags_5c868 read leaves 320 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x679c0",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_action_flags_0679c0 read leaves 528 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x4e680",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_action_flags_04e680 read leaves 584 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x60b00",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_action_flags_060b00 read leaves 368 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x58198",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_action_flags_058198 read leaves 328 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x599a8",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_action_flags_0599a8 read leaves 336 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x62638",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_action_flags_062638 read leaves 344 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x6ab70",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_action_flags_06ab70 read leaves 320 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x5c9a8",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_row0_callback_pairs_5c9a8 read leaves 320 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x67bd0",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_prefix_067bd0 read leaves 528 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x4e8c8",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_prefix_04e8c8 read leaves 584 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x60c70",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_prefix_060c70 read leaves 368 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x582e0",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_prefix_0582e0 read leaves 328 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x59af8",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_prefix_059af8 read leaves 336 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x62790",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_prefix_062790 read leaves 400 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x6acb0",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_prefix_06acb0 read leaves 320 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x5cae8",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_row0_initializer_flags_5cae8 read leaves 320 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x67de0",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_initializer_flags_067de0 read leaves 416 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x4eb10",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_initializer_flags_04eb10 read leaves 320 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x60de0",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_initializer_flags_060de0 read leaves 376 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x58428",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_initializer_flags_058428 read leaves 408 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x59c48",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_initializer_flags_059c48 read leaves 416 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x62920",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_initializer_flags_062920 read leaves 320 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x6adf0",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_initializer_flags_06adf0 read leaves 368 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x5cc28",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_row0_factory_pairs_5cc28 read leaves 320 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x67f80",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_prefix_067f80 read leaves 416 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x4ec50",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_prefix_04ec50 read leaves 320 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x60f58",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_prefix_060f58 read leaves 376 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x585c0",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_prefix_0585c0 read leaves 408 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x59de8",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_prefix_059de8 read leaves 416 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x62a60",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_prefix_062a60 read leaves 320 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x6af60",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_table_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Exact-owned g_eng1_callback_record_prefix_06af60 read leaves 368 measured bytes.",
+      "runtime_report": "Logs dependency RVA and unsupported index/stride/width then noncontinuable failure before the read.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x6fee8",
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "symbol": "eng1_guard_worklist_group_owner",
+      "kind": "guarded_data_prefix",
+      "condition": "Factory owner read for group_index!=0 leaves one measured8-byte kind-info row.",
+      "runtime_report": "Noncontinuable failure at owner read; failed allocator path performs no read and retains native NULL result.",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x4f350",
+      "source": "src/eng1/behavioral/initial_read_guards.c",
+      "symbol": "eng1_guard_initial_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Descriptor header byte-list read leaves 16 bytes in the existing owner.",
+      "runtime_report": "Original dependency RVA and unsupported byte index logged; noncontinuable failure before read.",
+      "evidence": "evidence/eng1_descriptor_overlap_owners.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x4f354",
+      "source": "src/eng1/behavioral/initial_read_guards.c",
+      "symbol": "eng1_guard_initial_read",
+      "kind": "guarded_data_prefix",
+      "condition": "Descriptor header byte-list read leaves 12 bytes in the existing owner.",
+      "runtime_report": "Original dependency RVA and unsupported byte index logged; noncontinuable failure before read.",
+      "evidence": "evidence/eng1_descriptor_overlap_owners.json",
+      "implementation_status": "known_incomplete_beyond_measured_prefix"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x32bd0",
+      "dependency_rva": "0x5dd80",
+      "source": "src/eng1/behavioral/cold_start_32bd0.c",
+      "function": "dispatch_local_32bd0",
+      "kind": "incomplete_data_read",
+      "condition": "Changed coordinate row>=192, outside measured384B/192pair prefix.",
+      "reporting": "eng1_incomplete_behavior before unsupportedtable read, cacheWORD write and2c60call; noncontinuable diagnostic.",
+      "evidence": "evidence/eng1_cold_frame_commands.json",
+      "verification": "Lastmeasuredrow191 draw and firstunsupportedrow192 fail verified; no native extent beyond prefix claim."
     },
     {
       "module": "ENG1.DLL",
@@ -722,6 +1297,24 @@
     },
     {
       "module": "ENG1.DLL",
+      "rva": "0x1f40",
+      "symbol": "_dispatch_local_1f40",
+      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
+      "kind": "unimplemented_function",
+      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
+      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
+      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
+      "consumers": [
+        {
+          "source": "src/eng1/behavioral/cold_start_32bd0.c",
+          "kind": "function"
+        }
+      ],
+      "implementation_status": "known_incomplete",
+      "compiled_source_is_not_reconstructed_behavior": true
+    },
+    {
+      "module": "ENG1.DLL",
       "rva": "0x20ea0",
       "symbol": "_dispatch_local_20ea0",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -740,8 +1333,8 @@
     },
     {
       "module": "ENG1.DLL",
-      "rva": "0x32bd0",
-      "symbol": "_dispatch_local_32bd0",
+      "rva": "0x2c60",
+      "symbol": "_dispatch_local_2c60",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
       "kind": "unimplemented_function",
       "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
@@ -749,7 +1342,7 @@
       "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
       "consumers": [
         {
-          "source": "calibration/engine_dispatch.c",
+          "source": "src/eng1/behavioral/cold_start_32bd0.c",
           "kind": "function"
         }
       ],
@@ -804,72 +1397,6 @@
       "consumers": [
         {
           "source": "src/eng1/behavioral/actor_pipeline.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x270c0",
-      "symbol": "_eng1_call_270c0",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/actor_pipeline.c",
-          "kind": "function"
-        },
-        {
-          "source": "src/eng1/behavioral/forest_actor_init.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x27720",
-      "symbol": "_eng1_call_27720",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/actor_pipeline.c",
-          "kind": "function"
-        },
-        {
-          "source": "src/eng1/behavioral/forest_actor_init.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x27c40",
-      "symbol": "_eng1_call_27c40",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/actor_pipeline.c",
-          "kind": "function"
-        },
-        {
-          "source": "src/eng1/behavioral/forest_actor_init.c",
           "kind": "function"
         }
       ],
@@ -10106,42 +10633,6 @@
     },
     {
       "module": "ENG1.DLL",
-      "rva": "0x3910",
-      "symbol": "_eng1_target_03910",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/level_loading.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x39b0",
-      "symbol": "_eng1_target_039b0",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/level_loading.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
       "rva": "0x3bd0",
       "symbol": "_eng1_target_03bd0",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -10394,11 +10885,11 @@
     }
   ],
   "provisional_generation": {
-    "source_only_report_sha256": "8d18147f4d7504bd7b7f524764423f55d610756f1c39eed69fbb943983208190",
+    "source_only_report_sha256": "e99e91c35bea49d2ec95884a85bc4d57435c6f13ca3b05d147bcb95ac5da1950",
     "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
     "recovery_sha256": "465ee5ea057cd3bfb23508e18b16958c27b9d391e11a0bc874cfc413436644d5",
-    "symbols": 531,
-    "native_rvas": 524,
+    "symbols": 527,
+    "native_rvas": 520,
     "scope": "Transitional loader/startup diagnostics only; excluded from source coverage and never behaviorally accepted."
   }
 }

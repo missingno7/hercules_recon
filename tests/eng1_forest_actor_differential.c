@@ -60,9 +60,9 @@ static void factory(int id,void *p,unsigned long group)
     if(callback_mutate==1)g_kind_info[0].count=1;
     if(callback_mutate==2){g_kind_info[0].count=3;g_kind_info[0].owner=0;}
 }
-void __cdecl eng1_call_270c0(void *p,unsigned long n){factory(0,p,n);}
-void __cdecl eng1_call_27720(void *p,unsigned long n){factory(4,p,n);}
-void __cdecl eng1_call_27c40(void *p,unsigned long n){factory(2,p,n);}
+ActorNormal *__cdecl eng1_call_270c0(Eng1ForestRecord20 *p,unsigned long n){factory(0,p,n);return 0;}
+ActorMiddle *__cdecl eng1_call_27720(Eng1ForestRecord20 *p,unsigned long n){factory(4,p,n);return 0;}
+ActorCore *__cdecl eng1_call_27c40(Eng1ForestRecord20 *p,unsigned long n){factory(2,p,n);return 0;}
 void __cdecl eng1_native_code_target_028290(unsigned long n)
 {int i=callback_count++;callback_id[i]=1;callback_index[i]=-1;callback_argument[i]=n;}
 

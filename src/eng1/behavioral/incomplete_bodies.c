@@ -30,6 +30,14 @@ void __cdecl dispatch_local_156a0(void)
     ExitProcess(0xe0484731UL);
 }
 
+/* INCOMPLETE: ENG1.DLL RVA 0x1f40; unimplemented_function. */
+void __cdecl dispatch_local_1f40(void)
+{
+    eng1_incomplete_behavior(0x1f40UL,
+        "unimplemented entry dispatch_local_1f40; opaque arguments; no success return");
+    ExitProcess(0xe0484731UL);
+}
+
 /* INCOMPLETE: ENG1.DLL RVA 0x20ea0; unimplemented_function. */
 void __cdecl dispatch_local_20ea0(void)
 {
@@ -38,11 +46,11 @@ void __cdecl dispatch_local_20ea0(void)
     ExitProcess(0xe0484731UL);
 }
 
-/* INCOMPLETE: ENG1.DLL RVA 0x32bd0; unimplemented_function. */
-void __cdecl dispatch_local_32bd0(void)
+/* INCOMPLETE: ENG1.DLL RVA 0x2c60; unimplemented_function. */
+void __cdecl dispatch_local_2c60(void)
 {
-    eng1_incomplete_behavior(0x32bd0UL,
-        "unimplemented entry dispatch_local_32bd0; opaque arguments; no success return");
+    eng1_incomplete_behavior(0x2c60UL,
+        "unimplemented entry dispatch_local_2c60; opaque arguments; no success return");
     ExitProcess(0xe0484731UL);
 }
 
@@ -67,30 +75,6 @@ void __cdecl eng1_call_26730(void)
 {
     eng1_incomplete_behavior(0x26730UL,
         "unimplemented entry eng1_call_26730; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
-/* INCOMPLETE: ENG1.DLL RVA 0x270c0; unimplemented_function. */
-void __cdecl eng1_call_270c0(void)
-{
-    eng1_incomplete_behavior(0x270c0UL,
-        "unimplemented entry eng1_call_270c0; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
-/* INCOMPLETE: ENG1.DLL RVA 0x27720; unimplemented_function. */
-void __cdecl eng1_call_27720(void)
-{
-    eng1_incomplete_behavior(0x27720UL,
-        "unimplemented entry eng1_call_27720; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
-/* INCOMPLETE: ENG1.DLL RVA 0x27c40; unimplemented_function. */
-void __cdecl eng1_call_27c40(void)
-{
-    eng1_incomplete_behavior(0x27c40UL,
-        "unimplemented entry eng1_call_27c40; opaque arguments; no success return");
     ExitProcess(0xe0484731UL);
 }
 
@@ -4123,22 +4107,6 @@ void __cdecl eng1_target_033e0(void)
 {
     eng1_incomplete_behavior(0x33e0UL,
         "unimplemented entry eng1_target_033e0; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
-/* INCOMPLETE: ENG1.DLL RVA 0x3910; unimplemented_function. */
-void __cdecl eng1_target_03910(void)
-{
-    eng1_incomplete_behavior(0x3910UL,
-        "unimplemented entry eng1_target_03910; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
-/* INCOMPLETE: ENG1.DLL RVA 0x39b0; unimplemented_function. */
-void __cdecl eng1_target_039b0(void)
-{
-    eng1_incomplete_behavior(0x39b0UL,
-        "unimplemented entry eng1_target_039b0; opaque arguments; no success return");
     ExitProcess(0xe0484731UL);
 }
 

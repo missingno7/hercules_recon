@@ -6,6 +6,7 @@
 #include "initial_custom_roots.h"
 #include "initial_motion_roots.h"
 #include "initial_unreadable_identities.h"
+#include "descriptor_prefix_data.h"
 extern unsigned short eng1_native_words_04dce8[8];
 
 typedef struct Eng1InitialReadLimit {
@@ -13,6 +14,8 @@ typedef struct Eng1InitialReadLimit {
     unsigned long original_rva, bytes;
 } Eng1InitialReadLimit;
 static const Eng1InitialReadLimit limits[] = {
+    { &g_eng1_descriptor_payload_4f350, 0x4f350UL, 16UL },
+    { (const unsigned char *)&g_eng1_descriptor_payload_4f350 + 4, 0x4f354UL, 12UL },
     { eng1_native_words_04dce8, 0x4dce8UL, 16UL },
     { &g_eng1_custom_mask_palette_05ebb8.columns, 0x5ebb8UL, 52UL },
     { &g_eng1_custom_mask_palette_05ebb8.mask_cells[0], 0x5ebbcUL, 48UL },
@@ -22,8 +25,8 @@ static const Eng1InitialReadLimit limits[] = {
     { g_eng1_initial_motion_05fa20, 0x5fa20UL, 42UL },
     { g_eng1_initial_motion_060148, 0x60148UL, 90UL },
     { g_eng1_initial_motion_066230, 0x66230UL, 6UL },
-    { &g_eng1_unreadable_initialized_identity_04fec0, 0x4fec0UL, 0UL },
-    { &g_eng1_unreadable_initialized_identity_050d88, 0x50d88UL, 0UL },
+    { eng1_resource_byte_list_04fec0, 0x4fec0UL, 557UL },
+    { eng1_resource_byte_list_050d88, 0x50d88UL, 167UL },
     { &g_eng1_unreadable_initialized_identity_065750, 0x65750UL, 0UL }
 };
 

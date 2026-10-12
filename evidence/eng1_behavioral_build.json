@@ -807,6 +807,55 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_pool_startup.json"
+    },
+    {
+      "source": "src/eng1/behavioral/worklist_factories.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_worklist_factories.json"
+    },
+    {
+      "source": "src/eng1/behavioral/worklist_read_guards.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_worklist_factories.json"
+    },
+    {
+      "source": "src/eng1/behavioral/descriptor_resource_scan.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_descriptor_resource_scan.json"
+    },
+    {
+      "source": "src/eng1/behavioral/resource_link_initialization.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_resource_link_initialization.json"
+    },
+    {
+      "source": "src/eng1/behavioral/cold_start_32bd0.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_cold_frame_commands.json"
+    },
+    {
+      "source": "src/eng1/behavioral/draw_commands.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_cold_frame_commands.json"
+    },
+    {
+      "source": "src/eng1/behavioral/cold_start_frame_data.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_cold_frame_commands.json"
     }
   ],
   "functions": [
@@ -2020,10 +2069,11 @@
       "rva": "0x34d0",
       "symbol": "_dispatch_local_034d0",
       "source": "src/eng1/behavioral/level_loading.c",
-      "implementation_status": "plausible_unverified",
-      "contract": "Native resource transition/reallocation, scheduling, references and frame-list setup.",
-      "evidence": "evidence/eng1_level_loading.json",
-      "uncertainty": "Fresh compilation and focused ABI review; full behavior untested."
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Rows1..80: residency_stateWORD+10==4/7 invokesdestroy; oldstate7 becomes6 after destroy. Entrycount+4 unchanged.",
+      "evidence": "evidence/eng1_descriptor_resource_scan.json",
+      "uncertainty": "Finite seeded states/callbacks; no universal or exact-function claim.",
+      "behavioral_test": "tests/eng1_descriptor_resource_differential.c"
     },
     {
       "rva": "0x3a50",
@@ -2988,6 +3038,86 @@
       "contract": "No-argument cdecl startup sweep; reload configured WORD counts and pool bases across calls; middle sweep then writes -1 through existing group pointers.",
       "behavioral_test": "tests/eng1_pool_startup_spies.c; tests/eng1_pool_startup_initializers.c",
       "uncertainty": "Finite source fixture states; no native differential or gameplay acceptance."
+    },
+    {
+      "rva": "0x270c0",
+      "symbol": "_eng1_call_270c0",
+      "source": "src/eng1/behavioral/worklist_factories.c",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "cdecl Actor*(20-byte record*,u32 group); reuse actual allocator/init, mark+0d, bind family fields/assets and owner delta, then action callback; NULL preserves failed allocation state.",
+      "behavioral_test": "tests/eng1_worklist_factory_differential.c; tests/eng1_worklist_factory_spies.c",
+      "uncertainty": "Finite group0/table records and exhausted allocator only; unsupported exact-owned data prefix accesses fail visibly."
+    },
+    {
+      "rva": "0x27720",
+      "symbol": "_eng1_call_27720",
+      "source": "src/eng1/behavioral/worklist_factories.c",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "cdecl Actor*(20-byte record*,u32 group); reuse actual allocator/init, mark+0d, bind family fields/assets and owner delta, then action callback; NULL preserves failed allocation state.",
+      "behavioral_test": "tests/eng1_worklist_factory_differential.c; tests/eng1_worklist_factory_spies.c",
+      "uncertainty": "Finite group0/table records and exhausted allocator only; unsupported exact-owned data prefix accesses fail visibly."
+    },
+    {
+      "rva": "0x27c40",
+      "symbol": "_eng1_call_27c40",
+      "source": "src/eng1/behavioral/worklist_factories.c",
+      "evidence": "evidence/eng1_worklist_factories.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "cdecl Actor*(20-byte record*,u32 group); reuse actual allocator/init, mark+0d, bind family fields/assets and owner delta, then action callback; NULL preserves failed allocation state.",
+      "behavioral_test": "tests/eng1_worklist_factory_differential.c; tests/eng1_worklist_factory_spies.c",
+      "uncertainty": "Finite group0/table records and exhausted allocator only; unsupported exact-owned data prefix accesses fail visibly."
+    },
+    {
+      "rva": "0x3910",
+      "symbol": "_eng1_target_03910",
+      "source": "src/eng1/behavioral/descriptor_resource_scan.c",
+      "evidence": "evidence/eng1_descriptor_resource_scan.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "cdecl void(const BYTE-FF list*,const BYTE-FF list*); test every byte, sweep81 residency WORDs, cancel excluded-neither rows, invoke real34d0 once.",
+      "behavioral_test": "tests/eng1_descriptor_resource_differential.c",
+      "uncertainty": "Finite rows/context/callbackstates only; unreadable data prefixes fail before each unsupported byte read."
+    },
+    {
+      "rva": "0x39b0",
+      "symbol": "_eng1_target_039b0",
+      "source": "src/eng1/behavioral/resource_link_initialization.c",
+      "evidence": "evidence/eng1_resource_link_initialization.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "No-arg cdecl,256 link masks/descriptors; preserve four successor keys per12-byte row; no calls.",
+      "behavioral_test": "tests/eng1_resource_link_differential.c",
+      "uncertainty": "Finite fixture confidence only. Root nested operations remain dependencies; coordinateprefix guarded, hostcallbacks controlled in differential. No gameplay or universal equality claim."
+    },
+    {
+      "rva": "0x32bd0",
+      "symbol": "_dispatch_local_32bd0",
+      "source": "src/eng1/behavioral/cold_start_32bd0.c",
+      "evidence": "evidence/eng1_cold_frame_commands.json",
+      "implementation_status": "plausible_unverified",
+      "contract": "No-arg cdecl cold-frame updates, animation/geometry calls, signed fixed-point clamps, colors, final packet-link effects.",
+      "behavioral_test": "tests/eng1_cold_start_32bd0.c",
+      "uncertainty": "Finite fixture confidence only. Root nested operations remain dependencies; coordinateprefix guarded, hostcallbacks controlled in differential. No gameplay or universal equality claim."
+    },
+    {
+      "rva": "0x33420",
+      "symbol": "_dispatch_local_33420",
+      "source": "src/eng1/behavioral/draw_commands.c",
+      "evidence": "evidence/eng1_cold_frame_commands.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Seven-arg cdecl, lowBYTEUVs, mode/blend predicates, two40B packets with actual hostcallbacks and links.",
+      "behavioral_test": "tests/eng1_draw_commands_differential.c",
+      "uncertainty": "Finite fixture confidence only. Root nested operations remain dependencies; coordinateprefix guarded, hostcallbacks controlled in differential. No gameplay or universal equality claim."
+    },
+    {
+      "rva": "0x33620",
+      "symbol": "_dispatch_local_33620",
+      "source": "src/eng1/behavioral/draw_commands.c",
+      "evidence": "evidence/eng1_cold_frame_commands.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Seven-arg cdecl20B spritepacket, arg7==4 extra12B callbackpacket, live cursor reload and chain.",
+      "behavioral_test": "tests/eng1_draw_commands_differential.c",
+      "uncertainty": "Finite fixture confidence only. Root nested operations remain dependencies; coordinateprefix guarded, hostcallbacks controlled in differential. No gameplay or universal equality claim."
     }
   ],
   "source_adaptations": {

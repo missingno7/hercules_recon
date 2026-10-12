@@ -1,0 +1,71 @@
+{
+  "scope": "Native-evidenced no-argument resource link initialization; finite behavioral confidence, no FUNCTION_MATCH promotion.",
+  "native": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "rva": "0x39b0",
+    "inventory_extent": 160,
+    "decoded_body_bytes": 152,
+    "body_sha256": "514e8c8c423149c3e12d63b9fcae42e0b4ff3dfee958843c79e3c5c45a1d38c2",
+    "span_sha256": "1a0d822bcc38a15172ef46ccf15f0c5a14291eac3823c78b89db89d534e72a0e",
+    "external_call_sites": [],
+    "caller": {
+      "rva": "0x3270",
+      "callsite": "0x329e",
+      "stack_arguments": 0,
+      "return_used": false
+    }
+  },
+  "abi": {
+    "convention": "cdecl",
+    "arguments": [],
+    "return": "void",
+    "caller_observation": "0x3270 calls at 0x329e without stack arguments and does not consume EAX before the next call."
+  },
+  "writes": {
+    "owner_symbol": "g_actor_link_rows",
+    "owner_source": "calibration/resource_data.c",
+    "base_rva": "0x72880",
+    "rows": 256,
+    "stride": 12,
+    "measured_prefix_bytes": 3072,
+    "fields_written": {
+      "+0": "live mask",
+      "+2": "computed descriptor word"
+    },
+    "fields_preserved": {
+      "+4..+0xb": "four successor keys"
+    },
+    "mask_anchors": [
+      0,
+      16,
+      4,
+      1
+    ],
+    "descriptor_formula": "0x008c | ((index & 8) << 1) | ((index & 0x80) >> 6)",
+    "prefix_limit": "Only the measured 256-row / 0xc00-byte prefix is touched; no larger capacity is claimed."
+  },
+  "source": "src/eng1/behavioral/resource_link_initialization.c",
+  "source_sha256": "ebe1c300b97da822672404d442669dd4bbdb9484155fa5a29f94420e85bd0f1c",
+  "fixture": "tests/eng1_resource_link_differential.c",
+  "private_proof_sha256": "2228633880865cc39e7f521ee06592faa24ca06cc1bd9b5e2e98ef9f0c251eff",
+  "private_checks": "eng1_039b0_native_diff checks=6146 failures=0\n",
+  "limitations": "Finite semantic evidence only; not FUNCTION_MATCH, original source identity, or a capacity claim beyond the measured 256 rows.",
+  "canonical_differential": {
+    "report_sha256": "3e5baf9fedd484c1aa340d531484c9fd934e18dbcc7c0e99239dd49e864e3c72",
+    "result": "PASS",
+    "inputs_unchanged": true,
+    "inputs": {
+      "tests/eng1_resource_link_differential.c": "22056b19337114ab35805226e442af5a9769bb7ec37086f4cc48b14d0db6a603",
+      "scripts/eng1_bounded_differential.py": "46d58657c369474e289d64354ec7f2f81b070e35731e519efe9eef88b80708c3",
+      "src/eng1/behavioral/resource_link_initialization.c": "ebe1c300b97da822672404d442669dd4bbdb9484155fa5a29f94420e85bd0f1c",
+      "calibration/resource_data.c": "f9c92023152194164535fa33ca7a7e2e82726897ed56b9c5dba7475f25ed1d47"
+    },
+    "reproduce": "python scripts/eng1_bounded_differential.py resource-links",
+    "cases": 2,
+    "checks": 6146,
+    "failures": 0,
+    "stdout": "eng1_039b0_native_diff checks=6146 failures=0\n",
+    "scope": "Two seeded full256-row resource-link prefixes versus unpatched x86; masks/descriptors and preserved successor keys. No wider capacity, gameplay or universal equivalence claim."
+  }
+}

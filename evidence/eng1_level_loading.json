@@ -3,59 +3,239 @@
   "candidate_source": "candidates/eng1_level_loading/eng1_level_loading.c",
   "source_sha256": "eef39b23563fad25b9c6d8e9f886f1365c0c69129670008bbc094e4e8d35b796",
   "caller_entries": [
-    {"caller_rva": "0x2050b", "target_rva": "0x2180"},
-    {"caller_rva": "0x1f3f4", "target_rva": "0x2f30"},
-    {"caller_rva": "0x1f421", "target_rva": "0x3270", "abi_note": "Two cdecl stack arguments; caller's outer-descriptor ECX is used to fetch the second argument, not consumed by 0x3270. 0x4ca0 receives payload variant, payload[0] selector, and flags 0x40."},
-    {"caller_rva": "0x2053d", "target_rva": "0x34d0"},
-    {"caller_rva": "0x20553", "target_rva": "0x34d0"},
-    {"caller_rva": "0x2055d", "target_rva": "0x3470"},
-    {"caller_rva": "0x20567", "target_rva": "0x3a50"}
+    {
+      "caller_rva": "0x2050b",
+      "target_rva": "0x2180"
+    },
+    {
+      "caller_rva": "0x1f3f4",
+      "target_rva": "0x2f30"
+    },
+    {
+      "caller_rva": "0x1f421",
+      "target_rva": "0x3270",
+      "abi_note": "Two cdecl stack arguments; caller's outer-descriptor ECX is used to fetch the second argument, not consumed by 0x3270. 0x4ca0 receives payload variant, payload[0] selector, and flags 0x40."
+    },
+    {
+      "caller_rva": "0x2053d",
+      "target_rva": "0x34d0"
+    },
+    {
+      "caller_rva": "0x20553",
+      "target_rva": "0x34d0"
+    },
+    {
+      "caller_rva": "0x2055d",
+      "target_rva": "0x3470"
+    },
+    {
+      "caller_rva": "0x20567",
+      "target_rva": "0x3a50"
+    }
   ],
   "existing_providers": [
-    {"name": "g_actor_resources", "source": "calibration/resource_data.c", "note": "81 records; 20-byte stride; see evidence/resource_writer_layout.json"},
-    {"name": "g_root_count_70ed2", "source": "src/eng1/behavioral/resource_data.c"},
-    {"name": "g_header_byte_70ecd", "source": "src/eng1/behavioral/resource_data.c"},
-    {"name": "g_frame_upload_pending_6ee7c", "source": "src/eng1/behavioral/dispatch_storage.c"},
-    {"name": "g_normal_actor_pool, g_middle_actor_pool, g_alternate_actor_pool", "source": "src/eng1/behavioral/actor_storage.c"},
-    {"name": "g_dispatch_frame_current_71ec4, g_dispatch_frame_base_71ec8, g_configuration_word_713a0, g_configuration_word_713a8, g_configuration_word_713b6", "source": "src/eng1/behavioral/frame_data.c"},
-    {"name": "engine_pool_allocate", "source": "calibration/engine_file_bridge.c"},
-    {"name": "dispatch_engine_2c2d0", "source": "calibration/frame_lifecycle_bridges.c"},
-    {"name": "dispatch_engine_2c420, dispatch_engine_2c630", "source": "calibration/dispatcher_bridges.c"},
-    {"name": "dispatch_local_2c650, dispatch_local_2c660", "source": "src/eng1/behavioral/host_wrappers.c"},
-    {"name": "resource_provider", "source": "calibration/resource_provider.c"},
-    {"name": "resource_destroy", "source": "calibration/resource_destroy.c"},
-    {"name": "dispatch_local_050d0", "source": "src/eng1/behavioral/frame_commands.c"}
+    {
+      "name": "g_actor_resources",
+      "source": "calibration/resource_data.c",
+      "note": "81 records; 20-byte stride; see evidence/resource_writer_layout.json"
+    },
+    {
+      "name": "g_root_count_70ed2",
+      "source": "src/eng1/behavioral/resource_data.c"
+    },
+    {
+      "name": "g_header_byte_70ecd",
+      "source": "src/eng1/behavioral/resource_data.c"
+    },
+    {
+      "name": "g_frame_upload_pending_6ee7c",
+      "source": "src/eng1/behavioral/dispatch_storage.c"
+    },
+    {
+      "name": "g_normal_actor_pool, g_middle_actor_pool, g_alternate_actor_pool",
+      "source": "src/eng1/behavioral/actor_storage.c"
+    },
+    {
+      "name": "g_dispatch_frame_current_71ec4, g_dispatch_frame_base_71ec8, g_configuration_word_713a0, g_configuration_word_713a8, g_configuration_word_713b6",
+      "source": "src/eng1/behavioral/frame_data.c"
+    },
+    {
+      "name": "engine_pool_allocate",
+      "source": "calibration/engine_file_bridge.c"
+    },
+    {
+      "name": "dispatch_engine_2c2d0",
+      "source": "calibration/frame_lifecycle_bridges.c"
+    },
+    {
+      "name": "dispatch_engine_2c420, dispatch_engine_2c630",
+      "source": "calibration/dispatcher_bridges.c"
+    },
+    {
+      "name": "dispatch_local_2c650, dispatch_local_2c660",
+      "source": "src/eng1/behavioral/host_wrappers.c"
+    },
+    {
+      "name": "resource_provider",
+      "source": "calibration/resource_provider.c"
+    },
+    {
+      "name": "resource_destroy",
+      "source": "calibration/resource_destroy.c"
+    },
+    {
+      "name": "dispatch_local_050d0",
+      "source": "src/eng1/behavioral/frame_commands.c"
+    }
   ],
   "unprovided_data_cells": [
-    {"name": "g_resource_leaf_buffer_70c58", "address": "0x70c58", "shape": "pointer cell"},
-    {"name": "g_resource_scan_cursor_6ee74", "address": "0x6ee74"},
-    {"name": "g_resource_transition_ticks_6efb0", "address": "0x6efb0"},
-    {"name": "g_frame_upload_cursor_6ee78", "address": "0x6ee78"},
-    {"name": "g_frame_owner_list_73490", "address": "0x73490"},
-    {"name": "g_frame_resource_list_734e4", "address": "0x734e4"},
-    {"name": "g_frame_actor_list_734f8", "address": "0x734f8"},
-    {"name": "g_frame_setup_gate_72868", "address": "0x72868"},
-    {"name": "g_frame_state_70c48", "address": "0x70c48"},
-    {"name": "g_frame_state_70c4c", "address": "0x70c4c"},
-    {"name": "g_frame_setup_word_4d802", "address": "0x4d802"},
-    {"name": "g_frame_setup_word_4d806", "address": "0x4d806"},
-    {"name": "g_frame_callbacks_4d6f8", "address": "0x4d6f8", "shape": "callback table"}
+    {
+      "name": "g_resource_leaf_buffer_70c58",
+      "address": "0x70c58",
+      "shape": "pointer cell"
+    },
+    {
+      "name": "g_resource_scan_cursor_6ee74",
+      "address": "0x6ee74"
+    },
+    {
+      "name": "g_resource_transition_ticks_6efb0",
+      "address": "0x6efb0"
+    },
+    {
+      "name": "g_frame_upload_cursor_6ee78",
+      "address": "0x6ee78"
+    },
+    {
+      "name": "g_frame_owner_list_73490",
+      "address": "0x73490"
+    },
+    {
+      "name": "g_frame_resource_list_734e4",
+      "address": "0x734e4"
+    },
+    {
+      "name": "g_frame_actor_list_734f8",
+      "address": "0x734f8"
+    },
+    {
+      "name": "g_frame_setup_gate_72868",
+      "address": "0x72868"
+    },
+    {
+      "name": "g_frame_state_70c48",
+      "address": "0x70c48"
+    },
+    {
+      "name": "g_frame_state_70c4c",
+      "address": "0x70c4c"
+    },
+    {
+      "name": "g_frame_setup_word_4d802",
+      "address": "0x4d802"
+    },
+    {
+      "name": "g_frame_setup_word_4d806",
+      "address": "0x4d806"
+    },
+    {
+      "name": "g_frame_callbacks_4d6f8",
+      "address": "0x4d6f8",
+      "shape": "callback table"
+    }
   ],
   "unprovided_target_helpers": [
-    {"rva": "0x2290", "users": ["0x2180"]},
-    {"rva": "0x2400", "users": ["0x2180"]},
-    {"rva": "0x2430", "users": ["0x2180"]},
-    {"rva": "0x3910", "users": ["0x3270"]},
-    {"rva": "0x2c290", "users": ["0x3270"]},
-    {"rva": "0x39b0", "users": ["0x3270"]},
-    {"rva": "0x33e0", "users": ["0x3270"]},
-    {"rva": "0x4ca0", "users": ["0x3270"]},
-    {"rva": "0x5370", "users": ["0x3a50"]},
-    {"rva": "0x31330", "users": ["0x3a50"]},
-    {"rva": "0x27a0", "users": ["0x3a50"]},
-    {"rva": "0x3cd0", "users": ["0x3a50"]},
-    {"rva": "0x320d0", "users": ["0x3a50"]},
-    {"rva": "0x3bd0", "users": ["0x3a50"]}
+    {
+      "rva": "0x2290",
+      "users": [
+        "0x2180"
+      ]
+    },
+    {
+      "rva": "0x2400",
+      "users": [
+        "0x2180"
+      ]
+    },
+    {
+      "rva": "0x2430",
+      "users": [
+        "0x2180"
+      ]
+    },
+    {
+      "rva": "0x3910",
+      "users": [
+        "0x3270"
+      ]
+    },
+    {
+      "rva": "0x2c290",
+      "users": [
+        "0x3270"
+      ]
+    },
+    {
+      "rva": "0x39b0",
+      "users": [
+        "0x3270"
+      ]
+    },
+    {
+      "rva": "0x33e0",
+      "users": [
+        "0x3270"
+      ]
+    },
+    {
+      "rva": "0x4ca0",
+      "users": [
+        "0x3270"
+      ]
+    },
+    {
+      "rva": "0x5370",
+      "users": [
+        "0x3a50"
+      ]
+    },
+    {
+      "rva": "0x31330",
+      "users": [
+        "0x3a50"
+      ]
+    },
+    {
+      "rva": "0x27a0",
+      "users": [
+        "0x3a50"
+      ]
+    },
+    {
+      "rva": "0x3cd0",
+      "users": [
+        "0x3a50"
+      ]
+    },
+    {
+      "rva": "0x320d0",
+      "users": [
+        "0x3a50"
+      ]
+    },
+    {
+      "rva": "0x3bd0",
+      "users": [
+        "0x3a50"
+      ]
+    }
   ],
-  "acceptance": "Fresh compilation under the pinned VC5 RTM toolchain only; no function equality or behavioral acceptance. The 0x3270 caller and 0x4ca0 argument identities were separately inspected; broader runtime behavior remains untested."
+  "acceptance": "Fresh compilation under the pinned VC5 RTM toolchain only; no function equality or behavioral acceptance. The 0x3270 caller and 0x4ca0 argument identities were separately inspected; broader runtime behavior remains untested.",
+  "current_034d0_correction": {
+    "source": "src/eng1/behavioral/level_loading.c",
+    "source_sha256": "5763da0f232bfc7692d5ba8f91290fcf839982278ea5173990354eba9212a593",
+    "contract": "Rows1..80 use residency_stateWORD+10, not entry_countWORD+4. Destroy states4/7; old7 becomes6 after destruction. Counts untouched.",
+    "evidence": "evidence/eng1_descriptor_resource_scan.json",
+    "proof": "54 finite original-x86 checks with real sourcecancel/destroy and exact cleanup extraction. Superseded source/mismatch retained in that receipt; no FUNCTION_MATCH promotion."
+  }
 }

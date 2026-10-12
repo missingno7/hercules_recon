@@ -1,0 +1,268 @@
+{
+  "scope": "Finite scratch differential of unpatched native ENG1 0x3910 versus corrected source, with actual existing native/source resource_cancel, resource_destroy and 0x34d0 cleanup bodies. Original DLL execution is confined to this fixture; no original-code dispatch is added to replacement ENG1.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "rva": "0x3910",
+    "indexed_body_bytes": 145,
+    "body_sha256": "67deffa9932f8952cab55ad8a79c5d5adff5446fbbf29c2fc5e19002c8578f70",
+    "list_scan_disassembly": [
+      {
+        "rva": "0x393c",
+        "mnemonic": "mov",
+        "operands": "ecx, dword ptr [esp + 0x18]"
+      },
+      {
+        "rva": "0x3940",
+        "mnemonic": "and",
+        "operands": "ecx, 0xff"
+      },
+      {
+        "rva": "0x3946",
+        "mnemonic": "cmp",
+        "operands": "esi, ecx"
+      },
+      {
+        "rva": "0x3948",
+        "mnemonic": "je",
+        "operands": "0x1000398b"
+      },
+      {
+        "rva": "0x394a",
+        "mnemonic": "mov",
+        "operands": "cl, byte ptr [eax]"
+      },
+      {
+        "rva": "0x394c",
+        "mnemonic": "inc",
+        "operands": "eax"
+      },
+      {
+        "rva": "0x394d",
+        "mnemonic": "cmp",
+        "operands": "cl, 0xff"
+      },
+      {
+        "rva": "0x3950",
+        "mnemonic": "mov",
+        "operands": "byte ptr [esp + 0x18], cl"
+      },
+      {
+        "rva": "0x3954",
+        "mnemonic": "jne",
+        "operands": "0x1000393c"
+      }
+    ],
+    "cleanup_0x34d0_disassembly": [
+      {
+        "rva": "0x34d0",
+        "mnemonic": "push",
+        "operands": "ebx"
+      },
+      {
+        "rva": "0x34d1",
+        "mnemonic": "push",
+        "operands": "esi"
+      },
+      {
+        "rva": "0x34d2",
+        "mnemonic": "push",
+        "operands": "edi"
+      },
+      {
+        "rva": "0x34d3",
+        "mnemonic": "mov",
+        "operands": "ebx, 1"
+      },
+      {
+        "rva": "0x34d8",
+        "mnemonic": "mov",
+        "operands": "edi, 0x1005cf04"
+      },
+      {
+        "rva": "0x34dd",
+        "mnemonic": "xor",
+        "operands": "esi, esi"
+      },
+      {
+        "rva": "0x34df",
+        "mnemonic": "mov",
+        "operands": "si, word ptr [edi]"
+      },
+      {
+        "rva": "0x34e2",
+        "mnemonic": "cmp",
+        "operands": "esi, 4"
+      },
+      {
+        "rva": "0x34e5",
+        "mnemonic": "jne",
+        "operands": "0x100034f0"
+      },
+      {
+        "rva": "0x34e7",
+        "mnemonic": "push",
+        "operands": "ebx"
+      },
+      {
+        "rva": "0x34e8",
+        "mnemonic": "call",
+        "operands": "0x100038d0"
+      },
+      {
+        "rva": "0x34ed",
+        "mnemonic": "add",
+        "operands": "esp, 4"
+      },
+      {
+        "rva": "0x34f0",
+        "mnemonic": "cmp",
+        "operands": "esi, 7"
+      },
+      {
+        "rva": "0x34f3",
+        "mnemonic": "jne",
+        "operands": "0x10003503"
+      },
+      {
+        "rva": "0x34f5",
+        "mnemonic": "push",
+        "operands": "ebx"
+      },
+      {
+        "rva": "0x34f6",
+        "mnemonic": "call",
+        "operands": "0x100038d0"
+      },
+      {
+        "rva": "0x34fb",
+        "mnemonic": "add",
+        "operands": "esp, 4"
+      },
+      {
+        "rva": "0x34fe",
+        "mnemonic": "mov",
+        "operands": "word ptr [edi], 6"
+      },
+      {
+        "rva": "0x3503",
+        "mnemonic": "add",
+        "operands": "edi, 0x14"
+      },
+      {
+        "rva": "0x3506",
+        "mnemonic": "inc",
+        "operands": "ebx"
+      },
+      {
+        "rva": "0x3507",
+        "mnemonic": "cmp",
+        "operands": "edi, 0x1005d544"
+      },
+      {
+        "rva": "0x350d",
+        "mnemonic": "jl",
+        "operands": "0x100034dd"
+      },
+      {
+        "rva": "0x350f",
+        "mnemonic": "pop",
+        "operands": "edi"
+      },
+      {
+        "rva": "0x3510",
+        "mnemonic": "pop",
+        "operands": "esi"
+      },
+      {
+        "rva": "0x3511",
+        "mnemonic": "pop",
+        "operands": "ebx"
+      },
+      {
+        "rva": "0x3512",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    ],
+    "descriptor_prefix_evidence": {
+      "0x4fec0": "557 readable bytes through first 0xff at +0x22c (audit sibling report; prefix only)",
+      "0x50d88": "167 readable bytes through first 0xff at +0xa6 (audit sibling report; prefix only)",
+      "startup_first_list": "0x4f350; 16-byte source header and observed sentinel at +3"
+    }
+  },
+  "providers": {
+    "candidate": "candidates/eng1_descriptor_loader_3910/resource_scan_corrected.c",
+    "native_table": "ENG1.DLL + 0x5cee0 (81 rows, stride 0x14)",
+    "native_host_interface": "ENG1.DLL + 0x70f20 (context +4, cancel +0x24, free +0x40)",
+    "source_cancel": "calibration/resource_callbacks.c::resource_cancel",
+    "source_destroy": "calibration/resource_destroy.c::resource_destroy",
+    "source_cleanup": "src/eng1/behavioral/level_loading.c::dispatch_local_034d0",
+    "isolated_cleanup_provider": "work/eng1_behavioral/differential/descriptor_loader_3910/cleanup_034d0_provider.c; extracted with scripts/refinery_forms.py::function_text",
+    "cleanup_function_source_sha256": "5be4ee18d9ed1311750c8387a8ea5bdb6463bbf1af7d2302d66f0f3b0432c108",
+    "cleanup_function_extraction_exact": true,
+    "source_interfaces": "calibration/engine_interface_storage.c plus engine_file_bridge.c/frame_lifecycle_bridges.c",
+    "fixture_host_callbacks": "Only the host cancellation/free interface endpoints are spies; native and source resource/cleanup bodies are executed and their mutations compared."
+  },
+  "negative_experiment": {
+    "prior_report": "work/eng1_descriptor_loader_3910/report.json",
+    "prior_report_sha256": "8c9f3753b36fcfc2d1c72129f067aabb03bce1e59c47efc772175ed86b18d397",
+    "prior_candidate_sha256": "c308c8bf6351a38abe9a5eaf116b16f9f879686874852e4d3dcaebe997bbb4e4",
+    "prior_fixture_sha256": "8c829404f6a993450364947e795409b83ef20547dc6752063d3c9cc937f237ed",
+    "prior_runner_sha256": "f43be6d8eb3a09e1d6cfed501c5c1ce150f3b39cc414bfe10e7ded678f623086",
+    "prior_fixture_result": "PASS",
+    "blind_spot": "The old fixture included the assertion 'tail bytes do not exclude row 4'. Native 0x3910 reloads and compares each tail byte at the 0x394a read / 0x3954 backedge, so the assertion tested its own first-byte-only model instead of differential behavior.",
+    "status": "FALSIFIED_BY_NATIVE_LOOP_EVIDENCE"
+  },
+  "cleanup_dependency_correction": {
+    "native": "0x34d0 starts at the row-1 residency-state word (+0x10), destroys state 4 or 7, and changes state 7 to 6 after destroy.",
+    "current_source": "The exact extracted dispatch_local_034d0 body checks residency_state and restores 6 after destroying state 7; entry_count is not a cleanup selector.",
+    "finite_witness": "state-count-independent-cleanup pairs states 4/7 with counts 7/4/0, includes four real buffer frees, and compares all 81 complete rows, context bytes, callback order, counts and arguments.",
+    "superseded_mismatch_receipt": {
+      "path": "work/eng1_behavioral/differential/descriptor_loader_3910/attempt_exact_cleanup_contract_mismatch.json",
+      "sha256": "43097ddac36e6ad465f605be9b9e71d1e7da972d7dec6b9dafea9ab7c3092f76",
+      "source_sha256": "bd16905af841b49869dc91d02cf89e9ed96363e1a2c865afb07fdc477f42133a",
+      "disposition": "Preserved pre-correction mismatch; current canonical level_loading.c and exact extracted body have different hashes and are tested below."
+    },
+    "implication": "The corrected 0x3910 candidate and current exact 0x34d0 source body pass the tested behavioral cases; prior mismatch evidence remains preserved as historical evidence for the superseded source body."
+  },
+  "private_receipt_sha256": "7bacce151f2534043c71c58097d7cea43bda200627c64e9a8f9d914fe7dda43d",
+  "source": "src/eng1/behavioral/descriptor_resource_scan.c",
+  "source_sha256": "766d44e49f5d74f41eff5ff93138dd069577d0114917737bbd1efa84dcf22a30",
+  "fixture": "tests/eng1_descriptor_resource_differential.c",
+  "private_checks": "eng1_03910_native_diff checks=54 failures=0\n",
+  "confidence": "Finite original-x86 differential plus generated-tail-loop inspection; no exact function or universal behavior claim.",
+  "limits": "Owned byte-prefix gates remain actual production guards. Differential uses guard-count spy only for valid local lists. Existing cleanup body is copied verbatim into a different fixture TU and verified before compilation; production uses whole level_loading.c.",
+  "canonical_differential": {
+    "report_sha256": "538e144fca5637595708b52afccca8a3a4381c2bf917dedae2337108a483041d",
+    "result": "PASS",
+    "inputs_unchanged": true,
+    "inputs": {
+      "calibration/engine_interface_storage.c": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5",
+      "calibration/resource_destroy.c": "47a83ab2e3e5c935567920a17d6008e3537143659430e2dc5e3c5d8cb2ad063e",
+      "work/eng1_behavioral/differential/descriptor_resource/cleanup_provider.c": "7c8d6c862d2700390bc10a1c80d567ffb82a60339b5f2c9cd14985e9070e692d",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "scripts/eng1_descriptor_resource_differential.py": "11704421642195dfdc35aae732b4989c9c0f0cc90e8aa04e40c906ef816aaa60",
+      "src/eng1/behavioral/resource_data.c": "43d3b7dba919a3ee1b1577dadb602e49e2e14816cd418d3fb931197d54ca96a2",
+      "src/eng1/behavioral/level_loading.c": "5763da0f232bfc7692d5ba8f91290fcf839982278ea5173990354eba9212a593",
+      "calibration/engine_file_bridge.c": "0860ba3c4e242f3810bdbb15d1f70bfbf266b48b96715b3ba3c56f3ef96a62c2",
+      "calibration/frame_lifecycle_bridges.c": "e30a744a75c6a72cafe9f62bc2a62ac9390526ac26d00fc8fe0199e5e3727aa9",
+      "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+      "src/eng1/behavioral/initial_read_guards.h": "fef649b0da4ff2b90b9bba2cd36a08e0e6f837e80584d9a52b909478f3ea2f9e",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "tests/eng1_descriptor_resource_differential.c": "e1e0da4e136e922f6c0304b166dc24efcb5ad35d04d8ab4625bd92c838483a20",
+      "calibration/resource_callbacks.c": "fb6ebb809cfaf05fb9d477ee73b813ac7b06fcf0cd99fd3f5d77a8d6187eaa4f",
+      "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "src/eng1/behavioral/descriptor_resource_scan.c": "766d44e49f5d74f41eff5ff93138dd069577d0114917737bbd1efa84dcf22a30",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "calibration/resource_data.c": "f9c92023152194164535fa33ca7a7e2e82726897ed56b9c5dba7475f25ed1d47",
+      "calibration/frame_lifecycle_bridges.h": "c4dd6d415988c01f143b7868ebcedaf64756d05b4d57553fc2c43d7ce66aec3e"
+    },
+    "reproduce": "python scripts/eng1_descriptor_resource_differential.py",
+    "checks": 54,
+    "failures": 0,
+    "stdout": "eng1_03910_native_diff checks=54 failures=0\n",
+    "scope": "Four seeded unpatched3910 differential scenarios; real cancel/destroy/cleanup source effects,81full rows and context plus callback order/args. Host endpoints and valid-list guard counting are test spies; no gameplay or universal equality claim."
+  }
+}

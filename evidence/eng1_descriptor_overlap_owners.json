@@ -1,0 +1,191 @@
+{
+  "schema": 1,
+  "scope": "Canonical single physical owners for two overlapping resource-list/animation prefixes; typed member RVAs preserved, no original declaration/layout claim.",
+  "proof": "work/eng1_behavioral/link_symbol_audit/resource_overlap_owner_proof.json",
+  "source_view_header_sketch": "work/eng1_behavioral/link_symbol_audit/resource_overlap_owners.h",
+  "fresh_compile_check": "python work/eng1_behavioral/link_symbol_audit/resource_overlap_owner_proof.py",
+  "shared_header_integration": {
+    "suggested_path": "src/eng1/behavioral/resource_overlap_owners.h",
+    "type_dependency": "include frame_programs.h and reuse its Eng1CommandPair definition",
+    "consumers": [
+      "row2_actor_frames.h includes the shared owner header and removes its standalone extern declaration for g_eng1_row2_actor_pair_0500e8; the macro alias exposes the typed owner member.",
+      "frame_data_config_word_aliases.inc includes the shared owner header and removes its standalone extern declaration for g_eng1_config_word_pool_50e20; keep every eng1_frame_target_050e20/... offset macro unchanged.",
+      "initial_unreadable_identities.h includes the shared owner header and maps the two legacy identity lvalues to element zero of each owner byte view."
+    ],
+    "owner_definitions": [
+      "Replace the standalone pair definition at RVA 0x500e8 in row2_actor_frames.c with the 560-byte owner definition at RVA 0x4fec0; retain the pair initializer as its typed tail member.",
+      "Replace the standalone WORD pool definition at RVA 0x50e20 in frame_data_config_word_pool_50e20.c with the 470-byte owner definition at RVA 0x50d88; retain all 159 WORD initializers as its typed tail member."
+    ]
+  },
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "owner_graph": [
+    {
+      "source_tu": "src/eng1/behavioral/row2_actor_frames.c",
+      "new_public_owner_symbol": "_g_eng1_resource_owner_04fec0",
+      "new_manifest_field": {
+        "rva": "0x4fec0",
+        "size": 560,
+        "scope": "prefix"
+      },
+      "layout": [
+        {
+          "member": "prefix_04fec0_to_0500e8",
+          "type": "unsigned char[552]",
+          "offset": 0,
+          "rva": "0x4fec0"
+        },
+        {
+          "member": "row2_actor_pair_0500e8",
+          "type": "Eng1CommandPair[2]",
+          "offset": 552,
+          "rva": "0x500e8",
+          "size": 8
+        }
+      ],
+      "list_view": {
+        "base_rva": "0x4fec0",
+        "read_guard_bytes": 557,
+        "first_ff_offset": 556,
+        "first_ff_rva": "0x500ec"
+      },
+      "replace_existing_field": "_g_eng1_row2_actor_pair_0500e8 at 0x500e8 size 8",
+      "source_macro_view": "#define g_eng1_row2_actor_pair_0500e8 (g_eng1_resource_owner_04fec0.row2_actor_pair_0500e8)",
+      "old_typed_pair_bytes": "65 00 e7 03 ff ff 00 00"
+    },
+    {
+      "source_tu": "src/eng1/behavioral/frame_data_config_word_pool_50e20.c",
+      "new_public_owner_symbol": "_g_eng1_resource_owner_050d88",
+      "new_manifest_field": {
+        "rva": "0x50d88",
+        "size": 470,
+        "scope": "prefix"
+      },
+      "layout": [
+        {
+          "member": "prefix_050d88_to_050e20",
+          "type": "unsigned char[152]",
+          "offset": 0,
+          "rva": "0x50d88"
+        },
+        {
+          "member": "config_word_pool_50e20",
+          "type": "unsigned short[159]",
+          "offset": 152,
+          "rva": "0x50e20",
+          "size": 318
+        }
+      ],
+      "list_view": {
+        "base_rva": "0x50d88",
+        "read_guard_bytes": 167,
+        "first_ff_offset": 166,
+        "first_ff_rva": "0x50e2e"
+      },
+      "replace_existing_field": "_g_eng1_config_word_pool_50e20 at 0x50e20 size 318",
+      "source_macro_view": "#define g_eng1_config_word_pool_50e20 (g_eng1_resource_owner_050d88.config_word_pool_50e20)",
+      "existing_alias_preservation": "Keep every eng1_frame_target_050e20/... macro and its WORD index unchanged; retarget only the base pool expression to the typed owner member."
+    }
+  ],
+  "identity_provider_cleanup": {
+    "source": "src/eng1/behavioral/initial_unreadable_identities.c",
+    "remove_duplicate_objects": [
+      "g_eng1_unreadable_initialized_identity_04fec0",
+      "g_eng1_unreadable_initialized_identity_050d88"
+    ],
+    "retain_object": "g_eng1_unreadable_initialized_identity_065750",
+    "header_lvalue_aliases": {
+      "g_eng1_unreadable_initialized_identity_04fec0": "eng1_resource_byte_list_04fec0[0]",
+      "g_eng1_unreadable_initialized_identity_050d88": "eng1_resource_byte_list_050d88[0]"
+    },
+    "list_base_expressions": {
+      "eng1_resource_byte_list_04fec0": "(unsigned char *)&g_eng1_resource_owner_04fec0",
+      "eng1_resource_byte_list_050d88": "(unsigned char *)&g_eng1_resource_owner_050d88"
+    },
+    "read_guard_limits": [
+      {
+        "base": "eng1_resource_byte_list_04fec0",
+        "original_rva": "0x4fec0",
+        "bytes": 557
+      },
+      {
+        "base": "eng1_resource_byte_list_050d88",
+        "original_rva": "0x50d88",
+        "bytes": 167
+      },
+      {
+        "base": "&g_eng1_descriptor_payload_4f350.header_04f350[0]",
+        "original_rva": "0x4f350",
+        "bytes": 16
+      }
+    ]
+  },
+  "manifest_field_changes": [
+    "In the row2_actor_frames.c provider replace _g_eng1_row2_actor_pair_0500e8 (0x500e8,8) with _g_eng1_resource_owner_04fec0 (0x4fec0,560).",
+    "In the frame_data_config_word_pool_50e20.c provider replace _g_eng1_config_word_pool_50e20 (0x50e20,318) with _g_eng1_resource_owner_050d88 (0x50d88,470).",
+    "In the initial_unreadable_identities.c provider remove the 0x4fec0 and 0x50d88 one-byte fields, retaining the 0x65750 field.",
+    "Refresh source SHA-256 values and evidence/input hashes after integrator edits; do not register overlapping alias fields."
+  ],
+  "evidence_updates": [
+    "Update evidence/eng1_row2_actor_frames.json so the measured 0x4fec0-to-0x500f0 owner contains the existing typed pair member at offset 0x228; remove the obsolete standalone pair object field.",
+    "Update evidence/eng1_config_tables.json so the measured 0x50d88-to-0x50f5e owner contains the existing WORD pool member at offset 0x98; preserve the 159 native WORD values and all interior alias RVAs.",
+    "Revise evidence/eng1_initial_unreadable_identities.json to describe these roots as reader prefixes or move the prefix facts to the owners' evidence; keep first-FF byte limits distinct from aggregate extents."
+  ],
+  "measured_object_results": [
+    {
+      "rva": "0x4fec0",
+      "size": 560,
+      "sha256": "c7e3a393df851fb2fd15d72d0bb7820cfeb6d79b6615c121b3de07cbe2bde997",
+      "member_rva": "0x500e8",
+      "member_offset": 552,
+      "native_equal": true,
+      "relocations": 0
+    },
+    {
+      "rva": "0x50d88",
+      "size": 470,
+      "sha256": "dc927827a46e60ab3a840c42e886376d39c4207707bd1bf97918ddc65b61712d",
+      "member_rva": "0x50e20",
+      "member_offset": 152,
+      "native_equal": true,
+      "relocations": 0
+    }
+  ],
+  "limitations": [
+    "Prefix guard extents 557/167 end at the first 0xff, inclusive; aggregate extents 560/470 cover the adjacent already-owned typed views.",
+    "The candidate proves bytes, struct offsets, and type-view widths under the pinned compiler; it does not prove historical source declarations, TU ownership, native placement, or full module equality."
+  ],
+  "private_proof_sha256": "8e1f8166fc2d4874f1d365a07c79de3821c216a2dfe00e8c9735678dbcf7e3aa",
+  "source_fields": [
+    {
+      "symbol": "_g_eng1_resource_owner_04fec0",
+      "rva": "0x4fec0",
+      "aggregate_size": 560,
+      "compiled_native_equal": true,
+      "aggregate_sha256": "c7e3a393df851fb2fd15d72d0bb7820cfeb6d79b6615c121b3de07cbe2bde997",
+      "coff_relocations": 0,
+      "typed_member_rva": "0x500e8",
+      "typed_member_offset": "0x228",
+      "list_prefix_size": 557,
+      "list_prefix_sha256": "c1a3045d350781054e64a0d43716bac03ca78dfb75562f434f933ce5493bec57"
+    },
+    {
+      "symbol": "_g_eng1_resource_owner_050d88",
+      "rva": "0x50d88",
+      "aggregate_size": 470,
+      "compiled_native_equal": true,
+      "aggregate_sha256": "dc927827a46e60ab3a840c42e886376d39c4207707bd1bf97918ddc65b61712d",
+      "coff_relocations": 0,
+      "typed_member_rva": "0x50e20",
+      "typed_member_offset": "0x98",
+      "list_prefix_size": 167,
+      "list_prefix_sha256": "4eaeb45104bedddefad371ee97006cd1e5138caa689f7ddc9ff3da328102c31e"
+    }
+  ],
+  "alias_tests": "tests/eng1_initial_read_guards.c; full native data/relocation verifier",
+  "canonical_validation": {
+    "result": "PASS",
+    "verifier": "python scripts/eng1_data_evidence.py",
+    "source_guard_fixture": "tests/eng1_initial_read_guards.c",
+    "scope": "Root full-provider verification confirms bytes, relocation targets and no overlapping physical owners. Descriptor lists and animation aliases use the same storage. No complete original array extent or gameplay claim."
+  }
+}

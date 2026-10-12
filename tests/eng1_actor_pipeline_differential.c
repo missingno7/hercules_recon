@@ -66,9 +66,9 @@ void __cdecl reset_middle_actor_pool(void){++unexpected_calls;}
 void __cdecl reset_normal_actor_pool(void){++unexpected_calls;}
 unsigned short __cdecl eng1_call_2a880(ActorPipelineView *p,void *q,unsigned long n)
 {(void)p;(void)q;(void)n;++unexpected_calls;return 0;}
-void __cdecl eng1_call_27c40(void *p,unsigned long n){(void)p;(void)n;++unexpected_calls;}
-void __cdecl eng1_call_27720(void *p,unsigned long n){(void)p;(void)n;++unexpected_calls;}
-void __cdecl eng1_call_270c0(void *p,unsigned long n){(void)p;(void)n;++unexpected_calls;}
+ActorCore *__cdecl eng1_call_27c40(Eng1ForestRecord20 *p,unsigned long n){(void)p;(void)n;++unexpected_calls;return 0;}
+ActorMiddle *__cdecl eng1_call_27720(Eng1ForestRecord20 *p,unsigned long n){(void)p;(void)n;++unexpected_calls;return 0;}
+ActorNormal *__cdecl eng1_call_270c0(Eng1ForestRecord20 *p,unsigned long n){(void)p;(void)n;++unexpected_calls;return 0;}
 
 typedef struct SectionSnapshot {unsigned long rva,size,flags;unsigned char *initial,*before;} SectionSnapshot;
 static SectionSnapshot sections[16];static int section_count;
