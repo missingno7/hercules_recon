@@ -1,3 +1,5 @@
+#include "resource_runtime_data.h"
+#include "incomplete.h"
 #include "spatial_read_guard.h"
 /*
  * Private ordinary-C behavioral candidate for the native ENG1 callback family.
@@ -133,7 +135,7 @@ extern int __cdecl eng1_native_dep_02aa30(void *, int, int);
 /* Existing source providers: the ABI follows their compiled C interfaces. */
 extern void __cdecl advance_frame(void *);
 extern void __cdecl restart_steps(void *);
-extern void __cdecl apply_frame_motion_3d(void *);
+extern void __cdecl eng1_guarded_apply_frame_motion_3d(void *);
 extern void __cdecl select_frame(void *, int);
 extern int __cdecl remove_actor(void *);
 extern int __cdecl remove_actor_variant(void *);
@@ -145,7 +147,7 @@ extern unsigned short eng1_native_cell_0716a8;
 extern unsigned long eng1_native_cell_071718;
 extern unsigned short *eng1_native_ptr_0713bc;
 extern unsigned short *eng1_native_ptr_071714;
-extern unsigned long *eng1_native_table_06fee8;
+/* 6fee8 is the inline ResourceKindInfo row owner, not a pointer cell. */
 extern const long *eng1_native_ptr_0734f4;
 
 static long add_bits(long a, unsigned long b)
@@ -391,7 +393,7 @@ void __cdecl eng1_native_code_target_00f4f0(SpatialTaskView *p)
         eng1_native_dep_02a290(p);
     } else {
         eng1_native_dep_0283e0(p);
-        apply_frame_motion_3d(p);
+        eng1_guarded_apply_frame_motion_3d(p);
         plane = ((unsigned long)add_bits(p->z, 0x400000UL)) & 0x0f800000UL;
         selector = p->word_02a;
         if (selector == 1 || selector == 11) {
@@ -450,9 +452,12 @@ void __cdecl eng1_native_code_target_00f4f0(SpatialTaskView *p)
     if (p->y > 0x04f00000L) {
         if (p->pointer_058 != 0) {
             unsigned short index = p->word_038;
-            unsigned long offset = eng1_native_table_06fee8[(unsigned long)index * 2];
-            unsigned short *record = (unsigned short *)
-                ((unsigned char *)p->pointer_058 + offset + 0x0c);
+            unsigned long offset;
+            unsigned short *record;
+            if (index >= 1)
+                eng1_incomplete_behavior(0x6fee8UL, "spatial callback kind index outside measured one-row prefix");
+            offset = (unsigned long)g_kind_info[index].owner;
+            record = (unsigned short *)((unsigned long)p->pointer_058 + offset + 0x0cUL);
             *record &= 0xfeff;
         }
         remove_actor(p);

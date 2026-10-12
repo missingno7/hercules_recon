@@ -1,3 +1,4 @@
+#include "initial_read_guards.h"
 /*
  * Private ordinary-C reconstruction of the ENG1 frame token setup chain.
  *
@@ -55,6 +56,7 @@ void __cdecl dispatch_local_05780(const unsigned short *source,
     unsigned short *destination;
     unsigned long index;
 
+    eng1_guard_initial_palette(source, word_count, "frame token palette copy");
     destination = (unsigned short *)((unsigned char *)g_frame_owner_7348c +
                                      slot * 0x200UL);
     if (word_count == 0x100UL) {

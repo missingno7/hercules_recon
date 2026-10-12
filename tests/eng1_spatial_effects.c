@@ -1,6 +1,16 @@
+#include "../src/eng1/behavioral/resource_runtime_data.h"
 /* Bounded callback-spy fixture. Helpers here are test spies, not production providers. */
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+
+/* The 2D wrapper is linked but outside the spatial-effect fixture's scope. */
+void __cdecl apply_frame_motion_2d(void *pointer)
+{
+    (void)pointer;
+    fputs("unexpected 2D motion in spatial effect fixture\n",stderr);
+    exit(94);
+}
 
 extern void __cdecl eng1_native_code_target_00f0a0(void *);
 extern void __cdecl eng1_native_code_target_00f180(void *);
@@ -21,7 +31,7 @@ unsigned short eng1_words_071714[512];
 unsigned long eng1_offsets_06fee8[256];
 unsigned short *eng1_native_ptr_0713bc = eng1_words_0713bc;
 unsigned short *eng1_native_ptr_071714 = eng1_words_071714;
-unsigned long *eng1_native_table_06fee8 = eng1_offsets_06fee8;
+ResourceKindInfo g_kind_info[1];
 long eng1_anchor_0734f4;
 const long *eng1_native_ptr_0734f4 = &eng1_anchor_0734f4;
 
@@ -494,6 +504,21 @@ int main(void)
     REQUIRE(get16(&p, 0x72) == 0x200);
     expected[0] = 14; expected[1] = 19;
     REQUIRE(expect_calls(expected, 2));
+
+    /* The native inline row supplies owner bits, while actor+58 is a byte offset. */
+    {
+        unsigned short record[16];
+        memset(record, 0xff, sizeof(record));
+        memset(&p, 0, sizeof(p));
+        g_kind_info[0].owner = record;
+        put32(&p, 0x04, 0x05000000UL);
+        put32(&p, 0x58, 4UL);
+        put16(&p, 0x38, 0);
+        reset_calls();
+        eng1_native_code_target_00f4f0(&p);
+        REQUIRE(record[8] == 0xfeffU);
+        REQUIRE(record[7] == 0xffffU && record[9] == 0xffffU);
+    }
 
     puts("bounded spatial/effect callback spies: OK");
     return 0;

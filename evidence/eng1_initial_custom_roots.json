@@ -1,0 +1,82 @@
+{
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "checks": [
+    {
+      "symbol": "_g_eng1_custom_mask_palette_05ebb8",
+      "rva": "0x5ebb8",
+      "size": 56,
+      "scope": "prefix",
+      "storage": "initialized",
+      "type": "DWORD_count4_mask12cells_plus_shared_WORDpalette16",
+      "mask_supported_rows": 3,
+      "palette_view_addend": 24,
+      "palette_prefix_bytes": 32
+    },
+    {
+      "symbol": "_g_eng1_custom_image_05ebf0",
+      "rva": "0x5ebf0",
+      "size": 36,
+      "scope": "prefix",
+      "storage": "initialized",
+      "type": "native02500_mixed_image_header36"
+    },
+    {
+      "symbol": "_g_eng1_zero_word_program_06ef18",
+      "rva": "0x6ef18",
+      "size": 4,
+      "scope": "prefix",
+      "storage": "loader_zero",
+      "type": "WORD_duration_plus_first_opcode",
+      "terminal": null
+    }
+  ],
+  "guards": [
+    {
+      "symbol": "g_eng1_custom_mask_palette_05ebb8",
+      "rva": "0x5ebb8",
+      "bytes": 56,
+      "mask_read_bytes": 52,
+      "site": "02b30 count and mask DWORD reads",
+      "condition": "requested mask rows >3 or complete requested range exceeds52",
+      "reporting": "eng1_incomplete_behavior before continuation; actual source base or shifted member view"
+    },
+    {
+      "symbol": "g_eng1_custom_mask_palette_05ebb8",
+      "rva": "0x5ebd0",
+      "source_expression": "(unsigned short *)&g_eng1_custom_mask_palette_05ebb8.mask_cells[5]",
+      "bytes": 32,
+      "stride": 2,
+      "width": 2,
+      "site": "05780 palette reads;02500->056c0 count256",
+      "condition": "whole512-byte initial palette copy exceeds32-byte prefix; reject before copy starts"
+    },
+    {
+      "symbol": "g_eng1_zero_word_program_06ef18",
+      "rva": "0x6ef18",
+      "bytes": 4,
+      "stride": 2,
+      "width": 2,
+      "site": "28820 signed WORD stream viaD3D0",
+      "condition": "index<0 or index>=2",
+      "reporting": "existing actual-source-pointer program guard"
+    }
+  ],
+  "code_dependencies": [
+    {
+      "symbol": "_eng1_native_code_target_034b40",
+      "rva": "0x34b40"
+    },
+    {
+      "symbol": "_eng1_native_code_target_034bb0",
+      "rva": "0x34bb0"
+    }
+  ],
+  "limits": "Initialized image36-byte and shared mask/palette56-byte readable prefixes only. Palette02500 passes256entries and native05780 would read512bytes, crossing the image and other real owners; fail visibly before that copy. Mask length4*rows only proven for actual initialization rows3, later02b30 row requests beyond three must fail before reading. Loader-zero WORD stream has no native terminal, so laterindex>=2 must diagnose incomplete data; no fabricated terminal/full capacity.",
+  "consumer_proof": {
+    "image": "34c1c->02500 and native offsets2514..25a2. Point callback iteration boundpoints96 at2777; callbacks actual two cdecl arguments.",
+    "mask": "Imagebyte6=3 enters0261d->02b30 argument;02b42 countDWORD4 and02bd7 consumes4DWORDs per row3=12cells,52bytes. PaletteWORD view starts5ebd0=owner+24 and16observedWORDs through5ebf0.",
+    "palette": "02500 at263f pushescount256 into056c0;05780 branch057cb explicitly reads256WORDs.32-byte prefix materially insufficient; no fabricated fill or object overlap.",
+    "WORD_stream": "Configurationrow2flag58 points6ef18; callbackpairD380 invokes29260 resettingactorframe_state0. UpdateD3D0 invokes28820, which incrementscursor before readingopcode1 and defaultduration0; firsttwo actualWORDcells loaderzero. Latercursor capacity unsupported."
+  },
+  "runtime_guard": "src/eng1/behavioral/initial_read_guards.c"
+}

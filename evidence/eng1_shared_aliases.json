@@ -1,0 +1,55 @@
+{
+  "scope": "Measured source-name closure and corrected direct indexed row access. No new function-byte acceptance.",
+  "aliases": [
+    {
+      "old": "eng1_native_code_target_00c720",
+      "provider": "eng1_empty_c720",
+      "rva": "0xc720"
+    },
+    {
+      "old": "eng1_native_dep_006da0",
+      "provider": "play_sound",
+      "rva": "0x6da0"
+    },
+    {
+      "old": "eng1_native_dep_0283e0",
+      "provider": "eng1_interpret_signed_pairs",
+      "rva": "0x283e0"
+    },
+    {
+      "old": "eng1_target_01f9e0",
+      "provider": "dispatch_local_1f9e0",
+      "rva": "0x1f9e0"
+    },
+    {
+      "old": "eng1_target_01fc90",
+      "provider": "dispatch_local_1fc90",
+      "rva": "0x1fc90"
+    },
+    {
+      "old": "eng1_native_ptr_0713bc",
+      "provider": "g_configuration_dword_713bc",
+      "rva": "0x713bc"
+    },
+    {
+      "old": "eng1_native_ptr_0734f4",
+      "provider": "g_frame_global_734f4",
+      "rva": "0x734f4"
+    }
+  ],
+  "native_accesses": [
+    {
+      "rva": "0xf704",
+      "instruction": "mov edi, dword ptr [edx*8 + 0x1006fee8]",
+      "contract": "Direct ResourceKindInfo row owner field, not pointer-to-table cell."
+    },
+    {
+      "rva": "0xe3ea",
+      "instruction": "mov dword ptr [0x10071714], 0x1004dce8",
+      "contract": "Pointer cell at actor pipeline owner+2d4; no independent storage."
+    }
+  ],
+  "limitation": "ResourceKindInfo only has one measured row; all other indices fail before access.",
+  "private_instruction_check_sha256": "d3feaac694916dcce35ba58d72ded6d0bbf9a0fe769d3bda2401ac931453ba02",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+}

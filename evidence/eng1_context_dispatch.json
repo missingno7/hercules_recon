@@ -1,0 +1,19 @@
+{
+  "lane": "eng1_resource_category_dispatch",
+  "family": "context_byte_setup_and_tick_dispatch",
+  "prediction": "The no-argument helpers at 0x1fd20 and 0x1fd90 dispatch on the signed byte at offset 0 of the context reached through the copied ENG1 context pointer at 0x70f24. 0x1fd20 selects targets for values 1, 3, 5, 6, 7, 9, and 11, and 0x1fd90 selects targets for values 1, 5, 6, 7, and 11. Every other selector returns without dispatch.",
+  "falsifier": "A decoded table byte or indirect-table entry disagrees with the exact selector-to-target mapping, an out-of-range value dispatches, or a fixture observes the wrong target/order or unexpected state change.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "limits": [
+    "The context prefix at offset 0 remains an unknown byte array; no selector meaning is asserted.",
+    "Target implementations are explicit external dependencies and are not reconstructed by this family.",
+    "Caller evidence proves no stack arguments and ignores EAX; it does not establish each target's source signature or hidden register protocol.",
+    "The fixture validates dispatch selection only; it is not a native differential, runtime integration test, or FUNCTION_MATCH gate."
+  ],
+  "status": "Adopted plausible source. Native selector-table mapping agrees; canonical source fixture execution is checked independently.",
+  "private_receipt_sha256": "3a2e5757cc20954d610061febe3e4e34b687396170fa33187287dea2f585c05b",
+  "fixture": "tests/eng1_context_dispatch.c"
+}

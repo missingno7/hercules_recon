@@ -1,0 +1,98 @@
+{
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "checks": [
+    {
+      "symbol": "_g_eng1_unreadable_initialized_identity_04fec0",
+      "rva": "0x4fec0",
+      "size": 1,
+      "scope": "prefix",
+      "type": "BYTE_initialized_address_identity_only",
+      "storage": "initialized",
+      "proven_read_bytes": 0,
+      "reason": "Remaining pointer values in descriptor following record4f378; consumers and independent source object extent not yet proven."
+    },
+    {
+      "symbol": "_g_eng1_unreadable_initialized_identity_050d88",
+      "rva": "0x50d88",
+      "size": 1,
+      "scope": "prefix",
+      "type": "BYTE_initialized_address_identity_only",
+      "storage": "initialized",
+      "proven_read_bytes": 0,
+      "reason": "Descriptor4f378 is beyond first measured childrow4f360. Nativechild+8 selects this pointer at subindex1, then03910/03410 BYTEFF-list reads would need a real extent; ownership remains provisional."
+    },
+    {
+      "symbol": "_g_eng1_unreadable_initialized_identity_065750",
+      "rva": "0x65750",
+      "size": 1,
+      "scope": "prefix",
+      "type": "BYTE_initialized_address_identity_only",
+      "storage": "initialized",
+      "proven_read_bytes": 0,
+      "reason": "Row1factoryrecord49->actor118. Actual2cc50 overwrites actorF0 with5c3a0; no current native dereferencing consumer of65750 established."
+    }
+  ],
+  "guards": [
+    {
+      "symbol": "g_eng1_unreadable_initialized_identity_04fec0",
+      "rva": "0x4fec0",
+      "bytes": 1,
+      "proven_read_bytes": 0,
+      "site": "ANY dereference of actual source pointer or forwarded view",
+      "condition": "always reject any read width>0",
+      "reason": "Remaining pointer values in descriptor following record4f378; consumers and independent source object extent not yet proven."
+    },
+    {
+      "symbol": "g_eng1_unreadable_initialized_identity_050d88",
+      "rva": "0x50d88",
+      "bytes": 1,
+      "proven_read_bytes": 0,
+      "site": "ANY dereference of actual source pointer or forwarded view",
+      "condition": "always reject any read width>0",
+      "reason": "Descriptor4f378 is beyond first measured childrow4f360. Nativechild+8 selects this pointer at subindex1, then03910/03410 BYTEFF-list reads would need a real extent; ownership remains provisional."
+    },
+    {
+      "symbol": "g_eng1_unreadable_initialized_identity_065750",
+      "rva": "0x65750",
+      "bytes": 1,
+      "proven_read_bytes": 0,
+      "site": "ANY dereference of actual source pointer or forwarded view",
+      "condition": "always reject any read width>0",
+      "reason": "Row1factoryrecord49->actor118. Actual2cc50 overwrites actorF0 with5c3a0; no current native dereferencing consumer of65750 established."
+    }
+  ],
+  "limits": "Finite motion producer sets cover current reviewed frame prefixes only, not every runtime entry or original capacity. All outside motion reads must diagnose.4fec0/50d88/65750 have one exact initializedBYTE each solely for source-address identity; every dereference forbidden until consumer/source ownership is proven.",
+  "unsupported_roots": [
+    {
+      "symbol": "_g_eng1_unreadable_initialized_identity_04fec0",
+      "rva": "0x4fec0",
+      "size": 1,
+      "scope": "prefix",
+      "type": "BYTE_initialized_address_identity_only",
+      "storage": "initialized",
+      "proven_read_bytes": 0,
+      "reason": "Remaining pointer values in descriptor following record4f378; consumers and independent source object extent not yet proven."
+    },
+    {
+      "symbol": "_g_eng1_unreadable_initialized_identity_050d88",
+      "rva": "0x50d88",
+      "size": 1,
+      "scope": "prefix",
+      "type": "BYTE_initialized_address_identity_only",
+      "storage": "initialized",
+      "proven_read_bytes": 0,
+      "reason": "Descriptor4f378 is beyond first measured childrow4f360. Nativechild+8 selects this pointer at subindex1, then03910/03410 BYTEFF-list reads would need a real extent; ownership remains provisional."
+    },
+    {
+      "symbol": "_g_eng1_unreadable_initialized_identity_065750",
+      "rva": "0x65750",
+      "size": 1,
+      "scope": "prefix",
+      "type": "BYTE_initialized_address_identity_only",
+      "storage": "initialized",
+      "proven_read_bytes": 0,
+      "reason": "Row1factoryrecord49->actor118. Actual2cc50 overwrites actorF0 with5c3a0; no current native dereferencing consumer of65750 established."
+    }
+  ],
+  "runtime_guard": "src/eng1/behavioral/initial_read_guards.c"
+}

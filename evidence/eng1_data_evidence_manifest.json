@@ -10,7 +10,7 @@
     "evidence/actor_pool_layout.json": "13e4b6ea5c268ee49daba9e678d2edd5e8b97fe7c0dac820311996b996e6bd36",
     "evidence/actor_pool_reset_region.json": "0e7dee4128d0a061b335d94c67b73d006f93c0600c395d37acff4c18c2ae7de6",
     "evidence/eng1_actor_storage.json": "9bc63bc5f9d9cda03b66d6ec73cb7f2acc9fd8e95211ef1de595341c767710eb",
-    "evidence/eng1_behavioral_build.json": "46e6c1e7874710c50e2535e907a491b6a371336ce57625699da2c93fdfae2ac9",
+    "evidence/eng1_behavioral_build.json": "645ef16934be3c5aff398515786a1cf3129bc9745eae882acb6b28fb4c962e8d",
     "evidence/eng1_camera.json": "42f52814b488bedabba5bfe41694fb43e7768e8c79457723de1d371eece46ecc",
     "evidence/eng1_descriptor_pointees.json": "2eb5a2f15638cadd140cac7c074758f84735d23cc12a72f7fe76e2a60ed131af",
     "evidence/eng1_dispatch_storage.json": "d0f8a47d6eef3024fa6ef69a20c787ee4bb67376ad579e1e1c1a17397273d272",
@@ -40,12 +40,17 @@
     "evidence/eng1_sine_table.json": "b19caa909e02f32dec2dc4aa975d28bdab2bd0375d96576140a0ea1d881461b8",
     "evidence/eng1_resource_completion.json": "33634e277cc4a4b344bd40c2b6fd79bc163fabf7433f49d5fe3f53a615b18d96",
     "evidence/eng1_cold_runtime_setup.json": "70e4d0c4a736b3415a877d735002c3a159ed1d00929cdd5fae77cdc5589a554a",
-    "evidence/eng1_initial_spatial_roots.json": "1fe6797253910a824477483b50da90269c40226128a113e3cd2b796119060561"
+    "evidence/eng1_initial_spatial_roots.json": "1fe6797253910a824477483b50da90269c40226128a113e3cd2b796119060561",
+    "evidence/eng1_factory_root_reuse.json": "a31306482d4eb8d4343829d1b14fb61f2dc4b2b964d8a48e4c7c241b75d6cdce",
+    "evidence/eng1_initial_custom_roots.json": "c287dc991206834fa38c9ba2326825cdca412a52258188542c548a861cd4f7fe",
+    "evidence/eng1_initial_motion_roots.json": "6b7c8aeae7818283a940206acde3a3d9074e7fc318f641a34c2837f24c660b07",
+    "evidence/eng1_initial_unreadable_identities.json": "e6a6b190a2467914dbf7f8b877a926ff69c78fb54ef2e5e44876f37ba8541398",
+    "evidence/eng1_initial_read_guards.json": "4f83ae3034941e260b1bd6f3e2df003a07c405d1d1dfbbea89c6704a97ea29ba"
   },
   "providers": [
     {
       "source": "src/eng1/behavioral/frame_data.c",
-      "source_sha256": "91903b4b5c1a214a0740a4317369dcafd7377ff0931e34229b81a4ec8f882367",
+      "source_sha256": "87b8e3820a9b45babcd23731d06fe09db950f88872bc53106f0cf52356343fcf",
       "flags": [
         "/O2"
       ],
@@ -58,7 +63,8 @@
         "evidence/frame_bootstrap_family_region.json",
         "evidence/frame_dependency_binding.json",
         "evidence/eng1_behavioral_build.json",
-        "evidence/eng1_config_tables.json"
+        "evidence/eng1_config_tables.json",
+        "evidence/eng1_factory_root_reuse.json"
       ],
       "fields": [
         {
@@ -1030,7 +1036,7 @@
     },
     {
       "source": "src/eng1/behavioral/row0_pointees.c",
-      "source_sha256": "2af3b6efb94126c5218714928c6793a66e7fc9f1b8bf40b2c9601c246f857ebb",
+      "source_sha256": "e13600fc8ad7331a02143c5575a3047c20f001dc5dff7fe3a144df31adcc727e",
       "flags": [
         "/O2"
       ],
@@ -5376,6 +5382,115 @@
           "symbol": "_g_eng1_spatial_identity_0702a8",
           "rva": "0x702a8",
           "size": 10,
+          "scope": "prefix"
+        }
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/initial_custom_roots.c",
+      "source_sha256": "386c860479e87e80b3bd260701fdc1fe3f236bb0d6bda20b2b75236f129e4d21",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_initial_custom_roots.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_g_eng1_custom_mask_palette_05ebb8",
+          "rva": "0x5ebb8",
+          "size": 56,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_custom_image_05ebf0",
+          "rva": "0x5ebf0",
+          "size": 36,
+          "scope": "prefix"
+        }
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/initial_motion_roots.c",
+      "source_sha256": "1f8afaf287e3ce5fe4cc262abb879e259637a3779cfa3c32cc1e64655fc803b7",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_initial_motion_roots.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_g_eng1_initial_motion_0527d0",
+          "rva": "0x527d0",
+          "size": 36,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_initial_motion_05fa20",
+          "rva": "0x5fa20",
+          "size": 42,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_initial_motion_060148",
+          "rva": "0x60148",
+          "size": 90,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_initial_motion_066230",
+          "rva": "0x66230",
+          "size": 6,
+          "scope": "prefix"
+        }
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/initial_unreadable_identities.c",
+      "source_sha256": "94308366f9b7518e4c103e9eba39ad539dad7335cba67e69bdaabdb3d5e158d8",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_initial_unreadable_identities.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_g_eng1_unreadable_initialized_identity_04fec0",
+          "rva": "0x4fec0",
+          "size": 1,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_unreadable_initialized_identity_050d88",
+          "rva": "0x50d88",
+          "size": 1,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_unreadable_initialized_identity_065750",
+          "rva": "0x65750",
+          "size": 1,
+          "scope": "prefix"
+        }
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/initial_zero_word_program.c",
+      "source_sha256": "1a6630e7c3829c6838dbdf3ae6b897a0e8689cf7c46ebd59cf17ff5e2fb9c029",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_initial_custom_roots.json",
+        "evidence/eng1_initial_read_guards.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_g_eng1_zero_word_program_06ef18",
+          "rva": "0x6ef18",
+          "size": 4,
           "scope": "prefix"
         }
       ]

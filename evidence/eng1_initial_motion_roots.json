@@ -1,0 +1,115 @@
+{
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "checks": [
+    {
+      "symbol": "_g_eng1_initial_motion_0527d0",
+      "rva": "0x527d0",
+      "size": 36,
+      "scope": "prefix",
+      "type": "Eng1InitialMotion2",
+      "storage": "initialized",
+      "native_producer_indices": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        7,
+        8
+      ],
+      "producer_frames": "0x52628",
+      "required_rows": 9
+    },
+    {
+      "symbol": "_g_eng1_initial_motion_05fa20",
+      "rva": "0x5fa20",
+      "size": 42,
+      "scope": "prefix",
+      "type": "Eng1InitialMotion3",
+      "storage": "initialized",
+      "native_producer_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "producer_frames": "0x5f9b0",
+      "required_rows": 7
+    },
+    {
+      "symbol": "_g_eng1_initial_motion_060148",
+      "rva": "0x60148",
+      "size": 90,
+      "scope": "prefix",
+      "type": "Eng1InitialMotion3",
+      "storage": "initialized",
+      "native_producer_indices": [
+        14
+      ],
+      "producer_frames": "0x60118",
+      "required_rows": 15
+    },
+    {
+      "symbol": "_g_eng1_initial_motion_066230",
+      "rva": "0x66230",
+      "size": 6,
+      "scope": "prefix",
+      "type": "Eng1InitialMotion3",
+      "storage": "initialized",
+      "native_producer_indices": [
+        0
+      ],
+      "producer_frames": "0x65b28",
+      "required_rows": 1
+    }
+  ],
+  "guards": [
+    {
+      "symbol": "g_eng1_initial_motion_0527d0",
+      "rva": "0x527d0",
+      "bytes": 36,
+      "stride": 4,
+      "width": 4,
+      "site": "apply_frame_motion_2d/3d callers and any direct actorF0/indexF4 step loads",
+      "condition": "index<0 or index>=provided rows",
+      "reason": "Only recorded native seed and first-terminal frame-prefix indices proven."
+    },
+    {
+      "symbol": "g_eng1_initial_motion_05fa20",
+      "rva": "0x5fa20",
+      "bytes": 42,
+      "stride": 6,
+      "width": 6,
+      "site": "apply_frame_motion_2d/3d callers and any direct actorF0/indexF4 step loads",
+      "condition": "index<0 or index>=provided rows",
+      "reason": "Only recorded native seed and first-terminal frame-prefix indices proven."
+    },
+    {
+      "symbol": "g_eng1_initial_motion_060148",
+      "rva": "0x60148",
+      "bytes": 90,
+      "stride": 6,
+      "width": 6,
+      "site": "apply_frame_motion_2d/3d callers and any direct actorF0/indexF4 step loads",
+      "condition": "index<0 or index>=provided rows",
+      "reason": "Only recorded native seed and first-terminal frame-prefix indices proven."
+    },
+    {
+      "symbol": "g_eng1_initial_motion_066230",
+      "rva": "0x66230",
+      "bytes": 6,
+      "stride": 6,
+      "width": 6,
+      "site": "apply_frame_motion_2d/3d callers and any direct actorF0/indexF4 step loads",
+      "condition": "index<0 or index>=provided rows",
+      "reason": "Only recorded native seed and first-terminal frame-prefix indices proven."
+    }
+  ],
+  "limits": "Finite motion producer sets cover current reviewed frame prefixes only, not every runtime entry or original capacity. All outside motion reads must diagnose.4fec0/50d88/65750 have one exact initializedBYTE each solely for source-address identity; every dereference forbidden until consumer/source ownership is proven.",
+  "producer_evidence": "work\\eng1_behavioral\\initial_data_closure\\motion_bounds.json",
+  "unsupported_roots": [],
+  "runtime_guard": "src/eng1/behavioral/initial_read_guards.c"
+}

@@ -535,6 +535,127 @@
       "condition": "Selected VORTEX map has zero placement records; no accessed row storage extent proven. Source-address identity permits linkage but every row read must diagnose incomplete behavior.",
       "evidence": "evidence/eng1_initial_spatial_roots.json",
       "reporting": "Logs RVA and site and raises noncontinuable incomplete-behavior exception before access."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x5ebb8",
+      "source": "src/eng1/behavioral/initial_read_guards.c",
+      "kind": "incomplete_data_read",
+      "condition": "requested mask rows >3 or complete requested range exceeds52",
+      "evidence": "evidence/eng1_initial_custom_roots.json",
+      "reporting": "Actual source-pointer guard reports original RVA before unsupported read."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x5ebd0",
+      "source": "src/eng1/behavioral/initial_read_guards.c",
+      "kind": "incomplete_data_read",
+      "condition": "whole512-byte initial palette copy exceeds32-byte prefix; reject before copy starts",
+      "evidence": "evidence/eng1_initial_custom_roots.json",
+      "reporting": "Actual source-pointer guard reports original RVA before unsupported read."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x6ef18",
+      "source": "src/eng1/behavioral/read_guard.c",
+      "kind": "incomplete_data_read",
+      "condition": "index<0 or index>=2",
+      "evidence": "evidence/eng1_initial_custom_roots.json",
+      "reporting": "Actual source-pointer guard reports original RVA before unsupported read."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x527d0",
+      "source": "src/eng1/behavioral/initial_read_guards.c",
+      "kind": "incomplete_data_read",
+      "condition": "index<0 or index>=provided rows",
+      "evidence": "evidence/eng1_initial_motion_roots.json",
+      "reporting": "Actual source-pointer guard reports original RVA before unsupported read."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x5fa20",
+      "source": "src/eng1/behavioral/initial_read_guards.c",
+      "kind": "incomplete_data_read",
+      "condition": "index<0 or index>=provided rows",
+      "evidence": "evidence/eng1_initial_motion_roots.json",
+      "reporting": "Actual source-pointer guard reports original RVA before unsupported read."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x60148",
+      "source": "src/eng1/behavioral/initial_read_guards.c",
+      "kind": "incomplete_data_read",
+      "condition": "index<0 or index>=provided rows",
+      "evidence": "evidence/eng1_initial_motion_roots.json",
+      "reporting": "Actual source-pointer guard reports original RVA before unsupported read."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x66230",
+      "source": "src/eng1/behavioral/initial_read_guards.c",
+      "kind": "incomplete_data_read",
+      "condition": "index<0 or index>=provided rows",
+      "evidence": "evidence/eng1_initial_motion_roots.json",
+      "reporting": "Actual source-pointer guard reports original RVA before unsupported read."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x4fec0",
+      "source": "src/eng1/behavioral/initial_read_guards.c",
+      "kind": "incomplete_data_read",
+      "condition": "always reject any read width>0",
+      "evidence": "evidence/eng1_initial_unreadable_identities.json",
+      "reporting": "Actual source-pointer guard reports original RVA before unsupported read."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x50d88",
+      "source": "src/eng1/behavioral/initial_read_guards.c",
+      "kind": "incomplete_data_read",
+      "condition": "always reject any read width>0",
+      "evidence": "evidence/eng1_initial_unreadable_identities.json",
+      "reporting": "Actual source-pointer guard reports original RVA before unsupported read."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x65750",
+      "source": "src/eng1/behavioral/initial_read_guards.c",
+      "kind": "incomplete_data_read",
+      "condition": "always reject any read width>0",
+      "evidence": "evidence/eng1_initial_unreadable_identities.json",
+      "reporting": "Actual source-pointer guard reports original RVA before unsupported read."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0xf4f0",
+      "source": "src/eng1/behavioral/spatial_effects.c",
+      "kind": "incomplete_data_read",
+      "condition": "Actor group index>=1 accesses unproved inline kind-info rows.",
+      "evidence": "evidence/eng1_shared_aliases.json",
+      "reporting": "eng1_incomplete_behavior(0x6fee8,reason) before access."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x26040",
+      "source": "src/eng1/behavioral/forest_actor_init.c",
+      "function": "eng1_call_26040",
+      "kind": "incomplete_data_read",
+      "condition": "Cold sign-extended rootcount or warm/live cached WORD count exceeds1, including host callback expansion.",
+      "original_context": "Native26093 group records begin6fee8 stride8; native2608e/261c7 root pointers begin70d5c stride4. Seven shipped archive MAPs each produce one group; general capacity unknown.",
+      "runtime_report": "eng1_incomplete_behavior(0x6fee8,reason) before unproved kind-info/root-group read; no fabricated rows.",
+      "evidence": "evidence/eng1_forest_actor_init.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x26480",
+      "source": "src/eng1/behavioral/forest_actor_init.c",
+      "function": "eng1_call_26480",
+      "kind": "incomplete_data_read",
+      "condition": "U16 conversion of signed active category70cfe is>=1.",
+      "original_context": "Native26481..264bc reads6fee8+category*8 owner and6feec+category*8 count. Only index0 owner/count measured; negative category maps655xx.",
+      "runtime_report": "eng1_incomplete_behavior(0x6fee8,reason) before unproved kind-info/root-group read; no fabricated rows.",
+      "evidence": "evidence/eng1_forest_actor_init.json"
     }
   ]
 }

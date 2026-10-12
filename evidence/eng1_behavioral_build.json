@@ -695,6 +695,55 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_resource_host_forwarders.json"
+    },
+    {
+      "source": "src/eng1/behavioral/context_dispatch.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_context_dispatch.json"
+    },
+    {
+      "source": "src/eng1/behavioral/initial_custom_roots.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_initial_custom_roots.json"
+    },
+    {
+      "source": "src/eng1/behavioral/initial_motion_roots.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_initial_motion_roots.json"
+    },
+    {
+      "source": "src/eng1/behavioral/initial_unreadable_identities.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_initial_unreadable_identities.json"
+    },
+    {
+      "source": "src/eng1/behavioral/initial_read_guards.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_initial_read_guards.json"
+    },
+    {
+      "source": "src/eng1/behavioral/initial_zero_word_program.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_initial_read_guards.json"
+    },
+    {
+      "source": "src/eng1/behavioral/forest_actor_init.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_forest_actor_init.json"
     }
   ],
   "functions": [
@@ -2752,6 +2801,44 @@
       "implementation_status": "plausible_with_source_semantic_fixtures",
       "contract": "Forward measured physical cdecl arguments once through actual copied callback; preserve full EAX.",
       "uncertainty": "Only finite callback-spy tests; original host startup untested."
+    },
+    {
+      "rva": "0x1fd20",
+      "symbol": "_dispatch_local_1fd20",
+      "source": "src/eng1/behavioral/context_dispatch.c",
+      "evidence": "evidence/eng1_context_dispatch.json",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "One signed context byte selects measured native callback target; other values return.",
+      "uncertainty": "Target implementations unresolved; register protocols and full host iteration untested."
+    },
+    {
+      "rva": "0x1fd90",
+      "symbol": "_dispatch_local_1fd90",
+      "source": "src/eng1/behavioral/context_dispatch.c",
+      "evidence": "evidence/eng1_context_dispatch.json",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "One signed context byte selects measured native callback target; other values return.",
+      "uncertainty": "Target implementations unresolved; register protocols and full host iteration untested."
+    },
+    {
+      "rva": "0x26040",
+      "symbol": "_eng1_call_26040",
+      "source": "src/eng1/behavioral/forest_actor_init.c",
+      "evidence": "evidence/eng1_forest_actor_init.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "behavioral_test": "tests/eng1_forest_actor_differential.c",
+      "contract": "Native26040 cold/warm differential, synthetic callback and actual FOREST283 placement states.",
+      "uncertainty": "Finite one-root-group states; 26480 dispatched factories/actions are spies and remain missing in the DLL. No live actor/gameplay validation."
+    },
+    {
+      "rva": "0x26480",
+      "symbol": "_eng1_call_26480",
+      "source": "src/eng1/behavioral/forest_actor_init.c",
+      "evidence": "evidence/eng1_forest_actor_init.json",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "behavioral_test": "tests/eng1_forest_actor_differential.c",
+      "contract": "Explicit native-boundary fixture with callback count/owner mutations; dispatched bodies remain external.",
+      "uncertainty": "Finite one-root-group states; 26480 dispatched factories/actions are spies and remain missing in the DLL. No live actor/gameplay validation."
     }
   ],
   "source_adaptations": {
@@ -3493,6 +3580,69 @@
       "evidence": "evidence/eng1_host_control.json",
       "confidence": "verified_same_PC_entry_identity",
       "limits": "Existing zero-argument host RNG provider; alias fixes source naming, with no new behavior."
+    },
+    "eng1_call_1fd20": {
+      "provider": "dispatch_local_1fd20",
+      "original_rva": "0x1fd20",
+      "evidence": "evidence/eng1_context_dispatch.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Observed no stack arguments and ignored EAX at native caller."
+    },
+    "eng1_call_1fd90": {
+      "provider": "dispatch_local_1fd90",
+      "original_rva": "0x1fd90",
+      "evidence": "evidence/eng1_context_dispatch.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Observed no stack arguments and ignored EAX at native caller."
+    },
+    "eng1_native_code_target_00c720": {
+      "provider": "eng1_empty_c720",
+      "original_rva": "0xc720",
+      "evidence": "evidence/eng1_shared_aliases.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Physical 32-bit ABI/storage view only; source spelling and general behavioral equivalence not claimed."
+    },
+    "eng1_native_dep_006da0": {
+      "provider": "play_sound",
+      "original_rva": "0x6da0",
+      "evidence": "evidence/eng1_shared_aliases.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Physical 32-bit ABI/storage view only; source spelling and general behavioral equivalence not claimed."
+    },
+    "eng1_native_dep_0283e0": {
+      "provider": "eng1_interpret_signed_pairs",
+      "original_rva": "0x283e0",
+      "evidence": "evidence/eng1_shared_aliases.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Physical 32-bit ABI/storage view only; source spelling and general behavioral equivalence not claimed."
+    },
+    "eng1_target_01f9e0": {
+      "provider": "dispatch_local_1f9e0",
+      "original_rva": "0x1f9e0",
+      "evidence": "evidence/eng1_shared_aliases.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Physical 32-bit ABI/storage view only; source spelling and general behavioral equivalence not claimed."
+    },
+    "eng1_target_01fc90": {
+      "provider": "dispatch_local_1fc90",
+      "original_rva": "0x1fc90",
+      "evidence": "evidence/eng1_shared_aliases.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Physical 32-bit ABI/storage view only; source spelling and general behavioral equivalence not claimed."
+    },
+    "eng1_native_ptr_0713bc": {
+      "provider": "g_configuration_dword_713bc",
+      "original_rva": "0x713bc",
+      "evidence": "evidence/eng1_shared_aliases.json",
+      "confidence": "verified_same_4byte_PE32_cell",
+      "limits": "Physical 32-bit ABI/storage view only; source spelling and general behavioral equivalence not claimed."
+    },
+    "eng1_native_ptr_0734f4": {
+      "provider": "g_frame_global_734f4",
+      "original_rva": "0x734f4",
+      "evidence": "evidence/eng1_shared_aliases.json",
+      "confidence": "verified_same_4byte_PE32_cell",
+      "limits": "Physical 32-bit ABI/storage view only; source spelling and general behavioral equivalence not claimed."
     }
   },
   "omit_functions": {

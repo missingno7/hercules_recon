@@ -157,6 +157,7 @@ extern unsigned char eng1_frame_target_0702a8[];
 #include "descriptor_pointees.inc"
 #include "frame_data_callback_records.inc"
 #include "frame_data_asset_flag_tables.inc"
+#include "config_root_views.inc"
 
 typedef char eng1_configuration_row72_size[(sizeof(ConfigurationRow72) == 72) ? 1 : -1];
 ConfigurationRow72 g_configuration_rows_68af0[9] = {

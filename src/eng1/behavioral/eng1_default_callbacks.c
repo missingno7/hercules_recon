@@ -113,7 +113,7 @@ extern void __cdecl eng1_native_code_target_0028820(Eng1CallbackActor *);
 
 /* Existing measured providers, kept as ordinary external C functions. */
 extern void __cdecl append_chain(Eng1CallbackActor *, Eng1CallbackActor *);
-extern void __cdecl apply_frame_motion_2d(Eng1CallbackActor *);
+extern void __cdecl eng1_guarded_apply_frame_motion_2d(Eng1CallbackActor *);
 extern void __cdecl advance_frame(Eng1CallbackActor *);
 extern void __cdecl restart_steps(Eng1CallbackActor *);
 extern void __cdecl select_frame(Eng1CallbackActor *, int);
@@ -221,7 +221,7 @@ void __cdecl eng1_native_code_target_0010f0(Eng1CallbackActor *actor)
     if (actor->state_02a > 8)
         return;
 
-    apply_frame_motion_2d(actor);
+    eng1_guarded_apply_frame_motion_2d(actor);
     if (actor->byte_0ec == 0) {
         action = eng1_native_code_target_0026de0(actor);
         if (action != 0) {
@@ -319,7 +319,7 @@ void __cdecl eng1_native_code_target_0013c0(Eng1CallbackActor *actor)
     if (actor->state_02a > 8)
         return;
 
-    apply_frame_motion_2d(actor);
+    eng1_guarded_apply_frame_motion_2d(actor);
     if (actor->byte_0ec == 0) {
         action = eng1_native_code_target_0026de0(actor);
         if (action != 0) {

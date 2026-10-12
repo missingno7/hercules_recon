@@ -1,7 +1,16 @@
 /* Bounded callback-spy fixture. These providers are test spies, not production code. */
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "../calibration/engine_interface.h"
+
+/* The 3D preflight wrapper is linked but outside this fixture's callback path. */
+void __cdecl apply_frame_motion_3d(void *pointer)
+{
+    (void)pointer;
+    fputs("unexpected 3D motion in default callback fixture\n",stderr);
+    exit(93);
+}
 
 typedef unsigned long u32;
 typedef unsigned short u16;

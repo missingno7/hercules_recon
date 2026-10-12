@@ -1,26 +1,26 @@
 # Behavioral ENG1 reconstruction
 
 ENG1 is a partial source graph on `codex/eng1-behavioral-reconstruction`.
-The current link fails with 565 unresolved symbols. No reconstructed ENG1
+The current link fails with 539 unresolved symbols. No reconstructed ENG1
 DLL has been loaded by the game. TITLE remains at its working milestone;
 `recovery.json` remains the sole recovery authority and all 76 existing strict
 instances pass fresh historical compilation and byte comparison.
 
 The diagnostic inventory has 1,219 starts/leads, of which
-286 have mapped compiled source definitions, plus
+290 have mapped compiled source definitions, plus
 10 explicitly traced unindexed provider RVAs.
 This is not a reviewed complete first-party denominator or playable percentage.
-There are 308 compiled function symbols across 125 source units.
+There are 318 compiled function symbols across 132 source units.
 The 116 existing recovery rows remain 76 `FUNCTION_MATCH`, 39 `CODEGEN_SIMILAR`
 and one `RECONSTRUCTED`; this behavioral work grants no additional exact-match state.
 
-Fresh data verification passes for 35 providers, 817 measured fields
-and 4,760 pointer relocations. It checks contents, pointer positions, actual target
+Fresh data verification passes for 39 providers, 827 measured fields
+and 4,764 pointer relocations. It checks contents, pointer positions, actual target
 RVAs and addends, including configuration tables. Loaded zero-fill equivalence
 is permitted only for one explicitly documented native zero WORD. It does not
 prove complete runtime capacities or original linker placement.
 
-All 23 source fixture groups pass, including camera, geometry, mesh traversal,
+All 26 source fixture groups pass, including camera, geometry, mesh traversal,
 interpreters, startup/resource callbacks and finite spatial-read guards. Native
 frame-helper comparisons pass 15 cases and 178 checks. Color comparisons pass
 2,484 states and 36,001 checks under the actual host low-byte callback contract;
@@ -29,11 +29,15 @@ diagnostic disagreement. Actor pipeline `258e0` passes 512 cases and 6,662 check
 with zero pool bounds and the empty kind-owner path. That comparison corrected
 sine-table byte/index arithmetic and six omitted worklist clears. Nonzero actor
 populations, geometry against native execution, and live gameplay remain unverified.
+Forest worklist construction `26040` also passes an unpatched native differential
+using all 283 actual FOREST placements, alongside synthetic callback states.
+The combined forest fixture passes 44 cases and 203 checks; `26480` actor creation
+uses source spies and its dispatched factory/action bodies remain missing.
 
-The centralized incomplete manifest records 55 unsupported branches or data
+The centralized incomplete manifest records 68 unsupported branches or data
 reads. Guards log the original RVA and fail before unsupported continuation.
 Missing functions remain unresolved; no missing body silently reports success.
-Finite data prefixes and two zero-readable spatial address identities are
+Finite data prefixes and five zero-readable address identities are
 transitional source contributions, not recovered full capacities.
 
 An isolated windowed integration stage is prepared with the stable source TITLE,
@@ -89,7 +93,7 @@ ENG1 swap can retain that host naturally; a rebuilt host is a separate dependenc
 |---|---|---|
 | Setup | `1f0f0` allocation; `1f320` frame views | Existing bootstrap/configuration/lifecycle providers; downstream initialization remains open |
 | Frame reset | `5600` clears frame `+88`, resets primitive cursor | Adopted `frame_commands.c` |
-| Simulation | `258e0`, `25d00`, `262a0` reach actor families and handlers | Seven orchestration bodies compiled; worklist extents and many handlers remain unresolved |
+| Simulation | `258e0`, `25d00`, `262a0` reach actor families and handlers | Nine orchestration/worklist bodies compiled; worklist extents and many handlers remain unresolved |
 | Camera | `2fb70` follows actor `734f4`; `2f840` sets host projection state | Compiled source and measured storage; source fixtures pass |
 | Geometry | `2da90 -> 2df20` transforms/culls meshes and emits linked packets | Traversal, core, three preparation functions and six primitive emitters compiled; source fixtures pass |
 | Color | `5a60`, `5d50`, `5dc0`, `5e00` update RGB banks and both frame views | Compiled source; `2c830` forwards one DWORD through interface `+23c` to EXE `70c0` |
@@ -129,8 +133,7 @@ python scripts/test_eng1_behavioral.py
 python scripts/eng1_frame_differential.py
 python scripts/eng1_color_differential.py
 python scripts/eng1_actor_differential.py
-python scripts/eng1_color_differential.py
-python scripts/eng1_actor_differential.py
+python scripts/eng1_forest_differential.py
 ```
 
 The build currently fails at linking and deliberately leaves no stale DLL.

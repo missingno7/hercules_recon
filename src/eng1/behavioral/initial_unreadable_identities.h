@@ -1,0 +1,6 @@
+#ifndef ENG1_INITIAL_UNREADABLE_IDENTITIES_H
+#define ENG1_INITIAL_UNREADABLE_IDENTITIES_H
+extern unsigned char g_eng1_unreadable_initialized_identity_04fec0;
+extern unsigned char g_eng1_unreadable_initialized_identity_050d88;
+extern unsigned char g_eng1_unreadable_initialized_identity_065750;
+#endif
