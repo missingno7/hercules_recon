@@ -17,6 +17,14 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'position-initializer': dict(
+        sources=['tests/eng1_position_initializer_differential.c',
+                 'src/eng1/behavioral/position_initializer_2d9b0.c',
+                 'src/eng1/behavioral/actor_position_classifier_41fd0.c',
+                 'src/eng1/behavioral/actor_control_tables.c',
+                 'src/eng1/behavioral/incomplete.c'],
+        spans=[(0x2d9b0,35)], cases=10,
+        scope='Ten original/source full-Actor comparisons/62 checks through actual source41fd0 and existing216-byte table: first three threshold edges, row17 compare-before-sentinel, zero/negative high WORDs, varied low WORDs and adjacent BYTE canaries. No new owner or universal callback return claim.'),
     'alternate-initializer': dict(
         sources=['tests/eng1_alternate_initializer_differential.c',
                  'src/eng1/behavioral/alternate_initializer_efa0.c',

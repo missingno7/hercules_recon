@@ -2,15 +2,15 @@
 
 The original host loads our source-built x86 ENG1 DLL and performs its expected
 250-DWORD interface initialization. Reconstructed setup and player script
-dispatch now advance the latest windowed run to missing routine `0x2d9b0`.
+dispatch now advance the latest windowed run to missing routine `0x40a50`.
 No reconstructed ENG1 gameplay frame, continuous gameplay, or normal engine
 shutdown is verified.
 
-The genuine graph has 358 mapped compiled entries, 10 explicitly traced
-unindexed provider RVAs, and 389 function symbols across 197 source units.
+The genuine graph has 359 mapped compiled entries, 10 explicitly traced
+unindexed provider RVAs, and 390 function symbols across 198 source units.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
-denominator. The genuine link has 536 unresolved function symbols and zero
-duplicate providers. The optional transitional profile adds 536 explicit
+denominator. The genuine link has 535 unresolved function symbols and zero
+duplicate providers. The optional transitional profile adds 535 explicit
 fail-on-entry diagnostics and links with zero unresolved symbols.
 `PC_DLLEngineMain` is the sole PE32 export at ordinal 1. The replacement has
 no original-engine import or embedded original executable code.
@@ -232,6 +232,16 @@ Render flags are read before the flags overwrite, the mode BYTE precedes the
 cached render DWORD store, and the narrow4a store is retained before reset.
 Other interpreter programs and indirect raw-return consumers remain unproved.
 
+Position initializer2d9b0 passes ten native/source full-Actor cases/62 checks
+with the existing source41fd0 helper and216-byte classifier table. The saved
+x is retained across DWORD y/z writes; returned AL goes to BYTE21 while
+category22 and adjacent byte canaries remain intact. Threshold edges, varied
+low WORDs and signed nonpositive sentinel outcomes are covered. The first
+fixture's positive7fff expectation was corrected to row17 after both native
+and source agreed; its failed receipt is preserved. Existing alternate
+callback record41 is reused; its NULL program is valid for this initializer.
+Universal callback EAX and arbitrary mutable table inputs remain unproved.
+
 The collision pointer has one source definition in a pure data unit, moved
 unchanged from mixed runtime storage; normal setup supplies its actor address.
 The independent DWORD countdown gate is loader-zero. Its five native writers
@@ -252,7 +262,7 @@ original `15780/12620` as test-only nested helpers; production has separate C
 dependencies. Color retains a raw upper-DWORD callback disagreement, while
 the actual host consumes the matching low byte.
 
-Runtime evidence records 28 artifact-bound observations. Each distinguishes
+Runtime evidence records 29 artifact-bound observations. Each distinguishes
 historical source context from the current checkout. The latest run uses
 original host/ENG3/data, stable source TITLE and the authorized no-CD change
 only in a disposable host copy, in windowed mode. The observer captures the
@@ -330,7 +340,7 @@ cells. Some PC callbacks are real no-ops; retain each measured identity.
 
 Cold startup includes source pool sweeps, descriptor/link initialization,
 resource reload, payload decoding, setup and bounded player dispatch.
-The latest observed frontier is `0x2d9b0` in the startup chain.
+The latest observed frontier is `0x40a50` in the startup chain.
 Worklist, camera, geometry and dialog orchestration have compiled providers;
 many collision, actor, animation and input handlers remain missing. A missing
 root hides further dependencies, so the current unresolved count understates
@@ -363,6 +373,7 @@ python scripts/eng1_bounded_differential.py command-writers
 python scripts/eng1_bounded_differential.py descriptor-reload
 python scripts/eng1_bounded_differential.py dialog-frame
 python scripts/eng1_bounded_differential.py simulation-root
+python scripts/eng1_bounded_differential.py position-initializer
 python scripts/eng1_bounded_differential.py alternate-initializer
 python scripts/eng1_bounded_differential.py attachment-callback
 python scripts/eng1_bounded_differential.py owned-spawn-callback

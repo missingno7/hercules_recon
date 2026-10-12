@@ -1,0 +1,156 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x2d9b0",
+  "source": "src/eng1/behavioral/position_initializer_2d9b0.c",
+  "source_sha256": "bcb4724312bd54a48d5d605789aad998efb1d2496b52641dfcf0b87caad35166",
+  "implementation_status": "behaviorally_validated_limited",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "private_candidate_sha256": "6cf863fdbcec5c263ca220d56e480dfbbaf0589be0ecbbd4a5ad05c00bc8ed0a",
+  "private_report_sha256": "9ea55715695634cadb072ec386eadc9c4318c7ff4453447cd17466796e5e2977",
+  "native_contract": {
+    "entry_abi": "one Actor* cdecl stack argument; plain RET at 0x2d9d2",
+    "body_bytes": 35,
+    "instruction_order": [
+      "snapshot DWORD actor+0",
+      "overwrite DWORD actor+4=0x03200000",
+      "overwrite DWORD actor+8=0x01000000",
+      "call existing 0x41fd0 with saved x at 0x2d9c6",
+      "store returned AL to BYTE actor+0x21"
+    ],
+    "instruction_sites": [
+      {
+        "rva": "0x2d9b0",
+        "operation": "push esi"
+      },
+      {
+        "rva": "0x2d9b1",
+        "operation": "load Actor* from [esp+8]"
+      },
+      {
+        "rva": "0x2d9b5",
+        "operation": "load DWORD actor+0 into EAX"
+      },
+      {
+        "rva": "0x2d9b7",
+        "operation": "store DWORD actor+4=0x03200000"
+      },
+      {
+        "rva": "0x2d9be",
+        "operation": "push saved EAX"
+      },
+      {
+        "rva": "0x2d9bf",
+        "operation": "store DWORD actor+8=0x01000000"
+      },
+      {
+        "rva": "0x2d9c6",
+        "operation": "call 0x41fd0"
+      },
+      {
+        "rva": "0x2d9cb",
+        "operation": "caller cleanup add esp,4"
+      },
+      {
+        "rva": "0x2d9ce",
+        "operation": "store AL to BYTE actor+0x21"
+      },
+      {
+        "rva": "0x2d9d1",
+        "operation": "pop esi"
+      },
+      {
+        "rva": "0x2d9d2",
+        "operation": "ret"
+      }
+    ],
+    "return": "The physical RET propagates the helper's incidental EAX. The callback-table consumer uses a void initializer view; no universal EAX contract is claimed.",
+    "direct_callers": 0,
+    "data_references": [
+      "0x680c8"
+    ]
+  },
+  "native_span": {
+    "rva": "0x2d9b0",
+    "bytes": 35,
+    "sha256": "545eaa74dc250104f090f913f57a038b65031c865b8266d4769ade24016a0b8c",
+    "hex": "568b7424088b06c746040000200350c7460800000001e80546010083c4048846215ec3"
+  },
+  "classifier_owner": {
+    "native_rva": "0x65678",
+    "source_symbol": "g_eng1_classifier_rows_65678",
+    "bytes": 216,
+    "shape": "18 rows x 6 WORDs, 12-byte row stride",
+    "sha256": "cc16de76182437e16196071b24c947b127e4d2e0982cf3fe5fbd3629351c3e62",
+    "source_provider": "src/eng1/behavioral/actor_control_tables.c",
+    "helper_provider": "src/eng1/behavioral/actor_position_classifier_41fd0.c",
+    "existing_helper_proof": "evidence/eng1_actor_position_classifier_41fd0.json",
+    "fixture_check": "The full measured table bytes are compared before invoking the original function and source candidate.",
+    "capacity_claim": "Only the measured 216-byte owner and helper's existing 18-row guard are used."
+  },
+  "callback_record": {
+    "table_rva": "0x67f80",
+    "record_index": 41,
+    "stride": 8,
+    "initializer_cell": "0x680c8",
+    "update_cell": "0x680cc",
+    "update_rva": "0x2d9e0",
+    "provider": "src/eng1/behavioral/frame_data.c:g_eng1_callback_record_prefix_067f80[52]"
+  },
+  "configured_asset": {
+    "asset_base": "0x67de0",
+    "record_index": 41,
+    "asset_rva": "0x67f28",
+    "program": "NULL; not read by this initializer"
+  },
+  "static_audit_sha256": "d3c3f1ee85ce83328c68d84725eb56796461afa2de5247fd272525125f702b4b",
+  "initial_expectation_failure": {
+    "result": "The first fixture expected 0xff for positive high WORD 0x7fff. The original helper correctly compares that value below its final 0xffff row before testing the trailing sentinel, so the observed result is row 17. The candidate and full actor state already matched native; only this expected-value assertion failed.",
+    "report_sha256": "331e59b0e0267314cde7b8477cace6db2ab7882b6372471af221291df596da3a",
+    "log_sha256": "28db9e44fe68e987715502cce25fbd210bb7c23c638f1c88e837a7aac290fd88"
+  },
+  "contract": "One Actor* cdecl command. Capture DWORD x; DWORD y=03200000 then z=01000000; existing source41fd0(saved x); returned AL to BYTE21, preserving category22. Reuses existing classifier table and callback-record owner.",
+  "scope": "Finite original-DLL/source differential for callback record 41, the one-Actor callback state, and the existing bounded 0x41fd0 classifier/data providers. No new owner is introduced.",
+  "limits": [
+    "Ten bounded inputs exercise threshold boundaries and sentinel scans against the original table; this is not a full 32-bit callback input proof.",
+    "The positive 0x7fff case exercises the helper's compare-before-sentinel row-17 result; only nonpositive signed high WORDs reach the trailing 0xff sentinel in this boundary set.",
+    "The helper's separate 65536-input classifier proof is recorded in evidence/eng1_actor_position_classifier_41fd0.json.",
+    "Physical EAX propagation is incidental under the inspected void callback-table consumer and is not compared as a universal return contract.",
+    "No FUNCTION_MATCH, historical source/TU, complete actor-array, or whole-image claim follows."
+  ],
+  "fixture": "tests/eng1_position_initializer_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py position-initializer",
+  "canonical_proof": {
+    "scope": "Ten original/source full-Actor comparisons/62 checks through actual source41fd0 and existing216-byte table: first three threshold edges, row17 compare-before-sentinel, zero/negative high WORDs, varied low WORDs and adjacent BYTE canaries. No new owner or universal callback return claim.",
+    "input_sha256": {
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "tests/eng1_position_initializer_differential.c": "97c5bb7bbfcf22b97880d3c75deb4851a2ecfc6a68e341a8389394a8c25216c4",
+      "src/eng1/behavioral/actor_control_tables.h": "a0fb4f055dc9e934d47674e952b9a0184d31975449f9800e6f824a510f1024cb",
+      "src/eng1/behavioral/position_initializer_2d9b0.c": "bcb4724312bd54a48d5d605789aad998efb1d2496b52641dfcf0b87caad35166",
+      "src/eng1/behavioral/frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+      "src/eng1/behavioral/actor_position_classifier_41fd0.c": "9b9afccd3f972742ad7622c612806e23be09607b2a927e2136c03ece644461e9",
+      "src/eng1/behavioral/incomplete.c": "0c1c44db64a0b18e52d51ba9efc1caf1942df7fd700c26bcf99532ee6a114c5a",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "src/eng1/behavioral/actor_control_tables.c": "5c47227dca8cb2be2768cfda2b8d9554acf6edae3f2cf186725c40a97c2550c8",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src/eng1/behavioral/interpreters.h": "2284756dbb331f455596b2028b105a8bf788b9b43ffea9e84c8dcb5b859151dc",
+      "src/eng1/behavioral/actor_control_update.h": "23105b1e10eaa2c8fb3999078925cf389e3ae2a1fb7ad66dfff596a5514ee01c",
+      "scripts/eng1_bounded_differential.py": "5ca07774a4e2857ab6a1ac41a6c247950ec7a7d4ea8ce52fa59f7d6ae0f61c69"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x2d9b0": {
+        "size": 35,
+        "sha256": "545eaa74dc250104f090f913f57a038b65031c865b8266d4769ade24016a0b8c"
+      }
+    },
+    "stdout": "PASS 2d9b0 below first threshold\nPASS 2d9b0 at first threshold\nPASS 2d9b0 below second threshold\nPASS 2d9b0 at second threshold\nPASS 2d9b0 below third threshold\nPASS 2d9b0 at third threshold\nPASS 2d9b0 positive final-row compare before sentinel\nPASS 2d9b0 negative signed high word\nPASS 2d9b0 zero high word sentinel scan\nPASS 2d9b0 all-ones high word\neng1_call_2d9b0 cases=10 checks=62 failures=0\n",
+    "cases": 10,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 62,
+    "production_derivations": [],
+    "private_report_sha256": "0e8adfead790416876ba9172b70756ec184513b7a6ffb401f9153fb9adfe6888"
+  }
+}
