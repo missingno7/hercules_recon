@@ -16,6 +16,22 @@ from pe import PE
 from title_behavioral import context_files
 
 PROFILES = {
+    'grid-scan': dict(
+        sources=['tests/eng1_grid_query_20b50_differential.c',
+                 'src/eng1/behavioral/grid_query_20b50.c',
+                 'src/eng1/behavioral/query_20990.c',
+                 'src/eng1/behavioral/resource_data.c',
+                 'src/eng1/behavioral/grid_query_data.c',
+                 'src/eng1/behavioral/payload_dispatch_data.c'],
+        spans=[(0x20b50,480),(0x20990,448)], cases=4,
+        scope='Four finite native scan comparisons with the actual source decoder: sentinel, exclusive extent, y-based reverse seed and one-past-width read. One separately counted source guard. Row/header/stream allocation capacities remain unproven; no source identity, full grid domain or gameplay claim.'),
+    'query-decoder': dict(
+        sources=['tests/eng1_query_20990_differential.c',
+                 'src/eng1/behavioral/query_20990.c',
+                 'src/eng1/behavioral/grid_query_data.c',
+                 'src/eng1/behavioral/payload_dispatch_data.c'],
+        spans=[(0x20990,448)], cases=15,
+        scope='Fifteen finite native compressed-query comparisons, high sample64/65/127 controls in each encoding, scalar/row/bilinear interpolation and live shared coefficient mutations restored afterward. One source-only arithmetic control and two unsupported-owner guards separately counted. Program/table capacities and wider input domains remain unproven.'),
     'actor-bounds': dict(
         sources=['tests/eng1_actor_bounds_differential.c',
                  'src/eng1/behavioral/actor_bounds_2a880.c',
@@ -262,7 +278,15 @@ def run(profile, oracle, captured_payload=None):
         else:
             tested = subprocess.run(arguments, cwd=out, env=env, capture_output=True, text=True, timeout=60)
         report.update(run_exit_code=tested.returncode, stdout=tested.stdout, stderr=tested.stderr, executable_sha256=sha(exe))
-        if profile == 'actor-bounds':
+        if profile in ('grid-scan','query-decoder'):
+            prefix='grid_query_20b50' if profile=='grid-scan' else 'query_20990'
+            match=re.search(prefix+r'_native_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
+            guard=re.search(prefix+r'_source_guard_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
+            control=re.search(prefix+r'_source_control_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
+            if match:report.update(cases=int(match[1]),checks=int(match[2]),failures=int(match[3]))
+            if guard:report.update(source_guard_cases=int(guard[1]),source_guard_checks=int(guard[2]),source_guard_failures=int(guard[3]))
+            if control:report.update(source_control_cases=int(control[1]),source_control_checks=int(control[2]),source_control_failures=int(control[3]))
+        elif profile == 'actor-bounds':
             match=re.search(r'actor_bounds_native_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
             spy=re.search(r'actor_bounds_source_spy_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
             if match:report.update(cases=int(match[1]),checks=int(match[2]),failures=int(match[3]))
@@ -331,6 +355,10 @@ def run(profile, oracle, captured_payload=None):
         coverage = coverage and report.get('source_guard_cases') == 5 and report.get('source_guard_failures') == 0
     if profile == 'actor-bounds':
         coverage = coverage and report.get('source_spy_cases') == 8 and report.get('source_spy_failures') == 0
+    if profile == 'grid-scan':
+        coverage = coverage and report.get('source_guard_cases') == 1 and report.get('source_guard_failures') == 0
+    if profile == 'query-decoder':
+        coverage = coverage and report.get('source_guard_cases') == 2 and report.get('source_guard_failures') == 0 and report.get('source_control_cases') == 1 and report.get('source_control_failures') == 0
     report['result'] = 'PASS' if report.get('run_exit_code')==0 and report.get('failures')==0 and report['inputs_unchanged'] and coverage else 'FAIL'
     (out / 'report.json').write_bytes((json.dumps(report, indent=2) + '\n').encode())
     print(report.get('stdout', ''.join(logs)))

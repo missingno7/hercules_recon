@@ -2,7 +2,7 @@
 
 The original host has loaded the transitional source-built ENG1 DLL and copied
 the expected 250-DWORD interface with signature 0x5ac00cac and first-use gate
-change from 1 to 0. The latest windowed run stops at explicit missing RVA 0x20b50.
+change from 1 to 0. The latest windowed run stops at explicit missing RVA 0x27d40.
 Initialization, a gameplay frame and normal engine shutdown remain unverified.
 
 Earlier runs stopped at 32b10 and 274e0, now implemented. Runtime testing then
@@ -16,7 +16,7 @@ The descriptor scan at 3910 and link initialization at 39b0 are now implemented
 and pass finite original-x86 comparisons. The scan fixture also caught a real
 cleanup discrepancy at 34d0: residency state selects destruction; entry count
 does not. Corrected windowed runs advanced through 3910, 39b0, 33e0 and 4ca0 before reaching
-setup15090, player dispatcher15d00, query30010 and the current actor-update query stop. Cold-frame command writers also pass 14 native cases,
+setup15090, player dispatcher15d00, query30010 and the current constructor dependency stop. Cold-frame command writers also pass 14 native cases,
 but the runtime has not reached their frame submission yet.
 
 Preparation uses locally verified installer files and the stable source TITLE
@@ -42,6 +42,8 @@ python scripts/eng1_bounded_differential.py command-writers
 python scripts/eng1_bounded_differential.py descriptor-reload
 python scripts/eng1_bounded_differential.py dialog-frame
 python scripts/eng1_bounded_differential.py simulation-root
+python scripts/eng1_bounded_differential.py query-decoder
+python scripts/eng1_bounded_differential.py grid-scan
 python scripts/eng1_bounded_differential.py extent-producer
 python scripts/eng1_bounded_differential.py actor-bounds
 python scripts/eng1_bounded_differential.py grid-query

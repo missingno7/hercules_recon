@@ -1,0 +1,93 @@
+{
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "native_spans": {
+    "0x20b50_to_0x20d30_observed": {
+      "size": 480,
+      "sha256": "3e1e18b11617907635bedb66c67108988247d4643025a50b4c54edb97f96c7b1",
+      "boundary_note": "Ret at RVA 0x20d29; six trailing NOP bytes through 0x20d2f are included only as observed span, not a proven function boundary."
+    },
+    "dependency_0x20990_probe": {
+      "size": 416,
+      "sha256": "fcff4aca030c2d2727229ce1990ca85ba57e92bfa3b6bb28c7f3061202fb2c6d",
+      "boundary_note": "The test-only fixture call-through targets the existing native entry; this span hash is an inspection slice, not an accepted function boundary."
+    }
+  },
+  "abi": "DWORD __cdecl (signed DWORD x, signed DWORD y, signed DWORD z, DWORD step); observed native body does not consume the fourth argument",
+  "unknowns": [
+    "No row-allocation byte capacity is retained; the one-past-width native read requires a readable cell and is tested with an explicitly oversized fixture row buffer.",
+    "No allocation extent is established for g_header_pointer_70d34 or compressed streams; source guards null pointers but does not claim malformed non-null spans are safe.",
+    "The 16-slot row-pointer and two 16-WORD offset arrays are measured prefixes, not proven full capacities; unsupported source indices fail explicitly.",
+    "No source identity, linker layout, function-boundary, or whole-image equivalence is claimed."
+  ],
+  "candidate_fixes": {
+    "superseded_pre_fix_sha256": "db82c9f460217157b16b044ecab7e4c8d991f63be79a7ccb2553812710237179",
+    "superseded_source": "failed source retained in work; its forward_sample - scan_coordinate reverse seed was falsified by native 0x20c99 restoring y_adjusted",
+    "current_source_sha256": "70f8327174dcd71d73a15e15b6ebc2256fd7a8c9d70f8e1c86be7cf1cdf26269"
+  },
+  "ordering_discriminators": [
+    "Forward positive hit: y_adjusted=64, forward decoder sample=0; expected result 0 discriminates reverse seed y_adjusted - cursor from sample - cursor.",
+    "Forward exhaustion: y_adjusted=255 and width=4; tag at cell index 4 is the one-past-width read, expected result 0x00017fff.",
+    "Active-row sentinel and exclusive x extent return 0x7fff7fff."
+  ],
+  "data_reads": [
+    "0x70d01 active-row byte sentinel",
+    "0x70ece signed group-count byte",
+    "0x70e0c WORD extent lane and 0x70e2c WORD base-offset lane",
+    "0x70d14 signed width WORD",
+    "0x70dcc selected row-pointer DWORD and selected grid DWORD cells",
+    "0x70d34 header pointer, signed WORD relative record, and 0x20990 compressed stream reads"
+  ],
+  "side_effects": "No native global writes observed in this body; source candidate reads the existing data owners. The fixture mutates only the loaded oracle mapping and local buffers and does not write the oracle file.",
+  "module": "ENG1.DLL",
+  "rva": "0x20b50",
+  "source": "src/eng1/behavioral/grid_query_20b50.c",
+  "source_sha256": "5807ffe8b4d3530e0582bb921fe612e7c6bf1cd2290c9a02ff272b425b404be4",
+  "implementation_status": "known_incomplete",
+  "private_candidate_sha256": "70f8327174dcd71d73a15e15b6ebc2256fd7a8c9d70f8e1c86be7cf1cdf26269",
+  "private_report_sha256": "4d85cd45ca64ae9c0c72820f12e53b568f5b56be57e744c90d23e7221a76ac36",
+  "fixture": "tests/eng1_grid_query_20b50_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py grid-scan",
+  "scope": "Finite native comparison of canonical source, with source-only diagnostics separately counted. No strict recovery promotion or universal behavior proof.",
+  "dependencies": "Existing mutable coefficient prefix and sequence owners, existing runtime row/header owners; scan calls real source decoder.",
+  "canonical_adjustments": "Scan fixture uses the actual source decoder; unused drafts removed and width reload reads one volatileWORD.",
+  "canonical_proof": {
+    "scope": "Four finite native scan comparisons with the actual source decoder: sentinel, exclusive extent, y-based reverse seed and one-past-width read. One separately counted source guard. Row/header/stream allocation capacities remain unproven; no source identity, full grid domain or gameplay claim.",
+    "input_sha256": {
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src/eng1/behavioral/grid_query_20b50.c": "5807ffe8b4d3530e0582bb921fe612e7c6bf1cd2290c9a02ff272b425b404be4",
+      "src/eng1/behavioral/grid_query_20b50.h": "1f5d103d645c56fcb11be46c1878f5d0b25ff512720cf93bfa0d569c6f4207e7",
+      "src/eng1/behavioral/query_20990.h": "c3687aea684cbcf9ed174f8109266a2b80aec0020ccb0ffa048448c84ebf67c6",
+      "src/eng1/behavioral/resource_data.c": "43d3b7dba919a3ee1b1577dadb602e49e2e14816cd418d3fb931197d54ca96a2",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "scripts/eng1_bounded_differential.py": "c7b0e805becc8f1dbb6a3502f9f55bbd8dae158ef86ca37d5a005d1d76a34415",
+      "src/eng1/behavioral/grid_query_20d30.h": "7438e69f3aac21e14c1bee23245236141472885325adc5638ac05989586a7cc0",
+      "tests/eng1_grid_query_20b50_differential.c": "3911a16edf94b17e9da606ddde62c6d6657a58d7bf48d979e7fdc8d3d1efbbe1",
+      "src/eng1/behavioral/grid_query_data.c": "841bb6c71cafb23a995421bb4f6a5560e486b61d377d33bd9fed81780b6be5b7",
+      "src/eng1/behavioral/query_20990.c": "75458c849fc3bf850487af6f9fb23ba10191026e47bfd24f09bd7a49c76b8227",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "src/eng1/behavioral/payload_dispatch_data.c": "72c031fb55841dec4c33eb17a57f9c04a761fc66f79b423e418ee5eb7a312056"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x20b50": {
+        "size": 480,
+        "sha256": "3e1e18b11617907635bedb66c67108988247d4643025a50b4c54edb97f96c7b1"
+      },
+      "0x20990": {
+        "size": 448,
+        "sha256": "08fdaf5d9f098b7f89a32ab937edc9560b6612c2a35681679c7b78db4b1df320"
+      }
+    },
+    "stdout": "fixture: mapped ENG1 at 10000000\ncase: active-row sentinel native=7fff7fff source=7fff7fff\ncase: positive forward hit uses y-adjusted reverse seed native=00000000 source=00000000\ncase: forward exhaustion reads the one-past-width cell native=00017fff source=00017fff\ncase: x extent exclusive bound native=7fff7fff source=7fff7fff\ngrid_query_20b50_native_cases=4 checks=8 failures=0\ngrid_query_20b50_source_guard_cases=1 checks=1 failures=0\n",
+    "cases": 4,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 8,
+    "source_guard_cases": 1,
+    "source_guard_checks": 1,
+    "source_guard_failures": 0,
+    "private_report_sha256": "3630e569509df18204eef651bd325051a2ddb5fd5a098d1eb4754f1a82631eb1"
+  }
+}

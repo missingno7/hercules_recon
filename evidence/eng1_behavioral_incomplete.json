@@ -1525,6 +1525,56 @@
     },
     {
       "module": "ENG1.DLL",
+      "rva": "0x70ece",
+      "source": "src/eng1/behavioral/grid_query_20b50.c",
+      "function": "grid_scan_20b50",
+      "kind": "incomplete_data_read",
+      "condition": "Nonpositive group count",
+      "reporting": "Central fatal diagnostic before unsupported read.",
+      "evidence": "evidence/eng1_grid_query_20b50.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x70dcc",
+      "source": "src/eng1/behavioral/grid_query_20b50.c",
+      "function": "grid_scan_20b50",
+      "kind": "incomplete_data_read",
+      "condition": "Selected row index>=16 or null row pointer",
+      "reporting": "Central fatal diagnostic before unsupported read.",
+      "evidence": "evidence/eng1_grid_query_20b50.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x70d14",
+      "source": "src/eng1/behavioral/grid_query_20b50.c",
+      "function": "grid_scan_20b50",
+      "kind": "incomplete_data_read",
+      "condition": "Nonpositive signed width after unsigned extent gate",
+      "reporting": "Central fatal diagnostic before unsupported read.",
+      "evidence": "evidence/eng1_grid_query_20b50.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x70d34",
+      "source": "src/eng1/behavioral/grid_query_20b50.c",
+      "function": "grid_scan_20b50",
+      "kind": "incomplete_data_read",
+      "condition": "Nonzero cell tag with null compressed header",
+      "reporting": "Central fatal diagnostic before unsupported read.",
+      "evidence": "evidence/eng1_grid_query_20b50.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x5e0d0",
+      "source": "src/eng1/behavioral/query_20990.c",
+      "function": "query_decode_20990",
+      "kind": "incomplete_data_read",
+      "condition": "Computed coefficient DWORD precedes measuredprefix or lies beyond measuredprefix/sharedsequence; diagnostic reports exact requested RVA.",
+      "reporting": "Central fatal diagnostic before unsupported read.",
+      "evidence": "evidence/eng1_query_20990.json"
+    },
+    {
+      "module": "ENG1.DLL",
       "rva": "0xe670",
       "symbol": "_dispatch_local_0e670",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -11221,28 +11271,6 @@
     },
     {
       "module": "ENG1.DLL",
-      "rva": "0x20b50",
-      "symbol": "_eng1_native_dep_020b50",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/spatial_effects.c",
-          "kind": "function"
-        },
-        {
-          "source": "src/eng1/behavioral/actor_update_2a290.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
       "rva": "0x299d0",
       "symbol": "_eng1_native_dep_0299d0",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -11706,11 +11734,11 @@
     }
   ],
   "provisional_generation": {
-    "source_only_report_sha256": "b1531a76282d2b6d3b5db3c059529cc54deadc069783e0c7d601ca486b4bc14f",
+    "source_only_report_sha256": "b60360c007315cc4fdf56566f716151e2a218575698504a58d3dd2b403893ee6",
     "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
     "recovery_sha256": "465ee5ea057cd3bfb23508e18b16958c27b9d391e11a0bc874cfc413436644d5",
-    "symbols": 555,
-    "native_rvas": 551,
+    "symbols": 554,
+    "native_rvas": 550,
     "scope": "Transitional loader/startup diagnostics only; excluded from source coverage and never behaviorally accepted."
   }
 }

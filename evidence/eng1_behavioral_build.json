@@ -1024,6 +1024,20 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_grid_query_20d30.json"
+    },
+    {
+      "source": "src/eng1/behavioral/grid_query_20b50.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_grid_query_20b50.json"
+    },
+    {
+      "source": "src/eng1/behavioral/query_20990.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_query_20990.json"
     }
   ],
   "functions": [
@@ -3518,6 +3532,22 @@
       "implementation_status": "known_incomplete",
       "evidence": "evidence/eng1_extent_producer_30e40.json",
       "contract": "Dynamic relative profile row, unsigned count, packedrecord arithmetic and single/three scale variants; ordered6WORD output."
+    },
+    {
+      "rva": "0x20b50",
+      "symbol": "_grid_scan_20b50",
+      "source": "src/eng1/behavioral/grid_query_20b50.c",
+      "implementation_status": "known_incomplete",
+      "evidence": "evidence/eng1_grid_query_20b50.json",
+      "contract": "Source forward/reverse scan, signedWORD relative streams, fullDWORD ADD packing, y-based reverse seed and one-past forward exhaustion read."
+    },
+    {
+      "rva": "0x20990",
+      "symbol": "_query_decode_20990",
+      "source": "src/eng1/behavioral/query_20990.c",
+      "implementation_status": "known_incomplete",
+      "evidence": "evidence/eng1_query_20990.json",
+      "contract": "SignedBYTE tagged scalar/row/bilinear interpolation, doubled masked high samples and x86 DWORD arithmetic; live coefficient DWORD aliases."
     }
   ],
   "source_adaptations": {
@@ -4433,6 +4463,20 @@
       "evidence": "evidence/eng1_actor_bounds_2a880.json",
       "confidence": "Observed actor_pipeline threeDWORDcdecl caller; consumes lowWORD0or1 return.",
       "limits": "Physical ABI agrees, finite root validation only."
+    },
+    "eng1_native_dep_020b50": {
+      "provider": "grid_scan_20b50",
+      "original_rva": "0x20b50",
+      "evidence": "evidence/eng1_grid_query_20b50.json",
+      "confidence": "Observed native cdecl stack protocol",
+      "limits": "Finite source/native proof; dynamic allocation capacities remain unverified."
+    },
+    "eng1_native_dep_020990": {
+      "provider": "query_decode_20990",
+      "original_rva": "0x20990",
+      "evidence": "evidence/eng1_query_20990.json",
+      "confidence": "Observed native cdecl stack protocol",
+      "limits": "Finite source/native proof; dynamic allocation capacities remain unverified."
     }
   },
   "omit_functions": {

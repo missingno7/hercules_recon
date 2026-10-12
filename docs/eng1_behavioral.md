@@ -2,15 +2,15 @@
 
 The original host loads our source-built x86 ENG1 DLL and performs its expected
 250-DWORD interface initialization. Reconstructed setup and player script
-dispatch now advance the latest windowed run to missing routine `0x20b50`.
+dispatch now advance the latest windowed run to missing routine `0x27d40`.
 No reconstructed ENG1 gameplay frame, continuous gameplay, or normal engine
 shutdown is verified.
 
-The genuine graph has 332 mapped compiled entries, 10 explicitly traced
-unindexed provider RVAs, and 362 function symbols across 172 source units.
+The genuine graph has 334 mapped compiled entries, 10 explicitly traced
+unindexed provider RVAs, and 364 function symbols across 174 source units.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
-denominator. The genuine link has 555 unresolved function symbols and zero
-duplicate providers. The optional transitional profile adds 555 explicit
+denominator. The genuine link has 554 unresolved function symbols and zero
+duplicate providers. The optional transitional profile adds 554 explicit
 fail-on-entry diagnostics and links with zero unresolved symbols.
 `PC_DLLEngineMain` is the sole PE32 export at ordinal 1. The replacement has
 no original-engine import or embedded original executable code.
@@ -75,6 +75,14 @@ actor+54 after x stores fixes both tested real extent paths. Extents
 providers. Negative modes, null profile roots and unsupported resource IDs
 fail visibly; dynamic record allocation limits remain unverified.
 
+Grid scan `20b50` now calls the actual source decoder `20990`.
+Four native cases/eight checks distinguish the y-based reverse seed and the
+read after forward-scan exhaustion; one source guard is counted separately.
+The decoder passes15 native cases/54 checks, including doubled masked
+sample64/65/127 returns and live shared coefficient lanes. One source-only
+arithmetic control and two owner guards add confidence within their scopes.
+Dynamic stream and row allocation lengths remain unverified.
+
 Resource reload retains three native cases/81 checks; dialog helpers retain
 147 native cases plus a missing-NUL discriminator. Command writers retain
 14 native cases. Payload decoder `4ca0` passes six synthetic/flush cases plus
@@ -88,7 +96,7 @@ original `15780/12620` as test-only nested helpers; production has separate C
 dependencies. Color retains a raw upper-DWORD callback disagreement, while
 the actual host consumes the matching low byte.
 
-Runtime evidence records 15 artifact-bound observations. Each distinguishes
+Runtime evidence records 16 artifact-bound observations. Each distinguishes
 historical source context from the current checkout. The latest run uses
 original host/ENG3/data, stable source TITLE and the authorized no-CD change
 only in a disposable host copy, in windowed mode. The observer captures the
@@ -166,7 +174,7 @@ cells. Some PC callbacks are real no-ops; retain each measured identity.
 
 Cold startup includes source pool sweeps, descriptor/link initialization,
 resource reload, payload decoding, setup and bounded player dispatch.
-The latest observed frontier is `0x20b50` in the index-query chain.
+The latest observed frontier is `0x27d40` in the index-query chain.
 Worklist, camera, geometry and dialog orchestration have compiled providers;
 many collision, actor, animation and input handlers remain missing. A missing
 root hides further dependencies, so the current unresolved count understates
@@ -199,6 +207,8 @@ python scripts/eng1_bounded_differential.py command-writers
 python scripts/eng1_bounded_differential.py descriptor-reload
 python scripts/eng1_bounded_differential.py dialog-frame
 python scripts/eng1_bounded_differential.py simulation-root
+python scripts/eng1_bounded_differential.py query-decoder
+python scripts/eng1_bounded_differential.py grid-scan
 python scripts/eng1_bounded_differential.py extent-producer
 python scripts/eng1_bounded_differential.py actor-bounds
 python scripts/eng1_bounded_differential.py grid-query

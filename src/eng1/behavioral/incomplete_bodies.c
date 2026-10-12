@@ -4246,14 +4246,6 @@ void __cdecl eng1_native_dep_00ff70(void)
     ExitProcess(0xe0484731UL);
 }
 
-/* INCOMPLETE: ENG1.DLL RVA 0x20b50; unimplemented_function. */
-void __cdecl eng1_native_dep_020b50(void)
-{
-    eng1_incomplete_behavior(0x20b50UL,
-        "unimplemented entry eng1_native_dep_020b50; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
 /* INCOMPLETE: ENG1.DLL RVA 0x299d0; unimplemented_function. */
 void __cdecl eng1_native_dep_0299d0(void)
 {

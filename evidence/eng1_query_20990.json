@@ -1,0 +1,98 @@
+{
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "native_spans": {
+    "0x20990_diagnostic_span": {
+      "size": 448,
+      "sha256": "08fdaf5d9f098b7f89a32ab937edc9560b6612c2a35681679c7b78db4b1df320",
+      "boundary_note": "Diagnostic inventory span is 448 bytes; body size is recorded as 445 but start/end ownership is unproven, and the span contains three trailing NOPs."
+    }
+  },
+  "abi": "cdecl signed DWORD(x DWORD, y DWORD, program pointer); callers 0x20b50 pass pointer last; native returns full EAX",
+  "unknowns": [
+    "Native function boundary is not established by the diagnostic span.",
+    "Coefficient source ownership is measured only over the stated prefix and sequence alias; any other computed coefficient DWORD calls eng1_incomplete_behavior before access.",
+    "Negative-tag and wrap controls are source-only because a caller-valid native domain for those inputs is not proven.",
+    "Program allocation extent is unknown; native differential uses short, locally bounded fixtures whose selected sample bytes are initialized and in bounds.",
+    "This report proves finite semantic differential cases, not FUNCTION_MATCH, source identity, or original TU/layout."
+  ],
+  "prior_fixture_history": [
+    {
+      "path": "work/eng1_behavioral/query_20990/fixture_failure_1.json",
+      "sha256": "c44e66536375c73cd9b28c0cfc029b9e84f5c8bc969d23d30f761af6bca3157e",
+      "identity": "The first complex-sentinel input used x=1, moving its sample from p+1 to p+2; native continued through the default large stride and raised access violation 0xc0000005. No candidate mismatch was observed before the bad fixture case; the sentinel controls now use x=0."
+    },
+    {
+      "path": "work/eng1_behavioral/query_20990/fixture_failure_2.json",
+      "sha256": "55f006363b208cb6fbe6542d6cbefcec0e40449c576fa6868687b2153ff3f71d",
+      "identity": "Native and source agreed, but three independent expected values used a cursor one byte short. The fixture now initializes samples at native-selected offsets and retains the derived 32/30/37 expectations."
+    }
+  ],
+  "data_views": {
+    "coefficient_prefix": {
+      "owner": "src/eng1/behavioral/grid_query_data.c::g_eng1_grid_query_coefficient_prefix_5e0d0[26]",
+      "rva_interval": "[0x5e0d0,0x5e138)",
+      "size": 104,
+      "sha256": "5117def35fe664ea3e5f48c16c36a6e08704421264f643e6ecbca2531f3024db"
+    },
+    "sequence_alias": {
+      "owner": "src/eng1/behavioral/payload_dispatch_data.c::g_actor_group_sequence_5e138[0x70]",
+      "rva_interval": "[0x5e138,0x5e1a8)",
+      "size": 112,
+      "sha256": "b04cb8822d733eee691188918a6d2bad000d2062b511c95a61a3960b549e0ef2",
+      "coefficient_byte_offsets": "0..100 resolve to the prefix; 104..212 resolve to this owner at offset-104; all other coefficient DWORD addresses fail visibly.",
+      "overlap_fixture": "Mutates and restores sequence DWORDs at native RVA 0x5e138/0x5e13c and source offsets 0/4. The 0x16 tag uses row-6 lanes 2 and 3 through these aliases."
+    }
+  },
+  "native_read_order": [
+    "signed tag byte at program+0",
+    "tag-zero path: sample bytes +1/+2, then coefficients row-0 lanes 1/2",
+    "tag 1..15 path: selected lane 0, base byte, next byte, then selected lanes 1/2",
+    "tag >15 path: low lane 0, high lane 0, low lane 3, base byte, low lanes 1/2, first-row next byte, second-row byte pair, then high lanes 1/2"
+  ],
+  "source_semantics": "All coordinate multiplies/adds are DWORD modulo-2^32 operations; explicit SAR8 and SAR4 helpers model x86 arithmetic shifts. Negative sample bytes return -1; high positive sample sentinels return (sample<<1)&0x7f, distinguished for 64/65/127 in each tag encoding. Interpolation neighbors are masked with 0x3f. Coefficient loads are volatile DWORD reads in native access order.",
+  "module": "ENG1.DLL",
+  "rva": "0x20990",
+  "source": "src/eng1/behavioral/query_20990.c",
+  "source_sha256": "75458c849fc3bf850487af6f9fb23ba10191026e47bfd24f09bd7a49c76b8227",
+  "implementation_status": "known_incomplete",
+  "private_candidate_sha256": "f83f6cd8fc52b001a24df24d7bf7a41ecea38f5f0618f2708cfbc081239bde59",
+  "private_report_sha256": "818dc032060aabb34034a8f6d78f1a16ee8222f0ccb894a90d0e28227d798042",
+  "fixture": "tests/eng1_query_20990_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py query-decoder",
+  "scope": "Finite native comparison of canonical source, with source-only diagnostics separately counted. No strict recovery promotion or universal behavior proof.",
+  "dependencies": "Existing mutable104B coefficient prefix and112B sequence owner; no duplicated data.",
+  "canonical_adjustments": "Canonical spelling only; source controls and guards separated from native-check count.",
+  "canonical_proof": {
+    "scope": "Fifteen finite native compressed-query comparisons, high sample64/65/127 controls in each encoding, scalar/row/bilinear interpolation and live shared coefficient mutations restored afterward. One source-only arithmetic control and two unsupported-owner guards separately counted. Program/table capacities and wider input domains remain unproven.",
+    "input_sha256": {
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "tests/eng1_query_20990_differential.c": "1c7041d69ea09b525a1af757c986eccd19826031e7188207690995b9aeab3fb0",
+      "src/eng1/behavioral/payload_dispatch_data.c": "72c031fb55841dec4c33eb17a57f9c04a761fc66f79b423e418ee5eb7a312056",
+      "src/eng1/behavioral/query_20990.h": "c3687aea684cbcf9ed174f8109266a2b80aec0020ccb0ffa048448c84ebf67c6",
+      "src/eng1/behavioral/grid_query_data.c": "841bb6c71cafb23a995421bb4f6a5560e486b61d377d33bd9fed81780b6be5b7",
+      "src/eng1/behavioral/query_20990.c": "75458c849fc3bf850487af6f9fb23ba10191026e47bfd24f09bd7a49c76b8227",
+      "scripts/eng1_bounded_differential.py": "c7b0e805becc8f1dbb6a3502f9f55bbd8dae158ef86ca37d5a005d1d76a34415",
+      "src/eng1/behavioral/grid_query_20d30.h": "7438e69f3aac21e14c1bee23245236141472885325adc5638ac05989586a7cc0"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x20990": {
+        "size": 448,
+        "sha256": "08fdaf5d9f098b7f89a32ab937edc9560b6612c2a35681679c7b78db4b1df320"
+      }
+    },
+    "stdout": "fixture: mapped ENG1 at 10000000\nnative: tag 0 scalar interpolation => 40\nnative: tag 0 negative sample sentinel => -1\nnative: tag 0 high sample sentinel => 0\nnative: tag 0 high sample 65 preserves doubled masked EAX => 2\nnative: tag 0 high sample 127 preserves doubled masked EAX => 126\nnative: tag 1 one-dimensional interpolation => 24\nnative: tag 1 high sample 64 preserves doubled masked EAX => 0\nnative: tag 1 high sample 65 preserves doubled masked EAX => 2\nnative: tag 1 high sample 127 preserves doubled masked EAX => 126\nnative: tag 0x16 high sample 64 preserves doubled masked EAX => 0\nnative: tag 0x16 high sample 65 preserves doubled masked EAX => 2\nnative: tag 0x16 high sample 127 preserves doubled masked EAX => 126\nnative: tag 0x16 reads shared lane-2/lane-3 owner => 32\nnative: tag 0x16 observes a live lane-2 alias update => 30\nnative: tag 0x16 observes a live lane-3 stride update => 37\nquery_20990_native_cases=15 checks=54 failures=0\nquery_20990_source_control_cases=1 checks=1 failures=0\nquery_20990_source_guard_cases=2 checks=2 failures=0\n",
+    "cases": 15,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 54,
+    "source_guard_cases": 2,
+    "source_guard_checks": 2,
+    "source_guard_failures": 0,
+    "source_control_cases": 1,
+    "source_control_checks": 1,
+    "source_control_failures": 0,
+    "private_report_sha256": "6b612cda1ef7a51e690f5f86b334bb86f506d4a92a9707b7f70fb344e09c84fd"
+  }
+}
