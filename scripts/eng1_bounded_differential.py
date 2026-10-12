@@ -14,8 +14,45 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 from match import DEFAULT_TOOLCHAIN, verify_toolchain
 from pe import PE
 from title_behavioral import context_files
+from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'spawn-services': dict(
+        sources=['tests/eng1_spawn_services_differential.c',
+                 'src/eng1/behavioral/spawn_services.c',
+                 'calibration/actor_pools.c',
+                 'calibration/actor_pool_reset_repaired.c',
+                 'src/eng1/behavioral/worklist_read_guards.c',
+                 'calibration/actor_factories.c',
+                 'calibration/eng1/actor_middle_init.c',
+                 'src/shared/frame_state.c'],
+        spans=[(0x300c0,192),(0x30180,272),(0x277e0,128)], cases=6,
+        production_omissions=True,
+        flags={'src/eng1/behavioral/worklist_read_guards.c':['/DENG1_WORKLIST_GUARD_FIXTURE']},
+        scope='Six finite native spawn selector-family invocations plus normal/alternate exhaustion controls. Actual production pool/init composition, existing factories, source append_chain and controlled callback/asset tables.30180 treatedvoid for known direct callers; native callbackEAX marker distinguishes superseded actor-return claim. Indirect return consumers and full table/pool capacities remain unverified.'),
+    'action-spawn': dict(
+        sources=['tests/eng1_action_spawn_differential.c',
+                 'src/eng1/behavioral/action_spawn_27d40.c',
+                 'calibration/actor_factories.c',
+                 'calibration/actor_pools.c',
+                 'calibration/actor_detach_helpers.c',
+                 'src/eng1/behavioral/actor_storage.c'],
+        spans=[(0x27d40,100)], cases=5,
+        flags={p:[
+            '/Dg_normal_cursor_primary=g_configuration_word_71308',
+            '/Dg_normal_limit_primary=g_configuration_word_713b4',
+            '/Dg_normal_limit_wrap=g_configuration_word_713a8',
+            '/Dg_normal_cursor_alternate=g_configuration_word_713c4',
+            '/Dg_normal_limit_wrap_start=g_configuration_word_71378',
+            '/Dg_normal_factory_assets=g_configuration_dword_71388',
+            '/Dg_alternate_cursor_primary=g_configuration_word_71374',
+            '/Dg_alternate_limit_primary=g_configuration_word_713ba',
+            '/Dg_alternate_limit_wrap=g_configuration_word_713b6',
+            '/Dg_alternate_cursor_alternate=g_configuration_word_71430',
+            '/Dg_alternate_limit_wrap_start=g_configuration_word_7138c',
+            '/Dg_alternate_factory_assets=g_configuration_dword_713a4']
+            for p in ['calibration/actor_factories.c','calibration/actor_pools.c']},
+        scope='Five finite native child-link comparisons with actual existing factory/pool/init/detach sources. Controlled config mirrors and synthetic asset rows; source release spy restricted to zero-kind no-op. Blocked/success/exhausted/parent-pool-alias paths tested. No production table/pool capacity, nonzero cleanup or universal equivalence claim.'),
     'grid-scan': dict(
         sources=['tests/eng1_grid_query_20b50_differential.c',
                  'src/eng1/behavioral/grid_query_20b50.c',
@@ -229,6 +266,11 @@ def run(profile, oracle, captured_payload=None):
     out.mkdir(parents=True, exist_ok=True)
     sources = [ROOT / p for p in cfg['sources']]
     paths = {p for source in sources for p in context_files(source)} | {Path(__file__).resolve()}
+    graph_config = None
+    if cfg.get('production_omissions'):
+        graph_path = ROOT / 'evidence/eng1_behavioral_build.json'
+        paths.add(graph_path)
+        graph_config = json.loads(graph_path.read_bytes())
     if captured_payload is not None:
         if profile != 'payload-dispatch':
             raise ValueError('Captured payload is supported only by payload-dispatch')
@@ -246,12 +288,25 @@ def run(profile, oracle, captured_payload=None):
                INCLUDE=str(DEFAULT_TOOLCHAIN / 'include'), LIB=str(DEFAULT_TOOLCHAIN / 'lib'))
     exe = out / 'fixture.exe'
     exe.unlink(missing_ok=True)
-    commands, objects, logs = [], [], []
+    commands, objects, logs, derivations = [], [], [], []
     for index, source in enumerate(sources):
         obj = out / ('unit_' + str(index) + '.obj')
         obj.unlink(missing_ok=True)
-        flags = cfg.get('flags', {}).get(source.relative_to(ROOT).as_posix(), [])
-        command = [str(DEFAULT_TOOLCHAIN / 'bin/cl.exe'), '/nologo', '/c', '/O2', '/Gy', '/MT', *flags, '/Fo' + str(obj), str(source)]
+        name = source.relative_to(ROOT).as_posix()
+        flags = list(cfg.get('flags', {}).get(name, []))
+        compiler_input = source
+        omitted = graph_config.get('omit_functions', {}).get(name, []) if graph_config else []
+        if omitted:
+            source_text = source.read_text(encoding='utf-8')
+            for row in omitted:
+                body = function_text(source_text, row['function'])
+                source_text = replace_function(source_text, row['function'], body[:body.index('{')].rstrip() + ';')
+            compiler_input = out / ('derived_' + str(index) + '.c')
+            compiler_input.write_bytes(source_text.encode())
+            flags.append('/I' + str(source.parent))
+            derivations.append(dict(source=name, source_sha256=sha(source), omitted_functions=omitted,
+                compiler_input=compiler_input.relative_to(ROOT).as_posix(), compiler_input_sha256=sha(compiler_input)))
+        command = [str(DEFAULT_TOOLCHAIN / 'bin/cl.exe'), '/nologo', '/c', '/O2', '/Gy', '/MT', *flags, '/Fo' + str(obj), str(compiler_input)]
         commands.append(command)
         built = subprocess.run(command, cwd=out, env=env, capture_output=True, text=True, timeout=60)
         logs.append(built.stdout + built.stderr)
@@ -267,7 +322,7 @@ def run(profile, oracle, captured_payload=None):
     pe = PE(oracle)
     report = dict(scope=cfg['scope'], toolchain=tool, input_sha256=before,
                   oracle_sha256=sha(oracle), native_spans={hex(rva):dict(size=size,sha256=hashlib.sha256(pe.read_rva(rva,size)).hexdigest()) for rva,size in cfg['spans']},
-                  commands=commands, compile_exit_code=built.returncode)
+                  commands=commands, compile_exit_code=built.returncode, production_derivations=derivations)
     if built.returncode == 0:
         arguments = [str(exe), str(oracle)]
         if captured_payload is not None:

@@ -1575,6 +1575,46 @@
     },
     {
       "module": "ENG1.DLL",
+      "rva": "0x71370",
+      "source": "src/eng1/behavioral/spawn_services.c",
+      "function": "spawn_at_group_300c0 / spawn_actor_with_owner",
+      "kind": "incomplete_data_read",
+      "condition": "Unregisterednormalactionpointer or low12 index beyondmeasured12Brow prefix",
+      "reporting": "Existing eng1_guard_worklist_table_read logs original owner/consumer and fails before unsupported access.",
+      "evidence": "evidence/eng1_spawn_services.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x7137c",
+      "source": "src/eng1/behavioral/spawn_services.c",
+      "function": "spawn_at_group_300c0 / spawn_actor_with_owner",
+      "kind": "incomplete_data_read",
+      "condition": "Unregisteredmiddleactionpointer or low12 index beyondmeasured8Brow prefix",
+      "reporting": "Existing eng1_guard_worklist_table_read logs original owner/consumer and fails before unsupported access.",
+      "evidence": "evidence/eng1_spawn_services.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x7139c",
+      "source": "src/eng1/behavioral/spawn_services.c",
+      "function": "spawn_at_group_300c0 / spawn_actor_with_owner",
+      "kind": "incomplete_data_read",
+      "condition": "Unregisteredalternateactionpointer or low12 index beyondmeasured8Brow prefix",
+      "reporting": "Existing eng1_guard_worklist_table_read logs original owner/consumer and fails before unsupported access.",
+      "evidence": "evidence/eng1_spawn_services.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x71390",
+      "source": "src/eng1/behavioral/spawn_services.c",
+      "function": "spawn_middle_277e0",
+      "kind": "incomplete_data_read",
+      "condition": "Unregisteredmiddleassetpointer or low12 index beyondmeasured8Brow prefix",
+      "reporting": "Existing eng1_guard_worklist_table_read logs original owner/consumer and fails before unsupported access.",
+      "evidence": "evidence/eng1_spawn_services.json"
+    },
+    {
+      "module": "ENG1.DLL",
       "rva": "0xe670",
       "symbol": "_dispatch_local_0e670",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -2611,24 +2651,6 @@
       "consumers": [
         {
           "source": "src/eng1/behavioral/eng1_default_callbacks.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x27d40",
-      "symbol": "_eng1_native_code_target_0027d40",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/setup_source.c",
           "kind": "function"
         }
       ],
@@ -11402,28 +11424,6 @@
     },
     {
       "module": "ENG1.DLL",
-      "rva": "0x300c0",
-      "symbol": "_eng1_native_dep_0300c0",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/spatial_effects.c",
-          "kind": "function"
-        },
-        {
-          "source": "src/eng1/behavioral/player_setup_continuation.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
       "rva": "0x2290",
       "symbol": "_eng1_target_02290",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -11676,46 +11676,6 @@
     },
     {
       "module": "ENG1.DLL",
-      "rva": "0x300c0",
-      "symbol": "_spawn_actor_at_group",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "evidence/eng1_unresolved_identity_map.json",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/interpreters.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x30180",
-      "symbol": "_spawn_actor_with_owner",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "evidence/eng1_unresolved_identity_map.json",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/interpreters.c",
-          "kind": "function"
-        },
-        {
-          "source": "src/eng1/behavioral/player_setup_continuation.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
       "rva": "0x7ef6",
       "symbol": "_stop_actor_sounds",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -11734,11 +11694,11 @@
     }
   ],
   "provisional_generation": {
-    "source_only_report_sha256": "b60360c007315cc4fdf56566f716151e2a218575698504a58d3dd2b403893ee6",
+    "source_only_report_sha256": "52d60c0146993ef8f17b53d5dfa7cadd2abaec77165e2f455c8f7c08d2a9bbfe",
     "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
     "recovery_sha256": "465ee5ea057cd3bfb23508e18b16958c27b9d391e11a0bc874cfc413436644d5",
-    "symbols": 554,
-    "native_rvas": 550,
+    "symbols": 550,
+    "native_rvas": 547,
     "scope": "Transitional loader/startup diagnostics only; excluded from source coverage and never behaviorally accepted."
   }
 }

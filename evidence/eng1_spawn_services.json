@@ -1,0 +1,244 @@
+{
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "limitations": [
+    "Finite normal, middle, and alternate-family kind rows only; measured table prefixes do not establish runtime capacity.",
+    "Existing coordinate factory providers 0x271d0 and 0x27db0 and the isolated middle allocator are reused source dependencies; this fixture does not establish their standalone equivalence.",
+    "For 0x30180, native successful callback paths return the callback's raw EAX. The private C API is void, matches known behavioral callers, and makes no actor-pointer return claim; indirect consumers of three EAX-propagating wrappers remain outside the proof.",
+    "No FUNCTION_MATCH, source spelling, original translation-unit, full data capacity, or whole-module claim."
+  ],
+  "oracle_target_span": {
+    "0x300c0": {
+      "size": 192,
+      "sha256": "b8b4b0acfbb7a8e65f9071781c786f409b4cacf3fe4459fe05c2ab8a336d267f"
+    },
+    "0x30180": {
+      "size": 272,
+      "sha256": "afa770afeb3ff0e03e1d8690f6c1e0c28016378bbd59528c1f0483c772d8c841"
+    }
+  },
+  "module": "ENG1.DLL",
+  "rvas": [
+    "0x300c0",
+    "0x30180",
+    "0x277e0"
+  ],
+  "source": "src/eng1/behavioral/spawn_services.c",
+  "source_sha256": "971fe773da5aa673e5a8ccdd71c156c850eaa364fb21f9f239f21ee516f9d868",
+  "implementation_status": "behaviorally_validated_limited",
+  "private_candidate_sha256": "27bd8adc4b23b82dec9946f5b593abca23a49853071c928eef22c3719221d12b",
+  "private_report_sha256": "b43de61cfe948a07e87bc36ffe0da2b70f8e284e26e8565079956de4d74f7056",
+  "fixture": "tests/eng1_spawn_services_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py spawn-services",
+  "scope": "Three-family spawn services using actual production pool/init/factory providers, exact source append_chain and existing guarded data views. Finite callback and allocation/owner states; synthetic harness tables are not production-owner proof.",
+  "return_uncertainty": "300c0 returns created actor.30180 modeledvoid for known direct consumers; native rawcallbackEAX propagates through three indirect wrappers whose consumers remain unclosed. No universal return ABI/equivalence claim.",
+  "known_limits": "Normal/alternate factories are reused plausible providers. Callback/asset tables retain measured-prefix guards; no full capacities or nonzero cleanup proof.",
+  "superseded_negative_receipt": {
+    "path": "work/eng1_behavioral/spawn_services_300c0_30180/superseded_30180_return_claim.json",
+    "sha256": "fab58ce53684f5103b0e6ed79507044fac50a9cdecb0d0d9330b1bbcbd784284"
+  },
+  "fixture_provider_provenance": {
+    "production_pool_provider": {
+      "source": "calibration/actor_pools.c",
+      "source_sha256": "2ff49187935e13c68d9a64ae477c009107871e12fc8b440848e5d862d7ecb5b4",
+      "omit_functions": [
+        "initialize_middle_actor"
+      ],
+      "derived_compiler_input": "work/eng1_behavioral/spawn_services_300c0_30180/fixture/actor_pools_fixture.c",
+      "derived_compiler_input_sha256": "f999903c5b37d703715236be1f7a5a7c7ffc82c13d0821748c00762dc2e45f3e"
+    },
+    "middle_initializer": "calibration/eng1/actor_middle_init.c, compiled directly under its public symbol.",
+    "middle_allocator_and_reset_provider": {
+      "source": "calibration/actor_pool_reset_repaired.c",
+      "source_sha256": "19a760e844bfcf4044efa2b03c3eca2b014734c7ee960df381d820fb9a1fbc21",
+      "omit_functions": [
+        "initialize_alternate_actor",
+        "initialize_middle_actor",
+        "initialize_normal_actor",
+        "allocate_alternate_actor",
+        "allocate_normal_actor"
+      ],
+      "derived_compiler_input": "work/eng1_behavioral/spawn_services_300c0_30180/fixture/actor_pool_reset_fixture.c",
+      "derived_compiler_input_sha256": "095cfd3b997cd007009c3fe03085cf8cee19a5788a7c624aaae0c61bf5f226e2"
+    }
+  },
+  "native_return_audit": {
+    "rva_0x30180": "On successful callback branches native RET exposes callback raw EAX; it does not restore the newly created actor pointer. The fixture callback returns 0x12345678 while the actor address differs, making the old actor-pointer claim fail visibly.",
+    "direct_callsite_rvas": [
+      "0x15ff2",
+      "0x1ba40",
+      "0x1ba5b",
+      "0x2461a",
+      "0x2845a",
+      "0x28b33",
+      "0x33981",
+      "0x348fc",
+      "0x3e750",
+      "0x3fe68",
+      "0x40e3c"
+    ],
+    "direct_callsite_uses": [
+      {
+        "site": "0x15ff2",
+        "post_call": "add esp,0x14; jmp 0x16671; dispatcher reloads its current actor before continuing"
+      },
+      {
+        "site": "0x1ba40",
+        "post_call": "mov eax,[0x6f3f4] immediately overwrites callback EAX"
+      },
+      {
+        "site": "0x1ba5b",
+        "post_call": "mov edx,[0x6f3f4]; stores owner state, then later overwrites EAX at 0x1ba73 before use"
+      },
+      {
+        "site": "0x2461a",
+        "post_call": "mov ax,[0x71e24]; the caller continues from this WORD and never reads callback EAX"
+      },
+      {
+        "site": "0x2845a",
+        "post_call": "jumps to 0x2872d; that block reads actor/index state and returns EBP in EAX"
+      },
+      {
+        "site": "0x28b33",
+        "post_call": "jumps to 0x28f0a; that block overwrites EAX from actor+0x32 before use"
+      },
+      {
+        "site": "0x33981",
+        "post_call": "wrapper 0x33910 cleans its 5 args, restores ESI, and RET propagates EAX"
+      },
+      {
+        "site": "0x348fc",
+        "post_call": "wrapper 0x348a0 cleans its 5 args, restores ESI, and RET propagates EAX"
+      },
+      {
+        "site": "0x3e750",
+        "post_call": "loads ESI from actor+0x130; no callback EAX use"
+      },
+      {
+        "site": "0x3fe68",
+        "post_call": "writes actor fields; later calls overwrite EAX before use"
+      },
+      {
+        "site": "0x40e3c",
+        "post_call": "wrapper 0x40e20 cleans its 5 args, restores ESI, and RET propagates EAX"
+      }
+    ],
+    "eax_discard_or_overwrite_sites": [
+      "0x15ff2",
+      "0x1ba40",
+      "0x1ba5b",
+      "0x2461a",
+      "0x2845a",
+      "0x28b33",
+      "0x3e750",
+      "0x3fe68"
+    ],
+    "eax_propagating_wrapper_sites": [
+      {
+        "callsite": "0x33981",
+        "wrapper": "0x33910",
+        "native_tail": "add esp,0x14; pop esi; ret"
+      },
+      {
+        "callsite": "0x348fc",
+        "wrapper": "0x348a0",
+        "native_tail": "add esp,0x14; pop esi; ret"
+      },
+      {
+        "callsite": "0x40e3c",
+        "wrapper": "0x40e20",
+        "native_tail": "add esp,0x14; pop esi; ret"
+      }
+    ],
+    "contract_limit": "Known behavioral callers and source prototypes discard 0x30180 EAX. The three listed wrapper bodies propagate incidental EAX; their indirect callback consumers are not all closed, so this fixture does not claim a universal return contract for those chains."
+  },
+  "canonical_proof": {
+    "scope": "Six finite native spawn selector-family invocations plus normal/alternate exhaustion controls. Actual production pool/init composition, existing factories, source append_chain and controlled callback/asset tables.30180 treatedvoid for known direct callers; native callbackEAX marker distinguishes superseded actor-return claim. Indirect return consumers and full table/pool capacities remain unverified.",
+    "input_sha256": {
+      "src/eng1/behavioral/worklist_read_guards.h": "cbf45b1dbfc16e298c7c7884a62beac02e9b8db2a42fdf5ab5b1760011fe93c4",
+      "calibration/actor_pool_reset_repaired.c": "19a760e844bfcf4044efa2b03c3eca2b014734c7ee960df381d820fb9a1fbc21",
+      "src/shared/frame_state.c": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+      "src/eng1/behavioral/worklist_factory_types.h": "18644fb58236c2a7daa9c3242a443ef3f16f5206c6f98f2e7c1e1cd06f8f5c47",
+      "calibration/actor_pools.c": "2ff49187935e13c68d9a64ae477c009107871e12fc8b440848e5d862d7ecb5b4",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "tests/eng1_spawn_services_differential.c": "9f6fbb58001ef140324f6196fffe5958dbc7f0c8b2b8bd709b57f2bce90a24b3",
+      "calibration/eng1/actor_middle_init.c": "98bc9f988e6285924438f2501adbdfc86c6e38c8462ca3ec4c8e0940a4567dc0",
+      "src/eng1/behavioral/row0_layouts.h": "f01891cb6bca4813c7fc28b8b9c6083cf7d3ffe563d3d00a78e2cfd4675ba048",
+      "src/eng1/behavioral/spawn_services.c": "971fe773da5aa673e5a8ccdd71c156c850eaa364fb21f9f239f21ee516f9d868",
+      "scripts/eng1_bounded_differential.py": "96c4fc17d3802030c66c5789bfc0f2ead9023d47d15fdb173005460b02272b70",
+      "evidence/eng1_behavioral_build.json": "37721d838657659f6078ea90709e15014f4f72427beaf6500395f99897efcfac",
+      "src/eng1/behavioral/forest_actor_init.h": "8115197c5668019f912f667e94b7578453698ac4ce7f7a028862b2e1d54b6ee6",
+      "src/eng1/behavioral/worklist_read_guards.c": "b6fd834d4958eb75f189849befbaa7a2b6d31ea6371edbcd523f99a981da85ac",
+      "calibration/actor_factories.c": "24f3222fce819a21b833a4d007152b42fb4a3beac37235923d9849d02ac8f55b"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x300c0": {
+        "size": 192,
+        "sha256": "b8b4b0acfbb7a8e65f9071781c786f409b4cacf3fe4459fe05c2ab8a336d267f"
+      },
+      "0x30180": {
+        "size": 272,
+        "sha256": "afa770afeb3ff0e03e1d8690f6c1e0c28016378bbd59528c1f0483c772d8c841"
+      },
+      "0x277e0": {
+        "size": 128,
+        "sha256": "56185c7dba3531e41194f7f61d106913bf003cfcab79d44592d629c98b4d3d79"
+      }
+    },
+    "stdout": "PASS 0300c0 kind=0003\nPASS 0300c0 middle kind=4003\nPASS 0300c0 kind=2003\nPASS 030180 kind=0003\nPASS 030180 middle kind=6003 owner\nPASS 030180 kind=2003\nPASS normal allocation failure\nPASS alternate allocation failure\nspawn_services cases=6 checks=39 failures=0\n",
+    "cases": 6,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 39,
+    "production_derivations": [
+      {
+        "source": "calibration/actor_pools.c",
+        "source_sha256": "2ff49187935e13c68d9a64ae477c009107871e12fc8b440848e5d862d7ecb5b4",
+        "omitted_functions": [
+          {
+            "function": "initialize_middle_actor",
+            "provider": "calibration/eng1/actor_middle_init.c",
+            "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+          }
+        ],
+        "compiler_input": "work/eng1_behavioral/differential/spawn-services/derived_2.c",
+        "compiler_input_sha256": "f999903c5b37d703715236be1f7a5a7c7ffc82c13d0821748c00762dc2e45f3e"
+      },
+      {
+        "source": "calibration/actor_pool_reset_repaired.c",
+        "source_sha256": "19a760e844bfcf4044efa2b03c3eca2b014734c7ee960df381d820fb9a1fbc21",
+        "omitted_functions": [
+          {
+            "function": "allocate_alternate_actor",
+            "provider": "calibration/actor_pools.c",
+            "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+          },
+          {
+            "function": "allocate_normal_actor",
+            "provider": "calibration/actor_pools.c",
+            "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+          },
+          {
+            "function": "initialize_alternate_actor",
+            "provider": "calibration/actor_pools.c",
+            "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+          },
+          {
+            "function": "initialize_middle_actor",
+            "provider": "calibration/eng1/actor_middle_init.c",
+            "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+          },
+          {
+            "function": "initialize_normal_actor",
+            "provider": "calibration/actor_pools.c",
+            "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+          }
+        ],
+        "compiler_input": "work/eng1_behavioral/differential/spawn-services/derived_3.c",
+        "compiler_input_sha256": "095cfd3b997cd007009c3fe03085cf8cee19a5788a7c624aaae0c61bf5f226e2"
+      }
+    ],
+    "private_report_sha256": "cfb4df22143bf8ac37ab15133617b4ce3273b076fdecac976142a5fea6c31594"
+  }
+}

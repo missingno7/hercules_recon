@@ -1038,6 +1038,20 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_query_20990.json"
+    },
+    {
+      "source": "src/eng1/behavioral/action_spawn_27d40.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_action_spawn_27d40.json"
+    },
+    {
+      "source": "src/eng1/behavioral/spawn_services.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_spawn_services.json"
     }
   ],
   "functions": [
@@ -3548,6 +3562,38 @@
       "implementation_status": "known_incomplete",
       "evidence": "evidence/eng1_query_20990.json",
       "contract": "SignedBYTE tagged scalar/row/bilinear interpolation, doubled masked high samples and x86 DWORD arithmetic; live coefficient DWORD aliases."
+    },
+    {
+      "rva": "0x27d40",
+      "symbol": "_action_spawn_27d40",
+      "source": "src/eng1/behavioral/action_spawn_27d40.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "evidence": "evidence/eng1_action_spawn_27d40.json",
+      "contract": "Blocked parent returnsNULL; detach old child before livecoords/factorycall. Ordered childflag/parentlink/renderflag stores, late WORD/BYTE parent copies, nullablefactoryreturn. Actual existing source providers reused."
+    },
+    {
+      "rva": "0x300c0",
+      "symbol": "_spawn_at_group_300c0",
+      "source": "src/eng1/behavioral/spawn_services.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "evidence": "evidence/eng1_spawn_services.json",
+      "contract": "Select normal/middle/alternatefactory by lowkind6000, calllivecategoryaction afterallocation, returncreatedactor; fifthWORDargumentunused."
+    },
+    {
+      "rva": "0x30180",
+      "symbol": "_spawn_actor_with_owner",
+      "source": "src/eng1/behavioral/spawn_services.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/eng1_spawn_services.json",
+      "contract": "Normalcopies3ownerbytes+appendchain thenaction; middlecopiesbyteswithoutchain; alternateignoresowner. VOIDknowncallercontract; indirectrawEAXconsumersunclosed."
+    },
+    {
+      "rva": "0x277e0",
+      "symbol": "_spawn_middle_277e0",
+      "source": "src/eng1/behavioral/spawn_services.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "evidence": "evidence/eng1_spawn_services.json",
+      "contract": "Existingmiddleallocator/init, kindOR4000, duplicatedpositions +9c/a0/a4, live71390assetcategory/image withmeasuredprefixguard."
     }
   ],
   "source_adaptations": {
@@ -4477,6 +4523,34 @@
       "evidence": "evidence/eng1_query_20990.json",
       "confidence": "Observed native cdecl stack protocol",
       "limits": "Finite source/native proof; dynamic allocation capacities remain unverified."
+    },
+    "eng1_native_code_target_0027d40": {
+      "provider": "action_spawn_27d40",
+      "original_rva": "0x27d40",
+      "evidence": "evidence/eng1_action_spawn_27d40.json",
+      "confidence": "Observed twoDWORDcdecl inputs andpointerreturn",
+      "limits": "Finite fixture states, actualstartupA007 fitsmeasuredtableprefix; broaderdata/cleanupunverified."
+    },
+    "eng1_native_dep_0300c0": {
+      "provider": "spawn_at_group_300c0",
+      "original_rva": "0x300c0",
+      "evidence": "evidence/eng1_spawn_services.json",
+      "confidence": "Observed cdecl stack widths and lowWORD kind use",
+      "limits": "Caller role/source-view only; finite validation, no strict promotion."
+    },
+    "spawn_actor_at_group": {
+      "provider": "spawn_at_group_300c0",
+      "original_rva": "0x300c0",
+      "evidence": "evidence/eng1_spawn_services.json",
+      "confidence": "Observed cdecl stack widths and lowWORD kind use",
+      "limits": "Caller role/source-view only; finite validation, no strict promotion."
+    },
+    "eng1_native_code_target_00277e0": {
+      "provider": "spawn_middle_277e0",
+      "original_rva": "0x277e0",
+      "evidence": "evidence/eng1_spawn_services.json",
+      "confidence": "Observed cdecl stack widths and lowWORD kind use",
+      "limits": "Caller role/source-view only; finite validation, no strict promotion."
     }
   },
   "omit_functions": {

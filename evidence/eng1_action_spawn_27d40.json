@@ -1,0 +1,94 @@
+{
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "native_body": {
+    "rva": "0x27d40",
+    "observed_extent": 100,
+    "sha256": "addc951b5f69f6f399924dc33285e60a8ae2c000d2216aadf3d04614a13266ea",
+    "following_alignment_nops": 12,
+    "direct_calls": [
+      "0x29530",
+      "0x27db0"
+    ]
+  },
+  "abi": {
+    "candidate": "Actor *__cdecl eng1_candidate_0027d40(Actor *actor, unsigned long action)",
+    "native_stack_slots": [
+      "actor pointer",
+      "DWORD action"
+    ],
+    "return": "nullable actor pointer in EAX"
+  },
+  "native_semantics": [
+    "If actor+0x50 has bit 0x40000000, return null before reading or detaching actor+0x60.",
+    "If actor+0x60 is nonnull, call detach_child(actor) before reading live coordinates.",
+    "Read z at +0x08, y at +0x04, then x at +0x00; call spawn_kind(x,y,z,(WORD)action).",
+    "If the factory returns null, return null and retain any completed detach effects.",
+    "On success, store child+0x50=0x10000000; read parent+0x54, OR 0x00800000, store parent+0x60=child then parent+0x54; copy parent WORD+0x38 then byte+0x22 to child."
+  ],
+  "finite_cases": [
+    "blocked parent with an existing child; confirms early null and no parent/pool writes",
+    "successful action 0xa007 with no old child",
+    "successful action 0xa001 after detaching a zero-kind child",
+    "exhausted alternate pool after detaching a zero-kind child; confirms null without silent success",
+    "parent aliases selected pool slot; discriminates late parent reads after factory initialization"
+  ],
+  "limits": [
+    "The caller-observed actions 0xa007 and 0xa001 do not establish the complete action domain.",
+    "Synthetic eight-row fixture assets exercise indices 7 and 1 only; production table extent and producer remain outside this candidate.",
+    "Pool tests cover one selectable slot and one exhausted slot; they do not prove production pool capacity.",
+    "The source release_actor spy accepts only the measured zero-kind no-op return path; no claim is made for nonzero child cleanup. The native oracle executes its own release_actor.",
+    "Test-only config mirrors for frame_data cells and fixture asset rows are controlled harness state, not new production owners.",
+    "The region has no recovery.json row and scripts/region.py reported it unindexed; no FUNCTION_MATCH or source-identity claim is made."
+  ],
+  "source_owners": {
+    "detach_child": "calibration/actor_detach_helpers.c",
+    "spawn_kind": "calibration/actor_factories.c",
+    "allocate_alternate_actor_and_initialize_alternate_actor": "calibration/actor_pools.c",
+    "g_alternate_actor_pool": "src/eng1/behavioral/actor_storage.c",
+    "configuration_cells": "production frame_data.c owns the scalar cells; test-only typed mirrors cover RVAs 0x71374, 0x713ba, 0x713b6, 0x7138c, 0x71430, and pointer view 0x713a4, plus normal-pool cells needed to link unused provider COMDATs",
+    "asset_table": "eight synthetic fixture rows shared by native and source paths; no production table ownership or extent claim",
+    "release_actor": "test-only source spy restricted to the measured zero-kind no-op return; native oracle executes its own routine",
+    "remove_fx_links": "test-only unused spy for the unrelated detach-buffer branch"
+  },
+  "module": "ENG1.DLL",
+  "rva": "0x27d40",
+  "source": "src/eng1/behavioral/action_spawn_27d40.c",
+  "source_sha256": "e2650dd4152778b5599c4db4abef91854a04a38f461326108596241f7e0dbcf4",
+  "implementation_status": "behaviorally_validated_limited",
+  "private_candidate_sha256": "11e34270e7f59f91e4c69ff1341a7a2ab47de7df995f3e1c224672b8ae3edbc2",
+  "private_report_sha256": "57bddc21241036283812a942e73af15899df1e92e289515d5f0075925630cf9c",
+  "fixture": "tests/eng1_action_spawn_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py action-spawn",
+  "scope": "Five finite native/source child-link comparisons using existing factory/pool/initializer/detach sources. Configuration/asset harness state is controlled; release endpoint is a source-only zero-kind no-op spy. No production-data capacity, broader cleanup or universal behavior proof.",
+  "canonical_proof": {
+    "scope": "Five finite native child-link comparisons with actual existing factory/pool/init/detach sources. Controlled config mirrors and synthetic asset rows; source release spy restricted to zero-kind no-op. Blocked/success/exhausted/parent-pool-alias paths tested. No production table/pool capacity, nonzero cleanup or universal equivalence claim.",
+    "input_sha256": {
+      "tests/eng1_action_spawn_differential.c": "4bb3e74e3eec22a4806acd5c3836327f8761e3f321969d9f43b0b065cd55ff93",
+      "scripts/eng1_bounded_differential.py": "96c4fc17d3802030c66c5789bfc0f2ead9023d47d15fdb173005460b02272b70",
+      "calibration/actor_detach_helpers.c": "dea6029c9173a2e2c73cdd181d742c1d62eb9ec301c688310105be8ab936c8c5",
+      "calibration/actor_factories.c": "24f3222fce819a21b833a4d007152b42fb4a3beac37235923d9849d02ac8f55b",
+      "src/eng1/behavioral/actor_storage.c": "7c20021aee04622f627c1052d683962672c8aa9ed1e9d52df3166f2abe7b4c84",
+      "src/eng1/behavioral/action_spawn_27d40.c": "e2650dd4152778b5599c4db4abef91854a04a38f461326108596241f7e0dbcf4",
+      "calibration/actor_pools.c": "2ff49187935e13c68d9a64ae477c009107871e12fc8b440848e5d862d7ecb5b4",
+      "src/eng1/behavioral/action_spawn_27d40.h": "0eb61799ffb2a5c4b3b9f6633034bfd47e3118db2fb5f6a9be642bed9fffd00c"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x27d40": {
+        "size": 100,
+        "sha256": "addc951b5f69f6f399924dc33285e60a8ae2c000d2216aadf3d04614a13266ea"
+      }
+    },
+    "stdout": "case=blocked_existing_child native=null source=null\ncase=normal_0xa007 native=child source=child\ncase=detach_then_0xa001 native=child source=child\ncase=detach_then_exhausted native=null source=null\ncase=parent_pool_alias native=child source=child\nsetup_source_27d40_cases=5 checks=104 failures=0\n",
+    "cases": 5,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 104,
+    "production_derivations": [],
+    "private_report_sha256": "1b527c4f3c381f8fc15d082eeb16c7f1804f3251a7e39f8ad31ceb6e7ba001fc"
+  }
+}
