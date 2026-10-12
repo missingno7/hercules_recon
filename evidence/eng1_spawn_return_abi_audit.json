@@ -1,0 +1,367 @@
+{
+  "scope": "Finite native static ABI audit; no source recovery or strict acceptance.",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "inputs": {
+    "recovery.json": "465ee5ea057cd3bfb23508e18b16958c27b9d391e11a0bc874cfc413436644d5",
+    "evidence/eng1_behavioral_build.json": "37721d838657659f6078ea90709e15014f4f72427beaf6500395f99897efcfac",
+    "work/eng1_behavioral/dependencies.json": "f2336588e6b64d9cc7beb422ba8e1ccb2b07ea01333b44a343743d46a7e1fe44",
+    "src/eng1/behavioral/frame_data_callback_records.inc": "9211343c0fdcf3766d2d20daf09ed21363d5edc5478506809fbffff5d664d31d",
+    "calibration/frame_configuration.c": "bfcc1308c1d1523b0ebded3b129c6178229c5b4c5e768b9341781e4f5cf26e94"
+  },
+  "normal_table_read_owners": [
+    "0x1e50",
+    "0x86f0",
+    "0x8e10",
+    "0x9a20",
+    "0xa910",
+    "0xbc50",
+    "0xc730",
+    "0xc940",
+    "0x1ac10",
+    "0x1bab0",
+    "0x1c4d0",
+    "0x1d6c0",
+    "0x1d780",
+    "0x1e140",
+    "0x1ea90",
+    "0x21050",
+    "0x21210",
+    "0x21650",
+    "0x21aa0",
+    "0x220c0",
+    "0x22190",
+    "0x22fe0",
+    "0x23040",
+    "0x23390",
+    "0x256e0",
+    "0x258e0",
+    "0x25d00",
+    "0x270c0",
+    "0x280f0",
+    "0x28300",
+    "0x28360",
+    "0x29320",
+    "0x2b070",
+    "0x2b130",
+    "0x300c0",
+    "0x30180",
+    "0x36e90",
+    "0x38100",
+    "0x38880",
+    "0x38b30",
+    "0x38f50",
+    "0x39090",
+    "0x399f0",
+    "0x39a70",
+    "0x39b60",
+    "0x3a040",
+    "0x3a610",
+    "0x3a980",
+    "0x3b530",
+    "0x3b640",
+    "0x3b730",
+    "0x3b7f0",
+    "0x3b8b0",
+    "0x3ba00",
+    "0x3c170",
+    "0x44120",
+    "0x447c0"
+  ],
+  "wrapper_pointer_edges": [
+    {
+      "kind": "relocated_pointer",
+      "from_rva": "0x60970",
+      "target_rva": "0x33910",
+      "confidence": "initialized_cell_verified_semantic_owner_unproved",
+      "target_kind": "first_party_code_lead"
+    },
+    {
+      "kind": "relocated_pointer",
+      "from_rva": "0x60988",
+      "target_rva": "0x348a0",
+      "confidence": "initialized_cell_verified_semantic_owner_unproved",
+      "target_kind": "first_party_code_lead"
+    },
+    {
+      "kind": "relocated_pointer",
+      "from_rva": "0x6783c",
+      "target_rva": "0x40e20",
+      "confidence": "initialized_cell_verified_semantic_owner_unproved",
+      "target_kind": "first_party_code_lead"
+    }
+  ],
+  "prediction": "All reachable first-slot action consumers discard callback EAX or replace it before observable use; wrappers may propagate incidental EAX.",
+  "falsifier": "A native reachable indirect first-slot call with post-call read of EAX feeding control, storage, arguments, or public return without a proven discard in its caller.",
+  "result": "No semantic consumption of the wrappers raw returned EAX found in the reviewed finite native indirect-consumer graph. Several native propagation edges exist.",
+  "physical_native_contract": "30180 successful paths retain action callback raw EAX. Wrappers33910/348a0/40e20 retain it too. This differs from a guaranteed actor-pointer return; void source API does not promise physical return-register identity.",
+  "pointer_cell_proofs": [
+    {
+      "cell_rva": "0x60970",
+      "target_rva": "0x33910",
+      "HIGHLOW_relocated": true,
+      "cell_sha256": "24ee510f4120acd0505318693b63159aebb8a847af3602b14106188403397d59"
+    },
+    {
+      "cell_rva": "0x60988",
+      "target_rva": "0x348a0",
+      "HIGHLOW_relocated": true,
+      "cell_sha256": "e8e1fb261d0fb3c227da15583b02408ae8efc171b34c8488205e0db1921bbbd2"
+    },
+    {
+      "cell_rva": "0x6783c",
+      "target_rva": "0x40e20",
+      "HIGHLOW_relocated": true,
+      "cell_sha256": "cbb22127b981bdaa784f503af31c4f47e3409c3deca3eed3c7aadce4d6859e08"
+    },
+    {
+      "cell_rva": "0x68b54",
+      "target_rva": "0x67608",
+      "HIGHLOW_relocated": true,
+      "cell_sha256": "40428fca0fdf4635ebc40d9593a3d671130d8008356a8d63dddec64d578ba1b1"
+    },
+    {
+      "cell_rva": "0x68be4",
+      "target_rva": "0x60778",
+      "HIGHLOW_relocated": true,
+      "cell_sha256": "0147f7d03d281e3da9e01f3cffe5df299b38ffedbbca2e76322b57569facfb7f"
+    },
+    {
+      "cell_rva": "0x4e654",
+      "target_rva": "0xc7e0",
+      "HIGHLOW_relocated": true,
+      "cell_sha256": "de99d1fbb9818610489ea5d96869fbbff14116be11ad0cf9bb82c03b4df4ab9b"
+    }
+  ],
+  "wrapper_literal_occurrences_all_file_backed_sections": {
+    "0x33910": [
+      "0x60970"
+    ],
+    "0x348a0": [
+      "0x60988"
+    ],
+    "0x40e20": [
+      "0x6783c"
+    ]
+  },
+  "table_reference_coverage": {
+    "native_text_literal_hits": 79,
+    "manifest_hits": 79,
+    "span_lead_owners": 57,
+    "loads": 76,
+    "setter": "0x281a9",
+    "boundary_comparisons": [
+      "0x28320",
+      "0x28380"
+    ],
+    "unmanifested_literal_hits": []
+  },
+  "record_context": [
+    {
+      "wrapper": "0x33910",
+      "configuration_row": 3,
+      "configuration_id": 5,
+      "table": "0x60778",
+      "record": 42,
+      "slot": 0
+    },
+    {
+      "wrapper": "0x348a0",
+      "configuration_row": 3,
+      "configuration_id": 5,
+      "table": "0x60778",
+      "record": 44,
+      "slot": 0
+    },
+    {
+      "wrapper": "0x40e20",
+      "configuration_row": 1,
+      "configuration_id": 1,
+      "table": "0x67608",
+      "record": 47,
+      "slot": 0
+    }
+  ],
+  "reviewed_potential_wrapper_consumers": [
+    {
+      "call_rva": "0x1f0d",
+      "target_scope": "dynamic normal slot0",
+      "post_call": "AX overwritten at1f19; AND EAX,3ff at1f1e removes surviving high bits; index and second call do not depend on callback result."
+    },
+    {
+      "call_rva": "0xcacb",
+      "target_scope": "dynamic normal slot0; index constrained72/73",
+      "post_call": "Calls27860 atcad8 without observing EAX; this index cannot select42/44/47."
+    },
+    {
+      "call_rva": "0x271bc",
+      "target_scope": "dynamic normal slot0",
+      "post_call": "MOV EAX,ESI at271c2 returns separately retained actor."
+    },
+    {
+      "call_rva": "0x293c9",
+      "target_scope": "dynamic normal slot0",
+      "post_call": "Calls29260 at293d0 then28820 at293d9; no raw EAX use."
+    },
+    {
+      "call_rva": "0x2b0b5",
+      "target_scope": "dynamic normal slot0",
+      "post_call": "MOV EAX,[ESI] at2b0b8 replaces result; actor return is EDI at2b0c3."
+    },
+    {
+      "call_rva": "0x2b218",
+      "target_scope": "dynamic normal slot0",
+      "post_call": "Normal selector skips middle/alternate arms; EAX replaced by count at2b2c1; final success result1 at2b2ec."
+    },
+    {
+      "call_rva": "0x3016d",
+      "target_scope": "dynamic normal slot0",
+      "post_call": "MOV EAX,EDI at30173 replaces result with created actor."
+    },
+    {
+      "call_rva": "0x30278",
+      "target_scope": "dynamic normal slot0",
+      "post_call": "Propagates raw EAX through RET30280. Eight known direct callers discard it; three wrappers propagate it. This is a propagation edge, not a consuming use."
+    },
+    {
+      "call_rva": "0xc76f",
+      "target_scope": "constant normal slot0 record47",
+      "post_call": "Propagates throughc730. Direct callc7c0 immediately followed by command27260. Callc86d propagates throughc7e0; see slot8 closure."
+    },
+    {
+      "call_rva": "0x1e266",
+      "target_scope": "constant normal slot0 record47",
+      "post_call": "Subsequent CALL2c460 at1e279 supplies its own EAX result; no intermediate EAX read."
+    },
+    {
+      "call_rva": "0x221c1",
+      "target_scope": "constant normal slot0 record47",
+      "post_call": "MOV EAX,[1006fe3c] at221c7 replaces result."
+    },
+    {
+      "call_rva": "0x448d0",
+      "target_scope": "constant normal slot0 record42",
+      "post_call": "Branch44af7: zeroed EDI equals EBX on this arm, so branch44831; XOR EAX,EAX at44831 kills result. Even other44af7 arms encounter separate return-producing calls."
+    }
+  ],
+  "slot8_propagation_closure": [
+    {
+      "call_rva": "0x258b4",
+      "post_call": "XOR EAX,EAX at258bb before loop comparison."
+    },
+    {
+      "call_rva": "0x25e0b",
+      "post_call": "No surviving callback EAX bits affect state/control. On loop back, MOV AX at25dea replaces low16 before CMP AX; AND EAX,ffff at25dfc removes surviving high16 before indexed use. Later phase/context loads replace EAX."
+    },
+    {
+      "call_rva": "0x25f44",
+      "post_call": "No returned EAX read; context MOV EAX,[10070f24] at25f5b replaces it (optional command26730 also intervenes)."
+    },
+    {
+      "call_rva": "0x1f2b",
+      "post_call": "Propagates through1e50; only recorded caller25672 immediately calls12960, then26040/1fd20/262a0 without reading prior EAX."
+    }
+  ],
+  "additional_propagation_context": "c7e0 is configuration row0 record83 slot8 (cell4e654), not a row1 table target. c730->40e20 across this path requires a configuration context not established here. The post-call discard analysis remains conservative even if rebinding allowed it.",
+  "source_alias_evidence": "evidence/eng1_behavioral_build.json symbol_aliases.g_callbacks -> g_configuration_dword_71370 with verified_same_PC_cell; this connects actor_pipeline slot8 consumers.",
+  "limitations": [
+    "Static address/reference coverage is finite; dynamic target-set reachability and runtime table mutation are not proved complete.",
+    "79 literal references do not exclude computed addressing, unrecognized entrypoints, externally supplied callbacks, or aliases outside the reviewed graph.",
+    "Dependencies owners are diagnostic span leads. Raw bytes and decoded local paths support this audit, not original function extent/TU identity.",
+    "No live gameplay run, historical recompilation, byte match, canonical change, or recovery promotion was performed.",
+    "Void is supported as an observed behavioral caller contract. Physical EAX equality would require returning the actual callback value, not fabricating an actor result."
+  ],
+  "next_discriminators": [
+    "Run the source/native differential with distinct callback EAX markers through each wrapper and composed dispatcher/pool caller; compare only caller-observable state unless a physical return contract is explicitly required.",
+    "Instrument a read-only native runtime trace at the listed indirect calls to bind selected configuration/actor kind and detect any EAX-dependent consumer beyond these static paths.",
+    "Any new callback-table mutation, computed table-address reader, callback export, or EAX-consuming caller reopens this conclusion."
+  ],
+  "reviewed_native_span_sha256": {
+    "0x30180": {
+      "size": 272,
+      "sha256": "afa770afeb3ff0e03e1d8690f6c1e0c28016378bbd59528c1f0483c772d8c841"
+    },
+    "0xc780": {
+      "size": 96,
+      "sha256": "225c24beb3e09567a24c4b4d86728b7fc30e98a1722a2aa0722e9f1eb3816f34"
+    },
+    "0x25d00": {
+      "size": 832,
+      "sha256": "fa7e6b9cae1985255efe2b104c8fa833b7a8151d3985c446786855fab8e06311"
+    },
+    "0x33910": {
+      "size": 128,
+      "sha256": "936b5c7af9942e3ba6f1a8481c3032653ad38bf45861a91cdeffdc286886ac2f"
+    },
+    "0x22190": {
+      "size": 240,
+      "sha256": "4457e62b67431c0de8f7ddfd6de371cb00f0aea58e6457ef5d805c4ffca40d3f"
+    },
+    "0x40e20": {
+      "size": 48,
+      "sha256": "e58c5d2ae7c6c3fcb1ee411263d4c3f36449cf8ebf3c0bfb9143e0e49cd07c7c"
+    },
+    "0x348a0": {
+      "size": 112,
+      "sha256": "729863cb44b5bf2b077dfb286cbff58fcf09600e6d62ad1f30712d5b7885350e"
+    },
+    "0x29320": {
+      "size": 208,
+      "sha256": "9343a9d0b8a9dd6b6c9f0dc6fb2be40fb7a2950cf47faaa8dc307c280671f858"
+    },
+    "0x25620": {
+      "size": 128,
+      "sha256": "4910c42e540a18a1344d2d57d1bacc0be3b4f6a07297a9d38446723bc5cfb912"
+    },
+    "0xc730": {
+      "size": 80,
+      "sha256": "5ecefa7bf8025b25470ede1fc5488ff3826134cd59c38871a39ba0e0d2254b40"
+    },
+    "0x2b130": {
+      "size": 496,
+      "sha256": "c47a6dc20bdd642e0709d87edc7ead00f6965c8d4887db49f8dc4c82fb523659"
+    },
+    "0xc940": {
+      "size": 576,
+      "sha256": "8c3ee781ca39d778df5aa5f3ad4216f6e9c2fa856155ae4df1ce2b6465cb9db3"
+    },
+    "0x270c0": {
+      "size": 272,
+      "sha256": "920eed6a01798e680955cfc14f3bf10415aaf079b5121b5716ae095caebb3b65"
+    },
+    "0x300c0": {
+      "size": 192,
+      "sha256": "b8b4b0acfbb7a8e65f9071781c786f409b4cacf3fe4459fe05c2ab8a336d267f"
+    },
+    "0x1e140": {
+      "size": 480,
+      "sha256": "52aca78ae520bff2ebfddb7b87766f4c42ae4d1f75ba6f3486c9f05f7300259f"
+    },
+    "0x447c0": {
+      "size": 1984,
+      "sha256": "8c478f57fbff8092c69761e98f188af0651d051e2558228320abf312c0d47ab8"
+    },
+    "0x1e50": {
+      "size": 240,
+      "sha256": "8f7819849d64d299c61e54deef1cbe068c37c0a5e252d2dbc84c2db5233cfd77"
+    },
+    "0xc7e0": {
+      "size": 224,
+      "sha256": "2b21a111a91be8b7eba1e16a351def9e7cb0e1b4aefbb49ab5701ead09011471"
+    },
+    "0x256e0": {
+      "size": 512,
+      "sha256": "0d33a45d45a1b6a6efa2c2212ad6b8fc82e64d6c55f4a175b44eb0657eab54eb"
+    },
+    "0x280f0": {
+      "size": 416,
+      "sha256": "a151f3196e1813aea80fcd7dc6a4b203845db44186f02bddde506424027dc2c7"
+    },
+    "0x2b070": {
+      "size": 96,
+      "sha256": "056bba6310953d34febd9eb9c18ff085a75f411470a19694a27725f3f952b924"
+    }
+  },
+  "historical_input_note": "This finite audit used the recorded input hashes before actor-bootstrap integration; native oracle code/data and cited providers are unchanged. Dynamic target completeness is unproved.",
+  "private_report_sha256": "102694e636aa8e8f2dc0435ae72dc08dfacf5ee25cd72c3ea1e1042ff8d59a3f",
+  "reconstruction_effect": "Supports the current void behavioral caller contract within the reviewed finite graph. Does not establish raw EAX equivalence or promote any recovery record."
+}

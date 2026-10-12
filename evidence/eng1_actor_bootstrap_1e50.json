@@ -1,0 +1,104 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x1e50",
+  "source": "src/eng1/behavioral/actor_bootstrap_1e50.c",
+  "source_sha256": "7cd4ae6083effed0bae023c691b70d1c91fb7889746d7421705e776db6759d53",
+  "implementation_status": "behaviorally_validated_limited",
+  "private_candidate_sha256": "2ad9c483e36ebed7564cfc37b27bb8080a3b719ed8c552719b3d6ccf7a1cc6a1",
+  "private_report_sha256": "57c02df2b8876c47b263b0852c29f18cd4d146e91f2948cadf5e9f6405f42f81",
+  "native_interval": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "file_unchanged_before_after": true,
+    "entry_rva": "0x1e50",
+    "inventory_span_bytes": 240,
+    "span_sha256": "8f7819849d64d299c61e54deef1cbe068c37c0a5e252d2dbc84c2db5233cfd77",
+    "extent_note": "0x1e50 has no recovery.json record; [0x1e50,0x1f40) is the observed interval to the next inventory start, with RET at 0x1f32 and trailing alignment bytes."
+  },
+  "abi": {
+    "signature": "void __cdecl eng1_call_01e50(void)",
+    "native_caller": "0x25620 calls at 0x25672 without explicit arguments; return is ignored.",
+    "ordered_work": [
+      "assign active actor to normal pool slot +0x134",
+      "call existing initialize_normal_actor source provider",
+      "reload context; sign-extend level/subindex bytes",
+      "read descriptor root/24-byte child record; zero kind returns",
+      "write x/y/z from descriptor WORDs shifted left 16, camera x/y, kind WORD, and category byte",
+      "reload active actor and action base for slot 0; call action",
+      "reload active actor and action base again for slot +8; call action"
+    ],
+    "test_only_callbacks": "callback_first changes active actor and action-table base; callback_second records the reloaded actor. These fixture spies are not production dependencies."
+  },
+  "data_ownership": {
+    "existing_providers": [
+      "g_normal_actor_pool: src/eng1/behavioral/actor_storage.c",
+      "g_pipeline_actor_7200c: src/eng1/behavioral/actor_pipeline_storage.c",
+      "camera cells: src/eng1/behavioral/camera_storage.c",
+      "g_engine_interface.context_004: calibration/engine_interface_storage.c",
+      "descriptor table and configuration rows: src/eng1/behavioral/frame_data.c",
+      "initialize_normal_actor: calibration/actor_pools.c",
+      "callback-prefix guard: src/eng1/behavioral/worklist_read_guards.c"
+    ],
+    "fixture_data": "Two 24-byte descriptors and two callback prefixes are synthetic, finite inputs. Production source continues to use the existing 12-row descriptor owner and 9-row configuration owner; no duplicate production owner is introduced.",
+    "bounds": "Candidate admits signed descriptor levels 0..11 only where an existing measured child-row root/count exists, and guards signed child indices against those existing prefixes. Callback reads require one of configuration rows 0..7 and the existing 12-byte action-prefix guard.",
+    "descriptor_owner_proof": {
+      "source": "src/eng1/behavioral/frame_data.c::eng1_descriptor_rows_5a690",
+      "rva_interval": "[0x5a690,0x5a7b0)",
+      "measured_prefix_bytes": 288,
+      "native_data_sha256": "ba94da77a57541504cce9f6e59abe5cb68951779782808a28f67ed405226993d",
+      "matching_highlow_relocations": 36,
+      "audit": "work/eng1_behavioral/eng1_call_01e50/table_5a69c_audit.json",
+      "scope": "Measured 12-row prefix; logical table capacity not established."
+    }
+  },
+  "limits": [
+    "The original context/table runtime domain beyond the measured owner prefixes is not established; candidate fails visibly there.",
+    "No claim is made for unseen callback bases, null callback cells, or unsupported descriptor rows.",
+    "The test configuration uses controlled descriptor/action arrays and does not validate gameplay data across all configurations."
+  ],
+  "fixture": "tests/eng1_actor_bootstrap_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py actor-bootstrap",
+  "audit_corrections": [
+    "Volatile shared-actor and descriptor views preserve native rereads; kind is reread after coordinate/camera stores, not cached at the initial zero test."
+  ],
+  "scope": "Finite full actor/camera/callback comparisons; controlled descriptor/action rows and actual normal initializer. No complete capacities, original source identity or gameplay proof.",
+  "canonical_proof": {
+    "scope": "Three finite native bootstrap comparisons: zero kind, two live callback reloads, nonzero descriptor subrow and 03ff mask with high coordinate WORDs. Full actor bytes, camera values and callback actors compared. Actual normal initializer; controlled descriptor/action rows are test data. No complete capacities, full return ABI or gameplay claim.",
+    "input_sha256": {
+      "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+      "src/eng1/behavioral/row0_layouts.h": "f01891cb6bca4813c7fc28b8b9c6083cf7d3ffe563d3d00a78e2cfd4675ba048",
+      "src/eng1/behavioral/worklist_read_guards.h": "cbf45b1dbfc16e298c7c7884a62beac02e9b8db2a42fdf5ab5b1760011fe93c4",
+      "src/eng1/behavioral/actor_storage.c": "7c20021aee04622f627c1052d683962672c8aa9ed1e9d52df3166f2abe7b4c84",
+      "calibration/frame_configuration_row.h": "228c2bd5d3d8b0545bb093fbdc3b13b8f636c5afdc3fbdd16dcf97d74aa49479",
+      "calibration/actor_pools.c": "2ff49187935e13c68d9a64ae477c009107871e12fc8b440848e5d862d7ecb5b4",
+      "calibration/engine_interface_storage.c": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5",
+      "src/eng1/behavioral/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e",
+      "tests/eng1_actor_bootstrap_differential.c": "5a7ca4d5fe940a2a23d06c1448db29947c813dc1a36b946cdd12642c33ad30d9",
+      "src/eng1/behavioral/actor_bootstrap_1e50.c": "7cd4ae6083effed0bae023c691b70d1c91fb7889746d7421705e776db6759d53",
+      "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "src/eng1/behavioral/camera_storage.c": "96f1ee73f7d583451a9c9099bed4b0e76c8bb9e51fa8866b0c40e8ec051dfe0d",
+      "scripts/eng1_bounded_differential.py": "9c7c04c7cee86080f8d8bc40aaccbfd04a48c57e6bdab023b22a7b04cd7b7a80",
+      "src/eng1/behavioral/actor_pipeline_storage.c": "900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "src/eng1/behavioral/data_layouts.h": "310fe04a43cd1a73589d5b7bdb3058b3a16bdbbd1f9465b87ee768326f3671d3",
+      "src/eng1/behavioral/worklist_read_guards.c": "b6fd834d4958eb75f189849befbaa7a2b6d31ea6371edbcd523f99a981da85ac"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x1e50": {
+        "size": 240,
+        "sha256": "8f7819849d64d299c61e54deef1cbe068c37c0a5e252d2dbc84c2db5233cfd77"
+      }
+    },
+    "stdout": "PASS bootstrap scenario=0\nPASS bootstrap scenario=1\nPASS bootstrap scenario=2\nactor_bootstrap cases=3 checks=24 failures=0\n",
+    "cases": 3,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 24,
+    "source_guard_cases": 5,
+    "source_guard_failures": 0,
+    "production_derivations": [],
+    "private_report_sha256": "6e97175bb9b5a90d780fa7fc30e80344ca6e6273b95f4fcab3603f04b0112084"
+  }
+}

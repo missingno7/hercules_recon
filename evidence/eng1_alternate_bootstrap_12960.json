@@ -1,0 +1,97 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x12960",
+  "source": "src/eng1/behavioral/alternate_bootstrap_12960.c",
+  "source_sha256": "a88a5362f4c6aea5821072ab32e37bd94a51682470620eec825b718a106f5da3",
+  "implementation_status": "behaviorally_validated_limited",
+  "native": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_12960_body_rva": "0x12960",
+    "native_12960_body_size": 117,
+    "native_12960_body_sha256": "67129ed3147c6537b712abccd43c388ec43a9ebb5edc4e89cdbfd97a371e3abd",
+    "native_52b50_prefix_size": 32,
+    "native_52b50_prefix_sha256": "51ff76d6675a3b703616c2afd2c1afc7ee4f8c8c15b297706b9fa50a0326d9db",
+    "native_52b70_consumed_word_prefix_size": 16,
+    "native_52b70_consumed_word_prefix_sha256": "cc1a32afaea90659da58fe30aa99eeab69e5c3d8cd62c9e98f15bb68eb39fcf4"
+  },
+  "contract": {
+    "abi": "cdecl void(void)",
+    "iterations": 8,
+    "pool_owner": "existing g_alternate_actor_pool at ENG1 cell RVA 0x734e0",
+    "record_offsets": [
+      "0x128",
+      "0x1bc",
+      "0x250",
+      "0x2e4",
+      "0x378",
+      "0x40c",
+      "0x4a0",
+      "0x534"
+    ],
+    "stride": "0x94",
+    "initializer": "existing initialize_alternate_actor provider (native target 0x27fe0)",
+    "lookups": {
+      "0x52b70": "all eight low WORDs in the already-owned eight-slot Eng1SimulationWordSlot prefix",
+      "0x52b50": "eight DWORD values in a distinct writable initialized-data prefix; no complete-table claim"
+    },
+    "native_order": "per row: initializer; fixed +0x50,+0x2e,+0x54,+0x3e,+0x23; WORD lookup -> +0x34; +0x22; DWORD lookup; advance loop counters; +0,+4,+8 writes"
+  },
+  "private_candidate_sha256": "a7cabefd75ebc26b92f2779aaeca9121b3dcb676437ca74ea9681064a6638e06",
+  "private_report_sha256": "f4aeb9463f4484a73120ce29e6afda6bda34cfaf9aba94e49e15edc156253671",
+  "prior_failure": {
+    "path": "work/eng1_behavioral/eng1_call_12960/attempt_7_rows_negative.json",
+    "sha256": "e1fea02e7ca159661287f4bf515d537934775a1de85ce49dc10e27162126eff1",
+    "reason": "Initial seven-row fixture missed the post-increment signed JL eighth iteration."
+  },
+  "limits": [
+    "One patterned ten-record pool fixture; no direct arbitrary-pool capacity claim.",
+    "The semantic owner at 0x52b50 covers only the eight native DWORD reads, not the whole neighboring table.",
+    "Passing this differential is not FUNCTION_MATCH, original source identity, or whole-image equivalence."
+  ],
+  "fixture": "tests/eng1_alternate_bootstrap_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py alternate-bootstrap",
+  "audit_corrections": [
+    "Pool cell reloaded each iteration; mutable DWORD/WORD lookup lanes and ordered stores use volatile views."
+  ],
+  "data_prefix": {
+    "source": "src/eng1/behavioral/alternate_bootstrap_data.c",
+    "source_sha256": "ed45f9ab88a1c853a657882ececcc7d4c03e9e1f1861b0f53e85449d75dde040",
+    "rva": "0x52b50",
+    "size": 32,
+    "native_sha256": "51ff76d6675a3b703616c2afd2c1afc7ee4f8c8c15b297706b9fa50a0326d9db",
+    "writable": true,
+    "scope": "Eight measured DWORD reads, ends immediately before existing52b70 owner; not a logical full-table claim."
+  },
+  "canonical_proof": {
+    "scope": "Three finite native alternate-pool bootstrap comparisons with the actual production initializer: original lookup data, reversible mutable DWORD/WORD changes, and zero lookup values. Full ten-record pool, leading records, trailing canaries and all eight initialized actors checked. One source null-pool guard; no arbitrary allocation capacity or gameplay claim.",
+    "input_sha256": {
+      "src/eng1/behavioral/alternate_bootstrap_data.c": "ed45f9ab88a1c853a657882ececcc7d4c03e9e1f1861b0f53e85449d75dde040",
+      "scripts/eng1_bounded_differential.py": "9c7c04c7cee86080f8d8bc40aaccbfd04a48c57e6bdab023b22a7b04cd7b7a80",
+      "src/eng1/behavioral/alternate_bootstrap_12960.c": "a88a5362f4c6aea5821072ab32e37bd94a51682470620eec825b718a106f5da3",
+      "tests/eng1_alternate_bootstrap_differential.c": "79fd34996b6d153e3f8a2b6f1c1229a1812672df7466e67bd8343ab8f0f6f69f",
+      "src/eng1/behavioral/simulation_data_owners.h": "ab92a3f946f703049001b0b18941b3c802aa27d347ea126827377b8b76cab58b",
+      "src/eng1/behavioral/simulation_data_owners.c": "ddef677a3dcf65501c43c8494f409c0896cce83c3a4c28752969ec35e44d7abd",
+      "calibration/actor_pools.c": "2ff49187935e13c68d9a64ae477c009107871e12fc8b440848e5d862d7ecb5b4",
+      "src/eng1/behavioral/actor_storage.c": "7c20021aee04622f627c1052d683962672c8aa9ed1e9d52df3166f2abe7b4c84",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x12960": {
+        "size": 117,
+        "sha256": "67129ed3147c6537b712abccd43c388ec43a9ebb5edc4e89cdbfd97a371e3abd"
+      }
+    },
+    "stdout": "alternate_bootstrap cases=3 checks=987 failures=0\n",
+    "cases": 3,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 987,
+    "source_guard_cases": 1,
+    "source_guard_failures": 0,
+    "production_derivations": [],
+    "private_report_sha256": "2988178ddfaa80ea9cd30b68978546629b77a3d5a8901c5c7c0986e4c53c154e"
+  }
+}

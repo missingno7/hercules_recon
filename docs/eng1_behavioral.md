@@ -2,15 +2,15 @@
 
 The original host loads our source-built x86 ENG1 DLL and performs its expected
 250-DWORD interface initialization. Reconstructed setup and player script
-dispatch now advance the latest windowed run to missing routine `0x1e50`.
+dispatch now advance the latest windowed run to missing routine `0x3ca10`.
 No reconstructed ENG1 gameplay frame, continuous gameplay, or normal engine
 shutdown is verified.
 
-The genuine graph has 338 mapped compiled entries, 10 explicitly traced
-unindexed provider RVAs, and 368 function symbols across 176 source units.
+The genuine graph has 340 mapped compiled entries, 10 explicitly traced
+unindexed provider RVAs, and 370 function symbols across 179 source units.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
-denominator. The genuine link has 550 unresolved function symbols and zero
-duplicate providers. The optional transitional profile adds 550 explicit
+denominator. The genuine link has 548 unresolved function symbols and zero
+duplicate providers. The optional transitional profile adds 548 explicit
 fail-on-entry diagnostics and links with zero unresolved symbols.
 `PC_DLLEngineMain` is the sole PE32 export at ordinal 1. The replacement has
 no original-engine import or embedded original executable code.
@@ -20,8 +20,8 @@ compilation and actual linked-byte comparison. This work leaves `recovery.json`
 unchanged. The stable TITLE milestone and historical matching branch remain
 preserved.
 
-All 35 source fixture groups pass. The generic data gate verifies 53 providers,
-910 fields and 4,787 native-matching pointer relocations. Seven boundary
+All 35 source fixture groups pass. The generic data gate verifies 54 providers,
+911 fields and 4,787 native-matching pointer relocations. Seven boundary
 regressions cover explicit read-only and mixed file/loader-zero storage.
 A separate legacy-resource gate verifies 81 rows, 1,296 non-pointer bytes and
 81 actual NUL-terminated path contents. These data comparisons do not establish
@@ -96,7 +96,24 @@ assertions using the configured production allocator/initializer providers.
 Normal owner copy/chain, middle owner copy without chain, and alternate
 owner omission are retained. `300c0` returns the created actor; `30180` uses
 the known direct callers' void contract. Three indirect wrapper paths
-propagate raw callback EAX and remain outside that return-contract proof.
+propagate raw callback EAX. A separate finite native audit found no semantic
+use in the reviewed indirect graph; dynamic target completeness and raw
+EAX equality remain unproved.
+
+Actor bootstrap `1e50` reuses normal-pool slot1 and the existing descriptor,
+camera and callback owners. Three native comparisons/24 checks cover zero
+kind, callback actor/table reloads, a nonzero descriptor subrow and the `03ff`
+kind mask. Five unsupported-state source guards pass. Its descriptor reads
+remain live through the ordered stores. The actual host completed this routine
+and reached the next startup dependency; full configuration coverage is unproved.
+
+Alternate bootstrap `12960` initializes eight records, offsets `128..534`
+at stride `94`, using the existing initializer and WORD-slot owner. Three
+native comparisons/987 checks cover the original data, live lookup mutations
+and zero lookup values, full pool buffers and canaries. One null-pool guard
+is separately counted. The new mutable `52b50` owner covers exactly32 bytes
+before the existing `52b70` owner. The failed initial seven-record interpretation
+is preserved; full arbitrary allocation capacity remains unproved.
 
 Resource reload retains three native cases/81 checks; dialog helpers retain
 147 native cases plus a missing-NUL discriminator. Command writers retain
@@ -111,7 +128,7 @@ original `15780/12620` as test-only nested helpers; production has separate C
 dependencies. Color retains a raw upper-DWORD callback disagreement, while
 the actual host consumes the matching low byte.
 
-Runtime evidence records 17 artifact-bound observations. Each distinguishes
+Runtime evidence records 19 artifact-bound observations. Each distinguishes
 historical source context from the current checkout. The latest run uses
 original host/ENG3/data, stable source TITLE and the authorized no-CD change
 only in a disposable host copy, in windowed mode. The observer captures the
@@ -189,7 +206,7 @@ cells. Some PC callbacks are real no-ops; retain each measured identity.
 
 Cold startup includes source pool sweeps, descriptor/link initialization,
 resource reload, payload decoding, setup and bounded player dispatch.
-The latest observed frontier is `0x1e50` in the index-query chain.
+The latest observed frontier is `0x3ca10` in the startup chain.
 Worklist, camera, geometry and dialog orchestration have compiled providers;
 many collision, actor, animation and input handlers remain missing. A missing
 root hides further dependencies, so the current unresolved count understates
@@ -222,6 +239,8 @@ python scripts/eng1_bounded_differential.py command-writers
 python scripts/eng1_bounded_differential.py descriptor-reload
 python scripts/eng1_bounded_differential.py dialog-frame
 python scripts/eng1_bounded_differential.py simulation-root
+python scripts/eng1_bounded_differential.py alternate-bootstrap
+python scripts/eng1_bounded_differential.py actor-bootstrap
 python scripts/eng1_bounded_differential.py spawn-services
 python scripts/eng1_bounded_differential.py action-spawn
 python scripts/eng1_bounded_differential.py query-decoder

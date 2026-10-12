@@ -17,6 +17,28 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'alternate-bootstrap': dict(
+        sources=['tests/eng1_alternate_bootstrap_differential.c',
+                 'src/eng1/behavioral/alternate_bootstrap_12960.c',
+                 'src/eng1/behavioral/alternate_bootstrap_data.c',
+                 'src/eng1/behavioral/simulation_data_owners.c',
+                 'src/eng1/behavioral/actor_storage.c',
+                 'calibration/actor_pools.c'],
+        spans=[(0x12960,117)], cases=3,
+        scope='Three finite native alternate-pool bootstrap comparisons with the actual production initializer: original lookup data, reversible mutable DWORD/WORD changes, and zero lookup values. Full ten-record pool, leading records, trailing canaries and all eight initialized actors checked. One source null-pool guard; no arbitrary allocation capacity or gameplay claim.'),
+    'actor-bootstrap': dict(
+        sources=['tests/eng1_actor_bootstrap_differential.c',
+                 'src/eng1/behavioral/actor_bootstrap_1e50.c',
+                 'calibration/actor_pools.c',
+                 'calibration/engine_interface_storage.c',
+                 'src/eng1/behavioral/actor_storage.c',
+                 'src/eng1/behavioral/actor_pipeline_storage.c',
+                 'src/eng1/behavioral/camera_storage.c',
+                 'src/eng1/behavioral/worklist_read_guards.c'],
+        spans=[(0x1e50,240)], cases=3,
+        flags={'src/eng1/behavioral/worklist_read_guards.c':[
+            '/DENG1_WORKLIST_GUARD_FIXTURE']},
+        scope='Three finite native bootstrap comparisons: zero kind, two live callback reloads, nonzero descriptor subrow and 03ff mask with high coordinate WORDs. Full actor bytes, camera values and callback actors compared. Actual normal initializer; controlled descriptor/action rows are test data. No complete capacities, full return ABI or gameplay claim.'),
     'spawn-services': dict(
         sources=['tests/eng1_spawn_services_differential.c',
                  'src/eng1/behavioral/spawn_services.c',
@@ -257,6 +279,20 @@ def actor_update_cases(exe, oracle, out, env):
         raise ValueError('Actor signed-coordinate/WORD argument mismatch')
     return SimpleNamespace(returncode=0,stdout='actor_update_native_cases=6 checks=24 failures=0\nactor_update_source_spy_cases=1 checks=2 failures=0\n',stderr=''),dict(cases=6,checks=24,failures=0,source_spy_cases=1,source_spy_checks=2,source_spy_failures=0,native_observations=rows)
 
+def bootstrap_cases(exe, oracle, out, env):
+    tested = subprocess.run([str(exe),str(oracle)],cwd=out,env=env,
+        capture_output=True,text=True,timeout=60)
+    if tested.returncode:
+        return tested, {}
+    for name, rva in [('pool','72860'),('level','5a69c'),
+                      ('subrow','5a69c'),('base','71370'),('callback','71370')]:
+        guard = subprocess.run([str(exe),str(oracle),name],cwd=out,env=env,
+            capture_output=True,text=True,timeout=60)
+        if guard.returncode != 0xe1 or 'unsupported RVA 0x'+rva not in guard.stderr:
+            raise ValueError('Bootstrap guard failed: '+name)
+    return tested, dict(source_guard_cases=5,source_guard_failures=0)
+
+
 def run(profile, oracle, captured_payload=None):
     cfg = dict(PROFILES[profile])
     oracle = oracle.resolve()
@@ -327,11 +363,20 @@ def run(profile, oracle, captured_payload=None):
         arguments = [str(exe), str(oracle)]
         if captured_payload is not None:
             arguments.append(str(captured_payload))
-        if profile == 'actor-update':
+        if profile == 'actor-bootstrap':
+            tested, bootstrap_proof = bootstrap_cases(exe, oracle, out, env)
+            report.update(bootstrap_proof)
+        elif profile == 'actor-update':
             tested, actor_proof = actor_update_cases(exe, oracle, out, env)
             report.update(actor_proof)
         else:
             tested = subprocess.run(arguments, cwd=out, env=env, capture_output=True, text=True, timeout=60)
+            if profile == 'alternate-bootstrap' and tested.returncode == 0:
+                guard = subprocess.run(arguments + ['pool'],cwd=out,env=env,
+                    capture_output=True,text=True,timeout=60)
+                if guard.returncode != 0xe1 or 'unsupported RVA 0x734e0' not in guard.stderr:
+                    raise ValueError('Alternate bootstrap null-pool guard failed')
+                report.update(source_guard_cases=1,source_guard_failures=0)
         report.update(run_exit_code=tested.returncode, stdout=tested.stdout, stderr=tested.stderr, executable_sha256=sha(exe))
         if profile in ('grid-scan','query-decoder'):
             prefix='grid_query_20b50' if profile=='grid-scan' else 'query_20990'
@@ -414,6 +459,10 @@ def run(profile, oracle, captured_payload=None):
         coverage = coverage and report.get('source_guard_cases') == 1 and report.get('source_guard_failures') == 0
     if profile == 'query-decoder':
         coverage = coverage and report.get('source_guard_cases') == 2 and report.get('source_guard_failures') == 0 and report.get('source_control_cases') == 1 and report.get('source_control_failures') == 0
+    if profile == 'actor-bootstrap':
+        coverage = coverage and report.get('source_guard_cases') == 5 and report.get('source_guard_failures') == 0
+    if profile == 'alternate-bootstrap':
+        coverage = coverage and report.get('source_guard_cases') == 1 and report.get('source_guard_failures') == 0
     report['result'] = 'PASS' if report.get('run_exit_code')==0 and report.get('failures')==0 and report['inputs_unchanged'] and coverage else 'FAIL'
     (out / 'report.json').write_bytes((json.dumps(report, indent=2) + '\n').encode())
     print(report.get('stdout', ''.join(logs)))
