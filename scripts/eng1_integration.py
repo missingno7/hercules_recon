@@ -137,11 +137,31 @@ def load_eng1_report(report_path=DEFAULT_BUILD_REPORT):
     if not (0 <= interface_rva <= image_size - 1000 and
             0 <= first_use_rva <= image_size - 4):
         raise ValueError("ENG1 entry/interface data symbols fall outside the linked image")
+    observed_cells = {
+        'g_resource_root': 4, 'g_root_count_70ed0': 1,
+        'g_active_category_70cfe': 1, 'g_active_row_70d01': 1,
+        'g_group_count_70ece': 1, 'g_group_flag_70ecf': 1,
+        'g_normal_actor_pool': 4, 'g_middle_actor_pool': 4,
+        'g_alternate_actor_pool': 4, 'g_configuration_word_713b4': 2,
+        'g_configuration_word_71432': 2, 'g_configuration_word_713ba': 2,
+        'g_configuration_word_71380': 2, 'g_frame_transition_flag_5ce48': 1,
+        'g_header_pointer_70d48': 4, 'g_frame_global_734f4': 4,
+    }
+    state_cells = []
+    for name, width in observed_cells.items():
+        rva = symbol_address('_' + name, name) - image.image_base
+        if not 0 <= rva <= image_size - width:
+            raise ValueError('Observed source state lies outside the linked image: ' + name)
+        state_cells.append(dict(name=name, rva=rva, width=width))
+    rows_rva = symbol_address('_g_root_group_rows_70d5c') - image.image_base
+    for index in range(4):
+        state_cells.append(dict(name='root_group_row_' + str(index),
+                                rva=rows_rva + index * 4, width=4))
     return {"report": report, "report_path": report_path, "dll": dll,
             "dll_sha256": report["dll_sha256"], "map_path": map_path,
             "map_sha256": report["link_map_sha256"], "image": image,
             "entry_rva": entry_rva, "interface_rva": interface_rva,
-            "first_use_rva": first_use_rva}
+            "first_use_rva": first_use_rva, 'state_cells': state_cells}
 
 
 def original_install_inputs():
@@ -275,7 +295,7 @@ def prepare(runtime=DEFAULT_RUNTIME):
                             "windowed_client_size": [320, 240]},
         "game_launched": False,
     }
-    (PRIVATE / "preparation_report.json").write_text(
+    (LANE / "preparation_report.json").write_text(
         json.dumps(preparation, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"runtime": str(runtime), "host_sha256": title.NOCD_EXE_SHA256,
                       "eng3_sha256": expected["ENG3.DLL"],
@@ -401,7 +421,7 @@ def build_probe():
 
 
 def launch_once(runtime=DEFAULT_RUNTIME, report_path=DEFAULT_BUILD_REPORT,
-                timeout_ms=45000):
+                timeout_ms=45000, enter_game=False):
     runtime = check_runtime(runtime)
     runtime_info = inspect(runtime)
     if not runtime_info["eng1_attached"]:
@@ -419,6 +439,9 @@ def launch_once(runtime=DEFAULT_RUNTIME, report_path=DEFAULT_BUILD_REPORT,
         raise ValueError("ENG1 probe source changed after compilation")
     run_dir = LANE / "runs" / (time.strftime("%Y%m%dT%H%M%SZ", time.gmtime()) + "-" + uuid.uuid4().hex[:8])
     run_dir.mkdir(parents=True, exist_ok=False)
+    states_path = run_dir / 'source_state_cells.txt'
+    states_path.write_bytes((''.join(f"{x['name']} {x['rva']:x} {x['width']}\n"
+                                    for x in build['state_cells'])).encode())
     claim = run_dir / "claim.json"
     claim.write_text(json.dumps({"scope": "One observed launch attempt; never reused.",
                                  "runtime": str(runtime),
@@ -432,6 +455,7 @@ def launch_once(runtime=DEFAULT_RUNTIME, report_path=DEFAULT_BUILD_REPORT,
     command = [str(PROBE_EXE.resolve()), str(host.resolve()), str(runtime),
                str(events_path.resolve()), str(timeout_ms), hex(build["entry_rva"]),
                hex(build["interface_rva"]), hex(build["first_use_rva"])]
+    command += ['enter-game' if enter_game else 'no-game-input', str(states_path)]
     result = subprocess.run(command, cwd=runtime, capture_output=True, text=True,
                             timeout=timeout_ms / 1000.0 + 15)
     events = []
@@ -465,13 +489,15 @@ def launch_once(runtime=DEFAULT_RUNTIME, report_path=DEFAULT_BUILD_REPORT,
               "first_use_rva": hex(build["first_use_rva"]),
               "probe_sha256": probe_report["exe_sha256"],
               "timeout_ms": timeout_ms, "command": command,
+              "new_game_input_requested": enter_game,
               "probe_exit_code": result.returncode, "probe_stdout": result.stdout,
               "probe_stderr": result.stderr, "events": events,
               "first_divergence_candidate": divergence,
               "eng1_module_load_count": sum(row.get("type") == "eng1_module_load" for row in events),
               "interface_setup_observed": any(row.get("type") == "eng1_interface_snapshot" and
                                                row.get("phase") == "setup_observed" for row in events),
-              "windowed_mode_ready": any(row.get("type") == "windowed_mode_ready" for row in events),
+              "windowed_mode_seen": any(row.get("type") == "windowed_mode_ready" for row in events),
+              "windowed_mode_ready": next((row.get("windowed_mode_ready",False) for row in reversed(events) if row.get("type") == "summary"),False),
               "shutdown": next((row for row in reversed(events)
                                 if row.get("type") == "exit_process"), None)}
     (run_dir / "report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
@@ -504,6 +530,7 @@ def main():
     p.add_argument("--runtime", type=Path, default=DEFAULT_RUNTIME)
     p.add_argument("--report", type=Path, default=DEFAULT_BUILD_REPORT)
     p.add_argument("--timeout-ms", type=int, default=45000)
+    p.add_argument("--enter-game",action="store_true",help="At most six real Enter pulses, only when own PID is foreground and verified windowed; stop on ENG1 load")
     args = parser.parse_args()
     if args.command == "build-probe":
         build_probe()
@@ -514,7 +541,7 @@ def main():
     elif args.command == "inspect":
         inspect(args.runtime)
     elif args.command == "launch-once":
-        raise SystemExit(launch_once(args.runtime, args.report, args.timeout_ms))
+        raise SystemExit(launch_once(args.runtime, args.report, args.timeout_ms, args.enter_game))
 
 
 if __name__ == "__main__":

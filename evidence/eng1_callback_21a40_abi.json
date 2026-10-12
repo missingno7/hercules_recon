@@ -1,0 +1,27 @@
+{
+  "scope": "Physical ABI proof for an existing same-RVA provider alias; no source rewrite or behavioral acceptance.",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "unresolved_symbol": "_eng1_native_code_target_021a40",
+  "provider_symbol": "_start_spawn_phase",
+  "rva": "0x21a40",
+  "status": "recommend_same_entry_alias",
+  "physical_signature": "cdecl-compatible; one 4-byte Actor * argument; target plain RET; native callers remove 4 bytes; callback result is unused",
+  "table_flow": [
+    "Config row 5 field 0x34, pointer cell 0x68c8c, points to callback table RVA 0x59fa0.",
+    "Table slot 3 at RVA 0x59fac points to native RVA 0x21a40.",
+    "Native config loader copies selected row field 0x34 to runtime callback pointer cell 0x71384 (load at 0x28203, store at 0x2824d)."
+  ],
+  "native_callers": [
+    "0x284e0",
+    "0x284f5",
+    "0x28920",
+    "0x28b8a",
+    "0x28b9f"
+  ],
+  "caller_shape": "Each indexed 0x71384 callback call pushes ESI (current Actor *) and adds ESP,4 after return.",
+  "callee_shape": "Entry 0x21a40 saves ESI and loads [ESP+8] into ESI (the first stack argument after the saved register); reads Actor x/y/z and writes the state WORD at +0x2a; returns with plain RET at 0x21a90.",
+  "provider": "calibration/actor_continuation.c defines void start_spawn_phase(Actor *p); current report maps compiled _start_spawn_phase to RVA 0x21a40.",
+  "recommendation_basis": "The table slot, native consumers, callee stack access/cleanup, and existing provider prototype agree on one Actor * cdecl slot. Bind the existing provider name to this entry; no wrapper or body rewrite is required.",
+  "limitations": "This supports the link-time same-entry alias only. The provider remains plausible_unverified and is not FUNCTION_MATCH or behaviorally accepted. The raw table typedef has an unspecified C parameter list, but the actual native consumers pass Actor * explicitly.",
+  "evidence": "ENG1.DLL data at 0x68c8c/0x59fac; native code at 0x280f0..0x2824d, 0x284d9..0x284f8, 0x28919..0x28923, 0x28b83..0x28ba2, and 0x21a40..0x21a90; evidence/eng1_config_aux_callbacks.json; evidence/actor_continuation_region.json; current report.functions[rva=0x21a40]."
+}

@@ -19,7 +19,79 @@ static BOOL g_setup_logged;
 static BOOL g_alt_enter_sent;
 static BOOL g_size_command_sent;
 static BOOL g_window_ready_logged;
+static BOOL g_activation_requested;
 static HWND g_main_window;
+static BOOL g_enter_game;
+static BOOL g_return_key_owned;
+static DWORD g_return_key_tick, g_next_return_tick, g_probe_start_tick;
+static unsigned int g_return_pulses;
+typedef struct probe_state_cell {
+    char name[64];
+    DWORD rva, width;
+} PROBE_STATE_CELL;
+static PROBE_STATE_CELL g_state_cells[32];
+static unsigned int g_state_cell_count;
+
+/* SendInput is newer than the pinned VC5 headers. Resolve the OS API, with its
+ * actual 28-byte PE32 input layout. No target memory or game code is changed. */
+typedef struct probe_key_input {
+    WORD key, scan;
+    DWORD flags, time, extra;
+} PROBE_KEY_INPUT;
+typedef struct probe_input {
+    DWORD type;
+    union { PROBE_KEY_INPUT key; BYTE largest_input[24]; } value;
+} PROBE_INPUT;
+typedef UINT (WINAPI *PROBE_SEND_INPUT)(UINT, const PROBE_INPUT *, int);
+typedef char probe_input_requires_28_bytes[(sizeof(PROBE_INPUT)==28)?1:-1];
+
+static BOOL send_return(BOOL release)
+{
+    PROBE_INPUT input;
+    PROBE_SEND_INPUT send_input = (PROBE_SEND_INPUT)GetProcAddress(
+        GetModuleHandleA("USER32.DLL"), "SendInput");
+    if (!send_input) return FALSE;
+    memset(&input,0,sizeof(input));
+    input.type=1;
+    input.value.key.key=VK_RETURN;
+    input.value.key.scan=0x1c;
+    input.value.key.flags=release?2:0;
+    return send_input(1,&input,sizeof(input))==1;
+}
+
+static void poll_new_game_input(FILE *out,DWORD pid)
+{
+    DWORD now=GetTickCount(),foreground_pid=0;
+    BOOL result;
+    if (g_return_key_owned && (g_eng1_base || now-g_return_key_tick>=200UL)) {
+        result=send_return(TRUE);
+        if (result) g_return_key_owned=FALSE;
+        fprintf(out,"{\"type\":\"new_game_return_up\",\"sent\":%s,\"elapsed_ms\":%lu}\n",
+                result?"true":"false",(unsigned long)(now-g_probe_start_tick));
+        fflush(out);
+        g_next_return_tick=now+3000UL;
+        return;
+    }
+    if (!g_enter_game || g_return_key_owned || g_eng1_base ||
+        !g_window_ready_logged || g_return_pulses>=6 ||
+        now-g_probe_start_tick<12000UL || (LONG)(now-g_next_return_tick)<0)
+        return;
+    GetWindowThreadProcessId(GetForegroundWindow(),&foreground_pid);
+    if (foreground_pid!=pid || (GetAsyncKeyState(VK_RETURN)&0x8000) ||
+        (GetAsyncKeyState(VK_MENU)&0x8000) ||
+        (GetAsyncKeyState(VK_CONTROL)&0x8000) ||
+        (GetAsyncKeyState(VK_SHIFT)&0x8000)) return;
+    result=send_return(FALSE);
+    if (result) {
+        g_return_key_owned=TRUE;
+        g_return_key_tick=now;
+        ++g_return_pulses;
+    } else g_next_return_tick=now+3000UL;
+    fprintf(out,"{\"type\":\"new_game_return_down\",\"sent\":%s,\"ordinal\":%u,\"foreground_pid\":%lu,\"foreground_is_target\":true,\"elapsed_ms\":%lu}\n",
+            result?"true":"false",g_return_pulses,(unsigned long)foreground_pid,
+            (unsigned long)(now-g_probe_start_tick));
+    fflush(out);
+}
 
 static void json_string(FILE *out, const char *text)
 {
@@ -153,7 +225,8 @@ static BOOL CALLBACK find_window(HWND window, LPARAM value)
     return TRUE;
 }
 
-static void poll_window_mode(FILE *out, HANDLE process, DWORD pid)
+static void poll_window_mode(FILE *out, HANDLE process, DWORD pid,
+                             BOOL target_running)
 {
     WINDOW_SEARCH search;
     BYTE requested = 0xff, current = 0xff;
@@ -168,6 +241,7 @@ static void poll_window_mode(FILE *out, HANDLE process, DWORD pid)
     BOOL visible = FALSE, caption = FALSE;
     LONG width = -1, height = -1;
     BOOL changed;
+    DWORD foreground_pid = 0;
     memset(&search, 0, sizeof(search));
     search.pid = pid;
     EnumWindows(find_window, (LPARAM)&search);
@@ -210,8 +284,10 @@ static void poll_window_mode(FILE *out, HANDLE process, DWORD pid)
         last_style = style;
         last_menu = menu_present;
     }
+    /* Fullscreen removes the menu: it cannot be a prerequisite for leaving it.
+     * The enumerated HWND is already restricted to this debuggee's PID. */
     if (requested_ok && current_ok && requested == 1 && current == 1 &&
-        g_main_window && menu_present && !g_alt_enter_sent) {
+        g_main_window && !g_alt_enter_sent) {
         BOOL down_ok, up_ok;
         DWORD down_error, up_error;
         SetLastError(0);
@@ -228,6 +304,9 @@ static void poll_window_mode(FILE *out, HANDLE process, DWORD pid)
                 up_ok ? "true" : "false", (unsigned long)up_error);
         fflush(out);
     }
+    if (!(requested_ok && current_ok && requested == 0 && current == 0 &&
+          visible && caption && menu_present && width == 320 && height == 240))
+        g_window_ready_logged = FALSE;
     if (requested_ok && current_ok && requested == 0 && current == 0 &&
         visible && caption && menu_present && g_main_window) {
         if (width != 320 || height != 240) {
@@ -247,13 +326,68 @@ static void poll_window_mode(FILE *out, HANDLE process, DWORD pid)
             fprintf(out, "{\"type\":\"windowed_mode_ready\",\"client_width\":320,\"client_height\":240,\"requested_fullscreen\":0,\"current_mode\":0,\"caption_style\":true,\"menu_32801\":true,\"gameplay_input_sent\":false}\n");
             fflush(out);
             g_window_ready_logged = TRUE;
+            g_alt_enter_sent = FALSE;
+            g_size_command_sent = FALSE;
         }
+    }
+    /* Hercules pauses when inactive. Request activation only while the target
+     * runs, never while a debug event suspends its window thread. No input or
+     * target-memory write is used. The actual foreground owner is recorded. */
+    if (target_running && g_window_ready_logged && !g_activation_requested) {
+        BOOL activated;
+        GetWindowThreadProcessId(GetForegroundWindow(), &foreground_pid);
+        activated = SetForegroundWindow(g_main_window);
+        GetWindowThreadProcessId(GetForegroundWindow(), &foreground_pid);
+        g_activation_requested = TRUE;
+        fprintf(out, "{\"type\":\"host_activation_request\",\"set_foreground_return\":%s,\"foreground_pid\":%lu,\"foreground_is_target\":%s}\n",
+                activated ? "true" : "false", (unsigned long)foreground_pid,
+                foreground_pid == pid ? "true" : "false");
+        fflush(out);
+    }
+}
+
+static void log_exception_context(FILE *out,HANDLE process,DWORD tid)
+{
+    typedef HANDLE (WINAPI *PROBE_OPEN_THREAD)(DWORD,BOOL,DWORD);
+    PROBE_OPEN_THREAD open_thread=(PROBE_OPEN_THREAD)GetProcAddress(
+        GetModuleHandleA("KERNEL32.DLL"),"OpenThread");
+    HANDLE thread=open_thread?open_thread(0x0008UL,FALSE,tid):0;
+    CONTEXT context;
+    DWORD stack[16],read=0;
+    unsigned int i;
+    BOOL got=FALSE;
+    memset(&context,0,sizeof(context));
+    context.ContextFlags=CONTEXT_FULL;
+    if(thread)got=GetThreadContext(thread,&context);
+    fprintf(out,"{\"type\":\"exception_context\",\"tid\":%lu,\"context_read\":%s",
+        (unsigned long)tid,got?"true":"false");
+    if(got) {
+        fprintf(out,",\"eip\":\"0x%08lx\",\"esp\":\"0x%08lx\",\"ebp\":\"0x%08lx\",\"eax\":\"0x%08lx\",\"ebx\":\"0x%08lx\",\"ecx\":\"0x%08lx\",\"edx\":\"0x%08lx\",\"esi\":\"0x%08lx\",\"edi\":\"0x%08lx\",\"eflags\":\"0x%08lx\"",
+            context.Eip,context.Esp,context.Ebp,context.Eax,context.Ebx,
+            context.Ecx,context.Edx,context.Esi,context.Edi,context.EFlags);
+        ReadProcessMemory(process,(LPCVOID)context.Esp,stack,sizeof(stack),&read);
+        fprintf(out,",\"stack_words\":[");
+        for(i=0;i<read/4;++i)fprintf(out,"%s\"0x%08lx\"",i?",":"",stack[i]);
+        fprintf(out,"]");
+    }
+    fprintf(out,"}\n");
+    if(thread)CloseHandle(thread);
+    if(g_eng1_base)for(i=0;i<g_state_cell_count;++i) {
+        DWORD value=0;
+        BOOL ok=ReadProcessMemory(process,(LPCVOID)(g_eng1_base+g_state_cells[i].rva),
+                                 &value,g_state_cells[i].width,&read);
+        fprintf(out,"{\"type\":\"exception_source_state\",\"name\":");
+        json_string(out,g_state_cells[i].name);
+        fprintf(out,",\"linked_rva\":\"0x%08lx\",\"width\":%lu,\"read\":%s,\"value\":\"0x%08lx\"}\n",
+            g_state_cells[i].rva,g_state_cells[i].width,
+            ok&&read==g_state_cells[i].width?"true":"false",value);
     }
 }
 
 static const char *exception_name(DWORD code)
 {
     switch (code) {
+    case 0xe0484731UL: return "explicit_incomplete_behavior";
     case EXCEPTION_ACCESS_VIOLATION: return "access_violation";
     case EXCEPTION_BREAKPOINT: return "breakpoint";
     case EXCEPTION_DATATYPE_MISALIGNMENT: return "datatype_misalignment";
@@ -305,6 +439,8 @@ static int launch_debugged(const char *host, const char *cwd,
     }
     pid = info.dwProcessId;
     start_tick = GetTickCount();
+    g_probe_start_tick=start_tick;
+    g_next_return_tick=start_tick+12000UL;
     fprintf(out, "{\"type\":\"start\",\"pid\":%lu,\"timeout_ms\":%lu,\"debug_mode\":\"DEBUG_ONLY_THIS_PROCESS\",\"windowed_requested\":true}\n",
             (unsigned long)pid, (unsigned long)timeout_ms);
     fflush(out);
@@ -334,7 +470,8 @@ static int launch_debugged(const char *host, const char *cwd,
             last_error = GetLastError();
             if (last_error == ERROR_SEM_TIMEOUT) {
                 if (!timed_out) {
-                    poll_window_mode(out, info.hProcess, pid);
+                    poll_window_mode(out, info.hProcess, pid, TRUE);
+                    poll_new_game_input(out,pid);
                     if (g_eng1_base && !g_first_table_logged)
                         log_table(out, info.hProcess, "first_post_load");
                     else if (g_eng1_base && !g_setup_logged)
@@ -430,6 +567,39 @@ static int launch_debugged(const char *host, const char *cwd,
                     loader_breakpoint ? "true" : "false",
                     continue_status == DBG_CONTINUE ? "DBG_CONTINUE" :
                                                      "DBG_EXCEPTION_NOT_HANDLED");
+            if (!loader_breakpoint) {
+                DWORD i;
+                fprintf(out,"{\"type\":\"exception_parameters\",\"values\":[");
+                for(i=0;i<event.u.Exception.ExceptionRecord.NumberParameters;++i)
+                    fprintf(out,"%s\"0x%08lx\"",i?",":"",event.u.Exception.ExceptionRecord.ExceptionInformation[i]);
+                fprintf(out,"]}\n");
+                log_exception_context(out,info.hProcess,event.dwThreadId);
+            }
+            if (code==0xe0484731UL &&
+                event.u.Exception.ExceptionRecord.NumberParameters>=2) {
+                char why[281];
+                DWORD count=0;
+                memset(why,0,sizeof(why));
+                ReadProcessMemory(info.hProcess,(LPCVOID)event.u.Exception.ExceptionRecord.ExceptionInformation[1],why,sizeof(why)-1,&count);
+                fprintf(out,"{\"type\":\"explicit_incomplete_entry\",\"original_rva\":\"0x%lx\",\"reason\":",
+                        (unsigned long)event.u.Exception.ExceptionRecord.ExceptionInformation[0]);
+                json_string(out,why);
+                fprintf(out,"}\n");
+                if (!g_setup_logged)
+                    log_table(out,info.hProcess,"setup_observed");
+                /* The host catches exceptions in a modal error dialog. Stop
+                 * this owned test after recording the intentional boundary. */
+                reason=6;
+                TerminateProcess(info.hProcess,0xe0484731UL);
+                fflush(out);
+            }
+            if(code==EXCEPTION_ACCESS_VIOLATION) {
+                /* Capture the first real invalid access before the host turns
+                 * it into a modal dialog; end only this owned finite test. */
+                reason=7;
+                TerminateProcess(info.hProcess,code);
+                fflush(out);
+            }
             break;
         }
         case OUTPUT_DEBUG_STRING_EVENT: {
@@ -471,7 +641,7 @@ static int launch_debugged(const char *host, const char *cwd,
             break;
         }
         if (!timed_out && !exited) {
-            poll_window_mode(out, info.hProcess, pid);
+            poll_window_mode(out, info.hProcess, pid, FALSE);
             if (g_eng1_base && !g_first_table_logged)
                 log_table(out, info.hProcess, "first_post_load");
             else if (g_eng1_base && !g_setup_logged)
@@ -486,6 +656,13 @@ static int launch_debugged(const char *host, const char *cwd,
             fflush(out);
             break;
         }
+        if (!timed_out && !exited)
+            poll_new_game_input(out,pid);
+    }
+    if (g_return_key_owned) {
+        BOOL released=send_return(TRUE);
+        fprintf(out,"{\"type\":\"new_game_return_cleanup\",\"sent\":%s}\n",released?"true":"false");
+        g_return_key_owned=FALSE;
     }
     if (g_eng1_base)
         log_table(out, info.hProcess, "shutdown");
@@ -510,11 +687,25 @@ static int launch_debugged(const char *host, const char *cwd,
 int main(int argc, char **argv)
 {
     DWORD timeout_ms;
-    if (argc != 8) {
+    if (argc < 8 || argc > 10) {
         fprintf(stderr, "usage: eng1_host_probe.exe HOST RUNTIME EVENTS TIMEOUT_MS ENTRY_RVA INTERFACE_RVA FIRST_USE_RVA\n");
         return 2;
     }
     timeout_ms = strtoul(argv[4], 0, 0);
+    g_enter_game=argc>=9 && strcmp(argv[8],"enter-game")==0;
+    if(argc==10) {
+        FILE *states=fopen(argv[9],"r");
+        if(!states)return 2;
+        while(g_state_cell_count<32) {
+            PROBE_STATE_CELL *cell=&g_state_cells[g_state_cell_count];
+            if(fscanf(states,"%63s %lx %lu",cell->name,&cell->rva,&cell->width)!=3)break;
+            if(cell->width!=1 && cell->width!=2 && cell->width!=4) {
+                fclose(states);return 2;
+            }
+            ++g_state_cell_count;
+        }
+        fclose(states);
+    }
     g_entry_rva = strtoul(argv[5], 0, 0);
     g_interface_rva = strtoul(argv[6], 0, 0);
     g_first_use_rva = strtoul(argv[7], 0, 0);

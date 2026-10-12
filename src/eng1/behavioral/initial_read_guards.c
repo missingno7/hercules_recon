@@ -6,12 +6,14 @@
 #include "initial_custom_roots.h"
 #include "initial_motion_roots.h"
 #include "initial_unreadable_identities.h"
+extern unsigned short eng1_native_words_04dce8[8];
 
 typedef struct Eng1InitialReadLimit {
     const void *base;
     unsigned long original_rva, bytes;
 } Eng1InitialReadLimit;
 static const Eng1InitialReadLimit limits[] = {
+    { eng1_native_words_04dce8, 0x4dce8UL, 16UL },
     { &g_eng1_custom_mask_palette_05ebb8.columns, 0x5ebb8UL, 52UL },
     { &g_eng1_custom_mask_palette_05ebb8.mask_cells[0], 0x5ebbcUL, 48UL },
     { &g_eng1_custom_mask_palette_05ebb8.mask_cells[5], 0x5ebd0UL, 32UL },

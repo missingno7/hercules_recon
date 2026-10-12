@@ -98,18 +98,18 @@ int main(void)
     *(u16 *)(blob + 0x0e) = 3;
     *(u16 *)(blob + 0x10) = 4;
     *(u16 *)(blob + 0x12) = 5;
-    relative_field(blob + 0x26, blob + 0x126);
-    relative_field(blob + 0x2a, blob + 0x0aa);
-    *(u32 *)(blob + 0x2e) = 0x00776655UL;
-    relative_field(blob + 0x32, blob + 0x102);
-    relative_field(blob + 0x36, blob + 0x182);
-    relative_field(blob + 0x3a, blob + 0x07a);
-    relative_field(blob + 0x3e, blob + 0x082);
-    relative_field(blob + 0x42, blob + 0x08a);
-    relative_field(blob + 0x46, blob + 0x092);
-    make_root_row(blob + 0x102, 3, 0x44, 0x1234, 6, 12, 5, 7, 9);
-    make_root_row(blob + 0x182, 2, 0x55, 0x2345, 4, 8, 3, 6, 0);
-    make_root_row(blob + 0x1c2, 1, 0x66, 0x3456, 2, 4, 11, 0, 0);
+    relative_field(blob + 0x24, blob + 0x124);
+    relative_field(blob + 0x28, blob + 0xa8);
+    *(u32 *)(blob + 0x2c) = 0x00776655UL;
+    relative_field(blob + 0x30, blob + 0x100);
+    relative_field(blob + 0x34, blob + 0x180);
+    relative_field(blob + 0x38, blob + 0x78);
+    relative_field(blob + 0x3c, blob + 0x80);
+    relative_field(blob + 0x40, blob + 0x88);
+    relative_field(blob + 0x44, blob + 0x90);
+    make_root_row(blob + 0x100, 3, 0x44, 0x1234, 6, 12, 5, 7, 9);
+    make_root_row(blob + 0x180, 2, 0x55, 0x2345, 4, 8, 3, 6, 0);
+    make_root_row(blob + 0x1c0, 1, 0x66, 0x3456, 2, 4, 11, 0, 0);
 
     for (i = 0; i < 15; ++i) {
         g_reset_dwords_70d70[i] = 0x12345678UL;
@@ -122,24 +122,24 @@ int main(void)
           g_root_count_70ed2 == 5 && g_root_count_70ed3 == 1 &&
           g_header_byte_70ecd == 3 && g_clear_byte_70ecc == 0);
     check("root-relative fields resolve from each encoded field",
-          g_header_pointer_70d28 == blob + 0x126 &&
-          g_header_pointer_70d30 == blob + 0x0aa &&
-          g_header_pointer_70d58 == blob + 0x07a &&
-          g_header_pointer_70d54 == blob + 0x082 &&
-          g_header_pointer_70d50 == blob + 0x08a &&
-          g_header_pointer_70d44 == blob + 0x092);
+          g_header_pointer_70d28 == blob + 0x124 &&
+          g_header_pointer_70d30 == blob + 0xa8 &&
+          g_header_pointer_70d58 == blob + 0x78 &&
+          g_header_pointer_70d54 == blob + 0x80 &&
+          g_header_pointer_70d50 == blob + 0x88 &&
+          g_header_pointer_70d44 == blob + 0x90);
     check("root cursor and descriptor bytes use their distinct offsets",
-          g_header_pointer_70d34 == blob + 0x04a &&
-          g_header_pointer_70d2c == blob + 0x04e &&
-          g_header_pointer_70d38 == blob + 0x05e &&
-          g_header_pointer_70d3c == blob + 0x06e &&
-          g_header_pointer_70d4c == blob + 0x082 &&
-          g_header_pointer_70d40 == blob + 0x086 &&
+          g_header_pointer_70d34 == blob + 0x48 &&
+          g_header_pointer_70d2c == blob + 0x4c &&
+          g_header_pointer_70d38 == blob + 0x5c &&
+          g_header_pointer_70d3c == blob + 0x6c &&
+          g_header_pointer_70d4c == blob + 0x80 &&
+          g_header_pointer_70d40 == blob + 0x84 &&
           g_packed_byte_70cf0 == 0x55 && g_packed_byte_70cf1 == 0x66 &&
           g_packed_byte_70cf2 == 0x77 && g_mode_table_value_70d00 == 0xa5);
     check("root entry table points into the movable blob and row setup runs",
-          g_root_group_rows_70d5c[0] == blob + 0x102 &&
-          g_root_group_rows_70d5c[1] == blob + 0x182 &&
+          g_root_group_rows_70d5c[0] == blob + 0x100 &&
+          g_root_group_rows_70d5c[1] == blob + 0x180 &&
           g_group_count_70ece == 3 && g_group_flag_70ecf == 0x44 &&
           g_selected_width_70d12 == 0x1234 && g_element_width_70d14 == 6);
     check("selected row establishes cumulative lengths and exact reset prefix",
@@ -147,8 +147,8 @@ int main(void)
           g_group_cumulative_70e4c[0] == 5 &&
           g_group_cumulative_70e4c[1] == 12 &&
           g_group_cumulative_70e4c[2] == 21 &&
-          g_header_pointer_70d6c == blob + 0x118 &&
-          g_header_pointer_70d48 == blob + 0x11a);
+          g_header_pointer_70d6c == blob + 0x116 &&
+          g_header_pointer_70d48 == blob + 0x118);
     for (i = 0; i < 15; ++i) {
         if (g_reset_dwords_70d70[i] != 0 || g_reset_words_70dae[i] != 0)
             failures++;
@@ -174,7 +174,7 @@ int main(void)
           g_rebuilt_row_pointers_70dcc[1] == row_block + 32 &&
           g_rebuilt_row_pointers_70dcc[2] == row_block + 104);
 
-    g_root_group_rows_70d5c[2] = blob + 0x1c2;
+    g_root_group_rows_70d5c[2] = blob + 0x1c0;
     resource_select_group(2);
     check("selector accepts the signed upper boundary row table slot",
           g_group_count_70ece == 1 && g_group_flag_70ecf == 0x66 &&

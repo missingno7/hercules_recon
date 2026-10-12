@@ -21,6 +21,11 @@ typedef char eng1_observed_descriptor_pointer_row24_size[
     (sizeof(Eng1ObservedDescriptorPointerRow24) == 24) ? 1 : -1];
 extern unsigned char eng1_frame_target_04fec0[];
 extern unsigned char eng1_frame_target_050d88[];
+#include "initial_unreadable_identities.h"
+/* These descriptor address identities permit no reads until their real
+ * consumers/extents are recovered; they share the central guarded owners. */
+#define eng1_frame_target_04fec0 ((unsigned char *)&g_eng1_unreadable_initialized_identity_04fec0)
+#define eng1_frame_target_050d88 ((unsigned char *)&g_eng1_unreadable_initialized_identity_050d88)
 
 typedef struct Eng1DescriptorPayload_68600 {
     eng1_u8 header_0685d8[40];

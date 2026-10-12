@@ -1,49 +1,50 @@
 # Behavioral ENG1 reconstruction
 
-ENG1 is a partial source graph on `codex/eng1-behavioral-reconstruction`.
-The current link fails with 539 unresolved symbols. No reconstructed ENG1
-DLL has been loaded by the game. TITLE remains at its working milestone;
-`recovery.json` remains the sole recovery authority and all 76 existing strict
-instances pass fresh historical compilation and byte comparison.
+The original host loads our source-built x86 ENG1 DLL and performs its expected
+interface initialization. The current diagnostic DLL is incomplete: it contains
+531 explicit fail-on-entry definitions. After reconstructing `32b10` and the
+three startup pool sweeps, runtime testing exposed and corrected a two-byte
+packed-header cursor error in `20670`. A new windowed run gets past that access
+violation and stops at missing resource routine `3910`. No reconstructed ENG1
+gameplay frame, continuous gameplay, or normal engine shutdown is verified.
 
-The diagnostic inventory has 1,219 starts/leads, of which
-290 have mapped compiled source definitions, plus
-10 explicitly traced unindexed provider RVAs.
-This is not a reviewed complete first-party denominator or playable percentage.
-There are 318 compiled function symbols across 132 source units.
-The 116 existing recovery rows remain 76 `FUNCTION_MATCH`, 39 `CODEGEN_SIMILAR`
-and one `RECONSTRUCTED`; this behavioral work grants no additional exact-match state.
+The genuine graph has 299 mapped compiled entries, 10 explicitly traced
+unindexed provider RVAs, and 327 function symbols across 141 source units.
+Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
+denominator. The ordinary genuine link still has 531 missing symbols and no
+duplicate owners. The optional transitional profile adds one generated source
+unit and links with zero unresolved symbols; it cannot complete unknown behavior.
+`PC_DLLEngineMain` is the sole PE32 export at ordinal 1. No original-engine import
+or original executable code is present in the replacement source graph.
 
-Fresh data verification passes for 39 providers, 827 measured fields
-and 4,764 pointer relocations. It checks contents, pointer positions, actual target
-RVAs and addends, including configuration tables. Loaded zero-fill equivalence
-is permitted only for one explicitly documented native zero WORD. It does not
-prove complete runtime capacities or original linker placement.
+All 76 accepted ENG1 function instances remain exact under fresh pinned VC5
+compilation and actual linked-byte comparison. `recovery.json` remains unchanged
+by this work and is the sole authority. The stable TITLE milestone and historical
+matching branch are preserved.
 
-All 26 source fixture groups pass, including camera, geometry, mesh traversal,
-interpreters, startup/resource callbacks and finite spatial-read guards. Native
-frame-helper comparisons pass 15 cases and 178 checks. Color comparisons pass
-2,484 states and 36,001 checks under the actual host low-byte callback contract;
-one raw callback DWORD differs in unused upper bits and remains recorded as a
-diagnostic disagreement. Actor pipeline `258e0` passes 512 cases and 6,662 checks
-with zero pool bounds and the empty kind-owner path. That comparison corrected
-sine-table byte/index arithmetic and six omitted worklist clears. Nonzero actor
-populations, geometry against native execution, and live gameplay remain unverified.
-Forest worklist construction `26040` also passes an unpatched native differential
-using all 283 actual FOREST placements, alongside synthetic callback states.
-The combined forest fixture passes 44 cases and 203 checks; `26480` actor creation
-uses source spies and its dispatched factory/action bodies remain missing.
+All 32 source fixture groups pass. Data verification passes 43 providers,
+832 fields and 4,764 native-matching pointer relocations. Finite native helper,
+color, empty-pool actor and forest comparisons remain recorded in the validation
+receipts. The corrected resource parser passes 46 original-x86 checks on the
+full shipped FOREST map; the original oracle executes only inside that fixture.
+An old synthetic test had mirrored the same wrong cursor and has been corrected.
+Color has one raw upper-DWORD callback disagreement; the actual host consumes
+the matching low byte. These checks do not establish universal equivalence.
 
-The centralized incomplete manifest records 68 unsupported branches or data
-reads. Guards log the original RVA and fail before unsupported continuation.
-Missing functions remain unresolved; no missing body silently reports success.
-Finite data prefixes and five zero-readable address identities are
-transitional source contributions, not recovered full capacities.
+`evidence/eng1_runtime_validation.json` records four artifact-bound observations:
+missing 32b10, missing 274e0, the resource-row access violation, and the corrected
+run stopping at 3910. Each distinguishes historical source context from current
+source, observes the 250-DWORD table/signature `5ac00cac`, and retains the first
+failure. The last run used the original host/ENG3/data, stable source TITLE and
+an authorized no-CD change solely to a disposable host copy. It was windowed.
+The observer reads state/registers/stack and stops its owned process on the
+first explicit incomplete operation or invalid access.
 
-An isolated windowed integration stage is prepared with the stable source TITLE,
-original ENG3/data and an authorized no-CD adjustment only to its disposable EXE.
-The bounded observer is source built. Preparation does not establish a game launch.
-See `docs/eng1_integration.md` for reproducible staging and observation commands.
+The centralized incomplete manifest distinguishes missing entries from guarded
+unsupported branches and finite data prefixes. A generated body reports its
+original RVA and raises a noncontinuable failure; it never returns success.
+The default build omits these bodies and reports the true dependency gap.
+See `docs/eng1_integration.md` for reproducible build and observation commands.
 
 ## Entry and iteration contract
 
@@ -109,7 +110,7 @@ cells. Some PC callbacks are real no-ops; retain each measured identity.
 
 ## Runtime-critical open graph
 
-Cold startup now includes `1f750`, `5ea0`, row loading and callback setup; it still requires `32b10`, resource initialization and
+Cold startup now includes `1f750`, `5ea0`, row loading and callback setup; `32b10` and the three pool sweeps are now source-built. Observed startup next requires `3910`, resource initialization and
 remaining referenced callback/data contributions. Restart and warm iteration
 have compiled control, level, camera, geometry and orchestration providers, but
 still lack `156a0`, `1fd90` and nested simulation/animation/collision
@@ -134,9 +135,13 @@ python scripts/eng1_frame_differential.py
 python scripts/eng1_color_differential.py
 python scripts/eng1_actor_differential.py
 python scripts/eng1_forest_differential.py
+python scripts/eng1_setup_differential.py
+python scripts/eng1_resource_cursor_differential.py
 ```
 
-The build currently fails at linking and deliberately leaves no stale DLL.
+The genuine profile fails at linking and leaves no stale DLL. The optional
+`--include-incomplete` profile links, with every missing entry logged and failed
+on execution; these definitions do not count as reconstructed functions.
 The companion `evidence/eng1_pipeline.json` and validation receipt bind this
 snapshot to source, configuration and PC evidence hashes. No visible gameplay
 equality or whole-binary claim follows from this document.

@@ -1,0 +1,119 @@
+{
+  "scope": "Private behavioral reconstruction of ENG1 0x274e0, 0x279f0 and 0x27fa0 with fresh VC5 fixtures; no function-byte, source/TU, placement, or whole-image claim.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x274e0": {
+        "indexed_span_bytes": 64,
+        "indexed_body_bytes": 54,
+        "span_sha256": "ec0c1e10ab2534d6ab5f272d6dc6ba2c8eb52400c3ba0e88b180971e6911a59f",
+        "note": "Inventory extent is a measurement lead; this report does not claim strict function-byte recovery."
+      },
+      "0x27520": {
+        "indexed_span_bytes": 176,
+        "indexed_body_bytes": 168,
+        "span_sha256": "9f720340cddaa513ee2c1ec16159fa6fec34bbb9c09754d5a48b69e6e738a766",
+        "note": "Inventory extent is a measurement lead; this report does not claim strict function-byte recovery."
+      },
+      "0x279f0": {
+        "indexed_span_bytes": 96,
+        "indexed_body_bytes": 95,
+        "span_sha256": "74b7e6744fa8f30e24bb24914cb5c2a53c6bfba534af6935e8691d9950570e46",
+        "note": "Inventory extent is a measurement lead; this report does not claim strict function-byte recovery."
+      },
+      "0x27a50": {
+        "indexed_span_bytes": 176,
+        "indexed_body_bytes": 176,
+        "span_sha256": "87d5aea0c646659a527183b97a8bab365620bb2cc44803362c243133fe70763f",
+        "note": "Inventory extent is a measurement lead; this report does not claim strict function-byte recovery."
+      },
+      "0x27fa0": {
+        "indexed_span_bytes": 64,
+        "indexed_body_bytes": 54,
+        "span_sha256": "e6e5ea34999c3f919e2f044f9d0b32fdd30f12187d36d51777a25cc89ebd9bcf",
+        "note": "Inventory extent is a measurement lead; this report does not claim strict function-byte recovery."
+      },
+      "0x27fe0": {
+        "indexed_span_bytes": 272,
+        "indexed_body_bytes": 264,
+        "span_sha256": "8b8c2737815548fbaf4b771cb5ee28774740b408216aa4ebf52122c1efd9fad1",
+        "note": "Inventory extent is a measurement lead; this report does not claim strict function-byte recovery."
+      },
+      "0x255f0": {
+        "indexed_span_bytes": 48,
+        "indexed_body_bytes": 43,
+        "span_sha256": "42d54593f012ae1fe998e107a93420b51cf6509dd8ff3c7cc383580d98ce8f28",
+        "note": "Inventory extent is a measurement lead; this report does not claim strict function-byte recovery."
+      }
+    }
+  },
+  "contract": {
+    "root": "0x255f0",
+    "zero_arg_cdecl_order": [
+      "0x274e0",
+      "0x1fdf0",
+      "0x282e0",
+      "0x2af80",
+      "0x279f0",
+      "tail 0x27fa0"
+    ],
+    "pool_sweeps": [
+      {
+        "rva": "0x274e0",
+        "pool_owner": "g_normal_actor_pool / ENG1 0x72860",
+        "count": "WORD 0x713b4",
+        "stride": "0x134",
+        "initializer": "0x27520 / initialize_normal_actor"
+      },
+      {
+        "rva": "0x279f0",
+        "pool_owner": "g_middle_actor_pool / ENG1 0x73494",
+        "count": "WORD 0x71432",
+        "stride": "0xec",
+        "initializer": "0x27a50 / initialize_middle_actor",
+        "then": "for WORD 0x71380 entries, write DWORD -1 through each existing pointer at table base 0x713e0"
+      },
+      {
+        "rva": "0x27fa0",
+        "pool_owner": "g_alternate_actor_pool / ENG1 0x734e0",
+        "count": "WORD 0x713ba",
+        "stride": "0x94",
+        "initializer": "0x27fe0 / initialize_alternate_actor"
+      }
+    ],
+    "evidence_sources": [
+      "src/eng1/behavioral/actor_storage.c (existing pool pointer cells)",
+      "src/eng1/behavioral/frame_data.c (existing count words)",
+      "src/eng1/behavioral/resource_runtime_data.h and resource_data.c (existing pending-action pointer table)",
+      "calibration/actor_pool_reset_repaired.c (existing actor initializer provider)",
+      "scripts/leaf.py packet ENG1.DLL for measured native bodies/call sites"
+    ],
+    "runtime_limits": [
+      "No pool allocation or duplicate pool/table storage is added.",
+      "No count is guessed or clamped; source retains native WORD-count loop behavior.",
+      "No shutdown-reset 0x279a0, worklist factory, or unrelated 0x255f0 sibling is implemented."
+    ]
+  },
+  "prediction": {
+    "lane": "eng1_pool_startup",
+    "family": "native actor-pool startup sweeps",
+    "prediction": "ENG1 0x274e0 initializes the configured normal pool in 0x134-byte steps through the existing normal initializer; 0x279f0 initializes the configured middle pool in 0xec-byte steps and then writes -1 through each configured 0x713e0 pointer; 0x27fa0 initializes the configured alternate pool in 0x94-byte steps. These no-argument cdecl functions reload their shared pool bases and word counts across initializer calls and use only the existing actor-storage and initializer providers.",
+    "falsifier": "Reject the candidate if any wrapper uses another pool, count cell, stride, iteration order, initializer, or table write; if a count/pool update during an initializer is not observed on the next iteration; if 0x279f0 clears the pointer slots rather than the pointed DWORD; or if any private test adds pool storage/capacity instead of using seeded shared-owner views.",
+    "scope": "Private behavioral reconstruction only; no FUNCTION_MATCH, original source/TU, native placement, or whole-module claim.",
+    "evidence": [
+      "ENG1 native 0x255f0 call sequence and zero-argument callsites: 0x274e0, 0x1fdf0, 0x282e0, 0x2af80, 0x279f0, tail-jump 0x27fa0.",
+      "Native 0x274e0 uses 0x72860 / WORD 0x713b4 / stride 0x134 / helper 0x27520.",
+      "Native 0x279f0 uses 0x73494 / WORD 0x71432 / stride 0xec / helper 0x27a50, then pointer-table base 0x713e0 / WORD 0x71380 and stores DWORD -1 through each table entry.",
+      "Native 0x27fa0 uses 0x734e0 / WORD 0x713ba / stride 0x94 / helper 0x27fe0.",
+      "Existing pointer owner cells are in src/eng1/behavioral/actor_storage.c; count cells are in src/eng1/behavioral/frame_data.c; table type/owner is in src/eng1/behavioral/resource_runtime_data.h and resource_data.c; initializer provider is calibration/actor_pool_reset_repaired.c."
+    ]
+  },
+  "private_receipt_sha256": "6257b4fc2239ffec4215c61062f1d6f90926699645550d92ba939c2d3b9e344e",
+  "source": "src/eng1/behavioral/pool_startup.c",
+  "fixtures": [
+    "tests/eng1_pool_startup_spies.c",
+    "tests/eng1_pool_startup_initializers.c"
+  ],
+  "confidence": "Native control/dataflow plus finite source fixtures; no native differential or byte-equality claim."
+}

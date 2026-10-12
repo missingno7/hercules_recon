@@ -1,0 +1,123 @@
+{
+  "scope": "Native identity and physical call-shape audit for five unresolved behavioral names without an RVA plus _resource_helper_646c. This is not function recovery or acceptance.",
+  "link_report": {
+    "path": "work/eng1_behavioral/build/report.json",
+    "sha256": "e8bc11dbf47f33e99a7833e87886224916fcc9d62a73d262302a4a6ff6cf9a23",
+    "unresolved_symbols": 539
+  },
+  "functions": [
+    {
+      "symbol": "_remove_actor_preserving_resource",
+      "rva": "0x27410",
+      "identity_basis": "direct native calls and separate entry body",
+      "callers": [
+        "0x2849c",
+        "0x288cf",
+        "0x28b51"
+      ],
+      "source_cases": [
+        "signed-pair -7",
+        "WORD-stream -7",
+        "animation-triple -7"
+      ],
+      "physical_abi": "cdecl; one 4-byte stack argument, Actor *; plain RET; caller removes 4 bytes",
+      "return": "All callers discard EAX. The native body calls 0x27260 and preserves its resulting EAX; no caller-visible return contract is established.",
+      "body": "Distinct entry that marks the referenced resource word and calls remove_actor at 0x27260. Not a same-entry alias."
+    },
+    {
+      "symbol": "_mark_actor_resource_for_release",
+      "rva": "0x27450",
+      "identity_basis": "direct native calls and separate entry body",
+      "callers": [
+        "0x284ac",
+        "0x288df",
+        "0x28b61"
+      ],
+      "source_cases": [
+        "signed-pair -8",
+        "WORD-stream -8",
+        "animation-triple -8"
+      ],
+      "physical_abi": "cdecl; one 4-byte stack argument, Actor *; plain RET; caller removes 4 bytes",
+      "return": "All callers discard EAX; no semantic return is established.",
+      "body": "Distinct entry that updates the resource word without calling remove_actor. Not an alias to 0x27410."
+    },
+    {
+      "symbol": "_spawn_actor_with_owner",
+      "rva": "0x30180",
+      "identity_basis": "direct native calls",
+      "callers": [
+        "0x2845a",
+        "0x28b33"
+      ],
+      "source_cases": [
+        "signed-pair -5",
+        "animation-triple -5"
+      ],
+      "physical_abi": "cdecl; five 4-byte stack slots in callee order: Actor * owner, LONG x, LONG y, LONG z, WORD operand in a 4-byte slot; plain RET; caller removes 0x14 bytes",
+      "return": "Both callers discard EAX. Return paths expose helper/callback state; no stable semantic return is established.",
+      "body": "Distinct factory entry; no same-RVA compiled provider was found in the captured report."
+    },
+    {
+      "symbol": "_spawn_actor_at_group",
+      "rva": "0x300c0",
+      "identity_basis": "direct native calls",
+      "callers": [
+        "0x2847e",
+        "0x288b1"
+      ],
+      "source_cases": [
+        "signed-pair -31",
+        "WORD-stream -31"
+      ],
+      "physical_abi": "cdecl; five 4-byte stack slots in callee order: LONG x, LONG y, LONG z, WORD operand in a 4-byte slot, WORD frame_group in a 4-byte slot; plain RET; caller removes 0x14 bytes",
+      "return": "Native target places its actor pointer in EAX before normal returns; interpreter callers discard EAX. spatial_effects.c also names this unresolved target eng1_native_dep_0300c0 with a pointer return view.",
+      "body": "Distinct factory entry; no compiled provider at this RVA was found in the captured report.",
+      "dispatch_caveat": "Animation-triple opcode -31 dispatches to common continuation/default 0x28f0a, not to this factory; do not count it as a native caller."
+    },
+    {
+      "symbol": "_stop_actor_sounds",
+      "rva": "0x7ef6",
+      "identity_basis": "direct native calls and separate entry prolog/return",
+      "callers": [
+        "0x28685",
+        "0x289bf",
+        "0x28e85"
+      ],
+      "source_cases": [
+        "signed-pair -46",
+        "WORD-stream -46",
+        "animation-triple -46"
+      ],
+      "physical_abi": "cdecl; one 4-byte stack argument, Actor *; plain RET; caller removes 4 bytes",
+      "return": "All callers discard EAX; no semantic return is established.",
+      "body": "Separate native entry at 0x7ef6, within the coarse inventory span for 0x6da0 but not an alias to play_sound."
+    }
+  ],
+  "resource_helper_646c": {
+    "rva": "0x646c",
+    "identity_basis": "encoded name independently confirmed by native call and entry prolog",
+    "caller": "0x62b3",
+    "source": "calibration/engine_control.c runtime-control case 18/19",
+    "physical_abi": "No stack arguments; source declaration is __cdecl. Caller has no cleanup and native body uses plain RET at 0x6612. A zero-argument call cannot distinguish caller- from callee-cleanup conventions by stack movement alone.",
+    "return": "Caller ignores EAX.",
+    "entry_proof": "Separate EBP prolog at 0x646c; no [ebp+8] argument use; plain RET at 0x6612; evidence/engine_control_contract.json and evidence/control_compiler_context.json identify the entry/call."
+  },
+  "verification": {
+    "command": "python work/eng1_behavioral/link_symbol_audit/interpreter_target_check.py",
+    "result": "passed",
+    "checks": [
+      "direct relative-call targets",
+      "caller stack cleanup",
+      "opcode dispatch identities",
+      "animation-triple -31 mismatch",
+      "0x7ef6 entry and return",
+      "0x646c call, prolog, and return"
+    ]
+  },
+  "provenance": [
+    "Native bytes: assets/pc/HERCULES/ENG1.DLL; machine 0x14c, image base 0x10000000.",
+    "Interpreter case cross-check: evidence/eng1_program_interpreters.json and src/eng1/behavioral/interpreters.h.",
+    "No original code, assets, canonical sources, recovery state, or Git state were changed by this audit."
+  ]
+}

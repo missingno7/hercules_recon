@@ -1,40 +1,71 @@
-# ENG1 host integration preparation
+# ENG1 original-host integration
 
-This workflow adds hash-checked runtime staging and a compact VC5 x86
-debug-event probe. It does not change `assets/`, `HERCULES.EXE`, original
-`ENG3.DLL`, original `TITLE.DLL`, or the stable source-built TITLE DLL. The
-runtime receives a no-CD copy of the host, original ENG3 and data files, source
-TITLE (`0dde33225d04557aa81e3870674ea9b08edb7faa38ef3f6db978e08fe54ab775`),
-and only a successful report-bound source ENG1 build. Unknown runtime files and
-unrecorded ENG1 files are refused.
+The original host has loaded the transitional source-built ENG1 DLL and copied
+the expected 250-DWORD interface with signature 0x5ac00cac and first-use gate
+change from 1 to 0. The latest windowed run stops at explicit missing RVA 0x3910.
+Initialization, a gameplay frame and normal engine shutdown remain unverified.
 
-The ENG1 linker is currently incomplete. The commands below are prepared for
-future use; the one-shot host launch is deliberately not part of the current
-static checks.
+Earlier runs stopped at 32b10 and 274e0, now implemented. Runtime testing then
+exposed a packed-header cursor error in 20670: source used root+0x26 while
+native uses root+0x24. The correction passes 46 original-x86 checks on the full
+shipped FOREST map and gets past the invalid row read in 20830. Artifact-bound
+observations and limits are in evidence/eng1_runtime_validation.json and
+evidence/eng1_resource_cursor_correction.json.
+
+Preparation uses locally verified installer files and the stable source TITLE
+build/report required by scripts/title_integration.py. Source TITLE retains SHA
+0dde33225d04557aa81e3870674ea9b08edb7faa38ef3f6db978e08fe54ab775.
+Original data, ENG3, and assets/ remain immutable. The authorized one-byte
+no-CD change applies only to a disposable EXE copy and is hash-checked.
+Original binaries, extracted maps and generated builds are ignored.
+
+Reproduce a diagnostic build and one bounded integration attempt:
 
 ```powershell
+python scripts/eng1_behavioral.py
+python scripts/eng1_provisional.py
+python scripts/eng1_behavioral.py --include-incomplete --output work/eng1_behavioral/transition_build
+python scripts/eng1_data_evidence.py
+python scripts/test_eng1_behavioral.py
+python scripts/eng1_resource_cursor_differential.py
 python scripts/eng1_integration.py build-probe
-python scripts/eng1_integration.py prepare
-python scripts/eng1_integration.py inspect
-python scripts/eng1_integration.py attach
-python scripts/eng1_integration.py inspect
+python scripts/eng1_integration.py prepare --runtime work/eng1_behavioral/integration/experiment
+python scripts/eng1_integration.py attach --runtime work/eng1_behavioral/integration/experiment --report work/eng1_behavioral/transition_build/report.json
+python scripts/eng1_integration.py inspect --runtime work/eng1_behavioral/integration/experiment
+python scripts/eng1_integration.py launch-once --runtime work/eng1_behavioral/integration/experiment --report work/eng1_behavioral/transition_build/report.json --enter-game --timeout-ms 45000
 ```
 
-After `attach` and `inspect` accept a successful ENG1 report,
-`launch-once` can perform one bounded `DEBUG_ONLY_THIS_PROCESS`
-observation (5â€“120 seconds). Each invocation records a new attempt before launch; repeated observations
-remain separate, finite runs. The probe logs the actual ENG1
-module base, source entry RVA/address from the verified link map, observed
-copied interface-table words and first-use state, first-chance and second-chance
-exceptions, host mode bytes, window caption/menu/client size, and process exit.
-It sends only the observed Alt+Enter key messages and menu command 32801 after
-checking host mode state; it sends no gameplay input and never edits target code
-or process memory. A logged entry address is a map calculation at a loaded
-module base; function execution itself is not trapped.
+The first genuine build currently fails to link and records missing symbols.
+The optional profile explicitly supplies fail-on-entry diagnostics; those
+definitions never return success and do not count as reconstructed functions.
+Every entry records its original RVA in the centralized incomplete manifest.
+The final engine must replace reachable incomplete behavior with real source.
 
-The runtime manifest records source and file hashes.
-`work/eng1_behavioral/integration/probe_build/build_report.json` records the
-pinned compiler and fresh probe compile/link commands.
+Choose a fresh runtime directory for each different DLL artifact. Attach checks
+PE32, the sole PC_DLLEngineMain export at ordinal 1, absence of original-engine
+imports, source/context hashes, DLL/map hashes and mapped interface addresses.
+Unknown or unrecorded runtime files are refused. Preparation does not launch.
 
-Current verification is limited to Python syntax checking and a fresh static
-VC5 compile/link of the probe. It does not compile ENG1 or launch the game.
+The source-built observer uses DEBUG_ONLY_THIS_PROCESS with a 5–120 second limit.
+It verifies native mode bytes and window caption/menu/client size, and sends
+the observed Alt+Enter and window-size commands. With --enter-game, it sends
+at most six real Enter pulses only while its own PID is foreground and windowed
+and modifier keys are released. It releases its key and stops new pulses when
+ENG1 loads. Omit that flag for passive observation.
+
+The probe reads loaded paths, the full interface, selected mapped source cells,
+exception parameters, x86 registers and a bounded stack. It never patches code
+or writes target memory. The first incomplete operation or access violation
+ends only the owned test process after capture; this abort is not normal shutdown.
+Each run has a separate UTC/UUID directory under work/eng1_behavioral/integration/runs/.
+
+Reduce an actual recorded attempt to a compact receipt:
+
+```powershell
+python scripts/eng1_runtime_receipt.py work/eng1_behavioral/integration/runs/RUN_ID/report.json
+```
+
+The receipt verifies recorded DLL/map identity and distinguishes historical
+build context from the current checkout. It does not rerun the game or promote
+recovery state. Original oracle code executes only in separate differential
+fixtures; the replacement never dispatches into original ENG1.

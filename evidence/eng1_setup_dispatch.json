@@ -1,0 +1,222 @@
+{
+  "schema": 1,
+  "scope": "Adopted source switch; exhaustive source routing and finite unpatched native return/accepted-empty states. Active tail bodies remain missing.",
+  "source": "src/eng1/behavioral/setup_dispatch.c",
+  "source_sha256": "bf1fe174f01c6c4af2c432e7a6e8a17e4e9d44bac48a42e0bf15f25ec6132375",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "native": {
+    "rva": "0x1fdf0",
+    "span_bytes": 80,
+    "span_sha256": "94afe772bb9cee76cb816c9871240105c6aee111418f8ffecbeb372cd37b58dd",
+    "instruction_prefix_bytes": 42,
+    "instruction_prefix_sha256": "16d6c113ea0663d0d04d878dcc60913eb56003bc34dae0053702fe7a57f2aeaa",
+    "sites": [
+      "1fdf0 read copied interface context at70f24",
+      "1fdf5 signed byte0 level; subtract1; unsigned compare8 rejects negative/zero/high levels",
+      "1fdfe indexed jump table1fe1c nine cells; mapped levels1..9",
+      "1fe05/1fe0a/1fe0f/1fe14 tail targets0c720/337b0/1abf0/3c130",
+      "1fe19 native return;1fe1a..1fe1b two-byte alignment instruction;1fe1c..1fe40 embedded table;1fe40 next distinct actor floor function"
+    ],
+    "jump_table_rvas": [
+      "0x1fe05",
+      "0x1fe19",
+      "0x1fe19",
+      "0x1fe19",
+      "0x1fe0a",
+      "0x1fe0f",
+      "0x1fe19",
+      "0x1fe19",
+      "0x1fe14"
+    ],
+    "callers": [
+      {
+        "site": "0x25602",
+        "caller": "dispatch_local_255f0",
+        "fact": "After274e0, before282e0; ignored return and no stack arguments."
+      }
+    ],
+    "handler_mapping": [
+      {
+        "level": 1,
+        "rva": "0xc720",
+        "symbol": "eng1_native_code_target_00c720",
+        "existing_provider": "eng1_empty_c720",
+        "provider_source": "src/shared/empty_entries.c",
+        "state": "existing FUNCTION_MATCH reused"
+      },
+      {
+        "level": 5,
+        "rva": "0x337b0",
+        "symbol": "eng1_native_code_target_0337b0",
+        "state": "unrecovered tail handler"
+      },
+      {
+        "level": 6,
+        "rva": "0x1abf0",
+        "symbol": "eng1_native_code_target_01abf0",
+        "state": "unrecovered tail handler"
+      },
+      {
+        "level": 9,
+        "rva": "0x3c130",
+        "symbol": "eng1_native_code_target_03c130",
+        "state": "unrecovered tail handler"
+      }
+    ]
+  },
+  "forest": {
+    "context_level": 3,
+    "actual_behavior": "Returns immediately; no shared data or actor initialization effects. Closes the explicit255f0->1fdf0 dependency for forest."
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "directory": "msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+    "repository": "https://github.com/archaic-msvc/msvc500",
+    "commit": "8abf95ce980161ad87b0b02402269cce76988953",
+    "archive_url": "https://codeload.github.com/archaic-msvc/msvc500/zip/8abf95ce980161ad87b0b02402269cce76988953",
+    "archive_sha256": "5f7728d1b3b8b8c61bb35e42a7680211019d290b30376c1a0a8faaa6d166cd1f",
+    "installed_tree": {
+      "bytes": 176448826,
+      "files": 1167,
+      "sha256": "29fc5aea67aa10a8135d65f8f371f7456bfc10ec8ef36dc0050ca5406bf9d92e"
+    },
+    "adjustments": [
+      "Copy unchanged redist/msvcp50.dll to bin/msvcp50.dll."
+    ],
+    "files": [
+      {
+        "path": "bin/cl.exe",
+        "size": 46080,
+        "sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+        "file_version": "11.00.7022"
+      },
+      {
+        "path": "bin/c1.dll",
+        "size": 563984,
+        "sha256": "e519dfe6f45cc0503b7aac43d125b2f156305269b89f0dc765c40d29627c0943",
+        "file_version": "11.00"
+      },
+      {
+        "path": "bin/c1xx.dll",
+        "size": 1047312,
+        "sha256": "fea1e9fbbc2d204202f1a5ea61e5a938b17a92acda57e16dd53d4ec01c9d186b",
+        "file_version": "11.00"
+      },
+      {
+        "path": "bin/c2.exe",
+        "size": 630544,
+        "sha256": "6d1406af5f62647347cfa7175cd7e108b838d6841a546396f29252198a14d73d",
+        "file_version": "11.00"
+      },
+      {
+        "path": "bin/link.exe",
+        "size": 359424,
+        "sha256": "279544809e6353c8e622eb88aea94e86b0258f3c4b8a976373bf4d68a41b63e1",
+        "file_version": "5.00.7022"
+      },
+      {
+        "path": "bin/cvtres.exe",
+        "size": 16144,
+        "sha256": "0f82167cd888105224463feef5cadebaef970c12932597919e3033d77ed3de6c",
+        "file_version": "4.00"
+      },
+      {
+        "path": "bin/rc.exe",
+        "size": 7952,
+        "sha256": "14a84379d318c76760bd550afaece03b5e8b39b49cbf6de7e0f7f0eac8216242",
+        "file_version": "5.00.1472.1"
+      },
+      {
+        "path": "bin/rcdll.dll",
+        "size": 108304,
+        "sha256": "3c36f9b3d433eb5354655796659d6247684df8158b367d334969183b35454f3c",
+        "file_version": "5.00.1473.1"
+      },
+      {
+        "path": "bin/mspdb50.dll",
+        "size": 167424,
+        "sha256": "06aaaca9c928bdef790259c9c30328529e10d1ec2f77da09c4ff74de7734fe69",
+        "file_version": "5.00.7022"
+      },
+      {
+        "path": "bin/msdis100.dll",
+        "size": 117520,
+        "sha256": "c54d1bf7bc7bf321ad8a903f083f34b0f12ec984761c0280ff9a72190798c0cb",
+        "file_version": "1.00.7020"
+      },
+      {
+        "path": "bin/msvcp50.dll",
+        "size": 565760,
+        "sha256": "91cd76f9fa3b25008decb12c005c194bdf66c8d6526a954de7051bec9aae462a",
+        "file_version": "5.00.7022"
+      },
+      {
+        "path": "lib/libc.lib",
+        "size": 898826,
+        "sha256": "4ae22c6f35a87c55c453ad388ada649ea3ba190614be3d1ab95935ba0faa7416",
+        "file_version": null
+      },
+      {
+        "path": "lib/libcmt.lib",
+        "size": 951142,
+        "sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b",
+        "file_version": null
+      },
+      {
+        "path": "lib/msvcrt.lib",
+        "size": 510000,
+        "sha256": "e0a55e77c6005cacc86783688dd5d372bee6dda9c994493edbe583cd2b367be2",
+        "file_version": null
+      },
+      {
+        "path": "lib/kernel32.lib",
+        "size": 635638,
+        "sha256": "095f231e13cb3e6a6c4913d33ca8048506011034c89774b6ba0857466abba3cf",
+        "file_version": null
+      },
+      {
+        "path": "mfc/lib/nafxcw.lib",
+        "size": 7712394,
+        "sha256": "5d9c3585552412a9b94a9a0b7c3a4208061a76d48a6c3283518bfe9f674c9e22",
+        "file_version": null
+      },
+      {
+        "path": "mfc/lib/mfc42.lib",
+        "size": 4200034,
+        "sha256": "26da9a95266f17335ccddf8e0115930bd2b8bcc1066ecda430c540d6761037cd",
+        "file_version": null
+      },
+      {
+        "path": "include/stdio.h",
+        "size": 13087,
+        "sha256": "b8347d1031e2425177c047a69121adffa39d41932c38c95a45b71c1c59378652",
+        "file_version": null
+      },
+      {
+        "path": "include/windows.h",
+        "size": 4903,
+        "sha256": "1de22ddc1b079d330a8f5b02338a5ad5681b060cf3ac86f984a243ff2bdd9303",
+        "file_version": null
+      }
+    ]
+  },
+  "verification": {
+    "cases": 256,
+    "native_cases": 253,
+    "checks": 1018,
+    "failures": 0,
+    "result": "PASS",
+    "inputs_unchanged": true
+  },
+  "fixture_receipt": "work/eng1_behavioral/forest_setup/report.json",
+  "limits": [
+    "Active5/6/9 tail bodies source-spied only; no nested native effects verified.",
+    "FOREST3 setup is an actual return branch; other forest initialization remains separate.",
+    "No function-byte/source/TU/layout or whole-module match claim."
+  ],
+  "shared_storage": "Existing g_engine_interface.context_004 only; no added storage or reconstructed code jump table.",
+  "test": "tests/eng1_setup_differential.c"
+}

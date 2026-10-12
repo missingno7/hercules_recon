@@ -57,6 +57,12 @@ def run(output, wrapper_fixture):
         'frame_data_prefixes': ['tests/eng1_frame_data_prefixes.c',
                                 'src/eng1/behavioral/frame_data_prefixes.c', 'src/eng1/behavioral/incomplete.c'],
         'resource_completion': ['tests/eng1_resource_completion.c', 'src/eng1/behavioral/resource_completion.c', 'src/eng1/behavioral/resource_completion_data.c', 'calibration/engine_dependency_bridges.c'],
+        'cold_start_32b10': ['tests/eng1_cold_start_32b10.c', 'src/eng1/behavioral/cold_start_32b10.c', 'src/eng1/behavioral/viewport_state_data.c', 'calibration/engine_file_bridge.c', 'calibration/dispatcher_bridges.c', 'calibration/frame_lifecycle_bridges.c', 'src/eng1/behavioral/host_wrappers.c', 'calibration/engine_interface_storage.c', 'src/eng1/behavioral/runtime_storage.c'],
+        'pool_startup_spies': ['tests/eng1_pool_startup_spies.c', 'src/eng1/behavioral/pool_startup.c'],
+        'pool_startup_initializers': ['tests/eng1_pool_startup_initializers.c', 'src/eng1/behavioral/pool_startup.c', 'calibration/actor_pool_reset_repaired.c'],
+        'resource_rebind': ['tests/resource_rebind_semantics.c'],
+        'command_table': ['tests/eng1_command_table.c', 'src/eng1/behavioral/command_table.c', 'src/eng1/behavioral/command_table_storage.c', 'calibration/engine_file_bridge.c', 'calibration/engine_interface_storage.c'],
+        'forest_entry': ['tests/eng1_forest_entry.c', 'src/eng1/behavioral/forest_entry.c', 'src/eng1/behavioral/forest_entry_state_data.c', 'src/eng1/behavioral/forest_entry_words_data.c', 'src/eng1/behavioral/actor_pipeline_storage.c'],
         'context_dispatch': ['tests/eng1_context_dispatch.c', 'src/eng1/behavioral/context_dispatch.c'],
         'cold_runtime_setup': ['tests/eng1_cold_runtime_setup.c', 'src/eng1/behavioral/cold_sequence_setup.c', 'src/eng1/behavioral/cold_sequence_storage.c', 'src/eng1/behavioral/engine_fx_reset.c', 'src/eng1/behavioral/audio_stop_wrapper.c', 'src/eng1/behavioral/runtime_storage.c', 'calibration/engine_fx_storage.c', 'src/eng1/behavioral/host_wrappers.c'],
         'startup_frame_helpers': ['tests/eng1_startup_frame_helpers.c',
@@ -67,7 +73,7 @@ def run(output, wrapper_fixture):
     fixtures['default_callbacks'] += spatial_sources
     fixtures['spatial_effects'] += spatial_sources
     fixtures['spatial_read_guard'] = ['tests/eng1_spatial_read_guard.c', *spatial_sources[:-1]]
-    initial_sources = ['src/eng1/behavioral/initial_read_guards.c', 'src/eng1/behavioral/initial_custom_roots.c', 'src/eng1/behavioral/initial_motion_roots.c', 'src/eng1/behavioral/initial_unreadable_identities.c']
+    initial_sources = ['src/eng1/behavioral/initial_read_guards.c', 'src/eng1/behavioral/initial_custom_roots.c', 'src/eng1/behavioral/initial_motion_roots.c', 'src/eng1/behavioral/initial_unreadable_identities.c', 'src/eng1/behavioral/forest_entry_words_data.c']
     fixtures['default_callbacks'] += [*initial_sources, 'tests/eng1_custom_data_callback_spies.c']
     fixtures['spatial_effects'] += [*initial_sources, 'tests/eng1_custom_data_callback_spies.c']
     fixtures['frame_token_setup'] += [*initial_sources, 'tests/eng1_custom_data_callback_spies.c', 'src/shared/frame_motion.c', 'src/eng1/behavioral/incomplete.c']

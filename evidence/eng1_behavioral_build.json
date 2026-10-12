@@ -744,6 +744,69 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_forest_actor_init.json"
+    },
+    {
+      "source": "src/eng1/behavioral/command_table.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_command_table.json"
+    },
+    {
+      "source": "src/eng1/behavioral/command_table_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_command_table.json"
+    },
+    {
+      "source": "src/eng1/behavioral/forest_entry.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_forest_entry.json"
+    },
+    {
+      "source": "src/eng1/behavioral/forest_entry_state_data.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_forest_entry.json"
+    },
+    {
+      "source": "src/eng1/behavioral/forest_entry_words_data.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_forest_entry.json"
+    },
+    {
+      "source": "src/eng1/behavioral/setup_dispatch.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_setup_dispatch.json"
+    },
+    {
+      "source": "src/eng1/behavioral/cold_start_32b10.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_cold_start_32b10.json"
+    },
+    {
+      "source": "src/eng1/behavioral/viewport_state_data.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_cold_start_32b10.json"
+    },
+    {
+      "source": "src/eng1/behavioral/pool_startup.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_pool_startup.json"
     }
   ],
   "functions": [
@@ -2839,6 +2902,92 @@
       "behavioral_test": "tests/eng1_forest_actor_differential.c",
       "contract": "Explicit native-boundary fixture with callback count/owner mutations; dispatched bodies remain external.",
       "uncertainty": "Finite one-root-group states; 26480 dispatched factories/actions are spies and remain missing in the DLL. No live actor/gameplay validation."
+    },
+    {
+      "rva": "0x282e0",
+      "symbol": "_reset_command_table",
+      "source": "src/eng1/behavioral/command_table.c",
+      "evidence": "evidence/eng1_command_table.json",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Twenty native command slots; reset references only, initialize via actual pool allocator, lookup returns pointer-slot handle.",
+      "uncertainty": "Finite source spies only; full original-host/gameplay operation untested."
+    },
+    {
+      "rva": "0x28300",
+      "symbol": "_initialize_command_table",
+      "source": "src/eng1/behavioral/command_table.c",
+      "evidence": "evidence/eng1_command_table.json",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Twenty native command slots; reset references only, initialize via actual pool allocator, lookup returns pointer-slot handle.",
+      "uncertainty": "Finite source spies only; full original-host/gameplay operation untested."
+    },
+    {
+      "rva": "0x28360",
+      "symbol": "_allocate_command",
+      "source": "src/eng1/behavioral/command_table.c",
+      "evidence": "evidence/eng1_command_table.json",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Twenty native command slots; reset references only, initialize via actual pool allocator, lookup returns pointer-slot handle.",
+      "uncertainty": "Finite source spies only; full original-host/gameplay operation untested."
+    },
+    {
+      "rva": "0xe3e0",
+      "symbol": "_dispatch_local_00e3e0",
+      "source": "src/eng1/behavioral/forest_entry.c",
+      "evidence": "evidence/eng1_forest_entry.json",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Clear DWORD6ef10, then set actual71714 interior pointer to measured4dce8 WORD prefix.",
+      "uncertainty": "Finite source spies only; full original-host/gameplay operation untested."
+    },
+    {
+      "rva": "0x1fdf0",
+      "symbol": "_eng1_call_1fdf0",
+      "source": "src/eng1/behavioral/setup_dispatch.c",
+      "evidence": "evidence/eng1_setup_dispatch.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Signed context byte selects native1/5/6/9 handlers; FOREST3 and all other bytes return.",
+      "uncertainty": "Source active5/6/9 tails are spies; no nested native or gameplay proof.",
+      "behavioral_test": "tests/eng1_setup_differential.c"
+    },
+    {
+      "rva": "0x32b10",
+      "symbol": "_dispatch_local_32b10",
+      "source": "src/eng1/behavioral/cold_start_32b10.c",
+      "evidence": "evidence/eng1_cold_start_32b10.json",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Exact touched state writes, allocate/load/upload/update/free order and physical arguments.",
+      "uncertainty": "Source-spy cases only; whole host behavior first appeared as explicit missing32b10 boundary.",
+      "behavioral_test": "tests/eng1_cold_start_32b10.c"
+    },
+    {
+      "rva": "0x274e0",
+      "symbol": "_eng1_call_274e0",
+      "source": "src/eng1/behavioral/pool_startup.c",
+      "evidence": "evidence/eng1_pool_startup.json",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "No-argument cdecl startup sweep; reload configured WORD counts and pool bases across calls; middle sweep then writes -1 through existing group pointers.",
+      "behavioral_test": "tests/eng1_pool_startup_spies.c; tests/eng1_pool_startup_initializers.c",
+      "uncertainty": "Finite source fixture states; no native differential or gameplay acceptance."
+    },
+    {
+      "rva": "0x279f0",
+      "symbol": "_eng1_call_279f0",
+      "source": "src/eng1/behavioral/pool_startup.c",
+      "evidence": "evidence/eng1_pool_startup.json",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "No-argument cdecl startup sweep; reload configured WORD counts and pool bases across calls; middle sweep then writes -1 through existing group pointers.",
+      "behavioral_test": "tests/eng1_pool_startup_spies.c; tests/eng1_pool_startup_initializers.c",
+      "uncertainty": "Finite source fixture states; no native differential or gameplay acceptance."
+    },
+    {
+      "rva": "0x27fa0",
+      "symbol": "_eng1_call_27fa0",
+      "source": "src/eng1/behavioral/pool_startup.c",
+      "evidence": "evidence/eng1_pool_startup.json",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "No-argument cdecl startup sweep; reload configured WORD counts and pool bases across calls; middle sweep then writes -1 through existing group pointers.",
+      "behavioral_test": "tests/eng1_pool_startup_spies.c; tests/eng1_pool_startup_initializers.c",
+      "uncertainty": "Finite source fixture states; no native differential or gameplay acceptance."
     }
   ],
   "source_adaptations": {
@@ -3643,6 +3792,40 @@
       "evidence": "evidence/eng1_shared_aliases.json",
       "confidence": "verified_same_4byte_PE32_cell",
       "limits": "Physical 32-bit ABI/storage view only; source spelling and general behavioral equivalence not claimed."
+    },
+    "eng1_call_282e0": {
+      "provider": "reset_command_table",
+      "original_rva": "0x282e0",
+      "evidence": "evidence/eng1_command_table.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Observed cdecl physical args and source contract; no universal equivalence claim."
+    },
+    "eng1_call_28300": {
+      "provider": "initialize_command_table",
+      "original_rva": "0x28300",
+      "evidence": "evidence/eng1_command_table.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Observed cdecl physical args and source contract; no universal equivalence claim."
+    },
+    "eng1_call_28360": {
+      "provider": "allocate_command",
+      "original_rva": "0x28360",
+      "evidence": "evidence/eng1_command_table.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Observed cdecl physical args and source contract; no universal equivalence claim."
+    },
+    "eng1_native_code_target_00e3e0": {
+      "provider": "dispatch_local_00e3e0",
+      "original_rva": "0xe3e0",
+      "evidence": "evidence/eng1_forest_entry.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Observed cdecl physical args and source contract; no universal equivalence claim."
+    },
+    "eng1_native_code_target_021a40": {
+      "provider": "start_spawn_phase",
+      "rva": "0x21a40",
+      "evidence": "evidence/eng1_callback_21a40_abi.json",
+      "signature": "cdecl void(Actor *); native callback consumers push one pointer and remove 4 bytes; result unused"
     }
   },
   "omit_functions": {
@@ -3780,5 +3963,6 @@
         "reason": "Select only hide_and_unlink; preserve recovered original unit unchanged."
       }
     ]
-  }
+  },
+  "provisional_source": "src\\eng1\\behavioral\\incomplete_bodies.c"
 }

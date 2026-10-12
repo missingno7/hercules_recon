@@ -10,7 +10,7 @@
     "evidence/actor_pool_layout.json": "13e4b6ea5c268ee49daba9e678d2edd5e8b97fe7c0dac820311996b996e6bd36",
     "evidence/actor_pool_reset_region.json": "0e7dee4128d0a061b335d94c67b73d006f93c0600c395d37acff4c18c2ae7de6",
     "evidence/eng1_actor_storage.json": "9bc63bc5f9d9cda03b66d6ec73cb7f2acc9fd8e95211ef1de595341c767710eb",
-    "evidence/eng1_behavioral_build.json": "645ef16934be3c5aff398515786a1cf3129bc9745eae882acb6b28fb4c962e8d",
+    "evidence/eng1_behavioral_build.json": "82ed9fc825f704f1a10c9740c0752b7501469f1d13087f2d34dda35775b09985",
     "evidence/eng1_camera.json": "42f52814b488bedabba5bfe41694fb43e7768e8c79457723de1d371eece46ecc",
     "evidence/eng1_descriptor_pointees.json": "2eb5a2f15638cadd140cac7c074758f84735d23cc12a72f7fe76e2a60ed131af",
     "evidence/eng1_dispatch_storage.json": "d0f8a47d6eef3024fa6ef69a20c787ee4bb67376ad579e1e1c1a17397273d272",
@@ -45,7 +45,10 @@
     "evidence/eng1_initial_custom_roots.json": "c287dc991206834fa38c9ba2326825cdca412a52258188542c548a861cd4f7fe",
     "evidence/eng1_initial_motion_roots.json": "6b7c8aeae7818283a940206acde3a3d9074e7fc318f641a34c2837f24c660b07",
     "evidence/eng1_initial_unreadable_identities.json": "e6a6b190a2467914dbf7f8b877a926ff69c78fb54ef2e5e44876f37ba8541398",
-    "evidence/eng1_initial_read_guards.json": "4f83ae3034941e260b1bd6f3e2df003a07c405d1d1dfbbea89c6704a97ea29ba"
+    "evidence/eng1_initial_read_guards.json": "4f83ae3034941e260b1bd6f3e2df003a07c405d1d1dfbbea89c6704a97ea29ba",
+    "evidence/eng1_command_table.json": "505695d4eea3bc6cda51a53dca4d9c258184f071beb38cb892764c8e3e3d10f4",
+    "evidence/eng1_forest_entry.json": "3ec3d8022d98075c17b29fd739d298a8856c20e7a3c3b01c0834862c6a8670df",
+    "evidence/eng1_cold_start_32b10.json": "9ff86ff904d537f6ca069fcb7c32b2e5101f129de7ad48339b0dbf205754a99f"
   },
   "providers": [
     {
@@ -5491,6 +5494,84 @@
           "symbol": "_g_eng1_zero_word_program_06ef18",
           "rva": "0x6ef18",
           "size": 4,
+          "scope": "prefix"
+        }
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/command_table_storage.c",
+      "source_sha256": "39eb674abe4976e3b7ae0ea94e9d9776999c50679c09d0580182973982064a45",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_command_table.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_g_command_slot_storage_71320",
+          "rva": "0x71320",
+          "size": 80,
+          "scope": "prefix"
+        }
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/forest_entry_state_data.c",
+      "source_sha256": "f74b34cc082910034ebab9949fa7cda18208d260879f8af8faa070f930878c6b",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_forest_entry.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_eng1_native_cell_06ef10",
+          "rva": "0x6ef10",
+          "size": 4,
+          "scope": "prefix"
+        }
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/forest_entry_words_data.c",
+      "source_sha256": "c0b1e6cbfffdd068e5debb0e2f38f703bef9411dad9a4568169487a977922ad1",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_forest_entry.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_eng1_native_words_04dce8",
+          "rva": "0x4dce8",
+          "size": 16,
+          "scope": "prefix"
+        }
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/viewport_state_data.c",
+      "source_sha256": "a4bffddb74770cbeee12e5541091537e89311e29c056d511b4eda690115c6c07",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_cold_start_32b10.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_g_cold_start_state_bytes_70820",
+          "rva": "0x70820",
+          "size": 28,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_stpanel1_upload_rectangle_words",
+          "rva": "0x5df00",
+          "size": 8,
           "scope": "prefix"
         }
       ]

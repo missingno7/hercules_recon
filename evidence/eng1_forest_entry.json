@@ -1,0 +1,118 @@
+{
+  "scope": "Measured forest entry and data prefixes; original pointer-cell owner reused. Runtime table guard before indexed reads; no full extent claim.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "owners": [
+    {
+      "rva": "0x6ef10",
+      "source": "candidates/eng1_forest_entry_0e3e0/forest_entry_state_data.c",
+      "view": "unsigned long",
+      "measured_width_bytes": 4,
+      "native_section_state": "within the .data virtual-only zero-fill tail",
+      "native_accesses": [
+        {
+          "rva": "0x0e3e0",
+          "operation": "DWORD store 0"
+        },
+        {
+          "rva": "0x0c780",
+          "operation": "DWORD load and zero test"
+        },
+        {
+          "rva": "0x0c79f",
+          "operation": "DWORD store 0xffffffff"
+        },
+        {
+          "rva": "0x0c892",
+          "operation": "DWORD store 0"
+        }
+      ],
+      "extent": "one measured four-byte cell; adjacent cells are not included"
+    },
+    {
+      "rva": "0x71714",
+      "source": "no independent data TU; interior view only",
+      "view": "unsigned short * through g_actor_pipeline_storage_71440.byte_cells[0x2d4]",
+      "owner_rva": "0x71440",
+      "owner_extent_bytes": 2240,
+      "native_section_state": "within the .data virtual-only zero-fill tail",
+      "native_accesses": [
+        {
+          "rva": "0x0e3ea",
+          "operation": "DWORD store absolute pointer 0x1004dce8"
+        },
+        {
+          "rva": "0x0feb9",
+          "operation": "read WORD[0]"
+        },
+        {
+          "rva": "0x10009",
+          "operation": "read WORD[3 + callback_result]"
+        },
+        {
+          "rva": "0x1032d",
+          "operation": "read WORD[1 + callback_result]"
+        },
+        {
+          "rva": "0x33712",
+          "operation": "DWORD store absolute pointer 0x10060268"
+        },
+        {
+          "rva": "0x3ca22",
+          "operation": "DWORD store absolute pointer 0x10066d68"
+        }
+      ],
+      "extent": "four-byte cell is covered by existing measured aggregate; no standalone owner"
+    },
+    {
+      "rva": "0x4dce8",
+      "source": "candidates/eng1_forest_entry_0e3e0/forest_entry_words_data.c",
+      "view": "unsigned short initialized prefix",
+      "observed_prefix_bytes": 16,
+      "observed_prefix_words": [
+        208,
+        0,
+        211,
+        15,
+        16,
+        0,
+        0,
+        0
+      ],
+      "observed_prefix_sha256": "eab9cc20622f34ca6c808fd736e20d21295260b1e56efa361dbf02e22343053c",
+      "next_measured_boundary": "0x4dcf8",
+      "native_reads_through_pointer_cell": [
+        {
+          "rva": "0x0feb9",
+          "indices": [
+            0
+          ]
+        },
+        {
+          "rva": "0x10009",
+          "index_expression": "3 + result of callback wrapper 0x2c460(2)"
+        },
+        {
+          "rva": "0x1032d",
+          "index_expression": "1 + result of callback wrapper 0x2c460(2)"
+        }
+      ],
+      "extent": "16-byte observed prefix only; host callback result ranges and complete logical table capacity remain unproved"
+    }
+  ],
+  "compile_recipe": {
+    "script": "work/eng1_behavioral/forest_entry_0e3e0/build_forest_entry.py",
+    "toolchain": "msvc5_rtm 11.00.7022",
+    "flags": [
+      "/nologo",
+      "/c",
+      "/O2",
+      "/Gy"
+    ],
+    "pointer_cell_policy": "reuse canonical actor-pipeline owner; do not add a standalone 0x71714 definition"
+  },
+  "private_receipt_sha256": "935fac86219939651993689ea770a5d1456f6638037204cd5e7b594731d79b68",
+  "fixture": "tests/eng1_forest_entry.c"
+}

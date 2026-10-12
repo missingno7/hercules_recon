@@ -1,3 +1,4 @@
+#include "initial_read_guards.h"
 #include "resource_runtime_data.h"
 #include "incomplete.h"
 #include "spatial_read_guard.h"
@@ -531,6 +532,7 @@ void __cdecl eng1_native_code_target_00fe60(SpatialTaskView *p)
     collision = eng1_native_dep_02bd20(p);
     if ((collision & 1) != 0) {
         value = eng1_native_dep_00ff70(p, 0x10);
+        eng1_guard_initial_read(eng1_native_ptr_071714, 0UL, 2UL, 2UL, "spatial sound WORD0");
         event = *eng1_native_ptr_071714;
         event |= 0xc000;
         eng1_native_dep_006da0((value & 0xffff0000UL) | event, p);
@@ -579,6 +581,7 @@ void __cdecl eng1_native_code_target_0102c0(SpatialTaskView *p)
     if ((unsigned long)p->word_02a < gate && (collision & 1) != 0) {
         value = dispatch_engine_2c460(2);
         table = eng1_native_ptr_071714;
+        eng1_guard_initial_read(table, value + 1UL, 2UL, 2UL, "spatial sound random WORD");
         event = table[value + 1];
         event |= 0xc000;
         eng1_native_dep_006da0((value & 0xffff0000UL) | event, p);

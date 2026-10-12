@@ -85,7 +85,10 @@ void __cdecl resource_rebuild_blob(void)
     g_header_byte_70ecd = (u8)word_0e;
     g_clear_byte_70ecc = 0;
 
-    cursor = root + 0x26;
+    /* Native206b3 leaves EAX at root+0x12 after the six WORD reads;
+     * native206ce adds0x12, so the first relative field is at root+0x24.
+     * Starting at0x26 misreads both descriptor and group-pointer DWORDs. */
+    cursor = root + 0x24;
     g_header_pointer_70d28 = RELATIVE_FIELD(cursor);
     cursor += 4;
     g_header_pointer_70d30 = RELATIVE_FIELD(cursor);

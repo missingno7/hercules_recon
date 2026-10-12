@@ -19,7 +19,7 @@ from title_link import read_map
 CONFIG = ROOT / 'evidence/eng1_behavioral_build.json'
 
 
-def build(output):
+def build(output, include_incomplete=False):
     output = output.resolve()
     if not output.is_relative_to(ROOT / 'work'):
         raise ValueError('ENG1 outputs must remain under ignored work/')
@@ -43,17 +43,30 @@ def build(output):
         if unit['source'] in graph:
             raise ValueError('Duplicate source provider: ' + unit['source'])
         graph[unit['source']] = unit.get('flags', ['/O2'])
+    incomplete_bytes=(ROOT/config['incomplete_manifest']).read_bytes()
+    incomplete_rows=json.loads(incomplete_bytes)['functions']
+    provisional=[x for x in incomplete_rows if x.get('kind') in ('unimplemented_function','unimplemented_binding')]
+    provisional_symbols={x['symbol'] for x in provisional}
+    if include_incomplete:
+        from eng1_provisional import render
+        source=ROOT/config['provisional_source']
+        if source.read_bytes()!=render(provisional):
+            raise ValueError('Provisional source differs from centralized manifest')
+        graph[config['provisional_source']]=['/O2']
     contexts = {str(path.relative_to(ROOT)): digest(path.read_bytes())
                 for source in graph for path in context_files(ROOT / source)}
+    contexts[config['incomplete_manifest']]=digest(incomplete_bytes)
     objects, compiled, strict = [], [], []
     definitions, undefined = defaultdict(list), defaultdict(list)
     function_definitions = {}
+    literal_contributions=defaultdict(list)
     report = dict(scope='Behavioral source/link evidence; no recovery promotion or playable-engine claim.',
+                  includes_provisional_functions=include_incomplete,
                   architecture=None, target_sha256=config['target_sha256'],
                   recovery_sha256=digest(state_bytes), config_sha256=digest(config_bytes),
                   context_sha256=contexts, toolchain=verify_toolchain(DEFAULT_TOOLCHAIN),
                   compiled_sources=compiled, preserved_exact_functions=strict,
-                  behaviorally_exact=False, runtime_integration='not executed')
+                  behaviorally_exact=False, runtime_integration='Build-only report; runtime observations are recorded separately.')
     adaptations = config.get('source_adaptations', {})
     extensions = config.get('unit_extensions', {})
     omissions = config.get('omit_functions', {})
@@ -102,6 +115,11 @@ def build(output):
             name = symbol['name']
             if symbol['section'] > 0:
                 definitions[name].append(source)
+                if name.startswith('??_C@'):
+                    section=coff.sections[symbol['section']-1]
+                    literal_contributions[name].append(dict(source=source,
+                        data=section['data'],size=section['size'],flags=section['flags'],
+                        relocations=section['relocations']))
                 if symbol['type'] & 0x20:
                     function_definitions[name] = source
             elif symbol['section'] == 0 and symbol['value'] == 0:
@@ -128,8 +146,24 @@ def build(output):
     (output / 'link.log').write_bytes(log.encode('utf-8'))
     unresolved = sorted(set(re.findall(r'unresolved external symbol (\S+)', log)))
     duplicates = {name: owners for name, owners in definitions.items() if len(owners) > 1}
+    pooled_literals={}
+    for name in list(duplicates):
+        contributions=literal_contributions.get(name,[])
+        for contribution in contributions:
+            if not contribution['data'] and contribution['flags']&0x80:
+                contribution['data']=bytes(contribution['size'])
+        if (len(contributions)==len(duplicates[name]) and
+            all(x['flags']&0x1000 and not x['flags']&0x20000000 and
+                x['size']==len(x['data'])==contributions[0]['size'] and
+                not x['relocations'] and x['data']==contributions[0]['data']
+                for x in contributions)):
+            pooled_literals[name]=dict(sources=duplicates.pop(name),
+                size=len(contributions[0]['data']),
+                sha256=digest(contributions[0]['data']),
+                classification='Identical loaded bytes in non-executable compiler string-literal COMDATs; explicit COFF zero-fill retained; ordinary linker pooling, no first-party storage conflict.')
     report.update(link_command=command, link_exit_code=result.returncode, unresolved=unresolved,
-                  duplicate_providers=duplicates, undefined_consumers={name: undefined[name] for name in unresolved})
+                  duplicate_providers=duplicates, compiler_pooled_literals=pooled_literals,
+                  undefined_consumers={name: undefined[name] for name in unresolved})
     inventory = function_inventory('ENG1.DLL')['functions']
     providers = {int(row['rva'], 0): dict(row) for row in rows}
     alternatives = defaultdict(list)
@@ -169,7 +203,12 @@ def build(output):
                                              + sum(row['compiled_definition'] for row in unindexed),
                   inventory_scope='Diagnostic starts/leads plus explicit providers; not a reviewed complete first-party inventory.',
                   existing_evidence_counts=dict(Counter(row['status'] for row in rows)),
-                  incomplete_functions=json.loads((ROOT / config['incomplete_manifest']).read_text())['functions'])
+                  incomplete_functions=incomplete_rows,
+                  provisional_function_count=len(provisional_symbols.intersection(function_definitions)),
+                  genuine_compiled_function_symbols=len(set(function_definitions)-provisional_symbols),
+                  source_complete=False, playable=False)
+    for entry in coverage:
+        entry['provisional_symbols']=[x['symbol'] for x in provisional if int(x['rva'],0)==int(entry['rva'],0) and x['symbol'] in function_definitions]
     if (ROOT / 'recovery.json').read_bytes() != state_bytes or CONFIG.read_bytes() != config_bytes:
         raise ValueError('Recovery/configuration changed during ENG1 build')
     for path, expected in contexts.items():
@@ -204,5 +243,6 @@ def build(output):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=ROOT / 'work/eng1_behavioral/build')
+    parser.add_argument('--include-incomplete',action='store_true',help='Explicit transitional loader build; missing bodies fail on entry and do not count as implemented')
     arguments = parser.parse_args()
-    raise SystemExit(build(arguments.output))
+    raise SystemExit(build(arguments.output,arguments.include_incomplete))
