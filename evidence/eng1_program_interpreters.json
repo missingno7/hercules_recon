@@ -1,0 +1,30 @@
+{
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "source": "src/eng1/behavioral/interpreters.c",
+  "physical_ABI": "cdecl Actor*, DWORD return flag",
+  "record_widths": {
+    "0x283e0": 4,
+    "0x28820": 2,
+    "0x28aa0": 6
+  },
+  "direct_caller_counts": {
+    "0x283e0": 277,
+    "0x28820": 81,
+    "0x28aa0": 7
+  },
+  "contracts": {
+    "0x283e0": "Signed WORD pairs, negative command dispatch, duration/state writes and shared advance/select helpers.",
+    "0x28820": "WORD stream, first-WORD duration fallback and native cursor advances.",
+    "0x28aa0": "Non-null actor+128 command handle, six-byte state and transform records, preserved RNG path and wrapped-angle helper."
+  },
+  "source_fixture": "tests/eng1_program_interpreters.c",
+  "fixture_scope": "Actual shared frame_state.c; test-only ratio/RNG/sound/resource/remove spies. No original x86 execution.",
+  "uncertainties": [
+    "Native differential and gameplay not executed.",
+    "Nested helper dependencies remain externally visible; indexed program bounds are native unchecked."
+  ],
+  "reproduce": [
+    "python scripts/test_eng1_behavioral.py",
+    "python scripts/eng1_behavioral.py"
+  ]
+}

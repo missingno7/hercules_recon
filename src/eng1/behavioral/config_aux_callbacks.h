@@ -1,0 +1,24 @@
+#ifndef ENG1_CONFIG_AUX_CALLBACKS_H
+#define ENG1_CONFIG_AUX_CALLBACKS_H
+typedef void (__cdecl *Eng1ConfigRawCallback)();
+typedef char eng1_config_raw_callback_is4[(sizeof(Eng1ConfigRawCallback)==4)?1:-1];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_04ed90[6];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_04eda8[10];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_04edd0[6];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_058758[6];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_058770[6];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_058788[6];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_059f88[6];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_059fa0[14];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_0610d0[6];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_0610e8[18];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_062ba0[6];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_062bb8[10];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_062be0[6];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_068120[6];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_068138[8];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_068158[6];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_06b0d0[6];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_06b0e8[6];
+extern Eng1ConfigRawCallback g_eng1_config_aux_callbacks_06b100[6];
+#endif

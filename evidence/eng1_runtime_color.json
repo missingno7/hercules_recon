@@ -1,0 +1,26 @@
+{
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "scope": "Measured storage ownership and color flow, not complete engine behavior.",
+  "functions": [
+    "0x5a60",
+    "0x5d50",
+    "0x5dc0",
+    "0x5e00",
+    "0x2c830"
+  ],
+  "contracts": {
+    "0x70e4c": "One 128-byte owner: sixteen cumulative SHORTs then sixteen three-SHORT bounds rows at +0x20.",
+    "0x6fe30": "DWORD clock also read through low-byte spawn gate.",
+    "0x6eef8": "Observed twelve-byte control prefix; arguments are owner+0,+4,+8. Full capacity unproved.",
+    "0x2c830": "cdecl one-DWORD forwarder to copied table offset0x23c/slot143; host EXE0x70c0 consumes low byte.",
+    "color_grid": "Off bank bits select weighted/clamped current RGB, not base arguments."
+  },
+  "uncertainties": [
+    "Resource counts and several observed-prefix capacities remain unchecked and unproved.",
+    "Color, control, and resource integration have not been exercised in the game."
+  ],
+  "reproduce": [
+    "python scripts/eng1_behavioral.py",
+    "python scripts/test_eng1_behavioral.py"
+  ]
+}

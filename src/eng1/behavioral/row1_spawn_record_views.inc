@@ -1,0 +1,16 @@
+/* Include after target externs and before pointer initializers. */
+#include "row1_spawn_records.h"
+#define eng1_frame_target_065c38 ((unsigned char *)g_eng1_row1_spawn_records_065c38)
+#define eng1_frame_target_065d10 ((unsigned char *)g_eng1_row1_spawn_records_065d10)
+#define eng1_frame_target_065e00 ((unsigned char *)g_eng1_row1_spawn_records_065e00)
+#define eng1_frame_target_065ea0 ((unsigned char *)g_eng1_row1_spawn_records_065ea0)
+#define eng1_frame_target_065f00 ((unsigned char *)g_eng1_row1_spawn_records_065f00)
+#define eng1_frame_target_065fe8 ((unsigned char *)g_eng1_row1_spawn_records_065fe8)
+#define eng1_frame_target_066060 ((unsigned char *)g_eng1_row1_spawn_records_066060)
+#define eng1_frame_target_0660b8 ((unsigned char *)g_eng1_row1_spawn_records_0660b8)
+#define eng1_frame_target_066100 ((unsigned char *)g_eng1_row1_spawn_records_066100)
+#define eng1_frame_target_066148 ((unsigned char *)g_eng1_row1_spawn_records_066148)
+#define eng1_frame_target_066b50 ((unsigned char *)g_eng1_row1_spawn_records_066b50)
+#define eng1_frame_target_066bf0 ((unsigned char *)g_eng1_row1_spawn_records_066bf0)
+#define eng1_frame_target_066cf0 ((unsigned char *)g_eng1_row1_spawn_records_066cf0)
+#define eng1_frame_target_0670e8 ((unsigned char *)g_eng1_row1_spawn_records_0670e8)

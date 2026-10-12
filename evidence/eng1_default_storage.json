@@ -1,0 +1,48 @@
+{
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "source": "src/eng1/behavioral/default_storage.c",
+  "fields": [
+    {
+      "symbol": "g_actor_state_map_004d6ec",
+      "type": "unsigned char[8]",
+      "rva_start": "0x4d6ec",
+      "rva_end_exclusive": "0x4d6f4",
+      "bytes_hex": "ff 00 01 02 ff 05 06 07",
+      "candidate_source": "candidates\\eng1_default_callbacks\\default_storage.c",
+      "fresh_vc5_data_check": "work\\eng1_default_callbacks\\storage_verification.json",
+      "consumers": [
+        {
+          "callback_rva": "0x1040",
+          "read": "byte at 0x4d6ec + EAX",
+          "index_producer": "dispatch_engine_2c460(4)",
+          "index_window_under_unsigned-remainder provider contract": "0..3",
+          "field_offsets_read": "0..3",
+          "result_written_to": "actor byte offset 0x1c"
+        },
+        {
+          "callback_rva": "0x1310",
+          "read": "byte at 0x4d6f0 + EAX",
+          "index_producer": "dispatch_engine_2c460(4)",
+          "index_window_under_unsigned-remainder provider contract": "0..3",
+          "field_offsets_read": "4..7",
+          "result_written_to": "actor byte offset 0x1c"
+        }
+      ],
+      "range_limit_note": "The callbacks do not mask or clamp EAX before indexed byte loads; offsets 0..3 and 4..7 follow from the measured bound-4 provider contract. The fixture checks both windows and checks the literal bytes.",
+      "adjacency": {
+        "preceding_measured_prefix": {
+          "start": "0x4d668",
+          "end_exclusive": "0x4d6ec",
+          "identity": "frame-array prefix from integrator handoff"
+        },
+        "following_data_boundary": "0x4d6f8",
+        "overlap_claim": false
+      }
+    }
+  ],
+  "additional_cells": {
+    "0x72168": "Loader-zeroWORD read by defaultcallbacks.",
+    "0x51fd4": "Four initialized selector bytes read by spatialcallbacks; no additional extent claim."
+  },
+  "reproduce": "python scripts/eng1_data_evidence.py"
+}

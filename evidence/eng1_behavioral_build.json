@@ -1,0 +1,3634 @@
+{
+  "scope": "Behavioral ENG1 source graph, derived coverage and ownership evidence; recovery.json remains sole recovery authority.",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "exports": "src/eng1/behavioral/eng1.def",
+  "libraries": [
+    "LIBCMT.lib",
+    "KERNEL32.lib"
+  ],
+  "incomplete_manifest": "evidence/eng1_behavioral_incomplete.json",
+  "additional_sources": [
+    {
+      "source": "src/eng1/behavioral/entry.c",
+      "flags": [
+        "/O2"
+      ]
+    },
+    {
+      "source": "calibration/actor_continuation.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/actor_continuation_region.json"
+    },
+    {
+      "source": "calibration/cleanup_helpers_writers.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/cleanup_helpers_writers_region.json"
+    },
+    {
+      "source": "calibration/action_registry.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/action_registry_region.json"
+    },
+    {
+      "source": "calibration/action_registry_writers.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/action_registry_writers_region.json"
+    },
+    {
+      "source": "calibration/registry_allocation.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/registry_allocation_region.json"
+    },
+    {
+      "source": "calibration/actor_factories.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/actor_factories_region.json"
+    },
+    {
+      "source": "calibration/actor_pool_reset_repaired.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/actor_pool_reset_region.json"
+    },
+    {
+      "source": "calibration/resource_callbacks.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/resource_callbacks_region.json"
+    },
+    {
+      "source": "calibration/resource_destroy.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/resource_destroy_region.json"
+    },
+    {
+      "source": "calibration/resource_readiness.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/resource_readiness_region.json"
+    },
+    {
+      "source": "calibration/resource_provider.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/resource_provider_region.json"
+    },
+    {
+      "source": "calibration/resource_rebind.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/resource_rebind_region.json"
+    },
+    {
+      "source": "calibration/engine_dispatch.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/engine_dispatch_region.json"
+    },
+    {
+      "source": "calibration/frame_chain_bridge.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/frame_chain_bridge_region.json"
+    },
+    {
+      "source": "calibration/frame_bootstrap_family.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/frame_bootstrap_family_region.json"
+    },
+    {
+      "source": "calibration/frame_lifecycle_bridges.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/frame_lifecycle_bridges_region.json"
+    },
+    {
+      "source": "calibration/frame_configuration.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/frame_configuration_region.json"
+    },
+    {
+      "source": "calibration/engine_interface_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/engine_interface_storage_adoption_2026_10_11.json"
+    },
+    {
+      "source": "calibration/engine_fx_control.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/engine_unit_progress_2026_10_11.json"
+    },
+    {
+      "source": "calibration/engine_fx_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/engine_fx_storage_adoption_2026_10_11.json"
+    },
+    {
+      "source": "calibration/resource_data.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/resource_data_source.json"
+    },
+    {
+      "source": "src/eng1/behavioral/resource_data.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "work/eng1_behavioral/resource_data/handoff.json"
+    },
+    {
+      "source": "src/eng1/behavioral/frame_data.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "candidates/eng1_frame_data/target_relocations.json"
+    },
+    {
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "work/eng1_behavioral/host_wrappers/build.json"
+    },
+    {
+      "source": "src/eng1/behavioral/frame_commands.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "work/eng1_behavioral/frame_commands/handoff.md"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_actor_storage.json"
+    },
+    {
+      "source": "src/eng1/behavioral/dispatch_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_dispatch_storage.json"
+    },
+    {
+      "source": "src/eng1/behavioral/static_pointees.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_static_pointees.json"
+    },
+    {
+      "source": "src/eng1/behavioral/camera.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_camera.json"
+    },
+    {
+      "source": "src/eng1/behavioral/camera_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_camera.json"
+    },
+    {
+      "source": "src/eng1/behavioral/row0_pointees.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_row0_pointees.json"
+    },
+    {
+      "source": "src/eng1/behavioral/level_loading.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_level_loading.json"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_links.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_actor_links.json"
+    },
+    {
+      "source": "src/eng1/behavioral/host_wrappers_extra.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_host_wrappers_extra.json"
+    },
+    {
+      "source": "calibration/macro_actor.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/macro_actor.json"
+    },
+    {
+      "source": "calibration/engine_context_sequence.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/engine_dispatch_region.json"
+    },
+    {
+      "source": "calibration/engine_control.c",
+      "flags": [
+        "/Od"
+      ],
+      "evidence": "evidence/engine_control_contract.json",
+      "flags_reason": "VC5 /O2 fails with C1002 pass-2 heap exhaustion at the original terminal loop; ordinary unoptimized compilation retains semantics. No matching-source rewrite."
+    },
+    {
+      "source": "src/eng1/behavioral/audio_behavior.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_audio.json"
+    },
+    {
+      "source": "src/eng1/behavioral/audio_host.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_audio.json"
+    },
+    {
+      "source": "src/eng1/behavioral/incomplete.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_behavioral_incomplete.json"
+    },
+    {
+      "source": "src/eng1/behavioral/host_control_wrappers.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_host_control.json"
+    },
+    {
+      "source": "src/eng1/behavioral/mesh_emit.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_geometry.json"
+    },
+    {
+      "source": "src/eng1/behavioral/mesh_prepare.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_geometry.json"
+    },
+    {
+      "source": "src/eng1/behavioral/mesh_traversal.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_geometry.json"
+    },
+    {
+      "source": "src/eng1/behavioral/mesh_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_geometry.json"
+    },
+    {
+      "source": "src/eng1/behavioral/primitive_emitters_a.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_geometry.json"
+    },
+    {
+      "source": "src/eng1/behavioral/primitive_emitters_b.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_geometry.json"
+    },
+    {
+      "source": "src/eng1/behavioral/runtime_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_runtime_color.json"
+    },
+    {
+      "source": "src/eng1/behavioral/color.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_runtime_color.json"
+    },
+    {
+      "source": "src/eng1/behavioral/color_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_runtime_color.json"
+    },
+    {
+      "source": "src/eng1/behavioral/host_color_callback.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_runtime_color.json"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_pipeline.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_actor_pipeline.json"
+    },
+    {
+      "source": "src/eng1/behavioral/flags_word_programs.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_config_tables.json"
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/frame_programs.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_config_tables.json"
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/secondary_records.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_config_tables.json"
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/row1_spawn_records.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_config_tables.json"
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/frame_data_config_word_pool.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_config_tables.json"
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/frame_data_config_word_pool_55478.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_config_tables.json"
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/frame_data_config_word_pool_50e20.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_config_tables.json"
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/frame_data_config_word_pool_68a30.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_config_tables.json"
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/row1_actor_assets.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_row1_actor_assets.json"
+    },
+    {
+      "source": "src/eng1/behavioral/shared_spawn_records.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_shared_spawn_records.json"
+    },
+    {
+      "source": "src/eng1/behavioral/row1_remaining_frames.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_row1_remaining_frames.json"
+    },
+    {
+      "source": "src/eng1/behavioral/row2_actor_frames.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_row2_actor_frames.json"
+    },
+    {
+      "source": "src/eng1/behavioral/row3_actor_frames.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_row3_actor_frames.json"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_pipeline_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_actor_pipeline_storage.json"
+    },
+    {
+      "source": "src/eng1/behavioral/interpreters.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_program_interpreters.json"
+    },
+    {
+      "source": "src/eng1/behavioral/eng1_default_callbacks.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_default_callbacks.json"
+    },
+    {
+      "source": "src/eng1/behavioral/spatial_effects.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_spatial_effects.json"
+    },
+    {
+      "source": "src/eng1/behavioral/default_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_default_storage.json"
+    },
+    {
+      "source": "src/eng1/behavioral/frame_token_setup.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_token_startup.json"
+    },
+    {
+      "source": "src/eng1/behavioral/frame_data_prefixes.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_token_startup.json"
+    },
+    {
+      "source": "src/eng1/behavioral/frame_token_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_token_startup.json"
+    },
+    {
+      "source": "src/eng1/behavioral/startup_prefix_guards.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_token_startup.json"
+    },
+    {
+      "source": "src/eng1/behavioral/startup_frame_helpers.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_startup_frame_helpers.json"
+    },
+    {
+      "source": "src/eng1/behavioral/startup_frame_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_startup_frame_helpers.json"
+    },
+    {
+      "source": "src/eng1/behavioral/row6_actor_frames.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_row6_actor_frames.json"
+    },
+    {
+      "source": "src/eng1/behavioral/remaining_word_assets.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_remaining_word_assets.json"
+    },
+    {
+      "source": "src/eng1/behavioral/config_aux_callbacks.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_config_aux_callbacks.json"
+    },
+    {
+      "source": "src/eng1/behavioral/level_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_level_storage.json"
+    },
+    {
+      "source": "src/eng1/behavioral/shared_selector_assets.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_shared_selector_assets.json"
+    },
+    {
+      "source": "src/eng1/behavioral/provisional_frame_pairs.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_provisional_frame_pairs.json"
+    },
+    {
+      "source": "src/eng1/behavioral/finite_frame_prefixes.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_finite_frame_prefixes.json"
+    },
+    {
+      "source": "src/eng1/behavioral/read_guard.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_runtime_read_guard.json"
+    },
+    {
+      "source": "src/eng1/behavioral/sine_table.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_sine_table.json"
+    },
+    {
+      "source": "src/eng1/behavioral/startup_host_forwarders.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_startup_host_forwarders.json"
+    },
+    {
+      "source": "src/eng1/behavioral/resource_completion.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_resource_completion.json"
+    },
+    {
+      "source": "src/eng1/behavioral/resource_completion_data.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_resource_completion.json"
+    },
+    {
+      "source": "src/eng1/behavioral/cold_sequence_setup.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_cold_runtime_setup.json"
+    },
+    {
+      "source": "src/eng1/behavioral/engine_fx_reset.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_cold_runtime_setup.json"
+    },
+    {
+      "source": "src/eng1/behavioral/audio_stop_wrapper.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_cold_runtime_setup.json"
+    },
+    {
+      "source": "src/eng1/behavioral/cold_sequence_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_cold_runtime_setup.json"
+    },
+    {
+      "source": "src/eng1/behavioral/initial_spatial_roots.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_initial_spatial_roots.json"
+    },
+    {
+      "source": "src/eng1/behavioral/spatial_read_guard.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_initial_spatial_roots.json"
+    },
+    {
+      "source": "src/eng1/behavioral/resource_host_forwarders.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_resource_host_forwarders.json"
+    }
+  ],
+  "functions": [
+    {
+      "rva": "0x2c180",
+      "symbol": "_PC_DLLEngineMain",
+      "source": "src/eng1/behavioral/entry.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Cold forward 1000-byte copy and signature rejection; first-use arena setup; accepted host update, live context flags mask, engine dispatch.",
+      "uncertainty": "Entry-only callback spies; complete initialization/gameplay not yet executed.",
+      "evidence": "evidence/engine_file_bridge_contract.json"
+    },
+    {
+      "rva": "0x219e0",
+      "symbol": "_tick_scripted_actor",
+      "source": "calibration/actor_continuation.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_continuation_region.json",
+      "contract": "Contiguous actor/effect callbacks share measured actor layout, RNG, spawn and owner context; no original TU claim.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x21a40",
+      "symbol": "_start_spawn_phase",
+      "source": "calibration/actor_continuation.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_continuation_region.json",
+      "contract": "Contiguous actor/effect callbacks share measured actor layout, RNG, spawn and owner context; no original TU claim.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x21aa0",
+      "symbol": "_tick_spawn_phase",
+      "source": "calibration/actor_continuation.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_continuation_region.json",
+      "contract": "Contiguous actor/effect callbacks share measured actor layout, RNG, spawn and owner context; no original TU claim.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x21c00",
+      "symbol": "_initialize_spinning_particle",
+      "source": "calibration/actor_continuation.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_continuation_region.json",
+      "contract": "Contiguous actor/effect callbacks share measured actor layout, RNG, spawn and owner context; no original TU claim.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x21d10",
+      "symbol": "_tick_spinning_particle",
+      "source": "calibration/actor_continuation.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_continuation_region.json",
+      "contract": "Contiguous actor/effect callbacks share measured actor layout, RNG, spawn and owner context; no original TU claim.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x21ed0",
+      "symbol": "_initialize_linked_particle",
+      "source": "calibration/actor_continuation.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_continuation_region.json",
+      "contract": "Contiguous actor/effect callbacks share measured actor layout, RNG, spawn and owner context; no original TU claim.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x21f00",
+      "symbol": "_follow_owner_scale",
+      "source": "calibration/actor_continuation.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_continuation_region.json",
+      "contract": "Contiguous actor/effect callbacks share measured actor layout, RNG, spawn and owner context; no original TU claim.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x27e20",
+      "symbol": "_release_actor",
+      "source": "calibration/release_actor.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/release_dependency.json",
+      "contract": "Actual release dependency of the earlier natural-link interval.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x51d0",
+      "symbol": "_release_actor_resource_state",
+      "source": "calibration/cleanup_helpers.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/cleanup_helpers_region.json",
+      "contract": "Measured actor resource/token state and recursive clear dependency group; original TU ownership unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x55b0",
+      "symbol": "_clear_actor",
+      "source": "calibration/cleanup_helpers.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/cleanup_helpers_region.json",
+      "contract": "Measured actor resource/token state and recursive clear dependency group; original TU ownership unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x5750",
+      "symbol": "_release_actor_token",
+      "source": "calibration/cleanup_helpers.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/cleanup_helpers_region.json",
+      "contract": "Measured actor resource/token state and recursive clear dependency group; original TU ownership unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x27260",
+      "symbol": "_remove_actor",
+      "source": "calibration/remove_actor.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/remove_actor_region.json",
+      "contract": "Two adjacent actor cleanup implementations share the PC-confirmed actor and sidecar frame; original TU ownership is unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x27860",
+      "symbol": "_remove_actor_variant",
+      "source": "calibration/remove_actor.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/remove_actor_region.json",
+      "contract": "Two adjacent actor cleanup implementations share the PC-confirmed actor and sidecar frame; original TU ownership is unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x51d0",
+      "symbol": "_release_actor_resource_state",
+      "source": "calibration/cleanup_helpers_writers.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/cleanup_helpers_writers_region.json",
+      "contract": "Writer-backed representation and two frozen cleanup peers; original source/TU ownership unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x55b0",
+      "symbol": "_clear_actor",
+      "source": "calibration/cleanup_helpers_writers.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/cleanup_helpers_writers_region.json",
+      "contract": "Writer-backed representation and two frozen cleanup peers; original source/TU ownership unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x5750",
+      "symbol": "_release_actor_token",
+      "source": "calibration/cleanup_helpers_writers.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/cleanup_helpers_writers_region.json",
+      "contract": "Writer-backed representation and two frozen cleanup peers; original source/TU ownership unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2afe0",
+      "symbol": "_acquire_pending_action_group",
+      "source": "calibration/action_registry.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/action_registry_region.json",
+      "contract": "Two private PC-proven action-group registry helpers with a shared global count/table and a known internal actor-variant dependency; original translation-unit ownership is unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2b370",
+      "symbol": "_release_pending_action",
+      "source": "calibration/action_registry.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/action_registry_region.json",
+      "contract": "Two private PC-proven action-group registry helpers with a shared global count/table and a known internal actor-variant dependency; original translation-unit ownership is unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2b030",
+      "symbol": "_retire_pending_action_group",
+      "source": "calibration/action_registry_writers.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/action_registry_writers_region.json",
+      "contract": "Three adjacent PC-proven pending-action group retirement/append helpers share one observed count-entry overlay; original translation-unit ownership is unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2b070",
+      "symbol": "_append_normal_action",
+      "source": "calibration/action_registry_writers.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/action_registry_writers_region.json",
+      "contract": "Three adjacent PC-proven pending-action group retirement/append helpers share one observed count-entry overlay; original translation-unit ownership is unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2b0d0",
+      "symbol": "_append_kind_action",
+      "source": "calibration/action_registry_writers.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/action_registry_writers_region.json",
+      "contract": "Three adjacent PC-proven pending-action group retirement/append helpers share one observed count-entry overlay; original translation-unit ownership is unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2af80",
+      "symbol": "_initialize_pending_action_groups",
+      "source": "calibration/registry_allocation.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/registry_allocation_region.json",
+      "contract": "Engine registry initialization and generic three-argument host-interface forwarding share the observed allocation flow; original translation-unit ownership is unknown.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c3c0",
+      "symbol": "_forward_host_allocation",
+      "source": "calibration/registry_allocation.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/registry_allocation_region.json",
+      "contract": "Engine registry initialization and generic three-argument host-interface forwarding share the observed allocation flow; original translation-unit ownership is unknown.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x271d0",
+      "symbol": "_spawn_normal",
+      "source": "calibration/actor_factories.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_factories_region.json",
+      "contract": "The normal and alternate actor factories form the real allocation dependency called by the already measured action appenders; original TU ownership is unknown.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x27db0",
+      "symbol": "_spawn_kind",
+      "source": "calibration/actor_factories.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_factories_region.json",
+      "contract": "The normal and alternate actor factories form the real allocation dependency called by the already measured action appenders; original TU ownership is unknown.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x26f70",
+      "symbol": "_allocate_normal_actor",
+      "source": "calibration/actor_pools.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_pools_region.json",
+      "contract": "Two leaf pool allocators and the three nested actor initialization levels form a verified allocation/data-frame dependency. Original TU and source declarations remain unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x27b00",
+      "symbol": "_allocate_alternate_actor",
+      "source": "calibration/actor_pools.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_pools_region.json",
+      "contract": "Two leaf pool allocators and the three nested actor initialization levels form a verified allocation/data-frame dependency. Original TU and source declarations remain unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x27fe0",
+      "symbol": "_initialize_alternate_actor",
+      "source": "calibration/actor_pools.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_pools_region.json",
+      "contract": "Two leaf pool allocators and the three nested actor initialization levels form a verified allocation/data-frame dependency. Original TU and source declarations remain unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x27a50",
+      "symbol": "_initialize_middle_actor",
+      "source": "calibration/actor_pools.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_pools_region.json",
+      "contract": "Two leaf pool allocators and the three nested actor initialization levels form a verified allocation/data-frame dependency. Original TU and source declarations remain unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x27520",
+      "symbol": "_initialize_normal_actor",
+      "source": "calibration/actor_pools.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_pools_region.json",
+      "contract": "Two leaf pool allocators and the three nested actor initialization levels form a verified allocation/data-frame dependency. Original TU and source declarations remain unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x26f70",
+      "symbol": "_allocate_normal_actor",
+      "source": "calibration/actor_pool_reset_repaired.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_pool_reset_region.json",
+      "contract": "Combined allocation/initialization/reset dependency region; original translation-unit ownership remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x27b00",
+      "symbol": "_allocate_alternate_actor",
+      "source": "calibration/actor_pool_reset_repaired.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_pool_reset_region.json",
+      "contract": "Combined allocation/initialization/reset dependency region; original translation-unit ownership remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x27fe0",
+      "symbol": "_initialize_alternate_actor",
+      "source": "calibration/actor_pool_reset_repaired.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_pool_reset_region.json",
+      "contract": "Combined allocation/initialization/reset dependency region; original translation-unit ownership remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x27a50",
+      "symbol": "_initialize_middle_actor",
+      "source": "calibration/actor_pool_reset_repaired.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_pool_reset_region.json",
+      "contract": "Combined allocation/initialization/reset dependency region; original translation-unit ownership remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x27520",
+      "symbol": "_initialize_normal_actor",
+      "source": "calibration/actor_pool_reset_repaired.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_pool_reset_region.json",
+      "contract": "Combined allocation/initialization/reset dependency region; original translation-unit ownership remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x275d0",
+      "symbol": "_allocate_middle_actor",
+      "source": "calibration/actor_pool_reset_repaired.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_pool_reset_region.json",
+      "contract": "Combined allocation/initialization/reset dependency region; original translation-unit ownership remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x27490",
+      "symbol": "_reset_normal_actor_pool",
+      "source": "calibration/actor_pool_reset_repaired.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_pool_reset_region.json",
+      "contract": "Combined allocation/initialization/reset dependency region; original translation-unit ownership remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x279a0",
+      "symbol": "_reset_middle_actor_pool",
+      "source": "calibration/actor_pool_reset_repaired.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_pool_reset_region.json",
+      "contract": "Combined allocation/initialization/reset dependency region; original translation-unit ownership remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x27f50",
+      "symbol": "_reset_alternate_actor_pool",
+      "source": "calibration/actor_pool_reset_repaired.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/actor_pool_reset_region.json",
+      "contract": "Combined allocation/initialization/reset dependency region; original translation-unit ownership remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x3810",
+      "symbol": "_resource_load_complete",
+      "source": "calibration/resource_callbacks.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/resource_callbacks_region.json",
+      "contract": "Three provider-installed callbacks/state dependencies; historical TU unknown.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x3830",
+      "symbol": "_resource_load_failed",
+      "source": "calibration/resource_callbacks.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/resource_callbacks_region.json",
+      "contract": "Three provider-installed callbacks/state dependencies; historical TU unknown.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x3870",
+      "symbol": "_resource_cancel",
+      "source": "calibration/resource_callbacks.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/resource_callbacks_region.json",
+      "contract": "Three provider-installed callbacks/state dependencies; historical TU unknown.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x3520",
+      "symbol": "_resource_reset",
+      "source": "calibration/resource_callbacks.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/resource_callbacks_region.json",
+      "contract": "Three provider-installed callbacks/state dependencies; historical TU unknown.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x31080",
+      "symbol": "_resource_metadata_pointer",
+      "source": "calibration/resource_metadata.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/resource_metadata_region.json",
+      "contract": "One bounded reader span with reviewed exact extent, indexed caller leads, and actual resource/helper address evidence; no broader TU ownership claim.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x38d0",
+      "symbol": "_resource_destroy",
+      "source": "calibration/resource_destroy.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/resource_destroy_region.json",
+      "contract": "One bounded destroy helper using the independently writer-backed 20-byte resource record and observed free callback wrapper; original source/TU ownership is unknown.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x3750",
+      "symbol": "_ensure_actor_resource_ready",
+      "source": "calibration/resource_readiness.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/resource_readiness_region.json",
+      "contract": "Two directly connected ENG1 readiness dependencies with independently bounded spans; the larger resource-loading source unit remains unknown.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x37a0",
+      "symbol": "_resource_metadata_scan",
+      "source": "calibration/resource_readiness.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/resource_readiness_region.json",
+      "contract": "Two directly connected ENG1 readiness dependencies with independently bounded spans; the larger resource-loading source unit remains unknown.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x3540",
+      "symbol": "_resource_provider",
+      "source": "calibration/resource_provider.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/resource_provider_region.json",
+      "contract": "Evidence-backed post-allocation runtime-context recapture correction to the private provider candidate; historical source/TU ownership remains unknown.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c230",
+      "symbol": "_engine_file_load_async",
+      "source": "calibration/engine_file_bridge.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/engine_file_bridge_region.json",
+      "contract": "Six independently bounded engine-interface forwarding bridges; source/TU ownership and the original 250-slot aggregate declaration remain unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c260",
+      "symbol": "_engine_file_cancel",
+      "source": "calibration/engine_file_bridge.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/engine_file_bridge_region.json",
+      "contract": "Six independently bounded engine-interface forwarding bridges; source/TU ownership and the original 250-slot aggregate declaration remain unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c290",
+      "symbol": "_engine_pool_compact",
+      "source": "calibration/engine_file_bridge.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/engine_file_bridge_region.json",
+      "contract": "Six independently bounded engine-interface forwarding bridges; source/TU ownership and the original 250-slot aggregate declaration remain unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c2f0",
+      "symbol": "_engine_file_length",
+      "source": "calibration/engine_file_bridge.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/engine_file_bridge_region.json",
+      "contract": "Six independently bounded engine-interface forwarding bridges; source/TU ownership and the original 250-slot aggregate declaration remain unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c390",
+      "symbol": "_engine_file_load_sync",
+      "source": "calibration/engine_file_bridge.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/engine_file_bridge_region.json",
+      "contract": "Six independently bounded engine-interface forwarding bridges; source/TU ownership and the original 250-slot aggregate declaration remain unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c3c0",
+      "symbol": "_engine_pool_allocate",
+      "source": "calibration/engine_file_bridge.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/engine_file_bridge_region.json",
+      "contract": "Six independently bounded engine-interface forwarding bridges; source/TU ownership and the original 250-slot aggregate declaration remain unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x20670",
+      "symbol": "_resource_rebuild_blob",
+      "source": "calibration/resource_rebind.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/resource_rebind_region.json",
+      "contract": "Three bounded custom blob and row setup/rebuild routines from ENG1; actual source translation unit and original declarations remain unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x20830",
+      "symbol": "_resource_select_group",
+      "source": "calibration/resource_rebind.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/resource_rebind_region.json",
+      "contract": "Three bounded custom blob and row setup/rebuild routines from ENG1; actual source translation unit and original declarations remain unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x208f0",
+      "symbol": "_resource_rebuild_group_rows",
+      "source": "calibration/resource_rebind.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/resource_rebind_region.json",
+      "contract": "Three bounded custom blob and row setup/rebuild routines from ENG1; actual source translation unit and original declarations remain unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c330",
+      "symbol": "_engine_pool_save_arena",
+      "source": "calibration/engine_dependency_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/engine_dependency_bridges_region.json",
+      "contract": "Two real interface bridges and reclaim caller; shared original TU identity remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x1f6a0",
+      "symbol": "_resource_reclaim",
+      "source": "calibration/engine_dependency_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/engine_dependency_bridges_region.json",
+      "contract": "Two real interface bridges and reclaim caller; shared original TU identity remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c880",
+      "symbol": "_engine_host_update",
+      "source": "calibration/engine_dependency_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/engine_dependency_bridges_region.json",
+      "contract": "Two real interface bridges and reclaim caller; shared original TU identity remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c860",
+      "symbol": "_dispatch_engine_2c860",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c350",
+      "symbol": "_dispatch_engine_2c350",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c3b0",
+      "symbol": "_dispatch_engine_2c3b0",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2cc30",
+      "symbol": "_dispatch_engine_2cc30",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c840",
+      "symbol": "_dispatch_engine_2c840",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c5a0",
+      "symbol": "_dispatch_engine_2c5a0",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c360",
+      "symbol": "_dispatch_engine_2c360",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c540",
+      "symbol": "_dispatch_engine_2c540",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2cc40",
+      "symbol": "_dispatch_engine_2cc40",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c4e0",
+      "symbol": "_dispatch_engine_2c4e0",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c520",
+      "symbol": "_dispatch_engine_2c520",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c270",
+      "symbol": "_dispatch_engine_2c270",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2ca40",
+      "symbol": "_dispatch_engine_2ca40",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c420",
+      "symbol": "_dispatch_engine_2c420",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c440",
+      "symbol": "_dispatch_engine_2c440",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c630",
+      "symbol": "_dispatch_engine_2c630",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c570",
+      "symbol": "_dispatch_engine_2c570",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c620",
+      "symbol": "_dispatch_engine_2c620",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x1f0e0",
+      "symbol": "_dispatch_completion_gate",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2caa0",
+      "symbol": "_dispatch_engine_2caa0",
+      "source": "calibration/dispatcher_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/dispatcher_bridges_region.json",
+      "contract": "Direct shared-table forwarding and guarded noarg callback; original source/TU/type identity beyond observed ABI remains unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x20300",
+      "symbol": "_engine_dispatch",
+      "source": "calibration/engine_dispatch.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/engine_dispatch_region.json",
+      "contract": "One bounded ENG1 dispatcher contribution; source translation unit/name/prototypes beyond observed stack ABI remain unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c600",
+      "symbol": "_engine_frame_chain_write",
+      "source": "calibration/frame_chain_bridge.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/frame_chain_bridge_region.json",
+      "contract": "Actual2c600 forwards two native32 arguments through slot81 at interface+144; complete32-byte reviewed span. Original prototype/TU unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x1f0f0",
+      "symbol": "_dispatch_local_1f0f0",
+      "source": "calibration/frame_bootstrap_family.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/frame_bootstrap_family_region.json",
+      "contract": "Three actual lifecycle callables at1f0f0/1f220/1f320; full reviewed spans304/256/896. Shared source is a semantic reconstruction family, not proven original TU or complete frame/context aggregate.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x1f220",
+      "symbol": "_dispatch_local_1f220",
+      "source": "calibration/frame_bootstrap_family.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/frame_bootstrap_family_region.json",
+      "contract": "Three actual lifecycle callables at1f0f0/1f220/1f320; full reviewed spans304/256/896. Shared source is a semantic reconstruction family, not proven original TU or complete frame/context aggregate.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x1f320",
+      "symbol": "_dispatch_local_1f320",
+      "source": "calibration/frame_bootstrap_family.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/frame_bootstrap_family_region.json",
+      "contract": "Three actual lifecycle callables at1f0f0/1f220/1f320; full reviewed spans304/256/896. Shared source is a semantic reconstruction family, not proven original TU or complete frame/context aggregate.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c280",
+      "symbol": "_dispatch_engine_2c280",
+      "source": "calibration/frame_lifecycle_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/frame_lifecycle_bridges_region.json",
+      "contract": "Ten actual copied-table wrappers used by frame lifecycle. Full224-byte reviewed spans; physical ABI views, original formal types/TU/wholeinterface unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c2d0",
+      "symbol": "_dispatch_engine_2c2d0",
+      "source": "calibration/frame_lifecycle_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/frame_lifecycle_bridges_region.json",
+      "contract": "Ten actual copied-table wrappers used by frame lifecycle. Full224-byte reviewed spans; physical ABI views, original formal types/TU/wholeinterface unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c2e0",
+      "symbol": "_dispatch_engine_2c2e0",
+      "source": "calibration/frame_lifecycle_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/frame_lifecycle_bridges_region.json",
+      "contract": "Ten actual copied-table wrappers used by frame lifecycle. Full224-byte reviewed spans; physical ABI views, original formal types/TU/wholeinterface unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c5e0",
+      "symbol": "_dispatch_engine_2c5e0",
+      "source": "calibration/frame_lifecycle_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/frame_lifecycle_bridges_region.json",
+      "contract": "Ten actual copied-table wrappers used by frame lifecycle. Full224-byte reviewed spans; physical ABI views, original formal types/TU/wholeinterface unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c500",
+      "symbol": "_dispatch_engine_2c500",
+      "source": "calibration/frame_lifecycle_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/frame_lifecycle_bridges_region.json",
+      "contract": "Ten actual copied-table wrappers used by frame lifecycle. Full224-byte reviewed spans; physical ABI views, original formal types/TU/wholeinterface unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c980",
+      "symbol": "_dispatch_engine_2c980",
+      "source": "calibration/frame_lifecycle_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/frame_lifecycle_bridges_region.json",
+      "contract": "Ten actual copied-table wrappers used by frame lifecycle. Full224-byte reviewed spans; physical ABI views, original formal types/TU/wholeinterface unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c8f0",
+      "symbol": "_dispatch_engine_2c8f0",
+      "source": "calibration/frame_lifecycle_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/frame_lifecycle_bridges_region.json",
+      "contract": "Ten actual copied-table wrappers used by frame lifecycle. Full224-byte reviewed spans; physical ABI views, original formal types/TU/wholeinterface unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c8e0",
+      "symbol": "_dispatch_engine_2c8e0",
+      "source": "calibration/frame_lifecycle_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/frame_lifecycle_bridges_region.json",
+      "contract": "Ten actual copied-table wrappers used by frame lifecycle. Full224-byte reviewed spans; physical ABI views, original formal types/TU/wholeinterface unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c7e0",
+      "symbol": "_dispatch_engine_2c7e0",
+      "source": "calibration/frame_lifecycle_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/frame_lifecycle_bridges_region.json",
+      "contract": "Ten actual copied-table wrappers used by frame lifecycle. Full224-byte reviewed spans; physical ABI views, original formal types/TU/wholeinterface unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x2c640",
+      "symbol": "_dispatch_engine_2c640",
+      "source": "calibration/frame_lifecycle_bridges.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/frame_lifecycle_bridges_region.json",
+      "contract": "Ten actual copied-table wrappers used by frame lifecycle. Full224-byte reviewed spans; physical ABI views, original formal types/TU/wholeinterface unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x280f0",
+      "symbol": "_frame_configuration_280f0",
+      "source": "calibration/frame_configuration.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/frame_configuration_region.json",
+      "contract": "Two actual configuration/default functions with observed selected-row and context-prefix views. Full528-byte reviewed spans; original types/ownership/data capacity unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x15600",
+      "symbol": "_frame_context_defaults_15600",
+      "source": "calibration/frame_configuration.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/frame_configuration_region.json",
+      "contract": "Two actual configuration/default functions with observed selected-row and context-prefix views. Full528-byte reviewed spans; original types/ownership/data capacity unproved.",
+      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+    },
+    {
+      "rva": "0x827f",
+      "symbol": "_dispatch_local_0827f",
+      "source": "calibration/engine_fx_control.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/engine_unit_progress_2026_10_11.json",
+      "uncertainty": "Prior complete-unit codegen evidence, not full gameplay validation."
+    },
+    {
+      "rva": "0x82b7",
+      "symbol": "_dispatch_local_082b7",
+      "source": "calibration/engine_fx_control.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/engine_unit_progress_2026_10_11.json",
+      "uncertainty": "Prior complete-unit codegen evidence, not full gameplay validation."
+    },
+    {
+      "rva": "0x5600",
+      "symbol": "_dispatch_local_05600",
+      "source": "src/eng1/behavioral/frame_commands.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Native field/callback reconstruction; bounded differential fixtures pending.",
+      "evidence": "tests/eng1_frame_differential.c; scripts/eng1_frame_differential.py",
+      "uncertainty": "15 native x86 cases /178 checks; malformed memory and callback reentrancy untested."
+    },
+    {
+      "rva": "0x58b0",
+      "symbol": "_dispatch_local_058b0",
+      "source": "src/eng1/behavioral/frame_commands.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Native field/callback reconstruction; bounded differential fixtures pending.",
+      "evidence": "tests/eng1_frame_differential.c; scripts/eng1_frame_differential.py",
+      "uncertainty": "15 native x86 cases /178 checks; malformed memory and callback reentrancy untested."
+    },
+    {
+      "rva": "0x50d0",
+      "symbol": "_dispatch_local_050d0",
+      "source": "src/eng1/behavioral/frame_commands.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Native field/callback reconstruction; bounded differential fixtures pending.",
+      "evidence": "tests/eng1_frame_differential.c; scripts/eng1_frame_differential.py",
+      "uncertainty": "15 native x86 cases /178 checks; malformed memory and callback reentrancy untested."
+    },
+    {
+      "rva": "0x2cb0",
+      "symbol": "_dispatch_local_02cb0",
+      "source": "src/eng1/behavioral/frame_commands.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Native field/callback reconstruction; bounded differential fixtures pending.",
+      "evidence": "tests/eng1_frame_differential.c; scripts/eng1_frame_differential.py",
+      "uncertainty": "15 native x86 cases /178 checks; malformed memory and callback reentrancy untested."
+    },
+    {
+      "rva": "0x2c530",
+      "symbol": "_dispatch_local_2c530",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured x86 copied-table forwarding ABI; returning spies verified argument order.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json"
+    },
+    {
+      "rva": "0x2c5b0",
+      "symbol": "_dispatch_local_2c5b0",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured x86 copied-table forwarding ABI; returning spies verified argument order.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json"
+    },
+    {
+      "rva": "0x2c650",
+      "symbol": "_dispatch_local_2c650",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured x86 copied-table forwarding ABI; returning spies verified argument order.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json"
+    },
+    {
+      "rva": "0x2c660",
+      "symbol": "_dispatch_local_2c660",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured x86 copied-table forwarding ABI; returning spies verified argument order.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json"
+    },
+    {
+      "rva": "0x2ca90",
+      "symbol": "_dispatch_local_2ca90",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured x86 copied-table forwarding ABI; returning spies verified argument order.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json"
+    },
+    {
+      "rva": "0x2cad0",
+      "symbol": "_dispatch_local_2cad0",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured x86 copied-table forwarding ABI; returning spies verified argument order.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json"
+    },
+    {
+      "rva": "0x2cae0",
+      "symbol": "_dispatch_local_2cae0",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured x86 copied-table forwarding ABI; returning spies verified argument order.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json"
+    },
+    {
+      "rva": "0x2fb70",
+      "symbol": "_dispatch_local_2fb70",
+      "source": "src/eng1/behavioral/camera.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Native actor-follow/grid-wrap camera and projection-state setup; x86 wrapping arithmetic and live callback reloads.",
+      "evidence": "evidence/eng1_camera.json",
+      "uncertainty": "47 synthetic source checks; native differential/gameplay not executed."
+    },
+    {
+      "rva": "0x2f840",
+      "symbol": "_dispatch_local_2f840",
+      "source": "src/eng1/behavioral/camera.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Native actor-follow/grid-wrap camera and projection-state setup; x86 wrapping arithmetic and live callback reloads.",
+      "evidence": "evidence/eng1_camera.json",
+      "uncertainty": "47 synthetic source checks; native differential/gameplay not executed."
+    },
+    {
+      "rva": "0x2c670",
+      "symbol": "_dispatch_engine_2c670",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured cdecl copied-interface callback and argument order; 21 forwarding spies.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json",
+      "uncertainty": "Spies establish forwarding, not host operations or full gameplay."
+    },
+    {
+      "rva": "0x2c690",
+      "symbol": "_dispatch_engine_2c690",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured cdecl copied-interface callback and argument order; 21 forwarding spies.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json",
+      "uncertainty": "Spies establish forwarding, not host operations or full gameplay."
+    },
+    {
+      "rva": "0x2c6d0",
+      "symbol": "_dispatch_engine_2c6d0",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured cdecl copied-interface callback and argument order; 21 forwarding spies.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json",
+      "uncertainty": "Spies establish forwarding, not host operations or full gameplay."
+    },
+    {
+      "rva": "0x2c6e0",
+      "symbol": "_dispatch_engine_2c6e0",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured cdecl copied-interface callback and argument order; 21 forwarding spies.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json",
+      "uncertainty": "Spies establish forwarding, not host operations or full gameplay."
+    },
+    {
+      "rva": "0x2c700",
+      "symbol": "_dispatch_engine_2c700",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured cdecl copied-interface callback and argument order; 21 forwarding spies.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json",
+      "uncertainty": "Spies establish forwarding, not host operations or full gameplay."
+    },
+    {
+      "rva": "0x2c710",
+      "symbol": "_dispatch_engine_2c710",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured cdecl copied-interface callback and argument order; 21 forwarding spies.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json",
+      "uncertainty": "Spies establish forwarding, not host operations or full gameplay."
+    },
+    {
+      "rva": "0x2c740",
+      "symbol": "_dispatch_engine_2c740",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured cdecl copied-interface callback and argument order; 21 forwarding spies.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json",
+      "uncertainty": "Spies establish forwarding, not host operations or full gameplay."
+    },
+    {
+      "rva": "0x2c770",
+      "symbol": "_dispatch_engine_2c770",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured cdecl copied-interface callback and argument order; 21 forwarding spies.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json",
+      "uncertainty": "Spies establish forwarding, not host operations or full gameplay."
+    },
+    {
+      "rva": "0x2c790",
+      "symbol": "_dispatch_engine_2c790",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured cdecl copied-interface callback and argument order; 21 forwarding spies.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json",
+      "uncertainty": "Spies establish forwarding, not host operations or full gameplay."
+    },
+    {
+      "rva": "0x2c7f0",
+      "symbol": "_dispatch_engine_2c7f0",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured cdecl copied-interface callback and argument order; 21 forwarding spies.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json",
+      "uncertainty": "Spies establish forwarding, not host operations or full gameplay."
+    },
+    {
+      "rva": "0x2c920",
+      "symbol": "_dispatch_engine_2c920",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured cdecl copied-interface callback and argument order; 21 forwarding spies.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json",
+      "uncertainty": "Spies establish forwarding, not host operations or full gameplay."
+    },
+    {
+      "rva": "0x2c940",
+      "symbol": "_dispatch_engine_2c940",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured cdecl copied-interface callback and argument order; 21 forwarding spies.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json",
+      "uncertainty": "Spies establish forwarding, not host operations or full gameplay."
+    },
+    {
+      "rva": "0x2c9d0",
+      "symbol": "_dispatch_engine_2c9d0",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured cdecl copied-interface callback and argument order; 21 forwarding spies.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json",
+      "uncertainty": "Spies establish forwarding, not host operations or full gameplay."
+    },
+    {
+      "rva": "0x2c9f0",
+      "symbol": "_dispatch_engine_2c9f0",
+      "source": "src/eng1/behavioral/host_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured cdecl copied-interface callback and argument order; 21 forwarding spies.",
+      "evidence": "tests/eng1_host_wrappers.c; scripts/test_eng1_behavioral.py; evidence/eng1_pipeline.json",
+      "uncertainty": "Spies establish forwarding, not host operations or full gameplay."
+    },
+    {
+      "rva": "0x218f0",
+      "symbol": "_finish_actor",
+      "source": "src/eng1/behavioral/actor_links.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Measured actor ownership and FX unlinking contract.",
+      "evidence": "evidence/eng1_actor_links.json",
+      "uncertainty": "Native/static compilation evidence; gameplay untested."
+    },
+    {
+      "rva": "0x27cd0",
+      "symbol": "_attach_actor",
+      "source": "src/eng1/behavioral/actor_links.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Measured actor ownership and FX unlinking contract.",
+      "evidence": "evidence/eng1_actor_links.json",
+      "uncertainty": "Native/static compilation evidence; gameplay untested."
+    },
+    {
+      "rva": "0x7cde",
+      "symbol": "_remove_fx_links",
+      "source": "src/eng1/behavioral/actor_links.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Measured actor ownership and FX unlinking contract.",
+      "evidence": "evidence/eng1_actor_links.json",
+      "uncertainty": "Native/static compilation evidence; gameplay untested."
+    },
+    {
+      "rva": "0x296b0",
+      "symbol": "_hide_and_unlink",
+      "source": "calibration/macro_actor.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Measured actor ownership and FX unlinking contract.",
+      "evidence": "evidence/eng1_actor_links.json",
+      "uncertainty": "Native/static compilation evidence; gameplay untested."
+    },
+    {
+      "rva": "0x2180",
+      "symbol": "_dispatch_local_02180",
+      "source": "src/eng1/behavioral/level_loading.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Native resource transition/reallocation, scheduling, references and frame-list setup.",
+      "evidence": "evidence/eng1_level_loading.json",
+      "uncertainty": "Fresh compilation and focused ABI review; full behavior untested."
+    },
+    {
+      "rva": "0x2f30",
+      "symbol": "_dispatch_local_02f30",
+      "source": "src/eng1/behavioral/level_loading.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Native resource transition/reallocation, scheduling, references and frame-list setup.",
+      "evidence": "evidence/eng1_level_loading.json",
+      "uncertainty": "Fresh compilation and focused ABI review; full behavior untested."
+    },
+    {
+      "rva": "0x3270",
+      "symbol": "_dispatch_local_03270",
+      "source": "src/eng1/behavioral/level_loading.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Native resource transition/reallocation, scheduling, references and frame-list setup.",
+      "evidence": "evidence/eng1_level_loading.json",
+      "uncertainty": "Fresh compilation and focused ABI review; full behavior untested."
+    },
+    {
+      "rva": "0x3470",
+      "symbol": "_dispatch_local_03470",
+      "source": "src/eng1/behavioral/level_loading.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Native resource transition/reallocation, scheduling, references and frame-list setup.",
+      "evidence": "evidence/eng1_level_loading.json",
+      "uncertainty": "Fresh compilation and focused ABI review; full behavior untested."
+    },
+    {
+      "rva": "0x34d0",
+      "symbol": "_dispatch_local_034d0",
+      "source": "src/eng1/behavioral/level_loading.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Native resource transition/reallocation, scheduling, references and frame-list setup.",
+      "evidence": "evidence/eng1_level_loading.json",
+      "uncertainty": "Fresh compilation and focused ABI review; full behavior untested."
+    },
+    {
+      "rva": "0x3a50",
+      "symbol": "_dispatch_local_03a50",
+      "source": "src/eng1/behavioral/level_loading.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Native resource transition/reallocation, scheduling, references and frame-list setup.",
+      "evidence": "evidence/eng1_level_loading.json",
+      "uncertainty": "Fresh compilation and focused ABI review; full behavior untested."
+    },
+    {
+      "rva": "0x2c6c0",
+      "symbol": "_dispatch_engine_2c6c0",
+      "source": "src/eng1/behavioral/host_wrappers_extra.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied-table forwarding.",
+      "evidence": "tests/eng1_host_wrappers_extra.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x2c750",
+      "symbol": "_dispatch_engine_2c750",
+      "source": "src/eng1/behavioral/host_wrappers_extra.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied-table forwarding.",
+      "evidence": "tests/eng1_host_wrappers_extra.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x2c760",
+      "symbol": "_dispatch_engine_2c760",
+      "source": "src/eng1/behavioral/host_wrappers_extra.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied-table forwarding.",
+      "evidence": "tests/eng1_host_wrappers_extra.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x2c7b0",
+      "symbol": "_dispatch_engine_2c7b0",
+      "source": "src/eng1/behavioral/host_wrappers_extra.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied-table forwarding.",
+      "evidence": "tests/eng1_host_wrappers_extra.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x6005",
+      "symbol": "_context_sequence_step",
+      "source": "calibration/engine_context_sequence.c",
+      "implementation_status": "plausible_with_existing_semantic_fixtures",
+      "contract": "void __cdecl (void)",
+      "evidence": "evidence/engine_control_contract.json; evidence/eng1_control_closure.json",
+      "uncertainty": "Prior complete two-function inferred-unit diagnostic places this symbol at section offset 0; not an accepted function/TU/source-identity proof."
+    },
+    {
+      "rva": "0x60f9",
+      "symbol": "_runtime_control",
+      "source": "calibration/engine_control.c",
+      "implementation_status": "plausible_with_existing_semantic_fixtures",
+      "contract": "int __cdecl (void)",
+      "evidence": "evidence/engine_control_contract.json; evidence/eng1_control_closure.json",
+      "uncertainty": "Physical no-argument int return is supported by sole caller 0x20656. Prior complete two-function inferred-unit diagnostic places this symbol at section offset 244; not an accepted function/TU/source-identity proof."
+    },
+    {
+      "rva": "0x6613",
+      "symbol": "_count_active_fx_id",
+      "source": "src/eng1/behavioral/audio_behavior.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Native audio-row tick and producers, live context/host services.",
+      "evidence": "evidence/eng1_audio.json",
+      "uncertainty": "Native differential and gameplay untested; 75e3 has an explicit incomplete branch."
+    },
+    {
+      "rva": "0x666b",
+      "symbol": "_dispatch_local_0666b",
+      "source": "src/eng1/behavioral/audio_behavior.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Native audio-row tick and producers, live context/host services.",
+      "evidence": "evidence/eng1_audio.json",
+      "uncertainty": "Native differential and gameplay untested; 75e3 has an explicit incomplete branch."
+    },
+    {
+      "rva": "0x6da0",
+      "symbol": "_play_sound",
+      "source": "src/eng1/behavioral/audio_behavior.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Native audio-row tick and producers, live context/host services.",
+      "evidence": "evidence/eng1_audio.json",
+      "uncertainty": "Native differential and gameplay untested; 75e3 has an explicit incomplete branch."
+    },
+    {
+      "rva": "0x75e3",
+      "symbol": "_play_actor_sound",
+      "source": "src/eng1/behavioral/audio_behavior.c",
+      "implementation_status": "known_incomplete",
+      "contract": "Native audio-row tick and producers, live context/host services.",
+      "evidence": "evidence/eng1_audio.json",
+      "uncertainty": "Native differential and gameplay untested; 75e3 has an explicit incomplete branch."
+    },
+    {
+      "rva": "0x83d3",
+      "symbol": "_dispatch_local_083d3",
+      "source": "src/eng1/behavioral/audio_behavior.c",
+      "implementation_status": "plausible_unverified",
+      "contract": "Native audio-row tick and producers, live context/host services.",
+      "evidence": "evidence/eng1_audio.json",
+      "uncertainty": "Native differential and gameplay untested; 75e3 has an explicit incomplete branch."
+    },
+    {
+      "rva": "0x2caf0",
+      "symbol": "_dispatch_engine_2caf0",
+      "source": "src/eng1/behavioral/audio_host.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied audio callback protocol.",
+      "evidence": "tests/eng1_audio_host.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x2ca60",
+      "symbol": "_dispatch_engine_2ca60",
+      "source": "src/eng1/behavioral/audio_host.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied audio callback protocol.",
+      "evidence": "tests/eng1_audio_host.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x2ca70",
+      "symbol": "_dispatch_engine_2ca70",
+      "source": "src/eng1/behavioral/audio_host.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied audio callback protocol.",
+      "evidence": "tests/eng1_audio_host.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x2cab0",
+      "symbol": "_dispatch_engine_2cab0",
+      "source": "src/eng1/behavioral/audio_host.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied audio callback protocol.",
+      "evidence": "tests/eng1_audio_host.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x2cb00",
+      "symbol": "_dispatch_engine_2cb00",
+      "source": "src/eng1/behavioral/audio_host.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied audio callback protocol.",
+      "evidence": "tests/eng1_audio_host.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x2cb80",
+      "symbol": "_dispatch_engine_2cb80",
+      "source": "src/eng1/behavioral/audio_host.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied audio callback protocol.",
+      "evidence": "tests/eng1_audio_host.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x2cbb0",
+      "symbol": "_dispatch_engine_2cbb0",
+      "source": "src/eng1/behavioral/audio_host.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied audio callback protocol.",
+      "evidence": "tests/eng1_audio_host.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x2c200",
+      "symbol": "_dispatch_engine_2c200",
+      "source": "src/eng1/behavioral/host_control_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied control and RNG callbacks; preserve DWORD return.",
+      "evidence": "tests/eng1_host_control_wrappers.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x2c210",
+      "symbol": "_dispatch_engine_2c210",
+      "source": "src/eng1/behavioral/host_control_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied control and RNG callbacks; preserve DWORD return.",
+      "evidence": "tests/eng1_host_control_wrappers.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x2c370",
+      "symbol": "_dispatch_engine_2c370",
+      "source": "src/eng1/behavioral/host_control_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied control and RNG callbacks; preserve DWORD return.",
+      "evidence": "tests/eng1_host_control_wrappers.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x2c430",
+      "symbol": "_dispatch_engine_2c430",
+      "source": "src/eng1/behavioral/host_control_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied control and RNG callbacks; preserve DWORD return.",
+      "evidence": "tests/eng1_host_control_wrappers.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x2c580",
+      "symbol": "_dispatch_engine_2c580",
+      "source": "src/eng1/behavioral/host_control_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied control and RNG callbacks; preserve DWORD return.",
+      "evidence": "tests/eng1_host_control_wrappers.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x2c460",
+      "symbol": "_dispatch_engine_2c460",
+      "source": "src/eng1/behavioral/host_control_wrappers.c",
+      "implementation_status": "behaviorally_validated_forwarding_only",
+      "contract": "Measured copied control and RNG callbacks; preserve DWORD return.",
+      "evidence": "tests/eng1_host_control_wrappers.c; scripts/test_eng1_behavioral.py",
+      "uncertainty": "Spies verify forwarding only."
+    },
+    {
+      "rva": "0x2da90",
+      "symbol": "_dispatch_local_2da90",
+      "source": "src/eng1/behavioral/mesh_traversal.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Native mesh traversal, transform/prep, clipping and linked FT4/GT4 packet emission.",
+      "evidence": "evidence/eng1_geometry.json",
+      "uncertainty": "Synthetic fixture coverage; native differential and visible gameplay untested."
+    },
+    {
+      "rva": "0x2df20",
+      "symbol": "_dispatch_local_2df20",
+      "source": "src/eng1/behavioral/mesh_emit.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Native mesh traversal, transform/prep, clipping and linked FT4/GT4 packet emission.",
+      "evidence": "evidence/eng1_geometry.json",
+      "uncertainty": "Synthetic fixture coverage; native differential and visible gameplay untested."
+    },
+    {
+      "rva": "0x2e3b0",
+      "symbol": "_dispatch_local_2e3b0",
+      "source": "src/eng1/behavioral/mesh_prepare.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Native mesh traversal, transform/prep, clipping and linked FT4/GT4 packet emission.",
+      "evidence": "evidence/eng1_geometry.json",
+      "uncertainty": "Synthetic fixture coverage; native differential and visible gameplay untested."
+    },
+    {
+      "rva": "0x2e7a0",
+      "symbol": "_dispatch_local_2e7a0",
+      "source": "src/eng1/behavioral/mesh_prepare.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Native mesh traversal, transform/prep, clipping and linked FT4/GT4 packet emission.",
+      "evidence": "evidence/eng1_geometry.json",
+      "uncertainty": "Synthetic fixture coverage; native differential and visible gameplay untested."
+    },
+    {
+      "rva": "0x2ef60",
+      "symbol": "_dispatch_local_2ef60",
+      "source": "src/eng1/behavioral/mesh_prepare.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Native mesh traversal, transform/prep, clipping and linked FT4/GT4 packet emission.",
+      "evidence": "evidence/eng1_geometry.json",
+      "uncertainty": "Synthetic fixture coverage; native differential and visible gameplay untested."
+    },
+    {
+      "rva": "0x2e600",
+      "symbol": "_dispatch_local_2e600",
+      "source": "src/eng1/behavioral/primitive_emitters_a.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Native mesh traversal, transform/prep, clipping and linked FT4/GT4 packet emission.",
+      "evidence": "evidence/eng1_geometry.json",
+      "uncertainty": "Synthetic fixture coverage; native differential and visible gameplay untested."
+    },
+    {
+      "rva": "0x2e6c0",
+      "symbol": "_dispatch_local_2e6c0",
+      "source": "src/eng1/behavioral/primitive_emitters_a.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Native mesh traversal, transform/prep, clipping and linked FT4/GT4 packet emission.",
+      "evidence": "evidence/eng1_geometry.json",
+      "uncertainty": "Synthetic fixture coverage; native differential and visible gameplay untested."
+    },
+    {
+      "rva": "0x2ea50",
+      "symbol": "_dispatch_local_2ea50",
+      "source": "src/eng1/behavioral/primitive_emitters_a.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Native mesh traversal, transform/prep, clipping and linked FT4/GT4 packet emission.",
+      "evidence": "evidence/eng1_geometry.json",
+      "uncertainty": "Synthetic fixture coverage; native differential and visible gameplay untested."
+    },
+    {
+      "rva": "0x2ed10",
+      "symbol": "_dispatch_local_2ed10",
+      "source": "src/eng1/behavioral/primitive_emitters_b.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Native mesh traversal, transform/prep, clipping and linked FT4/GT4 packet emission.",
+      "evidence": "evidence/eng1_geometry.json",
+      "uncertainty": "Synthetic fixture coverage; native differential and visible gameplay untested."
+    },
+    {
+      "rva": "0x2f120",
+      "symbol": "_dispatch_local_2f120",
+      "source": "src/eng1/behavioral/primitive_emitters_b.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Native mesh traversal, transform/prep, clipping and linked FT4/GT4 packet emission.",
+      "evidence": "evidence/eng1_geometry.json",
+      "uncertainty": "Synthetic fixture coverage; native differential and visible gameplay untested."
+    },
+    {
+      "rva": "0x2f340",
+      "symbol": "_dispatch_local_2f340",
+      "source": "src/eng1/behavioral/primitive_emitters_b.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Native mesh traversal, transform/prep, clipping and linked FT4/GT4 packet emission.",
+      "evidence": "evidence/eng1_geometry.json",
+      "uncertainty": "Synthetic fixture coverage; native differential and visible gameplay untested."
+    },
+    {
+      "rva": "0x5a60",
+      "symbol": "_eng1_color_grid_update_5a60",
+      "source": "src/eng1/behavioral/color.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Measured native color state and host callback flow.",
+      "uncertainty": "Finite2484native states. Fade rawcallbackupperDWORDdiffers inonecachehit case; realhostconsumesmatchinglowBYTE. Not universal/fullargument equality or gameplay.",
+      "evidence": "evidence/eng1_runtime_color.json",
+      "behavioral_test": "tests/eng1_color_differential.c",
+      "behavioral_evidence": "evidence/eng1_native_behavioral_validation.json"
+    },
+    {
+      "rva": "0x5d50",
+      "symbol": "_eng1_color_fade_step_5d50",
+      "source": "src/eng1/behavioral/color.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Measured native color state and host callback flow.",
+      "uncertainty": "Finite2484native states. Fade rawcallbackupperDWORDdiffers inonecachehit case; realhostconsumesmatchinglowBYTE. Not universal/fullargument equality or gameplay.",
+      "evidence": "evidence/eng1_runtime_color.json",
+      "behavioral_test": "tests/eng1_color_differential.c",
+      "behavioral_evidence": "evidence/eng1_native_behavioral_validation.json"
+    },
+    {
+      "rva": "0x5dc0",
+      "symbol": "_eng1_color_profile_5dc0",
+      "source": "src/eng1/behavioral/color.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Measured native color state and host callback flow.",
+      "uncertainty": "Finite2484native states. Fade rawcallbackupperDWORDdiffers inonecachehit case; realhostconsumesmatchinglowBYTE. Not universal/fullargument equality or gameplay.",
+      "evidence": "evidence/eng1_runtime_color.json",
+      "behavioral_test": "tests/eng1_color_differential.c",
+      "behavioral_evidence": "evidence/eng1_native_behavioral_validation.json"
+    },
+    {
+      "rva": "0x5e00",
+      "symbol": "_eng1_frame_color_write_5e00",
+      "source": "src/eng1/behavioral/color.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Measured native color state and host callback flow.",
+      "uncertainty": "Finite2484native states. Fade rawcallbackupperDWORDdiffers inonecachehit case; realhostconsumesmatchinglowBYTE. Not universal/fullargument equality or gameplay.",
+      "evidence": "evidence/eng1_runtime_color.json",
+      "behavioral_test": "tests/eng1_color_differential.c",
+      "behavioral_evidence": "evidence/eng1_native_behavioral_validation.json"
+    },
+    {
+      "rva": "0x2c830",
+      "symbol": "_dispatch_engine_2c830",
+      "source": "src/eng1/behavioral/host_color_callback.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Measured native color state and host callback flow.",
+      "uncertainty": "Finite2484native states. Fade rawcallbackupperDWORDdiffers inonecachehit case; realhostconsumesmatchinglowBYTE. Not universal/fullargument equality or gameplay.",
+      "evidence": "evidence/eng1_runtime_color.json",
+      "behavioral_test": "tests/eng1_color_differential.c",
+      "behavioral_evidence": "evidence/eng1_native_behavioral_validation.json"
+    },
+    {
+      "rva": "0x255f0",
+      "symbol": "_dispatch_local_255f0",
+      "source": "src/eng1/behavioral/actor_pipeline.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/eng1_actor_pipeline.json",
+      "contract": "Measured actor pool orchestration, callback order, mixed-width flags, resource filtering and dynamic context reloads.",
+      "uncertainty": "Runtime not executed; worklist extents and indexed kind table remain unproved."
+    },
+    {
+      "rva": "0x25620",
+      "symbol": "_dispatch_local_25620",
+      "source": "src/eng1/behavioral/actor_pipeline.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/eng1_actor_pipeline.json",
+      "contract": "Measured actor pool orchestration, callback order, mixed-width flags, resource filtering and dynamic context reloads.",
+      "uncertainty": "Runtime not executed; worklist extents and indexed kind table remain unproved."
+    },
+    {
+      "rva": "0x256a0",
+      "symbol": "_engine_shutdown",
+      "source": "src/eng1/behavioral/actor_pipeline.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/eng1_actor_pipeline.json",
+      "contract": "Measured actor pool orchestration, callback order, mixed-width flags, resource filtering and dynamic context reloads.",
+      "uncertainty": "Runtime not executed; worklist extents and indexed kind table remain unproved."
+    },
+    {
+      "rva": "0x256e0",
+      "symbol": "_dispatch_local_256e0",
+      "source": "src/eng1/behavioral/actor_pipeline.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/eng1_actor_pipeline.json",
+      "contract": "Measured actor pool orchestration, callback order, mixed-width flags, resource filtering and dynamic context reloads.",
+      "uncertainty": "Runtime not executed; worklist extents and indexed kind table remain unproved."
+    },
+    {
+      "rva": "0x258e0",
+      "symbol": "_dispatch_local_258e0",
+      "source": "src/eng1/behavioral/actor_pipeline.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "evidence": "evidence/eng1_actor_pipeline.json",
+      "contract": "Measured actor pool orchestration, callback order, mixed-width flags, resource filtering and dynamic context reloads.",
+      "uncertainty": "512zero-pool-bounds states; native26480empty-ownerbranch only. Nonzeroactors,nestedsourcehelpers andgameplay notverified.",
+      "behavioral_test": "tests/eng1_actor_pipeline_differential.c",
+      "behavioral_evidence": "evidence/eng1_native_behavioral_validation.json"
+    },
+    {
+      "rva": "0x25d00",
+      "symbol": "_dispatch_local_25d00",
+      "source": "src/eng1/behavioral/actor_pipeline.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/eng1_actor_pipeline.json",
+      "contract": "Measured actor pool orchestration, callback order, mixed-width flags, resource filtering and dynamic context reloads.",
+      "uncertainty": "Runtime not executed; worklist extents and indexed kind table remain unproved."
+    },
+    {
+      "rva": "0x262a0",
+      "symbol": "_dispatch_local_262a0",
+      "source": "src/eng1/behavioral/actor_pipeline.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/eng1_actor_pipeline.json",
+      "contract": "Measured actor pool orchestration, callback order, mixed-width flags, resource filtering and dynamic context reloads.",
+      "uncertainty": "Runtime not executed; worklist extents and indexed kind table remain unproved."
+    },
+    {
+      "rva": "0x283e0",
+      "symbol": "_eng1_interpret_signed_pairs",
+      "source": "src/eng1/behavioral/interpreters.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "One-pointer actor game-data interpreter; native widths, cursor, calls and state changes retained.",
+      "uncertainty": "Bounded source tests with nested behavior spies; no native interpreter differential.",
+      "evidence": "evidence/eng1_program_interpreters.json"
+    },
+    {
+      "rva": "0x28820",
+      "symbol": "_eng1_interpret_word_stream",
+      "source": "src/eng1/behavioral/interpreters.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "One-pointer actor game-data interpreter; native widths, cursor, calls and state changes retained.",
+      "uncertainty": "Bounded source tests with nested behavior spies; no native interpreter differential.",
+      "evidence": "evidence/eng1_program_interpreters.json"
+    },
+    {
+      "rva": "0x28aa0",
+      "symbol": "_eng1_interpret_animation_triples",
+      "source": "src/eng1/behavioral/interpreters.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "One-pointer actor game-data interpreter; native widths, cursor, calls and state changes retained.",
+      "uncertainty": "Bounded source tests with nested behavior spies; no native interpreter differential.",
+      "evidence": "evidence/eng1_program_interpreters.json"
+    },
+    {
+      "rva": "0x1010",
+      "symbol": "_eng1_native_code_target_001010",
+      "source": "src/eng1/behavioral/eng1_default_callbacks.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_001010(Eng1CallbackActor *actor)",
+      "evidence": "evidence/eng1_default_callbacks.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0x1040",
+      "symbol": "_eng1_native_code_target_001040",
+      "source": "src/eng1/behavioral/eng1_default_callbacks.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_001040(Eng1CallbackActor *actor)",
+      "evidence": "evidence/eng1_default_callbacks.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0x10f0",
+      "symbol": "_eng1_native_code_target_0010f0",
+      "source": "src/eng1/behavioral/eng1_default_callbacks.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_0010f0(Eng1CallbackActor *actor)",
+      "evidence": "evidence/eng1_default_callbacks.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0x1310",
+      "symbol": "_eng1_native_code_target_001310",
+      "source": "src/eng1/behavioral/eng1_default_callbacks.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_001310(Eng1CallbackActor *actor)",
+      "evidence": "evidence/eng1_default_callbacks.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0x13c0",
+      "symbol": "_eng1_native_code_target_0013c0",
+      "source": "src/eng1/behavioral/eng1_default_callbacks.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_0013c0(Eng1CallbackActor *actor)",
+      "evidence": "evidence/eng1_default_callbacks.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0x1d80",
+      "symbol": "_eng1_native_code_target_001d80",
+      "source": "src/eng1/behavioral/eng1_default_callbacks.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_001d80(Eng1CallbackActor *actor)",
+      "evidence": "evidence/eng1_default_callbacks.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0x1e00",
+      "symbol": "_eng1_native_code_target_001e00",
+      "source": "src/eng1/behavioral/eng1_default_callbacks.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_001e00(Eng1CallbackActor *actor)",
+      "evidence": "evidence/eng1_default_callbacks.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0x1e30",
+      "symbol": "_eng1_native_code_target_001e30",
+      "source": "src/eng1/behavioral/eng1_default_callbacks.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_001e30(Eng1CallbackActor *actor)",
+      "evidence": "evidence/eng1_default_callbacks.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0xf0a0",
+      "symbol": "_eng1_native_code_target_00f0a0",
+      "source": "src/eng1/behavioral/spatial_effects.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_00f0a0(SpatialEffectView *p)",
+      "evidence": "evidence/eng1_spatial_effects.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0xf180",
+      "symbol": "_eng1_native_code_target_00f180",
+      "source": "src/eng1/behavioral/spatial_effects.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_00f180(SpatialEffectView *p)",
+      "evidence": "evidence/eng1_spatial_effects.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0xf380",
+      "symbol": "_eng1_native_code_target_00f380",
+      "source": "src/eng1/behavioral/spatial_effects.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_00f380(SpatialEffectView *p)",
+      "evidence": "evidence/eng1_spatial_effects.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0xf3b0",
+      "symbol": "_eng1_native_code_target_00f3b0",
+      "source": "src/eng1/behavioral/spatial_effects.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_00f3b0(SpatialEffectView *p)",
+      "evidence": "evidence/eng1_spatial_effects.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0xf430",
+      "symbol": "_eng1_native_code_target_00f430",
+      "source": "src/eng1/behavioral/spatial_effects.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_00f430(SpatialTaskView *p)",
+      "evidence": "evidence/eng1_spatial_effects.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0xf4f0",
+      "symbol": "_eng1_native_code_target_00f4f0",
+      "source": "src/eng1/behavioral/spatial_effects.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_00f4f0(SpatialTaskView *p)",
+      "evidence": "evidence/eng1_spatial_effects.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0xfd00",
+      "symbol": "_eng1_native_code_target_00fd00",
+      "source": "src/eng1/behavioral/spatial_effects.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_00fd00(SpatialTaskView *p)",
+      "evidence": "evidence/eng1_spatial_effects.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0xfe60",
+      "symbol": "_eng1_native_code_target_00fe60",
+      "source": "src/eng1/behavioral/spatial_effects.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_00fe60(SpatialTaskView *p)",
+      "evidence": "evidence/eng1_spatial_effects.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0x102c0",
+      "symbol": "_eng1_native_code_target_0102c0",
+      "source": "src/eng1/behavioral/spatial_effects.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "void __cdecl eng1_native_code_target_0102c0(SpatialTaskView *p)",
+      "evidence": "evidence/eng1_spatial_effects.json",
+      "uncertainty": "Nested helpers are externally visible; native differential and gameplay not executed."
+    },
+    {
+      "rva": "0x2c470",
+      "symbol": "_dispatch_engine_2c470",
+      "source": "src/eng1/behavioral/host_control_wrappers.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "evidence": "evidence/eng1_host_control.json",
+      "contract": "cdecl zero-argument raw RNG forwarder, table+98/slot38 -> EXE4280. Exactly one host call and full DWORD return.",
+      "uncertainty": "Source spy tests; original host RNG already supplies state and consumption."
+    },
+    {
+      "rva": "0x29320",
+      "symbol": "_change_kind",
+      "source": "calibration/macro_actor.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/eng1_macro_reuse.json",
+      "contract": "Existing recovered source reused; measured native kind/list/command flow and shared cells.",
+      "uncertainty": "No new fixture/differential or gameplay validation."
+    },
+    {
+      "rva": "0x293f0",
+      "symbol": "_create_command",
+      "source": "calibration/macro_actor.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/eng1_macro_reuse.json",
+      "contract": "Existing recovered source reused; measured native kind/list/command flow and shared cells.",
+      "uncertainty": "No new fixture/differential or gameplay validation."
+    },
+    {
+      "rva": "0x295a0",
+      "symbol": "_insert_scene",
+      "source": "calibration/macro_actor.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/eng1_macro_reuse.json",
+      "contract": "Existing recovered source reused; measured native kind/list/command flow and shared cells.",
+      "uncertainty": "No new fixture/differential or gameplay validation."
+    },
+    {
+      "rva": "0x29670",
+      "symbol": "_find_tag",
+      "source": "calibration/macro_actor.c",
+      "implementation_status": "plausible_unverified",
+      "evidence": "evidence/eng1_macro_reuse.json",
+      "contract": "Existing recovered source reused; measured native kind/list/command flow and shared cells.",
+      "uncertainty": "No new fixture/differential or gameplay validation."
+    },
+    {
+      "rva": "0x5660",
+      "symbol": "_dispatch_local_05660",
+      "source": "src/eng1/behavioral/frame_token_setup.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "evidence": "evidence/eng1_token_startup.json",
+      "contract": "Token slot/count initialization and measured cyclic WORD-row upload behavior.",
+      "uncertainty": "Finite source fixture, no native function differential. Caller count is native unchecked."
+    },
+    {
+      "rva": "0x56c0",
+      "symbol": "_dispatch_local_056c0",
+      "source": "src/eng1/behavioral/frame_token_setup.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "evidence": "evidence/eng1_token_startup.json",
+      "contract": "Token slot/count initialization and measured cyclic WORD-row upload behavior.",
+      "uncertainty": "Finite source fixture, no native function differential. Caller count is native unchecked."
+    },
+    {
+      "rva": "0x5710",
+      "symbol": "_dispatch_local_05710",
+      "source": "src/eng1/behavioral/frame_token_setup.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "evidence": "evidence/eng1_token_startup.json",
+      "contract": "Token slot/count initialization and measured cyclic WORD-row upload behavior.",
+      "uncertainty": "Finite source fixture, no native function differential. Caller count is native unchecked."
+    },
+    {
+      "rva": "0x5780",
+      "symbol": "_dispatch_local_05780",
+      "source": "src/eng1/behavioral/frame_token_setup.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "evidence": "evidence/eng1_token_startup.json",
+      "contract": "Token slot/count initialization and measured cyclic WORD-row upload behavior.",
+      "uncertainty": "Finite source fixture, no native function differential. Caller count is native unchecked."
+    },
+    {
+      "rva": "0x1f6f0",
+      "symbol": "_dispatch_local_1f6f0",
+      "source": "src/eng1/behavioral/startup_frame_helpers.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "evidence": "evidence/eng1_startup_frame_helpers.json",
+      "contract": "Native resource/frame startup and row-window control flow with original copied callbacks.",
+      "uncertainty": "Untested wholeDLL/host handshake and unchecked counts; missing nested bodies explicit."
+    },
+    {
+      "rva": "0x1f750",
+      "symbol": "_dispatch_local_1f750",
+      "source": "src/eng1/behavioral/startup_frame_helpers.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "evidence": "evidence/eng1_startup_frame_helpers.json",
+      "contract": "Native resource/frame startup and row-window control flow with original copied callbacks.",
+      "uncertainty": "Untested wholeDLL/host handshake and unchecked counts; missing nested bodies explicit."
+    },
+    {
+      "rva": "0x1f870",
+      "symbol": "_dispatch_local_1f870",
+      "source": "src/eng1/behavioral/startup_frame_helpers.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "evidence": "evidence/eng1_startup_frame_helpers.json",
+      "contract": "Native resource/frame startup and row-window control flow with original copied callbacks.",
+      "uncertainty": "Untested wholeDLL/host handshake and unchecked counts; missing nested bodies explicit."
+    },
+    {
+      "rva": "0x2c2a0",
+      "symbol": "_eng1_target_02c2a0",
+      "source": "src/eng1/behavioral/startup_host_forwarders.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "evidence": "evidence/eng1_startup_host_forwarders.json",
+      "contract": "unsigned long __cdecl (unsigned long first, unsigned long second); copied interface 0x38; Wrapper returns the full callback DWORD in EAX; the reviewed caller does not consume it.",
+      "uncertainty": "Finite source-spy argument/return checks; actual host startup remains untested."
+    },
+    {
+      "rva": "0x2c4a0",
+      "symbol": "_eng1_target_02c4a0",
+      "source": "src/eng1/behavioral/startup_host_forwarders.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "evidence": "evidence/eng1_startup_host_forwarders.json",
+      "contract": "unsigned long __cdecl (void *first, unsigned long second, unsigned long third, unsigned long fourth); copied interface 0xa0; Wrapper returns the full callback DWORD in EAX; the reviewed caller explicitly discards it.",
+      "uncertainty": "Finite source-spy argument/return checks; actual host startup remains untested."
+    },
+    {
+      "rva": "0x1f9e0",
+      "symbol": "_dispatch_local_1f9e0",
+      "source": "src/eng1/behavioral/resource_completion.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "evidence": "evidence/eng1_resource_completion.json",
+      "contract": "Native root upload, compaction/rebind, row loading and async callback behavior with live ownership reloads.",
+      "uncertainty": "Finite source-spy validation; nested dependencies and original-game behavior remain untested."
+    },
+    {
+      "rva": "0x1fb90",
+      "symbol": "_dispatch_local_1fb90",
+      "source": "src/eng1/behavioral/resource_completion.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "evidence": "evidence/eng1_resource_completion.json",
+      "contract": "Native root upload, compaction/rebind, row loading and async callback behavior with live ownership reloads.",
+      "uncertainty": "Finite source-spy validation; nested dependencies and original-game behavior remain untested."
+    },
+    {
+      "rva": "0x1fc60",
+      "symbol": "_dispatch_local_1fc60",
+      "source": "src/eng1/behavioral/resource_completion.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "evidence": "evidence/eng1_resource_completion.json",
+      "contract": "Native root upload, compaction/rebind, row loading and async callback behavior with live ownership reloads.",
+      "uncertainty": "Finite source-spy validation; nested dependencies and original-game behavior remain untested."
+    },
+    {
+      "rva": "0x1fc90",
+      "symbol": "_dispatch_local_1fc90",
+      "source": "src/eng1/behavioral/resource_completion.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "evidence": "evidence/eng1_resource_completion.json",
+      "contract": "Native root upload, compaction/rebind, row loading and async callback behavior with live ownership reloads.",
+      "uncertainty": "Finite source-spy validation; nested dependencies and original-game behavior remain untested."
+    },
+    {
+      "rva": "0x5ea0",
+      "symbol": "_dispatch_local_05ea0",
+      "source": "src/eng1/behavioral/cold_sequence_setup.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "evidence": "evidence/eng1_cold_runtime_setup.json",
+      "contract": "Native cold sequence gates/header and context writes, or measured 24-record audio reset/callback order. See per-function native contract.",
+      "uncertainty": "Finite source-spy validation; nested dependencies and original-game behavior remain untested."
+    },
+    {
+      "rva": "0x8117",
+      "symbol": "_engine_init",
+      "source": "src/eng1/behavioral/engine_fx_reset.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "evidence": "evidence/eng1_cold_runtime_setup.json",
+      "contract": "Native cold sequence gates/header and context writes, or measured 24-record audio reset/callback order. See per-function native contract.",
+      "uncertainty": "Finite source-spy validation; nested dependencies and original-game behavior remain untested."
+    },
+    {
+      "rva": "0x2cb70",
+      "symbol": "_dispatch_engine_2cb70",
+      "source": "src/eng1/behavioral/audio_stop_wrapper.c",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "evidence": "evidence/eng1_cold_runtime_setup.json",
+      "contract": "Native cold sequence gates/header and context writes, or measured 24-record audio reset/callback order. See per-function native contract.",
+      "uncertainty": "Finite source-spy validation; nested dependencies and original-game behavior remain untested."
+    },
+    {
+      "rva": "0x2c400",
+      "symbol": "_eng1_target_02c400",
+      "source": "src/eng1/behavioral/resource_host_forwarders.c",
+      "evidence": "evidence/eng1_resource_host_forwarders.json",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Forward measured physical cdecl arguments once through actual copied callback; preserve full EAX.",
+      "uncertainty": "Only finite callback-spy tests; original host startup untested."
+    },
+    {
+      "rva": "0x2c480",
+      "symbol": "_eng1_target_02c480",
+      "source": "src/eng1/behavioral/resource_host_forwarders.c",
+      "evidence": "evidence/eng1_resource_host_forwarders.json",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Forward measured physical cdecl arguments once through actual copied callback; preserve full EAX.",
+      "uncertainty": "Only finite callback-spy tests; original host startup untested."
+    },
+    {
+      "rva": "0x2c4f0",
+      "symbol": "_eng1_target_02c4f0",
+      "source": "src/eng1/behavioral/resource_host_forwarders.c",
+      "evidence": "evidence/eng1_resource_host_forwarders.json",
+      "implementation_status": "plausible_with_source_semantic_fixtures",
+      "contract": "Forward measured physical cdecl arguments once through actual copied callback; preserve full EAX.",
+      "uncertainty": "Only finite callback-spy tests; original host startup untested."
+    }
+  ],
+  "source_adaptations": {
+    "calibration/engine_dispatch.c": [
+      {
+        "before": "void __cdecl engine_dispatch(void)",
+        "after": "#include \"../src/eng1/behavioral/data_views.h\"\n\nvoid __cdecl engine_dispatch(void)",
+        "count": 1,
+        "reason": "One genuine object per native address; bind interior descriptor/profile views and copied context member, retaining original matching source."
+      }
+    ],
+    "calibration/frame_bootstrap_family.c": [
+      {
+        "before": "void __cdecl dispatch_local_1f0f0(void)",
+        "after": "#include \"../src/eng1/behavioral/data_views.h\"\n\nvoid __cdecl dispatch_local_1f0f0(void)",
+        "count": 1,
+        "reason": "One genuine object per native address; bind interior descriptor/profile views and copied context member, retaining original matching source."
+      }
+    ],
+    "calibration/resource_callbacks.c": [
+      {
+        "before": "void __cdecl resource_reset(int resource_id)\n",
+        "after": "#include \"../src/eng1/behavioral/data_views.h\"\n\nvoid __cdecl resource_reset(int resource_id)\n",
+        "count": 1,
+        "reason": "One genuine object per native address; bind interior descriptor/profile views and copied context member, retaining original matching source."
+      }
+    ],
+    "calibration/resource_readiness.c": [
+      {
+        "before": "int __cdecl resource_metadata_scan(unsigned long resource_id, int index)\n",
+        "after": "#include \"../src/eng1/behavioral/data_views.h\"\n\nint __cdecl resource_metadata_scan(unsigned long resource_id, int index)\n",
+        "count": 1,
+        "reason": "One genuine object per native address; bind interior descriptor/profile views and copied context member, retaining original matching source."
+      }
+    ],
+    "calibration/resource_provider.c": [
+      {
+        "before": "int __cdecl resource_provider(int resource_id, int async_mode)\n",
+        "after": "#include \"../src/eng1/behavioral/data_views.h\"\n\nint __cdecl resource_provider(int resource_id, int async_mode)\n",
+        "count": 1,
+        "reason": "One genuine object per native address; bind interior descriptor/profile views and copied context member, retaining original matching source."
+      }
+    ],
+    "calibration/resource_rebind.c": [
+      {
+        "before": "void __cdecl resource_rebuild_blob(void)",
+        "after": "#include \"../src/eng1/behavioral/data_views.h\"\n\nvoid __cdecl resource_rebuild_blob(void)",
+        "count": 1,
+        "reason": "One genuine object per native address; bind interior descriptor/profile views and copied context member, retaining original matching source."
+      }
+    ],
+    "calibration/actor_continuation.c": [
+      {
+        "before": "extern void attach_actor(Actor *,int);",
+        "after": "extern Actor *attach_actor(Actor *,int);",
+        "count": 1,
+        "reason": "Native attach27cd0 returns spawned actor pointer; this consumer discards it."
+      },
+      {
+        "before": "void tick_scripted_actor(Actor *p)",
+        "after": "#include \"../src/eng1/behavioral/runtime_views.h\"\n\nvoid tick_scripted_actor(Actor *p)",
+        "count": 1,
+        "reason": "Preserve physical interior control pointers and low byte of the shared clock."
+      },
+      {
+        "before": "g_frame_script[p->phase++].value",
+        "after": "eng1_script_value_58d50(p->phase++)",
+        "count": 2,
+        "reason": "Use actual nine-DWORD sentinel prefix and report unsupported phases before out-of-prefix memory access."
+      },
+      {
+        "before": "void tick_scripted_actor(Actor *p)",
+        "after": "#include \"../src/eng1/behavioral/startup_prefixes.h\"\n\nvoid tick_scripted_actor(Actor *p)",
+        "count": 1,
+        "reason": "Typed boundary for incomplete script prefix reads."
+      }
+    ],
+    "calibration/engine_control.c": [
+      {
+        "before": "int __cdecl runtime_control(void)",
+        "after": "#include \"../src/eng1/behavioral/runtime_views.h\"\n\nint __cdecl runtime_control(void)",
+        "count": 1,
+        "reason": "Preserve physical interior control pointers and low byte of the shared clock."
+      }
+    ],
+    "calibration/frame_configuration.c": [
+      {
+        "before": "void __cdecl frame_configuration_280f0(void)",
+        "after": "#include \"../src/eng1/behavioral/actor_pipeline_storage_views.h\"\n\nvoid __cdecl frame_configuration_280f0(void)",
+        "count": 1,
+        "reason": "Selected byte71860 is an interior view of the shared actor worklist allocation."
+      }
+    ],
+    "src/eng1/behavioral/eng1_default_callbacks.c": [
+      {
+        "before": "void __cdecl eng1_native_code_target_001010(",
+        "after": "#include \"callback_storage_views.h\"\n\nvoid __cdecl eng1_native_code_target_001010(",
+        "count": 1,
+        "reason": "Mixed-width callback references share actual actor worklist owner and count cells."
+      }
+    ],
+    "src/eng1/behavioral/spatial_effects.c": [
+      {
+        "before": "void __cdecl eng1_native_code_target_00f0a0(",
+        "after": "#include \"callback_storage_views.h\"\n\nvoid __cdecl eng1_native_code_target_00f0a0(",
+        "count": 1,
+        "reason": "Mixed-width callback references share actual actor worklist owner and count cells."
+      }
+    ],
+    "calibration/macro_actor.c": [
+      {
+        "before": "void change_kind(Actor *p, unsigned short kind)",
+        "after": "#include \"../src/eng1/behavioral/macro_views.h\"\n\nvoid change_kind(Actor *p, unsigned short kind)",
+        "count": 1,
+        "reason": "Reuse recovered kind/list/command helpers and bind the tag lane to its shared owner."
+      }
+    ]
+  },
+  "unit_extensions": {},
+  "symbol_aliases": {
+    "actor_cleanup_294b0": {
+      "provider": "unlink_12c",
+      "original_rva": "0x294b0",
+      "evidence": "evidence/remove_actor_region.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Observed x86 argument/return views; original source spelling and TU remain unproved."
+    },
+    "actor_cleanup_29620": {
+      "provider": "unlink_0e4",
+      "original_rva": "0x29620",
+      "evidence": "evidence/remove_actor_region.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Observed x86 argument/return views; original source spelling and TU remain unproved."
+    },
+    "dispatch_local_01000": {
+      "provider": "engine_diagnostic",
+      "original_rva": "0x1000",
+      "evidence": "evidence/engine_dispatch_region.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Observed x86 argument/return views; original source spelling and TU remain unproved."
+    },
+    "host_cancel_load": {
+      "provider": "engine_file_cancel",
+      "original_rva": "0x2c260",
+      "evidence": "evidence/resource_callbacks_region.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Observed x86 argument/return views; original source spelling and TU remain unproved."
+    },
+    "remove_middle_actor": {
+      "provider": "remove_actor_variant",
+      "original_rva": "0x27860",
+      "evidence": "evidence/actor_pool_reset_region.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Observed x86 argument/return views; original source spelling and TU remain unproved."
+    },
+    "resource_allocate": {
+      "provider": "engine_pool_allocate",
+      "original_rva": "0x2c3c0",
+      "evidence": "evidence/resource_provider_region.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Observed x86 argument/return views; original source spelling and TU remain unproved."
+    },
+    "resource_file_length": {
+      "provider": "engine_file_length",
+      "original_rva": "0x2c2f0",
+      "evidence": "evidence/resource_provider_region.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Observed x86 argument/return views; original source spelling and TU remain unproved."
+    },
+    "resource_load_async": {
+      "provider": "engine_file_load_async",
+      "original_rva": "0x2c230",
+      "evidence": "evidence/resource_provider_region.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Observed x86 argument/return views; original source spelling and TU remain unproved."
+    },
+    "resource_load_sync": {
+      "provider": "engine_file_load_sync",
+      "original_rva": "0x2c390",
+      "evidence": "evidence/resource_provider_region.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Observed x86 argument/return views; original source spelling and TU remain unproved."
+    },
+    "forward_host_allocation": {
+      "provider": "engine_pool_allocate",
+      "original_rva": "0x2c3c0",
+      "evidence": "evidence/registry_allocation_region.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Three DWORD physical arguments; avoid a second independent callback cell."
+    },
+    "frame_context_defaults_15600": {
+      "provider": "eng1_context_defaults",
+      "original_rva": "0x15600",
+      "evidence": "evidence/frame_configuration_region.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Single provider for the context-defaults function; existing recovered source retained."
+    },
+    "g_normal_cursor_primary": {
+      "provider": "g_configuration_word_71308",
+      "confidence": "verified_same_PC_cell_or_entry",
+      "evidence": "evidence/actor_pool_layout.json; evidence/action_registry_writer_layout.json; work/eng1_behavioral/resource_data/handoff.json",
+      "limits": "Observed x86 physical access width; original source spelling and complete aggregate ownership unproved."
+    },
+    "g_normal_limit_primary": {
+      "provider": "g_configuration_word_713b4",
+      "confidence": "verified_same_PC_cell_or_entry",
+      "evidence": "evidence/actor_pool_layout.json; evidence/action_registry_writer_layout.json; work/eng1_behavioral/resource_data/handoff.json",
+      "limits": "Observed x86 physical access width; original source spelling and complete aggregate ownership unproved."
+    },
+    "g_normal_limit_wrap": {
+      "provider": "g_configuration_word_713a8",
+      "confidence": "verified_same_PC_cell_or_entry",
+      "evidence": "evidence/actor_pool_layout.json; evidence/action_registry_writer_layout.json; work/eng1_behavioral/resource_data/handoff.json",
+      "limits": "Observed x86 physical access width; original source spelling and complete aggregate ownership unproved."
+    },
+    "g_normal_cursor_alternate": {
+      "provider": "g_configuration_word_713c4",
+      "confidence": "verified_same_PC_cell_or_entry",
+      "evidence": "evidence/actor_pool_layout.json; evidence/action_registry_writer_layout.json; work/eng1_behavioral/resource_data/handoff.json",
+      "limits": "Observed x86 physical access width; original source spelling and complete aggregate ownership unproved."
+    },
+    "g_normal_limit_wrap_start": {
+      "provider": "g_configuration_word_71378",
+      "confidence": "verified_same_PC_cell_or_entry",
+      "evidence": "evidence/actor_pool_layout.json; evidence/action_registry_writer_layout.json; work/eng1_behavioral/resource_data/handoff.json",
+      "limits": "Observed x86 physical access width; original source spelling and complete aggregate ownership unproved."
+    },
+    "g_alternate_cursor_primary": {
+      "provider": "g_configuration_word_71374",
+      "confidence": "verified_same_PC_cell_or_entry",
+      "evidence": "evidence/actor_pool_layout.json; evidence/action_registry_writer_layout.json; work/eng1_behavioral/resource_data/handoff.json",
+      "limits": "Observed x86 physical access width; original source spelling and complete aggregate ownership unproved."
+    },
+    "g_alternate_limit_primary": {
+      "provider": "g_configuration_word_713ba",
+      "confidence": "verified_same_PC_cell_or_entry",
+      "evidence": "evidence/actor_pool_layout.json; evidence/action_registry_writer_layout.json; work/eng1_behavioral/resource_data/handoff.json",
+      "limits": "Observed x86 physical access width; original source spelling and complete aggregate ownership unproved."
+    },
+    "g_alternate_limit_wrap": {
+      "provider": "g_configuration_word_713b6",
+      "confidence": "verified_same_PC_cell_or_entry",
+      "evidence": "evidence/actor_pool_layout.json; evidence/action_registry_writer_layout.json; work/eng1_behavioral/resource_data/handoff.json",
+      "limits": "Observed x86 physical access width; original source spelling and complete aggregate ownership unproved."
+    },
+    "g_alternate_cursor_alternate": {
+      "provider": "g_configuration_word_71430",
+      "confidence": "verified_same_PC_cell_or_entry",
+      "evidence": "evidence/actor_pool_layout.json; evidence/action_registry_writer_layout.json; work/eng1_behavioral/resource_data/handoff.json",
+      "limits": "Observed x86 physical access width; original source spelling and complete aggregate ownership unproved."
+    },
+    "g_alternate_limit_wrap_start": {
+      "provider": "g_configuration_word_7138c",
+      "confidence": "verified_same_PC_cell_or_entry",
+      "evidence": "evidence/actor_pool_layout.json; evidence/action_registry_writer_layout.json; work/eng1_behavioral/resource_data/handoff.json",
+      "limits": "Observed x86 physical access width; original source spelling and complete aggregate ownership unproved."
+    },
+    "pending_action_group_count": {
+      "provider": "g_configuration_word_71380",
+      "confidence": "verified_same_PC_cell_or_entry",
+      "evidence": "evidence/actor_pool_layout.json; evidence/action_registry_writer_layout.json; work/eng1_behavioral/resource_data/handoff.json",
+      "limits": "Observed x86 physical access width; original source spelling and complete aggregate ownership unproved."
+    },
+    "pending_action_group_limit": {
+      "provider": "g_configuration_word_71394",
+      "confidence": "verified_same_PC_cell_or_entry",
+      "evidence": "evidence/actor_pool_layout.json; evidence/action_registry_writer_layout.json; work/eng1_behavioral/resource_data/handoff.json",
+      "limits": "Observed x86 physical access width; original source spelling and complete aggregate ownership unproved."
+    },
+    "pending_action_callbacks": {
+      "provider": "g_configuration_dword_71370",
+      "confidence": "verified_same_PC_cell_or_entry",
+      "evidence": "evidence/actor_pool_layout.json; evidence/action_registry_writer_layout.json; work/eng1_behavioral/resource_data/handoff.json",
+      "limits": "Observed x86 physical access width; original source spelling and complete aggregate ownership unproved."
+    },
+    "alternate_action_callbacks": {
+      "provider": "g_configuration_dword_7139c",
+      "confidence": "verified_same_PC_cell_or_entry",
+      "evidence": "evidence/actor_pool_layout.json; evidence/action_registry_writer_layout.json; work/eng1_behavioral/resource_data/handoff.json",
+      "limits": "Observed x86 physical access width; original source spelling and complete aggregate ownership unproved."
+    },
+    "release_resource_buffer": {
+      "provider": "dispatch_engine_2c2d0",
+      "confidence": "verified_same_PC_cell_or_entry",
+      "evidence": "evidence/actor_pool_layout.json; evidence/action_registry_writer_layout.json; work/eng1_behavioral/resource_data/handoff.json",
+      "limits": "Observed x86 physical access width; original source spelling and complete aggregate ownership unproved."
+    },
+    "g_frame_owner_72860": {
+      "provider": "g_normal_actor_pool",
+      "confidence": "verified_same_PC_cell",
+      "evidence": "evidence/actor_pool_reset_region.json; evidence/actor_continuation_region.json; evidence/actor_factories_region.json",
+      "limits": "Same physical x86 pointer/WORD cell; per-consumer source views remain provisional."
+    },
+    "g_focus": {
+      "provider": "g_normal_actor_pool",
+      "confidence": "verified_same_PC_cell",
+      "evidence": "evidence/actor_pool_reset_region.json; evidence/actor_continuation_region.json; evidence/actor_factories_region.json",
+      "limits": "Same physical x86 pointer/WORD cell; per-consumer source views remain provisional."
+    },
+    "g_frame_owner_73494": {
+      "provider": "g_middle_actor_pool",
+      "confidence": "verified_same_PC_cell",
+      "evidence": "evidence/actor_pool_reset_region.json; evidence/actor_continuation_region.json; evidence/actor_factories_region.json",
+      "limits": "Same physical x86 pointer/WORD cell; per-consumer source views remain provisional."
+    },
+    "g_frame_owner_734e0": {
+      "provider": "g_alternate_actor_pool",
+      "confidence": "verified_same_PC_cell",
+      "evidence": "evidence/actor_pool_reset_region.json; evidence/actor_continuation_region.json; evidence/actor_factories_region.json",
+      "limits": "Same physical x86 pointer/WORD cell; per-consumer source views remain provisional."
+    },
+    "g_middle_cursor_primary": {
+      "provider": "g_configuration_word_713ac",
+      "confidence": "verified_same_PC_cell",
+      "evidence": "evidence/actor_pool_reset_region.json; evidence/actor_continuation_region.json; evidence/actor_factories_region.json",
+      "limits": "Same physical x86 pointer/WORD cell; per-consumer source views remain provisional."
+    },
+    "g_middle_limit_primary": {
+      "provider": "g_configuration_word_71432",
+      "confidence": "verified_same_PC_cell",
+      "evidence": "evidence/actor_pool_reset_region.json; evidence/actor_continuation_region.json; evidence/actor_factories_region.json",
+      "limits": "Same physical x86 pointer/WORD cell; per-consumer source views remain provisional."
+    },
+    "g_middle_wrap_start_primary": {
+      "provider": "g_configuration_word_713a0",
+      "confidence": "verified_same_PC_cell",
+      "evidence": "evidence/actor_pool_reset_region.json; evidence/actor_continuation_region.json; evidence/actor_factories_region.json",
+      "limits": "Same physical x86 pointer/WORD cell; per-consumer source views remain provisional."
+    },
+    "g_middle_cursor_alternate": {
+      "provider": "g_configuration_word_713b8",
+      "confidence": "verified_same_PC_cell",
+      "evidence": "evidence/actor_pool_reset_region.json; evidence/actor_continuation_region.json; evidence/actor_factories_region.json",
+      "limits": "Same physical x86 pointer/WORD cell; per-consumer source views remain provisional."
+    },
+    "g_middle_wrap_start_alternate": {
+      "provider": "g_configuration_word_713aa",
+      "confidence": "verified_same_PC_cell",
+      "evidence": "evidence/actor_pool_reset_region.json; evidence/actor_continuation_region.json; evidence/actor_factories_region.json",
+      "limits": "Same physical x86 pointer/WORD cell; per-consumer source views remain provisional."
+    },
+    "g_normal_factory_assets": {
+      "provider": "g_configuration_dword_71388",
+      "confidence": "verified_same_PC_cell",
+      "evidence": "evidence/actor_pool_reset_region.json; evidence/actor_continuation_region.json; evidence/actor_factories_region.json",
+      "limits": "Same physical x86 pointer/WORD cell; per-consumer source views remain provisional."
+    },
+    "g_alternate_factory_assets": {
+      "provider": "g_configuration_dword_713a4",
+      "confidence": "verified_same_PC_cell",
+      "evidence": "evidence/actor_pool_reset_region.json; evidence/actor_continuation_region.json; evidence/actor_factories_region.json",
+      "limits": "Same physical x86 pointer/WORD cell; per-consumer source views remain provisional."
+    },
+    "g_callbacks": {
+      "provider": "g_configuration_dword_71370",
+      "confidence": "verified_same_PC_cell",
+      "evidence": "evidence/actor_pool_reset_region.json; evidence/actor_continuation_region.json; evidence/actor_factories_region.json",
+      "limits": "Same physical x86 pointer/WORD cell; per-consumer source views remain provisional."
+    },
+    "g_alt_callbacks": {
+      "provider": "g_configuration_dword_7139c",
+      "confidence": "verified_same_PC_cell",
+      "evidence": "evidence/actor_pool_reset_region.json; evidence/actor_continuation_region.json; evidence/actor_factories_region.json",
+      "limits": "Same physical x86 pointer/WORD cell; per-consumer source views remain provisional."
+    },
+    "actor_refusal_296b0": {
+      "provider": "hide_and_unlink",
+      "confidence": "verified_same_PC_entry",
+      "evidence": "evidence/macro_actor.json; evidence/remove_actor_region.json",
+      "limits": "No new exact-match evidence."
+    },
+    "dispatch_local_06005": {
+      "provider": "context_sequence_step",
+      "original_rva": "0x6005",
+      "evidence": "evidence/engine_dispatch_region.json; work/root_fx_prefix_unit_39/adoption.json",
+      "confidence": "observed_same_PC_entry_and_diagnostic_offset",
+      "limits": "No function-level raw-equality or source/TU claim."
+    },
+    "dispatch_local_060f9": {
+      "provider": "runtime_control",
+      "original_rva": "0x60f9",
+      "evidence": "evidence/engine_control_contract.json; work/root_fx_prefix_unit_39/adoption.json",
+      "confidence": "observed_same_PC_entry_and_diagnostic_offset",
+      "limits": "No function-level raw-equality or source/TU claim."
+    },
+    "g_control_threshold": {
+      "provider": "g_frame_word_6ee84",
+      "original_rva": "0x6ee84",
+      "evidence": "src/eng1/behavioral/frame_data.c; work/fx_prefix_runtime_unit_39/measurement.json",
+      "confidence": "same_cell_address_and_width",
+      "limits": "Observed signed 16-bit read; original source name/TU unproved."
+    },
+    "g_control_global_71ec0": {
+      "provider": "g_dispatch_callback_flag_71ec0",
+      "original_rva": "0x71ec0",
+      "evidence": "src/eng1/behavioral/frame_data.c; work/fx_prefix_runtime_unit_39/measurement.json",
+      "confidence": "same_cell_address_and_width",
+      "limits": "Observed 32-bit cell; no aggregate/TU claim."
+    },
+    "host_cancel": {
+      "provider": "engine_file_cancel",
+      "original_rva": "0x2c260",
+      "evidence": "evidence/engine_file_bridge_region.json; evidence/engine_control_contract.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Runtime-control callers ignore the wrapper's EAX result; zero-argument physical call."
+    },
+    "host_free_allocation": {
+      "provider": "dispatch_engine_2c2d0",
+      "original_rva": "0x2c2d0",
+      "evidence": "evidence/frame_lifecycle_bridges_region.json; evidence/engine_control_contract.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "One physical pointer argument; source formal type remains bounded to observed ABI."
+    },
+    "resource_cleanup": {
+      "provider": "dispatch_local_1f220",
+      "original_rva": "0x1f220",
+      "evidence": "evidence/frame_bootstrap_family_region.json; evidence/engine_control_contract.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Zero-argument call."
+    },
+    "host_register_callback_a": {
+      "provider": "dispatch_engine_2c640",
+      "original_rva": "0x2c640",
+      "evidence": "evidence/frame_lifecycle_bridges_region.json; evidence/engine_control_contract.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "One callback argument; return ignored by caller."
+    },
+    "host_register_callback_b": {
+      "provider": "dispatch_engine_2cc40",
+      "original_rva": "0x2cc40",
+      "evidence": "evidence/dispatcher_bridges_region.json; evidence/engine_control_contract.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "One callback argument; return ignored by caller."
+    },
+    "host_reset_resource": {
+      "provider": "dispatch_engine_2c630",
+      "original_rva": "0x2c630",
+      "evidence": "evidence/dispatcher_bridges_region.json; evidence/engine_control_contract.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "One physical DWORD argument."
+    },
+    "host_clean": {
+      "provider": "dispatch_engine_2cc30",
+      "original_rva": "0x2cc30",
+      "evidence": "evidence/dispatcher_bridges_region.json; evidence/engine_control_contract.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "One physical DWORD argument."
+    },
+    "host_poll": {
+      "provider": "dispatch_engine_2c270",
+      "original_rva": "0x2c270",
+      "evidence": "evidence/dispatcher_bridges_region.json; evidence/engine_control_contract.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Zero-argument call."
+    },
+    "host_two_argument": {
+      "provider": "dispatch_engine_2c210",
+      "confidence": "verified_same_PC_entry",
+      "evidence": "evidence/engine_control_contract.json; evidence/engine_file_bridge_region.json; evidence/actor_continuation_region.json",
+      "limits": "Consumer physical ABI, not source/TU identity."
+    },
+    "host_worker": {
+      "provider": "dispatch_engine_2c580",
+      "confidence": "verified_same_PC_entry",
+      "evidence": "evidence/engine_control_contract.json; evidence/engine_file_bridge_region.json; evidence/actor_continuation_region.json",
+      "limits": "Consumer physical ABI, not source/TU identity."
+    },
+    "host_two_argument_update": {
+      "provider": "dispatch_engine_2c370",
+      "confidence": "verified_same_PC_entry",
+      "evidence": "evidence/engine_control_contract.json; evidence/engine_file_bridge_region.json; evidence/actor_continuation_region.json",
+      "limits": "Consumer physical ABI, not source/TU identity."
+    },
+    "host_busy_callback": {
+      "provider": "dispatch_engine_2c430",
+      "confidence": "verified_same_PC_entry",
+      "evidence": "evidence/engine_control_contract.json; evidence/engine_file_bridge_region.json; evidence/actor_continuation_region.json",
+      "limits": "Consumer physical ABI, not source/TU identity."
+    },
+    "host_zero_argument": {
+      "provider": "dispatch_engine_2c200",
+      "confidence": "verified_same_PC_entry",
+      "evidence": "evidence/engine_control_contract.json; evidence/engine_file_bridge_region.json; evidence/actor_continuation_region.json",
+      "limits": "Consumer physical ABI, not source/TU identity."
+    },
+    "random_limit": {
+      "provider": "dispatch_engine_2c460",
+      "confidence": "verified_same_PC_entry",
+      "evidence": "evidence/engine_control_contract.json; evidence/engine_file_bridge_region.json; evidence/actor_continuation_region.json",
+      "limits": "Consumer physical ABI, not source/TU identity."
+    },
+    "eng1_target_02c290": {
+      "provider": "engine_pool_compact",
+      "original_rva": "0x2c290",
+      "evidence": "evidence/eng1_behavioral_build.json",
+      "confidence": "same_PC_entry",
+      "limits": "Reuses source without new exact or gameplay acceptance."
+    },
+    "resource_test": {
+      "provider": "dispatch_local_0666b",
+      "confidence": "verified_same_PC_entry",
+      "evidence": "evidence/engine_control_contract.json; evidence/engine_file_bridge_region.json; evidence/actor_continuation_region.json",
+      "limits": "Consumer physical ABI, not source/TU identity."
+    },
+    "g_special_kind": {
+      "provider": "g_active_category_70cfe",
+      "original_rva": "0x70cfe",
+      "confidence": "measured_PC_identity",
+      "evidence": "evidence/eng1_runtime_color.json",
+      "limits": "Observed same native cell/entry; no new matching acceptance."
+    },
+    "g_frame_byte_70d01": {
+      "provider": "g_active_row_70d01",
+      "original_rva": "0x70d01",
+      "confidence": "measured_PC_identity",
+      "evidence": "evidence/eng1_runtime_color.json",
+      "limits": "Observed same native cell/entry; no new matching acceptance."
+    },
+    "g_frame_word_70d12": {
+      "provider": "g_selected_width_70d12",
+      "original_rva": "0x70d12",
+      "confidence": "measured_PC_identity",
+      "evidence": "evidence/eng1_runtime_color.json",
+      "limits": "Observed same native cell/entry; no new matching acceptance."
+    },
+    "g_cooldown": {
+      "provider": "g_countdown",
+      "original_rva": "0x6fe2c",
+      "confidence": "measured_PC_identity",
+      "evidence": "evidence/eng1_runtime_color.json",
+      "limits": "Observed same native cell/entry; no new matching acceptance."
+    },
+    "dispatch_local_05a60": {
+      "provider": "eng1_color_grid_update_5a60",
+      "original_rva": "0x5a60",
+      "confidence": "measured_PC_identity",
+      "evidence": "evidence/eng1_runtime_color.json",
+      "limits": "Observed same native cell/entry; no new matching acceptance."
+    },
+    "dispatch_local_05d50": {
+      "provider": "eng1_color_fade_step_5d50",
+      "original_rva": "0x5d50",
+      "confidence": "measured_PC_identity",
+      "evidence": "evidence/eng1_runtime_color.json",
+      "limits": "Observed same native cell/entry; no new matching acceptance."
+    },
+    "dispatch_local_05dc0": {
+      "provider": "eng1_color_profile_5dc0",
+      "original_rva": "0x5dc0",
+      "confidence": "measured_PC_identity",
+      "evidence": "evidence/eng1_runtime_color.json",
+      "limits": "Observed same native cell/entry; no new matching acceptance."
+    },
+    "dispatch_local_05e00": {
+      "provider": "eng1_frame_color_write_5e00",
+      "original_rva": "0x5e00",
+      "confidence": "measured_PC_identity",
+      "evidence": "evidence/eng1_runtime_color.json",
+      "limits": "Observed same native cell/entry; no new matching acceptance."
+    },
+    "eng1_native_code_target_0219e0": {
+      "provider": "tick_scripted_actor",
+      "original_rva": "0x219e0",
+      "confidence": "same_PC_entry",
+      "evidence": "evidence/eng1_config_tables.json",
+      "limits": "Reuses compiled source without granting new FUNCTION_MATCH or runtime acceptance."
+    },
+    "eng1_native_code_target_021c00": {
+      "provider": "initialize_spinning_particle",
+      "original_rva": "0x21c00",
+      "confidence": "same_PC_entry",
+      "evidence": "evidence/eng1_config_tables.json",
+      "limits": "Reuses compiled source without granting new FUNCTION_MATCH or runtime acceptance."
+    },
+    "eng1_native_code_target_021d10": {
+      "provider": "tick_spinning_particle",
+      "original_rva": "0x21d10",
+      "confidence": "same_PC_entry",
+      "evidence": "evidence/eng1_config_tables.json",
+      "limits": "Reuses compiled source without granting new FUNCTION_MATCH or runtime acceptance."
+    },
+    "eng1_call_2af80": {
+      "provider": "initialize_pending_action_groups",
+      "original_rva": "0x2af80",
+      "evidence": "evidence/eng1_behavioral_build.json",
+      "confidence": "same_PC_entry",
+      "limits": "Reuses source without new exact or gameplay acceptance."
+    },
+    "eng1_native_code_target_0283e0": {
+      "provider": "eng1_interpret_signed_pairs",
+      "original_rva": "0x283e0",
+      "evidence": "evidence/eng1_program_interpreters.json",
+      "confidence": "native_entry_identity",
+      "limits": "No new matching or gameplay acceptance."
+    },
+    "eng1_call_283e0": {
+      "provider": "eng1_interpret_signed_pairs",
+      "original_rva": "0x283e0",
+      "evidence": "evidence/eng1_program_interpreters.json",
+      "confidence": "native_entry_identity",
+      "limits": "No new matching or gameplay acceptance."
+    },
+    "eng1_target_0283e0": {
+      "provider": "eng1_interpret_signed_pairs",
+      "original_rva": "0x283e0",
+      "evidence": "evidence/eng1_program_interpreters.json",
+      "confidence": "native_entry_identity",
+      "limits": "No new matching or gameplay acceptance."
+    },
+    "eng1_native_code_target_028820": {
+      "provider": "eng1_interpret_word_stream",
+      "original_rva": "0x28820",
+      "evidence": "evidence/eng1_program_interpreters.json",
+      "confidence": "native_entry_identity",
+      "limits": "No new matching or gameplay acceptance."
+    },
+    "eng1_call_28820": {
+      "provider": "eng1_interpret_word_stream",
+      "original_rva": "0x28820",
+      "evidence": "evidence/eng1_program_interpreters.json",
+      "confidence": "native_entry_identity",
+      "limits": "No new matching or gameplay acceptance."
+    },
+    "eng1_target_028820": {
+      "provider": "eng1_interpret_word_stream",
+      "original_rva": "0x28820",
+      "evidence": "evidence/eng1_program_interpreters.json",
+      "confidence": "native_entry_identity",
+      "limits": "No new matching or gameplay acceptance."
+    },
+    "eng1_native_code_target_028aa0": {
+      "provider": "eng1_interpret_animation_triples",
+      "original_rva": "0x28aa0",
+      "evidence": "evidence/eng1_program_interpreters.json",
+      "confidence": "native_entry_identity",
+      "limits": "No new matching or gameplay acceptance."
+    },
+    "eng1_call_28aa0": {
+      "provider": "eng1_interpret_animation_triples",
+      "original_rva": "0x28aa0",
+      "evidence": "evidence/eng1_program_interpreters.json",
+      "confidence": "native_entry_identity",
+      "limits": "No new matching or gameplay acceptance."
+    },
+    "eng1_target_028aa0": {
+      "provider": "eng1_interpret_animation_triples",
+      "original_rva": "0x28aa0",
+      "evidence": "evidence/eng1_program_interpreters.json",
+      "confidence": "native_entry_identity",
+      "limits": "No new matching or gameplay acceptance."
+    },
+    "g_native_pointer_7217c": {
+      "provider": "g_collision_context",
+      "original_rva": "0x7217c",
+      "evidence": "evidence/eng1_default_callbacks.json",
+      "confidence": "same_native_pointer_cell",
+      "limits": "No separate pointer owner or pointee extent claim."
+    },
+    "eng1_native_code_target_00283e0": {
+      "provider": "eng1_interpret_signed_pairs",
+      "original_rva": "0x283e0",
+      "evidence": "evidence/eng1_behavioral_build.json",
+      "confidence": "same_PC_entry",
+      "limits": "Reuses source without new exact or gameplay acceptance."
+    },
+    "eng1_native_code_target_0028820": {
+      "provider": "eng1_interpret_word_stream",
+      "original_rva": "0x28820",
+      "evidence": "evidence/eng1_behavioral_build.json",
+      "confidence": "same_PC_entry",
+      "limits": "Reuses source without new exact or gameplay acceptance."
+    },
+    "g_special_assets": {
+      "provider": "g_configuration_dword_71390",
+      "original_rva": "0x71390",
+      "confidence": "verified_same_native_cell_or_entry",
+      "evidence": "evidence/eng1_macro_reuse.json",
+      "limits": "Physical 32-bit view; no original source/TU or new exact-match acceptance."
+    },
+    "g_alternate_assets": {
+      "provider": "g_configuration_dword_713a4",
+      "original_rva": "0x713a4",
+      "confidence": "verified_same_native_cell_or_entry",
+      "evidence": "evidence/eng1_macro_reuse.json",
+      "limits": "Physical 32-bit view; no original source/TU or new exact-match acceptance."
+    },
+    "g_normal_assets": {
+      "provider": "g_configuration_dword_71388",
+      "original_rva": "0x71388",
+      "confidence": "verified_same_native_cell_or_entry",
+      "evidence": "evidence/eng1_macro_reuse.json",
+      "limits": "Physical 32-bit view; no original source/TU or new exact-match acceptance."
+    },
+    "g_special_callbacks": {
+      "provider": "g_configuration_dword_7137c",
+      "original_rva": "0x7137c",
+      "confidence": "verified_same_native_cell_or_entry",
+      "evidence": "evidence/eng1_macro_reuse.json",
+      "limits": "Physical 32-bit view; no original source/TU or new exact-match acceptance."
+    },
+    "g_alternate_callbacks": {
+      "provider": "g_configuration_dword_7139c",
+      "original_rva": "0x7139c",
+      "confidence": "verified_same_native_cell_or_entry",
+      "evidence": "evidence/eng1_macro_reuse.json",
+      "limits": "Physical 32-bit view; no original source/TU or new exact-match acceptance."
+    },
+    "g_normal_callbacks": {
+      "provider": "g_configuration_dword_71370",
+      "original_rva": "0x71370",
+      "confidence": "verified_same_native_cell_or_entry",
+      "evidence": "evidence/eng1_macro_reuse.json",
+      "limits": "Physical 32-bit view; no original source/TU or new exact-match acceptance."
+    },
+    "refresh_actor": {
+      "provider": "eng1_interpret_word_stream",
+      "original_rva": "0x28820",
+      "confidence": "verified_same_native_cell_or_entry",
+      "evidence": "evidence/eng1_macro_reuse.json",
+      "limits": "Physical 32-bit view; no original source/TU or new exact-match acceptance."
+    },
+    "eng1_native_code_target_0029670": {
+      "provider": "find_tag",
+      "original_rva": "0x29670",
+      "confidence": "verified_same_native_cell_or_entry",
+      "evidence": "evidence/eng1_macro_reuse.json",
+      "limits": "Physical 32-bit view; no original source/TU or new exact-match acceptance."
+    },
+    "g_frame_callbacks_4d6f8": {
+      "provider": "g_frame_callbacks_4d6f8_prefix",
+      "original_rva": "0x4d6f8",
+      "confidence": "measured_initialized_prefix",
+      "evidence": "evidence/eng1_token_startup.json",
+      "limits": "Indices>=10 visibly incomplete; nullindex9 retains nativeNULLcallbehavior."
+    },
+    "eng1_native_dep_02c470": {
+      "provider": "dispatch_engine_2c470",
+      "original_rva": "0x2c470",
+      "evidence": "evidence/eng1_host_control.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Existing zero-argument host RNG provider; alias fixes source naming, with no new behavior."
+    }
+  },
+  "omit_functions": {
+    "calibration/actor_continuation.c": [
+      {
+        "function": "initialize_linked_particle",
+        "provider": "src/shared/linked_particle.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+      },
+      {
+        "function": "follow_owner_scale",
+        "provider": "src/shared/linked_particle.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+      }
+    ],
+    "calibration/actor_pools.c": [
+      {
+        "function": "initialize_middle_actor",
+        "provider": "calibration/eng1/actor_middle_init.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+      }
+    ],
+    "calibration/actor_pool_reset_repaired.c": [
+      {
+        "function": "allocate_alternate_actor",
+        "provider": "calibration/actor_pools.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+      },
+      {
+        "function": "allocate_normal_actor",
+        "provider": "calibration/actor_pools.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+      },
+      {
+        "function": "initialize_alternate_actor",
+        "provider": "calibration/actor_pools.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+      },
+      {
+        "function": "initialize_middle_actor",
+        "provider": "calibration/eng1/actor_middle_init.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+      },
+      {
+        "function": "initialize_normal_actor",
+        "provider": "calibration/actor_pools.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+      }
+    ],
+    "calibration/cleanup_helpers_writers.c": [
+      {
+        "function": "clear_actor",
+        "provider": "calibration/clear_actor.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+      }
+    ],
+    "calibration/registry_allocation.c": [
+      {
+        "function": "forward_host_allocation",
+        "provider": "calibration/engine_file_bridge.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+      }
+    ],
+    "calibration/frame_configuration.c": [
+      {
+        "function": "frame_context_defaults_15600",
+        "provider": "calibration/eng1/context_defaults.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+      }
+    ],
+    "calibration/macro_actor.c": [
+      {
+        "function": "apply_frame_motion_2d",
+        "provider": "Existing per-RVA source or not yet selected in this behavioral graph",
+        "reason": "Select only hide_and_unlink; preserve recovered original unit unchanged."
+      },
+      {
+        "function": "apply_frame_motion_3d",
+        "provider": "Existing per-RVA source or not yet selected in this behavioral graph",
+        "reason": "Select only hide_and_unlink; preserve recovered original unit unchanged."
+      },
+      {
+        "function": "reset_frame_state",
+        "provider": "Existing per-RVA source or not yet selected in this behavioral graph",
+        "reason": "Select only hide_and_unlink; preserve recovered original unit unchanged."
+      },
+      {
+        "function": "advance_frame",
+        "provider": "Existing per-RVA source or not yet selected in this behavioral graph",
+        "reason": "Select only hide_and_unlink; preserve recovered original unit unchanged."
+      },
+      {
+        "function": "restart_steps",
+        "provider": "Existing per-RVA source or not yet selected in this behavioral graph",
+        "reason": "Select only hide_and_unlink; preserve recovered original unit unchanged."
+      },
+      {
+        "function": "select_frame",
+        "provider": "Existing per-RVA source or not yet selected in this behavioral graph",
+        "reason": "Select only hide_and_unlink; preserve recovered original unit unchanged."
+      },
+      {
+        "function": "count_chain",
+        "provider": "Existing per-RVA source or not yet selected in this behavioral graph",
+        "reason": "Select only hide_and_unlink; preserve recovered original unit unchanged."
+      },
+      {
+        "function": "append_chain",
+        "provider": "Existing per-RVA source or not yet selected in this behavioral graph",
+        "reason": "Select only hide_and_unlink; preserve recovered original unit unchanged."
+      },
+      {
+        "function": "unlink_12c",
+        "provider": "Existing per-RVA source or not yet selected in this behavioral graph",
+        "reason": "Select only hide_and_unlink; preserve recovered original unit unchanged."
+      },
+      {
+        "function": "detach_attachment",
+        "provider": "Existing per-RVA source or not yet selected in this behavioral graph",
+        "reason": "Select only hide_and_unlink; preserve recovered original unit unchanged."
+      },
+      {
+        "function": "detach_child",
+        "provider": "Existing per-RVA source or not yet selected in this behavioral graph",
+        "reason": "Select only hide_and_unlink; preserve recovered original unit unchanged."
+      },
+      {
+        "function": "detach_buffer",
+        "provider": "Existing per-RVA source or not yet selected in this behavioral graph",
+        "reason": "Select only hide_and_unlink; preserve recovered original unit unchanged."
+      },
+      {
+        "function": "unlink_0e4",
+        "provider": "Existing per-RVA source or not yet selected in this behavioral graph",
+        "reason": "Select only hide_and_unlink; preserve recovered original unit unchanged."
+      }
+    ]
+  }
+}

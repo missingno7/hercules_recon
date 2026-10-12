@@ -1,0 +1,65 @@
+{
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "checks": [
+    {
+      "name": "actor_stage_sine_table_5a848",
+      "symbol": "_g_actor_stage_table_5a848",
+      "rva": "0x5a848",
+      "size": 2048,
+      "scope": "consumer-bounded1024SHORTtable"
+    }
+  ],
+  "consumer_evidence": {
+    "first258e0": {
+      "instructions": [
+        "0x2590f  8b4838           mov ecx, dword ptr [eax + 0x38]",
+        "0x25912  83e17f           and ecx, 0x7f",
+        "0x25915  57               push edi",
+        "0x25916  c1e104           shl ecx, 4",
+        "0x25919  0fbf9148a80510   movsx edx, word ptr [ecx + 0x1005a848]"
+      ],
+      "addressing": "Byte offset(tick&0x7f)<<4; converted SHORTindex(tick&0x7f)<<3",
+      "maximum_SHORT_index": 1016
+    },
+    "second258e0": {
+      "instructions": [
+        "0x2592c  8b4038           mov eax, dword ptr [eax + 0x38]",
+        "0x2592f  83c010           add eax, 0x10",
+        "0x25932  66891da01c0710   mov word ptr [0x10071ca0], bx",
+        "0x25939  c1e004           shl eax, 4",
+        "0x2593c  25ff030000       and eax, 0x3ff",
+        "0x25941  66891d40170710   mov word ptr [0x10071740], bx",
+        "0x25948  66891d20170710   mov word ptr [0x10071720], bx",
+        "0x2594f  66891dc01c0710   mov word ptr [0x10071cc0], bx",
+        "0x25956  0fbf044548a80510 movsx eax, word ptr [eax*2 + 0x1005a848]"
+      ],
+      "addressing": "SHORTindex=((tick+0x10)<<4)&0x3ff, memory index scale2",
+      "mask_upper_bound": 1023,
+      "reachable_for_tick0_to127_maximum": 1008,
+      "note": "1023 is the mask bound; low4bits of this particular index remainzero."
+    },
+    "general_angle_consumer": {
+      "instructions": [
+        "0x3dd15  668b4f30         mov cx, word ptr [edi + 0x30]",
+        "0x3dd19  81e1ff030000     and ecx, 0x3ff",
+        "0x3dd1f  0fbf144d48a80510 movsx edx, word ptr [ecx*2 + 0x1005a848]"
+      ],
+      "addressing": "Load signed actor-angleWORD, mask0x3ff, signedWORD[maskedindex*2+5a848]",
+      "supported_index_bound": 1023
+    }
+  },
+  "native_sha256": "2b2d866b8efe4b0ee47853d0c292a9ffea6ebbf6379fc693b0bde2df6b056ac5",
+  "samples": {
+    "0": 0,
+    "1": 201,
+    "255": 32767,
+    "256": 32767,
+    "512": 0,
+    "768": -32767,
+    "1008": -3211,
+    "1016": -1607,
+    "1023": -201
+  },
+  "limits": "Data/consumer-index proof only; not source identity, exactfunction, TU, placement, numerical-generation formula or whole-binary equality.",
+  "scope": "Actual1024SHORTs and native consumer address arithmetic; no simulation differential claim yet."
+}

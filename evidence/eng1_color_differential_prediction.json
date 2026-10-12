@@ -1,0 +1,7 @@
+{
+  "family": "Original x86 vs canonical source color helper differential",
+  "prediction": "Native 5a60, 5d50, 5dc0 and 5e00 agree with canonical providers over directed branch/WORD-wrap/cache/signed arithmetic cases and deterministic mixed-sign states, including all 512 DWORD LUT entries, all color state, guarded base frame, preserved independent current frame and callback state/order/meaningful low byte.",
+  "falsifier": "Any native/source state disagreement, unexpected module byte write, unexpected callback selection, or callback state/order/low-byte disagreement. Full callback DWORD upper residue is captured and separately diagnostic because native 5d50 reloads CL only and real EXE 70c0 consumes its low byte.",
+  "inputs": "Current canonical color/color_storage/host_color_callback providers, original ENG1 and installer EXE, pinned VC5 RTM.",
+  "limits": "Isolated standalone test-only native DLL mapping, no instruction patches, game process or original dispatch in replacement; fixed input evidence only, no FUNCTION_MATCH or whole DLL/playability claim. Canonical files and recovery state remain integrator-owned."
+}

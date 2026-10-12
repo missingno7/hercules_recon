@@ -1,0 +1,35 @@
+/* Initialized shared child-spawn tables; native kind-zero termination. */
+#include "shared_spawn_records.h"
+
+Eng1SpawnRecord g_eng1_shared_spawn_records_04dc40[10] = {
+    { -64, 0, 0, 0x2027U, 0x0000U, 0x0000U },
+    { 56, -8, 0, 0x2027U, 0x0000U, 0x0000U },
+    { -32, 32, 0, 0x2027U, 0x0000U, 0x000aU },
+    { 16, 48, 0, 0x2027U, 0x0000U, 0x000fU },
+    { -64, 80, 0, 0x2027U, 0x0000U, 0x0014U },
+    { 24, 64, 0, 0x2027U, 0x0000U, 0x0016U },
+    { -40, 0, 48, 0x4023U, 0x0011U, 0x0000U },
+    { 8, 8, 48, 0x4023U, 0x0012U, 0x0001U },
+    { 56, 0, 48, 0x4023U, 0x0013U, 0x0002U },
+    { 0, 0, 0, 0x0000U, 0x0000U, 0x0000U },
+};
+
+Eng1SpawnRecord g_eng1_shared_spawn_records_0601c0[10] = {
+    { -64, 0, 0, 0x2027U, 0x0000U, 0x0000U },
+    { 56, -8, 0, 0x2027U, 0x0000U, 0x0000U },
+    { -32, 32, 0, 0x2027U, 0x0000U, 0x000aU },
+    { 16, 48, 0, 0x2027U, 0x0000U, 0x000fU },
+    { -64, 80, 0, 0x2027U, 0x0000U, 0x0014U },
+    { 24, 64, 0, 0x2027U, 0x0000U, 0x0016U },
+    { -40, 0, 48, 0x4023U, 0x0019U, 0x0000U },
+    { 8, 8, 48, 0x4023U, 0x001aU, 0x0001U },
+    { 56, 0, 48, 0x4023U, 0x001bU, 0x0002U },
+    { 0, 0, 0, 0x0000U, 0x0000U, 0x0000U },
+};
+
+Eng1SpawnRecord g_eng1_shared_spawn_records_060278[4] = {
+    { 0, -48, 0, 0x402dU, 0x0015U, 0x0000U },
+    { 0, -128, 0, 0x402dU, 0x0016U, 0x0001U },
+    { 0, -188, 0, 0x402dU, 0x0017U, 0x0002U },
+    { 0, 0, 0, 0x0000U, 0x0000U, 0x0000U },
+};

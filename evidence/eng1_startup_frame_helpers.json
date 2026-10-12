@@ -1,0 +1,29 @@
+{
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "sources": [
+    "src/eng1/behavioral/startup_frame_helpers.c",
+    "src/eng1/behavioral/startup_frame_storage.c"
+  ],
+  "contracts": {
+    "0x1f6f0": "Contextmode1 guard; hosttime minus context54; positive remaining1c0 window requests remaining<<9 then rebuilds blob/rows.",
+    "0x1f750": "Read8bytefileheader through descriptorlevel path andMAPsuffix; allocate rounded root, return-1 onallocationfailure; load actualdata, handshakecontext90/8c, postprocess andnotifyhost, return0.",
+    "0x1f870": "Signed group-window/row scan, preserve release/reuse/load ordering and actual contextbusy predicates, category transition latch."
+  },
+  "dependencies": {
+    "0x1fc90": "Root postprocess, not yetimplemented",
+    "0x1f9e0": "Missing rowload function",
+    "0x2c2a0": "Actual hostcallback, twophysicalDWORDarguments",
+    "0x2c4a0": "Actual hostcallback, fourphysicalDWORDarguments"
+  },
+  "source_fixture": "tests/eng1_startup_frame_helpers.c",
+  "limits": [
+    "Source-only stubs/spies; no native differential or gameplayvalidation.",
+    "Busy-spin reloads copiedcontextpointer and volatilecontextDWORDs; a runtime handshake failure canstall.",
+    "Row/category indexing andcounts nativeunchecked; currentprefixcapacities unproved."
+  ],
+  "reproduce": [
+    "python scripts/test_eng1_behavioral.py",
+    "python scripts/eng1_behavioral.py",
+    "python scripts/eng1_data_evidence.py"
+  ]
+}

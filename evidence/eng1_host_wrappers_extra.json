@@ -1,0 +1,56 @@
+{
+  "scope": "Private ENG1 copied-interface wrapper source and bounded source-level spy; no canonical promotion or target-byte claim.",
+  "toolchain": "msvc5_rtm",
+  "toolchain_commit": "8abf95ce980161ad87b0b02402269cce76988953",
+  "toolchain_directory": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+  "toolchain_manifest": "toolchains/manifest.json",
+  "working_directory": "D:\\Prog\\hercules_recon\\work\\eng1_behavioral\\host_wrappers_extra",
+  "successful_command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/O2",
+    "/Gy",
+    "/TC",
+    "/I D:\\Prog\\hercules_recon\\calibration",
+    "/FeD:\\Prog\\hercules_recon\\work\\eng1_behavioral\\host_wrappers_extra\\forwarding_spy_extra.exe",
+    "D:\\Prog\\hercules_recon\\candidates\\eng1_host_wrappers\\host_wrappers_extra.c",
+    "D:\\Prog\\hercules_recon\\work\\eng1_behavioral\\host_wrappers_extra\\forwarding_spy_extra.c"
+  ],
+  "compile_exit_code": 0,
+  "spy_exit_code": 0,
+  "prediction_file": "work/eng1_behavioral/host_wrappers_extra/prediction.json",
+  "prediction_result": "survived bounded forwarding spy",
+  "spy_calls_checked": 4,
+  "checks": [
+    "2c6c0 called only slot 0x19c/opaque_174[10] once with no explicit arguments",
+    "2c750 called slot 0x1c4/opaque_174[20] once and preserved the pointer argument",
+    "2c760 called slot 0x1c8/opaque_174[21] once and preserved the pointer argument",
+    "2c7b0 called slot 0x1e4/opaque_174[28] once and preserved the pointer argument"
+  ],
+  "abi_contracts": {
+    "0x2c6c0": {"interface_offset": "0x19c", "slot": 103, "host_exe_rva": "0xb840", "cdecl_args": 0, "source_result_view": "void; direct callers discard EAX", "native_ret": "tail jump through copied cell; target RET reaches caller"},
+    "0x2c750": {"interface_offset": "0x1c4", "slot": 113, "host_exe_rva": "0xb810", "cdecl_args": 1, "source_argument_view": "void *", "source_result_view": "void; direct callers discard EAX", "native_ret": "target call; add esp,4; plain RET"},
+    "0x2c760": {"interface_offset": "0x1c8", "slot": 114, "host_exe_rva": "0xb720", "cdecl_args": 1, "source_argument_view": "void *", "source_result_view": "void; direct callers discard EAX", "native_ret": "target call; add esp,4; plain RET"},
+    "0x2c7b0": {"interface_offset": "0x1e4", "slot": 121, "host_exe_rva": "0xb870", "cdecl_args": 1, "source_argument_view": "void *", "source_result_view": "void; direct callers discard EAX", "native_ret": "target call; add esp,4; plain RET"}
+  },
+  "limits": [
+    "Spy proves source-level slot selection and explicit argument forwarding only; it does not execute the original host callbacks.",
+    "No source-level callback return contract is claimed; native wrappers physically leave callback EAX untouched, but reviewed ENG1 callers discard it.",
+    "No FUNCTION_MATCH, source identity, original translation-unit, full interface, module-layout, rendering, or gameplay claim follows.",
+    "Existing 21-wrapper candidate source and all canonical files remain untouched."
+  ],
+  "hashes": {
+    "candidate_extra_source": "c430e2a3cd290b01b0078625724f45b1c28346b466888c925cfda9cbd59a982e",
+    "spy_source": "07fadee8105db65f0a67f9220827894b46469667b9b1bf7b5f53cb6341dff196",
+    "spy_executable": "560c1c21a37565888964e466d9bcc88c1ac9d2df45e11d15c4041b09ec807742",
+    "wrapper_object": "e3a61507df47961a05320234429f95bc08c5d452f6047bedecf4cfc563b29ff4",
+    "spy_object": "e408d371e293b528ad365ee347fa6258d1ea62611f3cfcab6f1e77e0a35040bb",
+    "prediction": "88b5b8e7ea608457c2063435153132d158fda9d91beff788e9fee9be6fe88ca3",
+    "engine_interface_header": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+    "copied_callbacks_map": "6bd543501bbb63df6e2fb492d1aa8310ffe19d9248525742e6ab2f5a88d92990",
+    "render_map_summary": "1d155efa2d582db468605b951d1facc1155f45e0896aec075eee8e108c5d894e",
+    "render_map_decode": "d475c0836bc02f703d7f23a30937b560fa45631a605ac2473c32cbedfd7cdb1e",
+    "eng1_oracle": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "host_exe_oracle": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  }
+}

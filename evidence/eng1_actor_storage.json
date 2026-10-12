@@ -1,0 +1,56 @@
+{
+  "scope": "Measured actor pool and scene-list pointer owners; no pointee capacity/TU/layout claim.",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "source": "src/eng1/behavioral/actor_storage.c",
+  "source_sha256": "7c20021aee04622f627c1052d683962672c8aa9ed1e9d52df3166f2abe7b4c84",
+  "references": [
+    "evidence/actor_pool_layout.json",
+    "evidence/actor_pool_reset_region.json",
+    "evidence/actor_factories_region.json",
+    "evidence/actor_continuation_region.json",
+    "evidence/eng1_macro_reuse.json"
+  ],
+  "cells": [
+    {
+      "rva": "0x72860",
+      "size": 4,
+      "initialization": "loader_zero",
+      "section": ".data"
+    },
+    {
+      "rva": "0x73494",
+      "size": 4,
+      "initialization": "loader_zero",
+      "section": ".data"
+    },
+    {
+      "rva": "0x734e0",
+      "size": 4,
+      "initialization": "loader_zero",
+      "section": ".data"
+    },
+    {
+      "rva": "0x6fed8",
+      "size": 4,
+      "initialization": "loader_zero",
+      "section": ".data",
+      "reader": "Native295bd loads fallback scene anchor for insert_scene295a0."
+    }
+  ],
+  "aliases": {
+    "g_frame_owner_72860": "g_normal_actor_pool",
+    "g_focus": "g_normal_actor_pool",
+    "g_frame_owner_73494": "g_middle_actor_pool",
+    "g_frame_owner_734e0": "g_alternate_actor_pool",
+    "g_middle_cursor_primary": "g_configuration_word_713ac",
+    "g_middle_limit_primary": "g_configuration_word_71432",
+    "g_middle_wrap_start_primary": "g_configuration_word_713a0",
+    "g_middle_cursor_alternate": "g_configuration_word_713b8",
+    "g_middle_wrap_start_alternate": "g_configuration_word_713aa",
+    "g_normal_factory_assets": "g_configuration_dword_71388",
+    "g_alternate_factory_assets": "g_configuration_dword_713a4",
+    "g_callbacks": "g_configuration_dword_71370",
+    "g_alt_callbacks": "g_configuration_dword_7139c"
+  },
+  "verification": "Native PE backing and existing PC writer/access-width evidence; gameplay untested."
+}

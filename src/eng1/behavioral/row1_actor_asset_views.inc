@@ -1,0 +1,18 @@
+/* Include after target externs and before pointer initializers. */
+#include "row1_actor_assets.h"
+#define eng1_frame_target_066308 ((unsigned char *)g_eng1_row1_actor_pair_066308)
+#define eng1_frame_target_066350 ((unsigned char *)g_eng1_row1_actor_pair_066350)
+#define eng1_frame_target_066370 ((unsigned char *)g_eng1_row1_actor_pair_066370)
+#define eng1_frame_target_066380 ((unsigned char *)g_eng1_row1_actor_pair_066380)
+#define eng1_frame_target_0663c8 ((unsigned char *)g_eng1_row1_actor_pair_0663c8)
+#define eng1_frame_target_066410 ((unsigned char *)g_eng1_row1_actor_pair_066410)
+#define eng1_frame_target_066448 ((unsigned char *)g_eng1_row1_actor_pair_066448)
+#define eng1_frame_target_066458 ((unsigned char *)g_eng1_row1_actor_pair_066458)
+#define eng1_frame_target_0664a0 ((unsigned char *)g_eng1_row1_actor_pair_0664a0)
+#define eng1_frame_target_0664e0 ((unsigned char *)g_eng1_row1_actor_pair_0664e0)
+#define eng1_frame_target_0664f0 ((unsigned char *)g_eng1_row1_actor_frames_0664f0)
+#define eng1_frame_target_066510 ((unsigned char *)g_eng1_row1_actor_frames_066510)
+#define eng1_frame_target_066530 ((unsigned char *)g_eng1_row1_actor_frames_066530)
+#define eng1_frame_target_066568 ((unsigned char *)g_eng1_row1_actor_spawns_066568)
+#define eng1_frame_target_066638 ((unsigned char *)g_eng1_row1_actor_spawns_066638)
+#define eng1_frame_target_0666c0 ((unsigned char *)g_eng1_row1_actor_spawns_0666c0)

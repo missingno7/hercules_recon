@@ -1,0 +1,287 @@
+{
+  "scope": "Measured PC callback ABI plus adopted plausible source and bounded test spies; no new recovery acceptance.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "candidate_source": "src/eng1/behavioral/eng1_default_callbacks.c",
+  "callbacks": [
+    {
+      "rva": "0x1010",
+      "symbol": "eng1_native_code_target_001010",
+      "candidate_prototype": "void __cdecl eng1_native_code_target_001010(Eng1CallbackActor *actor)",
+      "native_argument_evidence": "Target entry reads one pointer-sized argument from the stack (offset adjusted for saved registers); native dispatch at 0x1efb and 0x1f1d pushes the pointer stored at 0x1007200c once, performs indirect callback calls, then adds ESP by 4. EAX is discarded by both callback call sites.",
+      "native_calling_convention": {
+        "candidate": "cdecl",
+        "confidence": "high",
+        "basis": "All eight target entry bodies consume one pointer argument; actual indirect dispatch callsites push one pointer and caller-clean exactly four bytes."
+      },
+      "return_observation": "Native dispatch does not consume callback EAX; the candidate declares void. This proves caller behavior, not a semantic target return type.",
+      "candidate_size_bytes": 48,
+      "target_inventory_span_bytes": 48,
+      "raw_inventory_span_equal": false,
+      "diagnostic_byte_differences": 12,
+      "object_relocation_count": 3,
+      "acceptance": "private behavioral candidate only; no FUNCTION_MATCH promotion"
+    },
+    {
+      "rva": "0x1040",
+      "symbol": "eng1_native_code_target_001040",
+      "candidate_prototype": "void __cdecl eng1_native_code_target_001040(Eng1CallbackActor *actor)",
+      "native_argument_evidence": "Target entry reads one pointer-sized argument from the stack (offset adjusted for saved registers); native dispatch at 0x1efb and 0x1f1d pushes the pointer stored at 0x1007200c once, performs indirect callback calls, then adds ESP by 4. EAX is discarded by both callback call sites.",
+      "native_calling_convention": {
+        "candidate": "cdecl",
+        "confidence": "high",
+        "basis": "All eight target entry bodies consume one pointer argument; actual indirect dispatch callsites push one pointer and caller-clean exactly four bytes."
+      },
+      "return_observation": "Native dispatch does not consume callback EAX; the candidate declares void. This proves caller behavior, not a semantic target return type.",
+      "candidate_size_bytes": 176,
+      "target_inventory_span_bytes": 176,
+      "raw_inventory_span_equal": false,
+      "diagnostic_byte_differences": 34,
+      "object_relocation_count": 10,
+      "acceptance": "private behavioral candidate only; no FUNCTION_MATCH promotion"
+    },
+    {
+      "rva": "0x10f0",
+      "symbol": "eng1_native_code_target_0010f0",
+      "candidate_prototype": "void __cdecl eng1_native_code_target_0010f0(Eng1CallbackActor *actor)",
+      "native_argument_evidence": "Target entry reads one pointer-sized argument from the stack (offset adjusted for saved registers); native dispatch at 0x1efb and 0x1f1d pushes the pointer stored at 0x1007200c once, performs indirect callback calls, then adds ESP by 4. EAX is discarded by both callback call sites.",
+      "native_calling_convention": {
+        "candidate": "cdecl",
+        "confidence": "high",
+        "basis": "All eight target entry bodies consume one pointer argument; actual indirect dispatch callsites push one pointer and caller-clean exactly four bytes."
+      },
+      "return_observation": "Native dispatch does not consume callback EAX; the candidate declares void. This proves caller behavior, not a semantic target return type.",
+      "candidate_size_bytes": 544,
+      "target_inventory_span_bytes": 544,
+      "raw_inventory_span_equal": false,
+      "diagnostic_byte_differences": 355,
+      "object_relocation_count": 23,
+      "acceptance": "private behavioral candidate only; no FUNCTION_MATCH promotion"
+    },
+    {
+      "rva": "0x1310",
+      "symbol": "eng1_native_code_target_001310",
+      "candidate_prototype": "void __cdecl eng1_native_code_target_001310(Eng1CallbackActor *actor)",
+      "native_argument_evidence": "Target entry reads one pointer-sized argument from the stack (offset adjusted for saved registers); native dispatch at 0x1efb and 0x1f1d pushes the pointer stored at 0x1007200c once, performs indirect callback calls, then adds ESP by 4. EAX is discarded by both callback call sites.",
+      "native_calling_convention": {
+        "candidate": "cdecl",
+        "confidence": "high",
+        "basis": "All eight target entry bodies consume one pointer argument; actual indirect dispatch callsites push one pointer and caller-clean exactly four bytes."
+      },
+      "return_observation": "Native dispatch does not consume callback EAX; the candidate declares void. This proves caller behavior, not a semantic target return type.",
+      "candidate_size_bytes": 176,
+      "target_inventory_span_bytes": 176,
+      "raw_inventory_span_equal": false,
+      "diagnostic_byte_differences": 34,
+      "object_relocation_count": 10,
+      "acceptance": "private behavioral candidate only; no FUNCTION_MATCH promotion"
+    },
+    {
+      "rva": "0x13c0",
+      "symbol": "eng1_native_code_target_0013c0",
+      "candidate_prototype": "void __cdecl eng1_native_code_target_0013c0(Eng1CallbackActor *actor)",
+      "native_argument_evidence": "Target entry reads one pointer-sized argument from the stack (offset adjusted for saved registers); native dispatch at 0x1efb and 0x1f1d pushes the pointer stored at 0x1007200c once, performs indirect callback calls, then adds ESP by 4. EAX is discarded by both callback call sites.",
+      "native_calling_convention": {
+        "candidate": "cdecl",
+        "confidence": "high",
+        "basis": "All eight target entry bodies consume one pointer argument; actual indirect dispatch callsites push one pointer and caller-clean exactly four bytes."
+      },
+      "return_observation": "Native dispatch does not consume callback EAX; the candidate declares void. This proves caller behavior, not a semantic target return type.",
+      "candidate_size_bytes": 528,
+      "target_inventory_span_bytes": 544,
+      "raw_inventory_span_equal": false,
+      "diagnostic_byte_differences": 355,
+      "object_relocation_count": 23,
+      "acceptance": "private behavioral candidate only; no FUNCTION_MATCH promotion"
+    },
+    {
+      "rva": "0x1d80",
+      "symbol": "eng1_native_code_target_001d80",
+      "candidate_prototype": "void __cdecl eng1_native_code_target_001d80(Eng1CallbackActor *actor)",
+      "native_argument_evidence": "Target entry reads one pointer-sized argument from the stack (offset adjusted for saved registers); native dispatch at 0x1efb and 0x1f1d pushes the pointer stored at 0x1007200c once, performs indirect callback calls, then adds ESP by 4. EAX is discarded by both callback call sites.",
+      "native_calling_convention": {
+        "candidate": "cdecl",
+        "confidence": "high",
+        "basis": "All eight target entry bodies consume one pointer argument; actual indirect dispatch callsites push one pointer and caller-clean exactly four bytes."
+      },
+      "return_observation": "Native dispatch does not consume callback EAX; the candidate declares void. This proves caller behavior, not a semantic target return type.",
+      "candidate_size_bytes": 128,
+      "target_inventory_span_bytes": 128,
+      "raw_inventory_span_equal": false,
+      "diagnostic_byte_differences": 22,
+      "object_relocation_count": 7,
+      "acceptance": "private behavioral candidate only; no FUNCTION_MATCH promotion"
+    },
+    {
+      "rva": "0x1e00",
+      "symbol": "eng1_native_code_target_001e00",
+      "candidate_prototype": "void __cdecl eng1_native_code_target_001e00(Eng1CallbackActor *actor)",
+      "native_argument_evidence": "Target entry reads one pointer-sized argument from the stack (offset adjusted for saved registers); native dispatch at 0x1efb and 0x1f1d pushes the pointer stored at 0x1007200c once, performs indirect callback calls, then adds ESP by 4. EAX is discarded by both callback call sites.",
+      "native_calling_convention": {
+        "candidate": "cdecl",
+        "confidence": "high",
+        "basis": "All eight target entry bodies consume one pointer argument; actual indirect dispatch callsites push one pointer and caller-clean exactly four bytes."
+      },
+      "return_observation": "Native dispatch does not consume callback EAX; the candidate declares void. This proves caller behavior, not a semantic target return type.",
+      "candidate_size_bytes": 48,
+      "target_inventory_span_bytes": 48,
+      "raw_inventory_span_equal": false,
+      "diagnostic_byte_differences": 3,
+      "object_relocation_count": 1,
+      "acceptance": "private behavioral candidate only; no FUNCTION_MATCH promotion"
+    },
+    {
+      "rva": "0x1e30",
+      "symbol": "eng1_native_code_target_001e30",
+      "candidate_prototype": "void __cdecl eng1_native_code_target_001e30(Eng1CallbackActor *actor)",
+      "native_argument_evidence": "Target entry reads one pointer-sized argument from the stack (offset adjusted for saved registers); native dispatch at 0x1efb and 0x1f1d pushes the pointer stored at 0x1007200c once, performs indirect callback calls, then adds ESP by 4. EAX is discarded by both callback call sites.",
+      "native_calling_convention": {
+        "candidate": "cdecl",
+        "confidence": "high",
+        "basis": "All eight target entry bodies consume one pointer argument; actual indirect dispatch callsites push one pointer and caller-clean exactly four bytes."
+      },
+      "return_observation": "Native dispatch does not consume callback EAX; the candidate declares void. This proves caller behavior, not a semantic target return type.",
+      "candidate_size_bytes": 32,
+      "target_inventory_span_bytes": 32,
+      "raw_inventory_span_equal": false,
+      "diagnostic_byte_differences": 16,
+      "object_relocation_count": 1,
+      "acceptance": "private behavioral candidate only; no FUNCTION_MATCH promotion"
+    }
+  ],
+  "nested_dependency_prototypes": [
+    "extern eng1_u32 g_actor_worklist_716c0[];",
+    "extern eng1_u32 g_configuration_dword_713bc;",
+    "extern eng1_u16 g_native_word_72168;",
+    "extern eng1_u8 g_actor_state_map_004d6ec[8];",
+    "extern unsigned char *g_native_pointer_7217c;",
+    "extern Eng1CallbackActor *__cdecl eng1_native_code_target_0029670(eng1_u32);",
+    "extern unsigned int __cdecl dispatch_engine_2c460(int);",
+    "extern void __cdecl eng1_native_code_target_002a290(Eng1CallbackActor *);",
+    "extern eng1_u32 __cdecl eng1_native_code_target_002a9e0(Eng1CallbackActor *, eng1_u32);",
+    "extern void __cdecl eng1_native_code_target_00283e0(Eng1CallbackActor *);",
+    "extern eng1_u32 __cdecl eng1_native_code_target_0026de0(Eng1CallbackActor *);",
+    "extern eng1_u32 __cdecl eng1_native_code_target_0019b40(eng1_u32);",
+    "extern void __cdecl eng1_native_code_target_001ab50(void);",
+    "extern void __cdecl eng1_native_code_target_0030290(eng1_u32, eng1_u32);",
+    "extern int __cdecl eng1_native_code_target_0029c20(Eng1CallbackActor *);",
+    "extern eng1_u32 __cdecl eng1_native_code_target_002a170(eng1_u32, eng1_u32, eng1_u32, eng1_u32);",
+    "extern int __cdecl eng1_native_code_target_002a710(Eng1CallbackActor *, void *);",
+    "extern int __cdecl eng1_native_code_target_002a880(Eng1CallbackActor *, Eng1Bounds3D *, eng1_u32);",
+    "extern int __cdecl bounds_overlap(Eng1Bounds3D *, Eng1Bounds3D *);",
+    "extern void __cdecl eng1_native_code_target_00266a0(Eng1CallbackActor *, eng1_u32, eng1_u32);",
+    "extern int __cdecl eng1_native_code_target_002a810(eng1_u32, eng1_u32, eng1_u32, void *);",
+    "extern int __cdecl eng1_native_code_target_002aa30(Eng1CallbackActor *, eng1_u32, eng1_u32);",
+    "extern void __cdecl eng1_native_code_target_0028820(Eng1CallbackActor *);",
+    "extern void __cdecl append_chain(Eng1CallbackActor *, Eng1CallbackActor *);",
+    "extern void __cdecl apply_frame_motion_2d(Eng1CallbackActor *);",
+    "extern void __cdecl advance_frame(Eng1CallbackActor *);",
+    "extern void __cdecl restart_steps(Eng1CallbackActor *);",
+    "extern void __cdecl select_frame(Eng1CallbackActor *, int);",
+    "extern void __cdecl advance_planar_motion(Eng1CallbackActor *);",
+    "extern void __cdecl reset_frame_state(Eng1CallbackActor *);",
+    "extern int __cdecl remove_actor(Eng1CallbackActor *);",
+    "extern int __cdecl remove_actor_variant(Eng1CallbackActor *);"
+  ],
+  "nested_dependency_notes": [
+    {
+      "symbol": "eng1_native_code_target_00283e0",
+      "target_rva": "0x283e0",
+      "candidate_prototype": "void __cdecl eng1_native_code_target_00283e0(Eng1CallbackActor *)",
+      "native_evidence": "Interpreter entry saves EBX/EBP/ESI then reads [ESP+0x10] as its first argument; callback sites 0x10f0:0x1131 and 0x13c0:0x1401 each push ESI before call and add ESP,4 afterward. EAX is unused at these callers.",
+      "status": "body remains unresolved; one-pointer cdecl Actor* call is corrected and evidenced."
+    },
+    {
+      "symbol": "dispatch_engine_2c460",
+      "candidate_prototype": "unsigned int __cdecl dispatch_engine_2c460(int)",
+      "provider": "src/eng1/behavioral/host_control_wrappers.c",
+      "status": "existing source provider; bound-4 call contract supplies index 0..3."
+    }
+  ],
+  "state_map": {
+    "symbol": "g_actor_state_map_004d6ec",
+    "candidate_source": "candidates/eng1_default_callbacks/default_storage.c",
+    "type": "unsigned char[8]",
+    "rva_start": "0x4d6ec",
+    "rva_end_exclusive": "0x4d6f4",
+    "bytes_hex": "ff 00 01 02 ff 05 06 07",
+    "consumers": [
+      {
+        "callback_rva": "0x1040",
+        "producer": "dispatch_engine_2c460(4)",
+        "byte_address": "0x4d6ec + EAX",
+        "under_provider_contract": "offsets 0..3",
+        "destination": "actor byte offset 0x1c"
+      },
+      {
+        "callback_rva": "0x1310",
+        "producer": "dispatch_engine_2c460(4)",
+        "byte_address": "0x4d6f0 + EAX",
+        "under_provider_contract": "offsets 4..7",
+        "destination": "actor byte offset 0x1c"
+      }
+    ],
+    "read_bounds": "Target callbacks do not mask or clamp EAX before indexed loads. Ranges 0..3 and 4..7 follow from the measured bound-4 provider contract; no wider read is claimed.",
+    "adjacency": "Immediately follows measured frame-array prefix ending at 0x4d6ec and precedes next data boundary at 0x4d6f8; no overlap or earlier descriptor trailing DWORD is claimed.",
+    "field_manifest": "work/eng1_default_callbacks/field_manifest.json",
+    "fresh_vc5_data_verification": "work/eng1_default_callbacks/storage_verification.json"
+  },
+  "fresh_build": {
+    "receipt": "work/eng1_default_callbacks/fresh_compile_receipt.json",
+    "toolchain": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+    "compile_exit_code": 0,
+    "fixture_exit_code": 0,
+    "fixture_stdout": "ENG1 default callback fixture passed",
+    "unresolved_object_symbol_count": 33,
+    "unresolved_object_symbols": [
+      "_advance_frame",
+      "_advance_planar_motion",
+      "_append_chain",
+      "_apply_frame_motion_2d",
+      "_bounds_overlap",
+      "_dispatch_engine_2c460",
+      "_eng1_native_code_target_0019b40",
+      "_eng1_native_code_target_001ab50",
+      "_eng1_native_code_target_00266a0",
+      "_eng1_native_code_target_0026de0",
+      "_eng1_native_code_target_00283e0",
+      "_eng1_native_code_target_0028820",
+      "_eng1_native_code_target_0029670",
+      "_eng1_native_code_target_0029c20",
+      "_eng1_native_code_target_002a170",
+      "_eng1_native_code_target_002a290",
+      "_eng1_native_code_target_002a710",
+      "_eng1_native_code_target_002a810",
+      "_eng1_native_code_target_002a880",
+      "_eng1_native_code_target_002a9e0",
+      "_eng1_native_code_target_002aa30",
+      "_eng1_native_code_target_0030290",
+      "_g_actor_state_map_004d6ec",
+      "_g_actor_worklist_716c0",
+      "_g_configuration_dword_713bc",
+      "_g_engine_interface",
+      "_g_native_pointer_7217c",
+      "_g_native_word_72168",
+      "_remove_actor",
+      "_remove_actor_variant",
+      "_reset_frame_state",
+      "_restart_steps",
+      "_select_frame"
+    ],
+    "dependency_notes": {
+      "dispatch_engine_2c460": "Existing ENG1 copied-interface provider in src/eng1/behavioral/host_control_wrappers.c; candidate fixtures replace it with a bounded spy.",
+      "g_actor_state_map_004d6ec": "Provided by private default_storage.c and separately checked against eight target bytes.",
+      "eng1_native_code_target_00283e0": "Unrecovered helper body; corrected cdecl Actor* argument follows 0x10f0/0x13c0 push sites and interpreter entry.",
+      "remaining_RVA_helpers_and_global_cells": "Retained as explicit object dependencies; candidate source supplies no guessed storage or helper bodies."
+    },
+    "comparison_limit": "All eight target diagnostic spans differ in the fresh object. Equality of candidate size to inventory span is not a function match or module-layout claim; see per-function diagnostics in the receipt."
+  },
+  "existing_source_fixture_regression": {
+    "receipt": "work/eng1_default_callbacks/existing_fixtures/report.json",
+    "fixture_count": 11,
+    "all_compile_and_run_exit_codes_zero": true,
+    "scope": "existing adopted-source fixture suite; no target execution or whole-DLL validation."
+  }
+}

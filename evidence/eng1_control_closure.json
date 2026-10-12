@@ -1,0 +1,405 @@
+{
+  "scope": "Private source/provider closure for ENG1 0x6005 and 0x60f9; no canonical edits, recovery promotion, reconstruction, or byte-match claim.",
+  "inventory_caveat": "The current start inventory has one coarse 0x5ea0 entry sized 3840 and no separate rows at 0x6005/0x60f9. The engine-dispatch call targets and reviewed control contract support the two callable entry RVAs; do not treat the aliases as inventory/TU extent repair or recovery promotion.",
+  "source_functions": [
+    {
+      "rva": "0x6005",
+      "required_dispatch_symbol": "dispatch_local_06005",
+      "provider_symbol": "context_sequence_step",
+      "provider_source": "calibration/engine_context_sequence.c",
+      "signature": "void __cdecl (void)",
+      "build_alias": "/Ddispatch_local_06005=context_sequence_step",
+      "evidence": [
+        "evidence/engine_dispatch_region.json",
+        "work/root_fx_prefix_unit_39/adoption.json"
+      ],
+      "limits": "Prior complete two-function inferred-unit diagnostic places this symbol at section offset 0; not an accepted function/TU/source-identity proof."
+    },
+    {
+      "rva": "0x60f9",
+      "required_dispatch_symbol": "dispatch_local_060f9",
+      "provider_symbol": "runtime_control",
+      "provider_source": "calibration/engine_control.c",
+      "signature": "int __cdecl (void)",
+      "build_alias": "/Ddispatch_local_060f9=runtime_control",
+      "evidence": [
+        "evidence/engine_control_contract.json",
+        "work/root_fx_prefix_unit_39/adoption.json"
+      ],
+      "limits": "Physical no-argument int return is supported by sole caller 0x20656. Prior complete two-function inferred-unit diagnostic places this symbol at section offset 244; not an accepted function/TU/source-identity proof."
+    }
+  ],
+  "diagnostic_unit": {
+    "toolchain": "msvc5_rtm",
+    "ordered_sources": [
+      "calibration/engine_context_sequence.c",
+      "calibration/engine_control.c"
+    ],
+    "prior_flags": [
+      "/nologo",
+      "/c",
+      "/Od",
+      "/ML",
+      "/Icalibration"
+    ],
+    "section_bytes": 1127,
+    "function_offsets": {
+      "context_sequence_step": 0,
+      "runtime_control": 244
+    },
+    "comparison": "complete inferred .text contribution relocation-masked equal to ENG1 interval at 0x6005; diagnostic only",
+    "limits": "Observed 1127-byte interval extends through embedded tables to 0x646c; original COFF/TU boundary and original compiler flags remain unproved. Do not carry /Od or /ML as historical facts."
+  },
+  "build_config_additions": {
+    "additional_sources": [
+      {
+        "source": "calibration/engine_context_sequence.c",
+        "flags": [
+          "/O2"
+        ],
+        "evidence": "evidence/engine_dispatch_region.json"
+      },
+      {
+        "source": "calibration/engine_control.c",
+        "flags": [
+          "/O2"
+        ],
+        "evidence": "evidence/engine_control_contract.json"
+      }
+    ],
+    "symbol_aliases": {
+      "dispatch_local_06005": {
+        "provider": "context_sequence_step",
+        "original_rva": "0x6005",
+        "evidence": "evidence/engine_dispatch_region.json; work/root_fx_prefix_unit_39/adoption.json",
+        "confidence": "observed_same_PC_entry_and_diagnostic_offset",
+        "limits": "No function-level raw-equality or source/TU claim."
+      },
+      "dispatch_local_060f9": {
+        "provider": "runtime_control",
+        "original_rva": "0x60f9",
+        "evidence": "evidence/engine_control_contract.json; work/root_fx_prefix_unit_39/adoption.json",
+        "confidence": "observed_same_PC_entry_and_diagnostic_offset",
+        "limits": "No function-level raw-equality or source/TU claim."
+      },
+      "g_control_threshold": {
+        "provider": "g_frame_word_6ee84",
+        "original_rva": "0x6ee84",
+        "evidence": "src/eng1/behavioral/frame_data.c; work/fx_prefix_runtime_unit_39/measurement.json",
+        "confidence": "same_cell_address_and_width",
+        "limits": "Observed signed 16-bit read; original source name/TU unproved."
+      },
+      "g_control_global_71ec0": {
+        "provider": "g_dispatch_callback_flag_71ec0",
+        "original_rva": "0x71ec0",
+        "evidence": "src/eng1/behavioral/frame_data.c; work/fx_prefix_runtime_unit_39/measurement.json",
+        "confidence": "same_cell_address_and_width",
+        "limits": "Observed 32-bit cell; no aggregate/TU claim."
+      },
+      "host_cancel": {
+        "provider": "engine_file_cancel",
+        "original_rva": "0x2c260",
+        "evidence": "evidence/engine_file_bridge_region.json; evidence/engine_control_contract.json",
+        "confidence": "verified_same_PC_entry_identity",
+        "limits": "Runtime-control callers ignore the wrapper's EAX result; zero-argument physical call."
+      },
+      "host_free_allocation": {
+        "provider": "dispatch_engine_2c2d0",
+        "original_rva": "0x2c2d0",
+        "evidence": "evidence/frame_lifecycle_bridges_region.json; evidence/engine_control_contract.json",
+        "confidence": "verified_same_PC_entry_identity",
+        "limits": "One physical pointer argument; source formal type remains bounded to observed ABI."
+      },
+      "resource_cleanup": {
+        "provider": "dispatch_local_1f220",
+        "original_rva": "0x1f220",
+        "evidence": "evidence/frame_bootstrap_family_region.json; evidence/engine_control_contract.json",
+        "confidence": "verified_same_PC_entry_identity",
+        "limits": "Zero-argument call."
+      },
+      "host_register_callback_a": {
+        "provider": "dispatch_engine_2c640",
+        "original_rva": "0x2c640",
+        "evidence": "evidence/frame_lifecycle_bridges_region.json; evidence/engine_control_contract.json",
+        "confidence": "verified_same_PC_entry_identity",
+        "limits": "One callback argument; return ignored by caller."
+      },
+      "host_register_callback_b": {
+        "provider": "dispatch_engine_2cc40",
+        "original_rva": "0x2cc40",
+        "evidence": "evidence/dispatcher_bridges_region.json; evidence/engine_control_contract.json",
+        "confidence": "verified_same_PC_entry_identity",
+        "limits": "One callback argument; return ignored by caller."
+      },
+      "host_reset_resource": {
+        "provider": "dispatch_engine_2c630",
+        "original_rva": "0x2c630",
+        "evidence": "evidence/dispatcher_bridges_region.json; evidence/engine_control_contract.json",
+        "confidence": "verified_same_PC_entry_identity",
+        "limits": "One physical DWORD argument."
+      },
+      "host_clean": {
+        "provider": "dispatch_engine_2cc30",
+        "original_rva": "0x2cc30",
+        "evidence": "evidence/dispatcher_bridges_region.json; evidence/engine_control_contract.json",
+        "confidence": "verified_same_PC_entry_identity",
+        "limits": "One physical DWORD argument."
+      },
+      "host_poll": {
+        "provider": "dispatch_engine_2c270",
+        "original_rva": "0x2c270",
+        "evidence": "evidence/dispatcher_bridges_region.json; evidence/engine_control_contract.json",
+        "confidence": "verified_same_PC_entry_identity",
+        "limits": "Zero-argument call."
+      }
+    }
+  },
+  "data_provider_closure": [
+    {
+      "semantic_name": "g_engine_interface",
+      "rva": "0x70f20",
+      "provider": "calibration/engine_interface_storage.c:g_engine_interface",
+      "state": "existing_current_graph",
+      "note": "Context pointer is member context_004 at +4; do not declare an overlapping independent context pointer."
+    },
+    {
+      "semantic_name": "g_actor_resources",
+      "rva": "0x5cee0",
+      "provider": "calibration/resource_data.c:g_actor_resources",
+      "state": "existing_current_graph"
+    },
+    {
+      "semantic_name": "g_control_threshold",
+      "rva": "0x6ee84",
+      "provider": "src/eng1/behavioral/frame_data.c:g_frame_word_6ee84",
+      "state": "existing_current_graph",
+      "width": 2
+    },
+    {
+      "semantic_name": "g_control_global_71ec0",
+      "rva": "0x71ec0",
+      "provider": "src/eng1/behavioral/frame_data.c:g_dispatch_callback_flag_71ec0",
+      "state": "existing_current_graph",
+      "width": 4
+    },
+    {
+      "semantic_name": "g_context_sequence_phase",
+      "rva": "0x6eee4",
+      "state": "missing_storage_provider",
+      "observed_access": "DWORD"
+    },
+    {
+      "semantic_name": "g_context_sequence_index",
+      "rva": "0x6eee8",
+      "state": "missing_storage_provider",
+      "observed_access": "DWORD"
+    },
+    {
+      "semantic_name": "g_context_sequence_words",
+      "rva": "0x6eeec",
+      "state": "missing_storage_provider",
+      "observed_access": "32-bit pointer; points to WORD sequence data"
+    },
+    {
+      "semantic_name": "g_control_forwarded_value",
+      "rva": "0x4d968",
+      "state": "missing_storage_provider",
+      "observed_access": "DWORD value forwarded as physical second argument"
+    },
+    {
+      "semantic_name": "g_control_argument_prefix",
+      "rva": "0x6eef8",
+      "state": "missing_storage_provider",
+      "observed_access": "three first-argument addresses at 0x6eef8, 0x6eefc, 0x6ef00; zero-filled prefix starts",
+      "limits": "Treat as one potentially contiguous prefix if constructing storage; three independent arrays/capacities and total extent are not proven."
+    }
+  ],
+  "runtime_control_callees": [
+    {
+      "rva": "0x38d0",
+      "semantic": "resource_destroy",
+      "provider": "calibration/resource_destroy.c:resource_destroy",
+      "state": "existing_current_graph"
+    },
+    {
+      "rva": "0x2c260",
+      "semantic": "host_cancel",
+      "provider": "calibration/engine_file_bridge.c:engine_file_cancel",
+      "state": "existing_current_graph",
+      "host_target": "EXE 0x3ea0 / interface slot 9"
+    },
+    {
+      "rva": "0x1f6a0",
+      "semantic": "resource_reclaim",
+      "provider": "calibration/engine_dependency_bridges.c:resource_reclaim",
+      "state": "existing_current_graph"
+    },
+    {
+      "rva": "0x2c210",
+      "semantic": "host_two_argument",
+      "state": "missing_ENG1_wrapper",
+      "host_target": "EXE 0xa340 / interface slot 7"
+    },
+    {
+      "rva": "0x2c2d0",
+      "semantic": "host_free_allocation",
+      "provider": "calibration/frame_lifecycle_bridges.c:dispatch_engine_2c2d0",
+      "state": "existing_current_graph",
+      "host_target": "EXE 0x4750 / interface slot 16"
+    },
+    {
+      "rva": "0x1f220",
+      "semantic": "resource_cleanup",
+      "provider": "calibration/frame_bootstrap_family.c:dispatch_local_1f220",
+      "state": "existing_current_graph"
+    },
+    {
+      "rva": "0x646c",
+      "semantic": "resource_helper_646c",
+      "state": "missing_ENG1_body"
+    },
+    {
+      "rva": "0x2c580",
+      "semantic": "host_worker",
+      "state": "missing_ENG1_wrapper",
+      "host_target": "EXE 0x1610 / interface slot 57"
+    },
+    {
+      "rva": "0x2c370",
+      "semantic": "host_two_argument_update",
+      "state": "missing_ENG1_wrapper",
+      "host_target": "EXE 0x4040 / interface slot 25"
+    },
+    {
+      "rva": "0x2c640",
+      "semantic": "host_register_callback_a",
+      "provider": "calibration/frame_lifecycle_bridges.c:dispatch_engine_2c640",
+      "state": "existing_current_graph",
+      "host_target": "EXE 0xbda0 / interface slot 92"
+    },
+    {
+      "rva": "0x2cc40",
+      "semantic": "host_register_callback_b",
+      "provider": "calibration/dispatcher_bridges.c:dispatch_engine_2cc40",
+      "state": "existing_current_graph",
+      "host_target": "EXE 0xbdd0 / interface slot 249"
+    },
+    {
+      "rva": "0x2c630",
+      "semantic": "host_reset_resource",
+      "provider": "calibration/dispatcher_bridges.c:dispatch_engine_2c630",
+      "state": "existing_current_graph",
+      "host_target": "EXE 0xa340 / interface slot 91"
+    },
+    {
+      "rva": "0x2cc30",
+      "semantic": "host_clean",
+      "provider": "calibration/dispatcher_bridges.c:dispatch_engine_2cc30",
+      "state": "existing_current_graph",
+      "host_target": "EXE 0xac10 / interface slot 248"
+    },
+    {
+      "rva": "0x8117",
+      "semantic": "engine_init",
+      "state": "missing_ENG1_body"
+    },
+    {
+      "rva": "0x256a0",
+      "semantic": "engine_shutdown",
+      "state": "missing_ENG1_body"
+    },
+    {
+      "rva": "0x2c270",
+      "semantic": "host_poll",
+      "provider": "calibration/dispatcher_bridges.c:dispatch_engine_2c270",
+      "state": "existing_current_graph",
+      "host_target": "EXE 0x3f00 / interface slot 11"
+    },
+    {
+      "rva": "0x666b",
+      "semantic": "resource_test",
+      "state": "missing_ENG1_body"
+    },
+    {
+      "rva": "0x2c430",
+      "semantic": "host_busy_callback",
+      "state": "missing_ENG1_wrapper",
+      "host_target": "EXE 0xbe30 / interface slot 34"
+    },
+    {
+      "rva": "0x2c200",
+      "semantic": "host_zero_argument",
+      "state": "missing_ENG1_wrapper",
+      "host_target": "EXE 0xbe30 / interface slot 6"
+    },
+    {
+      "semantic": "context.load_failed",
+      "state": "indirect_callback_from_live_context_member",
+      "abi": "physical DWORD argument, caller cleans 4 bytes",
+      "note": "No standalone ENG1 body RVA; invoked through EngineInterface.context_004->load_failed."
+    }
+  ],
+  "current_unresolved_dispatcher_source_candidates": [
+    {
+      "rva": "0x2fb70",
+      "symbol": "dispatch_local_2fb70",
+      "source": "work/eng1_behavioral/render_map/camera.c",
+      "state": "existing_private_candidate",
+      "evidence": "work/eng1_behavioral/render_map/build_receipt.json",
+      "limits": "Buildable source candidate, not accepted; depends on render-map providers."
+    },
+    {
+      "rva": "0x2f840",
+      "symbol": "dispatch_local_2f840",
+      "source": "work/eng1_behavioral/render_map/camera.c",
+      "state": "existing_private_candidate",
+      "evidence": "work/eng1_behavioral/render_map/build_receipt.json",
+      "limits": "Buildable source candidate, not accepted; depends on render-map providers."
+    },
+    {
+      "rva": "0x2da90",
+      "symbol": "dispatch_local_2da90",
+      "source": "work/eng1_behavioral/render_map/mesh_traversal.c",
+      "state": "existing_private_candidate",
+      "limits": "Same-name body exists; current ENG1 graph unresolved, verify its local dependency closure before adding."
+    },
+    {
+      "rva": "0x83d3",
+      "symbol": "dispatch_local_083d3",
+      "source": "evidence/fx_followup_controls_2026_10_11.json:successful_source_text",
+      "state": "embedded_private_recipe",
+      "limits": "Recipe includes an empty function body for this dispatcher entry; it is not a standalone source file or accepted function proof."
+    }
+  ],
+  "unresolved_dispatcher_bodies_without_same_name_source_found": [
+    "0x2180",
+    "0x2f30",
+    "0x3270",
+    "0x3470",
+    "0x34d0",
+    "0x3a50",
+    "0x5710",
+    "0x5d50",
+    "0x5dc0",
+    "0x5ea0",
+    "0x6005",
+    "0x60f9",
+    "0x666b",
+    "0xe670",
+    "0x15090",
+    "0x156a0",
+    "0x1f6f0",
+    "0x1f750",
+    "0x1f870",
+    "0x1fd90",
+    "0x255f0",
+    "0x25620",
+    "0x256e0",
+    "0x258e0",
+    "0x25d00",
+    "0x262a0",
+    "0x32b10",
+    "0x32bd0"
+  ],
+  "private_search_scope": "Exact-name provider search over canonical src/, calibration/, and work/eng1_behavioral C sources; it found the three render-map candidates above. Other names found in these trees were declarations/calls only; this is not an exhaustive alternate-semantic-name audit."
+}

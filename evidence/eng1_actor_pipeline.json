@@ -1,0 +1,58 @@
+{
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "source": "src/eng1/behavioral/actor_pipeline.c",
+  "functions": [
+    "0x255f0",
+    "0x25620",
+    "0x256a0",
+    "0x256e0",
+    "0x258e0",
+    "0x25d00",
+    "0x262a0"
+  ],
+  "native_pool_strides": {
+    "normal": "0x134",
+    "middle": "0xec",
+    "alternate": "0x94"
+  },
+  "callbacks": {
+    "0x71370": "12-byte rows; slots+4/+8",
+    "0x7137c": "8-byte rows; slot+4",
+    "0x7139c": "8-byte rows; slot+4"
+  },
+  "state_snapshot": "81 resource residency bytes at0x719c0",
+  "limits": [
+    "No runtime or differential verification yet.",
+    "Count-plus-pointer worklists are external until ownership is measured.",
+    "0x262a0 preserves native unchecked actor+0x38 kind indexing; current kind provider proves row0 only."
+  ],
+  "reproduce": "python scripts/eng1_behavioral.py",
+  "corrected_divergence": {
+    "rva": "0x258e0",
+    "native_first_lookup": "25916 SHLECX4;25919 MOVSX WORD[ECX+5a848], byteoffset",
+    "native_second_lookup": "25956 MOVSX WORD[EAX*2+5a848], SHORTindex",
+    "previous_source_failure": "First lookup treatedbyteoffsetasSHORTindex, doublingaddress.",
+    "correction": "First SHORTindex=(tick&7f)<<3; secondunchanged.",
+    "validation": "Staticinstructiondataflowproof; bounded nativepipeline differentialpending."
+  },
+  "corrected_clear_order": {
+    "native_rvas": [
+      "0x25932",
+      "0x25941",
+      "0x25948",
+      "0x2594f",
+      "0x2595e",
+      "0x25964"
+    ],
+    "writes": [
+      "WORD71ca0=0",
+      "WORD71740=0",
+      "WORD71720=0",
+      "WORD71cc0=0",
+      "WORD71c60=0",
+      "DWORD71680=0"
+    ],
+    "before_call": "0x26480",
+    "validation": "Native instruction proof; poisoned-state differential pending."
+  }
+}

@@ -1,0 +1,818 @@
+{
+  "scope": "Compact PC static pipeline and current partial behavioral source graph. No playable/source-complete/runtime-equivalent claim; recovery.json remains sole function recovery authority.",
+  "evidence_sha256": {
+    "evidence/engine_dispatch_contract.json": "0f7a0b05a7f15a0cc82515e076a56f65319bd6ff8580b6af184cb38e7a7bfe6d",
+    "evidence/engine_interface_binding.json": "14d9953831bf8788a7f44eb170806de745d1275dc0a7bdd1f7e6d4d5714fdc3f",
+    "evidence/engine_file_bridge_contract.json": "d5562049dc46a36eb24663268c26fd0f4ac99608e5d9f288a7ee743576aa7700",
+    "evidence/eng1_behavioral_build.json": "46e6c1e7874710c50e2535e907a491b6a371336ce57625699da2c93fdfae2ac9",
+    "evidence/eng1_config_tables.json": "4b1d71c20b268c55c785971eb45dd9f14c2c374a3a140f09d622dee0cbcb3aab",
+    "evidence/eng1_runtime_color.json": "c3148906d0d85eaeda269437700f4c260dcb4e40c26c50e421e53d75075a5057",
+    "evidence/eng1_actor_pipeline.json": "52d97a561f02440084350f64956b5646078766f618a3cdc9c05fa09bacfbd663",
+    "evidence/eng1_geometry.json": "fff1b17a076e6c7212e764122700a9cda715db43793badbfcfb000bf19e35391",
+    "evidence/eng1_camera.json": "42f52814b488bedabba5bfe41694fb43e7768e8c79457723de1d371eece46ecc",
+    "evidence/eng1_audio.json": "211e976b647039810b67d80a945fef86e3bd210a0cf99573efc0b17ca8e983ec",
+    "evidence/eng1_behavioral_validation.json": "f9b1b25a8295b0515cf51e4bd5ce33ff3fa2d22150d5954921536546400ee473",
+    "evidence/eng1_native_behavioral_validation.json": "8f70168a7958c2fdf661d75663db586fa6b3b190d756a74858396f0fb32564ed"
+  },
+  "oracles": {
+    "ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "HERCULES.EXE": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "snapshot": {
+    "link_exit_code": 25,
+    "inventory_count": 1219,
+    "recorded_source_count": 116,
+    "mapped_compiled_function_count": 286,
+    "compiled_provider_rva_count": 296,
+    "compiled_function_symbols": 308,
+    "existing_evidence_counts": {
+      "FUNCTION_MATCH": 76,
+      "CODEGEN_SIMILAR": 39,
+      "RECONSTRUCTED": 1
+    },
+    "runtime_integration": "not executed",
+    "unresolved_symbols": 565,
+    "preserved_strict_instances": 76,
+    "inventory_limit": "1219 diagnostic starts/leads, not complete reviewed functions or playable-coverage denominator.",
+    "playable": false,
+    "source_complete": false,
+    "explicit_incomplete_branches": 55,
+    "compiled_source_units": 125
+  },
+  "entry": {
+    "rva": "0x2c180",
+    "export": "PC_DLLEngineMain",
+    "ordinal": 1,
+    "physical_ABI": "cdecl(const EngineInterface*,unsigned32 flags); caller ignores EAX",
+    "copy": {
+      "dwords": 250,
+      "bytes": 1000,
+      "destination_rva": "0x70f20",
+      "signature": "0x5ac00cac",
+      "copy_before_signature_check": true
+    },
+    "gate": {
+      "rva": "0x5b648",
+      "width": 4,
+      "initial": 1,
+      "cleared_after_arena_callback": true
+    },
+    "source_read_correction": {
+      "memory_load_rva": "0x2c1ad",
+      "memory_load_count": 1,
+      "loop_test_rva": "0x2c1b1",
+      "backedge_rva": "0x2c1bb",
+      "backedge_target": "0x2c1b1",
+      "captured_value_tests": 250,
+      "volatile_reread_supported": false
+    },
+    "warm": [
+      "Retain copied interface; ignore source argument.",
+      "Call host update.",
+      "Reload copied context and store full DWORD flags&1 at+0x40.",
+      "Call dispatcher 20300."
+    ]
+  },
+  "phase_roots": {
+    "cold_initial": [
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x83d3",
+        "compiled_definition": true,
+        "source": "src/eng1/behavioral/audio_behavior.c",
+        "symbol": "_dispatch_local_083d3",
+        "existing_recovery_status": null,
+        "behavioral_verification": "unverified",
+        "extent_review_required": true
+      },
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x1f0f0",
+        "compiled_definition": true,
+        "source": "calibration/frame_bootstrap_family.c",
+        "symbol": "_dispatch_local_1f0f0",
+        "existing_recovery_status": null,
+        "behavioral_verification": "plausible_unverified",
+        "extent_review_required": false
+      },
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x1f750",
+        "compiled_definition": true,
+        "source": "src/eng1/behavioral/startup_frame_helpers.c",
+        "symbol": "_dispatch_local_1f750",
+        "existing_recovery_status": null,
+        "behavioral_verification": "plausible_with_source_semantic_fixtures",
+        "extent_review_required": false
+      },
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x32b10",
+        "compiled_definition": false,
+        "source": null,
+        "symbol": null,
+        "existing_recovery_status": null,
+        "behavioral_verification": "unverified",
+        "extent_review_required": false
+      },
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x255f0",
+        "compiled_definition": true,
+        "source": "src/eng1/behavioral/actor_pipeline.c",
+        "symbol": "_dispatch_local_255f0",
+        "existing_recovery_status": null,
+        "behavioral_verification": "plausible_unverified",
+        "extent_review_required": false
+      },
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x5ea0",
+        "compiled_definition": true,
+        "source": "src/eng1/behavioral/cold_sequence_setup.c",
+        "symbol": "_dispatch_local_05ea0",
+        "existing_recovery_status": null,
+        "behavioral_verification": "plausible_with_source_semantic_fixtures",
+        "extent_review_required": false
+      }
+    ],
+    "restart": [
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x1f320",
+        "compiled_definition": true,
+        "source": "calibration/frame_bootstrap_family.c",
+        "symbol": "_dispatch_local_1f320",
+        "existing_recovery_status": null,
+        "behavioral_verification": "plausible_unverified",
+        "extent_review_required": false
+      }
+    ],
+    "warm_iteration": [
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x6005",
+        "compiled_definition": true,
+        "source": "calibration/engine_context_sequence.c",
+        "symbol": "_context_sequence_step",
+        "existing_recovery_status": null,
+        "behavioral_verification": "unverified",
+        "extent_review_required": true
+      },
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x2180",
+        "compiled_definition": true,
+        "source": "src/eng1/behavioral/level_loading.c",
+        "symbol": "_dispatch_local_02180",
+        "existing_recovery_status": null,
+        "behavioral_verification": "plausible_unverified",
+        "extent_review_required": false
+      },
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x1f870",
+        "compiled_definition": true,
+        "source": "src/eng1/behavioral/startup_frame_helpers.c",
+        "symbol": "_dispatch_local_1f870",
+        "existing_recovery_status": null,
+        "behavioral_verification": "plausible_with_source_semantic_fixtures",
+        "extent_review_required": false
+      },
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x258e0",
+        "compiled_definition": true,
+        "source": "src/eng1/behavioral/actor_pipeline.c",
+        "symbol": "_dispatch_local_258e0",
+        "existing_recovery_status": null,
+        "behavioral_verification": "behaviorally_validated_limited",
+        "extent_review_required": false
+      },
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x25d00",
+        "compiled_definition": true,
+        "source": "src/eng1/behavioral/actor_pipeline.c",
+        "symbol": "_dispatch_local_25d00",
+        "existing_recovery_status": null,
+        "behavioral_verification": "plausible_unverified",
+        "extent_review_required": false
+      },
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x34d0",
+        "compiled_definition": true,
+        "source": "src/eng1/behavioral/level_loading.c",
+        "symbol": "_dispatch_local_034d0",
+        "existing_recovery_status": null,
+        "behavioral_verification": "plausible_unverified",
+        "extent_review_required": false
+      },
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x156a0",
+        "compiled_definition": false,
+        "source": null,
+        "symbol": null,
+        "existing_recovery_status": null,
+        "behavioral_verification": "unverified",
+        "extent_review_required": false
+      },
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x1fd90",
+        "compiled_definition": false,
+        "source": null,
+        "symbol": null,
+        "existing_recovery_status": null,
+        "behavioral_verification": "unverified",
+        "extent_review_required": true
+      },
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x2fb70",
+        "compiled_definition": true,
+        "source": "src/eng1/behavioral/camera.c",
+        "symbol": "_dispatch_local_2fb70",
+        "existing_recovery_status": null,
+        "behavioral_verification": "plausible_with_source_semantic_fixtures",
+        "extent_review_required": false
+      },
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x2f840",
+        "compiled_definition": true,
+        "source": "src/eng1/behavioral/camera.c",
+        "symbol": "_dispatch_local_2f840",
+        "existing_recovery_status": null,
+        "behavioral_verification": "plausible_with_source_semantic_fixtures",
+        "extent_review_required": false
+      },
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x2da90",
+        "compiled_definition": true,
+        "source": "src/eng1/behavioral/mesh_traversal.c",
+        "symbol": "_dispatch_local_2da90",
+        "existing_recovery_status": null,
+        "behavioral_verification": "plausible_with_source_semantic_fixtures",
+        "extent_review_required": false
+      },
+      {
+        "module": "ENG1.DLL",
+        "rva": "0x60f9",
+        "compiled_definition": true,
+        "source": "calibration/engine_control.c",
+        "symbol": "_runtime_control",
+        "existing_recovery_status": null,
+        "behavioral_verification": "unverified",
+        "extent_review_required": true
+      }
+    ],
+    "limits": "Selected runtime-critical roots, not a complete callgraph; exact order is engine_dispatch_contract.json. Missing bodies hide downstream dependencies."
+  },
+  "stages": [
+    {
+      "id": "entry",
+      "relationship_scope": "verified_PC_ABI",
+      "relationship": "Copies host table; cold initialization and warm retention.",
+      "functions": [
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2c180",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/entry.c",
+          "symbol": "_PC_DLLEngineMain",
+          "existing_recovery_status": null,
+          "behavioral_verification": "behaviorally_validated_limited",
+          "extent_review_required": false
+        }
+      ],
+      "source_status_limit": "Compiled definition and static PC relationships do not establish end-to-end runtime behavior."
+    },
+    {
+      "id": "dispatcher",
+      "relationship_scope": "verified_PC_orchestration",
+      "relationship": "Initial/restart/warm phase order and live callback context.",
+      "functions": [
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x20300",
+          "compiled_definition": true,
+          "source": "calibration/engine_dispatch.c",
+          "symbol": "_engine_dispatch",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_unverified",
+          "extent_review_required": false
+        }
+      ],
+      "source_status_limit": "Compiled definition and static PC relationships do not establish end-to-end runtime behavior."
+    },
+    {
+      "id": "frame_setup",
+      "relationship_scope": "verified_PC_dataflow",
+      "relationship": "One 0x2910 allocation, two 0x1488-stride frame views.",
+      "functions": [
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x1f0f0",
+          "compiled_definition": true,
+          "source": "calibration/frame_bootstrap_family.c",
+          "symbol": "_dispatch_local_1f0f0",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_unverified",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x1f320",
+          "compiled_definition": true,
+          "source": "calibration/frame_bootstrap_family.c",
+          "symbol": "_dispatch_local_1f320",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_unverified",
+          "extent_review_required": false
+        }
+      ],
+      "source_status_limit": "Compiled definition and static PC relationships do not establish end-to-end runtime behavior."
+    },
+    {
+      "id": "frame_reset",
+      "relationship_scope": "verified_PC_dataflow",
+      "relationship": "Initializes current+88 chain; resets primitive pool cursor.",
+      "functions": [
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x5600",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/frame_commands.c",
+          "symbol": "_dispatch_local_05600",
+          "existing_recovery_status": null,
+          "behavioral_verification": "behaviorally_validated_limited",
+          "extent_review_required": false
+        }
+      ],
+      "source_status_limit": "Compiled definition and static PC relationships do not establish end-to-end runtime behavior."
+    },
+    {
+      "id": "simulation",
+      "relationship_scope": "verified_PC_call_edges",
+      "relationship": "Object/handler dispatch relationships. Detailed gameplay meaning remains incomplete.",
+      "functions": [
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x258e0",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/actor_pipeline.c",
+          "symbol": "_dispatch_local_258e0",
+          "existing_recovery_status": null,
+          "behavioral_verification": "behaviorally_validated_limited",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x25d00",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/actor_pipeline.c",
+          "symbol": "_dispatch_local_25d00",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_unverified",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x262a0",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/actor_pipeline.c",
+          "symbol": "_dispatch_local_262a0",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_unverified",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x34d0",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/level_loading.c",
+          "symbol": "_dispatch_local_034d0",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_unverified",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x156a0",
+          "compiled_definition": false,
+          "source": null,
+          "symbol": null,
+          "existing_recovery_status": null,
+          "behavioral_verification": "unverified",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x1fd90",
+          "compiled_definition": false,
+          "source": null,
+          "symbol": null,
+          "existing_recovery_status": null,
+          "behavioral_verification": "unverified",
+          "extent_review_required": true
+        }
+      ],
+      "source_status_limit": "Compiled definition and static PC relationships do not establish end-to-end runtime behavior."
+    },
+    {
+      "id": "camera",
+      "relationship_scope": "verified_PC_arithmetic",
+      "relationship": "Uses actor/camera cells; sends host projection center/focal state. Camera naming is an interpretation.",
+      "functions": [
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2fb70",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/camera.c",
+          "symbol": "_dispatch_local_2fb70",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_with_source_semantic_fixtures",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2f840",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/camera.c",
+          "symbol": "_dispatch_local_2f840",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_with_source_semantic_fixtures",
+          "extent_review_required": false
+        }
+      ],
+      "source_status_limit": "Compiled definition and static PC relationships do not establish end-to-end runtime behavior."
+    },
+    {
+      "id": "geometry",
+      "relationship_scope": "verified_PC_dataflow",
+      "relationship": "Mesh decoding/transform/culling and linked 40-byte code 2C or 52-byte code 3C packet production.",
+      "functions": [
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2da90",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/mesh_traversal.c",
+          "symbol": "_dispatch_local_2da90",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_with_source_semantic_fixtures",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2df20",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/mesh_emit.c",
+          "symbol": "_dispatch_local_2df20",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_with_source_semantic_fixtures",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2e3b0",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/mesh_prepare.c",
+          "symbol": "_dispatch_local_2e3b0",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_with_source_semantic_fixtures",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2e7a0",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/mesh_prepare.c",
+          "symbol": "_dispatch_local_2e7a0",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_with_source_semantic_fixtures",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2ef60",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/mesh_prepare.c",
+          "symbol": "_dispatch_local_2ef60",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_with_source_semantic_fixtures",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2e600",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/primitive_emitters_a.c",
+          "symbol": "_dispatch_local_2e600",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_with_source_semantic_fixtures",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2e6c0",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/primitive_emitters_a.c",
+          "symbol": "_dispatch_local_2e6c0",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_with_source_semantic_fixtures",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2ea50",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/primitive_emitters_a.c",
+          "symbol": "_dispatch_local_2ea50",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_with_source_semantic_fixtures",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2ed10",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/primitive_emitters_b.c",
+          "symbol": "_dispatch_local_2ed10",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_with_source_semantic_fixtures",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2f120",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/primitive_emitters_b.c",
+          "symbol": "_dispatch_local_2f120",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_with_source_semantic_fixtures",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2f340",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/primitive_emitters_b.c",
+          "symbol": "_dispatch_local_2f340",
+          "existing_recovery_status": null,
+          "behavioral_verification": "plausible_with_source_semantic_fixtures",
+          "extent_review_required": false
+        }
+      ],
+      "source_status_limit": "Compiled definition and static PC relationships do not establish end-to-end runtime behavior."
+    },
+    {
+      "id": "texture_upload",
+      "relationship_scope": "verified_PC_pointer_and_callback_flow",
+      "relationship": "Animated and queued rectangles plus dirty upload; palette labeling remains an interpretation.",
+      "functions": [
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2cb0",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/frame_commands.c",
+          "symbol": "_dispatch_local_02cb0",
+          "existing_recovery_status": null,
+          "behavioral_verification": "behaviorally_validated_limited",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x50d0",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/frame_commands.c",
+          "symbol": "_dispatch_local_050d0",
+          "existing_recovery_status": null,
+          "behavioral_verification": "behaviorally_validated_limited",
+          "extent_review_required": false
+        },
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x58b0",
+          "compiled_definition": true,
+          "source": "src/eng1/behavioral/frame_commands.c",
+          "symbol": "_dispatch_local_058b0",
+          "existing_recovery_status": null,
+          "behavioral_verification": "behaviorally_validated_limited",
+          "extent_review_required": false
+        }
+      ],
+      "source_status_limit": "Compiled definition and static PC relationships do not establish end-to-end runtime behavior."
+    },
+    {
+      "id": "submission",
+      "relationship_scope": "verified_PC_callback_binding",
+      "relationship": "Copied+164 calls original host AC60 with current frame+88.",
+      "functions": [
+        {
+          "module": "ENG1.DLL",
+          "rva": "0x2c620",
+          "compiled_definition": true,
+          "source": "calibration/dispatcher_bridges.c",
+          "symbol": "_dispatch_engine_2c620",
+          "existing_recovery_status": "CODEGEN_SIMILAR",
+          "behavioral_verification": "unverified",
+          "extent_review_required": false
+        }
+      ],
+      "source_status_limit": "Compiled definition and static PC relationships do not establish end-to-end runtime behavior."
+    }
+  ],
+  "copied_callback_edges": [
+    {
+      "role": "frame_chain",
+      "eng1_wrapper_rva": "0x2c600",
+      "interface_offset": "0x144",
+      "slot": 81,
+      "host_module": "HERCULES.EXE",
+      "host_rva": "0xac20",
+      "relationship": "Pointer-chain initialization",
+      "scope": "verified_PC_initialized_table_and_wrapper_binding"
+    },
+    {
+      "role": "submit",
+      "eng1_wrapper_rva": "0x2c620",
+      "interface_offset": "0x164",
+      "slot": 89,
+      "host_module": "HERCULES.EXE",
+      "host_rva": "0xac60",
+      "relationship": "Packet-chain consumption and software rasterization",
+      "scope": "verified_PC_initialized_table_and_wrapper_binding"
+    },
+    {
+      "role": "screen_coordinates",
+      "eng1_wrapper_rva": "0x2c670",
+      "interface_offset": "0x190",
+      "slot": 100,
+      "host_module": "HERCULES.EXE",
+      "host_rva": "0xb6b0",
+      "relationship": "Packed projected coordinates",
+      "scope": "verified_PC_initialized_table_and_wrapper_binding"
+    },
+    {
+      "role": "vector_input",
+      "eng1_wrapper_rva": "0x2c690",
+      "interface_offset": "0x194",
+      "slot": 101,
+      "host_module": "HERCULES.EXE",
+      "host_rva": "0xb6f0",
+      "relationship": "Host vector input",
+      "scope": "verified_PC_initialized_table_and_wrapper_binding"
+    },
+    {
+      "role": "project",
+      "eng1_wrapper_rva": "0x2c6e0",
+      "interface_offset": "0x1a8",
+      "slot": 106,
+      "host_module": "HERCULES.EXE",
+      "host_rva": "0xb920",
+      "relationship": "Host transform and perspective operation",
+      "scope": "verified_PC_initialized_table_and_wrapper_binding"
+    },
+    {
+      "role": "rotation",
+      "eng1_wrapper_rva": "0x2c700",
+      "interface_offset": "0x1b0",
+      "slot": 108,
+      "host_module": "HERCULES.EXE",
+      "host_rva": "0xb880",
+      "relationship": "Host rotation matrix",
+      "scope": "verified_PC_initialized_table_and_wrapper_binding"
+    },
+    {
+      "role": "translation",
+      "eng1_wrapper_rva": "0x2c710",
+      "interface_offset": "0x1b4",
+      "slot": 109,
+      "host_module": "HERCULES.EXE",
+      "host_rva": "0xb8f0",
+      "relationship": "Host translation",
+      "scope": "verified_PC_initialized_table_and_wrapper_binding"
+    },
+    {
+      "role": "texture_upload",
+      "eng1_wrapper_rva": "0x2c7f0",
+      "interface_offset": "0x204",
+      "slot": 129,
+      "host_module": "HERCULES.EXE",
+      "host_rva": "0xa710",
+      "relationship": "Texture rectangle upload",
+      "scope": "verified_PC_initialized_table_and_wrapper_binding"
+    },
+    {
+      "role": "frame_header",
+      "eng1_wrapper_rva": "0x2c8f0",
+      "interface_offset": "0x280",
+      "slot": 160,
+      "host_module": "HERCULES.EXE",
+      "host_rva": "0xa4a0",
+      "relationship": "92-byte frame header copy",
+      "scope": "verified_PC_initialized_table_and_wrapper_binding"
+    },
+    {
+      "role": "mode_packet",
+      "eng1_wrapper_rva": "0x2c980",
+      "interface_offset": "0x2ac",
+      "slot": 171,
+      "host_module": "HERCULES.EXE",
+      "host_rva": "0xa540",
+      "relationship": "E1 packet payload",
+      "scope": "verified_PC_initialized_table_and_wrapper_binding"
+    },
+    {
+      "role": "projection_center",
+      "eng1_wrapper_rva": "0x2c9d0",
+      "interface_offset": "0x2b8",
+      "slot": 174,
+      "host_module": "HERCULES.EXE",
+      "host_rva": "0xb970",
+      "relationship": "Host screen center",
+      "scope": "verified_PC_initialized_table_and_wrapper_binding"
+    },
+    {
+      "role": "projection_focal",
+      "eng1_wrapper_rva": "0x2c9f0",
+      "interface_offset": "0x2bc",
+      "slot": 175,
+      "host_module": "HERCULES.EXE",
+      "host_rva": "0xb990",
+      "relationship": "Host focal value",
+      "scope": "verified_PC_initialized_table_and_wrapper_binding"
+    }
+  ],
+  "host_ownership": {
+    "packet_consumer_rva": "0xac60",
+    "lock_rva": "0x6ff0",
+    "unlock_rva": "0x7140",
+    "present_rva": "0x6620",
+    "owner": "Original EXE matrix/vector services, texture storage, software rasterization, pixel surface and presentation.",
+    "source_swap": "Retain actual copied callback pointers; no host renderer replacement is required for an ENG1 swap."
+  },
+  "unresolved_classification": {
+    "symbols_total": 202,
+    "dispatch_local_roots": [
+      "_dispatch_local_02180",
+      "_dispatch_local_02f30",
+      "_dispatch_local_03270",
+      "_dispatch_local_03470",
+      "_dispatch_local_034d0",
+      "_dispatch_local_03a50",
+      "_dispatch_local_05710",
+      "_dispatch_local_05d50",
+      "_dispatch_local_05dc0",
+      "_dispatch_local_05ea0",
+      "_dispatch_local_06005",
+      "_dispatch_local_060f9",
+      "_dispatch_local_0666b",
+      "_dispatch_local_083d3",
+      "_dispatch_local_0e670",
+      "_dispatch_local_15090",
+      "_dispatch_local_156a0",
+      "_dispatch_local_1f6f0",
+      "_dispatch_local_1f750",
+      "_dispatch_local_1f870",
+      "_dispatch_local_1fd90",
+      "_dispatch_local_255f0",
+      "_dispatch_local_25620",
+      "_dispatch_local_256e0",
+      "_dispatch_local_258e0",
+      "_dispatch_local_25d00",
+      "_dispatch_local_262a0",
+      "_dispatch_local_2da90",
+      "_dispatch_local_2f840",
+      "_dispatch_local_2fb70",
+      "_dispatch_local_32b10",
+      "_dispatch_local_32bd0"
+    ],
+    "frame_table_targets": 140,
+    "limit": "Frame targets include native data and function references. No assumption that every unresolved symbol is a function."
+  },
+  "uncertainties": [
+    "Original source qualifiers, aggregate/TU identity and native DLL layout.",
+    "Complete array capacities outside specifically supported prefixes.",
+    "Full startup resources, simulation handlers and geometry emitters.",
+    "End-to-end rendering/gameplay and all gameplay paths."
+  ],
+  "validated_limited": {
+    "source_fixture_groups": 23,
+    "data_providers": 35,
+    "data_fields": 817,
+    "data_pointer_relocations": 4760,
+    "native_frame_cases": 15,
+    "native_frame_checks": 178,
+    "limitations": "Finite color low-byte host semantics and zero-pool actor pipeline comparisons pass. Geometry has source fixtures only; whole DLL and gameplay remain unverified.",
+    "native_color_states": 2484,
+    "native_color_checks": 36001,
+    "native_actor_cases": 512,
+    "native_actor_checks": 6662,
+    "raw_color_callback_dword_status": "DIAGNOSTIC_DISAGREEMENT"
+  }
+}

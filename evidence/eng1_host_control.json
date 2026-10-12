@@ -1,0 +1,108 @@
+{
+  "scope": "Private ENG1 copied-interface control/loader/RNG forwarding source and bounded spy; no recovery promotion or target-byte claim.",
+  "toolchain": "msvc5_rtm",
+  "toolchain_commit": "8abf95ce980161ad87b0b02402269cce76988953",
+  "toolchain_directory": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+  "working_directory": "D:\\Prog\\hercules_recon\\work\\eng1_behavioral\\host_control_wrappers",
+  "successful_command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/O2",
+    "/Gy",
+    "/TC",
+    "/I D:\\Prog\\hercules_recon\\calibration",
+    "/FeD:\\Prog\\hercules_recon\\work\\eng1_behavioral\\host_control_wrappers\\forwarding_spy.exe",
+    "D:\\Prog\\hercules_recon\\candidates\\eng1_host_wrappers\\host_control_wrappers.c",
+    "D:\\Prog\\hercules_recon\\work\\eng1_behavioral\\host_control_wrappers\\forwarding_spy.c"
+  ],
+  "compile_exit_code": 0,
+  "spy_exit_code": 0,
+  "prediction_file": "work/eng1_behavioral/host_control_wrappers/prediction.json",
+  "prediction_result": "survived bounded forwarding and return spy",
+  "spy_calls_checked": 6,
+  "contracts": {
+    "0x2c200": {
+      "interface_offset": "0x18",
+      "slot": 6,
+      "host_exe_rva": "0xbe30",
+      "prototype": "void (__cdecl *)(void)",
+      "result": "none; direct caller discards EAX"
+    },
+    "0x2c210": {
+      "interface_offset": "0x1c",
+      "slot": 7,
+      "host_exe_rva": "0xa340",
+      "prototype": "unsigned long (__cdecl *)(void *, unsigned long)",
+      "result": "32-bit EAX preserved by wrapper; direct caller 0x653c tests it"
+    },
+    "0x2c370": {
+      "interface_offset": "0x64",
+      "slot": 25,
+      "host_exe_rva": "0x4040",
+      "prototype": "void (__cdecl *)(void *, unsigned long)",
+      "result": "discarded by reviewed direct callers"
+    },
+    "0x2c430": {
+      "interface_offset": "0x88",
+      "slot": 34,
+      "host_exe_rva": "0xbe30",
+      "prototype": "void (__cdecl *)(void)",
+      "result": "none; direct callers discard EAX"
+    },
+    "0x2c580": {
+      "interface_offset": "0xe4",
+      "slot": 57,
+      "host_exe_rva": "0x1610",
+      "prototype": "void (__cdecl *)(void)",
+      "result": "none; direct callers discard EAX"
+    },
+    "0x2c460": {
+      "interface_offset": "0x94",
+      "slot": 37,
+      "host_exe_rva": "0x4260",
+      "prototype": "unsigned int (__cdecl *)(int)",
+      "result": "32-bit unsigned result used by callers"
+    }
+  },
+  "2c290_owner": {
+    "provided_by_this_candidate": false,
+    "existing_provider": "calibration/engine_file_bridge.c:engine_pool_compact",
+    "alias_identity": "ENG1 RVA 0x2c290",
+    "type": "unsigned long (__cdecl *)(int)",
+    "evidence": "evidence/engine_file_bridge_region.json"
+  },
+  "limits": [
+    "The spy verifies source-level slot selection, explicit argument forwarding, and 32-bit result pass-through for 2c210 and 2c460; it does not execute original host callbacks.",
+    "The source control consumer declares host_two_argument void and ignores its result; the separate wrapper preserves measured DWORD EAX for callers that consume it.",
+    "No host behavior is assumed from the spy. The native A340 target is measured as xor eax,eax; ret, but the forwarding source uses a return-capable callback view.",
+    "No FUNCTION_MATCH, source identity, original translation-unit, full interface, module-layout, renderer, or gameplay claim follows."
+  ],
+  "hashes": {
+    "candidate_source": "a28b0d07a1cf607dbf86863b2f79e476efb772c3e48140d7a357df645b6fcf6d",
+    "spy_source": "110bc3a109a93c217f68430eae23a88819cb3888ca7aa7b58ec4aa15670f7788",
+    "spy_executable": "be7be526e8cf53e33d140920c526ea522a8f6afc61b81ad5cc93c6d7aa59fb67",
+    "wrapper_object": "24ce43116d76ba1f23d70b6d4c3d1805d5ad35bb59508801227a7e4cdc9836e5",
+    "spy_object": "8a76c0ffad55989bf9e326d7d23f8b9924a8b893ca30ed1237ed91c5c01c35b9",
+    "prediction": "b311f88bb55e0052be88964624fd46e34beb0bc3a34245dcaac8104ae6d0dbc5",
+    "engine_interface_header": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+    "engine_control_source": "506473774936bf2f093e37ada0fced4a5d1c6551a11033b2645b8da8a71ca5fd",
+    "actor_continuation_source": "0bf51abc80dddd98b5fe064223fa95a673dd4c082654dac3699d3a390d69e29c",
+    "engine_file_bridge_source": "0860ba3c4e242f3810bdbb15d1f70bfbf266b48b96715b3ba3c56f3ef96a62c2",
+    "control_contract_evidence": "eceac0fe300b08d9716822597e0c2cb35166ea0f4d4e62669cfc660f47686180",
+    "engine_file_bridge_evidence": "b32710f9e11cf7482c84b82c9b8ebe23f6392255b6deea0834742d9f411daf1a",
+    "copied_callbacks_map": "6bd543501bbb63df6e2fb492d1aa8310ffe19d9248525742e6ab2f5a88d92990",
+    "render_map_summary": "1d155efa2d582db468605b951d1facc1155f45e0896aec075eee8e108c5d894e",
+    "render_map_decode": "d475c0836bc02f703d7f23a30937b560fa45631a605ac2473c32cbedfd7cdb1e",
+    "eng1_oracle": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "host_exe_oracle": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "raw_rng": {
+    "rva": "0x2c470",
+    "symbol": "_dispatch_engine_2c470",
+    "source": "src/eng1/behavioral/host_control_wrappers.c",
+    "implementation_status": "behaviorally_validated_limited",
+    "evidence": "evidence/eng1_host_control.json",
+    "contract": "cdecl zero-argument raw RNG forwarder, table+98/slot38 -> EXE4280. Exactly one host call and full DWORD return.",
+    "uncertainty": "Source spy tests; original host RNG already supplies state and consumption."
+  }
+}

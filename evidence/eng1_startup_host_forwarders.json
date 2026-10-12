@@ -1,0 +1,115 @@
+{
+  "scope": "Measured physical cdecl startup callback forwarding, adopted source and finite test spies; no full host/game validation.",
+  "oracle": {
+    "ENG1.DLL": {
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "evidence": "work/eng1_behavioral/render_map/summary.json"
+    },
+    "HERCULES.EXE": {
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "table_rva": "0x361b8",
+      "table_bytes": 1000,
+      "evidence": "evidence/engine_interface_binding.json"
+    }
+  },
+  "engine_interface_copy": {
+    "source_table_va": "0x4361b8",
+    "source_table_rva": "0x361b8",
+    "copied_table_rva": "0x70f20",
+    "copied_table_bytes": 1000,
+    "header": "calibration/engine_interface.h",
+    "header_sha256": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+    "binding_evidence": "evidence/engine_interface_binding.json"
+  },
+  "unresolved_labels_in_interval": [
+    {
+      "symbol": "_eng1_target_02c2a0",
+      "native_rva": "0x2c2a0",
+      "classification": "missing startup host forwarder",
+      "same_rva_source_record": "work/eng1_behavioral/dependencies.json function_nodes entry has span_size 32 and source null; build report has compiled_definition false.",
+      "candidate_symbol": "_eng1_target_02c2a0",
+      "candidate_source": "candidates/eng1_host_forward_closure/startup_host_forwarders.c"
+    },
+    {
+      "symbol": "_eng1_native_dep_02c470",
+      "native_rva": "0x2c470",
+      "classification": "existing forwarder under another source symbol; dependency alias mismatch",
+      "existing_provider": "src/eng1/behavioral/host_control_wrappers.c::_dispatch_engine_2c470",
+      "existing_contract": "Copied table +0x98 / slot 38 -> HERCULES.EXE RVA 0x4280; zero arguments; unsigned 32-bit return.",
+      "action": "No source reconstruction or duplicate was added. The current spatial-effects dependency name _eng1_native_dep_02c470 does not resolve to the already compiled _dispatch_engine_2c470 provider."
+    },
+    {
+      "symbol": "_eng1_target_02c4a0",
+      "native_rva": "0x2c4a0",
+      "classification": "missing startup host forwarder",
+      "same_rva_source_record": "work/eng1_behavioral/dependencies.json function_nodes entry has span_size 32 and source null; build report has compiled_definition false.",
+      "candidate_symbol": "_eng1_target_02c4a0",
+      "candidate_source": "candidates/eng1_host_forward_closure/startup_host_forwarders.c"
+    },
+    {
+      "symbol": "_eng1_native_code_target_02cc50",
+      "native_rva": "0x2cc50",
+      "classification": "startup routine, not a host forwarder",
+      "same_rva_source_record": "work/eng1_behavioral/dependencies.json function_nodes entry has span_size 224 and source null; record 49 in frame_data_callback_records.inc points to the RVA.",
+      "native_behavior": "Initializes engine state and calls ENG1 0x29270 and 0x2a290; no copied-interface indirect call appears in its reviewed bytes.",
+      "action": "Excluded from this forwarding family. The documented 21-wrapper interval ends at 0x2cc50 exclusive."
+    }
+  ],
+  "wrappers": [
+    {
+      "native_rva": "0x2c2a0",
+      "symbol": "eng1_target_02c2a0",
+      "source_signature": "unsigned long __cdecl (unsigned long first, unsigned long second)",
+      "physical_arguments": [
+        "DWORD",
+        "DWORD"
+      ],
+      "interface_offset": "0x38",
+      "interface_slot": 14,
+      "interface_member": "EngineInterface.opaque_038[0]",
+      "native_indirect_cell_va": "0x10070f58",
+      "host_table_cell_rva": "0x361f0",
+      "host_table_cell_va": "0x4361f0",
+      "host_exe_target_rva": "0x48a0",
+      "host_exe_target_va": "0x4048a0",
+      "caller": "ENG1 0x1f6f0 at call site 0x1f725 pushes allocation_bytes then zero; formal order is (zero, allocation_bytes). It cleans 8 bytes and does not consume EAX.",
+      "native_prefix": "8b4424088b4c24045051ff15580f071083c408c3",
+      "return_contract": "Wrapper returns the full callback DWORD in EAX; the reviewed caller does not consume it.",
+      "source": "src/eng1/behavioral/startup_host_forwarders.c",
+      "fixture": "tests/eng1_startup_host_forwarders.c"
+    },
+    {
+      "native_rva": "0x2c4a0",
+      "symbol": "eng1_target_02c4a0",
+      "source_signature": "unsigned long __cdecl (void *first, unsigned long second, unsigned long third, unsigned long fourth)",
+      "physical_arguments": [
+        "pointer-shaped DWORD",
+        "DWORD",
+        "DWORD",
+        "DWORD"
+      ],
+      "interface_offset": "0xa0",
+      "interface_slot": 40,
+      "interface_member": "EngineInterface.opaque_090[4]",
+      "native_indirect_cell_va": "0x10070fc0",
+      "host_table_cell_rva": "0x36258",
+      "host_table_cell_va": "0x436258",
+      "host_exe_target_rva": "0x4690",
+      "host_exe_target_va": "0x404690",
+      "caller": "ENG1 0x1f750 at call site 0x1f855 pushes zero, zero, result from ENG1 0x1fc90, then g_resource_root; formal order is (g_resource_root, result, zero, zero). It cleans 16 bytes then explicitly clears EAX.",
+      "native_prefix": "8b4424108b4c240c8b542408508b442408515250ff15c00f071083c410c3",
+      "return_contract": "Wrapper returns the full callback DWORD in EAX; the reviewed caller explicitly discards it.",
+      "source": "src/eng1/behavioral/startup_host_forwarders.c",
+      "fixture": "tests/eng1_startup_host_forwarders.c"
+    }
+  ],
+  "call_order": "The existing startup helper source is unchanged. Each added wrapper performs one direct copied-cell callback and returns; ordering with surrounding startup callbacks remains controlled by the original caller sequence.",
+  "evidence_hashes": {
+    "callbacks_map": "6bd543501bbb63df6e2fb492d1aa8310ffe19d9248525742e6ab2f5a88d92990",
+    "render_map_summary": "1d155efa2d582db468605b951d1facc1155f45e0896aec075eee8e108c5d894e",
+    "render_map_decode": "d475c0836bc02f703d7f23a30937b560fa45631a605ac2473c32cbedfd7cdb1e",
+    "startup_contract": "8581544d30b352e2b1e594ca600e9f502bf503f7d3831629075cba553934885b",
+    "source_build_report_snapshot": "e0b6442ee4ae1db7fb21c56e187c6a1641c5c5be3c31be3365bf7294af6b4e3b",
+    "source_dependencies_snapshot": "3123a63d174539e535e5f1cfa659aed4d94efba61b05bb18672c4e7c3ef93c23"
+  }
+}
