@@ -10,7 +10,7 @@
     "evidence/actor_pool_layout.json": "13e4b6ea5c268ee49daba9e678d2edd5e8b97fe7c0dac820311996b996e6bd36",
     "evidence/actor_pool_reset_region.json": "0e7dee4128d0a061b335d94c67b73d006f93c0600c395d37acff4c18c2ae7de6",
     "evidence/eng1_actor_storage.json": "9bc63bc5f9d9cda03b66d6ec73cb7f2acc9fd8e95211ef1de595341c767710eb",
-    "evidence/eng1_behavioral_build.json": "37b5591d983489e2aa946336a318034d88545355f63d35d1d93019177e088405",
+    "evidence/eng1_behavioral_build.json": "e5df4cd6ddbbf92de45418ffddb6a18bebd706cc75882e10dbbfe4a689732e6e",
     "evidence/eng1_camera.json": "42f52814b488bedabba5bfe41694fb43e7768e8c79457723de1d371eece46ecc",
     "evidence/eng1_descriptor_pointees.json": "2eb5a2f15638cadd140cac7c074758f84735d23cc12a72f7fe76e2a60ed131af",
     "evidence/eng1_dispatch_storage.json": "d0f8a47d6eef3024fa6ef69a20c787ee4bb67376ad579e1e1c1a17397273d272",
@@ -50,7 +50,10 @@
     "evidence/eng1_forest_entry.json": "3ec3d8022d98075c17b29fd739d298a8856c20e7a3c3b01c0834862c6a8670df",
     "evidence/eng1_cold_start_32b10.json": "9ff86ff904d537f6ca069fcb7c32b2e5101f129de7ad48339b0dbf205754a99f",
     "evidence/eng1_descriptor_overlap_owners.json": "e326c733511b2fa341e922d78eb8eff1b56e0766623d6557238a1d312806a3be",
-    "evidence/eng1_cold_frame_commands.json": "70d7a598383389f45e41ebba8dcc464517f700e4fb74755f6857f60b27211843"
+    "evidence/eng1_cold_frame_commands.json": "70d7a598383389f45e41ebba8dcc464517f700e4fb74755f6857f60b27211843",
+    "evidence/eng1_dialog_frame.json": "bd0b5a83bc9aac86f0ba67274eea4a3a0daece0f58d95127c2bbc5ab0f63d11e",
+    "evidence/eng1_simulation_iteration.json": "7b6720eba42d43e0ca614d5f56ce4a39d863d0d96bacb52b36035ffbafd45526",
+    "evidence/eng1_payload_dispatch.json": "09e60f1ec3fa07837474c05b0b4cf8967aecd3019e4ea1d7e085222a5ef82278"
   },
   "providers": [
     {
@@ -5590,6 +5593,191 @@
           "rva": "0x6ffc8",
           "size": 12,
           "scope": "prefix"
+        }
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/frame_program_data.c",
+      "source_sha256": "3176e8855e3bdeb4b952bcf5a35a00474cb2825189ba51fed62ab0f53b21b681",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_dialog_frame.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_g_eng1_dialog_state_map_2100",
+          "rva": "0x2100",
+          "size": 127,
+          "scope": "prefix",
+          "storage": "read_only_table"
+        },
+        {
+          "symbol": "_g_eng1_dialog_operations_4d760",
+          "rva": "0x4d760",
+          "size": 96,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_dialog_scripts_4d720",
+          "rva": "0x4d720",
+          "size": 60,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_dialog_script_0",
+          "rva": "0x4d90c",
+          "size": 7,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_dialog_script_1",
+          "rva": "0x4d900",
+          "size": 9,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_dialog_script_2",
+          "rva": "0x4d8f8",
+          "size": 5,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_dialog_script_3",
+          "rva": "0x4d8e8",
+          "size": 15,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_dialog_script_4",
+          "rva": "0x4d8e4",
+          "size": 3,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_dialog_script_5",
+          "rva": "0x4d8e0",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_dialog_script_6",
+          "rva": "0x4d8d0",
+          "size": 16,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_dialog_script_7",
+          "rva": "0x4d8c0",
+          "size": 16,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_dialog_script_8",
+          "rva": "0x4d8ac",
+          "size": 18,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_dialog_script_9",
+          "rva": "0x4d89c",
+          "size": 15,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_dialog_script_10",
+          "rva": "0x4d894",
+          "size": 6,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_dialog_script_11",
+          "rva": "0x4d884",
+          "size": 15,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_dialog_script_12",
+          "rva": "0x4d870",
+          "size": 17,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_dialog_script_13",
+          "rva": "0x4d868",
+          "size": 8,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_eng1_dialog_script_14",
+          "rva": "0x4d85c",
+          "size": 10,
+          "scope": "prefix"
+        }
+      ],
+      "include_sha256": {
+        "src/eng1/behavioral/frame_program_data.h": "95011384a41ea10db8560905958fd0709b59a48a22ed1a510bff19bb0acb425e"
+      }
+    },
+    {
+      "source": "src/eng1/behavioral/simulation_storage.c",
+      "source_sha256": "e648368eda765ab181ed1aef96919e6a6ff3c9e52322e63405fee23314df2d7c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_simulation_iteration.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_eng1_sim_state_72110",
+          "rva": "0x72110",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_eng1_sim_state_72170",
+          "rva": "0x72170",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_eng1_sim_state_72108",
+          "rva": "0x72108",
+          "size": 2,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_eng1_sim_state_6feb4",
+          "rva": "0x6feb4",
+          "size": 2,
+          "scope": "prefix"
+        }
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/payload_dispatch_data.c",
+      "source_sha256": "72c031fb55841dec4c33eb17a57f9c04a761fc66f79b423e418ee5eb7a312056",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_payload_dispatch.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_g_actor_group_sequence_5e138",
+          "rva": "0x5e138",
+          "size": 112,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_frame_decode_scratch_6e660",
+          "rva": "0x6e660",
+          "size": 1024,
+          "scope": "prefix",
+          "allow_compiled_zero_fill": true
         }
       ]
     }

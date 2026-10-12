@@ -1243,6 +1243,90 @@
     },
     {
       "module": "ENG1.DLL",
+      "rva": "0x2450",
+      "dependency_rva": "0x4d720",
+      "source": "src/eng1/behavioral/frame_runtime_callees.c",
+      "function": "dispatch_local_2450",
+      "kind": "incomplete_data_read",
+      "condition": "script_id >=15, outside measured pointer table",
+      "reporting": "eng1_incomplete_behavior before unsupported read or dispatch; noncontinuable diagnostic.",
+      "evidence": "evidence/eng1_dialog_frame.json",
+      "verification": "Known-prefix missing-NUL trap verified; valid map and direct parser cases compared with original x86."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x2450",
+      "dependency_rva": "0x4d85c",
+      "source": "src/eng1/behavioral/frame_runtime_callees.c",
+      "function": "dispatch_local_2450",
+      "kind": "incomplete_data_read",
+      "condition": "Known exact string base reaches measured prefix without NUL; unknown runtime pointers retain native read-through behavior.",
+      "reporting": "eng1_incomplete_behavior before unsupported read or dispatch; noncontinuable diagnostic.",
+      "evidence": "evidence/eng1_dialog_frame.json",
+      "verification": "Known-prefix missing-NUL trap verified; valid map and direct parser cases compared with original x86."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x1f40",
+      "dependency_rva": "0x2100",
+      "source": "src/eng1/behavioral/frame_runtime_callees.c",
+      "function": "dispatch_local_1f40",
+      "kind": "incomplete_data_read",
+      "condition": "Unexpected dispatch-map value outside0..6.",
+      "reporting": "eng1_incomplete_behavior before unsupported read or dispatch; noncontinuable diagnostic.",
+      "evidence": "evidence/eng1_dialog_frame.json",
+      "verification": "Known-prefix missing-NUL trap verified; valid map and direct parser cases compared with original x86."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x4ca0",
+      "dependency_rva": "0x6e660",
+      "source": "src/eng1/behavioral/payload_dispatch.c",
+      "function": "eng1_target_04ca0",
+      "kind": "incomplete_data_read",
+      "condition": "Literal or repeat would exceed1024-byte measured decode scratch.",
+      "reporting": "eng1_incomplete_behavior noncontinuable diagnostic, before unsupported access.",
+      "evidence": "evidence/eng1_payload_dispatch.json",
+      "verification": "Valid synthetic, real flush and captured payload paths compared with original x86; unsupported guards remain explicit."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x4ca0",
+      "dependency_rva": "0x734a0",
+      "source": "src/eng1/behavioral/payload_dispatch.c",
+      "function": "eng1_target_04ca0",
+      "kind": "incomplete_data_read",
+      "condition": "Pending count exceeds32, coordinate exceeds256 link rows, or real flush consumer leaves nonempty queue.",
+      "reporting": "eng1_incomplete_behavior noncontinuable diagnostic, before unsupported access.",
+      "evidence": "evidence/eng1_payload_dispatch.json",
+      "verification": "Valid synthetic, real flush and captured payload paths compared with original x86; unsupported guards remain explicit."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x4ca0",
+      "dependency_rva": "0x5e128",
+      "source": "src/eng1/behavioral/payload_dispatch.c",
+      "function": "eng1_target_04ca0",
+      "kind": "incomplete_data_read",
+      "condition": "Successor-map result outside0..3 or link key outside measured256rows.",
+      "reporting": "eng1_incomplete_behavior noncontinuable diagnostic, before unsupported access.",
+      "evidence": "evidence/eng1_payload_dispatch.json",
+      "verification": "Valid synthetic, real flush and captured payload paths compared with original x86; unsupported guards remain explicit."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x4ca0",
+      "dependency_rva": "0x72870",
+      "source": "src/eng1/behavioral/payload_dispatch.c",
+      "function": "eng1_target_04ca0",
+      "kind": "incomplete_data_read",
+      "condition": "Frame owner pointer unavailable before copy.",
+      "reporting": "eng1_incomplete_behavior noncontinuable diagnostic, before unsupported access.",
+      "evidence": "evidence/eng1_payload_dispatch.json",
+      "verification": "Valid synthetic, real flush and captured payload paths compared with original x86; unsupported guards remain explicit."
+    },
+    {
+      "module": "ENG1.DLL",
       "rva": "0xe670",
       "symbol": "_dispatch_local_0e670",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -1279,42 +1363,6 @@
     },
     {
       "module": "ENG1.DLL",
-      "rva": "0x156a0",
-      "symbol": "_dispatch_local_156a0",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "calibration/engine_dispatch.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x1f40",
-      "symbol": "_dispatch_local_1f40",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/cold_start_32bd0.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
       "rva": "0x20ea0",
       "symbol": "_dispatch_local_20ea0",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -1325,24 +1373,6 @@
       "consumers": [
         {
           "source": "src/eng1/behavioral/camera.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x2c60",
-      "symbol": "_dispatch_local_2c60",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/cold_start_32bd0.c",
           "kind": "function"
         }
       ],
@@ -1524,6 +1554,42 @@
         {
           "source": "src/eng1/behavioral/frame_data.c",
           "kind": "untyped_external"
+        }
+      ],
+      "implementation_status": "known_incomplete",
+      "compiled_source_is_not_reconstructed_behavior": true
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x12620",
+      "symbol": "_eng1_native_code_target_0012620",
+      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
+      "kind": "unimplemented_function",
+      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
+      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
+      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
+      "consumers": [
+        {
+          "source": "src/eng1/behavioral/simulation_iteration.c",
+          "kind": "function"
+        }
+      ],
+      "implementation_status": "known_incomplete",
+      "compiled_source_is_not_reconstructed_behavior": true
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x15780",
+      "symbol": "_eng1_native_code_target_0015780",
+      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
+      "kind": "unimplemented_function",
+      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
+      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
+      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
+      "consumers": [
+        {
+          "source": "src/eng1/behavioral/simulation_iteration.c",
+          "kind": "function"
         }
       ],
       "implementation_status": "known_incomplete",
@@ -10615,24 +10681,6 @@
     },
     {
       "module": "ENG1.DLL",
-      "rva": "0x33e0",
-      "symbol": "_eng1_target_033e0",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/level_loading.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
       "rva": "0x3bd0",
       "symbol": "_eng1_target_03bd0",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -10653,24 +10701,6 @@
       "module": "ENG1.DLL",
       "rva": "0x3cd0",
       "symbol": "_eng1_target_03cd0",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/level_loading.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x4ca0",
-      "symbol": "_eng1_target_04ca0",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
       "kind": "unimplemented_function",
       "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
@@ -10885,11 +10915,11 @@
     }
   ],
   "provisional_generation": {
-    "source_only_report_sha256": "e99e91c35bea49d2ec95884a85bc4d57435c6f13ca3b05d147bcb95ac5da1950",
+    "source_only_report_sha256": "4a26f581c2d1804a40fe282d986eb0b2859276daaf182966ae1299f0abcba236",
     "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
     "recovery_sha256": "465ee5ea057cd3bfb23508e18b16958c27b9d391e11a0bc874cfc413436644d5",
-    "symbols": 527,
-    "native_rvas": 520,
+    "symbols": 524,
+    "native_rvas": 517,
     "scope": "Transitional loader/startup diagnostics only; excluded from source coverage and never behaviorally accepted."
   }
 }

@@ -134,7 +134,7 @@ def parse_native_relocations(pe: PE) -> dict[int, int]:
     return found
 
 
-def native_section(pe: PE, rva: int, size: int) -> dict[str, Any]:
+def native_section(pe: PE, rva: int, size: int, read_only_table: bool = False) -> dict[str, Any]:
     if size <= 0:
         raise CheckError("manifest field size must be positive")
     matches = [s for s in pe.sections
@@ -143,7 +143,10 @@ def native_section(pe: PE, rva: int, size: int) -> dict[str, Any]:
     if len(matches) != 1:
         raise CheckError(f"native interval {rva:#x}+{size:#x} is not within one PE section")
     section = matches[0]
-    if not section["characteristics"] & 0x80000000:
+    if read_only_table:
+        if section["characteristics"] & 0x80000000 or not section["characteristics"] & 0x40000000:
+            raise CheckError(f"native read-only table {rva:#x}+{size:#x} has incompatible section permissions")
+    elif not section["characteristics"] & 0x80000000:
         raise CheckError(f"native storage interval {rva:#x}+{size:#x} is not writable")
     return section
 
@@ -151,7 +154,7 @@ def native_section(pe: PE, rva: int, size: int) -> dict[str, Any]:
 def native_bytes(pe: PE, field: dict[str, Any]) -> tuple[bytes, str, dict[str, Any]]:
     rva = parse_rva(field["rva"])
     size = int(field["size"])
-    section = native_section(pe, rva, size)
+    section = native_section(pe, rva, size, field.get("storage") == "read_only_table")
     delta = rva - section["virtual_address"]
     file_backed = delta + size <= section["raw_size"]
     loader_zero = delta >= section["raw_size"]
@@ -159,6 +162,10 @@ def native_bytes(pe: PE, field: dict[str, Any]) -> tuple[bytes, str, dict[str, A
         return pe.read_rva(rva, size), "initialized", section
     if loader_zero:
         return bytes(size), "loader_zero", section
+    if field.get("allow_compiled_zero_fill") is True:
+        prefix = pe.read_rva(rva, section["raw_size"] - delta)
+        if not any(prefix):
+            return bytes(size), "mixed_zero", section
     raise CheckError(f"native interval {rva:#x}+{size:#x} crosses file-backed/zero-fill boundary")
 
 
@@ -289,8 +296,10 @@ def check_manifest(manifest: dict[str, Any]) -> None:
             symbols.add(symbol)
             if field.get("scope") != "prefix":
                 raise CheckError(f"manifest field scope must remain prefix: {source}:{symbol}")
+            if "storage" in field and field["storage"] != "read_only_table":
+                raise CheckError(f"unsupported explicit storage class: {source}:{symbol}")
             required_keys = {"symbol", "rva", "size", "scope"}
-            if set(field) not in (required_keys, required_keys | {"allow_compiled_zero_fill"}):
+            if not required_keys <= set(field) or set(field) - required_keys - {"allow_compiled_zero_fill", "storage"}:
                 raise CheckError(f"field definition has missing or unknown keys: {source}:{symbol}")
             if "allow_compiled_zero_fill" in field and field["allow_compiled_zero_fill"] is not True:
                 raise CheckError(f"loaded-zero equivalence must be an explicit true opt-in: {source}:{symbol}")
@@ -480,6 +489,8 @@ def run(manifest_path: Path, output: Path) -> dict[str, Any]:
             section: dict[str, Any] | None = None
             if symbol["section"] == 0:
                 common_size = int(symbol["value"])
+                if field.get("storage") == "read_only_table":
+                    mismatches.append({"provider": provider["source"], "symbol": name, "kind": "read-only table cannot use writable COMMON storage"})
                 if common_size != size or (kind != "loader_zero" and not zero_fill_allowed):
                     mismatches.append({"provider": provider["source"], "symbol": name, "kind": "COMMON width/backing mismatch", "common_size": common_size, "manifest_size": size, "native_kind": kind})
                 candidate = bytearray(size)
@@ -496,12 +507,16 @@ def run(manifest_path: Path, output: Path) -> dict[str, Any]:
                 else:
                     candidate = bytearray(section["data"][object_offset:object_offset + size])
                 writable = bool(section["flags"] & 0x80000000)
-                if not writable:
+                read_only_table = field.get("storage") == "read_only_table"
+                if read_only_table:
+                    if writable or not section["flags"] & 0x40000000 or section["flags"] & 0x20000000 or section["name"] != ".rdata":
+                        mismatches.append({"provider": provider["source"], "symbol": name, "kind": "read-only table is not nonexecutable COFF .rdata", "section": section["name"], "flags": hex(section["flags"])})
+                elif not writable:
                     mismatches.append({"provider": provider["source"], "symbol": name, "kind": "COFF data section is not writable", "section": section["name"], "flags": hex(section["flags"])})
                 if kind == "loader_zero":
                     if section["name"] != ".bss" or not (section["flags"] & 0x80) or section["data"]:
                         mismatches.append({"provider": provider["source"], "symbol": name, "kind": "loader-zero field is not represented by rawless COFF BSS", "section": section["name"], "flags": hex(section["flags"]), "section_data_bytes": len(section["data"])})
-                elif section["name"] != ".data" and not (zero_fill_allowed and section["name"] == ".bss" and section["flags"] & 0x80 and not section["data"]):
+                elif not read_only_table and section["name"] != ".data" and not (zero_fill_allowed and section["name"] == ".bss" and section["flags"] & 0x80 and not section["data"]):
                     mismatches.append({"provider": provider["source"], "symbol": name, "kind": "initialized field is not represented by COFF .data", "section": section["name"]})
 
             field_relocs = []

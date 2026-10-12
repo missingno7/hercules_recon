@@ -17,6 +17,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import title_integration as title  # Reuse its reviewed installer/no-CD identities.
 from match import verify_toolchain
 from pe import PE
+from coff import COFF
 from title_link import read_map
 
 PROBE_SOURCE = ROOT / "tests/eng1_host_probe.c"
@@ -420,8 +421,44 @@ def build_probe():
     return report
 
 
+def source_call_capture_specifications(build, original_rva):
+    """Bind a known cdecl call to its fresh COFF relocation and linked E8."""
+    if original_rva != 0x4ca0:
+        raise ValueError('No reviewed caller capture ABI for this RVA')
+    caller = '_dispatch_local_03270'
+    target = '_eng1_target_04ca0'
+    source = 'src/eng1/behavioral/level_loading.c'
+    unit = next(x for x in build['report']['compiled_sources'] if x['source']==source)
+    obj = Path(next(x[3:] for x in unit['command'] if x.startswith('/Fo')))
+    if sha256(obj) != unit['object_sha256']:
+        raise ValueError('Caller COFF contribution identity changed')
+    section = COFF(obj).function(caller)
+    symbols = read_map(build['map_path'])
+    caller_rva = symbols[caller] - build['image'].image_base
+    target_rva = symbols[target] - build['image'].image_base
+    linked = build['image'].read_rva(caller_rva,len(section['data']))
+    result = []
+    for relocation in section['relocations']:
+        if relocation['symbol'] != target:
+            continue
+        offset = relocation['offset']
+        if relocation['type']!=0x14 or offset<1 or linked[offset-1]!=0xe8:
+            raise ValueError('Capture target lacks the reviewed direct cdecl CALL')
+        return_rva = caller_rva + offset + 4
+        destination = return_rva + int.from_bytes(linked[offset:offset+4],'little',signed=True)
+        if destination != target_rva:
+            raise ValueError('Linked caller CALL disagrees with its target symbol')
+        result.append(dict(original_rva=original_rva,caller=caller,target=target,
+            caller_rva=caller_rva,target_rva=target_rva,return_rva=return_rva,
+            argument_count=3,prefix_bytes=128,caller_object_sha256=unit['object_sha256'],
+            scope='Bounded stack return-address candidate matched to a verified source CALL; not an entry breakpoint or universal stack-unwind proof.'))
+    if not result:
+        raise ValueError('No reviewed source CALL to capture')
+    return result
+
+
 def launch_once(runtime=DEFAULT_RUNTIME, report_path=DEFAULT_BUILD_REPORT,
-                timeout_ms=45000, enter_game=False):
+                timeout_ms=45000, enter_game=False, capture_call=None):
     runtime = check_runtime(runtime)
     runtime_info = inspect(runtime)
     if not runtime_info["eng1_attached"]:
@@ -456,6 +493,11 @@ def launch_once(runtime=DEFAULT_RUNTIME, report_path=DEFAULT_BUILD_REPORT,
                str(events_path.resolve()), str(timeout_ms), hex(build["entry_rva"]),
                hex(build["interface_rva"]), hex(build["first_use_rva"])]
     command += ['enter-game' if enter_game else 'no-game-input', str(states_path)]
+    captures = source_call_capture_specifications(build,capture_call) if capture_call is not None else []
+    if captures:
+        captures_path=run_dir/'call_captures.txt'
+        captures_path.write_bytes((''.join(f"{x['original_rva']:x} {x['return_rva']:x} {x['argument_count']} {x['prefix_bytes']}\n" for x in captures)).encode())
+        command.append(str(captures_path))
     result = subprocess.run(command, cwd=runtime, capture_output=True, text=True,
                             timeout=timeout_ms / 1000.0 + 15)
     events = []
@@ -490,6 +532,7 @@ def launch_once(runtime=DEFAULT_RUNTIME, report_path=DEFAULT_BUILD_REPORT,
               "probe_sha256": probe_report["exe_sha256"],
               "timeout_ms": timeout_ms, "command": command,
               "new_game_input_requested": enter_game,
+              "call_capture_specifications": captures,
               "probe_exit_code": result.returncode, "probe_stdout": result.stdout,
               "probe_stderr": result.stderr, "events": events,
               "first_divergence_candidate": divergence,
@@ -531,6 +574,7 @@ def main():
     p.add_argument("--report", type=Path, default=DEFAULT_BUILD_REPORT)
     p.add_argument("--timeout-ms", type=int, default=45000)
     p.add_argument("--enter-game",action="store_true",help="At most six real Enter pulses, only when own PID is foreground and verified windowed; stop on ENG1 load")
+    p.add_argument('--capture-call',type=lambda value:int(value,0),choices=[0x4ca0],help='Capture a bounded stack-return candidate and128B input prefix for reviewed source4ca0 caller; reads only')
     args = parser.parse_args()
     if args.command == "build-probe":
         build_probe()
@@ -541,7 +585,7 @@ def main():
     elif args.command == "inspect":
         inspect(args.runtime)
     elif args.command == "launch-once":
-        raise SystemExit(launch_once(args.runtime, args.report, args.timeout_ms, args.enter_game))
+        raise SystemExit(launch_once(args.runtime, args.report, args.timeout_ms, args.enter_game,args.capture_call))
 
 
 if __name__ == "__main__":

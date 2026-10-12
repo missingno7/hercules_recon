@@ -856,6 +856,55 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_cold_frame_commands.json"
+    },
+    {
+      "source": "src/eng1/behavioral/descriptor_resource_reload.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_descriptor_resource_reload.json"
+    },
+    {
+      "source": "src/eng1/behavioral/frame_runtime_callees.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_dialog_frame.json"
+    },
+    {
+      "source": "src/eng1/behavioral/frame_program_data.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_dialog_frame.json"
+    },
+    {
+      "source": "src/eng1/behavioral/simulation_iteration.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_simulation_iteration.json"
+    },
+    {
+      "source": "src/eng1/behavioral/simulation_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_simulation_iteration.json"
+    },
+    {
+      "source": "src/eng1/behavioral/payload_dispatch.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_payload_dispatch.json"
+    },
+    {
+      "source": "src/eng1/behavioral/payload_dispatch_data.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_payload_dispatch.json"
     }
   ],
   "functions": [
@@ -3118,6 +3167,96 @@
       "contract": "Seven-arg cdecl20B spritepacket, arg7==4 extra12B callbackpacket, live cursor reload and chain.",
       "behavioral_test": "tests/eng1_draw_commands_differential.c",
       "uncertainty": "Finite fixture confidence only. Root nested operations remain dependencies; coordinateprefix guarded, hostcallbacks controlled in differential. No gameplay or universal equality claim."
+    },
+    {
+      "rva": "0x33e0",
+      "symbol": "_eng1_target_033e0",
+      "source": "src/eng1/behavioral/descriptor_resource_reload.c",
+      "evidence": "evidence/eng1_descriptor_resource_reload.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Two-pointer cdecl resource reload; each of81IDs calls3410(first,id) then3410(second,id).",
+      "behavioral_test": "tests/eng1_descriptor_reload_differential.c",
+      "uncertainty": "Finite synchronous resource cases, actual provider/completion callbacks; host endpoints are spies, failure paths untested. Known byteprefixes explicitly guarded."
+    },
+    {
+      "rva": "0x3410",
+      "symbol": "_eng1_target_03410",
+      "source": "src/eng1/behavioral/descriptor_resource_reload.c",
+      "evidence": "evidence/eng1_descriptor_resource_reload.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Two-arg cdecl FF-byte scan; eachmatching id withNULLreferences invokes source3540(id,0), thenauxWORD2.",
+      "behavioral_test": "tests/eng1_descriptor_reload_differential.c",
+      "uncertainty": "Finite synchronous resource cases, actual provider/completion callbacks; host endpoints are spies, failure paths untested. Known byteprefixes explicitly guarded."
+    },
+    {
+      "rva": "0x2c60",
+      "symbol": "_dispatch_local_2c60",
+      "source": "src/eng1/behavioral/frame_runtime_callees.c",
+      "evidence": "evidence/eng1_dialog_frame.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Captured cursor record, host rectangle callback, live current-frame head linkage and captured+18 cursor.",
+      "behavioral_test": "tests/eng1_dialog_frame_differential.c",
+      "uncertainty": "Finite bounded fixtures only; host endpoints controlled, simulation nested bodies original-backed in test only. No gameplay, pixel output or universal equivalence proof."
+    },
+    {
+      "rva": "0x2c9b0",
+      "symbol": "_dispatch_local_2c9b0",
+      "source": "src/eng1/behavioral/frame_runtime_callees.c",
+      "evidence": "evidence/eng1_dialog_frame.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Four-argument cdecl forward to copied engine callback +2b0.",
+      "behavioral_test": "tests/eng1_dialog_frame_differential.c",
+      "uncertainty": "Finite bounded fixtures only; host endpoints controlled, simulation nested bodies original-backed in test only. No gameplay, pixel output or universal equivalence proof."
+    },
+    {
+      "rva": "0x1f40",
+      "symbol": "_dispatch_local_1f40",
+      "source": "src/eng1/behavioral/frame_runtime_callees.c",
+      "evidence": "evidence/eng1_dialog_frame.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "No-arg state/phase dialog dispatcher, callback-aware context reloads.",
+      "behavioral_test": "tests/eng1_dialog_frame_differential.c",
+      "uncertainty": "Finite bounded fixtures only; host endpoints controlled, simulation nested bodies original-backed in test only. No gameplay, pixel output or universal equivalence proof."
+    },
+    {
+      "rva": "0x2450",
+      "symbol": "_dispatch_local_2450",
+      "source": "src/eng1/behavioral/frame_runtime_callees.c",
+      "evidence": "evidence/eng1_dialog_frame.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Four-argument dialog parser, signed BYTE opcodes, live widths and modulo DWORD x.",
+      "behavioral_test": "tests/eng1_dialog_frame_differential.c",
+      "uncertainty": "Finite bounded fixtures only; host endpoints controlled, simulation nested bodies original-backed in test only. No gameplay, pixel output or universal equivalence proof."
+    },
+    {
+      "rva": "0x24d0",
+      "symbol": "_dispatch_local_24d0",
+      "source": "src/eng1/behavioral/frame_runtime_callees.c",
+      "evidence": "evidence/eng1_dialog_frame.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Seven ordinary physical DWORD arguments forwarded to33620.",
+      "behavioral_test": "tests/eng1_dialog_frame_differential.c",
+      "uncertainty": "Finite bounded fixtures only; host endpoints controlled, simulation nested bodies original-backed in test only. No gameplay, pixel output or universal equivalence proof."
+    },
+    {
+      "rva": "0x156a0",
+      "symbol": "_dispatch_local_156a0",
+      "source": "src/eng1/behavioral/simulation_iteration.c",
+      "evidence": "evidence/eng1_simulation_iteration.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "No-arg gameplay iteration root, input flags/state writes and fixed-point quantization around15780 and12620.",
+      "behavioral_test": "tests/eng1_simulation_iteration_differential.c",
+      "uncertainty": "Finite bounded fixtures only; host endpoints controlled, simulation nested bodies original-backed in test only. No gameplay, pixel output or universal equivalence proof."
+    },
+    {
+      "rva": "0x4ca0",
+      "symbol": "_eng1_target_04ca0",
+      "source": "src/eng1/behavioral/payload_dispatch.c",
+      "evidence": "evidence/eng1_payload_dispatch.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Three-arg cdecl WORD result; counted payload programs, group/mask linking and callback-ordered32-item flush.",
+      "behavioral_test": "tests/eng1_payload_dispatch_differential.c",
+      "uncertainty": "Six synthetic cases and captured first payload with measured seed state; dynamic flags, exhaustion and arbitrary pointer/stream extents unverified. Explicit measured-owner guards."
     }
   ],
   "source_adaptations": {

@@ -37,6 +37,17 @@ def summarize(path):
             callback_slots_nonzero=event['callback_slots_nonzero'],
             selected_slots={str(i): words[i] for i in (1, 30, 81, 89, 129, 143, 174, 175)}))
     incomplete = next((x for x in events if x['type'] == 'explicit_incomplete_entry'), None)
+    captures = []
+    for event in events:
+        if event['type'] != 'source_call_stack_candidate':
+            continue
+        prefix = bytes.fromhex(event.get('input_prefix_hex', ''))
+        if len(prefix) != event['input_prefix_bytes_read']:
+            raise ValueError('Recorded capture byte count differs from its actual prefix')
+        captures.append({**{k: event[k] for k in ['original_rva', 'return_rva',
+            'stack_word_offset', 'arguments_read', 'arguments',
+            'input_prefix_bytes_requested', 'input_prefix_bytes_read']},
+            'input_prefix_sha256': hashlib.sha256(prefix).hexdigest()})
     if incomplete is None:
         for event in events:
             match = re.search(r'ENG1 incomplete behavior at RVA (0x[0-9a-f]+): (.*)', event.get('text', ''))
@@ -59,6 +70,8 @@ def summarize(path):
         windowed_mode_seen=run.get('windowed_mode_seen', False),
         windowed_mode_ready_at_end=run['windowed_mode_ready'],
         first_failure=run['first_divergence_candidate'], incomplete=incomplete,
+        source_call_capture_specifications=run.get('call_capture_specifications', []),
+        source_call_stack_candidates=captures,
         exception_context=next((x for x in events if x['type'] == 'exception_context'), None),
         exception_source_state={x['name']: x['value'] for x in events if x['type'] == 'exception_source_state' and x['read']},
         summary=next((x for x in reversed(events) if x['type'] == 'summary'), None),

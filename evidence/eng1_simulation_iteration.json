@@ -1,0 +1,166 @@
+{
+  "scope": "Finite native-backed differential of the 156a0 root. Both nested callees run original x86 only in the standalone test; production references ordinary separate source dependencies.",
+  "target": {
+    "module": "ENG1.DLL",
+    "rva": "0x156a0",
+    "symbol": "_dispatch_local_156a0",
+    "inventory_span_bytes": 224,
+    "decoded_body_bytes": 209,
+    "span_sha256": "319dc6d3478ca6c2483469e2196c3175fbc1173ed39d009ada8be6cd77796fda",
+    "body_sha256": "0001d02141d22c0bdc07fbb275ec500984e71e5d1d3a897130f6a19f159b97d3"
+  },
+  "abi": {
+    "source_prototype": "void __cdecl dispatch_local_156a0(void)",
+    "evidence": "The sole verified caller at 0x20542 pushes no arguments; the callee returns with plain RET; the caller ignores EAX."
+  },
+  "behavior": [
+    "Set DWORD 0x72110 to 1 when context byte +0x65 bit 0x04, 0x01, or 0x02 is set and DWORD context+0x30 has bit 0x4000.",
+    "For context byte +0x65 bit 0x01, write context byte +0x0c to 1 and set context byte +0x10 to 1 only when it was zero.",
+    "For context byte +0x65 bit 0x02 under the same 0x4000 gate, write context byte +0x0c to 1 and context byte +0x10 to zero, in that order.",
+    "Set DWORD 0x72170 to 1 when context byte +0x65 bit 0x08 is set, WORD 0x72108 is not 25, and DWORD context+0x30 has bit 0x2000.",
+    "Call RVA 0x15780, reload the interface context pointer, then clear WORD 0x6feb4.",
+    "With post-call DWORD context+0x30 bit 0x8000 and WORD context+0x5c masked by 0xa000 equal to 0xa000, update DWORD g_normal_actor_pool+8 using unsigned 32-bit (value + 0x00400000) & 0xff800000.",
+    "Always call RVA 0x12620 last."
+  ],
+  "source": "src/eng1/behavioral/simulation_iteration.c",
+  "source_sha256": "b01edb8a378a217e9295a267275330352ace6f67ac98c5b7c8adf0b129a1d2db",
+  "data_source": "src/eng1/behavioral/simulation_storage.c",
+  "data_source_sha256": "e648368eda765ab181ed1aef96919e6a6ff3c9e52322e63405fee23314df2d7c",
+  "data_fields": [
+    {
+      "symbol": "_eng1_sim_state_72110",
+      "rva": "0x72110",
+      "size": 4,
+      "type": "unsigned long",
+      "reads_writes": [
+        {
+          "site": "0x156ba",
+          "width": 4,
+          "operation": "store 1"
+        },
+        {
+          "site": "0x156cb",
+          "width": 4,
+          "operation": "store 1"
+        },
+        {
+          "site": "0x156fa",
+          "width": 4,
+          "operation": "store 1"
+        }
+      ],
+      "native_section": ".data",
+      "section_characteristics": "0xc0000040",
+      "section_raw_end_rva": "0x6e800",
+      "section_virtual_end_rva": "0x74658",
+      "native_backing": "PE section virtual tail; no file-backed bytes; loader zero-fill",
+      "native_bytes_hex": "00000000",
+      "native_relocation_cells": [],
+      "existing_provider_overlaps": []
+    },
+    {
+      "symbol": "_eng1_sim_state_72170",
+      "rva": "0x72170",
+      "size": 4,
+      "type": "unsigned long",
+      "reads_writes": [
+        {
+          "site": "0x15721",
+          "width": 4,
+          "operation": "store 1"
+        }
+      ],
+      "native_section": ".data",
+      "section_characteristics": "0xc0000040",
+      "section_raw_end_rva": "0x6e800",
+      "section_virtual_end_rva": "0x74658",
+      "native_backing": "PE section virtual tail; no file-backed bytes; loader zero-fill",
+      "native_bytes_hex": "00000000",
+      "native_relocation_cells": [],
+      "existing_provider_overlaps": []
+    },
+    {
+      "symbol": "_eng1_sim_state_72108",
+      "rva": "0x72108",
+      "size": 2,
+      "type": "unsigned short",
+      "reads_writes": [
+        {
+          "site": "0x1570f",
+          "width": 2,
+          "operation": "compare with 25"
+        }
+      ],
+      "native_section": ".data",
+      "section_characteristics": "0xc0000040",
+      "section_raw_end_rva": "0x6e800",
+      "section_virtual_end_rva": "0x74658",
+      "native_backing": "PE section virtual tail; no file-backed bytes; loader zero-fill",
+      "native_bytes_hex": "0000",
+      "native_relocation_cells": [],
+      "existing_provider_overlaps": []
+    },
+    {
+      "symbol": "_eng1_sim_state_6feb4",
+      "rva": "0x6feb4",
+      "size": 2,
+      "type": "unsigned short",
+      "reads_writes": [
+        {
+          "site": "0x15731",
+          "width": 2,
+          "operation": "clear to zero"
+        }
+      ],
+      "native_section": ".data",
+      "section_characteristics": "0xc0000040",
+      "section_raw_end_rva": "0x6e800",
+      "section_virtual_end_rva": "0x74658",
+      "native_backing": "PE section virtual tail; no file-backed bytes; loader zero-fill",
+      "native_bytes_hex": "0000",
+      "native_relocation_cells": [],
+      "existing_provider_overlaps": []
+    }
+  ],
+  "fixture": "tests/eng1_simulation_iteration_differential.c",
+  "native_cases": 6,
+  "checks": 36,
+  "private_receipt_sha256": "2026d398c52375832cb35fde444d877028a6abf77f7acd7baf66128963565c8f",
+  "limits": [
+    "Only direct 0x15780 and 0x12620 callees run natively in the standalone oracle fixture.",
+    "Fixture-only preconditions: 0x713bc points to a zero WORD table; 0x72020 points to a guarded buffer whose WORD at +0x2e is zero; 0x7217c points to a zeroed 0x200-byte input window; 0x72104 is 0xffffffff and 0x72174 is 5 to route the nested dispatcher through its bounded row loop.",
+    "The fixture compares the 0x1b34-byte existing ResourceCallbackContext prefix and 0x200/0x600-byte normal/alternate actor access windows; these lengths do not prove original aggregate extents or owners.",
+    "No source identity, translation-unit ownership, function-byte equality, module layout, or whole-game equivalence is claimed.",
+    "The 0x15780 and 0x12620 bodies remain separate unrecovered dependencies; their deeper closure is outside this lane."
+  ],
+  "dependencies": [
+    "0x15780",
+    "0x12620"
+  ],
+  "reproduce": "python scripts/eng1_bounded_differential.py simulation-root",
+  "canonical_proof": {
+    "scope": "Six cases/36 checks for the actual source156a0 body and scalar storage. Standalone test-only wrappers execute original15780 and12620, with bounded zero-row preconditions; production contains separate C dependencies. No fully source simulation or gameplay claim.",
+    "input_sha256": {
+      "tests/eng1_simulation_iteration_differential.c": "9c5a953ec522e2c74dea509583bedd6c4d790307945508a083c0781ff93ce225",
+      "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+      "src/eng1/behavioral/simulation_iteration.c": "b01edb8a378a217e9295a267275330352ace6f67ac98c5b7c8adf0b129a1d2db",
+      "scripts/eng1_bounded_differential.py": "154d05e607258cb2bbc60224e9f6e1db27b94e6f541abba468a914d5242d646d",
+      "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "src/eng1/behavioral/simulation_storage.c": "e648368eda765ab181ed1aef96919e6a6ff3c9e52322e63405fee23314df2d7c"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x156a0": {
+        "size": 209,
+        "sha256": "0001d02141d22c0bdc07fbb275ec500984e71e5d1d3a897130f6a19f159b97d3"
+      }
+    },
+    "stdout": "fixture:load-oracle\nfixture:loaded base=10000000\nfixture:snapshot sections=2\nfixture:case 0 native\nfixture:case 0 enter native156a0\nfixture:case 0 leave native156a0\nfixture:case 0 enter source156a0\nfixture:case 0 leave source156a0\nfixture:case 1 native\nfixture:case 1 enter native156a0\nfixture:case 1 leave native156a0\nfixture:case 1 enter source156a0\nfixture:case 1 leave source156a0\nfixture:case 2 native\nfixture:case 2 enter native156a0\nfixture:case 2 leave native156a0\nfixture:case 2 enter source156a0\nfixture:case 2 leave source156a0\nfixture:case 3 native\nfixture:case 3 enter native156a0\nfixture:case 3 leave native156a0\nfixture:case 3 enter source156a0\nfixture:case 3 leave source156a0\nfixture:case 4 native\nfixture:case 4 enter native156a0\nfixture:case 4 leave native156a0\nfixture:case 4 enter source156a0\nfixture:case 4 leave source156a0\nfixture:case 5 native\nfixture:case 5 enter native156a0\nfixture:case 5 leave native156a0\nfixture:case 5 enter source156a0\nfixture:case 5 leave source156a0\nsimulation_cases=6 checks=36 failures=0\n",
+    "cases": 6,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 36,
+    "private_report_sha256": "dcda471a9e162ab6497a3421e7e5f1de73635d49e5ec86223264c72f9f3b4c9a"
+  }
+}

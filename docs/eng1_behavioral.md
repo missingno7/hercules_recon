@@ -1,57 +1,66 @@
 # Behavioral ENG1 reconstruction
 
 The original host loads our source-built x86 ENG1 DLL and performs its expected
-interface initialization. The current diagnostic DLL is incomplete: it contains
-527 explicit fail-on-entry definitions. After reconstructing `32b10` and the
-three startup pool sweeps, runtime testing exposed and corrected a two-byte
-packed-header cursor error in `20670`. A new windowed run gets past that access
-violation. Subsequent source implementations of `3910` and `39b0` advance the
-latest windowed run to missing resource routine `33e0`. No reconstructed ENG1
-gameplay frame, continuous gameplay, or normal engine shutdown is verified.
+250-DWORD interface initialization. The current transitional DLL contains 524
+explicit fail-on-entry definitions. Reconstructed resource reload `33e0/3410`
+and payload decoder `4ca0` advance the latest windowed run to missing routine
+`15090`. No reconstructed ENG1 gameplay frame, continuous gameplay, or normal
+engine shutdown is verified.
 
-The genuine graph has 307 mapped compiled entries, 10 explicitly traced
-unindexed provider RVAs, and 337 function symbols across 148 source units.
+The genuine graph has 316 mapped compiled entries, 10 explicitly traced
+unindexed provider RVAs, and 346 function symbols across 155 source units.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
-denominator. The ordinary genuine link still has 527 missing symbols and no
-duplicate owners. The optional transitional profile adds one generated source
-unit and links with zero unresolved symbols; it cannot complete unknown behavior.
-`PC_DLLEngineMain` is the sole PE32 export at ordinal 1. No original-engine import
-or original executable code is present in the replacement source graph.
+denominator. The ordinary genuine link has 524 unresolved symbols and zero
+duplicate owners. The optional transitional profile adds generated diagnostics
+and links with zero unresolved symbols. `PC_DLLEngineMain` is the sole PE32
+export at ordinal 1. The replacement has no original-engine import or embedded
+original executable code.
 
 All 76 accepted ENG1 function instances remain exact under fresh pinned VC5
-compilation and actual linked-byte comparison. `recovery.json` remains unchanged
-by this work and is the sole authority. The stable TITLE milestone and historical
-matching branch are preserved.
+compilation and actual linked-byte comparison. This work leaves `recovery.json`
+unchanged. The stable TITLE milestone and historical matching branch remain
+preserved.
 
-All 34 source fixture groups pass. Data verification passes 44 providers,
-832 fields and 4,764 native-matching pointer relocations. Finite native helper,
-color, empty-pool actor and forest comparisons remain recorded in the validation
-receipts. The corrected resource parser passes 46 original-x86 checks on the
-full shipped FOREST map; the original oracle executes only inside that fixture.
-An old synthetic test had mirrored the same wrong cursor and has been corrected.
-Color has one raw upper-DWORD callback disagreement; the actual host consumes
-the matching low byte. These checks do not establish universal equivalence.
+All 34 source fixture groups pass. The generic data gate verifies 47 providers,
+856 fields and 4,779 native-matching pointer relocations. Its seven boundary
+regressions cover explicit read-only classification and mixed file/loader-zero
+storage. A separate fresh legacy-resource gate verifies all 81 rows, 1,296
+non-pointer bytes and 81 actual NUL-terminated path contents; these are outside
+the generic count. Neither data gate proves native placement or full runtime
+ownership. Color retains one raw upper-DWORD callback disagreement; the actual
+host consumes the matching low byte.
 
-The three real worklist factories pass six original-x86 scenarios and 48 checks,
-including allocator exhaustion. The descriptor scan and real cleanup dependency
-pass 54 checks; this exposed and corrected `34d0` using entry count instead of
-residency state. Two descriptor lists share physical owners with existing typed
-animation views, preserving overlap rather than creating independent copies.
-The link initializer `39b0` passes 6,146 checks over two complete seeded tables.
-Command writers `33420` and `33620` pass 14 native cases covering packet bytes,
-links, callback order, truncation, overflow and cursor reloads. Their seven-input
-ABI and reused parameter slot are independently traced. Cold-frame root `32bd0`
-has source-spy coverage and remains provisional; `2c60` and `1f40` are still
-dependencies, and indices beyond its 192-pair coordinate prefix abort explicitly.
+Resource reload uses actual provider/completion source and passes three cases,
+81 native checks. Dialog helpers `1f40`, `2450`, `24d0`, `2c60` and `2c9b0`
+pass 147 finite native cases plus a missing-NUL guard discriminator. The tests
+cover live context/frame/cursor changes, mutable scripts and pointer cells,
+post-callback glyph width, and DWORD wrap. Command writers retain 14 passing
+native cases; host rendering endpoints are controlled spies, so pixel output
+is unverified. Simulation root `156a0` passes six cases/36 checks, but its
+standalone fixture still executes original `15780` and `12620` as nested
+helpers. Production retains those as separate source dependencies.
 
-`evidence/eng1_runtime_validation.json` records six artifact-bound observations:
-missing 32b10, missing 274e0, the resource-row access violation, and the corrected
-run stopping at 3910, then missing 39b0 and missing 33e0. Each distinguishes historical source context from current
-source, observes the 250-DWORD table/signature `5ac00cac`, and retains the first
-failure. The last run used the original host/ENG3/data, stable source TITLE and
-an authorized no-CD change solely to a disposable host copy. It was windowed.
-The observer reads state/registers/stack and stops its owned process on the
-first explicit incomplete operation or invalid access.
+Payload decoder `4ca0` passes four synthetic controls and two real-source flush
+cases. A seventh case uses the privately captured first-game input and matches
+the return `0021`, all 256 link rows, queue/cursor, decode scratch and bounded
+frame owner. The capture is a stack candidate matched to a verified source CALL,
+not an entry breakpoint or complete live-global snapshot. Its 128-byte prefix
+remains under ignored `work/`; public evidence records its hash and provenance.
+Queue flushing preserves the first key and resumes at coordinate zero.
+
+Earlier tests exposed and corrected packed-header cursor `20670` (`+24`, not
+`+26`) and cleanup `34d0` (residency state, not entry count). The real worklist
+factories pass six native cases/48 checks, descriptor scan passes 54 checks,
+and link initialization passes 6,146 checks. Wider simulation, collision,
+animation, audio and resource paths remain incomplete or unverified.
+
+`evidence/eng1_runtime_validation.json` records nine artifact-bound observations,
+including the historical access violation, two stops at `4ca0` (one with a
+read-only call capture), and the new `15090` stop. Each distinguishes historical
+source context from current source. The latest run uses original host/ENG3/data,
+stable source TITLE and the authorized no-CD change only in a disposable host
+copy. It is windowed. The observer captures state and aborts its owned process
+on the first explicit incomplete operation or invalid access.
 
 The centralized incomplete manifest distinguishes missing entries from guarded
 unsupported branches and finite data prefixes. A generated body reports its
@@ -123,11 +132,12 @@ cells. Some PC callbacks are real no-ops; retain each measured identity.
 
 ## Runtime-critical open graph
 
-Cold startup now includes `1f750`, `5ea0`, row loading and callback setup; `32b10`, the three pool sweeps, descriptor scan and link initializer are source-built. Observed startup next requires `33e0`, resource initialization and
-remaining referenced callback/data contributions. Restart and warm iteration
-have compiled control, level, camera, geometry and orchestration providers, but
-still lack `156a0`, `1fd90` and nested simulation/animation/collision
-dependencies. A missing root hides downstream dependencies, so unresolved-symbol
+Cold startup includes the source pool sweeps, descriptor scan/link initializer,
+resource reload and payload decoder. The first observed missing routine is now
+`15090`. Restart and warm iteration have compiled control, level, camera,
+geometry, dialog and orchestration providers. Roots `156a0` and `1fd90` are
+source-built; nested `15780`, `12620` and further simulation/animation/collision
+dependencies remain open. A missing root hides downstream dependencies, so unresolved-symbol
 count understates full work.
 
 Frame tables contain verified native references to both functions and data.
@@ -154,6 +164,12 @@ python scripts/eng1_worklist_factory_differential.py
 python scripts/eng1_descriptor_resource_differential.py
 python scripts/eng1_bounded_differential.py resource-links
 python scripts/eng1_bounded_differential.py command-writers
+python scripts/eng1_bounded_differential.py descriptor-reload
+python scripts/eng1_bounded_differential.py dialog-frame
+python scripts/eng1_bounded_differential.py simulation-root
+python scripts/eng1_bounded_differential.py payload-dispatch
+python scripts/eng1_resource_initial_data.py
+python tests/test_eng1_data_evidence_contract.py
 ```
 
 The genuine profile fails at linking and leaves no stale DLL. The optional

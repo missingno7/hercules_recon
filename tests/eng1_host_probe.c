@@ -31,6 +31,11 @@ typedef struct probe_state_cell {
 } PROBE_STATE_CELL;
 static PROBE_STATE_CELL g_state_cells[32];
 static unsigned int g_state_cell_count;
+typedef struct probe_call_capture {
+    DWORD original_rva, return_rva, argument_count, prefix_bytes;
+} PROBE_CALL_CAPTURE;
+static PROBE_CALL_CAPTURE g_call_captures[16];
+static unsigned int g_call_capture_count;
 
 /* SendInput is newer than the pinned VC5 headers. Resolve the OS API, with its
  * actual 28-byte PE32 input layout. No target memory or game code is changed. */
@@ -346,6 +351,35 @@ static void poll_window_mode(FILE *out, HANDLE process, DWORD pid,
     }
 }
 
+static void log_source_call_candidates(FILE *out,HANDLE process,DWORD esp)
+{
+    unsigned int offset, spec_index, count=0;
+    for(offset=0;offset<512 && count<16;++offset) {
+        DWORD value;
+        if(!read_remote(process,esp+offset*4,&value,4))break;
+        for(spec_index=0;spec_index<g_call_capture_count && count<16;++spec_index) {
+            PROBE_CALL_CAPTURE *spec=&g_call_captures[spec_index];
+            DWORD args[8],arg_index,bytes=0;
+            BYTE prefix[128];
+            BOOL args_read;
+            if(value!=g_eng1_base+spec->return_rva)continue;
+            args_read=read_remote(process,esp+(offset+1)*4,args,spec->argument_count*4);
+            if(args_read && args[0]) {
+                for(bytes=0;bytes<spec->prefix_bytes;++bytes)
+                    if(!read_remote(process,args[0]+bytes,prefix+bytes,1))break;
+            }
+            fprintf(out,"{\"type\":\"source_call_stack_candidate\",\"original_rva\":\"0x%lx\",\"return_rva\":\"0x%lx\",\"stack_slot\":\"0x%08lx\",\"stack_word_offset\":%u,\"arguments_read\":%s,\"arguments\":[",
+                spec->original_rva,spec->return_rva,esp+offset*4,offset,args_read?"true":"false");
+            if(args_read)for(arg_index=0;arg_index<spec->argument_count;++arg_index)
+                fprintf(out,"%s\"0x%08lx\"",arg_index?",":"",args[arg_index]);
+            fprintf(out,"],\"input_prefix_bytes_requested\":%lu,\"input_prefix_bytes_read\":%lu,\"input_prefix_hex\":\"",spec->prefix_bytes,bytes);
+            for(arg_index=0;arg_index<bytes;++arg_index)fprintf(out,"%02x",(unsigned int)prefix[arg_index]);
+            fprintf(out,"\"}\n");
+            ++count;
+        }
+    }
+}
+
 static void log_exception_context(FILE *out,HANDLE process,DWORD tid)
 {
     typedef HANDLE (WINAPI *PROBE_OPEN_THREAD)(DWORD,BOOL,DWORD);
@@ -371,6 +405,8 @@ static void log_exception_context(FILE *out,HANDLE process,DWORD tid)
         fprintf(out,"]");
     }
     fprintf(out,"}\n");
+    if(got && g_eng1_base && g_call_capture_count)
+        log_source_call_candidates(out,process,context.Esp);
     if(thread)CloseHandle(thread);
     if(g_eng1_base)for(i=0;i<g_state_cell_count;++i) {
         DWORD value=0;
@@ -687,13 +723,13 @@ static int launch_debugged(const char *host, const char *cwd,
 int main(int argc, char **argv)
 {
     DWORD timeout_ms;
-    if (argc < 8 || argc > 10) {
+    if (argc < 8 || argc > 11) {
         fprintf(stderr, "usage: eng1_host_probe.exe HOST RUNTIME EVENTS TIMEOUT_MS ENTRY_RVA INTERFACE_RVA FIRST_USE_RVA\n");
         return 2;
     }
     timeout_ms = strtoul(argv[4], 0, 0);
     g_enter_game=argc>=9 && strcmp(argv[8],"enter-game")==0;
-    if(argc==10) {
+    if(argc>=10) {
         FILE *states=fopen(argv[9],"r");
         if(!states)return 2;
         while(g_state_cell_count<32) {
@@ -705,6 +741,20 @@ int main(int argc, char **argv)
             ++g_state_cell_count;
         }
         fclose(states);
+    }
+    if(argc==11) {
+        FILE *captures=fopen(argv[10],"r");
+        if(!captures)return 2;
+        while(g_call_capture_count<16) {
+            PROBE_CALL_CAPTURE *spec=&g_call_captures[g_call_capture_count];
+            if(fscanf(captures,"%lx %lx %lu %lu",&spec->original_rva,&spec->return_rva,
+                      &spec->argument_count,&spec->prefix_bytes)!=4)break;
+            if(spec->argument_count<1 || spec->argument_count>8 || spec->prefix_bytes>128) {
+                fclose(captures);return 2;
+            }
+            ++g_call_capture_count;
+        }
+        fclose(captures);
     }
     g_entry_rva = strtoul(argv[5], 0, 0);
     g_interface_rva = strtoul(argv[6], 0, 0);

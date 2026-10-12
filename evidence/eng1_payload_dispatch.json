@@ -1,0 +1,129 @@
+{
+  "scope": "Finite native-x86/source behavioral differential for ordinary 0x4ca0 paths, the real 32-coordinate flush, and the captured first-game 0x4ca0 prefix after measured 0x39b0 row initialization. The queue consumer is linked from current recovered source and host endpoints are controlled spies. This is not FUNCTION_MATCH, source-identity proof, module-layout proof, or arbitrary-input equivalence.",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "native_span": {
+    "rva": "0x4ca0",
+    "size": 1072,
+    "sha256": "992d49ebb05b1e9b36cfbfe126708f4344e064fae67ffdc59ba2a005e53f451a"
+  },
+  "source": "src/eng1/behavioral/payload_dispatch.c",
+  "source_sha256": "11a33af80e697fd69f3f1308d803e0d4707e579139a73d2389cbf006aefcc6d6",
+  "data_source": "src/eng1/behavioral/payload_dispatch_data.c",
+  "data_source_sha256": "72c031fb55841dec4c33eb17a57f9c04a761fc66f79b423e418ee5eb7a312056",
+  "data_fields": [
+    {
+      "symbol": "_g_actor_group_sequence_5e138",
+      "rva": "0x5e138",
+      "size": 112,
+      "type": "unsigned char[112]",
+      "access": "indexed byte reads",
+      "measured_extent": "0x4ca0 reads byte index 0x6f (RVA 0x4e2e); the reverse scan reads indices 0x6f down through 0x55 and exits after decrementing to 0x54; normal scan uses indices 0..0x53",
+      "native_section": ".data",
+      "native_backing": "fully file-backed",
+      "native_bytes_sha256": "b04cb8822d733eee691188918a6d2bad000d2062b511c95a61a3960b549e0ef2",
+      "native_relocations": [],
+      "native_section_writable": true,
+      "consumer_access": "indexed byte loads in RVA 0x4ca0; no write is claimed by this audit"
+    },
+    {
+      "symbol": "_g_frame_decode_scratch_6e660",
+      "rva": "0x6e660",
+      "size": 1024,
+      "type": "unsigned char[1024]",
+      "access": "writable byte scratch; candidate bounds against exclusive end RVA 0x6ea60",
+      "native_section": ".data",
+      "native_section_characteristics": "0xc0000040",
+      "native_backing": {
+        "file_backed_prefix": 416,
+        "loader_zero_fill_tail": 608
+      },
+      "native_initial_bytes": "all zero, verified from file-backed bytes plus PE loader-zero tail",
+      "file_backed_prefix_sha256": "4cc7e6272db6b1ad7581f76c63c694e926e20698e9b02223d5041a55960463f2",
+      "whole_extent_sha256": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+      "native_relocations": [],
+      "writable_in_native": true
+    }
+  ],
+  "abi": "cdecl WORD(const BYTE*records,DWORD count,DWORD flags)",
+  "contract": "Counted four-byte descriptors, mask class/group selection and successor chains; signed-byte literal/repeat stream into writable scratch, sequential WORD copies into32-byte-stride owner. Real32-coordinate flush preserves first key and drains pending.",
+  "actual_capture": {
+    "capture": "work/eng1_behavioral/actual_4ca0_capture.json",
+    "capture_run": "work/eng1_behavioral/integration/runs/20261012T083323Z-0994fce3/report.json",
+    "capture_run_sha256": "ffd046ecdcbe63fc46aac5fccc6ce53e1797ff3537171e8dfd2c712ff6d4b4df",
+    "caller_rva": 25600,
+    "verified_return_rva": 25862,
+    "stack_word_offset": 131,
+    "arguments": [
+      "0x00810cde",
+      "0x00000001",
+      "0x00000040"
+    ],
+    "prefix_bytes": 128,
+    "prefix_sha256": "8d3fb673b1806e5c5f502df64eb75edc26a3b380eb472e5be30a469d6889f21d",
+    "payload_file": "work/eng1_behavioral/differential/payload_dispatch_4ca0/actual_payload.bin",
+    "decoded_extent": {
+      "input_bytes_consumed_including_record": 101,
+      "program_bytes_consumed_including_terminator": 97,
+      "decoded_scratch_bytes": 256,
+      "terminator_offset": 100
+    },
+    "record_geometry": {
+      "record_code": 5,
+      "rows": 16,
+      "words_per_row": 8
+    }
+  },
+  "private_receipt_sha256": "41388233a0a70f17be91ce5e05fefd48de3f74bad95599d90510e5b686159bf5",
+  "private_output": "case code=00 native=0021 source=0021 pending=1 cursor=0 checks=10/10 callbacks=0 incomplete=0\ncase code=02 native=0023 source=0023 pending=1 cursor=0 checks=10/10 callbacks=0 incomplete=0\ncase code=04 native=0021 source=0021 pending=1 cursor=0 checks=10/10 callbacks=0 incomplete=0\ncase code=06 native=0023 source=0023 pending=1 cursor=0 checks=10/10 callbacks=0 incomplete=0\nflush event 0 slot+0x16c(value=00000000)\nflush event 1 slot+0x204(rect=0300,0000,0010,0200 owner+0000 payload-hash=721a9dc5)\nflush event 2 slot+0x204(rect=0310,0000,0010,0200 owner+4000 payload-hash=721a9dc5)\nflush event 3 slot+0x16c(value=00000000)\nflush case native=0761 source=0761 callbacks=4 pending native/source=1/1 alternate-pool-low native=1234 checks=15/15\nchain-flush case native=076f source=076f callbacks=5 pending=1 checks=12/12\nflush event 0 slot+0x16c(value=00000000)\nflush event 1 slot+0x204(rect=0300,0000,0010,0200 owner+0000 payload-hash=721a9dc5)\nflush event 2 slot+0x204(rect=0310,0000,0010,01e0 owner+4000 payload-hash=fa0abdc5)\nflush event 3 slot+0x204(rect=0370,00c0,0010,0020 owner+7c00 payload-hash=472c7dc5)\nflush event 4 slot+0x16c(value=00000000)\nactual case native=0021 source=0021 checks=9/9 prefix_bytes=128\nnative/source 0x4ca0 cases=7/7\n",
+  "diagnostic_history": [
+    "The first source draft reused scratch[0] for each copied output row and differed at owner offset 0x20. Native advances a single scratch read cursor across rows; the candidate now advances it likewise.",
+    "The initial candidate stopped before the 32-entry flush. The candidate now calls the real dispatch_engine_2c630 wrapper, real dispatch_local_050d0 consumer, and real dispatch_engine_2c630 wrapper again, then resumes from the consumer-cleared queue. The first differential showed that native resumes at coordinate index 0 with pending=1; the previous stack-local reading incorrectly predicted index 32. A two-record fixture also crosses the flush after creating a predecessor chain and confirms the first returned key and successor rows remain consistent."
+  ],
+  "limits": [
+    "Covers one four-byte record, flags 0x40, and stream [1,0xa5,2] for record codes 0,2,4,6; a one-record queue-boundary case drains an existing 32-item batch, and a two-record chain case fills the 32nd slot then flushes before appending the next record.",
+    "Seeds the measured post-0x39b0 reserved masks at groups 0,16,4,1; reuses calibration/resource_data.c link rows/map, dispatch_storage.c coordinates/pending, level_storage.c cursor, and the private audited 0x5e138/0x6e660 data provider.",
+    "The flush case links existing frame_commands.c::dispatch_local_050d0, dispatcher_bridges.c::dispatch_engine_2c630, and host_wrappers.c::dispatch_engine_2c7f0. Controlled native/source host spies compare exact callback order, rectangle words, owner offsets, and flushed-byte hashes.",
+    "The captured payload is the verified 128-byte first-game stack prefix from call return RVA 0x6506, count 1, flags 0x40. Its private bytes are kept under work/; the report records the prefix hash and call provenance without embedding the payload.",
+    "Scratch streams beyond the measured 0x400 prefix remain incomplete. The captured native pointer and caller stack state are not treated as a complete live global-state snapshot."
+  ],
+  "fixture": "tests/eng1_payload_dispatch_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py payload-dispatch [--captured-payload work/eng1_behavioral/differential/payload_dispatch_4ca0/actual_payload.bin]",
+  "confidence": "Finite native-x86 cases, no FUNCTION_MATCH or fully captured live-global-state proof.",
+  "canonical_proof": {
+    "scope": "Four payload-family controls and two queue-flush cases versus unpatched x86, with actual source queue consumer and controlled host endpoints. Optional pinned captured startup prefix adds one case; its bytes remain private and its seed state is not a complete live snapshot.",
+    "input_sha256": {
+      "src/eng1/behavioral/data_views.h": "9647f58d5bce44f2f44d95d21d0cd525f1a1949b76966b02dfa0c668e0f33e5d",
+      "src/eng1/behavioral/level_storage.c": "caf18067ee91a136ae6640291170e006e4c01cc7e9d5dc1d03aea8cca1cadb07",
+      "src/eng1/behavioral/data_layouts.h": "310fe04a43cd1a73589d5b7bdb3058b3a16bdbbd1f9465b87ee768326f3671d3",
+      "src/eng1/behavioral/payload_dispatch.c": "11a33af80e697fd69f3f1308d803e0d4707e579139a73d2389cbf006aefcc6d6",
+      "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+      "calibration/engine_dispatch_externs.h": "dfd2e116a88bec977cb3bf27cf68c859024f788a24a82ab46566c3967455cb31",
+      "src/eng1/behavioral/host_wrappers.c": "75173678432407e5abd5318792ae75cec99b7277e62ae67ef0ce462ff079d67d",
+      "calibration/resource_data.c": "f9c92023152194164535fa33ca7a7e2e82726897ed56b9c5dba7475f25ed1d47",
+      "src/eng1/behavioral/frame_commands.c": "5088e6070b68a441ccdd3df79c9b061b3005c8fc25b40082d0ddeecff9692381",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "calibration/dispatcher_bridges.c": "a15b55854b5c4034a02eb8e0d24a647c06684d291ddf8b3923fea4ebf98bba15",
+      "work/eng1_behavioral/differential/payload_dispatch_4ca0/actual_payload.bin": "8d3fb673b1806e5c5f502df64eb75edc26a3b380eb472e5be30a469d6889f21d",
+      "scripts/eng1_bounded_differential.py": "154d05e607258cb2bbc60224e9f6e1db27b94e6f541abba468a914d5242d646d",
+      "calibration/engine_interface_storage.c": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5",
+      "src/eng1/behavioral/dispatch_storage.c": "96bcf0af67619d613768784a544ff693669574a196e6301c4a5c16b03e5e62bc",
+      "tests/eng1_payload_dispatch_differential.c": "5b2ff510ec4a1ebef8eea8e1a5127bf4e1b68e816aa4b1fe0c4463d3b2c49aef",
+      "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "src/eng1/behavioral/payload_dispatch_data.c": "72c031fb55841dec4c33eb17a57f9c04a761fc66f79b423e418ee5eb7a312056"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x4ca0": {
+        "size": 1072,
+        "sha256": "992d49ebb05b1e9b36cfbfe126708f4344e064fae67ffdc59ba2a005e53f451a"
+      }
+    },
+    "stdout": "case code=00 native=0021 source=0021 pending=1 cursor=0 checks=10/10 callbacks=0 incomplete=0\ncase code=02 native=0023 source=0023 pending=1 cursor=0 checks=10/10 callbacks=0 incomplete=0\ncase code=04 native=0021 source=0021 pending=1 cursor=0 checks=10/10 callbacks=0 incomplete=0\ncase code=06 native=0023 source=0023 pending=1 cursor=0 checks=10/10 callbacks=0 incomplete=0\nflush event 0 slot+0x16c(value=00000000)\nflush event 1 slot+0x204(rect=0300,0000,0010,0200 owner+0000 payload-hash=721a9dc5)\nflush event 2 slot+0x204(rect=0310,0000,0010,0200 owner+4000 payload-hash=721a9dc5)\nflush event 3 slot+0x16c(value=00000000)\nflush case native=0761 source=0761 callbacks=4 pending native/source=1/1 alternate-pool-low native=1234 checks=15/15\nchain-flush case native=076f source=076f callbacks=5 pending=1 checks=12/12\nflush event 0 slot+0x16c(value=00000000)\nflush event 1 slot+0x204(rect=0300,0000,0010,0200 owner+0000 payload-hash=721a9dc5)\nflush event 2 slot+0x204(rect=0310,0000,0010,01e0 owner+4000 payload-hash=fa0abdc5)\nflush event 3 slot+0x204(rect=0370,00c0,0010,0020 owner+7c00 payload-hash=472c7dc5)\nflush event 4 slot+0x16c(value=00000000)\nactual case native=0021 source=0021 checks=9/9 prefix_bytes=128\nnative/source 0x4ca0 cases=7/7\n",
+    "cases": 7,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 76,
+    "private_report_sha256": "fab40126ee1955003afd1951ad155b218049806cc2ed80c07afc5e48c9fed64f"
+  }
+}
