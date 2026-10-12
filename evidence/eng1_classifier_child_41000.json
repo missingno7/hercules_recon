@@ -1,0 +1,112 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x41000",
+  "source": "src/eng1/behavioral/classifier_child_41000.c",
+  "source_sha256": "7b1612f796b5d0e549f070685cd17375655aead3e69a90075e75dd795adc8870",
+  "implementation_status": "behaviorally_validated_limited",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "private_candidate_sha256": "39f085d34a012a5b87885baef3925412f5c8117c15c53a701e106fae1ba93cf2",
+  "private_report_sha256": "fe1e32cb940fc685804ada2cf230b469d45f51b32a05e7db8d8643c9fa1e1623",
+  "native_contract": {
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "entry_rva": "0x41000",
+    "body_extent": "0x41000..0x41091 inclusive; jump table at 0x41094",
+    "abi": "void __cdecl(Actor *child, unsigned long category)",
+    "caller": {
+      "rva": "0x3cb38",
+      "argument_order": "push category; push child; call 0x41000; caller adds 8 to ESP",
+      "condition": "caller checks WORD child+0x2e == 0x2f after copying child.y to child+0xd8 and parent+0xdc/+0xe0 to child+0xdc/+0xe0"
+    },
+    "accesses": [
+      {
+        "rva": "0x4100e",
+        "operation": "WORD load",
+        "source": "0x6567e + 12*category (column 3 of 0x65678 rows)",
+        "effect": "if nonzero, zero-extend then shift left 16 and DWORD-store child+4"
+      },
+      {
+        "rva": "0x41026",
+        "operation": "WORD load",
+        "source": "0x6567c + 12*category (column 2 of 0x65678 rows)",
+        "effect": "WORD-store child+0x2a; if table value is zero, store one"
+      },
+      {
+        "rva": "0x4103c",
+        "operation": "unsigned WORD compare child+0x2a against 8",
+        "effect": "`jb 0x41049` skips the next store when value < 8; values >= 8 become 0x10"
+      },
+      {
+        "rva": "0x41049",
+        "operation": "WORD reload child+0x2a",
+        "effect": "0x10 selects frame 14; otherwise low-two-bit jump table maps 0/1 to frame 0, 2 to frame 1, 3 to frame 2"
+      }
+    ],
+    "reused_owners": [
+      "src/eng1/behavioral/actor_control_tables.c:g_eng1_classifier_rows_65678[18][6] (216-byte measured owner)",
+      "src/shared/frame_state.c:select_frame (native RVA 0x292f0)"
+    ],
+    "scope": "Function semantics only. The candidate stops before category >= 18 would read beyond the measured 18-row classifier owner; this is a source bound, not a native index clamp or capacity claim."
+  },
+  "contract": "cdecl void(Actor*,DWORD category). Live row column3 optionally sets y high WORD; live column2 sets state, zero becomes1, unsigned values>=8 become16. State16 selects14; otherwise low bits0/1 select0,2 selects1,3 selects2. Existing guarded frame selector reused.",
+  "scope": "Nine native comparisons /99 checks using actual source select_frame and existing 216-byte classifier owner. Full Actor bytes and expected y/frame outcomes compared; loaded native and source row mutations restored.",
+  "limits": [
+    "Only finite synthetic rows/categories0..8 and a valid unregistered16-slot frame array tested; no arbitrary alias or full gameplay equivalence.",
+    "Category>=18 and unsupported registered frame reads report and terminate before reading outside measured source owners."
+  ],
+  "failed_draft": {
+    "sha256": "280dad47c630ad3b0b4495eecb8f9e77d71ce030a3295c021ec85ac4aedfa46d",
+    "discrepancies": [
+      "Inverted unsigned threshold at4103c/JB41041.",
+      "Incorrect low-two-bit jump mapping at41094; native states0/1 select frame0."
+    ]
+  },
+  "fixture": "tests/eng1_classifier_child_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py classifier-child",
+  "canonical_proof": {
+    "scope": "Nine native/source full-Actor comparisons/99 checks through actual guarded frame selector: row2 zero,1,2,3,7,8,16,8000,ffff and optional row3 y replacement. Existing classifier row owner; mutable rows restored. Finite frame array only, no gameplay/universal alias equivalence.",
+    "input_sha256": {
+      "src/eng1/behavioral/interpreters.h": "2284756dbb331f455596b2028b105a8bf788b9b43ffea9e84c8dcb5b859151dc",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src/eng1/behavioral/read_guard.h": "3a52a684a11bc6cc800f07f0274f191106cc118fed623eef61e822356b4d6a7b",
+      "src/eng1/behavioral/initial_zero_word_program.c": "1a6630e7c3829c6838dbdf3ae6b897a0e8689cf7c46ebd59cf17ff5e2fb9c029",
+      "src/eng1/behavioral/provisional_frame_pairs.h": "0111a0cbce84423ff8c4468aaff41c480d3e568652e830e92a8a5caa23321e77",
+      "src/eng1/behavioral/shared_selector_assets.c": "7ab8757381d1b15ed4c4c56d5653febaa7730aebd1c750b37d18e024da2b22e9",
+      "src/eng1/behavioral/actor_control_tables.h": "a0fb4f055dc9e934d47674e952b9a0184d31975449f9800e6f824a510f1024cb",
+      "tests/eng1_classifier_child_differential.c": "bf91e53c89bc9b6849ede5d6b9db2e3a39ece87e6096d60226dbc00ac54c2d7f",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "src/eng1/behavioral/finite_frame_prefixes.h": "60ecb2609ec2463d83c4d09d3275d9c7a71b6d7a931973e94be4b1510585ce70",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "src/eng1/behavioral/initial_zero_word_program.h": "34e7d654d628d03765a9b8452f0978addc61387b47857d2ac130cfc144285620",
+      "src/eng1/behavioral/frame_data_config_word_pool.c": "d811f5a5224f912b03dc650aec551bf738c2a22588256da67c5d9da50ad28305",
+      "src/eng1/behavioral/provisional_frame_pairs.c": "65aee841acd18616e8b98595670d6b930fda626a432bf2e00da82047a26a20c3",
+      "src/eng1/behavioral/frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+      "src/eng1/behavioral/classifier_child_41000.c": "7b1612f796b5d0e549f070685cd17375655aead3e69a90075e75dd795adc8870",
+      "src/eng1/behavioral/flags_word_programs.c": "3d6c4fd9bf8a9ca326fa29e09842aa71db26d21e17e92ce2577642730d801505",
+      "src/eng1/behavioral/actor_control_tables.c": "5c47227dca8cb2be2768cfda2b8d9554acf6edae3f2cf186725c40a97c2550c8",
+      "src/eng1/behavioral/shared_selector_assets.h": "d8ac87af169c6cb90c5403369c346ea71f16124457311d93828dea46175f49e4",
+      "src/eng1/behavioral/incomplete.c": "0c1c44db64a0b18e52d51ba9efc1caf1942df7fd700c26bcf99532ee6a114c5a",
+      "src/eng1/behavioral/finite_frame_prefixes.c": "5abcaf6d5ad277bec50956e39adcc860e7273a019165020f8182e070b0df52ac",
+      "src/eng1/behavioral/flags_word_programs.h": "31b888ca9cb8f026b9f4f05d76752f34324ce593161e4ef859b8961fc75413a4",
+      "src/eng1/behavioral/actor_control_update.h": "23105b1e10eaa2c8fb3999078925cf389e3ae2a1fb7ad66dfff596a5514ee01c",
+      "src/shared/frame_state.c": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+      "scripts/eng1_bounded_differential.py": "16bb8268c47df997881115386b759132e5dbd5058a106b2be31bbeaa199cd160",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "src/eng1/behavioral/read_guard.c": "ff186303e741d0ae365b6f27045dd476f92755d8944ece0a438b9f04cbe71bb2"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x41000": {
+        "size": 176,
+        "sha256": "0cc68e6c91d68bb8f6ea081895007ddb947576c06c27a42f86ab41f4b822f987"
+      }
+    },
+    "stdout": "CALL native zero-normalizes-to-one category=0 row=0000/0000\nCALL source zero-normalizes-to-one\nCASE zero-normalizes-to-one y=10203040 frame-word=0001 frame-index=0 selected=1\nCALL native one-selects-zero category=1 row=0001/2345\nCALL source one-selects-zero\nCASE one-selects-zero y=23450000 frame-word=0001 frame-index=0 selected=1\nCALL native two-selects-one category=2 row=0002/0000\nCALL source two-selects-one\nCASE two-selects-one y=10203040 frame-word=0002 frame-index=1 selected=1\nCALL native three-selects-two category=3 row=0003/8001\nCALL source three-selects-two\nCASE three-selects-two y=80010000 frame-word=0003 frame-index=2 selected=1\nCALL native seven-selects-two category=4 row=0007/0000\nCALL source seven-selects-two\nCASE seven-selects-two y=10203040 frame-word=0007 frame-index=2 selected=1\nCALL native eight-normalizes-to-special category=5 row=0008/0abc\nCALL source eight-normalizes-to-special\nCASE eight-normalizes-to-special y=0abc0000 frame-word=0010 frame-index=14 selected=1\nCALL native sixteen-normalizes-to-special category=6 row=0010/0000\nCALL source sixteen-normalizes-to-special\nCASE sixteen-normalizes-to-special y=10203040 frame-word=0010 frame-index=14 selected=1\nCALL native high-bit-word-normalizes category=7 row=8000/0000\nCALL source high-bit-word-normalizes\nCASE high-bit-word-normalizes y=10203040 frame-word=0010 frame-index=14 selected=1\nCALL native all-ones-word-normalizes category=8 row=ffff/ffff\nCALL source all-ones-word-normalizes\nCASE all-ones-word-normalizes y=ffff0000 frame-word=0010 frame-index=14 selected=1\nRESULT cases=9 checks=99 failures=0\n",
+    "cases": 9,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 99,
+    "production_derivations": [],
+    "private_report_sha256": "5ec6ace863c23b6a68737614b89976125a2e26c7b498d58f28dd7d1f72ef25cd"
+  }
+}

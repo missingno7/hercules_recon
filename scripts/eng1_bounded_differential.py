@@ -17,6 +17,36 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'actor-list-producer': dict(
+        sources=['tests/eng1_actor_list_producer_differential.c',
+                 'src/eng1/behavioral/actor_list_producer_2b130.c',
+                 'calibration/action_registry.c'],
+        spans=[(0x2b130,496)], cases=5,
+        scope='Five original/source producer comparisons/45 checks through actual registry acquire/release: early null, null acquisition, empty success, capacity rollback and unsupported class. Factories/callback endpoints asserted unexecuted; no nonempty spawn, dynamic allocation extent or gameplay claim.'),
+    'forest-actor-callback': dict(
+        sources=['tests/eng1_forest_actor_callback_differential.c',
+                 'src/eng1/behavioral/forest_actor_callback_3ca80.c',
+                 'src/eng1/behavioral/actor_list_producer_2b130.c',
+                 'calibration/action_registry.c',
+                 'src/eng1/behavioral/actor_control_tables.c',
+                 'src/eng1/behavioral/actor_position_classifier_41fd0.c'],
+        spans=[(0x3ca80,272),(0x2b130,496)], cases=19,
+        scope='19 original-x86 full-Actor comparisons: classifier rows0..17 with null actor+118, plus empty-list success through actual source producer/registry. Group bytes and pointer installed, actual classifier, kind-zero removal fixture; nonempty iteration remains unverified.'),
+    'classifier-child': dict(
+        sources=['tests/eng1_classifier_child_differential.c',
+                 'src/eng1/behavioral/classifier_child_41000.c',
+                 'src/eng1/behavioral/actor_control_tables.c',
+                 'src/eng1/behavioral/read_guard.c',
+                 'src/eng1/behavioral/frame_data_config_word_pool.c',
+                 'src/eng1/behavioral/flags_word_programs.c',
+                 'src/eng1/behavioral/provisional_frame_pairs.c',
+                 'src/eng1/behavioral/shared_selector_assets.c',
+                 'src/eng1/behavioral/finite_frame_prefixes.c',
+                 'src/eng1/behavioral/initial_zero_word_program.c',
+                 'src/shared/frame_state.c',
+                 'src/eng1/behavioral/incomplete.c'],
+        spans=[(0x41000,176)], cases=9,
+        scope='Nine native/source full-Actor comparisons/99 checks through actual guarded frame selector: row2 zero,1,2,3,7,8,16,8000,ffff and optional row3 y replacement. Existing classifier row owner; mutable rows restored. Finite frame array only, no gameplay/universal alias equivalence.'),
     'actor-script-initializer': dict(
         sources=['tests/eng1_actor_script_initializer_differential.c',
                  'src/eng1/behavioral/actor_script_initializer_13990.c',
@@ -414,6 +444,29 @@ def actor_update_cases(exe, oracle, out, env):
         raise ValueError('Actor signed-coordinate/WORD argument mismatch')
     return SimpleNamespace(returncode=0,stdout='actor_update_native_cases=6 checks=24 failures=0\nactor_update_source_spy_cases=1 checks=2 failures=0\n',stderr=''),dict(cases=6,checks=24,failures=0,source_spy_cases=1,source_spy_checks=2,source_spy_failures=0,native_observations=rows)
 
+def actor_list_producer_cases(exe, oracle, out, env):
+    expected={'early-null':(0,1,-1),'acquire-null':(0,1,-1),'empty':(1,2,0),'capacity':(0,0,-1),'unsupported':(0,0,-1)}
+    rows=[]
+    pattern=r'case=(\S+) mode=(\S+) result=(\d+) owner=(\d+) spawn=(\d+) guard=(\d+) remove=(\d+) actor=([0-9a-f]{584}) group=([0-9a-f]{64})\n?'
+    for name,(result,owner,count) in expected.items():
+        pair=[]
+        for mode in ('native','source'):
+            command=[str(exe),str(oracle),mode,name]
+            run=subprocess.run(command,cwd=out,env=env,capture_output=True,text=True,timeout=60)
+            match=re.fullmatch(pattern,run.stdout)
+            if run.returncode or not match:raise ValueError((name,mode,run.stdout,run.stderr))
+            values=match.groups()
+            assert values[0:2]==(name,mode)
+            assert int(values[2])==result
+            assert int(values[3])==owner
+            assert int.from_bytes(bytes.fromhex(values[8][:8]),'little',signed=True)==count
+            pair.append(values)
+        assert pair[0][7]==pair[1][7],name
+        assert pair[0][8]==pair[1][8],name
+        assert all(int(x)==0 for values in pair for x in values[4:7]),'Unexpected fixture service execution'
+        rows.append(dict(case=name,result=result,owner_code=owner,group_count=count,normalized_actor=pair[0][7],group_bytes=pair[0][8],excluded_service_counts=[0,0,0]))
+    return SimpleNamespace(returncode=0,stdout='actor_list_producer_native_cases=5 checks=45 failures=0\n',stderr=''),dict(cases=5,checks=45,failures=0,native_observations=rows)
+
 def actor_script_initializer_cases(exe, oracle, out, env):
     """Compare real source closure in isolated native/source fixture processes."""
     rows = []
@@ -528,6 +581,9 @@ def run(profile, oracle, captured_payload=None):
         if profile == 'actor-bootstrap':
             tested, bootstrap_proof = bootstrap_cases(exe, oracle, out, env)
             report.update(bootstrap_proof)
+        elif profile == 'actor-list-producer':
+            tested, producer_proof = actor_list_producer_cases(exe, oracle, out, env)
+            report.update(producer_proof)
         elif profile == 'actor-script-initializer':
             tested, initializer_proof = actor_script_initializer_cases(exe, oracle, out, env)
             report.update(initializer_proof)

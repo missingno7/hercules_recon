@@ -1,0 +1,69 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x2b130",
+  "source": "src/eng1/behavioral/actor_list_producer_2b130.c",
+  "source_sha256": "90f5ac0a58b036fc645034142230d2152edac0019f802d3cb6dd952446f3f90e",
+  "implementation_status": "plausible_unverified",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "native": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "file_unchanged_before_after": true,
+    "entry_rva": "0x2b130",
+    "diagnostic_span_bytes": 496,
+    "diagnostic_span_sha256": "c47a6dc20bdd642e0709d87edc7ead00f6965c8d4887db49f8dc4c82fb523659",
+    "extent_caveat": "Inventory diagnostic span 0x1f0; body ends at RET 0x2b319, followed by six alignment NOPs. This does not prove ownership extent."
+  },
+  "private_candidate_sha256": "0e3316e49a1fccec2b4a2fd4615bade6bcd379406f2b3517e3d3e934f8aa8584",
+  "private_report_sha256": "e4a75f604b5be64b67b8b5bca3f414161abf4ad750cc4c31e382b0a396d8e1f7",
+  "contract": "cdecl int(Actor*). Acquire existing action group, traverse12-byte kind-terminated records; signed count vs zero-extended WORD limit; dispatch normal/middle/alternate factories with low-DWORD fixed-point wrap. Reload record/state/callback/count at native sites. Append then cached sprite store. Early null exits preserve+120; post-acquisition rollback releases and clears it.",
+  "scope": "Five native/source cases /45 checks through actual action_registry acquire/release: early-null, acquisition-null, empty success, zero-capacity rollback and unsupported class. Fixture counters prove factories/callback endpoints unexecuted; actual spawning is not validated here.",
+  "limits": [
+    "The source fixture's pending-action table/count and group buffer are controlled test state; they do not re-prove the existing production data owners or allocation extent.",
+    "Factory allocation, callback table reads/calls, child state/sprite writes, and multi-record callback mutation are implemented from the instruction trace but are not exercised by this bounded fixture.",
+    "Action group storage is dynamically supplied. The allocation request is pending_action_group_limit<<2, while the function can write entry index equal to that limit; no extra capacity is assumed or claimed.",
+    "The native callback table access mask is kind&0x1ff with strides 12/8/8. The fixture does not establish runtime table capacity or non-null callback validity.",
+    "The caller-side count-prefixed traversal has no finite allocation extent established by this task.",
+    "No recovery.json entry exists for RVA 0x2b130; this receipt does not grant recovery status or FUNCTION_MATCH."
+  ],
+  "audit_corrections": [
+    "Early null records and null acquisition both return zero without writing actor+0x120.",
+    "The empty-record path returns one after acquisition and preserves group count zero.",
+    "The 0x2b179 backedge resets ESI, so every record compares its class bits against zero.",
+    "Only the post-acquisition rollback path releases the group and clears actor+0x120."
+  ],
+  "fixture": "tests/eng1_actor_list_producer_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py actor-list-producer",
+  "ownership": "Existing PendingActionGroup union, count overlays entries[0]; existing registry/resource/configuration owners reused. Requested allocator size limit*4 includes count; native append may reach entry index limit. Host rounding, larger physical capacity and callback-mutated extents remain unproved. No allocation enlargement or invented clamp.",
+  "parameter_view": "Canonical Actor* declaration matches caller; private void* parameter is the same single32-bit cdecl argument.",
+  "canonical_proof": {
+    "scope": "Five original/source producer comparisons/45 checks through actual registry acquire/release: early null, null acquisition, empty success, capacity rollback and unsupported class. Factories/callback endpoints asserted unexecuted; no nonempty spawn, dynamic allocation extent or gameplay claim.",
+    "input_sha256": {
+      "src/eng1/behavioral/interpreters.h": "2284756dbb331f455596b2028b105a8bf788b9b43ffea9e84c8dcb5b859151dc",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "src/eng1/behavioral/actor_list_producer_2b130.c": "90f5ac0a58b036fc645034142230d2152edac0019f802d3cb6dd952446f3f90e",
+      "tests/eng1_actor_list_producer_differential.c": "4b835e59a4810fc2284d655a13811c99b0a7cf76b167a8c0715d18b4decf56fc",
+      "scripts/eng1_bounded_differential.py": "16bb8268c47df997881115386b759132e5dbd5058a106b2be31bbeaa199cd160",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src/eng1/behavioral/frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+      "src/eng1/behavioral/secondary_records.h": "3ca6b1981eeffb849d85028a22ff8443f309fa42565e4db403f80427044ebeb9",
+      "calibration/action_registry.c": "ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x2b130": {
+        "size": 496,
+        "sha256": "c47a6dc20bdd642e0709d87edc7ead00f6965c8d4887db49f8dc4c82fb523659"
+      }
+    },
+    "stdout": "actor_list_producer_native_cases=5 checks=45 failures=0\n",
+    "cases": 5,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 45,
+    "production_derivations": [],
+    "private_report_sha256": "fc336da10ca92c9f5d77f1a06bc4fedca54c5e0789805541d6c2a1bc980c262e"
+  }
+}

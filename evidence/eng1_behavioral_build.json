@@ -1157,6 +1157,27 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_actor_script_initializer_13990.json"
+    },
+    {
+      "source": "src/eng1/behavioral/classifier_child_41000.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_classifier_child_41000.json"
+    },
+    {
+      "source": "src/eng1/behavioral/forest_actor_callback_3ca80.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_forest_actor_callback_3ca80.json"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_list_producer_2b130.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_actor_list_producer_2b130.json"
     }
   ],
   "functions": [
@@ -3811,6 +3832,32 @@
       "evidence": "evidence/eng1_actor_script_initializer_13990.json",
       "implementation_status": "behaviorally_validated_limited",
       "contract": "One cdecl Actor*. Live kind read then DWORD flags802, low four-bit selector compared against full context byte2, choose real53370 prefix or533c8 pool, DWORD interpolation position1, then actual reset/frame-word interpreter/actor update in order."
+    },
+    {
+      "rva": "0x41000",
+      "source": "src/eng1/behavioral/classifier_child_41000.c",
+      "symbol": "_eng1_native_code_target_0041000",
+      "evidence": "evidence/eng1_classifier_child_41000.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "cdecl void(Actor*,DWORD category). Live row column3 optionally sets y high WORD; live column2 sets state, zero becomes1, unsigned values>=8 become16. State16 selects14; otherwise low bits0/1 select0,2 selects1,3 selects2. Existing guarded frame selector reused."
+    },
+    {
+      "rva": "0x3ca80",
+      "source": "src/eng1/behavioral/forest_actor_callback_3ca80.c",
+      "symbol": "_eng1_native_code_target_03ca80",
+      "evidence": "evidence/eng1_forest_actor_callback_3ca80.json",
+      "implementation_status": "plausible_unverified",
+      "contract": "cdecl void(Actor*). Wrapped x/d8 coordinate updates; DWORD dc40/e0a0; classifier AL stored in BYTE+21, distinct from category+22. Zero list-producer return removes actor. Nonzero reads cached classifier mask and traverses live-count action group; only kind30 consumes mask bits; kind2f runs existing child-state helper.",
+      "uncertainty": "18 native full-Actor/canary comparisons cover classifier rows0..17 and null initial_steps/kind-zero removal only. Fixture models the observed null producer and kind-zero removal endpoints; production binds real dependencies. Child-list behavior is instruction-audited, not natively validated here."
+    },
+    {
+      "rva": "0x2b130",
+      "source": "src/eng1/behavioral/actor_list_producer_2b130.c",
+      "symbol": "_eng1_native_code_target_002b130",
+      "evidence": "evidence/eng1_actor_list_producer_2b130.json",
+      "implementation_status": "plausible_unverified",
+      "contract": "cdecl int(Actor*). Acquire existing action group, traverse12-byte kind-terminated records; signed count vs zero-extended WORD limit; dispatch normal/middle/alternate factories with low-DWORD fixed-point wrap. Reload record/state/callback/count at native sites. Append then cached sprite store. Early null exits preserve+120; post-acquisition rollback releases and clears it.",
+      "uncertainty": "Five native/source cases /45 checks through actual action_registry acquire/release: early-null, acquisition-null, empty success, zero-capacity rollback and unsupported class. Fixture counters prove factories/callback endpoints unexecuted; actual spawning is not validated here."
     }
   ],
   "source_adaptations": {

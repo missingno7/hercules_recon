@@ -2,15 +2,15 @@
 
 The original host loads our source-built x86 ENG1 DLL and performs its expected
 250-DWORD interface initialization. Reconstructed setup and player script
-dispatch now advance the latest windowed run to missing routine `0x3ca80`.
+dispatch now advance the latest windowed run to missing routine `0x40e20`.
 No reconstructed ENG1 gameplay frame, continuous gameplay, or normal engine
 shutdown is verified.
 
-The genuine graph has 352 mapped compiled entries, 10 explicitly traced
-unindexed provider RVAs, and 383 function symbols across 191 source units.
+The genuine graph has 355 mapped compiled entries, 10 explicitly traced
+unindexed provider RVAs, and 386 function symbols across 194 source units.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
-denominator. The genuine link has 542 unresolved function symbols and zero
-duplicate providers. The optional transitional profile adds 542 explicit
+denominator. The genuine link has 541 unresolved function symbols and zero
+duplicate providers. The optional transitional profile adds 541 explicit
 fail-on-entry diagnostics and links with zero unresolved symbols.
 `PC_DLLEngineMain` is the sole PE32 export at ordinal 1. The replacement has
 no original-engine import or embedded original executable code.
@@ -170,6 +170,27 @@ unverified. Earlier test-only original-service forwarding supports outer stores
 and order, not source closure. The windowed host passed `13990` in v27 and
 reached `3ca80`; the latest artifact-bound observation below records its context.
 
+Forest actor callback 3ca80 now reuses the actual classifier, list producer
+and existing registry. Nineteen native actor comparisons cover rows 0..17 on
+null input and one empty-group success. The class byte is at +21, distinct
+from Actor.category at +22; only kind-30 children consume cached mask bits.
+Nonempty child iteration, live count mutation and child-kind changes remain
+instruction-supported and unverified.
+
+List producer 2b130 preserves null exits without clearing +120; only
+post-acquisition failure releases the group and clears that cell. Five native
+cases /45 checks use actual registry acquire/release for early/null/empty and
+rollback states. Factory success, callback mutations and dynamic allocation
+capacity remain unverified. The native requested allocation includes the count
+DWORD and may be smaller than the maximum append; allocation rounding is
+unknown and has not been hidden with an invented extra slot.
+
+Child-state helper 41000 passes nine native comparisons /99 checks through
+the existing source frame selector. Unsigned states at least eight become16;
+zero becomes1. Low bits0/1 select frame0,2 selects1,3 selects2. The original
+failed draft inverted the threshold and mapped frames incorrectly; those
+discriminators and high-bit WORD controls are preserved.
+
 The collision pointer has one source definition in a pure data unit, moved
 unchanged from mixed runtime storage; normal setup supplies its actor address.
 The independent DWORD countdown gate is loader-zero. Its five native writers
@@ -190,7 +211,7 @@ original `15780/12620` as test-only nested helpers; production has separate C
 dependencies. Color retains a raw upper-DWORD callback disagreement, while
 the actual host consumes the matching low byte.
 
-Runtime evidence records 24 artifact-bound observations. Each distinguishes
+Runtime evidence records 25 artifact-bound observations. Each distinguishes
 historical source context from the current checkout. The latest run uses
 original host/ENG3/data, stable source TITLE and the authorized no-CD change
 only in a disposable host copy, in windowed mode. The observer captures the
@@ -268,7 +289,7 @@ cells. Some PC callbacks are real no-ops; retain each measured identity.
 
 Cold startup includes source pool sweeps, descriptor/link initialization,
 resource reload, payload decoding, setup and bounded player dispatch.
-The latest observed frontier is `0x3ca80` in the startup chain.
+The latest observed frontier is `0x40e20` in the startup chain.
 Worklist, camera, geometry and dialog orchestration have compiled providers;
 many collision, actor, animation and input handlers remain missing. A missing
 root hides further dependencies, so the current unresolved count understates
@@ -301,6 +322,9 @@ python scripts/eng1_bounded_differential.py command-writers
 python scripts/eng1_bounded_differential.py descriptor-reload
 python scripts/eng1_bounded_differential.py dialog-frame
 python scripts/eng1_bounded_differential.py simulation-root
+python scripts/eng1_bounded_differential.py actor-list-producer
+python scripts/eng1_bounded_differential.py forest-actor-callback
+python scripts/eng1_bounded_differential.py classifier-child
 python scripts/eng1_bounded_differential.py actor-script-initializer
 python scripts/eng1_bounded_differential.py audio-event
 python scripts/eng1_bounded_differential.py actor-tail

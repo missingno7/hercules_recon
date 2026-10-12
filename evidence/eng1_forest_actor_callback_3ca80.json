@@ -1,0 +1,86 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x3ca80",
+  "source": "src/eng1/behavioral/forest_actor_callback_3ca80.c",
+  "source_sha256": "1b6c539594319de6419924c36429c392b345cadbf04ad136ae73c581ef0f3f88",
+  "implementation_status": "plausible_unverified",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "native": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "target_rva": "0x3ca80",
+    "diagnostic_span_bytes": 272,
+    "span_sha256": "ff85f4e4b0260308e6173c1f4efa8086b090a85a6f590497e88c2267e16ea455",
+    "body_bytes_through_ret": 265,
+    "body_sha256": "7f43880bd920dee4652f92011b09d74d1974bb7c9772ea068d2a04edb5341121",
+    "image_base": "0x10000000",
+    "unchanged_before_after": true
+  },
+  "private_candidate_sha256": "7aa2bb5eb51fea457030fffe695277649c6fb6e4675fb25a9b2062d9dadfd285",
+  "private_report_sha256": "12db40dbfeb625713f7fc9f7b173ab48dc0077f7ce53181902d73ccf62a2c2c7",
+  "abi": {
+    "type": "void __cdecl(Actor *actor)",
+    "evidence": "target prolog pushes ECX,EBX,EBP,ESI,EDI then loads [ESP+0x18], which is the first entry stack DWORD; reachable returns are plain RET; record 51 slot0 at callback row 0x6786c; callback prototype uses Actor* in program interpreter owner."
+  },
+  "contract": "cdecl void(Actor*). Wrapped x/d8 coordinate updates; DWORD dc40/e0a0; classifier AL stored in BYTE+21, distinct from category+22. Zero list-producer return removes actor. Nonzero reads cached classifier mask and traverses live-count action group; only kind30 consumes mask bits; kind2f runs existing child-state helper.",
+  "scope": "19 native full-Actor/canary comparisons:18 null-input rows0..17 and one empty-list success with actual canonical producer and acquire/release registry. Group count-1 becomes0 and actor+120 installed. Kind-zero removal fixture remains controlled; nonempty child iteration is instruction-audited only.",
+  "limits": [
+    "Nonzero actor+118/list-producing path and dynamic group lifetime/capacity remain unverified by this receipt.",
+    "List producer2b130 now has a plausible source body and five finite native comparisons through actual registry helpers; nonempty child/list behavior remains unverified.",
+    "Category>=18, null post-success group or null live child reports unsupported state and aborts. No gameplay frame claim."
+  ],
+  "audit_corrections": [
+    "BYTE+21 is not Actor.category+22.",
+    "Signed group count is checked once at entry, then reloaded at loop backedge; child-pointer values are not count-tested.",
+    "Cached mask shifts only after kind30 entries.",
+    "Native early null actor+118 leaves actor+120 unchanged."
+  ],
+  "fixture": "tests/eng1_forest_actor_callback_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py forest-actor-callback",
+  "dependencies": {
+    "0x2b130": "evidence/eng1_actor_list_producer_2b130.json",
+    "0x41000": "evidence/eng1_classifier_child_41000.json"
+  },
+  "private_additional_empty_group_proof": "Canonical profile now reproduces the19th private case with actual canonical producer and registry.",
+  "canonical_proof": {
+    "scope": "19 original-x86 full-Actor comparisons: classifier rows0..17 with null actor+118, plus empty-list success through actual source producer/registry. Group bytes and pointer installed, actual classifier, kind-zero removal fixture; nonempty iteration remains unverified.",
+    "input_sha256": {
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "scripts/eng1_bounded_differential.py": "16bb8268c47df997881115386b759132e5dbd5058a106b2be31bbeaa199cd160",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "src/eng1/behavioral/frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "src/eng1/behavioral/secondary_records.h": "3ca6b1981eeffb849d85028a22ff8443f309fa42565e4db403f80427044ebeb9",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "src/eng1/behavioral/actor_position_classifier_41fd0.c": "9b9afccd3f972742ad7622c612806e23be09607b2a927e2136c03ece644461e9",
+      "tests/eng1_forest_actor_callback_differential.c": "32c13a07df7e445f2e67048ec6d1d951f96d90e8d343f83ad7c7473c7e6c4543",
+      "src/eng1/behavioral/actor_control_tables.c": "5c47227dca8cb2be2768cfda2b8d9554acf6edae3f2cf186725c40a97c2550c8",
+      "src/eng1/behavioral/actor_control_tables.h": "a0fb4f055dc9e934d47674e952b9a0184d31975449f9800e6f824a510f1024cb",
+      "src/eng1/behavioral/read_guard.h": "3a52a684a11bc6cc800f07f0274f191106cc118fed623eef61e822356b4d6a7b",
+      "src/eng1/behavioral/actor_control_update.h": "23105b1e10eaa2c8fb3999078925cf389e3ae2a1fb7ad66dfff596a5514ee01c",
+      "calibration/action_registry.c": "ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424",
+      "src/eng1/behavioral/interpreters.h": "2284756dbb331f455596b2028b105a8bf788b9b43ffea9e84c8dcb5b859151dc",
+      "src/eng1/behavioral/forest_actor_callback_3ca80.c": "1b6c539594319de6419924c36429c392b345cadbf04ad136ae73c581ef0f3f88",
+      "src/eng1/behavioral/actor_list_producer_2b130.c": "90f5ac0a58b036fc645034142230d2152edac0019f802d3cb6dd952446f3f90e"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x3ca80": {
+        "size": 272,
+        "sha256": "ff85f4e4b0260308e6173c1f4efa8086b090a85a6f590497e88c2267e16ea455"
+      },
+      "0x2b130": {
+        "size": 496,
+        "sha256": "c47a6dc20bdd642e0709d87edc7ead00f6965c8d4887db49f8dc4c82fb523659"
+      }
+    },
+    "stdout": "PASS native_entry=0x3ca80 abi=Actor*_cdecl cases=19 classes=0..17 empty_success=1 native_writable_sections_restored=1 child_iteration=uncovered\nforest_actor_callback_native_cases=19 checks=19 failures=0\n",
+    "cases": 19,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 19,
+    "production_derivations": [],
+    "private_report_sha256": "ec8c873ce82039f73fe99630b41bc6b6259d8a1c9d774ed63b2dfa85aaf6ab3f"
+  }
+}

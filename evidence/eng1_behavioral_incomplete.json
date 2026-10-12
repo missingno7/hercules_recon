@@ -1696,6 +1696,33 @@
     },
     {
       "module": "ENG1.DLL",
+      "rva": "0x65678",
+      "source": "src/eng1/behavioral/classifier_child_41000.c",
+      "kind": "incomplete_data_read",
+      "condition": "41000 category>=18 exceeds existing measured classifier owner.",
+      "evidence": "evidence/eng1_classifier_child_41000.json",
+      "reporting": "Reports native owner and stops before unsupported read."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x6567a",
+      "source": "src/eng1/behavioral/forest_actor_callback_3ca80.c",
+      "kind": "incomplete_data_read",
+      "condition": "3ca80 category>=18 exceeds measured classifier row owner.",
+      "evidence": "evidence/eng1_forest_actor_callback_3ca80.json",
+      "reporting": "Native dependency identity reported; terminates before unsupported dereference."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x3ca80",
+      "source": "src/eng1/behavioral/forest_actor_callback_3ca80.c",
+      "kind": "incomplete_data_read",
+      "condition": "Source list producer success without group, or null child before live count.",
+      "evidence": "evidence/eng1_forest_actor_callback_3ca80.json",
+      "reporting": "Native dependency identity reported; terminates before unsupported dereference."
+    },
+    {
+      "module": "ENG1.DLL",
       "rva": "0xe670",
       "symbol": "_dispatch_local_0e670",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -9262,24 +9289,6 @@
     },
     {
       "module": "ENG1.DLL",
-      "rva": "0x3ca80",
-      "symbol": "_eng1_native_code_target_03ca80",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/frame_data.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
       "rva": "0x3cb90",
       "symbol": "_eng1_native_code_target_03cb90",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -11646,11 +11655,11 @@
     }
   ],
   "provisional_generation": {
-    "source_only_report_sha256": "f22f467381d11014614af90520a0a850ffd46362e8d3902a7317fbb2b1ca6af7",
+    "source_only_report_sha256": "7689df0eb08b423d6a0159f4ad21fb13e98f2dbb85690f73d515ec5cb9cfa522",
     "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
     "recovery_sha256": "465ee5ea057cd3bfb23508e18b16958c27b9d391e11a0bc874cfc413436644d5",
-    "symbols": 542,
-    "native_rvas": 539,
+    "symbols": 541,
+    "native_rvas": 538,
     "scope": "Transitional loader/startup diagnostics only; excluded from source coverage and never behaviorally accepted."
   }
 }
