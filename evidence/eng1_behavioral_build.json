@@ -1206,6 +1206,13 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_position_initializer_2d9b0.json"
+    },
+    {
+      "source": "src/eng1/behavioral/state_initializer_40a50.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_state_initializer_40a50.json"
     }
   ],
   "functions": [
@@ -3918,6 +3925,14 @@
       "evidence": "evidence/eng1_position_initializer_2d9b0.json",
       "implementation_status": "behaviorally_validated_limited",
       "contract": "One Actor* cdecl command. Capture DWORD x; DWORD y=03200000 then z=01000000; existing source41fd0(saved x); returned AL to BYTE21, preserving category22. Reuses existing classifier table and callback-record owner."
+    },
+    {
+      "rva": "0x40a50",
+      "symbol": "_eng1_native_code_target_040a50",
+      "source": "src/eng1/behavioral/state_initializer_40a50.c",
+      "evidence": "evidence/eng1_state_initializer_40a50.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "One Actor* cdecl command. DWORD render flags54|=10004000 before WORD state2a capture; magnitude=state&1f; step100 or300 by bit0800. Independent bit0100 writes WORD74 then DWORDd8; bit0200 writes DWORDdc; bit0400 writes WORD70 then DWORDdc again. Preserve untouched fields and raw magnitude."
     }
   ],
   "source_adaptations": {

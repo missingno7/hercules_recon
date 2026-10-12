@@ -17,6 +17,11 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'state-initializer': dict(
+        sources=['tests/eng1_state_initializer_differential.c',
+                 'src/eng1/behavioral/state_initializer_40a50.c'],
+        spans=[(0x40a50,86)], cases=10,
+        scope='Finite original/source full-Actor comparisons of actor-field-only40a50: independent and simultaneous state bits, both step sizes, raw low-five-bit magnitude, narrow-store canaries and unchanged unrelated fields. No new owner or universal EAX contract.'),
     'position-initializer': dict(
         sources=['tests/eng1_position_initializer_differential.c',
                  'src/eng1/behavioral/position_initializer_2d9b0.c',

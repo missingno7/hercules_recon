@@ -1,0 +1,197 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x40a50",
+  "source": "src/eng1/behavioral/state_initializer_40a50.c",
+  "source_sha256": "93ca6cca42f48cf3c67a7cd18a1c4d79267b201151fe6a8a477520490d6aed00",
+  "implementation_status": "behaviorally_validated_limited",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "private_candidate_sha256": "717b03ef0e983e188ee29ea307f956a79e612f5dcda0da0018f88a844c00d4b8",
+  "private_report_sha256": "a27941ae585344a7f3e27d0bf5d6ba5ce79a49d3b3e02e9e4a5cee66e9a427d1",
+  "native_contract": {
+    "entry_abi": "one Actor* cdecl stack argument; plain RET at 0x40aa5",
+    "body_bytes": 86,
+    "instruction_order": [
+      "OR DWORD actor+0x54 with 0x10004000",
+      "snapshot WORD actor+0x2a; magnitude is that WORD & 0x1f",
+      "step WORD is 0x300 if bit 0x0800 else 0x100",
+      "if bit 0x0100: WORD +0x74=step, then DWORD +0xd8=magnitude",
+      "if bit 0x0200: DWORD +0xdc=magnitude",
+      "if bit 0x0400: WORD +0x70=step, then DWORD +0xdc=magnitude"
+    ],
+    "instruction_sites": [
+      {
+        "rva": "0x40a50",
+        "operation": "load Actor* from [esp+4]"
+      },
+      {
+        "rva": "0x40a55",
+        "operation": "initialize SI=0x100"
+      },
+      {
+        "rva": "0x40a5a",
+        "operation": "load DWORD actor+0x54"
+      },
+      {
+        "rva": "0x40a5d",
+        "operation": "OR 0x10004000 and store DWORD actor+0x54"
+      },
+      {
+        "rva": "0x40a68",
+        "operation": "load WORD actor+0x2a"
+      },
+      {
+        "rva": "0x40a6e",
+        "operation": "EDX=WORD; AND EDX,0x1f"
+      },
+      {
+        "rva": "0x40a71",
+        "operation": "test control WORD bit 0x0800; select SI=0x300"
+      },
+      {
+        "rva": "0x40a7b",
+        "operation": "test control WORD bit 0x0100"
+      },
+      {
+        "rva": "0x40a80",
+        "operation": "conditional WORD +0x74=SI"
+      },
+      {
+        "rva": "0x40a84",
+        "operation": "conditional DWORD +0xd8=EDX"
+      },
+      {
+        "rva": "0x40a8a",
+        "operation": "test control WORD bit 0x0200"
+      },
+      {
+        "rva": "0x40a8f",
+        "operation": "conditional DWORD +0xdc=EDX"
+      },
+      {
+        "rva": "0x40a95",
+        "operation": "test control WORD bit 0x0400"
+      },
+      {
+        "rva": "0x40a9a",
+        "operation": "conditional WORD +0x70=SI"
+      },
+      {
+        "rva": "0x40a9e",
+        "operation": "conditional second DWORD +0xdc=EDX"
+      },
+      {
+        "rva": "0x40aa5",
+        "operation": "ret"
+      }
+    ],
+    "return": "The callback-table entry is consumed through the void Eng1ActorCallback(Actor*) view; incidental EAX is not claimed.",
+    "direct_callers": 0,
+    "data_references": [
+      "0x67d58",
+      "0x67d70"
+    ]
+  },
+  "native_span": {
+    "rva": "0x40a50",
+    "bytes": 86,
+    "sha256": "863ef106a6f2f2c2ad779c38a43d12aecf6de04d129c6111c11db4c6fff922d4",
+    "hex": "8b44240456be000100008b485481c90040001089485433c9668b482a8bd183e21ff6c5087405be00030000f6c501740a668970748990d8000000f6c50274068990dc000000f6c504740a668970708990dc0000005ec3"
+  },
+  "static_audit_sha256": "f1da3e048c96b209fc57765e83ac3ad9e55016a4b4b70a02d04a11f9eba76110",
+  "contract": "One Actor* cdecl command. DWORD render flags54|=10004000 before WORD state2a capture; magnitude=state&1f; step100 or300 by bit0800. Independent bit0100 writes WORD74 then DWORDd8; bit0200 writes DWORDdc; bit0400 writes WORD70 then DWORDdc again. Preserve untouched fields and raw magnitude.",
+  "scope": "Finite original-DLL/source differential of this one-Actor callback and its exact actor-byte effects. The callback reads and writes only its Actor argument; no new data owner or helper is required.",
+  "limits": [
+    "Ten bounded state values compare final full-Actor bytes, including narrow-write neighbors; no exhaustive 16-bit control-word proof is claimed.",
+    "No callback, global data, or helper is touched by this entry; none is simulated.",
+    "The entry's physical EAX is incidental under the inspected void callback view.",
+    "No FUNCTION_MATCH, historical source/TU, complete actor-array, or whole-image claim follows."
+  ],
+  "fixture": "tests/eng1_state_initializer_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py state-initializer",
+  "initial_prediction_mismatch": {
+    "file": "work/eng1_behavioral/eng1_call_40a50/initial_prediction_mask_error.json",
+    "sha256": "1646155515ec44d70a84ba45c95c8be1e765df78f09760085e896f9e3ce3cd79",
+    "finding": "The first transcription placed the three CH tests one WORD bit too high. Before source/native experiments, the native operand masks were corrected to 0x0100, 0x0200, and 0x0400 from the byte-level audit."
+  },
+  "callback_record_references": {
+    "source_provider": "src/eng1/behavioral/frame_data_callback_records.inc",
+    "entries": [
+      {
+        "record": 49,
+        "native_rva": "0x67d58",
+        "target_va": "0x10040a50",
+        "sha256": "be79047ba7e2b5095de45333d882dc602451eb3e4c39274a2531b4a6c408fee7"
+      },
+      {
+        "record": 52,
+        "native_rva": "0x67d70",
+        "target_va": "0x10040a50",
+        "sha256": "be79047ba7e2b5095de45333d882dc602451eb3e4c39274a2531b4a6c408fee7"
+      }
+    ],
+    "source_rows": "Both existing records pair the initializer with apply_scaled_offsets_40ab0; neither row nor its neighboring callback data is re-owned here."
+  },
+  "configured_assets": [
+    {
+      "index": 49,
+      "asset_rva": "0x67b48",
+      "bytes": "0000000000000000",
+      "program_pointer": 0
+    },
+    {
+      "index": 52,
+      "asset_rva": "0x67b60",
+      "bytes": "0000000000000000",
+      "program_pointer": 0
+    }
+  ],
+  "callback_owner": {
+    "source": "src/eng1/behavioral/frame_data.c",
+    "symbol": "_g_eng1_callback_record_prefix_067bd0",
+    "rva": "0x67bd0",
+    "size": 528,
+    "records": 66,
+    "initializer_records": [
+      49,
+      52
+    ],
+    "initializer_cells": [
+      "0x67d58",
+      "0x67d70"
+    ],
+    "update_cells": [
+      "0x67d5c",
+      "0x67d74"
+    ],
+    "update_provider": "src/eng1/actor_handlers_high.c:apply_scaled_offsets_40ab0"
+  },
+  "guarded_read_scope": "Only actor DWORD54 and WORD2a; no table/program/frame/global reads in this body",
+  "canonical_proof": {
+    "scope": "Finite original/source full-Actor comparisons of actor-field-only40a50: independent and simultaneous state bits, both step sizes, raw low-five-bit magnitude, narrow-store canaries and unchanged unrelated fields. No new owner or universal EAX contract.",
+    "input_sha256": {
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src/eng1/behavioral/interpreters.h": "2284756dbb331f455596b2028b105a8bf788b9b43ffea9e84c8dcb5b859151dc",
+      "tests/eng1_state_initializer_differential.c": "fb8271952bf55a52bf7f1a7232a0782e8d297e26874d7126260d1cada6df0d61",
+      "src/eng1/behavioral/frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "src/eng1/behavioral/state_initializer_40a50.c": "93ca6cca42f48cf3c67a7cd18a1c4d79267b201151fe6a8a477520490d6aed00",
+      "scripts/eng1_bounded_differential.py": "2ed1facd939afa3179e407143f91f9a4b6df35370019430a8e6c4bca032b98b1",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x40a50": {
+        "size": 86,
+        "sha256": "863ef106a6f2f2c2ad779c38a43d12aecf6de04d129c6111c11db4c6fff922d4"
+      }
+    },
+    "stdout": "PASS 40a50 no axis flags\nPASS 40a50 bit 0x0100 only\nPASS 40a50 bit 0x0200 only\nPASS 40a50 bit 0x0400 only\nPASS 40a50 scale selector alone has no field write\nPASS 40a50 scale 0x300 with bit 0x0100\nPASS 40a50 scale 0x300 with bit 0x0200\nPASS 40a50 scale 0x300 with bit 0x0400\nPASS 40a50 all three independent branches\nPASS 40a50 unselected upper state bits\neng1_call_40a50 cases=10 checks=81 failures=0\n",
+    "cases": 10,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 81,
+    "production_derivations": [],
+    "private_report_sha256": "d5e018bc002e7bc65c7f562128aa3645de6bd4952d51fc873fdc38c7a4f55d9a"
+  }
+}
