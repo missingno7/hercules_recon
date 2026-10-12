@@ -1,0 +1,153 @@
+{
+  "scope": "Finite original-x86 versus canonical source grid query, real row-producer comparison and explicit source-only unsupported-path guards.",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "native_spans": {
+    "0x20d30": {
+      "size": 368,
+      "sha256": "308d7d6e8573bfa540de21ad0dc940b2dc433850eeb3bbb3a47bdcf078df6221"
+    },
+    "0x208f0": {
+      "size": 160,
+      "sha256": "6134247626e8c2774886207babae014ef4e561dd729958dcf079a12dc165bcff"
+    }
+  },
+  "abi": "cdecl DWORD(signed DWORD x, signed DWORD y, signed DWORD z, DWORD step); caller masks result to low WORD",
+  "side_effects": "Native body has no stores to globals/data; candidate reads the shared sequence owner only. Fixture snapshots both sequence instances, temporarily writes and restores two native/source coefficient words for live-alias differential cases, then verifies the query itself changed neither sequence nor reconstructed row arrays. Step is unused.",
+  "data_reads": [
+    "0x70d01 byte active-row sentinel",
+    "0x70ece signed byte group count",
+    "0x70e0c WORD offset lane and 0x70e2c WORD base-offset lane, indexed by clamped layer",
+    "0x70d14 WORD grid width",
+    "0x70dcc row-pointer DWORD lane, indexed by clamped layer",
+    "selected grid DWORD, whose top seven bits select a relative header record through the DWORD pointer at 0x70d40",
+    "packed WORD and signed sample byte in the selected header record",
+    "first coefficient lane 0x5e0d0 + index*16: measured indices 0..6 use candidate-owned scalar values and 7..13 alias g_actor_group_sequence_5e138",
+    "fourth coefficient lane 0x5e0dc + nibble*16: measured indices 0..5 use candidate-owned scalar values and 6..12 alias g_actor_group_sequence_5e138"
+  ],
+  "coefficient_overlap": {
+    "first_lane_accesses_intersect_5e138_owner_for_indices": "7..13",
+    "second_lane_accesses_intersect_5e138_owner_for_nibble_indices": "6..12",
+    "access_width": 4,
+    "native_writes": false,
+    "owner_interval": "[0x5e138,0x5e1a8)",
+    "manifest_proves_5e0d0_table_owner_or_extent": false,
+    "manifest_first_lane_owner_hits_0_255": [
+      "7..13 sequence",
+      "18..22 static overlay-name slots",
+      "25..78 row3 actor-frame data",
+      "80..82 remaining word asset",
+      "109..111 row3 actor-frame data",
+      "122..142 row3 actor-frame data",
+      "152..174 row3 actor-frame data",
+      "175..180 custom-root data",
+      "181..232 row3 actor-frame data",
+      "242..255 row3 actor-frame data"
+    ],
+    "manifest_first_lane_unowned_indices": 68,
+    "source_supported_first_lane": "0..13 only",
+    "source_supported_fourth_lane": "0..12 only"
+  },
+  "unknowns": [
+    "The original routine has no index guard. Source data supports first-lane indices 0..13 and fourth-lane indices 0..12; indices outside these measured views explicitly call eng1_incomplete_behavior. The real packed high-byte caller domain remains unknown, so no native full-extent claim is made.",
+    "The header pointer has no measured allocation extent, so the candidate guards null but does not claim arbitrary malformed header safety.",
+    "The row-pointer data allocation extent depends on the real row producer inputs; tests cover positive width 4 and row extent 4 only.",
+    "Only low-WORD return equality is claimed because caller 0x2a170 masks the native EAX result; no full DWORD return equivalence is claimed.",
+    "The function-map 368-byte span includes ten trailing NOPs and start extent is not proven; no function-boundary or whole-image claim is made."
+  ],
+  "data_observations": {
+    "native_sequence_5e138_sha256": "b04cb8822d733eee691188918a6d2bad000d2062b511c95a61a3960b549e0ef2",
+    "native_bytes_5e0d0_5e1e0_sha256": "73a8c02548d65dd9b78dacf3e178bda2b7e1d2035ce3df713c7555813debdcf9",
+    "coefficient_prefix": {
+      "rva_interval": "[0x5e0d0,0x5e138)",
+      "size": 104,
+      "sha256": "5117def35fe664ea3e5f48c16c36a6e08704421264f643e6ecbca2531f3024db",
+      "dwords_le": [
+        4,
+        63,
+        4,
+        1,
+        8,
+        31,
+        8,
+        2,
+        16,
+        15,
+        16,
+        4,
+        32,
+        7,
+        32,
+        8,
+        64,
+        3,
+        64,
+        16,
+        251986689,
+        0,
+        65536,
+        2,
+        259,
+        2
+      ],
+      "source_owner": "candidate static const g_eng1_grid_query_coefficient_prefix_5e0d0[26]"
+    },
+    "manifest_has_5e0d0_owner": false,
+    "sequence_owner": "src/eng1/behavioral/payload_dispatch_data.c::g_actor_group_sequence_5e138 [0x5e138,0x5e1a8)",
+    "sequence_alias_test": "temporarily zeroed native RVA 0x5e140/source sequence+8 and native RVA 0x5e13c/source sequence+4; both restored after live-read differential cases",
+    "fixture_only_link_cell": "g_mode_lookup_5df0b is defined only to satisfy uncalled resource_rebuild_blob; that path is not executed or used as candidate data",
+    "cumulative_owner_view": "resource_rebind.c test compilation maps g_group_cumulative_70e4c to the first WORD lane of existing g_resource_group_state_70e4c; no second source owner is defined"
+  },
+  "module": "ENG1.DLL",
+  "rva": "0x20d30",
+  "source": "src/eng1/behavioral/grid_query_20d30.c",
+  "source_sha256": "d705e1651297fe070e2f427df3c1a4692b38fee9e49df3b1a4b1280c279b3a1e",
+  "implementation_status": "known_incomplete",
+  "private_candidate_sha256": "2ae7bb2cc69105e75383f8114e37999afd6ca4b6c2586ea0612b3e2855bd2bfd",
+  "private_report_sha256": "3eceb4923e23eed823179fb08d89cbc6c61515d2bd38e310365ea5335cfa4c9b",
+  "fixture": "tests/eng1_grid_query_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py grid-query",
+  "canonical_adjustments": "Native coefficient storage is writable .data; canonical prefix remains mutable and coefficient reads are volatile DWORDs. Existing sequence is read through its sole source owner; no copied overlap or original production dispatch.",
+  "limits": "Only low-WORD return behavior is validated. Supported coefficient first lanes0..13 and fourth lanes0..12 are measured views, not full capacity or caller-domain proof. Unsupported reads report exact requested native RVA and fail. Dynamic row/header allocation extents remain unproven.",
+  "data_source": "src/eng1/behavioral/grid_query_data.c",
+  "data_source_sha256": "841bb6c71cafb23a995421bb4f6a5560e486b61d377d33bd9fed81780b6be5b7",
+  "canonical_proof": {
+    "scope": "Fourteen finite low-WORD grid-query comparisons with real native/source row producers, measured104B coefficient prefix, and reversible live sequence-alias mutations. Five source-only unsupported-read guards. First coefficient lanes0..13/factors0..12 are measured views, not full caller capacity; row/header allocation extents and fullEAX return remain unverified.",
+    "input_sha256": {
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "calibration/resource_rebind.c": "e73a47a21c170154619d1d72d7fac8a41bfa864bc33bd4bcca2b4fffeec6ee8c",
+      "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+      "src/eng1/behavioral/grid_query_data.c": "841bb6c71cafb23a995421bb4f6a5560e486b61d377d33bd9fed81780b6be5b7",
+      "calibration/engine_interface_storage.c": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5",
+      "src/eng1/behavioral/grid_query_20d30.c": "d705e1651297fe070e2f427df3c1a4692b38fee9e49df3b1a4b1280c279b3a1e",
+      "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "src/eng1/behavioral/payload_dispatch_data.c": "72c031fb55841dec4c33eb17a57f9c04a761fc66f79b423e418ee5eb7a312056",
+      "scripts/eng1_bounded_differential.py": "b09bcccb7a5c058020b9f7a7f7998a8d48dd6863587d8c65cafadc61aafa015b",
+      "src/eng1/behavioral/grid_query_20d30.h": "7438e69f3aac21e14c1bee23245236141472885325adc5638ac05989586a7cc0",
+      "tests/eng1_grid_query_differential.c": "f274f3c1e9e85a34e052c671e14ab7ed942f0410707754704eac2b2d59e6fcb9",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "src/eng1/behavioral/resource_data.c": "43d3b7dba919a3ee1b1577dadb602e49e2e14816cd418d3fb931197d54ca96a2"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x20d30": {
+        "size": 368,
+        "sha256": "308d7d6e8573bfa540de21ad0dc940b2dc433850eeb3bbb3a47bdcf078df6221"
+      },
+      "0x208f0": {
+        "size": 160,
+        "sha256": "6134247626e8c2774886207babae014ef4e561dd729958dcf079a12dc165bcff"
+      }
+    },
+    "stdout": "fixture: mapped ENG1 at 10000000\nfixture: invoke native row producer\nfixture: invoke source row producer\ncase: 0xff active-row sentinel returns low-WORD zero\n  native=0000 source=0000\ncase: x extent is an unsigned exclusive bound\n  native=0000 source=0000\ncase: y extent is an unsigned exclusive bound\n  native=0000 source=0000\ncase: zero grid tag returns zero\n  native=0000 source=0000\ncase: header sample byte sign extends into returned WORD\n  native=fff9 source=fff9\ncase: packed x nibble contributes signed-byte displacement\n  native=ff81 source=ff81\ncase: packed y nibble contributes second-lane displacement\n  native=ff81 source=ff81\ncase: packed high byte uses z-local interpolation\n  native=ff81 source=ff81\ncase: combined packed interpolation and step inertness\n  native=ff87 source=ff87\ncase: changing only step preserves the combined interpolation result\n  native=ff87 source=ff87\ncase: signed negative z wraps to WORD and clamps to row 1\n  native=ff90 source=ff90\ncase: type 3 record reads its own relative header lane\n  native=fff0 source=fff0\ncase: first coefficient index 7 reads a live shared-sequence alias\n  native=ffc0 source=ffc0\ncase: fourth coefficient index 6 reads a live shared-sequence alias\n  native=ffc0 source=ffc0\ngrid_query_native_cases=14 checks=28 failures=0\ngrid_query_source_guard_cases=5 failures=0\n",
+    "cases": 14,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 28,
+    "source_guard_cases": 5,
+    "source_guard_failures": 0,
+    "private_report_sha256": "a3adac166fc2c250a3414ed411afad0e706c473ffe3caa07591fa7e1f455c143"
+  }
+}

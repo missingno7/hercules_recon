@@ -975,6 +975,55 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_actor_update_2a290.json"
+    },
+    {
+      "source": "src/eng1/behavioral/query_2a170.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_query_2a170.json"
+    },
+    {
+      "source": "src/eng1/behavioral/query_match_state.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_query_2a170.json"
+    },
+    {
+      "source": "src/eng1/behavioral/point_in_box_2a810.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_query_2a170.json"
+    },
+    {
+      "source": "src/eng1/behavioral/grid_query_20d30.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_grid_query_20d30.json"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_bounds_2a880.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_actor_bounds_2a880.json"
+    },
+    {
+      "source": "src/eng1/behavioral/extent_producer_30e40.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_extent_producer_30e40.json"
+    },
+    {
+      "source": "src/eng1/behavioral/grid_query_data.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_grid_query_20d30.json"
     }
   ],
   "functions": [
@@ -3421,6 +3470,54 @@
       "implementation_status": "plausible_unverified",
       "evidence": "evidence/eng1_actor_update_2a290.json",
       "contract": "Actor pointer query from signed coordinate high WORDs and zero-extended parameter; ordered byte25 and DWORDy writes.20b50 remains unresolved; finite native evidence covers upper-return path only."
+    },
+    {
+      "rva": "0x2a170",
+      "symbol": "_dispatch_local_2a170",
+      "source": "src/eng1/behavioral/query_2a170.c",
+      "implementation_status": "known_incomplete",
+      "evidence": "evidence/eng1_query_2a170.json",
+      "contract": "Live signed count/list traversal; first hit cache6fedc and fullactor+d8 result, else signed highWORD grid query and16bitmask. Guard only actual listread beyond measuredprefix."
+    },
+    {
+      "rva": "0x2a810",
+      "symbol": "_point_in_box_2a810",
+      "source": "src/eng1/behavioral/point_in_box_2a810.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "evidence": "evidence/eng1_query_2a170.json",
+      "contract": "Signed highWORD inclusive3D-box predicate, seven native controls; historicalMISMATCH unchanged."
+    },
+    {
+      "rva": "0x20d30",
+      "symbol": "_grid_query_20d30",
+      "source": "src/eng1/behavioral/grid_query_20d30.c",
+      "implementation_status": "known_incomplete",
+      "evidence": "evidence/eng1_grid_query_20d30.json",
+      "contract": "Sentinel/extent gates, clamped layer, header-relative cell record and signed-byte interpolation. Preserves live shared coefficient aliases and x86 DWORD arithmetic; explicit unsupported source views. Only lowWORD return used by reviewed caller."
+    },
+    {
+      "rva": "0x2a880",
+      "symbol": "_actor_bounds_2a880",
+      "source": "src/eng1/behavioral/actor_bounds_2a880.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "evidence": "evidence/eng1_actor_bounds_2a880.json",
+      "contract": "LowWORDmode extent call, six outputWORDs with inclusive actor-relative bounds; yflags reload afterxstores preserves actor/output alias."
+    },
+    {
+      "rva": "0x30e40",
+      "symbol": "_extent_producer_30e40",
+      "source": "src/eng1/behavioral/extent_producer_30e40.c",
+      "implementation_status": "known_incomplete",
+      "evidence": "evidence/eng1_extent_producer_30e40.json",
+      "contract": "Metadata index/type gate; resource or profile provider, signedBYTE count, scaled sixWORD extent output."
+    },
+    {
+      "rva": "0x31ec0",
+      "symbol": "_profile_extent_31ec0",
+      "source": "src/eng1/behavioral/extent_producer_30e40.c",
+      "implementation_status": "known_incomplete",
+      "evidence": "evidence/eng1_extent_producer_30e40.json",
+      "contract": "Dynamic relative profile row, unsigned count, packedrecord arithmetic and single/three scale variants; ordered6WORD output."
     }
   ],
   "source_adaptations": {
@@ -4280,6 +4377,62 @@
       "evidence": "evidence/eng1_query_30010.json",
       "confidence": "same_four_DWORD_cdecl_entry",
       "limits": "Unrecovered index-query and map prefixes remain explicit."
+    },
+    "eng1_native_code_target_002a170": {
+      "provider": "dispatch_local_2a170",
+      "original_rva": "0x2a170",
+      "evidence": "evidence/eng1_query_2a170.json",
+      "confidence": "same_native_cdecl_entry",
+      "limits": "Finite validation only, no strict promotion."
+    },
+    "eng1_native_code_target_002a810": {
+      "provider": "point_in_box_2a810",
+      "original_rva": "0x2a810",
+      "evidence": "evidence/eng1_query_2a170.json",
+      "confidence": "same_native_cdecl_entry",
+      "limits": "Finite validation only, no strict promotion."
+    },
+    "eng1_native_dep_02a170": {
+      "provider": "dispatch_local_2a170",
+      "original_rva": "0x2a170",
+      "evidence": "evidence/eng1_query_2a170.json",
+      "confidence": "same_four_DWORD_cdecl_native_entry",
+      "limits": "spatial_effects.c declaration and call pass four32bit values and consumeDWORD result; signed caller typedefs preserve the same bit patterns."
+    },
+    "eng1_native_code_target_0020d30": {
+      "provider": "grid_query_20d30",
+      "original_rva": "0x20d30",
+      "evidence": "evidence/eng1_grid_query_20d30.json",
+      "confidence": "same_native_cdecl_entry",
+      "limits": "LowWORD caller contract and finite states; no fullEAX or strict match."
+    },
+    "eng1_native_code_target_002a880": {
+      "provider": "actor_bounds_2a880",
+      "original_rva": "0x2a880",
+      "evidence": "evidence/eng1_actor_bounds_2a880.json",
+      "confidence": "same_native_cdecl_entry",
+      "limits": "Finite behavioral scope; no strict promotion."
+    },
+    "eng1_native_code_target_0030e40": {
+      "provider": "extent_producer_30e40",
+      "original_rva": "0x30e40",
+      "evidence": "evidence/eng1_extent_producer_30e40.json",
+      "confidence": "same_native_cdecl_entry",
+      "limits": "Finite behavioral scope; no strict promotion."
+    },
+    "eng1_native_code_target_0031ec0": {
+      "provider": "profile_extent_31ec0",
+      "original_rva": "0x31ec0",
+      "evidence": "evidence/eng1_extent_producer_30e40.json",
+      "confidence": "same_native_cdecl_entry",
+      "limits": "Finite behavioral scope; no strict promotion."
+    },
+    "eng1_call_2a880": {
+      "provider": "actor_bounds_2a880",
+      "original_rva": "0x2a880",
+      "evidence": "evidence/eng1_actor_bounds_2a880.json",
+      "confidence": "Observed actor_pipeline threeDWORDcdecl caller; consumes lowWORD0or1 return.",
+      "limits": "Physical ABI agrees, finite root validation only."
     }
   },
   "omit_functions": {

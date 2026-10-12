@@ -10,7 +10,7 @@
     "evidence/actor_pool_layout.json": "13e4b6ea5c268ee49daba9e678d2edd5e8b97fe7c0dac820311996b996e6bd36",
     "evidence/actor_pool_reset_region.json": "0e7dee4128d0a061b335d94c67b73d006f93c0600c395d37acff4c18c2ae7de6",
     "evidence/eng1_actor_storage.json": "9bc63bc5f9d9cda03b66d6ec73cb7f2acc9fd8e95211ef1de595341c767710eb",
-    "evidence/eng1_behavioral_build.json": "02becb6d25c796dfa1f94a110cf55560d9d33b7bbee6e6bfe19abfe3106370c0",
+    "evidence/eng1_behavioral_build.json": "db58c539125ff6b7303bb7044f98572a8be87bd8549c39050186dbf396ff4385",
     "evidence/eng1_camera.json": "42f52814b488bedabba5bfe41694fb43e7768e8c79457723de1d371eece46ecc",
     "evidence/eng1_descriptor_pointees.json": "2eb5a2f15638cadd140cac7c074758f84735d23cc12a72f7fe76e2a60ed131af",
     "evidence/eng1_dispatch_storage.json": "d0f8a47d6eef3024fa6ef69a20c787ee4bb67376ad579e1e1c1a17397273d272",
@@ -51,11 +51,13 @@
     "evidence/eng1_cold_start_32b10.json": "9ff86ff904d537f6ca069fcb7c32b2e5101f129de7ad48339b0dbf205754a99f",
     "evidence/eng1_descriptor_overlap_owners.json": "e326c733511b2fa341e922d78eb8eff1b56e0766623d6557238a1d312806a3be",
     "evidence/eng1_cold_frame_commands.json": "70d7a598383389f45e41ebba8dcc464517f700e4fb74755f6857f60b27211843",
-    "evidence/eng1_dialog_frame.json": "dcc13587ee892b1df2c27d0f64171cbb751b8e26fe52883577cf0aa8cf5a8013",
-    "evidence/eng1_simulation_iteration.json": "d62ebee21673fd3645f657ce54f67ef100c67520a7cb7b88a23641a624650998",
-    "evidence/eng1_payload_dispatch.json": "b99fe00788e92eee0ade3c4fd2a4f1a618f968e4d56bfc7e6401ebfb97d8cbf9",
-    "evidence/eng1_simulation_helpers.json": "3344031591c1326474c8c1b905ed6a6a5da49cb9c43e2088b07aaaf7253d730b",
-    "evidence/eng1_setup_source.json": "38f05b36ea3192dc4b2ec6710265811ff7da5567d4480e5ff2010291acc2e1af"
+    "evidence/eng1_dialog_frame.json": "0199a85f99a3bb78125258ed9b981b5ab60245d189751f84e8f84b1b6a55e8a9",
+    "evidence/eng1_simulation_iteration.json": "d3ab03c31602f775dfa88cdcf7b9b4975647e8318531910dc4a977d71a49a6b5",
+    "evidence/eng1_payload_dispatch.json": "f55a83432e211c545fcc3a193fcb891e4d0c10be04848a0367a2279dad71e70e",
+    "evidence/eng1_simulation_helpers.json": "1ae1914b9210576db74f44384af48bab3affe8289639c5a0f2bb8527e573f116",
+    "evidence/eng1_setup_source.json": "5d73f485f17ce19ceefe73302dd176723cd8d3d38915a78151f6161904b79a76",
+    "evidence/eng1_query_2a170.json": "ae871dd20ad1be1cef9fb3ab600ca70e5522c74c39c11d721c9b4518de3a253e",
+    "evidence/eng1_grid_query_20d30.json": "bb090cfdd341cfc0fbb2e0c99cbda1d39ca30fa1bf632ef7794c691f026096fc"
   },
   "providers": [
     {
@@ -6150,6 +6152,48 @@
       ],
       "include_sha256": {
         "src/eng1/behavioral/script_54558_owner.h": "565811993d93e6ade62c3f1a84bc33bc553545b54fdd7ba4c0bbca7612a5034f"
+      }
+    },
+    {
+      "source": "src/eng1/behavioral/query_match_state.c",
+      "source_sha256": "f8e57a0262cc9d2c90ddfbb158aa3d2d64ff36479881de0521601ef4b7bb249d",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_query_2a170.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_g_eng1_spatial_match_actor_6fedc",
+          "rva": "0x6fedc",
+          "size": 4,
+          "scope": "prefix"
+        }
+      ],
+      "include_sha256": {
+        "src/eng1/behavioral/query_2a170.h": "30eb882e358f93159d9729d9e48e2bac0ce746cd1406332891eac060ab45cc8b"
+      }
+    },
+    {
+      "source": "src/eng1/behavioral/grid_query_data.c",
+      "source_sha256": "841bb6c71cafb23a995421bb4f6a5560e486b61d377d33bd9fed81780b6be5b7",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_grid_query_20d30.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_g_eng1_grid_query_coefficient_prefix_5e0d0",
+          "rva": "0x5e0d0",
+          "size": 104,
+          "scope": "prefix"
+        }
+      ],
+      "include_sha256": {
+        "src/eng1/behavioral/grid_query_20d30.h": "7438e69f3aac21e14c1bee23245236141472885325adc5638ac05989586a7cc0"
       }
     }
   ],

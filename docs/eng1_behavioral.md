@@ -2,15 +2,15 @@
 
 The original host loads our source-built x86 ENG1 DLL and performs its expected
 250-DWORD interface initialization. Reconstructed setup and player script
-dispatch now advance the latest windowed run to missing routine `0x2a170`.
+dispatch now advance the latest windowed run to missing routine `0x20b50`.
 No reconstructed ENG1 gameplay frame, continuous gameplay, or normal engine
 shutdown is verified.
 
-The genuine graph has 326 mapped compiled entries, 10 explicitly traced
-unindexed provider RVAs, and 356 function symbols across 165 source units.
+The genuine graph has 332 mapped compiled entries, 10 explicitly traced
+unindexed provider RVAs, and 362 function symbols across 172 source units.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
-denominator. The genuine link has 560 unresolved function symbols and zero
-duplicate providers. The optional transitional profile adds 560 explicit
+denominator. The genuine link has 555 unresolved function symbols and zero
+duplicate providers. The optional transitional profile adds 555 explicit
 fail-on-entry diagnostics and links with zero unresolved symbols.
 `PC_DLLEngineMain` is the sole PE32 export at ordinal 1. The replacement has
 no original-engine import or embedded original executable code.
@@ -20,8 +20,8 @@ compilation and actual linked-byte comparison. This work leaves `recovery.json`
 unchanged. The stable TITLE milestone and historical matching branch remain
 preserved.
 
-All 35 source fixture groups pass. The generic data gate verifies 51 providers,
-908 fields and 4,787 native-matching pointer relocations. Seven boundary
+All 35 source fixture groups pass. The generic data gate verifies 53 providers,
+910 fields and 4,787 native-matching pointer relocations. Seven boundary
 regressions cover explicit read-only and mixed file/loader-zero storage.
 A separate legacy-resource gate verifies 81 rows, 1,296 non-pointer bytes and
 81 actual NUL-terminated path contents. These data comparisons do not establish
@@ -52,10 +52,28 @@ Query `30010` returns the table WORD masked by the incoming low WORD, after
 bit15 suppression. Four native cases keep the index zero while varying actual
 writable table data and mask values; five source spies cover nonzero indices
 and table reload, with two guards. An initial candidate incorrectly returned
-the index, and its zero-index test hid that error. The corrected source keeps
-`2a170` as a separate missing dependency. Actor leaf `2a290` passes six native
+the index, and its zero-index test hid that error. The corrected source now calls the reconstructed
+`2a170` index-query dependency. Actor leaf `2a290` passes six native
 cases using test-only original `20b50`; its observed upper-return path is
 validated, while other arithmetic branches remain instruction-supported.
+
+Index query `2a170` scans the live signed worklist, preserves first-hit cache
+`6fedc` and actor+d8 reads, and calls reconstructed bounds/grid services.
+Two native empty/negative-count cases and seven native box controls pass;
+four source spies cover active traversal. Actual reads beyond the measured
+worklist prefix still fail explicitly.
+
+Grid query `20d30` passes 14 native cases/28 checks plus five source guards.
+Its mutable104-byte coefficient prefix ends before the existing sequence
+owner; overlapping reads remain live DWORD aliases. Only low-WORD returns
+and the measured coefficient views are validated, not full index capacity.
+
+Bounds `2a880` passes three native cases/12 checks plus eight source spies.
+An output/actor alias reproduced the pre-fix y-direction error; rereading
+actor+54 after x stores fixes both tested real extent paths. Extents
+`30e40/31ec0` pass20 native cases/40 checks with the existing metadata/data
+providers. Negative modes, null profile roots and unsupported resource IDs
+fail visibly; dynamic record allocation limits remain unverified.
 
 Resource reload retains three native cases/81 checks; dialog helpers retain
 147 native cases plus a missing-NUL discriminator. Command writers retain
@@ -70,7 +88,7 @@ original `15780/12620` as test-only nested helpers; production has separate C
 dependencies. Color retains a raw upper-DWORD callback disagreement, while
 the actual host consumes the matching low byte.
 
-Runtime evidence records 13 artifact-bound observations. Each distinguishes
+Runtime evidence records 15 artifact-bound observations. Each distinguishes
 historical source context from the current checkout. The latest run uses
 original host/ENG3/data, stable source TITLE and the authorized no-CD change
 only in a disposable host copy, in windowed mode. The observer captures the
@@ -148,7 +166,7 @@ cells. Some PC callbacks are real no-ops; retain each measured identity.
 
 Cold startup includes source pool sweeps, descriptor/link initialization,
 resource reload, payload decoding, setup and bounded player dispatch.
-The latest observed frontier is `0x2a170` in the index-query chain.
+The latest observed frontier is `0x20b50` in the index-query chain.
 Worklist, camera, geometry and dialog orchestration have compiled providers;
 many collision, actor, animation and input handlers remain missing. A missing
 root hides further dependencies, so the current unresolved count understates
@@ -181,6 +199,10 @@ python scripts/eng1_bounded_differential.py command-writers
 python scripts/eng1_bounded_differential.py descriptor-reload
 python scripts/eng1_bounded_differential.py dialog-frame
 python scripts/eng1_bounded_differential.py simulation-root
+python scripts/eng1_bounded_differential.py extent-producer
+python scripts/eng1_bounded_differential.py actor-bounds
+python scripts/eng1_bounded_differential.py grid-query
+python scripts/eng1_bounded_differential.py index-query
 python scripts/eng1_bounded_differential.py actor-update
 python scripts/eng1_bounded_differential.py query
 python scripts/eng1_bounded_differential.py player-setup

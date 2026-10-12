@@ -16,13 +16,53 @@ from pe import PE
 from title_behavioral import context_files
 
 PROFILES = {
+    'actor-bounds': dict(
+        sources=['tests/eng1_actor_bounds_differential.c',
+                 'src/eng1/behavioral/actor_bounds_2a880.c',
+                 'src/eng1/behavioral/extent_producer_30e40.c',
+                 'calibration/resource_data.c',
+                 'calibration/resource_metadata.c',
+                 'src/eng1/behavioral/resource_data.c'],
+        spans=[(0x2a880,208),(0x30e40,448),(0x31ec0,400)], cases=3,
+        flags={'src/eng1/behavioral/actor_bounds_2a880.c':[
+            '/Dextent_producer_30e40=eng1_fixture_0030e40']},
+        scope='Three finite native bounds comparisons: real extent failure and two positive output/actor aliases through resource and profile paths. Eight separately counted source spies. Canonical extent/metadata/data providers used; state3 resource path, no readiness callback or universal geometry proof.'),
+    'extent-producer': dict(
+        sources=['tests/eng1_extent_producer_differential.c',
+                 'src/eng1/behavioral/extent_producer_30e40.c',
+                 'calibration/resource_data.c',
+                 'calibration/resource_metadata.c',
+                 'src/eng1/behavioral/resource_data.c'],
+        spans=[(0x30e40,448),(0x31ec0,400)], cases=20,
+        scope='Twenty direct native extent comparisons with controlled dynamic profile and resource data restored afterward. Actual source metadata reader and data owners. Modes0/1/2/out-of-count, signed count, packed sums and scale variants tested; negative modes, resource readiness and full dynamic allocation capacities remain unverified.'),
+    'grid-query': dict(
+        sources=['tests/eng1_grid_query_differential.c',
+                 'src/eng1/behavioral/grid_query_20d30.c',
+                 'src/eng1/behavioral/grid_query_data.c',
+                 'src/eng1/behavioral/resource_data.c',
+                 'calibration/resource_rebind.c',
+                 'calibration/engine_interface_storage.c',
+                 'src/eng1/behavioral/payload_dispatch_data.c'],
+        spans=[(0x20d30, 368), (0x208f0, 160)], cases=14,
+        flags={'calibration/resource_rebind.c':[
+            '/Dg_group_cumulative_70e4c=g_resource_group_state_70e4c']},
+        scope='Fourteen finite low-WORD grid-query comparisons with real native/source row producers, measured104B coefficient prefix, and reversible live sequence-alias mutations. Five source-only unsupported-read guards. First coefficient lanes0..13/factors0..12 are measured views, not full caller capacity; row/header allocation extents and fullEAX return remain unverified.'),
+    'index-query': dict(
+        sources=['tests/eng1_index_query_differential.c',
+                 'src/eng1/behavioral/query_2a170.c',
+                 'src/eng1/behavioral/query_match_state.c',
+                 'src/eng1/behavioral/actor_pipeline_storage.c',
+                 'src/eng1/behavioral/point_in_box_2a810.c'],
+        spans=[(0x2a170, 176), (0x2a810, 112)], cases=2,
+        flags={'src/eng1/behavioral/query_2a170.c':['/Dpoint_in_box_2a810=fixture_point_in_box']},
+        scope='Two original-x86 root comparisons cover only empty/negative worklists with sentinel grid fallback. Seven separate native box comparisons use actual reused C. Four source spies cover live traversal and early hits, plus two actual-read prefix guards. Bounds/grid services are controlled endpoints here and have independently tested source providers; no active native traversal or gameplay claim.'),
     'query': dict(
         sources=['tests/eng1_query_30010_differential.c',
                  'src/eng1/behavioral/query_30010.c',
                  'src/eng1/behavioral/initial_spatial_roots.c',
                  'src/eng1/behavioral/spatial_read_guard.c'],
         spans=[(0x30010, 64)], cases=4,
-        scope='Four native zero-index query comparisons with independently controlled writable table WORD/mask values. Five separately counted source spies, two prefix/owner guards and64 initial data WORD comparisons. Index-query2a170 remains unresolved; fixture713bc is isolated test storage. No nonzero native index, full collision or gameplay claim.'),
+        scope='Four native zero-index query comparisons with independently controlled writable table WORD/mask values. Five separately counted source spies, two prefix/owner guards and64 initial data WORD comparisons. Index-query2a170 has a separate source provider; this fixture controls that endpoint and uses isolated713bc test storage. No nonzero native index, full collision or gameplay claim.'),
     'actor-update': dict(
         sources=['tests/eng1_actor_update_2a290_differential.c',
                  'src/eng1/behavioral/actor_update_2a290.c',
@@ -222,7 +262,26 @@ def run(profile, oracle, captured_payload=None):
         else:
             tested = subprocess.run(arguments, cwd=out, env=env, capture_output=True, text=True, timeout=60)
         report.update(run_exit_code=tested.returncode, stdout=tested.stdout, stderr=tested.stderr, executable_sha256=sha(exe))
-        if profile == 'query':
+        if profile == 'actor-bounds':
+            match=re.search(r'actor_bounds_native_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
+            spy=re.search(r'actor_bounds_source_spy_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
+            if match:report.update(cases=int(match[1]),checks=int(match[2]),failures=int(match[3]))
+            if spy:report.update(source_spy_cases=int(spy[1]),source_spy_checks=int(spy[2]),source_spy_failures=int(spy[3]))
+        elif profile == 'grid-query':
+            match=re.search(r'grid_query_native_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
+            guard=re.search(r'grid_query_source_guard_cases=(\d+) failures=(\d+)',tested.stdout)
+            if match:report.update(cases=int(match[1]),checks=int(match[2]),failures=int(match[3]))
+            if guard:report.update(source_guard_cases=int(guard[1]),source_guard_failures=int(guard[2]))
+        elif profile == 'index-query':
+            match=re.search(r'index_query_native_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
+            box=re.search(r'box_native_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
+            spy=re.search(r'index_query_source_spy_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
+            guard=re.search(r'index_query_source_guard_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
+            if match:report.update(cases=int(match[1]),checks=int(match[2]),failures=int(match[3]))
+            if box:report.update(box_native_cases=int(box[1]),box_native_checks=int(box[2]),box_native_failures=int(box[3]))
+            if spy:report.update(source_spy_cases=int(spy[1]),source_spy_checks=int(spy[2]),source_spy_failures=int(spy[3]))
+            if guard:report.update(source_guard_cases=int(guard[1]),source_guard_checks=int(guard[2]),source_guard_failures=int(guard[3]))
+        elif profile == 'query':
             match = re.search(r'query_native_cases=(\d+) checks=(\d+) failures=(\d+) data_word_checks=(\d+)', tested.stdout)
             spy = re.search(r'query_source_spy_cases=(\d+) checks=(\d+) failures=(\d+)', tested.stdout)
             guards = re.search(r'query_source_guard_cases=(\d+) failures=(\d+)', tested.stdout)
@@ -266,6 +325,12 @@ def run(profile, oracle, captured_payload=None):
         coverage = coverage and report.get('source_spy_cases') == 5 and report.get('source_spy_failures') == 0 and report.get('source_guard_cases') == 2 and report.get('source_guard_failures') == 0 and report.get('data_word_checks') == 64
     if profile == 'actor-update':
         coverage = coverage and report.get('source_spy_cases') == 1 and report.get('source_spy_failures') == 0
+    if profile == 'index-query':
+        coverage = coverage and report.get('box_native_cases') == 7 and report.get('box_native_failures') == 0 and report.get('source_spy_cases') == 4 and report.get('source_spy_failures') == 0 and report.get('source_guard_cases') == 2 and report.get('source_guard_failures') == 0
+    if profile == 'grid-query':
+        coverage = coverage and report.get('source_guard_cases') == 5 and report.get('source_guard_failures') == 0
+    if profile == 'actor-bounds':
+        coverage = coverage and report.get('source_spy_cases') == 8 and report.get('source_spy_failures') == 0
     report['result'] = 'PASS' if report.get('run_exit_code')==0 and report.get('failures')==0 and report['inputs_unchanged'] and coverage else 'FAIL'
     (out / 'report.json').write_bytes((json.dumps(report, indent=2) + '\n').encode())
     print(report.get('stdout', ''.join(logs)))

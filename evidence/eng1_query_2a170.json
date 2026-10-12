@@ -1,0 +1,95 @@
+{
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "state_owner": {
+    "native_rva": "0x6fedc",
+    "width": 4,
+    "native_kind": "writable .data virtual zero-fill",
+    "native_section": ".data",
+    "section_rva": "0x4d000",
+    "section_virtual_size": "0x27658",
+    "section_raw_size": "0x21800",
+    "offset": "0x22edc",
+    "delta_is_beyond_raw_bytes": true,
+    "candidate_symbol": "_g_eng1_spatial_match_actor_6fedc",
+    "candidate_section": ".bss",
+    "candidate_bss_size": 4,
+    "candidate_rawless_writable": true,
+    "canonical_data_owner_overlap": [],
+    "adjacent_owner_note": "Existing g_scene_anchor at 0x6fed8 occupies its separate preceding DWORD; no adjacency or linker placement claim is made."
+  },
+  "worklist": {
+    "owner": "g_actor_pipeline_storage_71440",
+    "view": "g_actor_worklist_71b20",
+    "measured_remaining_cells": 120,
+    "guard": "Each actual entry read is bounded by the measured cells [0,119]. A larger count is allowed to complete an earlier hit; only the attempt to read index 120 fails visibly. This is an evidence bound, not original logical capacity."
+  },
+  "dependency_reuse": {
+    "0x2a810": "Reuses candidates/leaf-c/2a810.c. Historical private candidate result is MISMATCH (11 bytes differ in its best attempt; comparison order/codegen differ), not a semantic rejection. Seven actual native boundary/interior/outside controls support the signed upper-WORD inclusive box predicate.",
+    "0x2a880": "Actual source actor_bounds_2a880 and source extent/metadata providers, validated separately. This index-query fixture controls the service to exercise live list semantics.",
+    "0x20d30": "Actual source grid_query_20d30, with measured shared coefficient views and explicit unsupported-read diagnostics. This index-query native fixture only uses original sentinel fallback."
+  },
+  "private_differential": {
+    "native_2a170": "Empty and negative signed worklist counts only, with native 0x20d30 sentinel mode (0x70d01=0xff); no active native worklist traversal is claimed.",
+    "source_spies": "Exercise live count extension/shrink, live list-entry replacement, provider order, first hit, fallback mapping/mask, and the measured-prefix guard. These spies establish candidate source behavior only.",
+    "native_2a810": "Seven boundary/interior/outside point-in-box controls compare the reused existing leaf source against the real loaded native entry.",
+    "unresolved_semantics": [
+      "0x2a880 actor-bounds builder",
+      "0x20d30 fallback outside sentinel mode"
+    ]
+  },
+  "scope": "Source index-query with separately reconstructed bounds/grid services and explicit measured-worklist read boundary. Native root comparison covers only empty/negative sentinel fallback; box helper has seven finite native controls. Active traversal uses source spies.",
+  "source": "src/eng1/behavioral/query_2a170.c",
+  "source_sha256": "ac36f2c3907de7801df523f7e1f6757bceb6666e5c0c5814d761a14d321d87e5",
+  "private_report_sha256": "075d25c2723951c3f75278ee568e64e10a9772a4cb4476cee068612c10f24950",
+  "legacy_box_candidate_sha256": "e23dce1b16237f8ca9dd8883f72a9648172ee652367178d67c8f5c3833144f3b",
+  "implementation_status": "known_incomplete",
+  "fixture": "tests/eng1_index_query_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py index-query",
+  "state_source": "src/eng1/behavioral/query_match_state.c",
+  "state_source_sha256": "f8e57a0262cc9d2c90ddfbb158aa3d2d64ff36479881de0521601ef4b7bb249d",
+  "canonical_proof": {
+    "scope": "Two original-x86 root comparisons cover only empty/negative worklists with sentinel grid fallback. Seven separate native box comparisons use actual reused C. Four source spies cover live traversal and early hits, plus two actual-read prefix guards. Bounds/grid services are controlled endpoints here and have independently tested source providers; no active native traversal or gameplay claim.",
+    "input_sha256": {
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "src/eng1/behavioral/actor_pipeline_storage_views.h": "47238506969ab204a6cbd2e11e174bdcc220a07fcf283867cc10eb2dab6e9bc4",
+      "src/eng1/behavioral/query_2a170.c": "ac36f2c3907de7801df523f7e1f6757bceb6666e5c0c5814d761a14d321d87e5",
+      "src/eng1/behavioral/point_in_box_2a810.c": "528be9d5e41524c3c83a1e6779c3cd962e731b4a5fe223cd03694f0de142e720",
+      "src/eng1/behavioral/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e",
+      "src/eng1/behavioral/query_2a170.h": "30eb882e358f93159d9729d9e48e2bac0ce746cd1406332891eac060ab45cc8b",
+      "tests/eng1_index_query_differential.c": "6cb86116feeff652dc9d1030016b42e483ea292bb101ddf2adfa726f52db9a5a",
+      "src/eng1/behavioral/query_match_state.c": "f8e57a0262cc9d2c90ddfbb158aa3d2d64ff36479881de0521601ef4b7bb249d",
+      "src/eng1/behavioral/actor_pipeline_storage.c": "900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668",
+      "scripts/eng1_bounded_differential.py": "b09bcccb7a5c058020b9f7a7f7998a8d48dd6863587d8c65cafadc61aafa015b"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x2a170": {
+        "size": 176,
+        "sha256": "5be09b1ffbad6b826905b74676a279153ed8e3fcf63b3a4c1e206f08f4754a76"
+      },
+      "0x2a810": {
+        "size": 112,
+        "sha256": "f7e1d7f26a234502e73af8bf670447ec4545c6261b02f8ee6c0af90f2b6c1c70"
+      }
+    },
+    "stdout": "index_query_native_cases=2 checks=10 failures=0\nbox_native_cases=7 checks=14 failures=0\nindex_query_source_spy_cases=4 checks=16 failures=0\nindex_query_source_guard_cases=2 checks=4 failures=0\n",
+    "cases": 2,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 10,
+    "source_guard_cases": 2,
+    "source_guard_checks": 4,
+    "source_guard_failures": 0,
+    "source_spy_cases": 4,
+    "source_spy_checks": 16,
+    "source_spy_failures": 0,
+    "box_native_cases": 7,
+    "box_native_checks": 14,
+    "box_native_failures": 0,
+    "private_report_sha256": "1a1c8969e9bc064149203746ec995620a92eb693e7093b44bf900847e7c049d1"
+  }
+}

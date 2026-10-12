@@ -1415,6 +1415,116 @@
     },
     {
       "module": "ENG1.DLL",
+      "rva": "0x71b20",
+      "source": "src/eng1/behavioral/query_2a170.c",
+      "function": "dispatch_local_2a170",
+      "kind": "incomplete_data_read",
+      "condition": "Attempt to read worklist slot120 or later. Larger counts can return from earlier owned hits.",
+      "reporting": "eng1_incomplete_behavior before the first unsupported read; no logicalcapacityclaim.",
+      "evidence": "evidence/eng1_query_2a170.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x70ece",
+      "source": "src/eng1/behavioral/grid_query_20d30.c",
+      "function": "grid_query_20d30",
+      "kind": "incomplete_data_read",
+      "condition": "Nonpositive signed group count",
+      "reporting": "eng1_incomplete_behavior before unsupported read; no fabricated success.",
+      "evidence": "evidence/eng1_grid_query_20d30.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x70dcc",
+      "source": "src/eng1/behavioral/grid_query_20d30.c",
+      "function": "grid_query_20d30",
+      "kind": "incomplete_data_read",
+      "condition": "Selected layer exceeds measured16-pointer prefix or null row pointer",
+      "reporting": "eng1_incomplete_behavior before unsupported read; no fabricated success.",
+      "evidence": "evidence/eng1_grid_query_20d30.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x70d14",
+      "source": "src/eng1/behavioral/grid_query_20d30.c",
+      "function": "grid_query_20d30",
+      "kind": "incomplete_data_read",
+      "condition": "Nonpositive signed row stride after unsigned extent gate",
+      "reporting": "eng1_incomplete_behavior before unsupported read; no fabricated success.",
+      "evidence": "evidence/eng1_grid_query_20d30.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x70d40",
+      "source": "src/eng1/behavioral/grid_query_20d30.c",
+      "function": "grid_query_20d30",
+      "kind": "incomplete_data_read",
+      "condition": "Nonzero cell tag with null header pointer",
+      "reporting": "eng1_incomplete_behavior before unsupported read; no fabricated success.",
+      "evidence": "evidence/eng1_grid_query_20d30.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x5e0d0",
+      "source": "src/eng1/behavioral/grid_query_20d30.c",
+      "function": "grid_query_20d30",
+      "kind": "incomplete_data_read",
+      "condition": "First coefficient index>13; diagnostic reports exact requested RVA",
+      "reporting": "eng1_incomplete_behavior before unsupported read; no fabricated success.",
+      "evidence": "evidence/eng1_grid_query_20d30.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x5e0dc",
+      "source": "src/eng1/behavioral/grid_query_20d30.c",
+      "function": "grid_query_20d30",
+      "kind": "incomplete_data_read",
+      "condition": "Fourth coefficient index>12; diagnostic reports exact requested RVA",
+      "reporting": "eng1_incomplete_behavior before unsupported read; no fabricated success.",
+      "evidence": "evidence/eng1_grid_query_20d30.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x5cee0",
+      "source": "src/eng1/behavioral/extent_producer_30e40.c",
+      "function": "extent_producer_30e40",
+      "kind": "incomplete_data_read",
+      "condition": "Resource id>=81",
+      "reporting": "Central fatal diagnostic before unsupported read.",
+      "evidence": "evidence/eng1_extent_producer_30e40.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x70d2c",
+      "source": "src/eng1/behavioral/extent_producer_30e40.c",
+      "function": "profile_extent_31ec0",
+      "kind": "incomplete_data_read",
+      "condition": "Null profile-root pointer",
+      "reporting": "Central fatal diagnostic before unsupported read.",
+      "evidence": "evidence/eng1_extent_producer_30e40.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x31ec0",
+      "source": "src/eng1/behavioral/extent_producer_30e40.c",
+      "function": "profile_extent_31ec0",
+      "kind": "incomplete_data_read",
+      "condition": "Negative mode would select unverified preceding record",
+      "reporting": "Central fatal diagnostic before unsupported read.",
+      "evidence": "evidence/eng1_extent_producer_30e40.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x30e40",
+      "source": "src/eng1/behavioral/extent_producer_30e40.c",
+      "function": "extent_producer_30e40",
+      "kind": "incomplete_data_read",
+      "condition": "Negative mode would select unverified preceding record",
+      "reporting": "Central fatal diagnostic before unsupported read.",
+      "evidence": "evidence/eng1_extent_producer_30e40.json"
+    },
+    {
+      "module": "ENG1.DLL",
       "rva": "0xe670",
       "symbol": "_dispatch_local_0e670",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -1489,24 +1599,6 @@
       "module": "ENG1.DLL",
       "rva": "0x26730",
       "symbol": "_eng1_call_26730",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/actor_pipeline.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x2a880",
-      "symbol": "_eng1_call_2a880",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
       "kind": "unimplemented_function",
       "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
@@ -2513,66 +2605,8 @@
     },
     {
       "module": "ENG1.DLL",
-      "rva": "0x2a170",
-      "symbol": "_eng1_native_code_target_002a170",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/eng1_default_callbacks.c",
-          "kind": "function"
-        },
-        {
-          "source": "src/eng1/behavioral/query_30010.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
       "rva": "0x2a710",
       "symbol": "_eng1_native_code_target_002a710",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/eng1_default_callbacks.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x2a810",
-      "symbol": "_eng1_native_code_target_002a810",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/eng1_default_callbacks.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x2a880",
-      "symbol": "_eng1_native_code_target_002a880",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
       "kind": "unimplemented_function",
       "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
@@ -11245,24 +11279,6 @@
     },
     {
       "module": "ENG1.DLL",
-      "rva": "0x2a170",
-      "symbol": "_eng1_native_dep_02a170",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/spatial_effects.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
       "rva": "0x2a290",
       "symbol": "_eng1_native_dep_02a290",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -11299,9 +11315,7 @@
             "contract": "Actor pointer query from signed coordinate high WORDs and zero-extended parameter; ordered byte25 and DWORDy writes.20b50 remains unresolved; finite native evidence covers upper-return path only."
           }
         ],
-        "provisional_symbols": [
-          "_eng1_native_code_target_002a290"
-        ]
+        "provisional_symbols": []
       }
     },
     {
@@ -11692,11 +11706,11 @@
     }
   ],
   "provisional_generation": {
-    "source_only_report_sha256": "a6a9fffa5b1975e7d555f7f61e6d6e36bc455deb5a5c4d31e57e57c16de26a99",
+    "source_only_report_sha256": "b1531a76282d2b6d3b5db3c059529cc54deadc069783e0c7d601ca486b4bc14f",
     "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
     "recovery_sha256": "465ee5ea057cd3bfb23508e18b16958c27b9d391e11a0bc874cfc413436644d5",
-    "symbols": 560,
-    "native_rvas": 554,
+    "symbols": 555,
+    "native_rvas": 551,
     "scope": "Transitional loader/startup diagnostics only; excluded from source coverage and never behaviorally accepted."
   }
 }

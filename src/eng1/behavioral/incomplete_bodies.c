@@ -46,14 +46,6 @@ void __cdecl eng1_call_26730(void)
     ExitProcess(0xe0484731UL);
 }
 
-/* INCOMPLETE: ENG1.DLL RVA 0x2a880; unimplemented_function. */
-void __cdecl eng1_call_2a880(void)
-{
-    eng1_incomplete_behavior(0x2a880UL,
-        "unimplemented entry eng1_call_2a880; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
 /* INCOMPLETE: ENG1.DLL RVA 0x2fa0; unimplemented_function. */
 void __cdecl eng1_frame_target_002fa0(void)
 {
@@ -494,35 +486,11 @@ void __cdecl eng1_native_code_target_0029c20(void)
     ExitProcess(0xe0484731UL);
 }
 
-/* INCOMPLETE: ENG1.DLL RVA 0x2a170; unimplemented_function. */
-void __cdecl eng1_native_code_target_002a170(void)
-{
-    eng1_incomplete_behavior(0x2a170UL,
-        "unimplemented entry eng1_native_code_target_002a170; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
 /* INCOMPLETE: ENG1.DLL RVA 0x2a710; unimplemented_function. */
 void __cdecl eng1_native_code_target_002a710(void)
 {
     eng1_incomplete_behavior(0x2a710UL,
         "unimplemented entry eng1_native_code_target_002a710; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
-/* INCOMPLETE: ENG1.DLL RVA 0x2a810; unimplemented_function. */
-void __cdecl eng1_native_code_target_002a810(void)
-{
-    eng1_incomplete_behavior(0x2a810UL,
-        "unimplemented entry eng1_native_code_target_002a810; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
-/* INCOMPLETE: ENG1.DLL RVA 0x2a880; unimplemented_function. */
-void __cdecl eng1_native_code_target_002a880(void)
-{
-    eng1_incomplete_behavior(0x2a880UL,
-        "unimplemented entry eng1_native_code_target_002a880; opaque arguments; no success return");
     ExitProcess(0xe0484731UL);
 }
 
@@ -4299,14 +4267,6 @@ void __cdecl eng1_native_dep_029c20(void)
 {
     eng1_incomplete_behavior(0x29c20UL,
         "unimplemented entry eng1_native_dep_029c20; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
-/* INCOMPLETE: ENG1.DLL RVA 0x2a170; unimplemented_function. */
-void __cdecl eng1_native_dep_02a170(void)
-{
-    eng1_incomplete_behavior(0x2a170UL,
-        "unimplemented entry eng1_native_dep_02a170; opaque arguments; no success return");
     ExitProcess(0xe0484731UL);
 }
 

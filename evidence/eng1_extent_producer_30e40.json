@@ -1,0 +1,69 @@
+{
+  "module": "ENG1.DLL",
+  "rvas": [
+    "0x30e40",
+    "0x31ec0"
+  ],
+  "source": "src/eng1/behavioral/extent_producer_30e40.c",
+  "source_sha256": "4fc9dc291cc1b254f0a1dff791f860f9e5339603c89aecd0b95813e9dd2fa62a",
+  "implementation_status": "known_incomplete",
+  "scope": "Twenty finite direct original-x86 extent comparisons using existing resource metadata provider and dynamic profile owner cells. No source identity or full data capacity proof.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "rva_30e40_span_sha256": "6af6f0bb010c911e8c51b1ee594b9a638c351e5f751ff30c79828d7cdf6036c4",
+    "rva_30e40_span_bytes": 448,
+    "rva_31ec0_span_sha256": "5d0d4a57af45bec2586ff341b779b39f5b34b198ff6dea866555d6c00ed2176f",
+    "rva_31ec0_span_bytes": 400,
+    "direct_calls_from_30e40": [
+      "0x31080",
+      "0x31ec0"
+    ]
+  },
+  "semantic_findings": {
+    "rva_30e40": "Actor WORD +0x34 zero rejects before other reads. Actor BYTE +0x22 zero delegates to 0x31ec0. Nonzero type checks metadata_index against the resource row entry_count, calls 0x31080(type,index), interprets a signed count byte, selects a 6-byte record, emits six scaled WORDs, and returns the sign-extended count byte.",
+    "rva_31ec0": "Reads the profile root pointer at 0x70d2c, uses actor WORD +0x34 to select a relative row, reads an unsigned count byte and packed profile records, applies scale fields +0x3a/+0x3c/+0x3e under actor flag 0x80, emits six WORDs, and returns the unsigned count byte.",
+    "31080_provider": "The fixture compiles existing calibration/resource_metadata.c and exercises its state-3 path. No readiness callback is expected; the fixture's typed callback fails visibly if called.",
+    "source_candidate_data_limit": "The resource table candidate is the measured 81-row prefix. Actor resource ids >=81 call the explicit incomplete boundary. The runtime profile table's dynamic pointee extent remains unbounded and no capacity is claimed."
+  },
+  "private_candidate_sha256": "645a6f7749d658cf546c2740ca5ed91db3370924dd43227edcbec104aef1a1d7",
+  "private_report_sha256": "1660d7d5e5ffe9e6538252038bcc38fcd44c82b57a90199b4a4e05c87e9f2344",
+  "canonical_adjustments": "Explicit null profile root and negative-mode diagnostics; modular DWORD record addressing. Existing metadata provider,81-row owner and70d2c pointer cell reused.",
+  "limits": "Resource IDs>=81, null profile roots and negative modes fail visibly. Positive dynamic record allocation bounds remain unproven. Resource readiness path not covered by state3 fixtures.",
+  "fixture": "tests/eng1_extent_producer_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py extent-producer",
+  "canonical_proof": {
+    "scope": "Twenty direct native extent comparisons with controlled dynamic profile and resource data restored afterward. Actual source metadata reader and data owners. Modes0/1/2/out-of-count, signed count, packed sums and scale variants tested; negative modes, resource readiness and full dynamic allocation capacities remain unverified.",
+    "input_sha256": {
+      "src/eng1/behavioral/extent_producer_30e40.c": "4fc9dc291cc1b254f0a1dff791f860f9e5339603c89aecd0b95813e9dd2fa62a",
+      "tests/eng1_extent_producer_differential.c": "4af32593c65b42fb57d218a8baaecac438cddd22e471544684fe415a07695cbd",
+      "src/eng1/behavioral/resource_data.c": "43d3b7dba919a3ee1b1577dadb602e49e2e14816cd418d3fb931197d54ca96a2",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "src/eng1/behavioral/extent_producer_30e40.h": "6301b09267d3656ee5e4734bc2e2cbdf46f7f8273ed3a01ff6e6bedabebf8fdd",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "scripts/eng1_bounded_differential.py": "b09bcccb7a5c058020b9f7a7f7998a8d48dd6863587d8c65cafadc61aafa015b",
+      "calibration/resource_data.c": "f9c92023152194164535fa33ca7a7e2e82726897ed56b9c5dba7475f25ed1d47",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "calibration/resource_metadata.c": "502fbb660d33251fc547aa53774501b0521868b5df406b9e332c738f15905a22"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x30e40": {
+        "size": 448,
+        "sha256": "6af6f0bb010c911e8c51b1ee594b9a638c351e5f751ff30c79828d7cdf6036c4"
+      },
+      "0x31ec0": {
+        "size": 400,
+        "sha256": "5d0d4a57af45bec2586ff341b779b39f5b34b198ff6dea866555d6c00ed2176f"
+      }
+    },
+    "stdout": "extent_producer_30e40_cases=20 checks=40 failures=0\n",
+    "cases": 20,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 40,
+    "private_report_sha256": "c3a5cf15d97e6d4b389d6d6f49f1e928a9090c1cf63594ab39b3d6adb9e5f8b3"
+  }
+}
