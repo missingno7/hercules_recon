@@ -1038,14 +1038,6 @@ void __cdecl eng1_native_code_target_00eee0(void)
     ExitProcess(0xe0484731UL);
 }
 
-/* INCOMPLETE: ENG1.DLL RVA 0xefa0; unimplemented_function. */
-void __cdecl eng1_native_code_target_00efa0(void)
-{
-    eng1_incomplete_behavior(0xefa0UL,
-        "unimplemented entry eng1_native_code_target_00efa0; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
 /* INCOMPLETE: ENG1.DLL RVA 0xefe0; unimplemented_function. */
 void __cdecl eng1_native_code_target_00efe0(void)
 {

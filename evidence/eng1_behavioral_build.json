@@ -1192,6 +1192,13 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_attachment_callback_3e220.json"
+    },
+    {
+      "source": "src/eng1/behavioral/alternate_initializer_efa0.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_alternate_initializer_efa0.json"
     }
   ],
   "functions": [
@@ -3888,6 +3895,14 @@
       "evidence": "evidence/eng1_attachment_callback_3e220.json",
       "implementation_status": "behaviorally_validated_limited",
       "contract": "One Actor* cdecl command. Advance then select frame13; capture post-helper WORD+2a unsigned; ordered DWORD flags+a02, WORD+124=0, WORD+ee=3, DWORD+dc=state<<16, WORD+2a=0; call existing attach_actor(actor,2022), no post-attachment stores. Adjacent ec/ed and f0 bytes preserved."
+    },
+    {
+      "rva": "0xefa0",
+      "symbol": "_eng1_native_code_target_00efa0",
+      "source": "src/eng1/behavioral/alternate_initializer_efa0.c",
+      "evidence": "evidence/eng1_alternate_initializer_efa0.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "One Actor* cdecl command. Cache DWORD render flags54 first; overwrite DWORD flags50=10000; BYTE mode23=5; store saved render flags|604; WORD4a=0; actual reset then word-stream interpreter. Reuses real six-byte51b20 program; no new owner or delegated original code."
     }
   ],
   "source_adaptations": {

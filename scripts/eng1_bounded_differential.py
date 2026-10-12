@@ -17,6 +17,15 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'alternate-initializer': dict(
+        sources=['tests/eng1_alternate_initializer_differential.c',
+                 'src/eng1/behavioral/alternate_initializer_efa0.c',
+                 'src/shared/frame_state.c',
+                 'src/eng1/behavioral/interpreters.c',
+                 'src/eng1/behavioral/flags_word_programs.c',
+                 'src/eng1/behavioral/resource_data.c'],
+        spans=[(0xefa0,54)], cases=2,
+        scope='Two original/source alternate initializer cases/29 checks with real reset and word-stream providers, existing six-byte51b20 program. Exact-base fixture guard observes index1 then0; excluded interpreter services abort. Full actor comparisons normalize only program pointer; no all-opcode or universal return claim.'),
     'attachment-callback': dict(
         sources=['tests/eng1_attachment_callback_differential.c',
                  'src/eng1/behavioral/attachment_callback_3e220.c',

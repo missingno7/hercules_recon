@@ -2,15 +2,15 @@
 
 The original host loads our source-built x86 ENG1 DLL and performs its expected
 250-DWORD interface initialization. Reconstructed setup and player script
-dispatch now advance the latest windowed run to missing routine `0xefa0`.
+dispatch now advance the latest windowed run to missing routine `0x2d9b0`.
 No reconstructed ENG1 gameplay frame, continuous gameplay, or normal engine
 shutdown is verified.
 
-The genuine graph has 357 mapped compiled entries, 10 explicitly traced
-unindexed provider RVAs, and 388 function symbols across 196 source units.
+The genuine graph has 358 mapped compiled entries, 10 explicitly traced
+unindexed provider RVAs, and 389 function symbols across 197 source units.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
-denominator. The genuine link has 537 unresolved function symbols and zero
-duplicate providers. The optional transitional profile adds 537 explicit
+denominator. The genuine link has 536 unresolved function symbols and zero
+duplicate providers. The optional transitional profile adds 536 explicit
 fail-on-entry diagnostics and links with zero unresolved symbols.
 `PC_DLLEngineMain` is the sole PE32 export at ordinal 1. The replacement has
 no original-engine import or embedded original executable code.
@@ -224,6 +224,14 @@ overlapped mapped library contributions longer than16 bytes in that snapshot.
 The heuristic inventory and library cutoff still do not prove a complete
 first-party census.
 
+Alternate initializer efa0 passes two native cases /29 checks using the actual
+reset and WORD interpreter providers. The existing six-byte51b20 program is
+shared by eight reviewed initializer configurations. Its tested reads are
+index1 then0; the full actor comparison normalizes only the program pointer.
+Render flags are read before the flags overwrite, the mode BYTE precedes the
+cached render DWORD store, and the narrow4a store is retained before reset.
+Other interpreter programs and indirect raw-return consumers remain unproved.
+
 The collision pointer has one source definition in a pure data unit, moved
 unchanged from mixed runtime storage; normal setup supplies its actor address.
 The independent DWORD countdown gate is loader-zero. Its five native writers
@@ -244,7 +252,7 @@ original `15780/12620` as test-only nested helpers; production has separate C
 dependencies. Color retains a raw upper-DWORD callback disagreement, while
 the actual host consumes the matching low byte.
 
-Runtime evidence records 27 artifact-bound observations. Each distinguishes
+Runtime evidence records 28 artifact-bound observations. Each distinguishes
 historical source context from the current checkout. The latest run uses
 original host/ENG3/data, stable source TITLE and the authorized no-CD change
 only in a disposable host copy, in windowed mode. The observer captures the
@@ -322,7 +330,7 @@ cells. Some PC callbacks are real no-ops; retain each measured identity.
 
 Cold startup includes source pool sweeps, descriptor/link initialization,
 resource reload, payload decoding, setup and bounded player dispatch.
-The latest observed frontier is `0xefa0` in the startup chain.
+The latest observed frontier is `0x2d9b0` in the startup chain.
 Worklist, camera, geometry and dialog orchestration have compiled providers;
 many collision, actor, animation and input handlers remain missing. A missing
 root hides further dependencies, so the current unresolved count understates
@@ -355,6 +363,7 @@ python scripts/eng1_bounded_differential.py command-writers
 python scripts/eng1_bounded_differential.py descriptor-reload
 python scripts/eng1_bounded_differential.py dialog-frame
 python scripts/eng1_bounded_differential.py simulation-root
+python scripts/eng1_bounded_differential.py alternate-initializer
 python scripts/eng1_bounded_differential.py attachment-callback
 python scripts/eng1_bounded_differential.py owned-spawn-callback
 python scripts/eng1_bounded_differential.py actor-list-producer

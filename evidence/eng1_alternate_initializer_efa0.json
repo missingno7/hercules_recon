@@ -1,0 +1,100 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0xefa0",
+  "source": "src/eng1/behavioral/alternate_initializer_efa0.c",
+  "source_sha256": "e2662af3222122447bf47a712c5fea141c7f391c3cafd7097250eb7c1c12b7dd",
+  "implementation_status": "behaviorally_validated_limited",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "private_candidate_sha256": "18acf0caf5d3bc5f659f85c1ea54237bba3e55d64cf79bf7fffbaa1992eff604",
+  "private_report_sha256": "220c64f6dfa0259bbd07f83a10f6a2ad93b2a00a13686a370d9e837500f289bc",
+  "native_contract": {
+    "entry_abi": "one Actor* cdecl stack argument; plain RET at 0xefd5",
+    "body_bytes": 54,
+    "instruction_order": [
+      "load DWORD actor+0x54",
+      "overwrite DWORD actor+0x50=0x00010000",
+      "store BYTE actor+0x23=5",
+      "store DWORD actor+0x54=(saved DWORD | 0x604)",
+      "store WORD actor+0x4a=0",
+      "call reset_frame_state(actor) at 0xefc3",
+      "call eng1_interpret_word_stream(actor) at 0xefcc"
+    ],
+    "return": "Target RET propagates the interpreter's incidental EAX. The tested callback-table contract discards it; the candidate return view is consumer-scoped.",
+    "direct_callers": 0,
+    "data_references": [
+      "0x4ed60",
+      "0x586d0",
+      "0x59ef8",
+      "0x5cd38",
+      "0x61068",
+      "0x62b70",
+      "0x68090",
+      "0x6b070"
+    ]
+  },
+  "native_span": {
+    "rva": "0xefa0",
+    "bytes": 54,
+    "sha256": "c6b44b5abda2ce475451300fb660e5f8a40d25b5caaa864ca5827f319a6da5d0"
+  },
+  "program_owner": {
+    "native_rva": "0x51b20",
+    "source_symbol": "g_eng1_flag_program_051b20",
+    "bytes": 6,
+    "sha256": "9d31bb8cc6a6bb8751c4db46f2c11bdcebeed51811b7c505d257f9b150652376",
+    "words": [
+      999,
+      9,
+      65535
+    ],
+    "native_bytes": "e7030900ffff",
+    "source_provider": "src/eng1/behavioral/flags_word_programs.c",
+    "fixture_reads": "The existing WORD-stream interpreter consumes index 1 (opcode 9), then index 0 (default duration 999); index 2 is preserved but not read by this bounded path.",
+    "capacity_claim": "Exactly the existing three-WORD owner is used; no wider native program capacity is inferred."
+  },
+  "contract": "One Actor* cdecl command. Cache DWORD render flags54 first; overwrite DWORD flags50=10000; BYTE mode23=5; store saved render flags|604; WORD4a=0; actual reset then word-stream interpreter. Reuses real six-byte51b20 program; no new owner or delegated original code.",
+  "scope": "Finite original-DLL/source differential for the one-Actor callback, actual reset/interpreter C providers, and the existing six-byte kind-34 WORD-program owner. Interpreter arms outside this program are fail-fast fixture dependencies, not accepted effects.",
+  "limits": [
+    "Two actor pre-state variants use the one existing kind-34 program owner and its ordinary opcode-9 path; other interpreter opcodes are not covered by this callback fixture.",
+    "Source and native actor snapshots are compared with only actor+0x64 normalized because source and original DLL point to separate exact-byte copies of the same six-byte program owner.",
+    "The callback's physical EAX is incidental and not compared because the inspected table consumer uses a void callback view.",
+    "Unrelated interpreter arms use fail-fast stubs; their behavior is neither simulated nor claimed.",
+    "No FUNCTION_MATCH, historical source/TU, full native array, or whole-image claim follows."
+  ],
+  "fixture": "tests/eng1_alternate_initializer_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py alternate-initializer",
+  "canonical_proof": {
+    "scope": "Two original/source alternate initializer cases/29 checks with real reset and word-stream providers, existing six-byte51b20 program. Exact-base fixture guard observes index1 then0; excluded interpreter services abort. Full actor comparisons normalize only program pointer; no all-opcode or universal return claim.",
+    "input_sha256": {
+      "src/eng1/behavioral/interpreters.h": "2284756dbb331f455596b2028b105a8bf788b9b43ffea9e84c8dcb5b859151dc",
+      "src/eng1/behavioral/read_guard.h": "3a52a684a11bc6cc800f07f0274f191106cc118fed623eef61e822356b4d6a7b",
+      "src/eng1/behavioral/interpreters.c": "c67e315771b507b9677d6dcb4c3d63a2b267133ccbe2e62f11a50b4f1aa5fc0b",
+      "tests/eng1_alternate_initializer_differential.c": "3a86bb14aa6642482ca8e5cc6c72b2dfa3aa4d7e72b1a1c65fcb98bfaf61ef52",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "src/eng1/behavioral/flags_word_programs.c": "3d6c4fd9bf8a9ca326fa29e09842aa71db26d21e17e92ce2577642730d801505",
+      "src/eng1/behavioral/resource_data.c": "43d3b7dba919a3ee1b1577dadb602e49e2e14816cd418d3fb931197d54ca96a2",
+      "src/eng1/behavioral/frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+      "src/shared/frame_state.c": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "scripts/eng1_bounded_differential.py": "35fa5786c8e8a53baa6084cefa68f48fbe3ad073b8bf00e1318b558ad5e1fd85",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src/eng1/behavioral/alternate_initializer_efa0.c": "e2662af3222122447bf47a712c5fea141c7f391c3cafd7097250eb7c1c12b7dd",
+      "src/eng1/behavioral/flags_word_programs.h": "31b888ca9cb8f026b9f4f05d76752f34324ce593161e4ef859b8961fc75413a4"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0xefa0": {
+        "size": 54,
+        "sha256": "c6b44b5abda2ce475451300fb660e5f8a40d25b5caaa864ca5827f319a6da5d0"
+      }
+    },
+    "stdout": "PASS efa0 kind-34 asset program source/native owner pointers retained\nPASS efa0 alternate initial render state source/native owner pointers retained\neng1_call_efa0 cases=2 checks=29 failures=0\n",
+    "cases": 2,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 29,
+    "production_derivations": [],
+    "private_report_sha256": "8cccd8174803c20b664e8b0d3b3eca98dc7b6b12060f744c4169957d22b5fe65"
+  }
+}
