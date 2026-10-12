@@ -2,7 +2,7 @@
   "module": "ENG1.DLL",
   "rva": "0x3ca50",
   "source": "src/eng1/behavioral/forest_level_update_3ca50.c",
-  "source_sha256": "9409c067aed905ca61fc24b5c283f4c9e1da945ce55873e5fd4ea8e067c379db",
+  "source_sha256": "f96eced66982882df7104c810f5db7fe52d5cb4e2c669525297956316cf42ebf",
   "implementation_status": "behaviorally_validated_limited",
   "private_candidate_sha256": "0d1316bd4626e00abcbf8176f3af354b808c2a33d971e7205e3e50c5de819657",
   "private_report_sha256": "e4a9a82bfbe237ee02d6bed759dabb877eef0b4a0506fb633ca06231dc7907cc",
@@ -36,8 +36,20 @@
     "source": "src/eng1/behavioral/forest_level_state.c",
     "rva": "0x70f0c",
     "size": 2,
-    "storage": "native.data loader-zero tail / sourceCOMMON",
-    "limits": "No wider neighboring extent or dynamic writer coverage established."
+    "storage": "native writable.data loader-zero interval / sourceCOMMON union",
+    "limits": "Measured56-byte backing view preserves native WORD/DWORD aliases; no original structure or broader logical capacity claim.",
+    "backing_rva": "0x70ed8",
+    "backing_size": 56,
+    "input_view_offset": 52,
+    "native_backing_sha256": "d4817aa5497628e7c77e6b606107042bbba3130888c5f47a375e6179be789fbb",
+    "native_section": {
+      "name": ".data",
+      "virtual_address": 315392,
+      "virtual_size": 161368,
+      "raw_offset": 311296,
+      "raw_size": 137216,
+      "characteristics": 3221225536
+    }
   },
   "fixture": "tests/eng1_forest_update_differential.c",
   "reproduce": "python scripts/eng1_bounded_differential.py forest-update",
@@ -81,16 +93,17 @@
   "canonical_proof": {
     "scope": "All65536 input WORDs compared with unpatched native level-update leaf, checking output sentinel and adjacent canaries. Actual source loader-zero input and existing output owners compiled. Missing2cd30 writer and3ecb0 reader are outside the proof; no live selector-state, raw EAX, timing or gameplay claim.",
     "input_sha256": {
-      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
-      "src/eng1/behavioral/setup_shared_state.h": "3f190988b41c625f893546085fe4276b7694291388fce78f511cc50c9b2a7e9e",
-      "src/eng1/behavioral/actor_pipeline_storage.c": "900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668",
-      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
-      "src/eng1/behavioral/forest_level_update_3ca50.c": "9409c067aed905ca61fc24b5c283f4c9e1da945ce55873e5fd4ea8e067c379db",
-      "tests/eng1_forest_update_differential.c": "8480d3c3de4c643efc0d817f34f07bfebd5984078be61b1456b6b59aa186d13d",
-      "scripts/eng1_bounded_differential.py": "27a609570a732969e33a84165e6f83b13a1f69b681681428c693e84386f632ed",
-      "src/eng1/behavioral/forest_level_state.c": "f1b3700700ddd796d40d75f5fd93ecda0d8483aa07d973608f00106704db5dbf",
+      "src/eng1/behavioral/forest_level_update_3ca50.c": "f96eced66982882df7104c810f5db7fe52d5cb4e2c669525297956316cf42ebf",
       "src/eng1/behavioral/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e",
-      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc"
+      "src/eng1/behavioral/actor_pipeline_storage.c": "900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668",
+      "src/eng1/behavioral/forest_level_state.c": "079438de958e017e4a2514c7cd6ff1e1fd79b3c821918c0241eac81018a89bb7",
+      "scripts/eng1_bounded_differential.py": "832d702bf66c6edd931a47553bc67fc66cf3fe9a7e20a32b7cd9452b56c5e39f",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "tests/eng1_forest_update_differential.c": "cc9ab78af30d647140b46afab63d18faba342f4433ab397742aa2e10dc98c4e5",
+      "src/eng1/behavioral/setup_shared_state.h": "3f190988b41c625f893546085fe4276b7694291388fce78f511cc50c9b2a7e9e",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src/eng1/behavioral/actor_control_state.h": "98a60b9fa15d9e5ae7955c4971068bc3f1f346b820eba384e23e0d444f5ddcf9",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c"
     },
     "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
     "native_spans": {
@@ -106,11 +119,12 @@
     "result": "PASS",
     "checks": 131072,
     "production_derivations": [],
-    "private_report_sha256": "79cbf3c2d7cc092d96b3638183f07d655951c1de9cff6b8d40dceb21be517ada"
+    "private_report_sha256": "1ec250e8430abee6fca1c962daa08f804b68c589e813ebbae336fdbb95d19d14"
   },
   "private_native_input_site_audit": {
     "path": "work/eng1_behavioral/eng1_call_3ca50/input_owner_audit.json",
     "sha256": "54561816da2996b00aa26a91952657367868839e2c7505dfc5d8f8ec9c89dad4",
     "scope": "Finite literal-address audit, preserved separately from original test-cell proof and canonical actual-owner proof."
-  }
+  },
+  "ownership_revision": "Expanded the earlier standalone70f0c WORD into one loader-zero byte owner after2cc50/2cd30 native access audits; input remains exact word[26]. Historical runtime receipts retain their original DLL/source context."
 }

@@ -1,0 +1,128 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x2cc50",
+  "source": "src/eng1/behavioral/actor_initializer_2cc50.c",
+  "source_sha256": "7c1243fd4139451cd5a611a011be3a0a8431bfb9e636aa551a77cf31b6f04413",
+  "implementation_status": "behaviorally_validated_limited",
+  "private_candidate_sha256": "1d7b0e34d65b93b0673c9218ca9bfab8bc6aa42d859f16c8f27c137ccab52870",
+  "private_report_sha256": "d1b9e27d6c6fbf85aff41efeccec2b1f88824ecff096b2900471ffe2fe465643",
+  "native": {
+    "rva": "0x2cc50",
+    "body_size": 210,
+    "sha256": "afe6145cb608f44519ea10dbcdf2fe357f6528a7bfc8591be3ef48b7a4370d53",
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "contract": "One cdecl Actor* argument. Ordered shared DWORD/WORD stores, preserve selector70f0c; clear actor direction BYTE, reuse advance_frame; assign measured Step2 prefix/index1/active_step-1; clear action index; reuse source2a290; late render flags OR8.",
+  "scope": "Bounded native/source callback differential with actual 0x29270, 0x2a290 and 0x20b50 providers.",
+  "comparison": "All actor bytes except the environment-specific +0xf0 step pointer and +0x110 frame-array pointer; all 56 control-state bytes; all 0x8c0 actor-pipeline bytes. Native and source pointer targets checked against their own measured/test owners.",
+  "limits": [
+    "Alias controls are bounded probes, not production frame tables.",
+    "0x2a290 executes with active-row -1 so 0x20b50 returns 0x7fff7fff before reading row data; other grid states are out of scope.",
+    "The six-pair 0x5c3a0 view is a prefix only; no complete motion extent is claimed.",
+    "This is behavioral differential evidence, not FUNCTION_MATCH or module-layout proof."
+  ],
+  "return_contract": "void cdecl actor* source contract. Native EAX incidentally equals actor DWORD+0x54; no direct caller is indexed and the callback record uses a void callback type, so raw EAX is not asserted.",
+  "selector_handling": "0x70f0c is nonzero-seeded and checked unchanged. The shared Eng1ActorControlState70ed8 owner covers the measured 0x70ed8..0x70f0f interval, including overlapping WORD/DWORD views at 0x70eec and the interior selector WORD.",
+  "target_data_handling": "0x5c3a0 is a private six-Step2 prefix. 0x2cc50 stores the pointer but does not dereference it; 0x29160 has no proven index bound.",
+  "source_dependencies": [
+    "src/shared/frame_state.c::advance_frame (existing strict match)",
+    "src/eng1/behavioral/actor_update_2a290.c (actual source), grid scan/decoder/data providers",
+    "Existing actor-pipeline and new measured control-state backing owners"
+  ],
+  "motion_prefix": {
+    "source": "src/eng1/behavioral/initial_motion_roots.c",
+    "rva": "0x5c3a0",
+    "size": 24,
+    "rows": 6,
+    "sha256": "cd9a54ed1f18bf97db08914e280ea7349e11ca2c4885a4d8052552ceba84208d",
+    "next_root": "0x5c3b8",
+    "scope": "Measured Step2 prefix only; runtime index domain beyond seed1 unproved."
+  },
+  "private_data_audit": {
+    "path": "work/eng1_behavioral/actor_motion_5c3a0_data/handoff.json",
+    "sha256": "0ac8265d44ebef17ea180727218dd3ef4b1218a51f42b34067c35f0c97f496f1",
+    "tools": {
+      "interpreter": {
+        "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "version": "3.12.14",
+        "sha256": "d41bad46673f64e0d02f23797f53f90ccf60f27d6eda8d86dd2d4bbeae5a858c",
+        "note": "Workspace runtime supplied the interpreter; analysis modules were imported from C:\\tools."
+      },
+      "pefile": {
+        "path": "C:\\tools\\hercules\\python\\pefile.py",
+        "version": "2024.8.26",
+        "sha256": "0d0eb68f0f169182613dc64b3ab50b20855508c1c1d2faafe8fccf23edb6a345"
+      },
+      "capstone": {
+        "path": "C:\\tools\\hercules\\python\\capstone",
+        "version": "5.0.7",
+        "native_library_sha256": "46b7c385efe50db4def8aa99aa351c44ea28b1f3c2ccbc4ca41dbb2a02340e39"
+      },
+      "repository_adapter": {
+        "path": "scripts/pe.py",
+        "sha256": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca",
+        "role": "Read-only PE adapter reviewed for repository conventions."
+      },
+      "private_reproduction": {
+        "path": "work/eng1_behavioral/actor_motion_5c3a0_data/audit.py",
+        "sha256": "d82ea08488c425d2c3e7853ecc6187f69a772f83181016745db6fd34ae88ec99",
+        "methods": "pefile base-relocation enumeration, RVA reads, Capstone x86-32 decode, and current JSON manifest interval inspection."
+      }
+    },
+    "superseded_handoff_sha256": "2256946b0d04613ac1a6f0ee38b0c4bfd94f8db853c724f41962176dd09f3682",
+    "correction": "Full selector-map audit corrects the separate 5c3b8 control lookup domain to selectors 1..5 and shared WORD 5c3d0 to zero. No change to the independently verified 24-byte 5c3a0 motion prefix."
+  },
+  "fixture": "tests/eng1_actor_initializer_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py actor-initializer",
+  "canonical_audit": "Volatile actor-field views retain the original store sequence and late render-flags read across helper calls; existing dependency implementations are reused.",
+  "canonical_proof": {
+    "scope": "Three finite native actor-initializer comparisons with real frame advance, actor update and grid-scan/decoder sources. Full actor/state/pipeline memory compared, with only actual pointer-owner normalization. Two state/pipeline frame aliases distinguish ordered stores. Grid active-row sentinel path only; motion six-pair prefix and wider indices remain limited. No raw EAX or gameplay claim.",
+    "input_sha256": {
+      "src/eng1/behavioral/query_20990.h": "c3687aea684cbcf9ed174f8109266a2b80aec0020ccb0ffa048448c84ebf67c6",
+      "src/eng1/behavioral/query_20990.c": "75458c849fc3bf850487af6f9fb23ba10191026e47bfd24f09bd7a49c76b8227",
+      "src/eng1/behavioral/frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+      "src/eng1/behavioral/actor_initializer_2cc50.c": "7c1243fd4139451cd5a611a011be3a0a8431bfb9e636aa551a77cf31b6f04413",
+      "src/eng1/behavioral/forest_level_state.c": "079438de958e017e4a2514c7cd6ff1e1fd79b3c821918c0241eac81018a89bb7",
+      "src/eng1/behavioral/grid_query_20d30.c": "d705e1651297fe070e2f427df3c1a4692b38fee9e49df3b1a4b1280c279b3a1e",
+      "src/eng1/behavioral/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e",
+      "tests/eng1_actor_initializer_differential.c": "f87799ca7d3fcfbcb1f92d8cb1f32bdaa2f831faea4c3e893d4e5a91e1696b42",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "src/eng1/behavioral/resource_data.c": "43d3b7dba919a3ee1b1577dadb602e49e2e14816cd418d3fb931197d54ca96a2",
+      "src/eng1/behavioral/actor_update_2a290.c": "2b1caee87d5a22d51a3253cce824b05920892d6cb0abdeb5a25645c9664281b4",
+      "src/shared/frame_state.c": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+      "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+      "src/eng1/behavioral/grid_query_20b50.h": "1f5d103d645c56fcb11be46c1878f5d0b25ff512720cf93bfa0d569c6f4207e7",
+      "src/eng1/behavioral/initial_motion_roots.h": "8612382ca6bb764da7955a6e83bd32d4a51fe88c8d220666d27a9f93990f4112",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "src/eng1/behavioral/grid_query_20d30.h": "7438e69f3aac21e14c1bee23245236141472885325adc5638ac05989586a7cc0",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "src/eng1/behavioral/grid_query_data.c": "841bb6c71cafb23a995421bb4f6a5560e486b61d377d33bd9fed81780b6be5b7",
+      "src/eng1/behavioral/payload_dispatch_data.c": "72c031fb55841dec4c33eb17a57f9c04a761fc66f79b423e418ee5eb7a312056",
+      "src/eng1/behavioral/actor_pipeline_storage.c": "900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668",
+      "src/eng1/behavioral/initial_motion_roots.c": "b99ec30ce3999bcdd2f95a8b7a1f2a1c54b9bc177bbe7fa8cf38efc0e465a6d5",
+      "src/eng1/behavioral/incomplete.c": "0c1c44db64a0b18e52d51ba9efc1caf1942df7fd700c26bcf99532ee6a114c5a",
+      "scripts/eng1_bounded_differential.py": "832d702bf66c6edd931a47553bc67fc66cf3fe9a7e20a32b7cd9452b56c5e39f",
+      "src/eng1/behavioral/actor_control_state.h": "98a60b9fa15d9e5ae7955c4971068bc3f1f346b820eba384e23e0d444f5ddcf9",
+      "src/eng1/behavioral/grid_query_20b50.c": "5807ffe8b4d3530e0582bb921fe612e7c6bf1cd2290c9a02ff272b425b404be4",
+      "calibration/engine_interface_storage.c": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5",
+      "src/eng1/behavioral/interpreters.h": "2284756dbb331f455596b2028b105a8bf788b9b43ffea9e84c8dcb5b859151dc"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x2cc50": {
+        "size": 210,
+        "sha256": "afe6145cb608f44519ea10dbcdf2fe357f6528a7bfc8591be3ef48b7a4370d53"
+      }
+    },
+    "stdout": "case 0: native/source actor, state and pipeline agree\ncase 1: native/source actor, state and pipeline agree\ncase 2: native/source actor, state and pipeline agree\ncases=3 checks=7833 failures=0\n",
+    "cases": 3,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 7833,
+    "production_derivations": [],
+    "private_report_sha256": "3bb0e0052f5e9245b99a4c57f16482aa8a47fdf27925bf8deaf7b17efff3ebe3"
+  }
+}

@@ -24,6 +24,7 @@ static const Eng1InitialReadLimit limits[] = {
     { &g_eng1_custom_mask_palette_05ebb8.mask_cells[5], 0x5ebd0UL, 32UL },
     { &g_eng1_custom_image_05ebf0, 0x5ebf0UL, 36UL },
     { g_eng1_initial_motion_0527d0, 0x527d0UL, 36UL },
+    { g_eng1_initial_motion_05c3a0, 0x5c3a0UL, 24UL },
     { g_eng1_initial_motion_05fa20, 0x5fa20UL, 42UL },
     { g_eng1_initial_motion_060148, 0x60148UL, 90UL },
     { g_eng1_initial_motion_066230, 0x66230UL, 6UL },

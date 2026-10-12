@@ -69,6 +69,10 @@ int main(void)
     if (!reject(g_eng1_sound_words_66d68,8,2,2,0x66d68)) return 36;
     if (!reject(g_eng1_sound_words_66d68,0xffffffffUL,2,2,0x66d68)) return 37;
 
+    eng1_guard_initial_read(g_eng1_initial_motion_05c3a0,5,4,4,"last measured motion pair");
+    if (!reject(g_eng1_initial_motion_05c3a0,6,4,4,0x5c3a0)) return 38;
+    if (!reject(g_eng1_initial_motion_05c3a0,0xffffffffUL,4,4,0x5c3a0)) return 39;
+
     memset(&actor,0,sizeof(actor)); actor.x=7; actor.y=11; actor.z=13;
     actor.steps=(void *)1; actor.step_index=(long)0x80000000UL; actor.active_step=-1;
     if (setjmp(escape)) return 10;

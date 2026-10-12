@@ -1,8 +1,8 @@
 #include "setup_shared_state.h"
+#include "actor_control_state.h"
 
 /* Measured two-byte loader-zero input owner at native 0x70f0c.
  * Wider neighboring storage and dynamic writer coverage remain unproved. */
-extern unsigned short g_eng1_input_word_70f0c;
 
 /* ENG1 RVA 0x3ca50. Native loads WORD 0x70f0c into zeroed EAX, then stores
  * one of two WORD sentinels through the existing actor-pipeline owner. */

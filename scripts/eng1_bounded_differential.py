@@ -17,6 +17,26 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'actor-initializer': dict(
+        sources=['tests/eng1_actor_initializer_differential.c',
+                 'src/eng1/behavioral/actor_initializer_2cc50.c',
+                 'src/eng1/behavioral/forest_level_state.c',
+                 'src/eng1/behavioral/initial_motion_roots.c',
+                 'src/shared/frame_state.c',
+                 'src/eng1/behavioral/actor_update_2a290.c',
+                 'src/eng1/behavioral/actor_pipeline_storage.c',
+                 'src/eng1/behavioral/resource_data.c',
+                 'src/eng1/behavioral/payload_dispatch_data.c',
+                 'src/eng1/behavioral/grid_query_20b50.c',
+                 'src/eng1/behavioral/grid_query_20d30.c',
+                 'src/eng1/behavioral/grid_query_data.c',
+                 'src/eng1/behavioral/query_20990.c',
+                 'src/eng1/behavioral/incomplete.c',
+                 'calibration/engine_interface_storage.c'],
+        spans=[(0x2cc50,210)], cases=3,
+        flags={'src/eng1/behavioral/actor_update_2a290.c':[
+            '/Deng1_native_dep_020b50=grid_scan_20b50']},
+        scope='Three finite native actor-initializer comparisons with real frame advance, actor update and grid-scan/decoder sources. Full actor/state/pipeline memory compared, with only actual pointer-owner normalization. Two state/pipeline frame aliases distinguish ordered stores. Grid active-row sentinel path only; motion six-pair prefix and wider indices remain limited. No raw EAX or gameplay claim.'),
     'forest-update': dict(
         sources=['tests/eng1_forest_update_differential.c',
                  'src/eng1/behavioral/forest_level_update_3ca50.c',

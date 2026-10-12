@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 #include "../src/eng1/behavioral/setup_shared_state.h"
+#include "../src/eng1/behavioral/actor_control_state.h"
 
 typedef unsigned char u8;
 typedef unsigned short u16;
@@ -12,7 +13,6 @@ typedef unsigned long u32;
 typedef void (__cdecl *NativeTarget)(void);
 
 extern void __cdecl eng1_native_code_target_003ca50(void);
-extern u16 g_eng1_input_word_70f0c;
 
 static HMODULE native_module;
 

@@ -44,3 +44,9 @@ Eng1InitialMotion3 g_eng1_initial_motion_060148[15] = {
 Eng1InitialMotion3 g_eng1_initial_motion_066230[1] = {
     { 0, 0, 8 },
 };
+
+/* RVA5c3a0: six signed Step2 pairs before the distinct5c3b8 lookup root.
+ * Initializer2cc50 seeds index1; wider runtime indices remain unproved. */
+Eng1InitialMotion2 g_eng1_initial_motion_05c3a0[6] = {
+    {0,0}, {1,0}, {2,0}, {3,0}, {4,0}, {5,0}
+};

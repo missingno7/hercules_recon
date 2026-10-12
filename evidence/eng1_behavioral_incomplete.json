@@ -1624,6 +1624,15 @@
     },
     {
       "module": "ENG1.DLL",
+      "rva": "0x5c3a0",
+      "source": "src/eng1/behavioral/initial_read_guards.c",
+      "kind": "incomplete_data_read",
+      "condition": "Active Step2 read at this source base exceeds six measured4-byte pairs, including negative/overflow index. Initializer seeds index1; wider domain unknown.",
+      "evidence": "evidence/eng1_actor_initializer_2cc50.json",
+      "reporting": "Exact-base initial-read guard reports original RVA before unsupported read."
+    },
+    {
+      "module": "ENG1.DLL",
       "rva": "0xe670",
       "symbol": "_dispatch_local_0e670",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -6328,24 +6337,6 @@
       "consumers": [
         {
           "source": "src/eng1/behavioral/forest_actor_init.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x2cc50",
-      "symbol": "_eng1_native_code_target_02cc50",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/frame_data.c",
           "kind": "function"
         }
       ],
@@ -11631,11 +11622,11 @@
     }
   ],
   "provisional_generation": {
-    "source_only_report_sha256": "b3cdff1aed7e935eab06aa08c7253b3ae3bc07c521aba9713bf85eb10c7fcc02",
+    "source_only_report_sha256": "692a2e28d6bc20f3c2f959bfbc5a3af4938648f32423440d8f42e96336ba94f9",
     "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
     "recovery_sha256": "465ee5ea057cd3bfb23508e18b16958c27b9d391e11a0bc874cfc413436644d5",
-    "symbols": 546,
-    "native_rvas": 543,
+    "symbols": 545,
+    "native_rvas": 542,
     "scope": "Transitional loader/startup diagnostics only; excluded from source coverage and never behaviorally accepted."
   }
 }
