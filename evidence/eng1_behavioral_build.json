@@ -1178,6 +1178,13 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_actor_list_producer_2b130.json"
+    },
+    {
+      "source": "src/eng1/behavioral/owned_spawn_callback_40e20.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_owned_spawn_callback_40e20.json"
     }
   ],
   "functions": [
@@ -3858,6 +3865,14 @@
       "implementation_status": "plausible_unverified",
       "contract": "cdecl int(Actor*). Acquire existing action group, traverse12-byte kind-terminated records; signed count vs zero-extended WORD limit; dispatch normal/middle/alternate factories with low-DWORD fixed-point wrap. Reload record/state/callback/count at native sites. Append then cached sprite store. Early null exits preserve+120; post-acquisition rollback releases and clears it.",
       "uncertainty": "Five native/source cases /45 checks through actual action_registry acquire/release: early-null, acquisition-null, empty success, zero-capacity rollback and unsupported class. Fixture counters prove factories/callback endpoints unexecuted; actual spawning is not validated here."
+    },
+    {
+      "rva": "0x40e20",
+      "symbol": "_eng1_native_code_target_040e20",
+      "source": "src/eng1/behavioral/owned_spawn_callback_40e20.c",
+      "evidence": "evidence/eng1_owned_spawn_callback_40e20.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "One Actor* cdecl command. Actual guarded advance_frame, then live DWORD z/y/x reads, then spawn_actor_with_owner(actor,x,y,z,0x34). Existing owner-aware factory, pool and render callback reused; no new data."
     }
   ],
   "source_adaptations": {

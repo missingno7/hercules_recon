@@ -1,0 +1,115 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x40e20",
+  "source": "src/eng1/behavioral/owned_spawn_callback_40e20.c",
+  "source_sha256": "65a775c7093710d67972099fe0c2c37a21d45144250cf221577340a369154d40",
+  "implementation_status": "behaviorally_validated_limited",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "private_candidate_sha256": "979bb0675d000865954ef1fdef2c4dd0eff464faca4812ec43ad9a5ec7d6e484",
+  "private_report_sha256": "cf370b1f3ab410986e1de8a8915b6f1adebe7947e0ad140c3125317ebefc2b43",
+  "native_spans": {
+    "0x40e20": {
+      "size": 48,
+      "sha256": "e58c5d2ae7c6c3fcb1ee411263d4c3f36449cf8ebf3c0bfb9143e0e49cd07c7c"
+    },
+    "0x29270": {
+      "size": 64,
+      "sha256": "c92c9e8a6d4c50f998740a3e489bd3b9b55d02305c94d21e1c3c6750f701f588"
+    },
+    "0x30180": {
+      "size": 272,
+      "sha256": "afa770afeb3ff0e03e1d8690f6c1e0c28016378bbd59528c1f0483c772d8c841"
+    }
+  },
+  "contract": "One Actor* cdecl command. Actual guarded advance_frame, then live DWORD z/y/x reads, then spawn_actor_with_owner(actor,x,y,z,0x34). Existing owner-aware factory, pool and render callback reused; no new data.",
+  "scope": "Finite native/source differential of the one-actor callback wrapper, with the actual production frame helper, owned-spawn service, normal factory/pool providers, and kind-0x34 render callback. A separate source-only mutation control checks live-coordinate reload order.",
+  "limits": [
+    "The fixture supplies its own finite frame list, normal asset row 0x34, action slot, and two-slot actor pool; it proves these controlled inputs only, not runtime table or pool capacity.",
+    "The source-only coordinate-mutation control uses a test stub for advance_frame and spawn_actor_with_owner; it is not a native differential. The native wrapper itself loads z/y/x after 0x29270 by direct instruction evidence.",
+    "0x40e20 physically propagates incidental 0x30180 EAX, but the reviewed 3ca80 callback caller ignores it. The C API is void within that known consumer scope; indirect return consumers outside it are not claimed.",
+    "No FUNCTION_MATCH, original translation-unit, data-capacity, or whole-image claim."
+  ],
+  "provider_provenance": {
+    "advance_frame": "src/shared/frame_state.c, compiled directly",
+    "spawn_actor_with_owner": "src/eng1/behavioral/spawn_services.c, compiled directly",
+    "normal_factory": "calibration/actor_factories.c, compiled directly",
+    "normal_allocate_and_initialize": "calibration/actor_pools.c, compiled directly",
+    "kind_0x34_action": "src/eng1/actor_handlers_high.c:set_render_flags_3e9b0, compiled directly; native 0x3e9b0 invoked on the native side",
+    "guard": "The table guard is a no-op fixture binding because both action tables are test-owned static arrays; no canonical guarded owner is bypassed."
+  },
+  "fixture": "tests/eng1_owned_spawn_callback_differential.c",
+  "source_order_fixture": "tests/eng1_owned_spawn_callback_order.c",
+  "reproduce": [
+    "python scripts/eng1_bounded_differential.py owned-spawn-callback",
+    "python scripts/test_eng1_behavioral.py"
+  ],
+  "canonical_adjustments": "Shared spawn prototype uses void* owner consistently with the actual provider; registered frame preflight wraps the unchanged strict frame helper. No frame or spawn algorithm reconstructed again.",
+  "canonical_proof": {
+    "scope": "Two original/source owned-spawn wrapper cases /17 checks through actual guarded frame, spawn/factory/pool and render callback providers. Controlled normal asset/action/frame owners; successful and exhausted allocation only, no dynamic capacity or universal return-ABI claim.",
+    "input_sha256": {
+      "src/shared/frame_state.c": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+      "tests/eng1_owned_spawn_callback_differential.c": "b763c87f5e474fc68f4f1208668cb18d8c7838d489f18c18365fb319ad86ef8d",
+      "src/eng1/behavioral/read_guard.c": "ff186303e741d0ae365b6f27045dd476f92755d8944ece0a438b9f04cbe71bb2",
+      "src/eng1/behavioral/shared_selector_assets.c": "7ab8757381d1b15ed4c4c56d5653febaa7730aebd1c750b37d18e024da2b22e9",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "calibration/actor_pools.c": "2ff49187935e13c68d9a64ae477c009107871e12fc8b440848e5d862d7ecb5b4",
+      "src/eng1/behavioral/initial_zero_word_program.c": "1a6630e7c3829c6838dbdf3ae6b897a0e8689cf7c46ebd59cf17ff5e2fb9c029",
+      "src/eng1/behavioral/frame_data_config_word_pool.c": "d811f5a5224f912b03dc650aec551bf738c2a22588256da67c5d9da50ad28305",
+      "src/eng1/behavioral/worklist_read_guards.h": "cbf45b1dbfc16e298c7c7884a62beac02e9b8db2a42fdf5ab5b1760011fe93c4",
+      "scripts/eng1_bounded_differential.py": "6389cb52c65bc43020d4775d1a1385e75e203fe7d1a0d8b592968c607acf55fa",
+      "src/eng1/behavioral/forest_actor_init.h": "8115197c5668019f912f667e94b7578453698ac4ce7f7a028862b2e1d54b6ee6",
+      "src/eng1/behavioral/provisional_frame_pairs.c": "65aee841acd18616e8b98595670d6b930fda626a432bf2e00da82047a26a20c3",
+      "src/eng1/behavioral/flags_word_programs.c": "3d6c4fd9bf8a9ca326fa29e09842aa71db26d21e17e92ce2577642730d801505",
+      "src/eng1/behavioral/interpreters.h": "2284756dbb331f455596b2028b105a8bf788b9b43ffea9e84c8dcb5b859151dc",
+      "src/eng1/behavioral/provisional_frame_pairs.h": "0111a0cbce84423ff8c4468aaff41c480d3e568652e830e92a8a5caa23321e77",
+      "src/eng1/actor_handlers_high.c": "068fff7a3fb5ffc810cf12a4c32c50ea0042fb01f91b423021375fd79b04d057",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "src/eng1/behavioral/read_guard.h": "3a52a684a11bc6cc800f07f0274f191106cc118fed623eef61e822356b4d6a7b",
+      "src/eng1/behavioral/spawn_services.c": "971fe773da5aa673e5a8ccdd71c156c850eaa364fb21f9f239f21ee516f9d868",
+      "src/eng1/behavioral/finite_frame_prefixes.h": "60ecb2609ec2463d83c4d09d3275d9c7a71b6d7a931973e94be4b1510585ce70",
+      "src/eng1/behavioral/owned_spawn_callback_40e20.c": "65a775c7093710d67972099fe0c2c37a21d45144250cf221577340a369154d40",
+      "src/eng1/behavioral/initial_zero_word_program.h": "34e7d654d628d03765a9b8452f0978addc61387b47857d2ac130cfc144285620",
+      "src/eng1/behavioral/frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+      "calibration/actor_factories.c": "24f3222fce819a21b833a4d007152b42fb4a3beac37235923d9849d02ac8f55b",
+      "src/eng1/behavioral/finite_frame_prefixes.c": "5abcaf6d5ad277bec50956e39adcc860e7273a019165020f8182e070b0df52ac",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src/eng1/behavioral/shared_selector_assets.h": "d8ac87af169c6cb90c5403369c346ea71f16124457311d93828dea46175f49e4",
+      "src/eng1/behavioral/worklist_factory_types.h": "18644fb58236c2a7daa9c3242a443ef3f16f5206c6f98f2e7c1e1cd06f8f5c47",
+      "src/eng1/behavioral/flags_word_programs.h": "31b888ca9cb8f026b9f4f05d76752f34324ce593161e4ef859b8961fc75413a4"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x40e20": {
+        "size": 48,
+        "sha256": "e58c5d2ae7c6c3fcb1ee411263d4c3f36449cf8ebf3c0bfb9143e0e49cd07c7c"
+      }
+    },
+    "stdout": "PASS 40e20 allocation=success\nPASS 40e20 allocation=exhausted\neng1_call_40e20 cases=2 checks=17 failures=0\n",
+    "cases": 2,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 17,
+    "production_derivations": [],
+    "private_report_sha256": "019e5f5701955f6f8b61dbbbe8bfac9fec712caa7ae66ee0e7069201a5404171"
+  },
+  "source_order_proof": {
+    "name": "owned_spawn_callback_order",
+    "input_sha256": {
+      "src\\eng1\\behavioral\\frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+      "calibration\\resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "src\\eng1\\behavioral\\group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src\\eng1\\behavioral\\resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "src\\eng1\\behavioral\\interpreters.h": "2284756dbb331f455596b2028b105a8bf788b9b43ffea9e84c8dcb5b859151dc",
+      "tests\\eng1_owned_spawn_callback_order.c": "11e246aadfb40b71a541c8c056fc3398f8927706419eaa6d078c7cee07d242c8",
+      "src\\eng1\\behavioral\\read_guard.h": "3a52a684a11bc6cc800f07f0274f191106cc118fed623eef61e822356b4d6a7b",
+      "src\\eng1\\behavioral\\owned_spawn_callback_40e20.c": "65a775c7093710d67972099fe0c2c37a21d45144250cf221577340a369154d40"
+    },
+    "stdout": "source-only mutation-order controls=1 checks=7 failures=0\n",
+    "compile_exit_code": 0,
+    "exit_code": 0,
+    "inputs_unchanged": true,
+    "native_execution": false
+  }
+}

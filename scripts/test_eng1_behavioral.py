@@ -32,6 +32,14 @@ def run(output, wrapper_fixture):
     env.update(PATH=str(DEFAULT_TOOLCHAIN / 'bin') + os.pathsep + env.get('PATH', ''),
                INCLUDE=str(DEFAULT_TOOLCHAIN / 'include'), LIB=str(DEFAULT_TOOLCHAIN / 'lib'))
     fixtures = {
+        'owned_spawn_callback_order': ['tests/eng1_owned_spawn_callback_order.c',
+                                      'src/eng1/behavioral/owned_spawn_callback_40e20.c'],
+        'forest_actor_child_source': ['tests/eng1_forest_actor_child_source.c',
+                                     'src/eng1/behavioral/forest_actor_callback_3ca80.c',
+                                     'tests/eng1_classifier_child_spy_alias.c',
+                                     'src/eng1/behavioral/actor_control_tables.c',
+                                     'src/eng1/behavioral/actor_position_classifier_41fd0.c',
+                                     'src/shared/frame_state.c'],
         'entry': ['tests/eng1_entry_semantics.c', 'src/eng1/behavioral/entry.c',
                   'calibration/engine_interface_storage.c'],
         'host_wrappers': [str(wrapper_fixture), 'src/eng1/behavioral/host_wrappers.c'],
@@ -98,6 +106,9 @@ def run(output, wrapper_fixture):
     for name, names in fixtures.items():
         directory = output / name
         directory.mkdir(parents=True, exist_ok=True)
+        compiler_temp = directory / 'compiler_temp'
+        compiler_temp.mkdir(exist_ok=True)
+        env.update(TMP=str(compiler_temp), TEMP=str(compiler_temp))
         units = [ROOT / p for p in names]
         if len({p.stem.lower() for p in units}) != len(units):
             raise ValueError('Fixture object basenames collide: ' + name)

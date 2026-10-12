@@ -17,6 +17,23 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'owned-spawn-callback': dict(
+        sources=['tests/eng1_owned_spawn_callback_differential.c',
+                 'src/eng1/behavioral/owned_spawn_callback_40e20.c',
+                 'src/eng1/behavioral/spawn_services.c',
+                 'calibration/actor_factories.c',
+                 'calibration/actor_pools.c',
+                 'src/shared/frame_state.c',
+                 'src/eng1/actor_handlers_high.c',
+                 'src/eng1/behavioral/read_guard.c',
+                 'src/eng1/behavioral/frame_data_config_word_pool.c',
+                 'src/eng1/behavioral/flags_word_programs.c',
+                 'src/eng1/behavioral/provisional_frame_pairs.c',
+                 'src/eng1/behavioral/shared_selector_assets.c',
+                 'src/eng1/behavioral/finite_frame_prefixes.c',
+                 'src/eng1/behavioral/initial_zero_word_program.c'],
+        spans=[(0x40e20,48)], cases=2,
+        scope='Two original/source owned-spawn wrapper cases /17 checks through actual guarded frame, spawn/factory/pool and render callback providers. Controlled normal asset/action/frame owners; successful and exhausted allocation only, no dynamic capacity or universal return-ABI claim.'),
     'actor-list-producer': dict(
         sources=['tests/eng1_actor_list_producer_differential.c',
                  'src/eng1/behavioral/actor_list_producer_2b130.c',
@@ -537,6 +554,10 @@ def run(profile, oracle, captured_payload=None):
         env.pop(key, None)
     env.update(PATH=str(DEFAULT_TOOLCHAIN / 'bin') + os.pathsep + env.get('PATH', ''),
                INCLUDE=str(DEFAULT_TOOLCHAIN / 'include'), LIB=str(DEFAULT_TOOLCHAIN / 'lib'))
+    # VC5 intermediates stay private when independent profiles compile together.
+    compiler_temp = out / 'compiler_temp'
+    compiler_temp.mkdir(exist_ok=True)
+    env.update(TMP=str(compiler_temp), TEMP=str(compiler_temp))
     exe = out / 'fixture.exe'
     exe.unlink(missing_ok=True)
     commands, objects, logs, derivations = [], [], [], []

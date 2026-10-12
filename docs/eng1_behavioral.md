@@ -2,15 +2,15 @@
 
 The original host loads our source-built x86 ENG1 DLL and performs its expected
 250-DWORD interface initialization. Reconstructed setup and player script
-dispatch now advance the latest windowed run to missing routine `0x40e20`.
+dispatch now advance the latest windowed run to missing routine `0x3e220`.
 No reconstructed ENG1 gameplay frame, continuous gameplay, or normal engine
 shutdown is verified.
 
-The genuine graph has 355 mapped compiled entries, 10 explicitly traced
-unindexed provider RVAs, and 386 function symbols across 194 source units.
+The genuine graph has 356 mapped compiled entries, 10 explicitly traced
+unindexed provider RVAs, and 387 function symbols across 195 source units.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
-denominator. The genuine link has 541 unresolved function symbols and zero
-duplicate providers. The optional transitional profile adds 541 explicit
+denominator. The genuine link has 540 unresolved function symbols and zero
+duplicate providers. The optional transitional profile adds 540 explicit
 fail-on-entry diagnostics and links with zero unresolved symbols.
 `PC_DLLEngineMain` is the sole PE32 export at ordinal 1. The replacement has
 no original-engine import or embedded original executable code.
@@ -20,7 +20,7 @@ compilation and actual linked-byte comparison. This work leaves `recovery.json`
 unchanged. The stable TITLE milestone and historical matching branch remain
 preserved.
 
-All 35 source fixture groups pass. The generic data gate verifies 57 providers,
+All 37 source fixture groups pass. The generic data gate verifies 57 providers,
 919 fields and 4,787 native-matching pointer relocations. Seven boundary
 regressions cover explicit read-only and mixed file/loader-zero storage.
 A separate legacy-resource gate verifies 81 rows, 1,296 non-pointer bytes and
@@ -176,6 +176,10 @@ null input and one empty-group success. The class byte is at +21, distinct
 from Actor.category at +22; only kind-30 children consume cached mask bits.
 Nonempty child iteration, live count mutation and child-kind changes remain
 instruction-supported and unverified.
+A separate source-only child-loop scenario passes19 checks over seven ordered
+events. It injects list growth and class/kind changes around the actual child
+state and frame providers to distinguish live reloads and mask alignment.
+These injected controls do not establish native nonempty-loop equivalence.
 
 List producer 2b130 preserves null exits without clearing +120; only
 post-acquisition failure releases the group and clears that cell. Five native
@@ -190,6 +194,20 @@ the existing source frame selector. Unsigned states at least eight become16;
 zero becomes1. Low bits0/1 select frame0,2 selects1,3 selects2. The original
 failed draft inverted the threshold and mapped frames incorrectly; those
 discriminators and high-bit WORD controls are preserved.
+
+Owned-spawn callback40e20 has a source wrapper around existing frame advance
+and owner-aware spawn providers. Two native cases /17 checks compare successful
+and exhausted normal allocation with the existing kind34 render callback.
+Seven separate source-only checks inject a frame-helper coordinate mutation
+and verify post-call z/y/x reads and the same owner. Dynamic return consumers,
+arbitrary pool/frame capacities and broader production callbacks remain unproved.
+
+The successful list-producer extension compares all three factory families
+against native under a shared synthetic mutation callback: three pairs /99
+grouped checks cover coordinate wrap, initialized state, live count append,
+cached sprite and replacement record-base reload. These are finite call-site
+controls and real factory/pool behavior; the synthetic callback does not validate
+production callback semantics or allocation capacity.
 
 The collision pointer has one source definition in a pure data unit, moved
 unchanged from mixed runtime storage; normal setup supplies its actor address.
@@ -211,7 +229,7 @@ original `15780/12620` as test-only nested helpers; production has separate C
 dependencies. Color retains a raw upper-DWORD callback disagreement, while
 the actual host consumes the matching low byte.
 
-Runtime evidence records 25 artifact-bound observations. Each distinguishes
+Runtime evidence records 26 artifact-bound observations. Each distinguishes
 historical source context from the current checkout. The latest run uses
 original host/ENG3/data, stable source TITLE and the authorized no-CD change
 only in a disposable host copy, in windowed mode. The observer captures the
@@ -289,7 +307,7 @@ cells. Some PC callbacks are real no-ops; retain each measured identity.
 
 Cold startup includes source pool sweeps, descriptor/link initialization,
 resource reload, payload decoding, setup and bounded player dispatch.
-The latest observed frontier is `0x40e20` in the startup chain.
+The latest observed frontier is `0x3e220` in the startup chain.
 Worklist, camera, geometry and dialog orchestration have compiled providers;
 many collision, actor, animation and input handlers remain missing. A missing
 root hides further dependencies, so the current unresolved count understates
@@ -322,6 +340,7 @@ python scripts/eng1_bounded_differential.py command-writers
 python scripts/eng1_bounded_differential.py descriptor-reload
 python scripts/eng1_bounded_differential.py dialog-frame
 python scripts/eng1_bounded_differential.py simulation-root
+python scripts/eng1_bounded_differential.py owned-spawn-callback
 python scripts/eng1_bounded_differential.py actor-list-producer
 python scripts/eng1_bounded_differential.py forest-actor-callback
 python scripts/eng1_bounded_differential.py classifier-child

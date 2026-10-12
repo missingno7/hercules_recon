@@ -1,0 +1,49 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x2b130",
+  "source": "src/eng1/behavioral/actor_list_producer_2b130.c",
+  "source_sha256": "90f5ac0a58b036fc645034142230d2152edac0019f802d3cb6dd952446f3f90e",
+  "scope": "Fresh pinned VC5 x86 native/source comparison for successful ENG1 RVA 0x2b130 factory/callback paths. The native side enters the read-only oracle and executes its real acquire, normal/middle/alternate factory, allocator and initializer bodies. The source side calls the canonical ordinary-C 0x2b130 producer plus the real action_registry, actor-pool initializer/allocator, actor_factories, spawn_services middle factory, and bounded worklist-read guard providers. Synthetic pools, asset/callback rows, registry group, and a test callback are controlled fixture state; no production capacity or callback-body claim is made.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "file_unchanged_before_after": true,
+    "entry_rva": "0x2b130",
+    "diagnostic_span_bytes": 496,
+    "diagnostic_span_sha256": "c47a6dc20bdd642e0709d87edc7ead00f6965c8d4887db49f8dc4c82fb523659",
+    "extent_caveat": "0x1f0-byte diagnostic inventory includes six trailing alignment NOPs and is not an ownership claim.",
+    "process_local_data_overrides": "Only measured loader data cells required for the fixture were redirected to process-local actor pools, asset/callback rows and the single test group. Every written DLL cell was snapshotted and restored before FreeLibrary; code bytes were never written."
+  },
+  "private_report_sha256": "0bfedcf8cc881f2096cfd401c2fd3e73f6fb4cf2187761373ba562272694c2ca",
+  "private_prediction": {
+    "region": "ENG1.DLL RVA 0x2b130 successful factory/callback paths",
+    "prediction": "For one valid record of each exact class (0x0001, 0x4001, 0x2001), the native entry and canonical producer should acquire the same controlled group, call the corresponding real normal/middle/alternate factory, initialize one bounded pool actor, invoke callback row 1 once, append the callback-mutated live group count at index 3, apply the pre-factory sprite WORD after callback, then reload actor+0x118 and stop at the replacement list's second-record zero sentinel. Actor base and signed record WORDs should wrap as DWORD coordinates: 0x80018001, 0xffff0003, 0x0002fff0. The initialized child+0x34 should be zero on callback entry, callback writes 0xfedc, and final producer output should be cached sprite 0x2468 even after the callback changes the record sprite to 0x1357.",
+    "falsifier": "Reject this extension if any native/source result, callback count, factory kind, selected pool cursor, complete bounded actor/pool/group/record bytes, group count, state/sprite value, coordinate wrap, or live record-base outcome differs; if native calls a different family/table ABI; if callback entry observes a nonzero factory step value; or if native does not stop at the replacement-list sentinel. A source-only match without the native factory/callback run is insufficient for this prediction's claimed native coverage.",
+    "scope": "Three finite native/source comparisons on synthetic single-slot pools, registered bounded asset/callback table prefixes, a test-owned pending-action group, and one test callback. This predicts call-site order and bounded allocator/factory/initializer results only; it does not claim production table/pool/group capacities or production callback semantics.",
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "cases": 3,
+  "checks": 99,
+  "limits": [
+    "Three controlled kinds exercise only one bounded actor slot and one callback row per family; no production pool or table capacity is inferred.",
+    "Test callback behavior is a controlled live-mutation probe, not a claim about the semantics of any production callback body.",
+    "Fixture group backing is 64 bytes to safely observe the native post-callback count=2 then entry[3] write. This does not enlarge or assert the production allocator request; the existing allocation-limit quirk remains unresolved.",
+    "Asset image/frame/step pointers address shared marker bytes. Their pointee behavior is not tested.",
+    "The source path uses the already integrated canonical provider and existing real helpers; it does not prove original source/TU identity, strict function equality, complete startup/gameplay equivalence, or dynamic group/pool capacities.",
+    "Callback tables and assets are synthetic fixture data registered with the actual bounded source guard; this does not validate all table entries or production callback semantics."
+  ],
+  "callback_and_fixture_endpoints": {
+    "test_callback": "Same host executable callback is installed in native and source test tables. It mutates group count to 2, original record sprite to 0x1357, child+0x34 to 0xfedc, and parent+0x118 to a replacement list with a zero sentinel at index 1.",
+    "unused_link_stubs": [
+      "remove_actor_variant",
+      "remove_actor",
+      "remove_middle_actor",
+      "release_actor",
+      "clear_actor",
+      "append_chain"
+    ],
+    "unused_link_stub_calls": 0
+  },
+  "fixture": "tests/eng1_actor_list_success_differential.c",
+  "reproduce": "python scripts/eng1_actor_list_success_differential.py"
+}
