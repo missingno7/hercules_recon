@@ -2,15 +2,15 @@
 
 The original host loads our source-built x86 ENG1 DLL and performs its expected
 250-DWORD interface initialization. Reconstructed setup and player script
-dispatch now advance the latest windowed run to missing routine `0x42320`.
+dispatch now advance the latest windowed run to missing routine `0x28290`.
 No reconstructed ENG1 gameplay frame, continuous gameplay, or normal engine
 shutdown is verified.
 
-The genuine graph has 360 mapped compiled entries, 10 explicitly traced
-unindexed provider RVAs, and 391 function symbols across 199 source units.
+The genuine graph has 363 mapped compiled entries, 10 explicitly traced
+unindexed provider RVAs, and 394 function symbols across 202 source units.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
-denominator. The genuine link has 534 unresolved function symbols and zero
-duplicate providers. The optional transitional profile adds 534 explicit
+denominator. The genuine link has 533 unresolved function symbols and zero
+duplicate providers. The optional transitional profile adds 533 explicit
 fail-on-entry diagnostics and links with zero unresolved symbols.
 `PC_DLLEngineMain` is the sole PE32 export at ordinal 1. The replacement has
 no original-engine import or embedded original executable code.
@@ -20,8 +20,8 @@ compilation and actual linked-byte comparison. This work leaves `recovery.json`
 unchanged. The stable TITLE milestone and historical matching branch remain
 preserved.
 
-All 38 source fixture groups pass. The generic data gate verifies 57 providers,
-919 fields and 4,787 native-matching pointer relocations. Seven boundary
+All 38 source fixture groups pass. The generic data gate verifies 58 providers,
+920 fields and 4,787 native-matching pointer relocations. Seven boundary
 regressions cover explicit read-only and mixed file/loader-zero storage.
 A separate legacy-resource gate verifies 81 rows, 1,296 non-pointer bytes and
 81 actual NUL-terminated path contents. These data comparisons do not establish
@@ -224,33 +224,53 @@ overlapped mapped library contributions longer than16 bytes in that snapshot.
 The heuristic inventory and library cutoff still do not prove a complete
 first-party census.
 
-Alternate initializer efa0 passes two native cases /29 checks using the actual
-reset and WORD interpreter providers. The existing six-byte51b20 program is
-shared by eight reviewed initializer configurations. Its tested reads are
-index1 then0; the full actor comparison normalizes only the program pointer.
-Render flags are read before the flags overwrite, the mode BYTE precedes the
-cached render DWORD store, and the narrow4a store is retained before reset.
-Other interpreter programs and indirect raw-return consumers remain unproved.
+Alternate initializer 0xefa0 passes two native cases and 29 checks using the
+actual reset and WORD interpreter providers. Eight reviewed initializer
+configurations share the existing six-byte program at 0x51b20. Its tested
+reads are index 1 then 0; actor comparison normalizes only the program pointer.
+The callback reads render flags before overwriting flags, stores the mode byte
+before render flags, and retains the narrow store at +0x4a before reset.
+Other programs and consumers of the incidental EAX return remain unproved.
 
-Position initializer2d9b0 passes ten native/source full-Actor cases/62 checks
-with the existing source41fd0 helper and216-byte classifier table. The saved
-x is retained across DWORD y/z writes; returned AL goes to BYTE21 while
-category22 and adjacent byte canaries remain intact. Threshold edges, varied
-low WORDs and signed nonpositive sentinel outcomes are covered. The first
-fixture's positive7fff expectation was corrected to row17 after both native
-and source agreed; its failed receipt is preserved. Existing alternate
-callback record41 is reused; its NULL program is valid for this initializer.
-Universal callback EAX and arbitrary mutable table inputs remain unproved.
+Position initializer 0x2d9b0 passes ten native/source actor comparisons and 62
+checks with the existing 0x41fd0 helper and 216-byte classifier table. It keeps
+the saved x across DWORD y/z writes, then stores AL at +0x21 while preserving
+category +0x22 and adjacent canaries. Tests cover threshold edges, varied low
+WORDs and signed nonpositive sentinel outcomes. The first fixture expected
+0xff for positive high WORD 0x7fff; both source and native selected row 17.
+The failed receipt is preserved. Existing alternate callback record 41 is
+reused, and its NULL program is valid here. Universal callback EAX and arbitrary
+mutable table inputs remain unproved.
 
-State initializer40a50 passes ten original/source full-Actor comparisons/81
-checks. It ORs render flags before capturing the state WORD; independent bits
-0100/0200/0400 retain their ordered WORD/DWORD stores, including both dc writes
-when selected. Bit0800 only selects step100/300. The low-five-bit magnitude
-stays a raw DWORD. Both step sizes, combined branches and adjacent canaries
-are covered; unrelated e0 and pitch remain intact. This actor-only body reuses
-middle callback records49/52 and needs no new storage/helper. The first mask
-transcription error was corrected before experiments and retained by hash.
-Broader state combinations and residual callback EAX remain unproved.
+State initializer 0x40a50 passes ten original/source actor comparisons and 81
+checks. It ORs render flags before capturing the state WORD. Independent bits
+0x0100, 0x0200 and 0x0400 retain their ordered WORD/DWORD stores, including both
+writes to +0xdc when selected. Bit 0x0800 selects step 0x100 or 0x300. The
+magnitude remains a raw DWORD containing the low five bits. Tests cover both
+step sizes, combined branches and adjacent canaries; +0xe0 and the adjacent
+WORD at +0x72 remain intact. Existing middle callback records 49/52 are reused.
+The first mask transcription error was corrected before experiments and kept
+by hash. Broader combinations and incidental callback EAX remain unproved.
+
+Tile packet writer 0x2ff0 passes five original/source cases and 26 checks for
+finite test-owned grids and output buffers. It preserves signed clipping,
+column wrap, joined runs, four packet kinds, both frame lists and live cursor
+updates. Nonzero values distinguish the live WORD at 0x73480 and packet +0x0e
+store. A separate zero-width case compares the x86 divide-error exception under
+the pinned VC5 compiler. Only known pointer fields are normalized; other bytes
+are compared directly. Production allocation extents and pixel output remain
+unproved. A measured two-byte mutable zero-fill owner supplies 0x73480 without
+owning its neighboring gap or the existing cursor.
+
+Frame palette callback 0x42320 and RGB helper 0x5a30 pass eight original/source
+comparisons and 43 checks: three direct RGB pairs and five complete call-chain
+pairs using actual tile, storage and color units with a zero-height grid.
+Camera X and Y are captured in native order; signed shift, wrapped subtraction,
+division toward zero, post-call Y reload and threshold 32 are retained. The
+RGB helper stores red, reads the signed frame WORD, stores green/blue, then
+calls the existing 0x5e00 writer. Broader resource/frame capacities, incidental
+EAX and pixel-level rendering remain unproved. Earlier source-only and
+native-only receipts remain preserved separately.
 
 The collision pointer has one source definition in a pure data unit, moved
 unchanged from mixed runtime storage; normal setup supplies its actor address.
@@ -272,7 +292,7 @@ original `15780/12620` as test-only nested helpers; production has separate C
 dependencies. Color retains a raw upper-DWORD callback disagreement, while
 the actual host consumes the matching low byte.
 
-Runtime evidence records 30 artifact-bound observations. Each distinguishes
+Runtime evidence records 31 artifact-bound observations. Each distinguishes
 historical source context from the current checkout. The latest run uses
 original host/ENG3/data, stable source TITLE and the authorized no-CD change
 only in a disposable host copy, in windowed mode. The observer captures the
@@ -350,7 +370,7 @@ cells. Some PC callbacks are real no-ops; retain each measured identity.
 
 Cold startup includes source pool sweeps, descriptor/link initialization,
 resource reload, payload decoding, setup and bounded player dispatch.
-The latest observed frontier is `0x42320` in the startup chain.
+The latest observed frontier is `0x28290` in the startup chain.
 Worklist, camera, geometry and dialog orchestration have compiled providers;
 many collision, actor, animation and input handlers remain missing. A missing
 root hides further dependencies, so the current unresolved count understates
@@ -383,6 +403,8 @@ python scripts/eng1_bounded_differential.py command-writers
 python scripts/eng1_bounded_differential.py descriptor-reload
 python scripts/eng1_bounded_differential.py dialog-frame
 python scripts/eng1_bounded_differential.py simulation-root
+python scripts/eng1_bounded_differential.py frame-palette
+python scripts/eng1_bounded_differential.py tile-draw
 python scripts/eng1_bounded_differential.py state-initializer
 python scripts/eng1_bounded_differential.py position-initializer
 python scripts/eng1_bounded_differential.py alternate-initializer

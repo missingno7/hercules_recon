@@ -1,0 +1,98 @@
+{
+  "scope": "Measured native two-byte data identity only; no runtime immutability or function acceptance",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "interval": {
+    "rva": "0x73480",
+    "end_exclusive": "0x73482",
+    "size": 2
+  },
+  "initialization": {
+    "class": "loader-zero virtual tail",
+    "native_initial_virtual_bytes_hex": "0000",
+    "file_backed": false,
+    "file_bytes": null
+  },
+  "section": {
+    "name": ".data",
+    "rva": "0x4d000",
+    "virtual_size": "0x27658",
+    "virtual_end": "0x74658",
+    "raw_file_offset": "0x4c000",
+    "raw_size": "0x21800",
+    "file_backed_rva_end": "0x6e800",
+    "characteristics": "0xc0000040"
+  },
+  "references": [
+    {
+      "rva": "0x3111",
+      "text": "mov dx, word ptr [0x10073480]",
+      "width": 2,
+      "access": 1
+    },
+    {
+      "rva": "0x1f090",
+      "text": "mov ax, word ptr [0x10073480]",
+      "width": 2,
+      "access": 1
+    },
+    {
+      "rva": "0x3c9ba",
+      "text": "mov ax, word ptr [0x10073480]",
+      "width": 2,
+      "access": 1
+    }
+  ],
+  "highlow_operand_rvas": [
+    "0x3114",
+    "0x1f092",
+    "0x3c9bc"
+  ],
+  "direct_writers_found": [],
+  "exact_address_escapes_found": [],
+  "existing_manifest_overlaps_at_capture": [],
+  "independent_neighbor_owner": [
+    {
+      "source": "src/eng1/behavioral/frame_data.c",
+      "field": {
+        "symbol": "_g_frame_global_73484",
+        "rva": "0x73484",
+        "size": 4,
+        "scope": "prefix"
+      }
+    }
+  ],
+  "excluded_gap": {
+    "rva": "0x73482",
+    "end_exclusive": "0x73484",
+    "size": 2
+  },
+  "planned_root_provider": {
+    "source": "src/eng1/behavioral/tile_draw_storage.c",
+    "header": "src/eng1/behavioral/tile_draw_storage.h",
+    "symbol": "_g_tile_texture_word_73480",
+    "definition": "unsigned short g_tile_texture_word_73480;",
+    "native_access_width": 2
+  },
+  "proof_limits": [
+    "No exact-address native writer or escape found; indirect/bulk/escaped-neighbor writes remain unproved",
+    "No historical type, aggregate, TU, pointer lifetime or placement claim",
+    "No original bytes are inlined as a function result; an ordinary mutable zero-fill cell is required",
+    "Field excludes gap73482..83 and separate73484 DWORD owner"
+  ],
+  "provenance_sha256": {
+    "audit.py": "ad5d49c6c12d21e7461e78bcb98b0ecca06ba0a076af96368132f073a451bb4e",
+    "capture.json": "950702134fefc28b6ad89379b3e6db2469a2dc8faa90848c2b5e6eaf5cfa486a",
+    "dependencies_native.txt": "558f03d039bcb3c7aa039bd4310526cf0c69be51d8fc2d4f3404aeee83e4e0ed"
+  },
+  "owner_snapshot_note": "Manifest overlap results are from pre-adoption native audit capture; root is sole canonical integrator",
+  "module": "ENG1.DLL",
+  "source": "src/eng1/behavioral/tile_draw_storage.c",
+  "source_sha256": "d66f4219d6d81fa9b9ab3ecdd380e066c902a59f789109b4499f728676009a94",
+  "header": "src/eng1/behavioral/tile_draw_storage.h",
+  "header_sha256": "c5304f5e2ef614369e89c51e16ad25a1ba370e3de222d3e15a08fd779167e26f",
+  "private_receipt_sha256": "f84c8a15d6c0a2edcf620362f879ae47e7c23cd5a9ce5bec4fe937eed09b19b1",
+  "reproduce": "python scripts/eng1_data_evidence.py"
+}

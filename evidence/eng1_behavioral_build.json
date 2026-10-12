@@ -1213,6 +1213,27 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_state_initializer_40a50.json"
+    },
+    {
+      "source": "src/eng1/behavioral/tile_draw_storage.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_tile_draw_storage.json"
+    },
+    {
+      "source": "src/eng1/behavioral/tile_draw_2ff0.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_tile_draw_2ff0.json"
+    },
+    {
+      "source": "src/eng1/behavioral/frame_palette_42320.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_frame_palette_42320.json"
     }
   ],
   "functions": [
@@ -3933,6 +3954,30 @@
       "evidence": "evidence/eng1_state_initializer_40a50.json",
       "implementation_status": "behaviorally_validated_limited",
       "contract": "One Actor* cdecl command. DWORD render flags54|=10004000 before WORD state2a capture; magnitude=state&1f; step100 or300 by bit0800. Independent bit0100 writes WORD74 then DWORDd8; bit0200 writes DWORDdc; bit0400 writes WORD70 then DWORDdc again. Preserve untouched fields and raw magnitude."
+    },
+    {
+      "rva": "0x2ff0",
+      "symbol": "_eng1_tile_draw_2ff0",
+      "source": "src/eng1/behavioral/tile_draw_2ff0.c",
+      "evidence": "evidence/eng1_tile_draw_2ff0.json",
+      "contract": "One pointer to two raw DWORD coordinates, cdecl command. Native signed width/height, modulo and clipping; 21 columns by 17 rows; signed run continuity; 20/40-byte packet writes including live WORD73480 at+e; linked frame heads and cursor. Resource/frame extents remain native preconditions.",
+      "implementation_status": "behaviorally_validated_limited"
+    },
+    {
+      "rva": "0x42320",
+      "symbol": "_eng1_frame_target_042320",
+      "source": "src/eng1/behavioral/frame_palette_42320.c",
+      "evidence": "evidence/eng1_frame_palette_42320.json",
+      "contract": "Noarg command; finite paired zero-height call chain, packet rows separately tested.",
+      "implementation_status": "behaviorally_validated_limited"
+    },
+    {
+      "rva": "0x5a30",
+      "symbol": "_eng1_color_rgb_forward_5a30",
+      "source": "src/eng1/behavioral/frame_palette_42320.c",
+      "evidence": "evidence/eng1_frame_palette_42320.json",
+      "contract": "Three DWORD cdecl slots; low bytes RGB. Red store, signed frame WORD read, green/blue stores, actual5e00. Incidental return and unused WORD argument observation remain unproved.",
+      "implementation_status": "behaviorally_validated_limited"
     }
   ],
   "source_adaptations": {

@@ -70,14 +70,6 @@ void __cdecl eng1_frame_target_03c600(void)
     ExitProcess(0xe0484731UL);
 }
 
-/* INCOMPLETE: ENG1.DLL RVA 0x42320; unimplemented_function. */
-void __cdecl eng1_frame_target_042320(void)
-{
-    eng1_incomplete_behavior(0x42320UL,
-        "unimplemented entry eng1_frame_target_042320; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
 /* INCOMPLETE: ENG1.DLL RVA 0x7f8e; unimplemented_function. */
 void __cdecl eng1_native_code_target_0007f8e(void)
 {

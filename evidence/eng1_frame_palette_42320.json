@@ -1,0 +1,123 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x42320",
+  "source": "src/eng1/behavioral/frame_palette_42320.c",
+  "source_sha256": "1c2b4eb449fb217c311aa80231dfeb5780b515afb6f4fd14722000073426d72d",
+  "implementation_status": "behaviorally_validated_limited",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "private_candidate_sha256": "fc41ff33cac15b6fbf60ae59ea1c1e67bc9d0b8813aefa632bffed6402715588",
+  "private_report_sha256": "848a395a20d2a98a07b50d2bcf26a67d9d17d737d066b3b85da9c1546269b41b",
+  "static_audit_sha256": "43310154703c1a6b7c096eef6a3ce04ca66f611f57d82fc07e32e336c6708143",
+  "native_contract": {
+    "0x42320": {
+      "entry_abi": "no-argument cdecl; no return-value claim",
+      "body_span": {
+        "rva": "0x42320",
+        "bytes": 109,
+        "sha256": "5fefe8982d223094ffb9ff35914caa23247a8a5344981dd86a4cbc977c598347"
+      },
+      "operations": [
+        "read camera DWORDs in X-then-Y order; X arithmetic-shifts right by 2",
+        "wrap-subtract 0x250 from Y and signed-divide by 3 toward zero",
+        "call 0x2ff0 with pointer to local two-DWORD coordinates",
+        "reload local Y after 0x2ff0; signed-compare against 32",
+        "call 0x5a30 with the selected RGB triple"
+      ]
+    },
+    "0x2ff0": {
+      "entry_abi": "one const two-DWORD pointer view for source model; native helper reads coordinates at +0/+4",
+      "paired_configuration": "header width=1,height=0; packet rows are skipped while tail list links execute",
+      "source_candidate_sha256": "fb248e2a2adc01027885ee406ca88d8367eefc847a36f3ce8fff957ed746be85"
+    },
+    "0x5a30": {
+      "entry_abi": "three DWORD cdecl stack slots",
+      "body_span": {
+        "rva": "0x5a30",
+        "bytes": 46,
+        "sha256": "a40c5d0c8cc25b4fe6db9b2793931a1a1900259ecedf5ca1bbf377def777d0a1"
+      },
+      "operations": [
+        "read low bytes of all three arguments",
+        "store red to BYTE 0x734f0",
+        "sign-extend WORD 0x6ee84",
+        "store green and blue to BYTEs 0x734f1 and 0x734f2",
+        "call existing 0x5e00 source provider with the sign-extended WORD"
+      ]
+    }
+  },
+  "scope": "Paired native/source comparison of 0x42320 -> 0x2ff0 -> 0x5a30 -> 0x5e00 with width=1,height=0, plus the existing three direct 0x5a30 comparisons. This proves only the finite zero-height tail path; packet-row rendering is untested.",
+  "limits": [
+    "Paired 0x42320 native/source equality is restricted to width=1,height=0. It exercises 0x2ff0 tail links but no packet-row or tile-emission path.",
+    "The separate 0x2ff0 worker fixture is responsible for its valid-grid emission cases; those cases are not part of this outer callback receipt.",
+    "The direct 0x5a30 comparison uses actual color.c/color_storage.c but the frame WORD passed by 0x5a30 is ignored by 0x5e00, so its value is not directly observed by the frame comparison.",
+    "This is bounded semantic evidence, not FUNCTION_MATCH, source identity, whole-module layout, or whole-game equivalence."
+  ],
+  "fixture": "tests/eng1_frame_palette_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py frame-palette",
+  "case_groups": {
+    "native_source_5a30": {
+      "cases": 3,
+      "checks": 12,
+      "scope": "Direct native 0x5a30 versus source candidate plus actual color.c 0x5e00."
+    },
+    "paired_native_source_42320_zero_height": {
+      "cases": 5,
+      "checks": 30,
+      "scope": "Native/source full callback chain under width=1,height=0, comparing cursor, RGB, normalized frame state, and output buffer."
+    },
+    "unload_restore": {
+      "cases": 0,
+      "checks": 1
+    }
+  },
+  "contract": "Noarg cdecl frame callback: capture camera X then Y; signed SAR2(X), wrap(Y-250)/3 toward zero; actual tile draw with two local DWORDs; reload signed local Y and branch below32; actual RGB forwarding helper5a30 then existing5e00.",
+  "functions": [
+    {
+      "rva": "0x42320",
+      "symbol": "_eng1_frame_target_042320",
+      "contract": "Noarg command; finite paired zero-height call chain, packet rows separately tested."
+    },
+    {
+      "rva": "0x5a30",
+      "symbol": "_eng1_color_rgb_forward_5a30",
+      "contract": "Three DWORD cdecl slots; low bytes RGB. Red store, signed frame WORD read, green/blue stores, actual5e00. Incidental return and unused WORD argument observation remain unproved."
+    }
+  ],
+  "prior_receipt_sha256": "04c1dca82417484bddf64b8896e70d8c898c628038f7b9489ee1f6bf4235cd4e",
+  "canonical_proof": {
+    "scope": "Eight original/source comparisons/43 checks: three RGB5a30 pairs and five full42320/tile/color call-chain pairs under width1,height0. Actual source tile/storage/color units; signed thresholds, camera arithmetic, RGB, cursor and normalized frame state. Packet rows separately tested, broader renderer/pixel/EAX/extent behavior unproved.",
+    "input_sha256": {
+      "scripts/eng1_bounded_differential.py": "d412f52ee8331bb5c5b962ba704c3db96c2b7ac73cd2591ebef23e101baef65f",
+      "src/eng1/behavioral/color.c": "aa79a33301a644f8773760afafbb8e5d55ab3b8cdadd2fc42adb4adba4480862",
+      "src/eng1/behavioral/color_storage.c": "24a805665b2ab40ea08d705da7494f81009deb8f4cbb2d572de7e5a2d240b201",
+      "src/eng1/behavioral/frame_palette_42320.c": "1c2b4eb449fb217c311aa80231dfeb5780b515afb6f4fd14722000073426d72d",
+      "src/eng1/behavioral/tile_draw_2ff0.c": "973d82118cb46c670c3186011ffa21858a4c7ed32232f8649db42ce4d35b2fde",
+      "src/eng1/behavioral/tile_draw_storage.c": "d66f4219d6d81fa9b9ab3ecdd380e066c902a59f789109b4499f728676009a94",
+      "src/eng1/behavioral/tile_draw_storage.h": "c5304f5e2ef614369e89c51e16ad25a1ba370e3de222d3e15a08fd779167e26f",
+      "tests/eng1_frame_palette_differential.c": "6736104f8a445b099aafd04237869424475118b5d9bc78dfa64b48cc522c49ee"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x42320": {
+        "size": 109,
+        "sha256": "5fefe8982d223094ffb9ff35914caa23247a8a5344981dd86a4cbc977c598347"
+      },
+      "0x5a30": {
+        "size": 46,
+        "sha256": "a40c5d0c8cc25b4fe6db9b2793931a1a1900259ecedf5ca1bbf377def777d0a1"
+      },
+      "0x2ff0": {
+        "size": 640,
+        "sha256": "3c66a5127439383e077ff5939df41f0b502937c8a2b854bbc4bd94e2c54fddc0"
+      }
+    },
+    "stdout": "PASS 5a30 low-byte positive-word\nPASS 5a30 negative-word\nPASS 5a30 all-ones-word\nPASS 42320 paired zero-height threshold 31\nPASS 42320 paired zero-height threshold 32\nPASS 42320 paired zero-height negative quotient\nPASS 42320 paired zero-height signed floor X\nPASS 42320 paired zero-height wrapped subtraction\neng1_call_42320_paired cases=8 checks=43 failures=0\n",
+    "cases": 8,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 43,
+    "production_derivations": [],
+    "private_report_sha256": "90bb57be6a2babde0bba975d8c96b7b3285b0b8b790b24562e0e1d10f5b8a9e4"
+  }
+}

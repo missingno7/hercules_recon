@@ -17,6 +17,21 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'tile-draw': dict(
+        sources=['tests/eng1_tile_draw_differential.c',
+                 'src/eng1/behavioral/tile_draw_2ff0.c',
+                 'src/eng1/behavioral/tile_draw_storage.c'],
+        spans=[(0x2ff0,640)], cases=5,
+        scope='Five original/source tile writer comparisons/26 checks: joined runs, signed row clipping, column wrap, four packet kinds/list selection, nonzero packet WORD, head rotation and zero-width divide-error. Only known pointer fields normalized; controlled resource/frame/output buffers, no pixel or arbitrary allocation-capacity claim.'),
+    'frame-palette': dict(
+        sources=['tests/eng1_frame_palette_differential.c',
+                 'src/eng1/behavioral/frame_palette_42320.c',
+                 'src/eng1/behavioral/tile_draw_2ff0.c',
+                 'src/eng1/behavioral/tile_draw_storage.c',
+                 'src/eng1/behavioral/color.c',
+                 'src/eng1/behavioral/color_storage.c'],
+        spans=[(0x42320,109),(0x5a30,46),(0x2ff0,640)], cases=8,
+        scope='Eight original/source comparisons/43 checks: three RGB5a30 pairs and five full42320/tile/color call-chain pairs under width1,height0. Actual source tile/storage/color units; signed thresholds, camera arithmetic, RGB, cursor and normalized frame state. Packet rows separately tested, broader renderer/pixel/EAX/extent behavior unproved.'),
     'state-initializer': dict(
         sources=['tests/eng1_state_initializer_differential.c',
                  'src/eng1/behavioral/state_initializer_40a50.c'],
@@ -586,7 +601,7 @@ def run(profile, oracle, captured_payload=None):
             raise ValueError('Captured payload differs from the reviewed startup prefix')
         paths.add(captured_payload)
         cfg['cases'] = 7
-    before = {p.relative_to(ROOT).as_posix(): sha(p) for p in paths}
+    before = {p.relative_to(ROOT).as_posix(): sha(p) for p in sorted(paths)}
     tool = verify_toolchain(DEFAULT_TOOLCHAIN)
     env = os.environ.copy()
     for key in ('CL', '_CL_', 'LINK', '_LINK_'):

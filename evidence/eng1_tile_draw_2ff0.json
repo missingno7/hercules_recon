@@ -1,0 +1,69 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x2ff0",
+  "source": "src/eng1/behavioral/tile_draw_2ff0.c",
+  "source_sha256": "973d82118cb46c670c3186011ffa21858a4c7ed32232f8649db42ce4d35b2fde",
+  "implementation_status": "behaviorally_validated_limited",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "private_candidate_sha256": "fb248e2a2adc01027885ee406ca88d8367eefc847a36f3ce8fff957ed746be85",
+  "private_report_sha256": "9aaa0ca7fe3c860398b6649cd73aeeed626f0d881933ee1f531b82e6a257e051",
+  "native_contract": {
+    "entry_abi": "void-like one-argument cdecl; argument is a pointer to at least two DWORD coordinates; native return is not claimed",
+    "native_span": {
+      "rva": "0x2ff0",
+      "bytes": 640,
+      "sha256": "3c66a5127439383e077ff5939df41f0b502937c8a2b854bbc4bd94e2c54fddc0",
+      "ret_rva": "0x326f"
+    },
+    "reads_and_effects": [
+      "mask DWORD 0x70cf8 to low 24 bits and OR 0x2c000000 once at entry",
+      "read signed WORD width/height and grid pointer from header pointer 0x70d44",
+      "read exactly input DWORD offsets +0 and +4; no input writes or third-coordinate read",
+      "signed IDIV x tile coordinate by width; signed y row coordinate and signed height clipping",
+      "scan 21 columns over up to 17 screen rows, wrapping columns at width",
+      "merge a run while signed(start WORD + 16*n) equals the next signed WORD; next cell is read before the >20 termination branch",
+      "write masked packet color at record +4, then read live WORD 0x73480 and store it at record +0xe before list linking and packet-kind branch",
+      "record low two tile bits choose 20-byte basic record or 40-byte textured quad; high-byte bit 0 chooses one of the two frame heads",
+      "rotate live frame heads through +0x70/+0x88 and +0x7c/+0x8c using repeated live frame-pointer loads; update cursor 0x73484"
+    ],
+    "width_zero": "Native signed IDIV faults for zero width. The pinned VC5 x86 candidate uses its historical signed modulo operation, and a finite SEH differential checks the same divide-error code and cursor ordering."
+  },
+  "scope": "Bounded original-x86/source semantic differential for finite controlled tile headers and map prefixes. The source candidate runs directly; no original binary dispatch is used as production code.",
+  "limits": [
+    "The fixture uses finite test-owned headers and grids; it does not establish the runtime allocation extent behind arbitrary resource headers.",
+    "The output list/frame backing is controlled fixture memory, not a proof of the production frame allocation capacity.",
+    "The 0x73480 WORD is mutable; the nonzero value is supplied in both oracle memory and the actual canonical storage provider for discrimination.",
+    "Zero-width behavior is checked under the pinned VC5 x86 code generation only; ISO C leaves division by zero undefined.",
+    "This supports semantic confidence only, not FUNCTION_MATCH, source identity, full renderer behavior, or pixel output."
+  ],
+  "fixture": "tests/eng1_tile_draw_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py tile-draw",
+  "contract": "One pointer to two raw DWORD coordinates, cdecl command. Native signed width/height, modulo and clipping; 21 columns by 17 rows; signed run continuity; 20/40-byte packet writes including live WORD73480 at+e; linked frame heads and cursor. Resource/frame extents remain native preconditions.",
+  "storage_evidence": "evidence/eng1_tile_draw_storage.json",
+  "pointer_normalization": "Canonical fixture normalizes only known frame-list pointer cells and each emitted packet link. Other DWORDs remain byte-compared.",
+  "canonical_proof": {
+    "scope": "Five original/source tile writer comparisons/26 checks: joined runs, signed row clipping, column wrap, four packet kinds/list selection, nonzero packet WORD, head rotation and zero-width divide-error. Only known pointer fields normalized; controlled resource/frame/output buffers, no pixel or arbitrary allocation-capacity claim.",
+    "input_sha256": {
+      "scripts/eng1_bounded_differential.py": "d412f52ee8331bb5c5b962ba704c3db96c2b7ac73cd2591ebef23e101baef65f",
+      "src/eng1/behavioral/tile_draw_2ff0.c": "973d82118cb46c670c3186011ffa21858a4c7ed32232f8649db42ce4d35b2fde",
+      "src/eng1/behavioral/tile_draw_storage.c": "d66f4219d6d81fa9b9ab3ecdd380e066c902a59f789109b4499f728676009a94",
+      "src/eng1/behavioral/tile_draw_storage.h": "c5304f5e2ef614369e89c51e16ad25a1ba370e3de222d3e15a08fd779167e26f",
+      "tests/eng1_tile_draw_differential.c": "2cdc26f514615cc2f9e5fa6081cf94863d110de108e5094b778455fa02dc3952"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x2ff0": {
+        "size": 640,
+        "sha256": "3c66a5127439383e077ff5939df41f0b502937c8a2b854bbc4bd94e2c54fddc0"
+      }
+    },
+    "stdout": "PASS 2ff0 positive 21-cell merged run cursor=0x658\nPASS 2ff0 negative row clipping and wrapped columns cursor=0xf7c\nPASS 2ff0 four packet kinds and list selection cursor=0x6d0\nPASS 2ff0 zero-height head rotation cursor=0x400\ntile_draw_2ff0 cases=5 checks=26 failures=0\n",
+    "cases": 5,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 26,
+    "production_derivations": [],
+    "private_report_sha256": "9ace1af31f71f1850e40d23081e7d433509d8d5928ae83d7ac601c0d685b7fa5"
+  }
+}

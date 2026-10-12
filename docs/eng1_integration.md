@@ -2,7 +2,7 @@
 
 The original host has loaded the transitional source-built ENG1 DLL and copied
 the expected 250-DWORD interface with signature 0x5ac00cac and first-use gate
-change from 1 to 0. The latest windowed run stops at explicit missing RVA 0x42320.
+change from 1 to 0. The latest windowed run stops at explicit missing RVA 0x28290.
 Initialization, a gameplay frame and normal engine shutdown remain unverified.
 
 Earlier runs stopped at 32b10 and 274e0, now implemented. Runtime testing then
@@ -42,6 +42,8 @@ python scripts/eng1_bounded_differential.py command-writers
 python scripts/eng1_bounded_differential.py descriptor-reload
 python scripts/eng1_bounded_differential.py dialog-frame
 python scripts/eng1_bounded_differential.py simulation-root
+python scripts/eng1_bounded_differential.py frame-palette
+python scripts/eng1_bounded_differential.py tile-draw
 python scripts/eng1_bounded_differential.py state-initializer
 python scripts/eng1_bounded_differential.py position-initializer
 python scripts/eng1_bounded_differential.py alternate-initializer
