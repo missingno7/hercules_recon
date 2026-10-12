@@ -58,9 +58,11 @@ def run(output, wrapper_fixture):
                                 'src/eng1/behavioral/frame_data_prefixes.c', 'src/eng1/behavioral/incomplete.c'],
         'resource_completion': ['tests/eng1_resource_completion.c', 'src/eng1/behavioral/resource_completion.c', 'src/eng1/behavioral/resource_completion_data.c', 'calibration/engine_dependency_bridges.c'],
         'cold_start_32b10': ['tests/eng1_cold_start_32b10.c', 'src/eng1/behavioral/cold_start_32b10.c', 'src/eng1/behavioral/viewport_state_data.c', 'calibration/engine_file_bridge.c', 'calibration/dispatcher_bridges.c', 'calibration/frame_lifecycle_bridges.c', 'src/eng1/behavioral/host_wrappers.c', 'calibration/engine_interface_storage.c', 'src/eng1/behavioral/runtime_storage.c'],
+        'cold_start_32bd0': ['tests/eng1_cold_start_32bd0.c', 'tests/eng1_cold_frame_fixture_state.c', 'src/eng1/behavioral/cold_start_32bd0.c', 'src/eng1/behavioral/cold_start_frame_data.c', 'src/eng1/behavioral/viewport_state_data.c', 'calibration/engine_interface_storage.c', 'calibration/frame_lifecycle_bridges.c'],
         'pool_startup_spies': ['tests/eng1_pool_startup_spies.c', 'src/eng1/behavioral/pool_startup.c'],
         'pool_startup_initializers': ['tests/eng1_pool_startup_initializers.c', 'src/eng1/behavioral/pool_startup.c', 'calibration/actor_pool_reset_repaired.c'],
         'resource_rebind': ['tests/resource_rebind_semantics.c'],
+        'worklist_factories': ['tests/eng1_worklist_factory_spies.c', 'src/eng1/behavioral/worklist_factories.c', 'src/eng1/behavioral/worklist_read_guards.c', 'calibration/actor_pool_reset_repaired.c'],
         'command_table': ['tests/eng1_command_table.c', 'src/eng1/behavioral/command_table.c', 'src/eng1/behavioral/command_table_storage.c', 'calibration/engine_file_bridge.c', 'calibration/engine_interface_storage.c'],
         'forest_entry': ['tests/eng1_forest_entry.c', 'src/eng1/behavioral/forest_entry.c', 'src/eng1/behavioral/forest_entry_state_data.c', 'src/eng1/behavioral/forest_entry_words_data.c', 'src/eng1/behavioral/actor_pipeline_storage.c'],
         'context_dispatch': ['tests/eng1_context_dispatch.c', 'src/eng1/behavioral/context_dispatch.c'],
@@ -73,7 +75,7 @@ def run(output, wrapper_fixture):
     fixtures['default_callbacks'] += spatial_sources
     fixtures['spatial_effects'] += spatial_sources
     fixtures['spatial_read_guard'] = ['tests/eng1_spatial_read_guard.c', *spatial_sources[:-1]]
-    initial_sources = ['src/eng1/behavioral/initial_read_guards.c', 'src/eng1/behavioral/initial_custom_roots.c', 'src/eng1/behavioral/initial_motion_roots.c', 'src/eng1/behavioral/initial_unreadable_identities.c', 'src/eng1/behavioral/forest_entry_words_data.c']
+    initial_sources = ['tests/eng1_initial_guard_owner_spies.c', 'src/eng1/behavioral/initial_read_guards.c', 'src/eng1/behavioral/initial_custom_roots.c', 'src/eng1/behavioral/initial_motion_roots.c', 'src/eng1/behavioral/initial_unreadable_identities.c', 'src/eng1/behavioral/forest_entry_words_data.c']
     fixtures['default_callbacks'] += [*initial_sources, 'tests/eng1_custom_data_callback_spies.c']
     fixtures['spatial_effects'] += [*initial_sources, 'tests/eng1_custom_data_callback_spies.c']
     fixtures['frame_token_setup'] += [*initial_sources, 'tests/eng1_custom_data_callback_spies.c', 'src/shared/frame_motion.c', 'src/eng1/behavioral/incomplete.c']
@@ -90,6 +92,7 @@ def run(output, wrapper_fixture):
                                     'src/eng1/behavioral/interpreters.c',
                                     'src/shared/frame_state.c', *guard_sources]
     fixtures['initial_zero_word_runtime'] = ['tests/eng1_initial_zero_word_runtime.c', 'src/eng1/behavioral/interpreters.c', 'src/shared/frame_state.c', *guard_sources]
+    fixture_flags = {'worklist_factories': ['/DENG1_WORKLIST_GUARD_FIXTURE']}
     reports = []
     for name, names in fixtures.items():
         directory = output / name
@@ -102,7 +105,7 @@ def run(output, wrapper_fixture):
         executable = directory / 'fixture.exe'
         executable.unlink(missing_ok=True)
         command = [str(DEFAULT_TOOLCHAIN / 'bin/cl.exe'), '/nologo', '/O2', '/Gy', '/MT',
-                   '/Fo' + str(directory) + os.sep, '/Fe' + str(executable),
+                   *fixture_flags.get(name, []), '/Fo' + str(directory) + os.sep, '/Fe' + str(executable),
                    *map(str, units), '/link', '/INCREMENTAL:NO']
         built = subprocess.run(command, cwd=directory, env=env, capture_output=True, text=True, timeout=60)
         (directory / 'compile.log').write_text(built.stdout + built.stderr)
