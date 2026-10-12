@@ -7,6 +7,7 @@
 #include "../src/eng1/behavioral/initial_motion_roots.h"
 #include "../src/eng1/behavioral/initial_unreadable_identities.h"
 #include "../src/eng1/behavioral/descriptor_prefix_data.h"
+extern unsigned short g_eng1_sound_words_66d68[8];
 static jmp_buf escape;
 static unsigned long reported;
 void eng1_incomplete_behavior(unsigned long rva, const char *reason)
@@ -63,6 +64,10 @@ int main(void)
     if (!reject(&g_eng1_unreadable_initialized_identity_065750,0,1,1,0x65750)) return 9;
     if (!reject(g_eng1_initial_motion_05fa20,7,6,6,0x5fa20)) return 30;
     if (!reject(g_eng1_initial_motion_066230,1,6,6,0x66230)) return 31;
+
+    eng1_guard_initial_read(g_eng1_sound_words_66d68,7,2,2,"last sound WORD");
+    if (!reject(g_eng1_sound_words_66d68,8,2,2,0x66d68)) return 36;
+    if (!reject(g_eng1_sound_words_66d68,0xffffffffUL,2,2,0x66d68)) return 37;
 
     memset(&actor,0,sizeof(actor)); actor.x=7; actor.y=11; actor.z=13;
     actor.steps=(void *)1; actor.step_index=(long)0x80000000UL; actor.active_step=-1;

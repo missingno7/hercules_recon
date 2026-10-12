@@ -534,22 +534,6 @@ void __cdecl eng1_native_code_target_003c170(void)
     ExitProcess(0xe0484731UL);
 }
 
-/* INCOMPLETE: ENG1.DLL RVA 0x3ca10; unimplemented_function. */
-void __cdecl eng1_native_code_target_003ca10(void)
-{
-    eng1_incomplete_behavior(0x3ca10UL,
-        "unimplemented entry eng1_native_code_target_003ca10; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
-/* INCOMPLETE: ENG1.DLL RVA 0x3ca50; unimplemented_function. */
-void __cdecl eng1_native_code_target_003ca50(void)
-{
-    eng1_incomplete_behavior(0x3ca50UL,
-        "unimplemented entry eng1_native_code_target_003ca50; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
 /* INCOMPLETE: ENG1.DLL RVA 0x3f60; unimplemented_function. */
 void __cdecl eng1_native_code_target_003f60(void)
 {

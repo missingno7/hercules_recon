@@ -1,0 +1,116 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x3ca50",
+  "source": "src/eng1/behavioral/forest_level_update_3ca50.c",
+  "source_sha256": "9409c067aed905ca61fc24b5c283f4c9e1da945ce55873e5fd4ea8e067c379db",
+  "implementation_status": "behaviorally_validated_limited",
+  "private_candidate_sha256": "0d1316bd4626e00abcbf8176f3af354b808c2a33d971e7205e3e50c5de819657",
+  "private_report_sha256": "e4a9a82bfbe237ee02d6bed759dabb877eef0b4a0506fb633ca06231dc7907cc",
+  "native": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "file_unchanged_before_after": true,
+    "target_rva": "0x3ca50",
+    "diagnostic_span_bytes": 48,
+    "span_sha256": "4e3afac3bca3d58398cbdc1dc09e0b6059f917268663e69eb5a983fe46d3827c",
+    "body_bytes_through_ret": 43,
+    "body_sha256": "e51a98b6ebdf07c5a8099f7fdd43195a906ed12c01d03833151238642294c3ea",
+    "image_base": "0x10000000"
+  },
+  "abi": {
+    "source_type": "void __cdecl eng1_candidate_003ca50(void)",
+    "evidence": "target has no stack reads or callee cleanup, executes plain RET; dispatcher call site pushes no args; body overwrites EAX and caller proceeds without consuming it",
+    "register_inputs": "none observed; EAX is zeroed before the WORD load"
+  },
+  "semantics": {
+    "input": "one zero-extended WORD read at RVA 0x70f0c",
+    "output": "one WORD store at RVA 0x7183c",
+    "mapping": "0xffc0 for input 12 or 15..17; 0xfffe for every other WORD value",
+    "helpers": [],
+    "writes": [
+      "WORD 0x7183c only"
+    ]
+  },
+  "scope": "All65536WORD values compared directly against original leaf, with output-adjacent canaries. Actual source input and output data owners linked. No dynamic state producer, full raw return ABI or complete gameplay proof.",
+  "data_owner": {
+    "source": "src/eng1/behavioral/forest_level_state.c",
+    "rva": "0x70f0c",
+    "size": 2,
+    "storage": "native.data loader-zero tail / sourceCOMMON",
+    "limits": "No wider neighboring extent or dynamic writer coverage established."
+  },
+  "fixture": "tests/eng1_forest_update_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py forest-update",
+  "uncertainties": [
+    "Native input writer paths remain to be audited against reconstructed callers. Exhaustive leaf inputs do not establish live game state or timing.",
+    "Known dispatcher discards raw EAX; C API remains void."
+  ],
+  "native_input_sites": [
+    {
+      "rva": "0x2ce3f",
+      "access": "WORD read",
+      "owner": "0x2cd30",
+      "source_status": "explicit_missing"
+    },
+    {
+      "rva": "0x2d09f",
+      "access": "WORD write from zero-extended helper AL",
+      "owner": "0x2cd30",
+      "source_status": "explicit_missing"
+    },
+    {
+      "rva": "0x2d0d3",
+      "access": "WORD comparison with70eea/70ef2",
+      "owner": "0x2cd30",
+      "source_status": "explicit_missing"
+    },
+    {
+      "rva": "0x3ca52",
+      "access": "WORD read",
+      "owner": "0x3ca50",
+      "source_status": "implemented"
+    },
+    {
+      "rva": "0x3edd3",
+      "access": "comparison with zero-extended actor BYTE21",
+      "owner": "0x3ecb0",
+      "source_status": "explicit_missing"
+    }
+  ],
+  "writer_audit_limit": "Finite literal-address instruction audit; inventories are span leads, not universal target/alias coverage. No already implemented writer was found to omit this cell.",
+  "canonical_proof": {
+    "scope": "All65536 input WORDs compared with unpatched native level-update leaf, checking output sentinel and adjacent canaries. Actual source loader-zero input and existing output owners compiled. Missing2cd30 writer and3ecb0 reader are outside the proof; no live selector-state, raw EAX, timing or gameplay claim.",
+    "input_sha256": {
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "src/eng1/behavioral/setup_shared_state.h": "3f190988b41c625f893546085fe4276b7694291388fce78f511cc50c9b2a7e9e",
+      "src/eng1/behavioral/actor_pipeline_storage.c": "900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "src/eng1/behavioral/forest_level_update_3ca50.c": "9409c067aed905ca61fc24b5c283f4c9e1da945ce55873e5fd4ea8e067c379db",
+      "tests/eng1_forest_update_differential.c": "8480d3c3de4c643efc0d817f34f07bfebd5984078be61b1456b6b59aa186d13d",
+      "scripts/eng1_bounded_differential.py": "27a609570a732969e33a84165e6f83b13a1f69b681681428c693e84386f632ed",
+      "src/eng1/behavioral/forest_level_state.c": "f1b3700700ddd796d40d75f5fd93ecda0d8483aa07d973608f00106704db5dbf",
+      "src/eng1/behavioral/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x3ca50": {
+        "size": 48,
+        "sha256": "4e3afac3bca3d58398cbdc1dc09e0b6059f917268663e69eb5a983fe46d3827c"
+      }
+    },
+    "stdout": "PASS exhaustive_WORD_inputs=65536 native_entry=0x3ca50 input_width=2 output_width=2 canaries=preserved\nforest_update cases=65536 checks=131072 failures=0\n",
+    "cases": 65536,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 131072,
+    "production_derivations": [],
+    "private_report_sha256": "79cbf3c2d7cc092d96b3638183f07d655951c1de9cff6b8d40dceb21be517ada"
+  },
+  "private_native_input_site_audit": {
+    "path": "work/eng1_behavioral/eng1_call_3ca50/input_owner_audit.json",
+    "sha256": "54561816da2996b00aa26a91952657367868839e2c7505dfc5d8f8ec9c89dad4",
+    "scope": "Finite literal-address audit, preserved separately from original test-cell proof and canonical actual-owner proof."
+  }
+}

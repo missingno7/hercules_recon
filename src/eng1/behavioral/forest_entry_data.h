@@ -16,4 +16,7 @@ extern unsigned long eng1_native_cell_06ef10;
  * This is a measured prefix, not a claim about the complete logical table. */
 extern unsigned short eng1_native_words_04dce8[];
 
+/* Separate bounded sound WORD prefix used by level1 initialization. */
+extern unsigned short g_eng1_sound_words_66d68[8];
+
 #endif

@@ -8,6 +8,7 @@
 #include "initial_unreadable_identities.h"
 #include "descriptor_prefix_data.h"
 extern unsigned short eng1_native_words_04dce8[8];
+extern unsigned short g_eng1_sound_words_66d68[8];
 
 typedef struct Eng1InitialReadLimit {
     const void *base;
@@ -17,6 +18,7 @@ static const Eng1InitialReadLimit limits[] = {
     { &g_eng1_descriptor_payload_4f350, 0x4f350UL, 16UL },
     { (const unsigned char *)&g_eng1_descriptor_payload_4f350 + 4, 0x4f354UL, 12UL },
     { eng1_native_words_04dce8, 0x4dce8UL, 16UL },
+    { g_eng1_sound_words_66d68, 0x66d68UL, 16UL },
     { &g_eng1_custom_mask_palette_05ebb8.columns, 0x5ebb8UL, 52UL },
     { &g_eng1_custom_mask_palette_05ebb8.mask_cells[0], 0x5ebbcUL, 48UL },
     { &g_eng1_custom_mask_palette_05ebb8.mask_cells[5], 0x5ebd0UL, 32UL },

@@ -17,6 +17,25 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'forest-update': dict(
+        sources=['tests/eng1_forest_update_differential.c',
+                 'src/eng1/behavioral/forest_level_update_3ca50.c',
+                 'src/eng1/behavioral/forest_level_state.c',
+                 'src/eng1/behavioral/actor_pipeline_storage.c'],
+        spans=[(0x3ca50,48)], cases=65536,
+        scope='All65536 input WORDs compared with unpatched native level-update leaf, checking output sentinel and adjacent canaries. Actual source loader-zero input and existing output owners compiled. Missing2cd30 writer and3ecb0 reader are outside the proof; no live selector-state, raw EAX, timing or gameplay claim.'),
+    'forest-initializer': dict(
+        sources=['tests/eng1_forest_initializer_differential.c',
+                 'src/eng1/behavioral/forest_level_initializer_3ca10.c',
+                 'src/eng1/behavioral/forest_entry_words_data.c',
+                 'src/eng1/behavioral/actor_pipeline_storage.c',
+                 'src/eng1/behavioral/camera_storage.c',
+                 'src/eng1/behavioral/command_table.c',
+                 'src/eng1/behavioral/command_table_storage.c',
+                 'calibration/engine_file_bridge.c',
+                 'calibration/engine_interface_storage.c'],
+        spans=[(0x3ca10,54),(0x28300,96)], cases=2,
+        scope='Two finite native level-initializer comparisons using actual command-table/allocator-bridge sources: fourteen successful records and failure after five. Callback-visible pre/post state, live mutations, first-free slot order, full shared pipeline bytes and command records checked. All native data cells restored. Measured sound prefix is a bounded WORD view; no full capacity, raw source EAX or gameplay claim.'),
     'alternate-bootstrap': dict(
         sources=['tests/eng1_alternate_bootstrap_differential.c',
                  'src/eng1/behavioral/alternate_bootstrap_12960.c',
