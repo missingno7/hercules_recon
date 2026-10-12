@@ -1185,6 +1185,13 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_owned_spawn_callback_40e20.json"
+    },
+    {
+      "source": "src/eng1/behavioral/attachment_callback_3e220.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_attachment_callback_3e220.json"
     }
   ],
   "functions": [
@@ -3873,6 +3880,14 @@
       "evidence": "evidence/eng1_owned_spawn_callback_40e20.json",
       "implementation_status": "behaviorally_validated_limited",
       "contract": "One Actor* cdecl command. Actual guarded advance_frame, then live DWORD z/y/x reads, then spawn_actor_with_owner(actor,x,y,z,0x34). Existing owner-aware factory, pool and render callback reused; no new data."
+    },
+    {
+      "rva": "0x3e220",
+      "symbol": "_eng1_native_code_target_03e220",
+      "source": "src/eng1/behavioral/attachment_callback_3e220.c",
+      "evidence": "evidence/eng1_attachment_callback_3e220.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "One Actor* cdecl command. Advance then select frame13; capture post-helper WORD+2a unsigned; ordered DWORD flags+a02, WORD+124=0, WORD+ee=3, DWORD+dc=state<<16, WORD+2a=0; call existing attach_actor(actor,2022), no post-attachment stores. Adjacent ec/ed and f0 bytes preserved."
     }
   ],
   "source_adaptations": {
@@ -4830,6 +4845,20 @@
       "evidence": "evidence/eng1_spawn_services.json",
       "confidence": "Observed cdecl stack widths and lowWORD kind use",
       "limits": "Caller role/source-view only; finite validation, no strict promotion."
+    },
+    "eng1_native_dep_00ef10": {
+      "provider": "eng1_native_code_target_000ef10",
+      "original_rva": "0xef10",
+      "evidence": "evidence/eng1_spatial_provider_aliases.json",
+      "confidence": "same_native_entry_and_one_pointer_cdecl_command_view",
+      "limits": "Consumer discards result; existing provider behavior remains limited/plausible. Source spelling and TU unproved."
+    },
+    "eng1_native_dep_02a290": {
+      "provider": "eng1_native_code_target_002a290",
+      "original_rva": "0x2a290",
+      "evidence": "evidence/eng1_spatial_provider_aliases.json",
+      "confidence": "same_native_entry_and_one_pointer_cdecl_command_view",
+      "limits": "Consumer discards result; existing provider behavior remains limited/plausible. Source spelling and TU unproved."
     }
   },
   "omit_functions": {

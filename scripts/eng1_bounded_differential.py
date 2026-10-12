@@ -17,6 +17,23 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'attachment-callback': dict(
+        sources=['tests/eng1_attachment_callback_differential.c',
+                 'src/eng1/behavioral/attachment_callback_3e220.c',
+                 'src/eng1/behavioral/incomplete.c',
+                 'src/shared/frame_state.c',
+                 'calibration/actor_factories.c',
+                 'calibration/actor_pools.c',
+                 'src/eng1/behavioral/actor_links.c',
+                 'src/eng1/behavioral/read_guard.c',
+                 'src/eng1/behavioral/frame_data_config_word_pool.c',
+                 'src/eng1/behavioral/flags_word_programs.c',
+                 'src/eng1/behavioral/provisional_frame_pairs.c',
+                 'src/eng1/behavioral/shared_selector_assets.c',
+                 'src/eng1/behavioral/finite_frame_prefixes.c',
+                 'src/eng1/behavioral/initial_zero_word_program.c'],
+        spans=[(0x3e220,112)], cases=3,
+        scope='Three original/source callback comparisons/28 checks through actual frame, attach, factory and pool providers: savedWORD1234/8f27 and exhaustion, narrow ee store canaries and synthetic attachment callback mutation. Existing26-slot frame prefix and two configured pointer cells; no universal lifetime/return or gameplay claim.'),
     'owned-spawn-callback': dict(
         sources=['tests/eng1_owned_spawn_callback_differential.c',
                  'src/eng1/behavioral/owned_spawn_callback_40e20.c',

@@ -1,0 +1,164 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x3e220",
+  "source": "src/eng1/behavioral/attachment_callback_3e220.c",
+  "source_sha256": "d3dbc82510aa63fe5564828cdea83f166a48856b8589177c000fa7accaf4e8f9",
+  "implementation_status": "behaviorally_validated_limited",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "private_candidate_sha256": "1c5ba5a54c83a9e2604de05ba5759d34ace4612010f6a689c56104b9fcc7a4bd",
+  "private_report_sha256": "f013ef5d3ed3e935f145d88ee9d5e1a07b4e19bcd32dd11543bb0939ed2e3493",
+  "native_contract": {
+    "entry_abi": "one Actor* cdecl stack argument; native RET at 0x3e274",
+    "entry_binding": "existing callback record slot-0 cells at RVAs 0x67848 and 0x679a4 each bind 0x3e220; no storage is introduced",
+    "instruction_order": [
+      "call advance_frame(actor) at 0x3e226",
+      "call select_frame(actor, 13) at 0x3e231",
+      "load zero-extended WORD actor+0x2a at 0x3e23b and form DWORD value << 16",
+      "overwrite DWORD +0x50=0xa02; WORD +0x124=0; WORD +0xee=3; DWORD +0xdc=saved<<16; WORD +0x2a=0",
+      "call attach_actor(actor, 0x2022) at 0x3e26b; no target stores follow"
+    ],
+    "return": "native RET incidentally propagates attach_actor EAX; the callback consumer treats this as a command. Candidate is void only for that consumer scope."
+  },
+  "native_spans": {
+    "0x3e220": {
+      "size": 85,
+      "sha256": "6651d8d822f429bfa06d205dd75931f4fadfae828ae3c190f0309b41f98c0187"
+    },
+    "0x29270": {
+      "size": 64,
+      "sha256": "c92c9e8a6d4c50f998740a3e489bd3b9b55d02305c94d21e1c3c6750f701f588"
+    },
+    "0x292f0": {
+      "size": 32,
+      "sha256": "5e80e8670723aa93faeb54f645bf717bc559253879f7a5b650cb45666911e180"
+    },
+    "0x27cd0": {
+      "size": 112,
+      "sha256": "97bc81e6a2aee855f9d71d0e275638ed46857c7fddebb793ccded61133748446"
+    },
+    "0x27db0": {
+      "size": 97,
+      "sha256": "53d1cd3d3095c2da6bdea12de41a2e745a258fe903c409c7bcf2ff1c184bef67"
+    },
+    "0x65b28": {
+      "size": 104,
+      "sha256": "ba9e2b6d2dd24dd0023cb919cb3a39a82581cfb5208a3391cb533c6a6cd661c0"
+    }
+  },
+  "measured_inputs": {
+    "frame_owner": {
+      "rva": "0x65b28",
+      "slots": 26,
+      "bytes_read_by_fixture": 104,
+      "indices_used": [
+        1,
+        13
+      ],
+      "note": "Source and native helpers both receive the loaded original prefix. Index 1 is the first advance result; select index 13 is inside the measured owner. No capacity beyond 26 slots is claimed."
+    },
+    "callback_records": [
+      {
+        "record_rva": "0x67848",
+        "entry_rva": "0x3e220"
+      },
+      {
+        "record_rva": "0x679a4",
+        "entry_rva": "0x3e220"
+      }
+    ],
+    "alternate_factory_and_callback_tables": "Fixture-owned 35-row input prefixes for the native/source kind 0x2022 path; no production table capacity is claimed.",
+    "alternate_pool": "Fixture-owned two 0x94-byte slots; only slot 0 is allocated on success, and the pool is unchanged in the exhausted case."
+  },
+  "provider_provenance": {
+    "advance_frame/select_frame": "src/shared/frame_state.c, compiled directly in the source side",
+    "attach_actor": "src/eng1/behavioral/actor_links.c, compiled directly; test attachment leaves the detached-parent branch unentered",
+    "spawn_kind/alternate allocation/initialization": "calibration/actor_factories.c and calibration/actor_pools.c, compiled directly",
+    "native side": "Original ENG1.DLL entry and actual internal calls, loaded read-only with DONT_RESOLVE_DLL_REFERENCES; only measured configuration/pool cells are temporarily redirected and restored."
+  },
+  "contract": "One Actor* cdecl command. Advance then select frame13; capture post-helper WORD+2a unsigned; ordered DWORD flags+a02, WORD+124=0, WORD+ee=3, DWORD+dc=state<<16, WORD+2a=0; call existing attach_actor(actor,2022), no post-attachment stores. Adjacent ec/ed and f0 bytes preserved.",
+  "scope": "Finite native/source differential for the one-Actor callback using the actual frame helpers, attach_actor, alternate factory/allocator/initializer providers, existing frame prefix, and a controlled callback table; separate source-only helper-mutation ordering control.",
+  "limits": [
+    "Native/source cases cover two saved WORD values on successful allocation and one exhausted alternate-allocation case, using test-owned actor, pool, factory-asset, and callback storage.",
+    "The callback intentionally checks all pre-attach stores and mutates parent +0x124/+0x2a; the unchanged post-attach mutations prove the target performs no later writes in these cases.",
+    "The fixture uses the measured 26-slot original frame prefix at 0x65b28, reading only indices 1 and 13; the owner extent is not generalized.",
+    "The target physically propagates attach_actor EAX, but the reviewed callback consumer discards it. No general return contract, FUNCTION_MATCH, original TU, full data capacity, or whole-image claim follows.",
+    "The detached-parent branch in attach_actor and all table/pool indices beyond this finite fixture are excluded."
+  ],
+  "fixture": "tests/eng1_attachment_callback_differential.c",
+  "source_order_fixture": "tests/eng1_attachment_callback_order.c",
+  "reproduce": [
+    "python scripts/eng1_bounded_differential.py attachment-callback",
+    "python scripts/test_eng1_behavioral.py"
+  ],
+  "canonical_adjustment": "Existing registered frame guards preflight unchanged strict frame helpers. Existing26-slot65b28 owner covers frame13; no data extension.",
+  "canonical_proof": {
+    "scope": "Three original/source callback comparisons/28 checks through actual frame, attach, factory and pool providers: savedWORD1234/8f27 and exhaustion, narrow ee store canaries and synthetic attachment callback mutation. Existing26-slot frame prefix and two configured pointer cells; no universal lifetime/return or gameplay claim.",
+    "input_sha256": {
+      "src/eng1/behavioral/provisional_frame_pairs.h": "0111a0cbce84423ff8c4468aaff41c480d3e568652e830e92a8a5caa23321e77",
+      "src/eng1/behavioral/shared_selector_assets.c": "7ab8757381d1b15ed4c4c56d5653febaa7730aebd1c750b37d18e024da2b22e9",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "src/eng1/behavioral/finite_frame_prefixes.h": "60ecb2609ec2463d83c4d09d3275d9c7a71b6d7a931973e94be4b1510585ce70",
+      "src/eng1/behavioral/flags_word_programs.c": "3d6c4fd9bf8a9ca326fa29e09842aa71db26d21e17e92ce2577642730d801505",
+      "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "src/eng1/behavioral/initial_zero_word_program.h": "34e7d654d628d03765a9b8452f0978addc61387b47857d2ac130cfc144285620",
+      "src/eng1/behavioral/interpreters.h": "2284756dbb331f455596b2028b105a8bf788b9b43ffea9e84c8dcb5b859151dc",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src/eng1/behavioral/worklist_factory_types.h": "18644fb58236c2a7daa9c3242a443ef3f16f5206c6f98f2e7c1e1cd06f8f5c47",
+      "src/eng1/behavioral/frame_data_config_word_pool.c": "d811f5a5224f912b03dc650aec551bf738c2a22588256da67c5d9da50ad28305",
+      "src/shared/frame_state.c": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+      "src/eng1/behavioral/provisional_frame_pairs.c": "65aee841acd18616e8b98595670d6b930fda626a432bf2e00da82047a26a20c3",
+      "calibration/engine_fx_record.h": "39a59bc8f8c901bb58245d906e66b6e9499dc9641e4571e08b549b00873604a1",
+      "scripts/eng1_bounded_differential.py": "4027109ae3e5d0233e34c45f182cd4499d41ca18f5ed924851dd69835423cba1",
+      "src/eng1/behavioral/flags_word_programs.h": "31b888ca9cb8f026b9f4f05d76752f34324ce593161e4ef859b8961fc75413a4",
+      "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "src/eng1/behavioral/actor_links.c": "39299ea49ed03cb3dab1cbf9a9d5dd4079e93f8316f90b5b921112f1e9e516f7",
+      "src/eng1/behavioral/read_guard.c": "ff186303e741d0ae365b6f27045dd476f92755d8944ece0a438b9f04cbe71bb2",
+      "tests/eng1_attachment_callback_differential.c": "fb610b80dba53774a7a4fe426e3f158463bda94a22d09faa57360fdf6784e82b",
+      "src/eng1/behavioral/shared_selector_assets.h": "d8ac87af169c6cb90c5403369c346ea71f16124457311d93828dea46175f49e4",
+      "calibration/actor_pools.c": "2ff49187935e13c68d9a64ae477c009107871e12fc8b440848e5d862d7ecb5b4",
+      "src/eng1/behavioral/forest_actor_init.h": "8115197c5668019f912f667e94b7578453698ac4ce7f7a028862b2e1d54b6ee6",
+      "src/eng1/behavioral/initial_zero_word_program.c": "1a6630e7c3829c6838dbdf3ae6b897a0e8689cf7c46ebd59cf17ff5e2fb9c029",
+      "src/eng1/behavioral/attachment_callback_3e220.c": "d3dbc82510aa63fe5564828cdea83f166a48856b8589177c000fa7accaf4e8f9",
+      "src/eng1/behavioral/finite_frame_prefixes.c": "5abcaf6d5ad277bec50956e39adcc860e7273a019165020f8182e070b0df52ac",
+      "src/eng1/behavioral/read_guard.h": "3a52a684a11bc6cc800f07f0274f191106cc118fed623eef61e822356b4d6a7b",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "src/eng1/behavioral/frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+      "src/eng1/behavioral/incomplete.c": "0c1c44db64a0b18e52d51ba9efc1caf1942df7fd700c26bcf99532ee6a114c5a",
+      "calibration/actor_factories.c": "24f3222fce819a21b833a4d007152b42fb4a3beac37235923d9849d02ac8f55b"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x3e220": {
+        "size": 112,
+        "sha256": "a4a92a9c7b555cca1070a634c5cff375a272244eb0471efd059d0bda3487697d"
+      }
+    },
+    "stdout": "callback masks source=0x00000000 native=0x00000000\nPASS 3e220 allocation=success saved=0x1234\ncallback masks source=0x00000000 native=0x00000000\nPASS 3e220 allocation=success saved=0x8f27\ncallback masks source=0x00000000 native=0x00000000\nPASS 3e220 allocation=exhausted saved=0x00e1\neng1_call_3e220 cases=3 checks=28 failures=0\n",
+    "cases": 3,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 28,
+    "production_derivations": [],
+    "private_report_sha256": "9a7ceb0bd876c7c0db718289960ca5118d6cd7c3d308e6dc09e75b94ba5920a2"
+  },
+  "source_order_proof": {
+    "name": "attachment_callback_order",
+    "input_sha256": {
+      "calibration\\resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "tests\\eng1_attachment_callback_order.c": "2ebd9700bc93263d8b6bc4820f178c647140ec3fe46bb9f260368561e776a19c",
+      "src\\eng1\\behavioral\\interpreters.h": "2284756dbb331f455596b2028b105a8bf788b9b43ffea9e84c8dcb5b859151dc",
+      "src\\eng1\\behavioral\\group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src\\eng1\\behavioral\\frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+      "src\\eng1\\behavioral\\resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "src\\eng1\\behavioral\\read_guard.h": "3a52a684a11bc6cc800f07f0274f191106cc118fed623eef61e822356b4d6a7b",
+      "src\\eng1\\behavioral\\attachment_callback_3e220.c": "d3dbc82510aa63fe5564828cdea83f166a48856b8589177c000fa7accaf4e8f9"
+    },
+    "stdout": "source-only helper-order controls=1 checks=8 failures=0\n",
+    "compile_exit_code": 0,
+    "exit_code": 0,
+    "inputs_unchanged": true,
+    "native_execution": false
+  }
+}

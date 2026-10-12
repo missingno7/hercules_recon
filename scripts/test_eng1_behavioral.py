@@ -32,6 +32,8 @@ def run(output, wrapper_fixture):
     env.update(PATH=str(DEFAULT_TOOLCHAIN / 'bin') + os.pathsep + env.get('PATH', ''),
                INCLUDE=str(DEFAULT_TOOLCHAIN / 'include'), LIB=str(DEFAULT_TOOLCHAIN / 'lib'))
     fixtures = {
+        'attachment_callback_order': ['tests/eng1_attachment_callback_order.c',
+                                      'src/eng1/behavioral/attachment_callback_3e220.c'],
         'owned_spawn_callback_order': ['tests/eng1_owned_spawn_callback_order.c',
                                       'src/eng1/behavioral/owned_spawn_callback_40e20.c'],
         'forest_actor_child_source': ['tests/eng1_forest_actor_child_source.c',
