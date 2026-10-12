@@ -1,0 +1,108 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x13990",
+  "source": "src/eng1/behavioral/actor_script_initializer_13990.c",
+  "source_sha256": "7ad32430dd77815f93ff64e6121165965279cc350371716cc71ccc20b7e31caa",
+  "implementation_status": "behaviorally_validated_limited",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "native": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "unchanged_before_after": true,
+    "target_rva": "0x13990",
+    "diagnostic_span_bytes": 96,
+    "ret_terminated_body_bytes": 85,
+    "trailing_alignment_nops": 11,
+    "span_sha256": "2244a62e8fc09e5f68a94b53a355e7ac38430c27788a0b764a4d9416d74224e9",
+    "native_extent_note": "Inventory span is diagnostic: body RET at 0x139e4 and eleven NOPs through 0x139ef."
+  },
+  "private_candidate_sha256": "75d501f46d55b0006ce994be44a51f711e9abb0d3587b15d47c40a44455c1fe7",
+  "private_actual_source_report_sha256": "e9091737beeada120f2a4a79d1bef630e675a7acff7e0f91cc4c452f60c6a449",
+  "private_outer_body_forwarding_receipt": {
+    "path": "work/eng1_behavioral/eng1_call_13990/report.json",
+    "sha256": "fae7ab403993ab504dff9e6d632a57ca92f20a37e7e63f6f9e2c5fdfd067e942",
+    "scope": "Preserved as narrower outer callback ordering/selection evidence; it is not counted as source closure."
+  },
+  "contract": "One cdecl Actor*. Live kind read then DWORD flags802, low four-bit selector compared against full context byte2, choose real53370 prefix or533c8 pool, DWORD interpolation position1, then actual reset/frame-word interpreter/actor update in order.",
+  "scope": "Fresh VC5 x86 bounded source-closure differential through ENG1 RVA 0x13990. It covers the measured 0x53370 equality-selected program, reset/interpreter/update/query path, and explicit unsupported-service exclusion. No FUNCTION_MATCH, whole-module, or all-program gameplay claim.",
+  "data_prefix": {
+    "rva": "0x53370",
+    "bytes": 88,
+    "words": 44,
+    "native_sha256": "3f8b0754e12ddad70adba9641eebeed40a46398df7f9debbb346d7b6da22f164",
+    "source_sha256": "3f8b0754e12ddad70adba9641eebeed40a46398df7f9debbb346d7b6da22f164",
+    "exact_bytes_equal": true,
+    "relocations": [],
+    "private_interpreter_guard": "Exact source pointer identity plus WORD stride/width and indices 0..43; it rejects all other roots. The adjacent 0x533c8 pool remains a separate owner."
+  },
+  "source_dependencies": {
+    "reset_frame_state": "src/shared/frame_state.c actual body",
+    "eng1_interpret_word_stream": "src/eng1/behavioral/interpreters.c actual body; test guard observes its two reads at prefix indices 1 and 0",
+    "actor_update_2a290": "src/eng1/behavioral/actor_update_2a290.c actual body",
+    "grid_query_20b50": "src/eng1/behavioral/grid_query_20b50.c actual body; source state sets measured active-row byte 0x70d01 to -1, exercising its native sentinel-return path",
+    "query_decode_20990": "src/eng1/behavioral/query_20990.c linked with actual coefficient-prefix and sequence data owners; the measured 20b50 sentinel path does not enter the decoder",
+    "data_owners": [
+      "candidate measured exact-base prefix at 0x53370, 44 WORDs",
+      "src/eng1/behavioral/frame_data_config_word_pool.c existing independent 0x533c8 owner",
+      "calibration/engine_interface_storage.c copied EngineInterface owner",
+      "src/eng1/behavioral/resource_data.c resource/grid runtime state owner",
+      "src/eng1/behavioral/grid_query_data.c 0x5e0d0 coefficient prefix",
+      "src/eng1/behavioral/payload_dispatch_data.c existing mutable 0x5e138 sequence owner"
+    ],
+    "fixture_only_support": "Exact-base interpreter read guard, the 0x20b50 typed source adapter, and fail-fast stubs for unrelated interpreter arms. Every such arm is asserted unreachable; no spy forwards source work to the oracle."
+  },
+  "limits": [
+    "Twenty cases exercise equality-selected53370 script and active-row-1 grid sentinel only.",
+    "Forty-case prior receipt forwarded nested services into original code in a test fixture, so supports outer stores/order only, not actual-source closure.",
+    "Mismatch-selected533c8 program, populated grid and full playback remain unverified. Both measured program bases now have exact-identity source prefix guards."
+  ],
+  "data_source": "src/eng1/behavioral/frame_data_config_word_pool.c",
+  "data_source_sha256": "d811f5a5224f912b03dc650aec551bf738c2a22588256da67c5d9da50ad28305",
+  "fixture": "tests/eng1_actor_script_initializer_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py actor-script-initializer",
+  "canonical_proof": {
+    "scope": "Twenty original actor-initializer comparisons using actual reset, word interpreter, actor update and grid scan; all actor bytes with one program-owner pointer normalization. Equality-selected53370 script, active-row-1 sentinel only. Exact-read-order guard and forbidden-service exclusions are fixture controls; no alternate program or whole-grid equivalence.",
+    "input_sha256": {
+      "src/eng1/behavioral/frame_data_config_word_pool.c": "d811f5a5224f912b03dc650aec551bf738c2a22588256da67c5d9da50ad28305",
+      "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+      "src/eng1/behavioral/interpreters.c": "c67e315771b507b9677d6dcb4c3d63a2b267133ccbe2e62f11a50b4f1aa5fc0b",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "src/eng1/behavioral/payload_dispatch_data.c": "72c031fb55841dec4c33eb17a57f9c04a761fc66f79b423e418ee5eb7a312056",
+      "src/shared/frame_state.c": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "src/eng1/behavioral/query_20990.c": "75458c849fc3bf850487af6f9fb23ba10191026e47bfd24f09bd7a49c76b8227",
+      "src/eng1/behavioral/grid_query_20b50.c": "5807ffe8b4d3530e0582bb921fe612e7c6bf1cd2290c9a02ff272b425b404be4",
+      "src/eng1/behavioral/grid_query_20d30.h": "7438e69f3aac21e14c1bee23245236141472885325adc5638ac05989586a7cc0",
+      "src/eng1/behavioral/resource_data.c": "43d3b7dba919a3ee1b1577dadb602e49e2e14816cd418d3fb931197d54ca96a2",
+      "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+      "src/eng1/behavioral/grid_query_data.c": "841bb6c71cafb23a995421bb4f6a5560e486b61d377d33bd9fed81780b6be5b7",
+      "src/eng1/behavioral/grid_query_20b50.h": "1f5d103d645c56fcb11be46c1878f5d0b25ff512720cf93bfa0d569c6f4207e7",
+      "src/eng1/behavioral/query_20990.h": "c3687aea684cbcf9ed174f8109266a2b80aec0020ccb0ffa048448c84ebf67c6",
+      "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+      "src/eng1/behavioral/frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+      "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "src/eng1/behavioral/actor_update_2a290.c": "2b1caee87d5a22d51a3253cce824b05920892d6cb0abdeb5a25645c9664281b4",
+      "src/eng1/behavioral/read_guard.h": "3a52a684a11bc6cc800f07f0274f191106cc118fed623eef61e822356b4d6a7b",
+      "scripts/eng1_bounded_differential.py": "fa488c347e1d0ed0d734c89593a915f09d1ba5ba889b8fb9f9b4375f355a7e39",
+      "src/eng1/behavioral/actor_script_initializer_13990.c": "7ad32430dd77815f93ff64e6121165965279cc350371716cc71ccc20b7e31caa",
+      "src/eng1/behavioral/interpreters.h": "2284756dbb331f455596b2028b105a8bf788b9b43ffea9e84c8dcb5b859151dc",
+      "tests/eng1_actor_script_initializer_differential.c": "c8ef6c5c9fc56600eadbd448f8078f62d516d12653a04dd5e6672a78b432ab50",
+      "calibration/engine_interface_storage.c": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x13990": {
+        "size": 96,
+        "sha256": "2244a62e8fc09e5f68a94b53a355e7ac38430c27788a0b764a4d9416d74224e9"
+      }
+    },
+    "stdout": "actor_script_initializer_native_cases=20 checks=100 failures=0\n",
+    "cases": 20,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 100,
+    "production_derivations": [],
+    "private_report_sha256": "189ed9bbf98832e2a04b73ac1e935c38a557063535a2dec35a9d86fc92c08bd6"
+  }
+}

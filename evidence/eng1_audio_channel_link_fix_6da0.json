@@ -1,0 +1,51 @@
+{
+  "module": "ENG1.DLL",
+  "rva": "0x6da0",
+  "source": "src/eng1/behavioral/audio_behavior.c",
+  "source_sha256": "76f092abca63cca322f4e32bbe837a6e052651cbdf72fc974609b7ed8cd70013",
+  "implementation_status": "behaviorally_validated_limited",
+  "contract": "Reuse existing play_sound WORD effect_id, Actor* cdecl ABI. Only a successful nonnegative sound channel initializes its row and sets actor+6c to1; channel failure preserves the actor link field. Final close callback still occurs.",
+  "private_candidate_sha256": "30fc5477d4720845dbc9066ffbd3d2d61abe55209877852fbada8372cf93b43b",
+  "private_report_sha256": "c1423636448030c78c639b98c8a1894ad78de4f8b57869f4e0aebd00e3dde31b",
+  "historical_failure_sha256": "9d68a3bb47d4375e095d75081560648c0069e417eefee6943657b2197d85f316",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "scope": "Four events/channel-result combinations versus original x86, 132 finite checks: 4049/404a with channel5 and-1, callback order/args, selected row/scratch state and actor link. No other audio modes, audibility or gameplay validation.",
+  "fixture": "tests/eng1_audio_event_differential.c",
+  "reproduce": "python scripts/eng1_bounded_differential.py audio-event",
+  "canonical_proof": {
+    "scope": "Four original-x86 audio event/channel combinations: events 4049/404a, host channel5/-1. Native/source callback order and arguments, selected row/scratch bytes, actor link field. No audio hardware, other sound modes or gameplay verification.",
+    "input_sha256": {
+      "calibration/engine_fx_record.h": "39a59bc8f8c901bb58245d906e66b6e9499dc9641e4571e08b549b00873604a1",
+      "calibration/dispatcher_bridges.c": "a15b55854b5c4034a02eb8e0d24a647c06684d291ddf8b3923fea4ebf98bba15",
+      "src/eng1/behavioral/host_wrappers.c": "75173678432407e5abd5318792ae75cec99b7277e62ae67ef0ce462ff079d67d",
+      "src/eng1/behavioral/incomplete.c": "0c1c44db64a0b18e52d51ba9efc1caf1942df7fd700c26bcf99532ee6a114c5a",
+      "src/eng1/behavioral/audio_host.c": "12ef91f5c85fb33488f1504a593edc39641d8d6206ebd1d69ab636d9900511c4",
+      "calibration/engine_fx_storage.c": "81e09d693ec7f8439547f801407a3121af842cf8ad20465e9a984d69b1b8963e",
+      "scripts/eng1_bounded_differential.py": "fa488c347e1d0ed0d734c89593a915f09d1ba5ba889b8fb9f9b4375f355a7e39",
+      "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+      "calibration/engine_interface_storage.c": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5",
+      "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "src/eng1/behavioral/incomplete.h": "5adc2faffd4bd9b11c6c2c4eddb7032d952006c0fe9954523441f1e459942a57",
+      "calibration/resource_data.c": "f9c92023152194164535fa33ca7a7e2e82726897ed56b9c5dba7475f25ed1d47",
+      "calibration/engine_dispatch_externs.h": "dfd2e116a88bec977cb3bf27cf68c859024f788a24a82ab46566c3967455cb31",
+      "src/eng1/behavioral/audio_behavior.c": "76f092abca63cca322f4e32bbe837a6e052651cbdf72fc974609b7ed8cd70013",
+      "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+      "tests/eng1_audio_event_differential.c": "fd0986c4c46c6834ae6c6fcf23eae17c15ca08a6b9106e90f78c3c83edd6d1c7"
+    },
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "native_spans": {
+      "0x6da0": {
+        "size": 2115,
+        "sha256": "e4039cfa38ae27d0850d5bc477fca23b729f4d7f7de687ecf06ef430c2faa1cc"
+      }
+    },
+    "stdout": "LOADED oracle base=10000000\nNATIVE callbacks installed\nCALL native 4049-channel-success 4049\nSPY open\nSPY start 3 7 0 60 0 118 114\nSPY close\nRETURN native 4049-channel-success\nCALL source 4049-channel-success 4049\nSPY open\nSPY start 3 7 0 60 0 118 114\nSPY close\nRETURN source 4049-channel-success\nCASE 4049-channel-success event=4049 callback=3 bank/sample=3/7 volume=118/114 actor_link(native/source)=1/1\nCALL native 4049-channel-failure 4049\nSPY open\nSPY start 3 7 0 60 0 118 114\nSPY close\nRETURN native 4049-channel-failure\nCALL source 4049-channel-failure 4049\nSPY open\nSPY start 3 7 0 60 0 118 114\nSPY close\nRETURN source 4049-channel-failure\nCASE 4049-channel-failure event=4049 callback=3 bank/sample=3/7 volume=118/114 actor_link(native/source)=0/0\nCALL native 404a-channel-success 404a\nSPY open\nSPY start 5 9 0 60 0 118 114\nSPY close\nRETURN native 404a-channel-success\nCALL source 404a-channel-success 404a\nSPY open\nSPY start 5 9 0 60 0 118 114\nSPY close\nRETURN source 404a-channel-success\nCASE 404a-channel-success event=404a callback=3 bank/sample=5/9 volume=118/114 actor_link(native/source)=1/1\nCALL native 404a-channel-failure 404a\nSPY open\nSPY start 5 9 0 60 0 118 114\nSPY close\nRETURN native 404a-channel-failure\nCALL source 404a-channel-failure 404a\nSPY open\nSPY start 5 9 0 60 0 118 114\nSPY close\nRETURN source 404a-channel-failure\nCASE 404a-channel-failure event=404a callback=3 bank/sample=5/9 volume=118/114 actor_link(native/source)=0/0\nRESULT cases=4 checks=132 failures=0 native_source_equal=yes\n",
+    "cases": 4,
+    "failures": 0,
+    "inputs_unchanged": true,
+    "result": "PASS",
+    "checks": 132,
+    "production_derivations": [],
+    "private_report_sha256": "2cc1c1704aa5864eac523c8d09f59dde6ddbaba513a653c0dac5600d43045fd9"
+  }
+}

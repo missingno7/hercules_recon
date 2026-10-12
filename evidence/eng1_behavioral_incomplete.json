@@ -1660,6 +1660,42 @@
     },
     {
       "module": "ENG1.DLL",
+      "rva": "0x6567c",
+      "source": "src/eng1/behavioral/actor_control_tail.c",
+      "kind": "incomplete_data_read",
+      "condition": "Transition-row index outside 18 measured classifier rows, or arithmetic over/underflow.",
+      "evidence": "evidence/eng1_actor_control_tail.json",
+      "reporting": "Reports original data root and requested index/address before unsupported read; no fabricated row."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x70e6c",
+      "source": "src/eng1/behavioral/actor_control_tail.c",
+      "kind": "incomplete_data_read",
+      "condition": "Signed z-class bounds interval exceeds existing 128-byte group owner; native has no such capacity clamp.",
+      "evidence": "evidence/eng1_actor_control_tail.json",
+      "reporting": "Reports original data root and requested index/address before unsupported read; no fabricated row."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x53370",
+      "source": "src/eng1/behavioral/read_guard.c",
+      "kind": "incomplete_data_read",
+      "condition": "Registered interpreter reads exceed measured 88-byte prefix, or negative/overflow index.",
+      "evidence": "evidence/eng1_actor_script_initializer_13990.json",
+      "reporting": "Existing exact-source-object program guard reports native root and aborts before unsupported read."
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x533c8",
+      "source": "src/eng1/behavioral/read_guard.c",
+      "kind": "incomplete_data_read",
+      "condition": "Registered interpreter reads exceed measured 564-byte prefix, or negative/overflow index.",
+      "evidence": "evidence/eng1_actor_script_initializer_13990.json",
+      "reporting": "Existing exact-source-object program guard reports native root and aborts before unsupported read."
+    },
+    {
+      "module": "ENG1.DLL",
       "rva": "0xe670",
       "symbol": "_dispatch_local_0e670",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -4510,28 +4546,6 @@
       "module": "ENG1.DLL",
       "rva": "0x13880",
       "symbol": "_eng1_native_code_target_013880",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/frame_data.c",
-          "kind": "function"
-        },
-        {
-          "source": "src/eng1/behavioral/row0_pointees.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x13990",
-      "symbol": "_eng1_native_code_target_013990",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
       "kind": "unimplemented_function",
       "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
@@ -11172,42 +11186,6 @@
     },
     {
       "module": "ENG1.DLL",
-      "rva": "0x2d3f0",
-      "symbol": "_eng1_native_dep_002d3f0",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/actor_control_update_2cd30.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x2d440",
-      "symbol": "_eng1_native_dep_002d440",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/behavioral/actor_control_update_2cd30.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
       "rva": "0xef10",
       "symbol": "_eng1_native_dep_00ef10",
       "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
@@ -11244,9 +11222,7 @@
             "contract": "One cdecl Actor*. Signed z threshold, actual grid scan, low-WORD sentinel/result branching and ordered actor flag/WORD updates."
           }
         ],
-        "provisional_symbols": [
-          "_eng1_native_code_target_000ef10"
-        ]
+        "provisional_symbols": []
       }
     },
     {
@@ -11670,11 +11646,11 @@
     }
   ],
   "provisional_generation": {
-    "source_only_report_sha256": "43a5dacd28463150195b8cab41799f58e60c17f72ac9df36957d08f0e7d67c69",
+    "source_only_report_sha256": "f22f467381d11014614af90520a0a850ffd46362e8d3902a7317fbb2b1ca6af7",
     "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
     "recovery_sha256": "465ee5ea057cd3bfb23508e18b16958c27b9d391e11a0bc874cfc413436644d5",
-    "symbols": 545,
-    "native_rvas": 542,
+    "symbols": 542,
+    "native_rvas": 539,
     "scope": "Transitional loader/startup diagnostics only; excluded from source coverage and never behaviorally accepted."
   }
 }

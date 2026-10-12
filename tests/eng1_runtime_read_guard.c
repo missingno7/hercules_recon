@@ -7,6 +7,8 @@
 #include "../src/eng1/behavioral/finite_frame_prefixes.h"
 #include "../src/eng1/behavioral/shared_selector_assets.h"
 #include "../src/eng1/behavioral/read_guard.h"
+extern unsigned short g_eng1_config_word_prefix_53370[44];
+extern unsigned short g_eng1_config_word_pool_533c8[282];
 
 
 typedef struct FixtureProgramPrefix {
@@ -18,6 +20,8 @@ typedef struct FixtureProgramPrefix {
 } FixtureProgramPrefix;
 
 static const FixtureProgramPrefix g_fixture_program_prefixes[] = {
+    { (const unsigned char *)g_eng1_config_word_prefix_53370, 0x53370UL, 88U, 4U, 2U },
+    { (const unsigned char *)g_eng1_config_word_pool_533c8, 0x533c8UL, 564U, 4U, 2U },
     { (const unsigned char *)g_eng1_provisional_pair_063248, 0x63248UL, 4U, 4U, 2U },
     { (const unsigned char *)g_eng1_provisional_pair_06324c, 0x6324cUL, 4U, 4U, 2U },
     { (const unsigned char *)g_eng1_provisional_pair_063250, 0x63250UL, 4U, 4U, 2U },

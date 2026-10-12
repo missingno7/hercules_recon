@@ -1143,6 +1143,20 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_actor_z_query_ef10.json"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_control_tail.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_actor_control_tail.json"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_script_initializer_13990.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_actor_script_initializer_13990.json"
     }
   ],
   "functions": [
@@ -2450,7 +2464,8 @@
       "implementation_status": "plausible_unverified",
       "contract": "Native audio-row tick and producers, live context/host services.",
       "evidence": "evidence/eng1_audio.json",
-      "uncertainty": "Native differential and gameplay untested; 75e3 has an explicit incomplete branch."
+      "uncertainty": "Four finite event/channel combinations now validated; other audio modes and gameplay remain untested. Original historical audio reconstruction receipt retained.",
+      "additional_behavioral_evidence": "evidence/eng1_audio_channel_link_fix_6da0.json"
     },
     {
       "rva": "0x75e3",
@@ -3772,6 +3787,30 @@
       "implementation_status": "behaviorally_validated_limited",
       "evidence": "evidence/eng1_actor_z_query_ef10.json",
       "contract": "One cdecl Actor*. Signed z threshold, actual grid scan, low-WORD sentinel/result branching and ordered actor flag/WORD updates."
+    },
+    {
+      "rva": "0x2d3f0",
+      "symbol": "_eng1_native_dep_002d3f0",
+      "source": "src/eng1/behavioral/actor_control_tail.c",
+      "evidence": "evidence/eng1_actor_control_tail.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Six-byte records at actor+118 and WORD cursor+11c, selector scan including signed record-y comparison, opcode transitions and original cached/live read ordering. Real shared state, collision pointer, group bytes, classifier rows, frame selector and sound provider reused."
+    },
+    {
+      "rva": "0x2d440",
+      "symbol": "_eng1_native_dep_002d440",
+      "source": "src/eng1/behavioral/actor_control_tail.c",
+      "evidence": "evidence/eng1_actor_control_tail.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Six-byte records at actor+118 and WORD cursor+11c, selector scan including signed record-y comparison, opcode transitions and original cached/live read ordering. Real shared state, collision pointer, group bytes, classifier rows, frame selector and sound provider reused."
+    },
+    {
+      "rva": "0x13990",
+      "symbol": "_eng1_native_code_target_013990",
+      "source": "src/eng1/behavioral/actor_script_initializer_13990.c",
+      "evidence": "evidence/eng1_actor_script_initializer_13990.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "One cdecl Actor*. Live kind read then DWORD flags802, low four-bit selector compared against full context byte2, choose real53370 prefix or533c8 pool, DWORD interpolation position1, then actual reset/frame-word interpreter/actor update in order."
     }
   ],
   "source_adaptations": {

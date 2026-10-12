@@ -8,6 +8,7 @@
 #include "actor_pipeline_storage.h"
 #include "actor_control_state.h"
 #include "actor_control_cells.h"
+#include "initial_read_guards.h"
 
 typedef unsigned char call_u8;
 typedef unsigned short call_u16;
@@ -43,7 +44,6 @@ extern void __cdecl eng1_native_dep_002d440(Actor *actor);
 extern call_u32 eng1_sim_state_72110;
 extern void __cdecl eng1_native_code_target_002a290(Actor *actor);
 extern call_u32 __cdecl eng1_interpret_signed_pairs(Actor *actor);
-extern void __cdecl apply_frame_motion_2d(void *actor);
 
 static volatile call_u32 *eng1_call_2cd30_collision_word(void)
 {
@@ -314,7 +314,7 @@ actor_callback:
 
     *eng1_call_2cd30_actor_dword(actor, 0x54U) |= 0x80000000UL;
     (void)eng1_interpret_signed_pairs(actor);
-    apply_frame_motion_2d((void *)actor);
+    eng1_guarded_apply_frame_motion_2d((void *)actor);
     *eng1_call_2cd30_actor_dword(actor, 0x54U) =
         (*eng1_call_2cd30_actor_dword(actor, 0x54U) & 0xffffffefUL) |
         (*eng1_call_2cd30_actor_byte(actor, 0x94U) & 0x10U);

@@ -72,7 +72,7 @@ unsigned long __cdecl eng1_interpret_signed_pairs(Actor *actor)
     return 0UL;
 }
 
-void __cdecl apply_frame_motion_2d(void *actor)
+void __cdecl eng1_guarded_apply_frame_motion_2d(void *actor)
 {
     (void)actor;
     ++g_motion_count;

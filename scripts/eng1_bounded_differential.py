@@ -17,6 +17,50 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'actor-script-initializer': dict(
+        sources=['tests/eng1_actor_script_initializer_differential.c',
+                 'src/eng1/behavioral/actor_script_initializer_13990.c',
+                 'src/eng1/behavioral/frame_data_config_word_pool.c',
+                 'src/shared/frame_state.c',
+                 'src/eng1/behavioral/interpreters.c',
+                 'src/eng1/behavioral/actor_update_2a290.c',
+                 'src/eng1/behavioral/grid_query_20b50.c',
+                 'src/eng1/behavioral/query_20990.c',
+                 'src/eng1/behavioral/grid_query_data.c',
+                 'src/eng1/behavioral/payload_dispatch_data.c',
+                 'src/eng1/behavioral/resource_data.c',
+                 'calibration/engine_interface_storage.c'],
+        spans=[(0x13990,96)], cases=20,
+        scope='Twenty original actor-initializer comparisons using actual reset, word interpreter, actor update and grid scan; all actor bytes with one program-owner pointer normalization. Equality-selected53370 script, active-row-1 sentinel only. Exact-read-order guard and forbidden-service exclusions are fixture controls; no alternate program or whole-grid equivalence.'),
+    'actor-tail': dict(
+        sources=['tests/eng1_actor_control_tail_differential.c',
+                 'src/eng1/behavioral/actor_control_tail.c',
+                 'src/eng1/behavioral/actor_control_tables.c',
+                 'src/eng1/behavioral/forest_level_state.c',
+                 'src/eng1/behavioral/actor_control_cells.c',
+                 'src/eng1/behavioral/resource_data.c',
+                 'src/eng1/behavioral/read_guard.c',
+                 'src/eng1/behavioral/frame_data_config_word_pool.c',
+                 'src/eng1/behavioral/flags_word_programs.c',
+                 'src/eng1/behavioral/provisional_frame_pairs.c',
+                 'src/eng1/behavioral/shared_selector_assets.c',
+                 'src/eng1/behavioral/finite_frame_prefixes.c',
+                 'src/eng1/behavioral/initial_zero_word_program.c',
+                 'src/shared/frame_state.c'],
+        spans=[(0x2d3f0,74),(0x2d440,1327)], cases=17,
+        scope='Seventeen finite original actor-tail behavior cases plus two measured owner comparisons; full actor/control bytes, actual select_frame. Signed class -1 alias, opcode12 y-index and cached pre-clamp distance discriminators. Audio variants and opcodes5/6/9 untested; no whole-script equivalence.'),
+    'audio-event': dict(
+        sources=['tests/eng1_audio_event_differential.c',
+                 'src/eng1/behavioral/audio_behavior.c',
+                 'src/eng1/behavioral/audio_host.c',
+                 'src/eng1/behavioral/host_wrappers.c',
+                 'calibration/dispatcher_bridges.c',
+                 'calibration/engine_interface_storage.c',
+                 'calibration/engine_fx_storage.c',
+                 'calibration/resource_data.c',
+                 'src/eng1/behavioral/incomplete.c'],
+        spans=[(0x6da0,0x843)], cases=4,
+        scope='Four original-x86 audio event/channel combinations: events 4049/404a, host channel5/-1. Native/source callback order and arguments, selected row/scratch bytes, actor link field. No audio hardware, other sound modes or gameplay verification.'),
     'z-query': dict(
         sources=['tests/eng1_actor_z_query_differential.c',
                  'src/eng1/behavioral/actor_z_query_ef10.c',
@@ -68,6 +112,13 @@ PROFILES = {
                  'src/eng1/behavioral/forest_level_state.c',
                  'src/eng1/behavioral/initial_motion_roots.c',
                  'src/shared/frame_state.c',
+                 'src/eng1/behavioral/read_guard.c',
+                 'src/eng1/behavioral/frame_data_config_word_pool.c',
+                 'src/eng1/behavioral/flags_word_programs.c',
+                 'src/eng1/behavioral/provisional_frame_pairs.c',
+                 'src/eng1/behavioral/shared_selector_assets.c',
+                 'src/eng1/behavioral/finite_frame_prefixes.c',
+                 'src/eng1/behavioral/initial_zero_word_program.c',
                  'src/eng1/behavioral/actor_update_2a290.c',
                  'src/eng1/behavioral/actor_pipeline_storage.c',
                  'src/eng1/behavioral/resource_data.c',
@@ -363,6 +414,33 @@ def actor_update_cases(exe, oracle, out, env):
         raise ValueError('Actor signed-coordinate/WORD argument mismatch')
     return SimpleNamespace(returncode=0,stdout='actor_update_native_cases=6 checks=24 failures=0\nactor_update_source_spy_cases=1 checks=2 failures=0\n',stderr=''),dict(cases=6,checks=24,failures=0,source_spy_cases=1,source_spy_checks=2,source_spy_failures=0,native_observations=rows)
 
+def actor_script_initializer_cases(exe, oracle, out, env):
+    """Compare real source closure in isolated native/source fixture processes."""
+    rows = []
+    for kind in list(range(16)) + [0x1000,0x1010,0xfffe,0xffff]:
+        observations = {}
+        selector = (kind + 6) & 15
+        for mode in ('native','source'):
+            tested = subprocess.run([str(exe),str(oracle),mode,hex(kind),hex(selector)],
+                cwd=out,env=env,capture_output=True,text=True,timeout=60)
+            if tested.returncode:
+                raise ValueError('Actor script initializer fixture failed: '+tested.stdout+tested.stderr)
+            match = re.fullmatch(r'mode=(native|source) guard=(\d+) query=(\d+) forbidden=(\d+) program_tag=([0-9a-f]{8}) actor=([0-9a-f]{616})\n?',tested.stdout)
+            if not match or match[1] != mode:
+                raise ValueError('Unrecognized actor script initializer output: '+tested.stdout)
+            actor = bytearray.fromhex(match[6])
+            actor[0x64:0x68] = bytes(4)
+            observations[mode] = dict(guard=int(match[2]),query=int(match[3]),
+                forbidden=int(match[4]),program=int(match[5],16),actor=bytes(actor))
+        native,source = observations['native'],observations['source']
+        if native['program'] != 0x53370 or source['program'] != 0x53370 or source['guard'] != 2 or source['query'] != 1 or source['forbidden'] != 0 or native['actor'] != source['actor']:
+            raise ValueError('Actor script initializer native/source discrepancy for '+hex(kind))
+        rows.append(dict(kind=hex(kind),context_byte2=selector,
+            actor_sha256=hashlib.sha256(source['actor']).hexdigest(),
+            source_word_reads=2,source_grid_calls=1,unreachable_services=0))
+    return SimpleNamespace(returncode=0,stdout='actor_script_initializer_native_cases=20 checks=100 failures=0\n',stderr=''),dict(cases=20,checks=100,failures=0,native_observations=rows)
+
+
 def bootstrap_cases(exe, oracle, out, env):
     tested = subprocess.run([str(exe),str(oracle)],cwd=out,env=env,
         capture_output=True,text=True,timeout=60)
@@ -450,6 +528,9 @@ def run(profile, oracle, captured_payload=None):
         if profile == 'actor-bootstrap':
             tested, bootstrap_proof = bootstrap_cases(exe, oracle, out, env)
             report.update(bootstrap_proof)
+        elif profile == 'actor-script-initializer':
+            tested, initializer_proof = actor_script_initializer_cases(exe, oracle, out, env)
+            report.update(initializer_proof)
         elif profile == 'actor-update':
             tested, actor_proof = actor_update_cases(exe, oracle, out, env)
             report.update(actor_proof)

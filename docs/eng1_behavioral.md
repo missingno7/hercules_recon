@@ -2,15 +2,15 @@
 
 The original host loads our source-built x86 ENG1 DLL and performs its expected
 250-DWORD interface initialization. Reconstructed setup and player script
-dispatch now advance the latest windowed run to missing routine `0x13990`.
+dispatch now advance the latest windowed run to missing routine `0x3ca80`.
 No reconstructed ENG1 gameplay frame, continuous gameplay, or normal engine
 shutdown is verified.
 
-The genuine graph has 349 mapped compiled entries, 10 explicitly traced
-unindexed provider RVAs, and 380 function symbols across 189 source units.
+The genuine graph has 352 mapped compiled entries, 10 explicitly traced
+unindexed provider RVAs, and 383 function symbols across 191 source units.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
-denominator. The genuine link has 545 unresolved function symbols and zero
-duplicate providers. The optional transitional profile adds 545 explicit
+denominator. The genuine link has 542 unresolved function symbols and zero
+duplicate providers. The optional transitional profile adds 542 explicit
 fail-on-entry diagnostics and links with zero unresolved symbols.
 `PC_DLLEngineMain` is the sole PE32 export at ordinal 1. The replacement has
 no original-engine import or embedded original executable code.
@@ -21,7 +21,7 @@ unchanged. The stable TITLE milestone and historical matching branch remain
 preserved.
 
 All 35 source fixture groups pass. The generic data gate verifies 57 providers,
-918 fields and 4,787 native-matching pointer relocations. Seven boundary
+919 fields and 4,787 native-matching pointer relocations. Seven boundary
 regressions cover explicit read-only and mixed file/loader-zero storage.
 A separate legacy-resource gate verifies 81 rows, 1,296 non-pointer bytes and
 81 actual NUL-terminated path contents. These data comparisons do not establish
@@ -124,7 +124,7 @@ crossing that boundary and arithmetic overflow; the prefix is statically measure
 
 Level update `3ca50` passes all 65,536 WORD values/131,072 checks against native,
 including output-adjacent canaries. The `70f0c` WORD is an exact interior view
-of the measured 56-byte loader-zero control owner, while its native `2cd30` writer and `3ecb0` reader remain
+of the measured 56-byte loader-zero control owner, while its native `2cd30` writer has a plausible source body and `3ecb0` remains
 missing. Exhaustive leaf behavior does not prove live selector state or gameplay.
 
 Actor initializer `2cc50` passes three native cases / 7,833 checks with
@@ -150,7 +150,25 @@ patterns with low WORD zero and the original table; two source-only mutated-key
 controls check initial sentinel and unsupported scan. A positive input at the
 final sentinel returns row 17. Mutable threshold rows and selector words retain
 their measured 216-byte and 80-byte owners. Unsupported scans and uninitialized
-collision pointers report and abort. Tail callbacks `2d3f0/2d440` remain missing.
+collision pointers report and abort. Tail callbacks `2d3f0/2d440` now have source;
+17 finite native comparisons and two initial-owner comparisons pass. The actual
+frame selector is reused. Opcode-only scan reads remain WORD-sized; operand
+preflight occurs only when native logic reads the operand. Audio-triggering
+variants, opcodes 5/6/9 and arbitrary scripts remain unverified.
+
+Existing sound provider `6da0` was corrected from measured native evidence:
+failed channel allocation preserves actor+6c. Four event/channel combinations
+pass 132 comparisons through the actual source callback wrappers. Broader audio
+modes and audibility remain unverified.
+
+Actor script initializer `13990` passes 20 actual-source native comparisons /
+100 checks through the existing reset, interpreter, update and grid providers.
+These cover the equality-selected 44-WORD prefix at `53370` and an inactive
+grid sentinel. The adjacent `533c8` pool remains a separate owner. Both exact
+program roots have measured prefix guards; alternate-program behavior remains
+unverified. Earlier test-only original-service forwarding supports outer stores
+and order, not source closure. The windowed host passed `13990` in v27 and
+reached `3ca80`; the latest artifact-bound observation below records its context.
 
 The collision pointer has one source definition in a pure data unit, moved
 unchanged from mixed runtime storage; normal setup supplies its actor address.
@@ -172,7 +190,7 @@ original `15780/12620` as test-only nested helpers; production has separate C
 dependencies. Color retains a raw upper-DWORD callback disagreement, while
 the actual host consumes the matching low byte.
 
-Runtime evidence records 23 artifact-bound observations. Each distinguishes
+Runtime evidence records 24 artifact-bound observations. Each distinguishes
 historical source context from the current checkout. The latest run uses
 original host/ENG3/data, stable source TITLE and the authorized no-CD change
 only in a disposable host copy, in windowed mode. The observer captures the
@@ -250,7 +268,7 @@ cells. Some PC callbacks are real no-ops; retain each measured identity.
 
 Cold startup includes source pool sweeps, descriptor/link initialization,
 resource reload, payload decoding, setup and bounded player dispatch.
-The latest observed frontier is `0x13990` in the startup chain.
+The latest observed frontier is `0x3ca80` in the startup chain.
 Worklist, camera, geometry and dialog orchestration have compiled providers;
 many collision, actor, animation and input handlers remain missing. A missing
 root hides further dependencies, so the current unresolved count understates
@@ -283,6 +301,9 @@ python scripts/eng1_bounded_differential.py command-writers
 python scripts/eng1_bounded_differential.py descriptor-reload
 python scripts/eng1_bounded_differential.py dialog-frame
 python scripts/eng1_bounded_differential.py simulation-root
+python scripts/eng1_bounded_differential.py actor-script-initializer
+python scripts/eng1_bounded_differential.py audio-event
+python scripts/eng1_bounded_differential.py actor-tail
 python scripts/eng1_bounded_differential.py z-query
 python scripts/eng1_bounded_differential.py actor-control
 python scripts/eng1_bounded_differential.py startup-callback

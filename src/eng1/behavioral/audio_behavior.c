@@ -268,8 +268,8 @@ void __cdecl play_sound(unsigned short effect_id, FxActorView *actor)
         g_fx_rows_view[g_fx_channel_6eee0].zero_00a = 0;
         g_fx_rows_view[g_fx_channel_6eee0].scale_038 =
             g_engine_interface.context_004->sound_2f0[g_fx_effect_index_6ee88][2];
+        if (actor != 0) actor->linked_06c = 1;
     }
-    if (actor != 0) actor->linked_06c = 1;
 
 done:
     dispatch_local_2c660();

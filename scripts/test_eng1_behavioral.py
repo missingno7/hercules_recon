@@ -81,7 +81,7 @@ def run(output, wrapper_fixture):
     fixtures['spatial_effects'] += [*initial_sources, 'tests/eng1_custom_data_callback_spies.c']
     fixtures['frame_token_setup'] += [*initial_sources, 'tests/eng1_custom_data_callback_spies.c', 'src/shared/frame_motion.c', 'src/eng1/behavioral/incomplete.c']
     fixtures['initial_read_guards'] = ['tests/eng1_initial_read_guards.c', *initial_sources, 'src/eng1/behavioral/frame_token_setup.c', 'src/shared/frame_motion.c']
-    guard_sources = ['src/eng1/behavioral/read_guard.c',
+    guard_sources = ['src/eng1/behavioral/frame_data_config_word_pool.c', 'src/eng1/behavioral/read_guard.c',
                      'src/eng1/behavioral/flags_word_programs.c',
                      'src/eng1/behavioral/provisional_frame_pairs.c',
                      'src/eng1/behavioral/shared_selector_assets.c',

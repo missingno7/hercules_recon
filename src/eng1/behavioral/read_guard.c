@@ -5,6 +5,8 @@
 #include "incomplete.h"
 #include "read_guard.h"
 #include "initial_zero_word_program.h"
+extern unsigned short g_eng1_config_word_prefix_53370[44];
+extern unsigned short g_eng1_config_word_pool_533c8[282];
 
 extern unsigned char g_eng1_provisional_pair_063248[];
 extern unsigned char g_eng1_provisional_pair_06324c[];
@@ -59,6 +61,8 @@ typedef struct Eng1FrameLimit {
 #define ENG1_SOURCE_OWNER(symbol, byte_addend) \
     ((const void *)((const unsigned char *)(symbol) + (byte_addend)))
 static const Eng1ProgramLimit g_program_limits[] = {
+    { ENG1_SOURCE_OWNER(g_eng1_config_word_prefix_53370, 0U), 0x53370UL, 88U },
+    { ENG1_SOURCE_OWNER(g_eng1_config_word_pool_533c8, 0U), 0x533c8UL, 564U },
     { ENG1_SOURCE_OWNER(g_eng1_zero_word_program_06ef18, 0U), 0x6ef18UL, 4U },
     { ENG1_SOURCE_OWNER(g_eng1_provisional_pair_063248, 0U), 0x63248UL, 4U },
     { ENG1_SOURCE_OWNER(g_eng1_provisional_pair_06324c, 0U), 0x6324cUL, 4U },
