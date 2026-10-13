@@ -20,6 +20,13 @@ Capture must respect borrowed packet lifetime and submit order. The safe
 package walker adds bounds absent from the original; a rejected capture must
 not alter the game's native callback behavior.
 
+An entry snapshot records the initial stream. The [bounded callback fixture](live_capture.md)
+shows that it can differ from the subsequently consumed stream while remaining
+passive: a synthetic callback changes the current link or a future E1 payload
+before AC60 reloads it. A replacement must dispatch from live storage and retain
+the intervening native state and callback boundaries. This fixture identifies
+no shipped callback that makes those changes.
+
 A GPU replacement for AC60 is a larger contract. With BA01FC zero, the original
 optionally initializes surface state, locks, draws, calls 70C0(0xFF), unlocks,
 then presents. BD80 runs last on both gate paths. E1 page changes, command 01
@@ -103,11 +110,20 @@ loading in `DllMain`. This is design guidance, not an implemented proxy.
 
 The proxy loads interception; DirectDraw itself is not the packet interface.
 
+The [startup import audit](startup_import.md) now supports a conditional earlier
+boundary. The original EXE has an ordinary static DDRAW import and no EXE TLS
+callbacks, CLR header or delay import. If normal startup selects the candidate
+module and its process attach succeeds, attach-time publication precedes host
+entry, including the independent event path. This is a documented-loader
+inference from the pinned PE, not target deployment evidence. The
+[coherence audit](interface_publication.md) also supports copying the table's
+static words while preserving word 1 as a live shared-context pointer.
+
 | Approach | Original file changes | Scope and reliability | Cross-module and presentation cost |
 |---|---|---|---|
 | Direct AC60 detour | None on disk; runtime instructions changed | Single shared host target, but requires safe instruction interception and complete outer effects | Covers three module submit routes; misses movie and other presentation paths |
 | Selected callback clone | None; runtime data pointer changed | Smallest observed renderer seam; must precede cold copies and preserve borrowed state | Shared across three modules; TITLE extra upload/movie routes require explicit handling |
-| Forwarding `ddraw.dll` bootstrap + clone | Add local proxy; originals intact | Direct-init path supplies a candidate point, but independent 0x79a0 dispatch means process-wide early publication is unresolved; HRESULT is logging-only | Retains original window/COM services; import resolution and host integration are unobserved |
+| Forwarding `ddraw.dll` bootstrap + clone | Add local proxy; originals intact | Conditional static-import attach precedes host entry; deferred API-call publication can be bypassed by the independent path; HRESULT is logging-only | Retains original window/COM services; target module selection and host integration are unobserved |
 | Engine DLL proxies + clone | Originals must be reachable under separate names/paths | Three forwarding wrappers, export/return forwarding and module search complexity | Handles per-module copy directly; larger installation/maintenance burden |
 
 There is no mutable per-polygon dispatch table inside AC60. Its four polygon

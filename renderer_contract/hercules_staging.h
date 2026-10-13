@@ -64,7 +64,8 @@ typedef enum RendererAc60EventKind {
     RENDERER_AC60_EVENT_DEFERRED_COPY = 9,
     RENDERER_AC60_EVENT_OT_GATE = 10,
     RENDERER_AC60_EVENT_IGNORED_RASTER = 11,
-    RENDERER_AC60_EVENT_RASTER_SUPPRESSED = 12
+    RENDERER_AC60_EVENT_RASTER_SUPPRESSED = 12,
+    RENDERER_AC60_EVENT_UNRECOGNIZED_GROUP60 = 13
 } RendererAc60EventKind;
 
 typedef enum RendererAc60ApplyStatus {
@@ -90,7 +91,9 @@ extern "C" {
 #endif
 
 /* Apply one packet to a caller-owned state view. The 0x01 command produces a
- * deferred descriptor only; this helper never reads or writes VRAM bytes. */
+ * deferred descriptor only; this helper never reads or writes VRAM bytes.
+ * An unknown group-0x60 header returns UNRECOGNIZED while publishing the
+ * UNRECOGNIZED_GROUP60 event and its observed conditional page-base refresh. */
 RendererAc60ApplyStatus renderer_ac60_apply_packet(
     const renderer_u8 *wire, size_t length,
     RendererAc60StateView *state, RendererAc60Event *event);

@@ -18,6 +18,13 @@ reports `RASTER_SUPPRESSED` for the recognized drawing families. It reports
 `IGNORED_RASTER` for 0x68/0x6a, retaining the page refresh when the gate is zero.
 The 0x68 producer payload remains opaque. Unknown commands still fail visibly.
 
+For a complete, otherwise-unrecognized group-0x60 header, the helper now
+publishes `UNRECOGNIZED_GROUP60` and the gate-dependent page refresh while
+returning `APPLY_UNRECOGNIZED`. Callers must inspect that event/state effect;
+the status does not claim a recognized packet layout or successful draw.
+The [coverage audit](consumer_coverage.md) and [native cases](evidence/native_group60.json)
+record the tested tags, header reads and byte-gate conditions.
+
 E1 updates page cells without immediately replacing A909FC. Both E1 and
 polygon tpage use `(value & 0x180)==0x180` for the alternate bank, independently
 of command bit 1. Ordinary page address is 96E6E0+((selector>>1)<<16);
@@ -40,3 +47,8 @@ proves finite staging/dispatch, not pixels or copied bytes. Fixed 8/16 sprites
 have native suppressed-branch coverage but no active native staging comparison.
 See [native_staging.json](evidence/native_staging.json) and
 `tests/test_native_staging.py`.
+
+The corrected source passed a fresh replay of these same 171 fields, seven
+gate branches and nine masks. That receipt is preserved separately as
+[native_staging_regression.json](evidence/native_staging_regression.json);
+the earlier receipt remains a historical source snapshot.

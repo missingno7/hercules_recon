@@ -1,0 +1,16 @@
+{
+  "hypothesis": "AC60's group-0x60 preamble refreshes A909FC from the current page cells before command comparison for any safe 8-byte packet whose tag & 0xe0 is 0x60, including unknown tags 0x60, 0x62, and 0x70 as well as observed-undrawn 0x68. The preamble is suppressed only when the byte at BA01FC is nonzero.",
+  "fixture": {
+    "tags": ["0x60", "0x62", "0x70", "0x68"],
+    "suppression_bytes": {"zero": "BA01FC=0, BA01FD=0", "one": "BA01FC=1", "adjacent_canary": "BA01FC=0, BA01FD=1 (DWORD view 0x00000100)"},
+    "initial_page_cells": {"A8E6F4": "0x0b", "A8E6F8": "0", "A8E6FC": "0"},
+    "initial_A909FC": "0x11223344"
+  },
+  "predicted_A909FC": {
+    "BA01FC=0": "0x009be6e0",
+    "BA01FC=1": "0x11223344",
+    "BA01FC=0_and_BA01FD=1": "0x009be6e0"
+  },
+  "falsifier": "For any tested group-0x60 tag, a byte-zero gate fails to refresh the page cell, a byte-one gate refreshes it, or the adjacent-byte-only canary suppresses refresh. Any raster call or packet-relative access beyond the common 8-byte header also falsifies the stated safe-fallthrough assumption.",
+  "scope_limit": "Finite discriminator for consumer fallthrough semantics only; it cannot establish any producer or first-party occurrence for 0x60, 0x62, or 0x70."
+}

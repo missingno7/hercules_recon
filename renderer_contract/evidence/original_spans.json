@@ -381,6 +381,105 @@
         "target",
         "tool"
       ]
+    },
+    {
+      "lane": "native_live_capture",
+      "path": "renderer_contract/evidence/native_live_capture.json",
+      "sha256": "8e8d9a6844a5b56ad756db5c48a84e7b5394161f4b2c6e0d1ae4139d3714caec",
+      "schema_keys": [
+        "cases",
+        "execution",
+        "fixture",
+        "interpretation_limits",
+        "invocation",
+        "oracle",
+        "prediction",
+        "schema_version",
+        "scope",
+        "source_provenance",
+        "status"
+      ]
+    },
+    {
+      "lane": "interface_publication",
+      "path": "renderer_contract/evidence/interface_publication.json",
+      "sha256": "1d1fed7435ced83014a1d824da8a9bab8028dc31cd84ea405e3c9e28d3540f72",
+      "schema_keys": [
+        "inputs",
+        "limits",
+        "linear_scan",
+        "new_alias_checks",
+        "prediction_and_falsifier",
+        "schema_version",
+        "scope",
+        "source_table",
+        "spans",
+        "status",
+        "temporal_scope",
+        "word1_shared_context"
+      ]
+    },
+    {
+      "lane": "startup_import",
+      "path": "renderer_contract/evidence/startup_import.json",
+      "sha256": "d3dd7c91b7d46cd7349696da5740657f782cbaf4f7b956ef629c4e602f20664f",
+      "schema_keys": [
+        "audit_script_sha256",
+        "data_directories",
+        "deployment_boundary",
+        "engine_resolution",
+        "exports",
+        "host",
+        "imports",
+        "limits",
+        "managed_image",
+        "resources",
+        "schema_version",
+        "scope",
+        "source_links",
+        "startup_callbacks",
+        "static_import_lifecycle",
+        "tool"
+      ]
+    },
+    {
+      "lane": "group60_preamble",
+      "path": "renderer_contract/evidence/native_group60.json",
+      "sha256": "3c79526b04eafcd4eddbaacd7c33580145e2fd9c3e25263a3d96a12a0ba7172e",
+      "schema_keys": [
+        "cases",
+        "conclusion",
+        "execution",
+        "initial_page_state",
+        "limitations",
+        "oracle",
+        "prediction",
+        "prediction_sha256",
+        "runner_sha256",
+        "schema_version",
+        "scope",
+        "source_hashes",
+        "status"
+      ]
+    },
+    {
+      "lane": "staging_regression",
+      "path": "renderer_contract/evidence/native_staging_regression.json",
+      "sha256": "b0dcc433f403485c6c9e18efe48d0313bb642d488b596a9f366fa57b18120276",
+      "schema_keys": [
+        "candidate",
+        "comparison",
+        "finished_unix",
+        "initial_state",
+        "limitations",
+        "oracle",
+        "prediction_and_falsifier",
+        "schema_version",
+        "scope",
+        "semantics",
+        "started_unix",
+        "status"
+      ]
     }
   ],
   "excluded_or_pending_reports": [],
@@ -558,6 +657,29 @@
         "The 6BB0 failure case is guarded before the full live window/display transition."
       ],
       "evidence_ref": "renderer_contract/evidence/native_surface_contract.json#cases,static"
+    },
+    {
+      "lane": "group60_preamble",
+      "status": "BOUNDED_EQUIVALENT",
+      "cases_checked": 12,
+      "scope": "Twelve original AC60 group-0x60 tag/gate vectors, packet prefix reads bounded to the common 8-byte header; unknown packet layouts remain unknown and no raster entry runs.",
+      "evidence_ref": "renderer_contract/evidence/native_group60.json",
+      "not_function_match": true
+    },
+    {
+      "lane": "staging_regression",
+      "status": "BOUNDED_EQUIVALENT",
+      "cases_checked": 74,
+      "scope": "Current C89 staging adapter compared at 171 native fields, seven gate branches, and nine page masks; raster and A8F0 callees are skipped.",
+      "evidence_ref": "renderer_contract/evidence/native_staging_regression.json",
+      "not_function_match": true
+    },
+    {
+      "lane": "live_capture",
+      "proof_level": "FINITE_ORIGINAL_EXECUTION",
+      "case_count": 4,
+      "scope": "Four unchanged-original AC60/A8F0/BD80 synthetic-chain cases with a synthetic callback endpoint and zero-height command-01 rectangle; no C model equivalence.",
+      "evidence_ref": "renderer_contract/evidence/native_live_capture.json"
     }
   ],
   "static_proofs": [
@@ -796,6 +918,20 @@
       "scope": "Original PC module bytes, selected C++ runtime-class/message-map/vtable data, constructors and getters, plus pinned installed header declarations. No MFC invocation, message dispatch, scheduler order, process launch, or gameplay is observed.",
       "evidence_ref": "renderer_contract/evidence/callback_metadata.json",
       "not_function_match": true
+    },
+    {
+      "lane": "startup_import_preentry",
+      "proof_level": "STATIC_OBSERVED",
+      "span_count": 1,
+      "scope": "Static PE import/TLS/export metadata and full .text call candidates; conditional ordinary-startup ordering only, not module selection or live integration.",
+      "evidence_ref": "renderer_contract/evidence/startup_import.json"
+    },
+    {
+      "lane": "interface_publication",
+      "proof_level": "STATIC_OBSERVED",
+      "span_count": 4,
+      "scope": "Bounded source-prefix and pointer-cell alias audit with a full byte-covered linear sweep; no arbitrary-alias or attach-timing proof.",
+      "evidence_ref": "renderer_contract/evidence/interface_publication.json"
     }
   ],
   "original_images": {
@@ -2852,7 +2988,8 @@
       "expected_sha256": "f2af2f9497e022748805220aac39872fdc31492b3fb2e5f582237c81f51a095d",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "renderer_contract/evidence/upload_domain_bounds.json#original_spans[4]"
+        "renderer_contract/evidence/upload_domain_bounds.json#original_spans[4]",
+        "renderer_contract/evidence/interface_publication.json#spans.word1_context_writer"
       ],
       "role": "bounded upload producer/context domain span: context_writer"
     },
@@ -3236,7 +3373,8 @@
       },
       "evidence_refs": [
         "renderer_contract/evidence/resource_lut_order.json#spans.host_first_engine_dispatch_5f03",
-        "renderer_contract/evidence/upload_domain_bounds.json#original_spans[3]"
+        "renderer_contract/evidence/upload_domain_bounds.json#original_spans[3]",
+        "renderer_contract/evidence/interface_publication.json#spans.dispatcher_pointer_load_to_call"
       ],
       "original_validation": "passed"
     },
@@ -4331,7 +4469,8 @@
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
         "work/renderer_textures/evidence.json#function_spans[3]",
-        "renderer_contract/evidence/native_texture_row_boundaries.json#original_spans[1]"
+        "renderer_contract/evidence/native_texture_row_boundaries.json#original_spans[1]",
+        "renderer_contract/evidence/native_live_capture.json#spans.A8F0"
       ]
     },
     {
@@ -4510,7 +4649,10 @@
         "work/renderer_frame/evidence.json#spans[1]",
         "work/renderer_packets/evidence.json#native_spans.HERCULES.EXE[0]",
         "renderer_contract/evidence/producer_reachability.json#original_spans[5]",
-        "renderer_contract/evidence/frame_lifetime.json#/spans/1"
+        "renderer_contract/evidence/frame_lifetime.json#/spans/1",
+        "renderer_contract/evidence/native_live_capture.json#spans.AC60",
+        "renderer_contract/evidence/native_group60.json#oracle.ac60_sha256",
+        "renderer_contract/evidence/native_staging_regression.json#oracle.ac60_span_sha256"
       ]
     },
     {
@@ -4837,7 +4979,8 @@
         "renderer_contract/evidence/upload_producer_sites.json#code_spans.bd80_notification_gate",
         "renderer_contract/evidence/native_cold_upload.json#oracle.bd80_span_sha256",
         "renderer_contract/evidence/notification_target.json#spans[0]",
-        "renderer_contract/evidence/native_texture_row_boundaries.json#original_spans[2]"
+        "renderer_contract/evidence/native_texture_row_boundaries.json#original_spans[2]",
+        "renderer_contract/evidence/native_live_capture.json#spans.BD80"
       ]
     },
     {
@@ -6992,6 +7135,18 @@
     },
     {
       "module": "HERCULES.EXE",
+      "rva": "0x10a20",
+      "size": 6,
+      "kind": "code_or_data",
+      "label": "static DirectDraw import thunk",
+      "expected_sha256": "ed64febc50f25778a8a17187ad15903925a528a4682a055bda4b01f901bd7152",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/startup_import.json#static_import_lifecycle.directdraw_thunk"
+      ]
+    },
+    {
+      "module": "HERCULES.EXE",
       "rva": "0x2e210",
       "size": 112,
       "expected_sha256": "37bbfdd6506f03425633e9248b34195a21cdd06aab860ade466b89871cbaaa2c",
@@ -7212,7 +7367,8 @@
         "work/renderer_cross_module/evidence.json#interface.source_table_sha256",
         "work/renderer_frame/evidence.json#static_host_table_binding",
         "work/renderer_presentation/evidence.json#table",
-        "work/renderer_geometry_info/evidence.json#host_interface_table"
+        "work/renderer_geometry_info/evidence.json#host_interface_table",
+        "renderer_contract/evidence/interface_publication.json#spans.source_prefix"
       ]
     },
     {
@@ -7244,7 +7400,8 @@
       "expected_sha256": "808fbb8b89f159778e8ec1322e9c7a53c570dfe17e6e565367f97a9bee2a0e3b",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "renderer_contract/evidence/upload_domain_bounds.json#original_spans[2]"
+        "renderer_contract/evidence/upload_domain_bounds.json#original_spans[2]",
+        "renderer_contract/evidence/interface_publication.json#spans.source_pointer_cell"
       ],
       "role": "bounded upload producer/context domain span: title_interface_pointer_cell"
     },
@@ -10255,7 +10412,7 @@
     },
     {
       "path": "renderer_contract/evidence/exe_variant.json",
-      "sha256": "9f6b0313333d026969f5c0ca3450505a0ae2162a729cc9b05dc67c5efeb0ce72"
+      "sha256": "c7ce86ad6ab90dca288d9f15406184048b61f4098cc1ecd56159aa92c46e01a8"
     },
     {
       "path": "renderer_contract/evidence/frame.json",
@@ -10268,6 +10425,10 @@
     {
       "path": "renderer_contract/evidence/geometry.json",
       "sha256": "b495243cc32757e4f379bfb7b721b168fe6ba46ca908ed1dd763380c53b6aa33"
+    },
+    {
+      "path": "renderer_contract/evidence/interface_publication.json",
+      "sha256": "1d1fed7435ced83014a1d824da8a9bab8028dc31cd84ea405e3c9e28d3540f72"
     },
     {
       "path": "renderer_contract/evidence/loader.json",
@@ -10302,8 +10463,16 @@
       "sha256": "afaf7eef950c66a97540a24212badb1a86a85d068c48cba0e7266fea5da9bf2d"
     },
     {
+      "path": "renderer_contract/evidence/native_group60.json",
+      "sha256": "3c79526b04eafcd4eddbaacd7c33580145e2fd9c3e25263a3d96a12a0ba7172e"
+    },
+    {
       "path": "renderer_contract/evidence/native_interface_copy.json",
       "sha256": "3d2398d1ad4824de53acd0712e6a0a72e4e3704f2c84ebbe9cfcbb8e25d01234"
+    },
+    {
+      "path": "renderer_contract/evidence/native_live_capture.json",
+      "sha256": "8e8d9a6844a5b56ad756db5c48a84e7b5394161f4b2c6e0d1ae4139d3714caec"
     },
     {
       "path": "renderer_contract/evidence/native_packed_uv_feedback.json",
@@ -10374,6 +10543,10 @@
       "sha256": "d9de85db04c225c1c3a52fd7dfd15e484cf85664d62364656f39e6e23f214f52"
     },
     {
+      "path": "renderer_contract/evidence/native_staging_regression.json",
+      "sha256": "b0dcc433f403485c6c9e18efe48d0313bb642d488b596a9f366fa57b18120276"
+    },
+    {
       "path": "renderer_contract/evidence/native_startup_pixel_alias.json",
       "sha256": "ac69bb0251bfbc9e1e61aec886f52f513de36edab006fed31219b5d924503b68"
     },
@@ -10435,7 +10608,7 @@
     },
     {
       "path": "renderer_contract/evidence/portable_verification.json",
-      "sha256": "8b69916a5dead8e523377dfcf3b791ef4a52e808f27baeb6ffdbe9d6197efdd2"
+      "sha256": "53822533e72b224f7d024032a3923a7bf72078ff28cbf93576edf653fc3449d5"
     },
     {
       "path": "renderer_contract/evidence/presentation.json",
@@ -10452,6 +10625,10 @@
     {
       "path": "renderer_contract/evidence/sprite_geometry.json",
       "sha256": "3a5a7e428de8f24c28bb4bff0f782eb8dd53f021a36be4e84a24b851acae4248"
+    },
+    {
+      "path": "renderer_contract/evidence/startup_import.json",
+      "sha256": "d3dd7c91b7d46cd7349696da5740657f782cbaf4f7b956ef629c4e602f20664f"
     },
     {
       "path": "renderer_contract/evidence/state.json",

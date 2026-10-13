@@ -1,0 +1,1429 @@
+{
+  "schema_version": 1,
+  "status": "BOUNDED_EQUIVALENT",
+  "scope": "Four finite synthetic AC60 ordering-table chains executed through unchanged original AC60, command-01 A8F0, and BD80 code. A host hook intercepts only a synthetic callback endpoint and applies fixture mutations before RET semantics; no installed target callback is claimed. Original packet walk and E1 stores are checked at native instruction boundaries. No raster pixels, hardware, full DirectDraw/device path, or gameplay are claimed.",
+  "prediction": {
+    "prediction": "Unchanged original AC60 will execute command 0x01 through original A8F0 for a finite zero-height rectangle, enter original BD80, synchronously dispatch the fixture callback only when the live A8E788 gate is nonzero, return to AC60, and reload the command's current link at ACA2 before consuming the next packet. AC60 will also reach its final BD80 call after the 0x40 terminator and reread the gate there.",
+    "falsifiers": [
+      "A8F0 does not reach BD80 for the zero-height rectangle, or makes a VRAM write before notification.",
+      "The enabled synthetic callback endpoint is not reached from original BD80 with return PCs 0x40ABE9 or 0x40B2E7 on the native stack.",
+      "After the endpoint service mutates command 0x01's link, AC60 consumes the pre-dispatch next node rather than the new link at ACA2.",
+      "After the endpoint service mutates a future E1 payload, the original E1 boundary and state stores still observe its original value.",
+      "Clearing A8E788 inside the first synchronous service does not affect BD80's later gate reload."
+    ],
+    "scope": "Private bounded original-byte CPU fixture; four small synthetic chains, no gameplay, hardware, renderer pixels, or installed callback target claim."
+  },
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000",
+    "base_relocations": 0,
+    "executed_spans": {
+      "AC60": {
+        "rva": "0xac60",
+        "size": 1680,
+        "sha256": "f7724c04bef582e378b183a12550ba841df1a6fa3660be51da71154aa5c525af"
+      },
+      "A8F0": {
+        "rva": "0xa8f0",
+        "size": 771,
+        "sha256": "bc04260d2227d221b124bb397b3d7f1138eed53081654722e3f1acd52599196e"
+      },
+      "BD80": {
+        "rva": "0xbd80",
+        "size": 22,
+        "sha256": "6a9578c5be0c980bc35b29642d3ac389e829a0c5666022353cb88c04f19db64f"
+      }
+    }
+  },
+  "fixture": {
+    "entry_rva": "0xac60",
+    "initial_order": [
+      "e1_current",
+      "cmd01",
+      "e1_future",
+      "ot_gate"
+    ],
+    "command01_rect_signed_words": [
+      5,
+      224,
+      8,
+      0
+    ],
+    "command01_destination_signed_words": [
+      15,
+      240
+    ],
+    "host_device_tail_gate_BA01FC": 1,
+    "notification_pointer": "0x31000000",
+    "callback_page_has_no_machine_code": true,
+    "callback_behavior": "Synthetic host service records stack and mutates only the selected fixture bytes, then returns by setting ESP=ESP+4 and EIP=[ESP]; no target instruction is emitted or executed at the endpoint.",
+    "scenarios": [
+      "gate_off",
+      "rewrite_link",
+      "mutate_future_e1",
+      "disable_gate"
+    ]
+  },
+  "execution": {
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "unicorn_module_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\__init__.py",
+    "native_dll_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "dependency_origin": {
+      "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+      "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+      "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+    },
+    "architecture": "x86 32-bit",
+    "sections_mapped_at_original_virtual_addresses": true,
+    "instruction_budget_per_case": 100000,
+    "unknown_pc_memory_write_or_invalid_access_fails": true,
+    "original_code_is_unmodified": true,
+    "only_fixture_and_three_E1_state_cells_may_change_in_original_data": true,
+    "callback_and_return_sentinel_are_host_intercepted": true
+  },
+  "source_provenance": {
+    "this_runner": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_live_capture.py",
+    "this_runner_sha256": "8581fb9f8fcffaddacc00e212dbd131b2b8c64b9abd45a806b1d47eade386850",
+    "reused_original_mixed_fixture_api": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\original_ac60_mixed_runner.py",
+    "reused_fixture_api_sha256": "faf988fddd771bbfac0a1b17b28ccc83012896d75c84d99f22c4c3f3ead3c050",
+    "oracle_common": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\oracle_common.py",
+    "oracle_common_sha256": "a024048d9acc6e18197e10a82427cd84351a90666e1626e610bf60c6105f1357",
+    "prediction_sha256": "f0ad9ab207839f94e1decfdca7deb4e851e0cc1c9cc5800b284aff077d780987"
+  },
+  "cases": [
+    {
+      "scenario": "gate_off",
+      "predispatch_snapshot": [
+        {
+          "name": "e1_current",
+          "address": "0x10001000",
+          "tag": "0xe1",
+          "next": "0x10001020",
+          "raw_packet_sha256": "8699ab421d621c2fbe3bee63b30b0075da5bf196d8fc6bcf01f899684f51f620",
+          "e1_payload_dword": "0xe100017b"
+        },
+        {
+          "name": "cmd01",
+          "address": "0x10001020",
+          "tag": "0x1",
+          "next": "0x10001040",
+          "raw_packet_sha256": "97dcea0769e9fa55cd32f0cc74acfce006ea4085fcc9af4e47e41c71cead20e7",
+          "destination_s16": [
+            15,
+            240
+          ],
+          "embedded_rect_s16": [
+            5,
+            224,
+            8,
+            0
+          ]
+        },
+        {
+          "name": "e1_future",
+          "address": "0x10001040",
+          "tag": "0xe1",
+          "next": "0x10001060",
+          "raw_packet_sha256": "35f8e4d28aa3ba0f601615046c237befa7570927dab9fbb2b2688fc31b7db606",
+          "e1_payload_dword": "0xe10001bb"
+        },
+        {
+          "name": "ot_gate",
+          "address": "0x10001060",
+          "tag": "0x40",
+          "next": "0x0",
+          "raw_packet_sha256": "b730b7d5e394a384677b645e399357eaedd8fc271c22ebc03bc3490fbe737f52"
+        }
+      ],
+      "native_consumed_packet_boundaries": [
+        {
+          "name": "e1_current",
+          "address": "0x10001000",
+          "tag": "0xe1",
+          "next": "0x10001020",
+          "instruction_boundary_rva": "0xacb9",
+          "instruction_count": 17,
+          "e1_payload_dword": "0xe100017b"
+        },
+        {
+          "name": "cmd01",
+          "address": "0x10001020",
+          "tag": "0x1",
+          "next": "0x10001040",
+          "instruction_boundary_rva": "0xacb9",
+          "instruction_count": 50,
+          "destination_s16": [
+            15,
+            240
+          ],
+          "embedded_rect_s16": [
+            5,
+            224,
+            8,
+            0
+          ]
+        },
+        {
+          "name": "e1_future",
+          "address": "0x10001040",
+          "tag": "0xe1",
+          "next": "0x10001060",
+          "instruction_boundary_rva": "0xacb9",
+          "instruction_count": 112,
+          "e1_payload_dword": "0xe10001bb"
+        },
+        {
+          "name": "ot_gate",
+          "address": "0x10001060",
+          "tag": "0x40",
+          "next": "0x0",
+          "instruction_boundary_rva": "0xacb9",
+          "instruction_count": 145
+        }
+      ],
+      "earliest_stream_divergence": null,
+      "e1_original_read_boundaries": [
+        {
+          "pc_rva": "0xb19c",
+          "packet": "e1_current",
+          "packet_va": "0x10001000",
+          "payload_dword_read_by_next_original_instruction": "0xe100017b",
+          "instruction_count": 31
+        },
+        {
+          "pc_rva": "0xb19c",
+          "packet": "e1_future",
+          "packet_va": "0x10001040",
+          "payload_dword_read_by_next_original_instruction": "0xe10001bb",
+          "instruction_count": 126
+        }
+      ],
+      "live_ac60_link_reload_boundaries": [
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "unmapped:0x10000100",
+          "current_packet_va": "0x10000100",
+          "link_value_before_original_mov": "0x10001000",
+          "instruction_count": 12,
+          "loaded_esi_after_original_mov": "0x10001000",
+          "loaded_packet_after_original_mov": "e1_current"
+        },
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "e1_current",
+          "current_packet_va": "0x10001000",
+          "link_value_before_original_mov": "0x10001020",
+          "instruction_count": 45,
+          "loaded_esi_after_original_mov": "0x10001020",
+          "loaded_packet_after_original_mov": "cmd01"
+        },
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "cmd01",
+          "current_packet_va": "0x10001020",
+          "link_value_before_original_mov": "0x10001040",
+          "instruction_count": 107,
+          "loaded_esi_after_original_mov": "0x10001040",
+          "loaded_packet_after_original_mov": "e1_future"
+        },
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "e1_future",
+          "current_packet_va": "0x10001040",
+          "link_value_before_original_mov": "0x10001060",
+          "instruction_count": 140,
+          "loaded_esi_after_original_mov": "0x10001060",
+          "loaded_packet_after_original_mov": "ot_gate"
+        },
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "ot_gate",
+          "current_packet_va": "0x10001060",
+          "link_value_before_original_mov": "0x0",
+          "instruction_count": 157,
+          "loaded_esi_after_original_mov": "0x0",
+          "loaded_packet_after_original_mov": "unmapped:0x0"
+        }
+      ],
+      "a8f0_original_entry": [
+        {
+          "entry_rva": "0xa8f0",
+          "callsite_return_rva": "0xb1ec",
+          "esp": "0x2000fee0",
+          "stack_dwords": [
+            "0x40b1ec",
+            "0x10001030",
+            "0xf",
+            "0xf0"
+          ],
+          "rect_pointer": "0x10001030",
+          "destination_s16": [
+            15,
+            240
+          ],
+          "rect_s16": [
+            5,
+            224,
+            8,
+            0
+          ],
+          "instruction_count": 75
+        }
+      ],
+      "a8f0_reaches_original_notification_call": [
+        {
+          "pc_rva": "0xabe4",
+          "meaning": "original zero-height path reaches call BD80 without entering either copy loop",
+          "instruction_count": 90
+        }
+      ],
+      "bd80_original_call_boundaries": [
+        {
+          "pc_rva": "0xbd80",
+          "call_return_rva": "0xabe9",
+          "esp": "0x2000febc",
+          "callback_pointer_at_entry": "0x31000000",
+          "gate_memory_at_entry": "0x0",
+          "instruction_count": 91
+        },
+        {
+          "pc_rva": "0xbd80",
+          "call_return_rva": "0xb2e7",
+          "esp": "0x2000feec",
+          "callback_pointer_at_entry": "0x31000000",
+          "gate_memory_at_entry": "0x0",
+          "instruction_count": 166
+        }
+      ],
+      "bd80_live_gate_reload_boundaries": [
+        {
+          "pc_rva": "0xbd8f",
+          "gate_value_loaded_by_original_mov": "0x0",
+          "instruction_count": 95
+        },
+        {
+          "pc_rva": "0xbd8f",
+          "gate_value_loaded_by_original_mov": "0x0",
+          "instruction_count": 170
+        }
+      ],
+      "synthetic_host_service_calls": [],
+      "original_e1_instruction_derived_writes": [
+        {
+          "pc_rva": "0xb1b0",
+          "address": "0xa8e6fc",
+          "size": 4,
+          "value": "0x0"
+        },
+        {
+          "pc_rva": "0xb1bc",
+          "address": "0xa8e6f4",
+          "size": 4,
+          "value": "0x1b"
+        },
+        {
+          "pc_rva": "0xb1ca",
+          "address": "0xa8e6f8",
+          "size": 4,
+          "value": "0x3"
+        },
+        {
+          "pc_rva": "0xb1b0",
+          "address": "0xa8e6fc",
+          "size": 4,
+          "value": "0x1"
+        },
+        {
+          "pc_rva": "0xb1bc",
+          "address": "0xa8e6f4",
+          "size": 4,
+          "value": "0x1b"
+        },
+        {
+          "pc_rva": "0xb1ca",
+          "address": "0xa8e6f8",
+          "size": 4,
+          "value": "0x1"
+        }
+      ],
+      "final_fixture_bytes_before_restore": {
+        "cmd01_next": "0x10001040",
+        "future_e1_payload": "0xe10001bb",
+        "notification_gate": "0x0"
+      },
+      "original_instruction_count": 178,
+      "distinct_original_pcs_executed": 98,
+      "original_code_spans_unchanged": {
+        "AC60": true,
+        "A8F0": true,
+        "BD80": true
+      },
+      "data_write_addresses_within_fixture_and_e1_cells": true,
+      "no_original_a8f0_data_or_vram_writes": true,
+      "private_mapped_data_restored_byte_for_byte": true,
+      "mapped_original_sections": [
+        {
+          "name": "headers",
+          "va": "0x400000",
+          "size": "0x1000"
+        },
+        {
+          "name": ".text",
+          "va": "0x401000",
+          "size": "0x2d000"
+        },
+        {
+          "name": ".rdata",
+          "va": "0x42e000",
+          "size": "0x7000"
+        },
+        {
+          "name": ".data",
+          "va": "0x435000",
+          "size": "0x770000"
+        },
+        {
+          "name": ".idata",
+          "va": "0xba5000",
+          "size": "0x3000"
+        },
+        {
+          "name": ".rsrc",
+          "va": "0xba8000",
+          "size": "0x5000"
+        }
+      ]
+    },
+    {
+      "scenario": "rewrite_link",
+      "predispatch_snapshot": [
+        {
+          "name": "e1_current",
+          "address": "0x10001000",
+          "tag": "0xe1",
+          "next": "0x10001020",
+          "raw_packet_sha256": "8699ab421d621c2fbe3bee63b30b0075da5bf196d8fc6bcf01f899684f51f620",
+          "e1_payload_dword": "0xe100017b"
+        },
+        {
+          "name": "cmd01",
+          "address": "0x10001020",
+          "tag": "0x1",
+          "next": "0x10001040",
+          "raw_packet_sha256": "97dcea0769e9fa55cd32f0cc74acfce006ea4085fcc9af4e47e41c71cead20e7",
+          "destination_s16": [
+            15,
+            240
+          ],
+          "embedded_rect_s16": [
+            5,
+            224,
+            8,
+            0
+          ]
+        },
+        {
+          "name": "e1_future",
+          "address": "0x10001040",
+          "tag": "0xe1",
+          "next": "0x10001060",
+          "raw_packet_sha256": "35f8e4d28aa3ba0f601615046c237befa7570927dab9fbb2b2688fc31b7db606",
+          "e1_payload_dword": "0xe10001bb"
+        },
+        {
+          "name": "ot_gate",
+          "address": "0x10001060",
+          "tag": "0x40",
+          "next": "0x0",
+          "raw_packet_sha256": "b730b7d5e394a384677b645e399357eaedd8fc271c22ebc03bc3490fbe737f52"
+        }
+      ],
+      "native_consumed_packet_boundaries": [
+        {
+          "name": "e1_current",
+          "address": "0x10001000",
+          "tag": "0xe1",
+          "next": "0x10001020",
+          "instruction_boundary_rva": "0xacb9",
+          "instruction_count": 17,
+          "e1_payload_dword": "0xe100017b"
+        },
+        {
+          "name": "cmd01",
+          "address": "0x10001020",
+          "tag": "0x1",
+          "next": "0x10001040",
+          "instruction_boundary_rva": "0xacb9",
+          "instruction_count": 50,
+          "destination_s16": [
+            15,
+            240
+          ],
+          "embedded_rect_s16": [
+            5,
+            224,
+            8,
+            0
+          ]
+        },
+        {
+          "name": "e1_alt",
+          "address": "0x10001080",
+          "tag": "0xe1",
+          "next": "0x10001060",
+          "instruction_boundary_rva": "0xacb9",
+          "instruction_count": 113,
+          "e1_payload_dword": "0xe1000052"
+        },
+        {
+          "name": "ot_gate",
+          "address": "0x10001060",
+          "tag": "0x40",
+          "next": "0x0",
+          "instruction_boundary_rva": "0xacb9",
+          "instruction_count": 146
+        }
+      ],
+      "earliest_stream_divergence": {
+        "index": 2,
+        "kind": "packet_order",
+        "expected": "e1_future",
+        "consumed": "e1_alt"
+      },
+      "e1_original_read_boundaries": [
+        {
+          "pc_rva": "0xb19c",
+          "packet": "e1_current",
+          "packet_va": "0x10001000",
+          "payload_dword_read_by_next_original_instruction": "0xe100017b",
+          "instruction_count": 31
+        },
+        {
+          "pc_rva": "0xb19c",
+          "packet": "e1_alt",
+          "packet_va": "0x10001080",
+          "payload_dword_read_by_next_original_instruction": "0xe1000052",
+          "instruction_count": 127
+        }
+      ],
+      "live_ac60_link_reload_boundaries": [
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "unmapped:0x10000100",
+          "current_packet_va": "0x10000100",
+          "link_value_before_original_mov": "0x10001000",
+          "instruction_count": 12,
+          "loaded_esi_after_original_mov": "0x10001000",
+          "loaded_packet_after_original_mov": "e1_current"
+        },
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "e1_current",
+          "current_packet_va": "0x10001000",
+          "link_value_before_original_mov": "0x10001020",
+          "instruction_count": 45,
+          "loaded_esi_after_original_mov": "0x10001020",
+          "loaded_packet_after_original_mov": "cmd01"
+        },
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "cmd01",
+          "current_packet_va": "0x10001020",
+          "link_value_before_original_mov": "0x10001080",
+          "instruction_count": 108,
+          "loaded_esi_after_original_mov": "0x10001080",
+          "loaded_packet_after_original_mov": "e1_alt"
+        },
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "e1_alt",
+          "current_packet_va": "0x10001080",
+          "link_value_before_original_mov": "0x10001060",
+          "instruction_count": 141,
+          "loaded_esi_after_original_mov": "0x10001060",
+          "loaded_packet_after_original_mov": "ot_gate"
+        },
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "ot_gate",
+          "current_packet_va": "0x10001060",
+          "link_value_before_original_mov": "0x0",
+          "instruction_count": 158,
+          "loaded_esi_after_original_mov": "0x0",
+          "loaded_packet_after_original_mov": "unmapped:0x0"
+        }
+      ],
+      "a8f0_original_entry": [
+        {
+          "entry_rva": "0xa8f0",
+          "callsite_return_rva": "0xb1ec",
+          "esp": "0x2000fee0",
+          "stack_dwords": [
+            "0x40b1ec",
+            "0x10001030",
+            "0xf",
+            "0xf0"
+          ],
+          "rect_pointer": "0x10001030",
+          "destination_s16": [
+            15,
+            240
+          ],
+          "rect_s16": [
+            5,
+            224,
+            8,
+            0
+          ],
+          "instruction_count": 75
+        }
+      ],
+      "a8f0_reaches_original_notification_call": [
+        {
+          "pc_rva": "0xabe4",
+          "meaning": "original zero-height path reaches call BD80 without entering either copy loop",
+          "instruction_count": 90
+        }
+      ],
+      "bd80_original_call_boundaries": [
+        {
+          "pc_rva": "0xbd80",
+          "call_return_rva": "0xabe9",
+          "esp": "0x2000febc",
+          "callback_pointer_at_entry": "0x31000000",
+          "gate_memory_at_entry": "0x1",
+          "instruction_count": 91
+        },
+        {
+          "pc_rva": "0xbd80",
+          "call_return_rva": "0xb2e7",
+          "esp": "0x2000feec",
+          "callback_pointer_at_entry": "0x31000000",
+          "gate_memory_at_entry": "0x1",
+          "instruction_count": 167
+        }
+      ],
+      "bd80_live_gate_reload_boundaries": [
+        {
+          "pc_rva": "0xbd8f",
+          "gate_value_loaded_by_original_mov": "0x1",
+          "instruction_count": 95
+        },
+        {
+          "pc_rva": "0xbd8f",
+          "gate_value_loaded_by_original_mov": "0x1",
+          "instruction_count": 171
+        }
+      ],
+      "synthetic_host_service_calls": [
+        {
+          "endpoint": "0x31000000",
+          "endpoint_classification": "synthetic host service; no installed callback target claim",
+          "esp": "0x2000febc",
+          "stack_dwords": [
+            "0x40abe9",
+            "0x0",
+            "0x10001020",
+            "0x10000104"
+          ],
+          "return_address": "0x40abe9",
+          "return_rva": "0xabe9",
+          "mutation": {
+            "address": "0x10001020",
+            "old": "0x10001040",
+            "new": "0x10001080",
+            "meaning": "rewrite current command-01 next link"
+          },
+          "instruction_count": 98
+        },
+        {
+          "endpoint": "0x31000000",
+          "endpoint_classification": "synthetic host service; no installed callback target claim",
+          "esp": "0x2000feec",
+          "stack_dwords": [
+            "0x40b2e7",
+            "0x0",
+            "0x0",
+            "0x0"
+          ],
+          "return_address": "0x40b2e7",
+          "return_rva": "0xb2e7",
+          "mutation": null,
+          "instruction_count": 174
+        }
+      ],
+      "original_e1_instruction_derived_writes": [
+        {
+          "pc_rva": "0xb1b0",
+          "address": "0xa8e6fc",
+          "size": 4,
+          "value": "0x0"
+        },
+        {
+          "pc_rva": "0xb1bc",
+          "address": "0xa8e6f4",
+          "size": 4,
+          "value": "0x1b"
+        },
+        {
+          "pc_rva": "0xb1ca",
+          "address": "0xa8e6f8",
+          "size": 4,
+          "value": "0x3"
+        },
+        {
+          "pc_rva": "0xb1b0",
+          "address": "0xa8e6fc",
+          "size": 4,
+          "value": "0x0"
+        },
+        {
+          "pc_rva": "0xb1bc",
+          "address": "0xa8e6f4",
+          "size": 4,
+          "value": "0x12"
+        },
+        {
+          "pc_rva": "0xb1ca",
+          "address": "0xa8e6f8",
+          "size": 4,
+          "value": "0x2"
+        }
+      ],
+      "final_fixture_bytes_before_restore": {
+        "cmd01_next": "0x10001080",
+        "future_e1_payload": "0xe10001bb",
+        "notification_gate": "0x1"
+      },
+      "original_instruction_count": 180,
+      "distinct_original_pcs_executed": 98,
+      "original_code_spans_unchanged": {
+        "AC60": true,
+        "A8F0": true,
+        "BD80": true
+      },
+      "data_write_addresses_within_fixture_and_e1_cells": true,
+      "no_original_a8f0_data_or_vram_writes": true,
+      "private_mapped_data_restored_byte_for_byte": true,
+      "mapped_original_sections": [
+        {
+          "name": "headers",
+          "va": "0x400000",
+          "size": "0x1000"
+        },
+        {
+          "name": ".text",
+          "va": "0x401000",
+          "size": "0x2d000"
+        },
+        {
+          "name": ".rdata",
+          "va": "0x42e000",
+          "size": "0x7000"
+        },
+        {
+          "name": ".data",
+          "va": "0x435000",
+          "size": "0x770000"
+        },
+        {
+          "name": ".idata",
+          "va": "0xba5000",
+          "size": "0x3000"
+        },
+        {
+          "name": ".rsrc",
+          "va": "0xba8000",
+          "size": "0x5000"
+        }
+      ]
+    },
+    {
+      "scenario": "mutate_future_e1",
+      "predispatch_snapshot": [
+        {
+          "name": "e1_current",
+          "address": "0x10001000",
+          "tag": "0xe1",
+          "next": "0x10001020",
+          "raw_packet_sha256": "8699ab421d621c2fbe3bee63b30b0075da5bf196d8fc6bcf01f899684f51f620",
+          "e1_payload_dword": "0xe100017b"
+        },
+        {
+          "name": "cmd01",
+          "address": "0x10001020",
+          "tag": "0x1",
+          "next": "0x10001040",
+          "raw_packet_sha256": "97dcea0769e9fa55cd32f0cc74acfce006ea4085fcc9af4e47e41c71cead20e7",
+          "destination_s16": [
+            15,
+            240
+          ],
+          "embedded_rect_s16": [
+            5,
+            224,
+            8,
+            0
+          ]
+        },
+        {
+          "name": "e1_future",
+          "address": "0x10001040",
+          "tag": "0xe1",
+          "next": "0x10001060",
+          "raw_packet_sha256": "35f8e4d28aa3ba0f601615046c237befa7570927dab9fbb2b2688fc31b7db606",
+          "e1_payload_dword": "0xe10001bb"
+        },
+        {
+          "name": "ot_gate",
+          "address": "0x10001060",
+          "tag": "0x40",
+          "next": "0x0",
+          "raw_packet_sha256": "b730b7d5e394a384677b645e399357eaedd8fc271c22ebc03bc3490fbe737f52"
+        }
+      ],
+      "native_consumed_packet_boundaries": [
+        {
+          "name": "e1_current",
+          "address": "0x10001000",
+          "tag": "0xe1",
+          "next": "0x10001020",
+          "instruction_boundary_rva": "0xacb9",
+          "instruction_count": 17,
+          "e1_payload_dword": "0xe100017b"
+        },
+        {
+          "name": "cmd01",
+          "address": "0x10001020",
+          "tag": "0x1",
+          "next": "0x10001040",
+          "instruction_boundary_rva": "0xacb9",
+          "instruction_count": 50,
+          "destination_s16": [
+            15,
+            240
+          ],
+          "embedded_rect_s16": [
+            5,
+            224,
+            8,
+            0
+          ]
+        },
+        {
+          "name": "e1_future",
+          "address": "0x10001040",
+          "tag": "0xe1",
+          "next": "0x10001060",
+          "instruction_boundary_rva": "0xacb9",
+          "instruction_count": 113,
+          "e1_payload_dword": "0xe1000042"
+        },
+        {
+          "name": "ot_gate",
+          "address": "0x10001060",
+          "tag": "0x40",
+          "next": "0x0",
+          "instruction_boundary_rva": "0xacb9",
+          "instruction_count": 146
+        }
+      ],
+      "earliest_stream_divergence": {
+        "index": 2,
+        "kind": "packet_field",
+        "packet": "e1_future",
+        "field": "E1 DWORD at packet+4 (tag byte remains E1)",
+        "expected": "0xe10001bb",
+        "consumed": "0xe1000042"
+      },
+      "e1_original_read_boundaries": [
+        {
+          "pc_rva": "0xb19c",
+          "packet": "e1_current",
+          "packet_va": "0x10001000",
+          "payload_dword_read_by_next_original_instruction": "0xe100017b",
+          "instruction_count": 31
+        },
+        {
+          "pc_rva": "0xb19c",
+          "packet": "e1_future",
+          "packet_va": "0x10001040",
+          "payload_dword_read_by_next_original_instruction": "0xe1000042",
+          "instruction_count": 127
+        }
+      ],
+      "live_ac60_link_reload_boundaries": [
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "unmapped:0x10000100",
+          "current_packet_va": "0x10000100",
+          "link_value_before_original_mov": "0x10001000",
+          "instruction_count": 12,
+          "loaded_esi_after_original_mov": "0x10001000",
+          "loaded_packet_after_original_mov": "e1_current"
+        },
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "e1_current",
+          "current_packet_va": "0x10001000",
+          "link_value_before_original_mov": "0x10001020",
+          "instruction_count": 45,
+          "loaded_esi_after_original_mov": "0x10001020",
+          "loaded_packet_after_original_mov": "cmd01"
+        },
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "cmd01",
+          "current_packet_va": "0x10001020",
+          "link_value_before_original_mov": "0x10001040",
+          "instruction_count": 108,
+          "loaded_esi_after_original_mov": "0x10001040",
+          "loaded_packet_after_original_mov": "e1_future"
+        },
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "e1_future",
+          "current_packet_va": "0x10001040",
+          "link_value_before_original_mov": "0x10001060",
+          "instruction_count": 141,
+          "loaded_esi_after_original_mov": "0x10001060",
+          "loaded_packet_after_original_mov": "ot_gate"
+        },
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "ot_gate",
+          "current_packet_va": "0x10001060",
+          "link_value_before_original_mov": "0x0",
+          "instruction_count": 158,
+          "loaded_esi_after_original_mov": "0x0",
+          "loaded_packet_after_original_mov": "unmapped:0x0"
+        }
+      ],
+      "a8f0_original_entry": [
+        {
+          "entry_rva": "0xa8f0",
+          "callsite_return_rva": "0xb1ec",
+          "esp": "0x2000fee0",
+          "stack_dwords": [
+            "0x40b1ec",
+            "0x10001030",
+            "0xf",
+            "0xf0"
+          ],
+          "rect_pointer": "0x10001030",
+          "destination_s16": [
+            15,
+            240
+          ],
+          "rect_s16": [
+            5,
+            224,
+            8,
+            0
+          ],
+          "instruction_count": 75
+        }
+      ],
+      "a8f0_reaches_original_notification_call": [
+        {
+          "pc_rva": "0xabe4",
+          "meaning": "original zero-height path reaches call BD80 without entering either copy loop",
+          "instruction_count": 90
+        }
+      ],
+      "bd80_original_call_boundaries": [
+        {
+          "pc_rva": "0xbd80",
+          "call_return_rva": "0xabe9",
+          "esp": "0x2000febc",
+          "callback_pointer_at_entry": "0x31000000",
+          "gate_memory_at_entry": "0x1",
+          "instruction_count": 91
+        },
+        {
+          "pc_rva": "0xbd80",
+          "call_return_rva": "0xb2e7",
+          "esp": "0x2000feec",
+          "callback_pointer_at_entry": "0x31000000",
+          "gate_memory_at_entry": "0x1",
+          "instruction_count": 167
+        }
+      ],
+      "bd80_live_gate_reload_boundaries": [
+        {
+          "pc_rva": "0xbd8f",
+          "gate_value_loaded_by_original_mov": "0x1",
+          "instruction_count": 95
+        },
+        {
+          "pc_rva": "0xbd8f",
+          "gate_value_loaded_by_original_mov": "0x1",
+          "instruction_count": 171
+        }
+      ],
+      "synthetic_host_service_calls": [
+        {
+          "endpoint": "0x31000000",
+          "endpoint_classification": "synthetic host service; no installed callback target claim",
+          "esp": "0x2000febc",
+          "stack_dwords": [
+            "0x40abe9",
+            "0x0",
+            "0x10001020",
+            "0x10000104"
+          ],
+          "return_address": "0x40abe9",
+          "return_rva": "0xabe9",
+          "mutation": {
+            "address": "0x10001044",
+            "old": "0xe10001bb",
+            "new": "0xe1000042",
+            "meaning": "rewrite future E1 payload DWORD, retaining tag E1"
+          },
+          "instruction_count": 98
+        },
+        {
+          "endpoint": "0x31000000",
+          "endpoint_classification": "synthetic host service; no installed callback target claim",
+          "esp": "0x2000feec",
+          "stack_dwords": [
+            "0x40b2e7",
+            "0x0",
+            "0x0",
+            "0x0"
+          ],
+          "return_address": "0x40b2e7",
+          "return_rva": "0xb2e7",
+          "mutation": null,
+          "instruction_count": 174
+        }
+      ],
+      "original_e1_instruction_derived_writes": [
+        {
+          "pc_rva": "0xb1b0",
+          "address": "0xa8e6fc",
+          "size": 4,
+          "value": "0x0"
+        },
+        {
+          "pc_rva": "0xb1bc",
+          "address": "0xa8e6f4",
+          "size": 4,
+          "value": "0x1b"
+        },
+        {
+          "pc_rva": "0xb1ca",
+          "address": "0xa8e6f8",
+          "size": 4,
+          "value": "0x3"
+        },
+        {
+          "pc_rva": "0xb1b0",
+          "address": "0xa8e6fc",
+          "size": 4,
+          "value": "0x0"
+        },
+        {
+          "pc_rva": "0xb1bc",
+          "address": "0xa8e6f4",
+          "size": 4,
+          "value": "0x2"
+        },
+        {
+          "pc_rva": "0xb1ca",
+          "address": "0xa8e6f8",
+          "size": 4,
+          "value": "0x2"
+        }
+      ],
+      "final_fixture_bytes_before_restore": {
+        "cmd01_next": "0x10001040",
+        "future_e1_payload": "0xe1000042",
+        "notification_gate": "0x1"
+      },
+      "original_instruction_count": 180,
+      "distinct_original_pcs_executed": 98,
+      "original_code_spans_unchanged": {
+        "AC60": true,
+        "A8F0": true,
+        "BD80": true
+      },
+      "data_write_addresses_within_fixture_and_e1_cells": true,
+      "no_original_a8f0_data_or_vram_writes": true,
+      "private_mapped_data_restored_byte_for_byte": true,
+      "mapped_original_sections": [
+        {
+          "name": "headers",
+          "va": "0x400000",
+          "size": "0x1000"
+        },
+        {
+          "name": ".text",
+          "va": "0x401000",
+          "size": "0x2d000"
+        },
+        {
+          "name": ".rdata",
+          "va": "0x42e000",
+          "size": "0x7000"
+        },
+        {
+          "name": ".data",
+          "va": "0x435000",
+          "size": "0x770000"
+        },
+        {
+          "name": ".idata",
+          "va": "0xba5000",
+          "size": "0x3000"
+        },
+        {
+          "name": ".rsrc",
+          "va": "0xba8000",
+          "size": "0x5000"
+        }
+      ]
+    },
+    {
+      "scenario": "disable_gate",
+      "predispatch_snapshot": [
+        {
+          "name": "e1_current",
+          "address": "0x10001000",
+          "tag": "0xe1",
+          "next": "0x10001020",
+          "raw_packet_sha256": "8699ab421d621c2fbe3bee63b30b0075da5bf196d8fc6bcf01f899684f51f620",
+          "e1_payload_dword": "0xe100017b"
+        },
+        {
+          "name": "cmd01",
+          "address": "0x10001020",
+          "tag": "0x1",
+          "next": "0x10001040",
+          "raw_packet_sha256": "97dcea0769e9fa55cd32f0cc74acfce006ea4085fcc9af4e47e41c71cead20e7",
+          "destination_s16": [
+            15,
+            240
+          ],
+          "embedded_rect_s16": [
+            5,
+            224,
+            8,
+            0
+          ]
+        },
+        {
+          "name": "e1_future",
+          "address": "0x10001040",
+          "tag": "0xe1",
+          "next": "0x10001060",
+          "raw_packet_sha256": "35f8e4d28aa3ba0f601615046c237befa7570927dab9fbb2b2688fc31b7db606",
+          "e1_payload_dword": "0xe10001bb"
+        },
+        {
+          "name": "ot_gate",
+          "address": "0x10001060",
+          "tag": "0x40",
+          "next": "0x0",
+          "raw_packet_sha256": "b730b7d5e394a384677b645e399357eaedd8fc271c22ebc03bc3490fbe737f52"
+        }
+      ],
+      "native_consumed_packet_boundaries": [
+        {
+          "name": "e1_current",
+          "address": "0x10001000",
+          "tag": "0xe1",
+          "next": "0x10001020",
+          "instruction_boundary_rva": "0xacb9",
+          "instruction_count": 17,
+          "e1_payload_dword": "0xe100017b"
+        },
+        {
+          "name": "cmd01",
+          "address": "0x10001020",
+          "tag": "0x1",
+          "next": "0x10001040",
+          "instruction_boundary_rva": "0xacb9",
+          "instruction_count": 50,
+          "destination_s16": [
+            15,
+            240
+          ],
+          "embedded_rect_s16": [
+            5,
+            224,
+            8,
+            0
+          ]
+        },
+        {
+          "name": "e1_future",
+          "address": "0x10001040",
+          "tag": "0xe1",
+          "next": "0x10001060",
+          "instruction_boundary_rva": "0xacb9",
+          "instruction_count": 113,
+          "e1_payload_dword": "0xe10001bb"
+        },
+        {
+          "name": "ot_gate",
+          "address": "0x10001060",
+          "tag": "0x40",
+          "next": "0x0",
+          "instruction_boundary_rva": "0xacb9",
+          "instruction_count": 146
+        }
+      ],
+      "earliest_stream_divergence": null,
+      "e1_original_read_boundaries": [
+        {
+          "pc_rva": "0xb19c",
+          "packet": "e1_current",
+          "packet_va": "0x10001000",
+          "payload_dword_read_by_next_original_instruction": "0xe100017b",
+          "instruction_count": 31
+        },
+        {
+          "pc_rva": "0xb19c",
+          "packet": "e1_future",
+          "packet_va": "0x10001040",
+          "payload_dword_read_by_next_original_instruction": "0xe10001bb",
+          "instruction_count": 127
+        }
+      ],
+      "live_ac60_link_reload_boundaries": [
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "unmapped:0x10000100",
+          "current_packet_va": "0x10000100",
+          "link_value_before_original_mov": "0x10001000",
+          "instruction_count": 12,
+          "loaded_esi_after_original_mov": "0x10001000",
+          "loaded_packet_after_original_mov": "e1_current"
+        },
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "e1_current",
+          "current_packet_va": "0x10001000",
+          "link_value_before_original_mov": "0x10001020",
+          "instruction_count": 45,
+          "loaded_esi_after_original_mov": "0x10001020",
+          "loaded_packet_after_original_mov": "cmd01"
+        },
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "cmd01",
+          "current_packet_va": "0x10001020",
+          "link_value_before_original_mov": "0x10001040",
+          "instruction_count": 108,
+          "loaded_esi_after_original_mov": "0x10001040",
+          "loaded_packet_after_original_mov": "e1_future"
+        },
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "e1_future",
+          "current_packet_va": "0x10001040",
+          "link_value_before_original_mov": "0x10001060",
+          "instruction_count": 141,
+          "loaded_esi_after_original_mov": "0x10001060",
+          "loaded_packet_after_original_mov": "ot_gate"
+        },
+        {
+          "pc_rva": "0xaca2",
+          "current_packet": "ot_gate",
+          "current_packet_va": "0x10001060",
+          "link_value_before_original_mov": "0x0",
+          "instruction_count": 158,
+          "loaded_esi_after_original_mov": "0x0",
+          "loaded_packet_after_original_mov": "unmapped:0x0"
+        }
+      ],
+      "a8f0_original_entry": [
+        {
+          "entry_rva": "0xa8f0",
+          "callsite_return_rva": "0xb1ec",
+          "esp": "0x2000fee0",
+          "stack_dwords": [
+            "0x40b1ec",
+            "0x10001030",
+            "0xf",
+            "0xf0"
+          ],
+          "rect_pointer": "0x10001030",
+          "destination_s16": [
+            15,
+            240
+          ],
+          "rect_s16": [
+            5,
+            224,
+            8,
+            0
+          ],
+          "instruction_count": 75
+        }
+      ],
+      "a8f0_reaches_original_notification_call": [
+        {
+          "pc_rva": "0xabe4",
+          "meaning": "original zero-height path reaches call BD80 without entering either copy loop",
+          "instruction_count": 90
+        }
+      ],
+      "bd80_original_call_boundaries": [
+        {
+          "pc_rva": "0xbd80",
+          "call_return_rva": "0xabe9",
+          "esp": "0x2000febc",
+          "callback_pointer_at_entry": "0x31000000",
+          "gate_memory_at_entry": "0x1",
+          "instruction_count": 91
+        },
+        {
+          "pc_rva": "0xbd80",
+          "call_return_rva": "0xb2e7",
+          "esp": "0x2000feec",
+          "callback_pointer_at_entry": "0x31000000",
+          "gate_memory_at_entry": "0x0",
+          "instruction_count": 167
+        }
+      ],
+      "bd80_live_gate_reload_boundaries": [
+        {
+          "pc_rva": "0xbd8f",
+          "gate_value_loaded_by_original_mov": "0x1",
+          "instruction_count": 95
+        },
+        {
+          "pc_rva": "0xbd8f",
+          "gate_value_loaded_by_original_mov": "0x0",
+          "instruction_count": 171
+        }
+      ],
+      "synthetic_host_service_calls": [
+        {
+          "endpoint": "0x31000000",
+          "endpoint_classification": "synthetic host service; no installed callback target claim",
+          "esp": "0x2000febc",
+          "stack_dwords": [
+            "0x40abe9",
+            "0x0",
+            "0x10001020",
+            "0x10000104"
+          ],
+          "return_address": "0x40abe9",
+          "return_rva": "0xabe9",
+          "mutation": {
+            "address": "0xa8e788",
+            "old": "0x1",
+            "new": "0x0",
+            "meaning": "disable primary notification gate for the later BD80 call"
+          },
+          "instruction_count": 98
+        }
+      ],
+      "original_e1_instruction_derived_writes": [
+        {
+          "pc_rva": "0xb1b0",
+          "address": "0xa8e6fc",
+          "size": 4,
+          "value": "0x0"
+        },
+        {
+          "pc_rva": "0xb1bc",
+          "address": "0xa8e6f4",
+          "size": 4,
+          "value": "0x1b"
+        },
+        {
+          "pc_rva": "0xb1ca",
+          "address": "0xa8e6f8",
+          "size": 4,
+          "value": "0x3"
+        },
+        {
+          "pc_rva": "0xb1b0",
+          "address": "0xa8e6fc",
+          "size": 4,
+          "value": "0x1"
+        },
+        {
+          "pc_rva": "0xb1bc",
+          "address": "0xa8e6f4",
+          "size": 4,
+          "value": "0x1b"
+        },
+        {
+          "pc_rva": "0xb1ca",
+          "address": "0xa8e6f8",
+          "size": 4,
+          "value": "0x1"
+        }
+      ],
+      "final_fixture_bytes_before_restore": {
+        "cmd01_next": "0x10001040",
+        "future_e1_payload": "0xe10001bb",
+        "notification_gate": "0x0"
+      },
+      "original_instruction_count": 179,
+      "distinct_original_pcs_executed": 99,
+      "original_code_spans_unchanged": {
+        "AC60": true,
+        "A8F0": true,
+        "BD80": true
+      },
+      "data_write_addresses_within_fixture_and_e1_cells": true,
+      "no_original_a8f0_data_or_vram_writes": true,
+      "private_mapped_data_restored_byte_for_byte": true,
+      "mapped_original_sections": [
+        {
+          "name": "headers",
+          "va": "0x400000",
+          "size": "0x1000"
+        },
+        {
+          "name": ".text",
+          "va": "0x401000",
+          "size": "0x2d000"
+        },
+        {
+          "name": ".rdata",
+          "va": "0x42e000",
+          "size": "0x7000"
+        },
+        {
+          "name": ".data",
+          "va": "0x435000",
+          "size": "0x770000"
+        },
+        {
+          "name": ".idata",
+          "va": "0xba5000",
+          "size": "0x3000"
+        },
+        {
+          "name": ".rsrc",
+          "va": "0xba8000",
+          "size": "0x5000"
+        }
+      ]
+    }
+  ],
+  "interpretation_limits": [
+    "The predispatch snapshot is passive observation and does not mutate or replace original traversal; it is compared with packets selected by unchanged AC60 at RVA 0xACB9.",
+    "The synthetic service is a fixture endpoint, not a recovered or installed primary callback implementation. Its selected mutation demonstrates that original AC60/A8F0 exposes live state across the synchronous call boundary.",
+    "The command-01 rectangle has zero height. Original A8F0 reaches its BD80 call and makes no memory writes; no positive-area VRAM copy output is tested here.",
+    "AC60 reacquiring the link at ACA2 imposes a compatibility constraint on any future consumer of mutable packet lists. This fixture does not test GPU asynchronous visibility, pixels, resource updates, or hardware equivalence.",
+    "Four small well-formed chains only; no allocator extent, malformed list, installed callback target, source identity, FUNCTION_MATCH, module layout, or whole-image equality is established."
+  ],
+  "invocation": {
+    "exe": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "original_root": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+    "deps": "C:\\tools\\hercules\\renderer-oracle-python",
+    "analysis_deps": "C:\\tools\\hercules\\python",
+    "receipt": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase11\\native_live_capture_replay.json"
+  }
+}

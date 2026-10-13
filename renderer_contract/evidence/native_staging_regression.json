@@ -1,0 +1,790 @@
+{
+  "schema_version": 1,
+  "status": "BOUNDED_EQUIVALENT",
+  "scope": "Private C89 AC60 staging adapter compared at the original FT3/FT4/GT4/sprite raster call entries, the native 0x68 page-refresh branch, E1/F3/command-01 state observations, nine original page-mask probes, and seven nonzero-gate branches. Raster and A8F0 callees are skipped; no pixels or gameplay are claimed.",
+  "prediction_and_falsifier": "work\\renderer_next\\packet_staging\\prediction.json",
+  "oracle": {
+    "exe_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "ac60_span_sha256": "f7724c04bef582e378b183a12550ba841df1a6fa3660be51da71154aa5c525af",
+    "native_mixed_report": "work\\renderer_next\\packet_staging\\native_mixed_report.json",
+    "native_mixed_report_sha256": "3e23adcbeb3a30a5666f4e46110edcca2accf98f755ffc7c0cf4119b9a91a027",
+    "native_gate_report": "work\\renderer_next\\packet_staging\\native_gate_report.json",
+    "native_gate_report_sha256": "3687a9fb81b9b6dbf2823a2a56ca737cdc3b2104b055ec63fdad0448fc08a398",
+    "native_flags_report": "work\\renderer_next\\packet_staging\\native_flags_report.json",
+    "native_flags_report_sha256": "f1460e4a31bb2e1eed76d449a904de5d480771ba3e8e1a4fc288dc0f166aa412",
+    "native_fixture_driver": "renderer_contract\\tests\\original_ac60_mixed_runner.py",
+    "native_gate_driver": "renderer_contract\\tests\\test_original_ac60_gate.py",
+    "native_flag_driver": "renderer_contract\\tests\\test_original_page_masks.py"
+  },
+  "initial_state": {
+    "source": "The captured A909/A8E6 cells lie in the mapped .data BSS tail and began zero-filled.",
+    "pe_data_virtual_size": "0x76fb28",
+    "pe_data_raw_size": "0x9600",
+    "checked_cells": [
+      {
+        "va": "0xa909b0",
+        "bss_offset": "0x65b9b0",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909b4",
+        "bss_offset": "0x65b9b4",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909b8",
+        "bss_offset": "0x65b9b8",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909bc",
+        "bss_offset": "0x65b9bc",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909c0",
+        "bss_offset": "0x65b9c0",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909c4",
+        "bss_offset": "0x65b9c4",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909c8",
+        "bss_offset": "0x65b9c8",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909cc",
+        "bss_offset": "0x65b9cc",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909d0",
+        "bss_offset": "0x65b9d0",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909d4",
+        "bss_offset": "0x65b9d4",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909d8",
+        "bss_offset": "0x65b9d8",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909dc",
+        "bss_offset": "0x65b9dc",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909e0",
+        "bss_offset": "0x65b9e0",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909e4",
+        "bss_offset": "0x65b9e4",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909e8",
+        "bss_offset": "0x65b9e8",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909ec",
+        "bss_offset": "0x65b9ec",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909f0",
+        "bss_offset": "0x65b9f0",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909f4",
+        "bss_offset": "0x65b9f4",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909f8",
+        "bss_offset": "0x65b9f8",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa909fc",
+        "bss_offset": "0x65b9fc",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a00",
+        "bss_offset": "0x65ba00",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a04",
+        "bss_offset": "0x65ba04",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a08",
+        "bss_offset": "0x65ba08",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a0c",
+        "bss_offset": "0x65ba0c",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a10",
+        "bss_offset": "0x65ba10",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a14",
+        "bss_offset": "0x65ba14",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a18",
+        "bss_offset": "0x65ba18",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a1c",
+        "bss_offset": "0x65ba1c",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a20",
+        "bss_offset": "0x65ba20",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a24",
+        "bss_offset": "0x65ba24",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a28",
+        "bss_offset": "0x65ba28",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a2c",
+        "bss_offset": "0x65ba2c",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a30",
+        "bss_offset": "0x65ba30",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a34",
+        "bss_offset": "0x65ba34",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a38",
+        "bss_offset": "0x65ba38",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a3c",
+        "bss_offset": "0x65ba3c",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a40",
+        "bss_offset": "0x65ba40",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a44",
+        "bss_offset": "0x65ba44",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a48",
+        "bss_offset": "0x65ba48",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a4c",
+        "bss_offset": "0x65ba4c",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a50",
+        "bss_offset": "0x65ba50",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a54",
+        "bss_offset": "0x65ba54",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a58",
+        "bss_offset": "0x65ba58",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a5c",
+        "bss_offset": "0x65ba5c",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a60",
+        "bss_offset": "0x65ba60",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a64",
+        "bss_offset": "0x65ba64",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a68",
+        "bss_offset": "0x65ba68",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a6c",
+        "bss_offset": "0x65ba6c",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a70",
+        "bss_offset": "0x65ba70",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a74",
+        "bss_offset": "0x65ba74",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a78",
+        "bss_offset": "0x65ba78",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a7c",
+        "bss_offset": "0x65ba7c",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a80",
+        "bss_offset": "0x65ba80",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a84",
+        "bss_offset": "0x65ba84",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a88",
+        "bss_offset": "0x65ba88",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a8c",
+        "bss_offset": "0x65ba8c",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a90",
+        "bss_offset": "0x65ba90",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a94",
+        "bss_offset": "0x65ba94",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a98",
+        "bss_offset": "0x65ba98",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a9c",
+        "bss_offset": "0x65ba9c",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90aa0",
+        "bss_offset": "0x65baa0",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90aa4",
+        "bss_offset": "0x65baa4",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90aa8",
+        "bss_offset": "0x65baa8",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90aac",
+        "bss_offset": "0x65baac",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90ab0",
+        "bss_offset": "0x65bab0",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90ab4",
+        "bss_offset": "0x65bab4",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a0c",
+        "bss_offset": "0x65ba0c",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa90a10",
+        "bss_offset": "0x65ba10",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa8e6f4",
+        "bss_offset": "0x6596f4",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa8e6f8",
+        "bss_offset": "0x6596f8",
+        "zero_filled": true
+      },
+      {
+        "va": "0xa8e6fc",
+        "bss_offset": "0x6596fc",
+        "zero_filled": true
+      }
+    ]
+  },
+  "candidate": {
+    "files": [
+      {
+        "path": "renderer_contract\\hercules_edge_steps.c",
+        "sha256": "259c9c183daaad329bca78bf23fc3ab5f7aef0a9344c1317ab1a67f941967996"
+      },
+      {
+        "path": "renderer_contract\\hercules_frame.c",
+        "sha256": "0c51696b5aa5af4d9e08527151a1ce32021c64d378123bffd7df92672291c1a4"
+      },
+      {
+        "path": "renderer_contract\\hercules_host_abi.c",
+        "sha256": "09b5ffe70af7623fa53812fd408e4cc50505c11e30279448670571e63ccd3999"
+      },
+      {
+        "path": "renderer_contract\\hercules_packed_uv.c",
+        "sha256": "29491844f7e6aa593dc9009a266c965b3e76e3911c5c21fca4c41baef56b00ca"
+      },
+      {
+        "path": "renderer_contract\\hercules_packets.c",
+        "sha256": "6ff07e4ebcc24f6a04a2b3fa978b06ba9950350b71292cd3b14761735560dcfc"
+      },
+      {
+        "path": "renderer_contract\\hercules_pixels.c",
+        "sha256": "a5479335fb97f3a395b8e74c0bc94f0481b609d2511d04f99484a0af0dec76c4"
+      },
+      {
+        "path": "renderer_contract\\hercules_route_uv_models.c",
+        "sha256": "0a129769ae0a5ec7481f7548b0474041de4016da7595eb5edc71a83e1a90283b"
+      },
+      {
+        "path": "renderer_contract\\hercules_sprite_geometry.c",
+        "sha256": "680ebba6b2bb09e71e4b7d03f9bc0e9f0b55835dc06b17375edfd477b2b1c07a"
+      },
+      {
+        "path": "renderer_contract\\hercules_staging.c",
+        "sha256": "d6c112e5ec5aecc095958292345ce03348ad267443efc2f9fb85fd64d1038d0b"
+      },
+      {
+        "path": "renderer_contract\\hercules_state.c",
+        "sha256": "1c8b050d684837966f58eca3e5435ac33eb756ba4f5e13e8741bd52d5312ee8f"
+      },
+      {
+        "path": "renderer_contract\\hercules_textures.c",
+        "sha256": "07c951a693b8aeab12cff7cf6b09dc802de7c203e0c8387bd4d2bdf4ce23a5c5"
+      },
+      {
+        "path": "renderer_contract\\hercules_edge_steps.h",
+        "sha256": "987ddf243a92d60b381d12c0d14e1f3d361f55981d25b5a1fcd6690fd2e45109"
+      },
+      {
+        "path": "renderer_contract\\hercules_frame.h",
+        "sha256": "e743695844317c5819cd969a93280b8931517ddff21e893238760aef990d2189"
+      },
+      {
+        "path": "renderer_contract\\hercules_host_abi.h",
+        "sha256": "46b12d09a978fb365dd2a02abdce2b411813c1757b24c6d7986e08bafebfbc88"
+      },
+      {
+        "path": "renderer_contract\\hercules_packed_uv.h",
+        "sha256": "6a09683d104256ba1a2a1e4c6dff38f222185a38a84a76c2dc19c2c3a9a976bf"
+      },
+      {
+        "path": "renderer_contract\\hercules_packets.h",
+        "sha256": "b2616d9fb1c9d154730cbfc824880760a0c0162e9aa3f851150ec1787a7dc163"
+      },
+      {
+        "path": "renderer_contract\\hercules_pixels.h",
+        "sha256": "5685c7653d05e55e0b1a8a343cf4d72db9d5fc02adf3d0da50d9f63fda1fbea1"
+      },
+      {
+        "path": "renderer_contract\\hercules_quad_dispatch.h",
+        "sha256": "760dbea6cd1e70f94847da3e2815830fff557e4d86820a8a825e41b9e88cb9c8"
+      },
+      {
+        "path": "renderer_contract\\hercules_route_uv_models.h",
+        "sha256": "14292be083acb6fb1f7d272cb0f4a52db9dc7c181e761925a33aa639297bfb9d"
+      },
+      {
+        "path": "renderer_contract\\hercules_sprite_geometry.h",
+        "sha256": "46e8aa1711e9f158f54abe38c4bb2dbe4ad0c2ba66e6b1bb5394497a153612ea"
+      },
+      {
+        "path": "renderer_contract\\hercules_staging.h",
+        "sha256": "699ced0da2f8070c24523fc4adc8e25d68180eab7fc18e053acabd0ff56a64e5"
+      },
+      {
+        "path": "renderer_contract\\hercules_state.h",
+        "sha256": "c6c528b7f5e18f0f3bc0aa5f794da689043b9f777f4e73bdb5e6a77aa64b26a2"
+      },
+      {
+        "path": "renderer_contract\\hercules_state_wire.h",
+        "sha256": "268a893be201a230c3b397ed78961f6ce1c4c774406f92009c23889f5714653e"
+      },
+      {
+        "path": "renderer_contract\\hercules_surface.h",
+        "sha256": "b000453d7b568d980faae45f1f472fb21dc43c06e4d0306bbb4e00acbff97e44"
+      },
+      {
+        "path": "renderer_contract\\hercules_textures.h",
+        "sha256": "3fdd37291af16f6328a42b545d5655058f1d7d510d796ffdcbe562596e8369ad"
+      },
+      {
+        "path": "renderer_contract\\hercules_types.h",
+        "sha256": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_cpp_headers.cpp",
+        "sha256": "2986ea075cdc8a32911b453a0e9b8c2c267e90443a81cd9c574681796c9ace12"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_edge_steps.c",
+        "sha256": "f79dbd30850483015cbe6d219661b0f460a1ca091c9a285566170aaa9d1ba86f"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_frame.c",
+        "sha256": "18b16581f11fc5d453b2fb240cef44eca12f8be2817169b04d602f4df7343d77"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_host_abi.c",
+        "sha256": "e2fa031df2b65d58287b2b0b73cd7784e3eda0e16ad9686cbe89f8480bb54609"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_packed_uv.c",
+        "sha256": "654f2a9683ad976e43f751e5b1558ddc80478e33ed4e8b400338e75aebd854af"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_packets.c",
+        "sha256": "09d6e7035caa23a6dbfc37b36b32ef58699891028258de311e6a9a09840d2d5a"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_pixels.c",
+        "sha256": "a44935fca486b8fae08f9e7133e267de22ffd65c46fce7270d92be60ad8102fb"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_quad_route.c",
+        "sha256": "55c2fba4119b089e3ada2f8d00dd089ab82caceb089cb1701ecafe2922b60ea5"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_route_uv.c",
+        "sha256": "6b71f463a7cff83bd37b1c6567557a474b54ff7252be7d93b156133affdfa596"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_sprite_geometry.c",
+        "sha256": "8ffc6c721d6cca3be29b2ff72b8a909b09df299de5d0c04f1570cdc789d92c8f"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_sprite_pixels.c",
+        "sha256": "45075236dc349d2ff2e7a4e9a5276ac0caab22f78d86e133c70ee601417cdc37"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_staging.c",
+        "sha256": "617fd080cef3d7f0b4a5c73bd2e11f92cadfefe757378462bb92b631700f6312"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_state.c",
+        "sha256": "5ae18768e2b911c96eea692069c9dc2ebe9387f7ceaaf90aab3fb15bc85aa449"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_texture_high_y.c",
+        "sha256": "840ec024a9b2161ebf0bf96d018a4690422bd886efc855d4591f5f5ff6c2a667"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_texture_row_mapping.c",
+        "sha256": "bf9702fbce3d356a98f1ecc5117126e3f7088c031e017d1cfcbac2a31c4aafb6"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_textures.c",
+        "sha256": "caba0cdca67593badf929761392dcad26cb0265eefcfad8ae58254d760888e64"
+      },
+      {
+        "path": "renderer_contract\\tests\\test_unknown_group60.c",
+        "sha256": "6de4f89fb676d188222909b1010d80160d2da5dd01e066e8a0b3f50798549940"
+      }
+    ],
+    "adapter_runner": "renderer_contract\\tests\\test_native_staging.py",
+    "toolchain": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+    "toolchain_id": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "flags": [
+      "/nologo",
+      "/W3",
+      "/O2",
+      "/MT"
+    ],
+    "common_test_runner": "renderer_contract\\tests\\run_tests.py",
+    "test_command": [
+      "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\run_tests.py",
+      "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+      "--timeout",
+      "60"
+    ],
+    "common_test_summary": {
+      "discovered": 17,
+      "passed": 17,
+      "failed": 0
+    },
+    "fixture_exe_sha256": "2d68bc4e9ee34bd002a4b146cae883b7042e360e32c0fe1a9bfbd441139bb615",
+    "checks": {
+      "count": 74,
+      "failures": 0
+    },
+    "common_runner_stdout": "{\"discovered\": 17, \"passed\": 17, \"failed\": 0}\ntest_cpp_headers.cpp: passed\ntest_edge_steps.c: passed\nchecks=27 failures=0\ntest_frame.c: passed\nchecks=44 failures=0\ntest_host_abi.c: passed\ntable clone contract tests passed\ntest_packed_uv.c: passed\nchecks=345 failures=0\ntest_packets.c: passed\nrenderer_packet_fixture checks=43 failures=0\ntest_pixels.c: passed\nPASS: 47 pixel-reference checks\ntest_quad_route.c: passed\nquad dispatch contract cases passed\ntest_route_uv.c: passed\nroute UV standalone checks passed\ntest_sprite_geometry.c: passed\nPASS renderer sprite geometry bounded contract\ntest_sprite_pixels.c: passed\nPASS: 24 private C8F0/CAB0 proposal checks\ntest_staging.c: passed\nCHECKS;74;0\ntest_state.c: passed\nhercules_state_fixture checks=43 failures=0\ntest_texture_high_y.c: passed\nPASS high-y address endpoints and address-only reciprocal witness\ntest_texture_row_mapping.c: passed\n13 native address-stream fixtures and API edge checks passed\ntest_textures.c: passed\nPASS texture helper synthetic cases\ntest_unknown_group60.c: passed\nCHECKS;51;0"
+  },
+  "comparison": {
+    "native_packet_chain_order": [
+      "ft3",
+      "ft4",
+      "gt4",
+      "e1",
+      "ignored68",
+      "f3",
+      "move",
+      "sprite",
+      "ot_gate"
+    ],
+    "candidate_packet_chain_order": [
+      "ft3",
+      "ft4",
+      "gt4",
+      "e1",
+      "ignored68",
+      "f3",
+      "move",
+      "sprite",
+      "ot_gate"
+    ],
+    "raster_boundaries": [
+      {
+        "boundary": "ft3",
+        "native_rva": "0xe680",
+        "fields_equal": 27
+      },
+      {
+        "boundary": "ft4",
+        "native_rva": "0xd420",
+        "fields_equal": 27
+      },
+      {
+        "boundary": "gt4",
+        "native_rva": "0xe680",
+        "fields_equal": 27
+      },
+      {
+        "boundary": "sprite",
+        "native_rva": "0xcab0",
+        "fields_equal": 27
+      }
+    ],
+    "ignored_raster_boundary": {
+      "packet": "0x68",
+      "original_rva": "0xb119",
+      "fields_equal": 27,
+      "page_base": "0xa3e6e0",
+      "native_no_raster_call": true
+    },
+    "alternate_bank_discriminator_vectors": [
+      {
+        "family": "ft4",
+        "input_bits": "0x80",
+        "page_selector": 0,
+        "page_mode": 0,
+        "alternate_bank": 0,
+        "texture_page_address": "0x96e6e0",
+        "semitransparent": 0,
+        "equal": true
+      },
+      {
+        "family": "ft4",
+        "input_bits": "0x100",
+        "page_selector": 0,
+        "page_mode": 0,
+        "alternate_bank": 0,
+        "texture_page_address": "0x96e6e0",
+        "semitransparent": 0,
+        "equal": true
+      },
+      {
+        "family": "ft4",
+        "input_bits": "0x180",
+        "page_selector": 0,
+        "page_mode": 0,
+        "alternate_bank": 1,
+        "texture_page_address": "0xa6e6e0",
+        "semitransparent": 0,
+        "equal": true
+      },
+      {
+        "family": "gt4",
+        "input_bits": "0x80",
+        "page_selector": 0,
+        "page_mode": 0,
+        "alternate_bank": 0,
+        "texture_page_address": "0x96e6e0",
+        "semitransparent": 1,
+        "equal": true
+      },
+      {
+        "family": "gt4",
+        "input_bits": "0x100",
+        "page_selector": 0,
+        "page_mode": 0,
+        "alternate_bank": 0,
+        "texture_page_address": "0x96e6e0",
+        "semitransparent": 1,
+        "equal": true
+      },
+      {
+        "family": "gt4",
+        "input_bits": "0x180",
+        "page_selector": 0,
+        "page_mode": 0,
+        "alternate_bank": 1,
+        "texture_page_address": "0xa6e6e0",
+        "semitransparent": 1,
+        "equal": true
+      },
+      {
+        "family": "e1",
+        "input_bits": "0x80",
+        "page_selector": 0,
+        "page_mode": 0,
+        "alternate_bank": 0,
+        "texture_page_address": "0x96e6e0",
+        "semitransparent": 0,
+        "equal": true
+      },
+      {
+        "family": "e1",
+        "input_bits": "0x100",
+        "page_selector": 0,
+        "page_mode": 0,
+        "alternate_bank": 0,
+        "texture_page_address": "0x96e6e0",
+        "semitransparent": 0,
+        "equal": true
+      },
+      {
+        "family": "e1",
+        "input_bits": "0x180",
+        "page_selector": 0,
+        "page_mode": 0,
+        "alternate_bank": 1,
+        "texture_page_address": "0xa6e6e0",
+        "semitransparent": 0,
+        "equal": true
+      }
+    ],
+    "native_gate": {
+      "byte_load_instruction_slices": {
+        "top_AC60_mov_al_byte": "a0fc01ba00",
+        "polygon_ACCF_mov_cl_byte": "8a0dfc01ba00",
+        "sprite_B057_mov_cl_byte": "8a0dfc01ba00"
+      },
+      "native_gate_branches": [
+        [
+          "polygon_0x20",
+          "0x26"
+        ],
+        [
+          "polygon_0x20",
+          "0x2c"
+        ],
+        [
+          "polygon_0x20",
+          "0x3e"
+        ],
+        [
+          "group_0x60",
+          "0x68"
+        ],
+        [
+          "group_0x60",
+          "0x64"
+        ],
+        [
+          "group_0x60",
+          "0x74"
+        ],
+        [
+          "group_0x60",
+          "0x7c"
+        ]
+      ],
+      "gated_data_writes": [],
+      "state_preserved_across_each_branch": true,
+      "e1_f3_command01_ot_continue": true
+    },
+    "native_workspace_and_page_field_comparisons": 171,
+    "native_gate_branch_comparisons": 7,
+    "common_c_checks": [
+      74,
+      0
+    ]
+  },
+  "semantics": {
+    "gate": "BA01FC is read as a byte. Native AC60 suppresses all polygon and group-0x60 staging/page-refresh/raster paths when nonzero; E1, F3, command 01, and OT traversal continue.",
+    "alternate_bank": "FT4, GT4, and E1 all observed alternate-bank values 0,0,1 for inputs 0x80, 0x100, 0x180; packet blend bit remains separate.",
+    "command01": "The adapter reports a deferred descriptor; this fixture does not copy bytes.",
+    "scope": "No raster pixels, full device execution, or gameplay behavior are covered."
+  },
+  "limitations": [
+    "Finite synthetic mixed chains and discriminator vectors only.",
+    "Actual raster and A8F0 callees are stopped at their original call boundaries; no pixel or copied-byte result is asserted.",
+    "No canonical source integration, FUNCTION_MATCH, source identity, or whole-module equality is claimed."
+  ],
+  "started_unix": 1791895370.567761,
+  "finished_unix": 1791895381.614207
+}

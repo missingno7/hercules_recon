@@ -230,6 +230,15 @@ RendererAc60ApplyStatus renderer_ac60_apply_packet(
         result_event.deferred_copy = move;
         result_event.kind = RENDERER_AC60_EVENT_DEFERRED_COPY;
         result = RENDERER_AC60_APPLY_DEFERRED;
+    } else if (packet_status == RENDERER_PACKET_UNRECOGNIZED &&
+               (result_event.command & 0xe0U) == 0x60U) {
+        /* AC60's group-0x60 page preamble runs before its known command
+         * comparisons. Preserve that state effect for safe, unrecognized
+         * headers without claiming a packet layout or successful draw. */
+        if (state->raster_suppression_flag == 0)
+            refresh_texture_page_base(state);
+        result_event.kind = RENDERER_AC60_EVENT_UNRECOGNIZED_GROUP60;
+        result = RENDERER_AC60_APPLY_UNRECOGNIZED;
     } else {
         return decode_status(packet_status);
     }

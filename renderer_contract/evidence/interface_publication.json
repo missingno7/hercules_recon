@@ -1,0 +1,559 @@
+{
+  "schema_version": 1,
+  "status": "STATIC_OBSERVED_BOUNDED_PREFIX_ALIAS_AUDIT",
+  "scope": "Pinned original PE bytes; direct absolute write counts are taken from existing public evidence, with this audit adding address-immediate/data alias search and bounded pointer/context dataflow. No host process, proxy, game, or gameplay execution.",
+  "prediction_and_falsifier": {
+    "prediction": "No source-prefix or source-pointer write/alias is found in the bounded address-anchor paths; word1 is a stable pointer value to a mutable shared context object.",
+    "falsifier": "A derived store or REP destination reaches any source-prefix byte or pointer cell, or a later host writer changes word1/source-pointer selection before a subsequent interface copy.",
+    "outcome": "No new table or source-pointer mutation path was found by the bounded alias/dataflow checks. Word1's pointee is actively mutable at context+0x138; the copied pointer aliases that live host context."
+  },
+  "inputs": {
+    "audit_runner_sha256": "49e0ae9d2ce873196604ffb48aa8a864a3d5be5e6401fdda7cf15c450fe6876b",
+    "public_evidence": {
+      "compatibility.json": {
+        "sha256": "82b8b183ad54d629fef5bd977ca8ac579c3708af36879b18c8536303a983c61d",
+        "size": 68057
+      },
+      "loader.json": {
+        "sha256": "a1bb78073f539abd553439fbc28e5733027354e2bf09fad429f19633a36f7649",
+        "size": 8832
+      },
+      "bootstrap_order.json": {
+        "sha256": "ff1237e664d6779b400ec25dd9b7585f4db044bcf7a4c66888ac2fee08336832",
+        "size": 46097
+      },
+      "texture_ownership.json": {
+        "sha256": "2f168224fab78d4b76e7b99a7ccedcfa82a8157cf48ae463e20b21ecac0e322b",
+        "size": 85546
+      },
+      "upload_domain_bounds.json": {
+        "sha256": "a5282b3011fd4e450213eb419bf924b97bf40800789b0e10c9e9f925979f301f",
+        "size": 16205
+      }
+    },
+    "original_images": {
+      "HERCULES.EXE": {
+        "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+        "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+        "size": 275968
+      },
+      "ENG1.DLL": {
+        "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\ENG1.DLL",
+        "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+        "size": 481280
+      },
+      "ENG3.DLL": {
+        "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\ENG3.DLL",
+        "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+        "size": 272896
+      },
+      "TITLE.DLL": {
+        "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\TITLE.DLL",
+        "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+        "size": 180736
+      }
+    },
+    "pe_helper_sha256": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca",
+    "capstone_version": "5.0.7"
+  },
+  "source_table": {
+    "rva": "0x000361b8",
+    "va": "0x004361b8",
+    "word_count": 250,
+    "byte_count": 1000,
+    "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "storage": "file-backed .data initializer",
+    "source_pointer_cell": {
+      "rva": "0x000365a0",
+      "va": "0x004365a0",
+      "initial_value": "0x004361b8",
+      "initial_bytes_sha256": "808fbb8b89f159778e8ec1322e9c7a53c570dfe17e6e565367f97a9bee2a0e3b",
+      "direct_reads_and_writes": [
+        {
+          "rva": "0x5ef3",
+          "mnemonic": "mov",
+          "access": "reads"
+        }
+      ],
+      "published_direct_write_count": 0
+    },
+    "selected_initial_words": [
+      {
+        "slot": 0,
+        "offset": "0x00000000",
+        "value": "0x5ac00cac",
+        "class": "signature",
+        "target_section": null
+      },
+      {
+        "slot": 1,
+        "offset": "0x00000004",
+        "value": "0x00615c98",
+        "class": "shared_context_pointer",
+        "target_section": {
+          "name": ".data",
+          "rva": "0x00215c98",
+          "file_backed": false,
+          "file_offset": null,
+          "zero_fill": true
+        }
+      },
+      {
+        "slot": 2,
+        "offset": "0x00000008",
+        "value": "0x006177d0",
+        "class": "host_read_data_or_pointer",
+        "target_section": {
+          "name": ".data",
+          "rva": "0x002177d0",
+          "file_backed": false,
+          "file_offset": null,
+          "zero_fill": true
+        }
+      },
+      {
+        "slot": 3,
+        "offset": "0x0000000c",
+        "value": "0x00300000",
+        "class": "host_read_data_or_pointer",
+        "target_section": null
+      },
+      {
+        "slot": 5,
+        "offset": "0x00000014",
+        "value": "0x00437480",
+        "class": "host_read_data_or_pointer",
+        "target_section": {
+          "name": ".data",
+          "rva": "0x00037480",
+          "file_backed": true,
+          "file_offset": "0x00035880",
+          "zero_fill": false
+        }
+      },
+      {
+        "slot": 19,
+        "offset": "0x0000004c",
+        "value": "0x00401bd0",
+        "class": "host_text_pointer",
+        "target_section": {
+          "name": ".text",
+          "rva": "0x00001bd0",
+          "file_backed": true,
+          "file_offset": "0x00000fd0",
+          "zero_fill": false
+        }
+      }
+    ],
+    "original_module_cold_copies": {
+      "ENG1.DLL": {
+        "entry_span": {
+          "rva": "0x2c180",
+          "size": 128,
+          "sha256": "597f7923e45606e27c452f9f52794e777d60d9f5a04119e9b0b8f08303f656c4"
+        },
+        "local_copy_root_rva": "0x70f20",
+        "copy_instruction_rva": "0x0002c19f",
+        "copy_instruction": "rep movsd dword ptr es:[edi], dword ptr [esi]",
+        "copy_window": [
+          {
+            "rva": "0x0002c18f",
+            "instruction": "test edx, edx"
+          },
+          {
+            "rva": "0x0002c191",
+            "instruction": "je 0x1002c1f6"
+          },
+          {
+            "rva": "0x0002c193",
+            "instruction": "mov ecx, 0xfa"
+          },
+          {
+            "rva": "0x0002c198",
+            "instruction": "mov esi, edx"
+          },
+          {
+            "rva": "0x0002c19a",
+            "instruction": "mov edi, 0x10070f20"
+          },
+          {
+            "rva": "0x0002c19f",
+            "instruction": "rep movsd dword ptr es:[edi], dword ptr [esi]"
+          },
+          {
+            "rva": "0x0002c1a1",
+            "instruction": "cmp dword ptr [0x10070f20], 0x5ac00cac"
+          }
+        ],
+        "entry_span_memory_writes_through_esi": [],
+        "signature_check_rva": "0x2c1a1",
+        "copy_before_signature_check": true,
+        "copy_direction": "source ESI to module-local destination EDI"
+      },
+      "ENG3.DLL": {
+        "entry_span": {
+          "rva": "0x1f830",
+          "size": 121,
+          "sha256": "856441d73880be288bb62460b1332dcf56bdc544116fb85ec0004d2d71ecf510"
+        },
+        "local_copy_root_rva": "0x407a0",
+        "copy_instruction_rva": "0x0001f84f",
+        "copy_instruction": "rep movsd dword ptr es:[edi], dword ptr [esi]",
+        "copy_window": [
+          {
+            "rva": "0x0001f83f",
+            "instruction": "test edx, edx"
+          },
+          {
+            "rva": "0x0001f841",
+            "instruction": "je 0x1001f8a6"
+          },
+          {
+            "rva": "0x0001f843",
+            "instruction": "mov ecx, 0xfa"
+          },
+          {
+            "rva": "0x0001f848",
+            "instruction": "mov esi, edx"
+          },
+          {
+            "rva": "0x0001f84a",
+            "instruction": "mov edi, 0x100407a0"
+          },
+          {
+            "rva": "0x0001f84f",
+            "instruction": "rep movsd dword ptr es:[edi], dword ptr [esi]"
+          },
+          {
+            "rva": "0x0001f851",
+            "instruction": "cmp dword ptr [0x100407a0], 0x5ac00cac"
+          }
+        ],
+        "entry_span_memory_writes_through_esi": [],
+        "signature_check_rva": "0x1f851",
+        "copy_before_signature_check": true,
+        "copy_direction": "source ESI to module-local destination EDI"
+      },
+      "TITLE.DLL": {
+        "entry_span": {
+          "rva": "0xc1f0",
+          "size": 121,
+          "sha256": "7f70098bc5be27c61bcd63df56c61b218f7884173466650025c3396b3b88048f"
+        },
+        "local_copy_root_rva": "0x2bb40",
+        "copy_instruction_rva": "0x0000c20f",
+        "copy_instruction": "rep movsd dword ptr es:[edi], dword ptr [esi]",
+        "copy_window": [
+          {
+            "rva": "0x0000c1ff",
+            "instruction": "test edx, edx"
+          },
+          {
+            "rva": "0x0000c201",
+            "instruction": "je 0x1000c266"
+          },
+          {
+            "rva": "0x0000c203",
+            "instruction": "mov ecx, 0xfa"
+          },
+          {
+            "rva": "0x0000c208",
+            "instruction": "mov esi, edx"
+          },
+          {
+            "rva": "0x0000c20a",
+            "instruction": "mov edi, 0x1002bb40"
+          },
+          {
+            "rva": "0x0000c20f",
+            "instruction": "rep movsd dword ptr es:[edi], dword ptr [esi]"
+          },
+          {
+            "rva": "0x0000c211",
+            "instruction": "cmp dword ptr [0x1002bb40], 0x5ac00cac"
+          }
+        ],
+        "entry_span_memory_writes_through_esi": [],
+        "signature_check_rva": "0xc211",
+        "copy_before_signature_check": true,
+        "copy_direction": "source ESI to module-local destination EDI"
+      }
+    },
+    "published_direct_absolute_table_writes": [],
+    "published_fixed_address_read_slots": [
+      {
+        "slot": 1,
+        "reads": 186,
+        "writes": 0,
+        "unknown": 0,
+        "site_count": 186,
+        "first_ref_rva": null,
+        "last_ref_rva": null
+      },
+      {
+        "slot": 2,
+        "reads": 2,
+        "writes": 0,
+        "unknown": 0,
+        "site_count": 2,
+        "first_ref_rva": null,
+        "last_ref_rva": null
+      },
+      {
+        "slot": 3,
+        "reads": 2,
+        "writes": 0,
+        "unknown": 0,
+        "site_count": 2,
+        "first_ref_rva": null,
+        "last_ref_rva": null
+      },
+      {
+        "slot": 5,
+        "reads": 2,
+        "writes": 0,
+        "unknown": 0,
+        "site_count": 2,
+        "first_ref_rva": null,
+        "last_ref_rva": null
+      }
+    ]
+  },
+  "new_alias_checks": {
+    "candidate_counts": {
+      "text_address_immediates": 0,
+      "register_displacements": 0,
+      "file_backed_nontext_values": 1
+    },
+    "text_address_immediates_into_prefix_or_pointer_cell": [],
+    "register_based_displacements_numerically_in_prefix_or_pointer_range": [],
+    "file_backed_nontext_dword_values_into_prefix_or_pointer_cell": [
+      {
+        "section": ".data",
+        "rva": "0x000365a0",
+        "aligned_to_dword": true,
+        "value": "0x004361b8"
+      }
+    ],
+    "public_span_pins": {
+      "title_entry_call_sequence": {
+        "rva": "0x00005ef3",
+        "size": 21,
+        "sha256": "8a42ce650f2075b54528f031bab80b2a0c2111c1e57ad3405f83b465eb7ea387"
+      },
+      "context_writer": {
+        "rva": "0x00001bd0",
+        "size": 291,
+        "sha256": "f2af2f9497e022748805220aac39872fdc31492b3fb2e5f582237c81f51a095d"
+      }
+    },
+    "bounded_dispatch_pointer_flow": {
+      "span": {
+        "rva": "0x00005ef3",
+        "size": 21,
+        "sha256": "8a42ce650f2075b54528f031bab80b2a0c2111c1e57ad3405f83b465eb7ea387"
+      },
+      "instructions": [
+        {
+          "rva": "0x00005ef3",
+          "instruction": "mov edx, dword ptr [0x4365a0]"
+        },
+        {
+          "rva": "0x00005ef9",
+          "instruction": "xor ecx, ecx"
+        },
+        {
+          "rva": "0x00005efb",
+          "instruction": "mov cl, byte ptr [0xba01fc]"
+        },
+        {
+          "rva": "0x00005f01",
+          "instruction": "push ecx"
+        },
+        {
+          "rva": "0x00005f02",
+          "instruction": "push edx"
+        },
+        {
+          "rva": "0x00005f03",
+          "instruction": "call eax"
+        },
+        {
+          "rva": "0x00005f05",
+          "instruction": "add esp, 8"
+        }
+      ],
+      "pointer_cell_load": {
+        "rva": "0x00005ef3",
+        "instruction": "mov edx, dword ptr [0x4365a0]"
+      },
+      "edx_based_memory_uses_before_call": [],
+      "edx_rep_destinations_before_call": [],
+      "interpretation": "The source-table pointer is loaded from 0x4365a0 into EDX and passed as an engine-entry argument; within this bounded sequence it is not used as a memory destination or REP destination."
+    }
+  },
+  "word1_shared_context": {
+    "source_cell_rva": "0x000361bc",
+    "source_cell_va": "0x004361bc",
+    "initial_value": "0x00615c98",
+    "target_section": {
+      "name": ".data",
+      "rva": "0x00215c98",
+      "file_backed": false,
+      "file_offset": null,
+      "zero_fill": true
+    },
+    "target_write_address": "0x00615dd0",
+    "target_write_bytes_sha256": null,
+    "pinned_host_writer_span": {
+      "rva": "0x00001bd0",
+      "size": 291,
+      "sha256": "f2af2f9497e022748805220aac39872fdc31492b3fb2e5f582237c81f51a095d"
+    },
+    "direct_word1_loads_in_writer": [
+      {
+        "rva": "0x00001bd6",
+        "instruction": "mov eax, dword ptr [0x4361bc]",
+        "access": 1
+      },
+      {
+        "rva": "0x00001bf1",
+        "instruction": "mov edx, dword ptr [0x4361bc]",
+        "access": 1
+      },
+      {
+        "rva": "0x00001c03",
+        "instruction": "mov ecx, dword ptr [0x4361bc]",
+        "access": 1
+      },
+      {
+        "rva": "0x00001c1a",
+        "instruction": "mov eax, dword ptr [0x4361bc]",
+        "access": 1
+      },
+      {
+        "rva": "0x00001c41",
+        "instruction": "mov ecx, dword ptr [0x4361bc]",
+        "access": 1
+      },
+      {
+        "rva": "0x00001c50",
+        "instruction": "mov edx, dword ptr [0x4361bc]",
+        "access": 1
+      },
+      {
+        "rva": "0x00001c81",
+        "instruction": "mov eax, dword ptr [0x4361bc]",
+        "access": 1
+      },
+      {
+        "rva": "0x00001c90",
+        "instruction": "mov ecx, dword ptr [0x4361bc]",
+        "access": 1
+      },
+      {
+        "rva": "0x00001ca2",
+        "instruction": "mov edx, dword ptr [0x4361bc]",
+        "access": 1
+      },
+      {
+        "rva": "0x00001cb7",
+        "instruction": "mov ecx, dword ptr [0x4361bc]",
+        "access": 1
+      },
+      {
+        "rva": "0x00001ccc",
+        "instruction": "mov edx, dword ptr [0x4361bc]",
+        "access": 1
+      },
+      {
+        "rva": "0x00001cd9",
+        "instruction": "mov edx, dword ptr [0x4361bc]",
+        "access": 1
+      },
+      {
+        "rva": "0x00001ce6",
+        "instruction": "mov ecx, dword ptr [0x4361bc]",
+        "access": 1
+      }
+    ],
+    "word1_to_field_store_instruction_window": [
+      {
+        "rva": "0x00001c03",
+        "instruction": "mov ecx, dword ptr [0x4361bc]"
+      },
+      {
+        "rva": "0x00001c09",
+        "instruction": "mov dx, word ptr [esp + 0x20]"
+      },
+      {
+        "rva": "0x00001c0e",
+        "instruction": "mov word ptr [ecx + 0x138], dx"
+      }
+    ],
+    "derived_context_field_writes": [
+      {
+        "rva": "0x00001c0e",
+        "instruction": "mov word ptr [ecx + 0x138], dx",
+        "access": 2
+      }
+    ],
+    "context_writer_evidence": {
+      "table_slot_index": 19,
+      "target_rva": "0x1bd0",
+      "written_context_offset": "0x138",
+      "native_stack_mapping": "The host body pushes EBX and makes a returning helper call, then pushes two local pointer arguments. At the store, [ESP+0x20] resolves to host-entry ESP+0x14: the two-argument trampoline caller's second argument. The trampoline forwards its first two caller arguments to host slot+0x4c; this is not the caller's third/fourth/fifth argument."
+    },
+    "classification": "Prefix word 1 is a static pointer value; host code writes through that pointer at +0x138. The pointed-to state can change, but this does not change the copied word unless an unobserved alias rewrites source word 1.",
+    "bounded_trace_sha256": "371f2fb8a98248c73fd44b70ea4a06b694fd08c964dda51a0b8492e976217be8"
+  },
+  "temporal_scope": {
+    "claim": "This report addresses table-content coherence after a raw prefix copy only; it does not establish DLL_PROCESS_ATTACH timing, module-load order, or source-table availability at attach.",
+    "deferred_directdraw_note": "The unresolved 0x79A0 route in bootstrap_order.json bears on a publication strategy that waits for DirectDrawCreate to return. It does not contradict or decide a hypothetical earlier DLL_PROCESS_ATTACH publication; import/attach timing is outside this audit.",
+    "host_pointer_read_rva": "0x5ef3",
+    "host_first_copy_order_note": "The direct initialization path is 0x7937 -> 0x5e10 -> 0x72a0 -> 0x71a0 -> DirectDrawCreate thunk 0x10a20 at 0x7426; 0x72a0 returns before 0x5e10 completes. A separate callback path is 0x79a0 -> 0x79fc -> 0x5f20 -> 0x5ec0 -> guarded indirect 0x5f03; that routine chain does not call 0x5e10, 0x72a0, or DirectDrawCreate."
+  },
+  "linear_scan": {
+    "section": ".text",
+    "rva": "0x00001000",
+    "raw_size": 183808,
+    "record_count": 65379,
+    "decoded_count": 65375,
+    "skipdata_count": 4,
+    "covered_bytes": 183808,
+    "coverage_complete": true,
+    "limit": "Linear sweep over file-backed .text; byte coverage is not instruction-boundary proof."
+  },
+  "spans": {
+    "source_prefix": {
+      "rva": "0x000361b8",
+      "size": 1000,
+      "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+      "section": ".data"
+    },
+    "source_pointer_cell": {
+      "rva": "0x000365a0",
+      "size": 4,
+      "sha256": "808fbb8b89f159778e8ec1322e9c7a53c570dfe17e6e565367f97a9bee2a0e3b",
+      "initial_value": "0x004361b8",
+      "section": ".data"
+    },
+    "dispatcher_pointer_load_to_call": {
+      "rva": "0x00005ef3",
+      "size": 21,
+      "sha256": "8a42ce650f2075b54528f031bab80b2a0c2111c1e57ad3405f83b465eb7ea387"
+    },
+    "word1_context_writer": {
+      "rva": "0x00001bd0",
+      "size": 291,
+      "sha256": "f2af2f9497e022748805220aac39872fdc31492b3fb2e5f582237c81f51a095d"
+    }
+  },
+  "limits": [
+    "Existing direct absolute scans remain the authority for absolute source-cell writes; this audit does not repeat or broaden their function claims.",
+    "Numerical data aliases and register displacement matches are candidates, not runtime aliases by themselves.",
+    "The pointer-to-context write trace covers the pinned host callback body, not every consumer or every runtime state transition.",
+    "Arbitrary register-computed aliases, callbacks, external modules, process scheduling, and user-mode writes remain unproved.",
+    "This is a static coherence result; it does not validate a deployed proxy or guarantee that an early DllMain hook is called at a particular time."
+  ]
+}

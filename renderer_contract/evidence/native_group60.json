@@ -1,0 +1,625 @@
+{
+  "schema_version": 1,
+  "status": "BOUNDED_EQUIVALENT",
+  "scope": "Finite original x86 AC60 group-0x60 preamble trace; stops at B119 after fallthrough compares or at ACA2 on the nonzero-byte early branch, before raster/tail. Tests only safe 8-byte heads for 0x60/0x62/0x70/0x68 and byte-gate vectors 0, 1, 0x100.",
+  "prediction": {
+    "hypothesis": "AC60's group-0x60 preamble refreshes A909FC from the current page cells before command comparison for any safe 8-byte packet whose tag & 0xe0 is 0x60, including unknown tags 0x60, 0x62, and 0x70 as well as observed-undrawn 0x68. The preamble is suppressed only when the byte at BA01FC is nonzero.",
+    "fixture": {
+      "tags": [
+        "0x60",
+        "0x62",
+        "0x70",
+        "0x68"
+      ],
+      "suppression_bytes": {
+        "zero": "BA01FC=0, BA01FD=0",
+        "one": "BA01FC=1",
+        "adjacent_canary": "BA01FC=0, BA01FD=1 (DWORD view 0x00000100)"
+      },
+      "initial_page_cells": {
+        "A8E6F4": "0x0b",
+        "A8E6F8": "0",
+        "A8E6FC": "0"
+      },
+      "initial_A909FC": "0x11223344"
+    },
+    "predicted_A909FC": {
+      "BA01FC=0": "0x009be6e0",
+      "BA01FC=1": "0x11223344",
+      "BA01FC=0_and_BA01FD=1": "0x009be6e0"
+    },
+    "falsifier": "For any tested group-0x60 tag, a byte-zero gate fails to refresh the page cell, a byte-one gate refreshes it, or the adjacent-byte-only canary suppresses refresh. Any raster call or packet-relative access beyond the common 8-byte header also falsifies the stated safe-fallthrough assumption.",
+    "scope_limit": "Finite discriminator for consumer fallthrough semantics only; it cannot establish any producer or first-party occurrence for 0x60, 0x62, or 0x70."
+  },
+  "prediction_sha256": "2a84b8f8ca8a33e76508993b029a7373bcc7dc17de9233d3a13424937c8bb4d8",
+  "runner_sha256": "1c8a21e534977e3c198ee95e3e41f5fd9c777e76d61a756a64692d9517e2e58a",
+  "source_hashes": {
+    "renderer_contract/tests/oracle_common.py": "a024048d9acc6e18197e10a82427cd84351a90666e1626e610bf60c6105f1357",
+    "scripts/pe.py": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca",
+    "renderer_contract/hercules_staging.c": "d6c112e5ec5aecc095958292345ce03348ad267443efc2f9fb85fd64d1038d0b",
+    "renderer_contract/hercules_staging.h": "699ced0da2f8070c24523fc4adc8e25d68180eab7fc18e053acabd0ff56a64e5",
+    "renderer_contract/tests/test_unknown_group60.c": "6de4f89fb676d188222909b1010d80160d2da5dd01e066e8a0b3f50798549940"
+  },
+  "oracle": {
+    "exe": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000",
+    "ac60_rva": "0xac60",
+    "ac60_size": "0x690",
+    "ac60_sha256": "f7724c04bef582e378b183a12550ba841df1a6fa3660be51da71154aa5c525af"
+  },
+  "execution": {
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "unicorn_module_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\__init__.py",
+    "native_dll_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "dependency_origin": {
+      "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+      "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+      "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+    },
+    "architecture": "x86 32-bit",
+    "instructions_per_case_bounded": 100000,
+    "original_code_modified": false,
+    "fixture_data_only": true
+  },
+  "initial_page_state": {
+    "A8E6F4": "0x0b",
+    "A8E6F8": "0",
+    "A8E6FC": "0",
+    "A909FC": "0x11223344"
+  },
+  "cases": [
+    {
+      "tag": "0x60",
+      "group": "0x60",
+      "gate_word": "0x0",
+      "gate_bytes": "0000",
+      "stop_rva": "0xb119",
+      "instructions": 61,
+      "A909FC": "0x9be6e0",
+      "A909FC_writes": [
+        {
+          "pc_rva": "0xb076",
+          "address": "0xa909fc",
+          "size": 4,
+          "value": "0x9be6e0"
+        }
+      ],
+      "packet_read_events": [
+        {
+          "pc_rva": "0xacbb",
+          "offset": "0x7",
+          "size": 1
+        }
+      ],
+      "max_packet_read_end": 8,
+      "all_data_writes": [
+        {
+          "pc_rva": "0x709b",
+          "address": "0xba0214",
+          "size": 4,
+          "value": "0x140"
+        },
+        {
+          "pc_rva": "0x70a5",
+          "address": "0xba0210",
+          "size": 4,
+          "value": "0x0"
+        },
+        {
+          "pc_rva": "0x70ab",
+          "address": "0xba01f0",
+          "size": 1,
+          "value": "0x1"
+        },
+        {
+          "pc_rva": "0xb076",
+          "address": "0xa909fc",
+          "size": 4,
+          "value": "0x9be6e0"
+        }
+      ],
+      "raster_entry_seen": false,
+      "unrelated_code_or_OS_endpoint_seen": false,
+      "original_code_unchanged": true,
+      "private_data_restored": true,
+      "ac60_touched_packet_only_header": true
+    },
+    {
+      "tag": "0x60",
+      "group": "0x60",
+      "gate_word": "0x1",
+      "gate_bytes": "0100",
+      "stop_rva": "0xaca2",
+      "instructions": 28,
+      "A909FC": "0x11223344",
+      "A909FC_writes": [],
+      "packet_read_events": [
+        {
+          "pc_rva": "0xacbb",
+          "offset": "0x7",
+          "size": 1
+        }
+      ],
+      "max_packet_read_end": 8,
+      "all_data_writes": [],
+      "raster_entry_seen": false,
+      "unrelated_code_or_OS_endpoint_seen": false,
+      "original_code_unchanged": true,
+      "private_data_restored": true,
+      "ac60_touched_packet_only_header": true
+    },
+    {
+      "tag": "0x60",
+      "group": "0x60",
+      "gate_word": "0x100",
+      "gate_bytes": "0001",
+      "stop_rva": "0xb119",
+      "instructions": 61,
+      "A909FC": "0x9be6e0",
+      "A909FC_writes": [
+        {
+          "pc_rva": "0xb076",
+          "address": "0xa909fc",
+          "size": 4,
+          "value": "0x9be6e0"
+        }
+      ],
+      "packet_read_events": [
+        {
+          "pc_rva": "0xacbb",
+          "offset": "0x7",
+          "size": 1
+        }
+      ],
+      "max_packet_read_end": 8,
+      "all_data_writes": [
+        {
+          "pc_rva": "0x709b",
+          "address": "0xba0214",
+          "size": 4,
+          "value": "0x140"
+        },
+        {
+          "pc_rva": "0x70a5",
+          "address": "0xba0210",
+          "size": 4,
+          "value": "0x0"
+        },
+        {
+          "pc_rva": "0x70ab",
+          "address": "0xba01f0",
+          "size": 1,
+          "value": "0x1"
+        },
+        {
+          "pc_rva": "0xb076",
+          "address": "0xa909fc",
+          "size": 4,
+          "value": "0x9be6e0"
+        }
+      ],
+      "raster_entry_seen": false,
+      "unrelated_code_or_OS_endpoint_seen": false,
+      "original_code_unchanged": true,
+      "private_data_restored": true,
+      "ac60_touched_packet_only_header": true
+    },
+    {
+      "tag": "0x62",
+      "group": "0x60",
+      "gate_word": "0x0",
+      "gate_bytes": "0000",
+      "stop_rva": "0xb119",
+      "instructions": 61,
+      "A909FC": "0x9be6e0",
+      "A909FC_writes": [
+        {
+          "pc_rva": "0xb076",
+          "address": "0xa909fc",
+          "size": 4,
+          "value": "0x9be6e0"
+        }
+      ],
+      "packet_read_events": [
+        {
+          "pc_rva": "0xacbb",
+          "offset": "0x7",
+          "size": 1
+        }
+      ],
+      "max_packet_read_end": 8,
+      "all_data_writes": [
+        {
+          "pc_rva": "0x709b",
+          "address": "0xba0214",
+          "size": 4,
+          "value": "0x140"
+        },
+        {
+          "pc_rva": "0x70a5",
+          "address": "0xba0210",
+          "size": 4,
+          "value": "0x0"
+        },
+        {
+          "pc_rva": "0x70ab",
+          "address": "0xba01f0",
+          "size": 1,
+          "value": "0x1"
+        },
+        {
+          "pc_rva": "0xb076",
+          "address": "0xa909fc",
+          "size": 4,
+          "value": "0x9be6e0"
+        }
+      ],
+      "raster_entry_seen": false,
+      "unrelated_code_or_OS_endpoint_seen": false,
+      "original_code_unchanged": true,
+      "private_data_restored": true,
+      "ac60_touched_packet_only_header": true
+    },
+    {
+      "tag": "0x62",
+      "group": "0x60",
+      "gate_word": "0x1",
+      "gate_bytes": "0100",
+      "stop_rva": "0xaca2",
+      "instructions": 28,
+      "A909FC": "0x11223344",
+      "A909FC_writes": [],
+      "packet_read_events": [
+        {
+          "pc_rva": "0xacbb",
+          "offset": "0x7",
+          "size": 1
+        }
+      ],
+      "max_packet_read_end": 8,
+      "all_data_writes": [],
+      "raster_entry_seen": false,
+      "unrelated_code_or_OS_endpoint_seen": false,
+      "original_code_unchanged": true,
+      "private_data_restored": true,
+      "ac60_touched_packet_only_header": true
+    },
+    {
+      "tag": "0x62",
+      "group": "0x60",
+      "gate_word": "0x100",
+      "gate_bytes": "0001",
+      "stop_rva": "0xb119",
+      "instructions": 61,
+      "A909FC": "0x9be6e0",
+      "A909FC_writes": [
+        {
+          "pc_rva": "0xb076",
+          "address": "0xa909fc",
+          "size": 4,
+          "value": "0x9be6e0"
+        }
+      ],
+      "packet_read_events": [
+        {
+          "pc_rva": "0xacbb",
+          "offset": "0x7",
+          "size": 1
+        }
+      ],
+      "max_packet_read_end": 8,
+      "all_data_writes": [
+        {
+          "pc_rva": "0x709b",
+          "address": "0xba0214",
+          "size": 4,
+          "value": "0x140"
+        },
+        {
+          "pc_rva": "0x70a5",
+          "address": "0xba0210",
+          "size": 4,
+          "value": "0x0"
+        },
+        {
+          "pc_rva": "0x70ab",
+          "address": "0xba01f0",
+          "size": 1,
+          "value": "0x1"
+        },
+        {
+          "pc_rva": "0xb076",
+          "address": "0xa909fc",
+          "size": 4,
+          "value": "0x9be6e0"
+        }
+      ],
+      "raster_entry_seen": false,
+      "unrelated_code_or_OS_endpoint_seen": false,
+      "original_code_unchanged": true,
+      "private_data_restored": true,
+      "ac60_touched_packet_only_header": true
+    },
+    {
+      "tag": "0x70",
+      "group": "0x60",
+      "gate_word": "0x0",
+      "gate_bytes": "0000",
+      "stop_rva": "0xb119",
+      "instructions": 61,
+      "A909FC": "0x9be6e0",
+      "A909FC_writes": [
+        {
+          "pc_rva": "0xb076",
+          "address": "0xa909fc",
+          "size": 4,
+          "value": "0x9be6e0"
+        }
+      ],
+      "packet_read_events": [
+        {
+          "pc_rva": "0xacbb",
+          "offset": "0x7",
+          "size": 1
+        }
+      ],
+      "max_packet_read_end": 8,
+      "all_data_writes": [
+        {
+          "pc_rva": "0x709b",
+          "address": "0xba0214",
+          "size": 4,
+          "value": "0x140"
+        },
+        {
+          "pc_rva": "0x70a5",
+          "address": "0xba0210",
+          "size": 4,
+          "value": "0x0"
+        },
+        {
+          "pc_rva": "0x70ab",
+          "address": "0xba01f0",
+          "size": 1,
+          "value": "0x1"
+        },
+        {
+          "pc_rva": "0xb076",
+          "address": "0xa909fc",
+          "size": 4,
+          "value": "0x9be6e0"
+        }
+      ],
+      "raster_entry_seen": false,
+      "unrelated_code_or_OS_endpoint_seen": false,
+      "original_code_unchanged": true,
+      "private_data_restored": true,
+      "ac60_touched_packet_only_header": true
+    },
+    {
+      "tag": "0x70",
+      "group": "0x60",
+      "gate_word": "0x1",
+      "gate_bytes": "0100",
+      "stop_rva": "0xaca2",
+      "instructions": 28,
+      "A909FC": "0x11223344",
+      "A909FC_writes": [],
+      "packet_read_events": [
+        {
+          "pc_rva": "0xacbb",
+          "offset": "0x7",
+          "size": 1
+        }
+      ],
+      "max_packet_read_end": 8,
+      "all_data_writes": [],
+      "raster_entry_seen": false,
+      "unrelated_code_or_OS_endpoint_seen": false,
+      "original_code_unchanged": true,
+      "private_data_restored": true,
+      "ac60_touched_packet_only_header": true
+    },
+    {
+      "tag": "0x70",
+      "group": "0x60",
+      "gate_word": "0x100",
+      "gate_bytes": "0001",
+      "stop_rva": "0xb119",
+      "instructions": 61,
+      "A909FC": "0x9be6e0",
+      "A909FC_writes": [
+        {
+          "pc_rva": "0xb076",
+          "address": "0xa909fc",
+          "size": 4,
+          "value": "0x9be6e0"
+        }
+      ],
+      "packet_read_events": [
+        {
+          "pc_rva": "0xacbb",
+          "offset": "0x7",
+          "size": 1
+        }
+      ],
+      "max_packet_read_end": 8,
+      "all_data_writes": [
+        {
+          "pc_rva": "0x709b",
+          "address": "0xba0214",
+          "size": 4,
+          "value": "0x140"
+        },
+        {
+          "pc_rva": "0x70a5",
+          "address": "0xba0210",
+          "size": 4,
+          "value": "0x0"
+        },
+        {
+          "pc_rva": "0x70ab",
+          "address": "0xba01f0",
+          "size": 1,
+          "value": "0x1"
+        },
+        {
+          "pc_rva": "0xb076",
+          "address": "0xa909fc",
+          "size": 4,
+          "value": "0x9be6e0"
+        }
+      ],
+      "raster_entry_seen": false,
+      "unrelated_code_or_OS_endpoint_seen": false,
+      "original_code_unchanged": true,
+      "private_data_restored": true,
+      "ac60_touched_packet_only_header": true
+    },
+    {
+      "tag": "0x68",
+      "group": "0x60",
+      "gate_word": "0x0",
+      "gate_bytes": "0000",
+      "stop_rva": "0xb119",
+      "instructions": 61,
+      "A909FC": "0x9be6e0",
+      "A909FC_writes": [
+        {
+          "pc_rva": "0xb076",
+          "address": "0xa909fc",
+          "size": 4,
+          "value": "0x9be6e0"
+        }
+      ],
+      "packet_read_events": [
+        {
+          "pc_rva": "0xacbb",
+          "offset": "0x7",
+          "size": 1
+        }
+      ],
+      "max_packet_read_end": 8,
+      "all_data_writes": [
+        {
+          "pc_rva": "0x709b",
+          "address": "0xba0214",
+          "size": 4,
+          "value": "0x140"
+        },
+        {
+          "pc_rva": "0x70a5",
+          "address": "0xba0210",
+          "size": 4,
+          "value": "0x0"
+        },
+        {
+          "pc_rva": "0x70ab",
+          "address": "0xba01f0",
+          "size": 1,
+          "value": "0x1"
+        },
+        {
+          "pc_rva": "0xb076",
+          "address": "0xa909fc",
+          "size": 4,
+          "value": "0x9be6e0"
+        }
+      ],
+      "raster_entry_seen": false,
+      "unrelated_code_or_OS_endpoint_seen": false,
+      "original_code_unchanged": true,
+      "private_data_restored": true,
+      "ac60_touched_packet_only_header": true
+    },
+    {
+      "tag": "0x68",
+      "group": "0x60",
+      "gate_word": "0x1",
+      "gate_bytes": "0100",
+      "stop_rva": "0xaca2",
+      "instructions": 28,
+      "A909FC": "0x11223344",
+      "A909FC_writes": [],
+      "packet_read_events": [
+        {
+          "pc_rva": "0xacbb",
+          "offset": "0x7",
+          "size": 1
+        }
+      ],
+      "max_packet_read_end": 8,
+      "all_data_writes": [],
+      "raster_entry_seen": false,
+      "unrelated_code_or_OS_endpoint_seen": false,
+      "original_code_unchanged": true,
+      "private_data_restored": true,
+      "ac60_touched_packet_only_header": true
+    },
+    {
+      "tag": "0x68",
+      "group": "0x60",
+      "gate_word": "0x100",
+      "gate_bytes": "0001",
+      "stop_rva": "0xb119",
+      "instructions": 61,
+      "A909FC": "0x9be6e0",
+      "A909FC_writes": [
+        {
+          "pc_rva": "0xb076",
+          "address": "0xa909fc",
+          "size": 4,
+          "value": "0x9be6e0"
+        }
+      ],
+      "packet_read_events": [
+        {
+          "pc_rva": "0xacbb",
+          "offset": "0x7",
+          "size": 1
+        }
+      ],
+      "max_packet_read_end": 8,
+      "all_data_writes": [
+        {
+          "pc_rva": "0x709b",
+          "address": "0xba0214",
+          "size": 4,
+          "value": "0x140"
+        },
+        {
+          "pc_rva": "0x70a5",
+          "address": "0xba0210",
+          "size": 4,
+          "value": "0x0"
+        },
+        {
+          "pc_rva": "0x70ab",
+          "address": "0xba01f0",
+          "size": 1,
+          "value": "0x1"
+        },
+        {
+          "pc_rva": "0xb076",
+          "address": "0xa909fc",
+          "size": 4,
+          "value": "0x9be6e0"
+        }
+      ],
+      "raster_entry_seen": false,
+      "unrelated_code_or_OS_endpoint_seen": false,
+      "original_code_unchanged": true,
+      "private_data_restored": true,
+      "ac60_touched_packet_only_header": true
+    }
+  ],
+  "conclusion": "All four tested group-0x60 tags refresh A909FC to 0x9be6e0 when BA01FC byte is zero, preserve it when that byte is one, and still refresh when only BA01FD is one. The observed preamble therefore precedes the 0x64/0x74/0x7c/0x68 comparisons and uses a byte gate for these finite cases.",
+  "limitations": [
+    "Finite discriminator only; no producer or first-party occurrence claim for 0x60, 0x62, 0x70.",
+    "Only the 8-byte common header was allocated, and hooked reads are checked to end within that header; no draw or A8F0 body was executed.",
+    "No raster pixel, texture mutation, gameplay, or full AC60 exit behavior claimed."
+  ]
+}

@@ -1,0 +1,330 @@
+{
+  "schema_version": 1,
+  "scope": "Read-only PE metadata and bounded full .text import-call candidate inventory. No executable, DLL, game, or callback is run.",
+  "audit_script_sha256": "1da053dbfbca138935317f5efe21df59fc986e9fd0b98d573d1c505dfde625d7",
+  "host": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "size": 275968,
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "machine": "0x14c",
+    "pe_magic": "0x10b",
+    "image_base": "0x400000",
+    "entry_point_rva": "0x11ea0",
+    "entry_point_va": "0x411ea0",
+    "subsystem": 2,
+    "characteristics": "0x10f",
+    "dll_characteristics": "0x0",
+    "loader_flags": "0x0",
+    "sections": [
+      {
+        "name": ".text",
+        "rva": "0x1000",
+        "virtual_size": 183742,
+        "raw_size": 183808
+      },
+      {
+        "name": ".rdata",
+        "rva": "0x2e000",
+        "virtual_size": 24744,
+        "raw_size": 25088
+      },
+      {
+        "name": ".data",
+        "rva": "0x35000",
+        "virtual_size": 7797544,
+        "raw_size": 38400
+      },
+      {
+        "name": ".idata",
+        "rva": "0x7a5000",
+        "virtual_size": 8368,
+        "raw_size": 8704
+      },
+      {
+        "name": ".rsrc",
+        "rva": "0x7a8000",
+        "virtual_size": 18548,
+        "raw_size": 18944
+      }
+    ]
+  },
+  "data_directories": [
+    {
+      "index": 0,
+      "name": "export",
+      "rva": "0x0",
+      "size": "0x0",
+      "present": false
+    },
+    {
+      "index": 1,
+      "name": "import",
+      "rva": "0x7a5000",
+      "size": "0xf0",
+      "present": true
+    },
+    {
+      "index": 2,
+      "name": "resource",
+      "rva": "0x7a8000",
+      "size": "0x4874",
+      "present": true
+    },
+    {
+      "index": 3,
+      "name": "exception",
+      "rva": "0x0",
+      "size": "0x0",
+      "present": false
+    },
+    {
+      "index": 4,
+      "name": "security",
+      "rva": "0x0",
+      "size": "0x0",
+      "present": false
+    },
+    {
+      "index": 5,
+      "name": "base_relocation",
+      "rva": "0x0",
+      "size": "0x0",
+      "present": false
+    },
+    {
+      "index": 6,
+      "name": "debug",
+      "rva": "0x0",
+      "size": "0x0",
+      "present": false
+    },
+    {
+      "index": 7,
+      "name": "architecture",
+      "rva": "0x0",
+      "size": "0x0",
+      "present": false
+    },
+    {
+      "index": 8,
+      "name": "global_pointer",
+      "rva": "0x0",
+      "size": "0x0",
+      "present": false
+    },
+    {
+      "index": 9,
+      "name": "tls",
+      "rva": "0x0",
+      "size": "0x0",
+      "present": false
+    },
+    {
+      "index": 10,
+      "name": "load_config",
+      "rva": "0x0",
+      "size": "0x0",
+      "present": false
+    },
+    {
+      "index": 11,
+      "name": "bound_import",
+      "rva": "0x0",
+      "size": "0x0",
+      "present": false
+    },
+    {
+      "index": 12,
+      "name": "iat",
+      "rva": "0x7a5618",
+      "size": "0x528",
+      "present": true
+    },
+    {
+      "index": 13,
+      "name": "delay_import",
+      "rva": "0x0",
+      "size": "0x0",
+      "present": false
+    },
+    {
+      "index": 14,
+      "name": "clr_runtime_header",
+      "rva": "0x0",
+      "size": "0x0",
+      "present": false
+    },
+    {
+      "index": 15,
+      "name": "reserved",
+      "rva": "0x0",
+      "size": "0x0",
+      "present": false
+    }
+  ],
+  "managed_image": {
+    "clr_runtime_header_present": false,
+    "interpretation": "CLR directory is absent; no managed-image header is declared."
+  },
+  "resources": {
+    "rt_manifest_resource_count": 0
+  },
+  "startup_callbacks": {
+    "tls_directory_present": false,
+    "tls_directory": null,
+    "tls_callbacks": [],
+    "tls_section_names": [],
+    "exe_owned_tls_callback_count": 0,
+    "exe_owned_tls_callbacks_observed": false,
+    "interpretation": "A zero TLS directory means this EXE declares no TLS callback array; it does not inventory callbacks in imported DLLs or injected modules."
+  },
+  "imports": {
+    "descriptor_names_file_order": [
+      "DDRAW.dll",
+      "DSOUND.dll",
+      "WINMM.dll",
+      "KERNEL32.dll",
+      "USER32.dll",
+      "GDI32.dll",
+      "WINSPOOL.DRV",
+      "ADVAPI32.dll",
+      "SHELL32.dll",
+      "COMCTL32.dll"
+    ],
+    "file_order_is_runtime_load_order": false,
+    "static_ddraw_import_present": true,
+    "static_directdrawcreate_present": true,
+    "relevant_imports": [
+      {
+        "dll": "ddraw.dll",
+        "name": "DirectDrawCreate",
+        "iat_rva": "0x7a5648"
+      },
+      {
+        "dll": "kernel32.dll",
+        "name": "LoadLibraryA",
+        "iat_rva": "0x7a589c"
+      },
+      {
+        "dll": "kernel32.dll",
+        "name": "FreeLibrary",
+        "iat_rva": "0x7a58a4"
+      },
+      {
+        "dll": "kernel32.dll",
+        "name": "GetProcAddress",
+        "iat_rva": "0x7a58ac"
+      }
+    ],
+    "direct_import_call_candidates": {
+      "LoadLibraryA": [
+        "0x5c75",
+        "0x19403"
+      ],
+      "GetProcAddress": [
+        "0x5c95",
+        "0x13845",
+        "0x202f0"
+      ],
+      "FreeLibrary": [
+        "0x5c3a",
+        "0x2cd3a"
+      ],
+      "DirectDrawCreate": []
+    },
+    "engine_like_static_import_modules": [],
+    "all_import_descriptors_sha256": "80cd548d207383b7feb4f7bf2ea746c7b0d4c762b7dd46b0d993663618e3f32d"
+  },
+  "exports": {
+    "count": 0,
+    "symbols": [],
+    "host_exports_pc_dll_engine_main": false
+  },
+  "engine_resolution": {
+    "engine_export_name_string_rva": "0x36868",
+    "name": "PC_DLLEngineMain",
+    "resolution_model": "host code imports LoadLibraryA/GetProcAddress and looks up this name; not a static HERCULES.EXE import",
+    "loadlibrarya_call_candidates": [
+      "0x5c75",
+      "0x19403"
+    ],
+    "getprocaddress_call_candidates": [
+      "0x5c95",
+      "0x13845",
+      "0x202f0"
+    ],
+    "freelibrary_call_candidates": [
+      "0x5c3a",
+      "0x2cd3a"
+    ]
+  },
+  "static_import_lifecycle": {
+    "ddraw_iat_call_candidates": [],
+    "directdraw_thunk": {
+      "rva": "0x10a20",
+      "size": 6,
+      "sha256": "ed64febc50f25778a8a17187ad15903925a528a4682a055bda4b01f901bd7152",
+      "call_sites": [
+        "0x7426"
+      ],
+      "dispatches_via_iat_rva": "0x7a5648"
+    },
+    "entry_point_rva": "0x11ea0",
+    "app_local_selection_observed_for_host": false,
+    "conditional_conclusion": "Under ordinary process startup, if the static DDRAW.dll import resolves to the candidate app-local module and that module has a successful DLL_PROCESS_ATTACH, its attach-time publication occurs during loader initialization before host EXE entry code. Therefore host-controlled dispatch through 0x79A0 cannot precede that attach. This conclusion is conditional on actual module selection and normal loader startup; it is not Hercules runtime integration."
+  },
+  "deployment_boundary": {
+    "resolution_is_environment_dependent": true,
+    "conditions_not_proved_by_image": [
+      "whether target system treats ddraw.dll as a Known DLL or applies redirection/side-by-side policy",
+      "whether the candidate app-local module is present beside the deployed EXE",
+      "whether its dependencies and required exports resolve",
+      "whether attach returns success"
+    ],
+    "pinned_install_sidecar_or_manifest_observed": false
+  },
+  "tool": {
+    "pe_helper": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\scripts\\pe.py",
+    "pe_helper_sha256": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca",
+    "capstone_version": "5.0.7",
+    "text_rva": "0x1000",
+    "text_raw_bytes": 183808,
+    "skipdata_records": 65379,
+    "valid_instructions": 65375,
+    "coverage_bytes": 183808,
+    "coverage_complete": true
+  },
+  "source_links": [
+    {
+      "title": "Microsoft Load-Time Dynamic Linking",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/dlls/load-time-dynamic-linking",
+      "used_for": "Ordinary load-time dependency mapping and process-load DLL entry-point invocation; independent of API-set naming."
+    },
+    {
+      "title": "Microsoft API set loader operation",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/apiindex/api-set-loader-operation",
+      "used_for": "Microsoft states static imports resolve before code runs; this is applied only to this EXE's ordinary static-import startup."
+    },
+    {
+      "title": "Microsoft DllMain entry point",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/dlls/dllmain",
+      "used_for": "DLL_PROCESS_ATTACH for a module loaded at process startup and static-vs-dynamic lpvReserved meaning; DllMain constraints."
+    },
+    {
+      "title": "Microsoft PE format",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/debug/pe-format",
+      "used_for": "Data-directory, import, export, and TLS callback metadata interpretation."
+    },
+    {
+      "title": "Microsoft DLL search order",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order",
+      "used_for": "KnownDLL/redirection/search policy remains deployment-dependent."
+    }
+  ],
+  "limits": [
+    "A static PE import and no EXE TLS callbacks establish loader-before-host-entry ordering only for the ordinary process-startup path if DDRAW resolves to the candidate module.",
+    "This does not prove the app-local module is selected on any target deployment; KnownDLLs, loaded-module list, SxS/redirection, dependencies, and OS policy remain external.",
+    "Import descriptor order and linear-sweep callsites are metadata/candidates, not observed runtime load or call order.",
+    "This does not prove which callback is the first table copy or validate the real Hercules process; the synthetic early-loader fixture is separate evidence."
+  ]
+}

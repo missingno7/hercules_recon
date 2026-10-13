@@ -199,3 +199,36 @@ original-x86 cases and a full file-backed `.text` candidate sweep. Accepted
 transparent and some degenerate primitives still request presentation; 70C0
 can rewrite 76,800 surface bytes without setting that request. These are
 route-specific observations, not full raster or host integration equivalence.
+
+Four bounded original-execution chains now test live callback timing. The
+synthetic service rewrites a link, changes a future E1 payload, or disables
+the notification gate; native AC60 consumes the changed storage after return.
+These cases compare explicit trace expectations with original execution and
+make no C implementation or shipped-callback mutation claim.
+
+```powershell
+& $pythonExe renderer_contract/tests/test_original_live_capture.py --original-root . --exe $originalExe --receipt work/replay/live_capture.json
+& $pythonExe renderer_contract/tests/audit_interface_publication.py --repo-root . --exe $originalExe --eng1 D:\Prog\hercules_recon\work\discs\pc_install\ENG1.DLL --eng3 D:\Prog\hercules_recon\work\discs\pc_install\ENG3.DLL --title D:\Prog\hercules_recon\work\discs\pc_install\TITLE.DLL --output work/replay/interface_publication.json
+& $pythonExe renderer_contract/tests/audit_import_preentry.py --original-root . --exe $originalExe --output work/replay/startup_import.json
+```
+
+The two static audits establish checked table-content coherence, the shared
+context pointer, and ordinary static-import PE metadata. Attach-before-host-entry
+timing is a conditional Windows-loader inference; neither audit observes the
+candidate module being selected or installed in a Hercules process.
+
+The unknown group-0x60 correction passes seventeen fresh VC5 suites and
+seventeen GCC suites. Twelve bounded native cases establish the preamble's
+page write and its byte-sized gate, including an adjacent-byte canary. The
+new synthetic C suite checks its explicit unrecognized status and state event.
+The existing native staging replay still matches 171 fields, seven gate
+branches and nine masks against the corrected helper.
+
+```powershell
+& $pythonExe renderer_contract/tests/test_original_group60.py --original-root . --exe $originalExe --receipt work/replay/group60.json
+& $pythonExe renderer_contract/tests/test_native_staging.py --original-root . --exe $originalExe --receipt work/replay/staging_regression.json
+```
+
+The latter command uses the pinned VC5 compiler. Both original-code runners
+stop at bounded consumer/callee boundaries; they do not validate pixels,
+positive-area VRAM moves, or the full host presentation path.

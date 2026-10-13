@@ -2,7 +2,7 @@
 
 | Target | Established | Remaining |
 |---|---|---|
-| Passive capture | Shared submission callback, 250-word native prefix copies, per-module OT views, checked packet decoder | Actual proxy selection/publication timing across the independent 0x79a0 path; representative reachable commands; borrowed lifetime and live reload after callbacks |
+| Passive capture | Shared submission callback, 250-word native prefix copies, per-module OT views, checked packet decoder; conditional static-import attach-before-host-entry inference | Actual module selection/attach and first-copy visibility; representative reachable commands; borrowed lifetime; entry snapshots differ from consumption when callbacks mutate future storage |
 | Faithful GPU packet rendering | Distinct indexed pixel kernels, finite sprite/triangle/quad/fill geometry, E680 shade/blend/zero-source paths, startup LUT aliasing, forward VRAM move order | Broader coordinate domains; complete reachable command coverage; resource-transition values/timing; callback-driven state changes and full buffer ownership |
 | Original window integration | Host HWND, DIB/DirectDraw surface, palette, lock/unlock/present/movie paths; static IsLost/Restore branches | Live coexistence and loss/restoration observations; synchronization with preserved writers |
 | Full presentation replacement | Separate palette/movie/remap/clear writers identified | All writer ownership and mode transitions; complete replacement of presentation services |

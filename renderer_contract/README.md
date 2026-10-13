@@ -13,7 +13,10 @@ static interception candidate; sufficiency and live timing remain unobserved.
 The direct init chain calls `DirectDrawCreate` at RVA `0x7426` before its
 later table-pointer read, but a separate guarded event/tick chain can reach
 that read and dispatch without traversing `DirectDrawCreate`. There is no
-process-wide ordering proof.
+process-wide ordering proof from those host paths alone. The later
+[startup import audit](startup_import.md) supports conditional attach-before-host-entry
+publication when ordinary startup selects the intended static DDRAW module and
+its attach succeeds. Target selection and live integration remain unobserved.
 
 The import-resolution surrogate receipt establishes sibling-DLL selection
 for an ordinary static import on the tested machine; it does not call
@@ -80,6 +83,10 @@ not replace this complete contract.
 | geometry.md | Information available before and after projection |
 | blockers.md | Separate capture, rendering, window and enhancement blockers |
 | callback_metadata.md | CMainFrame message-map ownership and the unowned event-callback cluster |
+| interface_publication.md | Table-content coherence and the shared mutable context pointer |
+| startup_import.md | Conditional attach-before-host-entry inference from original PE metadata |
+| live_capture.md | Native callback counterexamples to entry-snapshot consumption equivalence |
+| consumer_coverage.md | Dispatch-to-decoder coverage and unknown group-0x60 state effects |
 | bootstrap_gates.md | Initial zero-fill and normal export publication order; indirect gate-setter limits |
 | `bootstrap_order.md` | Direct-init and independent event/tick dispatch paths; HRESULT branch and ordering limits |
 | `packed_uv_recurrence.md` | One finite D60C fixture where sampled texels change a later V byte |
@@ -162,7 +169,9 @@ subsystem. These contracts are GPU API independent.
 original routes. [Upload producer domains](texture_producer_domains.md) recover
 the shared ENG1/ENG3 high-band startup rectangle and its exact native write range.
 
-Current verification passes 15 suites with VC5 and 15 with GCC. The bounded
-C state replay matches 1,029 original register transitions; thirteen native
-texture fixtures verify the named row/address cases. These results do not
-establish whole-renderer equivalence or live Hercules integration.
+Current verification passes 17 suites with VC5 and 17 with GCC. Bounded C
+replays match 1,029 D60C register transitions and 5,423 CC50/E680 transitions.
+Thirteen native texture fixtures verify the named row/address cases; ten
+surface cases and 26 dirty-latch cases cover their stated synthetic conditions.
+These results do not establish whole-renderer equivalence or live Hercules
+integration. See [verification.md](verification.md) for the exact proof scopes.
