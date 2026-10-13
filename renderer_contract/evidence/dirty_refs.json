@@ -1,0 +1,350 @@
+{
+  "scope": "Read-only full .text linear-sweep candidates; this is not execution/reachability proof. Original executable is read-only.",
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000"
+  },
+  "tool": {
+    "capstone_version": "5.0.7",
+    "section_name": ".text",
+    "section_rva": "0x1000",
+    "file_backed_bytes": 183808
+  },
+  "coverage": {
+    "strict_first_stop_rva": "0x1124a",
+    "strict_decoded_instructions": 21486,
+    "strict_decoded_bytes": 66122,
+    "full_skipdata_valid_instructions": 65375,
+    "pseudoops": 4,
+    "skipped_bytes": 4,
+    "byte_coverage_complete": true,
+    "gaps": [
+      {
+        "start_rva": "0x1124a",
+        "end_rva_exclusive": "0x1124b",
+        "size": 1
+      },
+      {
+        "start_rva": "0x1f760",
+        "end_rva_exclusive": "0x1f761",
+        "size": 1
+      },
+      {
+        "start_rva": "0x20812",
+        "end_rva_exclusive": "0x20813",
+        "size": 1
+      },
+      {
+        "start_rva": "0x28c64",
+        "end_rva_exclusive": "0x28c65",
+        "size": 1
+      }
+    ]
+  },
+  "target": "0x43a590",
+  "candidate_count": 17,
+  "inside_hash_verified_renderer_spans": 14,
+  "outside_reviewed_spans": 3,
+  "candidates": [
+    {
+      "site_rva": "0x566b",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "write",
+      "instruction": "mov byte ptr [0x43a590], 1",
+      "bounded_intervals": [],
+      "scope": "outside_reviewed_spans"
+    },
+    {
+      "site_rva": "0x6620",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "read",
+      "instruction": "mov al, byte ptr [0x43a590]",
+      "bounded_intervals": [
+        {
+          "name": "present_frame",
+          "classification": "host_service_to_preserve",
+          "rva": "0x6620",
+          "size": 224,
+          "sha256": "4e350af06a5c660a75dabf57cd95c42eb06d6f0b1b4b8a2c65b709fefa3d30cd"
+        }
+      ],
+      "scope": "inside_reviewed_span"
+    },
+    {
+      "site_rva": "0x6637",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "write",
+      "instruction": "mov byte ptr [0x43a590], 0",
+      "bounded_intervals": [
+        {
+          "name": "present_frame",
+          "classification": "host_service_to_preserve",
+          "rva": "0x6620",
+          "size": 224,
+          "sha256": "4e350af06a5c660a75dabf57cd95c42eb06d6f0b1b4b8a2c65b709fefa3d30cd"
+        }
+      ],
+      "scope": "inside_reviewed_span"
+    },
+    {
+      "site_rva": "0x675d",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "write",
+      "instruction": "mov byte ptr [0x43a590], 1",
+      "bounded_intervals": [],
+      "scope": "outside_reviewed_spans"
+    },
+    {
+      "site_rva": "0x6d63",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "write",
+      "instruction": "mov byte ptr [0x43a590], 1",
+      "bounded_intervals": [
+        {
+          "name": "lock_failure_transition",
+          "classification": "compatibility_side_effect",
+          "rva": "0x6bb0",
+          "size": 784,
+          "sha256": "369922176b91588536370342557e34de4e6e7dac3c6baeebfa3cf7f915f9ffe0"
+        }
+      ],
+      "scope": "inside_reviewed_span"
+    },
+    {
+      "site_rva": "0x6e98",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "write",
+      "instruction": "mov byte ptr [0x43a590], 1",
+      "bounded_intervals": [
+        {
+          "name": "lock_failure_transition",
+          "classification": "compatibility_side_effect",
+          "rva": "0x6bb0",
+          "size": 784,
+          "sha256": "369922176b91588536370342557e34de4e6e7dac3c6baeebfa3cf7f915f9ffe0"
+        }
+      ],
+      "scope": "inside_reviewed_span"
+    },
+    {
+      "site_rva": "0x6f94",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "write",
+      "instruction": "mov byte ptr [0x43a590], 1",
+      "bounded_intervals": [
+        {
+          "name": "directdraw_color_setup",
+          "classification": "host_service_to_preserve",
+          "rva": "0x6ee0",
+          "size": 272,
+          "sha256": "6437bcd2fc991f42423b9602d567acd5f76f1d58f8d23270546dba9c480b7723"
+        }
+      ],
+      "scope": "inside_reviewed_span"
+    },
+    {
+      "site_rva": "0x6fd7",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "write",
+      "instruction": "mov byte ptr [0x43a590], 1",
+      "bounded_intervals": [
+        {
+          "name": "directdraw_color_setup",
+          "classification": "host_service_to_preserve",
+          "rva": "0x6ee0",
+          "size": 272,
+          "sha256": "6437bcd2fc991f42423b9602d567acd5f76f1d58f8d23270546dba9c480b7723"
+        }
+      ],
+      "scope": "inside_reviewed_span"
+    },
+    {
+      "site_rva": "0x976b",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "write",
+      "instruction": "mov byte ptr [0x43a590], 1",
+      "bounded_intervals": [],
+      "scope": "outside_reviewed_spans"
+    },
+    {
+      "site_rva": "0xc6ea",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "write",
+      "instruction": "mov byte ptr [0x43a590], 1",
+      "bounded_intervals": [
+        {
+          "name": "polygon_span_helper",
+          "classification": "replaceable_rasterizer",
+          "rva": "0xc2e0",
+          "size": 1056,
+          "sha256": "8908bd9d0b920d8020f304feda864b1a25f42415cca421510b48362e2f091d9a"
+        }
+      ],
+      "scope": "inside_reviewed_span"
+    },
+    {
+      "site_rva": "0xc8d5",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "write",
+      "instruction": "mov byte ptr [0x43a590], 1",
+      "bounded_intervals": [
+        {
+          "name": "polygon_fill_helper",
+          "classification": "replaceable_rasterizer",
+          "rva": "0xc700",
+          "size": 496,
+          "sha256": "b81741c75b775d15bc06622ee9e11a4095385c92e8b6c0a3b2c641e80924a567"
+        }
+      ],
+      "scope": "inside_reviewed_span"
+    },
+    {
+      "site_rva": "0xca9a",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "write",
+      "instruction": "mov byte ptr [0x43a590], 1",
+      "bounded_intervals": [
+        {
+          "name": "raster_path_tag_bit1_set_sprite",
+          "classification": "replaceable_rasterizer",
+          "rva": "0xc8f0",
+          "size": 448,
+          "sha256": "95ac42d7f4447015eb0760dfccbf2c40fddf600baa76f8f885cf3be7ad9926bf"
+        }
+      ],
+      "scope": "inside_reviewed_span"
+    },
+    {
+      "site_rva": "0xcc37",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "write",
+      "instruction": "mov byte ptr [0x43a590], 1",
+      "bounded_intervals": [
+        {
+          "name": "raster_path_tag_bit1_clear_sprite",
+          "classification": "replaceable_rasterizer",
+          "rva": "0xcab0",
+          "size": 416,
+          "sha256": "fe6c00a7e9109250e2e5aa4c3c3419c7381cf9758422d42d319b3e4648d12609"
+        }
+      ],
+      "scope": "inside_reviewed_span"
+    },
+    {
+      "site_rva": "0xd407",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "write",
+      "instruction": "mov byte ptr [0x43a590], 1",
+      "bounded_intervals": [
+        {
+          "name": "polygon_draw_helper",
+          "classification": "replaceable_rasterizer",
+          "rva": "0xcc50",
+          "size": 2000,
+          "sha256": "26ac072b8de4b59f4a929abb5fd0d6cbcbe826fa02d3ee9f78d07245b39f8776"
+        }
+      ],
+      "scope": "inside_reviewed_span"
+    },
+    {
+      "site_rva": "0xdd5f",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "write",
+      "instruction": "mov byte ptr [0x43a590], 1",
+      "bounded_intervals": [
+        {
+          "name": "raster_path_tag_bit1_clear_polygon",
+          "classification": "replaceable_rasterizer",
+          "rva": "0xd420",
+          "size": 2384,
+          "sha256": "4645c60cf0a357ed4aae074c3487a2755384852d0874e2f12b352b994544e07e"
+        }
+      ],
+      "scope": "inside_reviewed_span"
+    },
+    {
+      "site_rva": "0xe667",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "write",
+      "instruction": "mov byte ptr [0x43a590], 1",
+      "bounded_intervals": [
+        {
+          "name": "polygon_pixel_helper",
+          "classification": "replaceable_rasterizer",
+          "rva": "0xdd70",
+          "size": 2320,
+          "sha256": "44dcd2638f14fbcf644f76aa622cba9e4dff971776662c6d2317b725eafcad60"
+        }
+      ],
+      "scope": "inside_reviewed_span"
+    },
+    {
+      "site_rva": "0xef52",
+      "address": "0x43a590",
+      "width": 1,
+      "access": "write",
+      "instruction": "mov byte ptr [0x43a590], 1",
+      "bounded_intervals": [
+        {
+          "name": "raster_path_tag_bit1_set_polygon",
+          "classification": "replaceable_rasterizer",
+          "rva": "0xe680",
+          "size": 2272,
+          "sha256": "f42bfcb06d042a8cd9ced6a8df5375b734c1e5641811a062059bbd02cb8dcb58"
+        }
+      ],
+      "scope": "inside_reviewed_span"
+    }
+  ],
+  "surface_service_call_candidates": {
+    "lock_6ff0": [
+      "0x55e8",
+      "0x6d0e",
+      "0x6d59",
+      "0x6d79",
+      "0x7415",
+      "0xac92"
+    ],
+    "unlock_7140": [
+      "0x5672",
+      "0x69ab",
+      "0x6bf6",
+      "0x6d44",
+      "0x6d5e",
+      "0x6dc7",
+      "0xb2d8"
+    ],
+    "present_6620": [
+      "0x5677",
+      "0x6764",
+      "0x69be",
+      "0x6d6a",
+      "0x6e9f",
+      "0x9772",
+      "0xb2dd"
+    ]
+  },
+  "surface_service_call_scope": "Full .text skipdata linear-sweep candidate lists; all listed calls also lie before strict stop 0x1124a. Candidate decode is not reachability proof.",
+  "state_ownership_sha256": "ecd1e0eaddcf35ceb5f8beeb5c798ffd9b54d29ae1fd0ae2760a3de344ee4508",
+  "limitations": [
+    "Linear sweep can decode embedded data as instructions. Computed and indirect aliases are not covered.",
+    "The strict decoder is prefix-only; do not use it as a complete caller inventory."
+  ]
+}

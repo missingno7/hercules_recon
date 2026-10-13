@@ -291,6 +291,96 @@
         "status",
         "unowned_79a0_cluster"
       ]
+    },
+    {
+      "lane": "route_uv_state",
+      "path": "renderer_contract/evidence/native_route_uv_state.json",
+      "sha256": "822df7dc678433f53f3c1a0cd941d68b88a6c8103fec61fc65fcef0e62e3835a",
+      "schema_keys": [
+        "elapsed_seconds",
+        "fixture",
+        "gcc",
+        "invocation",
+        "limits",
+        "native_trace",
+        "oracle",
+        "original_spans",
+        "prediction",
+        "runtime",
+        "schema_version",
+        "scope",
+        "sources",
+        "status",
+        "vc5"
+      ]
+    },
+    {
+      "lane": "pointer_correction",
+      "path": "renderer_contract/evidence/native_pointer_correction.json",
+      "sha256": "3924cbe4ef93684d90050e7597c510cd4b343907c9f21738d0f3503524f289c1",
+      "schema_keys": [
+        "carry_rows",
+        "classification",
+        "fixture",
+        "loop_entries",
+        "nonzero_pointer_correction_entries",
+        "oracle",
+        "original_spans",
+        "post_dec_states",
+        "post_uv_states",
+        "prediction",
+        "prediction_source_sha256",
+        "raw_boundary_only",
+        "route_result",
+        "runtime",
+        "schema_version",
+        "scope",
+        "status",
+        "strict_c89_differential",
+        "summary",
+        "tooling"
+      ]
+    },
+    {
+      "lane": "dirty_gate",
+      "path": "renderer_contract/evidence/native_dirty_gate.json",
+      "sha256": "ea4a2e8041859575bec3725ad6fbbc48edaeab66a48419da2d7ba0f58b627b19",
+      "schema_keys": [
+        "case_count",
+        "cases",
+        "conclusion",
+        "helpers",
+        "invocation",
+        "limits",
+        "oracle",
+        "original_spans",
+        "route_eligibility_findings",
+        "runtime",
+        "schema_version",
+        "scope",
+        "static_inventory",
+        "status"
+      ]
+    },
+    {
+      "lane": "dirty_refs",
+      "path": "renderer_contract/evidence/dirty_refs.json",
+      "sha256": "af669b078cd12c25cedc8dcef63e7997fd5c8fd96c472dbc839405e41797c29c",
+      "schema_keys": [
+        "candidate_count",
+        "candidates",
+        "coverage",
+        "inside_hash_verified_renderer_spans",
+        "limitations",
+        "oracle",
+        "outside_reviewed_spans",
+        "scope",
+        "state_ownership_sha256",
+        "surface_service_call_candidates",
+        "surface_service_call_scope",
+        "target",
+        "tool"
+      ]
     }
   ],
   "excluded_or_pending_reports": [],
@@ -3217,7 +3307,8 @@
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
         "work/renderer_closure/evidence.json#dependencies.present_frame",
-        "work/renderer_presentation/evidence.json#graphics_spans.present_06620"
+        "work/renderer_presentation/evidence.json#graphics_spans.present_06620",
+        "renderer_contract/evidence/native_dirty_gate.json#original_spans"
       ]
     },
     {
@@ -3406,7 +3497,8 @@
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
         "work/renderer_closure/evidence.json#dependencies.lock_failure_transition",
-        "work/renderer_presentation/evidence.json#graphics_spans.fullscreen_transition_06bb0"
+        "work/renderer_presentation/evidence.json#graphics_spans.fullscreen_transition_06bb0",
+        "renderer_contract/evidence/native_dirty_gate.json#original_spans"
       ]
     },
     {
@@ -3453,7 +3545,8 @@
       "expected_sha256": "6437bcd2fc991f42423b9602d567acd5f76f1d58f8d23270546dba9c480b7723",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_closure/evidence.json#dependencies.directdraw_color_setup"
+        "work/renderer_closure/evidence.json#dependencies.directdraw_color_setup",
+        "renderer_contract/evidence/native_dirty_gate.json#original_spans"
       ]
     },
     {
@@ -3514,7 +3607,8 @@
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
         "work/renderer_closure/evidence.json#dependencies.frame_color_remap",
-        "work/renderer_presentation/evidence.json#graphics_spans.color_translate_070c0"
+        "work/renderer_presentation/evidence.json#graphics_spans.color_translate_070c0",
+        "renderer_contract/evidence/native_dirty_gate.json#original_spans"
       ]
     },
     {
@@ -3597,7 +3691,8 @@
         "renderer_contract/evidence/packed_uv_counterexample.json#original_spans[0]",
         "renderer_contract/evidence/native_packed_uv_feedback.json#original_spans[0]",
         "renderer_contract/evidence/native_packed_uv_state.json#original_spans[0]",
-        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[8]"
+        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[8]",
+        "renderer_contract/evidence/native_route_uv_state.json#original_spans"
       ],
       "original_validation": "passed"
     },
@@ -4885,7 +4980,8 @@
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
         "work/renderer_closure/evidence.json#dependencies.polygon_span_helper",
-        "work/renderer_textures/evidence.json#function_spans[16]"
+        "work/renderer_textures/evidence.json#function_spans[16]",
+        "renderer_contract/evidence/native_dirty_gate.json#original_spans"
       ]
     },
     {
@@ -5247,7 +5343,8 @@
       "expected_sha256": "b81741c75b775d15bc06622ee9e11a4095385c92e8b6c0a3b2c641e80924a567",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_closure/evidence.json#dependencies.polygon_fill_helper"
+        "work/renderer_closure/evidence.json#dependencies.polygon_fill_helper",
+        "renderer_contract/evidence/native_dirty_gate.json#original_spans"
       ]
     },
     {
@@ -5342,7 +5439,8 @@
       "expected_sha256": "95ac42d7f4447015eb0760dfccbf2c40fddf600baa76f8f885cf3be7ad9926bf",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_closure/evidence.json#dependencies.raster_path_tag_bit1_set_sprite"
+        "work/renderer_closure/evidence.json#dependencies.raster_path_tag_bit1_set_sprite",
+        "renderer_contract/evidence/native_dirty_gate.json#original_spans"
       ]
     },
     {
@@ -5435,7 +5533,8 @@
       "expected_sha256": "fe6c00a7e9109250e2e5aa4c3c3419c7381cf9758422d42d319b3e4648d12609",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_closure/evidence.json#dependencies.raster_path_tag_bit1_clear_sprite"
+        "work/renderer_closure/evidence.json#dependencies.raster_path_tag_bit1_clear_sprite",
+        "renderer_contract/evidence/native_dirty_gate.json#original_spans"
       ]
     },
     {
@@ -5509,7 +5608,8 @@
       "evidence_refs": [
         "renderer_contract/evidence/native_polygon_edges.json#spans.cc50_active_palette_function",
         "renderer_contract/evidence/native_skewed_quads.json#original_spans[2]",
-        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[1]"
+        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[1]",
+        "renderer_contract/evidence/native_route_uv_state.json#original_spans"
       ],
       "original_validation": "passed"
     },
@@ -5522,7 +5622,8 @@
       "expected_sha256": "26ac072b8de4b59f4a929abb5fd0d6cbcbe826fa02d3ee9f78d07245b39f8776",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_closure/evidence.json#dependencies.polygon_draw_helper"
+        "work/renderer_closure/evidence.json#dependencies.polygon_draw_helper",
+        "renderer_contract/evidence/native_dirty_gate.json#original_spans"
       ]
     },
     {
@@ -5742,7 +5843,8 @@
       },
       "evidence_refs": [
         "renderer_contract/evidence/native_pixel_slices.json#oracle.spans[1]",
-        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[2]"
+        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[2]",
+        "renderer_contract/evidence/native_route_uv_state.json#original_spans"
       ],
       "original_validation": "passed",
       "private_provenance_refs": [
@@ -5799,7 +5901,9 @@
         "renderer_contract/evidence/packed_uv_counterexample.json#original_spans[1]",
         "renderer_contract/evidence/native_packed_uv_feedback.json#original_spans[1]",
         "renderer_contract/evidence/native_packed_uv_state.json#original_spans[1]",
-        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[0]"
+        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[0]",
+        "renderer_contract/evidence/native_route_uv_state.json#original_spans",
+        "renderer_contract/evidence/native_dirty_gate.json#original_spans"
       ]
     },
     {
@@ -6386,7 +6490,8 @@
       "expected_sha256": "44dcd2638f14fbcf644f76aa622cba9e4dff971776662c6d2317b725eafcad60",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_closure/evidence.json#dependencies.polygon_pixel_helper"
+        "work/renderer_closure/evidence.json#dependencies.polygon_pixel_helper",
+        "renderer_contract/evidence/native_dirty_gate.json#original_spans"
       ]
     },
     {
@@ -6405,7 +6510,8 @@
       },
       "evidence_refs": [
         "renderer_contract/evidence/native_shaded_edges.json#original_spans.dd70_generic_body",
-        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[3]"
+        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[3]",
+        "renderer_contract/evidence/native_route_uv_state.json#original_spans"
       ],
       "original_validation": "passed"
     },
@@ -6601,7 +6707,8 @@
       },
       "evidence_refs": [
         "renderer_contract/evidence/native_shaded_edges.json#original_spans.dd70_zero_test_pixel_loop",
-        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[4]"
+        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[4]",
+        "renderer_contract/evidence/native_route_uv_state.json#original_spans"
       ],
       "original_validation": "passed"
     },
@@ -6622,7 +6729,8 @@
       },
       "evidence_refs": [
         "renderer_contract/evidence/polygon_dispatch.json#original_spans[5]",
-        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[5]"
+        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[5]",
+        "renderer_contract/evidence/native_route_uv_state.json#original_spans"
       ],
       "original_validation": "passed",
       "private_provenance_refs": [
@@ -6639,7 +6747,9 @@
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
         "work/renderer_closure/evidence.json#dependencies.raster_path_tag_bit1_set_polygon",
-        "renderer_contract/evidence/native_skewed_quads.json#original_spans[3]"
+        "renderer_contract/evidence/native_skewed_quads.json#original_spans[3]",
+        "renderer_contract/evidence/native_pointer_correction.json#original_spans",
+        "renderer_contract/evidence/native_dirty_gate.json#original_spans"
       ]
     },
     {
@@ -6658,7 +6768,8 @@
       },
       "evidence_refs": [
         "renderer_contract/evidence/native_shaded_edges.json#original_spans.e680_generic_body",
-        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[6]"
+        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[6]",
+        "renderer_contract/evidence/native_route_uv_state.json#original_spans"
       ],
       "original_validation": "passed"
     },
@@ -6854,7 +6965,9 @@
       },
       "evidence_refs": [
         "renderer_contract/evidence/native_shaded_edges.json#original_spans.e680_mode80_zero_test_pixel_loop",
-        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[7]"
+        "renderer_contract/evidence/native_route_uv_feedback.json#original_spans[7]",
+        "renderer_contract/evidence/native_route_uv_state.json#original_spans",
+        "renderer_contract/evidence/native_pointer_correction.json#original_spans"
       ],
       "original_validation": "passed"
     },
@@ -10129,6 +10242,10 @@
       "sha256": "82b8b183ad54d629fef5bd977ca8ac579c3708af36879b18c8536303a983c61d"
     },
     {
+      "path": "renderer_contract/evidence/dirty_refs.json",
+      "sha256": "af669b078cd12c25cedc8dcef63e7997fd5c8fd96c472dbc839405e41797c29c"
+    },
+    {
       "path": "renderer_contract/evidence/early_loader_surrogate.json",
       "sha256": "0f2f8e1921d2d1cbce56e9f9f121b9cadb25222710b9e9914bdc29aa999d2a3b"
     },
@@ -10138,7 +10255,7 @@
     },
     {
       "path": "renderer_contract/evidence/exe_variant.json",
-      "sha256": "85fa78c06639521015350499518e1461c471d4df2c7b14727fdaf33b6ad9f06c"
+      "sha256": "9f6b0313333d026969f5c0ca3450505a0ae2162a729cc9b05dc67c5efeb0ce72"
     },
     {
       "path": "renderer_contract/evidence/frame.json",
@@ -10171,6 +10288,10 @@
     {
       "path": "renderer_contract/evidence/native_cold_upload.json",
       "sha256": "b3764e5df4d6eace8187a67a350289f94ab0da498f1a6180c74a5a162700c87f"
+    },
+    {
+      "path": "renderer_contract/evidence/native_dirty_gate.json",
+      "sha256": "ea4a2e8041859575bec3725ad6fbbc48edaeab66a48419da2d7ba0f58b627b19"
     },
     {
       "path": "renderer_contract/evidence/native_dispatch.json",
@@ -10209,6 +10330,10 @@
       "sha256": "840eadc9b1f73d85a76d3b2a5c076c0b4722571e55d61f8fd5b14cc98c4c576b"
     },
     {
+      "path": "renderer_contract/evidence/native_pointer_correction.json",
+      "sha256": "3924cbe4ef93684d90050e7597c510cd4b343907c9f21738d0f3503524f289c1"
+    },
+    {
       "path": "renderer_contract/evidence/native_polygon_dispatch.json",
       "sha256": "1a79749a9be9b4248c6d5ba0e2b418aae7401c56aefca3c6bbac0c2ff5679724"
     },
@@ -10227,6 +10352,10 @@
     {
       "path": "renderer_contract/evidence/native_route_uv_feedback.json",
       "sha256": "cc52fc0b599d016d7afcbe2f2a16b7ce8a1a384b33958cf1b229146b635ed873"
+    },
+    {
+      "path": "renderer_contract/evidence/native_route_uv_state.json",
+      "sha256": "822df7dc678433f53f3c1a0cd941d68b88a6c8103fec61fc65fcef0e62e3835a"
     },
     {
       "path": "renderer_contract/evidence/native_shaded_edges.json",
@@ -10306,7 +10435,7 @@
     },
     {
       "path": "renderer_contract/evidence/portable_verification.json",
-      "sha256": "7c7a12217248dae8ab3a36de3c824c45aae5376691f84f225fa4a684a30fa8b0"
+      "sha256": "8b69916a5dead8e523377dfcf3b791ef4a52e808f27baeb6ffdbe9d6197efdd2"
     },
     {
       "path": "renderer_contract/evidence/presentation.json",

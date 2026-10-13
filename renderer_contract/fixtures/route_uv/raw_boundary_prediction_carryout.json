@@ -1,0 +1,7 @@
+{
+  "prediction": "After the prior raw fixture falsified carry-out at correction 0xF0000000 (native ESI became 0xFFFF0101), raise only A9099C to 0xF0010000. With ESI=0x0FFF0100 and the observed carry-in 1 from ADC EBX, original ADC ESI will carry out and leave ESI=0x00000101. The source address remains 0x10000000 because it is read before the ESI correction.",
+  "falsifier": "The new boundary discriminator fails if the original loop's post-UV ESI is not 0x00000101, if EAX/EBX/pointer carry values differ from 1/1/1/1, or if source/destination/blend/output, next registers, or exit PC differ from the corresponding C model and raw inputs. Unknown code/memory, OS access, modified original bytes, or instruction-budget exhaustion invalidates the fixture.",
+  "input_delta_from_falsified_run": {"A9099C": {"previous": "0xF0000000", "current": "0xF0010000"}},
+  "classification": "RAW_BOUNDARY_ONLY",
+  "scope": "One controlled E680 mode-0x80 loop entry, count=1. The correction magnitude is a raw register discriminator and is not claimed geometry-reachable."
+}

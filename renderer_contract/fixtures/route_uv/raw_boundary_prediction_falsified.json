@@ -1,0 +1,23 @@
+{
+  "prediction": "At the pinned E680 mode-0x80 loop entry 0xEE6D with AX=1, EDX high 16 bits zero, EAX=0xFFFF0001, A90998=0x00010000, EBX=0xFFFFFFFF, ECX=0, ESI=0x0FFF0100, and A9099C=0xF0000000, ADD EAX will carry, ADC EBX will carry into ADC ESI, and ADC ESI will carry out to produce ESI=0x00000000. Old BL=0xFF forms source address 0x10000000, whose synthetic texel 7 will drive one destination read, one blend lookup, and one write before the loop exits at 0xEE93.",
+  "falsifier": "The controlled raw-boundary prediction fails if any captured full register at 0xEE82 or 0xEE91, source/blend/destination address, carry bit, output byte, or exit PC differs from the stated values or the C route model; any unknown PC/memory access, OS callback, instruction/code mutation, or instruction-budget overrun invalidates the fixture.",
+  "raw_input": {
+    "route": "E680 mode 0x80",
+    "entry_rva": "0xEE6D",
+    "exit_rva": "0xEE93",
+    "count_AX": 1,
+    "registers": {
+      "eax": "0xFFFF0001", "ebx": "0xFFFFFFFF", "ecx": "0x00000000",
+      "edx": "0x00000000", "esi": "0x0FFF0100", "edi": "0x10020000",
+      "ebp": "0x0092E3D0", "esp": "0x20000000", "eflags": "0x00000202"
+    },
+    "globals": {"A90998": "0x00010000", "A9099C": "0xF0000000"},
+    "synthetic_memory": {
+      "source_address": "0x10000000", "source_byte": "0x07",
+      "destination_address": "0x10020000", "destination_byte": "0x3C",
+      "blend_address": "0x0092EB0C", "blend_byte": "0xA7"
+    }
+  },
+  "classification": "RAW_BOUNDARY_ONLY",
+  "scope": "One controlled raw loop entry proves unsigned carry propagation at the original instruction boundary. It is not a geometry-reachable setup, packet state, or general E680 range."
+}

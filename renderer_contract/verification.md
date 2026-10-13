@@ -180,3 +180,22 @@ The latter two commands revalidate pinned static evidence. Frame allocation
 requests and cursor associations do not establish safe producer capacities or
 asynchronous ownership. CMainFrame message-map entries establish callback
 metadata, while the separate RVA 0x79A0 cluster remains unowned.
+
+The route-UV additions pass sixteen fresh VC5 suites and sixteen portable
+suites, including a C++ consumer linked against the C implementation. Both
+compilers reproduce 5,423 captured loop transitions and 6,380 lookup addresses
+across CC50 and two E680 routes. A separate GCC differential reproduces 27
+geometry-derived transitions with nonzero pointer corrections and one controlled
+raw-boundary carry-out case. The raw case establishes no geometry reachability.
+
+```powershell
+& $pythonExe renderer_contract/tests/test_original_route_uv_state.py --package renderer_contract --exe $originalExe --original-root . --build-dir work/replay/route_uv_build --receipt work/replay/route_uv.json --vc5-toolchain C:\tools\hercules\msvc500-8abf95ce980161ad87b0b02402269cce76988953
+& $pythonExe renderer_contract/tests/test_original_pointer_correction.py --package renderer_contract --exe $originalExe --original-root . --build-dir work/replay/pointer_build --receipt work/replay/pointer.json
+& $pythonExe renderer_contract/tests/test_original_dirty_gate.py --repo-root . --exe $originalExe --output-dir work/replay/dirty_gate
+```
+
+Build directories must be new or empty. The last command executes 26 finite
+original-x86 cases and a full file-backed `.text` candidate sweep. Accepted
+transparent and some degenerate primitives still request presentation; 70C0
+can rewrite 76,800 surface bytes without setting that request. These are
+route-specific observations, not full raster or host integration equivalence.

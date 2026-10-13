@@ -1,0 +1,958 @@
+{
+  "schema_version": 1,
+  "status": "BOUNDED_DIRTY_GATE_EVIDENCE",
+  "scope": "Pinned original x86 routines in finite Unicorn CPU fixtures and a complete .text linear sweep. All surfaces/textures and external state are synthetic; no game, OS, DirectDraw, GDI, or GPU is invoked.",
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000"
+  },
+  "runtime": {
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "unicorn_module_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\__init__.py",
+    "native_dll_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "dependency_origin": {
+      "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+      "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+      "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+    }
+  },
+  "helpers": {
+    "test_original_polygon_dispatch.py": "9f48076ec02e47308ec4db760cdbd2b11832b6f41e8798867580cfdb41e85c32",
+    "oracle_common.py": "a024048d9acc6e18197e10a82427cd84351a90666e1626e610bf60c6105f1357",
+    "scripts/pe.py": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca",
+    "state_ownership.json": "ecd1e0eaddcf35ceb5f8beeb5c798ffd9b54d29ae1fd0ae2760a3de344ee4508",
+    "presentation.json": "c98085c9f39b8c532817d90f5617067517a1157a8ede56042d778fde6c2d829a",
+    "audit_dirty_refs.py": "cf3bb1347a5cc577c13249a3357ab8ad6ebf29600b76ca9390b710f8aa97373a",
+    "audit_dirty_refs_receipt": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase10\\dirty_final\\dirty_refs.json"
+  },
+  "original_spans": [
+    {
+      "name": "present_frame_06620",
+      "module": "HERCULES.EXE",
+      "rva": "0x6620",
+      "size": 224,
+      "sha256": "4e350af06a5c660a75dabf57cd95c42eb06d6f0b1b4b8a2c65b709fefa3d30cd"
+    },
+    {
+      "name": "lock_failure_transition_06bb0",
+      "module": "HERCULES.EXE",
+      "rva": "0x6bb0",
+      "size": 784,
+      "sha256": "369922176b91588536370342557e34de4e6e7dac3c6baeebfa3cf7f915f9ffe0"
+    },
+    {
+      "name": "directdraw_color_setup_06ee0",
+      "module": "HERCULES.EXE",
+      "rva": "0x6ee0",
+      "size": 272,
+      "sha256": "6437bcd2fc991f42423b9602d567acd5f76f1d58f8d23270546dba9c480b7723"
+    },
+    {
+      "name": "color_translate_070c0",
+      "module": "HERCULES.EXE",
+      "rva": "0x70c0",
+      "size": 128,
+      "sha256": "3432496f55144a415399893358618b7f970f1a263eb4ea80df30083e6494d4e7"
+    },
+    {
+      "name": "polygon_span_helper_0c2e0",
+      "module": "HERCULES.EXE",
+      "rva": "0xc2e0",
+      "size": 1056,
+      "sha256": "8908bd9d0b920d8020f304feda864b1a25f42415cca421510b48362e2f091d9a"
+    },
+    {
+      "name": "polygon_fill_helper_0c700",
+      "module": "HERCULES.EXE",
+      "rva": "0xc700",
+      "size": 496,
+      "sha256": "b81741c75b775d15bc06622ee9e11a4095385c92e8b6c0a3b2c641e80924a567"
+    },
+    {
+      "name": "sprite_path_0c8f0",
+      "module": "HERCULES.EXE",
+      "rva": "0xc8f0",
+      "size": 448,
+      "sha256": "95ac42d7f4447015eb0760dfccbf2c40fddf600baa76f8f885cf3be7ad9926bf"
+    },
+    {
+      "name": "sprite_path_0cab0",
+      "module": "HERCULES.EXE",
+      "rva": "0xcab0",
+      "size": 416,
+      "sha256": "fe6c00a7e9109250e2e5aa4c3c3419c7381cf9758422d42d319b3e4648d12609"
+    },
+    {
+      "name": "polygon_draw_helper_0cc50",
+      "module": "HERCULES.EXE",
+      "rva": "0xcc50",
+      "size": 2000,
+      "sha256": "26ac072b8de4b59f4a929abb5fd0d6cbcbe826fa02d3ee9f78d07245b39f8776"
+    },
+    {
+      "name": "polygon_path_0d420",
+      "module": "HERCULES.EXE",
+      "rva": "0xd420",
+      "size": 2384,
+      "sha256": "4645c60cf0a357ed4aae074c3487a2755384852d0874e2f12b352b994544e07e"
+    },
+    {
+      "name": "polygon_pixel_helper_0dd70",
+      "module": "HERCULES.EXE",
+      "rva": "0xdd70",
+      "size": 2320,
+      "sha256": "44dcd2638f14fbcf644f76aa622cba9e4dff971776662c6d2317b725eafcad60"
+    },
+    {
+      "name": "polygon_path_0e680",
+      "module": "HERCULES.EXE",
+      "rva": "0xe680",
+      "size": 2272,
+      "sha256": "f42bfcb06d042a8cd9ced6a8df5375b734c1e5641811a062059bbd02cb8dcb58"
+    }
+  ],
+  "static_inventory": {
+    "candidate_count": 17,
+    "inside_hash_verified_renderer_spans": 14,
+    "outside_reviewed_spans": 3,
+    "tool": {
+      "capstone_version": "5.0.7",
+      "section_name": ".text",
+      "section_rva": "0x1000",
+      "file_backed_bytes": 183808
+    },
+    "coverage": {
+      "strict_first_stop_rva": "0x1124a",
+      "strict_decoded_instructions": 21486,
+      "strict_decoded_bytes": 66122,
+      "full_skipdata_valid_instructions": 65375,
+      "pseudoops": 4,
+      "skipped_bytes": 4,
+      "byte_coverage_complete": true,
+      "gaps": [
+        {
+          "start_rva": "0x1124a",
+          "end_rva_exclusive": "0x1124b",
+          "size": 1
+        },
+        {
+          "start_rva": "0x1f760",
+          "end_rva_exclusive": "0x1f761",
+          "size": 1
+        },
+        {
+          "start_rva": "0x20812",
+          "end_rva_exclusive": "0x20813",
+          "size": 1
+        },
+        {
+          "start_rva": "0x28c64",
+          "end_rva_exclusive": "0x28c65",
+          "size": 1
+        }
+      ]
+    },
+    "service_call_candidates": {
+      "lock_6ff0": [
+        "0x55e8",
+        "0x6d0e",
+        "0x6d59",
+        "0x6d79",
+        "0x7415",
+        "0xac92"
+      ],
+      "unlock_7140": [
+        "0x5672",
+        "0x69ab",
+        "0x6bf6",
+        "0x6d44",
+        "0x6d5e",
+        "0x6dc7",
+        "0xb2d8"
+      ],
+      "present_6620": [
+        "0x5677",
+        "0x6764",
+        "0x69be",
+        "0x6d6a",
+        "0x6e9f",
+        "0x9772",
+        "0xb2dd"
+      ]
+    },
+    "scope": "Read-only full .text linear-sweep candidates; this is not execution/reachability proof. Original executable is read-only."
+  },
+  "route_eligibility_findings": [
+    {
+      "route": "D420 row-zero triangle",
+      "observed_eligibility": "with BA01F0=1 and the tested in-bounds row-zero scan path, the route reaches dirty store RVA 0xDD5F even when the sampled texels are zero; an all-X-equal triangle also reaches it with no reads/stores. The tested fully clipped form and BA01F0=0 form do not store.",
+      "not_generalized": "This is not a generic polygon-area or byte-difference rule."
+    },
+    {
+      "route": "D420 CC50/C2E0 row-code branches",
+      "observed_eligibility": "with input row code 0x78C0 and BA01F0=1, CC50 gate 1 reaches 0xD407 for the tested transparent samples; gate 0 reaches C2E0 store 0xC6EA and can write zero values. Tested fully clipped inputs do not store.",
+      "not_generalized": "No claim for untested row codes or boundary geometry."
+    },
+    {
+      "route": "D420 CAB0 and E680 C8F0 rectangle shortcuts",
+      "observed_eligibility": "the tested 2x2 in-bounds rectangles set at 0xCC37/0xCA9A with all source texels zero; the tested all-X-equal and fully right-clipped rectangles return without setting.",
+      "not_generalized": "The tested zero-width conclusion applies to these rectangle shortcuts only."
+    },
+    {
+      "route": "E680 generic mode 0x80",
+      "observed_eligibility": "the tested in-bounds triangle reaches 0xEF52, including all-X-equal input with no pixel work; the fully right-clipped and BA01F0=0 cases do not set.",
+      "not_generalized": "The generic triangle path has different zero-width behavior from the rectangle shortcuts."
+    },
+    {
+      "route": "E680 mode 0x7f delegated DD70",
+      "observed_eligibility": "the tested in-bounds transparent triangle sets at 0xE667; the fully right-clipped case does not.",
+      "not_generalized": "No claim for other selector/mode values."
+    },
+    {
+      "route": "70C0 color translation/remap",
+      "observed_eligibility": "the bounded routine does not write 0x43A590: a non-0xFF argument updates the color cell; 0xFF with a non-0x80 color and BA01F0=1 remaps the 320x240 synthetic surface; all five tested cases leave the latch unchanged.",
+      "not_generalized": "Do not infer whether another caller requests presentation after the remap."
+    }
+  ],
+  "case_count": 26,
+  "cases": [
+    {
+      "case": "d420_rowzero_transparent_sets",
+      "route": "d420_triangle",
+      "entry_rva": "0xd420",
+      "draw_gate_BA01F0": 1,
+      "clut_gate_96E3E0": 0,
+      "row_code": "0x7800",
+      "x_translation": 0,
+      "zero_width_input": false,
+      "all_source_texels_zero": false,
+      "all_triangle_x_equal": false,
+      "dirty_before": 0,
+      "dirty_after": 1,
+      "dirty_writes": [
+        {
+          "pc_rva": "0xdd5f",
+          "size": 1,
+          "value": "0x1"
+        }
+      ],
+      "texture_read_count": 4,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xdd59",
+        "0xdd5f",
+        "0xdd66",
+        "0xdd67",
+        "0xdd68",
+        "0xdd69",
+        "0xdd6b",
+        "0xdd6c"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "d420_cc50_row3_transparent_sets",
+      "route": "d420_triangle",
+      "entry_rva": "0xd420",
+      "draw_gate_BA01F0": 1,
+      "clut_gate_96E3E0": 1,
+      "row_code": "0x78c0",
+      "x_translation": 0,
+      "zero_width_input": false,
+      "all_source_texels_zero": false,
+      "all_triangle_x_equal": false,
+      "dirty_before": 0,
+      "dirty_after": 1,
+      "dirty_writes": [
+        {
+          "pc_rva": "0xd407",
+          "size": 1,
+          "value": "0x1"
+        }
+      ],
+      "texture_read_count": 4,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xd413",
+        "0xd414",
+        "0xd58e",
+        "0xd58f",
+        "0xd590",
+        "0xd591",
+        "0xd593",
+        "0xd594"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "d420_c2e0_row3_zero_texel_writes_zero_sets",
+      "route": "d420_triangle",
+      "entry_rva": "0xd420",
+      "draw_gate_BA01F0": 1,
+      "clut_gate_96E3E0": 0,
+      "row_code": "0x78c0",
+      "x_translation": 0,
+      "zero_width_input": false,
+      "all_source_texels_zero": false,
+      "all_triangle_x_equal": false,
+      "dirty_before": 0,
+      "dirty_after": 1,
+      "dirty_writes": [
+        {
+          "pc_rva": "0xc6ea",
+          "size": 1,
+          "value": "0x1"
+        }
+      ],
+      "texture_read_count": 1,
+      "surface_write_count": 3,
+      "surface_changed_byte_count": 3,
+      "terminal_trace_rvas": [
+        "0xc6f6",
+        "0xc6f7",
+        "0xd605",
+        "0xd606",
+        "0xd607",
+        "0xd608",
+        "0xd60a",
+        "0xd60b"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "d420_cab0_transparent_rectangle_sets",
+      "route": "d420_cab0",
+      "entry_rva": "0xd420",
+      "draw_gate_BA01F0": 1,
+      "clut_gate_96E3E0": 0,
+      "row_code": "0x7800",
+      "x_translation": 0,
+      "zero_width_input": false,
+      "all_source_texels_zero": true,
+      "all_triangle_x_equal": false,
+      "dirty_before": 0,
+      "dirty_after": 1,
+      "dirty_writes": [
+        {
+          "pc_rva": "0xcc37",
+          "size": 1,
+          "value": "0x1"
+        }
+      ],
+      "texture_read_count": 4,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xcc43",
+        "0xcc44",
+        "0xd54e",
+        "0xd54f",
+        "0xd550",
+        "0xd551",
+        "0xd553",
+        "0xd554"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "e680_c8f0_transparent_rectangle_sets",
+      "route": "e680_c8f0",
+      "entry_rva": "0xe680",
+      "draw_gate_BA01F0": 1,
+      "clut_gate_96E3E0": 0,
+      "row_code": "0x7800",
+      "x_translation": 0,
+      "zero_width_input": false,
+      "all_source_texels_zero": true,
+      "all_triangle_x_equal": false,
+      "dirty_before": 0,
+      "dirty_after": 1,
+      "dirty_writes": [
+        {
+          "pc_rva": "0xca9a",
+          "size": 1,
+          "value": "0x1"
+        }
+      ],
+      "texture_read_count": 4,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xcaa6",
+        "0xcaa7",
+        "0xe7c0",
+        "0xe7c1",
+        "0xe7c2",
+        "0xe7c3",
+        "0xe7c5",
+        "0xe7c6"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "d420_cab0_fully_clipped_no_set",
+      "route": "d420_cab0",
+      "entry_rva": "0xd420",
+      "draw_gate_BA01F0": 1,
+      "clut_gate_96E3E0": 0,
+      "row_code": "0x7800",
+      "x_translation": 320,
+      "zero_width_input": false,
+      "all_source_texels_zero": false,
+      "all_triangle_x_equal": false,
+      "dirty_before": 0,
+      "dirty_after": 0,
+      "dirty_writes": [],
+      "texture_read_count": 0,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xcc43",
+        "0xcc44",
+        "0xd54e",
+        "0xd54f",
+        "0xd550",
+        "0xd551",
+        "0xd553",
+        "0xd554"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "e680_c8f0_fully_clipped_no_set",
+      "route": "e680_c8f0",
+      "entry_rva": "0xe680",
+      "draw_gate_BA01F0": 1,
+      "clut_gate_96E3E0": 0,
+      "row_code": "0x7800",
+      "x_translation": 320,
+      "zero_width_input": false,
+      "all_source_texels_zero": false,
+      "all_triangle_x_equal": false,
+      "dirty_before": 0,
+      "dirty_after": 0,
+      "dirty_writes": [],
+      "texture_read_count": 0,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xcaa6",
+        "0xcaa7",
+        "0xe7c0",
+        "0xe7c1",
+        "0xe7c2",
+        "0xe7c3",
+        "0xe7c5",
+        "0xe7c6"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "d420_cab0_zero_width_no_set",
+      "route": "d420_cab0",
+      "entry_rva": "0xd420",
+      "draw_gate_BA01F0": 1,
+      "clut_gate_96E3E0": 0,
+      "row_code": "0x7800",
+      "x_translation": 0,
+      "zero_width_input": true,
+      "all_source_texels_zero": false,
+      "all_triangle_x_equal": false,
+      "dirty_before": 0,
+      "dirty_after": 0,
+      "dirty_writes": [],
+      "texture_read_count": 0,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xcc43",
+        "0xcc44",
+        "0xd54e",
+        "0xd54f",
+        "0xd550",
+        "0xd551",
+        "0xd553",
+        "0xd554"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "e680_c8f0_zero_width_no_set",
+      "route": "e680_c8f0",
+      "entry_rva": "0xe680",
+      "draw_gate_BA01F0": 1,
+      "clut_gate_96E3E0": 0,
+      "row_code": "0x7800",
+      "x_translation": 0,
+      "zero_width_input": true,
+      "all_source_texels_zero": false,
+      "all_triangle_x_equal": false,
+      "dirty_before": 0,
+      "dirty_after": 0,
+      "dirty_writes": [],
+      "texture_read_count": 0,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xcaa6",
+        "0xcaa7",
+        "0xe7c0",
+        "0xe7c1",
+        "0xe7c2",
+        "0xe7c3",
+        "0xe7c5",
+        "0xe7c6"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "d420_lock_gate_off_no_set",
+      "route": "d420_triangle",
+      "entry_rva": "0xd420",
+      "draw_gate_BA01F0": 0,
+      "clut_gate_96E3E0": 0,
+      "row_code": "0x7800",
+      "x_translation": 0,
+      "zero_width_input": false,
+      "all_source_texels_zero": false,
+      "all_triangle_x_equal": false,
+      "dirty_before": 0,
+      "dirty_after": 0,
+      "dirty_writes": [],
+      "texture_read_count": 0,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xd42c",
+        "0xd42e",
+        "0xdd66",
+        "0xdd67",
+        "0xdd68",
+        "0xdd69",
+        "0xdd6b",
+        "0xdd6c"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "d420_lock_gate_off_retains_dirty",
+      "route": "d420_triangle",
+      "entry_rva": "0xd420",
+      "draw_gate_BA01F0": 0,
+      "clut_gate_96E3E0": 0,
+      "row_code": "0x7800",
+      "x_translation": 0,
+      "zero_width_input": false,
+      "all_source_texels_zero": false,
+      "all_triangle_x_equal": false,
+      "dirty_before": 1,
+      "dirty_after": 1,
+      "dirty_writes": [],
+      "texture_read_count": 0,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xd42c",
+        "0xd42e",
+        "0xdd66",
+        "0xdd67",
+        "0xdd68",
+        "0xdd69",
+        "0xdd6b",
+        "0xdd6c"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "d420_general_fully_clipped_no_set",
+      "route": "d420_triangle",
+      "entry_rva": "0xd420",
+      "draw_gate_BA01F0": 1,
+      "clut_gate_96E3E0": 0,
+      "row_code": "0x7800",
+      "x_translation": 320,
+      "zero_width_input": false,
+      "all_source_texels_zero": false,
+      "all_triangle_x_equal": false,
+      "dirty_before": 0,
+      "dirty_after": 0,
+      "dirty_writes": [],
+      "texture_read_count": 0,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xd6f2",
+        "0xd6f7",
+        "0xdd66",
+        "0xdd67",
+        "0xdd68",
+        "0xdd69",
+        "0xdd6b",
+        "0xdd6c"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "d420_cc50_fully_clipped_no_set",
+      "route": "d420_triangle",
+      "entry_rva": "0xd420",
+      "draw_gate_BA01F0": 1,
+      "clut_gate_96E3E0": 1,
+      "row_code": "0x78c0",
+      "x_translation": 320,
+      "zero_width_input": false,
+      "all_source_texels_zero": false,
+      "all_triangle_x_equal": false,
+      "dirty_before": 0,
+      "dirty_after": 0,
+      "dirty_writes": [],
+      "texture_read_count": 0,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xd413",
+        "0xd414",
+        "0xd58e",
+        "0xd58f",
+        "0xd590",
+        "0xd591",
+        "0xd593",
+        "0xd594"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "d420_c2e0_fully_clipped_no_set",
+      "route": "d420_triangle",
+      "entry_rva": "0xd420",
+      "draw_gate_BA01F0": 1,
+      "clut_gate_96E3E0": 0,
+      "row_code": "0x78c0",
+      "x_translation": 320,
+      "zero_width_input": false,
+      "all_source_texels_zero": false,
+      "all_triangle_x_equal": false,
+      "dirty_before": 0,
+      "dirty_after": 0,
+      "dirty_writes": [],
+      "texture_read_count": 1,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xc6f6",
+        "0xc6f7",
+        "0xd605",
+        "0xd606",
+        "0xd607",
+        "0xd608",
+        "0xd60a",
+        "0xd60b"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "d420_equal_x_scan_route_sets_without_reads_or_stores",
+      "route": "d420_triangle",
+      "entry_rva": "0xd420",
+      "draw_gate_BA01F0": 1,
+      "clut_gate_96E3E0": 0,
+      "row_code": "0x7800",
+      "x_translation": 0,
+      "zero_width_input": false,
+      "all_source_texels_zero": false,
+      "all_triangle_x_equal": true,
+      "dirty_before": 0,
+      "dirty_after": 1,
+      "dirty_writes": [
+        {
+          "pc_rva": "0xdd5f",
+          "size": 1,
+          "value": "0x1"
+        }
+      ],
+      "texture_read_count": 0,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xdd59",
+        "0xdd5f",
+        "0xdd66",
+        "0xdd67",
+        "0xdd68",
+        "0xdd69",
+        "0xdd6b",
+        "0xdd6c"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "e680_mode80_generic_triangle_transparent_sets",
+      "route": "e680_generic_or_dd70",
+      "entry_rva": "0xe680",
+      "mode": "0x80",
+      "draw_gate_BA01F0": 1,
+      "x_translation": 0,
+      "zero_width_input": false,
+      "dirty_before": 0,
+      "dirty_after": 1,
+      "dirty_writes": [
+        {
+          "pc_rva": "0xef52",
+          "size": 1,
+          "value": "0x1"
+        }
+      ],
+      "texture_read_count": 4,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xef4c",
+        "0xef52",
+        "0xef59",
+        "0xef5a",
+        "0xef5b",
+        "0xef5c",
+        "0xef5e",
+        "0xef5f"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "e680_mode80_generic_fully_clipped_no_set",
+      "route": "e680_generic_or_dd70",
+      "entry_rva": "0xe680",
+      "mode": "0x80",
+      "draw_gate_BA01F0": 1,
+      "x_translation": 320,
+      "zero_width_input": false,
+      "dirty_before": 0,
+      "dirty_after": 1,
+      "dirty_writes": [],
+      "texture_read_count": 0,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xe8b6",
+        "0xe8bb",
+        "0xef59",
+        "0xef5a",
+        "0xef5b",
+        "0xef5c",
+        "0xef5e",
+        "0xef5f"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "e680_mode80_generic_zero_width_sets",
+      "route": "e680_generic_or_dd70",
+      "entry_rva": "0xe680",
+      "mode": "0x80",
+      "draw_gate_BA01F0": 1,
+      "x_translation": 0,
+      "zero_width_input": true,
+      "dirty_before": 0,
+      "dirty_after": 1,
+      "dirty_writes": [
+        {
+          "pc_rva": "0xef52",
+          "size": 1,
+          "value": "0x1"
+        }
+      ],
+      "texture_read_count": 0,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xef4c",
+        "0xef52",
+        "0xef59",
+        "0xef5a",
+        "0xef5b",
+        "0xef5c",
+        "0xef5e",
+        "0xef5f"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "e680_mode7f_dd70_transparent_sets",
+      "route": "e680_generic_or_dd70",
+      "entry_rva": "0xe680",
+      "mode": "0x7f",
+      "draw_gate_BA01F0": 1,
+      "x_translation": 0,
+      "zero_width_input": false,
+      "dirty_before": 0,
+      "dirty_after": 1,
+      "dirty_writes": [
+        {
+          "pc_rva": "0xe667",
+          "size": 1,
+          "value": "0x1"
+        }
+      ],
+      "texture_read_count": 4,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xe673",
+        "0xe674",
+        "0xe6b2",
+        "0xe6b3",
+        "0xe6b4",
+        "0xe6b5",
+        "0xe6b7",
+        "0xe6b8"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "e680_mode7f_dd70_fully_clipped_no_set",
+      "route": "e680_generic_or_dd70",
+      "entry_rva": "0xe680",
+      "mode": "0x7f",
+      "draw_gate_BA01F0": 1,
+      "x_translation": 320,
+      "zero_width_input": false,
+      "dirty_before": 0,
+      "dirty_after": 1,
+      "dirty_writes": [],
+      "texture_read_count": 0,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xe673",
+        "0xe674",
+        "0xe6b2",
+        "0xe6b3",
+        "0xe6b4",
+        "0xe6b5",
+        "0xe6b7",
+        "0xe6b8"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "e680_mode80_lock_gate_off_no_set",
+      "route": "e680_generic_or_dd70",
+      "entry_rva": "0xe680",
+      "mode": "0x80",
+      "draw_gate_BA01F0": 0,
+      "x_translation": 0,
+      "zero_width_input": false,
+      "dirty_before": 0,
+      "dirty_after": 1,
+      "dirty_writes": [],
+      "texture_read_count": 0,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "terminal_trace_rvas": [
+        "0xe68c",
+        "0xe68e",
+        "0xef59",
+        "0xef5a",
+        "0xef5b",
+        "0xef5c",
+        "0xef5e",
+        "0xef5f"
+      ],
+      "original_code_unchanged": true
+    },
+    {
+      "case": "70c0_non_ff_color_setter_does_not_dirty",
+      "entry_rva": "0x70c0",
+      "argument": "0x55",
+      "color_cell_before": 0,
+      "color_cell_after": 85,
+      "lock_BA01F0": 1,
+      "dirty_before": 0,
+      "dirty_writes": [],
+      "dirty_after": 0,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "first_pixel_after": "0x10",
+      "original_code_unchanged": true
+    },
+    {
+      "case": "70c0_ff_full_surface_remap_does_not_dirty",
+      "entry_rva": "0x70c0",
+      "argument": "0xff",
+      "color_cell_before": 1,
+      "color_cell_after": 1,
+      "lock_BA01F0": 1,
+      "dirty_before": 0,
+      "dirty_writes": [],
+      "dirty_after": 0,
+      "surface_write_count": 76800,
+      "surface_changed_byte_count": 76800,
+      "first_pixel_after": "0xaa",
+      "original_code_unchanged": true
+    },
+    {
+      "case": "70c0_ff_color80_does_not_remap_or_dirty",
+      "entry_rva": "0x70c0",
+      "argument": "0xff",
+      "color_cell_before": 128,
+      "color_cell_after": 128,
+      "lock_BA01F0": 1,
+      "dirty_before": 0,
+      "dirty_writes": [],
+      "dirty_after": 0,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "first_pixel_after": "0x10",
+      "original_code_unchanged": true
+    },
+    {
+      "case": "70c0_ff_unlocked_view_does_not_remap_or_dirty",
+      "entry_rva": "0x70c0",
+      "argument": "0xff",
+      "color_cell_before": 1,
+      "color_cell_after": 1,
+      "lock_BA01F0": 0,
+      "dirty_before": 0,
+      "dirty_writes": [],
+      "dirty_after": 0,
+      "surface_write_count": 0,
+      "surface_changed_byte_count": 0,
+      "first_pixel_after": "0x10",
+      "original_code_unchanged": true
+    },
+    {
+      "case": "70c0_ff_remap_retains_existing_dirty",
+      "entry_rva": "0x70c0",
+      "argument": "0xff",
+      "color_cell_before": 1,
+      "color_cell_after": 1,
+      "lock_BA01F0": 1,
+      "dirty_before": 1,
+      "dirty_writes": [],
+      "dirty_after": 1,
+      "surface_write_count": 76800,
+      "surface_changed_byte_count": 76800,
+      "first_pixel_after": "0xaa",
+      "original_code_unchanged": true
+    }
+  ],
+  "conclusion": "43A590 behaves as a sticky presentation request in reviewed paths. Preserve the existing byte and let 6620 consume it; do not derive it from changed-pixel count or a universal nonempty-geometry predicate. Match the native route-specific gates/completion behavior or retain that native callback. 70C0 itself does not request presentation.",
+  "limits": [
+    "Static callers/references are linear-sweep candidates, not proof of reachability; computed/indirect references and aliases are outside this inventory.",
+    "Raster fixtures cover selected modes and inputs, not all polygons, clipping boundaries, caller sequences, or frame serialization.",
+    "The dirty latch's complete owner/serialization contract remains unresolved."
+  ],
+  "invocation": {
+    "exe": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "repo_root": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+    "output_dir": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase10\\dirty_final",
+    "deps": "C:\\tools\\hercules\\renderer-oracle-python",
+    "analysis_deps": "C:\\tools\\hercules\\python",
+    "runner": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_dirty_gate.py",
+    "runner_sha256": "cbdd5602d4279c0a5da3dc726d697b7af57a5118d4ce9e6d973c25d00fa8b379"
+  }
+}

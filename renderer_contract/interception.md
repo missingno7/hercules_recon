@@ -31,6 +31,13 @@ Keep observed staged writes reproducible. Surface/pitch, lock state, dirty
 state and the draw gate have other host consumers, including movie display.
 They must remain coherent with preserved host services.
 
+The [surface contract](surface_contract.md) requires reacquiring the published
+view after locking: unlock clears the lock byte but leaves pointer and pitch
+stale. The [dirty-latch cases](dirty_gate.md) also require preserving the existing
+presentation request and reproducing route-specific sets. Neither changed-pixel
+counts nor a universal positive-area test reproduces those sets. Keep the
+original presenter as the consumer of that request.
+
 Completion can be resolved at verified host image base plus RVA 0xBD80.
 Forwarding saved slot 80 is a different wrapper: AC00 calls BD80, then clears
 EAX, and adds a callback return frame. Preserve the direct gate contract rather

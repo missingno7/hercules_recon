@@ -43,6 +43,7 @@ not replace this complete contract.
 | hercules_quad_dispatch.h | Static rectangle route predicates |
 | hercules_pixels.h | Bounded indexed shade/blend, palette and fill reference steps |
 | hercules_packed_uv.h | Original-backed D60C packed register recurrence |
+| hercules_route_uv_models.h | Separate CC50 and E680 raw-register transitions |
 | hercules_edge_steps.h | Fixed-width reciprocal and guarded edge-step arithmetic |
 | closure.md | Bounded host renderer call/data closure |
 | ownership.md | Direct-reference locality versus shared host surface state |
@@ -67,6 +68,8 @@ not replace this complete contract.
 | pixels.md | Distinct indexed pixel paths and their proof boundaries |
 | frame_lifetime.md | Per-module frame/arena requests, reset, cursor selection and release frontiers |
 | surface_contract.md | Bounded lock/unlock/presentation side effects and CPU writeback contract |
+| dirty_gate.md | Route-specific presentation requests, including zero-store cases |
+| route_uv_models.md | Native/C replay boundaries and geometry-derived pointer correction |
 | frame.md | Initialization, prepend order, traversal and module lifecycles |
 | notification.md | Primary/secondary callback ownership and live-link traversal |
 | state.md | State masks, clip clamps and embedded VRAM-move rectangle |

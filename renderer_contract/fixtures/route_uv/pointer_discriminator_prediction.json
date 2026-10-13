@@ -1,0 +1,6 @@
+{
+  "prediction": "A short public convex wire-valid skewed quad with clipped rows and nonconstant U/V will produce a nonzero E680 mode-0x80 A9099C pointer correction on at least one reachable loop entry. It may or may not naturally exercise carry-in/out of the ESI ADC; if not, a separate one-step raw loop-boundary fixture will distinguish the carry chain without claiming geometry reachability.",
+  "falsifier": "The geometric discriminator is falsified if the original bounded route fails to reach a nonzero A9099C transition, if the observed ESI progression does not match the captured correction and carry, or if the quad violates wire/convex/clip preconditions. The raw-boundary extension is falsified if the original instructions fail to expose the predicted EBX ADC carry into ESI and ESI ADC carry-out for the explicit raw inputs, or any unrelated code/memory/OS access occurs.",
+  "fixture_source": "renderer_contract/tests/test_original_skewed_quads.py public shapes; use skewed_top_bottom_clip or another existing short clipped shape without changing wire constraints.",
+  "scope": "One bounded original E680 loop slice and, only if needed, a controlled RAW_BOUNDARY_ONLY register-state discriminator. No geometry-generalization claim."
+}

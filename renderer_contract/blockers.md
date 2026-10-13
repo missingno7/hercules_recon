@@ -8,6 +8,14 @@
 | Full presentation replacement | Separate palette/movie/remap/clear writers identified | All writer ownership and mode transitions; complete replacement of presentation services |
 | Enhanced 3D | Projected XY/UV and earlier camera/projection snapshot identified | Per-vertex association across clipping and modules; depth/perspective/normal information absent from final packets |
 
+The [frame lifetime audit](frame_lifetime.md) establishes allocation requests,
+reset/submit/rotation order and cursor associations, without establishing safe
+producer capacities. The [surface contract](surface_contract.md) proves finite
+lock/unlock/present effects with synthetic services. [Dirty-latch cases](dirty_gate.md)
+show why presentation requests need route-specific handling even with no pixel
+stores. Live synchronization with movie, palette and transition writers remains
+an integration boundary.
+
 Optional 3D enhancements do not block basic capture. Whole-EXE reconstruction
 and complete rasterizer reimplementation are unnecessary.
 

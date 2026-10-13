@@ -13,6 +13,7 @@
 #include "hercules_staging.h"
 #include "hercules_edge_steps.h"
 #include "hercules_packed_uv.h"
+#include "hercules_route_uv_models.h"
 
 /* Link against C objects to check the reusable C++ consumer boundary. */
 int main()
@@ -75,5 +76,9 @@ int main()
         RENDERER_D60C_PACKED_OK || packed_step.store_required != 1 ||
         packed_state.completed_count != 1)
         return 10;
+    RendererRouteUvStep route_step;
+    if (renderer_e680_mode80_uv_step(0, 0, &route_step) !=
+        RENDERER_ROUTE_UV_INVALID_ARGUMENT)
+        return 11;
     return 0;
 }

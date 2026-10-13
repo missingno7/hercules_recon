@@ -25,6 +25,7 @@ EXPECTED_TESTS = {
     "test_host_abi.c",
     "test_packets.c",
     "test_packed_uv.c",
+    "test_route_uv.c",
     "test_pixels.c",
     "test_quad_route.c",
     "test_sprite_geometry.c",

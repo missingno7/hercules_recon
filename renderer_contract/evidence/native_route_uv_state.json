@@ -1,0 +1,398 @@
+{
+  "schema_version": 1,
+  "status": "BOUNDED_EQUIVALENT",
+  "prediction": {
+    "family": "route-specific raw-register UV transitions for finite CC50 and E680 loops",
+    "prediction": "Starting from each original loop's captured pre-source 32-bit register state and sampled byte, three route-specific C89 transitions can reproduce the original instructions through the post-UV-step boundary. They will preserve exact x86 partial-register, carry, count, and pointer-correction semantics. CC50, E680 mode 0x80, and E680 mode 0x7F/DD70 will remain separate models; color-path bytes will be route-specific and will not be generalized into one affine iterator. The 17 existing native cases have clipped counts no greater than 320.",
+    "falsifier": "Any compiler output differs from original full-register state at the selected post-step boundary or next loop start; any source/color lane is assigned to a shared UV role without instruction evidence; any carry, partial-register update, count decrement, or ESI correction differs; a modeled transition needs unstated geometry or route setup; or C89/VC5/strict GCC cannot reproduce the captured states without unsupported compiler steering.",
+    "fixture": {
+      "source_cases": "Reuse the existing 17-case native route fixture and its selected loop landmarks.",
+      "count_domain": "The C API accepts positive AX values 1 through 320. Captured fixture inputs start at 319 and count down through 1; AX=320 was not captured.",
+      "route_boundaries": [
+        "CC50: D322 pre-source loop body through D348 boundary",
+        "E680 mode 0x80: EE6D loop body through EE93 boundary",
+        "E680 mode 0x7F/DD70: E56C loop body through E5A8 boundary"
+      ]
+    },
+    "scope": "Raw captured register-state transitions for the listed original loops only. No geometry reconstruction, generic affine iterator, GPU, host integration, or unproven setup inputs."
+  },
+  "scope": "Three route-specific C89 register transitions compared against the full captured original CPU states in the established 17 native cases. Inputs are raw loop-entry registers, observed source/LUT bytes, and original global step values. No geometry or setup reconstruction is performed.",
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000"
+  },
+  "runtime": {
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "unicorn_module_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\__init__.py",
+    "native_dll_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "dependency_origin": {
+      "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+      "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+      "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+    }
+  },
+  "original_spans": [
+    {
+      "name": "d420_dispatch_and_rowzero_function",
+      "rva_start": "0xd420",
+      "rva_end_exclusive": "0xdd70",
+      "size": 2384,
+      "sha256": "4645c60cf0a357ed4aae074c3487a2755384852d0874e2f12b352b994544e07e"
+    },
+    {
+      "name": "cc50_active_palette_function",
+      "rva_start": "0xcc50",
+      "rva_end_exclusive": "0xd415",
+      "size": 1989,
+      "sha256": "7504054c2fe867eef6602dbd439f1972b55a73540b98099498772db2f34b7fd0"
+    },
+    {
+      "name": "cc50_pixel_loop",
+      "rva_start": "0xd2c6",
+      "rva_end_exclusive": "0xd349",
+      "size": 131,
+      "sha256": "86688a0be90e8b5b3c931c4f789d6dd6fc53575085f9ee700362dbf3617b6d1f"
+    },
+    {
+      "name": "dd70_generic_body",
+      "rva_start": "0xde9f",
+      "rva_end_exclusive": "0xe675",
+      "size": 2006,
+      "sha256": "645a1a416be1477bd9000e017bc4f733161c70769cc34c6f13f214ec2271f236"
+    },
+    {
+      "name": "dd70_shaded_pixel_loop",
+      "rva_start": "0xe56c",
+      "rva_end_exclusive": "0xe5a8",
+      "size": 60,
+      "sha256": "1d396bce03e35e84d2f2ae6d5f5dc7a392836b581ece877599de5b9ef0677bdc"
+    },
+    {
+      "name": "e680_mode_shape_dispatch",
+      "rva_start": "0xe680",
+      "rva_end_exclusive": "0xe7c7",
+      "size": 327,
+      "sha256": "1ac531aa802148e641444cb62451c9903fe6e59b046329d0ea0a80f463ccc75a"
+    },
+    {
+      "name": "e680_generic_body",
+      "rva_start": "0xe7c7",
+      "rva_end_exclusive": "0xef60",
+      "size": 1945,
+      "sha256": "2aad976b7e2ee3947a06fb8f89c31ef39dcdbfbf487bb1f9b07faed05d7adeae"
+    },
+    {
+      "name": "e680_mode80_pixel_loop",
+      "rva_start": "0xee6d",
+      "rva_end_exclusive": "0xee93",
+      "size": 38,
+      "sha256": "c4c067791e0ebc638acd6707ef4a2f27c8c76095cce726bf1aa4b9666e466247"
+    },
+    {
+      "name": "reciprocal_table_initializer",
+      "rva_start": "0x72a0",
+      "rva_end_exclusive": "0x72cc",
+      "size": 44,
+      "sha256": "3d59be43f3756224228dfdcc372a3bc59b7a7dbba4bbab8c79dd821cc958014b"
+    }
+  ],
+  "native_trace": {
+    "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase10\\route_build\\native_trace.json",
+    "sha256": "47fd9472ea0bff6bfb6d5e90828e7e8b25ad574714afff5fb742906ba3344b93",
+    "runner": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_route_uv_feedback.py",
+      "sha256": "ef35ee7bbb517efe8f274ae341def74ed08e61e92a4afcaa2fbf73e737aeedae"
+    }
+  },
+  "sources": {
+    "header": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_route_uv_models.h",
+      "sha256": "14292be083acb6fb1f7d272cb0f4a52db9dc7c181e761925a33aa639297bfb9d"
+    },
+    "implementation": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_route_uv_models.c",
+      "sha256": "0a129769ae0a5ec7481f7548b0474041de4016da7595eb5edc71a83e1a90283b"
+    },
+    "native_trace_driver": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\fixtures\\route_uv\\replay_native_trace.c",
+      "sha256": "8c61108f91048574347955b25002c40d7f784a8676bc701be0a212864b6e908f"
+    },
+    "standalone_test": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_route_uv.c",
+      "sha256": "6b71f463a7cff83bd37b1c6567557a474b54ff7252be7d93b156133affdfa596"
+    },
+    "trace_runner": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\capture_original_route_states.py",
+      "sha256": "f47b4601af3fa5339ce1c7a34d8a413dfaaf0949ee99ef6e92ddf81975e0dabd"
+    },
+    "fixture_helper": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_route_uv_feedback.py",
+      "sha256": "ef35ee7bbb517efe8f274ae341def74ed08e61e92a4afcaa2fbf73e737aeedae"
+    },
+    "shared_types": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_types.h",
+      "sha256": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d"
+    }
+  },
+  "fixture": {
+    "native_case_count": 17,
+    "transition_count": 5423,
+    "cases_by_route": {
+      "cc50_palette": 5,
+      "e680_mode80": 5,
+      "e680_shaded_7f": 7
+    },
+    "count_range": [
+      1,
+      319
+    ],
+    "zero_source_cases": [
+      "cc50_palette/all_zero",
+      "e680_mode80/all_zero",
+      "e680_shaded_7f/all_zero"
+    ]
+  },
+  "gcc": {
+    "build": {
+      "compiler": "C:\\msys64\\mingw64\\bin\\gcc.exe",
+      "version": "gcc.exe (Rev10, Built by MSYS2 project) 12.2.0",
+      "sha256": "c5005ba5380351c10743e9ca53ef9632164c54be3bd6b93324795114e4589a7d",
+      "flags": [
+        "-std=c89",
+        "-pedantic",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+        "-I"
+      ],
+      "binary": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase10\\route_build\\gcc\\route_uv_gcc.exe",
+      "binary_sha256": "879d42303a60d626b15683ea2a35f1c7e425f3d8c16dc184651e2ea7a8aea940",
+      "output": ""
+    },
+    "comparison": {
+      "transitions": 5423,
+      "post_uv_full_register_matches": 5423,
+      "next_full_register_matches": 5423,
+      "source_address_matches": 5423,
+      "lookup_addresses_checked": 6380,
+      "store_and_loop_decisions_checked": 5423,
+      "carry_one_counts": {
+        "cc50_palette": {
+          "eax": 0,
+          "ebx": 1590,
+          "pointer_in": 0,
+          "pointer_out": 0
+        },
+        "e680_mode80": {
+          "eax": 1590,
+          "ebx": 0,
+          "pointer_in": 0,
+          "pointer_out": 0
+        },
+        "e680_shaded_7f": {
+          "eax": 2226,
+          "ebx": 0,
+          "pointer_in": 0,
+          "pointer_out": 0
+        }
+      },
+      "carry_values_observed": {
+        "cc50_palette": {
+          "eax": [
+            0
+          ],
+          "ebx": [
+            0,
+            1
+          ],
+          "pointer_in": [
+            0
+          ],
+          "pointer_out": [
+            0
+          ]
+        },
+        "e680_mode80": {
+          "eax": [
+            0,
+            1
+          ],
+          "ebx": [
+            0
+          ],
+          "pointer_in": [
+            0
+          ],
+          "pointer_out": [
+            0
+          ]
+        },
+        "e680_shaded_7f": {
+          "eax": [
+            0,
+            1
+          ],
+          "ebx": [
+            0
+          ],
+          "pointer_in": [
+            0
+          ],
+          "pointer_out": [
+            0
+          ]
+        }
+      }
+    },
+    "standalone_test": {
+      "command": [
+        "C:\\msys64\\mingw64\\bin\\gcc.exe",
+        "-std=c89",
+        "-pedantic",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+        "-I",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_route_uv_models.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_route_uv.c",
+        "-o",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase10\\route_build\\gcc\\test_route_uv.exe"
+      ],
+      "build_output": "",
+      "binary": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase10\\route_build\\gcc\\test_route_uv.exe",
+      "binary_sha256": "7796adaa68d44af15b43093c3dbad429ff84b50a836eac12f4a21658de16bb47",
+      "run_output": "route UV standalone checks passed\n"
+    }
+  },
+  "vc5": {
+    "build": {
+      "status": "BUILT",
+      "compiler": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+      "version": "VC5 5.00.7022",
+      "binary": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase10\\route_build\\vc5\\route_uv_vc5.exe",
+      "binary_sha256": "1ee80ec39151f4c434c0a72f4d6e80823aab4421788459e9ba3eb8e714a523e4",
+      "flags": [
+        "/nologo",
+        "/W3",
+        "/O2",
+        "/MT",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+        "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase10\\route_build\\vc5\\",
+        "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase10\\route_build\\vc5\\route_uv_vc5.exe"
+      ],
+      "environment": {
+        "INCLUDE": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include",
+        "LIB": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib",
+        "TEMP": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase10\\route_build\\vc5\\tmp",
+        "TMP": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase10\\route_build\\vc5\\tmp"
+      },
+      "output": "hercules_route_uv_models.c\nreplay_native_trace.c\nGenerating Code...\n",
+      "run_status": "PASS"
+    },
+    "comparison": {
+      "transitions": 5423,
+      "post_uv_full_register_matches": 5423,
+      "next_full_register_matches": 5423,
+      "source_address_matches": 5423,
+      "lookup_addresses_checked": 6380,
+      "store_and_loop_decisions_checked": 5423,
+      "carry_one_counts": {
+        "cc50_palette": {
+          "eax": 0,
+          "ebx": 1590,
+          "pointer_in": 0,
+          "pointer_out": 0
+        },
+        "e680_mode80": {
+          "eax": 1590,
+          "ebx": 0,
+          "pointer_in": 0,
+          "pointer_out": 0
+        },
+        "e680_shaded_7f": {
+          "eax": 2226,
+          "ebx": 0,
+          "pointer_in": 0,
+          "pointer_out": 0
+        }
+      },
+      "carry_values_observed": {
+        "cc50_palette": {
+          "eax": [
+            0
+          ],
+          "ebx": [
+            0,
+            1
+          ],
+          "pointer_in": [
+            0
+          ],
+          "pointer_out": [
+            0
+          ]
+        },
+        "e680_mode80": {
+          "eax": [
+            0,
+            1
+          ],
+          "ebx": [
+            0
+          ],
+          "pointer_in": [
+            0
+          ],
+          "pointer_out": [
+            0
+          ]
+        },
+        "e680_shaded_7f": {
+          "eax": [
+            0,
+            1
+          ],
+          "ebx": [
+            0
+          ],
+          "pointer_in": [
+            0
+          ],
+          "pointer_out": [
+            0
+          ]
+        }
+      }
+    }
+  },
+  "limits": [
+    "Raw loop-entry state only; no geometry, setup, clipping, or packet reconstruction.",
+    "Only the captured count range and existing route/mode/selector cases are modeled.",
+    "Source/LUT bytes are supplied as route-specific observations; the C functions do not execute memory callbacks or emulate lookup tables.",
+    "No general affine iterator, GPU, full raster, host integration, gameplay, or whole-renderer equivalence is claimed."
+  ],
+  "invocation": {
+    "exe": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "original_root": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+    "package": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+    "fixture_helper": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_route_uv_feedback.py",
+    "trace_helper": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\capture_original_route_states.py",
+    "receipt": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase10\\route_native.json",
+    "build_dir": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase10\\route_build",
+    "python": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "python_version": "3.12.14",
+    "deps": "C:\\tools\\hercules\\renderer-oracle-python",
+    "analysis_deps": "C:\\tools\\hercules\\python"
+  },
+  "elapsed_seconds": 2.988
+}
