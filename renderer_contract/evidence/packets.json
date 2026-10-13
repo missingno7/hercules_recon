@@ -1,0 +1,687 @@
+{
+  "schema_version": 1,
+  "scope": "Private packet-layout proposal grounded in original PC consumer/writer spans and separately labeled source evidence.",
+  "tool": {
+    "capstone_version": "5.0.7",
+    "parser": "scripts/pe.py through work/renderer_baseline/baseline.py"
+  },
+  "originals": {
+    "HERCULES.EXE": {
+      "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "image_base": "0x400000"
+    },
+    "ENG1.DLL": {
+      "path": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\ENG1.DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "image_base": "0x10000000"
+    },
+    "ENG3.DLL": {
+      "path": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\ENG3.DLL",
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "image_base": "0x10000000"
+    },
+    "TITLE.DLL": {
+      "path": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\TITLE.DLL",
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "image_base": "0x10000000"
+    }
+  },
+  "native_spans": {
+    "HERCULES.EXE": [
+      {
+        "role": "AC60 packet dispatch/consumer",
+        "rva": "0xac60",
+        "size": 1680,
+        "sha256": "f7724c04bef582e378b183a12550ba841df1a6fa3660be51da71154aa5c525af"
+      }
+    ],
+    "ENG1.DLL": [
+      {
+        "role": "native ENG1 mesh producer 0x2df20",
+        "rva": "0x2df20",
+        "size": 820,
+        "sha256": "1cf86d2415df74b7a8a8d7cfbea15be7322871063d447b2de920e5fedbf21213"
+      },
+      {
+        "role": "tile packet writer 0x2ff0",
+        "rva": "0x2ff0",
+        "size": 640,
+        "sha256": "3c66a5127439383e077ff5939df41f0b502937c8a2b854bbc4bd94e2c54fddc0"
+      }
+    ],
+    "ENG3.DLL": [
+      {
+        "role": "observed variable-sprite writer 0x72a0",
+        "rva": "0x72a0",
+        "size": 135,
+        "sha256": "02650988ca11550e0ff42667d9421789b2f63625b7799a7a27c9986b408cafa1"
+      }
+    ]
+  },
+  "consumer": {
+    "receipt": "work/renderer_closure/evidence.json",
+    "entry_abi": {
+      "physical_arguments": [
+        "one 32-bit pointer to the first ordering-table DWORD"
+      ],
+      "evidence": "At entry, AC60 pushes EBX/EBP/ESI/EDI then reads [ESP+0x14], which resolves to entry [ESP+4]. No other entry stack argument is read. It sets no explicit return value; the observed host callback interface and engine call path treat it as void. Original declared type/name remain unproved."
+    },
+    "packet_relative_read_sites": [
+      {
+        "offset": "0x0",
+        "width": 4,
+        "read_sites": [
+          "0xaca2",
+          "0xaca8"
+        ]
+      },
+      {
+        "offset": "0x4",
+        "width": 1,
+        "read_sites": [
+          "0xaf03",
+          "0xb014"
+        ]
+      },
+      {
+        "offset": "0x4",
+        "width": 2,
+        "read_sites": [
+          "0xb1ff"
+        ]
+      },
+      {
+        "offset": "0x4",
+        "width": 4,
+        "read_sites": [
+          "0xb19c",
+          "0xb1b6",
+          "0xb1c1"
+        ]
+      },
+      {
+        "offset": "0x6",
+        "width": 1,
+        "read_sites": [
+          "0xb209"
+        ]
+      },
+      {
+        "offset": "0x7",
+        "width": 1,
+        "read_sites": [
+          "0xacbb",
+          "0xb033"
+        ]
+      },
+      {
+        "offset": "0x8",
+        "width": 2,
+        "read_sites": [
+          "0xace4",
+          "0xadf4",
+          "0xaf24",
+          "0xb097",
+          "0xb0db",
+          "0xb11f",
+          "0xb22c"
+        ]
+      },
+      {
+        "offset": "0xa",
+        "width": 2,
+        "read_sites": [
+          "0xaced",
+          "0xadfd",
+          "0xaf2d",
+          "0xb0a3",
+          "0xb0e6",
+          "0xb12b",
+          "0xb237"
+        ]
+      },
+      {
+        "offset": "0xc",
+        "width": 1,
+        "read_sites": [
+          "0xad41",
+          "0xae51",
+          "0xaf78",
+          "0xb0ac",
+          "0xb0f0",
+          "0xb135"
+        ]
+      },
+      {
+        "offset": "0xc",
+        "width": 2,
+        "read_sites": [
+          "0xb1dd"
+        ]
+      },
+      {
+        "offset": "0xd",
+        "width": 1,
+        "read_sites": [
+          "0xad35",
+          "0xae45",
+          "0xaf6a",
+          "0xb0b7",
+          "0xb0fb",
+          "0xb13f"
+        ]
+      },
+      {
+        "offset": "0xe",
+        "width": 2,
+        "read_sites": [
+          "0xb029",
+          "0xb1d9"
+        ]
+      },
+      {
+        "offset": "0x10",
+        "width": 2,
+        "read_sites": [
+          "0xacf7",
+          "0xaf39",
+          "0xb148"
+        ]
+      },
+      {
+        "offset": "0x12",
+        "width": 2,
+        "read_sites": [
+          "0xad01",
+          "0xaf45",
+          "0xb153"
+        ]
+      },
+      {
+        "offset": "0x14",
+        "width": 1,
+        "read_sites": [
+          "0xad5c",
+          "0xaf91"
+        ]
+      },
+      {
+        "offset": "0x14",
+        "width": 2,
+        "read_sites": [
+          "0xae07"
+        ]
+      },
+      {
+        "offset": "0x15",
+        "width": 1,
+        "read_sites": [
+          "0xad4e",
+          "0xaf84"
+        ]
+      },
+      {
+        "offset": "0x16",
+        "width": 1,
+        "read_sites": [
+          "0xadbb",
+          "0xade3",
+          "0xafdc",
+          "0xb004"
+        ]
+      },
+      {
+        "offset": "0x16",
+        "width": 2,
+        "read_sites": [
+          "0xad9e",
+          "0xae11",
+          "0xafc3"
+        ]
+      },
+      {
+        "offset": "0x18",
+        "width": 1,
+        "read_sites": [
+          "0xae6c"
+        ]
+      },
+      {
+        "offset": "0x18",
+        "width": 2,
+        "read_sites": [
+          "0xad0a",
+          "0xaf4e"
+        ]
+      },
+      {
+        "offset": "0x19",
+        "width": 1,
+        "read_sites": [
+          "0xae5e"
+        ]
+      },
+      {
+        "offset": "0x1a",
+        "width": 1,
+        "read_sites": [
+          "0xaecb",
+          "0xaef3"
+        ]
+      },
+      {
+        "offset": "0x1a",
+        "width": 2,
+        "read_sites": [
+          "0xad14",
+          "0xaeae",
+          "0xaf5c"
+        ]
+      },
+      {
+        "offset": "0x1c",
+        "width": 1,
+        "read_sites": [
+          "0xad77",
+          "0xafb3"
+        ]
+      },
+      {
+        "offset": "0x1d",
+        "width": 1,
+        "read_sites": [
+          "0xad6a",
+          "0xaf9f"
+        ]
+      },
+      {
+        "offset": "0x20",
+        "width": 2,
+        "read_sites": [
+          "0xad20",
+          "0xae1a"
+        ]
+      },
+      {
+        "offset": "0x22",
+        "width": 2,
+        "read_sites": [
+          "0xad2b",
+          "0xae24"
+        ]
+      },
+      {
+        "offset": "0x24",
+        "width": 1,
+        "read_sites": [
+          "0xad93",
+          "0xae87"
+        ]
+      },
+      {
+        "offset": "0x25",
+        "width": 1,
+        "read_sites": [
+          "0xad85",
+          "0xae7a"
+        ]
+      },
+      {
+        "offset": "0x2c",
+        "width": 2,
+        "read_sites": [
+          "0xae30"
+        ]
+      },
+      {
+        "offset": "0x2e",
+        "width": 2,
+        "read_sites": [
+          "0xae3b"
+        ]
+      },
+      {
+        "offset": "0x30",
+        "width": 1,
+        "read_sites": [
+          "0xaea3"
+        ]
+      },
+      {
+        "offset": "0x31",
+        "width": 1,
+        "read_sites": [
+          "0xae95"
+        ]
+      }
+    ],
+    "traversal": {
+      "entry_pointer": "arg1 points at the first 32-bit head cell; current head is loaded from [arg1]. Cursor starts at arg1+4.",
+      "next_bucket": "If current ESI equals cursor, ESI is the address of the next head cell (an empty-bucket sentinel before any primitive, or a tail-link sentinel after the prior primitive was processed). AC60 dereferences that cell for its head, advances cursor by four, and repeats. Otherwise a non-null ESI points to a primitive, which is dispatched; the loop then loads its first DWORD link and repeats the comparison.",
+      "termination": "A NULL current head exits. Valid initialized ordering tables terminate within the measured 0x500-DWORD region before a one-past cell read. AC60 has no explicit slot-count bound; malformed tails and out-of-range/corrupt tables remain unresolved."
+    },
+    "dispatch": {
+      "tag_byte_offset": 7,
+      "group_mask": "0xe0",
+      "normalize": "clear bit 1 (AND 0xfd) for base-code compare; then test original bit 1 separately to select one of two rasterizer paths.",
+      "routes": [
+        {
+          "group": "0x20",
+          "base_codes": {
+            "0x24": "FT3-compatible field reads; output vertex 2 is duplicated to vertex 3",
+            "0x2c": "FT4-compatible field reads",
+            "0x3c": "GT4-compatible field reads; per-vertex colors are ignored"
+          },
+          "rasterizer_bit1_clear": "0xd420",
+          "rasterizer_bit1_set": "0xe680",
+          "access_minimums": {
+            "0x24": "0x1e",
+            "0x2c": "0x26",
+            "0x3c": "0x32"
+          }
+        },
+        {
+          "group": "0x60",
+          "base_codes": {
+            "0x64": "variable width/height sprite-compatible reads",
+            "0x74": "fixed 8x8 sprite-compatible reads",
+            "0x7c": "fixed 16x16 sprite-compatible reads"
+          },
+          "rasterizer_bit1_clear": "0xcab0",
+          "rasterizer_bit1_set": "0xc8f0",
+          "access_minimums": {
+            "0x64": "0x14",
+            "0x74": "0x0e",
+            "0x7c": "0x0e"
+          }
+        },
+        {
+          "group": "0xe0 or 0x00",
+          "commands": {
+            "0xe1": "read DWORD +4 and update texture/page state",
+            "0x01": "pass pointer +0x10 and signed words +0x0c/+0x0e to 0xa8f0",
+            "0xf3": "read extents and clamp/update rectangle state"
+          },
+          "access_minimums": {
+            "0xe1": "0x08",
+            "0x01": "0x10 direct AC60 packet-read envelope; A8F0 reads 8-byte rectangle at +0x10, making 0x18 total record extent",
+            "0xf3": "0x0c"
+          }
+        },
+        {
+          "group": "0x40",
+          "behavior": "reads the global gate byte and resumes traversal; no direct state write or call in this body."
+        }
+      ],
+      "widths_are": "Packet minima are direct AC60 reads, except command 0x01 also states the reachable record extent through A8F0's pointee; neither is a producer-allocation claim."
+    },
+    "direct_access_minima_are_not_allocation_sizes": true,
+    "ac60_proof_level": "STATIC_OBSERVED",
+    "ac60_loop_bound": "The original AC60 loop has no slot count; the proposed caller-bounded view must stop at its final slot and never dereference a one-past sentinel."
+  },
+  "producer_evidence": {
+    "eng1_mesh": {
+      "proof_level": "STATIC_OBSERVED",
+      "native_span": {
+        "role": "native ENG1 mesh producer 0x2df20",
+        "rva": "0x2df20",
+        "size": 820,
+        "sha256": "1cf86d2415df74b7a8a8d7cfbea15be7322871063d447b2de920e5fedbf21213"
+      },
+      "native_direct_calls": [
+        {
+          "call_rva": "0x2dfde",
+          "target_rva": "0x2ef60"
+        },
+        {
+          "call_rva": "0x2dfe9",
+          "target_rva": "0x2f120"
+        },
+        {
+          "call_rva": "0x2dffb",
+          "target_rva": "0x2e7a0"
+        },
+        {
+          "call_rva": "0x2e016",
+          "target_rva": "0x2ea50"
+        },
+        {
+          "call_rva": "0x2e020",
+          "target_rva": "0x2f340"
+        },
+        {
+          "call_rva": "0x2e02f",
+          "target_rva": "0x2e3b0"
+        },
+        {
+          "call_rva": "0x2e04d",
+          "target_rva": "0x2e600"
+        },
+        {
+          "call_rva": "0x2e057",
+          "target_rva": "0x2e6c0"
+        },
+        {
+          "call_rva": "0x2e065",
+          "target_rva": "0x2ed10"
+        },
+        {
+          "call_rva": "0x2e131",
+          "target_rva": "0x2c670"
+        },
+        {
+          "call_rva": "0x2e139",
+          "target_rva": "0x2c6d0"
+        },
+        {
+          "call_rva": "0x2e154",
+          "target_rva": "0x2c740"
+        },
+        {
+          "call_rva": "0x2e17e",
+          "target_rva": "0x2c790"
+        }
+      ],
+      "native_packet_path": "The original body calls 0x2c790 (GT4 helper) and advances by 0x34 bytes; no direct 0x2c770 (FT4 helper) call is present in this span.",
+      "source": "src/eng1/behavioral/mesh_emit.c",
+      "source_sha256": "c66c70f3135d657182490ec6c88beddb7cd35843159018b4c8377bea76468fed",
+      "candidate_only": "The candidate models FT4 and GT4 branches but is buildability-only and does not establish bounded equivalence; its FT4 branch is not treated as native provenance.",
+      "allocation": "0x34 bytes for the native GT4 path",
+      "source_candidate_evidence": "evidence/eng1_geometry.json"
+    },
+    "eng1_tile": {
+      "proof_level": "BOUNDED_EQUIVALENT",
+      "native_span": {
+        "role": "tile packet writer 0x2ff0",
+        "rva": "0x2ff0",
+        "size": 640,
+        "sha256": "3c66a5127439383e077ff5939df41f0b502937c8a2b854bbc4bd94e2c54fddc0"
+      },
+      "source": "src/eng1/behavioral/tile_draw_2ff0.c",
+      "source_sha256": "973d82118cb46c670c3186011ffa21858a4c7ed32232f8649db42ce4d35b2fde",
+      "native_contract": {
+        "entry_abi": "void-like one-argument cdecl; argument is a pointer to at least two DWORD coordinates; native return is not claimed",
+        "native_span": {
+          "rva": "0x2ff0",
+          "bytes": 640,
+          "sha256": "3c66a5127439383e077ff5939df41f0b502937c8a2b854bbc4bd94e2c54fddc0",
+          "ret_rva": "0x326f"
+        },
+        "reads_and_effects": [
+          "mask DWORD 0x70cf8 to low 24 bits and OR 0x2c000000 once at entry",
+          "read signed WORD width/height and grid pointer from header pointer 0x70d44",
+          "read exactly input DWORD offsets +0 and +4; no input writes or third-coordinate read",
+          "signed IDIV x tile coordinate by width; signed y row coordinate and signed height clipping",
+          "scan 21 columns over up to 17 screen rows, wrapping columns at width",
+          "merge a run while signed(start WORD + 16*n) equals the next signed WORD; next cell is read before the >20 termination branch",
+          "write masked packet color at record +4, then read live WORD 0x73480 and store it at record +0xe before list linking and packet-kind branch",
+          "record low two tile bits choose 20-byte basic record or 40-byte textured quad; high-byte bit 0 chooses one of the two frame heads",
+          "rotate live frame heads through +0x70/+0x88 and +0x7c/+0x8c using repeated live frame-pointer loads; update cursor 0x73484"
+        ],
+        "width_zero": "Native signed IDIV faults for zero width. The pinned VC5 x86 candidate uses its historical signed modulo operation, and a finite SEH differential checks the same divide-error code and cursor ordering."
+      },
+      "fixture_limits": [
+        "The fixture uses finite test-owned headers and grids; it does not establish the runtime allocation extent behind arbitrary resource headers.",
+        "The output list/frame backing is controlled fixture memory, not a proof of the production frame allocation capacity.",
+        "The 0x73480 WORD is mutable; the nonzero value is supplied in both oracle memory and the actual canonical storage provider for discrimination.",
+        "Zero-width behavior is checked under the pinned VC5 x86 code generation only; ISO C leaves division by zero undefined.",
+        "This supports semantic confidence only, not FUNCTION_MATCH, source identity, full renderer behavior, or pixel output."
+      ]
+    },
+    "eng1_draw_commands": {
+      "proof_level": "BOUNDED_EQUIVALENT",
+      "source": "src/eng1/behavioral/draw_commands.c",
+      "source_sha256": "63fa9eaf877ccd9bbf1eccef8796f7a40f676758fd588d4b5ec74da1faa8e587",
+      "differential": {
+        "result": "PASS",
+        "cases": 14,
+        "failures": 0,
+        "scope": "Fourteen unpatched-x86 command-writer cases: complete128B output/canaries, callback order/args, chain/head/cursor; truncation, blend gates, unsigned edges and callback cursor mutation. Host endpoints are controlled spies; no pixel or gameplay claim.",
+        "reproduce": "python scripts/eng1_bounded_differential.py command-writers"
+      },
+      "ft4_allocation": "Two bounded 0x28-byte FT4-like blend records in the existing native/source differential."
+    },
+    "eng3_sprite64": {
+      "proof_level": "STATIC_OBSERVED",
+      "native_span": {
+        "role": "observed variable-sprite writer 0x72a0",
+        "rva": "0x72a0",
+        "size": 135,
+        "sha256": "02650988ca11550e0ff42667d9421789b2f63625b7799a7a27c9986b408cafa1"
+      },
+      "observed": "The original span writes XY at +8/+a, UV at +c/+d, a producer word at +e, dimensions at +10/+12, a color DWORD at +4, command 0x64 at +7, links the record, and advances the cursor by 0x14. AC60's 0x64 branch reads XY, UV, dimensions, tag, and link but does not consume +4..+6 or +e; those producer values are not decoded as color or CLUT.",
+      "boundary_limit": "The listed span is an instruction window through the observed producer tail, not a source identity or accepted recovery function boundary."
+    },
+    "title_ft4": {
+      "proof_level": "BOUNDED_EQUIVALENT",
+      "source": "src/title/behavioral/render.inc",
+      "source_sha256": "9c788e3ea0b29d416aa97098c34583495694683ca98ec3d447a8ef48139eb590",
+      "validated_producers": [
+        "0x17f50",
+        "0x181e0",
+        "0x186e0",
+        "0x18bf0"
+      ],
+      "contract": "Synthetic bounded streams with controlled helpers; packet pool/order table/cursor and documented output effects are covered.",
+      "limit": "This does not validate the packet decoder or any pixel/render output equivalence."
+    }
+  },
+  "proof_levels": {
+    "STATIC_OBSERVED": "Original instruction/dataflow or source stores are directly observed; no bounded source/oracle comparison implied.",
+    "LAYOUT_VERIFIED": "The C declarations compile with fixed-width size/offset assertions; this validates declaration geometry only.",
+    "BOUNDED_EQUIVALENT": "Existing finite producer/source differential covers only its stated packet writes and controlled buffers/helpers.",
+    "UNRESOLVED": "No producer extent/source identity or consumer semantic claim is made where evidence is absent.",
+    "decoder": "Synthetic fixtures validate this candidate decoder only; it has not been differentially compared against AC60's rasterizer outputs."
+  },
+  "fixture_test": {
+    "result": "PASS",
+    "command": "powershell -File work/renderer_packets/run_tests.ps1",
+    "checks": 37,
+    "stdout_and_compile_log": {
+      "sha256": "33a3e1f9fba279f61034eee0bc229fe344b815005174e1885e518cd206458ed2",
+      "size_bytes": 224
+    },
+    "toolchain_id": "msvc5_rtm",
+    "compiler": {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+      "file_version": "11.00.7022"
+    },
+    "executable": {
+      "sha256": "598d7546818e2d22716b2fd444c0768c5f7520d121d18f260def802c852a8cf0",
+      "size_bytes": 49664
+    }
+  },
+  "inputs": {
+    "sources": {
+      "src/eng1/behavioral/mesh_emit.c": {
+        "sha256": "c66c70f3135d657182490ec6c88beddb7cd35843159018b4c8377bea76468fed",
+        "size_bytes": 6193
+      },
+      "src/eng1/behavioral/draw_commands.c": {
+        "sha256": "63fa9eaf877ccd9bbf1eccef8796f7a40f676758fd588d4b5ec74da1faa8e587",
+        "size_bytes": 6484
+      },
+      "src/eng1/behavioral/tile_draw_2ff0.c": {
+        "sha256": "973d82118cb46c670c3186011ffa21858a4c7ed32232f8649db42ce4d35b2fde",
+        "size_bytes": 7862
+      },
+      "src/title/behavioral/render.inc": {
+        "sha256": "9c788e3ea0b29d416aa97098c34583495694683ca98ec3d447a8ef48139eb590",
+        "size_bytes": 18131
+      }
+    },
+    "evidence": {
+      "work/renderer_closure/evidence.json": {
+        "sha256": "279f4a5c30b1b3eee8bd86f9dbde0096b6da34155e446eb87b35a8c1b87e6c87",
+        "size_bytes": 40428
+      },
+      "work/renderer_closure/state_commands_evidence.json": {
+        "sha256": "a1801c8978d9fdd378dec64cd8d67cf039113b97a45939016a502b4084610dc7",
+        "size_bytes": 11167
+      },
+      "work/renderer_geometry_info/evidence.json": {
+        "sha256": "b83735dc21755671d205573df82504ace4c5f7102d68b49e7f595b8e476e567f",
+        "size_bytes": 17963
+      },
+      "evidence/eng1_geometry.json": {
+        "sha256": "fff1b17a076e6c7212e764122700a9cda715db43793badbfcfb000bf19e35391",
+        "size_bytes": 12831
+      },
+      "evidence/eng1_tile_draw_2ff0.json": {
+        "sha256": "5b1892d1555a61924ae5f8c6183add5ac063e8848816f14a77ec1005d5517293",
+        "size_bytes": 5417
+      },
+      "evidence/eng1_cold_frame_commands.json": {
+        "sha256": "70d7a598383389f45e41ebba8dcc464517f700e4fb74755f6857f60b27211843",
+        "size_bytes": 28304
+      },
+      "evidence/title_behavioral_build.json": {
+        "sha256": "0134ba374c23d4cd8c25ab8d5db9b4b6ba7936afe9e411a0eceec7ac046808d4",
+        "size_bytes": 25404
+      },
+      "evidence/title_behavioral_validation.json": {
+        "sha256": "70379d7545379675394e347ba66b506139630a0853ab0bb98296194b9d20844c",
+        "size_bytes": 5041
+      }
+    },
+    "candidate_proposal": {
+      "candidates/renderer_packets/renderer_packet_width.h": {
+        "sha256": "7ff4de4b0c8fd8287d2f455d207b0aba9fe5f94328bf28cf3b4c1d2113c67a89",
+        "size_bytes": 1481
+      },
+      "candidates/renderer_packets/renderer_packets.h": {
+        "sha256": "e883925083a0043a760c68c1fc71196d72facefc1f3b746eecc78cbfa4ee5d50",
+        "size_bytes": 7679
+      },
+      "candidates/renderer_packets/renderer_packets.c": {
+        "sha256": "557fc86e4a227d910b52c734f8f13f8a459b2a6a78a5cfb0646c570bd0382946",
+        "size_bytes": 7740
+      },
+      "candidates/renderer_packets/test_renderer_packets.c": {
+        "sha256": "2e0d8f2dc47289cb1a286962de2fc9a43410269268d4a1abefcde8db4f5264fa",
+        "size_bytes": 10399
+      }
+    },
+    "private_scripts": {
+      "work/renderer_packets/packets.md": {
+        "sha256": "0970c33803fdc4379807f454a7893e845927886508d106646047ec20560c7364",
+        "size_bytes": 8254
+      },
+      "work/renderer_packets/audit_renderer_packets.py": {
+        "sha256": "467e43e0beab5b8fde02521a294742d124f1aae9b9029b5c14ea4ad128a9c088",
+        "size_bytes": 11746
+      },
+      "work/renderer_packets/run_tests.ps1": {
+        "sha256": "d72c2ab5941ca019e0558fbfd6b16e0d5b6a3ae7295e5e957eb3955490e08b6a",
+        "size_bytes": 1359
+      }
+    }
+  },
+  "integration_provenance": {
+    "private_receipt_sha256": "46a17a9ddb7cac311d17e2eda8cf86d91b352ad377ddd4d1b31e3d952e333078",
+    "omitted": "Detailed disassembly remains private scratch; hashes, references and findings retained.",
+    "source_commit": "73c6320179093c3de9b820e66b87f94dfb639a9b"
+  }
+}

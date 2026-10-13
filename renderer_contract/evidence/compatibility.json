@@ -1,0 +1,2708 @@
+{
+  "scope": "STATIC_OBSERVED original PC binaries; no original execution or gameplay.",
+  "tooling": {
+    "python": "3.12.14",
+    "capstone": "5.0.7",
+    "audit_sha256": "3d55c7a3581e03d61cb59022c95d05803d6060b464d613530073bddc95274376"
+  },
+  "oracles": {
+    "HERCULES.EXE": {
+      "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+    },
+    "ENG1.DLL": {
+      "path": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\ENG1.DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+    },
+    "ENG3.DLL": {
+      "path": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\ENG3.DLL",
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+    },
+    "TITLE.DLL": {
+      "path": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\TITLE.DLL",
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b"
+    }
+  },
+  "interface": {
+    "source_table_rva": "0x361b8",
+    "source_table_va": "0x4361b8",
+    "dword_count": 250,
+    "byte_count": 1000,
+    "signature": "0x5ac00cac",
+    "source_table_sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "pointer_slot_rva": "0x365a0",
+    "pointer_slot_raw": "b8614300",
+    "pointer_slot_initial_va": "0x4361b8",
+    "pointer_slot_section": ".data",
+    "pointer_slot_direct_code_refs": [
+      {
+        "rva": "0x5ef3",
+        "mnemonic": "mov",
+        "operand": "edx, dword ptr [0x4365a0]",
+        "access": "read",
+        "operand_index": 1
+      }
+    ],
+    "static_direct_code_writes_observed": [],
+    "source_table_direct_code_ref_summary": [
+      {
+        "slot": 1,
+        "offset": "0x4",
+        "read_count": 186,
+        "write_count": 0,
+        "unknown_count": 0,
+        "instruction_rvas": [
+          "0x1000",
+          "0x101b",
+          "0x1036",
+          "0x106d",
+          "0x1090",
+          "0x10b0",
+          "0x10c3",
+          "0x10ea",
+          "0x10fe",
+          "0x1136",
+          "0x117b",
+          "0x1197",
+          "0x11b4",
+          "0x11d7",
+          "0x11ed",
+          "0x1202",
+          "0x1217",
+          "0x1228",
+          "0x123a",
+          "0x1254",
+          "0x1286",
+          "0x12cf",
+          "0x12df",
+          "0x130c",
+          "0x1359",
+          "0x139e",
+          "0x13c1",
+          "0x13de",
+          "0x13fe",
+          "0x1413",
+          "0x1443",
+          "0x1486",
+          "0x1496",
+          "0x14c3",
+          "0x1502",
+          "0x1558",
+          "0x156f",
+          "0x1598",
+          "0x15d0",
+          "0x15f3",
+          "0x1631",
+          "0x1643",
+          "0x1655",
+          "0x16ba",
+          "0x16cf",
+          "0x16f3",
+          "0x1707",
+          "0x1717",
+          "0x1728",
+          "0x1762",
+          "0x17d8",
+          "0x1827",
+          "0x1848",
+          "0x1859",
+          "0x187d",
+          "0x189d",
+          "0x18b8",
+          "0x190f",
+          "0x1939",
+          "0x1959",
+          "0x196a",
+          "0x198e",
+          "0x19ae",
+          "0x19c9",
+          "0x1a19",
+          "0x1a37",
+          "0x1a82",
+          "0x1aab",
+          "0x1abe",
+          "0x1aca",
+          "0x1adf",
+          "0x1af6",
+          "0x1b0b",
+          "0x1b1f",
+          "0x1b40",
+          "0x1b51",
+          "0x1b5d",
+          "0x1b6c",
+          "0x1b90",
+          "0x1b9f",
+          "0x1bd6",
+          "0x1bf1",
+          "0x1c03",
+          "0x1c1a",
+          "0x1c41",
+          "0x1c50",
+          "0x1c81",
+          "0x1c90",
+          "0x1ca2",
+          "0x1cb7",
+          "0x1ccc",
+          "0x1cd9",
+          "0x1ce6",
+          "0x1d1b",
+          "0x1d37",
+          "0x1d65",
+          "0x1d89",
+          "0x1daf",
+          "0x1dd9",
+          "0x1de8",
+          "0x1e66",
+          "0x1e90",
+          "0x1ebb",
+          "0x1f65",
+          "0x1fb0",
+          "0x1fbd",
+          "0x1fd0",
+          "0x1fe0",
+          "0x1ff2",
+          "0x202d",
+          "0x203b",
+          "0x2048",
+          "0x2056",
+          "0x2060",
+          "0x206c",
+          "0x2079",
+          "0x2086",
+          "0x3b82",
+          "0x3b94",
+          "0x3bba",
+          "0x3bd1",
+          "0x3bfa",
+          "0x3c09",
+          "0x3c2e",
+          "0x3c50",
+          "0x3c91",
+          "0x3ca0",
+          "0x3ce4",
+          "0x3d04",
+          "0x3d30",
+          "0x3d58",
+          "0x3d6b",
+          "0x3d90",
+          "0x3dd4",
+          "0x3de3",
+          "0x3e28",
+          "0x3e38",
+          "0x3e59",
+          "0x3e69",
+          "0x3e7c",
+          "0x3ea0",
+          "0x3ed2",
+          "0x3ee1",
+          "0x3f00",
+          "0x3f1a",
+          "0x3f2e",
+          "0x3f53",
+          "0x3f68",
+          "0x3f75",
+          "0x3fb0",
+          "0x3fce",
+          "0x3fdc",
+          "0x3ff1",
+          "0x4003",
+          "0x4012",
+          "0x4022",
+          "0x4047",
+          "0x4069",
+          "0x407c",
+          "0x4098",
+          "0x40ae",
+          "0x40fb",
+          "0x410a",
+          "0x4124",
+          "0x4150",
+          "0x415f",
+          "0x41a0",
+          "0x41c5",
+          "0x41de",
+          "0x41e7",
+          "0x41fd",
+          "0x4218",
+          "0x4221",
+          "0x422b",
+          "0x4280",
+          "0x4290",
+          "0x42a8",
+          "0x42c0",
+          "0x42d7",
+          "0x106b8",
+          "0x106fb",
+          "0x10760",
+          "0x1076f",
+          "0x1077b",
+          "0x10788",
+          "0x107a9"
+        ]
+      },
+      {
+        "slot": 2,
+        "offset": "0x8",
+        "read_count": 2,
+        "write_count": 0,
+        "unknown_count": 0,
+        "instruction_rvas": [
+          "0x2007",
+          "0x2020"
+        ]
+      },
+      {
+        "slot": 3,
+        "offset": "0xc",
+        "read_count": 2,
+        "write_count": 0,
+        "unknown_count": 0,
+        "instruction_rvas": [
+          "0x2001",
+          "0x201b"
+        ]
+      },
+      {
+        "slot": 5,
+        "offset": "0x14",
+        "read_count": 2,
+        "write_count": 0,
+        "unknown_count": 0,
+        "instruction_rvas": [
+          "0xb9e4",
+          "0xbb07"
+        ]
+      }
+    ],
+    "runtime_alias_mutation_excluded": false
+  },
+  "host_loader": {
+    "imports": {
+      "DirectDrawCreate": {
+        "dll": "DDRAW.dll",
+        "iat_rva": "0x7a5648"
+      },
+      "LoadLibraryA": {
+        "dll": "KERNEL32.dll",
+        "iat_rva": "0x7a589c"
+      },
+      "FreeLibrary": {
+        "dll": "KERNEL32.dll",
+        "iat_rva": "0x7a58a4"
+      },
+      "GetProcAddress": {
+        "dll": "KERNEL32.dll",
+        "iat_rva": "0x7a58ac"
+      }
+    },
+    "loadlibrary_call_rva": "0x5c75",
+    "loadlibrary_argument": "basename substring from mutable path at VA 0x91bbd8 after final backslash",
+    "getprocaddress_call_rva": "0x5c95",
+    "getprocaddress_name_rva": "0x36868",
+    "getprocaddress_name": "PC_DLLEngineMain",
+    "resolved_function_pointer_va": "0x91c45c",
+    "paths_in_host_image": [
+      {
+        "rva": "0x36882",
+        "ascii": "eng3\\release\\eng3.dll"
+      },
+      {
+        "rva": "0x368a6",
+        "ascii": "eng1\\release\\eng1.dll"
+      },
+      {
+        "rva": "0x368ca",
+        "ascii": "title\\release\\title.dll"
+      }
+    ],
+    "runtime_search_order_or_selected_path_proved": false,
+    "export_call_rva": "0x5f03",
+    "source_pointer_load_rva": "0x5ef3",
+    "caller_cleanup_rva": "0x5f05",
+    "physical_call_shape": "push zero-extended byte flag, push table pointer, call resolved export, add esp,8",
+    "return_value_consumed": false
+  },
+  "host_initialization_order": {
+    "graphics_setup_call_rva": "0x5e2c",
+    "graphics_setup_target_rva": "0x72a0",
+    "directdraw_import": "DDRAW.dll!DirectDrawCreate",
+    "observed_directdraw_thunk_call_rva": "0x7426",
+    "first_table_pointer_read_rva": "0x5ef3",
+    "scope": "Static init call path orders graphics setup before the first engine dispatch; runtime selection of a specific DLL remains unobserved."
+  },
+  "source_table_target_slots": {
+    "0xa710": [
+      129
+    ],
+    "0xa640": [
+      130
+    ],
+    "0xa8f0": [
+      131
+    ],
+    "0x70c0": [
+      143
+    ],
+    "0x5450": [
+      148
+    ]
+  },
+  "host_direct_call_edges": {
+    "ac00_frame_notify_to_bd80": [
+      {
+        "source_rva": "0xac00",
+        "target_rva": "0xbd80",
+        "bytes": "e87b110000"
+      }
+    ],
+    "a640_title_upload_wrapper_to_a710": [
+      {
+        "source_rva": "0xa675",
+        "target_rva": "0xa710",
+        "bytes": "e896000000"
+      }
+    ],
+    "a710_upload_to_bd80_notification": [
+      {
+        "source_rva": "0xa7f7",
+        "target_rva": "0xbd80",
+        "bytes": "e884150000"
+      },
+      {
+        "source_rva": "0xa8db",
+        "target_rva": "0xbd80",
+        "bytes": "e8a0140000"
+      }
+    ],
+    "ac60_submit_to_color_lock_unlock_present": {
+      "0x70c0": [
+        {
+          "source_rva": "0xb2d0",
+          "target_rva": "0x70c0",
+          "bytes": "e8ebbdffff"
+        }
+      ],
+      "0x6ff0": [
+        {
+          "source_rva": "0xac92",
+          "target_rva": "0x6ff0",
+          "bytes": "e859c3ffff"
+        }
+      ],
+      "0x7140": [
+        {
+          "source_rva": "0xb2d8",
+          "target_rva": "0x7140",
+          "bytes": "e863beffff"
+        }
+      ],
+      "0x6620": [
+        {
+          "source_rva": "0xb2dd",
+          "target_rva": "0x6620",
+          "bytes": "e83eb3ffff"
+        }
+      ]
+    },
+    "ac60_command01_to_vram_rectmove": [
+      {
+        "source_rva": "0xb1e7",
+        "target_rva": "0xa8f0",
+        "bytes": "e804f7ffff"
+      }
+    ],
+    "5450_movie_display_to_lock_unlock_present": {
+      "0x6ff0": [
+        {
+          "source_rva": "0x55e8",
+          "target_rva": "0x6ff0",
+          "bytes": "e8031a0000"
+        }
+      ],
+      "0x7140": [
+        {
+          "source_rva": "0x5672",
+          "target_rva": "0x7140",
+          "bytes": "e8c91a0000"
+        }
+      ],
+      "0x6620": [
+        {
+          "source_rva": "0x5677",
+          "target_rva": "0x6620",
+          "bytes": "e8a40f0000"
+        }
+      ]
+    }
+  },
+  "renderer_slot_matrix": {
+    "slot_roles": {
+      "80": {
+        "role": "frame_channel_notify",
+        "replacement_policy": "shared_service_preserve",
+        "offset": "0x140",
+        "source_entry_rva": "0x362f8",
+        "source_entry_va": "0x4362f8",
+        "target_va": "0x40ac00",
+        "target_rva": "0xac00"
+      },
+      "81": {
+        "role": "chain_initializer",
+        "replacement_policy": "shared_service_preserve",
+        "offset": "0x144",
+        "source_entry_rva": "0x362fc",
+        "source_entry_va": "0x4362fc",
+        "target_va": "0x40ac20",
+        "target_rva": "0xac20"
+      },
+      "89": {
+        "role": "frame_submission",
+        "replacement_policy": "interception_candidate",
+        "offset": "0x164",
+        "source_entry_rva": "0x3631c",
+        "source_entry_va": "0x43631c",
+        "target_va": "0x40ac60",
+        "target_rva": "0xac60"
+      },
+      "100": {
+        "role": "projected_coordinate_pack",
+        "replacement_policy": "geometry_service",
+        "offset": "0x190",
+        "source_entry_rva": "0x36348",
+        "source_entry_va": "0x436348",
+        "target_va": "0x40b6b0",
+        "target_rva": "0xb6b0"
+      },
+      "101": {
+        "role": "vector_input",
+        "replacement_policy": "geometry_service",
+        "offset": "0x194",
+        "source_entry_rva": "0x3634c",
+        "source_entry_va": "0x43634c",
+        "target_va": "0x40b6f0",
+        "target_rva": "0xb6f0"
+      },
+      "106": {
+        "role": "transform_and_projection",
+        "replacement_policy": "geometry_service",
+        "offset": "0x1a8",
+        "source_entry_rva": "0x36360",
+        "source_entry_va": "0x436360",
+        "target_va": "0x40b920",
+        "target_rva": "0xb920"
+      },
+      "108": {
+        "role": "rotation_matrix",
+        "replacement_policy": "geometry_service",
+        "offset": "0x1b0",
+        "source_entry_rva": "0x36368",
+        "source_entry_va": "0x436368",
+        "target_va": "0x40b880",
+        "target_rva": "0xb880"
+      },
+      "109": {
+        "role": "translation",
+        "replacement_policy": "geometry_service",
+        "offset": "0x1b4",
+        "source_entry_rva": "0x3636c",
+        "source_entry_va": "0x43636c",
+        "target_va": "0x40b8f0",
+        "target_rva": "0xb8f0"
+      },
+      "112": {
+        "role": "geometry_helper",
+        "replacement_policy": "geometry_service",
+        "offset": "0x1c0",
+        "source_entry_rva": "0x36378",
+        "source_entry_va": "0x436378",
+        "target_va": "0x40b4a0",
+        "target_rva": "0xb4a0"
+      },
+      "114": {
+        "role": "geometry_helper",
+        "replacement_policy": "geometry_service",
+        "offset": "0x1c8",
+        "source_entry_rva": "0x36380",
+        "source_entry_va": "0x436380",
+        "target_va": "0x40b720",
+        "target_rva": "0xb720"
+      },
+      "117": {
+        "role": "geometry_helper",
+        "replacement_policy": "geometry_service",
+        "offset": "0x1d4",
+        "source_entry_rva": "0x3638c",
+        "source_entry_va": "0x43638c",
+        "target_va": "0x40b5c0",
+        "target_rva": "0xb5c0"
+      },
+      "118": {
+        "role": "geometry_helper",
+        "replacement_policy": "geometry_service",
+        "offset": "0x1d8",
+        "source_entry_rva": "0x36390",
+        "source_entry_va": "0x436390",
+        "target_va": "0x40b570",
+        "target_rva": "0xb570"
+      },
+      "119": {
+        "role": "geometry_helper",
+        "replacement_policy": "geometry_service",
+        "offset": "0x1dc",
+        "source_entry_rva": "0x36394",
+        "source_entry_va": "0x436394",
+        "target_va": "0x40b660",
+        "target_rva": "0xb660"
+      },
+      "129": {
+        "role": "texture_rectangle_upload",
+        "replacement_policy": "interception_candidate",
+        "offset": "0x204",
+        "source_entry_rva": "0x363bc",
+        "source_entry_va": "0x4363bc",
+        "target_va": "0x40a710",
+        "target_rva": "0xa710"
+      },
+      "130": {
+        "role": "title_texture_upload_wrapper",
+        "replacement_policy": "interception_candidate",
+        "offset": "0x208",
+        "source_entry_rva": "0x363c0",
+        "source_entry_va": "0x4363c0",
+        "target_va": "0x40a640",
+        "target_rva": "0xa640"
+      },
+      "131": {
+        "role": "vram_rectangle_move",
+        "replacement_policy": "interception_candidate",
+        "offset": "0x20c",
+        "source_entry_rva": "0x363c4",
+        "source_entry_va": "0x4363c4",
+        "target_va": "0x40a8f0",
+        "target_rva": "0xa8f0"
+      },
+      "143": {
+        "role": "color_translation",
+        "replacement_policy": "interception_candidate",
+        "offset": "0x23c",
+        "source_entry_rva": "0x363f4",
+        "source_entry_va": "0x4363f4",
+        "target_va": "0x4070c0",
+        "target_rva": "0x70c0"
+      },
+      "148": {
+        "role": "title_movie_display",
+        "replacement_policy": "interception_candidate",
+        "offset": "0x250",
+        "source_entry_rva": "0x36408",
+        "source_entry_va": "0x436408",
+        "target_va": "0x405450",
+        "target_rva": "0x5450"
+      },
+      "160": {
+        "role": "frame_header_copy",
+        "replacement_policy": "shared_service_preserve",
+        "offset": "0x280",
+        "source_entry_rva": "0x36438",
+        "source_entry_va": "0x436438",
+        "target_va": "0x40a4a0",
+        "target_rva": "0xa4a0"
+      },
+      "174": {
+        "role": "projection_center",
+        "replacement_policy": "shared_service_preserve",
+        "offset": "0x2b8",
+        "source_entry_rva": "0x36470",
+        "source_entry_va": "0x436470",
+        "target_va": "0x40b970",
+        "target_rva": "0xb970"
+      },
+      "175": {
+        "role": "projection_focal",
+        "replacement_policy": "shared_service_preserve",
+        "offset": "0x2bc",
+        "source_entry_rva": "0x36474",
+        "source_entry_va": "0x436474",
+        "target_va": "0x40b990",
+        "target_rva": "0xb990"
+      }
+    },
+    "modules": {
+      "ENG1.DLL": {
+        "80": {
+          "target_rva": "0xac00",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c5f4",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10071060]",
+              "access": "read"
+            }
+          ]
+        },
+        "81": {
+          "target_rva": "0xac20",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c60a",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10071064]",
+              "access": "read"
+            }
+          ]
+        },
+        "89": {
+          "target_rva": "0xac60",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c625",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10071084]",
+              "access": "read"
+            }
+          ]
+        },
+        "100": {
+          "target_rva": "0xb6b0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c67f",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710b0]",
+              "access": "read"
+            }
+          ]
+        },
+        "101": {
+          "target_rva": "0xb6f0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c695",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710b4]",
+              "access": "read"
+            }
+          ]
+        },
+        "106": {
+          "target_rva": "0xb920",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c6e0",
+              "mnemonic": "jmp",
+              "operand": "dword ptr [0x100710c8]",
+              "access": "read"
+            }
+          ]
+        },
+        "108": {
+          "target_rva": "0xb880",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c705",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710d0]",
+              "access": "read"
+            }
+          ]
+        },
+        "109": {
+          "target_rva": "0xb8f0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c715",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710d4]",
+              "access": "read"
+            }
+          ]
+        },
+        "112": {
+          "target_rva": "0xb4a0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c745",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710e0]",
+              "access": "read"
+            }
+          ]
+        },
+        "114": {
+          "target_rva": "0xb720",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c765",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710e8]",
+              "access": "read"
+            }
+          ]
+        },
+        "117": {
+          "target_rva": "0xb5c0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c775",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710f4]",
+              "access": "read"
+            }
+          ]
+        },
+        "118": {
+          "target_rva": "0xb570",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c785",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710f8]",
+              "access": "read"
+            }
+          ]
+        },
+        "119": {
+          "target_rva": "0xb660",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c795",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710fc]",
+              "access": "read"
+            }
+          ]
+        },
+        "129": {
+          "target_rva": "0xa710",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c7fa",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10071124]",
+              "access": "read"
+            }
+          ]
+        },
+        "131": {
+          "target_rva": "0xa8f0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c81f",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1007112c]",
+              "access": "read"
+            }
+          ]
+        },
+        "143": {
+          "target_rva": "0x70c0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c835",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1007115c]",
+              "access": "read"
+            }
+          ]
+        },
+        "160": {
+          "target_rva": "0xa4a0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c8f5",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100711a0]",
+              "access": "read"
+            }
+          ]
+        },
+        "174": {
+          "target_rva": "0xb970",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c9da",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100711d8]",
+              "access": "read"
+            }
+          ]
+        },
+        "175": {
+          "target_rva": "0xb990",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c9f5",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100711dc]",
+              "access": "read"
+            }
+          ]
+        }
+      },
+      "ENG3.DLL": {
+        "80": {
+          "target_rva": "0xac00",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fc04",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100408e0]",
+              "access": "read"
+            }
+          ]
+        },
+        "81": {
+          "target_rva": "0xac20",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fc1a",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100408e4]",
+              "access": "read"
+            }
+          ]
+        },
+        "89": {
+          "target_rva": "0xac60",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fc35",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040904]",
+              "access": "read"
+            }
+          ]
+        },
+        "100": {
+          "target_rva": "0xb6b0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fc8f",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040930]",
+              "access": "read"
+            }
+          ]
+        },
+        "101": {
+          "target_rva": "0xb6f0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fca5",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040934]",
+              "access": "read"
+            }
+          ]
+        },
+        "106": {
+          "target_rva": "0xb920",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fd00",
+              "mnemonic": "jmp",
+              "operand": "dword ptr [0x10040948]",
+              "access": "read"
+            }
+          ]
+        },
+        "108": {
+          "target_rva": "0xb880",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fd25",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040950]",
+              "access": "read"
+            }
+          ]
+        },
+        "109": {
+          "target_rva": "0xb8f0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fd35",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040954]",
+              "access": "read"
+            }
+          ]
+        },
+        "112": {
+          "target_rva": "0xb4a0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fd65",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040960]",
+              "access": "read"
+            }
+          ]
+        },
+        "114": {
+          "target_rva": "0xb720",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fd85",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040968]",
+              "access": "read"
+            }
+          ]
+        },
+        "117": {
+          "target_rva": "0xb5c0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fd95",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040974]",
+              "access": "read"
+            }
+          ]
+        },
+        "118": {
+          "target_rva": "0xb570",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fda5",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040978]",
+              "access": "read"
+            }
+          ]
+        },
+        "119": {
+          "target_rva": "0xb660",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fdb5",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1004097c]",
+              "access": "read"
+            }
+          ]
+        },
+        "129": {
+          "target_rva": "0xa710",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fe3a",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100409a4]",
+              "access": "read"
+            }
+          ]
+        },
+        "131": {
+          "target_rva": "0xa8f0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fe5f",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100409ac]",
+              "access": "read"
+            }
+          ]
+        },
+        "143": {
+          "target_rva": "0x70c0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fe75",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100409dc]",
+              "access": "read"
+            }
+          ]
+        },
+        "160": {
+          "target_rva": "0xa4a0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1ff35",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040a20]",
+              "access": "read"
+            }
+          ]
+        },
+        "174": {
+          "target_rva": "0xb970",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fffa",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040a58]",
+              "access": "read"
+            }
+          ]
+        },
+        "175": {
+          "target_rva": "0xb990",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x20015",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040a5c]",
+              "access": "read"
+            }
+          ]
+        }
+      },
+      "TITLE.DLL": {
+        "80": {
+          "target_rva": "0xac00",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc684",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bc80]",
+              "access": "read"
+            }
+          ]
+        },
+        "81": {
+          "target_rva": "0xac20",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc69a",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bc84]",
+              "access": "read"
+            }
+          ]
+        },
+        "89": {
+          "target_rva": "0xac60",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc6b5",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bca4]",
+              "access": "read"
+            }
+          ]
+        },
+        "100": {
+          "target_rva": "0xb6b0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc74f",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bcd0]",
+              "access": "read"
+            }
+          ]
+        },
+        "101": {
+          "target_rva": "0xb6f0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc765",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bcd4]",
+              "access": "read"
+            }
+          ]
+        },
+        "106": {
+          "target_rva": "0xb920",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc7b0",
+              "mnemonic": "jmp",
+              "operand": "dword ptr [0x1002bce8]",
+              "access": "read"
+            }
+          ]
+        },
+        "108": {
+          "target_rva": "0xb880",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc7d5",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bcf0]",
+              "access": "read"
+            }
+          ]
+        },
+        "112": {
+          "target_rva": "0xb4a0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc805",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd00]",
+              "access": "read"
+            }
+          ]
+        },
+        "114": {
+          "target_rva": "0xb720",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc815",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd08]",
+              "access": "read"
+            }
+          ]
+        },
+        "117": {
+          "target_rva": "0xb5c0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc825",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd14]",
+              "access": "read"
+            }
+          ]
+        },
+        "118": {
+          "target_rva": "0xb570",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc835",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd18]",
+              "access": "read"
+            }
+          ]
+        },
+        "129": {
+          "target_rva": "0xa710",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc89a",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd44]",
+              "access": "read"
+            }
+          ]
+        },
+        "130": {
+          "target_rva": "0xa640",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc8d3",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd48]",
+              "access": "read"
+            }
+          ]
+        },
+        "131": {
+          "target_rva": "0xa8f0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc8ef",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd4c]",
+              "access": "read"
+            }
+          ]
+        },
+        "143": {
+          "target_rva": "0x70c0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc965",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd7c]",
+              "access": "read"
+            }
+          ]
+        },
+        "148": {
+          "target_rva": "0x5450",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc9ea",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd90]",
+              "access": "read"
+            }
+          ]
+        },
+        "160": {
+          "target_rva": "0xa4a0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xca25",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bdc0]",
+              "access": "read"
+            }
+          ]
+        },
+        "174": {
+          "target_rva": "0xb970",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xcb1a",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bdf8]",
+              "access": "read"
+            }
+          ]
+        },
+        "175": {
+          "target_rva": "0xb990",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xcb35",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bdfc]",
+              "access": "read"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "modules": {
+    "ENG1.DLL": {
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "image_base": "0x10000000",
+      "export": {
+        "name": "PC_DLLEngineMain",
+        "ordinal": 1,
+        "rva": "0x2c180",
+        "forwarder": null
+      },
+      "imports": [
+        "KERNEL32.dll"
+      ],
+      "entry_span": {
+        "rva": "0x2c180",
+        "size": 128,
+        "sha256": "597f7923e45606e27c452f9f52794e777d60d9f5a04119e9b0b8f08303f656c4",
+        "landmark_instructions": [
+          {
+            "rva": "0x2c180",
+            "bytes": "a148b60510",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [0x1005b648]"
+          },
+          {
+            "rva": "0x2c19f",
+            "bytes": "f3a5",
+            "mnemonic": "rep movsd",
+            "operands": "dword ptr es:[edi], dword ptr [esi]"
+          },
+          {
+            "rva": "0x2c1a1",
+            "bytes": "813d200f0710ac0cc05a",
+            "mnemonic": "cmp",
+            "operands": "dword ptr [0x10070f20], 0x5ac00cac"
+          },
+          {
+            "rva": "0x2c1ad",
+            "bytes": "8b0a",
+            "mnemonic": "mov",
+            "operands": "ecx, dword ptr [edx]"
+          },
+          {
+            "rva": "0x2c1d6",
+            "bytes": "a348b60510",
+            "mnemonic": "mov",
+            "operands": "dword ptr [0x1005b648], eax"
+          },
+          {
+            "rva": "0x2c1ee",
+            "bytes": "895040",
+            "mnemonic": "mov",
+            "operands": "dword ptr [eax + 0x40], edx"
+          }
+        ]
+      },
+      "copy_and_validation": {
+        "copy_instruction_rva": "0x2c19f",
+        "copy_count_immediate": 250,
+        "copy_bytes": 1000,
+        "copy_destination_rva": "0x70f20",
+        "signature": "0x5ac00cac",
+        "signature_check_rva": "0x2c1a1",
+        "copy_before_signature_check": true,
+        "single_source_dword_load_before_check_loop": [
+          "0x2c1ad"
+        ],
+        "local_initialization_flag_rva": "0x5b648",
+        "local_initialization_flag_initial_raw": "01000000",
+        "local_initialization_flag_initial_dword": 1,
+        "flag_direct_code_references": [
+          {
+            "rva": "0x2c180",
+            "mnemonic": "mov",
+            "operand": "eax, dword ptr [0x1005b648]",
+            "access": "read",
+            "operand_index": 1
+          },
+          {
+            "rva": "0x2c1d6",
+            "mnemonic": "mov",
+            "operand": "dword ptr [0x1005b648], eax",
+            "access": "write",
+            "operand_index": 0
+          }
+        ]
+      },
+      "direct_table_dispatches": [
+        {
+          "slot": 80,
+          "offset": "0x140",
+          "host_target_va": "0x40ac00",
+          "host_target_rva": "0xac00",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c5f4",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10071060]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 81,
+          "offset": "0x144",
+          "host_target_va": "0x40ac20",
+          "host_target_rva": "0xac20",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c60a",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10071064]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 89,
+          "offset": "0x164",
+          "host_target_va": "0x40ac60",
+          "host_target_rva": "0xac60",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c625",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10071084]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 100,
+          "offset": "0x190",
+          "host_target_va": "0x40b6b0",
+          "host_target_rva": "0xb6b0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c67f",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710b0]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 101,
+          "offset": "0x194",
+          "host_target_va": "0x40b6f0",
+          "host_target_rva": "0xb6f0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c695",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710b4]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 106,
+          "offset": "0x1a8",
+          "host_target_va": "0x40b920",
+          "host_target_rva": "0xb920",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c6e0",
+              "mnemonic": "jmp",
+              "operand": "dword ptr [0x100710c8]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 108,
+          "offset": "0x1b0",
+          "host_target_va": "0x40b880",
+          "host_target_rva": "0xb880",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c705",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710d0]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 109,
+          "offset": "0x1b4",
+          "host_target_va": "0x40b8f0",
+          "host_target_rva": "0xb8f0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c715",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710d4]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 112,
+          "offset": "0x1c0",
+          "host_target_va": "0x40b4a0",
+          "host_target_rva": "0xb4a0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c745",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710e0]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 114,
+          "offset": "0x1c8",
+          "host_target_va": "0x40b720",
+          "host_target_rva": "0xb720",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c765",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710e8]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 117,
+          "offset": "0x1d4",
+          "host_target_va": "0x40b5c0",
+          "host_target_rva": "0xb5c0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c775",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710f4]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 118,
+          "offset": "0x1d8",
+          "host_target_va": "0x40b570",
+          "host_target_rva": "0xb570",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c785",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710f8]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 119,
+          "offset": "0x1dc",
+          "host_target_va": "0x40b660",
+          "host_target_rva": "0xb660",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c795",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100710fc]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 129,
+          "offset": "0x204",
+          "host_target_va": "0x40a710",
+          "host_target_rva": "0xa710",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c7fa",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10071124]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 131,
+          "offset": "0x20c",
+          "host_target_va": "0x40a8f0",
+          "host_target_rva": "0xa8f0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c81f",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1007112c]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 143,
+          "offset": "0x23c",
+          "host_target_va": "0x4070c0",
+          "host_target_rva": "0x70c0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c835",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1007115c]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 160,
+          "offset": "0x280",
+          "host_target_va": "0x40a4a0",
+          "host_target_rva": "0xa4a0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c8f5",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100711a0]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 174,
+          "offset": "0x2b8",
+          "host_target_va": "0x40b970",
+          "host_target_rva": "0xb970",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c9da",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100711d8]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 175,
+          "offset": "0x2bc",
+          "host_target_va": "0x40b990",
+          "host_target_rva": "0xb990",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x2c9f5",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100711dc]",
+              "access": "read"
+            }
+          ]
+        }
+      ],
+      "directly_referenced_slots": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        23,
+        24,
+        25,
+        26,
+        27,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        44,
+        45,
+        46,
+        48,
+        50,
+        51,
+        52,
+        53,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        66,
+        80,
+        81,
+        89,
+        91,
+        92,
+        94,
+        96,
+        100,
+        101,
+        102,
+        103,
+        104,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        126,
+        129,
+        131,
+        143,
+        145,
+        147,
+        150,
+        152,
+        156,
+        157,
+        159,
+        160,
+        163,
+        164,
+        165,
+        169,
+        171,
+        172,
+        174,
+        175,
+        179,
+        180,
+        186,
+        187,
+        188,
+        192,
+        196,
+        201,
+        204,
+        215,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224,
+        225,
+        226,
+        228,
+        231,
+        232,
+        233,
+        234,
+        248,
+        249
+      ]
+    },
+    "ENG3.DLL": {
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "image_base": "0x10000000",
+      "export": {
+        "name": "PC_DLLEngineMain",
+        "ordinal": 1,
+        "rva": "0x1f830",
+        "forwarder": null
+      },
+      "imports": [
+        "KERNEL32.dll"
+      ],
+      "entry_span": {
+        "rva": "0x1f830",
+        "size": 121,
+        "sha256": "856441d73880be288bb62460b1332dcf56bdc544116fb85ec0004d2d71ecf510",
+        "landmark_instructions": [
+          {
+            "rva": "0x1f830",
+            "bytes": "a188940310",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [0x10039488]"
+          },
+          {
+            "rva": "0x1f84f",
+            "bytes": "f3a5",
+            "mnemonic": "rep movsd",
+            "operands": "dword ptr es:[edi], dword ptr [esi]"
+          },
+          {
+            "rva": "0x1f851",
+            "bytes": "813da0070410ac0cc05a",
+            "mnemonic": "cmp",
+            "operands": "dword ptr [0x100407a0], 0x5ac00cac"
+          },
+          {
+            "rva": "0x1f85d",
+            "bytes": "8b0a",
+            "mnemonic": "mov",
+            "operands": "ecx, dword ptr [edx]"
+          },
+          {
+            "rva": "0x1f886",
+            "bytes": "a388940310",
+            "mnemonic": "mov",
+            "operands": "dword ptr [0x10039488], eax"
+          },
+          {
+            "rva": "0x1f89e",
+            "bytes": "895040",
+            "mnemonic": "mov",
+            "operands": "dword ptr [eax + 0x40], edx"
+          }
+        ]
+      },
+      "copy_and_validation": {
+        "copy_instruction_rva": "0x1f84f",
+        "copy_count_immediate": 250,
+        "copy_bytes": 1000,
+        "copy_destination_rva": "0x407a0",
+        "signature": "0x5ac00cac",
+        "signature_check_rva": "0x1f851",
+        "copy_before_signature_check": true,
+        "single_source_dword_load_before_check_loop": [
+          "0x1f85d"
+        ],
+        "local_initialization_flag_rva": "0x39488",
+        "local_initialization_flag_initial_raw": "01000000",
+        "local_initialization_flag_initial_dword": 1,
+        "flag_direct_code_references": [
+          {
+            "rva": "0x1f830",
+            "mnemonic": "mov",
+            "operand": "eax, dword ptr [0x10039488]",
+            "access": "read",
+            "operand_index": 1
+          },
+          {
+            "rva": "0x1f886",
+            "mnemonic": "mov",
+            "operand": "dword ptr [0x10039488], eax",
+            "access": "write",
+            "operand_index": 0
+          }
+        ]
+      },
+      "direct_table_dispatches": [
+        {
+          "slot": 80,
+          "offset": "0x140",
+          "host_target_va": "0x40ac00",
+          "host_target_rva": "0xac00",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fc04",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100408e0]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 81,
+          "offset": "0x144",
+          "host_target_va": "0x40ac20",
+          "host_target_rva": "0xac20",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fc1a",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100408e4]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 89,
+          "offset": "0x164",
+          "host_target_va": "0x40ac60",
+          "host_target_rva": "0xac60",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fc35",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040904]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 100,
+          "offset": "0x190",
+          "host_target_va": "0x40b6b0",
+          "host_target_rva": "0xb6b0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fc8f",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040930]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 101,
+          "offset": "0x194",
+          "host_target_va": "0x40b6f0",
+          "host_target_rva": "0xb6f0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fca5",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040934]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 106,
+          "offset": "0x1a8",
+          "host_target_va": "0x40b920",
+          "host_target_rva": "0xb920",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fd00",
+              "mnemonic": "jmp",
+              "operand": "dword ptr [0x10040948]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 108,
+          "offset": "0x1b0",
+          "host_target_va": "0x40b880",
+          "host_target_rva": "0xb880",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fd25",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040950]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 109,
+          "offset": "0x1b4",
+          "host_target_va": "0x40b8f0",
+          "host_target_rva": "0xb8f0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fd35",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040954]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 112,
+          "offset": "0x1c0",
+          "host_target_va": "0x40b4a0",
+          "host_target_rva": "0xb4a0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fd65",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040960]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 114,
+          "offset": "0x1c8",
+          "host_target_va": "0x40b720",
+          "host_target_rva": "0xb720",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fd85",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040968]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 117,
+          "offset": "0x1d4",
+          "host_target_va": "0x40b5c0",
+          "host_target_rva": "0xb5c0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fd95",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040974]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 118,
+          "offset": "0x1d8",
+          "host_target_va": "0x40b570",
+          "host_target_rva": "0xb570",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fda5",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040978]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 119,
+          "offset": "0x1dc",
+          "host_target_va": "0x40b660",
+          "host_target_rva": "0xb660",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fdb5",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1004097c]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 129,
+          "offset": "0x204",
+          "host_target_va": "0x40a710",
+          "host_target_rva": "0xa710",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fe3a",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100409a4]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 131,
+          "offset": "0x20c",
+          "host_target_va": "0x40a8f0",
+          "host_target_rva": "0xa8f0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fe5f",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100409ac]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 143,
+          "offset": "0x23c",
+          "host_target_va": "0x4070c0",
+          "host_target_rva": "0x70c0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fe75",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x100409dc]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 160,
+          "offset": "0x280",
+          "host_target_va": "0x40a4a0",
+          "host_target_rva": "0xa4a0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1ff35",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040a20]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 174,
+          "offset": "0x2b8",
+          "host_target_va": "0x40b970",
+          "host_target_rva": "0xb970",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x1fffa",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040a58]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 175,
+          "offset": "0x2bc",
+          "host_target_va": "0x40b990",
+          "host_target_rva": "0xb990",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0x20015",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x10040a5c]",
+              "access": "read"
+            }
+          ]
+        }
+      ],
+      "directly_referenced_slots": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        23,
+        24,
+        25,
+        26,
+        27,
+        30,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        40,
+        44,
+        45,
+        46,
+        50,
+        51,
+        52,
+        53,
+        56,
+        57,
+        58,
+        59,
+        60,
+        66,
+        80,
+        81,
+        89,
+        91,
+        92,
+        94,
+        96,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        125,
+        126,
+        129,
+        131,
+        143,
+        145,
+        147,
+        150,
+        152,
+        156,
+        157,
+        159,
+        160,
+        164,
+        165,
+        169,
+        171,
+        172,
+        174,
+        175,
+        179,
+        187,
+        188,
+        192,
+        196,
+        201,
+        204,
+        215,
+        218,
+        219,
+        220,
+        221,
+        225,
+        226,
+        228,
+        248,
+        249
+      ]
+    },
+    "TITLE.DLL": {
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "image_base": "0x10000000",
+      "export": {
+        "name": "PC_DLLEngineMain",
+        "ordinal": 1,
+        "rva": "0xc1f0",
+        "forwarder": null
+      },
+      "imports": [
+        "KERNEL32.dll"
+      ],
+      "entry_span": {
+        "rva": "0xc1f0",
+        "size": 121,
+        "sha256": "7f70098bc5be27c61bcd63df56c61b218f7884173466650025c3396b3b88048f",
+        "landmark_instructions": [
+          {
+            "rva": "0xc1f0",
+            "bytes": "a1e8570210",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [0x100257e8]"
+          },
+          {
+            "rva": "0xc20f",
+            "bytes": "f3a5",
+            "mnemonic": "rep movsd",
+            "operands": "dword ptr es:[edi], dword ptr [esi]"
+          },
+          {
+            "rva": "0xc211",
+            "bytes": "813d40bb0210ac0cc05a",
+            "mnemonic": "cmp",
+            "operands": "dword ptr [0x1002bb40], 0x5ac00cac"
+          },
+          {
+            "rva": "0xc21d",
+            "bytes": "8b0a",
+            "mnemonic": "mov",
+            "operands": "ecx, dword ptr [edx]"
+          },
+          {
+            "rva": "0xc246",
+            "bytes": "a3e8570210",
+            "mnemonic": "mov",
+            "operands": "dword ptr [0x100257e8], eax"
+          },
+          {
+            "rva": "0xc25e",
+            "bytes": "895040",
+            "mnemonic": "mov",
+            "operands": "dword ptr [eax + 0x40], edx"
+          }
+        ]
+      },
+      "copy_and_validation": {
+        "copy_instruction_rva": "0xc20f",
+        "copy_count_immediate": 250,
+        "copy_bytes": 1000,
+        "copy_destination_rva": "0x2bb40",
+        "signature": "0x5ac00cac",
+        "signature_check_rva": "0xc211",
+        "copy_before_signature_check": true,
+        "single_source_dword_load_before_check_loop": [
+          "0xc21d"
+        ],
+        "local_initialization_flag_rva": "0x257e8",
+        "local_initialization_flag_initial_raw": "01000000",
+        "local_initialization_flag_initial_dword": 1,
+        "flag_direct_code_references": [
+          {
+            "rva": "0xc1f0",
+            "mnemonic": "mov",
+            "operand": "eax, dword ptr [0x100257e8]",
+            "access": "read",
+            "operand_index": 1
+          },
+          {
+            "rva": "0xc246",
+            "mnemonic": "mov",
+            "operand": "dword ptr [0x100257e8], eax",
+            "access": "write",
+            "operand_index": 0
+          }
+        ]
+      },
+      "direct_table_dispatches": [
+        {
+          "slot": 80,
+          "offset": "0x140",
+          "host_target_va": "0x40ac00",
+          "host_target_rva": "0xac00",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc684",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bc80]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 81,
+          "offset": "0x144",
+          "host_target_va": "0x40ac20",
+          "host_target_rva": "0xac20",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc69a",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bc84]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 89,
+          "offset": "0x164",
+          "host_target_va": "0x40ac60",
+          "host_target_rva": "0xac60",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc6b5",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bca4]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 100,
+          "offset": "0x190",
+          "host_target_va": "0x40b6b0",
+          "host_target_rva": "0xb6b0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc74f",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bcd0]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 101,
+          "offset": "0x194",
+          "host_target_va": "0x40b6f0",
+          "host_target_rva": "0xb6f0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc765",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bcd4]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 106,
+          "offset": "0x1a8",
+          "host_target_va": "0x40b920",
+          "host_target_rva": "0xb920",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc7b0",
+              "mnemonic": "jmp",
+              "operand": "dword ptr [0x1002bce8]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 108,
+          "offset": "0x1b0",
+          "host_target_va": "0x40b880",
+          "host_target_rva": "0xb880",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc7d5",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bcf0]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 112,
+          "offset": "0x1c0",
+          "host_target_va": "0x40b4a0",
+          "host_target_rva": "0xb4a0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc805",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd00]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 114,
+          "offset": "0x1c8",
+          "host_target_va": "0x40b720",
+          "host_target_rva": "0xb720",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc815",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd08]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 117,
+          "offset": "0x1d4",
+          "host_target_va": "0x40b5c0",
+          "host_target_rva": "0xb5c0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc825",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd14]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 118,
+          "offset": "0x1d8",
+          "host_target_va": "0x40b570",
+          "host_target_rva": "0xb570",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc835",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd18]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 129,
+          "offset": "0x204",
+          "host_target_va": "0x40a710",
+          "host_target_rva": "0xa710",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc89a",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd44]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 130,
+          "offset": "0x208",
+          "host_target_va": "0x40a640",
+          "host_target_rva": "0xa640",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc8d3",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd48]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 131,
+          "offset": "0x20c",
+          "host_target_va": "0x40a8f0",
+          "host_target_rva": "0xa8f0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc8ef",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd4c]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 143,
+          "offset": "0x23c",
+          "host_target_va": "0x4070c0",
+          "host_target_rva": "0x70c0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc965",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd7c]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 148,
+          "offset": "0x250",
+          "host_target_va": "0x405450",
+          "host_target_rva": "0x5450",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xc9ea",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bd90]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 160,
+          "offset": "0x280",
+          "host_target_va": "0x40a4a0",
+          "host_target_rva": "0xa4a0",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xca25",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bdc0]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 174,
+          "offset": "0x2b8",
+          "host_target_va": "0x40b970",
+          "host_target_rva": "0xb970",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xcb1a",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bdf8]",
+              "access": "read"
+            }
+          ]
+        },
+        {
+          "slot": 175,
+          "offset": "0x2bc",
+          "host_target_va": "0x40b990",
+          "host_target_rva": "0xb990",
+          "transfer_refs": [
+            {
+              "instruction_rva": "0xcb35",
+              "mnemonic": "call",
+              "operand": "dword ptr [0x1002bdfc]",
+              "access": "read"
+            }
+          ]
+        }
+      ],
+      "directly_referenced_slots": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        23,
+        24,
+        25,
+        26,
+        28,
+        29,
+        30,
+        33,
+        34,
+        35,
+        37,
+        41,
+        43,
+        44,
+        45,
+        46,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        80,
+        81,
+        89,
+        90,
+        91,
+        92,
+        94,
+        96,
+        97,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        106,
+        107,
+        108,
+        110,
+        111,
+        112,
+        114,
+        117,
+        118,
+        120,
+        121,
+        125,
+        126,
+        129,
+        130,
+        131,
+        132,
+        137,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        150,
+        159,
+        160,
+        161,
+        164,
+        165,
+        166,
+        167,
+        168,
+        173,
+        174,
+        175,
+        178,
+        184,
+        187,
+        192,
+        196,
+        204,
+        215,
+        220,
+        221,
+        225,
+        226,
+        228,
+        246,
+        248,
+        249
+      ]
+    }
+  },
+  "evidence_limits": [
+    "Direct absolute copied-table references are enumerated; register-computed accesses are outside this scan.",
+    "Entry bytes prove static copy/check ordering, not source provenance or full DLL layout.",
+    "The table source pointer is file-backed static initialization; absence of direct code writers does not exclude alias mutation.",
+    "Host path strings and basename-loading code do not prove runtime module selection or Windows DLL search result.",
+    "No runtime hook, proxy, patched binary, or gameplay session was implemented or run."
+  ],
+  "integration_provenance": {
+    "private_receipt_sha256": "c57a16e635d00b4984ae9ff5503bc2916ec32fe0b18f1ca30b0e8dba5d528f46",
+    "omitted": "Detailed disassembly remains private scratch; hashes, references and findings retained.",
+    "source_commit": "73c6320179093c3de9b820e66b87f94dfb639a9b"
+  }
+}

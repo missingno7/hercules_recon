@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "scope": "Static PC texture/callback analysis plus finite original-code A710 oracle cases; no allocation ownership, full callback domain, renderer output, or recovery acceptance claimed.",
+  "baseline": {
+    "file": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000"
+  },
+  "proof_levels": {
+    "A710_upload": "BOUNDED_EQUIVALENT: original instructions executed for three finite synthetic cases; report and provenance in work/renderer_bounded_oracle/.",
+    "A640_A8F0_70C0_sampler_CLUT": "STATIC_LAYOUT: direct instruction/control-flow and producer/table evidence; no native invocation claimed.",
+    "reference_helpers": "SYNTHETIC_TESTS: VC5 test executable validates only helpers and asserted address expressions."
+  },
+  "function_spans": [
+    {
+      "rva": "0xA340",
+      "end_exclusive": "0xA343",
+      "size": 3,
+      "sha256": "4bc724f3b1d0caf4fe369c18cba3102e6c4ea057f63fe1587e3973134a7f755e",
+      "role": "A640 mode query; xor eax,eax; ret"
+    },
+    {
+      "rva": "0xA640",
+      "end_exclusive": "0xA701",
+      "size": 193,
+      "sha256": "87443dceeccacd19b42212b19c9e88ae0ba7d6cb2ec5476addedf61954c77068",
+      "role": "seven-argument wrapper; calls A710 and returns packed DWORD"
+    },
+    {
+      "rva": "0xA710",
+      "end_exclusive": "0xA8E5",
+      "size": 469,
+      "sha256": "30bd84ea8724152e3bfb0e2c521650399913bcec115f1aef489768085981d0fe",
+      "role": "rectangle upload"
+    },
+    {
+      "rva": "0xA8F0",
+      "end_exclusive": "0xABF3",
+      "size": 771,
+      "sha256": "bc04260d2227d221b124bb397b3d7f1138eed53081654722e3f1acd52599196e",
+      "role": "same-map rectangle copy; returns zero"
+    },
+    {
+      "rva": "0xBD80",
+      "end_exclusive": "0xBD96",
+      "size": 22,
+      "sha256": "6a9578c5be0c980bc35b29642d3ac389e829a0c5666022353cb88c04f19db64f",
+      "role": "upload/copy guarded notification"
+    },
+    {
+      "rva": "0x70C0",
+      "end_exclusive": "0x7136",
+      "size": 118,
+      "sha256": "f5225f837714b2dc9379a6e1358bef73dbfcf9bc32393c47581acf62f4ba5d40",
+      "role": "separate color operation and full-surface LUT remap"
+    },
+    {
+      "rva": "0xAC60",
+      "end_exclusive": "0xB2EC",
+      "size": 1676,
+      "sha256": "733f70c3814c339914e0d20e4275830217cf838704fef2f01f608e75e0b6f281",
+      "role": "packet consumer, page/UV/CLUT state, sprite commands, direct 70C0 call"
+    },
+    {
+      "rva": "0xC805",
+      "end_exclusive": "0xC841",
+      "size": 60,
+      "sha256": "561ae92e532385650e96c8476f6f7aa9cb7000d89336a9b43eb6a5d9dbce8fa7",
+      "role": "per-color shade-LUT and blend-table base setup"
+    },
+    {
+      "rva": "0xC882",
+      "end_exclusive": "0xC89F",
+      "size": 29,
+      "sha256": "cf277aa45d6916569aad84b37afb2674c5f7937108fe5a9a9c3b104798dea5f1",
+      "role": "shade-LUT transform, blend with destination, and zero-source skip"
+    },
+    {
+      "rva": "0xCA51",
+      "end_exclusive": "0xCA64",
+      "size": 19,
+      "sha256": "402cff6cb18d9536286c4f34acb17b755a16cd56951e1a88299c3a90922b5754",
+      "role": "observed direct-byte blend path"
+    },
+    {
+      "rva": "0xCBF4",
+      "end_exclusive": "0xCC01",
+      "size": 13,
+      "sha256": "147eec75c3702cee5abd378ef082b0b29e0fedd3bc3ecbcf5f1eaf563e8026d8",
+      "role": "observed direct-byte copy path"
+    },
+    {
+      "rva": "0xD420",
+      "end_exclusive": "0xDD70",
+      "size": 2384,
+      "sha256": "4645c60cf0a357ed4aae074c3487a2755384852d0874e2f12b352b994544e07e",
+      "role": "bit1-clear polygon path; conditional CLUT mapping and fill"
+    },
+    {
+      "rva": "0xD555",
+      "end_exclusive": "0xD595",
+      "size": 64,
+      "sha256": "6df52fb33dd523b777b252a1e0e8d512d812b2661841101cf3ad332d8763a3cd",
+      "role": "CLUT row transform and palette/shading dispatch"
+    },
+    {
+      "rva": "0xCC71",
+      "end_exclusive": "0xCC9D",
+      "size": 44,
+      "sha256": "41b41c494148ac3a0238e4ce38d38051dcdf9aaab43b48cb89ef90fb1d50057e",
+      "role": "active CC50 CLUT setup; A90954=0x92C390+(row<<8)"
+    },
+    {
+      "rva": "0xD311",
+      "end_exclusive": "0xD348",
+      "size": 55,
+      "sha256": "80f8fed3a46c2c7a913fea767fdee544665291bee9e6ac372c59ee8da2d54c6f",
+      "role": "active CC50 palette loop; zero texel skips destination write"
+    },
+    {
+      "rva": "0xD5D8",
+      "end_exclusive": "0xD600",
+      "size": 40,
+      "sha256": "5b8d8f5f5c1dcc00a6c7627c3e400a722e4ece07ce605105011b934385576350",
+      "role": "D420 branch: gate-zero/nonzero-row reaches raw fill; row zero branches away; 0x92C490 immediate is bypassed"
+    },
+    {
+      "rva": "0xC2E0",
+      "end_exclusive": "0xC700",
+      "size": 1056,
+      "sha256": "8908bd9d0b920d8020f304feda864b1a25f42415cca421510b48362e2f091d9a",
+      "role": "fill path consuming A90A08; fallback fills the raw byte, including zero, without a source-zero test"
+    }
+  ],
+  "host_table": {
+    "table_rva": "0x361B8",
+    "table_sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "slot_offsets_and_values": {
+      "0x204": "0x40A710",
+      "0x208": "0x40A640",
+      "0x20C": "0x40A8F0",
+      "0x23C": "0x4070C0"
+    },
+    "entry_raw_sha256": {
+      "0x204": "29a5131191531a0d3d0691960fe578be52b762dc37fdd2e0be648ab18299c499",
+      "0x208": "84f952a8aa7424b8e74a17d5ad8a61e6e696943032398a3ebcdb5b6ba595ca9b",
+      "0x20C": "266b1927b2bd8cb3650e83a7844d68536627e51b00902d30fc531ea2b2b538ed",
+      "0x23C": "4875c502829326fd03e33dc194493c1e84ac312e23cca2d63e308ab362cda33f"
+    },
+    "binding_evidence": "evidence/engine_interface_binding.json"
+  },
+  "address_contract": {
+    "upload_supported_helper_domain": "0<=x<1024 words; 0<=y<512 rows; nonnegative signed-WORD rectangle fully within those limits",
+    "low_y_row": "y<256 ? y : 0x800+(y&0xff)",
+    "high_y_observed_expression_unvalidated": "0x1000+(y&0x1ff) for y>=512",
+    "byte_x": "2*x + byte_in_word",
+    "low_y_byte_offset": "row*0x100 + ((byte_x&0x700)<<8) + (byte_x&0xff)",
+    "sample_offset": "ordinary ((tpage&0x1f)>>1)*0x10000 + v*256 + u; alternate base offset 0x100000 when (tpage&0x180)==0x180",
+    "clut_row_and_palette": "row=(clut_word>>6)-0x1e0; row outside [0,30] becomes 0; active CC50 palette byte offset row*256+texel at absolute base 0x92C390; D420 enters CC50 only if [0x96E3E0] is nonzero and row is nonzero",
+    "zero_texel": "zero is skipped in C882/CA51/CBF4 and active CC50 palette loop. For D420 nonzero row, gate [0x96E3E0]!=0 selects CC50; gate zero selects C2E0 raw fill, including zero. Row zero branches to D60C and is outside those two routes.",
+    "sample_dereference": false,
+    "allocation_extent_proven": false
+  },
+  "native_finite_fixture": {
+    "report": "work/renderer_bounded_oracle/report.json",
+    "report_status": "BOUNDED_EQUIVALENT",
+    "cases": [
+      {
+        "rect": [
+          5,
+          224,
+          7,
+          3
+        ],
+        "addresses": "0x97c6ea..0x97c6f7 per 14-byte row; rows +0x100",
+        "path": "A873 REP MOVSD plus A87A MOVSB"
+      },
+      {
+        "rect": [
+          127,
+          478,
+          3,
+          2
+        ],
+        "addresses": "0x9fc5de/df then 0xa0c4e0..e3; next row +0x100",
+        "path": "A8A9 per-byte x-page-crossing path"
+      },
+      {
+        "rect": [
+          9,
+          240,
+          4,
+          0
+        ],
+        "addresses": "no writes",
+        "path": "zero-height exit still notifies"
+      }
+    ],
+    "bd80_call_count_per_case": 1,
+    "data_outside_expected_writes_checked_and_restored": true,
+    "a710_entry_sha256": "30bd84ea8724152e3bfb0e2c521650399913bcec115f1aef489768085981d0fe",
+    "bd80_body_sha256": "6a9578c5be0c980bc35b29642d3ac389e829a0c5666022353cb88c04f19db64f"
+  },
+  "producer_and_color_evidence": {
+    "eng1_pipeline": {
+      "path": "evidence/eng1_pipeline.json",
+      "sha256": "c9218b041df0afc90831d3b23bf2f86c3973b3da5047570bff9885e281834947"
+    },
+    "eng1_payload_dispatch": {
+      "path": "evidence/eng1_payload_dispatch.json",
+      "sha256": "346a6b6e5f8f1cbd867164770a7a0f67e1f736123bfb557e04d05eee282bb28c"
+    },
+    "eng1_runtime_color": {
+      "path": "evidence/eng1_runtime_color.json",
+      "sha256": "c3148906d0d85eaeda269437700f4c260dcb4e40c26c50e421e53d75075a5057"
+    },
+    "producer_source": {
+      "path": "src/eng1/behavioral/frame_commands.c",
+      "sha256": "5088e6070b68a441ccdd3df79c9b061b3005c8fc25b40082d0ddeecff9692381"
+    }
+  },
+  "reproduce": [
+    "python work/renderer_textures/static_ranges.py",
+    "python work/renderer_textures/sampler_ranges.py",
+    "python work/renderer_textures/clut_ranges.py",
+    "python candidates/renderer_bounded_oracle/test_original_a710_upload.py (via the pinned oracle environment recorded in work/renderer_bounded_oracle/provenance.json)",
+    "VC5 cl.exe /nologo /W3 /Od /Fecandidates\\renderer_textures\\test_privatehercules_textures.exe candidates\\renderer_textures\\test_privatehercules_textures.c work\\renderer_textures\\privatehercules_textures.c; then run the produced executable (PASS, 32-bit live-ABI typedef guard enabled)"
+  ],
+  "reference_artifacts": {
+    "header": {
+      "path": "work/renderer_textures/privatehercules_textures.h",
+      "sha256": "5276159113c82ec8e7ee815006a2c2c814b0f7f4411f62f02b77d0a172b59b8a"
+    },
+    "implementation": {
+      "path": "work/renderer_textures/privatehercules_textures.c",
+      "sha256": "73a435f9d09f2e4c1723da616a08ca95a05d625107a9139fb018d0a5fa9e9e3f"
+    },
+    "synthetic_tests": {
+      "path": "candidates/renderer_textures/test_privatehercules_textures.c",
+      "sha256": "caf2410a463bdb8e3fac5b3189fd18052bd2ebe2fe325c014dd4ba1a0ecec8d4"
+    },
+    "compiler": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe (VC5 pinned directory); fresh test build, no canonical source link"
+  },
+  "prediction_falsifier": "work/renderer_textures/prediction.json",
+  "unproved": [
+    "complete signed-WORD callback domain, including negative coordinates and y>=512 writes",
+    "dedicated allocation ownership/extent for any address-derived texture region",
+    "native A640, A8F0, AC60, or 70C0 invocation",
+    "full packet-pointee extent for command 0x01",
+    "all shading modes or formats beyond the observed byte-indexed PC paths",
+    "DirectDraw/output equivalence, gameplay, FUNCTION_MATCH, or whole-module equality"
+  ],
+  "integration_provenance": {
+    "private_receipt_sha256": "958b64439bd4e2c0c402099ef347ca76aab63ee0606ddd7fcc535140a2cd38e4",
+    "omitted": "Detailed disassembly remains private scratch; hashes, references and findings retained.",
+    "source_commit": "73c6320179093c3de9b820e66b87f94dfb639a9b"
+  }
+}

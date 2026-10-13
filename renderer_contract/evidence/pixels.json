@@ -1,0 +1,1622 @@
+{
+  "scope": "STATIC_OBSERVED original PC bytes; no renderer execution or gameplay.",
+  "oracle": {
+    "module": "HERCULES.EXE",
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000"
+  },
+  "tool": {
+    "capstone": "5.0.7",
+    "parser": "scripts/pe.py through work/renderer_baseline/baseline.py"
+  },
+  "basis": {
+    "closure_evidence": {
+      "path": "work/renderer_closure/evidence.json",
+      "sha256": "279f4a5c30b1b3eee8bd86f9dbde0096b6da34155e446eb87b35a8c1b87e6c87"
+    },
+    "texture_evidence": {
+      "path": "work/renderer_textures/evidence.json",
+      "sha256": "958b64439bd4e2c0c402099ef347ca76aab63ee0606ddd7fcc535140a2cd38e4"
+    },
+    "c882_original_byte_oracle": {
+      "path": "work/renderer_pixel_oracle/c882_report.json",
+      "sha256": "07e5bda770330c798c37d07413e505b583ee935fdc254f7b94fd1d1b04644209"
+    },
+    "prediction": {
+      "path": "work/renderer_cross_module/pixel_prediction.json",
+      "sha256": "f4cb2c570892ed8c3ed4591d1e381ea6c63eec80d755b80302e35c8f6f1838a9"
+    }
+  },
+  "bounded_original_byte_oracle": {
+    "receipt": {
+      "path": "work/renderer_pixel_oracle/c882_report.json",
+      "sha256": "07e5bda770330c798c37d07413e505b583ee935fdc254f7b94fd1d1b04644209"
+    },
+    "status": "BOUNDED_EQUIVALENT",
+    "scope": "Finite one-row, two-pixel C700/C882 execution from original RVA C7F6 through the C89F inner-loop boundary. Source bytes 0 and 7; zero bypasses all destination/LUT access, nonzero uses frame_color_lut[0x23*256+7], then blend[(mapped_color<<8)|old_destination]. This is not full rasterization, renderer integration, gameplay, FUNCTION_MATCH, or whole-module equality.",
+    "span": {
+      "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "image_base": "0x400000",
+      "entry_rva": "0xc7f6",
+      "stop_before_rva": "0xc89f",
+      "span_size": 169,
+      "span_sha256": "4721786f51d9604adb58e4e62640cc72c6dfbcfc829a31e9d3b08cc66dbb4e5b",
+      "base_relocations": 0
+    },
+    "case_count": 4,
+    "selector_results": [
+      {
+        "selector": 0,
+        "blend_base": "0x92e3d0",
+        "shade_color": "0x23",
+        "source": [
+          "0x0",
+          "0x7"
+        ],
+        "color_lut_result": "0xa6",
+        "destination_before": [
+          "0x35",
+          "0x3c"
+        ],
+        "destination_after": [
+          "0x35",
+          "0xd0"
+        ],
+        "zero_texel_skipped": true
+      },
+      {
+        "selector": 1,
+        "blend_base": "0x93e3d0",
+        "shade_color": "0x23",
+        "source": [
+          "0x0",
+          "0x7"
+        ],
+        "color_lut_result": "0xa6",
+        "destination_before": [
+          "0x35",
+          "0x3c"
+        ],
+        "destination_after": [
+          "0x35",
+          "0xd1"
+        ],
+        "zero_texel_skipped": true
+      },
+      {
+        "selector": 2,
+        "blend_base": "0x94e3d0",
+        "shade_color": "0x23",
+        "source": [
+          "0x0",
+          "0x7"
+        ],
+        "color_lut_result": "0xa6",
+        "destination_before": [
+          "0x35",
+          "0x3c"
+        ],
+        "destination_after": [
+          "0x35",
+          "0xd2"
+        ],
+        "zero_texel_skipped": true
+      },
+      {
+        "selector": 3,
+        "blend_base": "0x95e3d0",
+        "shade_color": "0x23",
+        "source": [
+          "0x0",
+          "0x7"
+        ],
+        "color_lut_result": "0xa6",
+        "destination_before": [
+          "0x35",
+          "0x3c"
+        ],
+        "destination_after": [
+          "0x35",
+          "0xd3"
+        ],
+        "zero_texel_skipped": true
+      }
+    ]
+  },
+  "private_reference_helper": {
+    "header": {
+      "path": "candidates/renderer_cross_module/privatehercules_pixel.h",
+      "sha256": "01220ca6b4ceaeb4d1dd1db72e105ac883c7fe256dbd9bea4a9abdab32c42ed4"
+    },
+    "implementation": {
+      "path": "candidates/renderer_cross_module/privatehercules_pixel.c",
+      "sha256": "1f11bd5dcb3081b58a621d4dffee681c9628f3b321b46b5e0adaf3479d3f4c3b"
+    },
+    "synthetic_test": {
+      "path": "candidates/renderer_cross_module/privatehercules_pixel_test.c",
+      "sha256": "06cd147f1c04af752669e7a9eed7aad3953a4aa38f392b530c019603743f36fb"
+    },
+    "build_test_report": {
+      "path": "work/renderer_cross_module/pixel_reference_test.json",
+      "sha256": "5b8f5efaa8a21dcaa76460ecf85cfc7992b02a20e31168a4af83c85a0c14d1f6",
+      "result": "PASS",
+      "vc5_output": "PASS: 47 pixel-reference checks",
+      "gcc_c89_output": "PASS: 47 pixel-reference checks"
+    },
+    "width_types": "candidates/renderer_packets/renderer_packet_width.h",
+    "scope": "Selected bounded one-byte readers and destination callbacks; no host ABI declaration or live pointer cast."
+  },
+  "prediction_outcome": "PARTIALLY_FALSIFIED: zero-source bypass is established for the active CC50 CLUT route, C700 shade/blend route, C8F0 blend route, and CAB0 copy route. The D420 gate-off C2E0 path instead fills the clipped span from the sampled byte without a zero test.",
+  "functions": [
+    {
+      "name": "bit1_clear_polygon",
+      "rva": "0xd420",
+      "size": 2384,
+      "sha256": "4645c60cf0a357ed4aae074c3487a2755384852d0874e2f12b352b994544e07e",
+      "calls": [
+        {
+          "rva": "0xd549",
+          "target_rva": "0xcab0",
+          "op": "0x40cab0"
+        },
+        {
+          "rva": "0xd589",
+          "target_rva": "0xcc50",
+          "op": "0x40cc50"
+        },
+        {
+          "rva": "0xd600",
+          "target_rva": "0xc2e0",
+          "op": "0x40c2e0"
+        }
+      ],
+      "absolute_key_data_refs": [
+        {
+          "rva": "0xd434",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xba0210]",
+          "operand_index": 1,
+          "target_va": "0xba0210",
+          "target_name": "surface_pointer_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xd555",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [0xa90a04]",
+          "operand_index": 1,
+          "target_va": "0xa90a04",
+          "target_name": "clut_word_then_row",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xd567",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90a04], edx",
+          "operand_index": 0,
+          "target_va": "0xa90a04",
+          "target_name": "clut_word_then_row",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xd571",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90a04], edx",
+          "operand_index": 0,
+          "target_va": "0xa90a04",
+          "target_name": "clut_word_then_row",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xd577",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0x96e3e0]",
+          "operand_index": 1,
+          "target_va": "0x96e3e0",
+          "target_name": "clut_enabled_gate_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xd5c9",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa909fc]",
+          "operand_index": 1,
+          "target_va": "0xa909fc",
+          "target_name": "selected_texture_base",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xd5dd",
+          "mnemonic": "mov",
+          "operands": "byte ptr [0xa90a08], al",
+          "operand_index": 0,
+          "target_va": "0xa90a08",
+          "target_name": "span_fill_color",
+          "width": 1,
+          "access": "write"
+        },
+        {
+          "rva": "0xd5e4",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xa90a08]",
+          "operand_index": 1,
+          "target_va": "0xa90a08",
+          "target_name": "span_fill_color",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xd5fa",
+          "mnemonic": "mov",
+          "operands": "byte ptr [0xa90a08], dl",
+          "operand_index": 0,
+          "target_va": "0xa90a08",
+          "target_name": "span_fill_color",
+          "width": 1,
+          "access": "write"
+        },
+        {
+          "rva": "0xd731",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [0xba0210]",
+          "operand_index": 1,
+          "target_va": "0xba0210",
+          "target_name": "surface_pointer_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xd737",
+          "mnemonic": "imul",
+          "operands": "eax, dword ptr [0xba0214]",
+          "operand_index": 1,
+          "target_va": "0xba0214",
+          "target_name": "surface_stride_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xd742",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90944], eax",
+          "operand_index": 0,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xdc07",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [0xa90944]",
+          "operand_index": 1,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xdc15",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90940], edx",
+          "operand_index": 0,
+          "target_va": "0xa90940",
+          "target_name": "clipped_destination_pixel_pointer",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xdc64",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [0xa909fc]",
+          "operand_index": 1,
+          "target_va": "0xa909fc",
+          "target_name": "selected_texture_base",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xdc6a",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90940]",
+          "operand_index": 1,
+          "target_va": "0xa90940",
+          "target_name": "clipped_destination_pixel_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xdcb3",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xba0214]",
+          "operand_index": 1,
+          "target_va": "0xba0214",
+          "target_name": "surface_stride_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xdcb9",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90944]",
+          "operand_index": 1,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xdcc7",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90944], edi",
+          "operand_index": 0,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "write"
+        }
+      ],
+      "key_immediates": []
+    },
+    {
+      "name": "bit1_set_polygon",
+      "rva": "0xe680",
+      "size": 2272,
+      "sha256": "f42bfcb06d042a8cd9ced6a8df5375b734c1e5641811a062059bbd02cb8dcb58",
+      "calls": [
+        {
+          "rva": "0xe6ad",
+          "target_rva": "0xdd70",
+          "op": "0x40dd70"
+        },
+        {
+          "rva": "0xe7bb",
+          "target_rva": "0xc8f0",
+          "op": "0x40c8f0"
+        }
+      ],
+      "absolute_key_data_refs": [
+        {
+          "rva": "0xe694",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xba0210]",
+          "operand_index": 1,
+          "target_va": "0xba0210",
+          "target_name": "surface_pointer_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xe6a1",
+          "mnemonic": "cmp",
+          "operands": "dword ptr [0xa90a00], 0x80",
+          "operand_index": 0,
+          "target_va": "0xa90a00",
+          "target_name": "indexed_shade_byte",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xe7c7",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xa8e6f8]",
+          "operand_index": 1,
+          "target_va": "0xa8e6f8",
+          "target_name": "current_tpage_blend_bits",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xe7e0",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90948], eax",
+          "operand_index": 0,
+          "target_va": "0xa90948",
+          "target_name": "blend_table_base_slot",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xe8f5",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [0xba0210]",
+          "operand_index": 1,
+          "target_va": "0xba0210",
+          "target_name": "surface_pointer_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xe8fb",
+          "mnemonic": "imul",
+          "operands": "eax, dword ptr [0xba0214]",
+          "operand_index": 1,
+          "target_va": "0xba0214",
+          "target_name": "surface_stride_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xe906",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90944], eax",
+          "operand_index": 0,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xedcf",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90944]",
+          "operand_index": 1,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xeddd",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90940], edi",
+          "operand_index": 0,
+          "target_va": "0xa90940",
+          "target_name": "clipped_destination_pixel_pointer",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xee4b",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90940]",
+          "operand_index": 1,
+          "target_va": "0xa90940",
+          "target_name": "clipped_destination_pixel_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xee51",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [0xa909fc]",
+          "operand_index": 1,
+          "target_va": "0xa909fc",
+          "target_name": "selected_texture_base",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xee62",
+          "mnemonic": "mov",
+          "operands": "ebp, dword ptr [0xa90948]",
+          "operand_index": 1,
+          "target_va": "0xa90948",
+          "target_name": "blend_table_base_slot",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xeea6",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xba0214]",
+          "operand_index": 1,
+          "target_va": "0xba0214",
+          "target_name": "surface_stride_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xeeac",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90944]",
+          "operand_index": 1,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xeeba",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90944], edi",
+          "operand_index": 0,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "write"
+        }
+      ],
+      "key_immediates": [
+        {
+          "rva": "0xe7d9",
+          "mnemonic": "add",
+          "operands": "eax, 0x92e3d0",
+          "value": "0x92e3d0",
+          "value_name": "blend_table_family_base"
+        }
+      ]
+    },
+    {
+      "name": "bit1_clear_sprite",
+      "rva": "0xcab0",
+      "size": 416,
+      "sha256": "fe6c00a7e9109250e2e5aa4c3c3419c7381cf9758422d42d319b3e4648d12609",
+      "calls": [],
+      "absolute_key_data_refs": [
+        {
+          "rva": "0xcac4",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xba0210]",
+          "operand_index": 1,
+          "target_va": "0xba0210",
+          "target_name": "surface_pointer_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xcba6",
+          "mnemonic": "imul",
+          "operands": "eax, dword ptr [0xba0214]",
+          "operand_index": 1,
+          "target_va": "0xba0214",
+          "target_name": "surface_stride_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xcbad",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xba0210]",
+          "operand_index": 1,
+          "target_va": "0xba0210",
+          "target_name": "surface_pointer_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xcbb3",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [0xa909fc]",
+          "operand_index": 1,
+          "target_va": "0xa909fc",
+          "target_name": "selected_texture_base",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xcbc8",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90944], eax",
+          "operand_index": 0,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xcbcd",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa909fc], esi",
+          "operand_index": 0,
+          "target_va": "0xa909fc",
+          "target_name": "selected_texture_base",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xcbd8",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [0xa909fc]",
+          "operand_index": 1,
+          "target_va": "0xa909fc",
+          "target_name": "selected_texture_base",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xcbe8",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90944]",
+          "operand_index": 1,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xcc07",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [0xba0214]",
+          "operand_index": 1,
+          "target_va": "0xba0214",
+          "target_name": "surface_stride_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xcc0d",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90944]",
+          "operand_index": 1,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xcc2c",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90944], edi",
+          "operand_index": 0,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "write"
+        }
+      ],
+      "key_immediates": []
+    },
+    {
+      "name": "bit1_set_sprite",
+      "rva": "0xc8f0",
+      "size": 448,
+      "sha256": "95ac42d7f4447015eb0760dfccbf2c40fddf600baa76f8f885cf3be7ad9926bf",
+      "calls": [],
+      "absolute_key_data_refs": [
+        {
+          "rva": "0xc904",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xba0210]",
+          "operand_index": 1,
+          "target_va": "0xba0210",
+          "target_name": "surface_pointer_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc9e6",
+          "mnemonic": "imul",
+          "operands": "eax, dword ptr [0xba0214]",
+          "operand_index": 1,
+          "target_va": "0xba0214",
+          "target_name": "surface_stride_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc9ed",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [0xba0210]",
+          "operand_index": 1,
+          "target_va": "0xba0210",
+          "target_name": "surface_pointer_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc9fd",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [0xa909fc]",
+          "operand_index": 1,
+          "target_va": "0xa909fc",
+          "target_name": "selected_texture_base",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xca03",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90944], eax",
+          "operand_index": 0,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xca08",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xa8e6f8]",
+          "operand_index": 1,
+          "target_va": "0xa8e6f8",
+          "target_name": "current_tpage_blend_bits",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xca12",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa909fc], esi",
+          "operand_index": 0,
+          "target_va": "0xa909fc",
+          "target_name": "selected_texture_base",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xca23",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90948], eax",
+          "operand_index": 0,
+          "target_va": "0xa90948",
+          "target_name": "blend_table_base_slot",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xca2d",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xa90948]",
+          "operand_index": 1,
+          "target_va": "0xa90948",
+          "target_name": "blend_table_base_slot",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xca35",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [0xa909fc]",
+          "operand_index": 1,
+          "target_va": "0xa909fc",
+          "target_name": "selected_texture_base",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xca45",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90944]",
+          "operand_index": 1,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xca6a",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xba0214]",
+          "operand_index": 1,
+          "target_va": "0xba0214",
+          "target_name": "surface_stride_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xca70",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90944]",
+          "operand_index": 1,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xca8f",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90944], edi",
+          "operand_index": 0,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "write"
+        }
+      ],
+      "key_immediates": [
+        {
+          "rva": "0xca1b",
+          "mnemonic": "add",
+          "operands": "eax, 0x92e3d0",
+          "value": "0x92e3d0",
+          "value_name": "blend_table_family_base"
+        }
+      ]
+    },
+    {
+      "name": "polygon_pixel_helper",
+      "rva": "0xdd70",
+      "size": 2320,
+      "sha256": "44dcd2638f14fbcf644f76aa622cba9e4dff971776662c6d2317b725eafcad60",
+      "calls": [
+        {
+          "rva": "0xde93",
+          "target_rva": "0xc700",
+          "op": "0x40c700"
+        }
+      ],
+      "absolute_key_data_refs": [
+        {
+          "rva": "0xdd84",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xba0210]",
+          "operand_index": 1,
+          "target_va": "0xba0210",
+          "target_name": "surface_pointer_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xde9f",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xa8e6f8]",
+          "operand_index": 1,
+          "target_va": "0xa8e6f8",
+          "target_name": "current_tpage_blend_bits",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xdea4",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xa90a00]",
+          "operand_index": 1,
+          "target_va": "0xa90a00",
+          "target_name": "indexed_shade_byte",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xdec4",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90948], eax",
+          "operand_index": 0,
+          "target_va": "0xa90948",
+          "target_name": "blend_table_base_slot",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xdfe8",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [0xba0210]",
+          "operand_index": 1,
+          "target_va": "0xba0210",
+          "target_name": "surface_pointer_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xdfee",
+          "mnemonic": "imul",
+          "operands": "eax, dword ptr [0xba0214]",
+          "operand_index": 1,
+          "target_va": "0xba0214",
+          "target_name": "surface_stride_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xdff9",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90944], eax",
+          "operand_index": 0,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xe4c2",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90944]",
+          "operand_index": 1,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xe4d0",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90940], edi",
+          "operand_index": 0,
+          "target_va": "0xa90940",
+          "target_name": "clipped_destination_pixel_pointer",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xe54a",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90940]",
+          "operand_index": 1,
+          "target_va": "0xa90940",
+          "target_name": "clipped_destination_pixel_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xe550",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [0xa909fc]",
+          "operand_index": 1,
+          "target_va": "0xa909fc",
+          "target_name": "selected_texture_base",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xe561",
+          "mnemonic": "mov",
+          "operands": "ebp, dword ptr [0xa90948]",
+          "operand_index": 1,
+          "target_va": "0xa90948",
+          "target_name": "blend_table_base_slot",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xe5bb",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xba0214]",
+          "operand_index": 1,
+          "target_va": "0xba0214",
+          "target_name": "surface_stride_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xe5c1",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90944]",
+          "operand_index": 1,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xe5cf",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90944], edi",
+          "operand_index": 0,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "write"
+        }
+      ],
+      "key_immediates": [
+        {
+          "rva": "0xdeb9",
+          "mnemonic": "add",
+          "operands": "eax, 0x92e3d0",
+          "value": "0x92e3d0",
+          "value_name": "blend_table_family_base"
+        },
+        {
+          "rva": "0xdebe",
+          "mnemonic": "add",
+          "operands": "ecx, 0x91c488",
+          "value": "0x91c488",
+          "value_name": "frame_color_lut_base"
+        }
+      ]
+    },
+    {
+      "name": "polygon_fill_helper",
+      "rva": "0xc700",
+      "size": 496,
+      "sha256": "b81741c75b775d15bc06622ee9e11a4095385c92e8b6c0a3b2c641e80924a567",
+      "calls": [],
+      "absolute_key_data_refs": [
+        {
+          "rva": "0xc714",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xba0210]",
+          "operand_index": 1,
+          "target_va": "0xba0210",
+          "target_name": "surface_pointer_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc7f6",
+          "mnemonic": "imul",
+          "operands": "eax, dword ptr [0xba0214]",
+          "operand_index": 1,
+          "target_va": "0xba0214",
+          "target_name": "surface_stride_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc7fd",
+          "mnemonic": "mov",
+          "operands": "ebx, dword ptr [0xba0210]",
+          "operand_index": 1,
+          "target_va": "0xba0210",
+          "target_name": "surface_pointer_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc805",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xa90a00]",
+          "operand_index": 1,
+          "target_va": "0xa90a00",
+          "target_name": "indexed_shade_byte",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc80d",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90944], eax",
+          "operand_index": 0,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xc812",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xa8e6f8]",
+          "operand_index": 1,
+          "target_va": "0xa8e6f8",
+          "target_name": "current_tpage_blend_bits",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc831",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90948], eax",
+          "operand_index": 0,
+          "target_va": "0xa90948",
+          "target_name": "blend_table_base_slot",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xc83b",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa909ac], ecx",
+          "operand_index": 0,
+          "target_va": "0xa909ac",
+          "target_name": "shade_lookup_base_slot",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xc841",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xa909fc]",
+          "operand_index": 1,
+          "target_va": "0xa909fc",
+          "target_name": "selected_texture_base",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc84c",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa909fc], ecx",
+          "operand_index": 0,
+          "target_va": "0xa909fc",
+          "target_name": "selected_texture_base",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xc858",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xa90948]",
+          "operand_index": 1,
+          "target_va": "0xa90948",
+          "target_name": "blend_table_base_slot",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc860",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [0xa909fc]",
+          "operand_index": 1,
+          "target_va": "0xa909fc",
+          "target_name": "selected_texture_base",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc870",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90944]",
+          "operand_index": 1,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc87a",
+          "mnemonic": "mov",
+          "operands": "ebp, dword ptr [0xa909ac]",
+          "operand_index": 1,
+          "target_va": "0xa909ac",
+          "target_name": "shade_lookup_base_slot",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc8a5",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xba0214]",
+          "operand_index": 1,
+          "target_va": "0xba0214",
+          "target_name": "surface_stride_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc8ab",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90944]",
+          "operand_index": 1,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc8ca",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90944], edi",
+          "operand_index": 0,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "write"
+        }
+      ],
+      "key_immediates": [
+        {
+          "rva": "0xc826",
+          "mnemonic": "add",
+          "operands": "eax, 0x92e3d0",
+          "value": "0x92e3d0",
+          "value_name": "blend_table_family_base"
+        },
+        {
+          "rva": "0xc82b",
+          "mnemonic": "add",
+          "operands": "ecx, 0x91c488",
+          "value": "0x91c488",
+          "value_name": "frame_color_lut_base"
+        }
+      ]
+    },
+    {
+      "name": "polygon_draw_helper",
+      "rva": "0xcc50",
+      "size": 2000,
+      "sha256": "26ac072b8de4b59f4a929abb5fd0d6cbcbe826fa02d3ee9f78d07245b39f8776",
+      "calls": [],
+      "absolute_key_data_refs": [
+        {
+          "rva": "0xcc64",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xba0210]",
+          "operand_index": 1,
+          "target_va": "0xba0210",
+          "target_name": "surface_pointer_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xcc71",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xa90a04]",
+          "operand_index": 1,
+          "target_va": "0xa90a04",
+          "target_name": "clut_word_then_row",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xcc92",
+          "mnemonic": "lea",
+          "operands": "ecx, [eax + 0x92c390]",
+          "operand_index": 1,
+          "displacement_va": "0x92c390",
+          "target_name": "clut_palette_base",
+          "base_register": "eax",
+          "access": "address_formation_only"
+        },
+        {
+          "rva": "0xcc9d",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90954], ecx",
+          "operand_index": 0,
+          "target_va": "0xa90954",
+          "target_name": "clut_palette_base_slot",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xcdaa",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [0xba0210]",
+          "operand_index": 1,
+          "target_va": "0xba0210",
+          "target_name": "surface_pointer_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xcdb0",
+          "mnemonic": "imul",
+          "operands": "eax, dword ptr [0xba0214]",
+          "operand_index": 1,
+          "target_va": "0xba0214",
+          "target_name": "surface_stride_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xcdbb",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90944], eax",
+          "operand_index": 0,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xd284",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90944]",
+          "operand_index": 1,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xd292",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90940], edi",
+          "operand_index": 0,
+          "target_va": "0xa90940",
+          "target_name": "clipped_destination_pixel_pointer",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xd30b",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90940]",
+          "operand_index": 1,
+          "target_va": "0xa90940",
+          "target_name": "clipped_destination_pixel_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xd311",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [0xa909fc]",
+          "operand_index": 1,
+          "target_va": "0xa909fc",
+          "target_name": "selected_texture_base",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xd317",
+          "mnemonic": "mov",
+          "operands": "ebp, dword ptr [0xa90954]",
+          "operand_index": 1,
+          "target_va": "0xa90954",
+          "target_name": "clut_palette_base_slot",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xd35b",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xba0214]",
+          "operand_index": 1,
+          "target_va": "0xba0214",
+          "target_name": "surface_stride_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xd361",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90944]",
+          "operand_index": 1,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xd36f",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90944], edi",
+          "operand_index": 0,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "write"
+        }
+      ],
+      "key_immediates": []
+    },
+    {
+      "name": "polygon_span_helper",
+      "rva": "0xc2e0",
+      "size": 1056,
+      "sha256": "8908bd9d0b920d8020f304feda864b1a25f42415cca421510b48362e2f091d9a",
+      "calls": [],
+      "absolute_key_data_refs": [
+        {
+          "rva": "0xc2f4",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xba0210]",
+          "operand_index": 1,
+          "target_va": "0xba0210",
+          "target_name": "surface_pointer_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc428",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xba0210]",
+          "operand_index": 1,
+          "target_va": "0xba0210",
+          "target_name": "surface_pointer_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc42e",
+          "mnemonic": "imul",
+          "operands": "eax, dword ptr [0xba0214]",
+          "operand_index": 1,
+          "target_va": "0xba0214",
+          "target_name": "surface_stride_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc43d",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90944], eax",
+          "operand_index": 0,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xc615",
+          "mnemonic": "mov",
+          "operands": "ebx, dword ptr [0xa90944]",
+          "operand_index": 1,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc622",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90940], ebx",
+          "operand_index": 0,
+          "target_va": "0xa90940",
+          "target_name": "clipped_destination_pixel_pointer",
+          "width": 4,
+          "access": "write"
+        },
+        {
+          "rva": "0xc645",
+          "mnemonic": "mov",
+          "operands": "al, byte ptr [0xa90a08]",
+          "operand_index": 1,
+          "target_va": "0xa90a08",
+          "target_name": "span_fill_color",
+          "width": 1,
+          "access": "read"
+        },
+        {
+          "rva": "0xc64e",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [0xa90940]",
+          "operand_index": 1,
+          "target_va": "0xa90940",
+          "target_name": "clipped_destination_pixel_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc693",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xba0214]",
+          "operand_index": 1,
+          "target_va": "0xba0214",
+          "target_name": "surface_stride_cell",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc698",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [0xa90944]",
+          "operand_index": 1,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "read"
+        },
+        {
+          "rva": "0xc6a6",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa90944], edx",
+          "operand_index": 0,
+          "target_va": "0xa90944",
+          "target_name": "destination_row_pointer",
+          "width": 4,
+          "access": "write"
+        }
+      ],
+      "key_immediates": []
+    }
+  ],
+  "key_slices": [
+    {
+      "name": "d420_clut_row_and_gate",
+      "rva": "0xd555",
+      "end_rva_exclusive": "0xd595",
+      "size": 64,
+      "sha256": "6df52fb33dd523b777b252a1e0e8d512d812b2661841101cf3ad332d8763a3cd"
+    },
+    {
+      "name": "d420_clut_gate_dispatch",
+      "rva": "0xd577",
+      "end_rva_exclusive": "0xd589",
+      "size": 18,
+      "sha256": "a1e1049f0ea530f85b63fa5e253190888f010bfd0ee63f005dfd07df5d9a5738"
+    },
+    {
+      "name": "d420_conditional_embedded_palette_fragment",
+      "rva": "0xd5d8",
+      "end_rva_exclusive": "0xd600",
+      "size": 40,
+      "sha256": "5b8d8f5f5c1dcc00a6c7627c3e400a722e4ece07ce605105011b934385576350"
+    },
+    {
+      "name": "cc50_palette_base_from_row",
+      "rva": "0xcc71",
+      "end_rva_exclusive": "0xcc9d",
+      "size": 44,
+      "sha256": "41b41c494148ac3a0238e4ce38d38051dcdf9aaab43b48cb89ef90fb1d50057e"
+    },
+    {
+      "name": "cc50_texture_clut_zero_gate_and_store",
+      "rva": "0xd311",
+      "end_rva_exclusive": "0xd348",
+      "size": 55,
+      "sha256": "80f8fed3a46c2c7a913fea767fdee544665291bee9e6ac372c59ee8da2d54c6f"
+    },
+    {
+      "name": "c700_shade_and_blend_table_base_setup",
+      "rva": "0xc805",
+      "end_rva_exclusive": "0xc841",
+      "size": 60,
+      "sha256": "561ae92e532385650e96c8476f6f7aa9cb7000d89336a9b43eb6a5d9dbce8fa7"
+    },
+    {
+      "name": "c700_shade_then_blend_pixel_loop",
+      "rva": "0xc882",
+      "end_rva_exclusive": "0xc89b",
+      "size": 25,
+      "sha256": "c89a9c25738c35fbdec00e3061684a307fdb13662c751f17a177e1f6d9dd7fae"
+    },
+    {
+      "name": "c8f0_blend_selector_base_setup",
+      "rva": "0xca08",
+      "end_rva_exclusive": "0xca23",
+      "size": 27,
+      "sha256": "de39078bd8f49cf809bb0ad553a5c883c8366336aede58a4fa25397129c9052d"
+    },
+    {
+      "name": "blend_pixel_index_and_zero_gate",
+      "rva": "0xca51",
+      "end_rva_exclusive": "0xca64",
+      "size": 19,
+      "sha256": "402cff6cb18d9536286c4f34acb17b755a16cd56951e1a88299c3a90922b5754"
+    },
+    {
+      "name": "copy_pixel_zero_gate",
+      "rva": "0xcbf4",
+      "end_rva_exclusive": "0xcc01",
+      "size": 13,
+      "sha256": "147eec75c3702cee5abd378ef082b0b29e0fedd3bc3ecbcf5f1eaf563e8026d8"
+    },
+    {
+      "name": "c2e0_constant_color_fill_without_texel_gate",
+      "rva": "0xc63f",
+      "end_rva_exclusive": "0xc681",
+      "size": 66,
+      "sha256": "6f9970b326139d62491d16ccf3f40974514a28878887af95901fd63a4c295c32"
+    }
+  ],
+  "equations_to_verify_against_code": {
+    "texture_page": "base = (alternate ? 0xA6E6E0 : 0x96E6E0) + (((tpage & 0x1f) >> 1) << 16); texel = *(base + v*256 + u)",
+    "alternate_page_gate": "alternate iff (tpage & 0x180) == 0x180; then the ordinary page index is not added",
+    "clut_row": "EDX = SAR32(A90A04,6) - 0x1e0; unsigned EDX > 0x1e becomes row 0; the active CC50 CLUT branch requires [0x96E3E0] != 0 and row != 0",
+    "clut_lookup": "CC50 palette base = 0x92C390 + (row << 8), with index=source_texel; zero source texel bypasses the lookup/store; nonzero result is written directly to destination",
+    "clut_gate_off_fallback": "With [0x96E3E0] == 0 and nonzero row, D420 samples raw texel to A90A08 and calls C2E0; C2E0 fills the clipped span from A90A08 without a texel-zero test",
+    "clut_conditional_fragment_limit": "D420's D5F3 read from 0x92C490 + row*256 + texel is bypassed by the stable gate branches (gate nonzero+row nonzero returns through CC50; gate zero preserves ECX=0 and D5D8 branches to D600); do not treat that fragment as the active CLUT base proof",
+    "indexed_shade_lookup": "shade_base = 0x91C488 + ((A90A00 & 0xff) << 8); shaded_texel = shade_base[source_texel]",
+    "blend_selector": "selector = (tpage >> 5) & 3; blend_table = 0x92E3D0 + selector*0x10000",
+    "blend_selector_bases": [
+      "selector 0: 0x92E3D0",
+      "selector 1: 0x93E3D0",
+      "selector 2: 0x94E3D0",
+      "selector 3: 0x95E3D0"
+    ],
+    "blend_pixel_index": "direct C8F0: (source_texel << 8) | prior_destination_byte; C700 shaded path: (shade_base[source_texel] << 8) | prior_destination_byte",
+    "zero_transparency_by_path": "zero source bypasses write in CC50 active CLUT, C700 shade/blend, C8F0 blend, and CAB0 direct-copy loops; D420 gate-off C2E0 fallback does not test zero and fills with the sampled byte",
+    "surface_destination": "destination row start = *(DWORD*)0xBA0210 + y * *(DWORD*)0xBA0214; pixel index adds clipped x",
+    "separate_final_remap": "0x70C0 uses 0x91C488 with color*256+pixel; this final surface remap is separate from the polygon blend-table family"
+  },
+  "minimal_original_byte_oracle": {
+    "suggested_scope": "first validate the original instruction windows for each pixel contract; then, only if setup state is available, run one destination pixel through the smallest entry/helper chain for each D420, E680, CAB0, and C8F0 route using synthetic absolute-state/surface/source/LUT mappings",
+    "cases": [
+      "C700/C882 shade+blend selectors 0..3 are already covered by work/renderer_pixel_oracle/c882_report.json; it verifies source zero causes no destination/LUT access and nonzero source uses (mapped_color<<8)|old_destination",
+      "CC50 active CLUT: gate nonzero, valid nonzero row, texel 0 and nonzero; verify zero leaves old destination and nonzero writes 0x92C390+row*256+texel",
+      "D420 gate-off fallback: gate zero, row nonzero, texel 0 and nonzero; verify C2E0 writes the sampled byte including zero",
+      "C8F0 blend and CAB0 direct copy: texel 0 and nonzero; verify zero skip and nonzero exact table/copy behavior"
+    ],
+    "must_preserve": [
+      "original preferred image base and function bytes",
+      "BA01F0/BA0210/BA0214 preconditions",
+      "AC60-staged geometry/UV/color/page globals required by each path",
+      "the original CLUT and blend lookup byte order",
+      "one destination byte before/after each call",
+      "all scratch/global writes outside test mapping captured"
+    ],
+    "smallest_direct_pixel_slices": [
+      "D420 CLUT row/gate 0xD555..0xD595 plus CC50 palette base setup 0xCC71..0xCC9D and pixel loop 0xD311..0xD348",
+      "C700 shade/blend setup 0xC805..0xC841 and pixel loop 0xC882..0xC89B (the bounded original-byte run is separately recorded)",
+      "C8F0 selector setup 0xCA08..0xCA23 and blend pixel loop 0xCA51..0xCA64",
+      "CAB0 direct copy pixel loop 0xCBF4..0xCC01",
+      "D420 gate-off fill helper loop 0xC63F..0xC681"
+    ],
+    "unresolved_before_execution": [
+      "minimum complete scratch/global initialization for D420, CC50, C8F0, and CAB0 paths",
+      "whether every polygon branch reaches one of the captured indexed paths",
+      "whether full-function emulation can avoid unrelated DirectDraw/service state",
+      "finite address-backed texture/LUT bounds sufficient for all selectors"
+    ],
+    "status": "C700/C882 shade+blend slice is BOUNDED_EQUIVALENT in the sibling receipt; D420/CC50 CLUT, raw fallback, C8F0, and CAB0 remain PROPOSED_ONLY here"
+  },
+  "limits": [
+    "Static code and sibling finite A710 evidence do not prove every raster branch or address allocation extent.",
+    "No GPU, full raster rewrite, gameplay, or live renderer hook was used.",
+    "The 70C0 whole-surface remap remains a separate compatibility side effect."
+  ],
+  "integration_provenance": {
+    "private_receipt_sha256": "e0ed80891f6fa940ac203c6c1ed18a23803ac8d61d8e8af2907a87e16680387a",
+    "omitted": "Detailed instruction dumps and code hex remain private scratch; spans, calls, references and proofs retained."
+  }
+}

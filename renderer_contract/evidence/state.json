@@ -1,0 +1,466 @@
+{
+  "schema_version": 1,
+  "scope": "Static E1, command-01 and F3 state-command fields. No packet decoder, rasterizer, gameplay execution, or source-identity claim.",
+  "oracle": {
+    "module": "HERCULES.EXE",
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000"
+  },
+  "tool": {
+    "capstone_version": "5.0.7",
+    "parser": "scripts/pe.py via work/renderer_baseline/baseline.py"
+  },
+  "blocks": {
+    "e1": {
+      "rva": "0xb19c",
+      "end_rva_exclusive": "0xb1d4",
+      "size": 56,
+      "span_sha256": "db7c93e5192ed771e6af16a5f671bbada7bb895ce1f1b0d16c29053239a822e0",
+      "direct_packet_loads": [
+        {
+          "offset": 4,
+          "width": 4,
+          "site_rva": "0xb19c",
+          "mnemonic": "mov"
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "site_rva": "0xb1b6",
+          "mnemonic": "mov"
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "site_rva": "0xb1c1",
+          "mnemonic": "mov"
+        }
+      ],
+      "direct_packet_load_envelope": "0x8",
+      "absolute_writes": [
+        {
+          "target_va": "0xa8e6fc",
+          "width": 4,
+          "site_rva": "0xb1b0"
+        },
+        {
+          "target_va": "0xa8e6f4",
+          "width": 4,
+          "site_rva": "0xb1bc"
+        },
+        {
+          "target_va": "0xa8e6f8",
+          "width": 4,
+          "site_rva": "0xb1ca"
+        }
+      ],
+      "direct_calls": []
+    },
+    "command01": {
+      "rva": "0xb1d4",
+      "end_rva_exclusive": "0xb1f4",
+      "size": 32,
+      "span_sha256": "0d1e81ca9679cd6f487955621b2ff9ec71765a3137a49dc0591e11a5ad093058",
+      "direct_packet_loads": [
+        {
+          "offset": 14,
+          "width": 2,
+          "site_rva": "0xb1d9",
+          "mnemonic": "movsx"
+        },
+        {
+          "offset": 12,
+          "width": 2,
+          "site_rva": "0xb1dd",
+          "mnemonic": "movsx"
+        }
+      ],
+      "direct_packet_load_envelope": "0x10",
+      "absolute_writes": [],
+      "direct_calls": [
+        {
+          "site_rva": "0xb1e7",
+          "target_rva": "0xa8f0"
+        }
+      ]
+    },
+    "f3": {
+      "rva": "0xb1f4",
+      "end_rva_exclusive": "0xb2c2",
+      "size": 206,
+      "span_sha256": "893feb62245c2196ffb05329df12d0c86462dd561bc1160a67beb7ace2c7aa84",
+      "direct_packet_loads": [
+        {
+          "offset": 4,
+          "width": 2,
+          "site_rva": "0xb1ff",
+          "mnemonic": "movsx"
+        },
+        {
+          "offset": 6,
+          "width": 1,
+          "site_rva": "0xb209",
+          "mnemonic": "mov"
+        },
+        {
+          "offset": 8,
+          "width": 2,
+          "site_rva": "0xb22c",
+          "mnemonic": "movsx"
+        },
+        {
+          "offset": 10,
+          "width": 2,
+          "site_rva": "0xb237",
+          "mnemonic": "movsx"
+        }
+      ],
+      "direct_packet_load_envelope": "0xc",
+      "absolute_writes": [
+        {
+          "target_va": "0xa909b0",
+          "width": 4,
+          "site_rva": "0xb203"
+        },
+        {
+          "target_va": "0xa909b4",
+          "width": 4,
+          "site_rva": "0xb218"
+        },
+        {
+          "target_va": "0xa909b4",
+          "width": 4,
+          "site_rva": "0xb226"
+        },
+        {
+          "target_va": "0x43a488",
+          "width": 4,
+          "site_rva": "0xb232"
+        },
+        {
+          "target_va": "0x43a48c",
+          "width": 4,
+          "site_rva": "0xb23f"
+        },
+        {
+          "target_va": "0xa909b0",
+          "width": 4,
+          "site_rva": "0xb249"
+        },
+        {
+          "target_va": "0xa909b0",
+          "width": 4,
+          "site_rva": "0xb257"
+        },
+        {
+          "target_va": "0x43a488",
+          "width": 4,
+          "site_rva": "0xb267"
+        },
+        {
+          "target_va": "0x43a488",
+          "width": 4,
+          "site_rva": "0xb273"
+        },
+        {
+          "target_va": "0xa909b4",
+          "width": 4,
+          "site_rva": "0xb283"
+        },
+        {
+          "target_va": "0xa909b4",
+          "width": 4,
+          "site_rva": "0xb291"
+        },
+        {
+          "target_va": "0x43a48c",
+          "width": 4,
+          "site_rva": "0xb2a1"
+        },
+        {
+          "target_va": "0x43a48c",
+          "width": 4,
+          "site_rva": "0xb2b3"
+        }
+      ],
+      "direct_calls": []
+    }
+  },
+  "command01": {
+    "direct_ac60_loads": [
+      {
+        "offset": 14,
+        "width": 2,
+        "site_rva": "0xb1d9",
+        "mnemonic": "movsx"
+      },
+      {
+        "offset": 12,
+        "width": 2,
+        "site_rva": "0xb1dd",
+        "mnemonic": "movsx"
+      }
+    ],
+    "pointer_formation": {
+      "site_rva": "0xb1e2",
+      "instruction": "lea eax, [esi + 0x10]",
+      "target_packet_offset": "0x10",
+      "is_memory_read": false
+    },
+    "direct_packet_read_envelope": "0x10",
+    "call": {
+      "site_rva": "0xb1e7",
+      "target_rva": "0xa8f0",
+      "cdecl_arguments": [
+        "packet+0x10",
+        "signed_i16(packet+0x0c)",
+        "signed_i16(packet+0x0e)"
+      ]
+    },
+    "pointee": {
+      "fields": [
+        {
+          "offset": "0x0",
+          "width": 2,
+          "signed": true
+        },
+        {
+          "offset": "0x2",
+          "width": 2,
+          "signed": true
+        },
+        {
+          "offset": "0x4",
+          "width": 2,
+          "signed": true
+        },
+        {
+          "offset": "0x6",
+          "width": 2,
+          "signed": true
+        }
+      ],
+      "semantic_view": [
+        "source_x",
+        "source_y",
+        "width",
+        "height"
+      ],
+      "byte_extent": 8,
+      "consumer_span": {
+        "rva": "0xa8f0",
+        "size": 784,
+        "span_sha256": "b67b200559fe74aad75c405e0f1641895b1e2a6e4186c1c33f7293ea899d1611"
+      }
+    },
+    "total_reachable_record_extent": "0x18",
+    "setter": {
+      "rva": "0xa610",
+      "size": 48,
+      "span_sha256": "b72c42161a5cf0a8df81828a90c20b1d7499687e7d81cdbe3af96c55c4202f09",
+      "packet_write_offsets": [
+        7,
+        12,
+        14,
+        16,
+        20
+      ],
+      "note": "Two source DWORDs are copied to +0x10/+0x14; each supplies two little-endian WORD fields."
+    }
+  },
+  "f3": {
+    "input_fields": [
+      {
+        "offset": "0x4",
+        "width": 2,
+        "signed": true,
+        "field": "x"
+      },
+      {
+        "offset": "0x6",
+        "width": 1,
+        "signed": false,
+        "field": "encoded_y"
+      },
+      {
+        "offset": "0x8",
+        "width": 2,
+        "signed": true,
+        "field": "right_delta"
+      },
+      {
+        "offset": "0xa",
+        "width": 2,
+        "signed": true,
+        "field": "bottom_delta"
+      }
+    ],
+    "y_normalization": "encoded_y >= 0xf0 ? encoded_y - 0xf0 : encoded_y; subtract once",
+    "clamps": {
+      "left_right": [
+        0,
+        320
+      ],
+      "top_bottom": [
+        0,
+        240
+      ],
+      "right_expression": "x + right_delta before clamping",
+      "bottom_expression": "normalized_y + bottom_delta before clamping"
+    },
+    "outputs": {
+      "left": "0xa909b0",
+      "top": "0xa909b4",
+      "right": "0x43a488",
+      "bottom": "0x43a48c"
+    },
+    "setter": {
+      "rva": "0xa5f0",
+      "size": 32,
+      "span_sha256": "783eb76d6adfd825ea6a7e5a136e48d95774864a24e04ddf10596e5268b4c0e4",
+      "packet_write_offsets": [
+        4,
+        7,
+        8
+      ],
+      "note": "Source DWORD at +4 contributes x in +4/+5 and encoded_y at +6; byte +7 is replaced by tag F3."
+    }
+  },
+  "e1": {
+    "input": {
+      "offset": "0x4",
+      "width": 4,
+      "tag_byte_offset": "0x7",
+      "tag_value": "0xe1"
+    },
+    "updates": {
+      "alternate_bank": "((value & 0x180) == 0x180)",
+      "page_index": "value & 0x1f",
+      "table_selector": "(value >> 5) & 3"
+    },
+    "write_cells": [
+      "0xa8e6fc",
+      "0xa8e6f4",
+      "0xa8e6f8"
+    ],
+    "does_not_write": [
+      "0xa909fc"
+    ],
+    "adapter": {
+      "rva": "0xa540",
+      "size": 32,
+      "span_sha256": "b34e51a54345f5e3571f33bb39d18fe1710bf6d71b68c216f6e91a34355bba92",
+      "packet_write_offsets": [
+        4,
+        7,
+        8
+      ],
+      "note": "Writes DWORDs +4/+8 then overwrites byte +7 with E1; AC60 ignores the +8 DWORD."
+    }
+  },
+  "setters": {
+    "0xa5f0": {
+      "size": 32,
+      "span_sha256": "783eb76d6adfd825ea6a7e5a136e48d95774864a24e04ddf10596e5268b4c0e4",
+      "packet_write_offsets": [
+        4,
+        7,
+        8
+      ]
+    },
+    "0xa610": {
+      "size": 48,
+      "span_sha256": "b72c42161a5cf0a8df81828a90c20b1d7499687e7d81cdbe3af96c55c4202f09",
+      "packet_write_offsets": [
+        7,
+        12,
+        14,
+        16,
+        20
+      ]
+    },
+    "0xa540": {
+      "size": 32,
+      "span_sha256": "b34e51a54345f5e3571f33bb39d18fe1710bf6d71b68c216f6e91a34355bba92",
+      "packet_write_offsets": [
+        4,
+        7,
+        8
+      ]
+    }
+  },
+  "source_evidence": {
+    "packet_neighbor_receipt": {
+      "path": "D:\\Prog\\hercules_recon\\work\\host_packet_neighbors_38\\native.json",
+      "sha256": "25c45bf8d60d80377a4963ec3cc5b1c21a055df38dd06ac7b7f06f9ba6c6523c",
+      "target": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+    },
+    "packet_neighbor_source": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\src\\pc\\packet_field_neighbors.c",
+      "sha256": "8afd82c7dcf19b156af76467c9289bc4b76af691995e29442bdf8d43b5011f1d"
+    },
+    "mode_packet_receipt": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\evidence\\host_mode_packet.json",
+      "sha256": "4aaf85d7f3992eaabb4e9b65888d8f5b00a9034b3925dd4435adf6f720de6be3",
+      "function_span_sha256": "b34e51a54345f5e3571f33bb39d18fe1710bf6d71b68c216f6e91a34355bba92"
+    },
+    "mode_packet_source": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\src\\pc\\host_mode_packet.c",
+      "sha256": "ee2cc748de687792a1f20ac13061ddbe86f6fd4583e7477fd9ded2c5131c4236"
+    }
+  },
+  "helper_proposal": {
+    "header": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_closure\\hercules_state_proposal.h",
+      "sha256": "b0f3ac54bd3b22d844e6460b4b2ce84a3af6d2f82b2584a75c1e38ac97259510"
+    },
+    "source": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_closure\\hercules_state_proposal.c",
+      "sha256": "7fb04fa2f937783527afd1f99e7f2ecfd6467ed0bdaa143d47de59f32f0dee90"
+    },
+    "wire_view_header": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_closure\\state_command_wire_proposal.h",
+      "sha256": "c0155903bfec319011a7eb067091a33e542dad7de8e6cb0a1403b2a48b897a9f"
+    },
+    "shared_packet_width": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\candidates\\renderer_packets\\renderer_packet_width.h",
+      "sha256": "7ff4de4b0c8fd8287d2f455d207b0aba9fe5f94328bf28cf3b4c1d2113c67a89"
+    },
+    "shared_packet_header": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\candidates\\renderer_packets\\renderer_packets.h",
+      "sha256": "e883925083a0043a760c68c1fc71196d72facefc1f3b746eecc78cbfa4ee5d50"
+    },
+    "no_E1_duplicate": "Uses RendererE1ProducerPacket from renderer_packets.h."
+  },
+  "fixture": {
+    "source": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_closure\\state_wire_layout_fixture.c",
+      "sha256": "37fc2f8d7ed5d2abae88ceb77711f59b220ac875d0f868ef8718b4c203081998"
+    },
+    "python_tests": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_closure\\test_state_commands.py",
+      "sha256": "b1fc3936cf647c569acca2f3713beafcb0c1d8f95730149b2b2d6db99f337fb1",
+      "result_log_sha256": "5611d00c90026d40fc256df25aad33046d11cbcf1959fe973be29daed8d5ab66",
+      "result": "6 tests passed"
+    },
+    "c89": {
+      "compiler": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+      "compiler_version": "Microsoft Visual C++ 5.00.7022",
+      "runner_script_sha256": "267856d855eebc58eb1f466fdcfa812f11980686026a37211e22a7cd51244e3a",
+      "result_log_sha256": "e2372df2f6a9cf035f96f5f8b2faf5471f9c90c5b9346635d92fb11b9b9e9b77",
+      "result": "43 checks passed"
+    }
+  },
+  "unresolved": [
+    "The actual upstream semantic producer/caller for F3 and command 01 remains unproved; A5F0/A610 prove only packet writes.",
+    "The meaning/range constraints of command-01 source width/height and source/destination coordinates are not inferred from this field audit.",
+    "E1's DWORD+8 adapter extension is not consumed by AC60; behavior in other consumers is not established here.",
+    "The original C/C++ aggregate names, declarations, and source translation units remain unproved."
+  ],
+  "limits": [
+    "Static original-byte inspection only; no execution or renderer implementation was performed.",
+    "Subspan hashes pin observed bytes but do not establish original source identity or whole-module equality."
+  ]
+}

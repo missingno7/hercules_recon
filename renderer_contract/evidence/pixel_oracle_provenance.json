@@ -1,0 +1,31 @@
+{
+  "lane": "renderer_pixel_oracle",
+  "scope": "BOUNDED_EQUIVALENT finite original-code CPU execution only",
+  "oracle": {
+    "path": "D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000",
+    "executed_rva_start": "0xc7f6",
+    "stop_before_rva": "0xc89f",
+    "executed_span_sha256": "4721786f51d9604adb58e4e62640cc72c6dfbcfc829a31e9d3b08cc66dbb4e5b",
+    "base_relocations": 0
+  },
+  "runtime": {
+    "python": "C:/msys64/mingw64/bin/python.exe",
+    "unicorn_version": "2.1.4",
+    "unicorn_module": "C:/tools/hercules/renderer-oracle-python/unicorn/__init__.py",
+    "unicorn_dll": "C:/tools/hercules/renderer-oracle-python/unicorn/lib/unicorn.dll",
+    "unicorn_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "package_provenance": "work/renderer_bounded_oracle/provenance.json"
+  },
+  "command": "C:/msys64/mingw64/bin/python.exe candidates/renderer_pixel_oracle/test_original_c882_pixel_loop.py --exe D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE --original-root D:/Prog/hercules_recon/work/renderer_interface_repo --receipt D:/Prog/hercules_recon/work/renderer_interface_repo/work/renderer_pixel_oracle/c882_report.json",
+  "fixtures": {
+    "selectors": [0, 1, 2, 3],
+    "source_bytes": [0, 7],
+    "destination_before": [53, 60],
+    "color": 35,
+    "nonzero_color_lut_result": 166,
+    "result_bytes": [208, 209, 210, 211]
+  },
+  "confidence": "High for the finite instruction/read/write behavior measured here; no claim for polygon setup, clipping, other paths, renderer integration, or source identity."
+}

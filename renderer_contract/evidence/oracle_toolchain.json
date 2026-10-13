@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "lane": "renderer_bounded_oracle",
+  "target": {
+    "file": "D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000",
+    "base_relocation_count": 0,
+    "a710_rva": "0xa710",
+    "a710_size": 469,
+    "a710_sha256": "30bd84ea8724152e3bfb0e2c521650399913bcec115f1aef489768085981d0fe",
+    "ac60_rva": "0xac60",
+    "ac60_size": 1680,
+    "ac60_sha256": "f7724c04bef582e378b183a12550ba841df1a6fa3660be51da71154aa5c525af",
+    "bd80_rva": "0xbd80",
+    "bd80_size": 22,
+    "bd80_body_end_exclusive_rva": "0xbd96",
+    "bd80_sha256": "6a9578c5be0c980bc35b29642d3ac389e829a0c5666022353cb88c04f19db64f",
+    "bd80_note": "Hash covers the 22-byte body through RET at BD95; the 32-byte BD80..BDA0 span includes the following setter and has a different hash."
+  },
+  "runtime": {
+    "python": "C:/msys64/mingw64/bin/python.exe",
+    "python_version": "3.10.11",
+    "unicorn_version": "2.1.4",
+    "install_target": "C:/tools/hercules/renderer-oracle-python",
+    "unicorn_import_path": "C:/tools/hercules/renderer-oracle-python/unicorn/__init__.py",
+    "native_dll_path": "C:/tools/hercules/renderer-oracle-python/unicorn/lib/unicorn.dll",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+  },
+  "dependency_origin": {
+    "project": "Unicorn Engine Python bindings",
+    "version": "2.1.4",
+    "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+    "metadata_endpoint": "https://pypi.org/pypi/unicorn/2.1.4/json",
+    "upstream_release": "https://github.com/unicorn-engine/unicorn/releases/tag/2.1.4",
+    "wheel_filename": "unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+    "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+    "wheel_size_bytes": 15943079,
+    "pypi_expected_sha256": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5",
+    "downloaded_wheel_sha256": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5",
+    "wheel_bytes_installed_untouched": true,
+    "installation_command": "C:/msys64/mingw64/bin/python.exe -m pip install --no-deps --no-index --platform win_amd64 --python-version 3.10 --implementation cp --abi abi3 --target C:/tools/hercules/renderer-oracle-python C:/tools/hercules/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+    "installation_note": "MSYS Python does not advertise Windows wheel compatibility tags, so pip used explicit CPython 3.10/abi3/win_amd64 target tags; the untouched package imported and initialized its native x86 engine."
+  },
+  "analysis_tools": {
+    "pe_adapter": "scripts/pe.py (PE adapter; direct baseline import removed from reusable tests)",
+    "capstone_version": "5.0.7",
+    "executable_span_disassembly": "work/renderer_textures/static_ranges.py and work/renderer_textures/native_feasibility.py"
+  },
+  "commands": [
+    "C:/msys64/mingw64/bin/python.exe candidates/renderer_bounded_oracle/test_original_a710_upload.py --exe D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE --original-root D:/Prog/hercules_recon/work/renderer_interface_repo",
+    "C:/msys64/mingw64/bin/python.exe candidates/renderer_bounded_oracle/test_original_ac60_staging.py --exe D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE --original-root D:/Prog/hercules_recon/work/renderer_interface_repo"
+  ],
+  "candidate_files": {
+    "candidates/renderer_bounded_oracle/oracle_common.py": "shared argument adapter, PE/runtime pin checks, and ignored-work receipt writer",
+    "candidates/renderer_bounded_oracle/test_original_a710_upload.py": "three finite original-code upload fixtures",
+    "candidates/renderer_bounded_oracle/test_original_ac60_staging.py": "finite packet chain through original raster/A8F0 call boundaries"
+  },
+  "sha256": {
+    "candidates/renderer_bounded_oracle/oracle_common.py": "21f4d8c1a9c8e21e17720c73fed9374dd511d2718c0914cc05ca9e76e68efddd",
+    "candidates/renderer_bounded_oracle/test_original_a710_upload.py": "d210ae005ba3b53758ef9cd58c8110613d7ea3747956b74b7b1ef2bce288677c",
+    "candidates/renderer_bounded_oracle/test_original_ac60_staging.py": "b6dabe505722634becfcaa64bf3ad7f17e4a5cd7c2253cf3636bb08c2d03f28a",
+    "work/renderer_bounded_oracle/report.json": "b54dbc059c6704ad8083cae022a2508f4effe7be83ae5f97fca8096df682b31a",
+    "work/renderer_bounded_oracle/ac60_report.json": "1f59ec62ffc41b56b953bacb9c9a8d78d41bc4378009863575c33c6dc6280182"
+  },
+  "receipts": {
+    "work/renderer_bounded_oracle/report.json": "A710 finite upload observations",
+    "work/renderer_bounded_oracle/ac60_report.json": "AC60 staging, F3, E1, command-01, and call-boundary observations"
+  },
+  "execution_contract": {
+    "mapped_original_pe_sections_at_true_base": true,
+    "synthetic_memory_only_for_arguments_source_stack_and_return_sentinel": true,
+    "original_machine_code_modified": false,
+    "copy_path": "Original A710 REP MOVSD/REP MOVSB and byte-store instructions; no CRT memcpy call exists in A710.",
+    "ac60_call_path": "Original AC60 instructions through four real raster entry hooks and A8F0 entry hook; host stops, records values, and returns to recorded caller addresses without running those callees.",
+    "notification": "Original BD80 is entered once per case with synthetic nonzero callback cell and DWORD gate zero; its gate check runs, callback target is never entered.",
+    "unknown_pc_or_memory_endpoint": "Emulator stops and test fails.",
+    "instruction_limit_per_case": 100000
+  },
+  "scope": "BOUNDED_EQUIVALENT finite A710 upload and selected AC60 packet/state staging only; not FUNCTION_MATCH, full callback/packet domains, storage ownership extent, raster pixels, A8F0 output, gameplay, or whole-module equality."
+}

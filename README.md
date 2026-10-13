@@ -4,6 +4,11 @@ An evidence-driven reconstruction of the 1997 Windows **Disney's Hercules Action
 Game**. The target is historical C/C++ compiled to original PC machine code.
 PlayStation versions are secondary evidence; no port or modernization is in scope.
 
+The isolated renderer investigation publishes [renderer_contract](renderer_contract/README.md)
+for a separate future drop-in GPU project. It provides measured PC interfaces,
+bounded decoders and fixtures; it does not implement a modern renderer or change
+the original game modules or strict recovery state.
+
 ## Current findings
 
 - The supplied CD image is a later repack. Its InstallShield `DATA/DATA32.Z`

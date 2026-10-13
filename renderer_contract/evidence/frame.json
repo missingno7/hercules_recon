@@ -1,0 +1,434 @@
+{
+  "scope": "PC frame/order-table static reconstruction receipt and bounded x86 synthetic fixture. No original execution, gameplay, rasterizer reconstruction, GPU/hook work, canonical edits, or recovery-state edits.",
+  "date": "2026-10-13",
+  "prediction_and_falsifier": {
+    "path": "work/renderer_frame/prediction.txt",
+    "sha256": "77b608b10e7ae41c6de2d220c3365bd3be561f653475d9cf599a1f72414d54d6",
+    "prediction_supported": true,
+    "result": "ENG1 two-view stride/count and post-submission toggle are supported; TITLE has a separate two-view layout. ENG3 follow-up directly observes a distinct 0x4110 block with two 0x2088 intervals and 0x800-entry chains; it was not part of the initial dimensions prediction.",
+    "falsifier": "Initial ENG1 lane: different stride/count, a toggle before submission, missing paired initialization, or wrapper bytes contradicting the reported slot/ABI. ENG3 follow-up: a pinned allocation/setup/submit span disagreeing with the stated request, offset/count, view displacement, or submit pointer.",
+    "eng3_preinspection_prediction": "Not recorded before inspection; no retrospective prediction support is claimed."
+  },
+  "original_baseline": {
+    "path": "work/renderer_baseline/baseline.json",
+    "sha256": "522262f33e3f70bf279e7d674eab9cf2bee4a6747e28f7e3b6c99c9d4aaea0bb",
+    "capstone_version": "5.0.7",
+    "source_commit": "73c6320179093c3de9b820e66b87f94dfb639a9b",
+    "originals": {
+      "HERCULES.EXE": {
+        "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+        "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+        "image_base": "0x400000"
+      },
+      "ENG1.DLL": {
+        "path": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\ENG1.DLL",
+        "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+        "image_base": "0x10000000"
+      },
+      "ENG3.DLL": {
+        "path": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\ENG3.DLL",
+        "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+        "image_base": "0x10000000"
+      },
+      "TITLE.DLL": {
+        "path": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\TITLE.DLL",
+        "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+        "image_base": "0x10000000"
+      }
+    },
+    "audit_verification": "audit_originals.py loads work/renderer_baseline/baseline.py and read_rva() for each target span; command completed successfully."
+  },
+  "spans": [
+    {
+      "module": "HERCULES.EXE",
+      "label": "host_chain_writer_ac20",
+      "rva": "0xac20",
+      "size": 32,
+      "sha256": "f96f2d7ab105a7bf13f0eaf9738ea9919ce0a8e6734f82eb15f5067938396a09"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "label": "host_order_table_traversal_ac60",
+      "rva": "0xac60",
+      "size": 1680,
+      "sha256": "f7724c04bef582e378b183a12550ba841df1a6fa3660be51da71154aa5c525af"
+    },
+    {
+      "module": "ENG1.DLL",
+      "label": "eng1_chain_wrapper_2c600",
+      "rva": "0x2c600",
+      "size": 32,
+      "sha256": "5da8d177d24e5b78b2257bdf280a41888383225e733fd31dbe1ee034590e0bb9"
+    },
+    {
+      "module": "ENG1.DLL",
+      "label": "eng1_submit_wrapper_2c620",
+      "rva": "0x2c620",
+      "size": 16,
+      "sha256": "56974b1cae70836a100d47ef3cde2793206aaae329bd71894283ed9dbbfbc1bb"
+    },
+    {
+      "module": "ENG3.DLL",
+      "label": "eng3_chain_wrapper_slot_144",
+      "rva": "0x1fc10",
+      "size": 32,
+      "sha256": "6a7a4bacb895ab303c27eb3c75cfa9ab17d9835e2c86ec03c0ea73a0fc04606d"
+    },
+    {
+      "module": "ENG3.DLL",
+      "label": "eng3_slot_164_wrapper",
+      "rva": "0x1fc30",
+      "size": 16,
+      "sha256": "60df4fbb3ef8da7836d7cc270fae184e9ec6da51fddc6eeffb1f8955f304214e"
+    },
+    {
+      "module": "ENG3.DLL",
+      "label": "eng3_frame_block_request_and_pool_setup",
+      "rva": "0x1a330",
+      "size": 295,
+      "sha256": "9e6922fd2fca4cf55f17c3db8b17d7ad4c3a0991ebde689c472e5b3927fb8ade"
+    },
+    {
+      "module": "ENG3.DLL",
+      "label": "eng3_frame_block_release_and_reset",
+      "rva": "0x1a460",
+      "size": 253,
+      "sha256": "142b00e4e00535664a5072b5f79dbdd94a1a68adf086e8d95690644c7b6ff560"
+    },
+    {
+      "module": "ENG3.DLL",
+      "label": "eng3_pair_view_setup_and_chain_init",
+      "rva": "0x1a560",
+      "size": 899,
+      "sha256": "d45a79d562c672ff849d2b868c5fbc2a7cfbfdb47e44eafd34656e301af6ab64"
+    },
+    {
+      "module": "ENG3.DLL",
+      "label": "eng3_active_view_order_table_reset",
+      "rva": "0xa700",
+      "size": 88,
+      "sha256": "4617375e1f8e2f8e654d3963036aed55272204ec348670b3b76bd7488251f2b8"
+    },
+    {
+      "module": "ENG3.DLL",
+      "label": "eng3_frame_submit_swap_loop",
+      "rva": "0x1abb0",
+      "size": 849,
+      "sha256": "774b9c49e904780c1c7e7699bb07801b67a1cda9b49f71538470371352819906"
+    },
+    {
+      "module": "TITLE.DLL",
+      "label": "title_chain_wrapper_0c690",
+      "rva": "0xc690",
+      "size": 32,
+      "sha256": "f3408ddb192054d6613e5ae6f366706045fd733467bf044a583aa87a3b330dd1"
+    },
+    {
+      "module": "TITLE.DLL",
+      "label": "title_submit_wrapper_0c6b0",
+      "rva": "0xc6b0",
+      "size": 16,
+      "sha256": "aaf98bd8e9b93be18c2442d2c7c392a4b9fa05f16d8a6882aa5fb7585dde7b7a"
+    },
+    {
+      "module": "ENG1.DLL",
+      "label": "eng1_dispatch_frame_tail",
+      "rva": "0x205d9",
+      "size": 131,
+      "sha256": "3b613a773aee13edd84dff920c10ec52e9d6a7e46bb811c17f64b201dfbeeb17"
+    },
+    {
+      "module": "TITLE.DLL",
+      "label": "title_frame_loop_05fb0",
+      "rva": "0x5fb0",
+      "size": 928,
+      "sha256": "e046a7853a269b56d38767480b6fe6b52a7b9324dc9eacc1ff21af0048a4b2e7"
+    },
+    {
+      "module": "TITLE.DLL",
+      "label": "title_buffer_allocate_1d380",
+      "rva": "0x1d380",
+      "size": 352,
+      "sha256": "3915f8ca42cc84cf1a2692c92c284ded48333becc966aceaadfad109fc80f6d5"
+    },
+    {
+      "module": "TITLE.DLL",
+      "label": "title_buffer_initialize_1d590",
+      "rva": "0x1d590",
+      "size": 480,
+      "sha256": "60badfca1f7228464fa69e73ead4131064db27d072551be8bc60f7d45749691c"
+    }
+  ],
+  "static_host_table_binding": {
+    "rva": "0x361b8",
+    "raw_sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "cells": {
+      "slot_81_offset_0x144": {
+        "rva": "0x362fc",
+        "raw32_va": "0x0040ac20"
+      },
+      "slot_89_offset_0x164": {
+        "rva": "0x3631c",
+        "raw32_va": "0x0040ac60"
+      }
+    },
+    "copied_table_destinations": {
+      "ENG1.DLL": "0x70f20",
+      "ENG3.DLL": "0x407a0",
+      "TITLE.DLL": "0x2bb40"
+    },
+    "limit": "Static copied-table binding; runtime alias mutation is not excluded."
+  },
+  "evidence_input_sha256": {
+    "evidence/frame_bootstrap_contract.json": "d3d5b509e83769d8d9d3c2d210cde1802e2ab9ff7869e9073049efc7b9bf41e1",
+    "evidence/frame_bootstrap_family.json": "89c691cc0fbe4a6edbf47e33d90ba1aecc142a67f135cce7a46a574e2d2a980b",
+    "evidence/frame_chain_writer.json": "7e459243903a995074dcb0d0d71de5c4ec8f9df3b09b0a3547379de95fcb2183",
+    "evidence/host_frame_targets_contract.json": "6b1024f63ac79c9273bdde99de0913aa7dc018a14ab1fc0eb32dbe40393aa1ef",
+    "evidence/engine_dispatch_contract.json": "0f7a0b05a7f15a0cc82515e076a56f65319bd6ff8580b6af184cb38e7a7bfe6d",
+    "evidence/eng1_dispatcher_adoption_2026_10_11.json": "cbbd622d56b731e2497f0515bd38a509bb7910bb98f3e1445287a696b09629e8",
+    "evidence/eng1_pipeline.json": "c9218b041df0afc90831d3b23bf2f86c3973b3da5047570bff9885e281834947",
+    "evidence/eng1_cold_frame_commands.json": "70d7a598383389f45e41ebba8dcc464517f700e4fb74755f6857f60b27211843",
+    "evidence/eng3_adapter_extension.json": "0d98bad381f916aa12b2abb67ad2db72a124f45feac4a43262b68e9673186c3f",
+    "evidence/eng3_interface_wrappers.json": "65a455ff0e4d157b396efa7e69177d492c42054725d22fb8f70cde77c1a36614",
+    "evidence/engine_interface_binding.json": "14d9953831bf8788a7f44eb170806de745d1275dc0a7bdd1f7e6d4d5714fdc3f",
+    "evidence/title_closure.json": "8e9e1e9a56f6dac1539993879583619f458c9859ab5f8aedbfca87075338ecff",
+    "evidence/title_behavioral_build.json": "0134ba374c23d4cd8c25ab8d5db9b4b6ba7936afe9e411a0eceec7ac046808d4",
+    "calibration/engine_dispatch.c": "9747581a56dd8ed32e41773c1995294c7a0b99d7ee638f52adec3eebd3e27752",
+    "calibration/dispatcher_bridges.c": "a15b55854b5c4034a02eb8e0d24a647c06684d291ddf8b3923fea4ebf98bba15",
+    "calibration/frame_bootstrap_family.c": "d0eb45c7cb1a7e26c57439c199f85bf3dbd2772f2c4128f00d4ede18a23676da",
+    "calibration/frame_lifecycle_bridges.c": "e30a744a75c6a72cafe9f62bc2a62ac9390526ac26d00fc8fe0199e5e3727aa9",
+    "tests/frame_bootstrap_family_semantics.c": "83d9e6d8b5263d976725e22de1da732405f95e8df41df3a760ce081662543e32",
+    "calibration/eng3/interface_wrappers.c": "fc613070359f46a9d9176222b3653aacbf3d74e31911b02deda409db072a1144",
+    "calibration/title/u0c1f0.c": "af8a1a904203513f15cb03fd18171efae2e2144eb3a3da711ba1e3995e9db9c7",
+    "calibration/title/title_proc.cpp": "244598eb7b3cfc137889ef211f271241856a0f08212b1c6df385d1d80cba912e",
+    "calibration/title/r1c430.c": "98ce85e7a4be444bdcd98f499c0ee4448e9f0ffe0334c7972c417aeb3834b670",
+    "calibration/title/u02b70.c": "dfb2184175a8370d501b6011acfeeb65a9c2d8a50f58cd7a5b1f89c5caea97dd",
+    "calibration/title/title_gpu.h": "6533d696eb5d7ae7d7bc63c13dd0c955944355a0b5900f0d6976166f9fc1e860",
+    "src/pc/frame_chain_write.c": "188b1dcc299eb311b9f9950539486add1eba170520448d898009fb357f7c2566",
+    "src/title/behavioral/emitters.c": "2b529a5358ef101040ce88b73affd65c06c8f7bd478c90820397c6550c855727",
+    "candidates/renderer_frame/frame_contract_draft.h": "88e4f02fe1f889ffc1a5ab0916d1b1ad47cc680613f931d8996103d322229dcb",
+    "candidates/renderer_frame/frame_chain_walker.h": "1499c39b9bc54bdb98cbe01a46b78fecebfae89e97bea030b943f052e4c39997",
+    "candidates/renderer_frame/frame_chain_walker.c": "19da7f5bf76b6916953ef32177a401d920e4296e46ef0da1eace3d88f9eb1f9b",
+    "candidates/renderer_frame/chain_walker_fixture.c": "97b027218e7a01fd481c284dd69854c6707923eb42dff2dd4be2aff60572bb00",
+    "candidates/renderer_packets/renderer_packet_width.h": "7ff4de4b0c8fd8287d2f455d207b0aba9fe5f94328bf28cf3b4c1d2113c67a89",
+    "work/renderer_frame/frame.md": "a87e5ed75e22c1f4d2efe8a95a72206bde71c531a66092350a91f1bd4a757a94",
+    "work/renderer_frame/prediction.txt": "28eb210e4e842b559c21c79bfc92418c8c58d0aa34b7b0ed93b94ace8fa1a1ca"
+  },
+  "recovery_statuses": [
+    {
+      "id": "exe.frame_chain_write",
+      "status": "FUNCTION_MATCH",
+      "source": "src/pc/frame_chain_write.c",
+      "scope": "Existing accepted strict target-byte match reused by fixture; original full frame type/TU are not inferred."
+    },
+    {
+      "id": "eng1.dispatch_engine_2c620",
+      "status": "CODEGEN_SIMILAR",
+      "source": "calibration/dispatcher_bridges.c",
+      "scope": "Relocation-masked diagnostic only."
+    },
+    {
+      "id": "eng3.slot_144",
+      "status": "CODEGEN_SIMILAR",
+      "source": "calibration/eng3/interface_wrappers.c",
+      "scope": "Relocation-masked diagnostic only."
+    },
+    {
+      "id": "eng3.slot_164",
+      "status": "CODEGEN_SIMILAR",
+      "source": "calibration/eng3/interface_wrappers.c",
+      "scope": "Relocation-masked diagnostic only."
+    },
+    {
+      "id": "title.0c690",
+      "status": "CODEGEN_SIMILAR",
+      "source": "calibration/title/u0c1f0.c",
+      "scope": "Relocation-masked diagnostic only."
+    },
+    {
+      "id": "title.0c6b0",
+      "status": "CODEGEN_SIMILAR",
+      "source": "calibration/title/u0c1f0.c",
+      "scope": "Relocation-masked diagnostic only."
+    },
+    {
+      "id": "title.1d380",
+      "status": "CODEGEN_SIMILAR",
+      "source": "calibration/title/r1c430.c",
+      "scope": "Allocation path diagnostic only; exact request/stride observed statically."
+    },
+    {
+      "id": "title.1d590",
+      "status": "CODEGEN_SIMILAR",
+      "source": "calibration/title/r1c430.c",
+      "scope": "Initialization path diagnostic only; exact call/write order reported within audited target span."
+    },
+    {
+      "id": "title.05fb0",
+      "status": "CODEGEN_SIMILAR",
+      "source": "calibration/title/title_proc.cpp",
+      "scope": "Frame-loop candidate diagnostic only."
+    },
+    {
+      "id": "eng1.chain_wrapper_2c600",
+      "status": "not separately listed",
+      "source": null,
+      "scope": "Raw target-byte contract captured in audited 32-byte span; do not infer function acceptance."
+    },
+    {
+      "id": "exe.host_order_table_traversal_ac60",
+      "status": "static contract only",
+      "source": null,
+      "scope": "Hash-pinned original span and linked evidence; no reconstructed C function or exact source identity claimed."
+    },
+    {
+      "id": "eng3.frame_allocation_setup_submit",
+      "status": "static contract only",
+      "source": null,
+      "scope": "Hash-pinned ENG3 original spans establish allocation request, two embedded order tables, chain initialization, active-view reset, submit argument, and conditional other-cell update; no reconstructed C function or exact source identity claimed."
+    }
+  ],
+  "fixture": {
+    "candidate_header": "candidates/renderer_frame/frame_contract_draft.h",
+    "candidate_sources": [
+      "candidates/renderer_frame/frame_chain_walker.c",
+      "candidates/renderer_frame/chain_walker_fixture.c"
+    ],
+    "shared_width_header": "candidates/renderer_packets/renderer_packet_width.h",
+    "uses_accepted_writer_source": "src/pc/frame_chain_write.c",
+    "architecture": "Portable x86_64 test maps raw32 tokens through an explicit resolver; historical x86 run enables the accepted writer only behind a native 32-bit pointer compile-time gate.",
+    "x86_command": "powershell -NoProfile -ExecutionPolicy Bypass -File work/renderer_frame/run_fixture.ps1",
+    "x86_compiler": {
+      "toolchain_id": "msvc5_rtm",
+      "repository": "https://github.com/archaic-msvc/msvc500",
+      "commit": "8abf95ce980161ad87b0b02402269cce76988953",
+      "executable": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+      "file_version": "11.00.7022",
+      "flags": [
+        "/nologo",
+        "/O2",
+        "/Gy",
+        "/W3",
+        "/D FRAME_TEST_ACCEPTED_WRITER",
+        "/c"
+      ]
+    },
+    "x86_linker": {
+      "executable": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\link.exe",
+      "sha256": "279544809e6353c8e622eb88aea94e86b0258f3c4b8a976373bf4d68a41b63e1",
+      "file_version": "5.00.7022",
+      "flags": [
+        "/nologo",
+        "/MACHINE:X86",
+        "/SUBSYSTEM:CONSOLE",
+        "pinned libcmt.lib"
+      ]
+    },
+    "portable_command": "powershell -NoProfile -ExecutionPolicy Bypass -File work/renderer_frame/run_portable_tests.ps1",
+    "portable_compiler": {
+      "executable": "C:\\msys64\\mingw64\\bin\\gcc.exe",
+      "version": "gcc.exe (Rev10, Built by MSYS2 project) 12.2.0",
+      "target": "x86_64-w64-mingw32",
+      "sha256": "c5005ba5380351c10743e9ca53ef9632164c54be3bd6b93324795114e4589a7d"
+    },
+    "toolchain_manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "result": {
+      "x86_checks": 36,
+      "x86_failures": 0,
+      "x86_exit_code": 0,
+      "portable_checks": 36,
+      "portable_failures": 0,
+      "portable_exit_code": 0
+    },
+    "tested": [
+      "ENG1: two 0x500-link views at measured 0x1488 stride",
+      "ENG3: one 0x4110 request, two 0x2088 views, each with 0x800 raw32 chain slots at +0x88",
+      "ENG3: empty 0x800-slot table traversed by bounded AC60 model to terminal NULL",
+      "TITLE: two 0x500-head tables at measured 0x1478 stride",
+      "TITLE source depth input 7 selects OT index 0x4f7",
+      "two same-bucket primitives prepend and AC60 model visits newest-first",
+      "terminal NULL accepted in generic linked chain and empty AC60 tables",
+      "invalid final primitive link rejected by resolver",
+      "mapped one-past final sentinel rejected with FRAME_WALK_RANGE_ERROR and zero resolver queries",
+      "cycle and visit-limit guards reject unsafe synthetic decoding"
+    ],
+    "artifact_sha256": {}
+  },
+  "audit": {
+    "script": "work/renderer_frame/audit_originals.py",
+    "command": "C:\\msys64\\mingw64\\bin\\python.exe work/renderer_frame/audit_originals.py",
+    "output_json": "work/renderer_frame/audit.json",
+    "audit_json_sha256": "ba6a0b43155a6007aac75b6a7bcc937a2d781be77ba098e3a2379ac4ef090a7b",
+    "disassembly_sha256": "bd81a9390c71b1c30fe411272bc4b24316d30e76a238fc2f90053f6c40ed22d6",
+    "method": "Verifies original baseline hashes, extracts each bounded original RVA span, hashes and disassembles with Capstone, records input hashes, and writes only work/renderer_frame outputs."
+  },
+  "artifact_sha256": {
+    "work/renderer_frame/frame.md": "a87e5ed75e22c1f4d2efe8a95a72206bde71c531a66092350a91f1bd4a757a94",
+    "work/renderer_frame/prediction.txt": "28eb210e4e842b559c21c79bfc92418c8c58d0aa34b7b0ed93b94ace8fa1a1ca",
+    "work/renderer_frame/audit_originals.py": "10aa3f6645fd2965f4fa23a75f71c39f17637ddc3a902f5ec93b20c89038082b",
+    "work/renderer_frame/audit.json": "ba6a0b43155a6007aac75b6a7bcc937a2d781be77ba098e3a2379ac4ef090a7b",
+    "work/renderer_frame/disassembly.txt": "bd81a9390c71b1c30fe411272bc4b24316d30e76a238fc2f90053f6c40ed22d6",
+    "work/renderer_frame/run_fixture.ps1": "46e83036a8d29da7df03bb996d045a5779d17cbff302e2a25ac282658c939d3a",
+    "work/renderer_frame/run_portable_tests.ps1": "edcaf7dbc222cc971b563006628d1378740f8d0b4c32e85e589e56a32578b75f",
+    "work/renderer_frame/fixture_run.txt": "0d2dc9113ef6477de80c4fe2ba635a440f6b3bbf4ac0480e550a154b113c3ad3",
+    "work/renderer_frame/portable_fixture_run.txt": "0d2dc9113ef6477de80c4fe2ba635a440f6b3bbf4ac0480e550a154b113c3ad3",
+    "work/renderer_frame/chain_walker_fixture.obj": "d060fdd0807cd52c7d58acf29e184f160d8b000f03ef445c253d180df6c3b338",
+    "work/renderer_frame/frame_chain_walker.obj": "eda9afcf53f3eb6b3ad57d8654d5d93b68005256601201bd8c2635cfeb2cd5ef",
+    "work/renderer_frame/frame_chain_write.obj": "1d1192b1f9fa95222bedaada749eab8a91d4e9e7bcf4640d615202bad1bea072",
+    "work/renderer_frame/chain_walker_fixture.exe": "2e0a760624f0ecafb69f9f8805861a2beb86e83bd7e316e4d48db2001ad8ce82",
+    "work/renderer_frame/portable_fixture.exe": "cc720aef8901ff05644e93258304abd7001745044c3963659c907f8ec811b298",
+    "candidates/renderer_frame/frame_contract_draft.h": "88e4f02fe1f889ffc1a5ab0916d1b1ad47cc680613f931d8996103d322229dcb",
+    "candidates/renderer_frame/frame_chain_walker.h": "1499c39b9bc54bdb98cbe01a46b78fecebfae89e97bea030b943f052e4c39997",
+    "candidates/renderer_frame/frame_chain_walker.c": "19da7f5bf76b6916953ef32177a401d920e4296e46ef0da1eace3d88f9eb1f9b",
+    "candidates/renderer_frame/chain_walker_fixture.c": "97b027218e7a01fd481c284dd69854c6707923eb42dff2dd4be2aff60572bb00",
+    "candidates/renderer_packets/renderer_packet_width.h": "7ff4de4b0c8fd8287d2f455d207b0aba9fe5f94328bf28cf3b4c1d2113c67a89",
+    "src/pc/frame_chain_write.c": "188b1dcc299eb311b9f9950539486add1eba170520448d898009fb357f7c2566",
+    "recovery.json": "d6858a378f8360ed713b6786e7dc14c09d728d12afa8b759afd0544c01efd597",
+    "work/renderer_baseline/baseline.json": "522262f33e3f70bf279e7d674eab9cf2bee4a6747e28f7e3b6c99c9d4aaea0bb",
+    "toolchains/manifest.json": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "limitations": [
+    "Static copied-table target binding does not exclude runtime alias mutation.",
+    "ENG1, ENG3, and TITLE frame descriptors are distinct measured byte ranges; no common original native aggregate declaration is inferred.",
+    "ENG3 globals at VA 0x10041448 and 0x1004144c are referenced by location because callback and runtime alias effects leave stable semantic names and full lifetime unresolved.",
+    "AC60 original has no explicit bucket-count bound; slot_count, cycle, range, overflow, and visit-budget checks are synthetic decoder safeguards only.",
+    "No pixel, renderer-equivalence, source-identity, full-module-layout, or whole-binary claim."
+  ],
+  "canonical_files_changed": false,
+  "recovery_json_changed": false,
+  "original_execution": false,
+  "eng3_frame_contract": {
+    "proof_status": "static contract only",
+    "allocation_rva": "0x1a330",
+    "allocation_request_bytes": "0x4110",
+    "allocation_alignment_or_argument": "0x10",
+    "buffer_cell_va": "0x1004144c",
+    "other_cell_va": "0x10041448",
+    "view_stride": "0x2088",
+    "order_table_offset": "0x88",
+    "order_table_count": "0x800",
+    "second_order_table_offset": "0x2110",
+    "release_rva": "0x1a460",
+    "setup_rva": "0x1a560",
+    "active_view_reset_rva": "0xa700",
+    "active_view_reset_callsite_rva": "0x1adc9",
+    "submit_callsite_rva": "0x1aeaf",
+    "submit_wrapper_rva": "0x1fc30",
+    "submit_target_slot_offset": "0x164",
+    "conditional_other_cell_advance": "0x2088",
+    "limits": "Byte-range facts only; no common native aggregate is claimed. Callback/helper bodies and runtime alias effects are outside the bounded audit, leaving stable global roles and full lifetime unresolved."
+  },
+  "native_side_effects_to_preserve": [
+    "AC60 walks ascending head cells with next-slot address as empty-bucket/tail sentinel and exits on loaded NULL; same-bucket primitive prepend order is newest-first.",
+    "AC60 tail order: if BA01FC is zero call 70C0(0xFF), then 7140(), then 6620(); always call BD80() afterward.",
+    "ENG1 dispatch calls 2C570, optional 2CB0, 50D0, 58B0, submits current+0x88 through 2C620, then 666B and 2CA40; it toggles by 0x1488, increments tick, calls 60F9, and restarts setup on nonzero.",
+    "ENG3 setup requests 0x4110 bytes, initializes both +0x88/+0x2110 tables at count 0x800, and conditionally updates the other-cell pointer by 0x2088. Per lifecycle the active-view reset calls 1FC10 on other-cell+0x88/count 0x800; submission calls 1FC30 on the same pointer; then calls 0B512 and 20030(context+0x34), conditionally updates the other cell, increments tick, and calls completion gate 0B059.",
+    "TITLE clears current+0x70 before drawing, calls 0C960(0x80), submits current+0x70 through 0C6B0, then toggles by 0x1478 and increments tick."
+  ],
+  "integration_provenance": {
+    "private_receipt_sha256": "09580f6bdf6f15a2cecc5047e69d03e37b31b2b05784822d572896f6f1cff5b9",
+    "omitted": "Detailed disassembly remains private scratch; hashes, references and findings retained.",
+    "source_commit": "73c6320179093c3de9b820e66b87f94dfb639a9b"
+  }
+}

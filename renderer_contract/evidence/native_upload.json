@@ -1,0 +1,316 @@
+{
+  "schema_version": 1,
+  "status": "BOUNDED_EQUIVALENT",
+  "scope": "Finite nonnegative original A710 upload rectangles with y+height <= 480, using unchanged HERCULES.EXE A710 and BD80 instructions in Unicorn. This is not FUNCTION_MATCH, full A710-domain, image-storage extent, renderer, gameplay, or module acceptance.",
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000",
+    "entry_rva": "0xa710",
+    "entry_span_size": 469,
+    "entry_span_sha256": "30bd84ea8724152e3bfb0e2c521650399913bcec115f1aef489768085981d0fe",
+    "notification_rva": "0xbd80",
+    "notification_span_size": 22,
+    "notification_span_sha256": "6a9578c5be0c980bc35b29642d3ac389e829a0c5666022353cb88c04f19db64f",
+    "base_relocations": 0
+  },
+  "oracle_execution": {
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "architecture": "x86 32-bit",
+    "original_executable_sections_mapped_at_image_base": true,
+    "checked_address_equation": "addr=0x96e6e0 + row*0x100 + ((2*x&0x700)<<8) + (2*x&0xff); y<512 row=(y<256?0:0x800)+(y&0xff)",
+    "instruction_budget_per_case": 100000,
+    "sentinel_return": "0x30000000",
+    "no_original_code_bytes_written": true,
+    "unknown_original_or_os_endpoints_fail": true,
+    "notification_fixture": {
+      "callback_cell_va": "0xa8e780",
+      "callback_cell_value": "0x31000000",
+      "gate_va": "0xa8e788",
+      "gate_value": 0,
+      "gate_path_exercised": true,
+      "callback_endpoint_executed": false
+    },
+    "crt_memcpy_call": false,
+    "copy_mechanism": "original REP MOVSD/REP MOVSB and original byte stores",
+    "unicorn_module_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\__init__.py",
+    "native_dll_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "dependency_origin": {
+      "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+      "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+      "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+    }
+  },
+  "mapped_original_sections": [
+    {
+      "name": "headers",
+      "va": "0x400000",
+      "mapped_size": "0x1000",
+      "raw_size": "0x0",
+      "permissions": "0x0"
+    },
+    {
+      "name": ".text",
+      "va": "0x401000",
+      "mapped_size": "0x2d000",
+      "raw_size": "0x2ce00",
+      "permissions": "0x60000020"
+    },
+    {
+      "name": ".rdata",
+      "va": "0x42e000",
+      "mapped_size": "0x7000",
+      "raw_size": "0x6200",
+      "permissions": "0x40000040"
+    },
+    {
+      "name": ".data",
+      "va": "0x435000",
+      "mapped_size": "0x770000",
+      "raw_size": "0x9600",
+      "permissions": "0xc0000040"
+    },
+    {
+      "name": ".idata",
+      "va": "0xba5000",
+      "mapped_size": "0x3000",
+      "raw_size": "0x2200",
+      "permissions": "0xc0000040"
+    },
+    {
+      "name": ".rsrc",
+      "va": "0xba8000",
+      "mapped_size": "0x5000",
+      "raw_size": "0x4a00",
+      "permissions": "0x40000040"
+    }
+  ],
+  "cases": [
+    {
+      "name": "sub256_fast_rows",
+      "rect_signed_words": [
+        5,
+        224,
+        7,
+        3
+      ],
+      "source_bytes": 42,
+      "rows": [
+        {
+          "input_y": 224,
+          "source_offset": 0,
+          "source_bytes": 14,
+          "observed_addresses": [
+            "0x97c6ea",
+            "0x97c6eb",
+            "0x97c6ec",
+            "0x97c6ed",
+            "0x97c6ee",
+            "0x97c6ef",
+            "0x97c6f0",
+            "0x97c6f1",
+            "0x97c6f2",
+            "0x97c6f3",
+            "0x97c6f4",
+            "0x97c6f5",
+            "0x97c6f6",
+            "0x97c6f7"
+          ],
+          "copy_pc_byte_counts": {
+            "0xa873": 12,
+            "0xa87a": 2
+          }
+        },
+        {
+          "input_y": 225,
+          "source_offset": 14,
+          "source_bytes": 14,
+          "observed_addresses": [
+            "0x97c7ea",
+            "0x97c7eb",
+            "0x97c7ec",
+            "0x97c7ed",
+            "0x97c7ee",
+            "0x97c7ef",
+            "0x97c7f0",
+            "0x97c7f1",
+            "0x97c7f2",
+            "0x97c7f3",
+            "0x97c7f4",
+            "0x97c7f5",
+            "0x97c7f6",
+            "0x97c7f7"
+          ],
+          "copy_pc_byte_counts": {
+            "0xa873": 12,
+            "0xa87a": 2
+          }
+        },
+        {
+          "input_y": 226,
+          "source_offset": 28,
+          "source_bytes": 14,
+          "observed_addresses": [
+            "0x97c8ea",
+            "0x97c8eb",
+            "0x97c8ec",
+            "0x97c8ed",
+            "0x97c8ee",
+            "0x97c8ef",
+            "0x97c8f0",
+            "0x97c8f1",
+            "0x97c8f2",
+            "0x97c8f3",
+            "0x97c8f4",
+            "0x97c8f5",
+            "0x97c8f6",
+            "0x97c8f7"
+          ],
+          "copy_pc_byte_counts": {
+            "0xa873": 12,
+            "0xa87a": 2
+          }
+        }
+      ],
+      "original_instruction_trace_count": 169,
+      "bd80_gate_trace_rvas": [
+        "0xbd80",
+        "0xbd85",
+        "0xbd87",
+        "0xbd89",
+        "0xbd8f",
+        "0xbd91",
+        "0xbd95"
+      ],
+      "bd80_call_count": 1,
+      "bd80_zero_gate_tested": true,
+      "notification_callback_jumped": false,
+      "write_events_by_original_pc_rva": {
+        "0xa873": 9,
+        "0xa87a": 6
+      },
+      "write_bytes_by_original_pc_rva": {
+        "0xa873": 36,
+        "0xa87a": 6
+      },
+      "observed_output_byte_count": 42,
+      "untouched_data_outside_output_and_fixture_cells": true,
+      "code_bytes_unchanged": true,
+      "returned_to_sentinel": true,
+      "private_data_state_restored": true
+    },
+    {
+      "name": "x128_boundary_byte_rows",
+      "rect_signed_words": [
+        127,
+        478,
+        3,
+        2
+      ],
+      "source_bytes": 12,
+      "rows": [
+        {
+          "input_y": 478,
+          "source_offset": 0,
+          "source_bytes": 6,
+          "observed_addresses": [
+            "0x9fc5de",
+            "0x9fc5df",
+            "0xa0c4e0",
+            "0xa0c4e1",
+            "0xa0c4e2",
+            "0xa0c4e3"
+          ],
+          "copy_pc_byte_counts": {
+            "0xa8a9": 6
+          }
+        },
+        {
+          "input_y": 479,
+          "source_offset": 6,
+          "source_bytes": 6,
+          "observed_addresses": [
+            "0x9fc6de",
+            "0x9fc6df",
+            "0xa0c5e0",
+            "0xa0c5e1",
+            "0xa0c5e2",
+            "0xa0c5e3"
+          ],
+          "copy_pc_byte_counts": {
+            "0xa8a9": 6
+          }
+        }
+      ],
+      "original_instruction_trace_count": 288,
+      "bd80_gate_trace_rvas": [
+        "0xbd80",
+        "0xbd85",
+        "0xbd87",
+        "0xbd89",
+        "0xbd8f",
+        "0xbd91",
+        "0xbd95"
+      ],
+      "bd80_call_count": 1,
+      "bd80_zero_gate_tested": true,
+      "notification_callback_jumped": false,
+      "write_events_by_original_pc_rva": {
+        "0xa8a9": 12
+      },
+      "write_bytes_by_original_pc_rva": {
+        "0xa8a9": 12
+      },
+      "observed_output_byte_count": 12,
+      "untouched_data_outside_output_and_fixture_cells": true,
+      "code_bytes_unchanged": true,
+      "returned_to_sentinel": true,
+      "private_data_state_restored": true
+    },
+    {
+      "name": "empty_height",
+      "rect_signed_words": [
+        9,
+        240,
+        4,
+        0
+      ],
+      "source_bytes": 0,
+      "rows": [],
+      "original_instruction_trace_count": 28,
+      "bd80_gate_trace_rvas": [
+        "0xbd80",
+        "0xbd85",
+        "0xbd87",
+        "0xbd89",
+        "0xbd8f",
+        "0xbd91",
+        "0xbd95"
+      ],
+      "bd80_call_count": 1,
+      "bd80_zero_gate_tested": true,
+      "notification_callback_jumped": false,
+      "write_events_by_original_pc_rva": {},
+      "write_bytes_by_original_pc_rva": {},
+      "observed_output_byte_count": 0,
+      "untouched_data_outside_output_and_fixture_cells": true,
+      "code_bytes_unchanged": true,
+      "returned_to_sentinel": true,
+      "private_data_state_restored": true
+    }
+  ],
+  "limitations": [
+    "Only finite synthetic inputs were executed; the complete valid callback domain and ownership extent are unproved.",
+    "Only the known y<512 producer band was used; y>=512/index-derived writes were deliberately excluded.",
+    "No CRT memcpy call exists in the measured A710 span; native string instructions and byte stores perform the upload.",
+    "No GPU, DirectDraw, rasterization, packet dispatch, gameplay, source identity, FUNCTION_MATCH, or whole-module result is claimed."
+  ],
+  "invocation": {
+    "exe": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "original_root": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+    "unicorn_deps": "C:\\tools\\hercules\\renderer-oracle-python",
+    "analysis_deps": "C:\\tools\\hercules\\python"
+  }
+}

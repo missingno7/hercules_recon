@@ -1,0 +1,389 @@
+{
+  "com_vtable_byte_offsets": {
+    "IDirectDraw": {
+      "CreatePalette": "0x14",
+      "CreateSurface": "0x18",
+      "SetCooperativeLevel": "0x50",
+      "SetDisplayMode": "0x54",
+      "WaitForVerticalBlank": "0x58"
+    },
+    "IDirectDrawPalette": {
+      "SetEntries": "0x18"
+    },
+    "IDirectDrawSurface": {
+      "Flip": "0x2c",
+      "GetAttachedSurface": "0x30",
+      "IsLost": "0x60",
+      "Lock": "0x64",
+      "Release": "0x08",
+      "Restore": "0x6c",
+      "SetPalette": "0x7c",
+      "Unlock": "0x80"
+    },
+    "basis": "Observed native indirect call operands; names/order cross-checked against the pinned VC5 ddraw.h IDirectDraw/IDirectDrawSurface/IDirectDrawPalette declarations."
+  },
+  "context_evidence_sha256": {
+    "evidence/directdraw_surface_control_2026_10_11.json": "3931e2857f59a10309bf3a56f6fa47ffee94fe266bf7454cd64fa8c535a3d5fd",
+    "evidence/engine_interface_binding.json": "14d9953831bf8788a7f44eb170806de745d1275dc0a7bdd1f7e6d4d5714fdc3f",
+    "evidence/graphics_frame_convergence_2026_10_11.json": "d06bd868c33bb01ea29e673ce255ab410dfeedf909778b61ff32c9afc9f4968a",
+    "evidence/host_interface_provider_audit_2026_10_11.json": "d8446ddc44263f3d4d4d916dbff20cdcd03767d4dab5b15411c62580c7860d3d",
+    "evidence/movie_frame_protocol_2026_10_11.json": "52925054bbdb1527c9be666506c3c8d16756b451317af588118fd52df8cfaa41"
+  },
+  "direct_callers": {
+    "color_translate_070c0": [
+      "0xb2d0"
+    ],
+    "lock_06ff0": [
+      "0x55e8",
+      "0x6d0e",
+      "0x6d59",
+      "0x6d79",
+      "0x7415",
+      "0xac92"
+    ],
+    "packet_consumer_0ac60": [],
+    "present_06620": [
+      "0x5677",
+      "0x6764",
+      "0x69be",
+      "0x6d6a",
+      "0x6e9f",
+      "0x9772",
+      "0xb2dd"
+    ],
+    "texture_rectangle_upload_0a710": [
+      "0xa675"
+    ],
+    "unlock_07140": [
+      "0x5672",
+      "0x69ab",
+      "0x6bf6",
+      "0x6d44",
+      "0x6d5e",
+      "0x6dc7",
+      "0xb2d8"
+    ]
+  },
+  "falsifier": "Reject the bootstrap ordering if bounded integration observes PC_DLLEngineMain copy before DirectDrawCreate, a different source pointer at the first copy, or no safe app-local DDRAW.dll resolution on the target deployment. Keep this lane read-only until those runtime observations are recorded.",
+  "graphics_spans": {
+    "color_translate_070c0": {
+      "rva": "0x70c0",
+      "sha256": "3432496f55144a415399893358618b7f970f1a263eb4ea80df30083e6494d4e7",
+      "size": 128
+    },
+    "fullscreen_transition_06bb0": {
+      "rva": "0x6bb0",
+      "sha256": "369922176b91588536370342557e34de4e6e7dac3c6baeebfa3cf7f915f9ffe0",
+      "size": 784
+    },
+    "lock_06ff0": {
+      "rva": "0x6ff0",
+      "sha256": "ab58b95bc1e762e1b80dab4b3b20adb75b5dca4676e1014fcf87ab740247812a",
+      "size": 208
+    },
+    "movie_display_callback_05450": {
+      "rva": "0x5450",
+      "sha256": "f6c59f71ae671a28343db80cef138db0a68fa2b682fb8cea275f756b5cb41ec2",
+      "size": 752
+    },
+    "palette_message_06700": {
+      "rva": "0x6700",
+      "sha256": "61c9371d0ada718169d04aacf2c0833cd2022ce343033e6495d36cd51840980e",
+      "size": 128
+    },
+    "present_06620": {
+      "rva": "0x6620",
+      "sha256": "4e350af06a5c660a75dabf57cd95c42eb06d6f0b1b4b8a2c65b709fefa3d30cd",
+      "size": 224
+    },
+    "surface_setup_06a60": {
+      "rva": "0x6a60",
+      "sha256": "d7a375148e079890768fc936c018314835aaf2cd4445cdf7cb0af7c3a0a0bead",
+      "size": 336
+    },
+    "texture_rectangle_upload_0a710": {
+      "rva": "0xa710",
+      "sha256": "22debccd63c8876d068700e94014be5ec93c151e582c95e838bf2f89fa920062",
+      "size": 544
+    },
+    "texture_upload_helper_0a640": {
+      "rva": "0xa640",
+      "sha256": "b9f1644697543d991535e6066d2eb4f8ed5070c115df9f9f2f123c9d4de4ad7d",
+      "size": 208
+    },
+    "unlock_07140": {
+      "rva": "0x7140",
+      "sha256": "4b7c21ba71315f2ead46794cce176555531a628c55cc891b64a775ecfdd891d9",
+      "size": 48
+    }
+  },
+  "imports": {
+    "descriptor_names_in_file_order": [
+      "DDRAW.dll",
+      "DSOUND.dll",
+      "WINMM.dll",
+      "KERNEL32.dll",
+      "USER32.dll",
+      "GDI32.dll",
+      "WINSPOOL.DRV",
+      "ADVAPI32.dll",
+      "SHELL32.dll",
+      "COMCTL32.dll"
+    ],
+    "directdraw_import_thunk_callers": {
+      "0x10a20": [
+        "0x7426"
+      ]
+    },
+    "directdraw_import_thunk_rvas": [
+      "0x10a20"
+    ],
+    "load_order_limit": "PE descriptor order is recorded as file evidence, not treated as Windows runtime load order.",
+    "relevant_symbols": {
+      "CreateDIBSection": {
+        "dll": "GDI32.dll",
+        "iat_rva": "0x7a567c"
+      },
+      "CreateWindowExA": {
+        "dll": "USER32.dll",
+        "iat_rva": "0x7a59c8"
+      },
+      "DirectDrawCreate": {
+        "dll": "DDRAW.dll",
+        "iat_rva": "0x7a5648"
+      },
+      "DirectSoundCreate": {
+        "dll": "DSOUND.dll",
+        "iat_rva": "0x7a5650"
+      },
+      "GetMessageA": {
+        "dll": "USER32.dll",
+        "iat_rva": "0x7a58e8"
+      },
+      "GetProcAddress": {
+        "dll": "KERNEL32.dll",
+        "iat_rva": "0x7a58ac"
+      },
+      "LoadLibraryA": {
+        "dll": "KERNEL32.dll",
+        "iat_rva": "0x7a589c"
+      },
+      "ShowWindow": {
+        "dll": "USER32.dll",
+        "iat_rva": "0x7a5a74"
+      },
+      "StretchDIBits": {
+        "dll": "GDI32.dll",
+        "iat_rva": "0x7a5664"
+      }
+    }
+  },
+  "initialization_and_first_engine_call": {
+    "directdraw_setup_body": {
+      "rva": "0x72a0",
+      "sha256": "f7ad10baa9f9503396a89bae5a10110846a0daf77d08b158eec8581663336286",
+      "size": 532
+    },
+    "directdrawcreate_call_at": "0x7426",
+    "directdrawcreate_thunk_callers": [
+      "0x7426"
+    ],
+    "engine_export_name": "PC_DLLEngineMain",
+    "engine_export_name_rva": "0x36868",
+    "first_engine_dispatch_body": {
+      "rva": "0x5ec0",
+      "sha256": "a46d7bd89182519e392745733e1729b367034125279560d8df6e65b9d9e235d0",
+      "size": 84
+    },
+    "first_engine_indirect_call": {
+      "bytes": "ffd0",
+      "mnemonic": "call",
+      "operands": "eax",
+      "rva": "0x5f03"
+    },
+    "getprocaddress_call_rva": "0x5c95",
+    "graphics_init_body": {
+      "rva": "0x5e10",
+      "sha256": "ac9967b60fd007b741ba0887f7e13ecc9c0ccd8c9e5f0b1e30c51187ef4bd8fe",
+      "size": 127
+    },
+    "graphics_init_calls_directdraw_setup_at": "0x5e2c",
+    "loadlibrary_call_rva": "0x5c75",
+    "ordering_observation": "Host init case 0x7937 calls 0x5e10; that path calls graphics setup 0x72a0 and DirectDrawCreate at 0x7426. The timer/event case at 0x79fc calls 0x5f20, whose first engine dispatch is the indirect call at 0x5f03. Static evidence places DirectDrawCreate before PC_DLLEngineMain's first table copy.",
+    "source_pointer_read": {
+      "bytes": "8b15a0654300",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x4365a0]",
+      "rva": "0x5ef3"
+    },
+    "tick_handler_body": {
+      "rva": "0x5f20",
+      "sha256": "2da2abca95296d27f38f85a3e65df55f188a014d1a3f0470f26cb39d47224802",
+      "size": 173
+    },
+    "window_event_init_callsite": {
+      "bytes": "e8d4e4ffff",
+      "mnemonic": "call",
+      "operands": "0x405e10",
+      "rva": "0x7937"
+    },
+    "window_event_tick_callsite": {
+      "bytes": "e81fe5ffff",
+      "mnemonic": "call",
+      "operands": "0x405f20",
+      "rva": "0x79fc"
+    }
+  },
+  "observed_call_sites": [
+    {
+      "bytes": "e86f140000",
+      "mnemonic": "call",
+      "operands": "0x4072a0",
+      "rva": "0x5e2c"
+    },
+    {
+      "bytes": "e8f5950000",
+      "mnemonic": "call",
+      "operands": "0x410a20",
+      "rva": "0x7426"
+    },
+    {
+      "bytes": "e8d4e4ffff",
+      "mnemonic": "call",
+      "operands": "0x405e10",
+      "rva": "0x7937"
+    },
+    {
+      "bytes": "e81fe5ffff",
+      "mnemonic": "call",
+      "operands": "0x405f20",
+      "rva": "0x79fc"
+    },
+    {
+      "bytes": "8b15a0654300",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x4365a0]",
+      "rva": "0x5ef3"
+    },
+    {
+      "bytes": "ffd0",
+      "mnemonic": "call",
+      "operands": "eax",
+      "rva": "0x5f03"
+    },
+    {
+      "bytes": "e8031a0000",
+      "mnemonic": "call",
+      "operands": "0x406ff0",
+      "rva": "0x55e8"
+    },
+    {
+      "bytes": "e8c91a0000",
+      "mnemonic": "call",
+      "operands": "0x407140",
+      "rva": "0x5672"
+    },
+    {
+      "bytes": "e8a40f0000",
+      "mnemonic": "call",
+      "operands": "0x406620",
+      "rva": "0x5677"
+    },
+    {
+      "bytes": "e896000000",
+      "mnemonic": "call",
+      "operands": "0x40a710",
+      "rva": "0xa675"
+    },
+    {
+      "bytes": "e8ebbdffff",
+      "mnemonic": "call",
+      "operands": "0x4070c0",
+      "rva": "0xb2d0"
+    },
+    {
+      "bytes": "e863beffff",
+      "mnemonic": "call",
+      "operands": "0x407140",
+      "rva": "0xb2d8"
+    },
+    {
+      "bytes": "e83eb3ffff",
+      "mnemonic": "call",
+      "operands": "0x406620",
+      "rva": "0xb2dd"
+    }
+  ],
+  "oracle": {
+    "entry_point_rva": "0x11ea0",
+    "image_base": "0x400000",
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "prediction": "The original app reaches DirectDrawCreate after HWND/HDC/DIB initialization and before the first PC_DLLEngineMain table copy, so a thin app-local DDRAW.dll wrapper can be a narrow data-table bootstrap if this deployment resolves that import to the wrapper.",
+  "provenance": {
+    "audit_script": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_presentation\\audit.py",
+      "sha256": "b34938c0cce9ee26573a82b9922cebfec6bc5dcfa622599abe122a1c51e1a531"
+    },
+    "baseline_files_sha256": {
+      "baseline.json": "522262f33e3f70bf279e7d674eab9cf2bee4a6747e28f7e3b6c99c9d4aaea0bb",
+      "baseline.py": "3b17084a44300222dc84d78e5ecc0ab4a97423854655fe7b5f653362c56ea402"
+    },
+    "capstone_version": "5.0.7",
+    "pinned_vc5_ddraw_header": {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\ddraw.h",
+      "sha256": "fcaadaaf15d5ee85db3dd6a40f1eee2f0dd7aabcecc494579022c55d063ecf34"
+    },
+    "python_version": "3.12.14"
+  },
+  "scope": "Read-only static audit; no original-image execution, no source/recovery/assets writes.",
+  "table": {
+    "bytes": 1000,
+    "limit": "Static copied-table defaults; runtime mutation/alias changes are not excluded.",
+    "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "source_pointer_cell_bytes": "b8614300",
+    "source_pointer_cell_rva": "0x365a0",
+    "source_pointer_cell_section": {
+      "characteristics": "0xc0000040",
+      "name": ".data"
+    },
+    "source_pointer_cell_sha256": "808fbb8b89f159778e8ec1322e9c7a53c570dfe17e6e565367f97a9bee2a0e3b",
+    "source_pointer_value_va": "0x4361b8",
+    "source_rva": "0x361b8",
+    "tracked_slot_targets": {
+      "color_translate": {
+        "offsets": [
+          "0x23c"
+        ],
+        "slots": [
+          143
+        ],
+        "target_rva": "0x70c0"
+      },
+      "packet_consumer": {
+        "offsets": [
+          "0x164"
+        ],
+        "slots": [
+          89
+        ],
+        "target_rva": "0xac60"
+      },
+      "texture_rectangle_upload": {
+        "offsets": [
+          "0x204"
+        ],
+        "slots": [
+          129
+        ],
+        "target_rva": "0xa710"
+      }
+    }
+  },
+  "integration_provenance": {
+    "private_receipt_sha256": "fb717a6746c24fe73913a37e0dd15487a6ec5de34f545f604b919b0ed428c48d",
+    "omitted": "Detailed disassembly remains private scratch; hashes, references and findings retained.",
+    "source_commit": "73c6320179093c3de9b820e66b87f94dfb639a9b"
+  }
+}

@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "scope": "Renderer contract foundation and finite independent CPU fixtures; no live interception, GPU renderer or game run.",
+  "source_base_commit": "73c6320179093c3de9b820e66b87f94dfb639a9b",
+  "branch": "codex/renderer-interface-closure",
+  "toolchain_id": "msvc5_rtm",
+  "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+  "compiled_suites": [
+    {
+      "test": "test_cpp_headers.cpp",
+      "status": "passed",
+      "stdout": "",
+      "executable_sha256": "30379e049afb995608e7ceb6ee0b0028a452a2c89196c84b75957d559101fef0",
+      "command_argv": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/W3",
+        "/O2",
+        "/MT",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests",
+        "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_contract_tests\\000_test_cpp_headers\\test_cpp_headers.exe",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_frame.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_host_abi.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packets.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_pixels.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_state.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_textures.c"
+      ]
+    },
+    {
+      "test": "test_frame.c",
+      "status": "passed",
+      "stdout": "PASS fixed-width raw32 region maps without host pointer truncation\nPASS both module-specific frame/table pairs initialize\nPASS NULL chain head seeded\nPASS empty raw32 head terminates at NULL without visits\nPASS terminal-NULL two-link chain seeded\nPASS bounded raw32 walker accepts final NULL link\nPASS invalid last link seeded outside mapped range\nPASS bounded raw32 walker rejects invalid last link\nPASS cycle links seeded\nPASS raw32 walker rejects cycle through visit guard\nPASS raw32 walker applies caller visit budget\nPASS ENG1 and TITLE retain distinct observed strides\nPASS first ENG1 view has 0x500 links and terminal NULL\nPASS second ENG1 view has 0x500 links and terminal NULL\nPASS ENG3 retains its independent two-view stride/request\nPASS first ENG3 view has 0x800 chain slots and terminal NULL\nPASS second ENG3 view has 0x800 chain slots and terminal NULL\nPASS AC60 model traverses an empty ENG3 0x800-slot table to NULL\nPASS first TITLE table has 0x500 heads and terminal NULL\nPASS second TITLE table has 0x500 heads and terminal NULL\nPASS TITLE source depth input 7 selects OT index 0x4f7\nPASS selected bucket head resolves\nPASS first primitive prepends ahead of existing sentinel\nPASS bucket head reloads before second prepend\nPASS second primitive prepends in LIFO order\nPASS AC60 model skips sentinels and visits newest first\nPASS TITLE OT restored before invalid-tail case\nPASS empty AC60 table advances through terminal NULL\nPASS invalid final OT head seeded\nPASS AC60 model rejects invalid final primitive link\nPASS TITLE OT restored before one-past sentinel case\nPASS one-past final OT sentinel seeded in mapped tail bytes\nPASS malformed one-past address is deliberately still mapped\nPASS AC60 decoder rejects one-past sentinel before resolver lookup\nPASS empty OT restored before sentinel-budget case\nPASS AC60 model bounds empty-bucket sentinel advances\nchecks=36 failures=0\n",
+      "executable_sha256": "fe4fee33f1269c71762294d2742658a8c0f1a5e6397005f985383447b848b942",
+      "command_argv": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/W3",
+        "/O2",
+        "/MT",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests",
+        "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_contract_tests\\001_test_frame\\test_frame.exe",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_frame.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_frame.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_host_abi.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packets.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_pixels.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_state.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_textures.c"
+      ]
+    },
+    {
+      "test": "test_host_abi.c",
+      "status": "passed",
+      "stdout": "table clone contract tests passed\n",
+      "executable_sha256": "e91fb510663ab37af84aa16a9bfa23de4b6a44bc968e6d5ec00df17d1d580ac3",
+      "command_argv": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/W3",
+        "/O2",
+        "/MT",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests",
+        "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_contract_tests\\002_test_host_abi\\test_host_abi.exe",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_host_abi.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_frame.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_host_abi.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packets.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_pixels.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_state.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_textures.c"
+      ]
+    },
+    {
+      "test": "test_packets.c",
+      "status": "passed",
+      "stdout": "renderer_packet_fixture checks=37 failures=0\n",
+      "executable_sha256": "f13b800db4ce9b338fd9aa7be997989bcf393970371fd02c296d962588bb921a",
+      "command_argv": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/W3",
+        "/O2",
+        "/MT",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests",
+        "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_contract_tests\\003_test_packets\\test_packets.exe",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_packets.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_frame.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_host_abi.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packets.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_pixels.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_state.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_textures.c"
+      ]
+    },
+    {
+      "test": "test_pixels.c",
+      "status": "passed",
+      "stdout": "PASS: 47 pixel-reference checks\n",
+      "executable_sha256": "62db89cfa40ef027a759d4bcad64966b45c3d1055978998f548a6cac06a3de55",
+      "command_argv": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/W3",
+        "/O2",
+        "/MT",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests",
+        "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_contract_tests\\004_test_pixels\\test_pixels.exe",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_pixels.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_frame.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_host_abi.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packets.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_pixels.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_state.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_textures.c"
+      ]
+    },
+    {
+      "test": "test_state.c",
+      "status": "passed",
+      "stdout": "hercules_state_fixture checks=43 failures=0\n",
+      "executable_sha256": "14d7b1aa7874f9470bc5a4a5079fc1d190228d829e55aada616124b5b9eb63a2",
+      "command_argv": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/W3",
+        "/O2",
+        "/MT",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests",
+        "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_contract_tests\\005_test_state\\test_state.exe",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_state.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_frame.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_host_abi.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packets.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_pixels.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_state.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_textures.c"
+      ]
+    },
+    {
+      "test": "test_textures.c",
+      "status": "passed",
+      "stdout": "PASS texture helper synthetic cases\n",
+      "executable_sha256": "e3b5b10bdf6958ab0334369d26b0518863965fa03db51470555c646e13ae54fc",
+      "command_argv": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/W3",
+        "/O2",
+        "/MT",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests",
+        "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_contract_tests\\006_test_textures\\test_textures.exe",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_textures.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_frame.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_host_abi.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packets.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_pixels.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_state.c",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_textures.c"
+      ]
+    }
+  ],
+  "sources_sha256": {
+    "renderer_contract/hercules_frame.c": "377b09570bd86b5f3f48013379780b9175eec4fcea022253722516e995864943",
+    "renderer_contract/hercules_frame.h": "5c4d90a7809c22dde56ae93648bfb5a61d636c089f82d6dcba707863e3458c2f",
+    "renderer_contract/hercules_host_abi.c": "09b5ffe70af7623fa53812fd408e4cc50505c11e30279448670571e63ccd3999",
+    "renderer_contract/hercules_host_abi.h": "52b4b1d50f7ec6ffc6c0fdea239eeeab337fbdd4e0baedd5d0935ebb82800eee",
+    "renderer_contract/hercules_packets.c": "d8d39c8a65a21f7804aa9514fee49733de3b2ee20eb82b26cb0766699cf902ee",
+    "renderer_contract/hercules_packets.h": "6834e5961161165c1f54c945078857a9ab179ec95bb31c63073e9f2c97fd1e15",
+    "renderer_contract/hercules_pixels.c": "4eb1a4e3250a316159663eb0e0c7a1ab172b136e0bddef3fd2a4174f77a448b8",
+    "renderer_contract/hercules_pixels.h": "3a591c6ace83eeefd9b6e9b85dcb0c014c651adde1539f3fa761b4dced83458e",
+    "renderer_contract/hercules_state.c": "1c8b050d684837966f58eca3e5435ac33eb756ba4f5e13e8741bd52d5312ee8f",
+    "renderer_contract/hercules_state.h": "c6c528b7f5e18f0f3bc0aa5f794da689043b9f777f4e73bdb5e6a77aa64b26a2",
+    "renderer_contract/hercules_state_wire.h": "268a893be201a230c3b397ed78961f6ce1c4c774406f92009c23889f5714653e",
+    "renderer_contract/hercules_textures.c": "b958715c9db6c1adcc47658305c8a330a95f35ed4419d79e44ac49ee0c5e78f2",
+    "renderer_contract/hercules_textures.h": "a9f8214c7dbac3cc4a3dd25abb4a77cfa3ab9287a97f784c8ce7648592ea8b6b",
+    "renderer_contract/hercules_types.h": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d",
+    "renderer_contract/tests/compare_exe_variants.py": "ffc8c0ca378503a99d7e5499dea918e4f706b574dd65811b7053633d86bb4c60",
+    "renderer_contract/tests/oracle_common.py": "a024048d9acc6e18197e10a82427cd84351a90666e1626e610bf60c6105f1357",
+    "renderer_contract/tests/run_tests.py": "048ce8644159223640bae2ac6b3b4371da9e332c9e720231c098d5221df7e5b6",
+    "renderer_contract/tests/test_cpp_headers.cpp": "3e519f47225aad2d8758b3b038961973aa3a631987902018a6897dac5885cc64",
+    "renderer_contract/tests/test_frame.c": "caab5a813c20d11009681c01647f926cd8047f7136906858365389602a6dd6a8",
+    "renderer_contract/tests/test_host_abi.c": "556af3f1bf26a83de24af8469edd2ba3ef15c9dbb49ba955029a346915259f14",
+    "renderer_contract/tests/test_original_a710_upload.py": "d210ae005ba3b53758ef9cd58c8110613d7ea3747956b74b7b1ef2bce288677c",
+    "renderer_contract/tests/test_original_ac60_staging.py": "b6dabe505722634becfcaa64bf3ad7f17e4a5cd7c2253cf3636bb08c2d03f28a",
+    "renderer_contract/tests/test_original_c882_pixel_loop.py": "5aa1931a79f776eec4d3ae84086bd4d5f159ce0c5a552f6bd2074b8b239ad57d",
+    "renderer_contract/tests/test_packets.c": "886f85484cb62e7e8ee55e833aec71ef8056d0b20e6286d1631a94e9afa5c6b9",
+    "renderer_contract/tests/test_pixels.c": "a44935fca486b8fae08f9e7133e267de22ffd65c46fce7270d92be60ad8102fb",
+    "renderer_contract/tests/test_state.c": "5ae18768e2b911c96eea692069c9dc2ebe9387f7ceaaf90aab3fb15bc85aa449",
+    "renderer_contract/tests/test_textures.c": "3c7cf0c5847f36bbca998ea2e27a5ec29e0d6435542e3c74df322a33af424aba",
+    "renderer_contract/tests/validate_originals.py": "7c537fe2fe8c40678da55d5638703609203323cb78f9e4a72f4a20cb935d1808"
+  },
+  "native_checks": [
+    {
+      "receipt": "work/renderer_bounded_oracle/report.json",
+      "sha256": "b54dbc059c6704ad8083cae022a2508f4effe7be83ae5f97fca8096df682b31a",
+      "status": "BOUNDED_EQUIVALENT",
+      "scope": "Finite nonnegative original A710 upload rectangles with y+height <= 480, using unchanged HERCULES.EXE A710 and BD80 instructions in Unicorn. This is not FUNCTION_MATCH, full A710-domain, image-storage extent, renderer, gameplay, or module acceptance."
+    },
+    {
+      "receipt": "work/renderer_bounded_oracle/ac60_report.json",
+      "sha256": "1f59ec62ffc41b56b953bacb9c9a8d78d41bc4378009863575c33c6dc6280182",
+      "status": "BOUNDED_EQUIVALENT",
+      "scope": "One finite synthetic AC60 ordering-table chain executed in unchanged original HERCULES.EXE code through FT3, FT4, GT4, E1, F3, command-01, variable-sprite, and 0x40 gate processing. Original staging is checked at four rasterizer entries and the A8F0 call boundary; host return callbacks skip callees. No raster pixels or full DirectDraw/device path are claimed."
+    },
+    {
+      "receipt": "work/renderer_bounded_oracle/c882_report.json",
+      "sha256": "343ab9d8981ad628fea3b6dfd97b7a8e0351e3001c9f4a1440dd66f8b8db3ac7",
+      "status": "BOUNDED_EQUIVALENT",
+      "scope": "Finite one-row, two-pixel C700/C882 execution from original RVA C7F6 through the C89F inner-loop boundary. Source bytes 0 and 7; zero bypasses all destination/LUT access, nonzero uses frame_color_lut[0x23*256+7], then blend[(mapped_color<<8)|old_destination]. This is not full rasterization, renderer integration, gameplay, FUNCTION_MATCH, or whole-module equality."
+    }
+  ],
+  "static_original_validation": {
+    "images": 4,
+    "spans": 108,
+    "callback_bindings": 24,
+    "copied_wrappers": 22,
+    "dispatch_sites": 57,
+    "manifest_sha256": "cb39dcde9b7a980a0247bf902d2d9055753adc8425476712c02c0005c1065a7a"
+  },
+  "preservation": {
+    "canonical_game_sources_changed": false,
+    "recovery_changed": false,
+    "originals_written": false,
+    "host_integration_observed": false,
+    "shared_original_working_recovery_sha256": "465ee5ea057cd3bfb23508e18b16958c27b9d391e11a0bc874cfc413436644d5"
+  },
+  "routing": "Nine explicitly selected GPT-6 Luna xhigh workers; root owned architecture, conflict resolution and integration.",
+  "limits": [
+    "No universal equivalence claim.",
+    "AC60 raster and A8F0 callees skipped in staging fixture.",
+    "C882 four selectors only; other pixel paths static/synthetic.",
+    "No new FUNCTION_MATCH state."
+  ]
+}
