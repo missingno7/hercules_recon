@@ -1,0 +1,484 @@
+{
+  "schema_version": 1,
+  "proof_level": "BOUNDED_EQUIVALENT",
+  "observation_kind": "ORIGINAL_X86_AND_SOURCE_BUILT_CANDIDATE_DIFFERENTIAL",
+  "scope": "Five completed synthetic B320 cases and one point-1 signed IDIV overflow case; candidate C reference is compiled into an import-free fixed-base x86 PE and run in Unicorn. Original direct B430/B320/B5C0 route and candidate route receive identical config/point values.",
+  "status": "PASS",
+  "original": {
+    "module": "HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000",
+    "route": [
+      "B430",
+      "B320",
+      "B5C0"
+    ],
+    "B320_span": {
+      "rva": "0xb320",
+      "size": 271,
+      "sha256": "11368c1fa7fd8cd91b1d7b7de522ad06aacc724991ff4f8d46d7eecf1e7cff97",
+      "instruction_count": 76
+    }
+  },
+  "prediction": {
+    "path": "renderer_contract\\evidence\\batch_reference_prediction.json",
+    "sha256": "9609be8188615a281f4b17f8b8b0782e7e539f79db7f3c8760c58b4eeb56ece5"
+  },
+  "candidate_fixture": {
+    "source_path": "renderer_contract\\fixtures\\batch_reference\\projection_candidate_fixture.c",
+    "source_sha256": "9b466a4d71ee121a5fdcd4894a5d2dee7936c9072c161384ef308d78e96c3abe",
+    "compiled_fixture_sha256": "a72e50fc63a093bfd6f66d78f42a4f9011809f4fd1658aba4caad93544e81aa6",
+    "compiled_object_sha256": "9a898874255d155a0f4d10c140cf5e4def80409a61d8eef09486f856a66e1ab8",
+    "compiled_map_sha256": "145542dbccfcafb28991c6af60e4ce64f1fd3b80deff3ec467ea897a52eb437e",
+    "image_base": "0x20000000",
+    "imports": false,
+    "relocations": false,
+    "exports": [
+      "hercules_batch_reference_run"
+    ],
+    "toolchain_component_sha256": {
+      "cl.exe": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+      "c1.dll": "e519dfe6f45cc0503b7aac43d125b2f156305269b89f0dc765c40d29627c0943",
+      "c2.exe": "6d1406af5f62647347cfa7175cd7e108b838d6841a546396f29252198a14d73d",
+      "link.exe": "279544809e6353c8e622eb88aea94e86b0258f3c4b8a976373bf4d68a41b63e1"
+    },
+    "mapped_in_unicorn": true,
+    "executed_candidate_code_event_count": 8671
+  },
+  "case_counts": {
+    "completed_native_and_candidate_equal": 5,
+    "native_IDIV_traps_candidate_reports_non_success": 1,
+    "raw_eax_checked_on_success": 5,
+    "raw_eax_canary_checks_on_fault": 1
+  },
+  "execution_counts": {
+    "native_completed_cases": 5,
+    "native_IDIV_trap_cases": 1,
+    "native_B320_output_stores": 83,
+    "candidate_PE_code_events": 8671,
+    "candidate_PE_data_reads": 2926,
+    "candidate_PE_data_writes_including_stack": 2463,
+    "candidate_result_lane_stores": 83,
+    "candidate_diagnostic_stores": 11,
+    "native_and_candidate_fault_output_prefix_stores": 16
+  },
+  "cases": [
+    {
+      "name": "sum_before_sar12_and_signed_z_paths",
+      "native": {
+        "completed": true,
+        "exception_pc": null,
+        "idiv_reached": null,
+        "raw_eax": "0x146",
+        "camera_xyz_bits": [
+          "0x1",
+          "0x1",
+          "0x64",
+          "0x1",
+          "0x1",
+          "0xffffff9c",
+          "0x1",
+          "0x1",
+          "0x0"
+        ],
+        "projected_xy": [
+          "0x34",
+          "0x48",
+          "0x2f",
+          "0x43",
+          "0x132",
+          "0x146"
+        ],
+        "output_write_count": 15
+      },
+      "candidate": {
+        "status_EAX": 0,
+        "fault_point": 3,
+        "raw_eax": "0x146",
+        "camera_xyz_bits": [
+          "0x1",
+          "0x1",
+          "0x64",
+          "0x1",
+          "0x1",
+          "0xffffff9c",
+          "0x1",
+          "0x1",
+          "0x0"
+        ],
+        "projected_xy": [
+          "0x34",
+          "0x48",
+          "0x2f",
+          "0x43",
+          "0x132",
+          "0x146"
+        ],
+        "result_output_write_count": 15,
+        "caller_esp_delta": 4,
+        "callee_saved_preserved": true
+      },
+      "comparison": {
+        "camera_equal": true,
+        "screen_equal": true,
+        "status_and_failure_index_match": true,
+        "output_lane_write_prefix_matches": true,
+        "raw_eax_matches_on_success": true,
+        "raw_eax_canary_preserved_on_fault": false
+      }
+    },
+    {
+      "name": "signed_word_positive_overflow",
+      "native": {
+        "completed": true,
+        "exception_pc": null,
+        "idiv_reached": null,
+        "raw_eax": "0x46",
+        "camera_xyz_bits": [
+          "0xffff8000",
+          "0x2",
+          "0x3e8",
+          "0x1",
+          "0x3",
+          "0x3e8",
+          "0x2",
+          "0x4",
+          "0x3e8"
+        ],
+        "projected_xy": [
+          "0x32",
+          "0x46",
+          "0x32",
+          "0x46",
+          "0x32",
+          "0x46"
+        ],
+        "output_write_count": 15
+      },
+      "candidate": {
+        "status_EAX": 0,
+        "fault_point": 3,
+        "raw_eax": "0x46",
+        "camera_xyz_bits": [
+          "0xffff8000",
+          "0x2",
+          "0x3e8",
+          "0x1",
+          "0x3",
+          "0x3e8",
+          "0x2",
+          "0x4",
+          "0x3e8"
+        ],
+        "projected_xy": [
+          "0x32",
+          "0x46",
+          "0x32",
+          "0x46",
+          "0x32",
+          "0x46"
+        ],
+        "result_output_write_count": 15,
+        "caller_esp_delta": 4,
+        "callee_saved_preserved": true
+      },
+      "comparison": {
+        "camera_equal": true,
+        "screen_equal": true,
+        "status_and_failure_index_match": true,
+        "output_lane_write_prefix_matches": true,
+        "raw_eax_matches_on_success": true,
+        "raw_eax_canary_preserved_on_fault": false
+      }
+    },
+    {
+      "name": "signed_word_negative_overflow",
+      "native": {
+        "completed": true,
+        "exception_pc": null,
+        "idiv_reached": null,
+        "raw_eax": "0x46",
+        "camera_xyz_bits": [
+          "0x7fff",
+          "0x2",
+          "0x3e8",
+          "0xffffffff",
+          "0x3",
+          "0x3e8",
+          "0x0",
+          "0x4",
+          "0x3e8"
+        ],
+        "projected_xy": [
+          "0x32",
+          "0x46",
+          "0x32",
+          "0x46",
+          "0x32",
+          "0x46"
+        ],
+        "output_write_count": 15
+      },
+      "candidate": {
+        "status_EAX": 0,
+        "fault_point": 3,
+        "raw_eax": "0x46",
+        "camera_xyz_bits": [
+          "0x7fff",
+          "0x2",
+          "0x3e8",
+          "0xffffffff",
+          "0x3",
+          "0x3e8",
+          "0x0",
+          "0x4",
+          "0x3e8"
+        ],
+        "projected_xy": [
+          "0x32",
+          "0x46",
+          "0x32",
+          "0x46",
+          "0x32",
+          "0x46"
+        ],
+        "result_output_write_count": 15,
+        "caller_esp_delta": 4,
+        "callee_saved_preserved": true
+      },
+      "comparison": {
+        "camera_equal": true,
+        "screen_equal": true,
+        "status_and_failure_index_match": true,
+        "output_lane_write_prefix_matches": true,
+        "raw_eax_matches_on_success": true,
+        "raw_eax_canary_preserved_on_fault": false
+      }
+    },
+    {
+      "name": "negative_sar12_rounds_toward_negative_infinity",
+      "native": {
+        "completed": true,
+        "exception_pc": null,
+        "idiv_reached": null,
+        "raw_eax": "0x46",
+        "camera_xyz_bits": [
+          "0xffffffff",
+          "0xa",
+          "0x3e8",
+          "0x0",
+          "0x0",
+          "0x3e8",
+          "0x0",
+          "0x0",
+          "0x3e8"
+        ],
+        "projected_xy": [
+          "0x32",
+          "0x46",
+          "0x32",
+          "0x46",
+          "0x32",
+          "0x46"
+        ],
+        "output_write_count": 15
+      },
+      "candidate": {
+        "status_EAX": 0,
+        "fault_point": 3,
+        "raw_eax": "0x46",
+        "camera_xyz_bits": [
+          "0xffffffff",
+          "0xa",
+          "0x3e8",
+          "0x0",
+          "0x0",
+          "0x3e8",
+          "0x0",
+          "0x0",
+          "0x3e8"
+        ],
+        "projected_xy": [
+          "0x32",
+          "0x46",
+          "0x32",
+          "0x46",
+          "0x32",
+          "0x46"
+        ],
+        "result_output_write_count": 15,
+        "caller_esp_delta": 4,
+        "callee_saved_preserved": true
+      },
+      "comparison": {
+        "camera_equal": true,
+        "screen_equal": true,
+        "status_and_failure_index_match": true,
+        "output_lane_write_prefix_matches": true,
+        "raw_eax_matches_on_success": true,
+        "raw_eax_canary_preserved_on_fault": false
+      }
+    },
+    {
+      "name": "three_product_row_sum_wraps_low32",
+      "native": {
+        "completed": true,
+        "exception_pc": null,
+        "idiv_reached": null,
+        "raw_eax": "0x46",
+        "camera_xyz_bits": [
+          "0xffffffd0",
+          "0x7fff",
+          "0x7fff",
+          "0x2f",
+          "0x2",
+          "0x3",
+          "0xffffffd0",
+          "0xfffffffe",
+          "0xfffffffd"
+        ],
+        "projected_xy": [
+          "0x32",
+          "0x46",
+          "0x32",
+          "0x46",
+          "0x32",
+          "0x46"
+        ],
+        "output_write_count": 15
+      },
+      "candidate": {
+        "status_EAX": 0,
+        "fault_point": 3,
+        "raw_eax": "0x46",
+        "camera_xyz_bits": [
+          "0xffffffd0",
+          "0x7fff",
+          "0x7fff",
+          "0x2f",
+          "0x2",
+          "0x3",
+          "0xffffffd0",
+          "0xfffffffe",
+          "0xfffffffd"
+        ],
+        "projected_xy": [
+          "0x32",
+          "0x46",
+          "0x32",
+          "0x46",
+          "0x32",
+          "0x46"
+        ],
+        "result_output_write_count": 15,
+        "caller_esp_delta": 4,
+        "callee_saved_preserved": true
+      },
+      "comparison": {
+        "camera_equal": true,
+        "screen_equal": true,
+        "status_and_failure_index_match": true,
+        "output_lane_write_prefix_matches": true,
+        "raw_eax_matches_on_success": true,
+        "raw_eax_canary_preserved_on_fault": false
+      }
+    },
+    {
+      "name": "point1_signed_idiv_overflow_min_int_div_minus_one",
+      "native": {
+        "completed": false,
+        "exception_pc": "0x40b3f1",
+        "idiv_reached": true,
+        "raw_eax": null,
+        "camera_xyz_bits": [
+          "0x0",
+          "0x0",
+          "0x1",
+          "0x1",
+          "0x2",
+          "0xffffffff",
+          "0xa5a5a5a5",
+          "0xa5a5a5a5",
+          "0xa5a5a5a5"
+        ],
+        "projected_xy": [
+          "0x0",
+          "0x0",
+          "0x2222",
+          "0x5555",
+          "0x3333",
+          "0x6666"
+        ],
+        "output_write_count": 8
+      },
+      "candidate": {
+        "status_EAX": 1,
+        "fault_point": 1,
+        "raw_eax": "0xdeadbeef",
+        "camera_xyz_bits": [
+          "0x0",
+          "0x0",
+          "0x1",
+          "0x1",
+          "0x2",
+          "0xffffffff",
+          "0xa5a5a5a5",
+          "0xa5a5a5a5",
+          "0xa5a5a5a5"
+        ],
+        "projected_xy": [
+          "0x0",
+          "0x0",
+          "0x2222",
+          "0x5555",
+          "0x3333",
+          "0x6666"
+        ],
+        "result_output_write_count": 8,
+        "caller_esp_delta": 4,
+        "callee_saved_preserved": true
+      },
+      "comparison": {
+        "camera_equal": true,
+        "screen_equal": true,
+        "status_and_failure_index_match": true,
+        "output_lane_write_prefix_matches": true,
+        "raw_eax_matches_on_success": false,
+        "raw_eax_canary_preserved_on_fault": true
+      }
+    }
+  ],
+  "native_observer_note": "Existing pinned audit helper is used to run the unchanged original route; this receipt does not claim a fresh observer-vs-direct differential beyond the prior bounded fixture receipt.",
+  "limits": [
+    "The candidate entry has a test-fixture cdecl signature; this is not a historical B320 C declaration or host callback replacement.",
+    "The result/config structs are tool-side joined views; original host arrays are separate lanes.",
+    "Only five completed vectors plus one trap vector are differentially compared; this is not exhaustive all-input equivalence.",
+    "No B740 Z clamp is applied. No viewport policy, culling, producer behavior, renderer, GPU, or pixels are covered.",
+    "No original Windows process was started; the pinned HERCULES.EXE is only executed by Unicorn."
+  ],
+  "source_hashes": {
+    "hercules_projection.h": "290b3922cd2ae474dc8dd2decf5c18e260bfccab9c79d49a2e5d24ea28dec216",
+    "hercules_projection.c": "c0189e13f46f580dd79f2f834e7680a50a70e392b5f93ea9d5f78732f63492bf",
+    "test_projection.c": "1e55a561e124cbfb5b8dc671e57f2e1a40aa1c4bf35fc45f55c8f9f7cc7650fc",
+    "test_projection_cpp.cpp": "f881308b3dbadbd0954bee49552df606e1f9bc12157db747b2b829a149494c51",
+    "projection_candidate_fixture.c": "9b466a4d71ee121a5fdcd4894a5d2dee7936c9072c161384ef308d78e96c3abe",
+    "batch_reference_prediction.json": "9609be8188615a281f4b17f8b8b0782e7e539f79db7f3c8760c58b4eeb56ece5",
+    "helper:audit_batch_projection.py": "f19cfa334b66cc66b6418589fb66a3c255e44902b12180c3400db04963eed4ff",
+    "helper:oracle_common.py": "a024048d9acc6e18197e10a82427cd84351a90666e1626e610bf60c6105f1357",
+    "helper:pe.py": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca",
+    "helper:native_observer.c": "cf52f7425ae6f36ff74c7ccaf7dea24fcc6a2a5e8310f44d89dbdc8957ed5d1c",
+    "helper:hercules_types.h": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d",
+    "helper:hercules_host_abi.h": "b51d75b165c4800aa9ef5431bdf6f6210ee289d36f5b1c000e1ad1048f52cf5b",
+    "runner": "37c92afc3141cf6d9595b65dc85fbeda0422887abac71317c0ebd4076249615b",
+    "shared_types": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d",
+    "shared_host_abi": "b51d75b165c4800aa9ef5431bdf6f6210ee289d36f5b1c000e1ad1048f52cf5b"
+  },
+  "raw_receipt": {
+    "path": "work/renderer_phase18/public_batch4/report.json",
+    "sha256": "647f10ea98bbc03f6caa997df87abbec8452ab09a25da39357f3649526cda30e"
+  },
+  "runner": {
+    "path": "renderer_contract/tests/test_original_batch_reference.py",
+    "sha256": "37c92afc3141cf6d9595b65dc85fbeda0422887abac71317c0ebd4076249615b"
+  }
+}

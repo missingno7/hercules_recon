@@ -89,3 +89,9 @@ The public raw callback typedefs and 48-byte joined batch view are in
 now also accepts slots 102, 107 and 117; every other transport word remains
 unchanged. These declarations preserve physical EAX bits, not an inferred
 original C return type.
+
+The [three-point C89 reference](batch_reference.md) now passes direct comparison
+with original B320 for five completed cases and one expected division fault,
+including 83 ordered output stores and partial-result canaries. It retains
+unclamped/zero-Z batch semantics separately from single-point projection.
+The live callback ABI and the joined tool-view API remain distinct.

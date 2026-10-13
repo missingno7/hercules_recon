@@ -7,7 +7,7 @@ not block a passive 320x240 capture experiment.
 | Class | Resolved foundation | Next material blocker |
 |---|---|---|
 | A. Loader and interception | Original pre-entry DDRAW selection/clone publication; all-module prefix copies; new source-built forwarder diagnostic | Original-process transparent forwarding and engine first-copy/lifetime observation in a write-isolated environment |
-| B. Geometry availability | WORD inputs and narrowed camera DWORD outputs; bounded single-point equations and observer | Broader batch arithmetic domains, upstream input units and unprojected/cull-rejected geometry |
+| B. Geometry availability | WORD inputs and narrowed camera DWORD outputs; bounded scalar/batch references and observers, including zero-Z and partial division-fault outputs | Broader batch arithmetic domains, upstream input units and unprojected/cull-rejected geometry |
 | C. Vertex/primitive association | Original ENG1 FT4/GT4 fixtures; original ENG3 direct FT4 and TITLE mode-5 FT4; role/time identity despite pointer reuse | Runtime producer observation, production object identity/material provenance, visibility and remaining packet families |
 | D. Viewport and precision | Camera precision exceeds final XY; measured single-point path has no rectangle clamp | Selected ENG3 indexed bounds and depth rejects are mapped; bounds meaning, runtime center/focal origin and remaining modules are unresolved |
 | E. Image composition | Packet/LUT/upload, movie ID→host decode→pitched indexed copy and palette order, clear/GDI/surface writers mapped | Complete writer triggers and chronological order; slot149 alias reachability and framework writes |

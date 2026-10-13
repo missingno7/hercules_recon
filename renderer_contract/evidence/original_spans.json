@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "scope": "Original-image span validator manifest assembled from completed renderer evidence reports. Static byte checking only; bounded execution remains explicitly scoped and no source identity or FUNCTION_MATCH is inferred. Phase 14 proposals append receipt-pinned projection, display ownership, camera history, module geometry, and ENG1 mesh-to-packet association ranges; presentation diagnostics remain separate-process only.",
+  "scope": "Original-image span validator manifest assembled from completed renderer evidence reports. Static byte checking only; bounded execution remains explicitly scoped and no source identity or FUNCTION_MATCH is inferred. Phase 14 proposals append receipt-pinned projection, display ownership, camera history, module geometry, and ENG1 mesh-to-packet association ranges; presentation diagnostics remain separate-process only. Phase 18 appends a finite B320 batched-projection differential and a current single-point model/bridge regression; the candidate PE and IDIV trap remain explicitly bounded/non-success results.",
   "hash_semantics": {
     "expected_sha256": "Expected oracle value copied from source evidence and pinned by evidence_refs.",
     "computed_sha256": "Recomputed by validate_originals.py from the selected original file or RVA span.",
@@ -893,6 +893,62 @@
       "prediction_path": "renderer_contract/fixtures/viewport_visibility/prediction_falsifier.json",
       "prediction_sha256": "a0b2a83ffc520c2ab7a8ad892e727da301e7c2af1785bf9cb4e3bf109c15837a",
       "runner_binding_note": "The static receipt does not include a runner hash field; the listed source hash identifies the shipped public audit script whose constants and decode procedure were independently checked against the receipt pins."
+    },
+    {
+      "lane": "batch_reference",
+      "path": "renderer_contract/evidence/batch_reference.json",
+      "sha256": "45348488012711d2d15aca47c59ea089612fc4f65f27c9ba3c85fad870b9316f",
+      "schema_keys": [
+        "candidate_fixture",
+        "case_counts",
+        "cases",
+        "execution_counts",
+        "limits",
+        "native_observer_note",
+        "observation_kind",
+        "original",
+        "prediction",
+        "proof_level",
+        "raw_receipt",
+        "runner",
+        "schema_version",
+        "scope",
+        "source_hashes",
+        "status"
+      ],
+      "private_report_path": "work/renderer_phase18/public_batch4/report.json",
+      "private_report_sha256": "647f10ea98bbc03f6caa997df87abbec8452ab09a25da39357f3649526cda30e",
+      "prediction_path": "renderer_contract/evidence/batch_reference_prediction.json",
+      "prediction_sha256": "9609be8188615a281f4b17f8b8b0782e7e539f79db7f3c8760c58b4eeb56ece5",
+      "public_test_path": "renderer_contract/tests/test_original_batch_reference.py",
+      "public_test_sha256": "37c92afc3141cf6d9595b65dc85fbeda0422887abac71317c0ebd4076249615b"
+    },
+    {
+      "lane": "phase18_regressions",
+      "path": "renderer_contract/evidence/phase18_regressions.json",
+      "sha256": "694e283e322ef0859ecb67083336555cdc0380bacfcbfaf08a759c7568851c4f",
+      "schema_keys": [
+        "assertions",
+        "cases",
+        "native_spans",
+        "observation_kind",
+        "original",
+        "prediction_assessment",
+        "proof_boundary",
+        "proof_level",
+        "raw_prediction_sha256",
+        "raw_receipt",
+        "runner",
+        "schema_version",
+        "scope",
+        "source_hashes",
+        "status",
+        "summary"
+      ],
+      "private_report_path": "work/renderer_phase18/public_single1/report.json",
+      "private_report_sha256": "d88e20d7912fd439abf42caf5500f084e3e6219aec9e88e08b9c2f74853350b0",
+      "public_test_path": "renderer_contract/tests/test_original_projection.py",
+      "public_test_sha256": "d0955c5ebeb6953ceaffc80bd452237eb509eeb982a1eef36da653c92790e089"
     }
   ],
   "excluded_or_pending_reports": [],
@@ -1152,6 +1208,104 @@
       "case_count": 8,
       "scope": "Eight independent single-point comparisons for the captured source points only; not general TITLE batch math or general mesh semantics.",
       "evidence_ref": "renderer_contract/evidence/title_geometry_association.json"
+    },
+    {
+      "lane": "batch_reference",
+      "status": "BOUNDED_EQUIVALENT",
+      "scope": "Five finite synthetic B320 route cases completed and matched a source-built import-free fixed-base candidate PE; a sixth point-1 signed IDIV overflow case traps in original code and candidate returns non-success with matching output-prefix/status semantics. No gameplay, product renderer, or arbitrary-domain equivalence is claimed.",
+      "cases_checked": 6,
+      "limitations": [
+        "Five successful vectors and one named IDIV overflow discriminator only.",
+        "Candidate PE is a source-built C behavioral candidate; this is not historical source recovery or FUNCTION_MATCH.",
+        "Fault case is explicitly non-success; candidate and native raw EAX values are not claimed equal on that fault.",
+        "No product renderer, live callback installation, gameplay, GPU, or arbitrary-input proof."
+      ],
+      "not_function_match": true,
+      "evidence_ref": "renderer_contract/evidence/batch_reference.json#raw_receipt",
+      "spans": [
+        {
+          "module": "HERCULES.EXE",
+          "rva": "0xb320",
+          "size": 271,
+          "expected_sha256": "11368c1fa7fd8cd91b1d7b7de522ad06aacc724991ff4f8d46d7eecf1e7cff97"
+        }
+      ]
+    },
+    {
+      "lane": "phase18_regressions",
+      "status": "BOUNDED_EQUIVALENT",
+      "scope": "Current single-point C reference and one-record diagnostic bridge were compared against pinned original callbacks for 14 finite cases and 632 assertions. This is a source/model regression, not product renderer integration or FUNCTION_MATCH.",
+      "cases_checked": 14,
+      "assertions_checked": 632,
+      "limitations": [
+        "The 14 callback cases are finite synthetic inputs only.",
+        "Joined config/result views remain tool-side views rather than original contiguous host structures.",
+        "No live product callback installation, packet association, renderer, gameplay, or GPU claim."
+      ],
+      "not_function_match": true,
+      "evidence_ref": "renderer_contract/evidence/phase18_regressions.json#raw_receipt",
+      "spans": [
+        {
+          "module": "HERCULES.EXE",
+          "rva": "0xb6f0",
+          "size": 36,
+          "expected_sha256": "6a6848a640a84133abcc29bf3b0c01e2fb1638f36e916ed8e4f68890210aff29"
+        },
+        {
+          "module": "HERCULES.EXE",
+          "rva": "0xb720",
+          "size": 26,
+          "expected_sha256": "51f3989776f1410d8ffa246269a37fac2b44590d0f6bcf1cdca4937d0b7b0843"
+        },
+        {
+          "module": "HERCULES.EXE",
+          "rva": "0xb740",
+          "size": 202,
+          "expected_sha256": "f745b08e23d8f718c7e269b2642a32a2ea852a1aa86c88dd774df9f555158f2c"
+        },
+        {
+          "module": "HERCULES.EXE",
+          "rva": "0xb810",
+          "size": 37,
+          "expected_sha256": "908ea6bf431255b67e900634259248526533000f880be062e657994260bd4d7a"
+        },
+        {
+          "module": "HERCULES.EXE",
+          "rva": "0xb840",
+          "size": 35,
+          "expected_sha256": "07912507e5fbc4ebaaa61ed9fb4ec06221601164ea8092b9740313f8afd8cfbc"
+        },
+        {
+          "module": "HERCULES.EXE",
+          "rva": "0xb880",
+          "size": 50,
+          "expected_sha256": "b890d113710e54184d9b505fe9c2a80214ec58f7980ebc2700e16f86bc7a8063"
+        },
+        {
+          "module": "HERCULES.EXE",
+          "rva": "0xb8f0",
+          "size": 34,
+          "expected_sha256": "0c72ecba43935848d1e76f61c5ed99b5e4b74efe1f491237aa4bce108332b6b0"
+        },
+        {
+          "module": "HERCULES.EXE",
+          "rva": "0xb920",
+          "size": 78,
+          "expected_sha256": "055adff43e62ef00b06e5313ee1701ac404cfe6b3286d75648e5c3265ae7ba86"
+        },
+        {
+          "module": "HERCULES.EXE",
+          "rva": "0xb970",
+          "size": 20,
+          "expected_sha256": "2526cc71c8d43572f1aabfacc70678e699908b02a13cf0b72f832b1e4062d252"
+        },
+        {
+          "module": "HERCULES.EXE",
+          "rva": "0xb990",
+          "size": 10,
+          "expected_sha256": "c44e898f7d175fbc52e1761ebbf409c20d9579c27174ca44a631d31909e8c68a"
+        }
+      ]
     }
   ],
   "static_proofs": [
@@ -11973,7 +12127,7 @@
     },
     {
       "path": "renderer_contract/evidence/portable_verification.json",
-      "sha256": "68dca86ce001b9fc2aa966e043cef92fb7e62cc8d8e434deed2252399b7df43c"
+      "sha256": "f121c3daa2fd272da26bf21d86b0b56aaede829cdf284e93b6c5a7350226211e"
     },
     {
       "path": "renderer_contract/evidence/presentation.json",
@@ -12102,6 +12256,18 @@
     {
       "path": "renderer_contract/evidence/viewport_visibility.json",
       "sha256": "03b66510d82ce2c8ab20a93941fe7d17067cca4e7d2932de3621abb4c86b45b1"
+    },
+    {
+      "path": "renderer_contract/evidence/batch_reference.json",
+      "sha256": "45348488012711d2d15aca47c59ea089612fc4f65f27c9ba3c85fad870b9316f"
+    },
+    {
+      "path": "renderer_contract/evidence/phase18_regressions.json",
+      "sha256": "694e283e322ef0859ecb67083336555cdc0380bacfcbfaf08a759c7568851c4f"
+    },
+    {
+      "path": "renderer_contract/evidence/batch_reference_prediction.json",
+      "sha256": "9609be8188615a281f4b17f8b8b0782e7e539f79db7f3c8760c58b4eeb56ece5"
     }
   ]
 }

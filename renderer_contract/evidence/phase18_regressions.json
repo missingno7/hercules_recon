@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "proof_level": "BOUNDED_EQUIVALENT",
+  "observation_kind": "FINITE_ORIGINAL_X86_CALLBACK_AND_DIAGNOSTIC_BRIDGE",
+  "scope": "Package C89 reference and diagnostic one-record slot-106 bridge checked with twelve historical reference vectors plus two named precision cases, all co-executed against pinned original B6F0/B740/B920/B720 x86 callbacks in Unicorn.",
+  "status": "BOUNDED_X86_DIFFERENTIAL_AND_BRIDGE_OBSERVED",
+  "original": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000"
+  },
+  "cases": 14,
+  "assertions": 632,
+  "prediction_assessment": {
+    "result": "PARTIALLY_FALSIFIED",
+    "falsified_details": [
+      "B6F0 writes three WORD cells, not three DWORD cells.",
+      "B920 stores projected X/Y directly as WORDs at A8E740/A8E746; B720 copies those WORDs unchanged."
+    ],
+    "supported_details": [
+      "B740 leaves full sign-extended DWORD camera X/Y/Z after its Z clamp.",
+      "The slot-106 wrapper invokes B920 once, reads the five live results after return, and adds no B840/B810 call or game-state write."
+    ]
+  },
+  "summary": {
+    "case_count": 14,
+    "original_oracle_vector_table_passed": true,
+    "cpp_extern_c_linkage_probe_passed": true,
+    "c_reference_matches_native_camera_and_screen_outputs": true,
+    "compiled_slot106_wrapper_cases": 14,
+    "wrapper_original_B920_calls_per_case": 1,
+    "wrapper_original_B740_calls_per_case": 1,
+    "wrapper_extra_B840_B810_calls": 0,
+    "wrapper_game_write_sequences_match_direct_B920": true,
+    "wrapper_preserves_raw_EAX_cdecl_stack_and_callee_saved_registers": true,
+    "native_bridge_assertion_count": 616,
+    "package_vector_groups_passed": 12,
+    "precision_discriminator_cases": 2,
+    "precision_discriminator_assertions": 3,
+    "precision_native_screen_x_collision_proven": true,
+    "cpp_linkage_assertions_passed": 1,
+    "assertion_count": 632
+  },
+  "proof_boundary": [
+    "The package reference is a fixed-width C89 behavioral candidate using renderer_contract/hercules_types.h; it is not reconstructed historical source or a FUNCTION_MATCH.",
+    "Config and result views are tool-side joined views, not a contiguous original host structure. The diagnostic bridge is one static record and is not a production capture buffer.",
+    "The diagnostic bridge is compiled x86 code executed in the same Unicorn address space as pinned original callback bytes; it proves these fourteen synthetic callback paths only (twelve historical reference vectors and two precision cases).",
+    "The two precision cases show distinct retained camera X values but the same native screen X WORD. Higher-resolution rational coordinates are a future private rendering policy example, not a native viewport claim.",
+    "B840 is excluded because its observed camera snapshot aliases and overwrites the B740 translation inputs; the bridge makes no extra B840/B810 calls.",
+    "This does not install a replacement callback into a running game, validate callback-table publication/lifetime/concurrency, or associate captured samples with 3D packets.",
+    "No original Windows process, file write to original bytes, assets change, canonical source, recovery state, or Git state is involved."
+  ],
+  "native_spans": [
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb6f0",
+      "size": 36,
+      "sha256": "6a6848a640a84133abcc29bf3b0c01e2fb1638f36e916ed8e4f68890210aff29"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb720",
+      "size": 26,
+      "sha256": "51f3989776f1410d8ffa246269a37fac2b44590d0f6bcf1cdca4937d0b7b0843"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb740",
+      "size": 202,
+      "sha256": "f745b08e23d8f718c7e269b2642a32a2ea852a1aa86c88dd774df9f555158f2c"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb810",
+      "size": 37,
+      "sha256": "908ea6bf431255b67e900634259248526533000f880be062e657994260bd4d7a"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb840",
+      "size": 35,
+      "sha256": "07912507e5fbc4ebaaa61ed9fb4ec06221601164ea8092b9740313f8afd8cfbc"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb880",
+      "size": 50,
+      "sha256": "b890d113710e54184d9b505fe9c2a80214ec58f7980ebc2700e16f86bc7a8063"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb8f0",
+      "size": 34,
+      "sha256": "0c72ecba43935848d1e76f61c5ed99b5e4b74efe1f491237aa4bce108332b6b0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb920",
+      "size": 78,
+      "sha256": "055adff43e62ef00b06e5313ee1701ac404cfe6b3286d75648e5c3265ae7ba86"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb970",
+      "size": 20,
+      "sha256": "2526cc71c8d43572f1aabfacc70678e699908b02a13cf0b72f832b1e4062d252"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb990",
+      "size": 10,
+      "sha256": "c44e898f7d175fbc52e1761ebbf409c20d9579c27174ca44a631d31909e8c68a"
+    }
+  ],
+  "runner": {
+    "path": "renderer_contract/tests/test_original_projection.py",
+    "sha256": "d0955c5ebeb6953ceaffc80bd452237eb509eeb982a1eef36da653c92790e089"
+  },
+  "raw_receipt": {
+    "path": "work/renderer_phase18/public_single1/report.json",
+    "sha256": "d88e20d7912fd439abf42caf5500f084e3e6219aec9e88e08b9c2f74853350b0"
+  },
+  "raw_prediction_sha256": "7a47a3e0478b9d3fd8a161c9607c2ce71224d12b383d3d7c27d80e9ca54cc18e",
+  "source_hashes": {
+    "hercules_projection.c": "c0189e13f46f580dd79f2f834e7680a50a70e392b5f93ea9d5f78732f63492bf",
+    "hercules_projection.h": "290b3922cd2ae474dc8dd2decf5c18e260bfccab9c79d49a2e5d24ea28dec216",
+    "test_projection.c": "1e55a561e124cbfb5b8dc671e57f2e1a40aa1c4bf35fc45f55c8f9f7cc7650fc",
+    "test_projection_cpp.cpp": "f881308b3dbadbd0954bee49552df606e1f9bc12157db747b2b829a149494c51",
+    "harness": "d0955c5ebeb6953ceaffc80bd452237eb509eeb982a1eef36da653c92790e089",
+    "oracle_common": "a024048d9acc6e18197e10a82427cd84351a90666e1626e610bf60c6105f1357",
+    "pe_helper": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca",
+    "toolchain_manifest": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  }
+}

@@ -18,6 +18,10 @@ typedef char projection_test_result_projected_x_offset_is_12[
     (offsetof(struct hercules_projection_result_view, projected_x) == 12) ? 1 : -1];
 typedef char projection_test_result_raw_eax_offset_is_16[
     (offsetof(struct hercules_projection_result_view, raw_eax) == 16) ? 1 : -1];
+typedef char projection_test_batch_screen_offset_is_36[
+    (offsetof(struct hercules_projection_batch_result_view, projected_xy) == 36) ? 1 : -1];
+typedef char projection_test_batch_size_is_48[
+    (sizeof(struct hercules_projection_batch_result_view) == 48) ? 1 : -1];
 
 #define I32_MIN_VALUE (-2147483647L - 1L)
 
@@ -94,16 +98,149 @@ HERCULES_PROJECTION_API int hercules_projection_test_all(void)
     return failures;
 }
 
+struct projection_batch_oracle_vector {
+    renderer_i16 matrix[9];
+    renderer_i32 translation[3];
+    renderer_i32 center[2];
+    renderer_u32 focal;
+    renderer_i16 points[9];
+    renderer_u32 camera_bits[9];
+    renderer_u16 screen[6];
+    renderer_raw32 raw_eax;
+};
+
+/* Expected outputs are copied from the pinned original B320 fixture receipt.
+ * These vectors exercise sum-before-SAR, signed Z and zero Z, low-WORD
+ * sign-extension, negative SAR rounding, and a low-32 row-sum wrap. */
+static const struct projection_batch_oracle_vector batch_oracle_vectors[5] = {
+    {{2048,2048,0, 0,4096,0, 0,0,4096}, {0,0,0}, {50,70}, 256UL,
+     {1,1,100, 1,1,-100, 1,1,0},
+     {1UL,1UL,100UL, 1UL,1UL,0xffffff9cUL, 1UL,1UL,0UL},
+     {52,72, 47,67, 306,326}, 0x00000146UL},
+    {{4096,0,0, 0,4096,0, 0,0,4096}, {1,0,0}, {50,70}, 0UL,
+     {32767,2,1000, 0,3,1000, 1,4,1000},
+     {0xffff8000UL,2UL,1000UL, 1UL,3UL,1000UL, 2UL,4UL,1000UL},
+     {50,70, 50,70, 50,70}, 0x00000046UL},
+    {{4096,0,0, 0,4096,0, 0,0,4096}, {-1,0,0}, {50,70}, 0UL,
+     {-32768,2,1000, 0,3,1000, 1,4,1000},
+     {0x00007fffUL,2UL,1000UL, 0xffffffffUL,3UL,1000UL, 0UL,4UL,1000UL},
+     {50,70, 50,70, 50,70}, 0x00000046UL},
+    {{1,0,0, 0,4096,0, 0,0,4096}, {0,0,0}, {50,70}, 0UL,
+     {-1,10,1000, 0,0,1000, 0,0,1000},
+     {0xffffffffUL,10UL,1000UL, 0UL,0UL,1000UL, 0UL,0UL,1000UL},
+     {50,70, 50,70, 50,70}, 0x00000046UL},
+    {{32767,32767,32767, 0,4096,0, 0,0,4096}, {0,0,0}, {50,70}, 0UL,
+     {32767,32767,32767, 1,2,3, -1,-2,-3},
+     {0xffffffd0UL,32767UL,32767UL, 47UL,2UL,3UL,
+      0xffffffd0UL,0xfffffffeUL,0xfffffffdUL},
+     {50,70, 50,70, 50,70}, 0x00000046UL}
+};
+
+HERCULES_PROJECTION_API int hercules_projection_batch_test_all(void)
+{
+    struct hercules_projection_config_view config;
+    struct hercules_projection_point_view points[
+        HERCULES_PROJECTION_BATCH_POINT_COUNT];
+    struct hercules_projection_batch_result_view result;
+    renderer_raw32 raw_eax;
+    renderer_u32 fault_point;
+    renderer_i32 status;
+    unsigned int vector_index;
+    unsigned int item_index;
+    unsigned int mismatch;
+    int failures;
+
+    failures = 0;
+    for (vector_index = 0U; vector_index != 5U; ++vector_index) {
+        for (item_index = 0U; item_index != 9U; ++item_index) {
+            config.matrix_row_major[item_index] =
+                batch_oracle_vectors[vector_index].matrix[item_index];
+            points[item_index / 3U].xyz[item_index % 3U] =
+                batch_oracle_vectors[vector_index].points[item_index];
+        }
+        for (item_index = 0U; item_index != 3U; ++item_index)
+            config.translation_xyz[item_index] =
+                batch_oracle_vectors[vector_index].translation[item_index];
+        config.center_x = batch_oracle_vectors[vector_index].center[0];
+        config.center_y = batch_oracle_vectors[vector_index].center[1];
+        config.focal = batch_oracle_vectors[vector_index].focal;
+
+        raw_eax = 0xffffffffUL;
+        fault_point = 0xffffffffUL;
+        status = hercules_projection_batch_eval(
+            &config, points, &result, &fault_point, &raw_eax);
+        mismatch = (status != HERCULES_PROJECTION_BATCH_OK ||
+                    fault_point != HERCULES_PROJECTION_BATCH_POINT_COUNT ||
+                    raw_eax != batch_oracle_vectors[vector_index].raw_eax) ? 1U : 0U;
+        for (item_index = 0U; item_index != 9U; ++item_index) {
+            if (result.camera_xyz_bits[item_index] !=
+                batch_oracle_vectors[vector_index].camera_bits[item_index])
+                mismatch = 1U;
+        }
+        for (item_index = 0U; item_index != 6U; ++item_index) {
+            if (result.projected_xy[item_index] !=
+                batch_oracle_vectors[vector_index].screen[item_index])
+                mismatch = 1U;
+        }
+        if (mismatch != 0U)
+            failures |= (int)(1U << vector_index);
+    }
+
+    /* The pinned original traps at B3F1 after completing point 0 and storing
+     * point 1's camera triplet. Preserve that exact partial-output boundary. */
+    for (item_index = 0U; item_index != 9U; ++item_index) {
+        config.matrix_row_major[item_index] =
+            (item_index == 0U || item_index == 4U || item_index == 8U) ? 4096 : 0;
+        result.camera_xyz_bits[item_index] = 0xccccccccUL;
+    }
+    for (item_index = 0U; item_index != 6U; ++item_index)
+        result.projected_xy[item_index] = 0xddddU;
+    config.translation_xyz[0] = 0;
+    config.translation_xyz[1] = 0;
+    config.translation_xyz[2] = 0;
+    config.center_x = 0;
+    config.center_y = 0;
+    config.focal = 32768UL;
+    points[0].xyz[0] = 0;
+    points[0].xyz[1] = 0;
+    points[0].xyz[2] = 1;
+    points[1].xyz[0] = 1;
+    points[1].xyz[1] = 2;
+    points[1].xyz[2] = -1;
+    points[2].xyz[0] = 3;
+    points[2].xyz[1] = 4;
+    points[2].xyz[2] = 5;
+    raw_eax = 0xdeadbeefUL;
+    fault_point = 0xffffffffUL;
+    status = hercules_projection_batch_eval(
+        &config, points, &result, &fault_point, &raw_eax);
+    if (status != HERCULES_PROJECTION_BATCH_IDIV_OVERFLOW || fault_point != 1U ||
+        raw_eax != 0xdeadbeefUL ||
+        result.camera_xyz_bits[0] != 0UL || result.camera_xyz_bits[1] != 0UL ||
+        result.camera_xyz_bits[2] != 1UL || result.camera_xyz_bits[3] != 1UL ||
+        result.camera_xyz_bits[4] != 2UL || result.camera_xyz_bits[5] != 0xffffffffUL ||
+        result.camera_xyz_bits[6] != 0xccccccccUL ||
+        result.camera_xyz_bits[7] != 0xccccccccUL ||
+        result.camera_xyz_bits[8] != 0xccccccccUL ||
+        result.projected_xy[0] != 0U || result.projected_xy[1] != 0U ||
+        result.projected_xy[2] != 0xddddU || result.projected_xy[3] != 0xddddU ||
+        result.projected_xy[4] != 0xddddU || result.projected_xy[5] != 0xddddU)
+        failures |= 1 << 5;
+
+    return failures;
+}
+
 #ifndef HERCULES_PROJECTION_BUILD_EXPORTS
 #include <stdio.h>
 int main(void)
 {
     int failures = hercules_projection_test_all();
-    if (failures != 0) {
-        fprintf(stderr, "projection oracle vector failure mask: %d\n", failures);
+    int batch_failures = hercules_projection_batch_test_all();
+    if (failures != 0 || batch_failures != 0) {
+        fprintf(stderr, "projection failures: scalar=%d batch=%d\n", failures, batch_failures);
         return 1;
     }
-    puts("projection oracle vectors passed: 12");
+    puts("projection oracle vectors passed: scalar=12 batch=5 plus IDIV partial-write case");
     return 0;
 }
 #endif

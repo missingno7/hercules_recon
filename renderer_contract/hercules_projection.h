@@ -30,6 +30,8 @@ extern "C" {
 #define HERCULES_PROJECTION_SCREEN_X_ADDRESS 0x00a8e740UL
 #define HERCULES_PROJECTION_SCREEN_Y_ADDRESS 0x00a8e746UL
 
+#define HERCULES_PROJECTION_BATCH_POINT_COUNT 3U
+
 /* Physical callback bit-pattern signatures; raw EAX is renderer_raw32.
  * Native pointer types exist only in the explicit 32-bit-live opt-in. */
 #ifdef HERCULES_RENDERER_LIVE_X86
@@ -47,8 +49,9 @@ typedef renderer_raw32 (HERCULES_CDECL *HerculesProjectionSlot117Callback)(
 #endif
 
 /* Tool-side interleaved copy of native batch output. Original host camera
- * arrays are separate X/Y/Z lanes, not this joined layout. Camera fields
- * retain raw signed-DWORD bits; unlike B740, B320 does not clamp Z to 1. */
+ * arrays are separate X/Y/Z lanes, not this joined layout. Each camera DWORD
+ * is the sign-extended low WORD of its transformed value; B320 does not clamp
+ * Z to 1. */
 struct hercules_projection_batch_result_view {
     renderer_u32 camera_xyz_bits[9];
     renderer_u16 projected_xy[6];
@@ -98,6 +101,38 @@ typedef char hercules_projection_config_view_size_is_44[
     (sizeof(struct hercules_projection_config_view) == 44) ? 1 : -1];
 typedef char hercules_projection_result_view_size_is_20[
     (sizeof(struct hercules_projection_result_view) == 20) ? 1 : -1];
+
+/* Source-level reference for one B320 three-point call. The result is the
+ * joined tool-side 48-byte view above, not the original host's separate
+ * camera and screen lanes. Inputs reuse the single-point config/point views;
+ * no additional original-memory structure is implied.
+ *
+ * B320 sign-extends each transformed low WORD into camera XYZ and does not
+ * clamp Z. A nonzero Z uses signed IDIV semantics. Z==0 skips IDIV and uses
+ * the wrapped focal<<16 factor directly, while still writing screen XY.
+ * Outputs are written in native point order: camera X/Y/Z, then screen X/Y.
+ * On an IDIV overflow, the current camera triplet and all earlier outputs
+ * remain written while current screen XY and later points remain untouched.
+ * raw_eax is set only on success (to the final full-width Y sum); on failure
+ * it is left unchanged. fault_point is optional and receives 3 on success,
+ * the zero-based point that trapped on IDIV overflow, or 0xffffffff on bad
+ * arguments. These joined tool views require separate config, points and
+ * result storage; they do not model arbitrary native pointer aliasing.
+ * Optional outputs must not alias the config, points, or result.
+ */
+enum hercules_projection_batch_status {
+    HERCULES_PROJECTION_BATCH_OK = 0,
+    HERCULES_PROJECTION_BATCH_IDIV_OVERFLOW = 1,
+    HERCULES_PROJECTION_BATCH_BAD_ARGUMENT = 2
+};
+
+HERCULES_PROJECTION_API renderer_i32 hercules_projection_batch_eval(
+    const struct hercules_projection_config_view *config,
+    const struct hercules_projection_point_view points[
+        HERCULES_PROJECTION_BATCH_POINT_COUNT],
+    struct hercules_projection_batch_result_view *result,
+    renderer_u32 *fault_point,
+    renderer_raw32 *raw_eax);
 
 HERCULES_PROJECTION_API void hercules_projection_eval(
     const struct hercules_projection_config_view *config,
