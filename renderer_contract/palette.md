@@ -8,7 +8,7 @@ The original host has a bounded startup generator for the shade, blend, and proc
 
 The independent bounded CPU fixture `test_original_71a0_palette_builder.py` maps the pinned PE unchanged in Unicorn, executes original `0x71A0` plus `0x6780`, and stops at `0x728D`, before the `0x69A0` call at `0x728F`. It used 2,356,875 instructions of a 20,000,000 budget, recorded 335,872 table write events over 335,680 unique bytes, and saw exactly 256 entries into helper `0x6780`. Every table byte matched independently computed formulas plus the CLUT overlap; the original `.text`, `.data` outside allowed tables, disk EXE, and guard canaries remained unchanged. At selector 0 / source 0 / destination `0x3c`, the formula writer stored 30 and the later CLUT writer stored 124; column 191 ends at 255 and column 192 retains 96. Full final table hashes and the exact run receipt are in [native_palette_builder.json](evidence/native_palette_builder.json). This confirms the startup byte order only; it does not execute the presentation call or initialize Windows/DirectDraw.
 
-`0x68C0` is a separate resource update called at `0x59E5`, followed by `0x69A0(1)` at `0x59EF`. It writes 256 RGB triplets through `0x6780`, then requests blocks of `0x40000` bytes at `0x92E3D0`, `0x10000` at `0x91C488`, and `0x1F00` at `0x92C490` (31 CLUT rows from row 1). Its CLUT block ends at `0x92E390`, 64 bytes before the blend base. It clears `0x96E3E0` and compares rows 2..32 with their predecessors. Row 32 is not loaded by this payload and overlaps the first 192 bytes of selector-0 row 0 if that blend table was already generated. The global ordering of this loader relative to `0x71A0` is unresolved.
+`0x68C0` is a separate resource update called at `0x59E5`, followed by `0x69A0(1)` at `0x59EF`. It writes 256 RGB triplets through `0x6780`, then requests blocks of `0x40000` bytes at `0x92E3D0`, `0x10000` at `0x91C488`, and `0x1F00` at `0x92C490` (31 CLUT rows from row 1). Its CLUT block ends at `0x92E390`, 64 bytes before the blend base. It clears `0x96E3E0` and compares rows 2..32 with their predecessors. Row 32 is not loaded by this payload and overlaps the first 192 bytes of selector-0 row 0 if that blend table was already generated. The normal startup path now places `0x71A0` before engine dispatch; actual resource-transition timing and values remain unresolved (see below).
 
 The palette is held at `0x96E3F8` as 256 `PALETTEENTRY` values (RGB and flags=4), mirrored in the RGBQUAD block behind `0x96E3F4` for a 320×−240, 8-bpp BI_RGB DIB. `0x6780(index,R,G,B)` updates both formats; indices 0 and 255 are forced to grayscale. `0x6850` searches the 256 GDI entries by squared RGB distance and retains the lower-index tie. `0x72A0` allocates the LOGPALETTE and BITMAPINFO blocks and creates a GDI HPALETTE; shutdown `0x74C0` restores the prior selected palette, deletes the HPALETTE, and frees/nulls the buffers.
 
@@ -19,6 +19,24 @@ After DirectDraw setup, mode transition `0x6BB0` calls `0x6A60`, which releases 
 The startup-builder prediction is confirmed for its bounded write family and falsifies the claim that selector-0 row 0 is independently allocated or untouched by CLUT construction. The `0x68C0` versus `0x71A0` lifetime ordering remains unproved. Smallest viable bootstrap: preserve the original HWND and DirectDraw/GDI services through initialization, surfaces, palette updates, lock/unlock, clear, and presentation; redirect only selected engine source-table callbacks after the host table is initialized. Do not assume raster submission is the presentation boundary or that an installed proxy DLL is selected by local loader search order; deployment resolution remains untested.
 
 ## Evidence
+
+The original builder and C700/C882 have also been executed in the same emulator
+state. A nonzero source whose shade result is zero uses the overwritten blend
+bytes: destination 0x3C becomes 0x7C, rather than the earlier formula's 0x1E;
+destinations 0xBF and 0xC0 become 0xFF and 0x60. See
+[native_startup_pixel_alias.json](evidence/native_startup_pixel_alias.json).
+This connects writer order to three actual pixel results without supplying a
+reconstructed table as the native oracle.
+
+The observed normal startup path runs 71A0 before the first engine dispatch.
+Resource loads through host slot 145/RVA 5760 are separate later callbacks.
+TITLE has three observed calls selecting cheat, credits and main-menu `.pal`
+paths. Preserve slot 145 unchanged. Its 68C0 branch requests blend, shade and
+31 CLUT rows in that order; the CLUT block stops at row 32's start, while the
+blend block overwrites row 32's aliased last 192 bytes. The first 64 bytes retain
+the startup ramp on this ordering path. Actual transition timing, reader
+success and loaded values remain unresolved. Static spans and selector/path
+evidence are in [resource_lut_order.json](evidence/resource_lut_order.json).
 
 [palette_lifetime.json](evidence/palette_lifetime.json) records the static
 call and writer map; [native_palette_builder.json](evidence/native_palette_builder.json)

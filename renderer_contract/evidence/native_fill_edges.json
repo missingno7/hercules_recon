@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "status": "STATIC_OBSERVED_AND_BOUNDED_ORIGINAL_BYTES",
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000"
+  },
+  "prediction": {
+    "prediction_sha256": "581609efc1e15aed806e9b90d960a6d16bf916d9aaf84113ea53116e9931fef4",
+    "primary_prediction": "one D420 source sample followed by one C2E0 fill; selected coverage matches D60C",
+    "result": "route and fill confirmed; coverage-match portion falsified on shared-edge ownership and clipped row-7 endpoint",
+    "followup_hypothesis": "C2E0 endpoint conversion adds 0xffff before SAR16, producing ceiling-like endpoints unlike D60C",
+    "followup_result": "FALSIFIED",
+    "falsifier": "plain SAR16 at C2E0 endpoints and raw edge progressions of +0x10000 versus D60C +0xffff"
+  },
+  "route_counts": {
+    "c2e0_cases": 7,
+    "paired_d60c_cases": 6,
+    "source_sample_reads_per_c2e0_case": [
+      1
+    ],
+    "c2e0_entries_per_c2e0_case": [
+      1
+    ],
+    "fill_call_site": "D420 direct call at RVA 0xd600",
+    "host_callback_claim": "not part of this route's evidence; the tested path directly calls in-image C2E0"
+  },
+  "representative_native_coverage": {
+    "triangle_nonzero": {
+      "changed_pixels": 21,
+      "surface_write_events": 18,
+      "fill_values": [
+        90
+      ]
+    },
+    "triangle_zero": {
+      "changed_pixels": 21,
+      "surface_write_events": 18,
+      "fill_values": [
+        0
+      ]
+    },
+    "quad_irregular": {
+      "changed_pixels": 30,
+      "surface_write_events": 27
+    },
+    "shared_edge_pair": {
+      "upper_count": 21,
+      "lower_count": 15,
+      "overlap_count": 0,
+      "union_count": 36,
+      "matches_2_to_8_half_open_rectangle": true,
+      "overlap_pixels": [],
+      "d60c_upper_count": 26,
+      "d60c_lower_count": 10,
+      "d60c_overlap_count": 0,
+      "d60c_union_count": 36,
+      "d60c_matches_2_to_8_half_open_rectangle": true,
+      "c2e0_and_d60c_assign_shared_diagonal_to_same_triangle": false
+    }
+  },
+  "endpoint_precision": {
+    "checked_hypothesis": "C2E0 endpoint conversion adds 0xffff before SAR16, producing ceiling-like endpoints unlike D60C",
+    "result": "FALSIFIED",
+    "falsifier_observed": "both paths use plain SAR16; C2E0 edge accumulation advances exactly 0x10000 per row while D60C advances 0xffff per row for this six-row diagonal",
+    "shared_edge_upper_rows": [
+      {
+        "row": 2,
+        "c2e0_raw_left_q16": "0x20000",
+        "c2e0_floor_left": 2,
+        "d60c_raw_left_q16": "0x20000",
+        "d60c_floor_left": 2,
+        "c2e0_raw_right_q16": "0x80000",
+        "d60c_raw_right_q16": "0x80000"
+      },
+      {
+        "row": 3,
+        "c2e0_raw_left_q16": "0x30000",
+        "c2e0_floor_left": 3,
+        "d60c_raw_left_q16": "0x2ffff",
+        "d60c_floor_left": 2,
+        "c2e0_raw_right_q16": "0x80000",
+        "d60c_raw_right_q16": "0x80000"
+      },
+      {
+        "row": 4,
+        "c2e0_raw_left_q16": "0x40000",
+        "c2e0_floor_left": 4,
+        "d60c_raw_left_q16": "0x3fffe",
+        "d60c_floor_left": 3,
+        "c2e0_raw_right_q16": "0x80000",
+        "d60c_raw_right_q16": "0x80000"
+      },
+      {
+        "row": 5,
+        "c2e0_raw_left_q16": "0x50000",
+        "c2e0_floor_left": 5,
+        "d60c_raw_left_q16": "0x4fffd",
+        "d60c_floor_left": 4,
+        "c2e0_raw_right_q16": "0x80000",
+        "d60c_raw_right_q16": "0x80000"
+      },
+      {
+        "row": 6,
+        "c2e0_raw_left_q16": "0x60000",
+        "c2e0_floor_left": 6,
+        "d60c_raw_left_q16": "0x5fffc",
+        "d60c_floor_left": 5,
+        "c2e0_raw_right_q16": "0x80000",
+        "d60c_raw_right_q16": "0x80000"
+      },
+      {
+        "row": 7,
+        "c2e0_raw_left_q16": "0x70000",
+        "c2e0_floor_left": 7,
+        "d60c_raw_left_q16": "0x6fffb",
+        "d60c_floor_left": 6,
+        "c2e0_raw_right_q16": "0x80000",
+        "d60c_raw_right_q16": "0x80000"
+      }
+    ],
+    "derived_effect": "at rows 3..7 C2E0 floors the diagonal to x=row; D60C floors its slightly sub-integer reciprocal result to x=row-1, transferring one shared-edge pixel per row",
+    "coverage_counts": {
+      "c2e0_upper": 21,
+      "d60c_upper": 26
+    },
+    "negative_clip_row_7_right_edge": {
+      "c2e0_raw_q16": "0x60004",
+      "c2e0_floor": 6,
+      "d60c_raw_q16": "0x5ffff",
+      "d60c_floor": 5,
+      "c2e0_only_pixel_5_7": true
+    }
+  },
+  "original_spans": [
+    {
+      "name": "D420 row normalization, sample and C2E0 dispatch",
+      "start_rva": "0xd555",
+      "end_rva_exclusive": "0xd605",
+      "size": 176,
+      "sha256": "45f4c102d1880213b0cdc72c0b9a7baaa2b9c338ac8fcf761b1a320540c2d428"
+    },
+    {
+      "name": "D420 sampled-byte expression and C2E0 call",
+      "start_rva": "0xd595",
+      "end_rva_exclusive": "0xd605",
+      "size": 112,
+      "sha256": "4a4ae374021e5dfb76890ceb5174ae527cb9154fb3613eb6b80f89b8fb5162be"
+    },
+    {
+      "name": "C2E0 complete constant-fill polygon body",
+      "start_rva": "0xc2e0",
+      "end_rva_exclusive": "0xc6f8",
+      "size": 1048,
+      "sha256": "a48b74f8f7a2f963645d3632a5333dac956aebc9143ba73acaa12b911e3b6903"
+    },
+    {
+      "name": "C2E0 endpoint ordering and plain SAR16 conversion",
+      "start_rva": "0xc5f3",
+      "end_rva_exclusive": "0xc60d",
+      "size": 26,
+      "sha256": "31186f56945df97cdd94625b4cddac93cab4274063cd9e60b583f94e7e2be656"
+    },
+    {
+      "name": "D60C complete row-zero comparison body",
+      "start_rva": "0xd60c",
+      "end_rva_exclusive": "0xdd70",
+      "size": 1892,
+      "sha256": "2ed9dc4341703ee82f789528b427f6333e6d916bec11148fe2cfecff14119b4a"
+    }
+  ],
+  "provenance": {
+    "audit_script": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_fill_edges.py",
+    "audit_script_sha256": "ceb2ea5b0b984691abb4414afe3a30a1d65291f8a55e3febcd1321f302357d10",
+    "oracle_common": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\oracle_common.py",
+    "oracle_common_sha256": "a024048d9acc6e18197e10a82427cd84351a90666e1626e610bf60c6105f1357",
+    "public_model_helpers": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_polygon_edges.py",
+    "public_model_helpers_sha256": "e8fef88fe9c1ce61c988d16300db14b84babfa50ba59b9509f085dc7a3592fac",
+    "full_trace": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase3\\fill_edges_full.json",
+    "full_trace_sha256": "16ae417aa14af39dcdbbbb932972910bfb281ab8945f3c5d1ab99c903c4f41cb"
+  },
+  "proof_boundary": "Finite original-byte fixtures only; no full rasterizer, arbitrary coordinate domain, host callback contract, source reconstruction, or canonical edit claim.",
+  "invocation": {
+    "script": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_fill_edges.py",
+    "exe_argument": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "receipt_argument": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase3\\fill_edges_full.json",
+    "compact_receipt": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase3\\native_fill_edges.json"
+  }
+}

@@ -1,0 +1,1811 @@
+{
+  "schema_version": 1,
+  "status": "BOUNDED_EQUIVALENT",
+  "proof_scope": "Three finite original-byte generic quad executions; exact source UV read streams and covered pixel sets only.",
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000"
+  },
+  "runtime": {
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "unicorn_module_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\__init__.py",
+    "native_dll_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "dependency_origin": {
+      "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+      "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+      "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+    }
+  },
+  "tooling": {
+    "python_executable": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "python_version": "3.12.14",
+    "pe_parser": "scripts/pe.py via oracle_common",
+    "helper": "renderer_contract/tests/test_original_polygon_edges.py",
+    "helper_sha256": "e8fef88fe9c1ce61c988d16300db14b84babfa50ba59b9509f085dc7a3592fac",
+    "test_sha256": "6b049b04ec007850dbfcdde654b056dfc95488ce1b5230487e70eafe6f534e12"
+  },
+  "geometry": {
+    "screen_vertex_order": [
+      [
+        1,
+        1
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        1,
+        5
+      ]
+    ],
+    "wire_uv_bytes": [
+      [
+        0,
+        0
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        7,
+        7
+      ],
+      [
+        0,
+        4
+      ]
+    ],
+    "q16_uv_lanes": [
+      [
+        0,
+        0
+      ],
+      [
+        262144,
+        0
+      ],
+      [
+        458752,
+        458752
+      ],
+      [
+        0,
+        262144
+      ]
+    ],
+    "clip": [
+      0,
+      0,
+      320,
+      240
+    ],
+    "coverage_expected": [
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        4,
+        4
+      ]
+    ],
+    "rectangle_shortcut_expected_to_fail": true
+  },
+  "original_spans": {
+    "D420 entry/row dispatcher": {
+      "rva": "0xd420",
+      "end_rva_exclusive": "0xdd70",
+      "size": 2384,
+      "sha256": "4645c60cf0a357ed4aae074c3487a2755384852d0874e2f12b352b994544e07e"
+    },
+    "D60C row-zero scan converter": {
+      "rva": "0xd60c",
+      "end_rva_exclusive": "0xdd70",
+      "size": 1892,
+      "sha256": "2ed9dc4341703ee82f789528b427f6333e6d916bec11148fe2cfecff14119b4a"
+    },
+    "CC50 palette scan converter": {
+      "rva": "0xcc50",
+      "end_rva_exclusive": "0xd415",
+      "size": 1989,
+      "sha256": "7504054c2fe867eef6602dbd439f1972b55a73540b98099498772db2f34b7fd0"
+    },
+    "E680 mode-0x80 generic dispatcher/body": {
+      "rva": "0xe680",
+      "end_rva_exclusive": "0xef60",
+      "size": 2272,
+      "sha256": "f42bfcb06d042a8cd9ced6a8df5375b734c1e5641811a062059bbd02cb8dcb58"
+    },
+    "C8F0 fast rectangle callee (not reached by this case)": {
+      "rva": "0xc8f0",
+      "end_rva_exclusive": "0xcaa8",
+      "size": 440,
+      "sha256": "74bfb760505e5695cf5f1668e390d07046a32f7014c506706a85f9488870d52c"
+    },
+    "reciprocal initializer": {
+      "rva": "0x72a0",
+      "end_rva_exclusive": "0x72cc",
+      "size": 44,
+      "sha256": "3d59be43f3756224228dfdcc372a3bc59b7a7dbba4bbab8c79dd821cc958014b"
+    }
+  },
+  "routes": [
+    {
+      "route": "d60c_rowzero",
+      "entry_rva": "0xd420",
+      "trace_summary": {
+        "instruction_count": 975,
+        "rva_sequence_sha256": "babf3bcd302a907e6b34ef52ff5d8ae80b5074f51c0b168d70916478c46e149e",
+        "path_rvas": [
+          "0xd420",
+          "0xd555",
+          "0xd583",
+          "0xd60c",
+          "0xdc8a",
+          "0xdc96",
+          "0xdc8a",
+          "0xdc96",
+          "0xdc8a",
+          "0xdc96",
+          "0xdc8a",
+          "0xdc96",
+          "0xdc8a",
+          "0xdc96",
+          "0xdc8a",
+          "0xdc96",
+          "0xdc8a",
+          "0xdc96",
+          "0xdc8a",
+          "0xdc96",
+          "0xdc8a",
+          "0xdc96",
+          "0xdc8a",
+          "0xdc96",
+          "0xdc8a",
+          "0xdc96",
+          "0xdc8a",
+          "0xdc96",
+          "0xdc8a",
+          "0xdc96",
+          "0xdc8a",
+          "0xdc96",
+          "0xdc8a",
+          "0xdc96",
+          "0xdc8a",
+          "0xdc96"
+        ]
+      },
+      "path_markers": [
+        "0xd555",
+        "0xd583",
+        "0xd60c",
+        "0xdc8a",
+        "0xdc96"
+      ],
+      "coverage_match": true,
+      "pixel_count": 16,
+      "pixels": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "source_reads": [
+        {
+          "pixel": [
+            1,
+            1
+          ],
+          "u": 0,
+          "v": 0,
+          "pc": "0xdc8a",
+          "texture_offset": "0x0",
+          "source_value": 1
+        },
+        {
+          "pixel": [
+            2,
+            1
+          ],
+          "u": 1,
+          "v": 0,
+          "pc": "0xdc8a",
+          "texture_offset": "0x1",
+          "source_value": 2
+        },
+        {
+          "pixel": [
+            3,
+            1
+          ],
+          "u": 2,
+          "v": 0,
+          "pc": "0xdc8a",
+          "texture_offset": "0x2",
+          "source_value": 3
+        },
+        {
+          "pixel": [
+            4,
+            1
+          ],
+          "u": 3,
+          "v": 0,
+          "pc": "0xdc8a",
+          "texture_offset": "0x3",
+          "source_value": 4
+        },
+        {
+          "pixel": [
+            1,
+            2
+          ],
+          "u": 0,
+          "v": 1,
+          "pc": "0xdc8a",
+          "texture_offset": "0x100",
+          "source_value": 8
+        },
+        {
+          "pixel": [
+            2,
+            2
+          ],
+          "u": 1,
+          "v": 1,
+          "pc": "0xdc8a",
+          "texture_offset": "0x101",
+          "source_value": 9
+        },
+        {
+          "pixel": [
+            3,
+            2
+          ],
+          "u": 2,
+          "v": 1,
+          "pc": "0xdc8a",
+          "texture_offset": "0x102",
+          "source_value": 10
+        },
+        {
+          "pixel": [
+            4,
+            2
+          ],
+          "u": 3,
+          "v": 1,
+          "pc": "0xdc8a",
+          "texture_offset": "0x103",
+          "source_value": 11
+        },
+        {
+          "pixel": [
+            1,
+            3
+          ],
+          "u": 0,
+          "v": 2,
+          "pc": "0xdc8a",
+          "texture_offset": "0x200",
+          "source_value": 15
+        },
+        {
+          "pixel": [
+            2,
+            3
+          ],
+          "u": 1,
+          "v": 2,
+          "pc": "0xdc8a",
+          "texture_offset": "0x201",
+          "source_value": 16
+        },
+        {
+          "pixel": [
+            3,
+            3
+          ],
+          "u": 2,
+          "v": 2,
+          "pc": "0xdc8a",
+          "texture_offset": "0x202",
+          "source_value": 17
+        },
+        {
+          "pixel": [
+            4,
+            3
+          ],
+          "u": 4,
+          "v": 3,
+          "pc": "0xdc8a",
+          "texture_offset": "0x304",
+          "source_value": 26
+        },
+        {
+          "pixel": [
+            1,
+            4
+          ],
+          "u": 0,
+          "v": 3,
+          "pc": "0xdc8a",
+          "texture_offset": "0x300",
+          "source_value": 22
+        },
+        {
+          "pixel": [
+            2,
+            4
+          ],
+          "u": 1,
+          "v": 3,
+          "pc": "0xdc8a",
+          "texture_offset": "0x301",
+          "source_value": 23
+        },
+        {
+          "pixel": [
+            3,
+            4
+          ],
+          "u": 3,
+          "v": 4,
+          "pc": "0xdc8a",
+          "texture_offset": "0x403",
+          "source_value": 32
+        },
+        {
+          "pixel": [
+            4,
+            4
+          ],
+          "u": 4,
+          "v": 4,
+          "pc": "0xdc8a",
+          "texture_offset": "0x404",
+          "source_value": 33
+        }
+      ],
+      "source_uv_by_pixel": {
+        "1,1": [
+          0,
+          0
+        ],
+        "2,1": [
+          1,
+          0
+        ],
+        "3,1": [
+          2,
+          0
+        ],
+        "4,1": [
+          3,
+          0
+        ],
+        "1,2": [
+          0,
+          1
+        ],
+        "2,2": [
+          1,
+          1
+        ],
+        "3,2": [
+          2,
+          1
+        ],
+        "4,2": [
+          3,
+          1
+        ],
+        "1,3": [
+          0,
+          2
+        ],
+        "2,3": [
+          1,
+          2
+        ],
+        "3,3": [
+          2,
+          2
+        ],
+        "4,3": [
+          4,
+          3
+        ],
+        "1,4": [
+          0,
+          3
+        ],
+        "2,4": [
+          1,
+          3
+        ],
+        "3,4": [
+          3,
+          4
+        ],
+        "4,4": [
+          4,
+          4
+        ]
+      },
+      "surface_write_count": 16,
+      "palette_read_count": 0,
+      "original_code_unchanged": true
+    },
+    {
+      "route": "cc50_palette",
+      "entry_rva": "0xd420",
+      "trace_summary": {
+        "instruction_count": 1070,
+        "rva_sequence_sha256": "805765132ce783c06e8fd013a51e875113752b544767e10a5fc3f69329ed233c",
+        "path_rvas": [
+          "0xd420",
+          "0xd555",
+          "0xd583",
+          "0xd589",
+          "0xcc50"
+        ]
+      },
+      "path_markers": [
+        "0xcc50",
+        "0xd555",
+        "0xd583",
+        "0xd589"
+      ],
+      "coverage_match": true,
+      "pixel_count": 16,
+      "pixels": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "source_reads": [
+        {
+          "pixel": [
+            1,
+            1
+          ],
+          "u": 0,
+          "v": 0,
+          "pc": "0xd32e",
+          "texture_offset": "0x0",
+          "source_value": 1
+        },
+        {
+          "pixel": [
+            2,
+            1
+          ],
+          "u": 1,
+          "v": 0,
+          "pc": "0xd32e",
+          "texture_offset": "0x1",
+          "source_value": 2
+        },
+        {
+          "pixel": [
+            3,
+            1
+          ],
+          "u": 2,
+          "v": 0,
+          "pc": "0xd32e",
+          "texture_offset": "0x2",
+          "source_value": 3
+        },
+        {
+          "pixel": [
+            4,
+            1
+          ],
+          "u": 3,
+          "v": 0,
+          "pc": "0xd32e",
+          "texture_offset": "0x3",
+          "source_value": 4
+        },
+        {
+          "pixel": [
+            1,
+            2
+          ],
+          "u": 0,
+          "v": 1,
+          "pc": "0xd32e",
+          "texture_offset": "0x100",
+          "source_value": 8
+        },
+        {
+          "pixel": [
+            2,
+            2
+          ],
+          "u": 1,
+          "v": 1,
+          "pc": "0xd32e",
+          "texture_offset": "0x101",
+          "source_value": 9
+        },
+        {
+          "pixel": [
+            3,
+            2
+          ],
+          "u": 2,
+          "v": 1,
+          "pc": "0xd32e",
+          "texture_offset": "0x102",
+          "source_value": 10
+        },
+        {
+          "pixel": [
+            4,
+            2
+          ],
+          "u": 3,
+          "v": 1,
+          "pc": "0xd32e",
+          "texture_offset": "0x103",
+          "source_value": 11
+        },
+        {
+          "pixel": [
+            1,
+            3
+          ],
+          "u": 0,
+          "v": 2,
+          "pc": "0xd32e",
+          "texture_offset": "0x200",
+          "source_value": 15
+        },
+        {
+          "pixel": [
+            2,
+            3
+          ],
+          "u": 1,
+          "v": 2,
+          "pc": "0xd32e",
+          "texture_offset": "0x201",
+          "source_value": 16
+        },
+        {
+          "pixel": [
+            3,
+            3
+          ],
+          "u": 2,
+          "v": 2,
+          "pc": "0xd32e",
+          "texture_offset": "0x202",
+          "source_value": 17
+        },
+        {
+          "pixel": [
+            4,
+            3
+          ],
+          "u": 4,
+          "v": 3,
+          "pc": "0xd32e",
+          "texture_offset": "0x304",
+          "source_value": 26
+        },
+        {
+          "pixel": [
+            1,
+            4
+          ],
+          "u": 0,
+          "v": 3,
+          "pc": "0xd32e",
+          "texture_offset": "0x300",
+          "source_value": 22
+        },
+        {
+          "pixel": [
+            2,
+            4
+          ],
+          "u": 1,
+          "v": 3,
+          "pc": "0xd32e",
+          "texture_offset": "0x301",
+          "source_value": 23
+        },
+        {
+          "pixel": [
+            3,
+            4
+          ],
+          "u": 3,
+          "v": 4,
+          "pc": "0xd32e",
+          "texture_offset": "0x403",
+          "source_value": 32
+        },
+        {
+          "pixel": [
+            4,
+            4
+          ],
+          "u": 4,
+          "v": 4,
+          "pc": "0xd32e",
+          "texture_offset": "0x404",
+          "source_value": 33
+        }
+      ],
+      "source_uv_by_pixel": {
+        "1,1": [
+          0,
+          0
+        ],
+        "2,1": [
+          1,
+          0
+        ],
+        "3,1": [
+          2,
+          0
+        ],
+        "4,1": [
+          3,
+          0
+        ],
+        "1,2": [
+          0,
+          1
+        ],
+        "2,2": [
+          1,
+          1
+        ],
+        "3,2": [
+          2,
+          1
+        ],
+        "4,2": [
+          3,
+          1
+        ],
+        "1,3": [
+          0,
+          2
+        ],
+        "2,3": [
+          1,
+          2
+        ],
+        "3,3": [
+          2,
+          2
+        ],
+        "4,3": [
+          4,
+          3
+        ],
+        "1,4": [
+          0,
+          3
+        ],
+        "2,4": [
+          1,
+          3
+        ],
+        "3,4": [
+          3,
+          4
+        ],
+        "4,4": [
+          4,
+          4
+        ]
+      },
+      "surface_write_count": 16,
+      "palette_read_count": 16,
+      "original_code_unchanged": true
+    },
+    {
+      "route": "e680_mode_0x80_selector_2_generic",
+      "entry_rva": "0xe680",
+      "trace_summary": {
+        "instruction_count": 1039,
+        "rva_sequence_sha256": "a8dc7cd679b748068760cb8382c50617091131c6ff2699624712a037e48c00b2",
+        "path_rvas": [
+          "0xe680",
+          "0xe6cd",
+          "0xe7c7",
+          "0xef59",
+          "0xef5b",
+          "0xef5f"
+        ]
+      },
+      "path_markers": {
+        "generic_fallback_e7c7": true,
+        "fastpath_e7bb": false
+      },
+      "coverage_match": true,
+      "pixel_count": 16,
+      "pixels": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "source_reads": [
+        {
+          "pixel": [
+            1,
+            1
+          ],
+          "u": 0,
+          "v": 0,
+          "pc": "0xee79",
+          "texture_offset": "0x0",
+          "source_value": 1
+        },
+        {
+          "pixel": [
+            2,
+            1
+          ],
+          "u": 1,
+          "v": 0,
+          "pc": "0xee79",
+          "texture_offset": "0x1",
+          "source_value": 2
+        },
+        {
+          "pixel": [
+            3,
+            1
+          ],
+          "u": 2,
+          "v": 0,
+          "pc": "0xee79",
+          "texture_offset": "0x2",
+          "source_value": 3
+        },
+        {
+          "pixel": [
+            4,
+            1
+          ],
+          "u": 3,
+          "v": 0,
+          "pc": "0xee79",
+          "texture_offset": "0x3",
+          "source_value": 4
+        },
+        {
+          "pixel": [
+            1,
+            2
+          ],
+          "u": 0,
+          "v": 1,
+          "pc": "0xee79",
+          "texture_offset": "0x100",
+          "source_value": 8
+        },
+        {
+          "pixel": [
+            2,
+            2
+          ],
+          "u": 1,
+          "v": 1,
+          "pc": "0xee79",
+          "texture_offset": "0x101",
+          "source_value": 9
+        },
+        {
+          "pixel": [
+            3,
+            2
+          ],
+          "u": 2,
+          "v": 1,
+          "pc": "0xee79",
+          "texture_offset": "0x102",
+          "source_value": 10
+        },
+        {
+          "pixel": [
+            4,
+            2
+          ],
+          "u": 3,
+          "v": 1,
+          "pc": "0xee79",
+          "texture_offset": "0x103",
+          "source_value": 11
+        },
+        {
+          "pixel": [
+            1,
+            3
+          ],
+          "u": 0,
+          "v": 2,
+          "pc": "0xee79",
+          "texture_offset": "0x200",
+          "source_value": 15
+        },
+        {
+          "pixel": [
+            2,
+            3
+          ],
+          "u": 1,
+          "v": 2,
+          "pc": "0xee79",
+          "texture_offset": "0x201",
+          "source_value": 16
+        },
+        {
+          "pixel": [
+            3,
+            3
+          ],
+          "u": 2,
+          "v": 2,
+          "pc": "0xee79",
+          "texture_offset": "0x202",
+          "source_value": 17
+        },
+        {
+          "pixel": [
+            4,
+            3
+          ],
+          "u": 4,
+          "v": 3,
+          "pc": "0xee79",
+          "texture_offset": "0x304",
+          "source_value": 26
+        },
+        {
+          "pixel": [
+            1,
+            4
+          ],
+          "u": 0,
+          "v": 3,
+          "pc": "0xee79",
+          "texture_offset": "0x300",
+          "source_value": 22
+        },
+        {
+          "pixel": [
+            2,
+            4
+          ],
+          "u": 1,
+          "v": 3,
+          "pc": "0xee79",
+          "texture_offset": "0x301",
+          "source_value": 23
+        },
+        {
+          "pixel": [
+            3,
+            4
+          ],
+          "u": 3,
+          "v": 4,
+          "pc": "0xee79",
+          "texture_offset": "0x403",
+          "source_value": 32
+        },
+        {
+          "pixel": [
+            4,
+            4
+          ],
+          "u": 4,
+          "v": 4,
+          "pc": "0xee79",
+          "texture_offset": "0x404",
+          "source_value": 33
+        }
+      ],
+      "source_uv_by_pixel": {
+        "1,1": [
+          0,
+          0
+        ],
+        "2,1": [
+          1,
+          0
+        ],
+        "3,1": [
+          2,
+          0
+        ],
+        "4,1": [
+          3,
+          0
+        ],
+        "1,2": [
+          0,
+          1
+        ],
+        "2,2": [
+          1,
+          1
+        ],
+        "3,2": [
+          2,
+          1
+        ],
+        "4,2": [
+          3,
+          1
+        ],
+        "1,3": [
+          0,
+          2
+        ],
+        "2,3": [
+          1,
+          2
+        ],
+        "3,3": [
+          2,
+          2
+        ],
+        "4,3": [
+          4,
+          3
+        ],
+        "1,4": [
+          0,
+          3
+        ],
+        "2,4": [
+          1,
+          3
+        ],
+        "3,4": [
+          3,
+          4
+        ],
+        "4,4": [
+          4,
+          4
+        ]
+      },
+      "surface_write_count": 16,
+      "blend_table_read_count": 16,
+      "blend_reads": [
+        {
+          "pc": "0xee88",
+          "address": "0x94e575",
+          "size": 1,
+          "value": 129
+        },
+        {
+          "pc": "0xee88",
+          "address": "0x94e675",
+          "size": 1,
+          "value": 130
+        },
+        {
+          "pc": "0xee88",
+          "address": "0x94e775",
+          "size": 1,
+          "value": 131
+        },
+        {
+          "pc": "0xee88",
+          "address": "0x94e875",
+          "size": 1,
+          "value": 132
+        },
+        {
+          "pc": "0xee88",
+          "address": "0x94ec75",
+          "size": 1,
+          "value": 136
+        },
+        {
+          "pc": "0xee88",
+          "address": "0x94ed75",
+          "size": 1,
+          "value": 137
+        },
+        {
+          "pc": "0xee88",
+          "address": "0x94ee75",
+          "size": 1,
+          "value": 138
+        },
+        {
+          "pc": "0xee88",
+          "address": "0x94ef75",
+          "size": 1,
+          "value": 139
+        },
+        {
+          "pc": "0xee88",
+          "address": "0x94f375",
+          "size": 1,
+          "value": 143
+        },
+        {
+          "pc": "0xee88",
+          "address": "0x94f475",
+          "size": 1,
+          "value": 144
+        },
+        {
+          "pc": "0xee88",
+          "address": "0x94f575",
+          "size": 1,
+          "value": 145
+        },
+        {
+          "pc": "0xee88",
+          "address": "0x94fe75",
+          "size": 1,
+          "value": 154
+        },
+        {
+          "pc": "0xee88",
+          "address": "0x94fa75",
+          "size": 1,
+          "value": 150
+        },
+        {
+          "pc": "0xee88",
+          "address": "0x94fb75",
+          "size": 1,
+          "value": 151
+        },
+        {
+          "pc": "0xee88",
+          "address": "0x950475",
+          "size": 1,
+          "value": 160
+        },
+        {
+          "pc": "0xee88",
+          "address": "0x950575",
+          "size": 1,
+          "value": 161
+        }
+      ],
+      "synthetic_blend_entries_seeded": 58,
+      "original_code_unchanged": true
+    }
+  ],
+  "model_comparison": {
+    "models_by_pixel": {
+      "1,1": {
+        "edge_span_fixed_q16": [
+          0,
+          0
+        ],
+        "bilinear_rectangle": [
+          0,
+          0
+        ],
+        "triangle_diagonal_0_2": [
+          0,
+          0
+        ],
+        "triangle_diagonal_1_3": [
+          0,
+          0
+        ]
+      },
+      "2,1": {
+        "edge_span_fixed_q16": [
+          1,
+          0
+        ],
+        "bilinear_rectangle": [
+          1,
+          0
+        ],
+        "triangle_diagonal_0_2": [
+          1,
+          0
+        ],
+        "triangle_diagonal_1_3": [
+          1,
+          0
+        ]
+      },
+      "3,1": {
+        "edge_span_fixed_q16": [
+          2,
+          0
+        ],
+        "bilinear_rectangle": [
+          2,
+          0
+        ],
+        "triangle_diagonal_0_2": [
+          2,
+          0
+        ],
+        "triangle_diagonal_1_3": [
+          2,
+          0
+        ]
+      },
+      "4,1": {
+        "edge_span_fixed_q16": [
+          3,
+          0
+        ],
+        "bilinear_rectangle": [
+          3,
+          0
+        ],
+        "triangle_diagonal_0_2": [
+          3,
+          0
+        ],
+        "triangle_diagonal_1_3": [
+          3,
+          0
+        ]
+      },
+      "1,2": {
+        "edge_span_fixed_q16": [
+          0,
+          1
+        ],
+        "bilinear_rectangle": [
+          0,
+          1
+        ],
+        "triangle_diagonal_0_2": [
+          0,
+          1
+        ],
+        "triangle_diagonal_1_3": [
+          0,
+          1
+        ]
+      },
+      "2,2": {
+        "edge_span_fixed_q16": [
+          1,
+          1
+        ],
+        "bilinear_rectangle": [
+          1,
+          1
+        ],
+        "triangle_diagonal_0_2": [
+          1,
+          1
+        ],
+        "triangle_diagonal_1_3": [
+          1,
+          1
+        ]
+      },
+      "3,2": {
+        "edge_span_fixed_q16": [
+          2,
+          1
+        ],
+        "bilinear_rectangle": [
+          2,
+          1
+        ],
+        "triangle_diagonal_0_2": [
+          2,
+          1
+        ],
+        "triangle_diagonal_1_3": [
+          2,
+          1
+        ]
+      },
+      "4,2": {
+        "edge_span_fixed_q16": [
+          3,
+          1
+        ],
+        "bilinear_rectangle": [
+          3,
+          1
+        ],
+        "triangle_diagonal_0_2": [
+          3,
+          1
+        ],
+        "triangle_diagonal_1_3": [
+          3,
+          1
+        ]
+      },
+      "1,3": {
+        "edge_span_fixed_q16": [
+          0,
+          2
+        ],
+        "bilinear_rectangle": [
+          0,
+          2
+        ],
+        "triangle_diagonal_0_2": [
+          0,
+          2
+        ],
+        "triangle_diagonal_1_3": [
+          0,
+          2
+        ]
+      },
+      "2,3": {
+        "edge_span_fixed_q16": [
+          1,
+          2
+        ],
+        "bilinear_rectangle": [
+          1,
+          2
+        ],
+        "triangle_diagonal_0_2": [
+          1,
+          2
+        ],
+        "triangle_diagonal_1_3": [
+          1,
+          2
+        ]
+      },
+      "3,3": {
+        "edge_span_fixed_q16": [
+          2,
+          2
+        ],
+        "bilinear_rectangle": [
+          2,
+          2
+        ],
+        "triangle_diagonal_0_2": [
+          3,
+          3
+        ],
+        "triangle_diagonal_1_3": [
+          2,
+          2
+        ]
+      },
+      "4,3": {
+        "edge_span_fixed_q16": [
+          4,
+          3
+        ],
+        "bilinear_rectangle": [
+          4,
+          3
+        ],
+        "triangle_diagonal_0_2": [
+          4,
+          3
+        ],
+        "triangle_diagonal_1_3": [
+          3,
+          2
+        ]
+      },
+      "1,4": {
+        "edge_span_fixed_q16": [
+          0,
+          3
+        ],
+        "bilinear_rectangle": [
+          0,
+          3
+        ],
+        "triangle_diagonal_0_2": [
+          0,
+          3
+        ],
+        "triangle_diagonal_1_3": [
+          0,
+          3
+        ]
+      },
+      "2,4": {
+        "edge_span_fixed_q16": [
+          1,
+          3
+        ],
+        "bilinear_rectangle": [
+          1,
+          3
+        ],
+        "triangle_diagonal_0_2": [
+          1,
+          3
+        ],
+        "triangle_diagonal_1_3": [
+          1,
+          3
+        ]
+      },
+      "3,4": {
+        "edge_span_fixed_q16": [
+          3,
+          4
+        ],
+        "bilinear_rectangle": [
+          3,
+          4
+        ],
+        "triangle_diagonal_0_2": [
+          3,
+          4
+        ],
+        "triangle_diagonal_1_3": [
+          2,
+          3
+        ]
+      },
+      "4,4": {
+        "edge_span_fixed_q16": [
+          4,
+          4
+        ],
+        "bilinear_rectangle": [
+          4,
+          4
+        ],
+        "triangle_diagonal_0_2": [
+          5,
+          5
+        ],
+        "triangle_diagonal_1_3": [
+          4,
+          4
+        ]
+      }
+    },
+    "match_counts_by_route": {
+      "d60c_rowzero": {
+        "sample_count": 16,
+        "edge_span_match_count": 16,
+        "bilinear_match_count": 16,
+        "triangle_0_2_match_count": 14,
+        "triangle_1_3_match_count": 14
+      },
+      "cc50_palette": {
+        "sample_count": 16,
+        "edge_span_match_count": 16,
+        "bilinear_match_count": 16,
+        "triangle_0_2_match_count": 14,
+        "triangle_1_3_match_count": 14
+      },
+      "e680_mode_0x80_selector_2_generic": {
+        "sample_count": 16,
+        "edge_span_match_count": 16,
+        "bilinear_match_count": 16,
+        "triangle_0_2_match_count": 14,
+        "triangle_1_3_match_count": 14
+      }
+    },
+    "first_edge_span_vs_alternative": {
+      "bilinear_rectangle": null,
+      "triangle_diagonal_0_2": {
+        "pixel": [
+          3,
+          3
+        ],
+        "edge_span_fixed_q16": [
+          2,
+          2
+        ],
+        "competing_model_uv": [
+          3,
+          3
+        ]
+      },
+      "triangle_diagonal_1_3": {
+        "pixel": [
+          4,
+          3
+        ],
+        "edge_span_fixed_q16": [
+          4,
+          3
+        ],
+        "competing_model_uv": [
+          3,
+          2
+        ]
+      }
+    },
+    "first_native_vs_edge_span": {
+      "d60c_rowzero": null,
+      "cc50_palette": null,
+      "e680_mode_0x80_selector_2_generic": null
+    },
+    "first_native_vs_alternative": {
+      "d60c_rowzero": {
+        "bilinear_rectangle": null,
+        "triangle_diagonal_0_2": {
+          "pixel": [
+            3,
+            3
+          ],
+          "native_uv": [
+            2,
+            2
+          ],
+          "model_uv": [
+            3,
+            3
+          ]
+        },
+        "triangle_diagonal_1_3": {
+          "pixel": [
+            4,
+            3
+          ],
+          "native_uv": [
+            4,
+            3
+          ],
+          "model_uv": [
+            3,
+            2
+          ]
+        }
+      },
+      "cc50_palette": {
+        "bilinear_rectangle": null,
+        "triangle_diagonal_0_2": {
+          "pixel": [
+            3,
+            3
+          ],
+          "native_uv": [
+            2,
+            2
+          ],
+          "model_uv": [
+            3,
+            3
+          ]
+        },
+        "triangle_diagonal_1_3": {
+          "pixel": [
+            4,
+            3
+          ],
+          "native_uv": [
+            4,
+            3
+          ],
+          "model_uv": [
+            3,
+            2
+          ]
+        }
+      },
+      "e680_mode_0x80_selector_2_generic": {
+        "bilinear_rectangle": null,
+        "triangle_diagonal_0_2": {
+          "pixel": [
+            3,
+            3
+          ],
+          "native_uv": [
+            2,
+            2
+          ],
+          "model_uv": [
+            3,
+            3
+          ]
+        },
+        "triangle_diagonal_1_3": {
+          "pixel": [
+            4,
+            3
+          ],
+          "native_uv": [
+            4,
+            3
+          ],
+          "model_uv": [
+            3,
+            2
+          ]
+        }
+      }
+    }
+  },
+  "route_uv_equality": {
+    "rowzero_equals_palette": true,
+    "rowzero_equals_e680": true,
+    "palette_equals_e680": true
+  },
+  "proof_levels": {
+    "STATIC_OBSERVED": "Hash-pinned D420, D60C, CC50, E680, and reciprocal initializer bytes.",
+    "BOUNDED_EQUIVALENT": "Original x86 instruction execution under Unicorn for this synthetic quad only; captured read addresses/pixels are compared against independent models.",
+    "UNRESOLVED": [
+      "other polygons and clipping/overflow domains",
+      "other E680 mode or blend selectors",
+      "full-frame or pixel-output equivalence"
+    ]
+  },
+  "limitations": [
+    "Only one 4x4 axis-aligned screen footprint and one wire-valid UV assignment were exercised.",
+    "The E680 case uses mode 0x80 and selector 2, and must take E7C7 generic fallback; it does not characterize the E7BB C8F0 rectangle fast path.",
+    "Texture, destination, palette/blend state, reciprocal table, and surface are synthetic emulator memory; original code bytes are read-only and checked unchanged.",
+    "The triangle models are independent affine barycentric splits, not assumptions about PSX packet semantics."
+  ],
+  "invocation": {
+    "exe": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "original_root": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+    "deps": "C:\\tools\\hercules\\renderer-oracle-python",
+    "analysis_deps": "C:\\tools\\hercules\\python",
+    "receipt": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase3\\native_quad_interpolation.json",
+    "instruction_budget": 250000
+  }
+}

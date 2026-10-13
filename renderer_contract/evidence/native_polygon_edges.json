@@ -1,0 +1,1581 @@
+{
+  "schema_version": 1,
+  "status": "BOUNDED_EQUIVALENT",
+  "model_comparison": {
+    "coverage": "BOUNDED_EQUIVALENT",
+    "finite_reciprocal_q16": "MATCHES_ALL_CAPTURED_NATIVE_UV_READS",
+    "exact_integer_barycentric": "CONFIRMED_MISMATCH_ON_WIRE_VALID_VECTOR"
+  },
+  "scope": "11 synthetic triangles through original D420 -> D60C row-zero and CC50 palette routes; finite coverage and UV observations only.",
+  "oracle": {
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000"
+  },
+  "runtime": {
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+  },
+  "analysis": {
+    "capstone_version": "5.0.7",
+    "static_parser": "scripts/pe.py"
+  },
+  "spans": {
+    "reciprocal_table_initializer": {
+      "start_rva": "0x72a0",
+      "end_rva_exclusive": "0x72cc",
+      "size": 44,
+      "sha256": "3d59be43f3756224228dfdcc372a3bc59b7a7dbba4bbab8c79dd821cc958014b"
+    },
+    "cc50_active_palette_function": {
+      "start_rva": "0xcc50",
+      "end_rva_exclusive": "0xd415",
+      "size": 1989,
+      "sha256": "7504054c2fe867eef6602dbd439f1972b55a73540b98099498772db2f34b7fd0"
+    },
+    "cc50_edge_and_scan_setup": {
+      "start_rva": "0xcc50",
+      "end_rva_exclusive": "0xd2c6",
+      "size": 1654,
+      "sha256": "4f4bf72270e5dedecc4edeed63348276d22b32a648668de0d9e5f4dff82762f1"
+    },
+    "cc50_pixel_loop": {
+      "start_rva": "0xd2c6",
+      "end_rva_exclusive": "0xd349",
+      "size": 131,
+      "sha256": "86688a0be90e8b5b3c931c4f789d6dd6fc53575085f9ee700362dbf3617b6d1f"
+    },
+    "d420_dispatch_and_rowzero_function": {
+      "start_rva": "0xd420",
+      "end_rva_exclusive": "0xdd70",
+      "size": 2384,
+      "sha256": "4645c60cf0a357ed4aae074c3487a2755384852d0874e2f12b352b994544e07e"
+    },
+    "d60c_rowzero_function": {
+      "start_rva": "0xd60c",
+      "end_rva_exclusive": "0xdd70",
+      "size": 1892,
+      "sha256": "2ed9dc4341703ee82f789528b427f6333e6d916bec11148fe2cfecff14119b4a"
+    },
+    "d60c_bounds_clip": {
+      "start_rva": "0xd60c",
+      "end_rva_exclusive": "0xd776",
+      "size": 362,
+      "sha256": "08d6139e8e4c3466d4261d9f32990718bfba8d43420a43869937e7ee02cc57b1"
+    },
+    "d60c_edge_and_attribute_setup": {
+      "start_rva": "0xd776",
+      "end_rva_exclusive": "0xda7d",
+      "size": 775,
+      "sha256": "9ac21057935e83d6d3b681286cabfa30ebb7b32f6d3169b84cfc183cc1e53d17"
+    },
+    "d60c_span_clipping": {
+      "start_rva": "0xda7d",
+      "end_rva_exclusive": "0xdc28",
+      "size": 427,
+      "sha256": "1368d5cf4feaa06e50f286e7add5aaafc137cc9d85413061361129f7c645fdaf"
+    }
+  },
+  "f3_absolute_references": {
+    "cc50": [
+      {
+        "rva": "0xcd76",
+        "address": "0x43a48c",
+        "width": 4
+      },
+      {
+        "rva": "0xcd84",
+        "address": "0xa909b4",
+        "width": 4
+      }
+    ],
+    "d60c": [
+      {
+        "rva": "0xd6fd",
+        "address": "0x43a48c",
+        "width": 4
+      },
+      {
+        "rva": "0xd70b",
+        "address": "0xa909b4",
+        "width": 4
+      }
+    ]
+  },
+  "static_interpolation": {
+    "reciprocal_table_initializer": "A8E918; R[0]=0, R[i]=floor(2^30/i) for 1..2047",
+    "edge_and_span_reduction": "signed deltas * R[index], then SHRD 30; integer-y scan; SAR 16 span endpoints; horizontal UV starts at left-edge value at floor(left_x)",
+    "rowzero_product_rvas": [
+      "0xd810",
+      "0xd824",
+      "0xd838",
+      "0xd995",
+      "0xd9a9",
+      "0xd9bd"
+    ],
+    "rowzero_shrd30_rvas": [
+      "0xd816",
+      "0xd82a",
+      "0xd83e",
+      "0xd99b",
+      "0xd9af",
+      "0xd9c3"
+    ],
+    "cc50_product_rvas": [
+      "0xce89",
+      "0xce9d",
+      "0xceb1",
+      "0xd00e",
+      "0xd022",
+      "0xd036"
+    ],
+    "cc50_shrd30_rvas": [
+      "0xce8f",
+      "0xcea3",
+      "0xceb7",
+      "0xd014",
+      "0xd028",
+      "0xd03c"
+    ]
+  },
+  "cases": [
+    {
+      "case": "flat_top",
+      "route": "d60c_rowzero",
+      "vertices_xy": [
+        [
+          2,
+          2
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "attribute_domain": "none",
+      "f3_clip_values": {
+        "left": 0,
+        "top": 0,
+        "right": 320,
+        "bottom": 240
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 10,
+        "expected_sha256": "3a5184baaa464ea86d1d47e78cee255a699821082e1fae669bc000cad94bdaa4",
+        "native_count": 10,
+        "native_sha256": "3a5184baaa464ea86d1d47e78cee255a699821082e1fae669bc000cad94bdaa4"
+      },
+      "uv_summary": {
+        "sample_count": 0,
+        "ordered_pixel_uv_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "reciprocal_q16_model_match_count": 0,
+        "edge_anchored_model_match_count": 0,
+        "exact_barycentric_match_count": 0
+      }
+    },
+    {
+      "case": "flat_top",
+      "route": "cc50_palette",
+      "vertices_xy": [
+        [
+          2,
+          2
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "attribute_domain": "none",
+      "f3_clip_values": {
+        "left": 0,
+        "top": 0,
+        "right": 320,
+        "bottom": 240
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 10,
+        "expected_sha256": "3a5184baaa464ea86d1d47e78cee255a699821082e1fae669bc000cad94bdaa4",
+        "native_count": 10,
+        "native_sha256": "3a5184baaa464ea86d1d47e78cee255a699821082e1fae669bc000cad94bdaa4"
+      },
+      "uv_summary": {
+        "sample_count": 0,
+        "ordered_pixel_uv_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "reciprocal_q16_model_match_count": 0,
+        "edge_anchored_model_match_count": 0,
+        "exact_barycentric_match_count": 0
+      }
+    },
+    {
+      "case": "flat_bottom",
+      "route": "d60c_rowzero",
+      "vertices_xy": [
+        [
+          4,
+          2
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          6,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "attribute_domain": "none",
+      "f3_clip_values": {
+        "left": 0,
+        "top": 0,
+        "right": 320,
+        "bottom": 240
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 6,
+        "expected_sha256": "cfa97deffc8c7ffb92580f10865db0909de3ac5af533734ab6d71f7917c5e63a",
+        "native_count": 6,
+        "native_sha256": "cfa97deffc8c7ffb92580f10865db0909de3ac5af533734ab6d71f7917c5e63a"
+      },
+      "uv_summary": {
+        "sample_count": 0,
+        "ordered_pixel_uv_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "reciprocal_q16_model_match_count": 0,
+        "edge_anchored_model_match_count": 0,
+        "exact_barycentric_match_count": 0
+      }
+    },
+    {
+      "case": "flat_bottom",
+      "route": "cc50_palette",
+      "vertices_xy": [
+        [
+          4,
+          2
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          6,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "attribute_domain": "none",
+      "f3_clip_values": {
+        "left": 0,
+        "top": 0,
+        "right": 320,
+        "bottom": 240
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 6,
+        "expected_sha256": "cfa97deffc8c7ffb92580f10865db0909de3ac5af533734ab6d71f7917c5e63a",
+        "native_count": 6,
+        "native_sha256": "cfa97deffc8c7ffb92580f10865db0909de3ac5af533734ab6d71f7917c5e63a"
+      },
+      "uv_summary": {
+        "sample_count": 0,
+        "ordered_pixel_uv_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "reciprocal_q16_model_match_count": 0,
+        "edge_anchored_model_match_count": 0,
+        "exact_barycentric_match_count": 0
+      }
+    },
+    {
+      "case": "shared_edge_upper",
+      "route": "d60c_rowzero",
+      "vertices_xy": [
+        [
+          2,
+          2
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "attribute_domain": "none",
+      "f3_clip_values": {
+        "left": 0,
+        "top": 0,
+        "right": 320,
+        "bottom": 240
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 10,
+        "expected_sha256": "e43d3a94b1072ce8dbc1ddb4cf5349ac64e4bc84ca6b8d620e6bff338505fb92",
+        "native_count": 10,
+        "native_sha256": "e43d3a94b1072ce8dbc1ddb4cf5349ac64e4bc84ca6b8d620e6bff338505fb92"
+      },
+      "uv_summary": {
+        "sample_count": 0,
+        "ordered_pixel_uv_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "reciprocal_q16_model_match_count": 0,
+        "edge_anchored_model_match_count": 0,
+        "exact_barycentric_match_count": 0
+      }
+    },
+    {
+      "case": "shared_edge_upper",
+      "route": "cc50_palette",
+      "vertices_xy": [
+        [
+          2,
+          2
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "attribute_domain": "none",
+      "f3_clip_values": {
+        "left": 0,
+        "top": 0,
+        "right": 320,
+        "bottom": 240
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 10,
+        "expected_sha256": "e43d3a94b1072ce8dbc1ddb4cf5349ac64e4bc84ca6b8d620e6bff338505fb92",
+        "native_count": 10,
+        "native_sha256": "e43d3a94b1072ce8dbc1ddb4cf5349ac64e4bc84ca6b8d620e6bff338505fb92"
+      },
+      "uv_summary": {
+        "sample_count": 0,
+        "ordered_pixel_uv_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "reciprocal_q16_model_match_count": 0,
+        "edge_anchored_model_match_count": 0,
+        "exact_barycentric_match_count": 0
+      }
+    },
+    {
+      "case": "shared_edge_lower",
+      "route": "d60c_rowzero",
+      "vertices_xy": [
+        [
+          2,
+          2
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "attribute_domain": "none",
+      "f3_clip_values": {
+        "left": 0,
+        "top": 0,
+        "right": 320,
+        "bottom": 240
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 6,
+        "expected_sha256": "cb0ef7805537d3a093e3ce0aa0bd3513ab7295ce9ecc41d949aaddf33c77187e",
+        "native_count": 6,
+        "native_sha256": "cb0ef7805537d3a093e3ce0aa0bd3513ab7295ce9ecc41d949aaddf33c77187e"
+      },
+      "uv_summary": {
+        "sample_count": 0,
+        "ordered_pixel_uv_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "reciprocal_q16_model_match_count": 0,
+        "edge_anchored_model_match_count": 0,
+        "exact_barycentric_match_count": 0
+      }
+    },
+    {
+      "case": "shared_edge_lower",
+      "route": "cc50_palette",
+      "vertices_xy": [
+        [
+          2,
+          2
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "attribute_domain": "none",
+      "f3_clip_values": {
+        "left": 0,
+        "top": 0,
+        "right": 320,
+        "bottom": 240
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 6,
+        "expected_sha256": "cb0ef7805537d3a093e3ce0aa0bd3513ab7295ce9ecc41d949aaddf33c77187e",
+        "native_count": 6,
+        "native_sha256": "cb0ef7805537d3a093e3ce0aa0bd3513ab7295ce9ecc41d949aaddf33c77187e"
+      },
+      "uv_summary": {
+        "sample_count": 0,
+        "ordered_pixel_uv_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "reciprocal_q16_model_match_count": 0,
+        "edge_anchored_model_match_count": 0,
+        "exact_barycentric_match_count": 0
+      }
+    },
+    {
+      "case": "winding_reversed_flat_top",
+      "route": "d60c_rowzero",
+      "vertices_xy": [
+        [
+          4,
+          6
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "attribute_domain": "none",
+      "f3_clip_values": {
+        "left": 0,
+        "top": 0,
+        "right": 320,
+        "bottom": 240
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 10,
+        "expected_sha256": "3a5184baaa464ea86d1d47e78cee255a699821082e1fae669bc000cad94bdaa4",
+        "native_count": 10,
+        "native_sha256": "3a5184baaa464ea86d1d47e78cee255a699821082e1fae669bc000cad94bdaa4"
+      },
+      "uv_summary": {
+        "sample_count": 0,
+        "ordered_pixel_uv_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "reciprocal_q16_model_match_count": 0,
+        "edge_anchored_model_match_count": 0,
+        "exact_barycentric_match_count": 0
+      }
+    },
+    {
+      "case": "winding_reversed_flat_top",
+      "route": "cc50_palette",
+      "vertices_xy": [
+        [
+          4,
+          6
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "attribute_domain": "none",
+      "f3_clip_values": {
+        "left": 0,
+        "top": 0,
+        "right": 320,
+        "bottom": 240
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 10,
+        "expected_sha256": "3a5184baaa464ea86d1d47e78cee255a699821082e1fae669bc000cad94bdaa4",
+        "native_count": 10,
+        "native_sha256": "3a5184baaa464ea86d1d47e78cee255a699821082e1fae669bc000cad94bdaa4"
+      },
+      "uv_summary": {
+        "sample_count": 0,
+        "ordered_pixel_uv_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "reciprocal_q16_model_match_count": 0,
+        "edge_anchored_model_match_count": 0,
+        "exact_barycentric_match_count": 0
+      }
+    },
+    {
+      "case": "negative_xy_f3_clipped",
+      "route": "d60c_rowzero",
+      "vertices_xy": [
+        [
+          -2,
+          -2
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "attribute_domain": "none",
+      "f3_clip_values": {
+        "left": 2,
+        "top": 1,
+        "right": 4,
+        "bottom": 5
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 14,
+        "expected_sha256": "d63ed2a58e98572e382eb4d64a3fa291dce689939e8df31a87f7c19ca6987ebf",
+        "native_count": 14,
+        "native_sha256": "d63ed2a58e98572e382eb4d64a3fa291dce689939e8df31a87f7c19ca6987ebf"
+      },
+      "uv_summary": {
+        "sample_count": 0,
+        "ordered_pixel_uv_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "reciprocal_q16_model_match_count": 0,
+        "edge_anchored_model_match_count": 0,
+        "exact_barycentric_match_count": 0
+      }
+    },
+    {
+      "case": "negative_xy_f3_clipped",
+      "route": "cc50_palette",
+      "vertices_xy": [
+        [
+          -2,
+          -2
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "attribute_domain": "none",
+      "f3_clip_values": {
+        "left": 2,
+        "top": 1,
+        "right": 4,
+        "bottom": 5
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 14,
+        "expected_sha256": "d63ed2a58e98572e382eb4d64a3fa291dce689939e8df31a87f7c19ca6987ebf",
+        "native_count": 14,
+        "native_sha256": "d63ed2a58e98572e382eb4d64a3fa291dce689939e8df31a87f7c19ca6987ebf"
+      },
+      "uv_summary": {
+        "sample_count": 0,
+        "ordered_pixel_uv_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "reciprocal_q16_model_match_count": 0,
+        "edge_anchored_model_match_count": 0,
+        "exact_barycentric_match_count": 0
+      }
+    },
+    {
+      "case": "negative_xy_q16_wire_valid",
+      "route": "d60c_rowzero",
+      "vertices_xy": [
+        [
+          -2,
+          -2
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          131072
+        ],
+        [
+          131072,
+          131072
+        ],
+        [
+          65536,
+          0
+        ]
+      ],
+      "attribute_domain": "wire_unsigned_u8_q16",
+      "f3_clip_values": {
+        "left": 2,
+        "top": 1,
+        "right": 4,
+        "bottom": 5
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 14,
+        "expected_sha256": "d63ed2a58e98572e382eb4d64a3fa291dce689939e8df31a87f7c19ca6987ebf",
+        "native_count": 14,
+        "native_sha256": "d63ed2a58e98572e382eb4d64a3fa291dce689939e8df31a87f7c19ca6987ebf"
+      },
+      "uv_summary": {
+        "sample_count": 14,
+        "ordered_pixel_uv_sha256": "4bc71ac8bbad19aaae40ac3ab0f7292f57976123e946c3c51cff2e74dad24327",
+        "reciprocal_q16_model_match_count": 14,
+        "edge_anchored_model_match_count": 13,
+        "exact_barycentric_match_count": 11
+      }
+    },
+    {
+      "case": "negative_xy_q16_wire_valid",
+      "route": "cc50_palette",
+      "vertices_xy": [
+        [
+          -2,
+          -2
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          131072
+        ],
+        [
+          131072,
+          131072
+        ],
+        [
+          65536,
+          0
+        ]
+      ],
+      "attribute_domain": "wire_unsigned_u8_q16",
+      "f3_clip_values": {
+        "left": 2,
+        "top": 1,
+        "right": 4,
+        "bottom": 5
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 14,
+        "expected_sha256": "d63ed2a58e98572e382eb4d64a3fa291dce689939e8df31a87f7c19ca6987ebf",
+        "native_count": 14,
+        "native_sha256": "d63ed2a58e98572e382eb4d64a3fa291dce689939e8df31a87f7c19ca6987ebf"
+      },
+      "uv_summary": {
+        "sample_count": 14,
+        "ordered_pixel_uv_sha256": "4bc71ac8bbad19aaae40ac3ab0f7292f57976123e946c3c51cff2e74dad24327",
+        "reciprocal_q16_model_match_count": 14,
+        "edge_anchored_model_match_count": 13,
+        "exact_barycentric_match_count": 11
+      }
+    },
+    {
+      "case": "negative_xy_q16_clipped",
+      "route": "d60c_rowzero",
+      "vertices_xy": [
+        [
+          -2,
+          -2
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          131072,
+          0
+        ],
+        [
+          65536,
+          -131072
+        ]
+      ],
+      "attribute_domain": "internal_signed_state",
+      "f3_clip_values": {
+        "left": 2,
+        "top": 1,
+        "right": 4,
+        "bottom": 5
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 14,
+        "expected_sha256": "d63ed2a58e98572e382eb4d64a3fa291dce689939e8df31a87f7c19ca6987ebf",
+        "native_count": 14,
+        "native_sha256": "d63ed2a58e98572e382eb4d64a3fa291dce689939e8df31a87f7c19ca6987ebf"
+      },
+      "uv_summary": {
+        "sample_count": 14,
+        "ordered_pixel_uv_sha256": "eabad4c618bb5a21c3d059960b248fc9cb9716fdc9ee8ac057d089264c1164d2",
+        "reciprocal_q16_model_match_count": 14,
+        "edge_anchored_model_match_count": 13,
+        "exact_barycentric_match_count": 11
+      }
+    },
+    {
+      "case": "negative_xy_q16_clipped",
+      "route": "cc50_palette",
+      "vertices_xy": [
+        [
+          -2,
+          -2
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          131072,
+          0
+        ],
+        [
+          65536,
+          -131072
+        ]
+      ],
+      "attribute_domain": "internal_signed_state",
+      "f3_clip_values": {
+        "left": 2,
+        "top": 1,
+        "right": 4,
+        "bottom": 5
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 14,
+        "expected_sha256": "d63ed2a58e98572e382eb4d64a3fa291dce689939e8df31a87f7c19ca6987ebf",
+        "native_count": 14,
+        "native_sha256": "d63ed2a58e98572e382eb4d64a3fa291dce689939e8df31a87f7c19ca6987ebf"
+      },
+      "uv_summary": {
+        "sample_count": 14,
+        "ordered_pixel_uv_sha256": "eabad4c618bb5a21c3d059960b248fc9cb9716fdc9ee8ac057d089264c1164d2",
+        "reciprocal_q16_model_match_count": 14,
+        "edge_anchored_model_match_count": 13,
+        "exact_barycentric_match_count": 11
+      }
+    },
+    {
+      "case": "negative_xy_q16_clip_top0",
+      "route": "d60c_rowzero",
+      "vertices_xy": [
+        [
+          -2,
+          -2
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          131072,
+          0
+        ],
+        [
+          65536,
+          -131072
+        ]
+      ],
+      "attribute_domain": "internal_signed_state",
+      "f3_clip_values": {
+        "left": 2,
+        "top": 0,
+        "right": 4,
+        "bottom": 5
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 16,
+        "expected_sha256": "7f25af1efa4df8ea3557f1b719fe451eb3d14ad6a1a6bebd9edaa3581f911091",
+        "native_count": 16,
+        "native_sha256": "7f25af1efa4df8ea3557f1b719fe451eb3d14ad6a1a6bebd9edaa3581f911091"
+      },
+      "uv_summary": {
+        "sample_count": 16,
+        "ordered_pixel_uv_sha256": "468361e8ca3042102198b7f76bf11f07987a3fe6979f0eacb18f00be357d0442",
+        "reciprocal_q16_model_match_count": 16,
+        "edge_anchored_model_match_count": 15,
+        "exact_barycentric_match_count": 12
+      }
+    },
+    {
+      "case": "negative_xy_q16_clip_top0",
+      "route": "cc50_palette",
+      "vertices_xy": [
+        [
+          -2,
+          -2
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          131072,
+          0
+        ],
+        [
+          65536,
+          -131072
+        ]
+      ],
+      "attribute_domain": "internal_signed_state",
+      "f3_clip_values": {
+        "left": 2,
+        "top": 0,
+        "right": 4,
+        "bottom": 5
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 16,
+        "expected_sha256": "7f25af1efa4df8ea3557f1b719fe451eb3d14ad6a1a6bebd9edaa3581f911091",
+        "native_count": 16,
+        "native_sha256": "7f25af1efa4df8ea3557f1b719fe451eb3d14ad6a1a6bebd9edaa3581f911091"
+      },
+      "uv_summary": {
+        "sample_count": 16,
+        "ordered_pixel_uv_sha256": "468361e8ca3042102198b7f76bf11f07987a3fe6979f0eacb18f00be357d0442",
+        "reciprocal_q16_model_match_count": 16,
+        "edge_anchored_model_match_count": 15,
+        "exact_barycentric_match_count": 12
+      }
+    },
+    {
+      "case": "f3_horizontal_bounds_probe",
+      "route": "d60c_rowzero",
+      "vertices_xy": [
+        [
+          1,
+          1
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          1,
+          8
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "attribute_domain": "none",
+      "f3_clip_values": {
+        "left": 4,
+        "top": 3,
+        "right": 6,
+        "bottom": 6
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 12,
+        "expected_sha256": "dcf8071984d79ab55ad4ac99825da62861c2e9111d8477822885d4a1b277babd",
+        "native_count": 12,
+        "native_sha256": "dcf8071984d79ab55ad4ac99825da62861c2e9111d8477822885d4a1b277babd"
+      },
+      "uv_summary": {
+        "sample_count": 0,
+        "ordered_pixel_uv_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "reciprocal_q16_model_match_count": 0,
+        "edge_anchored_model_match_count": 0,
+        "exact_barycentric_match_count": 0
+      }
+    },
+    {
+      "case": "f3_horizontal_bounds_probe",
+      "route": "cc50_palette",
+      "vertices_xy": [
+        [
+          1,
+          1
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          1,
+          8
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "attribute_domain": "none",
+      "f3_clip_values": {
+        "left": 4,
+        "top": 3,
+        "right": 6,
+        "bottom": 6
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 12,
+        "expected_sha256": "dcf8071984d79ab55ad4ac99825da62861c2e9111d8477822885d4a1b277babd",
+        "native_count": 12,
+        "native_sha256": "dcf8071984d79ab55ad4ac99825da62861c2e9111d8477822885d4a1b277babd"
+      },
+      "uv_summary": {
+        "sample_count": 0,
+        "ordered_pixel_uv_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "reciprocal_q16_model_match_count": 0,
+        "edge_anchored_model_match_count": 0,
+        "exact_barycentric_match_count": 0
+      }
+    },
+    {
+      "case": "q16_fractional_uv",
+      "route": "d60c_rowzero",
+      "vertices_xy": [
+        [
+          2,
+          2
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          2,
+          7
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          131072,
+          0
+        ],
+        [
+          0,
+          -131072
+        ]
+      ],
+      "attribute_domain": "internal_signed_state",
+      "f3_clip_values": {
+        "left": 0,
+        "top": 0,
+        "right": 320,
+        "bottom": 240
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 15,
+        "expected_sha256": "078b8a980806aa496b645f0962ceb59ba32a4b8bb596af2afeafc79cfbfe3439",
+        "native_count": 15,
+        "native_sha256": "078b8a980806aa496b645f0962ceb59ba32a4b8bb596af2afeafc79cfbfe3439"
+      },
+      "uv_summary": {
+        "sample_count": 15,
+        "ordered_pixel_uv_sha256": "261d7d20f499e47c074215f1e5c1f3a92c2271c22238cc303504d320b80862c9",
+        "reciprocal_q16_model_match_count": 15,
+        "edge_anchored_model_match_count": 15,
+        "exact_barycentric_match_count": 15
+      }
+    },
+    {
+      "case": "q16_fractional_uv",
+      "route": "cc50_palette",
+      "vertices_xy": [
+        [
+          2,
+          2
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          2,
+          7
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          0
+        ],
+        [
+          131072,
+          0
+        ],
+        [
+          0,
+          -131072
+        ]
+      ],
+      "attribute_domain": "internal_signed_state",
+      "f3_clip_values": {
+        "left": 0,
+        "top": 0,
+        "right": 320,
+        "bottom": 240
+      },
+      "coverage_match": true,
+      "pixel_sets": {
+        "expected_count": 15,
+        "expected_sha256": "078b8a980806aa496b645f0962ceb59ba32a4b8bb596af2afeafc79cfbfe3439",
+        "native_count": 15,
+        "native_sha256": "078b8a980806aa496b645f0962ceb59ba32a4b8bb596af2afeafc79cfbfe3439"
+      },
+      "uv_summary": {
+        "sample_count": 15,
+        "ordered_pixel_uv_sha256": "261d7d20f499e47c074215f1e5c1f3a92c2271c22238cc303504d320b80862c9",
+        "reciprocal_q16_model_match_count": 15,
+        "edge_anchored_model_match_count": 15,
+        "exact_barycentric_match_count": 15
+      }
+    }
+  ],
+  "comparisons": {
+    "coverage_equal_by_shape": {
+      "flat_top": true,
+      "flat_bottom": true,
+      "shared_edge_upper": true,
+      "shared_edge_lower": true,
+      "winding_reversed_flat_top": true,
+      "negative_xy_f3_clipped": true,
+      "negative_xy_q16_wire_valid": true,
+      "negative_xy_q16_clipped": true,
+      "negative_xy_q16_clip_top0": true,
+      "f3_horizontal_bounds_probe": true,
+      "q16_fractional_uv": true
+    },
+    "uv_equal_by_textured_shape": {
+      "negative_xy_q16_clip_top0": {
+        "equal": true,
+        "rowzero_count": 16,
+        "cc50_count": 16
+      },
+      "negative_xy_q16_clipped": {
+        "equal": true,
+        "rowzero_count": 14,
+        "cc50_count": 14
+      },
+      "negative_xy_q16_wire_valid": {
+        "equal": true,
+        "rowzero_count": 14,
+        "cc50_count": 14
+      },
+      "q16_fractional_uv": {
+        "equal": true,
+        "rowzero_count": 15,
+        "cc50_count": 15
+      }
+    },
+    "shared_edge": {
+      "native_union": [
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          5
+        ]
+      ],
+      "expected_half_open_rectangle": [
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          5
+        ]
+      ],
+      "native_overlap": [],
+      "union_matches_rectangle": true
+    },
+    "f3_top_1_vs_0_common_uv": {
+      "d60c_rowzero": {
+        "common_pixel_count": 14,
+        "different_uv_count": 0
+      },
+      "cc50_palette": {
+        "common_pixel_count": 14,
+        "different_uv_count": 0
+      }
+    },
+    "first_coverage_counterexample": null,
+    "first_finite_uv_counterexample": null,
+    "wire_valid_exact_barycentric_counterexample": {
+      "case": "negative_xy_q16_wire_valid",
+      "route": "d60c_rowzero",
+      "pixel_xy": [
+        1,
+        2
+      ],
+      "native_read_rva": "0xdc8a",
+      "native_uv_bytes": [
+        1,
+        1
+      ],
+      "native_texture_relative_offset": "0x101",
+      "native_texture_byte_value": 9,
+      "same_pixel_other_route": {
+        "route": "cc50_palette",
+        "read_rva": "0xd32e",
+        "uv_bytes": [
+          1,
+          1
+        ],
+        "texture_relative_offset": "0x101",
+        "texture_byte_value": 9
+      },
+      "exact_unquantized_integer_barycentric_q16": {
+        "u": "2818048/47",
+        "v": "3670016/47"
+      },
+      "exact_barycentric_floor_bytes": [
+        0,
+        1
+      ],
+      "integer_reciprocal_q16_model_bytes": [
+        1,
+        1
+      ],
+      "interpretation": "Exact rational barycentric sampling differs by one U byte; the original finite reciprocal/Q16 edge-and-span model matches the native read. This is a model-contract counterexample, not evidence of a native defect.",
+      "vertices_xy": [
+        [
+          -2,
+          -2
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "attributes_uv_q16": [
+        [
+          0,
+          131072
+        ],
+        [
+          131072,
+          131072
+        ],
+        [
+          65536,
+          0
+        ]
+      ],
+      "attribute_domain": "wire_unsigned_u8_q16"
+    }
+  },
+  "model_source_sha256": {
+    "cross": "35ee26a3bab7829ccd7f780a65b3728955f0e610a988fb3901b584a3052881b6",
+    "native_edge_model_expected": "cab04c58f0a66d7c5657806f8d0053083508497bcb994f4f6e07426919a87cea",
+    "expected_uv_integer": "10e4de61d00f7138c77c901cfc96853000e0cf08347f545df0aea0008b60d55c",
+    "exact_barycentric_q16": "30c8dbf3e44daeda20a9263bd01faffd733ef1a0d3b3db15300e1c2d0b294517",
+    "expected_uv_edge_anchored": "f7bc898d97f2aeef6fa0f7c10ceca9f0d2362999c051897ae40261c6a98e78e3",
+    "expected_uv_integer_reciprocal": "eb907dad929d3b191eac6df44afc9300583344a35b4fd2523d79be7862e896ea",
+    "combined_sha256": "8690b29b4077246aeef134ddf6c620ecf11f0c46c1e7c94661995b344b7ab573"
+  },
+  "test_source_sha256": "e8fef88fe9c1ce61c988d16300db14b84babfa50ba59b9509f085dc7a3592fac",
+  "limits": [
+    "Finite synthetic cases only; no full frame, game, or DirectDraw path ran.",
+    "Polygon wire U/V inputs are unsigned bytes expanded to Q16. Signed attribute cases are internal-state diagnostics, not AC60-reachable packet values.",
+    "F3 left/right cells are statically unreferenced in these bodies; this does not prove all other renderer paths ignore them.",
+    "Coverage and fixed reciprocal/Q16 match only the listed finite fixtures; arbitrary overflow and coordinate domains remain unproved."
+  ],
+  "invocation": {
+    "receipt": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase3\\native_polygon_edges.json",
+    "instruction_budget_per_case": 250000
+  }
+}

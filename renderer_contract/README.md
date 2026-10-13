@@ -35,6 +35,10 @@ not replace this complete contract.
 | palette.md | Startup LUT writer order, aliases and palette lifecycle |
 | sprite_geometry.md | Signed clipping and wide UV addressing |
 | polygon_dispatch.md | Native row-zero and rectangle discriminators |
+| polygon_edges.md | Finite coverage, fixed-point steps and a wire-valid interpolation counterexample |
+| shaded_edges.md | Neutral-red shade bypass, blended geometry and zero-source tests |
+| quad_interpolation.md | Four-edge interpolation versus triangle splits |
+| fill_edges.md | Constant-fill division, coverage and zero-byte behavior |
 | module_packets.md | Separate ENG3/TITLE producers and 0x68 semantics |
 | pixels.md | Distinct indexed pixel paths and their proof boundaries |
 | frame.md | Initialization, prepend order, traversal and module lifecycles |

@@ -22,6 +22,7 @@ AC60 reads the tag at `packet+7`, groups with `tag & 0xE0`, clears bit 1 for bas
 | `0x60 / 0x64` variable sprite | `0x14` | bit 1 clear: `CAB0`; set: `C8F0` |
 | `0x60 / 0x74` fixed 8Ä‚â€”8 sprite | `0x0E` | bit 1 clear: `CAB0`; set: `C8F0` |
 | `0x60 / 0x7C` fixed 16Ä‚â€”16 sprite | `0x0E` | bit 1 clear: `CAB0`; set: `C8F0` |
+| `0x60 / 0x68` observed undrawn command | `0x08` | conditional page-base refresh, no raster call; see [module_packets.md](module_packets.md) |
 | `0xE0` or `0x00 / 0xE1` page command | `0x08` | inline state update from DWORD `+4` |
 | `0xE0` or `0x00 / 0x01` bitmap command | `0x10`-byte direct packet-read envelope | `A8F0`, passed `packet+0x10` and signed WORDs at `+0x0C/+0x0E`; A8F0 reads four signed WORDs at the pointee, for `0x18` total record bytes |
 | `0xE0` or `0x00 / 0xF3` clip command | `0x0C` | inline clip clamp/update |
@@ -49,7 +50,7 @@ The original has no mutable per-polygon dispatch table: AC60 directly calls `E68
 | Replaceable rasterizer | `E680`, `D420`, `C8F0`, `CAB0`, and polygon helpers `DD70`, `C700`, `CC50`, `C2E0` |
 | Host service to preserve | `6EE0`, `6FF0`, `7140`, `6620`, and lock-failure setter `6EC0` |
 | Compatibility side effect | `70C0` frame color remap; `6BB0` lock-failure transition |
-| Unresolved | `6850` helper under `6EE0` |
+| Host service to preserve | `6850` nearest palette entry under `6EE0`; later static evidence in [palette.md](palette.md) |
 
 The span sizes, hashes, direct/indirect calls, per-cell data references, packet-relative reads, and input-evidence hashes are in [evidence.json](evidence/closure.json). `6BB0` is a bounded failure-transition entry whose own external-service subtree is not recursively expanded. Callee intervals come from the reviewed function map and were decoded to their RET/NOP ends; this does not prove original COFF/TU boundaries.
 

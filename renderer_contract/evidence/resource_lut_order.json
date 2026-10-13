@@ -1,0 +1,359 @@
+{
+  "schema_version": 1,
+  "scope": "STATIC_OBSERVED only: pinned original PC PE bytes and existing evidence JSON; no original execution, asset extraction, or file writes outside this private report.",
+  "oracle_sha256": {
+    "HERCULES.EXE": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "TITLE.DLL": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b"
+  },
+  "toolchain": {
+    "capstone": "5.0.7",
+    "pe_reader": "scripts/pe.py via work/renderer_baseline/baseline.py"
+  },
+  "input_evidence_sha256": {
+    "renderer_contract/evidence/presentation.json": "c98085c9f39b8c532817d90f5617067517a1157a8ede56042d778fde6c2d829a",
+    "renderer_contract/evidence/compatibility.json": "82b8b183ad54d629fef5bd977ca8ac579c3708af36879b18c8536303a983c61d",
+    "renderer_contract/evidence/native_interface_copy.json": "3d2398d1ad4824de53acd0712e6a0a72e4e3704f2c84ebbe9cfcbb8e25d01234",
+    "renderer_contract/evidence/palette_lifetime.json": "4c7e1c2e7262ced8275aa01c5855d3733e3a7e007d3d7c3be3b632db52ab890c"
+  },
+  "spans": {
+    "host_graphics_init_5e10": {
+      "rva": "0x5e10",
+      "size": 127,
+      "sha256": "ac9967b60fd007b741ba0887f7e13ecc9c0ccd8c9e5f0b1e30c51187ef4bd8fe"
+    },
+    "host_palette_callback_5760": {
+      "rva": "0x5760",
+      "size": 673,
+      "sha256": "e0f6e6f82df474c57a005e1f0575759f8a31421c548327254ceb5c293a77babc"
+    },
+    "host_lut_builder_71a0": {
+      "rva": "0x71a0",
+      "size": 251,
+      "sha256": "a3b6df83018fbb638bfba5724df81c136b2fff0bceb0b67fb257470767dab0e3"
+    },
+    "host_graphics_directdraw_init_72a0": {
+      "rva": "0x72a0",
+      "size": 532,
+      "sha256": "f7ad10baa9f9503396a89bae5a10110846a0daf77d08b158eec8581663336286"
+    },
+    "host_resource_lut_loader_68c0": {
+      "rva": "0x68c0",
+      "size": 219,
+      "sha256": "5c4d1c41f2a1fa2bc4eac7c5fe7a7f2b654a15acf9b59bb42139d9f8006b58a4"
+    },
+    "host_resource_read_helper_5210": {
+      "rva": "0x5210",
+      "size": 172,
+      "sha256": "88c2e2a361d62fea30b2f9fa2833a7b46a863c4dc969b64f7fcc05d323d7c1dc"
+    },
+    "host_first_engine_dispatch_5f03": {
+      "rva": "0x5ef3",
+      "size": 21,
+      "sha256": "8a42ce650f2075b54528f031bab80b2a0c2111c1e57ad3405f83b465eb7ea387"
+    },
+    "title_entry_EngineMain": {
+      "rva": "0xc1f0",
+      "size": 121,
+      "sha256": "7f70098bc5be27c61bcd63df56c61b218f7884173466650025c3396b3b88048f"
+    },
+    "title_host_slot145_wrapper": {
+      "rva": "0xc990",
+      "size": 20,
+      "sha256": "0b213ba584e5d03f5e197fcf6920ae24e6bf1c9a7b4a059febcffae4c933ac13"
+    }
+  },
+  "host_source_slot145": {
+    "source_table_rva": "0x361b8",
+    "slot": 145,
+    "entry_rva": "0x363fc",
+    "entry_bytes": "60574000",
+    "target_va": "0x405760",
+    "target_rva": "0x5760"
+  },
+  "title_local_slot145": {
+    "table_rva": "0x2bb40",
+    "cell_va": "0x1002bd84",
+    "code_refs": [
+      {
+        "rva": "0xc99a",
+        "mnemonic": "call",
+        "operand": "dword ptr [0x1002bd84]"
+      }
+    ]
+  },
+  "module_slot145_code_refs": {
+    "ENG1.DLL": {
+      "cell_va": "0x10071164",
+      "code_refs": []
+    },
+    "ENG3.DLL": {
+      "cell_va": "0x100409e4",
+      "code_refs": []
+    },
+    "TITLE.DLL": {
+      "cell_va": "0x1002bd84",
+      "code_refs": [
+        {
+          "rva": "0xc99a",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x1002bd84]"
+        }
+      ]
+    }
+  },
+  "calls": {
+    "host_68c0": [
+      "0x59e5"
+    ],
+    "host_5760": [],
+    "host_71a0": [
+      "0x741a"
+    ],
+    "host_72a0": [
+      "0x5e2c"
+    ],
+    "title_slot145_wrapper": [
+      "0x172a",
+      "0x1cce",
+      "0x7569"
+    ]
+  },
+  "title_palette_transition_calls": [
+    {
+      "call_rva": "0x172a",
+      "push_values_in_order": [
+        {
+          "value": 0,
+          "source": "immediate"
+        },
+        {
+          "value": -1,
+          "source": "immediate"
+        }
+      ],
+      "selector_arg1": -1,
+      "path_arg2": 0
+    },
+    {
+      "call_rva": "0x1cce",
+      "push_values_in_order": [
+        {
+          "value": 0,
+          "source": "register:ebx"
+        },
+        {
+          "value": -2,
+          "source": "immediate"
+        }
+      ],
+      "selector_arg1": -2,
+      "path_arg2": 0
+    },
+    {
+      "call_rva": "0x7569",
+      "push_values_in_order": [
+        {
+          "value": 0,
+          "source": "register:ebx"
+        },
+        {
+          "value": -4,
+          "source": "immediate"
+        }
+      ],
+      "selector_arg1": -4,
+      "path_arg2": 0
+    }
+  ],
+  "slot145_selector_resource_paths": [
+    {
+      "selector": -6,
+      "case_rva": "0x5849",
+      "resource_path": "o:\\title\\tally\\map_psx.pal"
+    },
+    {
+      "selector": -5,
+      "case_rva": "0x583e",
+      "resource_path": "o:\\title\\pswd\\map_psx.pal"
+    },
+    {
+      "selector": -4,
+      "case_rva": "0x5830",
+      "resource_path": "o:\\title\\mainmenu\\map_psx.pal"
+    },
+    {
+      "selector": -3,
+      "case_rva": "0x5822",
+      "resource_path": "o:\\title\\loadlev\\map_psx.pal"
+    },
+    {
+      "selector": -2,
+      "case_rva": "0x5814",
+      "resource_path": "o:\\title\\credits\\map_psx.pal"
+    },
+    {
+      "selector": -1,
+      "case_rva": "0x5806",
+      "resource_path": "o:\\title\\cheat\\map_psx.pal"
+    },
+    {
+      "selector": 0,
+      "case_rva": "0x59f7",
+      "resource_path": null
+    },
+    {
+      "selector": 1,
+      "case_rva": "0x5854",
+      "resource_path": "o:\\training\\map_psx.bin"
+    },
+    {
+      "selector": 2,
+      "case_rva": "0x58ac",
+      "resource_path": "o:\\gauntlet\\map_psx.bin"
+    },
+    {
+      "selector": 3,
+      "case_rva": "0x585f",
+      "resource_path": "o:\\forest\\map_psx.bin"
+    },
+    {
+      "selector": 4,
+      "case_rva": "0x59f7",
+      "resource_path": null
+    },
+    {
+      "selector": 5,
+      "case_rva": "0x586a",
+      "resource_path": "o:\\thebes\\map_psx.bin"
+    },
+    {
+      "selector": 6,
+      "case_rva": "0x5875",
+      "resource_path": "o:\\hydra\\map_psx.bin"
+    },
+    {
+      "selector": 7,
+      "case_rva": "0x5880",
+      "resource_path": "o:\\medusa\\map_psx.bin"
+    },
+    {
+      "selector": 8,
+      "case_rva": "0x58b7",
+      "resource_path": "o:\\cyclops\\map_psx.bin"
+    },
+    {
+      "selector": 9,
+      "case_rva": "0x588b",
+      "resource_path": "o:\\titans\\map_psx.bin"
+    },
+    {
+      "selector": 10,
+      "case_rva": "0x58a1",
+      "resource_path": "o:\\torment\\map_psx.bin"
+    },
+    {
+      "selector": 11,
+      "case_rva": "0x5896",
+      "resource_path": "o:\\vortex\\map_psx.bin"
+    }
+  ],
+  "host_order": {
+    "window_init_case_to_5e10_callsite": "0x7937 (existing presentation evidence)",
+    "graphics_setup_callsite": "0x5e2c",
+    "71a0_callsite_in_72a0": "0x741a",
+    "DirectDrawCreate_thunk_callsite": "0x7426",
+    "source_pointer_read": "0x5ef3",
+    "first_PC_DLLEngineMain_dispatch": "0x5f03",
+    "relation": "host init 5e10 calls 72a0; 72a0 calls 71a0 before DirectDrawCreate; 5e10 completes before timer/event path 5f20 first dispatch at 5f03 (also independently recorded by presentation.json)."
+  },
+  "loader_writes": {
+    "68c0_palette": {
+      "rgb_triplets": 256,
+      "reader_call": "0x5210",
+      "writer_call": "0x6780"
+    },
+    "blocks_in_order": [
+      {
+        "size": "0x40000",
+        "destination": "0x92e3d0",
+        "meaning": "four blend tables"
+      },
+      {
+        "size": "0x10000",
+        "destination": "0x91c488",
+        "meaning": "shade LUT"
+      },
+      {
+        "size": "0x1f00",
+        "destination": "0x92c490",
+        "meaning": "31 CLUT rows, rows 1..31"
+      }
+    ],
+    "after_reads": "close reader at 0x6954; clear 0x96e3e0; compare CLUT rows 2..32 against predecessors; set gate to 1 at first differing byte.",
+    "overlap_after_71a0_then_68c0": {
+      "procedural_row32": {
+        "start": "0x92e390",
+        "end_exclusive": "0x92e490"
+      },
+      "68c0_clut_payload": {
+        "start": "0x92c490",
+        "end_exclusive": "0x92e390"
+      },
+      "68c0_blend_payload": {
+        "start": "0x92e3d0",
+        "end_exclusive": "0x92e7d0"
+      },
+      "row32_first_64_bytes": "0x92e390..0x92e3cf remain from 71a0's procedural ramp 0..63",
+      "row32_final_192_bytes": "0x92e3d0..0x92e48f alias the first 192 bytes of 68c0's loaded blend resource",
+      "ordering_effect": "the 31-row CLUT read ends exactly before row 32; row 32 is not loaded by 68c0, but its tail is overwritten by 68c0's earlier blend-table read; the compare at 0x696b observes the resulting mixed row32."
+    }
+  },
+  "imports": {
+    "DirectDrawCreate": {
+      "dll": "DDRAW.dll",
+      "iat_rva": "0x7a5648",
+      "iat_va": "0xba5648"
+    },
+    "CloseHandle": {
+      "dll": "KERNEL32.dll",
+      "iat_rva": "0x7a576c",
+      "iat_va": "0xba576c"
+    },
+    "ReadFile": {
+      "dll": "KERNEL32.dll",
+      "iat_rva": "0x7a5824",
+      "iat_va": "0xba5824"
+    },
+    "SetFilePointer": {
+      "dll": "KERNEL32.dll",
+      "iat_rva": "0x7a582c",
+      "iat_va": "0xba582c"
+    },
+    "CreateFileA": {
+      "dll": "KERNEL32.dll",
+      "iat_rva": "0x7a5838",
+      "iat_va": "0xba5838"
+    },
+    "CreateFileMappingA": {
+      "dll": "KERNEL32.dll",
+      "iat_rva": "0x7a5898",
+      "iat_va": "0xba5898"
+    },
+    "LoadLibraryA": {
+      "dll": "KERNEL32.dll",
+      "iat_rva": "0x7a589c",
+      "iat_va": "0xba589c"
+    },
+    "GetProcAddress": {
+      "dll": "KERNEL32.dll",
+      "iat_rva": "0x7a58ac",
+      "iat_va": "0xba58ac"
+    }
+  },
+  "conclusion": "For the observed normal host startup path, 71a0 deterministically precedes any observed 68c0 call: 68c0's sole direct caller is 5760, published as source slot 145, and the only statically observed consumers of that callback are TITLE transition paths. Actual transition timing, archive bytes/read success, and runtime gate value remain unobserved.",
+  "unresolved": [
+    "No complete runtime trace proves which TITLE transition first invokes slot 145 or when the resource read succeeds.",
+    "The internal 5210 reader/container semantics and actual .pal/.bin bytes were not recovered or executed.",
+    "A different executable/startup route that invokes the host callback outside the observed initialized engine path would invalidate the ordering inference; none was found in the bounded PE call/reference audit."
+  ]
+}

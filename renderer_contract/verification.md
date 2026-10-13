@@ -37,8 +37,14 @@ include 44 frame, 43 packet, 43 state, 47 indexed-pixel, 24 sprite-pixel and
 slices, nine VRAM/alias cases, six row/rectangle cases, twelve DLL prefixes
 and one complete bounded startup LUT writer. The staging differential checks
 171 native fields, seven gate branches and nine page-mask vectors. Original
-validation covers four image hashes, 162 spans, 28 callback bindings,
+validation covers four image hashes, 187 spans, 29 callback bindings,
 22 wrappers and 57 dispatch sites. Counts describe finite evidence only.
+
+Additional geometry fixtures cover 22 triangle routes, 17 shaded/raw blend
+cases, three generic-quad routes and seven constant-fill cases with six paired
+comparisons. They falsify exact barycentric sampling, both tested triangle
+splits for one quad, and unified fill/textured edge arithmetic. These are
+model counterexamples, not defects in the original game.
 
 The original palette builder falsified an earlier interpretation of its
 CLUT writer as a clear: it writes byte ramps. It also showed that selector 3
@@ -59,6 +65,11 @@ $originalExe = 'D:\Prog\hercules_recon\work\discs\pc_install\HERCULES.EXE'
 & $pythonExe renderer_contract/tests/test_original_sprite_geometry.py --exe $originalExe --receipt work/replay/sprites.json
 & $pythonExe renderer_contract/tests/test_original_vram_move.py --exe $originalExe --receipt work/replay/moves.json
 & $pythonExe renderer_contract/tests/test_original_palette_builder.py --repo-root . --exe $originalExe --receipt work/replay/palette.json
+& $pythonExe renderer_contract/tests/test_original_startup_pixel_alias.py --exe $originalExe --receipt work/replay/alias.json
+& $pythonExe renderer_contract/tests/test_original_polygon_edges.py --exe $originalExe --receipt work/replay/edges.json
+& $pythonExe renderer_contract/tests/test_original_shaded_edges.py --exe $originalExe --receipt work/replay/shaded.json
+& $pythonExe renderer_contract/tests/test_original_quad_interpolation.py --exe $originalExe --receipt work/replay/quad.json
+& $pythonExe renderer_contract/tests/test_original_fill_edges.py --exe $originalExe --receipt work/replay/fill_full.json --compact-receipt work/replay/fill.json
 & $pythonExe renderer_contract/tests/test_native_staging.py --exe $originalExe --receipt work/replay/staging.json
 & $pythonExe renderer_contract/tests/test_original_interface_copy.py --exe $originalExe `
   --eng1 D:\Prog\hercules_recon\assets\pc\HERCULES\ENG1.DLL `
