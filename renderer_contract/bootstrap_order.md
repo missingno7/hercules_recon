@@ -95,3 +95,9 @@ python renderer_contract/tests/audit_bootstrap_order.py --original-root . --exe 
 The audit is read-only with respect to the original image and writes only its
 JSON receipt under `work/`. It uses the checkout's existing `scripts/pe.py`,
 `scripts/env.py`, and Capstone dependency.
+
+The later [gate audit](bootstrap_gates.md) establishes zero-filled initial
+state for the event gates and export pointer. The ordinary direct init route
+publishes that export after DirectDraw returns. It does not recover the indirect
+gate setters or exclude reentrant/alias routes, so process-wide first-copy
+ordering remains unresolved.

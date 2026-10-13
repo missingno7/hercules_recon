@@ -155,3 +155,11 @@ source-built synthetic EXE and mock DLL: early attach publication reaches its
 constructor's first copy, while deferred API publication misses it. Its HRESULT
 and output are deliberately `E_NOTIMPL` and null. Hercules, real DirectDraw,
 COM, windows and GPU services are outside that fixture.
+
+```powershell
+& $pythonExe renderer_contract/tests/audit_bootstrap_gates.py --original-root . --image-dir D:\Prog\hercules_recon\work\discs\pc_install --output work/replay/bootstrap_gates.json
+```
+
+This read-only audit checks all four pinned images and bounds the direct gate
+writers and callback-address context. Its full raw-section sweep is a candidate
+xref inventory, not proof of instruction alignment or callback scheduling.

@@ -73,6 +73,7 @@ not replace this complete contract.
 | loader.md | Direct-init and independent dispatch paths; source-built loader surrogates |
 | geometry.md | Information available before and after projection |
 | blockers.md | Separate capture, rendering, window and enhancement blockers |
+| bootstrap_gates.md | Initial zero-fill and normal export publication order; indirect gate-setter limits |
 | `bootstrap_order.md` | Direct-init and independent event/tick dispatch paths; HRESULT branch and ordering limits |
 | `packed_uv_recurrence.md` | One finite D60C fixture where sampled texels change a later V byte |
 | `route_uv_feedback.md` | Finite sample-address comparisons for CC50 and selected E680 modes |

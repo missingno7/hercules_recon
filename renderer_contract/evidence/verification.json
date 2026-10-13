@@ -2,7 +2,7 @@
   "schema_version": 3,
   "scope": "Renderer external contract and finite unchanged-original CPU fixtures; no live loader, window or GPU integration.",
   "source_base_commit": "73c6320179093c3de9b820e66b87f94dfb639a9b",
-  "preceding_contract_commit": "ab55786ff87e968068f4b04ba74f4f8c97cd3360",
+  "preceding_contract_commit": "19968284e1ed5312c6524ce519469cdd3da3ba78",
   "branch": "codex/renderer-interface-closure",
   "toolchain_id": "msvc5_rtm",
   "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
@@ -369,13 +369,13 @@
     }
   ],
   "original_validation": {
-    "manifest_sha256": "ece5faa2259067dedc2087a48e1c9006d709bb99ad5180a889e2d9b9e2e198b3",
+    "manifest_sha256": "5832a2a1fd5a9737cc1b0685504bb37bc31b457d8999f51a108dfd2d605ecb8d",
     "status": "passed",
     "counts": {
       "original_images": 4,
       "original_files_hash_checked": 4,
-      "span_hashes_checked": 553,
-      "package_evidence_hashes_checked": 58,
+      "span_hashes_checked": 592,
+      "package_evidence_hashes_checked": 59,
       "callback_table_hashes_checked": 1,
       "callback_bindings_checked": 29,
       "copied_wrapper_hashes_checked": 22,
@@ -514,6 +514,10 @@
     {
       "path": "renderer_contract/hercules_types.h",
       "sha256": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d"
+    },
+    {
+      "path": "renderer_contract/tests/audit_bootstrap_gates.py",
+      "sha256": "e1c253f498424c5b98a1e3708366ad076ba4cebf20d9ef2310358184d0121e8f"
     },
     {
       "path": "renderer_contract/tests/audit_bootstrap_order.py",
@@ -762,7 +766,8 @@
     "TITLE mode-7 producer route is statically resolved to RVA 0x186e0 for eligible children and emits FT4-compatible tags 0x2c/0x2e at 0x28 stride; FT3 and fixed-sprite producer routes remain unresolved",
     "TITLE's two local uploads use y=256 under the pinned shared initial context; indirect mutation of the interface/context pointer remains outside the static proof",
     "Runtime primary notification callback alias/target and callback write set remain unresolved; direct adapter calls passing NULL do not bound all runtime callers",
-    "Resource-driven upload bounds, LUT loading order, and allocation ownership beyond the pinned finite upload rectangle remain unresolved"
+    "Resource-driven upload bounds, LUT loading order, and allocation ownership beyond the pinned finite upload rectangle remain unresolved",
+    "Bootstrap gate ordering is static-only: the normal direct path reaches export publication after DirectDraw returns, but enabling/suppression setters have no direct callsites in the pinned raw .text sweeps. Alias writes, indirect/reentrant invocation, and process-wide framework scheduling remain unresolved."
   ],
   "portable_fixture_proof": {
     "path": "renderer_contract/evidence/portable_verification.json",
@@ -788,127 +793,20 @@
     "renderer_contract/evidence/producer_reachability.json",
     "renderer_contract/evidence/upload_domain_bounds.json",
     "renderer_contract/evidence/packed_uv_counterexample.json",
-    "renderer_contract/evidence/bootstrap_order.json"
+    "renderer_contract/evidence/bootstrap_order.json",
+    "renderer_contract/evidence/bootstrap_gates.json"
   ],
-  "source_ledger_scope": "current renderer_contract working tree before the proposed seal; not the preceding HEAD commit",
+  "source_ledger_scope": "current renderer_contract source tree after the Phase 8 static audit runner copy and before sealing",
   "source_ledger_delta_from_preceding_head": {
-    "preceding_ledger_commit": "ab55786ff87e968068f4b04ba74f4f8c97cd3360",
-    "proposal_ledger_scope": "current renderer_contract working tree before the proposed seal; not the preceding HEAD commit",
-    "changed_source_count": 19,
+    "preceding_ledger_commit": "19968284e1ed5312c6524ce519469cdd3da3ba78",
+    "proposal_ledger_scope": "current renderer_contract source files after the Phase 8 audit copy and before sealing",
+    "changed_source_count": 1,
     "changes": [
       {
-        "path": "renderer_contract/fixtures/early_loader_probe/build_and_run.py",
+        "path": "renderer_contract/tests/audit_bootstrap_gates.py",
         "state": "added",
         "preceding_head_sha256": null,
-        "proposal_worktree_sha256": "3068832b865f3590fa45e8104d217417a094c28f31f96911171176701b903937"
-      },
-      {
-        "path": "renderer_contract/fixtures/early_loader_probe/src/ddraw.def",
-        "state": "added",
-        "preceding_head_sha256": null,
-        "proposal_worktree_sha256": "934c6f8df26c957dd60d5d4f2a110e651e858ec501706e203c953f8e3cf674b6"
-      },
-      {
-        "path": "renderer_contract/fixtures/early_loader_probe/src/ddraw_stub.c",
-        "state": "added",
-        "preceding_head_sha256": null,
-        "proposal_worktree_sha256": "f59e40676d66855c7816818fbebee5f8a61a67ba1a4c667935f58851f17c663b"
-      },
-      {
-        "path": "renderer_contract/fixtures/early_loader_probe/src/probe.cpp",
-        "state": "added",
-        "preceding_head_sha256": null,
-        "proposal_worktree_sha256": "52232c0d60152ffd104aab58edc6466b7799b2e38ed7cd701a72063c99f97dae"
-      },
-      {
-        "path": "renderer_contract/fixtures/early_loader_probe/src/probe.def",
-        "state": "added",
-        "preceding_head_sha256": null,
-        "proposal_worktree_sha256": "5c17aaabdc440f274d61eaae548196b22baee43dc30a923244379fb353ed81dd"
-      },
-      {
-        "path": "renderer_contract/fixtures/packed_uv/replay_native_trace.c",
-        "state": "added",
-        "preceding_head_sha256": null,
-        "proposal_worktree_sha256": "d1fbb3a8fdcaee0ac759b1cc707a971e0bccae62831a19943c9416b6c69f5d43"
-      },
-      {
-        "path": "renderer_contract/hercules_packed_uv.c",
-        "state": "added",
-        "preceding_head_sha256": null,
-        "proposal_worktree_sha256": "29491844f7e6aa593dc9009a266c965b3e76e3911c5c21fca4c41baef56b00ca"
-      },
-      {
-        "path": "renderer_contract/hercules_packed_uv.h",
-        "state": "added",
-        "preceding_head_sha256": null,
-        "proposal_worktree_sha256": "6a09683d104256ba1a2a1e4c6dff38f222185a38a84a76c2dc19c2c3a9a976bf"
-      },
-      {
-        "path": "renderer_contract/hercules_textures.c",
-        "state": "modified",
-        "preceding_head_sha256": "05d872d4b687ccb93dc872e0850aa2e09e0b59eecfbd9ba9f25a627143c8f626",
-        "proposal_worktree_sha256": "07c951a693b8aeab12cff7cf6b09dc802de7c203e0c8387bd4d2bdf4ce23a5c5"
-      },
-      {
-        "path": "renderer_contract/hercules_textures.h",
-        "state": "modified",
-        "preceding_head_sha256": "3355a1a75704fd0b4f8ec2fdab3563f42fe6114a611eeae25dfb82985597c476",
-        "proposal_worktree_sha256": "3fdd37291af16f6328a42b545d5655058f1d7d510d796ffdcbe562596e8369ad"
-      },
-      {
-        "path": "renderer_contract/tests/audit_bootstrap_order.py",
-        "state": "added",
-        "preceding_head_sha256": null,
-        "proposal_worktree_sha256": "e90830af32a09fcaa23e4a6de3013ba543d95c8a1f6d691758fa828ac7d96404"
-      },
-      {
-        "path": "renderer_contract/tests/run_portable_tests.py",
-        "state": "modified",
-        "preceding_head_sha256": "7d43ed3d4edb33d95fca9e3126ba78cb9d8ce8e3b959e1146adfb077dd8614ff",
-        "proposal_worktree_sha256": "0f61778706f33663f03f7363027ec46703d1798f3b5c80b48ca8a09cd6eb7736"
-      },
-      {
-        "path": "renderer_contract/tests/test_cpp_headers.cpp",
-        "state": "modified",
-        "preceding_head_sha256": "11d9fdfc36ab83c83a785fc897465c7a863adee012341c58bd1ea136987814c7",
-        "proposal_worktree_sha256": "e1060436250378abe8164bdafa2d37af05afae015891301f2d020dda3f92c1b4"
-      },
-      {
-        "path": "renderer_contract/tests/test_original_packed_uv_feedback.py",
-        "state": "added",
-        "preceding_head_sha256": null,
-        "proposal_worktree_sha256": "1534edc9d55f980cd8dc44ec4b5f20a898879bc6999b4995dc3dfe3da2232b9b"
-      },
-      {
-        "path": "renderer_contract/tests/test_original_packed_uv_state.py",
-        "state": "added",
-        "preceding_head_sha256": null,
-        "proposal_worktree_sha256": "c2123d58325aad7811a96a3fc9fa62bd920959bbb12a4b7acd1666db96466daf"
-      },
-      {
-        "path": "renderer_contract/tests/test_original_route_uv_feedback.py",
-        "state": "added",
-        "preceding_head_sha256": null,
-        "proposal_worktree_sha256": "ef35ee7bbb517efe8f274ae341def74ed08e61e92a4afcaa2fbf73e737aeedae"
-      },
-      {
-        "path": "renderer_contract/tests/test_original_texture_row_boundaries.py",
-        "state": "added",
-        "preceding_head_sha256": null,
-        "proposal_worktree_sha256": "aeeee20cfda6ad766d8212e23faa908fbb9a9d4bd40305e443db49d001107074"
-      },
-      {
-        "path": "renderer_contract/tests/test_packed_uv.c",
-        "state": "added",
-        "preceding_head_sha256": null,
-        "proposal_worktree_sha256": "654f2a9683ad976e43f751e5b1558ddc80478e33ed4e8b400338e75aebd854af"
-      },
-      {
-        "path": "renderer_contract/tests/test_texture_row_mapping.c",
-        "state": "added",
-        "preceding_head_sha256": null,
-        "proposal_worktree_sha256": "bf9702fbce3d356a98f1ecc5117126e3f7088c031e017d1cfcbac2a31c4aafb6"
+        "proposal_worktree_sha256": "e1c253f498424c5b98a1e3708366ad076ba4cebf20d9ef2310358184d0121e8f"
       }
     ]
   },
@@ -942,5 +840,45 @@
         "limit": "Synthetic import/constructor behavior only; no original host ordering, real DirectDraw, product DllMain safety, or presentation."
       }
     }
-  ]
+  ],
+  "compiled_input_identity_check": {
+    "compiled_summary_preserved": true,
+    "compiled_suite_rows_preserved": true,
+    "compiled_source_file_count": 43,
+    "compiled_source_hashes_unchanged": true,
+    "compiler_rerun_required_for_this_python_only_addition": false,
+    "basis": "The only source-ledger change must be the new Python static-audit runner; all C, C++, and header source identities from HEAD remain byte-identical."
+  },
+  "phase8_bootstrap_gates": {
+    "original_module_count": 4,
+    "full_raw_text_sweep_module_count": 4,
+    "pinned_host_span_row_count": 13,
+    "new_unique_host_span_count": 9,
+    "direct_memory_reference_instruction_count": 30,
+    "direct_caller_record_count": 24,
+    "code_address_literal_record_count": 5,
+    "initial_zero_fill_cell_count": 5,
+    "scope": "STATIC_OBSERVED normal direct-path ordering only; global process scheduling remains unresolved.",
+    "receipt_path": "renderer_contract/evidence/bootstrap_gates.json",
+    "receipt_sha256": "7f0a86f8d8a1cf155af63e9f17a9c1aa853ce559173b49d0d5f1f8e5a1ce8fbd",
+    "runner_path": "renderer_contract/tests/audit_bootstrap_gates.py",
+    "runner_sha256": "e1c253f498424c5b98a1e3708366ad076ba4cebf20d9ef2310358184d0121e8f",
+    "proposed_unique_span_additions": 39,
+    "original_validation_status": "passed"
+  },
+  "exe_variant_span_refresh": {
+    "receipt_path": "renderer_contract/evidence/exe_variant.json",
+    "receipt_sha256": "05926cf0823c639d2c640e8d44c1366b9215ac1ed155720f8c658c0330f92ab5",
+    "manifest_span_count": 592,
+    "exe_span_count": 296,
+    "renderer_span_set_sha256": "44984bb3214f680bc0208547272fcf894393f39666f9fea3a1e535bff231edf2",
+    "single_hunk": {
+      "file_offset": "0x94b0",
+      "rva": "0xa0b0",
+      "pinned_hex": "53",
+      "variant_hex": "c3"
+    },
+    "all_recorded_overlap_flags_false": true,
+    "all_other_receipt_fields_match_preceding_head": true
+  }
 }

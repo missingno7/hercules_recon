@@ -218,6 +218,27 @@
       ],
       "private_provenance_path": "work/renderer_pixel_oracle/c882_report.json",
       "private_provenance_sha256": "07e5bda770330c798c37d07413e505b583ee935fdc254f7b94fd1d1b04644209"
+    },
+    {
+      "lane": "bootstrap_gates",
+      "path": "renderer_contract/evidence/bootstrap_gates.json",
+      "sha256": "7f0a86f8d8a1cf155af63e9f17a9c1aa853ce559173b49d0d5f1f8e5a1ce8fbd",
+      "schema_keys": [
+        "audit_script_sha256",
+        "callback_literal_context",
+        "direct_callers_by_entry_candidate",
+        "direct_references",
+        "file_backed_code_address_literals",
+        "full_raw_text_sweeps",
+        "initial_values",
+        "originals",
+        "pinned_host_spans",
+        "prediction_and_falsifier",
+        "provenance",
+        "schema_version",
+        "scope",
+        "static_order_assessment"
+      ]
     }
   ],
   "excluded_or_pending_reports": [],
@@ -577,6 +598,18 @@
         "work/renderer_phase3/fill_edges_full.json#spans"
       ],
       "evidence_ref": ""
+    },
+    {
+      "lane": "bootstrap_gates",
+      "proof_level": "STATIC_OBSERVED",
+      "span_count": 39,
+      "pinned_host_span_count": 13,
+      "direct_memory_reference_instruction_count": 30,
+      "scope": "The bounded normal direct initialization route publishes the export pointer after the forwarded DirectDraw call returns. Initial zero-fill cells block the known event/export path at image initialization. Complete raw-section linear sweeps are candidate xref inventories only; this does not establish process-wide scheduling.",
+      "static_conclusion": "Within the reviewed direct path, the known gate path blocks earlier dispatch and the ordinary pointer publication follows DirectDraw return. Setter invocation order, aliases, reentrancy, indirect callers, and framework scheduling remain unresolved.",
+      "evidence_ref": "renderer_contract/evidence/bootstrap_gates.json",
+      "related_order_evidence_ref": "renderer_contract/evidence/bootstrap_order.json",
+      "not_function_match": true
     }
   ],
   "original_images": {
@@ -2594,6 +2627,28 @@
     },
     {
       "module": "HERCULES.EXE",
+      "rva": "0x1ff0",
+      "size": 193,
+      "expected_sha256": "764b2098b576f83949c7b094aea68b7b98decc483f369965e3b1e5af18196582",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/frame_host_initializer_1ff0"
+      ],
+      "role": "bootstrap direct-path and gate context: frame_host_initializer_1ff0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x4040",
+      "size": 144,
+      "expected_sha256": "6099a5b54a7b0f12d45646dcd749f297cb85b0e37f41e6425267d0015052dfd6",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/host_callback_service_4040"
+      ],
+      "role": "bootstrap direct-path and gate context: host_callback_service_4040"
+    },
+    {
+      "module": "HERCULES.EXE",
       "rva": "0x4240",
       "size": 28,
       "kind": "code",
@@ -2644,6 +2699,50 @@
     },
     {
       "module": "HERCULES.EXE",
+      "rva": "0x5551",
+      "size": 5,
+      "expected_sha256": "7ca305aa1be77fa3c572d7b63fad1c4297faaef5b4edc8e48f6f7546f689eb02",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_enable_ba0238/0"
+      ],
+      "role": "direct absolute gate/export reference: event_enable_ba0238 read"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x555e",
+      "size": 5,
+      "expected_sha256": "c13e0e14cd146daf4c84edea0d894bd6e8c6bb7aceec55b41bf8ba36f21042f6",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_suppress_ba0228/0"
+      ],
+      "role": "direct absolute gate/export reference: event_suppress_ba0228 read"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x567c",
+      "size": 7,
+      "expected_sha256": "65bf1212b193f9c7471a6d63950c75bd2b51688613f6ca065fdb24829da925ca",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_enable_ba0238/1"
+      ],
+      "role": "direct absolute gate/export reference: event_enable_ba0238 read"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5685",
+      "size": 7,
+      "expected_sha256": "02998d49281dcbb833ac9cae9572acfd90ca9acde867e85155c3e997aeb84df0",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_enable_ba0238/2"
+      ],
+      "role": "direct absolute gate/export reference: event_enable_ba0238 write"
+    },
+    {
+      "module": "HERCULES.EXE",
       "rva": "0x5760",
       "size": 673,
       "kind": "code",
@@ -2663,6 +2762,138 @@
     },
     {
       "module": "HERCULES.EXE",
+      "rva": "0x5a61",
+      "size": 5,
+      "expected_sha256": "7ca305aa1be77fa3c572d7b63fad1c4297faaef5b4edc8e48f6f7546f689eb02",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_enable_ba0238/3"
+      ],
+      "role": "direct absolute gate/export reference: event_enable_ba0238 read"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5a77",
+      "size": 6,
+      "expected_sha256": "aabe4f997e8d4315936bab7a9c6f2258805bc8cd91e9f9fc6e137c18c62fe3d7",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_suppress_ba0228/1"
+      ],
+      "role": "direct absolute gate/export reference: event_suppress_ba0228 read"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5ba5",
+      "size": 7,
+      "expected_sha256": "f4cb2f266217a7245925c81a807926c02689f49bb182c27125fa23b4bc68e27a",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_enable_ba0238/4"
+      ],
+      "role": "direct absolute gate/export reference: event_enable_ba0238 read"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5bae",
+      "size": 5,
+      "expected_sha256": "c13e0e14cd146daf4c84edea0d894bd6e8c6bb7aceec55b41bf8ba36f21042f6",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_suppress_ba0228/2"
+      ],
+      "role": "direct absolute gate/export reference: event_suppress_ba0228 read"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5bc2",
+      "size": 5,
+      "expected_sha256": "7ca305aa1be77fa3c572d7b63fad1c4297faaef5b4edc8e48f6f7546f689eb02",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_enable_ba0238/5"
+      ],
+      "role": "direct absolute gate/export reference: event_enable_ba0238 read"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5bc7",
+      "size": 6,
+      "expected_sha256": "b9fb678f78ccc9e047dff007d752c5296bf9d41ab1e17557f1e15863706c1451",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_suppress_ba0228/3"
+      ],
+      "role": "direct absolute gate/export reference: event_suppress_ba0228 read"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5c20",
+      "size": 170,
+      "expected_sha256": "83789132ba26c1b816a56f39b77a2ee73b36595319f01b3c90b2b4be782cd053",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/module_resolver_5c20"
+      ],
+      "role": "bootstrap direct-path and gate context: module_resolver_5c20"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5c28",
+      "size": 10,
+      "expected_sha256": "fed30b084daad6790dc08175aac4d4555c2614ea6d98cd9a6a3adfaccb1a7447",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/module_resolver_gate_91c460/0"
+      ],
+      "role": "direct absolute gate/export reference: module_resolver_gate_91c460 write"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5c9d",
+      "size": 5,
+      "expected_sha256": "56f601a42191dea886f1f00c2e7a02c96ec57307daadf46472065eeb261b7eed",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/export_pointer_91c45c/0"
+      ],
+      "role": "direct absolute gate/export reference: export_pointer_91c45c write"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5cd0",
+      "size": 316,
+      "expected_sha256": "4822203b62c4ff147a03048ca3beb47c8f5af61d85c4bcd07e590335ff1a863b",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/module_loader_5cd0"
+      ],
+      "role": "bootstrap direct-path and gate context: module_loader_5cd0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5dd3",
+      "size": 5,
+      "expected_sha256": "efa5091e92ffd8c40d8ca3d38673f63490d05fb415b9703c1633665372b57928",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/resolver_in_progress_91c464_auxiliary/0"
+      ],
+      "role": "direct absolute gate/export reference: resolver_in_progress_91c464_auxiliary read"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5de3",
+      "size": 10,
+      "expected_sha256": "37d5c91e796fe4aeaad8ad562ddf7a8954acf1db182bcaa2f8e25efca3797a56",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/module_resolver_gate_91c460/1"
+      ],
+      "role": "direct absolute gate/export reference: module_resolver_gate_91c460 write"
+    },
+    {
+      "module": "HERCULES.EXE",
       "rva": "0x5e10",
       "size": 127,
       "kind": "code",
@@ -2677,7 +2908,8 @@
       },
       "evidence_refs": [
         "renderer_contract/evidence/resource_lut_order.json#spans.host_graphics_init_5e10",
-        "renderer_contract/evidence/bootstrap_order.json#pinned_spans[0]"
+        "renderer_contract/evidence/bootstrap_order.json#pinned_spans[0]",
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/host_init_5e10"
       ],
       "original_validation": "passed"
     },
@@ -2688,9 +2920,43 @@
       "expected_sha256": "a46d7bd89182519e392745733e1729b367034125279560d8df6e65b9d9e235d0",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "renderer_contract/evidence/bootstrap_order.json#pinned_spans[1]"
+        "renderer_contract/evidence/bootstrap_order.json#pinned_spans[1]",
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/engine_dispatch_wrapper_5ec0"
       ],
       "role": "bounded host bootstrap CFG span: engine_dispatch_wrapper_5ec0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5eca",
+      "size": 10,
+      "expected_sha256": "1581fb7d4698d2c0976058f2b80084c9d3ca83ef9b11a15cb7fec792e507067d",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/resolver_in_progress_91c464_auxiliary/1"
+      ],
+      "role": "direct absolute gate/export reference: resolver_in_progress_91c464_auxiliary write"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5ed9",
+      "size": 5,
+      "expected_sha256": "a8d13a152fa840ab09dedf7a9d12158c5c3e163a8553404b006e2cfb78d2f28a",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/module_resolver_gate_91c460/2"
+      ],
+      "role": "direct absolute gate/export reference: module_resolver_gate_91c460 read"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5eea",
+      "size": 5,
+      "expected_sha256": "9241214ec964abc089e70832bfdb7ada6a31a94f9b739cd65d86493d70b62a83",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/export_pointer_91c45c/1"
+      ],
+      "role": "direct absolute gate/export reference: export_pointer_91c45c read"
     },
     {
       "module": "HERCULES.EXE",
@@ -2738,12 +3004,24 @@
     },
     {
       "module": "HERCULES.EXE",
+      "rva": "0x5f08",
+      "size": 10,
+      "expected_sha256": "6ca40da9dd3392a4bccf288e29991bae327e396d23bbd20b23ef4bfd0a05ee7f",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/resolver_in_progress_91c464_auxiliary/2"
+      ],
+      "role": "direct absolute gate/export reference: resolver_in_progress_91c464_auxiliary write"
+    },
+    {
+      "module": "HERCULES.EXE",
       "rva": "0x5f20",
       "size": 173,
       "expected_sha256": "2da2abca95296d27f38f85a3e65df55f188a014d1a3f0470f26cb39d47224802",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "renderer_contract/evidence/bootstrap_order.json#pinned_spans[2]"
+        "renderer_contract/evidence/bootstrap_order.json#pinned_spans[2]",
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/timer_dispatch_5f20"
       ],
       "role": "bounded host bootstrap CFG span: timer_dispatch_5f20"
     },
@@ -3217,9 +3495,43 @@
       "expected_sha256": "fe2bd489d14ee3dc40f7fb1b313a4e00c7cd0563f452e9e76a2f434d542e473d",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "renderer_contract/evidence/bootstrap_order.json#pinned_spans[5]"
+        "renderer_contract/evidence/bootstrap_order.json#pinned_spans[5]",
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/event_callback_79a0"
       ],
       "role": "bounded host bootstrap CFG span: event_callback_79a0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x79e0",
+      "size": 37,
+      "expected_sha256": "46d6f67da1a75b5fe522c2fe9ced0bbf09961387dd2783dc19cbb59a84b0366d",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/event_gate_and_tick_79e0"
+      ],
+      "role": "bootstrap direct-path and gate context: event_gate_and_tick_79e0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x79ea",
+      "size": 5,
+      "expected_sha256": "7ca305aa1be77fa3c572d7b63fad1c4297faaef5b4edc8e48f6f7546f689eb02",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_enable_ba0238/6"
+      ],
+      "role": "direct absolute gate/export reference: event_enable_ba0238 read"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x79f3",
+      "size": 5,
+      "expected_sha256": "c13e0e14cd146daf4c84edea0d894bd6e8c6bb7aceec55b41bf8ba36f21042f6",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_suppress_ba0228/4"
+      ],
+      "role": "direct absolute gate/export reference: event_suppress_ba0228 read"
     },
     {
       "module": "HERCULES.EXE",
@@ -3231,6 +3543,149 @@
         "renderer_contract/evidence/bootstrap_order.json#pinned_spans[8]"
       ],
       "role": "bounded host bootstrap CFG span: event_tick_callsite_79fc"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x7a01",
+      "size": 7,
+      "expected_sha256": "65bf1212b193f9c7471a6d63950c75bd2b51688613f6ca065fdb24829da925ca",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_enable_ba0238/7"
+      ],
+      "role": "direct absolute gate/export reference: event_enable_ba0238 read"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x7a0a",
+      "size": 7,
+      "expected_sha256": "02998d49281dcbb833ac9cae9572acfd90ca9acde867e85155c3e997aeb84df0",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_enable_ba0238/8"
+      ],
+      "role": "direct absolute gate/export reference: event_enable_ba0238 write"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x7a63",
+      "size": 5,
+      "expected_sha256": "7ca305aa1be77fa3c572d7b63fad1c4297faaef5b4edc8e48f6f7546f689eb02",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_enable_ba0238/9"
+      ],
+      "role": "direct absolute gate/export reference: event_enable_ba0238 read"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x7a6c",
+      "size": 5,
+      "expected_sha256": "c13e0e14cd146daf4c84edea0d894bd6e8c6bb7aceec55b41bf8ba36f21042f6",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_suppress_ba0228/5"
+      ],
+      "role": "direct absolute gate/export reference: event_suppress_ba0228 read"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x9820",
+      "size": 30,
+      "expected_sha256": "57dfacb5e6833cebe6623eea32eb4c73a179d92ac1ecf7d009c5f9c6dc8df548",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/event_enable_writer_9820"
+      ],
+      "role": "bootstrap direct-path and gate context: event_enable_writer_9820"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x9831",
+      "size": 5,
+      "expected_sha256": "ebb814f6a08b4ade1c54690d6211672606d32d6142338db8f522a91885dbdfec",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_enable_ba0238/10"
+      ],
+      "role": "direct absolute gate/export reference: event_enable_ba0238 write"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x9840",
+      "size": 33,
+      "expected_sha256": "1ce8e34c1db01cfff4753bde71d3a2b39a66a02f6a3f59a9f6c7efb552b32874",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/event_enable_writer_9840"
+      ],
+      "role": "bootstrap direct-path and gate context: event_enable_writer_9840"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x9851",
+      "size": 7,
+      "expected_sha256": "231f643f8a41024750085822fc98adbd6355969596ea7345b06987c4ecd947dc",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_enable_ba0238/11"
+      ],
+      "role": "direct absolute gate/export reference: event_enable_ba0238 write"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x9870",
+      "size": 130,
+      "expected_sha256": "2b886c51f18b35dca6411d94f0030a864a3a0ef7da8d540cdf154288cc0a86c9",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/event_suppress_writer_9870"
+      ],
+      "role": "bootstrap direct-path and gate context: event_suppress_writer_9870"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x98da",
+      "size": 7,
+      "expected_sha256": "3b7765ffeab92d22cac79da3f118558dcb0b76d45808eb739628748a37fd92f5",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_suppress_ba0228/6"
+      ],
+      "role": "direct absolute gate/export reference: event_suppress_ba0228 write"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x98e3",
+      "size": 7,
+      "expected_sha256": "a63b1641fcc41e10b41f198af59875e3c2c1afc02f7e2e7267c0fef591c064b3",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_suppress_ba0228/7"
+      ],
+      "role": "direct absolute gate/export reference: event_suppress_ba0228 write"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x9add",
+      "size": 7,
+      "expected_sha256": "f4cb2f266217a7245925c81a807926c02689f49bb182c27125fa23b4bc68e27a",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_enable_ba0238/12"
+      ],
+      "role": "direct absolute gate/export reference: event_enable_ba0238 read"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x9ae6",
+      "size": 5,
+      "expected_sha256": "c13e0e14cd146daf4c84edea0d894bd6e8c6bb7aceec55b41bf8ba36f21042f6",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/direct_references/HERCULES.EXE/targets/event_suppress_ba0228/8"
+      ],
+      "role": "direct absolute gate/export reference: event_suppress_ba0228 read"
     },
     {
       "module": "HERCULES.EXE",
@@ -6057,6 +6512,17 @@
         "renderer_contract/evidence/notification_ownership.json#spans[18]"
       ],
       "original_validation": "passed"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x2e220",
+      "size": 96,
+      "expected_sha256": "e43ff103db45eda7bccfd6b158c38546fccaed1bfa61333eaa96cc385a87522f",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/callback_address_context_2e220"
+      ],
+      "role": "bootstrap direct-path and gate context: callback_address_context_2e220"
     },
     {
       "module": "HERCULES.EXE",
@@ -9075,6 +9541,10 @@
   },
   "package_evidence": [
     {
+      "path": "renderer_contract/evidence/bootstrap_gates.json",
+      "sha256": "7f0a86f8d8a1cf155af63e9f17a9c1aa853ce559173b49d0d5f1f8e5a1ce8fbd"
+    },
+    {
       "path": "renderer_contract/evidence/bootstrap_order.json",
       "sha256": "ff1237e664d6779b400ec25dd9b7585f4db044bcf7a4c66888ac2fee08336832"
     },
@@ -9096,7 +9566,7 @@
     },
     {
       "path": "renderer_contract/evidence/exe_variant.json",
-      "sha256": "581b3afed892e7e933e9d073d25b44137970b70378fb8765eee5db11196f71eb"
+      "sha256": "05926cf0823c639d2c640e8d44c1366b9215ac1ed155720f8c658c0330f92ab5"
     },
     {
       "path": "renderer_contract/evidence/frame.json",

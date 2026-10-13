@@ -86,3 +86,9 @@ Compact receipts are [loader.json](evidence/loader.json),
 [loader_environment.json](evidence/loader_environment.json). Source, compiler
 and original-byte identities remain separate. No production proxy or renderer
 is implemented here.
+
+The later [gate audit](bootstrap_gates.md) establishes zero-filled initial
+state for the event gates and export pointer. The ordinary direct init route
+publishes that export after DirectDraw returns. It does not recover the indirect
+gate setters or exclude reentrant/alias routes, so process-wide first-copy
+ordering remains unresolved.
