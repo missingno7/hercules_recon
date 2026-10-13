@@ -132,3 +132,26 @@ explicit original span pins. None observes live host integration.
 & $pythonExe renderer_contract/tests/audit_producer_reachability.py --title D:\Prog\hercules_recon\assets\pc\HERCULES\TITLE.DLL --exe $originalExe --output work/replay/producer.json
 & $pythonExe renderer_contract/tests/audit_upload_domain_bounds.py --original-root . --exe $originalExe --image-dir D:\Prog\hercules_recon\assets\pc\HERCULES --output work/replay/upload_domains.json
 ```
+
+The next bounded fixtures separate D60C's sampled-texel feedback from the
+tested CC50/E680 color paths. A C89 state utility reproduces 1,029 captured
+sample transitions across 15 spans with both VC5 and GCC; this does not validate
+span construction or another raster route. Thirteen texture fixtures establish
+entry-latched row mapping and full DWORD destination arguments. The static
+bootstrap audit distinguishes the direct graphics-init path from an independent
+guarded engine-dispatch path. Neither proves live host startup ordering.
+
+```powershell
+& $pythonExe renderer_contract/tests/test_original_packed_uv_feedback.py --original-root . --exe $originalExe --receipt work/replay/packed_feedback.json
+& $pythonExe renderer_contract/tests/test_original_packed_uv_state.py --package renderer_contract --original-root . --exe $originalExe --receipt work/replay/packed_state.json --output work/replay/packed_state_build
+& $pythonExe renderer_contract/tests/test_original_route_uv_feedback.py --original-root . --exe $originalExe --receipt work/replay/route_feedback.json
+& $pythonExe renderer_contract/tests/test_original_texture_row_boundaries.py --original-root . --exe $originalExe --receipt work/replay/texture_rows.json
+& $pythonExe renderer_contract/tests/audit_bootstrap_order.py --original-root . --exe $originalExe --output work/replay/bootstrap.json
+& $pythonExe renderer_contract/fixtures/early_loader_probe/build_and_run.py --repo-root . --output-dir work/replay/early_loader_build
+```
+
+Build directories must be new or empty. The last command executes only a
+source-built synthetic EXE and mock DLL: early attach publication reaches its
+constructor's first copy, while deferred API publication misses it. Its HRESULT
+and output are deliberately `E_NOTIMPL` and null. Hercules, real DirectDraw,
+COM, windows and GPU services are outside that fixture.

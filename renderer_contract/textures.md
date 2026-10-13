@@ -8,7 +8,7 @@ The copied host callback table at RVA `0x361B8` binds slot `+0x204` to A710, `+0
 
 * **A710 / slot +0x204** takes `(RECT16*, source_bytes*)` cdecl. The descriptor is four signed 16-bit words `{x,y,width,height}`. It copies `2*width` bytes per source row from a tightly packed source (`2*width` source stride), synchronously, and does not retain the source pointer. Each callback calls BD80 exactly once, even with zero height. Its result register is not consumed by the observed caller, so the physical typedef is `void`.
 * **A640 / slot +0x208** takes seven cdecl arguments and returns a packed DWORD. The observed first argument is the source pointer. It calls A710 using descriptor low words `{arg4,arg2,arg6,arg7}`; arg3 is not read in this body. A340, which gates its return branches, is the two-instruction `xor eax,eax; ret`; with that return value the packed result is `((((arg4&3)<<2)|(arg5&3))<<3) | (arg2&0x200) | ((((arg4>>2)&0xf0)|(arg2&0x100))>>4)`. The helper preserves this as `herc_tex_a640_return_mode0`. Keep all seven raw arguments and the return behavior together if A640 is mirrored. A640's A710 call also triggers BD80.
-* **A8F0 / slot +0x20c** takes `(source_RECT16*, destination_x, destination_y)` cdecl, copies bytes within the same fixed-address map, calls BD80 exactly once, and returns zero in observed native code. AC60 command tag `0x01` directly calls A8F0 with packet `+0x10` as the source descriptor and signed packet words `+0x0c/+0x0e` as destination coordinates; the pointee's extent is not established.
+* **A8F0 / slot +0x20c** takes `(source_RECT16*, destination_x, destination_y)` cdecl with full signed DWORD destination arguments and signed WORD source fields, copies bytes within the same fixed-address map, calls BD80 exactly once, and returns zero in observed native code. AC60 command tag `0x01` directly calls A8F0 with packet `+0x10` as the source descriptor and signed packet words `+0x0c/+0x0e` as destination coordinates; the pointee's extent is not established.
 * **BD80** is the notification path reached by both A710 and A8F0. It reads callback cell `0xA8E780` and DWORD gate `0xA8E788`; the gate can suppress the callback jump. Preserve that notification if upload/copy is mirrored.
 * **70C0 / slot +0x23c** is separate from the A710 image upload. It consumes the low byte of one DWORD. Non-`0xff` stores a color cell; `0xff` remaps the live `320x240` surface in place using the LUT at `0x91C488`, surface pointer `BA0210`, and stride `BA0214`; color `0x80` bypasses remapping. AC60 also calls 70C0 directly at RVA `0xB2D0` with `0xff`, so slot interception alone misses the present-time remap.
 
@@ -47,7 +47,7 @@ Polygon records carry UV plus high-half TPAGE and CLUT words. Compact `0x74`/`0x
 
 The original A710 and BD80 instructions were executed in the sibling finite Unicorn oracle with synthetic descriptors/source/stack/notification state, and all mapped `.data` writes were checked and restored. Cases covered fast rows `(5,224,7,3)`, a page-crossing slow path `(127,478,3,2)`, and an empty rectangle `(9,240,4,0)`. Observed writes matched the byte address equation; BD80 ran once per case and read its enabled pointer/gate cells. This is finite `BOUNDED_EQUIVALENT` evidence for those A710 cases, not the entire callback domain.
 
-The exact-base native Windows mapping attempt was refused because address `0x400000` was already reserved/mapped with incompatible protection; no native callback was called and no original data was changed by that attempt. No native A640/A8F0/AC60/70C0 execution is claimed here. The private C helper and synthetic tests exercise only the address/format expressions and A640's static mode-zero return expression.
+The exact-base native Windows mapping attempt was refused because address `0x400000` was already reserved/mapped with incompatible protection; no native callback was called and no original data was changed by that attempt. That failed native Windows mapping attempt did not execute A640/A8F0/AC60/70C0; later CPU-emulator evidence is recorded separately below. The private C helper and synthetic tests exercise only the address/format expressions and A640's static mode-zero return expression.
 
 `work/renderer_bounded_oracle/report.json` and `provenance.json` hold the finite fixture proof and tool provenance. `evidence.json` lists the exact original spans, hashes, source evidence, and reproducible commands. The private reference ABI and helpers are `work/renderer_textures/privatehercules_textures.h` and `.c`; synthetic tests are in `candidates/renderer_textures/test_privatehercules_textures.c`. The initial prediction/falsifier is retained in `prediction.json`; its y-row guess was corrected by the dynamic case.
 
@@ -80,3 +80,25 @@ Clipped sprite U/V are wider than wire bytes. First-row address is page+U+
 16 bits. The native setup fixture demonstrates U=257,V=258. Packet-u8 sample
 helpers therefore must not be reused as clipped-sprite address functions.
 See [sprite_geometry.md](sprite_geometry.md) and [palette.md](palette.md).
+
+UV recurrence is route-specific. In the finite 319-sample D420-to-D60C
+row-zero fixture, source texel `AL` enters `ADD EAX,EBP`; its carry reaches
+`ADC CH,DH`, and the tested texels `1` and `255` first produce different V
+at `(193,1)`. A zero texel skips the framebuffer store but does not bypass
+that V update. By contrast, the selected finite D420-to-CC50 row-3 and E680
+mode `0x80`/`0x7f` fixtures retain all tested later sample addresses when
+their source or selected lookup values change. These are bounded route and
+fixture results, not one universal UV recurrence. See [packed U/V feedback](packed_uv_recurrence.md) and its [native receipt](evidence/native_packed_uv_feedback.json), plus [route-specific feedback tests](route_uv_feedback.md) and their [native receipt](evidence/native_route_uv_feedback.json). The older [packed-U counterexample receipt](evidence/packed_uv_counterexample.json) uses a different 36-sample fixture and reports an equal UV stream for its texel pair; it does not negate the separate 319-sample D60C witness.
+
+A710 chooses its row-mapping band once from the entry RECT y. A8F0 chooses
+from the source RECT y and uses that band for both operands. Recompute each
+row address within that selected band; crossing y=512 does not switch it.
+See [latched row mapping](texture_row_mapping.md) for full-DWORD destination
+arguments, wide row counters and the thirteen bounded original-code fixtures.
+
+Preserve the original palette/resource writers and observe their current native
+LUT bytes. BD80 is not the sole coherence event: slot 145 reaches 68C0, which
+updates the palette, blend/shade tables, CLUT rows 1..31 and CLUT gate. Startup
+71A0 and later resource loading have distinct overlapping writes. Existing
+[palette evidence](palette.md) proves writer order and aliases; actual loaded
+resource values and runtime timing remain unresolved.

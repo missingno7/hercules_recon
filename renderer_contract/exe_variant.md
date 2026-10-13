@@ -6,7 +6,7 @@ PE layout and headers identical: **True**; 1 byte difference(s) in 1 contiguous 
 
 - File offset `0x94b0` maps to RVA `0xa0b0` in `.text`: pinned `53` → assets `c3`.
 
-Recorded renderer spans checked: 233; renderer/table/DirectDraw-init/known loader-import overlap: **none** (prediction_supported_for_recorded_ranges). The sole hunk is outside all recorded intervals/sites.
+Recorded renderer spans checked: 257; renderer/table/DirectDraw-init/known loader-import overlap: **none** (prediction_supported_for_recorded_ranges). The sole hunk is outside all recorded intervals/sites.
 
 This establishes only byte and PE-layout identity at the compared addresses. It does not identify the changed function, prove its behavior, or generalize to other deployed binaries.
 

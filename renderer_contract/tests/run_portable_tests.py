@@ -24,6 +24,7 @@ EXPECTED_TESTS = {
     "test_frame.c",
     "test_host_abi.c",
     "test_packets.c",
+    "test_packed_uv.c",
     "test_pixels.c",
     "test_quad_route.c",
     "test_sprite_geometry.c",
@@ -32,6 +33,7 @@ EXPECTED_TESTS = {
     "test_state.c",
     "test_textures.c",
     "test_texture_high_y.c",
+    "test_texture_row_mapping.c",
 }
 
 

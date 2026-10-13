@@ -1,0 +1,1640 @@
+{
+  "schema_version": 1,
+  "status": "PASS_C89_REGISTER_TRANSITION_REPLAY",
+  "prediction": {
+    "family": "C89 model of the measured D60C packed span state",
+    "prediction": "Initializing from native U/V start and step words, raw destination/texture-base registers, and visible count will reproduce the full DC35..DC87 register packing. Each advance(sampled_texel) will match every captured register boundary through DC9E, including full ECX, U ADD/ADC, texture-byte AL replacement, V ADD/ADC carry, and BP-only decrement, for the 319-sample feedback fixture and the prior 36-sample packed-U fixture.",
+    "source_zero_prediction": "A zero texel suppresses the DC96 destination store but does not suppress DC98 ADD EAX,EBP, DC9A ADC CH,DH, or DC9C DEC BP; the C state therefore advances and records store_required=0.",
+    "falsifier": "Any setup or per-sample native register mismatch, a zero-source run that does not advance or that stores, or a count endpoint/invalid-input check failure falsifies the model.",
+    "scope": "Only the original D60C row-zero route with captured initial words and visible counts 1..320. No geometry-derived initialization, packet traversal, memory dereference, framebuffer rasterization, or CC50/E680 behavior is claimed.",
+    "not_claimed": [
+      "pixel coverage or span construction",
+      "host texture or surface lifetime",
+      "CC50 or E680 recurrence",
+      "generic renderer equivalence"
+    ]
+  },
+  "scope": "C89 D60C packed span state replayed every captured sample boundary for two 319-sample texel runs, one 319-sample source-zero run, and both 36-sample packed-U texture runs.",
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000"
+  },
+  "original_spans": [
+    {
+      "module": "HERCULES.EXE",
+      "name": "reciprocal_table_initializer",
+      "rva": "0x72a0",
+      "size": 44,
+      "sha256": "3d59be43f3756224228dfdcc372a3bc59b7a7dbba4bbab8c79dd821cc958014b"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "d420_dispatch_and_rowzero_function",
+      "rva": "0xd420",
+      "size": 2384,
+      "sha256": "4645c60cf0a357ed4aae074c3487a2755384852d0874e2f12b352b994544e07e"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "d60c_rowzero_function",
+      "rva": "0xd60c",
+      "size": 1892,
+      "sha256": "2ed9dc4341703ee82f789528b427f6333e6d916bec11148fe2cfecff14119b4a"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "d60c_packed_uv_setup_and_loop",
+      "rva": "0xdc35",
+      "size": 107,
+      "sha256": "b8fe7ac9e77137bcd4cb967df60ed0638403f2f8b0853b2bfd572d76b8a48cb4"
+    }
+  ],
+  "setup_shift_instructions": [
+    {
+      "rva": "0xdc44",
+      "mnemonic": "shr",
+      "operands": "ecx, 0x10",
+      "meaning": "logical right shift; zero-fill, not sign-extend"
+    },
+    {
+      "rva": "0xdc4c",
+      "mnemonic": "shr",
+      "operands": "eax, 0x10",
+      "meaning": "logical right shift; zero-fill, not sign-extend"
+    },
+    {
+      "rva": "0xdc5f",
+      "mnemonic": "shr",
+      "operands": "eax, 0x10",
+      "meaning": "logical right shift; zero-fill, not sign-extend"
+    }
+  ],
+  "native_fixtures": [
+    {
+      "label": "phase7_texel_01",
+      "texel": 1,
+      "route": "d60c_rowzero",
+      "entry_rva": "0xd420",
+      "sample_count": 319,
+      "source_read_count": 319,
+      "surface_write_count": 319,
+      "span_count": 1,
+      "span_sample_counts": [
+        319
+      ],
+      "span_setup_globals": [
+        {
+          "u_start": 0,
+          "v_start": 105293,
+          "u_step": 0,
+          "v_step": 4294967090,
+          "destination": 268566848,
+          "texture_base": 268439552,
+          "remaining_pixels": 319
+        }
+      ],
+      "source_uv_sha256": "2fceaea5b889204e404fb144326e092be7d15c4d8a99eaf0c7bc9a76b5b0c7b9",
+      "original_code_unchanged": true,
+      "unexpected_access": null
+    },
+    {
+      "label": "phase7_texel_ff",
+      "texel": 255,
+      "route": "d60c_rowzero",
+      "entry_rva": "0xd420",
+      "sample_count": 319,
+      "source_read_count": 319,
+      "surface_write_count": 319,
+      "span_count": 1,
+      "span_sample_counts": [
+        319
+      ],
+      "span_setup_globals": [
+        {
+          "u_start": 0,
+          "v_start": 105293,
+          "u_step": 0,
+          "v_step": 4294967090,
+          "destination": 268566848,
+          "texture_base": 268439552,
+          "remaining_pixels": 319
+        }
+      ],
+      "source_uv_sha256": "c3b17748e89e850801afa55a10280db77822804b568aa7fc4221712be3cf6f0c",
+      "original_code_unchanged": true,
+      "unexpected_access": null
+    },
+    {
+      "label": "phase7_texel_zero",
+      "texel": 0,
+      "route": "d60c_rowzero",
+      "entry_rva": "0xd420",
+      "sample_count": 319,
+      "source_read_count": 319,
+      "surface_write_count": 0,
+      "span_count": 1,
+      "span_sample_counts": [
+        319
+      ],
+      "span_setup_globals": [
+        {
+          "u_start": 0,
+          "v_start": 105293,
+          "u_step": 0,
+          "v_step": 4294967090,
+          "destination": 268566848,
+          "texture_base": 268439552,
+          "remaining_pixels": 319
+        }
+      ],
+      "source_uv_sha256": "2fceaea5b889204e404fb144326e092be7d15c4d8a99eaf0c7bc9a76b5b0c7b9",
+      "original_code_unchanged": true,
+      "unexpected_access": null
+    },
+    {
+      "label": "phase6_packed_u_texel_01",
+      "texel": 1,
+      "route": "d60c_rowzero",
+      "entry_rva": "0xd420",
+      "sample_count": 36,
+      "source_read_count": 36,
+      "surface_write_count": 36,
+      "span_count": 6,
+      "span_sample_counts": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "span_setup_globals": [
+        {
+          "u_start": 16274773,
+          "v_start": 3222186,
+          "u_step": 4293372586,
+          "v_step": 4294808917,
+          "destination": 268567866,
+          "texture_base": 268439552,
+          "remaining_pixels": 6
+        },
+        {
+          "u_start": 16165546,
+          "v_start": 5461332,
+          "u_step": 4293213601,
+          "v_step": 4294791319,
+          "destination": 268568378,
+          "texture_base": 268439552,
+          "remaining_pixels": 6
+        },
+        {
+          "u_start": 16056319,
+          "v_start": 7700478,
+          "u_step": 4293231805,
+          "v_step": 4294791319,
+          "destination": 268568890,
+          "texture_base": 268439552,
+          "remaining_pixels": 6
+        },
+        {
+          "u_start": 15947092,
+          "v_start": 9939624,
+          "u_step": 4293250010,
+          "v_step": 4294791319,
+          "destination": 268569402,
+          "texture_base": 268439552,
+          "remaining_pixels": 6
+        },
+        {
+          "u_start": 15837865,
+          "v_start": 12178770,
+          "u_step": 4293268214,
+          "v_step": 4294791319,
+          "destination": 268569914,
+          "texture_base": 268439552,
+          "remaining_pixels": 6
+        },
+        {
+          "u_start": 15728640,
+          "v_start": 14417920,
+          "u_step": 4293286418,
+          "v_step": 4294791319,
+          "destination": 268570426,
+          "texture_base": 268439552,
+          "remaining_pixels": 6
+        }
+      ],
+      "source_uv_sha256": "7b130063badbdf9f53da01c7f4d9c73b1a504282e462b73dbadc75c2a4b119e9",
+      "original_code_unchanged": true,
+      "unexpected_access": null
+    },
+    {
+      "label": "phase6_packed_u_texel_ff",
+      "texel": 255,
+      "route": "d60c_rowzero",
+      "entry_rva": "0xd420",
+      "sample_count": 36,
+      "source_read_count": 36,
+      "surface_write_count": 36,
+      "span_count": 6,
+      "span_sample_counts": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "span_setup_globals": [
+        {
+          "u_start": 16274773,
+          "v_start": 3222186,
+          "u_step": 4293372586,
+          "v_step": 4294808917,
+          "destination": 268567866,
+          "texture_base": 268439552,
+          "remaining_pixels": 6
+        },
+        {
+          "u_start": 16165546,
+          "v_start": 5461332,
+          "u_step": 4293213601,
+          "v_step": 4294791319,
+          "destination": 268568378,
+          "texture_base": 268439552,
+          "remaining_pixels": 6
+        },
+        {
+          "u_start": 16056319,
+          "v_start": 7700478,
+          "u_step": 4293231805,
+          "v_step": 4294791319,
+          "destination": 268568890,
+          "texture_base": 268439552,
+          "remaining_pixels": 6
+        },
+        {
+          "u_start": 15947092,
+          "v_start": 9939624,
+          "u_step": 4293250010,
+          "v_step": 4294791319,
+          "destination": 268569402,
+          "texture_base": 268439552,
+          "remaining_pixels": 6
+        },
+        {
+          "u_start": 15837865,
+          "v_start": 12178770,
+          "u_step": 4293268214,
+          "v_step": 4294791319,
+          "destination": 268569914,
+          "texture_base": 268439552,
+          "remaining_pixels": 6
+        },
+        {
+          "u_start": 15728640,
+          "v_start": 14417920,
+          "u_step": 4293286418,
+          "v_step": 4294791319,
+          "destination": 268570426,
+          "texture_base": 268439552,
+          "remaining_pixels": 6
+        }
+      ],
+      "source_uv_sha256": "7b130063badbdf9f53da01c7f4d9c73b1a504282e462b73dbadc75c2a4b119e9",
+      "original_code_unchanged": true,
+      "unexpected_access": null
+    }
+  ],
+  "native_discriminators": {
+    "phase7_pixel_192": {
+      "texel_1_eax_read": "0xcd4101",
+      "texel_ff_eax_read": "0xcdffff",
+      "ebp_both": "0xff32007f",
+      "texel_1_add_carry": 0,
+      "texel_ff_add_carry": 1,
+      "next_v_bytes": [
+        0,
+        1
+      ]
+    },
+    "phase6_pixel_317": {
+      "ebx_before": "0x5555f9b5",
+      "edx": "0xaaaafde7",
+      "ebx_after_add": "0xf79c",
+      "add_carry": 1,
+      "next_cl": 151,
+      "next_sample_u": 151
+    },
+    "source_zero": {
+      "reads": 319,
+      "stores": 0,
+      "next_count": 318
+    }
+  },
+  "fixed_width_types": {
+    "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_types.h",
+    "sha256": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d"
+  },
+  "sources": {
+    "package_files": [
+      {
+        "path": "evidence/bootstrap_order.json",
+        "sha256": "ff1237e664d6779b400ec25dd9b7585f4db044bcf7a4c66888ac2fee08336832"
+      },
+      {
+        "path": "evidence/closure.json",
+        "sha256": "2142cb1d0c7a49c9fe9ebd3bd186099583431755205efc3022d9a29a7cab9e30"
+      },
+      {
+        "path": "evidence/compatibility.json",
+        "sha256": "82b8b183ad54d629fef5bd977ca8ac579c3708af36879b18c8536303a983c61d"
+      },
+      {
+        "path": "evidence/early_loader_surrogate.json",
+        "sha256": "e8c8cfa77307cef0c349d58714837df6934f7ff4fb2686c92d5c810ca56c672d"
+      },
+      {
+        "path": "evidence/eng3_handlers.json",
+        "sha256": "a625ba48b2f135268b0eb47af1ce2279505db69305feee9e3727dcc16e779d32"
+      },
+      {
+        "path": "evidence/exe_variant.json",
+        "sha256": "581b3afed892e7e933e9d073d25b44137970b70378fb8765eee5db11196f71eb"
+      },
+      {
+        "path": "evidence/frame.json",
+        "sha256": "b81f7e1f86bb8b3976ed666261d741000b2e7e400d35d18be6ce0068ce69bb5b"
+      },
+      {
+        "path": "evidence/geometry.json",
+        "sha256": "b495243cc32757e4f379bfb7b721b168fe6ba46ca908ed1dd763380c53b6aa33"
+      },
+      {
+        "path": "evidence/loader.json",
+        "sha256": "a1bb78073f539abd553439fbc28e5733027354e2bf09fad429f19633a36f7649"
+      },
+      {
+        "path": "evidence/loader_environment.json",
+        "sha256": "df3b78f78af7f76ec0c29edae014114a60d7942a4aeba4a1ba53775405a814cc"
+      },
+      {
+        "path": "evidence/loader_surrogate.json",
+        "sha256": "28579fea9db32425fd04e62a8a67a055dca522011070703175c84d57dbd5ac17"
+      },
+      {
+        "path": "evidence/module_packets.json",
+        "sha256": "a68864a259202260ccbfaf7ccee0b68c127af839d3c4b6889c32978e5ff32772"
+      },
+      {
+        "path": "evidence/native_cold_upload.json",
+        "sha256": "b3764e5df4d6eace8187a67a350289f94ab0da498f1a6180c74a5a162700c87f"
+      },
+      {
+        "path": "evidence/native_dispatch.json",
+        "sha256": "966617e243816275b70e7080396a75c69a09fd1afc26c01ed001a464c10b9151"
+      },
+      {
+        "path": "evidence/native_fill_edges.json",
+        "sha256": "afaf7eef950c66a97540a24212badb1a86a85d068c48cba0e7266fea5da9bf2d"
+      },
+      {
+        "path": "evidence/native_interface_copy.json",
+        "sha256": "3d2398d1ad4824de53acd0712e6a0a72e4e3704f2c84ebbe9cfcbb8e25d01234"
+      },
+      {
+        "path": "evidence/native_packed_uv_feedback.json",
+        "sha256": "08d935ca284aa5d3109c9ab89f68e74cbf04f3276938d357529a10596bfe4403"
+      },
+      {
+        "path": "evidence/native_packed_uv_state.json",
+        "sha256": "f2b2e97cd0c4440549db1a26c58aff3371bd7defd1241ee596a00d10e46afae0"
+      },
+      {
+        "path": "evidence/native_page_masks.json",
+        "sha256": "7594a2f9fd59bf9739acd99607a0f3404d80ff117ec333a2312913e12676e70f"
+      },
+      {
+        "path": "evidence/native_palette_builder.json",
+        "sha256": "4724e5fa20a5ac0eb36e75fe5bf97434807080a6625c69eca54538e07ee26aa3"
+      },
+      {
+        "path": "evidence/native_pixel_slices.json",
+        "sha256": "4318017f56d89d344228472a288b1328f999735273c1096247a8277ac87d6932"
+      },
+      {
+        "path": "evidence/native_pixels.json",
+        "sha256": "840eadc9b1f73d85a76d3b2a5c076c0b4722571e55d61f8fd5b14cc98c4c576b"
+      },
+      {
+        "path": "evidence/native_polygon_dispatch.json",
+        "sha256": "1a79749a9be9b4248c6d5ba0e2b418aae7401c56aefca3c6bbac0c2ff5679724"
+      },
+      {
+        "path": "evidence/native_polygon_edges.json",
+        "sha256": "3bc0ad7db58d06160a1826196566c2bc8810a0b72e8e1ef90e7d751ae7ff20f5"
+      },
+      {
+        "path": "evidence/native_quad_interpolation.json",
+        "sha256": "751c0d476cc593e585bea214c759307ba1e1bd5f2c72ce9de9bffd6c3f517d99"
+      },
+      {
+        "path": "evidence/native_reciprocal_domain.json",
+        "sha256": "652fe56889c4e7088918c600d80d8c5c1a31964825e6ce169e754a482a5a586f"
+      },
+      {
+        "path": "evidence/native_route_uv_feedback.json",
+        "sha256": "cc52fc0b599d016d7afcbe2f2a16b7ce8a1a384b33958cf1b229146b635ed873"
+      },
+      {
+        "path": "evidence/native_shaded_edges.json",
+        "sha256": "0f54f805b457bb2ceaeaab26582a759c3d35dbb20e562b2afb5fa5d749570532"
+      },
+      {
+        "path": "evidence/native_skewed_quads.json",
+        "sha256": "de19f5db6bf76251a7ee32e70979ebdeeddd6d4020aff80f0ec1fea7d417b004"
+      },
+      {
+        "path": "evidence/native_sprite_geometry.json",
+        "sha256": "2c281855d6f59128f2b420f4c336f77ad1768fe031a94eab8a99bd5efd5f3b62"
+      },
+      {
+        "path": "evidence/native_staging.json",
+        "sha256": "d9de85db04c225c1c3a52fd7dfd15e484cf85664d62364656f39e6e23f214f52"
+      },
+      {
+        "path": "evidence/native_startup_pixel_alias.json",
+        "sha256": "ac69bb0251bfbc9e1e61aec886f52f513de36edab006fed31219b5d924503b68"
+      },
+      {
+        "path": "evidence/native_submission_gate.json",
+        "sha256": "3aecb167a0efa875d95124c54ac387eb51996e780e1f3a109ebe8767170fc24b"
+      },
+      {
+        "path": "evidence/native_texture_row_boundaries.json",
+        "sha256": "109c7a7e9d99580167d20fa104bbd54de0f4f7ffc49d11a663f3a38309534212"
+      },
+      {
+        "path": "evidence/native_upload.json",
+        "sha256": "fe60f1f2acc0007b7731baff68698842effa01289f06697cc216b9e0bd41dd31"
+      },
+      {
+        "path": "evidence/native_vram_move.json",
+        "sha256": "2b6da8e64cbcf73adc49c7e2ecde1eb6bf5fff4b8e6d279fc996c5880b1a23c7"
+      },
+      {
+        "path": "evidence/notification_ownership.json",
+        "sha256": "ad9d49da2b9bab8a4c60edf6a477ac37122df1cf2b1149ac3ae34ef6e1907804"
+      },
+      {
+        "path": "evidence/notification_target.json",
+        "sha256": "67d0e852f50a74adefdf8c7026fa479f7ab02a960c2ab3e063ef846c107aee29"
+      },
+      {
+        "path": "evidence/oracle_toolchain.json",
+        "sha256": "30e3f0bb9b97dec9b6b1f6ca5693ca8ee05ad1c739bcf378d81c72d54950d895"
+      },
+      {
+        "path": "evidence/original_spans.json",
+        "sha256": "e53e1eedfe15c75296605302392a04a81b10970b4ab4c9710e2774d62d43c2a7"
+      },
+      {
+        "path": "evidence/packed_uv_counterexample.json",
+        "sha256": "7672afa0c05b0d0e538e0098f21e70e8f43bd126ef8624dd10e22a41604ea3ca"
+      },
+      {
+        "path": "evidence/packets.json",
+        "sha256": "6b5b026921498e8f77b28d6c618219ed3ded3ddd917d491e9321dfd6ff0cf509"
+      },
+      {
+        "path": "evidence/palette_lifetime.json",
+        "sha256": "4c7e1c2e7262ced8275aa01c5855d3733e3a7e007d3d7c3be3b632db52ab890c"
+      },
+      {
+        "path": "evidence/pixel_oracle_provenance.json",
+        "sha256": "8f25d543c9dd8d56f48af1d073c619658f75732922a8524d3f191926746edbc6"
+      },
+      {
+        "path": "evidence/pixels.json",
+        "sha256": "acf66ebf468cda4ce799f2688bed3465263442fe2ce23407e09500d8a44478b6"
+      },
+      {
+        "path": "evidence/polygon_dispatch.json",
+        "sha256": "b1be6b7a376e758dc702e78b043f6f918b6cc18a05062a4c35515e0018eb5034"
+      },
+      {
+        "path": "evidence/portable_verification.json",
+        "sha256": "f008643cce2b191c051babd1195401d51668873ef3f207a44ca2c594ed57b64c"
+      },
+      {
+        "path": "evidence/presentation.json",
+        "sha256": "c98085c9f39b8c532817d90f5617067517a1157a8ede56042d778fde6c2d829a"
+      },
+      {
+        "path": "evidence/producer_reachability.json",
+        "sha256": "ef4ba9581a74f03623af0243870ec680bd25114183fb4256db3fe7a99a3b66e7"
+      },
+      {
+        "path": "evidence/resource_lut_order.json",
+        "sha256": "b01b4589bc42cd775eafdd340e1e8747528460ca2410280d12d26eb3f00aa295"
+      },
+      {
+        "path": "evidence/sprite_geometry.json",
+        "sha256": "3a5a7e428de8f24c28bb4bff0f782eb8dd53f021a36be4e84a24b851acae4248"
+      },
+      {
+        "path": "evidence/state.json",
+        "sha256": "0f8518b69d1efb4dd5d0f30cfd8f9dad834a0724d3830e95f0f0d951d46fec3c"
+      },
+      {
+        "path": "evidence/state_ownership.json",
+        "sha256": "ecd1e0eaddcf35ceb5f8beeb5c798ffd9b54d29ae1fd0ae2760a3de344ee4508"
+      },
+      {
+        "path": "evidence/texture_ownership.json",
+        "sha256": "2f168224fab78d4b76e7b99a7ccedcfa82a8157cf48ae463e20b21ecac0e322b"
+      },
+      {
+        "path": "evidence/textures.json",
+        "sha256": "8743c94b086765d4d4dff50633b31d953506b2dc0184de10b8a357bbd399767a"
+      },
+      {
+        "path": "evidence/title_handlers.json",
+        "sha256": "0b5c7bae69ad533210d32da4651f0e09ae3f19071b0d707913322b616c04dd2a"
+      },
+      {
+        "path": "evidence/upload_domain_bounds.json",
+        "sha256": "a5282b3011fd4e450213eb419bf924b97bf40800789b0e10c9e9f925979f301f"
+      },
+      {
+        "path": "evidence/upload_producer_domains.json",
+        "sha256": "d50efc9f68ad4d209e32a2abd9310d2e2984748f73da3cd1d097b7ee501ae3a6"
+      },
+      {
+        "path": "evidence/upload_producer_sites.json",
+        "sha256": "4c5d60924b94244ea932a0e188226f573299dd5946049cca5011997ce8ded6a9"
+      },
+      {
+        "path": "evidence/verification.json",
+        "sha256": "352b7dba2aa8c3d1e9560e75c98ca76e997c429b71baa9399053da2e2a1c9a60"
+      },
+      {
+        "path": "fixtures/early_loader_probe/build_and_run.py",
+        "sha256": "3068832b865f3590fa45e8104d217417a094c28f31f96911171176701b903937"
+      },
+      {
+        "path": "fixtures/early_loader_probe/src/ddraw_stub.c",
+        "sha256": "f59e40676d66855c7816818fbebee5f8a61a67ba1a4c667935f58851f17c663b"
+      },
+      {
+        "path": "fixtures/early_loader_probe/src/probe.cpp",
+        "sha256": "52232c0d60152ffd104aab58edc6466b7799b2e38ed7cd701a72063c99f97dae"
+      },
+      {
+        "path": "fixtures/loader_probe/build_and_run.py",
+        "sha256": "643818257de43327866859b4613c88b24d80b8b5171722c016a8f7bbe87dfc18"
+      },
+      {
+        "path": "fixtures/loader_probe/ddraw_stub.c",
+        "sha256": "cbcb921528c162217d1002c23b740b78b24aa566dafd2bfc9734fca0f91a4825"
+      },
+      {
+        "path": "fixtures/loader_probe/probe.c",
+        "sha256": "c45ec7a82096d6cfd65bf442637e9257eb06e74b510b68aed6ba7c7e98cf318f"
+      },
+      {
+        "path": "fixtures/packed_uv/replay_native_trace.c",
+        "sha256": "d1fbb3a8fdcaee0ac759b1cc707a971e0bccae62831a19943c9416b6c69f5d43"
+      },
+      {
+        "path": "hercules_edge_steps.c",
+        "sha256": "259c9c183daaad329bca78bf23fc3ab5f7aef0a9344c1317ab1a67f941967996"
+      },
+      {
+        "path": "hercules_edge_steps.h",
+        "sha256": "987ddf243a92d60b381d12c0d14e1f3d361f55981d25b5a1fcd6690fd2e45109"
+      },
+      {
+        "path": "hercules_frame.c",
+        "sha256": "0c51696b5aa5af4d9e08527151a1ce32021c64d378123bffd7df92672291c1a4"
+      },
+      {
+        "path": "hercules_frame.h",
+        "sha256": "e743695844317c5819cd969a93280b8931517ddff21e893238760aef990d2189"
+      },
+      {
+        "path": "hercules_host_abi.c",
+        "sha256": "09b5ffe70af7623fa53812fd408e4cc50505c11e30279448670571e63ccd3999"
+      },
+      {
+        "path": "hercules_host_abi.h",
+        "sha256": "46b12d09a978fb365dd2a02abdce2b411813c1757b24c6d7986e08bafebfbc88"
+      },
+      {
+        "path": "hercules_packed_uv.c",
+        "sha256": "29491844f7e6aa593dc9009a266c965b3e76e3911c5c21fca4c41baef56b00ca"
+      },
+      {
+        "path": "hercules_packed_uv.h",
+        "sha256": "6a09683d104256ba1a2a1e4c6dff38f222185a38a84a76c2dc19c2c3a9a976bf"
+      },
+      {
+        "path": "hercules_packets.c",
+        "sha256": "6ff07e4ebcc24f6a04a2b3fa978b06ba9950350b71292cd3b14761735560dcfc"
+      },
+      {
+        "path": "hercules_packets.h",
+        "sha256": "b2616d9fb1c9d154730cbfc824880760a0c0162e9aa3f851150ec1787a7dc163"
+      },
+      {
+        "path": "hercules_pixels.c",
+        "sha256": "a5479335fb97f3a395b8e74c0bc94f0481b609d2511d04f99484a0af0dec76c4"
+      },
+      {
+        "path": "hercules_pixels.h",
+        "sha256": "5685c7653d05e55e0b1a8a343cf4d72db9d5fc02adf3d0da50d9f63fda1fbea1"
+      },
+      {
+        "path": "hercules_quad_dispatch.h",
+        "sha256": "760dbea6cd1e70f94847da3e2815830fff557e4d86820a8a825e41b9e88cb9c8"
+      },
+      {
+        "path": "hercules_sprite_geometry.c",
+        "sha256": "680ebba6b2bb09e71e4b7d03f9bc0e9f0b55835dc06b17375edfd477b2b1c07a"
+      },
+      {
+        "path": "hercules_sprite_geometry.h",
+        "sha256": "46e8aa1711e9f158f54abe38c4bb2dbe4ad0c2ba66e6b1bb5394497a153612ea"
+      },
+      {
+        "path": "hercules_staging.c",
+        "sha256": "8eb7ce5f08aa8bf862174fc29cdece5b15e4495618e2d9593a66a392ab211d43"
+      },
+      {
+        "path": "hercules_staging.h",
+        "sha256": "dc66b15b45edeb3779d31e7aa50ce9f454b164ddc30c40fff953dfe380854b6e"
+      },
+      {
+        "path": "hercules_state.c",
+        "sha256": "1c8b050d684837966f58eca3e5435ac33eb756ba4f5e13e8741bd52d5312ee8f"
+      },
+      {
+        "path": "hercules_state.h",
+        "sha256": "c6c528b7f5e18f0f3bc0aa5f794da689043b9f777f4e73bdb5e6a77aa64b26a2"
+      },
+      {
+        "path": "hercules_state_wire.h",
+        "sha256": "268a893be201a230c3b397ed78961f6ce1c4c774406f92009c23889f5714653e"
+      },
+      {
+        "path": "hercules_textures.c",
+        "sha256": "07c951a693b8aeab12cff7cf6b09dc802de7c203e0c8387bd4d2bdf4ce23a5c5"
+      },
+      {
+        "path": "hercules_textures.h",
+        "sha256": "3fdd37291af16f6328a42b545d5655058f1d7d510d796ffdcbe562596e8369ad"
+      },
+      {
+        "path": "hercules_types.h",
+        "sha256": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d"
+      },
+      {
+        "path": "tests/audit_bootstrap_order.py",
+        "sha256": "e90830af32a09fcaa23e4a6de3013ba543d95c8a1f6d691758fa828ac7d96404"
+      },
+      {
+        "path": "tests/audit_callback_target.py",
+        "sha256": "37f8eff40e93f6ec7eef06b047b1037269a817db6a8ce906ae91b591dd20ddb0"
+      },
+      {
+        "path": "tests/audit_eng3_handlers.py",
+        "sha256": "d9879abdef3ef5d2280f7e5cdcbf94888231e5bcb5a858c7624dd59f75d0570e"
+      },
+      {
+        "path": "tests/audit_loader.py",
+        "sha256": "ea506b6ec770109fe5cefd2347a4c24ccb52eedd359470ec81b26a1b5f8679e3"
+      },
+      {
+        "path": "tests/audit_producer_reachability.py",
+        "sha256": "48a827b1c5c6ab20995bd48fbcbd46be668204c3fe1135f39be552567ffec5e6"
+      },
+      {
+        "path": "tests/audit_state_ownership.py",
+        "sha256": "0b58aa804e57787fa58635b21d537c31904cfff2dc91f9307746d7fae2b82fd6"
+      },
+      {
+        "path": "tests/audit_texture_ownership.py",
+        "sha256": "29f06ff12badde5b8ba4aae6c3291483d28ec8e105858c3ba0647b8747b7d3e4"
+      },
+      {
+        "path": "tests/audit_title_handlers.py",
+        "sha256": "7f9cd5ba7343d5fff7eb01fc3cb532e118e62c67476ff4e301cc2bef3e2186b0"
+      },
+      {
+        "path": "tests/audit_upload_domain_bounds.py",
+        "sha256": "02348f398915d10484902bc2850ec35de45cb1bc62dcf5b11530a9f81992244d"
+      },
+      {
+        "path": "tests/audit_upload_producers.py",
+        "sha256": "65c9772c9b2f3ace1b1cb3235451e7eb973efc3cc93b48e16a628c39e3145316"
+      },
+      {
+        "path": "tests/compare_exe_variants.py",
+        "sha256": "23c5fd0a8f2cc3076f3857c5215c65f604a278cd8f3971945564d028a13183a9"
+      },
+      {
+        "path": "tests/oracle_common.py",
+        "sha256": "a024048d9acc6e18197e10a82427cd84351a90666e1626e610bf60c6105f1357"
+      },
+      {
+        "path": "tests/original_ac60_mixed_runner.py",
+        "sha256": "faf988fddd771bbfac0a1b17b28ccc83012896d75c84d99f22c4c3f3ead3c050"
+      },
+      {
+        "path": "tests/run_portable_tests.py",
+        "sha256": "0f61778706f33663f03f7363027ec46703d1798f3b5c80b48ca8a09cd6eb7736"
+      },
+      {
+        "path": "tests/run_tests.py",
+        "sha256": "048ce8644159223640bae2ac6b3b4371da9e332c9e720231c098d5221df7e5b6"
+      },
+      {
+        "path": "tests/test_cpp_headers.cpp",
+        "sha256": "e1060436250378abe8164bdafa2d37af05afae015891301f2d020dda3f92c1b4"
+      },
+      {
+        "path": "tests/test_edge_steps.c",
+        "sha256": "f79dbd30850483015cbe6d219661b0f460a1ca091c9a285566170aaa9d1ba86f"
+      },
+      {
+        "path": "tests/test_frame.c",
+        "sha256": "18b16581f11fc5d453b2fb240cef44eca12f8be2817169b04d602f4df7343d77"
+      },
+      {
+        "path": "tests/test_host_abi.c",
+        "sha256": "b9605ad6068e091b4dcf3660d73c6fef159e02fb86a0b4365f08aa1b74fd6206"
+      },
+      {
+        "path": "tests/test_native_staging.py",
+        "sha256": "13d6f0ccb2cd4272501ceb42f8f035f5dd9a57afad1b9b257017021772ac8db3"
+      },
+      {
+        "path": "tests/test_original_a710_upload.py",
+        "sha256": "d210ae005ba3b53758ef9cd58c8110613d7ea3747956b74b7b1ef2bce288677c"
+      },
+      {
+        "path": "tests/test_original_ac60_gate.py",
+        "sha256": "d2012c3a255d43711e6862771636e008b8d8ec895d1c5c3585dfbe7e914ccdeb"
+      },
+      {
+        "path": "tests/test_original_ac60_staging.py",
+        "sha256": "b6dabe505722634becfcaa64bf3ad7f17e4a5cd7c2253cf3636bb08c2d03f28a"
+      },
+      {
+        "path": "tests/test_original_c882_pixel_loop.py",
+        "sha256": "5aa1931a79f776eec4d3ae84086bd4d5f159ce0c5a552f6bd2074b8b239ad57d"
+      },
+      {
+        "path": "tests/test_original_cold_upload.py",
+        "sha256": "903fae3d93323695266da378d94084ebda256f8a697eb0a4b5e853edc5017c7e"
+      },
+      {
+        "path": "tests/test_original_fill_edges.py",
+        "sha256": "ceb2ea5b0b984691abb4414afe3a30a1d65291f8a55e3febcd1321f302357d10"
+      },
+      {
+        "path": "tests/test_original_interface_copy.py",
+        "sha256": "0233b6b3c9281029004e87a9588b9feb0c75593071c034efc1452dae116c2ef4"
+      },
+      {
+        "path": "tests/test_original_packed_uv.py",
+        "sha256": "45a1470531133c44145b11c4eb9c2ac042a097b2398cc8bb49982435bbc7f988"
+      },
+      {
+        "path": "tests/test_original_packed_uv_feedback.py",
+        "sha256": "1534edc9d55f980cd8dc44ec4b5f20a898879bc6999b4995dc3dfe3da2232b9b"
+      },
+      {
+        "path": "tests/test_original_packed_uv_state.py",
+        "sha256": "c2123d58325aad7811a96a3fc9fa62bd920959bbb12a4b7acd1666db96466daf"
+      },
+      {
+        "path": "tests/test_original_page_masks.py",
+        "sha256": "461fe93bdd19fa0d1e5da845ebc64415ffaaa79ac5a00356b4b179efcb6f707a"
+      },
+      {
+        "path": "tests/test_original_palette_builder.py",
+        "sha256": "64de42b37d2a0cf5d010a6ec8b85583016cb73b754efad74dd65432d0c4d413d"
+      },
+      {
+        "path": "tests/test_original_pixel_slices.py",
+        "sha256": "9298c9ab19513daa8b187f34c72035226186bffa412cc91e19ec58fc7ac614d6"
+      },
+      {
+        "path": "tests/test_original_polygon_dispatch.py",
+        "sha256": "9f48076ec02e47308ec4db760cdbd2b11832b6f41e8798867580cfdb41e85c32"
+      },
+      {
+        "path": "tests/test_original_polygon_edges.py",
+        "sha256": "e8fef88fe9c1ce61c988d16300db14b84babfa50ba59b9509f085dc7a3592fac"
+      },
+      {
+        "path": "tests/test_original_quad_interpolation.py",
+        "sha256": "6b049b04ec007850dbfcdde654b056dfc95488ce1b5230487e70eafe6f534e12"
+      },
+      {
+        "path": "tests/test_original_reciprocal_domain.py",
+        "sha256": "09b23451f324409c59d4e7bd5f4b1c62042f24f54d5b92fbd548508a8247cb23"
+      },
+      {
+        "path": "tests/test_original_route_uv_feedback.py",
+        "sha256": "ef35ee7bbb517efe8f274ae341def74ed08e61e92a4afcaa2fbf73e737aeedae"
+      },
+      {
+        "path": "tests/test_original_shaded_edges.py",
+        "sha256": "c1857fd1e825d946d0648fde0f20c2204af0112ed2779996e4bd9d0a4e03c7fe"
+      },
+      {
+        "path": "tests/test_original_skewed_quads.py",
+        "sha256": "5bf4f87c3f677a6ccb1eb42977d58bbf78a6aa4e308e1f27825953658f127c51"
+      },
+      {
+        "path": "tests/test_original_sprite_geometry.py",
+        "sha256": "f7af81a722ad7089229033ec25c106b5085e62ba70dff85e0405082699a10986"
+      },
+      {
+        "path": "tests/test_original_startup_pixel_alias.py",
+        "sha256": "425d1abcf17ee0523e221fb16be07c5333eb33a7ff6e315e5660debe848f4567"
+      },
+      {
+        "path": "tests/test_original_texture_row_boundaries.py",
+        "sha256": "aeeee20cfda6ad766d8212e23faa908fbb9a9d4bd40305e443db49d001107074"
+      },
+      {
+        "path": "tests/test_original_vram_move.py",
+        "sha256": "6e6e8ee5b9f682f732d782b82426cc85de99fe374d52851bc5a29993a92e261e"
+      },
+      {
+        "path": "tests/test_packed_uv.c",
+        "sha256": "654f2a9683ad976e43f751e5b1558ddc80478e33ed4e8b400338e75aebd854af"
+      },
+      {
+        "path": "tests/test_packets.c",
+        "sha256": "09d6e7035caa23a6dbfc37b36b32ef58699891028258de311e6a9a09840d2d5a"
+      },
+      {
+        "path": "tests/test_pixels.c",
+        "sha256": "a44935fca486b8fae08f9e7133e267de22ffd65c46fce7270d92be60ad8102fb"
+      },
+      {
+        "path": "tests/test_quad_route.c",
+        "sha256": "55c2fba4119b089e3ada2f8d00dd089ab82caceb089cb1701ecafe2922b60ea5"
+      },
+      {
+        "path": "tests/test_sprite_geometry.c",
+        "sha256": "8ffc6c721d6cca3be29b2ff72b8a909b09df299de5d0c04f1570cdc789d92c8f"
+      },
+      {
+        "path": "tests/test_sprite_pixels.c",
+        "sha256": "45075236dc349d2ff2e7a4e9a5276ac0caab22f78d86e133c70ee601417cdc37"
+      },
+      {
+        "path": "tests/test_staging.c",
+        "sha256": "617fd080cef3d7f0b4a5c73bd2e11f92cadfefe757378462bb92b631700f6312"
+      },
+      {
+        "path": "tests/test_state.c",
+        "sha256": "5ae18768e2b911c96eea692069c9dc2ebe9387f7ceaaf90aab3fb15bc85aa449"
+      },
+      {
+        "path": "tests/test_texture_high_y.c",
+        "sha256": "840ec024a9b2161ebf0bf96d018a4690422bd886efc855d4591f5f5ff6c2a667"
+      },
+      {
+        "path": "tests/test_texture_row_mapping.c",
+        "sha256": "bf9702fbce3d356a98f1ecc5117126e3f7088c031e017d1cfcbac2a31c4aafb6"
+      },
+      {
+        "path": "tests/test_textures.c",
+        "sha256": "caba0cdca67593badf929761392dcad26cb0265eefcfad8ae58254d760888e64"
+      },
+      {
+        "path": "tests/validate_originals.py",
+        "sha256": "7c537fe2fe8c40678da55d5638703609203323cb78f9e4a72f4a20cb935d1808"
+      }
+    ],
+    "runner_path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_packed_uv_state.py",
+    "runner_sha256": "c2123d58325aad7811a96a3fc9fa62bd920959bbb12a4b7acd1666db96466daf",
+    "public_polygon_helper": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_polygon_edges.py",
+      "sha256": "e8fef88fe9c1ce61c988d16300db14b84babfa50ba59b9509f085dc7a3592fac"
+    },
+    "prior_36_sample_fixture": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_packed_uv.py",
+      "sha256": "45a1470531133c44145b11c4eb9c2ac042a097b2398cc8bb49982435bbc7f988"
+    }
+  },
+  "toolchains": {
+    "vc5": {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+      "id": "msvc5_rtm",
+      "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb"
+    },
+    "gcc": {
+      "path": "C:\\msys64\\mingw64\\bin\\gcc.exe",
+      "sha256": "c5005ba5380351c10743e9ca53ef9632164c54be3bd6b93324795114e4589a7d",
+      "version": "gcc.exe (Rev10, Built by MSYS2 project) 12.2.0"
+    },
+    "gxx": {
+      "path": "C:\\msys64\\mingw64\\bin\\g++.exe",
+      "sha256": "24f9dbe1bcc6574fe54b7a6b05f6c263b8a6a2b6d3696f941af9ab47ae174900",
+      "version": "g++.exe (Rev10, Built by MSYS2 project) 12.2.0"
+    }
+  },
+  "runtime": {
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "dependency_origin": {
+      "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+      "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+      "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+    }
+  },
+  "c_suites": [
+    {
+      "compiler_kind": "vc5",
+      "commands": [
+        {
+          "argv": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/W3",
+            "/O2",
+            "/MT",
+            "/Za",
+            "/TC",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\unit.exe",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_packed_uv.c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packed_uv.c"
+          ],
+          "returncode": 0,
+          "stdout": "test_packed_uv.c\nhercules_packed_uv.c\nGenerating Code...\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/W3",
+            "/O2",
+            "/MT",
+            "/Za",
+            "/TC",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\replay.exe",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\fixtures\\packed_uv\\replay_native_trace.c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packed_uv.c"
+          ],
+          "returncode": 0,
+          "stdout": "replay_native_trace.c\nhercules_packed_uv.c\nGenerating Code...\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/W3",
+            "/O2",
+            "/MT",
+            "/Za",
+            "/TC",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packed_uv.c",
+            "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_packed_uv.obj"
+          ],
+          "returncode": 0,
+          "stdout": "hercules_packed_uv.c\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/W3",
+            "/O2",
+            "/MT",
+            "/Za",
+            "/TC",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_edge_steps.c",
+            "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_edge_steps.obj"
+          ],
+          "returncode": 0,
+          "stdout": "hercules_edge_steps.c\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/W3",
+            "/O2",
+            "/MT",
+            "/Za",
+            "/TC",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_frame.c",
+            "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_frame.obj"
+          ],
+          "returncode": 0,
+          "stdout": "hercules_frame.c\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/W3",
+            "/O2",
+            "/MT",
+            "/Za",
+            "/TC",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_host_abi.c",
+            "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_host_abi.obj"
+          ],
+          "returncode": 0,
+          "stdout": "hercules_host_abi.c\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/W3",
+            "/O2",
+            "/MT",
+            "/Za",
+            "/TC",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packets.c",
+            "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_packets.obj"
+          ],
+          "returncode": 0,
+          "stdout": "hercules_packets.c\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/W3",
+            "/O2",
+            "/MT",
+            "/Za",
+            "/TC",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_pixels.c",
+            "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_pixels.obj"
+          ],
+          "returncode": 0,
+          "stdout": "hercules_pixels.c\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/W3",
+            "/O2",
+            "/MT",
+            "/Za",
+            "/TC",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_sprite_geometry.c",
+            "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_sprite_geometry.obj"
+          ],
+          "returncode": 0,
+          "stdout": "hercules_sprite_geometry.c\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/W3",
+            "/O2",
+            "/MT",
+            "/Za",
+            "/TC",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_staging.c",
+            "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_staging.obj"
+          ],
+          "returncode": 0,
+          "stdout": "hercules_staging.c\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/W3",
+            "/O2",
+            "/MT",
+            "/Za",
+            "/TC",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_state.c",
+            "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_state.obj"
+          ],
+          "returncode": 0,
+          "stdout": "hercules_state.c\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/W3",
+            "/O2",
+            "/MT",
+            "/Za",
+            "/TC",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_textures.c",
+            "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_textures.obj"
+          ],
+          "returncode": 0,
+          "stdout": "hercules_textures.c\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/W3",
+            "/O2",
+            "/MT",
+            "/Za",
+            "/TP",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "/c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp",
+            "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\test_cpp_headers.obj"
+          ],
+          "returncode": 0,
+          "stdout": "test_cpp_headers.cpp\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+            "/nologo",
+            "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\cpp.exe",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\test_cpp_headers.obj",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_packed_uv.obj",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_edge_steps.obj",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_frame.obj",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_host_abi.obj",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_packets.obj",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_pixels.obj",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_sprite_geometry.obj",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_staging.obj",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_state.obj",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\hercules_textures.obj"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\unit.exe"
+          ],
+          "returncode": 0,
+          "stdout": "checks=345 failures=0\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\cpp.exe"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\replay.exe"
+          ],
+          "returncode": 0,
+          "stdout": "PASS phase7_texel_01_s0 samples=319\nPASS phase7_texel_ff_s0 samples=319\nPASS phase7_texel_zero_s0 samples=319\nPASS phase6_packed_u_texel_01_s0 samples=6\nPASS phase6_packed_u_texel_01_s1 samples=6\nPASS phase6_packed_u_texel_01_s2 samples=6\nPASS phase6_packed_u_texel_01_s3 samples=6\nPASS phase6_packed_u_texel_01_s4 samples=6\nPASS phase6_packed_u_texel_01_s5 samples=6\nPASS phase6_packed_u_texel_ff_s0 samples=6\nPASS phase6_packed_u_texel_ff_s1 samples=6\nPASS phase6_packed_u_texel_ff_s2 samples=6\nPASS phase6_packed_u_texel_ff_s3 samples=6\nPASS phase6_packed_u_texel_ff_s4 samples=6\nPASS phase6_packed_u_texel_ff_s5 samples=6\nnative fixture runs=15 all register transitions matched\n",
+          "stderr": ""
+        }
+      ],
+      "executables": {
+        "unit": {
+          "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\unit.exe",
+          "sha256": "d9d7a909537c74d0d5cf368234a48a319b59becd3ab81b3854bc68fcb111933b",
+          "test_output": "checks=345 failures=0"
+        },
+        "replay": {
+          "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\replay.exe",
+          "sha256": "7d133bd62e57004a7ed142460ccc53900a4dfde39856fb8df4b6b84abfceb477"
+        },
+        "cpp": {
+          "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\vc5\\cpp.exe",
+          "sha256": "89c57ef9e928b6567a238868237431bff1be43b801cfa6635e0545b2be58c29a",
+          "test_output": ""
+        }
+      },
+      "native_replay": {
+        "fixture_runs": 5,
+        "trace_sha256": "4ed04f6a158a813075ea8852d4c3b843478aa18536f84c46e1b97f37c1aa2336",
+        "output": "PASS phase7_texel_01_s0 samples=319\nPASS phase7_texel_ff_s0 samples=319\nPASS phase7_texel_zero_s0 samples=319\nPASS phase6_packed_u_texel_01_s0 samples=6\nPASS phase6_packed_u_texel_01_s1 samples=6\nPASS phase6_packed_u_texel_01_s2 samples=6\nPASS phase6_packed_u_texel_01_s3 samples=6\nPASS phase6_packed_u_texel_01_s4 samples=6\nPASS phase6_packed_u_texel_01_s5 samples=6\nPASS phase6_packed_u_texel_ff_s0 samples=6\nPASS phase6_packed_u_texel_ff_s1 samples=6\nPASS phase6_packed_u_texel_ff_s2 samples=6\nPASS phase6_packed_u_texel_ff_s3 samples=6\nPASS phase6_packed_u_texel_ff_s4 samples=6\nPASS phase6_packed_u_texel_ff_s5 samples=6\nnative fixture runs=15 all register transitions matched"
+      }
+    },
+    {
+      "compiler_kind": "gcc",
+      "commands": [
+        {
+          "argv": [
+            "C:\\msys64\\mingw64\\bin\\gcc.exe",
+            "-std=c89",
+            "-pedantic-errors",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packed_uv.c",
+            "-o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_packed_uv.o"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\msys64\\mingw64\\bin\\gcc.exe",
+            "-std=c89",
+            "-pedantic-errors",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_packed_uv.c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_packed_uv.o",
+            "-o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\unit.exe"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\msys64\\mingw64\\bin\\gcc.exe",
+            "-std=c89",
+            "-pedantic-errors",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\fixtures\\packed_uv\\replay_native_trace.c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_packed_uv.o",
+            "-o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\replay.exe"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\msys64\\mingw64\\bin\\gcc.exe",
+            "-std=c89",
+            "-pedantic-errors",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_edge_steps.c",
+            "-o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_edge_steps.o"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\msys64\\mingw64\\bin\\gcc.exe",
+            "-std=c89",
+            "-pedantic-errors",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_frame.c",
+            "-o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_frame.o"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\msys64\\mingw64\\bin\\gcc.exe",
+            "-std=c89",
+            "-pedantic-errors",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_host_abi.c",
+            "-o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_host_abi.o"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\msys64\\mingw64\\bin\\gcc.exe",
+            "-std=c89",
+            "-pedantic-errors",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packets.c",
+            "-o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_packets.o"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\msys64\\mingw64\\bin\\gcc.exe",
+            "-std=c89",
+            "-pedantic-errors",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_pixels.c",
+            "-o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_pixels.o"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\msys64\\mingw64\\bin\\gcc.exe",
+            "-std=c89",
+            "-pedantic-errors",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_sprite_geometry.c",
+            "-o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_sprite_geometry.o"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\msys64\\mingw64\\bin\\gcc.exe",
+            "-std=c89",
+            "-pedantic-errors",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_staging.c",
+            "-o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_staging.o"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\msys64\\mingw64\\bin\\gcc.exe",
+            "-std=c89",
+            "-pedantic-errors",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_state.c",
+            "-o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_state.o"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\msys64\\mingw64\\bin\\gcc.exe",
+            "-std=c89",
+            "-pedantic-errors",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_textures.c",
+            "-o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_textures.o"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "C:\\msys64\\mingw64\\bin\\g++.exe",
+            "-std=c++98",
+            "-pedantic-errors",
+            "-Wall",
+            "-Wextra",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-I",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
+            "-c",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp",
+            "-o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\test_cpp_headers.o"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp: In function 'int main()':\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::clip_top' [-Wmissing-field-initializers]\n   34 |     RendererAc60StateView staging = {0};\n      |                                       ^\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::native_x_slot0' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::native_x_slot1' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::native_x_slot2' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::native_x_slot3' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::native_y_slot0' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::native_y_slot1' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::native_y_slot2' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::native_y_slot3' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::native_u_slot0' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::native_u_slot1' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::native_u_slot2' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::native_u_slot3' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::native_v_slot0' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::native_v_slot1' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::native_v_slot2' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::native_v_slot3' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::vertex_count' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::texture_page_address' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::color0_red' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::clut_word' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::sprite_width' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60WorkspaceView::sprite_height' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60StateView::page' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60StateView::clip_bounds' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60StateView::raster_suppression_flag' [-Wmissing-field-initializers]\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:34:39: warning: missing initializer for member 'RendererAc60StateView::dispatch_sequence' [-Wmissing-field-initializers]\nIn file included from D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp:8:\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract/hercules_quad_dispatch.h: At global scope:\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract/hercules_quad_dispatch.h:77:12: warning: 'int renderer_e680_c8f0_candidate(renderer_u32, renderer_raw32, renderer_u32, renderer_u32, const renderer_u32*, const renderer_u32*, const renderer_u32*, const renderer_u32*)' defined but not used [-Wunused-function]\n   77 | static int renderer_e680_c8f0_candidate(\n      |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\nD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract/hercules_quad_dispatch.h:67:12: warning: 'int renderer_d420_cab0_candidate(renderer_u32, renderer_raw32, renderer_u32, const renderer_u32*, const renderer_u32*, const renderer_u32*, const renderer_u32*)' defined but not used [-Wunused-function]\n   67 | static int renderer_d420_cab0_candidate(\n      |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+        },
+        {
+          "argv": [
+            "C:\\msys64\\mingw64\\bin\\g++.exe",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\test_cpp_headers.o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_packed_uv.o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_edge_steps.o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_frame.o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_host_abi.o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_packets.o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_pixels.o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_sprite_geometry.o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_staging.o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_state.o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\hercules_textures.o",
+            "-o",
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\cpp.exe"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\unit.exe"
+          ],
+          "returncode": 0,
+          "stdout": "checks=345 failures=0\n",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\cpp.exe"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "argv": [
+            "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\replay.exe"
+          ],
+          "returncode": 0,
+          "stdout": "PASS phase7_texel_01_s0 samples=319\nPASS phase7_texel_ff_s0 samples=319\nPASS phase7_texel_zero_s0 samples=319\nPASS phase6_packed_u_texel_01_s0 samples=6\nPASS phase6_packed_u_texel_01_s1 samples=6\nPASS phase6_packed_u_texel_01_s2 samples=6\nPASS phase6_packed_u_texel_01_s3 samples=6\nPASS phase6_packed_u_texel_01_s4 samples=6\nPASS phase6_packed_u_texel_01_s5 samples=6\nPASS phase6_packed_u_texel_ff_s0 samples=6\nPASS phase6_packed_u_texel_ff_s1 samples=6\nPASS phase6_packed_u_texel_ff_s2 samples=6\nPASS phase6_packed_u_texel_ff_s3 samples=6\nPASS phase6_packed_u_texel_ff_s4 samples=6\nPASS phase6_packed_u_texel_ff_s5 samples=6\nnative fixture runs=15 all register transitions matched\n",
+          "stderr": ""
+        }
+      ],
+      "executables": {
+        "unit": {
+          "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\unit.exe",
+          "sha256": "2459e28be23391277ba3472114fe0aaeb176f9da5a9dfa4c48ac1f4cfa842c56",
+          "test_output": "checks=345 failures=0"
+        },
+        "replay": {
+          "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\replay.exe",
+          "sha256": "d95da5ab6bba68d109fde934a549f93600b8703dbbcb41b1043e0ad2c746f47f"
+        },
+        "cpp": {
+          "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof\\gcc\\cpp.exe",
+          "sha256": "fde410e35935c66ccfb575316fbd3b4c6a40b86141deb7f0f25ab913e8f3cb05",
+          "test_output": ""
+        }
+      },
+      "native_replay": {
+        "fixture_runs": 5,
+        "trace_sha256": "4ed04f6a158a813075ea8852d4c3b843478aa18536f84c46e1b97f37c1aa2336",
+        "output": "PASS phase7_texel_01_s0 samples=319\nPASS phase7_texel_ff_s0 samples=319\nPASS phase7_texel_zero_s0 samples=319\nPASS phase6_packed_u_texel_01_s0 samples=6\nPASS phase6_packed_u_texel_01_s1 samples=6\nPASS phase6_packed_u_texel_01_s2 samples=6\nPASS phase6_packed_u_texel_01_s3 samples=6\nPASS phase6_packed_u_texel_01_s4 samples=6\nPASS phase6_packed_u_texel_01_s5 samples=6\nPASS phase6_packed_u_texel_ff_s0 samples=6\nPASS phase6_packed_u_texel_ff_s1 samples=6\nPASS phase6_packed_u_texel_ff_s2 samples=6\nPASS phase6_packed_u_texel_ff_s3 samples=6\nPASS phase6_packed_u_texel_ff_s4 samples=6\nPASS phase6_packed_u_texel_ff_s5 samples=6\nnative fixture runs=15 all register transitions matched"
+      }
+    }
+  ],
+  "toolchain_limitation": null,
+  "limits": [
+    "The utility advances measured D60C registers only; it does not build spans or rasterize pixels.",
+    "Source and destination addresses are raw 32-bit values; no memory is dereferenced by the C utility.",
+    "Only the generic D60C row-zero route is covered. CC50 and E680 remain separate contracts.",
+    "The 319/36 fixtures validate these states, not every legal register/input combination."
+  ],
+  "invocation": {
+    "original_root": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+    "receipt": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\replay_packed_state_eof.json",
+    "output": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\packed_state_build_eof"
+  }
+}

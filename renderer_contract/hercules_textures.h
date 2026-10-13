@@ -35,8 +35,9 @@ RENDERER_ASSERT_LIVE_X86_POINTER_WIDTH(herc_tex_assert_live_pointer_width);
  * calls BD80 once. Caller ignores the result, so return type is not asserted.
  * +0x208 / RVA 0xA640: seven cdecl arguments and a packed DWORD result. Raw
  * argument names are deliberate; preserve all seven args and the return.
- * +0x20c / RVA 0xA8F0: RECT16 source plus two sign-extended 32-bit destination
- * stack slots whose signed low WORDs are consumed; calls BD80 and returns 0.
+ * +0x20c / RVA 0xA8F0: RECT16 source plus two full signed 32-bit destination
+ * stack arguments. The source RECT remains signed WORDs; calls BD80 and
+ * returns 0. See texture_row_mapping.md for the latched mapping and bounds.
  * +0x23c / RVA 0x70C0: one DWORD whose low byte selects separate color/surface
  * behavior. Pointer typedefs require the guarded 32-bit x86 build.
  */
@@ -75,6 +76,31 @@ int herc_tex_upload_byte_offset(
 int herc_tex_upload_high_y_byte_address(
     renderer_i16 x_words, renderer_i16 y_rows,
     renderer_u32 byte_in_word, renderer_u32 *address_out);
+
+typedef enum HERC_TEX_ROW_MAPPING {
+    HERC_TEX_ROW_MAP_LOW_ENTRY = 0,
+    HERC_TEX_ROW_MAP_HIGH_ENTRY = 1
+} HERC_TEX_ROW_MAPPING;
+
+/* Select once from the signed RECT entry y. For A8F0, pass source_rect->y and
+ * retain this one mapping for both source and destination address streams. */
+HERC_TEX_ROW_MAPPING herc_tex_row_mapping_for_entry_y(renderer_i16 entry_y);
+
+/* Compute one native byte-address expression. A8F0 destination x/y are full
+ * signed 32-bit cdecl stack values; source RECT x/y and the entry-y selector
+ * are signed WORDs. current_y is 32-bit because the destination-y argument is
+ * loaded as a DWORD and incremented in a DWORD register. The expression masks
+ * x to the address-relevant bits, but this helper does not model A8F0's
+ * clipping/page-cross path selection or 32-bit coordinate wraparound. It
+ * validates only the mapping enum, output pointer, and byte_in_word in {0,1};
+ * it does not check allocation or address validity, and never dereferences. */
+int herc_tex_row_byte_address(
+    HERC_TEX_ROW_MAPPING mapping,
+    renderer_i32 x_words,
+    renderer_i32 current_y,
+    renderer_u32 byte_in_word,
+    renderer_u32 *address_out);
+
 
 /* A rasterizer sample is a byte at packet U,V. Ordinary tpage selects one of
  * 16 64-KiB pages; the 0x180 alternate-bank condition selects map-base+1 MiB

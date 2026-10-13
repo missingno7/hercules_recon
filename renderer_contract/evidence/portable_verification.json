@@ -4,7 +4,7 @@
   "scope": "standalone synthetic renderer-contract utility fixtures; no native-equivalence claim",
   "platform_scope": "GCC x86_64 raw fixed-width helpers; live callbacks still require x86.",
   "runner": "renderer_contract/tests/run_portable_tests.py",
-  "runner_sha256": "7d43ed3d4edb33d95fca9e3126ba78cb9d8ce8e3b959e1146adfb077dd8614ff",
+  "runner_sha256": "0f61778706f33663f03f7363027ec46703d1798f3b5c80b48ca8a09cd6eb7736",
   "compilers": {
     "cc": {
       "path": "C:\\msys64\\mingw64\\bin\\gcc.exe",
@@ -44,11 +44,19 @@
     "msvc_cxx": "MSVC C++ mode with /Za; fixtures use the C++98 subset"
   },
   "summary": {
-    "discovered": 13,
-    "passed": 13,
+    "discovered": 15,
+    "passed": 15,
     "failed": 0
   },
   "source_hashes": [
+    {
+      "path": "fixtures/early_loader_probe/src/ddraw_stub.c",
+      "sha256": "f59e40676d66855c7816818fbebee5f8a61a67ba1a4c667935f58851f17c663b"
+    },
+    {
+      "path": "fixtures/early_loader_probe/src/probe.cpp",
+      "sha256": "52232c0d60152ffd104aab58edc6466b7799b2e38ed7cd701a72063c99f97dae"
+    },
     {
       "path": "fixtures/loader_probe/ddraw_stub.c",
       "sha256": "cbcb921528c162217d1002c23b740b78b24aa566dafd2bfc9734fca0f91a4825"
@@ -56,6 +64,10 @@
     {
       "path": "fixtures/loader_probe/probe.c",
       "sha256": "c45ec7a82096d6cfd65bf442637e9257eb06e74b510b68aed6ba7c7e98cf318f"
+    },
+    {
+      "path": "fixtures/packed_uv/replay_native_trace.c",
+      "sha256": "d1fbb3a8fdcaee0ac759b1cc707a971e0bccae62831a19943c9416b6c69f5d43"
     },
     {
       "path": "hercules_edge_steps.c",
@@ -80,6 +92,14 @@
     {
       "path": "hercules_host_abi.h",
       "sha256": "46b12d09a978fb365dd2a02abdce2b411813c1757b24c6d7986e08bafebfbc88"
+    },
+    {
+      "path": "hercules_packed_uv.c",
+      "sha256": "29491844f7e6aa593dc9009a266c965b3e76e3911c5c21fca4c41baef56b00ca"
+    },
+    {
+      "path": "hercules_packed_uv.h",
+      "sha256": "6a09683d104256ba1a2a1e4c6dff38f222185a38a84a76c2dc19c2c3a9a976bf"
     },
     {
       "path": "hercules_packets.c",
@@ -131,11 +151,11 @@
     },
     {
       "path": "hercules_textures.c",
-      "sha256": "05d872d4b687ccb93dc872e0850aa2e09e0b59eecfbd9ba9f25a627143c8f626"
+      "sha256": "07c951a693b8aeab12cff7cf6b09dc802de7c203e0c8387bd4d2bdf4ce23a5c5"
     },
     {
       "path": "hercules_textures.h",
-      "sha256": "3355a1a75704fd0b4f8ec2fdab3563f42fe6114a611eeae25dfb82985597c476"
+      "sha256": "3fdd37291af16f6328a42b545d5655058f1d7d510d796ffdcbe562596e8369ad"
     },
     {
       "path": "hercules_types.h",
@@ -143,7 +163,7 @@
     },
     {
       "path": "tests/test_cpp_headers.cpp",
-      "sha256": "11d9fdfc36ab83c83a785fc897465c7a863adee012341c58bd1ea136987814c7"
+      "sha256": "e1060436250378abe8164bdafa2d37af05afae015891301f2d020dda3f92c1b4"
     },
     {
       "path": "tests/test_edge_steps.c",
@@ -156,6 +176,10 @@
     {
       "path": "tests/test_host_abi.c",
       "sha256": "b9605ad6068e091b4dcf3660d73c6fef159e02fb86a0b4365f08aa1b74fd6206"
+    },
+    {
+      "path": "tests/test_packed_uv.c",
+      "sha256": "654f2a9683ad976e43f751e5b1558ddc80478e33ed4e8b400338e75aebd854af"
     },
     {
       "path": "tests/test_packets.c",
@@ -190,6 +214,10 @@
       "sha256": "840ec024a9b2161ebf0bf96d018a4690422bd886efc855d4591f5f5ff6c2a667"
     },
     {
+      "path": "tests/test_texture_row_mapping.c",
+      "sha256": "bf9702fbce3d356a98f1ecc5117126e3f7088c031e017d1cfcbac2a31c4aafb6"
+    },
+    {
       "path": "tests/test_textures.c",
       "sha256": "caba0cdca67593badf929761392dcad26cb0265eefcfad8ae58254d760888e64"
     }
@@ -198,68 +226,78 @@
     {
       "test": "tests/test_cpp_headers.cpp",
       "status": "passed",
-      "executable_sha256": "a918a87eea0010a7ad43286d9d7f95f6ec4f3da70060f11f14dc557981fce081"
+      "executable_sha256": "887cb45b429e9aa835ddb6b340c9e845db29fe785b0aec110f8fa47801a1a7ec"
     },
     {
       "test": "tests/test_edge_steps.c",
       "status": "passed",
-      "executable_sha256": "338af077ab928120579ea6dc00e90af25a6cc9ec57f45b15c97a73d27b939837"
+      "executable_sha256": "30e06631a0fd85ff6aef3139534a272e6e6f15c52f92d288d485e6b87fdd875c"
     },
     {
       "test": "tests/test_frame.c",
       "status": "passed",
-      "executable_sha256": "20529525c1ba27191cde67b51f5b9449743e13c91a00dd18805d1ab65fc21fee"
+      "executable_sha256": "3498028e750a848177119b7af5f1f94760452370ff09d7cceaba6fd13a163f8a"
     },
     {
       "test": "tests/test_host_abi.c",
       "status": "passed",
-      "executable_sha256": "96084e148d72c949c6480dc79bf4e06d719e8f2e4a16badd0f88985521df4495"
+      "executable_sha256": "8a431309a4fa619c24b9fd849198b6925c68db977cae1f2abf455504b9a99564"
+    },
+    {
+      "test": "tests/test_packed_uv.c",
+      "status": "passed",
+      "executable_sha256": "3d759f46fb9254c285808bf001828dc469280011ed70083bbb7b6149ecd4322a"
     },
     {
       "test": "tests/test_packets.c",
       "status": "passed",
-      "executable_sha256": "0e452827a93bee75ad969fa53df075fcb25f19127ea878e0f6dfb25c64c61567"
+      "executable_sha256": "1da7aec8f47ea920019ec4bc03b74ec0695b9297bd3e3210b68c2d36aafb4871"
     },
     {
       "test": "tests/test_pixels.c",
       "status": "passed",
-      "executable_sha256": "cbeeddaa6c028638d3a48ee818130b1343ece78b14ed8e8c59f2539055408203"
+      "executable_sha256": "231c13388ddf22ef37fd1b78fa9040ab00454e23f121d73070bc6cd393216458"
     },
     {
       "test": "tests/test_quad_route.c",
       "status": "passed",
-      "executable_sha256": "55c7fe11ee306673523127d7a01a7051274e213758813379add866ce5824907f"
+      "executable_sha256": "0fda9a77c1841f80c750c71a2eec7c12867736008c8c57e3eb8b38d6a42508cc"
     },
     {
       "test": "tests/test_sprite_geometry.c",
       "status": "passed",
-      "executable_sha256": "72e03571ef7476063b2f5461d91cbf7997555e3dc1ecc4095ff06628df415496"
+      "executable_sha256": "0cd14285e931e35bc24a3e148ae6767f7b5c2385a2053cab8938bbde638d5c1d"
     },
     {
       "test": "tests/test_sprite_pixels.c",
       "status": "passed",
-      "executable_sha256": "c1e9e5662bbfafaa7bab3cc876aacfc2c373822cad56f4e7f370c52d826c31fd"
+      "executable_sha256": "7619b1d229ae64c01695766391c1ab5905f6b98d6952aa8fbe777a222ea9088e"
     },
     {
       "test": "tests/test_staging.c",
       "status": "passed",
-      "executable_sha256": "cf03ed7ebba7a19158bdc8ceecec73c8a4fb6df3dde9a5144b1e27ba548bd508"
+      "executable_sha256": "6689729f842ca4ecb70ec24c3dd97fdbfdf391fbcb0361919968331b69302833"
     },
     {
       "test": "tests/test_state.c",
       "status": "passed",
-      "executable_sha256": "0b1c2fa0aea536962762f51d1fb5e0a7426efb530d983c9febfcf53b5329f630"
+      "executable_sha256": "5b8d2a76296ea7940801fc19e4320782490bc797f84a384c2a3da8bdcee7e100"
     },
     {
       "test": "tests/test_texture_high_y.c",
       "status": "passed",
-      "executable_sha256": "da5374f33e4b2ba24defadba15ca63cf017526f716ec4b519e980b4e20c393e3"
+      "executable_sha256": "9e6a28f3548ff6d9deec4f52bdd712c1cff4837577408dafcd67bed5a9f694c3"
+    },
+    {
+      "test": "tests/test_texture_row_mapping.c",
+      "status": "passed",
+      "executable_sha256": "fad4a4ac92186b99ea06fbbbee3df7a9c7b906d6441e12e41d183750917a9e08"
     },
     {
       "test": "tests/test_textures.c",
       "status": "passed",
-      "executable_sha256": "cbd35c848e73ec685b8a1f18c2ff20fe736bb17a98994c61ec50eed3ba2b4329"
+      "executable_sha256": "8e897b2737b3e747ec0e2da0d84ed9286b34b23d90dcca650eb351518b6210e8"
     }
   ],
-  "full_receipt_private_sha256": "1271dc68c8fb6f0d671b1917626af45b0a0ec5ca36d6cf41ed413a1b7bc29f15"
+  "full_receipt_private_sha256": "01e0f6e28e76ffbd7f5b47cd98bd7a4bc568f782eadc5d59e1bdca44a409562a"
 }

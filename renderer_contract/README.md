@@ -5,11 +5,23 @@ This package establishes the original renderer boundary for a separate
 decoding, bounded frame traversal, texture addressing and synthetic fixtures.
 It does not install hooks, implement a GPU renderer, or replace game modules.
 
-The narrowest shared boundary observed is callback **89 / +0x164**, whose host
-target is HERCULES.EXE RVA **0xAC60**. ENG1, ENG3 and TITLE independently copy the
-same 250-DWORD host interface. Redirecting selected words in a persistent clone
-before each module's first copy can retain all original engine binaries.
-This is a static feasibility conclusion; installation has not been observed.
+The narrowest shared boundary is callback **89 / +0x164**, host RVA
+**0xAC60**. ENG1, ENG3 and TITLE independently copy the same 250-DWORD host
+interface. A persistent data-only clone published through host pointer cell
+RVA `0x365a0` before the first possible engine dispatch is the smallest
+static interception candidate; sufficiency and live timing remain unobserved.
+The direct init chain calls `DirectDrawCreate` at RVA `0x7426` before its
+later table-pointer read, but a separate guarded event/tick chain can reach
+that read and dispatch without traversing `DirectDrawCreate`. There is no
+process-wide ordering proof.
+
+The import-resolution surrogate receipt establishes sibling-DLL selection
+for an ordinary static import on the tested machine; it does not call
+`DirectDrawCreate` or publish a table clone. A separate [early-publication
+fixture](fixtures/early_loader_probe/README.md) and its
+[receipt](evidence/early_loader_surrogate.json) test synthetic table
+publication. Neither fixture launches Hercules or establishes target
+deployment behavior. No product proxy or host integration has been observed.
 
 Read [interception.md](interception.md) before implementing a replacement.
 AC60 performs state updates, VRAM moves, surface management, color remapping,
@@ -29,6 +41,7 @@ not replace this complete contract.
 | hercules_sprite_geometry.h | Sprite clipping/setup without pixel rasterization |
 | hercules_quad_dispatch.h | Static rectangle route predicates |
 | hercules_pixels.h | Bounded indexed shade/blend, palette and fill reference steps |
+| hercules_packed_uv.h | Original-backed D60C packed register recurrence |
 | hercules_edge_steps.h | Fixed-width reciprocal and guarded edge-step arithmetic |
 | closure.md | Bounded host renderer call/data closure |
 | ownership.md | Direct-reference locality versus shared host surface state |
@@ -57,9 +70,14 @@ not replace this complete contract.
 | staging.md | Native effective staging and finite differential boundaries |
 | compatibility.md | Independent ENG1/ENG3/TITLE callback evidence |
 | presentation.md | Original window, DIB, DirectDraw, palette and movie paths |
-| loader.md | Pre-copy bootstrap timing and source-built loader surrogate |
+| loader.md | Direct-init and independent dispatch paths; source-built loader surrogates |
 | geometry.md | Information available before and after projection |
 | blockers.md | Separate capture, rendering, window and enhancement blockers |
+| `bootstrap_order.md` | Direct-init and independent event/tick dispatch paths; HRESULT branch and ordering limits |
+| `packed_uv_recurrence.md` | One finite D60C fixture where sampled texels change a later V byte |
+| `route_uv_feedback.md` | Finite sample-address comparisons for CC50 and selected E680 modes |
+| `texture_row_mapping.md` | Entry-latched A710/A8F0 row mapping, merged helper, and thirteen finite native cases |
+| `fixtures/early_loader_probe/README.md` | Synthetic early-versus-deferred table publication fixture; no Hercules integration |
 | evidence/ | Compact original identities, spans and provenance; no binary code |
 | tests/ | Source-only synthetic and optional bounded original-code checks |
 
@@ -135,3 +153,8 @@ subsystem. These contracts are GPU API independent.
 [Skewed quad fixtures](skewed_quads.md) verify five finite shapes across three
 original routes. [Upload producer domains](texture_producer_domains.md) recover
 the shared ENG1/ENG3 high-band startup rectangle and its exact native write range.
+
+Current verification passes 15 suites with VC5 and 15 with GCC. The bounded
+C state replay matches 1,029 original register transitions; thirteen native
+texture fixtures verify the named row/address cases. These results do not
+establish whole-renderer equivalence or live Hercules integration.

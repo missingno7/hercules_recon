@@ -1,0 +1,446 @@
+{
+  "schema_version": 1,
+  "status": "FINITE_TEXTURE_DEPENDENT_V_CARRY_CONFIRMED",
+  "proof_scope": "One wire-valid convex FT4, one D60C row of 319 visible pixels, and two constant nonzero texture runs (1 and 255) under pinned original D420->D60C row-zero code.",
+  "prediction": {
+    "byte_lane": "DC35..DCA0 packs the horizontal V fractional step in EBP high16 and remaining span count in BP low16. MOV AL,[ESI+ECX] replaces the prior EAX low byte before ADD EAX,EBP; ADC CH,DH consumes the resulting 32-bit carry.",
+    "fixture": "For the selected y=1 row, the low16 accumulator with texel 255 reaches 0xffff immediately before the packed count addition at sample 192; texel 1 does not. The V fractional high word is staged so this one-bit low16 carry crosses the 32-bit boundary only for texel 255."
+  },
+  "falsifier": "Reject the causal prediction if native setup globals or packed first-loop registers differ from the decoded layout, if the two full ordered streams do not first diverge at (193,1), or if the captured ADD/ADC carry calculations fail to reproduce the next native V byte.",
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000"
+  },
+  "runtime": {
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "dependency_origin": {
+      "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+      "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+      "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+    }
+  },
+  "tooling": {
+    "python_executable": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "python_version": "3.12.14",
+    "runner": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_packed_uv_feedback.py",
+    "runner_sha256": "1534edc9d55f980cd8dc44ec4b5f20a898879bc6999b4995dc3dfe3da2232b9b",
+    "public_helper": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_polygon_edges.py",
+    "public_helper_sha256": "e8fef88fe9c1ce61c988d16300db14b84babfa50ba59b9509f085dc7a3592fac",
+    "model_source": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_polygon_edges.py",
+      "sha256": "e8fef88fe9c1ce61c988d16300db14b84babfa50ba59b9509f085dc7a3592fac",
+      "function": "expected_uv_integer_reciprocal"
+    }
+  },
+  "original_spans": [
+    {
+      "module": "HERCULES.EXE",
+      "name": "reciprocal_table_initializer",
+      "rva": "0x72a0",
+      "rva_end_exclusive": "0x72cc",
+      "size": 44,
+      "sha256": "3d59be43f3756224228dfdcc372a3bc59b7a7dbba4bbab8c79dd821cc958014b"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "d420_dispatch_and_rowzero_function",
+      "rva": "0xd420",
+      "rva_end_exclusive": "0xdd70",
+      "size": 2384,
+      "sha256": "4645c60cf0a357ed4aae074c3487a2755384852d0874e2f12b352b994544e07e"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "d60c_rowzero_function",
+      "rva": "0xd60c",
+      "rva_end_exclusive": "0xdd70",
+      "size": 1892,
+      "sha256": "2ed9dc4341703ee82f789528b427f6333e6d916bec11148fe2cfecff14119b4a"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "d60c_packed_uv_loop",
+      "rva": "0xdc35",
+      "rva_end_exclusive": "0xdca0",
+      "size": 107,
+      "sha256": "b8fe7ac9e77137bcd4cb967df60ed0638403f2f8b0853b2bfd572d76b8a48cb4"
+    }
+  ],
+  "fixture": {
+    "name": "long_span_texel_feedback_v_boundary",
+    "native_workspace_xy": [
+      [
+        0,
+        0
+      ],
+      [
+        320,
+        0
+      ],
+      [
+        319,
+        361
+      ],
+      [
+        0,
+        361
+      ]
+    ],
+    "native_workspace_uv_bytes": [
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        219
+      ],
+      [
+        0,
+        220
+      ]
+    ],
+    "attribute_domain": "wire_unsigned_u8_q16",
+    "f3_clip_ltrb": [
+      0,
+      1,
+      320,
+      2
+    ],
+    "strict_convex": true,
+    "screen_pitch": 320,
+    "visible_pixel_range_y1_inclusive": [
+      0,
+      318
+    ],
+    "packet_staging_scope": "Native-order workspace is preloaded directly by the established original helper; packet decode and AC60 traversal are outside this fixture."
+  },
+  "decoded_loop_contract": {
+    "initialization_rvas": [
+      "0xdc35",
+      "0xdc3b",
+      "0xdc3e",
+      "0xdc44",
+      "0xdc47",
+      "0xdc4c",
+      "0xdc4f",
+      "0xdc51",
+      "0xdc57",
+      "0xdc5a",
+      "0xdc5f",
+      "0xdc62",
+      "0xdc64",
+      "0xdc6a",
+      "0xdc70",
+      "0xdc71",
+      "0xdc77",
+      "0xdc7a",
+      "0xdc7f",
+      "0xdc82",
+      "0xdc87"
+    ],
+    "loop_rvas": {
+      "texture_read": "0xdc8a",
+      "u_add": "0xdc8d",
+      "u_adc": "0xdc8f",
+      "pixel_count_decrement": "0xdc9c",
+      "loop_branch": "0xdc9e",
+      "v_add": "0xdc98",
+      "v_adc": "0xdc9a"
+    },
+    "packing": {
+      "globals": {
+        "u_step": 0,
+        "v_step": 4294967090,
+        "destination": 268566848,
+        "u_start": 0,
+        "v_start": 105293,
+        "remaining_pixels": 319,
+        "texture_base": 268439552
+      },
+      "expected_first_loop_regs": {
+        "eax": 2605514752,
+        "ebx": 0,
+        "ecx": 256,
+        "edx": 65280,
+        "ebp": 4281467199
+      },
+      "observed_first_loop_regs": {
+        "eax": 2605514752,
+        "ebx": 0,
+        "ecx": 256,
+        "edx": 65280,
+        "ebp": 4281467199
+      },
+      "interpretation": {
+        "eax": "V start low 16-bit fractional word in EAX high word; AL is overwritten by each texel.",
+        "ebp": "V-step fractional word in EBP high word and remaining pixel count in BP low word.",
+        "edx": "ROL16(U-step), with DH replaced by V-step integer low byte.",
+        "ecx": "CL starts at U integer low byte and CH at V integer low byte.",
+        "ebx": "U start fractional word shifted into the upper half."
+      }
+    },
+    "per_sample_v_equations": [
+      "Eread = (EAX & 0xffffff00) | sampled_texel",
+      "The next MOV AL replaces only this byte; EAX[31:8] survives the next iteration.",
+      "S = Eread + EBP (unsigned 32-bit addition)",
+      "EAX_next = S mod 2^32; CF32 = floor(S / 2^32)",
+      "CH_next = (CH + DH + CF32) mod 256",
+      "BP_next = (BP - 1) mod 65536; JG repeats while signed BP > 0"
+    ],
+    "count_contract": "DC7A loads A9096C into EAX and DC7F copies AX into BP. EBP high16 remains the V-step fractional word initialized from A9093C low16; BP low16 is remaining sample count. For this 319-pixel row BP runs 0x013f down to zero."
+  },
+  "native_runs": [
+    {
+      "texel": 1,
+      "native_run_status": "PASS_SENTINEL_AND_D60C_ROUTE",
+      "route": "d60c_rowzero",
+      "entry_rva": "0xd420",
+      "path_markers": [
+        "0xd555",
+        "0xd583",
+        "0xd60c",
+        "0xdc8a",
+        "0xdc96"
+      ],
+      "sample_count": 319,
+      "source_read_count": 319,
+      "surface_write_count": 319,
+      "ordered_pixel_uv_sha256": "0fa9c79c362e07abd9619634da71aa89b65ed225f9ade63e77a74e6771540550",
+      "first_pixel_uv": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "pixel_192_1": [
+        [
+          192,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "pixel_193_1": [
+        [
+          193,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "last_pixel_uv": [
+        [
+          318,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "original_code_unchanged": true,
+      "unexpected_access": null,
+      "packed_setup": {
+        "u_step": 0,
+        "v_step": 4294967090,
+        "destination": 268566848,
+        "u_start": 0,
+        "v_start": 105293,
+        "remaining_pixels": 319,
+        "texture_base": 268439552
+      }
+    },
+    {
+      "texel": 255,
+      "native_run_status": "PASS_SENTINEL_AND_D60C_ROUTE",
+      "route": "d60c_rowzero",
+      "entry_rva": "0xd420",
+      "path_markers": [
+        "0xd555",
+        "0xd583",
+        "0xd60c",
+        "0xdc8a",
+        "0xdc96"
+      ],
+      "sample_count": 319,
+      "source_read_count": 319,
+      "surface_write_count": 319,
+      "ordered_pixel_uv_sha256": "a6b9db3ea0cf5f7d618b9551b1cefc1484d9dba2038349f27586de496d83ca3f",
+      "first_pixel_uv": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "pixel_192_1": [
+        [
+          192,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "pixel_193_1": [
+        [
+          193,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "last_pixel_uv": [
+        [
+          318,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "original_code_unchanged": true,
+      "unexpected_access": null,
+      "packed_setup": {
+        "u_step": 0,
+        "v_step": 4294967090,
+        "destination": 268566848,
+        "u_start": 0,
+        "v_start": 105293,
+        "remaining_pixels": 319,
+        "texture_base": 268439552
+      }
+    }
+  ],
+  "first_texture_dependent_v_difference": {
+    "first_divergence": {
+      "sample_index": 193,
+      "texel_1": [
+        [
+          193,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "texel_255": [
+        [
+          193,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ]
+    },
+    "causal_pixel": [
+      192,
+      1
+    ],
+    "register_recurrence": [
+      {
+        "texel": 1,
+        "previous_pixel": [
+          192,
+          1
+        ],
+        "previous_uv": [
+          0,
+          1
+        ],
+        "eax_after_texture_read": 13451521,
+        "eax_before_v_add": 13451521,
+        "ebp_before_v_add": 4281467007,
+        "add_eax_ebp_result": 4294918528,
+        "add_eax_ebp_carry": 0,
+        "observed_add_carry": 0,
+        "old_ch": 1,
+        "dh_v_step_integer_byte": 255,
+        "expected_ch_after_adc": 0,
+        "observed_ch_after_adc": 0,
+        "next_pixel_native_v": 0,
+        "after_dec_bp": 4281467006
+      },
+      {
+        "texel": 255,
+        "previous_pixel": [
+          192,
+          1
+        ],
+        "previous_uv": [
+          0,
+          1
+        ],
+        "eax_after_texture_read": 13500415,
+        "eax_before_v_add": 13500415,
+        "ebp_before_v_add": 4281467007,
+        "add_eax_ebp_result": 126,
+        "add_eax_ebp_carry": 1,
+        "observed_add_carry": 1,
+        "old_ch": 1,
+        "dh_v_step_integer_byte": 255,
+        "expected_ch_after_adc": 1,
+        "observed_ch_after_adc": 1,
+        "next_pixel_native_v": 1,
+        "after_dec_bp": 4281467006
+      }
+    ]
+  },
+  "independent_model_at_first_difference": {
+    "function": "expected_uv_integer_reciprocal",
+    "pixel": [
+      193,
+      1
+    ],
+    "model_uv": [
+      0,
+      0
+    ],
+    "interpretation": "The geometric Q16 helper has no sampled-texel input, so it returns the same result for both texture runs and cannot represent the native finite V difference."
+  },
+  "acceptance_gates": {
+    "setup_packing_matches": true,
+    "pixel_count_is_319_and_bp_reaches_zero": true,
+    "both_original_code_snapshots_unchanged": true,
+    "both_runs_have_319_reads_and_writes": true,
+    "first_difference_is_193_1": true,
+    "register_carry_matches_native_v": true,
+    "unexpected_access_rejected": true
+  },
+  "limits": [
+    "One clipped scanline and two constant texture values; no general all-texture proof.",
+    "No scan iterator, C implementation, renderer replacement, or generic rasterizer acceptance.",
+    "Synthetic source texture and destination memory; no game process or full frame runs.",
+    "Packet staging, AC60 traversal, other routes, and hardware presentation are outside scope."
+  ],
+  "invocation": {
+    "original_root": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+    "receipt": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\replay_feedback.json"
+  }
+}

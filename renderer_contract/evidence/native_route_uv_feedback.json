@@ -1,0 +1,2633 @@
+{
+  "schema_version": 1,
+  "status": "BOUNDED_EQUIVALENT",
+  "proof_scope": "Original D420->CC50, E680 mode-0x80 generic, and E680 mode-0x7F->DD70 generic loops on one 319-pixel synthetic row; paired source/LUT inputs, register witnesses, access order, and zero-source skips.",
+  "prediction": {
+    "family": "CC50 and E680 packed UV feedback closure",
+    "prediction": "On the established 319-pixel row, CC50's 0xD322 loop will advance its UV state through EAX/EBX/ECX and decrement AX for its count, while raw source and palette result stay in DL; neither will change later UV samples. E680 mode 0x80's 0xEE6D loop and E680 mode 0x7F through DD70's 0xE56C loop will advance UV through EAX/EBX/ECX and the corrected ESI texture pointer, decrement AX for the count, and keep raw source, shade and blend bytes in EDX. None will feed the UV state; each loop will reconstruct its per-pixel EDX source/destination lanes. Zero source will still consume one iteration and skip the route's palette or shade/blend/destination/output operations.",
+    "falsifier": "A controlled raw-source, CLUT, shade-LUT, or blend-LUT change alters any later UV-carrying register or texture address in one of these bounded routes; the observed earliest register divergence is outside the byte/color lane; the source/LUT/output event order differs from the stated route; a zero source performs a forbidden lookup/read/write; or a route fails to execute exactly 319 row iterations and stop within the pinned original instruction/memory boundaries.",
+    "fixture": {
+      "vertices_xy": [
+        [
+          0,
+          0
+        ],
+        [
+          320,
+          0
+        ],
+        [
+          319,
+          361
+        ],
+        [
+          0,
+          361
+        ]
+      ],
+      "clip_ltrb": [
+        0,
+        1,
+        320,
+        2
+      ],
+      "uv_q16": [
+        [
+          0,
+          65536
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          14352384
+        ],
+        [
+          0,
+          14417920
+        ]
+      ],
+      "visible_row_pixels": 319,
+      "paired_texture_runs": [
+        1,
+        255
+      ],
+      "source_lut_controls": "Keep outputs equal across the raw-source pair; vary one selected LUT result in a separate pair. Also run an all-zero texture through each route."
+    },
+    "routes": [
+      "D420 -> CC50 row-3 palette",
+      "E680 mode 0x80 selector 2 generic",
+      "E680 mode 0x7F -> DD70 shade row 0x7F generic"
+    ],
+    "scope": "Original CPU instruction slices and one coherent clipped long-row fixture; no GPU, full raster, gameplay, or unsupported E680 modes/selectors."
+  },
+  "historical_context": {
+    "canonical_native_packed_uv_feedback": {
+      "available": true,
+      "path": "renderer_contract/evidence/native_packed_uv_feedback.json",
+      "sha256": "08d935ca284aa5d3109c9ab89f68e74cbf04f3276938d357529a10596bfe4403",
+      "runtime_required": false
+    },
+    "d60c_feedback_receipt": {
+      "path": "work/renderer_phase7/packed_uv/packed_uv_receipt.json",
+      "sha256": "4abec32814646d4ce95ef92c4196ae78396ab6b6cf7da07d866677d7c7bdc2cf",
+      "runner_path": "work/renderer_phase7/packed_uv/tests/test_original_packed_uv_feedback.py",
+      "runner_sha256": "1534edc9d55f980cd8dc44ec4b5f20a898879bc6999b4995dc3dfe3da2232b9b",
+      "runtime_required": false
+    }
+  },
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000"
+  },
+  "runtime": {
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "unicorn_module_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\__init__.py",
+    "native_dll_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "dependency_origin": {
+      "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+      "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+      "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+    }
+  },
+  "tooling": {
+    "python_executable": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "python_version": "3.12.14",
+    "runner_sha256": "ef35ee7bbb517efe8f274ae341def74ed08e61e92a4afcaa2fbf73e737aeedae",
+    "helpers": {
+      "public_quad_helper": {
+        "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_quad_interpolation.py",
+        "sha256": "6b049b04ec007850dbfcdde654b056dfc95488ce1b5230487e70eafe6f534e12"
+      },
+      "public_polygon_helper": {
+        "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_polygon_edges.py",
+        "sha256": "e8fef88fe9c1ce61c988d16300db14b84babfa50ba59b9509f085dc7a3592fac"
+      },
+      "oracle_common": {
+        "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\oracle_common.py",
+        "sha256": "a024048d9acc6e18197e10a82427cd84351a90666e1626e610bf60c6105f1357"
+      }
+    }
+  },
+  "fixture": {
+    "vertices_xy": [
+      [
+        0,
+        0
+      ],
+      [
+        320,
+        0
+      ],
+      [
+        319,
+        361
+      ],
+      [
+        0,
+        361
+      ]
+    ],
+    "clip_ltrb": [
+      0,
+      1,
+      320,
+      2
+    ],
+    "uv_q16": [
+      [
+        0,
+        65536
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        14352384
+      ],
+      [
+        0,
+        14417920
+      ]
+    ],
+    "synthetic_surface": {
+      "va": "0x10020000",
+      "stride": 512,
+      "height": 4,
+      "initial_byte": "0xa5"
+    },
+    "source_runs": [
+      1,
+      255
+    ],
+    "zero_run": "all-zero texture",
+    "row_pixel_count": 319,
+    "raw_source_discriminator_texture_offset": "0x100"
+  },
+  "original_spans": [
+    {
+      "module": "HERCULES.EXE",
+      "name": "d420_dispatch_and_rowzero_function",
+      "rva_start": "0xd420",
+      "rva_end_exclusive": "0xdd70",
+      "size": 2384,
+      "sha256": "4645c60cf0a357ed4aae074c3487a2755384852d0874e2f12b352b994544e07e"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "cc50_active_palette_function",
+      "rva_start": "0xcc50",
+      "rva_end_exclusive": "0xd415",
+      "size": 1989,
+      "sha256": "7504054c2fe867eef6602dbd439f1972b55a73540b98099498772db2f34b7fd0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "cc50_pixel_loop",
+      "rva_start": "0xd2c6",
+      "rva_end_exclusive": "0xd349",
+      "size": 131,
+      "sha256": "86688a0be90e8b5b3c931c4f789d6dd6fc53575085f9ee700362dbf3617b6d1f"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "dd70_generic_body",
+      "rva_start": "0xde9f",
+      "rva_end_exclusive": "0xe675",
+      "size": 2006,
+      "sha256": "645a1a416be1477bd9000e017bc4f733161c70769cc34c6f13f214ec2271f236"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "dd70_shaded_pixel_loop",
+      "rva_start": "0xe56c",
+      "rva_end_exclusive": "0xe5a8",
+      "size": 60,
+      "sha256": "1d396bce03e35e84d2f2ae6d5f5dc7a392836b581ece877599de5b9ef0677bdc"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "e680_mode_shape_dispatch",
+      "rva_start": "0xe680",
+      "rva_end_exclusive": "0xe7c7",
+      "size": 327,
+      "sha256": "1ac531aa802148e641444cb62451c9903fe6e59b046329d0ea0a80f463ccc75a"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "e680_generic_body",
+      "rva_start": "0xe7c7",
+      "rva_end_exclusive": "0xef60",
+      "size": 1945,
+      "sha256": "2aad976b7e2ee3947a06fb8f89c31ef39dcdbfbf487bb1f9b07faed05d7adeae"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "e680_mode80_pixel_loop",
+      "rva_start": "0xee6d",
+      "rva_end_exclusive": "0xee93",
+      "size": 38,
+      "sha256": "c4c067791e0ebc638acd6707ef4a2f27c8c76095cce726bf1aa4b9666e466247"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "reciprocal_table_initializer",
+      "rva_start": "0x72a0",
+      "rva_end_exclusive": "0x72cc",
+      "size": 44,
+      "sha256": "3d59be43f3756224228dfdcc372a3bc59b7a7dbba4bbab8c79dd821cc958014b"
+    }
+  ],
+  "route_contracts": {
+    "cc50_palette": {
+      "loop_rva": "0xd322",
+      "source_read_rva": "0xd32e",
+      "palette_read_rva": "0xd33d",
+      "write_rva": "0xd341",
+      "packed_uv_lanes": [
+        "EAX accumulator/high word; AX count low word",
+        "EBX:ECX carry/update; BL supplies U",
+        "CH supplies V"
+      ],
+      "source_and_palette_result_lane": "DL; reloaded from BL and CH for each source address",
+      "zero_branch": "D339 test DL -> D343 skips palette read and output"
+    },
+    "e680_mode80": {
+      "loop_rva": "0xee6d",
+      "source_read_rva": "0xee79",
+      "destination_read_rva": "0xee86",
+      "blend_read_rva": "0xee88",
+      "write_rva": "0xee8c",
+      "packed_uv_lanes": [
+        "EAX accumulator/high word; AX count low word",
+        "EBX/ECX packed carry/update",
+        "ESI texture pointer with ADC correction"
+      ],
+      "source_and_blend_lanes": "DH holds source; DL holds destination then blend output; next iteration reloads DH from BL and clears DL",
+      "zero_branch": "EE82 test DH -> EE8E skips destination, blend, and output"
+    },
+    "e680_shaded_7f": {
+      "loop_rva": "0xe56c",
+      "source_read_rva": "0xe578",
+      "shade_read_rva": "0xe593",
+      "destination_read_rva": "0xe59b",
+      "blend_read_rva": "0xe59d",
+      "write_rva": "0xe5a1",
+      "packed_uv_lanes": [
+        "EAX accumulator/high word; AX count low word",
+        "EBX/ECX packed carry/update",
+        "ESI texture pointer with ADC correction"
+      ],
+      "source_shade_blend_lanes": "DH receives raw source, shade lookup result, then DL receives destination and blend output; next iteration reloads DH from BL and clears DL",
+      "zero_branch": "E581 test DH -> E5A3 skips shade, destination, blend, and output"
+    }
+  },
+  "runs": {
+    "cc50_palette": [
+      {
+        "label": "raw_1",
+        "route": "cc50_palette",
+        "entry": "D420 -> CC50 row 3",
+        "native_instruction_count": 4997,
+        "native_path_markers": [
+          "0xcc50",
+          "0xd322",
+          "0xd420"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 319,
+        "event_order": {
+          "expected_per_iteration": [
+            "source",
+            "palette",
+            "output"
+          ],
+          "iterations_checked": 319,
+          "event_count": 957,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": true,
+          "zero_route_only_samples": false
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 319,
+              "ebx": 2592014592,
+              "ecx": 4281467136,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 319,
+              "ebx": 2592014592,
+              "ecx": 4281467136,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 127,
+              "ebx": 4294951168,
+              "ecx": 4281467136,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 127,
+              "ebx": 4294951168,
+              "ecx": 4281466880,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 126,
+              "ebx": 4281450752,
+              "ecx": 4281466880,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 126,
+              "ebx": 4281450752,
+              "ecx": 4281466880,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x0"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xd32e",
+            "route_relative_index": "0x100",
+            "value": 1
+          },
+          {
+            "kind": "palette",
+            "pc_rva": "0xd33d",
+            "route_relative_index": "0x1",
+            "value": 68
+          },
+          {
+            "kind": "output",
+            "pc_rva": "0xd341",
+            "route_relative_index": "0x2c0",
+            "value": 68
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xd322",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xd32e",
+          "output_pc": "0xd341"
+        }
+      },
+      {
+        "label": "raw_255",
+        "route": "cc50_palette",
+        "entry": "D420 -> CC50 row 3",
+        "native_instruction_count": 4997,
+        "native_path_markers": [
+          "0xcc50",
+          "0xd322",
+          "0xd420"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 319,
+        "event_order": {
+          "expected_per_iteration": [
+            "source",
+            "palette",
+            "output"
+          ],
+          "iterations_checked": 319,
+          "event_count": 957,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": true,
+          "zero_route_only_samples": false
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 319,
+              "ebx": 2592014592,
+              "ecx": 4281467136,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 319,
+              "ebx": 2592014592,
+              "ecx": 4281467136,
+              "esi": 268439552
+            },
+            "source_byte": 255,
+            "source_offset": "0x100"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 127,
+              "ebx": 4294951168,
+              "ecx": 4281467136,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 127,
+              "ebx": 4294951168,
+              "ecx": 4281466880,
+              "esi": 268439552
+            },
+            "source_byte": 255,
+            "source_offset": "0x100"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 126,
+              "ebx": 4281450752,
+              "ecx": 4281466880,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 126,
+              "ebx": 4281450752,
+              "ecx": 4281466880,
+              "esi": 268439552
+            },
+            "source_byte": 255,
+            "source_offset": "0x0"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xd32e",
+            "route_relative_index": "0x100",
+            "value": 255
+          },
+          {
+            "kind": "palette",
+            "pc_rva": "0xd33d",
+            "route_relative_index": "0xff",
+            "value": 68
+          },
+          {
+            "kind": "output",
+            "pc_rva": "0xd341",
+            "route_relative_index": "0x2c0",
+            "value": 68
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xd322",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xd32e",
+          "output_pc": "0xd341"
+        }
+      },
+      {
+        "label": "clut_44",
+        "route": "cc50_palette",
+        "entry": "D420 -> CC50 row 3",
+        "native_instruction_count": 4997,
+        "native_path_markers": [
+          "0xcc50",
+          "0xd322",
+          "0xd420"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 319,
+        "event_order": {
+          "expected_per_iteration": [
+            "source",
+            "palette",
+            "output"
+          ],
+          "iterations_checked": 319,
+          "event_count": 957,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": true,
+          "zero_route_only_samples": false
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 319,
+              "ebx": 2592014592,
+              "ecx": 4281467136,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 319,
+              "ebx": 2592014592,
+              "ecx": 4281467136,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 127,
+              "ebx": 4294951168,
+              "ecx": 4281467136,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 127,
+              "ebx": 4294951168,
+              "ecx": 4281466880,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 126,
+              "ebx": 4281450752,
+              "ecx": 4281466880,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 126,
+              "ebx": 4281450752,
+              "ecx": 4281466880,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x0"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xd32e",
+            "route_relative_index": "0x100",
+            "value": 1
+          },
+          {
+            "kind": "palette",
+            "pc_rva": "0xd33d",
+            "route_relative_index": "0x1",
+            "value": 68
+          },
+          {
+            "kind": "output",
+            "pc_rva": "0xd341",
+            "route_relative_index": "0x2c0",
+            "value": 68
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xd322",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xd32e",
+          "output_pc": "0xd341"
+        }
+      },
+      {
+        "label": "clut_e1",
+        "route": "cc50_palette",
+        "entry": "D420 -> CC50 row 3",
+        "native_instruction_count": 4997,
+        "native_path_markers": [
+          "0xcc50",
+          "0xd322",
+          "0xd420"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 319,
+        "event_order": {
+          "expected_per_iteration": [
+            "source",
+            "palette",
+            "output"
+          ],
+          "iterations_checked": 319,
+          "event_count": 957,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": true,
+          "zero_route_only_samples": false
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 319,
+              "ebx": 2592014592,
+              "ecx": 4281467136,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 319,
+              "ebx": 2592014592,
+              "ecx": 4281467136,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 127,
+              "ebx": 4294951168,
+              "ecx": 4281467136,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 127,
+              "ebx": 4294951168,
+              "ecx": 4281466880,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 126,
+              "ebx": 4281450752,
+              "ecx": 4281466880,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 126,
+              "ebx": 4281450752,
+              "ecx": 4281466880,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x0"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xd32e",
+            "route_relative_index": "0x100",
+            "value": 1
+          },
+          {
+            "kind": "palette",
+            "pc_rva": "0xd33d",
+            "route_relative_index": "0x1",
+            "value": 225
+          },
+          {
+            "kind": "output",
+            "pc_rva": "0xd341",
+            "route_relative_index": "0x2c0",
+            "value": 225
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xd322",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xd32e",
+          "output_pc": "0xd341"
+        }
+      },
+      {
+        "label": "all_zero",
+        "route": "cc50_palette",
+        "entry": "D420 -> CC50 row 3",
+        "native_instruction_count": 4359,
+        "native_path_markers": [
+          "0xcc50",
+          "0xd322",
+          "0xd420"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 0,
+        "event_order": {
+          "expected_per_iteration": [
+            "source"
+          ],
+          "iterations_checked": 319,
+          "event_count": 319,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": false,
+          "zero_route_only_samples": true
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 319,
+              "ebx": 2592014592,
+              "ecx": 4281467136,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 319,
+              "ebx": 2592014592,
+              "ecx": 4281467136,
+              "esi": 268439552
+            },
+            "source_byte": 0,
+            "source_offset": "0x100"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 127,
+              "ebx": 4294951168,
+              "ecx": 4281467136,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 127,
+              "ebx": 4294951168,
+              "ecx": 4281466880,
+              "esi": 268439552
+            },
+            "source_byte": 0,
+            "source_offset": "0x100"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 126,
+              "ebx": 4281450752,
+              "ecx": 4281466880,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 126,
+              "ebx": 4281450752,
+              "ecx": 4281466880,
+              "esi": 268439552
+            },
+            "source_byte": 0,
+            "source_offset": "0x0"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xd32e",
+            "route_relative_index": "0x100",
+            "value": 0
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xd322",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xd32e",
+          "output_pc": "0xd341"
+        }
+      }
+    ],
+    "e680_mode80": [
+      {
+        "label": "raw_1",
+        "route": "e680_mode80",
+        "entry": "E680 mode 0x80, selector 2 generic",
+        "native_instruction_count": 4966,
+        "native_path_markers": [
+          "0xe680",
+          "0xe7c7",
+          "0xee6d",
+          "0xee8e"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 319,
+        "event_order": {
+          "expected_per_iteration": [
+            "source",
+            "destination",
+            "blend",
+            "output"
+          ],
+          "iterations_checked": 319,
+          "event_count": 1276,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": true,
+          "zero_route_only_samples": false
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x0"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xee79",
+            "route_relative_index": "0x100",
+            "value": 1
+          },
+          {
+            "kind": "destination",
+            "pc_rva": "0xee86",
+            "route_relative_index": "0x2c0",
+            "value": 165
+          },
+          {
+            "kind": "blend",
+            "pc_rva": "0xee88",
+            "route_relative_index": "0x1a5",
+            "value": 102
+          },
+          {
+            "kind": "output",
+            "pc_rva": "0xee8c",
+            "route_relative_index": "0x2c0",
+            "value": 102
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xee6d",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xee79",
+          "output_pc": "0xee8c"
+        }
+      },
+      {
+        "label": "raw_255",
+        "route": "e680_mode80",
+        "entry": "E680 mode 0x80, selector 2 generic",
+        "native_instruction_count": 4966,
+        "native_path_markers": [
+          "0xe680",
+          "0xe7c7",
+          "0xee6d",
+          "0xee8e"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 319,
+        "event_order": {
+          "expected_per_iteration": [
+            "source",
+            "destination",
+            "blend",
+            "output"
+          ],
+          "iterations_checked": 319,
+          "event_count": 1276,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": true,
+          "zero_route_only_samples": false
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 255,
+            "source_offset": "0x100"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 255,
+            "source_offset": "0x100"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 255,
+            "source_offset": "0x0"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xee79",
+            "route_relative_index": "0x100",
+            "value": 255
+          },
+          {
+            "kind": "destination",
+            "pc_rva": "0xee86",
+            "route_relative_index": "0x2c0",
+            "value": 165
+          },
+          {
+            "kind": "blend",
+            "pc_rva": "0xee88",
+            "route_relative_index": "0xffa5",
+            "value": 102
+          },
+          {
+            "kind": "output",
+            "pc_rva": "0xee8c",
+            "route_relative_index": "0x2c0",
+            "value": 102
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xee6d",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xee79",
+          "output_pc": "0xee8c"
+        }
+      },
+      {
+        "label": "blend_66",
+        "route": "e680_mode80",
+        "entry": "E680 mode 0x80, selector 2 generic",
+        "native_instruction_count": 4966,
+        "native_path_markers": [
+          "0xe680",
+          "0xe7c7",
+          "0xee6d",
+          "0xee8e"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 319,
+        "event_order": {
+          "expected_per_iteration": [
+            "source",
+            "destination",
+            "blend",
+            "output"
+          ],
+          "iterations_checked": 319,
+          "event_count": 1276,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": true,
+          "zero_route_only_samples": false
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x0"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xee79",
+            "route_relative_index": "0x100",
+            "value": 1
+          },
+          {
+            "kind": "destination",
+            "pc_rva": "0xee86",
+            "route_relative_index": "0x2c0",
+            "value": 165
+          },
+          {
+            "kind": "blend",
+            "pc_rva": "0xee88",
+            "route_relative_index": "0x1a5",
+            "value": 102
+          },
+          {
+            "kind": "output",
+            "pc_rva": "0xee8c",
+            "route_relative_index": "0x2c0",
+            "value": 102
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xee6d",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xee79",
+          "output_pc": "0xee8c"
+        }
+      },
+      {
+        "label": "blend_e2",
+        "route": "e680_mode80",
+        "entry": "E680 mode 0x80, selector 2 generic",
+        "native_instruction_count": 4966,
+        "native_path_markers": [
+          "0xe680",
+          "0xe7c7",
+          "0xee6d",
+          "0xee8e"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 319,
+        "event_order": {
+          "expected_per_iteration": [
+            "source",
+            "destination",
+            "blend",
+            "output"
+          ],
+          "iterations_checked": 319,
+          "event_count": 1276,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": true,
+          "zero_route_only_samples": false
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x0"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xee79",
+            "route_relative_index": "0x100",
+            "value": 1
+          },
+          {
+            "kind": "destination",
+            "pc_rva": "0xee86",
+            "route_relative_index": "0x2c0",
+            "value": 165
+          },
+          {
+            "kind": "blend",
+            "pc_rva": "0xee88",
+            "route_relative_index": "0x1a5",
+            "value": 226
+          },
+          {
+            "kind": "output",
+            "pc_rva": "0xee8c",
+            "route_relative_index": "0x2c0",
+            "value": 226
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xee6d",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xee79",
+          "output_pc": "0xee8c"
+        }
+      },
+      {
+        "label": "all_zero",
+        "route": "e680_mode80",
+        "entry": "E680 mode 0x80, selector 2 generic",
+        "native_instruction_count": 4009,
+        "native_path_markers": [
+          "0xe680",
+          "0xe7c7",
+          "0xee6d",
+          "0xee8e"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 0,
+        "event_order": {
+          "expected_per_iteration": [
+            "source"
+          ],
+          "iterations_checked": 319,
+          "event_count": 319,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": false,
+          "zero_route_only_samples": true
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 0,
+            "source_offset": "0x100"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 0,
+            "source_offset": "0x100"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 0,
+            "source_offset": "0x0"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xee79",
+            "route_relative_index": "0x100",
+            "value": 0
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xee6d",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xee79",
+          "output_pc": "0xee8c"
+        }
+      }
+    ],
+    "e680_shaded_7f": [
+      {
+        "label": "raw_1",
+        "route": "e680_shaded_7f",
+        "entry": "E680 mode 0x7F -> DD70 generic shade row 0x7F",
+        "native_instruction_count": 6587,
+        "native_path_markers": [
+          "0xdd70",
+          "0xde9f",
+          "0xe56c",
+          "0xe5a3",
+          "0xe680",
+          "0xe6ad"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 319,
+        "event_order": {
+          "expected_per_iteration": [
+            "source",
+            "shade",
+            "destination",
+            "blend",
+            "output"
+          ],
+          "iterations_checked": 319,
+          "event_count": 1595,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": true,
+          "zero_route_only_samples": false
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100",
+            "after_shade_edx": "0x922289"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100",
+            "after_shade_edx": "0x922289"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x0",
+            "after_shade_edx": "0x922289"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xe578",
+            "route_relative_index": "0x100",
+            "value": 1
+          },
+          {
+            "kind": "shade",
+            "pc_rva": "0xe593",
+            "route_relative_index": "0x1",
+            "value": 34
+          },
+          {
+            "kind": "destination",
+            "pc_rva": "0xe59b",
+            "route_relative_index": "0x2c0",
+            "value": 165
+          },
+          {
+            "kind": "blend",
+            "pc_rva": "0xe59d",
+            "route_relative_index": "0x22a5",
+            "value": 102
+          },
+          {
+            "kind": "output",
+            "pc_rva": "0xe5a1",
+            "route_relative_index": "0x2c0",
+            "value": 102
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xe56c",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xe578",
+          "output_pc": "0xe5a1"
+        }
+      },
+      {
+        "label": "raw_255",
+        "route": "e680_shaded_7f",
+        "entry": "E680 mode 0x7F -> DD70 generic shade row 0x7F",
+        "native_instruction_count": 6587,
+        "native_path_markers": [
+          "0xdd70",
+          "0xde9f",
+          "0xe56c",
+          "0xe5a3",
+          "0xe680",
+          "0xe6ad"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 319,
+        "event_order": {
+          "expected_per_iteration": [
+            "source",
+            "shade",
+            "destination",
+            "blend",
+            "output"
+          ],
+          "iterations_checked": 319,
+          "event_count": 1595,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": true,
+          "zero_route_only_samples": false
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 255,
+            "source_offset": "0x100",
+            "after_shade_edx": "0x922287"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 255,
+            "source_offset": "0x100",
+            "after_shade_edx": "0x922287"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 255,
+            "source_offset": "0x0",
+            "after_shade_edx": "0x922287"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xe578",
+            "route_relative_index": "0x100",
+            "value": 255
+          },
+          {
+            "kind": "shade",
+            "pc_rva": "0xe593",
+            "route_relative_index": "0xff",
+            "value": 34
+          },
+          {
+            "kind": "destination",
+            "pc_rva": "0xe59b",
+            "route_relative_index": "0x2c0",
+            "value": 165
+          },
+          {
+            "kind": "blend",
+            "pc_rva": "0xe59d",
+            "route_relative_index": "0x22a5",
+            "value": 102
+          },
+          {
+            "kind": "output",
+            "pc_rva": "0xe5a1",
+            "route_relative_index": "0x2c0",
+            "value": 102
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xe56c",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xe578",
+          "output_pc": "0xe5a1"
+        }
+      },
+      {
+        "label": "shade_22",
+        "route": "e680_shaded_7f",
+        "entry": "E680 mode 0x7F -> DD70 generic shade row 0x7F",
+        "native_instruction_count": 6587,
+        "native_path_markers": [
+          "0xdd70",
+          "0xde9f",
+          "0xe56c",
+          "0xe5a3",
+          "0xe680",
+          "0xe6ad"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 319,
+        "event_order": {
+          "expected_per_iteration": [
+            "source",
+            "shade",
+            "destination",
+            "blend",
+            "output"
+          ],
+          "iterations_checked": 319,
+          "event_count": 1595,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": true,
+          "zero_route_only_samples": false
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100",
+            "after_shade_edx": "0x922289"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100",
+            "after_shade_edx": "0x922289"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x0",
+            "after_shade_edx": "0x922289"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xe578",
+            "route_relative_index": "0x100",
+            "value": 1
+          },
+          {
+            "kind": "shade",
+            "pc_rva": "0xe593",
+            "route_relative_index": "0x1",
+            "value": 34
+          },
+          {
+            "kind": "destination",
+            "pc_rva": "0xe59b",
+            "route_relative_index": "0x2c0",
+            "value": 165
+          },
+          {
+            "kind": "blend",
+            "pc_rva": "0xe59d",
+            "route_relative_index": "0x22a5",
+            "value": 102
+          },
+          {
+            "kind": "output",
+            "pc_rva": "0xe5a1",
+            "route_relative_index": "0x2c0",
+            "value": 102
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xe56c",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xe578",
+          "output_pc": "0xe5a1"
+        }
+      },
+      {
+        "label": "shade_d0",
+        "route": "e680_shaded_7f",
+        "entry": "E680 mode 0x7F -> DD70 generic shade row 0x7F",
+        "native_instruction_count": 6587,
+        "native_path_markers": [
+          "0xdd70",
+          "0xde9f",
+          "0xe56c",
+          "0xe5a3",
+          "0xe680",
+          "0xe6ad"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 319,
+        "event_order": {
+          "expected_per_iteration": [
+            "source",
+            "shade",
+            "destination",
+            "blend",
+            "output"
+          ],
+          "iterations_checked": 319,
+          "event_count": 1595,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": true,
+          "zero_route_only_samples": false
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100",
+            "after_shade_edx": "0x92d089"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100",
+            "after_shade_edx": "0x92d089"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x0",
+            "after_shade_edx": "0x92d089"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xe578",
+            "route_relative_index": "0x100",
+            "value": 1
+          },
+          {
+            "kind": "shade",
+            "pc_rva": "0xe593",
+            "route_relative_index": "0x1",
+            "value": 208
+          },
+          {
+            "kind": "destination",
+            "pc_rva": "0xe59b",
+            "route_relative_index": "0x2c0",
+            "value": 165
+          },
+          {
+            "kind": "blend",
+            "pc_rva": "0xe59d",
+            "route_relative_index": "0xd0a5",
+            "value": 102
+          },
+          {
+            "kind": "output",
+            "pc_rva": "0xe5a1",
+            "route_relative_index": "0x2c0",
+            "value": 102
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xe56c",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xe578",
+          "output_pc": "0xe5a1"
+        }
+      },
+      {
+        "label": "blend_66",
+        "route": "e680_shaded_7f",
+        "entry": "E680 mode 0x7F -> DD70 generic shade row 0x7F",
+        "native_instruction_count": 6587,
+        "native_path_markers": [
+          "0xdd70",
+          "0xde9f",
+          "0xe56c",
+          "0xe5a3",
+          "0xe680",
+          "0xe6ad"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 319,
+        "event_order": {
+          "expected_per_iteration": [
+            "source",
+            "shade",
+            "destination",
+            "blend",
+            "output"
+          ],
+          "iterations_checked": 319,
+          "event_count": 1595,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": true,
+          "zero_route_only_samples": false
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100",
+            "after_shade_edx": "0x922289"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100",
+            "after_shade_edx": "0x922289"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x0",
+            "after_shade_edx": "0x922289"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xe578",
+            "route_relative_index": "0x100",
+            "value": 1
+          },
+          {
+            "kind": "shade",
+            "pc_rva": "0xe593",
+            "route_relative_index": "0x1",
+            "value": 34
+          },
+          {
+            "kind": "destination",
+            "pc_rva": "0xe59b",
+            "route_relative_index": "0x2c0",
+            "value": 165
+          },
+          {
+            "kind": "blend",
+            "pc_rva": "0xe59d",
+            "route_relative_index": "0x22a5",
+            "value": 102
+          },
+          {
+            "kind": "output",
+            "pc_rva": "0xe5a1",
+            "route_relative_index": "0x2c0",
+            "value": 102
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xe56c",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xe578",
+          "output_pc": "0xe5a1"
+        }
+      },
+      {
+        "label": "blend_e4",
+        "route": "e680_shaded_7f",
+        "entry": "E680 mode 0x7F -> DD70 generic shade row 0x7F",
+        "native_instruction_count": 6587,
+        "native_path_markers": [
+          "0xdd70",
+          "0xde9f",
+          "0xe56c",
+          "0xe5a3",
+          "0xe680",
+          "0xe6ad"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 319,
+        "event_order": {
+          "expected_per_iteration": [
+            "source",
+            "shade",
+            "destination",
+            "blend",
+            "output"
+          ],
+          "iterations_checked": 319,
+          "event_count": 1595,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": true,
+          "zero_route_only_samples": false
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100",
+            "after_shade_edx": "0x922289"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x100",
+            "after_shade_edx": "0x922289"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 1,
+            "source_offset": "0x0",
+            "after_shade_edx": "0x922289"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xe578",
+            "route_relative_index": "0x100",
+            "value": 1
+          },
+          {
+            "kind": "shade",
+            "pc_rva": "0xe593",
+            "route_relative_index": "0x1",
+            "value": 34
+          },
+          {
+            "kind": "destination",
+            "pc_rva": "0xe59b",
+            "route_relative_index": "0x2c0",
+            "value": 165
+          },
+          {
+            "kind": "blend",
+            "pc_rva": "0xe59d",
+            "route_relative_index": "0x22a5",
+            "value": 228
+          },
+          {
+            "kind": "output",
+            "pc_rva": "0xe5a1",
+            "route_relative_index": "0x2c0",
+            "value": 228
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xe56c",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xe578",
+          "output_pc": "0xe5a1"
+        }
+      },
+      {
+        "label": "all_zero",
+        "route": "e680_shaded_7f",
+        "entry": "E680 mode 0x7F -> DD70 generic shade row 0x7F",
+        "native_instruction_count": 4035,
+        "native_path_markers": [
+          "0xdd70",
+          "0xde9f",
+          "0xe56c",
+          "0xe5a3",
+          "0xe680",
+          "0xe6ad"
+        ],
+        "loop_iterations": 319,
+        "source_read_count": 319,
+        "output_write_count": 0,
+        "event_order": {
+          "expected_per_iteration": [
+            "source"
+          ],
+          "iterations_checked": 319,
+          "event_count": 319,
+          "all_319_source_addresses_match_pre_sample_registers": true,
+          "lookup_indices_and_output_values_match": false,
+          "zero_route_only_samples": true
+        },
+        "checkpoints": {
+          "0": {
+            "pixel": [
+              0,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 2592014655,
+              "ebx": 257,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 0,
+            "source_offset": "0x100"
+          },
+          "192": {
+            "pixel": [
+              192,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 256
+            },
+            "uv_after_step": {
+              "eax": 4294901887,
+              "ebx": 49408,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 0,
+            "source_offset": "0x100"
+          },
+          "193": {
+            "pixel": [
+              193,
+              1
+            ],
+            "uv_before_source": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552,
+              "edx": 0
+            },
+            "uv_after_step": {
+              "eax": 4281401470,
+              "ebx": 49664,
+              "ecx": 255,
+              "esi": 268439552
+            },
+            "source_byte": 0,
+            "source_offset": "0x0"
+          }
+        },
+        "sample_192_event_order_and_values": [
+          {
+            "kind": "source",
+            "pc_rva": "0xe578",
+            "route_relative_index": "0x100",
+            "value": 0
+          }
+        ],
+        "original_code_unchanged": true,
+        "unexpected_access": null,
+        "loop_contract": {
+          "loop_pc": "0xe56c",
+          "first_ax_count": "0x13f",
+          "last_ax_count": "0x1",
+          "counter_width": "AX",
+          "source_pc": "0xe578",
+          "output_pc": "0xe5a1"
+        }
+      }
+    ]
+  },
+  "controlled_comparisons": {
+    "cc50_raw_texel": {
+      "purpose": "raw texel 1 vs 255, same CLUT result",
+      "left_case": "raw_1",
+      "right_case": "raw_255",
+      "loop_count": 319,
+      "uv_registers_before_source_equal_all_iterations": true,
+      "uv_registers_after_step_equal_all_iterations": true,
+      "source_texture_offsets_equal_all_iterations": true,
+      "first_register_divergence": {
+        "iteration": 0,
+        "pixel": [
+          0,
+          1
+        ],
+        "stage": "after_source",
+        "register": "edx",
+        "left": "0x101",
+        "right": "0x1ff"
+      }
+    },
+    "cc50_clut_result": {
+      "purpose": "same texel 1, CLUT result 0x44 vs 0xE1",
+      "left_case": "clut_44",
+      "right_case": "clut_e1",
+      "loop_count": 319,
+      "uv_registers_before_source_equal_all_iterations": true,
+      "uv_registers_after_step_equal_all_iterations": true,
+      "source_texture_offsets_equal_all_iterations": true,
+      "first_register_divergence": {
+        "iteration": 0,
+        "pixel": [
+          0,
+          1
+        ],
+        "stage": "before_store",
+        "register": "edx",
+        "left": "0x44",
+        "right": "0xe1"
+      }
+    },
+    "e680_mode80_raw_texel": {
+      "purpose": "raw texel 1 vs 255, same blend output",
+      "left_case": "raw_1",
+      "right_case": "raw_255",
+      "loop_count": 319,
+      "uv_registers_before_source_equal_all_iterations": true,
+      "uv_registers_after_step_equal_all_iterations": true,
+      "source_texture_offsets_equal_all_iterations": true,
+      "first_register_divergence": {
+        "iteration": 0,
+        "pixel": [
+          0,
+          1
+        ],
+        "stage": "after_source",
+        "register": "edx",
+        "left": "0x100",
+        "right": "0xff00"
+      }
+    },
+    "e680_mode80_blend_result": {
+      "purpose": "same texel 1, blend result 0x66 vs 0xE2",
+      "left_case": "blend_66",
+      "right_case": "blend_e2",
+      "loop_count": 319,
+      "uv_registers_before_source_equal_all_iterations": true,
+      "uv_registers_after_step_equal_all_iterations": true,
+      "source_texture_offsets_equal_all_iterations": true,
+      "first_register_divergence": {
+        "iteration": 0,
+        "pixel": [
+          0,
+          1
+        ],
+        "stage": "before_store",
+        "register": "edx",
+        "left": "0x166",
+        "right": "0x1e2"
+      }
+    },
+    "e680_shaded_raw_texel": {
+      "purpose": "raw texel 1 vs 255, same shade and blend results",
+      "left_case": "raw_1",
+      "right_case": "raw_255",
+      "loop_count": 319,
+      "uv_registers_before_source_equal_all_iterations": true,
+      "uv_registers_after_step_equal_all_iterations": true,
+      "source_texture_offsets_equal_all_iterations": true,
+      "first_register_divergence": {
+        "iteration": 0,
+        "pixel": [
+          0,
+          1
+        ],
+        "stage": "after_source",
+        "register": "edx",
+        "left": "0x100",
+        "right": "0xff00"
+      }
+    },
+    "e680_shade_result": {
+      "purpose": "same texel 1, shade result 0x22 vs 0xD0, same blend output",
+      "left_case": "shade_22",
+      "right_case": "shade_d0",
+      "loop_count": 319,
+      "uv_registers_before_source_equal_all_iterations": true,
+      "uv_registers_after_step_equal_all_iterations": true,
+      "source_texture_offsets_equal_all_iterations": true,
+      "first_register_divergence": {
+        "iteration": 0,
+        "pixel": [
+          0,
+          1
+        ],
+        "stage": "after_shade",
+        "register": "edx",
+        "left": "0x922289",
+        "right": "0x92d089"
+      }
+    },
+    "e680_shaded_blend_result": {
+      "purpose": "same texel and shade, blend result 0x66 vs 0xE4",
+      "left_case": "blend_66",
+      "right_case": "blend_e4",
+      "loop_count": 319,
+      "uv_registers_before_source_equal_all_iterations": true,
+      "uv_registers_after_step_equal_all_iterations": true,
+      "source_texture_offsets_equal_all_iterations": true,
+      "first_register_divergence": {
+        "iteration": 0,
+        "pixel": [
+          0,
+          1
+        ],
+        "stage": "before_store",
+        "register": "edx",
+        "left": "0x2266",
+        "right": "0x22e4"
+      }
+    }
+  },
+  "interpretation": {
+    "cc50": "The long-row source address stream is independent of raw texel and palette output in this finite route; palette result affects only the destination byte.",
+    "e680_mode80": "The long-row source address stream is independent of raw texel and blend output in this finite route; blend result affects only the destination byte.",
+    "e680_shaded_7f": "The long-row source address stream is independent of raw texel, shade result, and blend output in this finite route; shade/blend bytes stay on the color path.",
+    "cross_route_limit": "This evidence distinguishes these three routes from the existing D60C AL-feedback witness; it does not generalize to other modes, selectors, shapes, clipping domains, or source/LUT ownership states."
+  },
+  "limits": [
+    "Only one wire-valid clipped 319-pixel row was executed per controlled case.",
+    "All tables, texture, stack, and destination bytes are synthetic emulator memory.",
+    "No host callback, DirectDraw, GPU, full raster, gameplay, or unsupported mode/selector was executed.",
+    "Register equality is limited to the recorded loop landmarks and these paired inputs."
+  ],
+  "invocation": {
+    "exe": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "original_root": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+    "deps": "C:\\tools\\hercules\\renderer-oracle-python",
+    "analysis_deps": "C:\\tools\\hercules\\python",
+    "receipt": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\replay_route_feedback_present.json",
+    "instruction_budget_per_case": 250000
+  }
+}

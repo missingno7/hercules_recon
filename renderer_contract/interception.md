@@ -67,25 +67,40 @@ snapshot or asynchronous borrowed-pointer use is part of this contract.
 
 ## Loading versus interception
 
-The EXE statically imports DDRAW.dll!DirectDrawCreate. Its call at RVA 0x7426
-is in graphics initialization before the observed first engine-table copy.
-An app-local forwarding ddraw.dll is therefore a candidate bootstrap for
-publishing the clone. It should preserve the real DirectDraw object and load
-the system DLL by an explicit system path at call time. Keep DllMain minimal.
-Actual local-DLL resolution and timing remain unobserved. Windows considers
-loaded modules and KnownDLLs before the application's directory, so deployment
-must verify the loaded path rather than assume selection.
-[Microsoft DLL search order](https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order),
-[DLL best practices](https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-best-practices).
+The direct graphics-init path is `0x7937 -> 0x5e10 -> 0x72a0`; it reaches
+palette setup and calls the `DirectDrawCreate` thunk at `0x7426`. The separate
+event/tick path `0x79a0 -> 0x79fc -> 0x5f20 -> 0x5ec0` can, behind its gates,
+read the current table pointer at `0x5ef3` and dispatch through it at `0x5f03`
+without passing through `DirectDrawCreate`. Its invocation timing and possible
+reentrancy are unresolved, so the direct init order is not a process-wide
+guarantee that DirectDraw runs before the first engine-table copy.
 
-The proxy loads the interception mechanism; DirectDraw itself is not the
-polygon-packet interface. No proxy or injection code is implemented here.
+The host tests the `DirectDrawCreate` HRESULT at `0x742b` only to select error
+logging; both branches rejoin and continue setup. A candidate must not publish
+the table clone only on success. The smallest static candidate remains a
+persistent data-only clone of all 250 DWORDs, with only proven callback words
+replaced and every other word retained, published through `0x365a0` before
+the first possible engine dispatch. Whether an app-local proxy can publish
+early enough across the independent event path is unobserved. The import-
+resolution-only surrogate does not call the export, publish a clone, or run
+Hercules. See
+[bootstrap order](bootstrap_order.md), its [evidence](evidence/bootstrap_order.json), [loader feasibility](loader.md), and the separate [early-publication fixture](fixtures/early_loader_probe/README.md) with its [receipt](evidence/early_loader_surrogate.json).
+
+Any future proxy must preserve the original DirectDraw arguments, returned
+HRESULT, and output object. Keep `DllMain` to minimal initialization: Windows
+calls it under the loader lock, and Microsoft advises against `LoadLibrary`
+or operations that can acquire that lock from there. Resolve/forward the real
+system implementation from a safe export-call path rather than doing complex
+loading in `DllMain`. This is design guidance, not an implemented proxy.
+[Microsoft: Dynamic-Link Library Best Practices](https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-best-practices).
+
+The proxy loads interception; DirectDraw itself is not the packet interface.
 
 | Approach | Original file changes | Scope and reliability | Cross-module and presentation cost |
 |---|---|---|---|
 | Direct AC60 detour | None on disk; runtime instructions changed | Single shared host target, but requires safe instruction interception and complete outer effects | Covers three module submit routes; misses movie and other presentation paths |
 | Selected callback clone | None; runtime data pointer changed | Smallest observed renderer seam; must precede cold copies and preserve borrowed state | Shared across three modules; TITLE extra upload/movie routes require explicit handling |
-| Forwarding ddraw.dll bootstrap + clone | Add local proxy; originals intact | Statically early enough; loader selection needs bounded deployment proof | Retains original window/COM services; no replacement rendering supplied by proxy alone |
+| Forwarding `ddraw.dll` bootstrap + clone | Add local proxy; originals intact | Direct-init path supplies a candidate point, but independent 0x79a0 dispatch means process-wide early publication is unresolved; HRESULT is logging-only | Retains original window/COM services; import resolution and host integration are unobserved |
 | Engine DLL proxies + clone | Originals must be reachable under separate names/paths | Three forwarding wrappers, export/return forwarding and module search complexity | Handles per-module copy directly; larger installation/maintenance burden |
 
 There is no mutable per-polygon dispatch table inside AC60. Its four polygon
@@ -136,3 +151,9 @@ Native LUT construction proves actual table aliasing. Shade/CLUT/blend bytes
 cannot be snapshotted as independent owned textures. Original window, palette,
 clear, movies and final surface remap remain required compatibility behavior
 at the initial clone boundary. No bootstrap/window coexistence has been run.
+
+The [D60C feedback witness](packed_uv_recurrence.md) requires the sampled
+texture byte to participate in later coordinate progression. A faithful backend
+must reproduce that dependency; conventional interpolated UV alone omits it.
+The [tested CC50/E680 paths](route_uv_feedback.md) have separate bounded
+contracts and must not inherit D60C's recurrence.

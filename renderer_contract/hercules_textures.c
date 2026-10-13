@@ -107,3 +107,47 @@ int herc_tex_upload_high_y_byte_address(
                    ((byte_x & 0x700UL) << 8) + (byte_x & 0xffUL);
     return 1;
 }
+
+HERC_TEX_ROW_MAPPING herc_tex_row_mapping_for_entry_y(renderer_i16 entry_y)
+{
+    if (entry_y < (renderer_i16)0x0200)
+        return HERC_TEX_ROW_MAP_LOW_ENTRY;
+    return HERC_TEX_ROW_MAP_HIGH_ENTRY;
+}
+
+int herc_tex_row_byte_address(
+    HERC_TEX_ROW_MAPPING mapping,
+    renderer_i32 x_words,
+    renderer_i32 current_y,
+    renderer_u32 byte_in_word,
+    renderer_u32 *address_out)
+{
+    renderer_u32 y_bits;
+    renderer_u32 x_bits;
+    renderer_u32 row;
+    renderer_u32 byte_x;
+    renderer_u32 offset;
+
+    if (address_out == 0 || byte_in_word > 1U)
+        return 0;
+    if (mapping != HERC_TEX_ROW_MAP_LOW_ENTRY &&
+        mapping != HERC_TEX_ROW_MAP_HIGH_ENTRY)
+        return 0;
+
+    /* Conversion of a negative signed value to unsigned is defined modulo
+     * 2^32. The masks therefore match the original 32-bit register formula. */
+    y_bits = (renderer_u32)current_y;
+    if (mapping == HERC_TEX_ROW_MAP_LOW_ENTRY) {
+        row = (current_y < (renderer_i32)0x0100) ? 0U : 0x0800U;
+        row += y_bits & 0x00ffU;
+    } else {
+        row = 0x1000U + (y_bits & 0x01ffU);
+    }
+
+    x_bits = (renderer_u32)x_words;
+    byte_x = (x_bits << 1) + byte_in_word;
+    offset = (row << 8) + ((byte_x & 0x0700U) << 8) +
+             (byte_x & 0x00ffU);
+    *address_out = HERC_TEX_MAP_BASE + offset;
+    return 1;
+}

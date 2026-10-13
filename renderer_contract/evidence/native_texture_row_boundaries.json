@@ -1,0 +1,3044 @@
+{
+  "schema_version": 1,
+  "status": "FINITE_ORIGINAL_EXECUTION",
+  "scope": "Thirteen finite A710/A8F0 cases with source/destination separated, including row boundaries, page crosses, both A8F0 entry-band directions, the 32767-to-32768 counter, and single-row full-DWORD destination x/y arguments. Original code only; no assets or original OS/window execution.",
+  "runner": {
+    "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_texture_row_boundaries.py",
+    "sha256": "aeeee20cfda6ad766d8212e23faa908fbb9a9d4bd40305e443db49d001107074"
+  },
+  "public_inputs": [
+    {
+      "path": "renderer_contract/tests/oracle_common.py",
+      "sha256": "a024048d9acc6e18197e10a82427cd84351a90666e1626e610bf60c6105f1357"
+    },
+    {
+      "path": "scripts/pe.py",
+      "sha256": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca"
+    },
+    {
+      "path": "renderer_contract/hercules_textures.h",
+      "sha256": "3fdd37291af16f6328a42b545d5655058f1d7d510d796ffdcbe562596e8369ad"
+    },
+    {
+      "path": "renderer_contract/hercules_textures.c",
+      "sha256": "07c951a693b8aeab12cff7cf6b09dc802de7c203e0c8387bd4d2bdf4ce23a5c5"
+    }
+  ],
+  "oracle": {
+    "exe_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000",
+    "a710": {
+      "rva": "0xa710",
+      "end_exclusive": "0xa8e5",
+      "sha256": "30bd84ea8724152e3bfb0e2c521650399913bcec115f1aef489768085981d0fe"
+    },
+    "a8f0": {
+      "rva": "0xa8f0",
+      "end_exclusive": "0xabf3",
+      "sha256": "bc04260d2227d221b124bb397b3d7f1138eed53081654722e3f1acd52599196e"
+    },
+    "bd80": {
+      "rva": "0xbd80",
+      "end_exclusive": "0xbd96",
+      "sha256": "6a9578c5be0c980bc35b29642d3ac389e829a0c5666022353cb88c04f19db64f"
+    }
+  },
+  "original_spans": [
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xa710",
+      "size": 469,
+      "sha256": "30bd84ea8724152e3bfb0e2c521650399913bcec115f1aef489768085981d0fe",
+      "label": "A710 upload callback"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xa8f0",
+      "size": 771,
+      "sha256": "bc04260d2227d221b124bb397b3d7f1138eed53081654722e3f1acd52599196e",
+      "label": "A8F0 copy callback"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xbd80",
+      "size": 22,
+      "sha256": "6a9578c5be0c980bc35b29642d3ac389e829a0c5666022353cb88c04f19db64f",
+      "label": "BD80 notification gate"
+    }
+  ],
+  "static_row_control_spans": [
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xa71a",
+      "size": 12,
+      "sha256": "6f1c8d03c84d918d31d413ef2f90b942fd571e31e1efb2b45a68563cbb6bb380",
+      "label": "entry y<512 signed branch",
+      "function": "A710"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xa740",
+      "size": 25,
+      "sha256": "366bcc64b3a157650414d997799ef65e58d3ea7749938db709f811be4341bc38",
+      "label": "high-band row expression, recomputed at loop head",
+      "function": "A710"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xa816",
+      "size": 36,
+      "sha256": "687dc23effda4d851820afbde03142a3d47a64e46ec29b1d0570304603ef5f06",
+      "label": "low-band row expression, recomputed at loop head",
+      "function": "A710"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xa7dc",
+      "size": 23,
+      "sha256": "848fa8137269ae9d31d40fd8bf69c66fe5ace7dc272ef0e37a4c9cac888040c6",
+      "label": "high-band y increment and row-loop back edge",
+      "function": "A710"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xa8c0",
+      "size": 23,
+      "sha256": "472ed789c056b37e3233f40a5ce144c3f298bf546c55d3ac68e8a29661fae6b2",
+      "label": "low-band y increment and row-loop back edge",
+      "function": "A710"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xa8f7",
+      "size": 15,
+      "sha256": "d870000e4b0dfa78d47a07b35706671992c5e1a13c1d7d3e29ba28fcfe5dc274",
+      "label": "entry source-y<512 signed branch",
+      "function": "A8F0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xa8f0",
+      "size": 49,
+      "sha256": "042536722adee259556a89259f4faa6aa13d88bfbe6ae5493f71ec109339f164",
+      "label": "cdecl frame, full DWORD destination-y argument slot, entry band and row-loop setup",
+      "function": "A8F0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xa921",
+      "size": 53,
+      "sha256": "52d32198e04c266a75c07ec486d9526a851edfed2eedc11b985628fb0c55ef87",
+      "label": "high-band source/destination row expressions",
+      "function": "A8F0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xa92c",
+      "size": 4,
+      "sha256": "01a429262810a4ed614f1cb0fefc2ba52e76f11306eafef22fb49135337a58bf",
+      "label": "high-entry full DWORD destination-y load",
+      "function": "A8F0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xa962",
+      "size": 4,
+      "sha256": "9ed3ef0bb231b393613f69e0bc4230863e6e84ad632a59ca167defd38eeb7a49",
+      "label": "high-entry full DWORD destination-x load",
+      "function": "A8F0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xaa3b",
+      "size": 32,
+      "sha256": "2080e780b95fd59d462b958d36418dc29eb2b00f7a84acfcf779e1eee9d37fbd",
+      "label": "high-band source/destination increments and loop back edge",
+      "function": "A8F0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xaa85",
+      "size": 82,
+      "sha256": "538dd497853f7a748b8800f2e867aad293ed6297185b3c85bf4cf4d29fbcd03a",
+      "label": "low-band source/destination row expressions",
+      "function": "A8F0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xaaa5",
+      "size": 4,
+      "sha256": "3e3de7473b53196134ca5502449f15a97349da2642347a7e28231dff3514b47d",
+      "label": "low-entry full DWORD destination-y load",
+      "function": "A8F0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xaae8",
+      "size": 4,
+      "sha256": "6fbb3e3af9760eaf11ed460894749068d7e76a906a5a819af8af5782d9db07be",
+      "label": "low-entry full DWORD destination-x load",
+      "function": "A8F0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xabc0",
+      "size": 32,
+      "sha256": "2080e780b95fd59d462b958d36418dc29eb2b00f7a84acfcf779e1eee9d37fbd",
+      "label": "low-band source/destination increments and loop back edge",
+      "function": "A8F0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xabcc",
+      "size": 24,
+      "sha256": "50de3ddc6ece359bd6b4c34de5ebd4ce0862fe6d84c00e442d6356bb106d9175",
+      "label": "DWORD destination-y counter load, 32-bit INC, store, and signed row-loop branch",
+      "function": "A8F0"
+    }
+  ],
+  "prediction": {
+    "prediction": "Each callback latches its low/high row mapping from signed entry y and recomputes that expression for each row. A8F0's source y selects the mapping for both source and destination; its destination x/y arguments are loaded as DWORDs, and the full destination-y value participates in the low-entry row comparison.",
+    "falsifier": "A native read/write address disagrees with the entry-selected expression, destination y=65536 behaves as low-WORD zero, or static instructions show WORD loads/cached row pointers/narrower destination counters.",
+    "scope": "Finite original A710/A8F0 cases with small positive heights, including A8F0 destination-y 65536, x=65536 masked-address, and 32767-to-32768 counter discriminators. Original BD80 gate only; no game, OS/window, DirectDraw, resource data, overlap, negative dimensions, or canonical edits.",
+    "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "native_execution": {
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "architecture": "x86 32-bit",
+    "original_sections_mapped_at_image_base": true,
+    "instruction_budget_per_case": 100000,
+    "bd80": "original disabled gate pointer/gate path; callback endpoint not executed",
+    "memory_trace": "all A710 external source reads, A8F0 texture-range reads, and all .data writes recorded by address/size/PC",
+    "code_unchanged": true,
+    "full_mapped_data_restored_after_each_case": true,
+    "unicorn_module_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\__init__.py",
+    "native_dll_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "dependency_origin": {
+      "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+      "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+      "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+    }
+  },
+  "row_models": {
+    "public_normal_helper": "row=y for y<256; row=0x800+(y&0xff) for 256<=y<512; this is the standalone helper's per-row domain",
+    "public_high_helper": "row=0x1000+(y&0x1ff) for 512<=y<=1023; helper rejects other y; this is the standalone helper's per-row domain",
+    "observed_entry_band_contract": "Callback chooses low or high code once from the initial signed y WORD (A710 destination RECT y; A8F0 source RECT y). The chosen code then recomputes source/destination row expressions each iteration using the current y values. A8F0 applies the source-entry band branch to both source and destination row addressing.",
+    "low_entry_row_expression": "(current_y<256 ? 0 : 0x800) + (current_y&0xff)",
+    "high_entry_row_expression": "0x1000 + (current_y&0x1ff)",
+    "cached_pointer_model": "Rejected by finite boundary witnesses: both callbacks recompute row expressions; +0x100 continuation is not a general contract.",
+    "address": "0x96e6e0 + row*0x100 + (((2*x+byte_i)&0x700)<<8) + ((2*x+byte_i)&0xff)",
+    "helper_mismatch": "Standalone per-logical-row helpers disagree when a rectangle crosses a callback's entry-band branch or the high helper's y<=1023 limit. The native fixtures do not broaden or modify either public helper.",
+    "higher_domain": "No helper contract is broadened; y=1024 is reported only as the second row of the y=1023 native fixture."
+  },
+  "static_height_observation": {
+    "A710": "At RVA 0xA71F, CMP CX,0x200 followed by signed JL at 0xA725 selects the entry band. Height is MOVSX at 0xA72E (high) or 0xA801 (low), width at 0xA740/0xA834; y+height is compared with signed JGE/JL loop control. Zero height still reaches BD80 in prior finite fixtures. No general invalid-input behavior claimed.",
+    "A8F0": "At RVA 0xA8FE, CMP CX,0x200 followed by signed JL at 0xA904 selects the entry band from source y. Height is MOVSX at 0xA90D (high) or 0xAA6E (low), width at 0xA925/0xAAB4. Destination x/y are read as DWORD stack values at [esp+0x28]/[esp+0x2c]; the low-entry y=65536 fixture distinguishes the full value from low-WORD truncation. Destination y is incremented with 32-bit INC EBX at 0xABD3; the 32767-to-32768 fixture observes the continuation. No general invalid-input behavior claimed."
+  },
+  "static_destination_counter_observation": {
+    "module": "HERCULES.EXE",
+    "function_rva": "0xa8f0",
+    "frame_span": {
+      "module": "HERCULES.EXE",
+      "rva": "0xa8f0",
+      "size": 49,
+      "sha256": "042536722adee259556a89259f4faa6aa13d88bfbe6ae5493f71ec109339f164",
+      "label": "cdecl frame, full DWORD destination-y argument slot, entry band and row-loop setup",
+      "function": "A8F0"
+    },
+    "counter_span": {
+      "module": "HERCULES.EXE",
+      "rva": "0xabcc",
+      "size": 24,
+      "sha256": "50de3ddc6ece359bd6b4c34de5ebd4ce0862fe6d84c00e442d6356bb106d9175",
+      "label": "DWORD destination-y counter load, 32-bit INC, store, and signed row-loop branch",
+      "function": "A8F0"
+    },
+    "cdecl_stack_map": "At entry, return/[esp+0], RECT/[esp+4], destination_x/[esp+8], destination_y/[esp+0xc]. SUB ESP,0x10 and four 32-bit register pushes move ESP down 0x20, so the original destination_y argument is current [esp+0x2c].",
+    "decoded_counter_sites": [
+      {
+        "rva": "0xabcc",
+        "instruction": "mov ebx, dword ptr [esp+0x2c]"
+      },
+      {
+        "rva": "0xabd3",
+        "instruction": "inc ebx"
+      },
+      {
+        "rva": "0xabda",
+        "instruction": "mov dword ptr [esp+0x2c], ebx"
+      },
+      {
+        "rva": "0xabde",
+        "instruction": "jl 0x40aa85"
+      }
+    ],
+    "bounded_discriminator": "source RECT y=0, destination y=32767, width=1, height=2; native rows write with low-entry rows 0x8ff then 0x800, not the i16-narrowed second-row result."
+  },
+  "static_destination_argument_width_observation": {
+    "module": "HERCULES.EXE",
+    "function_rva": "0xa8f0",
+    "frame_span": {
+      "module": "HERCULES.EXE",
+      "rva": "0xa8f0",
+      "size": 49,
+      "sha256": "042536722adee259556a89259f4faa6aa13d88bfbe6ae5493f71ec109339f164",
+      "label": "cdecl frame, full DWORD destination-y argument slot, entry band and row-loop setup",
+      "function": "A8F0"
+    },
+    "cdecl_stack_map": "At entry, destination_x is DWORD [esp+0x8] and destination_y is DWORD [esp+0xc]. SUB ESP,0x10 and four 32-bit pushes move them to current [esp+0x28] and [esp+0x2c]. Source RECT x/y remain signed WORD fields.",
+    "destination_y_loads": [
+      {
+        "rva": "0xa92c",
+        "instruction": "mov edi, dword ptr [esp+0x2c]",
+        "span": {
+          "module": "HERCULES.EXE",
+          "rva": "0xa92c",
+          "size": 4,
+          "sha256": "01a429262810a4ed614f1cb0fefc2ba52e76f11306eafef22fb49135337a58bf",
+          "label": "high-entry full DWORD destination-y load",
+          "function": "A8F0"
+        }
+      },
+      {
+        "rva": "0xaaa5",
+        "instruction": "mov ecx, dword ptr [esp+0x2c]",
+        "span": {
+          "module": "HERCULES.EXE",
+          "rva": "0xaaa5",
+          "size": 4,
+          "sha256": "3e3de7473b53196134ca5502449f15a97349da2642347a7e28231dff3514b47d",
+          "label": "low-entry full DWORD destination-y load",
+          "function": "A8F0"
+        }
+      }
+    ],
+    "destination_x_loads": [
+      {
+        "rva": "0xa962",
+        "instruction": "mov esi, dword ptr [esp+0x28]",
+        "span": {
+          "module": "HERCULES.EXE",
+          "rva": "0xa962",
+          "size": 4,
+          "sha256": "9ed3ef0bb231b393613f69e0bc4230863e6e84ad632a59ca167defd38eeb7a49",
+          "label": "high-entry full DWORD destination-x load",
+          "function": "A8F0"
+        }
+      },
+      {
+        "rva": "0xaae8",
+        "instruction": "mov edx, dword ptr [esp+0x28]",
+        "span": {
+          "module": "HERCULES.EXE",
+          "rva": "0xaae8",
+          "size": 4,
+          "sha256": "6fbb3e3af9760eaf11ed460894749068d7e76a906a5a819af8af5782d9db07be",
+          "label": "low-entry full DWORD destination-x load",
+          "function": "A8F0"
+        }
+      }
+    ],
+    "native_discriminators": {
+      "destination_y_65536": "With source RECT y=0 and destination y=65536, width=1, height=1, native output is 0x9ee708/09 from low-entry row 0x800; WORD truncation to zero would write 0x96e708/09.",
+      "destination_x_65536": "With source RECT x/y=5/0 and destination x=65536,y=0,width=1,height=1, native output aliases x=0 at 0x96e6e0/e1 because the byte-address expression masks higher x bits. This only establishes the single-word address expression, not arbitrary-width clipping or 32-bit wraparound."
+    }
+  },
+  "static_row_counter_observation": {
+    "A710": [
+      {
+        "rva": "0xa7ea",
+        "instruction": "inc edx",
+        "role": "high-entry current-y counter"
+      },
+      {
+        "rva": "0xa8ce",
+        "instruction": "inc ecx",
+        "role": "low-entry current-y counter"
+      }
+    ],
+    "A8F0": [
+      {
+        "rva": "0xaa4b",
+        "instruction": "inc ecx",
+        "role": "high-entry source-y counter"
+      },
+      {
+        "rva": "0xaa4e",
+        "instruction": "inc ebx",
+        "role": "high-entry DWORD destination-y counter"
+      },
+      {
+        "rva": "0xabd0",
+        "instruction": "inc ecx",
+        "role": "low-entry source-y counter"
+      },
+      {
+        "rva": "0xabd3",
+        "instruction": "inc ebx",
+        "role": "low-entry DWORD destination-y counter"
+      }
+    ],
+    "width": "All listed INC instructions are 32-bit register operations; source RECT y is sign-extended on entry. The DWORD A8F0 destination argument is loaded from [esp+0x2c].",
+    "implication": "The row-address helper takes renderer_i32 current_y; only the callback entry-y selector takes renderer_i16."
+  },
+  "cases": [
+    {
+      "name": "a710_y255_256_fast",
+      "entry": "A710",
+      "entry_rva": "0xa710",
+      "descriptor_words": [
+        5,
+        255,
+        1,
+        2
+      ],
+      "source_xy": null,
+      "destination_xy": null,
+      "page_cross_slow_path_requested": false,
+      "row_entry_band": "low y<512",
+      "source_read_events": [
+        {
+          "pc_rva": "0xa87a",
+          "address": "0x10002000",
+          "size": 1,
+          "bytes": "38"
+        },
+        {
+          "pc_rva": "0xa87a",
+          "address": "0x10002001",
+          "size": 1,
+          "bytes": "61"
+        },
+        {
+          "pc_rva": "0xa87a",
+          "address": "0x10002002",
+          "size": 1,
+          "bytes": "8a"
+        },
+        {
+          "pc_rva": "0xa87a",
+          "address": "0x10002003",
+          "size": 1,
+          "bytes": "b3"
+        }
+      ],
+      "destination_write_events": [
+        {
+          "pc_rva": "0xa87a",
+          "address": "0x97e5ea",
+          "size": 1,
+          "bytes": "38"
+        },
+        {
+          "pc_rva": "0xa87a",
+          "address": "0x97e5eb",
+          "size": 1,
+          "bytes": "61"
+        },
+        {
+          "pc_rva": "0xa87a",
+          "address": "0x9ee6ea",
+          "size": 1,
+          "bytes": "8a"
+        },
+        {
+          "pc_rva": "0xa87a",
+          "address": "0x9ee6eb",
+          "size": 1,
+          "bytes": "b3"
+        }
+      ],
+      "observed_source_byte_addresses": [
+        "0x10002000",
+        "0x10002001",
+        "0x10002002",
+        "0x10002003"
+      ],
+      "observed_destination_byte_addresses": [
+        "0x97e5ea",
+        "0x97e5eb",
+        "0x9ee6ea",
+        "0x9ee6eb"
+      ],
+      "helper_per_row_destination_addresses": [
+        "0x97e5ea",
+        "0x97e5eb",
+        "0x9ee6ea",
+        "0x9ee6eb"
+      ],
+      "helper_per_row_destination_details": [
+        {
+          "logical_y": 255,
+          "supported": true,
+          "addresses": [
+            "0x97e5ea",
+            "0x97e5eb"
+          ]
+        },
+        {
+          "logical_y": 256,
+          "supported": true,
+          "addresses": [
+            "0x9ee6ea",
+            "0x9ee6eb"
+          ]
+        }
+      ],
+      "helper_destination_row_comparisons": [
+        {
+          "logical_y": 255,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0x97e5ea",
+            "0x97e5eb"
+          ],
+          "observed_addresses": [
+            "0x97e5ea",
+            "0x97e5eb"
+          ],
+          "matches": true
+        },
+        {
+          "logical_y": 256,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0x9ee6ea",
+            "0x9ee6eb"
+          ],
+          "observed_addresses": [
+            "0x9ee6ea",
+            "0x9ee6eb"
+          ],
+          "matches": true
+        }
+      ],
+      "entry_band_per_row_destination_addresses": [
+        "0x97e5ea",
+        "0x97e5eb",
+        "0x9ee6ea",
+        "0x9ee6eb"
+      ],
+      "start_row_plus_0x100_destination_addresses": [
+        "0x97e5ea",
+        "0x97e5eb",
+        "0x97e6ea",
+        "0x97e6eb"
+      ],
+      "matches_helper_per_row_destination": true,
+      "matches_entry_band_per_row_destination": true,
+      "matches_cached_linear_destination": false,
+      "source_address_models": null,
+      "source_to_destination_values_match": true,
+      "bd80_call_count": 1,
+      "bd80_disabled_gate_path_returned": true,
+      "bd80_endpoint_unchanged": true,
+      "original_code_unchanged": true,
+      "only_observed_output_changed_data": true,
+      "complete_data_restored": true,
+      "instruction_count": 116
+    },
+    {
+      "name": "a8f0_y255_256_fast",
+      "entry": "A8F0",
+      "entry_rva": "0xa8f0",
+      "descriptor_words": [
+        5,
+        255,
+        1,
+        2
+      ],
+      "source_xy": [
+        5,
+        255
+      ],
+      "destination_xy": [
+        20,
+        255
+      ],
+      "page_cross_slow_path_requested": false,
+      "row_entry_band": "low y<512",
+      "source_read_events": [
+        {
+          "pc_rva": "0xab49",
+          "address": "0x97e5ea",
+          "size": 1,
+          "bytes": "35"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x97e5eb",
+          "size": 1,
+          "bytes": "28"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee6ea",
+          "size": 1,
+          "bytes": "32"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee6eb",
+          "size": 1,
+          "bytes": "2f"
+        }
+      ],
+      "destination_write_events": [
+        {
+          "pc_rva": "0xab49",
+          "address": "0x97e608",
+          "size": 1,
+          "bytes": "35"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x97e609",
+          "size": 1,
+          "bytes": "28"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee708",
+          "size": 1,
+          "bytes": "32"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee709",
+          "size": 1,
+          "bytes": "2f"
+        }
+      ],
+      "observed_source_byte_addresses": [
+        "0x97e5ea",
+        "0x97e5eb",
+        "0x9ee6ea",
+        "0x9ee6eb"
+      ],
+      "observed_destination_byte_addresses": [
+        "0x97e608",
+        "0x97e609",
+        "0x9ee708",
+        "0x9ee709"
+      ],
+      "helper_per_row_destination_addresses": [
+        "0x97e608",
+        "0x97e609",
+        "0x9ee708",
+        "0x9ee709"
+      ],
+      "helper_per_row_destination_details": [
+        {
+          "logical_y": 255,
+          "supported": true,
+          "addresses": [
+            "0x97e608",
+            "0x97e609"
+          ]
+        },
+        {
+          "logical_y": 256,
+          "supported": true,
+          "addresses": [
+            "0x9ee708",
+            "0x9ee709"
+          ]
+        }
+      ],
+      "helper_destination_row_comparisons": [
+        {
+          "logical_y": 255,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0x97e608",
+            "0x97e609"
+          ],
+          "observed_addresses": [
+            "0x97e608",
+            "0x97e609"
+          ],
+          "matches": true
+        },
+        {
+          "logical_y": 256,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0x9ee708",
+            "0x9ee709"
+          ],
+          "observed_addresses": [
+            "0x9ee708",
+            "0x9ee709"
+          ],
+          "matches": true
+        }
+      ],
+      "entry_band_per_row_destination_addresses": [
+        "0x97e608",
+        "0x97e609",
+        "0x9ee708",
+        "0x9ee709"
+      ],
+      "start_row_plus_0x100_destination_addresses": [
+        "0x97e608",
+        "0x97e609",
+        "0x97e708",
+        "0x97e709"
+      ],
+      "matches_helper_per_row_destination": true,
+      "matches_entry_band_per_row_destination": true,
+      "matches_cached_linear_destination": false,
+      "source_address_models": {
+        "helper_per_row": [
+          "0x97e5ea",
+          "0x97e5eb",
+          "0x9ee6ea",
+          "0x9ee6eb"
+        ],
+        "helper_per_row_details": [
+          {
+            "logical_y": 255,
+            "supported": true,
+            "addresses": [
+              "0x97e5ea",
+              "0x97e5eb"
+            ]
+          },
+          {
+            "logical_y": 256,
+            "supported": true,
+            "addresses": [
+              "0x9ee6ea",
+              "0x9ee6eb"
+            ]
+          }
+        ],
+        "helper_row_comparisons": [
+          {
+            "logical_y": 255,
+            "helper_supported": true,
+            "expected_addresses": [
+              "0x97e5ea",
+              "0x97e5eb"
+            ],
+            "observed_addresses": [
+              "0x97e5ea",
+              "0x97e5eb"
+            ],
+            "matches": true
+          },
+          {
+            "logical_y": 256,
+            "helper_supported": true,
+            "expected_addresses": [
+              "0x9ee6ea",
+              "0x9ee6eb"
+            ],
+            "observed_addresses": [
+              "0x9ee6ea",
+              "0x9ee6eb"
+            ],
+            "matches": true
+          }
+        ],
+        "entry_band_per_row": [
+          "0x97e5ea",
+          "0x97e5eb",
+          "0x9ee6ea",
+          "0x9ee6eb"
+        ],
+        "start_row_plus_0x100": [
+          "0x97e5ea",
+          "0x97e5eb",
+          "0x97e6ea",
+          "0x97e6eb"
+        ],
+        "matches_helper": true,
+        "matches_entry_band": true,
+        "matches_cached_linear": false
+      },
+      "source_to_destination_values_match": true,
+      "bd80_call_count": 1,
+      "bd80_disabled_gate_path_returned": true,
+      "bd80_endpoint_unchanged": true,
+      "original_code_unchanged": true,
+      "only_observed_output_changed_data": true,
+      "complete_data_restored": true,
+      "instruction_count": 168
+    },
+    {
+      "name": "a710_y511_512_fast",
+      "entry": "A710",
+      "entry_rva": "0xa710",
+      "descriptor_words": [
+        5,
+        511,
+        1,
+        2
+      ],
+      "source_xy": null,
+      "destination_xy": null,
+      "page_cross_slow_path_requested": false,
+      "row_entry_band": "low y<512",
+      "source_read_events": [
+        {
+          "pc_rva": "0xa87a",
+          "address": "0x10002000",
+          "size": 1,
+          "bytes": "3a"
+        },
+        {
+          "pc_rva": "0xa87a",
+          "address": "0x10002001",
+          "size": 1,
+          "bytes": "63"
+        },
+        {
+          "pc_rva": "0xa87a",
+          "address": "0x10002002",
+          "size": 1,
+          "bytes": "8c"
+        },
+        {
+          "pc_rva": "0xa87a",
+          "address": "0x10002003",
+          "size": 1,
+          "bytes": "b5"
+        }
+      ],
+      "destination_write_events": [
+        {
+          "pc_rva": "0xa87a",
+          "address": "0x9fe5ea",
+          "size": 1,
+          "bytes": "3a"
+        },
+        {
+          "pc_rva": "0xa87a",
+          "address": "0x9fe5eb",
+          "size": 1,
+          "bytes": "63"
+        },
+        {
+          "pc_rva": "0xa87a",
+          "address": "0x9ee6ea",
+          "size": 1,
+          "bytes": "8c"
+        },
+        {
+          "pc_rva": "0xa87a",
+          "address": "0x9ee6eb",
+          "size": 1,
+          "bytes": "b5"
+        }
+      ],
+      "observed_source_byte_addresses": [
+        "0x10002000",
+        "0x10002001",
+        "0x10002002",
+        "0x10002003"
+      ],
+      "observed_destination_byte_addresses": [
+        "0x9fe5ea",
+        "0x9fe5eb",
+        "0x9ee6ea",
+        "0x9ee6eb"
+      ],
+      "helper_per_row_destination_addresses": [
+        "0x9fe5ea",
+        "0x9fe5eb",
+        "0xa6e6ea",
+        "0xa6e6eb"
+      ],
+      "helper_per_row_destination_details": [
+        {
+          "logical_y": 511,
+          "supported": true,
+          "addresses": [
+            "0x9fe5ea",
+            "0x9fe5eb"
+          ]
+        },
+        {
+          "logical_y": 512,
+          "supported": true,
+          "addresses": [
+            "0xa6e6ea",
+            "0xa6e6eb"
+          ]
+        }
+      ],
+      "helper_destination_row_comparisons": [
+        {
+          "logical_y": 511,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0x9fe5ea",
+            "0x9fe5eb"
+          ],
+          "observed_addresses": [
+            "0x9fe5ea",
+            "0x9fe5eb"
+          ],
+          "matches": true
+        },
+        {
+          "logical_y": 512,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0xa6e6ea",
+            "0xa6e6eb"
+          ],
+          "observed_addresses": [
+            "0x9ee6ea",
+            "0x9ee6eb"
+          ],
+          "matches": false
+        }
+      ],
+      "entry_band_per_row_destination_addresses": [
+        "0x9fe5ea",
+        "0x9fe5eb",
+        "0x9ee6ea",
+        "0x9ee6eb"
+      ],
+      "start_row_plus_0x100_destination_addresses": [
+        "0x9fe5ea",
+        "0x9fe5eb",
+        "0x9fe6ea",
+        "0x9fe6eb"
+      ],
+      "matches_helper_per_row_destination": false,
+      "matches_entry_band_per_row_destination": true,
+      "matches_cached_linear_destination": false,
+      "source_address_models": null,
+      "source_to_destination_values_match": true,
+      "bd80_call_count": 1,
+      "bd80_disabled_gate_path_returned": true,
+      "bd80_endpoint_unchanged": true,
+      "original_code_unchanged": true,
+      "only_observed_output_changed_data": true,
+      "complete_data_restored": true,
+      "instruction_count": 116
+    },
+    {
+      "name": "a8f0_y511_512_fast",
+      "entry": "A8F0",
+      "entry_rva": "0xa8f0",
+      "descriptor_words": [
+        5,
+        511,
+        1,
+        2
+      ],
+      "source_xy": [
+        5,
+        511
+      ],
+      "destination_xy": [
+        20,
+        511
+      ],
+      "page_cross_slow_path_requested": false,
+      "row_entry_band": "low y<512",
+      "source_read_events": [
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9fe5ea",
+          "size": 1,
+          "bytes": "bb"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9fe5eb",
+          "size": 1,
+          "bytes": "a6"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee6ea",
+          "size": 1,
+          "bytes": "b8"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee6eb",
+          "size": 1,
+          "bytes": "a5"
+        }
+      ],
+      "destination_write_events": [
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9fe608",
+          "size": 1,
+          "bytes": "bb"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9fe609",
+          "size": 1,
+          "bytes": "a6"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee708",
+          "size": 1,
+          "bytes": "b8"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee709",
+          "size": 1,
+          "bytes": "a5"
+        }
+      ],
+      "observed_source_byte_addresses": [
+        "0x9fe5ea",
+        "0x9fe5eb",
+        "0x9ee6ea",
+        "0x9ee6eb"
+      ],
+      "observed_destination_byte_addresses": [
+        "0x9fe608",
+        "0x9fe609",
+        "0x9ee708",
+        "0x9ee709"
+      ],
+      "helper_per_row_destination_addresses": [
+        "0x9fe608",
+        "0x9fe609",
+        "0xa6e708",
+        "0xa6e709"
+      ],
+      "helper_per_row_destination_details": [
+        {
+          "logical_y": 511,
+          "supported": true,
+          "addresses": [
+            "0x9fe608",
+            "0x9fe609"
+          ]
+        },
+        {
+          "logical_y": 512,
+          "supported": true,
+          "addresses": [
+            "0xa6e708",
+            "0xa6e709"
+          ]
+        }
+      ],
+      "helper_destination_row_comparisons": [
+        {
+          "logical_y": 511,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0x9fe608",
+            "0x9fe609"
+          ],
+          "observed_addresses": [
+            "0x9fe608",
+            "0x9fe609"
+          ],
+          "matches": true
+        },
+        {
+          "logical_y": 512,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0xa6e708",
+            "0xa6e709"
+          ],
+          "observed_addresses": [
+            "0x9ee708",
+            "0x9ee709"
+          ],
+          "matches": false
+        }
+      ],
+      "entry_band_per_row_destination_addresses": [
+        "0x9fe608",
+        "0x9fe609",
+        "0x9ee708",
+        "0x9ee709"
+      ],
+      "start_row_plus_0x100_destination_addresses": [
+        "0x9fe608",
+        "0x9fe609",
+        "0x9fe708",
+        "0x9fe709"
+      ],
+      "matches_helper_per_row_destination": false,
+      "matches_entry_band_per_row_destination": true,
+      "matches_cached_linear_destination": false,
+      "source_address_models": {
+        "helper_per_row": [
+          "0x9fe5ea",
+          "0x9fe5eb",
+          "0xa6e6ea",
+          "0xa6e6eb"
+        ],
+        "helper_per_row_details": [
+          {
+            "logical_y": 511,
+            "supported": true,
+            "addresses": [
+              "0x9fe5ea",
+              "0x9fe5eb"
+            ]
+          },
+          {
+            "logical_y": 512,
+            "supported": true,
+            "addresses": [
+              "0xa6e6ea",
+              "0xa6e6eb"
+            ]
+          }
+        ],
+        "helper_row_comparisons": [
+          {
+            "logical_y": 511,
+            "helper_supported": true,
+            "expected_addresses": [
+              "0x9fe5ea",
+              "0x9fe5eb"
+            ],
+            "observed_addresses": [
+              "0x9fe5ea",
+              "0x9fe5eb"
+            ],
+            "matches": true
+          },
+          {
+            "logical_y": 512,
+            "helper_supported": true,
+            "expected_addresses": [
+              "0xa6e6ea",
+              "0xa6e6eb"
+            ],
+            "observed_addresses": [
+              "0x9ee6ea",
+              "0x9ee6eb"
+            ],
+            "matches": false
+          }
+        ],
+        "entry_band_per_row": [
+          "0x9fe5ea",
+          "0x9fe5eb",
+          "0x9ee6ea",
+          "0x9ee6eb"
+        ],
+        "start_row_plus_0x100": [
+          "0x9fe5ea",
+          "0x9fe5eb",
+          "0x9fe6ea",
+          "0x9fe6eb"
+        ],
+        "matches_helper": false,
+        "matches_entry_band": true,
+        "matches_cached_linear": false
+      },
+      "source_to_destination_values_match": true,
+      "bd80_call_count": 1,
+      "bd80_disabled_gate_path_returned": true,
+      "bd80_endpoint_unchanged": true,
+      "original_code_unchanged": true,
+      "only_observed_output_changed_data": true,
+      "complete_data_restored": true,
+      "instruction_count": 168
+    },
+    {
+      "name": "a710_y1023_1024_fast",
+      "entry": "A710",
+      "entry_rva": "0xa710",
+      "descriptor_words": [
+        5,
+        1023,
+        1,
+        2
+      ],
+      "source_xy": null,
+      "destination_xy": null,
+      "page_cross_slow_path_requested": false,
+      "row_entry_band": "high y>=512",
+      "source_read_events": [
+        {
+          "pc_rva": "0xa794",
+          "address": "0x10002000",
+          "size": 1,
+          "bytes": "3c"
+        },
+        {
+          "pc_rva": "0xa794",
+          "address": "0x10002001",
+          "size": 1,
+          "bytes": "65"
+        },
+        {
+          "pc_rva": "0xa794",
+          "address": "0x10002002",
+          "size": 1,
+          "bytes": "8e"
+        },
+        {
+          "pc_rva": "0xa794",
+          "address": "0x10002003",
+          "size": 1,
+          "bytes": "b7"
+        }
+      ],
+      "destination_write_events": [
+        {
+          "pc_rva": "0xa794",
+          "address": "0xa8e5ea",
+          "size": 1,
+          "bytes": "3c"
+        },
+        {
+          "pc_rva": "0xa794",
+          "address": "0xa8e5eb",
+          "size": 1,
+          "bytes": "65"
+        },
+        {
+          "pc_rva": "0xa794",
+          "address": "0xa6e6ea",
+          "size": 1,
+          "bytes": "8e"
+        },
+        {
+          "pc_rva": "0xa794",
+          "address": "0xa6e6eb",
+          "size": 1,
+          "bytes": "b7"
+        }
+      ],
+      "observed_source_byte_addresses": [
+        "0x10002000",
+        "0x10002001",
+        "0x10002002",
+        "0x10002003"
+      ],
+      "observed_destination_byte_addresses": [
+        "0xa8e5ea",
+        "0xa8e5eb",
+        "0xa6e6ea",
+        "0xa6e6eb"
+      ],
+      "helper_per_row_destination_addresses": null,
+      "helper_per_row_destination_details": [
+        {
+          "logical_y": 1023,
+          "supported": true,
+          "addresses": [
+            "0xa8e5ea",
+            "0xa8e5eb"
+          ]
+        },
+        {
+          "logical_y": 1024,
+          "supported": false,
+          "addresses": null
+        }
+      ],
+      "helper_destination_row_comparisons": [
+        {
+          "logical_y": 1023,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0xa8e5ea",
+            "0xa8e5eb"
+          ],
+          "observed_addresses": [
+            "0xa8e5ea",
+            "0xa8e5eb"
+          ],
+          "matches": true
+        },
+        {
+          "logical_y": 1024,
+          "helper_supported": false,
+          "expected_addresses": null,
+          "observed_addresses": [
+            "0xa6e6ea",
+            "0xa6e6eb"
+          ],
+          "matches": null
+        }
+      ],
+      "entry_band_per_row_destination_addresses": [
+        "0xa8e5ea",
+        "0xa8e5eb",
+        "0xa6e6ea",
+        "0xa6e6eb"
+      ],
+      "start_row_plus_0x100_destination_addresses": [
+        "0xa8e5ea",
+        "0xa8e5eb",
+        "0xa8e6ea",
+        "0xa8e6eb"
+      ],
+      "matches_helper_per_row_destination": null,
+      "matches_entry_band_per_row_destination": true,
+      "matches_cached_linear_destination": false,
+      "source_address_models": null,
+      "source_to_destination_values_match": true,
+      "bd80_call_count": 1,
+      "bd80_disabled_gate_path_returned": true,
+      "bd80_endpoint_unchanged": true,
+      "original_code_unchanged": true,
+      "only_observed_output_changed_data": true,
+      "complete_data_restored": true,
+      "instruction_count": 104
+    },
+    {
+      "name": "a8f0_y1023_1024_fast",
+      "entry": "A8F0",
+      "entry_rva": "0xa8f0",
+      "descriptor_words": [
+        5,
+        1023,
+        1,
+        2
+      ],
+      "source_xy": [
+        5,
+        1023
+      ],
+      "destination_xy": [
+        20,
+        1023
+      ],
+      "page_cross_slow_path_requested": false,
+      "row_entry_band": "high y>=512",
+      "source_read_events": [
+        {
+          "pc_rva": "0xa9c4",
+          "address": "0xa8e5ea",
+          "size": 1,
+          "bytes": "3e"
+        },
+        {
+          "pc_rva": "0xa9c4",
+          "address": "0xa8e5eb",
+          "size": 1,
+          "bytes": "23"
+        },
+        {
+          "pc_rva": "0xa9c4",
+          "address": "0xa6e6ea",
+          "size": 1,
+          "bytes": "3a"
+        },
+        {
+          "pc_rva": "0xa9c4",
+          "address": "0xa6e6eb",
+          "size": 1,
+          "bytes": "27"
+        }
+      ],
+      "destination_write_events": [
+        {
+          "pc_rva": "0xa9c4",
+          "address": "0xa8e608",
+          "size": 1,
+          "bytes": "3e"
+        },
+        {
+          "pc_rva": "0xa9c4",
+          "address": "0xa8e609",
+          "size": 1,
+          "bytes": "23"
+        },
+        {
+          "pc_rva": "0xa9c4",
+          "address": "0xa6e708",
+          "size": 1,
+          "bytes": "3a"
+        },
+        {
+          "pc_rva": "0xa9c4",
+          "address": "0xa6e709",
+          "size": 1,
+          "bytes": "27"
+        }
+      ],
+      "observed_source_byte_addresses": [
+        "0xa8e5ea",
+        "0xa8e5eb",
+        "0xa6e6ea",
+        "0xa6e6eb"
+      ],
+      "observed_destination_byte_addresses": [
+        "0xa8e608",
+        "0xa8e609",
+        "0xa6e708",
+        "0xa6e709"
+      ],
+      "helper_per_row_destination_addresses": null,
+      "helper_per_row_destination_details": [
+        {
+          "logical_y": 1023,
+          "supported": true,
+          "addresses": [
+            "0xa8e608",
+            "0xa8e609"
+          ]
+        },
+        {
+          "logical_y": 1024,
+          "supported": false,
+          "addresses": null
+        }
+      ],
+      "helper_destination_row_comparisons": [
+        {
+          "logical_y": 1023,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0xa8e608",
+            "0xa8e609"
+          ],
+          "observed_addresses": [
+            "0xa8e608",
+            "0xa8e609"
+          ],
+          "matches": true
+        },
+        {
+          "logical_y": 1024,
+          "helper_supported": false,
+          "expected_addresses": null,
+          "observed_addresses": [
+            "0xa6e708",
+            "0xa6e709"
+          ],
+          "matches": null
+        }
+      ],
+      "entry_band_per_row_destination_addresses": [
+        "0xa8e608",
+        "0xa8e609",
+        "0xa6e708",
+        "0xa6e709"
+      ],
+      "start_row_plus_0x100_destination_addresses": [
+        "0xa8e608",
+        "0xa8e609",
+        "0xa8e708",
+        "0xa8e709"
+      ],
+      "matches_helper_per_row_destination": null,
+      "matches_entry_band_per_row_destination": true,
+      "matches_cached_linear_destination": false,
+      "source_address_models": {
+        "helper_per_row": null,
+        "helper_per_row_details": [
+          {
+            "logical_y": 1023,
+            "supported": true,
+            "addresses": [
+              "0xa8e5ea",
+              "0xa8e5eb"
+            ]
+          },
+          {
+            "logical_y": 1024,
+            "supported": false,
+            "addresses": null
+          }
+        ],
+        "helper_row_comparisons": [
+          {
+            "logical_y": 1023,
+            "helper_supported": true,
+            "expected_addresses": [
+              "0xa8e5ea",
+              "0xa8e5eb"
+            ],
+            "observed_addresses": [
+              "0xa8e5ea",
+              "0xa8e5eb"
+            ],
+            "matches": true
+          },
+          {
+            "logical_y": 1024,
+            "helper_supported": false,
+            "expected_addresses": null,
+            "observed_addresses": [
+              "0xa6e6ea",
+              "0xa6e6eb"
+            ],
+            "matches": null
+          }
+        ],
+        "entry_band_per_row": [
+          "0xa8e5ea",
+          "0xa8e5eb",
+          "0xa6e6ea",
+          "0xa6e6eb"
+        ],
+        "start_row_plus_0x100": [
+          "0xa8e5ea",
+          "0xa8e5eb",
+          "0xa8e6ea",
+          "0xa8e6eb"
+        ],
+        "matches_helper": null,
+        "matches_entry_band": true,
+        "matches_cached_linear": false
+      },
+      "source_to_destination_values_match": true,
+      "bd80_call_count": 1,
+      "bd80_disabled_gate_path_returned": true,
+      "bd80_endpoint_unchanged": true,
+      "original_code_unchanged": true,
+      "only_observed_output_changed_data": true,
+      "complete_data_restored": true,
+      "instruction_count": 144
+    },
+    {
+      "name": "a710_y511_512_horizontal_page_cross",
+      "entry": "A710",
+      "entry_rva": "0xa710",
+      "descriptor_words": [
+        127,
+        511,
+        2,
+        2
+      ],
+      "source_xy": null,
+      "destination_xy": null,
+      "page_cross_slow_path_requested": true,
+      "row_entry_band": "low y<512",
+      "source_read_events": [
+        {
+          "pc_rva": "0xa8a5",
+          "address": "0x10002000",
+          "size": 1,
+          "bytes": "3e"
+        },
+        {
+          "pc_rva": "0xa8a5",
+          "address": "0x10002001",
+          "size": 1,
+          "bytes": "67"
+        },
+        {
+          "pc_rva": "0xa8a5",
+          "address": "0x10002002",
+          "size": 1,
+          "bytes": "90"
+        },
+        {
+          "pc_rva": "0xa8a5",
+          "address": "0x10002003",
+          "size": 1,
+          "bytes": "b9"
+        },
+        {
+          "pc_rva": "0xa8a5",
+          "address": "0x10002004",
+          "size": 1,
+          "bytes": "e2"
+        },
+        {
+          "pc_rva": "0xa8a5",
+          "address": "0x10002005",
+          "size": 1,
+          "bytes": "0b"
+        },
+        {
+          "pc_rva": "0xa8a5",
+          "address": "0x10002006",
+          "size": 1,
+          "bytes": "34"
+        },
+        {
+          "pc_rva": "0xa8a5",
+          "address": "0x10002007",
+          "size": 1,
+          "bytes": "5d"
+        }
+      ],
+      "destination_write_events": [
+        {
+          "pc_rva": "0xa8a9",
+          "address": "0x9fe6de",
+          "size": 1,
+          "bytes": "3e"
+        },
+        {
+          "pc_rva": "0xa8a9",
+          "address": "0x9fe6df",
+          "size": 1,
+          "bytes": "67"
+        },
+        {
+          "pc_rva": "0xa8a9",
+          "address": "0xa0e5e0",
+          "size": 1,
+          "bytes": "90"
+        },
+        {
+          "pc_rva": "0xa8a9",
+          "address": "0xa0e5e1",
+          "size": 1,
+          "bytes": "b9"
+        },
+        {
+          "pc_rva": "0xa8a9",
+          "address": "0x9ee7de",
+          "size": 1,
+          "bytes": "e2"
+        },
+        {
+          "pc_rva": "0xa8a9",
+          "address": "0x9ee7df",
+          "size": 1,
+          "bytes": "0b"
+        },
+        {
+          "pc_rva": "0xa8a9",
+          "address": "0x9fe6e0",
+          "size": 1,
+          "bytes": "34"
+        },
+        {
+          "pc_rva": "0xa8a9",
+          "address": "0x9fe6e1",
+          "size": 1,
+          "bytes": "5d"
+        }
+      ],
+      "observed_source_byte_addresses": [
+        "0x10002000",
+        "0x10002001",
+        "0x10002002",
+        "0x10002003",
+        "0x10002004",
+        "0x10002005",
+        "0x10002006",
+        "0x10002007"
+      ],
+      "observed_destination_byte_addresses": [
+        "0x9fe6de",
+        "0x9fe6df",
+        "0xa0e5e0",
+        "0xa0e5e1",
+        "0x9ee7de",
+        "0x9ee7df",
+        "0x9fe6e0",
+        "0x9fe6e1"
+      ],
+      "helper_per_row_destination_addresses": [
+        "0x9fe6de",
+        "0x9fe6df",
+        "0xa0e5e0",
+        "0xa0e5e1",
+        "0xa6e7de",
+        "0xa6e7df",
+        "0xa7e6e0",
+        "0xa7e6e1"
+      ],
+      "helper_per_row_destination_details": [
+        {
+          "logical_y": 511,
+          "supported": true,
+          "addresses": [
+            "0x9fe6de",
+            "0x9fe6df",
+            "0xa0e5e0",
+            "0xa0e5e1"
+          ]
+        },
+        {
+          "logical_y": 512,
+          "supported": true,
+          "addresses": [
+            "0xa6e7de",
+            "0xa6e7df",
+            "0xa7e6e0",
+            "0xa7e6e1"
+          ]
+        }
+      ],
+      "helper_destination_row_comparisons": [
+        {
+          "logical_y": 511,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0x9fe6de",
+            "0x9fe6df",
+            "0xa0e5e0",
+            "0xa0e5e1"
+          ],
+          "observed_addresses": [
+            "0x9fe6de",
+            "0x9fe6df",
+            "0xa0e5e0",
+            "0xa0e5e1"
+          ],
+          "matches": true
+        },
+        {
+          "logical_y": 512,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0xa6e7de",
+            "0xa6e7df",
+            "0xa7e6e0",
+            "0xa7e6e1"
+          ],
+          "observed_addresses": [
+            "0x9ee7de",
+            "0x9ee7df",
+            "0x9fe6e0",
+            "0x9fe6e1"
+          ],
+          "matches": false
+        }
+      ],
+      "entry_band_per_row_destination_addresses": [
+        "0x9fe6de",
+        "0x9fe6df",
+        "0xa0e5e0",
+        "0xa0e5e1",
+        "0x9ee7de",
+        "0x9ee7df",
+        "0x9fe6e0",
+        "0x9fe6e1"
+      ],
+      "start_row_plus_0x100_destination_addresses": [
+        "0x9fe6de",
+        "0x9fe6df",
+        "0xa0e5e0",
+        "0xa0e5e1",
+        "0x9fe7de",
+        "0x9fe7df",
+        "0xa0e6e0",
+        "0xa0e6e1"
+      ],
+      "matches_helper_per_row_destination": false,
+      "matches_entry_band_per_row_destination": true,
+      "matches_cached_linear_destination": false,
+      "source_address_models": null,
+      "source_to_destination_values_match": true,
+      "bd80_call_count": 1,
+      "bd80_disabled_gate_path_returned": true,
+      "bd80_endpoint_unchanged": true,
+      "original_code_unchanged": true,
+      "only_observed_output_changed_data": true,
+      "complete_data_restored": true,
+      "instruction_count": 220
+    },
+    {
+      "name": "a8f0_y511_512_horizontal_page_cross",
+      "entry": "A8F0",
+      "entry_rva": "0xa8f0",
+      "descriptor_words": [
+        127,
+        511,
+        2,
+        2
+      ],
+      "source_xy": [
+        127,
+        511
+      ],
+      "destination_xy": [
+        255,
+        511
+      ],
+      "page_cross_slow_path_requested": true,
+      "row_entry_band": "low y<512",
+      "source_read_events": [
+        {
+          "pc_rva": "0xab96",
+          "address": "0x9fe6de",
+          "size": 1,
+          "bytes": "08"
+        },
+        {
+          "pc_rva": "0xab96",
+          "address": "0x9fe6df",
+          "size": 1,
+          "bytes": "6d"
+        },
+        {
+          "pc_rva": "0xab96",
+          "address": "0xa0e5e0",
+          "size": 1,
+          "bytes": "52"
+        },
+        {
+          "pc_rva": "0xab96",
+          "address": "0xa0e5e1",
+          "size": 1,
+          "bytes": "4f"
+        },
+        {
+          "pc_rva": "0xab96",
+          "address": "0x9ee7de",
+          "size": 1,
+          "bytes": "09"
+        },
+        {
+          "pc_rva": "0xab96",
+          "address": "0x9ee7df",
+          "size": 1,
+          "bytes": "6c"
+        },
+        {
+          "pc_rva": "0xab96",
+          "address": "0x9fe6e0",
+          "size": 1,
+          "bytes": "4e"
+        },
+        {
+          "pc_rva": "0xab96",
+          "address": "0x9fe6e1",
+          "size": 1,
+          "bytes": "53"
+        }
+      ],
+      "destination_write_events": [
+        {
+          "pc_rva": "0xaba1",
+          "address": "0xa0e6de",
+          "size": 1,
+          "bytes": "08"
+        },
+        {
+          "pc_rva": "0xaba1",
+          "address": "0xa0e6df",
+          "size": 1,
+          "bytes": "6d"
+        },
+        {
+          "pc_rva": "0xaba1",
+          "address": "0xa1e5e0",
+          "size": 1,
+          "bytes": "52"
+        },
+        {
+          "pc_rva": "0xaba1",
+          "address": "0xa1e5e1",
+          "size": 1,
+          "bytes": "4f"
+        },
+        {
+          "pc_rva": "0xaba1",
+          "address": "0x9fe7de",
+          "size": 1,
+          "bytes": "09"
+        },
+        {
+          "pc_rva": "0xaba1",
+          "address": "0x9fe7df",
+          "size": 1,
+          "bytes": "6c"
+        },
+        {
+          "pc_rva": "0xaba1",
+          "address": "0xa0e6e0",
+          "size": 1,
+          "bytes": "4e"
+        },
+        {
+          "pc_rva": "0xaba1",
+          "address": "0xa0e6e1",
+          "size": 1,
+          "bytes": "53"
+        }
+      ],
+      "observed_source_byte_addresses": [
+        "0x9fe6de",
+        "0x9fe6df",
+        "0xa0e5e0",
+        "0xa0e5e1",
+        "0x9ee7de",
+        "0x9ee7df",
+        "0x9fe6e0",
+        "0x9fe6e1"
+      ],
+      "observed_destination_byte_addresses": [
+        "0xa0e6de",
+        "0xa0e6df",
+        "0xa1e5e0",
+        "0xa1e5e1",
+        "0x9fe7de",
+        "0x9fe7df",
+        "0xa0e6e0",
+        "0xa0e6e1"
+      ],
+      "helper_per_row_destination_addresses": [
+        "0xa0e6de",
+        "0xa0e6df",
+        "0xa1e5e0",
+        "0xa1e5e1",
+        "0xa7e7de",
+        "0xa7e7df",
+        "0xa8e6e0",
+        "0xa8e6e1"
+      ],
+      "helper_per_row_destination_details": [
+        {
+          "logical_y": 511,
+          "supported": true,
+          "addresses": [
+            "0xa0e6de",
+            "0xa0e6df",
+            "0xa1e5e0",
+            "0xa1e5e1"
+          ]
+        },
+        {
+          "logical_y": 512,
+          "supported": true,
+          "addresses": [
+            "0xa7e7de",
+            "0xa7e7df",
+            "0xa8e6e0",
+            "0xa8e6e1"
+          ]
+        }
+      ],
+      "helper_destination_row_comparisons": [
+        {
+          "logical_y": 511,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0xa0e6de",
+            "0xa0e6df",
+            "0xa1e5e0",
+            "0xa1e5e1"
+          ],
+          "observed_addresses": [
+            "0xa0e6de",
+            "0xa0e6df",
+            "0xa1e5e0",
+            "0xa1e5e1"
+          ],
+          "matches": true
+        },
+        {
+          "logical_y": 512,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0xa7e7de",
+            "0xa7e7df",
+            "0xa8e6e0",
+            "0xa8e6e1"
+          ],
+          "observed_addresses": [
+            "0x9fe7de",
+            "0x9fe7df",
+            "0xa0e6e0",
+            "0xa0e6e1"
+          ],
+          "matches": false
+        }
+      ],
+      "entry_band_per_row_destination_addresses": [
+        "0xa0e6de",
+        "0xa0e6df",
+        "0xa1e5e0",
+        "0xa1e5e1",
+        "0x9fe7de",
+        "0x9fe7df",
+        "0xa0e6e0",
+        "0xa0e6e1"
+      ],
+      "start_row_plus_0x100_destination_addresses": [
+        "0xa0e6de",
+        "0xa0e6df",
+        "0xa1e5e0",
+        "0xa1e5e1",
+        "0xa0e7de",
+        "0xa0e7df",
+        "0xa1e6e0",
+        "0xa1e6e1"
+      ],
+      "matches_helper_per_row_destination": false,
+      "matches_entry_band_per_row_destination": true,
+      "matches_cached_linear_destination": false,
+      "source_address_models": {
+        "helper_per_row": [
+          "0x9fe6de",
+          "0x9fe6df",
+          "0xa0e5e0",
+          "0xa0e5e1",
+          "0xa6e7de",
+          "0xa6e7df",
+          "0xa7e6e0",
+          "0xa7e6e1"
+        ],
+        "helper_per_row_details": [
+          {
+            "logical_y": 511,
+            "supported": true,
+            "addresses": [
+              "0x9fe6de",
+              "0x9fe6df",
+              "0xa0e5e0",
+              "0xa0e5e1"
+            ]
+          },
+          {
+            "logical_y": 512,
+            "supported": true,
+            "addresses": [
+              "0xa6e7de",
+              "0xa6e7df",
+              "0xa7e6e0",
+              "0xa7e6e1"
+            ]
+          }
+        ],
+        "helper_row_comparisons": [
+          {
+            "logical_y": 511,
+            "helper_supported": true,
+            "expected_addresses": [
+              "0x9fe6de",
+              "0x9fe6df",
+              "0xa0e5e0",
+              "0xa0e5e1"
+            ],
+            "observed_addresses": [
+              "0x9fe6de",
+              "0x9fe6df",
+              "0xa0e5e0",
+              "0xa0e5e1"
+            ],
+            "matches": true
+          },
+          {
+            "logical_y": 512,
+            "helper_supported": true,
+            "expected_addresses": [
+              "0xa6e7de",
+              "0xa6e7df",
+              "0xa7e6e0",
+              "0xa7e6e1"
+            ],
+            "observed_addresses": [
+              "0x9ee7de",
+              "0x9ee7df",
+              "0x9fe6e0",
+              "0x9fe6e1"
+            ],
+            "matches": false
+          }
+        ],
+        "entry_band_per_row": [
+          "0x9fe6de",
+          "0x9fe6df",
+          "0xa0e5e0",
+          "0xa0e5e1",
+          "0x9ee7de",
+          "0x9ee7df",
+          "0x9fe6e0",
+          "0x9fe6e1"
+        ],
+        "start_row_plus_0x100": [
+          "0x9fe6de",
+          "0x9fe6df",
+          "0xa0e5e0",
+          "0xa0e5e1",
+          "0x9fe7de",
+          "0x9fe7df",
+          "0xa0e6e0",
+          "0xa0e6e1"
+        ],
+        "matches_helper": false,
+        "matches_entry_band": true,
+        "matches_cached_linear": false
+      },
+      "source_to_destination_values_match": true,
+      "bd80_call_count": 1,
+      "bd80_disabled_gate_path_returned": true,
+      "bd80_endpoint_unchanged": true,
+      "original_code_unchanged": true,
+      "only_observed_output_changed_data": true,
+      "complete_data_restored": true,
+      "instruction_count": 336
+    },
+    {
+      "name": "a8f0_source511_destination512_low_entry_band",
+      "entry": "A8F0",
+      "entry_rva": "0xa8f0",
+      "descriptor_words": [
+        5,
+        511,
+        1,
+        2
+      ],
+      "source_xy": [
+        5,
+        511
+      ],
+      "destination_xy": [
+        20,
+        512
+      ],
+      "page_cross_slow_path_requested": false,
+      "row_entry_band": "low y<512",
+      "source_read_events": [
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9fe5ea",
+          "size": 1,
+          "bytes": "ec"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9fe5eb",
+          "size": 1,
+          "bytes": "f1"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee6ea",
+          "size": 1,
+          "bytes": "ef"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee6eb",
+          "size": 1,
+          "bytes": "f2"
+        }
+      ],
+      "destination_write_events": [
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee708",
+          "size": 1,
+          "bytes": "ec"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee709",
+          "size": 1,
+          "bytes": "f1"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee808",
+          "size": 1,
+          "bytes": "ef"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee809",
+          "size": 1,
+          "bytes": "f2"
+        }
+      ],
+      "observed_source_byte_addresses": [
+        "0x9fe5ea",
+        "0x9fe5eb",
+        "0x9ee6ea",
+        "0x9ee6eb"
+      ],
+      "observed_destination_byte_addresses": [
+        "0x9ee708",
+        "0x9ee709",
+        "0x9ee808",
+        "0x9ee809"
+      ],
+      "helper_per_row_destination_addresses": [
+        "0xa6e708",
+        "0xa6e709",
+        "0xa6e808",
+        "0xa6e809"
+      ],
+      "helper_per_row_destination_details": [
+        {
+          "logical_y": 512,
+          "supported": true,
+          "addresses": [
+            "0xa6e708",
+            "0xa6e709"
+          ]
+        },
+        {
+          "logical_y": 513,
+          "supported": true,
+          "addresses": [
+            "0xa6e808",
+            "0xa6e809"
+          ]
+        }
+      ],
+      "helper_destination_row_comparisons": [
+        {
+          "logical_y": 512,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0xa6e708",
+            "0xa6e709"
+          ],
+          "observed_addresses": [
+            "0x9ee708",
+            "0x9ee709"
+          ],
+          "matches": false
+        },
+        {
+          "logical_y": 513,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0xa6e808",
+            "0xa6e809"
+          ],
+          "observed_addresses": [
+            "0x9ee808",
+            "0x9ee809"
+          ],
+          "matches": false
+        }
+      ],
+      "entry_band_per_row_destination_addresses": [
+        "0x9ee708",
+        "0x9ee709",
+        "0x9ee808",
+        "0x9ee809"
+      ],
+      "start_row_plus_0x100_destination_addresses": [
+        "0x9ee708",
+        "0x9ee709",
+        "0x9ee808",
+        "0x9ee809"
+      ],
+      "matches_helper_per_row_destination": false,
+      "matches_entry_band_per_row_destination": true,
+      "matches_cached_linear_destination": true,
+      "source_address_models": {
+        "helper_per_row": [
+          "0x9fe5ea",
+          "0x9fe5eb",
+          "0xa6e6ea",
+          "0xa6e6eb"
+        ],
+        "helper_per_row_details": [
+          {
+            "logical_y": 511,
+            "supported": true,
+            "addresses": [
+              "0x9fe5ea",
+              "0x9fe5eb"
+            ]
+          },
+          {
+            "logical_y": 512,
+            "supported": true,
+            "addresses": [
+              "0xa6e6ea",
+              "0xa6e6eb"
+            ]
+          }
+        ],
+        "helper_row_comparisons": [
+          {
+            "logical_y": 511,
+            "helper_supported": true,
+            "expected_addresses": [
+              "0x9fe5ea",
+              "0x9fe5eb"
+            ],
+            "observed_addresses": [
+              "0x9fe5ea",
+              "0x9fe5eb"
+            ],
+            "matches": true
+          },
+          {
+            "logical_y": 512,
+            "helper_supported": true,
+            "expected_addresses": [
+              "0xa6e6ea",
+              "0xa6e6eb"
+            ],
+            "observed_addresses": [
+              "0x9ee6ea",
+              "0x9ee6eb"
+            ],
+            "matches": false
+          }
+        ],
+        "entry_band_per_row": [
+          "0x9fe5ea",
+          "0x9fe5eb",
+          "0x9ee6ea",
+          "0x9ee6eb"
+        ],
+        "start_row_plus_0x100": [
+          "0x9fe5ea",
+          "0x9fe5eb",
+          "0x9fe6ea",
+          "0x9fe6eb"
+        ],
+        "matches_helper": false,
+        "matches_entry_band": true,
+        "matches_cached_linear": false
+      },
+      "source_to_destination_values_match": true,
+      "bd80_call_count": 1,
+      "bd80_disabled_gate_path_returned": true,
+      "bd80_endpoint_unchanged": true,
+      "original_code_unchanged": true,
+      "only_observed_output_changed_data": true,
+      "complete_data_restored": true,
+      "instruction_count": 168
+    },
+    {
+      "name": "a8f0_source512_destination511_high_entry_band",
+      "entry": "A8F0",
+      "entry_rva": "0xa8f0",
+      "descriptor_words": [
+        5,
+        512,
+        1,
+        2
+      ],
+      "source_xy": [
+        5,
+        512
+      ],
+      "destination_xy": [
+        20,
+        511
+      ],
+      "page_cross_slow_path_requested": false,
+      "row_entry_band": "high y>=512",
+      "source_read_events": [
+        {
+          "pc_rva": "0xa9c4",
+          "address": "0xa6e6ea",
+          "size": 1,
+          "bytes": "36"
+        },
+        {
+          "pc_rva": "0xa9c4",
+          "address": "0xa6e6eb",
+          "size": 1,
+          "bytes": "2b"
+        },
+        {
+          "pc_rva": "0xa9c4",
+          "address": "0xa6e7ea",
+          "size": 1,
+          "bytes": "37"
+        },
+        {
+          "pc_rva": "0xa9c4",
+          "address": "0xa6e7eb",
+          "size": 1,
+          "bytes": "2a"
+        }
+      ],
+      "destination_write_events": [
+        {
+          "pc_rva": "0xa9c4",
+          "address": "0xa8e608",
+          "size": 1,
+          "bytes": "36"
+        },
+        {
+          "pc_rva": "0xa9c4",
+          "address": "0xa8e609",
+          "size": 1,
+          "bytes": "2b"
+        },
+        {
+          "pc_rva": "0xa9c4",
+          "address": "0xa6e708",
+          "size": 1,
+          "bytes": "37"
+        },
+        {
+          "pc_rva": "0xa9c4",
+          "address": "0xa6e709",
+          "size": 1,
+          "bytes": "2a"
+        }
+      ],
+      "observed_source_byte_addresses": [
+        "0xa6e6ea",
+        "0xa6e6eb",
+        "0xa6e7ea",
+        "0xa6e7eb"
+      ],
+      "observed_destination_byte_addresses": [
+        "0xa8e608",
+        "0xa8e609",
+        "0xa6e708",
+        "0xa6e709"
+      ],
+      "helper_per_row_destination_addresses": [
+        "0x9fe608",
+        "0x9fe609",
+        "0xa6e708",
+        "0xa6e709"
+      ],
+      "helper_per_row_destination_details": [
+        {
+          "logical_y": 511,
+          "supported": true,
+          "addresses": [
+            "0x9fe608",
+            "0x9fe609"
+          ]
+        },
+        {
+          "logical_y": 512,
+          "supported": true,
+          "addresses": [
+            "0xa6e708",
+            "0xa6e709"
+          ]
+        }
+      ],
+      "helper_destination_row_comparisons": [
+        {
+          "logical_y": 511,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0x9fe608",
+            "0x9fe609"
+          ],
+          "observed_addresses": [
+            "0xa8e608",
+            "0xa8e609"
+          ],
+          "matches": false
+        },
+        {
+          "logical_y": 512,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0xa6e708",
+            "0xa6e709"
+          ],
+          "observed_addresses": [
+            "0xa6e708",
+            "0xa6e709"
+          ],
+          "matches": true
+        }
+      ],
+      "entry_band_per_row_destination_addresses": [
+        "0xa8e608",
+        "0xa8e609",
+        "0xa6e708",
+        "0xa6e709"
+      ],
+      "start_row_plus_0x100_destination_addresses": [
+        "0xa8e608",
+        "0xa8e609",
+        "0xa8e708",
+        "0xa8e709"
+      ],
+      "matches_helper_per_row_destination": false,
+      "matches_entry_band_per_row_destination": true,
+      "matches_cached_linear_destination": false,
+      "source_address_models": {
+        "helper_per_row": [
+          "0xa6e6ea",
+          "0xa6e6eb",
+          "0xa6e7ea",
+          "0xa6e7eb"
+        ],
+        "helper_per_row_details": [
+          {
+            "logical_y": 512,
+            "supported": true,
+            "addresses": [
+              "0xa6e6ea",
+              "0xa6e6eb"
+            ]
+          },
+          {
+            "logical_y": 513,
+            "supported": true,
+            "addresses": [
+              "0xa6e7ea",
+              "0xa6e7eb"
+            ]
+          }
+        ],
+        "helper_row_comparisons": [
+          {
+            "logical_y": 512,
+            "helper_supported": true,
+            "expected_addresses": [
+              "0xa6e6ea",
+              "0xa6e6eb"
+            ],
+            "observed_addresses": [
+              "0xa6e6ea",
+              "0xa6e6eb"
+            ],
+            "matches": true
+          },
+          {
+            "logical_y": 513,
+            "helper_supported": true,
+            "expected_addresses": [
+              "0xa6e7ea",
+              "0xa6e7eb"
+            ],
+            "observed_addresses": [
+              "0xa6e7ea",
+              "0xa6e7eb"
+            ],
+            "matches": true
+          }
+        ],
+        "entry_band_per_row": [
+          "0xa6e6ea",
+          "0xa6e6eb",
+          "0xa6e7ea",
+          "0xa6e7eb"
+        ],
+        "start_row_plus_0x100": [
+          "0xa6e6ea",
+          "0xa6e6eb",
+          "0xa6e7ea",
+          "0xa6e7eb"
+        ],
+        "matches_helper": true,
+        "matches_entry_band": true,
+        "matches_cached_linear": true
+      },
+      "source_to_destination_values_match": true,
+      "bd80_call_count": 1,
+      "bd80_disabled_gate_path_returned": true,
+      "bd80_endpoint_unchanged": true,
+      "original_code_unchanged": true,
+      "only_observed_output_changed_data": true,
+      "complete_data_restored": true,
+      "instruction_count": 144
+    },
+    {
+      "name": "a8f0_destination_i32_counter_32767_to_32768_low_entry",
+      "entry": "A8F0",
+      "entry_rva": "0xa8f0",
+      "descriptor_words": [
+        5,
+        0,
+        1,
+        2
+      ],
+      "source_xy": [
+        5,
+        0
+      ],
+      "destination_xy": [
+        20,
+        32767
+      ],
+      "page_cross_slow_path_requested": false,
+      "row_entry_band": "low y<512",
+      "source_read_events": [
+        {
+          "pc_rva": "0xab49",
+          "address": "0x96e6ea",
+          "size": 1,
+          "bytes": "11"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x96e6eb",
+          "size": 1,
+          "bytes": "0c"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x96e7ea",
+          "size": 1,
+          "bytes": "10"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x96e7eb",
+          "size": 1,
+          "bytes": "0d"
+        }
+      ],
+      "destination_write_events": [
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9fe608",
+          "size": 1,
+          "bytes": "11"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9fe609",
+          "size": 1,
+          "bytes": "0c"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee708",
+          "size": 1,
+          "bytes": "10"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee709",
+          "size": 1,
+          "bytes": "0d"
+        }
+      ],
+      "observed_source_byte_addresses": [
+        "0x96e6ea",
+        "0x96e6eb",
+        "0x96e7ea",
+        "0x96e7eb"
+      ],
+      "observed_destination_byte_addresses": [
+        "0x9fe608",
+        "0x9fe609",
+        "0x9ee708",
+        "0x9ee709"
+      ],
+      "helper_per_row_destination_addresses": null,
+      "helper_per_row_destination_details": [
+        {
+          "logical_y": 32767,
+          "supported": false,
+          "addresses": null
+        },
+        {
+          "logical_y": 32768,
+          "supported": false,
+          "addresses": null
+        }
+      ],
+      "helper_destination_row_comparisons": [
+        {
+          "logical_y": 32767,
+          "helper_supported": false,
+          "expected_addresses": null,
+          "observed_addresses": [
+            "0x9fe608",
+            "0x9fe609"
+          ],
+          "matches": null
+        },
+        {
+          "logical_y": 32768,
+          "helper_supported": false,
+          "expected_addresses": null,
+          "observed_addresses": [
+            "0x9ee708",
+            "0x9ee709"
+          ],
+          "matches": null
+        }
+      ],
+      "entry_band_per_row_destination_addresses": [
+        "0x9fe608",
+        "0x9fe609",
+        "0x9ee708",
+        "0x9ee709"
+      ],
+      "start_row_plus_0x100_destination_addresses": [
+        "0x9fe608",
+        "0x9fe609",
+        "0x9fe708",
+        "0x9fe709"
+      ],
+      "matches_helper_per_row_destination": null,
+      "matches_entry_band_per_row_destination": true,
+      "matches_cached_linear_destination": false,
+      "source_address_models": {
+        "helper_per_row": [
+          "0x96e6ea",
+          "0x96e6eb",
+          "0x96e7ea",
+          "0x96e7eb"
+        ],
+        "helper_per_row_details": [
+          {
+            "logical_y": 0,
+            "supported": true,
+            "addresses": [
+              "0x96e6ea",
+              "0x96e6eb"
+            ]
+          },
+          {
+            "logical_y": 1,
+            "supported": true,
+            "addresses": [
+              "0x96e7ea",
+              "0x96e7eb"
+            ]
+          }
+        ],
+        "helper_row_comparisons": [
+          {
+            "logical_y": 0,
+            "helper_supported": true,
+            "expected_addresses": [
+              "0x96e6ea",
+              "0x96e6eb"
+            ],
+            "observed_addresses": [
+              "0x96e6ea",
+              "0x96e6eb"
+            ],
+            "matches": true
+          },
+          {
+            "logical_y": 1,
+            "helper_supported": true,
+            "expected_addresses": [
+              "0x96e7ea",
+              "0x96e7eb"
+            ],
+            "observed_addresses": [
+              "0x96e7ea",
+              "0x96e7eb"
+            ],
+            "matches": true
+          }
+        ],
+        "entry_band_per_row": [
+          "0x96e6ea",
+          "0x96e6eb",
+          "0x96e7ea",
+          "0x96e7eb"
+        ],
+        "start_row_plus_0x100": [
+          "0x96e6ea",
+          "0x96e6eb",
+          "0x96e7ea",
+          "0x96e7eb"
+        ],
+        "matches_helper": true,
+        "matches_entry_band": true,
+        "matches_cached_linear": true
+      },
+      "source_to_destination_values_match": true,
+      "bd80_call_count": 1,
+      "bd80_disabled_gate_path_returned": true,
+      "bd80_endpoint_unchanged": true,
+      "original_code_unchanged": true,
+      "only_observed_output_changed_data": true,
+      "complete_data_restored": true,
+      "instruction_count": 168
+    },
+    {
+      "name": "a8f0_destination_y_dword_65536_low_entry",
+      "entry": "A8F0",
+      "entry_rva": "0xa8f0",
+      "descriptor_words": [
+        5,
+        0,
+        1,
+        1
+      ],
+      "source_xy": [
+        5,
+        0
+      ],
+      "destination_xy": [
+        20,
+        65536
+      ],
+      "page_cross_slow_path_requested": false,
+      "row_entry_band": "low y<512",
+      "source_read_events": [
+        {
+          "pc_rva": "0xab49",
+          "address": "0x96e6ea",
+          "size": 1,
+          "bytes": "54"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x96e6eb",
+          "size": 1,
+          "bytes": "49"
+        }
+      ],
+      "destination_write_events": [
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee708",
+          "size": 1,
+          "bytes": "54"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x9ee709",
+          "size": 1,
+          "bytes": "49"
+        }
+      ],
+      "observed_source_byte_addresses": [
+        "0x96e6ea",
+        "0x96e6eb"
+      ],
+      "observed_destination_byte_addresses": [
+        "0x9ee708",
+        "0x9ee709"
+      ],
+      "helper_per_row_destination_addresses": null,
+      "helper_per_row_destination_details": [
+        {
+          "logical_y": 65536,
+          "supported": false,
+          "addresses": null
+        }
+      ],
+      "helper_destination_row_comparisons": [
+        {
+          "logical_y": 65536,
+          "helper_supported": false,
+          "expected_addresses": null,
+          "observed_addresses": [
+            "0x9ee708",
+            "0x9ee709"
+          ],
+          "matches": null
+        }
+      ],
+      "entry_band_per_row_destination_addresses": [
+        "0x9ee708",
+        "0x9ee709"
+      ],
+      "start_row_plus_0x100_destination_addresses": [
+        "0x9ee708",
+        "0x9ee709"
+      ],
+      "matches_helper_per_row_destination": null,
+      "matches_entry_band_per_row_destination": true,
+      "matches_cached_linear_destination": true,
+      "source_address_models": {
+        "helper_per_row": [
+          "0x96e6ea",
+          "0x96e6eb"
+        ],
+        "helper_per_row_details": [
+          {
+            "logical_y": 0,
+            "supported": true,
+            "addresses": [
+              "0x96e6ea",
+              "0x96e6eb"
+            ]
+          }
+        ],
+        "helper_row_comparisons": [
+          {
+            "logical_y": 0,
+            "helper_supported": true,
+            "expected_addresses": [
+              "0x96e6ea",
+              "0x96e6eb"
+            ],
+            "observed_addresses": [
+              "0x96e6ea",
+              "0x96e6eb"
+            ],
+            "matches": true
+          }
+        ],
+        "entry_band_per_row": [
+          "0x96e6ea",
+          "0x96e6eb"
+        ],
+        "start_row_plus_0x100": [
+          "0x96e6ea",
+          "0x96e6eb"
+        ],
+        "matches_helper": true,
+        "matches_entry_band": true,
+        "matches_cached_linear": true
+      },
+      "source_to_destination_values_match": true,
+      "bd80_call_count": 1,
+      "bd80_disabled_gate_path_returned": true,
+      "bd80_endpoint_unchanged": true,
+      "original_code_unchanged": true,
+      "only_observed_output_changed_data": true,
+      "complete_data_restored": true,
+      "instruction_count": 99
+    },
+    {
+      "name": "a8f0_destination_x_dword_65536_masked_address",
+      "entry": "A8F0",
+      "entry_rva": "0xa8f0",
+      "descriptor_words": [
+        5,
+        0,
+        1,
+        1
+      ],
+      "source_xy": [
+        5,
+        0
+      ],
+      "destination_xy": [
+        65536,
+        0
+      ],
+      "page_cross_slow_path_requested": false,
+      "row_entry_band": "low y<512",
+      "source_read_events": [
+        {
+          "pc_rva": "0xab49",
+          "address": "0x96e6ea",
+          "size": 1,
+          "bytes": "97"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x96e6eb",
+          "size": 1,
+          "bytes": "8a"
+        }
+      ],
+      "destination_write_events": [
+        {
+          "pc_rva": "0xab49",
+          "address": "0x96e6e0",
+          "size": 1,
+          "bytes": "97"
+        },
+        {
+          "pc_rva": "0xab49",
+          "address": "0x96e6e1",
+          "size": 1,
+          "bytes": "8a"
+        }
+      ],
+      "observed_source_byte_addresses": [
+        "0x96e6ea",
+        "0x96e6eb"
+      ],
+      "observed_destination_byte_addresses": [
+        "0x96e6e0",
+        "0x96e6e1"
+      ],
+      "helper_per_row_destination_addresses": [
+        "0x96e6e0",
+        "0x96e6e1"
+      ],
+      "helper_per_row_destination_details": [
+        {
+          "logical_y": 0,
+          "supported": true,
+          "addresses": [
+            "0x96e6e0",
+            "0x96e6e1"
+          ]
+        }
+      ],
+      "helper_destination_row_comparisons": [
+        {
+          "logical_y": 0,
+          "helper_supported": true,
+          "expected_addresses": [
+            "0x96e6e0",
+            "0x96e6e1"
+          ],
+          "observed_addresses": [
+            "0x96e6e0",
+            "0x96e6e1"
+          ],
+          "matches": true
+        }
+      ],
+      "entry_band_per_row_destination_addresses": [
+        "0x96e6e0",
+        "0x96e6e1"
+      ],
+      "start_row_plus_0x100_destination_addresses": [
+        "0x96e6e0",
+        "0x96e6e1"
+      ],
+      "matches_helper_per_row_destination": true,
+      "matches_entry_band_per_row_destination": true,
+      "matches_cached_linear_destination": true,
+      "source_address_models": {
+        "helper_per_row": [
+          "0x96e6ea",
+          "0x96e6eb"
+        ],
+        "helper_per_row_details": [
+          {
+            "logical_y": 0,
+            "supported": true,
+            "addresses": [
+              "0x96e6ea",
+              "0x96e6eb"
+            ]
+          }
+        ],
+        "helper_row_comparisons": [
+          {
+            "logical_y": 0,
+            "helper_supported": true,
+            "expected_addresses": [
+              "0x96e6ea",
+              "0x96e6eb"
+            ],
+            "observed_addresses": [
+              "0x96e6ea",
+              "0x96e6eb"
+            ],
+            "matches": true
+          }
+        ],
+        "entry_band_per_row": [
+          "0x96e6ea",
+          "0x96e6eb"
+        ],
+        "start_row_plus_0x100": [
+          "0x96e6ea",
+          "0x96e6eb"
+        ],
+        "matches_helper": true,
+        "matches_entry_band": true,
+        "matches_cached_linear": true
+      },
+      "source_to_destination_values_match": true,
+      "bd80_call_count": 1,
+      "bd80_disabled_gate_path_returned": true,
+      "bd80_endpoint_unchanged": true,
+      "original_code_unchanged": true,
+      "only_observed_output_changed_data": true,
+      "complete_data_restored": true,
+      "instruction_count": 99
+    }
+  ],
+  "limitations": [
+    "Finite synthetic rectangles only; negative coordinates, negative dimensions, clipping, huge heights, and all invalid-input semantics are unproved.",
+    "The high-y helper remains domain-limited to y=512..1023; the y=1024 row is only observed as the next iteration of a rectangle beginning at 1023.",
+    "No allocation ownership or texture backing extent is inferred from these addresses.",
+    "No source/destination overlap case was added; existing native_vram_move.json covers finite overlap behavior separately.",
+    "No DirectDraw, GPU, gameplay, FUNCTION_MATCH, source identity, or whole-module equality is claimed."
+  ],
+  "invocation": {
+    "exe": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "original_root": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+    "receipt": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase7\\replay_rows.json",
+    "deps": "C:\\tools\\hercules\\renderer-oracle-python",
+    "analysis_deps": "C:\\tools\\hercules\\python"
+  }
+}

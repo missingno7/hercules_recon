@@ -2,9 +2,11 @@
 
 ## Finding
 
-The smallest candidate bootstrap is an app-local `DDRAW.dll` forwarding wrapper around the one imported `DirectDrawCreate` export. If the tested Windows deployment resolves that import to the wrapper, the wrapper can prepare a 1,000-byte clone of the host callback table and change the writable source pointer at EXE RVA `0x365a0` before it forwards the call. The returned `IDirectDraw*` should remain the real system object. That leaves the original HWND, DirectDraw COM objects, windowed GDI path, palette path, fullscreen transitions, and movie display path in service while selected engine callbacks are redirected in copied tables.
-
-This timing is supported by the static call graph: the host initialization path at RVA `0x7937` calls `0x5e10`; that path calls graphics setup `0x72a0`, which calls the `DDRAW.dll!DirectDrawCreate` import thunk at `0x7426`. The host's later event/tick path at `0x79fc` calls `0x5f20`; its first `PC_DLLEngineMain` dispatch is the indirect call at `0x5f03`. Immediately before that call, RVA `0x5ef3` reads the table pointer from `0x365a0`. Existing engine-entry evidence shows the DLL copies a 250-DWORD prefix from that argument. The pointer cell is in writable `.data`.
+The renderer seam is the selected callback-table clone, rather than DirectDraw
+presentation itself. An app-local forwarding DDRAW.dll is a candidate loader,
+but its actual selection and publication timing in Hercules remain unobserved.
+The independent guarded event path prevents inferring a process-wide first-copy
+order from the DirectDraw call alone; see [bootstrap order](bootstrap_order.md).
 
 The PE import descriptor lists `DDRAW.dll` and `DirectDrawCreate`. This is a load-time import, so Windows loads its dependency during process initialization before the EXE begins normal execution; Microsoft describes this in [Load-Time Dynamic Linking](https://learn.microsoft.com/en-us/windows/win32/dlls/load-time-dynamic-linking). Descriptor order does not establish the runtime DLL path. The loaded-module list and Known DLLs are checked before the executable directory in the standard unpackaged search order. Whether `ddraw.dll` is Known on a particular Windows version and whether an app-local wrapper is selected must be observed on the target deployment; this report does not claim that a local proxy definitely loads. See Microsoft's [DLL search-order documentation](https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order).
 
@@ -34,7 +36,14 @@ The host also retains its palette and window-message paths. Palette refresh RVA 
 
 ## Bootstrap constraints and open checks
 
-The wrapper should export the exact undecorated `DirectDrawCreate` name used by the EXE import, defer real-system loading until that function is called, and forward the original arguments/results without wrapping the returned COM interface. It can then copy the observed table prefix, alter only chosen callback cells, and publish the clone pointer at `EXE base + 0x365a0` before forwarding. Do not do table work from `DllMain`: the static import is loaded during image initialization, while the call site at `0x7426` occurs later in host graphics initialization after it has obtained the HWND's HDC and prepared the DIB. Forwarding to the system implementation by an explicit system-directory path avoids recursively loading the proxy by name.
+A future forwarding wrapper must preserve the exact imported export name,
+arguments, HRESULT and original COM object. Defer real system-DLL loading, COM,
+window and GPU initialization outside DllMain. Minimal early data publication
+is a candidate for reaching the first possible cold copy; the
+[source-built fixture](fixtures/early_loader_probe/README.md) establishes this
+only for its synthetic EXE. Publishing on HRESULT success alone is unsupported:
+the host uses that result to select logging and continues on both branches.
+See [loader constraints](loader.md) and [Microsoft DLL best practices](https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-best-practices).
 
 The clone must preserve unselected entries and data-pointer entries as well as function entries. It should be allocated for process lifetime, because each engine's `PC_DLLEngineMain` copies the table prefix into module-local storage. Updating the source pointer later does not broadcast into an already copied engine table. Actual module-path resolution, actual loaded module path, live window mode transitions, and callback timing remain unobserved; they are the bounded integration checks before treating this bootstrap as viable on a target installation.
 
@@ -44,9 +53,9 @@ Run `python -B work/renderer_presentation/audit.py` from the repository root. Th
 
 Pinned COM declaration used for cross-checking: `C:\tools\hercules\msvc500-8abf95ce980161ad87b0b02402269cce76988953\include\ddraw.h`, SHA-256 `fcaadaaf15d5ee85db3dd6a40f1eee2f0dd7aabcecc494579022c55d063ecf34`. Oracle SHA-256 is `587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d`. No game code, assets, recovery state, or runtime image was changed or executed.
 
-Prediction: DirectDraw setup runs before the first engine interface copy, leaving a call-time DirectDraw import wrapper as a narrow point to publish a selected callback-table clone while preserving host display services.
-
-Falsifier: A bounded run that observes the first engine copy before the `DirectDrawCreate` call, a source pointer other than RVA `0x365a0`, or no resolution to the app-local wrapper disproves this bootstrap for that deployment.
+The earlier direct-path timing prediction is superseded by the narrower
+[bootstrap audit](bootstrap_order.md). Actual app-local selection, independent
+callback scheduling and early publication require separate target observations.
 
 ## Integrated reproduction
 

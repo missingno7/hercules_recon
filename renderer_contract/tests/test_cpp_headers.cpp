@@ -8,6 +8,7 @@
 #include "hercules_quad_dispatch.h"
 #include "hercules_staging.h"
 #include "hercules_edge_steps.h"
+#include "hercules_packed_uv.h"
 
 /* Link against C objects to check the reusable C++ consumer boundary. */
 int main()
@@ -15,6 +16,9 @@ int main()
     renderer_u8 wire[8] = {0,0,0,0,0x83,1,0,0xe1};
     HerculesE1StateUpdate state;
     RendererDecodedPacket packet;
+    RendererD60CPackedInputs packed_inputs;
+    RendererD60CPackedState packed_state;
+    RendererD60CPackedStep packed_step;
     renderer_u32 offset = 0;
     if (sizeof(renderer_raw32) != 4)
         return 1;
@@ -37,5 +41,19 @@ int main()
     if (!herc_tex_upload_high_y_byte_address(0,512,0,&offset) ||
         offset != 0x00a6e6e0u)
         return 8;
+    packed_inputs.u_start = 0;
+    packed_inputs.v_start = 0x00019b4du;
+    packed_inputs.u_step = 0;
+    packed_inputs.v_step = 0xffffff32u;
+    packed_inputs.destination = 0x10020140u;
+    packed_inputs.texture_base = 0x10001000u;
+    packed_inputs.visible_count = 319;
+    if (renderer_d60c_packed_init(&packed_inputs, &packed_state) !=
+        RENDERER_D60C_PACKED_OK)
+        return 9;
+    if (renderer_d60c_packed_advance(&packed_state, 255, &packed_step) !=
+        RENDERER_D60C_PACKED_OK || packed_step.store_required != 1 ||
+        packed_state.completed_count != 1)
+        return 10;
     return 0;
 }

@@ -1,0 +1,1622 @@
+{
+  "schema_version": 1,
+  "scope": "Read-only static audit of bounded host bootstrap/tick control flow and a complete raw .text direct-reference inventory; no launch, execution, patching, or source changes.",
+  "audit_script_sha256": "e90830af32a09fcaa23e4a6de3013ba543d95c8a1f6d691758fa828ac7d96404",
+  "pe_helper": {
+    "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\scripts\\pe.py",
+    "sha256": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca",
+    "capstone_version": "5.0.7"
+  },
+  "host": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "size": 275968,
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000",
+    "machine": "0x14c"
+  },
+  "linear_sweep": {
+    "section": ".text",
+    "rva": "0x1000",
+    "raw_size": 183808,
+    "record_count": 65379,
+    "decoded_instruction_count": 65375,
+    "skipdata_record_count": 4,
+    "covered_bytes": 183808,
+    "coverage_complete": true,
+    "scope_limit": "Linear sweep is a candidate call-reference inventory; x86 decoding does not prove code alignment for every byte, and embedded data may decode as instructions."
+  },
+  "direct_call_or_jump_refs": {
+    "0x5e10": [
+      {
+        "site_rva": "0x7937",
+        "mnemonic": "call",
+        "target_rva": "0x5e10"
+      }
+    ],
+    "0x5ec0": [
+      {
+        "site_rva": "0x5f97",
+        "mnemonic": "call",
+        "target_rva": "0x5ec0"
+      },
+      {
+        "site_rva": "0x5fc5",
+        "mnemonic": "call",
+        "target_rva": "0x5ec0"
+      }
+    ],
+    "0x5f20": [
+      {
+        "site_rva": "0x79fc",
+        "mnemonic": "call",
+        "target_rva": "0x5f20"
+      }
+    ],
+    "0x72a0": [
+      {
+        "site_rva": "0x5e2c",
+        "mnemonic": "call",
+        "target_rva": "0x72a0"
+      }
+    ],
+    "0x71a0": [
+      {
+        "site_rva": "0x741a",
+        "mnemonic": "call",
+        "target_rva": "0x71a0"
+      }
+    ],
+    "0x10a20": [
+      {
+        "site_rva": "0x7426",
+        "mnemonic": "call",
+        "target_rva": "0x10a20"
+      }
+    ],
+    "0x5f03": []
+  },
+  "file_backed_code_address_literals": {
+    "0x79a0": [
+      {
+        "section": ".rdata",
+        "rva": "0x2e240"
+      }
+    ],
+    "0x5e10": [],
+    "0x5ec0": [],
+    "0x5f20": [],
+    "0x72a0": [],
+    "0x71a0": []
+  },
+  "pinned_spans": {
+    "host_init_5e10": {
+      "module": "HERCULES.EXE",
+      "name": "host_init_5e10",
+      "rva": "0x5e10",
+      "size": 127,
+      "sha256": "ac9967b60fd007b741ba0887f7e13ecc9c0ccd8c9e5f0b1e30c51187ef4bd8fe"
+    },
+    "engine_dispatch_wrapper_5ec0": {
+      "module": "HERCULES.EXE",
+      "name": "engine_dispatch_wrapper_5ec0",
+      "rva": "0x5ec0",
+      "size": 84,
+      "sha256": "a46d7bd89182519e392745733e1729b367034125279560d8df6e65b9d9e235d0"
+    },
+    "timer_dispatch_5f20": {
+      "module": "HERCULES.EXE",
+      "name": "timer_dispatch_5f20",
+      "rva": "0x5f20",
+      "size": 173,
+      "sha256": "2da2abca95296d27f38f85a3e65df55f188a014d1a3f0470f26cb39d47224802"
+    },
+    "palette_setup_71a0": {
+      "module": "HERCULES.EXE",
+      "name": "palette_setup_71a0",
+      "rva": "0x71a0",
+      "size": 251,
+      "sha256": "a3b6df83018fbb638bfba5724df81c136b2fff0bceb0b67fb257470767dab0e3"
+    },
+    "graphics_setup_72a0": {
+      "module": "HERCULES.EXE",
+      "name": "graphics_setup_72a0",
+      "rva": "0x72a0",
+      "size": 532,
+      "sha256": "f7ad10baa9f9503396a89bae5a10110846a0daf77d08b158eec8581663336286"
+    },
+    "event_callback_79a0": {
+      "module": "HERCULES.EXE",
+      "name": "event_callback_79a0",
+      "rva": "0x79a0",
+      "size": 251,
+      "sha256": "fe2bd489d14ee3dc40f7fb1b313a4e00c7cd0563f452e9e76a2f434d542e473d"
+    },
+    "init_callsite_7937": {
+      "module": "HERCULES.EXE",
+      "name": "init_callsite_7937",
+      "rva": "0x7937",
+      "size": 5,
+      "sha256": "e0e16d1a53da1d9d19451fb70e8a6869f4a3967e0bcb30df3292fc2b41b6f652"
+    },
+    "directdraw_callsite_7420": {
+      "module": "HERCULES.EXE",
+      "name": "directdraw_callsite_7420",
+      "rva": "0x7420",
+      "size": 18,
+      "sha256": "21b4849f40684efb1d3ad66cf769b9929e5a43aa2785e4ae2232f06e826d4bcb"
+    },
+    "event_tick_callsite_79fc": {
+      "module": "HERCULES.EXE",
+      "name": "event_tick_callsite_79fc",
+      "rva": "0x79fc",
+      "size": 5,
+      "sha256": "f7694adf44cb74f26eb658220c9bc47ed54fedebb1fcd5f0145e781e6b26850f"
+    },
+    "timer_first_dispatch_callsite_5f97": {
+      "module": "HERCULES.EXE",
+      "name": "timer_first_dispatch_callsite_5f97",
+      "rva": "0x5f97",
+      "size": 5,
+      "sha256": "b192b0889883597ace034016665306b3b4c0c09109c9ff6ac70530defc5aaf27"
+    },
+    "timer_second_dispatch_callsite_5fc5": {
+      "module": "HERCULES.EXE",
+      "name": "timer_second_dispatch_callsite_5fc5",
+      "rva": "0x5fc5",
+      "size": 5,
+      "sha256": "8ba2832c8d05a91a1a0d89287a24d8cbc1366e5221d70c624b480730d8af044e"
+    },
+    "source_pointer_read_5ef3": {
+      "module": "HERCULES.EXE",
+      "name": "source_pointer_read_5ef3",
+      "rva": "0x5ef3",
+      "size": 6,
+      "sha256": "466d6f172510e70afc0d5f607750009ab105d79e3cc7c1c93396e40664af2d83"
+    },
+    "indirect_export_call_5f03": {
+      "module": "HERCULES.EXE",
+      "name": "indirect_export_call_5f03",
+      "rva": "0x5f03",
+      "size": 2,
+      "sha256": "491e503ba40e8d303d46b4b51b14826ae08e8c8c3ded6f1441ef1d5d53c42534"
+    },
+    "callback_address_literal_2e240": {
+      "module": "HERCULES.EXE",
+      "name": "callback_address_literal_2e240",
+      "rva": "0x2e240",
+      "size": 4,
+      "sha256": "b4d3df00627ecfb8e4d80bd209cf0a733174411361b424201bc3e05c8fd2e0e3"
+    }
+  },
+  "bounded_cfg": {
+    "host_init_5e10": {
+      "span_rva": "0x5e10",
+      "span_size": 127,
+      "entry_rva": "0x5e10",
+      "instruction_count": 29,
+      "basic_blocks": [
+        {
+          "start_rva": "0x5e10",
+          "end_rva_exclusive": "0x5e67",
+          "terminator": "conditional",
+          "successors": [
+            "0x5e84",
+            "0x5e67"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5e67",
+          "end_rva_exclusive": "0x5e84",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x5e84"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5e84",
+          "end_rva_exclusive": "0x5e8f",
+          "terminator": "return",
+          "successors": [],
+          "reachable_from_entry": true
+        }
+      ],
+      "conditional_and_direct_jump_edges": [
+        {
+          "site_rva": "0x5e65",
+          "mnemonic": "jne",
+          "target_rva": "0x5e84",
+          "fallthrough_rva": "0x5e67",
+          "target_inside_span": true
+        }
+      ],
+      "direct_or_indirect_calls": [
+        {
+          "site_rva": "0x5e12",
+          "target_rva": null,
+          "indirect": true,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5e1a",
+          "target_rva": "0x5750",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5e22",
+          "target_rva": "0x4ce0",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5e27",
+          "target_rva": "0x5020",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5e2c",
+          "target_rva": "0x72a0",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5e31",
+          "target_rva": "0x7bb0",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5e36",
+          "target_rva": "0xa0b0",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5e3b",
+          "target_rva": "0xfdf0",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5e40",
+          "target_rva": "0x1ff0",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5e4f",
+          "target_rva": "0x4ac0",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5e79",
+          "target_rva": null,
+          "indirect": true,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5e7f",
+          "target_rva": "0x104d0",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5e86",
+          "target_rva": "0x6ec0",
+          "indirect": false,
+          "reachable": true
+        }
+      ],
+      "reachable_return_blocks": [
+        "0x5e84"
+      ],
+      "entry_reaches_return": true,
+      "all_normal_returns_require_call": {
+        "0x5e2c": true
+      },
+      "cfg_limit": "Direct x86 control flow only; calls fall through intraprocedurally. Indirect calls/jumps, SEH dispatch, API reentrancy, and callbacks are unresolved edges."
+    },
+    "engine_dispatch_wrapper_5ec0": {
+      "span_rva": "0x5ec0",
+      "span_size": 84,
+      "entry_rva": "0x5ec0",
+      "instruction_count": 24,
+      "basic_blocks": [
+        {
+          "start_rva": "0x5ec0",
+          "end_rva_exclusive": "0x5ee5",
+          "terminator": "conditional",
+          "successors": [
+            "0x5eea",
+            "0x5ee5"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5ee5",
+          "end_rva_exclusive": "0x5eea",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x5eea"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5eea",
+          "end_rva_exclusive": "0x5ef3",
+          "terminator": "conditional",
+          "successors": [
+            "0x5f08",
+            "0x5ef3"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5ef3",
+          "end_rva_exclusive": "0x5f08",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x5f08"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5f08",
+          "end_rva_exclusive": "0x5f14",
+          "terminator": "return",
+          "successors": [],
+          "reachable_from_entry": true
+        }
+      ],
+      "conditional_and_direct_jump_edges": [
+        {
+          "site_rva": "0x5ee3",
+          "mnemonic": "je",
+          "target_rva": "0x5eea",
+          "fallthrough_rva": "0x5ee5",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x5ef1",
+          "mnemonic": "je",
+          "target_rva": "0x5f08",
+          "fallthrough_rva": "0x5ef3",
+          "target_inside_span": true
+        }
+      ],
+      "direct_or_indirect_calls": [
+        {
+          "site_rva": "0x5ed4",
+          "target_rva": "0x1161c",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5ee5",
+          "target_rva": "0x5c20",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5f03",
+          "target_rva": null,
+          "indirect": true,
+          "reachable": true
+        }
+      ],
+      "reachable_return_blocks": [
+        "0x5f08"
+      ],
+      "entry_reaches_return": true,
+      "all_normal_returns_require_call": {},
+      "cfg_limit": "Direct x86 control flow only; calls fall through intraprocedurally. Indirect calls/jumps, SEH dispatch, API reentrancy, and callbacks are unresolved edges."
+    },
+    "timer_dispatch_5f20": {
+      "span_rva": "0x5f20",
+      "span_size": 173,
+      "entry_rva": "0x5f20",
+      "instruction_count": 49,
+      "basic_blocks": [
+        {
+          "start_rva": "0x5f20",
+          "end_rva_exclusive": "0x5f37",
+          "terminator": "conditional",
+          "successors": [
+            "0x5f41",
+            "0x5f37"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5f37",
+          "end_rva_exclusive": "0x5f41",
+          "terminator": "conditional",
+          "successors": [
+            "0x5f51",
+            "0x5f41"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5f41",
+          "end_rva_exclusive": "0x5f51",
+          "terminator": "jump",
+          "successors": [
+            "0x5f57"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5f51",
+          "end_rva_exclusive": "0x5f57",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x5f57"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5f57",
+          "end_rva_exclusive": "0x5f6d",
+          "terminator": "conditional",
+          "successors": [
+            "0x5f78",
+            "0x5f6d"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5f6d",
+          "end_rva_exclusive": "0x5f78",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x5f78"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5f78",
+          "end_rva_exclusive": "0x5f7d",
+          "terminator": "conditional",
+          "successors": [
+            "0x5f88",
+            "0x5f7d"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5f7d",
+          "end_rva_exclusive": "0x5f88",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x5f88"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5f88",
+          "end_rva_exclusive": "0x5f8c",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x5f8c"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5f8c",
+          "end_rva_exclusive": "0x5f91",
+          "terminator": "conditional",
+          "successors": [
+            "0x5fb1",
+            "0x5f91"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5f91",
+          "end_rva_exclusive": "0x5fb1",
+          "terminator": "conditional",
+          "successors": [
+            "0x5f8c",
+            "0x5fb1"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5fb1",
+          "end_rva_exclusive": "0x5fbc",
+          "terminator": "conditional",
+          "successors": [
+            "0x5fca",
+            "0x5fbc"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5fbc",
+          "end_rva_exclusive": "0x5fca",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x5fca"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x5fca",
+          "end_rva_exclusive": "0x5fcd",
+          "terminator": "return",
+          "successors": [],
+          "reachable_from_entry": true
+        }
+      ],
+      "conditional_and_direct_jump_edges": [
+        {
+          "site_rva": "0x5f35",
+          "mnemonic": "je",
+          "target_rva": "0x5f41",
+          "fallthrough_rva": "0x5f37",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x5f3f",
+          "mnemonic": "je",
+          "target_rva": "0x5f51",
+          "fallthrough_rva": "0x5f41",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x5f4f",
+          "mnemonic": "jmp",
+          "target_rva": "0x5f57",
+          "fallthrough_rva": null,
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x5f6b",
+          "mnemonic": "jle",
+          "target_rva": "0x5f78",
+          "fallthrough_rva": "0x5f6d",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x5f7b",
+          "mnemonic": "jge",
+          "target_rva": "0x5f88",
+          "fallthrough_rva": "0x5f7d",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x5f8f",
+          "mnemonic": "jl",
+          "target_rva": "0x5fb1",
+          "fallthrough_rva": "0x5f91",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x5faf",
+          "mnemonic": "jl",
+          "target_rva": "0x5f8c",
+          "fallthrough_rva": "0x5fb1",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x5fba",
+          "mnemonic": "jl",
+          "target_rva": "0x5fca",
+          "fallthrough_rva": "0x5fbc",
+          "target_inside_span": true
+        }
+      ],
+      "direct_or_indirect_calls": [
+        {
+          "site_rva": "0x5f22",
+          "target_rva": "0x9cd0",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5f27",
+          "target_rva": null,
+          "indirect": true,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5f97",
+          "target_rva": "0x5ec0",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x5fc5",
+          "target_rva": "0x5ec0",
+          "indirect": false,
+          "reachable": true
+        }
+      ],
+      "reachable_return_blocks": [
+        "0x5fca"
+      ],
+      "entry_reaches_return": true,
+      "all_normal_returns_require_call": {},
+      "cfg_limit": "Direct x86 control flow only; calls fall through intraprocedurally. Indirect calls/jumps, SEH dispatch, API reentrancy, and callbacks are unresolved edges."
+    },
+    "palette_setup_71a0": {
+      "span_rva": "0x71a0",
+      "span_size": 251,
+      "entry_rva": "0x71a0",
+      "instruction_count": 84,
+      "basic_blocks": [
+        {
+          "start_rva": "0x71a0",
+          "end_rva_exclusive": "0x71a5",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x71a5"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x71a5",
+          "end_rva_exclusive": "0x71ba",
+          "terminator": "conditional",
+          "successors": [
+            "0x71a5",
+            "0x71ba"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x71ba",
+          "end_rva_exclusive": "0x71c1",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x71c1"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x71c1",
+          "end_rva_exclusive": "0x71c5",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x71c5"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x71c5",
+          "end_rva_exclusive": "0x71d2",
+          "terminator": "conditional",
+          "successors": [
+            "0x71d9",
+            "0x71d2"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x71d2",
+          "end_rva_exclusive": "0x71d9",
+          "terminator": "jump",
+          "successors": [
+            "0x71de"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x71d9",
+          "end_rva_exclusive": "0x71de",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x71de"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x71de",
+          "end_rva_exclusive": "0x71eb",
+          "terminator": "conditional",
+          "successors": [
+            "0x71c5",
+            "0x71eb"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x71eb",
+          "end_rva_exclusive": "0x71fa",
+          "terminator": "conditional",
+          "successors": [
+            "0x71c1",
+            "0x71fa"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x71fa",
+          "end_rva_exclusive": "0x7201",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x7201"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7201",
+          "end_rva_exclusive": "0x7207",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x7207"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7207",
+          "end_rva_exclusive": "0x7223",
+          "terminator": "conditional",
+          "successors": [
+            "0x7225",
+            "0x7223"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7223",
+          "end_rva_exclusive": "0x7225",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x7225"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7225",
+          "end_rva_exclusive": "0x724b",
+          "terminator": "conditional",
+          "successors": [
+            "0x724d",
+            "0x724b"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x724b",
+          "end_rva_exclusive": "0x724d",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x724d"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x724d",
+          "end_rva_exclusive": "0x725e",
+          "terminator": "conditional",
+          "successors": [
+            "0x7207",
+            "0x725e"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x725e",
+          "end_rva_exclusive": "0x726d",
+          "terminator": "conditional",
+          "successors": [
+            "0x7201",
+            "0x726d"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x726d",
+          "end_rva_exclusive": "0x7272",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x7272"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7272",
+          "end_rva_exclusive": "0x7274",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x7274"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7274",
+          "end_rva_exclusive": "0x727f",
+          "terminator": "conditional",
+          "successors": [
+            "0x7274",
+            "0x727f"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x727f",
+          "end_rva_exclusive": "0x728d",
+          "terminator": "conditional",
+          "successors": [
+            "0x7272",
+            "0x728d"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x728d",
+          "end_rva_exclusive": "0x729b",
+          "terminator": "return",
+          "successors": [],
+          "reachable_from_entry": true
+        }
+      ],
+      "conditional_and_direct_jump_edges": [
+        {
+          "site_rva": "0x71b8",
+          "mnemonic": "jl",
+          "target_rva": "0x71a5",
+          "fallthrough_rva": "0x71ba",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x71d0",
+          "mnemonic": "jle",
+          "target_rva": "0x71d9",
+          "fallthrough_rva": "0x71d2",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x71d7",
+          "mnemonic": "jmp",
+          "target_rva": "0x71de",
+          "fallthrough_rva": null,
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x71e9",
+          "mnemonic": "jl",
+          "target_rva": "0x71c5",
+          "fallthrough_rva": "0x71eb",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x71f8",
+          "mnemonic": "jl",
+          "target_rva": "0x71c1",
+          "fallthrough_rva": "0x71fa",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x7221",
+          "mnemonic": "jg",
+          "target_rva": "0x7225",
+          "fallthrough_rva": "0x7223",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x7249",
+          "mnemonic": "jg",
+          "target_rva": "0x724d",
+          "fallthrough_rva": "0x724b",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x725c",
+          "mnemonic": "jl",
+          "target_rva": "0x7207",
+          "fallthrough_rva": "0x725e",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x726b",
+          "mnemonic": "jl",
+          "target_rva": "0x7201",
+          "fallthrough_rva": "0x726d",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x727d",
+          "mnemonic": "jl",
+          "target_rva": "0x7274",
+          "fallthrough_rva": "0x727f",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x728b",
+          "mnemonic": "jl",
+          "target_rva": "0x7272",
+          "fallthrough_rva": "0x728d",
+          "target_inside_span": true
+        }
+      ],
+      "direct_or_indirect_calls": [
+        {
+          "site_rva": "0x71a9",
+          "target_rva": "0x6780",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x728f",
+          "target_rva": "0x69a0",
+          "indirect": false,
+          "reachable": true
+        }
+      ],
+      "reachable_return_blocks": [
+        "0x728d"
+      ],
+      "entry_reaches_return": true,
+      "all_normal_returns_require_call": {},
+      "cfg_limit": "Direct x86 control flow only; calls fall through intraprocedurally. Indirect calls/jumps, SEH dispatch, API reentrancy, and callbacks are unresolved edges."
+    },
+    "graphics_setup_72a0": {
+      "span_rva": "0x72a0",
+      "span_size": 532,
+      "entry_rva": "0x72a0",
+      "instruction_count": 148,
+      "basic_blocks": [
+        {
+          "start_rva": "0x72a0",
+          "end_rva_exclusive": "0x72b5",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x72b5"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x72b5",
+          "end_rva_exclusive": "0x72cc",
+          "terminator": "conditional",
+          "successors": [
+            "0x72b5",
+            "0x72cc"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x72cc",
+          "end_rva_exclusive": "0x72e1",
+          "terminator": "conditional",
+          "successors": [
+            "0x72ee",
+            "0x72e1"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x72e1",
+          "end_rva_exclusive": "0x72ee",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x72ee"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x72ee",
+          "end_rva_exclusive": "0x7307",
+          "terminator": "conditional",
+          "successors": [
+            "0x731a",
+            "0x7307"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7307",
+          "end_rva_exclusive": "0x731a",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x731a"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x731a",
+          "end_rva_exclusive": "0x7353",
+          "terminator": "conditional",
+          "successors": [
+            "0x7366",
+            "0x7353"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7353",
+          "end_rva_exclusive": "0x7366",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x7366"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7366",
+          "end_rva_exclusive": "0x73f0",
+          "terminator": "conditional",
+          "successors": [
+            "0x7402",
+            "0x73f0"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x73f0",
+          "end_rva_exclusive": "0x7402",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x7402"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7402",
+          "end_rva_exclusive": "0x742f",
+          "terminator": "conditional",
+          "successors": [
+            "0x743c",
+            "0x742f"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x742f",
+          "end_rva_exclusive": "0x743c",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x743c"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x743c",
+          "end_rva_exclusive": "0x7454",
+          "terminator": "conditional",
+          "successors": [
+            "0x7461",
+            "0x7454"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7454",
+          "end_rva_exclusive": "0x7461",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x7461"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7461",
+          "end_rva_exclusive": "0x747e",
+          "terminator": "conditional",
+          "successors": [
+            "0x748b",
+            "0x747e"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x747e",
+          "end_rva_exclusive": "0x748b",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x748b"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x748b",
+          "end_rva_exclusive": "0x74a3",
+          "terminator": "conditional",
+          "successors": [
+            "0x74b0",
+            "0x74a3"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x74a3",
+          "end_rva_exclusive": "0x74b0",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x74b0"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x74b0",
+          "end_rva_exclusive": "0x74b4",
+          "terminator": "return",
+          "successors": [],
+          "reachable_from_entry": true
+        }
+      ],
+      "conditional_and_direct_jump_edges": [
+        {
+          "site_rva": "0x72ca",
+          "mnemonic": "jl",
+          "target_rva": "0x72b5",
+          "fallthrough_rva": "0x72cc",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x72df",
+          "mnemonic": "jne",
+          "target_rva": "0x72ee",
+          "fallthrough_rva": "0x72e1",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x7305",
+          "mnemonic": "jne",
+          "target_rva": "0x731a",
+          "fallthrough_rva": "0x7307",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x7351",
+          "mnemonic": "jne",
+          "target_rva": "0x7366",
+          "fallthrough_rva": "0x7353",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x73ee",
+          "mnemonic": "jne",
+          "target_rva": "0x7402",
+          "fallthrough_rva": "0x73f0",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x742d",
+          "mnemonic": "je",
+          "target_rva": "0x743c",
+          "fallthrough_rva": "0x742f",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x7452",
+          "mnemonic": "je",
+          "target_rva": "0x7461",
+          "fallthrough_rva": "0x7454",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x747c",
+          "mnemonic": "je",
+          "target_rva": "0x748b",
+          "fallthrough_rva": "0x747e",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x74a1",
+          "mnemonic": "je",
+          "target_rva": "0x74b0",
+          "fallthrough_rva": "0x74a3",
+          "target_inside_span": true
+        }
+      ],
+      "direct_or_indirect_calls": [
+        {
+          "site_rva": "0x72d2",
+          "target_rva": null,
+          "indirect": true,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x72e6",
+          "target_rva": "0x10460",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x72f3",
+          "target_rva": "0x10b20",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x730c",
+          "target_rva": "0x10460",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x733f",
+          "target_rva": "0x10b20",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x7358",
+          "target_rva": "0x10460",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x73cf",
+          "target_rva": null,
+          "indirect": true,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x73e1",
+          "target_rva": null,
+          "indirect": true,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x73f5",
+          "target_rva": "0x10460",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x740a",
+          "target_rva": null,
+          "indirect": true,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x7415",
+          "target_rva": "0x6ff0",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x741a",
+          "target_rva": "0x71a0",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x7426",
+          "target_rva": "0x10a20",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x7434",
+          "target_rva": "0x10460",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x744d",
+          "target_rva": null,
+          "indirect": true,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x7459",
+          "target_rva": "0x10460",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x7477",
+          "target_rva": null,
+          "indirect": true,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x7483",
+          "target_rva": "0x10460",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x749c",
+          "target_rva": null,
+          "indirect": true,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x74a8",
+          "target_rva": "0x10460",
+          "indirect": false,
+          "reachable": true
+        }
+      ],
+      "reachable_return_blocks": [
+        "0x74b0"
+      ],
+      "entry_reaches_return": true,
+      "all_normal_returns_require_call": {
+        "0x741a": true,
+        "0x7426": true
+      },
+      "cfg_limit": "Direct x86 control flow only; calls fall through intraprocedurally. Indirect calls/jumps, SEH dispatch, API reentrancy, and callbacks are unresolved edges."
+    },
+    "event_callback_79a0": {
+      "span_rva": "0x79a0",
+      "span_size": 251,
+      "entry_rva": "0x79a0",
+      "instruction_count": 69,
+      "basic_blocks": [
+        {
+          "start_rva": "0x79a0",
+          "end_rva_exclusive": "0x79f3",
+          "terminator": "conditional",
+          "successors": [
+            "0x7a5c",
+            "0x79f3"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x79f3",
+          "end_rva_exclusive": "0x79fc",
+          "terminator": "conditional",
+          "successors": [
+            "0x7a5c",
+            "0x79fc"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x79fc",
+          "end_rva_exclusive": "0x7a0a",
+          "terminator": "conditional",
+          "successors": [
+            "0x7a11",
+            "0x7a0a"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7a0a",
+          "end_rva_exclusive": "0x7a11",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x7a11"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7a11",
+          "end_rva_exclusive": "0x7a1d",
+          "terminator": "jump",
+          "successors": [
+            "0x7a5c"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7a1d",
+          "end_rva_exclusive": "0x7a27",
+          "terminator": "return",
+          "successors": [],
+          "reachable_from_entry": false
+        },
+        {
+          "start_rva": "0x7a27",
+          "end_rva_exclusive": "0x7a5c",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x7a5c"
+          ],
+          "reachable_from_entry": false
+        },
+        {
+          "start_rva": "0x7a5c",
+          "end_rva_exclusive": "0x7a6c",
+          "terminator": "conditional",
+          "successors": [
+            "0x7a75",
+            "0x7a6c"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7a6c",
+          "end_rva_exclusive": "0x7a75",
+          "terminator": "conditional",
+          "successors": [
+            "0x7a7b",
+            "0x7a75"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7a75",
+          "end_rva_exclusive": "0x7a7b",
+          "terminator": "fallthrough",
+          "successors": [
+            "0x7a7b"
+          ],
+          "reachable_from_entry": true
+        },
+        {
+          "start_rva": "0x7a7b",
+          "end_rva_exclusive": "0x7a9b",
+          "terminator": "return",
+          "successors": [],
+          "reachable_from_entry": true
+        }
+      ],
+      "conditional_and_direct_jump_edges": [
+        {
+          "site_rva": "0x79f1",
+          "mnemonic": "je",
+          "target_rva": "0x7a5c",
+          "fallthrough_rva": "0x79f3",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x79fa",
+          "mnemonic": "jne",
+          "target_rva": "0x7a5c",
+          "fallthrough_rva": "0x79fc",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x7a08",
+          "mnemonic": "jne",
+          "target_rva": "0x7a11",
+          "fallthrough_rva": "0x7a0a",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x7a1b",
+          "mnemonic": "jmp",
+          "target_rva": "0x7a5c",
+          "fallthrough_rva": null,
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x7a6a",
+          "mnemonic": "je",
+          "target_rva": "0x7a75",
+          "fallthrough_rva": "0x7a6c",
+          "target_inside_span": true
+        },
+        {
+          "site_rva": "0x7a73",
+          "mnemonic": "je",
+          "target_rva": "0x7a7b",
+          "fallthrough_rva": "0x7a75",
+          "target_inside_span": true
+        }
+      ],
+      "direct_or_indirect_calls": [
+        {
+          "site_rva": "0x79e0",
+          "target_rva": "0x5a50",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x79e5",
+          "target_rva": "0x6bb0",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x79fc",
+          "target_rva": "0x5f20",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x7a11",
+          "target_rva": "0x6bb0",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x7a16",
+          "target_rva": "0x5a50",
+          "indirect": false,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x7a45",
+          "target_rva": "0x10f40",
+          "indirect": false,
+          "reachable": false
+        },
+        {
+          "site_rva": "0x7a54",
+          "target_rva": "0x10460",
+          "indirect": false,
+          "reachable": false
+        },
+        {
+          "site_rva": "0x7a75",
+          "target_rva": null,
+          "indirect": true,
+          "reachable": true
+        },
+        {
+          "site_rva": "0x7a83",
+          "target_rva": "0x25886",
+          "indirect": false,
+          "reachable": true
+        }
+      ],
+      "reachable_return_blocks": [
+        "0x7a7b"
+      ],
+      "entry_reaches_return": true,
+      "all_normal_returns_require_call": {},
+      "cfg_limit": "Direct x86 control flow only; calls fall through intraprocedurally. Indirect calls/jumps, SEH dispatch, API reentrancy, and callbacks are unresolved edges."
+    }
+  },
+  "observations": {
+    "init_graphics_call": {
+      "rva": "0x5e2c",
+      "target_rva": "0x72a0"
+    },
+    "graphics_palette_call": {
+      "rva": "0x741a",
+      "target_rva": "0x71a0"
+    },
+    "directdraw_import_thunk_call": {
+      "rva": "0x7426",
+      "target_rva": "0x10a20",
+      "iat_rva": "0x7a5648"
+    },
+    "directdraw_result_branch": {
+      "rva": "0x742b",
+      "bytes_sha256": "88257aba7dc867c65d8f909c8ec039f6bb4dddc1973dc556c65b95098f393dbf",
+      "zero_result_target_rva": "0x743c",
+      "nonzero_result_logging_then_rejoin_rva": "0x742f",
+      "both_paths_rejoin_rva": "0x743c"
+    },
+    "init_callback_call": {
+      "rva": "0x7937",
+      "target_rva": "0x5e10"
+    },
+    "event_to_tick_call": {
+      "rva": "0x79fc",
+      "target_rva": "0x5f20"
+    },
+    "tick_to_dispatcher_calls": [
+      {
+        "rva": "0x5f97",
+        "target_rva": "0x5ec0"
+      },
+      {
+        "rva": "0x5fc5",
+        "target_rva": "0x5ec0"
+      }
+    ],
+    "dispatcher_to_export": {
+      "rva": "0x5f03",
+      "instruction_sha256": "491e503ba40e8d303d46b4b51b14826ae08e8c8c3ded6f1441ef1d5d53c42534",
+      "kind": "indirect call through EAX loaded from [0x91c45c]",
+      "preceded_by_nonnull_guard_rva": "0x5eef",
+      "source_table_pointer_read_rva": "0x5ef3",
+      "engine_entry_gate": "If [0x91c45c] is null, branch to 0x5f08 and skip source-table read/call."
+    },
+    "event_callback_gate": {
+      "flag_0": "At 0x79ea..0x79f1, [0xba0238]==0 branches around 0x79fc tick call.",
+      "flag_1": "At 0x79f3..0x79fa, [0xba0228]!=0 branches around 0x79fc tick call.",
+      "indirect_registration_clue": "File-backed .rdata contains the absolute code address 0x4079a0 at RVA 0x2e240; it is an address literal, not an observed caller or runtime invocation."
+    },
+    "publication_requirement": {
+      "static_contract": "For any later engine call that reaches 0x5f03, a selected table clone must already be stored through [0x4365a0] before 0x5ef3 loads that pointer.",
+      "HRESULT": "The native code compares the DirectDrawCreate result with zero only to choose an error-log path; both outcomes rejoin at 0x743c and continue. It does not gate pointer publication or engine dispatch on a successful HRESULT.",
+      "temporal_limit": "The direct host CFG places the DirectDrawCreate call on every normal return path from 0x72a0, and 0x72a0 is called by 0x5e10. It does not prove that indirect callbacks/API reentrancy cannot invoke 0x79a0 before the call returns."
+    }
+  },
+  "conclusion": {
+    "caller_inventory": "The complete raw .text sweep found one direct call to 0x5e10 (0x7937), one to 0x72a0 (0x5e2c), one to 0x71a0 (0x741a), and two direct calls to dispatcher 0x5ec0 (0x5f97, 0x5fc5). The engine export invocation at 0x5f03 is indirect and is reachable only through the guarded dispatcher path in these bounded spans.",
+    "direct_cfg_order": "The direct initialization path is 0x7937 -> 0x5e10 -> 0x72a0 -> 0x71a0 -> DirectDrawCreate thunk 0x10a20 at 0x7426; 0x72a0 returns before 0x5e10 completes. A separate callback path is 0x79a0 -> 0x79fc -> 0x5f20 -> 0x5ec0 -> guarded indirect 0x5f03; that routine chain does not call 0x5e10, 0x72a0, or DirectDrawCreate.",
+    "failed_result": "The 0x742b zero/nonzero branch selects only whether an error message is logged. The nonzero branch rejoins before the subsequent DirectDraw-object calls; no HRESULT-based early return or dispatch guard exists in 0x72a0/0x5e10.",
+    "publication": "A clone intended to affect any eventual cold engine-table copy must be published by the time the guarded dispatcher reaches 0x5ef3. A policy that publishes only for zero HRESULT is stricter than the observed host contract and can leave the original table in place on the nonzero continuation path. Publishing after the forwarded call returns for either result covers the direct initialization path, but may be too late if the independent callback path is invoked reentrantly or before initialization completes.",
+    "unresolved": "The event callback entry 0x79a0 has a file-backed code-address literal at .rdata RVA 0x2e240 and no direct .text callers in the linear sweep. Its indirect framework caller and invocation order relative to 0x7937/0x7426 are not recovered here. Its direct routine chain can reach the guarded cold export call without traversing DirectDrawCreate; whether that chain is actually invoked before the DirectDraw call returns or before it is ever called is unresolved. Thus this audit does not support an unconditional process-wide 'DirectDrawCreate precedes first table copy' claim."
+  }
+}
