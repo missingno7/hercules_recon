@@ -119,3 +119,16 @@ rectangle bounds remain unresolved. Reproduce from the renderer checkout:
 & $pythonExe renderer_contract/tests/audit_upload_producers.py --original-root . --exe $originalExe --image-dir D:\Prog\hercules_recon\assets\pc\HERCULES --output work/replay/upload_sites.json
 & $pythonExe renderer_contract/tests/test_original_cold_upload.py --original-root . --exe $originalExe --output work/replay/cold_upload.json
 ```
+
+The later packed-UV fixture confirms a finite model counterexample, rather
+than accepting the proposed separate-component iterator. Two original runs
+each capture 36 samples; packed U carry produces 151 where the model predicts
+150. Notification, producer and upload-domain audits add static gates and
+explicit original span pins. None observes live host integration.
+
+```powershell
+& $pythonExe renderer_contract/tests/test_original_packed_uv.py --original-root . --exe $originalExe --receipt work/replay/packed_uv.json
+& $pythonExe renderer_contract/tests/audit_callback_target.py --original-root D:\Prog\hercules_recon --exe $originalExe --output work/replay/notification.json
+& $pythonExe renderer_contract/tests/audit_producer_reachability.py --title D:\Prog\hercules_recon\assets\pc\HERCULES\TITLE.DLL --exe $originalExe --output work/replay/producer.json
+& $pythonExe renderer_contract/tests/audit_upload_domain_bounds.py --original-root . --exe $originalExe --image-dir D:\Prog\hercules_recon\assets\pc\HERCULES --output work/replay/upload_domains.json
+```

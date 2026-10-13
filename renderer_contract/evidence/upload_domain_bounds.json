@@ -1,0 +1,405 @@
+{
+  "schema_version": 1,
+  "scope": "Bounded static upload-producer domain audit; no resources are extracted and no game/runtime execution occurs.",
+  "inputs": {
+    "HERCULES.EXE": {
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "image_base": "0x00400000"
+    },
+    "ENG1.DLL": {
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "image_base": "0x10000000"
+    },
+    "ENG3.DLL": {
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "image_base": "0x10000000"
+    },
+    "TITLE.DLL": {
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "image_base": "0x10000000"
+    }
+  },
+  "public_helpers": {
+    "scripts/pe.py": {
+      "sha256": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca"
+    },
+    "scripts/env.py": {
+      "sha256": "1b743fc8adbb5df32b167fd44c39b8026bb66115ad81d68a32979c38e45047e4"
+    }
+  },
+  "audit_runner": {
+    "path": "tests/audit_upload_domain_bounds.py",
+    "sha256": "02348f398915d10484902bc2850ec35de45cb1bc62dcf5b11530a9f81992244d"
+  },
+  "source_and_existing_evidence": {
+    "src/title/behavioral/title_entry.c": {
+      "sha256": "cc21299115b5914079353dd5950c6e7288e9d59e83915e7ee6af28abcbb049a7"
+    },
+    "src/title/behavioral/input_boot.c": {
+      "sha256": "2ae0bdaa63c0cc1599f68909aec8242b2eebed566958c65788e93c180a19a04c"
+    },
+    "src/eng1/behavioral/frame_commands.c": {
+      "sha256": "5088e6070b68a441ccdd3df79c9b061b3005c8fc25b40082d0ddeecff9692381"
+    },
+    "renderer_contract/evidence/frame.json": {
+      "sha256": "b81f7e1f86bb8b3976ed666261d741000b2e7e400d35d18be6ce0068ce69bb5b"
+    },
+    "renderer_contract/evidence/upload_producer_sites.json": {
+      "sha256": "4c5d60924b94244ea932a0e188226f573299dd5946049cca5011997ce8ded6a9"
+    }
+  },
+  "original_spans": [
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x361b8",
+      "size": 8,
+      "sha256": "f46f52d6fa0bd2eed01689542e64c1718f5dd9e71f56d72a9e951d30fe15981e",
+      "label": "interface_source_prefix"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x36204",
+      "size": 4,
+      "sha256": "5a09ff956c26e1b19855ea2335e512c4ba34337bf0478f20bc998e0a7033a14a",
+      "label": "callback_slot_19_entry"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x365a0",
+      "size": 4,
+      "sha256": "808fbb8b89f159778e8ec1322e9c7a53c570dfe17e6e565367f97a9bee2a0e3b",
+      "label": "title_interface_pointer_cell"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5ef3",
+      "size": 21,
+      "sha256": "8a42ce650f2075b54528f031bab80b2a0c2111c1e57ad3405f83b465eb7ea387",
+      "label": "title_entry_call_sequence"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x1bd0",
+      "size": 291,
+      "sha256": "f2af2f9497e022748805220aac39872fdc31492b3fb2e5f582237c81f51a095d",
+      "label": "context_writer"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x35d8",
+      "size": 11,
+      "sha256": "7bc60fd6c0c5b99c30384977b980fa69a911a52999308cfe1f49bf44b9135d40",
+      "label": "setter_call_35de"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0xe7be",
+      "size": 42,
+      "sha256": "141d9af16f37335fd432dada50d956f4128062699baeb207fab98ef4e21a4f7c",
+      "label": "setter_call_e7e3"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0xec3f",
+      "size": 17,
+      "sha256": "81f1d584d607e454a56fde9c73908b379a43eab408b5cae9df12b10892d4d8c2",
+      "label": "setter_call_ec4b"
+    },
+    {
+      "module": "ENG3.DLL",
+      "rva": "0x78f0",
+      "size": 288,
+      "sha256": "ac95e14392dff97a4e713865ad3a2d25badac32e6cfdbe1e283f556d9d95df37",
+      "label": "constructor_state_seed"
+    },
+    {
+      "module": "ENG3.DLL",
+      "rva": "0x7c5b",
+      "size": 118,
+      "sha256": "d110326ba906a84a81c35ffe17b220865af67faa59e59dcb54f5e22a6b59babd",
+      "label": "split_upload_consumer"
+    },
+    {
+      "module": "ENG3.DLL",
+      "rva": "0x8bfb",
+      "size": 29,
+      "sha256": "3ff50db4d714ff259dcd345bab06aa45c6c6dacb591ffe1094ccf3a9f6d09276",
+      "label": "split_upload_direct_route"
+    },
+    {
+      "module": "ENG3.DLL",
+      "rva": "0x1dbde",
+      "size": 45,
+      "sha256": "0bccaa11ac8f5ed7e831807e728f4124752b15bf9668b21546f4f6af78cc4a0e",
+      "label": "event_dispatch_index"
+    },
+    {
+      "module": "ENG3.DLL",
+      "rva": "0x1de32",
+      "size": 7,
+      "sha256": "0fe158892e8ce11406b10fefcf02ba54565e395241cd3b57b4ba604b46a6a13f",
+      "label": "signed_word_state_store"
+    },
+    {
+      "module": "ENG3.DLL",
+      "rva": "0x1df74",
+      "size": 4,
+      "sha256": "178d83c544457f76f48b084baa8e3b760e9e9fb06fc209aa440d8eb692e07814",
+      "label": "event_jump_table_slot"
+    },
+    {
+      "module": "ENG3.DLL",
+      "rva": "0x86a6",
+      "size": 13,
+      "sha256": "596d155fbdedfa590ece9af46dc6af6e931d47a3a230c078936121ab94673ba5",
+      "label": "pointer_literal_setter_86ae"
+    },
+    {
+      "module": "ENG3.DLL",
+      "rva": "0x1a94d",
+      "size": 21,
+      "sha256": "e3c16b9b6bb7a225f61c9334c34f66318ce87e7c814ab33fc21289ac25c9bfb7",
+      "label": "pointer_literal_setter_1a95d"
+    },
+    {
+      "module": "ENG3.DLL",
+      "rva": "0x8072",
+      "size": 132,
+      "sha256": "ac57433c61a52059f5c014cb39c05355930e9c964df6675c69a1f744900c7ab4",
+      "label": "resource_rect_copy"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0xc1f0",
+      "size": 40,
+      "sha256": "f92bd5e5ecce891c097a854e5c60e761dc32a007546c0ced3a2b7e1f83867a2d",
+      "label": "interface_copy_entry"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0xc1fb",
+      "size": 22,
+      "sha256": "47c7e2ef476b7cab0e3fb816270b1bf73e7df67138f82d327848256320b3684d",
+      "label": "interface_copy_1000_bytes"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0xc370",
+      "size": 20,
+      "sha256": "fe2eef0b402eb5976ce65f9ad73d9425c4feca53c9643509aa179516f7db3ac8",
+      "label": "two_argument_setter_wrapper"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x1640b",
+      "size": 28,
+      "sha256": "9c32656a24b1e143c4adaa21ed84a9799b903828c432d8d375d2a1830c7b7e24",
+      "label": "zero_y_setter_call"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x16fec",
+      "size": 107,
+      "sha256": "bff62b2e44559d1b6b940e72b18830ce22549bcd5d0da3cc007ec01e5eb17f6a",
+      "label": "y_256_setter_then_context_read_1"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x17398",
+      "size": 109,
+      "sha256": "866b68017a009fb45e44332d94a617fe8d797e146172e86ab8fec889e12962d2",
+      "label": "y_256_setter_then_context_read_2"
+    }
+  ],
+  "host_context_writer": {
+    "table_rva": "0x361b8",
+    "table_slot_offset": "0x4c",
+    "table_slot_index": 19,
+    "target_va": "0x00401bd0",
+    "target_rva": "0x1bd0",
+    "written_context_offset": "0x138",
+    "native_stack_mapping": "The host body pushes EBX and makes a returning helper call, then pushes two local pointer arguments. At the store, [ESP+0x20] resolves to host-entry ESP+0x14: the two-argument trampoline caller's second argument. The trampoline forwards its first two caller arguments to host slot+0x4c; this is not the caller's third/fourth/fifth argument.",
+    "context_alias_and_lifetime": "TITLE receives a pointer to the static HERC interface table; the source table word1 is the exact cell reread by the HERC host writer. TITLE copies the same initial pointer to its own table word1. No direct absolute write to the source word1 was found in the HERC file-backed .text sweep; indirect writes remain outside scope.",
+    "direct_write_rvas": [
+      "0x1c0e"
+    ],
+    "other_module_pointer_literal_calls": [
+      {
+        "module": "ENG1.DLL",
+        "wrapper_rva": "0x2c2f0",
+        "call_rva": "0x35de",
+        "second_argument": "0x1004d914"
+      },
+      {
+        "module": "ENG1.DLL",
+        "wrapper_rva": "0x2c2f0",
+        "call_rva": "0xe7e3",
+        "second_argument": "0x1005193c"
+      },
+      {
+        "module": "ENG1.DLL",
+        "wrapper_rva": "0x2c2f0",
+        "call_rva": "0xec4b",
+        "second_argument": "0x10051a98"
+      },
+      {
+        "module": "ENG3.DLL",
+        "wrapper_rva": "0x1f980",
+        "call_rva": "0x86ae",
+        "second_argument": "0x10035224"
+      },
+      {
+        "module": "ENG3.DLL",
+        "wrapper_rva": "0x1f980",
+        "call_rva": "0x1a95d",
+        "second_argument": "0x100381c8"
+      }
+    ],
+    "interpretation_limit": "These second arguments are pointer literals in their own modules. If they reach this shared host slot and share the same context, the host stores their low WORD; they do not prove that TITLE later reads those values or that an upload occurs after module transition."
+  },
+  "title_host_context_alias": {
+    "herc_title_entry_call_rva": "0x5f03",
+    "herc_interface_pointer_cell_va": "0x4365a0",
+    "herc_interface_pointer_initial_value": "0x004361b8",
+    "original_table_va": "0x4361b8",
+    "original_word0_signature": "0x5ac00cac",
+    "original_word1_va": "0x4361bc",
+    "original_word1_initial_value": "0x00615c98",
+    "host_context_acquisition_cell_va": "0x4361bc",
+    "title_copy_destination_va": "0x1002bb40",
+    "title_copy_bytes": 1000,
+    "title_context_pointer_after_copy_va": "0x1002bb44",
+    "same_initial_pointer_proven": true,
+    "direct_absolute_write_sites_to_original_word1": [],
+    "interpretation_limit": "The source table is in writable .data. The file-backed HERC .text linear sweep finds no direct absolute write to its word1 cell, so the copied TITLE context and each HERC host acquisition use the same pinned initial pointer. Arbitrary indirect writes are outside this bounded scan."
+  },
+  "title_context_138": {
+    "setter_table_va": "0x1002bb8c",
+    "context_pointer_cell_rva": "0x2bb44",
+    "context_word_address_expression": "read_u32(TITLE image base + 0x2bb44) + 0x138",
+    "direct_setter_call_rvas": [
+      "0x1641f",
+      "0x16fff",
+      "0x173a7"
+    ],
+    "context_word_read_rvas": [
+      "0x17032",
+      "0x173e0"
+    ],
+    "read_sequences": [
+      {
+        "setter_call_rva": "0x16fff",
+        "second_argument": "0x0100",
+        "read_rva": "0x17032",
+        "rect_words": {
+          "x": "0x0390",
+          "y": "context+0x138",
+          "w": "0x0050",
+          "h": "0x00c8"
+        }
+      },
+      {
+        "setter_call_rva": "0x173a7",
+        "second_argument": "0x0100",
+        "read_rva": "0x173e0",
+        "rect_words": {
+          "x": "0x0390",
+          "y": "context+0x138",
+          "w": "0x0050",
+          "h": "0x00c8"
+        }
+      }
+    ],
+    "zero_setter": {
+      "call_rva": "0x1641f",
+      "second_argument": "0",
+      "subsequent_context_138_read_in_local_sequence": false
+    },
+    "rect_units": "These are raw 16-bit producer fields; no pixel-unit or inclusive/exclusive dimension interpretation is inferred here."
+  },
+  "eng3_split_state": {
+    "constructor_seed": 0,
+    "event_operand": "For event command -0x20, a signed 16-bit word at event-record+2 is sign-extended into object+0x4c; the event dispatch index resolves to the pinned jump-table slot at RVA 0x1df74. No local range check is present in the bounded writer span.",
+    "consumer_rectangles": [
+      {
+        "name": "first",
+        "rect_words": {
+          "x": 127,
+          "y": "(uint16_t)(state + 0x200)",
+          "w": 127,
+          "h": "(uint16_t)(0x100 - state)"
+        }
+      },
+      {
+        "name": "second",
+        "rect_words": {
+          "x": 127,
+          "y": "(uint16_t)state",
+          "w": 127,
+          "h": 256
+        }
+      }
+    ],
+    "rect_units": "These are raw 16-bit producer fields; no pixel-unit or inclusive/exclusive dimension interpretation is inferred here.",
+    "post_upload_update": "state = (state + byte(object+0x21)) & 0xff; this normalization occurs after both upload calls and does not bound their current input.",
+    "encoded_operand_domain": "The command encoding is any signed 16-bit value; its low word covers 0..65535 as the upload WORD input. Actual resource command values and whether a particular event precedes a particular upload remain unresolved.",
+    "reachability_limit": "A direct object-list call reaches the split consumer, and the event interpreter contains a signed-word writer for the same object offset. The evidence does not establish same-object event/upload chronology or actual loaded resource operands, so it does not prove which high-y values are produced at runtime.",
+    "host_address_limit": "The proven high-y A710 address helper is limited to y=512..1023. Values outside that band, even if representable in the producer WORD, have no claimed host-address formula here."
+  },
+  "resource_rectangles": {
+    "eng3_copy": "The pinned ENG3 parser copies four WORD values from each loaded record into a RECT and uses sign-extended width/height in source addressing; the inspected path has no x/y clipping or rectangle-bound validation.",
+    "actual_values": "Resource bytes and their values were not inspected. No descriptor schema or producer range constraint is established by the existing evidence.",
+    "eng1_source_note": "The existing ENG1 behavioral source draft copies four WORD descriptor values and computes frame offsets from signed width/height. This is source evidence only, not proof of original source identity or a resource bound."
+  },
+  "linear_scans": {
+    "ENG3.DLL": {
+      "section": ".text",
+      "file_backed_bytes": 200192,
+      "linear_stream_bytes": 200192,
+      "all_file_backed_bytes_walked": true,
+      "capstone_version": "5.0.7",
+      "limitations": "Covers the decoded linear stream only; overlapping instruction streams, computed calls and non-file-backed code are not covered."
+    },
+    "TITLE.DLL": {
+      "section": ".text",
+      "file_backed_bytes": 130560,
+      "linear_stream_bytes": 130560,
+      "all_file_backed_bytes_walked": true,
+      "capstone_version": "5.0.7",
+      "limitations": "Covers the decoded linear stream only; overlapping instruction streams, computed calls and non-file-backed code are not covered."
+    },
+    "HERCULES.EXE": {
+      "section": ".text",
+      "file_backed_bytes": 183808,
+      "linear_stream_bytes": 183808,
+      "all_file_backed_bytes_walked": true,
+      "capstone_version": "5.0.7",
+      "limitations": "Covers the decoded linear stream only; overlapping instruction streams, computed calls and non-file-backed code are not covered."
+    },
+    "eng3_split_direct_call_rvas": [
+      "0x8c07"
+    ],
+    "title_setter_direct_call_rvas": [
+      "0x1641f",
+      "0x16fff",
+      "0x173a7"
+    ],
+    "title_context_read_rvas": [
+      "0x17032",
+      "0x173e0"
+    ],
+    "host_context_write_rvas": [
+      "0x1c0e"
+    ]
+  },
+  "prediction_and_falsifier": {
+    "prediction": "ENG3 split state might admit resource-driven values, while TITLE context y might be statically fixed at its local reads; resource RECT values might be copied without bounds checks.",
+    "falsifier": "A bounded scan finds every reachable ENG3 assignment range-checked, TITLE reads without a preceding fixed setter, or a descriptor schema enforcing coordinate bounds.",
+    "result": "Partly supported: ENG3 has an unbounded signed-word event assignment followed by a low-word consumer and post-upload byte normalization; TITLE's two observed local reads each follow a y=0x100 setter, and the static HERC interface word1 equals both the host's context cell and TITLE's copied word1. No direct absolute write to that source word is found in the file-backed HERC .text sweep, though indirect writes remain outside scope. Descriptor value bounds remain unresolved."
+  },
+  "limits": [
+    "Static direct references and instruction spans do not prove runtime object identity, resource contents, scheduler order, or indirect mutation of the writable interface word1 cell.",
+    "Capstone linear sweeps cover file-backed .text only and may miss overlapping streams, computed calls, and code outside those sections.",
+    "The producer WORD encoding domain is not a claim that actual resources contain every value in that domain."
+  ]
+}

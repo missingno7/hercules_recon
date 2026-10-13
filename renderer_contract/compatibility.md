@@ -13,6 +13,14 @@
 | Independent native producer evidence here | GT4 mesh and variable sprite; existing FT4 writer evidence reused | Variable sprite; geometry constructor wrappers observed | Existing FT4 differential/writer evidence reused |
 | Extra presentation route | Shared host presenter | Shared host presenter | +0x250 movie display |
 
+The [notification target audit](notification_target.md) additionally verifies
+the common slot-92 exchange ABI in all three modules. All five direct adapter
+calls pass NULL. The [producer audit](producer_reachability.md) resolves TITLE
+mode 7's computed command as FT4; consumer-only FT3 and fixed-sprite producer
+extents remain unresolved. [Upload domain evidence](upload_domain_bounds.md)
+ties TITLE's two local uploads to the original shared context and y=256, while
+ENG3's script-derived split input remains resource-dependent.
+
 Constructor-wrapper availability alone does not prove that a module emits
 every corresponding packet. The indexed render handlers have bounded traces
 in [eng3_handlers.md](eng3_handlers.md) and [title_handlers.md](title_handlers.md).

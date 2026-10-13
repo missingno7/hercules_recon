@@ -1,4 +1,11 @@
+#if defined(_M_IX86) || defined(__i386__)
+#define HERCULES_RENDERER_LIVE_X86 1
+#endif
 #include "hercules_host_abi.h"
+#ifdef HERCULES_RENDERER_LIVE_X86
+typedef char callback_exchange_pointer_width[
+    (sizeof(HerculesPrimaryCallbackExchange) == 4) ? 1 : -1];
+#endif
 
 #include <stdio.h>
 #include <string.h>

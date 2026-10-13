@@ -12,8 +12,17 @@ Optional 3D enhancements do not block basic capture. Whole-EXE reconstruction
 and complete software-rasterizer reimplementation are unnecessary. The next
 verification boundaries are wider coordinate domains beyond the five proven
 skewed quads, shared-state ownership, reachable commands and resource-driven
-rectangle/LUT values. The fixed ENG1/ENG3 high-band upload is now bounded to
+rectangle/LUT values. Packed U carry has a finite counterexample to independent
+Q16 pixel accumulation; exact packed progression and texel-to-V carry remain
+the next polygon contract boundary. The fixed ENG1/ENG3 high-band upload is now bounded to
 128 KiB; this establishes a write interval, not a general texture allocation.
 Bootstrap
 installation and actual host/GPU output remain unobserved. Unsupported packets
 remain visibly rejected, never silently treated as drawing success.
+
+TITLE's two local context-y upload paths are now tied to the same initial host
+context and y=256; indirect mutation is outside the static audit. ENG3's split
+state accepts a signed script operand and normalizes only after upload, so
+loaded resource values and event/draw order still need evidence. The five
+direct primary-callback registrations all clear it; computed installation and
+callback write sets remain unresolved.

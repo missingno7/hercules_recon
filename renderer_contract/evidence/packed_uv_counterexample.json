@@ -1,0 +1,378 @@
+{
+  "schema_version": 1,
+  "status": "FINITE_ORIGINAL_COUNTEREXAMPLE",
+  "scope": "One strictly convex native-order FT4 workspace fixture through original D420->D60C row-zero. Two constant nonzero texture variants exercise the same 36 sample coordinates. Surface and texture storage are synthetic Unicorn memory; no game process or frame is run.",
+  "model_comparison": {
+    "status": "FINITE_COUNTEREXAMPLE_CONFIRMED",
+    "native_target_uv": [
+      151,
+      39
+    ],
+    "separate_component_q16_model_uv": [
+      150,
+      39
+    ],
+    "comparison": "The public separate-component Q16 model is one U byte below the original native read at the selected pixel.",
+    "acceptance_claim": "This receipt verifies the finite counterexample and the captured packed-carry arithmetic only; it does not accept a generic iterator or rasterizer model."
+  },
+  "prediction": {
+    "separate_component_q16": "The independent public model predicts UV (150,39) at pixel (318,2); the original packed recurrence is expected to provide a finite counterexample.",
+    "register_feedback": "The original loop loads the sampled source byte into AL before ADD EAX,EBP and ADC CH,DH. This test records the finite EAX effect for texels 1 and 255; it makes no prediction about whether that effect changes a later carry into V outside this fixture."
+  },
+  "falsifier": {
+    "counterexample": "Falsified if the original target UV is not (151,39), the independent Q16 result is not (150,39), or captured 32-bit ADD/ADC arithmetic does not yield CL=151 at the next read.",
+    "finite_texture_pair": "The exact two-run observation fails if the 1 and 255 fixtures do not each produce 36 reads and stores with equal complete ordered pixel/UV streams. No universal texel-independence claim is part of this test."
+  },
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000"
+  },
+  "runtime": {
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "dependency_origin": {
+      "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+      "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+      "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+    }
+  },
+  "tooling": {
+    "python_executable": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "python_version": "3.12.14",
+    "runner": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_packed_uv.py",
+    "runner_sha256": "45a1470531133c44145b11c4eb9c2ac042a097b2398cc8bb49982435bbc7f988",
+    "public_helper": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_polygon_edges.py",
+    "public_helper_sha256": "e8fef88fe9c1ce61c988d16300db14b84babfa50ba59b9509f085dc7a3592fac",
+    "model_source": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_original_polygon_edges.py",
+      "sha256": "e8fef88fe9c1ce61c988d16300db14b84babfa50ba59b9509f085dc7a3592fac",
+      "function": "expected_uv_integer_reciprocal"
+    }
+  },
+  "original_spans": [
+    {
+      "module": "HERCULES.EXE",
+      "name": "reciprocal_table_initializer",
+      "rva": "0x72a0",
+      "rva_start": "0x72a0",
+      "rva_end_exclusive": "0x72cc",
+      "size": 44,
+      "sha256": "3d59be43f3756224228dfdcc372a3bc59b7a7dbba4bbab8c79dd821cc958014b"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "d420_dispatch_and_rowzero_function",
+      "rva": "0xd420",
+      "rva_start": "0xd420",
+      "rva_end_exclusive": "0xdd70",
+      "size": 2384,
+      "sha256": "4645c60cf0a357ed4aae074c3487a2755384852d0874e2f12b352b994544e07e"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "d60c_rowzero_function",
+      "rva": "0xd60c",
+      "rva_start": "0xd60c",
+      "rva_end_exclusive": "0xdd70",
+      "size": 1892,
+      "sha256": "2ed9dc4341703ee82f789528b427f6333e6d916bec11148fe2cfecff14119b4a"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "name": "d60c_packed_uv_pixel_loop",
+      "rva": "0xdc35",
+      "rva_start": "0xdc35",
+      "rva_end_exclusive": "0xdca0",
+      "size": 107,
+      "sha256": "b8fe7ac9e77137bcd4cb967df60ed0638403f2f8b0853b2bfd572d76b8a48cb4"
+    }
+  ],
+  "fixture": {
+    "name": "packed_uv_skewed_right_edge",
+    "native_workspace_order_xy": [
+      [
+        315,
+        1
+      ],
+      [
+        324,
+        2
+      ],
+      [
+        323,
+        8
+      ],
+      [
+        314,
+        7
+      ]
+    ],
+    "native_workspace_uv_bytes": [
+      [
+        250,
+        15
+      ],
+      [
+        5,
+        25
+      ],
+      [
+        10,
+        230
+      ],
+      [
+        240,
+        220
+      ]
+    ],
+    "attribute_domain": "wire_unsigned_u8_q16",
+    "f3_clip_ltrb": [
+      0,
+      0,
+      320,
+      10
+    ],
+    "strict_convex": true,
+    "route": "d60c_rowzero",
+    "entry_rva": "0xd420",
+    "target_pixel": [
+      318,
+      2
+    ],
+    "texture_variants": [
+      1,
+      255
+    ],
+    "synthetic_surface_stride": 512,
+    "packet_staging_scope": "Native-order D420 workspace is preloaded directly; packet decoding and AC60 staging are not tested here."
+  },
+  "native_runs": [
+    {
+      "texel": 1,
+      "native_run_status": "PASS_SENTINEL_AND_D60C_ROUTE",
+      "sample_count": 36,
+      "source_read_count": 36,
+      "surface_write_count": 36,
+      "ordered_pixel_uv_sha256": "9b6d2c86e8f7b330d949ca95d8fe113657a1693b41dc12abc29a618b6804f87b",
+      "first_pixel_uv": [
+        [
+          314,
+          2
+        ],
+        [
+          248,
+          49
+        ]
+      ],
+      "last_pixel_uv": [
+        [
+          319,
+          7
+        ],
+        [
+          111,
+          206
+        ]
+      ],
+      "original_code_unchanged": true,
+      "runtime_precondition": {
+        "reciprocal_initializer_span": [
+          "0x72a0",
+          "0x72cc"
+        ],
+        "initializer_instruction_count": 16383,
+        "table_va": "0xa8e918",
+        "entry_count": 2048,
+        "checked_entries": {
+          "0": "0x0",
+          "1": "0x40000000",
+          "2": "0x20000000",
+          "3": "0x15555555",
+          "2047": "0x80100"
+        }
+      },
+      "unexpected_access": null
+    },
+    {
+      "texel": 255,
+      "native_run_status": "PASS_SENTINEL_AND_D60C_ROUTE",
+      "sample_count": 36,
+      "source_read_count": 36,
+      "surface_write_count": 36,
+      "ordered_pixel_uv_sha256": "9b6d2c86e8f7b330d949ca95d8fe113657a1693b41dc12abc29a618b6804f87b",
+      "first_pixel_uv": [
+        [
+          314,
+          2
+        ],
+        [
+          248,
+          49
+        ]
+      ],
+      "last_pixel_uv": [
+        [
+          319,
+          7
+        ],
+        [
+          111,
+          206
+        ]
+      ],
+      "original_code_unchanged": true,
+      "runtime_precondition": {
+        "reciprocal_initializer_span": [
+          "0x72a0",
+          "0x72cc"
+        ],
+        "initializer_instruction_count": 16383,
+        "table_va": "0xa8e918",
+        "entry_count": 2048,
+        "checked_entries": {
+          "0": "0x0",
+          "1": "0x40000000",
+          "2": "0x20000000",
+          "3": "0x15555555",
+          "2047": "0x80100"
+        }
+      },
+      "unexpected_access": null
+    }
+  ],
+  "packed_u_counterexample": {
+    "pixel": [
+      318,
+      2
+    ],
+    "native_uv": [
+      151,
+      39
+    ],
+    "separate_component_q16_uv": [
+      150,
+      39
+    ],
+    "native_minus_model_u": 1,
+    "carry_witness_at_previous_pixel": {
+      "pixel_before_target": [
+        317,
+        2
+      ],
+      "before_read": {
+        "eax": 3936944133,
+        "ebx": 1431697845,
+        "ecx": 10671,
+        "edx": 2863332839,
+        "esi": 268439552,
+        "edi": 268567868,
+        "ebp": 2505375747,
+        "eflags": 519
+      },
+      "after_add_ebx_edx": {
+        "eax": 3936944129,
+        "ebx": 63388,
+        "ecx": 10671,
+        "edx": 2863332839,
+        "esi": 268439552,
+        "edi": 268567868,
+        "ebp": 2505375747,
+        "eflags": 519
+      },
+      "after_adc_cl_dl": {
+        "eax": 3936944129,
+        "ebx": 63388,
+        "ecx": 10647,
+        "edx": 2863332839,
+        "esi": 268439552,
+        "edi": 268567868,
+        "ebp": 2505375747,
+        "eflags": 659
+      },
+      "target_before_read": {
+        "eax": 2147352580,
+        "ebx": 63388,
+        "ecx": 10135,
+        "edx": 2863332839,
+        "esi": 268439552,
+        "edi": 268567869,
+        "ebp": 2505375746,
+        "eflags": 515
+      },
+      "add_ebx_edx": {
+        "unbounded_sum_hex": "0x10000f79c",
+        "expected_result_hex": "0xf79c",
+        "expected_carry": 1,
+        "observed_result_hex": "0xf79c",
+        "observed_carry": 1,
+        "matches": true
+      },
+      "adc_cl_dl": {
+        "old_cl": 175,
+        "dl": 231,
+        "incoming_carry": 1,
+        "expected_cl": 151,
+        "observed_cl_after_adc": 151,
+        "observed_cl_at_next_read": 151,
+        "matches": true
+      }
+    },
+    "acceptance": "PASS"
+  },
+  "texture_feedback_observation": {
+    "source_instruction": "0xdc8a MOV AL,[ESI+ECX]",
+    "following_v_update": [
+      "0xdc98 ADD EAX,EBP",
+      "0xdc9a ADC CH,DH"
+    ],
+    "registers_at_pixel_317_2": [
+      {
+        "texel": 1,
+        "before_texture_read_eax": 3936944133,
+        "after_texture_read_eax": 3936944129,
+        "after_add_eax_ebp": 2147352580,
+        "after_adc_ch_dh": 10135,
+        "uv_at_pixel": [
+          175,
+          41
+        ]
+      },
+      {
+        "texel": 255,
+        "before_texture_read_eax": 3936944899,
+        "after_texture_read_eax": 3936945151,
+        "after_add_eax_ebp": 2147353602,
+        "after_adc_ch_dh": 10135,
+        "uv_at_pixel": [
+          175,
+          41
+        ]
+      }
+    ],
+    "complete_ordered_uv_stream_equal_for_texel_1_and_255": true,
+    "equal_stream_length": true,
+    "interpretation": "The source byte changes captured EAX state in this fixture, while both finite runs emit the same 36 UV addresses. Whether texel feedback can change a later carry into CH under another span/state remains unresolved."
+  },
+  "acceptance_gates": {
+    "native_routes_and_preconditions_pass": true,
+    "both_original_code_snapshots_unchanged": true,
+    "each_run_has_36_reads_and_writes": true,
+    "native_target_is_151_39": true,
+    "separate_model_is_150_39": true,
+    "captured_carry_math_matches": true,
+    "full_variant_streams_equal_after_length_check": true,
+    "unexpected_access_rejected": true
+  },
+  "limits": [
+    "Finite original-byte witness only; this is not a generic FT4 scan implementation.",
+    "No claim of universal texel independence; only the two exact constant-texture runs are compared.",
+    "Preloaded native-order workspace; packet decode, AC60 traversal, shaded routes, and frame composition are outside scope.",
+    "Synthetic stride 512 makes x=318 observable without row aliasing; actual host surface addressing is not proven."
+  ],
+  "invocation": {
+    "original_root": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+    "receipt": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase6\\replay_packed_uv.json"
+  }
+}

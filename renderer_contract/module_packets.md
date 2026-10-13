@@ -46,6 +46,12 @@ writers. TITLE's `0x189a0` helper proves command-word high bytes `0x2c/0x2e`
 on its reviewed paths. These finite closures add no packet family and do not
 exclude unreviewed or computed producer paths.
 
+The later [producer reachability audit](producer_reachability.md) connects
+mode 7 through child dispatch to `0x186e0`, whose computed command is exactly
+`0x2c/0x2e` and whose linked record stride is `0x28`. This resolves that writer's
+earlier unknown command-domain note in the historical receipt. It does not
+establish production extents for consumer-only FT3 or fixed-size sprites.
+
 AC60 reads the common link DWORD at packet `+0` and command byte `+7`. On the
 group-`0x60` route, it first checks `BA01FC`. When that gate is zero, it writes
 the selected page base to `A909FC` from page state at `A8E6F4`, and may replace

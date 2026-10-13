@@ -37,6 +37,19 @@ EAX, and adds a callback return frame. Preserve the direct gate contract rather
 than claim those entry points are interchangeable. Live invocation remains
 unobserved.
 
+The [primary notification audit](notification_target.md) proves slot 92 is a
+one-argument cdecl raw-address exchange returning the previous address. The
+five direct engine registrations all pass NULL, and BDF0 enables the gate
+while clearing primary and secondary targets. No non-null target body is
+identified. Computed installers remain unresolved, so retain BD80 and its
+synchronous position rather than remove it based on these direct paths.
+
+Preserving unselected table words also preserves unusual trampoline behavior.
+The [context-writer audit](upload_domain_bounds.md) finds host slot 19 reading
+the original DLL caller's second argument beyond the trampoline's two copied
+arguments. Its stack relation and shared context pointer are part of the
+observed contract. Leave that service and its existing trampoline intact.
+
 Texture coherence requires +0x204/A710 uploads, TITLE +0x208/A640 convenience
 uploads and +0x20C/A8F0 VRAM moves. A640 calls A710 directly; AC60 calls A8F0
 and 70C0 directly. Wrapping those table slots alone does not intercept every
@@ -102,6 +115,13 @@ perspective-correct texturing/depth needs earlier geometry capture and reliable
 association with emitted/clipped primitives. Existing host transform callbacks
 expose camera coordinates, but that does not establish a complete capture and
 association protocol across every module. See geometry.md.
+
+Even faithful screen-space rendering must reproduce the native scan arithmetic.
+The [packed-UV witness](packed_uv_counterexample.md) rejects independent Q16
+pixel advancement for one wire-representable quad. Ordinary triangle splitting
+and continuous interpolation are also falsified by existing finite fixtures.
+The backend must resolve these sampled-address semantics before claiming
+faithful polygon rendering.
 
 ## Preserve live traversal and aliased tables
 

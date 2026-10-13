@@ -27,3 +27,11 @@ Finite route/model comparisons, source reads and hashes are recorded in
 Run `tests/test_original_quad_interpolation.py` with the common explicit
 image/receipt arguments. No arbitrary quad domain, clipping, perspective
 correction, GPU result or full-function equivalence is claimed.
+
+The [packed-UV counterexample](packed_uv_counterexample.md) subsequently
+falsified separate-component Q16 pixel accumulation on a different skewed
+fixture. The original carries between packed lanes; the model predicts U=150
+where the original reads 151. The sixteen matching samples above and the
+[fifteen skewed-quad runs](skewed_quads.md) retain their finite scope. They do
+not establish a general scan iterator. Source bytes also enter the captured
+V accumulator; their possible effect on later emitted addresses is unresolved.

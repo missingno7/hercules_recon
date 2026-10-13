@@ -1,0 +1,1300 @@
+{
+  "schema_version": 1,
+  "scope": "Static primary BD80 callback producer and direct write audit; no original execution or writes.",
+  "prediction_history": [
+    {
+      "prediction": "No DLL callsite would directly reach TITLE's slot-92 adapter, leaving the primary setter target statically unresolved.",
+      "falsifier": "Any direct adapter call, slot-92 table access, or adapter export/reference.",
+      "outcome": "FALSIFIED: the full skipdata sweep found direct wrapper users in ENG1, ENG3, and TITLE."
+    },
+    {
+      "prediction": "Every direct call to the three local slot-92 adapters passes NULL; no non-null target is exposed by those direct code paths.",
+      "falsifier": "A nonzero/unknown pushed argument, direct HERC BDA0 call, or additional direct slot-92 reference in the complete raw .text scans.",
+      "outcome": "SUPPORTED for the five observed calls; register-computed aliases and other runtime callers remain outside this static claim."
+    }
+  ],
+  "tooling": {
+    "reader": "repository scripts/pe.py",
+    "capstone": "5.0.7",
+    "decode": "Capstone x86-32 detail + skipdata full raw .text linear sweep",
+    "audit_source_sha256": "37f8eff40e93f6ec7eef06b047b1037269a817db6a8ce906ae91b591dd20ddb0"
+  },
+  "acceptance_gates": [
+    {
+      "gate": "ENG1.DLL has one fixed one-argument slot-92 adapter",
+      "passed": true
+    },
+    {
+      "gate": "ENG3.DLL has one fixed one-argument slot-92 adapter",
+      "passed": true
+    },
+    {
+      "gate": "TITLE.DLL has one fixed one-argument slot-92 adapter",
+      "passed": true
+    },
+    {
+      "gate": "ENG1.DLL exact direct slot-92 call set and NULL arguments",
+      "passed": true
+    },
+    {
+      "gate": "ENG3.DLL exact direct slot-92 call set and NULL arguments",
+      "passed": true
+    },
+    {
+      "gate": "TITLE.DLL exact direct slot-92 call set and NULL arguments",
+      "passed": true
+    },
+    {
+      "gate": "BDA0 reads one cdecl callback argument, returns old pointer, and writes A8E780",
+      "passed": true
+    },
+    {
+      "gate": "BD80 tests target/gate and tail-jumps without argument setup",
+      "passed": true
+    },
+    {
+      "gate": "BDF0 enables shared gate and clears primary/secondary targets",
+      "passed": true
+    },
+    {
+      "gate": "BDE0 disables the shared callback gate",
+      "passed": true
+    },
+    {
+      "gate": "source slot 92 maps to BDA0 and no direct BDA0 calls exist",
+      "passed": true
+    },
+    {
+      "gate": "BDF0 is called at 0x106E2 and initializer 0x10690 at 0x2043",
+      "passed": true
+    },
+    {
+      "gate": "original EXE/DLL SHA-256 and image-base pins",
+      "passed": true
+    },
+    {
+      "gate": "Capstone version is pinned at 5.0.7",
+      "passed": true
+    }
+  ],
+  "bounded_semantic_decodes": [
+    {
+      "module": "ENG1.DLL",
+      "label": "slot92_adapter",
+      "rva": "0x2c640",
+      "size": 16,
+      "instructions": [
+        {
+          "rva": "0x2c640",
+          "size": 4,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [esp + 4]"
+        },
+        {
+          "rva": "0x2c644",
+          "size": 1,
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "rva": "0x2c645",
+          "size": 6,
+          "mnemonic": "call",
+          "operands": "dword ptr [0x10071090]"
+        },
+        {
+          "rva": "0x2c64b",
+          "size": 3,
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        },
+        {
+          "rva": "0x2c64e",
+          "size": 1,
+          "mnemonic": "ret",
+          "operands": ""
+        },
+        {
+          "rva": "0x2c64f",
+          "size": 1,
+          "mnemonic": "nop",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "module": "ENG3.DLL",
+      "label": "slot92_adapter",
+      "rva": "0x1fc50",
+      "size": 16,
+      "instructions": [
+        {
+          "rva": "0x1fc50",
+          "size": 4,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [esp + 4]"
+        },
+        {
+          "rva": "0x1fc54",
+          "size": 1,
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "rva": "0x1fc55",
+          "size": 6,
+          "mnemonic": "call",
+          "operands": "dword ptr [0x10040910]"
+        },
+        {
+          "rva": "0x1fc5b",
+          "size": 3,
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        },
+        {
+          "rva": "0x1fc5e",
+          "size": 1,
+          "mnemonic": "ret",
+          "operands": ""
+        },
+        {
+          "rva": "0x1fc5f",
+          "size": 1,
+          "mnemonic": "nop",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "module": "TITLE.DLL",
+      "label": "slot92_adapter",
+      "rva": "0xc6e0",
+      "size": 16,
+      "instructions": [
+        {
+          "rva": "0xc6e0",
+          "size": 4,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [esp + 4]"
+        },
+        {
+          "rva": "0xc6e4",
+          "size": 1,
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "rva": "0xc6e5",
+          "size": 6,
+          "mnemonic": "call",
+          "operands": "dword ptr [0x1002bcb0]"
+        },
+        {
+          "rva": "0xc6eb",
+          "size": 3,
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        },
+        {
+          "rva": "0xc6ee",
+          "size": 1,
+          "mnemonic": "ret",
+          "operands": ""
+        },
+        {
+          "rva": "0xc6ef",
+          "size": 1,
+          "mnemonic": "nop",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "module": "ENG1.DLL",
+      "label": "slot92_adapter_callsite",
+      "rva": "0x6328",
+      "size": 10,
+      "instructions": [
+        {
+          "rva": "0x6328",
+          "size": 2,
+          "mnemonic": "push",
+          "operands": "0"
+        },
+        {
+          "rva": "0x632a",
+          "size": 5,
+          "mnemonic": "call",
+          "operands": "0x1002c640"
+        },
+        {
+          "rva": "0x632f",
+          "size": 3,
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        }
+      ]
+    },
+    {
+      "module": "ENG1.DLL",
+      "label": "slot92_adapter_callsite",
+      "rva": "0x1f220",
+      "size": 20,
+      "instructions": [
+        {
+          "rva": "0x1f220",
+          "size": 2,
+          "mnemonic": "push",
+          "operands": "0"
+        },
+        {
+          "rva": "0x1f222",
+          "size": 10,
+          "mnemonic": "mov",
+          "operands": "dword ptr [0x10071ec0], 0"
+        },
+        {
+          "rva": "0x1f22c",
+          "size": 5,
+          "mnemonic": "call",
+          "operands": "0x1002c640"
+        },
+        {
+          "rva": "0x1f231",
+          "size": 3,
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        }
+      ]
+    },
+    {
+      "module": "ENG3.DLL",
+      "label": "slot92_adapter_callsite",
+      "rva": "0xb1cf",
+      "size": 10,
+      "instructions": [
+        {
+          "rva": "0xb1cf",
+          "size": 2,
+          "mnemonic": "push",
+          "operands": "0"
+        },
+        {
+          "rva": "0xb1d1",
+          "size": 5,
+          "mnemonic": "call",
+          "operands": "0x1001fc50"
+        },
+        {
+          "rva": "0xb1d6",
+          "size": 3,
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        }
+      ]
+    },
+    {
+      "module": "ENG3.DLL",
+      "label": "slot92_adapter_callsite",
+      "rva": "0x1a460",
+      "size": 20,
+      "instructions": [
+        {
+          "rva": "0x1a460",
+          "size": 2,
+          "mnemonic": "push",
+          "operands": "0"
+        },
+        {
+          "rva": "0x1a462",
+          "size": 10,
+          "mnemonic": "mov",
+          "operands": "dword ptr [0x10041444], 0"
+        },
+        {
+          "rva": "0x1a46c",
+          "size": 5,
+          "mnemonic": "call",
+          "operands": "0x1001fc50"
+        },
+        {
+          "rva": "0x1a471",
+          "size": 3,
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        }
+      ]
+    },
+    {
+      "module": "TITLE.DLL",
+      "label": "slot92_adapter_callsite",
+      "rva": "0x1d4e0",
+      "size": 10,
+      "instructions": [
+        {
+          "rva": "0x1d4e0",
+          "size": 2,
+          "mnemonic": "push",
+          "operands": "0"
+        },
+        {
+          "rva": "0x1d4e2",
+          "size": 5,
+          "mnemonic": "call",
+          "operands": "0x1000c6e0"
+        },
+        {
+          "rva": "0x1d4e7",
+          "size": 3,
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        }
+      ]
+    },
+    {
+      "module": "HERCULES.EXE",
+      "label": "bda0_primary_setter",
+      "rva": "0xbda0",
+      "size": 16,
+      "instructions": [
+        {
+          "rva": "0xbda0",
+          "size": 4,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [esp + 4]"
+        },
+        {
+          "rva": "0xbda4",
+          "size": 5,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xa8e780]"
+        },
+        {
+          "rva": "0xbda9",
+          "size": 6,
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa8e780], ecx"
+        },
+        {
+          "rva": "0xbdaf",
+          "size": 1,
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "module": "HERCULES.EXE",
+      "label": "bd80_dispatch",
+      "rva": "0xbd80",
+      "size": 22,
+      "instructions": [
+        {
+          "rva": "0xbd80",
+          "size": 5,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xa8e780]"
+        },
+        {
+          "rva": "0xbd85",
+          "size": 2,
+          "mnemonic": "test",
+          "operands": "eax, eax"
+        },
+        {
+          "rva": "0xbd87",
+          "size": 2,
+          "mnemonic": "je",
+          "operands": "0x40bd95"
+        },
+        {
+          "rva": "0xbd89",
+          "size": 6,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xa8e788]"
+        },
+        {
+          "rva": "0xbd8f",
+          "size": 2,
+          "mnemonic": "test",
+          "operands": "ecx, ecx"
+        },
+        {
+          "rva": "0xbd91",
+          "size": 2,
+          "mnemonic": "je",
+          "operands": "0x40bd95"
+        },
+        {
+          "rva": "0xbd93",
+          "size": 2,
+          "mnemonic": "jmp",
+          "operands": "eax"
+        },
+        {
+          "rva": "0xbd95",
+          "size": 1,
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "module": "HERCULES.EXE",
+      "label": "bdf0_gate_enable_and_clear",
+      "rva": "0xbdf0",
+      "size": 23,
+      "instructions": [
+        {
+          "rva": "0xbdf0",
+          "size": 2,
+          "mnemonic": "xor",
+          "operands": "eax, eax"
+        },
+        {
+          "rva": "0xbdf2",
+          "size": 10,
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa8e788], 1"
+        },
+        {
+          "rva": "0xbdfc",
+          "size": 5,
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa8e780], eax"
+        },
+        {
+          "rva": "0xbe01",
+          "size": 5,
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa8e784], eax"
+        },
+        {
+          "rva": "0xbe06",
+          "size": 1,
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "module": "HERCULES.EXE",
+      "label": "bde0_gate_disable",
+      "rva": "0xbde0",
+      "size": 13,
+      "instructions": [
+        {
+          "rva": "0xbde0",
+          "size": 10,
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa8e788], 0"
+        },
+        {
+          "rva": "0xbdea",
+          "size": 2,
+          "mnemonic": "xor",
+          "operands": "eax, eax"
+        },
+        {
+          "rva": "0xbdec",
+          "size": 1,
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    }
+  ],
+  "accepted_direct_call_sites": {
+    "ENG1.DLL": [
+      {
+        "call_rva": "0x632a",
+        "argument": "NULL",
+        "cleanup": "add esp, 4",
+        "instructions": [
+          {
+            "rva": "0x6328",
+            "size": 2,
+            "mnemonic": "push",
+            "operands": "0"
+          },
+          {
+            "rva": "0x632a",
+            "size": 5,
+            "mnemonic": "call",
+            "operands": "0x1002c640"
+          },
+          {
+            "rva": "0x632f",
+            "size": 3,
+            "mnemonic": "add",
+            "operands": "esp, 4"
+          }
+        ],
+        "sha256": "c7b19b57af8d354a452569556f6531f9f030d268203c998ec1fb049575f7ab98"
+      },
+      {
+        "call_rva": "0x1f22c",
+        "argument": "NULL",
+        "cleanup": "add esp, 4",
+        "instructions": [
+          {
+            "rva": "0x1f220",
+            "size": 2,
+            "mnemonic": "push",
+            "operands": "0"
+          },
+          {
+            "rva": "0x1f222",
+            "size": 10,
+            "mnemonic": "mov",
+            "operands": "dword ptr [0x10071ec0], 0"
+          },
+          {
+            "rva": "0x1f22c",
+            "size": 5,
+            "mnemonic": "call",
+            "operands": "0x1002c640"
+          },
+          {
+            "rva": "0x1f231",
+            "size": 3,
+            "mnemonic": "add",
+            "operands": "esp, 4"
+          }
+        ],
+        "sha256": "cb1a859c2bc117ceacc8143fccd32f248a82c9227aab3680215660d0ae7cd221"
+      }
+    ],
+    "ENG3.DLL": [
+      {
+        "call_rva": "0xb1d1",
+        "argument": "NULL",
+        "cleanup": "add esp, 4",
+        "instructions": [
+          {
+            "rva": "0xb1cf",
+            "size": 2,
+            "mnemonic": "push",
+            "operands": "0"
+          },
+          {
+            "rva": "0xb1d1",
+            "size": 5,
+            "mnemonic": "call",
+            "operands": "0x1001fc50"
+          },
+          {
+            "rva": "0xb1d6",
+            "size": 3,
+            "mnemonic": "add",
+            "operands": "esp, 4"
+          }
+        ],
+        "sha256": "156e124fd97fc0fa78120cbb10eb6e07de33f5816b140138fcd269cf159a90f8"
+      },
+      {
+        "call_rva": "0x1a46c",
+        "argument": "NULL",
+        "cleanup": "add esp, 4",
+        "instructions": [
+          {
+            "rva": "0x1a460",
+            "size": 2,
+            "mnemonic": "push",
+            "operands": "0"
+          },
+          {
+            "rva": "0x1a462",
+            "size": 10,
+            "mnemonic": "mov",
+            "operands": "dword ptr [0x10041444], 0"
+          },
+          {
+            "rva": "0x1a46c",
+            "size": 5,
+            "mnemonic": "call",
+            "operands": "0x1001fc50"
+          },
+          {
+            "rva": "0x1a471",
+            "size": 3,
+            "mnemonic": "add",
+            "operands": "esp, 4"
+          }
+        ],
+        "sha256": "a717e356e9eabf67e9f21603a7f37b81bfb7adfba39e9322ffd0e66223b2de46"
+      }
+    ],
+    "TITLE.DLL": [
+      {
+        "call_rva": "0x1d4e2",
+        "argument": "NULL",
+        "cleanup": "add esp, 4",
+        "instructions": [
+          {
+            "rva": "0x1d4e0",
+            "size": 2,
+            "mnemonic": "push",
+            "operands": "0"
+          },
+          {
+            "rva": "0x1d4e2",
+            "size": 5,
+            "mnemonic": "call",
+            "operands": "0x1000c6e0"
+          },
+          {
+            "rva": "0x1d4e7",
+            "size": 3,
+            "mnemonic": "add",
+            "operands": "esp, 4"
+          }
+        ],
+        "sha256": "4da15d6d8fdc8876c194051eca00f5846e1a750c30b07d064d8d81a14ca98bd1"
+      }
+    ]
+  },
+  "module_scans": {
+    "HERCULES.EXE": {
+      "path_role": "host exe",
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "image_base": "0x400000",
+      "text": {
+        "rva": "0x1000",
+        "raw_size": 183808,
+        "sha256": "8eb19fa9f516f69b57a8c37934981a1c9d4e0ea500c9f749555490ca234e733a",
+        "raw_bytes": 183808,
+        "decoded_instructions": 65375,
+        "skipdata_bytes": 4,
+        "covered_bytes": 183808,
+        "first_rva": "0x1000",
+        "last_rva_exclusive": "0x2de00",
+        "decode_note": "full linear sweep with Capstone skipdata; embedded data may decode as instructions"
+      },
+      "direct_absolute_callback_cell_refs": {
+        "0xa8e780": [
+          {
+            "rva": "0xbd80",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [0xa8e780]",
+            "access": "read"
+          },
+          {
+            "rva": "0xbda4",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [0xa8e780]",
+            "access": "read"
+          },
+          {
+            "rva": "0xbda9",
+            "mnemonic": "mov",
+            "operands": "dword ptr [0xa8e780], ecx",
+            "access": "write"
+          },
+          {
+            "rva": "0xbdfc",
+            "mnemonic": "mov",
+            "operands": "dword ptr [0xa8e780], eax",
+            "access": "write"
+          }
+        ],
+        "0xa8e784": [
+          {
+            "rva": "0xbdb0",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [0xa8e784]",
+            "access": "read"
+          },
+          {
+            "rva": "0xbdd4",
+            "mnemonic": "mov",
+            "operands": "eax, dword ptr [0xa8e784]",
+            "access": "read"
+          },
+          {
+            "rva": "0xbdd9",
+            "mnemonic": "mov",
+            "operands": "dword ptr [0xa8e784], ecx",
+            "access": "write"
+          },
+          {
+            "rva": "0xbe01",
+            "mnemonic": "mov",
+            "operands": "dword ptr [0xa8e784], eax",
+            "access": "write"
+          }
+        ],
+        "0xa8e788": [
+          {
+            "rva": "0xbd89",
+            "mnemonic": "mov",
+            "operands": "ecx, dword ptr [0xa8e788]",
+            "access": "read"
+          },
+          {
+            "rva": "0xbdb9",
+            "mnemonic": "mov",
+            "operands": "ecx, dword ptr [0xa8e788]",
+            "access": "read"
+          },
+          {
+            "rva": "0xbde0",
+            "mnemonic": "mov",
+            "operands": "dword ptr [0xa8e788], 0",
+            "access": "write"
+          },
+          {
+            "rva": "0xbdf2",
+            "mnemonic": "mov",
+            "operands": "dword ptr [0xa8e788], 1",
+            "access": "write"
+          },
+          {
+            "rva": "0xbe52",
+            "mnemonic": "mov",
+            "operands": "ecx, dword ptr [0xa8e788]",
+            "access": "read"
+          }
+        ]
+      },
+      "direct_calls_to_host_primary_setter": []
+    },
+    "ENG1.DLL": {
+      "path_role": "shipped DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "image_base": "0x10000000",
+      "text": {
+        "rva": "0x1000",
+        "raw_size": 307200,
+        "sha256": "47c07abc5c91ac33492bba0624b51e5ecabf22034561fd3844b6f28c7fd7ba35",
+        "raw_bytes": 307200,
+        "decoded_instructions": 100212,
+        "skipdata_bytes": 23,
+        "covered_bytes": 307200,
+        "first_rva": "0x1000",
+        "last_rva_exclusive": "0x4c000",
+        "decode_note": "full linear sweep with Capstone skipdata; embedded data may decode as instructions"
+      },
+      "direct_absolute_callback_cell_refs": {
+        "0xa8e780": [],
+        "0xa8e784": [],
+        "0xa8e788": []
+      },
+      "direct_calls_to_host_primary_setter": [],
+      "local_host_table_slot_92": {
+        "cell_va": "0x10071090",
+        "accesses": [
+          {
+            "rva": "0x2c645",
+            "mnemonic": "call",
+            "operands": "dword ptr [0x10071090]",
+            "access": "read"
+          }
+        ]
+      },
+      "slot92_adapter": {
+        "rva": "0x2c640",
+        "direct_callers": [
+          {
+            "rva": "0x632a",
+            "mnemonic": "call",
+            "immediate_predecessor": {
+              "rva": "0x6328",
+              "mnemonic": "push",
+              "operands": "0"
+            },
+            "last_unbalanced_push": {
+              "rva": "0x6328",
+              "mnemonic": "push",
+              "immediate": "0x0"
+            },
+            "argument_value_if_direct_push": "0x0",
+            "cleanup_after_call": {
+              "rva": "0x632f",
+              "mnemonic": "add",
+              "operands": "esp, 4"
+            }
+          },
+          {
+            "rva": "0x1f22c",
+            "mnemonic": "call",
+            "immediate_predecessor": {
+              "rva": "0x1f222",
+              "mnemonic": "mov",
+              "operands": "dword ptr [0x10071ec0], 0"
+            },
+            "last_unbalanced_push": {
+              "rva": "0x1f220",
+              "mnemonic": "push",
+              "immediate": "0x0"
+            },
+            "argument_value_if_direct_push": "0x0",
+            "cleanup_after_call": {
+              "rva": "0x1f231",
+              "mnemonic": "add",
+              "operands": "esp, 4"
+            }
+          }
+        ]
+      }
+    },
+    "ENG3.DLL": {
+      "path_role": "shipped DLL",
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "image_base": "0x10000000",
+      "text": {
+        "rva": "0x1000",
+        "raw_size": 200192,
+        "sha256": "e62eabbae2fe5ff4c5a6af6a44fe71ccb011522a905d9119311de2239f0bace7",
+        "raw_bytes": 200192,
+        "decoded_instructions": 63421,
+        "skipdata_bytes": 6,
+        "covered_bytes": 200192,
+        "first_rva": "0x1000",
+        "last_rva_exclusive": "0x31e00",
+        "decode_note": "full linear sweep with Capstone skipdata; embedded data may decode as instructions"
+      },
+      "direct_absolute_callback_cell_refs": {
+        "0xa8e780": [],
+        "0xa8e784": [],
+        "0xa8e788": []
+      },
+      "direct_calls_to_host_primary_setter": [],
+      "local_host_table_slot_92": {
+        "cell_va": "0x10040910",
+        "accesses": [
+          {
+            "rva": "0x1fc55",
+            "mnemonic": "call",
+            "operands": "dword ptr [0x10040910]",
+            "access": "read"
+          }
+        ]
+      },
+      "slot92_adapter": {
+        "rva": "0x1fc50",
+        "direct_callers": [
+          {
+            "rva": "0xb1d1",
+            "mnemonic": "call",
+            "immediate_predecessor": {
+              "rva": "0xb1cf",
+              "mnemonic": "push",
+              "operands": "0"
+            },
+            "last_unbalanced_push": {
+              "rva": "0xb1cf",
+              "mnemonic": "push",
+              "immediate": "0x0"
+            },
+            "argument_value_if_direct_push": "0x0",
+            "cleanup_after_call": {
+              "rva": "0xb1d6",
+              "mnemonic": "add",
+              "operands": "esp, 4"
+            }
+          },
+          {
+            "rva": "0x1a46c",
+            "mnemonic": "call",
+            "immediate_predecessor": {
+              "rva": "0x1a462",
+              "mnemonic": "mov",
+              "operands": "dword ptr [0x10041444], 0"
+            },
+            "last_unbalanced_push": {
+              "rva": "0x1a460",
+              "mnemonic": "push",
+              "immediate": "0x0"
+            },
+            "argument_value_if_direct_push": "0x0",
+            "cleanup_after_call": {
+              "rva": "0x1a471",
+              "mnemonic": "add",
+              "operands": "esp, 4"
+            }
+          }
+        ]
+      }
+    },
+    "TITLE.DLL": {
+      "path_role": "shipped DLL",
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "image_base": "0x10000000",
+      "text": {
+        "rva": "0x1000",
+        "raw_size": 130560,
+        "sha256": "7c52029413e5d8fd382053f81d0fe93cb98027a60f1ffcbd73dc32f10b221dae",
+        "raw_bytes": 130560,
+        "decoded_instructions": 40168,
+        "skipdata_bytes": 16,
+        "covered_bytes": 130560,
+        "first_rva": "0x1000",
+        "last_rva_exclusive": "0x20e00",
+        "decode_note": "full linear sweep with Capstone skipdata; embedded data may decode as instructions"
+      },
+      "direct_absolute_callback_cell_refs": {
+        "0xa8e780": [],
+        "0xa8e784": [],
+        "0xa8e788": []
+      },
+      "direct_calls_to_host_primary_setter": [],
+      "local_host_table_slot_92": {
+        "cell_va": "0x1002bcb0",
+        "accesses": [
+          {
+            "rva": "0xc6e5",
+            "mnemonic": "call",
+            "operands": "dword ptr [0x1002bcb0]",
+            "access": "read"
+          }
+        ]
+      },
+      "slot92_adapter": {
+        "rva": "0xc6e0",
+        "direct_callers": [
+          {
+            "rva": "0x1d4e2",
+            "mnemonic": "call",
+            "immediate_predecessor": {
+              "rva": "0x1d4e0",
+              "mnemonic": "push",
+              "operands": "0"
+            },
+            "last_unbalanced_push": {
+              "rva": "0x1d4e0",
+              "mnemonic": "push",
+              "immediate": "0x0"
+            },
+            "argument_value_if_direct_push": "0x0",
+            "cleanup_after_call": {
+              "rva": "0x1d4e7",
+              "mnemonic": "add",
+              "operands": "esp, 4"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "cells": {
+    "primary_target_va": "0xa8e780",
+    "secondary_target_va": "0xa8e784",
+    "shared_gate_va": "0xa8e788",
+    "primary_target_storage": {
+      "rva": "0x68e780",
+      "section": ".data",
+      "section_rva": "0x35000",
+      "section_offset": "0x659780",
+      "raw_size": 38400,
+      "virtual_size": 7797544,
+      "file_backed": false
+    },
+    "host_setter": {
+      "rva": "0xbda0",
+      "signature": "cdecl: one 32-bit callback address argument; returns previous target in EAX",
+      "setter_callers_direct": []
+    },
+    "reset": {
+      "rva": "0xbdf0",
+      "effect": "gate=1; primary=0; secondary=0"
+    },
+    "bd80": {
+      "rva": "0xbd80",
+      "effect": "if primary != 0 and shared gate != 0, tail-jump primary; no args are explicitly pushed by this stub"
+    }
+  },
+  "title_slot92_adapter": {
+    "rva": "0xc6e0",
+    "signature": "one 32-bit argument forwarded through TITLE local host-table slot 92",
+    "host_table_cell_va": "0x1002bcb0",
+    "slot92_direct_accesses": [
+      {
+        "rva": "0xc6e5",
+        "mnemonic": "call",
+        "operands": "dword ptr [0x1002bcb0]",
+        "access": "read"
+      }
+    ],
+    "direct_code_callers": [
+      {
+        "rva": "0x1d4e2",
+        "mnemonic": "call",
+        "immediate_predecessor": {
+          "rva": "0x1d4e0",
+          "mnemonic": "push",
+          "operands": "0"
+        },
+        "last_unbalanced_push": {
+          "rva": "0x1d4e0",
+          "mnemonic": "push",
+          "immediate": "0x0"
+        },
+        "argument_value_if_direct_push": "0x0",
+        "cleanup_after_call": {
+          "rva": "0x1d4e7",
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        }
+      }
+    ],
+    "raw_pointer_occurrences_by_module": {
+      "HERCULES.EXE": [],
+      "ENG1.DLL": [],
+      "ENG3.DLL": [],
+      "TITLE.DLL": []
+    },
+    "exports_matching_adapter": []
+  },
+  "all_static_slot92_adapter_calls": {
+    "ENG1.DLL": [
+      {
+        "rva": "0x632a",
+        "mnemonic": "call",
+        "immediate_predecessor": {
+          "rva": "0x6328",
+          "mnemonic": "push",
+          "operands": "0"
+        },
+        "last_unbalanced_push": {
+          "rva": "0x6328",
+          "mnemonic": "push",
+          "immediate": "0x0"
+        },
+        "argument_value_if_direct_push": "0x0",
+        "cleanup_after_call": {
+          "rva": "0x632f",
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        }
+      },
+      {
+        "rva": "0x1f22c",
+        "mnemonic": "call",
+        "immediate_predecessor": {
+          "rva": "0x1f222",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0x10071ec0], 0"
+        },
+        "last_unbalanced_push": {
+          "rva": "0x1f220",
+          "mnemonic": "push",
+          "immediate": "0x0"
+        },
+        "argument_value_if_direct_push": "0x0",
+        "cleanup_after_call": {
+          "rva": "0x1f231",
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        }
+      }
+    ],
+    "ENG3.DLL": [
+      {
+        "rva": "0xb1d1",
+        "mnemonic": "call",
+        "immediate_predecessor": {
+          "rva": "0xb1cf",
+          "mnemonic": "push",
+          "operands": "0"
+        },
+        "last_unbalanced_push": {
+          "rva": "0xb1cf",
+          "mnemonic": "push",
+          "immediate": "0x0"
+        },
+        "argument_value_if_direct_push": "0x0",
+        "cleanup_after_call": {
+          "rva": "0xb1d6",
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        }
+      },
+      {
+        "rva": "0x1a46c",
+        "mnemonic": "call",
+        "immediate_predecessor": {
+          "rva": "0x1a462",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0x10041444], 0"
+        },
+        "last_unbalanced_push": {
+          "rva": "0x1a460",
+          "mnemonic": "push",
+          "immediate": "0x0"
+        },
+        "argument_value_if_direct_push": "0x0",
+        "cleanup_after_call": {
+          "rva": "0x1a471",
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        }
+      }
+    ],
+    "TITLE.DLL": [
+      {
+        "rva": "0x1d4e2",
+        "mnemonic": "call",
+        "immediate_predecessor": {
+          "rva": "0x1d4e0",
+          "mnemonic": "push",
+          "operands": "0"
+        },
+        "last_unbalanced_push": {
+          "rva": "0x1d4e0",
+          "mnemonic": "push",
+          "immediate": "0x0"
+        },
+        "argument_value_if_direct_push": "0x0",
+        "cleanup_after_call": {
+          "rva": "0x1d4e7",
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        }
+      }
+    ]
+  },
+  "host_source_table_slot_92": {
+    "rva": "0x36328",
+    "target_va": "0x40bda0",
+    "target_rva": "0xbda0",
+    "meaning": "host interface source-table entry for BDA0; DLL local cells above are copied-table call targets"
+  },
+  "startup_gate_path": {
+    "bdf0_callers": [
+      {
+        "rva": "0x106e2",
+        "mnemonic": "call",
+        "operands": "0x40bdf0"
+      }
+    ],
+    "bde0_callers": [],
+    "initializer_rva": "0x10690",
+    "initializer_callers": [
+      {
+        "rva": "0x2043",
+        "mnemonic": "call",
+        "operands": "0x410690"
+      }
+    ]
+  },
+  "primary_setter_pointer_occurrences_by_module": {
+    "HERCULES.EXE": [
+      {
+        "section": ".data",
+        "rva": "0x36328"
+      }
+    ],
+    "ENG1.DLL": [],
+    "ENG3.DLL": [],
+    "TITLE.DLL": []
+  },
+  "spans": [
+    {
+      "module": "HERCULES.EXE",
+      "label": "bd80_dispatch",
+      "rva": "0xbd80",
+      "size": 22,
+      "sha256": "6a9578c5be0c980bc35b29642d3ac389e829a0c5666022353cb88c04f19db64f"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "label": "bda0_primary_setter",
+      "rva": "0xbda0",
+      "size": 16,
+      "sha256": "5ba421e35d332be3cb442c8f333e689fdd0f60fb09f6e2c475df0d51e36c5c87"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "label": "bde0_gate_disable",
+      "rva": "0xbde0",
+      "size": 13,
+      "sha256": "60da0784b3cb49cf7c7d75c3a492c8aab18b40e62a5e5c65826f07ceeca016f5"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "label": "bdf0_gate_enable_and_clear",
+      "rva": "0xbdf0",
+      "size": 23,
+      "sha256": "817fcaafad2a1a5f2ab45c5b6165c47e09955b2f6828048def28a94888f29ead"
+    },
+    {
+      "module": "TITLE.DLL",
+      "label": "slot92_adapter",
+      "rva": "0xc6e0",
+      "size": 16,
+      "sha256": "b83e30d01d7418a1418d4a9c390c8f713ecdcf0ae1854344c9f0425e69772aaa"
+    },
+    {
+      "module": "ENG1.DLL",
+      "label": "slot92_adapter",
+      "rva": "0x2c640",
+      "size": 16,
+      "sha256": "af1278d1f44f4f05253c7136048b9ac07e8dce4c61137ffc937dbdf72bb65c9f"
+    },
+    {
+      "module": "ENG1.DLL",
+      "label": "slot92_adapter_callsite",
+      "rva": "0x6328",
+      "size": 10,
+      "sha256": "c7b19b57af8d354a452569556f6531f9f030d268203c998ec1fb049575f7ab98"
+    },
+    {
+      "module": "ENG1.DLL",
+      "label": "slot92_adapter_callsite",
+      "rva": "0x1f220",
+      "size": 20,
+      "sha256": "cb1a859c2bc117ceacc8143fccd32f248a82c9227aab3680215660d0ae7cd221"
+    },
+    {
+      "module": "ENG3.DLL",
+      "label": "slot92_adapter",
+      "rva": "0x1fc50",
+      "size": 16,
+      "sha256": "088fc69c979c734b231ebd3af546e02dfd8ec4634f9ddaf33ef68ec1e70aaa31"
+    },
+    {
+      "module": "ENG3.DLL",
+      "label": "slot92_adapter_callsite",
+      "rva": "0xb1cf",
+      "size": 10,
+      "sha256": "156e124fd97fc0fa78120cbb10eb6e07de33f5816b140138fcd269cf159a90f8"
+    },
+    {
+      "module": "ENG3.DLL",
+      "label": "slot92_adapter_callsite",
+      "rva": "0x1a460",
+      "size": 20,
+      "sha256": "a717e356e9eabf67e9f21603a7f37b81bfb7adfba39e9322ffd0e66223b2de46"
+    },
+    {
+      "module": "TITLE.DLL",
+      "label": "slot92_adapter",
+      "rva": "0xc6e0",
+      "size": 16,
+      "sha256": "b83e30d01d7418a1418d4a9c390c8f713ecdcf0ae1854344c9f0425e69772aaa"
+    },
+    {
+      "module": "TITLE.DLL",
+      "label": "slot92_adapter_callsite",
+      "rva": "0x1d4e0",
+      "size": 10,
+      "sha256": "4da15d6d8fdc8876c194051eca00f5846e1a750c30b07d064d8d81a14ca98bd1"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "label": "host_interface_source_slot_92",
+      "rva": "0x36328",
+      "size": 4,
+      "sha256": "281bb07c529a7aed4c157ab53a55643936776e385bc748d294ce40dd932845af"
+    }
+  ],
+  "conclusion": {
+    "fixed_primary_callback_target": null,
+    "primary_installer_producer": "no non-null static producer was found: the five directly observed calls into ENG1/ENG3/TITLE slot-92 adapters all push NULL; the runtime value remains unresolved because the setter is externally callable through copied host table slot 92",
+    "write_set": "unknown for the runtime-installed primary callback; BD80 imposes no visible no-alias or write-set rule. Preserve it as a synchronous callback boundary and reload live order-table links after it.",
+    "renderer_state_mutation": "cannot prove absence of OT/page/LUT/renderer-global mutation; likewise no evidence that the shipped runtime callback does so",
+    "coverage_limit": "full raw .text byte coverage and direct absolute references are established; linear sweep can decode embedded data, and computed register/table aliases, indirect callers, or runtime code generation are not ruled out"
+  }
+}

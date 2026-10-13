@@ -43,6 +43,10 @@ not replace this complete contract.
 | quad_interpolation.md | Four-edge interpolation versus triangle splits |
 | fill_edges.md | Constant-fill division, coverage and zero-byte behavior |
 | reciprocal_domain.md | Native 2047/2048 guards and pre-crop reciprocal lookups |
+| packed_uv_counterexample.md | Packed carry falsifies independent Q16 pixel accumulation |
+| notification_target.md | Setter ABI, five direct NULL registrations and unresolved aliases |
+| producer_reachability.md | TITLE mode-7 computed FT4 tag/link/stride proof |
+| upload_domain_bounds.md | TITLE same-context y=256 and ENG3 script-derived input bounds |
 | module_packets.md | Separate ENG3/TITLE producers and 0x68 semantics |
 | eng3_handlers.md | Six-entry render dispatch frontier and FT4 writers |
 | title_handlers.md | Child dispatch, grouped 0x68 records and FT4 mode writers |

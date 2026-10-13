@@ -34,6 +34,10 @@ RENDERER_ASSERT_LIVE_X86_POINTER_WIDTH(hercules_live_callbacks_require_x86);
 #endif
 typedef int (HERCULES_CDECL *HerculesChainInitCallback)(void *, renderer_u32);
 typedef void (HERCULES_CDECL *HerculesSubmitCallback)(void *);
+/* BDA0 exchanges one raw x86 callback address and returns the previous one.
+ * The installed callback's own ABI is unresolved; no callable type is inferred. */
+typedef renderer_raw32 (HERCULES_CDECL *HerculesPrimaryCallbackExchange)(
+    renderer_raw32 callback_address);
 #endif
 
 #ifdef __cplusplus
