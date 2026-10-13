@@ -1,6 +1,6 @@
 # Verification boundaries
 
-## Current native-resolution checkpoint
+## Earlier native-resolution checkpoint
 
 Fresh public-path verification passes 19 VC5 and 19 strict GCC C/C++ suites.
 The single-point C model and compiled observer pass 14 original-x86 cases /
@@ -308,7 +308,7 @@ including 83 ordered output stores and partial-result canaries. It retains
 unclamped/zero-Z batch semantics separately from single-point projection.
 The live callback ABI and the joined tool-view API remain distinct.
 
-## Connected source checkpoint
+## Connected source foundation (8c2b4c9)
 
 The [source closure](source_closure.md) separates finite C behavior, measured
 preparation seams and synthetic controller results. The source emitters pass
@@ -323,3 +323,32 @@ matching the original fixture, with raster output explicitly unsupported.
 The new controller verifies only source-built host/engine/proxy operation,
 including cold/warm table checks and timeout cleanup. No original game process,
 GPU output, visible-frame equivalence or FUNCTION_MATCH promotion is recorded.
+
+## Preparation, depth and raster follow-up
+
+Fresh public-path VC5 tests compile the existing ENG1 preparation and wrappers,
+compare 51 preparation effects, then feed that state into the source emitter
+for 914 checks over three archived resource calls. Generated headers come from
+the fresh trace. This removes the measured preparation seam for these inputs;
+zero Euler angles, uniform `0x2000` scale and controlled pre-call camera/cache
+state remain the domain. It does not validate resource/traversal C source,
+other rotations, high-bit depth narrowing or live startup.
+
+The full-prefix ENG3 original-code fixture now has one interval rejection and
+one depth acceptance. Its direct memory reads correct the private historical
+hook-value interpretation. Complete C visibility, live bounds and subsequent
+emission remain unresolved. The separate rectangle source derives geometry
+and UV addresses: two positive original AC60/D420/CAB0 cases match fresh GCC
+and VC5 event and indexed-buffer results; a third native asymmetric-UV case
+reaches the generic route outside the source domain. Unsupported source inputs
+are rejected before service calls or pixel writes. Remapping is requested but
+its seeded skip guard prevents the native remap loop from running.
+
+The connected Win32 adapter passes 109 assertions and seven synthetic process
+cases, including actual module-file hashes, pre-publication table baseline,
+cold/warm copies, callee/caller return stages and deterministic cleanup.
+Original-host mode remains blocked before process creation. Fresh portable
+GCC and VC5 runs each pass 21 suites. Their complete C/H/C++ hash inventory is
+distinct from translation units actually compiled; the nested process and
+raster fixtures have separate build receipts. No new strict matching result,
+original game launch, real Windows drawing or GPU output is claimed.

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "PROPOSED_BOUNDED_COMPOSITION_RASTER_EVIDENCE",
+  "claim_scope": "One synthetic, connected unchanged-original FT4 D420-to-CAB0 CPU-byte-write subset and its controlled surface tail; not whole-frame or display ownership proof.",
+  "original": {
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "spans": [
+      {"rva": "0xd420", "size": 2384, "sha256": "4645c60cf0a357ed4aae074c3487a2755384852d0874e2f12b352b994544e07e"},
+      {"rva": "0xcab0", "size": 405, "sha256": "5ca22ca070b69abaf98a0da5c794b0642cf816026b7ff87c794d6a82f6d9c71f"},
+      {"rva": "0xac60", "size": 1680, "sha256": "f7724c04bef582e378b183a12550ba841df1a6fa3660be51da71154aa5c525af"}
+    ]
+  },
+  "prediction_sha256": "13674f0f03ef2313841d689b3e0a76dc08133921679849bd06a8aed783d26c9a",
+  "positive_discriminator": {
+    "base_xywh_uv": [[1, 1, 2, 2], [0, 0]],
+    "shifted_resized_xywh_uv": [[4, 5, 3, 2], [2, 1]],
+    "texture_formula": "(V + row) * 256 + U + column",
+    "surface_formula": "(Y + row) * pitch + X + column",
+    "zero_sample": "read and skipped, based on CAB0 source test at 0xcbf7"
+  },
+  "falsifiers": [
+    "asymmetric UV reaches D420 fallback via 0xd555/0xd60c without D420-to-CAB0 shortcut; C subset rejects before side effects",
+    "nonrectangle C input rejects before side effects",
+    "native remap request 0xff takes guard skip 0x70d4->0x70db->0x7132 with no 0x70dd..0x7131 loop execution"
+  ],
+  "public_audit": "fixtures/composition/raster/tests/audit_composition_raster.py generates all native, GCC and VC5 outputs under a fresh guarded work directory; no saved phase-20 receipts are runtime inputs.",
+  "semantic_limits": [
+    "CompositionEvent kind is SCREEN_SPACE_GRAPHIC with CPU_SURFACE domain and UNCLASSIFIED owner; it does not establish world/UI layering.",
+    "controlled synthetic memory and GDI endpoints only; no assets, game process, OS graphics, palette conversion, generic fallback or gameplay chronology"
+  ]
+}

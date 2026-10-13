@@ -223,6 +223,8 @@ The live callback ABI and the joined tool-view API remain distinct.
 The [connected source checkpoint](source_closure.md) adds a public original-archive
 mesh trace and three-case C emitter comparison, a separate 1920x1440 numerical
 projection policy, a bounded ENG3 interval source seam, connected state-only
-composition and a source-built cold-copy/callback controller. Upstream engine
-preparation, complete visibility, original-host forwarding and final display
+composition and a source-built cold-copy/callback controller. The preparation
+fixture now feeds the archived-mesh emitter from C-derived state; a bounded
+rectangle frame also compares indexed-pixel writes and presentation order.
+Resource/traversal source coverage, complete visibility, original-host forwarding and final display
 ownership remain open; no GPU backend or new strict match is claimed.

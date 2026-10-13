@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "proof_level": "BEHAVIOR_VERIFIED",
+  "status": "PHASE20_ENG3_DEPTH_ACCEPT_BOUNDED",
+  "scope": "Two finite controlled calls to original ENG3 0x24A80, with its original 0x24BB0 helper and pinned original HERC callbacks. Coordinate 9 rejects before the helper. Coordinate 10 derives slot-4 scratch, passes through the original transform and slot-121 projection, then returns EAX=0. No live resource, current object list, packet destination, emitted polygon, or gameplay is claimed.",
+  "originals": {
+    "HERCULES.EXE": {
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+    },
+    "ENG3.DLL": {
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+    }
+  },
+  "raw_report": {
+    "path": "work/renderer_phase20/root_eng3_depth_accept1.json",
+    "sha256": "a4d72fea669bb02741e96021f81e64e895ef6e0abd8b28f58ce5449acf7983ee"
+  },
+  "runner": {
+    "path": "renderer_contract/tests/audit_eng3_depth_accept.py",
+    "sha256": "363aeb567fa797610df368d7516541946db70164ada6de718c3ea6922393efd1"
+  },
+  "case_results": [
+    {
+      "coordinate": 9,
+      "record_offset": "0x90",
+      "record_stride_bytes": 16,
+      "object_x_dword": "0x4800000",
+      "result_eax": "0xffffffff",
+      "instructions": 18,
+      "reached_24bb0": false,
+      "reached_success_tail_24aef": false,
+      "camera_xyz_dwords": [
+        0,
+        0,
+        0
+      ],
+      "projected_object_words": [
+        0,
+        0,
+        0
+      ],
+      "slot4_scratch_write_count": 0,
+      "uninitialized_non_file_backed_reads": []
+    },
+    {
+      "coordinate": 10,
+      "record_offset": "0xa0",
+      "record_stride_bytes": 16,
+      "object_x_dword": "0x5000000",
+      "result_eax": "0x0",
+      "instructions": 440,
+      "reached_24bb0": true,
+      "reached_success_tail_24aef": true,
+      "camera_xyz_dwords": [
+        0,
+        0,
+        640
+      ],
+      "projected_object_words": [
+        0,
+        0,
+        160
+      ],
+      "slot4_scratch_write_count": 3,
+      "uninitialized_non_file_backed_reads": []
+    }
+  ],
+  "controlled_writer_row": {
+    "row_u32": [
+      0,
+      10,
+      20
+    ],
+    "returned_eax": "0x14",
+    "instructions": 318,
+    "exact_span_completed": true
+  },
+  "callback_prefix": {
+    "source_rva": "0x361b8",
+    "length": 1000,
+    "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "copied_byte_for_byte": true,
+    "slot_targets": {
+      "5": "0x437480",
+      "101": "0x40b6f0",
+      "106": "0x40b920",
+      "108": "0x40b880",
+      "109": "0x40b8f0",
+      "114": "0x40b720",
+      "121": "0x40b870",
+      "164": "0x40bb00",
+      "165": "0x40bc30",
+      "174": "0x40b970",
+      "175": "0x40b990",
+      "4": "0xba25c0"
+    }
+  },
+  "historical_hook_correction": {
+    "sha256": "c8662081c0e4318f59fcb5b8d09d62462a32ec52ceb72f8d6c6805e74c066b40",
+    "note": "Preserved unchanged as historical. Its Unicorn read-hook value at slot-5 offset 0 was zero; corrected receipts use uc.mem_read during the hook and observe 0x1000 from the pinned file-backed table.",
+    "receipt": {
+      "path": "work/renderer_phase19/eng3_prefix_tail/runs/positive_tail_v1.json",
+      "sha256": "c8662081c0e4318f59fcb5b8d09d62462a32ec52ceb72f8d6c6805e74c066b40"
+    }
+  },
+  "proof_boundaries": {
+    "original_code_span_identity": "STATIC_OBSERVED",
+    "prior_public_c_interval_seam": "BOUNDED_EQUIVALENT",
+    "coordinate_9_native_interval_reject": "BEHAVIOR_VERIFIED",
+    "coordinate_10_native_depth_accept": "BEHAVIOR_VERIFIED",
+    "live_scene_visibility_through_emission": "UNRESOLVED"
+  },
+  "new_spans": [
+    {
+      "module": "ENG3.DLL",
+      "rva": "0x204c0",
+      "size": 554,
+      "sha256": "d7fdaeaa92e928fec0bbd482674672c662e03a822fa8e3b9c891320520c5a01f",
+      "label": "interval_row_writer_204c0"
+    },
+    {
+      "module": "ENG3.DLL",
+      "rva": "0x24aef",
+      "size": 5,
+      "sha256": "cadc250d09720749067905ca17f6f4be7be66a84e4f6bfe9fef3bf140b943d19",
+      "label": "success_epilogue_24aef"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "renderer_contract/evidence/eng3_geometry_association.json",
+      "sha256": "95dfe3bc63f48defc7979277c2bedacdfcc5950832a2d35803228566d238b89d"
+    },
+    {
+      "path": "renderer_contract/evidence/eng3_interval_source.json",
+      "sha256": "9a05b29ceec814574991b9ff9e8b414ed448f4e1e941bba83dc4f733245b61eb"
+    },
+    {
+      "path": "renderer_contract/fixtures/eng3_depth_accept/prediction_falsifier.md",
+      "sha256": "ed89164219eb5a8732aa9d7c9dc68dd87dd9e536ebc952b6bc95e4b3ebcb91d0"
+    },
+    {
+      "path": "renderer_contract/fixtures/eng3_visibility_source/eng3_visibility_seam.c",
+      "sha256": "9c35f6c653549e59c844d647cf17c1b943dd4e085bb6317691a8fd65fca4a206"
+    },
+    {
+      "path": "renderer_contract/fixtures/eng3_visibility_source/run_eng3_visibility_source.py",
+      "sha256": "4a2f72becb65410aa83255e5eb9597ecee7664780c8c69e9e4e037c489ee296c"
+    },
+    {
+      "path": "renderer_contract/tests/audit_eng3_depth_accept.py",
+      "sha256": "363aeb567fa797610df368d7516541946db70164ada6de718c3ea6922393efd1"
+    },
+    {
+      "path": "renderer_contract/tests/audit_viewport_visibility.py",
+      "sha256": "8758ebf7a0c69925914c5c10dde29f24294bebd42f864f3d83af6acfae795fe3"
+    }
+  ],
+  "unresolved": [
+    "No runtime bound-table or geometry-record producer/resource identity is established.",
+    "No live caller object-list flags, visibility traversal, 0x8DA0 route, or 0x231A0 packet emission was executed.",
+    "EAX=0 proves this controlled helper call avoids the caller's -1 rejection value only; it does not prove emitted geometry.",
+    "Accepted depth does not establish a live scene producer, object list, packet destination, or emitted geometry."
+  ]
+}

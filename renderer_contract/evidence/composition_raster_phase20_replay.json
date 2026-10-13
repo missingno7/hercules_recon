@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "proof_level": "BOUNDED_EQUIVALENT",
+  "status": "FRESH_BOUNDED_COMPOSITION_RASTER_AUDIT_PASS",
+  "scope": "Two positive unblended FT4 axis-aligned rectangles compare finite original D420-to-CAB0 event/pixel signatures against the source C subset under GCC and VC5. One asymmetric-UV native case reaches a fallback and is rejected by the subset. No whole-frame, GPU, general fallback, clipping, blending, palette, or screen-ownership claim.",
+  "original_exe_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "input_configuration": {
+    "path": "renderer_contract/evidence/composition_raster_phase20.json",
+    "sha256": "dc2f02c48007edb14e7416dd240562351a1bbcd3109a7ea091fbd9d6c2e4791c"
+  },
+  "prediction": {
+    "path": "renderer_contract/fixtures/composition/raster/fixtures/prediction_falsifier.md",
+    "sha256": "13674f0f03ef2313841d689b3e0a76dc08133921679849bd06a8aed783d26c9a"
+  },
+  "raw_audit_receipt": {
+    "path": "work/renderer_phase20/root_composition_raster3/composition_raster_audit.json",
+    "sha256": "d350879af20829cc8e90b1d9282f996805b939c90a5371f1c088109fa197a75b"
+  },
+  "native_cases": {
+    "base": {
+      "path": "work/renderer_phase20/root_composition_raster3/native/native_ft4_frame.json",
+      "sha256": "6948d3d6333f8de10079f4d545e03e8846c9fb2048825fb051c0f2e508c4097e"
+    },
+    "offset_rectangle": {
+      "path": "work/renderer_phase20/root_composition_raster3/native/native_ft4_offset_rectangle.json",
+      "sha256": "0d3823bdefe0b9c6d56381d15a8376ef00e9dfe5666cff1500b8aa235fb52fd8"
+    },
+    "asymmetric_uv": {
+      "path": "work/renderer_phase20/root_composition_raster3/native/native_ft4_asymmetric_uv.json",
+      "sha256": "ae609046ddfabdaaee9362870dfc9f8c50242598294e9444f0876e39e4d14fbc"
+    }
+  },
+  "four_comparison_receipts": {
+    "gcc/base": {
+      "path": "work/renderer_phase20/root_composition_raster3/gcc/comparison.json",
+      "sha256": "df20c148182d6e1c8fa54c600e0aca7180b0033a560b6fda55d8532f47fcb6ea"
+    },
+    "gcc/offset_rectangle": {
+      "path": "work/renderer_phase20/root_composition_raster3/gcc/offset_comparison.json",
+      "sha256": "06000bdcbadf286040f735f5c90f3a041d2a5f40d547d306985f8f7a3ccf7108"
+    },
+    "vc5/base": {
+      "path": "work/renderer_phase20/root_composition_raster3/vc5/comparison.json",
+      "sha256": "7c46e41e5531fb27728ba441d98549ae33f72b06a0cb6966852a0acea7b03d00"
+    },
+    "vc5/offset_rectangle": {
+      "path": "work/renderer_phase20/root_composition_raster3/vc5/offset_comparison.json",
+      "sha256": "0990c60d97aff6bd696edc410ab3c873a3cd706ebd482e28672c3ce9afc8a6cf"
+    }
+  },
+  "native_case_count": 3,
+  "positive_rectangle_cases": 2,
+  "asymmetric_uv_fallback_cases": 1,
+  "recorded_compiler_comparison_rows": 4,
+  "compiler_comparisons": {
+    "gcc/base": {
+      "native_event_count": 13,
+      "candidate_event_count": 13,
+      "event_signature_match": true,
+      "pixel_result_match": true,
+      "raw_input_match": true,
+      "native_receipt_sha256": "6948d3d6333f8de10079f4d545e03e8846c9fb2048825fb051c0f2e508c4097e"
+    },
+    "gcc/offset_rectangle": {
+      "native_event_count": 16,
+      "candidate_event_count": 16,
+      "event_signature_match": true,
+      "pixel_result_match": true,
+      "raw_input_match": true,
+      "native_receipt_sha256": "0d3823bdefe0b9c6d56381d15a8376ef00e9dfe5666cff1500b8aa235fb52fd8"
+    },
+    "vc5/base": {
+      "native_event_count": 13,
+      "candidate_event_count": 13,
+      "event_signature_match": true,
+      "pixel_result_match": true,
+      "raw_input_match": true,
+      "native_receipt_sha256": "6948d3d6333f8de10079f4d545e03e8846c9fb2048825fb051c0f2e508c4097e"
+    },
+    "vc5/offset_rectangle": {
+      "native_event_count": 16,
+      "candidate_event_count": 16,
+      "event_signature_match": true,
+      "pixel_result_match": true,
+      "raw_input_match": true,
+      "native_receipt_sha256": "0d3823bdefe0b9c6d56381d15a8376ef00e9dfe5666cff1500b8aa235fb52fd8"
+    },
+    "gcc/compiler": {
+      "version": "gcc.exe (Rev10, Built by MSYS2 project) 12.2.0",
+      "compiler_sha256": "c5005ba5380351c10743e9ca53ef9632164c54be3bd6b93324795114e4589a7d",
+      "candidate_executable_sha256": "428dd8547494947ed0775731b04fc958c760b3da3e1b97b783bb61b61dbef355"
+    },
+    "vc5/compiler": {
+      "version": "VC5 product 5.00.7022 (pinned compiler executable)",
+      "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+      "candidate_executable_sha256": "7118e2affd039a147840bdc1705766f0d65cc0f86f81c52327119fa66aab805b"
+    }
+  },
+  "source_files": [
+    {
+      "path": "renderer_contract/evidence/composition_raster_phase20.json",
+      "sha256": "dc2f02c48007edb14e7416dd240562351a1bbcd3109a7ea091fbd9d6c2e4791c"
+    },
+    {
+      "path": "renderer_contract/fixtures/composition/raster/README.md",
+      "sha256": "924be54ebe75613b1b228e52c3d485b3e29a996bedb6ae44fe84c137aff6edd4"
+    },
+    {
+      "path": "renderer_contract/fixtures/composition/raster/fixtures/prediction_falsifier.md",
+      "sha256": "13674f0f03ef2313841d689b3e0a76dc08133921679849bd06a8aed783d26c9a"
+    },
+    {
+      "path": "renderer_contract/fixtures/composition/raster/src/composition_raster.c",
+      "sha256": "945ee3602aeb2b5c6099a08ab335f040fe6fcbf91777f2f4560ea2dc2d8f9cc2"
+    },
+    {
+      "path": "renderer_contract/fixtures/composition/raster/src/composition_raster.h",
+      "sha256": "45b09096bfac7714e0f2b7ec4179b1a7e9cf17b5ab47641654e6fafc341c58ac"
+    },
+    {
+      "path": "renderer_contract/fixtures/composition/raster/tests/audit_composition_raster.py",
+      "sha256": "f5eb21114c5b784dcdba0fc4cf38a8478bc878e9b6dfe954caaa68b2b7a0f45b"
+    },
+    {
+      "path": "renderer_contract/fixtures/composition/raster/tests/compare_composition_raster.py",
+      "sha256": "2713cab11b968178c0f248e1f2f2fe74efed249ba7854aa9852941f21885daa9"
+    },
+    {
+      "path": "renderer_contract/fixtures/composition/raster/tests/run_original_composition_raster.py",
+      "sha256": "01e6825e1c2020317d7633f502df3570924970ac5850dc6409115f30a8394717"
+    },
+    {
+      "path": "renderer_contract/fixtures/composition/raster/tests/test_composition_raster.c",
+      "sha256": "70cc0221a881be053e87fc97b568c81dc76770e42ca5e504abc14144f2a40aeb"
+    },
+    {
+      "path": "renderer_contract/fixtures/composition/src/composition_events.c",
+      "sha256": "7843599ff45271029061ab07e38b99e00b1b53e5612a5846d6548f23734c7db9"
+    },
+    {
+      "path": "renderer_contract/fixtures/composition/src/composition_events.h",
+      "sha256": "8c41f5e7f85ecb8e2a6c47628bc88fa8326196b6ea1681bcb48b66aba0e0d98d"
+    },
+    {
+      "path": "renderer_contract/hercules_frame.c",
+      "sha256": "0c51696b5aa5af4d9e08527151a1ce32021c64d378123bffd7df92672291c1a4"
+    },
+    {
+      "path": "renderer_contract/hercules_frame.h",
+      "sha256": "e743695844317c5819cd969a93280b8931517ddff21e893238760aef990d2189"
+    },
+    {
+      "path": "renderer_contract/hercules_packets.c",
+      "sha256": "6ff07e4ebcc24f6a04a2b3fa978b06ba9950350b71292cd3b14761735560dcfc"
+    },
+    {
+      "path": "renderer_contract/hercules_packets.h",
+      "sha256": "b2616d9fb1c9d154730cbfc824880760a0c0162e9aa3f851150ec1787a7dc163"
+    },
+    {
+      "path": "renderer_contract/hercules_pixels.c",
+      "sha256": "a5479335fb97f3a395b8e74c0bc94f0481b609d2511d04f99484a0af0dec76c4"
+    },
+    {
+      "path": "renderer_contract/hercules_pixels.h",
+      "sha256": "5685c7653d05e55e0b1a8a343cf4d72db9d5fc02adf3d0da50d9f63fda1fbea1"
+    },
+    {
+      "path": "renderer_contract/hercules_quad_dispatch.h",
+      "sha256": "760dbea6cd1e70f94847da3e2815830fff557e4d86820a8a825e41b9e88cb9c8"
+    },
+    {
+      "path": "renderer_contract/hercules_staging.c",
+      "sha256": "d6c112e5ec5aecc095958292345ce03348ad267443efc2f9fb85fd64d1038d0b"
+    },
+    {
+      "path": "renderer_contract/hercules_staging.h",
+      "sha256": "699ced0da2f8070c24523fc4adc8e25d68180eab7fc18e053acabd0ff56a64e5"
+    },
+    {
+      "path": "renderer_contract/hercules_state.c",
+      "sha256": "1c8b050d684837966f58eca3e5435ac33eb756ba4f5e13e8741bd52d5312ee8f"
+    },
+    {
+      "path": "renderer_contract/hercules_state.h",
+      "sha256": "c6c528b7f5e18f0f3bc0aa5f794da689043b9f777f4e73bdb5e6a77aa64b26a2"
+    },
+    {
+      "path": "renderer_contract/hercules_types.h",
+      "sha256": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d"
+    }
+  ],
+  "analysis_helper": {
+    "path": "scripts/pe.py",
+    "sha256": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca"
+  },
+  "claims": [
+    "original x86 exercised two positive D420->CAB0 rectangles and one asymmetric-UV fallback discriminator",
+    "source-built C model matches native positive event/pixel/raw-input signatures under GCC and VC5",
+    "nonrectangle and asymmetric-UV inputs are rejected by C before service or surface writes"
+  ],
+  "limits": [
+    "controlled synthetic buffers and GDI endpoints only",
+    "not a real game frame, asset, or screen-ownership proof",
+    "no general fallback rasterizer, palette path, clipping, blending, or external writer completeness"
+  ],
+  "configuration_preservation": "The original configuration remains a byte-pinned runner input; this result receipt is a separate file."
+}
