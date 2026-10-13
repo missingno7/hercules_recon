@@ -1,0 +1,195 @@
+{
+  "schema_version": 2,
+  "scope": "Static first-party upload-producer receipt; no resources are extracted and no game execution occurs.",
+  "inputs": {
+    "HERCULES.EXE": {
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "image_base": "0x00400000"
+    },
+    "ENG1.DLL": {
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "image_base": "0x10000000"
+    },
+    "ENG3.DLL": {
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "image_base": "0x10000000"
+    },
+    "TITLE.DLL": {
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "image_base": "0x10000000"
+    }
+  },
+  "public_helpers": {
+    "scripts/env.py": "1b743fc8adbb5df32b167fd44c39b8026bb66115ad81d68a32979c38e45047e4",
+    "scripts/pe.py": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca",
+    "renderer_contract/tests/oracle_common.py": "a024048d9acc6e18197e10a82427cd84351a90666e1626e610bf60c6105f1357"
+  },
+  "rectangles": {
+    "ENG1_cold_panel": {
+      "u16_words": [
+        "0x0000",
+        "0x0200",
+        "0x0080",
+        "0x0200"
+      ],
+      "proof": "PINNED_FILE_BACKED_LITERAL"
+    },
+    "ENG3_startup_panel": {
+      "u16_words": [
+        "0x0000",
+        "0x0200",
+        "0x0080",
+        "0x0200"
+      ],
+      "proof": "PINNED_FILE_BACKED_LITERAL"
+    },
+    "ENG3_global_35100_initial": {
+      "u16_words": [
+        "0x017f",
+        "0x0000",
+        "0x0001",
+        "0x0100"
+      ],
+      "proof": "PINNED_FILE_BACKED_LITERAL"
+    },
+    "ENG3_global_35120": {
+      "u16_words": [
+        "0x0300",
+        "0x00e0",
+        "0x0100",
+        "0x0020"
+      ],
+      "proof": "PINNED_FILE_BACKED_LITERAL"
+    }
+  },
+  "ENG3_slot129_wrapper": {
+    "target_rva": "0x1fe30",
+    "direct_call_rvas": [
+      "0x07c8b",
+      "0x07ccc",
+      "0x080f1",
+      "0x0a29d",
+      "0x0aa84",
+      "0x1aa6e",
+      "0x1aaa2",
+      "0x250c8"
+    ],
+    "caller_set_match": true,
+    "scan": {
+      "section": ".text",
+      "file_backed_bytes": 200192,
+      "decoded_items_including_data_skips": 63427,
+      "decoded_stream_bytes": 200192,
+      "all_file_backed_bytes_walked": true,
+      "capstone_version": "5.0.7",
+      "method": "Capstone 32-bit linear sweep with data-skip enabled",
+      "completeness": "Complete only for this decoded linear stream; overlapping instruction streams, computed calls, and calls outside file-backed .text are not covered."
+    }
+  },
+  "code_spans": {
+    "eng3_split_uploader": {
+      "rva": "0x07c5b",
+      "size": 118,
+      "sha256": "d110326ba906a84a81c35ffe17b220865af67faa59e59dcb54f5e22a6b59babd",
+      "proof": "PINNED_FILE_BACKED_CODE_SPAN"
+    },
+    "eng3_resource_rectangle_copy": {
+      "rva": "0x08072",
+      "size": 132,
+      "sha256": "ac57433c61a52059f5c014cb39c05355930e9c964df6675c69a1f744900c7ab4",
+      "proof": "PINNED_FILE_BACKED_CODE_SPAN"
+    },
+    "eng3_tile_group_upload": {
+      "rva": "0x0a1d0",
+      "size": 210,
+      "sha256": "b5c9b358a9b6c1ab57b4e6bbe31b6bff085a7e2d6b6b6dc3924694c921750195",
+      "proof": "PINNED_FILE_BACKED_CODE_SPAN"
+    },
+    "eng3_palette_rect_upload": {
+      "rva": "0x0aa70",
+      "size": 25,
+      "sha256": "751ad1d66ee9650a28a4637c3cbbab22cb5b4f6f7dc29745b7bee4e002a9231e",
+      "proof": "PINNED_FILE_BACKED_CODE_SPAN"
+    },
+    "eng3_other_rectangle_uploads": {
+      "rva": "0x1aa30",
+      "size": 128,
+      "sha256": "c50d7feba8f549ef61d8c1d2d3181a74a79d238182679a8044705aad5ee2c2ec",
+      "proof": "PINNED_FILE_BACKED_CODE_SPAN"
+    },
+    "eng3_startup_panel_upload": {
+      "rva": "0x250aa",
+      "size": 38,
+      "sha256": "3fade3fa8eabc3a909d0fae27ba2da24432325e0684114926e4974f9a64cc2e7",
+      "proof": "PINNED_FILE_BACKED_CODE_SPAN"
+    },
+    "a710_entry": {
+      "rva": "0x0a710",
+      "size": 469,
+      "sha256": "30bd84ea8724152e3bfb0e2c521650399913bcec115f1aef489768085981d0fe",
+      "proof": "PINNED_FILE_BACKED_CODE_SPAN"
+    },
+    "a710_high_y_branch": {
+      "rva": "0x0a71f",
+      "size": 98,
+      "sha256": "49802eb955b9960f9c0346fc0d1ada9ebee8889e430b4ddb39b88e3b19c6360b",
+      "proof": "PINNED_FILE_BACKED_CODE_SPAN"
+    },
+    "bd80_notification_gate": {
+      "rva": "0x0bd80",
+      "size": 22,
+      "sha256": "6a9578c5be0c980bc35b29642d3ac389e829a0c5666022353cb88c04f19db64f",
+      "proof": "PINNED_FILE_BACKED_CODE_SPAN"
+    }
+  },
+  "fixed_high_y_upload": {
+    "rectangle_words": [
+      0,
+      512,
+      128,
+      512
+    ],
+    "width_times_height_bytes": 131072,
+    "eng1_rect_rva": "0x5df00",
+    "eng3_rect_rva": "0x39868",
+    "eng3_wrapper_call_rva": "0x250c8",
+    "proof": "FILE_BACKED_RECT_LITERALS_PLUS_PINNED_CALLER_SPAN_AND_NATIVE_FIXTURE"
+  },
+  "domain_findings": [
+    {
+      "module": "ENG1",
+      "producer": "cold-start panel",
+      "domain": "fixed x=0,y=512,width=128,height=512",
+      "status": "PROVEN_LITERAL_RECT"
+    },
+    {
+      "module": "ENG3",
+      "producer": "startup panel",
+      "domain": "fixed x=0,y=512,width=128,height=512",
+      "status": "PROVEN_LITERAL_RECT_AND_SLOT129_CALL"
+    },
+    {
+      "module": "ENG3",
+      "producer": "split uploader",
+      "domain": "first y derives from object state plus 512; second y derives from object state",
+      "status": "STATE_RANGE_UNRESOLVED"
+    },
+    {
+      "module": "ENG1/ENG3",
+      "producer": "resource-record uploaders",
+      "domain": "four RECT words copied from loaded records",
+      "status": "RESOURCE_VALUES_UNRESOLVED"
+    },
+    {
+      "module": "TITLE",
+      "producer": "context upload",
+      "domain": "y from context field at offset 0x138",
+      "status": "WRITER_AND_RANGE_UNRESOLVED"
+    }
+  ],
+  "limits": [
+    "The startup rectangle proves the address band reached by that specific first-party producer, not ownership/allocation extent or a bound for every callback input.",
+    "Literal fixed rectangles and linear-sweep callsites do not close resource values or runtime state fields.",
+    "Computed call targets, overlapping code streams, non-file-backed code, and dynamic resource/state values remain outside this scan."
+  ]
+}

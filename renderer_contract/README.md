@@ -127,3 +127,7 @@ direct AC60 access minimum alone is insufficient for that helper.
 The investigation starts from commit 73c6320179093c3de9b820e66b87f94dfb639a9b
 on an isolated renderer branch. Detailed proof references accompany each
 subsystem. These contracts are GPU API independent.
+
+[Skewed quad fixtures](skewed_quads.md) verify five finite shapes across three
+original routes. [Upload producer domains](texture_producer_domains.md) recover
+the shared ENG1/ENG3 high-band startup rectangle and its exact native write range.

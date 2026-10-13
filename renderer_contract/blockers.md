@@ -10,7 +10,10 @@
 
 Optional 3D enhancements do not block basic capture. Whole-EXE reconstruction
 and complete software-rasterizer reimplementation are unnecessary. The next
-verification boundaries are wider reciprocal/coordinate domains, shared-state
-ownership, reachable commands and resource-driven LUT values. Bootstrap
+verification boundaries are wider coordinate domains beyond the five proven
+skewed quads, shared-state ownership, reachable commands and resource-driven
+rectangle/LUT values. The fixed ENG1/ENG3 high-band upload is now bounded to
+128 KiB; this establishes a write interval, not a general texture allocation.
+Bootstrap
 installation and actual host/GPU output remain unobserved. Unsupported packets
 remain visibly rejected, never silently treated as drawing success.

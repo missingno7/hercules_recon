@@ -89,3 +89,21 @@ renderer_u32 herc_tex_a640_return_mode0(
     result |= (((arg4 >> 2) & 0xf0U) | (arg2 & 0x100U)) >> 4;
     return result;
 }
+
+int herc_tex_upload_high_y_byte_address(
+    renderer_i16 x_words, renderer_i16 y_rows,
+    renderer_u32 byte_in_word, renderer_u32 *address_out)
+{
+    renderer_u32 row;
+    renderer_u32 byte_x;
+
+    if (address_out == 0 || x_words < 0 || x_words >= 1024 ||
+        y_rows < 512 || y_rows > 1023 || byte_in_word > 1U)
+        return 0;
+
+    row = 0x1000UL + ((renderer_u32)(renderer_u16)y_rows & 0x1ffUL);
+    byte_x = ((renderer_u32)(renderer_u16)x_words << 1) + byte_in_word;
+    *address_out = HERC_TEX_MAP_BASE + (row << 8) +
+                   ((byte_x & 0x700UL) << 8) + (byte_x & 0xffUL);
+    return 1;
+}

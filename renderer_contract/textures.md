@@ -30,7 +30,12 @@ The measured inner loops fetch a single indexed byte. Full interpolated UV
 wrapping, clipping and edge coverage remain outside the finite pixel proof;
 no bilinear or ordinary RGBA texture interpretation is part of this contract.
 
-The equation is also present in the higher-y native branch as `row=0x1000+(y&0x1ff)`, but higher-y writes were excluded from the finite oracle. The `.data` section is not a proved texture allocation. Do not treat either the equation's full index-derived reach or the tested low-y interval as an owned buffer range.
+The higher-y branch uses `row=0x1000+(y&0x1ff)`. A later
+[producer-domain fixture](texture_producer_domains.md) verifies the shared
+ENG1/ENG3 startup rectangle `{0,512,128,512}` and its 128-KiB write interval
+`[0xA6E6E0,0xA8E6E0)`. The separate high-y helper evaluates address expressions
+only. The `.data` section and either tested interval are not proved texture
+allocations; resource-derived rectangles remain unresolved.
 
 Polygon page selection uses `page=(tpage&0x1f)>>1`, with sample address `base + page*0x10000 + v*256 + u`. When `(tpage&0x180)==0x180`, the selected base is `0xA6E6E0` (one MiB above the ordinary base) and the ordinary page index is replaced. The four blend-table selectors are `(tpage>>5)&3`. These are address expressions; the helper does not dereference them.
 

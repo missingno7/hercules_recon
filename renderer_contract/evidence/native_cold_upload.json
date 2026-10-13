@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "status": "FINITE_ORIGINAL_EXECUTION",
+  "scope": "One literal ENG1/ENG3 startup upload RECT with synthetic input bytes; no allocation-ownership, complete callback-domain, native-process, gameplay, or renderer-output claim.",
+  "oracle": {
+    "exe_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000",
+    "a710_rva": "0xa710",
+    "a710_span_sha256": "30bd84ea8724152e3bfb0e2c521650399913bcec115f1aef489768085981d0fe",
+    "bd80_rva": "0xbd80",
+    "bd80_span_sha256": "6a9578c5be0c980bc35b29642d3ac389e829a0c5666022353cb88c04f19db64f",
+    "base_relocations": 0
+  },
+  "public_helpers": {
+    "scripts/env.py": "1b743fc8adbb5df32b167fd44c39b8026bb66115ad81d68a32979c38e45047e4",
+    "scripts/pe.py": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca",
+    "renderer_contract/tests/oracle_common.py": "a024048d9acc6e18197e10a82427cd84351a90666e1626e610bf60c6105f1357"
+  },
+  "fixture": {
+    "rectangle_signed_words": [
+      0,
+      512,
+      128,
+      512
+    ],
+    "source_bytes": 131072,
+    "source_pattern": "(i*37+11)&0xff",
+    "source_sha256": "2809cb8a646aa7d5821261d1b4d00faf3e9da95d268074682785562157ce9b9e",
+    "expected_output_interval": [
+      "0xa6e6e0",
+      "0xa8e6e0"
+    ],
+    "observed_write_bytes": 131072,
+    "observed_write_event_count": 32768,
+    "write_pc_byte_counts": {
+      "0xa78d": 131072
+    },
+    "observed_output_sha256": "2809cb8a646aa7d5821261d1b4d00faf3e9da95d268074682785562157ce9b9e",
+    "output_matches_synthetic_source": true,
+    "whole_data_diff_exactly_output_plus_fixture_cells": true,
+    "state_page_color_and_reciprocal_cells_unchanged": [
+      "0x00a8e6f4",
+      "0x00a8e6f8",
+      "0x00a8e6fc",
+      "0x00a909ac",
+      "0x00a909fc",
+      "0x00a90a00",
+      "0x00a90a04",
+      "0x00a90a08",
+      "0x00a8e918"
+    ],
+    "bd80_call_count": 1,
+    "bd80_disabled_gate_trace_rvas": [
+      "0xbd80",
+      "0xbd85",
+      "0xbd87",
+      "0xbd89",
+      "0xbd8f",
+      "0xbd91",
+      "0xbd95"
+    ],
+    "callback_endpoint_executed": false,
+    "original_code_spans_unchanged": true,
+    "private_data_image_restored": true,
+    "instruction_budget": 250000,
+    "timeout_us": 10000000,
+    "trace_instruction_count": 51228
+  },
+  "mapped_sections": [
+    {
+      "name": ".text",
+      "va": "0x401000",
+      "size": "0x2d000"
+    },
+    {
+      "name": ".rdata",
+      "va": "0x42e000",
+      "size": "0x7000"
+    },
+    {
+      "name": ".data",
+      "va": "0x435000",
+      "size": "0x770000"
+    },
+    {
+      "name": ".idata",
+      "va": "0xba5000",
+      "size": "0x3000"
+    },
+    {
+      "name": ".rsrc",
+      "va": "0xba8000",
+      "size": "0x5000"
+    }
+  ],
+  "limitations": [
+    "The exact literal RECT is y=512 through 1023; this does not validate other high-y values or allocation ownership.",
+    "The R[0] overlap at x=284,y=514 is only a separately tested address-expression witness, not exercised by this producer fixture.",
+    "BD80's original gated body ran; the callback endpoint stayed disabled and no host notification implementation was fabricated."
+  ],
+  "runtime": {
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "unicorn_module_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\__init__.py",
+    "native_dll_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "dependency_origin": {
+      "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+      "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+      "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+    }
+  },
+  "invocation": {
+    "exe": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "original_root": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+    "deps": "C:\\tools\\hercules\\renderer-oracle-python",
+    "analysis_deps": "C:\\tools\\hercules\\python"
+  }
+}

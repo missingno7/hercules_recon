@@ -31,6 +31,7 @@ EXPECTED_TESTS = {
     "test_staging.c",
     "test_state.c",
     "test_textures.c",
+    "test_texture_high_y.c",
 }
 
 

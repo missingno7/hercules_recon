@@ -34,5 +34,8 @@ int main()
         return 6;
     if (renderer_edge_reciprocal_entry(2047) != 0x80100u)
         return 7;
+    if (!herc_tex_upload_high_y_byte_address(0,512,0,&offset) ||
+        offset != 0x00a6e6e0u)
+        return 8;
     return 0;
 }

@@ -107,3 +107,15 @@ Luna xhigh workers performed the bounded call/field audits, module comparison,
 frame/texture work, native CPU harnesses and reference utilities. The integrator
 selected the clone boundary, resolved conflicting LEA/field/address evidence,
 kept snapshot capture from mutating geometry state, and ran the package gates.
+
+The package now has thirteen VC5 and thirteen portable synthetic suites.
+Additional unchanged-original fixtures cover five skewed quads across three
+routes (15 runs) and one 128-KiB high-band upload. They establish finite
+coverage/UV streams and write addresses; allocation ownership and resource
+rectangle bounds remain unresolved. Reproduce from the renderer checkout:
+
+```powershell
+& $pythonExe renderer_contract/tests/test_original_skewed_quads.py --original-root . --exe $originalExe --receipt work/replay/skewed/full.json
+& $pythonExe renderer_contract/tests/audit_upload_producers.py --original-root . --exe $originalExe --image-dir D:\Prog\hercules_recon\assets\pc\HERCULES --output work/replay/upload_sites.json
+& $pythonExe renderer_contract/tests/test_original_cold_upload.py --original-root . --exe $originalExe --output work/replay/cold_upload.json
+```

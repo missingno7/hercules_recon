@@ -70,6 +70,12 @@ int herc_tex_upload_byte_offset(
     renderer_u32 x_word, renderer_u32 y_row, renderer_u32 byte_in_word,
     renderer_u32 *offset_from_map_base);
 
+/* High-band address expression only: signed x 0..1023, y 512..1023.
+ * Success does not establish ownership, safe dereference or producer bounds. */
+int herc_tex_upload_high_y_byte_address(
+    renderer_i16 x_words, renderer_i16 y_rows,
+    renderer_u32 byte_in_word, renderer_u32 *address_out);
+
 /* A rasterizer sample is a byte at packet U,V. Ordinary tpage selects one of
  * 16 64-KiB pages; the 0x180 alternate-bank condition selects map-base+1 MiB
  * and replaces the ordinary page index. This computes an address expression
