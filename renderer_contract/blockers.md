@@ -2,7 +2,7 @@
 
 | Target | Established | Remaining |
 |---|---|---|
-| Passive capture | Shared submission callback, 250-word native prefix copies, per-module OT views, checked packet decoder; conditional static-import attach-before-host-entry inference | Actual module selection/attach and first-copy visibility; representative reachable commands; borrowed lifetime; entry snapshots differ from consumption when callbacks mutate future storage |
+| Passive capture | Shared submission callback, 250-word native prefix copies, per-module OT views, checked packet decoder; original-host sibling DLL selection and clone publication before entry on the tested machine | Production forwarding and actual engine first-copy observation; representative reachable commands; borrowed lifetime; entry snapshots differ from consumption when callbacks mutate future storage |
 | Faithful GPU packet rendering | Distinct indexed pixel kernels, finite sprite/triangle/quad/fill geometry, E680 shade/blend/zero-source paths, startup LUT aliasing, forward VRAM move order | Broader coordinate domains; complete reachable command coverage; resource-transition values/timing; callback-driven state changes and full buffer ownership |
 | Original window integration | Host HWND, DIB/DirectDraw surface, palette, lock/unlock/present/movie paths; static IsLost/Restore branches | Live coexistence and loss/restoration observations; synchronization with preserved writers |
 | Full presentation replacement | Separate palette/movie/remap/clear writers identified | All writer ownership and mode transitions; complete replacement of presentation services |
@@ -25,8 +25,9 @@ carry has a finite counterexample to independent Q16 accumulation. A separate
 319-sample D60C row-zero fixture shows sampled texel feedback changing a
 later V byte; finite CC50 and selected E680 fixtures preserve their tested
 sample addresses under the tested source/lookup changes. These route-specific
-results do not establish a universal recurrence. Bootstrap publication,
-actual host integration, and GPU output remain unobserved. Unsupported
+results do not establish a universal recurrence. The bounded
+[pre-entry diagnostic](preentry_publication.md) observes bootstrap publication,
+but engine execution, presentation integration and GPU output remain unobserved. Unsupported
 packets remain visibly rejected, never silently treated as drawing success.
 
 TITLE's two local context-y upload paths are now tied to the same initial host

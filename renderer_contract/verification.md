@@ -232,3 +232,13 @@ branches and nine masks against the corrected helper.
 The latter command uses the pinned VC5 compiler. Both original-code runners
 stop at bounded consumer/callee boundaries; they do not validate pixels,
 positive-area VRAM moves, or the full host presentation path.
+
+The [pre-entry fixture](fixtures/preentry_probe/README.md) separately compiles
+a diagnostic DLL and debugger with pinned VC5, then runs normal and injected
+failure tests against a source-built synthetic target. Its explicit
+`--run-target` mode creates one isolated byte-identical original EXE process,
+checks sibling DLL selection and table publication at an execution hardware
+breakpoint on the entry instruction, then confirms termination and exit-event
+draining. The [deployment receipt](evidence/preentry_deployment.json) is
+**HOST_INTEGRATION_OBSERVED** only for that pre-entry boundary. It claims no
+engine, window, DirectDraw forwarding, gameplay or GPU integration.

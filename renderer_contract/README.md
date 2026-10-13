@@ -9,14 +9,17 @@ The narrowest shared boundary is callback **89 / +0x164**, host RVA
 **0xAC60**. ENG1, ENG3 and TITLE independently copy the same 250-DWORD host
 interface. A persistent data-only clone published through host pointer cell
 RVA `0x365a0` before the first possible engine dispatch is the smallest
-static interception candidate; sufficiency and live timing remain unobserved.
+interception candidate. A bounded original-host diagnostic now observes its
+publication before the EXE entry instruction on the tested Windows machine;
+renderer sufficiency remains unobserved.
 The direct init chain calls `DirectDrawCreate` at RVA `0x7426` before its
 later table-pointer read, but a separate guarded event/tick chain can reach
 that read and dispatch without traversing `DirectDrawCreate`. There is no
 process-wide ordering proof from those host paths alone. The later
 [startup import audit](startup_import.md) supports conditional attach-before-host-entry
 publication when ordinary startup selects the intended static DDRAW module and
-its attach succeeds. Target selection and live integration remain unobserved.
+its attach succeeds. The [pre-entry diagnostic](preentry_publication.md)
+observes target selection and publication in an isolated byte-identical EXE.
 
 The import-resolution surrogate receipt establishes sibling-DLL selection
 for an ordinary static import on the tested machine; it does not call
@@ -24,7 +27,9 @@ for an ordinary static import on the tested machine; it does not call
 fixture](fixtures/early_loader_probe/README.md) and its
 [receipt](evidence/early_loader_surrogate.json) test synthetic table
 publication. Neither fixture launches Hercules or establishes target
-deployment behavior. No product proxy or host integration has been observed.
+deployment behavior. The later original-host pre-entry diagnostic closes that
+specific deployment question. No product proxy, engine execution or rendering
+integration has been observed.
 
 Read [interception.md](interception.md) before implementing a replacement.
 AC60 performs state updates, VRAM moves, surface management, color remapping,
@@ -85,6 +90,7 @@ not replace this complete contract.
 | callback_metadata.md | CMainFrame message-map ownership and the unowned event-callback cluster |
 | interface_publication.md | Table-content coherence and the shared mutable context pointer |
 | startup_import.md | Conditional attach-before-host-entry inference from original PE metadata |
+| preentry_publication.md | Original-host sibling-DLL selection and data-only clone publication before entry |
 | live_capture.md | Native callback counterexamples to entry-snapshot consumption equivalence |
 | consumer_coverage.md | Dispatch-to-decoder coverage and unknown group-0x60 state effects |
 | bootstrap_gates.md | Initial zero-fill and normal export publication order; indirect gate-setter limits |

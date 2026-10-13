@@ -2,7 +2,7 @@
   "schema_version": 3,
   "scope": "Renderer external contract and finite unchanged-original CPU fixtures; no live loader, window or GPU integration.",
   "source_base_commit": "73c6320179093c3de9b820e66b87f94dfb639a9b",
-  "preceding_contract_commit": "439e3228b38fca967973a32677f3588858f6fce4",
+  "preceding_contract_commit": "28acf53cbc5fee3840597db8ecd7bcf75bf46754",
   "branch": "codex/renderer-interface-closure",
   "toolchain_id": "msvc5_rtm",
   "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
@@ -475,16 +475,32 @@
         "function_match": false,
         "limit": "Finite AC60 staging boundaries and state fields only; raster and A8F0 callees skipped."
       }
+    },
+    {
+      "path": "renderer_contract/evidence/preentry_deployment.json",
+      "sha256": "d21140553e7168acb60f50e6d26e3db069894f3d4f0ce49c0576c30cb886cf65",
+      "proof_level": "HOST_INTEGRATION_OBSERVED",
+      "finite_scope": {
+        "isolated_host_startups": 1,
+        "synthetic_normal_smokes": 1,
+        "synthetic_failure_smokes": 1,
+        "table_dwords": 250,
+        "unselected_table_dwords_preserved": 249,
+        "stopped_before_entry_va": "0x00411ea0",
+        "entry_instruction_executed": false,
+        "gameplay_executed": false,
+        "limit": "One pinned executable, one recorded Windows loader/environment and isolated app-local diagnostic stub; not game, renderer, DirectDraw, or deployment-wide equivalence."
+      }
     }
   ],
   "original_validation": {
-    "manifest_sha256": "c29e5ee66293e12175c863474caf693ea5d2369b27dd2302f1722ce16c4cb063",
+    "manifest_sha256": "ddd9dc3754846a30cd2e733ddde403408f041ccc19b4cfbf1bcf4dd19ab0b577",
     "status": "passed",
     "counts": {
       "original_images": 4,
       "original_files_hash_checked": 4,
       "span_hashes_checked": 634,
-      "package_evidence_hashes_checked": 71,
+      "package_evidence_hashes_checked": 72,
       "callback_table_hashes_checked": 1,
       "callback_bindings_checked": 29,
       "copied_wrapper_hashes_checked": 22,
@@ -531,6 +547,30 @@
     {
       "path": "renderer_contract/fixtures/packed_uv/replay_native_trace.c",
       "sha256": "d1fbb3a8fdcaee0ac759b1cc707a971e0bccae62831a19943c9416b6c69f5d43"
+    },
+    {
+      "path": "renderer_contract/fixtures/preentry_probe/build_probe.py",
+      "sha256": "cad535e8ded510d42c4dafea71482a6d03fc6999454e37ffd578f06ead7f02be"
+    },
+    {
+      "path": "renderer_contract/fixtures/preentry_probe/src/ddraw.def",
+      "sha256": "65beab33f78d26a6bc738adaeb6874d306da5c8551c4984ef9fce930ccbc260f"
+    },
+    {
+      "path": "renderer_contract/fixtures/preentry_probe/src/ddraw_stub.c",
+      "sha256": "dcf0254588c43d9cf49f63bf128d2d8bc510295dbcb26a524bbeff88bd9d767c"
+    },
+    {
+      "path": "renderer_contract/fixtures/preentry_probe/src/debug_controller.c",
+      "sha256": "6e9ae340b82ab95a00d9a15cb1e67caaff6feb8946160d6a3370fe5eccc10b26"
+    },
+    {
+      "path": "renderer_contract/fixtures/preentry_probe/src/probe_diag.h",
+      "sha256": "c73c89c70ca4ece0b9a90ac767f99b3dd0bd886bcf64112fec9cf473ffcebe3b"
+    },
+    {
+      "path": "renderer_contract/fixtures/preentry_probe/src/smoke_target.c",
+      "sha256": "dc4cd139b8dbb0f491d69307a0cf45b78e97a8a21e47b09dfaa940af85958775"
     },
     {
       "path": "renderer_contract/fixtures/route_uv/replay_native_trace.c",
@@ -985,52 +1025,42 @@
     "renderer_contract/evidence/interface_publication.json",
     "renderer_contract/evidence/startup_import.json"
   ],
-  "source_ledger_scope": "current renderer_contract source tree after Phase 11 package integration",
+  "source_ledger_scope": "current renderer_contract source tree after Phase 12 pre-entry fixture integration; the existing C/C++/Python/DEF suffix scope is retained",
   "source_ledger_delta_from_preceding_head": {
-    "changed_source_count": 8,
+    "changed_source_count": 6,
     "changes": [
       {
-        "path": "renderer_contract/hercules_staging.c",
-        "before": "8eb7ce5f08aa8bf862174fc29cdece5b15e4495618e2d9593a66a392ab211d43",
-        "after": "d6c112e5ec5aecc095958292345ce03348ad267443efc2f9fb85fd64d1038d0b"
-      },
-      {
-        "path": "renderer_contract/hercules_staging.h",
-        "before": "dc66b15b45edeb3779d31e7aa50ce9f454b164ddc30c40fff953dfe380854b6e",
-        "after": "699ced0da2f8070c24523fc4adc8e25d68180eab7fc18e053acabd0ff56a64e5"
-      },
-      {
-        "path": "renderer_contract/tests/audit_import_preentry.py",
+        "path": "renderer_contract/fixtures/preentry_probe/build_probe.py",
         "before": null,
-        "after": "1da053dbfbca138935317f5efe21df59fc986e9fd0b98d573d1c505dfde625d7"
+        "after": "cad535e8ded510d42c4dafea71482a6d03fc6999454e37ffd578f06ead7f02be"
       },
       {
-        "path": "renderer_contract/tests/audit_interface_publication.py",
+        "path": "renderer_contract/fixtures/preentry_probe/src/ddraw.def",
         "before": null,
-        "after": "49e0ae9d2ce873196604ffb48aa8a864a3d5be5e6401fdda7cf15c450fe6876b"
+        "after": "65beab33f78d26a6bc738adaeb6874d306da5c8551c4984ef9fce930ccbc260f"
       },
       {
-        "path": "renderer_contract/tests/run_portable_tests.py",
-        "before": "2559210dfc6cd058c086100f50f4985373cc5a0fa3269d83c238b3978d4a5501",
-        "after": "bb23edd967483828452c2e2e7a05f72b84473c42ff69764b10743db0ea92943a"
-      },
-      {
-        "path": "renderer_contract/tests/test_original_group60.py",
+        "path": "renderer_contract/fixtures/preentry_probe/src/ddraw_stub.c",
         "before": null,
-        "after": "1c8a21e534977e3c198ee95e3e41f5fd9c777e76d61a756a64692d9517e2e58a"
+        "after": "dcf0254588c43d9cf49f63bf128d2d8bc510295dbcb26a524bbeff88bd9d767c"
       },
       {
-        "path": "renderer_contract/tests/test_original_live_capture.py",
+        "path": "renderer_contract/fixtures/preentry_probe/src/debug_controller.c",
         "before": null,
-        "after": "8581fb9f8fcffaddacc00e212dbd131b2b8c64b9abd45a806b1d47eade386850"
+        "after": "6e9ae340b82ab95a00d9a15cb1e67caaff6feb8946160d6a3370fe5eccc10b26"
       },
       {
-        "path": "renderer_contract/tests/test_unknown_group60.c",
+        "path": "renderer_contract/fixtures/preentry_probe/src/probe_diag.h",
         "before": null,
-        "after": "6de4f89fb676d188222909b1010d80160d2da5dd01e066e8a0b3f50798549940"
+        "after": "c73c89c70ca4ece0b9a90ac767f99b3dd0bd886bcf64112fec9cf473ffcebe3b"
+      },
+      {
+        "path": "renderer_contract/fixtures/preentry_probe/src/smoke_target.c",
+        "before": null,
+        "after": "dc4cd139b8dbb0f491d69307a0cf45b78e97a8a21e47b09dfaa940af85958775"
       }
     ],
-    "compiled_source_change_count": 3
+    "compiled_source_change_count": 4
   },
   "model_replays": [
     {
@@ -1729,5 +1759,71 @@
       "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
       "size": 180736
     }
+  },
+  "phase12_preentry_deployment": {
+    "proof_level": "HOST_INTEGRATION_OBSERVED",
+    "evidence_path": "renderer_contract/evidence/preentry_deployment.json",
+    "evidence_sha256": "d21140553e7168acb60f50e6d26e3db069894f3d4f0ce49c0576c30cb886cf65",
+    "build_receipt_path": "work/renderer_phase12/public_replay2/build_receipt.json",
+    "build_receipt_sha256": "cea483e0ccba728fa96e9e100386f6dc1b1075dba95c6404d3032e975cf1a1c1",
+    "host_receipt_path": "work/renderer_phase12/public_replay2/host_run_receipt.json",
+    "host_receipt_sha256": "8eb10178428ba9ee0317b969cded6e2617925c5d33710aa3f054bd84b870fd14",
+    "build_result": "BUILD_PASS",
+    "host_result": "PASS",
+    "source_file_count": 9,
+    "build_output_count": 9,
+    "normal_smoke": "PASS",
+    "failure_path_smoke": "PASS",
+    "app_local_ddraw_selected": true,
+    "attach_calls": 1,
+    "directdrawcreate_calls": 0,
+    "source_table_unchanged": true,
+    "unselected_table_words_preserved": 249,
+    "shared_word1_preserved": true,
+    "exe_text_unchanged": true,
+    "entrypoint_stop_va": "0x00411ea0",
+    "entry_instruction_executed": false,
+    "termination_and_exit_event_drained": true,
+    "portable_source_pins_changed": 0,
+    "fixture_compiled_sources_are_separate": true,
+    "historical_portable_suites_reused": 17,
+    "source_ledger_delta": {
+      "changed_source_count": 6,
+      "changes": [
+        {
+          "path": "renderer_contract/fixtures/preentry_probe/build_probe.py",
+          "before": null,
+          "after": "cad535e8ded510d42c4dafea71482a6d03fc6999454e37ffd578f06ead7f02be"
+        },
+        {
+          "path": "renderer_contract/fixtures/preentry_probe/src/ddraw.def",
+          "before": null,
+          "after": "65beab33f78d26a6bc738adaeb6874d306da5c8551c4984ef9fce930ccbc260f"
+        },
+        {
+          "path": "renderer_contract/fixtures/preentry_probe/src/ddraw_stub.c",
+          "before": null,
+          "after": "dcf0254588c43d9cf49f63bf128d2d8bc510295dbcb26a524bbeff88bd9d767c"
+        },
+        {
+          "path": "renderer_contract/fixtures/preentry_probe/src/debug_controller.c",
+          "before": null,
+          "after": "6e9ae340b82ab95a00d9a15cb1e67caaff6feb8946160d6a3370fe5eccc10b26"
+        },
+        {
+          "path": "renderer_contract/fixtures/preentry_probe/src/probe_diag.h",
+          "before": null,
+          "after": "c73c89c70ca4ece0b9a90ac767f99b3dd0bd886bcf64112fec9cf473ffcebe3b"
+        },
+        {
+          "path": "renderer_contract/fixtures/preentry_probe/src/smoke_target.c",
+          "before": null,
+          "after": "dc4cd139b8dbb0f491d69307a0cf45b78e97a8a21e47b09dfaa940af85958775"
+        }
+      ],
+      "compiled_source_change_count": 4
+    },
+    "documentation_in_source_ledger": false,
+    "scope_limit": "Pre-entry loader/attach observation only; no entry code, gameplay, DirectDraw rendering, COM, window, or GPU behavior was executed."
   }
 }

@@ -94,8 +94,9 @@ logging; both branches rejoin and continue setup. A candidate must not publish
 the table clone only on success. The smallest static candidate remains a
 persistent data-only clone of all 250 DWORDs, with only proven callback words
 replaced and every other word retained, published through `0x365a0` before
-the first possible engine dispatch. Whether an app-local proxy can publish
-early enough across the independent event path is unobserved. The import-
+the first possible engine dispatch. The later bounded original-host diagnostic
+observes an app-local diagnostic DLL publishing before EXE entry on the tested
+machine. Forwarding and actual engine-copy visibility remain unobserved. The import-
 resolution-only surrogate does not call the export, publish a clone, or run
 Hercules. See
 [bootstrap order](bootstrap_order.md), its [evidence](evidence/bootstrap_order.json), [loader feasibility](loader.md), and the separate [early-publication fixture](fixtures/early_loader_probe/README.md) with its [receipt](evidence/early_loader_surrogate.json).
@@ -115,7 +116,9 @@ boundary. The original EXE has an ordinary static DDRAW import and no EXE TLS
 callbacks, CLR header or delay import. If normal startup selects the candidate
 module and its process attach succeeds, attach-time publication precedes host
 entry, including the independent event path. This is a documented-loader
-inference from the pinned PE, not target deployment evidence. The
+inference from the pinned PE. The later [pre-entry diagnostic](preentry_publication.md)
+adds target deployment evidence for one isolated byte-identical EXE on the
+tested Windows machine. It stops before EXE entry and observes no rendering. The
 [coherence audit](interface_publication.md) also supports copying the table's
 static words while preserving word 1 as a live shared-context pointer.
 
@@ -123,7 +126,7 @@ static words while preserving word 1 as a live shared-context pointer.
 |---|---|---|---|
 | Direct AC60 detour | None on disk; runtime instructions changed | Single shared host target, but requires safe instruction interception and complete outer effects | Covers three module submit routes; misses movie and other presentation paths |
 | Selected callback clone | None; runtime data pointer changed | Smallest observed renderer seam; must precede cold copies and preserve borrowed state | Shared across three modules; TITLE extra upload/movie routes require explicit handling |
-| Forwarding `ddraw.dll` bootstrap + clone | Add local proxy; originals intact | Conditional static-import attach precedes host entry; deferred API-call publication can be bypassed by the independent path; HRESULT is logging-only | Retains original window/COM services; target module selection and host integration are unobserved |
+| Forwarding `ddraw.dll` bootstrap + clone | Add local proxy; originals intact | Diagnostic sibling selection and clone publication before EXE entry observed; deferred API-call publication can be bypassed by the independent path; HRESULT is logging-only | Original window/COM services still require forwarding; engine execution and presentation coexistence are unobserved |
 | Engine DLL proxies + clone | Originals must be reachable under separate names/paths | Three forwarding wrappers, export/return forwarding and module search complexity | Handles per-module copy directly; larger installation/maintenance burden |
 
 There is no mutable per-polygon dispatch table inside AC60. Its four polygon
@@ -173,7 +176,8 @@ contract; retaining the original service is the conservative boundary.
 Native LUT construction proves actual table aliasing. Shade/CLUT/blend bytes
 cannot be snapshotted as independent owned textures. Original window, palette,
 clear, movies and final surface remap remain required compatibility behavior
-at the initial clone boundary. No bootstrap/window coexistence has been run.
+at the initial clone boundary. Bootstrap publication was observed at the
+pre-entry stop; window coexistence has not been run.
 
 The [D60C feedback witness](packed_uv_recurrence.md) requires the sampled
 texture byte to participate in later coordinate progression. A faithful backend

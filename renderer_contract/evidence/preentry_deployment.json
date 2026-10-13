@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "proof_level": "HOST_INTEGRATION_OBSERVED",
+  "scope": "One isolated byte-identical HERCULES.EXE startup on the recorded Windows 11 environment. The app-local diagnostic DDRAW stub was selected and its attach published a 250-DWORD table clone before the PE entrypoint. A hardware execution breakpoint stopped the process at the first entrypoint address; no host entry instruction or gameplay code executed. This is pre-entry host integration evidence for this pinned image and environment only.",
+  "raw_receipts": {
+    "build": {
+      "path": "work/renderer_phase12/public_replay2/build_receipt.json",
+      "sha256": "cea483e0ccba728fa96e9e100386f6dc1b1075dba95c6404d3032e975cf1a1c1"
+    },
+    "host_run": {
+      "path": "work/renderer_phase12/public_replay2/host_run_receipt.json",
+      "sha256": "8eb10178428ba9ee0317b969cded6e2617925c5d33710aa3f054bd84b870fd14"
+    }
+  },
+  "fixture": {
+    "path": "renderer_contract/fixtures/preentry_probe",
+    "source_hashes": {
+      "build_probe.py": "cad535e8ded510d42c4dafea71482a6d03fc6999454e37ffd578f06ead7f02be",
+      "ddraw.def": "65beab33f78d26a6bc738adaeb6874d306da5c8551c4984ef9fce930ccbc260f",
+      "ddraw_stub.c": "dcf0254588c43d9cf49f63bf128d2d8bc510295dbcb26a524bbeff88bd9d767c",
+      "debug_controller.c": "6e9ae340b82ab95a00d9a15cb1e67caaff6feb8946160d6a3370fe5eccc10b26",
+      "hercules_host_abi.c": "09b5ffe70af7623fa53812fd408e4cc50505c11e30279448670571e63ccd3999",
+      "hercules_host_abi.h": "46b12d09a978fb365dd2a02abdce2b411813c1757b24c6d7986e08bafebfbc88",
+      "hercules_types.h": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d",
+      "probe_diag.h": "c73c89c70ca4ece0b9a90ac767f99b3dd0bd886bcf64112fec9cf473ffcebe3b",
+      "smoke_target.c": "dc4cd139b8dbb0f491d69307a0cf45b78e97a8a21e47b09dfaa940af85958775"
+    },
+    "build_output_hashes": {
+      "build/ddraw.dll": "cedb83af343db91124564dcdbbd0e0a0fb3bb422d31772ff5bc0b647dbffa8f5",
+      "build/ddraw.lib": "ec642c8d37b368e65d153118c5c38c2b2b2b55c9bee2cff3c9fde4570d44b2ce",
+      "build/ddraw_stub.obj": "f251d9183f00cf0a711d422c72461abd201213cd5d23169d35233115afd5f566",
+      "build/debug_controller.exe": "f68bf1e6babf78709c1dad9f516103ccc261ae1ec87aab09867f775acb0f2d45",
+      "build/debug_controller.obj": "d88631c3f873b957929b5c5f2cfe1916e1b8eb65cc0ff7d6aef0643f1c4aea39",
+      "build/hercules_host_abi.obj": "d44e50035f0555b0a80ac453e2d66749832ff3d2f8d9c5d9a0374a2400d65fa5",
+      "build/probe_layout.h": "12dd6783ed915b9159469be0a7a66834181124ecefdb9da627fa6fb7d4f13f91",
+      "build/smoke_target.exe": "5eb429a4f58419cae1094907f60fe293c078e7fc90b7ee07510c75cc8ab42f4c",
+      "build/smoke_target.obj": "8389697783f20bd4a7be7ed0f3e70a88101a862a110cc50c4e4dfd2000489c7a"
+    },
+    "toolchain": {
+      "id": "msvc5_rtm",
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+      "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+      "verified_file_count": 19,
+      "verified_files": {
+        "bin/c1.dll": {
+          "sha256": "e519dfe6f45cc0503b7aac43d125b2f156305269b89f0dc765c40d29627c0943",
+          "size": 563984
+        },
+        "bin/c1xx.dll": {
+          "sha256": "fea1e9fbbc2d204202f1a5ea61e5a938b17a92acda57e16dd53d4ec01c9d186b",
+          "size": 1047312
+        },
+        "bin/c2.exe": {
+          "sha256": "6d1406af5f62647347cfa7175cd7e108b838d6841a546396f29252198a14d73d",
+          "size": 630544
+        },
+        "bin/cl.exe": {
+          "sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+          "size": 46080
+        },
+        "bin/cvtres.exe": {
+          "sha256": "0f82167cd888105224463feef5cadebaef970c12932597919e3033d77ed3de6c",
+          "size": 16144
+        },
+        "bin/link.exe": {
+          "sha256": "279544809e6353c8e622eb88aea94e86b0258f3c4b8a976373bf4d68a41b63e1",
+          "size": 359424
+        },
+        "bin/msdis100.dll": {
+          "sha256": "c54d1bf7bc7bf321ad8a903f083f34b0f12ec984761c0280ff9a72190798c0cb",
+          "size": 117520
+        },
+        "bin/mspdb50.dll": {
+          "sha256": "06aaaca9c928bdef790259c9c30328529e10d1ec2f77da09c4ff74de7734fe69",
+          "size": 167424
+        },
+        "bin/msvcp50.dll": {
+          "sha256": "91cd76f9fa3b25008decb12c005c194bdf66c8d6526a954de7051bec9aae462a",
+          "size": 565760
+        },
+        "bin/rc.exe": {
+          "sha256": "14a84379d318c76760bd550afaece03b5e8b39b49cbf6de7e0f7f0eac8216242",
+          "size": 7952
+        },
+        "bin/rcdll.dll": {
+          "sha256": "3c36f9b3d433eb5354655796659d6247684df8158b367d334969183b35454f3c",
+          "size": 108304
+        },
+        "include/stdio.h": {
+          "sha256": "b8347d1031e2425177c047a69121adffa39d41932c38c95a45b71c1c59378652",
+          "size": 13087
+        },
+        "include/windows.h": {
+          "sha256": "1de22ddc1b079d330a8f5b02338a5ad5681b060cf3ac86f984a243ff2bdd9303",
+          "size": 4903
+        },
+        "lib/kernel32.lib": {
+          "sha256": "095f231e13cb3e6a6c4913d33ca8048506011034c89774b6ba0857466abba3cf",
+          "size": 635638
+        },
+        "lib/libc.lib": {
+          "sha256": "4ae22c6f35a87c55c453ad388ada649ea3ba190614be3d1ab95935ba0faa7416",
+          "size": 898826
+        },
+        "lib/libcmt.lib": {
+          "sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b",
+          "size": 951142
+        },
+        "lib/msvcrt.lib": {
+          "sha256": "e0a55e77c6005cacc86783688dd5d372bee6dda9c994493edbe583cd2b367be2",
+          "size": 510000
+        },
+        "mfc/lib/mfc42.lib": {
+          "sha256": "26da9a95266f17335ccddf8e0115930bd2b8bcc1066ecda430c540d6761037cd",
+          "size": 4200034
+        },
+        "mfc/lib/nafxcw.lib": {
+          "sha256": "5d9c3585552412a9b94a9a0b7c3a4208061a76d48a6c3283518bfe9f674c9e22",
+          "size": 7712394
+        }
+      },
+      "manifest_sha256": "2fcf37c7dd3d9cbf3f33d6facfd3a48983e2438fbf4982242293e9fceb483fcd"
+    },
+    "build_result": "BUILD_PASS",
+    "build_generated_utc": "2026-10-13T13:23:47.972985+00:00",
+    "smokes": {
+      "normal": {
+        "result": "PASS",
+        "target_sha256": "5eb429a4f58419cae1094907f60fe293c078e7fc90b7ee07510c75cc8ab42f4c",
+        "breakpoint_registers": {
+          "b0_hit": "1",
+          "confirmed": "1",
+          "dr0": "0x00401010",
+          "dr6": "0xffff0ff1",
+          "dr7": "0x00000001",
+          "execution_configuration": "1"
+        },
+        "termination": {
+          "child_terminated": "1",
+          "exit_process_event_drained": "1",
+          "kill_on_exit_mode": "1",
+          "terminate_process_accepted": "1"
+        },
+        "observed_fields": {
+          "ENTRY_STOP_CONFIRMED": "0x00401010",
+          "HARDWARE_BP_CONFIRMED": "1",
+          "STOPPED_BEFORE_ENTRY": "1",
+          "FAILURE_PATH_NO_ENTRY": "0",
+          "RESULT": "PASS"
+        }
+      },
+      "failure_path": {
+        "result": "PASS",
+        "child_entry_reached": false,
+        "child_terminated": true,
+        "termination_observations": {
+          "KILL_ON_EXIT_MODE": "1",
+          "TERMINATE_PROCESS_ACCEPTED": "1",
+          "CHILD_TERMINATED": "1",
+          "EXIT_PROCESS_EVENT_DRAINED": "1"
+        },
+        "observed_fields": {
+          "FAILURE_INJECTED_BEFORE_BREAKPOINT": "1",
+          "FAILURE_PATH_NO_ENTRY": "1",
+          "CHILD_TERMINATED": "1",
+          "EXIT_PROCESS_EVENT_DRAINED": "1",
+          "RESULT": "PASS"
+        }
+      }
+    },
+    "builder_limit": "The smoke test uses only a source-built target. No Hercules process is launched by this stage."
+  },
+  "host_run": {
+    "receipt_path": "work/renderer_phase12/public_replay2/host_run_receipt.json",
+    "receipt_sha256": "8eb10178428ba9ee0317b969cded6e2617925c5d33710aa3f054bd84b870fd14",
+    "build_receipt_sha256": "cea483e0ccba728fa96e9e100386f6dc1b1075dba95c6404d3032e975cf1a1c1",
+    "sources_sha256": {
+      "build_probe.py": "cad535e8ded510d42c4dafea71482a6d03fc6999454e37ffd578f06ead7f02be",
+      "ddraw.def": "65beab33f78d26a6bc738adaeb6874d306da5c8551c4984ef9fce930ccbc260f",
+      "ddraw_stub.c": "dcf0254588c43d9cf49f63bf128d2d8bc510295dbcb26a524bbeff88bd9d767c",
+      "debug_controller.c": "6e9ae340b82ab95a00d9a15cb1e67caaff6feb8946160d6a3370fe5eccc10b26",
+      "hercules_host_abi.c": "09b5ffe70af7623fa53812fd408e4cc50505c11e30279448670571e63ccd3999",
+      "hercules_host_abi.h": "46b12d09a978fb365dd2a02abdce2b411813c1757b24c6d7986e08bafebfbc88",
+      "hercules_types.h": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d",
+      "probe_diag.h": "c73c89c70ca4ece0b9a90ac767f99b3dd0bd886bcf64112fec9cf473ffcebe3b",
+      "smoke_target.c": "dc4cd139b8dbb0f491d69307a0cf45b78e97a8a21e47b09dfaa940af85958775"
+    },
+    "build_outputs_sha256": {
+      "build/ddraw.dll": "cedb83af343db91124564dcdbbd0e0a0fb3bb422d31772ff5bc0b647dbffa8f5",
+      "build/ddraw.lib": "ec642c8d37b368e65d153118c5c38c2b2b2b55c9bee2cff3c9fde4570d44b2ce",
+      "build/ddraw_stub.obj": "f251d9183f00cf0a711d422c72461abd201213cd5d23169d35233115afd5f566",
+      "build/debug_controller.exe": "f68bf1e6babf78709c1dad9f516103ccc261ae1ec87aab09867f775acb0f2d45",
+      "build/debug_controller.obj": "d88631c3f873b957929b5c5f2cfe1916e1b8eb65cc0ff7d6aef0643f1c4aea39",
+      "build/hercules_host_abi.obj": "d44e50035f0555b0a80ac453e2d66749832ff3d2f8d9c5d9a0374a2400d65fa5",
+      "build/probe_layout.h": "12dd6783ed915b9159469be0a7a66834181124ecefdb9da627fa6fb7d4f13f91",
+      "build/smoke_target.exe": "5eb429a4f58419cae1094907f60fe293c078e7fc90b7ee07510c75cc8ab42f4c",
+      "build/smoke_target.obj": "8389697783f20bd4a7be7ed0f3e70a88101a862a110cc50c4e4dfd2000489c7a"
+    },
+    "original": {
+      "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+      "sha256_before_copy": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "sha256_after_copy": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+    },
+    "isolated": {
+      "exe_path": "work/renderer_phase12/public_replay2/isolated/HERCULES.EXE",
+      "exe_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "stub_path": "work/renderer_phase12/public_replay2/isolated/ddraw.dll",
+      "stub_sha256": "cedb83af343db91124564dcdbbd0e0a0fb3bb422d31772ff5bc0b647dbffa8f5"
+    },
+    "runtime": {
+      "platform": "Windows-11-10.0.26200-SP0",
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "python_executable": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "windows_version": [
+        10,
+        0,
+        26200,
+        2,
+        ""
+      ]
+    },
+    "controller": {
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_timeout_seconds": 30
+    },
+    "loader": {
+      "app_local_ddraw_selected": true,
+      "loaded_path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase12\\public_replay2\\isolated\\DDRAW.dll",
+      "loaded_base": "0x18000000",
+      "loaded_size": "0x0000b000",
+      "attach_state": "0x00000002",
+      "attach_calls": 1,
+      "directdrawcreate_calls": 0,
+      "diagnostic_valid": true
+    },
+    "table_publication": {
+      "source_table_va": "0x004361b8",
+      "pointer_cell_va": "0x004365a0",
+      "pointer_cell_value_va": "0x18007798",
+      "clone_table_va": "0x18007798",
+      "table_dword_count": 250,
+      "changed_slot": 89,
+      "unselected_dword_count": 249,
+      "unselected_dwords_preserved": true,
+      "source_word1": "0x00615c98",
+      "clone_word1": "0x00615c98",
+      "source_slot89": "0x0040ac60",
+      "clone_slot89": "0xf17e0089",
+      "source_table_unchanged": true,
+      "executable_text_unchanged": true
+    },
+    "entrypoint_stop": {
+      "eip": "0x00411ea0",
+      "exception_address": "0x00411ea0",
+      "first_entry_instruction_executed": false,
+      "stopped_before_entry": true,
+      "registers": {
+        "b0_hit": "1",
+        "confirmed": "1",
+        "dr0": "0x00411ea0",
+        "dr6": "0xffff0ff1",
+        "dr7": "0x00000001",
+        "execution_configuration": "1"
+      }
+    },
+    "termination": {
+      "child_terminated": "1",
+      "exit_process_event_drained": "1",
+      "kill_on_exit_mode": "1",
+      "terminate_process_accepted": "1"
+    },
+    "exact_field_checks": {
+      "required_stdout_fields_checked": 28,
+      "mismatched_stdout_field_count": 0,
+      "pointer_matches_clone": true,
+      "clone_word1_matches_source": true,
+      "app_local_path_matches_isolated_sibling": true
+    },
+    "observation_source": "bounded key-value fields parsed from the controller stdout in the raw host receipt",
+    "limits": [
+      "This observes one isolated startup on the current Windows loader and environment only.",
+      "It does not establish app-local selection on other Windows versions or deployment layouts.",
+      "It stops at the PE entrypoint before its first instruction; no host entry code/gameplay runs.",
+      "The diagnostic stub does not load/forward system DirectDraw and creates no COM object, HWND, or GPU resource."
+    ]
+  },
+  "limits": [
+    "The host observation is one isolated startup on the recorded Windows loader and directory layout.",
+    "The run terminates at the PE entrypoint before its first instruction; it proves no gameplay or renderer behavior.",
+    "The diagnostic stub returns E_NOTIMPL from DirectDrawCreate and does not forward to system DirectDraw or create COM, HWND, or GPU resources.",
+    "This does not establish deployment selection on other Windows versions/layouts or that replacing DirectDraw services is safe.",
+    "The normal/failure smoke cases use synthetic targets and test controller cleanup only."
+  ]
+}
