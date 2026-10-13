@@ -1,0 +1,688 @@
+{
+  "schema_version": 1,
+  "scope": "Read-only static callback ownership and AC60 live-link audit; no original execution, gameplay, build, or canonical/recovery edit.",
+  "tooling": {
+    "capstone_version": "5.0.7",
+    "pe_reader": "scripts/pe.py via work/renderer_baseline/baseline.py"
+  },
+  "oracles": {
+    "HERCULES.EXE": {
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "image_base": "0x400000"
+    },
+    "ENG1.DLL": {
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "image_base": "0x10000000"
+    },
+    "ENG3.DLL": {
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "image_base": "0x10000000"
+    },
+    "TITLE.DLL": {
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "image_base": "0x10000000"
+    }
+  },
+  "prediction": {
+    "path": "work/renderer_next/notification_ownership/prediction.txt",
+    "sha256": "81b3a4f8fd8813e916750c30a1183aaa0464b0103d58223c84054039abc674a7",
+    "statement": "BD80 is an opaque synchronous callback boundary; AC60 reloads the primitive link after the A8F0 notification.",
+    "status": "SUPPORTED"
+  },
+  "host_interface_table": {
+    "rva": "0x361b8",
+    "size": 1000,
+    "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "slots": [
+      {
+        "slot": 56,
+        "offset": "0xe0",
+        "target_va": "0x404240",
+        "target_rva": "0x4240"
+      },
+      {
+        "slot": 80,
+        "offset": "0x140",
+        "target_va": "0x40ac00",
+        "target_rva": "0xac00"
+      },
+      {
+        "slot": 81,
+        "offset": "0x144",
+        "target_va": "0x40ac20",
+        "target_rva": "0xac20"
+      },
+      {
+        "slot": 89,
+        "offset": "0x164",
+        "target_va": "0x40ac60",
+        "target_rva": "0xac60"
+      },
+      {
+        "slot": 92,
+        "offset": "0x170",
+        "target_va": "0x40bda0",
+        "target_rva": "0xbda0"
+      },
+      {
+        "slot": 127,
+        "offset": "0x1fc",
+        "target_va": "0x40bd30",
+        "target_rva": "0xbd30"
+      },
+      {
+        "slot": 149,
+        "offset": "0x254",
+        "target_va": "0x406440",
+        "target_rva": "0x6440"
+      },
+      {
+        "slot": 150,
+        "offset": "0x258",
+        "target_va": "0x40bcf0",
+        "target_rva": "0xbcf0"
+      },
+      {
+        "slot": 161,
+        "offset": "0x284",
+        "target_va": "0x40bdf0",
+        "target_rva": "0xbdf0"
+      },
+      {
+        "slot": 240,
+        "offset": "0x3c0",
+        "target_va": "0x40bde0",
+        "target_rva": "0xbde0"
+      },
+      {
+        "slot": 249,
+        "offset": "0x3e4",
+        "target_va": "0x40bdd0",
+        "target_rva": "0xbdd0"
+      }
+    ]
+  },
+  "callback_storage": {
+    "primary_callback_va": "0xa8e780",
+    "secondary_callback_va": "0xa8e784",
+    "shared_gate_va": "0xa8e788",
+    "data_section": {
+      "name": ".data",
+      "section_rva": "0x35000",
+      "section_virtual_size": 7797544,
+      "section_raw_size": 38400,
+      "offset": "0x659780",
+      "file_backed": false
+    },
+    "note": "These cells are in the loader-zero virtual tail of HERCULES.EXE .data; their initial values are zero before the recorded startup enable call.",
+    "direct_absolute_references_in_herc_text": {
+      "0xa8e780": [
+        {
+          "rva": "0xbd80",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xa8e780]",
+          "access": 1
+        },
+        {
+          "rva": "0xbda4",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xa8e780]",
+          "access": 1
+        },
+        {
+          "rva": "0xbda9",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa8e780], ecx",
+          "access": 2
+        },
+        {
+          "rva": "0xbdfc",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa8e780], eax",
+          "access": 2
+        }
+      ],
+      "0xa8e784": [
+        {
+          "rva": "0xbdb0",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xa8e784]",
+          "access": 1
+        },
+        {
+          "rva": "0xbdd4",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xa8e784]",
+          "access": 1
+        },
+        {
+          "rva": "0xbdd9",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa8e784], ecx",
+          "access": 2
+        },
+        {
+          "rva": "0xbe01",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa8e784], eax",
+          "access": 2
+        }
+      ],
+      "0xa8e788": [
+        {
+          "rva": "0xbd89",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xa8e788]",
+          "access": 1
+        },
+        {
+          "rva": "0xbdb9",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xa8e788]",
+          "access": 1
+        },
+        {
+          "rva": "0xbde0",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa8e788], 0",
+          "access": 2
+        },
+        {
+          "rva": "0xbdf2",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa8e788], 1",
+          "access": 2
+        },
+        {
+          "rva": "0xbe52",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xa8e788]",
+          "access": 1
+        }
+      ],
+      "0xa8e78c": [
+        {
+          "rva": "0xbcf0",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xa8e78c]",
+          "access": 1
+        },
+        {
+          "rva": "0xbcfe",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xa8e78c]",
+          "access": 1
+        },
+        {
+          "rva": "0xbd0a",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [0xa8e78c]",
+          "access": 1
+        },
+        {
+          "rva": "0xbd14",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0xa8e78c]",
+          "access": 1
+        },
+        {
+          "rva": "0xbd34",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xa8e78c], eax",
+          "access": 2
+        }
+      ]
+    }
+  },
+  "static_control_flow_callers": {
+    "0xbda0": [],
+    "0xbdd0": [
+      {
+        "rva": "0x1d02",
+        "mnemonic": "call",
+        "operands": "0x40bdd0"
+      },
+      {
+        "rva": "0x1d32",
+        "mnemonic": "call",
+        "operands": "0x40bdd0"
+      },
+      {
+        "rva": "0x1d51",
+        "mnemonic": "call",
+        "operands": "0x40bdd0"
+      },
+      {
+        "rva": "0x4093",
+        "mnemonic": "call",
+        "operands": "0x40bdd0"
+      }
+    ],
+    "0xbde0": [],
+    "0xbdf0": [
+      {
+        "rva": "0x106e2",
+        "mnemonic": "call",
+        "operands": "0x40bdf0"
+      }
+    ],
+    "0xbd80": [
+      {
+        "rva": "0xa7f7",
+        "mnemonic": "call",
+        "operands": "0x40bd80"
+      },
+      {
+        "rva": "0xa8db",
+        "mnemonic": "call",
+        "operands": "0x40bd80"
+      },
+      {
+        "rva": "0xaa5f",
+        "mnemonic": "call",
+        "operands": "0x40bd80"
+      },
+      {
+        "rva": "0xabe4",
+        "mnemonic": "call",
+        "operands": "0x40bd80"
+      },
+      {
+        "rva": "0xac00",
+        "mnemonic": "call",
+        "operands": "0x40bd80"
+      },
+      {
+        "rva": "0xac40",
+        "mnemonic": "jmp",
+        "operands": "0x40bd80"
+      },
+      {
+        "rva": "0xb2e2",
+        "mnemonic": "call",
+        "operands": "0x40bd80"
+      }
+    ],
+    "0xbdb0": [
+      {
+        "rva": "0xbd21",
+        "mnemonic": "call",
+        "operands": "0x40bdb0"
+      }
+    ]
+  },
+  "host_initialization": {
+    "function_rva": "0x10690",
+    "direct_callers": [
+      {
+        "rva": "0x2043",
+        "mnemonic": "call",
+        "operands": "0x410690"
+      }
+    ],
+    "gate_enable_and_clear_call_rva": "0x106e2",
+    "effect": "The host initialization routine reaches BDF0, which sets A8E788=1 and clears A8E780/A8E784. This is a code-path observation, not proof the path executes in every run."
+  },
+  "module_registration_usage": {
+    "ENG1.DLL": {
+      "local_table_root_rva": "0x70f20",
+      "text_rva": "0x1000",
+      "text_raw_size": 307200,
+      "text_sha256": "47c07abc5c91ac33492bba0624b51e5ecabf22034561fd3844b6f28c7fd7ba35",
+      "callback_table_usage": {
+        "92": {
+          "cell_va": "0x10071090",
+          "references": []
+        },
+        "161": {
+          "cell_va": "0x100711a4",
+          "references": []
+        },
+        "240": {
+          "cell_va": "0x100712e0",
+          "references": []
+        },
+        "249": {
+          "cell_va": "0x10071304",
+          "references": []
+        }
+      }
+    },
+    "ENG3.DLL": {
+      "local_table_root_rva": "0x407a0",
+      "text_rva": "0x1000",
+      "text_raw_size": 200192,
+      "text_sha256": "e62eabbae2fe5ff4c5a6af6a44fe71ccb011522a905d9119311de2239f0bace7",
+      "callback_table_usage": {
+        "92": {
+          "cell_va": "0x10040910",
+          "references": []
+        },
+        "161": {
+          "cell_va": "0x10040a24",
+          "references": []
+        },
+        "240": {
+          "cell_va": "0x10040b60",
+          "references": []
+        },
+        "249": {
+          "cell_va": "0x10040b84",
+          "references": []
+        }
+      }
+    },
+    "TITLE.DLL": {
+      "local_table_root_rva": "0x2bb40",
+      "text_rva": "0x1000",
+      "text_raw_size": 130560,
+      "text_sha256": "7c52029413e5d8fd382053f81d0fe93cb98027a60f1ffcbd73dc32f10b221dae",
+      "callback_table_usage": {
+        "92": {
+          "cell_va": "0x1002bcb0",
+          "references": [
+            {
+              "rva": "0xc6e5",
+              "mnemonic": "call",
+              "operands": "dword ptr [0x1002bcb0]"
+            }
+          ]
+        },
+        "161": {
+          "cell_va": "0x1002bdc4",
+          "references": [
+            {
+              "rva": "0xca30",
+              "mnemonic": "jmp",
+              "operands": "dword ptr [0x1002bdc4]"
+            }
+          ]
+        },
+        "240": {
+          "cell_va": "0x1002bf00",
+          "references": []
+        },
+        "249": {
+          "cell_va": "0x1002bf24",
+          "references": [
+            {
+              "rva": "0xcc85",
+              "mnemonic": "call",
+              "operands": "dword ptr [0x1002bf24]"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "title_callback_receipt": {
+    "primary_slot92_wrapper_rva": "0xc6e0",
+    "primary_slot92_wrapper_callers": [],
+    "secondary_slot249_wrapper_rva": "0xcc80",
+    "secondary_slot249_wrapper_callers": [
+      {
+        "rva": "0x6279",
+        "mnemonic": "call",
+        "operands": "0x1000cc80"
+      },
+      {
+        "rva": "0x6296",
+        "mnemonic": "call",
+        "operands": "0x1000cc80"
+      }
+    ],
+    "secondary_callback_rva": "0x5d60",
+    "secondary_callback_raw_address_occurrences": [
+      {
+        "section": ".text",
+        "rva": "0x6275"
+      }
+    ],
+    "callback_effect_disassembly": [
+      {
+        "rva": "0x5d60",
+        "mnemonic": "cmp",
+        "operands": "dword ptr [0x10029fa4], 1"
+      },
+      {
+        "rva": "0x5d67",
+        "mnemonic": "jne",
+        "operands": "0x10005d81"
+      },
+      {
+        "rva": "0x5d69",
+        "mnemonic": "mov",
+        "operands": "eax, dword ptr [0x1002cc04]"
+      },
+      {
+        "rva": "0x5d6e",
+        "mnemonic": "push",
+        "operands": "eax"
+      },
+      {
+        "rva": "0x5d6f",
+        "mnemonic": "call",
+        "operands": "0x1000c5b0"
+      },
+      {
+        "rva": "0x5d74",
+        "mnemonic": "add",
+        "operands": "esp, 4"
+      },
+      {
+        "rva": "0x5d77",
+        "mnemonic": "mov",
+        "operands": "dword ptr [0x10029fa4], 0"
+      },
+      {
+        "rva": "0x5d81",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    ],
+    "callback_effect_note": "On global 0x10029fa4==1, the no-argument callback calls TITLE wrapper C5B0 with [0x1002cc04], then clears 0x10029fa4; C5B0 dispatches copied table slot 56 to HERC target RVA 0x4240, which calls A4A0 with that pointer then A340 with pointer+0x5c. This is the secondary A8E784/BDB0 path, not AC60's A8E780/BD80 path."
+  },
+  "native_secondary_callback": {
+    "registration_helper_rva": "0x1d30",
+    "registers_self_at_rva": "0x1d45",
+    "self_callback_pointer": "0x00401d30",
+    "dispatch_rva": "0xbdb0",
+    "dispatch_callsite_rva": "0xbd21",
+    "effect_note": "The host helper at 0x1d30 clears the A8E784 callback, increments the shared context DWORD at context+0x124, then registers 0x401d30 in A8E784. BDB0 dispatches only A8E784 under the shared gate; this is separate from BD80/A8E780.",
+    "span_sha256": "7e7eb634d0067525bb9e64fe7d65a676632082b2c1a942ef9914157d01c1136f"
+  },
+  "ac60_notification_and_link": {
+    "ac60_span": "f7724c04bef582e378b183a12550ba841df1a6fa3660be51da71154aa5c525af",
+    "command01_handler": "0xb1d4",
+    "command01_excerpt": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb1d4",
+      "size": 32,
+      "sha256": "0d1e81ca9679cd6f487955621b2ff9ec71765a3137a49dc0591e11a5ad093058"
+    },
+    "walk_resume_excerpt": {
+      "module": "HERCULES.EXE",
+      "rva": "0xaca2",
+      "size": 8,
+      "sha256": "69b4b33a8b9e721ea7c23c0db8ffe5770e891e3a50507ff0fe99336fc65bcf91"
+    },
+    "post_traversal_presentation_excerpt": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb2c2",
+      "size": 46,
+      "sha256": "6390d76cb042db9c3510fc9a7796406ca548d4bfd6a7be84452f0b3243bec038"
+    },
+    "a8f0_span": "bc04260d2227d221b124bb397b3d7f1138eed53081654722e3f1acd52599196e",
+    "callback_semantics": "A8F0 calls BD80 after the VRAM move, including zero-height moves in the bounded existing proof. A8F0 restores its saved ESI; AC60 then resumes at ACA2 and loads ESI=[ESI]. The order-table link is therefore re-read after notification, not snapshotted by this call path."
+  },
+  "opaque_callback_boundary": {
+    "bd80": {
+      "module": "HERCULES.EXE",
+      "rva": "0xbd80",
+      "size": 22,
+      "sha256": "6a9578c5be0c980bc35b29642d3ac389e829a0c5666022353cb88c04f19db64f"
+    },
+    "primary_setter_bda0": {
+      "module": "HERCULES.EXE",
+      "rva": "0xbda0",
+      "size": 16,
+      "sha256": "5ba421e35d332be3cb442c8f333e689fdd0f60fb09f6e2c475df0d51e36c5c87"
+    },
+    "secondary_dispatch_bdb0": {
+      "module": "HERCULES.EXE",
+      "rva": "0xbdb0",
+      "size": 22,
+      "sha256": "7ac69237bdf4955cffc9558ed64d09dffc180faa90981d54fda282555fcc53e4"
+    },
+    "secondary_setter_bdd0": {
+      "module": "HERCULES.EXE",
+      "rva": "0xbdd0",
+      "size": 16,
+      "sha256": "969cf0580788e85301e859cdfb9e3cd6e3eb140e34a1b4288647e7958d12b1c0"
+    },
+    "gate_disable_bde0": {
+      "module": "HERCULES.EXE",
+      "rva": "0xbde0",
+      "size": 13,
+      "sha256": "60da0784b3cb49cf7c7d75c3a492c8aab18b40e62a5e5c65826f07ceeca016f5"
+    },
+    "gate_enable_and_clear_bdf0": {
+      "module": "HERCULES.EXE",
+      "rva": "0xbdf0",
+      "size": 23,
+      "sha256": "817fcaafad2a1a5f2ab45c5b6165c47e09955b2f6828048def28a94888f29ead"
+    },
+    "startup_enable_excerpt": {
+      "module": "HERCULES.EXE",
+      "rva": "0x106d8",
+      "size": 23,
+      "sha256": "e72ea6836d3f5fed7bb67bef432cdd85a5426adf7a90fe5ee52b2458917bbabc"
+    },
+    "classification": "NO_CALLBACK_WRITE_SET_PROOF; preserve synchronous callback/live-read boundary. A non-null enabled primary callback is an externally chosen 32-bit code address with no explicit stack arguments, no callback purity/reentrancy guard, and no visible write-set restriction. Do not claim page/color/clip/gate globals, order-table links, VRAM resources, or shared engine state are immutable across it."
+  },
+  "spans": [
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xac60",
+      "size": 1680,
+      "sha256": "f7724c04bef582e378b183a12550ba841df1a6fa3660be51da71154aa5c525af"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xa8f0",
+      "size": 771,
+      "sha256": "bc04260d2227d221b124bb397b3d7f1138eed53081654722e3f1acd52599196e"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xbd80",
+      "size": 22,
+      "sha256": "6a9578c5be0c980bc35b29642d3ac389e829a0c5666022353cb88c04f19db64f"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xbda0",
+      "size": 16,
+      "sha256": "5ba421e35d332be3cb442c8f333e689fdd0f60fb09f6e2c475df0d51e36c5c87"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xbdb0",
+      "size": 22,
+      "sha256": "7ac69237bdf4955cffc9558ed64d09dffc180faa90981d54fda282555fcc53e4"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xbdd0",
+      "size": 16,
+      "sha256": "969cf0580788e85301e859cdfb9e3cd6e3eb140e34a1b4288647e7958d12b1c0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xbde0",
+      "size": 13,
+      "sha256": "60da0784b3cb49cf7c7d75c3a492c8aab18b40e62a5e5c65826f07ceeca016f5"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xbdf0",
+      "size": 23,
+      "sha256": "817fcaafad2a1a5f2ab45c5b6165c47e09955b2f6828048def28a94888f29ead"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x4240",
+      "size": 28,
+      "sha256": "ce5c4d2bed519ab9578c08df2e7b05df7e4af86a04e870a172309ac41542f087"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x1d30",
+      "size": 42,
+      "sha256": "7e7eb634d0067525bb9e64fe7d65a676632082b2c1a942ef9914157d01c1136f"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x5d60",
+      "size": 34,
+      "sha256": "f47a3271b6a4aaa1d612db332aae5da16c35ec4b768a57339d7ca95af14ec962"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0xc6e0",
+      "size": 16,
+      "sha256": "b83e30d01d7418a1418d4a9c390c8f713ecdcf0ae1854344c9f0425e69772aaa"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0xcc80",
+      "size": 15,
+      "sha256": "9f17faf227f342e90b71925a5abb211d5f90d360d7a3d2bb31b225b29eabf745"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x6274",
+      "size": 13,
+      "sha256": "d5ffad638fd1298136941a7cd81dcd83b6197a7764e218c306b69df56cf1ec51"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x6281",
+      "size": 26,
+      "sha256": "8decf2f35d8f4247ecc6c0ca7c6a55b9c0ae9c8ac3d6df9a7b4d6c4c9f927087"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xaca2",
+      "size": 8,
+      "sha256": "69b4b33a8b9e721ea7c23c0db8ffe5770e891e3a50507ff0fe99336fc65bcf91"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb1d4",
+      "size": 32,
+      "sha256": "0d1e81ca9679cd6f487955621b2ff9ec71765a3137a49dc0591e11a5ad093058"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb2c2",
+      "size": 46,
+      "sha256": "6390d76cb042db9c3510fc9a7796406ca548d4bfd6a7be84452f0b3243bec038"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x106d8",
+      "size": 23,
+      "sha256": "e72ea6836d3f5fed7bb67bef432cdd85a5426adf7a90fe5ee52b2458917bbabc"
+    }
+  ],
+  "limits": [
+    "The primary callback target's runtime value and implementation are not statically determined by these original images.",
+    "No gameplay or original callback execution was performed.",
+    "No proof of arbitrary callback mutation is claimed for the original shipped runtime; only the writable callback boundary and lack of a visible safety contract are established.",
+    "The TITLE RVA 0x5d60 callback is the secondary callback through BDB0, not the primary BD80 callback used by AC60.",
+    "Static linear disassembly proves absence only for direct absolute references in the scanned .text sections; runtime code generation or register-computed table aliases are not excluded."
+  ],
+  "private_source_sha256": "9878f819ac15e930a6e9ba5fe9ced7b16c54bcd29a008fe147d496248196185b",
+  "packaging": "Instruction listings and original byte dumps omitted; RVA/size/hash and semantic references retained."
+}

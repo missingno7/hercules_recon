@@ -25,13 +25,22 @@ not replace this complete contract.
 | hercules_frame.h | Module-specific OT descriptors and bounded raw-address walker |
 | hercules_textures.h | Rectangle layout and measured addressing helpers |
 | hercules_state.h | E1, F3 and command-01 bounded state decoders |
+| hercules_staging.h | Persistent AC60 cells, suppression gate and operation descriptors |
+| hercules_sprite_geometry.h | Sprite clipping/setup without pixel rasterization |
+| hercules_quad_dispatch.h | Static rectangle route predicates |
 | hercules_pixels.h | Bounded indexed shade/blend, palette and fill reference steps |
 | closure.md | Bounded host renderer call/data closure |
 | packets.md | Consumer fields versus independently observed producer extents |
 | textures.md | Upload, page selection, VRAM move, indexed color and unresolved bounds |
+| palette.md | Startup LUT writer order, aliases and palette lifecycle |
+| sprite_geometry.md | Signed clipping and wide UV addressing |
+| polygon_dispatch.md | Native row-zero and rectangle discriminators |
+| module_packets.md | Separate ENG3/TITLE producers and 0x68 semantics |
 | pixels.md | Distinct indexed pixel paths and their proof boundaries |
 | frame.md | Initialization, prepend order, traversal and module lifecycles |
+| notification.md | Primary/secondary callback ownership and live-link traversal |
 | state.md | State masks, clip clamps and embedded VRAM-move rectangle |
+| staging.md | Native effective staging and finite differential boundaries |
 | compatibility.md | Independent ENG1/ENG3/TITLE callback evidence |
 | presentation.md | Original window, DIB, DirectDraw, palette and movie paths |
 | geometry.md | Information available before and after projection |
@@ -72,7 +81,7 @@ python renderer_contract/tests/validate_originals.py --original-root D:\Prog\her
 Optional CPU-only original-code checks require the pinned Unicorn runtime in
 evidence/oracle_toolchain.json (version, official origin and hashes):
 
-See [README.md](README.md) for the shipped verification commands. Private audit commands are retained only in receipt provenance.
+See [verification.md](verification.md) for shipped native verification commands.
 
 These map original bytes in a CPU emulator. AC60 tests record rasterizer and
 VRAM-move call boundaries while skipping those callees; they prove staging and

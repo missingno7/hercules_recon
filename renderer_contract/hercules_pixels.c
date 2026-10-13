@@ -92,3 +92,53 @@ HercPixelStepResult herc_pixel_c2e0_fill_byte(
         return HERC_PIXEL_INVALID;
     return HERC_PIXEL_WROTE;
 }
+
+static int pixel_proposal_destination_writer_valid(
+    const HercPixelDestinationAccess *destination)
+{
+    return destination != 0 && destination->write_byte != 0;
+}
+
+HercPixelStepResult herc_pixel_c8f0_step(
+    renderer_u8 source_texel, const HercPixelTableReader *blend_table,
+    const HercPixelDestinationAccess *destination)
+{
+    renderer_u8 old_destination;
+    renderer_u8 blended_color;
+    renderer_u32 blend_index;
+
+    if (!pixel_proposal_destination_writer_valid(destination))
+        return HERC_PIXEL_INVALID;
+    if (blend_table == 0 || blend_table->read_byte == 0 ||
+        blend_table->length < HERC_PIXEL_BLEND_BYTES)
+        return HERC_PIXEL_INVALID;
+    if (source_texel == 0)
+        return HERC_PIXEL_NO_WRITE;
+    if (destination->read_byte == 0)
+        return HERC_PIXEL_INVALID;
+
+    if (!destination->read_byte(destination->context, &old_destination))
+        return HERC_PIXEL_INVALID;
+    blend_index = ((renderer_u32)source_texel << 8) |
+                  (renderer_u32)old_destination;
+    if (!blend_table->read_byte(blend_table->context, blend_index,
+                                &blended_color))
+        return HERC_PIXEL_INVALID;
+    if (!destination->write_byte(destination->context, blended_color))
+        return HERC_PIXEL_INVALID;
+
+    return HERC_PIXEL_WROTE;
+}
+
+HercPixelStepResult herc_pixel_cab0_step(
+    renderer_u8 source_texel,
+    const HercPixelDestinationAccess *destination)
+{
+    if (!pixel_proposal_destination_writer_valid(destination))
+        return HERC_PIXEL_INVALID;
+    if (source_texel == 0)
+        return HERC_PIXEL_NO_WRITE;
+    if (!destination->write_byte(destination->context, source_texel))
+        return HERC_PIXEL_INVALID;
+    return HERC_PIXEL_WROTE;
+}

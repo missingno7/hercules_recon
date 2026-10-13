@@ -62,6 +62,15 @@ HercPixelStepResult herc_pixel_cc50_step(
 HercPixelStepResult herc_pixel_c2e0_fill_byte(
     renderer_u8 fill_byte, const HercPixelDestinationAccess *destination);
 
+/* C8F0 reads destination, then the already-selected blend table at
+ * (source<<8)|destination, then writes. Source zero skips all callbacks.
+ * CAB0 copies nonzero source directly with no destination/LUT read. */
+HercPixelStepResult herc_pixel_c8f0_step(
+    renderer_u8 source_texel, const HercPixelTableReader *blend_table,
+    const HercPixelDestinationAccess *destination);
+HercPixelStepResult herc_pixel_cab0_step(
+    renderer_u8 source_texel, const HercPixelDestinationAccess *destination);
+
 #ifdef __cplusplus
 }
 #endif

@@ -1,0 +1,1208 @@
+{
+  "schema_version": 1,
+  "status": "BOUNDED_EQUIVALENT",
+  "scope": "Four finite original-byte CPU fixtures execute D420 through the normalized-row-zero polygon path using a synthetic 3-vertex right triangle; one eligible 4-vertex case executes D420\u2192CAB0 and another executes E680\u2192C8F0. The rowzero 2x2 matrix varies gate and source texel zero/nonzero. The direct-path fixtures seed conflicting shade-LUT entries; E680 additionally seeds three blend entries. No whole rasterizer, full renderer, GPU, DirectDraw, gameplay, source identity, FUNCTION_MATCH, or whole-module equality is claimed.",
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000",
+    "function_span": {
+      "rva": "0xd420",
+      "end_rva_exclusive": "0xdd70",
+      "size": 2384,
+      "sha256": "4645c60cf0a357ed4aae074c3487a2755384852d0874e2f12b352b994544e07e"
+    },
+    "rowzero_span": {
+      "rva": "0xd60c",
+      "end_rva_exclusive": "0xdd70",
+      "size": 1892,
+      "sha256": "2ed9dc4341703ee82f789528b427f6333e6d916bec11148fe2cfecff14119b4a"
+    },
+    "rowzero_pixel_loop": {
+      "rva": "0xdc8a",
+      "end_rva_exclusive": "0xdc9e",
+      "size": 20,
+      "sha256": "f7ddfb3e385317043c65e3de482510f21ef89551a8b0f127e1cf6865974b0dc8"
+    },
+    "cab0_entry_to_return": {
+      "rva": "0xcab0",
+      "end_rva_exclusive": "0xcc45",
+      "size": 405,
+      "sha256": "5ca22ca070b69abaf98a0da5c794b0642cf816026b7ff87c794d6a82f6d9c71f"
+    },
+    "e680_dispatch": {
+      "rva": "0xe680",
+      "end_rva_exclusive": "0xe7c7",
+      "size": 327,
+      "sha256": "1ac531aa802148e641444cb62451c9903fe6e59b046329d0ea0a80f463ccc75a"
+    },
+    "c8f0_entry_to_return": {
+      "rva": "0xc8f0",
+      "end_rva_exclusive": "0xcaa8",
+      "size": 440,
+      "sha256": "74bfb760505e5695cf5f1668e390d07046a32f7014c506706a85f9488870d52c"
+    }
+  },
+  "execution": {
+    "engine": "Unicorn CPU emulator",
+    "architecture": "x86 32-bit",
+    "python_executable": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "python_version": "3.12.14",
+    "script_sha256": "9f48076ec02e47308ec4db760cdbd2b11832b6f41e8798867580cfdb41e85c32",
+    "all_original_sections_mapped_at_preferred_base": true,
+    "instruction_budget": 100000,
+    "no_original_code_written": true,
+    "unexpected_pc_or_memory_access_fails": true,
+    "data_section_restored_each_case": true,
+    "all_synthetic_geometry_texture_and_surface_state_is_emulator_only": true
+  },
+  "runtime": {
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "unicorn_module_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\__init__.py",
+    "native_dll_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "dependency_origin": {
+      "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+      "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+      "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+    }
+  },
+  "cases": [
+    {
+      "case": "rowzero_gate_0_zero_texel",
+      "entry_rva": "0xd420",
+      "vertex_count": 3,
+      "synthetic_vertices_xy": [
+        [
+          1,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "u_v_fixed16_per_vertex": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "normalized_row_input": "0x7800",
+      "normalized_row_observed": 0,
+      "gate_value": "0x0",
+      "texture_sample_source_byte": "0x0",
+      "shade_lut_decoy": {
+        "address": "0x91e788",
+        "value": "0xc3",
+        "read_count": 0
+      },
+      "surface_before_sha256": "e75809e0d15667ce44e6aa5c64689a4917b245eb0920094ff0b017dc0612a17a",
+      "surface_after_sha256": "e75809e0d15667ce44e6aa5c64689a4917b245eb0920094ff0b017dc0612a17a",
+      "surface_changed_bytes": [],
+      "path_markers": [
+        "0xd555",
+        "0xd595",
+        "0xd597",
+        "0xd60c",
+        "0xdc8a",
+        "0xdc92",
+        "0xdc94",
+        "0xdc8a",
+        "0xdc92",
+        "0xdc94",
+        "0xdc8a",
+        "0xdc92",
+        "0xdc94",
+        "0xdc8a",
+        "0xdc92",
+        "0xdc94"
+      ],
+      "entered_d420_cab0": false,
+      "entered_e680_c8f0": false,
+      "source_reads": [
+        {
+          "kind": "read",
+          "pc_rva": "0xdc8a",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x0"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xdc8a",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x0"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xdc8a",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x0"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xdc8a",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x0"
+        }
+      ],
+      "surface_reads": [],
+      "surface_writes": [],
+      "blend_table_reads": [],
+      "data_write_instruction_count": 98,
+      "data_mutation_byte_count": 18,
+      "data_mutation_ranges": [
+        {
+          "start": "0xa90940",
+          "end_exclusive": "0xa90942"
+        },
+        {
+          "start": "0xa90943",
+          "end_exclusive": "0xa90946"
+        },
+        {
+          "start": "0xa90947",
+          "end_exclusive": "0xa90948"
+        },
+        {
+          "start": "0xa90950",
+          "end_exclusive": "0xa90951"
+        },
+        {
+          "start": "0xa90962",
+          "end_exclusive": "0xa90963"
+        },
+        {
+          "start": "0xa90964",
+          "end_exclusive": "0xa90965"
+        },
+        {
+          "start": "0xa90968",
+          "end_exclusive": "0xa90969"
+        },
+        {
+          "start": "0xa9096c",
+          "end_exclusive": "0xa9096d"
+        },
+        {
+          "start": "0xa90970",
+          "end_exclusive": "0xa90971"
+        },
+        {
+          "start": "0xa90974",
+          "end_exclusive": "0xa90975"
+        },
+        {
+          "start": "0xa9098a",
+          "end_exclusive": "0xa9098b"
+        },
+        {
+          "start": "0xa9098c",
+          "end_exclusive": "0xa9098d"
+        },
+        {
+          "start": "0xa909a8",
+          "end_exclusive": "0xa909a9"
+        },
+        {
+          "start": "0xa909f8",
+          "end_exclusive": "0xa909f9"
+        },
+        {
+          "start": "0xa90a05",
+          "end_exclusive": "0xa90a06"
+        }
+      ],
+      "original_code_unchanged": true,
+      "original_data_restored": true
+    },
+    {
+      "case": "rowzero_gate_0_nonzero_texel",
+      "entry_rva": "0xd420",
+      "vertex_count": 3,
+      "synthetic_vertices_xy": [
+        [
+          1,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "u_v_fixed16_per_vertex": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "normalized_row_input": "0x7800",
+      "normalized_row_observed": 0,
+      "gate_value": "0x0",
+      "texture_sample_source_byte": "0x5a",
+      "shade_lut_decoy": {
+        "address": "0x91e7e2",
+        "value": "0x0",
+        "read_count": 0
+      },
+      "surface_before_sha256": "e75809e0d15667ce44e6aa5c64689a4917b245eb0920094ff0b017dc0612a17a",
+      "surface_after_sha256": "b9855dea7933f2ea78fa3eebe1f0fdd704d7becc3c2240364530343ca5091881",
+      "surface_changed_bytes": [
+        {
+          "offset": 9,
+          "before": "0xa5",
+          "after": "0x5a"
+        },
+        {
+          "offset": 10,
+          "before": "0xa5",
+          "after": "0x5a"
+        },
+        {
+          "offset": 17,
+          "before": "0xa5",
+          "after": "0x5a"
+        },
+        {
+          "offset": 18,
+          "before": "0xa5",
+          "after": "0x5a"
+        }
+      ],
+      "path_markers": [
+        "0xd555",
+        "0xd595",
+        "0xd597",
+        "0xd60c",
+        "0xdc8a",
+        "0xdc92",
+        "0xdc94",
+        "0xdc96",
+        "0xdc8a",
+        "0xdc92",
+        "0xdc94",
+        "0xdc96",
+        "0xdc8a",
+        "0xdc92",
+        "0xdc94",
+        "0xdc96",
+        "0xdc8a",
+        "0xdc92",
+        "0xdc94",
+        "0xdc96"
+      ],
+      "entered_d420_cab0": false,
+      "entered_e680_c8f0": false,
+      "source_reads": [
+        {
+          "kind": "read",
+          "pc_rva": "0xdc8a",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x5a"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xdc8a",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x5a"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xdc8a",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x5a"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xdc8a",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x5a"
+        }
+      ],
+      "surface_reads": [],
+      "surface_writes": [
+        {
+          "kind": "surface_write",
+          "pc_rva": "0xdc96",
+          "address": "0x10001009",
+          "size": 1,
+          "value": "0x5a"
+        },
+        {
+          "kind": "surface_write",
+          "pc_rva": "0xdc96",
+          "address": "0x1000100a",
+          "size": 1,
+          "value": "0x5a"
+        },
+        {
+          "kind": "surface_write",
+          "pc_rva": "0xdc96",
+          "address": "0x10001011",
+          "size": 1,
+          "value": "0x5a"
+        },
+        {
+          "kind": "surface_write",
+          "pc_rva": "0xdc96",
+          "address": "0x10001012",
+          "size": 1,
+          "value": "0x5a"
+        }
+      ],
+      "blend_table_reads": [],
+      "data_write_instruction_count": 98,
+      "data_mutation_byte_count": 18,
+      "data_mutation_ranges": [
+        {
+          "start": "0xa90940",
+          "end_exclusive": "0xa90942"
+        },
+        {
+          "start": "0xa90943",
+          "end_exclusive": "0xa90946"
+        },
+        {
+          "start": "0xa90947",
+          "end_exclusive": "0xa90948"
+        },
+        {
+          "start": "0xa90950",
+          "end_exclusive": "0xa90951"
+        },
+        {
+          "start": "0xa90962",
+          "end_exclusive": "0xa90963"
+        },
+        {
+          "start": "0xa90964",
+          "end_exclusive": "0xa90965"
+        },
+        {
+          "start": "0xa90968",
+          "end_exclusive": "0xa90969"
+        },
+        {
+          "start": "0xa9096c",
+          "end_exclusive": "0xa9096d"
+        },
+        {
+          "start": "0xa90970",
+          "end_exclusive": "0xa90971"
+        },
+        {
+          "start": "0xa90974",
+          "end_exclusive": "0xa90975"
+        },
+        {
+          "start": "0xa9098a",
+          "end_exclusive": "0xa9098b"
+        },
+        {
+          "start": "0xa9098c",
+          "end_exclusive": "0xa9098d"
+        },
+        {
+          "start": "0xa909a8",
+          "end_exclusive": "0xa909a9"
+        },
+        {
+          "start": "0xa909f8",
+          "end_exclusive": "0xa909f9"
+        },
+        {
+          "start": "0xa90a05",
+          "end_exclusive": "0xa90a06"
+        }
+      ],
+      "original_code_unchanged": true,
+      "original_data_restored": true
+    },
+    {
+      "case": "rowzero_gate_1_zero_texel",
+      "entry_rva": "0xd420",
+      "vertex_count": 3,
+      "synthetic_vertices_xy": [
+        [
+          1,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "u_v_fixed16_per_vertex": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "normalized_row_input": "0x7800",
+      "normalized_row_observed": 0,
+      "gate_value": "0x1",
+      "texture_sample_source_byte": "0x0",
+      "shade_lut_decoy": {
+        "address": "0x91e788",
+        "value": "0xc3",
+        "read_count": 0
+      },
+      "surface_before_sha256": "e75809e0d15667ce44e6aa5c64689a4917b245eb0920094ff0b017dc0612a17a",
+      "surface_after_sha256": "e75809e0d15667ce44e6aa5c64689a4917b245eb0920094ff0b017dc0612a17a",
+      "surface_changed_bytes": [],
+      "path_markers": [
+        "0xd555",
+        "0xd583",
+        "0xd60c",
+        "0xdc8a",
+        "0xdc92",
+        "0xdc94",
+        "0xdc8a",
+        "0xdc92",
+        "0xdc94",
+        "0xdc8a",
+        "0xdc92",
+        "0xdc94",
+        "0xdc8a",
+        "0xdc92",
+        "0xdc94"
+      ],
+      "entered_d420_cab0": false,
+      "entered_e680_c8f0": false,
+      "source_reads": [
+        {
+          "kind": "read",
+          "pc_rva": "0xdc8a",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x0"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xdc8a",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x0"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xdc8a",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x0"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xdc8a",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x0"
+        }
+      ],
+      "surface_reads": [],
+      "surface_writes": [],
+      "blend_table_reads": [],
+      "data_write_instruction_count": 98,
+      "data_mutation_byte_count": 18,
+      "data_mutation_ranges": [
+        {
+          "start": "0xa90940",
+          "end_exclusive": "0xa90942"
+        },
+        {
+          "start": "0xa90943",
+          "end_exclusive": "0xa90946"
+        },
+        {
+          "start": "0xa90947",
+          "end_exclusive": "0xa90948"
+        },
+        {
+          "start": "0xa90950",
+          "end_exclusive": "0xa90951"
+        },
+        {
+          "start": "0xa90962",
+          "end_exclusive": "0xa90963"
+        },
+        {
+          "start": "0xa90964",
+          "end_exclusive": "0xa90965"
+        },
+        {
+          "start": "0xa90968",
+          "end_exclusive": "0xa90969"
+        },
+        {
+          "start": "0xa9096c",
+          "end_exclusive": "0xa9096d"
+        },
+        {
+          "start": "0xa90970",
+          "end_exclusive": "0xa90971"
+        },
+        {
+          "start": "0xa90974",
+          "end_exclusive": "0xa90975"
+        },
+        {
+          "start": "0xa9098a",
+          "end_exclusive": "0xa9098b"
+        },
+        {
+          "start": "0xa9098c",
+          "end_exclusive": "0xa9098d"
+        },
+        {
+          "start": "0xa909a8",
+          "end_exclusive": "0xa909a9"
+        },
+        {
+          "start": "0xa909f8",
+          "end_exclusive": "0xa909f9"
+        },
+        {
+          "start": "0xa90a05",
+          "end_exclusive": "0xa90a06"
+        }
+      ],
+      "original_code_unchanged": true,
+      "original_data_restored": true
+    },
+    {
+      "case": "rowzero_gate_1_nonzero_texel",
+      "entry_rva": "0xd420",
+      "vertex_count": 3,
+      "synthetic_vertices_xy": [
+        [
+          1,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "u_v_fixed16_per_vertex": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "normalized_row_input": "0x7800",
+      "normalized_row_observed": 0,
+      "gate_value": "0x1",
+      "texture_sample_source_byte": "0x5a",
+      "shade_lut_decoy": {
+        "address": "0x91e7e2",
+        "value": "0x0",
+        "read_count": 0
+      },
+      "surface_before_sha256": "e75809e0d15667ce44e6aa5c64689a4917b245eb0920094ff0b017dc0612a17a",
+      "surface_after_sha256": "b9855dea7933f2ea78fa3eebe1f0fdd704d7becc3c2240364530343ca5091881",
+      "surface_changed_bytes": [
+        {
+          "offset": 9,
+          "before": "0xa5",
+          "after": "0x5a"
+        },
+        {
+          "offset": 10,
+          "before": "0xa5",
+          "after": "0x5a"
+        },
+        {
+          "offset": 17,
+          "before": "0xa5",
+          "after": "0x5a"
+        },
+        {
+          "offset": 18,
+          "before": "0xa5",
+          "after": "0x5a"
+        }
+      ],
+      "path_markers": [
+        "0xd555",
+        "0xd583",
+        "0xd60c",
+        "0xdc8a",
+        "0xdc92",
+        "0xdc94",
+        "0xdc96",
+        "0xdc8a",
+        "0xdc92",
+        "0xdc94",
+        "0xdc96",
+        "0xdc8a",
+        "0xdc92",
+        "0xdc94",
+        "0xdc96",
+        "0xdc8a",
+        "0xdc92",
+        "0xdc94",
+        "0xdc96"
+      ],
+      "entered_d420_cab0": false,
+      "entered_e680_c8f0": false,
+      "source_reads": [
+        {
+          "kind": "read",
+          "pc_rva": "0xdc8a",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x5a"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xdc8a",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x5a"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xdc8a",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x5a"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xdc8a",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x5a"
+        }
+      ],
+      "surface_reads": [],
+      "surface_writes": [
+        {
+          "kind": "surface_write",
+          "pc_rva": "0xdc96",
+          "address": "0x10001009",
+          "size": 1,
+          "value": "0x5a"
+        },
+        {
+          "kind": "surface_write",
+          "pc_rva": "0xdc96",
+          "address": "0x1000100a",
+          "size": 1,
+          "value": "0x5a"
+        },
+        {
+          "kind": "surface_write",
+          "pc_rva": "0xdc96",
+          "address": "0x10001011",
+          "size": 1,
+          "value": "0x5a"
+        },
+        {
+          "kind": "surface_write",
+          "pc_rva": "0xdc96",
+          "address": "0x10001012",
+          "size": 1,
+          "value": "0x5a"
+        }
+      ],
+      "blend_table_reads": [],
+      "data_write_instruction_count": 98,
+      "data_mutation_byte_count": 18,
+      "data_mutation_ranges": [
+        {
+          "start": "0xa90940",
+          "end_exclusive": "0xa90942"
+        },
+        {
+          "start": "0xa90943",
+          "end_exclusive": "0xa90946"
+        },
+        {
+          "start": "0xa90947",
+          "end_exclusive": "0xa90948"
+        },
+        {
+          "start": "0xa90950",
+          "end_exclusive": "0xa90951"
+        },
+        {
+          "start": "0xa90962",
+          "end_exclusive": "0xa90963"
+        },
+        {
+          "start": "0xa90964",
+          "end_exclusive": "0xa90965"
+        },
+        {
+          "start": "0xa90968",
+          "end_exclusive": "0xa90969"
+        },
+        {
+          "start": "0xa9096c",
+          "end_exclusive": "0xa9096d"
+        },
+        {
+          "start": "0xa90970",
+          "end_exclusive": "0xa90971"
+        },
+        {
+          "start": "0xa90974",
+          "end_exclusive": "0xa90975"
+        },
+        {
+          "start": "0xa9098a",
+          "end_exclusive": "0xa9098b"
+        },
+        {
+          "start": "0xa9098c",
+          "end_exclusive": "0xa9098d"
+        },
+        {
+          "start": "0xa909a8",
+          "end_exclusive": "0xa909a9"
+        },
+        {
+          "start": "0xa909f8",
+          "end_exclusive": "0xa909f9"
+        },
+        {
+          "start": "0xa90a05",
+          "end_exclusive": "0xa90a06"
+        }
+      ],
+      "original_code_unchanged": true,
+      "original_data_restored": true
+    },
+    {
+      "case": "d420_eligible_quad_to_cab0",
+      "entry_rva": "0xd420",
+      "vertex_count": 4,
+      "synthetic_vertices_xy": [
+        [
+          1,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "u_v_fixed16_per_vertex": [
+        [
+          0,
+          0
+        ],
+        [
+          131072,
+          0
+        ],
+        [
+          131072,
+          131072
+        ],
+        [
+          0,
+          131072
+        ]
+      ],
+      "normalized_row_input": "0x7800",
+      "normalized_row_observed": 30720,
+      "gate_value": "0x0",
+      "texture_sample_source_byte": "0x5a",
+      "shade_lut_decoy": {
+        "address": "0x91e7e2",
+        "value": "0x0",
+        "read_count": 0
+      },
+      "surface_before_sha256": "e75809e0d15667ce44e6aa5c64689a4917b245eb0920094ff0b017dc0612a17a",
+      "surface_after_sha256": "de95b156c4bb6bb7f2e652e55784d78f054e4163ff7f4f64070f0dbcc44640fd",
+      "surface_changed_bytes": [
+        {
+          "offset": 10,
+          "before": "0xa5",
+          "after": "0x5a"
+        },
+        {
+          "offset": 17,
+          "before": "0xa5",
+          "after": "0x77"
+        },
+        {
+          "offset": 18,
+          "before": "0xa5",
+          "after": "0x6b"
+        }
+      ],
+      "path_markers": [
+        "0xd549",
+        "0xcab0",
+        "0xcbd6",
+        "0xcbf4",
+        "0xcbf4",
+        "0xcbfb",
+        "0xcbd6",
+        "0xcbf4",
+        "0xcbfb",
+        "0xcbf4",
+        "0xcbfb"
+      ],
+      "entered_d420_cab0": true,
+      "entered_e680_c8f0": false,
+      "source_reads": [
+        {
+          "kind": "read",
+          "pc_rva": "0xcbf4",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x0"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xcbf4",
+          "address": "0x10000101",
+          "size": 1,
+          "value": "0x5a"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xcbf4",
+          "address": "0x10000200",
+          "size": 1,
+          "value": "0x77"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xcbf4",
+          "address": "0x10000201",
+          "size": 1,
+          "value": "0x6b"
+        }
+      ],
+      "surface_reads": [],
+      "surface_writes": [
+        {
+          "kind": "surface_write",
+          "pc_rva": "0xcbfb",
+          "address": "0x1000100a",
+          "size": 1,
+          "value": "0x5a"
+        },
+        {
+          "kind": "surface_write",
+          "pc_rva": "0xcbfb",
+          "address": "0x10001011",
+          "size": 1,
+          "value": "0x77"
+        },
+        {
+          "kind": "surface_write",
+          "pc_rva": "0xcbfb",
+          "address": "0x10001012",
+          "size": 1,
+          "value": "0x6b"
+        }
+      ],
+      "blend_table_reads": [],
+      "data_write_instruction_count": 11,
+      "data_mutation_byte_count": 4,
+      "data_mutation_ranges": [
+        {
+          "start": "0xa90944",
+          "end_exclusive": "0xa90946"
+        },
+        {
+          "start": "0xa90947",
+          "end_exclusive": "0xa90948"
+        },
+        {
+          "start": "0xa90a0c",
+          "end_exclusive": "0xa90a0d"
+        }
+      ],
+      "original_code_unchanged": true,
+      "original_data_restored": true
+    },
+    {
+      "case": "e680_eligible_quad_to_c8f0",
+      "entry_rva": "0xe680",
+      "vertex_count": 4,
+      "synthetic_vertices_xy": [
+        [
+          1,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "u_v_fixed16_per_vertex": [
+        [
+          0,
+          0
+        ],
+        [
+          131072,
+          0
+        ],
+        [
+          131072,
+          131072
+        ],
+        [
+          0,
+          131072
+        ]
+      ],
+      "normalized_row_input": "0x7800",
+      "normalized_row_observed": 30720,
+      "gate_value": "0x1",
+      "texture_sample_source_byte": "0x5a",
+      "shade_lut_decoy": {
+        "address": "0x91e7e2",
+        "value": "0x0",
+        "read_count": 0
+      },
+      "surface_before_sha256": "e75809e0d15667ce44e6aa5c64689a4917b245eb0920094ff0b017dc0612a17a",
+      "surface_after_sha256": "5f7ba6355d3283452ac235a1721b2f99ca136f0a6dd7a7a8e8c64bff55b8d1af",
+      "surface_changed_bytes": [
+        {
+          "offset": 10,
+          "before": "0xa5",
+          "after": "0xe1"
+        },
+        {
+          "offset": 17,
+          "before": "0xa5",
+          "after": "0xe2"
+        },
+        {
+          "offset": 18,
+          "before": "0xa5",
+          "after": "0xe3"
+        }
+      ],
+      "path_markers": [
+        "0xe7bb",
+        "0xc8f0",
+        "0xca51",
+        "0xca51",
+        "0xca58",
+        "0xca5b",
+        "0xca5e",
+        "0xca51",
+        "0xca58",
+        "0xca5b",
+        "0xca5e",
+        "0xca51",
+        "0xca58",
+        "0xca5b",
+        "0xca5e"
+      ],
+      "entered_d420_cab0": false,
+      "entered_e680_c8f0": true,
+      "source_reads": [
+        {
+          "kind": "read",
+          "pc_rva": "0xca51",
+          "address": "0x10000100",
+          "size": 1,
+          "value": "0x0"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xca51",
+          "address": "0x10000101",
+          "size": 1,
+          "value": "0x5a"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xca51",
+          "address": "0x10000200",
+          "size": 1,
+          "value": "0x77"
+        },
+        {
+          "kind": "read",
+          "pc_rva": "0xca51",
+          "address": "0x10000201",
+          "size": 1,
+          "value": "0x6b"
+        }
+      ],
+      "surface_reads": [
+        {
+          "kind": "surface_read",
+          "pc_rva": "0xca58",
+          "address": "0x1000100a",
+          "size": 1,
+          "value": "0xa5"
+        },
+        {
+          "kind": "surface_read",
+          "pc_rva": "0xca58",
+          "address": "0x10001011",
+          "size": 1,
+          "value": "0xa5"
+        },
+        {
+          "kind": "surface_read",
+          "pc_rva": "0xca58",
+          "address": "0x10001012",
+          "size": 1,
+          "value": "0xa5"
+        }
+      ],
+      "surface_writes": [
+        {
+          "kind": "surface_write",
+          "pc_rva": "0xca5e",
+          "address": "0x1000100a",
+          "size": 1,
+          "value": "0xe1"
+        },
+        {
+          "kind": "surface_write",
+          "pc_rva": "0xca5e",
+          "address": "0x10001011",
+          "size": 1,
+          "value": "0xe2"
+        },
+        {
+          "kind": "surface_write",
+          "pc_rva": "0xca5e",
+          "address": "0x10001012",
+          "size": 1,
+          "value": "0xe3"
+        }
+      ],
+      "blend_table_reads": [
+        {
+          "pc_rva": "0xca5b",
+          "address": "0x953e75",
+          "size": 1,
+          "value": "0xe1"
+        },
+        {
+          "pc_rva": "0xca5b",
+          "address": "0x955b75",
+          "size": 1,
+          "value": "0xe2"
+        },
+        {
+          "pc_rva": "0xca5b",
+          "address": "0x954f75",
+          "size": 1,
+          "value": "0xe3"
+        }
+      ],
+      "data_write_instruction_count": 12,
+      "data_mutation_byte_count": 7,
+      "data_mutation_ranges": [
+        {
+          "start": "0xa90944",
+          "end_exclusive": "0xa90946"
+        },
+        {
+          "start": "0xa90947",
+          "end_exclusive": "0xa9094b"
+        },
+        {
+          "start": "0xa90a0c",
+          "end_exclusive": "0xa90a0d"
+        }
+      ],
+      "original_code_unchanged": true,
+      "original_data_restored": true
+    }
+  ],
+  "limits": [
+    "Both fixtures use constant U=V=0 and a 2x2 right triangle; they do not characterize arbitrary edge slopes, clipping boundaries, or UV gradients.",
+    "The nonzero fixture proves direct sampling and write on this finite polygon; it does not assert general perspective/affine texture semantics.",
+    "The task's row-zero fixtures bypass the separate CC50 palette and C2E0 fill paths. Their behaviors are independently covered by work/renderer_next/pixel_oracles/native_report.json.",
+    "The eligible-quad case uses one small in-bounds 2x2 rectangle and verifies D420 reaches CAB0 while bypassing D555/D60C; it does not cover other dimensions, clipped rectangles, negative coordinates, or general quadrilateral contours.",
+    "The E680 case uses mode 0x80, tpage selector 2, one in-bounds 2x2 rectangle, and three synthetic blend entries; it verifies the direct C8F0 caller route and selected lookups, not other modes, selectors, or rectangle boundaries."
+  ],
+  "invocation": {
+    "exe": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "original_root": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+    "deps": "C:\\tools\\hercules\\renderer-oracle-python",
+    "analysis_deps": "C:\\tools\\hercules\\python",
+    "receipt": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase2\\native_polygon_dispatch.json"
+  }
+}

@@ -97,3 +97,17 @@ Falsifier: any module using a different count, signature, copy-before-check orde
 ## Integrated reproduction
 
 The private investigation paths above identify provenance. In this package, run tests/validate_originals.py with the original image paths to recheck recorded bytes and bindings, and tests/run_tests.py for the compiled synthetic suite. The byte validator does not independently redo the semantic analysis. The compact receipt is evidence/compatibility.json.
+
+## Additional native evidence
+
+Twelve DLL-prefix fixtures (three modules × valid cold, invalid signature,
+null source and warm copy gate) observe all 250 copied words, selected overlay
+retention, and each module's independent copy gate/table. Invalid signatures
+are checked after copying. Fixtures stop before internal initialization calls
+or at their bounded return; they do not prove full initialization.
+See [native_interface_copy.json](evidence/native_interface_copy.json).
+
+[module_packets.md](module_packets.md) adds separate ENG3 FT4/GT4 producer
+routes and TITLE slot-118 FT4 construction. ENG3 also produces 12-byte 0x68
+records; only their 8-byte link/tag prefix is consumer-proven. No producer
+coverage is extrapolated from ENG1 to the other modules.

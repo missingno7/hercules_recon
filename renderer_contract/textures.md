@@ -49,3 +49,22 @@ The exact-base native Windows mapping attempt was refused because address `0x400
 ## Integrated reproduction
 
 The private investigation paths above identify provenance. In this package, run tests/validate_originals.py with the original image paths to recheck recorded bytes and bindings, and tests/run_tests.py for the compiled synthetic suite. The byte validator does not independently redo the semantic analysis. The compact receipt is evidence/textures.json.
+
+## Native move order and aliases
+
+Nine finite unchanged-instruction cases now cover A8F0 moves and an A710
+borrowed-source alias. Rows advance forward. Within a 128-word page the native
+copy uses forward DWORDs then trailing bytes; crossing either page boundary
+uses the forward byte fallback. Tested right/down overlaps smear; this is not
+memmove, and replacing DWORD chunks with only byte copies can also differ.
+Zero height still reaches BD80. The enabled notification fixture stops at its
+callback endpoint after writes; it does not execute that callback.
+The address helper remains bounded to x<1024, y<512. Negative/out-of-range
+rectangles and exclusive allocation ownership remain unresolved.
+See [native_vram_move.json](evidence/native_vram_move.json).
+
+Clipped sprite U/V are wider than wire bytes. First-row address is page+U+
+(V<<8), without initial wrapping; later row offsets add 256 then mask to
+16 bits. The native setup fixture demonstrates U=257,V=258. Packet-u8 sample
+helpers therefore must not be reused as clipped-sprite address functions.
+See [sprite_geometry.md](sprite_geometry.md) and [palette.md](palette.md).

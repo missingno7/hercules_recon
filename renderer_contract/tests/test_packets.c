@@ -206,6 +206,49 @@ static void test_e1_unknown_and_unsupported(void)
            RENDERER_PACKET_INVALID_ARGUMENT, "null input rejected");
 }
 
+static void test_observed_68_route(void)
+{
+    renderer_u8 bytes[9];
+    RendererDecodedPacket out;
+    RendererPacketStatus status;
+
+    header(bytes, sizeof(bytes), 0x10203040UL, 0x68);
+    bytes[8] = 0xa5;
+    status = renderer_decode_packet(bytes, 8, &out);
+    expect(status == RENDERER_PACKET_KNOWN_UNDRAWN &&
+           out.kind == RENDERER_PACKET_OBSERVED_UNDRAWN &&
+           out.minimum_size == 8 && out.command == 0x68,
+           "producer-observed 0x68 has bounded recognized header route");
+    expect(out.producer_tag_observed == 1 && out.next == 0x10203040UL &&
+           out.vertex_count == 0 && out.color_count == 0 && out.clut == 0 &&
+           out.tpage == 0 && out.width == 0 && out.height == 0 &&
+           bytes[8] == 0xa5,
+           "0x68 preserves link, invents no payload, and respects span");
+    expect(renderer_decode_packet(bytes, 7, &out) ==
+           RENDERER_PACKET_SHORT_HEADER,
+           "0x68 cannot read tag from a seven-byte span");
+
+    header(bytes, sizeof(bytes), 0x50607080UL, 0x6a);
+    bytes[8] = 0x5a;
+    expect(renderer_decode_packet(bytes, 8, &out) ==
+           RENDERER_PACKET_KNOWN_UNDRAWN &&
+           out.kind == RENDERER_PACKET_OBSERVED_UNDRAWN &&
+           out.command == 0x6a && out.producer_tag_observed == 0 &&
+           out.next == 0x50607080UL && bytes[8] == 0x5a,
+           "0x6a shares normalized consumer route but is not producer-observed");
+
+    header(bytes, sizeof(bytes), 0, 0x69);
+    expect(renderer_decode_packet(bytes, 8, &out) ==
+           RENDERER_PACKET_UNRECOGNIZED &&
+           out.kind == RENDERER_PACKET_UNKNOWN,
+           "nearby 0x69 remains explicitly unknown");
+    header(bytes, sizeof(bytes), 0, 0x70);
+    expect(renderer_decode_packet(bytes, 8, &out) ==
+           RENDERER_PACKET_UNRECOGNIZED &&
+           out.kind == RENDERER_PACKET_UNKNOWN,
+           "unverified 0x70 remains explicitly unknown");
+}
+
 static void test_raw_order_table_addresses(void)
 {
     RendererRawOrderTable table;
@@ -239,6 +282,7 @@ int main(void)
     test_gt4();
     test_ft3_and_sprites();
     test_e1_unknown_and_unsupported();
+    test_observed_68_route();
     test_raw_order_table_addresses();
     printf("renderer_packet_fixture checks=%u failures=%u\n",
            checks, failures);

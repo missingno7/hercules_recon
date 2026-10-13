@@ -92,11 +92,14 @@ FrameWalkStatus frame_walk_raw32_links(FrameRaw32Resolver resolver,
     return FRAME_WALK_OK;
 }
 
-FrameWalkStatus frame_walk_ac60_order_table(FrameRaw32Resolver resolver,
-                                            void *resolver_context,
-                                            renderer_raw32 order_table_base,
-                                            renderer_u32 slot_count,
-                                            FrameVisitGuard *guard)
+FrameWalkStatus frame_walk_ac60_order_table_visit(
+    FrameRaw32Resolver resolver,
+    void *resolver_context,
+    renderer_raw32 order_table_base,
+    renderer_u32 slot_count,
+    FrameVisitGuard *guard,
+    FrameAc60PrimitiveVisitor visitor,
+    void *visitor_context)
 {
     renderer_raw32 list_cursor = order_table_base;
     renderer_raw32 next_slot;
@@ -147,5 +150,20 @@ FrameWalkStatus frame_walk_ac60_order_table(FrameRaw32Resolver resolver,
         status = visit_address(guard, list_cursor);
         if (status != FRAME_WALK_OK)
             return status;
+        /* Do not prefetch [list_cursor] before the visitor. AC60's command
+         * path can notify external code before it reloads the live link. */
+        if (visitor != 0 && !visitor(visitor_context, list_cursor))
+            return FRAME_WALK_VISITOR_ERROR;
     }
+}
+
+FrameWalkStatus frame_walk_ac60_order_table(FrameRaw32Resolver resolver,
+                                            void *resolver_context,
+                                            renderer_raw32 order_table_base,
+                                            renderer_u32 slot_count,
+                                            FrameVisitGuard *guard)
+{
+    return frame_walk_ac60_order_table_visit(resolver, resolver_context,
+                                             order_table_base, slot_count,
+                                             guard, 0, 0);
 }

@@ -1,23 +1,16 @@
-# Blockers by deliverable
+# Remaining verification boundaries
 
-| Target | Established | Remaining verification boundary |
+| Target | Established | Remaining |
 |---|---|---|
-| Passive packet capture | Shared +0x164 submit seam, 250-word copies, raw decoder and OT order | Actual bootstrap selection/timing, executable variant identity, borrowed-state capture and representative command coverage |
-| GPU packet rendering | Projected layouts, E1/F3/01 state fields, texture writes, finite native shade/blend fixtures | Complete reachable command coverage, upstream LUT generation/lifetime, upload aliasing/notification order, raster edge/clipping rules and broader independent pixel fixtures |
-| Original window integration | Native HWND and GDI/DirectDraw lock/unlock/present paths | Bounded coexistence observation, surface loss and callback notification preservation |
-| Full presentation replacement | Palette/movie/window paths identified separately | Complete ownership of every presenter and surface writer, mode transitions, GPU/window synchronization |
-| Enhanced 3D | Earlier camera XYZ and transient projection factor identified | Per-vertex association with packets, clipping/culling capture, all-module coverage; normals/lighting not established |
+| Passive capture | Shared submission callback, 250-word native prefix copies, per-module OT views, checked packet decoder | Actual bootstrap selection/timing; representative reachable commands; borrowed lifetime and live reload after callbacks |
+| Faithful GPU packet rendering | Distinct indexed pixel kernels, finite sprite clipping, rectangle dispatch, startup LUT aliasing, forward VRAM move order | Polygon edge/rounding/clipping rules; complete reachable command coverage; resource-table lifetime order; callback-driven state changes and full buffer ownership |
+| Original window integration | Host HWND, DIB/DirectDraw surface, palette, lock/unlock/present/movie paths | Bounded coexistence observation; surface loss/restoration; synchronization with preserved writers |
+| Full presentation replacement | Separate palette/movie/remap/clear writers identified | All writer ownership and mode transitions; complete replacement of presentation services |
+| Enhanced 3D | Projected XY/UV and earlier camera/projection snapshot identified | Per-vertex association across clipping and modules; depth/perspective/normal information absent from final packets |
 
-No optional enhanced-3D feature blocks basic capture or faithful screen-space
-GPU rendering. No complete rasterizer rewrite or whole-EXE reconstruction is
-required to resolve the external contract. Next high-leverage native fixtures
-are AC60 dispatch/staging with real synthetic chains and indexed sampler/LUT
-tests at the smallest independent original regions.
-
-The D420 row-zero route remains distinct from the observed active CLUT and
-gate-off raw-fill paths. Its complete pixel contract, native CC50/raw-fill and
-C8F0/CAB0 discriminators, plus raster edge rules are the next bounded work.
-
-The package deliberately rejects unsupported packet decoding. Such rejection
-is visible, not an empty successful operation. A future replacement must
-retain or implement every reachable command before claiming full coverage.
+Optional 3D enhancements do not block basic capture. Whole-EXE reconstruction
+and complete software-rasterizer reimplementation are unnecessary. The next
+high-leverage fixture is the native polygon edge/clip contract, followed by
+resource-driven LUT ordering and bounded notification effects. Bootstrap
+installation and actual host/GPU output remain unobserved. Unsupported packets
+remain visibly rejected, never silently treated as drawing success.

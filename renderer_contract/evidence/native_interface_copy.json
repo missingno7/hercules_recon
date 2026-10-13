@@ -1,0 +1,907 @@
+{
+  "schema_version": 1,
+  "lane": "renderer_next_interface_copy_prefix",
+  "scope": "Bounded execution of original PC_DLL EngineMain entry prefixes in isolated Unicorn machines at preferred DLL base. Each run stops before the first internal call or returns through the native null/signature failure path. No initializer, OS endpoint, gameplay, or module startup is executed.",
+  "prediction_and_falsifier": {
+    "prediction": "Each cold entry copies exactly 250 DWORDs to a module-local table before checking the shared signature; the copy preserves selected source-table substitutions and every other source word. A bad signature still leaves the copied table. A synthetic warm gate value of zero skips this copy before the next internal call.",
+    "falsifier": "Any cold DLL failing the exact 250-word comparison, checking signature before copy, changing an unselected source word, failing to retain selected values, copying on the warm-gate branch, or executing a call before the stop boundary falsifies the prediction."
+  },
+  "proof_level": "BOUNDED_EQUIVALENT for named original-DLL entry prefixes only; no full-export or source-equivalence claim.",
+  "package_context": {
+    "repo_root": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+    "repo_root_selection": "nearest ancestor containing renderer_contract/ and scripts/pe.py",
+    "public_profile": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\evidence\\compatibility.json",
+    "receipt_path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase2\\native_interface_copy.json",
+    "receipt_guard": "output path must be inside repo_root/work"
+  },
+  "tool": {
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "unicorn_module_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\__init__.py",
+    "native_dll_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "dependency_origin": {
+      "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+      "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+      "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+    },
+    "python": "3.12.14",
+    "capstone_version": "5.0.7",
+    "instruction_budget_per_scenario": 5000,
+    "decoder_mode": "Capstone x86-32 disassembly only for stop-site selection; Unicorn executes original DLL bytes"
+  },
+  "inputs": {
+    "exe": {
+      "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+      "sha256_expected": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "sha256_computed": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+    },
+    "public_compatibility_profile": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\evidence\\compatibility.json",
+      "sha256": "82b8b183ad54d629fef5bd977ca8ac579c3708af36879b18c8536303a983c61d"
+    },
+    "analysis_tools": {
+      "pe_adapter": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\scripts\\pe.py",
+      "unicorn_deps": "C:\\tools\\hercules\\renderer-oracle-python",
+      "analysis_deps": "C:\\tools\\hercules\\python"
+    }
+  },
+  "source_table_fixture": {
+    "origin": "Read-only copy of the original HERCULES.EXE 250-DWORD source table, placed in private Unicorn memory.",
+    "original_table_rva": "0x361b8",
+    "original_table_bytes": 1000,
+    "original_table_sha256_expected_and_computed": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "signature": "0x5ac00cac",
+    "overlay_slots": {
+      "89": {
+        "value": "0x61610164",
+        "origin": "synthetic selected-slot substitution; never dispatched"
+      },
+      "129": {
+        "value": "0x61610204",
+        "origin": "synthetic selected-slot substitution; never dispatched"
+      },
+      "130": {
+        "value": "0x61610208",
+        "origin": "synthetic selected-slot substitution; never dispatched"
+      },
+      "131": {
+        "value": "0x6161020c",
+        "origin": "synthetic selected-slot substitution; never dispatched"
+      },
+      "143": {
+        "value": "0x6161023c",
+        "origin": "synthetic selected-slot substitution; never dispatched"
+      },
+      "148": {
+        "value": "0x61610250",
+        "origin": "synthetic selected-slot substitution; never dispatched"
+      },
+      "81": {
+        "value": "0x61610144",
+        "origin": "synthetic selected-slot substitution; never dispatched"
+      },
+      "174": {
+        "value": "0x616102b8",
+        "origin": "synthetic selected-slot substitution; never dispatched"
+      },
+      "175": {
+        "value": "0x616102bc",
+        "origin": "synthetic selected-slot substitution; never dispatched"
+      }
+    },
+    "unselected_words_preserved_from_original_count": 241,
+    "bad_signature_word0": "0x5ac00cad",
+    "private_scratch_address": "0x20000000"
+  },
+  "module_layouts": [
+    {
+      "module": "ENG1.DLL",
+      "path": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\ENG1.DLL",
+      "sha256_expected_and_computed": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "preferred_image_base": "0x10000000",
+      "export_rva": "0x2c180",
+      "entry_span": {
+        "rva": "0x2c180",
+        "size": 128,
+        "sha256": "597f7923e45606e27c452f9f52794e777d60d9f5a04119e9b0b8f08303f656c4"
+      },
+      "copy_instruction_rva": "0x2c19f",
+      "signature_check_rva": "0x2c1a1",
+      "module_local_gate": {
+        "rva": "0x5b648",
+        "va": "0x1005b648",
+        "initial_dword": 1
+      },
+      "module_local_table": {
+        "rva": "0x70f20",
+        "va": "0x10070f20",
+        "words": 250,
+        "bytes": 1000
+      },
+      "entry_call_sites_and_targets": [
+        {
+          "rva": "0x2c1ca",
+          "operand": "0x1002c330",
+          "target_va": "0x1002c330",
+          "target_rva": "0x2c330"
+        },
+        {
+          "rva": "0x2c1dd",
+          "operand": "0x1002c880",
+          "target_va": "0x1002c880",
+          "target_rva": "0x2c880"
+        },
+        {
+          "rva": "0x2c1f1",
+          "operand": "0x10020300",
+          "target_va": "0x10020300",
+          "target_rva": "0x20300"
+        }
+      ]
+    },
+    {
+      "module": "ENG3.DLL",
+      "path": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\ENG3.DLL",
+      "sha256_expected_and_computed": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "preferred_image_base": "0x10000000",
+      "export_rva": "0x1f830",
+      "entry_span": {
+        "rva": "0x1f830",
+        "size": 121,
+        "sha256": "856441d73880be288bb62460b1332dcf56bdc544116fb85ec0004d2d71ecf510"
+      },
+      "copy_instruction_rva": "0x1f84f",
+      "signature_check_rva": "0x1f851",
+      "module_local_gate": {
+        "rva": "0x39488",
+        "va": "0x10039488",
+        "initial_dword": 1
+      },
+      "module_local_table": {
+        "rva": "0x407a0",
+        "va": "0x100407a0",
+        "words": 250,
+        "bytes": 1000
+      },
+      "entry_call_sites_and_targets": [
+        {
+          "rva": "0x1f87a",
+          "operand": "0x1001f9c0",
+          "target_va": "0x1001f9c0",
+          "target_rva": "0x1f9c0"
+        },
+        {
+          "rva": "0x1f88d",
+          "operand": "0x1001fec0",
+          "target_va": "0x1001fec0",
+          "target_rva": "0x1fec0"
+        },
+        {
+          "rva": "0x1f8a1",
+          "operand": "0x1001abb0",
+          "target_va": "0x1001abb0",
+          "target_rva": "0x1abb0"
+        }
+      ]
+    },
+    {
+      "module": "TITLE.DLL",
+      "path": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\TITLE.DLL",
+      "sha256_expected_and_computed": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "preferred_image_base": "0x10000000",
+      "export_rva": "0xc1f0",
+      "entry_span": {
+        "rva": "0xc1f0",
+        "size": 121,
+        "sha256": "7f70098bc5be27c61bcd63df56c61b218f7884173466650025c3396b3b88048f"
+      },
+      "copy_instruction_rva": "0xc20f",
+      "signature_check_rva": "0xc211",
+      "module_local_gate": {
+        "rva": "0x257e8",
+        "va": "0x100257e8",
+        "initial_dword": 1
+      },
+      "module_local_table": {
+        "rva": "0x2bb40",
+        "va": "0x1002bb40",
+        "words": 250,
+        "bytes": 1000
+      },
+      "entry_call_sites_and_targets": [
+        {
+          "rva": "0xc23a",
+          "operand": "0x1000c390",
+          "target_va": "0x1000c390",
+          "target_rva": "0xc390"
+        },
+        {
+          "rva": "0xc24d",
+          "operand": "0x1000ca00",
+          "target_va": "0x1000ca00",
+          "target_rva": "0xca00"
+        },
+        {
+          "rva": "0xc261",
+          "operand": "0x10005fb0",
+          "target_va": "0x10005fb0",
+          "target_rva": "0x5fb0"
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "module": "ENG1.DLL",
+      "scenario": "cold_valid_copy",
+      "initial_gate": 1,
+      "gate_override": null,
+      "gate_after": 1,
+      "table_rva": "0x70f20",
+      "table_va": "0x10070f20",
+      "initial_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "final_table_sha256": "70e83ab6f1caec3662e01a2a41cf10caba6c91f94015301f18d0fed1d5ebb81a",
+      "table_matches_source_exactly": true,
+      "table_unchanged": false,
+      "copied_bytes_seen_at_native_rep_instruction": 1000,
+      "table_write_event_count": 250,
+      "last_copy_write_sequence": 513,
+      "signature_compare_sequence": 515,
+      "copy_instruction_precedes_signature_compare": true,
+      "trace_contains_copy_instruction": true,
+      "trace_contains_signature_compare": true,
+      "stop_reason": "stopped_before_first_call",
+      "stopped_call_site": {
+        "rva": "0x2c1ca",
+        "operand": "0x1002c330",
+        "target_va": "0x1002c330",
+        "target_rva": "0x2c330"
+      },
+      "initializer_stack_words_before_call": [
+        6387664,
+        3145728
+      ],
+      "return_sentinel_reached": false,
+      "instruction_count": 1521,
+      "entry_arguments": {
+        "source_pointer": "0x20000000",
+        "flags_word": "0x1",
+        "entry_esp": "0x30002fe4"
+      },
+      "return_state": null,
+      "callee_saved_esi_edi_restored_on_return": null,
+      "source_table_unchanged": true,
+      "code_text_unchanged": true,
+      "code_text_write_events": 0,
+      "synthetic_source_write_events_during_execution": 0,
+      "copy_rva": "0x2c19f",
+      "signature_check_rva": "0x2c1a1",
+      "key_instruction_visit_counts": {
+        "0x2c19f": 251,
+        "0x2c1a1": 1,
+        "0x2c1ca": 1,
+        "0x2c1dd": 0,
+        "0x2c1f1": 0
+      },
+      "failure": null,
+      "selected_overlay_words_retained": true,
+      "unselected_original_words_unchanged": true,
+      "passed": true
+    },
+    {
+      "module": "ENG1.DLL",
+      "scenario": "bad_signature_copy_then_fail",
+      "initial_gate": 1,
+      "gate_override": null,
+      "gate_after": 1,
+      "table_rva": "0x70f20",
+      "table_va": "0x10070f20",
+      "initial_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "final_table_sha256": "0b4d29143de9cd62b86ab63e6fe3066ae038cf10433aed3d63ae1d6d12dcb78b",
+      "table_matches_source_exactly": true,
+      "table_unchanged": false,
+      "copied_bytes_seen_at_native_rep_instruction": 1000,
+      "table_write_event_count": 250,
+      "last_copy_write_sequence": 513,
+      "signature_compare_sequence": 515,
+      "copy_instruction_precedes_signature_compare": true,
+      "trace_contains_copy_instruction": true,
+      "trace_contains_signature_compare": true,
+      "stop_reason": "return_sentinel",
+      "stopped_call_site": null,
+      "initializer_stack_words_before_call": null,
+      "return_sentinel_reached": true,
+      "instruction_count": 268,
+      "entry_arguments": {
+        "source_pointer": "0x20000400",
+        "flags_word": "0x1",
+        "entry_esp": "0x30002fe4"
+      },
+      "return_state": {
+        "eax": "0x1",
+        "esp": "0x30002fe8",
+        "entry_esp_after_ret": true
+      },
+      "callee_saved_esi_edi_restored_on_return": true,
+      "source_table_unchanged": true,
+      "code_text_unchanged": true,
+      "code_text_write_events": 0,
+      "synthetic_source_write_events_during_execution": 0,
+      "copy_rva": "0x2c19f",
+      "signature_check_rva": "0x2c1a1",
+      "key_instruction_visit_counts": {
+        "0x2c19f": 251,
+        "0x2c1a1": 1,
+        "0x2c1ca": 0,
+        "0x2c1dd": 0,
+        "0x2c1f1": 0
+      },
+      "failure": null,
+      "passed": true
+    },
+    {
+      "module": "ENG1.DLL",
+      "scenario": "null_source_prefix",
+      "initial_gate": 1,
+      "gate_override": null,
+      "gate_after": 1,
+      "table_rva": "0x70f20",
+      "table_va": "0x10070f20",
+      "initial_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "final_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "table_matches_source_exactly": false,
+      "table_unchanged": true,
+      "copied_bytes_seen_at_native_rep_instruction": 0,
+      "table_write_event_count": 0,
+      "last_copy_write_sequence": null,
+      "signature_compare_sequence": null,
+      "copy_instruction_precedes_signature_compare": false,
+      "trace_contains_copy_instruction": false,
+      "trace_contains_signature_compare": false,
+      "stop_reason": "return_sentinel",
+      "stopped_call_site": null,
+      "initializer_stack_words_before_call": null,
+      "return_sentinel_reached": true,
+      "instruction_count": 12,
+      "entry_arguments": {
+        "source_pointer": "0x0",
+        "flags_word": "0x1",
+        "entry_esp": "0x30002fe4"
+      },
+      "return_state": {
+        "eax": "0x1",
+        "esp": "0x30002fe8",
+        "entry_esp_after_ret": true
+      },
+      "callee_saved_esi_edi_restored_on_return": true,
+      "source_table_unchanged": null,
+      "code_text_unchanged": true,
+      "code_text_write_events": 0,
+      "synthetic_source_write_events_during_execution": 0,
+      "copy_rva": "0x2c19f",
+      "signature_check_rva": "0x2c1a1",
+      "key_instruction_visit_counts": {
+        "0x2c19f": 0,
+        "0x2c1a1": 0,
+        "0x2c1ca": 0,
+        "0x2c1dd": 0,
+        "0x2c1f1": 0
+      },
+      "failure": null,
+      "passed": true
+    },
+    {
+      "module": "ENG1.DLL",
+      "scenario": "warm_gate_zero",
+      "initial_gate": 1,
+      "gate_override": 0,
+      "gate_after": 0,
+      "table_rva": "0x70f20",
+      "table_va": "0x10070f20",
+      "initial_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "final_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "table_matches_source_exactly": false,
+      "table_unchanged": true,
+      "copied_bytes_seen_at_native_rep_instruction": 0,
+      "table_write_event_count": 0,
+      "last_copy_write_sequence": null,
+      "signature_compare_sequence": null,
+      "copy_instruction_precedes_signature_compare": false,
+      "trace_contains_copy_instruction": false,
+      "trace_contains_signature_compare": false,
+      "stop_reason": "stopped_before_first_call",
+      "stopped_call_site": {
+        "rva": "0x2c1dd",
+        "operand": "0x1002c880",
+        "target_va": "0x1002c880",
+        "target_rva": "0x2c880"
+      },
+      "initializer_stack_words_before_call": null,
+      "return_sentinel_reached": false,
+      "instruction_count": 6,
+      "entry_arguments": {
+        "source_pointer": "0x20000000",
+        "flags_word": "0x13572468",
+        "entry_esp": "0x30002fe4"
+      },
+      "return_state": null,
+      "callee_saved_esi_edi_restored_on_return": null,
+      "source_table_unchanged": true,
+      "code_text_unchanged": true,
+      "code_text_write_events": 0,
+      "synthetic_source_write_events_during_execution": 0,
+      "copy_rva": "0x2c19f",
+      "signature_check_rva": "0x2c1a1",
+      "key_instruction_visit_counts": {
+        "0x2c19f": 0,
+        "0x2c1a1": 0,
+        "0x2c1ca": 0,
+        "0x2c1dd": 1,
+        "0x2c1f1": 0
+      },
+      "failure": null,
+      "passed": true
+    },
+    {
+      "module": "ENG3.DLL",
+      "scenario": "cold_valid_copy",
+      "initial_gate": 1,
+      "gate_override": null,
+      "gate_after": 1,
+      "table_rva": "0x407a0",
+      "table_va": "0x100407a0",
+      "initial_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "final_table_sha256": "70e83ab6f1caec3662e01a2a41cf10caba6c91f94015301f18d0fed1d5ebb81a",
+      "table_matches_source_exactly": true,
+      "table_unchanged": false,
+      "copied_bytes_seen_at_native_rep_instruction": 1000,
+      "table_write_event_count": 250,
+      "last_copy_write_sequence": 513,
+      "signature_compare_sequence": 515,
+      "copy_instruction_precedes_signature_compare": true,
+      "trace_contains_copy_instruction": true,
+      "trace_contains_signature_compare": true,
+      "stop_reason": "stopped_before_first_call",
+      "stopped_call_site": {
+        "rva": "0x1f87a",
+        "operand": "0x1001f9c0",
+        "target_va": "0x1001f9c0",
+        "target_rva": "0x1f9c0"
+      },
+      "initializer_stack_words_before_call": [
+        6387664,
+        3145728
+      ],
+      "return_sentinel_reached": false,
+      "instruction_count": 1521,
+      "entry_arguments": {
+        "source_pointer": "0x20000000",
+        "flags_word": "0x1",
+        "entry_esp": "0x30002fe4"
+      },
+      "return_state": null,
+      "callee_saved_esi_edi_restored_on_return": null,
+      "source_table_unchanged": true,
+      "code_text_unchanged": true,
+      "code_text_write_events": 0,
+      "synthetic_source_write_events_during_execution": 0,
+      "copy_rva": "0x1f84f",
+      "signature_check_rva": "0x1f851",
+      "key_instruction_visit_counts": {
+        "0x1f84f": 251,
+        "0x1f851": 1,
+        "0x1f87a": 1,
+        "0x1f88d": 0,
+        "0x1f8a1": 0
+      },
+      "failure": null,
+      "selected_overlay_words_retained": true,
+      "unselected_original_words_unchanged": true,
+      "passed": true
+    },
+    {
+      "module": "ENG3.DLL",
+      "scenario": "bad_signature_copy_then_fail",
+      "initial_gate": 1,
+      "gate_override": null,
+      "gate_after": 1,
+      "table_rva": "0x407a0",
+      "table_va": "0x100407a0",
+      "initial_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "final_table_sha256": "0b4d29143de9cd62b86ab63e6fe3066ae038cf10433aed3d63ae1d6d12dcb78b",
+      "table_matches_source_exactly": true,
+      "table_unchanged": false,
+      "copied_bytes_seen_at_native_rep_instruction": 1000,
+      "table_write_event_count": 250,
+      "last_copy_write_sequence": 513,
+      "signature_compare_sequence": 515,
+      "copy_instruction_precedes_signature_compare": true,
+      "trace_contains_copy_instruction": true,
+      "trace_contains_signature_compare": true,
+      "stop_reason": "return_sentinel",
+      "stopped_call_site": null,
+      "initializer_stack_words_before_call": null,
+      "return_sentinel_reached": true,
+      "instruction_count": 268,
+      "entry_arguments": {
+        "source_pointer": "0x20000400",
+        "flags_word": "0x1",
+        "entry_esp": "0x30002fe4"
+      },
+      "return_state": {
+        "eax": "0x1",
+        "esp": "0x30002fe8",
+        "entry_esp_after_ret": true
+      },
+      "callee_saved_esi_edi_restored_on_return": true,
+      "source_table_unchanged": true,
+      "code_text_unchanged": true,
+      "code_text_write_events": 0,
+      "synthetic_source_write_events_during_execution": 0,
+      "copy_rva": "0x1f84f",
+      "signature_check_rva": "0x1f851",
+      "key_instruction_visit_counts": {
+        "0x1f84f": 251,
+        "0x1f851": 1,
+        "0x1f87a": 0,
+        "0x1f88d": 0,
+        "0x1f8a1": 0
+      },
+      "failure": null,
+      "passed": true
+    },
+    {
+      "module": "ENG3.DLL",
+      "scenario": "null_source_prefix",
+      "initial_gate": 1,
+      "gate_override": null,
+      "gate_after": 1,
+      "table_rva": "0x407a0",
+      "table_va": "0x100407a0",
+      "initial_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "final_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "table_matches_source_exactly": false,
+      "table_unchanged": true,
+      "copied_bytes_seen_at_native_rep_instruction": 0,
+      "table_write_event_count": 0,
+      "last_copy_write_sequence": null,
+      "signature_compare_sequence": null,
+      "copy_instruction_precedes_signature_compare": false,
+      "trace_contains_copy_instruction": false,
+      "trace_contains_signature_compare": false,
+      "stop_reason": "return_sentinel",
+      "stopped_call_site": null,
+      "initializer_stack_words_before_call": null,
+      "return_sentinel_reached": true,
+      "instruction_count": 12,
+      "entry_arguments": {
+        "source_pointer": "0x0",
+        "flags_word": "0x1",
+        "entry_esp": "0x30002fe4"
+      },
+      "return_state": {
+        "eax": "0x1",
+        "esp": "0x30002fe8",
+        "entry_esp_after_ret": true
+      },
+      "callee_saved_esi_edi_restored_on_return": true,
+      "source_table_unchanged": null,
+      "code_text_unchanged": true,
+      "code_text_write_events": 0,
+      "synthetic_source_write_events_during_execution": 0,
+      "copy_rva": "0x1f84f",
+      "signature_check_rva": "0x1f851",
+      "key_instruction_visit_counts": {
+        "0x1f84f": 0,
+        "0x1f851": 0,
+        "0x1f87a": 0,
+        "0x1f88d": 0,
+        "0x1f8a1": 0
+      },
+      "failure": null,
+      "passed": true
+    },
+    {
+      "module": "ENG3.DLL",
+      "scenario": "warm_gate_zero",
+      "initial_gate": 1,
+      "gate_override": 0,
+      "gate_after": 0,
+      "table_rva": "0x407a0",
+      "table_va": "0x100407a0",
+      "initial_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "final_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "table_matches_source_exactly": false,
+      "table_unchanged": true,
+      "copied_bytes_seen_at_native_rep_instruction": 0,
+      "table_write_event_count": 0,
+      "last_copy_write_sequence": null,
+      "signature_compare_sequence": null,
+      "copy_instruction_precedes_signature_compare": false,
+      "trace_contains_copy_instruction": false,
+      "trace_contains_signature_compare": false,
+      "stop_reason": "stopped_before_first_call",
+      "stopped_call_site": {
+        "rva": "0x1f88d",
+        "operand": "0x1001fec0",
+        "target_va": "0x1001fec0",
+        "target_rva": "0x1fec0"
+      },
+      "initializer_stack_words_before_call": null,
+      "return_sentinel_reached": false,
+      "instruction_count": 6,
+      "entry_arguments": {
+        "source_pointer": "0x20000000",
+        "flags_word": "0x13572468",
+        "entry_esp": "0x30002fe4"
+      },
+      "return_state": null,
+      "callee_saved_esi_edi_restored_on_return": null,
+      "source_table_unchanged": true,
+      "code_text_unchanged": true,
+      "code_text_write_events": 0,
+      "synthetic_source_write_events_during_execution": 0,
+      "copy_rva": "0x1f84f",
+      "signature_check_rva": "0x1f851",
+      "key_instruction_visit_counts": {
+        "0x1f84f": 0,
+        "0x1f851": 0,
+        "0x1f87a": 0,
+        "0x1f88d": 1,
+        "0x1f8a1": 0
+      },
+      "failure": null,
+      "passed": true
+    },
+    {
+      "module": "TITLE.DLL",
+      "scenario": "cold_valid_copy",
+      "initial_gate": 1,
+      "gate_override": null,
+      "gate_after": 1,
+      "table_rva": "0x2bb40",
+      "table_va": "0x1002bb40",
+      "initial_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "final_table_sha256": "70e83ab6f1caec3662e01a2a41cf10caba6c91f94015301f18d0fed1d5ebb81a",
+      "table_matches_source_exactly": true,
+      "table_unchanged": false,
+      "copied_bytes_seen_at_native_rep_instruction": 1000,
+      "table_write_event_count": 250,
+      "last_copy_write_sequence": 513,
+      "signature_compare_sequence": 515,
+      "copy_instruction_precedes_signature_compare": true,
+      "trace_contains_copy_instruction": true,
+      "trace_contains_signature_compare": true,
+      "stop_reason": "stopped_before_first_call",
+      "stopped_call_site": {
+        "rva": "0xc23a",
+        "operand": "0x1000c390",
+        "target_va": "0x1000c390",
+        "target_rva": "0xc390"
+      },
+      "initializer_stack_words_before_call": [
+        6387664,
+        3145728
+      ],
+      "return_sentinel_reached": false,
+      "instruction_count": 1521,
+      "entry_arguments": {
+        "source_pointer": "0x20000000",
+        "flags_word": "0x1",
+        "entry_esp": "0x30002fe4"
+      },
+      "return_state": null,
+      "callee_saved_esi_edi_restored_on_return": null,
+      "source_table_unchanged": true,
+      "code_text_unchanged": true,
+      "code_text_write_events": 0,
+      "synthetic_source_write_events_during_execution": 0,
+      "copy_rva": "0xc20f",
+      "signature_check_rva": "0xc211",
+      "key_instruction_visit_counts": {
+        "0xc20f": 251,
+        "0xc211": 1,
+        "0xc23a": 1,
+        "0xc24d": 0,
+        "0xc261": 0
+      },
+      "failure": null,
+      "selected_overlay_words_retained": true,
+      "unselected_original_words_unchanged": true,
+      "passed": true
+    },
+    {
+      "module": "TITLE.DLL",
+      "scenario": "bad_signature_copy_then_fail",
+      "initial_gate": 1,
+      "gate_override": null,
+      "gate_after": 1,
+      "table_rva": "0x2bb40",
+      "table_va": "0x1002bb40",
+      "initial_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "final_table_sha256": "0b4d29143de9cd62b86ab63e6fe3066ae038cf10433aed3d63ae1d6d12dcb78b",
+      "table_matches_source_exactly": true,
+      "table_unchanged": false,
+      "copied_bytes_seen_at_native_rep_instruction": 1000,
+      "table_write_event_count": 250,
+      "last_copy_write_sequence": 513,
+      "signature_compare_sequence": 515,
+      "copy_instruction_precedes_signature_compare": true,
+      "trace_contains_copy_instruction": true,
+      "trace_contains_signature_compare": true,
+      "stop_reason": "return_sentinel",
+      "stopped_call_site": null,
+      "initializer_stack_words_before_call": null,
+      "return_sentinel_reached": true,
+      "instruction_count": 268,
+      "entry_arguments": {
+        "source_pointer": "0x20000400",
+        "flags_word": "0x1",
+        "entry_esp": "0x30002fe4"
+      },
+      "return_state": {
+        "eax": "0x1",
+        "esp": "0x30002fe8",
+        "entry_esp_after_ret": true
+      },
+      "callee_saved_esi_edi_restored_on_return": true,
+      "source_table_unchanged": true,
+      "code_text_unchanged": true,
+      "code_text_write_events": 0,
+      "synthetic_source_write_events_during_execution": 0,
+      "copy_rva": "0xc20f",
+      "signature_check_rva": "0xc211",
+      "key_instruction_visit_counts": {
+        "0xc20f": 251,
+        "0xc211": 1,
+        "0xc23a": 0,
+        "0xc24d": 0,
+        "0xc261": 0
+      },
+      "failure": null,
+      "passed": true
+    },
+    {
+      "module": "TITLE.DLL",
+      "scenario": "null_source_prefix",
+      "initial_gate": 1,
+      "gate_override": null,
+      "gate_after": 1,
+      "table_rva": "0x2bb40",
+      "table_va": "0x1002bb40",
+      "initial_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "final_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "table_matches_source_exactly": false,
+      "table_unchanged": true,
+      "copied_bytes_seen_at_native_rep_instruction": 0,
+      "table_write_event_count": 0,
+      "last_copy_write_sequence": null,
+      "signature_compare_sequence": null,
+      "copy_instruction_precedes_signature_compare": false,
+      "trace_contains_copy_instruction": false,
+      "trace_contains_signature_compare": false,
+      "stop_reason": "return_sentinel",
+      "stopped_call_site": null,
+      "initializer_stack_words_before_call": null,
+      "return_sentinel_reached": true,
+      "instruction_count": 12,
+      "entry_arguments": {
+        "source_pointer": "0x0",
+        "flags_word": "0x1",
+        "entry_esp": "0x30002fe4"
+      },
+      "return_state": {
+        "eax": "0x1",
+        "esp": "0x30002fe8",
+        "entry_esp_after_ret": true
+      },
+      "callee_saved_esi_edi_restored_on_return": true,
+      "source_table_unchanged": null,
+      "code_text_unchanged": true,
+      "code_text_write_events": 0,
+      "synthetic_source_write_events_during_execution": 0,
+      "copy_rva": "0xc20f",
+      "signature_check_rva": "0xc211",
+      "key_instruction_visit_counts": {
+        "0xc20f": 0,
+        "0xc211": 0,
+        "0xc23a": 0,
+        "0xc24d": 0,
+        "0xc261": 0
+      },
+      "failure": null,
+      "passed": true
+    },
+    {
+      "module": "TITLE.DLL",
+      "scenario": "warm_gate_zero",
+      "initial_gate": 1,
+      "gate_override": 0,
+      "gate_after": 0,
+      "table_rva": "0x2bb40",
+      "table_va": "0x1002bb40",
+      "initial_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "final_table_sha256": "541b3e9daa09b20bf85fa273e5cbd3e80185aa4ec298e765db87742b70138a53",
+      "table_matches_source_exactly": false,
+      "table_unchanged": true,
+      "copied_bytes_seen_at_native_rep_instruction": 0,
+      "table_write_event_count": 0,
+      "last_copy_write_sequence": null,
+      "signature_compare_sequence": null,
+      "copy_instruction_precedes_signature_compare": false,
+      "trace_contains_copy_instruction": false,
+      "trace_contains_signature_compare": false,
+      "stop_reason": "stopped_before_first_call",
+      "stopped_call_site": {
+        "rva": "0xc24d",
+        "operand": "0x1000ca00",
+        "target_va": "0x1000ca00",
+        "target_rva": "0xca00"
+      },
+      "initializer_stack_words_before_call": null,
+      "return_sentinel_reached": false,
+      "instruction_count": 6,
+      "entry_arguments": {
+        "source_pointer": "0x20000000",
+        "flags_word": "0x13572468",
+        "entry_esp": "0x30002fe4"
+      },
+      "return_state": null,
+      "callee_saved_esi_edi_restored_on_return": null,
+      "source_table_unchanged": true,
+      "code_text_unchanged": true,
+      "code_text_write_events": 0,
+      "synthetic_source_write_events_during_execution": 0,
+      "copy_rva": "0xc20f",
+      "signature_check_rva": "0xc211",
+      "key_instruction_visit_counts": {
+        "0xc20f": 0,
+        "0xc211": 0,
+        "0xc23a": 0,
+        "0xc24d": 1,
+        "0xc261": 0
+      },
+      "failure": null,
+      "passed": true
+    }
+  ],
+  "summary": {
+    "modules_tested": 3,
+    "scenarios_tested": 12,
+    "passed_scenarios": 12,
+    "all_250_words_copied_on_cold_valid": true,
+    "bad_signature_copies_before_failure": true,
+    "null_source_prefix_returned_safely": true,
+    "warm_gate_zero_skips_copy_before_internal_call": true,
+    "selected_overlays_retained": true,
+    "all_unselected_original_words_retained": true,
+    "independent_module_local_gate_rvas": [
+      "0x5b648",
+      "0x39488",
+      "0x257e8"
+    ],
+    "independent_module_local_table_rvas": [
+      "0x70f20",
+      "0x407a0",
+      "0x2bb40"
+    ],
+    "no_original_code_bytes_written": true,
+    "no_internal_calls_executed": true
+  },
+  "proof_limits": [
+    "No OS imports or internal initializer callees were executed; the emulator stops on the first CALL instruction in the exported entry span.",
+    "The cold valid case proves the copy prefix and pre-initializer call setup only; it does not establish full export behavior or universal calling convention.",
+    "The bad-signature and null-source return observations apply only to these tested entry paths; they do not establish universal DLL behavior or a complete API contract.",
+    "The validation loop repeatedly tests source word zero; the exact byte comparison independently verifies copied words, but this prefix does not prove every callback target valid or safe to dispatch.",
+    "The warm-gate-zero case injects only the observed gate value into isolated DLL data to exercise the copy-skipping branch; it is not an observed live game session.",
+    "Synthetic overlay callback words are never dispatched; they test data-copy preservation only.",
+    "No file bytes, original code pages, canonical package files, or recovery state were modified."
+  ],
+  "prior_receipt_provenance": {
+    "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_next\\interface_copy\\interface_copy_report.json",
+    "sha256": "7f538ceea5ed0363afd2423f6e3461afe4ed52befe52588eb144e0ab515324e1",
+    "note": "Earlier private-evidence run retained separately; this audit writes a distinct public-profile receipt."
+  },
+  "status": "passed"
+}

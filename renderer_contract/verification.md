@@ -31,12 +31,52 @@ Host loading, interception, GPU pixels and window coexistence are unobserved.
 No successful game launch or rendering replacement is claimed. Native CPU
 emulation is distinct from HOST_INTEGRATION_OBSERVED.
 
-The integrated checkpoint passes seven VC5 C/C++ suites. Numeric fixtures
-include 36 frame, 37 packet, 43 state and 47 indexed-pixel checks. The native
-CPU checks cover three upload rectangles, one mixed AC60 chain with recorded
-callee boundaries, and four C700/C882 selector cases. Original validation
-covers four image hashes, 108 spans, 24 callback bindings, 22 wrappers and 57
-dispatch sites. These counts describe this finite checkpoint.
+The current checkpoint passes eleven VC5 C/C++ suites. Numeric fixtures
+include 44 frame, 43 packet, 43 state, 47 indexed-pixel, 24 sprite-pixel and
+74 staging checks. Native fixtures add 26 sprite setup cases, eight pixel
+slices, nine VRAM/alias cases, six row/rectangle cases, twelve DLL prefixes
+and one complete bounded startup LUT writer. The staging differential checks
+171 native fields, seven gate branches and nine page-mask vectors. Original
+validation covers four image hashes, 162 spans, 28 callback bindings,
+22 wrappers and 57 dispatch sites. Counts describe finite evidence only.
+
+The original palette builder falsified an earlier interpretation of its
+CLUT writer as a clear: it writes byte ramps. It also showed that selector 3
+adds column to half-row before saturation. The published formula includes
+that correction and the later 192-byte overwrite of blend selector 0.
+
+## Reproduce from the repository root
+
+Use Python 3 with the existing repository PE dependencies. On this machine:
+
+```powershell
+$pythonExe = 'C:\Users\jiriv\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe'
+$originalExe = 'D:\Prog\hercules_recon\work\discs\pc_install\HERCULES.EXE'
+& $pythonExe renderer_contract/tests/run_tests.py
+& $pythonExe renderer_contract/tests/validate_originals.py --original-root D:\Prog\hercules_recon
+& $pythonExe renderer_contract/tests/test_original_pixel_slices.py --exe $originalExe --receipt work/replay/pixels.json
+& $pythonExe renderer_contract/tests/test_original_polygon_dispatch.py --exe $originalExe --receipt work/replay/polygons.json
+& $pythonExe renderer_contract/tests/test_original_sprite_geometry.py --exe $originalExe --receipt work/replay/sprites.json
+& $pythonExe renderer_contract/tests/test_original_vram_move.py --exe $originalExe --receipt work/replay/moves.json
+& $pythonExe renderer_contract/tests/test_original_palette_builder.py --repo-root . --exe $originalExe --receipt work/replay/palette.json
+& $pythonExe renderer_contract/tests/test_native_staging.py --exe $originalExe --receipt work/replay/staging.json
+& $pythonExe renderer_contract/tests/test_original_interface_copy.py --exe $originalExe `
+  --eng1 D:\Prog\hercules_recon\assets\pc\HERCULES\ENG1.DLL `
+  --eng3 D:\Prog\hercules_recon\assets\pc\HERCULES\ENG3.DLL `
+  --title D:\Prog\hercules_recon\assets\pc\HERCULES\TITLE.DLL `
+  --receipt work/replay/interface.json
+```
+
+All original paths are explicit and read-only. Supply your own original paths
+for another installation. The oracle hashes intentionally reject unsupported
+images, including the differing no-CD EXE; the variant comparison is separate.
+Native tests default to pinned Unicorn and analysis dependencies under C:\tools.
+The staging differential invokes the common C runner as well as three CPU
+fixtures. Receipts and compiler products are confined to ignored work/.
+Windows can reject the old compiler in the sandbox with error 623; the same
+workspace-only compile/run outside that sandbox succeeds. No tools are patched.
+The quad test filename avoids legacy installer detection of the word "patch"
+inside "dispatch", which otherwise requested elevation for that test executable.
 
 Luna xhigh workers performed the bounded call/field audits, module comparison,
 frame/texture work, native CPU harnesses and reference utilities. The integrator

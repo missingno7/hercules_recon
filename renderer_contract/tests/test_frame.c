@@ -1,5 +1,4 @@
 #include "hercules_frame.h"
-#include "hercules_frame.h"
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
@@ -41,6 +40,16 @@ typedef struct FrameResolverProbe {
     renderer_raw32 forbidden_address;
     renderer_u32 forbidden_queries;
 } FrameResolverProbe;
+
+typedef struct FrameVisitMutation {
+    FrameTestState *state;
+    renderer_raw32 rewrite_primitive;
+    renderer_raw32 replacement_link;
+    renderer_raw32 visits[4];
+    renderer_u32 visit_count;
+    int rewritten;
+    int accept;
+} FrameVisitMutation;
 
 static int expect(FrameTestState *state, int condition, const char *name)
 {
@@ -97,6 +106,24 @@ static int test_probe_resolver(void *context,
         ++probe->forbidden_queries;
     return frame_raw32_region_resolve(probe->region, address, byte_count,
                                       resolved_bytes);
+}
+
+static int test_mutating_visitor(void *context,
+                                 renderer_raw32 primitive_address)
+{
+    FrameVisitMutation *mutation = (FrameVisitMutation *)context;
+    if (mutation == 0 || mutation->state == 0 ||
+        mutation->visit_count >= 4u)
+        return 0;
+    mutation->visits[mutation->visit_count++] = primitive_address;
+    if (!mutation->rewritten &&
+        primitive_address == mutation->rewrite_primitive) {
+        mutation->rewritten = 1;
+        if (!test_store32(mutation->state, primitive_address,
+                          mutation->replacement_link))
+            return 0;
+    }
+    return mutation->accept;
 }
 
 static int seed_forward_slots(FrameTestState *state,
@@ -181,7 +208,10 @@ int main(void)
     renderer_raw32 packet0, packet1, packet2, packet3;
     renderer_raw32 bucket, old_head = 0, terminator;
     renderer_raw32 invalid_last;
+    renderer_raw32 prior_visits[4];
+    renderer_u32 prior_count;
     FrameResolverProbe resolver_probe;
+    FrameVisitMutation mutation;
     const renderer_u8 *mapped_tail;
     FrameWalkStatus status;
     int ok = 1;
@@ -304,6 +334,73 @@ int main(void)
     ok &= expect(&state, status == FRAME_WALK_OK &&
                  state.guard.count == TITLE_ORDER_TABLE_COUNT && terminator == 0,
                  "second TITLE table has 0x500 heads and terminal NULL");
+
+    ok &= expect(&state, seed_forward_slots(&state, title_ot0,
+                                            TITLE_ORDER_TABLE_COUNT) &&
+                 test_store32(&state, title_ot0, packet0) &&
+                 test_store32(&state, packet0, packet2) &&
+                 test_store32(&state, packet2, title_ot0 + 4u),
+                 "no-visitor equivalence chain seeded");
+    status = frame_walk_ac60_order_table(frame_raw32_region_resolve,
+                                         &state.region, title_ot0,
+                                         TITLE_ORDER_TABLE_COUNT,
+                                         &state.guard);
+    prior_count = state.guard.count;
+    for (bucket = 0; bucket < prior_count && bucket < 4u; ++bucket)
+        prior_visits[bucket] = state.visits[bucket];
+    ok &= expect(&state, status == FRAME_WALK_OK && prior_count == 2u,
+                 "legacy AC60 wrapper baseline visits two primitives");
+    status = frame_walk_ac60_order_table_visit(
+        frame_raw32_region_resolve, &state.region, title_ot0,
+        TITLE_ORDER_TABLE_COUNT, &state.guard, 0, 0);
+    ok &= expect(&state, status == FRAME_WALK_OK &&
+                 prior_count == 2u &&
+                 state.guard.count == prior_count &&
+                 state.visits[0] == prior_visits[0] &&
+                 state.visits[1] == prior_visits[1],
+                 "new API with NULL visitor preserves legacy visit order");
+
+    ok &= expect(&state, seed_forward_slots(&state, title_ot0,
+                                            TITLE_ORDER_TABLE_COUNT) &&
+                 test_store32(&state, title_ot0, packet0) &&
+                 test_store32(&state, packet0, packet1) &&
+                 test_store32(&state, packet1, title_ot0 + 4u) &&
+                 test_store32(&state, packet2, title_ot0 + 4u),
+                 "callback-mutation order table and primitive links seeded");
+    memset(&mutation, 0, sizeof(mutation));
+    mutation.state = &state;
+    mutation.rewrite_primitive = packet0;
+    mutation.replacement_link = packet2;
+    mutation.accept = 1;
+    status = frame_walk_ac60_order_table_visit(
+        frame_raw32_region_resolve, &state.region, title_ot0,
+        TITLE_ORDER_TABLE_COUNT, &state.guard, test_mutating_visitor,
+        &mutation);
+    ok &= expect(&state, status == FRAME_WALK_OK &&
+                 mutation.visit_count == 2u &&
+                 mutation.visits[0] == packet0 &&
+                 mutation.visits[1] == packet2 &&
+                 state.guard.count == 2u,
+                 "visitor-mutated current link is re-read before next visit");
+
+    ok &= expect(&state, seed_forward_slots(&state, title_ot0,
+                                            TITLE_ORDER_TABLE_COUNT) &&
+                 test_store32(&state, title_ot0, packet0) &&
+                 test_store32(&state, packet0, title_ot0 + 4u),
+                 "visitor-failure order table and primitive link seeded");
+    memset(&mutation, 0, sizeof(mutation));
+    mutation.state = &state;
+    mutation.accept = 0;
+    status = frame_walk_ac60_order_table_visit(
+        frame_raw32_region_resolve, &state.region, title_ot0,
+        TITLE_ORDER_TABLE_COUNT, &state.guard, test_mutating_visitor,
+        &mutation);
+    ok &= expect(&state, status == FRAME_WALK_VISITOR_ERROR &&
+                 mutation.visit_count == 1u && state.guard.count == 1u,
+                 "visitor failure is reported before following the link");
+    ok &= expect(&state, seed_forward_slots(&state, title_ot0,
+                                            TITLE_ORDER_TABLE_COUNT),
+                 "TITLE OT restored after callback-mutation tests");
 
     bucket = TITLE_ORDER_TABLE_COUNT - 2u - 7u;
     ok &= expect(&state, bucket == 0x4f7u,

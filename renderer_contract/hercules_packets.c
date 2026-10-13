@@ -187,6 +187,18 @@ RendererPacketStatus renderer_decode_packet(
         return RENDERER_PACKET_OK;
     }
 
+    /* ENG3.DLL 0x22f00 writes linked 0x68 records with a 0x0c producer
+     * stride. AC60 only reads their link/tag and, after the shared group-60
+     * page-base refresh, skips both raster calls. Do not invent payload fields
+     * or treat this route as a side-effect-free decoder operation. */
+    if (normalized == 0x68U) {
+        decoded->kind = RENDERER_PACKET_OBSERVED_UNDRAWN;
+        decoded->minimum_size = 0x08U;
+        decoded->producer_tag_observed =
+            (renderer_u8)(command == 0x68U);
+        return RENDERER_PACKET_KNOWN_UNDRAWN;
+    }
+
     if (command == 0xe1U) {
         decoded->kind = RENDERER_PACKET_E1_MODE;
         decoded->minimum_size = 0x08U;

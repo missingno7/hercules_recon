@@ -91,3 +91,17 @@ perspective-correct texturing/depth needs earlier geometry capture and reliable
 association with emitted/clipped primitives. Existing host transform callbacks
 expose camera coordinates, but that does not establish a complete capture and
 association protocol across every module. See geometry.md.
+
+## Preserve live traversal and aliased tables
+
+AC60 follows the current node's link at ACA2 after dispatch, including an
+A8F0→BD80 notification. A replacement must preserve callback positions and
+reload native links and shared state afterward. Predecoding a whole frame
+before callbacks can discard later writes. The offline bounded walker is a
+capture aid, not an execution substitute. Notification ownership is a separate
+contract; retaining the original service is the conservative boundary.
+
+Native LUT construction proves actual table aliasing. Shade/CLUT/blend bytes
+cannot be snapshotted as independent owned textures. Original window, palette,
+clear, movies and final surface remap remain required compatibility behavior
+at the initial clone boundary. No bootstrap/window coexistence has been run.

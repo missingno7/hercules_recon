@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "scope": "BOUNDED_EQUIVALENT: unchanged original 71A0 builder and 6780 palette-entry helper, stopped before the 69A0 call; CPU emulation only, no OS/window/DirectDraw APIs.",
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256_before": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "sha256_after": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000",
+    "builder_start_rva": "0x71a0",
+    "stop_before_rva": "0x728d",
+    "executed_builder_span_size": 237,
+    "executed_builder_span_sha256": "b9d5dce6b99f858a625aa276e0ed355da2a2a3b878347fbb1730955fb9e94b79",
+    "palette_helper_rva": "0x6780",
+    "palette_helper_size": 135,
+    "palette_helper_sha256": "8e8230bf3f82228e5eceee44ac9fc1b5adb669fb4c1890c1050ffde5ce6a8a23",
+    "sections": {
+      "text": {
+        "rva": "0x1000",
+        "raw_size": 183808
+      },
+      "data": {
+        "rva": "0x35000",
+        "virtual_size": "0x76fb28",
+        "raw_size": "0x9600",
+        "mode_byte_rva": "0x7a020c"
+      }
+    }
+  },
+  "runtime": {
+    "python": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "python_version": "3.12.14",
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "unicorn_module_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\__init__.py",
+    "native_dll_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "dependency_origin": {
+      "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+      "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+      "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+    }
+  },
+  "command": "renderer_contract/tests/test_original_palette_builder.py --repo-root D:\\Prog\\hercules_recon\\work\\renderer_interface_repo --exe D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE --receipt work/renderer_phase2/native_palette_builder.json",
+  "execution": {
+    "fixture_scenario_count": 1,
+    "preferred_base_original_pe_mapped": true,
+    "unknown_code_or_memory_fails": true,
+    "instruction_budget": 20000000,
+    "instruction_count": 2356875,
+    "helper_6780_entries": 256,
+    "stopped_at_rva": "0x728d",
+    "69A0_call_rva_728F_executed": false,
+    "only_allowed_original_data_writes": true,
+    "allowed_original_write_ranges": [
+      {
+        "start": "0x91c488",
+        "end_exclusive": "0x92c488",
+        "writer_rva": "0x71de"
+      },
+      {
+        "start": "0x92e3d0",
+        "end_exclusive": "0x96e3d0",
+        "writer_rvas": [
+          "0x720f",
+          "0x7227",
+          "0x723d",
+          "0x724d"
+        ]
+      },
+      {
+        "start": "0x92c490",
+        "end_exclusive": "0x92e490",
+        "writer_rva": "0x7274"
+      }
+    ],
+    "table_byte_write_events": 335872,
+    "unique_table_bytes_written": 335680,
+    "table_writer_counts_by_rva": {
+      "0x71de": 65536,
+      "0x720f": 65536,
+      "0x7227": 65536,
+      "0x723d": 65536,
+      "0x724d": 65536,
+      "0x7274": 8192
+    },
+    "palette_entry_store_events": 2048,
+    "original_text_unchanged": true,
+    "original_data_outside_table_union_unchanged": true,
+    "synthetic_palette_buffers_outside_entries_unchanged": true,
+    "original_file_unchanged": true
+  },
+  "fixtures": {
+    "seed_canaries": {
+      "shade": "0xa5",
+      "blend": "0xb6",
+      "clut_ramp_range": "0xc7",
+      "mode_flag_0x92c488": "0xd8"
+    },
+    "guard_canaries_unchanged": {
+      "0x91c487": "11",
+      "0x92c488": "d8",
+      "0x92c489": "e1e2e3e4e5e6e7",
+      "0x96e3d0": "f9"
+    },
+    "shade_final_sha256": "674caa96b371abd08aec5b3846dbbd9b73a5fcdb1c29ca3cadcff690c6858cef",
+    "shade_matches_formula_all_65536_bytes": true,
+    "blend_final_sha256": "9c1ad11f46c29575a47bbcbc6f93ec4fc8566ae0e95b9b9231f906443cc3a507",
+    "blend_matches_formula_plus_clut_overlap_all_262144_bytes": true,
+    "clut_ramp_final_sha256": "dc404a613fedaeb54034514bc6505f56b933caa5250299ba7d094377a51caa46",
+    "clut_ramp_matches_all_8192_ramp_bytes": true,
+    "logical_palette_entries_sha256": "f82b59bdb23943e5d5294431c86a9843e1c3c32e0dc972675e4e552f80c6e91e",
+    "dib_rgbquad_entries_sha256": "cc5113d566e067cb06b3fe924fcdad87dbe77375e7da90a45fac623eb816b73a",
+    "palette_entries_match_grayscale_256": true,
+    "selector0_source_zero_destination_0x3c": {
+      "average_formula_before_overlap": 30,
+      "final_table_value": 124,
+      "cell_address": "0x92e40c"
+    },
+    "selector0_row0_clut_overlap_boundary": {
+      "column_191": {
+        "formula": 95,
+        "final": 255
+      },
+      "column_192": {
+        "formula": 96,
+        "final": 96
+      },
+      "selected_original_writer_events": {
+        "0x92e40c": [
+          {
+            "pc_rva": "0x720f",
+            "value": "0x1e"
+          },
+          {
+            "pc_rva": "0x7274",
+            "value": "0x7c"
+          }
+        ],
+        "0x92e48f": [
+          {
+            "pc_rva": "0x720f",
+            "value": "0x5f"
+          },
+          {
+            "pc_rva": "0x7274",
+            "value": "0xff"
+          }
+        ],
+        "0x92e490": [
+          {
+            "pc_rva": "0x720f",
+            "value": "0x60"
+          }
+        ]
+      }
+    },
+    "distinct_selector_sample_row7_col3": [
+      5,
+      10,
+      0,
+      6
+    ],
+    "mode_flag_preserved": true
+  },
+  "limitations": [
+    "This executes the builder only; it does not execute 69A0, initialize DirectDraw/Windows, or establish runtime deployment behavior.",
+    "The test verifies fixed table bytes and selected discriminators, not complete game rendering or visual output.",
+    "Original PE bytes are mapped unchanged; mutable tables and palette arrays are fixture state inside Unicorn only."
+  ]
+}

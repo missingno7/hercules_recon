@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "scope": "STATIC_OBSERVED original HERCULES.EXE bytes plus six bounded original-instruction Unicorn cases; no gameplay, full renderer, GPU, whole-function equivalence, or FUNCTION_MATCH.",
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "artifacts": {
+    "static_audit": {
+      "path": "work/renderer_next/d420_rowzero/d420_rowzero_static.json",
+      "sha256": "6da723dc5f2e57078dd955fb427626fb7e82d0064b25534bc9e30cb0029b12a4",
+      "proof_kind": "STATIC_OBSERVED",
+      "tool": "Capstone 5.0.7"
+    },
+    "native_fixtures": {
+      "path": "work/renderer_next/d420_rowzero/native_d420_rowzero.json",
+      "sha256": "a4ddc316aa3d1c268c354f96dc4def7e6396a09a1bc097c33a7332d71cbafbf7",
+      "proof_kind": "BOUNDED_EQUIVALENT",
+      "case_count": 6,
+      "runtime": "Unicorn 2.1.4 x86-32"
+    },
+    "report": "work/renderer_next/d420_rowzero/d420_rowzero.md",
+    "prediction": "work/renderer_next/d420_rowzero/prediction.json"
+  },
+  "original_spans": [
+    {"name": "D420 full entry", "rva": "0xd420", "end_exclusive": "0xdd70", "size": 2384, "sha256": "4645c60cf0a357ed4aae074c3487a2755384852d0874e2f12b352b994544e07e"},
+    {"name": "D420 row normalization and gate dispatch", "rva": "0xd555", "end_exclusive": "0xd600", "size": 171, "sha256": "5d49addf325ea9fe649761a07c6c1407543a2896d2720c7e5f4ad11b4de22e1f"},
+    {"name": "D420 row-zero body", "rva": "0xd60c", "end_exclusive": "0xdd70", "size": 1892, "sha256": "2ed9dc4341703ee82f789528b427f6333e6d916bec11148fe2cfecff14119b4a"},
+    {"name": "D420 row-zero source test/store", "rva": "0xdc28", "end_exclusive": "0xdca1", "size": 121, "sha256": "22edfb81206a1643675b5c9f2f49f1c9b9cc677bda3064a4d6b4f14c43e8f777"},
+    {"name": "D420 rectangle predicate", "rva": "0xd420", "end_exclusive": "0xd555", "size": 309, "sha256": "dcc20dba6d4c0e286228320b59ee3c96405741f03e24a262f573523cc1a4f9da"},
+    {"name": "E680 mode/shape dispatcher", "rva": "0xe680", "end_exclusive": "0xe7c7", "size": 327, "sha256": "1ac531aa802148e641444cb62451c9903fe6e59b046329d0ea0a80f463ccc75a"},
+    {"name": "CAB0 entry through return in D420 fixture", "rva": "0xcab0", "end_exclusive": "0xcc45", "size": 405, "sha256": "5ca22ca070b69abaf98a0da5c794b0642cf816026b7ff87c794d6a82f6d9c71f"},
+    {"name": "C8F0 entry through return in E680 fixture", "rva": "0xc8f0", "end_exclusive": "0xcaa8", "size": 440, "sha256": "74bfb760505e5695cf5f1668e390d07046a32f7014c506706a85f9488870d52c"}
+  ],
+  "native_cases": [
+    {"name": "rowzero_gate_0_zero_texel", "entry_rva": "0xd420", "path": ["0xd555", "0xd595", "0xd597", "0xd60c", "0xdc8a"], "writes": 0},
+    {"name": "rowzero_gate_0_nonzero_texel", "entry_rva": "0xd420", "path": ["0xd555", "0xd595", "0xd597", "0xd60c", "0xdc8a", "0xdc96"], "written_offsets": [9, 10, 17, 18], "written_value": "0x5a"},
+    {"name": "rowzero_gate_1_zero_texel", "entry_rva": "0xd420", "path": ["0xd555", "0xd583", "0xd60c", "0xdc8a"], "writes": 0},
+    {"name": "rowzero_gate_1_nonzero_texel", "entry_rva": "0xd420", "path": ["0xd555", "0xd583", "0xd60c", "0xdc8a", "0xdc96"], "written_offsets": [9, 10, 17, 18], "written_value": "0x5a"},
+    {"name": "d420_eligible_quad_to_cab0", "entry_rva": "0xd420", "path": ["0xd549", "0xcab0", "0xcbd6", "0xcbf4", "0xcbfb"], "written_offsets": [10, 17, 18], "written_values": ["0x5a", "0x77", "0x6b"], "zero_source_skipped": true},
+    {"name": "e680_eligible_quad_to_c8f0", "entry_rva": "0xe680", "path": ["0xe7bb", "0xc8f0", "0xca51", "0xca58", "0xca5b", "0xca5e"], "written_offsets": [10, 17, 18], "written_values": ["0xe1", "0xe2", "0xe3"], "blend_selector": 2, "destination_read_before_blend": true, "zero_source_skipped": true}
+  ],
+  "contract_proposal": {
+    "header": "candidates/renderer_next/d420_rowzero/quad_dispatch_contract.h",
+    "test": "candidates/renderer_next/d420_rowzero/test_quad_dispatch_contract.c",
+    "width_dependency": "candidates/renderer_packets/renderer_packet_width.h",
+    "test_result": "GCC 12.2.0 MinGW-w64 x86-64, C89, -Wall -Wextra -Werror passed"
+  }
+}

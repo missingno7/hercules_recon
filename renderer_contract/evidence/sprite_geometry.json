@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "scope": "Original PC sprite setup/clipping through the first instruction before C8F0/CAB0 pixel loops; bounded C89 proposal and finite fixtures.",
+  "prediction": {
+    "file": "candidates/renderer_next/sprite_geometry/prediction.json",
+    "sha256": "c3a8faf5a194a0e262a98c2201bb4ee74eec0766791f66faa56fde4797058547"
+  },
+  "oracle": {
+    "file": "D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000",
+    "source_state": "unpatched original; mapped read/execute for bounded emulator cases"
+  },
+  "original_spans": [
+    {"name": "AC60 closure", "rva": "0xAC60", "end_exclusive": "0xB2F0", "size": 1680, "sha256": "f7724c04bef582e378b183a12550ba841df1a6fa3660be51da71154aa5c525af"},
+    {"name": "AC60 sprite page selection", "rva": "0xB06B", "end_exclusive": "0xB090", "size": 37, "sha256": "09462af986f96a95f47dc1fbd9f98efe28ee720c622539d5afb66bf79aaf5bc6"},
+    {"name": "AC60 sprite staging/dispatch", "rva": "0xB097", "end_exclusive": "0xB171", "size": 218, "sha256": "6975b7a6366d4527511b57e5b2462c41cae5c5d1b0e1169baf2b8bbaaab4c54a"},
+    {"name": "C8F0 full bounded body", "rva": "0xC8F0", "end_exclusive": "0xCAB0", "size": 448, "sha256": "95ac42d7f4447015eb0760dfccbf2c40fddf600baa76f8f885cf3be7ad9926bf"},
+    {"name": "C8F0 pre-loop", "rva": "0xC8F0", "end_exclusive": "0xCA51", "size": 353, "sha256": "e027d326c9c0e30f8c653c4352eb10cc2615b6132407f2bbf9df7b76740a9d35"},
+    {"name": "CAB0 full bounded body", "rva": "0xCAB0", "end_exclusive": "0xCC50", "size": 416, "sha256": "fe6c00a7e9109250e2e5aa4c3c3419c7381cf9758422d42d319b3e4648d12609"},
+    {"name": "CAB0 pre-loop", "rva": "0xCAB0", "end_exclusive": "0xCBF4", "size": 324, "sha256": "ba3a45c5845dcd7dfa7b3dcc00ce1c89d7f02279bb4f40eed078593f182eecda"}
+  ],
+  "abi": {
+    "AC60": "one 32-bit ordering-table pointer; AC60 stages packets in fixed globals and invokes rasterizers with no stack arguments.",
+    "C8F0_CAB0": "no-argument internal routines; plain RET, no return value; preserve EBP/EBX/ESI/EDI. No calls in either bounded body.",
+    "route": {"tag_bit1_set": "C8F0 blended path", "tag_bit1_clear": "CAB0 direct-copy path"}
+  },
+  "packet_and_page_inputs": {
+    "sprite_0x64": {"x_y": "signed i16 at +8/+0xA", "uv": "u8 at +0xC/+0xD", "extent": "raw u16 words at +0x10/+0x12, sign-extended by rasterizer"},
+    "fixed_sprite_0x74": "8x8 staged by AC60; packet dimensions are not read",
+    "fixed_sprite_0x7C": "16x16 staged by AC60; packet dimensions are not read",
+    "selected_page": "AC60 stores 0x96E6E0+(((A8E6F4&0x1F)>>1)<<16) in A909FC, overridden with 0xA6E6E0 if A8E6FC!=0"
+  },
+  "globals": {
+    "gate_and_surface": {"BA01F0": "nonzero draw gate", "BA0210": "destination surface base; zero returns", "BA0214": "destination byte pitch", "43A48C": "dynamic bottom boundary; right is immediate 320"},
+    "inputs": {"A909B8": "signed x", "A909C8": "signed y", "A90A0C": "width word, consumed as signed i16", "A90A10": "height word, consumed as signed i16", "A909D8": "u offset", "A909E8": "v offset", "A909FC": "selected page base, overwritten with page+u on prepared paths", "A8E6F8": "blend selector source"},
+    "outputs": {"A90944": "destination start = surface + y*pitch + x; written only after positive clipped extents", "A909FC": "selected page + adjusted U; written only after positive clipped extents", "A90948": "blend table base 0x92E3D0+((selector&3)<<16), C8F0 only", "[EBP-4]": "first source row V<<8; local stack value before loop"}
+  },
+  "geometry_contract": {
+    "order": ["return on draw gate zero, surface null, x>=320, or y>=43A48C", "sign-extend width/height and reject if x+width<0 or y+height<0", "clip negative x/y by shrinking extent, adding -x/-y to U/V without byte masking, and setting coordinate to zero", "shrink right/bottom extent to 320/43A48C", "return if resulting signed width/height<=0", "prepare destination/page/row pointers; C8F0 also prepares blend table"],
+    "empty_mutations": "Top/left clipping writes to x/y, extent, U/V persist when clipping produces an empty rectangle; destination/page/blend/row setup is skipped.",
+    "source_address": "page+U+(V<<8)+column at first row; subsequent row offset adds 0x100 then masks to 0xFFFF (static sites CA7C/CA86 and CC13/CC1D).",
+    "destination_address": "destination_start+row*BA0214+column."
+  },
+  "native_fixture": {
+    "audit_script": {"file": "candidates/renderer_next/sprite_geometry/audit_geometry.py", "sha256": "eccdd01dce72c23c0484174c61725f4c78c8f175e43d6801ec54fe9dab0f7f8f"},
+    "receipt": "work/renderer_next/sprite_geometry/native_report.json",
+    "sha256": "c3f9357001f36240ccc65b3fa9c4ef89e1c18b136daffee3f5bd183be3b8abdf",
+    "cases": 26,
+    "cases_per_route": 13,
+    "boundary_stops": ["0xCA51", "0xCBF4"],
+    "loop_executed": false,
+    "unknown_pc_or_memory_access": "fails",
+    "unicorn": "2.1.4",
+    "unicorn_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+  },
+  "bounded_c_proposal": {
+    "header": {"file": "candidates/renderer_next/sprite_geometry/renderer_sprite_geometry.h", "sha256": "e6cbc39113150aaa895973db189c62ee97f3cd3ca6e67182dc72025d1c85fab0"},
+    "implementation": {"file": "candidates/renderer_next/sprite_geometry/renderer_sprite_geometry.c", "sha256": "8335500e69a92dcf22d0f48d1357ef6db86c1e8960ae1224e009c40c442b68d6"},
+    "fixture": {"file": "candidates/renderer_next/sprite_geometry/test_renderer_sprite_geometry.c", "sha256": "74e38d5b9330fd5bd05a935b1e686e39c99bc5f22abcf95d3bea692c811a7f5a", "runner": "candidates/renderer_next/sprite_geometry/run_tests.ps1", "runner_sha256": "ad3ad41a2ee9fe5cc741c8a74d28f62548bfeef73a703218d16b277c65716ede", "result": "PASS; VC5 C89 compile and runtime"},
+    "compiler": {"path": "C:/tools/hercules/msvc500-8abf95ce980161ad87b0b02402269cce76988953/bin/cl.exe", "version": "5.00.7022", "sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb"},
+    "layout_checks": "sizeof(renderer_sprite_geometry)==48; offsetof x=0, width_word=4, u_offset=8, selected_page_base=16, destination_start=32"
+  },
+  "limits": ["The C files are candidate-only helper and fixture, not canonical renderer changes.", "Native suite stops before both pixel loops; pixel behavior is separately receipted in work/renderer_next/pixel_oracles/native_report.json.", "No complete VRAM backing extent, source ownership, or full renderer equivalence is claimed."]
+}

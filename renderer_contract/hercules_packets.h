@@ -135,7 +135,8 @@ typedef enum RendererPacketKind {
     RENDERER_PACKET_SPRITE_8 = 5,
     RENDERER_PACKET_SPRITE_16 = 6,
     RENDERER_PACKET_E1_MODE = 7,
-    RENDERER_PACKET_KNOWN_UNSUPPORTED = 8
+    RENDERER_PACKET_KNOWN_UNSUPPORTED = 8,
+    RENDERER_PACKET_OBSERVED_UNDRAWN = 9
 } RendererPacketKind;
 
 typedef enum RendererPacketStatus {
@@ -146,7 +147,8 @@ typedef enum RendererPacketStatus {
     RENDERER_PACKET_UNSUPPORTED = 4,
     RENDERER_PACKET_UNRECOGNIZED = 5,
     RENDERER_PACKET_RANGE_ERROR = 6,
-    RENDERER_PACKET_ADDRESS_OVERFLOW = 7
+    RENDERER_PACKET_ADDRESS_OVERFLOW = 7,
+    RENDERER_PACKET_KNOWN_UNDRAWN = 8
 } RendererPacketStatus;
 
 /* Raw OT descriptor only. Per-module frame layout supplies first_slot and
@@ -161,6 +163,7 @@ typedef struct renderer_decoded_packet {
     renderer_u16 minimum_size;
     renderer_u8 command;
     renderer_u8 semitransparent;
+    renderer_u8 producer_tag_observed; /* Exact 0x68 only; no 0x6a producer claim. */
     renderer_u8 vertex_count;
     /* Number of color lanes consumed by the PC path; GT4's later producer
      * lanes are intentionally not interpreted because AC60 ignores them. */

@@ -1,0 +1,659 @@
+{
+  "schema_version": 1,
+  "scope": "STATIC_OBSERVED: reads pinned original PC executable bytes and evidence JSON only; no execution, writes, or original modification.",
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000",
+    "capstone": "5.0.7"
+  },
+  "pe_virtual_tail_rule_reference": "https://learn.microsoft.com/en-us/windows/win32/debug/pe-format",
+  "input_evidence_sha256": {
+    "renderer_contract/evidence/original_spans.json": "cb39dcde9b7a980a0247bf902d2d9055753adc8425476712c02c0005c1065a7a",
+    "renderer_contract/evidence/presentation.json": "c98085c9f39b8c532817d90f5617067517a1157a8ede56042d778fde6c2d829a",
+    "renderer_contract/evidence/pixels.json": "acf66ebf468cda4ce799f2688bed3465263442fe2ce23407e09500d8a44478b6",
+    "renderer_contract/evidence/native_pixels.json": "840eadc9b1f73d85a76d3b2a5c076c0b4722571e55d61f8fd5b14cc98c4c576b"
+  },
+  "function_spans": {
+    "palette_entry_writer_06780": {
+      "rva": "0x6780",
+      "size": 135,
+      "sha256": "8e8230bf3f82228e5eceee44ac9fc1b5adb669fb4c1890c1050ffde5ce6a8a23"
+    },
+    "nearest_palette_index_06850": {
+      "rva": "0x6850",
+      "size": 111,
+      "sha256": "2000ed2d3f98928f1b218cd37fdc9e2fb08719711b5b9bd978332b9657a5f44c"
+    },
+    "palette_and_resource_table_loader_068C0": {
+      "rva": "0x68c0",
+      "size": 219,
+      "sha256": "5c4d1c41f2a1fa2bc4eac7c5fe7a7f2b654a15acf9b59bb42139d9f8006b58a4"
+    },
+    "palette_apply_clear_present_069A0": {
+      "rva": "0x69a0",
+      "size": 178,
+      "sha256": "d86d895eb034d76962f072d1fda7dab14a5616d0e5fb4931020d9aa88e9fb1eb"
+    },
+    "dd_surface_and_ddpalette_setup_06A60": {
+      "rva": "0x6a60",
+      "size": 330,
+      "sha256": "278bfad2c62408191d0b73679f64f09e3fd96bf50e52121039f717daae0b37be"
+    },
+    "palette_message_06700": {
+      "rva": "0x6700",
+      "size": 113,
+      "sha256": "a85ab488aa6934f2a39686a7739369f8088c0e397781305bf0166f2d439060e7"
+    },
+    "indexed_rgb_clear_06EE0": {
+      "rva": "0x6ee0",
+      "size": 259,
+      "sha256": "6df530cad10abe21618d22a4180991ee29550709388ac3c619e3581f6592dfbf"
+    },
+    "surface_lock_06FF0": {
+      "rva": "0x6ff0",
+      "size": 199,
+      "sha256": "d6f022e5f7103bec40e16000f8a4e8e08ea186c337d828f29afd46f4f8d3e88e"
+    },
+    "indexed_frame_color_remap_070C0": {
+      "rva": "0x70c0",
+      "size": 118,
+      "sha256": "f5225f837714b2dc9379a6e1358bef73dbfcf9bc32393c47581acf62f4ba5d40"
+    },
+    "surface_unlock_07140": {
+      "rva": "0x7140",
+      "size": 48,
+      "sha256": "4b7c21ba71315f2ead46794cce176555531a628c55cc891b64a775ecfdd891d9"
+    },
+    "procedural_palette_lut_init_071A0": {
+      "rva": "0x71a0",
+      "size": 251,
+      "sha256": "a3b6df83018fbb638bfba5724df81c136b2fff0bceb0b67fb257470767dab0e3"
+    },
+    "graphics_and_directdraw_init_072A0": {
+      "rva": "0x72a0",
+      "size": 532,
+      "sha256": "f7ad10baa9f9503396a89bae5a10110846a0daf77d08b158eec8581663336286"
+    }
+  },
+  "direct_call_refs": {
+    "0x6780": [
+      "0x55c2",
+      "0x570a",
+      "0x57c4",
+      "0x6902",
+      "0x71a9"
+    ],
+    "0x6a60": [
+      "0x6d01"
+    ],
+    "0x6ee0": [
+      "0x69b6",
+      "0xac8a"
+    ],
+    "0x69a0": [
+      "0x55d8",
+      "0x5720",
+      "0x57da",
+      "0x59ef",
+      "0x6ea6",
+      "0x728f"
+    ],
+    "0x68c0": [
+      "0x59e5"
+    ],
+    "0x70c0": [
+      "0xb2d0"
+    ],
+    "0x7140": [
+      "0x5672",
+      "0x69ab",
+      "0x6bf6",
+      "0x6d44",
+      "0x6d5e",
+      "0x6dc7",
+      "0xb2d8"
+    ],
+    "0x71a0": [
+      "0x741a"
+    ],
+    "0x72a0": [
+      "0x5e2c"
+    ],
+    "0x6620": [
+      "0x5677",
+      "0x6764",
+      "0x69be",
+      "0x6d6a",
+      "0x6e9f",
+      "0x9772",
+      "0xb2dd"
+    ],
+    "0xac60": [],
+    "0x6850": [
+      "0x6f3c"
+    ],
+    "0x6ff0": [
+      "0x55e8",
+      "0x6d0e",
+      "0x6d59",
+      "0x6d79",
+      "0x7415",
+      "0xac92"
+    ],
+    "0xa710": [
+      "0xa675"
+    ]
+  },
+  "absolute_data_ref_rvas": {
+    "0x91c488": [
+      "0x692e",
+      "0x71bc",
+      "0xc82b",
+      "0xdebe"
+    ],
+    "0x92c390": [],
+    "0x92c488": [
+      "0x718c",
+      "0x71f2",
+      "0x7471",
+      "0x9a94",
+      "0x9acd"
+    ],
+    "0x92c490": [
+      "0x6942",
+      "0x726d"
+    ],
+    "0x92e3d0": [
+      "0x691a",
+      "0xc826",
+      "0xca1b",
+      "0xdeb9",
+      "0xe7d9"
+    ],
+    "0x93e3d0": [
+      "0x71fc"
+    ],
+    "0x94e3d0": [
+      "0x7265"
+    ],
+    "0x96e3d8": [
+      "0x6642",
+      "0x6d1e",
+      "0x6d7e",
+      "0x6dba",
+      "0x6fa0",
+      "0x7095",
+      "0x7376",
+      "0x73c9"
+    ],
+    "0x96e3e0": [
+      "0x6958",
+      "0x6982",
+      "0xd577"
+    ],
+    "0x96e3e4": [
+      "0x69cc",
+      "0x6a05",
+      "0x6a18",
+      "0x6a64",
+      "0x6ae3",
+      "0x6b22",
+      "0x6b73",
+      "0x6ce3",
+      "0x6dcc",
+      "0x6de3",
+      "0x7420",
+      "0x743c",
+      "0x7461",
+      "0x748b",
+      "0x7511",
+      "0x7520"
+    ],
+    "0x96e3e8": [
+      "0x6655",
+      "0x6a99",
+      "0x6aa8",
+      "0x6ae8",
+      "0x6b2b",
+      "0x6b37",
+      "0x6b8b",
+      "0x700e",
+      "0x7024",
+      "0x74e7",
+      "0x74f6"
+    ],
+    "0x96e3ec": [
+      "0x647a",
+      "0x64bd",
+      "0x6a82",
+      "0x6a93",
+      "0x6b4e",
+      "0x6f75",
+      "0x703c",
+      "0x7152",
+      "0x74d2",
+      "0x74e1"
+    ],
+    "0x96e3f0": [
+      "0x69db",
+      "0x6aae",
+      "0x6abd",
+      "0x6b7d",
+      "0x6b94",
+      "0x74fc",
+      "0x750b"
+    ],
+    "0x96e3f4": [
+      "0x6671",
+      "0x67a4",
+      "0x67c2",
+      "0x67da",
+      "0x67fb",
+      "0x734b",
+      "0x735d",
+      "0x736f",
+      "0x7381",
+      "0x738e",
+      "0x739a",
+      "0x73a2",
+      "0x73af",
+      "0x73bc",
+      "0x7574",
+      "0x7586"
+    ],
+    "0x96e3f8": [
+      "0x67b1",
+      "0x67d0",
+      "0x67e4",
+      "0x67f0",
+      "0x6815",
+      "0x6828",
+      "0x6838",
+      "0x6850",
+      "0x69e4",
+      "0x6a29",
+      "0x72ff",
+      "0x7311",
+      "0x7323",
+      "0x7334",
+      "0x73d5",
+      "0x755c",
+      "0x756e"
+    ],
+    "0x96e3fc": [
+      "0x670a",
+      "0x6730",
+      "0x6a2f",
+      "0x73e9",
+      "0x73fa",
+      "0x7526",
+      "0x754d",
+      "0x7556"
+    ],
+    "0x96e400": [
+      "0x6631",
+      "0x6700",
+      "0x6735",
+      "0x674f",
+      "0x72da",
+      "0x73c1",
+      "0x7404",
+      "0x7535",
+      "0x758c",
+      "0x75a2"
+    ],
+    "0x96e404": [
+      "0x73db",
+      "0x75a8",
+      "0x75b4"
+    ],
+    "0x96e418": [
+      "0x6ef4",
+      "0x6f29"
+    ],
+    "0x96e41c": [
+      "0x6f07",
+      "0x6f1d"
+    ],
+    "0x96e420": [
+      "0x6f0f",
+      "0x6f17"
+    ],
+    "0x96e424": [
+      "0x6f44",
+      "0x6f5f",
+      "0x6fba"
+    ],
+    "0x43a590": [
+      "0x566b",
+      "0x6620",
+      "0x6637",
+      "0x675d",
+      "0x6d63",
+      "0x6e98",
+      "0x6f94",
+      "0x6fd7",
+      "0x976b",
+      "0xc6ea",
+      "0xc8d5",
+      "0xca9a",
+      "0xcc37",
+      "0xd407",
+      "0xdd5f",
+      "0xe667",
+      "0xef52"
+    ],
+    "0xba01f0": [
+      "0x55ed",
+      "0x6ee0",
+      "0x6ff0",
+      "0x7089",
+      "0x70ab",
+      "0x70e6",
+      "0x7140",
+      "0x7166",
+      "0x7c17",
+      "0xc2e4",
+      "0xc704",
+      "0xc8f4",
+      "0xcab4",
+      "0xcc54",
+      "0xd424",
+      "0xdd74",
+      "0xe684"
+    ],
+    "0xba020c": [
+      "0x10482",
+      "0x646e",
+      "0x664b",
+      "0x6713",
+      "0x69c3",
+      "0x6bc2",
+      "0x6cde",
+      "0x6dd8",
+      "0x6ec9",
+      "0x6f49",
+      "0x7001",
+      "0x7149",
+      "0x9762",
+      "0x988d",
+      "0x9ab9",
+      "0x9bc0"
+    ],
+    "0xba0210": [
+      "0x55f6",
+      "0x563a",
+      "0x6d18",
+      "0x6d89",
+      "0x6dc2",
+      "0x6fb2",
+      "0x7083",
+      "0x70a5",
+      "0x70dd",
+      "0x70f8",
+      "0xc2f4",
+      "0xc428",
+      "0xc714",
+      "0xc7fd",
+      "0xc904",
+      "0xc9ed",
+      "0xcac4",
+      "0xcbad",
+      "0xcc64",
+      "0xcdaa",
+      "0xd434",
+      "0xd731",
+      "0xdd84",
+      "0xdfe8",
+      "0xe694",
+      "0xe8f5"
+    ],
+    "0xba0214": [
+      "0x5604",
+      "0x5644",
+      "0x6cf1",
+      "0x6d13",
+      "0x6d84",
+      "0x6dab",
+      "0x6fa6",
+      "0x707e",
+      "0x709b",
+      "0x7127",
+      "0xc42e",
+      "0xc693",
+      "0xc7f6",
+      "0xc8a5",
+      "0xc9e6",
+      "0xca6a",
+      "0xcba6",
+      "0xcc07",
+      "0xcdb0",
+      "0xd35b",
+      "0xd737",
+      "0xdcb3",
+      "0xdfee",
+      "0xe5bb",
+      "0xe8fb",
+      "0xeea6"
+    ]
+  },
+  "pe_section_layout": [
+    {
+      "name": ".text",
+      "virtual_address": "0x1000",
+      "virtual_size": "0x2cdbe",
+      "raw_size": "0x2ce00"
+    },
+    {
+      "name": ".rdata",
+      "virtual_address": "0x2e000",
+      "virtual_size": "0x60a8",
+      "raw_size": "0x6200"
+    },
+    {
+      "name": ".data",
+      "virtual_address": "0x35000",
+      "virtual_size": "0x76fb28",
+      "raw_size": "0x9600"
+    },
+    {
+      "name": ".idata",
+      "virtual_address": "0x7a5000",
+      "virtual_size": "0x20b0",
+      "raw_size": "0x2200"
+    },
+    {
+      "name": ".rsrc",
+      "virtual_address": "0x7a8000",
+      "virtual_size": "0x4874",
+      "raw_size": "0x4a00"
+    }
+  ],
+  "gdi_imports": {
+    "DirectDrawCreate": {
+      "dll": "DDRAW.dll",
+      "iat_rva": "0x7a5648",
+      "iat_va": "0xba5648"
+    },
+    "RealizePalette": {
+      "dll": "GDI32.dll",
+      "iat_rva": "0x7a565c",
+      "iat_va": "0xba565c"
+    },
+    "SelectPalette": {
+      "dll": "GDI32.dll",
+      "iat_rva": "0x7a5660",
+      "iat_va": "0xba5660"
+    },
+    "SetPaletteEntries": {
+      "dll": "GDI32.dll",
+      "iat_rva": "0x7a5668",
+      "iat_va": "0xba5668"
+    },
+    "CreatePalette": {
+      "dll": "GDI32.dll",
+      "iat_rva": "0x7a566c",
+      "iat_va": "0xba566c"
+    },
+    "UnrealizeObject": {
+      "dll": "GDI32.dll",
+      "iat_rva": "0x7a5670",
+      "iat_va": "0xba5670"
+    },
+    "DeleteObject": {
+      "dll": "GDI32.dll",
+      "iat_rva": "0x7a5674",
+      "iat_va": "0xba5674"
+    },
+    "CreateDIBSection": {
+      "dll": "GDI32.dll",
+      "iat_rva": "0x7a567c",
+      "iat_va": "0xba567c"
+    }
+  },
+  "derived_ranges": {
+    "shade_lut": {
+      "start": "0x91c488",
+      "end_exclusive": "0x92c488",
+      "size": "0x10000",
+      "writer": "71A0; 256 rows x 256 columns"
+    },
+    "shade_formula": "value=min(255,(row*column)>>7), for row,column in 0..255",
+    "mode_flag": {
+      "address": "0x92c488",
+      "writer": "72A0 clears; EnumDisplayModes callback 7170 sets iff 320x240x8 mode is enumerated"
+    },
+    "blend_tables": {
+      "start": "0x92e3d0",
+      "end_exclusive": "0x96e3d0",
+      "size": "0x40000",
+      "shape": "4 selectors x 256 rows x 256 columns; writer 71A0"
+    },
+    "blend_formulas_by_selector": [
+      "selector 0: floor((row+column)/2)",
+      "selector 1: min(row+column,255)",
+      "selector 2: max(column-row,0)",
+      "selector 3: min(floor(row/2)+column,255)"
+    ],
+    "blend_postwrite_alias": "After generating all four tables, 71A0 writes a 0..255 ramp into CLUT rows 1..32. Row 32 begins at 0x92E390, so it overwrites selector-0 row0 columns 0..191 at 0x92E3D0..0x92E48F with values 64..255; the average formula remains in columns 192..255. These are final startup bytes, not independent allocations.",
+    "lookup_base_alias": {
+      "address": "0x92c390",
+      "relation": "CLUT row0 bytes 0..247 alias the final 0xf8 shade-LUT bytes 0x92c390..0x92c487; byte 0x92c488 is both row0 texel 248 and the 320x240x8 mode flag; do not treat these as disjoint allocations.",
+      "remaining_row0_bytes": "0x8"
+    },
+    "resource_loader_destinations": [
+      {
+        "address": "0x92e3d0",
+        "size": "0x40000",
+        "meaning": "4 blend-table-sized input block; source-reader implementation not expanded"
+      },
+      {
+        "address": "0x91c488",
+        "size": "0x10000",
+        "meaning": "shade-table-sized input block"
+      },
+      {
+        "address": "0x92c490",
+        "size": "0x1f00",
+        "meaning": "31 CLUT rows starting at row 1 relative to 0x92c390"
+      }
+    ],
+    "procedural_clut_ramp": {
+      "address": "0x92c490",
+      "end_exclusive": "0x92e490",
+      "size": "0x2000",
+      "meaning": "71A0 writes 32 rows, each containing byte values 0..255, to rows 1 through 32 relative to base 0x92c390"
+    },
+    "active_pixel_reads": {
+      "shade": "0x91c488 + (shade_color*256) + source_texel",
+      "blend": "0x92e3d0 + (((tpage>>5)&3)*0x10000) + (mapped_color*256) + destination_texel",
+      "clut": "0x92c390 + (row*256) + texel; prior pixel evidence bounds active row to 0..30",
+      "evidence": "renderer_contract/evidence/pixels.json and native_pixels.json use synthetic table cells; palette_builder_report.json separately executes original 71A0 through its table writers and verifies the startup selector-0 row0 CLUT ramp alias"
+    },
+    "windows_palette_storage": {
+      "logpalette_pointer_global": "0x96e3f8",
+      "logpalette_header": "version 0x0300, entries 0x0100; 4-byte PALETTEENTRY R,G,B,flags=4",
+      "bitmapinfo_pointer_global": "0x96e3f4",
+      "bitmapinfo": "40-byte BI_RGB, 320x-240 top-down, 8bpp, 256 RGBQUAD entries (B,G,R,0)",
+      "entry_writer": "6780(index,R,G,B); entries 0 and 255 are forced to gray=(index,index,index)",
+      "nearest_color": "6850 searches 256 LOGPALETTE entries by squared RGB distance; strict-less update retains lower-index ties; exact match exits early",
+      "gdi_hpalette_global": "0x96e3fc",
+      "directdraw_palette_global": "0x96e3f0",
+      "surface_globals": [
+        "0x96e3e8 primary",
+        "0x96e3ec attached/backbuffer"
+      ],
+      "allocation_lifetime": "72A0 allocates LOGPALETTE (0x408 bytes) and BITMAPINFO (0x42c bytes); 72A0 creates HPALETTE from LOGPALETTE. Shutdown 74C0 restores old selected palette, DeleteObject(HPALETTE), and frees both blocks; cells are nulled."
+    },
+    "palette_writer_inputs": {
+      "71A0": "default 256-entry grayscale ramp via 6780, then calls 69A0(1)",
+      "68C0": "256 iterations call reader 5210 for 3 bytes, pass low/mid/high bytes as R/G/B to 6780; then request the three destination blocks above; sets 96E3E0 when any adjacent rows 1..32 differ; caller 59E5 invokes 69A0(1) at 59EF",
+      "5450": "loads/obtains 256 RGB triples and calls 6780 once per entry, then 69A0(0); separate file/resource semantics not expanded",
+      "5760": "loads 0x300 bytes and populates 128 consecutive entries from triples, then 69A0(1); remaining bytes are not assigned a palette meaning here",
+      "570A": "another stack-buffer path writes 256 entries through 6780, then calls 69A0(1); source semantics not expanded",
+      "68C0_compare_limit": "comparison starts at row 2 and checks each row through 32 against its predecessor; the CLUT payload ends at 0x92E390 (64 bytes before blend base), and row32 is outside that write but overlaps the first 0xC0 blend-row0 bytes. If 71A0 ran first, those aliased bytes hold ramp values 64..255."
+    },
+    "initialization_order": {
+      "72A0_order": [
+        "initialize palette/DIB globals",
+        "call 6FF0",
+        "call 71A0 (LUTs + gray palette + 69A0(1))",
+        "call imported DirectDrawCreate at 7426",
+        "set cooperative level, enumerate modes, set display mode"
+      ],
+      "engine_order": "Existing presentation.json places 72A0 before the first PC_DLLEngineMain table copy; this audit does not re-derive that dispatch contract.",
+      "68C0_limit": "68C0 is called at 59E5 on a runtime/resource path and its caller immediately invokes 69A0(1); static call graph does not prove whether all such paths run before or after 72A0.",
+      "zero_fill_state": "BA020C and the 96E3xx graphics globals lie in the .data virtual tail beyond raw bytes and therefore start zero-filled; this makes the first 71A0 -> 69A0(1) pass use the GDI/DIB branch before 72A0 reaches DirectDrawCreate."
+    },
+    "com_vtable_byte_offsets": {
+      "IDirectDraw": {
+        "EnumDisplayModes": "0x20",
+        "CreatePalette": "0x14",
+        "CreateSurface": "0x18",
+        "SetCooperativeLevel": "0x50",
+        "SetDisplayMode": "0x54"
+      },
+      "IDirectDrawPalette": {
+        "SetEntries": "0x18"
+      },
+      "IDirectDrawSurface": {
+        "Blt": "0x14",
+        "GetAttachedSurface": "0x30",
+        "Lock": "0x64",
+        "IsLost": "0x60",
+        "Restore": "0x6c",
+        "SetPalette": "0x7c",
+        "Unlock": "0x80"
+      }
+    },
+    "directdraw_palette_lifetime": {
+      "72A0": "creates GDI DIBSection and GDI HPALETTE from LOGPALETTE before DirectDrawCreate",
+      "6A60": "mode transition at 6D01 releases old DirectDraw surfaces/palette; creates primary surface at 96E3E8 and attached surface at 96E3EC; creates IDirectDrawPalette at IDirectDraw vtable +0x14 with 256 black PALETTEENTRY entries (flags=4); attaches palette to primary surface via IDirectDrawSurface +0x7c",
+      "69A0": "unlocks, clears RGB(0,0,0), and presents; if DirectDraw mode then updates IDirectDrawPalette.SetEntries at +0x18 for 256 entries from LOGPALETTE+4; otherwise calls GDI SetPaletteEntries on HPALETTE and 6700 to select/realize and present",
+      "67xx_message": "6700 handles GDI palette-changed message 0x311 via UnrealizeObject, selects/realizes HPALETTE, marks dirty, and calls 6620",
+      "surface_loss": "Existing directdraw_surface_control_2026_10_11 evidence covers IsLost/Restore behavior; this audit adds no lost-surface restoration claim."
+    },
+    "clear_setup_06EE0": {
+      "input": "three byte RGB arguments; if changed from 96E418/41C/420 cache, recomputes selected index with 6850 and stores 96E424",
+      "directdraw": "when BA020C != 0 and lock flag BA01F0 == 0, calls attached surface Blt at IDirectDrawSurface +0x14 with DDBLT_COLORFILL|DDBLT_WAIT, DDBLTFX.dwFillColor=96E424; null rectangles means full surface",
+      "dib": "when BA020C == 0 and unlocked, fills 0x4b00 dwords (320x240 bytes) with replicated 96E424 index; records BA0210 buffer and BA0214 pitch=0x140",
+      "dirty": "sets 0x43A590=1; 69A0 calls 6EE0(0,0,0), then presents via 6620",
+      "direct_engine_path": "AC60 calls 6EE0 with RGB bytes from 96E699..96E69B when 96E698 is nonzero; this is a path directly relevant to source-table bypass."
+    },
+    "host_direct_calls_relevant_to_renderer": {
+      "70C0": [
+        "0xB2D0"
+      ],
+      "A710": [
+        "0xA675"
+      ],
+      "AC60": "Existing presentation evidence records no direct host callers; the body itself calls 6EE0 at 0xAC8A when its color-change gate is set."
+    },
+    "unknowns": [
+      "Exact external resource/container semantics behind 5210 are deliberately not recovered; only destination and byte count are recorded.",
+      "No global all-path ordering between resource loader 68C0 and startup generator 71A0 is proven.",
+      "No bounded integration has established deployed DDRAW.dll resolution, palette contents at runtime, or lost-surface behavior beyond the existing separate evidence."
+    ]
+  }
+}

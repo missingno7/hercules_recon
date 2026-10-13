@@ -1,0 +1,664 @@
+{
+  "schema_version": 1,
+  "scope": "STATIC_OBSERVED original packet producer and AC60 dispatch traces; no original execution or gameplay.",
+  "tool": {
+    "capstone": "5.0.7",
+    "pe_parser": "scripts/pe.py via work/renderer_baseline/baseline.py"
+  },
+  "originals": {
+    "HERCULES.EXE": {
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "image_base": "0x400000"
+    },
+    "ENG1.DLL": {
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "image_base": "0x10000000"
+    },
+    "ENG3.DLL": {
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "image_base": "0x10000000"
+    },
+    "TITLE.DLL": {
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "image_base": "0x10000000"
+    }
+  },
+  "native_spans": {
+    "ENG3.DLL+0x20190": {
+      "role": "eng3 object renderer and polygon dispatch",
+      "module": "ENG3.DLL",
+      "rva": "0x20190",
+      "size": 775,
+      "sha256": "e03ef9adc051f5eff3f5ff6acc72ee31cbba495f2c7ac3c123aa5cf80eafc861",
+      "boundary": "body through final RET"
+    },
+    "ENG3.DLL+0x204c0": {
+      "role": "eng3 mixed FT4/GT4 packet emitter",
+      "module": "ENG3.DLL",
+      "rva": "0x204c0",
+      "size": 1683,
+      "sha256": "e7296f167e6a4eda56546cbdbf6b975e5557591d36e5c42aefb5a066d5a4ce6d",
+      "boundary": "body through final RET"
+    },
+    "ENG3.DLL+0x22f00": {
+      "role": "eng3 linked command 0x68 writer",
+      "module": "ENG3.DLL",
+      "rva": "0x22f00",
+      "size": 667,
+      "sha256": "2d88f44f1c0688063db86bffb6102085d787161efef7c05bffeefc4c51c34f01",
+      "boundary": "body through final RET; includes early return"
+    },
+    "ENG3.DLL+0x231a0": {
+      "role": "eng3 FT4 writer with fixed 0x2e tag",
+      "module": "ENG3.DLL",
+      "rva": "0x231a0",
+      "size": 659,
+      "sha256": "9ab5bed4f7535a97f69661b394b86fd851fbf8c631a873705f1c3a7c89567c96",
+      "boundary": "body through final RET"
+    },
+    "ENG3.DLL+0x23440": {
+      "role": "eng3 table-index-5 FT4 writer",
+      "module": "ENG3.DLL",
+      "rva": "0x23440",
+      "size": 735,
+      "sha256": "ba5669ac43e9dd97a772bec0a37575c0a47c8c3029b3fdff017a61044d06002c",
+      "boundary": "body through final RET"
+    },
+    "ENG3.DLL+0x23b00": {
+      "role": "eng3 FT4 command/color word helper",
+      "module": "ENG3.DLL",
+      "rva": "0x23b00",
+      "size": 476,
+      "sha256": "ccb89074155d60d460f47f2adeb4fee99a1269b7366cef5345e5a1af952308e0",
+      "boundary": "body through final RET"
+    },
+    "TITLE.DLL+0x17f50": {
+      "role": "title FT4 path with slot-117 callback",
+      "module": "TITLE.DLL",
+      "rva": "0x17f50",
+      "size": 656,
+      "sha256": "48e79dbdf369fb3e8531a7d4f9afd5e53ca325ac0bdd376cc01dc93e76dbc946",
+      "boundary": "bounded body through RET"
+    },
+    "TITLE.DLL+0x181e0": {
+      "role": "title FT4 path with slot-117 callback",
+      "module": "TITLE.DLL",
+      "rva": "0x181e0",
+      "size": 732,
+      "sha256": "dbfacf27b0299c14ddbf9782db11e22d3df9ed5a93eedda41a22fac6243556ca",
+      "boundary": "bounded body through RET"
+    },
+    "TITLE.DLL+0x186e0": {
+      "role": "title direct FT4 packet writer",
+      "module": "TITLE.DLL",
+      "rva": "0x186e0",
+      "size": 691,
+      "sha256": "7353881ec5fa393a22c46d53ca59d492b41d24b6c4073180b0e939f3e37c8383",
+      "boundary": "body through RET"
+    },
+    "TITLE.DLL+0x18bf0": {
+      "role": "title FT4 path with slot-118 callback",
+      "module": "TITLE.DLL",
+      "rva": "0x18bf0",
+      "size": 912,
+      "sha256": "a45602bf3fdb89a598ec40b2f921b303133ff1a93fa1c8cf6fa164e9b0b48dad",
+      "boundary": "instruction window; full boundary not claimed"
+    },
+    "TITLE.DLL+0x189a0": {
+      "role": "title FT4 color/command word helper",
+      "module": "TITLE.DLL",
+      "rva": "0x189a0",
+      "size": 60,
+      "sha256": "fed5051e785d04f377193fd255c278671587fdeabe9ecc2a4dedb7ce41e76b59",
+      "boundary": "body through final RET"
+    },
+    "HERCULES.EXE+0xb570": {
+      "role": "TITLE slot-118 host packet constructor",
+      "module": "HERCULES.EXE",
+      "rva": "0xb570",
+      "size": 71,
+      "sha256": "3bcc224aaa6a9b2fa5772613b2921c7d6341d90d781fdf136f338f3004b382aa",
+      "boundary": "body through RET"
+    },
+    "HERCULES.EXE+0xb5c0": {
+      "role": "slot-117 host packet constructor",
+      "module": "HERCULES.EXE",
+      "rva": "0xb5c0",
+      "size": 71,
+      "sha256": "3bcc224aaa6a9b2fa5772613b2921c7d6341d90d781fdf136f338f3004b382aa",
+      "boundary": "body through RET"
+    }
+  },
+  "consumer_68": {
+    "span": {
+      "module": "HERCULES.EXE",
+      "rva": "0xac60",
+      "size": 1680,
+      "sha256": "f7724c04bef582e378b183a12550ba841df1a6fa3660be51da71154aa5c525af"
+    },
+    "control_flow_sites": [
+      {
+        "rva": "0xb04e",
+        "bytes": "83f960",
+        "mnemonic": "cmp",
+        "operands": "ecx, 0x60"
+      },
+      {
+        "rva": "0xb057",
+        "bytes": "8a0dfc01ba00",
+        "mnemonic": "mov",
+        "operands": "cl, byte ptr [0xba01fc]"
+      },
+      {
+        "rva": "0xb05f",
+        "bytes": "0f853dfcffff",
+        "mnemonic": "jne",
+        "operands": "0x40aca2"
+      },
+      {
+        "rva": "0xb065",
+        "bytes": "8b0df4e6a800",
+        "mnemonic": "mov",
+        "operands": "ecx, dword ptr [0xa8e6f4]"
+      },
+      {
+        "rva": "0xb070",
+        "bytes": "81c1e0e69600",
+        "mnemonic": "add",
+        "operands": "ecx, 0x96e6e0"
+      },
+      {
+        "rva": "0xb076",
+        "bytes": "890dfc09a900",
+        "mnemonic": "mov",
+        "operands": "dword ptr [0xa909fc], ecx"
+      },
+      {
+        "rva": "0xb086",
+        "bytes": "c705fc09a900e0e6a600",
+        "mnemonic": "mov",
+        "operands": "dword ptr [0xa909fc], 0xa6e6e0"
+      },
+      {
+        "rva": "0xb090",
+        "bytes": "24fd",
+        "mnemonic": "and",
+        "operands": "al, 0xfd"
+      },
+      {
+        "rva": "0xb092",
+        "bytes": "83f87c",
+        "mnemonic": "cmp",
+        "operands": "eax, 0x7c"
+      },
+      {
+        "rva": "0xb0d6",
+        "bytes": "83f874",
+        "mnemonic": "cmp",
+        "operands": "eax, 0x74"
+      },
+      {
+        "rva": "0xb116",
+        "bytes": "83f864",
+        "mnemonic": "cmp",
+        "operands": "eax, 0x64"
+      },
+      {
+        "rva": "0xb119",
+        "bytes": "0f8583fbffff",
+        "mnemonic": "jne",
+        "operands": "0x40aca2"
+      },
+      {
+        "rva": "0xb162",
+        "bytes": "e889170000",
+        "mnemonic": "call",
+        "operands": "0x40c8f0"
+      },
+      {
+        "rva": "0xb16c",
+        "bytes": "e83f190000",
+        "mnemonic": "call",
+        "operands": "0x40cab0"
+      }
+    ],
+    "normalized_commands": {
+      "0x68": "0x68",
+      "0x6a": "0x68"
+    },
+    "direct_packet_offsets_on_68_route": [
+      "+0x00 link (shared traversal)",
+      "+0x07 tag"
+    ],
+    "disposition": "Group 0x60 refreshes A909FC from A8E6F4 and conditionally A8E6FC only when BA01FC is zero. After clearing tag bit 1, 0x68/0x6a miss 0x7c, 0x74, and 0x64; B119 exits to the traversal continuation, so neither C8F0 nor CAB0 is called.",
+    "limits": [
+      "AC60 direct read minimum is 8 bytes (link+tag), not a producer allocation size.",
+      "0x6a is a normalized consumer route only; no first-party producer was found.",
+      "The shared group-0x60 page refresh means 0x68 is not a pure no-op."
+    ]
+  },
+  "eng3": {
+    "handler_table": {
+      "rva": "0x35010",
+      "entry_count": 6,
+      "bytes_sha256": "22545ddc623f92f362d7b73001d2a6c293e03292253b20ee8be8bd970f742e73",
+      "target_rvas_by_index": [
+        "0x9030",
+        "0x90e0",
+        "0x22de0",
+        "0x22e40",
+        "0x22f00",
+        "0x23440"
+      ]
+    },
+    "dispatch_sites": [
+      {
+        "rva": "0x8c68",
+        "bytes": "ff148d10500310",
+        "mnemonic": "call",
+        "operands": "dword ptr [ecx*4 + 0x10035010]"
+      },
+      {
+        "rva": "0x8fed",
+        "bytes": "ff148510500310",
+        "mnemonic": "call",
+        "operands": "dword ptr [eax*4 + 0x10035010]"
+      },
+      {
+        "rva": "0x8c65",
+        "bytes": "8a4e23",
+        "mnemonic": "mov",
+        "operands": "cl, byte ptr [esi + 0x23]"
+      },
+      {
+        "rva": "0x8fbe",
+        "bytes": "8a4623",
+        "mnemonic": "mov",
+        "operands": "al, byte ptr [esi + 0x23]"
+      }
+    ],
+    "direct_callers": {
+      "0x20190": [
+        "0x1a89d",
+        "0x1ade8",
+        "0x1ae0d"
+      ],
+      "0x231a0": [
+        "0x901d"
+      ]
+    },
+    "tag_68_writer_sites": [
+      {
+        "rva": "0x23037",
+        "bytes": "894808",
+        "mnemonic": "mov",
+        "operands": "dword ptr [eax + 8], ecx"
+      },
+      {
+        "rva": "0x23040",
+        "bytes": "c74204ffffff00",
+        "mnemonic": "mov",
+        "operands": "dword ptr [edx + 4], 0xffffff"
+      },
+      {
+        "rva": "0x2304c",
+        "bytes": "c6400768",
+        "mnemonic": "mov",
+        "operands": "byte ptr [eax + 7], 0x68"
+      },
+      {
+        "rva": "0x23058",
+        "bytes": "890a",
+        "mnemonic": "mov",
+        "operands": "dword ptr [edx], ecx"
+      },
+      {
+        "rva": "0x2305f",
+        "bytes": "8903",
+        "mnemonic": "mov",
+        "operands": "dword ptr [ebx], eax"
+      },
+      {
+        "rva": "0x23066",
+        "bytes": "83c00c",
+        "mnemonic": "add",
+        "operands": "eax, 0xc"
+      }
+    ],
+    "tag_68_wire_observation": {
+      "command": "0x68",
+      "link": "+0x00",
+      "producer_dword": "+0x04..+0x07 (then tag byte overwrites +0x07)",
+      "opaque_dword": "+0x08..+0x0b",
+      "producer_stride_and_alignment": "0x0c bytes; 4-byte cursor increments",
+      "consumer_minimum": "0x08 bytes",
+      "semantic_payload_fields": "none established by AC60"
+    },
+    "polygon_packet_sites": [
+      {
+        "rva": "0x208f7",
+        "bytes": "e8b4f4ffff",
+        "mnemonic": "call",
+        "operands": "0x1001fdb0"
+      },
+      {
+        "rva": "0x209b4",
+        "bytes": "c646073e",
+        "mnemonic": "mov",
+        "operands": "byte ptr [esi + 7], 0x3e"
+      },
+      {
+        "rva": "0x209ba",
+        "bytes": "c646073c",
+        "mnemonic": "mov",
+        "operands": "byte ptr [esi + 7], 0x3c"
+      },
+      {
+        "rva": "0x209be",
+        "bytes": "83c634",
+        "mnemonic": "add",
+        "operands": "esi, 0x34"
+      },
+      {
+        "rva": "0x20a8c",
+        "bytes": "e8fff2ffff",
+        "mnemonic": "call",
+        "operands": "0x1001fd90"
+      },
+      {
+        "rva": "0x20aa8",
+        "bytes": "894e04",
+        "mnemonic": "mov",
+        "operands": "dword ptr [esi + 4], ecx"
+      },
+      {
+        "rva": "0x20b31",
+        "bytes": "83c628",
+        "mnemonic": "add",
+        "operands": "esi, 0x28"
+      },
+      {
+        "rva": "0x2339f",
+        "bytes": "c746040000002e",
+        "mnemonic": "mov",
+        "operands": "dword ptr [esi + 4], 0x2e000000"
+      },
+      {
+        "rva": "0x233aa",
+        "bytes": "e8e1c9ffff",
+        "mnemonic": "call",
+        "operands": "0x1001fd90"
+      },
+      {
+        "rva": "0x23416",
+        "bytes": "83c628",
+        "mnemonic": "add",
+        "operands": "esi, 0x28"
+      },
+      {
+        "rva": "0x234aa",
+        "bytes": "e851060000",
+        "mnemonic": "call",
+        "operands": "0x10023b00"
+      },
+      {
+        "rva": "0x23673",
+        "bytes": "894e04",
+        "mnemonic": "mov",
+        "operands": "dword ptr [esi + 4], ecx"
+      },
+      {
+        "rva": "0x2367f",
+        "bytes": "e80cc7ffff",
+        "mnemonic": "call",
+        "operands": "0x1001fd90"
+      },
+      {
+        "rva": "0x236e8",
+        "bytes": "83c628",
+        "mnemonic": "add",
+        "operands": "esi, 0x28"
+      },
+      {
+        "rva": "0x23cc2",
+        "bytes": "0d0000002e",
+        "mnemonic": "or",
+        "operands": "eax, 0x2e000000"
+      },
+      {
+        "rva": "0x23cd2",
+        "bytes": "0d0000002c",
+        "mnemonic": "or",
+        "operands": "eax, 0x2c000000"
+      }
+    ],
+    "polygon_summary": [
+      {
+        "producer": "0x204c0 called from 0x20190",
+        "family": "FT4/GT4",
+        "host_constructor_slots": [
+          117,
+          119
+        ],
+        "tags": [
+          "0x2c/0x2e",
+          "0x3c/0x3e"
+        ],
+        "allocation_strides": [
+          "FT4 0x28",
+          "GT4 0x34"
+        ]
+      },
+      {
+        "producer": "0x231a0 called at 0x901d",
+        "family": "FT4",
+        "host_constructor_slots": [
+          117
+        ],
+        "tag": "0x2e",
+        "allocation_stride": "0x28"
+      },
+      {
+        "producer": "0x23440 via handler-table index 5",
+        "family": "FT4",
+        "host_constructor_slots": [
+          117
+        ],
+        "tags": [
+          "0x2c",
+          "0x2e"
+        ],
+        "allocation_stride": "0x28"
+      }
+    ],
+    "proof_level": "STATIC_OBSERVED"
+  },
+  "title": {
+    "mode_table": {
+      "rva": "0x220d0",
+      "entry_count": 8,
+      "bytes_sha256": "415195e248ded9aefc3bba1701c680ed3f995fb163b29400793362439889d23c",
+      "target_rvas_by_index": [
+        "0x3050",
+        "0x3100",
+        "0x17b90",
+        "0x17bf0",
+        "0x17cb0",
+        "0x181e0",
+        "0x3d10",
+        "0x186e0"
+      ],
+      "indirect_dispatch": {
+        "rva": "0x2c83",
+        "bytes": "ff1495d0200210",
+        "mnemonic": "call",
+        "operands": "dword ptr [edx*4 + 0x100220d0]"
+      }
+    },
+    "writer_sites": [
+      {
+        "rva": "0x18157",
+        "bytes": "e8c446ffff",
+        "mnemonic": "call",
+        "operands": "0x1000c820"
+      },
+      {
+        "rva": "0x181c3",
+        "bytes": "83c628",
+        "mnemonic": "add",
+        "operands": "esi, 0x28"
+      },
+      {
+        "rva": "0x1841c",
+        "bytes": "e8ff43ffff",
+        "mnemonic": "call",
+        "operands": "0x1000c820"
+      },
+      {
+        "rva": "0x18485",
+        "bytes": "83c628",
+        "mnemonic": "add",
+        "operands": "esi, 0x28"
+      },
+      {
+        "rva": "0x1894d",
+        "bytes": "83c128",
+        "mnemonic": "add",
+        "operands": "ecx, 0x28"
+      },
+      {
+        "rva": "0x18e13",
+        "bytes": "e8183affff",
+        "mnemonic": "call",
+        "operands": "0x1000c830"
+      },
+      {
+        "rva": "0x18e74",
+        "bytes": "894604",
+        "mnemonic": "mov",
+        "operands": "dword ptr [esi + 4], eax"
+      },
+      {
+        "rva": "0x18ecf",
+        "bytes": "83c628",
+        "mnemonic": "add",
+        "operands": "esi, 0x28"
+      }
+    ],
+    "command_word_sites": [
+      {
+        "rva": "0x1814c",
+        "bytes": "c746040000002e",
+        "mnemonic": "mov",
+        "operands": "dword ptr [esi + 4], 0x2e000000"
+      },
+      {
+        "rva": "0x18157",
+        "bytes": "e8c446ffff",
+        "mnemonic": "call",
+        "operands": "0x1000c820"
+      },
+      {
+        "rva": "0x18247",
+        "bytes": "e854070000",
+        "mnemonic": "call",
+        "operands": "0x100189a0"
+      },
+      {
+        "rva": "0x189c1",
+        "bytes": "80cc2c",
+        "mnemonic": "or",
+        "operands": "ah, 0x2c"
+      },
+      {
+        "rva": "0x189d6",
+        "bytes": "0d00000002",
+        "mnemonic": "or",
+        "operands": "eax, 0x2000000"
+      },
+      {
+        "rva": "0x18af9",
+        "bytes": "e8a2feffff",
+        "mnemonic": "call",
+        "operands": "0x100189a0"
+      },
+      {
+        "rva": "0x18b04",
+        "bytes": "e8e7000000",
+        "mnemonic": "call",
+        "operands": "0x10018bf0"
+      },
+      {
+        "rva": "0x18b94",
+        "bytes": "e807feffff",
+        "mnemonic": "call",
+        "operands": "0x100189a0"
+      },
+      {
+        "rva": "0x18bd6",
+        "bytes": "e815000000",
+        "mnemonic": "call",
+        "operands": "0x10018bf0"
+      }
+    ],
+    "direct_call_references": {
+      "0x17f50": [
+        "0x303d"
+      ],
+      "0x18bf0": [
+        "0x18b04",
+        "0x18bd6"
+      ]
+    },
+    "host_constructor_bindings": [
+      {
+        "wrapper_rva": "0xc820",
+        "slot": 117,
+        "host_rva": "0xb5c0",
+        "producer_call_sites": [
+          "0x18157",
+          "0x1841c"
+        ]
+      },
+      {
+        "wrapper_rva": "0xc830",
+        "slot": 118,
+        "host_rva": "0xb570",
+        "producer_call_sites": [
+          "0x18e13"
+        ],
+        "host_body_equal_to_slot_117": true
+      },
+      {
+        "producer_rva": "0x186e0",
+        "host_constructor": "none; direct packet writer",
+        "allocation_stride": "0x28",
+        "command_word": "copied from computed DWORD; this audit does not establish its tag value"
+      }
+    ],
+    "allocation_evidence": "TITLE FT4 writers advance their packet cursor by 0x28 where the native spans show it; this is a producer stride, not a claim that every surrounding allocation has exactly that size.",
+    "reused_behavioral_receipt": "work/renderer_packets/evidence.json#title_ft4 (BOUNDED_EQUIVALENT finite synthetic producer tests; not a decoder or pixel claim)",
+    "proof_level": "STATIC_OBSERVED; existing title_ft4 producer behavior is separately BOUNDED_EQUIVALENT"
+  },
+  "reused_findings": {
+    "ENG1_GT4": "work/renderer_geometry_info/evidence.json#eng1_mesh_emit: native 0x2df20 uses slot 119/B660, 0x34 stride; it does not directly call slot 117.",
+    "ENG1_and_ENG3_variable_sprite": "work/renderer_packets/evidence.json#eng3_sprite64 plus existing ENG1 writer receipts; no re-audit in this delta.",
+    "zero_UV_D420_or_CAB0_fallback": "UNRESOLVED; no audited first-party producer proves a zero-UV packet taking that fallback."
+  },
+  "cited_evidence_sha256": {
+    "work/renderer_geometry_info/evidence.json": "0d5aed31967e4d38666df0d9a8299d17f5769edb04b08d989d2dbe5269c52454",
+    "work/renderer_cross_module/evidence.json": "c57a16e635d00b4984ae9ff5503bc2916ec32fe0b18f1ca30b0e8dba5d528f46",
+    "work/renderer_packets/evidence.json": "46a17a9ddb7cac311d17e2eda8cf86d91b352ad377ddd4d1b31e3d952e333078",
+    "work/renderer_closure/evidence.json": "279f4a5c30b1b3eee8bd86f9dbde0096b6da34155e446eb87b35a8c1b87e6c87"
+  },
+  "proof_levels": {
+    "STATIC_OBSERVED": "original instruction/table evidence in this audit",
+    "LAYOUT_VERIFIED": "private C89 packed declarations compile-time checked by existing and 68-delta fixtures",
+    "BOUNDED_EQUIVALENT": "only existing title_ft4 and other cited finite producer receipts; not extended to AC60 or 0x68",
+    "UNRESOLVED": [
+      "whether every runtime object reaches these conditional static producer paths",
+      "semantic meaning of ENG3 command 0x68 producer dword at +0x08",
+      "complete runtime table backing extent and raster/pixel behavior"
+    ]
+  }
+}

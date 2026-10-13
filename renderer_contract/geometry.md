@@ -34,7 +34,7 @@ For a future per-point capture, the narrowest candidate seam is a wrapper around
 
 ## Evidence and limits
 
-Prediction recorded before inspecting the callback family in [prediction.md](prediction.md): the final packet would omit per-vertex Z/reciprocal depth, while earlier callbacks would expose coordinates. The packet prediction is supported. Earlier host globals contain camera and projected coordinates, but the probe's snapshot/output call sequence does not establish that adding those callbacks to standard emitters is behavior-preserving. The `normal` prediction is falsified: the reviewed Ă˘â‚¬Ĺ›normalĂ˘â‚¬ĹĄ result is projected 2D area.
+Prediction recorded before inspecting the callback family in [geometry.json](evidence/geometry.json): the final packet would omit per-vertex Z/reciprocal depth, while earlier callbacks would expose coordinates. The packet prediction is supported. Earlier host globals contain camera and projected coordinates, but the probe's snapshot/output call sequence does not establish that adding those callbacks to standard emitters is behavior-preserving. The `normal` prediction is falsified: the reviewed Ă˘â‚¬Ĺ›normalĂ˘â‚¬ĹĄ result is projected 2D area.
 
 The PC facts are STATIC observations over hash-checked original binaries. [evidence.json](evidence/geometry.json) contains original DLL/EXE hashes, copied-table target RVAs, wrapper spans and hashes, host spans and hashes, plus original ENG1 producer spans and direct-call sites. Key original target spans are HERC `B740` size `0xCA`, `B810` size `0x25`, `B840` size `0x23`, `B920` size `0x4E`, `B5C0`/`B660` size `0x47`, and ENG1 `2DF20` size `0x334`, `2E3B0` size `0x1AD`, `2E600` size `0x69`, `2E6C0` size `0x85`, `2ED10` size `0x165`.
 

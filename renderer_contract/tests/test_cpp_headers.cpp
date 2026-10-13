@@ -4,6 +4,9 @@
 #include "hercules_textures.h"
 #include "hercules_state.h"
 #include "hercules_pixels.h"
+#include "hercules_sprite_geometry.h"
+#include "hercules_quad_dispatch.h"
+#include "hercules_staging.h"
 
 /* Link against C objects to check the reusable C++ consumer boundary. */
 int main()
@@ -23,5 +26,10 @@ int main()
         return 4;
     if (!herc_tex_upload_byte_offset(5,224,0,&offset) || offset != 0xe00a)
         return 5;
+    RendererAc60StateView staging = {0};
+    RendererAc60Event event;
+    if (renderer_ac60_apply_packet(wire,sizeof(wire),&staging,&event) !=
+        RENDERER_AC60_APPLY_OK || event.kind != RENDERER_AC60_EVENT_E1_STATE)
+        return 6;
     return 0;
 }

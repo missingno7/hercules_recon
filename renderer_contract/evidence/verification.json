@@ -1,243 +1,378 @@
 {
-  "schema_version": 1,
-  "scope": "Renderer contract foundation and finite independent CPU fixtures; no live interception, GPU renderer or game run.",
+  "schema_version": 2,
+  "scope": "Renderer external contract and finite unchanged-original CPU fixtures; no live loader, window or GPU integration.",
   "source_base_commit": "73c6320179093c3de9b820e66b87f94dfb639a9b",
+  "preceding_contract_commit": "ea301c2cbcefa413f9ee55943f1aa4adcedafeab",
   "branch": "codex/renderer-interface-closure",
   "toolchain_id": "msvc5_rtm",
   "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+  "compiler_flags": [
+    "/nologo",
+    "/W3",
+    "/O2",
+    "/MT"
+  ],
+  "compiled_summary": {
+    "discovered": 11,
+    "passed": 11,
+    "failed": 0
+  },
   "compiled_suites": [
     {
       "test": "test_cpp_headers.cpp",
       "status": "passed",
-      "stdout": "",
-      "executable_sha256": "30379e049afb995608e7ceb6ee0b0028a452a2c89196c84b75957d559101fef0",
-      "command_argv": [
-        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
-        "/nologo",
-        "/W3",
-        "/O2",
-        "/MT",
-        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
-        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests",
-        "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_contract_tests\\000_test_cpp_headers\\test_cpp_headers.exe",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_cpp_headers.cpp",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_frame.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_host_abi.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packets.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_pixels.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_state.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_textures.c"
-      ]
+      "executable_sha256": "4856ac6228c2fa680f27d306ee12574bd1263cd0441e4b969e99aca86b13b794",
+      "stdout_last_line": ""
     },
     {
       "test": "test_frame.c",
       "status": "passed",
-      "stdout": "PASS fixed-width raw32 region maps without host pointer truncation\nPASS both module-specific frame/table pairs initialize\nPASS NULL chain head seeded\nPASS empty raw32 head terminates at NULL without visits\nPASS terminal-NULL two-link chain seeded\nPASS bounded raw32 walker accepts final NULL link\nPASS invalid last link seeded outside mapped range\nPASS bounded raw32 walker rejects invalid last link\nPASS cycle links seeded\nPASS raw32 walker rejects cycle through visit guard\nPASS raw32 walker applies caller visit budget\nPASS ENG1 and TITLE retain distinct observed strides\nPASS first ENG1 view has 0x500 links and terminal NULL\nPASS second ENG1 view has 0x500 links and terminal NULL\nPASS ENG3 retains its independent two-view stride/request\nPASS first ENG3 view has 0x800 chain slots and terminal NULL\nPASS second ENG3 view has 0x800 chain slots and terminal NULL\nPASS AC60 model traverses an empty ENG3 0x800-slot table to NULL\nPASS first TITLE table has 0x500 heads and terminal NULL\nPASS second TITLE table has 0x500 heads and terminal NULL\nPASS TITLE source depth input 7 selects OT index 0x4f7\nPASS selected bucket head resolves\nPASS first primitive prepends ahead of existing sentinel\nPASS bucket head reloads before second prepend\nPASS second primitive prepends in LIFO order\nPASS AC60 model skips sentinels and visits newest first\nPASS TITLE OT restored before invalid-tail case\nPASS empty AC60 table advances through terminal NULL\nPASS invalid final OT head seeded\nPASS AC60 model rejects invalid final primitive link\nPASS TITLE OT restored before one-past sentinel case\nPASS one-past final OT sentinel seeded in mapped tail bytes\nPASS malformed one-past address is deliberately still mapped\nPASS AC60 decoder rejects one-past sentinel before resolver lookup\nPASS empty OT restored before sentinel-budget case\nPASS AC60 model bounds empty-bucket sentinel advances\nchecks=36 failures=0\n",
-      "executable_sha256": "fe4fee33f1269c71762294d2742658a8c0f1a5e6397005f985383447b848b942",
-      "command_argv": [
-        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
-        "/nologo",
-        "/W3",
-        "/O2",
-        "/MT",
-        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
-        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests",
-        "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_contract_tests\\001_test_frame\\test_frame.exe",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_frame.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_frame.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_host_abi.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packets.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_pixels.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_state.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_textures.c"
-      ]
+      "executable_sha256": "aaec6c0220b6b24da633c9d142b24380230a6df1317ef837d5339b41694b8a0a",
+      "stdout_last_line": "checks=44 failures=0"
     },
     {
       "test": "test_host_abi.c",
       "status": "passed",
-      "stdout": "table clone contract tests passed\n",
-      "executable_sha256": "e91fb510663ab37af84aa16a9bfa23de4b6a44bc968e6d5ec00df17d1d580ac3",
-      "command_argv": [
-        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
-        "/nologo",
-        "/W3",
-        "/O2",
-        "/MT",
-        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
-        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests",
-        "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_contract_tests\\002_test_host_abi\\test_host_abi.exe",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_host_abi.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_frame.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_host_abi.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packets.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_pixels.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_state.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_textures.c"
-      ]
+      "executable_sha256": "ae9206f8f580ba73dc9eaae95b74e4c65bd644a738a43983b639b4604b77d8b9",
+      "stdout_last_line": "table clone contract tests passed"
     },
     {
       "test": "test_packets.c",
       "status": "passed",
-      "stdout": "renderer_packet_fixture checks=37 failures=0\n",
-      "executable_sha256": "f13b800db4ce9b338fd9aa7be997989bcf393970371fd02c296d962588bb921a",
-      "command_argv": [
-        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
-        "/nologo",
-        "/W3",
-        "/O2",
-        "/MT",
-        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
-        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests",
-        "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_contract_tests\\003_test_packets\\test_packets.exe",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_packets.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_frame.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_host_abi.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packets.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_pixels.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_state.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_textures.c"
-      ]
+      "executable_sha256": "27cd34e5f9f2a6cb82dbc84af0af905a4de7df319ba9666c51fa70bd9fbc3270",
+      "stdout_last_line": "renderer_packet_fixture checks=43 failures=0"
     },
     {
       "test": "test_pixels.c",
       "status": "passed",
-      "stdout": "PASS: 47 pixel-reference checks\n",
-      "executable_sha256": "62db89cfa40ef027a759d4bcad64966b45c3d1055978998f548a6cac06a3de55",
-      "command_argv": [
-        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
-        "/nologo",
-        "/W3",
-        "/O2",
-        "/MT",
-        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
-        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests",
-        "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_contract_tests\\004_test_pixels\\test_pixels.exe",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_pixels.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_frame.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_host_abi.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packets.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_pixels.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_state.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_textures.c"
-      ]
+      "executable_sha256": "d74b5c14d1582b96dab2ee4bb5e236f4abee0e8f91cc897aeadbc5d8417e794d",
+      "stdout_last_line": "PASS: 47 pixel-reference checks"
+    },
+    {
+      "test": "test_quad_route.c",
+      "status": "passed",
+      "executable_sha256": "408f0b463ba68d9d405d881945a2f41641e0acb2853aa26e3a95ac40c0ab0385",
+      "stdout_last_line": "quad dispatch contract cases passed"
+    },
+    {
+      "test": "test_sprite_geometry.c",
+      "status": "passed",
+      "executable_sha256": "7a2083f56f2cfb073d82d6d135c25ef311c54e80c514ceeeaddce18c8adb1ab2",
+      "stdout_last_line": "PASS renderer sprite geometry bounded contract"
+    },
+    {
+      "test": "test_sprite_pixels.c",
+      "status": "passed",
+      "executable_sha256": "bfbca844beee8a556a2c8d76046b7c9a51ec6bab53b6a5f431d4fa27a779144e",
+      "stdout_last_line": "PASS: 24 private C8F0/CAB0 proposal checks"
+    },
+    {
+      "test": "test_staging.c",
+      "status": "passed",
+      "executable_sha256": "f617d34067680c1c2924ab47b839f7069cd5e417aeef86d44ecdfb0d7943b267",
+      "stdout_last_line": "CHECKS;74;0"
     },
     {
       "test": "test_state.c",
       "status": "passed",
-      "stdout": "hercules_state_fixture checks=43 failures=0\n",
-      "executable_sha256": "14d7b1aa7874f9470bc5a4a5079fc1d190228d829e55aada616124b5b9eb63a2",
-      "command_argv": [
-        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
-        "/nologo",
-        "/W3",
-        "/O2",
-        "/MT",
-        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
-        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests",
-        "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_contract_tests\\005_test_state\\test_state.exe",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_state.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_frame.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_host_abi.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packets.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_pixels.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_state.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_textures.c"
-      ]
+      "executable_sha256": "88ce5e5c590ac3ccc3372d34443c26acaaa5dd243bae0236c325ec1dd357e564",
+      "stdout_last_line": "hercules_state_fixture checks=43 failures=0"
     },
     {
       "test": "test_textures.c",
       "status": "passed",
-      "stdout": "PASS texture helper synthetic cases\n",
-      "executable_sha256": "e3b5b10bdf6958ab0334369d26b0518863965fa03db51470555c646e13ae54fc",
-      "command_argv": [
-        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
-        "/nologo",
-        "/W3",
-        "/O2",
-        "/MT",
-        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract",
-        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests",
-        "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_contract_tests\\006_test_textures\\test_textures.exe",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\tests\\test_textures.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_frame.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_host_abi.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_packets.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_pixels.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_state.c",
-        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\hercules_textures.c"
-      ]
+      "executable_sha256": "412d66d86f85cb2ca290b88086bbb81a393757084d8ad378d2c3191e2314b12c",
+      "stdout_last_line": "PASS texture helper synthetic cases"
     }
   ],
-  "sources_sha256": {
-    "renderer_contract/hercules_frame.c": "377b09570bd86b5f3f48013379780b9175eec4fcea022253722516e995864943",
-    "renderer_contract/hercules_frame.h": "5c4d90a7809c22dde56ae93648bfb5a61d636c089f82d6dcba707863e3458c2f",
-    "renderer_contract/hercules_host_abi.c": "09b5ffe70af7623fa53812fd408e4cc50505c11e30279448670571e63ccd3999",
-    "renderer_contract/hercules_host_abi.h": "52b4b1d50f7ec6ffc6c0fdea239eeeab337fbdd4e0baedd5d0935ebb82800eee",
-    "renderer_contract/hercules_packets.c": "d8d39c8a65a21f7804aa9514fee49733de3b2ee20eb82b26cb0766699cf902ee",
-    "renderer_contract/hercules_packets.h": "6834e5961161165c1f54c945078857a9ab179ec95bb31c63073e9f2c97fd1e15",
-    "renderer_contract/hercules_pixels.c": "4eb1a4e3250a316159663eb0e0c7a1ab172b136e0bddef3fd2a4174f77a448b8",
-    "renderer_contract/hercules_pixels.h": "3a591c6ace83eeefd9b6e9b85dcb0c014c651adde1539f3fa761b4dced83458e",
-    "renderer_contract/hercules_state.c": "1c8b050d684837966f58eca3e5435ac33eb756ba4f5e13e8741bd52d5312ee8f",
-    "renderer_contract/hercules_state.h": "c6c528b7f5e18f0f3bc0aa5f794da689043b9f777f4e73bdb5e6a77aa64b26a2",
-    "renderer_contract/hercules_state_wire.h": "268a893be201a230c3b397ed78961f6ce1c4c774406f92009c23889f5714653e",
-    "renderer_contract/hercules_textures.c": "b958715c9db6c1adcc47658305c8a330a95f35ed4419d79e44ac49ee0c5e78f2",
-    "renderer_contract/hercules_textures.h": "a9f8214c7dbac3cc4a3dd25abb4a77cfa3ab9287a97f784c8ce7648592ea8b6b",
-    "renderer_contract/hercules_types.h": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d",
-    "renderer_contract/tests/compare_exe_variants.py": "ffc8c0ca378503a99d7e5499dea918e4f706b574dd65811b7053633d86bb4c60",
-    "renderer_contract/tests/oracle_common.py": "a024048d9acc6e18197e10a82427cd84351a90666e1626e610bf60c6105f1357",
-    "renderer_contract/tests/run_tests.py": "048ce8644159223640bae2ac6b3b4371da9e332c9e720231c098d5221df7e5b6",
-    "renderer_contract/tests/test_cpp_headers.cpp": "3e519f47225aad2d8758b3b038961973aa3a631987902018a6897dac5885cc64",
-    "renderer_contract/tests/test_frame.c": "caab5a813c20d11009681c01647f926cd8047f7136906858365389602a6dd6a8",
-    "renderer_contract/tests/test_host_abi.c": "556af3f1bf26a83de24af8469edd2ba3ef15c9dbb49ba955029a346915259f14",
-    "renderer_contract/tests/test_original_a710_upload.py": "d210ae005ba3b53758ef9cd58c8110613d7ea3747956b74b7b1ef2bce288677c",
-    "renderer_contract/tests/test_original_ac60_staging.py": "b6dabe505722634becfcaa64bf3ad7f17e4a5cd7c2253cf3636bb08c2d03f28a",
-    "renderer_contract/tests/test_original_c882_pixel_loop.py": "5aa1931a79f776eec4d3ae84086bd4d5f159ce0c5a552f6bd2074b8b239ad57d",
-    "renderer_contract/tests/test_packets.c": "886f85484cb62e7e8ee55e833aec71ef8056d0b20e6286d1631a94e9afa5c6b9",
-    "renderer_contract/tests/test_pixels.c": "a44935fca486b8fae08f9e7133e267de22ffd65c46fce7270d92be60ad8102fb",
-    "renderer_contract/tests/test_state.c": "5ae18768e2b911c96eea692069c9dc2ebe9387f7ceaaf90aab3fb15bc85aa449",
-    "renderer_contract/tests/test_textures.c": "3c7cf0c5847f36bbca998ea2e27a5ec29e0d6435542e3c74df322a33af424aba",
-    "renderer_contract/tests/validate_originals.py": "7c537fe2fe8c40678da55d5638703609203323cb78f9e4a72f4a20cb935d1808"
-  },
-  "native_checks": [
+  "native_proofs": [
     {
-      "receipt": "work/renderer_bounded_oracle/report.json",
-      "sha256": "b54dbc059c6704ad8083cae022a2508f4effe7be83ae5f97fca8096df682b31a",
-      "status": "BOUNDED_EQUIVALENT",
-      "scope": "Finite nonnegative original A710 upload rectangles with y+height <= 480, using unchanged HERCULES.EXE A710 and BD80 instructions in Unicorn. This is not FUNCTION_MATCH, full A710-domain, image-storage extent, renderer, gameplay, or module acceptance."
+      "path": "renderer_contract/evidence/native_interface_copy.json",
+      "sha256": "3d2398d1ad4824de53acd0712e6a0a72e4e3704f2c84ebbe9cfcbb8e25d01234",
+      "proof_level": "BOUNDED_EQUIVALENT",
+      "finite_scope": {
+        "scenarios": 12
+      }
     },
     {
-      "receipt": "work/renderer_bounded_oracle/ac60_report.json",
-      "sha256": "1f59ec62ffc41b56b953bacb9c9a8d78d41bc4378009863575c33c6dc6280182",
-      "status": "BOUNDED_EQUIVALENT",
-      "scope": "One finite synthetic AC60 ordering-table chain executed in unchanged original HERCULES.EXE code through FT3, FT4, GT4, E1, F3, command-01, variable-sprite, and 0x40 gate processing. Original staging is checked at four rasterizer entries and the A8F0 call boundary; host return callbacks skip callees. No raster pixels or full DirectDraw/device path are claimed."
+      "path": "renderer_contract/evidence/native_pixel_slices.json",
+      "sha256": "4318017f56d89d344228472a288b1328f999735273c1096247a8277ac87d6932",
+      "proof_level": "BOUNDED_EQUIVALENT",
+      "finite_scope": {
+        "cases": 8
+      }
     },
     {
-      "receipt": "work/renderer_bounded_oracle/c882_report.json",
-      "sha256": "343ab9d8981ad628fea3b6dfd97b7a8e0351e3001c9f4a1440dd66f8b8db3ac7",
-      "status": "BOUNDED_EQUIVALENT",
-      "scope": "Finite one-row, two-pixel C700/C882 execution from original RVA C7F6 through the C89F inner-loop boundary. Source bytes 0 and 7; zero bypasses all destination/LUT access, nonzero uses frame_color_lut[0x23*256+7], then blend[(mapped_color<<8)|old_destination]. This is not full rasterization, renderer integration, gameplay, FUNCTION_MATCH, or whole-module equality."
+      "path": "renderer_contract/evidence/native_sprite_geometry.json",
+      "sha256": "2c281855d6f59128f2b420f4c336f77ad1768fe031a94eab8a99bd5efd5f3b62",
+      "proof_level": "BOUNDED_EQUIVALENT",
+      "finite_scope": {
+        "cases": 26,
+        "limit": "pre-pixel setup only; C model tests 12 selected scenarios"
+      }
+    },
+    {
+      "path": "renderer_contract/evidence/native_polygon_dispatch.json",
+      "sha256": "1a79749a9be9b4248c6d5ba0e2b418aae7401c56aefca3c6bbac0c2ff5679724",
+      "proof_level": "BOUNDED_EQUIVALENT",
+      "finite_scope": {
+        "cases": 6
+      }
+    },
+    {
+      "path": "renderer_contract/evidence/native_vram_move.json",
+      "sha256": "2b6da8e64cbcf73adc49c7e2ecde1eb6bf5fff4b8e6d279fc996c5880b1a23c7",
+      "proof_level": "BOUNDED_EQUIVALENT",
+      "finite_scope": {
+        "cases": 9
+      }
+    },
+    {
+      "path": "renderer_contract/evidence/native_palette_builder.json",
+      "sha256": "4724e5fa20a5ac0eb36e75fe5bf97434807080a6625c69eca54538e07ee26aa3",
+      "proof_level": "BOUNDED_EQUIVALENT",
+      "finite_scope": {
+        "scenarios": 1,
+        "instructions": 2356875,
+        "palette_helper_entries": 256,
+        "stop_before_rva": "0x728d"
+      }
+    },
+    {
+      "path": "renderer_contract/evidence/native_staging.json",
+      "sha256": "fe1525a4702f5716071da2a8929cedc8966a66ade9548c94e75e243b42cd96bc",
+      "proof_level": "BOUNDED_EQUIVALENT",
+      "finite_scope": {
+        "C_checks": 74,
+        "native_fields": 171,
+        "gate_branches": 7,
+        "page_masks": 9
+      }
     }
   ],
-  "static_original_validation": {
-    "images": 4,
-    "spans": 108,
-    "callback_bindings": 24,
-    "copied_wrappers": 22,
-    "dispatch_sites": 57,
-    "manifest_sha256": "cb39dcde9b7a980a0247bf902d2d9055753adc8425476712c02c0005c1065a7a"
+  "original_validation": {
+    "manifest_sha256": "bc4e1aed3616a8fb39b569d2a63bcaa6aca4c9d5d938567b6e7dae0b4e9f1598",
+    "status": "passed",
+    "counts": {
+      "original_images": 4,
+      "original_files_hash_checked": 4,
+      "span_hashes_checked": 162,
+      "package_evidence_hashes_checked": 29,
+      "callback_table_hashes_checked": 1,
+      "callback_bindings_checked": 28,
+      "copied_wrapper_hashes_checked": 22,
+      "direct_dispatch_bindings_checked": 57
+    }
   },
+  "source_ledger": [
+    {
+      "path": "renderer_contract/hercules_frame.c",
+      "sha256": "0c51696b5aa5af4d9e08527151a1ce32021c64d378123bffd7df92672291c1a4"
+    },
+    {
+      "path": "renderer_contract/hercules_frame.h",
+      "sha256": "e743695844317c5819cd969a93280b8931517ddff21e893238760aef990d2189"
+    },
+    {
+      "path": "renderer_contract/hercules_host_abi.c",
+      "sha256": "09b5ffe70af7623fa53812fd408e4cc50505c11e30279448670571e63ccd3999"
+    },
+    {
+      "path": "renderer_contract/hercules_host_abi.h",
+      "sha256": "9795da05b2433f52485b8cc33827189907d98f0ac648d2cd39b4f7bcad1d0072"
+    },
+    {
+      "path": "renderer_contract/hercules_packets.c",
+      "sha256": "6ff07e4ebcc24f6a04a2b3fa978b06ba9950350b71292cd3b14761735560dcfc"
+    },
+    {
+      "path": "renderer_contract/hercules_packets.h",
+      "sha256": "b2616d9fb1c9d154730cbfc824880760a0c0162e9aa3f851150ec1787a7dc163"
+    },
+    {
+      "path": "renderer_contract/hercules_pixels.c",
+      "sha256": "a5479335fb97f3a395b8e74c0bc94f0481b609d2511d04f99484a0af0dec76c4"
+    },
+    {
+      "path": "renderer_contract/hercules_pixels.h",
+      "sha256": "5685c7653d05e55e0b1a8a343cf4d72db9d5fc02adf3d0da50d9f63fda1fbea1"
+    },
+    {
+      "path": "renderer_contract/hercules_quad_dispatch.h",
+      "sha256": "760dbea6cd1e70f94847da3e2815830fff557e4d86820a8a825e41b9e88cb9c8"
+    },
+    {
+      "path": "renderer_contract/hercules_sprite_geometry.c",
+      "sha256": "680ebba6b2bb09e71e4b7d03f9bc0e9f0b55835dc06b17375edfd477b2b1c07a"
+    },
+    {
+      "path": "renderer_contract/hercules_sprite_geometry.h",
+      "sha256": "46e8aa1711e9f158f54abe38c4bb2dbe4ad0c2ba66e6b1bb5394497a153612ea"
+    },
+    {
+      "path": "renderer_contract/hercules_staging.c",
+      "sha256": "8eb7ce5f08aa8bf862174fc29cdece5b15e4495618e2d9593a66a392ab211d43"
+    },
+    {
+      "path": "renderer_contract/hercules_staging.h",
+      "sha256": "dc66b15b45edeb3779d31e7aa50ce9f454b164ddc30c40fff953dfe380854b6e"
+    },
+    {
+      "path": "renderer_contract/hercules_state.c",
+      "sha256": "1c8b050d684837966f58eca3e5435ac33eb756ba4f5e13e8741bd52d5312ee8f"
+    },
+    {
+      "path": "renderer_contract/hercules_state.h",
+      "sha256": "c6c528b7f5e18f0f3bc0aa5f794da689043b9f777f4e73bdb5e6a77aa64b26a2"
+    },
+    {
+      "path": "renderer_contract/hercules_state_wire.h",
+      "sha256": "268a893be201a230c3b397ed78961f6ce1c4c774406f92009c23889f5714653e"
+    },
+    {
+      "path": "renderer_contract/hercules_textures.c",
+      "sha256": "b958715c9db6c1adcc47658305c8a330a95f35ed4419d79e44ac49ee0c5e78f2"
+    },
+    {
+      "path": "renderer_contract/hercules_textures.h",
+      "sha256": "a9f8214c7dbac3cc4a3dd25abb4a77cfa3ab9287a97f784c8ce7648592ea8b6b"
+    },
+    {
+      "path": "renderer_contract/hercules_types.h",
+      "sha256": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d"
+    },
+    {
+      "path": "renderer_contract/tests/compare_exe_variants.py",
+      "sha256": "ffc8c0ca378503a99d7e5499dea918e4f706b574dd65811b7053633d86bb4c60"
+    },
+    {
+      "path": "renderer_contract/tests/oracle_common.py",
+      "sha256": "a024048d9acc6e18197e10a82427cd84351a90666e1626e610bf60c6105f1357"
+    },
+    {
+      "path": "renderer_contract/tests/original_ac60_mixed_runner.py",
+      "sha256": "faf988fddd771bbfac0a1b17b28ccc83012896d75c84d99f22c4c3f3ead3c050"
+    },
+    {
+      "path": "renderer_contract/tests/run_tests.py",
+      "sha256": "048ce8644159223640bae2ac6b3b4371da9e332c9e720231c098d5221df7e5b6"
+    },
+    {
+      "path": "renderer_contract/tests/test_cpp_headers.cpp",
+      "sha256": "bab95a1b9b39921acaac80f54af1ff45a507ad2813d498b87ddb22df9ec9dc13"
+    },
+    {
+      "path": "renderer_contract/tests/test_frame.c",
+      "sha256": "18b16581f11fc5d453b2fb240cef44eca12f8be2817169b04d602f4df7343d77"
+    },
+    {
+      "path": "renderer_contract/tests/test_host_abi.c",
+      "sha256": "556af3f1bf26a83de24af8469edd2ba3ef15c9dbb49ba955029a346915259f14"
+    },
+    {
+      "path": "renderer_contract/tests/test_native_staging.py",
+      "sha256": "13d6f0ccb2cd4272501ceb42f8f035f5dd9a57afad1b9b257017021772ac8db3"
+    },
+    {
+      "path": "renderer_contract/tests/test_original_a710_upload.py",
+      "sha256": "d210ae005ba3b53758ef9cd58c8110613d7ea3747956b74b7b1ef2bce288677c"
+    },
+    {
+      "path": "renderer_contract/tests/test_original_ac60_gate.py",
+      "sha256": "d2012c3a255d43711e6862771636e008b8d8ec895d1c5c3585dfbe7e914ccdeb"
+    },
+    {
+      "path": "renderer_contract/tests/test_original_ac60_staging.py",
+      "sha256": "b6dabe505722634becfcaa64bf3ad7f17e4a5cd7c2253cf3636bb08c2d03f28a"
+    },
+    {
+      "path": "renderer_contract/tests/test_original_c882_pixel_loop.py",
+      "sha256": "5aa1931a79f776eec4d3ae84086bd4d5f159ce0c5a552f6bd2074b8b239ad57d"
+    },
+    {
+      "path": "renderer_contract/tests/test_original_interface_copy.py",
+      "sha256": "0233b6b3c9281029004e87a9588b9feb0c75593071c034efc1452dae116c2ef4"
+    },
+    {
+      "path": "renderer_contract/tests/test_original_page_masks.py",
+      "sha256": "461fe93bdd19fa0d1e5da845ebc64415ffaaa79ac5a00356b4b179efcb6f707a"
+    },
+    {
+      "path": "renderer_contract/tests/test_original_palette_builder.py",
+      "sha256": "64de42b37d2a0cf5d010a6ec8b85583016cb73b754efad74dd65432d0c4d413d"
+    },
+    {
+      "path": "renderer_contract/tests/test_original_pixel_slices.py",
+      "sha256": "9298c9ab19513daa8b187f34c72035226186bffa412cc91e19ec58fc7ac614d6"
+    },
+    {
+      "path": "renderer_contract/tests/test_original_polygon_dispatch.py",
+      "sha256": "9f48076ec02e47308ec4db760cdbd2b11832b6f41e8798867580cfdb41e85c32"
+    },
+    {
+      "path": "renderer_contract/tests/test_original_sprite_geometry.py",
+      "sha256": "f7af81a722ad7089229033ec25c106b5085e62ba70dff85e0405082699a10986"
+    },
+    {
+      "path": "renderer_contract/tests/test_original_vram_move.py",
+      "sha256": "6e6e8ee5b9f682f732d782b82426cc85de99fe374d52851bc5a29993a92e261e"
+    },
+    {
+      "path": "renderer_contract/tests/test_packets.c",
+      "sha256": "09d6e7035caa23a6dbfc37b36b32ef58699891028258de311e6a9a09840d2d5a"
+    },
+    {
+      "path": "renderer_contract/tests/test_pixels.c",
+      "sha256": "a44935fca486b8fae08f9e7133e267de22ffd65c46fce7270d92be60ad8102fb"
+    },
+    {
+      "path": "renderer_contract/tests/test_quad_route.c",
+      "sha256": "55c2fba4119b089e3ada2f8d00dd089ab82caceb089cb1701ecafe2922b60ea5"
+    },
+    {
+      "path": "renderer_contract/tests/test_sprite_geometry.c",
+      "sha256": "8ffc6c721d6cca3be29b2ff72b8a909b09df299de5d0c04f1570cdc789d92c8f"
+    },
+    {
+      "path": "renderer_contract/tests/test_sprite_pixels.c",
+      "sha256": "45075236dc349d2ff2e7a4e9a5276ac0caab22f78d86e133c70ee601417cdc37"
+    },
+    {
+      "path": "renderer_contract/tests/test_staging.c",
+      "sha256": "617fd080cef3d7f0b4a5c73bd2e11f92cadfefe757378462bb92b631700f6312"
+    },
+    {
+      "path": "renderer_contract/tests/test_state.c",
+      "sha256": "5ae18768e2b911c96eea692069c9dc2ebe9387f7ceaaf90aab3fb15bc85aa449"
+    },
+    {
+      "path": "renderer_contract/tests/test_textures.c",
+      "sha256": "3c7cf0c5847f36bbca998ea2e27a5ec29e0d6435542e3c74df322a33af424aba"
+    },
+    {
+      "path": "renderer_contract/tests/validate_originals.py",
+      "sha256": "7c537fe2fe8c40678da55d5638703609203323cb78f9e4a72f4a20cb935d1808"
+    }
+  ],
   "preservation": {
-    "canonical_game_sources_changed": false,
-    "recovery_changed": false,
-    "originals_written": false,
-    "host_integration_observed": false,
-    "shared_original_working_recovery_sha256": "465ee5ea057cd3bfb23508e18b16958c27b9d391e11a0bc874cfc413436644d5"
+    "original_working_recovery_sha256": "465ee5ea057cd3bfb23508e18b16958c27b9d391e11a0bc874cfc413436644d5",
+    "original_checkout_status": [
+      "M calibration/title/title_proc.cpp",
+      " M recovery.json",
+      "?? docs/process_audit_2026_10_11.md",
+      "?? evidence/process_audit_2026_10_11.json",
+      "?? evidence/title_scheduler_storage_adoption_2026_10_11.json"
+    ],
+    "assets_written": false,
+    "gameplay_executed": false,
+    "FUNCTION_MATCH_added": false
   },
-  "routing": "Nine explicitly selected GPT-6 Luna xhigh workers; root owned architecture, conflict resolution and integration.",
-  "limits": [
-    "No universal equivalence claim.",
-    "AC60 raster and A8F0 callees skipped in staging fixture.",
-    "C882 four selectors only; other pixel paths static/synthetic.",
-    "No new FUNCTION_MATCH state."
+  "reproducible_commands": "renderer_contract/verification.md",
+  "remaining": [
+    "Original host bootstrap/window integration unobserved",
+    "Arbitrary polygon edges/rounding/clipping unresolved",
+    "Primary notification callback target/write set unresolved",
+    "Resource LUT loading versus startup ordering unresolved",
+    "Complete reachable packet coverage and buffer allocation ownership unresolved"
   ]
 }

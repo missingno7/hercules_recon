@@ -91,7 +91,8 @@ typedef enum FrameWalkStatus {
     FRAME_WALK_CYCLE = 3,
     FRAME_WALK_VISIT_LIMIT = 4,
     FRAME_WALK_ADDRESS_OVERFLOW = 5,
-    FRAME_WALK_RANGE_ERROR = 6
+    FRAME_WALK_RANGE_ERROR = 6,
+    FRAME_WALK_VISITOR_ERROR = 7
 } FrameWalkStatus;
 
 /* Optional flat mapped region resolver useful for bounded tools and tests. */
@@ -100,6 +101,11 @@ typedef struct FrameRaw32Region {
     renderer_u32 size;
     const renderer_u8 *bytes;
 } FrameRaw32Region;
+
+/* Optional synchronous callback after the primitive address guard and before
+ * resolving its live next link. Zero reports FRAME_WALK_VISITOR_ERROR. */
+typedef int (*FrameAc60PrimitiveVisitor)(void *context,
+                                        renderer_raw32 primitive_address);
 
 #ifdef __cplusplus
 extern "C" {
@@ -130,6 +136,12 @@ FrameWalkStatus frame_walk_ac60_order_table(FrameRaw32Resolver resolver,
                                             renderer_raw32 order_table_base,
                                             renderer_u32 slot_count,
                                             FrameVisitGuard *guard);
+
+FrameWalkStatus frame_walk_ac60_order_table_visit(
+    FrameRaw32Resolver resolver, void *resolver_context,
+    renderer_raw32 order_table_base, renderer_u32 slot_count,
+    FrameVisitGuard *guard, FrameAc60PrimitiveVisitor visitor,
+    void *visitor_context);
 
 #ifdef __cplusplus
 }
