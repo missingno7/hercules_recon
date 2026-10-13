@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "evidence_id": "phase19_reprojection_reference",
+  "proof_level": "BEHAVIOR_VERIFIED",
+  "scope": "Bounded original-x86 scalar projection compatibility plus one archived ENG1 mesh/camera context; the 1920x1440 output is a separately labeled reconstructed policy.",
+  "original": {
+    "module": "HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000",
+    "windows_process_started": false,
+    "code_patched": false
+  },
+  "raw_report": {
+    "path": "work/renderer_phase19/root_reprojection3/report.json",
+    "sha256": "b35aa8235e62640cf3159f2663b7001b5db8314f65b70cd46ca4982fb3e5daa4",
+    "status": "FRESH_ORIGINAL_COMPARISON_POLICY_AND_RESOURCE_CAPTURE_PASS"
+  },
+  "paired_native_reports": [
+    {
+      "path": "work/renderer_phase19/root_reprojection3/native_oracle/report.json",
+      "sha256": "895ea98d27a54776d48479d02c319025493eaa217956ef6b48048512fab17bdc",
+      "status": "BOUNDED_X86_DIFFERENTIAL_AND_BRIDGE_OBSERVED",
+      "cases": 14,
+      "assertions": 632
+    },
+    {
+      "path": "work/renderer_phase19/root_eng1_resource1/native_real_map_report.json",
+      "sha256": "92fab0ae037513a02c475e8006ac5cfe644ac17703e19488c10dba5636725c2f",
+      "role": "finite native resource-capture report reference; raw trace remains private"
+    }
+  ],
+  "scalar_compatibility": {
+    "cases": 14,
+    "assertions": 632,
+    "vc5": {
+      "case_count": 14,
+      "native_compatibility_exact": 14,
+      "private_positive": 11,
+      "private_depth_rejections": 3,
+      "caller_supplied_native_camera_projection": 14,
+      "pointer_free_manifest_camera_projection": 2
+    },
+    "gcc_c89": {
+      "case_count": 14,
+      "native_compatibility_exact": 14,
+      "private_positive": 11,
+      "private_depth_rejections": 3,
+      "caller_supplied_native_camera_projection": 14,
+      "pointer_free_manifest_camera_projection": 2
+    },
+    "strict_match_status": "NOT_TESTED"
+  },
+  "resource_capture": {
+    "selected_mesh_index": 156,
+    "selected_cell": "0x938",
+    "mesh_call_index": 2,
+    "point_count": 8,
+    "face_count": 3,
+    "packet_corner_assertions": 12,
+    "native_route": {
+      "mesh_producer": "ENG1+0x2DF20",
+      "primitive_emitter": "ENG1+0x2E600 with its explicit branch tail at +0x2E669 through RET +0x2E6B4",
+      "point_batch_count": 8,
+      "batch_term_definition": "eight point callbacks for one native 2DF20 mesh call; does not describe a separate callback mode",
+      "point_input_callback": "ENG1+0x2C690 -> host slot101 HERC+0xB6F0",
+      "point_projection_callback": "ENG1+0x2C6E0 -> host slot106 HERC+0xB920",
+      "point_output_callback": "ENG1+0x2C760 -> host slot114 HERC+0xB720",
+      "packet_callback": "ENG1+0x2C770 FT4",
+      "read_to_output_rule": "Each B720 result is attributed to the source point captured at the preceding B6F0 callback by the retained point index; 2E600 may prefetch the next source record before B720 returns, so latest-read-at-B720 is not a valid join."
+    },
+    "association": {
+      "point_read_pc_first": "ENG1+0x2E61B",
+      "point_read_pc_subsequent": "ENG1+0x2E695 (tail after explicit branch at +0x2E622)",
+      "native_camera_projection_entry": "HERC+0xB740 then HERC+0xB920",
+      "xy_scratch_copy": "HERC+0xB720 into the same +0x8-stride scratch slot used as B6F0 input, proven by pointer identity and callback order",
+      "face_index_decode": "2DF20 uses packed face word four six-bit indices at bits 0, 6, 12 and 18; actual records reuse/reorder indices across three faces",
+      "packets_emitted": 3,
+      "corners_associated": 12,
+      "ot_order_in_execution": [
+        831,
+        799,
+        772
+      ]
+    },
+    "resource_asset_sha256": "78bc5a60ecce1c99e752fb30a16bc5ace4ee80f686365e1da8136a0decbd69cb",
+    "archive_sha256": "affa380e45918448895932cd466ea9a02096b8dcf08644f91b9da5ec34cd48b4",
+    "eng1_image_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "resource_fixture_counts": {
+      "resource_vertices": 8,
+      "source_compatibility_exact": 8,
+      "private_1920x1440_projected": 8,
+      "faces": 3,
+      "packet_corners_exact": 12
+    },
+    "producer_c_differential": "PENDING; source C producer is not the acceptance claim. The C fixture here reprojects measured post-transform inputs and compares them to native captured output.",
+    "paired_eng1_source_comparison": {
+      "result": "PASS",
+      "path": "work/renderer_phase19/root_eng1_resource1/source_compare_vc5/source_compare_report.json",
+      "sha256": "d16cb4a4947d65f84ac37990c04395ee318f92e31bb491753ba49051d896e5d5",
+      "cases": 3,
+      "assertion_count": 481,
+      "limits": [
+        "The C comparison does not independently reconstruct 2E3B0’s matrix/translation preparation or HERC B880/B8F0/B970/B990 live setup."
+      ],
+      "scope_note": "Separate ENG1 emitter-C comparison; it does not make upstream 2E3B0 preparation or full traversal source-equivalent."
+    }
+  },
+  "private_policy": {
+    "proof_level": "SOURCE_RECONSTRUCTED",
+    "description": "1920x1440 uses scale six from the 320x240 compatibility view; center and signed effective focal WORD are scaled while captured camera XYZ are retained. Native screen WORDs are comparison-only.",
+    "precision_collision": {
+      "native_camera_x": [
+        1,
+        2
+      ],
+      "native_screen_xy": [
+        [
+          160,
+          120
+        ],
+        [
+          160,
+          120
+        ]
+      ],
+      "private_1920x1440_x_rational": [
+        "961.536",
+        "963.072"
+      ],
+      "native_screen_scaling_used": false
+    },
+    "numeric_fixture_status": "VC5 and GCC C89 resource fixtures passed as recorded in the pinned raw report"
+  },
+  "toolchains": {
+    "vc5_manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "vc5_compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "vc5_linker_sha256": "279544809e6353c8e622eb88aea94e86b0258f3c4b8a976373bf4d68a41b63e1",
+    "gcc_sha256": "c5005ba5380351c10743e9ca53ef9632164c54be3bd6b93324795114e4589a7d",
+    "gxx_sha256": "24f9dbe1bcc6574fe54b7a6b05f6c263b8a6a2b6d3696f941af9ab47ae174900",
+    "unicorn_version": "2.1.4",
+    "unicorn_native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+  },
+  "public_source_sha256": {
+    "renderer_contract/evidence/reprojection_prediction.json": "336d4ac4ba595ffe3bda1ea620c5a9fe56e2d1e63cc306a8c452ab0df933c202",
+    "renderer_contract/evidence/synthetic_captured_geometry.json": "7651d2d1afbb237a30f3f3b2925b884c844f1e1579b66ae69acb2e5a427e3748",
+    "renderer_contract/hercules_host_abi.h": "b51d75b165c4800aa9ef5431bdf6f6210ee289d36f5b1c000e1ad1048f52cf5b",
+    "renderer_contract/hercules_projection.c": "c0189e13f46f580dd79f2f834e7680a50a70e392b5f93ea9d5f78732f63492bf",
+    "renderer_contract/hercules_projection.h": "290b3922cd2ae474dc8dd2decf5c18e260bfccab9c79d49a2e5d24ea28dec216",
+    "renderer_contract/hercules_reprojection.c": "fd528d8dd7ba5ad88328c267b24adee148cfc5dd05172753eb524cf3a13aa76b",
+    "renderer_contract/hercules_reprojection.h": "1339fe8023721db2746eaaa95c41183af9645d24843c17d20bc8dd2dfdcd8e08",
+    "renderer_contract/hercules_types.h": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d",
+    "renderer_contract/reprojection_policy.md": "412daac53febfa9ffc494ba53763f8c3241cf22a2ad8600b4652386723111133",
+    "renderer_contract/tests/test_original_projection.py": "d0955c5ebeb6953ceaffc80bd452237eb509eeb982a1eef36da653c92790e089",
+    "renderer_contract/tests/test_original_reprojection.py": "f02769b547e73c58af8ca1c7078fe58055a237c1d58b46aca64e87c846e0309a",
+    "renderer_contract/tests/test_reprojection_cpp.cpp": "d93f4cbdb7b088348c42175b845e22a2876351922dfe6a20bbdec4dd3a200f6c",
+    "renderer_contract/tests/test_reprojection.c": "56638a35f14b3800b1fab7ec00be922536e65a1efc7f47e1016a580162b28ebc"
+  },
+  "original_span_references": [
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb320",
+      "size": 271,
+      "sha256": "11368c1fa7fd8cd91b1d7b7de522ad06aacc724991ff4f8d46d7eecf1e7cff97",
+      "existing_manifest_pin": true
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb6f0",
+      "size": 36,
+      "sha256": "6a6848a640a84133abcc29bf3b0c01e2fb1638f36e916ed8e4f68890210aff29",
+      "existing_manifest_pin": true
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb720",
+      "size": 26,
+      "sha256": "51f3989776f1410d8ffa246269a37fac2b44590d0f6bcf1cdca4937d0b7b0843",
+      "existing_manifest_pin": true
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb740",
+      "size": 202,
+      "sha256": "f745b08e23d8f718c7e269b2642a32a2ea852a1aa86c88dd774df9f555158f2c",
+      "existing_manifest_pin": true
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xb920",
+      "size": 78,
+      "sha256": "055adff43e62ef00b06e5313ee1701ac404cfe6b3286d75648e5c3265ae7ba86",
+      "existing_manifest_pin": true
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x2c690",
+      "size": 15,
+      "sha256": "d8bafcdaf8f6cd74d2a6f33e09880c6761c8a9302deca41be5b597700d6bb5bb",
+      "existing_manifest_pin": true
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x2c6e0",
+      "size": 6,
+      "sha256": "74fb8ae8676dd6d3045ff03f04a4d6eb2327a770aa946172cdf6ac7d312cce83",
+      "existing_manifest_pin": true
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x2c760",
+      "size": 15,
+      "sha256": "73b6d9d0c8bbd3c2307f3f8c7ac6966b4079264bf6d4d8533933e623cf032fc1",
+      "existing_manifest_pin": true
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x2c770",
+      "size": 15,
+      "sha256": "139bbd0511f53a62d6ef83c07c55b7befdca41ef64dbfb4736ee6520e53ce6ac",
+      "existing_manifest_pin": true
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x2df20",
+      "size": 820,
+      "sha256": "1cf86d2415df74b7a8a8d7cfbea15be7322871063d447b2de920e5fedbf21213",
+      "existing_manifest_pin": true
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x2e600",
+      "size": 105,
+      "sha256": "88980e057093d2680c43f2b8e4a8e6f5a66373304b3bc32eca51c6f03d949263",
+      "existing_manifest_pin": true
+    }
+  ],
+  "limitations": [
+    "The high-resolution formula is a deliberate double-precision tool-side policy, not a recovered native viewport equation.",
+    "Single-point native scalar output clamps Z to 1 before the wrapper can capture it; this test labels pre-clamp values derived by the separate B320 reference.",
+    "A batch zero-Z path uses native undivided focal<<16 for its screen WORD, while private high-resolution output rejects Z=0.",
+    "Input source points remain signed WORDs; no precision beyond them is recovered.",
+    "No visibility, clipping, wider camera bounds, pixel renderer, or live-scene behavior is established.",
+    "Resource-backed output is limited to one finite archived mesh/camera context with measured preparation state; upstream preparation/traversal C equivalence remains unverified."
+  ]
+}

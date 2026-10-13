@@ -61,6 +61,42 @@ def run(command: list[str], cwd: Path, env: dict[str, str],
     return result
 
 
+def run_abnormal_stop(command: list[str], cwd: Path, env: dict[str, str],
+                      commands: list[dict]) -> dict:
+    """Kill only the source-built synthetic target after its completed trace."""
+    process = subprocess.Popen(
+        command, cwd=str(cwd), env=env, stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE, text=True, errors="replace")
+    timed_out = False
+    terminate_accepted = False
+    try:
+        stdout, stderr = process.communicate(timeout=2)
+    except subprocess.TimeoutExpired:
+        timed_out = True
+        if process.poll() is None:
+            try:
+                process.terminate()
+                terminate_accepted = True
+            except OSError:
+                terminate_accepted = process.poll() is not None
+        stdout, stderr = process.communicate(timeout=5)
+    record = {
+        "argv": command, "cwd": str(cwd),
+        "exit_code": process.returncode,
+        "timed_out_as_requested": timed_out,
+        "terminate_accepted": terminate_accepted,
+        "process_reaped": process.poll() is not None,
+        "stdout": stdout, "stderr": stderr,
+    }
+    commands.append(record)
+    if not timed_out or not terminate_accepted or not record["process_reaped"] or \
+            "ABNORMAL_READY=1" not in stdout or "RESULT=PASS" not in stdout or \
+            process.returncode in (None, 0):
+        raise RuntimeError("synthetic abnormal-stop cleanup was not verified:\n" +
+                           stdout + stderr)
+    return record
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo-root", type=Path, required=True)
@@ -181,6 +217,10 @@ def main() -> int:
         raise RuntimeError("synthetic self-export guard smoke failed:\n" +
                            selfexport_smoke.stdout + selfexport_smoke.stderr)
 
+    abnormal_smoke = run_abnormal_stop(
+        [str(target_exe), str(backend_dll), "--hold-after-pass"],
+        build_dir, env, commands)
+
     outputs = [probe_dll, probe_lib, backend_dll, backend_lib, target_exe,
                self_export_dll, self_export_lib, abi_obj, probe_obj,
                backend_obj, self_export_obj, target_obj]
@@ -205,12 +245,17 @@ def main() -> int:
         },
         "build_commands": commands[:build_command_count],
         "smoke_commands": commands[build_command_count:],
+        "abnormal_stop": {
+            "scope": "Source-built synthetic target only; it completes the clone/callback/forward trace, announces readiness, then blocks until the harness terminates and reaps it.",
+            "verified": True,
+            "result": abnormal_smoke,
+        },
         "build_outputs_sha256": {
             path.name: sha256(path) for path in outputs
         },
         "smoke_result": "PASS",
         "smoke_stdout": smoke.stdout + selfguard_smoke.stdout +
-                        selfexport_smoke.stdout,
+                        selfexport_smoke.stdout + abnormal_smoke["stdout"],
         "limits": [
             "The fake backend is source-built and returns sentinel HRESULT/object values.",
             "The System32 resolution branch is code-reviewed but not called by this smoke.",

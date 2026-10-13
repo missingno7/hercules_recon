@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "evidence_id": "phase19_composition_ordering_state_subset",
+  "proof_level": "BOUNDED_EQUIVALENT",
+  "scope": "One unchanged-original finite composition route; state/event order only. Does not establish rendered pixels or complete presentation.",
+  "original": {
+    "module": "HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "game_process_executed": false
+  },
+  "raw_report": {
+    "path": "work/renderer_phase19/root_composition2/composition_audit.json",
+    "sha256": "778ac374d4da657023bbb2c8dbcfac8b8e9409e27ed3aa935c915f733233fdb6",
+    "status": "CONNECTED_BOUNDED_SUBSET_PASS"
+  },
+  "paired_native_receipt": {
+    "path": "work\\renderer_phase19\\root_composition2\\native_original_receipt.json",
+    "sha256": "c9b05af5adf933b61813fc2f5495abd4b37b7c7e0a9904fca03e353a011c0775",
+    "origin": "fresh unchanged-original fixture run created by this audit; not a mutable pre-existing receipt"
+  },
+  "scenario": "rewrite_link",
+  "ordered_state_events": {
+    "native_count": 23,
+    "c_count": 23,
+    "same_ordered_signatures": true,
+    "same_original_frame_reaches": [
+      "0x6ff0",
+      "0x70c0",
+      "0x7140",
+      "0x6620"
+    ],
+    "callback_mutates_live_next": true,
+    "aca2_reload_selects_mutated_packet": true,
+    "semantic_owner": "unclassified for all events",
+    "unresolved_writer_or_origin": "retained then non-success"
+  },
+  "remap_guard": {
+    "span_rva": "0x70c0",
+    "span_size": 128,
+    "span_sha256": "3432496f55144a415399893358618b7f970f1a263eb4ea80df30083e6494d4e7",
+    "request": "0xff remap request only",
+    "state": "byte [0x436a0c] equals 0x80",
+    "branch": "JE at 0x70db reaches 0x7132 and skips pixel loop at 0x70dd",
+    "surface_writes": 0
+  },
+  "synthetic_provider_contract": "zero-height A8F0 request; lock/remap/unlock/present request; exact 13-argument synthetic StretchDIBits; synthetic GdiFlush; two synchronous synthetic callback services; no OS/GDI/COM call",
+  "raster_status": "explicit incomplete-unknown failure; pixel loop was not executed; no pixel equivalence claimed",
+  "source_sha256": {
+    "renderer_contract/closure.md": "f96cebc2115a053b9a7b91ef4ecc50834da2544f9867c40b1042735c4f7749f0",
+    "renderer_contract/composition_ordering.md": "9a776e92cf4b1598289c48f4765debd3f15c851514248329cd5c24f25c13164d",
+    "renderer_contract/fixtures/composition/evidence/c_orchestration_prediction.json": "761156b5ce9a410a045cbc288f9d2e3a0687f7e2c6c236157f92cfbf594dd896",
+    "renderer_contract/fixtures/composition/evidence/event_schema.json": "4a6fadc783d4032b8660408a3faaca203d204fecfd314034cc0dc0568ed3d540",
+    "renderer_contract/fixtures/composition/evidence/integration_notes.md": "c4cae969dc7fcd4eb3a98a5d1d9bc06f08e68ce914d18e2516491b2468b0a360",
+    "renderer_contract/fixtures/composition/evidence/remap_guard.json": "de85b67d4498ee3b141a433fd4e7e1e89d1c44451dd50683ea2a8a45aa82b257",
+    "renderer_contract/fixtures/composition/src/composition_events.c": "7843599ff45271029061ab07e38b99e00b1b53e5612a5846d6548f23734c7db9",
+    "renderer_contract/fixtures/composition/src/composition_events.h": "8c41f5e7f85ecb8e2a6c47628bc88fa8326196b6ea1681bcb48b66aba0e0d98d",
+    "renderer_contract/fixtures/composition/src/composition_orchestration.c": "cb8d5f3abc01341fe7303317bf2d36bff32b20c41e8f40a69fdd1f12b8c446d5",
+    "renderer_contract/fixtures/composition/src/composition_orchestration.h": "51a7895826996ae396c7da7e27f1cce0d687bf311a264ebb7f7720641ecfc07c",
+    "renderer_contract/fixtures/composition/tests/audit_composition.py": "7c3de594cb3484748e5bca5a8ab9cd18eeb4f77033a22c0bb1b02ce69ea67ef4",
+    "renderer_contract/fixtures/composition/tests/prediction.json": "3892ff88452c5dd021184c79b85d5a9bbb2544f99951af588374cd0b2969465f",
+    "renderer_contract/fixtures/composition/tests/test_composition_events.c": "aa03706991e7ae54179a648b09f9d73ac5e84cfb43863b186d59638184bc21c6",
+    "renderer_contract/fixtures/composition/tests/test_composition_orchestration.c": "f01f7949d4887e9631e608c2484999da1e10a88f0a0b9c5702623e47c8746f61",
+    "renderer_contract/fixtures/composition/tests/test_original_composition_frame.py": "dd40bbf2987d0ee950688a2a262289bf010ac4773370de5e9440c831eaa82d9a",
+    "renderer_contract/fixtures/composition/tests/validate_composition_stream.c": "ae890e570ef912d045a389485f013b3cbb41a92656e85123ffa6aad8da2d4f4b",
+    "renderer_contract/hercules_frame.c": "0c51696b5aa5af4d9e08527151a1ce32021c64d378123bffd7df92672291c1a4",
+    "renderer_contract/hercules_frame.h": "e743695844317c5819cd969a93280b8931517ddff21e893238760aef990d2189",
+    "renderer_contract/hercules_packets.c": "6ff07e4ebcc24f6a04a2b3fa978b06ba9950350b71292cd3b14761735560dcfc",
+    "renderer_contract/hercules_packets.h": "b2616d9fb1c9d154730cbfc824880760a0c0162e9aa3f851150ec1787a7dc163",
+    "renderer_contract/hercules_staging.c": "d6c112e5ec5aecc095958292345ce03348ad267443efc2f9fb85fd64d1038d0b",
+    "renderer_contract/hercules_staging.h": "699ced0da2f8070c24523fc4adc8e25d68180eab7fc18e053acabd0ff56a64e5",
+    "renderer_contract/hercules_state_wire.h": "268a893be201a230c3b397ed78961f6ce1c4c774406f92009c23889f5714653e",
+    "renderer_contract/hercules_state.c": "1c8b050d684837966f58eca3e5435ac33eb756ba4f5e13e8741bd52d5312ee8f",
+    "renderer_contract/hercules_state.h": "c6c528b7f5e18f0f3bc0aa5f794da689043b9f777f4e73bdb5e6a77aa64b26a2",
+    "renderer_contract/hercules_types.h": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d",
+    "renderer_contract/tests/oracle_common.py": "a024048d9acc6e18197e10a82427cd84351a90666e1626e610bf60c6105f1357",
+    "renderer_contract/tests/original_ac60_mixed_runner.py": "faf988fddd771bbfac0a1b17b28ccc83012896d75c84d99f22c4c3f3ead3c050"
+  },
+  "toolchains": {
+    "gcc": {
+      "compiler": "GCC C89 as recorded by the raw audit receipt",
+      "compiler_sha256": "c5005ba5380351c10743e9ca53ef9632164c54be3bd6b93324795114e4589a7d",
+      "c_model_status": "PASS"
+    },
+    "vc5_source_fixture": {
+      "receipt_path": "work/renderer_phase19/composition_vc5_private_02/vc5_composition_receipt.json",
+      "receipt_sha256": "acc8e6e14bdcfe3e7ca8c23edf36090710f459e9820eab574a4bd4e938ae2c11",
+      "status": "VC5_C89_FIXTURES_PASS_NATIVE_SIGNATURE_MATCH",
+      "scope": "Source-built composition API, validator, and bounded orchestration fixtures compiled and run with VC5; orchestration events compared to the root's unchanged-original native projection. This is not an original host source/build or a function-match claim.",
+      "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+      "linker_sha256": "279544809e6353c8e622eb88aea94e86b0258f3c4b8a976373bf4d68a41b63e1",
+      "builds": [
+        {
+          "target": "test_composition_events",
+          "returncode": 0,
+          "executable_sha256": "22d366fad03ba6386b7a9d5901245d6fe3d10f3fd7e41476d8892a8023ba4884"
+        },
+        {
+          "target": "validate_composition_stream",
+          "returncode": 0,
+          "executable_sha256": "a9e7e3b6235c2f9de3049da0e2b34ac1e092b0b091244497667d5f095812bd0b"
+        },
+        {
+          "target": "test_composition_orchestration",
+          "returncode": 0,
+          "executable_sha256": "762d9c1082d9ae8f3754a46ca819b4473a5936d2ac5d95e505ddaf1449f903a2"
+        }
+      ],
+      "bounded_signature_comparison": {
+        "status": "PASS_SAME_BOUNDED_EVENT_SIGNATURE",
+        "event_count": 23,
+        "fields_compared": "ordered kind/domain/semantic_owner/source_RVA/raw_token/four_arguments; existing helper also checked C scope/order/origin/flag fields",
+        "native_reference": {
+          "path": "work/renderer_phase19/root_composition1/native_original_receipt.json",
+          "sha256": "6e77c74bc72a3fc462c2605e44c66d9400caa28fc2b4a01f109be78197926982"
+        }
+      },
+      "warning": "C4761 at composition_orchestration.c:331 (integral size mismatch); all three builds linked and all test processes exited 0",
+      "scope_note": "This VC5 result is bound to its named root_composition1 native reference; it is not represented as a direct comparison against root_composition2."
+    }
+  },
+  "limits": [
+    "No geometry/rendering pixels or UI/world layer assignment is established.",
+    "No palette, movie, GDI text, framework paint or DirectDraw route was observed in this same frame fixture.",
+    "No ordering among independent callback routes, OS reentrancy or computed writers is inferred.",
+    "The C event stream is a bounded source reconstruction with controlled providers, not original instruction execution, a live host ABI or compositor."
+  ],
+  "original_span_references": [
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x70c0",
+      "size": 118,
+      "sha256": "f5225f837714b2dc9379a6e1358bef73dbfcf9bc32393c47581acf62f4ba5d40",
+      "existing_manifest_pin": true
+    }
+  ]
+}

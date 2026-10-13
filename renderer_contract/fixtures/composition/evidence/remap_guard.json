@@ -1,0 +1,76 @@
+{
+  "original_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "span_rva": "0x70c0",
+  "span_size": 128,
+  "span_sha256": "3432496f55144a415399893358618b7f970f1a263eb4ea80df30083e6494d4e7",
+  "guard_instruction_bytes": "8a44240453563cff577409a20c6a43005f5e5bc3803d0c6a4300807455a11002ba00",
+  "instructions": [
+    {
+      "rva": "0x70c0",
+      "mnemonic": "mov",
+      "operands": "al, byte ptr [esp + 4]"
+    },
+    {
+      "rva": "0x70c4",
+      "mnemonic": "push",
+      "operands": "ebx"
+    },
+    {
+      "rva": "0x70c5",
+      "mnemonic": "push",
+      "operands": "esi"
+    },
+    {
+      "rva": "0x70c6",
+      "mnemonic": "cmp",
+      "operands": "al, 0xff"
+    },
+    {
+      "rva": "0x70c8",
+      "mnemonic": "push",
+      "operands": "edi"
+    },
+    {
+      "rva": "0x70c9",
+      "mnemonic": "je",
+      "operands": "0x70d4"
+    },
+    {
+      "rva": "0x70cb",
+      "mnemonic": "mov",
+      "operands": "byte ptr [0x436a0c], al"
+    },
+    {
+      "rva": "0x70d0",
+      "mnemonic": "pop",
+      "operands": "edi"
+    },
+    {
+      "rva": "0x70d1",
+      "mnemonic": "pop",
+      "operands": "esi"
+    },
+    {
+      "rva": "0x70d2",
+      "mnemonic": "pop",
+      "operands": "ebx"
+    },
+    {
+      "rva": "0x70d3",
+      "mnemonic": "ret",
+      "operands": ""
+    },
+    {
+      "rva": "0x70d4",
+      "mnemonic": "cmp",
+      "operands": "byte ptr [0x436a0c], 0x80"
+    },
+    {
+      "rva": "0x70db",
+      "mnemonic": "je",
+      "operands": "0x7132"
+    }
+  ],
+  "guard": "argument 0xFF branches at 0x70C9 to 0x70D4; byte [0x436A0C] is compared with 0x80; JE at 0x70DB skips to 0x7132, bypassing the pixel loop beginning 0x70DD",
+  "decoder": "Capstone 5.0.7 x86-32; existing analysis dependency directory"
+}

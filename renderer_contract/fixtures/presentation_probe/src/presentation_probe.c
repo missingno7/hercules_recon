@@ -19,11 +19,14 @@ static renderer_u32 g_replace_slots[2] = {
     HERCULES_SLOT_CHAIN_INIT, HERCULES_SLOT_SUBMIT
 };
 static PresentationProbeV1 g_probe = {
-    PRESENTATION_PROBE_MAGIC, PRESENTATION_STATE_UNCHECKED,
-    0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL
+    PRESENTATION_PROBE_MAGIC, PRESENTATION_STATE_UNCHECKED
 };
 static PresentationChainInitFn g_original_chain_init;
-static PresentationSubmitFn g_original_submit;
+/* Slot 89 is semantically void in the public ABI. Keep this private physical
+ * type only in the diagnostic so raw x86 EAX can be forwarded and measured. */
+typedef renderer_u32 (PRESENTATION_CDECL *PresentationPhysicalRaw32Fn)(
+    void *first_slot);
+static PresentationPhysicalRaw32Fn g_original_submit;
 static PresentationDirectDrawCreateFn g_real_directdraw_create;
 static HMODULE g_real_ddraw_module;
 static HMODULE g_probe_module;
@@ -37,9 +40,35 @@ static char g_synthetic_forwarder[MAX_PATH];
 
 HRESULT WINAPI DirectDrawCreate(void *guid, void **out_object, void *outer);
 
-static void trace_event(renderer_u32 kind, renderer_u32 arg0,
-                        renderer_u32 arg1, renderer_u32 arg2,
-                        renderer_u32 target)
+static renderer_u32 begin_wrapper_call(void)
+{
+    LONG active = InterlockedIncrement(
+        (LONG *)&g_probe.active_wrapper_calls);
+    LONG old_max;
+    PVOID observed;
+
+    do {
+        observed = InterlockedCompareExchange(
+            (PVOID *)&g_probe.max_active_wrapper_calls, (PVOID)0, (PVOID)0);
+        old_max = (LONG)(DWORD)observed;
+        if (active <= old_max)
+            break;
+        observed = InterlockedCompareExchange(
+            (PVOID *)&g_probe.max_active_wrapper_calls,
+            (PVOID)(DWORD)active, (PVOID)(DWORD)old_max);
+    } while ((LONG)(DWORD)observed != old_max);
+    return (renderer_u32)active;
+}
+
+static renderer_u32 end_wrapper_call(void)
+{
+    return (renderer_u32)InterlockedDecrement(
+        (LONG *)&g_probe.active_wrapper_calls);
+}
+
+static void trace_event(renderer_u32 kind, renderer_u32 active_depth,
+                        renderer_u32 arg0, renderer_u32 arg1,
+                        renderer_u32 arg2, renderer_u32 target)
 {
     LONG sequence = InterlockedIncrement((LONG *)&g_probe.trace_count);
     PresentationTraceEventV1 *event;
@@ -51,39 +80,55 @@ static void trace_event(renderer_u32 kind, renderer_u32 arg0,
     event = &g_probe.trace[(renderer_u32)sequence - 1UL];
     event->sequence = (renderer_u32)sequence;
     event->kind = kind;
+    event->thread_id = GetCurrentThreadId();
+    event->active_depth = active_depth;
     event->arg0 = arg0;
     event->arg1 = arg1;
     event->arg2 = arg2;
     event->target = target;
+    /* A controller may inspect the ring only after suspending every target
+     * thread. This interlocked publication also makes a partial event
+     * distinguishable from a completed one. */
+    InterlockedExchange((LONG *)&event->committed_sequence, sequence);
 }
 
 static int PRESENTATION_CDECL chain_init_wrapper(void *first_slot,
                                                   renderer_u32 count)
 {
     PresentationChainInitFn original = g_original_chain_init;
+    renderer_u32 active = begin_wrapper_call();
     int result;
-    trace_event(PRESENTATION_EVENT_CHAIN_INIT, (renderer_u32)first_slot,
-                count, 0UL, (renderer_u32)original);
-    if (original == 0)
-        return 0;
-    result = original(first_slot, count);
-    trace_event(PRESENTATION_EVENT_CHAIN_INIT_RETURN,
-                (renderer_u32)first_slot, (renderer_u32)result,
-                count, (renderer_u32)original);
+    InterlockedIncrement((LONG *)&g_probe.slot81_entered);
+    trace_event(PRESENTATION_EVENT_CHAIN_INIT, active,
+                (renderer_u32)first_slot, count, 0UL,
+                (renderer_u32)original);
+    result = original == 0 ? 0 : original(first_slot, count);
+    InterlockedIncrement((LONG *)&g_probe.slot81_completed);
+    active = end_wrapper_call();
+    trace_event(PRESENTATION_EVENT_CHAIN_INIT_RETURN, active,
+                (renderer_u32)first_slot, count, (renderer_u32)result,
+                (renderer_u32)original);
     return result;
 }
 
-static void PRESENTATION_CDECL submit_wrapper(void *first_slot)
+static renderer_u32 PRESENTATION_CDECL submit_wrapper(void *first_slot)
 {
-    PresentationSubmitFn original = g_original_submit;
-    trace_event(PRESENTATION_EVENT_SUBMIT, (renderer_u32)first_slot,
-                0UL, 0UL, (renderer_u32)original);
-    if (original != 0) {
-        original(first_slot);
-        trace_event(PRESENTATION_EVENT_SUBMIT_RETURN,
-                    (renderer_u32)first_slot, 0UL, 0UL,
-                    (renderer_u32)original);
-    }
+    PresentationPhysicalRaw32Fn original = g_original_submit;
+    renderer_u32 active = begin_wrapper_call();
+    renderer_u32 raw_eax = 0UL;
+    InterlockedIncrement((LONG *)&g_probe.slot89_entered);
+    trace_event(PRESENTATION_EVENT_SUBMIT, active,
+                (renderer_u32)first_slot, 0UL, 0UL,
+                (renderer_u32)original);
+    if (original != 0)
+        raw_eax = original(first_slot);
+    /* Capture EAX before counters or trace helpers can clobber it. */
+    InterlockedIncrement((LONG *)&g_probe.slot89_completed);
+    active = end_wrapper_call();
+    trace_event(PRESENTATION_EVENT_SUBMIT_RETURN, active,
+                (renderer_u32)first_slot, raw_eax, 0UL,
+                (renderer_u32)original);
+    return raw_eax;
 }
 
 static int make_clone(const renderer_u32 *source, renderer_u32 *output,
@@ -96,7 +141,8 @@ static int make_clone(const renderer_u32 *source, renderer_u32 *output,
         return ENGINE_TABLE_CLONE_INVALID_ARGUMENT;
     g_original_chain_init = (PresentationChainInitFn)source[
         HERCULES_SLOT_CHAIN_INIT];
-    g_original_submit = (PresentationSubmitFn)source[HERCULES_SLOT_SUBMIT];
+    g_original_submit = (PresentationPhysicalRaw32Fn)source[
+        HERCULES_SLOT_SUBMIT];
     values[0] = (renderer_u32)chain_init_wrapper;
     values[1] = (renderer_u32)submit_wrapper;
     status = (renderer_u32)engine_table_clone_selected(
@@ -107,6 +153,8 @@ static int make_clone(const renderer_u32 *source, renderer_u32 *output,
     if (publish) {
         if (pointer_cell == 0)
             return ENGINE_TABLE_CLONE_INVALID_ARGUMENT;
+        g_probe.source_pointer_cell = (renderer_u32)pointer_cell;
+        g_probe.source_pointer_before = *pointer_cell;
         *pointer_cell = (renderer_u32)output;
         g_probe.source_pointer_after = *pointer_cell;
         g_probe.clone_pointer = (renderer_u32)output;
@@ -287,16 +335,18 @@ HRESULT WINAPI DirectDrawCreate(void *guid, void **out_object, void *outer)
     PresentationDirectDrawCreateFn original;
     HRESULT result;
 
-    g_probe.directdrawcreate_calls += 1UL;
+    InterlockedIncrement((LONG *)&g_probe.directdrawcreate_calls);
     original = resolve_real_directdraw_create();
-    trace_event(PRESENTATION_EVENT_DDRAW_ENTER, (renderer_u32)guid,
-                (renderer_u32)out_object, (renderer_u32)outer,
+    trace_event(PRESENTATION_EVENT_DDRAW_ENTER, 0UL,
+                (renderer_u32)guid, (renderer_u32)out_object,
+                (renderer_u32)outer,
                 (renderer_u32)original);
     if (original == 0)
         return (HRESULT)0x80004005UL;
     result = original(guid, out_object, outer);
-    trace_event(PRESENTATION_EVENT_DDRAW_RETURN, (renderer_u32)result,
-                (renderer_u32)out_object, 0UL, (renderer_u32)original);
+    trace_event(PRESENTATION_EVENT_DDRAW_RETURN, 0UL,
+                (renderer_u32)result, (renderer_u32)out_object, 0UL,
+                (renderer_u32)original);
     return result;
 }
 
@@ -322,6 +372,24 @@ __declspec(dllexport) renderer_u32 WINAPI ProbeBuildSyntheticClone(
     InterlockedExchange((LONG *)&g_probe.trace_dropped, 0L);
     memset(g_probe.trace, 0, sizeof(g_probe.trace));
     return (renderer_u32)make_clone(source, output, 0, 0);
+}
+
+__declspec(dllexport) renderer_u32 WINAPI ProbePublishSyntheticTable(
+    const renderer_u32 *source, renderer_u32 *output,
+    renderer_u32 *pointer_cell)
+{
+#if defined(PRESENTATION_SYNTHETIC)
+    if (source == 0 || output == 0 || pointer_cell == 0)
+        return ENGINE_TABLE_CLONE_INVALID_ARGUMENT;
+    g_probe.source_pointer_cell = (renderer_u32)pointer_cell;
+    g_probe.source_pointer_before = *pointer_cell;
+    return (renderer_u32)make_clone(source, output, 1, pointer_cell);
+#else
+    (void)source;
+    (void)output;
+    (void)pointer_cell;
+    return ENGINE_TABLE_CLONE_INVALID_ARGUMENT;
+#endif
 }
 
 __declspec(dllexport) BOOL WINAPI ProbeSetSyntheticForwarderA(const char *path)

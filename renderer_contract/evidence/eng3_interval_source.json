@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "evidence_id": "phase19_eng3_interval_source_seam",
+  "scope": "Controlled row endpoint stores, modulo-32-bit wrap, signed high-WORD SAR7 decoding, half-open signed interval predicate, four requested native boundaries plus one negative shift control. No live resource/table initialization and no positive transform success are claimed.",
+  "proof_levels": {
+    "binary_span_identity": "STATIC_OBSERVED",
+    "bounded_source_seam": "BOUNDED_EQUIVALENT",
+    "native_pretransform_branches": "BEHAVIOR_VERIFIED",
+    "positive_transform_tail": "UNRESOLVED",
+    "full_gate4_live_bounds_and_emission": "UNRESOLVED"
+  },
+  "originals": {
+    "HERCULES.EXE": {
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE"
+    },
+    "ENG3.DLL": {
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\ENG3.DLL"
+    }
+  },
+  "native_writer": {
+    "normal_row_u32": [
+      0,
+      10,
+      20
+    ],
+    "normal_bytes_hex": "000000000a00000014000000",
+    "wrapped_row_u32": [
+      0,
+      2147483640,
+      2147483656
+    ],
+    "wrapped_bytes_hex": "00000000f8ffff7f08000080",
+    "modulo_32_bit_addition": true,
+    "selector_word_preserved": true
+  },
+  "native_predicate_cases": [
+    {
+      "case": "lower_minus_one",
+      "coordinate": 9,
+      "outcome": "REJECT_BEFORE_24BB0",
+      "reached_24bb0": false
+    },
+    {
+      "case": "lower",
+      "coordinate": 10,
+      "outcome": "REACHED_24BB0_THEN_UNRESOLVED_AT_407B4_NULL",
+      "reached_24bb0": true
+    },
+    {
+      "case": "upper_minus_one",
+      "coordinate": 19,
+      "outcome": "REACHED_24BB0_THEN_UNRESOLVED_AT_407B4_NULL",
+      "reached_24bb0": true
+    },
+    {
+      "case": "upper",
+      "coordinate": 20,
+      "outcome": "REJECT_BEFORE_24BB0",
+      "reached_24bb0": false
+    },
+    {
+      "case": "negative_one",
+      "coordinate": -1,
+      "outcome": "REJECT_BEFORE_24BB0",
+      "reached_24bb0": false
+    }
+  ],
+  "unresolved": [
+    "The positive 10/19 paths reach ENG3+0x24BB0 and stop at the null global 0x407B4 read; transform success is unresolved.",
+    "Live resource/table initialization, full Gate 4 bounds and emission, and selector production remain unresolved."
+  ],
+  "toolchains": {
+    "gcc_sha256": "c5005ba5380351c10743e9ca53ef9632164c54be3bd6b93324795114e4589a7d",
+    "gcc_version": "gcc.exe (Rev10, Built by MSYS2 project) 12.2.0",
+    "vc5_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "vc5_bundle_tree_sha256": "29fc5aea67aa10a8135d65f8f371f7456bfc10ec8ef36dc0050ca5406bf9d92e"
+  },
+  "source_sha256": {
+    "renderer_contract/fixtures/eng3_visibility_source/eng3_visibility_seam.c": "9c35f6c653549e59c844d647cf17c1b943dd4e085bb6317691a8fd65fca4a206",
+    "renderer_contract/fixtures/eng3_visibility_source/test_eng3_visibility_source.c": "7701633b0fb5dadc6043df3d0c6f5d25e8deda42fc8e3eba13af41d32c3f1f41",
+    "renderer_contract/fixtures/eng3_visibility_source/run_eng3_visibility_source.py": "4a2f72becb65410aa83255e5eb9597ecee7664780c8c69e9e4e037c489ee296c",
+    "renderer_contract/fixtures/eng3_visibility_source/prediction_falsifier.md": "14fff49fc73936c17a4e80860f2d01c82a862251875fc83352656f2b698454cd"
+  },
+  "raw_report": {
+    "path": "work/renderer_phase19/root_eng3_source2.json",
+    "sha256": "63b78d647b324af55a028c718682f78ecb53c38df075aecbe344e692307b8f65"
+  }
+}

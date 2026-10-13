@@ -1,0 +1,18 @@
+{
+  "family": "renderer_phase19.c-connected-state-only-orchestration",
+  "written_before_implementation": true,
+  "prediction": "Using the same four raw packets and address tokens as the native rewrite_link fixture, the existing bounded C AC60 walker plus state staging will consume E1-current, command-01, E1-alternate after a synchronous controlled service rewrites command-01's live link, then the 0x40 terminator. The C event order will match the native event projection for this subset after removing native instruction counts and provenance-origin differences. A bounded tail will call named controlled lock/remap/unlock/present/display providers in the pinned order and will not claim DIB pixel writes.",
+  "falsifiers": [
+    "The C walker does not reload and follow the callback-mutated command-01 link before consuming the next packet.",
+    "The C packet/state/service/tail event projection differs from the native rewrite_link projection on kind, source RVA, raw token, arguments, or relative order.",
+    "Any raster or other unmodeled packet returns success instead of explicit unsupported/unknown status.",
+    "A missing or unrecognized controlled callback, surface, or display provider is accepted as success.",
+    "The C route mutates the CPU-view bytes or claims a pixel/glyph output result."
+  ],
+  "oracle": {
+    "kind": "existing bounded unchanged-original AC60 state-only Unicorn receipt; no new original execution",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "native_receipt_sha256": "184f7e392278260fa57e03cc12ca43b8581641fd89ddf171e6a9fb8255aca480"
+  },
+  "scope": "One synthetic raw packet chain and named C test providers; no actual game, graphics API, renderer pixels, palette/movie/text chronology, or whole-frame writer closure."
+}

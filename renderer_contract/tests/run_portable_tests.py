@@ -38,6 +38,8 @@ EXPECTED_TESTS = {
     "test_unknown_group60.c",
     "test_projection.c",
     "test_projection_cpp.cpp",
+    "test_reprojection.c",
+    "test_reprojection_cpp.cpp",
 }
 
 

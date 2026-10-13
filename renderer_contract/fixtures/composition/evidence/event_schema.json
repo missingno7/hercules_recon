@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "record": {
+    "name": "CompositionEvent",
+    "pointer_free": true,
+    "fields": {
+      "scope_id": "u32 route or connected-fixture identity; no ordering inferred across distinct scopes",
+      "local_order": "u32 monotonic event order within the scope; tool bookkeeping",
+      "source_order": "u32 native instruction ordinal in an original trace; in a C reconstruction, per-operation order only. Provenance flag distinguishes these meanings.",
+      "source_rva": "u32 HERCULES.EXE RVA; zero for synthetic/external services",
+      "raw_token": "u32 target address token or raw service handle; never a host pointer",
+      "argument": "four u32 values copied by value from the observed packet/call/service boundary",
+      "kind": "u16 CompositionEventKind",
+      "origin": "u8 original instruction, controlled endpoint, static order, bookkeeping or unresolved",
+      "domain": "u8 order table, geometry, screen space, texture, palette/LUT, CPU surface, desktop DC, display or external",
+      "semantic_owner": "u8 unclassified unless source association is independently established",
+      "flags": "u8 fixture- or source-specific flags; zero means none"
+    }
+  },
+  "kind_values": {
+    "FRAME_ENTRY": 1,
+    "GEOMETRY_COMMAND": 2,
+    "SCREEN_SPACE_GRAPHIC": 3,
+    "STATE_COMMAND": 4,
+    "TEXTURE_MUTATION": 5,
+    "PALETTE_LUT_MUTATION": 6,
+    "SURFACE_CLEAR": 7,
+    "SURFACE_LOCK": 8,
+    "VRAM_MOVE_REQUEST": 9,
+    "CALLBACK_ENTRY": 10,
+    "CALLBACK_SERVICE": 11,
+    "LIVE_LINK_RELOAD": 12,
+    "PACKET_CONSUMED": 13,
+    "SURFACE_REMAP_REQUEST": 14,
+    "SURFACE_UNLOCK": 15,
+    "DIRTY_REQUEST": 16,
+    "PRESENT_REQUEST": 17,
+    "MOVIE_FRAME_COPY": 18,
+    "DESKTOP_DC_TEXT": 19,
+    "FINAL_OUTPUT": 20,
+    "OUTPUT_FLUSH": 21,
+    "UNKNOWN_WRITER": 255
+  },
+  "failure_contract": {
+    "capacity_exhaustion": "COMPOSITION_TRACE_OVERFLOW, non-success",
+    "nonmonotonic_scope_order": "COMPOSITION_TRACE_ORDER_ERROR, non-success",
+    "unknown_writer_event": "record retained and COMPOSITION_TRACE_INCOMPLETE_UNKNOWN returned",
+    "unresolved_origin": "record retained and COMPOSITION_TRACE_INCOMPLETE_UNKNOWN returned",
+    "unrecognized_event_kind": "COMPOSITION_TRACE_INVALID, non-success"
+  },
+  "flag_values": {
+    "COMPOSITION_EVENT_FLAG_C_RECONSTRUCTION": 1
+  },
+  "semantic_limits": [
+    "Packet/raster primitive kind alone never assigns world, UI, overlay or other owner semantics.",
+    "Texture memory, shared palette/LUT, CPU-visible framebuffer, DC/window and display output are separate domains.",
+    "Present request and final output endpoint are distinct events.",
+    "Per-scope local order does not establish serialization between independent callbacks, OS routes or mode transitions.",
+    "A C reconstruction event is not an original instruction observation even when it carries a source RVA anchor."
+  ]
+}

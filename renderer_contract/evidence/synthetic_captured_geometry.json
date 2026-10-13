@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "kind": "synthetic_original_projection_cases",
+  "capture_route": "direct_B920_result",
+  "precision_collision": true,
+  "provenance": {
+    "original_exe_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "native_runner": "renderer_contract/tests/test_original_projection.py",
+    "native_output_stage": "B920_after_B740_and_scalar_Z_clamp",
+    "resource": null,
+    "scope_note": "Two named synthetic x86 vectors validate the pointer-free captured-camera ingestion boundary. They are not a real asset mesh trace."
+  },
+  "config": {
+    "matrix_words_row_major": [4096, 0, 0, 0, 4096, 0, 0, 0, 4096],
+    "translation_dwords": [0, 0, 0],
+    "center_dwords": [160, 120],
+    "focal_dword": 256
+  },
+  "vertices": [
+    {
+      "identity": "precision_camera_x_one",
+      "oracle_case": "precision_camera_x_one",
+      "source_xyz_words": [1, 0, 1000],
+      "captured_camera_xyz_signed_low_words": [1, 0, 1000],
+      "captured_screen_xy_words": [160, 120]
+    },
+    {
+      "identity": "precision_camera_x_two",
+      "oracle_case": "precision_camera_x_two",
+      "source_xyz_words": [2, 0, 1000],
+      "captured_camera_xyz_signed_low_words": [2, 0, 1000],
+      "captured_screen_xy_words": [160, 120]
+    }
+  ]
+}

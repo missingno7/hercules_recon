@@ -189,7 +189,7 @@ subsystem. These contracts are GPU API independent.
 original routes. [Upload producer domains](texture_producer_domains.md) recover
 the shared ENG1/ENG3 high-band startup rectangle and its exact native write range.
 
-Current verification passes 19 suites with VC5 and 19 with GCC. Bounded C
+Current verification passes 21 suites with VC5 and 21 with GCC. Bounded C
 replays match 1,029 D60C register transitions and 5,423 CC50/E680 transitions.
 Thirteen native texture fixtures verify the named row/address cases; ten
 surface cases and 26 dirty-latch cases cover their stated synthetic conditions.
@@ -219,3 +219,10 @@ with original B320 for five completed cases and one expected division fault,
 including 83 ordered output stores and partial-result canaries. It retains
 unclamped/zero-Z batch semantics separately from single-point projection.
 The live callback ABI and the joined tool-view API remain distinct.
+
+The [connected source checkpoint](source_closure.md) adds a public original-archive
+mesh trace and three-case C emitter comparison, a separate 1920x1440 numerical
+projection policy, a bounded ENG3 interval source seam, connected state-only
+composition and a source-built cold-copy/callback controller. Upstream engine
+preparation, complete visibility, original-host forwarding and final display
+ownership remain open; no GPU backend or new strict match is claimed.

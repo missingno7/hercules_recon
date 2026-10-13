@@ -1,0 +1,24 @@
+{
+  "family": "renderer_phase19.connected-ac60-dib-frame",
+  "written_before_hardened_replay": true,
+  "prediction": "With BA01FC selecting the CPU surface path, a state-only AC60 chain containing command-01 and a synchronous synthetic BD80 service will still traverse the original 6FF0 lock, 70C0 remap, 7140 unlock, and seeded-dirty 6620 windowed DIB present route. The callback mutation will be visible at ACA2 before the next packet is consumed. The no-geometry fixture should execute no rasterizer and write no DIB bytes; its display endpoints are controlled synthetic providers.",
+  "falsifiers": [
+    "AC60 does not enter original 6FF0, 70C0, 7140, and 6620 in that order under the stated fixture state.",
+    "The callback's current-link mutation is not re-read at ACA2 before the next AC60 packet boundary.",
+    "Any GDI, COM, or other external endpoint besides controlled StretchDIBits and GdiFlush is reached, or an unexpected original PC/memory write occurs.",
+    "A rasterizer entry occurs despite the state-only chain, or the DIB byte range is mutated by this fixture.",
+    "The original presenter does not consume the explicitly seeded dirty byte and synchronously forward the pinned 320x240 DIB arguments to the synthetic endpoint."
+  ],
+  "oracle": {
+    "kind": "unchanged original HERCULES.EXE x86 code in bounded Unicorn; no game process or real graphics API",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "input_contracts": [
+    "renderer_contract/evidence/native_live_capture.json",
+    "renderer_contract/evidence/native_surface_contract.json",
+    "renderer_contract/evidence/native_dirty_gate.json",
+    "renderer_contract/screen_ownership.md",
+    "renderer_contract/surface_contract.md"
+  ],
+  "scope": "Connected control-flow subset only. No raster pixels, geometry equivalence, palette/movie/message chronology, OS behavior, semantic world/UI labels, or complete visible-writer closure."
+}

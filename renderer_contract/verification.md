@@ -307,3 +307,19 @@ with original B320 for five completed cases and one expected division fault,
 including 83 ordered output stores and partial-result canaries. It retains
 unclamped/zero-Z batch semantics separately from single-point projection.
 The live callback ABI and the joined tool-view API remain distinct.
+
+## Connected source checkpoint
+
+The [source closure](source_closure.md) separates finite C behavior, measured
+preparation seams and synthetic controller results. The source emitters pass
+three original-resource cases and 481 checks; the compatibility reference
+passes 14 fresh original scalar cases plus eight real-mesh points and twelve
+packet corners. Both portable compilers pass 21 suites. The separate ENG3
+source seam verifies endpoint wrap and pre-transform decisions; its complete
+positive transform and live bounds initialization are outside the accepted
+source proof. The connected state-only C frame produces 23 ordered signatures
+matching the original fixture, with raster output explicitly unsupported.
+
+The new controller verifies only source-built host/engine/proxy operation,
+including cold/warm table checks and timeout cleanup. No original game process,
+GPU output, visible-frame equivalence or FUNCTION_MATCH promotion is recorded.

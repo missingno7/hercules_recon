@@ -31,9 +31,14 @@
 #define PRESENTATION_EVENT_CHAIN_INIT_RETURN 5UL
 #define PRESENTATION_EVENT_SUBMIT_RETURN 6UL
 
+#define PRESENTATION_EVENT_COPY_PUBLISHED 7UL
+
 typedef struct PresentationTraceEventV1 {
     renderer_u32 sequence;
+    volatile LONG committed_sequence;
     renderer_u32 kind;
+    renderer_u32 thread_id;
+    renderer_u32 active_depth;
     renderer_u32 arg0;
     renderer_u32 arg1;
     renderer_u32 arg2;
@@ -55,6 +60,12 @@ typedef struct PresentationProbeV1 {
     renderer_u32 real_export;
     renderer_u32 trace_count;
     renderer_u32 trace_dropped;
+    renderer_u32 slot81_entered;
+    renderer_u32 slot81_completed;
+    renderer_u32 slot89_entered;
+    renderer_u32 slot89_completed;
+    renderer_u32 active_wrapper_calls;
+    renderer_u32 max_active_wrapper_calls;
     PresentationTraceEventV1 trace[PRESENTATION_TRACE_CAPACITY];
 } PresentationProbeV1;
 
@@ -88,6 +99,9 @@ __declspec(dllexport) PresentationForwardInfoV1 *WINAPI ProbeGetForwardInfo(void
 __declspec(dllexport) BOOL WINAPI ProbeResolveForwarder(void);
 __declspec(dllexport) renderer_u32 WINAPI ProbeBuildSyntheticClone(
     const renderer_u32 *source, renderer_u32 *output);
+__declspec(dllexport) renderer_u32 WINAPI ProbePublishSyntheticTable(
+    const renderer_u32 *source, renderer_u32 *output,
+    renderer_u32 *pointer_cell);
 __declspec(dllexport) BOOL WINAPI ProbeSetSyntheticForwarderA(const char *path);
 
 #endif

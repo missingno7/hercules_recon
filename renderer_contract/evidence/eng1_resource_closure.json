@@ -1,0 +1,869 @@
+{
+  "schema": "hercules.eng1.real-resource-geometry-closure.v1",
+  "proof_label": "BEHAVIOR_VERIFIED_WITH_BOUNDED_SOURCE_COMPARISON",
+  "scope": "Archived MAP_PSX.BIN resource consumer and ENG1 traversal executed in bounded original-x86 fixtures; three resource calls (481 source checks) compare the source-built mesh emitter after native preparation. This does not establish general resource initialization, full traversal equivalence, or live gameplay state.",
+  "prediction_falsifier": "# ENG1 real-mesh closure: prediction and falsifier\n\nPrediction: the shipped FOREST `MAP_PSX.BIN` selected by the initialized ENG1 path contains at least one reachable mesh stream consumed by the 2DF20 family. Rebinding the original resource-root pointers and using the real resource/table rows should provide a concrete 2DA90 visit that reaches an original 2DF20 GT4 or FT4 route, with packet and OT writes associated through the stream's actual face index bits and scratch reads.\n\nFalsifier: after verifying the map/archive identities and reproducing the native resource-root/table decode, either no nonempty geometry stream is reachable in that map's supported current resource state, or the original producer reaches a read/callee outside the already documented bounded spans before the first packet commit. In that case report the earliest exact PC, address, input bytes, and unresolved callee rather than fabricating fixture topology or expanding into unrelated initialization.\n\nAll inputs will remain read-only. Native original instructions are the oracle only; candidate source will not dispatch original code.\n",
+  "prediction_sha256": "eb9ed64e0d3103a9a8463e37b608f7353e2c51f6f699bd68742836cdaa0271d0",
+  "inputs": {
+    "original_sha256": {
+      "HERCULES.EXE": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "HERCULES.FS": "affa380e45918448895932cd466ea9a02096b8dcf08644f91b9da5ec34cd48b4",
+      "MAP_PSX.BIN": "78bc5a60ecce1c99e752fb30a16bc5ace4ee80f686365e1da8136a0decbd69cb"
+    },
+    "map_slice": {
+      "archive_member": "MAP_PSX.BIN",
+      "archive_offset": 18845296,
+      "length": 1304576,
+      "sha256": "78bc5a60ecce1c99e752fb30a16bc5ace4ee80f686365e1da8136a0decbd69cb"
+    },
+    "host_transport": {
+      "EXE_RVA": "0x361b8",
+      "bytes": 1000,
+      "dwords": 250,
+      "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+      "first_eight_dwords": [
+        "0x5ac00cac",
+        "0x00615c98",
+        "0x006177d0",
+        "0x00300000",
+        "0x00ba25c0",
+        "0x00437480",
+        "0x0040be30",
+        "0x0040a340"
+      ],
+      "word4": "0x00ba25c0",
+      "slot101_input_base": "0x00ba2600",
+      "slot101_relation": "word4 + 0x40, observed at B6F0; full transport prefix copied before controlled fixture state"
+    },
+    "synthetic_controls": [
+      "finite archived layer0 row14/column10 cell",
+      "controlled camera/context; config row2, center160/120, focal256",
+      "bounded emulator packet/OT backing; no capacity inference"
+    ]
+  },
+  "native_trace": {
+    "result": "EXECUTED",
+    "mesh_calls": 87,
+    "packet_writes": 2398,
+    "ot_writes": 175,
+    "executed_span_labels": [
+      "ENG1+0x20670",
+      "ENG1+0x20830",
+      "ENG1+0x208f0",
+      "ENG1+0x2c670",
+      "ENG1+0x2c690",
+      "ENG1+0x2c6c0",
+      "ENG1+0x2c6d0",
+      "ENG1+0x2c6e0",
+      "ENG1+0x2c700",
+      "ENG1+0x2c710",
+      "ENG1+0x2c740",
+      "ENG1+0x2c750",
+      "ENG1+0x2c760",
+      "ENG1+0x2c770",
+      "ENG1+0x2c790",
+      "ENG1+0x2c920",
+      "ENG1+0x2c940",
+      "ENG1+0x2da90",
+      "ENG1+0x2df20",
+      "ENG1+0x2e254",
+      "ENG1+0x2e3b0",
+      "ENG1+0x2e600",
+      "ENG1+0x2e669",
+      "ENG1+0x2ed10",
+      "ENG1+0x2ee75",
+      "HERC+0xb4a0",
+      "HERC+0xb4b0",
+      "HERC+0xb5c0",
+      "HERC+0xb660",
+      "HERC+0xb6b0",
+      "HERC+0xb6f0",
+      "HERC+0xb720",
+      "HERC+0xb740",
+      "HERC+0xb810",
+      "HERC+0xb840",
+      "HERC+0xb880",
+      "HERC+0xb8f0",
+      "HERC+0xb920",
+      "HERC+0xb970",
+      "HERC+0xb990",
+      "HERC+0xbb00",
+      "HERC+0xbc30"
+    ],
+    "span_start_size_rva": {
+      "ENG1+0x20670": [
+        "0x20670",
+        "0x1c0"
+      ],
+      "ENG1+0x20830": [
+        "0x20830",
+        "0xc0"
+      ],
+      "ENG1+0x208F0": [
+        "0x208f0",
+        "0xa0"
+      ],
+      "ENG1+0x2DA90": [
+        "0x2da90",
+        "0x48b"
+      ],
+      "ENG1+0x2DF20_GT4_first_return_prefix": [
+        "0x2df20",
+        "0x334"
+      ],
+      "ENG1+0x2E254_FT4_tail": [
+        "0x2e254",
+        "0x156"
+      ],
+      "ENG1+0x2E3B0_native_prep_observation": [
+        "0x2e3b0",
+        "0x1bf"
+      ],
+      "ENG1+0x2E600_FT4_points_prefix": [
+        "0x2e600",
+        "0x69"
+      ],
+      "ENG1+0x2E669_explicit_tail_through_RET": [
+        "0x2e669",
+        "0x4c"
+      ],
+      "HERC callbacks": [
+        "0xb6f0",
+        "0xb740",
+        "0xb920",
+        "0xb720"
+      ],
+      "ENG1+0x2C770_FT4_callback": [
+        "0x2c770"
+      ]
+    },
+    "route": [
+      "ENG1+0x20670",
+      "ENG1+0x208F0",
+      "ENG1+0x2DA90",
+      "ENG1+0x2DF20",
+      "ENG1+0x2E3B0",
+      "ENG1+0x2E600",
+      "HERC+B6F0/B740/B920/B720",
+      "ENG1+0x2C770 FT4",
+      "ENG1 OT insert"
+    ],
+    "selected_mesh": {
+      "table_index": 156,
+      "call_index": 2,
+      "cell_file_offset": 1102652,
+      "packed_cell": "0x938",
+      "point_count": 8,
+      "face_count": 3,
+      "points": [
+        {
+          "index": 0,
+          "map_file_offset": 12372,
+          "packed_dword": "0x40ffe040",
+          "asset_xyz": [
+            64,
+            -32,
+            64
+          ],
+          "source_read": {
+            "rva": "ENG1+0x2e61b",
+            "emulator_address": "0xd803054",
+            "sequence": 19
+          },
+          "B6F0_input": {
+            "rva": "HERC+0xB6F0",
+            "return_rva": "ENG1+0x2c69b",
+            "sequence": 20,
+            "scratch": "0xba2600",
+            "xyz": [
+              0,
+              -32,
+              64
+            ]
+          },
+          "camera_xyz": [
+            1792,
+            1344,
+            1920
+          ],
+          "screen_xy": [
+            398,
+            299
+          ],
+          "B720_output": {
+            "rva": "HERC+0xB720",
+            "return_rva": "ENG1+0x2c76b",
+            "sequence": 22,
+            "scratch": "0xba2600",
+            "xy_after_return": [
+              398,
+              299
+            ]
+          }
+        },
+        {
+          "index": 1,
+          "map_file_offset": 12376,
+          "packed_dword": "0x40ffe000",
+          "asset_xyz": [
+            0,
+            -32,
+            64
+          ],
+          "source_read": {
+            "rva": "ENG1+0x2e695",
+            "emulator_address": "0xd803058",
+            "sequence": 21
+          },
+          "B6F0_input": {
+            "rva": "HERC+0xB6F0",
+            "return_rva": "ENG1+0x2c69b",
+            "sequence": 23,
+            "scratch": "0xba2608",
+            "xyz": [
+              64,
+              -32,
+              64
+            ]
+          },
+          "camera_xyz": [
+            1920,
+            1344,
+            1920
+          ],
+          "screen_xy": [
+            415,
+            299
+          ],
+          "B720_output": {
+            "rva": "HERC+0xB720",
+            "return_rva": "ENG1+0x2c76b",
+            "sequence": 25,
+            "scratch": "0xba2608",
+            "xy_after_return": [
+              415,
+              299
+            ]
+          }
+        },
+        {
+          "index": 2,
+          "map_file_offset": 12380,
+          "packed_dword": "0xffe000",
+          "asset_xyz": [
+            0,
+            -32,
+            0
+          ],
+          "source_read": {
+            "rva": "ENG1+0x2e695",
+            "emulator_address": "0xd80305c",
+            "sequence": 24
+          },
+          "B6F0_input": {
+            "rva": "HERC+0xB6F0",
+            "return_rva": "ENG1+0x2c69b",
+            "sequence": 26,
+            "scratch": "0xba2610",
+            "xyz": [
+              64,
+              -32,
+              0
+            ]
+          },
+          "camera_xyz": [
+            1920,
+            1344,
+            1792
+          ],
+          "screen_xy": [
+            434,
+            311
+          ],
+          "B720_output": {
+            "rva": "HERC+0xB720",
+            "return_rva": "ENG1+0x2c76b",
+            "sequence": 28,
+            "scratch": "0xba2610",
+            "xy_after_return": [
+              434,
+              311
+            ]
+          }
+        },
+        {
+          "index": 3,
+          "map_file_offset": 12384,
+          "packed_dword": "0xffe040",
+          "asset_xyz": [
+            64,
+            -32,
+            0
+          ],
+          "source_read": {
+            "rva": "ENG1+0x2e695",
+            "emulator_address": "0xd803060",
+            "sequence": 27
+          },
+          "B6F0_input": {
+            "rva": "HERC+0xB6F0",
+            "return_rva": "ENG1+0x2c69b",
+            "sequence": 29,
+            "scratch": "0xba2618",
+            "xyz": [
+              0,
+              -32,
+              0
+            ]
+          },
+          "camera_xyz": [
+            1792,
+            1344,
+            1792
+          ],
+          "screen_xy": [
+            415,
+            311
+          ],
+          "B720_output": {
+            "rva": "HERC+0xB720",
+            "return_rva": "ENG1+0x2c76b",
+            "sequence": 31,
+            "scratch": "0xba2618",
+            "xy_after_return": [
+              415,
+              311
+            ]
+          }
+        },
+        {
+          "index": 4,
+          "map_file_offset": 12388,
+          "packed_dword": "0xc0ffe000",
+          "asset_xyz": [
+            0,
+            -32,
+            -64
+          ],
+          "source_read": {
+            "rva": "ENG1+0x2e695",
+            "emulator_address": "0xd803064",
+            "sequence": 30
+          },
+          "B6F0_input": {
+            "rva": "HERC+0xB6F0",
+            "return_rva": "ENG1+0x2c69b",
+            "sequence": 32,
+            "scratch": "0xba2620",
+            "xyz": [
+              64,
+              -32,
+              -64
+            ]
+          },
+          "camera_xyz": [
+            1920,
+            1344,
+            1664
+          ],
+          "screen_xy": [
+            455,
+            326
+          ],
+          "B720_output": {
+            "rva": "HERC+0xB720",
+            "return_rva": "ENG1+0x2c76b",
+            "sequence": 34,
+            "scratch": "0xba2620",
+            "xy_after_return": [
+              455,
+              326
+            ]
+          }
+        },
+        {
+          "index": 5,
+          "map_file_offset": 12392,
+          "packed_dword": "0xc0ffe040",
+          "asset_xyz": [
+            64,
+            -32,
+            -64
+          ],
+          "source_read": {
+            "rva": "ENG1+0x2e695",
+            "emulator_address": "0xd803068",
+            "sequence": 33
+          },
+          "B6F0_input": {
+            "rva": "HERC+0xB6F0",
+            "return_rva": "ENG1+0x2c69b",
+            "sequence": 35,
+            "scratch": "0xba2628",
+            "xyz": [
+              0,
+              -32,
+              -64
+            ]
+          },
+          "camera_xyz": [
+            1792,
+            1344,
+            1664
+          ],
+          "screen_xy": [
+            435,
+            326
+          ],
+          "B720_output": {
+            "rva": "HERC+0xB720",
+            "return_rva": "ENG1+0x2c76b",
+            "sequence": 37,
+            "scratch": "0xba2628",
+            "xy_after_return": [
+              435,
+              326
+            ]
+          }
+        },
+        {
+          "index": 6,
+          "map_file_offset": 12396,
+          "packed_dword": "0xc0002000",
+          "asset_xyz": [
+            0,
+            32,
+            -64
+          ],
+          "source_read": {
+            "rva": "ENG1+0x2e695",
+            "emulator_address": "0xd80306c",
+            "sequence": 36
+          },
+          "B6F0_input": {
+            "rva": "HERC+0xB6F0",
+            "return_rva": "ENG1+0x2c69b",
+            "sequence": 38,
+            "scratch": "0xba2630",
+            "xyz": [
+              64,
+              32,
+              -64
+            ]
+          },
+          "camera_xyz": [
+            1920,
+            1472,
+            1664
+          ],
+          "screen_xy": [
+            455,
+            346
+          ],
+          "B720_output": {
+            "rva": "HERC+0xB720",
+            "return_rva": "ENG1+0x2c76b",
+            "sequence": 40,
+            "scratch": "0xba2630",
+            "xy_after_return": [
+              455,
+              346
+            ]
+          }
+        },
+        {
+          "index": 7,
+          "map_file_offset": 12400,
+          "packed_dword": "0xc0002040",
+          "asset_xyz": [
+            64,
+            32,
+            -64
+          ],
+          "source_read": {
+            "rva": "ENG1+0x2e695",
+            "emulator_address": "0xd803070",
+            "sequence": 39
+          },
+          "B6F0_input": {
+            "rva": "HERC+0xB6F0",
+            "return_rva": "ENG1+0x2c69b",
+            "sequence": 41,
+            "scratch": "0xba2638",
+            "xyz": [
+              0,
+              32,
+              -64
+            ]
+          },
+          "camera_xyz": [
+            1792,
+            1472,
+            1664
+          ],
+          "screen_xy": [
+            435,
+            346
+          ],
+          "B720_output": {
+            "rva": "HERC+0xB720",
+            "return_rva": "ENG1+0x2c76b",
+            "sequence": 42,
+            "scratch": "0xba2638",
+            "xy_after_return": [
+              435,
+              346
+            ]
+          }
+        }
+      ],
+      "packets_faces_ot_order": [
+        {
+          "face": 0,
+          "map_file_offset": 12408,
+          "packed_word": "0x40187105",
+          "indices_6bit": [
+            5,
+            4,
+            7,
+            6
+          ],
+          "route": "ft4",
+          "callback_rva": "ENG1+0x2c770",
+          "packet_emulator_address": "0xc900050",
+          "packet_40_bytes": "000000000000002cb301460158f83078c70146015ff8b200b3015a0158ff0000c7015a015fff0000",
+          "previous_tag_link": "0x0",
+          "xy_corners": [
+            [
+              435,
+              326
+            ],
+            [
+              455,
+              326
+            ],
+            [
+              435,
+              346
+            ],
+            [
+              455,
+              346
+            ]
+          ],
+          "ot_insert": {
+            "writer_rva": "ENG1+0x2e333",
+            "bucket_index": 831,
+            "bucket_address": "0xc800cfc",
+            "new_head": "0xc900050",
+            "prior_link": "0x0"
+          }
+        },
+        {
+          "face": 1,
+          "map_file_offset": 12416,
+          "packed_word": "0x40105083",
+          "indices_6bit": [
+            3,
+            2,
+            5,
+            4
+          ],
+          "route": "ft4",
+          "callback_rva": "ENG1+0x2c770",
+          "packet_emulator_address": "0xc900078",
+          "packet_40_bytes": "000000000000002c9f01370180803078b2013701be80b800b3014601808f0000c7014601be8f0000",
+          "previous_tag_link": "0x0",
+          "xy_corners": [
+            [
+              415,
+              311
+            ],
+            [
+              434,
+              311
+            ],
+            [
+              435,
+              326
+            ],
+            [
+              455,
+              326
+            ]
+          ],
+          "ot_insert": {
+            "writer_rva": "ENG1+0x2e333",
+            "bucket_index": 799,
+            "bucket_address": "0xc800c7c",
+            "new_head": "0xc900078",
+            "prior_link": "0x0"
+          }
+        },
+        {
+          "face": 2,
+          "map_file_offset": 12424,
+          "packed_word": "0x40083040",
+          "indices_6bit": [
+            0,
+            1,
+            3,
+            2
+          ],
+          "route": "ft4",
+          "callback_rva": "ENG1+0x2c770",
+          "packet_emulator_address": "0xc9000a0",
+          "packet_40_bytes": "000000000000002c8e012b01807030789f012b01be70b8009f013701807f0000b2013701be7f0000",
+          "previous_tag_link": "0x0",
+          "xy_corners": [
+            [
+              398,
+              299
+            ],
+            [
+              415,
+              299
+            ],
+            [
+              415,
+              311
+            ],
+            [
+              434,
+              311
+            ]
+          ],
+          "ot_insert": {
+            "writer_rva": "ENG1+0x2e333",
+            "bucket_index": 772,
+            "bucket_address": "0xc800c10",
+            "new_head": "0xc9000a0",
+            "prior_link": "0x0"
+          }
+        }
+      ]
+    },
+    "auxiliary_discriminators": [
+      {
+        "mesh_index": 284,
+        "mesh_call_index": 23,
+        "cell_file_offset": 1092008,
+        "points": 10,
+        "faces": 3,
+        "winding": 0,
+        "face_indices": [
+          [
+            0,
+            1,
+            3,
+            2
+          ],
+          [
+            4,
+            5,
+            7,
+            6
+          ],
+          [
+            5,
+            8,
+            6,
+            9
+          ]
+        ],
+        "packets": 1,
+        "prep": {
+          "mesh_call_index": 23,
+          "mesh_index": 284,
+          "entry_rva": "0x2E3B0",
+          "return_pc": "0x1002e034",
+          "visit_address": "0xd00fe8c",
+          "call_return_address": "0x1002e034",
+          "visit_depth_before": 384,
+          "cell_id": 0,
+          "variant": 0,
+          "return_eax_raw": "0x0",
+          "return_value_signed": 0,
+          "visit_depth_after": 320
+        }
+      },
+      {
+        "mesh_index": 17,
+        "mesh_call_index": 74,
+        "cell_file_offset": 1076112,
+        "points": 10,
+        "faces": 4,
+        "winding": 1,
+        "face_indices": [
+          [
+            3,
+            2,
+            9,
+            8
+          ],
+          [
+            0,
+            1,
+            3,
+            2
+          ],
+          [
+            7,
+            6,
+            0,
+            1
+          ],
+          [
+            4,
+            5,
+            7,
+            6
+          ]
+        ],
+        "packets": 0,
+        "prep": {
+          "mesh_call_index": 74,
+          "mesh_index": 17,
+          "entry_rva": "0x2E3B0",
+          "return_pc": "0x1002e034",
+          "visit_address": "0xd00fe8c",
+          "call_return_address": "0x1002e034",
+          "visit_depth_before": 128,
+          "cell_id": 0,
+          "variant": 0,
+          "return_eax_raw": "0x0",
+          "return_value_signed": 0,
+          "visit_depth_after": 128
+        }
+      }
+    ],
+    "face_index_rule": "Four six-bit IDs extracted from face word at bit offsets 0, 6, 12, and 18; association joins source read/index to B6F0 input and B720 output scratch pointers, not coordinate equality.",
+    "tail_branch_return_pins": [
+      {
+        "branch_rva": "ENG1+0x2E0DA",
+        "target_rva": "ENG1+0x2E254",
+        "tail_size": "0x156",
+        "tail_ret_rva": "ENG1+0x2E3A9",
+        "role": "2DF20 FT4 branch and separately executed tail; not an extension of the GT4 first-return prefix"
+      },
+      {
+        "branch_rva": "ENG1+0x2E622",
+        "target_rva": "ENG1+0x2E669",
+        "tail_size": "0x4c",
+        "tail_ret_rva": "ENG1+0x2E6B4",
+        "role": "2E600 point-path branch and separately executed tail"
+      }
+    ],
+    "executed_branch_pcs": [
+      "ENG1+0x2E0DA",
+      "ENG1+0x2E622"
+    ],
+    "projection_config": {
+      "matrix_words_row_major": [
+        8192,
+        0,
+        0,
+        0,
+        8192,
+        0,
+        0,
+        0,
+        8192
+      ],
+      "translation_dwords": [
+        1792,
+        1408,
+        1792
+      ],
+      "center_dwords": [
+        160,
+        120
+      ],
+      "focal_dword": 256,
+      "provenance": "matrix/translation observed at each original B740 callback; center/focal set by synthetic HERC B970/B990 calls before original traversal; no setter calls occurred during traversal"
+    }
+  },
+  "source_comparison": {
+    "result": "PASS",
+    "toolchain": "MSVC 5.00 RTM 11.00.7022; /O2 /Gy /MT",
+    "checks": 481,
+    "failures": 0,
+    "cases": [
+      {
+        "mesh_call_index": 2,
+        "mesh_index": 156,
+        "cell_file_offset": 1102652,
+        "packed_cell": "0x938",
+        "point_count": 8,
+        "face_count": 3,
+        "entry_depth_before_2e3b0": 448,
+        "depth_after_2e3b0": 448,
+        "2e3b0_return": 0,
+        "entry_winding": 0,
+        "effective_winding": 0,
+        "packet_count": 3
+      },
+      {
+        "mesh_call_index": 23,
+        "mesh_index": 284,
+        "cell_file_offset": 1092008,
+        "packed_cell": "0xa38",
+        "point_count": 10,
+        "face_count": 3,
+        "entry_depth_before_2e3b0": 384,
+        "depth_after_2e3b0": 320,
+        "2e3b0_return": 0,
+        "entry_winding": 0,
+        "effective_winding": 0,
+        "packet_count": 1
+      },
+      {
+        "mesh_call_index": 74,
+        "mesh_index": 17,
+        "cell_file_offset": 1076112,
+        "packed_cell": "0x822",
+        "point_count": 10,
+        "face_count": 4,
+        "entry_depth_before_2e3b0": 128,
+        "depth_after_2e3b0": 128,
+        "2e3b0_return": 0,
+        "entry_winding": 1,
+        "effective_winding": 0,
+        "packet_count": 0
+      }
+    ],
+    "source_status": {
+      "behavior_verified": [
+        "Three named real-resource 2DF20/2E600 FT4 cases for B6F0 input derivation, C-derived B740/B920-compatible camera/XY, point-to-face association, culling, packet bytes/40-byte allocation stride and OT bucket insertion."
+      ],
+      "original_trace_only": [
+        "HERCULES.EXE/ENG1.DLL resource consumer 20670/208F0, caller 2DA90, original 2E3B0 and native callback packet/OT execution."
+      ],
+      "source_reconstructed_unverified": [
+        "The C comparison does not independently reconstruct 2E3B0’s matrix/translation preparation or HERC B880/B8F0/B970/B990 live setup."
+      ],
+      "strict_match": "not claimed"
+    },
+    "input_report_sha256": "d16cb4a4947d65f84ac37990c04395ee318f92e31bb491753ba49051d896e5d5",
+    "paired_native_sha256": "92fab0ae037513a02c475e8006ac5cfe644ac17703e19488c10dba5636725c2f",
+    "paired_manifest_sha256": "6ed58f9fb1dc58d25b97cc0ca52834c799767de8d075b935ae26b57548b2992a",
+    "scope_note": "VC5 candidate compares source point/face decode, per-point projection inputs and outputs, culling, FT4 packet bytes/stride and OT insertion for three calls. The 2E3B0 prep and live HERC setup remain original-observed data seams; no strict byte match is claimed."
+  },
+  "fresh_replay": {
+    "native_report_sha256": "92fab0ae037513a02c475e8006ac5cfe644ac17703e19488c10dba5636725c2f",
+    "manifest_sha256": "6ed58f9fb1dc58d25b97cc0ca52834c799767de8d075b935ae26b57548b2992a",
+    "source_compare_sha256": "d16cb4a4947d65f84ac37990c04395ee318f92e31bb491753ba49051d896e5d5",
+    "paths": [
+      "work/renderer_phase19/root_eng1_resource1/native_real_map_report.json",
+      "work/renderer_phase19/root_eng1_resource1/real_resource_projection_manifest.json",
+      "work/renderer_phase19/root_eng1_resource1/source_compare_vc5/source_compare_report.json"
+    ]
+  },
+  "limitations": [
+    "2E3B0 prep/config and live HERC B880/B8F0/B970/B990 setup remain native-observed seams; C does not reconstruct them.",
+    "Camera/context and scratch/output capacities are bounded fixture inputs, not live gameplay or general capacity claims.",
+    "Three archived resource calls only; no whole-map, actor identity, or full-module source-closure claim.",
+    "Raw map, transport, generated headers, binaries and detailed write traces remain in private work receipts."
+  ]
+}
