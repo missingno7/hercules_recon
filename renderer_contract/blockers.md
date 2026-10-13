@@ -7,8 +7,8 @@ not block a passive 320x240 capture experiment.
 | Class | Resolved foundation | Next material blocker |
 |---|---|---|
 | A. Loader and interception | Original pre-entry DDRAW selection/clone publication; all-module prefix copies; new source-built forwarder diagnostic | Original-process transparent forwarding and engine first-copy/lifetime observation in a write-isolated environment |
-| B. Geometry availability | WORD inputs and narrowed camera DWORD outputs; bounded single-point equations and observer | Batch arithmetic discriminators, upstream input units and unprojected/cull-rejected geometry |
-| C. Vertex/primitive association | Four original ENG1 producer fixtures, repeated/reordered vertices and culled prefix; exact FT4/GT4 observer positions | Runtime producer observation, production object identity/material provenance and corresponding ENG3/TITLE association |
+| B. Geometry availability | WORD inputs and narrowed camera DWORD outputs; bounded single-point equations and observer | Broader batch arithmetic domains, upstream input units and unprojected/cull-rejected geometry |
+| C. Vertex/primitive association | Original ENG1 FT4/GT4 fixtures; original ENG3 direct FT4 and TITLE mode-5 FT4; role/time identity despite pointer reuse | Runtime producer observation, production object identity/material provenance, visibility and remaining packet families |
 | D. Viewport and precision | Camera precision exceeds final XY; measured single-point path has no rectangle clamp | Engine-side clipping/culling limits and larger-aspect visibility; preserve simulation projection independently |
 | E. Image composition | Packet, index/palette/LUT, direct upload/move, movie, clear, GDI and surface writers separated | Complete writer triggers and chronological order; slot149 alias reachability and framework writes |
 | F. Presentation ownership | Original HWND, surfaces/pitch, present/mode/loss paths; real-system API forwarding in a diagnostic | Original-host coexistence, exclusive final image, resize/mode/loss synchronization and tested shutdown restoration |

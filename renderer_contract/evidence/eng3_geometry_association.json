@@ -1,0 +1,735 @@
+{
+  "schema_version": 1,
+  "status": "ORIGINAL_ENG3_FT4_PRODUCER_EXECUTED_SYNTHETIC_CONTEXT",
+  "proof_level": "FINITE_ORIGINAL_EXECUTION",
+  "scope": "One direct entry to unchanged ENG3.DLL+0x231A0 with synthetic stream/object/context and copied table; original HERCULES callbacks are reached through pinned wrappers. The upstream 0x22E40→0x24770→0x8DA0 visibility path was not executed and remains unresolved.",
+  "original_images": {
+    "HERCULES.EXE": {
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "preferred_base": "0x400000"
+    },
+    "ENG3.DLL": {
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "preferred_base": "0x10000000"
+    }
+  },
+  "prediction_and_falsifier": "# ENG3 FT4 producer association — prediction and falsifier\n\nThe initial private plan proposed exercising the static chain `0x22E40 → 0x24770 → 0x8DA0 → 0x231A0` and predicted that its handler path would reach the FT4 producer. Before native execution, the scope was corrected: the upstream visibility/bounds gate is not established, so this fixture does not claim that the path passes or execute those handlers. Static evidence at the callsite `ENG3+0x901D` supplies the cdecl argument roles for a bounded direct entry: resource stream pointer, child/object pointer, and the resource first-byte loop count.\n\nFor one explicitly synthetic stream/object/context, the direct original producer at `ENG3+0x231A0` is predicted to build four distinct signed-WORD XYZ triplets. It should send the first three through copied slot 102 (`B430`), transform them through slot 107 (`B320`), then copy the three projected XY lanes through slot 117 (`B5C0`) into packet corners `+0x08/+0x0A`, `+0x10/+0x12`, and `+0x18/+0x1A`. The fourth point should be sent through slots 101/106/114 and stored at `+0x20/+0x22`. The third and fourth point may reuse one scratch address; therefore association is predicted by the producer-built pointer, callback order, and packet-memory destinations, not by coordinate equality. The producer should write tag `0x2e`, advance the observed cursor by `0x28`, and link the packet through its selected ordering-table bucket. Material and texture fields will be reported only when supported by executed native reads and stores.\n\nFalsifiers: (1) direct entry fails to return through the pinned producer span; (2) any source point cannot be linked by its actual pointer and callback order to the captured camera/projected lane and packet corner; (3) the reused scratch address does not show the expected overwrite before point four; (4) native packet tag, cursor advance, source reads, or OT writes disagree with the observed producer instructions; or (5) execution leaves the pinned original-code spans, requires a fabricated callback result, writes original code, or reads outside the mapped images and explicit synthetic records.\n\nAll stream/object/context/matrix/view/packet/OT bytes are synthetic. The direct producer execution does not prove the upstream gate, visibility result, live object or mesh identity, asset semantics, coordinate units, global capacity, full module behavior, rasterized output, or GPU behavior. Observed cursor movement and finite arena sizes are not capacity guarantees. Executed spans do not change canonical recovery state.\n",
+  "direct_entry_and_static_boundary": {
+    "static_route_context": "ENG3+0x22E40 handler index 3 -> +0x24770 -> +0x8DA0 -> +0x231A0 callsite +0x901D",
+    "static_callsite_arguments": [
+      "arg0 = resource stream pointer saved at 0x8DA0+0x14",
+      "arg1 = child/object pointer",
+      "arg2 = resource first-byte loop count"
+    ],
+    "fixture_direct_entry": {
+      "entry": "0x100231a0",
+      "args": [
+        "0xc002000",
+        "0xc001000",
+        "0x1"
+      ],
+      "executed_instructions": 587
+    },
+    "call_arguments_match_static_order": true,
+    "producer_span": {
+      "module": "ENG3.DLL",
+      "rva": "0x231a0",
+      "size": 659,
+      "sha256": "9ab5bed4f7535a97f69661b394b86fd851fbf8c631a873705f1c3a7c89567c96",
+      "label": "eng3 FT4 writer with fixed 0x2e tag"
+    },
+    "upstream_visibility_gate": "UNRESOLVED; upstream functions were not executed"
+  },
+  "interface_copy": {
+    "source_rva": "0x361b8",
+    "bytes": 1000,
+    "dwords": 250,
+    "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "cold_copy_source_evidence": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\evidence\\native_interface_copy.json",
+      "sha256": "3d2398d1ad4824de53acd0712e6a0a72e4e3704f2c84ebbe9cfcbb8e25d01234",
+      "scenario": "cold_valid_copy",
+      "scenario_table_matches_source_exactly": true
+    },
+    "fixture_method": "canonical native_interface_copy.json pins the original cold-valid 250-DWORD copy; fixture copies those same source bytes before seeding producer globals",
+    "selected_slot_words": {
+      "101": "0x40b6f0",
+      "102": "0x40b430",
+      "106": "0x40b920",
+      "107": "0x40b320",
+      "108": "0x40b880",
+      "110": "0x40b8c0",
+      "111": "0x40b2f0",
+      "114": "0x40b720",
+      "117": "0x40b5c0",
+      "121": "0x40b870",
+      "174": "0x40b970",
+      "175": "0x40b990"
+    }
+  },
+  "association": {
+    "association_basis": "producer-built stack triplet addresses passed to B430 in pointer order; the third point address is then overwritten by ENG3+0x233BB before B6F0 reuses it for point four; camera lanes are captured on original producer return PCs; projected lane XY is compared with B5C0/B720 packet memory writes.",
+    "source_triplets_signed_word_xyz": [
+      [
+        193,
+        246,
+        0
+      ],
+      [
+        241,
+        246,
+        0
+      ],
+      [
+        193,
+        278,
+        0
+      ],
+      [
+        241,
+        278,
+        0
+      ]
+    ],
+    "batch_input_addresses_ordered_at_B430": [
+      "0xd00fef8",
+      "0xd00fef0",
+      "0xd00fee8"
+    ],
+    "fourth_input_address_at_B6F0": "0xd00fee8",
+    "third_point_scratch_reuse": true,
+    "camera_xyz_dwords_by_point": [
+      [
+        193,
+        248,
+        512
+      ],
+      [
+        241,
+        248,
+        512
+      ],
+      [
+        193,
+        280,
+        512
+      ],
+      [
+        241,
+        280,
+        512
+      ]
+    ],
+    "projected_xy_words_by_point": [
+      [
+        513,
+        488
+      ],
+      [
+        561,
+        488
+      ],
+      [
+        513,
+        520
+      ],
+      [
+        561,
+        520
+      ]
+    ],
+    "packet_xy_words_by_corner": [
+      [
+        513,
+        488
+      ],
+      [
+        561,
+        488
+      ],
+      [
+        513,
+        520
+      ],
+      [
+        561,
+        520
+      ]
+    ],
+    "projection_to_packet_equal": true
+  },
+  "packet_and_order_table": {
+    "address": "0xc010000",
+    "stride_advanced": "0x28",
+    "raw_40_bytes_hex": "000000000000002e0102e801000030383102e8012f00000001020802001f0000310208022f1f0000",
+    "dwords": [
+      "0x0",
+      "0x2e000000",
+      "0x1e80201",
+      "0x38300000",
+      "0x1e80231",
+      "0x2f",
+      "0x2080201",
+      "0x1f00",
+      "0x2080231",
+      "0x1f2f"
+    ],
+    "words": [
+      "0x0",
+      "0x0",
+      "0x0",
+      "0x2e00",
+      "0x201",
+      "0x1e8",
+      "0x0",
+      "0x3830",
+      "0x231",
+      "0x1e8",
+      "0x2f",
+      "0x0",
+      "0x201",
+      "0x208",
+      "0x1f00",
+      "0x0",
+      "0x231",
+      "0x208",
+      "0x1f2f",
+      "0x0"
+    ],
+    "command_word": "0x2e000000",
+    "ot_bucket_index": 1056,
+    "ot_bucket_address": "0xc009080",
+    "ot_bucket_head_after": "0xc010000",
+    "packet_link_previous_head": "0x0"
+  },
+  "scratch_write_provenance": [
+    {
+      "pc": "0x1002334c",
+      "address": "0xd00fee8",
+      "size": 2,
+      "value": "0xc1"
+    },
+    {
+      "pc": "0x10023351",
+      "address": "0xd00fef8",
+      "size": 2,
+      "value": "0xc1"
+    },
+    {
+      "pc": "0x1002335e",
+      "address": "0xd00fef2",
+      "size": 2,
+      "value": "0xf6"
+    },
+    {
+      "pc": "0x10023363",
+      "address": "0xd00fefa",
+      "size": 2,
+      "value": "0xf6"
+    },
+    {
+      "pc": "0x1002336f",
+      "address": "0xd00feea",
+      "size": 2,
+      "value": "0x116"
+    },
+    {
+      "pc": "0x1002337b",
+      "address": "0xd00fef0",
+      "size": 2,
+      "value": "0xf1"
+    },
+    {
+      "pc": "0x100233bb",
+      "address": "0xd00fee8",
+      "size": 2,
+      "value": "0xf1"
+    }
+  ],
+  "texture_material_observations": {
+    "resource_stream_reads": [
+      {
+        "pc": "0x10023203",
+        "address": "0xc002000",
+        "size": 1,
+        "value": "0x11",
+        "owner": "synthetic FT4 resource stream"
+      },
+      {
+        "pc": "0x10023206",
+        "address": "0xc002001",
+        "size": 1,
+        "value": "0x22",
+        "owner": "synthetic FT4 resource stream"
+      },
+      {
+        "pc": "0x10023220",
+        "address": "0xc002002",
+        "size": 1,
+        "value": "0x34",
+        "owner": "synthetic FT4 resource stream"
+      },
+      {
+        "pc": "0x100232c3",
+        "address": "0xc002003",
+        "size": 1,
+        "value": "0x46",
+        "owner": "synthetic FT4 resource stream"
+      },
+      {
+        "pc": "0x10023337",
+        "address": "0xc002004",
+        "size": 1,
+        "value": "0x58",
+        "owner": "synthetic FT4 resource stream"
+      },
+      {
+        "pc": "0x10023345",
+        "address": "0xc002005",
+        "size": 1,
+        "value": "0x6a",
+        "owner": "synthetic FT4 resource stream"
+      },
+      {
+        "pc": "0x100233e1",
+        "address": "0xc002006",
+        "size": 1,
+        "value": "0x0",
+        "owner": "synthetic FT4 resource stream"
+      }
+    ],
+    "object_field_reads": [
+      {
+        "pc": "0x100231ce",
+        "address": "0xc001028",
+        "size": 2,
+        "value": "0x1",
+        "owner": "synthetic object/context"
+      },
+      {
+        "pc": "0x1002320f",
+        "address": "0xc00101e",
+        "size": 1,
+        "value": "0x0",
+        "owner": "synthetic object/context"
+      },
+      {
+        "pc": "0x1002321d",
+        "address": "0xc001054",
+        "size": 4,
+        "value": "0x0",
+        "owner": "synthetic object/context"
+      },
+      {
+        "pc": "0x1002322d",
+        "address": "0xc001046",
+        "size": 2,
+        "value": "0x0",
+        "owner": "synthetic object/context"
+      },
+      {
+        "pc": "0x10023231",
+        "address": "0xc001010",
+        "size": 2,
+        "value": "0x400",
+        "owner": "synthetic object/context"
+      }
+    ],
+    "producer_context_reads": [
+      {
+        "pc": "0x100231d2",
+        "address": "0xc00307c",
+        "size": 4,
+        "value": "0x0",
+        "owner": "synthetic producer context"
+      },
+      {
+        "pc": "0x40b8c4",
+        "address": "0xc003078",
+        "size": 4,
+        "value": "0x0",
+        "owner": "synthetic producer context"
+      },
+      {
+        "pc": "0x40b8cc",
+        "address": "0xc00307c",
+        "size": 4,
+        "value": "0x2",
+        "owner": "synthetic producer context"
+      },
+      {
+        "pc": "0x40b8d5",
+        "address": "0xc003080",
+        "size": 4,
+        "value": "0x200",
+        "owner": "synthetic producer context"
+      },
+      {
+        "pc": "0x40b8de",
+        "address": "0xc003084",
+        "size": 4,
+        "value": "0x0",
+        "owner": "synthetic producer context"
+      }
+    ],
+    "original_lookup_table_reads": [
+      {
+        "pc": "0x1002328c",
+        "address": "0x10039ac0",
+        "size": 1,
+        "value": "0x0",
+        "owner": "original ENG3 image"
+      },
+      {
+        "pc": "0x10023398",
+        "address": "0x10042562",
+        "size": 2,
+        "value": "0x0",
+        "owner": "original ENG3 image"
+      },
+      {
+        "pc": "0x100233f6",
+        "address": "0x10039ac0",
+        "size": 1,
+        "value": "0x0",
+        "owner": "original ENG3 image"
+      },
+      {
+        "pc": "0x100233f9",
+        "address": "0x10042564",
+        "size": 2,
+        "value": "0x0",
+        "owner": "original ENG3 image"
+      }
+    ],
+    "producer_packet_field_writes": [
+      {
+        "pc": "0x100232eb",
+        "address": "0xc01000c",
+        "size": 2,
+        "value": "0x0"
+      },
+      {
+        "pc": "0x100232fd",
+        "address": "0xc010014",
+        "size": 2,
+        "value": "0x2f"
+      },
+      {
+        "pc": "0x10023319",
+        "address": "0xc01001c",
+        "size": 2,
+        "value": "0x1f00"
+      },
+      {
+        "pc": "0x1002331d",
+        "address": "0xc010024",
+        "size": 2,
+        "value": "0x1f2f"
+      },
+      {
+        "pc": "0x1002339f",
+        "address": "0xc010004",
+        "size": 4,
+        "value": "0x2e000000"
+      },
+      {
+        "pc": "0x100233a6",
+        "address": "0xc010016",
+        "size": 2,
+        "value": "0x0"
+      },
+      {
+        "pc": "0x100233d4",
+        "address": "0xc010000",
+        "size": 4,
+        "value": "0x0"
+      },
+      {
+        "pc": "0x100233dd",
+        "address": "0xc01000e",
+        "size": 2,
+        "value": "0x3830"
+      }
+    ]
+  },
+  "packet_xy_callback_writes": [
+    {
+      "pc": "0x40b5cb",
+      "address": "0xc010008",
+      "size": 2,
+      "value": "0x201"
+    },
+    {
+      "pc": "0x40b5d6",
+      "address": "0xc01000a",
+      "size": 2,
+      "value": "0x1e8"
+    },
+    {
+      "pc": "0x40b5e1",
+      "address": "0xc010010",
+      "size": 2,
+      "value": "0x231"
+    },
+    {
+      "pc": "0x40b5ec",
+      "address": "0xc010012",
+      "size": 2,
+      "value": "0x1e8"
+    },
+    {
+      "pc": "0x40b5f7",
+      "address": "0xc010018",
+      "size": 2,
+      "value": "0x201"
+    },
+    {
+      "pc": "0x40b602",
+      "address": "0xc01001a",
+      "size": 2,
+      "value": "0x208"
+    },
+    {
+      "pc": "0x40b72b",
+      "address": "0xc010020",
+      "size": 2,
+      "value": "0x231"
+    },
+    {
+      "pc": "0x40b735",
+      "address": "0xc010022",
+      "size": 2,
+      "value": "0x208"
+    }
+  ],
+  "raw_execution": {
+    "instruction_count": 595,
+    "executed_span_labels": [
+      "ENG3 FT4 producer",
+      "ENG3 slot101 wrapper",
+      "ENG3 slot102 wrapper",
+      "ENG3 slot106 wrapper",
+      "ENG3 slot107 wrapper",
+      "ENG3 slot108 wrapper",
+      "ENG3 slot110 wrapper",
+      "ENG3 slot111 wrapper",
+      "ENG3 slot114 wrapper",
+      "ENG3 slot117 wrapper",
+      "HERC slot101 B6F0",
+      "HERC slot102 B430",
+      "HERC slot106 B740",
+      "HERC slot106 B920",
+      "HERC slot107 B320",
+      "HERC slot108 B880",
+      "HERC slot110 B8C0",
+      "HERC slot111 B2F0",
+      "HERC slot114 B720",
+      "HERC slot117 B5C0",
+      "HERC slot174 B970 synthetic projection setup",
+      "HERC slot175 B990 synthetic projection setup"
+    ],
+    "unique_covered_original_spans": [
+      {
+        "module": "ENG3.DLL",
+        "rva": "0x1fca0",
+        "size": 15,
+        "sha256": "ee6fddcba7224cafa291397c8a3ada0fd1ff8ef20b9cca5e9ea3a6c7ded280fb",
+        "label": "ENG3.DLL copied-table wrapper vertex_input"
+      },
+      {
+        "module": "ENG3.DLL",
+        "rva": "0x1fcb0",
+        "size": 25,
+        "sha256": "ac93c2aa332b71540c72969fba10d618d07a35ac71506a31f24e4972e04825c1",
+        "label": "Phase 14 source span"
+      },
+      {
+        "module": "ENG3.DLL",
+        "rva": "0x1fd00",
+        "size": 6,
+        "sha256": "11f370d92cc7151d75bd2d3788180bcf296810f1dd23836c264c36db31f1c12d",
+        "label": "ENG3.DLL copied-table wrapper transform_project"
+      },
+      {
+        "module": "ENG3.DLL",
+        "rva": "0x1fd10",
+        "size": 6,
+        "sha256": "64198aecbe37889c02462583705c3588c78414a68b48fdce111104d4bed521d6",
+        "label": "Phase 14 source span"
+      },
+      {
+        "module": "ENG3.DLL",
+        "rva": "0x1fd20",
+        "size": 15,
+        "sha256": "b559bb2957dc01e24ab7e7a8e58421878facaf08b8fa6a727728dedc4fb52604",
+        "label": "Phase 14 source span"
+      },
+      {
+        "module": "ENG3.DLL",
+        "rva": "0x1fd25",
+        "size": 6,
+        "sha256": "fb40b5af0eb969e2741655fc08d1bf6eddbf00078dacb1233525a184422a8a66",
+        "label": ""
+      },
+      {
+        "module": "ENG3.DLL",
+        "rva": "0x1fd40",
+        "size": 15,
+        "sha256": "456888dffd444a6d318dc74598839896c19f5a8ee4b93dbc15437d8e25c90252",
+        "label": "Phase 14 source span"
+      },
+      {
+        "module": "ENG3.DLL",
+        "rva": "0x1fd50",
+        "size": 15,
+        "sha256": "25ae71ee59e36c0a536aec0c019e810bfdfa6dab0729b1cb97c6a733ef8cda2a",
+        "label": "Phase 14 source span"
+      },
+      {
+        "module": "ENG3.DLL",
+        "rva": "0x1fd80",
+        "size": 15,
+        "sha256": "d8ceea8c3db0d736e2601fb6502f57f9161786534dd7d7457e3a678e360e3b3f",
+        "label": "ENG3.DLL copied-table wrapper screen_xy_output"
+      },
+      {
+        "module": "ENG3.DLL",
+        "rva": "0x1fd90",
+        "size": 15,
+        "sha256": "e472ffb2e106698c7dd06615c284851e0ffe1c8bcd177905abedef989c5c60d2",
+        "label": "ENG3.DLL copied-table wrapper ft4_xy_packet"
+      },
+      {
+        "module": "ENG3.DLL",
+        "rva": "0x231a0",
+        "size": 659,
+        "sha256": "9ab5bed4f7535a97f69661b394b86fd851fbf8c631a873705f1c3a7c89567c96",
+        "label": "eng3 FT4 writer with fixed 0x2e tag"
+      },
+      {
+        "module": "HERCULES.EXE",
+        "rva": "0xb2f0",
+        "size": 31,
+        "sha256": "da0275bd8769568ca7d675dd6fc37b472d2d0ddcd3247d04706edba542695540",
+        "label": "Phase 14 source span"
+      },
+      {
+        "module": "HERCULES.EXE",
+        "rva": "0xb320",
+        "size": 271,
+        "sha256": "11368c1fa7fd8cd91b1d7b7de522ad06aacc724991ff4f8d46d7eecf1e7cff97",
+        "label": "Phase 14 source span"
+      },
+      {
+        "module": "HERCULES.EXE",
+        "rva": "0xb430",
+        "size": 106,
+        "sha256": "25367b48038d67ca7a3181586be659fd7a7e15abd9d5a97488eca8fd249c9484",
+        "label": "Phase 14 source span"
+      },
+      {
+        "module": "HERCULES.EXE",
+        "rva": "0xb5c0",
+        "size": 71,
+        "sha256": "3bcc224aaa6a9b2fa5772613b2921c7d6341d90d781fdf136f338f3004b382aa",
+        "label": "host geometry service 0xb5c0"
+      },
+      {
+        "module": "HERCULES.EXE",
+        "rva": "0xb6f0",
+        "size": 36,
+        "sha256": "6a6848a640a84133abcc29bf3b0c01e2fb1638f36e916ed8e4f68890210aff29",
+        "label": "host geometry service 0xb6f0"
+      },
+      {
+        "module": "HERCULES.EXE",
+        "rva": "0xb720",
+        "size": 26,
+        "sha256": "51f3989776f1410d8ffa246269a37fac2b44590d0f6bcf1cdca4937d0b7b0843",
+        "label": "host geometry service 0xb720"
+      },
+      {
+        "module": "HERCULES.EXE",
+        "rva": "0xb740",
+        "size": 202,
+        "sha256": "f745b08e23d8f718c7e269b2642a32a2ea852a1aa86c88dd774df9f555158f2c",
+        "label": "host geometry service 0xb740"
+      },
+      {
+        "module": "HERCULES.EXE",
+        "rva": "0xb880",
+        "size": 50,
+        "sha256": "b890d113710e54184d9b505fe9c2a80214ec58f7980ebc2700e16f86bc7a8063",
+        "label": "Phase 14 source span"
+      },
+      {
+        "module": "HERCULES.EXE",
+        "rva": "0xb8c0",
+        "size": 40,
+        "sha256": "4ef9335b44c447dbaa222b53ab6a85a2b8a0bf49ac83d34eb87644162c05378d",
+        "label": "Phase 14 source span"
+      },
+      {
+        "module": "HERCULES.EXE",
+        "rva": "0xb920",
+        "size": 78,
+        "sha256": "055adff43e62ef00b06e5313ee1701ac404cfe6b3286d75648e5c3265ae7ba86",
+        "label": "host geometry service 0xb920"
+      },
+      {
+        "module": "HERCULES.EXE",
+        "rva": "0xb970",
+        "size": 20,
+        "sha256": "2526cc71c8d43572f1aabfacc70678e699908b02a13cf0b72f832b1e4062d252",
+        "label": "host geometry service 0xb970"
+      },
+      {
+        "module": "HERCULES.EXE",
+        "rva": "0xb990",
+        "size": 10,
+        "sha256": "c44e898f7d175fbc52e1761ebbf409c20d9579c27174ca44a631d31909e8c68a",
+        "label": "host geometry service 0xb990"
+      }
+    ],
+    "unique_span_count": 23,
+    "raw_trace_path": "work/renderer_phase16/public_eng3_1/eng3_native_fixture_raw.json",
+    "raw_trace_sha256": "8e8c6608c47f4cab6fe1b881ebc0d024d1e67a39afa5055e0b63feb8c07b30b0",
+    "raw_trace_bytes": 151479,
+    "runner_path": "renderer_contract/fixtures/eng3_geometry_association/run_fixture.py",
+    "runner_sha256": "1d37a30697976a336d98bc80383ce2fc920fdae9fe2b05c076e280b5c9e29941",
+    "public_test_path": "renderer_contract/tests/test_original_eng3_geometry_association.py",
+    "public_test_sha256": "95c3d92c32f5afc48983125ee901fab9c248f089053c44495a457afa94e0f354",
+    "unicorn_version": "2.1.4",
+    "unicorn_native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+  },
+  "private_report": {
+    "path": "work/renderer_phase16/public_eng3_1/eng3_geometry_association.json",
+    "sha256": "d0e0e9035a5bac0ade265d7071a33ab5485401d00d5fda4089b01a6cea12cf82"
+  },
+  "source_evidence_sha256": {
+    "renderer_contract/cross_module_geometry.md": "7b50657ea734f522268cf630303aee6aff6297b10404384b57692d916a772b7a",
+    "renderer_contract/evidence/upstream_geometry_modules.json": "ff607a7b87a00bb8fe28f9d91fe328e8272f990c92e546114e153521cabcf5b1",
+    "renderer_contract/evidence/module_packets.json": "a68864a259202260ccbfaf7ccee0b68c127af839d3c4b6889c32978e5ff32772",
+    "renderer_contract/evidence/eng3_handlers.json": "a625ba48b2f135268b0eb47af1ce2279505db69305feee9e3727dcc16e779d32",
+    "renderer_contract/evidence/native_interface_copy.json": "3d2398d1ad4824de53acd0712e6a0a72e4e3704f2c84ebbe9cfcbb8e25d01234",
+    "renderer_contract/fixtures/eng3_geometry_association/run_fixture.py": "1d37a30697976a336d98bc80383ce2fc920fdae9fe2b05c076e280b5c9e29941",
+    "renderer_contract/fixtures/eng3_geometry_association/prediction.md": "08273a05f630f42693289e18fffd5d3b2a6896f29e3016a00f115aeb0b65e97c",
+    "renderer_contract/tests/test_original_eng3_geometry_association.py": "95c3d92c32f5afc48983125ee901fab9c248f089053c44495a457afa94e0f354"
+  },
+  "post_replay_document_updates": [
+    {
+      "path": "renderer_contract/cross_module_geometry.md",
+      "report_input_sha256": "7b50657ea734f522268cf630303aee6aff6297b10404384b57692d916a772b7a",
+      "preceding_base_commit": "b85599a1c3c5cdbf74595239f8585d31d7d74956",
+      "current_sha256_after_report": "acc10a045ed5a33698af1778c6fcb331b3a55cdad613979f4dcb73111bb86ae9",
+      "interpretation": "Documentation was edited after this accepted replay; the hash-pinned report input is the preceding-base version, not the current document."
+    }
+  ],
+  "limits": [
+    "Only the original 0x231A0 producer and its directly reached copied wrappers/HERC callbacks execute; the 0x22E40→0x24770→0x8DA0 chain is static call-site context and its visibility gate remains unresolved in this fixture.",
+    "Synthetic stream/object/context/packet/OT inputs are not authentic assets or live object identity.",
+    "Camera center/focal and snapshot globals are synthetic frame state. No engine initialization, scene/resource loading, visibility, clipping, whole frame, capacity, rasterization, or GPU behavior is claimed.",
+    "Executed span extents do not alter recovery.json or prove source identity/module layout/whole-binary equality."
+  ]
+}

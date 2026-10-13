@@ -201,3 +201,9 @@ camera/screen lanes before a fourth single-point projection can overwrite them.
 Slots 102/107/117 are now included in the selected callback clone API. The
 [text-writer contract](gdi_text_writer.md) corrects the windowed DC acquisition
 to `GetDC(NULL)` and leaves its runtime trigger and actual pixels unresolved.
+
+[ENG3 direct FT4 association](eng3_geometry_association.md) and
+[TITLE mode-5 association](evidence/title_geometry_association.md) execute their
+original producers into matching packet corners and OT insertion. Both require
+callback-time and vertex-role identity because one point pointer is reused.
+They do not establish upstream visibility, whole-module geometry or pixels.

@@ -576,6 +576,29 @@
         "caller_or_trigger": "UNRESOLVED",
         "limit": "One pinned original x86 body with five finite named synthetic providers. No Windows API execution, DirectDraw implementation, runtime caller, rendered pixels, glyphs, style values, or trigger is established."
       }
+    },
+    {
+      "path": "renderer_contract/evidence/eng3_geometry_association.json",
+      "proof_level": "FINITE_ORIGINAL_EXECUTION",
+      "finite_scope": {
+        "direct_producer_entries": 1,
+        "instruction_count": 595,
+        "source_points": 4,
+        "covered_original_spans": 23,
+        "upstream_visibility_gate": "UNRESOLVED",
+        "limit": "One direct entry to unchanged ENG3.DLL+0x231A0 with synthetic stream/object/context and copied table; original HERCULES callbacks are reached through pinned wrappers. The upstream 0x22E40→0x24770→0x8DA0 visibility path was not executed and remains unresolved."
+      }
+    },
+    {
+      "path": "renderer_contract/evidence/title_geometry_association.json",
+      "proof_level": "FINITE_ORIGINAL_EXECUTION",
+      "finite_scope": {
+        "cases": 2,
+        "assertions": 23,
+        "single_point_comparisons": 8,
+        "pinned_spans": 28,
+        "limit": "Finite TITLE mode-5 synthetic context. Repeated coordinate roles and scratch reuse are only those captured in these cases; no general TITLE mesh, visibility, capacity, raster, or pixel claim."
+      }
     }
   ],
   "original_validation": {
@@ -628,6 +651,10 @@
     {
       "path": "renderer_contract/fixtures/eng1_association/test_original_eng1_association.py",
       "sha256": "ca17bff7c5da6e76f1b81bd507218c7d9a9d233a5636c0d35cc0b389ca5890ff"
+    },
+    {
+      "path": "renderer_contract/fixtures/eng3_geometry_association/run_fixture.py",
+      "sha256": "1d37a30697976a336d98bc80383ce2fc920fdae9fe2b05c076e280b5c9e29941"
     },
     {
       "path": "renderer_contract/fixtures/loader_probe/build_and_run.py",
@@ -1002,6 +1029,10 @@
       "sha256": "cbdd5602d4279c0a5da3dc726d697b7af57a5118d4ce9e6d973c25d00fa8b379"
     },
     {
+      "path": "renderer_contract/tests/test_original_eng3_geometry_association.py",
+      "sha256": "95c3d92c32f5afc48983125ee901fab9c248f089053c44495a457afa94e0f354"
+    },
+    {
       "path": "renderer_contract/tests/test_original_fill_edges.py",
       "sha256": "ceb2ea5b0b984691abb4414afe3a30a1d65291f8a55e3febcd1321f302357d10"
     },
@@ -1096,6 +1127,10 @@
     {
       "path": "renderer_contract/tests/test_original_texture_row_boundaries.py",
       "sha256": "aeeee20cfda6ad766d8212e23faa908fbb9a9d4bd40305e443db49d001107074"
+    },
+    {
+      "path": "renderer_contract/tests/test_original_title_geometry_association.py",
+      "sha256": "92a0ab2001e4235b0046498dd299c9961e15dcdee28c5e0e83d58e946496d865"
     },
     {
       "path": "renderer_contract/tests/test_original_vram_move.py",
@@ -1230,7 +1265,9 @@
     "renderer_contract/evidence/upstream_geometry_modules.json",
     "renderer_contract/evidence/eng1_geometry_association.json",
     "renderer_contract/evidence/batch_projection.json",
-    "renderer_contract/evidence/gdi_text_writer.json"
+    "renderer_contract/evidence/gdi_text_writer.json",
+    "renderer_contract/evidence/eng3_geometry_association.json",
+    "renderer_contract/evidence/title_geometry_association.json"
   ],
   "source_ledger_scope": "current renderer_contract source tree after Phase 12 pre-entry fixture integration; the existing C/C++/Python/DEF suffix scope is retained",
   "source_ledger_delta_from_preceding_head": {
@@ -4330,5 +4367,70 @@
     "corrected_native_call": "USER32!GetDC(literal NULL) at RVA 0x64DB",
     "release_call": "USER32!ReleaseDC(current HWND [0xBA0200], local HDC) at RVA 0x651E",
     "interpretation": "The historical screen-ownership summary is retained as an immutable snapshot. Its specific windowed GetDC argument description is corrected by this newer bounded body audit; no caller or visible-output meaning is inferred."
+  },
+  "phase16_source_ledger_delta": {
+    "base_commit": "b85599a1c3c5cdbf74595239f8585d31d7d74956",
+    "base_source_count": 143,
+    "current_source_count": 146,
+    "changed_source_count": 0,
+    "added_source_count": 3,
+    "removed_source_count": 0,
+    "added_paths": [
+      "renderer_contract/fixtures/eng3_geometry_association/run_fixture.py",
+      "renderer_contract/tests/test_original_eng3_geometry_association.py",
+      "renderer_contract/tests/test_original_title_geometry_association.py"
+    ],
+    "changed_portable_source_paths": [],
+    "current_portable_source_count": 66,
+    "portable_inputs_match_accepted_vc5_and_gcc_bytes": true,
+    "portable_test_suites_reused_from_phase15": 19
+  },
+  "phase16_portable_verification": {
+    "path": "renderer_contract/evidence/portable_verification.json",
+    "sha256": "68dca86ce001b9fc2aa966e043cef92fb7e62cc8d8e434deed2252399b7df43c",
+    "suite_count": 19,
+    "gcc_passed": 19,
+    "vc5_passed": 19,
+    "portable_source_count": 66,
+    "scope": "Reused accepted Phase 15 19-suite results because every current C/H/C++ source hash is unchanged; Phase 16 added only non-portable audit runners."
+  },
+  "phase16_eng3_geometry_association": {
+    "path": "renderer_contract/evidence/eng3_geometry_association.json",
+    "sha256": "95dfe3bc63f48defc7979277c2bedacdfcc5950832a2d35803228566d238b89d",
+    "raw_report_path": "work/renderer_phase16/public_eng3_1/eng3_geometry_association.json",
+    "raw_report_sha256": "d0e0e9035a5bac0ade265d7071a33ab5485401d00d5fda4089b01a6cea12cf82",
+    "raw_trace_path": "work/renderer_phase16/public_eng3_1/eng3_native_fixture_raw.json",
+    "raw_trace_sha256": "8e8c6608c47f4cab6fe1b881ebc0d024d1e67a39afa5055e0b63feb8c07b30b0",
+    "proof_level": "FINITE_ORIGINAL_EXECUTION",
+    "instruction_count": 595,
+    "producer_rva": "0x231a0",
+    "producer_span_size": 659,
+    "covered_original_span_count": 23,
+    "four_source_points": 4,
+    "projection_packet_equal": true,
+    "upstream_visibility_gate": "UNRESOLVED",
+    "scope": "One direct entry to unchanged ENG3.DLL+0x231A0 with synthetic stream/object/context and copied table; original HERCULES callbacks are reached through pinned wrappers. The upstream 0x22E40→0x24770→0x8DA0 visibility path was not executed and remains unresolved."
+  },
+  "phase16_title_geometry_association": {
+    "path": "renderer_contract/evidence/title_geometry_association.json",
+    "sha256": "767ac9fa0a20f230f4fab40dc3ad648fe63a7f5d9b1dc392cd135becf7e28c22",
+    "raw_report_path": "work/renderer_phase16/public_title_2/title_geometry_association.json",
+    "raw_report_sha256": "98285bb9fce2dd8f6abb725e295f92be08a2c8168ed918d60e5924472e401a2a",
+    "proof_level": "FINITE_ORIGINAL_EXECUTION",
+    "cases": 2,
+    "assertions": 23,
+    "independent_single_point_comparisons": 8,
+    "pinned_span_count": 28,
+    "same_pointer_reused_with_different_values": true,
+    "scope": "Finite TITLE mode-5 synthetic context. Repeated coordinate roles and scratch reuse are only those captured in these cases; no general TITLE mesh, visibility, capacity, raster, or pixel claim."
+  },
+  "phase16_variant_reuse": {
+    "path": "renderer_contract/evidence/exe_variant.json",
+    "sha256": "7bc4c04759bd15848086e8b8c3010b535c8d3de97ece43164b353139442c7762",
+    "renderer_span_tuple_count": 347,
+    "renderer_span_set_sha256": "4d15d2eb850a32ebbe00dff0cd1e23fcba420b7a3f56dd6cea4eaec996a190da",
+    "span_tuple_set_unchanged": true,
+    "fresh_comparison_required": false,
+    "scope": "No original span tuples were added or changed; the existing read-only variant receipt remains applicable to its recorded renderer range set."
   }
 }

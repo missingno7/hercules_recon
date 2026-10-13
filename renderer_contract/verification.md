@@ -286,3 +286,12 @@ failure flow and the one-byte counter, with no Windows drawing or pixel proof.
 Its `GetDC(NULL)` finding supersedes the old screen-ownership JSON description;
 the historical receipt remains byte-identical. Neither fixture establishes a
 production hook, complete writer closure or original-game renderer integration.
+
+The [ENG3 FT4 association](eng3_geometry_association.md) executes `231A0` directly
+with synthetic inputs and matches four native point/camera/screen roles to packet
+corners and OT insertion. The upstream handler visibility chain is not executed.
+The [TITLE mode-5 fixture](evidence/title_geometry_association.md) passes two
+resource contexts and 23 assertions, including eight independent positive-point
+comparisons to the current C89 single-point model. These are bounded producer
+proofs, not general batch arithmetic, runtime object identity or rendered pixels.
+Both fixtures reject unknown code endpoints and preserve the original binaries.

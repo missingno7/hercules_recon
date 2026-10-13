@@ -10,7 +10,7 @@
 | Paired view stride | 0x1488 | 0x2088 | 0x1478 |
 | Upload/move/color wrappers | +0x204 / +0x20C / +0x23C | Same separately observed slots | Same, plus +0x208 upload convenience |
 | Projection center/focal | +0x2B8 / +0x2BC | Same separately observed slots | Same separately observed slots |
-| Independent native producer evidence here | GT4 mesh and variable sprite; existing FT4 writer evidence reused | Variable sprite; geometry constructor wrappers observed | Existing FT4 differential/writer evidence reused |
+| Independent native producer evidence here | GT4/direct/observer/culled-prefix mesh and FT4 tail; variable sprite | Variable sprite plus direct `231A0` FT4 geometry association | `181E0` mode-5 FT4 geometry association in two resource contexts |
 | Extra presentation route | Shared host presenter | Shared host presenter | +0x250 movie display |
 
 The [notification target audit](notification_target.md) additionally verifies
@@ -121,3 +121,11 @@ See [native_interface_copy.json](evidence/native_interface_copy.json).
 routes and TITLE slot-118 FT4 construction. ENG3 also produces 12-byte 0x68
 records; only their 8-byte link/tag prefix is consumer-proven. No producer
 coverage is extrapolated from ENG1 to the other modules.
+
+[Batch projection](batch_projection.md) verifies a zero-argument slot-107
+observer in three finite original-x86 cases. The clone helper now accepts all
+15 documented slots, including 101/102/106/107/114/117 for passive geometry
+observation. Earlier receipts retain their historical allowlist scope.
+[ENG3](eng3_geometry_association.md) and [TITLE](evidence/title_geometry_association.md)
+now have independent original-producer point-to-corner fixtures; their upstream
+visibility, complete producer coverage and runtime hooks remain unresolved.

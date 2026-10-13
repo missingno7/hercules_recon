@@ -11,8 +11,8 @@ GPU backend or interpolation.
 |---|---|---|
 | Passive interception prototype | Original-host pre-entry DDRAW selection/table publication; cold-prefix copies in all three DLLs; source-built synthetic clone/forward smoke and same-process real-system create/release diagnostic | Transparent forwarding in original Hercules; actual engine first-copy, lifetime and frame observations |
 | Faithful screen-space GPU rendering | Ordered packet layouts, indexed state and finite original pixel/edge fixtures | Complete reachable producer/command coverage and display composition ownership; no GPU implementation here |
-| Genuine upstream geometry | Single-point original/C/compiled observer comparison: 14 cases, 632 assertions; camera precision discriminator | Live passive capture, all producer families and material/vertex association |
-| ENG1 vertex association | Actual original mesh instructions, synthetic fixtures for GT4/direct/observer/culled-prefix and FT4 tail | Runtime face observers, production bounds/lifetimes and complete mesh coverage |
+| Genuine upstream geometry | Single-point original/C/compiled observer: 14 cases, 632 assertions; batch zero-argument observer: three cases plus a recorded trap | Live passive capture, all producer families and upstream units/material ownership |
+| Cross-module vertex association | Original ENG1 GT4/direct/observer/culled-prefix and FT4 tail; ENG3 direct FT4; TITLE mode-5 FT4 in two contexts | Runtime producer observers, production bounds/lifetimes, upstream visibility and complete mesh coverage |
 | Higher-resolution 4:3 viewport | Distinct retained camera X values collapse to one native screen WORD; private rational reprojection can retain the distinction | Association/culling completeness, output composition and native-resolution presentation |
 | Wider world view | Upstream points and engine visibility gates located | Geometry discarded inside engines, view extension and camera/level limits; final packets cannot restore it |
 | Complete image composition | Indexed OT content, direct texture/LUT/palette writers, movie, GDI text, clears and presentation are separately mapped | Chronological complete writer coverage; slot149 trigger and framework/computed routes remain unresolved |
@@ -95,3 +95,12 @@ static module/writer audits and source-built forwarding observations. They do
 not relabel historical pixel fixtures or establish original-game display
 integration. Original-host pre-entry evidence remains tied to its earlier
 helper revision; the enlarged clone helper has separate synthetic verification.
+
+Phase15 and Phase16 add the actual zero-argument batch capture boundary and
+finite original ENG3/TITLE point-to-packet execution. First-three camera lanes
+must be captured after slot107 returns and before the fourth-point slot106
+overwrites the host lanes. ENG3/TITLE reuse a local point pointer within the
+primitive; retain role and callback-time provenance. This removes a selected-path
+association uncertainty, not complete visibility or native-resolution display
+ownership. The slot149 windowed writer requests `GetDC(NULL)` and releases
+using the current HWND, so client-window overlay ownership cannot be assumed.

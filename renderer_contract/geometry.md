@@ -70,3 +70,15 @@ The audit passed for 13 HERC host function spans, selected copied wrappers in al
 ## Integrated reproduction
 
 The private investigation paths above identify provenance. In this package, run tests/validate_originals.py with the original image paths to recheck recorded bytes and bindings, and tests/run_tests.py for the compiled synthetic suite. The byte validator does not independently redo the semantic analysis. The compact receipt is evidence/geometry.json.
+
+## Additional bounded association proof
+
+The historical STATIC/LAYOUT statements above describe `geometry.json`, not
+the later [single-point observer](upstream_projection.md),
+[zero-argument batch observer](batch_projection.md), [ENG1](eng1_geometry_association.md),
+[ENG3](eng3_geometry_association.md) and [TITLE](evidence/title_geometry_association.md)
+original-code fixtures. They now establish passive observer behavior and
+point-to-packet association in named finite cases. Production hook installation,
+complete geometry coverage, upstream visibility and lifetime remain unresolved.
+B840's writes are active transform translations; do not add it as a neutral
+snapshot operation. Camera DWORD storage holds sign-extended WORD results.

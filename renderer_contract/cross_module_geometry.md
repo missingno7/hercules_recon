@@ -5,7 +5,7 @@ callbacks and its packet destination. It compares those routes with the
 separately recorded ENG1 baseline; it does not use ENG1 as a proxy for either
 module.
 
-The candidate report has two independent proof records: `STATIC_OBSERVED` for
+The historical audit report has two independent proof records: `STATIC_OBSERVED` for
 hash-pinned original PE spans and dataflow, and `BOUNDED_EQUIVALENT` for the
 finite identity-matrix fixture against unchanged HERC callbacks. The fixture
 does not execute any DLL producer. Its inputs are three signed WORD triplets
@@ -123,15 +123,9 @@ does not claim that either DLL producer executed, that the fixture reproduces
 game setup, or that output pixels are visible. No GPU, SDL, asset parsing,
 gameplay, or original modification is involved.
 
-## Candidate file map and reproduction
+## Static audit reproduction
 
-These private-lane paths mirror the intended package paths:
-
-| Candidate | Intended package path |
-|---|---|
-| `renderer_contract/tests/audit_upstream_geometry.py` | `renderer_contract/tests/audit_upstream_geometry.py` |
-| `work/renderer_phase14/cross_geometry/public_candidate/renderer_contract/evidence/upstream_geometry_modules.json` | `renderer_contract/evidence/upstream_geometry_modules.json` |
-| `work/renderer_phase14/cross_geometry/public_candidate/renderer_contract/cross_module_geometry.md` | `renderer_contract/cross_module_geometry.md` |
+The shipped evidence is [upstream_geometry_modules.json](evidence/upstream_geometry_modules.json); the public runner is [audit_upstream_geometry.py](tests/audit_upstream_geometry.py).
 
 The public runner accepts only a `.json` `--output` below the resolved and
 lexical repository `work/` directory. It rejects parent traversal, redirected
@@ -157,3 +151,27 @@ The checked input SHA-256 values are recorded in the candidate report. Guard
 checks rejected a path under `assets/`, an output under `work/discs/pc_install`,
 and a path containing `..`. The runner writes its output only under `work/`; the
 candidate evidence JSON is a copy of that generated report for review.
+
+## Original DLL producer execution
+
+The later [ENG3 fixture](eng3_geometry_association.md) directly executes original
+`231A0` with the three cdecl argument roles identified at `901D`. Four distinct
+synthetic source points traverse original batch/single callbacks into matching
+FT4 packet corners, tag `0x2E`, cursor stride `0x28`, and the exact OT insertion.
+The third and fourth roles reuse one stack address after an X-word overwrite.
+The `22E40→24770→8DA0` visibility/bounds chain is **UNRESOLVED** in this fixture:
+direct producer entry does not demonstrate that a live handler reaches it.
+
+The [TITLE mode-5 fixture](evidence/title_geometry_association.md) executes
+original `181E0` in two finite synthetic resource contexts: 23 assertions and
+eight independent comparisons to the current single-point C89 reference.
+Four input roles contain only two unique XYZ triplets, and the third/fourth
+roles reuse one stack pointer with different values. Resource byte2 `0x00→0x97`
+changes UV bytes while leaving captured geometry unchanged in these cases.
+This does not establish a general texture encoding or batch arithmetic model.
+
+These producer executions extend the earlier host-only audit without changing
+its historical receipt. A capture identity must include callback order and
+vertex role; pointer equality or coordinate equality alone is insufficient.
+Neither fixture proves world units, live object lifetime, all producer families,
+full visibility, output pixels or original-game renderer integration.
