@@ -39,7 +39,24 @@ typedef renderer_raw32 (HERCULES_CDECL *HerculesProjectionSlot101Callback)(
 typedef renderer_raw32 (HERCULES_CDECL *HerculesProjectionSlot106Callback)(void);
 typedef renderer_raw32 (HERCULES_CDECL *HerculesProjectionSlot114Callback)(
     renderer_u16 *xy_words);
+typedef renderer_raw32 (HERCULES_CDECL *HerculesProjectionSlot102Callback)(
+    renderer_u16 *point0, renderer_u16 *point1, renderer_u16 *point2);
+typedef renderer_raw32 (HERCULES_CDECL *HerculesProjectionSlot107Callback)(void);
+typedef renderer_raw32 (HERCULES_CDECL *HerculesProjectionSlot117Callback)(
+    void *packet_prefix);
 #endif
+
+/* Tool-side interleaved copy of native batch output. Original host camera
+ * arrays are separate X/Y/Z lanes, not this joined layout. Camera fields
+ * retain raw signed-DWORD bits; unlike B740, B320 does not clamp Z to 1. */
+struct hercules_projection_batch_result_view {
+    renderer_u32 camera_xyz_bits[9];
+    renderer_u16 projected_xy[6];
+};
+typedef char hercules_projection_batch_screen_offset_is_36[
+    (offsetof(struct hercules_projection_batch_result_view, projected_xy) == 36) ? 1 : -1];
+typedef char hercules_projection_batch_result_size_is_48[
+    (sizeof(struct hercules_projection_batch_result_view) == 48) ? 1 : -1];
 
 /* Joined tool-side values assembled from the matrix/translation and
  * center/focal setter state. This is NOT a contiguous original host struct. */

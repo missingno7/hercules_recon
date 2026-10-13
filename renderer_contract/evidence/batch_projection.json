@@ -1,0 +1,545 @@
+{
+  "schema_version": 1,
+  "proof_level": "BOUNDED_EQUIVALENT",
+  "static_proof_level": "STATIC_OBSERVED",
+  "status": "BOUNDED_ORIGINAL_X86_ZERO_ARGUMENT_CALLBACK_FIXTURE_PASS",
+  "scope": "Three finite synthetic source triplet sets through unchanged original B430 -> B320 -> B5C0, compared with a zero-argument diagnostic callback in a freshly VC5-compiled source-built PE. The callback uses persistent saved-target/capture state and calls B320 once. One signed IDIV overflow case is classified only as a trap.",
+  "prediction_and_falsifier": {
+    "prediction_path": "renderer_contract/evidence/batch_projection_zero_argument_prediction.json",
+    "prediction_sha256": "31a2b984598d5c87dcb0921b3b4dfc73fa47ce7be49ece23fb20f7488a2a70af",
+    "preserved_helper_prediction_path": "renderer_contract/evidence/batch_projection_prediction.json",
+    "preserved_helper_prediction_sha256": "84e2eb6911f723ac00258a6b6ebad7cb25aa153429e24bd6aaaf56f8190b4045",
+    "prediction": "A VC5-compiled source-built x86 PE will expose a genuine zero-argument diagnostic callback that invokes its saved B320 target exactly once, retains raw EAX as renderer_raw32 ABI bits, copies all camera DWORD and screen WORD lanes into persistent fixture state, preserves cdecl callee-saved registers and caller stack position, and leaves matrix/translation unchanged. Direct and callback B320 outputs and native write order should match for each predeclared finite state.",
+    "falsifier": "Any compile/link failure, DLL import or relocation, missing/ambiguous export, unknown PC or data endpoint, saved target different from B320, callback entry or B320 count other than one, capture/raw-EAX/lane mismatch, native write-order mismatch, caller ESP or callee-saved mismatch, state write outside the saved pointer and capture record, or matrix/translation change fails the fixture. The signed IDIV INT_MIN/-1 case must trap at B3F1 in both routes, never produce an accepted result."
+  },
+  "original": {
+    "module": "HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000",
+    "callback_table": {
+      "rva": "0x361b8",
+      "size": 1000,
+      "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+      "slots": {
+        "102": {
+          "slot": 102,
+          "table_offset": "0x198",
+          "target_va": "0x40b430",
+          "target_rva": "0xb430",
+          "signature_scope": "B430 three signed-WORD XYZ pointer inputs"
+        },
+        "107": {
+          "slot": 107,
+          "table_offset": "0x1ac",
+          "target_va": "0x40b320",
+          "target_rva": "0xb320",
+          "signature_scope": "B320 three-record transform and projection"
+        },
+        "117": {
+          "slot": 117,
+          "table_offset": "0x1d4",
+          "target_va": "0x40b5c0",
+          "target_rva": "0xb5c0",
+          "signature_scope": "B5C0 three-vertex FT4 screen-XY copy"
+        }
+      }
+    },
+    "spans": {
+      "B430": {
+        "rva": "0xb430",
+        "size": 106,
+        "sha256": "25367b48038d67ca7a3181586be659fd7a7e15abd9d5a97488eca8fd249c9484",
+        "instruction_count": 22,
+        "last_instruction": {
+          "rva": "0xb499",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      },
+      "B320": {
+        "rva": "0xb320",
+        "size": 271,
+        "sha256": "11368c1fa7fd8cd91b1d7b7de522ad06aacc724991ff4f8d46d7eecf1e7cff97",
+        "instruction_count": 76,
+        "last_instruction": {
+          "rva": "0xb42e",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      },
+      "B5C0": {
+        "rva": "0xb5c0",
+        "size": 71,
+        "sha256": "3bcc224aaa6a9b2fa5772613b2921c7d6341d90d781fdf136f338f3004b382aa",
+        "instruction_count": 14,
+        "last_instruction": {
+          "rva": "0xb606",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      }
+    },
+    "native_array_lanes": {
+      "B430_source_scratch": "Three caller pointers each reference signed WORD XYZ; B430 deinterleaves the three input records into source X WORDs at A8E708+2*i, Y at A8E70E+2*i, and Z at A8E714+2*i.",
+      "B320_camera": "X signed DWORD lanes start A8E71C, Y at A8E728, Z at A8E734; each vertex lane is 4 bytes.",
+      "B320_screen": "X signed WORD lanes start A8E740, Y at A8E746; each vertex lane is 2 bytes. B320 writes per-vertex X then Y.",
+      "B5C0_packet": "B5C0 reads corresponding X/Y screen lane i and writes packet WORD pairs at offsets +08/+0A, +10/+12, +18/+1A."
+    },
+    "batch_arithmetic": "Each B320 IMUL and ADD keeps its low 32-bit result; the three signed products accumulate with 32-bit wrap, SAR is applied to the completed row sum by 12, the translation DWORD is added with 32-bit arithmetic, and MOVSX sign-extends AX (the low WORD) into the camera DWORD lane. Nonzero Z uses signed IDIV; zero Z skips IDIV and carries focal<<16 into projection. This fixture samples those effects only and does not establish a general source-level transform model.",
+    "instruction_witnesses": {
+      "source_sum_shift_narrow": [
+        "B34B add eax,edx",
+        "B357 add eax,edx",
+        "B359 SAR eax,12",
+        "B362 add translation",
+        "B364 movsx eax,ax",
+        "B367 store camera X"
+      ],
+      "zero_Z_projection": [
+        "B3E4 load focal",
+        "B3E9 shift left 16",
+        "B3EC test Z",
+        "B3EE JE B3F3",
+        "B3F0 CDQ",
+        "B3F1 IDIV Z"
+      ],
+      "screen_words": [
+        "B406 store screen X WORD",
+        "B422 store screen Y WORD"
+      ]
+    }
+  },
+  "fixture": {
+    "source_built_zero_argument_callback": {
+      "slot102_B430": "The finite fixture supplies three cdecl stack pointers to signed-WORD XYZ triplets and confirms B430's source scratch writes; this is a tested call boundary, not a historical source declaration.",
+      "slot107_B320": "The direct route and saved-target call both invoke B320 without explicit stack arguments. No historical source signature or semantic return contract is established.",
+      "slot117_B5C0": "The finite fixture supplies one cdecl stack pointer to its synthetic packet and confirms the six packet WORD stores; this is a tested call boundary, not a historical source declaration.",
+      "source_built_callback": "The fixture PE exports a true zero-argument cdecl diagnostic callback with persistent saved-target/capture state. It calls B320 exactly once and stores nine camera DWORD and six screen WORD lanes.",
+      "raw_eax_view": "renderer_raw32 preserves the saved target's raw EAX bits as a physical x86 ABI observation; no semantic return meaning or historical B320 source type is inferred.",
+      "explicit_stack_argument_count": 0
+    },
+    "case_count": 3,
+    "cases": [
+      {
+        "name": "sum_before_sar12_and_signed_z_paths",
+        "input": {
+          "matrix_words": [
+            2048,
+            2048,
+            0,
+            0,
+            4096,
+            0,
+            0,
+            0,
+            4096
+          ],
+          "translation_dwords": [
+            0,
+            0,
+            0,
+            324508639
+          ],
+          "focal_dword": 256,
+          "center_dwords": [
+            50,
+            70
+          ],
+          "source_signed_WORD_XYZ_triplets": [
+            [
+              1,
+              1,
+              100
+            ],
+            [
+              1,
+              1,
+              -100
+            ],
+            [
+              1,
+              1,
+              0
+            ]
+          ]
+        },
+        "direct": {
+          "raw_eax": "0x146",
+          "camera_XYZ_signed_DWORD_by_vertex": [
+            [
+              1,
+              1,
+              100
+            ],
+            [
+              1,
+              1,
+              -100
+            ],
+            [
+              1,
+              1,
+              0
+            ]
+          ],
+          "screen_XY_signed_WORD_by_vertex": [
+            [
+              52,
+              72
+            ],
+            [
+              47,
+              67
+            ],
+            [
+              306,
+              326
+            ]
+          ]
+        },
+        "zero_argument_callback": {
+          "raw_eax": "0x146",
+          "captured_camera_DWORDs": [
+            1,
+            1,
+            100,
+            1,
+            1,
+            -100,
+            1,
+            1,
+            0
+          ],
+          "captured_screen_WORDs": [
+            "0x34",
+            "0x48",
+            "0x2f",
+            "0x43",
+            "0x132",
+            "0x146"
+          ],
+          "explicit_stack_argument_count": 0,
+          "capture_store_count": 15,
+          "capture_after_B320_writes": true,
+          "capture_before_B5C0": true
+        },
+        "comparison": {
+          "raw_EAX_equal": true,
+          "camera_and_screen_equal": true,
+          "native_B320_lane_write_order_equal": true,
+          "B430_input_and_B5C0_packet_equal": true,
+          "compiled_observer_captures_after_B320": true
+        }
+      },
+      {
+        "name": "signed_word_positive_overflow",
+        "input": {
+          "matrix_words": [
+            4096,
+            0,
+            0,
+            0,
+            4096,
+            0,
+            0,
+            0,
+            4096
+          ],
+          "translation_dwords": [
+            1,
+            0,
+            0,
+            324508639
+          ],
+          "focal_dword": 0,
+          "center_dwords": [
+            50,
+            70
+          ],
+          "source_signed_WORD_XYZ_triplets": [
+            [
+              32767,
+              2,
+              1000
+            ],
+            [
+              0,
+              3,
+              1000
+            ],
+            [
+              1,
+              4,
+              1000
+            ]
+          ]
+        },
+        "direct": {
+          "raw_eax": "0x46",
+          "camera_XYZ_signed_DWORD_by_vertex": [
+            [
+              -32768,
+              2,
+              1000
+            ],
+            [
+              1,
+              3,
+              1000
+            ],
+            [
+              2,
+              4,
+              1000
+            ]
+          ],
+          "screen_XY_signed_WORD_by_vertex": [
+            [
+              50,
+              70
+            ],
+            [
+              50,
+              70
+            ],
+            [
+              50,
+              70
+            ]
+          ]
+        },
+        "zero_argument_callback": {
+          "raw_eax": "0x46",
+          "captured_camera_DWORDs": [
+            -32768,
+            2,
+            1000,
+            1,
+            3,
+            1000,
+            2,
+            4,
+            1000
+          ],
+          "captured_screen_WORDs": [
+            "0x32",
+            "0x46",
+            "0x32",
+            "0x46",
+            "0x32",
+            "0x46"
+          ],
+          "explicit_stack_argument_count": 0,
+          "capture_store_count": 15,
+          "capture_after_B320_writes": true,
+          "capture_before_B5C0": true
+        },
+        "comparison": {
+          "raw_EAX_equal": true,
+          "camera_and_screen_equal": true,
+          "native_B320_lane_write_order_equal": true,
+          "B430_input_and_B5C0_packet_equal": true,
+          "compiled_observer_captures_after_B320": true
+        }
+      },
+      {
+        "name": "signed_word_negative_overflow",
+        "input": {
+          "matrix_words": [
+            4096,
+            0,
+            0,
+            0,
+            4096,
+            0,
+            0,
+            0,
+            4096
+          ],
+          "translation_dwords": [
+            -1,
+            0,
+            0,
+            324508639
+          ],
+          "focal_dword": 0,
+          "center_dwords": [
+            50,
+            70
+          ],
+          "source_signed_WORD_XYZ_triplets": [
+            [
+              -32768,
+              2,
+              1000
+            ],
+            [
+              0,
+              3,
+              1000
+            ],
+            [
+              1,
+              4,
+              1000
+            ]
+          ]
+        },
+        "direct": {
+          "raw_eax": "0x46",
+          "camera_XYZ_signed_DWORD_by_vertex": [
+            [
+              32767,
+              2,
+              1000
+            ],
+            [
+              -1,
+              3,
+              1000
+            ],
+            [
+              0,
+              4,
+              1000
+            ]
+          ],
+          "screen_XY_signed_WORD_by_vertex": [
+            [
+              50,
+              70
+            ],
+            [
+              50,
+              70
+            ],
+            [
+              50,
+              70
+            ]
+          ]
+        },
+        "zero_argument_callback": {
+          "raw_eax": "0x46",
+          "captured_camera_DWORDs": [
+            32767,
+            2,
+            1000,
+            -1,
+            3,
+            1000,
+            0,
+            4,
+            1000
+          ],
+          "captured_screen_WORDs": [
+            "0x32",
+            "0x46",
+            "0x32",
+            "0x46",
+            "0x32",
+            "0x46"
+          ],
+          "explicit_stack_argument_count": 0,
+          "capture_store_count": 15,
+          "capture_after_B320_writes": true,
+          "capture_before_B5C0": true
+        },
+        "comparison": {
+          "raw_EAX_equal": true,
+          "camera_and_screen_equal": true,
+          "native_B320_lane_write_order_equal": true,
+          "B430_input_and_B5C0_packet_equal": true,
+          "compiled_observer_captures_after_B320": true
+        }
+      }
+    ],
+    "expected_non_success_traps": [
+      {
+        "route": "direct",
+        "completed": false,
+        "idiv_rva": "0xB3F1",
+        "idiv_reached": true,
+        "exception_pc": "0x40b3f1",
+        "emulator_exception": {
+          "type": "UcError",
+          "message": "Unhandled CPU exception (UC_ERR_EXCEPTION)"
+        },
+        "interpretation": "expected signed 32-bit IDIV overflow trap; no projection result is claimed"
+      },
+      {
+        "route": "observer",
+        "completed": false,
+        "idiv_rva": "0xB3F1",
+        "idiv_reached": true,
+        "exception_pc": "0x40b3f1",
+        "emulator_exception": {
+          "type": "UcError",
+          "message": "Unhandled CPU exception (UC_ERR_EXCEPTION)"
+        },
+        "interpretation": "expected signed 32-bit IDIV overflow trap; no projection result is claimed"
+      }
+    ],
+    "limits": [
+      "No execution of ENG1/ENG3/TITLE producers, Windows host process, renderer, GPU, SDL, assets, or gameplay.",
+      "No broad batch C projection model, B740 substitution, all-matrix proof, or general camera/center/focal setup proof.",
+      "The source-built zero-argument callback proves only the pinned VC5 diagnostic PE and tested finite states; it is not an installed engine callback replacement or source-identification claim.",
+      "The zero-Z case establishes that these selected screen lanes are overwritten for the tested nonzero XY and focal state; it does not cover every focal, overflow, or center value.",
+      "The signed IDIV overflow case is an expected non-success trap at B3F1 and carries no projection output claim."
+    ]
+  },
+  "tooling": {
+    "python": "3.12.14",
+    "capstone": "5.0.7",
+    "unicorn": {
+      "engine": "Unicorn CPU emulator",
+      "unicorn_version": "2.1.4",
+      "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+    },
+    "vc5": {
+      "product_version": "5.00.7022",
+      "compiler_file_version": "11.00.7022",
+      "linker_file_version": "5.00.7022",
+      "compiler_components_sha256": {
+        "cl.exe": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+        "c1.dll": "e519dfe6f45cc0503b7aac43d125b2f156305269b89f0dc765c40d29627c0943",
+        "c2.exe": "6d1406af5f62647347cfa7175cd7e108b838d6841a546396f29252198a14d73d",
+        "link.exe": "279544809e6353c8e622eb88aea94e86b0258f3c4b8a976373bf4d68a41b63e1"
+      },
+      "toolchain_manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+      "observer_source_sha256": "cf52f7425ae6f36ff74c7ccaf7dea24fcc6a2a5e8310f44d89dbdc8957ed5d1c",
+      "observer_object_sha256": "d770d359f229265a1572b50b27e6bf57b6c15244daba90b5bbf17d982128deac",
+      "fixture_pe_sha256": "2975491799d6088d7811b40a621d6ee392134a125b9ea86b32b27f1ff839fb22",
+      "fixture_map_sha256": "4b0898b49b22d5d5cbfeb7974f1a3ad006240a304f39cb162953aac310f27c7d",
+      "fixture_text_sha256": "bb0a7f271aee71b5cc9bfbb4703df42ded24c8c76698efb1968a35c4548256e5",
+      "fixture_exports": {
+        "batch_projection_set_saved_slot107": "0x1000",
+        "batch_projection_observe_slot107": "0x1010",
+        "batch_projection_diagnostic_state": "0x1080"
+      }
+    },
+    "shared_abi_headers": {
+      "hercules_types.h": {
+        "path": "renderer_contract\\hercules_types.h",
+        "sha256": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d"
+      },
+      "hercules_host_abi.h": {
+        "path": "renderer_contract\\hercules_host_abi.h",
+        "sha256": "b51d75b165c4800aa9ef5431bdf6f6210ee289d36f5b1c000e1ad1048f52cf5b"
+      },
+      "hercules_projection.h": {
+        "path": "renderer_contract\\hercules_projection.h",
+        "sha256": "f1dd1e4540d33e47368f0a5e084b26f666343f4fe53edfa2ed65047cb8918106"
+      }
+    }
+  },
+  "replay": {
+    "raw_receipt_path": "work/renderer_phase15/public_batch1/batch_projection.json",
+    "raw_receipt_sha256": "f8dc0646329f0243705fac8d9e59ba138641b2796aff82e120d91653ca73fbc0",
+    "runner_path": "renderer_contract/tests/audit_batch_projection.py",
+    "runner_sha256": "f19cfa334b66cc66b6418589fb66a3c255e44902b12180c3400db04963eed4ff",
+    "prediction_file_sha256": "31a2b984598d5c87dcb0921b3b4dfc73fa47ce7be49ece23fb20f7488a2a70af",
+    "preserved_helper_prediction_file_sha256": "84e2eb6911f723ac00258a6b6ebad7cb25aa153429e24bd6aaaf56f8190b4045"
+  },
+  "proof_boundary": "Finite unchanged-original x86 callback fixture and source-built diagnostic PE only; no product renderer, Windows host process, DLL producer, gameplay, GPU, or broad transform model."
+}

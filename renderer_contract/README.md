@@ -195,3 +195,9 @@ Thirteen native texture fixtures verify the named row/address cases; ten
 surface cases and 26 dirty-latch cases cover their stated synthetic conditions.
 These results do not establish whole-renderer equivalence or live Hercules
 integration. See [verification.md](verification.md) for the exact proof scopes.
+
+The [zero-argument batch observer](batch_projection.md) captures the first three
+camera/screen lanes before a fourth single-point projection can overwrite them.
+Slots 102/107/117 are now included in the selected callback clone API. The
+[text-writer contract](gdi_text_writer.md) corrects the windowed DC acquisition
+to `GetDC(NULL)` and leaves its runtime trigger and actual pixels unresolved.

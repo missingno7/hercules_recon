@@ -1,0 +1,10 @@
+{
+  "prediction": {
+    "callback_abi": "A freshly VC5-built fixed-base x86 PE can expose a true zero-argument cdecl diagnostic callback. The callback uses persistent C state to hold the saved B320 pointer and capture record, invokes B320 once, returns its raw EAX bits as renderer_raw32, and copies nine camera DWORD lanes plus six screen WORD lanes after B320 returns.",
+    "equivalence": "For each of the three predeclared finite states, direct B320 and the zero-argument callback route will have identical raw EAX, camera/screen lanes, and native B320 write order; callback ESP will advance by four, EBX/EBP/ESI/EDI will be preserved, and its fifteen capture stores will follow all B320 lane stores and precede B5C0 packet reads.",
+    "state_isolation": "The source-built callback will write only its persistent capture record and synthetic stack, leaving matrix and translation bytes unchanged. Its saved B320 target will be written once by an exported setup function before callback entry.",
+    "falsifier": "Any compile/link failure, DLL import or relocation, missing/ambiguous export, unknown PC or data endpoint, saved target different from B320, callback entry or B320 count other than one, capture/raw-EAX/lane mismatch, native write-order mismatch, caller ESP or callee-saved mismatch, state write outside the saved pointer and capture record, or matrix/translation change fails the fixture. The signed IDIV INT_MIN/-1 case must trap at B3F1 in both routes; it is never accepted as a projection result. No semantic B320 return meaning is inferred from raw EAX."
+  },
+  "status": "prediction and falsifier recorded before the source-built zero-argument fixture is compiled or executed",
+  "scope": "Pinned original HERCULES.EXE B430/B320/B5C0 spans and one separately compiled, import-free diagnostic PE; three finite cases plus one IDIV overflow trap; no Windows host process or installed callback replacement."
+}

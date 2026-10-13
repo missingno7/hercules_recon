@@ -1,0 +1,571 @@
+{
+  "schema_version": 1,
+  "proof_level": "BOUNDED_EQUIVALENT",
+  "static_proof_level": "STATIC_OBSERVED",
+  "status": "PASS",
+  "scope": "Pinned original x86 body, stack/API argument flow, and finite synthetic endpoint outcomes only; no runtime callers, Windows behavior, or pixels/glyphs.",
+  "prediction_and_falsifier": {
+    "prediction_path": "renderer_contract/fixtures/gdi_text_writer/prediction.json",
+    "prediction_sha256": "3b0006e4cadd5217df9e143ffaaa9627fd3be3ceed86ef1356fe10d49c983786",
+    "prediction": "The slot-149 helper at HERCULES.EXE RVA 0x6440 consumes caller-cleaned x, y, and NUL-terminated message DWORD arguments, formats a local prefix, then calls TextOutA. Windowed mode will acquire a USER32 DC and release it after TextOutA; fullscreen mode will acquire and release through the attached DirectDraw surface. The function should update a small message counter but not touch the indexed frame pointer, pitch, lock, or dirty cell.",
+    "falsifier": "A pinned-body decode shows a different argument layout or callee cleanup, a different text/coordinate source, any style mutation or direct framebuffer/dirty/lock access, or a path that does not attempt release after a failed acquisition or TextOutA call."
+  },
+  "original": {
+    "module": "HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000",
+    "entry_rva": "0x6440",
+    "span_size": 236,
+    "span_sha256": "5cbfc8880059aa88245af82dd01b50cf8c9811d790a53d21bd0b149a1fae9aeb",
+    "callback_table": {
+      "rva": "0x361b8",
+      "size": 1000,
+      "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+      "slot": 149,
+      "cell_rva": "0x3640c",
+      "byte_offset": "0x254",
+      "target_va": "0x406440",
+      "target_rva": "0x6440"
+    },
+    "slot149_cell_rva": "0x3640c",
+    "slot149_target_va": "0x406440",
+    "static_contract": {
+      "entry_stack": {
+        "return_address": "[ESP+0x00]",
+        "x": "DWORD [ESP+0x04]",
+        "y": "DWORD [ESP+0x08]",
+        "message": "NUL-terminated byte pointer [ESP+0x0C]",
+        "callee_cleanup": 0,
+        "caller_cleanup_required": 12,
+        "signature_shape": "three DWORD arguments, caller-cleaned / cdecl-shaped; caller-side dispatch and exact declared return type are not recovered",
+        "evidence": "third argument read at entry RVA 0x6445; x/y reused via frame-adjusted stack slots; epilog 0x6525 ADD ESP,0x104; RET 0x652B"
+      },
+      "format": {
+        "rva": "0x36a10",
+        "bytes": "282563292025732000",
+        "text": "(%c) %s ",
+        "counter_byte_va": "0x96e408",
+        "formatter_target_va": "0x410f40",
+        "formatter_library_identity": "unresolved; no CRT/library body is reconstructed or executed",
+        "counter_order": [
+          "read byte",
+          "increment modulo 256",
+          "write byte",
+          "mask low 3 bits",
+          "add ASCII '0'"
+        ],
+        "buffer": "256-byte local at entry ESP-0x100; four-byte local HDC slot at entry ESP-0x104",
+        "formatter_call_rva": "0x6469",
+        "formatter_target_rva": "0x10f40",
+        "formatter_arguments": [
+          "local buffer",
+          "format string",
+          "generated tag byte",
+          "caller message pointer"
+        ],
+        "formatter_return_checked": false,
+        "text_count": "computed by scanning formatted local string to NUL; TextOutA count excludes NUL"
+      },
+      "dc_routes": {
+        "windowed": {
+          "condition": "byte [0xBA020C] == 0",
+          "getdc": {
+            "rva": "0x64DB",
+            "import": "USER32.dll!GetDC",
+            "hwnd_argument": "literal NULL (push 0)"
+          },
+          "textout": "GDI32.dll!TextOutA at 0x650C: HDC, raw x, raw y, local formatted string, strlen count",
+          "release": {
+            "rva": "0x651E",
+            "import": "USER32.dll!ReleaseDC",
+            "hwnd_argument": "DWORD [0xBA0200]",
+            "hdc_argument": "same local returned HDC"
+          },
+          "pairing": "GetDC argument is NULL; ReleaseDC argument is current HWND [0xBA0200]. The arguments differ."
+        },
+        "fullscreen": {
+          "condition": "byte [0xBA020C] != 0",
+          "surface_cell": "0x96e3ec",
+          "acquire": {
+            "rva": "0x648B",
+            "receiver": "[0x96E3EC]",
+            "vtable_offset": "0x44",
+            "arguments": [
+              "surface this",
+              "pointer to local HDC"
+            ]
+          },
+          "textout": "GDI32.dll!TextOutA at 0x64B7: HDC, raw x, raw y, local formatted string, strlen count",
+          "release": {
+            "rva": "0x64CE",
+            "receiver": "fresh reload of [0x96E3EC]",
+            "vtable_offset": "0x68",
+            "arguments": [
+              "surface this",
+              "local HDC"
+            ]
+          },
+          "conditional_release": "fresh surface-pointer check after TextOutA; no release when null"
+        }
+      },
+      "text_state": {
+        "coordinates": "first and second caller DWORDs passed unchanged as signed x/y by the endpoint contract",
+        "prefix": "counter-derived ASCII digit 0..7 in `(%c) %s `; caller message used as `%s` data",
+        "font_color_background": "no font, text-color, background-color, alignment, or brush setter in this span; those effective DC/surface attributes are unresolved provider/current-context state",
+        "no_pixel_api_or_direct_frame_route": true
+      },
+      "failure_and_returns": [
+        "windowed GetDC result is not tested; TextOutA and ReleaseDC are attempted even for a NULL HDC",
+        "TextOutA result is not tested; cleanup call follows",
+        "fullscreen surface GetDC HRESULT is not tested; TextOutA still uses local HDC output slot",
+        "fullscreen ReleaseDC call follows TextOutA whenever a fresh [0x96E3EC] test is nonzero, independent of HRESULTs",
+        "if fullscreen surface pointer is NULL, acquire and release are skipped but TextOutA still consumes the uninitialized local HDC slot",
+        "release results and final EAX are not assigned a stable helper contract"
+      ],
+      "native_memory": {
+        "written_global": {
+          "address": "0x96e408",
+          "width": 1,
+          "effect": "incrementing counter byte"
+        },
+        "absolute_memory_write_gate": [
+          "0x96e408"
+        ],
+        "not_referenced_in_span": [
+          "0x43a590",
+          "0xba01f0",
+          "0xba0210",
+          "0xba0214"
+        ],
+        "runtime_lock_or_dirty_gate": "none in this body; DC drawing can bypass those cells",
+        "other_surface_state_reads": [
+          "0xba020c",
+          "0xba0200",
+          "0x96e3ec"
+        ],
+        "direct_framebuffer_copy_or_pixel_write": false
+      },
+      "decode_receipt": {
+        "instruction_count": 80,
+        "normalized_rows_sha256": "7e003a23316d1caffccbf5cb43811b21255ab0a43e63b6989eac9444bd5aea40",
+        "absolute_memory_operands": [
+          {
+            "rva": "0x6440",
+            "address": "0x96e408",
+            "access": "read"
+          },
+          {
+            "rva": "0x6451",
+            "address": "0x96e408",
+            "access": "write"
+          },
+          {
+            "rva": "0x646e",
+            "address": "0xba020c",
+            "access": "read"
+          },
+          {
+            "rva": "0x647a",
+            "address": "0x96e3ec",
+            "access": "read"
+          },
+          {
+            "rva": "0x64b7",
+            "address": "0xba5658",
+            "access": "read"
+          },
+          {
+            "rva": "0x64bd",
+            "address": "0x96e3ec",
+            "access": "read"
+          },
+          {
+            "rva": "0x64db",
+            "address": "0xba5a9c",
+            "access": "read"
+          },
+          {
+            "rva": "0x650c",
+            "address": "0xba5658",
+            "access": "read"
+          },
+          {
+            "rva": "0x6516",
+            "address": "0xba0200",
+            "access": "read"
+          },
+          {
+            "rva": "0x651e",
+            "address": "0xba5aa0",
+            "access": "read"
+          }
+        ]
+      },
+      "call_sites": [
+        {
+          "rva": "0x6469",
+          "target": "local format provider target 0x10F40"
+        },
+        {
+          "rva": "0x648b",
+          "target": "surface vtable +0x44"
+        },
+        {
+          "rva": "0x64b7",
+          "target": "GDI32!TextOutA"
+        },
+        {
+          "rva": "0x64ce",
+          "target": "surface vtable +0x68"
+        },
+        {
+          "rva": "0x64db",
+          "target": "USER32!GetDC"
+        },
+        {
+          "rva": "0x650c",
+          "target": "GDI32!TextOutA"
+        },
+        {
+          "rva": "0x651e",
+          "target": "USER32!ReleaseDC"
+        }
+      ],
+      "iat_cells": {
+        "GDI32.dll!TextOutA": "0xba5658",
+        "USER32.dll!GetDC": "0xba5a9c",
+        "USER32.dll!ReleaseDC": "0xba5aa0",
+        "machine_checked_against_import_directory": true
+      }
+    }
+  },
+  "synthetic_endpoint_fixtures": {
+    "case_count": 5,
+    "cases": [
+      {
+        "name": "windowed_success",
+        "counter_before": 0,
+        "counter_after": 1,
+        "global_writes": [
+          {
+            "address": "0x96e408",
+            "size": 1,
+            "value": 1
+          }
+        ],
+        "events": [
+          {
+            "provider": "synthetic_format_provider",
+            "callsite_rva": "0x6469",
+            "destination": "0x20007f00",
+            "format": "(%c) %s ",
+            "tag_byte": 49,
+            "source_bytes": "6173736574253230",
+            "output_bytes": "28312920617373657425323020",
+            "output_ascii": "(1) asset%20 "
+          },
+          {
+            "provider": "synthetic_user32_getdc_provider",
+            "callsite_rva": "0x64db",
+            "hwnd_argument": "0x0",
+            "hdc_return": "0x70001000"
+          },
+          {
+            "provider": "synthetic_textouta_provider",
+            "callsite_rva": "0x650c",
+            "hdc": "0x70001000",
+            "x_signed": -17,
+            "y_signed": 777,
+            "string_pointer": "0x20007f00",
+            "count": 13,
+            "text_ascii": "(1) asset%20 ",
+            "return_value": 1
+          },
+          {
+            "provider": "synthetic_user32_releasedc_provider",
+            "callsite_rva": "0x651e",
+            "hwnd_argument": "0x44556677",
+            "hdc": "0x70001000",
+            "return_value": 1
+          }
+        ],
+        "edi_restored": true,
+        "frame_guard_cells_unchanged": true,
+        "stack_return": {
+          "entry_esp": "0x20008000",
+          "final_esp": "0x20008004",
+          "callee_cleanup_bytes": 0,
+          "caller_cleanup_bytes_required_after_return": 12,
+          "fixture_stops_before_caller_cleanup": true
+        }
+      },
+      {
+        "name": "windowed_getdc_and_textout_failure",
+        "counter_before": 255,
+        "counter_after": 0,
+        "global_writes": [
+          {
+            "address": "0x96e408",
+            "size": 1,
+            "value": 0
+          }
+        ],
+        "events": [
+          {
+            "provider": "synthetic_format_provider",
+            "callsite_rva": "0x6469",
+            "destination": "0x20007f00",
+            "format": "(%c) %s ",
+            "tag_byte": 48,
+            "source_bytes": "6173736574253230",
+            "output_bytes": "28302920617373657425323020",
+            "output_ascii": "(0) asset%20 "
+          },
+          {
+            "provider": "synthetic_user32_getdc_provider",
+            "callsite_rva": "0x64db",
+            "hwnd_argument": "0x0",
+            "hdc_return": "0x0"
+          },
+          {
+            "provider": "synthetic_textouta_provider",
+            "callsite_rva": "0x650c",
+            "hdc": "0x0",
+            "x_signed": -17,
+            "y_signed": 777,
+            "string_pointer": "0x20007f00",
+            "count": 13,
+            "text_ascii": "(0) asset%20 ",
+            "return_value": 0
+          },
+          {
+            "provider": "synthetic_user32_releasedc_provider",
+            "callsite_rva": "0x651e",
+            "hwnd_argument": "0x44556677",
+            "hdc": "0x0",
+            "return_value": 0
+          }
+        ],
+        "edi_restored": true,
+        "frame_guard_cells_unchanged": true,
+        "stack_return": {
+          "entry_esp": "0x20008000",
+          "final_esp": "0x20008004",
+          "callee_cleanup_bytes": 0,
+          "caller_cleanup_bytes_required_after_return": 12,
+          "fixture_stops_before_caller_cleanup": true
+        }
+      },
+      {
+        "name": "fullscreen_success_with_textout_failure",
+        "counter_before": 0,
+        "counter_after": 1,
+        "global_writes": [
+          {
+            "address": "0x96e408",
+            "size": 1,
+            "value": 1
+          }
+        ],
+        "events": [
+          {
+            "provider": "synthetic_format_provider",
+            "callsite_rva": "0x6469",
+            "destination": "0x20007f00",
+            "format": "(%c) %s ",
+            "tag_byte": 49,
+            "source_bytes": "6173736574253230",
+            "output_bytes": "28312920617373657425323020",
+            "output_ascii": "(1) asset%20 "
+          },
+          {
+            "provider": "synthetic_surface_getdc_provider",
+            "callsite_rva": "0x648b",
+            "this": "0x31000000",
+            "out_hdc_pointer": "0x20007efc",
+            "hresult": 0,
+            "writes_hdc": true,
+            "hdc_out": "0x70002000"
+          },
+          {
+            "provider": "synthetic_textouta_provider",
+            "callsite_rva": "0x64b7",
+            "hdc": "0x70002000",
+            "x_signed": -17,
+            "y_signed": 777,
+            "string_pointer": "0x20007f00",
+            "count": 13,
+            "text_ascii": "(1) asset%20 ",
+            "return_value": 0
+          },
+          {
+            "provider": "synthetic_surface_releasedc_provider",
+            "callsite_rva": "0x64ce",
+            "this": "0x31000000",
+            "hdc": "0x70002000",
+            "hresult": 2147500037
+          }
+        ],
+        "edi_restored": true,
+        "frame_guard_cells_unchanged": true,
+        "stack_return": {
+          "entry_esp": "0x20008000",
+          "final_esp": "0x20008004",
+          "callee_cleanup_bytes": 0,
+          "caller_cleanup_bytes_required_after_return": 12,
+          "fixture_stops_before_caller_cleanup": true
+        }
+      },
+      {
+        "name": "fullscreen_getdc_failure_no_output_write",
+        "counter_before": 0,
+        "counter_after": 1,
+        "global_writes": [
+          {
+            "address": "0x96e408",
+            "size": 1,
+            "value": 1
+          }
+        ],
+        "events": [
+          {
+            "provider": "synthetic_format_provider",
+            "callsite_rva": "0x6469",
+            "destination": "0x20007f00",
+            "format": "(%c) %s ",
+            "tag_byte": 49,
+            "source_bytes": "6173736574253230",
+            "output_bytes": "28312920617373657425323020",
+            "output_ascii": "(1) asset%20 "
+          },
+          {
+            "provider": "synthetic_surface_getdc_provider",
+            "callsite_rva": "0x648b",
+            "this": "0x31000000",
+            "out_hdc_pointer": "0x20007efc",
+            "hresult": 2147500037,
+            "writes_hdc": false
+          },
+          {
+            "provider": "synthetic_textouta_provider",
+            "callsite_rva": "0x64b7",
+            "hdc": "0xa5a5a5a5",
+            "x_signed": -17,
+            "y_signed": 777,
+            "string_pointer": "0x20007f00",
+            "count": 13,
+            "text_ascii": "(1) asset%20 ",
+            "return_value": 0
+          },
+          {
+            "provider": "synthetic_surface_releasedc_provider",
+            "callsite_rva": "0x64ce",
+            "this": "0x31000000",
+            "hdc": "0xa5a5a5a5",
+            "hresult": 2147500037
+          }
+        ],
+        "edi_restored": true,
+        "frame_guard_cells_unchanged": true,
+        "stack_return": {
+          "entry_esp": "0x20008000",
+          "final_esp": "0x20008004",
+          "callee_cleanup_bytes": 0,
+          "caller_cleanup_bytes_required_after_return": 12,
+          "fixture_stops_before_caller_cleanup": true
+        }
+      },
+      {
+        "name": "fullscreen_null_surface",
+        "counter_before": 7,
+        "counter_after": 8,
+        "global_writes": [
+          {
+            "address": "0x96e408",
+            "size": 1,
+            "value": 8
+          }
+        ],
+        "events": [
+          {
+            "provider": "synthetic_format_provider",
+            "callsite_rva": "0x6469",
+            "destination": "0x20007f00",
+            "format": "(%c) %s ",
+            "tag_byte": 48,
+            "source_bytes": "6173736574253230",
+            "output_bytes": "28302920617373657425323020",
+            "output_ascii": "(0) asset%20 "
+          },
+          {
+            "provider": "synthetic_textouta_provider",
+            "callsite_rva": "0x64b7",
+            "hdc": "0xa5a5a5a5",
+            "x_signed": -17,
+            "y_signed": 777,
+            "string_pointer": "0x20007f00",
+            "count": 13,
+            "text_ascii": "(0) asset%20 ",
+            "return_value": 0
+          }
+        ],
+        "edi_restored": true,
+        "frame_guard_cells_unchanged": true,
+        "stack_return": {
+          "entry_esp": "0x20008000",
+          "final_esp": "0x20008004",
+          "callee_cleanup_bytes": 0,
+          "caller_cleanup_bytes_required_after_return": 12,
+          "fixture_stops_before_caller_cleanup": true
+        }
+      }
+    ],
+    "limits": {
+      "providers": [
+        "synthetic format provider recognizing only observed `(%c) %s ` format",
+        "synthetic USER32 GetDC/ReleaseDC return-value providers",
+        "synthetic GDI TextOutA argument/return provider",
+        "synthetic DirectDraw surface vtable +0x44/+0x68 HRESULT/HDC providers"
+      ],
+      "format_target_identity": "unresolved for original target VA 0x410F40; fixture supplies only a named controlled provider for the pinned format call",
+      "unknown_pc_or_callee": "fails immediately; only original RVA 0x6440..0x652B instructions and the exact listed external-call targets are allowed",
+      "no_claims": [
+        "no Windows GetDC/ReleaseDC semantics observed",
+        "no DirectDraw COM implementation observed",
+        "no glyph rasterization or pixels observed",
+        "no style/font/color values inferred",
+        "no slot-149 caller or trigger recovered",
+        "no cross-thread or reentrant serialization established"
+      ]
+    },
+    "actual_windows_calls": false,
+    "actual_directdraw_calls": false,
+    "pixels_or_glyphs_observed": false
+  },
+  "historical_screen_evidence_erratum": {
+    "path": "renderer_contract/evidence/screen_ownership.json",
+    "sha256": "6fac29e24a95b22257e7be29b4c2de0a644fc17872d7868c4ec4dfd2272fcfc3",
+    "json_pointer": "/inventory/writers/14/destination/windowed",
+    "historical_value": "windowed GetDC(original HWND) -> TextOutA -> ReleaseDC",
+    "corrected_value": "USER32!GetDC(literal NULL) at RVA 0x64DB; USER32!ReleaseDC(current HWND [0xBA0200], local HDC) at RVA 0x651E",
+    "historical_evidence_file_unchanged": true,
+    "caller_or_trigger": "unknown/not established"
+  },
+  "tooling": {
+    "python": "3.12.14",
+    "pefile": "2024.8.26",
+    "capstone": "5.0.7",
+    "unicorn": "2.1.4",
+    "unicorn_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+  },
+  "replay": {
+    "raw_receipt_path": "work/renderer_phase16/gdi_text_writer/public_gdi1.json",
+    "raw_receipt_sha256": "d4784432b3168620ac422bdb8ec9ed602f437f7d7e25303b74fa0f1ed5612e7a",
+    "runner_path": "renderer_contract/tests/audit_gdi_text_writer.py",
+    "runner_sha256": "1e160441fe95a9af846b68bf948b6318c698f7df0885ab205fd8ba438aef9817",
+    "prediction_path": "renderer_contract/fixtures/gdi_text_writer/prediction.json",
+    "prediction_file_sha256": "3b0006e4cadd5217df9e143ffaaa9627fd3be3ceed86ef1356fe10d49c983786",
+    "screen_ownership_source_sha256": "6fac29e24a95b22257e7be29b4c2de0a644fc17872d7868c4ec4dfd2272fcfc3"
+  },
+  "proof_boundary": "One pinned original x86 body with five finite named synthetic providers. No Windows API execution, DirectDraw implementation, runtime caller, rendered pixels, glyphs, style values, or trigger is established."
+}

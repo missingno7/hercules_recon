@@ -1,0 +1,9 @@
+{
+  "prediction": "The slot-149 helper at HERCULES.EXE RVA 0x6440 consumes caller-cleaned x, y, and NUL-terminated message DWORD arguments, formats a local prefix, then calls TextOutA. Windowed mode will acquire a USER32 DC and release it after TextOutA; fullscreen mode will acquire and release through the attached DirectDraw surface. The function should update a small message counter but not touch the indexed frame pointer, pitch, lock, or dirty cell.",
+  "falsifier": "A pinned-body decode shows a different argument layout or callee cleanup, a different text/coordinate source, any style mutation or direct framebuffer/dirty/lock access, or a path that does not attempt release after a failed acquisition or TextOutA call.",
+  "scope": {
+    "image": "HERCULES.EXE only; RVA 0x6440, 236-byte pinned span",
+    "analysis": "bounded original-x86 body execution with named synthetic format, USER32, GDI32, and COM endpoints; unknown instruction destinations fail",
+    "excluded": ["actual game/process execution", "actual Windows/GDI/DirectDraw calls", "screen pixels or glyph claims", "caller/trigger inference", "MFC reconstruction", "whole-binary reachability"]
+  }
+}

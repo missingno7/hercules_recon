@@ -53,7 +53,10 @@ The writer inventory still has independent composition routes. AC60 submits
 the world and invokes direct upload/VRAM-move services; TITLE has a movie
 callback at table slot 148. Table slot 149 points to host helper `0x6440`,
 which can draw through the attached DirectDraw back buffer (`TextOutA` at
-`0x64b7`) or through `GetDC(HWND)`/`TextOutA`/`ReleaseDC` (`0x650c`). It does
+`0x64b7`) or through `GetDC(NULL)`/`TextOutA` (`0x650c`), followed by
+`ReleaseDC(current HWND, HDC)`. The latter obtains a desktop DC; it cannot
+be assumed to be a client-window overlay. Five [bounded text-writer fixtures](gdi_text_writer.md)
+verify native arguments using synthetic endpoints, without observing Windows pixels. It does
 not touch the reviewed lock view or dirty byte, and its caller and visibility
 timing remain unresolved. Framework paint/GDI imports are further unowned UI
 routes. Palette/LUT writes and texture-memory versus CPU-visible framebuffer

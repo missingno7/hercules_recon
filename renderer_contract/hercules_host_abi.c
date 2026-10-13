@@ -17,6 +17,9 @@ static int slot_is_approved(renderer_u32 slot)
 
     /* Passive upstream point/projection observation. The caller must forward
      * the original callback and preserve its physical raw-EAX return. */
+    if (slot == HERCULES_SLOT_BATCH_POINT_INPUT || slot == HERCULES_SLOT_BATCH_PROJECT ||
+        slot == HERCULES_SLOT_FT4_SCREEN_COPY)
+        return 1;
     if (slot == HERCULES_SLOT_POINT_INPUT || slot == HERCULES_SLOT_PROJECT ||
         slot == HERCULES_SLOT_SCREEN_OUTPUT)
         return 1;

@@ -271,3 +271,18 @@ breakpoint on the entry instruction, then confirms termination and exit-event
 draining. The [deployment receipt](evidence/preentry_deployment.json) is
 **HOST_INTEGRATION_OBSERVED** only for that pre-entry boundary. It claims no
 engine, window, DirectDraw forwarding, gameplay or GPU integration.
+
+The [batch projection observer](batch_projection.md) uses the actual zero-argument
+slot-107 ABI. Three finite original-x86 cases preserve raw EAX, stack, callee-saved
+registers and native lane writes; an INT_MIN/-1 division trap is recorded as
+non-success. Single-point projection (14 cases, 632 assertions) and ENG1
+point-to-packet association (four producer fixtures) were replayed against the
+expanded shared headers. [Phase15 regression evidence](evidence/phase15_regressions.json)
+binds those fresh receipts to their tested sources. VC5 and GCC each pass 19 suites.
+
+The [slot-149 text writer](gdi_text_writer.md) executes only its original bounded
+body with controlled formatter/API/COM endpoints: five cases verify arguments,
+failure flow and the one-byte counter, with no Windows drawing or pixel proof.
+Its `GetDC(NULL)` finding supersedes the old screen-ownership JSON description;
+the historical receipt remains byte-identical. Neither fixture establishes a
+production hook, complete writer closure or original-game renderer integration.

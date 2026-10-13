@@ -660,6 +660,112 @@
       ],
       "private_provenance_path": "work/renderer_contract_tests/variant.json",
       "private_provenance_sha256": "882b51f7f0f55860344e7afad6b19c2d880dd33a91b9640452f2fcf87e489704"
+    },
+    {
+      "lane": "batch_projection_zero_argument_callback",
+      "path": "renderer_contract/evidence/batch_projection.json",
+      "sha256": "516f89c250f1f6ea276dcb942548e7c02544c7867ba02406e6b3fd6136665b8e",
+      "schema_keys": [
+        "schema_version",
+        "proof_level",
+        "static_proof_level",
+        "status",
+        "scope",
+        "prediction_and_falsifier",
+        "original",
+        "fixture",
+        "tooling",
+        "replay",
+        "proof_boundary"
+      ],
+      "private_provenance_path": "work/renderer_phase15/public_batch1/batch_projection.json",
+      "private_provenance_sha256": "f8dc0646329f0243705fac8d9e59ba138641b2796aff82e120d91653ca73fbc0",
+      "runner_path": "renderer_contract/tests/audit_batch_projection.py",
+      "runner_sha256": "f19cfa334b66cc66b6418589fb66a3c255e44902b12180c3400db04963eed4ff"
+    },
+    {
+      "lane": "batch_projection_zero_argument_prediction",
+      "path": "renderer_contract/evidence/batch_projection_zero_argument_prediction.json",
+      "sha256": "31a2b984598d5c87dcb0921b3b4dfc73fa47ce7be49ece23fb20f7488a2a70af",
+      "schema_keys": [
+        "prediction",
+        "status",
+        "scope"
+      ],
+      "private_provenance_path": "renderer_contract/evidence/batch_projection_zero_argument_prediction.json",
+      "private_provenance_sha256": "31a2b984598d5c87dcb0921b3b4dfc73fa47ce7be49ece23fb20f7488a2a70af"
+    },
+    {
+      "lane": "batch_projection_preserved_helper_prediction",
+      "path": "renderer_contract/evidence/batch_projection_prediction.json",
+      "sha256": "84e2eb6911f723ac00258a6b6ebad7cb25aa153429e24bd6aaaf56f8190b4045",
+      "schema_keys": [
+        "prediction",
+        "status",
+        "scope"
+      ],
+      "private_provenance_path": "renderer_contract/evidence/batch_projection_prediction.json",
+      "private_provenance_sha256": "84e2eb6911f723ac00258a6b6ebad7cb25aa153429e24bd6aaaf56f8190b4045"
+    },
+    {
+      "lane": "phase15_regressions",
+      "path": "renderer_contract/evidence/phase15_regressions.json",
+      "sha256": "9690c44bfbeb07efcd644b0ad0582e247b5a9dfee585cbc6285e6ad4434aa00a",
+      "schema_keys": [
+        "schema_version",
+        "proof_level",
+        "scope",
+        "single_point_projection",
+        "eng1_association",
+        "proof_boundary"
+      ],
+      "private_provenance": [
+        {
+          "path": "work/renderer_phase15/public_single_point_regression1/report.json",
+          "sha256": "ec63bd43748dca1ad157c1af2722541e30e9244ab8a1fcba628075c549d19745"
+        },
+        {
+          "path": "work/renderer_phase15/public_eng1_regression1/association_report.json",
+          "sha256": "158ec48d07d4416314762618f6a696583234d21614b1e15f447014f310eb2f43"
+        }
+      ]
+    },
+    {
+      "lane": "gdi_text_writer",
+      "path": "renderer_contract/evidence/gdi_text_writer.json",
+      "sha256": "32dd29b3515a9c973245eba07938b599ed7ff0ae54572e63b28a9a5a61f6e83e",
+      "schema_keys": [
+        "schema_version",
+        "proof_level",
+        "static_proof_level",
+        "status",
+        "scope",
+        "prediction_and_falsifier",
+        "original",
+        "synthetic_endpoint_fixtures",
+        "historical_screen_evidence_erratum",
+        "tooling",
+        "replay",
+        "proof_boundary"
+      ],
+      "private_provenance_path": "work/renderer_phase16/gdi_text_writer/public_gdi1.json",
+      "private_provenance_sha256": "d4784432b3168620ac422bdb8ec9ed602f437f7d7e25303b74fa0f1ed5612e7a",
+      "runner_path": "renderer_contract/tests/audit_gdi_text_writer.py",
+      "runner_sha256": "1e160441fe95a9af846b68bf948b6318c698f7df0885ab205fd8ba438aef9817",
+      "source_evidence_path": "renderer_contract/evidence/screen_ownership.json",
+      "source_evidence_sha256": "6fac29e24a95b22257e7be29b4c2de0a644fc17872d7868c4ec4dfd2272fcfc3"
+    },
+    {
+      "lane": "gdi_text_writer_prediction",
+      "path": "renderer_contract/fixtures/gdi_text_writer/prediction.json",
+      "sha256": "3b0006e4cadd5217df9e143ffaaa9627fd3be3ceed86ef1356fe10d49c983786",
+      "schema_keys": [
+        "prediction",
+        "falsifier",
+        "scope"
+      ],
+      "private_provenance_path": "renderer_contract/fixtures/gdi_text_writer/prediction.json",
+      "private_provenance_sha256": "3b0006e4cadd5217df9e143ffaaa9627fd3be3ceed86ef1356fe10d49c983786"
     }
   ],
   "excluded_or_pending_reports": [],
@@ -897,6 +1003,21 @@
       },
       "scope": "Hash-pinned original HERCULES.EXE and ENG1.DLL x86 execution over synthetic mesh, point, material, and OT inputs in Unicorn; no game process/assets.",
       "evidence_ref": "renderer_contract/evidence/eng1_geometry_association.json"
+    },
+    {
+      "lane": "batch_projection_zero_argument_callback",
+      "proof_level": "BOUNDED_EQUIVALENT",
+      "case_count": 3,
+      "non_success_trap_count": 2,
+      "scope": "Three finite synthetic source triplet sets through unchanged original B430 -> B320 -> B5C0, compared with a zero-argument diagnostic callback in a freshly VC5-compiled source-built PE. The callback uses persistent saved-target/capture state and calls B320 once. One signed IDIV overflow case is classified only as a trap.",
+      "evidence_ref": "renderer_contract/evidence/batch_projection.json"
+    },
+    {
+      "lane": "gdi_text_writer",
+      "proof_level": "BOUNDED_EQUIVALENT",
+      "case_count": 5,
+      "scope": "One pinned original x86 body with five finite named synthetic providers. No Windows API execution, DirectDraw implementation, runtime caller, rendered pixels, glyphs, style values, or trigger is established.",
+      "evidence_ref": "renderer_contract/evidence/gdi_text_writer.json"
     }
   ],
   "static_proofs": [
@@ -1180,6 +1301,28 @@
       "span_count": 34,
       "scope": "Hash-pinned original HERCULES.EXE and ENG1.DLL x86 execution over synthetic mesh, point, material, and OT inputs in Unicorn; no game process/assets.",
       "evidence_ref": "renderer_contract/evidence/eng1_geometry_association.json#route_pins"
+    },
+    {
+      "lane": "batch_projection_zero_argument_callback",
+      "proof_level": "STATIC_OBSERVED",
+      "span_count": 3,
+      "callback_slots": {
+        "102": "0xb430",
+        "107": "0xb320",
+        "117": "0xb5c0"
+      },
+      "callback_table_rva": "0x361b8",
+      "scope": "Pinned original HERCULES.EXE callback table, exact B430/B320/B5C0 spans, complete x86 decode, and finite-invocation lane-write instructions only.",
+      "evidence_ref": "renderer_contract/evidence/batch_projection.json"
+    },
+    {
+      "lane": "gdi_text_writer",
+      "proof_level": "STATIC_OBSERVED",
+      "span_count": 1,
+      "callback_slot": 149,
+      "callback_cell_rva": "0x3640c",
+      "scope": "Pinned slot-149 body and exact imported/surface callsites only; no caller, runtime, or pixel claim.",
+      "evidence_ref": "renderer_contract/evidence/gdi_text_writer.json"
     }
   ],
   "original_images": {
@@ -11506,7 +11649,7 @@
     },
     {
       "path": "renderer_contract/evidence/portable_verification.json",
-      "sha256": "612c1a21d33af5735fed1fa1b770fb4f2614208d86824e2aee12b8f3f76b8f52"
+      "sha256": "68dca86ce001b9fc2aa966e043cef92fb7e62cc8d8e434deed2252399b7df43c"
     },
     {
       "path": "renderer_contract/evidence/presentation.json",
@@ -11595,6 +11738,30 @@
     {
       "path": "renderer_contract/evidence/upstream_projection.json",
       "sha256": "6b6713492ed5e5793c1e0ad24d1c0ef1cec4a98a801c20054fc3a66585848be1"
+    },
+    {
+      "path": "renderer_contract/evidence/batch_projection.json",
+      "sha256": "516f89c250f1f6ea276dcb942548e7c02544c7867ba02406e6b3fd6136665b8e"
+    },
+    {
+      "path": "renderer_contract/evidence/batch_projection_prediction.json",
+      "sha256": "84e2eb6911f723ac00258a6b6ebad7cb25aa153429e24bd6aaaf56f8190b4045"
+    },
+    {
+      "path": "renderer_contract/evidence/batch_projection_zero_argument_prediction.json",
+      "sha256": "31a2b984598d5c87dcb0921b3b4dfc73fa47ce7be49ece23fb20f7488a2a70af"
+    },
+    {
+      "path": "renderer_contract/evidence/gdi_text_writer.json",
+      "sha256": "32dd29b3515a9c973245eba07938b599ed7ff0ae54572e63b28a9a5a61f6e83e"
+    },
+    {
+      "path": "renderer_contract/evidence/phase15_regressions.json",
+      "sha256": "9690c44bfbeb07efcd644b0ad0582e247b5a9dfee585cbc6285e6ad4434aa00a"
+    },
+    {
+      "path": "renderer_contract/fixtures/gdi_text_writer/prediction.json",
+      "sha256": "3b0006e4cadd5217df9e143ffaaa9627fd3be3ceed86ef1356fe10d49c983786"
     }
   ]
 }

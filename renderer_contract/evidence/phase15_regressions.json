@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "proof_level": "BOUNDED_EQUIVALENT",
+  "scope": "Fresh regression replay of the established single-point and ENG1 mesh association contracts after Phase 15 callback ABI/header changes; synthetic inputs and unchanged original x86 only.",
+  "single_point_projection": {
+    "status": "BOUNDED_X86_DIFFERENTIAL_AND_BRIDGE_OBSERVED",
+    "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "prediction_sha256": "7a47a3e0478b9d3fd8a161c9607c2ce71224d12b383d3d7c27d80e9ca54cc18e",
+    "case_count": 14,
+    "assertion_count": 632,
+    "slot106_wrapper_cases": 14,
+    "native_projection_bridge_checks": {
+      "camera_screen_match": true,
+      "native_call_counts_and_sequence": true,
+      "raw_eax_stack_and_callee_saved_preserved": true
+    },
+    "raw_receipt_path": "work/renderer_phase15/public_single_point_regression1/report.json",
+    "raw_receipt_sha256": "ec63bd43748dca1ad157c1af2722541e30e9244ab8a1fcba628075c549d19745",
+    "runner_path": "renderer_contract/tests/test_original_projection.py",
+    "runner_sha256": "d0955c5ebeb6953ceaffc80bd452237eb509eeb982a1eef36da653c92790e089"
+  },
+  "eng1_association": {
+    "status": "ORIGINAL_X86_SYNTHETIC_MESH_ASSOCIATION_AND_SLOT106_BRIDGE_OBSERVED",
+    "case_count": 4,
+    "packet_counts": {
+      "gt4_direct": 3,
+      "gt4_bridge": 3,
+      "ft4_tail_direct": 1,
+      "gt4_culled_prefix_direct": 2
+    },
+    "producer_span_count": 19,
+    "host_callback_span_count": 15,
+    "bridge_slot": 106,
+    "prediction_sha256": "b0b71f105687e8f3dd9adf7c211adf77db7cd8b3cd5807380ab064afe9ea8262",
+    "raw_receipt_path": "work/renderer_phase15/public_eng1_regression1/association_report.json",
+    "raw_receipt_sha256": "158ec48d07d4416314762618f6a696583234d21614b1e15f447014f310eb2f43",
+    "runner_path": "renderer_contract/fixtures/eng1_association/run_fixture.py",
+    "runner_sha256": "39d0f7458bc933d691a4dd12ec2e2941872d6fd195b56476f7d4dee340c624f8",
+    "scope": "Hash-pinned original HERCULES.EXE and ENG1.DLL x86 execution over synthetic mesh, point, material, and OT inputs in Unicorn; no game process/assets."
+  },
+  "proof_boundary": "Regression receipts retain finite synthetic callback scope; they do not establish renderer integration or broaden the historical cases."
+}

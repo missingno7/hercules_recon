@@ -1,0 +1,10 @@
+{
+  "prediction": {
+    "observer": "A VC5-compiled cdecl observer can call the saved HERC slot-107 target (B320) once, retain its raw EAX return, copy the three camera XYZ SoA lanes and two screen XY SoA lanes to a separate capture buffer, preserve the cdecl nonvolatile registers and caller stack position, and leave the native transform matrix and translation unchanged.",
+    "native": "B320 writes camera XYZ as three DWORD arrays and screen XY as two WORD arrays; its batch arithmetic uses signed low-32-bit product accumulation followed by arithmetic shift 12, translation addition, and low-WORD sign extension, with a zero-Z conditional that must be observed separately from positive/negative-Z IDIV paths.",
+    "comparison": "For identical finite synthetic states, a direct B320 call and the compiled observer route will have identical B320 lane values, final raw EAX, and native B320 write ordering; observer-only capture writes will follow B320 writes and avoid matrix/translation memory.",
+    "falsifier": "The prediction fails if the observer invokes B320 other than exactly once; any captured lane differs from direct execution; raw EAX, EBX/EBP/ESI/EDI, or cdecl stack position differs; any observer write touches transform/translation state; or B320's native lane-write order differs between direct and observer routes. Any B320 memory operand or return dependence outside the pinned native span and bounded synthetic state is reported as unresolved rather than inferred."
+  },
+  "status": "prediction written before running the discriminating input cases",
+  "scope": "Pinned HERCULES.EXE spans B430, B320, and B5C0 only; no broad batch C model; no DLL execution or Windows host process."
+}
