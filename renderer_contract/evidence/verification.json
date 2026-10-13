@@ -2,7 +2,7 @@
   "schema_version": 2,
   "scope": "Renderer external contract and finite unchanged-original CPU fixtures; no live loader, window or GPU integration.",
   "source_base_commit": "73c6320179093c3de9b820e66b87f94dfb639a9b",
-  "preceding_contract_commit": "52f10ebd32b68849efbd8e7ae4dde33c31efbdd9",
+  "preceding_contract_commit": "b389a1ae9bb82be8775452a77d302f43cc15b5c6",
   "branch": "codex/renderer-interface-closure",
   "toolchain_id": "msvc5_rtm",
   "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
@@ -13,75 +13,81 @@
     "/MT"
   ],
   "compiled_summary": {
-    "discovered": 11,
-    "passed": 11,
+    "discovered": 12,
+    "passed": 12,
     "failed": 0
   },
   "compiled_suites": [
     {
       "test": "test_cpp_headers.cpp",
       "status": "passed",
-      "executable_sha256": "caf64e036c81ee7fc5649a0e209207f3e4edbf0c2e3cad9e2c445b797ce503b5",
+      "executable_sha256": "be6999111817d33dcb8937596b5f6bf4c5cd8b7d6813b60ff1bf76120cc40d94",
       "stdout_last_line": ""
+    },
+    {
+      "test": "test_edge_steps.c",
+      "status": "passed",
+      "executable_sha256": "ee1feff8745a53c7b1405f1475e431ce46ce4d61f24e766751247e619175f222",
+      "stdout_last_line": "checks=27 failures=0"
     },
     {
       "test": "test_frame.c",
       "status": "passed",
-      "executable_sha256": "fc2768110647b9f5a39636cf880232e24babb2123575a4e91ffaf4f45b1481f5",
+      "executable_sha256": "437544e1ede17a6bb7f5e6e8f8d194fd17770b01218efcc8d8d4b37df33599f7",
       "stdout_last_line": "checks=44 failures=0"
     },
     {
       "test": "test_host_abi.c",
       "status": "passed",
-      "executable_sha256": "b8c332df7a2dc266d2a35153d10d95f22baf5f0af6ded1e9f31d47c10ff8371d",
+      "executable_sha256": "0a6289e76dd918b8bf0169e0e7ea57bd1c2799d1d1a0ddffcb22e69d6082edd6",
       "stdout_last_line": "table clone contract tests passed"
     },
     {
       "test": "test_packets.c",
       "status": "passed",
-      "executable_sha256": "2f5c0993fc1c27d21c8b3e4d95ed22a5cfe32b690e5aca82b84cc9e8c6ef245b",
+      "executable_sha256": "e2687c0ab4de40a865caf54b67fb07320730110140410a4c90764b6a2e6090ca",
       "stdout_last_line": "renderer_packet_fixture checks=43 failures=0"
     },
     {
       "test": "test_pixels.c",
       "status": "passed",
-      "executable_sha256": "6fab7e4599fb2127ca98c6621813eb3faffac7dc2d4dd044cb761f9686fc89be",
+      "executable_sha256": "360e9d2034cb932122ba028432bea8f2aeff6fd86bb7c949f642293582201831",
       "stdout_last_line": "PASS: 47 pixel-reference checks"
     },
     {
       "test": "test_quad_route.c",
       "status": "passed",
-      "executable_sha256": "70266a9c8a6f993a697c252efd47985f0ecc8fe89f93116d1d346e88bd311e99",
+      "executable_sha256": "6a6e66e65fa496a0030840dc8d70e0f79784895073d547abe5b54b63f3983fe2",
       "stdout_last_line": "quad dispatch contract cases passed"
     },
     {
       "test": "test_sprite_geometry.c",
       "status": "passed",
-      "executable_sha256": "557950acf69d2189f3d04a14af99e339214e2aed11e690115acf0e6d2011c5f7",
+      "executable_sha256": "2e5a751bfc19e2f30f60edcadf68a0647cdb64a72b5d2e592941dba9fe120213",
       "stdout_last_line": "PASS renderer sprite geometry bounded contract"
     },
     {
       "test": "test_sprite_pixels.c",
       "status": "passed",
-      "executable_sha256": "bac25a9f505be78589e4f47cd32517a7f69db1ca417bc24498ab46857dc16431",
+      "executable_sha256": "697f450a37567c69009e7068e4b5602da0d8013d95c0b7edb40c2dab8bf2b0da",
       "stdout_last_line": "PASS: 24 private C8F0/CAB0 proposal checks"
     },
     {
       "test": "test_staging.c",
       "status": "passed",
-      "executable_sha256": "f64f6b6e52a1450a460c49a2e4332b5f0e8b03c68a77a5287500b90ece14c2e2",
+      "executable_sha256": "0d4d1e0647c7eff3ec721d64f23d181c5aed44669743bf3b3e720c5f857e5561",
       "stdout_last_line": "CHECKS;74;0"
     },
     {
       "test": "test_state.c",
       "status": "passed",
-      "executable_sha256": "03008f1bcca07a8ffdbfc98551836d2dff422905617c8a0ff0a72adc62e6d6ca",
+      "executable_sha256": "8e8254f3c6fa4b4dd846eb59c06d37b4a2ee2e1927c12896689e3225a5d7c231",
       "stdout_last_line": "hercules_state_fixture checks=43 failures=0"
     },
     {
       "test": "test_textures.c",
       "status": "passed",
-      "executable_sha256": "34228db65f68923ce336a8736393af9e352af4a31f13bd75950d89a8bacb3f48",
+      "executable_sha256": "b04ec5794b52e1ee7a05a444a904765fc59469359232a90d48f63e9fdfa29d50",
       "stdout_last_line": "PASS texture helper synthetic cases"
     }
   ],
@@ -199,16 +205,27 @@
         "paired_cases": 6,
         "limit": "asserted finite fill/endpoint properties; C2E0/D60C coverage equivalence falsified"
       }
+    },
+    {
+      "path": "renderer_contract/evidence/native_reciprocal_domain.json",
+      "sha256": "652fe56889c4e7088918c600d80d8c5c1a31964825e6ce169e754a482a5a586f",
+      "proof_level": "BOUNDED_EQUIVALENT",
+      "finite_scope": {
+        "cases": 12,
+        "assertions": 15,
+        "table_formula_checks": 24576,
+        "limit": "Original captured edge arithmetic versus independent integer math; portable C arithmetic model separately checked. Other three table consumers static-only here."
+      }
     }
   ],
   "original_validation": {
-    "manifest_sha256": "7629760498cf6653c50880219027a56a3529469a7d56510dc319bda3b22fd137",
+    "manifest_sha256": "30e59d902d424c290c4b0b731c951aa03390988cd4e0ab250a40315dc3dabb27",
     "status": "passed",
     "counts": {
       "original_images": 4,
       "original_files_hash_checked": 4,
-      "span_hashes_checked": 187,
-      "package_evidence_hashes_checked": 35,
+      "span_hashes_checked": 473,
+      "package_evidence_hashes_checked": 44,
       "callback_table_hashes_checked": 1,
       "callback_bindings_checked": 29,
       "copied_wrapper_hashes_checked": 22,
@@ -216,6 +233,30 @@
     }
   },
   "source_ledger": [
+    {
+      "path": "renderer_contract/fixtures/loader_probe/build_and_run.py",
+      "sha256": "643818257de43327866859b4613c88b24d80b8b5171722c016a8f7bbe87dfc18"
+    },
+    {
+      "path": "renderer_contract/fixtures/loader_probe/ddraw.def",
+      "sha256": "65beab33f78d26a6bc738adaeb6874d306da5c8551c4984ef9fce930ccbc260f"
+    },
+    {
+      "path": "renderer_contract/fixtures/loader_probe/ddraw_stub.c",
+      "sha256": "cbcb921528c162217d1002c23b740b78b24aa566dafd2bfc9734fca0f91a4825"
+    },
+    {
+      "path": "renderer_contract/fixtures/loader_probe/probe.c",
+      "sha256": "c45ec7a82096d6cfd65bf442637e9257eb06e74b510b68aed6ba7c7e98cf318f"
+    },
+    {
+      "path": "renderer_contract/hercules_edge_steps.c",
+      "sha256": "259c9c183daaad329bca78bf23fc3ab5f7aef0a9344c1317ab1a67f941967996"
+    },
+    {
+      "path": "renderer_contract/hercules_edge_steps.h",
+      "sha256": "987ddf243a92d60b381d12c0d14e1f3d361f55981d25b5a1fcd6690fd2e45109"
+    },
     {
       "path": "renderer_contract/hercules_frame.c",
       "sha256": "0c51696b5aa5af4d9e08527151a1ce32021c64d378123bffd7df92672291c1a4"
@@ -293,8 +334,28 @@
       "sha256": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d"
     },
     {
+      "path": "renderer_contract/tests/audit_eng3_handlers.py",
+      "sha256": "d9879abdef3ef5d2280f7e5cdcbf94888231e5bcb5a858c7624dd59f75d0570e"
+    },
+    {
+      "path": "renderer_contract/tests/audit_loader.py",
+      "sha256": "ea506b6ec770109fe5cefd2347a4c24ccb52eedd359470ec81b26a1b5f8679e3"
+    },
+    {
+      "path": "renderer_contract/tests/audit_state_ownership.py",
+      "sha256": "0b58aa804e57787fa58635b21d537c31904cfff2dc91f9307746d7fae2b82fd6"
+    },
+    {
+      "path": "renderer_contract/tests/audit_texture_ownership.py",
+      "sha256": "29f06ff12badde5b8ba4aae6c3291483d28ec8e105858c3ba0647b8747b7d3e4"
+    },
+    {
+      "path": "renderer_contract/tests/audit_title_handlers.py",
+      "sha256": "7f9cd5ba7343d5fff7eb01fc3cb532e118e62c67476ff4e301cc2bef3e2186b0"
+    },
+    {
       "path": "renderer_contract/tests/compare_exe_variants.py",
-      "sha256": "ffc8c0ca378503a99d7e5499dea918e4f706b574dd65811b7053633d86bb4c60"
+      "sha256": "23c5fd0a8f2cc3076f3857c5215c65f604a278cd8f3971945564d028a13183a9"
     },
     {
       "path": "renderer_contract/tests/oracle_common.py",
@@ -305,12 +366,20 @@
       "sha256": "faf988fddd771bbfac0a1b17b28ccc83012896d75c84d99f22c4c3f3ead3c050"
     },
     {
+      "path": "renderer_contract/tests/run_portable_tests.py",
+      "sha256": "ee0e8e16c997dc813d690df8d15c569a3dbf3a692d80eebcfa59d1c4b7da2faa"
+    },
+    {
       "path": "renderer_contract/tests/run_tests.py",
       "sha256": "048ce8644159223640bae2ac6b3b4371da9e332c9e720231c098d5221df7e5b6"
     },
     {
       "path": "renderer_contract/tests/test_cpp_headers.cpp",
-      "sha256": "bab95a1b9b39921acaac80f54af1ff45a507ad2813d498b87ddb22df9ec9dc13"
+      "sha256": "d68314c78f9fb9209e6b653e717a1c2d32435865d0e71f344524571df4e3a7a9"
+    },
+    {
+      "path": "renderer_contract/tests/test_edge_steps.c",
+      "sha256": "f79dbd30850483015cbe6d219661b0f460a1ca091c9a285566170aaa9d1ba86f"
     },
     {
       "path": "renderer_contract/tests/test_frame.c",
@@ -373,6 +442,10 @@
       "sha256": "6b049b04ec007850dbfcdde654b056dfc95488ce1b5230487e70eafe6f534e12"
     },
     {
+      "path": "renderer_contract/tests/test_original_reciprocal_domain.py",
+      "sha256": "09b23451f324409c59d4e7bd5f4b1c62042f24f54d5b92fbd548508a8247cb23"
+    },
+    {
       "path": "renderer_contract/tests/test_original_shaded_edges.py",
       "sha256": "c1857fd1e825d946d0648fde0f20c2204af0112ed2779996e4bd9d0a4e03c7fe"
     },
@@ -418,7 +491,7 @@
     },
     {
       "path": "renderer_contract/tests/test_textures.c",
-      "sha256": "3c7cf0c5847f36bbca998ea2e27a5ec29e0d6435542e3c74df322a33af424aba"
+      "sha256": "caba0cdca67593badf929761392dcad26cb0265eefcfad8ae58254d760888e64"
     },
     {
       "path": "renderer_contract/tests/validate_originals.py",
@@ -440,10 +513,27 @@
   },
   "reproducible_commands": "renderer_contract/verification.md",
   "remaining": [
-    "Original host bootstrap/window integration unobserved",
-    "Arbitrary polygon edges/rounding/clipping unresolved",
+    "Original host bootstrap/window integration unobserved; source-built loader surrogate observed only",
+    "Broader skewed-quad and coordinate domains unresolved",
     "Primary notification callback target/write set unresolved",
     "Resource LUT loading versus startup ordering unresolved",
-    "Complete reachable packet coverage and buffer allocation ownership unresolved"
+    "Computed producer routes and buffer allocation ownership unresolved"
+  ],
+  "portable_fixture_proof": {
+    "path": "renderer_contract/evidence/portable_verification.json",
+    "sha256": "9184593a68ddef030a4340f03a8ce68c8d29a7a555d2a3769871ab1c76d95e4c",
+    "suites": 12
+  },
+  "loader_surrogate_proof": {
+    "path": "renderer_contract/evidence/loader_surrogate.json",
+    "sha256": "28579fea9db32425fd04e62a8a67a055dca522011070703175c84d57dbd5ac17",
+    "scope": "source-built static import only; DirectDrawCreate and Hercules never invoked"
+  },
+  "static_audits": [
+    "renderer_contract/evidence/state_ownership.json",
+    "renderer_contract/evidence/texture_ownership.json",
+    "renderer_contract/evidence/loader.json",
+    "renderer_contract/evidence/eng3_handlers.json",
+    "renderer_contract/evidence/title_handlers.json"
   ]
 }

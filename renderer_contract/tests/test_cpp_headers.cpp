@@ -7,6 +7,7 @@
 #include "hercules_sprite_geometry.h"
 #include "hercules_quad_dispatch.h"
 #include "hercules_staging.h"
+#include "hercules_edge_steps.h"
 
 /* Link against C objects to check the reusable C++ consumer boundary. */
 int main()
@@ -31,5 +32,7 @@ int main()
     if (renderer_ac60_apply_packet(wire,sizeof(wire),&staging,&event) !=
         RENDERER_AC60_APPLY_OK || event.kind != RENDERER_AC60_EVENT_E1_STATE)
         return 6;
+    if (renderer_edge_reciprocal_entry(2047) != 0x80100u)
+        return 7;
     return 0;
 }

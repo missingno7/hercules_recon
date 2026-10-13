@@ -25,6 +25,17 @@ optionally initializes surface state, locks, draws, calls 70C0(0xFF), unlocks,
 then presents. BD80 runs last on both gate paths. E1 page changes, command 01
 VRAM moves and F3 clipping remain active on the nonzero gate path. Required
 state writes and notification must survive even when rasterization is bypassed.
+The [ownership audit](ownership.md) finds the packet workspace and page state
+direct-reference-local to the reviewed closure, but does not exclude aliases.
+Keep observed staged writes reproducible. Surface/pitch, lock state, dirty
+state and the draw gate have other host consumers, including movie display.
+They must remain coherent with preserved host services.
+
+Completion can be resolved at verified host image base plus RVA 0xBD80.
+Forwarding saved slot 80 is a different wrapper: AC00 calls BD80, then clears
+EAX, and adds a callback return frame. Preserve the direct gate contract rather
+than claim those entry points are interchangeable. Live invocation remains
+unobserved.
 
 Texture coherence requires +0x204/A710 uploads, TITLE +0x208/A640 convenience
 uploads and +0x20C/A8F0 VRAM moves. A640 calls A710 directly; AC60 calls A8F0

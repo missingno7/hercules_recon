@@ -1,0 +1,2533 @@
+{
+  "schema_version": 1,
+  "status": "STATIC_CANDIDATE_INVENTORY",
+  "scope": "Candidate inventory from a full Capstone x86 linear sweep of each file-backed executable section with explicit one-byte skipdata recovery, plus bounded sweeps rooted at recovery.json function starts and public renderer-closure spans. This is not proof of actual control-flow instruction alignment; decoded data can resemble instructions.",
+  "tool": {
+    "capstone_version": "5.0.7",
+    "pe_reader": "scripts/pe.py",
+    "oracle_helper": "renderer_contract/tests/oracle_common.py",
+    "skipdata": "Capstone .byte pseudo-ops are counted as skipped bytes and never scanned for operands",
+    "function_inventory": "recovery.json"
+  },
+  "public_evidence_sha256": {
+    "closure.json": "2142cb1d0c7a49c9fe9ebd3bd186099583431755205efc3022d9a29a7cab9e30",
+    "compatibility.json": "82b8b183ad54d629fef5bd977ca8ac579c3708af36879b18c8536303a983c61d",
+    "frame.json": "b81f7e1f86bb8b3976ed666261d741000b2e7e400d35d18be6ce0068ce69bb5b",
+    "presentation.json": "c98085c9f39b8c532817d90f5617067517a1157a8ede56042d778fde6c2d829a",
+    "textures.json": "8743c94b086765d4d4dff50633b31d953506b2dc0184de10b8a357bbd399767a",
+    "native_dispatch.json": "966617e243816275b70e7080396a75c69a09fd1afc26c01ed001a464c10b9151"
+  },
+  "function_inventory_sha256": "d6858a378f8360ed713b6786e7dc14c09d728d12afa8b759afd0544c01efd597",
+  "originals": {
+    "HERCULES.EXE": {
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "image_base": "0x400000",
+      "file_backed_executable_sections": [
+        {
+          "name": ".text",
+          "rva": "0x1000",
+          "size": 183808,
+          "sha256": "8eb19fa9f516f69b57a8c37934981a1c9d4e0ea500c9f749555490ca234e733a",
+          "section_linear_sweep": {
+            "start_rva": "0x1000",
+            "end_rva_exclusive": "0x2de00",
+            "expected_bytes": 183808,
+            "decoded_instruction_count": 65375,
+            "decoded_bytes": 183804,
+            "pseudoop_count": 4,
+            "skipped_bytes": 4,
+            "byte_coverage_complete": true,
+            "decode_gaps": [
+              {
+                "start_rva": "0x1124a",
+                "end_rva_exclusive": "0x1124b",
+                "size": 1
+              },
+              {
+                "start_rva": "0x1f760",
+                "end_rva_exclusive": "0x1f761",
+                "size": 1
+              },
+              {
+                "start_rva": "0x20812",
+                "end_rva_exclusive": "0x20813",
+                "size": 1
+              },
+              {
+                "start_rva": "0x28c64",
+                "end_rva_exclusive": "0x28c65",
+                "size": 1
+              }
+            ]
+          },
+          "known_code_anchors": {
+            "recovery_function_inventory": {
+              "source": "recovery.json",
+              "span_count": 73,
+              "input_bytes": 5152,
+              "decoded_instruction_count": 1978,
+              "decoded_bytes": 5152,
+              "skipped_bytes": 0,
+              "pseudoop_count": 0,
+              "decode_gaps": [],
+              "status_counts": {
+                "FUNCTION_MATCH": 25,
+                "CODEGEN_SIMILAR": 48
+              },
+              "span_overlap_count": 0,
+              "anchored_bytes": 5152,
+              "byte_coverage_complete": true
+            },
+            "bounded_renderer_closure": {
+              "source": "renderer_contract/evidence/closure.json",
+              "span_count": 19,
+              "input_bytes": 15696,
+              "decoded_instruction_count": 4001,
+              "decoded_bytes": 15696,
+              "skipped_bytes": 0,
+              "pseudoop_count": 0,
+              "decode_gaps": [],
+              "classification_counts": {
+                "essential_external_contract": 3,
+                "host_service_to_preserve": 5,
+                "replaceable_rasterizer": 8,
+                "compatibility_side_effect": 2,
+                "unresolved": 1
+              },
+              "anchored_bytes": 15696,
+              "byte_coverage_complete": true
+            },
+            "combined_anchored_bytes": 19520,
+            "unanchored_bytes": 164288,
+            "unanchored_range_count": 46
+          }
+        }
+      ],
+      "strict_decode_first_stops": [
+        {
+          "name": ".text",
+          "start_rva": "0x1000",
+          "end_rva_exclusive": "0x2de00",
+          "strict_decoded_instruction_count": 21486,
+          "strict_decoded_bytes": 66122,
+          "first_strict_decode_stop_rva": "0x1124a"
+        }
+      ],
+      "page_base_address_immediates": {
+        "section_linear_sweep": [
+          {
+            "site_rva": "0xadcb",
+            "value": "0x96e6e0",
+            "instruction": "add eax, 0x96e6e0",
+            "scan_source": "section_linear_sweep"
+          },
+          {
+            "site_rva": "0xadd9",
+            "value": "0xa6e6e0",
+            "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0",
+            "scan_source": "section_linear_sweep"
+          },
+          {
+            "site_rva": "0xaedb",
+            "value": "0x96e6e0",
+            "instruction": "add eax, 0x96e6e0",
+            "scan_source": "section_linear_sweep"
+          },
+          {
+            "site_rva": "0xaee9",
+            "value": "0xa6e6e0",
+            "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0",
+            "scan_source": "section_linear_sweep"
+          },
+          {
+            "site_rva": "0xafec",
+            "value": "0x96e6e0",
+            "instruction": "add eax, 0x96e6e0",
+            "scan_source": "section_linear_sweep"
+          },
+          {
+            "site_rva": "0xaffa",
+            "value": "0xa6e6e0",
+            "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0",
+            "scan_source": "section_linear_sweep"
+          },
+          {
+            "site_rva": "0xb070",
+            "value": "0x96e6e0",
+            "instruction": "add ecx, 0x96e6e0",
+            "scan_source": "section_linear_sweep"
+          },
+          {
+            "site_rva": "0xb086",
+            "value": "0xa6e6e0",
+            "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0",
+            "scan_source": "section_linear_sweep"
+          }
+        ],
+        "recovery_function_inventory": [],
+        "bounded_renderer_closure": [
+          {
+            "site_rva": "0xadcb",
+            "value": "0x96e6e0",
+            "instruction": "add eax, 0x96e6e0",
+            "scan_source": "bounded_renderer_closure",
+            "function_id": "packet_chain_consumer",
+            "function_status": "essential_external_contract",
+            "function_start_rva": "0xac60",
+            "function_size": 1680
+          },
+          {
+            "site_rva": "0xadd9",
+            "value": "0xa6e6e0",
+            "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0",
+            "scan_source": "bounded_renderer_closure",
+            "function_id": "packet_chain_consumer",
+            "function_status": "essential_external_contract",
+            "function_start_rva": "0xac60",
+            "function_size": 1680
+          },
+          {
+            "site_rva": "0xaedb",
+            "value": "0x96e6e0",
+            "instruction": "add eax, 0x96e6e0",
+            "scan_source": "bounded_renderer_closure",
+            "function_id": "packet_chain_consumer",
+            "function_status": "essential_external_contract",
+            "function_start_rva": "0xac60",
+            "function_size": 1680
+          },
+          {
+            "site_rva": "0xaee9",
+            "value": "0xa6e6e0",
+            "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0",
+            "scan_source": "bounded_renderer_closure",
+            "function_id": "packet_chain_consumer",
+            "function_status": "essential_external_contract",
+            "function_start_rva": "0xac60",
+            "function_size": 1680
+          },
+          {
+            "site_rva": "0xafec",
+            "value": "0x96e6e0",
+            "instruction": "add eax, 0x96e6e0",
+            "scan_source": "bounded_renderer_closure",
+            "function_id": "packet_chain_consumer",
+            "function_status": "essential_external_contract",
+            "function_start_rva": "0xac60",
+            "function_size": 1680
+          },
+          {
+            "site_rva": "0xaffa",
+            "value": "0xa6e6e0",
+            "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0",
+            "scan_source": "bounded_renderer_closure",
+            "function_id": "packet_chain_consumer",
+            "function_status": "essential_external_contract",
+            "function_start_rva": "0xac60",
+            "function_size": 1680
+          },
+          {
+            "site_rva": "0xb070",
+            "value": "0x96e6e0",
+            "instruction": "add ecx, 0x96e6e0",
+            "scan_source": "bounded_renderer_closure",
+            "function_id": "packet_chain_consumer",
+            "function_status": "essential_external_contract",
+            "function_start_rva": "0xac60",
+            "function_size": 1680
+          },
+          {
+            "site_rva": "0xb086",
+            "value": "0xa6e6e0",
+            "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0",
+            "scan_source": "bounded_renderer_closure",
+            "function_id": "packet_chain_consumer",
+            "function_status": "essential_external_contract",
+            "function_start_rva": "0xac60",
+            "function_size": 1680
+          }
+        ]
+      },
+      "function_inventory_source": "recovery.json"
+    },
+    "ENG1.DLL": {
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "image_base": "0x10000000",
+      "file_backed_executable_sections": [
+        {
+          "name": ".text",
+          "rva": "0x1000",
+          "size": 307200,
+          "sha256": "47c07abc5c91ac33492bba0624b51e5ecabf22034561fd3844b6f28c7fd7ba35",
+          "section_linear_sweep": {
+            "start_rva": "0x1000",
+            "end_rva_exclusive": "0x4c000",
+            "expected_bytes": 307200,
+            "decoded_instruction_count": 100212,
+            "decoded_bytes": 307177,
+            "pseudoop_count": 23,
+            "skipped_bytes": 23,
+            "byte_coverage_complete": true,
+            "decode_gaps": [
+              {
+                "start_rva": "0x97f8",
+                "end_rva_exclusive": "0x97f9",
+                "size": 1
+              },
+              {
+                "start_rva": "0xadb0",
+                "end_rva_exclusive": "0xadb1",
+                "size": 1
+              },
+              {
+                "start_rva": "0x12784",
+                "end_rva_exclusive": "0x12785",
+                "size": 1
+              },
+              {
+                "start_rva": "0x18eaf",
+                "end_rva_exclusive": "0x18eb0",
+                "size": 1
+              },
+              {
+                "start_rva": "0x18eb2",
+                "end_rva_exclusive": "0x18eb3",
+                "size": 1
+              },
+              {
+                "start_rva": "0x18ebc",
+                "end_rva_exclusive": "0x18ec8",
+                "size": 12
+              },
+              {
+                "start_rva": "0x1d050",
+                "end_rva_exclusive": "0x1d051",
+                "size": 1
+              },
+              {
+                "start_rva": "0x1df0c",
+                "end_rva_exclusive": "0x1df0d",
+                "size": 1
+              },
+              {
+                "start_rva": "0x1fddc",
+                "end_rva_exclusive": "0x1fddd",
+                "size": 1
+              },
+              {
+                "start_rva": "0x2d998",
+                "end_rva_exclusive": "0x2d999",
+                "size": 1
+              },
+              {
+                "start_rva": "0x4b7e4",
+                "end_rva_exclusive": "0x4b7e5",
+                "size": 1
+              },
+              {
+                "start_rva": "0x4b870",
+                "end_rva_exclusive": "0x4b871",
+                "size": 1
+              }
+            ]
+          },
+          "known_code_anchors": {
+            "recovery_function_inventory": {
+              "source": "recovery.json",
+              "span_count": 116,
+              "input_bytes": 8272,
+              "decoded_instruction_count": 3103,
+              "decoded_bytes": 8272,
+              "skipped_bytes": 0,
+              "pseudoop_count": 0,
+              "decode_gaps": [],
+              "status_counts": {
+                "FUNCTION_MATCH": 76,
+                "CODEGEN_SIMILAR": 39,
+                "RECONSTRUCTED": 1
+              },
+              "span_overlap_count": 0,
+              "anchored_bytes": 8272,
+              "byte_coverage_complete": true
+            },
+            "bounded_renderer_closure": {
+              "source": "renderer_contract/evidence/closure.json",
+              "span_count": 0,
+              "input_bytes": 0,
+              "decoded_instruction_count": 0,
+              "decoded_bytes": 0,
+              "skipped_bytes": 0,
+              "pseudoop_count": 0,
+              "decode_gaps": [],
+              "classification_counts": {},
+              "anchored_bytes": 0,
+              "byte_coverage_complete": true
+            },
+            "combined_anchored_bytes": 8272,
+            "unanchored_bytes": 298928,
+            "unanchored_range_count": 82
+          }
+        }
+      ],
+      "strict_decode_first_stops": [
+        {
+          "name": ".text",
+          "start_rva": "0x1000",
+          "end_rva_exclusive": "0x4c000",
+          "strict_decoded_instruction_count": 10964,
+          "strict_decoded_bytes": 34808,
+          "first_strict_decode_stop_rva": "0x97f8"
+        }
+      ],
+      "page_base_address_immediates": {
+        "section_linear_sweep": [],
+        "recovery_function_inventory": [],
+        "bounded_renderer_closure": []
+      },
+      "function_inventory_source": "recovery.json"
+    },
+    "ENG3.DLL": {
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "image_base": "0x10000000",
+      "file_backed_executable_sections": [
+        {
+          "name": ".text",
+          "rva": "0x1000",
+          "size": 200192,
+          "sha256": "e62eabbae2fe5ff4c5a6af6a44fe71ccb011522a905d9119311de2239f0bace7",
+          "section_linear_sweep": {
+            "start_rva": "0x1000",
+            "end_rva_exclusive": "0x31e00",
+            "expected_bytes": 200192,
+            "decoded_instruction_count": 63421,
+            "decoded_bytes": 200186,
+            "pseudoop_count": 6,
+            "skipped_bytes": 6,
+            "byte_coverage_complete": true,
+            "decode_gaps": [
+              {
+                "start_rva": "0xb2e1",
+                "end_rva_exclusive": "0xb2e2",
+                "size": 1
+              },
+              {
+                "start_rva": "0x18040",
+                "end_rva_exclusive": "0x18041",
+                "size": 1
+              },
+              {
+                "start_rva": "0x2afd4",
+                "end_rva_exclusive": "0x2afd5",
+                "size": 1
+              },
+              {
+                "start_rva": "0x2d9e4",
+                "end_rva_exclusive": "0x2d9e5",
+                "size": 1
+              },
+              {
+                "start_rva": "0x2fb60",
+                "end_rva_exclusive": "0x2fb61",
+                "size": 1
+              },
+              {
+                "start_rva": "0x2fb8c",
+                "end_rva_exclusive": "0x2fb8d",
+                "size": 1
+              }
+            ]
+          },
+          "known_code_anchors": {
+            "recovery_function_inventory": {
+              "source": "recovery.json",
+              "span_count": 61,
+              "input_bytes": 4608,
+              "decoded_instruction_count": 1762,
+              "decoded_bytes": 4608,
+              "skipped_bytes": 0,
+              "pseudoop_count": 0,
+              "decode_gaps": [],
+              "status_counts": {
+                "FUNCTION_MATCH": 25,
+                "CODEGEN_SIMILAR": 32,
+                "RECONSTRUCTED": 4
+              },
+              "span_overlap_count": 0,
+              "anchored_bytes": 4608,
+              "byte_coverage_complete": true
+            },
+            "bounded_renderer_closure": {
+              "source": "renderer_contract/evidence/closure.json",
+              "span_count": 0,
+              "input_bytes": 0,
+              "decoded_instruction_count": 0,
+              "decoded_bytes": 0,
+              "skipped_bytes": 0,
+              "pseudoop_count": 0,
+              "decode_gaps": [],
+              "classification_counts": {},
+              "anchored_bytes": 0,
+              "byte_coverage_complete": true
+            },
+            "combined_anchored_bytes": 4608,
+            "unanchored_bytes": 195584,
+            "unanchored_range_count": 31
+          }
+        }
+      ],
+      "strict_decode_first_stops": [
+        {
+          "name": ".text",
+          "start_rva": "0x1000",
+          "end_rva_exclusive": "0x31e00",
+          "strict_decoded_instruction_count": 12680,
+          "strict_decoded_bytes": 41697,
+          "first_strict_decode_stop_rva": "0xb2e1"
+        }
+      ],
+      "page_base_address_immediates": {
+        "section_linear_sweep": [],
+        "recovery_function_inventory": [],
+        "bounded_renderer_closure": []
+      },
+      "function_inventory_source": "recovery.json"
+    },
+    "TITLE.DLL": {
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "image_base": "0x10000000",
+      "file_backed_executable_sections": [
+        {
+          "name": ".text",
+          "rva": "0x1000",
+          "size": 130560,
+          "sha256": "7c52029413e5d8fd382053f81d0fe93cb98027a60f1ffcbd73dc32f10b221dae",
+          "section_linear_sweep": {
+            "start_rva": "0x1000",
+            "end_rva_exclusive": "0x20e00",
+            "expected_bytes": 130560,
+            "decoded_instruction_count": 40168,
+            "decoded_bytes": 130544,
+            "pseudoop_count": 16,
+            "skipped_bytes": 16,
+            "byte_coverage_complete": true,
+            "decode_gaps": [
+              {
+                "start_rva": "0xd714",
+                "end_rva_exclusive": "0xd715",
+                "size": 1
+              },
+              {
+                "start_rva": "0xf3a0",
+                "end_rva_exclusive": "0xf3a1",
+                "size": 1
+              },
+              {
+                "start_rva": "0xf3e8",
+                "end_rva_exclusive": "0xf3e9",
+                "size": 1
+              },
+              {
+                "start_rva": "0xff58",
+                "end_rva_exclusive": "0xff59",
+                "size": 1
+              },
+              {
+                "start_rva": "0x132e4",
+                "end_rva_exclusive": "0x132e5",
+                "size": 1
+              },
+              {
+                "start_rva": "0x14de0",
+                "end_rva_exclusive": "0x14de1",
+                "size": 1
+              },
+              {
+                "start_rva": "0x14de4",
+                "end_rva_exclusive": "0x14de5",
+                "size": 1
+              },
+              {
+                "start_rva": "0x14de8",
+                "end_rva_exclusive": "0x14de9",
+                "size": 1
+              },
+              {
+                "start_rva": "0x14dec",
+                "end_rva_exclusive": "0x14ded",
+                "size": 1
+              },
+              {
+                "start_rva": "0x14df0",
+                "end_rva_exclusive": "0x14df1",
+                "size": 1
+              },
+              {
+                "start_rva": "0x14df4",
+                "end_rva_exclusive": "0x14df5",
+                "size": 1
+              },
+              {
+                "start_rva": "0x178d0",
+                "end_rva_exclusive": "0x178d1",
+                "size": 1
+              },
+              {
+                "start_rva": "0x17938",
+                "end_rva_exclusive": "0x17939",
+                "size": 1
+              },
+              {
+                "start_rva": "0x179c0",
+                "end_rva_exclusive": "0x179c1",
+                "size": 1
+              },
+              {
+                "start_rva": "0x1c22c",
+                "end_rva_exclusive": "0x1c22d",
+                "size": 1
+              },
+              {
+                "start_rva": "0x20dff",
+                "end_rva_exclusive": "0x20e00",
+                "size": 1
+              }
+            ]
+          },
+          "known_code_anchors": {
+            "recovery_function_inventory": {
+              "source": "recovery.json",
+              "span_count": 340,
+              "input_bytes": 81632,
+              "decoded_instruction_count": 24649,
+              "decoded_bytes": 81619,
+              "skipped_bytes": 13,
+              "pseudoop_count": 13,
+              "decode_gaps": [
+                {
+                  "start_rva": "0x132e4",
+                  "end_rva_exclusive": "0x132e5",
+                  "size": 1,
+                  "function_id": "title.12e90",
+                  "function_status": "CODEGEN_SIMILAR"
+                },
+                {
+                  "start_rva": "0x14de0",
+                  "end_rva_exclusive": "0x14de1",
+                  "size": 1,
+                  "function_id": "title.14970",
+                  "function_status": "CODEGEN_SIMILAR"
+                },
+                {
+                  "start_rva": "0x14de4",
+                  "end_rva_exclusive": "0x14de5",
+                  "size": 1,
+                  "function_id": "title.14970",
+                  "function_status": "CODEGEN_SIMILAR"
+                },
+                {
+                  "start_rva": "0x14de8",
+                  "end_rva_exclusive": "0x14de9",
+                  "size": 1,
+                  "function_id": "title.14970",
+                  "function_status": "CODEGEN_SIMILAR"
+                },
+                {
+                  "start_rva": "0x14dec",
+                  "end_rva_exclusive": "0x14ded",
+                  "size": 1,
+                  "function_id": "title.14970",
+                  "function_status": "CODEGEN_SIMILAR"
+                },
+                {
+                  "start_rva": "0x14df0",
+                  "end_rva_exclusive": "0x14df1",
+                  "size": 1,
+                  "function_id": "title.14970",
+                  "function_status": "CODEGEN_SIMILAR"
+                },
+                {
+                  "start_rva": "0x14df4",
+                  "end_rva_exclusive": "0x14df5",
+                  "size": 1,
+                  "function_id": "title.14970",
+                  "function_status": "CODEGEN_SIMILAR"
+                },
+                {
+                  "start_rva": "0x1610f",
+                  "end_rva_exclusive": "0x16110",
+                  "size": 1,
+                  "function_id": "title.15cb0",
+                  "function_status": "CODEGEN_SIMILAR"
+                },
+                {
+                  "start_rva": "0x1206b",
+                  "end_rva_exclusive": "0x1206c",
+                  "size": 1,
+                  "function_id": "title.10fe0",
+                  "function_status": "CODEGEN_SIMILAR"
+                },
+                {
+                  "start_rva": "0xd90b",
+                  "end_rva_exclusive": "0xd90c",
+                  "size": 1,
+                  "function_id": "title.0d720",
+                  "function_status": "CODEGEN_SIMILAR"
+                },
+                {
+                  "start_rva": "0xd714",
+                  "end_rva_exclusive": "0xd715",
+                  "size": 1,
+                  "function_id": "title.0d6c0",
+                  "function_status": "CODEGEN_SIMILAR"
+                },
+                {
+                  "start_rva": "0xff58",
+                  "end_rva_exclusive": "0xff59",
+                  "size": 1,
+                  "function_id": "title.0f460",
+                  "function_status": "CODEGEN_SIMILAR"
+                },
+                {
+                  "start_rva": "0x1c22c",
+                  "end_rva_exclusive": "0x1c22d",
+                  "size": 1,
+                  "function_id": "title.1beb0",
+                  "function_status": "CODEGEN_SIMILAR"
+                }
+              ],
+              "status_counts": {
+                "FUNCTION_MATCH": 6,
+                "CODEGEN_SIMILAR": 333,
+                "RECONSTRUCTED": 1
+              },
+              "span_overlap_count": 0,
+              "anchored_bytes": 81632,
+              "byte_coverage_complete": true
+            },
+            "bounded_renderer_closure": {
+              "source": "renderer_contract/evidence/closure.json",
+              "span_count": 0,
+              "input_bytes": 0,
+              "decoded_instruction_count": 0,
+              "decoded_bytes": 0,
+              "skipped_bytes": 0,
+              "pseudoop_count": 0,
+              "decode_gaps": [],
+              "classification_counts": {},
+              "anchored_bytes": 0,
+              "byte_coverage_complete": true
+            },
+            "combined_anchored_bytes": 81632,
+            "unanchored_bytes": 48928,
+            "unanchored_range_count": 14
+          }
+        }
+      ],
+      "strict_decode_first_stops": [
+        {
+          "name": ".text",
+          "start_rva": "0x1000",
+          "end_rva_exclusive": "0x20e00",
+          "strict_decoded_instruction_count": 15763,
+          "strict_decoded_bytes": 50964,
+          "first_strict_decode_stop_rva": "0xd714"
+        }
+      ],
+      "page_base_address_immediates": {
+        "section_linear_sweep": [],
+        "recovery_function_inventory": [],
+        "bounded_renderer_closure": []
+      },
+      "function_inventory_source": "recovery.json"
+    }
+  },
+  "bounded_dependency_intervals": [
+    {
+      "name": "packet_chain_consumer",
+      "module": "HERCULES.EXE",
+      "rva": "0xac60",
+      "size": 1680,
+      "sha256": "f7724c04bef582e378b183a12550ba841df1a6fa3660be51da71154aa5c525af",
+      "classification": "essential_external_contract"
+    },
+    {
+      "name": "directdraw_color_setup",
+      "module": "HERCULES.EXE",
+      "rva": "0x6ee0",
+      "size": 272,
+      "sha256": "6437bcd2fc991f42423b9602d567acd5f76f1d58f8d23270546dba9c480b7723",
+      "classification": "host_service_to_preserve"
+    },
+    {
+      "name": "surface_lock",
+      "module": "HERCULES.EXE",
+      "rva": "0x6ff0",
+      "size": 208,
+      "sha256": "ab58b95bc1e762e1b80dab4b3b20adb75b5dca4676e1014fcf87ab740247812a",
+      "classification": "host_service_to_preserve"
+    },
+    {
+      "name": "raster_path_tag_bit1_set_polygon",
+      "module": "HERCULES.EXE",
+      "rva": "0xe680",
+      "size": 2272,
+      "sha256": "f42bfcb06d042a8cd9ced6a8df5375b734c1e5641811a062059bbd02cb8dcb58",
+      "classification": "replaceable_rasterizer"
+    },
+    {
+      "name": "raster_path_tag_bit1_clear_polygon",
+      "module": "HERCULES.EXE",
+      "rva": "0xd420",
+      "size": 2384,
+      "sha256": "4645c60cf0a357ed4aae074c3487a2755384852d0874e2f12b352b994544e07e",
+      "classification": "replaceable_rasterizer"
+    },
+    {
+      "name": "raster_path_tag_bit1_set_sprite",
+      "module": "HERCULES.EXE",
+      "rva": "0xc8f0",
+      "size": 448,
+      "sha256": "95ac42d7f4447015eb0760dfccbf2c40fddf600baa76f8f885cf3be7ad9926bf",
+      "classification": "replaceable_rasterizer"
+    },
+    {
+      "name": "raster_path_tag_bit1_clear_sprite",
+      "module": "HERCULES.EXE",
+      "rva": "0xcab0",
+      "size": 416,
+      "sha256": "fe6c00a7e9109250e2e5aa4c3c3419c7381cf9758422d42d319b3e4648d12609",
+      "classification": "replaceable_rasterizer"
+    },
+    {
+      "name": "command1_compat_vram_move",
+      "module": "HERCULES.EXE",
+      "rva": "0xa8f0",
+      "size": 784,
+      "sha256": "b67b200559fe74aad75c405e0f1641895b1e2a6e4186c1c33f7293ea899d1611",
+      "classification": "essential_external_contract"
+    },
+    {
+      "name": "frame_color_remap",
+      "module": "HERCULES.EXE",
+      "rva": "0x70c0",
+      "size": 128,
+      "sha256": "3432496f55144a415399893358618b7f970f1a263eb4ea80df30083e6494d4e7",
+      "classification": "compatibility_side_effect"
+    },
+    {
+      "name": "surface_unlock",
+      "module": "HERCULES.EXE",
+      "rva": "0x7140",
+      "size": 48,
+      "sha256": "4b7c21ba71315f2ead46794cce176555531a628c55cc891b64a775ecfdd891d9",
+      "classification": "host_service_to_preserve"
+    },
+    {
+      "name": "present_frame",
+      "module": "HERCULES.EXE",
+      "rva": "0x6620",
+      "size": 224,
+      "sha256": "4e350af06a5c660a75dabf57cd95c42eb06d6f0b1b4b8a2c65b709fefa3d30cd",
+      "classification": "host_service_to_preserve"
+    },
+    {
+      "name": "completion_callback_gate",
+      "module": "HERCULES.EXE",
+      "rva": "0xbd80",
+      "size": 32,
+      "sha256": "f7a025f60d10546c25ab438b6975f01529c9c4067cc99327b7d461c081d90d8e",
+      "classification": "essential_external_contract"
+    },
+    {
+      "name": "polygon_pixel_helper",
+      "module": "HERCULES.EXE",
+      "rva": "0xdd70",
+      "size": 2320,
+      "sha256": "44dcd2638f14fbcf644f76aa622cba9e4dff971776662c6d2317b725eafcad60",
+      "classification": "replaceable_rasterizer"
+    },
+    {
+      "name": "polygon_fill_helper",
+      "module": "HERCULES.EXE",
+      "rva": "0xc700",
+      "size": 496,
+      "sha256": "b81741c75b775d15bc06622ee9e11a4095385c92e8b6c0a3b2c641e80924a567",
+      "classification": "replaceable_rasterizer"
+    },
+    {
+      "name": "polygon_draw_helper",
+      "module": "HERCULES.EXE",
+      "rva": "0xcc50",
+      "size": 2000,
+      "sha256": "26ac072b8de4b59f4a929abb5fd0d6cbcbe826fa02d3ee9f78d07245b39f8776",
+      "classification": "replaceable_rasterizer"
+    },
+    {
+      "name": "polygon_span_helper",
+      "module": "HERCULES.EXE",
+      "rva": "0xc2e0",
+      "size": 1056,
+      "sha256": "8908bd9d0b920d8020f304feda864b1a25f42415cca421510b48362e2f091d9a",
+      "classification": "replaceable_rasterizer"
+    },
+    {
+      "name": "color_setup_helper",
+      "module": "HERCULES.EXE",
+      "rva": "0x6850",
+      "size": 112,
+      "sha256": "729384bf81eb173cb51b6089aeec5c7cf31e5f718226df11a55d6dd44bbabcd2",
+      "classification": "unresolved"
+    },
+    {
+      "name": "lock_failure_setter",
+      "module": "HERCULES.EXE",
+      "rva": "0x6ec0",
+      "size": 32,
+      "sha256": "9b8618311c10d9f102b864279503f03c71c04a5ea4db6bb256fef7f4a49c344b",
+      "classification": "host_service_to_preserve"
+    },
+    {
+      "name": "lock_failure_transition",
+      "module": "HERCULES.EXE",
+      "rva": "0x6bb0",
+      "size": 784,
+      "sha256": "369922176b91588536370342557e34de4e6e7dac3c6baeebfa3cf7f915f9ffe0",
+      "classification": "compatibility_side_effect"
+    }
+  ],
+  "callback_80_vs_bd80": {
+    "source_table_slot_0x140_target": "AC00 (public compatibility.json)",
+    "ac00_wrapper": {
+      "rva": "0xac00",
+      "size": 8,
+      "sha256": "ee3bfa443d2fc29eb9583da7883ae2847265189d722ad54d014e96478e8914e5",
+      "observed_operations": [
+        "call BD80",
+        "xor eax,eax",
+        "ret"
+      ],
+      "explicit_arguments_prepared": [],
+      "stack_argument_contract": "AC00 does not read or adjust stack arguments; arguments supplied by an external caller are unresolved",
+      "post_callback_effect": "sets EAX to zero before returning to its caller"
+    },
+    "bd80_gate": {
+      "rva": "0xbd80",
+      "size": 22,
+      "sha256": "6a9578c5be0c980bc35b29642d3ac389e829a0c5666022353cb88c04f19db64f",
+      "observed_operations": [
+        "load callback target from [0xA8E780]",
+        "return if target is null",
+        "load gate word from [0xA8E788]",
+        "return if gate is zero",
+        "tail-jump through callback target"
+      ],
+      "explicit_arguments_prepared": []
+    },
+    "ac60_direct_call": {
+      "rva": "0xb2e2",
+      "size": 5,
+      "sha256": "cd2772264c9adb7249f75363ae54f8979cc3babcd5534dbfcf98e44fd102b49a",
+      "target_rva": "0xbd80",
+      "continuation_rva": "0xb2e7"
+    },
+    "callback_continuation_if_invoked": {
+      "through_ac00": "0xac05 (then EAX is cleared and AC00 returns)",
+      "directly_from_ac60": "0xb2e7",
+      "arguments": "neither call site prepares callback arguments; caller stack contents and callback-side interpretation are unresolved"
+    },
+    "verified_host_adapter_resolution": {
+      "original_image_base": "0x400000",
+      "original_bd80_va": "0x40bd80",
+      "base_relocation_count": 0,
+      "finding": "the pinned original BD80 gate is statically addressable as image_base + 0xBD80 without relying on a module copy; live installation or invocation is unobserved"
+    },
+    "interchangeability": "same callback target/gate, but not ABI-identical: AC00 inserts a return frame and clears EAX after callback; the callback sees different return-address context"
+  },
+  "summary": {
+    "direct_absolute_reference_candidate_counts": {
+      "sprite_destination_pointer_A90944": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 32,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 32,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        }
+      },
+      "blend_table_pointer_A90948": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 8,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 8,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        }
+      },
+      "polygon_workspace_A909B0_A90A14": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 296,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 296,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        }
+      },
+      "page_index_A8E6F4": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 5,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 5,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        }
+      },
+      "blend_selector_A8E6F8": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 7,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 7,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        }
+      },
+      "alternate_page_flag_A8E6FC": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 5,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 5,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        }
+      },
+      "draw_gate_BA01FC": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 5,
+            "outside_bounded_closure": 3,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 5,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        }
+      },
+      "lock_state_BA01F0": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 15,
+            "outside_bounded_closure": 1,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 5,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 15,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        }
+      },
+      "surface_pointer_BA0210": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 24,
+            "outside_bounded_closure": 2,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 5,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 24,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        }
+      },
+      "surface_pitch_BA0214": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 24,
+            "outside_bounded_closure": 2,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 6,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 24,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        }
+      },
+      "f3_right_output_43A488": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 3,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 3,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        }
+      },
+      "f3_bottom_output_43A48C": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 15,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 15,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        }
+      },
+      "frame_dirty_flag_43A590": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 14,
+            "outside_bounded_closure": 3,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 4,
+            "outside_bounded_closure": 1,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 14,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        }
+      },
+      "color_change_flag_96E698": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 1,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 1,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        }
+      },
+      "color_rgb_96E699_96E69C": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 3,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 3,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "recovery_function_inventory": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          },
+          "bounded_renderer_closure": {
+            "inside_bounded_closure": 0,
+            "outside_bounded_closure": 0,
+            "module_direct": 0
+          }
+        }
+      }
+    },
+    "address_immediate_candidate_counts": {
+      "sprite_destination_pointer_A90944": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        }
+      },
+      "blend_table_pointer_A90948": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        }
+      },
+      "polygon_workspace_A909B0_A90A14": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        }
+      },
+      "page_index_A8E6F4": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        }
+      },
+      "blend_selector_A8E6F8": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        }
+      },
+      "alternate_page_flag_A8E6FC": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        }
+      },
+      "draw_gate_BA01FC": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        }
+      },
+      "lock_state_BA01F0": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": 1,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        }
+      },
+      "surface_pointer_BA0210": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        }
+      },
+      "surface_pitch_BA0214": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        }
+      },
+      "f3_right_output_43A488": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        }
+      },
+      "f3_bottom_output_43A48C": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        }
+      },
+      "frame_dirty_flag_43A590": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        }
+      },
+      "color_change_flag_96E698": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        }
+      },
+      "color_rgb_96E699_96E69C": {
+        "HERCULES.EXE": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG1.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "ENG3.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        },
+        "TITLE.DLL": {
+          "section_linear_sweep": 0,
+          "recovery_function_inventory": 0,
+          "bounded_renderer_closure": 0
+        }
+      }
+    },
+    "page_base_address_immediate_counts": {
+      "HERCULES.EXE": {
+        "section_linear_sweep": 8,
+        "recovery_function_inventory": 0,
+        "bounded_renderer_closure": 8
+      },
+      "ENG1.DLL": {
+        "section_linear_sweep": 0,
+        "recovery_function_inventory": 0,
+        "bounded_renderer_closure": 0
+      },
+      "ENG3.DLL": {
+        "section_linear_sweep": 0,
+        "recovery_function_inventory": 0,
+        "bounded_renderer_closure": 0
+      },
+      "TITLE.DLL": {
+        "section_linear_sweep": 0,
+        "recovery_function_inventory": 0,
+        "bounded_renderer_closure": 0
+      }
+    },
+    "unique_outside_candidate_sites": {
+      "draw_gate_BA01FC": [
+        {
+          "site_rva": "0x5efb",
+          "address": "0xba01fc",
+          "width": 1,
+          "access": "read",
+          "instruction": "mov cl, byte ptr [0xba01fc]",
+          "observed_by": [
+            "section_linear_sweep"
+          ]
+        },
+        {
+          "site_rva": "0x5f91",
+          "address": "0xba01fc",
+          "width": 1,
+          "access": "write",
+          "instruction": "mov byte ptr [0xba01fc], bl",
+          "observed_by": [
+            "section_linear_sweep"
+          ]
+        },
+        {
+          "site_rva": "0x5fb3",
+          "address": "0xba01fc",
+          "width": 1,
+          "access": "write",
+          "instruction": "mov byte ptr [0xba01fc], 0",
+          "observed_by": [
+            "section_linear_sweep"
+          ]
+        }
+      ],
+      "lock_state_BA01F0": [
+        {
+          "site_rva": "0x55ed",
+          "address": "0xba01f0",
+          "width": 1,
+          "access": "read",
+          "instruction": "mov al, byte ptr [0xba01f0]",
+          "observed_by": [
+            "section_linear_sweep"
+          ]
+        }
+      ],
+      "surface_pointer_BA0210": [
+        {
+          "site_rva": "0x55f6",
+          "address": "0xba0210",
+          "width": 4,
+          "access": "read",
+          "instruction": "mov edx, dword ptr [0xba0210]",
+          "observed_by": [
+            "section_linear_sweep"
+          ]
+        },
+        {
+          "site_rva": "0x563a",
+          "address": "0xba0210",
+          "width": 4,
+          "access": "read",
+          "instruction": "mov edx, dword ptr [0xba0210]",
+          "observed_by": [
+            "section_linear_sweep"
+          ]
+        }
+      ],
+      "surface_pitch_BA0214": [
+        {
+          "site_rva": "0x5604",
+          "address": "0xba0214",
+          "width": 4,
+          "access": "read",
+          "instruction": "mov eax, dword ptr [0xba0214]",
+          "observed_by": [
+            "section_linear_sweep"
+          ]
+        },
+        {
+          "site_rva": "0x5644",
+          "address": "0xba0214",
+          "width": 4,
+          "access": "read",
+          "instruction": "imul edi, dword ptr [0xba0214]",
+          "observed_by": [
+            "section_linear_sweep"
+          ]
+        }
+      ],
+      "frame_dirty_flag_43A590": [
+        {
+          "site_rva": "0x566b",
+          "address": "0x43a590",
+          "width": 1,
+          "access": "write",
+          "instruction": "mov byte ptr [0x43a590], 1",
+          "observed_by": [
+            "section_linear_sweep"
+          ]
+        },
+        {
+          "site_rva": "0x675d",
+          "address": "0x43a590",
+          "width": 1,
+          "access": "write",
+          "instruction": "mov byte ptr [0x43a590], 1",
+          "observed_by": [
+            "section_linear_sweep",
+            "recovery_function_inventory"
+          ]
+        },
+        {
+          "site_rva": "0x976b",
+          "address": "0x43a590",
+          "width": 1,
+          "access": "write",
+          "instruction": "mov byte ptr [0x43a590], 1",
+          "observed_by": [
+            "section_linear_sweep"
+          ]
+        }
+      ]
+    },
+    "strict_decode_first_stops": {
+      "HERCULES.EXE": [
+        {
+          "name": ".text",
+          "start_rva": "0x1000",
+          "end_rva_exclusive": "0x2de00",
+          "strict_decoded_instruction_count": 21486,
+          "strict_decoded_bytes": 66122,
+          "first_strict_decode_stop_rva": "0x1124a"
+        }
+      ],
+      "ENG1.DLL": [
+        {
+          "name": ".text",
+          "start_rva": "0x1000",
+          "end_rva_exclusive": "0x4c000",
+          "strict_decoded_instruction_count": 10964,
+          "strict_decoded_bytes": 34808,
+          "first_strict_decode_stop_rva": "0x97f8"
+        }
+      ],
+      "ENG3.DLL": [
+        {
+          "name": ".text",
+          "start_rva": "0x1000",
+          "end_rva_exclusive": "0x31e00",
+          "strict_decoded_instruction_count": 12680,
+          "strict_decoded_bytes": 41697,
+          "first_strict_decode_stop_rva": "0xb2e1"
+        }
+      ],
+      "TITLE.DLL": [
+        {
+          "name": ".text",
+          "start_rva": "0x1000",
+          "end_rva_exclusive": "0x20e00",
+          "strict_decoded_instruction_count": 15763,
+          "strict_decoded_bytes": 50964,
+          "first_strict_decode_stop_rva": "0xd714"
+        }
+      ]
+    }
+  },
+  "limits": [
+    "Linear-sweep decoding can begin inside embedded data or decode data bytes as plausible instructions; all decoded operands remain candidates unless independently bounded at a real function start.",
+    "recovery.json supplies only a partial function inventory; function-rooted spans are useful anchors, not a complete control-flow map.",
+    "Every undecodable byte is represented by a Capstone .byte skipdata pseudo-op; exact gaps and unanchored spans are retained per executable section.",
+    "An address-immediate candidate is not asserted to be a dereference or pointer escape without local evidence.",
+    "Outside means outside the reviewed bounded dependency intervals, not outside every renderer-related path.",
+    "The scan does not resolve register-computed aliases, dynamic code, external callbacks, or allocation extents.",
+    "Absence of a scanned candidate does not exclude callback-derived aliases; retain observed staged writes until downstream consumers of possible aliases are excluded."
+  ],
+  "compaction": {
+    "full_receipt_sha256": "72722e3e4288e1b533659ea8e896723a293725c56fc7f4dc08a3cbc8b026de79",
+    "full_receipt_reproducible_with": "renderer_contract/tests/audit_state_ownership.py",
+    "omitted": "Repeated per-target per-image details and unanchored-range lists; summaries, outside sites, section coverage and exact skip gaps retained."
+  }
+}

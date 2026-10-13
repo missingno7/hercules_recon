@@ -48,6 +48,13 @@ The exact-base native Windows mapping attempt was refused because address `0x400
 
 ## Integrated reproduction
 
+The [backing and alias audit](texture_ownership.md) establishes a bounded
+ordinary 1 MiB address envelope and one fixed alternate 64 KiB byte-UV view.
+Neither is an exclusive allocation claim. Extending the alternate view to
+sixteen pages would include native page state, reciprocal tables and scratch.
+Clipped sprite U/V can exceed byte width, so validate effective addresses
+instead of treating one page as a universal sprite read bound.
+
 The private investigation paths above identify provenance. In this package, run tests/validate_originals.py with the original image paths to recheck recorded bytes and bindings, and tests/run_tests.py for the compiled synthetic suite. The byte validator does not independently redo the semantic analysis. The compact receipt is evidence/textures.json.
 
 ## Native move order and aliases

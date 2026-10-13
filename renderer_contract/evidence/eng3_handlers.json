@@ -1,0 +1,1050 @@
+{
+  "schema_version": 1,
+  "scope": "Bounded STATIC_OBSERVED trace of ENG3 handler-table entries 0-3 and their direct packet/render delegates; no original execution.",
+  "prediction": {
+    "scope": "ENG3 handler-table indices 0-3 and their bounded direct render delegates.",
+    "prediction": "State/delegation routes and known AC60 packet families; computed child selection may remain unresolved.",
+    "falsifier": "A pinned direct route writes a command or packet layout outside the represented families.",
+    "private_initial_record": "work/renderer_phase4/eng3_handlers/prediction.json"
+  },
+  "proof_level": "STATIC_OBSERVED",
+  "tooling": {
+    "capstone": "5.0.7",
+    "pe_reader": "scripts/pe.py",
+    "dependency_setup": "scripts/env.py"
+  },
+  "originals": {
+    "ENG3.DLL": {
+      "path": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\ENG3.DLL",
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "image_base": "0x10000000"
+    },
+    "HERCULES.EXE": {
+      "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "image_base": "0x400000"
+    }
+  },
+  "public_inputs": {
+    "renderer_contract/evidence/module_packets.json": "a68864a259202260ccbfaf7ccee0b68c127af839d3c4b6889c32978e5ff32772",
+    "renderer_contract/evidence/geometry.json": "b495243cc32757e4f379bfb7b721b168fe6ba46ca908ed1dd763380c53b6aa33",
+    "renderer_contract/evidence/compatibility.json": "82b8b183ad54d629fef5bd977ca8ac579c3708af36879b18c8536303a983c61d"
+  },
+  "handler_table": {
+    "rva": "0x35010",
+    "size": 24,
+    "sha256": "22545ddc623f92f362d7b73001d2a6c293e03292253b20ee8be8bd970f742e73",
+    "target_rvas_by_index": [
+      "0x9030",
+      "0x90e0",
+      "0x22de0",
+      "0x22e40",
+      "0x22f00",
+      "0x23440"
+    ]
+  },
+  "native_spans": {
+    "handler_0": {
+      "module": "ENG3.DLL",
+      "rva": "0x9030",
+      "size": 160,
+      "sha256": "ebac19d7ffece90342b586199531cf6b366f5c268e874b871c65990402a8a437",
+      "boundary": "body through final RET"
+    },
+    "handler_1_ft4_writer": {
+      "module": "ENG3.DLL",
+      "rva": "0x90e0",
+      "size": 826,
+      "sha256": "6c80e0f1c30c78c006c77e9b9cb8cb527d64a4fcb7cb9398b9d34667c9441373",
+      "boundary": "body through final RET"
+    },
+    "handler_0_writer_a": {
+      "module": "ENG3.DLL",
+      "rva": "0x9420",
+      "size": 800,
+      "sha256": "fa6b526d0bbf0cd367a337a2537432e8202710e25f4254297be34978c5d59490",
+      "boundary": "body through final RET"
+    },
+    "handler_0_writer_b": {
+      "module": "ENG3.DLL",
+      "rva": "0x99b0",
+      "size": 855,
+      "sha256": "c4e57b5a51cfe6ee00757111013a7d243a347cb40ea807994aee910f07200502",
+      "boundary": "body through final RET"
+    },
+    "handler_2": {
+      "module": "ENG3.DLL",
+      "rva": "0x22de0",
+      "size": 89,
+      "sha256": "f01cb75511c09359ed9a57b8b9e71eceac040049e9462364c5a656cb22e07730",
+      "boundary": "body through final RET"
+    },
+    "handler_3": {
+      "module": "ENG3.DLL",
+      "rva": "0x22e40",
+      "size": 190,
+      "sha256": "02f8a482d847ad9a5e2c09004c6620c7e3bec0c6a60ab9747e9646a419fafd59",
+      "boundary": "body through final RET"
+    },
+    "shared_object_renderer": {
+      "module": "ENG3.DLL",
+      "rva": "0x8da0",
+      "size": 653,
+      "sha256": "0996e678d14d7404ea0f35e928bacf3956eb387bfd4416171e3e86776f84c057",
+      "boundary": "body through final RET"
+    },
+    "object_state_sync": {
+      "module": "ENG3.DLL",
+      "rva": "0xa410",
+      "size": 89,
+      "sha256": "5d6bcfbb9febbc7f325aa8847e203609146f1d94af3467b17d13f970a65708f6",
+      "boundary": "body through final RET"
+    },
+    "geometry_prepare": {
+      "module": "ENG3.DLL",
+      "rva": "0x24770",
+      "size": 97,
+      "sha256": "5c0953eac674c686ec00e387a1bc196b4f84865a8df3f1d6b770f805b4d04f27",
+      "boundary": "body through final RET"
+    },
+    "state_predicate_helper": {
+      "module": "ENG3.DLL",
+      "rva": "0x24a80",
+      "size": 111,
+      "sha256": "3a9fc30527d0f722cd6a1e16e8f5c5ba3b7f3e8bafa3fefc6ab2c1a172e89e85",
+      "boundary": "body through final RET"
+    }
+  },
+  "handlers": [
+    {
+      "index": 0,
+      "entry_rva": "0x9030",
+      "classification": "data-dependent selector routing to three FT4-compatible linked packet writers",
+      "direct_call_targets": [
+        "0x9420",
+        "0x90e0",
+        "0x99b0"
+      ],
+      "direct_call_sites": [
+        {
+          "rva": "0x908d",
+          "size": 5,
+          "sha256": "04c7637944f93cf1afead4bcbd4438624d83ec8c582ed6ae366ca7653bb3eb38",
+          "mnemonic": "call",
+          "operands": "0x9420"
+        },
+        {
+          "rva": "0x90a4",
+          "size": 5,
+          "sha256": "2ac7a26d0d0f1bc4b2ed795694a5909fc62443e08f7e9c04646708012c1e392b",
+          "mnemonic": "call",
+          "operands": "0x90e0"
+        },
+        {
+          "rva": "0x90c4",
+          "size": 5,
+          "sha256": "db12a10bf951623050740cfd0c93c63dff0cfc1705a062f272b3a81ff7aa1d71",
+          "mnemonic": "call",
+          "operands": "0x99b0"
+        }
+      ],
+      "packet_producers": [
+        "0x9420",
+        "0x90e0",
+        "0x99b0"
+      ],
+      "proof_level": "STATIC_OBSERVED"
+    },
+    {
+      "index": 1,
+      "entry_rva": "0x90e0",
+      "classification": "FT4-compatible linked packet writer",
+      "packet_producers": [
+        "0x90e0"
+      ],
+      "direct_call_sites": [
+        {
+          "rva": "0x90ec",
+          "size": 5,
+          "sha256": "84b65642f7de2d82cd1ff1642f7c51608c49082f2f6a2bccb6ef3589f61a96bb",
+          "mnemonic": "call",
+          "operands": "0x23b00"
+        }
+      ],
+      "proof_level": "STATIC_OBSERVED"
+    },
+    {
+      "index": 2,
+      "entry_rva": "0x22de0",
+      "classification": "conditional object-state synchronization and shared object-renderer delegation; no new packet layout at this entry",
+      "direct_call_targets": [
+        "0x24a80",
+        "0xa410",
+        "0x24a80",
+        "0x8da0"
+      ],
+      "direct_call_sites": [
+        {
+          "rva": "0x22de8",
+          "size": 5,
+          "sha256": "840001bc3c5559e09144dbfa6e0e4c29e42c5b57cdeb40de658e707a3f9590ea",
+          "mnemonic": "call",
+          "operands": "0x24a80"
+        },
+        {
+          "rva": "0x22e18",
+          "size": 5,
+          "sha256": "74fa890205ebce9a577993075a2b8ada96e07e1d80263f964a14fe74d83e46ff",
+          "mnemonic": "call",
+          "operands": "0xa410"
+        },
+        {
+          "rva": "0x22e21",
+          "size": 5,
+          "sha256": "4a77acd53707ac9471b32e9e5fa545b9bd4f43c55f452d91b718f6d625a34cdc",
+          "mnemonic": "call",
+          "operands": "0x24a80"
+        },
+        {
+          "rva": "0x22e2a",
+          "size": 5,
+          "sha256": "37e26e18d55d4f102c68a85484c8fc07f212ebf69933043c35be298a49fdb7e0",
+          "mnemonic": "call",
+          "operands": "0x8da0"
+        }
+      ],
+      "render_delegate": "0x8da0",
+      "proof_level": "STATIC_OBSERVED"
+    },
+    {
+      "index": 3,
+      "entry_rva": "0x22e40",
+      "classification": "geometry/state preparation followed by shared object-renderer delegation; no new packet layout at this entry",
+      "direct_call_targets": [
+        "0x24a80",
+        "0x1ff40",
+        "0x1fd20",
+        "0x1fcd0",
+        "0x24770",
+        "0xa410",
+        "0x8da0"
+      ],
+      "direct_call_sites": [
+        {
+          "rva": "0x22e4b",
+          "size": 5,
+          "sha256": "ba8c7d438e013fc2322e899a50ee41cb073d3595b84a4d2816a16b9908e83f8e",
+          "mnemonic": "call",
+          "operands": "0x24a80"
+        },
+        {
+          "rva": "0x22ea6",
+          "size": 5,
+          "sha256": "c8114a0c9b3d24fdeb8c6d0de7ac56a3196e0656c8a4488a4e7ab7d25f684ae6",
+          "mnemonic": "call",
+          "operands": "0x1ff40"
+        },
+        {
+          "rva": "0x22eb3",
+          "size": 5,
+          "sha256": "e0b792a31f98efa374704fa091307ca14fb377747644e44b625f669fb2194106",
+          "mnemonic": "call",
+          "operands": "0x1fd20"
+        },
+        {
+          "rva": "0x22ebb",
+          "size": 5,
+          "sha256": "e34a91d90e78e6522272ce93690225cf4f651cd2620073cff514e04c5a3c16d3",
+          "mnemonic": "call",
+          "operands": "0x1fcd0"
+        },
+        {
+          "rva": "0x22ed6",
+          "size": 5,
+          "sha256": "cfdca5aa7a6a1c511bc2a5069a93307efd0d196e86b557b02172bd96b77fbd53",
+          "mnemonic": "call",
+          "operands": "0x24770"
+        },
+        {
+          "rva": "0x22ee3",
+          "size": 5,
+          "sha256": "6a2582f940a3b2e99ad17801c66ab3e12e72853d34cf88874f0d2898bb1fc168",
+          "mnemonic": "call",
+          "operands": "0xa410"
+        },
+        {
+          "rva": "0x22eec",
+          "size": 5,
+          "sha256": "226c303018da201e0d52f49303c167e133f9d5989f53c803e2dd57a7c7b06e97",
+          "mnemonic": "call",
+          "operands": "0x8da0"
+        }
+      ],
+      "render_delegate": "0x8da0",
+      "proof_level": "STATIC_OBSERVED"
+    }
+  ],
+  "ft4_packet_producers": [
+    {
+      "producer_rva": "0x90e0",
+      "family": "FT4-compatible linked primitive",
+      "command_word_helper_rva": "0x23b00",
+      "helper_result_flow": {
+        "helper_call": {
+          "rva": "0x90ec",
+          "size": 5,
+          "sha256": "84b65642f7de2d82cd1ff1642f7c51608c49082f2f6a2bccb6ef3589f61a96bb",
+          "mnemonic": "call",
+          "operands": "0x23b00"
+        },
+        "helper_return_stack_store": {
+          "rva": "0x90fb",
+          "size": 4,
+          "sha256": "a589a186a3357f37d6b67283e3a3bffcff961d341929bd8ef5e00a7ca626c9de",
+          "mnemonic": "mov",
+          "operands": "dword ptr [esp + 0x44], eax"
+        },
+        "helper_result_stack_load": {
+          "rva": "0x93b4",
+          "size": 4,
+          "sha256": "8ae2ac9b61d30806d07ee0f7e9c013ef8cdc084a563ee94672f5e13eac92dc19",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [esp + 0x44]"
+        },
+        "packet_command_dword_store": {
+          "rva": "0x93b8",
+          "size": 3,
+          "sha256": "fc8e692c1cd4e041941c2c707759b59330f639f98842dffa2390180cf012cf47",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 4], edx"
+        }
+      },
+      "command_tags_from_reused_helper_evidence": [
+        "0x2c",
+        "0x2e"
+      ],
+      "packet_write_offsets": [
+        "0x0",
+        "0x4",
+        "0x8",
+        "0xc",
+        "0xe",
+        "0x10",
+        "0x14",
+        "0x16",
+        "0x18",
+        "0x1c",
+        "0x20",
+        "0x24"
+      ],
+      "packet_write_sites": [
+        {
+          "rva": "0x924a",
+          "size": 3,
+          "sha256": "187839e1e00d6a6288efa848e6f1d08e8270afc2ec6506ea5c60bdcc0aebcdd3",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 8], ebp"
+        },
+        {
+          "rva": "0x9255",
+          "size": 3,
+          "sha256": "2221a30470349e6ce88bf6541c6ab364185c1d385f815ca714d4a5aa062e41d9",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 0x10], ebx"
+        },
+        {
+          "rva": "0x9265",
+          "size": 3,
+          "sha256": "60f5e1d08413dd2d8a4c756363a90710f2ecfa573514a045faf14806db81974c",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 0x18], ebx"
+        },
+        {
+          "rva": "0x9268",
+          "size": 3,
+          "sha256": "43f716f8a37ae85e844d7a2b1310bb7b5c5429c13f46b0e033416eb5ba8ffd22",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 0x20], esi"
+        },
+        {
+          "rva": "0x92a3",
+          "size": 4,
+          "sha256": "4ebf1709179cbd006da7b6b24f263be467c9bb8f11bcae318614a2a7f6ff717a",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0xc], bx"
+        },
+        {
+          "rva": "0x92b2",
+          "size": 4,
+          "sha256": "3178106f87be0b0339266b01e72476778eb523b3ecf19e84b0c93894c74af550",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x14], ax"
+        },
+        {
+          "rva": "0x92c5",
+          "size": 4,
+          "sha256": "de363e27051f27eaaec0691db2b4cda0816e310b57233fb40add3b68bcfdc56b",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x1c], si"
+        },
+        {
+          "rva": "0x92c9",
+          "size": 4,
+          "sha256": "c7a01a8a0c55b087d2ff711ea09f527a8e7c01ebe663be357e66bac4d0d14eb5",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x24], ax"
+        },
+        {
+          "rva": "0x92f1",
+          "size": 3,
+          "sha256": "187839e1e00d6a6288efa848e6f1d08e8270afc2ec6506ea5c60bdcc0aebcdd3",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 8], ebp"
+        },
+        {
+          "rva": "0x9309",
+          "size": 3,
+          "sha256": "2221a30470349e6ce88bf6541c6ab364185c1d385f815ca714d4a5aa062e41d9",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 0x10], ebx"
+        },
+        {
+          "rva": "0x9321",
+          "size": 3,
+          "sha256": "60f5e1d08413dd2d8a4c756363a90710f2ecfa573514a045faf14806db81974c",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 0x18], ebx"
+        },
+        {
+          "rva": "0x932a",
+          "size": 3,
+          "sha256": "d550f8dcacc4b17f07c711c40ac6e0c9bd7d008bf7ec4ec14bd3cdb9865a0142",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 0x20], ebp"
+        },
+        {
+          "rva": "0x9374",
+          "size": 4,
+          "sha256": "3178106f87be0b0339266b01e72476778eb523b3ecf19e84b0c93894c74af550",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x14], ax"
+        },
+        {
+          "rva": "0x9384",
+          "size": 4,
+          "sha256": "be6de5a6ebb4cdba2883fbfac8b6ac0248581ee52a3eec820a7757a41784bbc9",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0xc], bp"
+        },
+        {
+          "rva": "0x938f",
+          "size": 4,
+          "sha256": "de363e27051f27eaaec0691db2b4cda0816e310b57233fb40add3b68bcfdc56b",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x1c], si"
+        },
+        {
+          "rva": "0x9393",
+          "size": 4,
+          "sha256": "ce7b118a76b6873127d92a01f974f78de649a95fc3fdc49edeff00a268426e20",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x24], dx"
+        },
+        {
+          "rva": "0x93b0",
+          "size": 4,
+          "sha256": "1be62ea21fc69255856de3dd333b612af7c7a305eecbd1854fe34a3c16cfd93a",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x16], dx"
+        },
+        {
+          "rva": "0x93b8",
+          "size": 3,
+          "sha256": "fc8e692c1cd4e041941c2c707759b59330f639f98842dffa2390180cf012cf47",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 4], edx"
+        },
+        {
+          "rva": "0x93c0",
+          "size": 4,
+          "sha256": "44c273cac5ee2e52159d6356467af1191fd29f31f387576f50ea8412a3f7aec2",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0xe], dx"
+        },
+        {
+          "rva": "0x93ca",
+          "size": 2,
+          "sha256": "3db07e485d45f7517b4010dec7d0dcb8f346ac6796685a2da74d7ee2bd67e6c4",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx], esi"
+        },
+        {
+          "rva": "0x93cc",
+          "size": 2,
+          "sha256": "587e5ed0ff7c93c43c214b6cd2b6c4d93dd6b151748286cfd2f164494eb7c611",
+          "mnemonic": "mov",
+          "operands": "dword ptr [edx], ecx"
+        }
+      ],
+      "head_link_writes": [
+        {
+          "rva": "0x93ca",
+          "size": 2,
+          "sha256": "3db07e485d45f7517b4010dec7d0dcb8f346ac6796685a2da74d7ee2bd67e6c4",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx], esi"
+        },
+        {
+          "rva": "0x93cc",
+          "size": 2,
+          "sha256": "587e5ed0ff7c93c43c214b6cd2b6c4d93dd6b151748286cfd2f164494eb7c611",
+          "mnemonic": "mov",
+          "operands": "dword ptr [edx], ecx"
+        }
+      ],
+      "cursor_stride": 40,
+      "stride_site": {
+        "rva": "0x93d0",
+        "size": 3,
+        "sha256": "e72aa9883b867c0a0ec62ef6e8dbc3f45e26af1ee7123732593b3ec2307cb644",
+        "mnemonic": "add",
+        "operands": "ecx, 0x28"
+      },
+      "global_cursor_store": {
+        "rva": "0x940f",
+        "size": 6,
+        "sha256": "5d68e21974d6b160aeaf82d7e7a747dd462a410cf3c618f142e075fb69181866",
+        "mnemonic": "mov",
+        "operands": "dword ptr [0x10043164], ecx"
+      },
+      "highest_observed_packet_byte_written": "0x25",
+      "proof_level": "STATIC_OBSERVED"
+    },
+    {
+      "producer_rva": "0x9420",
+      "family": "FT4-compatible linked primitive",
+      "command_word_helper_rva": "0x23b00",
+      "helper_result_flow": {
+        "helper_call": {
+          "rva": "0x942c",
+          "size": 5,
+          "sha256": "58d1660942b1df4f8f4cc0592f6001fbfb9f155d5636a5ab9d9f3024310bdc2d",
+          "mnemonic": "call",
+          "operands": "0x23b00"
+        },
+        "helper_return_stack_store": {
+          "rva": "0x943b",
+          "size": 4,
+          "sha256": "a589a186a3357f37d6b67283e3a3bffcff961d341929bd8ef5e00a7ca626c9de",
+          "mnemonic": "mov",
+          "operands": "dword ptr [esp + 0x44], eax"
+        },
+        "helper_result_stack_load": {
+          "rva": "0x96de",
+          "size": 4,
+          "sha256": "8ae2ac9b61d30806d07ee0f7e9c013ef8cdc084a563ee94672f5e13eac92dc19",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [esp + 0x44]"
+        },
+        "packet_command_dword_store": {
+          "rva": "0x96e2",
+          "size": 3,
+          "sha256": "fc8e692c1cd4e041941c2c707759b59330f639f98842dffa2390180cf012cf47",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 4], edx"
+        }
+      },
+      "command_tags_from_reused_helper_evidence": [
+        "0x2c",
+        "0x2e"
+      ],
+      "packet_write_offsets": [
+        "0x0",
+        "0x4",
+        "0x8",
+        "0xc",
+        "0xe",
+        "0x10",
+        "0x14",
+        "0x16",
+        "0x18",
+        "0x1c",
+        "0x20",
+        "0x24"
+      ],
+      "packet_write_sites": [
+        {
+          "rva": "0x956b",
+          "size": 4,
+          "sha256": "be6de5a6ebb4cdba2883fbfac8b6ac0248581ee52a3eec820a7757a41784bbc9",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0xc], bp"
+        },
+        {
+          "rva": "0x957b",
+          "size": 4,
+          "sha256": "3178106f87be0b0339266b01e72476778eb523b3ecf19e84b0c93894c74af550",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x14], ax"
+        },
+        {
+          "rva": "0x9597",
+          "size": 4,
+          "sha256": "05fcee1f4a5445dd8243ce606f4cc52501b57c4e912bb7814495771fb26893cd",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x1c], bx"
+        },
+        {
+          "rva": "0x959b",
+          "size": 4,
+          "sha256": "c7a01a8a0c55b087d2ff711ea09f527a8e7c01ebe663be357e66bac4d0d14eb5",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x24], ax"
+        },
+        {
+          "rva": "0x9622",
+          "size": 3,
+          "sha256": "24b0dfbf734b5633c3552d84f27d19c946451cbac6a4e255428a8a62bf497f60",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 8], esi"
+        },
+        {
+          "rva": "0x965e",
+          "size": 3,
+          "sha256": "2221a30470349e6ce88bf6541c6ab364185c1d385f815ca714d4a5aa062e41d9",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 0x10], ebx"
+        },
+        {
+          "rva": "0x969f",
+          "size": 3,
+          "sha256": "dd701e81135c0711109bb8072f25d94d47716da8c24fac61bc7b1da8115e6c2e",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 0x18], ebp"
+        },
+        {
+          "rva": "0x96c1",
+          "size": 3,
+          "sha256": "827f01242d9f5ef6820d0380a38c8109b5ec43695c0b990267bbb5efeffff148",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 0x20], eax"
+        },
+        {
+          "rva": "0x96da",
+          "size": 4,
+          "sha256": "1be62ea21fc69255856de3dd333b612af7c7a305eecbd1854fe34a3c16cfd93a",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x16], dx"
+        },
+        {
+          "rva": "0x96e2",
+          "size": 3,
+          "sha256": "fc8e692c1cd4e041941c2c707759b59330f639f98842dffa2390180cf012cf47",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 4], edx"
+        },
+        {
+          "rva": "0x96eb",
+          "size": 2,
+          "sha256": "3db07e485d45f7517b4010dec7d0dcb8f346ac6796685a2da74d7ee2bd67e6c4",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx], esi"
+        },
+        {
+          "rva": "0x96ed",
+          "size": 2,
+          "sha256": "587e5ed0ff7c93c43c214b6cd2b6c4d93dd6b151748286cfd2f164494eb7c611",
+          "mnemonic": "mov",
+          "operands": "dword ptr [edx], ecx"
+        },
+        {
+          "rva": "0x96f4",
+          "size": 4,
+          "sha256": "44c273cac5ee2e52159d6356467af1191fd29f31f387576f50ea8412a3f7aec2",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0xe], dx"
+        }
+      ],
+      "head_link_writes": [
+        {
+          "rva": "0x96eb",
+          "size": 2,
+          "sha256": "3db07e485d45f7517b4010dec7d0dcb8f346ac6796685a2da74d7ee2bd67e6c4",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx], esi"
+        },
+        {
+          "rva": "0x96ed",
+          "size": 2,
+          "sha256": "587e5ed0ff7c93c43c214b6cd2b6c4d93dd6b151748286cfd2f164494eb7c611",
+          "mnemonic": "mov",
+          "operands": "dword ptr [edx], ecx"
+        }
+      ],
+      "cursor_stride": 40,
+      "stride_site": {
+        "rva": "0x96fe",
+        "size": 3,
+        "sha256": "e72aa9883b867c0a0ec62ef6e8dbc3f45e26af1ee7123732593b3ec2307cb644",
+        "mnemonic": "add",
+        "operands": "ecx, 0x28"
+      },
+      "global_cursor_store": {
+        "rva": "0x9735",
+        "size": 6,
+        "sha256": "5d68e21974d6b160aeaf82d7e7a747dd462a410cf3c618f142e075fb69181866",
+        "mnemonic": "mov",
+        "operands": "dword ptr [0x10043164], ecx"
+      },
+      "highest_observed_packet_byte_written": "0x25",
+      "proof_level": "STATIC_OBSERVED"
+    },
+    {
+      "producer_rva": "0x99b0",
+      "family": "FT4-compatible linked primitive",
+      "command_word_helper_rva": "0x23b00",
+      "helper_result_flow": {
+        "helper_call": {
+          "rva": "0x99bc",
+          "size": 5,
+          "sha256": "58c24d88761acff7bb5320d64666d2d8aae1b85299b1f90d67c2476f5722cc04",
+          "mnemonic": "call",
+          "operands": "0x23b00"
+        },
+        "helper_return_stack_store": {
+          "rva": "0x99c5",
+          "size": 4,
+          "sha256": "e48393f8956134ff8a2fd7e2052f2ed5f3f669379a24f5b8ee0b739a24f83b4a",
+          "mnemonic": "mov",
+          "operands": "dword ptr [esp + 0x4c], eax"
+        },
+        "helper_result_stack_load": {
+          "rva": "0x9ca5",
+          "size": 4,
+          "sha256": "758566e37cd087de854fb9d60569b95c6b367058c2541d55c93f49be2eed2088",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [esp + 0x48]"
+        },
+        "packet_command_dword_store": {
+          "rva": "0x9ca9",
+          "size": 3,
+          "sha256": "fc8e692c1cd4e041941c2c707759b59330f639f98842dffa2390180cf012cf47",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 4], edx"
+        }
+      },
+      "command_tags_from_reused_helper_evidence": [
+        "0x2c",
+        "0x2e"
+      ],
+      "packet_write_offsets": [
+        "0x0",
+        "0x4",
+        "0x8",
+        "0xc",
+        "0xe",
+        "0x10",
+        "0x14",
+        "0x16",
+        "0x18",
+        "0x1c",
+        "0x20",
+        "0x24"
+      ],
+      "packet_write_sites": [
+        {
+          "rva": "0x9b13",
+          "size": 4,
+          "sha256": "be6de5a6ebb4cdba2883fbfac8b6ac0248581ee52a3eec820a7757a41784bbc9",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0xc], bp"
+        },
+        {
+          "rva": "0x9b23",
+          "size": 4,
+          "sha256": "3178106f87be0b0339266b01e72476778eb523b3ecf19e84b0c93894c74af550",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x14], ax"
+        },
+        {
+          "rva": "0x9b3f",
+          "size": 4,
+          "sha256": "de363e27051f27eaaec0691db2b4cda0816e310b57233fb40add3b68bcfdc56b",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x1c], si"
+        },
+        {
+          "rva": "0x9b43",
+          "size": 4,
+          "sha256": "c7a01a8a0c55b087d2ff711ea09f527a8e7c01ebe663be357e66bac4d0d14eb5",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x24], ax"
+        },
+        {
+          "rva": "0x9c0a",
+          "size": 3,
+          "sha256": "956c6cc2338742548adbdfdca412a3c5574260b0947a0da0453a7bff847dfa23",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 8], ebx"
+        },
+        {
+          "rva": "0x9c3a",
+          "size": 3,
+          "sha256": "2221a30470349e6ce88bf6541c6ab364185c1d385f815ca714d4a5aa062e41d9",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 0x10], ebx"
+        },
+        {
+          "rva": "0x9c60",
+          "size": 3,
+          "sha256": "60f5e1d08413dd2d8a4c756363a90710f2ecfa573514a045faf14806db81974c",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 0x18], ebx"
+        },
+        {
+          "rva": "0x9c92",
+          "size": 3,
+          "sha256": "e4d50de6c6aedde358e2e09dd6c6487170b3a6042f8c68651e2074316be16154",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 0x20], edx"
+        },
+        {
+          "rva": "0x9ca1",
+          "size": 4,
+          "sha256": "1be62ea21fc69255856de3dd333b612af7c7a305eecbd1854fe34a3c16cfd93a",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x16], dx"
+        },
+        {
+          "rva": "0x9ca9",
+          "size": 3,
+          "sha256": "fc8e692c1cd4e041941c2c707759b59330f639f98842dffa2390180cf012cf47",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx + 4], edx"
+        },
+        {
+          "rva": "0x9cb1",
+          "size": 4,
+          "sha256": "44c273cac5ee2e52159d6356467af1191fd29f31f387576f50ea8412a3f7aec2",
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0xe], dx"
+        },
+        {
+          "rva": "0x9cbb",
+          "size": 2,
+          "sha256": "3db07e485d45f7517b4010dec7d0dcb8f346ac6796685a2da74d7ee2bd67e6c4",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx], esi"
+        },
+        {
+          "rva": "0x9cbd",
+          "size": 2,
+          "sha256": "587e5ed0ff7c93c43c214b6cd2b6c4d93dd6b151748286cfd2f164494eb7c611",
+          "mnemonic": "mov",
+          "operands": "dword ptr [edx], ecx"
+        }
+      ],
+      "head_link_writes": [
+        {
+          "rva": "0x9cbb",
+          "size": 2,
+          "sha256": "3db07e485d45f7517b4010dec7d0dcb8f346ac6796685a2da74d7ee2bd67e6c4",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ecx], esi"
+        },
+        {
+          "rva": "0x9cbd",
+          "size": 2,
+          "sha256": "587e5ed0ff7c93c43c214b6cd2b6c4d93dd6b151748286cfd2f164494eb7c611",
+          "mnemonic": "mov",
+          "operands": "dword ptr [edx], ecx"
+        }
+      ],
+      "cursor_stride": 40,
+      "stride_site": {
+        "rva": "0x9cc1",
+        "size": 3,
+        "sha256": "e72aa9883b867c0a0ec62ef6e8dbc3f45e26af1ee7123732593b3ec2307cb644",
+        "mnemonic": "add",
+        "operands": "ecx, 0x28"
+      },
+      "global_cursor_store": {
+        "rva": "0x9cfc",
+        "size": 6,
+        "sha256": "5d68e21974d6b160aeaf82d7e7a747dd462a410cf3c618f142e075fb69181866",
+        "mnemonic": "mov",
+        "operands": "dword ptr [0x10043164], ecx"
+      },
+      "highest_observed_packet_byte_written": "0x25",
+      "proof_level": "STATIC_OBSERVED"
+    }
+  ],
+  "shared_object_renderer": {
+    "entry_rva": "0x8da0",
+    "direct_ft4_route": {
+      "rva": "0x901d",
+      "size": 5,
+      "sha256": "4a07204f190174517039951ded56c967aff79c5b326e5985617549fc769a4557",
+      "mnemonic": "call",
+      "operands": "0x231a0"
+    },
+    "object_kind_read": {
+      "rva": "0x8fbe",
+      "size": 3,
+      "sha256": "934e3190389bcd9c5833c880518fa2b8b19a2deca93d267428c8e770ac4c5161",
+      "mnemonic": "mov",
+      "operands": "al, byte ptr [esi + 0x23]"
+    },
+    "indexed_handler_call": {
+      "rva": "0x8fed",
+      "size": 7,
+      "sha256": "90d732d28aa4c747d6ffb9bb263e4f83d92ec90ffe8307fb8721511f29b22240",
+      "mnemonic": "call",
+      "operands": "dword ptr [eax*4 + 0x10035010]"
+    },
+    "selection": "byte [object+0x23] is used as the index for the same handler table at 0x35010 when nonzero; the zero branch calls handler 0 directly",
+    "interpretation": "downstream producer family is data-dependent; observed route can reach existing FT4 writer 0x231a0, handler 0, or a selected table entry; no new layout established",
+    "proof_level": "STATIC_OBSERVED"
+  },
+  "object_state_sync_sites": {
+    "read_state_byte": {
+      "rva": "0xa415",
+      "size": 5,
+      "sha256": "e3c70ead15e6fb7c08dccbc23497c319941237f5c66a6dea38a29010cd4bdf69",
+      "mnemonic": "movzx",
+      "operands": "ax, byte ptr [esi + 0x22]"
+    },
+    "read_source_y": {
+      "rva": "0xa450",
+      "size": 4,
+      "sha256": "bbb58b040715f06896a600533260cf7ecebf98554db11147f157ffe08ce6e161",
+      "mnemonic": "mov",
+      "operands": "ax, word ptr [esi + 0x36]"
+    },
+    "read_source_x": {
+      "rva": "0xa454",
+      "size": 4,
+      "sha256": "7b207009ff6a97d179b4c789a1166770a6c26657693703758102cc53c9289e87",
+      "mnemonic": "mov",
+      "operands": "cx, word ptr [esi + 0x34]"
+    },
+    "write_state_y": {
+      "rva": "0xa45b",
+      "size": 4,
+      "sha256": "f1ca035d63d11426394e77d0ed50b79a1c41c186bf9aae4b8c64a9e47ad1778b",
+      "mnemonic": "mov",
+      "operands": "word ptr [esi + 0x42], ax"
+    },
+    "write_state_x": {
+      "rva": "0xa45f",
+      "size": 4,
+      "sha256": "a4f0dfeb6b60ba9a3bff3f9673e04e3a3f03edebc5ef164a6029d859edcc430f",
+      "mnemonic": "mov",
+      "operands": "word ptr [esi + 0x40], cx"
+    },
+    "write_state_mode": {
+      "rva": "0xa463",
+      "size": 4,
+      "sha256": "7a2d1a9e754761c21940570c52d1522a7fddb6a0db18c1b804b041c367a34b99",
+      "mnemonic": "mov",
+      "operands": "word ptr [esi + 0x44], dx"
+    }
+  },
+  "callback_boundaries": [
+    {
+      "parent_call_site": "0x22ebb",
+      "parent_call": {
+        "rva": "0x22ebb",
+        "size": 5,
+        "sha256": "e34a91d90e78e6522272ce93690225cf4f651cd2620073cff514e04c5a3c16d3",
+        "mnemonic": "call",
+        "operands": "0x1fcd0"
+      },
+      "wrapper_rva": "0x1fcd0",
+      "wrapper_transfer": {
+        "rva": "0x1fcd0",
+        "size": 6,
+        "sha256": "9b3a7bffd3a27de6d52111219ff5a4ab9a761f0b2c8bc64b1a67646eb4120a1e",
+        "mnemonic": "jmp",
+        "operands": "dword ptr [0x1004093c]"
+      },
+      "copied_table_cell_rva": "0x4093c",
+      "slot": 103,
+      "original_host_target_rva": "0xb840",
+      "classification": "host callback boundary; semantic body outside this packet audit"
+    },
+    {
+      "parent_call_site": "0x22eb3",
+      "parent_call": {
+        "rva": "0x22eb3",
+        "size": 5,
+        "sha256": "e0b792a31f98efa374704fa091307ca14fb377747644e44b625f669fb2194106",
+        "mnemonic": "call",
+        "operands": "0x1fd20"
+      },
+      "wrapper_rva": "0x1fd20",
+      "wrapper_transfer": {
+        "rva": "0x1fd25",
+        "size": 6,
+        "sha256": "fb40b5af0eb969e2741655fc08d1bf6eddbf00078dacb1233525a184422a8a66",
+        "mnemonic": "call",
+        "operands": "dword ptr [0x10040950]"
+      },
+      "copied_table_cell_rva": "0x40950",
+      "slot": 108,
+      "original_host_target_rva": "0xb880",
+      "classification": "host callback boundary; semantic body outside this packet audit"
+    },
+    {
+      "parent_call_site": "0x247bb",
+      "parent_call": {
+        "rva": "0x247bb",
+        "size": 5,
+        "sha256": "e9bbd561862c02a9ebfa61aaec4b39533ed9129fb9a35ecb677a537729aa99ef",
+        "mnemonic": "call",
+        "operands": "0x1fdd0"
+      },
+      "wrapper_rva": "0x1fdd0",
+      "wrapper_transfer": {
+        "rva": "0x1fdd5",
+        "size": 6,
+        "sha256": "bc216360c984c7e32ee1aafde25fb576c4a2d4d58a202fd6deeb6f4d93dec3af",
+        "mnemonic": "call",
+        "operands": "dword ptr [0x10040984]"
+      },
+      "copied_table_cell_rva": "0x40984",
+      "slot": 121,
+      "original_host_target_rva": "0xb870",
+      "classification": "host callback boundary; semantic body outside this packet audit"
+    },
+    {
+      "parent_call_site": "0x22ea6",
+      "parent_call": {
+        "rva": "0x22ea6",
+        "size": 5,
+        "sha256": "c8114a0c9b3d24fdeb8c6d0de7ac56a3196e0656c8a4488a4e7ab7d25f684ae6",
+        "mnemonic": "call",
+        "operands": "0x1ff40"
+      },
+      "wrapper_rva": "0x1ff40",
+      "wrapper_transfer": {
+        "rva": "0x1ff4a",
+        "size": 6,
+        "sha256": "17cd61712857b4818ff1be4b004345311c82f3d316f33d80252a7592651a06b0",
+        "mnemonic": "call",
+        "operands": "dword ptr [0x10040a30]"
+      },
+      "copied_table_cell_rva": "0x40a30",
+      "slot": 164,
+      "original_host_target_rva": "0xbb00",
+      "classification": "host callback boundary; semantic body outside this packet audit"
+    }
+  ],
+  "limits": [
+    "The 0x28 value is the observed packet cursor increment, not a general allocator capacity guarantee.",
+    "The packet field set is observed from these ENG3 writers and reuses the public FT4 contract; it does not establish a new wire family.",
+    "The shared renderer's indexed child route is data-dependent; this receipt does not claim every child entry emits a packet.",
+    "No universal absence claim is made for other ENG3 producers or computed routes.",
+    "No BOUNDED_EQUIVALENT or runtime-execution proof is claimed."
+  ]
+}

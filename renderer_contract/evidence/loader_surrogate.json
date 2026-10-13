@@ -1,0 +1,123 @@
+{
+  "scope": "SOURCE_BUILT_X86_SURROGATE_ONLY; import-resolution probe; no Hercules launch; no DirectDrawCreate call, GPU, COM object, or product proxy.",
+  "builder_script_sha256": "643818257de43327866859b4613c88b24d80b8b5171722c016a8f7bbe87dfc18",
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+    "verification": "listed file sizes and SHA-256 values matched toolchains/manifest.json"
+  },
+  "import_library": {
+    "path": "C:\\tools\\dx6sdk\\LIB\\DDRAW.LIB",
+    "sha256": "09632af2299d3d7ea44c86cea9ca267671488d87abeaecd7c8d99ac0ac71c7d1",
+    "role": "link-time import symbol for the fixture only"
+  },
+  "sources": {
+    "ddraw_stub.c": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\fixtures\\loader_probe\\ddraw_stub.c",
+      "sha256": "cbcb921528c162217d1002c23b740b78b24aa566dafd2bfc9734fca0f91a4825"
+    },
+    "ddraw.def": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\fixtures\\loader_probe\\ddraw.def",
+      "sha256": "65beab33f78d26a6bc738adaeb6874d306da5c8551c4984ef9fce930ccbc260f"
+    },
+    "probe.c": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\fixtures\\loader_probe\\probe.c",
+      "sha256": "c45ec7a82096d6cfd65bf442637e9257eb06e74b510b68aed6ba7c7e98cf318f"
+    }
+  },
+  "commands": [
+    {
+      "argv": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/O2",
+        "/MT",
+        "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\integrator_loader_surrogate_final\\ddraw_stub.obj",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\fixtures\\loader_probe\\ddraw_stub.c"
+      ],
+      "cwd": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\integrator_loader_surrogate_final"
+    },
+    {
+      "argv": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\link.exe",
+        "/NOLOGO",
+        "/DLL",
+        "/MACHINE:I386",
+        "/DEF:D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\fixtures\\loader_probe\\ddraw.def",
+        "/OUT:D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\integrator_loader_surrogate_final\\ddraw.dll",
+        "/IMPLIB:D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\integrator_loader_surrogate_final\\ddraw.lib",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\integrator_loader_surrogate_final\\ddraw_stub.obj",
+        "kernel32.lib"
+      ],
+      "cwd": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\integrator_loader_surrogate_final"
+    },
+    {
+      "argv": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/O2",
+        "/MT",
+        "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\integrator_loader_surrogate_final\\probe.obj",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\renderer_contract\\fixtures\\loader_probe\\probe.c"
+      ],
+      "cwd": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\integrator_loader_surrogate_final"
+    },
+    {
+      "argv": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\link.exe",
+        "/NOLOGO",
+        "/MACHINE:I386",
+        "/SUBSYSTEM:CONSOLE",
+        "/OUT:D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\integrator_loader_surrogate_final\\probe.exe",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\integrator_loader_surrogate_final\\probe.obj",
+        "C:\\tools\\dx6sdk\\LIB\\DDRAW.LIB",
+        "kernel32.lib"
+      ],
+      "cwd": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\integrator_loader_surrogate_final"
+    }
+  ],
+  "run_commands": [
+    {
+      "argv": [
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\integrator_loader_surrogate_final\\probe.exe"
+      ],
+      "cwd": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\integrator_loader_surrogate_final"
+    },
+    {
+      "argv": [
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\integrator_loader_surrogate_final\\system_fallback\\probe.exe"
+      ],
+      "cwd": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\integrator_loader_surrogate_final\\system_fallback"
+    }
+  ],
+  "outputs": {
+    "probe.exe": {
+      "sha256": "fac8d61d8b80e2c066a4bc58cd0d23b57c856a671ec15d7727fb32219ad60833",
+      "size": 43520
+    },
+    "local ddraw.dll": {
+      "sha256": "4fc4f6f842d3f3168ca320c17355eb4c02677e0ded7b52f5b1f81f21213e936c",
+      "size": 26624
+    },
+    "fallback probe.exe": {
+      "sha256": "fac8d61d8b80e2c066a4bc58cd0d23b57c856a671ec15d7727fb32219ad60833",
+      "size": 43520
+    }
+  },
+  "runs": {
+    "sibling_stub": {
+      "exit_code": 0,
+      "stdout": "ARCH=x86\nMODULE=D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\integrator_loader_surrogate_final\\DDRAW.dll\nMODULE_PATH_LENGTH=116\nIMPORT_SLOT=74AA5950\n",
+      "stderr": ""
+    },
+    "no_local_stub": {
+      "exit_code": 0,
+      "stdout": "ARCH=x86\nMODULE=C:\\WINDOWS\\SYSTEM32\\DDRAW.dll\nMODULE_PATH_LENGTH=29\nIMPORT_SLOT=74AA5950\n",
+      "stderr": "",
+      "path_caveat": "x86 process reports C:\\WINDOWS\\SYSTEM32\\DDRAW.dll; this string does not identify the physical WoW64 file path."
+    }
+  },
+  "interpretation": "Demonstrates app-local import resolution for this ordinary x86 surrogate on the current machine only; it does not establish Hercules host integration or target deployment behavior."
+}

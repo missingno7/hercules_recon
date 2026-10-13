@@ -38,6 +38,14 @@ not packet-decoder, AC60, or pixel equivalence.
 
 ## Command `0x68`
 
+The later [ENG3 handler trace](eng3_handlers.md) follows the remaining indices
+0-3: indices 0/1 reach FT4 writers, while 2/3 prepare state and delegate to the
+same indexed renderer. The [TITLE handler trace](title_handlers.md) follows
+mode indices 2/3/4/6: child dispatch, a linked 12-byte `0x68` record, and FT4
+writers. TITLE's `0x189a0` helper proves command-word high bytes `0x2c/0x2e`
+on its reviewed paths. These finite closures add no packet family and do not
+exclude unreviewed or computed producer paths.
+
 AC60 reads the common link DWORD at packet `+0` and command byte `+7`. On the
 group-`0x60` route, it first checks `BA01FC`. When that gate is zero, it writes
 the selected page base to `A909FC` from page state at `A8E6F4`, and may replace

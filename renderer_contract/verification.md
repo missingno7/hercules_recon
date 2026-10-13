@@ -31,13 +31,14 @@ Host loading, interception, GPU pixels and window coexistence are unobserved.
 No successful game launch or rendering replacement is claimed. Native CPU
 emulation is distinct from HOST_INTEGRATION_OBSERVED.
 
-The current checkpoint passes eleven VC5 C/C++ suites. Numeric fixtures
+The current checkpoint passes twelve VC5 C/C++ suites and twelve portable
+GCC64 suites. The new fixed-width edge-step fixture has 27 checks. Numeric fixtures
 include 44 frame, 43 packet, 43 state, 47 indexed-pixel, 24 sprite-pixel and
 74 staging checks. Native fixtures add 26 sprite setup cases, eight pixel
 slices, nine VRAM/alias cases, six row/rectangle cases, twelve DLL prefixes
 and one complete bounded startup LUT writer. The staging differential checks
 171 native fields, seven gate branches and nine page-mask vectors. Original
-validation covers four image hashes, 187 spans, 29 callback bindings,
+validation covers four image hashes, 473 spans, 29 callback bindings,
 22 wrappers and 57 dispatch sites. Counts describe finite evidence only.
 
 Additional geometry fixtures cover 22 triangle routes, 17 shaded/raw blend
@@ -52,6 +53,13 @@ adds column to half-row before saturation. The published formula includes
 that correction and the later 192-byte overwrite of blend selector 0.
 
 ## Reproduce from the repository root
+
+The reciprocal-domain runner adds twelve finite original-code cases and
+fifteen assertions. Complete-section candidate inventories explicitly record
+skipdata bytes and partial function anchors; they do not prove absence of
+computed aliases or universal instruction alignment. The loader surrogate
+observes source-built x86 import selection only. No original host, DirectDraw
+device or GPU integration is inferred from it.
 
 Use Python 3 with the existing repository PE dependencies. On this machine:
 
@@ -70,6 +78,12 @@ $originalExe = 'D:\Prog\hercules_recon\work\discs\pc_install\HERCULES.EXE'
 & $pythonExe renderer_contract/tests/test_original_shaded_edges.py --exe $originalExe --receipt work/replay/shaded.json
 & $pythonExe renderer_contract/tests/test_original_quad_interpolation.py --exe $originalExe --receipt work/replay/quad.json
 & $pythonExe renderer_contract/tests/test_original_fill_edges.py --exe $originalExe --receipt work/replay/fill_full.json --compact-receipt work/replay/fill.json
+& $pythonExe renderer_contract/tests/test_original_reciprocal_domain.py --exe $originalExe --receipt work/replay/reciprocal.json
+& $pythonExe renderer_contract/tests/audit_state_ownership.py --original-root . --output work/replay/ownership.json
+& $pythonExe renderer_contract/tests/audit_texture_ownership.py --original-root . --exe $originalExe --output work/replay/texture_backing.json
+& $pythonExe renderer_contract/tests/audit_loader.py --original-root . --exe $originalExe --output work/replay/loader.json
+& $pythonExe renderer_contract/tests/audit_eng3_handlers.py --receipt work/replay/eng3_handlers.json
+& $pythonExe renderer_contract/tests/audit_title_handlers.py --output work/replay/title_handlers.json
 & $pythonExe renderer_contract/tests/test_native_staging.py --exe $originalExe --receipt work/replay/staging.json
 & $pythonExe renderer_contract/tests/test_original_interface_copy.py --exe $originalExe `
   --eng1 D:\Prog\hercules_recon\assets\pc\HERCULES\ENG1.DLL `

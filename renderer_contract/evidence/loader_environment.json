@@ -1,0 +1,36 @@
+{
+  "scope": "Read-only current Windows observation; records only ddraw-related registry values and binaries.",
+  "observed_os": "10.0.26200.0",
+  "is_64bit_os": true,
+  "known_dll_value_ddraw_dll": {
+    "KnownDLLs.Registry64": null,
+    "KnownDLLs.Registry32": null,
+    "KnownDLLs32.Registry64": "key absent",
+    "KnownDLLs32.Registry32": "key absent"
+  },
+  "system_binaries": [
+    {
+      "path": "C:\\WINDOWS\\System32\\ddraw.dll",
+      "length": 630784,
+      "sha256": "bf254d03be6e7756799de9f9602df062c49d7aaafade781c9769b2360c752f64",
+      "pe_machine": "0x8664"
+    },
+    {
+      "path": "C:\\WINDOWS\\SysWOW64\\ddraw.dll",
+      "length": 539648,
+      "sha256": "37113406967162585c9a67c252005757459d8efe87684bbc0ce184907d0566b0",
+      "pe_machine": "0x14c"
+    }
+  ],
+  "pinned_install": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install",
+    "app_local_ddraw_present": false,
+    "exe_manifest_present": false,
+    "exe_local_sidecar_present": false
+  },
+  "source_receipt": {
+    "script": "capture_loader_state.ps1",
+    "sha256": "a48d5bef0a0e1da59c417e32f885b93d7d33c40f93e8d4eca66ae661421c277f"
+  },
+  "limit": "This machine's registry/files and surrogate loader result do not establish another deployment's KnownDLL or DLL search configuration."
+}

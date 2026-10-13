@@ -1,0 +1,938 @@
+{
+  "schema_version": 1,
+  "status": "STATIC_OBSERVED",
+  "scope": "TITLE.DLL mode-table indices 2, 3, 4, and 6, through direct child-render dispatch or direct tag/link writes; bounded helper reachability for 0x28c0.",
+  "prediction": "Indices 2 and 3 are object-list dispatchers that hand eligible children to 0x02dc0; index 4 emits inline 0x68 tile records and can dispatch child objects; index 6 emits FT4-layout records whose tag high byte is 0x2c or 0x2e. No new AC60 family is predicted.",
+  "falsifier": "A byte-pinned handler or directly reached writer stores an AC60 tag outside the already represented 0x68 or FT4 0x2c/0x2e routes, or the observed table/call edges differ.",
+  "tool": {
+    "pe_reader": "scripts/pe.py",
+    "capstone_version": "5.0.7",
+    "originals_read_only": true,
+    "original_execution": false
+  },
+  "originals": {
+    "TITLE.DLL": {
+      "path": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\TITLE.DLL",
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "image_base": "0x10000000"
+    },
+    "HERCULES.EXE": {
+      "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "image_base": "0x400000"
+    }
+  },
+  "spans": [
+    {
+      "name": "mode_table",
+      "module": "TITLE.DLL",
+      "rva": "0x220d0",
+      "size": 32,
+      "sha256": "415195e248ded9aefc3bba1701c680ed3f995fb163b29400793362439889d23c",
+      "content_kind": "data"
+    },
+    {
+      "name": "mode_2_list",
+      "module": "TITLE.DLL",
+      "rva": "0x17b90",
+      "size": 96,
+      "sha256": "a2c89c494a260cee9c55c1dec26a7f1bc43be297492f37430ebfe11d347708fc",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 46
+    },
+    {
+      "name": "mode_3_clip_list",
+      "module": "TITLE.DLL",
+      "rva": "0x17bf0",
+      "size": 192,
+      "sha256": "f38388e55b94044bb6b03c8d1bbab86f771aaaed3e1058da9253ccb3ef5bf666",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 74
+    },
+    {
+      "name": "mode_4_group",
+      "module": "TITLE.DLL",
+      "rva": "0x17cb0",
+      "size": 672,
+      "sha256": "91152713a992cc3c901de81b8ca2690625b2c56075d0baf4172f591b5d7ee126",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 201
+    },
+    {
+      "name": "mode_6_sprite_quad_dispatch",
+      "module": "TITLE.DLL",
+      "rva": "0x3d10",
+      "size": 144,
+      "sha256": "50ea3d8e83e7cf036aed42effa8c7946ad65c9388cfa673ae08686af449ea7d3",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 67
+    },
+    {
+      "name": "dynamic_child_renderer",
+      "module": "TITLE.DLL",
+      "rva": "0x2dc0",
+      "size": 656,
+      "sha256": "4b5325e70cf3bac4c0fbc06d0c6c04c9daf4179e70c542338d45ba381be30a08",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 213
+    },
+    {
+      "name": "group_child_setup",
+      "module": "TITLE.DLL",
+      "rva": "0x2cc0",
+      "size": 256,
+      "sha256": "7f795c3c7136dad17a25c9f006e1bdf100c93d84b70b7f3d71d7a40d649f5de1",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 86
+    },
+    {
+      "name": "mode_0_scale_dispatch",
+      "module": "TITLE.DLL",
+      "rva": "0x3050",
+      "size": 176,
+      "sha256": "03c22a12ddcd4b349633f5016244b93531344b5cc899eecc7a1f1a225631b430",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 76
+    },
+    {
+      "name": "mode_1_ft4_writer",
+      "module": "TITLE.DLL",
+      "rva": "0x3100",
+      "size": 800,
+      "sha256": "6f4e7e7df0a40466c5684dec0913eb4d8a6ba42280b3e417f7b9a4b01cf0a172",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 258
+    },
+    {
+      "name": "mode_5_known_ft4_writer",
+      "module": "TITLE.DLL",
+      "rva": "0x181e0",
+      "size": 732,
+      "sha256": "dbfacf27b0299c14ddbf9782db11e22d3df9ed5a93eedda41a22fac6243556ca",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 227
+    },
+    {
+      "name": "mode_7_known_ft4_writer",
+      "module": "TITLE.DLL",
+      "rva": "0x186e0",
+      "size": 691,
+      "sha256": "7353881ec5fa393a22c46d53ca59d492b41d24b6c4073180b0e939f3e37c8383",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 223
+    },
+    {
+      "name": "overlay_ft4_writer",
+      "module": "TITLE.DLL",
+      "rva": "0x17f50",
+      "size": 656,
+      "sha256": "48e79dbdf369fb3e8531a7d4f9afd5e53ca325ac0bdd376cc01dc93e76dbc946",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 201
+    },
+    {
+      "name": "ft4_writer_03420",
+      "module": "TITLE.DLL",
+      "rva": "0x3420",
+      "size": 800,
+      "sha256": "ecb6f0004802c06c0ce613c1bb02b0d54286ff9acc510c34f0fca87c7e5d1a21",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 255
+    },
+    {
+      "name": "ft4_writer_03740",
+      "module": "TITLE.DLL",
+      "rva": "0x3740",
+      "size": 624,
+      "sha256": "72bd63bbb534627e62f4e887c099e396f1542be5ff40e1ee5bed746595ec53c7",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 207
+    },
+    {
+      "name": "ft4_writer_039B0",
+      "module": "TITLE.DLL",
+      "rva": "0x39b0",
+      "size": 864,
+      "sha256": "fc225ace1ce47d090f4dd4f5102b2dffc4163f59628fba7c935d732ce255abb2",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 275
+    },
+    {
+      "name": "ft4_command_word",
+      "module": "TITLE.DLL",
+      "rva": "0x189a0",
+      "size": 60,
+      "sha256": "fed5051e785d04f377193fd255c278671587fdeabe9ecc2a4dedb7ce41e76b59",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 21
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0xac60",
+      "size": 1680,
+      "sha256": "f7724c04bef582e378b183a12550ba841df1a6fa3660be51da71154aa5c525af",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 431
+    }
+  ],
+  "mode_table": {
+    "span": {
+      "module": "TITLE.DLL",
+      "rva": "0x220d0",
+      "size": 32,
+      "sha256": "415195e248ded9aefc3bba1701c680ed3f995fb163b29400793362439889d23c"
+    },
+    "entries": [
+      {
+        "index": 0,
+        "entry_rva": "0x220d0",
+        "target_rva": "0x3050",
+        "span_size": 176
+      },
+      {
+        "index": 1,
+        "entry_rva": "0x220d4",
+        "target_rva": "0x3100",
+        "span_size": 800
+      },
+      {
+        "index": 2,
+        "entry_rva": "0x220d8",
+        "target_rva": "0x17b90",
+        "span_size": 96
+      },
+      {
+        "index": 3,
+        "entry_rva": "0x220dc",
+        "target_rva": "0x17bf0",
+        "span_size": 192
+      },
+      {
+        "index": 4,
+        "entry_rva": "0x220e0",
+        "target_rva": "0x17cb0",
+        "span_size": 672
+      },
+      {
+        "index": 5,
+        "entry_rva": "0x220e4",
+        "target_rva": "0x181e0",
+        "span_size": 732
+      },
+      {
+        "index": 6,
+        "entry_rva": "0x220e8",
+        "target_rva": "0x3d10",
+        "span_size": 144
+      },
+      {
+        "index": 7,
+        "entry_rva": "0x220ec",
+        "target_rva": "0x186e0",
+        "span_size": 691
+      }
+    ],
+    "targets_are_image_rvas": true
+  },
+  "handlers": [
+    {
+      "index": 2,
+      "target_rva": "0x17b90",
+      "classification": "dynamic child-render producer",
+      "observed": [
+        "Calls 0x195f0 on the parent; on -1, sets object byte +0x1f bit 0x08 and returns.",
+        "On success, reads a DWORD count followed by DWORD child pointers at object +0x120.",
+        "For each listed child, calls 0x04410, then 0x195f0, then 0x02dc0.",
+        "0x02dc0 selects the child renderer from the table at 0x220d0 using child byte +0x23; the family is child-mode-dependent, not a fixed tag at this handler."
+      ],
+      "direct_calls": [
+        {
+          "rva": "0x17b98",
+          "size": 5,
+          "sha256": "c209e147e34401b1256cd4170ed2a3614e794f3fb4454c0cd5a0178ad7eae530",
+          "instruction": "call 0x100195f0",
+          "target_rva": "0x195f0"
+        },
+        {
+          "rva": "0x17bc8",
+          "size": 5,
+          "sha256": "9ba16ab4af34a01c5de72ee047c0fb9266ac9b686bf9fd8bc9ce1a14b5bfb10b",
+          "instruction": "call 0x10004410",
+          "target_rva": "0x4410"
+        },
+        {
+          "rva": "0x17bd1",
+          "size": 5,
+          "sha256": "b8fff90cfa9bfe90bb7ecd680ce4b6a8cf3bb05315f3ca84d889c82a5d7eb1fb",
+          "instruction": "call 0x100195f0",
+          "target_rva": "0x195f0"
+        },
+        {
+          "rva": "0x17bda",
+          "size": 5,
+          "sha256": "3349434b8f7654cd16db99c322d330ea1eb63b9f308dd31e7179e53f16c7f350",
+          "instruction": "call 0x10002dc0",
+          "target_rva": "0x2dc0"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "target_rva": "0x17bf0",
+      "classification": "clip-state plus dynamic child-render producer",
+      "observed": [
+        "Calls 0x195f0 on the parent; on -1, sets object byte +0x1f bit 0x08 and returns.",
+        "Builds a clip rectangle from parent WORD fields +0x70/+0x72/+0x74 and the returned projected value, then calls 0x0ca40, 0x0c7d0, and 0x0c790.",
+        "For each non-null child accepted by 0x19470, calls 0x04410 and 0x02dc0.",
+        "The child-mode dispatch is the packet-producing boundary; no unique AC60 tag is stored by this handler."
+      ],
+      "direct_calls": [
+        {
+          "rva": "0x17bfb",
+          "size": 5,
+          "sha256": "3ea11656bb5ad5c62476a42db8af7cbcb10f1e2c774b6a4f1605566bf0043e94",
+          "instruction": "call 0x100195f0",
+          "target_rva": "0x195f0"
+        },
+        {
+          "rva": "0x17c56",
+          "size": 5,
+          "sha256": "ab7f4dfa8dcf84ddf3841f4fe393e257556d65e9441a2af92f24408d94a844f3",
+          "instruction": "call 0x1000ca40",
+          "target_rva": "0xca40"
+        },
+        {
+          "rva": "0x17c63",
+          "size": 5,
+          "sha256": "e38dca78e45c254b079b6e0ca9f43287dc3414f7678c06f1da0a1f026b024b78",
+          "instruction": "call 0x1000c7d0",
+          "target_rva": "0xc7d0"
+        },
+        {
+          "rva": "0x17c6b",
+          "size": 5,
+          "sha256": "7897373cfe51b80f157c07e069aed01a70d460b353c58eda9a9c8c81b51e6be1",
+          "instruction": "call 0x1000c790",
+          "target_rva": "0xc790"
+        },
+        {
+          "rva": "0x17c86",
+          "size": 5,
+          "sha256": "83a09567ca419d9b9b1685a80487dbeeba6c67747695f7ea574f29d3b3a253c9",
+          "instruction": "call 0x10019470",
+          "target_rva": "0x19470"
+        },
+        {
+          "rva": "0x17c93",
+          "size": 5,
+          "sha256": "ec020586e7d08f3bf851e5eb6e58e519152d22213a8cb1ea3bde84e0332798a2",
+          "instruction": "call 0x10004410",
+          "target_rva": "0x4410"
+        },
+        {
+          "rva": "0x17c9c",
+          "size": 5,
+          "sha256": "287e381e0b3b37c64e8562a0fb8231d84623c31955b5da34a6bf72652bc4b22b",
+          "instruction": "call 0x10002dc0",
+          "target_rva": "0x2dc0"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "target_rva": "0x17cb0",
+      "classification": "AC60 0x68 tile producer plus dynamic child rendering",
+      "observed": [
+        "Checks the slot/type path and projection; an invalid projection sets object byte +0x1f bit 0x08 and returns.",
+        "For a span whose flags WORD at +0x0e has bit 0x8000, writes a 12-byte pool record: XY DWORD at +0x08, color DWORD 0x00ffffff at +0x04, tag byte 0x68 at +0x07, previous bucket head at +0x00, then replaces the selected OT bucket head.",
+        "Advances global pool cursor 0x2df40 by 0x0c for each inline tile record.",
+        "For nonzero span IDs with a loaded entry, calls 0x02cc0 and 0x02dc0 on the shared child object; 0x02dc0 performs child-mode table dispatch."
+      ],
+      "direct_calls": [
+        {
+          "rva": "0x17cdd",
+          "size": 5,
+          "sha256": "5ef32911ec7d60a4ffa1d3093ea1fe0c989c3034ccfef120e552f281e5b1431e",
+          "instruction": "call 0x10004d80",
+          "target_rva": "0x4d80"
+        },
+        {
+          "rva": "0x17cee",
+          "size": 5,
+          "sha256": "09a85bbad4d922f4acaa129119051240e1f723c8c1318fb809e66bcf2e6b624a",
+          "instruction": "call 0x100195f0",
+          "target_rva": "0x195f0"
+        },
+        {
+          "rva": "0x17d09",
+          "size": 5,
+          "sha256": "c5ff616a177aa386843697c319536942e8d0895c06a1868687c718f3f733a876",
+          "instruction": "call 0x100196f0",
+          "target_rva": "0x196f0"
+        },
+        {
+          "rva": "0x17d11",
+          "size": 5,
+          "sha256": "b7384ff16642e1a1e9be33dab4269cc723b297116c5197d79a7f97c881c6e189",
+          "instruction": "call 0x1000c790",
+          "target_rva": "0xc790"
+        },
+        {
+          "rva": "0x17dd3",
+          "size": 5,
+          "sha256": "d3362c1b320a8ebd34fb6d503121722fae6756bc2cd2795cc0a9e6f619602bbe",
+          "instruction": "call 0x10019470",
+          "target_rva": "0x19470"
+        },
+        {
+          "rva": "0x17e3d",
+          "size": 5,
+          "sha256": "7383d668817988fa124fd951ecccc48e15259b9c9d061fe7e253d7b87ea49211",
+          "instruction": "call 0x1000c790",
+          "target_rva": "0xc790"
+        },
+        {
+          "rva": "0x17e65",
+          "size": 5,
+          "sha256": "df56946239c8b9b7ec8ca2883e7fb2b48ea308f1de0dfc9b5138ba9a1ff43c9d",
+          "instruction": "call 0x100194e0",
+          "target_rva": "0x194e0"
+        },
+        {
+          "rva": "0x17e76",
+          "size": 5,
+          "sha256": "96fcd5f0078cb38aff55bbfad59e975af6d59a9d3e86b0ab8237476ec25b487e",
+          "instruction": "call 0x1000c790",
+          "target_rva": "0xc790"
+        },
+        {
+          "rva": "0x17e86",
+          "size": 5,
+          "sha256": "5934381488e43bd45442130acea7ba522c52177d8d2a9ce2ac94b49fb60a8df1",
+          "instruction": "call 0x10019470",
+          "target_rva": "0x19470"
+        },
+        {
+          "rva": "0x17f1b",
+          "size": 5,
+          "sha256": "64118f410309ea52b72e2fcb20ad03aa3ccfb26e0aef66f1a1eb70e8daa7bf14",
+          "instruction": "call 0x10002cc0",
+          "target_rva": "0x2cc0"
+        },
+        {
+          "rva": "0x17f29",
+          "size": 5,
+          "sha256": "851a0f6086f1af8cb15e892097a57d6d4a96731b4c1a45e4b24207ef9b30609c",
+          "instruction": "call 0x10002dc0",
+          "target_rva": "0x2dc0"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "target_rva": "0x03d10",
+      "classification": "AC60 FT4 producer",
+      "observed": [
+        "Copies parent WORD +0x3e to WORD +0x10.",
+        "Selects direct writers 0x03100/0x03420 when the dimension-derived OR equals 0x100; otherwise selects 0x03740/0x039b0, with WORD +0x74 choosing the paired path.",
+        "Each writer obtains a command/color DWORD from 0x189a0, stores it at primitive +0x04, links the previous OT head through primitive +0x00, replaces the OT head, advances by 0x28 bytes per record, and writes the final pool cursor to 0x2df40.",
+        "0x189a0 clamps WORD +0x4a to 0..255 and returns a color word whose high byte is 0x2c, or 0x2e when flags DWORD +0x54 has bit 0x04."
+      ],
+      "direct_calls": [
+        {
+          "rva": "0x3d52",
+          "size": 5,
+          "sha256": "6248cc2224b841a47bdec11b8c085f06b6e7547588cfab03bb70ab9e086e5bb5",
+          "instruction": "call 0x10003420",
+          "target_rva": "0x3420"
+        },
+        {
+          "rva": "0x3d5d",
+          "size": 5,
+          "sha256": "12d2f936aac5c660c3e2d296998d26efeb1a2755c068780fc3af1acf10924149",
+          "instruction": "call 0x10003100",
+          "target_rva": "0x3100"
+        },
+        {
+          "rva": "0x3d7c",
+          "size": 5,
+          "sha256": "7376b0cb274be8f0a8084f049b18edf62bb53cc7a2592cccc121793893051152",
+          "instruction": "call 0x100039b0",
+          "target_rva": "0x39b0"
+        },
+        {
+          "rva": "0x3d87",
+          "size": 5,
+          "sha256": "40cdad83a87af22b22ba2b67be6c3771f66901efdc37de42daa8a94c9ab330df",
+          "instruction": "call 0x10003740",
+          "target_rva": "0x3740"
+        }
+      ],
+      "writer_sites": [
+        "0x33bb",
+        "0x36dd",
+        "0x3943",
+        "0x3ca6"
+      ]
+    }
+  ],
+  "dynamic_child_dispatch": {
+    "span": {
+      "name": "dynamic_child_renderer",
+      "module": "TITLE.DLL",
+      "rva": "0x2dc0",
+      "size": 656,
+      "sha256": "4b5325e70cf3bac4c0fbc06d0c6c04c9daf4179e70c542338d45ba381be30a08",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 213
+    },
+    "mode_source": {
+      "rva": "0x2fde",
+      "size": 3,
+      "sha256": "934e3190389bcd9c5833c880518fa2b8b19a2deca93d267428c8e770ac4c5161",
+      "instruction": "mov al, byte ptr [esi+0x23]"
+    },
+    "indirect_call": {
+      "rva": "0x300d",
+      "size": 7,
+      "sha256": "07ffe97b20c6841efa7efc790f71b3efb094a39c3334b4b9ba6e9fa0278dd013",
+      "instruction": "call dword ptr [eax*4+0x100220d0]"
+    },
+    "direct_calls": [
+      {
+        "rva": "0x2e61",
+        "size": 5,
+        "sha256": "5039f97a1b42eecef6cab27b81a81b5f0f674dc75f80b083c901af1313f96803",
+        "instruction": "call 0x100184c0",
+        "target_rva": "0x184c0"
+      },
+      {
+        "rva": "0x2e80",
+        "size": 5,
+        "sha256": "c9552d440344e978ff4c3ad7f5a5f83fac8989e507808c5b7901c8a9852acbdd",
+        "instruction": "call 0x100184c0",
+        "target_rva": "0x184c0"
+      },
+      {
+        "rva": "0x2ef4",
+        "size": 5,
+        "sha256": "caba70a973980da02257f8426acceeeae62f61ca9813ff09f91a58cfd986b1ea",
+        "instruction": "call 0x10003da0",
+        "target_rva": "0x3da0"
+      },
+      {
+        "rva": "0x2f45",
+        "size": 5,
+        "sha256": "49a8b31b3831f192a17dec541dcf6d6af8cd07fd5961c08badd484aadaf9acd9",
+        "instruction": "call 0x100047a0",
+        "target_rva": "0x47a0"
+      },
+      {
+        "rva": "0x2f7d",
+        "size": 5,
+        "sha256": "e1d7413488b4f43476a7d928bf118e729de473881241e5fcade52c0d22e9b9ea",
+        "instruction": "call 0x100046b0",
+        "target_rva": "0x46b0"
+      },
+      {
+        "rva": "0x2fb5",
+        "size": 5,
+        "sha256": "20c2ffd7aadd5ec3c10b84c7faa23a93bcb289115bcd505e1081e3883bef0daa",
+        "instruction": "call 0x100047d0",
+        "target_rva": "0x47d0"
+      },
+      {
+        "rva": "0x2ff0",
+        "size": 5,
+        "sha256": "a43104fb41a47babe9e182ccd649fe093cb6fab33c1b7f9acc28a49f207c7061",
+        "instruction": "call 0x10003050",
+        "target_rva": "0x3050"
+      },
+      {
+        "rva": "0x300d",
+        "size": 7,
+        "sha256": "07ffe97b20c6841efa7efc790f71b3efb094a39c3334b4b9ba6e9fa0278dd013",
+        "instruction": "call dword ptr [eax*4 + 0x100220d0]",
+        "indirect": true
+      },
+      {
+        "rva": "0x303d",
+        "size": 5,
+        "sha256": "6bf91c3e49ee883c3325eb907c76c790407088f5be3e47388430266ce28eeda1",
+        "instruction": "call 0x10017f50",
+        "target_rva": "0x17f50"
+      }
+    ]
+  },
+  "direct_write_sites": [
+    {
+      "rva": "0x2fde",
+      "size": 3,
+      "sha256": "934e3190389bcd9c5833c880518fa2b8b19a2deca93d267428c8e770ac4c5161",
+      "instruction": "mov al, byte ptr [esi + 0x23]"
+    },
+    {
+      "rva": "0x300d",
+      "size": 7,
+      "sha256": "07ffe97b20c6841efa7efc790f71b3efb094a39c3334b4b9ba6e9fa0278dd013",
+      "instruction": "call dword ptr [eax*4 + 0x100220d0]"
+    },
+    {
+      "rva": "0x33bb",
+      "size": 3,
+      "sha256": "fc8e692c1cd4e041941c2c707759b59330f639f98842dffa2390180cf012cf47",
+      "instruction": "mov dword ptr [ecx + 4], edx"
+    },
+    {
+      "rva": "0x33cd",
+      "size": 2,
+      "sha256": "3db07e485d45f7517b4010dec7d0dcb8f346ac6796685a2da74d7ee2bd67e6c4",
+      "instruction": "mov dword ptr [ecx], esi"
+    },
+    {
+      "rva": "0x33cf",
+      "size": 2,
+      "sha256": "587e5ed0ff7c93c43c214b6cd2b6c4d93dd6b151748286cfd2f164494eb7c611",
+      "instruction": "mov dword ptr [edx], ecx"
+    },
+    {
+      "rva": "0x33d3",
+      "size": 3,
+      "sha256": "e72aa9883b867c0a0ec62ef6e8dbc3f45e26af1ee7123732593b3ec2307cb644",
+      "instruction": "add ecx, 0x28"
+    },
+    {
+      "rva": "0x340e",
+      "size": 6,
+      "sha256": "9f6d2d31ac00e2c6788b19c8993e219ea81a6262b1eec26b63a0b67133f5f831",
+      "instruction": "mov dword ptr [0x1002df40], ecx"
+    },
+    {
+      "rva": "0x36dd",
+      "size": 3,
+      "sha256": "fc8e692c1cd4e041941c2c707759b59330f639f98842dffa2390180cf012cf47",
+      "instruction": "mov dword ptr [ecx + 4], edx"
+    },
+    {
+      "rva": "0x36e6",
+      "size": 2,
+      "sha256": "3db07e485d45f7517b4010dec7d0dcb8f346ac6796685a2da74d7ee2bd67e6c4",
+      "instruction": "mov dword ptr [ecx], esi"
+    },
+    {
+      "rva": "0x36e8",
+      "size": 2,
+      "sha256": "587e5ed0ff7c93c43c214b6cd2b6c4d93dd6b151748286cfd2f164494eb7c611",
+      "instruction": "mov dword ptr [edx], ecx"
+    },
+    {
+      "rva": "0x36f9",
+      "size": 3,
+      "sha256": "e72aa9883b867c0a0ec62ef6e8dbc3f45e26af1ee7123732593b3ec2307cb644",
+      "instruction": "add ecx, 0x28"
+    },
+    {
+      "rva": "0x3730",
+      "size": 6,
+      "sha256": "9f6d2d31ac00e2c6788b19c8993e219ea81a6262b1eec26b63a0b67133f5f831",
+      "instruction": "mov dword ptr [0x1002df40], ecx"
+    },
+    {
+      "rva": "0x3943",
+      "size": 3,
+      "sha256": "924188d8a625584577bbc9445f5326eb7d9abca9e1ba8ce5ed55ef03340c39ea",
+      "instruction": "mov dword ptr [ecx + 4], eax"
+    },
+    {
+      "rva": "0x3955",
+      "size": 2,
+      "sha256": "3db07e485d45f7517b4010dec7d0dcb8f346ac6796685a2da74d7ee2bd67e6c4",
+      "instruction": "mov dword ptr [ecx], esi"
+    },
+    {
+      "rva": "0x3957",
+      "size": 2,
+      "sha256": "c55224d3f69c8257578311b99e9bf41fd65c977195aa2bbbc849a87ba1b21a38",
+      "instruction": "mov dword ptr [eax], ecx"
+    },
+    {
+      "rva": "0x395c",
+      "size": 3,
+      "sha256": "e72aa9883b867c0a0ec62ef6e8dbc3f45e26af1ee7123732593b3ec2307cb644",
+      "instruction": "add ecx, 0x28"
+    },
+    {
+      "rva": "0x3997",
+      "size": 6,
+      "sha256": "9f6d2d31ac00e2c6788b19c8993e219ea81a6262b1eec26b63a0b67133f5f831",
+      "instruction": "mov dword ptr [0x1002df40], ecx"
+    },
+    {
+      "rva": "0x3ca6",
+      "size": 3,
+      "sha256": "fc8e692c1cd4e041941c2c707759b59330f639f98842dffa2390180cf012cf47",
+      "instruction": "mov dword ptr [ecx + 4], edx"
+    },
+    {
+      "rva": "0x3cb8",
+      "size": 2,
+      "sha256": "3db07e485d45f7517b4010dec7d0dcb8f346ac6796685a2da74d7ee2bd67e6c4",
+      "instruction": "mov dword ptr [ecx], esi"
+    },
+    {
+      "rva": "0x3cba",
+      "size": 2,
+      "sha256": "587e5ed0ff7c93c43c214b6cd2b6c4d93dd6b151748286cfd2f164494eb7c611",
+      "instruction": "mov dword ptr [edx], ecx"
+    },
+    {
+      "rva": "0x3cbe",
+      "size": 3,
+      "sha256": "e72aa9883b867c0a0ec62ef6e8dbc3f45e26af1ee7123732593b3ec2307cb644",
+      "instruction": "add ecx, 0x28"
+    },
+    {
+      "rva": "0x3cf9",
+      "size": 6,
+      "sha256": "9f6d2d31ac00e2c6788b19c8993e219ea81a6262b1eec26b63a0b67133f5f831",
+      "instruction": "mov dword ptr [0x1002df40], ecx"
+    },
+    {
+      "rva": "0x3d1d",
+      "size": 4,
+      "sha256": "67e284a451a2d71c4c43e1cc8d9b04a38fca8a4ad69266b66d9c73544071c2a9",
+      "instruction": "mov word ptr [ecx + 0x10], ax"
+    },
+    {
+      "rva": "0x3d38",
+      "size": 6,
+      "sha256": "02d883c1820363bd17d01553d60826897aa2244f5eba66d1c507b960a1723eaf",
+      "instruction": "cmp esi, 0x100"
+    },
+    {
+      "rva": "0x3d48",
+      "size": 5,
+      "sha256": "b6f729c616c1489bffd858f5f398cfc6d9b503253fc9c6186c91a62927026c51",
+      "instruction": "cmp word ptr [ecx + 0x74], 0"
+    },
+    {
+      "rva": "0x3d52",
+      "size": 5,
+      "sha256": "6248cc2224b841a47bdec11b8c085f06b6e7547588cfab03bb70ab9e086e5bb5",
+      "instruction": "call 0x10003420"
+    },
+    {
+      "rva": "0x3d5d",
+      "size": 5,
+      "sha256": "12d2f936aac5c660c3e2d296998d26efeb1a2755c068780fc3af1acf10924149",
+      "instruction": "call 0x10003100"
+    },
+    {
+      "rva": "0x3d68",
+      "size": 5,
+      "sha256": "b6f729c616c1489bffd858f5f398cfc6d9b503253fc9c6186c91a62927026c51",
+      "instruction": "cmp word ptr [ecx + 0x74], 0"
+    },
+    {
+      "rva": "0x3d7c",
+      "size": 5,
+      "sha256": "7376b0cb274be8f0a8084f049b18edf62bb53cc7a2592cccc121793893051152",
+      "instruction": "call 0x100039b0"
+    },
+    {
+      "rva": "0x3d87",
+      "size": 5,
+      "sha256": "40cdad83a87af22b22ba2b67be6c3771f66901efdc37de42daa8a94c9ab330df",
+      "instruction": "call 0x10003740"
+    },
+    {
+      "rva": "0x17ba5",
+      "size": 4,
+      "sha256": "52188615804188edc3d3bc26865090376f64f434c5f269da73ebec9532c2d626",
+      "instruction": "or byte ptr [esi + 0x1f], 8"
+    },
+    {
+      "rva": "0x17bda",
+      "size": 5,
+      "sha256": "3349434b8f7654cd16db99c322d330ea1eb63b9f308dd31e7179e53f16c7f350",
+      "instruction": "call 0x10002dc0"
+    },
+    {
+      "rva": "0x17c08",
+      "size": 4,
+      "sha256": "52188615804188edc3d3bc26865090376f64f434c5f269da73ebec9532c2d626",
+      "instruction": "or byte ptr [esi + 0x1f], 8"
+    },
+    {
+      "rva": "0x17c56",
+      "size": 5,
+      "sha256": "ab7f4dfa8dcf84ddf3841f4fe393e257556d65e9441a2af92f24408d94a844f3",
+      "instruction": "call 0x1000ca40"
+    },
+    {
+      "rva": "0x17c63",
+      "size": 5,
+      "sha256": "e38dca78e45c254b079b6e0ca9f43287dc3414f7678c06f1da0a1f026b024b78",
+      "instruction": "call 0x1000c7d0"
+    },
+    {
+      "rva": "0x17c6b",
+      "size": 5,
+      "sha256": "7897373cfe51b80f157c07e069aed01a70d460b353c58eda9a9c8c81b51e6be1",
+      "instruction": "call 0x1000c790"
+    },
+    {
+      "rva": "0x17c9c",
+      "size": 5,
+      "sha256": "287e381e0b3b37c64e8562a0fb8231d84623c31955b5da34a6bf72652bc4b22b",
+      "instruction": "call 0x10002dc0"
+    },
+    {
+      "rva": "0x17cdd",
+      "size": 5,
+      "sha256": "5ef32911ec7d60a4ffa1d3093ea1fe0c989c3034ccfef120e552f281e5b1431e",
+      "instruction": "call 0x10004d80"
+    },
+    {
+      "rva": "0x17cee",
+      "size": 5,
+      "sha256": "09a85bbad4d922f4acaa129119051240e1f723c8c1318fb809e66bcf2e6b624a",
+      "instruction": "call 0x100195f0"
+    },
+    {
+      "rva": "0x17d09",
+      "size": 5,
+      "sha256": "c5ff616a177aa386843697c319536942e8d0895c06a1868687c718f3f733a876",
+      "instruction": "call 0x100196f0"
+    },
+    {
+      "rva": "0x17dd3",
+      "size": 5,
+      "sha256": "d3362c1b320a8ebd34fb6d503121722fae6756bc2cd2795cc0a9e6f619602bbe",
+      "instruction": "call 0x10019470"
+    },
+    {
+      "rva": "0x17df9",
+      "size": 4,
+      "sha256": "515d1d1a66c7e3faddbb8075a6d195e20af4f8f80e5d39e791591beb7ccdb3e9",
+      "instruction": "mov byte ptr [eax + 7], 0x68"
+    },
+    {
+      "rva": "0x17e05",
+      "size": 2,
+      "sha256": "587e5ed0ff7c93c43c214b6cd2b6c4d93dd6b151748286cfd2f164494eb7c611",
+      "instruction": "mov dword ptr [edx], ecx"
+    },
+    {
+      "rva": "0x17e0c",
+      "size": 2,
+      "sha256": "a53da58892b666a30b1af2dd65a1ea39829c3490ff505de5c07611f8b1380dcb",
+      "instruction": "mov dword ptr [ebx], eax"
+    },
+    {
+      "rva": "0x17e13",
+      "size": 3,
+      "sha256": "1bec05278b5cbaf20616ad46f2a5d717ecd49587e3b7cb5eb5c894a288b16b78",
+      "instruction": "add eax, 0xc"
+    },
+    {
+      "rva": "0x17e16",
+      "size": 5,
+      "sha256": "71fd2216be84d97f06f81cdb517cb3bdf183eb3e673956a8018dbb3f76218ab3",
+      "instruction": "mov dword ptr [0x1002df40], eax"
+    },
+    {
+      "rva": "0x17f1b",
+      "size": 5,
+      "sha256": "64118f410309ea52b72e2fcb20ad03aa3ccfb26e0aef66f1a1eb70e8daa7bf14",
+      "instruction": "call 0x10002cc0"
+    },
+    {
+      "rva": "0x17f29",
+      "size": 5,
+      "sha256": "851a0f6086f1af8cb15e892097a57d6d4a96731b4c1a45e4b24207ef9b30609c",
+      "instruction": "call 0x10002dc0"
+    },
+    {
+      "rva": "0x189c1",
+      "size": 3,
+      "sha256": "b3f935724f6fd7fc33ad267a04c849747e6f9a4466bbaa48ae8b050c491fe54d",
+      "instruction": "or ah, 0x2c"
+    },
+    {
+      "rva": "0x189d1",
+      "size": 3,
+      "sha256": "5cd860557e7120bcd808c940152c3cea47966b65729028ccb428f32ab62645d3",
+      "instruction": "test cl, 4"
+    },
+    {
+      "rva": "0x189d6",
+      "size": 5,
+      "sha256": "69b51e6cf1c5636bf3ab97fe64e77d03ec7518860c577451fac10de347a9e2a3",
+      "instruction": "or eax, 0x2000000"
+    }
+  ],
+  "helper_0x28c0": {
+    "direct_calls_in_scanned_mode_and_renderer_spans": [],
+    "scanned_spans": [
+      "mode_2_list",
+      "mode_3_clip_list",
+      "mode_4_group",
+      "mode_6_sprite_quad_dispatch",
+      "dynamic_child_renderer",
+      "group_child_setup",
+      "mode_0_scale_dispatch",
+      "mode_1_ft4_writer",
+      "mode_5_known_ft4_writer",
+      "mode_7_known_ft4_writer",
+      "overlay_ft4_writer",
+      "ft4_writer_03420",
+      "ft4_writer_03740",
+      "ft4_writer_039B0",
+      "ft4_command_word"
+    ],
+    "direct_call_found": false,
+    "disposition": "No 0x28c0 direct call appears in the mode-target or bounded renderer span set. Its callsite arguments 0x7c/0x64 are not used as packet tags here; this audit establishes no link/tag write from those values."
+  },
+  "consumer_evidence": {
+    "ac60_span": {
+      "module": "HERCULES.EXE",
+      "rva": "0xac60",
+      "size": 1680,
+      "sha256": "f7724c04bef582e378b183a12550ba841df1a6fa3660be51da71154aa5c525af",
+      "content_kind": "code",
+      "decode": "complete",
+      "instruction_count": 431
+    },
+    "packets_json_sha256": "6b5b026921498e8f77b28d6c618219ed3ded3ddd917d491e9321dfd6ff0cf509",
+    "module_packets_json_sha256": "a68864a259202260ccbfaf7ccee0b68c127af839d3c4b6889c32978e5ff32772",
+    "tag_byte_offset": 7,
+    "ft4_0x2c": "FT4-compatible field reads",
+    "ft4_raw_bit1_variants": "0xd420/0xe680",
+    "command_0x68_normalized": "0x68",
+    "command_0x68_disposition": "Group 0x60 refreshes A909FC from A8E6F4 and conditionally A8E6FC only when BA01FC is zero. After clearing tag bit 1, 0x68/0x6a miss 0x7c, 0x74, and 0x64; B119 exits to the traversal continuation, so neither C8F0 nor CAB0 is called."
+  },
+  "limits": [
+    "Static instruction/dataflow observations only; no TITLE gameplay or original execution.",
+    "Indices 2, 3, and 4 may transitively emit packets selected by child mode/state; this audit does not assign a single tag to those list/group wrappers.",
+    "No synthetic fixture was added because the observed terminal routes are already represented AC60 tags 0x68 and 0x2c/0x2e.",
+    "The 0x28c0 result is limited to direct calls in the listed mode-target and bounded renderer spans; it does not claim whole-module absence or infer tags from scalar arguments."
+  ]
+}

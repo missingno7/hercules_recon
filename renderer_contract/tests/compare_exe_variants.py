@@ -176,7 +176,8 @@ def main() -> None:
     hunks = diff_hunks(pinned_bytes, asset_bytes, pinned_pe, asset_pe)
 
     renderer_spans = [
-        range_record(span["label"], int(span["rva"], 0), span["size"], "original_spans.json")
+        range_record(span.get("label", "%s:%s+%s" % (span["module"], span["rva"], span["size"])),
+                     int(span["rva"], 0), span["size"], "original_spans.json")
         for span in manifest["spans"] if span["module"] == "HERCULES.EXE"
     ]
     presentation_ranges = []

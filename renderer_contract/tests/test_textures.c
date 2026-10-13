@@ -1,5 +1,8 @@
 #include <stdio.h>
+#if defined(_M_IX86) || defined(__i386__)
+/* Check live callback declarations on x86; raw helpers also support x64. */
 #define HERCULES_RENDERER_LIVE_X86 1
+#endif
 #include "hercules_textures.h"
 
 static int check(int condition, const char *name)

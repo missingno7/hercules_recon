@@ -1,0 +1,331 @@
+{
+  "schema_version": 1,
+  "scope": "Pinned host PE only; read-only; no game launch or file writes except this receipt.",
+  "audit_script_sha256": "ea506b6ec770109fe5cefd2347a4c24ccb52eedd359470ec81b26a1b5f8679e3",
+  "pe_helper": {
+    "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\scripts\\pe.py",
+    "sha256": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca",
+    "capstone_version": "5.0.7"
+  },
+  "host": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "size": 275968,
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "machine": "0x14c",
+    "optional_magic": "0x10b",
+    "image_base": "0x400000",
+    "entry_point_rva": "0x11ea0",
+    "subsystem": 2,
+    "linker_version": "5.0",
+    "dll_characteristics": "0x0",
+    "loader_flags": "0x0",
+    "relocations": {
+      "rva": "0x0",
+      "size": "0x0"
+    },
+    "delay_imports": {
+      "rva": "0x0",
+      "size": "0x0"
+    },
+    "resource_type_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      12,
+      14
+    ],
+    "rt_manifest_count": 0
+  },
+  "text_sweep": {
+    "method": "Capstone x86-32 linear sweep over complete raw .text with skipdata enabled",
+    "section_rva": "0x1000",
+    "raw_size": 183808,
+    "sweep_record_count": 65379,
+    "decoded_instruction_count": 65375,
+    "decoded_instruction_bytes": 183804,
+    "skipdata_pseudoop_count": 4,
+    "skipdata_bytes": 4,
+    "covered_record_bytes": 183808,
+    "coverage_complete": true,
+    "last_record_rva": "0x2ddfe",
+    "last_record_size": 2,
+    "last_record_end_rva": "0x2de00",
+    "gaps_or_overlaps": [],
+    "gap_or_overlap_count": 0,
+    "old_no_skipdata_first_stop_rva": "0x1124a",
+    "old_no_skipdata_instruction_count": 21486,
+    "skipped_byte_rvas": [
+      "0x1124a",
+      "0x1f760",
+      "0x20812",
+      "0x28c64"
+    ],
+    "alignment_limit": "Linear sweep classifies byte sequences that decode as x86 instructions without CFG/function-boundary validation; embedded data can decode as instructions. Skipdata pseudo-ops contribute coverage but no operands."
+  },
+  "imports": {
+    "descriptor_names_file_order": [
+      "DDRAW.dll",
+      "DSOUND.dll",
+      "WINMM.dll",
+      "KERNEL32.dll",
+      "USER32.dll",
+      "GDI32.dll",
+      "WINSPOOL.DRV",
+      "ADVAPI32.dll",
+      "SHELL32.dll",
+      "COMCTL32.dll"
+    ],
+    "warning": "PE descriptor order is not observed runtime load order.",
+    "relevant": [
+      {
+        "dll": "DDRAW.dll",
+        "name": "DirectDrawCreate",
+        "iat_rva": "0x7a5648",
+        "iat_call_sites": []
+      },
+      {
+        "dll": "KERNEL32.dll",
+        "name": "LoadLibraryA",
+        "iat_rva": "0x7a589c",
+        "iat_call_sites": [
+          "0x5c75",
+          "0x19403"
+        ]
+      },
+      {
+        "dll": "KERNEL32.dll",
+        "name": "FreeLibrary",
+        "iat_rva": "0x7a58a4",
+        "iat_call_sites": [
+          "0x5c3a",
+          "0x2cd3a"
+        ]
+      },
+      {
+        "dll": "KERNEL32.dll",
+        "name": "GetProcAddress",
+        "iat_rva": "0x7a58ac",
+        "iat_call_sites": [
+          "0x5c95",
+          "0x13845",
+          "0x202f0"
+        ]
+      },
+      {
+        "dll": "USER32.dll",
+        "name": "GetMessageA",
+        "iat_rva": "0x7a58e8",
+        "iat_call_sites": [
+          "0x25fa5"
+        ]
+      },
+      {
+        "dll": "USER32.dll",
+        "name": "CreateWindowExA",
+        "iat_rva": "0x7a59c8",
+        "iat_call_sites": [
+          "0x22cd3"
+        ]
+      },
+      {
+        "dll": "USER32.dll",
+        "name": "ShowWindow",
+        "iat_rva": "0x7a5a74",
+        "iat_call_sites": [
+          "0x6c29",
+          "0x25121",
+          "0x294a0",
+          "0x2b459",
+          "0x2b56c"
+        ]
+      },
+      {
+        "dll": "GDI32.dll",
+        "name": "RealizePalette",
+        "iat_rva": "0x7a565c",
+        "iat_call_sites": [
+          "0x6755"
+        ]
+      },
+      {
+        "dll": "GDI32.dll",
+        "name": "SelectPalette",
+        "iat_rva": "0x7a5660",
+        "iat_call_sites": [
+          "0x6749",
+          "0x740a",
+          "0x7547"
+        ]
+      },
+      {
+        "dll": "GDI32.dll",
+        "name": "StretchDIBits",
+        "iat_rva": "0x7a5664",
+        "iat_call_sites": [
+          "0x66a0"
+        ]
+      },
+      {
+        "dll": "GDI32.dll",
+        "name": "SetPaletteEntries",
+        "iat_rva": "0x7a5668",
+        "iat_call_sites": [
+          "0x6a40"
+        ]
+      },
+      {
+        "dll": "GDI32.dll",
+        "name": "CreateDIBSection",
+        "iat_rva": "0x7a567c",
+        "iat_call_sites": [
+          "0x73cf"
+        ]
+      }
+    ],
+    "DirectDrawCreate_thunk": {
+      "rva": "0x10a20",
+      "call_sites": [
+        "0x7426"
+      ]
+    }
+  },
+  "dynamic_engine_loader": {
+    "LoadLibraryA_sites": [
+      "0x5c75",
+      "0x19403"
+    ],
+    "GetProcAddress_sites": [
+      "0x5c95",
+      "0x13845",
+      "0x202f0"
+    ],
+    "FreeLibrary_sites": [
+      "0x5c3a",
+      "0x2cd3a"
+    ],
+    "resolved_export_name": "PC_DLLEngineMain",
+    "export_name_rva": "0x36868",
+    "selected_module_path": "unproved"
+  },
+  "table": {
+    "rva": "0x361b8",
+    "va": "0x4361b8",
+    "bytes": 1000,
+    "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "section": ".data",
+    "direct_fixed_address_refs": {
+      "reads": 192,
+      "writes": 0,
+      "unknown": 0,
+      "distinct_slots_referenced": 4,
+      "slots": [
+        1,
+        2,
+        3,
+        5
+      ],
+      "slot_summary": {
+        "1": {
+          "reads": 186,
+          "writes": 0,
+          "unknown": 0,
+          "first_ref_rva": "0x1000",
+          "last_ref_rva": "0x107a9"
+        },
+        "2": {
+          "reads": 2,
+          "writes": 0,
+          "unknown": 0,
+          "first_ref_rva": "0x2007",
+          "last_ref_rva": "0x2020"
+        },
+        "3": {
+          "reads": 2,
+          "writes": 0,
+          "unknown": 0,
+          "first_ref_rva": "0x2001",
+          "last_ref_rva": "0x201b"
+        },
+        "5": {
+          "reads": 2,
+          "writes": 0,
+          "unknown": 0,
+          "first_ref_rva": "0xb9e4",
+          "last_ref_rva": "0xbb07"
+        }
+      }
+    },
+    "absolute_indexed_refs": {
+      "references": 0,
+      "writes": 0
+    },
+    "scan_limit": "Complete raw .text linear sweep with undecodable bytes represented by skipdata pseudo-ops; does not rule out embedded-data false decodes, external mutation, or unresolved register/alias writes."
+  },
+  "source_pointer": {
+    "rva": "0x365a0",
+    "va": "0x4365a0",
+    "initial_value": "0x4361b8",
+    "initial_bytes_sha256": "808fbb8b89f159778e8ec1322e9c7a53c570dfe17e6e565367f97a9bee2a0e3b",
+    "direct_code_refs": [
+      {
+        "rva": "0x5ef3",
+        "mnemonic": "mov",
+        "access": "reads"
+      }
+    ],
+    "direct_writes": 0
+  },
+  "timing": {
+    "graphics_setup_rva": "0x72a0",
+    "graphics_setup_call_site": [
+      "0x5e2c"
+    ],
+    "directdraw_setup_call_site_rva": "0x741a",
+    "directdrawcreate_thunk_call_sites": [
+      "0x7426"
+    ],
+    "directdraw_call_arguments": "GUID=NULL; output=&0x96e3e4; outer=NULL",
+    "source_pointer_read_rva": "0x5ef3",
+    "first_dispatch_rva": "0x5f03",
+    "span_sha256": {
+      "graphics_init": {
+        "rva": "0x5e10",
+        "size": 127,
+        "sha256": "ac9967b60fd007b741ba0887f7e13ecc9c0ccd8c9e5f0b1e30c51187ef4bd8fe"
+      },
+      "graphics_setup": {
+        "rva": "0x72a0",
+        "size": 532,
+        "sha256": "f7ad10baa9f9503396a89bae5a10110846a0daf77d08b158eec8581663336286"
+      },
+      "directdraw_call": {
+        "rva": "0x7420",
+        "size": 18,
+        "sha256": "21b4849f40684efb1d3ad66cf769b9929e5a43aa2785e4ae2232f06e826d4bcb"
+      },
+      "source_pointer_read": {
+        "rva": "0x5ef3",
+        "size": 6,
+        "sha256": "466d6f172510e70afc0d5f607750009ab105d79e3cc7c1c93396e40664af2d83"
+      },
+      "first_dispatch": {
+        "rva": "0x5f03",
+        "size": 2,
+        "sha256": "491e503ba40e8d303d46b4b51b14826ae08e8c8c3ded6f1441ef1d5d53c42534"
+      }
+    },
+    "order_claim": "0x72a0 -> 0x71a0/DirectDrawCreate at 0x7426 -> source pointer read 0x5ef3 -> first engine dispatch 0x5f03; clone must be published before dispatch."
+  },
+  "bootstrap_candidate": "App-local DDRAW.dll shim may forward DirectDrawCreate unchanged, then clone/patch selected table entries and publish image_base+0x365a0 before returning. This is a static timing candidate, not host integration or proof of deployment resolution.",
+  "preserve": [
+    "original HWND",
+    "DirectDraw object and COM vtables",
+    "surface/backbuffer and lost-surface paths",
+    "palette and resource writers",
+    "lock/unlock/clear/present",
+    "movie callback/surface path"
+  ]
+}

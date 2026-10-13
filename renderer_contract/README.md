@@ -29,9 +29,12 @@ not replace this complete contract.
 | hercules_sprite_geometry.h | Sprite clipping/setup without pixel rasterization |
 | hercules_quad_dispatch.h | Static rectangle route predicates |
 | hercules_pixels.h | Bounded indexed shade/blend, palette and fill reference steps |
+| hercules_edge_steps.h | Fixed-width reciprocal and guarded edge-step arithmetic |
 | closure.md | Bounded host renderer call/data closure |
+| ownership.md | Direct-reference locality versus shared host surface state |
 | packets.md | Consumer fields versus independently observed producer extents |
 | textures.md | Upload, page selection, VRAM move, indexed color and unresolved bounds |
+| texture_ownership.md | PE backing envelopes and renderer-state overlap |
 | palette.md | Startup LUT writer order, aliases and palette lifecycle |
 | sprite_geometry.md | Signed clipping and wide UV addressing |
 | polygon_dispatch.md | Native row-zero and rectangle discriminators |
@@ -39,7 +42,10 @@ not replace this complete contract.
 | shaded_edges.md | Neutral-red shade bypass, blended geometry and zero-source tests |
 | quad_interpolation.md | Four-edge interpolation versus triangle splits |
 | fill_edges.md | Constant-fill division, coverage and zero-byte behavior |
+| reciprocal_domain.md | Native 2047/2048 guards and pre-crop reciprocal lookups |
 | module_packets.md | Separate ENG3/TITLE producers and 0x68 semantics |
+| eng3_handlers.md | Six-entry render dispatch frontier and FT4 writers |
+| title_handlers.md | Child dispatch, grouped 0x68 records and FT4 mode writers |
 | pixels.md | Distinct indexed pixel paths and their proof boundaries |
 | frame.md | Initialization, prepend order, traversal and module lifecycles |
 | notification.md | Primary/secondary callback ownership and live-link traversal |
@@ -47,6 +53,7 @@ not replace this complete contract.
 | staging.md | Native effective staging and finite differential boundaries |
 | compatibility.md | Independent ENG1/ENG3/TITLE callback evidence |
 | presentation.md | Original window, DIB, DirectDraw, palette and movie paths |
+| loader.md | Pre-copy bootstrap timing and source-built loader surrogate |
 | geometry.md | Information available before and after projection |
 | blockers.md | Separate capture, rendering, window and enhancement blockers |
 | evidence/ | Compact original identities, spans and provenance; no binary code |
@@ -54,6 +61,19 @@ not replace this complete contract.
 
 The C headers and utilities have no dependency on a GPU API or the game source
 graph. Repository verification scripts reuse the existing PE/toolchain tools.
+Copy this folder to reuse the C utilities. Its standalone synthetic runner
+needs only Python 3 and caller-supplied C/C++ compilers:
+
+```powershell
+python renderer_contract/tests/run_portable_tests.py --cc gcc --cxx g++ --output work/renderer_portable
+```
+
+Use a new or empty output directory outside the package. The runner records
+compiler identities, source hashes and each fixture result there. GCC builds
+use strict C89/C++98 modes; MSVC uses `/Za` and the corresponding language
+subset. On x64 these fixtures validate raw 32-bit address views; live callback
+declarations additionally require x86. The pinned VC5 and original-code gates
+below remain repository-specific and separate from portable utility tests.
 
 The existing partial typed declaration in
 [calibration/engine_interface.h](../calibration/engine_interface.h) remains the

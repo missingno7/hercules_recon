@@ -1,0 +1,3702 @@
+{
+  "schema_version": 1,
+  "scope": "Read-only PE layout and full .text explicit-reference scan for texture address candidates; no allocation or game-runtime ownership claimed.",
+  "run": {
+    "original_root": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+    "exe_argument": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "output": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\renderer_phase4\\texture_ownership_replay.json",
+    "capstone_version": "5.0.7",
+    "pe_helper": "scripts/pe.py",
+    "pe_helper_sha256": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca",
+    "audit_script_sha256": "29f06ff12badde5b8ba4aae6c3291483d28ec8e105858c3ba0647b8747b7d3e4"
+  },
+  "proof_levels": {
+    "pe_layout": "STATIC_LAYOUT from pinned PE section metadata and file-backed ranges",
+    "host_explicit_references": "STATIC_SCAN across decoded x86-32 .text operands; raw numeric candidate scan is not pointer proof",
+    "upload_move_addresses": "BOUNDED_EQUIVALENT receipts for finite A710/A8F0 cases, limited to tested ordinary-domain inputs",
+    "alternate_page_selection": "STATIC_CODE plus bounded AC60 page-mask fixtures for FT4/GT4/E1 discriminators",
+    "clipped_sprite_uv": "BOUNDED_EQUIVALENT geometry fixtures; wider-than-byte U/V means page0 is not a read bound"
+  },
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x00400000",
+    "size_of_image": "0x007ad000",
+    "relocation_directory_size": 0
+  },
+  "sections": [
+    {
+      "name": ".text",
+      "rva": "0x00001000",
+      "va": "0x00401000",
+      "virtual_size": "0x0002cdbe",
+      "raw_size": "0x0002ce00",
+      "virtual_end_exclusive": "0x0042ddbe",
+      "raw_file_offset": "0x00000400",
+      "raw_end_exclusive_rva": "0x0002de00",
+      "characteristics": "0x60000020"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0x0002e000",
+      "va": "0x0042e000",
+      "virtual_size": "0x000060a8",
+      "raw_size": "0x00006200",
+      "virtual_end_exclusive": "0x004340a8",
+      "raw_file_offset": "0x0002d200",
+      "raw_end_exclusive_rva": "0x00034200",
+      "characteristics": "0x40000040"
+    },
+    {
+      "name": ".data",
+      "rva": "0x00035000",
+      "va": "0x00435000",
+      "virtual_size": "0x0076fb28",
+      "raw_size": "0x00009600",
+      "virtual_end_exclusive": "0x00ba4b28",
+      "raw_file_offset": "0x00033400",
+      "raw_end_exclusive_rva": "0x0003e600",
+      "characteristics": "0xc0000040"
+    },
+    {
+      "name": ".idata",
+      "rva": "0x007a5000",
+      "va": "0x00ba5000",
+      "virtual_size": "0x000020b0",
+      "raw_size": "0x00002200",
+      "virtual_end_exclusive": "0x00ba70b0",
+      "raw_file_offset": "0x0003ca00",
+      "raw_end_exclusive_rva": "0x007a7200",
+      "characteristics": "0xc0000040"
+    },
+    {
+      "name": ".rsrc",
+      "rva": "0x007a8000",
+      "va": "0x00ba8000",
+      "virtual_size": "0x00004874",
+      "raw_size": "0x00004a00",
+      "virtual_end_exclusive": "0x00bac874",
+      "raw_file_offset": "0x0003ec00",
+      "raw_end_exclusive_rva": "0x007aca00",
+      "characteristics": "0x40000040"
+    }
+  ],
+  "candidate_ranges": {
+    "ordinary_pageable_bank": {
+      "start": "0x0096e6e0",
+      "end_exclusive": "0x00a6e6e0",
+      "size": "0x00100000",
+      "page_size": "0x00010000",
+      "pages": 16,
+      "section_start": {
+        "name": ".data",
+        "rva": "0x0056e6e0",
+        "section_offset": "0x005396e0",
+        "file_backed": false,
+        "file_offset": null,
+        "zero_fill": true
+      },
+      "section_last_byte": {
+        "name": ".data",
+        "rva": "0x0066e6df",
+        "section_offset": "0x006396df",
+        "file_backed": false,
+        "file_offset": null,
+        "zero_fill": true
+      }
+    },
+    "alternate_fixed_page0_uv_window": {
+      "start": "0x00a6e6e0",
+      "end_exclusive": "0x00a7e6e0",
+      "size": "0x00010000",
+      "page_size": "0x00010000",
+      "selected_page_index": 0,
+      "section_start": {
+        "name": ".data",
+        "rva": "0x0066e6e0",
+        "section_offset": "0x006396e0",
+        "file_backed": false,
+        "file_offset": null,
+        "zero_fill": true
+      },
+      "section_last_byte": {
+        "name": ".data",
+        "rva": "0x0067e6df",
+        "section_offset": "0x006496df",
+        "file_backed": false,
+        "file_offset": null,
+        "zero_fill": true
+      }
+    },
+    "alternate_index_derived_interval_not_fully_selected": {
+      "start": "0x00a6e6e0",
+      "end_exclusive": "0x00b6e6e0",
+      "size": "0x00100000",
+      "distance_from_ordinary": "0x00100000",
+      "page_size": "0x00010000",
+      "pages": 16,
+      "selection_note": "AC60 alternate branch writes the fixed base 0xA6E6E0 after computing ordinary page offset; it does not add the page index in that branch.",
+      "section_start": {
+        "name": ".data",
+        "rva": "0x0066e6e0",
+        "section_offset": "0x006396e0",
+        "file_backed": false,
+        "file_offset": null,
+        "zero_fill": true
+      },
+      "section_last_byte": {
+        "name": ".data",
+        "rva": "0x0076e6df",
+        "section_offset": "0x007396df",
+        "file_backed": false,
+        "file_offset": null,
+        "zero_fill": true
+      }
+    },
+    "alternate_high_y_a710_a8f0_write_envelope": {
+      "start": "0x00a6e6e0",
+      "end_exclusive": "0x00afe6e0",
+      "size": "0x00090000",
+      "covers_alternate_page_indices": [
+        0,
+        8
+      ],
+      "proof_level": "STATIC_EXPRESSION; y>=512 excluded from bounded upload/move oracle"
+    },
+    "alternate_page2_address_interval_aliases_host_state": {
+      "start": "0x00a8e6e0",
+      "end_exclusive": "0x00a9e6e0",
+      "size": "0x00010000",
+      "page_index": 2,
+      "reciprocal_table": {
+        "start": "0x00a8e918",
+        "end_exclusive": "0x00a90918",
+        "size": "0x2000",
+        "offset_in_page": "0x238",
+        "entirely_inside_page": true
+      },
+      "texture_state_cells": [
+        "0x00a8e6f4",
+        "0x00a8e6f8",
+        "0x00a8e6fc"
+      ],
+      "rasterizer_scratch_observed": "0x00a9091c..0x00a90a1a and other explicit host globals also lie in this page"
+    },
+    "reciprocal_table": {
+      "start": "0x00a8e918",
+      "end_exclusive": "0x00a90918",
+      "size": "0x00002000",
+      "section_start": {
+        "name": ".data",
+        "rva": "0x0068e918",
+        "section_offset": "0x00659918",
+        "file_backed": false,
+        "file_offset": null,
+        "zero_fill": true
+      },
+      "section_last_byte": {
+        "name": ".data",
+        "rva": "0x00690917",
+        "section_offset": "0x0065b917",
+        "file_backed": false,
+        "file_offset": null,
+        "zero_fill": true
+      }
+    },
+    "texture_state": {
+      "0x0096e3e0": {
+        "label": "D420 palette gate",
+        "section": {
+          "name": ".data",
+          "rva": "0x0056e3e0",
+          "section_offset": "0x005393e0",
+          "file_backed": false,
+          "file_offset": null,
+          "zero_fill": true
+        }
+      },
+      "0x0096e424": {
+        "label": "nearby renderer global (unresolved here)",
+        "section": {
+          "name": ".data",
+          "rva": "0x0056e424",
+          "section_offset": "0x00539424",
+          "file_backed": false,
+          "file_offset": null,
+          "zero_fill": true
+        }
+      },
+      "0x0096e680": {
+        "label": "nearby renderer global (unresolved here)",
+        "section": {
+          "name": ".data",
+          "rva": "0x0056e680",
+          "section_offset": "0x00539680",
+          "file_backed": false,
+          "file_offset": null,
+          "zero_fill": true
+        }
+      },
+      "0x0096e698": {
+        "label": "optional color-update flag",
+        "section": {
+          "name": ".data",
+          "rva": "0x0056e698",
+          "section_offset": "0x00539698",
+          "file_backed": false,
+          "file_offset": null,
+          "zero_fill": true
+        }
+      },
+      "0x004361b8": {
+        "label": "host callback source table",
+        "section": {
+          "name": ".data",
+          "rva": "0x000361b8",
+          "section_offset": "0x000011b8",
+          "file_backed": true,
+          "file_offset": "0x000345b8",
+          "zero_fill": false
+        }
+      },
+      "0x004365a0": {
+        "label": "pointer cell aliasing host callback source table",
+        "section": {
+          "name": ".data",
+          "rva": "0x000365a0",
+          "section_offset": "0x000015a0",
+          "file_backed": true,
+          "file_offset": "0x000349a0",
+          "zero_fill": false
+        }
+      },
+      "0x00a8e6f4": {
+        "label": "current texture page value",
+        "section": {
+          "name": ".data",
+          "rva": "0x0068e6f4",
+          "section_offset": "0x006596f4",
+          "file_backed": false,
+          "file_offset": null,
+          "zero_fill": true
+        }
+      },
+      "0x00a8e6f8": {
+        "label": "blend selector",
+        "section": {
+          "name": ".data",
+          "rva": "0x0068e6f8",
+          "section_offset": "0x006596f8",
+          "file_backed": false,
+          "file_offset": null,
+          "zero_fill": true
+        }
+      },
+      "0x00a8e6fc": {
+        "label": "alternate-bank boolean",
+        "section": {
+          "name": ".data",
+          "rva": "0x0068e6fc",
+          "section_offset": "0x006596fc",
+          "file_backed": false,
+          "file_offset": null,
+          "zero_fill": true
+        }
+      },
+      "0x00a8e780": {
+        "label": "BD80 notification callback pointer",
+        "section": {
+          "name": ".data",
+          "rva": "0x0068e780",
+          "section_offset": "0x00659780",
+          "file_backed": false,
+          "file_offset": null,
+          "zero_fill": true
+        }
+      },
+      "0x00a8e788": {
+        "label": "BD80 notification gate",
+        "section": {
+          "name": ".data",
+          "rva": "0x0068e788",
+          "section_offset": "0x00659788",
+          "file_backed": false,
+          "file_offset": null,
+          "zero_fill": true
+        }
+      },
+      "0x00a8e918": {
+        "label": "reciprocal table start",
+        "section": {
+          "name": ".data",
+          "rva": "0x0068e918",
+          "section_offset": "0x00659918",
+          "file_backed": false,
+          "file_offset": null,
+          "zero_fill": true
+        }
+      },
+      "0x00a909fc": {
+        "label": "current selected texture-page pointer / sprite U cursor",
+        "section": {
+          "name": ".data",
+          "rva": "0x006909fc",
+          "section_offset": "0x0065b9fc",
+          "file_backed": false,
+          "file_offset": null,
+          "zero_fill": true
+        }
+      }
+    }
+  },
+  "normal_upload_formula": {
+    "rva": "0xA710",
+    "span_sha256": "30bd84ea8724152e3bfb0e2c521650399913bcec115f1aef489768085981d0fe",
+    "domain": "0<=x and x+width_words<=1024; 0<=y and y+height_rows<=512; fully contained rectangle",
+    "row": "y if y<256 else 0x800+(y&0xff)",
+    "byte_address": "0x96e6e0 + row*0x100 + ((byte_x&0x700)<<8) + (byte_x&0xff), byte_x=2*x+byte_in_word",
+    "derived_full_domain_span": [
+      "0x0096e6e0",
+      "0x00a6e6e0"
+    ],
+    "base_access_sites": {
+      "A710_normal_low_y": [
+        "0xA867",
+        "0xA8A9"
+      ],
+      "A710_high_y": [
+        "0xA781",
+        "0xA7C5"
+      ],
+      "A8F0_normal_low_y": [
+        "0xAB1C",
+        "0xAB36",
+        "0xAB96",
+        "0xABA1"
+      ],
+      "A8F0_high_y": [
+        "0xA997",
+        "0xA9B6",
+        "0xAA07",
+        "0xAA13"
+      ]
+    },
+    "normal_domain_reaches_alternate_base": false,
+    "high_y_static_branch": "for signed y>=512: row=0x1000+(y&0x1ff), so for x<1024 its address envelope is [0xA6E6E0,0xAFE6E0); this lies in alternate sampler pages 0..8 and overlaps page-2 host state. This branch is outside the bounded normal-input proof and does not establish intended alternate-page upload semantics.",
+    "high_y_collision_witness": {
+      "rect_x": 284,
+      "rect_y": 514,
+      "width_words": 1,
+      "height_rows": 1,
+      "first_byte_address": "0x00a8e918",
+      "overlaps": "reciprocal table R[0] at 0xA8E918",
+      "proof": "static address expression only; no fixture executed this input"
+    }
+  },
+  "alternate_page_selection": {
+    "rva": "0xAC60",
+    "state": {
+      "page": "A8E6F4=(E1_DWORD&0x1f)",
+      "blend": "A8E6F8=(E1_DWORD>>5)&3",
+      "alternate": "A8E6FC=((E1_DWORD&0x180)==0x180)"
+    },
+    "selected_base_cell": "A909FC",
+    "ordinary_page_base": "0x96E6E0+(((A8E6F4&0x1f)>>1)<<16)",
+    "alternate_page_base": "0xA6E6E0; alternate branch overwrites the ordinary page result, so tpage page index is ignored in alternate mode",
+    "fixture_limit": "Existing FT4/GT4/E1 page-mask fixtures test tpage 0x80/0x100/0x180, all with page selector zero; nonzero ordinary page selection is established statically by the indexed add sites only.",
+    "page_selection_code_sites": {
+      "ordinary_base_add": [
+        "0x0000adcb",
+        "0x0000aedb",
+        "0x0000afec",
+        "0x0000b070"
+      ],
+      "alternate_base_override": [
+        "0x0000add9",
+        "0x0000aee9",
+        "0x0000affa",
+        "0x0000b086"
+      ]
+    },
+    "alternate_base_distance": "0x00100000",
+    "ordinary_page_read_span": [
+      "0x0096e6e0",
+      "0x00a6e6e0"
+    ],
+    "alternate_byte_uv_read_window": [
+      "0x00a6e6e0",
+      "0x00a7e6e0"
+    ],
+    "wide_sprite_uv_escape_note": "Sprite clipping can add negative-x/y offsets to U/V without byte masking. First source row is selected_page+U+(V<<8); later rows add 0x100 and mask only the row offset to 16 bits. The byte-UV page0 window is therefore not a proven bound for clipped-sprite accesses; see pinned sprite_geometry evidence.",
+    "content_writer_proven": {
+      "A710_A8F0_normal_domain": false,
+      "A710_A8F0_high_y_static_address_overlap_only": true
+    }
+  },
+  "host_callback_table": {
+    "source_table_rva": "0x000361b8",
+    "source_table_va": "0x004361b8",
+    "size": 1000,
+    "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "end_va_exclusive": "0x004365a0",
+    "pointer_cell_rva": "0x000365a0",
+    "pointer_cell_va": "0x004365a0",
+    "pointer_cell_initial_value": "0x004361b8",
+    "pointer_aliases_table": true,
+    "pointer_cell_sha256": "808fbb8b89f159778e8ec1322e9c7a53c570dfe17e6e565367f97a9bee2a0e3b",
+    "pointer_cell_direct_code_ref_sites": [
+      {
+        "rva": "0x00005ef3",
+        "instruction": "mov edx, dword ptr [0x4365a0]"
+      }
+    ],
+    "static_direct_code_writes_observed": 0,
+    "entry_count": 250,
+    "entry_target_classes": {
+      "null": 0,
+      "ordinary_candidate_bank": 0,
+      "alternate_candidate_bank": 0,
+      "inside_text": 244,
+      "inside_other_image_section": 4,
+      "outside_image": 2
+    },
+    "static_direct_table_operand_reads": 193,
+    "static_direct_table_operand_writes": 0,
+    "callbacks": [
+      {
+        "offset": "0x00000204",
+        "slot": 129,
+        "cell_va": "0x004363bc",
+        "target_va": "0x0040a710",
+        "target_rva": "0x0000a710",
+        "entry_sha256": "29a5131191531a0d3d0691960fe578be52b762dc37fdd2e0be648ab18299c499"
+      },
+      {
+        "offset": "0x00000208",
+        "slot": 130,
+        "cell_va": "0x004363c0",
+        "target_va": "0x0040a640",
+        "target_rva": "0x0000a640",
+        "entry_sha256": "84f952a8aa7424b8e74a17d5ad8a61e6e696943032398a3ebcdb5b6ba595ca9b"
+      },
+      {
+        "offset": "0x0000020c",
+        "slot": 131,
+        "cell_va": "0x004363c4",
+        "target_va": "0x0040a8f0",
+        "target_rva": "0x0000a8f0",
+        "entry_sha256": "266b1927b2bd8cb3650e83a7844d68536627e51b00902d30fc531ea2b2b538ed"
+      },
+      {
+        "offset": "0x0000023c",
+        "slot": 143,
+        "cell_va": "0x004363f4",
+        "target_va": "0x004070c0",
+        "target_rva": "0x000070c0",
+        "entry_sha256": "4875c502829326fd03e33dc194493c1e84ac312e23cca2d63e308ab362cda33f"
+      }
+    ],
+    "callback_targets_outside_candidate_spans": true,
+    "pointer_cell_outside_candidate_spans": true
+  },
+  "reciprocal_table_initializer": {
+    "span": {
+      "name": "reciprocal_table_initializer",
+      "rva": "0x000072a0",
+      "end_exclusive": "0x000072cc",
+      "size": 44,
+      "sha256": "3d59be43f3756224228dfdcc372a3bc59b7a7dbba4bbab8c79dd821cc958014b"
+    },
+    "direct_caller_sites": [
+      "0x00005e2c"
+    ],
+    "writes": "R[0]=0 at 0xA8E918; R[1..2047]=0x40000000/i as DWORDs, ending at 0xA90914; exclusive end 0xA90918",
+    "storage_range": [
+      "0xA8E918",
+      "0xA90918"
+    ],
+    "size_bytes": 8192,
+    "inside_alternate_page": 2,
+    "page_offset": "0x238",
+    "inside_page2": true,
+    "startup_callsite_static_only": true
+  },
+  "selected_page_pointer_alias": {
+    "cell": "0xA909FC",
+    "section": {
+      "name": ".data",
+      "rva": "0x006909fc",
+      "section_offset": "0x0065b9fc",
+      "file_backed": false,
+      "file_offset": null,
+      "zero_fill": true
+    },
+    "read_write_site_count": 22,
+    "example_read_write_sites": [
+      {
+        "rva": "0x0000add2",
+        "instruction": "mov dword ptr [0xa909fc], eax"
+      },
+      {
+        "rva": "0x0000add9",
+        "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0"
+      },
+      {
+        "rva": "0x0000aee2",
+        "instruction": "mov dword ptr [0xa909fc], eax"
+      },
+      {
+        "rva": "0x0000aee9",
+        "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0"
+      },
+      {
+        "rva": "0x0000aff3",
+        "instruction": "mov dword ptr [0xa909fc], eax"
+      }
+    ],
+    "meaning": "AC60 loads the selected page base here; sprite raster paths can change it to selected page + adjusted U. This is mutable pointer/state in alternate page 2, not texture storage."
+  },
+  "source_function_spans": [
+    {
+      "name": "A710_upload",
+      "rva": "0x0000a710",
+      "end_exclusive": "0x0000a8e5",
+      "size": 469,
+      "sha256": "30bd84ea8724152e3bfb0e2c521650399913bcec115f1aef489768085981d0fe"
+    },
+    {
+      "name": "A8F0_same_map_copy",
+      "rva": "0x0000a8f0",
+      "end_exclusive": "0x0000abf3",
+      "size": 771,
+      "sha256": "bc04260d2227d221b124bb397b3d7f1138eed53081654722e3f1acd52599196e"
+    },
+    {
+      "name": "AC60_packet_consumer_body",
+      "rva": "0x0000ac60",
+      "end_exclusive": "0x0000b2ec",
+      "size": 1676,
+      "sha256": "733f70c3814c339914e0d20e4275830217cf838704fef2f01f608e75e0b6f281"
+    },
+    {
+      "name": "reciprocal_table_initializer",
+      "rva": "0x000072a0",
+      "end_exclusive": "0x000072cc",
+      "size": 44,
+      "sha256": "3d59be43f3756224228dfdcc372a3bc59b7a7dbba4bbab8c79dd821cc958014b"
+    }
+  ],
+  "evidence_inputs": [
+    {
+      "path": "renderer_contract/evidence/textures.json",
+      "sha256": "8743c94b086765d4d4dff50633b31d953506b2dc0184de10b8a357bbd399767a"
+    },
+    {
+      "path": "renderer_contract/evidence/native_upload.json",
+      "sha256": "fe60f1f2acc0007b7731baff68698842effa01289f06697cc216b9e0bd41dd31"
+    },
+    {
+      "path": "renderer_contract/evidence/native_vram_move.json",
+      "sha256": "2b6da8e64cbcf73adc49c7e2ecde1eb6bf5fff4b8e6d279fc996c5880b1a23c7"
+    },
+    {
+      "path": "renderer_contract/evidence/native_page_masks.json",
+      "sha256": "7594a2f9fd59bf9739acd99607a0f3404d80ff117ec333a2312913e12676e70f"
+    },
+    {
+      "path": "renderer_contract/evidence/native_polygon_edges.json",
+      "sha256": "3bc0ad7db58d06160a1826196566c2bc8810a0b72e8e1ef90e7d751ae7ff20f5"
+    },
+    {
+      "path": "renderer_contract/evidence/sprite_geometry.json",
+      "sha256": "3a5a7e428de8f24c28bb4bff0f782eb8dd53f021a36be4e84a24b851acae4248"
+    },
+    {
+      "path": "renderer_contract/evidence/closure.json",
+      "sha256": "2142cb1d0c7a49c9fe9ebd3bd186099583431755205efc3022d9a29a7cab9e30"
+    },
+    {
+      "path": "renderer_contract/evidence/compatibility.json",
+      "sha256": "82b8b183ad54d629fef5bd977ca8ac579c3708af36879b18c8536303a983c61d"
+    }
+  ],
+  "explicit_refs": {
+    "instruction_count": 65379,
+    "decoder": "Capstone x86-32 linear sweep over raw .text with skipdata enabled; only decoded non-skip instructions contribute operand refs.",
+    "direct_candidate_page_memory_operand_summary": {
+      "total": 1509,
+      "by_bank_page": {
+        "alternate_index_interval_page_2": {
+          "memory_operand_count": 1497,
+          "reads": 878,
+          "writes": 631
+        },
+        "ordinary_page_0": {
+          "memory_operand_count": 12,
+          "reads": 8,
+          "writes": 4
+        }
+      }
+    },
+    "bank_base_immediate_groups": [
+      {
+        "value": "0x0096e6e0",
+        "count": 4,
+        "sites": [
+          {
+            "rva": "0x0000adcb",
+            "instruction": "add eax, 0x96e6e0"
+          },
+          {
+            "rva": "0x0000aedb",
+            "instruction": "add eax, 0x96e6e0"
+          },
+          {
+            "rva": "0x0000afec",
+            "instruction": "add eax, 0x96e6e0"
+          },
+          {
+            "rva": "0x0000b070",
+            "instruction": "add ecx, 0x96e6e0"
+          }
+        ]
+      },
+      {
+        "value": "0x00a6e6e0",
+        "count": 4,
+        "sites": [
+          {
+            "rva": "0x0000add9",
+            "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0"
+          },
+          {
+            "rva": "0x0000aee9",
+            "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0"
+          },
+          {
+            "rva": "0x0000affa",
+            "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0"
+          },
+          {
+            "rva": "0x0000b086",
+            "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0"
+          }
+        ]
+      }
+    ],
+    "all_immediate_values_in_page_spans": [
+      {
+        "value": "0x0096e6e0",
+        "count": 4,
+        "sites": [
+          {
+            "rva": "0x0000adcb",
+            "instruction": "add eax, 0x96e6e0"
+          },
+          {
+            "rva": "0x0000aedb",
+            "instruction": "add eax, 0x96e6e0"
+          },
+          {
+            "rva": "0x0000afec",
+            "instruction": "add eax, 0x96e6e0"
+          },
+          {
+            "rva": "0x0000b070",
+            "instruction": "add ecx, 0x96e6e0"
+          }
+        ]
+      },
+      {
+        "value": "0x00a6e6e0",
+        "count": 4,
+        "sites": [
+          {
+            "rva": "0x0000add9",
+            "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0"
+          },
+          {
+            "rva": "0x0000aee9",
+            "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0"
+          },
+          {
+            "rva": "0x0000affa",
+            "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0"
+          },
+          {
+            "rva": "0x0000b086",
+            "instruction": "mov dword ptr [0xa909fc], 0xa6e6e0"
+          }
+        ]
+      },
+      {
+        "value": "0x00a8e70e",
+        "count": 1,
+        "sites": [
+          {
+            "rva": "0x0000b327",
+            "instruction": "mov ecx, 0xa8e70e"
+          }
+        ]
+      },
+      {
+        "value": "0x00a8e71c",
+        "count": 1,
+        "sites": [
+          {
+            "rva": "0x0000b322",
+            "instruction": "mov esi, 0xa8e71c"
+          }
+        ]
+      },
+      {
+        "value": "0x00a8e728",
+        "count": 1,
+        "sites": [
+          {
+            "rva": "0x0000b41c",
+            "instruction": "cmp esi, 0xa8e728"
+          }
+        ]
+      },
+      {
+        "value": "0x00a8e790",
+        "count": 1,
+        "sites": [
+          {
+            "rva": "0x0000c108",
+            "instruction": "mov edi, 0xa8e790"
+          }
+        ]
+      },
+      {
+        "value": "0x00a8e890",
+        "count": 2,
+        "sites": [
+          {
+            "rva": "0x0000c114",
+            "instruction": "mov edi, 0xa8e890"
+          },
+          {
+            "rva": "0x0000c252",
+            "instruction": "mov eax, 0xa8e890"
+          }
+        ]
+      },
+      {
+        "value": "0x00a8e90c",
+        "count": 1,
+        "sites": [
+          {
+            "rva": "0x0000c260",
+            "instruction": "cmp eax, 0xa8e90c"
+          }
+        ]
+      },
+      {
+        "value": "0x00a8e91c",
+        "count": 1,
+        "sites": [
+          {
+            "rva": "0x000072b0",
+            "instruction": "mov ecx, 0xa8e91c"
+          }
+        ]
+      },
+      {
+        "value": "0x00a90918",
+        "count": 1,
+        "sites": [
+          {
+            "rva": "0x000072c1",
+            "instruction": "cmp ecx, 0xa90918"
+          }
+        ]
+      },
+      {
+        "value": "0x00a90a1a",
+        "count": 1,
+        "sites": [
+          {
+            "rva": "0x0000fe10",
+            "instruction": "mov esi, 0xa90a1a"
+          }
+        ]
+      },
+      {
+        "value": "0x00a98a18",
+        "count": 1,
+        "sites": [
+          {
+            "rva": "0x0000fe6b",
+            "instruction": "cmp esi, 0xa98a18"
+          }
+        ]
+      },
+      {
+        "value": "0x00a98ec8",
+        "count": 1,
+        "sites": [
+          {
+            "rva": "0x0000fd73",
+            "instruction": "push 0xa98ec8"
+          }
+        ]
+      },
+      {
+        "value": "0x00a98ed8",
+        "count": 1,
+        "sites": [
+          {
+            "rva": "0x0000fe9c",
+            "instruction": "mov edi, 0xa98ed8"
+          }
+        ]
+      },
+      {
+        "value": "0x00a99838",
+        "count": 1,
+        "sites": [
+          {
+            "rva": "0x0000f454",
+            "instruction": "push 0xa99838"
+          }
+        ]
+      },
+      {
+        "value": "0x00a99848",
+        "count": 1,
+        "sites": [
+          {
+            "rva": "0x0000f5e4",
+            "instruction": "push 0xa99848"
+          }
+        ]
+      }
+    ],
+    "memory_operand_groups_in_page_spans": [
+      {
+        "address_or_base": "0x0096e6e0",
+        "count": 12,
+        "reads": 8,
+        "writes": 4,
+        "forms": [
+          {
+            "base": "ebp",
+            "index": "edi"
+          },
+          {
+            "base": "ebx",
+            "index": "edi"
+          },
+          {
+            "base": "ecx",
+            "index": "ebp"
+          },
+          {
+            "base": "edi",
+            "index": "ebx"
+          },
+          {
+            "base": "edi",
+            "index": "edx"
+          },
+          {
+            "base": "edx",
+            "index": "ebx"
+          },
+          {
+            "base": "edx",
+            "index": "edi"
+          },
+          {
+            "base": "edx",
+            "index": "esi"
+          },
+          {
+            "base": "esi",
+            "index": "ebx"
+          },
+          {
+            "base": "esi",
+            "index": "edi"
+          },
+          {
+            "base": "esi",
+            "index": "edx"
+          }
+        ],
+        "site_count": 12,
+        "example_site_rvas": [
+          "0x0000a781",
+          "0x0000a7c5",
+          "0x0000a867",
+          "0x0000a8a9"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e6f4",
+        "count": 5,
+        "reads": 1,
+        "writes": 4,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 5,
+        "example_site_rvas": [
+          "0x0000adc1",
+          "0x0000aed1",
+          "0x0000afe2",
+          "0x0000b065"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e6f8",
+        "count": 7,
+        "reads": 4,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 7,
+        "example_site_rvas": [
+          "0x0000aefe",
+          "0x0000b00f",
+          "0x0000b1ca",
+          "0x0000c812"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e6fc",
+        "count": 5,
+        "reads": 1,
+        "writes": 4,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 5,
+        "example_site_rvas": [
+          "0x0000adb5",
+          "0x0000aec5",
+          "0x0000afd6",
+          "0x0000b07c"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e700",
+        "count": 2,
+        "reads": 1,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000ac10",
+          "0x0000ac19"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e708",
+        "count": 3,
+        "reads": 1,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000b437",
+          "0x0000b6f7",
+          "0x0000b740"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e70a",
+        "count": 1,
+        "reads": 0,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 1,
+        "example_site_rvas": [
+          "0x0000b45a"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e70c",
+        "count": 1,
+        "reads": 0,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 1,
+        "example_site_rvas": [
+          "0x0000b47d"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e70e",
+        "count": 3,
+        "reads": 1,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000b442",
+          "0x0000b702",
+          "0x0000b747"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e710",
+        "count": 1,
+        "reads": 0,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 1,
+        "example_site_rvas": [
+          "0x0000b465"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e712",
+        "count": 1,
+        "reads": 0,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 1,
+        "example_site_rvas": [
+          "0x0000b488"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e714",
+        "count": 3,
+        "reads": 1,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000b44d",
+          "0x0000b70d",
+          "0x0000b764"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e716",
+        "count": 1,
+        "reads": 0,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 1,
+        "example_site_rvas": [
+          "0x0000b470"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e718",
+        "count": 1,
+        "reads": 0,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 1,
+        "example_site_rvas": [
+          "0x0000b493"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e71c",
+        "count": 5,
+        "reads": 4,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 5,
+        "example_site_rvas": [
+          "0x0000b2f4",
+          "0x0000b791",
+          "0x0000b814",
+          "0x0000b840"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e728",
+        "count": 5,
+        "reads": 4,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 5,
+        "example_site_rvas": [
+          "0x0000b2fc",
+          "0x0000b7bd",
+          "0x0000b81e",
+          "0x0000b845"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e734",
+        "count": 8,
+        "reads": 6,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 8,
+        "example_site_rvas": [
+          "0x0000b305",
+          "0x0000b314",
+          "0x0000b7f6",
+          "0x0000b7fd"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e740",
+        "count": 9,
+        "reads": 7,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 9,
+        "example_site_rvas": [
+          "0x0000b4e1",
+          "0x0000b524",
+          "0x0000b574",
+          "0x0000b5c4"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e742",
+        "count": 8,
+        "reads": 7,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 8,
+        "example_site_rvas": [
+          "0x0000b4c9",
+          "0x0000b4f8",
+          "0x0000b53a",
+          "0x0000b58a"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e744",
+        "count": 7,
+        "reads": 6,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 7,
+        "example_site_rvas": [
+          "0x0000b4be",
+          "0x0000b550",
+          "0x0000b5a0",
+          "0x0000b5f0"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e746",
+        "count": 9,
+        "reads": 7,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 9,
+        "example_site_rvas": [
+          "0x0000b4b7",
+          "0x0000b52f",
+          "0x0000b57f",
+          "0x0000b5cf"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e748",
+        "count": 7,
+        "reads": 6,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 7,
+        "example_site_rvas": [
+          "0x0000b4da",
+          "0x0000b545",
+          "0x0000b595",
+          "0x0000b5e5"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e74a",
+        "count": 7,
+        "reads": 6,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 7,
+        "example_site_rvas": [
+          "0x0000b4b0",
+          "0x0000b55b",
+          "0x0000b5ab",
+          "0x0000b5fb"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e74c",
+        "count": 3,
+        "reads": 2,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000b3f5",
+          "0x0000b94a",
+          "0x0000b978"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e750",
+        "count": 3,
+        "reads": 2,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000b40e",
+          "0x0000b95c",
+          "0x0000b97d"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e754",
+        "count": 3,
+        "reads": 2,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000b3e4",
+          "0x0000b925",
+          "0x0000b994"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e758",
+        "count": 2,
+        "reads": 1,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000b4a4",
+          "0x0000b509"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e75c",
+        "count": 3,
+        "reads": 2,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000b33d",
+          "0x0000b757",
+          "0x0000b886"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e75e",
+        "count": 2,
+        "reads": 2,
+        "writes": 0,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000b32c",
+          "0x0000b750"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e760",
+        "count": 3,
+        "reads": 2,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000b34d",
+          "0x0000b76d",
+          "0x0000b88f"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e762",
+        "count": 2,
+        "reads": 2,
+        "writes": 0,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000b37a",
+          "0x0000b784"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e764",
+        "count": 3,
+        "reads": 2,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000b369",
+          "0x0000b797",
+          "0x0000b898"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e766",
+        "count": 2,
+        "reads": 2,
+        "writes": 0,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000b38a",
+          "0x0000b7a3"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e768",
+        "count": 3,
+        "reads": 2,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000b3b7",
+          "0x0000b7cd",
+          "0x0000b8a1"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e76a",
+        "count": 2,
+        "reads": 2,
+        "writes": 0,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000b3a6",
+          "0x0000b7c3"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e76c",
+        "count": 3,
+        "reads": 2,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000b3c7",
+          "0x0000b7d7",
+          "0x0000b8ab"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e770",
+        "count": 5,
+        "reads": 2,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 5,
+        "example_site_rvas": [
+          "0x0000b359",
+          "0x0000b779",
+          "0x0000b851",
+          "0x0000b8c6"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e774",
+        "count": 5,
+        "reads": 2,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 5,
+        "example_site_rvas": [
+          "0x0000b396",
+          "0x0000b7af",
+          "0x0000b856",
+          "0x0000b8cf"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e778",
+        "count": 5,
+        "reads": 2,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 5,
+        "example_site_rvas": [
+          "0x0000b3d1",
+          "0x0000b7e1",
+          "0x0000b85c",
+          "0x0000b8d8"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e77c",
+        "count": 3,
+        "reads": 0,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000b8e1",
+          "0x0000bd60",
+          "0x0000bd70"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e780",
+        "count": 4,
+        "reads": 2,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 4,
+        "example_site_rvas": [
+          "0x0000bd80",
+          "0x0000bda4",
+          "0x0000bda9",
+          "0x0000bdfc"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e784",
+        "count": 4,
+        "reads": 2,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 4,
+        "example_site_rvas": [
+          "0x0000bdb0",
+          "0x0000bdd4",
+          "0x0000bdd9",
+          "0x0000be01"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e788",
+        "count": 5,
+        "reads": 3,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 5,
+        "example_site_rvas": [
+          "0x0000bd89",
+          "0x0000bdb9",
+          "0x0000bde0",
+          "0x0000bdf2"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e78c",
+        "count": 5,
+        "reads": 4,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 5,
+        "example_site_rvas": [
+          "0x0000bcf0",
+          "0x0000bcfe",
+          "0x0000bd0a",
+          "0x0000bd14"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e790",
+        "count": 12,
+        "reads": 10,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": "eax"
+          },
+          {
+            "base": null,
+            "index": "ebx"
+          },
+          {
+            "base": null,
+            "index": "ecx"
+          },
+          {
+            "base": null,
+            "index": "edi"
+          },
+          {
+            "base": null,
+            "index": "edx"
+          }
+        ],
+        "site_count": 12,
+        "example_site_rvas": [
+          "0x0000be67",
+          "0x0000be98",
+          "0x0000bec8",
+          "0x0000bef2"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e7d0",
+        "count": 3,
+        "reads": 2,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": "edx"
+          },
+          {
+            "base": "eax",
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000c182",
+          "0x0000c1a2",
+          "0x0000c1d0"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e830",
+        "count": 3,
+        "reads": 2,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": "ecx"
+          },
+          {
+            "base": "eax",
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000c195",
+          "0x0000c19b",
+          "0x0000c1e6"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e890",
+        "count": 2,
+        "reads": 1,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": "eax"
+          },
+          {
+            "base": null,
+            "index": "ecx"
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000c26b",
+          "0x0000c288"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e90c",
+        "count": 3,
+        "reads": 2,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000be49",
+          "0x0000c2d4",
+          "0x0000c2d9"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e910",
+        "count": 2,
+        "reads": 1,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000be40",
+          "0x0000c22c"
+        ]
+      },
+      {
+        "address_or_base": "0x00a8e918",
+        "count": 13,
+        "reads": 12,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          },
+          {
+            "base": null,
+            "index": "ecx"
+          },
+          {
+            "base": null,
+            "index": "edi"
+          }
+        ],
+        "site_count": 13,
+        "example_site_rvas": [
+          "0x000072a5",
+          "0x0000ce77",
+          "0x0000cffc",
+          "0x0000d207"
+        ]
+      },
+      {
+        "address_or_base": "0x00a9091c",
+        "count": 20,
+        "reads": 12,
+        "writes": 8,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 20,
+        "example_site_rvas": [
+          "0x0000ce5d",
+          "0x0000ce98",
+          "0x0000cea7",
+          "0x0000cf23"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90920",
+        "count": 20,
+        "reads": 12,
+        "writes": 8,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 20,
+        "example_site_rvas": [
+          "0x0000ce72",
+          "0x0000ceac",
+          "0x0000cebb",
+          "0x0000cf2a"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90924",
+        "count": 23,
+        "reads": 14,
+        "writes": 9,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 23,
+        "example_site_rvas": [
+          "0x0000c4c0",
+          "0x0000c4d9",
+          "0x0000c69e",
+          "0x0000ce47"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90928",
+        "count": 20,
+        "reads": 12,
+        "writes": 8,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 20,
+        "example_site_rvas": [
+          "0x0000cfe2",
+          "0x0000d01d",
+          "0x0000d02c",
+          "0x0000d0aa"
+        ]
+      },
+      {
+        "address_or_base": "0x00a9092c",
+        "count": 2,
+        "reads": 1,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000dece",
+          "0x0000e4fc"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90930",
+        "count": 20,
+        "reads": 12,
+        "writes": 8,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 20,
+        "example_site_rvas": [
+          "0x0000cff7",
+          "0x0000d031",
+          "0x0000d040",
+          "0x0000d0b1"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90934",
+        "count": 23,
+        "reads": 14,
+        "writes": 9,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 23,
+        "example_site_rvas": [
+          "0x0000c568",
+          "0x0000c584",
+          "0x0000c6ac",
+          "0x0000cfcc"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90938",
+        "count": 24,
+        "reads": 12,
+        "writes": 12,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 24,
+        "example_site_rvas": [
+          "0x0000d152",
+          "0x0000d19f",
+          "0x0000d213",
+          "0x0000d222"
+        ]
+      },
+      {
+        "address_or_base": "0x00a9093c",
+        "count": 25,
+        "reads": 13,
+        "writes": 12,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 25,
+        "example_site_rvas": [
+          "0x0000d17e",
+          "0x0000d1cb",
+          "0x0000d227",
+          "0x0000d236"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90940",
+        "count": 10,
+        "reads": 5,
+        "writes": 5,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 10,
+        "example_site_rvas": [
+          "0x0000c622",
+          "0x0000c64e",
+          "0x0000d292",
+          "0x0000d30b"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90944",
+        "count": 32,
+        "reads": 16,
+        "writes": 16,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 32,
+        "example_site_rvas": [
+          "0x0000c43d",
+          "0x0000c615",
+          "0x0000c698",
+          "0x0000c6a6"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90948",
+        "count": 8,
+        "reads": 4,
+        "writes": 4,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 8,
+        "example_site_rvas": [
+          "0x0000c831",
+          "0x0000c858",
+          "0x0000ca23",
+          "0x0000ca2d"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90950",
+        "count": 30,
+        "reads": 15,
+        "writes": 15,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 30,
+        "example_site_rvas": [
+          "0x0000c333",
+          "0x0000c368",
+          "0x0000c4ba",
+          "0x0000c4f3"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90954",
+        "count": 2,
+        "reads": 1,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000cc9d",
+          "0x0000d317"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90958",
+        "count": 32,
+        "reads": 20,
+        "writes": 12,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 32,
+        "example_site_rvas": [
+          "0x0000cee5",
+          "0x0000cf37",
+          "0x0000cf47",
+          "0x0000d149"
+        ]
+      },
+      {
+        "address_or_base": "0x00a9095c",
+        "count": 32,
+        "reads": 20,
+        "writes": 12,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 32,
+        "example_site_rvas": [
+          "0x0000cef2",
+          "0x0000cf3f",
+          "0x0000cf4d",
+          "0x0000d16d"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90960",
+        "count": 41,
+        "reads": 17,
+        "writes": 24,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 41,
+        "example_site_rvas": [
+          "0x0000c32d",
+          "0x0000c3bc",
+          "0x0000c4ed",
+          "0x0000c681"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90964",
+        "count": 20,
+        "reads": 10,
+        "writes": 10,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 20,
+        "example_site_rvas": [
+          "0x0000c449",
+          "0x0000c470",
+          "0x0000c4f9",
+          "0x0000c5b2"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90968",
+        "count": 51,
+        "reads": 31,
+        "writes": 20,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 51,
+        "example_site_rvas": [
+          "0x0000c31b",
+          "0x0000c363",
+          "0x0000c411",
+          "0x0000c46a"
+        ]
+      },
+      {
+        "address_or_base": "0x00a9096c",
+        "count": 63,
+        "reads": 19,
+        "writes": 44,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 63,
+        "example_site_rvas": [
+          "0x0000c339",
+          "0x0000c35d",
+          "0x0000c395",
+          "0x0000c3a9"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90970",
+        "count": 25,
+        "reads": 15,
+        "writes": 10,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 25,
+        "example_site_rvas": [
+          "0x0000c456",
+          "0x0000c518",
+          "0x0000c52b",
+          "0x0000c562"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90974",
+        "count": 18,
+        "reads": 4,
+        "writes": 14,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 18,
+        "example_site_rvas": [
+          "0x0000c60c",
+          "0x0000c62f",
+          "0x0000d1e1",
+          "0x0000d23b"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90978",
+        "count": 2,
+        "reads": 1,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000d2c0",
+          "0x0000d331"
+        ]
+      },
+      {
+        "address_or_base": "0x00a9097c",
+        "count": 62,
+        "reads": 32,
+        "writes": 30,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 62,
+        "example_site_rvas": [
+          "0x0000c49e",
+          "0x0000c546",
+          "0x0000ce7e",
+          "0x0000ce89"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90980",
+        "count": 32,
+        "reads": 20,
+        "writes": 12,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 32,
+        "example_site_rvas": [
+          "0x0000d06a",
+          "0x0000d099",
+          "0x0000d0c2",
+          "0x0000d141"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90984",
+        "count": 32,
+        "reads": 20,
+        "writes": 12,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 32,
+        "example_site_rvas": [
+          "0x0000d077",
+          "0x0000d0ba",
+          "0x0000d0d4",
+          "0x0000d164"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90988",
+        "count": 33,
+        "reads": 9,
+        "writes": 24,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 33,
+        "example_site_rvas": [
+          "0x0000c327",
+          "0x0000c3b6",
+          "0x0000c592",
+          "0x0000c687"
+        ]
+      },
+      {
+        "address_or_base": "0x00a9098c",
+        "count": 20,
+        "reads": 10,
+        "writes": 10,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 20,
+        "example_site_rvas": [
+          "0x0000c444",
+          "0x0000c50c",
+          "0x0000c59e",
+          "0x0000c5b7"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90990",
+        "count": 24,
+        "reads": 12,
+        "writes": 12,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 24,
+        "example_site_rvas": [
+          "0x0000d15e",
+          "0x0000d1ab",
+          "0x0000d260",
+          "0x0000d276"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90994",
+        "count": 20,
+        "reads": 12,
+        "writes": 8,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 20,
+        "example_site_rvas": [
+          "0x0000d1d7",
+          "0x0000d26e",
+          "0x0000d27c",
+          "0x0000d2d8"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90998",
+        "count": 6,
+        "reads": 3,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 6,
+        "example_site_rvas": [
+          "0x0000d2bb",
+          "0x0000d324",
+          "0x0000e4f6",
+          "0x0000e56e"
+        ]
+      },
+      {
+        "address_or_base": "0x00a9099c",
+        "count": 4,
+        "reads": 2,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 4,
+        "example_site_rvas": [
+          "0x0000e505",
+          "0x0000e57b",
+          "0x0000ee0c",
+          "0x0000ee7c"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909a0",
+        "count": 2,
+        "reads": 1,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000e50a",
+          "0x0000e58d"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909a4",
+        "count": 20,
+        "reads": 5,
+        "writes": 15,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 20,
+        "example_site_rvas": [
+          "0x0000c5d4",
+          "0x0000c5e5",
+          "0x0000c68d",
+          "0x0000c6b7"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909a8",
+        "count": 36,
+        "reads": 21,
+        "writes": 15,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 36,
+        "example_site_rvas": [
+          "0x0000c321",
+          "0x0000c34a",
+          "0x0000c376",
+          "0x0000c3b0"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909ac",
+        "count": 2,
+        "reads": 1,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000c83b",
+          "0x0000c87a"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909b0",
+        "count": 3,
+        "reads": 0,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000b203",
+          "0x0000b249",
+          "0x0000b257"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909b4",
+        "count": 9,
+        "reads": 5,
+        "writes": 4,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 9,
+        "example_site_rvas": [
+          "0x0000b218",
+          "0x0000b226",
+          "0x0000b283",
+          "0x0000b291"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909b8",
+        "count": 49,
+        "reads": 40,
+        "writes": 9,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          },
+          {
+            "base": null,
+            "index": "eax"
+          },
+          {
+            "base": null,
+            "index": "edi"
+          },
+          {
+            "base": null,
+            "index": "edx"
+          },
+          {
+            "base": null,
+            "index": "esi"
+          }
+        ],
+        "site_count": 49,
+        "example_site_rvas": [
+          "0x0000ace8",
+          "0x0000adf8",
+          "0x0000af28",
+          "0x0000b09b"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909bc",
+        "count": 11,
+        "reads": 8,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          },
+          {
+            "base": "eax",
+            "index": null
+          },
+          {
+            "base": "ecx",
+            "index": null
+          }
+        ],
+        "site_count": 11,
+        "example_site_rvas": [
+          "0x0000acfb",
+          "0x0000ae0b",
+          "0x0000af3d",
+          "0x0000c37e"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909c0",
+        "count": 6,
+        "reads": 3,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 6,
+        "example_site_rvas": [
+          "0x0000ad24",
+          "0x0000ae34",
+          "0x0000af52",
+          "0x0000d45b"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909c4",
+        "count": 6,
+        "reads": 3,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 6,
+        "example_site_rvas": [
+          "0x0000ad0e",
+          "0x0000ae1e",
+          "0x0000af57",
+          "0x0000d49c"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909c8",
+        "count": 55,
+        "reads": 46,
+        "writes": 9,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          },
+          {
+            "base": null,
+            "index": "eax"
+          },
+          {
+            "base": null,
+            "index": "edi"
+          },
+          {
+            "base": null,
+            "index": "edx"
+          },
+          {
+            "base": null,
+            "index": "esi"
+          }
+        ],
+        "site_count": 55,
+        "example_site_rvas": [
+          "0x0000acf1",
+          "0x0000ae01",
+          "0x0000af31",
+          "0x0000b0a7"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909cc",
+        "count": 11,
+        "reads": 8,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          },
+          {
+            "base": "eax",
+            "index": null
+          }
+        ],
+        "site_count": 11,
+        "example_site_rvas": [
+          "0x0000ad05",
+          "0x0000ae15",
+          "0x0000af49",
+          "0x0000c353"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909d0",
+        "count": 6,
+        "reads": 3,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 6,
+        "example_site_rvas": [
+          "0x0000ad2f",
+          "0x0000ae3f",
+          "0x0000af60",
+          "0x0000d46f"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909d4",
+        "count": 6,
+        "reads": 3,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 6,
+        "example_site_rvas": [
+          "0x0000ad18",
+          "0x0000ae28",
+          "0x0000af65",
+          "0x0000d48e"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909d8",
+        "count": 47,
+        "reads": 35,
+        "writes": 12,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          },
+          {
+            "base": null,
+            "index": "eax"
+          },
+          {
+            "base": null,
+            "index": "edx"
+          },
+          {
+            "base": null,
+            "index": "esi"
+          }
+        ],
+        "site_count": 47,
+        "example_site_rvas": [
+          "0x0000ad49",
+          "0x0000ae59",
+          "0x0000af7e",
+          "0x0000b0b1"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909dc",
+        "count": 7,
+        "reads": 4,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 7,
+        "example_site_rvas": [
+          "0x0000ad64",
+          "0x0000ae74",
+          "0x0000af99",
+          "0x0000d4f0"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909e0",
+        "count": 6,
+        "reads": 3,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 6,
+        "example_site_rvas": [
+          "0x0000ad99",
+          "0x0000aea9",
+          "0x0000afb9",
+          "0x0000d446"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909e4",
+        "count": 6,
+        "reads": 4,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 6,
+        "example_site_rvas": [
+          "0x0000ad7f",
+          "0x0000ae8f",
+          "0x0000d4e8",
+          "0x0000d5be"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909e8",
+        "count": 49,
+        "reads": 37,
+        "writes": 12,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          },
+          {
+            "base": null,
+            "index": "eax"
+          },
+          {
+            "base": null,
+            "index": "edx"
+          },
+          {
+            "base": null,
+            "index": "esi"
+          }
+        ],
+        "site_count": 49,
+        "example_site_rvas": [
+          "0x0000ad3b",
+          "0x0000ae4b",
+          "0x0000af72",
+          "0x0000b0bf"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909ec",
+        "count": 7,
+        "reads": 4,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 7,
+        "example_site_rvas": [
+          "0x0000ad56",
+          "0x0000ae66",
+          "0x0000af8c",
+          "0x0000d4d1"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909f0",
+        "count": 12,
+        "reads": 9,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 12,
+        "example_site_rvas": [
+          "0x0000ad8d",
+          "0x0000ae9d",
+          "0x0000afa5",
+          "0x0000d4c3"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909f4",
+        "count": 8,
+        "reads": 4,
+        "writes": 4,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 8,
+        "example_site_rvas": [
+          "0x0000ad72",
+          "0x0000ae82",
+          "0x0000afaa",
+          "0x0000afbe"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909f8",
+        "count": 35,
+        "reads": 28,
+        "writes": 7,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 35,
+        "example_site_rvas": [
+          "0x0000af0c",
+          "0x0000b01d",
+          "0x0000c30d",
+          "0x0000c3a1"
+        ]
+      },
+      {
+        "address_or_base": "0x00a909fc",
+        "count": 22,
+        "reads": 11,
+        "writes": 11,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 22,
+        "example_site_rvas": [
+          "0x0000add2",
+          "0x0000add9",
+          "0x0000aee2",
+          "0x0000aee9"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90a00",
+        "count": 5,
+        "reads": 3,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 5,
+        "example_site_rvas": [
+          "0x0000af06",
+          "0x0000b017",
+          "0x0000c805",
+          "0x0000dea4"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90a04",
+        "count": 5,
+        "reads": 2,
+        "writes": 3,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 5,
+        "example_site_rvas": [
+          "0x0000b02d",
+          "0x0000cc71",
+          "0x0000d555",
+          "0x0000d567"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90a08",
+        "count": 4,
+        "reads": 2,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 4,
+        "example_site_rvas": [
+          "0x0000c645",
+          "0x0000d5dd",
+          "0x0000d5e4",
+          "0x0000d5fa"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90a0c",
+        "count": 21,
+        "reads": 15,
+        "writes": 12,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 21,
+        "example_site_rvas": [
+          "0x0000b0cb",
+          "0x0000b10e",
+          "0x0000b14c",
+          "0x0000c746"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90a10",
+        "count": 24,
+        "reads": 15,
+        "writes": 15,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 24,
+        "example_site_rvas": [
+          "0x0000b0c5",
+          "0x0000b108",
+          "0x0000b157",
+          "0x0000c757"
+        ]
+      },
+      {
+        "address_or_base": "0x00a90a18",
+        "count": 2,
+        "reads": 1,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          },
+          {
+            "base": null,
+            "index": "ecx"
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000fbcd",
+          "0x0000fdff"
+        ]
+      },
+      {
+        "address_or_base": "0x00a98a18",
+        "count": 4,
+        "reads": 3,
+        "writes": 1,
+        "forms": [
+          {
+            "base": "ebp",
+            "index": null
+          },
+          {
+            "base": "ecx",
+            "index": null
+          },
+          {
+            "base": "edi",
+            "index": null
+          },
+          {
+            "base": "esi",
+            "index": null
+          }
+        ],
+        "site_count": 4,
+        "example_site_rvas": [
+          "0x0000f6f1",
+          "0x0000f96f",
+          "0x0000fcc4",
+          "0x000100a6"
+        ]
+      },
+      {
+        "address_or_base": "0x00a98ec8",
+        "count": 2,
+        "reads": 0,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000fd6d",
+          "0x0000fd85"
+        ]
+      },
+      {
+        "address_or_base": "0x00a98eca",
+        "count": 1,
+        "reads": 0,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 1,
+        "example_site_rvas": [
+          "0x0000fd9e"
+        ]
+      },
+      {
+        "address_or_base": "0x00a98ecc",
+        "count": 3,
+        "reads": 1,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 3,
+        "example_site_rvas": [
+          "0x0000fd65",
+          "0x0000fd78",
+          "0x0000fd98"
+        ]
+      },
+      {
+        "address_or_base": "0x00a98ed0",
+        "count": 2,
+        "reads": 0,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000fd7f",
+          "0x0000fdc2"
+        ]
+      },
+      {
+        "address_or_base": "0x00a98ed4",
+        "count": 2,
+        "reads": 0,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000fd8e",
+          "0x0000fdb9"
+        ]
+      },
+      {
+        "address_or_base": "0x00a98ed6",
+        "count": 1,
+        "reads": 0,
+        "writes": 1,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 1,
+        "example_site_rvas": [
+          "0x0000fdb0"
+        ]
+      },
+      {
+        "address_or_base": "0x00a98ed8",
+        "count": 5,
+        "reads": 3,
+        "writes": 2,
+        "forms": [
+          {
+            "base": null,
+            "index": "edi"
+          },
+          {
+            "base": null,
+            "index": "esi"
+          }
+        ],
+        "site_count": 5,
+        "example_site_rvas": [
+          "0x0000f6e7",
+          "0x0000f98a",
+          "0x0000f9c9",
+          "0x0000f9d9"
+        ]
+      },
+      {
+        "address_or_base": "0x00a99838",
+        "count": 1,
+        "reads": 1,
+        "writes": 0,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 1,
+        "example_site_rvas": [
+          "0x0000f45e"
+        ]
+      },
+      {
+        "address_or_base": "0x00a9983c",
+        "count": 4,
+        "reads": 4,
+        "writes": 0,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 4,
+        "example_site_rvas": [
+          "0x0000f4fc",
+          "0x0000f56c",
+          "0x0000f5ac",
+          "0x0000f5d8"
+        ]
+      },
+      {
+        "address_or_base": "0x00a99840",
+        "count": 1,
+        "reads": 1,
+        "writes": 0,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 1,
+        "example_site_rvas": [
+          "0x0000f47c"
+        ]
+      },
+      {
+        "address_or_base": "0x00a99844",
+        "count": 2,
+        "reads": 2,
+        "writes": 0,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000f49f",
+          "0x0000f6e0"
+        ]
+      },
+      {
+        "address_or_base": "0x00a99845",
+        "count": 2,
+        "reads": 2,
+        "writes": 0,
+        "forms": [
+          {
+            "base": null,
+            "index": null
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000f59a",
+          "0x0000f5f7"
+        ]
+      },
+      {
+        "address_or_base": "0x00a99848",
+        "count": 2,
+        "reads": 2,
+        "writes": 0,
+        "forms": [
+          {
+            "base": null,
+            "index": "eax"
+          },
+          {
+            "base": "eax",
+            "index": "eax"
+          }
+        ],
+        "site_count": 2,
+        "example_site_rvas": [
+          "0x0000f611",
+          "0x0000f650"
+        ]
+      }
+    ],
+    "selected_global_refs_outside_page_spans": {
+      "0x0096e3e0": {
+        "label": "D420 palette gate",
+        "count": 3,
+        "sites": [
+          {
+            "rva": "0x00006958",
+            "instruction": "mov dword ptr [0x96e3e0], 0"
+          },
+          {
+            "rva": "0x00006982",
+            "instruction": "mov dword ptr [0x96e3e0], ebp"
+          },
+          {
+            "rva": "0x0000d577",
+            "instruction": "mov ecx, dword ptr [0x96e3e0]"
+          }
+        ]
+      },
+      "0x0096e424": {
+        "label": "nearby renderer global (unresolved here)",
+        "count": 3,
+        "sites": [
+          {
+            "rva": "0x00006f44",
+            "instruction": "mov byte ptr [0x96e424], al"
+          },
+          {
+            "rva": "0x00006f5f",
+            "instruction": "mov eax, dword ptr [0x96e424]"
+          },
+          {
+            "rva": "0x00006fba",
+            "instruction": "mov eax, dword ptr [0x96e424]"
+          }
+        ]
+      },
+      "0x0096e680": {
+        "label": "nearby renderer global (unresolved here)",
+        "count": 0,
+        "sites": []
+      },
+      "0x0096e698": {
+        "label": "optional color-update flag",
+        "count": 1,
+        "sites": [
+          {
+            "rva": "0x0000ac6d",
+            "instruction": "mov al, byte ptr [0x96e698]"
+          }
+        ]
+      },
+      "0x004361b8": {
+        "label": "host callback source table",
+        "count": 0,
+        "sites": []
+      },
+      "0x004365a0": {
+        "label": "pointer cell aliasing host callback source table",
+        "count": 1,
+        "sites": [
+          {
+            "rva": "0x00005ef3",
+            "instruction": "mov edx, dword ptr [0x4365a0]"
+          }
+        ]
+      }
+    },
+    "nontext_dword_value_candidates_in_page_spans_all_byte_offsets": {
+      "total": 160,
+      "by_section": {
+        ".rdata": {
+          "count": 7,
+          "examples": [
+            {
+              "section": ".rdata",
+              "rva": "0x0002e68e",
+              "file_offset": "0x0002d88e",
+              "value": "0x00a10040",
+              "words16": [
+                "0x00000040",
+                "0x000000a1"
+              ]
+            },
+            {
+              "section": ".rdata",
+              "rva": "0x0002e6a6",
+              "file_offset": "0x0002d8a6",
+              "value": "0x00a70040",
+              "words16": [
+                "0x00000040",
+                "0x000000a7"
+              ]
+            },
+            {
+              "section": ".rdata",
+              "rva": "0x0002e6be",
+              "file_offset": "0x0002d8be",
+              "value": "0x00a40040",
+              "words16": [
+                "0x00000040",
+                "0x000000a4"
+              ]
+            }
+          ]
+        },
+        ".data": {
+          "count": 123,
+          "examples": [
+            {
+              "section": ".data",
+              "rva": "0x0003519b",
+              "file_offset": "0x0003359b",
+              "value": "0x00ae7f00",
+              "words16": [
+                "0x00007f00",
+                "0x000000ae"
+              ]
+            },
+            {
+              "section": ".data",
+              "rva": "0x000352a3",
+              "file_offset": "0x000336a3",
+              "value": "0x00ae7f00",
+              "words16": [
+                "0x00007f00",
+                "0x000000ae"
+              ]
+            },
+            {
+              "section": ".data",
+              "rva": "0x000352c2",
+              "file_offset": "0x000336c2",
+              "value": "0x009d0017",
+              "words16": [
+                "0x00000017",
+                "0x0000009d"
+              ]
+            }
+          ]
+        },
+        ".idata": {
+          "count": 13,
+          "examples": [
+            {
+              "section": ".idata",
+              "rva": "0x007a5b9e",
+              "file_offset": "0x0003d59e",
+              "value": "0x00970064",
+              "words16": [
+                "0x00000064",
+                "0x00000097"
+              ]
+            },
+            {
+              "section": ".idata",
+              "rva": "0x007a5d3c",
+              "file_offset": "0x0003d73c",
+              "value": "0x00980000",
+              "words16": [
+                "0x00000000",
+                "0x00000098"
+              ]
+            },
+            {
+              "section": ".idata",
+              "rva": "0x007a5e08",
+              "file_offset": "0x0003d808",
+              "value": "0x00aa0041",
+              "words16": [
+                "0x00000041",
+                "0x000000aa"
+              ]
+            }
+          ]
+        },
+        ".rsrc": {
+          "count": 17,
+          "examples": [
+            {
+              "section": ".rsrc",
+              "rva": "0x007a8022",
+              "file_offset": "0x0003ec22",
+              "value": "0x00a00000",
+              "words16": [
+                "0x00000000",
+                "0x000000a0"
+              ]
+            },
+            {
+              "section": ".rsrc",
+              "rva": "0x007a811e",
+              "file_offset": "0x0003ed1e",
+              "value": "0x00b28000",
+              "words16": [
+                "0x00008000",
+                "0x000000b2"
+              ]
+            },
+            {
+              "section": ".rsrc",
+              "rva": "0x007a8126",
+              "file_offset": "0x0003ed26",
+              "value": "0x00b38000",
+              "words16": [
+                "0x00008000",
+                "0x000000b3"
+              ]
+            }
+          ]
+        }
+      },
+      "interpretation": "Not classified as pointers from value-range membership alone. Hits can occur inside adjacent 16-bit data/PE metadata."
+    },
+    "callback_table_address_code_references_grouped": [
+      {
+        "kind": "source_table_or_pointer_cell_memory_displacement",
+        "value": "0x004361bc",
+        "count": 186,
+        "example_site_rvas": [
+          "0x00001000",
+          "0x0000101b",
+          "0x00001036",
+          "0x0000106d"
+        ],
+        "instruction_forms": [
+          {
+            "instruction": "mov eax, dword ptr [0x4361bc]",
+            "count": 79
+          },
+          {
+            "instruction": "mov ecx, dword ptr [0x4361bc]",
+            "count": 55
+          },
+          {
+            "instruction": "mov edi, dword ptr [0x4361bc]",
+            "count": 1
+          },
+          {
+            "instruction": "mov edx, dword ptr [0x4361bc]",
+            "count": 51
+          }
+        ]
+      },
+      {
+        "kind": "source_table_or_pointer_cell_memory_displacement",
+        "value": "0x004361c0",
+        "count": 2,
+        "example_site_rvas": [
+          "0x00002007",
+          "0x00002020"
+        ],
+        "instruction_forms": [
+          {
+            "instruction": "mov ecx, dword ptr [0x4361c0]",
+            "count": 1
+          },
+          {
+            "instruction": "mov edi, dword ptr [0x4361c0]",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "kind": "source_table_or_pointer_cell_memory_displacement",
+        "value": "0x004361c4",
+        "count": 2,
+        "example_site_rvas": [
+          "0x00002001",
+          "0x0000201b"
+        ],
+        "instruction_forms": [
+          {
+            "instruction": "mov eax, dword ptr [0x4361c4]",
+            "count": 1
+          },
+          {
+            "instruction": "mov ecx, dword ptr [0x4361c4]",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "kind": "source_table_or_pointer_cell_memory_displacement",
+        "value": "0x004361cc",
+        "count": 2,
+        "example_site_rvas": [
+          "0x0000b9e4",
+          "0x0000bb07"
+        ],
+        "instruction_forms": [
+          {
+            "instruction": "mov eax, dword ptr [0x4361cc]",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "kind": "source_table_or_pointer_cell_memory_displacement",
+        "value": "0x004365a0",
+        "count": 1,
+        "example_site_rvas": [
+          "0x00005ef3"
+        ],
+        "instruction_forms": [
+          {
+            "instruction": "mov edx, dword ptr [0x4365a0]",
+            "count": 1
+          }
+        ]
+      }
+    ],
+    "callback_table_pointer_value_data_candidates_all_byte_offsets": [
+      {
+        "section": ".data",
+        "rva": "0x000365a0",
+        "file_offset": "0x000349a0",
+        "value": "0x004361b8",
+        "aligned_to_dword": true
+      }
+    ],
+    "callback_table_candidate_interpretation": "Raw-value matches are candidates only; machine-code operand context and callback table initialization must be considered separately."
+  },
+  "proof_limits": [
+    "The full .data virtual tail is BSS-backed PE image memory, not a dedicated texture allocation record.",
+    "Address spans do not prove pages were initialized/populated or that the whole bank is used.",
+    "Static explicit-reference scan cannot bound indirect/dynamic pointers or external DLL writes.",
+    "A710 high-y and negative signed-WORD paths are outside the normal domain, and alternate-bank population is not proven."
+  ]
+}

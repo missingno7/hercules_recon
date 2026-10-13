@@ -14,7 +14,9 @@
 | Extra presentation route | Shared host presenter | Shared host presenter | +0x250 movie display |
 
 Constructor-wrapper availability alone does not prove that a module emits
-every corresponding packet. ENG3 polygon-producer coverage and TITLE's full
+every corresponding packet. The indexed render handlers have bounded traces
+in [eng3_handlers.md](eng3_handlers.md) and [title_handlers.md](title_handlers.md).
+Coverage of other computed routes and TITLE's full
 primitive inventory remain incomplete. Final host packet decoding is shared;
 the independently measured frame counts differ.
 

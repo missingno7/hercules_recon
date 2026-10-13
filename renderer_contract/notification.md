@@ -35,3 +35,10 @@ Static identities, spans and registration references are in
 [notification_ownership.json](evidence/notification_ownership.json). The C
 fixture has 44 checks. No original callback or Windows service was executed;
 no full initialization, ownership extent or host integration is claimed.
+
+The [ownership audit](ownership.md) additionally pins AC00's eight-byte wrapper
+and the BD80 gate body. AC00 calls BD80 and then clears EAX; its callback returns
+to AC05, while AC60's direct call returns to B2E7. A verified-host adapter can
+resolve BD80 by image base plus its RVA without receiving a DLL's copied table.
+Resolving the address statically does not prove live invocation or opaque
+callback behavior.
