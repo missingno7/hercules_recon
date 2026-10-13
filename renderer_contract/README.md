@@ -37,6 +37,7 @@ not replace this complete contract.
 | hercules_frame.h | Module-specific OT descriptors and bounded raw-address walker |
 | hercules_textures.h | Rectangle layout and measured addressing helpers |
 | hercules_state.h | E1, F3 and command-01 bounded state decoders |
+| hercules_surface.h | Raw published surface cells and argumentless service adapter types |
 | hercules_staging.h | Persistent AC60 cells, suppression gate and operation descriptors |
 | hercules_sprite_geometry.h | Sprite clipping/setup without pixel rasterization |
 | hercules_quad_dispatch.h | Static rectangle route predicates |
@@ -64,6 +65,8 @@ not replace this complete contract.
 | eng3_handlers.md | Six-entry render dispatch frontier and FT4 writers |
 | title_handlers.md | Child dispatch, grouped 0x68 records and FT4 mode writers |
 | pixels.md | Distinct indexed pixel paths and their proof boundaries |
+| frame_lifetime.md | Per-module frame/arena requests, reset, cursor selection and release frontiers |
+| surface_contract.md | Bounded lock/unlock/presentation side effects and CPU writeback contract |
 | frame.md | Initialization, prepend order, traversal and module lifecycles |
 | notification.md | Primary/secondary callback ownership and live-link traversal |
 | state.md | State masks, clip clamps and embedded VRAM-move rectangle |
@@ -73,6 +76,7 @@ not replace this complete contract.
 | loader.md | Direct-init and independent dispatch paths; source-built loader surrogates |
 | geometry.md | Information available before and after projection |
 | blockers.md | Separate capture, rendering, window and enhancement blockers |
+| callback_metadata.md | CMainFrame message-map ownership and the unowned event-callback cluster |
 | bootstrap_gates.md | Initial zero-fill and normal export publication order; indirect gate-setter limits |
 | `bootstrap_order.md` | Direct-init and independent event/tick dispatch paths; HRESULT branch and ordering limits |
 | `packed_uv_recurrence.md` | One finite D60C fixture where sampled texels change a later V byte |

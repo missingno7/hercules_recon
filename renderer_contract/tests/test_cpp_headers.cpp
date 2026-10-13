@@ -1,4 +1,8 @@
+#if defined(_M_IX86) || defined(__i386__)
+#define HERCULES_RENDERER_LIVE_X86 1
+#endif
 #include "hercules_host_abi.h"
+#include "hercules_surface.h"
 #include "hercules_packets.h"
 #include "hercules_frame.h"
 #include "hercules_textures.h"
@@ -13,6 +17,7 @@
 /* Link against C objects to check the reusable C++ consumer boundary. */
 int main()
 {
+    HerculesHostSurfaceViewSnapshot surface_view;
     renderer_u8 wire[8] = {0,0,0,0,0x83,1,0,0xe1};
     HerculesE1StateUpdate state;
     RendererDecodedPacket packet;
@@ -22,6 +27,21 @@ int main()
     renderer_u32 offset = 0;
     if (sizeof(renderer_raw32) != 4)
         return 1;
+    surface_view.active_pixel_address = 0x12345678u;
+    surface_view.pitch_bytes = 336;
+    surface_view.lock_held = 1;
+    surface_view.directdraw_mode = 1;
+    if (surface_view.active_pixel_address != 0x12345678u ||
+        surface_view.pitch_bytes != 336 || surface_view.lock_held != 1 ||
+        surface_view.directdraw_mode != 1 ||
+        sizeof(surface_view.directdraw_mode) != 1)
+        return 9;
+#ifdef HERCULES_RENDERER_LIVE_X86
+    if (sizeof(HerculesHostSurfaceLockService) != 4 ||
+        sizeof(HerculesHostSurfaceUnlockService) != 4 ||
+        sizeof(HerculesHostSurfacePresentService) != 4)
+        return 10;
+#endif
     if (renderer_decode_packet(wire,sizeof(wire),&packet) != RENDERER_PACKET_OK)
         return 2;
     if (hercules_state_decode_e1(wire,sizeof(wire),&state) != HERCULES_STATE_OK)

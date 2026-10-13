@@ -163,3 +163,20 @@ COM, windows and GPU services are outside that fixture.
 This read-only audit checks all four pinned images and bounds the direct gate
 writers and callback-address context. Its full raw-section sweep is a candidate
 xref inventory, not proof of instruction alignment or callback scheduling.
+
+The surface ABI and header additions pass fifteen fresh VC5 suites and fifteen
+portable suites. Ten bounded original-x86 cases check lock, unlock and
+presentation against synthetic COM/GDI services. They establish the observed
+byte-sized mode reads, publication order and stale-view behavior; real windows,
+drivers and surface-loss recovery remain outside the fixture.
+
+```powershell
+& $pythonExe renderer_contract/tests/test_original_surface_contract.py --repo-root . --exe $originalExe --output work/replay/surface.json
+& $pythonExe renderer_contract/tests/audit_frame_lifetime.py --repo-root . --exe $originalExe --eng1 D:\Prog\hercules_recon\work\discs\pc_install\ENG1.DLL --eng3 D:\Prog\hercules_recon\work\discs\pc_install\ENG3.DLL --title D:\Prog\hercules_recon\work\discs\pc_install\TITLE.DLL --receipt work/replay/frame_lifetime.json
+& $pythonExe renderer_contract/tests/audit_callback_metadata.py --repo-root . --image-dir D:\Prog\hercules_recon\work\discs\pc_install --output work/replay/callback_metadata.json
+```
+
+The latter two commands revalidate pinned static evidence. Frame allocation
+requests and cursor associations do not establish safe producer capacities or
+asynchronous ownership. CMainFrame message-map entries establish callback
+metadata, while the separate RVA 0x79A0 cluster remains unowned.

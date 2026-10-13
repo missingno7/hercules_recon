@@ -60,3 +60,5 @@ callback scheduling and early publication require separate target observations.
 ## Integrated reproduction
 
 The private investigation paths above identify provenance. In this package, run tests/validate_originals.py with the original image paths to recheck recorded bytes and bindings, and tests/run_tests.py for the compiled synthetic suite. The byte validator does not independently redo the semantic analysis. The compact receipt is evidence/presentation.json.
+
+See [surface contract](surface_contract.md) for native pointer/pitch publication, byte mode/lock fields, ignored EAX, stale views after unlock and dirty-gate clearing before failed presentation.

@@ -1,0 +1,779 @@
+{
+  "schema_version": 1,
+  "status": "STATIC_OBSERVED_BOUNDED_METADATA_AUDIT",
+  "scope": "Original PC module bytes, selected C++ runtime-class/message-map/vtable data, constructors and getters, plus pinned installed header declarations. No MFC invocation, message dispatch, scheduler order, process launch, or gameplay is observed.",
+  "inputs": {
+    "audit_runner": {
+      "intended_public_path": "renderer_contract/tests/audit_callback_metadata.py",
+      "sha256": "e5b9bb4717d3424f84d64e78beaf27d6831468feac286f54457daac979791617"
+    },
+    "public_bootstrap_gates_receipt": {
+      "path": "renderer_contract/evidence/bootstrap_gates.json",
+      "sha256": "7f0a86f8d8a1cf155af63e9f17a9c1aa853ce559173b49d0d5f1f8e5a1ce8fbd",
+      "audit_script_sha256": "e1c253f498424c5b98a1e3708366ad076ba4cebf20d9ef2310358184d0121e8f"
+    },
+    "pe_helper_sha256": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca",
+    "capstone_version": "5.0.7",
+    "originals": {
+      "HERCULES.EXE": {
+        "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+        "size": 275968
+      },
+      "ENG1.DLL": {
+        "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+        "size": 481280
+      },
+      "ENG3.DLL": {
+        "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+        "size": 272896
+      },
+      "TITLE.DLL": {
+        "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+        "size": 180736
+      }
+    },
+    "installed_headers": {
+      "afx.h": {
+        "path": "C:\\tools\\hercules\\msvc500sp2-4ebf02022705b4c9e9108d3ed3f286ed80ba2ed9\\mfc\\include\\afx.h",
+        "sha256": "3ca0caeb968ceb2c99b81251dc29f7ca5ad275358633ff3f514b4fcd08a72902",
+        "size": 56362,
+        "definition_spans": [
+          {
+            "first_line": 409,
+            "last_line": 430,
+            "purpose": "CRuntimeClass fields",
+            "sha256": "6ffba7045f76e62a22ed65d20dc3e2d838f251dcc370fe75e7ee7488e4ecb936"
+          }
+        ]
+      },
+      "afxwin.h": {
+        "path": "C:\\tools\\hercules\\msvc500sp2-4ebf02022705b4c9e9108d3ed3f286ed80ba2ed9\\mfc\\include\\afxwin.h",
+        "sha256": "87603d834fcaa1d21b94ebc241f26164ab7698898b00ea774f249196540a7087",
+        "size": 152574,
+        "definition_spans": [
+          {
+            "first_line": 1162,
+            "last_line": 1169,
+            "purpose": "AFX_MSGMAP fields",
+            "sha256": "4cde87fe6dbeb86188607dba95322f6b997d6cbf4bfe822463c14d50e3bc2653"
+          },
+          {
+            "first_line": 1175,
+            "last_line": 1215,
+            "purpose": "message-map macros and sentinel",
+            "sha256": "a95036ca8590b92038526eccc06431f7749340568bb47e0e634a5e739432c767"
+          },
+          {
+            "first_line": 1849,
+            "last_line": 1856,
+            "purpose": "AFX_MSGMAP_ENTRY fields",
+            "sha256": "a7f94bf136f6792fd35b313d4e2fe06655cd4ac9ec9836fbf3cd2aa3fad7a58b"
+          }
+        ]
+      },
+      "afxmsg_.h": {
+        "path": "C:\\tools\\hercules\\msvc500sp2-4ebf02022705b4c9e9108d3ed3f286ed80ba2ed9\\mfc\\include\\afxmsg_.h",
+        "sha256": "9b590d7b43f3aed98491ed1bf8b7466e5faf6193e5d357284c320e8a0033fb67",
+        "size": 34206,
+        "definition_spans": [
+          {
+            "first_line": 46,
+            "last_line": 124,
+            "purpose": "AfxSig enum and aliases",
+            "sha256": "0482f2845bb9177542fe513ff9c735231fa7c3dcf759934f27e8c775a77927a8"
+          }
+        ]
+      },
+      "winuser.h": {
+        "path": "C:\\tools\\hercules\\msvc500sp2-4ebf02022705b4c9e9108d3ed3f286ed80ba2ed9\\include\\winuser.h",
+        "sha256": "df89c70f2c4392643f25d8b7e70d19b2052041d3bf4e2cb08f671ee6483a20ea",
+        "size": 192575
+      },
+      "README.md": {
+        "path": "C:\\tools\\hercules\\msvc500sp2-4ebf02022705b4c9e9108d3ed3f286ed80ba2ed9\\README.md",
+        "sha256": "7641c6d9f64e3b14da391954528faf93d5f79e798418506639f7ac408feda213",
+        "size": 336
+      },
+      "metadata": {
+        "origin": "Installed local tool package directory named msvc500sp2-4ebf02022705b4c9e9108d3ed3f286ed80ba2ed9. Its pinned README attributes the package to https://github.com/archaic-msvc/msvc500 and identifies Microsoft Visual C++ 5.00, product version 5.00.7022, driver 11.00.7022, linker 5.02.7132.",
+        "windows_message_source_lines": {
+          "WM_ACTIVATEAPP": 1209,
+          "WM_COMMAND": 1340,
+          "WM_SIZE": 1176
+        },
+        "afx_signature_source_lines": {
+          "AfxSig_vww": 64,
+          "AfxSig_vv": 61,
+          "AfxSig_vwii": 67
+        },
+        "afx_signature_declarations": {
+          "AfxSig_vww": "void (UINT, UINT)",
+          "AfxSig_vv": "void (void)",
+          "AfxSig_vwii": "void (UINT, int, int)"
+        }
+      }
+    }
+  },
+  "bootstrap_pinned_callback_functions": {
+    "event_callback_79a0": {
+      "module": "HERCULES.EXE",
+      "name": "event_callback_79a0",
+      "rva": "0x79a0",
+      "size": 251,
+      "sha256": "fe2bd489d14ee3dc40f7fb1b313a4e00c7cd0563f452e9e76a2f434d542e473d"
+    },
+    "event_enable_writer_9820": {
+      "module": "HERCULES.EXE",
+      "name": "event_enable_writer_9820",
+      "rva": "0x9820",
+      "size": 30,
+      "sha256": "57dfacb5e6833cebe6623eea32eb4c73a179d92ac1ecf7d009c5f9c6dc8df548"
+    },
+    "event_enable_writer_9840": {
+      "module": "HERCULES.EXE",
+      "name": "event_enable_writer_9840",
+      "rva": "0x9840",
+      "size": 33,
+      "sha256": "1ce8e34c1db01cfff4753bde71d3a2b39a66a02f6a3f59a9f6c7efb552b32874"
+    },
+    "event_suppress_writer_9870": {
+      "module": "HERCULES.EXE",
+      "name": "event_suppress_writer_9870",
+      "rva": "0x9870",
+      "size": 130,
+      "sha256": "2b886c51f18b35dca6411d94f0030a864a3a0ef7da8d540cdf154288cc0a86c9"
+    }
+  },
+  "literal_locations": {
+    "0x2e240": {
+      "module": "HERCULES.EXE",
+      "storage_rva": "0x2e240",
+      "size": 4,
+      "sha256": "b4d3df00627ecfb8e4d80bd209cf0a733174411361b424201bc3e05c8fd2e0e3",
+      "target_va": "0x4079a0",
+      "target_rva": "0x79a0"
+    },
+    "0x2e5cc": {
+      "module": "HERCULES.EXE",
+      "storage_rva": "0x2e5cc",
+      "size": 4,
+      "sha256": "c7d5726c6851f2817289814ace647102d99204565ef61d2c6b8eb320dd09d3b8",
+      "target_va": "0x409820",
+      "target_rva": "0x9820"
+    },
+    "0x2e62c": {
+      "module": "HERCULES.EXE",
+      "storage_rva": "0x2e62c",
+      "size": 4,
+      "sha256": "4b31e12ab1ea28f6a49f94e60f300021470ee69e2f2dc654ae3f060e48f6ff5b",
+      "target_va": "0x409840",
+      "target_rva": "0x9840"
+    },
+    "0x2e644": {
+      "module": "HERCULES.EXE",
+      "storage_rva": "0x2e644",
+      "size": 4,
+      "sha256": "9516ea1c5fe5685b894c689833fadfc03a311ed55dccc63a44eb19a5755bb9cf",
+      "target_va": "0x409870",
+      "target_rva": "0x9870"
+    }
+  },
+  "classes": {
+    "CJoystickPage": {
+      "name": "CJoystickPage",
+      "module": "HERCULES.EXE",
+      "runtime_class": {
+        "module": "HERCULES.EXE",
+        "name": "CJoystickPage.CRuntimeClass",
+        "rva": "0x2e290",
+        "size": 24,
+        "sha256": "efdefabcda01a9b4039d1616ce9200d739afb9622663ead2118eae52ef5cbdf5",
+        "class_name": {
+          "value": "CJoystickPage",
+          "rva": "0x36c5c",
+          "size_with_nul": 14,
+          "sha256_with_nul": "e6fe60884c3139259cc4f10dc1c75fa63bf1a705a607a1ea2e5fbe3f2e1402d8"
+        },
+        "object_size": "0x230",
+        "schema": "0xffff",
+        "factory_va": "0x408090",
+        "base_class_name": {
+          "value": "CPropertyPage",
+          "rva": "0x2fb38",
+          "size_with_nul": 14,
+          "sha256_with_nul": "40d64cd09b6420c51abaf296b61ff874fc50d33ab93cf5efd968005d301eee64"
+        },
+        "base_class_runtime_rva": "0x2faf8"
+      },
+      "factory_and_constructor": {
+        "factory": {
+          "module": "HERCULES.EXE",
+          "name": "CJoystickPage.factory",
+          "rva": "0x8090",
+          "size": 90,
+          "sha256": "2c481822b3e022c6231b6ccce3c7985f9c85b8bdfab2a4b1c603dc62a1b078db",
+          "directly_calls_constructor_rva": "0x8100"
+        },
+        "constructor": {
+          "module": "HERCULES.EXE",
+          "name": "CJoystickPage.constructor",
+          "rva": "0x8100",
+          "size": 238,
+          "sha256": "7144ca6fce9c561723d6236cf09f92a7c8f0c8a563666a1115d08c94487ae891",
+          "stores_vtable_base_at": "0x81d9"
+        },
+        "constructor_vptr_store": {
+          "module": "HERCULES.EXE",
+          "name": "CJoystickPage.constructor_vptr_store",
+          "rva": "0x81d9",
+          "size": 6,
+          "sha256": "70e50fe5a6e4593267565578450986aa66dd806a591c36e4cce61f95a1058a01",
+          "vtable_base_va": "0x42e310"
+        }
+      },
+      "message_map": {
+        "descriptor": {
+          "module": "HERCULES.EXE",
+          "name": "CJoystickPage.message_map_descriptor",
+          "rva": "0x2e2a8",
+          "size": 8,
+          "sha256": "11d54812474013ddc1fe921ae304abd1e80e9eca7c3dd1bd10fb6f03c83503f6"
+        },
+        "base_map_va": "0x42f9d0",
+        "base_map_rva": "0x2f9d0",
+        "entries_va": "0x42e2b0",
+        "entries": {
+          "rva": "0x2e2b0",
+          "size": 96,
+          "sha256": "4da07741cddc849842d3206f615f6299975bdcaf0192b2e66f5107c2ae78e905"
+        },
+        "entry_count_including_sentinel": 4
+      },
+      "vtable": {
+        "module": "HERCULES.EXE",
+        "rva": "0x2e310",
+        "size": 248,
+        "sha256": "b72e9abdd5caec0541e88c952e5b9949cd309c4717105dc13d45ed1860c9a2a4",
+        "word_count": 62,
+        "getters": [
+          {
+            "module": "HERCULES.EXE",
+            "name": "CJoystickPage.GetRuntimeClass",
+            "rva": "0x80f0",
+            "size": 6,
+            "sha256": "910a0011dcf04ccadbee11550da05467a8d548b28c257b200210a080bf183e1b",
+            "vtable_slot": 0
+          },
+          {
+            "module": "HERCULES.EXE",
+            "name": "CJoystickPage.GetMessageMap",
+            "rva": "0x8360",
+            "size": 6,
+            "sha256": "1de835ce7c3e6ee95bd98d7282a58e8ed99598883d77cb140ce1ef95518f925c",
+            "vtable_slot": 12
+          }
+        ]
+      },
+      "other_same_vptr_store_sites": [
+        {
+          "module": "HERCULES.EXE",
+          "name": "CJoystickPage.other_same_vptr_store",
+          "rva": "0x822d",
+          "size": 6,
+          "sha256": "70e50fe5a6e4593267565578450986aa66dd806a591c36e4cce61f95a1058a01"
+        }
+      ]
+    },
+    "CKeyboardPage": {
+      "name": "CKeyboardPage",
+      "module": "HERCULES.EXE",
+      "runtime_class": {
+        "module": "HERCULES.EXE",
+        "name": "CKeyboardPage.CRuntimeClass",
+        "rva": "0x2e408",
+        "size": 24,
+        "sha256": "4cd58486cefb4ab0b39e01d2bd5f316a9b517c3d5f5f6ec59373d1f9011ee8e3",
+        "class_name": {
+          "value": "CKeyboardPage",
+          "rva": "0x372e0",
+          "size_with_nul": 14,
+          "sha256_with_nul": "71f480656c3909e166bc6b4aea0bf17ee74e6f1ab4e2aa35c57b2abefd89628a"
+        },
+        "object_size": "0x2e8",
+        "schema": "0xffff",
+        "factory_va": "0x408a30",
+        "base_class_name": {
+          "value": "CPropertyPage",
+          "rva": "0x2fb38",
+          "size_with_nul": 14,
+          "sha256_with_nul": "40d64cd09b6420c51abaf296b61ff874fc50d33ab93cf5efd968005d301eee64"
+        },
+        "base_class_runtime_rva": "0x2faf8"
+      },
+      "factory_and_constructor": {
+        "factory": {
+          "module": "HERCULES.EXE",
+          "name": "CKeyboardPage.factory",
+          "rva": "0x8a30",
+          "size": 90,
+          "sha256": "452e73085935ae5a03df31dca2296f24ef36e9dc01c6442f189a3d1a34430fa9",
+          "directly_calls_constructor_rva": "0x8aa0"
+        },
+        "constructor": {
+          "module": "HERCULES.EXE",
+          "name": "CKeyboardPage.constructor",
+          "rva": "0x8aa0",
+          "size": 310,
+          "sha256": "47eb92965773485257946da7e69338038e5eb50ef29d5429f6f87cc20fa6f661",
+          "stores_vtable_base_at": "0x8bc1"
+        },
+        "constructor_vptr_store": {
+          "module": "HERCULES.EXE",
+          "name": "CKeyboardPage.constructor_vptr_store",
+          "rva": "0x8bc1",
+          "size": 6,
+          "sha256": "a776442f7bb2c71dbd78388ae1986be74a57e872849704e6071a14fe62b7c0ec",
+          "vtable_base_va": "0x42e470"
+        }
+      },
+      "message_map": {
+        "descriptor": {
+          "module": "HERCULES.EXE",
+          "name": "CKeyboardPage.message_map_descriptor",
+          "rva": "0x2e420",
+          "size": 8,
+          "sha256": "2d09e9325fe3d2fd6bee3b4d84698514a386f2f5fb65c52afc5e7158658954f1"
+        },
+        "base_map_va": "0x42f9d0",
+        "base_map_rva": "0x2f9d0",
+        "entries_va": "0x42e428",
+        "entries": {
+          "rva": "0x2e428",
+          "size": 72,
+          "sha256": "3a05fedd680127fed60ab3efefb6526711ae8d4542ae1deaf42d67ebce3d8af3"
+        },
+        "entry_count_including_sentinel": 3
+      },
+      "vtable": {
+        "module": "HERCULES.EXE",
+        "rva": "0x2e470",
+        "size": 248,
+        "sha256": "90e3e62f20c20eaac974a4368a1bdde4c8594336cec38770118714eea1f0a750",
+        "word_count": 62,
+        "getters": [
+          {
+            "module": "HERCULES.EXE",
+            "name": "CKeyboardPage.GetRuntimeClass",
+            "rva": "0x8a90",
+            "size": 6,
+            "sha256": "9625a16ef55fd5a7d14df9266f912e524b6d227d5a9e6fc1d1208775773a4bf6",
+            "vtable_slot": 0
+          },
+          {
+            "module": "HERCULES.EXE",
+            "name": "CKeyboardPage.GetMessageMap",
+            "rva": "0x8dc0",
+            "size": 6,
+            "sha256": "bbcdf4316d3ae1c87a2aa87d763685edda39216016f450ed5553ea4f50672ba4",
+            "vtable_slot": 12
+          }
+        ]
+      },
+      "other_same_vptr_store_sites": [
+        {
+          "module": "HERCULES.EXE",
+          "name": "CKeyboardPage.other_same_vptr_store",
+          "rva": "0x8c1d",
+          "size": 6,
+          "sha256": "a776442f7bb2c71dbd78388ae1986be74a57e872849704e6071a14fe62b7c0ec"
+        }
+      ]
+    },
+    "CMainFrame": {
+      "name": "CMainFrame",
+      "module": "HERCULES.EXE",
+      "runtime_class": {
+        "module": "HERCULES.EXE",
+        "name": "CMainFrame.CRuntimeClass",
+        "rva": "0x2e568",
+        "size": 24,
+        "sha256": "df3b79ae0bb34280bd012c7d380a6b6ae00201f1344a9a5cf75544d676b45225",
+        "class_name": {
+          "value": "CMainFrame",
+          "rva": "0x37324",
+          "size_with_nul": 11,
+          "sha256_with_nul": "e3aa42c7a71dbb13de4f94e7fc7b61a09cf25142895073643649239b0795389b"
+        },
+        "object_size": "0xbc",
+        "schema": "0xffff",
+        "factory_va": "0x409420",
+        "base_class_name": {
+          "value": "CFrameWnd",
+          "rva": "0x30fdc",
+          "size_with_nul": 10,
+          "sha256_with_nul": "f87d7d9d3ed16ff4742ee9526601af71e52186fec8cc0d2afbb8c0385eb0527f"
+        },
+        "base_class_runtime_rva": "0x30f80"
+      },
+      "factory_and_constructor": {
+        "factory": {
+          "module": "HERCULES.EXE",
+          "name": "CMainFrame.factory",
+          "rva": "0x9420",
+          "size": 90,
+          "sha256": "a328772cea1f7bef617975cf5deb31f8a7193baeea598c1fdc92573c8fe5aecc",
+          "directly_calls_constructor_rva": "0x94a0"
+        },
+        "constructor": {
+          "module": "HERCULES.EXE",
+          "name": "CMainFrame.constructor",
+          "rva": "0x94a0",
+          "size": 18,
+          "sha256": "0326298792e34b1509b93fc357a37ad83c40f1bea00719bbb68d4873af2db5d5",
+          "stores_vtable_base_at": "0x94a8"
+        },
+        "constructor_vptr_store": {
+          "module": "HERCULES.EXE",
+          "name": "CMainFrame.constructor_vptr_store",
+          "rva": "0x94a8",
+          "size": 6,
+          "sha256": "e626c3ba0c4374fd26b9713b7b7f9ebd28f56b5fb06815738ed99a30c8e26671",
+          "vtable_base_va": "0x42e870"
+        }
+      },
+      "message_map": {
+        "descriptor": {
+          "module": "HERCULES.EXE",
+          "name": "CMainFrame.message_map_descriptor",
+          "rva": "0x2e580",
+          "size": 8,
+          "sha256": "c3a9aadbe3b7fa0108c3cf91dbcd10e99bf83da5da0c30e2e862791605bb5975"
+        },
+        "base_map_va": "0x430b70",
+        "base_map_rva": "0x30b70",
+        "entries_va": "0x42e588",
+        "entries": {
+          "rva": "0x2e588",
+          "size": 744,
+          "sha256": "43a94caa61152bd42a7b89f40ec1ee38cb7f87276ea2bbc4be0ac66621b32807"
+        },
+        "entry_count_including_sentinel": 31
+      },
+      "vtable": {
+        "module": "HERCULES.EXE",
+        "rva": "0x2e870",
+        "size": 252,
+        "sha256": "1d2536ac03198ff754dd11a85b080ef8218d84116480362f91285a1d16316eff",
+        "word_count": 63,
+        "getters": [
+          {
+            "module": "HERCULES.EXE",
+            "name": "CMainFrame.GetRuntimeClass",
+            "rva": "0x9480",
+            "size": 6,
+            "sha256": "a1f42ac553e25d4eb86e0115dabea713e171961cac5415a54981e2850f0ec489",
+            "vtable_slot": 0
+          },
+          {
+            "module": "HERCULES.EXE",
+            "name": "CMainFrame.GetMessageMap",
+            "rva": "0x9490",
+            "size": 6,
+            "sha256": "e9c01d83dec71d61582d26e27730646629792865d2e31500d8a4162f4c47d327",
+            "vtable_slot": 12
+          }
+        ]
+      },
+      "other_same_vptr_store_sites": [
+        {
+          "module": "HERCULES.EXE",
+          "name": "CMainFrame.other_same_vptr_store",
+          "rva": "0x94e0",
+          "size": 6,
+          "sha256": "298ef84d1f1d8ac8884cb9f06479f01b684b364e087ae950e928ff5d12d156ba"
+        }
+      ]
+    }
+  },
+  "cmainframe_callback_rows": [
+    {
+      "module": "HERCULES.EXE",
+      "handler_rva": "0x9820",
+      "handler_va": "0x409820",
+      "entry_rva": "0x2e5b8",
+      "entry_size": 24,
+      "entry_sha256": "cc079b67764b453cd0e90b458ee956f4f519c7370db3a0effe771f2ddb84bfaa",
+      "fields": {
+        "nMessage": {
+          "value": "0x1c",
+          "name": "WM_ACTIVATEAPP",
+          "header": "winuser.h",
+          "line": 1209
+        },
+        "nCode": "0x0",
+        "nID": "0x0",
+        "nLastID": "0x0",
+        "nSig": {
+          "value": "0xe",
+          "name": "AfxSig_vww",
+          "declaration": "void (UINT, UINT)",
+          "header": "afxmsg_.h",
+          "line": 64
+        },
+        "pfn": "0x409820"
+      }
+    },
+    {
+      "module": "HERCULES.EXE",
+      "handler_rva": "0x9840",
+      "handler_va": "0x409840",
+      "entry_rva": "0x2e618",
+      "entry_size": 24,
+      "entry_sha256": "2bafb780d65ff863dce0f6966d2e80ad1bb5076fec97afd31f5ca0b037d24d6f",
+      "fields": {
+        "nMessage": {
+          "value": "0x111",
+          "name": "WM_COMMAND",
+          "header": "winuser.h",
+          "line": 1340
+        },
+        "nCode": "0x0",
+        "nID": "0xe146",
+        "nLastID": "0xe146",
+        "nSig": {
+          "value": "0xc",
+          "name": "AfxSig_vv",
+          "declaration": "void (void)",
+          "header": "afxmsg_.h",
+          "line": 61
+        },
+        "pfn": "0x409840"
+      }
+    },
+    {
+      "module": "HERCULES.EXE",
+      "handler_rva": "0x9870",
+      "handler_va": "0x409870",
+      "entry_rva": "0x2e630",
+      "entry_size": 24,
+      "entry_sha256": "ccb83a633ed3ad1ee206073a103609ebf6826c0e22f4c408cc00e5e83eaaffe8",
+      "fields": {
+        "nMessage": {
+          "value": "0x5",
+          "name": "WM_SIZE",
+          "header": "winuser.h",
+          "line": 1176
+        },
+        "nCode": "0x0",
+        "nID": "0x0",
+        "nLastID": "0x0",
+        "nSig": {
+          "value": "0x11",
+          "name": "AfxSig_vwii",
+          "declaration": "void (UINT, int, int)",
+          "header": "afxmsg_.h",
+          "line": 67
+        },
+        "pfn": "0x409870"
+      }
+    }
+  ],
+  "unowned_79a0_cluster": {
+    "module": "HERCULES.EXE",
+    "name": "unowned_code_pointer_cluster",
+    "rva": "0x2e210",
+    "size": 112,
+    "sha256": "37bbfdd6506f03425633e9248b34195a21cdd06aab860ade466b89871cbaaa2c",
+    "target_shape": [
+      {
+        "index": 0,
+        "entry_rva": "0x2e210",
+        "target_rva": "0x2551a",
+        "target_section": ".text"
+      },
+      {
+        "index": 1,
+        "entry_rva": "0x2e214",
+        "target_rva": "0x25567",
+        "target_section": ".text"
+      },
+      {
+        "index": 2,
+        "entry_rva": "0x2e218",
+        "target_rva": "0x25526",
+        "target_section": ".text"
+      },
+      {
+        "index": 3,
+        "entry_rva": "0x2e21c",
+        "target_rva": "0x25520",
+        "target_section": ".text"
+      },
+      {
+        "index": 4,
+        "entry_rva": "0x2e220",
+        "target_rva": "0x2555e",
+        "target_section": ".text"
+      },
+      {
+        "index": 5,
+        "entry_rva": "0x2e224",
+        "target_rva": "0x25562",
+        "target_section": ".text"
+      },
+      {
+        "index": 6,
+        "entry_rva": "0x2e228",
+        "target_rva": "0x25572",
+        "target_section": ".text"
+      },
+      {
+        "index": 7,
+        "entry_rva": "0x2e22c",
+        "target_rva": "0x2556d",
+        "target_section": ".text"
+      },
+      {
+        "index": 8,
+        "entry_rva": "0x2e230",
+        "target_rva": "0x7670",
+        "target_section": ".text"
+      },
+      {
+        "index": 9,
+        "entry_rva": "0x2e234",
+        "target_rva": "0x257b6",
+        "target_section": ".text"
+      },
+      {
+        "index": 10,
+        "entry_rva": "0x2e238",
+        "target_rva": "0x25c89",
+        "target_section": ".text"
+      },
+      {
+        "index": 11,
+        "entry_rva": "0x2e23c",
+        "target_rva": "0x25f98",
+        "target_section": ".text"
+      },
+      {
+        "index": 12,
+        "entry_rva": "0x2e240",
+        "target_rva": "0x79a0",
+        "target_section": ".text"
+      },
+      {
+        "index": 13,
+        "entry_rva": "0x2e244",
+        "target_rva": "0x25aa6",
+        "target_section": ".text"
+      },
+      {
+        "index": 14,
+        "entry_rva": "0x2e248",
+        "target_rva": "0x7960",
+        "target_section": ".text"
+      },
+      {
+        "index": 15,
+        "entry_rva": "0x2e24c",
+        "target_rva": "0x2580f",
+        "target_section": ".text"
+      },
+      {
+        "index": 16,
+        "entry_rva": "0x2e250",
+        "target_rva": "0x25deb",
+        "target_section": ".text"
+      },
+      {
+        "index": 17,
+        "entry_rva": "0x2e254",
+        "target_rva": "0x25f7d",
+        "target_section": ".text"
+      },
+      {
+        "index": 18,
+        "entry_rva": "0x2e258",
+        "target_rva": "0x25a0d",
+        "target_section": ".text"
+      },
+      {
+        "index": 19,
+        "entry_rva": "0x2e25c",
+        "target_rva": "0x28529",
+        "target_section": ".text"
+      },
+      {
+        "index": 20,
+        "entry_rva": "0x2e260",
+        "target_rva": "0x284ee",
+        "target_section": ".text"
+      },
+      {
+        "index": 21,
+        "entry_rva": "0x2e264",
+        "target_rva": "0x2bbcb",
+        "target_section": ".text"
+      },
+      {
+        "index": 22,
+        "entry_rva": "0x2e268",
+        "target_rva": "0x284db",
+        "target_section": ".text"
+      },
+      {
+        "index": 23,
+        "entry_rva": "0x2e26c",
+        "target_rva": "0x2839a",
+        "target_section": ".text"
+      },
+      {
+        "index": 24,
+        "entry_rva": "0x2e270",
+        "target_rva": "0x2830d",
+        "target_section": ".text"
+      },
+      {
+        "index": 25,
+        "entry_rva": "0x2e274",
+        "target_rva": "0x28573",
+        "target_section": ".text"
+      },
+      {
+        "index": 26,
+        "entry_rva": "0x2e278",
+        "target_rva": "0x257d8",
+        "target_section": ".text"
+      },
+      {
+        "index": 27,
+        "entry_rva": "0x2e27c",
+        "target_rva": null,
+        "target_section": null
+      }
+    ],
+    "function_pointer_occurrences": [
+      {
+        "module": "HERCULES.EXE",
+        "section": ".rdata",
+        "rva": "0x2e240"
+      }
+    ],
+    "direct_code_operand_xrefs_to_cluster": {
+      "HERCULES.EXE": [],
+      "ENG1.DLL": [],
+      "ENG3.DLL": [],
+      "TITLE.DLL": []
+    },
+    "aligned_pointer_roots_to_cluster": [],
+    "frontier": "The 0x79a0 literal belongs to this dense code-pointer region, but these bounded references do not identify its table owner or slot consumer. Do not classify the region as a vtable, message map, or registration record."
+  },
+  "interpretation": {
+    "header_layout": "The pinned local VC5 MFC headers define six-field CRuntimeClass, two-pointer AFX_MSGMAP, and six-field AFX_MSGMAP_ENTRY. Their class-name/factory/base pointers, map descriptor fields, 24-byte entry rows, zero terminator, and AfxSig enumeration match the observed EXE records.",
+    "original_code_links": "Separately, original getters return each runtime/map descriptor, the runtime factory calls its constructor, constructors store their corresponding vtable base, and those vtables contain GetRuntimeClass and GetMessageMap code pointers at slots 0 and 12. These static code links do not prove framework invocation.",
+    "callback_classification": "0x9820, 0x9840, and 0x9870 are CMainFrame AFX_MSGMAP_ENTRY pfn values. They are message handlers, not virtual-method slots. The message and AfxSig names are emitted only after validation against the pinned winuser.h and afxmsg_.h hashes."
+  },
+  "limits": "Byte scans and complete-section Capstone linear sweeps are static candidates, not runtime behavior or perfect instruction-alignment proofs. Names for custom control ID 0xE146 are intentionally omitted; no application resource mapping was established."
+}

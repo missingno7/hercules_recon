@@ -239,6 +239,58 @@
         "scope",
         "static_order_assessment"
       ]
+    },
+    {
+      "lane": "native_surface_contract",
+      "path": "renderer_contract/evidence/native_surface_contract.json",
+      "sha256": "e56ca9d1e0051a06e5a54acb8036776bc671df6783f7c51eb7182c9e24c8121e",
+      "schema_keys": [
+        "audit_script_sha256",
+        "cases",
+        "limits",
+        "oracle",
+        "scope",
+        "snapshot_header_sha256",
+        "source_evidence_sha256",
+        "static",
+        "tooling"
+      ]
+    },
+    {
+      "lane": "frame_lifetime",
+      "path": "renderer_contract/evidence/frame_lifetime.json",
+      "sha256": "1e0eb3eb53f315a419b9e444fe63455965f0bebf3dacb50ea8ac80b64cf26245",
+      "schema_keys": [
+        "counts",
+        "failures",
+        "limitations",
+        "original_root",
+        "originals",
+        "provenance_inputs",
+        "repo_root",
+        "schema_version",
+        "scope",
+        "spans",
+        "status"
+      ]
+    },
+    {
+      "lane": "callback_metadata",
+      "path": "renderer_contract/evidence/callback_metadata.json",
+      "sha256": "753af4649e998599138ca47f59dc950494f33f472abb5f87159347610204e0af",
+      "schema_keys": [
+        "bootstrap_pinned_callback_functions",
+        "classes",
+        "cmainframe_callback_rows",
+        "inputs",
+        "interpretation",
+        "limits",
+        "literal_locations",
+        "schema_version",
+        "scope",
+        "status",
+        "unowned_79a0_cluster"
+      ]
     }
   ],
   "excluded_or_pending_reports": [],
@@ -397,6 +449,25 @@
       "pixel_stop_before_rva": "0xc89f",
       "scope": "One original 71A0/6780 builder run then three one-pixel C700/C882 cases in the same emulator state; no 69A0/OS call or full rasterization.",
       "evidence_ref": "renderer_contract/evidence/native_startup_pixel_alias.json#runtime.pixel_cases"
+    },
+    {
+      "lane": "native_surface_contract",
+      "proof_level": "BOUNDED_EQUIVALENT",
+      "case_count": 10,
+      "original_code_unchanged_case_count": 10,
+      "function_span_count": 3,
+      "mode_cell_read_width_bytes": 1,
+      "mode_cell_read_sites": [
+        "0x664b",
+        "0x7001",
+        "0x7149"
+      ],
+      "scope": "Ten finite original-code Lock, Unlock, and presentation branches under Unicorn with synthetic COM/GDI services; no real DirectDraw, OS, game process, or GPU behavior is claimed.",
+      "limitations": [
+        "Synthetic COM/GDI endpoints only; no hardware pitch/format or GDI raster result is inferred.",
+        "The 6BB0 failure case is guarded before the full live window/display transition."
+      ],
+      "evidence_ref": "renderer_contract/evidence/native_surface_contract.json#cases,static"
     }
   ],
   "static_proofs": [
@@ -610,6 +681,31 @@
       "evidence_ref": "renderer_contract/evidence/bootstrap_gates.json",
       "related_order_evidence_ref": "renderer_contract/evidence/bootstrap_order.json",
       "not_function_match": true
+    },
+    {
+      "lane": "frame_lifetime",
+      "proof_level": "STATIC_OBSERVED",
+      "span_count": 23,
+      "new_unique_span_count": 7,
+      "provenance_file_count": 10,
+      "raw_count_arithmetic": {
+        "ENG1": "N is zero-extended 16-bit WORD; 80*N and 40*N do not overflow 32-bit products for this source domain.",
+        "ENG3": "N is loaded as raw DWORD; 80*N request and cursor offsets use modulo-2^32 arithmetic with no observed overflow or allocation-result guard.",
+        "TITLE": "fixed 0x23000 packet-arena request with observed cursor split; no capacity guarantee is inferred."
+      },
+      "scope": "STATIC_OBSERVED hash validation for explicit frame allocation/reset/submit/cleanup spans; no original execution or semantic revalidation. Callback retention and backing capacity remain unresolved.",
+      "evidence_ref": "renderer_contract/evidence/frame_lifetime.json",
+      "not_function_match": true
+    },
+    {
+      "lane": "callback_metadata",
+      "proof_level": "STATIC_OBSERVED",
+      "explicit_span_candidate_count": 39,
+      "unique_explicit_span_count": 39,
+      "new_unique_span_count": 34,
+      "scope": "Original PC module bytes, selected C++ runtime-class/message-map/vtable data, constructors and getters, plus pinned installed header declarations. No MFC invocation, message dispatch, scheduler order, process launch, or gameplay is observed.",
+      "evidence_ref": "renderer_contract/evidence/callback_metadata.json",
+      "not_function_match": true
     }
   ],
   "original_images": {
@@ -694,6 +790,17 @@
     },
     {
       "module": "ENG1.DLL",
+      "rva": "0x5600",
+      "size": 96,
+      "expected_sha256": "77cdf850d931dce33e05476aaccfe4a563f34a74da2c70964ba8a423b6d0aad3",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/frame_lifetime.json#/spans/5"
+      ],
+      "role": "frame-lifetime source/submit/cleanup context: per_frame_OT_and_arena_cursor_reset"
+    },
+    {
+      "module": "ENG1.DLL",
       "rva": "0x6328",
       "size": 10,
       "expected_sha256": "c7b19b57af8d354a452569556f6531f9f030d268203c998ec1fb049575f7ab98",
@@ -727,6 +834,17 @@
     },
     {
       "module": "ENG1.DLL",
+      "rva": "0x1f0f0",
+      "size": 304,
+      "expected_sha256": "3873fe0120fd045ed084e40648c9cd3a7937eb425ae6b0b66e5739e006dcb3e3",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/frame_lifetime.json#/spans/2"
+      ],
+      "role": "frame-lifetime source/submit/cleanup context: bootstrap_allocation_requests"
+    },
+    {
+      "module": "ENG1.DLL",
       "rva": "0x1f220",
       "size": 20,
       "expected_sha256": "cb1a859c2bc117ceacc8143fccd32f248a82c9227aab3680215660d0ae7cd221",
@@ -735,6 +853,39 @@
         "renderer_contract/evidence/notification_target.json#spans[7]"
       ],
       "role": "static primary callback and direct-write audit span: slot92_adapter_callsite"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x1f220",
+      "size": 256,
+      "expected_sha256": "ee33bfc33aed913f73786391a67d2bb4936362568c77ba0ea482419d3881b925",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/frame_lifetime.json#/spans/3"
+      ],
+      "role": "frame-lifetime source/submit/cleanup context: bootstrap_cleanup"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x1f320",
+      "size": 896,
+      "expected_sha256": "75dd4af37b63815680219a31a6be97ec35d64858fbba2a81cde40aaac6ddb52e",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/frame_lifetime.json#/spans/4"
+      ],
+      "role": "frame-lifetime source/submit/cleanup context: paired_view_setup"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x20300",
+      "size": 880,
+      "expected_sha256": "71f7f168b63e75e99fedb3f292420de5aa7682b328ef9d9eb527939ac8b86779",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/frame_lifetime.json#/spans/6"
+      ],
+      "role": "frame-lifetime source/submit/cleanup context: full_frame_dispatch"
     },
     {
       "module": "ENG1.DLL",
@@ -769,7 +920,8 @@
       "expected_sha256": "5da8d177d24e5b78b2257bdf280a41888383225e733fd31dbe1ee034590e0bb9",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_frame/evidence.json#spans[2]"
+        "work/renderer_frame/evidence.json#spans[2]",
+        "renderer_contract/evidence/frame_lifetime.json#/spans/7"
       ]
     },
     {
@@ -781,7 +933,8 @@
       "expected_sha256": "56974b1cae70836a100d47ef3cde2793206aaae329bd71894283ed9dbbfbc1bb",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_frame/evidence.json#spans[3]"
+        "work/renderer_frame/evidence.json#spans[3]",
+        "renderer_contract/evidence/frame_lifetime.json#/spans/8"
       ]
     },
     {
@@ -1957,7 +2110,8 @@
       "expected_sha256": "4617375e1f8e2f8e654d3963036aed55272204ec348670b3b76bd7488251f2b8",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_frame/evidence.json#spans[9]"
+        "work/renderer_frame/evidence.json#spans[9]",
+        "renderer_contract/evidence/frame_lifetime.json#/spans/12"
       ]
     },
     {
@@ -1991,7 +2145,8 @@
       "expected_sha256": "9e6922fd2fca4cf55f17c3db8b17d7ad4c3a0991ebde689c472e5b3927fb8ade",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_frame/evidence.json#spans[6]"
+        "work/renderer_frame/evidence.json#spans[6]",
+        "renderer_contract/evidence/frame_lifetime.json#/spans/9"
       ]
     },
     {
@@ -2014,7 +2169,8 @@
       "expected_sha256": "142b00e4e00535664a5072b5f79dbdd94a1a68adf086e8d95690644c7b6ff560",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_frame/evidence.json#spans[7]"
+        "work/renderer_frame/evidence.json#spans[7]",
+        "renderer_contract/evidence/frame_lifetime.json#/spans/10"
       ]
     },
     {
@@ -2026,7 +2182,8 @@
       "expected_sha256": "d45a79d562c672ff849d2b868c5fbc2a7cfbfdb47e44eafd34656e301af6ab64",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_frame/evidence.json#spans[8]"
+        "work/renderer_frame/evidence.json#spans[8]",
+        "renderer_contract/evidence/frame_lifetime.json#/spans/11"
       ]
     },
     {
@@ -2060,7 +2217,8 @@
       "expected_sha256": "774b9c49e904780c1c7e7699bb07801b67a1cda9b49f71538470371352819906",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_frame/evidence.json#spans[10]"
+        "work/renderer_frame/evidence.json#spans[10]",
+        "renderer_contract/evidence/frame_lifetime.json#/spans/13"
       ]
     },
     {
@@ -2117,7 +2275,8 @@
       "expected_sha256": "6a7a4bacb895ab303c27eb3c75cfa9ab17d9835e2c86ec03c0ea73a0fc04606d",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_frame/evidence.json#spans[4]"
+        "work/renderer_frame/evidence.json#spans[4]",
+        "renderer_contract/evidence/frame_lifetime.json#/spans/14"
       ]
     },
     {
@@ -2129,7 +2288,8 @@
       "expected_sha256": "60df4fbb3ef8da7836d7cc270fae184e9ec6da51fddc6eeffb1f8955f304214e",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_frame/evidence.json#spans[5]"
+        "work/renderer_frame/evidence.json#spans[5]",
+        "renderer_contract/evidence/frame_lifetime.json#/spans/15"
       ]
     },
     {
@@ -3496,7 +3656,8 @@
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
         "renderer_contract/evidence/bootstrap_order.json#pinned_spans[5]",
-        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/event_callback_79a0"
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/event_callback_79a0",
+        "renderer_contract/evidence/callback_metadata.json#bootstrap_pinned_callback_functions/event_callback_79a0"
       ],
       "role": "bounded host bootstrap CFG span: event_callback_79a0"
     },
@@ -3590,12 +3751,211 @@
     },
     {
       "module": "HERCULES.EXE",
+      "rva": "0x8090",
+      "size": 90,
+      "expected_sha256": "2c481822b3e022c6231b6ccce3c7985f9c85b8bdfab2a4b1c603dc62a1b078db",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CJoystickPage/factory_and_constructor/factory"
+      ],
+      "role": "optional callback metadata static span: CJoystickPage.factory"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x80f0",
+      "size": 6,
+      "expected_sha256": "910a0011dcf04ccadbee11550da05467a8d548b28c257b200210a080bf183e1b",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CJoystickPage/vtable/getters/0"
+      ],
+      "role": "optional callback metadata static span: CJoystickPage.GetRuntimeClass"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x8100",
+      "size": 238,
+      "expected_sha256": "7144ca6fce9c561723d6236cf09f92a7c8f0c8a563666a1115d08c94487ae891",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CJoystickPage/factory_and_constructor/constructor"
+      ],
+      "role": "optional callback metadata static span: CJoystickPage.constructor"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x81d9",
+      "size": 6,
+      "expected_sha256": "70e50fe5a6e4593267565578450986aa66dd806a591c36e4cce61f95a1058a01",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CJoystickPage/factory_and_constructor/constructor_vptr_store"
+      ],
+      "role": "optional callback metadata static span: CJoystickPage.constructor_vptr_store"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x822d",
+      "size": 6,
+      "expected_sha256": "70e50fe5a6e4593267565578450986aa66dd806a591c36e4cce61f95a1058a01",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CJoystickPage/other_same_vptr_store_sites/0"
+      ],
+      "role": "optional callback metadata static span: CJoystickPage.other_same_vptr_store"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x8360",
+      "size": 6,
+      "expected_sha256": "1de835ce7c3e6ee95bd98d7282a58e8ed99598883d77cb140ce1ef95518f925c",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CJoystickPage/vtable/getters/1"
+      ],
+      "role": "optional callback metadata static span: CJoystickPage.GetMessageMap"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x8a30",
+      "size": 90,
+      "expected_sha256": "452e73085935ae5a03df31dca2296f24ef36e9dc01c6442f189a3d1a34430fa9",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CKeyboardPage/factory_and_constructor/factory"
+      ],
+      "role": "optional callback metadata static span: CKeyboardPage.factory"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x8a90",
+      "size": 6,
+      "expected_sha256": "9625a16ef55fd5a7d14df9266f912e524b6d227d5a9e6fc1d1208775773a4bf6",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CKeyboardPage/vtable/getters/0"
+      ],
+      "role": "optional callback metadata static span: CKeyboardPage.GetRuntimeClass"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x8aa0",
+      "size": 310,
+      "expected_sha256": "47eb92965773485257946da7e69338038e5eb50ef29d5429f6f87cc20fa6f661",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CKeyboardPage/factory_and_constructor/constructor"
+      ],
+      "role": "optional callback metadata static span: CKeyboardPage.constructor"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x8bc1",
+      "size": 6,
+      "expected_sha256": "a776442f7bb2c71dbd78388ae1986be74a57e872849704e6071a14fe62b7c0ec",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CKeyboardPage/factory_and_constructor/constructor_vptr_store"
+      ],
+      "role": "optional callback metadata static span: CKeyboardPage.constructor_vptr_store"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x8c1d",
+      "size": 6,
+      "expected_sha256": "a776442f7bb2c71dbd78388ae1986be74a57e872849704e6071a14fe62b7c0ec",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CKeyboardPage/other_same_vptr_store_sites/0"
+      ],
+      "role": "optional callback metadata static span: CKeyboardPage.other_same_vptr_store"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x8dc0",
+      "size": 6,
+      "expected_sha256": "bbcdf4316d3ae1c87a2aa87d763685edda39216016f450ed5553ea4f50672ba4",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CKeyboardPage/vtable/getters/1"
+      ],
+      "role": "optional callback metadata static span: CKeyboardPage.GetMessageMap"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x9420",
+      "size": 90,
+      "expected_sha256": "a328772cea1f7bef617975cf5deb31f8a7193baeea598c1fdc92573c8fe5aecc",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CMainFrame/factory_and_constructor/factory"
+      ],
+      "role": "optional callback metadata static span: CMainFrame.factory"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x9480",
+      "size": 6,
+      "expected_sha256": "a1f42ac553e25d4eb86e0115dabea713e171961cac5415a54981e2850f0ec489",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CMainFrame/vtable/getters/0"
+      ],
+      "role": "optional callback metadata static span: CMainFrame.GetRuntimeClass"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x9490",
+      "size": 6,
+      "expected_sha256": "e9c01d83dec71d61582d26e27730646629792865d2e31500d8a4162f4c47d327",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CMainFrame/vtable/getters/1"
+      ],
+      "role": "optional callback metadata static span: CMainFrame.GetMessageMap"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x94a0",
+      "size": 18,
+      "expected_sha256": "0326298792e34b1509b93fc357a37ad83c40f1bea00719bbb68d4873af2db5d5",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CMainFrame/factory_and_constructor/constructor"
+      ],
+      "role": "optional callback metadata static span: CMainFrame.constructor"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x94a8",
+      "size": 6,
+      "expected_sha256": "e626c3ba0c4374fd26b9713b7b7f9ebd28f56b5fb06815738ed99a30c8e26671",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CMainFrame/factory_and_constructor/constructor_vptr_store"
+      ],
+      "role": "optional callback metadata static span: CMainFrame.constructor_vptr_store"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x94e0",
+      "size": 6,
+      "expected_sha256": "298ef84d1f1d8ac8884cb9f06479f01b684b364e087ae950e928ff5d12d156ba",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CMainFrame/other_same_vptr_store_sites/0"
+      ],
+      "role": "optional callback metadata static span: CMainFrame.other_same_vptr_store"
+    },
+    {
+      "module": "HERCULES.EXE",
       "rva": "0x9820",
       "size": 30,
       "expected_sha256": "57dfacb5e6833cebe6623eea32eb4c73a179d92ac1ecf7d009c5f9c6dc8df548",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/event_enable_writer_9820"
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/event_enable_writer_9820",
+        "renderer_contract/evidence/callback_metadata.json#bootstrap_pinned_callback_functions/event_enable_writer_9820"
       ],
       "role": "bootstrap direct-path and gate context: event_enable_writer_9820"
     },
@@ -3617,7 +3977,8 @@
       "expected_sha256": "1ce8e34c1db01cfff4753bde71d3a2b39a66a02f6a3f59a9f6c7efb552b32874",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/event_enable_writer_9840"
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/event_enable_writer_9840",
+        "renderer_contract/evidence/callback_metadata.json#bootstrap_pinned_callback_functions/event_enable_writer_9840"
       ],
       "role": "bootstrap direct-path and gate context: event_enable_writer_9840"
     },
@@ -3639,7 +4000,8 @@
       "expected_sha256": "2b886c51f18b35dca6411d94f0030a864a3a0ef7da8d540cdf154288cc0a86c9",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/event_suppress_writer_9870"
+        "renderer_contract/evidence/bootstrap_gates.json#/pinned_host_spans/event_suppress_writer_9870",
+        "renderer_contract/evidence/callback_metadata.json#bootstrap_pinned_callback_functions/event_suppress_writer_9870"
       ],
       "role": "bootstrap direct-path and gate context: event_suppress_writer_9870"
     },
@@ -4023,7 +4385,8 @@
       "expected_sha256": "f96f2d7ab105a7bf13f0eaf9738ea9919ce0a8e6734f82eb15f5067938396a09",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_frame/evidence.json#spans[0]"
+        "work/renderer_frame/evidence.json#spans[0]",
+        "renderer_contract/evidence/frame_lifetime.json#/spans/0"
       ]
     },
     {
@@ -4051,7 +4414,8 @@
         "work/renderer_closure/evidence.json#dependencies.packet_chain_consumer",
         "work/renderer_frame/evidence.json#spans[1]",
         "work/renderer_packets/evidence.json#native_spans.HERCULES.EXE[0]",
-        "renderer_contract/evidence/producer_reachability.json#original_spans[5]"
+        "renderer_contract/evidence/producer_reachability.json#original_spans[5]",
+        "renderer_contract/evidence/frame_lifetime.json#/spans/1"
       ]
     },
     {
@@ -6515,6 +6879,17 @@
     },
     {
       "module": "HERCULES.EXE",
+      "rva": "0x2e210",
+      "size": 112,
+      "expected_sha256": "37bbfdd6506f03425633e9248b34195a21cdd06aab860ade466b89871cbaaa2c",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#unowned_79a0_cluster"
+      ],
+      "role": "optional callback metadata static span: unowned_code_pointer_cluster"
+    },
+    {
+      "module": "HERCULES.EXE",
       "rva": "0x2e220",
       "size": 96,
       "expected_sha256": "e43ff103db45eda7bccfd6b158c38546fccaed1bfa61333eaa96cc385a87522f",
@@ -6531,9 +6906,175 @@
       "expected_sha256": "b4d3df00627ecfb8e4d80bd209cf0a733174411361b424201bc3e05c8fd2e0e3",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "renderer_contract/evidence/bootstrap_order.json#pinned_spans[13]"
+        "renderer_contract/evidence/bootstrap_order.json#pinned_spans[13]",
+        "renderer_contract/evidence/callback_metadata.json#literal_locations/0x2e240"
       ],
       "role": "bounded host bootstrap CFG span: callback_address_literal_2e240"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x2e290",
+      "size": 24,
+      "expected_sha256": "efdefabcda01a9b4039d1616ce9200d739afb9622663ead2118eae52ef5cbdf5",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CJoystickPage/runtime_class"
+      ],
+      "role": "optional callback metadata static span: CJoystickPage.CRuntimeClass"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x2e2a8",
+      "size": 8,
+      "expected_sha256": "11d54812474013ddc1fe921ae304abd1e80e9eca7c3dd1bd10fb6f03c83503f6",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CJoystickPage/message_map/descriptor"
+      ],
+      "role": "optional callback metadata static span: CJoystickPage.message_map_descriptor"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x2e310",
+      "size": 248,
+      "expected_sha256": "b72e9abdd5caec0541e88c952e5b9949cd309c4717105dc13d45ed1860c9a2a4",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CJoystickPage/vtable"
+      ],
+      "role": "optional callback metadata static span: classes/CJoystickPage/vtable"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x2e408",
+      "size": 24,
+      "expected_sha256": "4cd58486cefb4ab0b39e01d2bd5f316a9b517c3d5f5f6ec59373d1f9011ee8e3",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CKeyboardPage/runtime_class"
+      ],
+      "role": "optional callback metadata static span: CKeyboardPage.CRuntimeClass"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x2e420",
+      "size": 8,
+      "expected_sha256": "2d09e9325fe3d2fd6bee3b4d84698514a386f2f5fb65c52afc5e7158658954f1",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CKeyboardPage/message_map/descriptor"
+      ],
+      "role": "optional callback metadata static span: CKeyboardPage.message_map_descriptor"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x2e470",
+      "size": 248,
+      "expected_sha256": "90e3e62f20c20eaac974a4368a1bdde4c8594336cec38770118714eea1f0a750",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CKeyboardPage/vtable"
+      ],
+      "role": "optional callback metadata static span: classes/CKeyboardPage/vtable"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x2e568",
+      "size": 24,
+      "expected_sha256": "df3b79ae0bb34280bd012c7d380a6b6ae00201f1344a9a5cf75544d676b45225",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CMainFrame/runtime_class"
+      ],
+      "role": "optional callback metadata static span: CMainFrame.CRuntimeClass"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x2e580",
+      "size": 8,
+      "expected_sha256": "c3a9aadbe3b7fa0108c3cf91dbcd10e99bf83da5da0c30e2e862791605bb5975",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CMainFrame/message_map/descriptor"
+      ],
+      "role": "optional callback metadata static span: CMainFrame.message_map_descriptor"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x2e5b8",
+      "size": 24,
+      "expected_sha256": "cc079b67764b453cd0e90b458ee956f4f519c7370db3a0effe771f2ddb84bfaa",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#cmainframe_callback_rows/0"
+      ],
+      "role": "optional callback metadata static span: cmainframe_callback_rows/0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x2e5cc",
+      "size": 4,
+      "expected_sha256": "c7d5726c6851f2817289814ace647102d99204565ef61d2c6b8eb320dd09d3b8",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#literal_locations/0x2e5cc"
+      ],
+      "role": "optional callback metadata static span: literal_locations/0x2e5cc"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x2e618",
+      "size": 24,
+      "expected_sha256": "2bafb780d65ff863dce0f6966d2e80ad1bb5076fec97afd31f5ca0b037d24d6f",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#cmainframe_callback_rows/1"
+      ],
+      "role": "optional callback metadata static span: cmainframe_callback_rows/1"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x2e62c",
+      "size": 4,
+      "expected_sha256": "4b31e12ab1ea28f6a49f94e60f300021470ee69e2f2dc654ae3f060e48f6ff5b",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#literal_locations/0x2e62c"
+      ],
+      "role": "optional callback metadata static span: literal_locations/0x2e62c"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x2e630",
+      "size": 24,
+      "expected_sha256": "ccb83a633ed3ad1ee206073a103609ebf6826c0e22f4c408cc00e5e83eaaffe8",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#cmainframe_callback_rows/2"
+      ],
+      "role": "optional callback metadata static span: cmainframe_callback_rows/2"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x2e644",
+      "size": 4,
+      "expected_sha256": "9516ea1c5fe5685b894c689833fadfc03a311ed55dccc63a44eb19a5755bb9cf",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#literal_locations/0x2e644"
+      ],
+      "role": "optional callback metadata static span: literal_locations/0x2e644"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x2e870",
+      "size": 252,
+      "expected_sha256": "1d2536ac03198ff754dd11a85b080ef8218d84116480362f91285a1d16316eff",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/callback_metadata.json#classes/CMainFrame/vtable"
+      ],
+      "role": "optional callback metadata static span: classes/CMainFrame/vtable"
     },
     {
       "module": "HERCULES.EXE",
@@ -7149,6 +7690,17 @@
     },
     {
       "module": "TITLE.DLL",
+      "rva": "0x4660",
+      "size": 80,
+      "expected_sha256": "5f92b5e22a98fe9a8e1218b25eb971d911d6000c0ffec38de48a0d85c99e2321",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/frame_lifetime.json#/spans/19"
+      ],
+      "role": "frame-lifetime source/submit/cleanup context: per_frame_OT_and_arena_cursor_reset"
+    },
+    {
+      "module": "TITLE.DLL",
       "rva": "0x5d60",
       "size": 34,
       "kind": "code",
@@ -7175,7 +7727,8 @@
       "expected_sha256": "e046a7853a269b56d38767480b6fe6b52a7b9324dc9eacc1ff21af0048a4b2e7",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_frame/evidence.json#spans[14]"
+        "work/renderer_frame/evidence.json#spans[14]",
+        "renderer_contract/evidence/frame_lifetime.json#/spans/20"
       ]
     },
     {
@@ -7270,7 +7823,8 @@
       "expected_sha256": "f3408ddb192054d6613e5ae6f366706045fd733467bf044a583aa87a3b330dd1",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_frame/evidence.json#spans[11]"
+        "work/renderer_frame/evidence.json#spans[11]",
+        "renderer_contract/evidence/frame_lifetime.json#/spans/21"
       ]
     },
     {
@@ -7282,7 +7836,8 @@
       "expected_sha256": "aaf98bd8e9b93be18c2442d2c7c392a4b9fa05f16d8a6882aa5fb7585dde7b7a",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_frame/evidence.json#spans[12]"
+        "work/renderer_frame/evidence.json#spans[12]",
+        "renderer_contract/evidence/frame_lifetime.json#/spans/22"
       ]
     },
     {
@@ -8129,7 +8684,8 @@
       "expected_sha256": "3915f8ca42cc84cf1a2692c92c284ded48333becc966aceaadfad109fc80f6d5",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_frame/evidence.json#spans[15]"
+        "work/renderer_frame/evidence.json#spans[15]",
+        "renderer_contract/evidence/frame_lifetime.json#/spans/16"
       ]
     },
     {
@@ -8145,6 +8701,17 @@
     },
     {
       "module": "TITLE.DLL",
+      "rva": "0x1d4e0",
+      "size": 176,
+      "expected_sha256": "427ba7798032f70151f59acf5327528e18658625e3ee936f08804972b1b16601",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/frame_lifetime.json#/spans/17"
+      ],
+      "role": "frame-lifetime source/submit/cleanup context: cleanup_and_bulk_release_neighborhood"
+    },
+    {
+      "module": "TITLE.DLL",
       "rva": "0x1d590",
       "size": 480,
       "kind": "code",
@@ -8152,7 +8719,8 @@
       "expected_sha256": "60badfca1f7228464fa69e73ead4131064db27d072551be8bc60f7d45749691c",
       "hash_expectation": "recorded_in_source_evidence",
       "evidence_refs": [
-        "work/renderer_frame/evidence.json#spans[16]"
+        "work/renderer_frame/evidence.json#spans[16]",
+        "renderer_contract/evidence/frame_lifetime.json#/spans/18"
       ]
     },
     {
@@ -9549,6 +10117,10 @@
       "sha256": "ff1237e664d6779b400ec25dd9b7585f4db044bcf7a4c66888ac2fee08336832"
     },
     {
+      "path": "renderer_contract/evidence/callback_metadata.json",
+      "sha256": "753af4649e998599138ca47f59dc950494f33f472abb5f87159347610204e0af"
+    },
+    {
       "path": "renderer_contract/evidence/closure.json",
       "sha256": "2142cb1d0c7a49c9fe9ebd3bd186099583431755205efc3022d9a29a7cab9e30"
     },
@@ -9566,11 +10138,15 @@
     },
     {
       "path": "renderer_contract/evidence/exe_variant.json",
-      "sha256": "05926cf0823c639d2c640e8d44c1366b9215ac1ed155720f8c658c0330f92ab5"
+      "sha256": "85fa78c06639521015350499518e1461c471d4df2c7b14727fdaf33b6ad9f06c"
     },
     {
       "path": "renderer_contract/evidence/frame.json",
       "sha256": "b81f7e1f86bb8b3976ed666261d741000b2e7e400d35d18be6ce0068ce69bb5b"
+    },
+    {
+      "path": "renderer_contract/evidence/frame_lifetime.json",
+      "sha256": "1e0eb3eb53f315a419b9e444fe63455965f0bebf3dacb50ea8ac80b64cf26245"
     },
     {
       "path": "renderer_contract/evidence/geometry.json",
@@ -9677,6 +10253,10 @@
       "sha256": "3aecb167a0efa875d95124c54ac387eb51996e780e1f3a109ebe8767170fc24b"
     },
     {
+      "path": "renderer_contract/evidence/native_surface_contract.json",
+      "sha256": "e56ca9d1e0051a06e5a54acb8036776bc671df6783f7c51eb7182c9e24c8121e"
+    },
+    {
       "path": "renderer_contract/evidence/native_texture_row_boundaries.json",
       "sha256": "109c7a7e9d99580167d20fa104bbd54de0f4f7ffc49d11a663f3a38309534212"
     },
@@ -9726,7 +10306,7 @@
     },
     {
       "path": "renderer_contract/evidence/portable_verification.json",
-      "sha256": "1fdfaf0088f3395e1b48f6eed29601c3caa68d884821f689c7ebb81a51f5f9d8"
+      "sha256": "7c7a12217248dae8ab3a36de3c824c45aae5376691f84f225fa4a684a30fa8b0"
     },
     {
       "path": "renderer_contract/evidence/presentation.json",

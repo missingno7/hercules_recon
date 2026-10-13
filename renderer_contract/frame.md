@@ -63,3 +63,5 @@ Primary contracts: `evidence/frame_bootstrap_contract.json`, `evidence/frame_cha
 The private investigation paths above identify provenance. In this package, run tests/validate_originals.py with the original image paths to recheck recorded bytes and bindings, and tests/run_tests.py for the compiled synthetic suite. The byte validator does not independently redo the semantic analysis. The compact receipt is evidence/frame.json.
 
 The shipped test_frame.c uses synthetic raw32 chains by default. The private x86 gate also linked the existing accepted AC20 writer; that historical source is not duplicated in this package.
+
+See [frame lifetime](frame_lifetime.md) for separate arena requests, complementary cursor selection and reset/submit/swap order. Allocation requests and observed writes are distinct from usable capacity.

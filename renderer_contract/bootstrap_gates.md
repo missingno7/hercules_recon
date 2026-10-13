@@ -38,3 +38,8 @@ The runner validates SHA-256 identities for HERCULES.EXE, ENG1.DLL, ENG3.DLL, an
 The fresh public receipt is [bootstrap_gates.json](evidence/bootstrap_gates.json); it pins the runner, original images and exact bounded spans.
 
 The JSON receipt contains the exact per-site instruction hashes, direct callers, full raw `.text` coverage counts, zero-fill basis for initial values, callback-literal neighborhood, and hashes for the bounded code/data spans (`5E10`, `5EC0`, `5F20`, `79A0`, `1FF0`, `4040`, `5C20`, `5CD0`, `9820`, `9840`, `9870`, and `2E220`).
+
+The [metadata audit](callback_metadata.md) identifies the three gate-setter
+literals as CMainFrame message-map entries with original constructor/getter
+links. The 79A0 callback cluster remains unowned; message delivery and global
+startup ordering are not inferred from those tables.

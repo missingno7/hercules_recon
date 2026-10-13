@@ -2,9 +2,16 @@
 #define HERCULES_RENDERER_LIVE_X86 1
 #endif
 #include "hercules_host_abi.h"
+#include "hercules_surface.h"
 #ifdef HERCULES_RENDERER_LIVE_X86
 typedef char callback_exchange_pointer_width[
     (sizeof(HerculesPrimaryCallbackExchange) == 4) ? 1 : -1];
+typedef char host_lock_service_pointer_width[
+    (sizeof(HerculesHostSurfaceLockService) == 4) ? 1 : -1];
+typedef char host_unlock_service_pointer_width[
+    (sizeof(HerculesHostSurfaceUnlockService) == 4) ? 1 : -1];
+typedef char host_present_service_pointer_width[
+    (sizeof(HerculesHostSurfacePresentService) == 4) ? 1 : -1];
 #endif
 
 #include <stdio.h>
@@ -48,6 +55,7 @@ static int expect_failure_without_output_change(int status_expected,
 
 int main(void)
 {
+    HerculesHostSurfaceViewSnapshot view;
     renderer_u32 source[ENGINE_TABLE_WORD_COUNT];
     renderer_u32 output[ENGINE_TABLE_WORD_COUNT];
     renderer_u32 slots[10] = {89u, 129u, 130u, 131u, 143u, 148u, 81u,
@@ -58,6 +66,20 @@ int main(void)
                                0x99999999u};
     renderer_u32 i;
     int status;
+
+    view.active_pixel_address = (renderer_raw32)0x12345678u;
+    view.pitch_bytes = (renderer_i32)336;
+    view.lock_held = (renderer_u8)1;
+    view.directdraw_mode = (renderer_u8)1;
+    if (view.active_pixel_address != (renderer_raw32)0x12345678u ||
+        view.pitch_bytes != 336 || view.lock_held != 1 ||
+        view.directdraw_mode != 1)
+        return 10;
+    if (HERCULES_HOST_LOCK_STATE_VA != (renderer_u32)0x00ba01f0u ||
+        HERCULES_HOST_DDRAW_MODE_VA != (renderer_u32)0x00ba020cu ||
+        HERCULES_HOST_ACTIVE_PIXELS_VA != (renderer_u32)0x00ba0210u ||
+        HERCULES_HOST_ACTIVE_PITCH_VA != (renderer_u32)0x00ba0214u)
+        return 11;
 
     fill_source(source);
     fill_sentinel(output);
