@@ -2,6 +2,23 @@
 
 **Result.** The reviewed ENG1 mesh path starts from three 16-bit point coordinates, transforms them to camera-space XYZ, then projects to screen XY. The reviewed final packet consumers use projected XY plus color/texture fields; they do not consume camera Z, reciprocal depth, or normals. No depth should be inferred from XY. Camera XYZ and projected XY remain in host globals after the existing projection callback, but the safe behavior of adding extra callbacks to standard point emitters is unproved.
 
+## Current proof extension
+
+The historical `geometry.json` receipt below remains unchanged. New
+[projection evidence](upstream_projection.md) proves finite single-point
+arithmetic and passive observer behavior. The camera DWORDs contain
+sign-extended low WORDs; they do not retain unrestricted 32-bit transform
+precision. B840 overwrites the active translation cells and must not be added
+as a supposedly neutral capture call.
+
+The old `2DF20` span ends at the first RET (`2E253`). A branch at `2E0DA`
+reaches an FT4 tail at `2E254..2E3A9` outside that historical span. The new
+[ENG1 association fixture](eng1_geometry_association.md) covers the GT4
+route and that separate FT4 tail without changing the old extent or matching
+state. Statements below about no direct FT4 call apply only to the old span.
+[ENG3/TITLE geometry](cross_module_geometry.md) now identifies their distinct
+batch and single-point FT4 paths; the old wrapper-only audit is historical.
+
 ## Availability matrix
 
 | Information | Earlier ENG1 callbacks | Final packet / AC60 consumer | Finding |

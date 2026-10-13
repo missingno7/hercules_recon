@@ -36,6 +36,8 @@ EXPECTED_TESTS = {
     "test_texture_high_y.c",
     "test_texture_row_mapping.c",
     "test_unknown_group60.c",
+    "test_projection.c",
+    "test_projection_cpp.cpp",
 }
 
 

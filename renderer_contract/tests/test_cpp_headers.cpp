@@ -2,6 +2,7 @@
 #define HERCULES_RENDERER_LIVE_X86 1
 #endif
 #include "hercules_host_abi.h"
+#include "eng1_geometry_association_observer.h"
 #include "hercules_surface.h"
 #include "hercules_packets.h"
 #include "hercules_frame.h"

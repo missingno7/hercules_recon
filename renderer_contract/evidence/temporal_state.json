@@ -1,0 +1,111 @@
+{
+  "schema": "renderer_temporal_state_v1",
+  "status": "FEASIBILITY_EVIDENCE_ONLY",
+  "oracle_pins": {
+    "ENG1.DLL": {
+      "path_hint": "assets/pc/HERCULES/ENG1.DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "image_base": "0x10000000"
+    },
+    "HERCULES.EXE": {
+      "path_hint": "work/discs/pc_install/HERCULES.EXE",
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "image_base": "0x400000"
+    }
+  },
+  "static_observed": {
+    "classification": "STATIC_OBSERVED",
+    "camera": {
+      "current_position_dwords": ["0x70ca0", "0x70ca4", "0x70ca8"],
+      "current_angle_dwords": ["0x70cd0", "0x70cd4"],
+      "prior_position_dwords": ["0x70cc4", "0x70cc8"],
+      "prior_writer": "ENG1 0x2fb70 copies current Y to prior Y, then current X to prior X before the follow loop.",
+      "history_limit": "No prior Z or angle cells are established in the measured camera prefix. Static writes do not prove consumers or camera-cut behavior."
+    },
+    "render_transform": {
+      "rva": "0x70c60",
+      "width_bytes": 32,
+      "cells": "Eight DWORD cells; ENG1 0x2f840 writes seven and preserves one.",
+      "lifetime": "Shared camera/render transform copied by ENG1 0x2da90 into interface scratch. No per-object matrix or retained previous/current matrix is established."
+    },
+    "actor_candidate": {
+      "pool_owner_cell": "0x72860",
+      "record_stride": "0x134",
+      "pose_layout": "Measured source view: DWORD XYZ at +0/+4/+8; WORD yaw/pitch/roll at +0x70/+0x72/+0x74.",
+      "candidate_history": "Native ENG1 traversals 0x256e0 and 0x258e0 copy some current XYZ DWORDs to +0x9c/+0xa0/+0xa4 before callbacks, subject to flags; one branch copies only X/Y.",
+      "identity": "Allocator uses kind WORD == 0 for a reusable slot. No per-slot generation/serial or stable object identity is established; equal raw addresses may denote later occupants.",
+      "animation_view": "Source view has frame-array pointer +0x110 and WORD frame index +0x114. Frame/vertex backing-store lifetime is unresolved."
+    },
+    "mesh_association": "ENG1 0x2df20 uses a WORD selector within the current mesh/header table. No generation or association to the normal actor pool is established; projected-vertex scratch is reused.",
+    "frame_lifecycle": {
+      "reset": "ENG1 0x5600 resets the current order table before producers.",
+      "submit": "ENG1 0x20616 submits current +0x88 through 0x2c620 to HERCULES.EXE 0xac60.",
+      "rotation_tick": "After synchronous AC60 traversal, current frame alternates between base and base+0x1488, context DWORD +0x38 increments, then 0x60f9 runs.",
+      "tick_limit": "Context +0x38 is a render-iteration tick; its increment does not establish two simulation updates."
+    },
+    "discontinuity_frontier": "Treat camera seeding/reposition, restart/setup, scene/header replacement, actor pool reset, and spawn/despawn/reuse as possible history breaks pending a continuity marker. No explicit camera-cut or scene-generation field is established. These are conservative static boundaries, not claims of runtime clearing behavior.",
+    "spans": [
+      {"image": "ENG1.DLL", "label": "camera_transform_projection_setup_2f840", "rva": "0x2f840", "size": 801, "sha256": "4a277c0d733d03d7e12ce7925e2328da0ffc002bb6e87119f89fdac54af86694"},
+      {"image": "ENG1.DLL", "label": "camera_follow_update_2fb70", "rva": "0x2fb70", "size": 990, "sha256": "45ab59bf5e487e2613e042167de4f3c93d2b9b701f89c492c73893a2963b4fe6"},
+      {"image": "ENG1.DLL", "label": "actor_pipeline_256e0", "rva": "0x256e0", "size": 512, "sha256": "0d33a45d45a1b6a6efa2c2212ad6b8fc82e64d6c55f4a175b44eb0657eab54eb"},
+      {"image": "ENG1.DLL", "label": "actor_pipeline_258e0", "rva": "0x258e0", "size": 1056, "sha256": "d57b59477b99092322a885ce0b2df8da231acb008a38df62b47f0509709f1b7e"},
+      {"image": "ENG1.DLL", "label": "mesh_route_2df20", "rva": "0x2df20", "size": 820, "sha256": "1cf86d2415df74b7a8a8d7cfbea15be7322871063d447b2de920e5fedbf21213"},
+      {"image": "ENG1.DLL", "label": "mesh_route_2e600", "rva": "0x2e600", "size": 105, "sha256": "88980e057093d2680c43f2b8e4a8e6f5a66373304b3bc32eca51c6f03d949263"},
+      {"image": "ENG1.DLL", "label": "mesh_route_2e6c0", "rva": "0x2e6c0", "size": 133, "sha256": "73e62ddec9e50569cb5c56147b53eb7cf6fb0b6fb8e85b3d53a1a8b4ce8fb80c"},
+      {"image": "ENG1.DLL", "label": "mesh_route_2ed10", "rva": "0x2ed10", "size": 357, "sha256": "cd16e05b70e1d45690376e2507f411214609480ee0556aaa509feae793c2c709"},
+      {"image": "ENG1.DLL", "label": "per_frame_OT_and_arena_cursor_reset", "rva": "0x5600", "size": 96, "sha256": "77cdf850d931dce33e05476aaccfe4a563f34a74da2c70964ba8a423b6d0aad3"},
+      {"image": "ENG1.DLL", "label": "full_frame_dispatch", "rva": "0x20300", "size": 880, "sha256": "71f7f168b63e75e99fedb3f292420de5aa7682b328ef9d9eb527939ac8b86779"},
+      {"image": "HERCULES.EXE", "label": "host_order_table_traversal_AC60", "rva": "0xac60", "size": 1680, "sha256": "f7724c04bef582e378b183a12550ba841df1a6fa3660be51da71154aa5c525af"}
+    ],
+    "input_sha256": {
+      "evidence/eng1_camera.json": "42f52814b488bedabba5bfe41694fb43e7768e8c79457723de1d371eece46ecc",
+      "evidence/eng1_actor_pipeline.json": "52d97a561f02440084350f64956b5646078766f618a3cdc9c05fa09bacfbd663",
+      "evidence/eng1_actor_pipeline_storage.json": "846b2d3255138b16ed275d62956b4184dc6cb36dbda651ed4f9505ff57554e96",
+      "evidence/eng1_actor_storage.json": "9bc63bc5f9d9cda03b66d6ec73cb7f2acc9fd8e95211ef1de595341c767710eb",
+      "evidence/actor_pool_layout.json": "13e4b6ea5c268ee49daba9e678d2edd5e8b97fe7c0dac820311996b996e6bd36",
+      "evidence/engine_dispatch_contract.json": "0f7a0b05a7f15a0cc82515e076a56f65319bd6ff8580b6af184cb38e7a7bfe6d",
+      "scripts/pe.py": "8da71eb87b5a88dd1d80a3fe180e2b94557e2c3017fb4e5c37c4a8c630af62ca",
+      "renderer_contract/tests/oracle_common.py": "a024048d9acc6e18197e10a82427cd84351a90666e1626e610bf60c6105f1357",
+      "renderer_contract/evidence/geometry.json": "b495243cc32757e4f379bfb7b721b168fe6ba46ca908ed1dd763380c53b6aa33",
+      "renderer_contract/evidence/frame_lifetime.json": "1e0eb3eb53f315a419b9e444fe63455965f0bebf3dacb50ea8ac80b64cf26245",
+      "renderer_contract/geometry.md": "a02665736f80a64bff2d8610b0898f8d2d85af11e521548bd8cf65fe1208677e",
+      "renderer_contract/frame_lifetime.md": "7d8228bf595d1f23054d6aa983346e1e06e82abd008b2c4c900296605c753ac7"
+    }
+  },
+  "bounded_equivalent": {
+    "classification": "BOUNDED_EQUIVALENT",
+    "scope": "Two controlled invocations of original ENG1 0x2fb70 at true entry with follow iterations zero and bounds-helper flag clear. This is not two full simulation updates, camera-follow motion, stable object identity, or interpolation readiness.",
+    "prediction_path": "renderer_contract/fixtures/temporal/prediction.md",
+    "prediction_sha256": "789044caf354a295ae2de8d98a9ba2d1c5ece89be320e0f188fb897de821ef56",
+    "private_original_receipt_sha256": "2b17f6ecbab8398892ce8572d5c2cc86f6cd19a14c4e0b430942a0c04d1e9d0c",
+    "original_routine": {"rva": "0x2fb70", "end_rva_exclusive": "0x2ff4e", "size": 990, "sha256": "45ab59bf5e487e2613e042167de4f3c93d2b9b701f89c492c73893a2963b4fe6"},
+    "runtime": {"python": "3.12.14", "unicorn": "2.1.4", "unicorn_native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1", "instructions_per_call": 32, "external_calls": 0, "code_patched": false},
+    "input_fields": {"camera_xyz_dwords": ["0x70ca0", "0x70ca4", "0x70ca8"], "iterations_byte": "0x70cfd", "camera_flags_word": "0x70d10", "prior_xy_dwords": ["0x70cc4", "0x70cc8"]},
+    "write_order_rvas": ["0x70cc8", "0x70cc4", "0x70cb0", "0x70cac", "0x70cb4"],
+    "controlled_cases": [
+      {
+        "camera_xyz_u32": ["0x00012345", "0xffffff80", "0x13579bdf"],
+        "prior_xy_before_u32": ["0xaaaaaaaa", "0xbbbbbbbb"],
+        "writes": [["0x70cc8", "0xffffff80"], ["0x70cc4", "0x00012345"], ["0x70cb0", "0xfffffffe"], ["0x70cac", "0x0000048d"], ["0x70cb4", "0x004d5e6f"]],
+        "current_xyz_after_u32": ["0x00012345", "0xffffff80", "0x13579bdf"],
+        "prior_xy_after_u32": ["0x00012345", "0xffffff80"],
+        "branch_path": ["0x2fbcb", "0x2ff23"],
+        "returned_inside_body": true
+      },
+      {
+        "camera_xyz_u32": ["0x87654321", "0x00010203", "0xffff0001"],
+        "prior_xy_before_u32": ["0x00012345", "0xffffff80"],
+        "writes": [["0x70cc8", "0x00010203"], ["0x70cc4", "0x87654321"], ["0x70cb0", "0x00000408"], ["0x70cac", "0xfe1d950c"], ["0x70cb4", "0xfffffc00"]],
+        "current_xyz_after_u32": ["0x87654321", "0x00010203", "0xffff0001"],
+        "prior_xy_after_u32": ["0x87654321", "0x00010203"],
+        "branch_path": ["0x2fbcb", "0x2ff23"],
+        "returned_inside_body": true
+      }
+    ],
+    "confidence_limits": [
+      "Only the pinned original 0x2fb70 routine was executed under controlled memory; it is not a frame or gameplay differential.",
+      "The zero-iteration condition deliberately skips actor-follow updates and the 0x20ea0 bounds helper.",
+      "No prior camera Z/angle, stable object identity, mesh-to-actor association, animation backing lifetime, or interpolation readiness is established."
+    ]
+  }
+}

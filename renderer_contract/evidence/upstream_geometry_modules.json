@@ -1,0 +1,1910 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "scope": "One selected ENG3 polygon route and one selected TITLE polygon route, module-specific. No source identity, whole-module, rendered-pixel, or gameplay claim.",
+  "proofs": {
+    "static_observed": {
+      "proof_level": "STATIC_OBSERVED",
+      "scope": "Hash-pinned original spans, complete code-span decode, copied-table callback binding, and selected producer dataflow."
+    },
+    "bounded_equivalent": {
+      "proof_level": "BOUNDED_EQUIVALENT",
+      "scope": "Finite identity-matrix sample against unchanged HERCULES.EXE callbacks only; checks sample values and lane/packet association, not general B320/B740 arithmetic equivalence; no ENG1/ENG3/TITLE producer execution.",
+      "result": "BOUNDED_ORIGINAL_CALLBACK_FIXTURE_PASS"
+    }
+  },
+  "prediction_and_falsifier": {
+    "prediction": "ENG3's selected FT4 producer will use copied-table 3D host services for a three-point batch and a one-point fourth vertex; TITLE's selected FT4 producer will have an independent 3D callback path plus a separate direct 2D producer.",
+    "falsifiers": [
+      "Selected producer lacks the expected 101/102/106/107/114/117 route.",
+      "The packet destination cannot be tied to a cursor and packet writer.",
+      "TITLE's mode-5 producer table route does not resolve to 0x181e0."
+    ],
+    "prediction_record": "work/renderer_phase14/cross_geometry/prediction.txt"
+  },
+  "tooling": {
+    "python": "3.12.14",
+    "capstone": "5.0.7",
+    "analysis_dependency_root": "C:\\tools\\hercules\\python",
+    "oracle_dependency_root": "C:\\tools\\hercules\\renderer-oracle-python",
+    "external_tool_origin": "Existing local C:\\tools\\hercules\\python and C:\\tools\\hercules\\renderer-oracle-python installs; no dependency added or modified."
+  },
+  "oracles": {
+    "HERCULES.EXE": {
+      "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "image_base": "0x400000"
+    },
+    "ENG1.DLL": {
+      "path": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\ENG1.DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "image_base": "0x10000000"
+    },
+    "ENG3.DLL": {
+      "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\ENG3.DLL",
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "image_base": "0x10000000"
+    },
+    "TITLE.DLL": {
+      "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\TITLE.DLL",
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "image_base": "0x10000000"
+    }
+  },
+  "evidence_input_sha256": {
+    "original_spans.json": "ddd9dc3754846a30cd2e733ddde403408f041ccc19b4cfbf1bcf4dd19ab0b577",
+    "geometry.json": "b495243cc32757e4f379bfb7b721b168fe6ba46ca908ed1dd763380c53b6aa33",
+    "compatibility.json": "82b8b183ad54d629fef5bd977ca8ac579c3708af36879b18c8536303a983c61d",
+    "module_packets.json": "a68864a259202260ccbfaf7ccee0b68c127af839d3c4b6889c32978e5ff32772",
+    "eng3_handlers.json": "a625ba48b2f135268b0eb47af1ce2279505db69305feee9e3727dcc16e779d32",
+    "title_handlers.json": "0b5c7bae69ad533210d32da4651f0e09ae3f19071b0d707913322b616c04dd2a",
+    "producer_reachability.json": "ef4ba9581a74f03623af0243870ec680bd25114183fb4256db3fe7a99a3b66e7"
+  },
+  "host_interface": {
+    "rva": "0x361b8",
+    "bytes": 1000,
+    "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "selected_slot_targets": {
+      "5": "0x37480",
+      "101": "0xb6f0",
+      "102": "0xb430",
+      "103": "0xb840",
+      "104": "0xb4b0",
+      "106": "0xb920",
+      "107": "0xb320",
+      "108": "0xb880",
+      "109": "0xb8f0",
+      "110": "0xb8c0",
+      "111": "0xb2f0",
+      "114": "0xb720",
+      "117": "0xb5c0",
+      "121": "0xb870",
+      "164": "0xbb00",
+      "165": "0xbc30",
+      "174": "0xb970",
+      "175": "0xb990"
+    }
+  },
+  "spans": {
+    "HERCULES.EXE+0xb430": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb430",
+      "size": 106,
+      "end_rva_exclusive": "0xb49a",
+      "sha256": "25367b48038d67ca7a3181586be659fd7a7e15abd9d5a97488eca8fd249c9484",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 22,
+      "final_instruction": {
+        "rva": "0xb499",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0xb320": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb320",
+      "size": 271,
+      "end_rva_exclusive": "0xb42f",
+      "sha256": "11368c1fa7fd8cd91b1d7b7de522ad06aacc724991ff4f8d46d7eecf1e7cff97",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 76,
+      "final_instruction": {
+        "rva": "0xb42e",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0x394b8": {
+      "module": "HERCULES.EXE",
+      "rva": "0x394b8",
+      "size": 18,
+      "end_rva_exclusive": "0x394ca",
+      "sha256": "6961d3b322ee04848329a22676b4206ff0c22343841b217773e321e4dc17c629",
+      "content_kind": "data",
+      "boundary": "exact data interval",
+      "byte_coverage": "all bytes in [rva, rva+size)"
+    },
+    "HERCULES.EXE+0xb2f0": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb2f0",
+      "size": 31,
+      "end_rva_exclusive": "0xb30f",
+      "sha256": "da0275bd8769568ca7d675dd6fc37b472d2d0ddcd3247d04706edba542695540",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 8,
+      "final_instruction": {
+        "rva": "0xb30e",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0xb5c0": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb5c0",
+      "size": 71,
+      "end_rva_exclusive": "0xb607",
+      "sha256": "3bcc224aaa6a9b2fa5772613b2921c7d6341d90d781fdf136f338f3004b382aa",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 14,
+      "final_instruction": {
+        "rva": "0xb606",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0xb6f0": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb6f0",
+      "size": 36,
+      "end_rva_exclusive": "0xb714",
+      "sha256": "6a6848a640a84133abcc29bf3b0c01e2fb1638f36e916ed8e4f68890210aff29",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 8,
+      "final_instruction": {
+        "rva": "0xb713",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0xb4b0": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb4b0",
+      "size": 98,
+      "end_rva_exclusive": "0xb512",
+      "sha256": "4288c84172a41a5da151cf2347703c2ae1bf2fd3b7cadcf8b2318a9ef1c2ae9e",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 31,
+      "final_instruction": {
+        "rva": "0xb511",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0xb920": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb920",
+      "size": 78,
+      "end_rva_exclusive": "0xb96e",
+      "sha256": "055adff43e62ef00b06e5313ee1701ac404cfe6b3286d75648e5c3265ae7ba86",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 20,
+      "final_instruction": {
+        "rva": "0xb96d",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0xb720": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb720",
+      "size": 26,
+      "end_rva_exclusive": "0xb73a",
+      "sha256": "51f3989776f1410d8ffa246269a37fac2b44590d0f6bcf1cdca4937d0b7b0843",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 6,
+      "final_instruction": {
+        "rva": "0xb739",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0xb870": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb870",
+      "size": 16,
+      "end_rva_exclusive": "0xb880",
+      "sha256": "07f74e0d8df01e3a43e4adc89a64b0c1e9c92a33bda390d01bca4accb327fb6c",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0xb87f",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0xb840": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb840",
+      "size": 35,
+      "end_rva_exclusive": "0xb863",
+      "sha256": "07912507e5fbc4ebaaa61ed9fb4ec06221601164ea8092b9740313f8afd8cfbc",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 7,
+      "final_instruction": {
+        "rva": "0xb862",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0xb880": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb880",
+      "size": 50,
+      "end_rva_exclusive": "0xb8b2",
+      "sha256": "b890d113710e54184d9b505fe9c2a80214ec58f7980ebc2700e16f86bc7a8063",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 12,
+      "final_instruction": {
+        "rva": "0xb8b1",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0xb8c0": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb8c0",
+      "size": 40,
+      "end_rva_exclusive": "0xb8e8",
+      "sha256": "4ef9335b44c447dbaa222b53ab6a85a2b8a0bf49ac83d34eb87644162c05378d",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 10,
+      "final_instruction": {
+        "rva": "0xb8e7",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0xb740": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb740",
+      "size": 202,
+      "end_rva_exclusive": "0xb80a",
+      "sha256": "f745b08e23d8f718c7e269b2642a32a2ea852a1aa86c88dd774df9f555158f2c",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 50,
+      "final_instruction": {
+        "rva": "0xb809",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0xb970": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb970",
+      "size": 20,
+      "end_rva_exclusive": "0xb984",
+      "sha256": "2526cc71c8d43572f1aabfacc70678e699908b02a13cf0b72f832b1e4062d252",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0xb983",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0xb990": {
+      "module": "HERCULES.EXE",
+      "rva": "0xb990",
+      "size": 10,
+      "end_rva_exclusive": "0xb99a",
+      "sha256": "c44e898f7d175fbc52e1761ebbf409c20d9579c27174ca44a631d31909e8c68a",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 3,
+      "final_instruction": {
+        "rva": "0xb999",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0xbb00": {
+      "module": "HERCULES.EXE",
+      "rva": "0xbb00",
+      "size": 300,
+      "end_rva_exclusive": "0xbc2c",
+      "sha256": "eb77c95173af56f9ae8bb0646959e66ef24bed75a7122545b18169d30ab79217",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 93,
+      "final_instruction": {
+        "rva": "0xbc2b",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0xbc30": {
+      "module": "HERCULES.EXE",
+      "rva": "0xbc30",
+      "size": 159,
+      "end_rva_exclusive": "0xbccf",
+      "sha256": "8cf8663405ada692c0a993543b4dc1af1681774963575c3cd50c0364b161d040",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 50,
+      "final_instruction": {
+        "rva": "0xbcce",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "HERCULES.EXE+0x37480": {
+      "module": "HERCULES.EXE",
+      "rva": "0x37480",
+      "size": 8192,
+      "end_rva_exclusive": "0x39480",
+      "sha256": "e62146d85a8a12fad1c8982008754fa515be2e521a982f65d991ed19e64a2737",
+      "content_kind": "data",
+      "boundary": "exact data interval",
+      "byte_coverage": "all bytes in [rva, rva+size)"
+    },
+    "ENG3.DLL+0x35010": {
+      "module": "ENG3.DLL",
+      "rva": "0x35010",
+      "size": 24,
+      "end_rva_exclusive": "0x35028",
+      "sha256": "22545ddc623f92f362d7b73001d2a6c293e03292253b20ee8be8bd970f742e73",
+      "content_kind": "data",
+      "boundary": "exact data interval",
+      "byte_coverage": "all bytes in [rva, rva+size)"
+    },
+    "ENG3.DLL+0x24770": {
+      "module": "ENG3.DLL",
+      "rva": "0x24770",
+      "size": 97,
+      "end_rva_exclusive": "0x247d1",
+      "sha256": "5c0953eac674c686ec00e387a1bc196b4f84865a8df3f1d6b770f805b4d04f27",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 31,
+      "final_instruction": {
+        "rva": "0x247d0",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "ENG3.DLL+0x22e40": {
+      "module": "ENG3.DLL",
+      "rva": "0x22e40",
+      "size": 190,
+      "end_rva_exclusive": "0x22efe",
+      "sha256": "02f8a482d847ad9a5e2c09004c6620c7e3bec0c6a60ab9747e9646a419fafd59",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 72,
+      "final_instruction": {
+        "rva": "0x22efd",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "ENG3.DLL+0x8da0": {
+      "module": "ENG3.DLL",
+      "rva": "0x8da0",
+      "size": 653,
+      "end_rva_exclusive": "0x902d",
+      "sha256": "0996e678d14d7404ea0f35e928bacf3956eb387bfd4416171e3e86776f84c057",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 210,
+      "final_instruction": {
+        "rva": "0x902c",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "ENG3.DLL+0x231a0": {
+      "module": "ENG3.DLL",
+      "rva": "0x231a0",
+      "size": 659,
+      "end_rva_exclusive": "0x23433",
+      "sha256": "9ab5bed4f7535a97f69661b394b86fd851fbf8c631a873705f1c3a7c89567c96",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 202,
+      "final_instruction": {
+        "rva": "0x23432",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "ENG3.DLL+0x90e0": {
+      "module": "ENG3.DLL",
+      "rva": "0x90e0",
+      "size": 826,
+      "end_rva_exclusive": "0x941a",
+      "sha256": "6c80e0f1c30c78c006c77e9b9cb8cb527d64a4fcb7cb9398b9d34667c9441373",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 261,
+      "final_instruction": {
+        "rva": "0x9419",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "ENG3.DLL+0x1fca0": {
+      "module": "ENG3.DLL",
+      "rva": "0x1fca0",
+      "size": 15,
+      "end_rva_exclusive": "0x1fcaf",
+      "sha256": "ee6fddcba7224cafa291397c8a3ada0fd1ff8ef20b9cca5e9ea3a6c7ded280fb",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0x1fcae",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "ENG3.DLL+0x1fcb0": {
+      "module": "ENG3.DLL",
+      "rva": "0x1fcb0",
+      "size": 25,
+      "end_rva_exclusive": "0x1fcc9",
+      "sha256": "ac93c2aa332b71540c72969fba10d618d07a35ac71506a31f24e4972e04825c1",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 9,
+      "final_instruction": {
+        "rva": "0x1fcc8",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "ENG3.DLL+0x1fd00": {
+      "module": "ENG3.DLL",
+      "rva": "0x1fd00",
+      "size": 6,
+      "end_rva_exclusive": "0x1fd06",
+      "sha256": "11f370d92cc7151d75bd2d3788180bcf296810f1dd23836c264c36db31f1c12d",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 1,
+      "final_instruction": {
+        "rva": "0x1fd00",
+        "mnemonic": "jmp",
+        "operands": "dword ptr [0x10040948]"
+      }
+    },
+    "ENG3.DLL+0x1fd10": {
+      "module": "ENG3.DLL",
+      "rva": "0x1fd10",
+      "size": 6,
+      "end_rva_exclusive": "0x1fd16",
+      "sha256": "64198aecbe37889c02462583705c3588c78414a68b48fdce111104d4bed521d6",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 1,
+      "final_instruction": {
+        "rva": "0x1fd10",
+        "mnemonic": "jmp",
+        "operands": "dword ptr [0x1004094c]"
+      }
+    },
+    "ENG3.DLL+0x1fd20": {
+      "module": "ENG3.DLL",
+      "rva": "0x1fd20",
+      "size": 15,
+      "end_rva_exclusive": "0x1fd2f",
+      "sha256": "b559bb2957dc01e24ab7e7a8e58421878facaf08b8fa6a727728dedc4fb52604",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0x1fd2e",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "ENG3.DLL+0x1fd40": {
+      "module": "ENG3.DLL",
+      "rva": "0x1fd40",
+      "size": 15,
+      "end_rva_exclusive": "0x1fd4f",
+      "sha256": "456888dffd444a6d318dc74598839896c19f5a8ee4b93dbc15437d8e25c90252",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0x1fd4e",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "ENG3.DLL+0x1fd50": {
+      "module": "ENG3.DLL",
+      "rva": "0x1fd50",
+      "size": 15,
+      "end_rva_exclusive": "0x1fd5f",
+      "sha256": "25ae71ee59e36c0a536aec0c019e810bfdfa6dab0729b1cb97c6a733ef8cda2a",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0x1fd5e",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "ENG3.DLL+0x1fd80": {
+      "module": "ENG3.DLL",
+      "rva": "0x1fd80",
+      "size": 15,
+      "end_rva_exclusive": "0x1fd8f",
+      "sha256": "d8ceea8c3db0d736e2601fb6502f57f9161786534dd7d7457e3a678e360e3b3f",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0x1fd8e",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "ENG3.DLL+0x1fd90": {
+      "module": "ENG3.DLL",
+      "rva": "0x1fd90",
+      "size": 15,
+      "end_rva_exclusive": "0x1fd9f",
+      "sha256": "e472ffb2e106698c7dd06615c284851e0ffe1c8bcd177905abedef989c5c60d2",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0x1fd9e",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "ENG3.DLL+0x1fdd0": {
+      "module": "ENG3.DLL",
+      "rva": "0x1fdd0",
+      "size": 15,
+      "end_rva_exclusive": "0x1fddf",
+      "sha256": "2769c9935c5b55efed131e9b1e5c17fbbc53dd0133209baaffdfba50da5b9675",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0x1fdde",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "ENG3.DLL+0x1fff0": {
+      "module": "ENG3.DLL",
+      "rva": "0x1fff0",
+      "size": 20,
+      "end_rva_exclusive": "0x20004",
+      "sha256": "732321acbb3d747239a2956a7ef2c46a12806611a40d8d861c77b97e2e84ec3a",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 7,
+      "final_instruction": {
+        "rva": "0x20003",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "ENG3.DLL+0x20010": {
+      "module": "ENG3.DLL",
+      "rva": "0x20010",
+      "size": 15,
+      "end_rva_exclusive": "0x2001f",
+      "sha256": "67aa4e51772e9ad59532733edbe54a684051ce122418311439f6d9703607fb6b",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0x2001e",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0x220d0": {
+      "module": "TITLE.DLL",
+      "rva": "0x220d0",
+      "size": 32,
+      "end_rva_exclusive": "0x220f0",
+      "sha256": "415195e248ded9aefc3bba1701c680ed3f995fb163b29400793362439889d23c",
+      "content_kind": "data",
+      "boundary": "exact data interval",
+      "byte_coverage": "all bytes in [rva, rva+size)"
+    },
+    "TITLE.DLL+0x181e0": {
+      "module": "TITLE.DLL",
+      "rva": "0x181e0",
+      "size": 732,
+      "end_rva_exclusive": "0x184bc",
+      "sha256": "dbfacf27b0299c14ddbf9782db11e22d3df9ed5a93eedda41a22fac6243556ca",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 227,
+      "final_instruction": {
+        "rva": "0x184bb",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0x3d10": {
+      "module": "TITLE.DLL",
+      "rva": "0x3d10",
+      "size": 144,
+      "end_rva_exclusive": "0x3da0",
+      "sha256": "50ea3d8e83e7cf036aed42effa8c7946ad65c9388cfa673ae08686af449ea7d3",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 67,
+      "final_instruction": {
+        "rva": "0x3d9f",
+        "mnemonic": "nop",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0x3420": {
+      "module": "TITLE.DLL",
+      "rva": "0x3420",
+      "size": 800,
+      "end_rva_exclusive": "0x3740",
+      "sha256": "ecb6f0004802c06c0ce613c1bb02b0d54286ff9acc510c34f0fca87c7e5d1a21",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 255,
+      "final_instruction": {
+        "rva": "0x373f",
+        "mnemonic": "nop",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0x19470": {
+      "module": "TITLE.DLL",
+      "rva": "0x19470",
+      "size": 97,
+      "end_rva_exclusive": "0x194d1",
+      "sha256": "267a98ffa76e53624b64815632c188d1c6a59e93fa05dcb19dcd11489aa31275",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 31,
+      "final_instruction": {
+        "rva": "0x194d0",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0x196f0": {
+      "module": "TITLE.DLL",
+      "rva": "0x196f0",
+      "size": 241,
+      "end_rva_exclusive": "0x197e1",
+      "sha256": "12f9af177b988e6c36876e47acf56e2943e9e6165cafafe5626921a59c48ee3b",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 72,
+      "final_instruction": {
+        "rva": "0x197e0",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0x196c0": {
+      "module": "TITLE.DLL",
+      "rva": "0x196c0",
+      "size": 39,
+      "end_rva_exclusive": "0x196e7",
+      "sha256": "ae1b158472f8c90e9dfbbd2ab3211e04068b29a6c10c3df1c5f20b13b1fb6f0c",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 10,
+      "final_instruction": {
+        "rva": "0x196e6",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0x260e0": {
+      "module": "TITLE.DLL",
+      "rva": "0x260e0",
+      "size": 18,
+      "end_rva_exclusive": "0x260f2",
+      "sha256": "ef89c7fdfa21c3c631385f7651f1db24dcc83c83e4cf00964acd509dd1ff949d",
+      "content_kind": "data",
+      "boundary": "exact data interval",
+      "byte_coverage": "all bytes in [rva, rva+size)"
+    },
+    "TITLE.DLL+0xc760": {
+      "module": "TITLE.DLL",
+      "rva": "0xc760",
+      "size": 15,
+      "end_rva_exclusive": "0xc76f",
+      "sha256": "9f6c01b24c77c7a68bec34c1e425876906891b381f746ae27cf672650098f6be",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0xc76e",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0xc770": {
+      "module": "TITLE.DLL",
+      "rva": "0xc770",
+      "size": 25,
+      "end_rva_exclusive": "0xc789",
+      "sha256": "b0a9549b5b845284ef45d755734549d22d175969332d71d58108f38e3b72db1e",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 9,
+      "final_instruction": {
+        "rva": "0xc788",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0xc790": {
+      "module": "TITLE.DLL",
+      "rva": "0xc790",
+      "size": 6,
+      "end_rva_exclusive": "0xc796",
+      "sha256": "5676d8b528153c04bb8608e47329dde37e857dd16ccb6905ce0d95638ccb40ce",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 1,
+      "final_instruction": {
+        "rva": "0xc790",
+        "mnemonic": "jmp",
+        "operands": "dword ptr [0x1002bcdc]"
+      }
+    },
+    "TITLE.DLL+0xc7b0": {
+      "module": "TITLE.DLL",
+      "rva": "0xc7b0",
+      "size": 6,
+      "end_rva_exclusive": "0xc7b6",
+      "sha256": "0e5f1be91b03f941ddb414b6a9b8f77ee4d485b91a936ee026b0e2074c951dbf",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 1,
+      "final_instruction": {
+        "rva": "0xc7b0",
+        "mnemonic": "jmp",
+        "operands": "dword ptr [0x1002bce8]"
+      }
+    },
+    "TITLE.DLL+0xc7c0": {
+      "module": "TITLE.DLL",
+      "rva": "0xc7c0",
+      "size": 6,
+      "end_rva_exclusive": "0xc7c6",
+      "sha256": "c8145068ee02f0f8660cea50c1015e9531db0b2eece33f7acae75cce54cbea09",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 1,
+      "final_instruction": {
+        "rva": "0xc7c0",
+        "mnemonic": "jmp",
+        "operands": "dword ptr [0x1002bcec]"
+      }
+    },
+    "TITLE.DLL+0xc7d0": {
+      "module": "TITLE.DLL",
+      "rva": "0xc7d0",
+      "size": 15,
+      "end_rva_exclusive": "0xc7df",
+      "sha256": "cba845a33d966176a5a0b1007c0a84fd33d83cc01e5148019b08e0a29bae8c59",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0xc7de",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0xc7e0": {
+      "module": "TITLE.DLL",
+      "rva": "0xc7e0",
+      "size": 15,
+      "end_rva_exclusive": "0xc7ef",
+      "sha256": "4a2232ea329767e658953e591f0028340518f4b4e7b63950af123c37c5c0e3d6",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0xc7ee",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0xc7f0": {
+      "module": "TITLE.DLL",
+      "rva": "0xc7f0",
+      "size": 15,
+      "end_rva_exclusive": "0xc7ff",
+      "sha256": "9c1a2b4e8d068e67698938bae7f1374bbe3954882bafb76a03b1a0a91ba2bfb5",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0xc7fe",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0xc810": {
+      "module": "TITLE.DLL",
+      "rva": "0xc810",
+      "size": 15,
+      "end_rva_exclusive": "0xc81f",
+      "sha256": "50c9e23aff25f0798006c4c1cb8ef43f7bcd008952b91e99bf52f6a5651d6a27",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0xc81e",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0xc820": {
+      "module": "TITLE.DLL",
+      "rva": "0xc820",
+      "size": 15,
+      "end_rva_exclusive": "0xc82f",
+      "sha256": "85463fae628ad6a5c62dd4ce84832500d2b1bdda0314125964e58505a30112ed",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0xc82e",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0xc850": {
+      "module": "TITLE.DLL",
+      "rva": "0xc850",
+      "size": 15,
+      "end_rva_exclusive": "0xc85f",
+      "sha256": "7e30e2635495c4f49476230a1d1e5d230cfc32421b0f9b50ebe1cec6d576134c",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0xc85e",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0xca40": {
+      "module": "TITLE.DLL",
+      "rva": "0xca40",
+      "size": 20,
+      "end_rva_exclusive": "0xca54",
+      "sha256": "260bddc2c08a348e284bc688aa4523f152921d735a79bbf9093417cc0d1c8bc7",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 7,
+      "final_instruction": {
+        "rva": "0xca53",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0xca60": {
+      "module": "TITLE.DLL",
+      "rva": "0xca60",
+      "size": 20,
+      "end_rva_exclusive": "0xca74",
+      "sha256": "a755c1ada10725a5bc6ff96e767098c770076d3d895dff987bcb1b9df06bae0d",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 7,
+      "final_instruction": {
+        "rva": "0xca73",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0xcb10": {
+      "module": "TITLE.DLL",
+      "rva": "0xcb10",
+      "size": 20,
+      "end_rva_exclusive": "0xcb24",
+      "sha256": "e94e76a957d710546a39396291f980e047c38d5999edb94ea2ae9c42bbc9864f",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 7,
+      "final_instruction": {
+        "rva": "0xcb23",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    },
+    "TITLE.DLL+0xcb30": {
+      "module": "TITLE.DLL",
+      "rva": "0xcb30",
+      "size": 15,
+      "end_rva_exclusive": "0xcb3f",
+      "sha256": "146b139b7080f56f46a44b739fe76799751faa015ca396d14c08060e601c4256",
+      "content_kind": "code",
+      "boundary": "complete decode",
+      "byte_coverage": "all bytes in [rva, rva+size)",
+      "instruction_count": 5,
+      "final_instruction": {
+        "rva": "0xcb3e",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    }
+  },
+  "copied_table_wrappers": {
+    "ENG3.DLL:slot101": {
+      "wrapper_rva": "0x1fca0",
+      "size": 15,
+      "sha256": "ee6fddcba7224cafa291397c8a3ada0fd1ff8ef20b9cca5e9ea3a6c7ded280fb",
+      "copied_table_base_rva": "0x407a0",
+      "cell_va": "0x10040934",
+      "host_target_rva": "0xb6f0",
+      "transfer_sites": [
+        {
+          "rva": "0x1fca5",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x10040934]",
+          "instruction_sha256": "7c71d5628c4ac843351b97a93328df630a87a4a5d990d1aef82a0f60d3206ebf"
+        }
+      ]
+    },
+    "ENG3.DLL:slot102": {
+      "wrapper_rva": "0x1fcb0",
+      "size": 25,
+      "sha256": "ac93c2aa332b71540c72969fba10d618d07a35ac71506a31f24e4972e04825c1",
+      "copied_table_base_rva": "0x407a0",
+      "cell_va": "0x10040938",
+      "host_target_rva": "0xb430",
+      "transfer_sites": [
+        {
+          "rva": "0x1fcbf",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x10040938]",
+          "instruction_sha256": "5f8ad6b3e4737a49b59dac6bd741aaebba53dce35eb66541ebd8f600e9416031"
+        }
+      ]
+    },
+    "ENG3.DLL:slot106": {
+      "wrapper_rva": "0x1fd00",
+      "size": 6,
+      "sha256": "11f370d92cc7151d75bd2d3788180bcf296810f1dd23836c264c36db31f1c12d",
+      "copied_table_base_rva": "0x407a0",
+      "cell_va": "0x10040948",
+      "host_target_rva": "0xb920",
+      "transfer_sites": [
+        {
+          "rva": "0x1fd00",
+          "mnemonic": "jmp",
+          "operand": "dword ptr [0x10040948]",
+          "instruction_sha256": "11f370d92cc7151d75bd2d3788180bcf296810f1dd23836c264c36db31f1c12d"
+        }
+      ]
+    },
+    "ENG3.DLL:slot107": {
+      "wrapper_rva": "0x1fd10",
+      "size": 6,
+      "sha256": "64198aecbe37889c02462583705c3588c78414a68b48fdce111104d4bed521d6",
+      "copied_table_base_rva": "0x407a0",
+      "cell_va": "0x1004094c",
+      "host_target_rva": "0xb320",
+      "transfer_sites": [
+        {
+          "rva": "0x1fd10",
+          "mnemonic": "jmp",
+          "operand": "dword ptr [0x1004094c]",
+          "instruction_sha256": "64198aecbe37889c02462583705c3588c78414a68b48fdce111104d4bed521d6"
+        }
+      ]
+    },
+    "ENG3.DLL:slot108": {
+      "wrapper_rva": "0x1fd20",
+      "size": 15,
+      "sha256": "b559bb2957dc01e24ab7e7a8e58421878facaf08b8fa6a727728dedc4fb52604",
+      "copied_table_base_rva": "0x407a0",
+      "cell_va": "0x10040950",
+      "host_target_rva": "0xb880",
+      "transfer_sites": [
+        {
+          "rva": "0x1fd25",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x10040950]",
+          "instruction_sha256": "fb40b5af0eb969e2741655fc08d1bf6eddbf00078dacb1233525a184422a8a66"
+        }
+      ]
+    },
+    "ENG3.DLL:slot110": {
+      "wrapper_rva": "0x1fd40",
+      "size": 15,
+      "sha256": "456888dffd444a6d318dc74598839896c19f5a8ee4b93dbc15437d8e25c90252",
+      "copied_table_base_rva": "0x407a0",
+      "cell_va": "0x10040958",
+      "host_target_rva": "0xb8c0",
+      "transfer_sites": [
+        {
+          "rva": "0x1fd45",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x10040958]",
+          "instruction_sha256": "4eef9fb25382768a1d30ce8a39260f9b25980c70ef4b92833c964050974564f0"
+        }
+      ]
+    },
+    "ENG3.DLL:slot111": {
+      "wrapper_rva": "0x1fd50",
+      "size": 15,
+      "sha256": "25ae71ee59e36c0a536aec0c019e810bfdfa6dab0729b1cb97c6a733ef8cda2a",
+      "copied_table_base_rva": "0x407a0",
+      "cell_va": "0x1004095c",
+      "host_target_rva": "0xb2f0",
+      "transfer_sites": [
+        {
+          "rva": "0x1fd55",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x1004095c]",
+          "instruction_sha256": "ae389540bac4164cb7155b8b172f8f8bd27bc7d1f9093e9974ff0f4849159c1f"
+        }
+      ]
+    },
+    "ENG3.DLL:slot114": {
+      "wrapper_rva": "0x1fd80",
+      "size": 15,
+      "sha256": "d8ceea8c3db0d736e2601fb6502f57f9161786534dd7d7457e3a678e360e3b3f",
+      "copied_table_base_rva": "0x407a0",
+      "cell_va": "0x10040968",
+      "host_target_rva": "0xb720",
+      "transfer_sites": [
+        {
+          "rva": "0x1fd85",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x10040968]",
+          "instruction_sha256": "fef7549c867386eded30cb35eef5f8a34e60aa4fd61fac641cb51b400b55600f"
+        }
+      ]
+    },
+    "ENG3.DLL:slot117": {
+      "wrapper_rva": "0x1fd90",
+      "size": 15,
+      "sha256": "e472ffb2e106698c7dd06615c284851e0ffe1c8bcd177905abedef989c5c60d2",
+      "copied_table_base_rva": "0x407a0",
+      "cell_va": "0x10040974",
+      "host_target_rva": "0xb5c0",
+      "transfer_sites": [
+        {
+          "rva": "0x1fd95",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x10040974]",
+          "instruction_sha256": "760bf2a92d4de63aa77490dbf5fbb1885b06267a29e8f26462a644ba4323f87d"
+        }
+      ]
+    },
+    "ENG3.DLL:slot121": {
+      "wrapper_rva": "0x1fdd0",
+      "size": 15,
+      "sha256": "2769c9935c5b55efed131e9b1e5c17fbbc53dd0133209baaffdfba50da5b9675",
+      "copied_table_base_rva": "0x407a0",
+      "cell_va": "0x10040984",
+      "host_target_rva": "0xb870",
+      "transfer_sites": [
+        {
+          "rva": "0x1fdd5",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x10040984]",
+          "instruction_sha256": "bc216360c984c7e32ee1aafde25fb576c4a2d4d58a202fd6deeb6f4d93dec3af"
+        }
+      ]
+    },
+    "ENG3.DLL:slot174": {
+      "wrapper_rva": "0x1fff0",
+      "size": 20,
+      "sha256": "732321acbb3d747239a2956a7ef2c46a12806611a40d8d861c77b97e2e84ec3a",
+      "copied_table_base_rva": "0x407a0",
+      "cell_va": "0x10040a58",
+      "host_target_rva": "0xb970",
+      "transfer_sites": [
+        {
+          "rva": "0x1fffa",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x10040a58]",
+          "instruction_sha256": "b56e756970b919efd873c392c6a629331ce47ebefe0f1b21b587864104705f18"
+        }
+      ]
+    },
+    "ENG3.DLL:slot175": {
+      "wrapper_rva": "0x20010",
+      "size": 15,
+      "sha256": "67aa4e51772e9ad59532733edbe54a684051ce122418311439f6d9703607fb6b",
+      "copied_table_base_rva": "0x407a0",
+      "cell_va": "0x10040a5c",
+      "host_target_rva": "0xb990",
+      "transfer_sites": [
+        {
+          "rva": "0x20015",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x10040a5c]",
+          "instruction_sha256": "5fc2d132be5b8931060429599c8a195478ee7ef3f432cd94c77774b615044d10"
+        }
+      ]
+    },
+    "TITLE.DLL:slot101": {
+      "wrapper_rva": "0xc760",
+      "size": 15,
+      "sha256": "9f6c01b24c77c7a68bec34c1e425876906891b381f746ae27cf672650098f6be",
+      "copied_table_base_rva": "0x2bb40",
+      "cell_va": "0x1002bcd4",
+      "host_target_rva": "0xb6f0",
+      "transfer_sites": [
+        {
+          "rva": "0xc765",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x1002bcd4]",
+          "instruction_sha256": "9a672fe108175eb0bbddfe040d4bc52e5e005ebb7bf9ca42a36a87b1412af09b"
+        }
+      ]
+    },
+    "TITLE.DLL:slot102": {
+      "wrapper_rva": "0xc770",
+      "size": 25,
+      "sha256": "b0a9549b5b845284ef45d755734549d22d175969332d71d58108f38e3b72db1e",
+      "copied_table_base_rva": "0x2bb40",
+      "cell_va": "0x1002bcd8",
+      "host_target_rva": "0xb430",
+      "transfer_sites": [
+        {
+          "rva": "0xc77f",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x1002bcd8]",
+          "instruction_sha256": "ac60376ea2ab03416cdbfd8d04f96e916b65b6f7e088e72717317e504583d494"
+        }
+      ]
+    },
+    "TITLE.DLL:slot103": {
+      "wrapper_rva": "0xc790",
+      "size": 6,
+      "sha256": "5676d8b528153c04bb8608e47329dde37e857dd16ccb6905ce0d95638ccb40ce",
+      "copied_table_base_rva": "0x2bb40",
+      "cell_va": "0x1002bcdc",
+      "host_target_rva": "0xb840",
+      "transfer_sites": [
+        {
+          "rva": "0xc790",
+          "mnemonic": "jmp",
+          "operand": "dword ptr [0x1002bcdc]",
+          "instruction_sha256": "5676d8b528153c04bb8608e47329dde37e857dd16ccb6905ce0d95638ccb40ce"
+        }
+      ]
+    },
+    "TITLE.DLL:slot106": {
+      "wrapper_rva": "0xc7b0",
+      "size": 6,
+      "sha256": "0e5f1be91b03f941ddb414b6a9b8f77ee4d485b91a936ee026b0e2074c951dbf",
+      "copied_table_base_rva": "0x2bb40",
+      "cell_va": "0x1002bce8",
+      "host_target_rva": "0xb920",
+      "transfer_sites": [
+        {
+          "rva": "0xc7b0",
+          "mnemonic": "jmp",
+          "operand": "dword ptr [0x1002bce8]",
+          "instruction_sha256": "0e5f1be91b03f941ddb414b6a9b8f77ee4d485b91a936ee026b0e2074c951dbf"
+        }
+      ]
+    },
+    "TITLE.DLL:slot107": {
+      "wrapper_rva": "0xc7c0",
+      "size": 6,
+      "sha256": "c8145068ee02f0f8660cea50c1015e9531db0b2eece33f7acae75cce54cbea09",
+      "copied_table_base_rva": "0x2bb40",
+      "cell_va": "0x1002bcec",
+      "host_target_rva": "0xb320",
+      "transfer_sites": [
+        {
+          "rva": "0xc7c0",
+          "mnemonic": "jmp",
+          "operand": "dword ptr [0x1002bcec]",
+          "instruction_sha256": "c8145068ee02f0f8660cea50c1015e9531db0b2eece33f7acae75cce54cbea09"
+        }
+      ]
+    },
+    "TITLE.DLL:slot108": {
+      "wrapper_rva": "0xc7d0",
+      "size": 15,
+      "sha256": "cba845a33d966176a5a0b1007c0a84fd33d83cc01e5148019b08e0a29bae8c59",
+      "copied_table_base_rva": "0x2bb40",
+      "cell_va": "0x1002bcf0",
+      "host_target_rva": "0xb880",
+      "transfer_sites": [
+        {
+          "rva": "0xc7d5",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x1002bcf0]",
+          "instruction_sha256": "4cd0df0ce0ff56144d43fb3f8a17c37949e53c7cbabdbc804ab437f6cd77c851"
+        }
+      ]
+    },
+    "TITLE.DLL:slot110": {
+      "wrapper_rva": "0xc7e0",
+      "size": 15,
+      "sha256": "4a2232ea329767e658953e591f0028340518f4b4e7b63950af123c37c5c0e3d6",
+      "copied_table_base_rva": "0x2bb40",
+      "cell_va": "0x1002bcf8",
+      "host_target_rva": "0xb8c0",
+      "transfer_sites": [
+        {
+          "rva": "0xc7e5",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x1002bcf8]",
+          "instruction_sha256": "3a389e5adb68d629b7ca9fcb586f6639653b2171ee31479eb506c6f1d60467eb"
+        }
+      ]
+    },
+    "TITLE.DLL:slot111": {
+      "wrapper_rva": "0xc7f0",
+      "size": 15,
+      "sha256": "9c1a2b4e8d068e67698938bae7f1374bbe3954882bafb76a03b1a0a91ba2bfb5",
+      "copied_table_base_rva": "0x2bb40",
+      "cell_va": "0x1002bcfc",
+      "host_target_rva": "0xb2f0",
+      "transfer_sites": [
+        {
+          "rva": "0xc7f5",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x1002bcfc]",
+          "instruction_sha256": "b0a09ad556bb095954b51f13a24de18a5602854716a01710b42eab44b5db12a8"
+        }
+      ]
+    },
+    "TITLE.DLL:slot114": {
+      "wrapper_rva": "0xc810",
+      "size": 15,
+      "sha256": "50c9e23aff25f0798006c4c1cb8ef43f7bcd008952b91e99bf52f6a5651d6a27",
+      "copied_table_base_rva": "0x2bb40",
+      "cell_va": "0x1002bd08",
+      "host_target_rva": "0xb720",
+      "transfer_sites": [
+        {
+          "rva": "0xc815",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x1002bd08]",
+          "instruction_sha256": "41151763d7b1224897e1c5cc152e612dfefe25b1d73356265ac00c028b589434"
+        }
+      ]
+    },
+    "TITLE.DLL:slot117": {
+      "wrapper_rva": "0xc820",
+      "size": 15,
+      "sha256": "85463fae628ad6a5c62dd4ce84832500d2b1bdda0314125964e58505a30112ed",
+      "copied_table_base_rva": "0x2bb40",
+      "cell_va": "0x1002bd14",
+      "host_target_rva": "0xb5c0",
+      "transfer_sites": [
+        {
+          "rva": "0xc825",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x1002bd14]",
+          "instruction_sha256": "9e156dd8f37db9582f47e2f52f1b4a02a660a0ea7099270557ab364976699523"
+        }
+      ]
+    },
+    "TITLE.DLL:slot121": {
+      "wrapper_rva": "0xc850",
+      "size": 15,
+      "sha256": "7e30e2635495c4f49476230a1d1e5d230cfc32421b0f9b50ebe1cec6d576134c",
+      "copied_table_base_rva": "0x2bb40",
+      "cell_va": "0x1002bd24",
+      "host_target_rva": "0xb870",
+      "transfer_sites": [
+        {
+          "rva": "0xc855",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x1002bd24]",
+          "instruction_sha256": "ef91e7b02949b568728ddf9cdd2cedb82d73b33d9ce0d5d751298990eb93ee91"
+        }
+      ]
+    },
+    "TITLE.DLL:slot164": {
+      "wrapper_rva": "0xca40",
+      "size": 20,
+      "sha256": "260bddc2c08a348e284bc688aa4523f152921d735a79bbf9093417cc0d1c8bc7",
+      "copied_table_base_rva": "0x2bb40",
+      "cell_va": "0x1002bdd0",
+      "host_target_rva": "0xbb00",
+      "transfer_sites": [
+        {
+          "rva": "0xca4a",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x1002bdd0]",
+          "instruction_sha256": "b15df88bb694742205ab113daa4a0bbc83ac4f2b3b1002d618d34d036c6582da"
+        }
+      ]
+    },
+    "TITLE.DLL:slot165": {
+      "wrapper_rva": "0xca60",
+      "size": 20,
+      "sha256": "a755c1ada10725a5bc6ff96e767098c770076d3d895dff987bcb1b9df06bae0d",
+      "copied_table_base_rva": "0x2bb40",
+      "cell_va": "0x1002bdd4",
+      "host_target_rva": "0xbc30",
+      "transfer_sites": [
+        {
+          "rva": "0xca6a",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x1002bdd4]",
+          "instruction_sha256": "d66274f454ab6d65a8ef8cdae1f1025305a0487ced4197d92e81e3809e226f70"
+        }
+      ]
+    },
+    "TITLE.DLL:slot174": {
+      "wrapper_rva": "0xcb10",
+      "size": 20,
+      "sha256": "e94e76a957d710546a39396291f980e047c38d5999edb94ea2ae9c42bbc9864f",
+      "copied_table_base_rva": "0x2bb40",
+      "cell_va": "0x1002bdf8",
+      "host_target_rva": "0xb970",
+      "transfer_sites": [
+        {
+          "rva": "0xcb1a",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x1002bdf8]",
+          "instruction_sha256": "95f566e2e7389b109eda5e6621dd501617bf6fe54dbe361151f95ddc508fee6b"
+        }
+      ]
+    },
+    "TITLE.DLL:slot175": {
+      "wrapper_rva": "0xcb30",
+      "size": 15,
+      "sha256": "146b139b7080f56f46a44b739fe76799751faa015ca396d14c08060e601c4256",
+      "copied_table_base_rva": "0x2bb40",
+      "cell_va": "0x1002bdfc",
+      "host_target_rva": "0xb990",
+      "transfer_sites": [
+        {
+          "rva": "0xcb35",
+          "mnemonic": "call",
+          "operand": "dword ptr [0x1002bdfc]",
+          "instruction_sha256": "528abab0d0f31f7f17f4fa9c8ab0e9398e424a927f43747bcec365f5c614742e"
+        }
+      ]
+    }
+  },
+  "producer_callback_callsites": {
+    "ENG3.DLL": {
+      "102": {
+        "slot": 102,
+        "call_rva": "0x23380",
+        "call_bytes": "e82bc9ffff",
+        "wrapper_rva": "0x1fcb0",
+        "stack_arguments": 3,
+        "caller_cleanup": {
+          "rva": "0x23385",
+          "bytes": "83c40c",
+          "instruction": "add esp, 0xc"
+        }
+      },
+      "107": {
+        "slot": 107,
+        "call_rva": "0x23388",
+        "call_bytes": "e883c9ffff",
+        "wrapper_rva": "0x1fd10",
+        "stack_arguments": 0
+      },
+      "117": {
+        "slot": 117,
+        "call_rva": "0x233aa",
+        "call_bytes": "e8e1c9ffff",
+        "wrapper_rva": "0x1fd90",
+        "stack_arguments": 1,
+        "caller_cleanup": {
+          "rva": "0x233b4",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        }
+      },
+      "101": {
+        "slot": 101,
+        "call_rva": "0x233c1",
+        "call_bytes": "e8dac8ffff",
+        "wrapper_rva": "0x1fca0",
+        "stack_arguments": 1,
+        "caller_cleanup": {
+          "rva": "0x233c6",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        }
+      },
+      "106": {
+        "slot": 106,
+        "call_rva": "0x233c9",
+        "call_bytes": "e832c9ffff",
+        "wrapper_rva": "0x1fd00",
+        "stack_arguments": 0
+      },
+      "114": {
+        "slot": 114,
+        "call_rva": "0x2340a",
+        "call_bytes": "e871c9ffff",
+        "wrapper_rva": "0x1fd80",
+        "stack_arguments": 1,
+        "caller_cleanup": {
+          "rva": "0x23413",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        }
+      },
+      "121": {
+        "slot": 121,
+        "call_rva": "0x247bb",
+        "call_bytes": "e810b6ffff",
+        "wrapper_rva": "0x1fdd0",
+        "stack_arguments": 1,
+        "caller_cleanup": {
+          "rva": "0x247c0",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        }
+      }
+    },
+    "TITLE.DLL": {
+      "102": {
+        "slot": 102,
+        "call_rva": "0x183ec",
+        "call_bytes": "e87f43ffff",
+        "wrapper_rva": "0xc770",
+        "stack_arguments": 3,
+        "caller_cleanup": {
+          "rva": "0x183f1",
+          "bytes": "83c40c",
+          "instruction": "add esp, 0xc"
+        }
+      },
+      "107": {
+        "slot": 107,
+        "call_rva": "0x183f4",
+        "call_bytes": "e8c743ffff",
+        "wrapper_rva": "0xc7c0",
+        "stack_arguments": 0
+      },
+      "117": {
+        "slot": 117,
+        "call_rva": "0x1841c",
+        "call_bytes": "e8ff43ffff",
+        "wrapper_rva": "0xc820",
+        "stack_arguments": 1,
+        "caller_cleanup": {
+          "rva": "0x18426",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        }
+      },
+      "101": {
+        "slot": 101,
+        "call_rva": "0x18433",
+        "call_bytes": "e82843ffff",
+        "wrapper_rva": "0xc760",
+        "stack_arguments": 1,
+        "caller_cleanup": {
+          "rva": "0x18438",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        }
+      },
+      "106": {
+        "slot": 106,
+        "call_rva": "0x1843b",
+        "call_bytes": "e87043ffff",
+        "wrapper_rva": "0xc7b0",
+        "stack_arguments": 0
+      },
+      "114": {
+        "slot": 114,
+        "call_rva": "0x18479",
+        "call_bytes": "e89243ffff",
+        "wrapper_rva": "0xc810",
+        "stack_arguments": 1,
+        "caller_cleanup": {
+          "rva": "0x18482",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        }
+      },
+      "121": {
+        "slot": 121,
+        "call_rva": "0x194bb",
+        "call_bytes": "e89033ffff",
+        "wrapper_rva": "0xc850",
+        "stack_arguments": 1,
+        "caller_cleanup": {
+          "rva": "0x194c0",
+          "bytes": "83c404",
+          "instruction": "add esp, 4"
+        }
+      }
+    }
+  },
+  "eng3": {
+    "selected_route": "Pinned ENG3 handler-table index 3 (0x22e40) -> 0x24770 projection/depth gate -> 0x8da0 shared renderer -> conditional 0x231a0 FT4 producer at 0x901d; handler index 1 reaches alternate 2D writer 0x90e0.",
+    "source_records": "0x231a0 prepares three local signed-WORD XYZ triplets, each passed by pointer through slot 102/B430; it prepares a fourth three-WORD triplet for slot 101/B6F0. The callback boundary proves the 3x signed-WORD layout; object/resource units and object identity remain unresolved. The separate 0x24770 helper reads three object DWORD fields, arithmetic-shifts each right 16, and narrows the result to WORDs before slot 101.",
+    "setup": "0x231a0 passes global pointer 0x100394b8 through slot 108/B880, which loads nine WORD coefficients into A8E75c..A8E76c. It then sends A8E71c/28/34 through slot 111/B2F0 to current context+0x78 and passes context+0x78 through slot 110/B8C0, which loads four translation DWORDs into A8E770..A8E77c; the fourth source DWORD is not written by B2F0 in this sequence. Center/focal writes via 174/175 are present elsewhere, not in 0x231a0.",
+    "projection_and_packet": "slot 102/B430 loads three signed-WORD XYZ triplets into host input scratch; slot 107/B320 transforms input triplet i into camera/screen lane i; slot 117/B5C0 pairs lane i to FT4 packet vertex i at offsets +08/+0a, +10/+12, +18/+1a. The fourth triplet uses slots 101/B6F0 -> 106/B920 -> 114/B720, with B720 writing to packet+0x20. The cursor is 0x10043164; producer stride is 0x28; it links through an OT-head pointer derived from current view 0x10041448.",
+    "visibility": "Handler 0x22e40 has a parent 0x24a80 reject path that sets object byte +0x1f bit 0x08. Per child, 0x24770 returns true only when the slot-121/B870 output word (camera Z arithmetic-shifted right 2) is greater than 0x40; only then does the path call 0xa410 and 0x8da0. 0x231a0 itself has additional flag/state gates. No claim that this is the only ENG3 cull/clip path.",
+    "alternate_2d": "Pinned ENG3 handler-table index 1 reaches 0x90e0, whose only direct call is local command/color helper 0x23b00; it writes FT4 coordinates from existing WORD fields/resource deltas without slots 101/106/114.",
+    "direct_host_calls_bypassing_table_in_checked_spans": []
+  },
+  "title": {
+    "selected_route": "Pinned TITLE mode table index 5 -> 0x181e0 FT4 producer; index 6 -> 0x03d10 direct-writer dispatcher, including the bounded 0x03420 2D route.",
+    "source_records": "0x181e0 assembles three local signed-WORD XYZ triplets from object/resource fields and passes their pointers through slot 102/B430; its fourth triplet goes through slot 101/B6F0. The callback boundary proves the 3x signed-WORD layout; object identity and coordinate unit are not inferred.",
+    "setup": "The selected writer conditionally calls 0x196f0 when 0x1002d328 is nonzero. Its 0xCA40 and 0xCA60 helpers are copied-table wrappers to slot 164 at HERC RVA 0xBB00 and slot 165 at 0xBC30; the former reads the 4096-WORD lookup table reached through HERC table cell 5 (RVA 0x37480), and the latter combines the local values with the pinned TITLE matrix at RVA 0x260E0. The result is passed through slot 108/B880 at 0xC7D0. The writer then tail-calls 0xC790, which is slot 103/B840: B840 copies current camera XYZ dwords into host translation cells. The selected callback and data dependencies are byte-pinned, but the source/meaning of the computed matrix and coordinate units remain unresolved. Slots 174/175 exist in TITLE wrappers at 0xCB10/0xCB30 but are not called by 0x181e0 itself.",
+    "projection_and_packet": "The selected producer uses slots 102/B430 -> 107/B320 -> 117/B5C0 for its first three signed-WORD XYZ triplets, then 101/B6F0 -> 106/B920 -> 114/B720 for its fourth. B5C0 pairs each transformed input lane to the matching FT4 packet vertex slot. Packet cursor is 0x1002df40, stride 0x28; order head derives from the current view at 0x1002cc04. Object identity and coordinate units remain unresolved.",
+    "visibility_and_clip": "The selected writer has a conditional matrix setup through 0x196f0, then copies current camera XYZ into translation via slot 103/B840. The bounded mode-5 producer does not call slot 104/B4B0. A separate TITLE mode-3 path calls 0x19470 on a child and accepts it only when camera Z>>2 > 0x40, then passes the same child pointer to dynamic mode dispatch. The 0x19470 output at child+0..+4 is a projection/depth gate; selected mode-5 packet construction consumes separately derived local geometry.",
+    "alternate_2d": "Mode 6 dispatch 0x03d10 selects among direct FT4 writers including 0x03420; that writer's only direct call is 0x189a0 and it writes 0x28-stride packets without 101/106/114 geometry calls. Its source positions are signed WORD fields at object+0x0c/+0x0e plus resource byte deltas.",
+    "direct_host_calls_bypassing_table_in_checked_spans": []
+  },
+  "cross_module_readiness": {
+    "ENG1": "Separate prior STATIC_OBSERVED baseline: reviewed point emitters at 0x2e600/0x2e6c0/0x2ed10 call slot 101/B6F0 -> 106/B920 -> 114/B720; this report only hash-checks ENG1 and cites its existing evidence, without transferring ENG1 producer or culling conclusions to ENG3/TITLE.",
+    "ENG3": "The bounded 3D FT4 route associates the global nine-WORD matrix, three signed-WORD XYZ triplets, output camera/screen lanes, fourth one-triplet projection, and 0x28-byte packet destination through copied-table callbacks. Each B320 input triplet maps through B5C0 to the corresponding packet vertex. The fourth translation dword remains unresolved.",
+    "TITLE": "Mode-5 3D FT4 route and mode-6 direct 2D route are statically established. The mode-5 writer conditionally seeds its matrix through a closed slot164/slot165 callback and lookup-table path, loads it via slot108/B880, then copies camera XYZ through slot103/B840. Its triplet-to-output-lane-to-packet-vertex association matches ENG3, while projection center/focal setup remains external to the selected writer.",
+    "common_reusable_facts": "Host callbacks B6F0/B920/B720 implement a signed WORD triplet input, matrix transform, perspective projection, and caller XY output. Camera Z is clamped to at least 1 in B740; B870 exposes Z>>2 as a WORD. This does not establish identical per-module source records or all producer routes."
+  },
+  "eng1_baseline": {
+    "proof_level": "STATIC_OBSERVED",
+    "evidence_path": "renderer_contract/evidence/geometry.json",
+    "evidence_sha256": "b495243cc32757e4f379bfb7b721b168fe6ba46ca908ed1dd763380c53b6aa33",
+    "producer_spans": {
+      "0x2df20": {
+        "rva": "0x2df20",
+        "size": 820,
+        "sha256": "1cf86d2415df74b7a8a8d7cfbea15be7322871063d447b2de920e5fedbf21213"
+      },
+      "0x2e3b0": {
+        "rva": "0x2e3b0",
+        "size": 429,
+        "sha256": "949614ed8bc2286f858ea9b4d8c28e17cb46526ff8e2e2e0d5bd7607de6beecf"
+      },
+      "0x2e600": {
+        "rva": "0x2e600",
+        "size": 105,
+        "sha256": "88980e057093d2680c43f2b8e4a8e6f5a66373304b3bc32eca51c6f03d949263"
+      },
+      "0x2e6c0": {
+        "rva": "0x2e6c0",
+        "size": 133,
+        "sha256": "73e62ddec9e50569cb5c56147b53eb7cf6fb0b6fb8e85b3d53a1a8b4ce8fb80c"
+      },
+      "0x2ed10": {
+        "rva": "0x2ed10",
+        "size": 357,
+        "sha256": "cd16e05b70e1d45690376e2507f411214609480ee0556aaa509feae793c2c709"
+      }
+    },
+    "comparison_limit": "The pre-existing ENG1 trace is a separate baseline. This audit does not infer ENG3 or TITLE source records, culling, or alternate producers from ENG1."
+  },
+  "callback_contracts": {
+    "transform_precision": {
+      "proof_level": "STATIC_OBSERVED",
+      "slot_106_B740_single_point": "The three signed-product terms accumulate with low-32-bit register wrap; the row sum is arithmetic-shifted right 12, translation is added, and the low WORD is sign-extended to a DWORD. The Z result is clamped to at least 1. This describes B740 only.",
+      "slot_107_B320_batch": "Separately, each batch row accumulates signed products in 32-bit registers, arithmetic-shifts the row sum right 12, adds its translation DWORD, then sign-extends the low WORD into the camera DWORD lane. No minimum-Z clamp appears in the checked B320 span; a zero Z skips its IDIV. This is a static description, not inferred from B740 or validated generally by the identity fixture.",
+      "fixture_limit": "The identity-matrix fixture checks its chosen sample and the vertex-to-lane-to-packet association; it cannot distinguish general arithmetic order, low-WORD narrowing, or clamp behavior.",
+      "source_coordinate_units": "unknown"
+    },
+    "batch_three_vertex": {
+      "slot_102_B430": {
+        "signature": "void __cdecl B430(const int16_t *v0_xyz, const int16_t *v1_xyz, const int16_t *v2_xyz)",
+        "input": "three pointer arguments in vertex order; each addresses 3 signed WORDs (X,Y,Z), 6 bytes per vertex"
+      },
+      "slot_107_B320": {
+        "signature": "void __cdecl B320(void)",
+        "camera_xyz_lanes": "Observed stores: [ESI] at B367, [ESI+0x0C] at B3A3, [ESI+0x18] at B3E1; ESI starts A8E71C and advances 4 at B403. Thus X/Y/Z signed DWORD lanes start at A8E71C/A8E728/A8E734, each with 4-byte lane stride.",
+        "screen_xy_lanes": "Observed stores: [ECX+0x32] at B406 and [ECX+0x36] at B422; ECX starts A8E70E and advances 2 at B414. Thus signed WORD X/Y lanes start at A8E740/A8E746, each with 2-byte lane stride."
+      },
+      "slot_117_B5C0": {
+        "signature": "void __cdecl B5C0(void *ft4_packet)",
+        "packet_xy": "copies lane i to FT4 vertex i at offsets +0x08/+0x0A, +0x10/+0x12, +0x18/+0x1A"
+      }
+    },
+    "single_vertex": {
+      "slot_101_B6F0": {
+        "signature": "void __cdecl B6F0(const int16_t *xyz)",
+        "input": "one signed WORD XYZ triplet; 6 bytes"
+      },
+      "slot_106_B920": {
+        "signature": "void __cdecl B920(void)",
+        "result": "signed DWORD camera XYZ plus signed WORD projected XY host globals"
+      },
+      "slot_114_B720": {
+        "signature": "void __cdecl B720(int16_t *screen_xy)",
+        "output": "two signed WORDs (4 bytes) to caller destination"
+      },
+      "slot_121_B870": {
+        "signature": "void __cdecl B870(uint16_t *depth)",
+        "output": "one WORD equal to camera Z arithmetic-shifted right two"
+      }
+    }
+  },
+  "bounded_fixture": {
+    "proof_level": "BOUNDED_EQUIVALENT",
+    "status": "BOUNDED_ORIGINAL_CALLBACK_FIXTURE_PASS",
+    "scope": "identity-matrix fixture against unchanged HERCULES.EXE callbacks only; no DLL execution, renderer, GPU, SDL, assets, or gameplay. It checks this sample and lane/packet association, not general B320/B740 arithmetic equivalence",
+    "unicorn": {
+      "engine": "Unicorn CPU emulator",
+      "unicorn_version": "2.1.4",
+      "unicorn_module_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\__init__.py",
+      "native_dll_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+      "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+      "dependency_origin": {
+        "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+        "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+        "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+      }
+    },
+    "mapped_original_sections": [
+      {
+        "name": "headers",
+        "va": "0x400000",
+        "size": 4096
+      },
+      {
+        "name": ".text",
+        "va": "0x401000",
+        "size": 184320
+      },
+      {
+        "name": ".rdata",
+        "va": "0x42e000",
+        "size": 28672
+      },
+      {
+        "name": ".data",
+        "va": "0x435000",
+        "size": 7798784
+      },
+      {
+        "name": ".idata",
+        "va": "0xba5000",
+        "size": 12288
+      },
+      {
+        "name": ".rsrc",
+        "va": "0xba8000",
+        "size": 20480
+      }
+    ],
+    "execution": {
+      "instruction_count": 338,
+      "unique_rvas": 200,
+      "executed_rva_ranges": [
+        [
+          "0xb320",
+          "0xb42f"
+        ],
+        [
+          "0xb430",
+          "0xb49a"
+        ],
+        [
+          "0xb5c0",
+          "0xb607"
+        ],
+        [
+          "0xb6f0",
+          "0xb714"
+        ],
+        [
+          "0xb720",
+          "0xb73a"
+        ],
+        [
+          "0xb740",
+          "0xb80a"
+        ],
+        [
+          "0xb870",
+          "0xb880"
+        ],
+        [
+          "0xb920",
+          "0xb96e"
+        ]
+      ]
+    },
+    "inputs": {
+      "source_signed_word_xyz_triplets": [
+        [
+          -20,
+          10,
+          0
+        ],
+        [
+          10,
+          20,
+          0
+        ],
+        [
+          30,
+          -15,
+          0
+        ]
+      ],
+      "matrix_words_9": [
+        4096,
+        0,
+        0,
+        0,
+        4096,
+        0,
+        0,
+        0,
+        4096
+      ],
+      "translation_dwords_4": [
+        0,
+        0,
+        1000,
+        0
+      ],
+      "focal_dword": 256,
+      "center_dwords": [
+        320,
+        240
+      ]
+    },
+    "bulk_three_record_route": {
+      "calls": [
+        "B430(slot 102)",
+        "B320(slot 107)",
+        "B5C0(slot 117)"
+      ],
+      "camera_xyz_dwords_by_input_triplet": [
+        [
+          -20,
+          10,
+          1000
+        ],
+        [
+          10,
+          20,
+          1000
+        ],
+        [
+          30,
+          -15,
+          1000
+        ]
+      ],
+      "screen_scratch_words_740_through_74a": [
+        "0x13a",
+        "0x142",
+        "0x147",
+        "0xf2",
+        "0xf5",
+        "0xec"
+      ],
+      "packet_xy_words_at_8_10_16_18_24_26": [
+        "0x13a",
+        "0xf2",
+        "0x142",
+        "0xf5",
+        "0x147",
+        "0xec"
+      ],
+      "native_copy_offsets_match": true,
+      "association": "B430 lays each pointer's signed WORD XYZ triplet at host scratch stride 6; B320 transforms input triplet i into camera/screen lane i; B5C0 pairs that lane into FT4 packet vertex slot i. The fixture confirms this with three distinct vectors under identity matrix plus Z translation. Mesh-object identity and coordinate units remain caller-specific."
+    },
+    "single_point_route": {
+      "calls": [
+        "B6F0(slot 101)",
+        "B920(slot 106, internally B740)",
+        "B720(slot 114)"
+      ],
+      "source_signed_word_xyz_triplet": [
+        -20,
+        10,
+        0
+      ],
+      "screen_xy_words": [
+        314,
+        242
+      ],
+      "camera_xyz_dwords": [
+        -20,
+        10,
+        1000
+      ],
+      "expected_screen_xy_words": [
+        314,
+        242
+      ],
+      "camera_depth_word_from_B870": 250
+    }
+  },
+  "limits": [
+    "Static PE observations plus a finite unchanged-original HERC callback fixture only.",
+    "The fixture does not execute ENG3.DLL or TITLE.DLL and does not test game/runtime callback publication.",
+    "No rasterizer/GPU/SDL, full-frame, asset parsing, original modification, source identity, or packet consumer behavior is claimed.",
+    "Source values and packet XY offsets are proven at the callback seam; no mesh-object identity, coordinate units, rasterized visibility, or complete-frame behavior is claimed.",
+    "Calls beyond the recorded spans and computed/global module aliases remain outside this audit."
+  ]
+}

@@ -1,13 +1,43 @@
 # Interception feasibility
 
-## Recommended boundary
+## Native-resolution extension
+
+The table clone remains the smallest shared host-service boundary. It is
+insufficient by itself for exact high-resolution ENG1 geometry association:
+point/XY callbacks do not expose selected face indices. The bounded producer
+fixture identifies pre-face observers at ENG1 `2E0F1` (GT4) and `2E27B`
+(FT4), joined only when packet emission is confirmed. Runtime observation
+of those instructions would be an additional future mechanism; no detour is
+implemented here and on-disk originals remain unchanged.
+
+ENG3 and TITLE independently use batch slots 102/107/117 before their
+fourth-point 101/106/114 calls. Their geometry cannot be captured through slot
+106 alone. Full native-resolution presentation also requires coordinated
+surface/GDI/palette/movie ownership. See [readiness](native_resolution.md),
+[association](eng1_geometry_association.md),
+[cross-module geometry](cross_module_geometry.md) and
+[presentation takeover](presentation_takeover.md).
+
+Texture coherence likewise cannot rely solely on replacing upload callbacks:
+A640 calls A710 directly, and AC60 reaches A8F0 directly. Startup 71A0 and
+resource 68C0/69A0 also change palette/LUT state. Either retain the original
+address-selected state as authoritative and read it at its native consumption
+boundary, or observe these actual writers. A private callback-only texture
+mirror is insufficient; a whole exclusive VRAM bank has not been proven.
+
+Thus the minimum supported architecture has a shared early callback clone,
+route-specific geometry provenance observers, and coordinated final-display
+ownership. The exact complete presentation replacement hook set is still
+unresolved. A local DDRAW module solves loading, not those other contracts.
+
+## Recommended shared boundary
 
 Use a persistent **250-word callback-table clone**, published through host
 pointer cell RVA 0x365A0 before the first cold PC_DLLEngineMain call. Preserve
 every unselected word, including shared data pointers. Each original engine
 copies the prefix once into its own storage; publishing later does not update
-an engine already initialized. This avoids runtime instruction detours and
-permits unchanged original EXE and engine files.
+an engine already initialized. This table interception avoids instruction detours for the selected host
+callbacks and permits unchanged original EXE and engine files.
 
 Begin the future renderer with a passive wrapper for slot 89 (+0x164): record
 the raw ordering-table stream synchronously and forward to original AC60.

@@ -10,6 +10,9 @@
 #define HERCULES_SLOT_CHAIN_INIT 81u
 #define HERCULES_SLOT_SUBMIT 89u
 #define HERCULES_SLOT_PRIMARY_CALLBACK_EXCHANGE 92u
+#define HERCULES_SLOT_POINT_INPUT 101u
+#define HERCULES_SLOT_PROJECT 106u
+#define HERCULES_SLOT_SCREEN_OUTPUT 114u
 #define HERCULES_SLOT_UPLOAD_RECT 129u
 #define HERCULES_SLOT_UPLOAD_PAGE 130u
 #define HERCULES_SLOT_MOVE_RECT 131u
@@ -48,7 +51,7 @@ extern "C" {
  * partial typed view remains calibration/engine_interface.h. */
 #define ENGINE_TABLE_WORD_COUNT ((renderer_u32)250u)
 #define ENGINE_TABLE_SIGNATURE ((renderer_u32)0x5ac00cacu)
-#define ENGINE_TABLE_MAX_REPLACEMENTS ((renderer_u32)9u)
+#define ENGINE_TABLE_MAX_REPLACEMENTS ((renderer_u32)12u)
 
 enum EngineTableCloneStatus {
     ENGINE_TABLE_CLONE_OK = 0,

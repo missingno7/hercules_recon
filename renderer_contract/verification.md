@@ -1,5 +1,34 @@
 # Verification boundaries
 
+## Current native-resolution checkpoint
+
+Fresh public-path verification passes 19 VC5 and 19 strict GCC C/C++ suites.
+The single-point C model and compiled observer pass 14 original-x86 cases /
+632 assertions. The new module audit checks 60 spans and 27 wrappers; its
+bounded identity fixture executes host callbacks only, not ENG3/TITLE.
+The screen audit checks 20 host spans and eight selected callback cells.
+Two controlled original camera calls execute 64 instructions without external
+calls; these are not two full simulation updates. Original ENG1 association
+has a separate producer receipt, with synthetic mesh inputs rather than a
+live scene or asset-based integration claim.
+
+The source-built presentation fixture passes synthetic ABI/recursion guards
+and a same-process system DirectDrawCreate/Release observation. It does not
+start Hercules, initialize an engine or own a display. Its first raw path
+failure and later cross-process metadata followup remain unchanged; the fresh
+same-process result is a distinct receipt. Earlier original-host pre-entry
+publication remains tied to its pinned historical helper revision.
+
+The append-only manifest records exact source, image/span and receipt hashes.
+`STATIC_OBSERVED`, `LAYOUT_VERIFIED`, `BOUNDED_EQUIVALENT` and live host
+observations remain distinct. No new `FUNCTION_MATCH` or recovery entry is
+created. Details: [projection](upstream_projection.md),
+[association](eng1_geometry_association.md),
+[module paths](cross_module_geometry.md), [writers](screen_ownership.md),
+[presentation](presentation_takeover.md), [temporal](temporal_state.md).
+
+## Historical fixtures and limits
+
 The contract starts from original PC instructions, not a shared reconstructed
 software-rasterizer model. Original-image hashes and bounded RVA span hashes
 are checked by tests/validate_originals.py. This catches changed inputs, not
@@ -27,7 +56,7 @@ AC20's existing strict FUNCTION_MATCH evidence is reused from recovery.json;
 this work does not promote functions or recompute recovery counts. Existing
 canonical source and strict evidence stay outside the renderer changes.
 
-Host loading, interception, GPU pixels and window coexistence are unobserved.
+Historical scope at this earlier checkpoint: host loading, interception, GPU pixels and window coexistence were unobserved. The later pre-entry publication proof is linked above; rendering/window coexistence remain unobserved.
 No successful game launch or rendering replacement is claimed. Native CPU
 emulation is distinct from HOST_INTEGRATION_OBSERVED.
 

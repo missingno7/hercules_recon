@@ -3,9 +3,15 @@
 This package establishes the original renderer boundary for a separate
 `hercules_renderer` project. It contains raw x86 interface views, checked packet
 decoding, bounded frame traversal, texture addressing and synthetic fixtures.
-It does not install hooks, implement a GPU renderer, or replace game modules.
+Diagnostic fixtures can publish a table clone in bounded probes. The package
+contains no GPU backend or replacement gameplay module.
 
-The narrowest shared boundary is callback **89 / +0x164**, host RVA
+The current investigation prioritizes upstream geometry and complete display
+ownership for true native-resolution output. [Native-resolution readiness](native_resolution.md)
+separates geometry, association, viewport, composition, presentation and temporal
+requirements from the existing screen-space and pixel-fidelity contracts.
+
+The narrowest shared final-packet boundary is callback **89 / +0x164**, host RVA
 **0xAC60**. ENG1, ENG3 and TITLE independently copy the same 250-DWORD host
 interface. A persistent data-only clone published through host pointer cell
 RVA `0x365a0` before the first possible engine dispatch is the smallest
@@ -40,6 +46,14 @@ not replace this complete contract.
 
 | File | Purpose |
 |---|---|
+| hercules_projection.h / .c | Fixed-width single-point reference, joined views and x86 callback signatures |
+| upstream_projection.md | Native arithmetic, passive observer, precision and alias limits |
+| eng1_geometry_association.md | Original producer vertex-to-packet fixtures and required face observers |
+| cross_module_geometry.md | Independent ENG3/TITLE batch and fourth-point paths |
+| screen_ownership.md | Visible writers versus texture/palette/surface ownership |
+| presentation_takeover.md | Forwarding diagnostic and remaining final-display ownership |
+| temporal_state.md | Native camera history and interpolation prerequisites |
+| native_resolution.md | Separate capability readiness and 4:3/widescreen limitations |
 | hercules_host_abi.h | Raw copied prefix, verified slot constants, selected clone helper |
 | hercules_packets.h | Observed wire layouts and checked packet decoder |
 | hercules_frame.h | Module-specific OT descriptors and bounded raw-address walker |
@@ -175,7 +189,7 @@ subsystem. These contracts are GPU API independent.
 original routes. [Upload producer domains](texture_producer_domains.md) recover
 the shared ENG1/ENG3 high-band startup rectangle and its exact native write range.
 
-Current verification passes 17 suites with VC5 and 17 with GCC. Bounded C
+Current verification passes 19 suites with VC5 and 19 with GCC. Bounded C
 replays match 1,029 D60C register transitions and 5,423 CC50/E680 transitions.
 Thirteen native texture fixtures verify the named row/address cases; ten
 surface cases and 26 dirty-latch cases cover their stated synthetic conditions.

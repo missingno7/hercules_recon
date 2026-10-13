@@ -3,6 +3,7 @@
 #endif
 #include "hercules_host_abi.h"
 #include "hercules_surface.h"
+#include "hercules_projection.h"
 #ifdef HERCULES_RENDERER_LIVE_X86
 typedef char callback_exchange_pointer_width[
     (sizeof(HerculesPrimaryCallbackExchange) == 4) ? 1 : -1];
@@ -12,6 +13,8 @@ typedef char host_unlock_service_pointer_width[
     (sizeof(HerculesHostSurfaceUnlockService) == 4) ? 1 : -1];
 typedef char host_present_service_pointer_width[
     (sizeof(HerculesHostSurfacePresentService) == 4) ? 1 : -1];
+typedef char host_projection_service_pointer_width[
+    (sizeof(HerculesProjectionSlot106Callback) == 4) ? 1 : -1];
 #endif
 
 #include <stdio.h>
@@ -58,12 +61,13 @@ int main(void)
     HerculesHostSurfaceViewSnapshot view;
     renderer_u32 source[ENGINE_TABLE_WORD_COUNT];
     renderer_u32 output[ENGINE_TABLE_WORD_COUNT];
-    renderer_u32 slots[10] = {89u, 129u, 130u, 131u, 143u, 148u, 81u,
-                              174u, 175u, 89u};
-    renderer_u32 values[10] = {0x11111111u, 0x22222222u, 0x33333333u,
+    renderer_u32 slots[13] = {89u, 129u, 130u, 131u, 143u, 148u, 81u,
+                              174u, 175u, 101u, 106u, 114u, 89u};
+    renderer_u32 values[13] = {0x11111111u, 0x22222222u, 0x33333333u,
                                0xaaaaaaaa, 0x44444444u, 0x55555555u,
                                0x66666666u, 0x77777777u, 0x88888888u,
-                               0x99999999u};
+                               0x99999999u, 0xbbbbbbbbu, 0xddddddddu,
+                               0xeeeeeeeeu};
     renderer_u32 i;
     int status;
 
@@ -83,13 +87,17 @@ int main(void)
 
     fill_source(source);
     fill_sentinel(output);
-    status = engine_table_clone_selected(source, output, slots, values, 9u);
+    if (HERCULES_SLOT_POINT_INPUT != 101u || HERCULES_SLOT_PROJECT != 106u ||
+        HERCULES_SLOT_SCREEN_OUTPUT != 114u ||
+        ENGINE_TABLE_MAX_REPLACEMENTS != 12u)
+        return 12;
+    status = engine_table_clone_selected(source, output, slots, values, 12u);
     if (status != ENGINE_TABLE_CLONE_OK)
         return 1;
     for (i = 0; i < ENGINE_TABLE_WORD_COUNT; ++i) {
         renderer_u32 expected = source[i];
         renderer_u32 j;
-        for (j = 0; j < 9u; ++j) {
+        for (j = 0; j < 12u; ++j) {
             if (slots[j] == i)
                 expected = values[j];
         }
@@ -122,7 +130,7 @@ int main(void)
                                               source, slots, values, 2u))
         return 7;
     if (!expect_failure_without_output_change(ENGINE_TABLE_CLONE_TOO_MANY_REPLACEMENTS,
-                                              source, slots, values, 10u))
+                                              source, slots, values, 13u))
         return 8;
     if (!expect_failure_without_output_change(ENGINE_TABLE_CLONE_INVALID_ARGUMENT,
                                               source, 0, values, 1u))

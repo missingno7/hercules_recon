@@ -1,5 +1,12 @@
 # Hercules PC presentation boundary
 
+The initial loading discussion below is historical static evidence. The later
+[pre-entry observation](preentry_publication.md) verifies sibling DDRAW selection
+and table publication before entry for its pinned helper revision. The new
+[forwarding diagnostic](presentation_takeover.md) verifies one real-system API
+create/release in a source-built process, without original Hercules startup.
+Neither establishes final-display ownership or renderer integration.
+
 ## Finding
 
 The renderer seam is the selected callback-table clone, rather than DirectDraw

@@ -1,4 +1,25 @@
-# Remaining verification boundaries
+# Native-resolution blocker ledger
+
+Read [native-resolution readiness](native_resolution.md) for the evidence
+boundary. These blockers are capability-specific; optional enhancements do
+not block a passive 320x240 capture experiment.
+
+| Class | Resolved foundation | Next material blocker |
+|---|---|---|
+| A. Loader and interception | Original pre-entry DDRAW selection/clone publication; all-module prefix copies; new source-built forwarder diagnostic | Original-process transparent forwarding and engine first-copy/lifetime observation in a write-isolated environment |
+| B. Geometry availability | WORD inputs and narrowed camera DWORD outputs; bounded single-point equations and observer | Batch arithmetic discriminators, upstream input units and unprojected/cull-rejected geometry |
+| C. Vertex/primitive association | Four original ENG1 producer fixtures, repeated/reordered vertices and culled prefix; exact FT4/GT4 observer positions | Runtime producer observation, production object identity/material provenance and corresponding ENG3/TITLE association |
+| D. Viewport and precision | Camera precision exceeds final XY; measured single-point path has no rectangle clamp | Engine-side clipping/culling limits and larger-aspect visibility; preserve simulation projection independently |
+| E. Image composition | Packet, index/palette/LUT, direct upload/move, movie, clear, GDI and surface writers separated | Complete writer triggers and chronological order; slot149 alias reachability and framework writes |
+| F. Presentation ownership | Original HWND, surfaces/pitch, present/mode/loss paths; real-system API forwarding in a diagnostic | Original-host coexistence, exclusive final image, resize/mode/loss synchronization and tested shutdown restoration |
+| G. Temporal state | Native prior-X/Y overwrite order and static actor/pool fields | Two full simulation updates, stable generation/lifetime, camera discontinuities and pose/animation ownership |
+| H. Historical pixel fidelity | Finite original-backed edge/UV/indexed blend fixtures | Broader reachable domains and resource/state timing; this does not prevent proving an upstream geometry seam |
+
+No GPU backend, original-game display takeover or temporal interpolator is
+implemented. Captured XYZ is not a universal geometry contract, and a single
+opaque legacy framebuffer cannot preserve all world/UI ordering.
+
+## Historical screen-space boundaries
 
 | Target | Established | Remaining |
 |---|---|---|
