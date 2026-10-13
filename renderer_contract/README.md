@@ -207,3 +207,9 @@ to `GetDC(NULL)` and leaves its runtime trigger and actual pixels unresolved.
 original producers into matching packet corners and OT insertion. Both require
 callback-time and vertex-role identity because one point pointer is reused.
 They do not establish upstream visibility, whole-module geometry or pixels.
+
+The [movie writer](movie_writer.md) and [ENG3 visibility audit](fixtures/viewport_visibility/viewport_visibility.md)
+add static-only contracts: host-owned movie decode/copy and palette ordering;
+indexed parent-coordinate/depth rejection and child depth rejection before
+emission. Fresh audits pin their originals and callback cells. They make no
+playback, pixel, live visibility or full display-ownership claim.

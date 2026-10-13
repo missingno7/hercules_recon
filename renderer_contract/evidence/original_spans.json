@@ -644,9 +644,9 @@
       "private_provenance_sha256": "4a30d457b60436c1cdb8572ae52d6d625718f7d23e8d1a30ce1325ba0245ddaf"
     },
     {
-      "lane": "exe_variant_phase14",
+      "lane": "exe_variant_phase17",
       "path": "renderer_contract/evidence/exe_variant.json",
-      "sha256": "7bc4c04759bd15848086e8b8c3010b535c8d3de97ece43164b353139442c7762",
+      "sha256": "d369e1bc7e897be21fd55292cbc3e48889e37867e63637e89a20bfca2b2f4af9",
       "schema_keys": [
         "comparison",
         "inputs",
@@ -658,8 +658,11 @@
         "schema_version",
         "scope"
       ],
-      "private_provenance_path": "work/renderer_contract_tests/variant.json",
-      "private_provenance_sha256": "882b51f7f0f55860344e7afad6b19c2d880dd33a91b9640452f2fcf87e489704"
+      "private_provenance_path": "work/renderer_phase17/integration/proposals/exe_variant.raw.json",
+      "private_provenance_sha256": "ae7b0526275e1174de0ddc0da9eeabf705d053299a87f560430cd81dda342d38",
+      "manifest_input_path": "work/renderer_phase17/integration/proposals/original_spans.prevariant.json",
+      "manifest_input_sha256": "84f17f91f6da5a4b425502b8a419a9c6006cf22cf7e1e6c1518f6a705c3db6da",
+      "renderer_span_set_sha256": "e508671a021f0916346bcd1e2ee3faeebbb71b582df343c6fc6af09bb1d55d25"
     },
     {
       "lane": "batch_projection_zero_argument_callback",
@@ -828,6 +831,68 @@
       "prediction_sha256": "9c3c0a384bc9d234b8683ebfdf5346f344b503f2c731bbd67a26e15c24ff3ed0",
       "public_test_path": "renderer_contract/tests/test_original_title_geometry_association.py",
       "public_test_sha256": "92a0ab2001e4235b0046498dd299c9961e15dcdee28c5e0e83d58e946496d865"
+    },
+    {
+      "lane": "movie_writer",
+      "path": "renderer_contract/evidence/movie_writer.json",
+      "sha256": "b5fe4bc606915960e746f38733a995d14b9dd77eec359d6de2f9768af9e565f9",
+      "schema_keys": [
+        "callback_route",
+        "execution",
+        "frame_storage_copy_and_palette",
+        "library_endpoints",
+        "limits",
+        "original_images",
+        "prediction_and_falsifier",
+        "prediction_fixture",
+        "prediction_outcome",
+        "proof_level",
+        "receipt",
+        "resource_path_resolution",
+        "runner",
+        "schema_version",
+        "scope",
+        "verified_span_refs"
+      ],
+      "private_report_path": "work/renderer_phase17/public_movie_2.json",
+      "private_report_sha256": "852543fb62dd090ef90906113a3bc681e1a28b11de5eff13c6dcced468b6a8ea",
+      "runner_path": "renderer_contract/tests/audit_movie_writer.py",
+      "runner_sha256": "0ebb3ef1390718314a5037713e543e2933802d2f3d7ebddb34e41c2b8cc74be0",
+      "prediction_path": "renderer_contract/fixtures/movie_writer/prediction.json",
+      "prediction_sha256": "eb43326173d53a8b66792103bfed4761e5d47ed3104ba6e01aca44613dddd42f"
+    },
+    {
+      "lane": "viewport_visibility",
+      "path": "renderer_contract/evidence/viewport_visibility.json",
+      "sha256": "03b66510d82ce2c8ab20a93941fe7d17067cca4e7d2932de3621abb4c86b45b1",
+      "schema_keys": [
+        "callback_wrapper_cells",
+        "execution",
+        "limits",
+        "observed_arithmetic",
+        "original_images",
+        "predicate_assertions",
+        "prediction_fixture",
+        "proof_level",
+        "receipt",
+        "runner",
+        "schema_version",
+        "scope",
+        "selected_direct_call_sites",
+        "selected_setter_wrapper_absence",
+        "source_host_table",
+        "status",
+        "unresolved",
+        "verified_span_refs",
+        "visibility_effects"
+      ],
+      "private_report_path": "work/renderer_phase17/public_viewport_1.json",
+      "private_report_sha256": "93cea8641c7097266e49153d7b4986d112d0431635117eb2b2100dfd1d8e8271",
+      "runner_path": "renderer_contract/tests/audit_viewport_visibility.py",
+      "runner_sha256": "8758ebf7a0c69925914c5c10dde29f24294bebd42f864f3d83af6acfae795fe3",
+      "prediction_path": "renderer_contract/fixtures/viewport_visibility/prediction_falsifier.json",
+      "prediction_sha256": "a0b2a83ffc520c2ab7a8ad892e727da301e7c2af1785bf9cb4e3bf109c15837a",
+      "runner_binding_note": "The static receipt does not include a runner hash field; the listed source hash identifies the shipped public audit script whose constants and decode procedure were independently checked against the receipt pins."
     }
   ],
   "excluded_or_pending_reports": [],
@@ -1424,6 +1489,34 @@
       ],
       "scope": "The pinned TITLE mode-5 producer/helper and callback cells listed by the finite receipt; not all TITLE modes or complete module behavior.",
       "evidence_ref": "renderer_contract/evidence/title_geometry_association.json"
+    },
+    {
+      "lane": "movie_writer",
+      "proof_level": "STATIC_OBSERVED",
+      "span_count": 9,
+      "callback_slot": 148,
+      "callback_cell_rva": "0x36408",
+      "scope": "Pinned TITLE slot-148 caller/wrapper and HERC movie file/frame/palette/copy path; no playback or original execution, no packet-slot-89 equivalence, no inferred return type or unproved frame bounds/lifetime.",
+      "evidence_ref": "renderer_contract/evidence/movie_writer.json"
+    },
+    {
+      "lane": "viewport_visibility",
+      "proof_level": "STATIC_OBSERVED",
+      "span_count": 28,
+      "callback_slots": [
+        101,
+        106,
+        108,
+        109,
+        114,
+        121,
+        164,
+        165,
+        174,
+        175
+      ],
+      "scope": "Pinned ENG3 parent/child visibility and projection route plus selected host callback bindings only. Runtime table/global values, full camera setup, all projection arithmetic, and rendered-output behavior remain outside this static trace.",
+      "evidence_ref": "renderer_contract/evidence/viewport_visibility.json"
     }
   ],
   "original_images": {
@@ -10146,6 +10239,136 @@
       "role": "2c940_viewport_translation",
       "kind": "code",
       "label": "2c940_viewport_translation"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x3140",
+      "size": 672,
+      "expected_sha256": "a3b3201d1429ac76007a12f609e940297047862381d0c082049c1355c6f66f4f",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/movie_writer.json"
+      ],
+      "role": "movie_writer_hercules.exe_0x3140",
+      "kind": "code",
+      "label": "movie_writer_hercules.exe_0x3140"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x37a0",
+      "size": 944,
+      "expected_sha256": "e3751f9a2cd66c6bdcb73aabc960b998db071b5084bf037325b374e865cf7564",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/movie_writer.json"
+      ],
+      "role": "movie_writer_hercules.exe_0x37a0",
+      "kind": "code",
+      "label": "movie_writer_hercules.exe_0x37a0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5350",
+      "size": 251,
+      "expected_sha256": "cbadfbb80c4a71b0ec30b8730500f4aa41e850992ff0898b09537e8204948fc1",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/movie_writer.json"
+      ],
+      "role": "movie_writer_hercules.exe_0x5350",
+      "kind": "code",
+      "label": "movie_writer_hercules.exe_0x5350"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x6810",
+      "size": 57,
+      "expected_sha256": "d747ce15a91809f80796c0c5eefa557277338546105d38ec555f7707d8fe24c6",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/movie_writer.json"
+      ],
+      "role": "movie_writer_hercules.exe_0x6810",
+      "kind": "code",
+      "label": "movie_writer_hercules.exe_0x6810"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x9980",
+      "size": 192,
+      "expected_sha256": "1e89e9472a49b241cdc943e1dc7df17e1eae761b7277f25af6858647ae92922d",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/movie_writer.json"
+      ],
+      "role": "movie_writer_title.dll_0x9980",
+      "kind": "code",
+      "label": "movie_writer_title.dll_0x9980"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0xc9e0",
+      "size": 20,
+      "expected_sha256": "309525c57cc1bb73d1c3e11d99348ebbeabc028a10ff47ec6a2c7d16dc8b4d19",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/movie_writer.json"
+      ],
+      "role": "movie_writer_title.dll_0xc9e0",
+      "kind": "code",
+      "label": "movie_writer_title.dll_0xc9e0"
+    },
+    {
+      "module": "ENG3.DLL",
+      "rva": "0x24bb0",
+      "size": 923,
+      "expected_sha256": "a0ad5e76036c8f94d63730e28691147bf7b8b80d64e2d9dc4a767c96868f026a",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/viewport_visibility.json"
+      ],
+      "role": "parent_transform_helper_24bb0",
+      "kind": "code",
+      "label": "parent_transform_helper_24bb0"
+    },
+    {
+      "module": "ENG3.DLL",
+      "rva": "0x1fd30",
+      "size": 15,
+      "expected_sha256": "ea18065631499c89565a3c1e655e1f604b4ddf406d670713a2ebf36ca92b370a",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/viewport_visibility.json"
+      ],
+      "role": "wrapper_slot109_1fd30",
+      "kind": "code",
+      "label": "wrapper_slot109_1fd30"
+    },
+    {
+      "module": "ENG3.DLL",
+      "rva": "0x1ff40",
+      "size": 20,
+      "expected_sha256": "6527d48ff16542d8847d5d7ce64f1ff295a7489c83b042f6107c3a2a3c4b19cf",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/viewport_visibility.json"
+      ],
+      "role": "wrapper_slot164_1ff40",
+      "kind": "code",
+      "label": "wrapper_slot164_1ff40"
+    },
+    {
+      "module": "ENG3.DLL",
+      "rva": "0x1ff60",
+      "size": 20,
+      "expected_sha256": "b2e7174c3489fd947129a6e0b651c3a07ba8d31f3c945f1f31ffc60c9bdc2f7a",
+      "hash_expectation": "recorded_in_source_evidence",
+      "evidence_refs": [
+        "renderer_contract/evidence/viewport_visibility.json"
+      ],
+      "role": "wrapper_slot165_1ff60",
+      "kind": "code",
+      "label": "wrapper_slot165_1ff60"
     }
   ],
   "callback_table": {
@@ -11554,7 +11777,7 @@
     },
     {
       "path": "renderer_contract/evidence/exe_variant.json",
-      "sha256": "7bc4c04759bd15848086e8b8c3010b535c8d3de97ece43164b353139442c7762"
+      "sha256": "d369e1bc7e897be21fd55292cbc3e48889e37867e63637e89a20bfca2b2f4af9"
     },
     {
       "path": "renderer_contract/evidence/frame.json",
@@ -11871,6 +12094,14 @@
     {
       "path": "renderer_contract/evidence/title_geometry_association.json",
       "sha256": "767ac9fa0a20f230f4fab40dc3ad648fe63a7f5d9b1dc392cd135becf7e28c22"
+    },
+    {
+      "path": "renderer_contract/evidence/movie_writer.json",
+      "sha256": "b5fe4bc606915960e746f38733a995d14b9dd77eec359d6de2f9768af9e565f9"
+    },
+    {
+      "path": "renderer_contract/evidence/viewport_visibility.json",
+      "sha256": "03b66510d82ce2c8ab20a93941fe7d17067cca4e7d2932de3621abb4c86b45b1"
     }
   ]
 }

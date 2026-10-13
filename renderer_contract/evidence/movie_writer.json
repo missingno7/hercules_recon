@@ -1,0 +1,332 @@
+{
+  "schema_version": 1,
+  "proof_level": "STATIC_OBSERVED",
+  "scope": "Finite read-only static audit of TITLE's direct slot-148 caller and HERC 0x5450 movie file/frame/copy path; no original execution, playback, window, or graphics API calls.",
+  "prediction_outcome": "PARTLY_FALSIFIED: callback route and pitched copy confirmed; TITLE passes a movie identifier and raw control word rather than frame or palette pointers.",
+  "prediction_and_falsifier": {
+    "prediction": "TITLE's callback near 0xC9EA invokes HERC slot 148 with a borrowed movie frame pointer and palette pointer; HERC 0x5450 consumes the frame as a bounded rectangle and row-copies it into the indexed CPU surface, with source row pitch or rectangle dimensions provided through callback arguments or shared state. The target remains independent of packet slot 89. It may update palette state before/after copying, but palette semantics and exact source lifetime are not predicted as established.",
+    "falsifier": "The prediction is false if the pinned TITLE caller does not resolve to slot 148/0x5450, if 0x5450 does not read frame bytes and write the CPU indexed surface, or if its path delegates the pixels to packet slot 89 instead of copying them. Any frame geometry or pitch that cannot be derived from exact dataflow remains explicitly unresolved rather than inferred from a 320x240 host surface."
+  },
+  "original_images": {
+    "HERCULES.EXE": {
+      "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "image_base": "0x400000"
+    },
+    "TITLE.DLL": {
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+      "image_base": "0x10000000"
+    }
+  },
+  "callback_route": {
+    "title_direct_caller": {
+      "function_rva": "0x9980",
+      "callsite_rva": "0x9A25",
+      "call_target_rva": "0xC9E0",
+      "arguments": [
+        {
+          "host_arg": 1,
+          "source": "TITLE 0x9980's first formal, held in EDI",
+          "consumer_view": "movie_id",
+          "proof": "TITLE 0x99AE loads [entry ESP+4] into EDI; 0x9A24 pushes EDI."
+        },
+        {
+          "host_arg": 2,
+          "source": "TITLE 0x9980's fourth raw stack formal, loaded from entry [ESP+0x10]",
+          "consumer_view": "input_abort_mask (pre-existing physical-protocol label)",
+          "proof": "TITLE 0x9A1C loads [current ESP+0x18] after two saved registers; 0x9A23 pushes it unchanged."
+        }
+      ]
+    },
+    "title_wrapper": {
+      "rva": "0xC9E0",
+      "forwarding": "pushes original second argument, then original first argument, and calls [TITLE interface base + 0x250] at 0xC9EA; stack order makes host arg1=TITLE first, host arg2=TITLE fourth."
+    },
+    "host_callback": {
+      "rva": "0x5450",
+      "incoming_slots_observed": 2,
+      "argument_1": "movie identifier formatted with the original e:\\data\\%d.etv literal; helper 0x5350 may rewrite the first byte before open",
+      "argument_2": "forwarded later to internal 0x1F60; the full original prototype and caller-side semantic name are not inferred here.",
+      "helper_order": [
+        {
+          "site": "0x547D",
+          "target": "0x5350",
+          "role": "original host path-resolution service; probes preferred and candidate drive bytes by mutating the formatted buffer"
+        },
+        {
+          "site": "0x54D8",
+          "target": "0x3140",
+          "role": "open the post-resolution ETV path, read header, initialize pixel storage and decoder state"
+        },
+        {
+          "site": "0x558F",
+          "target": "0x37A0",
+          "role": "advance/decode current frame; optional output pointer names palette bytes"
+        },
+        {
+          "site": "0x55C2",
+          "target": "0x6780",
+          "role": "write palette triples into host palette shadow tables when helper returned a palette pointer"
+        },
+        {
+          "site": "0x55D8",
+          "target": "0x69A0",
+          "role": "apply palette before frame copy"
+        },
+        {
+          "site": "0x55E8",
+          "target": "0x6FF0",
+          "role": "lock current surface/DIB view"
+        },
+        {
+          "site": "0x566B",
+          "target": "0x43A590",
+          "role": "set dirty after the frame-copy branch"
+        },
+        {
+          "site": "0x5672",
+          "target": "0x7140",
+          "role": "unlock"
+        },
+        {
+          "site": "0x5677",
+          "target": "0x6620",
+          "role": "present"
+        },
+        {
+          "site": "0x570A",
+          "target": "0x6780",
+          "role": "restore/update palette entries in later cleanup branch"
+        },
+        {
+          "site": "0x5720",
+          "target": "0x69A0",
+          "role": "apply the cleanup palette"
+        }
+      ],
+      "open_helper_argument_order": [
+        "arg1: formatted path buffer after 0x5350 first-byte resolution (local address formed at 0x54D2)",
+        "arg2: HERC sound-device global at 0xB9E440",
+        "arg3: local pixel-output slot at ESP+0x14",
+        "arg4: local width-output slot at ESP+0x18",
+        "arg5: local height-output slot at ESP+0x10"
+      ],
+      "frame_step_call": "0x37A0 receives a pointer to local optional-palette output at ESP+0x1C as its first argument; its second argument comes from the low-word result of internal 0xFB10 and is not semantically named here."
+    },
+    "callback_table": {
+      "HERCULES.EXE": {
+        "table_rva": "0x361b8",
+        "size": 1000,
+        "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+        "slot": 148,
+        "cell_rva": "0x36408",
+        "target_va": "0x405450",
+        "target_rva": "0x5450"
+      },
+      "TITLE.DLL": {
+        "interface_base_rva": "0x2bb40",
+        "wrapper_cell_rva": "0x2bd90",
+        "offset": "0x250",
+        "slot": 148
+      }
+    }
+  },
+  "resource_path_resolution": {
+    "format_literal": "e:\\data\\%d.etv",
+    "formatted_buffer": "local buffer formed at 0x54D2; same pointer is formatted at 0x5470, passed to resolver at 0x547D, then passed to 0x3140 at 0x54D8",
+    "resolver_rva": "0x5350",
+    "preferred_byte": {
+      "global_va": "0x91C444",
+      "origin": "UNRESOLVED"
+    },
+    "candidate_search": {
+      "gate_global_va": "0x436634",
+      "drive_mask_import": "KERNEL32.dll!GetLogicalDrives",
+      "drive_type_import": "KERNEL32.dll!GetDriveTypeA",
+      "raw_return_filter": 5,
+      "candidate_table_va": "0x91C018",
+      "probe_helper_rva": "0x4113D0"
+    },
+    "mutation_sites": [
+      "0x53F0: preferred byte -> [ESI] (path byte 0)",
+      "0x541E: candidate byte -> [ESI] (path byte 0)"
+    ],
+    "open_argument": "0x3140 receives the same buffer pointer and passes it to CreateFileA; no subsequent buffer mutation is observed before that call",
+    "selected_drive": "UNRESOLVED",
+    "classification": "Original host resource lookup/open service to preserve. This audit does not reconstruct filesystem behavior or execute native filesystem APIs."
+  },
+  "frame_storage_copy_and_palette": {
+    "file": {
+      "path_format_literal": "e:\\data\\%d.etv",
+      "runtime_path": "UNRESOLVED drive byte: HERC 0x5350 mutates byte 0 of the formatted buffer before HERC 0x3140 passes it to KERNEL32.dll!CreateFileA",
+      "open_endpoint": "KERNEL32.dll!CreateFileA",
+      "header_read_endpoint": "KERNEL32.dll!ReadFile",
+      "header_read_bytes": "0x348",
+      "magic_value": "0x0A565445",
+      "header_fields": {
+        "width": "DWORD at 0x4A383C (header + 4)",
+        "height": "DWORD at 0x4A3840 (header + 8)",
+        "frame_count": "DWORD at 0x4A3844 (header + 0xC)"
+      }
+    },
+    "decoded_storage": {
+      "address": "0x601B88",
+      "initial_clear_bytes": 81920,
+      "pixel_output": "HERC 0x3140 publishes this fixed global through the pixel-output argument",
+      "writer": "HERC 0x37A0 invokes internal 0x21E0 decoder with destination 0x601B88",
+      "lifetime": "borrowed/reused global; no per-frame allocation or owned return is observed",
+      "capacity_limit": "UNRESOLVED: 80 KiB is an observed clear extent, not a proven maximum frame extent."
+    },
+    "copy": {
+      "pixel_format": "byte-indexed data; the callback copies bytes directly and performs no pixel conversion/remap",
+      "remap": "No call to 0x70C0 occurs in the complete pinned 0x5450 span.",
+      "source_origin": "0x601B88 as returned through the helper output; no source x/y offset is applied",
+      "source_row_bytes": "movie width from header +4",
+      "destination_origin": "current BA0210 locked-view base (x=0,y=0)",
+      "destination_row_pitch": "BA0214, published by lock helper; fast path when it equals movie width",
+      "height": "movie height from header +8",
+      "extent": "width bytes x height rows; contiguous height*width copy for equal pitch, otherwise per-row copy from src+y*width to dst+y*BA0214",
+      "clipping": "No width/height clipping or surface-bound comparison appears in the complete pinned 0x5450 span. Out-of-bounds source/destination safety is UNRESOLVED.",
+      "dirty_unlock_present_order": [
+        "copy",
+        "store 0x43A590=1",
+        "call 0x7140",
+        "call 0x6620"
+      ]
+    },
+    "palette": {
+      "output": "0x37A0 writes an optional pointer to current chunk + 5 when its palette-change byte is set; otherwise it clears the output pointer.",
+      "consumer": "0x5450 consumes 256 successive 3-byte entries through 0x6780, then calls 0x69A0(0) before locking/copying; later cleanup writes entries through 0x6780 and calls 0x69A0(1).",
+      "save_restore": "Before playback, 0x5450 reads current palette triples from 0x96E3F8 through 0x6810 into its stack buffer; cleanup writes those saved triples back through 0x6780.",
+      "0x69A0_side_effect_order": [
+        "0x7140 unlock",
+        "0x6EE0 clear RGB(0,0,0)",
+        "0x6620 present",
+        "mode-specific GDI/DirectDraw palette application"
+      ],
+      "movie_call_effects": "The full 0x69A0(0)/(1) prefix is not palette-only: each call enters the host clear/present path before its palette API. The 0x5450 frame copy follows the first call; the cleanup call follows movie playback and can clear/present again.",
+      "borrowed_lifetime": "No explicit lease is returned. The caller consumes the pointer immediately before the next 0x37A0 call; concurrent mutation/reentrancy is not excluded."
+    }
+  },
+  "library_endpoints": {
+    "0xba5838": {
+      "dll": "KERNEL32.dll",
+      "name": "CreateFileA"
+    },
+    "0xba5824": {
+      "dll": "KERNEL32.dll",
+      "name": "ReadFile"
+    },
+    "0xba5820": {
+      "dll": "KERNEL32.dll",
+      "name": "CreateThread"
+    },
+    "0xba58b0": {
+      "dll": "KERNEL32.dll",
+      "name": "Sleep"
+    },
+    "0xba5b24": {
+      "dll": "WINMM.dll",
+      "name": "timeGetTime"
+    },
+    "0xba5b1c": {
+      "dll": "WINMM.dll",
+      "name": "timeBeginPeriod"
+    },
+    "0xba576c": {
+      "dll": "KERNEL32.dll",
+      "name": "CloseHandle"
+    },
+    "0xba575c": {
+      "dll": "KERNEL32.dll",
+      "name": "GetLogicalDrives"
+    },
+    "0xba5760": {
+      "dll": "KERNEL32.dll",
+      "name": "GetDriveTypeA"
+    }
+  },
+  "limits": [
+    "This proves the statically observed TITLE 0x9980 -> wrapper 0xC9E0 -> host slot 148 -> HERC 0x5450 route, not that every runtime movie route uses it.",
+    "The frame writer bypasses packet slot 89; 0x5450 does not directly call 0xAC60. Its message-pump/reentrant callbacks and cross-thread serialization are not closed by this static proof.",
+    "No actual ETV file, movie playback, window, DIB, DirectDraw, audio device, MCI, or screen pixels were opened or executed.",
+    "The decoder helper 0x21E0, complete file/container bounds, short-read/error cleanup, output buffer maximum, caller scheduling, and source-pointer lease are not fully recovered."
+  ],
+  "execution": "none; static-only source analysis",
+  "verified_span_refs": [
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x3140",
+      "size": 672,
+      "sha256": "a3b3201d1429ac76007a12f609e940297047862381d0c082049c1355c6f66f4f",
+      "label": "movie_writer_hercules.exe_0x3140"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x37a0",
+      "size": 944,
+      "sha256": "e3751f9a2cd66c6bdcb73aabc960b998db071b5084bf037325b374e865cf7564",
+      "label": "movie_writer_hercules.exe_0x37a0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5450",
+      "size": 752,
+      "sha256": "f6c59f71ae671a28343db80cef138db0a68fa2b682fb8cea275f756b5cb41ec2",
+      "label": "movie_writer_hercules.exe_0x5450"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x5350",
+      "size": 251,
+      "sha256": "cbadfbb80c4a71b0ec30b8730500f4aa41e850992ff0898b09537e8204948fc1",
+      "label": "movie_writer_hercules.exe_0x5350"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x6810",
+      "size": 57,
+      "sha256": "d747ce15a91809f80796c0c5eefa557277338546105d38ec555f7707d8fe24c6",
+      "label": "movie_writer_hercules.exe_0x6810"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x69a0",
+      "size": 178,
+      "sha256": "d86d895eb034d76962f072d1fda7dab14a5616d0e5fb4931020d9aa88e9fb1eb",
+      "label": "movie_writer_hercules.exe_0x69a0"
+    },
+    {
+      "module": "HERCULES.EXE",
+      "rva": "0x361b8",
+      "size": 1000,
+      "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+      "label": "movie_writer_hercules.exe_0x361b8"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0x9980",
+      "size": 192,
+      "sha256": "1e89e9472a49b241cdc943e1dc7df17e1eae761b7277f25af6858647ae92922d",
+      "label": "movie_writer_title.dll_0x9980"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0xc9e0",
+      "size": 20,
+      "sha256": "309525c57cc1bb73d1c3e11d99348ebbeabc028a10ff47ec6a2c7d16dc8b4d19",
+      "label": "movie_writer_title.dll_0xc9e0"
+    }
+  ],
+  "receipt": {
+    "path": "work/renderer_phase17/public_movie_2.json",
+    "sha256": "852543fb62dd090ef90906113a3bc681e1a28b11de5eff13c6dcced468b6a8ea"
+  },
+  "runner": {
+    "path": "renderer_contract/tests/audit_movie_writer.py",
+    "sha256": "0ebb3ef1390718314a5037713e543e2933802d2f3d7ebddb34e41c2b8cc74be0"
+  },
+  "prediction_fixture": {
+    "path": "renderer_contract/fixtures/movie_writer/prediction.json",
+    "sha256": "eb43326173d53a8b66792103bfed4761e5d47ed3104ba6e01aca44613dddd42f"
+  }
+}

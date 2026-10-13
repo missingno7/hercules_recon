@@ -921,6 +921,10 @@
       "sha256": "ea506b6ec770109fe5cefd2347a4c24ccb52eedd359470ec81b26a1b5f8679e3"
     },
     {
+      "path": "renderer_contract/tests/audit_movie_writer.py",
+      "sha256": "0ebb3ef1390718314a5037713e543e2933802d2f3d7ebddb34e41c2b8cc74be0"
+    },
+    {
       "path": "renderer_contract/tests/audit_producer_reachability.py",
       "sha256": "48a827b1c5c6ab20995bd48fbcbd46be668204c3fe1135f39be552567ffec5e6"
     },
@@ -955,6 +959,10 @@
     {
       "path": "renderer_contract/tests/audit_upstream_geometry.py",
       "sha256": "18b3d58cacdbac7483258765b8a2fd244e9f7fada6bc39d22073960d13032ecf"
+    },
+    {
+      "path": "renderer_contract/tests/audit_viewport_visibility.py",
+      "sha256": "8758ebf7a0c69925914c5c10dde29f24294bebd42f864f3d83af6acfae795fe3"
     },
     {
       "path": "renderer_contract/tests/capture_original_route_states.py",
@@ -1267,7 +1275,9 @@
     "renderer_contract/evidence/batch_projection.json",
     "renderer_contract/evidence/gdi_text_writer.json",
     "renderer_contract/evidence/eng3_geometry_association.json",
-    "renderer_contract/evidence/title_geometry_association.json"
+    "renderer_contract/evidence/title_geometry_association.json",
+    "renderer_contract/evidence/movie_writer.json",
+    "renderer_contract/evidence/viewport_visibility.json"
   ],
   "source_ledger_scope": "current renderer_contract source tree after Phase 12 pre-entry fixture integration; the existing C/C++/Python/DEF suffix scope is retained",
   "source_ledger_delta_from_preceding_head": {
@@ -4432,5 +4442,93 @@
     "span_tuple_set_unchanged": true,
     "fresh_comparison_required": false,
     "scope": "No original span tuples were added or changed; the existing read-only variant receipt remains applicable to its recorded renderer range set."
+  },
+  "phase17_source_ledger_delta": {
+    "base_commit": "c2bfc2bcc8a905cc6ab3c962e7e63a80af2471ab",
+    "base_source_count": 146,
+    "current_source_count": 148,
+    "changed_source_count": 0,
+    "added_source_count": 2,
+    "removed_source_count": 0,
+    "added_paths": [
+      "renderer_contract/tests/audit_movie_writer.py",
+      "renderer_contract/tests/audit_viewport_visibility.py"
+    ],
+    "portable_source_count": 66,
+    "portable_sources_unchanged": true,
+    "portable_test_suites_reused": 19,
+    "scope": "Phase 17 added only two Python static audit runners; all accepted portable C/C++ inputs are byte-identical."
+  },
+  "phase17_static_audits": {
+    "movie_writer": {
+      "path": "renderer_contract/evidence/movie_writer.json",
+      "sha256": "b5fe4bc606915960e746f38733a995d14b9dd77eec359d6de2f9768af9e565f9",
+      "raw_report_path": "work/renderer_phase17/public_movie_2.json",
+      "raw_report_sha256": "852543fb62dd090ef90906113a3bc681e1a28b11de5eff13c6dcced468b6a8ea",
+      "runner_path": "renderer_contract/tests/audit_movie_writer.py",
+      "runner_sha256": "0ebb3ef1390718314a5037713e543e2933802d2f3d7ebddb34e41c2b8cc74be0",
+      "proof_level": "STATIC_OBSERVED",
+      "execution": "none"
+    },
+    "viewport_visibility": {
+      "path": "renderer_contract/evidence/viewport_visibility.json",
+      "sha256": "03b66510d82ce2c8ab20a93941fe7d17067cca4e7d2932de3621abb4c86b45b1",
+      "raw_report_path": "work/renderer_phase17/public_viewport_1.json",
+      "raw_report_sha256": "93cea8641c7097266e49153d7b4986d112d0431635117eb2b2100dfd1d8e8271",
+      "runner_path": "renderer_contract/tests/audit_viewport_visibility.py",
+      "runner_sha256": "8758ebf7a0c69925914c5c10dde29f24294bebd42f864f3d83af6acfae795fe3",
+      "proof_level": "STATIC_OBSERVED",
+      "execution": "none"
+    }
+  },
+  "phase17_portable_verification_reuse": {
+    "path": "renderer_contract/evidence/portable_verification.json",
+    "sha256": "68dca86ce001b9fc2aa966e043cef92fb7e62cc8d8e434deed2252399b7df43c",
+    "suite_count": 19,
+    "gcc_passed": 19,
+    "vc5_passed": 19,
+    "portable_source_count": 66,
+    "scope": "Reused the accepted 19-suite portable results because the exact set of 66 C/H/C++ source hashes is unchanged; this checkpoint adds Python static audit sources only."
+  },
+  "phase17_variant_refresh": {
+    "path": "renderer_contract/evidence/exe_variant.json",
+    "sha256": "d369e1bc7e897be21fd55292cbc3e48889e37867e63637e89a20bfca2b2f4af9",
+    "raw_report_path": "work/renderer_phase17/integration/proposals/exe_variant.raw.json",
+    "raw_report_sha256": "ae7b0526275e1174de0ddc0da9eeabf705d053299a87f560430cd81dda342d38",
+    "report_path": "work/renderer_phase17/integration/proposals/exe_variant.raw.md",
+    "report_sha256": "e6cd54dbfa3b3d32d5837759018a8e380d6ca7546aa2d05fa265a652edc42bb7",
+    "manifest_input_path": "work/renderer_phase17/integration/proposals/original_spans.prevariant.json",
+    "manifest_input_sha256": "84f17f91f6da5a4b425502b8a419a9c6006cf22cf7e1e6c1518f6a705c3db6da",
+    "renderer_span_set_sha256": "e508671a021f0916346bcd1e2ee3faeebbb71b582df343c6fc6af09bb1d55d25",
+    "original_spans_checked": 351,
+    "different_byte_count": 1,
+    "single_hunk": {
+      "file_offset_start": "0x94b0",
+      "file_offset_end_exclusive": "0x94b1",
+      "size": 1,
+      "pinned_mapping_start": {
+        "rva": "0xa0b0",
+        "section": ".text"
+      },
+      "pinned_mapping_end": {
+        "rva": "0xa0b0",
+        "section": ".text"
+      },
+      "asset_mapping_start": {
+        "rva": "0xa0b0",
+        "section": ".text"
+      },
+      "asset_mapping_end": {
+        "rva": "0xa0b0",
+        "section": ".text"
+      },
+      "pinned_hex": "53",
+      "asset_hex": "c3",
+      "pinned_hunk_sha256": "8de0b3c47f112c59745f717a626932264c422a7563954872e237b223af4ad643",
+      "asset_hunk_sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e"
+    },
+    "all_recorded_overlap_flags_false": true,
+    "proof_level": "STATIC_OBSERVED",
+    "scope": "Fresh read-only public comparison using the proposed 350-span HERCULES set; this covers only recorded renderer/table/DirectDraw/loader ranges and sites."
   }
 }

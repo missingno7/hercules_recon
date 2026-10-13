@@ -295,3 +295,9 @@ resource contexts and 23 assertions, including eight independent positive-point
 comparisons to the current C89 single-point model. These are bounded producer
 proofs, not general batch arithmetic, runtime object identity or rendered pixels.
 Both fixtures reject unknown code endpoints and preserve the original binaries.
+
+The [movie writer](movie_writer.md) and [ENG3 visibility audit](fixtures/viewport_visibility/viewport_visibility.md)
+add static-only contracts: host-owned movie decode/copy and palette ordering;
+indexed parent-coordinate/depth rejection and child depth rejection before
+emission. Fresh audits pin their originals and callback cells. They make no
+playback, pixel, live visibility or full display-ownership claim.

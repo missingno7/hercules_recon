@@ -1,0 +1,14 @@
+{
+  "family": "TITLE movie callback to HERC slot 148 / RVA 0x5450",
+  "created_before_family_inspection": true,
+  "prediction": "TITLE's callback near 0xC9EA invokes HERC slot 148 with a borrowed movie frame pointer and palette pointer; HERC 0x5450 consumes the frame as a bounded rectangle and row-copies it into the indexed CPU surface, with source row pitch or rectangle dimensions provided through callback arguments or shared state. The target remains independent of packet slot 89. It may update palette state before/after copying, but palette semantics and exact source lifetime are not predicted as established.",
+  "falsifier": "The prediction is false if the pinned TITLE caller does not resolve to slot 148/0x5450, if 0x5450 does not read frame bytes and write the CPU indexed surface, or if its path delegates the pixels to packet slot 89 instead of copying them. Any frame geometry or pitch that cannot be derived from exact dataflow remains explicitly unresolved rather than inferred from a 320x240 host surface.",
+  "source_and_tool_provenance": {
+    "originals_root": "D:/Prog/hercules_recon/work/discs/pc_install",
+    "original_hash_source": "renderer_contract/evidence/screen_ownership.json (read-only; original HERC hash 587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d)",
+    "analysis_python": "C:/Users/jiriv/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",
+    "analysis_libraries": "C:/tools/hercules/python",
+    "disassembly_tool": "Capstone from C:/tools/hercules/python; exact package/version to record from runtime",
+    "candidate_root": "work/renderer_phase17/movie_writer"
+  }
+}

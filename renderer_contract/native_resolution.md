@@ -104,3 +104,11 @@ primitive; retain role and callback-time provenance. This removes a selected-pat
 association uncertainty, not complete visibility or native-resolution display
 ownership. The slot149 windowed writer requests `GetDC(NULL)` and releases
 using the current HWND, so client-window overlay ownership cannot be assumed.
+
+The [selected ENG3 visibility trace](fixtures/viewport_visibility/viewport_visibility.md)
+finds indexed coordinate bounds and depth gates before emission, with no
+projected-XY rectangle test in those predicates. It does not identify the
+bounds' meaning or a runtime center of 160/120. The
+[movie request/copy trace](movie_writer.md) identifies the host-owned decoded
+indexed buffer, origin-zero pitched copy and palette clear/present order.
+Neither result closes wider-view policy or complete composition serialization.
