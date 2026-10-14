@@ -5,6 +5,12 @@ binaries are the matching oracle. PSX builds provide secondary evidence only.
 Historical reconstruction and a modern drop-in renderer now develop together
 inside this repository. Original simulation and gameplay remain unchanged.
 
+Current user priority is reverse engineering and reconstructing the original
+game first. Recover coherent source and dependencies in forms useful to later
+matching decompilation. Further renderer implementation is deferred; it should
+follow from the recovered game rather than drive approximations or isolated
+preview milestones. A preview is not a runnable-game completion criterion.
+
 ## Ownership and proof boundaries
 
 - `src/`, `calibration/`, and `recovery.json` retain the historical reconstruction

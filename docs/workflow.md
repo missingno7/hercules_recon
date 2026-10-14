@@ -38,6 +38,19 @@ the first measured use and remaining blockers.
 
 ## Start and resume
 
+A reconstruction worktree can use the primary checkout's read-only originals
+and derived archaeology without copying them or changing the primary recovery
+state. For the ENG1 source graph, run:
+
+```
+python scripts/eng1_behavioral.py --original-root D:/Prog/hercules_recon --output work/eng1_source_graph
+```
+
+Source, configuration and `recovery.json` come from the calling worktree; the
+original image, archaeology database and library map come from the named root.
+The database is opened read-only. A failed natural link remains a dependency
+diagnostic, and fail-on-entry placeholders do not make a playable engine.
+
 `python scripts/region.py packet <region>` derives a small HOT packet from the
 explicit index in `evidence/region_index.json`, selected WARM receipts, and current
 `recovery.json`. `--more` adds reviewed target spans. COLD disassembly, verbose logs

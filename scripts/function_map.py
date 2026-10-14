@@ -20,15 +20,19 @@ from pe import PE
 DB = ROOT / 'work/archaeology.sqlite'
 
 
-def build(module, entry_evidence=None):
-    db = sqlite3.connect(DB)
+def build(module, entry_evidence=None, original_root=None):
+    # A source worktree reads originals and derived analysis from the primary
+    # checkout, while its own recovery state remains authoritative.
+    inputs = Path(original_root).resolve() if original_root is not None else ROOT
+    database = inputs / 'work/archaeology.sqlite' if original_root is not None else DB
+    db = sqlite3.connect(database.as_uri() + '?mode=ro', uri=True)
     path = db.execute('select path from modules where name=?', (module,)).fetchone()[0]
-    pe = PE(ROOT / path)
+    pe = PE(inputs / path)
     text = next(s for s in pe.sections if s['characteristics'] & 0x20000000)
     lo = text['virtual_address']
     hi = lo + min(text['virtual_size'], text['raw_size'])
     code = pe.read_rva(lo, hi - lo)
-    library = json.loads((ROOT / 'work/library_map/library_map.json').read_text())['contributions'][module]
+    library = json.loads((inputs / 'work/library_map/library_map.json').read_text())['contributions'][module]
     lib = set()
     for c in library:
         if c['size'] > 16:  # lone RET bodies are ambiguous, not library evidence

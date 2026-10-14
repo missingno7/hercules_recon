@@ -19,7 +19,7 @@ from title_link import read_map
 CONFIG = ROOT / 'evidence/eng1_behavioral_build.json'
 
 
-def build(output, include_incomplete=False):
+def build(output, include_incomplete=False, original_root=None):
     output = output.resolve()
     if not output.is_relative_to(ROOT / 'work'):
         raise ValueError('ENG1 outputs must remain under ignored work/')
@@ -30,7 +30,8 @@ def build(output, include_incomplete=False):
     state_bytes, config_bytes = (ROOT / 'recovery.json').read_bytes(), CONFIG.read_bytes()
     state, config = json.loads(state_bytes), json.loads(config_bytes)
     rows = [row for row in state['functions'] if Path(row['target']).name.upper() == 'ENG1.DLL']
-    target = ROOT / 'assets/pc/HERCULES/ENG1.DLL'
+    original_root = Path(original_root).resolve() if original_root is not None else ROOT
+    target = original_root / 'assets/pc/HERCULES/ENG1.DLL'
     if digest(target.read_bytes()) != config['target_sha256']:
         raise ValueError('Original ENG1 identity changed')
     graph = {}
@@ -63,6 +64,7 @@ def build(output, include_incomplete=False):
     report = dict(scope='Behavioral source/link evidence; no recovery promotion or playable-engine claim.',
                   includes_provisional_functions=include_incomplete,
                   architecture=None, target_sha256=config['target_sha256'],
+                  read_only_original_root=str(original_root),
                   recovery_sha256=digest(state_bytes), config_sha256=digest(config_bytes),
                   context_sha256=contexts, toolchain=verify_toolchain(DEFAULT_TOOLCHAIN),
                   compiled_sources=compiled, preserved_exact_functions=strict,
@@ -164,7 +166,7 @@ def build(output, include_incomplete=False):
     report.update(link_command=command, link_exit_code=result.returncode, unresolved=unresolved,
                   duplicate_providers=duplicates, compiler_pooled_literals=pooled_literals,
                   undefined_consumers={name: undefined[name] for name in unresolved})
-    inventory = function_inventory('ENG1.DLL')['functions']
+    inventory = function_inventory('ENG1.DLL', original_root=original_root)['functions']
     providers = {int(row['rva'], 0): dict(row) for row in rows}
     alternatives = defaultdict(list)
     for row in config.get('functions', []):
@@ -243,6 +245,8 @@ def build(output, include_incomplete=False):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=ROOT / 'work/eng1_behavioral/build')
+    parser.add_argument('--original-root', type=Path,
+                        help='Read originals and derived analysis from another checkout; source/recovery stay local')
     parser.add_argument('--include-incomplete',action='store_true',help='Explicit transitional loader build; missing bodies fail on entry and do not count as implemented')
     arguments = parser.parse_args()
-    raise SystemExit(build(arguments.output,arguments.include_incomplete))
+    raise SystemExit(build(arguments.output,arguments.include_incomplete,arguments.original_root))
