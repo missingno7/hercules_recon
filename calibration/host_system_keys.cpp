@@ -11,7 +11,7 @@ extern BYTE g_fatal_suppress_dialog;
 unsigned short __cdecl cleanup_native_6ec0(int value);
 }
 
-void HostWindowInputHandlers::OnSysKeyDown(UINT key, UINT repeatCount, UINT flags)
+void CMainFrame::OnSysKeyDown(UINT key, UINT repeatCount, UINT flags)
 {
     if (g_exe_96e618 != 0) {
         return;
@@ -35,7 +35,7 @@ void HostWindowInputHandlers::OnSysKeyDown(UINT key, UINT repeatCount, UINT flag
     g_host_input_pending_rva_7a0234 = 1;
 }
 
-void HostWindowInputHandlers::OnSysKeyUp(UINT key, UINT repeatCount, UINT flags)
+void CMainFrame::OnSysKeyUp(UINT key, UINT repeatCount, UINT flags)
 {
     if (g_exe_96e618 != 0) {
         g_exe_96e618 = 0;

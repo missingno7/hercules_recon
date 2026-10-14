@@ -72,8 +72,8 @@ and `evidence/host_input_recovery.json` for exact provenance and finite boundari
 
 The byte at EXE RVA `0x3a594` is now labeled as a neutral input gate. Its
 literal writers are in the CD/MCI status routine; the previous window-activation
-name was unsupported. The rename preserves all97 complete host contributions
-and shared storage bytes. Input/config comparisons and all132 accepted matches
+name was unsupported. The rename preserves all 97 complete host contributions
+and shared storage bytes. Input/config comparisons and all 132 accepted matches
 pass. See `evidence/host_input_gate_identity.json` for the reference inventory
 and source-preservation boundary.
 
@@ -91,9 +91,13 @@ with the three-UINT member signature. Ordinary C++ preserves gate precedence,
 the signed threshold, requested mode and pending-input updates. Fourteen cases
 pass using the actual display-mode setter and shared providers. Five independent
 loader-zero scalar prefixes supply eight observed bytes; their enclosing objects,
-relative placement and historical source owners remain unproved. The receiver
-declaration is a physical member-call view, not a recovered complete window class.
-MFC `CWnd::Default` comes from pinned library member148 and is intercepted at entry;
+relative placement and historical source owners remain unproved. The receiver now uses the linked runtime identity `CMainFrame`, its `CFrameWnd`
+base and 188-byte extent. Fresh historical checks place `CWnd::m_hWnd` at +0x1c
+and preserve both complete method contributions and relocation records. The
+remaining virtual overrides, constructors, maps and window creation are still
+unimplemented. See `evidence/host_cmainframe_receiver.json` for the pinned
+runtime descriptors and MFC library provenance.
+MFC `CWnd::Default` comes from pinned library member 148 and is intercepted at entry;
 its internal effects and the complete message loop are outside the comparisons.
 
 ```
@@ -103,7 +107,7 @@ python scripts/host_system_keys_differential.py --native-exe D:/Prog/hercules_re
 
 All three remain `RECONSTRUCTED`: their complete raw contributions differ.
 The same fresh objects are compared, linked and emulated. The fresh regression
-preserves all132 accepted functions and the59-provider ENG1 data audit.
+preserves all 132 accepted functions and the 59-provider ENG1 data audit.
 See `evidence/host_engine_dispatch_recovery.json` and
 `evidence/host_system_keys_recovery.json` for commands, hashes and limits.
 
@@ -113,7 +117,7 @@ Original EXE `0x5e10` now supplies the timer/service sequence, Config-apply guar
 gate test, exact missing-CD warning and initial requested display mode. The normal
 exit at `0x104d0` shares the existing fatal guard, window cell and shutdown-chain
 source. It preserves repeated-entry exit(-321), post-cleanup owner reload, WM_CLOSE
-notification and exit(0). CRT exit is identified as VC5 library member335 and is
+notification and exit(0). CRT exit is identified as VC5 library member 335 and is
 intercepted at entry in the fixture.
 
 ```
@@ -127,6 +131,12 @@ differ, so both remain `RECONSTRUCTED`. All132 accepted functions remain exact.
 The real startup still needs service bodies at `5750`, `5020`, `72a0`, `a0b0`,
 `fdf0` and `1ff0`; their declarations do not complete startup. See
 `evidence/host_startup_exit_recovery.json` for full proof boundaries and provenance.
+
+The original startup caller entry is EXE `0x7660`; `0x7670` is an interior
+block. Its frame allocation, constructor call and virtual LoadFrame slot
+support the class binding. Likewise `0x94f0` is a separate OnCreate handler
+inside an old combined map span beginning at `0x94e0`. These corrected
+boundaries must guide later source recovery.
 
 ## Remaining game work
 

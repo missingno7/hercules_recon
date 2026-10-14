@@ -41,9 +41,9 @@ MFC_SYMBOLS = {
 
 # First-party handler bytes are bounded by the primary function map.
 HANDLERS = {
-    "down": {"symbol": "?OnSysKeyDown@HostWindowInputHandlers@@QAEXIII@Z",
+    "down": {"symbol": "?OnSysKeyDown@CMainFrame@@QAEXIII@Z",
              "rva": 0x9AB0, "size": 112},
-    "up": {"symbol": "?OnSysKeyUp@HostWindowInputHandlers@@QAEXIII@Z",
+    "up": {"symbol": "?OnSysKeyUp@CMainFrame@@QAEXIII@Z",
            "rva": 0x9B20, "size": 32},
 }
 
@@ -263,7 +263,7 @@ def compile_link(root: Path, output: Path, oracle: Path) -> dict:
     runner_source.write_text(
         '#include "host_system_keys.h"\n'
         'int main() {\n'
-        '  HostWindowInputHandlers *receiver = (HostWindowInputHandlers *)0x12340000;\n'
+        '  CMainFrame *receiver = (CMainFrame *)0x12340000;\n'
         '  receiver->OnSysKeyDown(VK_RETURN, 1, 0);\n'
         '  receiver->OnSysKeyUp(VK_RETURN, 1, 0);\n'
         '  return 0;\n'
@@ -322,8 +322,8 @@ def compile_link(root: Path, output: Path, oracle: Path) -> dict:
                             "raw": raw, "relocation_diagnostic_only": diagnostic})
 
     symbols = parse_map(map_file)
-    expected_symbols = ["?OnSysKeyDown@HostWindowInputHandlers@@QAEXIII@Z",
-                        "?OnSysKeyUp@HostWindowInputHandlers@@QAEXIII@Z",
+    expected_symbols = ["?OnSysKeyDown@CMainFrame@@QAEXIII@Z",
+                        "?OnSysKeyUp@CMainFrame@@QAEXIII@Z",
                         "?Default@CWnd@@IAEJXZ", "_cleanup_native_6ec0"]
     expected_symbols.extend(row[0] for row in FIVE_PREFIXES.values())
     missing = [name for name in expected_symbols if name not in symbols]
@@ -371,7 +371,7 @@ def compile_link(root: Path, output: Path, oracle: Path) -> dict:
         "mfc": mfc,
         "limits": [
             "CWnd::Default is linked from pinned nafxcw.lib member 148 and intercepted at its entry; its body effects are not compared.",
-            "The CWnd-derived receiver is only the physical member-call ABI view used by this fixture; original class full name, base chain, layout and complete window are unproved.",
+            "The linked CMainFrame runtime identity, CFrameWnd base and188-byte extent are measured; the full original C++ declaration and complete window behavior remain unproved.",
             "Invalid device, partial SDK output and window activation semantics are outside these two handlers.",
             "A relocation-normalized match is diagnostic only; raw handler equality requires full bytes and no unresolved relocations.",
         ],
