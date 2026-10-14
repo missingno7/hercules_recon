@@ -88,6 +88,10 @@ bytes. The data audit passes for 59 providers, 923 fields and 4,787 pointer cell
 all 132 accepted functions remain exact. The current genuine graph has 398
 compiled functions, 531 unresolved symbols and no duplicate providers. The
 initializer remains `RECONSTRUCTED`: its complete raw contribution differs.
+Following the native target/current load lifetime reduced its ordinary C output
+from 96 to 80 bytes. The complete 80-byte relocation diagnostic now agrees, with
+all eleven operand locations consistent; the raw gate still rejects those
+relocations. This does not prove native module layout or linking.
 The broader startup and selected-color producer remain incomplete. See
 `evidence/eng1_color_transition_init.json` and run:
 

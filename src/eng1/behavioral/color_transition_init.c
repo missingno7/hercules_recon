@@ -16,11 +16,11 @@ void __cdecl eng1_native_code_target_01eba0(void *object)
     g_eng1_color_transition_state_6f4a8.selection = 0xffffffffUL;
     g_eng1_color_transition_state_6f4a8.previous_selection = 0xffffffffUL;
 
-    current = g_eng1_color_transition_pairs_589b8[0].current;
     target = g_eng1_color_transition_pairs_589b8[0].target;
     g_eng1_color_transition_state_6f4a8.previous_current = target;
     g_eng1_color_transition_state_6f4a8.target_value = target;
     g_eng1_color_transition_state_6f4a8.previous_target = target;
+    current = g_eng1_color_transition_pairs_589b8[0].current;
     g_eng1_color_transition_state_6f4a8.interpolation = 0UL;
     g_eng1_color_transition_state_6f4a8.current_target = current;
     g_eng1_color_transition_state_6f4a8.current_value = current;

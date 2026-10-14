@@ -72,6 +72,14 @@ and `evidence/host_input_recovery.json` for exact provenance and finite boundari
 
 ## Remaining game work
 
+The current natural host link compiles 70 actual source units covering all 94
+recorded EXE functions, preserving its 25 accepted EXE matches. It has no duplicate
+providers and stops on 18 missing symbols, including the real host interface,
+loader storage and graphics/audio services. It produces no executable. The exact
+selected sources, pinned libraries and missing consumers are recorded in
+`evidence/host_current_source_graph.json`; this is a partial graph, not complete
+application coverage.
+
 The recovered pieces still need a coherent host startup chain, window/message
 loop, full table ownership and engine dependencies before gameplay can run. The genuine
 ENG1 graph has 398 compiled functions and 531 unresolved symbols after the resource
