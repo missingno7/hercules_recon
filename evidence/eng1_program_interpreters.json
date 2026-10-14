@@ -15,7 +15,7 @@
   "contracts": {
     "0x283e0": "Signed WORD pairs, negative command dispatch, duration/state writes and shared advance/select helpers.",
     "0x28820": "WORD stream, first-WORD duration fallback and native cursor advances.",
-    "0x28aa0": "Non-null actor+128 command handle, six-byte state and transform records, preserved RNG path and wrapped-angle helper. A zero angle step preserves the corresponding raw angle WORD."
+    "0x28aa0": "Non-null actor+128 command handle, six-byte state and transform records, preserved RNG path and wrapped-angle helper. A zero angle step preserves the corresponding raw angle WORD. With a nonzero step, a near-target clamp stores target, clears the step, and masks the actor angle to ten bits; equal distance retains the step."
   },
   "source_fixture": "tests/eng1_program_interpreters.c",
   "fixture_scope": "Actual shared frame_state.c; test-only ratio/RNG/sound/resource/remove spies. No original x86 execution.",
@@ -28,9 +28,10 @@
     "python scripts/test_eng1_behavioral.py",
     "python scripts/eng1_behavioral.py"
   ],
-  "source_sha256": "407dba344dec39b82aa256507419715d5d6ff9852428999c300cf89fa5a0bfc8",
+  "source_sha256": "0ee227e05158b89a4755cb52e7c4d786a99e907ab3281e5f9f285ec563e36c2b",
   "native_differential": {
-    "evidence": "evidence/eng1_zero_angle_step.json",
-    "scope": "Two direct nonnegative-tick 0x28aa0 cases and one successful 0x1b9a0 command path; 42 checks pass with actual source interpreter, exact ticks and pointer-only normalization."
+    "evidence": "evidence/eng1_angle_clamp.json",
+    "prior_zero_step_evidence": "evidence/eng1_zero_angle_step.json",
+    "scope": "Five direct nonnegative-tick angle cases and one successful 0x1b9a0 command path; 57 checks pass with actual source interpreter, exact ticks and pointer-only normalization."
   }
 }

@@ -1,0 +1,141 @@
+{
+  "scope": "Measured ENG1 0x28aa0 near-target clamp correction; bounded evidence useful to later matching decompilation, with no function recovery-state promotion.",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "source": {
+    "path": "src/eng1/behavioral/interpreters.c",
+    "sha256": "0ee227e05158b89a4755cb52e7c4d786a99e907ab3281e5f9f285ec563e36c2b"
+  },
+  "previous_source_sha256": "407dba344dec39b82aa256507419715d5d6ff9852428999c300cf89fa5a0bfc8",
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "root": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb"
+  },
+  "prediction": "Starting from canonical interpreters.c with only the two private fixture helper boundaries omitted, change the magnitude<step block to store target into *current, clear *delta, mask the stored *current with 0x03ff, then return. This preserves native write ordering. It should match original 0x28aa0 on the wrapped clamp, equal-distance step, and in-range clamp, while retaining zero-step and signed-step behavior and leaving the successful 0x1b9a0 pipeline unchanged. All direct cases should match return 0, exact tick 1->0, exact 20-byte control, and all 0x134 Actor bytes after only +0x128 pointer identity normalization. Fresh unrelated contribution preservation should remain identical.",
+  "falsifier": "Any direct or pipeline return, tick, control, actor, callback, or measured native-data mismatch; any changes to the equal-distance retained step or in-range cleared step; any abort-on-entry endpoint; or any unrelated fresh source contribution change.",
+  "native_store_order": {
+    "static_context_sha256": "d7ec098bdc5b627274f07b0f5c4a419854c070576f21843ebcd10af36acffe21",
+    "yaw": "0x28fdf target store, 0x28fe3 delta clear, 0x28ff2 mask",
+    "pitch": "0x29024 target store, 0x29028 delta clear, 0x2903a mask",
+    "roll": "0x2906d target store, 0x29072 delta clear, 0x29078 mask"
+  },
+  "prediction_receipt": {
+    "path": "work/eng1_level6_startup/prediction_1b9a0_angle_clamp_ordered.json",
+    "sha256": "4e9b5d92ccdd953391efcd41247139a27d6150aac5c1f55d01c6f5b072b21a61"
+  },
+  "negative_control": {
+    "path": "work/eng1_level6_startup/native_source_1b9a0_actual_triples_clamp_current.json",
+    "sha256": "71986ad5d28d8f16ba3b0e6af8e6c4f4664dc41db86456d437f631f825ce51bc",
+    "result": "Previous source stores 0x0455; original stores 0x0055. Only three angle-high bytes differ at Actor +0x71/+0x73/+0x75; returns, ticks, controls and other matrix/pipeline cases agree."
+  },
+  "private_ordered_candidate": {
+    "path": "work/eng1_level6_startup/native_source_1b9a0_actual_triples_clamp_ordered.json",
+    "sha256": "e0d5b102bed1eb27fb0dbd7b07f60a6f9f6bfe7236f542024e868db5c668d1c6",
+    "result": "57 checks pass with ordinary C target store, delta clear, then current-value mask; separate earlier pre-masked-target variant stays private."
+  },
+  "fresh_canonical_replay": {
+    "record": {
+      "path": "work/eng1_level6_startup/native_source_1b9a0_actual_triples_clamp_canonical.json",
+      "sha256": "5411253be283b908bdf73ad02b2b94d598c39074d816d3fe349b9b9839d39944"
+    },
+    "runner": {
+      "path": "work/eng1_level6_startup/run_native_source_1b9a0_clamp_canonical.py",
+      "sha256": "a6cf794273ea42015f2983a5eb6b2cb77e8aa472245aeaf683f33802ea0b5a18"
+    },
+    "frozen_recipe": {
+      "path": "work/eng1_level6_startup/native_source_1b9a0_actual_triples_clamp_canonical_frozen.json",
+      "sha256": "22ebdbe0c15b9b29290f783c41cbbb700bc41ecc82a14c83bc9a6b159b19a7a7"
+    },
+    "prediction": {
+      "path": "work/eng1_level6_startup/prediction_1b9a0_angle_clamp_canonical.json",
+      "sha256": "8b9e24a988ca7fb241bc816bf34595859b3b3e1b8aae5b3594be330e2d3877ec"
+    },
+    "derivation": {
+      "canonical_source": "src/eng1/behavioral/interpreters.c",
+      "canonical_source_sha256": "0ee227e05158b89a4755cb52e7c4d786a99e907ab3281e5f9f285ec563e36c2b",
+      "private_omitted_complete_functions": [
+        "eng1_run_action_callback",
+        "eng1_copy_kind_position"
+      ],
+      "omission_binding": "Both complete static helper bodies are replaced only in the private test copy by external prototypes; harness endpoints terminate if an omitted path is entered.",
+      "canonical_source_omission_copy": "candidates/eng1_level6_startup/startup_interpreters_clamp_canonical_omitted.c",
+      "compiler_input_sha256": "e9933a570f9d23304577645f914c2bc9a4bfa344850eb705826843c3a0e90ccb",
+      "omitted_helpers_only": [
+        "eng1_run_action_callback",
+        "eng1_copy_kind_position"
+      ],
+      "guard_source": "read from canonical interpreters.c; no private guard insertion or substitution",
+      "private_source_change": "None. The current canonical interpreter branch is preserved exactly; only the two complete fixture-only helper omissions above are applied to this temporary link input.",
+      "canonical_omission_text_sha256": "e9933a570f9d23304577645f914c2bc9a4bfa344850eb705826843c3a0e90ccb",
+      "selected_mode": "clamp_canonical"
+    },
+    "checks": 57,
+    "failures": 0,
+    "callbacks": 2,
+    "cases": [
+      "Three-axis out-of-range clamp: 0x454 -> target 0x455 with step 2 yields 0x55, clearing steps.",
+      "Equal-distance control: distance equals magnitude of step; step is retained. Yaw becomes 0x52, pitch/roll 0x56.",
+      "In-range clamp: 100 -> target 101 with step 2 yields 101, clearing steps.",
+      "Prior out-of-range zero-step and signed nonzero-step controls.",
+      "Successful private 0x1b9a0 command pipeline using actual source command/frame/interpreter providers."
+    ],
+    "comparison": "Exact returns, ticks, 20-byte controls and full 0x134-byte actor records. Only measured pointer identities normalized; no scalar normalization. Eight actors and the 161496-byte native writable-data window audited; measured frame prefix is 12 bytes followed by no-access page.",
+    "helper_boundaries": "Two complete helpers omitted only from derived fixture input and bound to abort-on-entry endpoints; no endpoint returns in place of unrecovered game code.",
+    "contribution_preservation": "Fresh retained complete COFF contributions and relocations agree with canonical compilation before private helper omissions.",
+    "replay": "& 'C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe' 'work/eng1_level6_startup/run_native_source_1b9a0_clamp_canonical.py'",
+    "ordered_candidate_contribution_equality": {
+      "path": "work/eng1_level6_startup/clamp_canonical_contribution_provenance.json",
+      "sha256": "ceadc002ce00f2d3b338c67e68fd9ae78aa547bb3981a765bd73b0815416e127",
+      "scope": "Fresh canonical and ordered candidate retained angle helper, triple-angle helper and external interpreter contributions agree, including relocations. This is source-to-source preservation, not original target-byte equality."
+    }
+  },
+  "regression": {
+    "strict": {
+      "path": "work/eng1_clamp_regression/strict.json",
+      "sha256": "419f69d9781768b95e0f496cb9dd335c67442d5443164059f72b95c46eec2ca2",
+      "raw_exact_functions": 132
+    },
+    "source_suite": {
+      "path": "work/eng1_clamp_regression/source_suite/report.json",
+      "sha256": "0b031db5c69015a80be2d677123bf3757fe0ea0b042f4a72d1abe7e598487307",
+      "groups_passed": 38,
+      "scope": "Adopted reconstructed source with test-only spies; no original code executed, no game or full DLL validation."
+    },
+    "permanent_test": {
+      "path": "tests/eng1_program_interpreters.c",
+      "sha256": "8070bdf31f407190b143a002fbd4830db30c3abcb95895caf42975ad20b756c8"
+    },
+    "permanent_negative": {
+      "path": "work/eng1_clamp_regression/permanent_negative/report.json",
+      "sha256": "080364fefd78780cf08fb36d94f19a6084f3158c40e3e75c38e3aef0a3604c81",
+      "result": "Previous zero-step-corrected source fails the new permanent clamp actor-state comparison."
+    },
+    "genuine_graph": {
+      "path": "work/eng1_clamp_regression/source_graph/report.json",
+      "sha256": "e7ebc5dcfdeb01913eab639ed7919f973838b827767ed38119ee19e228135bb7",
+      "functions": 398,
+      "unresolved_symbols": 531,
+      "duplicate_providers": 0,
+      "accepted_eng1_functions_preserved": 76,
+      "executable_produced": false
+    },
+    "unchanged_data_provider_inputs": {
+      "previous_audit": {
+        "path": "work/eng1_zero_step_regression/data.json",
+        "sha256": "141e93d97715c0865711657b49445d8b66c54db76ae0bc88763391b790c70622"
+      },
+      "provider_source_hashes_rechecked": 59,
+      "note": "Physical provider sources are unchanged. This is input invariance, not a new full data audit."
+    }
+  },
+  "limitations": [
+    "Finite cases do not establish complete interpreter or startup equivalence, original source spelling, aggregate ownership, DLL layout, or gameplay.",
+    "Negative-tick opcode and helper closure remain open; 0x1b9a0 stays a private candidate.",
+    "The native mask is now expressed in source in measured store order, but no complete target-byte equality is claimed."
+  ],
+  "recovery": {
+    "sha256": "8904b2c2100191a3b24d3395922319f5d2b33a29347c37edc5378f0b90b95e85",
+    "changed": false,
+    "note": "recovery.json remains the sole authority; no 0x28aa0 function row is added."
+  }
+}

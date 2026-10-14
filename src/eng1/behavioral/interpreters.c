@@ -61,6 +61,7 @@ static void eng1_update_angle(short *current, short *delta,
     if (magnitude < step_magnitude) {
         *current = target;
         *delta = 0;
+        *current = (short)((unsigned short)*current & 0x03ff);
         return;
     }
 

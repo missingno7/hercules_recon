@@ -7,7 +7,7 @@ not establish a later runtime frontier. No new original-host run, reconstructed
 gameplay frame, continuous gameplay, or normal engine shutdown is verified.
 
 The latest genuine graph has 367 mapped compiled entries and 398 function
-symbols. See `evidence/eng1_zero_angle_step.json` for its pinned private receipt.
+symbols. See `evidence/eng1_angle_clamp.json` for its pinned private receipt.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
 denominator. The genuine link has 531 unresolved symbols and zero duplicate
 providers. Its intended export is `PC_DLLEngineMain` at ordinal 1; no current
@@ -38,6 +38,16 @@ source command/frame/interpreter providers and audits live callback effects.
 The broader opcode/helper closure and whole-function byte equality remain open.
 Evidence, predictions, source hashes and replay commands are in
 `evidence/eng1_zero_angle_step.json`.
+
+A separate native discriminator also showed that a nonzero near-target step
+must mask the angle after storing its target and clearing the step. The prior
+source stored `0x0455` where the original stored `0x0055`. The corrected source
+preserves the measured store order. Five direct cases cover both corrections,
+ordinary signed steps, in-range clamping and the exact-distance boundary; the
+full bounded startup fixture passes 57 checks. Permanent source regressions
+reject each prior source at the predicted complete-actor discrepancy. The fresh
+canonical replay and unchanged 132 exact peers are recorded in
+`evidence/eng1_angle_clamp.json`; no whole-function match is claimed.
 
 Simulation helpers `12620/12790` pass 15 native cases/1,382 checks plus two
 source guards. They reuse the existing strict `29260` frame reset rather than

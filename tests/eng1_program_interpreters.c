@@ -253,6 +253,64 @@ static void test_triple_zero_steps_preserve_raw_angles(void)
             "zero steps preserve the complete animation control record");
 }
 
+static void test_triple_clamp_masks_angles_and_preserves_equal_distance(void)
+{
+    static const short currents[3] = { 0x454, 0x454, 100 };
+    static const short targets[3] = { 0x455, 0x456, 101 };
+    static const short expected_angles[3][3] = {
+        { 0x55, 0x55, 0x55 },
+        { 0x52, 0x56, 0x56 },
+        { 101, 101, 101 }
+    };
+    static const short expected_steps[3] = { 0, 2, 0 };
+    unsigned short control_words[10];
+    unsigned short expected_words[10];
+    unsigned short *control_handle;
+    Eng1AnimationControl *control;
+    Eng1AnimationControl *expected_control;
+    Actor actor;
+    Actor expected;
+    int i;
+
+    /* Native-measured clamp, exact-distance and in-range cases; only the
+     * actor angle is masked, while the target WORD remains unchanged. */
+    for (i = 0; i < 3; ++i) {
+        memset(&actor, 0, sizeof(actor));
+        memset(control_words, 0, sizeof(control_words));
+        control = (Eng1AnimationControl *)control_words;
+        control->x_current = -1;
+        control->yaw_target = targets[i];
+        control->pitch_target = targets[i];
+        control->roll_target = targets[i];
+        control->yaw_step = 2;
+        control->pitch_step = 2;
+        control->roll_step = 2;
+        control_handle = control_words;
+        actor.animation_control = &control_handle;
+        actor.frame_ticks = 1;
+        actor.angle_yaw = currents[i];
+        actor.angle_pitch = currents[i];
+        actor.angle_roll = currents[i];
+        expected = actor;
+        expected.frame_ticks = 0;
+        expected.angle_yaw = expected_angles[i][0];
+        expected.angle_pitch = expected_angles[i][1];
+        expected.angle_roll = expected_angles[i][2];
+        memcpy(expected_words, control_words, sizeof(control_words));
+        expected_control = (Eng1AnimationControl *)expected_words;
+        expected_control->yaw_step = expected_steps[i];
+        expected_control->pitch_step = expected_steps[i];
+        expected_control->roll_step = expected_steps[i];
+
+        require(eng1_interpret_animation_triples(&actor) == 0,
+                "angle clamp matrix preserves the measured return");
+        require(memcmp(&actor, &expected, sizeof(actor)) == 0,
+                "angle clamp matrix matches complete native-measured actor state");
+        require(memcmp(control_words, expected_words, sizeof(control_words)) == 0,
+                "angle clamp matrix clears steps only for strict near-target cases");
+    }
+}
+
 int main(void)
 {
     test_pair_restart_uses_shared_advance_frame();
@@ -262,6 +320,7 @@ int main(void)
     test_triple_angle_command_uses_shared_ratio();
     test_triple_requires_control_handle();
     test_triple_zero_steps_preserve_raw_angles();
+    test_triple_clamp_masks_angles_and_preserves_equal_distance();
     puts("ENG1 program-interpreter fixtures passed");
     return 0;
 }
