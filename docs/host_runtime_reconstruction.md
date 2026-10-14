@@ -124,11 +124,12 @@ intercepted at entry in the fixture.
 python scripts/host_startup_differential.py
 ```
 
-Fourteen bounded comparisons pass with actual shutdown-chain/display-setter
-source. Other startup and cleanup service effects are synthetic boundaries. Both
+Twenty bounded comparisons pass with actual guard-setter, shutdown-chain and
+display-setter source. The `0x5750` setter writes the existing DWORD Config-apply
+guard and is exercised with five full-width values and a nonzero initial guard. Other startup and cleanup service effects are synthetic boundaries. All three
 complete instruction shapes agree outside relocation operands, but raw bytes
-differ, so both remain `RECONSTRUCTED`. All132 accepted functions remain exact.
-The real startup still needs service bodies at `5750`, `5020`, `72a0`, `a0b0`,
+differ, so all three remain `RECONSTRUCTED`. All132 accepted functions remain exact.
+The real startup still needs service bodies at `5020`, `72a0`, `a0b0`,
 `fdf0` and `1ff0`; their declarations do not complete startup. See
 `evidence/host_startup_exit_recovery.json` for full proof boundaries and provenance.
 
@@ -140,10 +141,10 @@ boundaries must guide later source recovery.
 
 ## Remaining game work
 
-The current natural host link compiles 75 actual source units covering all 99
+The current natural host link compiles 76 actual source units covering all 100
 recorded EXE functions, preserving its 25 accepted EXE matches. It has no duplicate
-providers and stops on 26 missing symbols, including the real host interface,
-loader storage, graphics/audio services and six startup service bodies. It produces no executable. The exact
+providers and stops on 25 missing symbols, including the real host interface,
+loader storage, graphics/audio services and five startup service bodies. It produces no executable. The exact
 selected sources, pinned libraries and missing consumers are recorded in
 `evidence/host_current_source_graph.json`; this is a partial graph, not complete
 application coverage.

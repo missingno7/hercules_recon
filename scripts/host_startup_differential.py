@@ -27,8 +27,9 @@ CELLS={'entered':('_g_fatal_entered',0xba023c,1),'owner':('_g_fatal_owner_window
        'gate':('_g_host_input_gate_rva_03a594',0x43a594,1),
        'display':('_g_exe_96e3d0',0x96e3d0,1),'fullscreen':('_g_fatal_suppress_dialog',0xba020c,1)}
 FUNCTIONS=[('host_normal_exit.c','_host_normal_exit_104d0',0x104d0,80),
-           ('host_startup.c','_host_startup_5e10',0x5e10,128)]
-SERVICES={'_host_service_5750':(0x5750,1),'_host_registry_read_config':(0x4ce0,0),
+           ('host_startup.c','_host_startup_5e10',0x5e10,128),
+           ('host_startup_guard.c','_host_set_config_apply_guard_5750',0x5750,16)]
+SERVICES={'_host_registry_read_config':(0x4ce0,0),
     '_host_service_5020':(0x5020,0),'_host_service_72a0':(0x72a0,0),
     '_host_input_initialize_7bb0':(0x7bb0,0),'_host_service_a0b0':(0xa0b0,0),
     '_host_service_fdf0':(0xfdf0,0),'_host_service_1ff0':(0x1ff0,0),
@@ -128,6 +129,7 @@ def invoke(mode,case,layout,pe):
             elif name=='_exit':hooks[address]=(name,1,0)
             else:raise AssertionError('unmapped source dependency '+name)
         startup=symbols['_host_startup_5e10'];normal=symbols['_host_normal_exit_104d0']
+    actual_guard=BASE+0x5750 if mode=='original' else symbols['_host_set_config_apply_guard_5750']
     actual_chain=BASE+0x5e90 if mode=='original' else symbols['_fatal_shutdown_chain']
     actual_mode=BASE+0x6ec0 if mode=='original' else symbols['_cleanup_native_6ec0']
     def on_write(uc,access,address,size,value,user):
@@ -140,6 +142,7 @@ def invoke(mode,case,layout,pe):
         nonlocal boundary,returned
         if address==STOP:returned=True;uc.emu_stop();return
         sp=uc.reg_read(UC_X86_REG_ESP)
+        if address==actual_guard:events.append(dict(call='actual_config_guard_setter',args=[rd(sp+4)],state=state()))
         if address==actual_chain:events.append(dict(call='actual_shutdown_chain',state=state()))
         if address==actual_mode:events.append(dict(call='actual_display_mode_setter',args=[rd(sp+4)],state=state()))
         if address==normal:events.append(dict(call='actual_normal_exit',state=state()))
@@ -163,10 +166,12 @@ def invoke(mode,case,layout,pe):
     for k,v in dict(entered=0,owner=0,guard=0,gate=1,display=0xa5,fullscreen=0).items():cell(k,v)
     for k,v in case.get('initial',{}).items():cell(k,v)
     before=state();sp=STACK+STACK_SIZE-0x100;wr(sp,STOP)
+    if case['entry']=='guard':wr(sp+4,case['value'])
     for i,(k,r) in enumerate(REGS.items()):uc.reg_write(r,0x11111111*(i+1)&0xffffffff)
     uc.reg_write(UC_X86_REG_ESP,sp);uc.reg_write(UC_X86_REG_EFLAGS,0x202)
     saved={k:uc.reg_read(REGS[k]) for k in ('ebx','esi','edi','ebp')}
-    uc.emu_start(startup if case['entry']=='startup' else normal,0,count=20000)
+    entry={'startup':startup,'normal':normal,'guard':actual_guard}[case['entry']]
+    uc.emu_start(entry,0,count=20000)
     assert returned or boundary
     if returned:
         assert uc.reg_read(UC_X86_REG_ESP)==sp+4
@@ -206,6 +211,8 @@ def main():
         dict(name='normal_exit_cleanup_reloads_owner',entry='normal',initial=dict(owner=0x11110000),mutation_at='_cleanup_native_74c0',mutation=dict(owner=0x33330000)),
         dict(name='normal_exit_cleanup_sets_window',entry='normal',mutation_at='_archive_shutdown',mutation=dict(owner=0x44440000)),
         dict(name='normal_exit_cleanup_clears_window',entry='normal',initial=dict(owner=0x11110000),mutation_at='_cleanup_native_4da0',mutation=dict(owner=0))]
+    cases.append(dict(name='startup_resets_nonzero_apply_guard',entry='startup',initial=dict(guard=0x12345678)))
+    cases.extend(dict(name='guard_value_'+hex(value),entry='guard',value=value,initial=dict(guard=0xa5a5a5a5)) for value in (0,1,0xffffffff,0x80000000,0x12345678))
     results=[]
     for case in cases:
         original=invoke('original',case,layout,pe);candidate=invoke('candidate',case,layout,pe)
@@ -222,7 +229,7 @@ def main():
         limits=['Only startup call-order/state protocol and normal-exit control are compared.',
             'MessageBox literal pointer operands are compared by complete NUL-terminated content and argument role, not equal linked addresses.',
             'Config/input/apply and unresolved startup/cleanup service effects use explicit synthetic boundaries; their complete bodies are outside this fixture.',
-            'Actual shutdown-chain and requested-mode setter providers execute; shutdown subordinate bodies are intercepted.',
+            'Actual Config-guard setter, shutdown-chain and requested-mode setter providers execute; other subordinate bodies are intercepted.',
             'Fresh provider storage supplies measured prefixes only, without proving historical object/TU/layout ownership.',
             'No real OS, original process, original DLL initializer, full startup/menu/gameplay or exact function acceptance.'])
     save(LANE/'report.json',report)
