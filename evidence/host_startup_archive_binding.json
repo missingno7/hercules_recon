@@ -1,0 +1,68 @@
+{
+  "scope": "Identity correction binding the existing startup call to retained archive initializer source. No initializer recovery-state or complete-body acceptance.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "prediction": "Replacing the unsupported address-labelled startup callee with the existing archive_initialize at the identical original 0x5020 address will preserve the complete startup machine-code section and every relocation, except for that one external symbol name. The actual-source link should resolve this dependency without new bodies or storage.",
+  "falsifier": "Any changed instruction/padding byte, any additional relocation change, inconsistent ABI/callee identity, duplicate provider, or changed accepted peer.",
+  "identity": {
+    "caller_rva": "0x5e27",
+    "callee_rva": "0x5020",
+    "symbol": "_archive_initialize",
+    "physical_ABI": "cdecl void(void), caller discards EAX",
+    "evidence": {
+      "path": "evidence/archive_lifecycle_region.json",
+      "sha256": "b4c3064cd2193694a4de609a6a64e54f5185b0c136126d2e5d34b634bdfcbf10"
+    }
+  },
+  "caller_source": {
+    "path": "calibration\\host_startup.c",
+    "sha256": "0b715bae2ee09f39e82458bfeb70627b46024b21e72b0e25eafa66777549e761"
+  },
+  "provider_source": {
+    "path": "calibration\\archive_lifecycle.c",
+    "sha256": "bd0f312aca26ccb39b170ef571053411003b3c98b8d2140f8a3388a4180af0a0"
+  },
+  "provider_state": "Existing retained ordinary-C draft; no 0x5020 recovery row is added.",
+  "preservation": {
+    "recorded_EXE_functions": 100,
+    "complete_machine_code_unchanged": true,
+    "only_change": "One REL32 symbol at contribution offset 24 changes _host_service_5020 to _archive_initialize. Callee identity remains original 0x5020.",
+    "initializer_code_and_relocations_unchanged": true
+  },
+  "validation": {
+    "protocol": {
+      "path": "work\\host_startup_archive_binding\\protocol-5d959686a58799a9.json",
+      "sha256": "5d959686a58799a9e06d190e6c31c7dc9f91b69a3042497dd362c53d29b113b8",
+      "cases": 20,
+      "failures": 0,
+      "scope": "Initializer is intercepted at entry on both sides; this verifies caller protocol, not initializer effects."
+    },
+    "strict": {
+      "path": "work\\host_startup_archive_binding\\strict.json",
+      "sha256": "ddd9f9409302932b439a0ae24bae43a74d6d2a341e81edf04fc37887fd136b2f",
+      "raw_exact_functions": 132
+    },
+    "natural_graph": {
+      "path": "work\\host_current_graph\\report-362dbfee2c6dd4aa.json",
+      "sha256": "362dbfee2c6dd4aa59152941c4474651acd3c6861d064d9703ba5fdad35c06dc",
+      "source_units": 76,
+      "recorded_EXE_functions": 100,
+      "preserved_EXE_exact": 25,
+      "unresolved": 24,
+      "duplicates": 0,
+      "executable_produced": false
+    }
+  },
+  "reproduce": [
+    "python scripts/host_startup_differential.py",
+    "python work/host_current_graph/run.py",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon"
+  ],
+  "limits": [
+    "No new body/storage, alias/thunk, original dispatch or original execution was used.",
+    "Binding establishes address/prototype/dependency identity, not complete initializer behavior, source identity, historical layout or playable startup."
+  ],
+  "private_prediction": {
+    "path": "work\\host_startup_archive_binding\\prediction.json",
+    "sha256": "ef4b60bcff8b86044db8391637c667e1bfe728885b979f7a4d641f4986475b6c"
+  }
+}

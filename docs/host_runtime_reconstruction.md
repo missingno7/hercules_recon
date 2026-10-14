@@ -129,9 +129,16 @@ display-setter source. The `0x5750` setter writes the existing DWORD Config-appl
 guard and is exercised with five full-width values and a nonzero initial guard. Other startup and cleanup service effects are synthetic boundaries. All three
 complete instruction shapes agree outside relocation operands, but raw bytes
 differ, so all three remain `RECONSTRUCTED`. All132 accepted functions remain exact.
-The real startup still needs service bodies at `5020`, `72a0`, `a0b0`,
+The real startup still needs service bodies at `72a0`, `a0b0`,
 `fdf0` and `1ff0`; their declarations do not complete startup. See
 `evidence/host_startup_exit_recovery.json` for full proof boundaries and provenance.
+
+The startup call at `0x5e27` now binds the retained `archive_initialize` source
+at original `0x5020`. No duplicate body or data was introduced. All 100
+recorded host contributions keep their complete code bytes; one callee
+relocation name changes to the existing provider. The 20 protocol cases pass,
+but intercept initialization at entry. Its broader behavior and recovery-state
+acceptance remain separate work; see `evidence/host_startup_archive_binding.json`.
 
 The original startup caller entry is EXE `0x7660`; `0x7670` is an interior
 block. Its frame allocation, constructor call and virtual LoadFrame slot
@@ -143,8 +150,8 @@ boundaries must guide later source recovery.
 
 The current natural host link compiles 76 actual source units covering all 100
 recorded EXE functions, preserving its 25 accepted EXE matches. It has no duplicate
-providers and stops on 25 missing symbols, including the real host interface,
-loader storage, graphics/audio services and five startup service bodies. It produces no executable. The exact
+providers and stops on 24 missing symbols, including the real host interface,
+loader storage, graphics/audio services and four startup service bodies. It produces no executable. The exact
 selected sources, pinned libraries and missing consumers are recorded in
 `evidence/host_current_source_graph.json`; this is a partial graph, not complete
 application coverage.

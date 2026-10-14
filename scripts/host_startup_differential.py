@@ -30,7 +30,7 @@ FUNCTIONS=[('host_normal_exit.c','_host_normal_exit_104d0',0x104d0,80),
            ('host_startup.c','_host_startup_5e10',0x5e10,128),
            ('host_startup_guard.c','_host_set_config_apply_guard_5750',0x5750,16)]
 SERVICES={'_host_registry_read_config':(0x4ce0,0),
-    '_host_service_5020':(0x5020,0),'_host_service_72a0':(0x72a0,0),
+    '_archive_initialize':(0x5020,0),'_host_service_72a0':(0x72a0,0),
     '_host_input_initialize_7bb0':(0x7bb0,0),'_host_service_a0b0':(0xa0b0,0),
     '_host_service_fdf0':(0xfdf0,0),'_host_service_1ff0':(0x1ff0,0),
     '_cleanup_native_4ac0':(0x4ac0,0),'_cleanup_native_4da0':(0x4da0,0),

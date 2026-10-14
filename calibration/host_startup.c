@@ -4,7 +4,7 @@
 /* Measured direct callees; unresolved service bodies retain address labels. */
 extern void __cdecl host_set_config_apply_guard_5750(DWORD);
 extern void __cdecl host_registry_read_config(void);
-extern void __cdecl host_service_5020(void);
+extern void __cdecl archive_initialize(void);
 extern void __cdecl host_service_72a0(void);
 extern void __cdecl host_input_initialize_7bb0(void);
 extern void __cdecl host_service_a0b0(void);
@@ -23,7 +23,7 @@ void __cdecl host_startup_5e10(void)
     timeBeginPeriod(1);
     host_set_config_apply_guard_5750(0);
     host_registry_read_config();
-    host_service_5020();
+    archive_initialize();
     host_service_72a0();
     host_input_initialize_7bb0();
     host_service_a0b0();
