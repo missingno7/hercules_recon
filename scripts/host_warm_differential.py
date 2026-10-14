@@ -89,7 +89,7 @@ def linked_functions(objects):
                 '_g_registry_config': CONFIG,
                 '_g_host_audio_channel_ids_799848': IDS,
                 '_g_host_audio_channel_cursors_7998a8': CURSORS,
-                '_g_exe_799908': BANK, '_host_poll_input_8040': POLL}
+                '_g_exe_799908': BANK, '_host_input_collect_8040': POLL}
     sections, symbols = [], dict(external)
     next_code = 0x7000000
     for obj in objects:

@@ -37,10 +37,43 @@ are synthetic fixture endpoints. The existing callback-one source is compiled
 and exercised. No game process, DLL initializer or real input/audio API runs.
 See `evidence/host_warm_delivery_recovery.json` for provenance and finite limits.
 
+## Loader, configuration and input
+
+The loader and selector now have ordinary historical C source in separate units.
+They preserve basename loading, the three original fallback paths, live path
+reloads, missing-module/export behavior and the CRT `longjmp` transfer. The four
+CRT dependencies are identified VC5 library contributions. Fifteen finite cases
+pass; path/error buffer capacities and the real jump-buffer owner remain open.
+The runner's 512-byte buffers are test storage, not adopted game declarations.
+
+The Config readers, defaults, mapping construction and byte setters compile with
+the existing checksum, audio, Config and literal providers as nine separate
+objects. Their 24 finite cases pass, including the original absent type check,
+query-failure key leak, repeated close and twice-applied defaults. Twelve distinct
+startup/input storage prefixes reproduce 7,785 native initial bytes. The host
+interface table remains an explicit external dependency.
+
+The six input primitives compile with the real SDK imports and shared storage.
+Their 15 named cases produce 17 matching output lines and 350 matching API calls,
+including complete initialization and buffer/ABI checks. The actual object used
+for raw comparison is the same one linked and emulated. Warm delivery now refers
+directly to `host_input_collect_8040`; there is no added adapter function.
+
+```
+python scripts/host_loader_differential.py --native-exe D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE
+python scripts/host_config_differential.py --native-exe D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE --original-root D:/Prog/hercules_recon
+python scripts/host_input_differential.py --native-exe D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE
+```
+
+These fixtures interpret original and source-built code with synthetic API
+endpoints. They preserve all 132 strict matches and add no `FUNCTION_MATCH`.
+See `evidence/host_engine_loader_recovery.json`, `evidence/host_config_recovery.json`
+and `evidence/host_input_recovery.json` for exact provenance and finite boundaries.
+
 ## Remaining game work
 
-The original input sampler, configuration/startup chain, window/message loop and
-engine dependencies must join this source before gameplay can run. The genuine
+The recovered pieces still need a coherent host startup chain, window/message
+loop, full table ownership and engine dependencies before gameplay can run. The genuine
 ENG1 graph has 397 compiled functions and 532 unresolved symbols after the resource
 action recovery. A linked diagnostic DLL with fail-on-entry markers remains an
 incomplete diagnostic, not a game. Original host execution also retains the

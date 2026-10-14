@@ -3,7 +3,7 @@
 #include "host_warm_delivery.h"
 
 extern "C" {
-extern DWORD __cdecl host_poll_input_8040(void);
+extern DWORD __cdecl host_input_collect_8040(void);
 
 void __cdecl host_audio_poll_f820(void)
 {
@@ -50,7 +50,7 @@ void __cdecl host_notify_secondary_be40(void)
 void __cdecl host_warm_delivery_bcf0(void)
 {
     if (g_host_input_packet_68e78c != 0) {
-        g_host_input_packet_68e78c->buttons_002 = (WORD)~host_poll_input_8040();
+        g_host_input_packet_68e78c->buttons_002 = (WORD)~host_input_collect_8040();
         g_host_input_packet_68e78c->byte_001 = 0x40;
         g_host_input_packet_68e78c->byte_000 = 0;
     }
@@ -67,6 +67,6 @@ DWORD __cdecl host_register_input_packet_bd30(HostInputPacketPrefix *packet)
 
 DWORD __cdecl host_poll_input_alias_bd50(void)
 {
-    return host_poll_input_8040();
+    return host_input_collect_8040();
 }
 }

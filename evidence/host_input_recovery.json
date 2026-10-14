@@ -1,0 +1,837 @@
+{
+  "schema": 1,
+  "scope": "Six original keyboard/joystick primitives, actual SDK-import code and shared owners. recovery.json alone owns status; all new rows remain RECONSTRUCTED.",
+  "oracle": {
+    "path": "work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "source": {
+    "path": "calibration/host_input.c",
+    "sha256": "c4354a25d23225ba8376a1dc3ec844fe8eb2b5c3aac2e3b9beb5eafae24e42cc"
+  },
+  "providers": [
+    {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_startup_storage.c",
+      "sha256": "0e8d20d230c4311f8c81ae50e5d924cd91f956cb1956c704fd434ad601ce25a1"
+    },
+    {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\registry_storage.c",
+      "sha256": "e9f7c60fd443f486260a622e2beb5cde2be2d7a500b2cd486afab6ccbe35eda7"
+    }
+  ],
+  "headers": {
+    "windows.h": "1de22ddc1b079d330a8f5b02338a5ad5681b060cf3ac86f984a243ff2bdd9303",
+    "mmsystem.h": "3ba7c98ffc53b070a60d3ea18fb3b0cdb4c0ceb1743fad6239d6dda9cb8c09f0",
+    "string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
+    "host_startup_storage.h": "e9c940931c9d7efca2b42bbc24992478dc8d94449a132a5fcc521522f3bfa3ad"
+  },
+  "prediction": "SDK C with Config72 and the actual mapping/input prefixes should reproduce the original collectors; proof must use the same production-import object in byte comparison and emulation, not renamed test APIs.",
+  "falsifier": "Mismatch in state/return/API order/widths or source-provider identity; actual import object differs from tested object; modified exact peers.",
+  "outcome": "The initially renamed fixture was replaced by actual SDK-import code, and source/original preconditions were aligned. Fifteen named scenarios, seventeen rendered lines and350 API calls agree using one raw-compared/source-linked object.",
+  "contracts": {
+    "7bb0": "Initialize16 availability and16x404-byte JOYCAPSA prefixes; joyGetPos before joyGetDevCapsA; success count. Poll all256 keys and clear two distinct stateDWORDs.",
+    "7c50": "Availability gate; JOYINFOEX size52 flags83; ignore API return. Map28 low button bits; unsigned axis normalization with strict thresholds below-33/above33 and observed zero-range handling.",
+    "7e90": "SignedWORD Config joystick ID, ffff disables. Translate axis flags, remove high four bits then consume28 value/mask pairs from the actual Config producer.",
+    "7f10": "Two DWORD args; ffffffff leaves corresponding state cell unchanged. No stronger callback identity inferred from absence of direct xrefs.",
+    "7f30": "Enable ConfigBYTE+14; Alt mask8001 gate; fixed Escape/Space/Enter cache flags then nine signedWORD assignments.",
+    "8040": "Keyboard/pending suppression then joystick merge, opposite-direction priority and native activeBYTE gate. Warm delivery binds directly to host_input_collect_8040; no thunk."
+  },
+  "validation": {
+    "named_scenarios": 15,
+    "output_lines": 17,
+    "API_calls": 350,
+    "failures": 0,
+    "API_counts": {
+      "GetAsyncKeyState": 322,
+      "joyGetPos": 16,
+      "joyGetDevCapsA": 4,
+      "joyGetPosEx": 8
+    },
+    "SDK_and_buffer_contract": {
+      "all_checks_passed": true,
+      "expected_call_count": 350,
+      "expected_counts_by_api": {
+        "GetAsyncKeyState": 322,
+        "joyGetPos": 16,
+        "joyGetDevCapsA": 4,
+        "joyGetPosEx": 8
+      },
+      "callee_pop_bytes_by_api": {
+        "GetAsyncKeyState": 4,
+        "joyGetPos": 8,
+        "joyGetDevCapsA": 12,
+        "joyGetPosEx": 8
+      },
+      "structure_extents": {
+        "JOYINFO": 16,
+        "JOYCAPSA": 404,
+        "JOYINFOEX": 52
+      },
+      "JOYINFOEX_flags": "0x83",
+      "full_contract_and_traces": "private receipt"
+    },
+    "initialization_complete_state": {
+      "exact_equal": true,
+      "oracle": {
+        "availability_hex": "01000100000000000000000000000001",
+        "availability_sha256": "7702de7067140751bd6c04981980f18834065f9539fb4782556b8bd4003349e9",
+        "capability_bytes": 6464,
+        "capability_sha256": "8fb59e8886d0c1a408159cf4cc650fad7896d2c955bad81cbd56c248bffcefa7",
+        "count": 3,
+        "cache_state_dwords": [
+          0,
+          0
+        ],
+        "async_key_cache_bytes": 512,
+        "async_key_cache_sha256": "c8e7d5e2f46b74ffecfb5c3ec36772f82c54e3f441bdd99a06802a130b06195e",
+        "async_key_cache_nonzero_count": 128,
+        "api_write_contract": {
+          "api_counts": {
+            "GetAsyncKeyState": 256,
+            "joyGetPos": 16,
+            "joyGetDevCapsA": 4,
+            "joyGetPosEx": 0
+          },
+          "joyGetDevCapsA_cbSize_values": [
+            404
+          ],
+          "joyGetCaps_offsets": [
+            0,
+            404,
+            808,
+            6060
+          ],
+          "api_sequence_sha256": "c8c875ab07e25e730433ce98875bd038ab9aff85e484e2bf3bd0c4f785084b5d"
+        }
+      },
+      "candidate": {
+        "availability_hex": "01000100000000000000000000000001",
+        "availability_sha256": "7702de7067140751bd6c04981980f18834065f9539fb4782556b8bd4003349e9",
+        "capability_bytes": 6464,
+        "capability_sha256": "8fb59e8886d0c1a408159cf4cc650fad7896d2c955bad81cbd56c248bffcefa7",
+        "count": 3,
+        "cache_state_dwords": [
+          0,
+          0
+        ],
+        "async_key_cache_bytes": 512,
+        "async_key_cache_sha256": "c8e7d5e2f46b74ffecfb5c3ec36772f82c54e3f441bdd99a06802a130b06195e",
+        "async_key_cache_nonzero_count": 128,
+        "api_write_contract": {
+          "api_counts": {
+            "GetAsyncKeyState": 256,
+            "joyGetPos": 16,
+            "joyGetDevCapsA": 4,
+            "joyGetPosEx": 0
+          },
+          "joyGetDevCapsA_cbSize_values": [
+            404
+          ],
+          "joyGetCaps_offsets": [
+            0,
+            404,
+            808,
+            6060
+          ],
+          "api_sequence_sha256": "c8c875ab07e25e730433ce98875bd038ab9aff85e484e2bf3bd0c4f785084b5d"
+        }
+      }
+    },
+    "write_contract": {
+      "exact_equal": true,
+      "checks_passed": true,
+      "oracle": {
+        "tracked_write_count": 2221,
+        "normalized_relative_trace_sha256": "a885a3d47cf50eed606cd9a3d57455153e5bd497f2aa2273f81f557d5abec7e4",
+        "normalized_relative_trace_count": 2221,
+        "region_counts": {
+          "caps": 1616,
+          "availability": 19,
+          "count": 4,
+          "cache0": 1,
+          "cache1": 1,
+          "stack": 580,
+          "outside": 0
+        },
+        "region_extents": {
+          "caps": {
+            "writes": 1616,
+            "bytes_covered": 6464,
+            "min_address": "0xb9e8b0",
+            "end_address": "0xba01f0",
+            "write_sizes": [
+              4
+            ]
+          },
+          "availability": {
+            "writes": 19,
+            "bytes_covered": 16,
+            "min_address": "0xb9e8a0",
+            "end_address": "0xb9e8b0",
+            "write_sizes": [
+              1
+            ]
+          },
+          "count": {
+            "writes": 4,
+            "bytes_covered": 4,
+            "min_address": "0xba0218",
+            "end_address": "0xba021c",
+            "write_sizes": [
+              4
+            ]
+          },
+          "cache0": {
+            "writes": 1,
+            "bytes_covered": 4,
+            "min_address": "0x96e5d0",
+            "end_address": "0x96e5d4",
+            "write_sizes": [
+              4
+            ]
+          },
+          "cache1": {
+            "writes": 1,
+            "bytes_covered": 4,
+            "min_address": "0x96e5d4",
+            "end_address": "0x96e5d8",
+            "write_sizes": [
+              4
+            ]
+          },
+          "stack": {
+            "writes": 580,
+            "bytes_covered": 32,
+            "min_address": "0xc1fecc",
+            "end_address": "0xc1feec",
+            "write_sizes": [
+              4
+            ]
+          },
+          "outside": {
+            "writes": 0,
+            "bytes_covered": 0,
+            "min_address": null,
+            "end_address": null,
+            "write_sizes": []
+          }
+        },
+        "outside_write_examples": []
+      },
+      "candidate": {
+        "tracked_write_count": 2221,
+        "normalized_relative_trace_sha256": "a885a3d47cf50eed606cd9a3d57455153e5bd497f2aa2273f81f557d5abec7e4",
+        "normalized_relative_trace_count": 2221,
+        "region_counts": {
+          "caps": 1616,
+          "availability": 19,
+          "count": 4,
+          "cache0": 1,
+          "cache1": 1,
+          "stack": 580,
+          "outside": 0
+        },
+        "region_extents": {
+          "caps": {
+            "writes": 1616,
+            "bytes_covered": 6464,
+            "min_address": "0x4077a8",
+            "end_address": "0x4090e8",
+            "write_sizes": [
+              4
+            ]
+          },
+          "availability": {
+            "writes": 19,
+            "bytes_covered": 16,
+            "min_address": "0x407798",
+            "end_address": "0x4077a8",
+            "write_sizes": [
+              1
+            ]
+          },
+          "count": {
+            "writes": 4,
+            "bytes_covered": 4,
+            "min_address": "0x4090e8",
+            "end_address": "0x4090ec",
+            "write_sizes": [
+              4
+            ]
+          },
+          "cache0": {
+            "writes": 1,
+            "bytes_covered": 4,
+            "min_address": "0x4090ec",
+            "end_address": "0x4090f0",
+            "write_sizes": [
+              4
+            ]
+          },
+          "cache1": {
+            "writes": 1,
+            "bytes_covered": 4,
+            "min_address": "0x4090f0",
+            "end_address": "0x4090f4",
+            "write_sizes": [
+              4
+            ]
+          },
+          "stack": {
+            "writes": 580,
+            "bytes_covered": 32,
+            "min_address": "0xc1fecc",
+            "end_address": "0xc1feec",
+            "write_sizes": [
+              4
+            ]
+          },
+          "outside": {
+            "writes": 0,
+            "bytes_covered": 0,
+            "min_address": null,
+            "end_address": null,
+            "write_sizes": []
+          }
+        },
+        "outside_write_examples": []
+      }
+    },
+    "same_object_sha256": "0800d066c908b122695ca187af815ff17ee37fce088569947f95da261230aba5",
+    "actual_SDK_imports": {
+      "GetAsyncKeyState": "0x40a158",
+      "joyGetDevCapsA": "0x40a160",
+      "joyGetPos": "0x40a164",
+      "joyGetPosEx": "0x40a168"
+    },
+    "unused_imports": "29 unmodeled imports are fail-on-entry fixture endpoints; no game or SDK init sequence runs.",
+    "regression": {
+      "fresh_strict_raw_exact": 132,
+      "receipt": {
+        "path": "work/host_loader_differential/host_batch_strict.json",
+        "sha256": "a059343c7c0ec575a73da8d59c9c39bc2a74786968d14802f4b80e6da65073fe"
+      },
+      "new_FUNCTION_MATCH": 0
+    }
+  },
+  "comparisons": [
+    {
+      "symbol": "_host_input_initialize_7bb0",
+      "rva": "0x7bb0",
+      "target_extent": 160,
+      "object_contribution_bytes": 160,
+      "raw": {
+        "exact": false,
+        "target_size": 160,
+        "compiled_size": 160,
+        "target_sha256": "ecad7e2dad42c2a83b94c65166a1157d944601fdce9c232dc69a9c8e567c19d9",
+        "compiled_sha256": "ddb00472d9ea0ada7163b4f05f2d9c49500f9e0ba280aa89f37a97a1de47bb01",
+        "different_bytes": 40,
+        "object_relocation_count": 13,
+        "native_relocation_count": 0
+      },
+      "masked_diagnostic": {
+        "masked_equal": false,
+        "compiled_size": 160,
+        "target_size": 160,
+        "differing_bytes": 1,
+        "mismatch_regions": [
+          [
+            109,
+            110
+          ]
+        ],
+        "symbols": {
+          "__imp__GetAsyncKeyState@4": "0x7a5a64",
+          "__imp__joyGetDevCapsA@12": "0x7a5b18",
+          "__imp__joyGetPos@8": "0x7a5b10",
+          "_g_host_input_joy_available_rva_79e8a0": "0x79e8a0",
+          "_g_host_input_joy_caps_rva_79e8b0": "0x79e8b0",
+          "_g_host_input_joy_count_rva_7a0218": "0x7a0218",
+          "_g_host_input_last_state_first_rva_56e5d0": "0x56e5d0",
+          "_g_host_input_last_state_second_rva_56e5d4": "0x56e5d4"
+        },
+        "conflicts": [],
+        "unsupported": [],
+        "relocations": 13
+      }
+    },
+    {
+      "symbol": "_host_input_sample_7c50",
+      "rva": "0x7c50",
+      "target_extent": 576,
+      "object_contribution_bytes": 528,
+      "raw": {
+        "exact": false,
+        "target_size": 576,
+        "compiled_size": 528,
+        "target_sha256": "19325548ac49bac0c52ff8b159998d44b64734423c1bfc040c8f6fb058a2b2d6",
+        "compiled_sha256": "4a5a9120092b4dead25be5b417658485fe7a9b9ac8a538c5159b80c04a107a7c",
+        "different_bytes": 525,
+        "object_relocation_count": 5,
+        "native_relocation_count": 0
+      },
+      "masked_diagnostic": {
+        "masked_equal": false,
+        "compiled_size": 528,
+        "target_size": 576,
+        "differing_bytes": 512,
+        "mismatch_regions": [
+          [
+            2,
+            3
+          ],
+          [
+            6,
+            12
+          ],
+          [
+            14,
+            32
+          ],
+          [
+            36,
+            93
+          ],
+          [
+            94,
+            101
+          ],
+          [
+            102,
+            109
+          ],
+          [
+            110,
+            117
+          ],
+          [
+            118,
+            125
+          ],
+          [
+            126,
+            133
+          ],
+          [
+            134,
+            141
+          ],
+          [
+            142,
+            149
+          ],
+          [
+            150,
+            157
+          ],
+          [
+            158,
+            165
+          ],
+          [
+            166,
+            173
+          ],
+          [
+            174,
+            181
+          ],
+          [
+            182,
+            189
+          ],
+          [
+            190,
+            197
+          ],
+          [
+            198,
+            205
+          ],
+          [
+            206,
+            213
+          ],
+          [
+            214,
+            254
+          ],
+          [
+            256,
+            261
+          ],
+          [
+            264,
+            283
+          ],
+          [
+            286,
+            296
+          ],
+          [
+            297,
+            298
+          ],
+          [
+            299,
+            303
+          ],
+          [
+            307,
+            312
+          ],
+          [
+            314,
+            328
+          ],
+          [
+            331,
+            356
+          ],
+          [
+            360,
+            363
+          ],
+          [
+            367,
+            370
+          ],
+          [
+            374,
+            410
+          ],
+          [
+            411,
+            421
+          ],
+          [
+            424,
+            442
+          ],
+          [
+            443,
+            478
+          ],
+          [
+            479,
+            576
+          ]
+        ],
+        "symbols": {
+          "__imp__joyGetPosEx@8": "0x32c00000",
+          "_g_host_input_joy_available_rva_79e8a0": "0xa0468a00",
+          "_g_host_input_joy_caps_rva_79e8b0": "0xffc0abfc"
+        },
+        "conflicts": [
+          {
+            "symbol": "_g_host_input_joy_caps_rva_79e8b0",
+            "offset": 363,
+            "implied": "0xbe4448d",
+            "previous": "0xffc0abfc"
+          },
+          {
+            "symbol": "_g_host_input_joy_caps_rva_79e8b0",
+            "offset": 370,
+            "implied": "0xffc1bee5",
+            "previous": "0xffc0abfc"
+          }
+        ],
+        "unsupported": [],
+        "relocations": 5
+      }
+    },
+    {
+      "symbol": "_host_input_joystick_7e90",
+      "rva": "0x7e90",
+      "target_extent": 128,
+      "object_contribution_bytes": 128,
+      "raw": {
+        "exact": false,
+        "target_size": 128,
+        "compiled_size": 128,
+        "target_sha256": "58207cc8c9590917342d9b304df235a01c0c8f1908742d79f74ec7c3600fd3cd",
+        "compiled_sha256": "8984adedfde83a0742f5503013902c0a3771ea13c295e3d5b337cc5912e99fda",
+        "different_bytes": 104,
+        "object_relocation_count": 4,
+        "native_relocation_count": 0
+      },
+      "masked_diagnostic": {
+        "masked_equal": false,
+        "compiled_size": 128,
+        "target_size": 128,
+        "differing_bytes": 89,
+        "mismatch_regions": [
+          [
+            6,
+            22
+          ],
+          [
+            26,
+            33
+          ],
+          [
+            35,
+            41
+          ],
+          [
+            43,
+            45
+          ],
+          [
+            47,
+            55
+          ],
+          [
+            57,
+            65
+          ],
+          [
+            67,
+            75
+          ],
+          [
+            77,
+            82
+          ],
+          [
+            86,
+            96
+          ],
+          [
+            100,
+            117
+          ],
+          [
+            118,
+            120
+          ]
+        ],
+        "symbols": {
+          "_g_config_table_a_rva_56e4f0": "0x96a4f08a",
+          "_g_config_table_b_rva_56e560": "0x96a560ba",
+          "_g_registry_config": "0x79e858",
+          "_host_input_sample_7c50": "0xa3e8cf01"
+        },
+        "conflicts": [],
+        "unsupported": [],
+        "relocations": 4
+      }
+    },
+    {
+      "symbol": "_host_input_set_last_state_7f10",
+      "rva": "0x7f10",
+      "target_extent": 32,
+      "object_contribution_bytes": 32,
+      "raw": {
+        "exact": false,
+        "target_size": 32,
+        "compiled_size": 32,
+        "target_sha256": "6fa0d763598008d5240e27c424e4a20645d3cd0b714b49c79ce7923288202570",
+        "compiled_sha256": "ebe8b70aeba970c8580a0a5ccfe76c69bf1a685198975b78e1e9d6f9b20f1061",
+        "different_bytes": 6,
+        "object_relocation_count": 2,
+        "native_relocation_count": 0
+      },
+      "masked_diagnostic": {
+        "masked_equal": true,
+        "compiled_size": 32,
+        "target_size": 32,
+        "differing_bytes": 0,
+        "mismatch_regions": [],
+        "symbols": {
+          "_g_host_input_last_state_first_rva_56e5d0": "0x56e5d0",
+          "_g_host_input_last_state_second_rva_56e5d4": "0x56e5d4"
+        },
+        "conflicts": [],
+        "unsupported": [],
+        "relocations": 2
+      }
+    },
+    {
+      "symbol": "_host_input_keyboard_7f30",
+      "rva": "0x7f30",
+      "target_extent": 272,
+      "object_contribution_bytes": 272,
+      "raw": {
+        "exact": false,
+        "target_size": 272,
+        "compiled_size": 272,
+        "target_sha256": "5d8b02b9afddc604bac4e3e7274650ace17542b2bb892df04c8a6738ab37cc43",
+        "compiled_sha256": "dc7fbee576f31c39508a8e1d379195ba30c9d69409d0450b319fa50606f4acf7",
+        "different_bytes": 75,
+        "object_relocation_count": 14,
+        "native_relocation_count": 0
+      },
+      "masked_diagnostic": {
+        "masked_equal": false,
+        "compiled_size": 272,
+        "target_size": 272,
+        "differing_bytes": 32,
+        "mismatch_regions": [
+          [
+            6,
+            18
+          ],
+          [
+            22,
+            42
+          ]
+        ],
+        "symbols": {
+          "__imp__GetAsyncKeyState@4": "0x5a24358b",
+          "_g_host_input_last_state_first_rva_56e5d0": "0x56e5d0",
+          "_g_host_input_last_state_second_rva_56e5d4": "0x56e5d4",
+          "_g_registry_config": "0x79e858"
+        },
+        "conflicts": [],
+        "unsupported": [],
+        "relocations": 14
+      }
+    },
+    {
+      "symbol": "_host_input_collect_8040",
+      "rva": "0x8040",
+      "target_extent": 80,
+      "object_contribution_bytes": 80,
+      "raw": {
+        "exact": false,
+        "target_size": 80,
+        "compiled_size": 80,
+        "target_sha256": "5340cd0abb52e9ad241844ad9c504cdd400e7c2a9496247726c5234e851868e5",
+        "compiled_sha256": "19d6b43f181fda5709cdbfacacd4ff9ace2973462d991eb303622de0d792877e",
+        "different_bytes": 17,
+        "object_relocation_count": 5,
+        "native_relocation_count": 0
+      },
+      "masked_diagnostic": {
+        "masked_equal": true,
+        "compiled_size": 80,
+        "target_size": 80,
+        "differing_bytes": 0,
+        "mismatch_regions": [],
+        "symbols": {
+          "_g_host_input_pending_rva_7a0234": "0x7a0234",
+          "_g_host_input_window_active_rva_03a594": "0x3a594",
+          "_host_input_joystick_7e90": "0x7e90",
+          "_host_input_keyboard_7f30": "0x7f30"
+        },
+        "conflicts": [],
+        "unsupported": [],
+        "relocations": 5
+      }
+    }
+  ],
+  "commands": [
+    {
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\host_input_fresh.obj",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_input.c"
+      ],
+      "returncode": 0,
+      "stdout": "host_input.c\n",
+      "stderr": "",
+      "source": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_input.c",
+      "source_sha256": "c4354a25d23225ba8376a1dc3ec844fe8eb2b5c3aac2e3b9beb5eafae24e42cc",
+      "object": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\host_input_fresh.obj",
+      "object_sha256": "0800d066c908b122695ca187af815ff17ee37fce088569947f95da261230aba5"
+    },
+    {
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\host_startup_storage_fresh.obj",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_startup_storage.c"
+      ],
+      "returncode": 0,
+      "stdout": "host_startup_storage.c\n",
+      "stderr": "",
+      "source": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_startup_storage.c",
+      "source_sha256": "0e8d20d230c4311f8c81ae50e5d924cd91f956cb1956c704fd434ad601ce25a1",
+      "object": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\host_startup_storage_fresh.obj",
+      "object_sha256": "6a712733864d491604fbbbc10e9a43254fa67bd489693cace84e6a6bdb0d4314"
+    },
+    {
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\registry_storage_fresh.obj",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\registry_storage.c"
+      ],
+      "returncode": 0,
+      "stdout": "registry_storage.c\n",
+      "stderr": "",
+      "source": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\registry_storage.c",
+      "source_sha256": "e9f7c60fd443f486260a622e2beb5cde2be2d7a500b2cd486afab6ccbe35eda7",
+      "object": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\registry_storage_fresh.obj",
+      "object_sha256": "3b026e85b5c5c59539f263f1c0b94ca54d9a4b58da36e044546396b3e4362967"
+    },
+    {
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\runner_fixture_fresh.obj",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\runner_fixture.c"
+      ],
+      "returncode": 0,
+      "stdout": "runner_fixture.c\n",
+      "stderr": "",
+      "source": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\runner_fixture.c",
+      "source_sha256": "e04c66741c5c6eccfe68d0607c12bdf7c739dd85185740b9bc991c0c44f3ca6b",
+      "object": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\runner_fixture_fresh.obj",
+      "object_sha256": "3a65851bb613f75e75efcbbbe411c5b36bfeabbe226943e38f0567e3fee6d6da"
+    }
+  ],
+  "link_command": {
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/O2",
+      "/Gy",
+      "/FeD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\host_input_native_import_fixture.exe",
+      "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\host_input_fresh.obj",
+      "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\host_startup_storage_fresh.obj",
+      "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\registry_storage_fresh.obj",
+      "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\runner_fixture_fresh.obj",
+      "/link",
+      "user32.lib",
+      "winmm.lib",
+      "/INCREMENTAL:NO",
+      "/OPT:REF",
+      "/MAP:D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\host_input_native_import_fixture.map"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb"
+  },
+  "receipt": {
+    "path": "work/host_input_recovery/runner_report.json",
+    "sha256": "493673f60b2d95b6b50469547acf337a61d9d4cbe44551117068aa074261fb00"
+  },
+  "reproduce": "python scripts/host_input_differential.py --native-exe D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE",
+  "limits": {
+    "enumeration_synthetic_results": "joyGetPos succeeds for devices 0,1,2,15 and fails for other queried slots; joyGetDevCapsA then fails for device 1 and succeeds for 0,2,15.",
+    "joyGetPosEx": "One case returns status 1 without writing its 52-byte JOYINFOEX; other sampled cases provide full synthetic x/y/buttons writes.",
+    "outside_contract": "Invalid configured device IDs except the 0xffff disabled sentinel, partial/overrunning driver writes, additional WinMM errors, unusual key values, and actual OS/driver behavior are not established."
+  },
+  "acceptance_boundary": "No FUNCTION_MATCH, complete host/window/game, source identity, TU or linker-layout proof. Original and fixture PE code are interpreted only; no real input API or game process runs."
+}
