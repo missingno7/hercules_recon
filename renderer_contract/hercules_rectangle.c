@@ -122,6 +122,9 @@ HerculesRectangleStatus hercules_rectangle_resolve(
     renderer_u32 destination_last;
     renderer_u32 source_start;
     renderer_u32 destination_start;
+    renderer_u32 pixel_mode;
+    renderer_u32 blend_selector;
+    renderer_u32 shade_row;
 
     if (packet == 0 || state == 0 || texture == 0 || surface == 0 ||
         plan == 0)
@@ -129,10 +132,23 @@ HerculesRectangleStatus hercules_rectangle_resolve(
     if (packet_size < 0x26U || packet_size < (size_t)packet->minimum_size)
         return HERCULES_RECTANGLE_TRUNCATED;
     if (packet->kind != RENDERER_PACKET_FT4 ||
-        packet->minimum_size < 0x26U || packet->command != 0x2CU ||
-        packet->semitransparent != 0U || packet->tpage != 0U ||
-        packet->clut != 0U || packet->color[0][0] != 0x64U)
+        packet->minimum_size < 0x26U)
         return HERCULES_RECTANGLE_UNSUPPORTED;
+    pixel_mode = HERCULES_RECTANGLE_COPY;
+    blend_selector = 0UL;
+    shade_row = 0UL;
+    if (packet->command == 0x2CU) {
+        if (packet->semitransparent != 0U || packet->tpage != 0U ||
+            packet->clut != 0U || packet->color[0][0] != 0x64U)
+            return HERCULES_RECTANGLE_UNSUPPORTED;
+    } else if (packet->command == 0x2EU) {
+        if (packet->semitransparent != 1U || packet->clut != 0U ||
+            (packet->tpage & 0xff9fU) != 0U)
+            return HERCULES_RECTANGLE_UNSUPPORTED;
+        blend_selector = (renderer_u32)(packet->tpage >> 5) & 3UL;
+    } else {
+        return HERCULES_RECTANGLE_UNSUPPORTED;
+    }
     if (state->raster_suppression_flag != 0U ||
         texture->page_address == 0UL ||
         state->workspace.texture_page_address != texture->page_address ||
@@ -151,12 +167,38 @@ HerculesRectangleStatus hercules_rectangle_resolve(
         return HERCULES_RECTANGLE_UNSUPPORTED;
 
     workspace = &state->workspace;
+    if (packet->command == 0x2EU) {
+        if (state->page.page_selector != 0UL ||
+            state->page.page_mode != blend_selector ||
+            state->page.alternate_bank != 0UL)
+            return HERCULES_RECTANGLE_UNSUPPORTED;
+        /* A90A00 is the staged red byte used by the original dispatcher.
+         * A8E6F8 is only the selected blend table, checked above for staging
+         * consistency; it does not choose raw versus shaded blending. */
+        if (workspace->color0_red == 0x80UL) {
+            pixel_mode = HERCULES_RECTANGLE_RAW_BLEND;
+        } else {
+            pixel_mode = HERCULES_RECTANGLE_SHADED_BLEND;
+            shade_row = workspace->color0_red;
+        }
+    }
     rectangle_state_lanes(workspace, x, y, u, v);
-    if (!renderer_d420_cab0_candidate(1U, 1U, workspace->vertex_count,
-                                      x, y, u, v) ||
-        renderer_e680_c8f0_candidate(1U, 1U, state->page.page_mode,
-                                     workspace->vertex_count, x, y, u, v))
+    if (pixel_mode == HERCULES_RECTANGLE_COPY) {
+        if (!renderer_d420_cab0_candidate(1U, 1U, workspace->vertex_count,
+                                          x, y, u, v) ||
+            renderer_e680_c8f0_candidate(1U, 1U, workspace->color0_red,
+                                         workspace->vertex_count, x, y, u, v))
+            return HERCULES_RECTANGLE_UNSUPPORTED;
+    } else if (pixel_mode == HERCULES_RECTANGLE_RAW_BLEND) {
+        if (!renderer_e680_c8f0_candidate(1U, 1U, workspace->color0_red,
+                                          workspace->vertex_count,
+                                          x, y, u, v))
+            return HERCULES_RECTANGLE_UNSUPPORTED;
+    } else if (!renderer_d420_cab0_candidate(1U, 1U,
+                                             workspace->vertex_count,
+                                             x, y, u, v)) {
         return HERCULES_RECTANGLE_UNSUPPORTED;
+    }
 
     x0 = x[0];
     y0 = y[0];
@@ -208,6 +250,9 @@ HerculesRectangleStatus hercules_rectangle_resolve(
     plan->source_pitch = texture->row_pitch;
     plan->destination_start = destination_start;
     plan->destination_pitch = surface->row_pitch;
+    plan->pixel_mode = pixel_mode;
+    plan->blend_selector = blend_selector;
+    plan->shade_row = shade_row;
     return HERCULES_RECTANGLE_OK;
 }
 
@@ -230,10 +275,26 @@ static int rectangle_pixel_write(void *opaque, renderer_u8 value)
     return 1;
 }
 
-HerculesRectangleStatus hercules_rectangle_render(
+static int rectangle_pixel_read(void *opaque, renderer_u8 *value)
+{
+    RectanglePixelTarget *target = (RectanglePixelTarget *)opaque;
+    if (target == 0 || value == 0 || target->bytes == 0 ||
+        target->offset >= target->length) {
+        if (target != 0)
+            target->failed = 1;
+        return 0;
+    }
+    *value = target->bytes[target->offset];
+    return 1;
+}
+
+HerculesRectangleStatus hercules_rectangle_render_tables(
     const HerculesRectanglePlan *plan,
     const HerculesRectangleTextureView *texture,
     const HerculesRectangleSurfaceView *surface,
+    const HercPixelTableReader *shade_row,
+    const HercPixelTableReader *blend_tables,
+    renderer_u32 blend_table_count,
     HerculesRectanglePixelObserver observer, void *observer_context,
     HerculesRectangleEffects *effects)
 {
@@ -256,6 +317,20 @@ HerculesRectangleStatus hercules_rectangle_render(
     if (plan == 0 || texture == 0 || surface == 0 ||
         texture->bytes == 0 || surface->bytes == 0)
         return HERCULES_RECTANGLE_INVALID_ARGUMENT;
+    if (plan->pixel_mode == HERCULES_RECTANGLE_COPY) {
+        if (plan->blend_selector != 0UL || plan->shade_row != 0UL)
+            return HERCULES_RECTANGLE_UNSUPPORTED;
+    } else if (plan->pixel_mode == HERCULES_RECTANGLE_RAW_BLEND) {
+        if (plan->blend_selector >= HERC_PIXEL_BLEND_SELECTORS ||
+            plan->shade_row != 0UL)
+            return HERCULES_RECTANGLE_UNSUPPORTED;
+    } else if (plan->pixel_mode == HERCULES_RECTANGLE_SHADED_BLEND) {
+        if (plan->blend_selector >= HERC_PIXEL_BLEND_SELECTORS ||
+            plan->shade_row > 0xffUL || plan->shade_row == 0x80UL)
+            return HERCULES_RECTANGLE_UNSUPPORTED;
+    } else {
+        return HERCULES_RECTANGLE_UNSUPPORTED;
+    }
     if (plan->page_address != texture->page_address ||
         texture->width != HERCULES_RECTANGLE_TEXTURE_SIZE ||
         texture->height != HERCULES_RECTANGLE_TEXTURE_SIZE ||
@@ -307,7 +382,7 @@ HerculesRectangleStatus hercules_rectangle_render(
     target.length = surface->length;
     target.offset = 0UL;
     target.failed = 0;
-    destination.read_byte = 0;
+    destination.read_byte = rectangle_pixel_read;
     destination.write_byte = rectangle_pixel_write;
     destination.context = &target;
     effects->accepted = 1U;
@@ -322,8 +397,32 @@ HerculesRectangleStatus hercules_rectangle_render(
             HercPixelStepResult step;
 
             target.offset = destination_offset;
-            step = herc_pixel_cab0_step(source, &destination);
-            if (step == HERC_PIXEL_INVALID || target.failed)
+            /* The original loops test source zero before touching destination
+             * or either LUT. Skip it here so null table adapters remain safe
+             * for fully transparent resolved rectangles. */
+            if (source == 0U)
+                continue;
+            if (plan->pixel_mode == HERCULES_RECTANGLE_COPY) {
+                step = herc_pixel_cab0_step(source, &destination);
+            } else if (plan->pixel_mode == HERCULES_RECTANGLE_RAW_BLEND) {
+                if (blend_tables == 0 ||
+                    blend_table_count != HERC_PIXEL_BLEND_SELECTORS)
+                    return HERCULES_RECTANGLE_INVALID_ARGUMENT;
+                step = herc_pixel_c8f0_step(
+                    source, &blend_tables[plan->blend_selector],
+                    &destination);
+            } else {
+                if (shade_row == 0 || blend_tables == 0 ||
+                    blend_table_count != HERC_PIXEL_BLEND_SELECTORS)
+                    return HERCULES_RECTANGLE_INVALID_ARGUMENT;
+                step = herc_pixel_c882_step(
+                    source, shade_row, blend_tables, blend_table_count,
+                    plan->blend_selector, &destination);
+            }
+            if (step == HERC_PIXEL_INVALID)
+                return target.failed ? HERCULES_RECTANGLE_RANGE_ERROR :
+                       HERCULES_RECTANGLE_INVALID_ARGUMENT;
+            if (target.failed)
                 return HERCULES_RECTANGLE_RANGE_ERROR;
             if (step == HERC_PIXEL_WROTE) {
                 ++effects->pixel_store_count;
@@ -335,4 +434,24 @@ HerculesRectangleStatus hercules_rectangle_render(
     }
     effects->presentation_requested = 1U;
     return HERCULES_RECTANGLE_OK;
+}
+
+HerculesRectangleStatus hercules_rectangle_render(
+    const HerculesRectanglePlan *plan,
+    const HerculesRectangleTextureView *texture,
+    const HerculesRectangleSurfaceView *surface,
+    HerculesRectanglePixelObserver observer, void *observer_context,
+    HerculesRectangleEffects *effects)
+{
+    if (plan != 0 && plan->pixel_mode != HERCULES_RECTANGLE_COPY) {
+        if (effects == 0)
+            return HERCULES_RECTANGLE_INVALID_ARGUMENT;
+        effects->pixel_store_count = 0UL;
+        effects->accepted = 0U;
+        effects->presentation_requested = 0U;
+        return HERCULES_RECTANGLE_UNSUPPORTED;
+    }
+    return hercules_rectangle_render_tables(
+        plan, texture, surface, 0, 0, 0UL, observer, observer_context,
+        effects);
 }

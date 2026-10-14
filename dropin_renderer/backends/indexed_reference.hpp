@@ -19,6 +19,7 @@ enum class IndexedReferenceStatus {
     unsupported,
     malformed_packet,
     missing_texture,
+    missing_table,
     invalid_command
 };
 
@@ -28,13 +29,14 @@ struct IndexedReferenceEffects {
 };
 
 /* Resolve the authoritative primitive domain at synchronous consumption,
- * then capture exactly its observed texels. Output is unchanged on failure.
+ * then capture its observed texels and selected shade/blend table snapshots.
+ * Source-zero commands need no table bytes. Output is unchanged on failure.
  * Passive entry observations cannot establish consumed state. */
 IndexedReferenceStatus capture_indexed_rectangle(
     const Event &event, const IndexedAddressMemory &memory,
     IndexedRectangleCommand *command);
 
-/* Private CPU reference output only. Reuse the shared CAB0 implementation;
+/* Private CPU reference output only. Reuse shared CAB0/C8F0/C700 steps;
  * do not present, mutate original state, or implement unknown primitives.
  * On success preserve a sticky presentation request even for zero stores. */
 IndexedReferenceStatus render_indexed_rectangle(

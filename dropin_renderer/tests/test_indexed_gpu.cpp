@@ -182,7 +182,7 @@ bool capture_snapshot(renderer_i16 x, renderer_i16 y,
                       bool include_zero,
                       Fixture *fixture, IndexedAddressMemory *memory,
                       IndexedRectangleCommand *command,
-                      std::string *error)
+                      std::string *error, bool all_zero = false)
 {
     if (!build_consumed_ft4(x, y, width, height, u, v, fixture, error))
         return false;
@@ -190,7 +190,8 @@ bool capture_snapshot(renderer_i16 x, renderer_i16 y,
         std::vector<std::uint8_t> texels;
         texels.reserve(width);
         for (renderer_u32 column = 0; column < width; ++column) {
-            const bool zero_pixel = include_zero && row == 0U && column == 1U;
+            const bool zero_pixel = all_zero ||
+                (include_zero && row == 0U && column == 1U);
             texels.push_back(zero_pixel ? 0U : texture_value(u + column, v + row));
         }
         const std::uint32_t address = HERC_TEX_MAP_BASE +
@@ -291,6 +292,242 @@ bool run_positive_case(IndexedGpuBackend *backend, const char *name,
     return true;
 }
 
+void configure_blend(IndexedRectangleCommand *command, renderer_u32 mode,
+                    renderer_u32 selector, renderer_u32 row,
+                    bool shade_to_zero = false)
+{
+    command->plan.pixel_mode = mode;
+    command->plan.blend_selector = selector;
+    command->plan.shade_row = row;
+    command->shade_row.clear();
+    command->blend_table.clear();
+
+    const bool has_nonzero_source = std::any_of(
+        command->texels.begin(), command->texels.end(),
+        [](std::uint8_t value) { return value != 0U; });
+    if (!has_nonzero_source || mode == HERCULES_RECTANGLE_COPY)
+        return;
+
+    command->blend_table.resize(256U * 256U);
+    for (std::uint32_t source = 0; source < 256U; ++source) {
+        for (std::uint32_t destination = 0; destination < 256U; ++destination) {
+            std::uint32_t value = source * 0x9e3779b9U;
+            value ^= destination * 0x85ebca6bU;
+            value ^= (selector + 1U) * 0xc2b2ae35U;
+            value ^= value >> 16;
+            value *= 0x7feb352dU;
+            value ^= value >> 15;
+            value *= 0x846ca68bU;
+            value ^= value >> 16;
+            if (shade_to_zero && source == 0U)
+                value = 0x5aU + selector * 17U;
+            command->blend_table[(source << 8) | destination] =
+                static_cast<std::uint8_t>(value & 0xffU);
+        }
+    }
+
+    if (mode == HERCULES_RECTANGLE_SHADED_BLEND) {
+        command->shade_row.resize(256U);
+        for (std::uint32_t source = 0; source < 256U; ++source) {
+            const std::uint32_t mapped =
+                (source * 37U + selector * 53U + 19U) & 0xffU;
+            command->shade_row[source] = static_cast<std::uint8_t>(
+                shade_to_zero ? 0U : mapped);
+        }
+    }
+}
+
+bool compare_full_frame(const char *name, const IndexedFrame &actual,
+                        const IndexedFrame &expected, std::string *error)
+{
+    if (actual == expected)
+        return true;
+    std::size_t mismatch = 0;
+    while (mismatch < expected.size() && actual[mismatch] == expected[mismatch])
+        ++mismatch;
+    char detail[224]{};
+    const std::size_t x_pixel = mismatch % hercules::dropin::indexed_frame_width;
+    const std::size_t y_pixel = mismatch / hercules::dropin::indexed_frame_width;
+    std::snprintf(detail, sizeof(detail),
+        "%s: full-frame readback differs at (%zu,%zu), GPU=%u CPU=%u",
+        name, x_pixel, y_pixel, static_cast<unsigned>(actual[mismatch]),
+        static_cast<unsigned>(expected[mismatch]));
+    *error = detail;
+    return false;
+}
+
+bool run_blend_case(IndexedGpuBackend *backend, const char *name,
+                    renderer_i16 x, renderer_i16 y,
+                    renderer_u32 width, renderer_u32 height,
+                    renderer_u8 u, renderer_u8 v,
+                    renderer_u32 mode, renderer_u32 selector,
+                    bool include_zero, bool all_zero,
+                    bool shade_to_zero, std::string *error)
+{
+    Fixture fixture{};
+    IndexedAddressMemory memory(HERC_TEX_MAP_BASE, 65536U);
+    IndexedRectangleCommand command{};
+    if (!capture_snapshot(x, y, width, height, u, v, include_zero,
+                          &fixture, &memory, &command, error, all_zero))
+        return false;
+    const renderer_u32 row = mode == HERCULES_RECTANGLE_SHADED_BLEND
+        ? 37U : 0U;
+    configure_blend(&command, mode, selector, row, shade_to_zero);
+
+    IndexedFrame initial{};
+    for (std::size_t i = 0; i < initial.size(); ++i)
+        initial[i] = static_cast<std::uint8_t>((i * 31U + 0x63U) & 0xffU);
+    const std::size_t transparent_destination =
+        static_cast<std::size_t>(y) * hercules::dropin::indexed_frame_width +
+        static_cast<std::size_t>(x) + 1U;
+    if (include_zero || all_zero)
+        initial[transparent_destination] = 0xd3U;
+
+    IndexedFrame expected = initial;
+    IndexedReferenceEffects effects{};
+    if (hercules::dropin::render_indexed_rectangle(command, &expected, &effects) !=
+            IndexedReferenceStatus::ok || !effects.presentation_requested) {
+        *error = std::string(name) + ": CPU reference rejected the blend snapshot";
+        return false;
+    }
+    const auto result = backend->render(command, initial);
+    if (result.status != IndexedGpuStatus::ok) {
+        *error = std::string(name) + ": GPU render failed: " + result.message;
+        return false;
+    }
+    if (!compare_full_frame(name, result.indices, expected, error))
+        return false;
+    if ((include_zero || all_zero) &&
+        result.indices[transparent_destination] != initial[transparent_destination]) {
+        *error = std::string(name) + ": zero source changed its seeded destination";
+        return false;
+    }
+    const std::size_t nonzero_sources = static_cast<std::size_t>(std::count_if(
+        command.texels.begin(), command.texels.end(),
+        [](std::uint8_t value) { return value != 0U; }));
+    if (effects.pixel_store_count != nonzero_sources) {
+        *error = std::string(name) + ": CPU reference did not store once per nonzero source";
+        return false;
+    }
+    std::printf("PASS %s: mode=%u selector=%u source-zero=%u shade-zero=%u stores=%u, full-frame indexed equality\n",
+        name, mode, selector,
+        static_cast<unsigned>(include_zero || all_zero),
+        static_cast<unsigned>(shade_to_zero), effects.pixel_store_count);
+    return true;
+}
+
+bool run_overlapping_blends(IndexedGpuBackend *backend, std::string *error)
+{
+    Fixture first_fixture{};
+    Fixture second_fixture{};
+    IndexedAddressMemory first_memory(HERC_TEX_MAP_BASE, 65536U);
+    IndexedAddressMemory second_memory(HERC_TEX_MAP_BASE, 65536U);
+    IndexedRectangleCommand first{};
+    IndexedRectangleCommand second{};
+    if (!capture_snapshot(9, 8, 4, 2, 6, 3, true, &first_fixture,
+                          &first_memory, &first, error) ||
+        !capture_snapshot(11, 8, 4, 2, 12, 7, false, &second_fixture,
+                          &second_memory, &second, error))
+        return false;
+    configure_blend(&first, HERCULES_RECTANGLE_RAW_BLEND, 1U, 0U);
+    configure_blend(&second, HERCULES_RECTANGLE_SHADED_BLEND, 3U, 41U);
+
+    IndexedFrame initial{};
+    for (std::size_t i = 0; i < initial.size(); ++i)
+        initial[i] = static_cast<std::uint8_t>((i * 17U + 0x21U) & 0xffU);
+    initial[8U * hercules::dropin::indexed_frame_width + 10U] = 0xe7U;
+    IndexedFrame expected_after_first = initial;
+    IndexedReferenceEffects first_effects{};
+    if (hercules::dropin::render_indexed_rectangle(
+            first, &expected_after_first, &first_effects) !=
+            IndexedReferenceStatus::ok) {
+        *error = "overlap first draw: CPU reference rejected RAW_BLEND";
+        return false;
+    }
+    const auto first_result = backend->render(first, initial);
+    if (first_result.status != IndexedGpuStatus::ok ||
+        !compare_full_frame("overlap first draw", first_result.indices,
+                            expected_after_first, error)) {
+        if (first_result.status != IndexedGpuStatus::ok)
+            *error = "overlap first draw: GPU render failed: " + first_result.message;
+        return false;
+    }
+
+    IndexedFrame expected_after_second = expected_after_first;
+    IndexedReferenceEffects second_effects{};
+    if (hercules::dropin::render_indexed_rectangle(
+            second, &expected_after_second, &second_effects) !=
+            IndexedReferenceStatus::ok) {
+        *error = "overlap second draw: CPU reference rejected SHADED_BLEND";
+        return false;
+    }
+    const auto second_result = backend->render(second, first_result.indices);
+    if (second_result.status != IndexedGpuStatus::ok) {
+        *error = "overlap second draw: GPU render failed: " + second_result.message;
+        return false;
+    }
+    if (!compare_full_frame("overlap second draw fed from prior GPU result",
+                            second_result.indices, expected_after_second, error))
+        return false;
+    std::puts("PASS overlapping RAW_BLEND then SHADED_BLEND fed from prior GPU readback");
+    return true;
+}
+
+bool expect_unsupported(IndexedGpuBackend *backend,
+                        const IndexedRectangleCommand &command,
+                        const char *case_name, std::string *error)
+{
+    IndexedFrame seed{};
+    const auto result = backend->render(command, seed);
+    if (result.status != IndexedGpuStatus::unsupported ||
+        result.message.find("unsupported:") != 0U) {
+        *error = std::string(case_name) +
+            ": malformed command was not explicitly rejected";
+        return false;
+    }
+    std::printf("PASS malformed GPU command %s: %s\n",
+        case_name, result.message.c_str());
+    return true;
+}
+
+bool check_malformed_blend_commands(IndexedGpuBackend *backend,
+                                    const IndexedRectangleCommand &valid_raw,
+                                    std::string *error)
+{
+    IndexedRectangleCommand malformed = valid_raw;
+    malformed.blend_table.pop_back();
+    if (!expect_unsupported(backend, malformed, "short selected LUT", error))
+        return false;
+    IndexedRectangleCommand valid_shaded = valid_raw;
+    configure_blend(&valid_shaded, HERCULES_RECTANGLE_SHADED_BLEND, 2U, 17U);
+    malformed = valid_shaded;
+    malformed.shade_row.pop_back();
+    if (!expect_unsupported(backend, malformed, "short selected shade row", error))
+        return false;
+    malformed = valid_raw;
+    malformed.plan.pixel_mode = 0xffffffffU;
+    if (!expect_unsupported(backend, malformed, "unknown pixel mode", error))
+        return false;
+    malformed = valid_raw;
+    malformed.plan.blend_selector = 4U;
+    if (!expect_unsupported(backend, malformed, "blend selector outside 0..3", error))
+        return false;
+    malformed = valid_raw;
+    malformed.plan.shade_row = 1U;
+    if (!expect_unsupported(backend, malformed, "RAW_BLEND shade row", error))
+        return false;
+    malformed = valid_raw;
+    malformed.plan.pixel_mode = HERCULES_RECTANGLE_SHADED_BLEND;
+    malformed.plan.shade_row = 0x80U;
+    if (!expect_unsupported(backend, malformed, "neutral red used as SHADED_BLEND", error))
+        return false;
+    malformed = valid_raw;
+    malformed.plan.pixel_mode = HERCULES_RECTANGLE_COPY;
+    if (!expect_unsupported(backend, malformed, "COPY with LUT payload", error))
+        return false;
+    return true;
+}
+
 bool check_explicit_unsupported(IndexedGpuBackend *backend,
                                 const IndexedRectangleCommand &valid_command,
                                 const IndexedFrame &seeded,
@@ -385,7 +622,66 @@ int main()
                     std::fprintf(stderr, "FAIL: %s\n", error.c_str());
                     exit_code = 1;
                 } else {
-                    std::puts("PASS indexed GPU FT4 bounded comparison");
+                    bool blend_cases_ok = true;
+                    for (renderer_u32 selector = 0; selector < 4U && blend_cases_ok;
+                         ++selector) {
+                        char case_name[80]{};
+                        std::snprintf(case_name, sizeof(case_name),
+                            "red-neutral RAW_BLEND selector %u", selector);
+                        blend_cases_ok = run_blend_case(&backend, case_name,
+                            7, 9, 3, 2, 4, 6,
+                            HERCULES_RECTANGLE_RAW_BLEND, selector,
+                            true, false, false, &error);
+                        if (!blend_cases_ok)
+                            break;
+                        std::snprintf(case_name, sizeof(case_name),
+                            "SHADED_BLEND selector %u", selector);
+                        blend_cases_ok = run_blend_case(&backend, case_name,
+                            13, 11, 3, 2, 8, 5,
+                            HERCULES_RECTANGLE_SHADED_BLEND, selector,
+                            true, false, false, &error);
+                    }
+                    if (blend_cases_ok)
+                        blend_cases_ok = run_blend_case(&backend,
+                            "SHADED_BLEND maps nonzero source to index zero",
+                            17, 14, 3, 2, 9, 4,
+                            HERCULES_RECTANGLE_SHADED_BLEND, 2U,
+                            false, false, true, &error);
+                    if (blend_cases_ok)
+                        blend_cases_ok = run_blend_case(&backend,
+                            "transparent RAW_BLEND with no LUT snapshot",
+                            21, 17, 3, 2, 10, 5,
+                            HERCULES_RECTANGLE_RAW_BLEND, 0U,
+                            false, true, false, &error);
+                    if (blend_cases_ok)
+                        blend_cases_ok = run_blend_case(&backend,
+                            "transparent SHADED_BLEND with no table snapshots",
+                            25, 20, 3, 2, 11, 6,
+                            HERCULES_RECTANGLE_SHADED_BLEND, 3U,
+                            false, true, false, &error);
+                    if (blend_cases_ok)
+                        blend_cases_ok = run_overlapping_blends(&backend, &error);
+
+                    Fixture blend_fixture{};
+                    IndexedAddressMemory blend_memory(HERC_TEX_MAP_BASE, 65536U);
+                    IndexedRectangleCommand valid_raw{};
+                    if (blend_cases_ok &&
+                        !capture_snapshot(29, 23, 3, 2, 17, 7, false,
+                                         &blend_fixture, &blend_memory,
+                                         &valid_raw, &error))
+                        blend_cases_ok = false;
+                    if (blend_cases_ok) {
+                        configure_blend(&valid_raw,
+                            HERCULES_RECTANGLE_RAW_BLEND, 0U, 0U);
+                        blend_cases_ok = check_malformed_blend_commands(
+                            &backend, valid_raw, &error);
+                    }
+                    if (!blend_cases_ok) {
+                        std::fprintf(stderr, "FAIL: %s\n", error.c_str());
+                        exit_code = 1;
+                    } else {
+                        std::puts("PASS indexed GPU COPY and selected-LUT blend comparisons");
+                    }
                 }
             }
         }

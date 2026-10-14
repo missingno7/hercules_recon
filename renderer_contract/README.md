@@ -66,6 +66,7 @@ not replace this complete contract.
 | hercules_pixels.h | Bounded indexed shade/blend, palette and fill reference steps |
 | hercules_rectangle.h / .c | Shared finite D420/CAB0 rectangle resolution and indexed stores |
 | indexed_rectangle.md | Joined original upload/raster evidence and zero-store presentation request |
+| indexed_blend.md | Selected shade/blend tables, connected original blended rectangles and request gates |
 | hercules_packed_uv.h | Original-backed D60C packed register recurrence |
 | hercules_route_uv_models.h | Separate CC50 and E680 raw-register transitions |
 | hercules_edge_steps.h | Fixed-width reciprocal and guarded edge-step arithmetic |

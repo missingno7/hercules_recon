@@ -36,8 +36,10 @@ and offline diagnostic slice; original-game rendering and deployment remain open
   raw texture/palette writes. Unknown bytes reject capture; VRAM moves are deferred.
 - `backends/indexed_reference.*` and optional `indexed_gpu.*`: controlled FT4
   rectangle consumption captures only the sampled texels at each command. The
-  reference calls the shared D420/CAB0 utility; the GPU uses integer R8_UINT
-  storage-texture loads and an indexed target. Both preserve zero-source pixels.
+  reference calls the shared D420/CAB0 and E680/DD70 rectangle utilities; the GPU
+  uses integer R8_UINT storage-texture loads and an indexed target. Raw and shaded
+  blending use owned selected table snapshots and a separate prior-destination
+  texture. Both preserve zero-source pixels.
 
 The reference mode of the proxy continues through system DirectDraw and the
 original renderer. The diagnostic GPU path uses a separate offscreen target and
@@ -102,6 +104,21 @@ This supports a finite unblended FT4 subset, not general polygons or a complete
 game frame. See [the indexed checkpoint](docs/indexed_slice.md) and the
 [shared rectangle boundary](../renderer_contract/indexed_rectangle.md).
 
+The bounded blended extension uses code 0x2e, page-zero selectors 0..3, and
+observed indexed tables. The public comparison adds raw red 0x80 and shaded red
+0x7f cases, transparent cases and a nonzero source shaded to zero:
+
+```powershell
+& $py -B dropin_renderer/tests/run_indexed_blend.py `
+  --exe D:\Prog\hercules_recon\work\discs\pc_install\HERCULES.EXE `
+  --cli work/dropin-indexed-build/indexed_rectangle_cli.exe `
+  --output work/dropin-blend-comparison --gpu
+```
+
+Use a fresh build from the current sources before either comparison. Table
+inputs are explicit synthetic writers; no game palette or startup formula is
+assumed. See [the blend checkpoint](docs/blend_slice.md).
+
 ## Real archived geometry
 
 The public runner invokes the existing fresh native resource trace and historical
@@ -136,7 +153,7 @@ Both sides use that one helper. No historical function was promoted.
 
 The next integration boundary is still write/profile/registry isolation, proven
 windowed startup and restoration before an authorized original post-entry probe.
-The next rendering boundary is original CLUT/shade/blend state and reachable
+The next rendering boundary is active CLUT/palette mapping and reachable
 producer commands beyond the bounded rectangle subset. Movie, desktop-DC text,
 palette and presentation ownership still need coordinated observations before
 any game-window takeover. See [the measured checkpoint](docs/initial_slice.md)

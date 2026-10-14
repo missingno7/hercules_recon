@@ -53,15 +53,29 @@ int main(int argc, char **argv)
         long rect_x, rect_y, rect_w, rect_h, seed;
         unsigned long address;
         if (!(input >> header >> address >> packet_hex >> rect_x >> rect_y >> rect_w >> rect_h >> payload_hex >> seed)
-            || header != "HERCULES_INDEXED_RECTANGLE_V1" || address != 0x10001000UL ||
+            || (header != "HERCULES_INDEXED_RECTANGLE_V1" && header != "HERCULES_INDEXED_RECTANGLE_V2") || address != 0x10001000UL ||
             seed < 0 || seed > 255 || rect_x < 0 || rect_y < 0 || rect_w < 0 || rect_h < 0 ||
             rect_x > 1023 || rect_y > 1023 || rect_w > 1024 || rect_h > 1024)
             throw std::runtime_error("invalid bounded fixture input");
-        std::string extra;
-        if (input >> extra) throw std::runtime_error("extra input fields");
         const auto packet = hex_bytes(packet_hex);
         if (packet.size() != 40) throw std::runtime_error("expected observed FT4 producer record");
-        IndexedAddressMemory texture(HERC_TEX_MAP_BASE, 65536U);
+        const bool table_inputs = header == "HERCULES_INDEXED_RECTANGLE_V2";
+        const auto backing_base = table_inputs ? HERCULES_RECTANGLE_SHADE_BASE : HERC_TEX_MAP_BASE;
+        IndexedAddressMemory texture(backing_base, HERC_TEX_MAP_BASE + 65536U - backing_base);
+        if (table_inputs) {
+            unsigned write_count;
+            if (!(input >> write_count) || write_count > 4) throw std::runtime_error("invalid observed writer count");
+            for (unsigned i = 0; i < write_count; ++i) {
+                unsigned long writer_address;
+                std::string writer_hex;
+                if (!(input >> writer_address >> writer_hex) || writer_hex.empty() || writer_hex.size() > 131072U)
+                    throw std::runtime_error("invalid bounded observed writer");
+                if (texture.update_observed_span(static_cast<std::uint32_t>(writer_address), hex_bytes(writer_hex)) != IndexedMemoryStatus::ok)
+                    throw std::runtime_error("writer outside supplied storage");
+            }
+        }
+        std::string extra;
+        if (input >> extra) throw std::runtime_error("extra input fields");
         HERC_TEX_RECT16 rect{static_cast<renderer_i16>(rect_x), static_cast<renderer_i16>(rect_y),
                             static_cast<renderer_i16>(rect_w), static_cast<renderer_i16>(rect_h)};
         if (texture.upload_texture_rect(rect, hex_bytes(payload_hex)) != IndexedMemoryStatus::ok)
@@ -117,7 +131,12 @@ int main(int argc, char **argv)
         if (!output) throw std::runtime_error("frame output failed");
         std::cout << "{\"status\":\"PASS\",\"pixel_stores\":" << effects.pixel_store_count
                   << ",\"presentation_requested\":" << (effects.presentation_requested ? "true" : "false")
-                  << ",\"captured_texels\":" << command.texels.size() << ",\"gpu\":\"" << gpu_status << "\"}\n";
+                  << ",\"captured_texels\":" << command.texels.size()
+                  << ",\"pixel_mode\":" << command.plan.pixel_mode
+                  << ",\"blend_selector\":" << command.plan.blend_selector
+                  << ",\"captured_shade_bytes\":" << command.shade_row.size()
+                  << ",\"captured_blend_bytes\":" << command.blend_table.size()
+                  << ",\"gpu\":\"" << gpu_status << "\"}\n";
         return 0;
     } catch (const std::exception &error) {
         std::cerr << error.what() << '\n';

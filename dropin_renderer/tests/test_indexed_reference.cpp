@@ -105,10 +105,96 @@ void rejection_cases() {
     IndexedRectangleCommand command;
     check(capture_indexed_rectangle(passive.events.front(), memory, &command) == IndexedReferenceStatus::unsupported, "entry snapshot not consumed-state proof");
 }
+IndexedAddressMemory table_memory() {
+    return IndexedAddressMemory(0x91c488U, HERC_TEX_MAP_BASE + 65536U - 0x91c488U);
+}
+std::vector<std::uint8_t> blend_bytes(unsigned selector) {
+    std::vector<std::uint8_t> bytes(65536U);
+    for (unsigned source = 0; source < 256; ++source)
+        for (unsigned destination = 0; destination < 256; ++destination)
+            bytes[source * 256 + destination] = static_cast<std::uint8_t>(
+                (source * 37 + destination * 13 + selector * 53) ^ 0xb7U);
+    return bytes;
+}
+IndexedRectangleCommand capture_blended(Fixture &fixture, IndexedAddressMemory &memory,
+                                       IndexedReferenceStatus expected = IndexedReferenceStatus::ok) {
+    IndexedRectangleCommand command;
+    command.texels = {99};
+    bool checked = false;
+    const auto trace = consume_offline(frame_raw32_region_resolve, &fixture.region, 0x1000, 1, {}, [&](const Event &event) {
+        if (event.packet_kind == RENDERER_PACKET_FT4) {
+            check(capture_indexed_rectangle(event, memory, &command) == expected, "blended capture status");
+            checked = true;
+        }
+        return true;
+    });
+    check(trace.status == CaptureStatus::ok && checked, "blended traversal");
+    return command;
+}
+void blended_cases() {
+    for (unsigned selector = 0; selector < 4; ++selector) {
+        for (bool shaded : {false, true}) {
+            Fixture fixture;
+            fixture.bytes[0x27] = 0x2e;
+            fixture.bytes[0x24] = shaded ? 0x7f : 0x80;
+            put16(fixture.bytes.data() + 0x36, selector * 32);
+            auto memory = table_memory();
+            check(memory.upload_texture_rect({0,0,1,2}, {0,0x5a,0x77,0x6b}) == IndexedMemoryStatus::ok, "blend texels");
+            const auto table = blend_bytes(selector);
+            check(memory.update_observed_span(0x92e3d0U + selector * 65536U, table) == IndexedMemoryStatus::ok, "observed selected blend table");
+            std::vector<std::uint8_t> shade(256);
+            for (unsigned i = 0; i < 256; ++i) shade[i] = static_cast<std::uint8_t>(i ^ 0x5a);
+            if (shaded)
+                check(memory.update_observed_span(0x91c488U + 127 * 256, shade) == IndexedMemoryStatus::ok, "observed shade row");
+            auto command = capture_blended(fixture, memory);
+            check(command.plan.pixel_mode == (shaded ? HERCULES_RECTANGLE_SHADED_BLEND : HERCULES_RECTANGLE_RAW_BLEND)
+                && command.plan.blend_selector == selector, "red route and tpage selector distinct");
+            IndexedFrame frame; frame.fill(0xa5);
+            IndexedReferenceEffects effects;
+            check(render_indexed_rectangle(command, &frame, &effects) == IndexedReferenceStatus::ok, "blended CPU render");
+            check(frame[321] == 0xa5 && effects.pixel_store_count == 3 && effects.presentation_requested, "source zero skipped but accepted");
+            const unsigned mapped = shaded ? 0 : 0x5a;
+            check(frame[322] == table[mapped * 256 + 0xa5], "nonzero shaded-to-zero still blends");
+            if (shaded && selector == 0) {
+                const auto old_table = command.blend_table;
+                const auto clut_alias = HERC_TEX_CLUT_BASE + 32 * 256 + 64 + 0xa5;
+                check(clut_alias == 0x92e3d0U + 0xa5, "CLUT row32 aliases blend row zero");
+                check(memory.update_observed_span(clut_alias, {0}) == IndexedMemoryStatus::ok, "aliased CLUT observed writer");
+                const auto second = capture_blended(fixture, memory);
+                check(second.blend_table[0xa5] == 0 && command.blend_table == old_table,
+                      "later capture sees alias update while first table snapshot remains owned");
+                IndexedFrame later; later.fill(0xa5);
+                check(render_indexed_rectangle(second, &later, &effects) == IndexedReferenceStatus::ok && later[322] == 0,
+                      "zero LUT result is written rather than skipped");
+                IndexedFrame replay; replay.fill(0xa5);
+                check(render_indexed_rectangle(command, &replay, &effects) == IndexedReferenceStatus::ok && replay[322] == frame[322],
+                      "old table snapshot independently replayable");
+            }
+            command.blend_table.pop_back();
+            const auto before = frame;
+            check(render_indexed_rectangle(command, &frame, &effects) == IndexedReferenceStatus::invalid_command && frame == before,
+                  "truncated table rejected before destination writes");
+        }
+    }
+    for (bool shaded : {false, true}) {
+        Fixture fixture; fixture.bytes[0x27] = 0x2e; fixture.bytes[0x24] = shaded ? 0x7f : 0x80;
+        auto memory = table_memory();
+        check(memory.upload_texture_rect({0,0,1,2}, {0,0,0,0}) == IndexedMemoryStatus::ok, "zero blended upload");
+        const auto command = capture_blended(fixture, memory);
+        check(command.shade_row.empty() && command.blend_table.empty(), "zero sources do not require unobserved tables");
+        IndexedFrame frame; frame.fill(0xa5); const auto before = frame;
+        IndexedReferenceEffects effects;
+        check(render_indexed_rectangle(command, &frame, &effects) == IndexedReferenceStatus::ok && frame == before &&
+              effects.pixel_store_count == 0 && effects.presentation_requested, "transparent blended request without reads");
+        check(memory.upload_texture_rect({0,0,1,2}, {0,1,0,0}) == IndexedMemoryStatus::ok, "nonzero missing-table upload");
+        const auto rejected = capture_blended(fixture, memory, IndexedReferenceStatus::missing_table);
+        check(rejected.texels == std::vector<std::uint8_t>({99}), "missing table failure leaves command unchanged");
+    }
+}
 }
 int main() {
-    try { zero_case(); ordered_upload_case(); rejection_cases(); }
+    try { zero_case(); ordered_upload_case(); rejection_cases(); blended_cases(); }
     catch (const std::exception &error) { std::cerr << error.what() << '\n'; return 1; }
-    std::cout << "indexed reference: ordered uploads, owned tiles, transparency and rejection pass\n";
+    std::cout << "indexed reference: ordered uploads, table snapshots, alias writes, indexed blend and zero-source behavior pass\n";
     return 0;
 }

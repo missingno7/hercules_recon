@@ -1,6 +1,7 @@
 #include "indexed_reference.hpp"
 #include <limits>
 #include <utility>
+#include <algorithm>
 
 namespace hercules::dropin {
 namespace {
@@ -11,6 +12,38 @@ HerculesRectangleTextureView texture_view(const renderer_u8 *bytes = nullptr)
 HerculesRectangleSurfaceView surface_view(renderer_u8 *bytes = nullptr)
 {
     return {bytes, static_cast<renderer_u32>(indexed_frame_bytes), 320U, 240U, 320U};
+}
+int table_read(void *opaque, renderer_u32 offset, renderer_u8 *value)
+{
+    const auto &bytes = *static_cast<const std::vector<std::uint8_t> *>(opaque);
+    if (value == nullptr || offset >= bytes.size()) return 0;
+    *value = bytes[offset];
+    return 1;
+}
+HercPixelTableReader table_view(const std::vector<std::uint8_t> &bytes)
+{
+    return {static_cast<renderer_u32>(bytes.size()), table_read,
+            const_cast<std::vector<std::uint8_t> *>(&bytes)};
+}
+bool tables_valid(const IndexedRectangleCommand &command)
+{
+    const auto &plan = command.plan;
+    const bool nonzero = std::any_of(command.texels.begin(), command.texels.end(),
+                                    [](std::uint8_t value) { return value != 0; });
+    switch (plan.pixel_mode) {
+    case HERCULES_RECTANGLE_COPY:
+        return plan.blend_selector == 0 && plan.shade_row == 0 &&
+               command.shade_row.empty() && command.blend_table.empty();
+    case HERCULES_RECTANGLE_RAW_BLEND:
+        return plan.blend_selector < 4 && plan.shade_row == 0 && command.shade_row.empty() &&
+               command.blend_table.size() == (nonzero ? 65536U : 0U);
+    case HERCULES_RECTANGLE_SHADED_BLEND:
+        return plan.blend_selector < 4 && plan.shade_row < 256 && plan.shade_row != 0x80 &&
+               command.shade_row.size() == (nonzero ? 256U : 0U) &&
+               command.blend_table.size() == (nonzero ? 65536U : 0U);
+    default:
+        return false;
+    }
 }
 }
 
@@ -53,6 +86,18 @@ IndexedReferenceStatus capture_indexed_rectangle(
             captured.sample_addresses.push_back(static_cast<std::uint32_t>(address));
         }
     }
+    const bool nonzero = std::any_of(captured.texels.begin(), captured.texels.end(),
+                                    [](std::uint8_t value) { return value != 0; });
+    if (nonzero && captured.plan.pixel_mode != HERCULES_RECTANGLE_COPY) {
+        const auto blend_address = HERCULES_RECTANGLE_BLEND_BASE + captured.plan.blend_selector * 65536U;
+        if (memory.read_observed_span(blend_address, 65536U, &captured.blend_table) != IndexedMemoryStatus::ok)
+            return IndexedReferenceStatus::missing_table;
+        if (captured.plan.pixel_mode == HERCULES_RECTANGLE_SHADED_BLEND) {
+            const auto shade_address = HERCULES_RECTANGLE_SHADE_BASE + captured.plan.shade_row * 256U;
+            if (memory.read_observed_span(shade_address, 256U, &captured.shade_row) != IndexedMemoryStatus::ok)
+                return IndexedReferenceStatus::missing_table;
+        }
+    }
     *command = std::move(captured);
     return IndexedReferenceStatus::ok;
 }
@@ -64,7 +109,7 @@ IndexedReferenceStatus render_indexed_rectangle(
     if (frame == nullptr || effects == nullptr || command.plan.width == 0 ||
         command.plan.height == 0 || command.plan.width > 8 || command.plan.height > 8 ||
         command.texels.size() != command.plan.width * command.plan.height ||
-        command.sample_addresses.size() != command.texels.size())
+        command.sample_addresses.size() != command.texels.size() || !tables_valid(command))
         return IndexedReferenceStatus::invalid_command;
     /* Padding belongs only to this private scratch adapter. The shared renderer
      * reads exactly the resolved rectangle; no padded byte is claimed observed. */
@@ -82,8 +127,13 @@ IndexedReferenceStatus render_indexed_rectangle(
     }
     const auto texture = texture_view(scratch_page.data());
     const auto surface = surface_view(frame->data());
+    const auto shade = table_view(command.shade_row);
+    HercPixelTableReader blends[4]{};
+    if (command.plan.blend_selector < 4)
+        blends[command.plan.blend_selector] = table_view(command.blend_table);
     HerculesRectangleEffects shared{};
-    if (hercules_rectangle_render(&command.plan, &texture, &surface, nullptr, nullptr, &shared)
+    if (hercules_rectangle_render_tables(&command.plan, &texture, &surface, &shade, blends, 4,
+                                        nullptr, nullptr, &shared)
         != HERCULES_RECTANGLE_OK)
         return IndexedReferenceStatus::invalid_command;
     effects->pixel_store_count = shared.pixel_store_count;

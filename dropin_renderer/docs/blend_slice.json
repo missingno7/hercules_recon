@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "status": "ORIGINAL_CPU_GPU_BLEND_PASS",
+  "original_game_process_executed": false,
+  "shared_evidence": {
+    "path": "renderer_contract/evidence/uploaded_blend.json",
+    "sha256": "d2c3bb7dd23c7d489238168aa387cbe59e008b9ec7b9a1a60cd442d9e1d079ba"
+  },
+  "implementation": [
+    "Selected owned shade/blend table snapshots at controlled consumption",
+    "Shared C8F0/C700 indexed rectangle path and separate source/shade zero behavior",
+    "R8_UINT source, shade, selected LUT, immutable destination input and distinct GPU target",
+    "V2 CLI explicit raw synthetic writers and hash-pinned original/CPU/GPU comparison"
+  ],
+  "validation": {
+    "modern_ctest_passed": 10,
+    "modern_ctest_skipped": 0,
+    "shared_vc5_passed": 23,
+    "shared_gcc_x86_passed": 23,
+    "historical_fresh_raw_exact": 132,
+    "blend_cases": 11,
+    "copy_regression_cases": 3,
+    "indices_compared_per_case": 76800,
+    "composition_regression_comparisons": 4
+  },
+  "receipts": [
+    {
+      "path": "work/dropin_blend_build_accepted/build_receipt.json",
+      "sha256": "c8df1b7deb0a8166192eeb50f8e69e3db4cb5b8bf2a8a7459618b0ea82a8ed85"
+    },
+    {
+      "path": "work/dropin_blend_comparison_accepted/comparison.json",
+      "sha256": "70d9987c64a9231c7396c87b1682989f84f0bb3f0e1faf778f09fa20b5fb5534"
+    },
+    {
+      "path": "work/dropin_blend_copy_regression_accepted/comparison.json",
+      "sha256": "f46aab32c513b217b85ef54710b10e528422e731cc0cf93b15b0240e12149fe8"
+    },
+    {
+      "path": "work/dropin_blend_composition_audit/composition_raster_audit.json",
+      "sha256": "feb88a17d34d2403d64ccaea386d94f713601eb939741c5c322098033a987510"
+    },
+    {
+      "path": "work/dropin_blend_parent/vc5_verification.json",
+      "sha256": "f6b07458ca941708745f4a1dbd261bc2adcdbd0b0e9086401fb8a592e44a8bdd"
+    },
+    {
+      "path": "work/dropin_blend_portable_verified/portable_tests.json",
+      "sha256": "b90f77d1927c0ed1e436dcfee02f641dfc7a5b5071833f49dc39087ef50f1012"
+    },
+    {
+      "path": "work/dropin_blend_parent/historical.json",
+      "sha256": "46fb674bc476323c69e0ca6a645a16fd8226be0c1d6ceee3e815ac9d318ae83e"
+    }
+  ],
+  "commands": {
+    "build": [
+      {
+        "argv": [
+          "C:\\msys64\\mingw32\\bin\\cmake.exe",
+          "-S",
+          "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\dropin_renderer",
+          "-B",
+          "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\dropin_blend_build_accepted",
+          "-G",
+          "MinGW Makefiles",
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+          "-DPython3_EXECUTABLE=C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+          "-DCMAKE_C_COMPILER=C:\\msys64\\mingw32\\bin\\gcc.exe",
+          "-DCMAKE_CXX_COMPILER=C:\\msys64\\mingw32\\bin\\g++.exe",
+          "-DCMAKE_MAKE_PROGRAM=C:\\msys64\\mingw32\\bin\\mingw32-make.exe",
+          "-DDROPIN_BUILD_SDL_GPU_DIAGNOSTIC=ON",
+          "-DSDL3_DIR=C:/tools/sdl3-3.4.16-i686/lib/cmake/SDL3"
+        ],
+        "returncode": 0,
+        "log_sha256": "d8ff31c7d2977e314a0a3b1b805daae3abed4c379e4187ebc402d9d747ac01ab"
+      },
+      {
+        "argv": [
+          "C:\\msys64\\mingw32\\bin\\cmake.exe",
+          "--build",
+          "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\dropin_blend_build_accepted",
+          "--parallel",
+          "4"
+        ],
+        "returncode": 0,
+        "log_sha256": "f0ee8ae8f533e3468b3e73828bdf5cba5dde7b81fd1d4fb5f6b0f5acb0216e6d"
+      },
+      {
+        "argv": [
+          "C:\\msys64\\mingw32\\bin\\ctest.exe",
+          "--test-dir",
+          "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\dropin_blend_build_accepted",
+          "--output-on-failure",
+          "--output-junit",
+          "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\dropin_blend_build_accepted\\tests.xml"
+        ],
+        "returncode": 0,
+        "log_sha256": "e59d508f9adbfd3e6df3b1b9b82b66e5c2703de3b899a661ae7caa684f35b68f"
+      }
+    ],
+    "blend": "python -B dropin_renderer/tests/run_indexed_blend.py --exe D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE --cli work/dropin_blend_build_accepted/indexed_rectangle_cli.exe --output work/dropin_blend_comparison_accepted --gpu",
+    "copy": "python -B dropin_renderer/tests/run_indexed_rectangle.py --exe D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE --cli work/dropin_blend_build_accepted/indexed_rectangle_cli.exe --output work/dropin_blend_copy_regression_accepted --gpu",
+    "shared_vc5": "python renderer_contract/tests/run_tests.py",
+    "shared_gcc_x86": "python renderer_contract/tests/run_portable_tests.py --cc C:\\msys64\\mingw32\\bin\\gcc.exe --cxx C:\\msys64\\mingw32\\bin\\g++.exe --output work/dropin_blend_portable_verified",
+    "historical": "python dropin_renderer/tests/verify_historical.py --original-root D:\\Prog\\hercules_recon --receipt work/dropin_blend_parent/historical.json"
+  },
+  "implementation_corrections": [
+    {
+      "scope": "test-local declaration",
+      "outcome": "Both compilers caught an undeclared test variable; corrected and all shared tests passed"
+    },
+    {
+      "scope": "oracle output extent",
+      "outcome": "Mapped guard padding initially included in frame hash; padded modern equality diagnosed it, now visible and mapped hashes recorded separately",
+      "receipt": {
+        "path": "work/dropin_blend_parent/extent_diagnosis.json",
+        "sha256": "db71144753ca492975cc65e292fcf3e36d58ceb03d0bc90f253bdb686d1d924e"
+      }
+    }
+  ],
+  "remaining": [
+    "Active CLUT/palette mapping and reachable producer inputs",
+    "Live table-writer timing and generic raster geometry",
+    "Original-host post-entry authorization/isolation and coordinated final presentation"
+  ]
+}

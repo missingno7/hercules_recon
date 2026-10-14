@@ -18,6 +18,16 @@ namespace {
 constexpr std::uint32_t kTextureStride = 256U;
 constexpr std::uint32_t kTexturePageAddress = 0x0096e6e0U;
 constexpr std::uint32_t kMaxRectangleSide = 8U;
+constexpr std::size_t kBlendTableBytes = 256U * 256U;
+constexpr std::size_t kShadeRowBytes = 256U;
+constexpr std::size_t kMaximumTileBytes =
+    kMaxRectangleSide * kMaxRectangleSide;
+constexpr std::size_t kTileUploadOffset = indexed_frame_bytes;
+constexpr std::size_t kBlendUploadOffset =
+    kTileUploadOffset + kMaximumTileBytes;
+constexpr std::size_t kShadeUploadOffset =
+    kBlendUploadOffset + kBlendTableBytes;
+constexpr std::size_t kUploadBytes = kShadeUploadOffset + kShadeRowBytes;
 
 const char kIndexedShader[] =
     "struct VSOut { float4 position : SV_Position; };\n"
@@ -29,7 +39,10 @@ const char kIndexedShader[] =
     "  return output;\n"
     "}\n"
     "Texture2D<uint> page : register(t0, space2);\n"
-    "cbuffer Rectangle : register(b0, space3) { int4 bounds; };\n"
+    "Texture2D<uint> seed_frame : register(t1, space2);\n"
+    "Texture2D<uint> selected_lut : register(t2, space2);\n"
+    "Texture2D<uint> shade_row : register(t3, space2);\n"
+    "cbuffer Rectangle : register(b0, space3) { int4 bounds; uint4 mode; };\n"
     "uint PSMain(float4 position : SV_Position) : SV_Target0 {\n"
     "  uint2 pixel = (uint2)position.xy;\n"
     "  uint2 origin = (uint2)bounds.xy;\n"
@@ -39,15 +52,21 @@ const char kIndexedShader[] =
     "    discard;\n"
     "  uint value = page.Load(int3(int2(pixel - origin), 0));\n"
     "  if (value == 0) discard;\n"
-    "  return value;\n"
+    "  if (mode.x == 0) return value;\n"
+    "  uint mapped_source = value;\n"
+    "  if (mode.x == 2)\n"
+    "    mapped_source = shade_row.Load(int3(int2(value, 0), 0));\n"
+    "  uint prior_destination = seed_frame.Load(int3(int2(pixel), 0));\n"
+    "  return selected_lut.Load(int3(int2(prior_destination, mapped_source), 0));\n"
     "}\n";
 
 struct RectangleUniform {
     std::int32_t bounds[4];
+    std::uint32_t mode[4];
 };
 
-static_assert(sizeof(RectangleUniform) == 16,
-              "rectangle HLSL cbuffer must match one 16-byte register");
+static_assert(sizeof(RectangleUniform) == 32,
+              "rectangle HLSL cbuffer must match two 16-byte registers");
 
 std::string with_sdl_error(const char *operation)
 {
@@ -59,7 +78,10 @@ std::string with_sdl_error(const char *operation)
 struct GpuRunResources {
     SDL_GPUDevice *device = nullptr;
     SDL_GPUTexture *target = nullptr;
+    SDL_GPUTexture *seed_frame = nullptr;
     SDL_GPUTexture *source = nullptr;
+    SDL_GPUTexture *blend_table = nullptr;
+    SDL_GPUTexture *shade_row = nullptr;
     SDL_GPUTransferBuffer *upload = nullptr;
     SDL_GPUTransferBuffer *download = nullptr;
 
@@ -69,8 +91,14 @@ struct GpuRunResources {
             SDL_ReleaseGPUTransferBuffer(device, download);
         if (upload != nullptr)
             SDL_ReleaseGPUTransferBuffer(device, upload);
+        if (shade_row != nullptr)
+            SDL_ReleaseGPUTexture(device, shade_row);
+        if (blend_table != nullptr)
+            SDL_ReleaseGPUTexture(device, blend_table);
         if (source != nullptr)
             SDL_ReleaseGPUTexture(device, source);
+        if (seed_frame != nullptr)
+            SDL_ReleaseGPUTexture(device, seed_frame);
         if (target != nullptr)
             SDL_ReleaseGPUTexture(device, target);
     }
@@ -145,6 +173,50 @@ bool validate_snapshot(const IndexedRectangleCommand &command,
         command.sample_addresses.size() != expected_texels) {
         *message = "unsupported: owned rectangle snapshot does not match its resolved plan";
         return false;
+    }
+
+    const bool has_nonzero_source = std::any_of(
+        command.texels.begin(), command.texels.end(),
+        [](std::uint8_t value) { return value != 0U; });
+    const auto bad_blend_payload = [message](const char *detail) {
+        *message = std::string("unsupported: ") + detail;
+        return false;
+    };
+    const bool has_blend_table = command.blend_table.size() == kBlendTableBytes;
+    const bool has_shade_row = command.shade_row.size() == kShadeRowBytes;
+    if (plan.pixel_mode == HERCULES_RECTANGLE_COPY) {
+        if (plan.blend_selector != 0U || plan.shade_row != 0U ||
+            !command.blend_table.empty() || !command.shade_row.empty()) {
+            return bad_blend_payload(
+                "COPY requires selector/row zero and no selected tables");
+        }
+    } else if (plan.pixel_mode == HERCULES_RECTANGLE_RAW_BLEND) {
+        if (plan.blend_selector > 3U || plan.shade_row != 0U ||
+            !command.shade_row.empty()) {
+            return bad_blend_payload(
+                "RAW_BLEND requires selector 0..3, row zero, and no shade row");
+        }
+        if ((has_nonzero_source && !has_blend_table) ||
+            (!has_nonzero_source && !command.blend_table.empty())) {
+            return bad_blend_payload(
+                "RAW_BLEND requires one 65536-byte selected LUT iff any source is nonzero");
+        }
+    } else if (plan.pixel_mode == HERCULES_RECTANGLE_SHADED_BLEND) {
+        if (plan.blend_selector > 3U || plan.shade_row > 255U ||
+            plan.shade_row == 0x80U) {
+            return bad_blend_payload(
+                "SHADED_BLEND requires selector 0..3 and a shade row in 0..255 except 128");
+        }
+        if (has_nonzero_source) {
+            if (!has_blend_table || !has_shade_row)
+                return bad_blend_payload(
+                    "SHADED_BLEND requires one 65536-byte LUT and one 256-byte shade row iff any source is nonzero");
+        } else if (!command.blend_table.empty() || !command.shade_row.empty()) {
+            return bad_blend_payload(
+                "all-zero SHADED_BLEND commands must not carry selected tables");
+        }
+    } else {
+        return bad_blend_payload("rectangle pixel mode is unknown");
     }
 
     std::size_t sample = 0;
@@ -280,7 +352,7 @@ struct IndexedGpuBackend::Impl {
         fragment_info.entrypoint = "PSMain";
         fragment_info.format = SDL_GPU_SHADERFORMAT_DXBC;
         fragment_info.stage = SDL_GPU_SHADERSTAGE_FRAGMENT;
-        fragment_info.num_storage_textures = 1;
+        fragment_info.num_storage_textures = 4;
         fragment_info.num_uniform_buffers = 1;
         fragment_shader = SDL_CreateGPUShader(device, &fragment_info);
         vertex_bytecode->Release();
@@ -313,7 +385,7 @@ struct IndexedGpuBackend::Impl {
         }
 
         status = IndexedGpuStatus::ok;
-        message = "runtime HLSL compiled vs_5_1/ps_5_1 DXBC; R8_UINT graphics storage-read and color target ready";
+        message = "runtime HLSL compiled vs_5_1/ps_5_1 DXBC; R8_UINT source/seed/LUT storage reads and integer color target ready";
         return true;
     }
 };
@@ -356,16 +428,25 @@ IndexedGpuResult IndexedGpuBackend::render(
             &resources.target, &validation_message) ||
         !create_texture(resources.device,
             SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ,
+            static_cast<std::uint32_t>(indexed_frame_width),
+            static_cast<std::uint32_t>(indexed_frame_height),
+            &resources.seed_frame, &validation_message) ||
+        !create_texture(resources.device,
+            SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ,
             command.plan.width, command.plan.height,
-            &resources.source, &validation_message)) {
+            &resources.source, &validation_message) ||
+        !create_texture(resources.device,
+            SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ,
+            256U, 256U, &resources.blend_table, &validation_message) ||
+        !create_texture(resources.device,
+            SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ,
+            256U, 1U, &resources.shade_row, &validation_message)) {
         return failure(IndexedGpuStatus::error, std::move(validation_message));
     }
 
-    constexpr Uint32 upload_size = static_cast<Uint32>(
-        indexed_frame_bytes + kMaxRectangleSide * kMaxRectangleSide);
     SDL_GPUTransferBufferCreateInfo upload_info = {};
     upload_info.usage = SDL_GPU_TRANSFERBUFFERUSAGE_UPLOAD;
-    upload_info.size = upload_size;
+    upload_info.size = static_cast<Uint32>(kUploadBytes);
     resources.upload = SDL_CreateGPUTransferBuffer(resources.device, &upload_info);
     if (resources.upload == nullptr) {
         return failure(IndexedGpuStatus::error,
@@ -388,8 +469,18 @@ IndexedGpuResult IndexedGpuBackend::render(
                        with_sdl_error("SDL_MapGPUTransferBuffer(upload)"));
     }
     std::memcpy(upload_bytes, initial_indices.data(), indexed_frame_bytes);
-    std::memcpy(upload_bytes + indexed_frame_bytes, command.texels.data(),
+    std::memcpy(upload_bytes + kTileUploadOffset, command.texels.data(),
                 command.texels.size());
+    std::memset(upload_bytes + kBlendUploadOffset, 0, kBlendTableBytes);
+    if (!command.blend_table.empty()) {
+        std::memcpy(upload_bytes + kBlendUploadOffset,
+                    command.blend_table.data(), command.blend_table.size());
+    }
+    std::memset(upload_bytes + kShadeUploadOffset, 0, kShadeRowBytes);
+    if (!command.shade_row.empty()) {
+        std::memcpy(upload_bytes + kShadeUploadOffset,
+                    command.shade_row.data(), command.shade_row.size());
+    }
     SDL_UnmapGPUTransferBuffer(resources.device, resources.upload);
 
     SDL_GPUCommandBuffer *gpu_command =
@@ -416,8 +507,14 @@ IndexedGpuResult IndexedGpuBackend::render(
         static_cast<Uint32>(indexed_frame_height), 1
     };
     SDL_UploadToGPUTexture(copy_pass, &frame_source, &frame_destination, false);
+    const SDL_GPUTextureRegion seed_destination = {
+        resources.seed_frame, 0, 0, 0, 0, 0,
+        static_cast<Uint32>(indexed_frame_width),
+        static_cast<Uint32>(indexed_frame_height), 1
+    };
+    SDL_UploadToGPUTexture(copy_pass, &frame_source, &seed_destination, false);
     const SDL_GPUTextureTransferInfo tile_source = {
-        resources.upload, static_cast<Uint32>(indexed_frame_bytes),
+        resources.upload, static_cast<Uint32>(kTileUploadOffset),
         command.plan.width, command.plan.height
     };
     const SDL_GPUTextureRegion tile_destination = {
@@ -425,6 +522,20 @@ IndexedGpuResult IndexedGpuBackend::render(
         command.plan.width, command.plan.height, 1
     };
     SDL_UploadToGPUTexture(copy_pass, &tile_source, &tile_destination, false);
+    const SDL_GPUTextureTransferInfo blend_source = {
+        resources.upload, static_cast<Uint32>(kBlendUploadOffset), 256U, 256U
+    };
+    const SDL_GPUTextureRegion blend_destination = {
+        resources.blend_table, 0, 0, 0, 0, 0, 256U, 256U, 1
+    };
+    SDL_UploadToGPUTexture(copy_pass, &blend_source, &blend_destination, false);
+    const SDL_GPUTextureTransferInfo shade_source = {
+        resources.upload, static_cast<Uint32>(kShadeUploadOffset), 256U, 1U
+    };
+    const SDL_GPUTextureRegion shade_destination = {
+        resources.shade_row, 0, 0, 0, 0, 0, 256U, 1U, 1
+    };
+    SDL_UploadToGPUTexture(copy_pass, &shade_source, &shade_destination, false);
     SDL_EndGPUCopyPass(copy_pass);
 
     SDL_GPUColorTargetInfo color_info = {};
@@ -449,13 +560,21 @@ IndexedGpuResult IndexedGpuBackend::render(
     };
     SDL_SetGPUViewport(render_pass, &viewport);
     SDL_SetGPUScissor(render_pass, &scissor);
-    SDL_GPUTexture *storage_texture = resources.source;
-    SDL_BindGPUFragmentStorageTextures(render_pass, 0, &storage_texture, 1);
+    SDL_GPUTexture *storage_textures[] = {
+        resources.source, resources.seed_frame,
+        resources.blend_table, resources.shade_row
+    };
+    SDL_BindGPUFragmentStorageTextures(render_pass, 0, storage_textures, 4);
     const RectangleUniform uniform = {{
         static_cast<std::int32_t>(command.plan.x),
         static_cast<std::int32_t>(command.plan.y),
         static_cast<std::int32_t>(command.plan.width),
         static_cast<std::int32_t>(command.plan.height)
+    }, {
+        command.plan.pixel_mode,
+        command.plan.blend_selector,
+        command.plan.shade_row,
+        0U
     }};
     SDL_PushGPUFragmentUniformData(gpu_command, 0, &uniform, sizeof(uniform));
     SDL_DrawGPUPrimitives(render_pass, 3, 1, 0, 0);
@@ -504,7 +623,7 @@ IndexedGpuResult IndexedGpuBackend::render(
     std::memcpy(result.indices.data(), readback, indexed_frame_bytes);
     SDL_UnmapGPUTransferBuffer(resources.device, resources.download);
     result.status = IndexedGpuStatus::ok;
-    result.message = "R8_UINT rectangle draw and full indexed readback completed after GPU fence";
+    result.message = "R8_UINT COPY/blend rectangle draw and full indexed readback completed after GPU fence";
     return result;
 }
 

@@ -6,6 +6,15 @@
 #include "hercules_pixels.h"
 #include "hercules_staging.h"
 
+#define HERCULES_RECTANGLE_SHADE_BASE ((renderer_raw32)0x0091c488UL)
+#define HERCULES_RECTANGLE_BLEND_BASE ((renderer_raw32)0x0092e3d0UL)
+
+typedef enum HerculesRectanglePixelMode {
+    HERCULES_RECTANGLE_COPY = 0,
+    HERCULES_RECTANGLE_RAW_BLEND = 1,
+    HERCULES_RECTANGLE_SHADED_BLEND = 2
+} HerculesRectanglePixelMode;
+
 /* Explicit storage views for the bounded D420 -> CAB0 rectangle route.
  * page_address identifies the original texture page selected by AC60 staging;
  * it is never interpreted as a process pointer. The byte pointers are local
@@ -40,6 +49,9 @@ typedef struct HerculesRectanglePlan {
     renderer_u32 source_pitch;
     renderer_u32 destination_start;
     renderer_u32 destination_pitch;
+    renderer_u32 pixel_mode;
+    renderer_u32 blend_selector;
+    renderer_u32 shade_row;
 } HerculesRectanglePlan;
 
 typedef enum HerculesRectangleStatus {
@@ -57,9 +69,9 @@ typedef struct HerculesRectangleEffects {
     renderer_u8 presentation_requested;
 } HerculesRectangleEffects;
 
-/* Called after each nonzero CAB0 source texel is stored. Offsets are relative
- * to the explicit surface view. Returning zero stops rendering and reports
- * OBSERVER_FAILED. A null observer is allowed. */
+/* Called after each nonzero source texel is stored by the selected pixel mode.
+ * Offsets are relative to the explicit surface view. Returning zero stops
+ * rendering and reports OBSERVER_FAILED. A null observer is allowed. */
 typedef int (*HerculesRectanglePixelObserver)(
     void *context, renderer_u8 source_texel, renderer_u32 destination_offset);
 
@@ -86,6 +98,20 @@ HerculesRectangleStatus hercules_rectangle_render(
     const HerculesRectanglePlan *plan,
     const HerculesRectangleTextureView *texture,
     const HerculesRectangleSurfaceView *surface,
+    HerculesRectanglePixelObserver observer, void *observer_context,
+    HerculesRectangleEffects *effects);
+
+/* Render a resolved plan with explicit read-only table adapters. COPY plans
+ * need no tables; blend plans read the selected blend table, and shaded plans
+ * also read the already-selected 256-byte shade row. A source byte of zero
+ * skips all table, destination, write, and observer callbacks. */
+HerculesRectangleStatus hercules_rectangle_render_tables(
+    const HerculesRectanglePlan *plan,
+    const HerculesRectangleTextureView *texture,
+    const HerculesRectangleSurfaceView *surface,
+    const HercPixelTableReader *shade_row,
+    const HercPixelTableReader *blend_tables,
+    renderer_u32 blend_table_count,
     HerculesRectanglePixelObserver observer, void *observer_context,
     HerculesRectangleEffects *effects);
 

@@ -15,6 +15,10 @@ struct IndexedRectangleCommand {
     HerculesRectanglePlan plan{};
     std::vector<std::uint8_t> texels;
     std::vector<std::uint32_t> sample_addresses;
+    /* Selected table snapshots belong to this command's consumption instant.
+     * Empty tables are permitted when every source texel is zero. */
+    std::vector<std::uint8_t> shade_row;
+    std::vector<std::uint8_t> blend_table;
     std::uint32_t packet_address = 0;
     std::uint64_t texture_generation = 0;
 };

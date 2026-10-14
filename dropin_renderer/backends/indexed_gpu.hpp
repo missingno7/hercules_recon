@@ -23,9 +23,10 @@ struct IndexedGpuResult {
 };
 
 /* Offscreen indexed FT4 rectangle backend for the shared plan's bounded
- * unblended tpage/clut-zero 1:1 domain. It owns no source data: render accepts
- * a const, detached command snapshot and a const seed frame, consumes both
- * synchronously, and returns a separate fence-complete readback. */
+ * tpage/clut-zero 1:1 COPY and selected-LUT blend domain. It owns no source
+ * data: render accepts a const, detached command snapshot and a const seed
+ * frame, consumes both synchronously, and returns a separate fence-complete
+ * readback. */
 class IndexedGpuBackend {
 public:
     explicit IndexedGpuBackend(SDL_GPUDevice *device);
