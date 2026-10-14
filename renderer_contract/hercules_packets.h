@@ -194,6 +194,15 @@ RendererPacketStatus renderer_order_table_addresses(
 RendererPacketStatus renderer_decode_packet(
     const renderer_u8 *bytes, size_t length, RendererDecodedPacket *decoded);
 
+/* Required owned observation span for a decoder-produced complete header.
+ * minimum_size continues to describe AC60's direct access envelope. Command
+ * 01 additionally passes the inline rectangle at +0x10 to A8F0, so capture
+ * needs 24 bytes even though AC60 directly reads only 16. This helper does
+ * not claim producer allocation size, drawing support, or frame ownership.
+ * A TRUNCATED/UNSUPPORTED/UNRECOGNIZED decode may still supply that header.
+ * Null/short-header results return zero and must not be captured. */
+renderer_u16 renderer_packet_capture_size(const RendererDecodedPacket *decoded);
+
 #ifdef __cplusplus
 }
 #endif

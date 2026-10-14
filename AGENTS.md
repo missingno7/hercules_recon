@@ -2,7 +2,33 @@
 
 Reconstruct the 1997 Windows Hercules game with historical C/C++ tools. The PC
 binaries are the matching oracle. PSX builds provide secondary evidence only.
-No port, modernization, renderer replacement, or gameplay changes in this phase.
+Historical reconstruction and a modern drop-in renderer now develop together
+inside this repository. Original simulation and gameplay remain unchanged.
+
+## Ownership and proof boundaries
+
+- `src/`, `calibration/`, and `recovery.json` retain the historical reconstruction
+  rules below. Modern implementation never grants historical acceptance.
+- `renderer_contract/` owns evidence-backed, GPU-independent original interfaces
+  and reference utilities. Correct unknown semantics here from original evidence
+  before consuming them in a renderer; never silently redefine them downstream.
+- `dropin_renderer/` owns modern C++ build, forwarding, diagnostic capture and
+  backend code. Consume the shared contract directly; do not copy its package.
+  Implement bounded vertical slices with explicit unsupported paths. Keep original
+  screen-space behavior separate from private native-resolution policies.
+- Forwarding to original callbacks/APIs is permitted only in the modern reference
+  and diagnostic integration layer; it is never historical source recovery.
+  Do not patch original code, embed machine code, or change original game files.
+- Preserve synchronous callback ordering and live-link/state reloads. A borrowed
+  frame entry snapshot is not a consumption trace or an asynchronous owned scene.
+- Original post-entry execution still needs explicit execution authorization,
+  verified writable-path/profile/registry isolation, windowed startup and display
+  restoration. A synthetic fixture or prior pre-entry probe does not satisfy that
+  gate. Continue independent offline and source-built work while it is unresolved.
+- GPU screenshots, synthetic forwarding and finite semantic comparisons establish
+  only their measured boundaries, not original-host or whole-renderer equivalence.
+
+## Historical reconstruction
 
 - Never modify `assets/`. Never commit originals, extracted game files, tools,
   generated builds, databases, or large disassemblies.

@@ -1,7 +1,7 @@
 # Hercules PC renderer contract
 
-This package establishes the original renderer boundary for a separate
-`hercules_renderer` project. It contains raw x86 interface views, checked packet
+This package establishes the original renderer boundary shared with
+[`dropin_renderer`](../dropin_renderer/README.md) in this repository. It contains raw x86 interface views, checked packet
 decoding, bounded frame traversal, texture addressing and synthetic fixtures.
 Diagnostic fixtures can publish a table clone in bounded probes. The package
 contains no GPU backend or replacement gameplay module.
@@ -118,7 +118,8 @@ not replace this complete contract.
 
 The C headers and utilities have no dependency on a GPU API or the game source
 graph. Repository verification scripts reuse the existing PE/toolchain tools.
-Copy this folder to reuse the C utilities. Its standalone synthetic runner
+The modern subproject links these utilities through the
+`hercules_renderer_contract` CMake target without copying them. The standalone synthetic runner
 needs only Python 3 and caller-supplied C/C++ compilers:
 
 ```powershell
@@ -180,6 +181,10 @@ The generic packet decoder leaves command 01 and F3 as visibly unsupported
 payloads. Their proven fields are decoded by hercules_state.h; command 01
 requires 24 readable bytes including its embedded rectangle. The 16-byte
 direct AC60 access minimum alone is insufficient for that helper.
+[`renderer_packet_capture_size`](capture_extent.md) exposes the required owned
+observation span separately from the existing direct-access minimum. Its new
+guard-page discriminator runs unchanged AC60/A8F0 with 16, 22 and 24 readable
+bytes. The decoder still makes no drawing or producer-capacity claim.
 
 The investigation starts from commit 73c6320179093c3de9b820e66b87f94dfb639a9b
 on an isolated renderer branch. Detailed proof references accompany each

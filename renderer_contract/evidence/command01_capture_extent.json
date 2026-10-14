@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "proof_level": "BOUNDED_EQUIVALENT",
+  "scope": "Three original-code guard-page cases for command01 observation extent, not FUNCTION_MATCH or original-host integration.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "raw_receipt": {
+    "path": "work/dropin_validation/command01_extent.json",
+    "sha256": "16099e47cca0f156b94c61e152f80703817b270d1b5d380a5185dcd47a0bad56"
+  },
+  "runtime": {
+    "engine": "Unicorn CPU emulator",
+    "unicorn_version": "2.1.4",
+    "unicorn_module_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\__init__.py",
+    "native_dll_path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+    "native_dll_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+    "dependency_origin": {
+      "package_page": "https://pypi.org/project/unicorn/2.1.4/",
+      "wheel_url": "https://files.pythonhosted.org/packages/70/3d/de7be9bd1addabe6d8a1369381f8a080400c349850e978689c5e18287957/unicorn-2.1.4-cp37-abi3-win_amd64.whl",
+      "wheel_sha256_expected_and_downloaded": "d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5"
+    }
+  },
+  "source_sha256": {
+    "renderer_contract/hercules_packets.c": "7803ee275c1b9cbf28af55394e3243c8b086053623ae0e49cb5f7cd6f76ed1d7",
+    "renderer_contract/hercules_packets.h": "2d53945dc9a1cf5e4d10bdbfe1e8b76c7677227fc3b8c765b6161834351a16f8",
+    "renderer_contract/hercules_state_wire.h": "268a893be201a230c3b397ed78961f6ce1c4c774406f92009c23889f5714653e",
+    "renderer_contract/tests/test_capture_extent.c": "f18364f09de153eeb4ba61caecc175c1d00ae91d012eef833a5f46affa972c3c",
+    "renderer_contract/tests/test_original_command01_extent.py": "db26cb45926560ffa0d937049c32e9b8662ff60b61df39efd722cf3878c19584"
+  },
+  "cases": [
+    {
+      "available": 16,
+      "entered_a8f0": true,
+      "stop": "unmapped",
+      "invalid": {
+        "offset": 18,
+        "size": 2,
+        "pc_rva": "0xa8f7"
+      },
+      "instructions": 63
+    },
+    {
+      "available": 22,
+      "entered_a8f0": true,
+      "stop": "unmapped",
+      "invalid": {
+        "offset": 22,
+        "size": 2,
+        "pc_rva": "0xaa6e"
+      },
+      "instructions": 70
+    },
+    {
+      "available": 24,
+      "entered_a8f0": true,
+      "stop": "returned",
+      "invalid": null,
+      "instructions": 141
+    }
+  ],
+  "finding": {
+    "direct_ac60_minimum": 16,
+    "transitive_capture_span": 24,
+    "source_y_read": {
+      "packet_offset": 18,
+      "pc_rva": "0xa8f7"
+    },
+    "height_read": {
+      "packet_offset": 22,
+      "pc_rva": "0xaa6e"
+    },
+    "complete_live_link_reload_rva": "0xaca2"
+  },
+  "unchanged": [
+    "minimum_size semantics",
+    "decoder statuses",
+    "historical source",
+    "recovery.json",
+    "original images"
+  ]
+}

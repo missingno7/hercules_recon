@@ -1,4 +1,14 @@
 #include "hercules_packets.h"
+#include "hercules_state_wire.h"
+
+renderer_u16 renderer_packet_capture_size(const RendererDecodedPacket *decoded)
+{
+    if (decoded == 0 || decoded->minimum_size == 0)
+        return 0;
+    if (decoded->command == 0x01U)
+        return (renderer_u16)sizeof(HrcCommand01WireView);
+    return decoded->minimum_size;
+}
 
 static renderer_u16 renderer_read_u16(const renderer_u8 *p)
 {

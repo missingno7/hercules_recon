@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14",
+  "scope": "Modern x86 forwarding, owned diagnostic commands, source-backed archived geometry, optional offscreen GPU; no original-host integration or new historical match.",
+  "historical_recovery_sha256": "d6858a378f8360ed713b6786e7dc14c09d728d12afa8b759afd0544c01efd597",
+  "original_game_process_executed": false,
+  "toolchain_manifest": {
+    "path": "dropin_renderer/docs/local_toolchain.json",
+    "sha256": "42a48b6f85904feb8d22f81d2069ed366e5f825b1e302cfbd0bdeb2e32a76262"
+  },
+  "fresh_build": {
+    "passed": true,
+    "ctest_cases": 7,
+    "proxy_image": {
+      "sha256": "ab19efcec0cf5b7cc95e5bc4fead4b11ae604d5d8dfcfbc89a461dfe84c07632",
+      "machine": "i386",
+      "exports": [
+        "DirectDrawCreate"
+      ],
+      "imports": [
+        "kernel32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    "input_sources_sha256": {
+      "dropin_renderer/backends/geometry_diagnostic.cpp": "a621d01e571782561a6e6f619474892c5ac01995ef25ecb94d16cefd4beb35cf",
+      "dropin_renderer/backends/geometry_diagnostic.h": "3c18b0c319a112fe02e0d08d13227782c3ea4240194af5d2c81c70de02f2cfac",
+      "dropin_renderer/backends/sdl_gpu_probe.cpp": "f14926ee2aa10bfef300f0bc0289ccfab1b993678bdd283ad892b7daaf325f98",
+      "dropin_renderer/capture/packet_capture.cpp": "4b014809f5ed1e3536ff578941b85d429951bdadb487957c877e3b975ba4bfa9",
+      "dropin_renderer/capture/packet_capture.hpp": "a93482af76e3d443aba6f320ff8e296dc2a41f0ec69ac1449afd5109e91d2906",
+      "dropin_renderer/core/event.hpp": "dbd20511accc7b594dd6eabbf4cc516034ef7d85548f025fac8d096b56e77663",
+      "dropin_renderer/proxy/ddraw.def": "55b01a647af8160262ed2c3055f0671d01d191a695ba3673a6100172f34c7539",
+      "dropin_renderer/tests/mock_ddraw_backend.cpp": "9c0116c197ef376edf836ac6c1e9262691544e54ed89b6eb6e880ead202d921d",
+      "dropin_renderer/tests/mock_ddraw_backend.hpp": "c1b9c446296e1788a9476c5cb2c3dd9e6f789897f65f5329a491738ebbf0bf53",
+      "dropin_renderer/tests/proxy_system_smoke.cpp": "fdc1a5807501f1e534736407df14034c1dbc818a10a822ea887568724df5af2a",
+      "dropin_renderer/tests/proxy_test.cpp": "106770c6f0f106b6bb23612bc493d6170ce9f6f4bc0be67cb234bd30bb842f24",
+      "dropin_renderer/tests/run_build.py": "7a6130f29a7a9a1b218dad6503270ba9584e4541895850cdd323d52a5b3ff553",
+      "dropin_renderer/tests/test_commands.cpp": "185958ec3f46d65f447599b6881c21bed9688b164fdabf51ae12cd8e79bbf114",
+      "dropin_renderer/tests/verify_historical.py": "66f124880f872890332721766538d458112cda6ca910f17f07b29e6c9088b322",
+      "dropin_renderer/tools/geometry_diagnostic_cli.cpp": "38429ee798b88d5c12d632daf2aa40da61b96af2e93792a31b31ea246c9c9530",
+      "dropin_renderer/tools/run_real_mesh_geometry.py": "bb1a6aa50e8991516a4a6283d9f18edb355003eb4bf430c5fbc6f5255fdb4f27",
+      "dropin_renderer/proxy/src/ddraw_proxy.cpp": "86f9186e6fb0c61a9e2274234848309043fa17f361e362fa4d03ed014d7eea14",
+      "dropin_renderer/proxy/src/engine_table_proxy.cpp": "4336093733533203171361aa433fce2a02706dc87a03f6ef0c181cb0e43c8009",
+      "dropin_renderer/proxy/include/dropin_renderer/ddraw_proxy.hpp": "b50d47dca0eefcc7868a27a3d896808db7485310a08b571f08f8bf3c658d3e2c",
+      "dropin_renderer/proxy/include/dropin_renderer/proxy_api.hpp": "926604d97ac28830b5d36b0deb1ffe26a2fe4a907a0f46acd07d818a71bea331",
+      "dropin_renderer/proxy/include/dropin_renderer/proxy_test_support.hpp": "68dafa90a136eea5bc7f6efba0d4db84125efe4141213a04373480ff7ab9ed1d",
+      "dropin_renderer/tests/real_mesh/test_geometry_diagnostic.cpp": "b62d6601265d1cd3a7b9598999ba75cdd6825564128ad60c39bb352ae319ffc6",
+      "dropin_renderer/tests/real_mesh/test_runner_validation.py": "1717c280b44ba4390c97b21a3c2f582a1e2474cdb25dc15174f575a6a28628bb",
+      "renderer_contract/hercules_packets.c": "7803ee275c1b9cbf28af55394e3243c8b086053623ae0e49cb5f7cd6f76ed1d7",
+      "renderer_contract/hercules_packets.h": "2d53945dc9a1cf5e4d10bdbfe1e8b76c7677227fc3b8c765b6161834351a16f8",
+      "dropin_renderer/CMakeLists.txt": "9d8fb63ea9f1c6423065ae647db51aff75e08fa6dd8326cde72fcbba89ed355c",
+      "renderer_contract/CMakeLists.txt": "2fdd8b2593b64ebd9c8ffac5503354f444c7cd9dcd8313cc8f3185cba9de1137"
+    }
+  },
+  "historical_regression": {
+    "exact": 132,
+    "count": 132,
+    "recovery_unchanged": true
+  },
+  "shared_suites": {
+    "vc5": {
+      "discovered": 22,
+      "passed": 22,
+      "failed": 0
+    },
+    "gcc_x86": {
+      "discovered": 22,
+      "passed": 22,
+      "failed": 0
+    }
+  },
+  "original_image_audit": {
+    "original_images": 4,
+    "spans": 702,
+    "package_evidence": 117,
+    "manifest_sha256": "7da6f696905c807c6b36088dc61af164e25e751cde1d99d72b4202f66fb4cfec"
+  },
+  "real_resource": {
+    "result": "PASS",
+    "geometry_json_sha256": "5d477a8e7e5fb2bd54462c3bc8a943ccc261965b2a09bd454304239e8581bd4c",
+    "capture": {
+      "mesh_index": 156,
+      "map_cell_file_offset": 1102652,
+      "vertices": 8,
+      "faces": 3,
+      "associated_packet_corners": 12,
+      "effective_winding": 0
+    },
+    "source_preparation_checks": 51,
+    "source_emitter_checks": 914,
+    "source_preparation_emitter": "PASS",
+    "original_hashes": {
+      "HERCULES.EXE": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "HERCULES.FS": "affa380e45918448895932cd466ea9a02096b8dcf08644f91b9da5ec34cd48b4",
+      "MAP_PSX.BIN": "78bc5a60ecce1c99e752fb30a16bc5ace4ee80f686365e1da8136a0decbd69cb"
+    }
+  },
+  "gpu": {
+    "driver": "direct3d12",
+    "shader_formats": "DXBC/DXIL",
+    "target": [
+      1920,
+      1440
+    ],
+    "synthetic_colored_pixels": 36864,
+    "archived_face_colored_pixels": 0,
+    "archived_face_result": "PASS",
+    "pixel_equivalence_claim": false,
+    "runtime_hlsl_compiler": {
+      "file": "d3dcompiler_47.dll",
+      "version": "10.0.26100.9168",
+      "origin": "Existing Microsoft Windows system component",
+      "sha256": "570437ac865210f03da802637310baa7765ac44c0f451a874ce2fa512cd33db9"
+    }
+  },
+  "system_directdraw": {
+    "scope": "standalone source-built x86 process only",
+    "hresult": "S_OK",
+    "object_nonnull": true,
+    "release_return": 0,
+    "canonical_file": "C:/Windows/SysWOW64/ddraw.dll",
+    "file_sha256": "37113406967162585c9a67c252005757459d8efe87684bbc0ce184907d0566b0"
+  },
+  "reports": [
+    {
+      "path": "work/dropin_build_final/build_receipt.json",
+      "sha256": "09dfd187db0993efd91668d65f637584085ff70b46ea47bc7b04e0588d6b1233"
+    },
+    {
+      "path": "work/dropin_build_final/tests.xml",
+      "sha256": "4f22969d23402f0ff925723947d5843100e8f7cf971f3b289cfa548aad380893"
+    },
+    {
+      "path": "work/dropin_build_final/Testing/Temporary/LastTest.log",
+      "sha256": "79022cdb99b1ba2e42a7ba5c22cad8bd55b6bc1fec58f495c3ae31a860544eda"
+    },
+    {
+      "path": "work/dropin_mesh_final/dropin_geometry_replay_report.json",
+      "sha256": "12122efe279316c4a2886c34e8b31a65f296865502e46541723c1e3fabbe09fd"
+    },
+    {
+      "path": "work/dropin_mesh_final/prep_source_compare_report.json",
+      "sha256": "1ea21b105e21d5df7832ef26ac511f245cb4f0b46a4ab220875f53dd2120f5bb"
+    },
+    {
+      "path": "work/dropin_validation/historical.json",
+      "sha256": "6f43110633619527dbbe3994e61f65ed05bcc965283a7ff4e2b0f146a3f585ea"
+    },
+    {
+      "path": "work/dropin_validation/live_capture.json",
+      "sha256": "ba75f00128070017f53940613a2f46d8fa5e155bf3e8e781586db8842e7be64e"
+    },
+    {
+      "path": "work/dropin_validation/command01_extent.json",
+      "sha256": "16099e47cca0f156b94c61e152f80703817b270d1b5d380a5185dcd47a0bad56"
+    },
+    {
+      "path": "work/dropin_validation/portable_x86_final/portable_tests.json",
+      "sha256": "7199202c799fa180a53fd81ad9c0b7ef2a88e84146582c533ea2b696c39fc2b1"
+    },
+    {
+      "path": "work/renderer_contract_tests/verification.json",
+      "sha256": "23803c7db38a30cd21cb36d456f6ba66466d90dc3ec5ec58b8a5349e28c42e0e"
+    }
+  ],
+  "shared_contract_change": "renderer_packet_capture_size exposes 24-byte command01 transitive observation without changing 16-byte direct minimum",
+  "remaining": [
+    "Original-host write/profile/registry isolation, windowed startup, restoration and authorized post-entry observation",
+    "Original texture/palette state to reference/GPU primitive processing",
+    "All visible-writer ordering and exclusive presentation ownership"
+  ]
+}
