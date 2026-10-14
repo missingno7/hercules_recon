@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 86 actual source units with
-114 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 36 unresolved dependencies: 18 newly exposed frame
-callbacks and 18 other providers. Including the real map replaces one missing
+The current natural selected host graph compiles 89 actual source units with
+116 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 39 unresolved dependencies: 18 newly exposed frame
+callbacks and 21 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -130,6 +130,36 @@ Function sources and all recovery rows remain unchanged. See
 python scripts/host_engine_storage_data.py --output work/host_loader_storage_replay
 python scripts/host_dispatch_differential.py --output work/host_dispatch_differential/loader_storage_replay.json
 ```
+
+The original bootstrap at `0x1ff0` now has ordinary source for its complete
+208-byte contribution. It clears the 6,964-byte context prefix and the current
+configured arena, calls the real `save_arena` source, retains post-callee context
+reloads, writes the observed startup fields, seeds the identified CRT `srand`,
+and passes the current buffer/name to the still unresolved engine-switch routine.
+The existing 32-byte pool-save contribution is now recorded alongside it.
+Both remain `CODEGEN_SIMILAR`: full relocation diagnostics agree, raw bytes fail.
+The shared headers and existing pool/diagnostic function sources are unchanged.
+
+```
+python scripts/host_context_bootstrap_differential.py --output work/context_bootstrap_replay
+```
+
+Twelve directed cases compare all three context buffers, complete pool/table
+fixture bytes, the full original 3 MiB arena, zero and non-DWORD byte counts,
+guards, caller stack/nonvolatile registers and bounded execution/writes. Only
+the bootstrap and actual pool-save code execute. Setup, seed and switch effects
+are modeled at their call boundaries; mutation cases distinguish live reloads
+from cached views without proving those callee implementations. The fixture
+uses the actual pool metadata, four native format literals and already exact
+diagnostic provider; inert main and other linked code fail on entry. Its zero
+table, filename capacity and alternate context preconditions remain test inputs.
+The pool base is the independently proved `0xba29c0`, not the unrelated data at
+`0x43a630`; the write whitelist caught the initial private fixture mistake.
+See `evidence/host_context_bootstrap_recovery.json` for the source, CRT identity,
+127 literal bytes, failures and receipts. All 133 accepted functions remain
+exact. Supplying the real initializer/pool unit exposes its actual missing
+setup/switch/name/buffer dependencies; a larger missing-symbol count is not a
+reason to restore an opaque initializer or substitute production stubs.
 
 The journaled promotion gate now supports `.c` and `.cpp` destinations under
 `src/`. A C++ candidate must already occupy its exact canonical path. The gate

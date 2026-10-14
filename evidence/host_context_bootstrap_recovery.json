@@ -1,0 +1,332 @@
+{
+  "schema": 1,
+  "scope": "Original PC context/arena bootstrap and real pool-save dependency recovery. recovery.json alone owns function status; no whole startup, original source/TU/layout or playable-game acceptance.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_context_bootstrap.c",
+      "sha256": "2cad075445ed6960472de3e35dd2ea941ed98c80cf058cad763da758a4fe06f8"
+    },
+    {
+      "path": "calibration/host_pool_repaired.c",
+      "sha256": "115c5e969b4cfff3470d2f08e1a8923b03a392536448ebe14815df17d2bc4ac0"
+    },
+    {
+      "path": "calibration/host_pool_storage.c",
+      "sha256": "a8cf197cec1b0310ccb4f2f1f27059e8e029be16708b09dd2966bdc05a7271de"
+    },
+    {
+      "path": "calibration/host_pool_formats.c",
+      "sha256": "19f2244bb88998915d03b16f25fca40adf21b91c86677499bca693b7545abe66"
+    },
+    {
+      "path": "calibration/engine_interface.h",
+      "sha256": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529"
+    },
+    {
+      "path": "calibration/resource_context.h",
+      "sha256": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608"
+    },
+    {
+      "path": "src/pc/host_diagnostic.c",
+      "sha256": "e711786516b772583c5b2e83fdc581d15bfdd9fe0db1e0c6ef811af5a5355ec1"
+    },
+    {
+      "path": "scripts/host_context_bootstrap_differential.py",
+      "sha256": "b6974d1e73e2a4e6cadbf8464fd87401892d938fc6572a5958648a08e914c738"
+    }
+  ],
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "flags": [
+      "/O2"
+    ],
+    "implicit_matching_flag": "/Gy"
+  },
+  "prediction": {
+    "path": "work/host_context_bootstrap/prediction.json",
+    "sha256": "be8d4690c9248ffe49e5d61011e86fff8f3d34d6ee1c7800b1846280594286b2"
+  },
+  "formats_prediction": {
+    "path": "work/host_context_bootstrap/formats_prediction.json",
+    "sha256": "18980be05f3f56d047ea4acd1b7c61dd7919b92cabe97ce3d9c6f58b6ef8551d"
+  },
+  "functions": [
+    {
+      "symbol": "_host_service_1ff0",
+      "size": 208,
+      "raw_exact": false,
+      "raw_differing_bytes": 52,
+      "compiled_sha256": "6472a9cb68ac33d9d38e5591e40ee015ebde5d32995b9674a38a5ecc9ae6f310",
+      "native_sha256": "ddaaace9394f284c17f00275c76a72266ec6ff8941257345bc4b276f81e61df7",
+      "object_relocations": 19,
+      "diagnostic_nonrelocation_differences": 0
+    },
+    {
+      "symbol": "_save_arena",
+      "size": 32,
+      "raw_exact": false,
+      "raw_differing_bytes": 6,
+      "compiled_sha256": "cf1bc26a34de85942721591261631dc275951d9044cb4ebf552ee383248256c0",
+      "native_sha256": "12caab25e829c7c8d0b29f751b37ee6fde0fe3b1417196d09010b2bb6939e69a",
+      "object_relocations": 2,
+      "diagnostic_nonrelocation_differences": 0
+    },
+    {
+      "symbol": "_host_diagnostic",
+      "size": 16,
+      "raw_exact": true,
+      "raw_differing_bytes": 0,
+      "compiled_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+      "native_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+      "object_relocations": 0,
+      "diagnostic_nonrelocation_differences": 0
+    }
+  ],
+  "bootstrap": {
+    "id": "exe.host_context_bootstrap_1ff0",
+    "rva": "0x1ff0",
+    "complete_size": 208,
+    "body_size": 193,
+    "ABI": "void __cdecl(void), working ignored-return view",
+    "context_clear_bytes": 6964,
+    "context_clear_words": 1741,
+    "arena_clear": "Unsigned current table arena_bytes_00c, DWORD prefix plus byte remainder; current arena_008 pointer. Original initialized configured count is3145728.",
+    "call_order": [
+      "save_arena(current arena pointer,current byte count)",
+      "host_service_10690() [body unresolved]",
+      "srand(0x13546547) [identified CRT; modeled endpoint]",
+      "host_service_4040(current filename buffer,current default-name cell) [body unresolved]"
+    ],
+    "stores_before_setup": [
+      "Current context BYTE+9=0",
+      "Current context DWORD+0x30=0"
+    ],
+    "stores_after_setup": [
+      "Current context BYTE+0=0xff",
+      "Current context BYTE+3=0x11",
+      "Current context WORD+0x12c=0",
+      "Current context WORD+0x12e=0",
+      "Current context DWORD+0x48=0x13546547",
+      "Current context DWORD+0x4c=0xecab9ab8"
+    ],
+    "live_reload": "Source expressions retain the observed post-callee context and post-seed name-cell reloads. Synthetic mutation cases discriminate cached views; they do not establish real callee mutations.",
+    "views": "Two writes use explicit aligned DWORD/WORD views of existing unknown byte arrays. Shared context/header layout is unchanged; original field names/types remain unproved.",
+    "boundary": "Referenced start1ff0 follows the prior1fe0 contribution; actual RET at20b0 followed by15 NOPs ends at next known20c0 entry. Complete208-byte contribution compared."
+  },
+  "save_arena": {
+    "id": "exe.host_save_arena_4450",
+    "rva": "0x4450",
+    "complete_size": 32,
+    "body_size": 20,
+    "ABI": "void __cdecl(unsigned char *,unsigned long), working ignored-return view",
+    "existing_source": "calibration/host_pool_repaired.c",
+    "source_unchanged": true,
+    "region_packet": "host_pool_core",
+    "effect": "Actual source/native code writes only saved_arena+32 and saved_bytes+36 of the48-byte pool prefix at nativeVAba29c0. Full48bytes compared in every case.",
+    "boundary": "Actual RET at4463 followed by12 NOPs ends at4470. Complete32-byte contribution compared.",
+    "limit": "Existing pool code is reused unchanged. Other four pool routines are not newly accepted or executed by this fixture."
+  },
+  "srand_library": {
+    "archive_sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b",
+    "member_index": 307,
+    "member_sha256": "d02d282d74293e0030f86506ed1d5ec224fc115e8d435fe813a012eb47866180",
+    "rva": "0x10a30",
+    "complete_size": 16,
+    "prototype": "void __cdecl srand(unsigned int) from pinned VC5 stdlib.h",
+    "nonrelocation_differences": 0,
+    "actual_REL32_target": {
+      "symbol": "__getptd",
+      "rva": "0x12100"
+    },
+    "limit": "Library identification, not reconstructed CRT or FUNCTION_MATCH; only the initializer seed argument/return boundary is modeled in the finite fixture.",
+    "previous_map": "No10a30 contribution was listed by the prior library map. Identification here uses the original direct seed call, pinned member and complete16-byte comparison."
+  },
+  "pool_format_fields": [
+    {
+      "symbol": "_g_fmt_free",
+      "rva": "0x36110",
+      "bytes": 29,
+      "sha256": "930b216e5831c21de5e03d0d1009a8d3d6348d90d3b14f69e09d2d8832125349",
+      "compiled_offset": 104
+    },
+    {
+      "symbol": "_g_fmt_alloc_failed",
+      "rva": "0x360cc",
+      "bytes": 36,
+      "sha256": "36048ad1fdf8abfa2a693ff3666435fd35cab5a9d37761e98cc19ad39d6ae123",
+      "compiled_offset": 64
+    },
+    {
+      "symbol": "_g_fmt_alloc",
+      "rva": "0x360ac",
+      "bytes": 30,
+      "sha256": "03b5b5d9bff4a2f906119e2ef20dd2d17b773c07b5d70c4f8416b34272f39cae",
+      "compiled_offset": 32
+    },
+    {
+      "symbol": "_g_fmt_init_pool",
+      "rva": "0x3608c",
+      "bytes": 32,
+      "sha256": "9855f4ab22e13b113f3692310a2faf675fe8c2d053dcc581c04535d9d2334db8",
+      "compiled_offset": 0
+    }
+  ],
+  "pool_formats": {
+    "source": "calibration/host_pool_formats.c",
+    "measured_NUL_terminated_bytes": 127,
+    "fields": 4,
+    "no_relocations": true,
+    "meaning": "Each observed literal prefix equals native bytes. Original owner, const qualification, source aggregate, pooling, padding and adjacency remain unproved."
+  },
+  "validation": {
+    "report": {
+      "path": "work/host_context_bootstrap/public_final/host_context_bootstrap_differential.json",
+      "sha256": "33ca19843bff34a26f2c30c015f75c54c0b2b59387cebe6cafa250614599da57"
+    },
+    "cases": [
+      {
+        "name": "remainder_0",
+        "arena_bytes": 0
+      },
+      {
+        "name": "remainder_1",
+        "arena_bytes": 1
+      },
+      {
+        "name": "remainder_2",
+        "arena_bytes": 2
+      },
+      {
+        "name": "remainder_3",
+        "arena_bytes": 3
+      },
+      {
+        "name": "remainder_4",
+        "arena_bytes": 4
+      },
+      {
+        "name": "remainder_5",
+        "arena_bytes": 5
+      },
+      {
+        "name": "remainder_7",
+        "arena_bytes": 7
+      },
+      {
+        "name": "remainder_17",
+        "arena_bytes": 17
+      },
+      {
+        "name": "original_three_mib",
+        "arena_bytes": 3145728
+      },
+      {
+        "name": "setup_live_context",
+        "arena_bytes": 19,
+        "setup_swap": true
+      },
+      {
+        "name": "seed_live_name_and_context",
+        "arena_bytes": 21,
+        "seed_mutation": true
+      },
+      {
+        "name": "ordered_two_mutations",
+        "arena_bytes": 23,
+        "setup_swap": true,
+        "seed_mutation": true
+      }
+    ],
+    "all_equal": true,
+    "full_context_buffers": 3,
+    "context_bytes_each": 6964,
+    "full_original_arena_bytes": 3145728,
+    "full_table_fixture_bytes": 1000,
+    "full_pool_bytes": 48,
+    "guard_and_execution_write_whitelists": true,
+    "ABI_checks": "Caller stack balance and all four x86 nonvolatile registers; bounded instruction count.",
+    "same_objects_compared_linked_emulated": true,
+    "fixture": "Only bootstrap and actual save_arena code execute. Setup10690, srand and switch4040 use hook-modeled cdecl returns/effects. Table fields, alternate contexts, arena preconditions, name-cell/512-byte filename test buffer are synthetic. Anchor/main and all other code fail execution whitelist.",
+    "actual_providers": "Canonical pool code and metadata, actual four format strings, and the existing exact diagnostic routine. Link-only inert main remains outside executed scope.",
+    "real_process_or_API_entries": 0
+  },
+  "regression": {
+    "strict": {
+      "path": "work/host_context_bootstrap/strict133.json",
+      "sha256": "3499cff47886383fb52a259ddb18545830e3fafac55aa0a87596165e98ca66fa"
+    },
+    "accepted_raw_exact_functions": 133,
+    "previous_635_recovery_rows_unchanged": true,
+    "natural_graph": {
+      "path": "work/host_current_graph/report-e0b3731ea1994d79.json",
+      "sha256": "e0b3731ea1994d79c7b92889176c0d7370ba9c883d064641539827be3a6dae29"
+    },
+    "source_units": 89,
+    "recorded_EXE_functions": 116,
+    "accepted_EXE_functions": 26,
+    "unresolved": 39,
+    "missing_frame_callbacks": 18,
+    "other_missing_dependencies": 21,
+    "duplicate_providers": 0,
+    "images_produced": 0
+  },
+  "private_receipts": {
+    "candidate": {
+      "path": "work/host_context_bootstrap/candidate_measurement.json",
+      "sha256": "fe04bd42374013740640be0de60989089a2f0b97f92b50220c5871cd1be2707c"
+    },
+    "passing_candidate": {
+      "path": "work/host_context_bootstrap/candidate_verified/host_context_bootstrap_differential.json",
+      "sha256": "02f1ebaeab39c8a3743c1733297a63ba12ca7cad32cfe612d5f1d9eac7ce965c"
+    },
+    "publication": {
+      "path": "work/host_context_bootstrap/publication.json",
+      "sha256": "af421b62d7f8626d9cd73ad32b569c08171bcc1c85c7b1f0e826a493ddb676eb"
+    },
+    "initial_link_failure": {
+      "path": "work/host_context_bootstrap/initial_link_failure.log",
+      "sha256": "b2dfe67dd06fbbb3a54dc37216e9f4a3dd4550dafdc67af43a314d73318d037f"
+    },
+    "fixture_correction": "Initial native pool base43a630 was wrong; write whitelist rejected BA29e0. Existing evidence/host_pool_layout.json and original save_arena store operands proveBA29c0. Fixture corrected, candidate game source unchanged."
+  },
+  "commands": [
+    "python scripts/host_context_bootstrap_differential.py --output work/context_bootstrap_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/context_bootstrap_strict_replay.json"
+  ],
+  "limits": [
+    "Complete raw bootstrap/save contributions differ and retain relocations; both remain CODEGEN_SIMILAR, not FUNCTION_MATCH.",
+    "No unknown game setup/switch implementation, filename buffer capacity, default-name owner or initialized host-table provider is supplied by the production source.",
+    "Synthetic mutation cases prove caller observability under those endpoint effects, not behavior of the unresolved callees or of actual srand.",
+    "No real window, game process, DLL initialization, broader pool allocation, startup completion, simulation or renderer work."
+  ],
+  "native_initial_table_prefix": {
+    "rva": "0x361b8",
+    "bytes": 16,
+    "sha256": "53412af0c757050c64483799540cbd57e608bd6180af24c18119c8db72e824b3",
+    "context_rva": "0x215c98",
+    "arena_rva": "0x2177d0",
+    "configured_arena_bytes": 3145728,
+    "meaning": "Original initialized16-byte prefix only; the production1000-byte table provider remains unresolved. Test pointers/table contents are synthetic overrides."
+  },
+  "analysis_tools": {
+    "python": {
+      "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "version": "3.12.14",
+      "sha256": "d41bad46673f64e0d02f23797f53f90ccf60f27d6eda8d86dd2d4bbeae5a858c"
+    },
+    "pefile": {
+      "path": "C:\\tools\\hercules\\python\\pefile.py",
+      "version": "2024.8.26",
+      "sha256": "0d0eb68f0f169182613dc64b3ab50b20855508c1c1d2faafe8fccf23edb6a345"
+    },
+    "unicorn": {
+      "path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+      "version": "2.1.4",
+      "sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+    },
+    "origin": "Existing C:/tools/hercules analysis installations and bundled workspace Python; prior documented provenance in evidence/host_engine_loader_recovery.json. No dependency added or tool modified."
+  }
+}
