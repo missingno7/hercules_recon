@@ -1,0 +1,448 @@
+{
+  "schema": 1,
+  "scope": "Original engine-switch caller and actual existing cleanup-provider integration. recovery.json alone owns status; no full DLL switch, original source/TU/prototype/layout or game acceptance.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_engine_switch.c",
+      "sha256": "6478dbdb33e2286fddc2c0c757f04e2a456fd365f2953125746ab2f7a92f2534"
+    },
+    {
+      "path": "calibration/host_pool_repaired.c",
+      "sha256": "115c5e969b4cfff3470d2f08e1a8923b03a392536448ebe14815df17d2bc4ac0"
+    },
+    {
+      "path": "calibration/host_pool_lifecycle_repaired.c",
+      "sha256": "cb108687a63c3864891ade8b95b605f0c731fa0eae35f5cbaaa5aec13c9c7bf2"
+    },
+    {
+      "path": "calibration/host_pool_counts.c",
+      "sha256": "36f240917a4ac84ef47346f689f7557efb94af970fe0fd2b11e5b52c7bd84270"
+    },
+    {
+      "path": "calibration/pool_reverse_copy.c",
+      "sha256": "bd1aa27631ce48f776976c88d9580700018ba99e8a2eec198822863af200a168"
+    },
+    {
+      "path": "calibration/host_pool_storage.c",
+      "sha256": "a8cf197cec1b0310ccb4f2f1f27059e8e029be16708b09dd2966bdc05a7271de"
+    },
+    {
+      "path": "calibration/host_callback_protocol.c",
+      "sha256": "70c2092b271ef9d2992cdf4fece42bbb041dbdb8d249aadac2b10523952dc437"
+    },
+    {
+      "path": "calibration/host_callback_storage.c",
+      "sha256": "dec66adfc9e9dcfbb491f07363125286d59a55e2fb3f4568dab7693a1c08fdd0"
+    },
+    {
+      "path": "src/pc/host_zero_callback.c",
+      "sha256": "d9384da35f8452646f485fd412b7cb09bb87bea5f55ba04ad04c0234e676dbff"
+    },
+    {
+      "path": "src/pc/interface_callbacks.c",
+      "sha256": "766399e0014e9209c675437648ec514c1b806d4c953f517fe58b53f27e53a281"
+    },
+    {
+      "path": "src/pc/host_diagnostic.c",
+      "sha256": "e711786516b772583c5b2e83fdc581d15bfdd9fe0db1e0c6ef811af5a5355ec1"
+    },
+    {
+      "path": "calibration/host_pool_formats.c",
+      "sha256": "19f2244bb88998915d03b16f25fca40adf21b91c86677499bca693b7545abe66"
+    },
+    {
+      "path": "calibration/host_pool_compact_format.c",
+      "sha256": "de9e14fa716807de5a1170861d1b784afbc00c5e1165c54bd189be631ca5af10"
+    }
+  ],
+  "runner": {
+    "path": "scripts/host_engine_switch_differential.py",
+    "sha256": "862887decb260ee1ba327705be3b75274836dabc66f7f86af2fba44e99e51586"
+  },
+  "prediction": {
+    "path": "work/host_engine_switch/prediction.json",
+    "sha256": "684b1ff257bf914e6a27bff37b4c7b5ab2d5f79f2a277e4903ed6c9718e1baa6"
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "implicit_compile_flag": "/Gy",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "functions": [
+    {
+      "role": "switch",
+      "symbol": "_host_service_4040",
+      "source_extent": 144,
+      "native_extent": 144,
+      "raw_exact": false,
+      "raw_differing_bytes": 27,
+      "compiled_sha256": "abecde2c96fd4cad515b44908086c4de5318638ea59fd044e16aac979b2c5635",
+      "native_sha256": "6099a5b54a7b0f12d45646dcd749f297cb85b0e37f41e6425267d0015052dfd6",
+      "relocations": 11,
+      "diagnostic_equal": true,
+      "diagnostic_differing_bytes": 0
+    },
+    {
+      "role": "zero",
+      "symbol": "_host_zero_callback",
+      "source_extent": 16,
+      "native_extent": 16,
+      "raw_exact": true,
+      "raw_differing_bytes": 0,
+      "compiled_sha256": "33cb7c6b5695e070548b4e7f33d43173b10670c306067b684edf21470a662ef2",
+      "native_sha256": "33cb7c6b5695e070548b4e7f33d43173b10670c306067b684edf21470a662ef2",
+      "relocations": 0,
+      "diagnostic_equal": true,
+      "diagnostic_differing_bytes": 0
+    },
+    {
+      "role": "free",
+      "symbol": "_host_free",
+      "source_extent": 112,
+      "native_extent": 112,
+      "raw_exact": false,
+      "raw_differing_bytes": 79,
+      "compiled_sha256": "c47fcff7b7dae9661818f07a62a5b101a851ca3764ddd2589e066cf563348832",
+      "native_sha256": "2821bcaacbccbe4ac565f590bc7177515592123db78805c07c166e645ea92faa",
+      "relocations": 4,
+      "diagnostic_equal": false,
+      "diagnostic_differing_bytes": 64
+    },
+    {
+      "role": "bulk",
+      "symbol": "_bulk_free",
+      "source_extent": 112,
+      "native_extent": 112,
+      "raw_exact": false,
+      "raw_differing_bytes": 19,
+      "compiled_sha256": "9225e998c771c2a15c88bd567c45bd3521ca22b1fe0bc38a3e842d12d0cc496e",
+      "native_sha256": "86dc6c00b25ee6317cd48e8504914e13db8c57682e85a3361009dd95e2e97c34",
+      "relocations": 6,
+      "diagnostic_equal": false,
+      "diagnostic_differing_bytes": 2
+    },
+    {
+      "role": "coalesce",
+      "symbol": "_coalesce_pool",
+      "source_extent": 96,
+      "native_extent": 96,
+      "raw_exact": false,
+      "raw_differing_bytes": 6,
+      "compiled_sha256": "154278f71352862693747442027b0fe5a9e8aa2d39cd4630cd31a5b28f6d5d74",
+      "native_sha256": "f2efd2e0c8e0f626e66e71c8e25e7f8f9b4d4cc5aaa21571ffed5513bae6be62",
+      "relocations": 2,
+      "diagnostic_equal": true,
+      "diagnostic_differing_bytes": 0
+    },
+    {
+      "role": "compact_wrapper",
+      "symbol": "_compact_all_wrapper",
+      "source_extent": 16,
+      "native_extent": 16,
+      "raw_exact": false,
+      "raw_differing_bytes": 1,
+      "compiled_sha256": "187fc759736ebbe60b90a65c6cb46e7fdf262e67cbe5ab0aa1afc39eba4c61a8",
+      "native_sha256": "76bfc4000f25ebd6a543d70832fbeee4478c47f9af732aea88ae0f5a646c42b3",
+      "relocations": 1,
+      "diagnostic_equal": true,
+      "diagnostic_differing_bytes": 0
+    },
+    {
+      "role": "compact",
+      "symbol": "_compact_pool",
+      "source_extent": 320,
+      "native_extent": 336,
+      "raw_exact": false,
+      "raw_differing_bytes": 312,
+      "compiled_sha256": "2a787160d9c107bc935678da41f79d28cc223a53bb7daae25a040d1101e757c7",
+      "native_sha256": "5a467aee3f0214f1e9cb79a3ebae63ba607129eea37cb826dd985fb0ed2d8459",
+      "relocations": 7,
+      "diagnostic_equal": false,
+      "diagnostic_differing_bytes": 289
+    },
+    {
+      "role": "count",
+      "symbol": "_count_used",
+      "source_extent": 64,
+      "native_extent": 64,
+      "raw_exact": false,
+      "raw_differing_bytes": 6,
+      "compiled_sha256": "ea1122635d0b1ade4b8950062ee467f5ea3489f8177c9577b9b0e580873f87e7",
+      "native_sha256": "42d40cb66ba3ebe315981338aa46ee9ba41aa4a902b0bf8efcc7bdf27fd640fb",
+      "relocations": 2,
+      "diagnostic_equal": true,
+      "diagnostic_differing_bytes": 0
+    },
+    {
+      "role": "reverse",
+      "symbol": "_reverse_dword_copy",
+      "source_extent": 176,
+      "native_extent": 176,
+      "raw_exact": false,
+      "raw_differing_bytes": 172,
+      "compiled_sha256": "62ae9dfdb5a2750adf82e70e6e849230ce33b26d81efa3b56d9c05bd717675b4",
+      "native_sha256": "839312a1bb5bce7a7c63aa43948b8a5ecdb556c1691209d05634d9c72154ac54",
+      "relocations": 0,
+      "diagnostic_equal": false,
+      "diagnostic_differing_bytes": 172
+    },
+    {
+      "role": "empty",
+      "symbol": "_empty_host_callback",
+      "source_extent": 16,
+      "native_extent": 16,
+      "raw_exact": true,
+      "raw_differing_bytes": 0,
+      "compiled_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+      "native_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+      "relocations": 0,
+      "diagnostic_equal": true,
+      "diagnostic_differing_bytes": 0
+    },
+    {
+      "role": "set_one",
+      "symbol": "_host_set_callback_one",
+      "source_extent": 16,
+      "native_extent": 16,
+      "raw_exact": false,
+      "raw_differing_bytes": 6,
+      "compiled_sha256": "0671569950b39601aad8957f90b793d587db284e01c4bfd747f1ce55e6953787",
+      "native_sha256": "969cf0580788e85301e859cdfb9e3cd6e3eb140e34a1b4288647e7958d12b1c0",
+      "relocations": 2,
+      "diagnostic_equal": true,
+      "diagnostic_differing_bytes": 0
+    },
+    {
+      "role": "diagnostic",
+      "symbol": "_host_diagnostic",
+      "source_extent": 16,
+      "native_extent": 16,
+      "raw_exact": true,
+      "raw_differing_bytes": 0,
+      "compiled_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+      "native_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+      "relocations": 0,
+      "diagnostic_equal": true,
+      "diagnostic_differing_bytes": 0
+    }
+  ],
+  "caller": {
+    "id": "exe.host_engine_switch_4040",
+    "rva": "0x4040",
+    "complete_size": 144,
+    "body_size": 143,
+    "ABI": "int __cdecl(const char *,const char *), working caller-cleaned view",
+    "order": [
+      "Exact zero leaf with ignoredDWORD0",
+      "Free current nonzero context allocation+0xe4 using actual host_free",
+      "Actual bulk_free(pool0), including compaction/count/reverse paths",
+      "Clear current context callback fields+0xb0/+0xb4",
+      "Exact empty callback",
+      "Actual callback-one setter(NULL)",
+      "Current context DWORD+0x108=0x801ffff0",
+      "Current context DWORD+0x10c=0",
+      "Selector(current caller prefix,suffix)",
+      "Return EAX0"
+    ],
+    "live_state": "Post-callee contexts are reloaded; prefix/suffix forwarding and nullable values preserved. Synthetic context interventions before bulk/setter distinguish cached views.",
+    "views": "Two aligned DWORD accesses use existing unknown_0e8 array+0x20/+0x24. Shared context/header layout is unchanged; original field meanings remain open.",
+    "zero_leaf_callsite": "Native4040 pushes0 before A340 and later removes4bytes. Caller uses a one-DWORD cdecl view; accepted leaf source remains int(void) and full16bytes exact. This does not prove a compatible common original source prototype or whole-program type agreement.",
+    "empty_leaf_callsite": "This caller invokes BE30 without arguments. Other original callsite shapes and its common source prototype remain outside this proof.",
+    "boundary": "Reviewed4040 entry through RET40ce and one alignmentNOP ends at40d0. Complete144bytes compared; raw rejects, relocation diagnostic agrees."
+  },
+  "cleanup": {
+    "existing_providers_unchanged": true,
+    "executed_roles": [
+      "free",
+      "bulk",
+      "coalesce",
+      "compact_wrapper",
+      "compact",
+      "count",
+      "reverse",
+      "zero",
+      "empty",
+      "set_one",
+      "diagnostic"
+    ],
+    "heap_cases": [
+      "Free-only heap",
+      "Direct context-owned allocation followed by complete cleanup",
+      "Two owned allocations freed by bulk traversal",
+      "Pinned block retained",
+      "Zero owner-content skipped by bulk then relocated by actual compaction/reverse copy"
+    ],
+    "snapshot": "Whole48-byte pool,12-byte callback prefix,132-byte heap including end sentinel, both owner slots and three6964-byte context buffers compared. Low30-word descriptors/free/pinned masks and owner-slot effects are original/provider behavior.",
+    "source_region_packets": [
+      "host_callback_protocol",
+      "host_pool_lifecycle"
+    ],
+    "strict_peers": "Zero leaf, empty callback and diagnostic are independently raw-exact in these same fresh objects."
+  },
+  "compact_format": {
+    "rva": "0x36130",
+    "symbol": "_g_fmt_compact",
+    "bytes": 37,
+    "sha256": "006202c36c71a97aab1ee52932a92658adc02a4d8d6614834fe30219a1c3b7fb",
+    "object_sha256": "58a6f7b51ff5582d47acbb51be6e0dfae5928c809e7affdc3d95d10ec5b1f02f"
+  },
+  "format_scope": "Only observed37-byte NUL-terminated compaction literal values; original const qualification, owner, source aggregate, padding and placement unproved.",
+  "validation": {
+    "report": {
+      "path": "work/host_engine_switch/public_final/host_engine_switch_differential.json",
+      "sha256": "868b07d46a1643b0312e6f8048974475afa7932345a632e33104e9a5a427e9fa"
+    },
+    "cases": [
+      {
+        "name": "empty",
+        "layout": "empty"
+      },
+      {
+        "name": "context",
+        "layout": "context"
+      },
+      {
+        "name": "bulk",
+        "layout": "bulk"
+      },
+      {
+        "name": "pinned",
+        "layout": "pinned"
+      },
+      {
+        "name": "zero_owner",
+        "layout": "zero_owner"
+      },
+      {
+        "name": "null_prefix",
+        "layout": "empty",
+        "null_prefix": true
+      },
+      {
+        "name": "null_suffix",
+        "layout": "context",
+        "null_suffix": true
+      },
+      {
+        "name": "both_null",
+        "layout": "bulk",
+        "null_prefix": true,
+        "null_suffix": true
+      },
+      {
+        "name": "live_after_bulk",
+        "layout": "context",
+        "bulk_context": true
+      },
+      {
+        "name": "live_after_setter",
+        "layout": "bulk",
+        "setter_context": true
+      },
+      {
+        "name": "two_live_contexts",
+        "layout": "context",
+        "bulk_context": true,
+        "setter_context": true
+      }
+    ],
+    "all_equal": true,
+    "source_heap_owner_callback_context_bytes_equal": true,
+    "execution_write_and_memory_guards": true,
+    "return_stack_and_nonvolatile_checks": true,
+    "selector_return": "Hook-only cdecl return with deliberately nonzero EAX; caller still returns0. Selector implementation, nonlocal transfer, loader and DLL behavior are not exercised.",
+    "context_interventions": "Callback-time changes to table context are synthetic discriminators, not proof of actual callee mutations.",
+    "same_fresh_objects_compared_linked_emulated": true,
+    "real_process_or_API_entries": 0
+  },
+  "fixture_link": {
+    "flags": [
+      "/DLL",
+      "/NOENTRY",
+      "/NODEFAULTLIB",
+      "/OPT:REF",
+      "/OPT:NOICF"
+    ],
+    "reason_NOICF": "Initial fixture folded modeled selector and actual empty callback to one RET address. Normal fixture-only NOICF keeps call boundaries distinct; no original linker flag or layout inferred.",
+    "folded_map": {
+      "path": "work/host_engine_switch/candidate_run/fixture.map",
+      "sha256": "fc63236e1388af8abb8a77feda755b12f8b157f394c8c0f115a54dd568b76503"
+    },
+    "model": "Only table and selector-boundary definition/anchor are synthetic. Real pool code/storage, callback code/storage, exact leaves and actual formats participate. DLL entry/anchor and other code fail on entry."
+  },
+  "regression": {
+    "strict": {
+      "path": "work/host_engine_switch/strict133.json",
+      "sha256": "636ce0f80e4787affa3002d8e1b7c8170540016b83c84b74ec5f7d64503b8381"
+    },
+    "raw_exact_functions": 133,
+    "previous_637_rows_unchanged": true,
+    "rows_added": 7,
+    "reused_unchanged_count_row": "exe.count_used",
+    "new_statuses": "Three CODEGEN_SIMILAR, four RECONSTRUCTED; no exact promotion.",
+    "natural_graph": {
+      "path": "work/host_current_graph/report-abf596cf63af4156.json",
+      "sha256": "abf596cf63af4156eb4b93e0785c7946184d9a35692eda6348a9735d56dd3654"
+    },
+    "source_units": 93,
+    "recorded_EXE_functions": 123,
+    "accepted_EXE_functions": 26,
+    "unresolved": 38,
+    "missing_frame_callbacks": 18,
+    "other_missing": 20,
+    "duplicate_providers": 0,
+    "images_produced": 0
+  },
+  "private_receipts": {
+    "candidate": {
+      "path": "work/host_engine_switch/candidate_measurement.json",
+      "sha256": "839361dfed931cfbe41b448fb27b56388c128cdda87065334dad90cdc0b393dc"
+    },
+    "passing_cleanup": {
+      "path": "work/host_engine_switch/candidate_distinct/host_engine_switch_differential.json",
+      "sha256": "6cdcbe1f82c332ef571709c89732510ee8160153c243275a2dcf04c2a8db01c0"
+    },
+    "publication": {
+      "path": "work/host_engine_switch/publication.json",
+      "sha256": "129f419ebbe26657bcca2f133cd5e4339769e4c34b09e8daa1d5be56b79f8c4a"
+    },
+    "registration": {
+      "path": "work/host_engine_switch/registration.json",
+      "sha256": "ca0a7ba9602597f0587ed48e1dfd9ea10cf903737686d3815d2004c8d58f27f0"
+    }
+  },
+  "commands": [
+    "python scripts/host_engine_switch_differential.py --output work/engine_switch_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/engine_switch_strict_replay.json"
+  ],
+  "limits": [
+    "Complete raw new caller/provider contributions remain unequal. Relocation diagnostics and11 finite cases do not grant FUNCTION_MATCH.",
+    "No full pool-domain proof follows from these small bucket0 layouts; prior pool receipts remain separate. Malformed headers/null owner-slot addresses are not credited.",
+    "Only analyzed caller and real cleanup code execute. Actual selector/DLL loading, initialized host table, file-buffer/name/path capacities and game setup10690 remain incomplete.",
+    "Physical callsite ABI views do not prove original/common C/C++ prototypes or source-level whole-program compatibility. Exact leaf bodies were not rewritten to resolve that shared question.",
+    "No original process, real Windows API, game, display/audio restoration or renderer work."
+  ],
+  "analysis_tools": {
+    "python": {
+      "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "version": "3.12.14",
+      "sha256": "d41bad46673f64e0d02f23797f53f90ccf60f27d6eda8d86dd2d4bbeae5a858c"
+    },
+    "pefile": {
+      "path": "C:\\tools\\hercules\\python\\pefile.py",
+      "version": "2024.8.26",
+      "sha256": "0d0eb68f0f169182613dc64b3ab50b20855508c1c1d2faafe8fccf23edb6a345"
+    },
+    "unicorn": {
+      "path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+      "version": "2.1.4",
+      "sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+    },
+    "origin": "Existing C:/tools/hercules installations and bundled workspace Python; prior provenance in evidence/host_engine_loader_recovery.json. No tool/dependency added or modified."
+  }
+}

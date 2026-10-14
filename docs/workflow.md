@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 89 actual source units with
-116 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 39 unresolved dependencies: 18 newly exposed frame
-callbacks and 21 other providers. Including the real map replaces one missing
+The current natural selected host graph compiles 93 actual source units with
+123 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 38 unresolved dependencies: 18 newly exposed frame
+callbacks and 20 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -160,6 +160,37 @@ See `evidence/host_context_bootstrap_recovery.json` for the source, CRT identity
 exact. Supplying the real initializer/pool unit exposes its actual missing
 setup/switch/name/buffer dependencies; a larger missing-symbol count is not a
 reason to restore an opaque initializer or substitute production stubs.
+
+The original engine-switch caller at `0x4040` now has source for all 144 bytes,
+including its final alignment byte. It preserves the ignored zero-leaf argument,
+conditional context allocation free, pool-zero bulk cleanup, resource callback
+clears, empty callback, callback-one reset, DWORD writes at context+`0x108` and
+`0x10c`, selector arguments and EAX0 return. The accepted zero/empty/diagnostic
+leaves and existing pool/callback providers remain unchanged. Seven previously
+unrecorded caller/provider functions are now measured recovery rows; the count
+helper already had a row and is reused. Three rows have full relocation
+diagnostic equality and four remain reconstructed with code differences. None
+gets exact acceptance from finite semantic agreement.
+
+```
+python scripts/host_engine_switch_differential.py --output work/engine_switch_replay
+```
+
+Eleven guarded comparisons execute the actual free, bulk, coalescing,
+compaction, count, reverse-copy and callback code. Whole heap/owner/pool/callback
+and three context buffers agree for owned, pinned and zero-owner-content blocks,
+including a real compaction move. Nullable selector arguments and synthetic
+context interventions check caller reload/forwarding behavior. Only the selector
+return is modeled; deliberately nonzero EAX at that boundary still yields caller
+EAX0. This does not prove DLL loading, nonlocal transfer or a complete switch.
+The modeled selector initially folded with the identical real RET callback;
+normal fixture-only `/OPT:NOICF` separates those boundaries. It establishes no
+original linker flag or module layout. The actual 37-byte compaction format is
+an independent literal-prefix provider. See
+`evidence/host_engine_switch_recovery.json` for source/oracle/tool hashes and
+scope. The one-DWORD zero-leaf callsite view does not settle its original common
+source prototype or whole-program type agreement; its accepted no-argument source
+was preserved. All 637 previous rows and all 133 exact functions remain intact.
 
 The journaled promotion gate now supports `.c` and `.cpp` destinations under
 `src/`. A C++ candidate must already occupy its exact canonical path. The gate
