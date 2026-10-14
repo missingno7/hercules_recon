@@ -1,0 +1,762 @@
+{
+  "schema": 1,
+  "scope": "Original9E60 CD playback reconstruction and actual timer/cleanup/readiness path. No original process/API/CRT execution or full startup/menu/gameplay. recovery.json alone owns function recovery state.",
+  "prediction": {
+    "path": "work/host_cd_play/prediction.json",
+    "sha256": "22d68becac169e85ee576990f1d3063c9f495927346310e22247c29126eefe44"
+  },
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_cd_play.c",
+      "sha256": "244f57360447f185ebaf4deda90621b2853bd3dcef98a736c459125262d8e0b4"
+    },
+    {
+      "path": "scripts/host_cd_play_differential.py",
+      "sha256": "00ec2e0d55161c087274b882ff8ce7793f818a6ea66b41b96fb3fbdec3a7a90f"
+    },
+    {
+      "path": "src/pc/host_cd_timer.c",
+      "sha256": "e26c33c62b4b21e10b435884cae9430a4b9bc88753831504b83c53803b6787ad"
+    },
+    {
+      "path": "calibration/audio_cleanup_dependencies.c",
+      "sha256": "174152b49b12549cb57891bcca50fc3630ffb18a177dfbab6b07f12731d3e4c9"
+    },
+    {
+      "path": "calibration/mci_readiness.cpp",
+      "sha256": "2e4e294275b2061fa530ccfbc8ef58f69be56fec7f3449b33b13463a7b52825f"
+    },
+    {
+      "path": "calibration/mci_storage.c",
+      "sha256": "ffc36970d2cb0f507ea7598b0b9977b66c8e9b1609a92111d4d2e8b051d1ecab"
+    },
+    {
+      "path": "calibration/registry_storage.c",
+      "sha256": "e9f7c60fd443f486260a622e2beb5cde2be2d7a500b2cd486afab6ccbe35eda7"
+    },
+    {
+      "path": "calibration/graphics_storage.cpp",
+      "sha256": "178b70f31d0c850c3b6d8f4f90eebd3b028d1d3ff09c2d1e526a6ee0beaec1de"
+    },
+    {
+      "path": "calibration/sound_bank_storage.cpp",
+      "sha256": "015e5da7a8d81d5711437c40767e6abcb35506a76ff3fe2e7fd7b5a5d24c76fb"
+    }
+  ],
+  "measurement": {
+    "first_candidate": {
+      "path": "work/host_cd_play/candidate.json",
+      "sha256": "6c8dcf9252a8594e2e36e54dcdb7d9b22f0f7d5fe1a28e7c78a7f0bacb484dde"
+    },
+    "source_unchanged_from_first_hypothesis": true,
+    "complete_original_bytes": 256,
+    "complete_source_bytes": 240,
+    "body_bytes": 243,
+    "raw_exact": false,
+    "raw_differences": 192,
+    "normalized_equal": false,
+    "normalized_differences": 136,
+    "relocations": [
+      {
+        "offset": 11,
+        "symbol": "_cleanup_native_9e10",
+        "type": 20
+      },
+      {
+        "offset": 31,
+        "symbol": "__imp__mciSendStringA@16",
+        "type": 6
+      },
+      {
+        "offset": 37,
+        "symbol": "__imp__Sleep@4",
+        "type": 6
+      },
+      {
+        "offset": 42,
+        "symbol": "_g_exe_96e61c",
+        "type": 6
+      },
+      {
+        "offset": 48,
+        "symbol": "_g_exe_96e620",
+        "type": 6
+      },
+      {
+        "offset": 56,
+        "symbol": "_g_registry_config",
+        "type": 6
+      },
+      {
+        "offset": 68,
+        "symbol": "_cleanup_native_9c30",
+        "type": 20
+      },
+      {
+        "offset": 77,
+        "symbol": "_g_exe_96e62c",
+        "type": 6
+      },
+      {
+        "offset": 92,
+        "symbol": "??_C@_0BN@BPNP@set?5cdaudio?5time?5format?5tmsf?$AA@",
+        "type": 6
+      },
+      {
+        "offset": 100,
+        "symbol": "_g_exe_96e620",
+        "type": 6
+      },
+      {
+        "offset": 106,
+        "symbol": "_g_exe_96e61c",
+        "type": 6
+      },
+      {
+        "offset": 149,
+        "symbol": "??_C@_0BL@LBPN@play?5cdaudio?5from?5?$CFd?5to?5?$CFd?$AA@",
+        "type": 6
+      },
+      {
+        "offset": 155,
+        "symbol": "_sprintf",
+        "type": 20
+      },
+      {
+        "offset": 181,
+        "symbol": "_g_exe_96e62c",
+        "type": 6
+      },
+      {
+        "offset": 203,
+        "symbol": "__imp__timeGetTime@0",
+        "type": 6
+      },
+      {
+        "offset": 211,
+        "symbol": "_g_exe_96e624",
+        "type": 6
+      },
+      {
+        "offset": 217,
+        "symbol": "_g_exe_91c46c",
+        "type": 6
+      }
+    ],
+    "limits": "Full code differences remain. Ordinary pinned SDK source is retained as RECONSTRUCTED; no body/suffix acceptance, register/placement trick or spelling grid."
+  },
+  "behavior": [
+    "Execute actual cleanup9E10 before storing caller packed endpoints. Cleanup may stop an old playing device, then clears start/end/previous/paused/playing while retaining the opened flag.",
+    "Only registry prefix+13 equal toBYTE1 enables play; values0,2,127,128,255 disable it. Existing registry72-byte owner atRVA79E858 is reused.",
+    "At most two attempts. Each tests enabled, actual readiness9C30, then the full playingDWORD. Even after a successful attempt, next iteration calls readiness before observing playing and stopping the loop.",
+    "Set-time-format result is ignored. Pack live endpoints after that call with the pinned SDK MCI_MAKE_TMSF macro; both use the current start track byte. sprintf decimal format is play cdaudio from %d to %d.",
+    "Playing becomes1 exactly when the play MCI result is0. Every failed play sleeps100milliseconds, including the second attempt. Sleep/ready/API effects are consumed live by subsequent checks.",
+    "After every direct playback exit, write timeGetTime result to previous tick and set the actual timing resetDWORD to1. Timer-to-play cases execute the real interval, playback, cleanup and readiness code; no modeled play implementation remains in this runner."
+  ],
+  "storage": {
+    "existing_fields": [
+      {
+        "symbol": "_g_exe_96e61c",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e61c",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_96e620",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e620",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_96e624",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e624",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_96e628",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e628",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_96e62c",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e62c",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_96e630",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e630",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_registry_config",
+        "owner": "calibration\\registry_storage.c",
+        "rva": "0x79e858",
+        "bytes": 72,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_91c46c",
+        "owner": "calibration\\graphics_storage.cpp",
+        "rva": "0x51c46c",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      }
+    ],
+    "bytes_reused": 100,
+    "bytes_added": 0,
+    "scope": "Six MCI DWORDs24bytes, observed registry prefix72bytes and timing resetDWORD4bytes. Unique existing current source providers; declared prefix backing and virtual loader zeros checked. Original total allocations/TU/layout and native placement unproved."
+  },
+  "libraries": {
+    "inputs": [
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+        "sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\winmm.lib",
+        "sha256": "a996cf8e569b6f2dd0a478119a57c325733af545ffee2e6c6fa7dba40bfba260"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\kernel32.lib",
+        "sha256": "095f231e13cb3e6a6c4913d33ca8048506011034c89774b6ba0857466abba3cf"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\user32.lib",
+        "sha256": "5badb752dbcd6355a666d5b88aa9fd5e27291c16edc76f1b5258468d994f1809"
+      }
+    ],
+    "identified_CRT_members": [
+      {
+        "symbol": "_sprintf",
+        "member": 419,
+        "rva": "0x10f40",
+        "size": 112,
+        "member_sha256": "42418dec737f0bbc1dbf1f762c799c20fcfe328fe33409ee2af1c371cadc72e1",
+        "complete_code_diagnostic": {
+          "masked_equal": true,
+          "compiled_size": 112,
+          "target_size": 112,
+          "differing_bytes": 0,
+          "mismatch_regions": [],
+          "symbols": {
+            "__flsbuf": "0x12b80",
+            "__output": "0x14160"
+          },
+          "conflicts": [],
+          "unsupported": [],
+          "relocations": 2
+        },
+        "scope": "Unmodified identified libcmt member; private whole-section diagnostic permits the existing alias names. No function/layout acceptance; CRT body is not executed in these cases."
+      },
+      {
+        "symbol": "__stricmp",
+        "member": 460,
+        "rva": "0x1c270",
+        "size": 208,
+        "member_sha256": "a02804730780cdbc4e0c3a675c777c752185be9bcad4c816a807e5db632746e8",
+        "complete_code_diagnostic": {
+          "masked_equal": true,
+          "compiled_size": 208,
+          "target_size": 208,
+          "differing_bytes": 0,
+          "mismatch_regions": [],
+          "symbols": {
+            "___lc_handle": "0x7a0558",
+            "___setlc_active": "0x7a2e98",
+            "___unguarded_readlc_active": "0x7a2e9c",
+            "__lock": "0x121f0",
+            "__tolower_lk": "0x18520",
+            "__unlock": "0x12270"
+          },
+          "conflicts": [],
+          "unsupported": [],
+          "relocations": 9
+        },
+        "scope": "Unmodified identified libcmt member; private whole-section diagnostic permits the existing alias names. No function/layout acceptance; CRT body is not executed in these cases."
+      }
+    ],
+    "macro_header": {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\mmsystem.h",
+      "sha256": "3ba7c98ffc53b070a60d3ea18fb3b0cdb4c0ceb1743fad6239d6dda9cb8c09f0"
+    },
+    "scope": "Existing unmodified pinned VC5 RTM libraries under C:/tools. Complete112-byte sprintf member419 and208-byte strcmpi/stricmp alias member460 normalized code identities checked against PC library-map extents. Libraries are identified, not rewritten; private section diagnostics do not relax function acceptance."
+  },
+  "validation": {
+    "report": {
+      "path": "work/host_cd_play/public_pinned/host_cd_play_differential.json",
+      "sha256": "51201d0bdcf0de8bba626e2eb422081067e8b6779aeca20adf61c22dfbba7736"
+    },
+    "case_count": 35,
+    "all_equal": true,
+    "scenarios": [
+      {
+        "name": "enabled_0",
+        "enabled": 0
+      },
+      {
+        "name": "enabled_1",
+        "enabled": 1
+      },
+      {
+        "name": "enabled_2",
+        "enabled": 2
+      },
+      {
+        "name": "enabled_127",
+        "enabled": 127
+      },
+      {
+        "name": "enabled_128",
+        "enabled": 128
+      },
+      {
+        "name": "enabled_255",
+        "enabled": 255
+      },
+      {
+        "name": "second_try_success",
+        "play": [
+          {
+            "code": 7
+          },
+          {
+            "code": 0
+          }
+        ]
+      },
+      {
+        "name": "both_attempts_fail",
+        "play": [
+          {
+            "code": 7
+          },
+          {
+            "code": 2147483648
+          }
+        ]
+      },
+      {
+        "name": "open_success",
+        "opened": 0
+      },
+      {
+        "name": "open_failure",
+        "opened": 0,
+        "open": [
+          {
+            "code": 5
+          }
+        ]
+      },
+      {
+        "name": "media_api_failure",
+        "media": [
+          {
+            "code": 1
+          }
+        ]
+      },
+      {
+        "name": "media_false",
+        "media": [
+          {
+            "code": 0,
+            "response": "false"
+          }
+        ]
+      },
+      {
+        "name": "ready_api_failure",
+        "ready": [
+          {
+            "code": 2
+          }
+        ]
+      },
+      {
+        "name": "ready_false",
+        "ready": [
+          {
+            "code": 0,
+            "response": "false"
+          }
+        ]
+      },
+      {
+        "name": "uppercase_true",
+        "media": [
+          {
+            "code": 0,
+            "response": "TRUE"
+          }
+        ],
+        "ready": [
+          {
+            "code": 0,
+            "response": "TrUe"
+          }
+        ]
+      },
+      {
+        "name": "cleanup_then_play",
+        "playing": 4294967295
+      },
+      {
+        "name": "cleanup_open_retry",
+        "playing": 1,
+        "opened": 0,
+        "open": [
+          {
+            "code": 5
+          },
+          {
+            "code": 0
+          }
+        ]
+      },
+      {
+        "name": "cleanup_stop_failure_ignored",
+        "playing": 7,
+        "stop": [
+          {
+            "code": 4294967295
+          }
+        ]
+      },
+      {
+        "name": "set_format_failure_ignored",
+        "set_format": [
+          {
+            "code": 4
+          }
+        ]
+      },
+      {
+        "name": "distinct_endpoint_tracks",
+        "start": 2860187906,
+        "end": 3432579844
+      },
+      {
+        "name": "maximum_packed_bytes",
+        "start": 4294967295,
+        "end": 66051
+      },
+      {
+        "name": "zero_endpoints",
+        "start": 0,
+        "end": 0
+      },
+      {
+        "name": "disable_during_sleep",
+        "play": [
+          {
+            "code": 3
+          }
+        ],
+        "sleep": [
+          {
+            "mutate": {
+              "enabled": 0
+            }
+          }
+        ]
+      },
+      {
+        "name": "second_ready_failure_after_success",
+        "ready": [
+          {
+            "code": 0
+          },
+          {
+            "code": 8
+          }
+        ]
+      },
+      {
+        "name": "ready_sets_playing",
+        "ready": [
+          {
+            "code": 0,
+            "mutate": {
+              "playing": 2147483648
+            }
+          }
+        ]
+      },
+      {
+        "name": "set_format_live_endpoints",
+        "set_format": [
+          {
+            "code": 0,
+            "mutate": {
+              "start": 2298349320,
+              "end": 2569143044
+            }
+          }
+        ]
+      },
+      {
+        "name": "format_mutates_next_retry_endpoints",
+        "play": [
+          {
+            "code": 7
+          },
+          {
+            "code": 0
+          }
+        ],
+        "format": [
+          {
+            "mutate": {
+              "start": 590082,
+              "end": 656132
+            }
+          }
+        ]
+      },
+      {
+        "name": "clock_mutation_final_store",
+        "time": [
+          {
+            "value": 4294967295,
+            "mutate": {
+              "previous": 13,
+              "reset": 0,
+              "start": 305419896,
+              "paused": 77
+            }
+          }
+        ]
+      },
+      {
+        "name": "timer_before_threshold",
+        "entry": "timer",
+        "start": 196865,
+        "end": 196866,
+        "previous": 100,
+        "time": [
+          {
+            "value": 1099
+          }
+        ]
+      },
+      {
+        "name": "timer_threshold_to_play",
+        "entry": "timer",
+        "start": 196865,
+        "end": 459010,
+        "previous": 100,
+        "time": [
+          {
+            "value": 1100
+          },
+          {
+            "value": 5678
+          }
+        ]
+      },
+      {
+        "name": "timer_wrap_to_retry",
+        "entry": "timer",
+        "start": 196865,
+        "end": 459010,
+        "previous": 4294967040,
+        "time": [
+          {
+            "value": 744
+          },
+          {
+            "value": 9999
+          }
+        ],
+        "play": [
+          {
+            "code": 5
+          },
+          {
+            "code": 0
+          }
+        ]
+      },
+      {
+        "name": "timer_live_endpoint_reload",
+        "entry": "timer",
+        "start": 196865,
+        "end": 459010,
+        "previous": 0,
+        "time": [
+          {
+            "value": 1000,
+            "mutate": {
+              "start": 590596,
+              "end": 656646
+            }
+          },
+          {
+            "value": 8888
+          }
+        ]
+      },
+      {
+        "name": "timer_live_previous_reload",
+        "entry": "timer",
+        "start": 196865,
+        "end": 459010,
+        "previous": 0,
+        "time": [
+          {
+            "value": 1000,
+            "mutate": {
+              "previous": 1000
+            }
+          }
+        ]
+      },
+      {
+        "name": "timer_zero_start",
+        "entry": "timer",
+        "start": 0,
+        "end": 459010
+      },
+      {
+        "name": "timer_zero_end",
+        "entry": "timer",
+        "start": 196865,
+        "end": 0
+      }
+    ],
+    "functions": [
+      {
+        "role": "play",
+        "symbol": "_host_cd_play_9e60",
+        "source_size": 240,
+        "native_size": 256,
+        "raw_exact": false,
+        "diagnostic_equal": false
+      },
+      {
+        "role": "timer",
+        "symbol": "_host_timing_service_409cd0",
+        "source_size": 144,
+        "native_size": 144,
+        "raw_exact": false,
+        "diagnostic_equal": true
+      },
+      {
+        "role": "cleanup",
+        "symbol": "_cleanup_native_9e10",
+        "source_size": 80,
+        "native_size": 80,
+        "raw_exact": false,
+        "diagnostic_equal": true
+      },
+      {
+        "role": "readiness",
+        "symbol": "_cleanup_native_9c30",
+        "source_size": 160,
+        "native_size": 160,
+        "raw_exact": false,
+        "diagnostic_equal": true
+      }
+    ],
+    "compared": "Complete6-DWORD MCI state,72-byte registry prefix,timing reset, formatted strings, MCI/CRT/API event order and arguments, actual provider entry order, guarded stack/caller inputs/nonvolatile registers, bounded execution and code writes.",
+    "modeled_boundaries": "MCI command/result/ASCII response, timeGetTime, Sleep and identified CRT sprintf/ASCII stricmp. Explicit API mutations check ordering and live reloads. No real device, general CRT/locale equivalence or timing+engine dispatch pipeline proof.",
+    "fixture_only": "Normal source DLL link with actual existing data and pinned static/import libraries. Infinite-loop f710 and CRT-required main remain unexecuted; instruction whitelist rejects their entry. Original full PE is mapped only in Unicorn, with emulator-only import endpoints.",
+    "original_process_or_API_entries": 0
+  },
+  "regression": {
+    "strict": {
+      "path": "work/host_cd_play/strict133.json",
+      "sha256": "8d67ccafb6e23add5b0a38ce89145f1461fbf431d663b4d708dab0e8f334bd26"
+    },
+    "raw_exact_functions": 133,
+    "all_651_prior_statuses_and_proofs_unchanged": true,
+    "prior_rows_identical_except_one_boundary_text": true,
+    "rows_added": 1,
+    "status_counts": {
+      "FUNCTION_MATCH": 133,
+      "CODEGEN_SIMILAR": 470,
+      "RECONSTRUCTED": 49
+    },
+    "natural_graph": {
+      "path": "work/host_current_graph/report-2017cbf930bfda56.json",
+      "sha256": "2017cbf930bfda5605a064f06bbfa451ebf503e42394b89e60bae6e8306c4fd8"
+    },
+    "source_units": 97,
+    "recorded_EXE_functions": 131,
+    "accepted_EXE_functions": 26,
+    "unresolved": 38,
+    "missing_frame_callbacks": 18,
+    "other_missing_providers": 20,
+    "duplicate_providers": 0,
+    "images_produced": 0
+  },
+  "boundary_correction": {
+    "row": "exe.host_cd_interval_9cd0",
+    "old_preceding_RET": "9CCA",
+    "actual_preceding_failure_RET": "9CCE",
+    "alignment": "one NOP9CCF before9CD0",
+    "scope": "Read-only decode corrects descriptive boundary text. Timer function bytes,source,extent144,status and all proof fields unchanged."
+  },
+  "diagnosed_fixture": {
+    "first_link": {
+      "path": "work/host_cd_play/private_run/first_link_missing_main.log",
+      "sha256": "ef7b3329950953540615593fb6653e1814c06700030e351b977af478350cb315"
+    },
+    "reason": "Normal pinned CRT link exposed crt0.obj reference to main. Added an infinite-loop main to the offline fixture; noentry and whitelist ensure it is not executed. Production source graph receives no main or placeholder."
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "implicit_compile_flag": "/Gy",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "analysis_tools": {
+    "python": {
+      "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "version": "3.12.14",
+      "sha256": "d41bad46673f64e0d02f23797f53f90ccf60f27d6eda8d86dd2d4bbeae5a858c"
+    },
+    "pefile": {
+      "path": "C:\\tools\\hercules\\python\\pefile.py",
+      "version": "2024.8.26",
+      "sha256": "0d0eb68f0f169182613dc64b3ab50b20855508c1c1d2faafe8fccf23edb6a345"
+    },
+    "unicorn": {
+      "path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+      "version": "2.1.4",
+      "sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+    },
+    "origin": "Existing C:/tools/hercules installations and bundled workspace Python; prior provenance in evidence/host_engine_loader_recovery.json. No tool/dependency added or modified."
+  },
+  "commands": [
+    "python scripts/host_cd_play_differential.py --output work/cd_play_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/cd_play_strict_replay.json"
+  ],
+  "limits": [
+    "RECONSTRUCTED is provisional source recovery.35 finite cases and preserved peers do not establish raw equality or original source/prototype/TU identity.",
+    "No actual MCI device,CD authentication10520,startupA0B0,Windows message loop,menu/input/gameplay,whole image or renderer acceptance. Natural graph still fails on genuine missing providers."
+  ]
+}

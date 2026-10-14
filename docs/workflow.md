@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 96 actual source units with
-130 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 39 unresolved dependencies: 18 newly exposed frame
-callbacks and 21 other providers. Including the real map replaces one missing
+The current natural selected host graph compiles 97 actual source units with
+131 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 38 unresolved dependencies: 18 newly exposed frame
+callbacks and 20 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -259,6 +259,28 @@ return. Time and play `0x9e60` remain test boundaries. No real MCI operation run
 See `evidence/host_cd_timer_recovery.json`. The natural graph now contains 96
 units and 130 recorded EXE functions; the new body exposes its actual missing
 playback dependency, leaving 39 missing providers and no executable.
+
+The playback service at `0x9e60` now replaces that missing dependency. Its
+ordinary C source is 240 versus the original 256 bytes and remains
+`RECONSTRUCTED`; no exact or normalized full-code match is claimed. It reuses
+the existing registry, MCI and timing-reset owners and adds no data storage.
+
+```
+python scripts/host_cd_play_differential.py --output work/cd_play_replay
+```
+
+Thirty-five guarded comparisons execute the actual playback, cleanup and
+readiness providers, including the timer-to-play path. They cover exact BYTE1
+enable gating, device-query failures, the two attempts and both failure sleeps,
+shared start-track packing, API mutations and final tick/reset writes. MCI,
+clock, Sleep and identified CRT formatting/ASCII comparison remain modeled
+boundaries; no device or complete CRT behavior is proved. The unmodified RTM
+`sprintf` and `strcmpi`/`stricmp` library members have full normalized code
+identity at their original PC extents. No library source was rewritten.
+See `evidence/host_cd_play_recovery.json`. All 651 prior statuses/proofs remain
+unchanged; one descriptive preceding-RET typo in the timer row is corrected to
+`9CCE`. All 133 accepted functions still match. The natural graph now has 97
+units, 131 recorded EXE functions and 38 missing providers, with no executable.
 
 The journaled promotion gate now supports `.c` and `.cpp` destinations under
 `src/`. A C++ candidate must already occupy its exact canonical path. The gate
