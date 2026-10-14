@@ -379,7 +379,7 @@ def validate_public_contracts(manifest: dict[str, Any], tracked_before: dict[str
     return {"validated_documents": sorted(loaded), "validated_interval_groups": 6}
 
 
-def run(manifest_path: Path, output: Path) -> dict[str, Any]:
+def run(manifest_path: Path, output: Path, original_root: Path | None = None) -> dict[str, Any]:
     manifest_path = manifest_path.resolve()
     output = output.resolve()
     verifier_path = Path(__file__).resolve()
@@ -389,7 +389,9 @@ def run(manifest_path: Path, output: Path) -> dict[str, Any]:
     check_manifest(manifest)
 
     oracle_path_rel = manifest["oracle"]["path"]
-    oracle_path = (ROOT / oracle_path_rel).resolve()
+    # Keep the manifest's target identity for recovery-row binding. A worktree
+    # may read the pinned original from another checkout without copying it.
+    oracle_path = ((original_root.resolve() if original_root else ROOT) / oracle_path_rel).resolve()
     oracle_before = oracle_path.read_bytes()
     oracle_sha256 = sha_bytes(oracle_before)
     if oracle_sha256 != manifest["oracle"]["sha256"]:
@@ -637,7 +639,7 @@ def run(manifest_path: Path, output: Path) -> dict[str, Any]:
         "scope": "Fresh MSVC 5 /O2 provider data bytes and each COFF-to-native relocation target; no function, TU, linker-layout or whole-module acceptance.",
         "manifest": {"path": str(manifest_path), "sha256": sha_bytes(manifest_bytes)},
         "verifier": {"path": str(verifier_path), "sha256": sha_bytes(tracked_before[str(verifier_path)])},
-        "oracle": {"path": oracle_path_rel, "sha256": oracle_sha256, "image_base": hex(pe.image_base), "native_relocation_cells": len(reloc_map)},
+        "oracle": {"path": oracle_path_rel, "read_path": str(oracle_path), "sha256": oracle_sha256, "image_base": hex(pe.image_base), "native_relocation_cells": len(reloc_map)},
         "toolchain": {"id": toolchain_id_before, "path": str(DEFAULT_TOOLCHAIN), "manifest_sha256": sha_bytes(toolchain_manifest_before), "verified_before_and_after": True},
         "python": {"executable": sys.executable, "version": sys.version.split()[0]},
         "input_sha256_before": input_hashes,
@@ -669,9 +671,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--original-root", type=Path, help="Read only the pinned original from this checkout; retain local sources, evidence and recovery state")
     args = parser.parse_args()
     try:
-        report = run(args.manifest, args.output)
+        report = run(args.manifest, args.output, args.original_root)
     except Exception as exc:
         print(f"ENG1 data verification failed before a complete report: {exc}", file=sys.stderr)
         return 1

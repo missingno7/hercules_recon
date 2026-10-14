@@ -17,6 +17,19 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'resource-mask': dict(
+        sources=['tests/eng1_resource_mask_differential.c',
+                 'src/eng1/behavioral/resource_action_masks.c',
+                 'calibration/resource_callbacks.c',
+                 'calibration/resource_data.c',
+                 'src/eng1/behavioral/setup_shared_state.c',
+                 'src/eng1/behavioral/simulation_data_owners.c',
+                 'calibration/engine_interface_storage.c'],
+        context_files=['src/eng1/behavioral/data_views.h'],
+        production_adaptations=True,
+        spans=[(0x28290,80),(0x128a0,112),(0x12910,80),
+               (0x3520,32),(0x3870,96)], cases=518,
+        scope='518 finite original/source checks: four resource dispatcher paths, two complete256-mask sweeps, real8-slot/81-row defaults, BYTE/WORD canaries and cached selection with live table/context mutation. Original image mapped without imports or DLL initialization; no game process, FUNCTION_MATCH or whole-engine claim.'),
     'tile-draw': dict(
         sources=['tests/eng1_tile_draw_differential.c',
                  'src/eng1/behavioral/tile_draw_2ff0.c',
@@ -588,8 +601,10 @@ def run(profile, oracle, captured_payload=None):
     out.mkdir(parents=True, exist_ok=True)
     sources = [ROOT / p for p in cfg['sources']]
     paths = {p for source in sources for p in context_files(source)} | {Path(__file__).resolve()}
+    for name in cfg.get('context_files', []):
+        paths.update(context_files(ROOT / name))
     graph_config = None
-    if cfg.get('production_omissions'):
+    if cfg.get('production_omissions') or cfg.get('production_adaptations'):
         graph_path = ROOT / 'evidence/eng1_behavioral_build.json'
         paths.add(graph_path)
         graph_config = json.loads(graph_path.read_bytes())
@@ -622,15 +637,21 @@ def run(profile, oracle, captured_payload=None):
         flags = list(cfg.get('flags', {}).get(name, []))
         compiler_input = source
         omitted = graph_config.get('omit_functions', {}).get(name, []) if graph_config else []
-        if omitted:
+        adaptations = graph_config.get('source_adaptations', {}).get(name, []) if cfg.get('production_adaptations') else []
+        if omitted or adaptations:
             source_text = source.read_text(encoding='utf-8')
             for row in omitted:
                 body = function_text(source_text, row['function'])
                 source_text = replace_function(source_text, row['function'], body[:body.index('{')].rstrip() + ';')
+            for edit in adaptations:
+                if source_text.count(edit['before']) != edit.get('count', 1):
+                    raise ValueError('Stale measured source adaptation: ' + name)
+                source_text = source_text.replace(edit['before'], edit['after'])
             compiler_input = out / ('derived_' + str(index) + '.c')
             compiler_input.write_bytes(source_text.encode())
             flags.append('/I' + str(source.parent))
             derivations.append(dict(source=name, source_sha256=sha(source), omitted_functions=omitted,
+                source_adaptations=adaptations,
                 compiler_input=compiler_input.relative_to(ROOT).as_posix(), compiler_input_sha256=sha(compiler_input)))
         command = [str(DEFAULT_TOOLCHAIN / 'bin/cl.exe'), '/nologo', '/c', '/O2', '/Gy', '/MT', *flags, '/Fo' + str(obj), str(compiler_input)]
         commands.append(command)

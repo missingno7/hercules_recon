@@ -51,6 +51,26 @@ original image, archaeology database and library map come from the named root.
 The database is opened read-only. A failed natural link remains a dependency
 diagnostic, and fail-on-entry placeholders do not make a playable engine.
 
+The data-provider audit accepts the same read-only original root:
+
+```
+python scripts/eng1_data_evidence.py --original-root D:/Prog/hercules_recon --output work/eng1_data_verification/report.json
+```
+
+Keep the manifest's relative target identity unchanged. The override changes
+only where the pinned oracle is read; function references still bind against
+the local recovery rows and the original hash. Substituting an absolute path
+inside the manifest would change the identity used for those bindings.
+
+The resource-action cluster now supplies source for ENG1 `0x28290`, `0x128a0`
+and `0x12910` using the existing shared owners. Its 518 finite comparisons pass,
+the measured data providers remain equal, and all 132 accepted functions remain
+raw-exact. These three rows remain `RECONSTRUCTED`; relocation-excluded diagnostic
+similarity is not acceptance. The genuine ENG1 graph compiles 397 functions but
+still has 532 unresolved symbols. Removing the `0x28290` fail marker does not
+establish a new runtime frontier or playable gameplay. See
+`evidence/eng1_resource_action_masks.json` for the proof boundary and commands.
+
 `python scripts/region.py packet <region>` derives a small HOT packet from the
 explicit index in `evidence/region_index.json`, selected WARM receipts, and current
 `recovery.json`. `--more` adds reviewed target spans. COLD disassembly, verbose logs
