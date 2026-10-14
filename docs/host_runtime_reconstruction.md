@@ -107,12 +107,33 @@ preserves all132 accepted functions and the59-provider ENG1 data audit.
 See `evidence/host_engine_dispatch_recovery.json` and
 `evidence/host_system_keys_recovery.json` for commands, hashes and limits.
 
+## Startup protocol and normal exit
+
+Original EXE `0x5e10` now supplies the timer/service sequence, Config-apply guard,
+gate test, exact missing-CD warning and initial requested display mode. The normal
+exit at `0x104d0` shares the existing fatal guard, window cell and shutdown-chain
+source. It preserves repeated-entry exit(-321), post-cleanup owner reload, WM_CLOSE
+notification and exit(0). CRT exit is identified as VC5 library member335 and is
+intercepted at entry in the fixture.
+
+```
+python scripts/host_startup_differential.py
+```
+
+Fourteen bounded comparisons pass with actual shutdown-chain/display-setter
+source. Other startup and cleanup service effects are synthetic boundaries. Both
+complete instruction shapes agree outside relocation operands, but raw bytes
+differ, so both remain `RECONSTRUCTED`. All132 accepted functions remain exact.
+The real startup still needs service bodies at `5750`, `5020`, `72a0`, `a0b0`,
+`fdf0` and `1ff0`; their declarations do not complete startup. See
+`evidence/host_startup_exit_recovery.json` for full proof boundaries and provenance.
+
 ## Remaining game work
 
-The current natural host link compiles 73 actual source units covering all 97
+The current natural host link compiles 75 actual source units covering all 99
 recorded EXE functions, preserving its 25 accepted EXE matches. It has no duplicate
-providers and stops on 20 missing symbols, including the real host interface,
-loader storage and graphics/audio services. It produces no executable. The exact
+providers and stops on 26 missing symbols, including the real host interface,
+loader storage, graphics/audio services and six startup service bodies. It produces no executable. The exact
 selected sources, pinned libraries and missing consumers are recorded in
 `evidence/host_current_source_graph.json`; this is a partial graph, not complete
 application coverage.
