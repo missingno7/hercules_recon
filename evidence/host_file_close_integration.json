@@ -1,0 +1,518 @@
+{
+  "schema": 1,
+  "scope": "Original PC setup reuses the existing virtual/archive close chain and its shared file storage. No new function recovery or exact promotion; recovery.json alone owns status.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_setup.c",
+      "sha256": "21ed18326ba3bcb54341ab23d6d5decb1c557893171fe77f6d51bc6346d758ff"
+    },
+    {
+      "path": "calibration/host_setup_storage.c",
+      "sha256": "b09bad4ee33f15a8acd5f8370a858bed21feb2233b87e26d3bacb9b0b8d72548"
+    },
+    {
+      "path": "calibration/host_setup_storage.h",
+      "sha256": "9a58d275f464a236952254c3730f0a3cbce87408f6b63e1ac3704f6f27d8c131"
+    },
+    {
+      "path": "scripts/host_setup_differential.py",
+      "sha256": "e66320631fe12b1eae78bb1b2140183bd0ea2d37c5362a65036150feb34d9d06"
+    },
+    {
+      "path": "calibration/virtual_file.c",
+      "sha256": "79470d9b41da178ad02bdf701e54e875f6520bbe56c9e0848231ac95c0eb400c"
+    },
+    {
+      "path": "calibration/archive_positions.c",
+      "sha256": "5fe0c3028cc40915434423f5fb015bb0270875fd53d13e2db73b2644023ee260"
+    },
+    {
+      "path": "calibration/archive_array_prefixes.c",
+      "sha256": "887d92b73632542d96663b6fa782c8fb16e0474e69f39f23a7236e92f296952d"
+    },
+    {
+      "path": "calibration/archive_storage.c",
+      "sha256": "9f03160e1de3559ade75e8690c21601c648808e878b17b027a05f16be08695bd"
+    },
+    {
+      "path": "calibration/public_file_handles.c",
+      "sha256": "3828456d1a203ac543b90e11db8feeaac7b06139d90221b019eecf88b6a26551"
+    }
+  ],
+  "prediction": {
+    "path": "work/host_file_close_integration/prediction.json",
+    "sha256": "4b5c50864116e6087d3048f97d9ac49113eddce93c5a3b690aee6f25a2e4e71f"
+  },
+  "prior_context": {
+    "commit": "03b877f",
+    "evidence_snapshot": {
+      "path": "work/host_file_close_integration/before_host_setup_recovery.json",
+      "sha256": "172600b789780eda07cfc8cfb9d72702c9c28976f701e19a8b2f6d76128aa18d"
+    },
+    "source_snapshots": [
+      {
+        "original": "src/pc/host_setup.c",
+        "snapshot": "work/host_file_close_integration/before_host_setup.c",
+        "sha256": "1a3dd335a02b494a8223817220c9c4bb7db4cf7473dffd912ed1bc458faa7d03"
+      },
+      {
+        "original": "calibration/host_setup_storage.c",
+        "snapshot": "work/host_file_close_integration/before_host_setup_storage.c",
+        "sha256": "4fa2ef01258adf61188c8de0dd977b14511564c2e9e455c7cab5e3b42ff30667"
+      },
+      {
+        "original": "calibration/host_setup_storage.h",
+        "snapshot": "work/host_file_close_integration/before_host_setup_storage.h",
+        "sha256": "608e326ba45d21ba9ffd1b2d23f80ac8aa1da975d07270715c16c76e5dcb158d"
+      },
+      {
+        "original": "scripts/host_setup_differential.py",
+        "snapshot": "work/host_file_close_integration/before_host_setup_differential.py",
+        "sha256": "68fa5b2f0c6538fe14c190006e2ff00bfefb7b8f83d85619429d5a8f226c646c"
+      },
+      {
+        "original": "evidence/host_setup_recovery.json",
+        "snapshot": "work/host_file_close_integration/before_host_setup_recovery.json",
+        "sha256": "172600b789780eda07cfc8cfb9d72702c9c28976f701e19a8b2f6d76128aa18d"
+      }
+    ],
+    "recovery_snapshot": {
+      "path": "work/host_file_close_integration/before_recovery.json",
+      "sha256": "837a0226dfb2aee61fb7e75c4b20496dc59200c6469c14ee2f3ab47b0a1a7e5c"
+    }
+  },
+  "identity": {
+    "native_A350": "exe.virtual_file_close; calibration/virtual_file.c; RVA0xa350; complete80 bytes",
+    "callee": "exe.archive_close; calibration/archive_positions.c; RVA0x51f0; complete32 bytes",
+    "old_name": "_host_service_a350",
+    "current_name": "_virtual_file_close",
+    "reason": "Original A1A0 call resolves to existing A350 body, which uses the same signed public count and public handle array. Existing recovery rows/providers were reused without body changes."
+  },
+  "storage": {
+    "setup_owned_bytes_before": 104,
+    "setup_owned_bytes_now": 36,
+    "duplicate_bytes_removed": 68,
+    "setup_fields": [
+      {
+        "symbol": "_g_host_setup_slots_first_3744c",
+        "rva": "0x3744c",
+        "bytes": 4,
+        "kind": "initialized",
+        "sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450"
+      },
+      {
+        "symbol": "_g_host_setup_prefix_3a630",
+        "rva": "0x3a630",
+        "bytes": 32,
+        "kind": "initialized",
+        "sha256": "072a455ee38ba71b857d516ef9129ff1acec358f51593f4633ace81fba8574d1"
+      }
+    ],
+    "shared_fields": [
+      {
+        "symbol": "_g_public_file_count",
+        "owner": "calibration\\archive_storage.c",
+        "rva": "0x56e638",
+        "bytes": 4,
+        "coff_kind": "COMMON",
+        "native_backing": "virtual_loader_zero",
+        "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+      },
+      {
+        "symbol": "_g_public_file_handles",
+        "owner": "calibration\\public_file_handles.c",
+        "rva": "0x56e640",
+        "bytes": 64,
+        "coff_kind": "COMMON",
+        "native_backing": "virtual_loader_zero",
+        "sha256": "f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b"
+      },
+      {
+        "symbol": "_g_archive_logical_positions",
+        "owner": "calibration\\archive_array_prefixes.c",
+        "rva": "0x51a7d0",
+        "bytes": 4096,
+        "coff_kind": "data_prefix",
+        "native_backing": "virtual_loader_zero",
+        "sha256": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7"
+      }
+    ],
+    "limits": "Measured initialized/virtual-zero prefixes and unique current source providers. Original translation-unit ownership, complete allocations, adjacency and native link placement unproved."
+  },
+  "preservation": {
+    "path": "work/host_file_close_integration/preservation.json",
+    "sha256": "78c9510568b9f09fb74ebb5dd170d1217fb3d386131ee78367878d0954db9038"
+  },
+  "functions": [
+    {
+      "role": "setup",
+      "symbol": "_host_service_10690",
+      "source_size": 208,
+      "native_size": 208,
+      "raw_exact": false,
+      "diagnostic_equal": true
+    },
+    {
+      "role": "reset",
+      "symbol": "_host_resource_reset_10760",
+      "source_size": 96,
+      "native_size": 96,
+      "raw_exact": false,
+      "diagnostic_equal": true
+    },
+    {
+      "role": "slots",
+      "symbol": "_host_setup_slots_reset_a1a0",
+      "source_size": 96,
+      "native_size": 112,
+      "raw_exact": false,
+      "diagnostic_equal": false
+    },
+    {
+      "role": "notify",
+      "symbol": "_host_frame_notify_zero",
+      "source_size": 16,
+      "native_size": 16,
+      "raw_exact": false,
+      "diagnostic_equal": true
+    },
+    {
+      "role": "initialize",
+      "symbol": "_initialize_pool",
+      "source_size": 96,
+      "native_size": 96,
+      "raw_exact": false,
+      "diagnostic_equal": false
+    },
+    {
+      "role": "identity",
+      "symbol": "_identity_value",
+      "source_size": 16,
+      "native_size": 16,
+      "raw_exact": true,
+      "diagnostic_equal": true
+    },
+    {
+      "role": "zero",
+      "symbol": "_host_zero_callback",
+      "source_size": 16,
+      "native_size": 16,
+      "raw_exact": true,
+      "diagnostic_equal": true
+    },
+    {
+      "role": "empty",
+      "symbol": "_empty_host_callback",
+      "source_size": 16,
+      "native_size": 16,
+      "raw_exact": true,
+      "diagnostic_equal": true
+    },
+    {
+      "role": "enable",
+      "symbol": "_host_enable_clear_callbacks",
+      "source_size": 32,
+      "native_size": 32,
+      "raw_exact": false,
+      "diagnostic_equal": true
+    },
+    {
+      "role": "packets",
+      "symbol": "_host_input_packets_initialize_4180",
+      "source_size": 32,
+      "native_size": 32,
+      "raw_exact": false,
+      "diagnostic_equal": true
+    },
+    {
+      "role": "register",
+      "symbol": "_host_register_input_packet_bd30",
+      "source_size": 16,
+      "native_size": 16,
+      "raw_exact": false,
+      "diagnostic_equal": true
+    },
+    {
+      "role": "one",
+      "symbol": "_host_return_one",
+      "source_size": 16,
+      "native_size": 16,
+      "raw_exact": true,
+      "diagnostic_equal": true
+    },
+    {
+      "role": "invoke",
+      "symbol": "_host_invoke_callback_zero",
+      "source_size": 32,
+      "native_size": 32,
+      "raw_exact": false,
+      "diagnostic_equal": true
+    },
+    {
+      "role": "diagnostic",
+      "symbol": "_host_diagnostic",
+      "source_size": 16,
+      "native_size": 16,
+      "raw_exact": true,
+      "diagnostic_equal": true
+    },
+    {
+      "role": "handler",
+      "symbol": "_virtual_file_close",
+      "source_size": 80,
+      "native_size": 80,
+      "raw_exact": false,
+      "diagnostic_equal": true
+    },
+    {
+      "role": "archive_close",
+      "symbol": "_archive_close",
+      "source_size": 32,
+      "native_size": 32,
+      "raw_exact": false,
+      "diagnostic_equal": true
+    }
+  ],
+  "validation": {
+    "report": {
+      "path": "work/host_file_close_integration/public_pinned/host_setup_differential.json",
+      "sha256": "14bbccce2986272ed93cdcaaf51841323d2cba84ea51f4b6ad5a7eb9bb019e74"
+    },
+    "case_count": 11,
+    "all_equal": true,
+    "cases": [
+      {
+        "scenario": {
+          "name": "byte9_0",
+          "byte9": 0,
+          "first": 1,
+          "pending": true
+        },
+        "closed_archive_ids": [],
+        "surviving_handles": []
+      },
+      {
+        "scenario": {
+          "name": "byte9_1",
+          "byte9": 1,
+          "first": 1,
+          "pending": true
+        },
+        "closed_archive_ids": [],
+        "surviving_handles": []
+      },
+      {
+        "scenario": {
+          "name": "byte9_127",
+          "byte9": 127,
+          "first": 1,
+          "pending": true
+        },
+        "closed_archive_ids": [],
+        "surviving_handles": []
+      },
+      {
+        "scenario": {
+          "name": "byte9_128",
+          "byte9": 128,
+          "first": 1,
+          "pending": true
+        },
+        "closed_archive_ids": [],
+        "surviving_handles": []
+      },
+      {
+        "scenario": {
+          "name": "byte9_255",
+          "byte9": 255,
+          "first": 1,
+          "pending": true
+        },
+        "closed_archive_ids": [],
+        "surviving_handles": []
+      },
+      {
+        "scenario": {
+          "name": "sparse_shrinking_count",
+          "byte9": 7,
+          "first": 0,
+          "pending": true
+        },
+        "closed_archive_ids": [
+          1,
+          512
+        ],
+        "surviving_handles": [
+          {
+            "public_handle": 16,
+            "archive_id": 1024
+          }
+        ]
+      },
+      {
+        "scenario": {
+          "name": "dense_shrinking_count",
+          "byte9": 9,
+          "first": 0,
+          "dense": true,
+          "count": 3
+        },
+        "closed_archive_ids": [
+          1,
+          512
+        ],
+        "surviving_handles": [
+          {
+            "public_handle": 3,
+            "archive_id": 1024
+          }
+        ]
+      },
+      {
+        "scenario": {
+          "name": "negative_count",
+          "byte9": 3,
+          "first": 0,
+          "pending": true,
+          "count": 4294967295
+        },
+        "closed_archive_ids": [],
+        "surviving_handles": [
+          {
+            "public_handle": 1,
+            "archive_id": 1
+          },
+          {
+            "public_handle": 8,
+            "archive_id": 512
+          },
+          {
+            "public_handle": 16,
+            "archive_id": 1024
+          }
+        ]
+      },
+      {
+        "scenario": {
+          "name": "zero_count",
+          "byte9": 4,
+          "first": 0,
+          "pending": true,
+          "count": 0
+        },
+        "closed_archive_ids": [],
+        "surviving_handles": [
+          {
+            "public_handle": 1,
+            "archive_id": 1
+          },
+          {
+            "public_handle": 8,
+            "archive_id": 512
+          },
+          {
+            "public_handle": 16,
+            "archive_id": 1024
+          }
+        ]
+      },
+      {
+        "scenario": {
+          "name": "first_highbit",
+          "byte9": 3,
+          "first": 2147483648,
+          "pending": true
+        },
+        "closed_archive_ids": [],
+        "surviving_handles": []
+      },
+      {
+        "scenario": {
+          "name": "live_context_defaults",
+          "byte9": 5,
+          "first": 0,
+          "pending": true,
+          "swap": true
+        },
+        "closed_archive_ids": [
+          1,
+          512
+        ],
+        "surviving_handles": [
+          {
+            "public_handle": 16,
+            "archive_id": 1024
+          }
+        ]
+      }
+    ],
+    "actual_callee_execution": "Real compiled/native virtual_file_close and archive_close instructions execute; no modeled handler return or effect.",
+    "complete_memory": "Two6964-byte contexts,48-byte pool,128-byte arena,64-byte public handle table,4096-byte logical positions prefix, callback/packet cells, synthetic34-byte input buffers, guards and32-byte unused stack window.",
+    "abi": "Sentinel return, balanced stack, all seeded nonvolatile registers, instruction and write whitelists.",
+    "fixture_only": "Zero host interface and synthetic arena/context/file preconditions, input buffers and one post-return-one context/default intervention. Unreached archive open/read/seek/fatal and input collector bodies are infinite-loop link boundaries; execution whitelist rejects entry.",
+    "original_process_or_API_entries": 0
+  },
+  "observed_original_behavior": [
+    "Ascending reset uses one-based public ids; virtual_file_close checks handle against the live signed count. Each successful archive close writes logical_positions[archive_id-1]=-1, decrements positive count and clears that public slot.",
+    "Dense count3 with occupied public slots1,2,3 closes archive ids1,512, but retains public slot3/id1024 after count becomes1. Sparse count16 at slots1,8,16 retains slot16/id1024. Final reset count is0.",
+    "Negative or zero count rejects every occupied public handle; first flag nonzero clears the table before iteration without archive_close calls. These effects are preserved, not corrected."
+  ],
+  "regression": {
+    "strict": {
+      "path": "work/host_file_close_integration/strict133.json",
+      "sha256": "8d6af09afbb2a5622dbd55f5b48c1de9566cbde429eb722fe237a78196693dff"
+    },
+    "raw_exact_functions": 133,
+    "all_650_statuses_and_proofs_unchanged": true,
+    "evidence_notes_updated": 6,
+    "natural_graph": {
+      "path": "work/host_current_graph/report-863fd4a6e4f0f71f.json",
+      "sha256": "863fd4a6e4f0f71f45b3b8dded1101cf344ec77485dba9074b0ffc23b6b4b42d"
+    },
+    "source_units": 95,
+    "recorded_EXE_functions": 129,
+    "preserved_exact_EXE_functions": 26,
+    "unresolved": 39,
+    "missing_frame_callbacks": 18,
+    "other_missing_providers": 21,
+    "duplicate_providers": 0,
+    "images_produced": 0
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "implicit_compile_flag": "/Gy",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "analysis_tools": {
+    "python": {
+      "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "version": "3.12.14",
+      "sha256": "d41bad46673f64e0d02f23797f53f90ccf60f27d6eda8d86dd2d4bbeae5a858c"
+    },
+    "pefile": {
+      "path": "C:\\tools\\hercules\\python\\pefile.py",
+      "version": "2024.8.26",
+      "sha256": "0d0eb68f0f169182613dc64b3ab50b20855508c1c1d2faafe8fccf23edb6a345"
+    },
+    "unicorn": {
+      "path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+      "version": "2.1.4",
+      "sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+    },
+    "origin": "Existing C:/tools/hercules installations and bundled workspace Python; prior provenance in evidence/host_engine_loader_recovery.json. No tool/dependency added or modified."
+  },
+  "commands": [
+    "python scripts/host_setup_differential.py --output work/host_file_close_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/file_close_strict_replay.json"
+  ],
+  "limits": [
+    "Four setup full contributions retain relocation-only diagnostic equality; slot loop remains96 versus original112bytes. Raw equality has not been established for these functions.",
+    "Finite synthetic-precondition execution and full compared prefixes do not prove the complete input/archive domains, initialized host interface, startup/menu/gameplay or original source/types/layout.",
+    "No copied game machine-code source, original dispatch, forced image, assembly/placement hacks or renderer work. Actual function sources and shared file owners are preserved."
+  ]
+}

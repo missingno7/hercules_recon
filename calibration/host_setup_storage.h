@@ -11,8 +11,9 @@ typedef char setup_prefix_size[(sizeof(HostSetupObservedPrefix) == 32) ? 1 : -1]
 typedef char setup_defaults_offset[(offsetof(HostSetupObservedPrefix, context_defaults_010) == 16) ? 1 : -1];
 extern HostSetupObservedPrefix g_host_setup_prefix_3a630;
 extern unsigned long g_host_setup_slots_first_3744c;
-extern unsigned long g_host_setup_slot_current_56e638;
-extern unsigned long g_host_setup_slots_56e640[16];
+/* The original A350 consumer proves these are the existing public-file owners. */
+extern int g_public_file_count;
+extern int g_public_file_handles[16];
 extern EngineInterface g_host_engine_interface;
 extern void __cdecl initialize_pool(unsigned char *, unsigned long, unsigned long);
 typedef union PoolWord PoolWord;

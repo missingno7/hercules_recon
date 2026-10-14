@@ -98,8 +98,8 @@ python scripts/host_frame_precreate_differential.py --original-root D:/Prog/herc
 
 The current natural selected host graph compiles 95 actual source units with
 129 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 40 unresolved dependencies: 18 newly exposed frame
-callbacks and 22 other providers. Including the real map replaces one missing
+duplicate providers and 39 unresolved dependencies: 18 newly exposed frame
+callbacks and 21 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -204,13 +204,20 @@ pool initializer is also recorded with its remaining code differences.
 python scripts/host_setup_differential.py --output work/setup_replay
 ```
 
-Nine original/source cases execute real pool initialization, exact leaves,
-callback reset/invocation and packet registration. They compare unsigned BYTE9,
-two complete context buffers, the pool/arena, default copies, packet pointer,
-16 slots, handler order/mutations, ABI/guards and the unused stack clear. Only
-the still missing `a350` handler is modeled. Its one-based ids and changes to
-later slots remain live. A synthetic post-leaf context/default intervention
-checks caller reloads without claiming that the actual leaf mutates them.
+Eleven original/source cases execute real pool initialization, exact leaves,
+callback reset/invocation, packet registration and the existing virtual/archive
+file-close chain. They compare unsigned BYTE9, two complete context buffers,
+the pool/arena, default copies, packet pointer, all 16 public handles and 1024
+logical positions, call order, ABI/guards and the unused stack clear. A synthetic
+post-leaf context/default intervention checks caller reloads without claiming
+that the actual leaf mutates them. No close return or effect is modeled.
+
+The original A350 is the already recovered `virtual_file_close`, calling the
+existing `archive_close` at 51F0. Setup now uses their actual signed public count
+and handle owners. The shrinking-count guard can leave a later occupied handle
+untouched during ascending reset; dense and sparse cases reproduce that original
+behavior. Negative and zero counts reject every close. The final reset count is
+zero even when entries survive. This behavior is preserved for later matching.
 
 The original `4180` registers pointers `ba2a40` and `ba2a00` with two `0x22`
 arguments; it is not the unrelated file-prepare draft. The execution whitelist
@@ -220,13 +227,18 @@ the first pointer; the common original prototype is not settled by its one-arg
 source and this four-arg caller view. The notification's duplicate old draft
 body was removed; the remaining close-state complete code and relocations are
 preserved. All old accepted function sources and shared context headers remain
-unchanged. The new 104-byte data audit covers a 32-byte initialized working
-prefix, a DWORD first flag, a current DWORD and 16 DWORD slots. Original source
-aggregate/owner/extent and native placement are not proved.
-See `evidence/host_setup_recovery.json`. All 644 previous rows remain intact and
-all 133 accepted functions remain exact. The real setup resolves its former
-opaque dependency while exposing the actual input buffers and slot handler;
-the natural build still produces no game executable.
+unchanged. Setup owns a measured 32-byte initialized working prefix and DWORD
+first flag. The former separate count/slot definitions duplicated 68 bytes of
+existing public-file storage and have been removed. Fresh COFF/native data checks
+reuse its unique 4/64-byte owners and the 4096-byte logical-position prefix.
+Original aggregate, translation-unit ownership, complete extent and placement
+remain unproved. All five setup code contributions are unchanged; only the three
+proven relocation identities were rebound.
+See `evidence/host_file_close_integration.json` for current evidence and
+`evidence/host_setup_recovery.json` for the first recovery context. All 650 rows
+retain their statuses and proofs; six evidence notes now point to the integration.
+All 133 accepted functions remain exact. The real close path resolves the former
+opaque A350 dependency; the natural build still produces no game executable.
 
 The journaled promotion gate now supports `.c` and `.cpp` destinations under
 `src/`. A C++ candidate must already occupy its exact canonical path. The gate

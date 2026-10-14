@@ -11,7 +11,7 @@ extern unsigned char g_host_setup_input_buffer1_7a2a40[];
 /* Native4180 supplies four arguments; existing packet owner consumes only the
  * first. Original common source prototype and buffer capacities are open. */
 extern unsigned long __cdecl host_register_input_packet_bd30();
-extern void __cdecl host_service_a350(unsigned long);
+extern int __cdecl virtual_file_close(int);
 
 void __cdecl host_input_packets_initialize_4180(void)
 {
@@ -35,14 +35,14 @@ int __cdecl host_setup_slots_reset_a1a0(void)
     unsigned long index;
     if (g_host_setup_slots_first_3744c != 0) {
         g_host_setup_slots_first_3744c = 0;
-        g_host_setup_slot_current_56e638 = 0;
-        memset(g_host_setup_slots_56e640, 0, sizeof(g_host_setup_slots_56e640));
+        g_public_file_count = 0;
+        memset(g_public_file_handles, 0, sizeof(g_public_file_handles));
     }
     for (index = 0; index < 16; ++index) {
-        if (g_host_setup_slots_56e640[index] != 0)
-            host_service_a350(index + 1);
+        if (g_public_file_handles[index] != 0)
+            (void)virtual_file_close((int)index + 1);
     }
-    g_host_setup_slot_current_56e638 = 0;
+    g_public_file_count = 0;
     return 0;
 }
 

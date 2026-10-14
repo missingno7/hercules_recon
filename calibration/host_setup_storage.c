@@ -6,5 +6,3 @@ HostSetupObservedPrefix g_host_setup_prefix_3a630 = {
     {0x8000, 0x4000, 0x2000, 0x1000, 0x0400, 0x0800, 0x0100, 0x0200}
 };
 unsigned long g_host_setup_slots_first_3744c = 1;
-unsigned long g_host_setup_slot_current_56e638 = 0;
-unsigned long g_host_setup_slots_56e640[16] = {0};
