@@ -74,7 +74,7 @@ and `evidence/host_input_recovery.json` for exact provenance and finite boundari
 
 The recovered pieces still need a coherent host startup chain, window/message
 loop, full table ownership and engine dependencies before gameplay can run. The genuine
-ENG1 graph has 397 compiled functions and 532 unresolved symbols after the resource
-action recovery. A linked diagnostic DLL with fail-on-entry markers remains an
+ENG1 graph has 398 compiled functions and 531 unresolved symbols after the resource
+action and color-transition initializer recoveries. A linked diagnostic DLL with fail-on-entry markers remains an
 incomplete diagnostic, not a game. Original host execution also retains the
 repository's isolation, windowed-startup and display-restoration requirements.

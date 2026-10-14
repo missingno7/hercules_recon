@@ -17,6 +17,12 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'color-transition-init': dict(
+        sources=['tests/eng1_color_transition_init_differential.c',
+                 'src/eng1/behavioral/color_transition_init.c',
+                 'src/eng1/behavioral/color_transition_storage.c'],
+        spans=[(0x1eba0,79)], cases=5,
+        scope='Five original/source color-transition initializer comparisons/178 checks: complete node128/state32/timer4, unequal row0 values including unsigned edges, exact pair64 and initial zero-state/timer prefixes. Original image mapped without imports or DLL initialization; no game process, FUNCTION_MATCH or full color-producer closure.'),
     'resource-mask': dict(
         sources=['tests/eng1_resource_mask_differential.c',
                  'src/eng1/behavioral/resource_action_masks.c',

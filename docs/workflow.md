@@ -81,6 +81,20 @@ still has 532 unresolved symbols. Removing the `0x28290` fail marker does not
 establish a new runtime frontier or playable gameplay. See
 `evidence/eng1_resource_action_masks.json` for the proof boundary and commands.
 
+The ENG1 color-transition initializer at `0x1eba0` now binds its existing callback
+name to real source and three independent measured storage prefixes. Five cases
+and 178 checks pass, including unequal table values and complete node/state/timer
+bytes. The data audit passes for 59 providers, 923 fields and 4,787 pointer cells;
+all 132 accepted functions remain exact. The current genuine graph has 398
+compiled functions, 531 unresolved symbols and no duplicate providers. The
+initializer remains `RECONSTRUCTED`: its complete raw contribution differs.
+The broader startup and selected-color producer remain incomplete. See
+`evidence/eng1_color_transition_init.json` and run:
+
+```
+python scripts/eng1_bounded_differential.py color-transition-init --native-eng1 D:/Prog/hercules_recon/assets/pc/HERCULES/ENG1.DLL
+```
+
 `python scripts/region.py packet <region>` derives a small HOT packet from the
 explicit index in `evidence/region_index.json`, selected WARM receipts, and current
 `recovery.json`. `--more` adds reviewed target spans. COLD disassembly, verbose logs
