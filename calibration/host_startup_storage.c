@@ -15,7 +15,7 @@ DWORD g_host_input_joy_count_rva_7a0218 = 0;
 DWORD g_host_input_last_state_first_rva_56e5d0 = 0;
 DWORD g_host_input_last_state_second_rva_56e5d4 = 0;
 DWORD g_host_input_pending_rva_7a0234 = 0;
-BYTE g_host_input_window_active_rva_03a594 = 1;
+BYTE g_host_input_gate_rva_03a594 = 1;
 
 typedef char input_caps_prefix_is_measured[
     (sizeof(g_host_input_joy_caps_rva_79e8b0) == 6464) ? 1 : -1];

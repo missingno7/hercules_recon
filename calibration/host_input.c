@@ -10,7 +10,7 @@ extern DWORD g_host_input_joy_count_rva_7a0218;
 extern DWORD g_host_input_last_state_first_rva_56e5d0;
 extern DWORD g_host_input_last_state_second_rva_56e5d4;
 extern DWORD g_host_input_pending_rva_7a0234;
-extern BYTE g_host_input_window_active_rva_03a594;
+extern BYTE g_host_input_gate_rva_03a594;
 extern DWORD g_config_table_a_rva_56e4f0[28];
 extern DWORD g_config_table_b_rva_56e560[28];
 extern BYTE g_registry_config[72];
@@ -201,7 +201,7 @@ DWORD host_input_collect_8040(void)
         result &= ~0x40UL;
     if (result & 0x80)
         result &= ~0x20UL;
-    if (g_host_input_window_active_rva_03a594 == 0)
+    if (g_host_input_gate_rva_03a594 == 0)
         result = 0;
     return result;
 }

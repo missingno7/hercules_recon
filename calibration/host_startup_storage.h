@@ -17,7 +17,7 @@ extern DWORD g_host_input_joy_count_rva_7a0218;
 extern DWORD g_host_input_last_state_first_rva_56e5d0;
 extern DWORD g_host_input_last_state_second_rva_56e5d4;
 extern DWORD g_host_input_pending_rva_7a0234;
-extern BYTE g_host_input_window_active_rva_03a594;
+extern BYTE g_host_input_gate_rva_03a594;
 #ifdef __cplusplus
 }
 #endif

@@ -12,7 +12,7 @@ EXPECTED='587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d'
 BASE=0x400000; STACK_BASE=0xc00000; STACK_SIZE=0x20000; STACK_TOP=STACK_BASE+STACK_SIZE-0x100; SENTINEL=STACK_BASE+0x1fff0
 API_BASE=0xd00000; API_ENDPOINT={'GetAsyncKeyState':API_BASE+0x10,'joyGetPos':API_BASE+0x20,'joyGetDevCapsA':API_BASE+0x30,'joyGetPosEx':API_BASE+0x40}
 FNV=16777619
-ORIG_ADDR={'avail':0xb9e8a0,'caps':0xb9e8b0,'count':0xba0218,'config':0xb9e858,'state0':0x96e5d0,'state1':0x96e5d4,'pending':0xba0234,'window':0x43a594,'table_a':0x96e4f0,'table_b':0x96e560}
+ORIG_ADDR={'avail':0xb9e8a0,'caps':0xb9e8b0,'count':0xba0218,'config':0xb9e858,'state0':0x96e5d0,'state1':0x96e5d4,'pending':0xba0234,'gate':0x43a594,'table_a':0x96e4f0,'table_b':0x96e560}
 ORIG_FUNCS={'initialize':BASE+0x7bb0,'sample':BASE+0x7c50,'joystick':BASE+0x7e90,'set_state':BASE+0x7f10,'keyboard':BASE+0x7f30,'collect':BASE+0x8040}
 TOOLCHAIN=Path(r'C:\tools\hercules\msvc500-8abf95ce980161ad87b0b02402269cce76988953')
 
@@ -51,7 +51,7 @@ class ImageEmu:
     if k not in symbols:raise RuntimeError('map symbol missing '+k)
     return symbols[k]
    self.functions={n:sym('host_input_'+name) for n,name in {'initialize':'initialize_7bb0','sample':'sample_7c50','joystick':'joystick_7e90','set_state':'set_last_state_7f10','keyboard':'keyboard_7f30','collect':'collect_8040'}.items()}
-   self.address={n:sym(name) for n,name in {'avail':'g_host_input_joy_available_rva_79e8a0','caps':'g_host_input_joy_caps_rva_79e8b0','count':'g_host_input_joy_count_rva_7a0218','state0':'g_host_input_last_state_first_rva_56e5d0','state1':'g_host_input_last_state_second_rva_56e5d4','pending':'g_host_input_pending_rva_7a0234','window':'g_host_input_window_active_rva_03a594','table_a':'g_config_table_a_rva_56e4f0','table_b':'g_config_table_b_rva_56e560','config':'g_registry_config'}.items()}
+   self.address={n:sym(name) for n,name in {'avail':'g_host_input_joy_available_rva_79e8a0','caps':'g_host_input_joy_caps_rva_79e8b0','count':'g_host_input_joy_count_rva_7a0218','state0':'g_host_input_last_state_first_rva_56e5d0','state1':'g_host_input_last_state_second_rva_56e5d4','pending':'g_host_input_pending_rva_7a0234','gate':'g_host_input_gate_rva_03a594','table_a':'g_config_table_a_rva_56e4f0','table_b':'g_config_table_b_rva_56e560','config':'g_registry_config'}.items()}
   else:raise ValueError(mode)
   self.iat={};self.unexpected_iat={};next_unexpected=API_BASE+0x100
   imported=set()
@@ -93,7 +93,7 @@ class ImageEmu:
   if self.capture_writes:self.write_log.append((address,size,value&((1<<(min(size,8)*8))-1)))
  def reset_state(self):
   a=self.address;self.write(a['avail'],bytes(16));self.write(a['caps'],bytes(16*404));self.w32(a['count'],0)
-  self.write(a['config'],bytes(72));self.w32(a['state0'],0);self.w32(a['state1'],0);self.w32(a['pending'],0);self.w8(a['window'],1)
+  self.write(a['config'],bytes(72));self.w32(a['state0'],0);self.w32(a['state1'],0);self.w32(a['pending'],0);self.w8(a['gate'],1)
   self.write(a['table_a'],bytes(28*4));self.write(a['table_b'],bytes(28*4));self.model=Model();self.write_log=[]
  def api_hook(self,uc,addr,size,user_data):
   name=next((n for n,v in API_ENDPOINT.items() if v==addr),None)
@@ -212,7 +212,7 @@ def run_suite(o):
  m=prepare_collect();rows.append(o.summary('collect_priority',o.call('collect')))
  m=prepare_collect();o.w32(a['pending'],1);m.keys[65]=0x8000;rows.append(o.summary('collect_pending_with_key',o.call('collect')))
  m=prepare_collect();o.w32(a['pending'],1);m.keys[65]=0;rows.append(o.summary('collect_pending_without_key',o.call('collect')))
- m=prepare_collect();o.w8(a['window'],0);m.keys[65]=0x8000;rows.append(o.summary('collect_inactive',o.call('collect')))
+ m=prepare_collect();o.w8(a['gate'],0);m.keys[65]=0x8000;rows.append(o.summary('collect_gate_zero',o.call('collect')))
  lines=[render(rows[0]),initline]+[render(r) for r in rows[1:9]]+[altline]+[render(r) for r in rows[9:11]]+[render(r) for r in rows[11:]]
  return {'rows':rows,'lines':lines,'initialization_state':init,'initialization_writes':init_writes}
 

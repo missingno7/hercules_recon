@@ -70,6 +70,13 @@ endpoints. They preserve all 132 strict matches and add no `FUNCTION_MATCH`.
 See `evidence/host_engine_loader_recovery.json`, `evidence/host_config_recovery.json`
 and `evidence/host_input_recovery.json` for exact provenance and finite boundaries.
 
+The byte at EXE RVA `0x3a594` is now labeled as a neutral input gate. Its
+literal writers are in the CD/MCI status routine; the previous window-activation
+name was unsupported. The rename preserves all97 complete host contributions
+and shared storage bytes. Input/config comparisons and all132 accepted matches
+pass. See `evidence/host_input_gate_identity.json` for the reference inventory
+and source-preservation boundary.
+
 ## Dispatcher and system keys
 
 The dispatcher at EXE `0x5ec0` now uses the existing loader/selector providers

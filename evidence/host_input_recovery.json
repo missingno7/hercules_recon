@@ -7,12 +7,12 @@
   },
   "source": {
     "path": "calibration/host_input.c",
-    "sha256": "c4354a25d23225ba8376a1dc3ec844fe8eb2b5c3aac2e3b9beb5eafae24e42cc"
+    "sha256": "ea90fc047f9f702c34478cea2b7ef1b737ac02bbe65d2078ca8807c2aa70733d"
   },
   "providers": [
     {
       "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_startup_storage.c",
-      "sha256": "0e8d20d230c4311f8c81ae50e5d924cd91f956cb1956c704fd434ad601ce25a1"
+      "sha256": "654dd90ddb9133cd45dfd434d347067082b4bd2772d4fa25b8e92071d7834c6e"
     },
     {
       "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\registry_storage.c",
@@ -23,7 +23,7 @@
     "windows.h": "1de22ddc1b079d330a8f5b02338a5ad5681b060cf3ac86f984a243ff2bdd9303",
     "mmsystem.h": "3ba7c98ffc53b070a60d3ea18fb3b0cdb4c0ceb1743fad6239d6dda9cb8c09f0",
     "string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
-    "host_startup_storage.h": "e9c940931c9d7efca2b42bbc24992478dc8d94449a132a5fcc521522f3bfa3ad"
+    "host_startup_storage.h": "cbdcf4a19fdb26664c321b50d926c6dabf3d95450cb189f60e37ca9ad39b03ac"
   },
   "prediction": "SDK C with Config72 and the actual mapping/input prefixes should reproduce the original collectors; proof must use the same production-import object in byte comparison and emulation, not renamed test APIs.",
   "falsifier": "Mismatch in state/return/API order/widths or source-provider identity; actual import object differs from tested object; modified exact peers.",
@@ -34,7 +34,7 @@
     "7e90": "SignedWORD Config joystick ID, ffff disables. Translate axis flags, remove high four bits then consume28 value/mask pairs from the actual Config producer.",
     "7f10": "Two DWORD args; ffffffff leaves corresponding state cell unchanged. No stronger callback identity inferred from absence of direct xrefs.",
     "7f30": "Enable ConfigBYTE+14; Alt mask8001 gate; fixed Escape/Space/Enter cache flags then nine signedWORD assignments.",
-    "8040": "Keyboard/pending suppression then joystick merge, opposite-direction priority and native activeBYTE gate. Warm delivery binds directly to host_input_collect_8040; no thunk."
+    "8040": "Keyboard/pending suppression then joystick merge, opposite-direction priority and native neutral BYTE gate. Warm delivery binds directly to host_input_collect_8040; no thunk."
   },
   "validation": {
     "named_scenarios": 15,
@@ -308,8 +308,8 @@
     "regression": {
       "fresh_strict_raw_exact": 132,
       "receipt": {
-        "path": "work/host_loader_differential/host_batch_strict.json",
-        "sha256": "a059343c7c0ec575a73da8d59c9c39bc2a74786968d14802f4b80e6da65073fe"
+        "path": "work\\host_input_gate_identity\\strict_after.json",
+        "sha256": "11ae5e5b94d3caf366784f84aff0f2fa9e11bb3bb856b1390a7c2fc22ce74ab6"
       },
       "new_FUNCTION_MATCH": 0
     }
@@ -712,7 +712,7 @@
         "mismatch_regions": [],
         "symbols": {
           "_g_host_input_pending_rva_7a0234": "0x7a0234",
-          "_g_host_input_window_active_rva_03a594": "0x3a594",
+          "_g_host_input_gate_rva_03a594": "0x3a594",
           "_host_input_joystick_7e90": "0x7e90",
           "_host_input_keyboard_7f30": "0x7f30"
         },
@@ -737,9 +737,9 @@
       "stdout": "host_input.c\n",
       "stderr": "",
       "source": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_input.c",
-      "source_sha256": "c4354a25d23225ba8376a1dc3ec844fe8eb2b5c3aac2e3b9beb5eafae24e42cc",
+      "source_sha256": "ea90fc047f9f702c34478cea2b7ef1b737ac02bbe65d2078ca8807c2aa70733d",
       "object": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\host_input_fresh.obj",
-      "object_sha256": "0800d066c908b122695ca187af815ff17ee37fce088569947f95da261230aba5"
+      "object_sha256": "ac444a8e86d8a5e90d8ec65cfa75bd758e12bddef49200dea95075f4a09fc1f9"
     },
     {
       "command": [
@@ -755,9 +755,9 @@
       "stdout": "host_startup_storage.c\n",
       "stderr": "",
       "source": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_startup_storage.c",
-      "source_sha256": "0e8d20d230c4311f8c81ae50e5d924cd91f956cb1956c704fd434ad601ce25a1",
+      "source_sha256": "654dd90ddb9133cd45dfd434d347067082b4bd2772d4fa25b8e92071d7834c6e",
       "object": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\host_startup_storage_fresh.obj",
-      "object_sha256": "6a712733864d491604fbbbc10e9a43254fa67bd489693cace84e6a6bdb0d4314"
+      "object_sha256": "d5cf25153d57951112449f59fef6470cbd193bdae1d855ad1b7af2d1ecd5ac91"
     },
     {
       "command": [
@@ -775,7 +775,7 @@
       "source": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\registry_storage.c",
       "source_sha256": "e9f7c60fd443f486260a622e2beb5cde2be2d7a500b2cd486afab6ccbe35eda7",
       "object": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\registry_storage_fresh.obj",
-      "object_sha256": "3b026e85b5c5c59539f263f1c0b94ca54d9a4b58da36e044546396b3e4362967"
+      "object_sha256": "5a5b5a9cf050186ac5de3e5d864f96298fea8f39161676883456dec2c0ad7d4b"
     },
     {
       "command": [
@@ -793,7 +793,7 @@
       "source": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\runner_fixture.c",
       "source_sha256": "e04c66741c5c6eccfe68d0607c12bdf7c739dd85185740b9bc991c0c44f3ca6b",
       "object": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_input_recovery\\runner_build\\runner_fixture_fresh.obj",
-      "object_sha256": "3a65851bb613f75e75efcbbbe411c5b36bfeabbe226943e38f0567e3fee6d6da"
+      "object_sha256": "1257b194b0969075bbfd3dd404e70f8925a1c21ef84cc3a9c38882e32a304ae4"
     }
   ],
   "link_command": {
@@ -824,8 +824,8 @@
     "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb"
   },
   "receipt": {
-    "path": "work/host_input_recovery/runner_report.json",
-    "sha256": "493673f60b2d95b6b50469547acf337a61d9d4cbe44551117068aa074261fb00"
+    "path": "work\\host_input_gate_identity\\input_after.json",
+    "sha256": "7dde6fc1bfe49c887a1042b2afca8dc3cfe00050a0184cf8142c73d0b2804401"
   },
   "reproduce": "python scripts/host_input_differential.py --native-exe D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE",
   "limits": {
@@ -833,5 +833,6 @@
     "joyGetPosEx": "One case returns status 1 without writing its 52-byte JOYINFOEX; other sampled cases provide full synthetic x/y/buttons writes.",
     "outside_contract": "Invalid configured device IDs except the 0xffff disabled sentinel, partial/overrunning driver writes, additional WinMM errors, unusual key values, and actual OS/driver behavior are not established."
   },
-  "acceptance_boundary": "No FUNCTION_MATCH, complete host/window/game, source identity, TU or linker-layout proof. Original and fixture PE code are interpreted only; no real input API or game process runs."
+  "acceptance_boundary": "No FUNCTION_MATCH, complete host/window/game, source identity, TU or linker-layout proof. Original and fixture PE code are interpreted only; no real input API or game process runs.",
+  "identity_correction": "evidence/host_input_gate_identity.json: window-activation name withdrawn; neutral input gate preserves compiled contributions and values."
 }

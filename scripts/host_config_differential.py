@@ -193,7 +193,7 @@ startup_storage_prefix_specs = [
     ("_g_host_input_last_state_first_rva_56e5d0", 0x56e5d0, 4, "loader_zero", "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"),
     ("_g_host_input_last_state_second_rva_56e5d4", 0x56e5d4, 4, "loader_zero", "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"),
     ("_g_host_input_pending_rva_7a0234", 0x7a0234, 4, "loader_zero", "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"),
-    ("_g_host_input_window_active_rva_03a594", 0x3a594, 1, "initialized", "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a"),
+    ("_g_host_input_gate_rva_03a594", 0x3a594, 1, "initialized", "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a"),
 ]
 if sum(size for _, _, size, _, _ in startup_storage_prefix_specs) != 7785:
     raise AssertionError("Startup storage prefix extent changed")
@@ -400,7 +400,7 @@ def map_candidate_objects(uc):
         "_g_host_input_joy_available_rva_79e8a0", "_g_host_input_joy_caps_rva_79e8b0",
         "_g_host_input_joy_count_rva_7a0218", "_g_host_input_last_state_first_rva_56e5d0",
         "_g_host_input_last_state_second_rva_56e5d4", "_g_host_input_pending_rva_7a0234",
-        "_g_host_input_window_active_rva_03a594", "_g_host_engine_interface",
+        "_g_host_input_gate_rva_03a594", "_g_host_engine_interface",
     ]
     candidate_symbol_bindings = {
         name: {

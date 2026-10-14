@@ -1,0 +1,233 @@
+{
+  "schema": 1,
+  "scope": "Evidence-backed correction of an unsupported semantic label. recovery.json statuses and strict acceptance remain unchanged.",
+  "oracle": {
+    "path": "D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d"
+  },
+  "prediction": {
+    "prediction": "Literal writers disprove the unsupported window-activation label. Renaming only the symbol to a neutral gate preserves complete function bytes and relocations modulo this one proven cell identity, storage bytes and all input/config oracle cases.",
+    "falsifier": "Any changed function byte, other relocation symbol/type/offset, initialized/BSS contribution, native cell identity, case output, API trace or accepted exact peer.",
+    "inputs": {
+      "calibration/host_input.c": "c4354a25d23225ba8376a1dc3ec844fe8eb2b5c3aac2e3b9beb5eafae24e42cc",
+      "calibration/host_startup_storage.c": "0e8d20d230c4311f8c81ae50e5d924cd91f956cb1956c704fd434ad601ce25a1",
+      "calibration/host_startup_storage.h": "e9c940931c9d7efca2b42bbc24992478dc8d94449a132a5fcc521522f3bfa3ad",
+      "scripts/host_input_differential.py": "7991dfaf9006334cb680c0ec575925b63948e2e1d19bf6387ec4302e854a48e1",
+      "scripts/host_config_differential.py": "562159e5300bc989607ee4c1b604985502d7b85a4cff5463be36da9341b93954"
+    },
+    "old_symbol": "g_host_input_window_active_rva_03a594",
+    "new_symbol": "g_host_input_gate_rva_03a594",
+    "evidence": "work/host_window_input_recovery/cell_43a594_evidence.json",
+    "limits": "No original name, complete state machine, indirect reference closure or TU ownership inferred."
+  },
+  "reference_inventory": {
+    "writers": [
+      {
+        "rva": "0x10539",
+        "instruction": "mov byte ptr [0x43a594], 0",
+        "containing_function": {
+          "rva": "0x10520",
+          "size": 368
+        }
+      },
+      {
+        "rva": "0x10679",
+        "instruction": "mov byte ptr [0x43a594], 1",
+        "containing_function": {
+          "rva": "0x10520",
+          "size": 368
+        }
+      }
+    ],
+    "readers": [
+      {
+        "rva": "0x5aa0",
+        "instruction": "mov bl, byte ptr [0x43a594]",
+        "containing_function": {
+          "rva": "0x5a50",
+          "size": 464
+        }
+      },
+      {
+        "rva": "0x5aff",
+        "instruction": "mov al, byte ptr [0x43a594]",
+        "containing_function": {
+          "rva": "0x5a50",
+          "size": 464
+        }
+      },
+      {
+        "rva": "0x5bd8",
+        "instruction": "mov al, byte ptr [0x43a594]",
+        "containing_function": {
+          "rva": "0x5a50",
+          "size": 464
+        }
+      },
+      {
+        "rva": "0x5e54",
+        "instruction": "mov al, byte ptr [0x43a594]",
+        "containing_function": {
+          "rva": "0x5e10",
+          "size": 128
+        },
+        "ownership": "parent startup lane"
+      },
+      {
+        "rva": "0x807a",
+        "instruction": "mov al, byte ptr [0x43a594]",
+        "containing_function": {
+          "rva": "0x8040",
+          "size": 80
+        }
+      },
+      {
+        "rva": "0xa0ef",
+        "instruction": "cmp byte ptr [0x43a594], bl",
+        "containing_function": {
+          "rva": "0xa0b0",
+          "size": 112
+        }
+      }
+    ],
+    "caller_edges": [
+      {
+        "call_site_rva": "0xa0e6",
+        "caller": "0xa0b0",
+        "callee": "0x10520"
+      },
+      {
+        "call_site_rva": "0x5e36",
+        "caller": "0x5e10",
+        "callee": "0xa0b0",
+        "ownership": "parent startup lane"
+      }
+    ]
+  },
+  "CD_MCI_string_witnesses": [
+    {
+      "text": "status cdaudio length track %u wait",
+      "va": "0x43a5b4",
+      "pushed_by_rva": "0x10616"
+    },
+    {
+      "text": "status cdaudio type track %u wait",
+      "va": "0x43a5e0",
+      "pushed_by_rva": "0x105bc"
+    },
+    {
+      "text": "status cdaudio number of tracks wait",
+      "va": "0x43a608",
+      "pushed_by_rva": "0x1055f"
+    },
+    {
+      "text": "set cdaudio time format tmsf",
+      "va": "0x4373c4",
+      "pushed_by_rva": "0x105a8"
+    }
+  ],
+  "literal_scan": {
+    "scan_source": {
+      "path": "work/host_window_input_recovery/scan_input_cells.py",
+      "sha256": "76d82ef876eb863e7f1c546fc9ea8c8928e8a1d0496a7129fa2c25534a1b9bab",
+      "scope": "Capstone 5.0.7 decode of executable PE sections; records literal absolute-memory and immediate references to VA 0x43A594 and corresponding RVA literal."
+    },
+    "scan_result": {
+      "path": "work/host_window_input_recovery/cell_xrefs.json",
+      "sha256": "e865aa861aed1b261109cd481868e4405f9b292d6517d10e24d91861d61b83c2",
+      "references_to_va_0x43a594": 8,
+      "writers": 2
+    },
+    "function_bounds": {
+      "path": "D:/Prog/hercules_recon/work/luna_fatal_cleanup_chain_11/function_map.json",
+      "sha256": "5df395109e9852ccc8b9fbeadbe38bc0f16e04ad35e50e89f418b64e289f410b"
+    },
+    "function_reference_receipt": {
+      "path": "work/host_window_input_recovery/cell_functions.json",
+      "sha256": "2c408913e78b927d2b412e74bbe36ad0fbf2845fd7d7ded36e3814a405c056c8"
+    },
+    "function_reference_source": {
+      "path": "work/host_window_input_recovery/inspect_cell_functions.py",
+      "sha256": "f3ba240fad1936ef9b4e33aa8cc9957e896ac2bc637ec5e62daa83cb4d7ee858"
+    },
+    "dispatch_receipt": {
+      "path": "work/host_window_input_recovery/dispatch_path.json",
+      "sha256": "890433f81e7c68c2701fc6df4bc91ed35768611e4a868a12eefb5dd5e4c1dbe3"
+    },
+    "dispatch_source": {
+      "path": "work/host_window_input_recovery/inspect_dispatch_path.py",
+      "sha256": "16b28b2f0a3bdb1e77dd3cdb62b433a02529dbdea903e6e8126395bfe335de2e"
+    }
+  },
+  "independent_checks": "Pinned native instruction, call and NUL-terminated string bytes independently checked by integrator. Literal scan does not prove indirect reference closure.",
+  "identity": {
+    "old_symbol": "_g_host_input_window_active_rva_03a594",
+    "new_symbol": "_g_host_input_gate_rva_03a594",
+    "rva": "0x3a594",
+    "width": 1,
+    "initial_hex": "01",
+    "meaning": "Neutral input gate; observed literal writers are in the CD/MCI status routine. Exact state meaning and original source name remain unknown."
+  },
+  "preservation": {
+    "complete_host_functions": 97,
+    "code_bytes": 8272,
+    "changed_code_bytes": 0,
+    "renamed_relocation_records": 1,
+    "other_relocation_changes": 0,
+    "startup_sections_equal": true,
+    "startup_external_symbol_metadata_equal_except_one_name": true,
+    "before_graph_sha256": "28e6263d1430bef7d129fdab92c07c8a15ba2d87e94c58454ccb5f56776ec63b",
+    "after_graph_sha256": "3713e5bd74f60b8d1a581c07f26d3ba7250853a01e458f51abd448f40ff88560",
+    "functions_receipt": {
+      "path": "work\\host_input_gate_identity\\preserved_functions.json",
+      "sha256": "a1eb250285fb0b362f3d5df10af0ec336852ac7cad965ef906fb743eed257928"
+    }
+  },
+  "validation": {
+    "input_cases": 15,
+    "input_API_calls": 350,
+    "config_cases": 24,
+    "storage_prefixes": 12,
+    "observed_initial_bytes": 7785,
+    "failures": 0,
+    "regression": {
+      "fresh_strict_raw_exact": 132,
+      "receipt": {
+        "path": "work\\host_input_gate_identity\\strict_after.json",
+        "sha256": "11ae5e5b94d3caf366784f84aff0f2fa9e11bb3bb856b1390a7c2fc22ce74ab6"
+      },
+      "new_FUNCTION_MATCH": 0
+    }
+  },
+  "commands": [
+    "python scripts/host_input_differential.py --native-exe D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE --output work/host_input_gate_identity/input_after.json",
+    "python scripts/host_config_differential.py --native-exe D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE --original-root D:/Prog/hercules_recon --output work/host_input_gate_identity/config_after"
+  ],
+  "receipts": [
+    {
+      "path": "work\\host_input_gate_identity\\input_after.json",
+      "sha256": "7dde6fc1bfe49c887a1042b2afca8dc3cfe00050a0184cf8142c73d0b2804401"
+    },
+    {
+      "path": "work\\host_input_gate_identity\\config_after\\config_differential.json",
+      "sha256": "2293f290be4ae1ee51578d9b1c897020e82eea104fe39ffd518bd181c8df93ca"
+    },
+    {
+      "path": "work\\host_window_input_recovery\\cell_43a594_evidence.json",
+      "sha256": "b7c35408d0c8acae307976afedf6114cf8614905343cc6e12270fd3c6e260c42"
+    }
+  ],
+  "source_inputs": {
+    "calibration/host_input.c": "ea90fc047f9f702c34478cea2b7ef1b737ac02bbe65d2078ca8807c2aa70733d",
+    "calibration/host_startup_storage.c": "654dd90ddb9133cd45dfd434d347067082b4bd2772d4fa25b8e92071d7834c6e",
+    "calibration/host_startup_storage.h": "cbdcf4a19fdb26664c321b50d926c6dabf3d95450cb189f60e37ca9ad39b03ac",
+    "scripts/host_input_differential.py": "d0069f994a96a9480c9644305ab8d1391b36711b849f9c1be4b337413e03ecff",
+    "scripts/host_config_differential.py": "8e8104b33e4fc1d2e706cc916b5dfe9749ecd51804c42880c7ac326c192e756a"
+  },
+  "limits": [
+    "The scan establishes literal instruction references and exact function-map extents; it does not assign the original variable name.",
+    "The value's exact state machine and every indirect writer/reader are not proven by this literal-reference inventory.",
+    "RVA 0x5e10 startup is owned by the parent lane; this receipt only records its measured read and call edge.",
+    "One proven symbol-name correspondence is used only for source-preservation analysis, never native byte equality."
+  ]
+}
