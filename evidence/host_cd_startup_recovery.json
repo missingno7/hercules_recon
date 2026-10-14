@@ -1,0 +1,997 @@
+{
+  "schema": 1,
+  "scope": "Original PC startup CD checkA0B0 and validation10520 source recovery with actual readiness9C30. recovery.json alone owns function status; no original process/API/CRT/CD-device or whole startup/gameplay proof.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_cd_startup.c",
+      "sha256": "0c39c6212f6e5357bc9e673fbde117c1d49d14c3654985021be2dcd883eac950"
+    },
+    {
+      "path": "scripts/host_cd_startup_differential.py",
+      "sha256": "5741af9e58c17ca0f7c19c409c01638be65f69e78618b17e7b6f378b1aecd31b"
+    },
+    {
+      "path": "calibration/mci_readiness.cpp",
+      "sha256": "2e4e294275b2061fa530ccfbc8ef58f69be56fec7f3449b33b13463a7b52825f"
+    },
+    {
+      "path": "calibration/mci_storage.c",
+      "sha256": "ffc36970d2cb0f507ea7598b0b9977b66c8e9b1609a92111d4d2e8b051d1ecab"
+    },
+    {
+      "path": "calibration/host_startup_storage.c",
+      "sha256": "654dd90ddb9133cd45dfd434d347067082b4bd2772d4fa25b8e92071d7834c6e"
+    },
+    {
+      "path": "calibration/host_startup_storage.h",
+      "sha256": "cbdcf4a19fdb26664c321b50d926c6dabf3d95450cb189f60e37ca9ad39b03ac"
+    },
+    {
+      "path": "calibration/fatal_storage.c",
+      "sha256": "c69df3c20891c6229e061b74bebe2f8880948b34d356c7f4ce8124f13d9e562c"
+    }
+  ],
+  "prediction": {
+    "path": "work/host_cd_startup/prediction.json",
+    "sha256": "4bba848508caceb5938648bbd89ba76b69536a200a4562b3d0273d118d62f34b"
+  },
+  "measurement": {
+    "first_candidate": {
+      "path": "work/host_cd_startup/candidate.json",
+      "sha256": "bc3dff5240e9c86e2fe58512312adf99544c2e9017976dbc44ea3bce841cf968"
+    },
+    "source_unchanged_from_first_hypotheses": true,
+    "functions": [
+      {
+        "role": "startup",
+        "symbol": "_host_service_a0b0",
+        "source_bytes": 112,
+        "native_bytes": 112,
+        "raw_exact": false,
+        "raw_differences": 38,
+        "relocations": [
+          {
+            "offset": 7,
+            "symbol": "__imp__MessageBoxA@16",
+            "type": 6
+          },
+          {
+            "offset": 13,
+            "symbol": "_g_exe_96e62c",
+            "type": 6
+          },
+          {
+            "offset": 19,
+            "symbol": "_g_exe_96e628",
+            "type": 6
+          },
+          {
+            "offset": 25,
+            "symbol": "_g_exe_96e624",
+            "type": 6
+          },
+          {
+            "offset": 31,
+            "symbol": "_g_exe_96e620",
+            "type": 6
+          },
+          {
+            "offset": 37,
+            "symbol": "_g_exe_96e61c",
+            "type": 6
+          },
+          {
+            "offset": 43,
+            "symbol": "_g_exe_96e630",
+            "type": 6
+          },
+          {
+            "offset": 48,
+            "symbol": "_cleanup_native_9c30",
+            "type": 20
+          },
+          {
+            "offset": 55,
+            "symbol": "_host_cd_validate_10520",
+            "type": 20
+          },
+          {
+            "offset": 65,
+            "symbol": "_g_host_input_gate_rva_03a594",
+            "type": 6
+          },
+          {
+            "offset": 72,
+            "symbol": "_g_fatal_owner_window",
+            "type": 6
+          },
+          {
+            "offset": 79,
+            "symbol": "??_C@_0BA@KILH@Hercules?5Notice?$AA@",
+            "type": 6
+          },
+          {
+            "offset": 84,
+            "symbol": "??_C@_0FC@INAD@To?5play?5Hercules?5you?5must?5close?5@",
+            "type": 6
+          }
+        ],
+        "diagnostic_equal": true,
+        "diagnostic_differences": 0,
+        "compiled_sha256": "6c8cb2a19e06066e1be791c7b439f5c8241e789fdf2e737d12b1901a57c10470",
+        "native_sha256": "024fc84e49ecdcf52e5b1598fc8264ce19536192912d800dc53a831e46f95bb0"
+      },
+      {
+        "role": "validate",
+        "symbol": "_host_cd_validate_10520",
+        "source_bytes": 368,
+        "native_bytes": 368,
+        "raw_exact": false,
+        "raw_differences": 44,
+        "relocations": [
+          {
+            "offset": 27,
+            "symbol": "_g_host_input_gate_rva_03a594",
+            "type": 6
+          },
+          {
+            "offset": 33,
+            "symbol": "_cleanup_native_9c30",
+            "type": 20
+          },
+          {
+            "offset": 47,
+            "symbol": "__imp__mciSendStringA@16",
+            "type": 6
+          },
+          {
+            "offset": 64,
+            "symbol": "??_C@_0CF@MKCK@status?5cdaudio?5number?5of?5tracks?5@",
+            "type": 6
+          },
+          {
+            "offset": 88,
+            "symbol": "??_C@_02MHMJ@?$CFu?$AA@",
+            "type": 6
+          },
+          {
+            "offset": 94,
+            "symbol": "_sscanf",
+            "type": 20
+          },
+          {
+            "offset": 137,
+            "symbol": "??_C@_0BN@BPNP@set?5cdaudio?5time?5format?5tmsf?$AA@",
+            "type": 6
+          },
+          {
+            "offset": 157,
+            "symbol": "??_C@_0CC@CNCP@status?5cdaudio?5type?5track?5?$CFu?5wai@",
+            "type": 6
+          },
+          {
+            "offset": 163,
+            "symbol": "_sprintf",
+            "type": 20
+          },
+          {
+            "offset": 202,
+            "symbol": "??_C@_05BDHG@audio?$AA@",
+            "type": 6
+          },
+          {
+            "offset": 208,
+            "symbol": "__stricmp",
+            "type": 20
+          },
+          {
+            "offset": 247,
+            "symbol": "??_C@_0CE@CKNJ@status?5cdaudio?5length?5track?5?$CFu?5w@",
+            "type": 6
+          },
+          {
+            "offset": 253,
+            "symbol": "_sprintf",
+            "type": 20
+          },
+          {
+            "offset": 303,
+            "symbol": "??_C@_08KAEM@?$CFu?3?$CFu?3?$CFu?$AA@",
+            "type": 6
+          },
+          {
+            "offset": 309,
+            "symbol": "_sscanf",
+            "type": 20
+          },
+          {
+            "offset": 347,
+            "symbol": "_g_host_input_gate_rva_03a594",
+            "type": 6
+          }
+        ],
+        "diagnostic_equal": true,
+        "diagnostic_differences": 0,
+        "compiled_sha256": "c5e038993114b8fa894348641325b002857e675552786cf76b80de549b4e6c2c",
+        "native_sha256": "daf9d6b4556dbffebd3c273fef3d2e0cc3b350a84ee0b457fa2984e4acfcce34"
+      },
+      {
+        "role": "readiness",
+        "symbol": "_cleanup_native_9c30",
+        "source_bytes": 160,
+        "native_bytes": 160,
+        "raw_exact": false,
+        "raw_differences": 30,
+        "relocations": [
+          {
+            "offset": 1,
+            "symbol": "_g_exe_96e630",
+            "type": 6
+          },
+          {
+            "offset": 16,
+            "symbol": "__imp__mciSendStringA@16",
+            "type": 6
+          },
+          {
+            "offset": 29,
+            "symbol": "??_C@_0BM@LGPK@open?5cdaudio?5shareable?5wait?$AA@",
+            "type": 6
+          },
+          {
+            "offset": 41,
+            "symbol": "_g_exe_96e630",
+            "type": 6
+          },
+          {
+            "offset": 60,
+            "symbol": "??_C@_0BN@KGKK@status?5cdaudio?5media?5present?$AA@",
+            "type": 6
+          },
+          {
+            "offset": 75,
+            "symbol": "??_C@_04NCCD@true?$AA@",
+            "type": 6
+          },
+          {
+            "offset": 81,
+            "symbol": "__stricmp",
+            "type": 20
+          },
+          {
+            "offset": 104,
+            "symbol": "??_C@_0BF@JHHP@status?5cdaudio?5ready?$AA@",
+            "type": 6
+          },
+          {
+            "offset": 119,
+            "symbol": "??_C@_04NCCD@true?$AA@",
+            "type": 6
+          },
+          {
+            "offset": 125,
+            "symbol": "__stricmp",
+            "type": 20
+          }
+        ],
+        "diagnostic_equal": true,
+        "diagnostic_differences": 0,
+        "compiled_sha256": "03e085b495a88e0739bc876c24202cbd1fc913e4b1ff9decc8a74566e0c788ef",
+        "native_sha256": "8f571c5749aa6b5f0c4342eaa8f0a1a51b65f4f0927c2507a0c74a04e4402c3e"
+      }
+    ],
+    "scope": "Complete112/368/160-byte contributions compared. New caller/validator retain13/16 relocations and38/44 raw byte differences respectively. Both remain CODEGEN_SIMILAR; no strict promotion or source-spelling search."
+  },
+  "validation_behavior": [
+    "Clear the existing BYTE gate at43A594 before readiness or any query. A failure ordinarily leaves it0 regardless of its old fullBYTE value.",
+    "Require actual readiness, successful number-of-tracks MCI query and one unsigned scan yielding2. Query exactly tracks1 and2.",
+    "For each track, set TMSF format and require success; build type query with sprintf. MCI receives the same256-byte stack buffer as command and response; this alias is preserved.",
+    "Track1 must not compare equal to audio under the modeled ASCII case-insensitive CRT boundary; no exact data text comparison or track1 length query occurs. Track2 must compare equal to audio.",
+    "For track2, successful length query and three unsigned scanned fields are required; only first field is compared with34. Seconds and frames are parsed but unchecked. One escaped unsigned local is reused for count, audio predicate and parsed minutes; ordinary expected-minute array0,34 produces the original frame without steering.",
+    "Set gateBYTE1 only after every check. Arbitrary response domains, general CRT locale and actual CD hardware behavior remain outside finite proof."
+  ],
+  "caller_behavior": [
+    "Reset the existing sixDWORD MCI cells in observed order, including opened, before first readiness call.",
+    "Capture readiness return, then always run actual validation. Exit successfully only if the saved readiness is nonzero and the live fullBYTE gate is nonzero. Validation success cannot replace a previously false readiness return.",
+    "Otherwise call MessageBoxA with current owner, original text/title and0x35 flags. Exactly result2 cancels; every other tested result retries. Cancel does not clear the current gate, so a successful validator or modeled dialog callback mutation can leave a nonzero gate.",
+    "Re-read window owner at the message boundary. Retrying repeats readiness/validation without resetting the six cells again."
+  ],
+  "storage": {
+    "existing_fields": [
+      {
+        "symbol": "_g_exe_96e61c",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e61c",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_96e620",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e620",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_96e624",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e624",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_96e628",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e628",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_96e62c",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e62c",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_96e630",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e630",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_host_input_gate_rva_03a594",
+        "owner": "calibration\\host_startup_storage.c",
+        "rva": "0x3a594",
+        "bytes": 1,
+        "coff_kind": "initialized",
+        "native_backing": "initialized"
+      },
+      {
+        "symbol": "_g_fatal_owner_window",
+        "owner": "calibration\\fatal_storage.c",
+        "rva": "0x7a0200",
+        "bytes": 4,
+        "coff_kind": "COMMON",
+        "native_backing": "virtual_loader_zero"
+      }
+    ],
+    "bytes_reused": 29,
+    "bytes_added": 0,
+    "scope": "Six4-byte MCI fields,one initializedBYTE gate and4-byte COMMON owner pointer reuse actual unique current providers. Native backing checked; no complete object/TU/extent/adjacency or module-placement inference."
+  },
+  "libraries": {
+    "inputs": [
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+        "sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\winmm.lib",
+        "sha256": "a996cf8e569b6f2dd0a478119a57c325733af545ffee2e6c6fa7dba40bfba260"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\kernel32.lib",
+        "sha256": "095f231e13cb3e6a6c4913d33ca8048506011034c89774b6ba0857466abba3cf"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\user32.lib",
+        "sha256": "5badb752dbcd6355a666d5b88aa9fd5e27291c16edc76f1b5258468d994f1809"
+      }
+    ],
+    "identified_CRT_members": [
+      {
+        "symbol": "_sprintf",
+        "member": 419,
+        "rva": "0x10f40",
+        "size": 112,
+        "member_sha256": "42418dec737f0bbc1dbf1f762c799c20fcfe328fe33409ee2af1c371cadc72e1",
+        "complete_code_diagnostic": {
+          "masked_equal": true,
+          "compiled_size": 112,
+          "target_size": 112,
+          "differing_bytes": 0,
+          "mismatch_regions": [],
+          "symbols": {
+            "__flsbuf": "0x12b80",
+            "__output": "0x14160"
+          },
+          "conflicts": [],
+          "unsupported": [],
+          "relocations": 2
+        },
+        "scope": "Unmodified identified libcmt member; private whole-section diagnostic permits the existing alias names. No function/layout acceptance; CRT body is not executed in these cases."
+      },
+      {
+        "symbol": "_sscanf",
+        "member": 420,
+        "rva": "0x11e50",
+        "size": 80,
+        "member_sha256": "d32d9fd926b3ca8bedbc93679f1ab34e01d3baba819f18546f6a349a1107dd7e",
+        "complete_code_diagnostic": {
+          "masked_equal": true,
+          "compiled_size": 80,
+          "target_size": 80,
+          "differing_bytes": 0,
+          "mismatch_regions": [],
+          "symbols": {
+            "__input": "0x16060"
+          },
+          "conflicts": [],
+          "unsupported": [],
+          "relocations": 1
+        },
+        "scope": "Unmodified identified libcmt member; private whole-section diagnostic permits the existing alias names. No function/layout acceptance; CRT body is not executed in these cases."
+      },
+      {
+        "symbol": "__stricmp",
+        "member": 460,
+        "rva": "0x1c270",
+        "size": 208,
+        "member_sha256": "a02804730780cdbc4e0c3a675c777c752185be9bcad4c816a807e5db632746e8",
+        "complete_code_diagnostic": {
+          "masked_equal": true,
+          "compiled_size": 208,
+          "target_size": 208,
+          "differing_bytes": 0,
+          "mismatch_regions": [],
+          "symbols": {
+            "___lc_handle": "0x7a0558",
+            "___setlc_active": "0x7a2e98",
+            "___unguarded_readlc_active": "0x7a2e9c",
+            "__lock": "0x121f0",
+            "__tolower_lk": "0x18520",
+            "__unlock": "0x12270"
+          },
+          "conflicts": [],
+          "unsupported": [],
+          "relocations": 9
+        },
+        "scope": "Unmodified identified libcmt member; private whole-section diagnostic permits the existing alias names. No function/layout acceptance; CRT body is not executed in these cases."
+      }
+    ],
+    "scope": "Existing unmodified VC5 RTM libraries under C:/tools. Complete sprintf112/member419,sscanf80/member420 andstrcmpi/stricmp208/member460 code diagnostics agree with the PC oracle at mapped extents. CRT code is identified and not rewritten or executed in these cases."
+  },
+  "validation": {
+    "report": {
+      "path": "work/host_cd_startup/public_pinned/host_cd_startup_differential.json",
+      "sha256": "eab7a26864b73117a8530eb18e770698484af56b6791cd984319251539252a38"
+    },
+    "case_count": 49,
+    "all_equal": true,
+    "scenarios": [
+      {
+        "name": "valid_gate_0",
+        "gate": 0
+      },
+      {
+        "name": "valid_gate_1",
+        "gate": 1
+      },
+      {
+        "name": "valid_gate_128",
+        "gate": 128
+      },
+      {
+        "name": "valid_gate_255",
+        "gate": 255
+      },
+      {
+        "name": "readiness_open_success",
+        "opened": 0
+      },
+      {
+        "name": "readiness_open_failure",
+        "opened": 0,
+        "open": [
+          {
+            "code": 5
+          }
+        ]
+      },
+      {
+        "name": "readiness_media_error",
+        "media": [
+          {
+            "code": 7
+          }
+        ]
+      },
+      {
+        "name": "readiness_media_false",
+        "media": [
+          {
+            "response": "false"
+          }
+        ]
+      },
+      {
+        "name": "readiness_ready_error",
+        "ready": [
+          {
+            "code": 8
+          }
+        ]
+      },
+      {
+        "name": "readiness_ready_false",
+        "ready": [
+          {
+            "response": "false"
+          }
+        ]
+      },
+      {
+        "name": "track_count_api_error",
+        "tracks": [
+          {
+            "code": 6
+          }
+        ]
+      },
+      {
+        "name": "track_count_scan_empty",
+        "tracks": [
+          {
+            "response": ""
+          }
+        ]
+      },
+      {
+        "name": "track_count_scan_invalid",
+        "tracks": [
+          {
+            "response": "two"
+          }
+        ]
+      },
+      {
+        "name": "track_count_zero",
+        "tracks": [
+          {
+            "response": "0"
+          }
+        ]
+      },
+      {
+        "name": "track_count_one",
+        "tracks": [
+          {
+            "response": "1"
+          }
+        ]
+      },
+      {
+        "name": "track_count_three",
+        "tracks": [
+          {
+            "response": "3"
+          }
+        ]
+      },
+      {
+        "name": "track_count_trailing_text",
+        "tracks": [
+          {
+            "response": "2 ignored"
+          }
+        ]
+      },
+      {
+        "name": "first_format_error",
+        "set_format": [
+          {
+            "code": 4
+          }
+        ]
+      },
+      {
+        "name": "second_format_error",
+        "set_format": [
+          {
+            "code": 0
+          },
+          {
+            "code": 3
+          }
+        ]
+      },
+      {
+        "name": "first_type_api_error",
+        "type1": [
+          {
+            "code": 9
+          }
+        ]
+      },
+      {
+        "name": "second_type_api_error",
+        "type2": [
+          {
+            "code": 10
+          }
+        ]
+      },
+      {
+        "name": "first_track_audio",
+        "type1": [
+          {
+            "response": "audio"
+          }
+        ]
+      },
+      {
+        "name": "first_track_any_non_audio",
+        "type1": [
+          {
+            "response": "anything"
+          }
+        ]
+      },
+      {
+        "name": "second_track_non_audio",
+        "type2": [
+          {
+            "response": "data"
+          }
+        ]
+      },
+      {
+        "name": "second_track_casefold",
+        "type2": [
+          {
+            "response": "AuDiO"
+          }
+        ]
+      },
+      {
+        "name": "length_api_error",
+        "length2": [
+          {
+            "code": 11
+          }
+        ]
+      },
+      {
+        "name": "length_parse_two_fields",
+        "length2": [
+          {
+            "response": "34:12"
+          }
+        ]
+      },
+      {
+        "name": "length_parse_one_field",
+        "length2": [
+          {
+            "response": "34"
+          }
+        ]
+      },
+      {
+        "name": "length_parse_invalid",
+        "length2": [
+          {
+            "response": "invalid"
+          }
+        ]
+      },
+      {
+        "name": "minutes_33",
+        "length2": [
+          {
+            "response": "33:59:74"
+          }
+        ]
+      },
+      {
+        "name": "minutes_35",
+        "length2": [
+          {
+            "response": "35:0:0"
+          }
+        ]
+      },
+      {
+        "name": "unchecked_seconds_frames",
+        "length2": [
+          {
+            "response": "34:999:777"
+          }
+        ]
+      },
+      {
+        "name": "length_trailing_text",
+        "length2": [
+          {
+            "response": "34:12:8 trailing"
+          }
+        ]
+      },
+      {
+        "name": "track_count_failure_clears_old_gate",
+        "gate": 255,
+        "tracks": [
+          {
+            "response": "3"
+          }
+        ]
+      },
+      {
+        "name": "startup_success",
+        "entry": "startup"
+      },
+      {
+        "name": "startup_cancel",
+        "entry": "startup",
+        "tracks": [
+          {
+            "response": "3"
+          }
+        ],
+        "message": [
+          {
+            "result": 2
+          }
+        ]
+      },
+      {
+        "name": "startup_retry_then_success",
+        "entry": "startup",
+        "tracks": [
+          {
+            "response": "3"
+          }
+        ],
+        "message": [
+          {
+            "result": 4
+          }
+        ]
+      },
+      {
+        "name": "startup_first_ready_false_probe_valid_cancel",
+        "entry": "startup",
+        "media": [
+          {
+            "response": "false"
+          }
+        ],
+        "message": [
+          {
+            "result": 2
+          }
+        ]
+      },
+      {
+        "name": "startup_probe_valid_no_ready_recheck",
+        "entry": "startup",
+        "tracks": [
+          {
+            "mutate": {
+              "opened": 0
+            }
+          }
+        ]
+      },
+      {
+        "name": "startup_live_owner",
+        "entry": "startup",
+        "tracks": [
+          {
+            "response": "3",
+            "mutate": {
+              "owner": 4275878552
+            }
+          }
+        ]
+      },
+      {
+        "name": "startup_cancel_keeps_callback_gate",
+        "entry": "startup",
+        "tracks": [
+          {
+            "response": "3"
+          }
+        ],
+        "message": [
+          {
+            "result": 2,
+            "mutate": {
+              "gate": 128
+            }
+          }
+        ]
+      },
+      {
+        "name": "startup_open_retry_within_probe",
+        "entry": "startup",
+        "open": [
+          {
+            "code": 5
+          },
+          {
+            "code": 0
+          }
+        ],
+        "message": [
+          {
+            "result": 2
+          }
+        ]
+      },
+      {
+        "name": "startup_non_cancel_0",
+        "entry": "startup",
+        "tracks": [
+          {
+            "response": "3"
+          }
+        ],
+        "message": [
+          {
+            "result": 0
+          }
+        ]
+      },
+      {
+        "name": "startup_non_cancel_1",
+        "entry": "startup",
+        "tracks": [
+          {
+            "response": "3"
+          }
+        ],
+        "message": [
+          {
+            "result": 1
+          }
+        ]
+      },
+      {
+        "name": "startup_non_cancel_3",
+        "entry": "startup",
+        "tracks": [
+          {
+            "response": "3"
+          }
+        ],
+        "message": [
+          {
+            "result": 3
+          }
+        ]
+      },
+      {
+        "name": "startup_non_cancel_5",
+        "entry": "startup",
+        "tracks": [
+          {
+            "response": "3"
+          }
+        ],
+        "message": [
+          {
+            "result": 5
+          }
+        ]
+      },
+      {
+        "name": "startup_non_cancel_6",
+        "entry": "startup",
+        "tracks": [
+          {
+            "response": "3"
+          }
+        ],
+        "message": [
+          {
+            "result": 6
+          }
+        ]
+      },
+      {
+        "name": "startup_non_cancel_7",
+        "entry": "startup",
+        "tracks": [
+          {
+            "response": "3"
+          }
+        ],
+        "message": [
+          {
+            "result": 7
+          }
+        ]
+      },
+      {
+        "name": "startup_non_cancel_4294967295",
+        "entry": "startup",
+        "tracks": [
+          {
+            "response": "3"
+          }
+        ],
+        "message": [
+          {
+            "result": 4294967295
+          }
+        ]
+      }
+    ],
+    "compared": "All29 selected state bytes, exact MCI command/response buffer alias, query/format/scan/compare/dialog order and arguments, actual provider entry order, caller return/stack/nonvolatile registers, guarded stack and bounded code execution/writes.",
+    "boundaries": "MCI responses/results,dialog result/effects,identified CRT sprintf/sscanf/ASCII stricmp are explicit code-hook models. Scan input domain is bounded ASCII decimal within32-bit values, not complete CRT/locale equivalence.",
+    "fixture_only": "Normal fresh DLL link with actual existing providers and historical static/import libraries. Infinite-loop main required by unexecuted CRT dependency remains unreachable. Whole original PE is mapped only in Unicorn with emulator-only import endpoints.",
+    "original_process_or_API_entries": 0
+  },
+  "regression": {
+    "strict": {
+      "path": "work/host_cd_startup/strict133.json",
+      "sha256": "75ea1209ab57b0422b4d9bafc378b53650315b2ac92de201c72d57083db5b7b7"
+    },
+    "raw_exact_functions": 133,
+    "all_652_prior_rows_identical": true,
+    "rows_added": 2,
+    "status_counts": {
+      "FUNCTION_MATCH": 133,
+      "CODEGEN_SIMILAR": 472,
+      "RECONSTRUCTED": 49
+    },
+    "natural_graph": {
+      "path": "work/host_current_graph/report-42102219f5b79311.json",
+      "sha256": "42102219f5b793114f889639f8e99ba7f38b4c1488e07549c00d8cacd068414e"
+    },
+    "source_units": 98,
+    "recorded_EXE_functions": 133,
+    "preserved_exact_EXE_functions": 26,
+    "unresolved": 37,
+    "missing_frame_callbacks": 18,
+    "other_missing_providers": 19,
+    "duplicate_providers": 0,
+    "images_produced": 0
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "implicit_compile_flag": "/Gy",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "analysis_tools": {
+    "python": {
+      "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "version": "3.12.14",
+      "sha256": "d41bad46673f64e0d02f23797f53f90ccf60f27d6eda8d86dd2d4bbeae5a858c"
+    },
+    "pefile": {
+      "path": "C:\\tools\\hercules\\python\\pefile.py",
+      "version": "2024.8.26",
+      "sha256": "0d0eb68f0f169182613dc64b3ab50b20855508c1c1d2faafe8fccf23edb6a345"
+    },
+    "unicorn": {
+      "path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+      "version": "2.1.4",
+      "sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+    },
+    "origin": "Existing C:/tools/hercules installations and bundled workspace Python; prior provenance in evidence/host_engine_loader_recovery.json. No tool/dependency added or modified."
+  },
+  "commands": [
+    "python scripts/host_cd_startup_differential.py --output work/cd_startup_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/cd_startup_strict_replay.json"
+  ],
+  "limits": [
+    "Relocation-normalized full code equality is diagnostic only. Finite49-case agreement does not grant FUNCTION_MATCH, original source/prototype/TU or image layout.",
+    "Original baseline is the matching oracle. Installed no-CD variant replaces opening A0B0 byte withRET; it is not substituted, patched or modified by this source recovery. See evidence/pc_variants.json.",
+    "Full startup5E10 fixture still has its explicitly modeled boundaries; this runner proves only the actual CD subpath. Graphics/audio startup services72A0/FDF0,initialized host interface,real CD/device,Windows loop,menu/input/gameplay and renderer remain unverified."
+  ]
+}

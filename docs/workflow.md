@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 97 actual source units with
-131 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 38 unresolved dependencies: 18 newly exposed frame
-callbacks and 20 other providers. Including the real map replaces one missing
+The current natural selected host graph compiles 98 actual source units with
+133 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 37 unresolved dependencies: 18 newly exposed frame
+callbacks and 19 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -281,6 +281,28 @@ See `evidence/host_cd_play_recovery.json`. All 651 prior statuses/proofs remain
 unchanged; one descriptive preceding-RET typo in the timer row is corrected to
 `9CCE`. All 133 accepted functions still match. The natural graph now has 97
 units, 131 recorded EXE functions and 38 missing providers, with no executable.
+
+Startup CD check `0xa0b0` and validation `0x10520` now have source. Their
+first ordinary C hypotheses reproduce the full 112/368-byte contributions
+after relocation normalization. Raw bytes differ, so both are `CODEGEN_SIMILAR`.
+
+```
+python scripts/host_cd_startup_differential.py --output work/cd_startup_replay
+```
+
+Forty-nine guarded cases execute the real caller, validator and readiness code.
+Validation clears the existing gate and checks exactly two tracks: the first
+must be non-audio, the second audio with a parsed minute field of 34. Seconds
+and frames are parsed but unchecked. Command/response buffer aliasing and one
+reused escaped local are preserved. The caller retains readiness from before
+validation, retries every dialog result except cancel2, and does not clear the
+gate on cancel. MCI/dialog and identified CRT boundaries remain modeled; no
+actual CD/device or whole startup proof follows.
+See `evidence/host_cd_startup_recovery.json`. All 652 prior rows are identical,
+and all 133 exact functions still pass. Existing29-byte state owners are reused
+without new storage. The matching oracle remains the original baseline, not
+the installed no-CD variant. The natural graph now has 98 units, 133 recorded
+EXE functions and 37 missing providers, with no executable.
 
 The journaled promotion gate now supports `.c` and `.cpp` destinations under
 `src/`. A C++ candidate must already occupy its exact canonical path. The gate
