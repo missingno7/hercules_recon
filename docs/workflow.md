@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 93 actual source units with
-123 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 38 unresolved dependencies: 18 newly exposed frame
-callbacks and 20 other providers. Including the real map replaces one missing
+The current natural selected host graph compiles 95 actual source units with
+129 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 40 unresolved dependencies: 18 newly exposed frame
+callbacks and 22 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -191,6 +191,42 @@ an independent literal-prefix provider. See
 scope. The one-DWORD zero-leaf callsite view does not settle its original common
 source prototype or whole-program type agreement; its accepted no-argument source
 was preserved. All 637 previous rows and all 133 exact functions remain intact.
+
+The actual setup at `0x10690`, resource reset at `0x10760`, input registration
+caller at `0x4180`, notification at `0xac00` and slot reset at `0xa1a0` now have
+source in one coherent working family. The ordinary `unsigned char local[32]
+= {0}` hypothesis reproduces the observed 32-byte reservation and 31-byte clear
+without padding, volatile or assembly steering. Full 208/96/32/16-byte relocation
+diagnostics agree; the ordinary slot loop remains 96 versus 112 bytes. The existing
+pool initializer is also recorded with its remaining code differences.
+
+```
+python scripts/host_setup_differential.py --output work/setup_replay
+```
+
+Nine original/source cases execute real pool initialization, exact leaves,
+callback reset/invocation and packet registration. They compare unsigned BYTE9,
+two complete context buffers, the pool/arena, default copies, packet pointer,
+16 slots, handler order/mutations, ABI/guards and the unused stack clear. Only
+the still missing `a350` handler is modeled. Its one-based ids and changes to
+later slots remain live. A synthetic post-leaf context/default intervention
+checks caller reloads without claiming that the actual leaf mutates them.
+
+The original `4180` registers pointers `ba2a40` and `ba2a00` with two `0x22`
+arguments; it is not the unrelated file-prepare draft. The execution whitelist
+caught that initial private binding error. Production buffer capacities remain
+unknown, so both symbols stay external. The existing packet owner consumes only
+the first pointer; the common original prototype is not settled by its one-arg
+source and this four-arg caller view. The notification's duplicate old draft
+body was removed; the remaining close-state complete code and relocations are
+preserved. All old accepted function sources and shared context headers remain
+unchanged. The new 104-byte data audit covers a 32-byte initialized working
+prefix, a DWORD first flag, a current DWORD and 16 DWORD slots. Original source
+aggregate/owner/extent and native placement are not proved.
+See `evidence/host_setup_recovery.json`. All 644 previous rows remain intact and
+all 133 accepted functions remain exact. The real setup resolves its former
+opaque dependency while exposing the actual input buffers and slot handler;
+the natural build still produces no game executable.
 
 The journaled promotion gate now supports `.c` and `.cpp` destinations under
 `src/`. A C++ candidate must already occupy its exact canonical path. The gate

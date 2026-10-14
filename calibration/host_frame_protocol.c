@@ -30,8 +30,4 @@ int __cdecl host_frame_close_state(void)
     return 1;
 }
 
-int __cdecl host_frame_notify_zero(void)
-{
-    host_invoke_callback_zero();
-    return 0;
-}
+/* NotifyAC00 now belongs to src/pc/host_setup.c; its observed caller supplies four ignored arguments. */
