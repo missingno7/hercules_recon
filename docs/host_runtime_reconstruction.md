@@ -70,11 +70,41 @@ endpoints. They preserve all 132 strict matches and add no `FUNCTION_MATCH`.
 See `evidence/host_engine_loader_recovery.json`, `evidence/host_config_recovery.json`
 and `evidence/host_input_recovery.json` for exact provenance and finite boundaries.
 
+## Dispatcher and system keys
+
+The dispatcher at EXE `0x5ec0` now uses the existing loader/selector providers
+and the identified VC5 setjmp/longjmp contributions. Nine bounded comparisons
+pass, including live callback changes and nonlocal reentry. Its actual host-table,
+callback-byte and jump-buffer owners remain external. The exception-head fixture
+uses synthetic `FS:[0] = 0` and zero-backed address zero; real Windows exception
+unwinding is unproved.
+
+The original MFC map registers system-key handlers at `0x9ab0` and `0x9b20`
+with the three-UINT member signature. Ordinary C++ preserves gate precedence,
+the signed threshold, requested mode and pending-input updates. Fourteen cases
+pass using the actual display-mode setter and shared providers. Five independent
+loader-zero scalar prefixes supply eight observed bytes; their enclosing objects,
+relative placement and historical source owners remain unproved. The receiver
+declaration is a physical member-call view, not a recovered complete window class.
+MFC `CWnd::Default` comes from pinned library member148 and is intercepted at entry;
+its internal effects and the complete message loop are outside the comparisons.
+
+```
+python scripts/host_dispatch_differential.py --native-exe D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE
+python scripts/host_system_keys_differential.py --native-exe D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE
+```
+
+All three remain `RECONSTRUCTED`: their complete raw contributions differ.
+The same fresh objects are compared, linked and emulated. The fresh regression
+preserves all132 accepted functions and the59-provider ENG1 data audit.
+See `evidence/host_engine_dispatch_recovery.json` and
+`evidence/host_system_keys_recovery.json` for commands, hashes and limits.
+
 ## Remaining game work
 
-The current natural host link compiles 70 actual source units covering all 94
+The current natural host link compiles 73 actual source units covering all 97
 recorded EXE functions, preserving its 25 accepted EXE matches. It has no duplicate
-providers and stops on 18 missing symbols, including the real host interface,
+providers and stops on 20 missing symbols, including the real host interface,
 loader storage and graphics/audio services. It produces no executable. The exact
 selected sources, pinned libraries and missing consumers are recorded in
 `evidence/host_current_source_graph.json`; this is a partial graph, not complete

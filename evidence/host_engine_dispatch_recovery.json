@@ -1,0 +1,334 @@
+{
+  "schema": 1,
+  "scope": "Original host engine dispatcher5ec0 source recovery. recovery.json alone owns status; finite comparisons do not grant function equality, full startup, game or layout acceptance.",
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "expected_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "image_base": "0x400000"
+  },
+  "sources": {
+    "host_engine_loader.c": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_engine_loader.c",
+      "sha256": "207ed99219f89859863d487a2fa5069707173a61a4c7830e58c5213cf3075d82",
+      "bytes": 955
+    },
+    "host_engine_select.c": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_engine_select.c",
+      "sha256": "acb96e60b78f082307490434517f00b3729bb6c9d75dd9c5b7a729f84e2394aa",
+      "bytes": 1094
+    },
+    "host_engine_cells.h": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_engine_cells.h",
+      "sha256": "6b23d23725480868c300b3d58a90eb4fd7e589e43550595bb5237bde180920ec",
+      "bytes": 718
+    },
+    "host_engine_dispatch.c": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_engine_dispatch.c",
+      "sha256": "4fb7a65fa9145ce5e1485ab81dba2bee1cec6fd1089bd17edd28e7c3368c5fd6",
+      "bytes": 1033
+    }
+  },
+  "prediction": "Ordinary C with the existing loader/select providers and SDK setjmp/longjmp should preserve selector/gate protocol, callback argument widths, normal return and bounded nonlocal reentry without declaring unproved game storage.",
+  "falsifier": "Different live callback/cell order, stack/callee-preserved state, unsupported storage adopted or accepted peers changed.",
+  "outcome": "Nine finite original/fresh separate-source cases agree. Dispatcher remains raw-unequal; no source-steering or compiler/library body rewritten.",
+  "contract": {
+    "ABI": {
+      "dispatcher": "void __cdecl host_engine_dispatch_5ec0(void)",
+      "export_fixture": "void __cdecl dispatch_test_engine_main(void *, int); target caller removes two 32-bit arguments after callback",
+      "win32_imports": [
+        "FreeLibrary BOOL WINAPI(HMODULE)",
+        "LoadLibraryA HMODULE WINAPI(LPCSTR)",
+        "GetProcAddress FARPROC WINAPI(HMODULE,LPCSTR)"
+      ],
+      "fixture_callback_is_not_retail_DLL_code": true
+    },
+    "selector_protocol": "Set selector1 before setjmp; after initial/nonlocal return reload gate, resolve when nonzero, call current nonzero export with source-table pointer and zero-extended flagBYTE, clear selector on normal completion.",
+    "table_fixture": {
+      "table_rva": "0x361b8",
+      "table_bytes": 1000,
+      "table_sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+      "self_pointer_cell_rva": "0x365a0",
+      "self_pointer_value": "0x4361b8",
+      "callback_byte_rva": "0x7a01fc",
+      "callback_byte_value": 0,
+      "callback_byte_storage": "RVA 0x7a01fc lies in the virtual, non-file-backed tail of .data; this bounded fixture uses a zero-filled initial byte and does not claim its runtime value before dispatcher entry",
+      "first_case_synthetic_status_byte_override": 165,
+      "ownership": "the host table/self-pointer use exact original initialized bytes; the status byte is virtual zero-fill in this fresh emulator; source/TU owner unresolved; callback writes in mutation scenarios are synthetic fixture changes only"
+    },
+    "unproved_game_cells": "Path/error capacity, jump-buffer owner, table initializer, loader cells and callback-byte owner remain external declarations; generated512/512/64-byte buffers are fixture-only.",
+    "CRT": {
+      "library_map": {
+        "path": "D:\\Prog\\hercules_recon\\work\\library_map\\library_map.json",
+        "sha256": "a9d3b07a9fef962d5832c72383391851a7f43c15ea384afdc792ee6626863a4e"
+      },
+      "archive": {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+        "sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b"
+      },
+      "members": {
+        "__setjmp3": {
+          "member_index": 259,
+          "member_sha256": "b5365f5002ca2cebf2507ae1dbcc3993937cdafc24e5fd07db96699180f4e08c",
+          "contribution_bytes": 123,
+          "contribution_sha256": "c24e8aaed4de58907df11c265260404d68e8b92e1a6373d11e2db8e73238e755",
+          "original_target_rva": "0x1161c",
+          "original_target_sha256": "c24e8aaed4de58907df11c265260404d68e8b92e1a6373d11e2db8e73238e755"
+        },
+        "_longjmp": {
+          "member_index": 256,
+          "member_sha256": "5c6152a00bd3694fe1afdb54b4c3701c6d1209085c348f83aceb0bffc0ae5a3b",
+          "contribution_bytes": 121,
+          "contribution_sha256": "a5fe6ce24dca938802264a06ec31f25181ef094c658594128ae29282268096ff",
+          "original_target_rva": "0x115a0",
+          "original_target_sha256": "0e53a3ece80a1800fb13a9275f27240ddd6ca27e76871f66481ddce22bfb0f38"
+        }
+      },
+      "execution": "Identified unchanged originalCRT bodies interpreted with synthetic FS:[0]=0 and zero-backed address0. Actual Windows exception chains/unwind/notification are outside the proof."
+    }
+  },
+  "validation": {
+    "cases": 9,
+    "failures": 0,
+    "case_names": [
+      "initial-setjmp-normal-export",
+      "zero-export-skips-callback",
+      "entry-gate-loads-before-export",
+      "export-callback-mutates-live-cells",
+      "export-callback-selector-zero-normal-path",
+      "export-callback-selector-transfer-and-reentry",
+      "null-selector-zero-stops-at-resolver",
+      "null-selector-transfer-stops-at-resolver",
+      "fatal-load-failure-boundary"
+    ],
+    "same_objects": "Fresh canonical COFF objects are raw-compared and synthetically linked/emulated without recompilation or renamed test APIs.",
+    "ABI_checks": "Normal returnESP delta and EBX/ESI/EDI/EBP preserved; stop-boundary registers only diagnostic, not treated as returning guarantees.",
+    "callback_mutations": "Live selector/gate/export/path/table/flag changes, nonlocal transfer/reentry, null-selector resolver boundary and load-failure fatal stop.",
+    "regression": {
+      "strict_functions": 132,
+      "all_raw_exact": true,
+      "strict_report": {
+        "path": "work\\host_current_graph\\batch_strict.json",
+        "sha256": "0b5e403fe6d1328facb6f65ed4155bb73698357616ae8c5db10840a0d520ff37"
+      },
+      "data_report": {
+        "path": "work\\host_current_graph\\batch_data.json",
+        "sha256": "3a4e275b795fe9dafdfbef1d1346bf34486dfaed99ee085d687f2dfb21bc9f65"
+      },
+      "data_summary": {
+        "providers": 59,
+        "fields": 923,
+        "pointer_cells": 4787,
+        "mismatches": 0
+      },
+      "historical_host_graph": {
+        "units": 73,
+        "recorded_EXE_functions": 97,
+        "preserved_EXE_exact": 25,
+        "missing_symbols": 20,
+        "duplicate_providers": 0,
+        "images_produced": 0,
+        "images_executed": 0
+      },
+      "fresh_handler_preservation": "Separate graph compilation preserves both complete function contributions and relocation records. Whole objects differ only at the COFF timestamp; no normalization is used for target acceptance."
+    }
+  },
+  "comparison": {
+    "raw_body": {
+      "exact": false,
+      "target_size": 84,
+      "compiled_size": 96,
+      "target_sha256": "a46d7bd89182519e392745733e1729b367034125279560d8df6e65b9d9e235d0",
+      "compiled_sha256": "0c97ac7cbdf7c3af9ece7b873be97aa3eef0544d08df48273039a08866aed2ba",
+      "different_bytes": 51,
+      "object_relocation_count": 9,
+      "native_relocation_count": 0
+    },
+    "raw_padded": {
+      "exact": false,
+      "target_size": 96,
+      "compiled_size": 96,
+      "target_sha256": "bf9ffaa3c5bcf856352a72606e725a41ddd83e8fc72cf8bf9dd12ede990ca8c5",
+      "compiled_sha256": "0c97ac7cbdf7c3af9ece7b873be97aa3eef0544d08df48273039a08866aed2ba",
+      "different_bytes": 39,
+      "object_relocation_count": 9,
+      "native_relocation_count": 0
+    },
+    "masked_padded_diagnostic": {
+      "masked_equal": false,
+      "compiled_size": 96,
+      "target_size": 96,
+      "differing_bytes": 12,
+      "mismatch_regions": [
+        [
+          42,
+          44
+        ],
+        [
+          48,
+          53
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          65,
+          67
+        ],
+        [
+          68,
+          69
+        ]
+      ],
+      "symbols": {
+        "__setjmp3": "0x1161c",
+        "_g_host_engine_call_flag_7a01fc": "0x7a01fc",
+        "_g_host_engine_entry_91c45c": "0x84c091c4",
+        "_g_host_engine_gate_91c460": "0x51c460",
+        "_g_host_engine_jump_buffer_91bfd8": "0x51bfd8",
+        "_g_host_engine_selector_91c464": "0x51c464",
+        "_g_host_engine_source_table_cell_365a0": "0x365a0",
+        "_host_engine_resolve": "0x5c20"
+      },
+      "conflicts": [],
+      "unsupported": [],
+      "relocations": 9
+    }
+  },
+  "compiler_units": [
+    {
+      "source": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_engine_loader.c",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/O2",
+        "/Gy",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration",
+        "/IC:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include",
+        "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_dispatch_differential\\builds\\20261014T175243_svl31nvm\\host_engine_loader.obj",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_engine_loader.c"
+      ],
+      "cwd": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+      "returncode": 0,
+      "stdout": "host_engine_loader.c\n",
+      "stderr": "",
+      "status": "compiled",
+      "object": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_dispatch_differential\\builds\\20261014T175243_svl31nvm\\host_engine_loader.obj",
+      "object_sha256": "a5dfb28aa185fb745408aec20a8666c380d8c9c026b3d157303aeed65cb65736",
+      "object_bytes": 1493
+    },
+    {
+      "source": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_engine_select.c",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/O2",
+        "/Gy",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration",
+        "/IC:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include",
+        "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_dispatch_differential\\builds\\20261014T175243_svl31nvm\\host_engine_select.obj",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_engine_select.c"
+      ],
+      "cwd": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+      "returncode": 0,
+      "stdout": "host_engine_select.c\n",
+      "stderr": "",
+      "status": "compiled",
+      "object": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_dispatch_differential\\builds\\20261014T175243_svl31nvm\\host_engine_select.obj",
+      "object_sha256": "88cc6abb9fd0454664bad1f42e5686b11c4d26acd0974078e1b2a2d643c87e58",
+      "object_bytes": 2328
+    },
+    {
+      "source": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_engine_dispatch.c",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/O2",
+        "/Gy",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration",
+        "/IC:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include",
+        "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_dispatch_differential\\builds\\20261014T175243_svl31nvm\\host_engine_dispatch_5ec0.obj",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_engine_dispatch.c"
+      ],
+      "cwd": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+      "returncode": 0,
+      "stdout": "host_engine_dispatch.c\n",
+      "stderr": "",
+      "status": "compiled",
+      "object": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_dispatch_differential\\builds\\20261014T175243_svl31nvm\\host_engine_dispatch_5ec0.obj",
+      "object_sha256": "5f2d43813213aba1c5c660db2b95a42a78ae14b80048d6863b9e664be9a5b0ba",
+      "object_bytes": 919
+    },
+    {
+      "source": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_dispatch_differential\\builds\\20261014T175243_svl31nvm\\dispatch_fixture.c",
+      "command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/O2",
+        "/Gy",
+        "/ID:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration",
+        "/IC:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include",
+        "/FoD:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_dispatch_differential\\builds\\20261014T175243_svl31nvm\\dispatch_fixture.obj",
+        "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_dispatch_differential\\builds\\20261014T175243_svl31nvm\\dispatch_fixture.c"
+      ],
+      "cwd": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+      "returncode": 0,
+      "stdout": "dispatch_fixture.c\n",
+      "stderr": "",
+      "status": "compiled",
+      "object": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\host_dispatch_differential\\builds\\20261014T175243_svl31nvm\\dispatch_fixture.obj",
+      "object_sha256": "23e26a05398f22b8fc1a09812f9dd1850469e016cb7cb6daf344ec1ad3c0e40a",
+      "object_bytes": 2565
+    }
+  ],
+  "provenance": {
+    "runner": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\scripts\\host_dispatch_differential.py",
+      "sha256": "35431fd9259d62a5719a8579fcdd46d300d5a86879784d006fa05e29565af5b4"
+    },
+    "python": {
+      "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "version": "3.12.14",
+      "sha256": "d41bad46673f64e0d02f23797f53f90ccf60f27d6eda8d86dd2d4bbeae5a858c"
+    },
+    "pefile": {
+      "version": "2024.8.26",
+      "path": "C:\\tools\\hercules\\python\\pefile.py"
+    },
+    "unicorn": {
+      "version": "2.1.4",
+      "path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\__init__.py"
+    },
+    "toolchain": {
+      "id": "msvc5_rtm",
+      "root": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+      "compiler": {
+        "path": "bin/cl.exe",
+        "size": 46080,
+        "sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+        "file_version": "11.00.7022"
+      },
+      "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    }
+  },
+  "private_receipt": {
+    "path": "work/host_dispatch_differential/report.json",
+    "sha256": "f805b3a183d22c3cf331235fbdb57fcda76b4e217d096a13b769df076a9b6ea7"
+  },
+  "reproduce": "python scripts/host_dispatch_differential.py --native-exe D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE",
+  "limits": [
+    "Synthetic export is a source-built fixture callback, not an original DLL/initializer or complete recovered game entry. No game process or actual Windows API runs.",
+    "Resolver stops before the unsupported empty-path backward scan; fatal stops before fatal provider. Neither outcome is a normal return.",
+    "Only finite transfer/empty synthetic state is observed; real SEH and full startup/window/class/DLL behavior remain unverified.",
+    "Raw and complete masked dispatcher comparisons fail; size agreement is not acceptance."
+  ]
+}
