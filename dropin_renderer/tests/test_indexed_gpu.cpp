@@ -2,6 +2,7 @@
 
 #include "packet_capture.hpp"
 #include "indexed_memory.hpp"
+#include "indexed_sprite_reference.hpp"
 
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_gpu.h>
@@ -28,6 +29,7 @@ using hercules::dropin::IndexedGpuStatus;
 using hercules::dropin::IndexedRectangleCommand;
 using hercules::dropin::IndexedReferenceEffects;
 using hercules::dropin::IndexedReferenceStatus;
+using hercules::dropin::IndexedSpriteCommand;
 
 constexpr renderer_raw32 kOrderTable = 0x00010000U;
 constexpr renderer_raw32 kPacket = 0x00010100U;
@@ -473,8 +475,9 @@ bool run_overlapping_blends(IndexedGpuBackend *backend, std::string *error)
     return true;
 }
 
+template <typename Command>
 bool expect_unsupported(IndexedGpuBackend *backend,
-                        const IndexedRectangleCommand &command,
+                        const Command &command,
                         const char *case_name, std::string *error)
 {
     IndexedFrame seed{};
@@ -524,6 +527,180 @@ bool check_malformed_blend_commands(IndexedGpuBackend *backend,
     malformed = valid_raw;
     malformed.plan.pixel_mode = HERCULES_RECTANGLE_COPY;
     if (!expect_unsupported(backend, malformed, "COPY with LUT payload", error))
+        return false;
+    return true;
+}
+
+bool build_synthetic_sprite(std::uint32_t page_index,
+                            std::uint32_t destination_x,
+                            std::uint32_t width, std::uint32_t u,
+                            HerculesRectanglePixelMode pixel_mode,
+                            std::uint32_t selector, bool all_zero,
+                            IndexedSpriteCommand *command,
+                            std::string *error)
+{
+    if (command == nullptr || error == nullptr || page_index >= 16U ||
+        width == 0U || width > 256U || u + width > 256U ||
+        destination_x + width > hercules::dropin::indexed_frame_width) {
+        if (error != nullptr)
+            *error = "invalid synthetic sprite test arguments";
+        return false;
+    }
+    constexpr std::uint32_t height = 240U;
+    *command = IndexedSpriteCommand{};
+    HerculesSpritePlan &plan = command->plan;
+    plan.page_address = HERC_TEX_MAP_BASE + page_index * 65536U;
+    plan.x = destination_x;
+    plan.y = 0U;
+    plan.width = width;
+    plan.height = height;
+    plan.u = u;
+    plan.v = 0U;
+    plan.source_start = u;
+    plan.source_pitch = 256U;
+    plan.destination_start = destination_x;
+    plan.destination_pitch = 320U;
+    plan.pixel_mode = pixel_mode;
+    plan.blend_selector = selector;
+
+    command->texels.reserve(static_cast<std::size_t>(width) * height);
+    command->sample_addresses.reserve(static_cast<std::size_t>(width) * height);
+    for (std::uint32_t row = 0; row < height; ++row) {
+        const std::uint32_t inset =
+            (row * 11U + page_index * 7U) % (width / 5U + 1U);
+        for (std::uint32_t column = 0; column < width; ++column) {
+            const bool silhouette = column >= inset &&
+                column < width - inset &&
+                ((column * 13U + row * 17U + page_index * 5U) % 19U != 0U);
+            const std::uint8_t texel = all_zero || !silhouette
+                ? 0U
+                : static_cast<std::uint8_t>(1U +
+                    ((column * 29U + row * 47U + page_index * 23U) % 255U));
+            command->texels.push_back(texel);
+            const std::uint64_t address =
+                static_cast<std::uint64_t>(plan.page_address) + plan.source_start +
+                static_cast<std::uint64_t>(row) * plan.source_pitch + column;
+            command->sample_addresses.push_back(
+                static_cast<std::uint32_t>(address));
+        }
+    }
+
+    const bool has_nonzero = std::any_of(
+        command->texels.begin(), command->texels.end(),
+        [](std::uint8_t value) { return value != 0U; });
+    if (pixel_mode == HERCULES_RECTANGLE_RAW_BLEND && has_nonzero) {
+        command->blend_table.resize(256U * 256U);
+        for (std::uint32_t source = 0; source < 256U; ++source) {
+            for (std::uint32_t destination = 0; destination < 256U;
+                 ++destination) {
+                std::uint32_t value = source * 0x9e3779b9U;
+                value ^= destination * 0x85ebca6bU;
+                value ^= (selector + page_index + 1U) * 0xc2b2ae35U;
+                value ^= value >> 16;
+                value *= 0x7feb352dU;
+                value ^= value >> 15;
+                command->blend_table[(source << 8) | destination] =
+                    static_cast<std::uint8_t>(value & 0xffU);
+            }
+        }
+    }
+    return true;
+}
+
+bool run_sprite_case(IndexedGpuBackend *backend, const char *name,
+                     std::uint32_t page_index, std::uint32_t destination_x,
+                     std::uint32_t width, std::uint32_t u,
+                     HerculesRectanglePixelMode pixel_mode,
+                     std::uint32_t selector, bool all_zero,
+                     std::string *error)
+{
+    IndexedSpriteCommand command{};
+    if (!build_synthetic_sprite(page_index, destination_x, width, u,
+                                pixel_mode, selector, all_zero,
+                                &command, error))
+        return false;
+    IndexedFrame initial{};
+    for (std::size_t i = 0; i < initial.size(); ++i)
+        initial[i] = static_cast<std::uint8_t>((i * 23U + 0x95U) & 0xffU);
+    IndexedFrame expected = initial;
+    IndexedReferenceEffects effects{};
+    if (hercules::dropin::render_indexed_sprite(
+            command, &expected, &effects) != IndexedReferenceStatus::ok ||
+        !effects.presentation_requested) {
+        *error = std::string(name) + ": shared CPU sprite oracle rejected the snapshot";
+        return false;
+    }
+    const auto result = backend->render(command, initial);
+    if (result.status != IndexedGpuStatus::ok) {
+        *error = std::string(name) + ": GPU sprite render failed: " + result.message;
+        return false;
+    }
+    if (!compare_full_frame(name, result.indices, expected, error))
+        return false;
+    const std::size_t nonzero_sources = static_cast<std::size_t>(std::count_if(
+        command.texels.begin(), command.texels.end(),
+        [](std::uint8_t value) { return value != 0U; }));
+    if (effects.pixel_store_count != nonzero_sources) {
+        *error = std::string(name) + ": sprite oracle store count differs from nonzero source count";
+        return false;
+    }
+    if (all_zero && result.indices != initial) {
+        *error = std::string(name) + ": all-transparent sprite changed its seed frame";
+        return false;
+    }
+    std::printf("PASS %s: page=%u rect=(%u,0 %ux240) uv=(%u,0), mode=%u selector=%u nonzero=%zu, full-frame indexed equality\n",
+        name, page_index, destination_x, width, u,
+        static_cast<unsigned>(pixel_mode), selector, nonzero_sources);
+    return true;
+}
+
+bool check_malformed_sprite_commands(IndexedGpuBackend *backend,
+                                     const IndexedSpriteCommand &valid_raw,
+                                     std::string *error)
+{
+    IndexedSpriteCommand malformed = valid_raw;
+    malformed.plan.page_address = HERC_TEX_MAP_BASE + 16U * 65536U;
+    if (!expect_unsupported(backend, malformed, "sprite page outside 0..15", error))
+        return false;
+    malformed = valid_raw;
+    malformed.plan.page_address += 1U;
+    if (!expect_unsupported(backend, malformed, "unaligned sprite page", error))
+        return false;
+    malformed = valid_raw;
+    malformed.plan.u = 65U;
+    if (!expect_unsupported(backend, malformed, "sprite UV span past page row", error))
+        return false;
+    malformed = valid_raw;
+    malformed.plan.x = 129U;
+    if (!expect_unsupported(backend, malformed, "sprite extent past visible surface", error))
+        return false;
+    malformed = valid_raw;
+    malformed.plan.source_start += 1U;
+    if (!expect_unsupported(backend, malformed, "sprite source start mismatch", error))
+        return false;
+    malformed = valid_raw;
+    malformed.sample_addresses[0] += 1U;
+    if (!expect_unsupported(backend, malformed, "sprite sample association mismatch", error))
+        return false;
+    malformed = valid_raw;
+    malformed.plan.source_pitch = 255U;
+    if (!expect_unsupported(backend, malformed, "sprite source pitch mismatch", error))
+        return false;
+    malformed = valid_raw;
+    malformed.plan.destination_pitch = 319U;
+    if (!expect_unsupported(backend, malformed, "sprite destination pitch mismatch", error))
+        return false;
+    malformed = valid_raw;
+    malformed.plan.blend_selector = 4U;
+    if (!expect_unsupported(backend, malformed, "sprite selector outside 0..3", error))
+        return false;
+    malformed = valid_raw;
+    malformed.blend_table.pop_back();
+    if (!expect_unsupported(backend, malformed, "short sprite selected LUT", error))
+        return false;
+    malformed = valid_raw;
+    malformed.plan.pixel_mode = HERCULES_RECTANGLE_SHADED_BLEND;
+    if (!expect_unsupported(backend, malformed, "sprite SHADED_BLEND mode", error))
         return false;
     return true;
 }
@@ -676,11 +853,33 @@ int main()
                         blend_cases_ok = check_malformed_blend_commands(
                             &backend, valid_raw, &error);
                     }
+                    if (blend_cases_ok)
+                        blend_cases_ok = run_sprite_case(&backend,
+                            "large sprite COPY strip", 2U, 0U, 128U, 128U,
+                            HERCULES_RECTANGLE_COPY, 0U, false, &error);
+                    if (blend_cases_ok)
+                        blend_cases_ok = run_sprite_case(&backend,
+                            "large sprite RAW_BLEND strip", 3U, 128U, 192U, 0U,
+                            HERCULES_RECTANGLE_RAW_BLEND, 2U, false, &error);
+                    if (blend_cases_ok)
+                        blend_cases_ok = run_sprite_case(&backend,
+                            "transparent sprite RAW_BLEND without LUT", 4U,
+                            24U, 32U, 48U, HERCULES_RECTANGLE_RAW_BLEND,
+                            3U, true, &error);
+                    IndexedSpriteCommand valid_sprite{};
+                    if (blend_cases_ok &&
+                        !build_synthetic_sprite(3U, 128U, 192U, 0U,
+                            HERCULES_RECTANGLE_RAW_BLEND, 2U, false,
+                            &valid_sprite, &error))
+                        blend_cases_ok = false;
+                    if (blend_cases_ok)
+                        blend_cases_ok = check_malformed_sprite_commands(
+                            &backend, valid_sprite, &error);
                     if (!blend_cases_ok) {
                         std::fprintf(stderr, "FAIL: %s\n", error.c_str());
                         exit_code = 1;
                     } else {
-                        std::puts("PASS indexed GPU COPY and selected-LUT blend comparisons");
+                        std::puts("PASS indexed GPU rectangle/blend and sprite strip comparisons");
                     }
                 }
             }

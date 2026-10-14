@@ -38,6 +38,7 @@ def main():
                     for path in (ROOT / directory).rglob("*")
                     if path.is_file() and path.suffix in (".c", ".h", ".cpp", ".hpp", ".def", ".py")]
     source_paths += [ROOT / "dropin_renderer/CMakeLists.txt", ROOT / "renderer_contract/CMakeLists.txt"]
+    source_paths += [ROOT / "src/pc/exe_helpers.c"]
     sources = {str(path.relative_to(ROOT)).replace("\\", "/"): sha(path) for path in source_paths}
     tool_bin = Path(manifest["compiler_bin"])
     env = os.environ.copy()

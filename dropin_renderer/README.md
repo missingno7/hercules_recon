@@ -5,6 +5,11 @@ shared `hercules_renderer_contract` CMake target. Historical source and strict
 acceptance remain separate. The current implementation is a verified foundation
 and offline diagnostic slice; original-game rendering and deployment remain open.
 
+A [windowed resource checkpoint](docs/game_checkpoint.md) is now available for
+local testing. It loads real archived pixels and colors, compares original CPU,
+shared CPU and GPU output, and provides reload, resize and difference controls.
+The original TITLE producer and image/palette timing remain to be recovered.
+
 ## Implemented boundaries
 
 - `proxy/`: Windows x86 `ddraw.dll`, exporting the pinned game's sole static

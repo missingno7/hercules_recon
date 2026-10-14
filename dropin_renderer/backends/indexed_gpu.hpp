@@ -7,6 +7,7 @@
 #include <SDL3/SDL_gpu.h>
 
 #include "indexed_reference.hpp"
+#include "indexed_sprite_command.hpp"
 
 namespace hercules::dropin {
 
@@ -22,11 +23,10 @@ struct IndexedGpuResult {
     std::string message;
 };
 
-/* Offscreen indexed FT4 rectangle backend for the shared plan's bounded
- * tpage/clut-zero 1:1 COPY and selected-LUT blend domain. It owns no source
- * data: render accepts a const, detached command snapshot and a const seed
- * frame, consumes both synchronously, and returns a separate fence-complete
- * readback. */
+/* Offscreen indexed FT4 and sprite backend for the shared bounded COPY and
+ * selected-LUT blend domains. It owns no source data: render accepts a const,
+ * detached command snapshot and a const seed frame, consumes both
+ * synchronously, and returns a separate fence-complete readback. */
 class IndexedGpuBackend {
 public:
     explicit IndexedGpuBackend(SDL_GPUDevice *device);
@@ -40,9 +40,14 @@ public:
 
     IndexedGpuResult render(const IndexedRectangleCommand &command,
                             const IndexedFrame &initial_indices);
+    IndexedGpuResult render(const IndexedSpriteCommand &command,
+                            const IndexedFrame &initial_indices);
 
 private:
     struct Impl;
+    struct DrawSnapshot;
+    IndexedGpuResult render_validated(const DrawSnapshot &draw,
+                                      const IndexedFrame &initial_indices);
     std::unique_ptr<Impl> impl_;
 };
 

@@ -1,5 +1,6 @@
 # Shared reference utilities. No historical matching flags or GPU dependencies.
 add_library(hercules_renderer_contract STATIC
+    hercules_cif.c
     hercules_edge_steps.c
     hercules_frame.c
     hercules_host_abi.c
@@ -11,6 +12,7 @@ add_library(hercules_renderer_contract STATIC
     hercules_reprojection.c
     hercules_route_uv_models.c
     hercules_sprite_geometry.c
+    hercules_sprite_raster.c
     hercules_staging.c
     hercules_state.c
     hercules_textures.c)

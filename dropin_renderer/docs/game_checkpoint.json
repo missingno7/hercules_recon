@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "status": "ORIGINAL_RESOURCE_CPU_GPU_PASS",
+  "original_game_process_executed": false,
+  "shared_evidence": {
+    "path": "renderer_contract/evidence/title_resource.json",
+    "sha256": "4c2d7024c017bf86debb40634aa44acf6391d2e886d882487275a373d3466066"
+  },
+  "validation": {
+    "modern_tests": 11,
+    "modern_skips": 0,
+    "gcc_portable": 25,
+    "vc5_portable": 25,
+    "historical_raw_exact": 132,
+    "copy_cases": 3,
+    "blend_cases": 11,
+    "composition_comparisons": 4,
+    "frame_bytes_equal": 76800,
+    "palette_bytes_equal": 1024,
+    "rgba_bytes_equal": 307200,
+    "visible_window_smoke": true
+  },
+  "outputs": {
+    "frame_sha256": "19c834b7ba60caa5a9fe35cf6e0a4343308d448d0e2d0271d57740a68bf7561b",
+    "palette_sha256": "67d769f680ab832e67e8d8fdf8103df5739d730c14ef91b78c538b4247689a8f",
+    "rgba_sha256": "c9fab65116f217fe7546cc6908f74af5d53fe5827b3d28822b849cfd891ff5c0"
+  },
+  "receipts": [
+    {
+      "path": "work/game_checkpoint_build/build_receipt.json",
+      "sha256": "f8744ed320e4f2f2f67a7e9d2d56c954e43212081d35b70c843bfac9ea99c1ce"
+    },
+    {
+      "path": "work/game_checkpoint_comparison/comparison.json",
+      "sha256": "91bd71b8c2ae748ada0f81243409eb55e3991abf549e7336169f0549ab872c26"
+    },
+    {
+      "path": "work/game_checkpoint_comparison/pixels.json",
+      "sha256": "ede8393a15cf811da5a81a11167b114dd30bceffc0404d19a8f08c6ebf87fcf4"
+    },
+    {
+      "path": "work/game_checkpoint_comparison/colors.json",
+      "sha256": "bb6f651347214f62f6c9c5a83375f8d1e79fefd28bd6ad163d43d081716e358d"
+    },
+    {
+      "path": "work/game_checkpoint_gcc/portable_tests.json",
+      "sha256": "6cceaf10366e2f71cc2bc60288789b2cd15b040ace908eead1343629672a3697"
+    },
+    {
+      "path": "work/game_checkpoint_vc5/portable_tests.json",
+      "sha256": "d5641993532797c9dc1f2e969a10ef9504db17e89e492a83204caa38f4246350"
+    },
+    {
+      "path": "work/dropin_game_checkpoint/historical.json",
+      "sha256": "d8fede763298fd53570702913c1bb3b321e188b39abe9c798438afe5c9dd89fb"
+    },
+    {
+      "path": "work/game_checkpoint_copy_regression/comparison.json",
+      "sha256": "473d8c868c7e8d3c4626e3b32cc6a77c0a31881a170abdfacffac7e8f45a2536"
+    },
+    {
+      "path": "work/game_checkpoint_blend_regression/comparison.json",
+      "sha256": "9a35df18f0df12e24eaae199c5dbbe22ae82bcfbef133bb69e7a3be0bf852b41"
+    },
+    {
+      "path": "work/game_checkpoint_composition_verified/composition_raster_audit.json",
+      "sha256": "05d73186f61af7dd9225fb0faa81e0db9f36044cad053edd50f157fa5da245be"
+    },
+    {
+      "path": "work/dropin_game_checkpoint/preview_smoke.json",
+      "sha256": "c148727161602b9e8b40e277b3fa9d9a7148d217cf3ff892c91a459c9a7cdae7"
+    }
+  ],
+  "launch": "python -B dropin_renderer/tools/run_preview.py",
+  "scope": "Windowed original-backed resource checkpoint; original title producer, palette timing and gameplay remain open."
+}

@@ -20,7 +20,8 @@ enum class IndexedReferenceStatus {
     malformed_packet,
     missing_texture,
     missing_table,
-    invalid_command
+    invalid_command,
+    no_draw
 };
 
 struct IndexedReferenceEffects {

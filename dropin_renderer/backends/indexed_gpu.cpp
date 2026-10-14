@@ -17,17 +17,19 @@ namespace {
 
 constexpr std::uint32_t kTextureStride = 256U;
 constexpr std::uint32_t kTexturePageAddress = 0x0096e6e0U;
+constexpr std::uint32_t kTexturePageBytes = 256U * 256U;
+constexpr std::uint32_t kTexturePageCount = 16U;
 constexpr std::uint32_t kMaxRectangleSide = 8U;
 constexpr std::size_t kBlendTableBytes = 256U * 256U;
 constexpr std::size_t kShadeRowBytes = 256U;
-constexpr std::size_t kMaximumTileBytes =
-    kMaxRectangleSide * kMaxRectangleSide;
 constexpr std::size_t kTileUploadOffset = indexed_frame_bytes;
-constexpr std::size_t kBlendUploadOffset =
-    kTileUploadOffset + kMaximumTileBytes;
-constexpr std::size_t kShadeUploadOffset =
-    kBlendUploadOffset + kBlendTableBytes;
-constexpr std::size_t kUploadBytes = kShadeUploadOffset + kShadeRowBytes;
+constexpr std::size_t kTransferOffsetAlignment = 4U;
+
+std::size_t align_upload_offset(std::size_t offset)
+{
+    return (offset + kTransferOffsetAlignment - 1U) &
+        ~(kTransferOffsetAlignment - 1U);
+}
 
 const char kIndexedShader[] =
     "struct VSOut { float4 position : SV_Position; };\n"
@@ -237,6 +239,89 @@ bool validate_snapshot(const IndexedRectangleCommand &command,
     return true;
 }
 
+bool validate_sprite_snapshot(const IndexedSpriteCommand &command,
+                              std::string *message)
+{
+    const HerculesSpritePlan &plan = command.plan;
+    if (plan.page_address < kTexturePageAddress) {
+        *message = "unsupported: sprite page precedes the captured texture-page range";
+        return false;
+    }
+    const std::uint32_t page_offset = plan.page_address - kTexturePageAddress;
+    if (page_offset % kTexturePageBytes != 0U ||
+        page_offset / kTexturePageBytes >= kTexturePageCount) {
+        *message = "unsupported: sprite page is not an aligned page in range 0..15";
+        return false;
+    }
+    if (plan.width == 0U || plan.width > kTextureStride ||
+        plan.height == 0U || plan.height > indexed_frame_height ||
+        plan.x >= indexed_frame_width || plan.y >= indexed_frame_height ||
+        plan.width > indexed_frame_width - plan.x ||
+        plan.height > indexed_frame_height - plan.y ||
+        plan.u >= kTextureStride || plan.width > kTextureStride - plan.u ||
+        plan.v >= kTextureStride || plan.height > kTextureStride - plan.v) {
+        *message = "unsupported: sprite plan is outside the clipped 320x240, 256x256 page domain";
+        return false;
+    }
+
+    const std::uint64_t expected_source_offset =
+        static_cast<std::uint64_t>(plan.v) * kTextureStride + plan.u;
+    const std::uint64_t expected_destination_offset =
+        static_cast<std::uint64_t>(plan.y) * indexed_frame_width + plan.x;
+    const std::size_t expected_texels =
+        static_cast<std::size_t>(plan.width) * plan.height;
+    if (plan.source_pitch != kTextureStride ||
+        plan.source_start != expected_source_offset ||
+        plan.destination_pitch != indexed_frame_width ||
+        plan.destination_start != expected_destination_offset ||
+        command.texels.size() != expected_texels ||
+        command.sample_addresses.size() != expected_texels) {
+        *message = "unsupported: owned sprite tile does not match its resolved 256-stride plan";
+        return false;
+    }
+
+    const bool has_nonzero_source = std::any_of(
+        command.texels.begin(), command.texels.end(),
+        [](std::uint8_t value) { return value != 0U; });
+    if (plan.pixel_mode == HERCULES_RECTANGLE_COPY) {
+        if (plan.blend_selector != 0U || !command.blend_table.empty()) {
+            *message = "unsupported: sprite COPY requires selector zero and no LUT snapshot";
+            return false;
+        }
+    } else if (plan.pixel_mode == HERCULES_RECTANGLE_RAW_BLEND) {
+        if (plan.blend_selector > 3U) {
+            *message = "unsupported: sprite RAW_BLEND selector must be in 0..3";
+            return false;
+        }
+        if ((has_nonzero_source &&
+             command.blend_table.size() != kBlendTableBytes) ||
+            (!has_nonzero_source && !command.blend_table.empty())) {
+            *message = "unsupported: sprite RAW_BLEND requires a 65536-byte selected LUT iff any source is nonzero";
+            return false;
+        }
+    } else {
+        *message = "unsupported: sprite pixel mode must be COPY or RAW_BLEND";
+        return false;
+    }
+
+    std::size_t sample = 0;
+    for (std::uint32_t row = 0; row < plan.height; ++row) {
+        for (std::uint32_t column = 0; column < plan.width; ++column) {
+            const std::uint64_t expected_address =
+                static_cast<std::uint64_t>(plan.page_address) +
+                expected_source_offset +
+                static_cast<std::uint64_t>(row) * plan.source_pitch + column;
+            if (expected_address > std::numeric_limits<std::uint32_t>::max() ||
+                command.sample_addresses[sample] != expected_address) {
+                *message = "unsupported: sprite sample addresses do not match the page/UV tile association";
+                return false;
+            }
+            ++sample;
+        }
+    }
+    return true;
+}
+
 bool create_texture(SDL_GPUDevice *device, SDL_GPUTextureUsageFlags usage,
                     std::uint32_t width, std::uint32_t height,
                     SDL_GPUTexture **texture, std::string *message)
@@ -390,6 +475,19 @@ struct IndexedGpuBackend::Impl {
     }
 };
 
+struct IndexedGpuBackend::DrawSnapshot {
+    std::uint32_t x;
+    std::uint32_t y;
+    std::uint32_t width;
+    std::uint32_t height;
+    std::uint32_t pixel_mode;
+    std::uint32_t blend_selector;
+    std::uint32_t shade_row_index;
+    const std::vector<std::uint8_t> *texels;
+    const std::vector<std::uint8_t> *blend_table;
+    const std::vector<std::uint8_t> *shade_table;
+};
+
 IndexedGpuBackend::IndexedGpuBackend(SDL_GPUDevice *device)
     : impl_(std::make_unique<Impl>())
 {
@@ -414,11 +512,49 @@ IndexedGpuResult IndexedGpuBackend::render(
 {
     if (impl_->status != IndexedGpuStatus::ok)
         return failure(impl_->status, impl_->message);
-
     std::string validation_message;
     if (!validate_snapshot(command, &validation_message))
         return failure(IndexedGpuStatus::unsupported,
                        std::move(validation_message));
+
+    const DrawSnapshot draw = {
+        command.plan.x, command.plan.y,
+        command.plan.width, command.plan.height,
+        command.plan.pixel_mode, command.plan.blend_selector,
+        command.plan.shade_row,
+        &command.texels, &command.blend_table, &command.shade_row
+    };
+    return render_validated(draw, initial_indices);
+}
+
+IndexedGpuResult IndexedGpuBackend::render(
+    const IndexedSpriteCommand &command,
+    const IndexedFrame &initial_indices)
+{
+    if (impl_->status != IndexedGpuStatus::ok)
+        return failure(impl_->status, impl_->message);
+    std::string validation_message;
+    if (!validate_sprite_snapshot(command, &validation_message))
+        return failure(IndexedGpuStatus::unsupported,
+                       std::move(validation_message));
+
+    const DrawSnapshot draw = {
+        command.plan.x, command.plan.y,
+        command.plan.width, command.plan.height,
+        static_cast<std::uint32_t>(command.plan.pixel_mode),
+        command.plan.blend_selector, 0U,
+        &command.texels, &command.blend_table, nullptr
+    };
+    return render_validated(draw, initial_indices);
+}
+
+IndexedGpuResult IndexedGpuBackend::render_validated(
+    const DrawSnapshot &draw, const IndexedFrame &initial_indices)
+{
+    if (impl_->status != IndexedGpuStatus::ok)
+        return failure(impl_->status, impl_->message);
+
+    std::string validation_message;
 
     GpuRunResources resources;
     resources.device = impl_->device;
@@ -433,7 +569,7 @@ IndexedGpuResult IndexedGpuBackend::render(
             &resources.seed_frame, &validation_message) ||
         !create_texture(resources.device,
             SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ,
-            command.plan.width, command.plan.height,
+            draw.width, draw.height,
             &resources.source, &validation_message) ||
         !create_texture(resources.device,
             SDL_GPU_TEXTUREUSAGE_GRAPHICS_STORAGE_READ,
@@ -444,9 +580,14 @@ IndexedGpuResult IndexedGpuBackend::render(
         return failure(IndexedGpuStatus::error, std::move(validation_message));
     }
 
+    const std::size_t blend_upload_offset = align_upload_offset(
+        kTileUploadOffset + draw.texels->size());
+    const std::size_t shade_upload_offset =
+        blend_upload_offset + kBlendTableBytes;
+    const std::size_t upload_bytes_count = shade_upload_offset + kShadeRowBytes;
     SDL_GPUTransferBufferCreateInfo upload_info = {};
     upload_info.usage = SDL_GPU_TRANSFERBUFFERUSAGE_UPLOAD;
-    upload_info.size = static_cast<Uint32>(kUploadBytes);
+    upload_info.size = static_cast<Uint32>(upload_bytes_count);
     resources.upload = SDL_CreateGPUTransferBuffer(resources.device, &upload_info);
     if (resources.upload == nullptr) {
         return failure(IndexedGpuStatus::error,
@@ -469,17 +610,17 @@ IndexedGpuResult IndexedGpuBackend::render(
                        with_sdl_error("SDL_MapGPUTransferBuffer(upload)"));
     }
     std::memcpy(upload_bytes, initial_indices.data(), indexed_frame_bytes);
-    std::memcpy(upload_bytes + kTileUploadOffset, command.texels.data(),
-                command.texels.size());
-    std::memset(upload_bytes + kBlendUploadOffset, 0, kBlendTableBytes);
-    if (!command.blend_table.empty()) {
-        std::memcpy(upload_bytes + kBlendUploadOffset,
-                    command.blend_table.data(), command.blend_table.size());
+    std::memcpy(upload_bytes + kTileUploadOffset, draw.texels->data(),
+                draw.texels->size());
+    std::memset(upload_bytes + blend_upload_offset, 0, kBlendTableBytes);
+    if (draw.blend_table != nullptr && !draw.blend_table->empty()) {
+        std::memcpy(upload_bytes + blend_upload_offset,
+                    draw.blend_table->data(), draw.blend_table->size());
     }
-    std::memset(upload_bytes + kShadeUploadOffset, 0, kShadeRowBytes);
-    if (!command.shade_row.empty()) {
-        std::memcpy(upload_bytes + kShadeUploadOffset,
-                    command.shade_row.data(), command.shade_row.size());
+    std::memset(upload_bytes + shade_upload_offset, 0, kShadeRowBytes);
+    if (draw.shade_table != nullptr && !draw.shade_table->empty()) {
+        std::memcpy(upload_bytes + shade_upload_offset,
+                    draw.shade_table->data(), draw.shade_table->size());
     }
     SDL_UnmapGPUTransferBuffer(resources.device, resources.upload);
 
@@ -515,22 +656,22 @@ IndexedGpuResult IndexedGpuBackend::render(
     SDL_UploadToGPUTexture(copy_pass, &frame_source, &seed_destination, false);
     const SDL_GPUTextureTransferInfo tile_source = {
         resources.upload, static_cast<Uint32>(kTileUploadOffset),
-        command.plan.width, command.plan.height
+        draw.width, draw.height
     };
     const SDL_GPUTextureRegion tile_destination = {
         resources.source, 0, 0, 0, 0, 0,
-        command.plan.width, command.plan.height, 1
+        draw.width, draw.height, 1
     };
     SDL_UploadToGPUTexture(copy_pass, &tile_source, &tile_destination, false);
     const SDL_GPUTextureTransferInfo blend_source = {
-        resources.upload, static_cast<Uint32>(kBlendUploadOffset), 256U, 256U
+        resources.upload, static_cast<Uint32>(blend_upload_offset), 256U, 256U
     };
     const SDL_GPUTextureRegion blend_destination = {
         resources.blend_table, 0, 0, 0, 0, 0, 256U, 256U, 1
     };
     SDL_UploadToGPUTexture(copy_pass, &blend_source, &blend_destination, false);
     const SDL_GPUTextureTransferInfo shade_source = {
-        resources.upload, static_cast<Uint32>(kShadeUploadOffset), 256U, 1U
+        resources.upload, static_cast<Uint32>(shade_upload_offset), 256U, 1U
     };
     const SDL_GPUTextureRegion shade_destination = {
         resources.shade_row, 0, 0, 0, 0, 0, 256U, 1U, 1
@@ -566,14 +707,14 @@ IndexedGpuResult IndexedGpuBackend::render(
     };
     SDL_BindGPUFragmentStorageTextures(render_pass, 0, storage_textures, 4);
     const RectangleUniform uniform = {{
-        static_cast<std::int32_t>(command.plan.x),
-        static_cast<std::int32_t>(command.plan.y),
-        static_cast<std::int32_t>(command.plan.width),
-        static_cast<std::int32_t>(command.plan.height)
+        static_cast<std::int32_t>(draw.x),
+        static_cast<std::int32_t>(draw.y),
+        static_cast<std::int32_t>(draw.width),
+        static_cast<std::int32_t>(draw.height)
     }, {
-        command.plan.pixel_mode,
-        command.plan.blend_selector,
-        command.plan.shade_row,
+        draw.pixel_mode,
+        draw.blend_selector,
+        draw.shade_row_index,
         0U
     }};
     SDL_PushGPUFragmentUniformData(gpu_command, 0, &uniform, sizeof(uniform));
@@ -623,7 +764,7 @@ IndexedGpuResult IndexedGpuBackend::render(
     std::memcpy(result.indices.data(), readback, indexed_frame_bytes);
     SDL_UnmapGPUTransferBuffer(resources.device, resources.download);
     result.status = IndexedGpuStatus::ok;
-    result.message = "R8_UINT COPY/blend rectangle draw and full indexed readback completed after GPU fence";
+    result.message = "R8_UINT indexed draw and full readback completed after GPU fence";
     return result;
 }
 

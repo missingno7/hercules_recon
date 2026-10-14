@@ -1,4 +1,5 @@
 #include "indexed_reference.hpp"
+#include "indexed_sprite_reference.hpp"
 #include "packet_capture.hpp"
 #include <algorithm>
 #include <array>
@@ -192,8 +193,44 @@ void blended_cases() {
     }
 }
 }
+void sprite_capture_case() {
+    Fixture fixture;
+    auto *wire = fixture.bytes.data() + 0x20;
+    std::fill(wire + 4, wire + 0x28, 0);
+    wire[7] = 0x64; put16(wire + 8, 1); put16(wire + 10, 1);
+    put16(wire + 16, 2); put16(wire + 18, 2);
+    RendererAc60StateView state{}; state.clip_bounds.bottom = 240;
+    IndexedAddressMemory memory(HERC_TEX_MAP_BASE, 65536);
+    IndexedSpriteCommand command; command.texels = {99};
+    auto consume = [&](RendererAc60StateView initial, IndexedReferenceStatus expected) {
+        bool seen = false;
+        auto trace = consume_offline(frame_raw32_region_resolve, &fixture.region, 0x1000, 1, initial,
+            [&](const Event &event) {
+                if (event.packet_kind != RENDERER_PACKET_SPRITE_VARIABLE) return true;
+                check(capture_indexed_sprite(event, memory, &command) == expected, "sprite capture status");
+                Event entry = event; entry.provenance = CaptureProvenance::passive_entry_observation;
+                check(capture_indexed_sprite(entry, memory, &command) == IndexedReferenceStatus::unsupported,
+                      "passive sprite entry cannot stand in for consumption");
+                seen = true; return true;
+            });
+        check(trace.status == CaptureStatus::ok && seen, "sprite chain consumed");
+    };
+    consume(state, IndexedReferenceStatus::missing_texture);
+    check(command.texels == std::vector<std::uint8_t>({99}), "failed sprite capture unchanged");
+    check(memory.upload_texture_rect({0,0,1,2}, {0,1,2,3}) == IndexedMemoryStatus::ok, "sprite upload");
+    consume(state, IndexedReferenceStatus::ok);
+    check(memory.upload_texture_rect({0,0,1,2}, {9,9,9,9}) == IndexedMemoryStatus::ok, "later sprite upload");
+    IndexedFrame frame; frame.fill(0xa5); IndexedReferenceEffects effects;
+    check(render_indexed_sprite(command, &frame, &effects) == IndexedReferenceStatus::ok &&
+          frame[321] == 0xa5 && frame[322] == 1 && frame[641] == 2 && frame[642] == 3 &&
+          effects.pixel_store_count == 3 && effects.presentation_requested, "sprite owns consumed bytes");
+    const auto saved = command.texels;
+    state.raster_suppression_flag = 1;
+    consume(state, IndexedReferenceStatus::no_draw);
+    check(command.texels == saved, "suppression leaves owned command unchanged");
+}
 int main() {
-    try { zero_case(); ordered_upload_case(); rejection_cases(); blended_cases(); }
+    try { zero_case(); ordered_upload_case(); rejection_cases(); blended_cases(); sprite_capture_case(); }
     catch (const std::exception &error) { std::cerr << error.what() << '\n'; return 1; }
     std::cout << "indexed reference: ordered uploads, table snapshots, alias writes, indexed blend and zero-source behavior pass\n";
     return 0;

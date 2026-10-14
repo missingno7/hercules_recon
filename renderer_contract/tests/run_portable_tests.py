@@ -19,6 +19,7 @@ import time
 
 
 EXPECTED_TESTS = {
+    "test_cif.c",
     "test_capture_extent.c",
     "test_rectangle.c",
     "test_cpp_headers.cpp",
@@ -32,6 +33,7 @@ EXPECTED_TESTS = {
     "test_quad_route.c",
     "test_sprite_geometry.c",
     "test_sprite_pixels.c",
+    "test_sprite_raster.c",
     "test_staging.c",
     "test_state.c",
     "test_textures.c",
