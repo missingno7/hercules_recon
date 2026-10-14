@@ -94,8 +94,9 @@ loader-zero scalar prefixes supply eight observed bytes; their enclosing objects
 relative placement and historical source owners remain unproved. The receiver now uses the linked runtime identity `CMainFrame`, its `CFrameWnd`
 base and 188-byte extent. Fresh historical checks place `CWnd::m_hWnd` at +0x1c
 and preserve both complete method contributions and relocation records. The
-remaining virtual overrides, constructors, maps and window creation are still
-unimplemented. See `evidence/host_cmainframe_receiver.json` for the pinned
+constructor, factory and virtual overrides now have measured source; the full
+message map and window/message-loop behavior remain incomplete. See
+`evidence/host_cmainframe_receiver.json` for the earlier pinned
 runtime descriptors and MFC library provenance.
 MFC `CWnd::Default` comes from pinned library member 148 and is intercepted at entry;
 its internal effects and the complete message loop are outside the comparisons.
@@ -173,12 +174,54 @@ boundaries; path/error/jump-buffer/table capacities in that fixture are test-onl
 Both raw and relocation diagnostics differ for the caller. It remains
 `RECONSTRUCTED`; see `evidence/host_timing_dispatch_recovery.json`.
 
+## Original frame class
+
+`calibration/host_window_class.cpp` now supplies the original frame factory,
+runtime-class and message-map getters, constructor/destructor, compiler-generated
+scalar deleting destructor, OnCreate and PreCreateWindow. Fresh VC5 compilation
+agrees outside relocation operands for all eight complete contributions. The
+ordinary generated virtual table preserves all 63 native slot identities,
+including the missing PreCreateWindow override at slot 25. The MFC dynamic-create
+macro supplies the measured 24-byte runtime descriptor for the 188-byte receiver.
+Documented `/GX` reproduces the factory's exception-registration shape; it does
+not establish the original whole-module compiler flags or exception behavior.
+
+The window override preserves original style removal, frame dimensions, work-area
+clamping/centering, cursor/icon/class registration and delegation to CFrameWnd.
+Its three module-state calls are observable; the SDK explains the middle resource
+handle read, while the discarded calls' source spelling remains unknown.
+All eight rows are `CODEGEN_SIMILAR`: complete raw bytes still differ. Existing
+SYSKEY bytes and relocation records remain unchanged, their 14 comparisons pass,
+and all 132 accepted matches remain exact.
+
+The public method runner freshly compiles canonical inputs, links the actual
+pinned libraries without `/FORCE`, and passes seven original/source comparisons
+for full creation structure, receiver, API/MFC events, return/stack and canaries:
+
+```
+python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
+```
+
+Its zero-map data and inert main are separate fixture boundaries; every code
+entry outside PreCreateWindow and the measured API/MFC endpoints fails. It never
+constructs a frame, starts MFC/Windows, creates a real window or executes an
+allocator. The real message-map provider stays unresolved in production source.
+
+The supplied libraries also expose a dependency mismatch. The native factory calls
+the 16-byte CRT operator new at `0x116a0`; MFC-first linking selects a competing
+60-byte MFC implementation. Searching CRT first produces duplicate new/delete
+definitions from MFC's afxmem object. This is recorded rather than suppressed;
+there is no factory/allocator execution claim. The real message-map provider
+remains absent from this production graph. See
+`evidence/host_frame_class_recovery.json` for bounds, provenance and limitations.
+
 ## Remaining game work
 
-The current natural host link compiles 81 actual source units covering all 102
+The current natural host link compiles 82 actual source units covering all 110
 recorded EXE functions, preserving its 25 accepted EXE matches. It has no duplicate
-providers and stops on 23 missing symbols, including the real host interface,
-loader storage, graphics/audio services and four startup service bodies. It produces no executable. The exact
+providers and stops on 24 missing symbols, including the frame message map,
+real host interface, loader storage, graphics/audio services and four startup
+service bodies. It also retains the recorded allocator mismatch. It produces no executable. The exact
 selected sources, pinned libraries and missing consumers are recorded in
 `evidence/host_current_source_graph.json`; this is a partial graph, not complete
 application coverage.

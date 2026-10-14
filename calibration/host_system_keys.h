@@ -7,14 +7,24 @@
 #error This measured receiver uses the pinned static MFC ABI.
 #endif
 
-/* Linked runtime identity CMainFrame, CFrameWnd base and 188-byte extent are
- * PC-backed. These member declarations do not supply the remaining original
- * virtual overrides, message map, constructors or window creation behavior. */
+/* PC-backed CFrameWnd base, 188-byte extent and complete virtual-slot identities.
+ * Message-map storage and unimplemented message handlers remain dependencies.
+ * Member access spelling and original translation-unit ownership are unproved. */
 class CMainFrame : public CFrameWnd
 {
 public:
+    CMainFrame();
+    virtual ~CMainFrame();
+    DECLARE_DYNCREATE(CMainFrame)
+    DECLARE_MESSAGE_MAP()
+
+public:
     void OnSysKeyDown(UINT key, UINT repeatCount, UINT flags);
     void OnSysKeyUp(UINT key, UINT repeatCount, UINT flags);
+
+protected:
+    virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+    afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 };
 
 #endif
