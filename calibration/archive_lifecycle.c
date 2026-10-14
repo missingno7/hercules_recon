@@ -25,7 +25,6 @@ void __cdecl archive_initialize(void)
 {
     ArchiveDirectoryEntry *entry;
     unsigned long next_key;
-    int count;
     int outer;
     int inner;
 
@@ -39,19 +38,17 @@ void __cdecl archive_initialize(void)
     if (fread(g_archive_directory, 0x3000UL, 1UL, g_archive_stream) != 1UL)
         archive_fatal(g_archive_init_read_failure);
 
-    count = 0;
     g_archive_directory_count = 0UL;
     if (g_archive_directory[0].key != 0UL) {
         entry = g_archive_directory;
         while (entry < g_archive_directory + 1024) {
             next_key = (entry + 1)->key;
             ++entry;
-            ++count;
+            ++g_archive_directory_count;
             if (next_key == 0UL)
                 break;
         }
     }
-    g_archive_directory_count = (unsigned long)count;
 
     if ((long)g_archive_directory_count <= 0L)
         return;

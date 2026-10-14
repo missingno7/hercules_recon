@@ -137,8 +137,10 @@ The startup call at `0x5e27` now binds the retained `archive_initialize` source
 at original `0x5020`. No duplicate body or data was introduced. All 100
 recorded host contributions keep their complete code bytes; one callee
 relocation name changes to the existing provider. The 20 protocol cases pass,
-but intercept initialization at entry. Its broader behavior and recovery-state
-acceptance remain separate work; see `evidence/host_startup_archive_binding.json`.
+but intercept initialization at entry. The later initializer recovery now passes nine native cases, including all
+measured buffers and ordered CPU-write traces. It remains `RECONSTRUCTED`;
+see `evidence/host_startup_archive_binding.json` for the earlier binding proof
+and `evidence/host_archive_initializer_recovery.json` for current body evidence.
 
 The original startup caller entry is EXE `0x7660`; `0x7670` is an interior
 block. Its frame allocation, constructor call and virtual LoadFrame slot
@@ -146,11 +148,36 @@ support the class binding. Likewise `0x94f0` is a separate OnCreate handler
 inside an old combined map span beginning at `0x94e0`. These corrected
 boundaries must guide later source recovery.
 
+## Timing and shared storage
+
+Original caller `0x5f20` now supplies its helper/time sample order, first-sample
+reset, signed accumulator clamp and bounded flagged/unflagged dispatch schedule.
+It observes callback-mutated clock state and preserves the tested single nested
+reentry. Fifteen original/fresh-source cases pass using the actual loader,
+selector and dispatcher. The timer reuses `graphics_storage.cpp`'s reset cell
+at `0x91c46c`, also written by palette updates; it creates no second owner.
+
+Separate four-byte accumulator/previous-tick COMMON prefixes, one callback BYTE,
+and the initialized pointer cell now supply their real source dependencies.
+The pointer references the unresolved host table symbol; the 1,000-byte table
+initializer remains absent. These are minimum measured views, not a shared
+aggregate, original TU or layout proof. The public runner requires canonical
+sources and durable pins, with no private-source fallback:
+
+```
+python scripts/host_timing_dispatch_differential.py
+```
+
+The helper at `0x9cd0`, WinMM sample and export effects remain synthetic fixture
+boundaries; path/error/jump-buffer/table capacities in that fixture are test-only.
+Both raw and relocation diagnostics differ for the caller. It remains
+`RECONSTRUCTED`; see `evidence/host_timing_dispatch_recovery.json`.
+
 ## Remaining game work
 
-The current natural host link compiles 76 actual source units covering all 100
+The current natural host link compiles 81 actual source units covering all 102
 recorded EXE functions, preserving its 25 accepted EXE matches. It has no duplicate
-providers and stops on 24 missing symbols, including the real host interface,
+providers and stops on 23 missing symbols, including the real host interface,
 loader storage, graphics/audio services and four startup service bodies. It produces no executable. The exact
 selected sources, pinned libraries and missing consumers are recorded in
 `evidence/host_current_source_graph.json`; this is a partial graph, not complete

@@ -8,7 +8,7 @@
     "baseline": "D:/Prog/hercules_recon/work/root_actor_relative_28/exe_graph.json",
     "scope": "Current actual-source host dependency evidence, not runtime or completion. No code edits planned for this measurement.",
     "recorded_before_compile": true,
-    "context": "Startup now binds retained archive_initialize at its proven original address; four startup service bodies and other selected dependencies remain missing."
+    "context": "Actual archive initializer and timing source bind into the selected host graph. The timer reuses the existing graphics reset owner and adds only measured pointer/flag and two independent clock prefixes. Full table, loader backing, graphics/audio and actual startup/timing service bodies remain missing."
   },
   "sources": [
     {
@@ -48,7 +48,7 @@
     },
     {
       "source": "calibration/archive_lifecycle.c",
-      "source_sha256": "bd0f312aca26ccb39b170ef571053411003b3c98b8d2140f8a3388a4180af0a0",
+      "source_sha256": "c07400babe9a705c9787442ab6f8e021a97abc322768fe9b6bc9dfe6085f2875",
       "flags": [
         "/O2"
       ]
@@ -497,6 +497,13 @@
       ]
     },
     {
+      "source": "calibration/host_timing_dispatch_5f20.c",
+      "source_sha256": "b65ef1d2c1e04daaa45813f0855bd7b6c14e8bedec67b188e90a651835ef0694",
+      "flags": [
+        "/O2"
+      ]
+    },
+    {
       "source": "calibration/host_startup_storage.c",
       "source_sha256": "654dd90ddb9133cd45dfd434d347067082b4bd2772d4fa25b8e92071d7834c6e",
       "flags": [
@@ -544,14 +551,42 @@
       "flags": [
         "/O2"
       ]
+    },
+    {
+      "source": "calibration/host_source_table_pointer_cell_365a0.c",
+      "source_sha256": "396f50e8dd91520935af110fdcbccc0bfc6f83762d03ca6af22ee7b60b97a9f0",
+      "flags": [
+        "/O2"
+      ]
+    },
+    {
+      "source": "calibration/host_dispatch_flag_cell_7a01fc.c",
+      "source_sha256": "8ed7e316296b7bef9391690050d855a09a519da18929f22e830dbb63ce09f579",
+      "flags": [
+        "/O2"
+      ]
+    },
+    {
+      "source": "calibration/host_timing_cell_91c470.c",
+      "source_sha256": "70900439ea70073c52fc5cc7c0fce523c7379c453e15f1b0e3b86cd40b3e3ed3",
+      "flags": [
+        "/O2"
+      ]
+    },
+    {
+      "source": "calibration/host_timing_cell_91c474.c",
+      "source_sha256": "0703a0fcd8c724ccb59259d465bb6725037ff03636cf7cf410490e4c91b55768",
+      "flags": [
+        "/O2"
+      ]
     }
   ],
   "validation": {
-    "fresh_source_units": 76,
-    "recorded_EXE_functions": 100,
+    "fresh_source_units": 81,
+    "recorded_EXE_functions": 102,
     "preserved_exact_EXE_functions": 25,
     "duplicate_providers": 0,
-    "unresolved_symbols": 24,
+    "unresolved_symbols": 23,
     "natural_link_exit_code": 25,
     "images_produced": 0,
     "images_executed": 0,
@@ -580,9 +615,6 @@
       "calibration/graphics_unlock.cpp",
       "calibration/graphics_lock.cpp"
     ],
-    "_g_host_engine_call_flag_7a01fc": [
-      "calibration/host_engine_dispatch.c"
-    ],
     "_g_host_engine_entry_91c45c": [
       "calibration/host_engine_loader.c",
       "calibration/host_engine_dispatch.c"
@@ -599,7 +631,8 @@
       "calibration/cleanup_registry.c",
       "calibration/host_sector_io.c",
       "calibration/host_file_prepare.c",
-      "calibration/host_config_context_setters.c"
+      "calibration/host_config_context_setters.c",
+      "calibration/host_source_table_pointer_cell_365a0.c"
     ],
     "_g_host_engine_jump_buffer_91bfd8": [
       "calibration/host_engine_select.c",
@@ -614,9 +647,6 @@
     ],
     "_g_host_engine_selector_91c464": [
       "calibration/host_engine_select.c",
-      "calibration/host_engine_dispatch.c"
-    ],
-    "_g_host_engine_source_table_cell_365a0": [
       "calibration/host_engine_dispatch.c"
     ],
     "_graphics_native_05a50": [
@@ -639,6 +669,9 @@
     ],
     "_host_service_fdf0": [
       "calibration/host_startup.c"
+    ],
+    "_host_timing_service_409cd0": [
+      "calibration/host_timing_dispatch_5f20.c"
     ]
   },
   "libraries": [
@@ -688,15 +721,15 @@
     }
   ],
   "private_receipt": {
-    "path": "work\\host_current_graph\\report-362dbfee2c6dd4aa.json",
-    "sha256": "362dbfee2c6dd4aa59152941c4474651acd3c6861d064d9703ba5fdad35c06dc"
+    "path": "work\\host_current_graph\\report-20790bc1b0a293e3.json",
+    "sha256": "20790bc1b0a293e3fb8976650e54c6a10e3653e10122d15920884227330a8f68"
   },
   "command": "python work/host_current_graph/run.py",
   "toolchain": "msvc5_rtm",
   "limits": [
-    "Selected source graph has grown from75 to76 units; unresolved counts are not a whole-game completion metric.",
+    "Selected actual-source graph now has 81 units and 102 recorded EXE functions; this is not complete application coverage or a whole-game completion denominator.",
     "The real host interface initializer, graphics/startup services and loader storage remain missing. No returning stubs, guessed path/archive buffers or forced executable were used.",
     "The natural source link fails on the recorded realdependencies; do not count this receipt as a playable build."
   ],
-  "recovery_sha256": "8904b2c2100191a3b24d3395922319f5d2b33a29347c37edc5378f0b90b95e85"
+  "recovery_sha256": "c3687c4858be0986fbbe5a790241767073793befb841b6ee1aa68c06a4b84ea3"
 }

@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "scope": "Original PC archive initializer at 0x5020 with measured count-store lifetime. recovery.json alone owns status; finite behavioral agreement is not FUNCTION_MATCH.",
+  "source": {
+    "path": "calibration\\archive_lifecycle.c",
+    "sha256": "c07400babe9a705c9787442ab6f8e021a97abc322768fe9b6bc9dfe6085f2875"
+  },
+  "prior_source_sha256": "bd0f312aca26ccb39b170ef571053411003b3c98b8d2140f8a3388a4180af0a0",
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "size": 275968,
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "initializer_rva": "0x5020",
+    "initializer_size": 240,
+    "initializer_sha256": "3cb3693bc3b96b93b67a04d47681f836ff4d12aff54f81129eba47b06d096aa5"
+  },
+  "archive": {
+    "file": {
+      "path": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\HERCULES.FS",
+      "size": 46924407,
+      "sha256": "affa380e45918448895932cd466ea9a02096b8dcf08644f91b9da5ec34cd48b4"
+    },
+    "directory_prefix_size": 12288,
+    "directory_prefix_sha256": "6d7ed3277a6a2d295de17e41a7231b394be2b1899c202314a0eaa09e4b3a3ee9"
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "root": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+    "manifest": {
+      "path": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\toolchains\\manifest.json",
+      "size": 10345,
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    },
+    "cl": {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "size": 46080,
+      "sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb"
+    },
+    "c1": {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\c1.dll",
+      "size": 563984,
+      "sha256": "e519dfe6f45cc0503b7aac43d125b2f156305269b89f0dc765c40d29627c0943"
+    },
+    "c2": {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\c2.exe",
+      "size": 630544,
+      "sha256": "6d1406af5f62647347cfa7175cd7e108b838d6841a546396f29252198a14d73d"
+    },
+    "link": {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\link.exe",
+      "size": 359424,
+      "sha256": "279544809e6353c8e622eb88aea94e86b0258f3c4b8a976373bf4d68a41b63e1"
+    },
+    "headers": [
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdio.h",
+        "size": 13087,
+        "sha256": "b8347d1031e2425177c047a69121adffa39d41932c38c95a45b71c1c59378652"
+      },
+      {
+        "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h",
+        "size": 9170,
+        "sha256": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec"
+      }
+    ]
+  },
+  "prediction": "Use the global directory-count cell as scan induction state to preserve the original zero-before-scan and final-count CPU stores, instead of a local count whose first global store was eliminated.",
+  "falsifier": "Different complete measured directory/positions, stream/count, calls/fatal boundary, or ordered write audit in the focused nine-case replay; unsupported compiler steering or changed accepted peer.",
+  "negative_control": {
+    "path": "work\\archive_initializer_native\\baseline_write_trace.json",
+    "sha256": "5acefcc570805c7fd66967545fda50d4d8e6191036347eb5ab0fa04b3e2c7170",
+    "result": "Corrected baseline audit identifies only nonempty count-store traces: original [0,N], old source [N]. The original uncorrected summary is preserved separately and is not used as trace equality proof."
+  },
+  "fresh_canonical_verification": {
+    "receipt": {
+      "path": "work\\archive_initializer_native\\current_canonical_guarded\\differential_guarded.json",
+      "sha256": "4623f75dec9813b741990fc7166c1d660afe19fe8489aea627bc19f04307022c"
+    },
+    "build": {
+      "path": "work\\archive_initializer_native\\current_canonical_guarded\\build_provenance.json",
+      "sha256": "1b2ed88429f8cfc0a21c1f07764cba555f7b3cfdee07c827d2419ce5814339a1"
+    },
+    "guards": {
+      "path": "work\\archive_initializer_native\\current_canonical_guarded\\guard_validation.json",
+      "sha256": "b3b69ff90c844423f4d0d456f454af463a65e2b9de3d5f8b5ab72da8540f3c6d"
+    },
+    "cases": 9,
+    "failures": 0,
+    "case_names": [
+      "empty",
+      "one_row",
+      "two_rows",
+      "unsigned_high_sorted",
+      "unsigned_high_descending",
+      "duplicate_high_key",
+      "fopen_failure",
+      "fread_failure",
+      "pinned_real_archive_prefix"
+    ],
+    "comparison": "Full 0x3000-byte directory and 0x1000-byte positions prefixes, exact stream/count, fopen/fread arguments and order, terminal fatal message, ordered CPU writes per measured region and no unexpected image writes.",
+    "real_archive_rows": 821,
+    "model": "Synthetic CRT endpoints supply only fopen results and exact fread prefix bytes. Fatal stops at entry. Distinct fixture-only guards do not return if accidentally entered; 9 fopen, 8 fread and 4 fatal entries intercepted on each side. Failed-read controls model an immediate zero-item result with no partial prefix copy; broader CRT error effects remain unverified.",
+    "replay": "python work/archive_initializer_native/replay.py --source-exe work/archive_initializer_native/current_canonical_guarded/source_harness_guarded.exe --source-map work/archive_initializer_native/current_canonical_guarded/source_harness_guarded.map --report work/archive_initializer_native/current_canonical_guarded/differential_guarded.json"
+  },
+  "code_diagnostic": {
+    "receipt": {
+      "path": "work\\archive_initializer_native\\current_canonical\\code_comparison_current.json",
+      "sha256": "29b92d01aed25feccaa8b2dde6c60527e73878e797ad186f022f011cad292296"
+    },
+    "complete_bytes": 240,
+    "raw_different_bytes": 76,
+    "masked_different_bytes": 14,
+    "relocation_conflict_offset": 152,
+    "raw_exact": false,
+    "meaning": "Relocation masking is diagnostic only; neither raw nor masked equality holds."
+  },
+  "source_regression": {
+    "path": "work\\host_timing_adoption\\archive_source_regression.json",
+    "sha256": "778c5f3879d825965e5d48f4d079dae936d8cbc147ac7a57bf37686e0bcedf18"
+  },
+  "limits": [
+    "No original process, DLL, CRT, OS routine or visible gameplay executes in the native fixture.",
+    "Measured leading prefixes and these nine cases do not prove complete array ownership/capacity, historical source/TU/layout or full archive/game equivalence.",
+    "Prior startup binding established identity only; this independent initializer proof does not alter the meaning of that historical receipt."
+  ],
+  "reproduce_source_regression": "Fresh pinned VC5 source fixtures tests/archive_lifecycle_semantics.c and tests/archive_pipeline_semantics.c; actual CRT I/O in new ignored directories.",
+  "regression": {
+    "natural_graph": {
+      "path": "work\\host_current_graph\\report-20790bc1b0a293e3.json",
+      "sha256": "20790bc1b0a293e3fb8976650e54c6a10e3653e10122d15920884227330a8f68",
+      "source_units": 81,
+      "recorded_EXE_functions": 102,
+      "unresolved": 23,
+      "duplicate_providers": 0,
+      "accepted_EXE_functions_preserved": 25,
+      "executable_produced": false
+    },
+    "strict": {
+      "path": "work\\host_timing_adoption\\strict.json",
+      "sha256": "540e9d04b74b2b49ba63fbb776196dd4a91323f838264a7fc76f42a4ee2fa103",
+      "raw_exact_functions": 132,
+      "accepted_set_unchanged_by_new_RECONSTRUCTED_rows": true
+    }
+  },
+  "recovery_status": "RECONSTRUCTED; complete raw contribution differs."
+}

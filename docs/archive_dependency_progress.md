@@ -72,3 +72,15 @@ Verification passes **41 fresh raw matches**, **40 semantic suites / 3,647,669
 checks**, **30 Python tests**, and **12 immutable original-file hashes**. Accepted
 source and recovery state are unchanged; generated outputs and originals stay
 ignored. Natural module closure and whole-binary equality remain open.
+
+
+Current original-host continuation: the initializer at `0x5020` now uses its
+global count as scan state. This reproduces the measured zero-before-scan and
+final-count CPU stores that the local-count draft omitted. Nine fresh native
+comparisons pass full measured directory/positions, stream/count, CRT/fatal
+boundaries and ordered writes; the pinned archive prefix yields 821 rows.
+The existing source lifecycle and composed pipeline fixtures pass 20 and 21
+checks. The fresh 240-byte contribution still differs at 76 raw bytes, with
+14 unmasked bytes and a relocation conflict, so the row is `RECONSTRUCTED`.
+Earlier metrics above are historical. Current provenance and limits are in
+`evidence/host_archive_initializer_recovery.json`.

@@ -1,0 +1,163 @@
+{
+  "schema": 1,
+  "scope": "Original PC timing caller 0x5f20 and minimal dispatch/clock storage. recovery.json alone owns status; no complete function, module, OS/API or gameplay acceptance.",
+  "oracle": {
+    "path": "D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE",
+    "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "rva": "0x5f20",
+    "body_bytes": 173,
+    "padded_bytes": 176,
+    "body_sha256": "2da2abca95296d27f38f85a3e65df55f188a014d1a3f0470f26cb39d47224802",
+    "padded_sha256": "013c0c2b73f6fbf5cef04eeecbdb4404bb27fc25c7ef5595dee3733545d767db",
+    "table_rva": "0x361b8",
+    "table_sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "table_pointer_cell_rva": "0x365a0",
+    "table_pointer_cell_sha256": "808fbb8b89f159778e8ec1322e9c7a53c570dfe17e6e565367f97a9bee2a0e3b"
+  },
+  "sources": [
+    {
+      "source": "calibration/host_timing_dispatch_5f20.c",
+      "sha256": "b65ef1d2c1e04daaa45813f0855bd7b6c14e8bedec67b188e90a651835ef0694",
+      "scratch": "work\\host_timing_adoption\\host_timing_dispatch_5f20.c"
+    },
+    {
+      "source": "calibration/host_source_table_pointer_cell_365a0.c",
+      "sha256": "396f50e8dd91520935af110fdcbccc0bfc6f83762d03ca6af22ee7b60b97a9f0",
+      "scratch": "work\\host_timing_adoption\\host_source_table_pointer_cell_365a0.c"
+    },
+    {
+      "source": "calibration/host_dispatch_flag_cell_7a01fc.c",
+      "sha256": "8ed7e316296b7bef9391690050d855a09a519da18929f22e830dbb63ce09f579",
+      "scratch": "work\\host_timing_adoption\\host_dispatch_flag_cell_7a01fc.c"
+    },
+    {
+      "source": "calibration/host_timing_cell_91c470.c",
+      "sha256": "70900439ea70073c52fc5cc7c0fce523c7379c453e15f1b0e3b86cd40b3e3ed3",
+      "scratch": "candidates\\host_engine_loader_recovery\\host_timing_cell_91c470.c"
+    },
+    {
+      "source": "calibration/host_timing_cell_91c474.c",
+      "sha256": "0703a0fcd8c724ccb59259d465bb6725037ff03636cf7cf410490e4c91b55768",
+      "scratch": "candidates\\host_engine_loader_recovery\\host_timing_cell_91c474.c"
+    }
+  ],
+  "existing_reset_owner": {
+    "path": "calibration/graphics_storage.cpp",
+    "sha256": "178b70f31d0c850c3b6d8f4f90eebd3b028d1d3ff09c2d1e526a6ee0beaec1de"
+  },
+  "no_reset_provider_added": true,
+  "clock_evidence": {
+    "path": "work\\host_engine_loader_recovery\\clock_cell_and_9cd0_audit_20261014_existing_owner_v2.json",
+    "sha256": "a723bfeecd2cc06f1dc5885381ac241df23cde612c627d93d231414a040a495d"
+  },
+  "prediction": "Recover the original finite timer schedule using actual source dispatcher dependencies and measured minimal storage. Reuse the existing graphics reset owner; no duplicate state, table copy, returning game bodies or guessed buffer capacities.",
+  "falsifier": "Different finite state/call ordering, duplicate/reset shadow, changed data prefix, unsupported ABI or source/oracle drift.",
+  "contract": {
+    "clock": "Helper9cd0 precedes timeGetTime. Missing previous sample or nonzero shared reset clears accumulator/reset; otherwise unsigned time delta adds to accumulator, which is clamped to [-66,66].",
+    "calls": "At most two flagged calls while live accumulator>=33, decrementing after each callback; clear flag, and make one unflagged call after predecrement if remaining accumulator is nonnegative.",
+    "reloads": "Callback-mutated clock state remains live; source must reload after helper/import/callback boundaries."
+  },
+  "minimal_storage": {
+    "table_pointer": {
+      "rva": "0x365a0",
+      "bytes": 4,
+      "relocation": "One DIR32 to external _g_host_engine_interface at observed RVA0x361b8",
+      "claim": "Conditional pointer-value equality only; full host table remains undefined."
+    },
+    "call_flag": {
+      "rva": "0x7a01fc",
+      "bytes": 1,
+      "origin": "loader-zero",
+      "COFF": "COMMON1"
+    },
+    "accumulator": {
+      "rva": "0x51c470",
+      "bytes": 4,
+      "origin": "loader-zero",
+      "COFF": "COMMON4",
+      "view": "LONG"
+    },
+    "previous_tick": {
+      "rva": "0x51c474",
+      "bytes": 4,
+      "origin": "loader-zero",
+      "COFF": "COMMON4",
+      "view": "DWORD"
+    },
+    "reset": {
+      "rva": "0x51c46c",
+      "bytes": 4,
+      "owner": "calibration/graphics_storage.cpp:_g_exe_91c46c",
+      "view": "Existing int32, also consumed by graphics_palette.cpp."
+    }
+  },
+  "source_to_source_preservation": {
+    "path": "work\\host_timing_adoption\\shared_reset_measurement.json",
+    "sha256": "b6666d3e3b6f497c738c4d9025fa73038116b1a6663ff80d7dcbedd81c4e4e70"
+  },
+  "canonical_data_checks": [
+    {
+      "path": "work\\host_timing_adoption\\canonical_prefixes.json",
+      "sha256": "6bff6ab4e7cbdf7d8336f1f44b19a39b46e14dd0046e9339e6774b8f79437ec0"
+    },
+    {
+      "path": "work\\host_timing_adoption\\canonical_clock_prefixes.json",
+      "sha256": "bea3ef182329e81e64aa025ca9d731267e5a24211bb538da793ebc693a6f7cdf"
+    }
+  ],
+  "private_preintegration_validation": {
+    "path": "work\\host_engine_loader_recovery\\public_host_timing_dispatch_strict_differential_20261014.json",
+    "sha256": "65ee41bb0ff7e6e5fda1184f83346f7925ad0e4fafc6e2bcb861773686d30646",
+    "cases": 15,
+    "failures": 0,
+    "caller_code_sha256": "f02e350314b6f6cbd0e0f9a2ac0d42bf56e0598540cd666f7e5d9d41e1d95524",
+    "caller_complete_bytes": 176,
+    "raw_equal": false,
+    "masked_equal": false
+  },
+  "limits": [
+    "hooked before entry; the helper body is not executed in this caller differential",
+    "synthetic value sequence through IAT cell RVA 0x7a5b24; actual WinMM is never called",
+    "synthetic export stop boundary; callback records two arguments and optionally mutates address-labelled cells or re-enters caller once",
+    "generated fixture path/error/jmp_buf and loader/dispatch state cells are TEST-ONLY allocations: path=512 bytes, error=512 bytes, jmp_buf=64 bytes; no game storage capacity/owner is inferred",
+    "native run maps the unchanged initialized table and self-pointer; source run uses an explicit synthetic EngineInterface fixture object. No source table owner or production initializer is defined or inferred",
+    "source run uses the freshly compiled canonical BYTE provider as a test-only common cell; native run uses its PE zero-fill location. The fixture compares the observed byte behavior without inferring the original declared type or larger extent",
+    "actual source dispatcher uses the canonical provider; original path uses unchanged retail dispatcher and mapped VC5 CRT setjmp bytes under the prior runner's FS:[0]=0 bounded contract"
+  ],
+  "toolchain": "msvc5_rtm",
+  "reproduce": "python scripts/host_timing_dispatch_differential.py --native-exe D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE",
+  "runner": {
+    "path": "scripts/host_timing_dispatch_differential.py",
+    "sha256": "db49a31b60dd5e5fa71355f537f1188e15cf89bd6e83e13daaf12ee38c1476b8"
+  },
+  "validation": {
+    "natural_graph": {
+      "path": "work\\host_current_graph\\report-20790bc1b0a293e3.json",
+      "sha256": "20790bc1b0a293e3fb8976650e54c6a10e3653e10122d15920884227330a8f68",
+      "source_units": 81,
+      "recorded_EXE_functions": 102,
+      "unresolved": 23,
+      "duplicate_providers": 0,
+      "accepted_EXE_functions_preserved": 25,
+      "executable_produced": false
+    },
+    "strict": {
+      "path": "work\\host_timing_adoption\\strict.json",
+      "sha256": "540e9d04b74b2b49ba63fbb776196dd4a91323f838264a7fc76f42a4ee2fa103",
+      "raw_exact_functions": 132,
+      "accepted_set_unchanged_by_new_RECONSTRUCTED_rows": true
+    },
+    "public_differential": {
+      "path": "work\\host_timing_adoption\\public_final_differential.json",
+      "sha256": "a262c4ec12d2c168d8ccb1e6862de28e0fe18843fe9c196fd4f9e8273cb004ce",
+      "cases": 15,
+      "failures": 0,
+      "same_objects_compared_linked_emulated": true
+    },
+    "separate_natural_graph_compile_preservation": "Complete caller code and all relocation records equal the public replay object.",
+    "previous_public_input_evidence_snapshot": {
+      "path": "work\\host_timing_adoption\\public_evidence_input.json",
+      "sha256": "f236fa4d1efd02622ceaff16256213fd0b08c40d75020602058c4356d95d5910"
+    }
+  }
+}
