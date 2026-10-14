@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <ddraw.h>
 #include <stddef.h>
+#include "host_graphics_table_storage.h"
 
 typedef char sdk_dword_4[(sizeof(DWORD)==4)?1:-1];
 typedef char sdk_long_4[(sizeof(LONG)==4)?1:-1];
@@ -17,7 +18,6 @@ extern unsigned char g_exe_96e3d0;
 extern unsigned char g_fatal_suppress_dialog;
 extern HWND g_fatal_owner_window;
 extern int g_exe_91c44c;
-extern WINDOWPLACEMENT g_exe_92e390;
 extern HMENU g_exe_96e414;
 extern LONG g_exe_92c48c;
 extern LONG g_exe_91c480;
@@ -28,7 +28,6 @@ extern unsigned char *g_exe_ba0210;
 extern unsigned char *g_exe_96e3d8;
 extern int g_exe_96e3d4;
 extern unsigned char g_exe_43a590;
-extern RECT g_exe_92e3c0;
 
 extern void __cdecl graphics_native_03770(void);
 extern void __cdecl graphics_native_05a50(void);

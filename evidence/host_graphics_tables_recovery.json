@@ -1,0 +1,257 @@
+{
+  "schema": 1,
+  "scope": "Original71A0 table initialization and working shared remap/window/blend backing. Native writer/reader evidence and historical source comparisons. recovery.json alone owns status; no source/TU/module-layout/device/game acceptance.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_graphics_tables.cpp",
+      "sha256": "da79899eb7a321151f8f71d56255374c400e0908f014f5447ca567ffba9c4771"
+    },
+    {
+      "path": "calibration/host_graphics_table_storage.c",
+      "sha256": "33b2a4c23c1020591e2ab88eb25a2e854e2da99930399c96b54a53d82d844bf3"
+    },
+    {
+      "path": "calibration/host_graphics_table_storage.h",
+      "sha256": "adc12f46ff64d03a984d65ed738d767ac113644725366b4143de39d4ed93bda3"
+    },
+    {
+      "path": "calibration/display_mode_transition.cpp",
+      "sha256": "a18cf02df2a12b7b957e5e952664a7f75c4cf4d02c1e09c3950ba1486ef665f2"
+    },
+    {
+      "path": "calibration/graphics_storage.cpp",
+      "sha256": "c7b4221f7cf2820584e652e6bfd0d932fc4fd24c99e0dc65ddfd97f33a20ed6c"
+    },
+    {
+      "path": "scripts/host_graphics_tables_differential.py",
+      "sha256": "5376e609a9dbd5c4fd1335026d4c22a8621ad838ba6d1cf3733065c02369b819"
+    }
+  ],
+  "prediction": {
+    "path": "work/host_graphics_tables/prediction.json",
+    "sha256": "20dafea9bf2f1a32ae80bbd21af38c87c97fb0d15e2ded2ff613431d94eecc61"
+  },
+  "native_reference_leads": {
+    "path": "work/host_graphics_tables/references.json",
+    "sha256": "a599ccbcbce41de98fd34649924e7746ec1cb376084c7596509aafb12f2158ce"
+  },
+  "asset_evidence": {
+    "archive": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\HERCULES.FS",
+    "archive_sha256": "affa380e45918448895932cd466ea9a02096b8dcf08644f91b9da5ec34cd48b4",
+    "existing_oracle": "renderer_contract\\tests\\test_original_cif_palette.py",
+    "existing_oracle_sha256": "5997878e5448f241fb4b69b8f6c533282aee11c7139c19f57e612513cc6fd2ba",
+    "member": {
+      "MEMBER_SHA256": "11d04b7e7a51b8b6a6a99fe0b5fa7e436a11ca04fedf3c0a25033d5deeb2049b",
+      "MEMBER_KEY": 3774874790,
+      "MEMBER_ROW": 762,
+      "MEMBER_OFFSET": 38040626,
+      "MEMBER_LENGTH": 336384,
+      "MEMBER_PATH": "M:\\GRAFIX\\MAPS\\TITLE\\MAINMENU\\MAP_PSX.CIF"
+    },
+    "remap_offset": "0x50300",
+    "remap_bytes": 7936,
+    "remap_sha256": "c194c65d50c247405aca60a3b5115c3de197c334066b683e2feb1b7f42ea33f5",
+    "rows": 31
+  },
+  "asset_receipt": {
+    "path": "work/host_graphics_tables/asset_evidence.json",
+    "sha256": "dc6fa0ba0f2799d5b416b7521ee5cd7de200775b64abdcca171800fba99f3ee7"
+  },
+  "representation": {
+    "base_rva": "0x52c490",
+    "total_bytes": 270144,
+    "logical_remap_bytes": 7936,
+    "logical_remap_rows": 31,
+    "placement_offset": "0x1f00",
+    "placement_bytes": 44,
+    "observed_gap_offset": "0x1f2c",
+    "observed_gap_bytes": 4,
+    "rectangle_offset": "0x1f30",
+    "rectangle_bytes": 16,
+    "average_offset": "0x1f40",
+    "add_offset": "0x11f40",
+    "subtract_offset": "0x21f40",
+    "half_add_offset": "0x31f40",
+    "shade_rva": "0x51c488",
+    "shade_bytes": 65536,
+    "scope": "Ordinary SDK aggregate is an evidence-backed working representation of required aliasing. Original aggregate/allocations/TU and relative linker placement remain unproved; no placement flags/assembly or separate overlapping backing."
+  },
+  "behavior": [
+    "Before tables,71A0 supplies256 grayscale calls with four equal DWORD arguments0..255; later refresh69A0 receives1. Those leaf effects remain explicit modeled boundaries.",
+    "Shade[row][column]=min((row*column)>>7,255). Four65536-byte lookups contain average(row+column)>>1,saturated add,saturated column-row and saturated(row>>1)+column.",
+    "Final32-row identity ramp writes0..255 at each row,not zeros. It fills31logical remap rows,64window-prefix bytes0..63 and192average bytes64..255; average row0 columns192..255 retain96..127. The original overrun into shared views is preserved.",
+    "Loader68C0 reads only0x1F00 remap bytes from the pinned member+50300 and compares32rows. Existing unchanged original startup_pixel_alias/cif_palette oracles already establish consumed alias behavior; current asset/member reads confirm31persisted rows."
+  ],
+  "data": {
+    "fields": [
+      {
+        "symbol": "_g_host_graphics_tables_52c490",
+        "rva": "0x52c490",
+        "bytes": 270144,
+        "kind": "sourceBSS/nativevirtual-loaderzero"
+      },
+      {
+        "symbol": "_g_host_graphics_shade_51c488",
+        "rva": "0x51c488",
+        "bytes": 65536,
+        "kind": "sourceBSS/nativevirtual-loaderzero"
+      }
+    ],
+    "physical_prefix_bytes": 335680,
+    "standalone_window_bytes_removed": 60,
+    "scope": "Full current sourceBSS prefixes agree with native virtual-loaderzero backing. The64-byte window prefix includes44+4gap+16rectangle; no separate window/rectangle definitions remain."
+  },
+  "measurement": {
+    "initial_falsified_candidate": {
+      "path": "work/host_graphics_tables/candidate-zero-hypothesis.json",
+      "sha256": "fc1ad99d2868ac025c166790ad571736d51b7490128549bd7f40cd3a51b6f2d4"
+    },
+    "corrected_candidate": {
+      "path": "work/host_graphics_tables/candidate.json",
+      "sha256": "4a6224437ba192f2b80158aacf64694c3aa8cad814300811f6ac5c7a90eb5af5"
+    },
+    "canonical": {
+      "source_size": 256,
+      "native_size": 256,
+      "raw_exact": false,
+      "raw_differences": 215,
+      "normalized_equal": false,
+      "normalized_differences": 188,
+      "relocations": [
+        {
+          "offset": 11,
+          "symbol": "_graphics_native_06780",
+          "type": 20
+        },
+        {
+          "offset": 30,
+          "symbol": "_g_host_graphics_shade_51c488",
+          "type": 6
+        },
+        {
+          "offset": 78,
+          "symbol": "_g_host_graphics_shade_51c488",
+          "type": 6
+        },
+        {
+          "offset": 87,
+          "symbol": "_g_host_graphics_tables_52c490",
+          "type": 6
+        },
+        {
+          "offset": 191,
+          "symbol": "_g_host_graphics_tables_52c490",
+          "type": 6
+        },
+        {
+          "offset": 198,
+          "symbol": "_g_host_graphics_tables_52c490",
+          "type": 6
+        },
+        {
+          "offset": 223,
+          "symbol": "_g_host_graphics_tables_52c490",
+          "type": 6
+        },
+        {
+          "offset": 232,
+          "symbol": "_graphics_native_069a0",
+          "type": 20
+        }
+      ],
+      "compiled_sha256": "3385c4a21301f59a5978f84f4be91327b236a122edfb08acbe9478e8daf1ae17",
+      "native_sha256": "b58cd0d20ad2e5df602c224ad40d8ef92e25e5f029ec0396d7e50246d0a248e4"
+    },
+    "scope": "Source is256bytes but full code differs; remains RECONSTRUCTED. The corrected ramp was a semantic falsifier,not a source-spelling grid or alignment trick."
+  },
+  "consumer_preservation": {
+    "path": "work/host_graphics_tables/consumer_preservation.json",
+    "sha256": "96df91148b5680711f594ff920591dc247dee38f5b07ffc3ba406917490c67e4"
+  },
+  "validation": {
+    "report": {
+      "path": "work/host_graphics_tables/public_pinned/table_differential.json",
+      "sha256": "bb491d0c643d67a527f342240502026046e378f3223316327594906c8425d48b"
+    },
+    "case_count": 2,
+    "initial_memory_seeds": [
+      92,
+      163
+    ],
+    "all_equal": true,
+    "whole_generated_bytes_each": 335680,
+    "checks": "Every shade/remap/window/blend byte,event order/all256grayscale argument sets,refresh argument,stack/nonvolatile registers,guards,instruction andwrite whitelists,original8-byte shade/remap gap untouched.",
+    "boundaries": "Palette writer6780 andrefresh69A0 are modeled leaf calls; generated table code and window overwrite execute actually in native/source. No real graphics/device or full palette pipeline proof."
+  },
+  "diagnosed_error": "Initial hypothesis misread final MOV AL as zero-store. Full native comparison rejected window/average regions while shade/event/ABI checks passed. Original AL increments with column and existing oracle clut=bytes(range256)*32 confirms identity ramp. Only semantic ramp corrected; false candidate/prediction preserved privately.",
+  "regression": {
+    "strict": {
+      "path": "work/host_graphics_tables/strict133.json",
+      "sha256": "1def49519f8a246bae5966ca3851895fd604054b15bc7a2963fce708662a6ccc"
+    },
+    "raw_exact_functions": 133,
+    "prior_656_statuses_and_proofs_unchanged": true,
+    "prior_rows_identical_except_one_evidence_note": true,
+    "rows_added": 1,
+    "status_counts": {
+      "FUNCTION_MATCH": 133,
+      "CODEGEN_SIMILAR": 473,
+      "RECONSTRUCTED": 51
+    },
+    "startup_report": {
+      "path": "work/host_graphics_tables/startup_regression/host_graphics_startup_differential.json",
+      "sha256": "3c31d60fb566900083deba69cfb449386284aabeefe7e603bbc389720279d9db"
+    },
+    "startup_cases": 29,
+    "startup_all_equal": true,
+    "natural_graph": {
+      "path": "work/host_current_graph/report-ab34a0785ec6cb32.json",
+      "sha256": "ab34a0785ec6cb3299a3e71c3a7537556917b4e5fa61297e1a0b3df5f2a2a54a"
+    },
+    "source_units": 103,
+    "recorded_EXE_functions": 136,
+    "accepted_EXE_functions": 26,
+    "unresolved": 36,
+    "missing_frame_callbacks": 18,
+    "other_missing_providers": 18,
+    "duplicate_providers": 0,
+    "images_produced": 0,
+    "limits": "Actual table body resolves71A0 but exposes actual missing palette setter6780. Same missing count is not graph equality or game completion."
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "implicit_compile_flag": "/Gy",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "analysis_tools": {
+    "python": {
+      "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "version": "3.12.14",
+      "sha256": "d41bad46673f64e0d02f23797f53f90ccf60f27d6eda8d86dd2d4bbeae5a858c"
+    },
+    "pefile": {
+      "path": "C:\\tools\\hercules\\python\\pefile.py",
+      "version": "2024.8.26",
+      "sha256": "0d0eb68f0f169182613dc64b3ab50b20855508c1c1d2faafe8fccf23edb6a345"
+    },
+    "unicorn": {
+      "path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+      "version": "2.1.4",
+      "sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+    },
+    "origin": "Existing C:/tools/hercules installations and bundled workspace Python; prior provenance in evidence/host_engine_loader_recovery.json. No tool/dependency added or modified."
+  },
+  "commands": [
+    "python scripts/host_graphics_tables_differential.py --output work/graphics_tables_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/graphics_tables_strict_replay.json"
+  ],
+  "limits": [
+    "No raw exact function promotion from full data/finite agreement. Window consumer complete code/relocations preserved modulo exactly two proved member identities/addends; original source/TU/layout not inferred.",
+    "No full palette setter/refresh,loaded CIF pipeline,current/full window state machine,real GDI/DirectDraw,menu/input/gameplay or renderer execution. Originals/assets not modified or committed."
+  ]
+}

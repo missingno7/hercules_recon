@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <ddraw.h>
 #include <stddef.h>
+#include "host_graphics_table_storage.h"
 
 typedef char sdk_int_4[(sizeof(int)==4)?1:-1];
 typedef char sdk_long_4[(sizeof(LONG)==4)?1:-1];
@@ -26,8 +27,6 @@ int g_exe_91c44c = 0;
 int g_exe_91c46c = 0;
 LONG g_exe_91c480 = 0;
 LONG g_exe_92c48c = 0;
-WINDOWPLACEMENT g_exe_92e390 = {0};
-RECT g_exe_92e3c0 = {0};
 
 BYTE g_exe_96e3d0 = 0;
 int g_exe_96e3d4 = 0;
