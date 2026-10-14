@@ -2,8 +2,9 @@
 
 Reconstruct the 1997 Windows Hercules game with historical C/C++ tools. The PC
 binaries are the matching oracle. PSX builds provide secondary evidence only.
-Historical reconstruction and a modern drop-in renderer now develop together
-inside this repository. Original simulation and gameplay remain unchanged.
+This phase reconstructs the original game only. No port, modernization, renderer
+replacement or gameplay changes are part of it. Earlier renderer experiments
+remain in the repository as deferred work.
 
 Current user priority is reverse engineering and reconstructing the original
 game first. Recover coherent source and dependencies in forms useful to later

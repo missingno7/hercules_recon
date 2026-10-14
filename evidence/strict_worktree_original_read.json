@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "scope": "Read-only target-location support for existing historical strict gate; no recovery state changes or relaxed comparison.",
+  "source": {
+    "path": "scripts/match.py",
+    "sha256": "c1416e7bcdf59b0fccaa86b0840930f633b406ccbe4c40afbe09536fd86ab2a1"
+  },
+  "recovery_sha256": "2b382db40e0d15ea747b75d8e33d575b3fb952a20a6f5459f6bd26de216254e0",
+  "toolchain_manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+  "commands": [
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/recon_game_frontier/public_strict_verify.json",
+    "python scripts/match.py object eng1.resource_action_dispatch --obj work/eng1_behavioral/differential/resource-mask/unit_1.obj --original-root D:/Prog/hercules_recon --report work/recon_game_frontier/public_strict_relocation_rejection.json"
+  ],
+  "validation": {
+    "fresh_exact": 132,
+    "verify_exit": 0,
+    "relocation_case": {
+      "exit": 1,
+      "exact": false,
+      "size": 80,
+      "different_bytes": 16,
+      "object_relocations": 4,
+      "diagnostic_nonrelocation_similarity_grants_no_acceptance": true
+    },
+    "oracle_hash_mutation": {
+      "result": "rejected before compilation",
+      "error": "Target hash mismatch: D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\TITLE.DLL"
+    }
+  },
+  "boundaries": "Local recovery/source proof, hash-pinned original, fresh VC5 compile, complete raw contribution, object/native relocation rejection and source/original reread checks remain. Default source promotion behavior is unchanged.",
+  "private_receipts": [
+    {
+      "path": "work/recon_game_frontier/public_strict_verify.json",
+      "sha256": "671a9556bec1a28734ec2ef8810ae94c90863b1d685a85936068380dd8703db0"
+    },
+    {
+      "path": "work/recon_game_frontier/public_strict_relocation_rejection.json",
+      "sha256": "52a574823dbf9f5b9a888c9a54569e5abb95d446f881cd485aae8b0117c9e387"
+    }
+  ]
+}

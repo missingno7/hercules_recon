@@ -62,6 +62,16 @@ only where the pinned oracle is read; function references still bind against
 the local recovery rows and the original hash. Substituting an absolute path
 inside the manifest would change the identity used for those bindings.
 
+Fresh strict verification can read the same pinned originals directly:
+
+```
+python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/strict_verification.json
+```
+
+This changes only target lookup. Canonical source proof checks, fresh compilation,
+complete contribution comparison and the rejection of object/native relocations
+remain the existing strict gate. It writes no recovery state.
+
 The resource-action cluster now supplies source for ENG1 `0x28290`, `0x128a0`
 and `0x12910` using the existing shared owners. Its 518 finite comparisons pass,
 the measured data providers remain equal, and all 132 accepted functions remain

@@ -84,8 +84,10 @@ def compare(obj, symbol, target, rva, size):
             "object": str(obj.resolve())}
 
 
-def check(row, source=None, toolchain=DEFAULT_TOOLCHAIN):
-    target = ROOT / row["target"]
+def check(row, source=None, toolchain=DEFAULT_TOOLCHAIN, original_root=None):
+    # Source and acceptance state remain local to this worktree. Only the
+    # read location of the hash-pinned original may come from another checkout.
+    target = (Path(original_root).resolve() if original_root is not None else ROOT) / row["target"]
     if digest(target.read_bytes()) != row["target_sha256"]:
         raise ValueError(f"Target hash mismatch: {target}")
     canonical = source is None
@@ -101,6 +103,8 @@ def check(row, source=None, toolchain=DEFAULT_TOOLCHAIN):
         raise ValueError("Target changed during verification")
     result.update(id=row["id"], source_sha256=digest(source_before), command=command,
                   toolchain=verify_toolchain(toolchain))
+    if original_root is not None:
+        result["read_only_original_path"] = str(target.resolve())
     return result
 
 
@@ -111,6 +115,8 @@ def main():
     parser.add_argument("--source", type=Path)
     parser.add_argument("--obj", type=Path)
     parser.add_argument("--toolchain", type=Path, default=DEFAULT_TOOLCHAIN)
+    parser.add_argument("--original-root", type=Path,
+                        help="Read hash-pinned originals from this checkout; retain local canonical source, recovery state and strict gate")
     parser.add_argument("--report", type=Path)
     args = parser.parse_args()
     state = json.loads((ROOT / "recovery.json").read_text())
@@ -121,16 +127,19 @@ def main():
         if len(rows) != 1 or args.obj is None:
             parser.error("object requires one function id and --obj")
         row = rows[0]
-        results = [compare(args.obj, row["symbol"], ROOT / row["target"], int(row["rva"], 0), row["size"])]
+        target = (args.original_root.resolve() if args.original_root else ROOT) / row["target"]
+        if digest(target.read_bytes()) != row["target_sha256"]:
+            raise ValueError(f"Target hash mismatch: {target}")
+        results = [compare(args.obj, row["symbol"], target, int(row["rva"], 0), row["size"])]
     elif args.command == "candidate":
         if len(rows) != 1 or args.source is None:
             parser.error("candidate requires one function id and --source")
-        results = [check(rows[0], args.source, args.toolchain)]
+        results = [check(rows[0], args.source, args.toolchain, args.original_root)]
     else:
         rows = [r for r in rows if r["status"] == "FUNCTION_MATCH"]
         if not rows:
             raise SystemExit("No accepted functions to verify")
-        results = [check(r, toolchain=args.toolchain) for r in rows]
+        results = [check(r, toolchain=args.toolchain, original_root=args.original_root) for r in rows]
     if args.report:
         if not any(args.report.resolve().is_relative_to((ROOT / directory).resolve()) for directory in ("work", "build")):
             parser.error("Generated reports must go under work/ or build/")
