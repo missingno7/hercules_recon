@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 98 actual source units with
-133 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 37 unresolved dependencies: 18 newly exposed frame
-callbacks and 19 other providers. Including the real map replaces one missing
+The current natural selected host graph compiles 101 actual source units with
+135 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 36 unresolved dependencies: 18 newly exposed frame
+callbacks and 18 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -303,6 +303,32 @@ and all 133 exact functions still pass. Existing29-byte state owners are reused
 without new storage. The matching oracle remains the original baseline, not
 the installed no-CD variant. The natural graph now has 98 units, 133 recorded
 EXE functions and 37 missing providers, with no executable.
+
+Graphics startup `0x72a0` and mode callback `0x7170` now have ordinary
+historical-SDK C++ source. The startup retains eight normalized differences
+over its full 544 bytes and stays `RECONSTRUCTED`. Callback48 normalizes but
+retains a relocation, so it is `CODEGEN_SIMILAR`. All 654 previous rows remain
+identical, and all 133 exact functions pass fresh verification.
+
+```
+python scripts/host_graphics_startup_differential.py --output work/graphics_startup_replay
+```
+
+Twenty-nine guarded cases compare the full8192-byte reciprocal prefix, whole
+1032/1068-byte palette/bitmap allocations including extra SDK entries, existing
+47-byte state and actual synchronous mode callbacks. They check normal-path
+lock code, error branches, live device/window reloads and callback stdcall ABI.
+Platform/malloc effects and table71A0 remain modeled; fatal cases stop at call
+entry. No display or process runs. `malloc` is the identified CRT10B20 member,
+not the separate frame factory's still unresolved operator-new selection.
+
+Table71A0 stays missing because its 8192-byte remap clear overlaps existing
+WINDOWPLACEMENT/RECT views and 192 bytes of another lookup. Recover their real
+shared backing before declaring production tables. See
+`evidence/host_graphics_startup_recovery.json`. Including the real startup,
+DirectDraw import library and already measured lock-byte provider produces a
+natural graph of101 units/135 recorded EXE functions with36 missing providers,
+no duplicates and no executable.
 
 The journaled promotion gate now supports `.c` and `.cpp` destinations under
 `src/`. A C++ candidate must already occupy its exact canonical path. The gate
