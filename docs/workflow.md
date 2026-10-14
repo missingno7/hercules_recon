@@ -72,6 +72,67 @@ This changes only target lookup. Canonical source proof checks, fresh compilatio
 complete contribution comparison and the rejection of object/native relocations
 remain the existing strict gate. It writes no recovery state.
 
+The current original-host frame recovery supplies the ordinary static MFC map:
+30 entries, its zero sentinel and 32 pointer relocations over 752 bytes. Scalar
+fields, order and source-symbol/native-target correspondence are measured;
+relocated data is not raw object equality or a module-layout match. All 63 virtual
+slots, the 24-byte runtime descriptor, eight complete class contributions and
+both SYSKEY contributions survive the nonvirtual declaration extension.
+
+The WM_ERASEBKGND callback at EXE `0x9900` now passes journaled `FUNCTION_MATCH`
+for all 16 bytes, including alignment. All 133 accepted functions pass fresh raw
+verification. Three command-UI callbacks at `0x9a90`, `0x9bf0` and `0x9c10` use
+existing state owners and remain `RECONSTRUCTED`: 17 directed cases / 19 virtual
+Enable events agree, but each complete contribution retains a relocation.
+The signed byte, full DWORD and zero-test distinctions are preserved. The
+offline fixture models the Enable return in a code hook without writing endpoint
+opcodes; it checks all 188 receiver bytes and rejects other execution or writes
+outside the bounded stack. It does not execute MFC or a Windows message loop.
+
+```
+python scripts/host_frame_message_map_data.py --output work/frame_map_replay
+python scripts/host_frame_command_ui_differential.py --original-root D:/Prog/hercules_recon --output work/frame_ui_replay
+python scripts/host_system_keys_differential.py --output work/frame_keys_replay
+python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
+```
+
+The current natural selected host graph compiles 85 actual source units with
+114 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 41 unresolved dependencies: 18 newly exposed frame
+callbacks and 23 other providers. Including the real map replaces one missing
+map symbol with its actual missing callback bodies. These counts are diagnostics,
+not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
+selection discrepancy still needs genuine dependency evidence. The isolated
+PreCreateWindow fixture deliberately omits the production map unit; its sole
+missing map dependency does not describe the complete production source graph.
+See `evidence/host_frame_message_map_recovery.json`,
+`evidence/host_frame_class_recovery.json` and
+`evidence/host_current_source_graph.json`. Earlier receipts retain their original
+header and graph contexts. Reconstruction remains the current phase; renderer
+implementation is deferred.
+
+The journaled promotion gate now supports `.c` and `.cpp` destinations under
+`src/`. A C++ candidate must already occupy its exact canonical path. The gate
+freshly compiles both frozen C++ and that canonical path, using only the recorded
+flags for the canonical proof. Complete raw equality, zero object/native code
+relocations, reviewed object contributions, and fresh verification of every
+accepted peer remain mandatory. Transitive literal-quoted repository headers
+are observed through verification and the transaction; their hashes are context,
+not function acceptance. Conditional directives are scanned conservatively;
+macro includes are not expanded. SDK/MFC inputs use the pinned toolchain.
+
+```
+python scripts/verify_cpp_promotion.py --original-root D:/Prog/hercules_recon --output work/cpp_promotion_replay
+```
+
+The isolated controls cover exact acceptance, mismatches, extra code/data,
+language and destination errors, accepted-peer regressions, direct/nested header
+mutation, transaction commit/rollback, eight historical C rows and pinned target
+lookup. They do not change the real recovery state. See
+`evidence/cpp_promotion_gate.json` for commands, provenance and the actual erasure
+promotion. Do not use header hashes or relocation diagnostics to waive the raw
+gate, and do not rewrite relocation-only equals to force native link placement.
+
 The resource-action cluster now supplies source for ENG1 `0x28290`, `0x128a0`
 and `0x12910` using the existing shared owners. Its 518 finite comparisons pass,
 the measured data providers remain equal, and all 132 accepted functions remain

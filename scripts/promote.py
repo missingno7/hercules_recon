@@ -5,13 +5,15 @@ from contextlib import contextmanager
 import json
 import os
 from pathlib import Path
+import re
 
 from env import ROOT
-from match import check, digest
+from match import check, digest, DEFAULT_TOOLCHAIN
 from coff import COFF
 
 STATE = ROOT / "recovery.json"
 JOURNAL = ROOT / "work/promotion-journal.json"
+QUOTED_INCLUDE = re.compile(rb'^\s*#\s*include\s*"([^"\r\n]+)"')
 
 
 def atomic_bytes(path, content):
@@ -82,7 +84,68 @@ def validate_candidate_object(obj, allowed_symbols):
                 raise ValueError(f"Pilot gate does not accept unreviewed data contributions: {section['name']}")
 
 
-def promote(ids, candidate, verify_only=False):
+def _include_directories(flags):
+    result = []
+    index = 0
+    while index < len(flags):
+        flag = str(flags[index])
+        if flag.lower() == "/i" and index + 1 < len(flags):
+            index += 1
+            value = str(flags[index]).strip('"')
+        elif flag[:2].lower() == "/i" and len(flag) > 2:
+            value = flag[2:].strip('"')
+        else:
+            index += 1
+            continue
+        path = Path(value)
+        if not path.is_absolute():
+            path = ROOT / path
+        result.append(path.resolve())
+        index += 1
+    result.append((DEFAULT_TOOLCHAIN / "include").resolve())
+    return result
+
+
+def quoted_repository_headers(source, flags):
+    """Snapshot transitive literal-quoted headers resolved in ordinary order.
+
+    Angle-bracket SDK/MFC headers are pinned by the existing toolchain manifest.
+    This conservative scanner reads quoted directives regardless of conditional
+    compilation and records only resolved files inside this repository.
+    """
+    repository = ROOT.resolve()
+    include_dirs = _include_directories(flags)
+    pending = [Path(source).resolve()]
+    visited = set()
+    headers = {}
+    while pending:
+        current = pending.pop()
+        if current in visited or not current.is_file():
+            continue
+        visited.add(current)
+        for line in current.read_bytes().splitlines():
+            match = QUOTED_INCLUDE.match(line)
+            if not match:
+                continue
+            included = os.fsdecode(match.group(1))
+            candidates = [current.parent / included, *(directory / included for directory in include_dirs)]
+            resolved = next((candidate.resolve() for candidate in candidates if candidate.is_file()), None)
+            if resolved is None or not resolved.is_relative_to(repository):
+                continue
+            if resolved not in headers:
+                data = resolved.read_bytes()
+                headers[resolved] = data
+                pending.append(resolved)
+    return headers
+
+
+def _assert_headers_unchanged(headers, phase):
+    for path, before in headers.items():
+        if not path.is_file() or path.read_bytes() != before:
+            raise ValueError(f"Concurrent quoted-header edit during {phase}: {path}")
+
+
+def promote(ids, candidate, verify_only=False, original_root=None):
     if JOURNAL.exists():
         raise ValueError("Interrupted promotion: run scripts/promote.py --recover first")
     state_before = STATE.read_bytes()
@@ -97,33 +160,65 @@ def promote(ids, candidate, verify_only=False):
     destination = ROOT / next(iter(sources))
     if not destination.resolve().is_relative_to((ROOT / "src").resolve()):
         raise ValueError("Promotion destination must be under src/")
+    candidate = Path(candidate).resolve()
     content = candidate.read_bytes()
-    if destination.suffix.lower() != ".c":
-        raise ValueError("Initial promotion gate supports self-contained C translation units only")
+    suffix = destination.suffix.lower()
+    if suffix not in {".c", ".cpp"}:
+        raise ValueError("Promotion destination must be a .c or .cpp source under src/")
+    if candidate.suffix.lower() != suffix:
+        raise ValueError("Candidate and promotion destination must use the same source language suffix")
+    if suffix == ".cpp" and candidate != destination.resolve():
+        raise ValueError("C++ candidates must be staged at their canonical src/*.cpp path so quoted-header lookup is checked in place")
     observed = {STATE: state_before}
+    observed[candidate] = content
+    header_observed = {}
     for row in state["functions"]:
         if row["status"] == "FUNCTION_MATCH" or row["id"] in wanted:
             path = ROOT / row["source"]
             observed[path] = path.read_bytes() if path.exists() else None
+            header_observed.update(quoted_repository_headers(path, row["flags"]))
+    observed.update(header_observed)
     allowed_symbols = {r["symbol"] for r in state["functions"] if r.get("source") in sources and
                        (r["status"] == "FUNCTION_MATCH" or r["id"] in wanted)}
     results = {}
     # Freeze candidate bytes for the compile and transaction to avoid a concurrent
     # scratch writer changing the candidate after verification.
-    frozen = ROOT / "work/promotion-candidate.c"
+    frozen = ROOT / "work/promotion-candidate-stage" / f"promotion-candidate{suffix}"
+    frozen.parent.mkdir(parents=True, exist_ok=True)
     frozen.write_bytes(content)
     try:
         for row in state["functions"]:
             if row["status"] != "FUNCTION_MATCH" and row["id"] not in wanted:
                 continue
-            result = check(row, frozen if row.get("source") in sources else None)
+            if row.get("source") in sources and suffix == ".cpp":
+                # The frozen source remains C++; prepend the installed source
+                # parent to ordinary /I lookup so quoted repository headers
+                # resolve exactly where they will for the canonical path.
+                frozen_row = dict(row)
+                frozen_row["flags"] = ["/I" + str(destination.parent.resolve()), *row["flags"]]
+                staged_result = check(frozen_row, frozen, original_root=original_root)
+                if not staged_result["exact"]:
+                    raise ValueError(f"Promotion rejected: frozen C++ candidate {row['id']} is not exact: {staged_result}")
+                validate_candidate_object(staged_result["object"], allowed_symbols)
+
+                # Independently compile the real canonical source-parent path
+                # with only the flags recorded in recovery.json. The result
+                # below, not the frozen compile, supplies the stored proof.
+                result = check(row, destination, original_root=original_root)
+            else:
+                result = check(row, frozen if row.get("source") in sources else None,
+                               original_root=original_root)
             if not result["exact"]:
                 raise ValueError(f"Promotion rejected: {row['id']} is not exact: {result}")
+            if row.get("source") in sources and result["source_sha256"] != digest(content):
+                raise ValueError(f"Candidate changed before the exact source bytes were compiled: {row['id']}")
             results[row["id"]] = result
             if row.get("source") in sources:
                 validate_candidate_object(result["object"], allowed_symbols)
         for path, before in observed.items():
             if (path.read_bytes() if path.exists() else None) != before:
+                if path in header_observed:
+                    raise ValueError(f"Concurrent quoted-header edit during verification: {path}")
                 raise ValueError(f"Concurrent canonical edit during verification: {path}")
         print(f"Fresh byte verification passed for {len(results)} functions.")
         if verify_only:
@@ -143,8 +238,12 @@ def promote(ids, candidate, verify_only=False):
                             "after_sha256": digest(after)})
         atomic_bytes(JOURNAL, json.dumps(journal).encode("utf-8"))
         try:
+            _assert_headers_unchanged(header_observed, "promotion commit")
             atomic_bytes(destination, content)
+            _assert_headers_unchanged(header_observed, "source replacement")
             atomic_bytes(STATE, state_content)
+            _assert_headers_unchanged(header_observed, "state replacement")
+            _assert_headers_unchanged(header_observed, "journal removal")
         except BaseException:
             recover()
             raise
@@ -160,6 +259,8 @@ def main():
     parser.add_argument("--source", type=Path)
     parser.add_argument("--verify-only", action="store_true")
     parser.add_argument("--recover", action="store_true")
+    parser.add_argument("--original-root", type=Path,
+                        help="Read hash-pinned originals from this checkout while keeping local source and recovery state")
     args = parser.parse_args()
     with lock():
         if args.recover:
@@ -167,7 +268,7 @@ def main():
         elif not args.ids or args.source is None:
             parser.error("provide function ids and --source, or --recover")
         else:
-            promote(args.ids, args.source, args.verify_only)
+            promote(args.ids, args.source, args.verify_only, args.original_root)
 
 
 if __name__ == "__main__":

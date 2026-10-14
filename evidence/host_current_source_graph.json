@@ -8,7 +8,7 @@
     "baseline": "D:/Prog/hercules_recon/work/root_actor_relative_28/exe_graph.json",
     "scope": "Current actual-source host dependency evidence, not runtime or completion. No code edits planned for this measurement.",
     "recorded_before_compile": true,
-    "context": "The original frame class now supplies its real generated vtable, descriptor and eight measured method contributions. Message-map storage remains absent; the natural MFC-first archive selection also chooses an allocator that differs from the retail CRT function. No class/factory execution is proved."
+    "context": "Real frame class and full initialized message-map source are supplied. Twenty-five distinct application callback targets expose18 missing bodies after erasure/UI/SYSKEY/OnCreate contributions. Existing host dependencies and MFC-first allocator mismatch remain."
   },
   "sources": [
     {
@@ -514,6 +514,26 @@
       ]
     },
     {
+      "source": "src/pc/host_frame_erase.cpp",
+      "source_sha256": "ba85b1834447f9fb9afe7ebbac9a82fde4c782a7ab2636ba1abd2927f34a3b07",
+      "flags": [
+        "/O2",
+        "/MT",
+        "/GX",
+        "/IC:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\include"
+      ]
+    },
+    {
+      "source": "src/pc/host_frame_command_ui.cpp",
+      "source_sha256": "58a16343ac3b0b3314aebfd802066cdd85ff3bf64a43d9d5fb4276e667fc8eab",
+      "flags": [
+        "/O2",
+        "/MT",
+        "/GX",
+        "/IC:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\include"
+      ]
+    },
+    {
       "source": "calibration/host_startup_storage.c",
       "source_sha256": "654dd90ddb9133cd45dfd434d347067082b4bd2772d4fa25b8e92071d7834c6e",
       "flags": [
@@ -589,22 +609,84 @@
       "flags": [
         "/O2"
       ]
+    },
+    {
+      "source": "calibration/host_frame_message_map.cpp",
+      "source_sha256": "aaadf9d6012fe132cc949500bcfec9a2f6a6608e35efc21f1cfa88271d7fd39b",
+      "flags": [
+        "/O2",
+        "/MT",
+        "/IC:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\include"
+      ]
     }
   ],
   "validation": {
-    "fresh_source_units": 82,
-    "recorded_EXE_functions": 110,
-    "preserved_exact_EXE_functions": 25,
+    "fresh_source_units": 85,
+    "recorded_EXE_functions": 114,
+    "preserved_exact_EXE_functions": 26,
     "duplicate_providers": 0,
-    "unresolved_symbols": 24,
+    "unresolved_symbols": 41,
+    "missing_frame_callbacks": 18,
+    "other_missing_providers": 23,
     "natural_link_exit_code": 25,
     "images_produced": 0,
     "images_executed": 0,
-    "all_accepted_functions_raw_exact": 132
+    "all_accepted_functions_raw_exact": 133
   },
   "missing_providers": {
-    "?messageMap@CMainFrame@@1UAFX_MSGMAP@@B": [
-      "calibration/host_window_class.cpp"
+    "?OnRva_00009620@CMainFrame@@QAEXXZ": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_000096C0@CMainFrame@@QAEXXZ": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_00009740@CMainFrame@@QAEXXZ": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_000097A0@CMainFrame@@QAEHXZ": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_000097C0@CMainFrame@@QAEXPAVCWnd@@@Z": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_000097F0@CMainFrame@@QAEXXZ": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_00009820@CMainFrame@@QAEXHPAUHTASK__@@@Z": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_00009840@CMainFrame@@QAEXXZ": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_00009870@CMainFrame@@QAEXIHH@Z": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_00009910@CMainFrame@@QAEXIJ@Z": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_00009950@CMainFrame@@QAEXIVCPoint@@@Z": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_00009970@CMainFrame@@QAEXPAVCMenu@@@Z": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_00009990@CMainFrame@@QAEXXZ": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_00009A60@CMainFrame@@QAEXXZ": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_00009A70@CMainFrame@@QAEXXZ": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_00009A80@CMainFrame@@QAEXXZ": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_00009B40@CMainFrame@@QAEXIII@Z": [
+      "calibration/host_frame_message_map.cpp"
+    ],
+    "?OnRva_00009BC0@CMainFrame@@QAEHPAVCWnd@@II@Z": [
+      "calibration/host_frame_message_map.cpp"
     ],
     "_audio_native_fa10": [
       "calibration/audio_small_helpers.c"
@@ -734,16 +816,24 @@
     }
   ],
   "private_receipt": {
-    "path": "work/host_current_graph/report-a48cbf35111be25b.json",
-    "sha256": "a48cbf35111be25b9fd430e82474f84427a037a492145e5c67b3ec927455ceaa"
+    "path": "work/host_current_graph/report-9fb758b64ca57955.json",
+    "sha256": "9fb758b64ca5795513ea13de895795e28e4909f0d97e5422363a7fbae72d33b1"
   },
-  "command": "python work/host_current_graph/run.py --verbose-libraries",
+  "command": "python work/host_current_graph/run.py",
   "toolchain": "msvc5_rtm",
   "limits": [
-    "Selected actual-source graph has82 units and110 recorded EXE functions; this is not complete application coverage or a whole-game denominator.",
+    "Selected actual-source graph has85 units and114 recorded EXE functions; counts are not complete application coverage or whole-game denominator.",
     "The real host interface initializer, graphics/startup services and loader storage remain missing. No returning stubs, guessed path/archive buffers or forced executable were used.",
     "The natural source link fails on the recorded realdependencies; do not count this receipt as a playable build.",
     "Known allocator dependency mismatch: MFC-first selects afxmem.obj; CRT-first duplicates new/delete. See evidence/host_frame_class_recovery.json. No forced link or library rewrite used."
   ],
-  "recovery_sha256": "de7330d8bd85c093bd1e75f6516ed03997ce960eb0c0207afc677bc10f57a491"
+  "recovery_sha256": "1aa8babd2cda040856a8f17422e285211891a7a4eaca5ed70245f28118d6dc52",
+  "previous_graph_receipt": {
+    "path": "work/host_current_graph/report-a48cbf35111be25b.json",
+    "sha256": "a48cbf35111be25b9fd430e82474f84427a037a492145e5c67b3ec927455ceaa"
+  },
+  "current_prediction": {
+    "path": "work/host_message_map_adoption/prediction.json",
+    "sha256": "dfec079ef4df2852f7574051b3fcd847d9db68358470d3ea627ebd954cf7a5aa"
+  }
 }

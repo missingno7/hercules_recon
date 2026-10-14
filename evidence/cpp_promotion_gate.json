@@ -1,0 +1,129 @@
+{
+  "schema": 1,
+  "scope": "Strict C/C++ function promotion tool and isolated regression controls; recovery.json remains the sole function acceptance authority.",
+  "sources": [
+    {
+      "path": "scripts/promote.py",
+      "sha256": "0e6bad05a140f1db2e02165a851d8b32c1920cfa39285819621ad2953cf55c15"
+    },
+    {
+      "path": "scripts/verify_cpp_promotion.py",
+      "sha256": "7c550edec4fd87895a89e3233696407b14231d6297a3f6fcd26ac1a7dd329dda"
+    }
+  ],
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "private_prediction": {
+    "path": "work/host_cpp_promotion/prediction.json",
+    "sha256": "e74f829ca12e4e5680d6baa5c136508aa3759383f6ae9ea77723e68b6927e558"
+  },
+  "reproducer": "python scripts/verify_cpp_promotion.py --original-root D:/Prog/hercules_recon --output work/cpp_promotion_replay",
+  "validation": {
+    "receipt": {
+      "path": "work/host_message_map_adoption/gate_public/report.json",
+      "sha256": "2cd28ae793cab4fbbd9cf7e69c6c26b8093bfe55235426c6cef152c001081519"
+    },
+    "cases": [
+      {
+        "name": "raw-exact-cpp-verify-only",
+        "candidate_accepted": true
+      },
+      {
+        "name": "raw-byte-mismatch-refused",
+        "candidate_accepted": false
+      },
+      {
+        "name": "extra-function-refused",
+        "candidate_accepted": false
+      },
+      {
+        "name": "writable-data-refused",
+        "candidate_accepted": false
+      },
+      {
+        "name": "accepted-peer-regression-refused",
+        "candidate_accepted": false
+      },
+      {
+        "name": "suffix-language-mismatch-refused",
+        "candidate_accepted": false
+      },
+      {
+        "name": "header-destination-refused",
+        "candidate_accepted": false
+      },
+      {
+        "name": "off-canonical-cpp-path-refused",
+        "candidate_accepted": false
+      },
+      {
+        "name": "target-hash-mismatch-refused",
+        "candidate_accepted": false
+      },
+      {
+        "name": "cpp-transaction-commit",
+        "candidate_accepted": true
+      },
+      {
+        "name": "cpp-transaction-rollback",
+        "candidate_accepted": false
+      },
+      {
+        "name": "direct-quoted-header-mutation-after-first-compile-refused",
+        "candidate_accepted": false
+      },
+      {
+        "name": "nested-quoted-header-mutation-after-journal-refused",
+        "candidate_accepted": false
+      },
+      {
+        "name": "self-contained-c-path-compatibility",
+        "candidate_accepted": true
+      },
+      {
+        "name": "cli-original-root-override-hash-rejection",
+        "candidate_accepted": false
+      }
+    ],
+    "repository_state_read_only_in_controls": true,
+    "matching_unit_tests": {
+      "command": "python -m unittest discover -s tests -p test_matching.py",
+      "passed": 13,
+      "execution": "Passed during tool publication before actual canonical promotion; no subsequent matching-tool edit."
+    }
+  },
+  "actual_acceptance": {
+    "command": "python scripts/promote.py exe.host_frame_erase_9900 --source src/pc/host_frame_erase.cpp --original-root D:/Prog/hercules_recon",
+    "result": "Fresh byte verification passed for133 functions; journaled promotion succeeded.",
+    "canonical_source": {
+      "path": "src/pc/host_frame_erase.cpp",
+      "sha256": "ba85b1834447f9fb9afe7ebbac9a82fde4c782a7ab2636ba1abd2927f34a3b07"
+    },
+    "proof": {
+      "scope": "complete relocation-free function COFF contribution",
+      "source_sha256": "ba85b1834447f9fb9afe7ebbac9a82fde4c782a7ab2636ba1abd2927f34a3b07",
+      "compiled_sha256": "282214cd1008ceec40efaa436457cf667a7d04af7513edfe7889d3e0bac26043",
+      "target_sha256": "282214cd1008ceec40efaa436457cf667a7d04af7513edfe7889d3e0bac26043",
+      "toolchain": "msvc5_rtm"
+    },
+    "fresh_post_integration": {
+      "path": "work/host_message_map_adoption/strict133.json",
+      "sha256": "d383ea102ac6a3a308e94392d47111084e756fe79058cb6d6d95921e8ef4edab"
+    }
+  },
+  "gate": [
+    "Source destination under src/, same .c/.cpp suffix; C++ must be presented at its exact canonical path.",
+    "Frozen ordinary C++ and independent canonical-path compilation with recorded flags must both pass full raw equality, zero code/native relocations and reviewed object contributions.",
+    "All previously accepted functions freshly pass; state/source/literal-quoted repository headers remain unchanged through verification and transaction.",
+    "Existing journal, lock and rollback remain authoritative. --original-root changes only pinned original lookup; relative recovery identity stays unchanged."
+  ],
+  "limits": [
+    "Header snapshots are context, not function or source-identity acceptance.",
+    "Literal quoted includes are followed transitively, including inactive directives; macro includes are not expanded. SDK/MFC inputs use the pinned historical toolchain.",
+    "No byte copying, assembly, binary patching, original dispatch, library mutation or linker placement accepted."
+  ]
+}
