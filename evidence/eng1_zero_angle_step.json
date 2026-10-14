@@ -129,6 +129,27 @@
       "accepted_eng1_functions_preserved": 76,
       "executable_produced": false,
       "configuration_note": "Measured before the subsequent evidence-only 0x28aa0 uncertainty wording update; compiler inputs and source selection are unchanged."
+    },
+    "permanent_zero_step_case": {
+      "test": {
+        "path": "tests/eng1_program_interpreters.c",
+        "sha256": "e678e4fc4dc2740fad164ed37dcdcd90f5883b8cce2ade360990f24582c03889"
+      },
+      "expectation": "Native-measured nonnegative tick input: preserve raw out-of-range angles, exact complete control and actor state except tick 1->0, and return zero.",
+      "scope": "Permanent source-only fixture with existing test spies; the original comparison is separately recorded above.",
+      "positive_suite": {
+        "path": "work/eng1_zero_step_regression/permanent_suite/report.json",
+        "sha256": "904f98ca24723835d534183bdd4da959d343e319b291498bb9cb134f6dc683dc",
+        "groups_passed": 38
+      },
+      "negative_control": {
+        "path": "work/eng1_zero_step_regression/permanent_negative/report.json",
+        "sha256": "4479616485b6d01ee079d3e318f821ee1723ddb6ce1f01fbd2d2c8a916bf8bd3",
+        "old_source_sha256": "c67e315771b507b9677d6dcb4c3d63a2b267133ccbe2e62f11a50b4f1aa5fc0b",
+        "expected_exit_code": 1,
+        "failure": "The same permanent case rejects prior source at its complete actor comparison."
+      },
+      "reproduce": "python scripts/test_eng1_behavioral.py --output work/eng1_zero_step_regression/permanent_suite"
     }
   },
   "limitations": [

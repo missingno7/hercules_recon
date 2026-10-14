@@ -217,6 +217,42 @@ static void test_triple_requires_control_handle(void)
             "triple interpreter returns before touching state without +0x128");
 }
 
+static void test_triple_zero_steps_preserve_raw_angles(void)
+{
+    unsigned short control_words[10];
+    unsigned short expected_control[10];
+    unsigned short *control_handle;
+    Eng1AnimationControl *control;
+    Actor actor;
+    Actor expected;
+
+    /* Native differential inputs are recorded in eng1_zero_angle_step.json.
+     * This source fixture preserves that result without executing the oracle. */
+    memset(&actor, 0, sizeof(actor));
+    memset(control_words, 0, sizeof(control_words));
+    control = (Eng1AnimationControl *)control_words;
+    control->x_current = -1;
+    control->yaw_target = 20;
+    control->pitch_target = 40;
+    control->roll_target = 60;
+    control_handle = control_words;
+    actor.animation_control = &control_handle;
+    actor.frame_ticks = 1;
+    actor.angle_yaw = (short)0xa5a5;
+    actor.angle_pitch = (short)0xa55a;
+    actor.angle_roll = (short)0x5aa5;
+    expected = actor;
+    expected.frame_ticks = 0;
+    memcpy(expected_control, control_words, sizeof(control_words));
+
+    require(eng1_interpret_animation_triples(&actor) == 0,
+            "zero-step angle update returns the measured normal result");
+    require(memcmp(&actor, &expected, sizeof(actor)) == 0,
+            "zero steps preserve raw angle WORDs and decrement only the tick");
+    require(memcmp(control_words, expected_control, sizeof(control_words)) == 0,
+            "zero steps preserve the complete animation control record");
+}
+
 int main(void)
 {
     test_pair_restart_uses_shared_advance_frame();
@@ -225,6 +261,7 @@ int main(void)
     test_triple_program_switch_and_interpolation();
     test_triple_angle_command_uses_shared_ratio();
     test_triple_requires_control_handle();
+    test_triple_zero_steps_preserve_raw_angles();
     puts("ENG1 program-interpreter fixtures passed");
     return 0;
 }
