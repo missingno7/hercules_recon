@@ -1,31 +1,43 @@
 # Behavioral ENG1 reconstruction
 
-The original host loads our source-built x86 ENG1 DLL and performs its expected
-250-DWORD interface initialization. Reconstructed setup and player script
-dispatch now advance the latest windowed run to missing routine `0x28290`.
-No reconstructed ENG1 gameplay frame, continuous gameplay, or normal engine
-shutdown is verified.
+The current genuine source graph does not link a runnable ENG1 DLL. Earlier
+transitional host probes reported interface initialization and a fail-on-entry
+frontier at `0x28290`; that routine now has reconstructed source, but this does
+not establish a later runtime frontier. No new original-host run, reconstructed
+gameplay frame, continuous gameplay, or normal engine shutdown is verified.
 
-The genuine graph has 363 mapped compiled entries, 10 explicitly traced
-unindexed provider RVAs, and 394 function symbols across 202 source units.
+The latest genuine graph has 367 mapped compiled entries and 398 function
+symbols. See `evidence/eng1_zero_angle_step.json` for its pinned private receipt.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
-denominator. The genuine link has 533 unresolved function symbols and zero
-duplicate providers. The optional transitional profile adds 533 explicit
-fail-on-entry diagnostics and links with zero unresolved symbols.
-`PC_DLLEngineMain` is the sole PE32 export at ordinal 1. The replacement has
-no original-engine import or embedded original executable code.
+denominator. The genuine link has 531 unresolved symbols and zero duplicate
+providers. Its intended export is `PC_DLLEngineMain` at ordinal 1; no current
+DLL is produced. Earlier transitional links used explicit fail-on-entry
+diagnostics, which do not supply game dependencies.
 
 All 76 accepted ENG1 function instances remain exact under fresh pinned VC5
-compilation and actual linked-byte comparison. This work leaves `recovery.json`
+compilation and complete raw contribution comparison. All 132 accepted
+functions across modules pass the same strict check. This work leaves `recovery.json`
 unchanged. The stable TITLE milestone and historical matching branch remain
 preserved.
 
-All 38 source fixture groups pass. The generic data gate verifies 58 providers,
-920 fields and 4,787 native-matching pointer relocations. Seven boundary
+All 38 source fixture groups pass. The generic data gate verifies 59 providers,
+923 fields and 4,787 native-matching pointer relocations. Seven boundary
 regressions cover explicit read-only and mixed file/loader-zero storage.
 A separate legacy-resource gate verifies 81 rows, 1,296 non-pointer bytes and
 81 actual NUL-terminated path contents. These data comparisons do not establish
 full array capacities, runtime ownership or historical placement.
+
+The animation-triple interpreter at `0x28aa0` now preserves a raw angle WORD
+when its control step is zero. The prior source incorrectly masked such angles
+to ten bits. Original instruction branches and a failing prior-source fixture
+establish the discrepancy; fresh canonical VC5 source passes two direct cases
+and the successful private `0x1b9a0` command pipeline, with 42 checks. These
+compare exact ticks, returns, control records and complete actor bytes, allowing
+only measured pointer identities to differ. The integrated fixture uses actual
+source command/frame/interpreter providers and audits live callback effects.
+The broader opcode/helper closure and whole-function byte equality remain open.
+Evidence, predictions, source hashes and replay commands are in
+`evidence/eng1_zero_angle_step.json`.
 
 Simulation helpers `12620/12790` pass 15 native cases/1,382 checks plus two
 source guards. They reuse the existing strict `29260` frame reset rather than

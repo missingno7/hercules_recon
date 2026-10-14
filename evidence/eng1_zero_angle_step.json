@@ -1,0 +1,144 @@
+{
+  "scope": "Measured correction of the zero-angle-step path in ENG1 0x28aa0; no recovery-state promotion or complete-function equality claim.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "read_only_root": "D:/Prog/hercules_recon",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "source": {
+    "path": "src/eng1/behavioral/interpreters.c",
+    "sha256": "407dba344dec39b82aa256507419715d5d6ff9852428999c300cf89fa5a0bfc8"
+  },
+  "previous_source_sha256": "c67e315771b507b9677d6dcb4c3d63a2b267133ccbe2e62f11a50b4f1aa5fc0b",
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "root": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb"
+  },
+  "prediction": "A zero control step leaves the corresponding raw angle WORD unchanged. The old source masks it to ten bits; an early return should preserve the native result without changing the exercised signed nonzero-step path.",
+  "falsifier": "Any non-pointer actor byte, tick, return, control, callback, or bounded writable-data discrepancy in the fresh direct or integrated fixture.",
+  "instruction_evidence": {
+    "guards": [
+      {
+        "load_rva": "0x28fad",
+        "load": "bx, word ptr [edi + 0xa]",
+        "test_rva": "0x28fb1",
+        "zero_branch_rva": "0x28fb4",
+        "zero_destination": [
+          "0x28ff8"
+        ]
+      },
+      {
+        "load_rva": "0x28ff8",
+        "load": "bp, word ptr [edi + 0xe]",
+        "test_rva": "0x28ffc",
+        "zero_branch_rva": "0x28fff",
+        "zero_destination": [
+          "0x29040"
+        ]
+      },
+      {
+        "load_rva": "0x29040",
+        "load": "bp, word ptr [edi + 0x12]",
+        "test_rva": "0x29044",
+        "zero_branch_rva": "0x29047",
+        "zero_destination": [
+          "0x29093"
+        ]
+      }
+    ],
+    "record": {
+      "path": "work/eng1_level6_startup/static_context_28aa0.json",
+      "sha256": "d7ec098bdc5b627274f07b0f5c4a419854c070576f21843ebcd10af36acffe21"
+    }
+  },
+  "negative_control": {
+    "record": {
+      "path": "work/eng1_level6_startup/native_source_28aa0_zero_step_omitted.json",
+      "sha256": "855e50e352a7eecce63a7afcb81eaa94f2191a5a598aaddb2a115156262e6898"
+    },
+    "result": "Prior source differs only at actor bytes +0x71/+0x73/+0x75 in the direct zero-step case; guarded candidate agrees, including exact tick and control bytes.",
+    "integrated_record": {
+      "path": "work/eng1_level6_startup/native_source_1b9a0_actual_triples_current.json",
+      "sha256": "7a4e3ca5a79b8bdf24934146bcb9eebdb457957adc08f474a8905408c8bfda69"
+    },
+    "integrated_result": "The prior source also fails complete-actor comparisons in the successful 0x1b9a0 command path."
+  },
+  "fresh_canonical_verification": {
+    "record": {
+      "path": "work/eng1_level6_startup/native_source_1b9a0_actual_triples_canonical_source.json",
+      "sha256": "481d5209bcda1c0f30bd73421742fca3ebb662469ab109ef2c80b7aab03a14b5"
+    },
+    "frozen_recipe": {
+      "path": "work/eng1_level6_startup/native_source_1b9a0_actual_triples_canonical_source_frozen.json",
+      "sha256": "d341c5bd74e0e53b53386c6adc72e73caaeecfc1b7dace5ec1c19a7eea33d9a7"
+    },
+    "prediction": {
+      "path": "work/eng1_level6_startup/prediction_canonical_1b9a0_angle_matrix.json",
+      "sha256": "a15310f39959f6c9b2552ee903ee8f5eef077598d85f9b5a620ba33140e905d7"
+    },
+    "runner": {
+      "path": "work/eng1_level6_startup/run_native_source_1b9a0_canonical_angle_matrix.py",
+      "sha256": "7a5fab65a290c5b475cd720322d07ea176812d290d7c3ea2475078becc0e2de5"
+    },
+    "compile_input_sha256": "e9014afa2196e2ea613754c72ec1efe658c60de27047a3a927ef713ea170a26b",
+    "derivation": "Current canonical source, exactly one canonical zero-step guard, with two complete unentered helper bodies omitted and bound to abort-on-entry fixture endpoints. No private guard insertion or returning game-service replacements.",
+    "cases": [
+      "Direct 0x28aa0: zero deltas with out-of-range raw angle words and nonzero target distances.",
+      "Direct 0x28aa0: signed nonzero steps; yaw 100 to 97, pitch 100 to 98, roll 200 to 196.",
+      "Successful 0x1b9a0 command path with actual source create_command, advance_frame and animation-triple interpreter providers."
+    ],
+    "checks": 42,
+    "failures": 0,
+    "callbacks": 2,
+    "comparison": "Exact normal return, ticks, 20-byte control and full 0x134-byte actors. Direct case normalizes only +0x128 control-pointer identity; integrated case normalizes measured actor/frame/control pointer identities only. No scalar normalization.",
+    "bounds": "Eight complete normal actors and 161496 original writable-data bytes audited; frame list at 0x56680 limited to its measured 12-byte prefix followed by a no-access page.",
+    "contribution_preservation": "Fresh complete contributions and relocations of retained functions agree before/after private whole-helper omissions.",
+    "replay": {
+      "cwd": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo",
+      "command": "& 'C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe' 'work/eng1_level6_startup/run_native_source_1b9a0_canonical_angle_matrix.py'",
+      "freeze_command": "& 'C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe' 'work/eng1_level6_startup/run_native_source_1b9a0_canonical_angle_matrix.py' --freeze"
+    }
+  },
+  "regression": {
+    "strict": {
+      "path": "work/eng1_zero_step_regression/strict.json",
+      "sha256": "194a4571512a0df4acf46cda91265cee20473eb4b8a43847dd718cde486adab2",
+      "raw_exact_functions": 132
+    },
+    "source_fixtures": {
+      "path": "work/eng1_zero_step_regression/source_suite/report.json",
+      "sha256": "eb515e59cd30b8f56c56236f6aaf98a8a4868df623df2ec34fd80cf74461e07d",
+      "groups_passed": 38,
+      "scope": "Adopted reconstructed source with test-only spies; no original code executed, no game or full DLL validation."
+    },
+    "data": {
+      "path": "work/eng1_zero_step_regression/data.json",
+      "sha256": "141e93d97715c0865711657b49445d8b66c54db76ae0bc88763391b790c70622",
+      "providers": 59,
+      "fields": 923,
+      "pointer_cells": 4787,
+      "mismatches": 0
+    },
+    "genuine_graph": {
+      "path": "work/eng1_zero_step_regression/source_graph/report.json",
+      "sha256": "59a19bb4a53c23261f67a09897fe658f2f31db85bee386fc5ff231ad41f80ca8",
+      "functions": 398,
+      "unresolved_symbols": 531,
+      "duplicate_providers": 0,
+      "accepted_eng1_functions_preserved": 76,
+      "executable_produced": false,
+      "configuration_note": "Measured before the subsequent evidence-only 0x28aa0 uncertainty wording update; compiler inputs and source selection are unchanged."
+    }
+  },
+  "limitations": [
+    "No complete 0x28aa0 or 0x1b9a0 equality, source spelling, aggregate ownership, DLL layout, or gameplay claim.",
+    "The negative-tick opcode paths and omitted helper dependencies remain unproved by this fixture.",
+    "The 0x1b9a0 startup source remains private; only the measured correction in existing canonical interpreters.c is integrated."
+  ],
+  "recovery": {
+    "sha256": "8904b2c2100191a3b24d3395922319f5d2b33a29347c37edc5378f0b90b95e85",
+    "changed": false,
+    "note": "recovery.json remains the sole authoritative function state; no 0x28aa0 row is added."
+  }
+}

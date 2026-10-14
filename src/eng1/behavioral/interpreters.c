@@ -54,6 +54,8 @@ static void eng1_update_angle(short *current, short *delta,
     int step_magnitude;
     int next;
 
+    if (*delta == 0) return;
+
     magnitude = (distance < 0) ? -distance : distance;
     step_magnitude = (step < 0) ? -step : step;
     if (magnitude < step_magnitude) {
