@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 85 actual source units with
+The current natural selected host graph compiles 86 actual source units with
 114 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 41 unresolved dependencies: 18 newly exposed frame
-callbacks and 23 other providers. Including the real map replaces one missing
+duplicate providers and 36 unresolved dependencies: 18 newly exposed frame
+callbacks and 18 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -110,6 +110,26 @@ See `evidence/host_frame_message_map_recovery.json`,
 `evidence/host_current_source_graph.json`. Earlier receipts retain their original
 header and graph contexts. Reconstruction remains the current phase; renderer
 implementation is deferred.
+
+The loader now has an independent source provider for four observed DWORD cells
+and the pinned SDK's 64-byte `jmp_buf` representation. All 80 source bytes have
+the original virtual loader-zero backing and no code or relocations. This does
+not prove their original owner, adjacency, placement or complete capacity.
+The dispatcher's actual `__setjmp3(env, 0)` path saves a 40-byte prefix; the
+remaining 24 SDK unwind-data bytes stay untouched in all nine directed cases.
+The original CRT also contains a bounded optional six-DWORD copy fitting the
+64-byte SDK layout; the dispatcher does not exercise those optional arguments.
+The source differential uses the real canonical storage object and a separate
+native-address fixture, while retaining synthetic path/error buffers, exports,
+API effects and the existing exception-head precondition. Path/error capacity,
+actual initialized host-table ownership and real SEH behavior remain unresolved.
+Function sources and all recovery rows remain unchanged. See
+`evidence/host_engine_storage_recovery.json` and run:
+
+```
+python scripts/host_engine_storage_data.py --output work/host_loader_storage_replay
+python scripts/host_dispatch_differential.py --output work/host_dispatch_differential/loader_storage_replay.json
+```
 
 The journaled promotion gate now supports `.c` and `.cpp` destinations under
 `src/`. A C++ candidate must already occupy its exact canonical path. The gate

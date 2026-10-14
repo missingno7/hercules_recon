@@ -1,0 +1,260 @@
+{
+  "schema": 1,
+  "scope": "Original host loader state reconstruction using independent scalar and pinned SDK/API storage prefixes. recovery.json remains the sole function authority and is unchanged.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "calibration/host_engine_storage.c",
+      "sha256": "679a26f8f8a85569280a48879c48a31aa9f4ecf8c9d30f03cea4b28f6dec93a0"
+    },
+    {
+      "path": "calibration/host_engine_cells.h",
+      "sha256": "6b23d23725480868c300b3d58a90eb4fd7e589e43550595bb5237bde180920ec"
+    },
+    {
+      "path": "scripts/host_engine_storage_data.py",
+      "sha256": "26178ca9267833a88824f8f0565ed0abaae6552fd5788751928abf573201435a"
+    },
+    {
+      "path": "scripts/host_dispatch_differential.py",
+      "sha256": "18f1b30bba6dbed8b28e6c4c3ed59431b299406605a2a8da7980fea46bb29ec2"
+    }
+  ],
+  "prediction": {
+    "path": "work/host_loader_storage/prediction.json",
+    "sha256": "80b51ce6d060fdc3751823d96b177d8ac8f93343681d41d0864897fdba438913"
+  },
+  "dispatcher_prediction": {
+    "path": "work/host_loader_storage/dispatch_prediction.json",
+    "sha256": "c61fff42a00ac55d83d741eea91fd10ca402a516f25305c789097dd55969c746"
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03",
+    "sdk_setjmp_sha256": "5cabb2d3e4b553ada92ff7ed6356ebbbd3d8e5e41f309464b6e1f9471cdba630"
+  },
+  "fields": [
+    {
+      "symbol": "_g_host_engine_jump_buffer_91bfd8",
+      "rva": "0x51bfd8",
+      "size": 64,
+      "section": ".bss",
+      "compiled_offset": 16,
+      "loaded_zero_equal": true,
+      "initial_sha256": "f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b"
+    },
+    {
+      "symbol": "_g_host_engine_module_91c468",
+      "rva": "0x51c468",
+      "size": 4,
+      "section": ".bss",
+      "compiled_offset": 12,
+      "loaded_zero_equal": true,
+      "initial_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+    },
+    {
+      "symbol": "_g_host_engine_selector_91c464",
+      "rva": "0x51c464",
+      "size": 4,
+      "section": ".bss",
+      "compiled_offset": 8,
+      "loaded_zero_equal": true,
+      "initial_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+    },
+    {
+      "symbol": "_g_host_engine_gate_91c460",
+      "rva": "0x51c460",
+      "size": 4,
+      "section": ".bss",
+      "compiled_offset": 4,
+      "loaded_zero_equal": true,
+      "initial_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+    },
+    {
+      "symbol": "_g_host_engine_entry_91c45c",
+      "rva": "0x51c45c",
+      "size": 4,
+      "section": ".bss",
+      "compiled_offset": 0,
+      "loaded_zero_equal": true,
+      "initial_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+    }
+  ],
+  "zero_backing": {
+    "section": ".data",
+    "file_backed_end_rva": "0x3e600",
+    "all_prefixes_in_writable_virtual_zero_tail": true,
+    "bytes": 80,
+    "meaning": "Initial loader-zero backing only; these cells change during game execution."
+  },
+  "scalar_contracts": {
+    "entry": "FARPROC result of GetProcAddress at RVA5c9d; DWORD reload at5eea before export call.",
+    "gate": "DWORD stores0 at5c28 and1 at5de3; reload5ed9 selects resolution.",
+    "selector": "DWORD reload5dd3; dispatcher stores1 at5eca and0 at5f08.",
+    "module": "HMODULE DWORD reads/stores at5c20/5c34/5c40/5c7b/5c80/5c89; passed to pinned FreeLibrary/GetProcAddress imports."
+  },
+  "native_scalar_reference_rvas": {
+    "entry": [
+      "0x5c9d",
+      "0x5eea"
+    ],
+    "gate": [
+      "0x5c28",
+      "0x5de3",
+      "0x5ed9"
+    ],
+    "selector": [
+      "0x5dd3",
+      "0x5eca",
+      "0x5f08"
+    ],
+    "module": [
+      "0x5c20",
+      "0x5c34",
+      "0x5c40",
+      "0x5c7b",
+      "0x5c80",
+      "0x5c89"
+    ]
+  },
+  "jump_buffer": {
+    "rva": "0x51bfd8",
+    "source_type": "jmp_buf from pinned x86 VC5 setjmp.h",
+    "source_prefix_bytes": 64,
+    "SDK": "_JBLEN16, _JBTYPEint, _JUMP_BUFFER fields through UnwindData[6].",
+    "observed_dispatcher_extra_count": 0,
+    "observed_save_prefix_bytes": 40,
+    "optional_unwind_data": {
+      "offset": 40,
+      "bytes": 24,
+      "unchanged_in_all9_cases": true,
+      "used_by_original_CRT_only_for_optional_extra_arguments": true
+    },
+    "native_address_uses": [
+      "0x5dde",
+      "0x5ec5"
+    ],
+    "native_save_writes": "Original __setjmp3 writes saved registers/ESP/EIP/registration/try-level/cookie/unwind-function through+0x24. Its optional bounded six-DWORD copy begins+0x28 at1167f..11690 and fits SDK64bytes.",
+    "limits": "64bytes is an ordinary SDK API-contract representation, not a claim that all64bytes are used by the dispatcher or that the original global allocation/full owner is64bytes. No adjacency to path/error buffers or real SEH unwind domain is proved."
+  },
+  "library_identification": {
+    "archive": {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+      "sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b"
+    },
+    "library_map": {
+      "path": "D:\\Prog\\hercules_recon\\work\\library_map\\library_map.json",
+      "sha256": "a9d3b07a9fef962d5832c72383391851a7f43c15ea384afdc792ee6626863a4e"
+    },
+    "members": [
+      {
+        "member_index": 259,
+        "member_sha256": "b5365f5002ca2cebf2507ae1dbcc3993937cdafc24e5fd07db96699180f4e08c",
+        "contribution_bytes": 123,
+        "contribution_sha256": "c24e8aaed4de58907df11c265260404d68e8b92e1a6373d11e2db8e73238e755",
+        "original_target_rva": "0x1161c",
+        "original_target_sha256": "c24e8aaed4de58907df11c265260404d68e8b92e1a6373d11e2db8e73238e755"
+      },
+      {
+        "member_index": 256,
+        "member_sha256": "5c6152a00bd3694fe1afdb54b4c3701c6d1209085c348f83aceb0bffc0ae5a3b",
+        "contribution_bytes": 121,
+        "contribution_sha256": "a5fe6ce24dca938802264a06ec31f25181ef094c658594128ae29282268096ff",
+        "original_target_rva": "0x115a0",
+        "original_target_sha256": "0e53a3ece80a1800fb13a9275f27240ddd6ca27e76871f66481ddce22bfb0f38"
+      }
+    ],
+    "meaning": "Identified CRT is interpreted unchanged as bounded oracle/library evidence; no reconstructed CRT body or function promotion."
+  },
+  "data_validation": {
+    "receipt": {
+      "path": "work/host_loader_storage/public_data/host_engine_storage_data.json",
+      "sha256": "09b1af4a4bab077cf246c1df7cd23bae77701be5708eb2bce24ddcdfbf25cfbc"
+    },
+    "definitions": 5,
+    "loaded_zero_bytes": 80,
+    "no_extra_code_data_or_relocations": true,
+    "source_offsets_independent_from_native_addresses": true
+  },
+  "dispatcher_validation": {
+    "receipt": {
+      "path": "work/host_dispatch_differential/loader_storage_public.json",
+      "sha256": "981111fe5ec47d25473749fcfb22ac4c83e8c65f7541146f78414d6b3b6facc2"
+    },
+    "actual_source_storage_object_sha256": "494486536ee74b95483e6dc7f22f2c8394bef9b9cd4de0601a61eba5da74d51a",
+    "cases": [
+      "initial-setjmp-normal-export",
+      "zero-export-skips-callback",
+      "entry-gate-loads-before-export",
+      "export-callback-mutates-live-cells",
+      "export-callback-selector-zero-normal-path",
+      "export-callback-selector-transfer-and-reentry",
+      "null-selector-zero-stops-at-resolver",
+      "null-selector-transfer-stops-at-resolver",
+      "fatal-load-failure-boundary"
+    ],
+    "all_equal": true,
+    "same_fresh_function_objects_compared_linked_emulated": true,
+    "source_header_oracle_inputs_unchanged": true,
+    "source_storage_ownership": "Only the canonical storage object supplies source-side entry/gate/selector/module/jmp_buf definitions. Generated source fixture supplies path/error arrays and synthetic export; a separate native-address fixture retains test views.",
+    "limits": "The fixture table/export/API effects,512-byte path/error allocations, preferred original addresses and FS:[0]=0 precondition remain bounded test inputs. No real DLL, Windows process/API, initialized host table or game is executed."
+  },
+  "regression": {
+    "strict": {
+      "path": "work/host_loader_storage/strict133.json",
+      "sha256": "5d8b3409ced54a8ac485beb1080ec23ce576ff00432b9f17e16342784049d211"
+    },
+    "raw_exact_functions": 133,
+    "recovery_bytes_unchanged": true,
+    "natural_graph": {
+      "path": "work/host_current_graph/report-1f666456e2de68c1.json",
+      "sha256": "1f666456e2de68c11a272aa466a19eb8988b50cd28297cf0ed9d9d1c16c3278e"
+    },
+    "source_units": 86,
+    "recorded_EXE_functions": 114,
+    "accepted_EXE_functions": 26,
+    "unresolved_symbols": 36,
+    "missing_frame_callbacks": 18,
+    "other_missing_providers": 18,
+    "resolved_symbols": [
+      "_g_host_engine_entry_91c45c",
+      "_g_host_engine_gate_91c460",
+      "_g_host_engine_jump_buffer_91bfd8",
+      "_g_host_engine_module_91c468",
+      "_g_host_engine_selector_91c464"
+    ],
+    "duplicate_providers": 0,
+    "images_produced": 0
+  },
+  "replay_commands": [
+    "python scripts/host_engine_storage_data.py --output work/host_loader_storage_replay",
+    "python scripts/host_dispatch_differential.py --output work/host_dispatch_differential/loader_storage_replay.json",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/host_loader_strict_replay.json"
+  ],
+  "private_receipts": {
+    "native": {
+      "path": "work/host_loader_storage/native.json",
+      "sha256": "ee3a7ccb3eaeb380f745a90acde2b34d47a1e328be97cec593e3978e325bd532"
+    },
+    "candidate": {
+      "path": "work/host_loader_storage/candidate_measurement.json",
+      "sha256": "812bb2e49473e90844e776d06b4b06c5773a37035bbe5f74b5072caec4cade17"
+    },
+    "passing_dispatch": {
+      "path": "work/host_dispatch_differential/loader_storage_private_final.json",
+      "sha256": "7ad2e0862eadf55b435e2e5f86c8299a61f62ca1c91db20d5244deb1d24796c2"
+    },
+    "metadata_failure": {
+      "path": "work/host_dispatch_differential/loader_storage_private.json",
+      "sha256": "7acc3d2d44ae633af1948d507678c063b15b07355c7adc55c1f9f686408a3491"
+    },
+    "failure_meaning": "Private report attempted to require a function symbol on the data-only unit; compilation/link fixture had completed but comparison had not run. Corrected report metadata; no source/flags/compiler change."
+  },
+  "limits": [
+    "Independent native addresses, widths and SDK/API contracts support working prefixes only. No original variable spelling, translation-unit owner, source aggregate, adjacency or link placement follows.",
+    "Path/error capacity and the actual initialized host interface remain unresolved; guessed arrays or zero interface tables were not supplied.",
+    "Original loader/select/dispatcher source and all635 function recovery rows remain unchanged; all three loader functions remain raw-unequal RECONSTRUCTED.",
+    "The natural host link still fails on36 measured dependencies. No playable EXE, original process, renderer work or real game execution claim."
+  ]
+}

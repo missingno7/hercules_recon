@@ -36,6 +36,7 @@ LOADER_SOURCE = SOURCE_DIR / "host_engine_loader.c"
 SELECT_SOURCE = SOURCE_DIR / "host_engine_select.c"
 HEADER_SOURCE = SOURCE_DIR / "host_engine_cells.h"
 DISPATCH_SOURCE = SOURCE_DIR / "host_engine_dispatch.c"
+STORAGE_SOURCE = SOURCE_DIR / "host_engine_storage.c"
 ORIGINAL_DEFAULT = Path(r"D:\Prog\hercules_recon\work\discs\pc_install\HERCULES.EXE")
 DEFAULT_OUTPUT = WORK / "report.json"
 TOOLCHAIN = Path(r"C:\tools\hercules\msvc500-8abf95ce980161ad87b0b02402269cce76988953")
@@ -316,8 +317,18 @@ def dos_splitpath(path):
     return drive, directory, stem, extension
 
 
-def fixture_source(path):
-    path.write_text(FIXTURE_SOURCE, encoding="ascii", newline="\n")
+def fixture_source(path, native=False):
+    text = FIXTURE_SOURCE
+    if not native:
+        for declaration in ('FARPROC g_host_engine_entry_91c45c;',
+                            'DWORD g_host_engine_gate_91c460;',
+                            'DWORD g_host_engine_selector_91c464;',
+                            'HMODULE g_host_engine_module_91c468;',
+                            'jmp_buf g_host_engine_jump_buffer_91bfd8;'):
+            if text.count(declaration) != 1:
+                raise RuntimeError('fixture declaration shape changed')
+            text = text.replace(declaration + '\n', '')
+    path.write_text(text, encoding="ascii", newline="\n")
     return path
 
 
@@ -908,10 +919,13 @@ def invoke(kind, scenario, pe, layout):
         "callee_saved_registers": saved_registers if boundary == "return" else None,
     }
     return {"boundary": boundary, "events": events, "final": final,
-            "boundary_registers": saved_registers}
+            "boundary_registers": saved_registers,
+            "sdk_unwind_data_tail_unchanged": bytes(uc.mem_read(cells["jump_buffer"] + 40, 24)) == bytes([0xA7]) * 24}
 
 
 def validate_case(name, scenario, observed):
+    if not observed["sdk_unwind_data_tail_unchanged"]:
+        raise AssertionError("extra-count0 modified SDK optional unwind-data slots")
     if observed["boundary"] == "return":
         if observed["final"]["return_stack_delta"] != 4:
             raise AssertionError("returning dispatcher path did not preserve cdecl stack balance")
@@ -1045,7 +1059,7 @@ def main(argv=None):
               "arguments": {"native_exe": str(native), "output": str(output)}}
     try:
         report["analysis_provenance"] = provenance()
-        required = (LOADER_SOURCE, SELECT_SOURCE, HEADER_SOURCE, DISPATCH_SOURCE)
+        required = (LOADER_SOURCE, SELECT_SOURCE, HEADER_SOURCE, DISPATCH_SOURCE, STORAGE_SOURCE)
         missing = [str(p) for p in required if not p.is_file()]
         if missing:
             raise FileNotFoundError("missing source/header: " + ", ".join(missing))
@@ -1089,8 +1103,9 @@ def main(argv=None):
         report["build_directory"] = str(run_dir)
         report["crt_archive_identity"] = crt_archive_contract(pe, run_dir)
         fixture = fixture_source(run_dir / "dispatch_fixture.c")
+        native_fixture = fixture_source(run_dir / "native_dispatch_fixture.c", native=True)
         report["fixture_source"] = {"path": str(fixture), "sha256": digest(fixture.read_bytes()),
-            "purpose": "test-only shared cells plus compiled synthetic export; path/error arrays are 512 bytes, jmp_buf is 64 bytes; callback mutations are not retail behavior claims"}
+            "purpose": "Source fixture supplies only512-byte path/error test buffers and a compiled synthetic export; actual loader scalar/jmp_buf source supplies its storage. Native fixture keeps test-only fixed-address views. No path/error capacity, callback behavior or original allocation ownership follows."}
         units = [
             {"name": "host_engine_loader", "source": LOADER_SOURCE,
              "symbol": "_host_engine_resolve", "rva": 0x5C20,
@@ -1102,6 +1117,9 @@ def main(argv=None):
              "symbol": "_host_engine_dispatch_5ec0", "rva": 0x5EC0,
              "body": DISPATCH_BODY_SIZE, "padded": DISPATCH_PADDED_SIZE},
             {"name": "dispatch_fixture", "source": fixture,
+             "symbol": "_dispatch_test_engine_main"},
+            {"name": "host_engine_storage", "source": STORAGE_SOURCE},
+            {"name": "native_dispatch_fixture", "source": native_fixture,
              "symbol": "_dispatch_test_engine_main"},
         ]
         compile_rows = []
@@ -1126,13 +1144,14 @@ def main(argv=None):
         report["object_comparisons"] = [source_diagnostics(
             unit["object"], unit["source"], native, unit["symbol"], unit["rva"],
             unit["body"], unit["padded"]) for unit in units[:3]]
-        source_paths = [unit["object"] for unit in units]
+        source_paths = [unit["object"] for unit in units[:5]]
         source_layout = link_objects(source_paths, "source")
-        fixture_native_layout = link_objects([units[3]["object"]], "original_fixture")
+        fixture_native_layout = link_objects([units[5]["object"]], "original_fixture")
         report["synthetic_link"] = {
             "separate_source_objects": {unit["name"]: {
                 "object_sha256": digest(unit["object"].read_bytes()),
-                "symbol": unit["symbol"]} for unit in units},
+                    "symbol": unit.get("symbol"),
+                    "data_only_provider": unit["name"] == "host_engine_storage"} for unit in units[:5]},
             "source_function_addresses": {name: hex(row["address"])
                 for name, row in source_layout[5].items()},
             "fixture_common_sizes": source_layout[0][1],
@@ -1156,7 +1175,7 @@ def main(argv=None):
                                   "GetProcAddress FARPROC WINAPI(HMODULE,LPCSTR)"],
                 "fixture_callback_is_not_retail_DLL_code": True},
             "table": "retail file-backed table bytes and self-pointer are mapped as fixture input at preferred addresses; source/TU ownership unresolved",
-            "path_error_jump_storage": "only generated fixture allocations: 512/512/64 bytes; not game ownership evidence",
+            "path_error_jump_storage": "Source loader scalars and64-byte SDK jmp_buf prefix come from freshly compiled canonical host_engine_storage.c. Path/error512-byte arrays, native-address fixture cells, table inputs, export callback and SEH-head precondition remain synthetic; original owner/capacities and placement are not proved.",
             "same_object_gate": "the source COFF objects named by compile.units are the exact objects raw-compared in object_comparisons and linked/emulated below; object SHA-256 values bind all three steps"}
 
         scenarios = scenario_matrix()
@@ -1166,6 +1185,8 @@ def main(argv=None):
             native_result = invoke("original", scenario, pe, fixture_native_layout)
             candidate_result = invoke("source", scenario, pe, source_layout)
             def normalized(value):
+                if not value["sdk_unwind_data_tail_unchanged"]:
+                    raise AssertionError("SDK unwind-data tail changed")
                 # Native fixed-address cells and candidate fixture allocations
                 # intentionally use different env VAs. Compare the proven cell
                 # role; preserve both actual addresses in the receipt.
@@ -1185,6 +1206,11 @@ def main(argv=None):
             validate_case(name, scenario, native_result)
             validate_case(name, scenario, candidate_result)
         report["cases"] = case_rows
+        if any(digest(p.read_bytes()) != before[p.name]["sha256"] for p in required):
+            raise RuntimeError("a source/header changed during the bounded comparison")
+        if digest(native.read_bytes()) != ORIGINAL_SHA256:
+            raise RuntimeError("the pinned original changed during the bounded comparison")
+        report["source_header_oracle_inputs_unchanged"] = True
         report["differential_equal"] = True
         report["status"] = "pass_behavioral_differential_raw_mismatch"
         report["claim_limit"] = "behavioral agreement for nine finite fixtures is not FUNCTION_MATCH, source identity, storage ownership, DLL behavior, SEH-unwind behavior, or full startup proof"
