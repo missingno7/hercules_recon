@@ -4,12 +4,18 @@ An evidence-driven reconstruction of the 1997 Windows **Disney's Hercules Action
 Game**. The target is historical C/C++ compiled to original PC machine code.
 PlayStation versions are secondary evidence. Historical source acceptance remains
 separate from modern renderer implementation; original gameplay stays unchanged.
+The current phase reconstructs the original game first. Renderer implementation
+is deferred, and an offline preview is not runnable-game completion.
 
-The isolated renderer investigation publishes [renderer_contract](renderer_contract/README.md)
+The earlier renderer investigation publishes [renderer_contract](renderer_contract/README.md)
 as the shared evidence boundary for [dropin_renderer](dropin_renderer/README.md),
 an isolated modern subproject in this repository. Its first implementation uses
 source-built x86 forwarding, bounded command observations and archived-resource
 geometry diagnostics. Original-host presentation and full rendering remain open.
+
+The [host runtime reconstruction](docs/host_runtime_reconstruction.md) records
+the original input/audio/callback-delivery source and its bounded historical
+comparisons. The source game still has unresolved dependencies and is not playable.
 
 ## Current findings
 
