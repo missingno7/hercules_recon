@@ -96,8 +96,8 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 95 actual source units with
-129 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+The current natural selected host graph compiles 96 actual source units with
+130 recorded EXE functions and preserves 26 accepted EXE functions. It has no
 duplicate providers and 39 unresolved dependencies: 18 newly exposed frame
 callbacks and 21 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
@@ -239,6 +239,26 @@ See `evidence/host_file_close_integration.json` for current evidence and
 retain their statuses and proofs; six evidence notes now point to the integration.
 All 133 accepted functions remain exact. The real close path resolves the former
 opaque A350 dependency; the natural build still produces no game executable.
+
+The CD interval service at `0x9cd0` now supplies the former opaque timing
+dependency. Its first ordinary C hypothesis reproduces the full 144-byte
+contribution after relocation normalization; 23 raw bytes differ and eight
+relocations remain. It is `CODEGEN_SIMILAR`, with no exact promotion. All 650
+previous rows are identical, and all 133 exact functions pass fresh verification.
+
+```
+python scripts/host_cd_timer_differential.py --output work/cd_timer_replay
+```
+
+Twenty-seven bounded cases reuse the six existing MCI DWORD owners and check
+zero guards, packed byte arithmetic, unsigned threshold equality/reversed ranges,
+clock wrap, ignored upper bits and API-boundary mutations. Duration uses snapshots
+before the tick call; previous tick and restart arguments reload after it. The
+playing flag is cleared before restart, whose distinct modeled effects survive
+return. Time and play `0x9e60` remain test boundaries. No real MCI operation runs.
+See `evidence/host_cd_timer_recovery.json`. The natural graph now contains 96
+units and 130 recorded EXE functions; the new body exposes its actual missing
+playback dependency, leaving 39 missing providers and no executable.
 
 The journaled promotion gate now supports `.c` and `.cpp` destinations under
 `src/`. A C++ candidate must already occupy its exact canonical path. The gate

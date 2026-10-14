@@ -1,0 +1,426 @@
+{
+  "schema": 1,
+  "scope": "Original PC CD interval service atRVA9CD0: ordinary C reconstruction and bounded execution using the actual existing MCI storage. recovery.json alone owns status.",
+  "prediction": {
+    "path": "work/host_cd_timer/prediction.json",
+    "sha256": "a87cb11d70fad32eb6ec8b711cdb6590d21ae7cc302456fe52734061865142e0"
+  },
+  "sources": [
+    {
+      "path": "src/pc/host_cd_timer.c",
+      "sha256": "e26c33c62b4b21e10b435884cae9430a4b9bc88753831504b83c53803b6787ad"
+    },
+    {
+      "path": "scripts/host_cd_timer_differential.py",
+      "sha256": "f4826224091a233933c9e060748bbcb96d5be55e3470a5bb131113a1aff22d64"
+    },
+    {
+      "path": "calibration/mci_storage.c",
+      "sha256": "ffc36970d2cb0f507ea7598b0b9977b66c8e9b1609a92111d4d2e8b051d1ecab"
+    }
+  ],
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "provenance": {
+    "function_map": {
+      "path": "D:/Prog/hercules_recon/work/luna_fatal_cleanup_chain_11/function_map.json",
+      "sha256": "5df395109e9852ccc8b9fbeadbe38bc0f16e04ad35e50e89f418b64e289f410b"
+    },
+    "entry": "409CD0, direct call from405F20",
+    "complete_size": 144,
+    "body_size": 136,
+    "scope": "Unindexed function; existing recovery/catalog and source inventory had no9CD0 provider. Original PC instructions control all field and branch interpretations."
+  },
+  "measurement": {
+    "first_candidate": {
+      "path": "work/host_cd_timer/candidate.json",
+      "sha256": "b77460c3c493f00787e60e1ba922fb3ca38252b351f4c99da47822558420df5c"
+    },
+    "complete_canonical_size": 144,
+    "native_size": 144,
+    "raw_exact": false,
+    "raw_differences": 23,
+    "compiled_sha256": "44d92d02a92919fb36016b12ca83c9af399993493041c5d1e7223d571e1d65cd",
+    "native_sha256": "c4ddc94473f7259a478d2fd65318dac163766bb7c7bd89ce812598c429431c72",
+    "relocations": [
+      {
+        "offset": 2,
+        "symbol": "_g_exe_96e61c",
+        "type": 6
+      },
+      {
+        "offset": 13,
+        "symbol": "_g_exe_96e620",
+        "type": 6
+      },
+      {
+        "offset": 84,
+        "symbol": "__imp__timeGetTime@0",
+        "type": 6
+      },
+      {
+        "offset": 90,
+        "symbol": "_g_exe_96e624",
+        "type": 6
+      },
+      {
+        "offset": 104,
+        "symbol": "_g_exe_96e620",
+        "type": 6
+      },
+      {
+        "offset": 109,
+        "symbol": "_g_exe_96e61c",
+        "type": 6
+      },
+      {
+        "offset": 117,
+        "symbol": "_g_exe_96e62c",
+        "type": 6
+      },
+      {
+        "offset": 126,
+        "symbol": "_host_cd_play_9e60",
+        "type": 20
+      }
+    ],
+    "diagnostic_equal": true,
+    "diagnostic_differences": 0,
+    "diagnostic_symbols": {
+      "__imp__timeGetTime@0": "0x7a5b24",
+      "_g_exe_96e61c": "0x56e61c",
+      "_g_exe_96e620": "0x56e620",
+      "_g_exe_96e624": "0x56e624",
+      "_g_exe_96e62c": "0x56e62c",
+      "_host_cd_play_9e60": "0x9e60"
+    },
+    "limit": "Eight code relocations remain; full normalized equality is diagnostic only. No steering, spelling search, assembly or acceptance from finite tests."
+  },
+  "behavior": [
+    "Both fullDWORD packed endpoints must be nonzero. Only their low byte and next byte contribute seconds and minutes; upper16 bits do not affect duration.",
+    "Snapshot start/end milliseconds before timeGetTime; unsignedDWORD duration=end_ms-start_ms, elapsed=now-live_previous_tick. Equality triggers restart; arithmetic wraps as PC32-bit subtraction.",
+    "After the API returns, reload both packed endpoint cells for restart arguments. Clear playingDWORD before play9E60. No caller writes undo the modeled restart effects.",
+    "The playing flag itself does not disable this interval check. Void callsite/source view supplies no EAX guarantee."
+  ],
+  "storage": {
+    "owner": "calibration/mci_storage.c",
+    "existing_fields": [
+      {
+        "symbol": "_g_exe_96e61c",
+        "rva": "0x56e61c",
+        "bytes": 4,
+        "kind": "defined zero data / native loader zero"
+      },
+      {
+        "symbol": "_g_exe_96e620",
+        "rva": "0x56e620",
+        "bytes": 4,
+        "kind": "defined zero data / native loader zero"
+      },
+      {
+        "symbol": "_g_exe_96e624",
+        "rva": "0x56e624",
+        "bytes": 4,
+        "kind": "defined zero data / native loader zero"
+      },
+      {
+        "symbol": "_g_exe_96e628",
+        "rva": "0x56e628",
+        "bytes": 4,
+        "kind": "defined zero data / native loader zero"
+      },
+      {
+        "symbol": "_g_exe_96e62c",
+        "rva": "0x56e62c",
+        "bytes": 4,
+        "kind": "defined zero data / native loader zero"
+      },
+      {
+        "symbol": "_g_exe_96e630",
+        "rva": "0x56e630",
+        "bytes": 4,
+        "kind": "defined zero data / native loader zero"
+      }
+    ],
+    "bytes_reused": 24,
+    "bytes_added": 0,
+    "limit": "Existing independent explicit-zero source storage agrees with native virtual loader zero; no original aggregate/TU/extent/placement inferred."
+  },
+  "validation": {
+    "report": {
+      "path": "work/host_cd_timer/final_pinned/host_cd_timer_differential.json",
+      "sha256": "acabc8fa685c3ebf8cd0b4a5ac08ce9576f639d0055e598872bd82e86dcb4c47"
+    },
+    "case_count": 27,
+    "all_equal": true,
+    "scenarios": [
+      {
+        "name": "zero_start",
+        "start": 0,
+        "end": 258,
+        "previous": 0,
+        "now": 100000
+      },
+      {
+        "name": "zero_end",
+        "start": 257,
+        "end": 0,
+        "previous": 0,
+        "now": 100000
+      },
+      {
+        "name": "both_zero",
+        "start": 0,
+        "end": 0,
+        "previous": 0,
+        "now": 4294967295
+      },
+      {
+        "name": "one_second_999",
+        "start": 257,
+        "end": 258,
+        "previous": 100,
+        "now": 1099
+      },
+      {
+        "name": "one_second_1000",
+        "start": 257,
+        "end": 258,
+        "previous": 100,
+        "now": 1100
+      },
+      {
+        "name": "one_second_1001",
+        "start": 257,
+        "end": 258,
+        "previous": 100,
+        "now": 1101
+      },
+      {
+        "name": "minute_boundary_999",
+        "start": 59,
+        "end": 256,
+        "previous": 0,
+        "now": 999
+      },
+      {
+        "name": "minute_boundary_1000",
+        "start": 59,
+        "end": 256,
+        "previous": 0,
+        "now": 1000
+      },
+      {
+        "name": "minute_boundary_1001",
+        "start": 59,
+        "end": 256,
+        "previous": 0,
+        "now": 1001
+      },
+      {
+        "name": "zero_interval_0",
+        "start": 257,
+        "end": 257,
+        "previous": 0,
+        "now": 0
+      },
+      {
+        "name": "zero_interval_1",
+        "start": 257,
+        "end": 257,
+        "previous": 0,
+        "now": 1
+      },
+      {
+        "name": "reversed_unsigned_0",
+        "start": 258,
+        "end": 257,
+        "previous": 0,
+        "now": 0
+      },
+      {
+        "name": "reversed_unsigned_4294966295",
+        "start": 258,
+        "end": 257,
+        "previous": 0,
+        "now": 4294966295
+      },
+      {
+        "name": "reversed_unsigned_4294966296",
+        "start": 258,
+        "end": 257,
+        "previous": 0,
+        "now": 4294966296
+      },
+      {
+        "name": "reversed_unsigned_4294967295",
+        "start": 258,
+        "end": 257,
+        "previous": 0,
+        "now": 4294967295
+      },
+      {
+        "name": "wrapped_clock_999",
+        "start": 257,
+        "end": 258,
+        "previous": 4294967040,
+        "now": 743
+      },
+      {
+        "name": "wrapped_clock_1000",
+        "start": 257,
+        "end": 258,
+        "previous": 4294967040,
+        "now": 744
+      },
+      {
+        "name": "wrapped_clock_1001",
+        "start": 257,
+        "end": 258,
+        "previous": 4294967040,
+        "now": 745
+      },
+      {
+        "name": "high_bytes_999",
+        "start": 2864382209,
+        "end": 3437035778,
+        "previous": 19,
+        "now": 1018
+      },
+      {
+        "name": "high_bytes_1000",
+        "start": 2864382209,
+        "end": 3437035778,
+        "previous": 19,
+        "now": 1019
+      },
+      {
+        "name": "max_fields_15553999",
+        "start": 1,
+        "end": 65535,
+        "previous": 0,
+        "now": 15553999
+      },
+      {
+        "name": "max_fields_15554000",
+        "start": 1,
+        "end": 65535,
+        "previous": 0,
+        "now": 15554000
+      },
+      {
+        "name": "max_fields_15554001",
+        "start": 1,
+        "end": 65535,
+        "previous": 0,
+        "now": 15554001
+      },
+      {
+        "name": "live_restart_reload",
+        "start": 257,
+        "end": 258,
+        "previous": 0,
+        "now": 1000,
+        "mutate_start": 2290615044,
+        "mutate_end": 2576942342
+      },
+      {
+        "name": "live_tick_reload",
+        "start": 257,
+        "end": 258,
+        "previous": 0,
+        "now": 1000,
+        "mutate_previous": 1000
+      },
+      {
+        "name": "snapshot_threshold_live_arguments",
+        "start": 257,
+        "end": 258,
+        "previous": 0,
+        "now": 1000,
+        "mutate_start": 0,
+        "mutate_end": 0
+      },
+      {
+        "name": "playing_zero_does_not_disable",
+        "start": 257,
+        "end": 258,
+        "previous": 0,
+        "now": 1000,
+        "playing": 0
+      }
+    ],
+    "whole_memory": "All six DWORD cells including unrelated pause/open state; guarded stack, caller balance and four nonvolatile registers.",
+    "boundaries": "timeGetTime result/effects and9E60 restart return/effects are modeled code-hook boundaries. Restart writes distinct playing/tick values to check before-call clear and absence of caller overwrites. No endpoint opcode substitution or API process execution.",
+    "guards": "Only the actual144-byte callback and two named boundaries may execute; only the stack and playingDWORD may receive code writes.",
+    "fixture_only": "Actual linked source DLL with canonical MCI data and an unreached infinite-loop playback definition. Original full PE is read-only evidence mapped into Unicorn; import endpoint binding is emulator-only.",
+    "original_process_or_API_entries": 0
+  },
+  "regression": {
+    "strict": {
+      "path": "work/host_cd_timer/strict133.json",
+      "sha256": "533451adfd8f4f11fcbdc8b3eceddff902d337600b2097da9778c3ccbb4d69f5"
+    },
+    "raw_exact_functions": 133,
+    "all_650_prior_rows_identical": true,
+    "rows_added": 1,
+    "status_counts": {
+      "FUNCTION_MATCH": 133,
+      "CODEGEN_SIMILAR": 470,
+      "RECONSTRUCTED": 48
+    },
+    "natural_graph": {
+      "path": "work/host_current_graph/report-820a209adeca9e7e.json",
+      "sha256": "820a209adeca9e7e3ab9bbc9e727ea5bfd3520449e4b1981896f7241358ae544"
+    },
+    "source_units": 96,
+    "recorded_EXE_functions": 130,
+    "accepted_EXE_functions": 26,
+    "unresolved": 39,
+    "missing_frame_callbacks": 18,
+    "other_missing_providers": 21,
+    "duplicate_providers": 0,
+    "images_produced": 0,
+    "dependency": "Actual interval provider resolves the former opaque timing dependency and exposes the real missing play9E60. The same unresolved count does not establish graph equivalence or game completion."
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "implicit_compile_flag": "/Gy",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "analysis_tools": {
+    "python": {
+      "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "version": "3.12.14",
+      "sha256": "d41bad46673f64e0d02f23797f53f90ccf60f27d6eda8d86dd2d4bbeae5a858c"
+    },
+    "pefile": {
+      "path": "C:\\tools\\hercules\\python\\pefile.py",
+      "version": "2024.8.26",
+      "sha256": "0d0eb68f0f169182613dc64b3ab50b20855508c1c1d2faafe8fccf23edb6a345"
+    },
+    "unicorn": {
+      "path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+      "version": "2.1.4",
+      "sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+    },
+    "origin": "Existing C:/tools/hercules installations and bundled workspace Python; prior provenance in evidence/host_engine_loader_recovery.json. No tool/dependency added or modified."
+  },
+  "winmm_import_library": {
+    "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\winmm.lib",
+    "sha256": "a996cf8e569b6f2dd0a478119a57c325733af545ffee2e6c6fa7dba40bfba260",
+    "origin": "Existing pinned Microsoft Visual C++5.0 RTM SDK under C:/tools; not modified. Used only for standard source import linkage in the offline fixture."
+  },
+  "diagnosed_fixture": "Initial audit incorrectly required COMMON for the existing explicitly initialized MCI cells. Actual fresh COFF showed one24-byte zero data section; fixture audit corrected. Timer candidate bytes/source unchanged.",
+  "commands": [
+    "python scripts/host_cd_timer_differential.py --output work/cd_timer_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/cd_timer_strict_replay.json"
+  ],
+  "limits": [
+    "No complete playback9E60, MCI device behavior, main timing+engine dispatch pipeline, CD authentication, startup/menu/input/gameplay or renderer equivalence.",
+    "Relocation-only diagnostics do not establish whole source, TU, compiler/linker flags or image layout. All earlier exact peers remain strict."
+  ]
+}
