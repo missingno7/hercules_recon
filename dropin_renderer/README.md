@@ -31,6 +31,13 @@ and offline diagnostic slice; original-game rendering and deployment remain open
   Runtime HLSL draws an illustrative solid-color strip, followed by fence-waited
   texture readback. Its fill, color and triangle split are diagnostic policies;
   this is not a faithful textured Hercules backend or an original-host hook.
+- `core/indexed_memory.*`: caller-bounded owned address storage with explicit
+  byte validity, detached synchronous word uploads, and one backing for aliased
+  raw texture/palette writes. Unknown bytes reject capture; VRAM moves are deferred.
+- `backends/indexed_reference.*` and optional `indexed_gpu.*`: controlled FT4
+  rectangle consumption captures only the sampled texels at each command. The
+  reference calls the shared D420/CAB0 utility; the GPU uses integer R8_UINT
+  storage-texture loads and an indexed target. Both preserve zero-source pixels.
 
 The reference mode of the proxy continues through system DirectDraw and the
 original renderer. The diagnostic GPU path uses a separate offscreen target and
@@ -69,7 +76,31 @@ ctest --test-dir work/dropin-build -C Release --output-on-failure
 
 That generator is an alternate build recipe, not a recorded MSVC verification.
 Enable `DROPIN_BUILD_SDL_GPU_DIAGNOSTIC=ON` and point `SDL3_DIR` at a compatible
-x86 SDL3 CMake package to build the optional probe.
+x86 SDL3 CMake package to build the optional probe and indexed backend.
+
+## Uploaded indexed rectangles
+
+The public comparison runner executes original A710 upload and AC60/D420/CAB0
+in one bounded CPU-emulator image, then feeds the same synthetic inputs through
+the modern owned-upload/ordered-capture path. It checks the complete 320x240
+index buffer against the original; `--gpu` additionally compares fence-complete
+GPU readback against the shared reference. The fresh build receipt and current
+source hashes must match the supplied CLI.
+
+```powershell
+& $py dropin_renderer/tests/run_build.py --output work/dropin-indexed-build --gpu
+& $py -B dropin_renderer/tests/run_indexed_rectangle.py `
+  --exe D:\Prog\hercules_recon\work\discs\pc_install\HERCULES.EXE `
+  --cli work/dropin-indexed-build/indexed_rectangle_cli.exe `
+  --output work/dropin-indexed-comparison --gpu
+```
+
+Three cases cover a base rectangle, shifted upload/UV/destination coordinates,
+and an all-zero texture. The last produces no pixel stores but still requests
+presentation, independently observed with the original dirty flag initially zero.
+This supports a finite unblended FT4 subset, not general polygons or a complete
+game frame. See [the indexed checkpoint](docs/indexed_slice.md) and the
+[shared rectangle boundary](../renderer_contract/indexed_rectangle.md).
 
 ## Real archived geometry
 
@@ -105,8 +136,8 @@ Both sides use that one helper. No historical function was promoted.
 
 The next integration boundary is still write/profile/registry isolation, proven
 windowed startup and restoration before an authorized original post-entry probe.
-The next rendering boundary is real texture/CLUT state and reachable rectangle
-commands feeding the existing indexed reference path. Movie, desktop-DC text,
+The next rendering boundary is original CLUT/shade/blend state and reachable
+producer commands beyond the bounded rectangle subset. Movie, desktop-DC text,
 palette and presentation ownership still need coordinated observations before
 any game-window takeover. See [the measured checkpoint](docs/initial_slice.md)
 and [shared blockers](../renderer_contract/blockers.md).

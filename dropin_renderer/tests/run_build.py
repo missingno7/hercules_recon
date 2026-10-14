@@ -88,6 +88,7 @@ def main():
             raise ValueError("production proxy PE32/export/runtime boundary failed")
         receipt["proxy_image"] = {"sha256": sha(image_path), "machine": "i386",
                                   "exports": exported_names, "imports": imported_names}
+        receipt["fixture_executables"] = {path.name: sha(path) for path in output.glob("*.exe")}
         receipt["passed"] = True
         return 0
     finally:

@@ -7,7 +7,7 @@ extern "C" {
 #endif
 #include "composition_events.h"
 #include "hercules_frame.h"
-#include "hercules_pixels.h"
+#include "hercules_rectangle.h"
 #include "hercules_staging.h"
 #ifdef __cplusplus
 }

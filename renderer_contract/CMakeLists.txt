@@ -7,6 +7,7 @@ add_library(hercules_renderer_contract STATIC
     hercules_packets.c
     hercules_pixels.c
     hercules_projection.c
+    hercules_rectangle.c
     hercules_reprojection.c
     hercules_route_uv_models.c
     hercules_sprite_geometry.c

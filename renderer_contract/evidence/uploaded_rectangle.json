@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "status": "BOUNDED_EQUIVALENT",
+  "original_game_process_executed": false,
+  "function_match_promoted": false,
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "oracle_runtime_manifest": "renderer_contract/evidence/oracle_toolchain.json",
+  "prediction_before_family": {
+    "family": "original-upload-to-indexed-rectangle",
+    "prediction": "Original A710 with a detached tightly packed word payload, followed by original AC60/D420/CAB0 in the same controlled image, produces the existing base/offset rectangle indices; an accepted all-zero rectangle sets the original dirty request at CC37 despite no surface-byte writes.",
+    "falsifiers": [
+      "A710 stores disagree with the declared texture bytes",
+      "CAB0 samples or output indices differ from the supplied rectangle payload",
+      "Transparent accepted input fails to request presentation when the latch starts zero",
+      "Unknown original endpoint, code modification or instruction budget"
+    ],
+    "scope": "Finite synthetic buffers, unchanged PC code in pinned CPU emulator; no original process or matching acceptance"
+  },
+  "original_spans": [
+    {
+      "rva": "0xac60",
+      "size": 1680,
+      "sha256": "f7724c04bef582e378b183a12550ba841df1a6fa3660be51da71154aa5c525af"
+    },
+    {
+      "rva": "0xd420",
+      "size": 2384,
+      "sha256": "4645c60cf0a357ed4aae074c3487a2755384852d0874e2f12b352b994544e07e"
+    },
+    {
+      "rva": "0xcab0",
+      "size": 405,
+      "sha256": "5ca22ca070b69abaf98a0da5c794b0642cf816026b7ff87c794d6a82f6d9c71f"
+    },
+    {
+      "rva": "0x6ff0",
+      "size": 199,
+      "sha256": "d6f022e5f7103bec40e16000f8a4e8e08ea186c337d828f29afd46f4f8d3e88e"
+    },
+    {
+      "rva": "0x70c0",
+      "size": 118,
+      "sha256": "f5225f837714b2dc9379a6e1358bef73dbfcf9bc32393c47581acf62f4ba5d40"
+    },
+    {
+      "rva": "0x7140",
+      "size": 46,
+      "sha256": "7d70b14e30cf0c37b0215c471953a0472b799067aecbb0eb368e9cf994ff7f64"
+    },
+    {
+      "rva": "0x6620",
+      "size": 213,
+      "sha256": "52a5fe4fd4d5d08288467e6e8d5daef54f3bb176218847788e9d0fbcea7f0287"
+    },
+    {
+      "rva": "0xbd80",
+      "size": 22,
+      "sha256": "6a9578c5be0c980bc35b29642d3ac389e829a0c5666022353cb88c04f19db64f"
+    },
+    {
+      "rva": "0xa710",
+      "size": 469,
+      "sha256": "30bd84ea8724152e3bfb0e2c521650399913bcec115f1aef489768085981d0fe"
+    }
+  ],
+  "source_sha256": {
+    "renderer_contract/hercules_rectangle.c": "492ee34cb261e10dd368a178be68812857bc00c806e9415c1bbdd223492c1df6",
+    "renderer_contract/hercules_rectangle.h": "774c6ebe4656e20043d3482f7a06580135bb9abedcdc9eb30314382717433212",
+    "renderer_contract/tests/test_rectangle.c": "55817691137f7bbbe1ab133ad304228af9610728e56698351474da36aa6b1e92",
+    "renderer_contract/tests/test_original_uploaded_rectangle.py": "66e2c71136e0909d83af6180e395584e2c8679735a6643bfce4202eb5108dac1",
+    "renderer_contract/fixtures/composition/raster/src/composition_raster.c": "48f377a0421af1ff4841702846548abfff126fbecdaf2b4720203c0d90cc33f7",
+    "renderer_contract/fixtures/composition/raster/src/composition_raster.h": "8dcd4b38fe5b69eecce5b6be5a7811ffe3ce3688206ae8c1787eb588ce747bc6",
+    "renderer_contract/fixtures/composition/raster/tests/audit_composition_raster.py": "5916c20fc0eb5ec3689d9dd8f08ee8b9ee59fab769137e56752e6b0a48b67e38"
+  },
+  "cases": [
+    {
+      "case": "base",
+      "input": {
+        "packet_address": 268439552,
+        "packet_hex": "401000106475862c0100010000000000030001000200000001000300000200000300030002020000",
+        "upload_rect": [
+          0,
+          0,
+          1,
+          2
+        ],
+        "upload_payload_hex": "005a776b",
+        "initial_pixel": 165
+      },
+      "upload_byte_stores": 4,
+      "texture_byte_reads": 4,
+      "surface_byte_stores": 3,
+      "dirty_events": [
+        {
+          "phase": "frame",
+          "pc_rva": "0xcc37",
+          "value": 1
+        },
+        {
+          "phase": "frame",
+          "pc_rva": "0x6637",
+          "value": 0
+        }
+      ],
+      "frame_sha256": "8e9f144904ce2d771522b9b956c8b9802c5976ecc28a8cb121a55b302e48f075",
+      "modern": {
+        "status": "PASS",
+        "pixel_stores": 3,
+        "presentation_requested": true,
+        "captured_texels": 4,
+        "gpu": "exact_indices"
+      },
+      "native_receipt": {
+        "path": "work/dropin_indexed_comparison_final/base_native.json",
+        "sha256": "b8f56f8f89019675fbebadd36ca820c7180003104ea4b7b9d5d556c99aeeb00b"
+      }
+    },
+    {
+      "case": "offset_rectangle",
+      "input": {
+        "packet_address": 268439552,
+        "packet_hex": "401000106475862c0400050002010000070005000501000004000700020300000700070005030000",
+        "upload_rect": [
+          1,
+          1,
+          2,
+          2
+        ],
+        "upload_payload_hex": "1122330044556600",
+        "initial_pixel": 165
+      },
+      "upload_byte_stores": 2,
+      "texture_byte_reads": 6,
+      "surface_byte_stores": 6,
+      "dirty_events": [
+        {
+          "phase": "frame",
+          "pc_rva": "0xcc37",
+          "value": 1
+        },
+        {
+          "phase": "frame",
+          "pc_rva": "0x6637",
+          "value": 0
+        }
+      ],
+      "frame_sha256": "669fbc0a97771d78e6e71dd1b4a269ec4216846e13ec138962b249b94c3bc68f",
+      "modern": {
+        "status": "PASS",
+        "pixel_stores": 6,
+        "presentation_requested": true,
+        "captured_texels": 6,
+        "gpu": "exact_indices"
+      },
+      "native_receipt": {
+        "path": "work/dropin_indexed_comparison_final/offset_rectangle_native.json",
+        "sha256": "025d5083c4c99bd2280a257131bf01b712707e2deb7e7896fc3d51bb7e42972f"
+      }
+    },
+    {
+      "case": "transparent",
+      "input": {
+        "packet_address": 268439552,
+        "packet_hex": "401000106475862c0100010000000000030001000200000001000300000200000300030002020000",
+        "upload_rect": [
+          0,
+          0,
+          1,
+          2
+        ],
+        "upload_payload_hex": "00000000",
+        "initial_pixel": 165
+      },
+      "upload_byte_stores": 4,
+      "texture_byte_reads": 4,
+      "surface_byte_stores": 0,
+      "dirty_events": [
+        {
+          "phase": "frame",
+          "pc_rva": "0xcc37",
+          "value": 1
+        },
+        {
+          "phase": "frame",
+          "pc_rva": "0x6637",
+          "value": 0
+        }
+      ],
+      "frame_sha256": "ff941394dc96bfa9a2879c40568ed76e81dd3091d1360ab973e3c4ff16da0bfa",
+      "modern": {
+        "status": "PASS",
+        "pixel_stores": 0,
+        "presentation_requested": true,
+        "captured_texels": 4,
+        "gpu": "exact_indices"
+      },
+      "native_receipt": {
+        "path": "work/dropin_indexed_comparison_final/transparent_native.json",
+        "sha256": "3759fd3200b7ce007e67d3e22800753539bf54ab3533f9e4fe8aa43ed58b7590"
+      }
+    }
+  ],
+  "composition_regression": {
+    "path": "work/dropin_indexed_composition_audit/composition_raster_audit.json",
+    "sha256": "13b81a1c25dc34be052960f7aa6e724d364ab5bc82d68540219a1e2485eb4c92",
+    "compilers": [
+      "pinned VC5",
+      "GCC x86"
+    ],
+    "scope": "Existing base and offset event/pixel comparisons; original asymmetric-UV discriminator retained"
+  },
+  "modern_comparison": {
+    "path": "work/dropin_indexed_comparison_final/comparison.json",
+    "sha256": "f9bc2b6270f810ed263d0bed1f2c4bc16f0ef50b5a915e734d116e031e5b1c82"
+  },
+  "limits": [
+    "Synthetic detached uploads and FT4s in a bounded CPU image",
+    "Unblended code 0x2c, tpage/clut zero, red 0x64, <=8x8 in-bounds rectangles",
+    "256x256 texture pitch 256; 320x240 surface pitch 320",
+    "No palette conversion, generalized clipping/interpolation, game process or complete renderer proof"
+  ]
+}

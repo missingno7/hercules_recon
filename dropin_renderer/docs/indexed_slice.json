@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "status": "ORIGINAL_CPU_GPU_INDEXED_PASS",
+  "original_game_process_executed": false,
+  "shared_contract_evidence": {
+    "path": "renderer_contract/evidence/uploaded_rectangle.json",
+    "sha256": "1aa0b30b858ae0dad2f91f6dfcde99d23492abb4bc06405c3a520a8c8013f3f8"
+  },
+  "implementation": [
+    "Owned byte-valid texture storage and detached uploads",
+    "Per-command immutable sampled tiles at controlled consumption",
+    "Shared D420/CAB0 indexed CPU rectangle reference",
+    "SDL_GPU D3D12 R8_UINT storage-texture loads, indexed target, fence-complete readback"
+  ],
+  "validation": {
+    "modern_ctest": {
+      "passed": 10,
+      "skipped": 0
+    },
+    "shared_vc5": {
+      "passed": 23
+    },
+    "shared_gcc_x86": {
+      "passed": 23
+    },
+    "historical_fresh_raw_exact": 132,
+    "indexed_cases": 3,
+    "indices_compared_per_case": 76800
+  },
+  "receipts": [
+    {
+      "path": "work/dropin_indexed_build_final/build_receipt.json",
+      "sha256": "10be294ac640f7683b52e26637e70e4f8d1119ea7945b0c1d7b26fab622ee442"
+    },
+    {
+      "path": "work/dropin_indexed_comparison_final/comparison.json",
+      "sha256": "f9bc2b6270f810ed263d0bed1f2c4bc16f0ef50b5a915e734d116e031e5b1c82"
+    },
+    {
+      "path": "work/dropin_indexed_composition_audit/composition_raster_audit.json",
+      "sha256": "13b81a1c25dc34be052960f7aa6e724d364ab5bc82d68540219a1e2485eb4c92"
+    },
+    {
+      "path": "work/renderer_contract_tests/verification.json",
+      "sha256": "7f7b844d464b5cb5b747c13dd3bd317daf87ab16ab44eec829922f6fde3eafbd"
+    },
+    {
+      "path": "work/dropin_indexed_portable/portable_tests.json",
+      "sha256": "3dbaad80e34d3023f17e90d15fbc613221fe52a6f48904e646b9998f16fde645"
+    },
+    {
+      "path": "work/dropin_indexed_parent/historical.json",
+      "sha256": "8c6f823543f7e7a3eabbf83f3317bc17be0553947d680535646cd002843ef736"
+    }
+  ],
+  "commands": {
+    "modern_build": [
+      {
+        "argv": [
+          "C:\\msys64\\mingw32\\bin\\cmake.exe",
+          "-S",
+          "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\dropin_renderer",
+          "-B",
+          "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\dropin_indexed_build_final",
+          "-G",
+          "MinGW Makefiles",
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+          "-DPython3_EXECUTABLE=C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+          "-DCMAKE_C_COMPILER=C:\\msys64\\mingw32\\bin\\gcc.exe",
+          "-DCMAKE_CXX_COMPILER=C:\\msys64\\mingw32\\bin\\g++.exe",
+          "-DCMAKE_MAKE_PROGRAM=C:\\msys64\\mingw32\\bin\\mingw32-make.exe",
+          "-DDROPIN_BUILD_SDL_GPU_DIAGNOSTIC=ON",
+          "-DSDL3_DIR=C:/tools/sdl3-3.4.16-i686/lib/cmake/SDL3"
+        ],
+        "returncode": 0,
+        "log_sha256": "7ba37feff4d298dc5aa3a1039e66a78002d592da01fd8e7d378a1a0a871a3cf9"
+      },
+      {
+        "argv": [
+          "C:\\msys64\\mingw32\\bin\\cmake.exe",
+          "--build",
+          "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\dropin_indexed_build_final",
+          "--parallel",
+          "4"
+        ],
+        "returncode": 0,
+        "log_sha256": "82b299c8d99db434c191341073c79cf589b9e77b8ca66bb0d31f042e85c45204"
+      },
+      {
+        "argv": [
+          "C:\\msys64\\mingw32\\bin\\ctest.exe",
+          "--test-dir",
+          "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\dropin_indexed_build_final",
+          "--output-on-failure",
+          "--output-junit",
+          "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\work\\dropin_indexed_build_final\\tests.xml"
+        ],
+        "returncode": 0,
+        "log_sha256": "bb045ad5a4895ccfbb6d4d017d011200e6996825d7b93df4553a72e2fc2e4ca7"
+      }
+    ],
+    "indexed": "python -B dropin_renderer/tests/run_indexed_rectangle.py --exe D:\\Prog\\hercules_recon\\work\\discs\\pc_install\\HERCULES.EXE --cli work/dropin_indexed_build_final/indexed_rectangle_cli.exe --output work/dropin_indexed_comparison_final --gpu",
+    "shared_vc5": "python renderer_contract/tests/run_tests.py",
+    "shared_gcc_x86": "python renderer_contract/tests/run_portable_tests.py --cc C:\\msys64\\mingw32\\bin\\gcc.exe --cxx C:\\msys64\\mingw32\\bin\\g++.exe --output work/dropin_indexed_portable",
+    "historical": "python dropin_renderer/tests/verify_historical.py --original-root D:\\Prog\\hercules_recon --receipt work/dropin_indexed_parent/historical.json"
+  },
+  "remaining": [
+    "CLUT/shade/blend ownership and additional reachable producer commands",
+    "Original-host post-entry authorization/isolation/windowed startup/restoration",
+    "Movie/GDI/palette writers and exclusive presentation ownership"
+  ]
+}

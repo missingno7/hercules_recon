@@ -2,7 +2,7 @@
 
 #include <string.h>
 
-#include "hercules_quad_dispatch.h"
+#include "hercules_rectangle.h"
 
 #define RASTER_TEXTURE_BASE 0x0096E6E0UL
 #define RASTER_CPU_SURFACE_TOKEN 0x34000000UL
@@ -14,25 +14,7 @@
 #define RASTER_REMAP_ARGUMENT 0xFFUL
 #define RASTER_REMAP_SKIP_GUARD 0x80U
 #define RASTER_TEXTURE_ROW_BYTES 256UL
-#define RASTER_MAX_RECT_SIDE 8UL
 #define RASTER_BASE_EVENT_COUNT 10UL
-
-typedef struct RasterRect {
-    renderer_u32 x;
-    renderer_u32 y;
-    renderer_u32 width;
-    renderer_u32 height;
-    renderer_u32 u;
-    renderer_u32 v;
-} RasterRect;
-
-typedef struct RasterPixelTarget {
-    renderer_u8 *surface;
-    renderer_u32 surface_length;
-    renderer_u32 offset;
-    renderer_u32 writes;
-    int failed;
-} RasterPixelTarget;
 
 typedef struct RasterVisit {
     CompositionRasterConfig config;
@@ -41,7 +23,6 @@ typedef struct RasterVisit {
     renderer_u32 ft4_count;
     renderer_u32 terminator_count;
     CompositionRasterStatus status;
-    RasterPixelTarget pixel_target;
 } RasterVisit;
 
 static int read_packet(const CompositionRasterConfig *config,
@@ -131,144 +112,39 @@ static CompositionRasterStatus emit_service(
     return append_event(trace, event);
 }
 
-static int pixel_write(void *opaque, renderer_u8 value)
+static void make_rectangle_views(const CompositionRasterConfig *config,
+                                 HerculesRectangleTextureView *texture,
+                                 HerculesRectangleSurfaceView *surface)
 {
-    RasterPixelTarget *target = (RasterPixelTarget *)opaque;
-    if (target == 0 || target->surface == 0 ||
-        target->offset >= target->surface_length) {
-        if (target != 0)
-            target->failed = 1;
-        return 0;
-    }
-    target->surface[target->offset] = value;
-    ++target->writes;
-    return 1;
+    texture->page_address = config->texture_token;
+    texture->bytes = config->texture_bytes;
+    texture->length = config->texture_length;
+    texture->width = RASTER_TEXTURE_ROW_BYTES;
+    texture->height = RASTER_TEXTURE_ROW_BYTES;
+    texture->row_pitch = RASTER_TEXTURE_ROW_BYTES;
+    surface->bytes = config->surface_bytes;
+    surface->length = config->surface_length;
+    surface->width = RASTER_WIDTH;
+    surface->height = RASTER_HEIGHT;
+    surface->row_pitch = config->surface_pitch;
 }
 
-static int supported_rectangle(const RendererDecodedPacket *packet,
-                               const RendererAc60StateView *state,
-                               const CompositionRasterConfig *config,
-                               RasterRect *rect)
+static int append_rectangle_pixel_event(void *opaque,
+                                        renderer_u8 source_texel,
+                                        renderer_u32 destination_offset)
 {
-    const RendererAc60WorkspaceView *w;
-    renderer_u32 x[4];
-    renderer_u32 y[4];
-    renderer_u32 u[4];
-    renderer_u32 v[4];
-    renderer_i32 x0;
-    renderer_i32 y0;
-    renderer_i32 width;
-    renderer_i32 height;
-    renderer_u32 source_u;
-    renderer_u32 source_v;
-    renderer_u32 last_source;
-    renderer_u32 last_destination;
-
-    if (packet == 0 || state == 0 || config == 0 || rect == 0 ||
-        packet->kind != RENDERER_PACKET_FT4 || packet->command != 0x2CU ||
-        packet->semitransparent != 0U || packet->tpage != 0U ||
-        packet->clut != 0U || packet->color[0][0] != 0x64U ||
-        config->surface_pitch != RASTER_PITCH ||
-        config->surface_token != RASTER_CPU_SURFACE_TOKEN ||
-        config->texture_token != RASTER_TEXTURE_BASE ||
-        config->dib_info_token != RASTER_DIB_TOKEN ||
-        config->hdc_token != RASTER_HDC_TOKEN ||
-        config->dirty_gate != 1U ||
-        config->remap_guard != RASTER_REMAP_SKIP_GUARD ||
-        config->state->raster_suppression_flag != 0U ||
-        state->workspace.texture_page_address != RASTER_TEXTURE_BASE ||
-        state->workspace.vertex_count != 4U)
-        return 0;
-    if (config->texture_bytes == 0 || config->surface_bytes == 0)
-        return 0;
-    w = &state->workspace;
-    x[0] = w->native_x_slot0; x[1] = w->native_x_slot1;
-    x[2] = w->native_x_slot2; x[3] = w->native_x_slot3;
-    y[0] = w->native_y_slot0; y[1] = w->native_y_slot1;
-    y[2] = w->native_y_slot2; y[3] = w->native_y_slot3;
-    u[0] = w->native_u_slot0; u[1] = w->native_u_slot1;
-    u[2] = w->native_u_slot2; u[3] = w->native_u_slot3;
-    v[0] = w->native_v_slot0; v[1] = w->native_v_slot1;
-    v[2] = w->native_v_slot2; v[3] = w->native_v_slot3;
-
-    /* This is the finite direct-rectangle predicate mirrored by the existing
-     * instruction-backed D420 contract. The raw lanes are AC60's native slot
-     * order, not an inferred renderer or world/UI layer order. */
-    /* The packet/tpage constraints below also exclude the separate E680 mode
-     * 0x80 shortcut; keep that route discriminator explicit in this subset. */
-    if (!renderer_d420_cab0_candidate(1U, config->surface_token,
-                                      w->vertex_count, x, y, u, v) ||
-        renderer_e680_c8f0_candidate(1U, config->surface_token,
-                                     state->page.page_mode, w->vertex_count,
-                                     x, y, u, v))
-        return 0;
-
-    x0 = (renderer_i32)w->native_x_slot0;
-    y0 = (renderer_i32)w->native_y_slot0;
-    width = (renderer_i32)w->native_x_slot1 - x0;
-    height = (renderer_i32)w->native_y_slot3 - y0;
-    source_u = w->native_u_slot0 >> 16;
-    source_v = w->native_v_slot0 >> 16;
-    if (x0 < 0 || y0 < 0 || width <= 0 || height <= 0 ||
-        (renderer_u32)width > RASTER_MAX_RECT_SIDE ||
-        (renderer_u32)height > RASTER_MAX_RECT_SIDE ||
-        (renderer_u32)x0 + (renderer_u32)width > RASTER_WIDTH ||
-        (renderer_u32)y0 + (renderer_u32)height > RASTER_HEIGHT ||
-        source_u + (renderer_u32)width > RASTER_TEXTURE_ROW_BYTES ||
-        source_v + (renderer_u32)height > RASTER_TEXTURE_ROW_BYTES)
-        return 0;
-
-    last_source = (source_v + (renderer_u32)height - 1U) *
-                  RASTER_TEXTURE_ROW_BYTES + source_u + (renderer_u32)width - 1U;
-    last_destination = ((renderer_u32)y0 + (renderer_u32)height - 1U) *
-                       config->surface_pitch + (renderer_u32)x0 +
-                       (renderer_u32)width - 1U;
-    if (last_source >= config->texture_length ||
-        last_destination >= config->surface_length)
-        return 0;
-
-    rect->x = (renderer_u32)x0;
-    rect->y = (renderer_u32)y0;
-    rect->width = (renderer_u32)width;
-    rect->height = (renderer_u32)height;
-    rect->u = source_u;
-    rect->v = source_v;
-    return 1;
-}
-
-static int emit_pixel(RasterVisit *visit, renderer_u32 sample_offset,
-                      renderer_u32 destination_offset)
-{
+    RasterVisit *visit = (RasterVisit *)opaque;
     CompositionEvent event;
     CompositionRasterStatus status;
-    renderer_u8 source;
-    HercPixelDestinationAccess destination;
-    HercPixelStepResult step;
 
-    if (sample_offset >= visit->config.texture_length ||
-        destination_offset >= visit->config.surface_length) {
-        visit->status = COMPOSITION_RASTER_UNSUPPORTED;
+    if (visit == 0 || visit->trace == 0)
         return 0;
-    }
-    source = visit->config.texture_bytes[sample_offset];
-    visit->pixel_target.offset = destination_offset;
-    destination.read_byte = 0;
-    destination.write_byte = pixel_write;
-    destination.context = &visit->pixel_target;
-    step = herc_pixel_cab0_step(source, &destination);
-    if (step == HERC_PIXEL_INVALID || visit->pixel_target.failed) {
-        visit->status = COMPOSITION_RASTER_INVALID;
-        return 0;
-    }
-    if (step == HERC_PIXEL_NO_WRITE)
-        return 1;
-
     make_event(&event, visit->trace, COMPOSITION_EVENT_SCREEN_SPACE_GRAPHIC,
                COMPOSITION_ORIGIN_STATIC_ORDER, COMPOSITION_DOMAIN_CPU_SURFACE,
                0xCBFBU, visit->config.surface_token + destination_offset);
     event.argument[0] = destination_offset;
-    event.argument[1] = source;
-    event.argument[2] = source;
+    event.argument[1] = source_texel;
+    event.argument[2] = source_texel;
     status = append_event(visit->trace, &event);
     if (status != COMPOSITION_RASTER_OK) {
         visit->status = status;
@@ -288,9 +164,11 @@ static int visit_packet(void *opaque, renderer_raw32 packet_address)
     RendererAc60Event applied;
     RendererAc60ApplyStatus apply_status;
     CompositionEvent event;
-    RasterRect rect;
-    renderer_u32 row;
-    renderer_u32 column;
+    HerculesRectanglePlan rect;
+    HerculesRectangleTextureView texture_view;
+    HerculesRectangleSurfaceView surface_view;
+    HerculesRectangleEffects effects;
+    HerculesRectangleStatus rectangle_status;
 
     if (visit == 0 || visit->trace == 0 || visit->status != COMPOSITION_RASTER_OK)
         return 0;
@@ -337,10 +215,13 @@ static int visit_packet(void *opaque, renderer_raw32 packet_address)
 
     apply_status = renderer_ac60_apply_packet(
         wire, (size_t)length, visit->config.state, &applied);
+    make_rectangle_views(&visit->config, &texture_view, &surface_view);
+    rectangle_status = hercules_rectangle_resolve(
+        &decoded, (size_t)length, visit->config.state, &texture_view,
+        &surface_view, &rect);
     if (apply_status != RENDERER_AC60_APPLY_OK ||
         applied.kind != RENDERER_AC60_EVENT_FT4 ||
-        !supported_rectangle(&decoded, visit->config.state, &visit->config,
-                             &rect)) {
+        rectangle_status != HERCULES_RECTANGLE_OK) {
         visit->status = COMPOSITION_RASTER_UNSUPPORTED;
         return 0;
     }
@@ -357,32 +238,30 @@ static int visit_packet(void *opaque, renderer_raw32 packet_address)
         return 0;
     }
 
-    visit->pixel_target.surface = visit->config.surface_bytes;
-    visit->pixel_target.surface_length = visit->config.surface_length;
-    visit->pixel_target.failed = 0;
-    for (row = 0; row < rect.height; ++row) {
-        for (column = 0; column < rect.width; ++column) {
-            renderer_u32 source_offset = (rect.v + row) *
-                RASTER_TEXTURE_ROW_BYTES + rect.u + column;
-            renderer_u32 destination_offset = (rect.y + row) *
-                visit->config.surface_pitch + rect.x + column;
-            if (!emit_pixel(visit, source_offset, destination_offset))
-                return 0;
-        }
+    rectangle_status = hercules_rectangle_render(
+        &rect, &texture_view, &surface_view, append_rectangle_pixel_event,
+        visit, &effects);
+    if (rectangle_status != HERCULES_RECTANGLE_OK) {
+        if (rectangle_status != HERCULES_RECTANGLE_OBSERVER_FAILED)
+            visit->status = COMPOSITION_RASTER_UNSUPPORTED;
+        return 0;
     }
     ++visit->ft4_count;
     visit->current_packet = packet_address;
     return 1;
 }
 
-static CompositionRasterStatus preflight(const CompositionRasterConfig *config,
-                                         RasterRect *rect)
+static CompositionRasterStatus preflight(
+    const CompositionRasterConfig *config, HerculesRectanglePlan *rect)
 {
     const renderer_u8 *wire;
     renderer_u32 next;
     RendererDecodedPacket decoded;
     RendererAc60StateView state;
     RendererAc60Event applied;
+    HerculesRectangleTextureView texture_view;
+    HerculesRectangleSurfaceView surface_view;
+    HerculesRectangleStatus rectangle_status;
 
     if (config == 0 || config->resolver == 0 || config->state == 0 ||
         config->order_table_base == 0 || config->order_table_slot_count != 1U ||
@@ -405,8 +284,12 @@ static CompositionRasterStatus preflight(const CompositionRasterConfig *config,
         return COMPOSITION_RASTER_UNSUPPORTED;
     state = *config->state;
     if (renderer_ac60_apply_packet(wire, 0x28U, &state, &applied) !=
-            RENDERER_AC60_APPLY_OK || applied.kind != RENDERER_AC60_EVENT_FT4 ||
-        !supported_rectangle(&decoded, &state, config, rect))
+            RENDERER_AC60_APPLY_OK || applied.kind != RENDERER_AC60_EVENT_FT4)
+        return COMPOSITION_RASTER_UNSUPPORTED;
+    make_rectangle_views(config, &texture_view, &surface_view);
+    rectangle_status = hercules_rectangle_resolve(
+        &decoded, 0x28U, &state, &texture_view, &surface_view, rect);
+    if (rectangle_status != HERCULES_RECTANGLE_OK)
         return COMPOSITION_RASTER_UNSUPPORTED;
     next = raw_u32(wire);
     if (next == 0U || !read_packet(config, next, 8U, &wire) || wire[7] != 0x40U ||
@@ -428,7 +311,7 @@ CompositionRasterStatus composition_run_ft4_direct_copy_frame(
     CompositionEvent event;
     CompositionRasterStatus status;
     renderer_u32 args[13];
-    RasterRect rect;
+    HerculesRectanglePlan rect;
     renderer_u32 required_events;
 
     if (trace == 0 || config == 0)

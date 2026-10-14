@@ -115,6 +115,7 @@ def main() -> int:
                     event_dir / "composition_events.c", root / "renderer_contract" / "hercules_frame.c",
                     root / "renderer_contract" / "hercules_packets.c",
                     root / "renderer_contract" / "hercules_pixels.c",
+                    root / "renderer_contract" / "hercules_rectangle.c",
                     root / "renderer_contract" / "hercules_staging.c",
                     root / "renderer_contract" / "hercules_state.c"]
     for source in source_paths:
@@ -128,6 +129,7 @@ def main() -> int:
                      root / "renderer_contract" / "hercules_frame.h",
                      root / "renderer_contract" / "hercules_packets.h",
                      root / "renderer_contract" / "hercules_pixels.h",
+                     root / "renderer_contract" / "hercules_rectangle.h",
                      root / "renderer_contract" / "hercules_staging.h",
                      root / "renderer_contract" / "hercules_state.h",
                      root / "renderer_contract" / "hercules_types.h",

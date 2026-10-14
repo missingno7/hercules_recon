@@ -20,6 +20,7 @@ import time
 
 EXPECTED_TESTS = {
     "test_capture_extent.c",
+    "test_rectangle.c",
     "test_cpp_headers.cpp",
     "test_edge_steps.c",
     "test_frame.c",
