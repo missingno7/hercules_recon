@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 127 actual source units with
-208 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 28 unresolved dependencies: four frame
-callbacks, twelve Options callbacks and 12 data providers. Including
+The current natural selected host graph compiles 128 actual source units with
+209 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 27 unresolved dependencies: four frame
+callbacks, eleven keyboard/joystick callbacks and 12 data providers. Including
 the real map replaces one missing map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -202,6 +202,19 @@ See `evidence/host_options_sound_gameplay_recovery.json`.
 
 ```
 python scripts/host_options_sound_gameplay_differential.py --output work/options_sound_gameplay_replay
+```
+
+The sheet initialization now preserves the inherited raw BOOL result and sets
+the actual four tab captions: Keyboard, GamePad, Sound and Game Play. Its complete
+192-byte contribution is diagnostic-equal; all 33 pointed-to string bytes are
+verified separately. Seventeen directed cases cover live HWNDs and reuse of a
+partially initialized TC_ITEM. Wrong text, cached handles and a forced TRUE return
+are rejected by three negative controls. The two MFC boundaries and Windows API
+remain explicit models. All 133 exact matches survive. See
+`evidence/host_options_sheet_init_recovery.json`.
+
+```
+python scripts/host_options_sheet_init_differential.py --output work/options_sheet_init_replay
 ```
 
 The loader now has an independent source provider for four observed DWORD cells

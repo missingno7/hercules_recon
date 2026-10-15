@@ -1,0 +1,196 @@
+{
+  "schema": 1,
+  "scope": "Original PC COptionsSheet::OnInitDialog only. Finite offline synthetic receiver behavior;no actual dialog,modal startup,temporary-handle map,DDX,registry,device,process or game execution. recovery.json owns function state.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_options_sheet_init.cpp",
+      "sha256": "2a9117ad76051d1c206d5cda47ef6ad77633a769551ecf5392cbfa6f7dd6ccab"
+    },
+    {
+      "path": "scripts/host_options_sheet_init_differential.py",
+      "sha256": "debe3c23eb43e868ad7a440b21513a0e2ed479b242f2a3adc6c4dfbd99b952f4"
+    },
+    {
+      "path": "calibration/host_options_classes.h",
+      "sha256": "409d145d78ecddec4d698cb108d56036e7513ddb1914006f97f5af94f794ed6c"
+    }
+  ],
+  "prediction": {
+    "path": "work/options_sheet_init/prediction.json",
+    "sha256": "01b2494e366e4646d50d661eebcf0d9578518cca1db53985d05467fe3cf183cf"
+  },
+  "toolchain": {
+    "name": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest": {
+      "path": "toolchains/manifest.json",
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    },
+    "flags": [
+      "/O2",
+      "/MT",
+      "/GX",
+      "/IC:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\include"
+    ],
+    "emulator": {
+      "version": "Unicorn2.1.4",
+      "dll": {
+        "path": "C:/tools/hercules/renderer-oracle-python/unicorn/lib/unicorn.dll",
+        "sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+      },
+      "origin": "Existing pinned C:/tools runtime;no dependency installed or patched"
+    }
+  },
+  "measurement": {
+    "private_receipt": {
+      "path": "work/options_sheet_init/canonical/options_sheet_init_differential.json",
+      "sha256": "600449ec06188e9ee62df7a9fc6bb32407ce3d17749458483004398cd6ddaa35"
+    },
+    "symbol": "?OnInitDialog@COptionsSheet@@UAEHXZ",
+    "rva": "0x10960",
+    "complete_bytes": 192,
+    "body_bytes": 179,
+    "padding_bytes": 13,
+    "source_relocations": 7,
+    "raw_differences": 21,
+    "diagnostic_differences": 0,
+    "strict_equal": false,
+    "status": "CODEGEN_SIMILAR",
+    "binding": {
+      "??_C@_05NJPO@Sound?$AA@": "0x3a54c",
+      "??_C@_07NHHF@GamePad?$AA@": "0x36ce8",
+      "??_C@_08FMFA@Keyboard?$AA@": "0x372fc",
+      "??_C@_09MAIJ@Game?5Play?$AA@": "0x3699c",
+      "?FromHandle@CWnd@@SGPAV1@PAUHWND__@@@Z": "0x22697",
+      "?OnInitDialog@CPropertySheet@@UAEHXZ": "0x292f0",
+      "__imp__SendMessageA@16": "0x7a5a5c"
+    },
+    "literal_proof": [
+      {
+        "symbol": "??_C@_05NJPO@Sound?$AA@",
+        "native_rva": "0x3a54c",
+        "bytes": 6,
+        "text": "Sound"
+      },
+      {
+        "symbol": "??_C@_07NHHF@GamePad?$AA@",
+        "native_rva": "0x36ce8",
+        "bytes": 8,
+        "text": "GamePad"
+      },
+      {
+        "symbol": "??_C@_08FMFA@Keyboard?$AA@",
+        "native_rva": "0x372fc",
+        "bytes": 9,
+        "text": "Keyboard"
+      },
+      {
+        "symbol": "??_C@_09MAIJ@Game?5Play?$AA@",
+        "native_rva": "0x3699c",
+        "bytes": 10,
+        "text": "Game Play"
+      }
+    ],
+    "literal_total_bytes": 33,
+    "native_base_relocation_directory": "Absent/stripped in PC EXE;source fields and target pointer resolutions checked,not a native relocation inventory"
+  },
+  "semantics": [
+    "Call inherited CPropertySheet::OnInitDialog once and return its entire BOOL result after all caption calls,including0/high-bit results.",
+    "GetTabControl uses the current sheet HWND after base initialization,SendMessageA(PSM_GETTABCONTROL0x474,0,0),then CWnd::FromHandle with the returned HWND.",
+    "Use one automatic28-byte ANSI TC_ITEM. Before each SetItem,set mask=TCIF_TEXT1 and pszText to Keyboard,GamePad,Sound,Game Play in indices0,1,2,3 order.",
+    "Each TCM_SETITEMA0x1306 uses the live wrapper HWND. Other TC_ITEM fields remain uninitialized by the caller;the API receives mask1 and must not consume unrelated fields.",
+    "Callback changes to the wrapper HWND and unused TC_ITEM fields are observed across later calls. mask/text alone are overwritten before each subsequent call. API return values are ignored."
+  ],
+  "diagnosed_literal_error": {
+    "discriminator": {
+      "path": "work/options_sheet_init/label_discriminator.json",
+      "sha256": "d01c53a6b7fbf4aa3afbc3f3f29f556d54c9d7b27ad9ac8b785b6d46b5ca8cdd"
+    },
+    "meaning": "The first natural192-byte candidate used Joystick and still had zero normalized code differences. Native RVA36ce8 is GamePad. Corrected from pointed-to data evidence. Fresh wrong_literal negative deliberately reproduces the false code-only equality and is rejected by pointed-to-string verification and behavior."
+  },
+  "library_boundaries": [
+    {
+      "role": "BaseInit",
+      "symbol": "?OnInitDialog@CPropertySheet@@UAEHXZ",
+      "rva": "0x292f0",
+      "bytes": 489,
+      "member": 121,
+      "member_sha256": "af9dcab86a429f70eceff3ed911ed474c2132924fd140d7b8e20197ffccb2510",
+      "linked_code_diagnostic_equal": true,
+      "execution": "modeled identified boundary"
+    },
+    {
+      "role": "FromHandle",
+      "symbol": "?FromHandle@CWnd@@SGPAV1@PAUHWND__@@@Z",
+      "rva": "0x22697",
+      "bytes": 40,
+      "member": 148,
+      "member_sha256": "b8bbb902f332f2e1d2291646e511b8a35b03e2e9ccf1985b2c8e75f275aac343",
+      "linked_code_diagnostic_equal": true,
+      "execution": "modeled identified boundary"
+    }
+  ],
+  "library_scope": "Complete529bytes from unchanged pinned nafxcw members121/148 compare diagnostically to original library bodies and fixture linkage. Both entrypoints are modeled;neither modal initialization nor actual temporary-handle map behavior is accepted. No library body recovered as game code.",
+  "fixture": {
+    "cases": 17,
+    "all_equal": true,
+    "negative_controls": [
+      {
+        "name": "wrong_literal",
+        "detected": true
+      },
+      {
+        "name": "cached_handle",
+        "detected": true
+      },
+      {
+        "name": "normalized_base_result",
+        "detected": true
+      }
+    ],
+    "checks": [
+      "Entire2156-byte receiver and64KiB synthetic arena including callback mutations",
+      "Ordered base/FromHandle/SendMessage calls and exact C strings,indices,mask and28-byte TC_ITEM projections with string pointer normalization",
+      "Live sheet/wrapper HWND changes,automatic item reuse and callback writes to unused fields",
+      "Raw32-bit base returns0/1/2/80000000/FFFFFFFF with API returns0/1/FFFFFFFF",
+      "Stack cleanup,nonvolatiles,guards,execution and native-write whitelists"
+    ],
+    "models": [
+      "CPropertySheet::OnInitDialog,identified unchanged library body",
+      "CWnd::FromHandle,identified unchanged library body",
+      "SendMessageA,controlled API callback"
+    ],
+    "limits": "Uninitialized unused TC_ITEM fields are seeded equally for directed comparison;not claimed to have deterministic general runtime values. No actual tab control or modal sheet is created."
+  },
+  "regression": {
+    "strict": {
+      "path": "work/options_sheet_init/strict133.json",
+      "sha256": "ed1f2f179820284f1ed67a9434ef1e5dec0cda673080630e9a4cbbc1fa74a5dd"
+    },
+    "all_133_raw_exact": true,
+    "prior_729_recovery_rows_unchanged": true,
+    "previous_source_units_unchanged": true,
+    "natural_graph": {
+      "path": "work/host_current_graph/report-194a916dcbb453af.json",
+      "sha256": "194a916dcbb453af565f5a2e1a0298e0660cef6f8d74c04718d8ee33b03d96b5"
+    },
+    "source_units": 128,
+    "recorded_EXE_functions": 209,
+    "accepted_EXE_functions": 26,
+    "unresolved": 27,
+    "missing_frame_callbacks": 4,
+    "remaining_input_page_callbacks": 11,
+    "missing_data_providers": 12,
+    "duplicate_link_errors": 0,
+    "images_produced": 0
+  },
+  "replay_commands": [
+    "python scripts/host_options_sheet_init_differential.py --output work/options_sheet_init_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/strict_verification.json"
+  ],
+  "limits": [
+    "No FUNCTION_MATCH:raw21-byte differences and7source relocations remain. Code/data equality after normalization does not prove source identity,translation unit ownership,link layout or whole-module equality.",
+    "Eleven keyboard/joystick callbacks,four frame callbacks and twelve data providers prevent natural linkage. Earlier paint EH and allocator-selection gaps remain. No replacement renderer or gameplay change."
+  ]
+}
