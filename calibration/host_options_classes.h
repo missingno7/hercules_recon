@@ -20,8 +20,8 @@ public:
     virtual void OnOK();
     virtual BOOL PreTranslateMessage(MSG*);
     virtual void OnReset();
+    BOOL OnRva_00008DD0(HWND, SHORT, BOOL);
     afx_msg void OnRva_000092C0();
-    afx_msg void OnRva_00009410();
 protected:
     virtual void DoDataExchange(CDataExchange*);
 public:
@@ -35,7 +35,7 @@ public:
     CEdit m_control_0411;
     CEdit m_control_0412;
     CEdit m_control_0413;
-    BOOL m_native_2e4;
+    BOOL m_keyboard_enabled;
 };
 
 class CJoystickPage : public CPropertyPage

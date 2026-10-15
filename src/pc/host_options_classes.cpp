@@ -29,7 +29,7 @@ void CKeyboardPage::DoDataExchange(CDataExchange* dx)
 
 BEGIN_MESSAGE_MAP(CKeyboardPage, CPropertyPage)
     ON_BN_CLICKED(0x424, OnRva_000092C0)
-    ON_BN_CLICKED(0x44b, OnRva_00009410)
+    ON_BN_CLICKED(0x44b, OnReset)
 END_MESSAGE_MAP()
 
 IMPLEMENT_DYNCREATE(CJoystickPage, CPropertyPage)

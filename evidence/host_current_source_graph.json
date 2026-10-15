@@ -8,7 +8,7 @@
     "baseline": "D:/Prog/hercules_recon/work/root_actor_relative_28/exe_graph.json",
     "scope": "Current actual-source host dependency evidence, not runtime or completion. No code edits planned for this measurement.",
     "recorded_before_compile": true,
-    "context": "The actual sheet initialization now joins eight sound/gameplay callbacks and the typed Options classes.128units/209recordedEXEfunctions;4frame,11input-page callbacks and12data providers remain. No prior source unit changed."
+    "context": "Five actual keyboard callbacks plus their key-binding helper and exact typed key-caption/working data join the current source graph. Direct virtual OnReset message-map binding identifies an8-byte compiler thunk.130units/215recordedEXEfunctions;4frame,5joystick callbacks and12data providers remain."
   },
   "sources": [
     {
@@ -712,7 +712,7 @@
     },
     {
       "source": "src/pc/host_options_classes.cpp",
-      "source_sha256": "15a3902c4a43e0bddb805b1d45948bc48b7d25dfd6e2a30420ea46939927fd3d",
+      "source_sha256": "e226bd338eb7c7b0f5cda184f6fa73ed40c510cb31d487c5b801235e19a7979b",
       "flags": [
         "/O2",
         "/MT",
@@ -743,6 +743,16 @@
     {
       "source": "src/pc/host_options_sheet_init.cpp",
       "source_sha256": "2a9117ad76051d1c206d5cda47ef6ad77633a769551ecf5392cbfa6f7dd6ccab",
+      "flags": [
+        "/O2",
+        "/MT",
+        "/GX",
+        "/IC:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\include"
+      ]
+    },
+    {
+      "source": "src/pc/host_options_keyboard.cpp",
+      "source_sha256": "801e867badf929cc08c8059806c347bf22d05b99907799c0696c2cfeeae82caa",
       "flags": [
         "/O2",
         "/MT",
@@ -940,21 +950,28 @@
         "/MT",
         "/IC:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\include"
       ]
+    },
+    {
+      "source": "calibration/host_keyboard_state.c",
+      "source_sha256": "6e7b98f322f985a13b1b27a64345387a6cbc19eb889288040895cd0013142a2d",
+      "flags": [
+        "/O2"
+      ]
     }
   ],
   "validation": {
-    "fresh_source_units": 128,
-    "recorded_EXE_functions": 209,
+    "fresh_source_units": 130,
+    "recorded_EXE_functions": 215,
     "preserved_exact_EXE_functions": 26,
     "duplicate_providers": 0,
-    "unresolved_symbols": 27,
+    "unresolved_symbols": 21,
     "missing_frame_callbacks": 4,
     "other_missing_providers": 12,
     "natural_link_exit_code": 25,
     "images_produced": 0,
     "images_executed": 0,
     "all_accepted_functions_raw_exact": 133,
-    "missing_options_callbacks": 11
+    "missing_options_callbacks": 5
   },
   "missing_providers": {
     "?OnDestroy@CJoystickPage@@QAEXXZ": [
@@ -963,25 +980,10 @@
     "?OnInitDialog@CJoystickPage@@UAEHXZ": [
       "src/pc/host_options_classes.cpp"
     ],
-    "?OnInitDialog@CKeyboardPage@@UAEHXZ": [
-      "src/pc/host_options_classes.cpp"
-    ],
     "?OnOK@CJoystickPage@@UAEXXZ": [
       "src/pc/host_options_classes.cpp"
     ],
-    "?OnOK@CKeyboardPage@@UAEXXZ": [
-      "src/pc/host_options_classes.cpp"
-    ],
-    "?OnReset@CKeyboardPage@@UAEXXZ": [
-      "src/pc/host_options_classes.cpp"
-    ],
     "?OnRva_00008850@CJoystickPage@@QAEXXZ": [
-      "src/pc/host_options_classes.cpp"
-    ],
-    "?OnRva_000092C0@CKeyboardPage@@QAEXXZ": [
-      "src/pc/host_options_classes.cpp"
-    ],
-    "?OnRva_00009410@CKeyboardPage@@QAEXXZ": [
       "src/pc/host_options_classes.cpp"
     ],
     "?OnRva_000096C0@CMainFrame@@QAEXXZ": [
@@ -997,9 +999,6 @@
       "calibration/host_frame_message_map.cpp"
     ],
     "?OnTimer@CJoystickPage@@QAEXI@Z": [
-      "src/pc/host_options_classes.cpp"
-    ],
-    "?PreTranslateMessage@CKeyboardPage@@UAEHPAUtagMSG@@@Z": [
       "src/pc/host_options_classes.cpp"
     ],
     "_g_archive_scratch": [
@@ -1102,24 +1101,24 @@
     }
   ],
   "private_receipt": {
-    "path": "work/host_current_graph/report-194a916dcbb453af.json",
-    "sha256": "194a916dcbb453af565f5a2e1a0298e0660cef6f8d74c04718d8ee33b03d96b5"
+    "path": "work/host_current_graph/report-b2951d708ed04bce.json",
+    "sha256": "b2951d708ed04bce18162cdc9785d8f0d11c271a125404aa963216e5fd8688fe"
   },
   "command": "python work/host_current_graph/run.py",
   "toolchain": "msvc5_rtm",
   "limits": [
-    "Selected actual-source graph has128units and209recordedEXEfunctions;counts are not whole-game coverage or a complete application denominator.",
-    "Four frame callbacks,eleven input-page callbacks and twelve real data providers remain missing. Paint EH registration and allocator selection gaps remain. No returning stubs,guessed buffers or forced executable were used.",
+    "Selected actual-source graph has130units and215recordedEXEfunctions;counts are not whole-game coverage or a complete application denominator.",
+    "Four frame callbacks,five joystick callbacks and twelve real data providers remain missing. Key helper has3temporary-string stack-offset differences;paint EH registration and allocator selection gaps remain. No returning stubs,guessed buffers or forced executable were used.",
     "The natural source link fails on the recorded realdependencies; do not count this receipt as a playable build.",
     "Known allocator dependency mismatch: MFC-first selects afxmem.obj; CRT-first duplicates new/delete. See evidence/host_frame_class_recovery.json. No forced link or library rewrite used."
   ],
-  "recovery_sha256": "2df893b58d3cba3d40d573d692b3a6aa18d06a73e4ab531dd1abd308edddfe07",
+  "recovery_sha256": "e730bfc90bf2e28259808c2a8aadc7e754565ddcc60959c9debdb4b7b633178b",
   "previous_graph_receipt": {
-    "path": "work/host_current_graph/report-070b51adf976b936.json",
-    "sha256": "070b51adf976b936f279c7690f8389611ea32eed0ffc87c108cac606d21a20c8"
+    "path": "work/host_current_graph/report-194a916dcbb453af.json",
+    "sha256": "194a916dcbb453af565f5a2e1a0298e0660cef6f8d74c04718d8ee33b03d96b5"
   },
   "current_prediction": {
-    "path": "work/options_sheet_init/prediction.json",
-    "sha256": "01b2494e366e4646d50d661eebcf0d9578518cca1db53985d05467fe3cf183cf"
+    "path": "work/options_input/keyboard_prediction.json",
+    "sha256": "d7113b7ba79bde336ecfbb41db910f066a22b970c8e1e1ef5a8af49f334ddb71"
   }
 }

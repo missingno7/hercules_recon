@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 128 actual source units with
-209 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 27 unresolved dependencies: four frame
-callbacks, eleven keyboard/joystick callbacks and 12 data providers. Including
+The current natural selected host graph compiles 130 actual source units with
+215 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 21 unresolved dependencies: four frame
+callbacks, five joystick callbacks and 12 data providers. Including
 the real map replaces one missing map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -180,11 +180,11 @@ across code and typed data. It rejects a same-size wrong-control substitution
 that has zero unmasked instruction differences. The relocation-stripped EXE has
 no native base-relocation inventory; that equality is not claimed.
 
-The real hierarchy exposes twenty missing page callbacks while resolving the
-frame Options entry. These remain declarations, so the larger natural unresolved
-count records genuine work still needed. No modal dialog or UI callback execution
-is accepted from this static audit. All 133 exact functions and the 81 sections
-in nine existing frame units survive. See `evidence/host_options_class_recovery.json`.
+Introducing the real hierarchy initially exposed twenty missing page callbacks
+while resolving the frame Options entry. Subsequent recoveries below leave five
+joystick callbacks unresolved. No modal dialog or UI callback execution is
+accepted from the initial static audit, which preserved all 133 exact functions
+and 81 sections in nine frame units. See `evidence/host_options_class_recovery.json`.
 
 ```
 python scripts/host_options_class_audit.py --output work/options_class_audit
@@ -215,6 +215,26 @@ remain explicit models. All 133 exact matches survive. See
 
 ```
 python scripts/host_options_sheet_init_differential.py --output work/options_sheet_init_replay
+```
+
+The keyboard page now has five actual callbacks, its shared key-binding member,
+the complete 256-entry key-caption table and nine measured working DWORD slots.
+All 310 directed cases pass, including every key index, last-conflict behavior,
+low-WORD writes and live caption/config/default/handle changes. Three negative
+controls reject first-conflict clearing, wide stores and cached captions. Five
+callbacks are full diagnostic equals; the helper retains three temporary-string
+stack-offset differences. Keep that gap open without source-spelling grids.
+
+The reset button directly binds virtual `OnReset` in the MFC map. VC5 emits the
+original eight-byte virtual-call thunk; its following eight INT3 bytes are outside
+that contribution. This is compiler-code identification, not a new game-authored
+exact match. All 133 accepted exact matches and 34 class contributions survive.
+The prior 179 sections retain their bytes, sizes and flags; the reset relocation
+and 107 individually verified local-label reference renames are documented in
+`evidence/host_options_keyboard_recovery.json`.
+
+```
+python scripts/host_options_keyboard_differential.py --output work/options_keyboard_replay
 ```
 
 The loader now has an independent source provider for four observed DWORD cells

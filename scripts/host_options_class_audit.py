@@ -102,7 +102,7 @@ def run():
    rel=next(x for x in item['relocations']if x['symbol'].startswith('?'+role+'@'))
    name=rel['symbol'];n=lib.function(name)['size'];library.append(measure(lib,libobj,dict(cls='MFC',role=role,symbol=name,rva=rel['target_rva'],size=n)))
   s='?class'+cls+'@'+cls+'@@2UCRuntimeClass@@B';audit(lib,s,bindings[key(lib,s)],24,'runtime_descriptor')
- own=coffs[0][0];own_data=[];overrides=[]
+ own=coffs[0][0];own_data=[];overrides=[];compiler_thunks=[]
  for cls,size,rt,vt,slots in CLASSES:
   descriptor=audit(own,'?class'+cls+'@'+cls+'@@2UCRuntimeClass@@B',rt,24,'runtime_descriptor');own_data.append(descriptor)
   native_rt=struct.unpack('<6I',pe.read_rva(rt,24));assert native_rt[1]==size and native_rt[2]==0xffff and native_rt[5]==0
@@ -117,7 +117,17 @@ def run():
    assert rel['offset']%24==20 and executable(int(rel['target_rva'],0))
    sig=struct.unpack_from('<I',pe.read_rva(entries_rva,(count+1)*24),rel['offset']-4)[0]
    suffix='@@QAEXXZ'if sig==12 else'@@QAEXI@Z'if sig==13 else None
-   assert suffix is not None and rel['symbol'].endswith('@'+cls+suffix),(cls,rel,sig)
+   if rel['symbol']=='??_9@$BNM@AE':
+    assert cls=='CKeyboardPage'and sig==12 and rel['target_rva']=='0x9410'
+    entry=pe.read_rva(entries_rva+rel['offset']-20,20)
+    assert struct.unpack('<5I',entry)==(0x111,0,0x44b,0x44b,12)
+    thunk=own.function(rel['symbol']);assert thunk['size']==8 and not thunk['relocations']
+    raw=compare(coffs[0][1],rel['symbol'],ORACLE,0x9410,8);assert raw['exact']
+    assert struct.unpack('<I',thunk['data'][4:8])[0]==0xdc
+    assert struct.unpack('<I',pe.read_rva(vt+0xdc,4))[0]-pe.image_base==0x9330
+    compiler_thunks.append(dict(symbol=rel['symbol'],rva='0x9410',bytes=8,virtual_slot=55,virtual_target_rva='0x9330',raw=raw,following_gap_bytes_excluded=8))
+   else:
+    assert suffix is not None and rel['symbol'].endswith('@'+cls+suffix),(cls,rel,sig)
   table=audit(own,'??_7'+cls+'@@6B@',vt,slots*4,'vtable');s=symbol(own,table['symbol']);assert s['value']==0 and own.sections[s['section']-1]['size']==slots*4
   base='CPropertySheet'if cls=='COptionsSheet'else'CPropertyPage';base_table=base_tables[base];assert len(table['relocations'])==slots
   for rel,previous in zip(table['relocations'],base_table['relocations']):
@@ -160,7 +170,7 @@ def run():
  negative=dict(description='Wrong same-size first keyboard control CEdit->CButton',class_bytes_unchanged=744,constructor_bytes_unchanged=320,unmasked_instruction_differences=0,relocation_binding_conflicts=bad['conflicts'],detected=True,command=wrong_command,source_sha256=sha(negative_source),header_sha256=sha(negative_header),object_sha256=sha(wrong_obj))
  assert pins=={p:sha(p)for p in pins}
  result=dict(scope=__doc__,inputs=pins,compiles=compiles,measurements=measurements,library_proofs=library,archive_member_sha256=sha(libobj),data=data,overrides=overrides,symbol_bindings=binding_records,
-  negative_control=negative,codegen_equal_functions=len(measurements),own_classes=len(CLASSES),own_aggregate_bytes=496,native_base_relocation_directory_present=has_native_relocations,relocation_check_scope='Typed source pointer-field footprint and consistent native addresses;native PE base relocations absent/stripped when directory is zero.',ui_or_game_executed=False)
+  compiler_thunks=compiler_thunks,negative_control=negative,codegen_equal_functions=len(measurements),own_classes=len(CLASSES),own_aggregate_bytes=496,native_base_relocation_directory_present=has_native_relocations,relocation_check_scope='Typed source pointer-field footprint and consistent native addresses;native PE base relocations absent/stripped when directory is zero.',ui_or_game_executed=False)
  path=OUT/'options_class_audit.json';path.write_bytes((json.dumps(result,indent=2)+'\n').encode());print(json.dumps(dict(functions=len(measurements),classes=len(CLASSES),data_objects=len(data),overrides=len(overrides),report=str(path))))
 
 
