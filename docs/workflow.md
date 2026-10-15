@@ -96,9 +96,9 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 122 actual source units with
-161 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 21 unresolved dependencies: nine frame
+The current natural selected host graph compiles 123 actual source units with
+165 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 18 unresolved dependencies: six frame
 callbacks and 12 data providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
@@ -138,6 +138,21 @@ with raw relocation differences; they remain CODEGEN_SIMILAR. See
 
 ```
 python scripts/host_frame_palette_cursor_differential.py --output work/frame_palette_cursor_replay
+```
+
+The window-resize helper and its three resolution callers now preserve the
+original edge metrics, signed work-area minima and live HWND/control-site reads.
+All four complete contributions are diagnostic equals. In 30 guarded cases the
+actual unmodified MFC ShowWindow and SetWindowPos bodies execute; only Windows
+and control-site endpoint effects are modeled. A negative case distinguishes
+edge metrics 45/46 from size-frame metrics 32/33. The shared header adds one
+nonvirtual helper declaration. All 69 sections in its seven prior consumers retain
+their bytes and resolved relocation targets; four generated local exception-label
+names change without moving their targets. All 133 strict matches and the complete
+message map survive. See `evidence/host_frame_resize_recovery.json`.
+
+```
+python scripts/host_frame_resize_differential.py --output work/frame_resize_replay
 ```
 
 The loader now has an independent source provider for four observed DWORD cells

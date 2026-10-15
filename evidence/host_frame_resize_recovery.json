@@ -1,0 +1,328 @@
+{
+  "schema": 1,
+  "scope": "Original PC resize helper and three resolution-command callbacks with genuine unmodified MFC ShowWindow/SetWindowPos method execution. Windows and control-site virtual endpoint effects alone modeled offline. No window,message loop,original process or runnable-game acceptance; recovery.json alone owns recovery status.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_frame_resize.cpp",
+      "sha256": "910a5cad40006d2c03249b1715e33b71e34d6d20b37c404527a64a4137d72d18"
+    },
+    {
+      "path": "scripts/host_frame_resize_differential.py",
+      "sha256": "aa63eef7a30194125201ddf58bdfab64149cb48820b16a63e52686567420e20e"
+    },
+    {
+      "path": "calibration/host_system_keys.h",
+      "sha256": "8ac7c4bfb37573d0f81d367ad811b4d59921ac8bbaa3b35cfd5afdde8ad850aa"
+    },
+    {
+      "path": "calibration/host_frame_state_storage.c",
+      "sha256": "931ac2079dd27462785e44facf6bbe6181eeb26f4fcc4b2181cabb066c202ec3"
+    }
+  ],
+  "prediction": {
+    "path": "work/host_frame_resize/prediction.json",
+    "sha256": "b5b1f4e6b150156ad68535084fd767422fcb774e79fb80711e905c53adc1f8b4"
+  },
+  "metric_discriminator": {
+    "path": "work/host_frame_resize/metric_discriminator.json",
+    "sha256": "bf54c4246e9e8341295aec269ae3e483a49381cf7bdd2f999ae58a0ec9c6118e"
+  },
+  "toolchain": {
+    "name": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest": {
+      "path": "toolchains/manifest.json",
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    },
+    "callback_flags": [
+      "/O2",
+      "/MT",
+      "/IC:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\include"
+    ],
+    "sdk_metric_header": {
+      "path": "C:/tools/hercules/msvc500-8abf95ce980161ad87b0b02402269cce76988953/include/winuser.h",
+      "sha256": "df89c70f2c4392643f25d8b7e70d19b2052041d3bf4e2cb08f671ee6483a20ea"
+    }
+  },
+  "functions": [
+    {
+      "role": "resize",
+      "symbol": "?OnRva_000099A0@CMainFrame@@QAEXHH@Z",
+      "native_rva": "0x99a0",
+      "native_bytes": 192,
+      "source_bytes": 192,
+      "raw_exact": false,
+      "raw_differences": 21,
+      "diagnostic_equal": true,
+      "relocations_grouped": [
+        {
+          "symbol": "_g_host_frame_maximized_7a022c",
+          "type": 6,
+          "offsets": [
+            4,
+            31
+          ]
+        },
+        {
+          "symbol": "?ShowWindow@CWnd@@QAEHH@Z",
+          "type": 20,
+          "offsets": [
+            25
+          ]
+        },
+        {
+          "symbol": "__imp__GetWindowRect@8",
+          "type": 6,
+          "offsets": [
+            47
+          ]
+        },
+        {
+          "symbol": "__imp__SystemParametersInfoA@16",
+          "type": 6,
+          "offsets": [
+            64
+          ]
+        },
+        {
+          "symbol": "__imp__GetSystemMetrics@4",
+          "type": 6,
+          "offsets": [
+            104
+          ]
+        },
+        {
+          "symbol": "?SetWindowPos@CWnd@@QAEHPBV1@HHHHI@Z",
+          "type": 20,
+          "offsets": [
+            178
+          ]
+        }
+      ],
+      "target_relocation_count": 0
+    },
+    {
+      "role": "small",
+      "symbol": "?OnRva_00009A60@CMainFrame@@QAEXXZ",
+      "native_rva": "0x9a60",
+      "native_bytes": 16,
+      "source_bytes": 16,
+      "raw_exact": false,
+      "raw_differences": 4,
+      "diagnostic_equal": true,
+      "relocations_grouped": [
+        {
+          "symbol": "?OnRva_000099A0@CMainFrame@@QAEXHH@Z",
+          "type": 20,
+          "offsets": [
+            11
+          ]
+        }
+      ],
+      "target_relocation_count": 0
+    },
+    {
+      "role": "medium",
+      "symbol": "?OnRva_00009A70@CMainFrame@@QAEXXZ",
+      "native_rva": "0x9a70",
+      "native_bytes": 16,
+      "source_bytes": 16,
+      "raw_exact": false,
+      "raw_differences": 4,
+      "diagnostic_equal": true,
+      "relocations_grouped": [
+        {
+          "symbol": "?OnRva_000099A0@CMainFrame@@QAEXHH@Z",
+          "type": 20,
+          "offsets": [
+            11
+          ]
+        }
+      ],
+      "target_relocation_count": 0
+    },
+    {
+      "role": "large",
+      "symbol": "?OnRva_00009A80@CMainFrame@@QAEXXZ",
+      "native_rva": "0x9a80",
+      "native_bytes": 16,
+      "source_bytes": 16,
+      "raw_exact": false,
+      "raw_differences": 4,
+      "diagnostic_equal": true,
+      "relocations_grouped": [
+        {
+          "symbol": "?OnRva_000099A0@CMainFrame@@QAEXHH@Z",
+          "type": 20,
+          "offsets": [
+            11
+          ]
+        }
+      ],
+      "target_relocation_count": 0
+    }
+  ],
+  "boundaries": [
+    "Helper0x99a0:complete192bytes includingRET8 at0x9a5d; ends at0x9a60.",
+    "Three wrappers0x9a60/70/80:each complete16bytes, dimensions320x240/480x360/640x480.",
+    "Derived272-byte helper span included all three wrappers and existing0x9a90 command-UI callback; rejected instead of trimming peer contributions."
+  ],
+  "semantics": [
+    "Any nonzero existing maximizedBYTE calls actual MFC ShowWindow(SW_RESTORE=9),then clears the flag after the call. Caller mutations of the flag are therefore overwritten; HWND/control-site mutations remain live.",
+    "GetWindowRect consumes the receiver HWND at+0x1c. SystemParametersInfoA(SPI_GETWORKAREA=0x30,0,&work,0) supplies work coordinates. Output validity is assumed only in directed cases whose modeled APIs write complete RECTs; return values alone are ignored.",
+    "Position is signed max(window.left,work.left),max(window.top,work.top). No right/bottom clipping or resize-to-fit policy is added,even for a window beyond the work area.",
+    "Outer width is requested width+2*(SM_CXEDGE45+SM_CXDLGFRAME7); outer height is requested height+2*(SM_CYEDGE46+SM_CYDLGFRAME8)+SM_CYMENU15+SM_CYCAPTION4. Actual GetSystemMetrics call order is46,8,15,4,45,7.",
+    "SetWindowPos uses null CWnd insert-after andSWP_NOZORDER4. Its actual MFC body reads live receiver HWND/control-site state; the return is ignored.",
+    "Pinned MFC CWnd methods dispatch either to real Windows import entries or through control-site virtual offsets0xa4/0xa8. Both method bodies execute in both oracle and linked-source fixtures; those virtual endpoint effects are explicit models."
+  ],
+  "diagnosed_hypothesis": {
+    "first": {
+      "path": "work/host_frame_resize/first_candidate.json",
+      "sha256": "d31d5ab6b1e527ae339aa42352d3919d8f5ea0407a75799709cb50258fcf11ff"
+    },
+    "first_source": {
+      "path": "work/host_frame_resize/first_candidate.cpp",
+      "sha256": "d39b4f93a626033070be475ddf3b615aeb10015b8ef64a4e79c104b0a35e8922"
+    },
+    "observation": "First192-byte hypothesis had exactly2 diagnostic differences,metric immediates33/32 at offsets111/146. Actual native literals are46/45. SDK confirms edge45/46 versus size-frame32/33.",
+    "correction": "Use the correct named edge constants; no flags,expression spelling or scheduling grid.",
+    "negative": "Private wrong-metric source recreates the diagnosed error and changes API trace and resulting outer dimensions."
+  },
+  "library": {
+    "archive": {
+      "path": "C:/tools/hercules/msvc500-8abf95ce980161ad87b0b02402269cce76988953/mfc/lib/nafxcw.lib",
+      "sha256": "5d9c3585552412a9b94a9a0b7c3a4208061a76d48a6c3283518bfe9f674c9e22"
+    },
+    "proofs": [
+      {
+        "role": "MFCShowWindow",
+        "symbol": "?ShowWindow@CWnd@@QAEHH@Z",
+        "native_rva": "0x25113",
+        "complete_bytes": 39,
+        "archive_member": 104,
+        "member_sha256": "2913d8fac06f5881ada9c9d5603d17b939de73baa23ff04cb451ba71c0592477",
+        "diagnostic_equal": true,
+        "linked_code_diagnostic_equal": true,
+        "actually_executed": true
+      },
+      {
+        "role": "MFCSetWindowPos",
+        "symbol": "?SetWindowPos@CWnd@@QAEHPBV1@HHHHI@Z",
+        "native_rva": "0x250c4",
+        "complete_bytes": 79,
+        "archive_member": 104,
+        "member_sha256": "2913d8fac06f5881ada9c9d5603d17b939de73baa23ff04cb451ba71c0592477",
+        "diagnostic_equal": true,
+        "linked_code_diagnostic_equal": true,
+        "actually_executed": true
+      }
+    ],
+    "scope": "Unmodified member104 methods,normal pinned archive linkage. Full79/39-byte archive-to-oracle and linked-code comparisons retain relocation normalization; no raw-equality or library-source reconstruction claim."
+  },
+  "representation": {
+    "receiver_bytes": 188,
+    "header_extension": "One public nonvirtual helper declaration only; no fields,virtual declarations,base class or message-map entries added.",
+    "new_data_providers": 0,
+    "existing_state": {
+      "symbol": "_g_host_frame_maximized_7a022c",
+      "rva": "0x7a022c",
+      "bytes": 1,
+      "backing": "Virtual loader zero; existing canonical one-byte provider freshly checked"
+    },
+    "fixture_scope": "Synthetic188-byte receiver and control-site/vtable endpoints in a complete64KiB arena; no production storage capacity or control-site type recovery inferred."
+  },
+  "validation": {
+    "private_receipt": {
+      "path": "work/host_frame_resize/replay/frame_resize_differential.json",
+      "sha256": "8f5d7fb48edb33ffae5a7c0f96dd80dec923b0fda540d938bed2896afcab39f4"
+    },
+    "cases": 30,
+    "all_equal": true,
+    "actual_roles": [
+      "MFCSetWindowPos",
+      "MFCShowWindow",
+      "large",
+      "medium",
+      "resize",
+      "small"
+    ],
+    "modeled_events": [
+      "GetSystemMetrics",
+      "GetWindowRect",
+      "SetWindowPos",
+      "ShowWindow",
+      "SiteSetWindowPos",
+      "SiteShowWindow",
+      "SystemParametersInfoA"
+    ],
+    "checks": [
+      "Ordered API events,full arguments,actual callback and MFC entries",
+      "Complete188-byte receiver and64KiB synthetic arena plus existing maximizedBYTE",
+      "Thiscall receiver,callee stack cleanup,nonvolatile registers,guards,execution/write whitelists",
+      "Three wrapper dimensions,signed coordinate minima,equal/negative/high-bit positions and beyond-right/bottom preservation",
+      "Metric call order46,8,15,4,45,7;zero/high-bit metric and arithmetic-wrap cases under the pinned compiler",
+      "Live HWND/control-site and maximized flag mutations during ShowWindow,GetWindowRect,SystemParametersInfoA and metric callbacks",
+      "Zero API returns with complete valid RECT writes;ignored position failure"
+    ],
+    "negative_control": {
+      "description": "Wrong size-frame32/33 instead of native edge45/46 metrics",
+      "detected": true,
+      "scenario": {
+        "name": "wrong_metric_discriminator"
+      },
+      "result": "Wrong size-frame32/33 reads and different computed outer dimensions detected; incorrect source exists only in ignored output."
+    }
+  },
+  "regression": {
+    "strict": {
+      "path": "work/host_frame_resize/strict133.json",
+      "sha256": "825a84199726eeb118109b0ee60d048899177fd17ec7763a9e41b64a431fdeb3"
+    },
+    "all_133_raw_exact": true,
+    "prior_682_recovery_rows_unchanged": true,
+    "complete_peer_preservation": {
+      "path": "work/host_frame_resize/preservation.json",
+      "sha256": "7ed7555f3563c6d937230536628b741ff737c4121f822d71bc2dc4b8535b2b5f"
+    },
+    "header_consumers": 7,
+    "complete_sections": 69,
+    "all_section_bytes_sizes_flags_equal": true,
+    "all_external_symbols_and_relocation_destinations_equal": true,
+    "local_label_name_changes": 4,
+    "local_label_proof": "Four compiler-generated exception-label names in class object shift by3; each retains identical storage/type/section/value and target bytes. Raw relocation name lists are not identical. No source steering or aliasing used.",
+    "virtual_slots_preserved": 63,
+    "message_map_bytes_preserved": 752,
+    "map_relocations_preserved": 32,
+    "map_replay": {
+      "path": "work/host_frame_resize/map_replay/public_message_map_data_verifier.json",
+      "sha256": "2645df7c8796b16c3bfc1df1e8715cf98f44ca52611fd1318b33ad066d2d8f1e"
+    },
+    "prior_header_sha256": "056341d7075f5b74e7f6d8e29e390e5fd9f72ff8b4fc39a06fdd0fdd729f1385",
+    "current_header_sha256": "8ac7c4bfb37573d0f81d367ad811b4d59921ac8bbaa3b35cfd5afdde8ad850aa",
+    "natural_graph": {
+      "path": "work/host_current_graph/report-00567623cbb64098.json",
+      "sha256": "00567623cbb64098549a894d0240f6effb2069bd7ee1ef600e63e9708f9484b9"
+    },
+    "source_units": 123,
+    "recorded_EXE_functions": 165,
+    "accepted_EXE_functions": 26,
+    "unresolved": 18,
+    "missing_frame_callbacks": 6,
+    "missing_data_providers": 12,
+    "duplicate_link_errors": 0,
+    "images_produced": 0
+  },
+  "replay_commands": [
+    "python scripts/host_frame_resize_differential.py --output work/frame_resize_replay",
+    "python scripts/host_frame_message_map_data.py --output work/frame_map_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/strict_verification.json"
+  ],
+  "limits": [
+    "Four new CODEGEN_SIMILAR rows; raw relocation differences prevent FUNCTION_MATCH.",
+    "Original source names,helper access qualification,TU ownership,linker layout and whole-binary equality remain unproved.",
+    "Directed signed arithmetic-wrap results describe the pinned compiler and oracle; no portable language overflow guarantee claimed.",
+    "Real Windows behavior is not emulated by these endpoint models; no interactive startup,window sizing or gameplay run is claimed.",
+    "The natural source graph still fails on six frame callbacks and twelve real data providers. No production stubs,aliases,placement controls or guessed buffers were used."
+  ]
+}

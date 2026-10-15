@@ -35,6 +35,8 @@ public:
     afx_msg void OnRva_00009910(UINT, LPARAM);
     afx_msg void OnRva_00009950(UINT, CPoint);
     afx_msg void OnRva_00009990(void);
+    /* Provisional nonvirtual resize helper, two physical int arguments. */
+    void OnRva_000099A0(int, int);
     afx_msg void OnRva_00009A60(void);
     afx_msg void OnRva_00009A90(CCmdUI*);
     afx_msg BOOL OnRva_00009BC0(CWnd*, UINT, UINT);
