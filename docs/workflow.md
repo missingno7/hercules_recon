@@ -96,9 +96,9 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 121 actual source units with
-158 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 24 unresolved dependencies: 12 frame
+The current natural selected host graph compiles 122 actual source units with
+161 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 21 unresolved dependencies: nine frame
 callbacks and 12 data providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
@@ -125,6 +125,19 @@ original ownership remain unproved. See `evidence/host_frame_messages_recovery.j
 
 ```
 python scripts/host_frame_messages_differential.py --output work/frame_messages_replay
+```
+
+The palette-query, palette-change and cursor callbacks now also have ordinary
+historical C++ definitions over the unchanged receiver. In 46 guarded cases they
+execute the actual existing palette and presentation routines. Null/child window
+handling, current MSG.message, live handle reloads, full return values and the
+fullscreen BYTE zero test are preserved. Identified static MFC methods and OS/COM
+effects are modeled boundaries. All three full contributions are diagnostic equals
+with raw relocation differences; they remain CODEGEN_SIMILAR. See
+`evidence/host_frame_palette_cursor_recovery.json`.
+
+```
+python scripts/host_frame_palette_cursor_differential.py --output work/frame_palette_cursor_replay
 ```
 
 The loader now has an independent source provider for four observed DWORD cells

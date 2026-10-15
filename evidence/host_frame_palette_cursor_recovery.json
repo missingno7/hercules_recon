@@ -1,0 +1,537 @@
+{
+  "schema": 1,
+  "scope": "Original PC frame palette/cursor callback recovery with actual existing palette6700/presentation6620 bodies. Offline bounded execution; identified unmodified MFC and OS/COM entry boundaries modeled. No window,message loop,original process,device or runnable-game acceptance. recovery.json alone owns function recovery state.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_frame_palette_cursor.cpp",
+      "sha256": "54a9cd216d27ce87af745fdf22a739d7ce885e7ec70d015a677311b173fa1680"
+    },
+    {
+      "path": "scripts/host_frame_palette_cursor_differential.py",
+      "sha256": "1fe1fa88a04474dc45ae645a9f2ff9e6c4f9e3c5d5c8090d4c9521a980ad2e3c"
+    },
+    {
+      "path": "calibration/host_system_keys.h",
+      "sha256": "056341d7075f5b74e7f6d8e29e390e5fd9f72ff8b4fc39a06fdd0fdd729f1385"
+    },
+    {
+      "path": "calibration/graphics_palette_helpers.cpp",
+      "sha256": "775870a84c64ef58d73446f8fbff901b444a35746e1ec2ab61b3b1010c39be65"
+    },
+    {
+      "path": "calibration/graphics_update.cpp",
+      "sha256": "cc369d39505ad4d0e0e084a992315b86a2d81e1fcdeb7c192368c98279defc51"
+    },
+    {
+      "path": "calibration/graphics_storage.cpp",
+      "sha256": "c7b4221f7cf2820584e652e6bfd0d932fc4fd24c99e0dc65ddfd97f33a20ed6c"
+    },
+    {
+      "path": "calibration/fatal_storage.c",
+      "sha256": "c69df3c20891c6229e061b74bebe2f8880948b34d356c7f4ce8124f13d9e562c"
+    }
+  ],
+  "prediction": {
+    "path": "work/host_frame_palette_cursor/prediction.json",
+    "sha256": "1338e231270494491e3de0efe35e2d2c3a2dbb87e41d65e3fb26287e3f1c582c"
+  },
+  "toolchain": {
+    "name": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest": {
+      "path": "toolchains/manifest.json",
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    },
+    "callback_flags": [
+      "/O2",
+      "/MT",
+      "/IC:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\include"
+    ],
+    "unchanged_callee_flags": [
+      "/O2"
+    ]
+  },
+  "functions": [
+    {
+      "role": "query",
+      "symbol": "?OnRva_000097A0@CMainFrame@@QAEHXZ",
+      "native_rva": "0x97a0",
+      "native_bytes": 32,
+      "source_bytes": 32,
+      "raw_exact": false,
+      "raw_differences": 7,
+      "diagnostic_equal": true,
+      "relocations_grouped": [
+        {
+          "symbol": "?GetCurrentMessage@CWnd@@KGPBUtagMSG@@XZ",
+          "type": 20,
+          "offsets": [
+            1
+          ]
+        },
+        {
+          "symbol": "_graphics_native_06700",
+          "type": 20,
+          "offsets": [
+            10
+          ]
+        }
+      ],
+      "target_relocation_count": 0
+    },
+    {
+      "role": "changed",
+      "symbol": "?OnRva_000097C0@CMainFrame@@QAEXPAVCWnd@@@Z",
+      "native_rva": "0x97c0",
+      "native_bytes": 48,
+      "source_bytes": 48,
+      "raw_exact": false,
+      "raw_differences": 7,
+      "diagnostic_equal": true,
+      "relocations_grouped": [
+        {
+          "symbol": "__imp__IsChild@8",
+          "type": 6,
+          "offsets": [
+            25
+          ]
+        },
+        {
+          "symbol": "?OnRva_000097A0@CMainFrame@@QAEHXZ",
+          "type": 20,
+          "offsets": [
+            36
+          ]
+        }
+      ],
+      "target_relocation_count": 0
+    },
+    {
+      "role": "cursor",
+      "symbol": "?OnRva_00009BC0@CMainFrame@@QAEHPAVCWnd@@II@Z",
+      "native_rva": "0x9bc0",
+      "native_bytes": 48,
+      "source_bytes": 48,
+      "raw_exact": false,
+      "raw_differences": 9,
+      "diagnostic_equal": true,
+      "relocations_grouped": [
+        {
+          "symbol": "_g_fatal_suppress_dialog",
+          "type": 6,
+          "offsets": [
+            1
+          ]
+        },
+        {
+          "symbol": "__imp__SetCursor@4",
+          "type": 6,
+          "offsets": [
+            13
+          ]
+        },
+        {
+          "symbol": "?OnSetCursor@CFrameWnd@@IAEHPAVCWnd@@II@Z",
+          "type": 20,
+          "offsets": [
+            41
+          ]
+        }
+      ],
+      "target_relocation_count": 0
+    },
+    {
+      "role": "palette",
+      "symbol": "_graphics_native_06700",
+      "native_rva": "0x6700",
+      "native_bytes": 128,
+      "source_bytes": 128,
+      "raw_exact": false,
+      "raw_differences": 31,
+      "diagnostic_equal": true,
+      "relocations_grouped": [
+        {
+          "symbol": "_g_exe_96e400",
+          "type": 6,
+          "offsets": [
+            1,
+            55,
+            80
+          ]
+        },
+        {
+          "symbol": "_g_exe_96e3fc",
+          "type": 6,
+          "offsets": [
+            11,
+            49
+          ]
+        },
+        {
+          "symbol": "_g_fatal_suppress_dialog",
+          "type": 6,
+          "offsets": [
+            21
+          ]
+        },
+        {
+          "symbol": "__imp__UnrealizeObject@4",
+          "type": 6,
+          "offsets": [
+            44
+          ]
+        },
+        {
+          "symbol": "__imp__SelectPalette@12",
+          "type": 6,
+          "offsets": [
+            75
+          ]
+        },
+        {
+          "symbol": "__imp__RealizePalette@4",
+          "type": 6,
+          "offsets": [
+            87
+          ]
+        },
+        {
+          "symbol": "_g_exe_43a590",
+          "type": 6,
+          "offsets": [
+            95
+          ]
+        },
+        {
+          "symbol": "_graphics_native_06620",
+          "type": 20,
+          "offsets": [
+            101
+          ]
+        }
+      ],
+      "target_relocation_count": 0
+    },
+    {
+      "role": "present",
+      "symbol": "_graphics_native_06620",
+      "native_rva": "0x6620",
+      "native_bytes": 224,
+      "source_bytes": 224,
+      "raw_exact": false,
+      "raw_differences": 50,
+      "diagnostic_equal": true,
+      "relocations_grouped": [
+        {
+          "symbol": "_g_exe_43a590",
+          "type": 6,
+          "offsets": [
+            1,
+            25
+          ]
+        },
+        {
+          "symbol": "_g_exe_96e400",
+          "type": 6,
+          "offsets": [
+            19
+          ]
+        },
+        {
+          "symbol": "_g_exe_96e3d8",
+          "type": 6,
+          "offsets": [
+            35
+          ]
+        },
+        {
+          "symbol": "_g_fatal_suppress_dialog",
+          "type": 6,
+          "offsets": [
+            45
+          ]
+        },
+        {
+          "symbol": "_g_exe_96e3e8",
+          "type": 6,
+          "offsets": [
+            54
+          ]
+        },
+        {
+          "symbol": "_g_exe_96e3f4",
+          "type": 6,
+          "offsets": [
+            83
+          ]
+        },
+        {
+          "symbol": "_g_exe_ba0220",
+          "type": 6,
+          "offsets": [
+            97
+          ]
+        },
+        {
+          "symbol": "_g_exe_ba0224",
+          "type": 6,
+          "offsets": [
+            103
+          ]
+        },
+        {
+          "symbol": "__imp__StretchDIBits@52",
+          "type": 6,
+          "offsets": [
+            130
+          ]
+        },
+        {
+          "symbol": "__imp__GdiFlush@0",
+          "type": 6,
+          "offsets": [
+            136
+          ]
+        },
+        {
+          "symbol": "_g_fatal_owner_window",
+          "type": 6,
+          "offsets": [
+            146,
+            163,
+            196
+          ]
+        },
+        {
+          "symbol": "__imp__GetDC@4",
+          "type": 6,
+          "offsets": [
+            157
+          ]
+        },
+        {
+          "symbol": "__imp__GetClientRect@8",
+          "type": 6,
+          "offsets": [
+            177
+          ]
+        },
+        {
+          "symbol": "__imp__FillRect@12",
+          "type": 6,
+          "offsets": [
+            191
+          ]
+        },
+        {
+          "symbol": "__imp__ReleaseDC@8",
+          "type": 6,
+          "offsets": [
+            204
+          ]
+        }
+      ],
+      "target_relocation_count": 0
+    }
+  ],
+  "boundaries": [
+    "Query0x97a0:18-byte body,14NOPs; complete32bytes measured.",
+    "Changed0x97c0:44-byte body,4NOPs; complete48bytes measured.",
+    "Cursor0x9bc0:twoRET12branches,complete48bytes ends before existing command-UI0x9bf0."
+  ],
+  "semantics": [
+    "Query reads the message DWORD at MSG+4 from identified CWnd::GetCurrentMessage, not a DC handle. It forwards this DWORD to the actual palette helper and preserves the entire32-bit return, including zero/high bits.",
+    "Palette change compares CWnd object identity with this before calling IsChild. For a null notifying pointer, IsChild receives a null HWND; a zero IsChild result still reaches Query. Different CWnd objects holding equal HWNDs are not the self case.",
+    "The child check uses receiver HWND at+0x1c and nullable notifying HWND at+0x1c. Its BOOL return uses a full zero test. APIs may change palette/DC/fullscreen state before the actual Query consumes it.",
+    "Cursor reads the existing fullscreen BYTE. Any nonzero value calls SetCursor(NULL) and returns literalTRUE, including API failure or a callback changing fullscreen. Zero forwards the original three arguments and receiver to unmodified CFrameWnd::OnSetCursor, preserving its full return.",
+    "Existing palette6700 and presentation6620 sources are unchanged. Whole128/224-byte contributions remain diagnostic-equal. Live palette/DC/owner reloads,dirty handling,StretchDIBits/GdiFlush,fullscreen Flip and fallback GetDC/GetClientRect/FillRect/ReleaseDC branches execute as original game code."
+  ],
+  "library": {
+    "archive": {
+      "path": "C:/tools/hercules/msvc500-8abf95ce980161ad87b0b02402269cce76988953/mfc/lib/nafxcw.lib",
+      "sha256": "5d9c3585552412a9b94a9a0b7c3a4208061a76d48a6c3283518bfe9f674c9e22"
+    },
+    "proofs": [
+      {
+        "role": "GetCurrentMessage",
+        "symbol": "?GetCurrentMessage@CWnd@@KGPBUtagMSG@@XZ",
+        "native_rva": "0x225b7",
+        "complete_bytes": 53,
+        "archive_member": 148,
+        "member_sha256": "b8bbb902f332f2e1d2291646e511b8a35b03e2e9ccf1985b2c8e75f275aac343",
+        "diagnostic_equal": true
+      },
+      {
+        "role": "BaseCursor",
+        "symbol": "?OnSetCursor@CFrameWnd@@IAEHPAVCWnd@@II@Z",
+        "native_rva": "0x29b4e",
+        "complete_bytes": 42,
+        "archive_member": 147,
+        "member_sha256": "a657c3050288d0761f28310a80c717b4382bb09407c1383203224ae21a0a1df4",
+        "diagnostic_equal": true
+      }
+    ],
+    "scope": "Fresh whole53/42-byte comparisons of unchanged library contributions,with relocations normalized. Identifies library methods; behavioral tests model their entry rather than execute MFC bodies. Cursor library map omission was resolved by direct pinned member147 code evidence,not a replacement implementation."
+  },
+  "data": {
+    "source_backed_fields": [
+      {
+        "role": "dirty",
+        "symbol": "_g_exe_43a590",
+        "rva": "0x3a590",
+        "bytes": 1,
+        "backing": "initialized"
+      },
+      {
+        "role": "fullscreen",
+        "symbol": "_g_fatal_suppress_dialog",
+        "rva": "0x7a020c",
+        "bytes": 1,
+        "backing": "virtual_zero"
+      },
+      {
+        "role": "owner",
+        "symbol": "_g_fatal_owner_window",
+        "rva": "0x7a0200",
+        "bytes": 4,
+        "backing": "virtual_zero"
+      },
+      {
+        "role": "dc",
+        "symbol": "_g_exe_96e400",
+        "rva": "0x56e400",
+        "bytes": 4,
+        "backing": "virtual_zero"
+      },
+      {
+        "role": "palette",
+        "symbol": "_g_exe_96e3fc",
+        "rva": "0x56e3fc",
+        "bytes": 4,
+        "backing": "virtual_zero"
+      },
+      {
+        "role": "pixels",
+        "symbol": "_g_exe_96e3d8",
+        "rva": "0x56e3d8",
+        "bytes": 4,
+        "backing": "virtual_zero"
+      },
+      {
+        "role": "front",
+        "symbol": "_g_exe_96e3e8",
+        "rva": "0x56e3e8",
+        "bytes": 4,
+        "backing": "virtual_zero"
+      },
+      {
+        "role": "bmi",
+        "symbol": "_g_exe_96e3f4",
+        "rva": "0x56e3f4",
+        "bytes": 4,
+        "backing": "virtual_zero"
+      },
+      {
+        "role": "width",
+        "symbol": "_g_exe_ba0220",
+        "rva": "0x7a0220",
+        "bytes": 4,
+        "backing": "virtual_zero"
+      },
+      {
+        "role": "height",
+        "symbol": "_g_exe_ba0224",
+        "rva": "0x7a0224",
+        "bytes": 4,
+        "backing": "virtual_zero"
+      }
+    ],
+    "new_providers": 0,
+    "scope": "Existing actual owners only. Synthetic MSG28,CMainFrame188,CWnd188,COM receiver/vtable and guarded arena are fixture objects,not inferred production buffers or capacities."
+  },
+  "validation": {
+    "private_receipt": {
+      "path": "work/host_frame_palette_cursor/replay/frame_palette_cursor_differential.json",
+      "sha256": "6def94efb60171cc00e610228a93d4e583cbc6d15a5ba146c2b1751e9a3de8ba"
+    },
+    "cases": 46,
+    "all_equal": true,
+    "actual_roles": [
+      "changed",
+      "cursor",
+      "palette",
+      "present",
+      "query"
+    ],
+    "modeled_events": [
+      "BaseCursor",
+      "FillRect",
+      "Flip",
+      "GdiFlush",
+      "GetClientRect",
+      "GetCurrentMessage",
+      "GetDC",
+      "IsChild",
+      "RealizePalette",
+      "ReleaseDC",
+      "SelectPalette",
+      "SetCursor",
+      "StretchDIBits",
+      "UnrealizeObject"
+    ],
+    "checks": [
+      "Ordered API/library/COM event arguments and actual function entries",
+      "Complete ten source-backed state prefixes and64KiB guarded synthetic arena,including188-byte receivers and28-byte MSG",
+      "Thiscall receiver,callee stack cleanup,nonvolatile registers,stack guards,execution and write whitelists",
+      "Exact palette/background flag0x311;null/self/child/equal-HWND cases,high-bit BOOLs and return bits",
+      "Mutations during IsChild/UnrealizeObject/SelectPalette/RealizePalette/GetDC/GetClientRect;ignored API failure"
+    ],
+    "negative_control": {
+      "description": "Wrong null-focus early suppression",
+      "scenario": {
+        "name": "change_null_0",
+        "role": "changed",
+        "focus": "null",
+        "child": 0
+      },
+      "detected": true,
+      "result": "Wrong null-focus early suppression misses actual IsChild/GetCurrentMessage/query/palette/present calls. Counterexample compiled only in ignored output."
+    },
+    "limits": "Finite offline member calls; OS effects and COM/GDI draws are models. No pixels rendered by an actual Windows or DirectDraw process. Link-only anchor contains no executed game substitutes."
+  },
+  "regression": {
+    "strict": {
+      "path": "work/host_frame_palette_cursor/strict133.json",
+      "sha256": "1ea538f9b39b4ce125cfc35502cc7526e7f5d54bbd83e49632d28c14115eff46"
+    },
+    "all_133_raw_exact": true,
+    "prior_679_recovery_rows_unchanged": true,
+    "complete_peer_preservation": {
+      "path": "work/host_frame_palette_cursor/preservation.json",
+      "sha256": "e12f951285446c835ee6f7aeba4e4aa031c4045bb364966c1e604b35c04dfdb2"
+    },
+    "peer_scope": "All byte/size/flag/ordered-relocation sections equal in freshly compiled class32,SYSKEY5,map2 and previous frame-handler13sections. Includes63virtual slots,runtime descriptor,message map752bytes/32references and prior six callbacks.",
+    "natural_graph": {
+      "path": "work/host_current_graph/report-b9630788b6740d4a.json",
+      "sha256": "b9630788b6740d4a3b72a475ec7a710ae593f1f9546739398f91653c49bd7959"
+    },
+    "source_units": 122,
+    "recorded_EXE_functions": 161,
+    "accepted_EXE_functions": 26,
+    "unresolved": 21,
+    "missing_frame_callbacks": 9,
+    "missing_data_providers": 12,
+    "duplicate_link_errors": 0,
+    "images_produced": 0
+  },
+  "replay_commands": [
+    "python scripts/host_frame_palette_cursor_differential.py --output work/frame_palette_cursor_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/strict_verification.json"
+  ],
+  "limits": [
+    "Three new CODEGEN_SIMILAR rows; all retain relocations and raw differences. No new FUNCTION_MATCH.",
+    "Original source spellings/prototypes/TU boundaries,linker layout and whole-binary identity remain unproved.",
+    "Natural source graph still fails on nine real frame bodies and twelve real data providers. No production stubs,aliases,placement controls or guessed storage added."
+  ]
+}
