@@ -9,7 +9,7 @@
     },
     {
       "path": "calibration/host_sound_bank.h",
-      "sha256": "2dfbb9fc973f34d6625be59a867b65440ad5a9492855f2af4059d3c0024dc3ee"
+      "sha256": "20d8b0f35c01a1666d680e204863e6d8acd48467b59220868353ee12a0846b90"
     },
     {
       "path": "calibration/host_sound_bank_storage.c",
@@ -17,7 +17,7 @@
     },
     {
       "path": "scripts/host_sound_bank_differential.py",
-      "sha256": "f83cd47281c75ec5d1e23301084b7160f73be3b6fbb2935abb2ef794bd640116"
+      "sha256": "dbd40364b22501a0eaeec48c7b20c7ffb3722e731ea3b0ed5b08726ca4ad4bce"
     },
     {
       "path": "src/pc/host_sound_channels.cpp",
@@ -50,6 +50,10 @@
     {
       "path": "calibration/archive_storage.c",
       "sha256": "9f03160e1de3559ade75e8690c21601c648808e878b17b027a05f16be08695bd"
+    },
+    {
+      "path": "calibration/host_sound_scratch_storage.c",
+      "sha256": "713edf799101afef910b3c76ab7afb5f621399e21c5fba73eebb020e3b0307af"
     }
   ],
   "prediction": {
@@ -268,6 +272,15 @@
         "native_backing": "virtual_loader_zero"
       },
       {
+        "role": "scratch",
+        "symbol": "_g_host_sound_scratch_699848",
+        "rva": "0x699848",
+        "bytes": 1048576,
+        "provider": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_sound_scratch_storage.c",
+        "source_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
         "role": "loops",
         "symbol": "_g_host_sound_loop_flags_698a18",
         "rva": "0x698a18",
@@ -359,14 +372,14 @@
       }
     ],
     "scope": "Header16 and counterWORD[1200] have fresh BSS/native virtual-zero backing. FourDWORD header is a working wide-access view retaining lowWORD/BYTE masks,not original source type/TU identity. Existing bank/device/loopflag/releaseflag/archive-mode/table owners are reused.",
-    "scratch": "External short g_host_sound_scratch_699848[] remains without a production definition. Fixture supplies1MiB synthetic backing matching its native address interval for bounded tests only; the end-relative source expression does not prove original allocation capacity or authorize a guessed provider."
+    "scratch": "Canonical1MiB measured accessed prefix now has fresh BSS/native virtualzero backing. Actual PC odd-sample members witness read of offsetFFFFF,with tail-byte changes altering PCM. Original total allocation,source type,TU/placement and arbitrary-header safety remain unproved. See evidence/host_sound_scratch_recovery.json."
   },
   "validation": {
     "report": {
-      "path": "work/host_sound_bank/public_pinned/sound_bank_differential.json",
-      "sha256": "831b17a54a5c34a0e555f4c6425d93cc726a75db241e05b1c2df2fbc9fd787bb"
+      "path": "work/host_sound_scratch/bank_real_prefix/sound_bank_differential.json",
+      "sha256": "6f41e7bf4b1e892377a12e64191992c8c3049e1ba7ecd369b662242a9dcd8bb4"
     },
-    "case_count": 29,
+    "case_count": 33,
     "all_equal": true,
     "actual_bodies": [
       "F3D0constructor",
@@ -529,11 +542,79 @@
         "index": 824,
         "duplicate_null": 2,
         "release_flag": 128
+      },
+      {
+        "name": "pc_member_139_tail_0",
+        "member": {
+          "row": 139,
+          "key": "0x40cf923",
+          "offset": 46809369,
+          "bytes": 573,
+          "sha256": "e01e74e0c5f02fe1300014532c377ca078cccc23cdda122e2d17611a6e4536ab"
+        },
+        "magic": 54940485,
+        "sample_bytes": 2228,
+        "rate_word": 11025,
+        "flags": 256,
+        "scratch_tail_byte": 0,
+        "expect_tail_read": false
+      },
+      {
+        "name": "pc_member_184_tail_0",
+        "member": {
+          "row": 184,
+          "key": "0x50df723",
+          "offset": 45173389,
+          "bytes": 917,
+          "sha256": "2cd14abafefa2be21e0d6354f945a169a196336d82f8a0ec5cd03d483b869c10"
+        },
+        "magic": 54940485,
+        "sample_bytes": 3606,
+        "rate_word": 11025,
+        "flags": 256,
+        "scratch_tail_byte": 0,
+        "expect_tail_read": true
+      },
+      {
+        "name": "pc_member_184_tail_112",
+        "member": {
+          "row": 184,
+          "key": "0x50df723",
+          "offset": 45173389,
+          "bytes": 917,
+          "sha256": "2cd14abafefa2be21e0d6354f945a169a196336d82f8a0ec5cd03d483b869c10"
+        },
+        "magic": 54940485,
+        "sample_bytes": 3606,
+        "rate_word": 11025,
+        "flags": 256,
+        "scratch_tail_byte": 112,
+        "expect_tail_read": true
+      },
+      {
+        "name": "pc_member_184_tail_240",
+        "member": {
+          "row": 184,
+          "key": "0x50df723",
+          "offset": 45173389,
+          "bytes": 917,
+          "sha256": "2cd14abafefa2be21e0d6354f945a169a196336d82f8a0ec5cd03d483b869c10"
+        },
+        "magic": 54940485,
+        "sample_bytes": 3606,
+        "rate_word": 11025,
+        "flags": 256,
+        "scratch_tail_byte": 240,
+        "expect_tail_read": true
       }
     ],
-    "checks": "Compare all full observed state prefixes,whole1MiB synthetic scratch,complete192KiB COM/lock arena and ordered format/archive/COM events. ABI/nonvolatiles/guards/whitelists hold on returning paths; bad-magic case stops at fatal entry without claiming cleanup behavior.",
+    "checks": "Compare full observed state prefixes,canonical1MiB scratch prefix,complete192KiB COM/lock arena and ordered events.33cases include real PC archive members139/184 and final-byte read/output controls. ABI/nonvolatiles/guards/whitelists hold on returning paths; bad-magic stop remains at fatal entry.",
     "modeled": "Archive open/read/close,fatal nonreturn,sprintf and COM methods are explicit entry models. No unknown first-party file or device implementation is claimed. Full decoded sample work and release cleanup are actual canonical/native code.",
-    "terminal_limit": "Fatal-entry stop does not establish fatal implementation or its stack/nonvolatile postcondition. File input/header/read results are synthetic in this fixture; actual FS loading and broader scratch capacity remain unverified."
+    "terminal_limit": "Archive code and COM effects remain modeled; two real payload members exercise actual constructor/decoder reads. All559header access bounds are separately audited,not all559emulated. Broader capacity,forged headers and arbitrary oversized COM lock outputs remain unproved.",
+    "historical_synthetic_report": {
+      "path": "work/host_sound_bank/public_pinned/sound_bank_differential.json",
+      "sha256": "831b17a54a5c34a0e555f4c6425d93cc726a75db241e05b1c2df2fbc9fd787bb"
+    }
   },
   "caller_preservation": {
     "report": {
@@ -613,7 +694,12 @@
   ],
   "limits": [
     "No exact function/source/prototype/TU/module-layout claim follows from equal extent or29finite cases. Constructor832 retains393diagnostic differences; actual decoder256 differs from native288.",
-    "Restore-to-constructor-to-file/COM full integration and platform-state source adoption still need verification. The selected graph still has33genuine missing providers,including original scratch and initialized host interface.",
+    "Full restore-to-constructor/archive and platform-state integration still need verification. Scratch now has a measured prefix; original total allocation is unproved. Current natural graph is reported in evidence/host_current_source_graph.json.",
     "No original game process,OS device,menu,input/gameplay or renderer has been run;reconstruction goal remains active."
-  ]
+  ],
+  "scratch_prefix_followup": {
+    "evidence": "evidence/host_sound_scratch_recovery.json",
+    "historical_scope": "Earlier29-case fixtures supplied synthetic backing only. The new actual-asset/end-byte evidence and independent full-prefix data audit justify the current accessed-prefix provider; no retroactive original-capacity claim.",
+    "unchanged_game_contributions": 3
+  }
 }

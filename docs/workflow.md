@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 114 actual source units with
+The current natural selected host graph compiles 115 actual source units with
 149 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 33 unresolved dependencies: 18 newly exposed frame
-callbacks and 15 other providers. Including the real map replaces one missing
+duplicate providers and 32 unresolved dependencies: 18 newly exposed frame
+callbacks and 14 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -793,3 +793,22 @@ and full native literals agree. Production scratch remains external; 1MiB fixtur
 backing is not a capacity proof. The natural link resolves F3D0 and exposes this
 real storage dependency, retaining 33 missing symbols without stubs. All 133
 accepted matches remain raw exact. See `evidence/host_sound_bank_recovery.json`.
+
+The sound scratch base now has a measured one-MiB accessed-prefix provider.
+This follows new actual-asset evidence: 250 of 559 PC sound headers require one
+packed byte more than the constructor reads, and the decoder consumes the final
+byte at offset `0xfffff`. Real member 184 proves that changing only that byte
+changes the final PCM sample from 23 to 559 or -589. Member 139 does not read it.
+
+```
+python scripts/host_sound_scratch_data.py --output work/sound_scratch_data_replay
+python scripts/host_sound_bank_differential.py --output work/sound_bank_prefix_replay
+```
+
+The fresh provider has exactly 1 MiB of BSS, no code/relocations and complete native
+virtual-zero backing. All 559 header access bounds fit; 33 constructor cases, 44 caller
+cases and all 133 exact matches pass. Existing game code contributions are unchanged.
+The natural link resolves this real storage dependency and now has 32 missing
+providers. Original total allocation,type/TU/layout,indirect ownership closure
+and arbitrary-header/COM safety remain unproved. Earlier fixture-only receipts
+retain their historical scope. See `evidence/host_sound_scratch_recovery.json`.

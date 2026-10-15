@@ -1,0 +1,251 @@
+{
+  "schema": 1,
+  "scope": "Measured accessed-prefix provider for original PC sound scratch atRVA699848. It is not an original total-capacity,type,TU/placement or universal pointer/header safety proof. No function recovery state changes.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "calibration/host_sound_scratch_storage.c",
+      "sha256": "713edf799101afef910b3c76ab7afb5f621399e21c5fba73eebb020e3b0307af"
+    },
+    {
+      "path": "calibration/host_sound_bank.h",
+      "sha256": "20d8b0f35c01a1666d680e204863e6d8acd48467b59220868353ee12a0846b90"
+    },
+    {
+      "path": "scripts/host_sound_scratch_data.py",
+      "sha256": "f8677aef48aeaa13dc3cce3dfa0d3af5bb1656e4612d6019f075113731bd0f6d"
+    },
+    {
+      "path": "scripts/host_sound_bank_differential.py",
+      "sha256": "dbd40364b22501a0eaeec48c7b20c7ffb3722e731ea3b0ed5b08726ca4ad4bce"
+    }
+  ],
+  "prediction": {
+    "path": "work/host_sound_scratch/prediction.json",
+    "sha256": "b8ad01281f63fe107529034aeb01dbf8780fc07bc9c12b4a65c9d3ed58dceba8"
+  },
+  "native_prefix": {
+    "rva": "0x699848",
+    "bytes": 1048576,
+    "short_count": 524288,
+    "source_bss": true,
+    "code_bytes": 0,
+    "relocations": 0,
+    "native_virtual_zero": true
+  },
+  "data_audit": {
+    "path": "work/host_sound_scratch/data_pinned/sound_scratch_data.json",
+    "sha256": "ee4fd50035cd81c41abfe803d131f87fe183a0e79244735561021cb663ced578"
+  },
+  "native_literal_references": [
+    {
+      "rva": "0xf571",
+      "hex": "bf4798b900",
+      "mnemonic": "mov",
+      "operands": "edi, 0xb99847",
+      "literals": [
+        "0xb99847"
+      ]
+    },
+    {
+      "rva": "0xf5e4",
+      "hex": "684898a900",
+      "mnemonic": "push",
+      "operands": "0xa99848",
+      "literals": [
+        "0xa99848"
+      ]
+    },
+    {
+      "rva": "0xf611",
+      "hex": "668b0c454898a900",
+      "mnemonic": "mov",
+      "operands": "cx, word ptr [eax*2 + 0xa99848]",
+      "literals": [
+        "0xa99848"
+      ]
+    },
+    {
+      "rva": "0xf650",
+      "hex": "668b94004898a900",
+      "mnemonic": "mov",
+      "operands": "dx, word ptr [eax + eax + 0xa99848]",
+      "literals": [
+        "0xa99848"
+      ]
+    }
+  ],
+  "linear_scan": [
+    {
+      "section": ".text",
+      "bytes": 183808,
+      "decoded_bytes": 183804,
+      "skipped_bytes": 4
+    }
+  ],
+  "assets": {
+    "path": "D:/Prog/hercules_recon/assets/pc/HERCULES/HERCULES.FS",
+    "sha256": "affa380e45918448895932cd466ea9a02096b8dcf08644f91b9da5ec34cd48b4",
+    "directory_rows": 821,
+    "esf_members": 559,
+    "sample_remainders": {
+      "2": 250,
+      "0": 309
+    },
+    "tail_byte_members": 250,
+    "max_sample_bytes": 732726,
+    "scope": "Fresh read-only headers and actual lengths verified. All declared decode writes stay before packed input; all consumed packed bytes are inside the prefix. No payload is committed or claimed to be universally decoded."
+  },
+  "access_proof": [
+    "Native scratch base is0xa99848 and end-relative compressed placement uses0xb99847. Actual decoder processes N/2samples from high nibble first;packed bytes consumed are ceil((N/2)/2).",
+    "Archive read requests floor(N/4)bytes.250actual headers have Nmod4=2,so decoder consumes one additional byte at offsetFFFFF. This establishes an accessed byte requiring at least the complete1MiB prefix,independently of synthetic fixture allocation.",
+    "All559actual headers have even positive N and fit the prefix;maxN732726. Decode writes and packed reads do not overlap in this actual asset domain. Original native interval is virtual-loaderzero.",
+    "Fresh historical source object has exactly1MiBBSS,one external data definition,no code and no relocations. Complete initialized/zero prefix equality is data evidence,not function or original allocation acceptance."
+  ],
+  "witnesses": [
+    {
+      "name": "pc_member_139_tail_0",
+      "member": {
+        "row": 139,
+        "key": "0x40cf923",
+        "offset": 46809369,
+        "bytes": 573,
+        "sha256": "e01e74e0c5f02fe1300014532c377ca078cccc23cdda122e2d17611a6e4536ab"
+      },
+      "sample_bytes": 2228,
+      "tail_byte": 0,
+      "native_tail_reads": 0,
+      "max_scratch_read": "0xffffe",
+      "last_decoded_sample": 0,
+      "source_native_equal": true
+    },
+    {
+      "name": "pc_member_184_tail_0",
+      "member": {
+        "row": 184,
+        "key": "0x50df723",
+        "offset": 45173389,
+        "bytes": 917,
+        "sha256": "2cd14abafefa2be21e0d6354f945a169a196336d82f8a0ec5cd03d483b869c10"
+      },
+      "sample_bytes": 3606,
+      "tail_byte": 0,
+      "native_tail_reads": 1,
+      "max_scratch_read": "0xfffff",
+      "last_decoded_sample": 23,
+      "source_native_equal": true
+    },
+    {
+      "name": "pc_member_184_tail_112",
+      "member": {
+        "row": 184,
+        "key": "0x50df723",
+        "offset": 45173389,
+        "bytes": 917,
+        "sha256": "2cd14abafefa2be21e0d6354f945a169a196336d82f8a0ec5cd03d483b869c10"
+      },
+      "sample_bytes": 3606,
+      "tail_byte": 112,
+      "native_tail_reads": 1,
+      "max_scratch_read": "0xfffff",
+      "last_decoded_sample": 559,
+      "source_native_equal": true
+    },
+    {
+      "name": "pc_member_184_tail_240",
+      "member": {
+        "row": 184,
+        "key": "0x50df723",
+        "offset": 45173389,
+        "bytes": 917,
+        "sha256": "2cd14abafefa2be21e0d6354f945a169a196336d82f8a0ec5cd03d483b869c10"
+      },
+      "sample_bytes": 3606,
+      "tail_byte": 240,
+      "native_tail_reads": 1,
+      "max_scratch_read": "0xfffff",
+      "last_decoded_sample": -589,
+      "source_native_equal": true
+    }
+  ],
+  "validation": {
+    "constructor_report": {
+      "path": "work/host_sound_scratch/bank_real_prefix/sound_bank_differential.json",
+      "sha256": "6f41e7bf4b1e892377a12e64191992c8c3049e1ba7ecd369b662242a9dcd8bb4"
+    },
+    "constructor_cases": 33,
+    "all_equal": true,
+    "tail_control": "Member184 tail0,0x70,0xf0 gives finalPCM23,559,-589 respectively. Both native/source execute the actual decoder; member139even sample count never reads offsetFFFFF.",
+    "caller_report": {
+      "path": "work/host_sound_scratch/channels_pinned/sound_channels_differential.json",
+      "sha256": "87898a2b5a5e5be88ac3ff940b767a0511254ac0fe399c890f544fbcb185155c"
+    },
+    "caller_cases": 44,
+    "unchanged_constructor_decoder_release_contributions": 3,
+    "unchanged_caller_contributions": 7,
+    "old_flag_control_still_rejected": true
+  },
+  "regression": {
+    "strict": {
+      "path": "work/host_sound_scratch/strict133.json",
+      "sha256": "49ad28bfa5e8d174bb8d6c61583419810f6aa1c310e4dc81d602dc69caf3c8d2"
+    },
+    "raw_exact_functions": 133,
+    "recovery_state_unchanged": true,
+    "natural_graph": {
+      "path": "work/host_current_graph/report-5f62ed308b8a1383.json",
+      "sha256": "5f62ed308b8a1383666048283df8ae6c94dae6d36f5a3ed66179998b6fecd615"
+    },
+    "source_units": 115,
+    "recorded_EXE_functions": 149,
+    "preserved_exact_EXE_functions": 26,
+    "unresolved": 32,
+    "resolved": "_g_host_sound_scratch_699848",
+    "duplicate_providers": 0,
+    "images_produced": 0
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "implicit_compile_flag": "/Gy",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "analysis_tools": {
+    "python": {
+      "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "version": "3.12.14",
+      "sha256": "d41bad46673f64e0d02f23797f53f90ccf60f27d6eda8d86dd2d4bbeae5a858c"
+    },
+    "pefile": {
+      "path": "C:\\tools\\hercules\\python\\pefile.py",
+      "version": "2024.8.26",
+      "sha256": "0d0eb68f0f169182613dc64b3ab50b20855508c1c1d2faafe8fccf23edb6a345"
+    },
+    "unicorn": {
+      "path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+      "version": "2.1.4",
+      "sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+    },
+    "origin": "Existing C:/tools/hercules installations and bundled workspace Python; prior provenance in evidence/host_engine_loader_recovery.json. No tool/dependency added or modified.",
+    "capstone": {
+      "path": "C:\\tools\\hercules\\python\\capstone\\__init__.py",
+      "version": "5.0.7",
+      "sha256": "0417ae554252be8e8d03e328054fad4c3cec6cf4895deecec637078380840f8b",
+      "scope": "Read-only native instruction inspection; existing installation, no dependency change."
+    }
+  },
+  "commands": [
+    "python scripts/host_sound_scratch_data.py --output work/sound_scratch_data_replay",
+    "python scripts/host_sound_bank_differential.py --output work/sound_bank_prefix_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/sound_scratch_strict_replay.json",
+    "python work/host_current_graph/run.py"
+  ],
+  "limits": [
+    "The native literal scan covers all183808executable bytes with4skip-data bytes;it is not complete indirect-reference or historical ownership proof.",
+    "Only two actual FS members are emulated through the constructor;the all559result is a header/length/access audit. Archive implementation and COM effects remain modeled.",
+    "Original total scratch allocation,source element type,TU,layout,arbitrary headers/oversized lock results and full game behavior remain unproved. No original process or device run occurred."
+  ]
+}

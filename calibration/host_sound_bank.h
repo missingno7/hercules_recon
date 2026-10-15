@@ -12,7 +12,8 @@ typedef struct HostSoundHeaderPrefix {
 } HostSoundHeaderPrefix;
 extern HostSoundHeaderPrefix g_host_sound_header_699838;
 extern WORD g_host_sound_bank_counters_698ed8[1200];
-/* No production capacity is inferred for this native scratch base. */
+/* Definition supplies only the measured accessed prefix; original total capacity
+ * and source element type remain unproved. */
 extern short g_host_sound_scratch_699848[];
 extern char g_host_sound_filename_format[];
 extern char g_host_sound_create_error[];

@@ -23,10 +23,12 @@ from match import compile_source, compare, verify_toolchain, DEFAULT_TOOLCHAIN
 from masked import masked_compare
 from coff import COFF
 import pefile
-from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
+from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_WRITE,UC_HOOK_MEM_READ
 from unicorn.x86_const import *
 
 ORACLE = args.native_exe.resolve()
+FS = Path('D:/Prog/hercules_recon/assets/pc/HERCULES/HERCULES.FS')
+FS_SHA = 'affa380e45918448895932cd466ea9a02096b8dcf08644f91b9da5ec34cd48b4'
 sha = lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 pack = lambda v:struct.pack('<I',v&0xffffffff)
 STACK,ESP,STOP = 0x62000000,0x62008000,0x6200f000
@@ -61,16 +63,16 @@ def build():
            *[ROOT/p for p in ['src/pc/host_sound_decoder.c',
             'calibration/host_sound_decoder_tables.c','calibration/audio_bank_release.cpp',
             'calibration/host_sound_channel_storage.cpp','calibration/sound_bank_storage.cpp',
-            'calibration/archive_storage.c']]]
+            'calibration/archive_storage.c','calibration/host_sound_scratch_storage.c']]]
     libraries=[DEFAULT_TOOLCHAIN/'lib'/p for p in ['libcmt.lib','kernel32.lib','user32.lib']]
-    pins={str(p):sha(p)for p in [*files,*libraries,ORACLE,Path(__file__),
+    assert sha(FS)==FS_SHA
+    pins={str(p):sha(p)for p in [*files,*libraries,ORACLE,FS,Path(__file__),
           ROOT/'calibration/host_sound_bank.h',ROOT/'calibration/host_sound_decoder_tables.h',
           ROOT/'calibration/host_sound_channel_storage.h',ROOT/'toolchains/manifest.json',
           DEFAULT_TOOLCHAIN/'include/dsound.h',DEFAULT_TOOLCHAIN/'include/mmsystem.h',
           *[ROOT/'scripts'/p for p in ['match.py','coff.py','masked.py','pe.py','env.py']]]}
     fixture=OUT/'fixture.c'
     fixture.write_bytes(b'''#include <stddef.h>
-short g_host_sound_scratch_699848[524288];
 int __cdecl archive_open(const char*a,const char*b) { for (;;) {} }
 size_t __cdecl archive_read(void*a,size_t b,size_t c,int d) { for (;;) {} }
 int __cdecl archive_close(int a) { for (;;) {} }
@@ -119,7 +121,6 @@ __declspec(dllexport) void anchor(void) { host_sound_bank_initialize_f3d0(0); }
     release_proof=next(c for c in comparisons if c['role']=='release')
     assert int(release_proof['diagnostic']['symbols']['_g_audio_cleanup_iteration_flag'],0)==FIELDS['release_flag'][1]
     for role,(name,rva,width)in FIELDS.items():
-        if role=='scratch':continue
         assert len(owners[name])==1
         co,symbol,provider=owners[name][0];section=co.sections[symbol['section']-1]
         assert not section['relocations']and symbol['value']+width<=section['size']
@@ -157,6 +158,7 @@ def execute(kind,b,s):
     u.mem_write(fields['bank'][0],bytes(19200))
     u.mem_write(fields['device'][0],pack(0 if s.get('no_device')else DEVICE))
     u.mem_write(fields['release_flag'][0],bytes([s.get('release_flag',0)]))
+    if 'scratch_tail_byte'in s:u.mem_write(fields['scratch'][0]+0xfffff,bytes([s['scratch_tail_byte']]))
     index=s.get('index',1)
     u.mem_write(HEAP,bytes([0x91])*HEAP_SIZE)
     u.mem_write(DEVICE,pack(DEVICE_VT))
@@ -180,6 +182,7 @@ def execute(kind,b,s):
     packed=bytes.fromhex(s.get('packed','0123456789abcdef'))
     events,errors,counts,entries=[],[],{},[]
     fatal=False
+    scratch_reads=[]
     u.mem_write(ESP-0x1000,bytes([0xa7])*0x1100)
     u.mem_write(ESP,pack(STOP)+pack(index))
     u.reg_write(UC_X86_REG_ESP,ESP)
@@ -265,9 +268,12 @@ def execute(kind,b,s):
         else:events.append([role,token])
         ret(sp,METHODS[role][1]+4,action.get('result',s.get('com_result',0)))
     def on_write(machine,access,a,width,value,_):
-        allowed=[(ESP-0x1000,ESP+8),(BLOCK1,BLOCK1+256)]
+        allowed=[(ESP-0x1000,ESP+8),(BLOCK1,BLOCK1+4096)]
         allowed.extend((lo,lo+n)for k,(lo,n)in fields.items()if k not in ['device'])
         if not any(lo<=a and a+width<=hi for lo,hi in allowed):errors.append(['write',hex(a),width]);machine.emu_stop()
+    def on_read(machine,access,a,width,value,_):
+        scratch_reads.append((a-fields['scratch'][0],width))
+    u.hook_add(UC_HOOK_MEM_READ,on_read,begin=fields['scratch'][0],end=fields['scratch'][0]+0xfffff)
     u.hook_add(UC_HOOK_CODE,on_code);u.hook_add(UC_HOOK_MEM_WRITE,on_write)
     u.emu_start(functions['constructor'],STOP,count=1000000)
     checks=dict(terminal=fatal==s.get('fatal',False)and(fatal or u.reg_read(UC_X86_REG_EIP)==STOP),
@@ -278,7 +284,11 @@ def execute(kind,b,s):
     assert all(checks.values()),(kind,s,checks,errors)
     # Normalize only pointer-bank values to synthetic COM tokens; they are already identical.
     state={k:hashlib.sha256(bytes(u.mem_read(a,n))).hexdigest()for k,(a,n)in fields.items()if k!='device'}
-    result=dict(state=state,heap_sha256=hashlib.sha256(bytes(u.mem_read(HEAP,HEAP_SIZE))).hexdigest(),
+    tail_reads=sum(a<=0xfffff<a+n for a,n in scratch_reads)
+    if s.get('expect_tail_read')is not None:assert bool(tail_reads)==s['expect_tail_read'],(kind,s['name'],tail_reads)
+    sample_bytes=s.get('sample_bytes',32)
+    last_sample=int.from_bytes(u.mem_read(fields['scratch'][0]+sample_bytes-2,2),'little',signed=True)if sample_bytes>=2 else None
+    result=dict(state=state,scratch_tail_reads=tail_reads,last_decoded_sample=last_sample,max_scratch_read=max((a+n-1 for a,n in scratch_reads),default=None),heap_sha256=hashlib.sha256(bytes(u.mem_read(HEAP,HEAP_SIZE))).hexdigest(),
                 events=events,entries=entries,checks=checks,fatal=fatal)
     if s.get('expect_no_calls'):assert not events
     return result
@@ -303,6 +313,18 @@ def scenarios():
         result.append(dict(name='duplicate_fail_'+str(lane),duplicate_null=lane))
     for flag in [0,1,128]:
         result.append(dict(name='protected_duplicate_fail_'+str(flag),index=824,duplicate_null=2,release_flag=flag))
+    archive=FS.read_bytes()
+    for row in [139,184]:
+        key,offset,length=struct.unpack_from('<III',archive,row*12)
+        payload=archive[offset:offset+length]
+        magic,sample_bytes,rate,flags=struct.unpack_from('<4I',payload)
+        assert magic==0x03465345 and length==16+sample_bytes//4 and sample_bytes<4096
+        tails=[0]if sample_bytes%4==0 else [0,0x70,0xf0]
+        for tail in tails:
+            result.append(dict(name='pc_member_'+str(row)+'_tail_'+str(tail),
+                member=dict(row=row,key=hex(key),offset=offset,bytes=length,sha256=hashlib.sha256(payload).hexdigest()),
+                magic=magic,sample_bytes=sample_bytes,rate_word=rate,flags=flags,
+                packed=payload[16:].hex(),scratch_tail_byte=tail,expect_tail_read=bool(sample_bytes%4)))
     return result
 
 
@@ -312,8 +334,10 @@ def main():
         n=execute('native',b,s);c=execute('source',b,s)
         assert n==c,(s,n,c)
         cases.append(dict(scenario=s,native=n,source=c,equal=True))
+    variants=[x['native']['last_decoded_sample']for x in cases if x['scenario'].get('member',{}).get('row')==184]
+    assert len(set(variants))>1,'Tail-byte negative control must change decoded output.'
     assert b['inputs']=={p:sha(Path(p))for p in b['inputs']}
-    report=dict(scope='Actual original/fresh constructor,decoder and bankrelease;archive,format,fatal and COMeffects explicitly modeled.1MiB scratch is fixture backing only,not a production capacity.',
+    report=dict(scope='Actual original/fresh constructor,decoder and bankrelease;archive,format,fatal and COMeffects explicitly modeled.Scratch uses the fresh canonical measured prefix; complete original capacity is unproved. Real PC members witness final-byte consumption.',
                 build=b,cases=cases,case_count=len(cases),all_equal=True)
     p=OUT/'sound_bank_differential.json';p.write_bytes((json.dumps(report,indent=2)+'\n').encode())
     print(json.dumps(dict(case_count=len(cases),all_equal=True,report=str(p))))
