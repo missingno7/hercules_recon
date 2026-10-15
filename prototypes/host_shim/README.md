@@ -110,8 +110,23 @@ forwards as raw events (101–117), plus per-module association. ENG1 needs
 observers before face selection (`2E0F1`/`2E27B`). Association is the gating
 problem for "true" native geometry, not interception.
 
-### Not done (gated)
+### Milestone: combined app-local `ddraw.dll` (not started)
 
-No live attach, no original post-entry execution, and no combination with the
-real `ddraw.dll` proxy. The AGENTS.md gate (explicit authorization, isolated
-writable state, windowed startup, display restoration) still applies.
+**Status.** No code exists for this milestone. A first attempt (2026-10-15) was
+reverted before commit because its synthetic test fixture could not be
+completed. Nothing from it is kept except the identity facts below.
+
+**Acceptance criteria.** All must hold before this is called done:
+1. **Composition.** One DLL built from the existing components: the `dropin_renderer` forwarder (behavior unchanged) and this shim. No copied or re-implemented forwarding.
+2. **Attach discipline.** Attach-time work is limited to data publication. No library loading, COM, window or thread work runs under the loader lock.
+3. **Host identity by content.** Timestamp and image size cannot tell the two known EXEs apart: both carry TimeDateStamp `0x33FAFDDA` and SizeOfImage `0x7AD000`. Their mapped `.text` contents differ, and a pure hash over `.text` separates them. Unknown hosts get forwarding only, and an explicit opt-out also yields forwarding only.
+4. **Synthetic proof first:**
+   - publication precedes the earliest host-side table copy;
+   - a cold-copying engine receives the relays;
+   - forward-only and observe modes produce identical host call logs;
+   - `DirectDrawCreate` forwards to the system implementation from the same module.
+5. **No regressions.** This shim (346 harness + 9 oracle checks), the `dropin_renderer` proxy tests and the `renderer_contract` portable suite (25) all stay green.
+6. **Live run gated.** Any original post-entry run stays behind the AGENTS.md gate: explicit authorization, isolated writable state, windowed startup and display restoration.
+
+Until then the shim is verified only through the synthetic host and the
+original-AC60 oracle above.

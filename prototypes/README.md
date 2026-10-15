@@ -27,12 +27,8 @@ modifies `recovery.json`, `src/` or `calibration/`. Findings move into
    - It passes 346 synthetic checks and 9 checks against the original AC60 bytes.
    - Full frame ownership still requires taking over every host-internal writer. Interception of slot 89 alone is not enough.
 
-## Next highest-value step
+## Next steps
 
-Merge the shim into the existing `dropin_renderer` `ddraw.dll` proxy as its
-attach-time publisher. Prove it on the synthetic early-loader host first: the
-real engine's first copy picks up the relay, and `DirectDrawCreate` forwards.
-
-In parallel, characterize `5F20`'s timing policy statically. It decides
-whether a GPU backend's present cadence can change simulation speed. Both are
-offline. The live run still needs the AGENTS.md authorization gate.
+- **In progress:** characterize `5F20`'s timing policy statically. It decides whether a GPU backend's present cadence can change simulation speed.
+- **Milestone, not started:** the combined app-local `ddraw.dll`. Acceptance criteria are in [host_shim/README.md](host_shim/README.md#milestone-combined-app-local-ddrawdll-not-started).
+- **Gated:** any live run needs the AGENTS.md authorization gate.
