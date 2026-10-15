@@ -1,16 +1,14 @@
-"""Diagnostic: minimal translation-unit intervals implied by per-object .bss sharing (oracle only).
+"""Conditional storage-user clusters; never proof of translation-unit boundaries.
 
-In C, an uninitialized variable placed in the per-object .bss region (before the communal tail) is
-a file static, so every function that uses it belongs to the same object. Objects are contiguous
-code ranges in link order, so the user span of each such variable must lie inside one object.
-Merging overlapping spans gives minimal unit intervals: a gap between two merged intervals is a
-possible boundary; inside an interval there is none. Variables of C++ units (shared DLL-wide,
-listed with --exclude) do not constrain ownership and are skipped.
-
-Second rule: one object's .bss is contiguous (its variables are ordered by name, not by user), so
-two intervals whose .bss address ranges interleave are the same object and are merged too.
+Loader-zero placement does not establish file-static storage or C++ ownership:
+ordinary external C definitions initialized to zero can also emit .bss. Merging
+code users and interleaved storage ranges is useful only under independently
+supported local-ownership and contiguous-contribution hypotheses. A gap is not
+a proven TU boundary. Supply the reviewed range explicitly; no universal
+communal-tail cutoff or language-specific exclusion list is assumed.
 """
 import argparse
+from contextlib import closing
 import json
 import sqlite3
 from pathlib import Path
@@ -20,15 +18,19 @@ from env import ROOT
 DB = ROOT / 'work/archaeology.sqlite'
 
 
-def build(module, function_map, bss_lo, tail, exclude):
+def build(module, function_map, bss_lo, tail, exclude, original_root=None):
+    if not 0 <= bss_lo < tail <= 0x100000000:
+        raise ValueError('Expected an increasing 32-bit storage range')
     fm = json.loads(Path(function_map).read_text())
     spans = sorted((int(f['rva'], 16), f['size']) for f in fm['functions'])
     end = int(fm['first_party_end'], 16)
     own = lambda a: next((s for s, n in spans if s <= a < s + n), None)
-    db = sqlite3.connect(DB)
+    database = Path(original_root).resolve() / 'work/archaeology.sqlite' if original_root is not None else DB
+    with closing(sqlite3.connect(database.as_uri() + '?mode=ro', uri=True)) as db:
+        references = db.execute("select target_rva, source_rva from refs where module=? and kind in ('linear_memory', 'linear_immediate') "
+                                "and target_rva>=? and target_rva<?", (module, bss_lo, tail)).fetchall()
     users = {}
-    for t, s in db.execute("select target_rva, source_rva from refs where module=? and kind in ('linear_memory', 'linear_immediate') "
-                           "and target_rva>=? and target_rva<?", (module, bss_lo, tail)):
+    for t, s in references:
         o = own(s)
         if o is not None and o < end and t not in exclude:
             users.setdefault(t, set()).add(o)
@@ -54,21 +56,26 @@ def build(module, function_map, bss_lo, tail, exclude):
         funcs = [s for s, _ in spans if m['lo'] <= s <= m['hi']]
         out.append(dict(code=[hex(m['lo']), hex(m['hi'])], functions=len(funcs), bss=[hex(min(m['vars'])), hex(max(m['vars']))],
                         variables=len(m['vars'])))
-    return dict(module=module, scope=f'per-object .bss {bss_lo:#x}..{tail:#x}', excluded=[hex(x) for x in sorted(exclude)],
+    return dict(module=module, scope='Conditional storage-user clusters; not TU or source-language proof.',
+                storage_range=[hex(bss_lo), hex(tail)],
+                assumptions=['Selected storage has independently supported local ownership.',
+                             'Code and storage contributions are contiguous in the hypothesized link.'],
+                excluded=[hex(x) for x in sorted(exclude)],
                 intervals=out)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('module', nargs='?', default='TITLE.DLL')
-    parser.add_argument('--function-map', default=str(ROOT / 'work/function_map/title_v4.json'))
-    parser.add_argument('--bss', default='0x290e8', help='start of per-object .bss (initialized .data ends at 0x290e8)')
-    parser.add_argument('--tail', default='0x2b370', help='start of the communal tail')
-    parser.add_argument('--exclude', nargs='*', default=['0x29128', '0x29e08', '0x29f98', '0x29c2c', '0x2a244'],
-                        help='DLL-wide shared variables (C++ definers) and unclear indexed bases')
+    parser.add_argument('--function-map', required=True)
+    parser.add_argument('--bss', required=True, help='start RVA of the explicitly reviewed storage range')
+    parser.add_argument('--tail', required=True, help='exclusive end RVA; not an inferred communal boundary')
+    parser.add_argument('--exclude', nargs='*', default=[], help='shared or uncertain storage addresses to omit')
+    parser.add_argument('--original-root', type=Path, help='Read the original-reference database from another checkout')
     args = parser.parse_args()
-    report = build(args.module, args.function_map, int(args.bss, 16), int(args.tail, 16), {int(x, 16) for x in args.exclude})
+    report = build(args.module, args.function_map, int(args.bss, 16), int(args.tail, 16), {int(x, 16) for x in args.exclude}, args.original_root)
     out = ROOT / 'work/closure' / f'{args.module.lower()}_unit_bounds.json'
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, indent=1) + '\n', encoding='utf-8')
     for i in report['intervals']:
         print(f"code {i['code'][0]:>8}..{i['code'][1]:<8} {i['functions']:3d} fns   bss {i['bss'][0]}..{i['bss'][1]} ({i['variables']} vars)")

@@ -6,8 +6,9 @@ decoding, bounded frame traversal, texture addressing and synthetic fixtures.
 Diagnostic fixtures can publish a table clone in bounded probes. The package
 contains no GPU backend or replacement gameplay module.
 
-The current investigation prioritizes upstream geometry and complete display
-ownership for true native-resolution output. [Native-resolution readiness](native_resolution.md)
+This evidence serves original reconstruction as well as renderer experiments;
+[project direction](../docs/project_direction.md) sets current priorities.
+[Native-resolution readiness](native_resolution.md)
 separates geometry, association, viewport, composition, presentation and temporal
 requirements from the existing screen-space and pixel-fidelity contracts.
 
@@ -35,7 +36,9 @@ fixture](fixtures/early_loader_probe/README.md) and its
 publication. Neither fixture launches Hercules or establishes target
 deployment behavior. The later original-host pre-entry diagnostic closes that
 specific deployment question. No product proxy, engine execution or rendering
-integration has been observed.
+integration in the original game has been observed. The later
+[combined proxy/shim](../dropin_renderer/docs/combined_dll.md) is verified in
+synthetic hosts only; it does not close original-process or framebuffer ownership.
 
 Read [interception.md](interception.md) before implementing a replacement.
 AC60 performs state updates, VRAM moves, surface management, color remapping,

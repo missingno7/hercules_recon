@@ -7,6 +7,9 @@ module is reconstructed yet.
 
 The subsequent [shared-engine milestone](shared_code.md) extends the initial
 pilot below. Current source/module acceptance is always read from `recovery.json`.
+See [project direction](project_direction.md) for how behavioral, renderer and
+REA findings feed the same reconstruction. Pilot measurements below are
+historical, not current recovery counts or a work queue.
 
 ## Initial measured pilot
 
@@ -70,7 +73,9 @@ python scripts/promote.py title.unlink_12c --source candidates/my/pilot.c
 python scripts/promote.py --recover
 ```
 
-The gate accepts self-contained C units under `src/` in this initial version.
+The current gate accepts scoped `.c` and `.cpp` units under `src/`.
+For C++, candidates are staged at their canonical source path; frozen and
+canonical compilations independently check normal quoted-header lookup.
 It freezes the candidate, verifies **all** established matches, checks every
 emitted function against accepted/requested rows for that source, and rejects
 unreviewed data contributions. It then updates source and state under an OS
@@ -83,9 +88,10 @@ copied code, arbitrary assembly, or original-binary dispatch.
 `FUNCTION_MATCH` proves fresh raw function contribution equality under the
 recorded environment. It does not prove historical names, whole-image bytes,
 library closure, linker layout, original source text or a uniquely identified
-compiler revision. The next calibration work should resolve the larger arithmetic
-case, identify library members, and reconstruct a naturally linked caller/callee
-group before expanding the acceptance gate to relocatable code and C++ units.
+compiler revision. Natural dependency linkage and library attribution remain
+separate from function acceptance. Relocatable or packed-unit diagnostics do
+not gain raw acceptance through similarity or forced layout. Do not broaden
+the gate merely to accommodate an experimental implementation.
 
 Initial verification on 2026-10-07 passed 64 reconstructed-code semantic checks,
 13 acceptance/recovery tests, all four fresh exact comparisons, complete hashes

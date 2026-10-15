@@ -1,5 +1,11 @@
 # Long-run goal: TITLE.DLL by natural link
 
+**Historical investigation.** Counts, inferred units and linker/compiler claims
+below describe dated experiments, not current acceptance. Use
+[project direction](project_direction.md) and current source graphs. Storage
+placement alone does not prove linkage, language or TU ownership; later external-C
+zero-storage controls falsify that universal rule.
+
 Set 2026-10-09 after the leaf harvest exhausted the relocation-free pool.
 
 ## Why this goal
@@ -166,7 +172,8 @@ The measured boundaries are recorded in `evidence/title_closure.json` (`units`):
 - **After 0x5c60.** The sound-effect unit's .bss and literals end here.
 - **0x5cc0 to 0x6350 is a C++ process scheduler (`title_proc.cpp`).** Two of its .bss variables
   are read across the whole DLL. Only 2 of 525 per-object .bss addresses are shared like that,
-  and a C unit could provide them only as communals. The unit defines its six used variables.
+  under the then-current storage hypothesis. External explicit-zero C storage
+  can also emit .bss, so this alone does not prove C++ ownership.
 - **From 0x6350 is a C unit (`u06350.c`, 0x65e0 is C-only).** It reaches at least to 0x6a50.
 
 Rule measured along the way: within one object, the .bss order of C statics and C++ globals
@@ -175,8 +182,10 @@ variables at their original relative offsets. Three unreferenced 4-byte slots ar
 
 ## Units consolidated so far
 
-`scripts/unit_bounds.py` turns per-object .bss sharing into minimal unit intervals. A C
-file-static ties its users to one object, and one object's .bss is contiguous.
+`scripts/unit_bounds.py` now reports conditional storage-user clusters, with an
+explicit range and ownership/contiguity assumptions. They are not proved minimal
+unit intervals. A genuinely file-static object constrains its users, but the
+binary's zero-storage placement alone does not identify one.
 
 - **Sequence screens:** `seq1.c` .. `seq10.c` hold ten units, each a handler and two helpers.
   The handlers load SEQ1, SEQ10, SEQ2..SEQ9 in code order, which is alphabetical file order.
@@ -191,9 +200,9 @@ file-static ties its users to one object, and one object's .bss is contiguous.
 - **The engine unit `u0c1f0.c`.** It holds the export and 117 interface-slot wrappers, and it
   tentatively defines the engine interface.
 - **The C++ object-system unit `u08140.cpp`.** It defines the .bss block it shares with
-  `u06bb0.c`. Per-object variables read by other units need a C++ definer.
-- **Statics:** each unit's private .bss variables are file statics. Per-object .bss starts at
-  0x290e8.
+  `u06bb0.c`. Shared storage alone does not prove the definer's source language.
+- **Storage hypothesis:** the old grouping treated zero storage from 0x290e8
+  as unit-private; linkage and original extents remain separate questions.
 - **Shared types:**
   - `title_proc.h`: the process record, where a handler's argument is its process;
   - `title_screen.h`: the screen context and the sprite object, whose x and y are signed 16.16.

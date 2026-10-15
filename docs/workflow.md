@@ -1,5 +1,11 @@
 # Reconstruction work and compact context
 
+Start with [project direction](project_direction.md). Behavioral source, REA and
+renderer fixtures may resolve the next original-code question; they use this
+same evidence and acceptance workflow. Prefer a coherent missing dependency
+family over building another independent subsystem. Dated handoffs are context,
+not a second queue or authority.
+
 `recovery.json` remains the only recovery authority. The sequence is evidence,
 private scratch, fresh compiler/oracle measurement, and the existing journaled
 promotion. No model opinion or context receipt grants `FUNCTION_MATCH`.
@@ -37,6 +43,21 @@ does not prove original module layout. See `docs/frame_dependency_binding.md` fo
 the first measured use and remaining blockers.
 
 ## Start and resume
+
+Function maps default to a conservative alignment filter; they are leads, not
+a complete function census. To review address-backed unaligned starts without
+changing source-build inventories:
+
+```
+python scripts/function_map.py ENG1.DLL --original-root D:/Prog/hercules_recon --include-unaligned --output work/eng1_unaligned_leads.json
+```
+
+Recorded extents still take precedence. `unit_bounds.py` requires explicit
+`--function-map`, `--bss`, `--tail` and any `--exclude` addresses; its clusters
+assume supported local storage ownership and do not prove TU or source language.
+`title_link.py` performs the registered-source natural dependency diagnostic;
+old forced-layout reproduction requires `--legacy-forced-layout` and never
+provides an executable or acceptance result.
 
 A reconstruction worktree can use the primary checkout's read-only originals
 and derived archaeology without copying them or changing the primary recovery

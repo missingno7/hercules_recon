@@ -2,6 +2,9 @@
 
 This directory holds reproducible experiment sources and compact receipts. The
 ignored `experiments/`, `candidates/` and `work/` stay for scratch.
+Use [project direction](../docs/project_direction.md) to decide whether another
+experiment resolves a current reconstruction question. These are historical
+tools and bounded seams, not separate long-term products or an automatic queue.
 
 Nothing here is reconstruction source or acceptance evidence. It never
 modifies `recovery.json`, `src/` or `calibration/`. Findings move into

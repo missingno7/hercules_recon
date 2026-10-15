@@ -4,6 +4,9 @@ This modern C++17 subproject applies the original PC reconstruction through the
 shared `hercules_renderer_contract` CMake target. Historical source and strict
 acceptance remain separate. The current implementation is a verified foundation
 and offline diagnostic slice; original-game rendering and deployment remain open.
+Its present role is research and bounded integration. It may eventually feed a
+renderer directly integrated with reconstructed game source; the DLL deployment
+is not a permanent architectural commitment. See [project direction](../docs/project_direction.md).
 
 A [windowed resource checkpoint](docs/game_checkpoint.md) is now available for
 local testing. It loads real archived pixels and colors, compares original CPU,
@@ -18,7 +21,7 @@ The original TITLE producer and image/palette timing remain to be recovered.
   forwards the original arguments, HRESULT and COM object without wrapping it.
   DllMain records its own module; the optional MSVC combined build also publishes
   a content-checked callback clone. No game files or instructions are patched.
-- `dropin_host_adapter`: explicit, process-lifetime callback-table clone using
+- `dropin_host_adapter` (test-only target): explicit, process-lifetime callback-table clone using
   the shared 250-DWORD ABI and clone helper. Slots 81/89 forward to the supplied
   callbacks and publish synchronous entry/return observations. Installation is a
   synthetic seam, with no automatic RVA attachment to Hercules. Slot 89 remains

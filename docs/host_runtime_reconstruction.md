@@ -1,7 +1,8 @@
 # Original host runtime reconstruction
 
-This phase recovers the original Windows game in historical C/C++. A new renderer
-is deferred. `recovery.json` alone records function recovery; finite comparisons
+This document recovers the original Windows game in historical C/C++. Modern
+experiments serve [the same reconstruction goal](project_direction.md).
+`recovery.json` alone records function recovery; finite comparisons
 and relocation similarity do not grant a byte match or runnable gameplay.
 
 ## Warm delivery

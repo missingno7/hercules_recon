@@ -10,10 +10,10 @@ no aliases, no placement). The report classifies what is missing:
 
 and lists duplicate definitions. Data-only units come from calibration/title/data_units.json.
 
-Layout (diagnostic): when symbols are unresolved, a second link with /FORCE:UNRESOLVED produces an
-image used only to read where things landed: section sizes, natural function RVAs against the
-original, and for each data unit its linked bytes against the original object (pointer slots
-compared by relative target). The forced image is never executed, compared as a whole or accepted.
+Legacy layout reproduction is available only with --legacy-forced-layout. It
+adds a /FORCE:UNRESOLVED image used to inspect section and relative data layout.
+That image is never executed or accepted. Ordinary dependency work needs only
+the natural link; a failed link remains a useful result without a forced image.
 """
 import argparse
 import json
@@ -170,7 +170,10 @@ def layout(module, lane, objects, env, tc, definitions):
     objects_data = defaultdict(list)
     for name, owners in definitions.items():
         if name in implied and name in symbols and name not in function_symbols and len(owners) == 1:
-            region = 'data' if implied[name] < 0x290e8 else 'bss' if implied[name] < 0x2b370 else 'communal'
+            # Preserve the old numeric bins for receipt reproduction without
+            # treating these cutoffs as evidence of linkage or storage class.
+            region = ('legacy_initialized_range' if implied[name] < 0x290e8 else
+                      'legacy_zero_range' if implied[name] < 0x2b370 else 'legacy_tail_range')
             objects_data[(owners[0], region)].append((name, symbols[name] - ours.image_base - implied[name]))
     data_objects = []
     for (source, region), items in sorted(objects_data.items()):
@@ -181,13 +184,14 @@ def layout(module, lane, objects, env, tc, definitions):
         data_objects.append(dict(source=source, region=region, symbols=len(items), common_delta=hex(modal) if modal >= 0 else '-' + hex(-modal),
                                  at_common_delta=n, off=[(s, hex(d - modal)) for s, d in items if d != modal][:8]))
     top = sorted(deltas.items(), key=lambda kv: -kv[1])[:8]
-    return dict(sections=sections, function_rows_placed=sum(deltas.values()),
+    return dict(scope='Legacy forced-image layout; bins do not prove storage class or TU ownership.',
+                sections=sections, function_rows_placed=sum(deltas.values()),
                 function_rows_at_original_rva=deltas.get(0, 0),
                 function_rva_deltas_most_common=[(hex(d) if d >= 0 else '-' + hex(-d), n) for d, n in top],
                 data_units=units, data_objects=data_objects)
 
 
-def build(module):
+def build(module, include_legacy_layout=False):
     toolchain = verify_toolchain(DEFAULT_TOOLCHAIN)
     lane = Path(tempfile.mkdtemp(prefix='title-link-', dir=ROOT / 'work'))
     objects, definitions, rows = [], defaultdict(list), []
@@ -221,7 +225,8 @@ def build(module):
             classes['data'].append(name)
         else:
             classes['other'].append(name)
-    placed = layout(module, lane, objects, env, tc, definitions)
+    placed = (layout(module, lane, objects, env, tc, definitions) if include_legacy_layout else
+              dict(status='not_requested', scope='Legacy forced layout is opt-in and never acceptance.'))
     return dict(scope='Diagnostic natural link of canonical TITLE sources; no stubs, aliases or placement; not acceptance.',
                 toolchain=toolchain, libraries=LIBRARIES, sources=rows, link_exit_code=result.returncode, layout=placed,
                 unresolved_count=len(unresolved), unresolved=dict(classes), duplicates=duplicates,
@@ -232,8 +237,9 @@ def build(module):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('module', nargs='?', default='TITLE.DLL')
+    parser.add_argument('--legacy-forced-layout', action='store_true', help='Reproduce old forced-image layout diagnostics; never executable or accepted')
     args = parser.parse_args()
-    report = build(args.module)
+    report = build(args.module, args.legacy_forced_layout)
     out = ROOT / 'work/closure' / f'{args.module.lower()}_link.json'
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, indent=1) + '\n', encoding='utf-8')
@@ -242,8 +248,11 @@ def main():
           f"(title functions {len(u.get('title_functions', []))}, data {len(u.get('data', []))}, "
           f"other {len(u.get('other', []))}); duplicates {len(report['duplicates'])}; report: {out}")
     lay = report['layout']
-    print(f"layout: {lay.get('function_rows_placed')} function rows placed, {lay.get('function_rows_at_original_rva')} at the "
-          f"original RVA; most common deltas {lay.get('function_rva_deltas_most_common', [])[:4]}")
+    if lay.get('status') == 'not_requested':
+        print('layout: not requested (legacy forced-image diagnostic)')
+    else:
+        print(f"layout: {lay.get('function_rows_placed')} function rows placed, {lay.get('function_rows_at_original_rva')} at the "
+              f"original RVA; most common deltas {lay.get('function_rva_deltas_most_common', [])[:4]}")
     for unit in lay.get('data_units', []):
         print(f"  data unit {unit['source']}: section offset ours {unit['section_offset_ours']} vs original "
               f"{unit['section_offset_original']}; bytes {unit['bytes']}")

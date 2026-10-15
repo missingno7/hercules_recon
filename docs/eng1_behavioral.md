@@ -15,8 +15,9 @@ DLL is produced. Earlier transitional links used explicit fail-on-entry
 diagnostics, which do not supply game dependencies.
 
 All 76 accepted ENG1 function instances remain exact under fresh pinned VC5
-compilation and complete raw contribution comparison. All 132 accepted
-functions across modules pass the same strict check. This work leaves `recovery.json`
+compilation and complete raw contribution comparison. The recorded experiment
+also passed all then-current strict rows; current totals come from `recovery.json`.
+This work leaves `recovery.json`
 unchanged. The stable TITLE milestone and historical matching branch remain
 preserved.
 

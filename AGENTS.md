@@ -2,15 +2,17 @@
 
 Reconstruct the 1997 Windows Hercules game with historical C/C++ tools. The PC
 binaries are the matching oracle. PSX builds provide secondary evidence only.
-This phase reconstructs the original game only. No port, modernization, renderer
-replacement or gameplay changes are part of it. Earlier renderer experiments
-remain in the repository as deferred work.
+The goal is one independently reconstructed game, with historical matching as
+the foundation and a faithful modernized implementation eventually built on
+that knowledge. See docs/project_direction.md for the current synthesis.
 
-Current user priority is reverse engineering and reconstructing the original
-game first. Recover coherent source and dependencies in forms useful to later
-matching decompilation. Further renderer implementation is deferred; it should
-follow from the recovered game rather than drive approximations or isolated
-preview milestones. A preview is not a runnable-game completion criterion.
+Behavioral source, emulation, REA, renderer and runtime experiments are discovery
+techniques, not separate products or alternative acceptance authorities. Work
+ahead when a bounded question resolves original behavior, dependencies or an
+integration risk. Reuse existing source, evidence and fixtures; retain useful
+findings without automatically retaining every experimental implementation.
+Do not assume the drop-in renderer is the final architecture. Preserve an
+independently reproducible historical build and original gameplay semantics.
 
 ## Ownership and proof boundaries
 
@@ -21,8 +23,9 @@ preview milestones. A preview is not a runnable-game completion criterion.
   before consuming them in a renderer; never silently redefine them downstream.
 - `dropin_renderer/` owns modern C++ build, forwarding, diagnostic capture and
   backend code. Consume the shared contract directly; do not copy its package.
-  Implement bounded vertical slices with explicit unsupported paths. Keep original
-  screen-space behavior separate from private native-resolution policies.
+  These are present build/proof boundaries, not permanent product boundaries.
+  Justify implementation by reconstruction value, with explicit unsupported paths.
+  Keep original screen-space behavior separate from private resolution policies.
 - Forwarding to original callbacks/APIs is permitted only in the modern reference
   and diagnostic integration layer; it is never historical source recovery.
   Do not patch original code, embed machine code, or change original game files.

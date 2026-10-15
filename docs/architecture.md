@@ -1,5 +1,10 @@
 # Initial binary architecture
 
+This document describes original-binary evidence. The project's current build
+boundaries and evolutionary direction are in [project_direction.md](project_direction.md).
+Historical source, behavioral fixtures and renderer experiments investigate this
+same game; current branch names do not define separate architectures.
+
 The PC images independently support the proposed platform/engine split.
 The baseline EXE is the CD-installer copy extracted to
 `work/discs/pc_install/HERCULES.EXE` (SHA-256

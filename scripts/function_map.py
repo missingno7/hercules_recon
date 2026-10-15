@@ -4,9 +4,12 @@ Starts: exports, direct call targets, address-taken immediates in code, code poi
 non-code sections, and entries after RET + NOP alignment (unreferenced functions).
 Pointers stored inside code are jump-table entries and never start a function.
 Library code located by scripts/library_map.py is excluded. Each span is decoded
-from its own entry with capstone.
+from its own entry with capstone. The default alignment filter is a conservative
+reading aid, not a complete function census or evidence of original /Gy flags.
+--include-unaligned retains additional address-backed leads for review.
 """
 import argparse
+from contextlib import closing
 import hashlib
 import json
 import sqlite3
@@ -20,12 +23,16 @@ from pe import PE
 DB = ROOT / 'work/archaeology.sqlite'
 
 
-def build(module, entry_evidence=None, original_root=None):
+def build(module, entry_evidence=None, original_root=None, include_unaligned=False):
     # A source worktree reads originals and derived analysis from the primary
     # checkout, while its own recovery state remains authoritative.
     inputs = Path(original_root).resolve() if original_root is not None else ROOT
     database = inputs / 'work/archaeology.sqlite' if original_root is not None else DB
-    db = sqlite3.connect(database.as_uri() + '?mode=ro', uri=True)
+    with closing(sqlite3.connect(database.as_uri() + '?mode=ro', uri=True)) as db:
+        return _build_from_database(module, entry_evidence, inputs, include_unaligned, db)
+
+
+def _build_from_database(module, entry_evidence, inputs, include_unaligned, db):
     path = db.execute('select path from modules where name=?', (module,)).fetchone()[0]
     pe = PE(inputs / path)
     text = next(s for s in pe.sections if s['characteristics'] & 0x20000000)
@@ -113,7 +120,7 @@ def build(module, entry_evidence=None, original_root=None):
     # Reviewed contributions override the heuristic alignment filter, including
     # their actual entry and exclusive end. Omitting an entry can merge a caller
     # lead with an already recorded body; the downstream overlap guard rejects it.
-    ordered = sorted(s for s in starts if s % 16 == 0 or s in proven_boundaries or s in reviewed_boundaries)
+    ordered = sorted(s for s in starts if include_unaligned or s % 16 == 0 or s in proven_boundaries or s in reviewed_boundaries)
     rows = []
     for i, s in enumerate(ordered):
         e = ordered[i + 1] if i + 1 < len(ordered) else end
@@ -128,10 +135,12 @@ def build(module, entry_evidence=None, original_root=None):
                              (module, s)).fetchone()[0]
         rows.append(dict(rva=hex(s), size=e - s, body_size=len(body), decoded=decoded, last=last,
                          references=relocs, callers=callers, start_from_proven_extent=s in from_proven))
-    report = dict(module=module, first_party_end=hex(end), functions=rows)
+    report = dict(module=module, first_party_end=hex(end), functions=rows,
+                  scope='Diagnostic leads, not a complete function census or recovery state.',
+                  include_unaligned=include_unaligned)
     if entry_evidence is not None:
         assert entry_evidence.read_bytes() == evidence_bytes
-        assert (ROOT / path).read_bytes() == pe.data
+        assert (inputs / path).read_bytes() == pe.data
         report['entry_evidence'] = dict(path=str(entry_evidence.resolve()), sha256=hashlib.sha256(evidence_bytes).hexdigest(), scope='Reviewed address-taken leads only; recovery.json alone grants acceptance.')
     return report
 
@@ -141,11 +150,13 @@ def main():
     parser.add_argument('module')
     parser.add_argument('--output', type=Path)
     parser.add_argument('--entry-evidence', type=Path, help='Oracle-bound initialized pointer-table entries; diagnostic leads only')
+    parser.add_argument('--original-root', type=Path, help='Read-only originals/database/library map; recovery state remains local')
+    parser.add_argument('--include-unaligned', action='store_true', help='Retain unaligned address-backed leads; does not validate their boundaries')
     args = parser.parse_args()
     output = (args.output or ROOT / f'work/function_map/{args.module.lower()}.json').resolve()
     if not output.is_relative_to(ROOT / 'work'):
         raise ValueError('Diagnostic outputs belong in ignored work/')
-    report = build(args.module, args.entry_evidence)
+    report = build(args.module, args.entry_evidence, args.original_root, args.include_unaligned)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, indent=1) + '\n', encoding='utf-8')
     rows = report['functions']

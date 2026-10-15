@@ -1,5 +1,10 @@
 # Full matching reconstruction goal
 
+**Historical work journal.** Dated waves and work orders below retain their
+evidence and limits; they are not the current queue. The common direction and
+immediate priority are in [project_direction.md](project_direction.md).
+`recovery.json` alone determines present recovery state.
+
 The active goal is a full matching reconstruction of the 1997 PC Hercules game:
 TITLE.DLL, ENG1.DLL, ENG3.DLL and HERCULES.EXE, using the existing PC oracles and
 pinned historical compiler/linker/libraries. Strict actual byte equality comes

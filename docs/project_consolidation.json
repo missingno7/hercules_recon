@@ -1,0 +1,161 @@
+{
+ "kind": "project_consolidation_audit",
+ "date": "2026-10-15",
+ "base_commit": "75df971b4f9c89dac42a30bc586594fae2540f8f",
+ "branch_heads": {
+  "main": "dce228831d759985ab2c4f9df054b0762a7411cd",
+  "codex/full-matching-reconstruction": "9306aa0288d6b064f8a555ca8acf7b28e401c6f1",
+  "codex/title-behavioral-reconstruction": "9dfcb3730ab0f5a48b4308b17a59f31c655c78cc",
+  "codex/eng1-behavioral-reconstruction": "73c6320179093c3de9b820e66b87f94dfb639a9b",
+  "codex/renderer-interface-closure": "f571717d4605c790aef80a4a0b21f172f4772f73",
+  "claude/rea-renderer-experiment": "75df971b4f9c89dac42a30bc586594fae2540f8f"
+ },
+ "origin_refreshed": true,
+ "all_audited_heads_ancestors_of_base": true,
+ "recovery_sha256": "d8d525766f1f2cfc0aa5899c422c297c86ae8d6aea5bf150508a6c242c669884",
+ "recovery_changed": false,
+ "primary_uncommitted_files_preserved": {
+  "calibration/title/title_proc.cpp": "e5db718f8a7bf3121b861f830bf753b8ff75677aa19c11c635ae5196fc1e8810",
+  "recovery.json": "465ee5ea057cd3bfb23508e18b16958c27b9d391e11a0bc874cfc413436644d5",
+  "docs/process_audit_2026_10_11.md": "e1ce2feaed3838204576eb4b87870198e610df24c1194bed224b26a885fea43f",
+  "evidence/process_audit_2026_10_11.json": "44587ad472ff9742274d69913ea2ef7728060a706acae08c2391ee835d129328",
+  "evidence/title_scheduler_storage_adoption_2026_10_11.json": "81daf35d45265f4d4beffd1cf8a1b681c1b2266bd02ab701074911ed0c3cf8b2"
+ },
+ "prediction": "Existing streams have one commit ancestry; biased inventory and storage assumptions can be corrected without changing recovery or default source graphs. The legacy two-slot adapter has only a test consumer.",
+ "falsifiers": [
+  "A branch has exclusive commits outside the latest descendant",
+  "Default function-map rows change",
+  "Reviewed extents split or acceptance status changes",
+  "A non-test adapter consumer exists",
+  "Historical source or uncommitted primary files change"
+ ],
+ "decisions": [
+  "Historical matching is the foundation; experimental knowledge uses the same source/acceptance cycle.",
+  "Current drop-in is a bounded research/integration seam; eventual direct integration remains conditional on genuine source closure.",
+  "Keep unique historical reproductions and independent oracles; no branch/worktree/source deletion or forced merge.",
+  "Retire unconditional legacy forced layout and non-test adapter builds; correct diagnostic assumptions without changing default inventories."
+ ],
+ "verification": {
+  "strict_fresh_raw": {
+   "rows": 134,
+   "bytes": 8336,
+   "all_exact": true,
+   "tools": [
+    "msvc5_rtm"
+   ]
+  },
+  "python_unit_tests": {
+   "passed": 85,
+   "new_diagnostic_tests": 9
+  },
+  "inventory_comparison": {
+   "TITLE.DLL": {
+    "default_rows_unchanged": true,
+    "default_leads": 362,
+    "unaligned_leads": 370
+   },
+   "ENG1.DLL": {
+    "default_rows_unchanged": true,
+    "default_leads": 1219,
+    "unaligned_leads": 1237
+   },
+   "ENG3.DLL": {
+    "default_rows_unchanged": true,
+    "default_leads": 549,
+    "unaligned_leads": 569
+   },
+   "HERCULES.EXE": {
+    "default_rows_unchanged": true,
+    "default_leads": 407,
+    "unaligned_leads": 408
+   },
+   "reviewed_original_root": {
+    "passed": true,
+    "leads": 407
+   }
+  },
+  "external_c_zero_control": {
+   "source": "int external_zero = 0;\nint read_external(void) { return external_zero; }\n",
+   "source_sha256": "8253f7573b9caa158dfcb0b6a69a7693a3cf045aa7d0cbf2ff7356f8c2d7bd67",
+   "command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/c",
+    "/Gy",
+    "/O2",
+    "/FoD:\\Prog\\hercules_recon\\work\\rea_repo\\build\\match\\compile-opti1t8p\\candidate.obj",
+    "D:\\Prog\\hercules_recon\\work\\rea_repo\\work\\project_consolidation\\external_zero.c"
+   ],
+   "symbol": {
+    "name": "_external_zero",
+    "value": 0,
+    "section": 2,
+    "type": 0,
+    "storage": 2,
+    "aux": []
+   },
+   "section": ".bss",
+   "section_size": 4
+  },
+  "combined_suite": {
+   "standalone_harness": "PASS: 349 passed, 0 failed",
+   "combined_harness": "PASS: 349 passed, 0 failed",
+   "ac60_checks_each": 9,
+   "modern_ctest_passed": 9,
+   "portable": {
+    "discovered": 25,
+    "passed": 25,
+    "failed": 0
+   },
+   "synthetic_cases": 6,
+   "real_system_forwarding_runs": 2,
+   "production_dll_sha256": "b2989d6531ca54f8303bb825e881a46fea49220f55b30a760259c7a89af9a676",
+   "legacy_adapter_absent_when_testing_off": true
+  },
+  "eng1_genuine_source_graph": {
+   "mapped_entries": 367,
+   "function_symbols": 398,
+   "unresolved_symbols": 531,
+   "duplicate_providers": 0,
+   "strict_functions_preserved": 76,
+   "link_exit": 25,
+   "dll_emitted": false
+  }
+ },
+ "commands": [
+  "git fetch origin",
+  "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/project_consolidation/strict_before.json",
+  "python -m unittest discover -s tests -p 'test_*.py' -v",
+  "python dropin_renderer/tests/run_combined.py --exe D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE --output work/project_consolidation/combined",
+  "python scripts/eng1_behavioral.py --original-root D:/Prog/hercules_recon --output work/project_consolidation/eng1_graph"
+ ],
+ "source_sha256": {
+  "scripts/function_map.py": "ad810bc098138f1b11ac4f2eb66ee8883ed6af3fb7ba4d6c2e74c8e04133a5cf",
+  "scripts/unit_bounds.py": "72f00af420fcf73e3a5b83b4e9d025997cd94da413812688ea48e8e611c9d70b",
+  "scripts/title_link.py": "54fed72fc6e286e67fb4c08cf60f37ad79656a50a9353251bcc58518fcefeb34",
+  "tests/test_inventory_diagnostics.py": "b5595457bd790991536ea0f52f0164b27104560cdca31972ad0c96dd2f569228",
+  "dropin_renderer/CMakeLists.txt": "35347a31fec2558ed7ad4511990d49f7176a1681fcbcd69a0e6efd4041dc5ca6"
+ },
+ "unchanged_acceptance_code_sha256": {
+  "scripts/match.py": "c1416e7bcdf59b0fccaa86b0840930f633b406ccbe4c40afbe09536fd86ab2a1",
+  "scripts/promote.py": "0e6bad05a140f1db2e02165a851d8b32c1920cfa39285819621ad2953cf55c15",
+  "scripts/coff.py": "459dded9c557b037ec1d541ef7a8348d6b30a7b1b7fa425121d576cd22572a9f",
+  "scripts/similar.py": "c6557bada99bcfbbdbcd30a4221e172c348612cf7bb31d9a15f037a869d6dcb7",
+  "toolchains/manifest.json": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+ },
+ "private_receipts": {
+  "strict_before.json": "5e2ac193407349bac73d041b21dbeb2063243decb60b58a7d0a97d035f014681",
+  "unit_tests.log": "92d42466098e05b2ee3bcbc79124fca8a8db163cb48ad5ae3e192611efeda3c1",
+  "inventory_comparison.json": "6aff9a96fa7f74066199099195a8a1645a75362798a66862afb73bd3a4007eb6",
+  "storage_control.json": "dfeefe647c94eaebef287618bd91a88e79153b6636d09162c011e98f26e72a9a",
+  "combined/receipt.json": "45487e90eb2e6196664ac488d480d3ecc8e7077377dc0b560d1a485091394b53",
+  "eng1_graph/report.json": "59841d3a0e369c424907c594cbb3308f79ef32af9d5037dbd8aadf0df0a755b3"
+ },
+ "scope_limits": [
+  "No original game process was started; compilation/emulated original-code tests only.",
+  "Strict functions, semantic cases, dependency linkage and whole-image equality remain separate.",
+  "No fresh exhaustive gameplay, TITLE runtime or ENG3 module validation was attempted.",
+  "The primary dirty TITLE source/recovery changes are preserved, not accepted by this audit.",
+  "main was not advanced; no refs pushed, pruned or deleted."
+ ]
+}

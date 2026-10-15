@@ -1,5 +1,13 @@
 # Hercules reconstruction handoff, 2026-10-10 (TITLE.DLL stage-1 convergence)
 
+**Historical checkpoint.** Counts, priorities, compiler hypotheses and owner
+rulings below describe this dated investigation. They are not current project
+instructions or acceptance state. Start with [project direction](project_direction.md),
+[the current contract](../AGENTS.md), [workflow](workflow.md) and `recovery.json`.
+Declaration/name steering and automatic push instructions below are not standing
+authorization for new work. Retain outcomes while reviewing their hypotheses
+against later evidence.
+
 The latest work concentrated on TITLE.DLL. Claude integrated. General-purpose and Haiku 5.5 lanes did
 bounded grinding in ignored `candidates/` directories. The 2026-10-09 checkpoint below still describes the
 other modules.

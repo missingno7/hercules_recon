@@ -1,8 +1,15 @@
 # ENG1 original-host integration
 
+**Recorded transitional runtime experiment.** The stop and artifact identities
+below are historical observations, not the current source frontier. `0x28290`
+now has source; no later runtime stop was demonstrated. The genuine graph still
+has unresolved dependencies. Use [current source limits](eng1_behavioral.md) and
+[project direction](project_direction.md). This record grants no new execution
+authorization and does not satisfy a later experiment's isolation gate.
+
 The original host has loaded the transitional source-built ENG1 DLL and copied
 the expected 250-DWORD interface with signature 0x5ac00cac and first-use gate
-change from 1 to 0. The latest windowed run stops at explicit missing RVA 0x28290.
+change from 1 to 0. The recorded windowed run stops at explicit missing RVA 0x28290.
 Initialization, a gameplay frame and normal engine shutdown remain unverified.
 
 Earlier runs stopped at 32b10 and 274e0, now implemented. Runtime testing then
