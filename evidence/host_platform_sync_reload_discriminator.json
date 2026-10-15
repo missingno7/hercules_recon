@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "scope": "Private semantic correction of the original PC 0x5a50 platform-state synchronization draft. No canonical function/data adoption and no recovery.json change. All callee effects are modeled; caller-only evidence.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "prediction": {
+    "path": "work/host_platform_sync/prediction.json",
+    "sha256": "20a00d72f6d007b70fc48019e5687e7303cf39f20c48148b1effdd1155eecfd8"
+  },
+  "prior_evidence": "evidence/platform_transition_control_2026_10_11.json",
+  "prior_source": {
+    "path": "D:\\Prog\\hercules_recon\\candidates\\platform_transition_19\\graphics_native_05a50.cpp",
+    "sha256": "9cf9ee790ed0ba3519cc3fd6f473993e7797964c14b027e83814965481a25988"
+  },
+  "private_source": {
+    "path": "work/host_platform_sync/platform_sync.cpp",
+    "sha256": "867a76202f830fbdc5f84ea85ec1f69bd0e681f817381969d5ab3f64de7c5b22"
+  },
+  "native_reload_sites": [
+    {
+      "va": "0x405b91",
+      "meaning": "Reload current depth after SetWindowText, requested-mode setter and suspension callbacks."
+    },
+    {
+      "va": "0x405ba5",
+      "meaning": "Reload current signed mode after the optional sound-pause callback."
+    },
+    {
+      "va": "0x405bae",
+      "meaning": "Reload current type for the next branch."
+    },
+    {
+      "va": "0x405bc2..0x405bcd",
+      "meaning": "Read current mode, type and depth for final cache capture after callbacks."
+    }
+  ],
+  "new_discriminator": "The earlier snapshot draft is semantically different when a callback changes those globals. Correct only the post-callback branches and final cache capture, then compare original, corrected and unchanged historical draft under the same controlled mutations.",
+  "measurement": {
+    "receipt": {
+      "path": "work/host_platform_sync/candidate.json",
+      "sha256": "f8567c022664ac628c741ceddf1714739d5ba6c204e95297e7fe95b691733dfd"
+    },
+    "initial_extent": 448,
+    "corrected_extent": 464,
+    "native_extent": 464,
+    "raw_exact": false,
+    "diagnostic_differences": 147,
+    "raw_differences": 348,
+    "relocation_count": 58,
+    "scope": "Whole contribution measurement only. Extent equality is not machine-code equality. No compiler spelling/type/flag grid followed."
+  },
+  "validation": {
+    "receipt": {
+      "path": "work/host_platform_sync/differential.json",
+      "sha256": "dcadcdf45e163daa5107381d5400a6c4ef41c327728e2e48eed935642ff0d7ac"
+    },
+    "runner": {
+      "path": "work/host_platform_sync/run.py",
+      "sha256": "79e111ccde83f313a987e63397084737dc23ff8587d85243c60ce9eecaace4e6"
+    },
+    "case_count": 22,
+    "all_original_corrected_equal": true,
+    "rejected_old_cases": [
+      "title_changes_requests",
+      "suspend_enables_depth",
+      "pause_changes_type",
+      "music_changes_final_cache"
+    ],
+    "checks": [
+      "An independent state/callback reference agrees with native and corrected source.",
+      "Compare every observed input, cache field, dirty/reset field and ordered callback argument trace.",
+      "Preserve three opaque bytes per BYTE cache, stack guards, caller stack and four nonvolatile registers.",
+      "Reject execution outside caller or explicit boundary hooks and writes outside observed fields or bounded stack."
+    ],
+    "modeling": "SetWindowTextA plus all eight first-party call effects/returns are modeled at entry with explicit ABI and volatile-register clobber. Synthetic state mutations are test preconditions, not claims about what these callees actually do. Test-only callback bodies and data do not enter the natural source graph."
+  },
+  "handoff": {
+    "integration_pending": [
+      "Replace the old neutral draft cell spellings with proven existing owners: input gate/pending cells and measured fields within registry_config[72].",
+      "Bind real existing 0x10010 and 0x9d60 providers by address and ABI instead of making duplicate graphics-named functions.",
+      "Recover or identify the remaining 0x10030, 0x9f60, 0x9db0 and 0xffb0 callees.",
+      "Audit seven cache definitions and native title literals without claiming original aggregate ownership or crediting natural padding.",
+      "Freshly recompile and rerun an independent canonical fixture after bindings, then verify all accepted peers and natural dependencies."
+    ],
+    "source_behavior": "Retain the observed current-state reloads and signed-byte cache comparisons. Do not restore snapshots to reduce code differences."
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "implicit_compile_flag": "/Gy",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "analysis_tools": {
+    "python": {
+      "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "version": "3.12.14",
+      "sha256": "d41bad46673f64e0d02f23797f53f90ccf60f27d6eda8d86dd2d4bbeae5a858c"
+    },
+    "pefile": {
+      "path": "C:\\tools\\hercules\\python\\pefile.py",
+      "version": "2024.8.26",
+      "sha256": "0d0eb68f0f169182613dc64b3ab50b20855508c1c1d2faafe8fccf23edb6a345"
+    },
+    "unicorn": {
+      "path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+      "version": "2.1.4",
+      "sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+    },
+    "origin": "Existing C:/tools/hercules installations and bundled workspace Python; prior provenance in evidence/host_engine_loader_recovery.json. No tool/dependency added or modified."
+  },
+  "limits": [
+    "No FUNCTION_MATCH, CODEGEN_SIMILAR or RECONSTRUCTED state is assigned by this private evidence.",
+    "No original process, OS call, real callback implementation, device, complete platform state machine or runnable game is established.",
+    "The separate committed bitmap-copy recovery at f080fe4 has its own source/public fixture and strict regression proof; this caller experiment does not extend that acceptance."
+  ]
+}

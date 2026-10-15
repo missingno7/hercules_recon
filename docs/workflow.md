@@ -696,3 +696,13 @@ source-order discriminator reduced nine differences to five; no spelling grid
 was used. All 133 accepted functions remain raw exact. This removes the actual
 bitmap-copy dependency from display-mode transition; it does not run a display
 or game. See `evidence/host_bitmap_copy_recovery.json`.
+
+The private `0x5a50` platform-state draft has a new semantic discriminator:
+the native function reloads mode/type/depth after callbacks, while the old draft
+retained snapshots. A focused correction passes 22 caller-only comparisons and
+four mutation cases reject the old draft. All callback effects are modeled, so
+this establishes caller behavior under those preconditions, not real callee
+behavior. The corrected extent is 464 bytes but 147 diagnostic differences
+remain. Shared cell/callee bindings and cache/literal auditing are still pending;
+no canonical source or recovery row was adopted. Preserve the reload finding for
+that integration. See `evidence/host_platform_sync_reload_discriminator.json`.
