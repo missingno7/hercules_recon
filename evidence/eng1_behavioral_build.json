@@ -1248,6 +1248,13 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_camera_bounds_20ea0.json"
+    },
+    {
+      "source": "src/eng1/behavioral/camera_smoothing_26730.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_camera_chain.json"
     }
   ],
   "functions": [
@@ -4028,6 +4035,15 @@
       "evidence": "evidence/eng1_camera_bounds_20ea0.json",
       "contract": "Packed relative row selection, fixed-point interpolation and fourteen-byte output for any nonzero mode; 108 original/source cases including aliases and division fault.",
       "uncertainty": "Finite valid-storage cases; raw/codegen identity and arbitrary malformed pointers/indices remain unproved."
+    },
+    {
+      "rva": "0x26730",
+      "symbol": "_eng1_call_26730",
+      "source": "src/eng1/behavioral/camera_smoothing_26730.c",
+      "implementation_status": "bounded_original_source_verified",
+      "evidence": "evidence/eng1_camera_chain.json",
+      "contract": "Non-level-6 camera smoothing over existing measured pipeline storage; signed WORD averages, yaw skip, angular wrapping, signed offset smoothing. Explicit guards reject level 6 and lists beyond measured prefix.",
+      "uncertainty": "Level-6 color branch remains unimplemented; no raw identity, full gameplay or arbitrary alias/extent claim."
     }
   ],
   "source_adaptations": {

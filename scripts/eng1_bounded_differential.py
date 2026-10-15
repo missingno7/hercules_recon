@@ -17,6 +17,17 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'camera-chain': dict(
+        sources=['tests/eng1_camera_chain_differential.c',
+                 'src/eng1/behavioral/camera.c',
+                 'src/eng1/behavioral/camera_smoothing_26730.c',
+                 'src/eng1/behavioral/camera_bounds_20ea0.c',
+                 'src/eng1/behavioral/camera_storage.c',
+                 'src/eng1/behavioral/resource_data.c',
+                 'src/eng1/behavioral/actor_pipeline_storage.c',
+                 'src/eng1/behavioral/incomplete.c'],
+        spans=[(0x2fb70,990),(0x20ea0,432),(0x26730,1438)], cases=324,
+        scope='190 real camera/bounds-chain, 130 non-level-6 smoothing and four composed smoothing/camera original/source cases, plus five source-only fail-before-write guards. Existing camera/resource/pipeline owners; full native module write audit, output state, input buffers, faults and ESP. No level-6 color implementation, original initializer, game process or FUNCTION_MATCH claim.'),
     'camera-bounds': dict(
         sources=['tests/eng1_camera_bounds_differential.c',
                  'src/eng1/behavioral/camera_bounds_20ea0.c',
@@ -707,7 +718,12 @@ def run(profile, oracle, captured_payload=None):
                     raise ValueError('Alternate bootstrap null-pool guard failed')
                 report.update(source_guard_cases=1,source_guard_failures=0)
         report.update(run_exit_code=tested.returncode, stdout=tested.stdout, stderr=tested.stderr, executable_sha256=sha(exe))
-        if profile in ('grid-scan','query-decoder'):
+        if profile == 'camera-chain':
+            match=re.search(r'camera_chain_native_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
+            guard=re.search(r'camera_source_guard_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
+            if match:report.update(cases=int(match[1]),checks=int(match[2]),failures=int(match[3]))
+            if guard:report.update(source_guard_cases=int(guard[1]),source_guard_checks=int(guard[2]),source_guard_failures=int(guard[3]))
+        elif profile in ('grid-scan','query-decoder'):
             prefix='grid_query_20b50' if profile=='grid-scan' else 'query_20990'
             match=re.search(prefix+r'_native_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
             guard=re.search(prefix+r'_source_guard_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
@@ -785,6 +801,8 @@ def run(profile, oracle, captured_payload=None):
             report.update(cases=len(re.findall(r'^differential .*: pass ', tested.stdout, re.M)), failures=0 if tested.returncode==0 else None)
     report['inputs_unchanged'] = all(sha(ROOT / p)==value for p,value in before.items()) and sha(oracle)==report['oracle_sha256']
     coverage = report.get('cases') == cfg['cases'] and (profile=='command-writers' or 'success_marker' in cfg or report.get('checks',0)>0)
+    if profile == 'camera-chain':
+        coverage = coverage and report.get('source_guard_cases') == 5 and report.get('source_guard_failures') == 0
     if profile == 'simulation-helpers':
         coverage = coverage and report.get('source_guard_cases') == 2 and report.get('source_guard_failures') == 0
     if profile == 'player-setup':

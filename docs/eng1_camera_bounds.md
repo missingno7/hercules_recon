@@ -2,9 +2,11 @@
 
 ENG1 `0x20ea0` now has historical C source in
 `src/eng1/behavioral/camera_bounds_20ea0.c`. It removes one genuine camera
-dependency: the source graph drops from 531 to 530 unresolved symbols, with 368
+dependency: at adoption the source graph dropped from 531 to 530 unresolved symbols, with 368
 mapped entries, 399 function symbols and no duplicate providers. It still
 produces no DLL or gameplay frame.
+The subsequent [camera-chain recovery](eng1_camera_chain.md) corrects camera step
+selection and supplies the non-level-6 part of `26730`, reaching 529 unresolved.
 
 REA 6.5.0/Ghidra 12.1 supplied a useful structural view of packed resource rows.
 It incorrectly inferred six parameters, fastcall and a 64-bit return. The caller
@@ -43,6 +45,7 @@ Regression passes 134 strict rows, 38 source fixtures, 85 Python tests and the
 432-byte padded extents; masked comparison also differs. `recovery.json` is
 unchanged. Finite behavior, source coverage and byte identity remain separate.
 
-REA also inspected `0xe670` and `0x26730`. Their broader state/service paths
-remain leads rather than implementations. A same-address provider scan of the
+REA also inspected `0xe670` and `0x26730`. At this checkpoint their broader
+state/service paths were leads; the later chain recovery supplies part of `26730`.
+A same-address provider scan of the
 remaining direct-call names found no already-compiled peers to bind automatically.

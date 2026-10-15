@@ -1,0 +1,182 @@
+{
+  "schema": 1,
+  "scope": "Bounded camera/actor recovery and camera step correction; no recovery-state promotion.",
+  "oracle": {
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "spans": {
+      "0x2fb70": {
+        "size": 990,
+        "sha256": "45ab59bf5e487e2613e042167de4f3c93d2b9b701f89c492c73893a2963b4fe6"
+      },
+      "0x20ea0": {
+        "size": 432,
+        "sha256": "adc9c78f9ae99d00e37f62cc6cca4f97ddfef8fb4e5a6f52a86373891c8525ae"
+      },
+      "0x26730": {
+        "size": 1438,
+        "sha256": "b408668cff13e93112df9ae99000fef0f70626007f3b88a800aba26e3c2e79b7"
+      }
+    }
+  },
+  "prediction": {
+    "prediction": "The real 2fb70/20ea0 chain preserves camera state, faults and resource storage across bounds selection; 26730 provides reusable camera/actor state updates whose immediate inputs/callees can be recovered without new dispatch infrastructure.",
+    "falsifier": "Original/source state, fault, resource writes or stack balance disagree; an unobserved pointee extent, callback or service prevents safely exercising the selected path.",
+    "primary_file_sha256": {
+      "calibration/title/title_proc.cpp": "e5db718f8a7bf3121b861f830bf753b8ff75677aa19c11c635ae5196fc1e8810",
+      "recovery.json": "465ee5ea057cd3bfb23508e18b16958c27b9d391e11a0bc874cfc413436644d5",
+      "docs/process_audit_2026_10_11.md": "e1ce2feaed3838204576eb4b87870198e610df24c1194bed224b26a885fea43f",
+      "evidence/process_audit_2026_10_11.json": "44587ad472ff9742274d69913ea2ef7728060a706acae08c2391ee835d129328",
+      "evidence/title_scheduler_storage_adoption_2026_10_11.json": "81daf35d45265f4d4beffd1cf8a1b681c1b2266bd02ab701074911ed0c3cf8b2"
+    },
+    "recovery_sha256": "d8d525766f1f2cfc0aa5899c422c297c86ae8d6aea5bf150508a6c242c669884"
+  },
+  "rea": {
+    "reused_evidence": "evidence/eng1_camera_bounds_20ea0.json",
+    "version": "6.5.0",
+    "provider": "Ghidra 12.1",
+    "transcript_sha256": "58127600be631f2a3a9c0a35c9792b0f52c80fec81cd4488644ece773df58ef3",
+    "contribution": "26730 WORD-list averages, smoothing stages and level-6 color branch structure. Independently checked against x86 and original-source comparisons.",
+    "runtime_dependency": false
+  },
+  "instruction_evidence": {
+    "camera_scan": {
+      "rva": "0x2fc63..0x2fc76",
+      "observation": "Reads WORD, advances pointer by two, compares, then derives index-minus-one from advanced pointer. Old while loop omitted last advancement. Same pattern in Y/Z."
+    },
+    "smoothing": {
+      "abi": "No stack arguments; caller uses only side effects; no EAX return claim.",
+      "word_lists": "71ca0/71848 and 71740/71a14 include all positive-count words; 71720/71a12 skips first list word, and divides by at least two. Signed WORD sums/counts.",
+      "offset": "Signed low32 sum at71680 with717b4 base; bounds -0x560000..0x80000, dead zone0x4000, literal bit0x8000 in half step. abs(INT_MIN) remains negative under signed compare.",
+      "context": "Existing copied EngineInterface.context_004 at70f24; same saved context pointer reread for level1."
+    },
+    "level6_blocker": {
+      "rva": "0x26b45..0x26b8c",
+      "observation": "Loop compares eight DWORD stack lanes. Only six source/target lanes are visibly initialized. Change flag can gate the5a60 call. No invented stack values.",
+      "further_dependencies": [
+        "Pending pointer at6fea0",
+        "Color cells5a7b0..5a7bd",
+        "Pointer-list producer at71ae0/71ae4"
+      ],
+      "behavior": "Explicit unsupported guard on entry; no original level6 execution in this batch."
+    },
+    "storage_guard": {
+      "owner": "existing g_actor_pipeline_storage_71440,0x8c0 bytes",
+      "limits": {
+        "signed WORD count71ca0": 47,
+        "signed WORD count71740": 735,
+        "signed WORD count71720": 751,
+        "signed DWORD count71680": 415
+      },
+      "basis": "Last list element fits the measured owner prefix; not original capacities."
+    }
+  },
+  "verification": {
+    "negative_before_fix": {
+      "cases": 148,
+      "checks": 2220,
+      "failures": 72
+    },
+    "native_source": {
+      "cases": 324,
+      "checks": 6614,
+      "failures": 0,
+      "domains": [
+        "190 camera/bounds compositions, including threshold edges, signed/wrapped magnitudes and signed division fault",
+        "130 smoothing cases, including negative counts, wrapped WORD sums, skipped yaw element, exact prefix tail and null-context fault",
+        "Four smoothing/camera compositions on context bytes0,1,5,255"
+      ],
+      "audit": "All native module bytes outside the thirteen declared camera outputs remain unchanged; output states, resource/actor/pipeline buffers and ESP compared."
+    },
+    "source_only_guards": {
+      "cases": 5,
+      "checks": 75,
+      "failures": 0,
+      "scope": "Level6 and four out-of-prefix lists, before any camera output mutation."
+    },
+    "strict_fresh_raw": 134,
+    "ENG1_strict_preserved": 76,
+    "source_fixtures": 38,
+    "python_tests": 85,
+    "data": {
+      "providers": 59,
+      "fields": 923,
+      "relocations": 4787,
+      "mismatches": 0,
+      "unsupported": 0
+    },
+    "genuine_link": {
+      "before_unresolved": 530,
+      "after_unresolved": 529,
+      "mapped_entries": 369,
+      "function_symbols": 400,
+      "duplicate_providers": 0,
+      "dll_emitted": false
+    },
+    "raw_comparisons": {
+      "_dispatch_local_2fb70": {
+        "exact": false,
+        "target_size": 992,
+        "compiled_size": 1216,
+        "different_bytes": 1155,
+        "target_sha256": "ea434f89ed0a3b4b7152ce2f41d1e41ddfa13884e3bed647d30f32b9e0357477",
+        "compiled_sha256": "40a05f70db9e51b5318fa8740f0b960309abc0589c9c92f10f639001d5bbadaa",
+        "object_relocations": 99,
+        "target_relocations": 55
+      },
+      "_eng1_call_26730": {
+        "exact": false,
+        "target_size": 1440,
+        "compiled_size": 448,
+        "different_bytes": 1431,
+        "target_sha256": "792873cffe7f3e35fc7d474d1c0cd4e12e197e2bdfaee5e8600d1dfbf116725d",
+        "compiled_sha256": "cc4b3e9cb50a961ed7e766a40cab975da0856aebbd2c917f5307701a49c1644e",
+        "object_relocations": 35,
+        "target_relocations": 72
+      }
+    }
+  },
+  "reproduce": [
+    "python scripts/eng1_bounded_differential.py camera-chain --native-eng1 <pinned ENG1.DLL>",
+    "python scripts/test_eng1_behavioral.py --output work/camera_actor_followup/source_regression",
+    "python scripts/match.py verify --original-root <original checkout> --report work/camera_actor_followup/strict.json",
+    "python scripts/eng1_behavioral.py --original-root <original checkout> --output work/camera_actor_followup/genuine_graph",
+    "python scripts/eng1_data_evidence.py --original-root <original checkout> --output work/camera_actor_followup/data_verification.json",
+    "python -m unittest discover -s tests -p test_*.py"
+  ],
+  "source_sha256": {
+    "src/eng1/behavioral/camera.c": "6637294cdf6c5c2f35651b7e4ecc1363ab5e156c5897c7f53fd99025d195d3b7",
+    "src/eng1/behavioral/camera_smoothing_26730.c": "e5620c5c15beefb4374709c6b4b39e3f46423defed3c033669bd291607d6dce5",
+    "src/eng1/behavioral/camera_bounds_20ea0.c": "b9690ba633a01db7aa2c5436fc6afed606b19db4d1df3f0bcfe1bc53f2ffabaf",
+    "src/eng1/behavioral/camera_storage.c": "96f1ee73f7d583451a9c9099bed4b0e76c8bb9e51fa8866b0c40e8ec051dfe0d",
+    "src/eng1/behavioral/resource_data.c": "43d3b7dba919a3ee1b1577dadb602e49e2e14816cd418d3fb931197d54ca96a2",
+    "src/eng1/behavioral/actor_pipeline_storage.c": "900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668",
+    "src/eng1/behavioral/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e",
+    "src/eng1/behavioral/incomplete.c": "0c1c44db64a0b18e52d51ba9efc1caf1942df7fd700c26bcf99532ee6a114c5a",
+    "src/eng1/behavioral/incomplete_bodies.c": "9a300eee810d7c1eba3b1e26930ddcd580c9f1d47dd2a30c76e0dda44d22a724",
+    "tests/eng1_camera_chain_differential.c": "3f0dee2b3210573d4bf92060a87a389d90125b421be5f1b446643485c9159399",
+    "tests/eng1_camera_semantics.c": "acaad01be849b7d4cc091d24a0b6c5792e8c4bc4c6c4226786f7a34b203a854c",
+    "scripts/eng1_bounded_differential.py": "79dbb41b8cc26a8f95a632c860506fde6671f625bc11c0f248b643685c4f6d26",
+    "evidence/eng1_behavioral_build.json": "028d125016abd0955ecc3796832a5651d2d67a0df17c8be6ca5f8a56f0891b6b",
+    "evidence/eng1_behavioral_incomplete.json": "316fbbf98c406b19063d12eae8c63bd4bee30e9b96c04a27462d038e0125bef7",
+    "evidence/eng1_data_evidence_manifest.json": "116d66ef5c4ac00e03f0ef43a3757edc989172161f74904036fdf02605833b7a"
+  },
+  "private_receipts": {
+    "work/eng1_behavioral/differential/camera-chain/report.json": "fb0b94d9058acac0a40d1ca5de2e057765538863a77960ea1d71f12f98de0ae7",
+    "work/eng1_behavioral/differential/camera-chain-scratch/report.json": "5df01b4f16298b1f89d1c9e664150c0dd846d62cfb395ecb2b85355c3f81d56b",
+    "work/camera_actor_followup/genuine_graph/report.json": "55cc48fe1da37082577c09a7a2fa472249b68d3b0e6f0968a7433860c823cd30",
+    "work/camera_actor_followup/strict.json": "9b2d7bbe47ba73d23812b2d9c53de8d188a9d5ec5425ecbc1e0c815f46c36fc8",
+    "work/camera_actor_followup/source_regression/report.json": "68d57329763375d4cfa82b863955e223153e8b581bc04e8273301b6e9468b5ec",
+    "work/camera_actor_followup/data_verification.json": "778d8ac82575205489760dfa624da61414d79176d679eb205e32947d6a91bf6c",
+    "work/camera_actor_followup/unit.log": "39094e300dffd72d4b510ca30b513f4f0aedac2d666429a57d6bbcd9b265de74",
+    "work/camera_actor_followup/raw_comparison.json": "2b708fc937e7652721a9acdb3cc947c51acbe14c14908dbf970cf2f0e6dcad34"
+  },
+  "limits": [
+    "Level6 remains unimplemented; the whole26730 function is not behaviorally closed.",
+    "Source storage-prefix guards deliberately reject unsupported list extents.",
+    "Finite controlled inputs, not universal malformed-pointer/alias or resource compatibility.",
+    "Both changed functions differ from target bytes; recovery.json unchanged.",
+    "No DLL initializer, original game process, runtime frontier or framebuffer tested.",
+    "Primary uncommitted files preserved; no originals changed."
+  ],
+  "baseline_commit": "7a2fb9f3df57bc6c697e4cd1df580f3c66d4c998"
+}

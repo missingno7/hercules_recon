@@ -147,5 +147,7 @@ Promoting a common ref and deleting superseded refs are separate Git decisions.
 No content merge was needed. The original audit left refs unchanged; the owner
 subsequently approved promotion and the clean worktree now uses `main`. Checked-out
 worktrees and uncommitted work remain protected. The first
-[REA-assisted follow-up](eng1_camera_bounds.md) removes a real ENG1 dependency;
+[REA-assisted follow-up](eng1_camera_bounds.md) removes a real ENG1 dependency.
+The [camera-chain recovery](eng1_camera_chain.md) then corrects a camera behavior
+error and supplies a bounded actor-pipeline dependency using the same owners;
 no final renderer architecture decision is needed to continue this work.

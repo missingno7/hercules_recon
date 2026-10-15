@@ -1743,19 +1743,18 @@
       "module": "ENG1.DLL",
       "rva": "0x26730",
       "symbol": "_eng1_call_26730",
-      "source": "src\\eng1\\behavioral\\incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
+      "source": "src/eng1/behavioral/camera_smoothing_26730.c",
+      "kind": "incomplete_branch",
+      "condition": "Level-6 color path, or camera lists extending beyond the measured pipeline storage prefix.",
+      "runtime_report": "Existing eng1_incomplete_behavior reports RVA 0x26730 and terminates before camera writes.",
+      "evidence": "evidence/eng1_camera_chain.json",
       "consumers": [
         {
           "source": "src/eng1/behavioral/actor_pipeline.c",
           "kind": "function"
         }
       ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
+      "implementation_status": "known_incomplete"
     },
     {
       "module": "ENG1.DLL",
@@ -11415,11 +11414,11 @@
     "scope": "Transitional loader/startup diagnostics only; excluded from source coverage and never behaviorally accepted."
   },
   "bounded_source_adoption": {
-    "removed_placeholder": "_dispatch_local_20ea0",
-    "evidence": "evidence/eng1_camera_bounds_20ea0.json",
-    "remaining_symbols": 530,
-    "remaining_native_rvas": 527,
+    "removed_placeholder": "_eng1_call_26730",
+    "evidence": "evidence/eng1_camera_chain.json",
+    "remaining_symbols": 529,
+    "remaining_native_rvas": 526,
     "provisional_generation_is_prior_generation_provenance": true,
-    "scope": "Actual source replaces this marker. Other incomplete entries and prior generation provenance remain explicit."
+    "scope": "Source replaces the all-entry marker for supported non-level-6 paths. Level 6 and storage-prefix guards remain explicit incomplete branches."
   }
 }

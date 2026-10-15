@@ -6,10 +6,10 @@ frontier at `0x28290`; that routine now has reconstructed source, but this does
 not establish a later runtime frontier. No new original-host run, reconstructed
 gameplay frame, continuous gameplay, or normal engine shutdown is verified.
 
-The latest genuine graph has 368 mapped compiled entries and 399 function
-symbols. See `evidence/eng1_camera_bounds_20ea0.json` for its pinned private receipt.
+The latest genuine graph has 369 mapped compiled entries and 400 function
+symbols. See `evidence/eng1_camera_chain.json` for its pinned private receipt.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
-denominator. The genuine link has 530 unresolved symbols and zero duplicate
+denominator. The genuine link has 529 unresolved symbols and zero duplicate
 providers. Its intended export is `PC_DLLEngineMain` at ordinal 1; no current
 DLL is produced. Earlier transitional links used explicit fail-on-entry
 diagnostics, which do not supply game dependencies.
@@ -20,6 +20,12 @@ cdecl arguments, rejecting REA's fastcall/six-argument label. Every nonzero mode
 writes fourteen bytes; the caller's old eight-byte local now has the observed
 seven-WORD minimum. There are 108 native/source cases and 649 checks, including
 live output aliases and a division fault. See [the follow-up](eng1_camera_bounds.md).
+
+The [camera-chain comparison](eng1_camera_chain.md) subsequently exposed and
+corrected the camera threshold scan's final pointer advancement. It also supplies
+`26730`'s non-level-6 smoothing using the existing storage owners: 324 original/
+source cases and 6,614 checks, plus five source-only guards. The level-6 color
+branch and lists beyond the measured storage prefix remain explicitly unsupported.
 
 All 76 accepted ENG1 function instances remain exact under fresh pinned VC5
 compilation and complete raw contribution comparison. The recorded experiment
@@ -400,7 +406,8 @@ cells. Some PC callbacks are real no-ops; retain each measured identity.
 
 Cold startup includes source pool sweeps, descriptor/link initialization,
 resource reload, payload decoding, setup and bounded player dispatch.
-The latest observed frontier is `0x28290` in the startup chain.
+The last transitional run stopped at `0x28290` in the startup chain. That routine
+now has source; no later runtime frontier has been observed.
 Worklist, camera, geometry and dialog orchestration have compiled providers;
 many collision, actor, animation and input handlers remain missing. A missing
 root hides further dependencies, so the current unresolved count understates

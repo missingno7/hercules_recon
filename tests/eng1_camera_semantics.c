@@ -114,7 +114,7 @@ int main(void)
     dispatch_local_2fb70(); CHECK(g_camera_x_70ca0==3); CHECK(g_camera_y_70ca4==4); CHECK(g_camera_z_70ca8==300);
 
     reset(); coords(actor_a,4094,128,0); g_camera_flags_70d10=3; g_camera_x_70ca0=128;
-    dispatch_local_2fb70(); CHECK(g_camera_x_70ca0==4223);
+    dispatch_local_2fb70(); CHECK(g_camera_x_70ca0==4222);
 
     reset(); coords(actor_a,0,50,0); coords(actor_b,0,250,0);
     g_camera_flags_70d10=0x180; g_camera_x_70ca0=12; bounds_mutates=1;
@@ -125,11 +125,12 @@ int main(void)
 
     reset(); coords(actor_a,100,200,100); g_camera_flags_70d10=0x10c;
     g_camera_y_70ca4=150; g_camera_center_y_70ce0=180; g_camera_iterations_70cfd=2;
-    dispatch_local_2fb70(); CHECK(g_camera_z_70ca8==2); CHECK(g_camera_y_70ca4==151);
+    /* Native post-read advancement selects step two, so both Y passes run. */
+    dispatch_local_2fb70(); CHECK(g_camera_z_70ca8==4); CHECK(g_camera_y_70ca4==154);
     reset(); coords(actor_a,100,200,100); g_camera_flags_70d10=0x10c;
     g_camera_y_70ca4=150; g_camera_center_y_70ce0=180; g_camera_iterations_70cfd=2;
     g_camera_threshold_z_5e0a8[2]=2; g_camera_threshold_z_5e0a8[3]=0xffff;
-    dispatch_local_2fb70(); CHECK(g_camera_z_70ca8==4); CHECK(g_camera_y_70ca4==152);
+    dispatch_local_2fb70(); CHECK(g_camera_z_70ca8==6); CHECK(g_camera_y_70ca4==152);
 
     reset(); coords(actor_a,0,64,0); descriptor[0]=1000; descriptor[1]=2000;
     *(short *)((u8 *)descriptor+14)=(short)0xc000;

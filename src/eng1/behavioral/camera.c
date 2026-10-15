@@ -34,7 +34,7 @@ extern u16 g_camera_threshold_x_5e058[];
 extern u16 g_camera_threshold_y_5e080[];
 extern u16 g_camera_threshold_z_5e0a8[];
 
-/* Physical caller ABI; output bounds helper remains a genuine dependency. */
+/* Physical caller ABI; source bounds helper uses the shared resource provider. */
 extern int __cdecl dispatch_local_20ea0(void *, int, int, long);
 extern void __cdecl dispatch_engine_2c9d0(u32, u32);
 extern void __cdecl dispatch_engine_2c9f0(u32);
@@ -57,7 +57,8 @@ static int camera_step(const u16 *table, long distance)
     magnitude = (u16)distance;
     index = 1;
     if (table[0] < magnitude)
-        while (table[index] < magnitude) ++index;
+        /* Native pointer advances after every read, including the last one. */
+        while (table[index++] < magnitude) {}
     return index - 1;
 }
 
