@@ -96,9 +96,9 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 139 actual source units with
-240 recorded EXE functions and preserves 27 accepted EXE functions. It has no
-duplicate providers and six unresolved data providers. Including
+The current natural selected host graph compiles 141 actual source units with
+245 recorded EXE functions and preserves 27 accepted EXE functions. It has no
+duplicate providers and seven unresolved data providers. Including
 the real map replaces one missing map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -291,6 +291,37 @@ See `evidence/host_bootstrap_text_recovery.json`.
 ```
 python scripts/host_bootstrap_data_audit.py --original-root D:/Prog/hercules_recon --output work/bootstrap_data_replay
 ```
+
+The original host synchronous/asynchronous load, cancel, progress and length
+callbacks now have ordinary source in `src/pc/host_file_callbacks.c`, with six
+complete format literals totaling 98 bytes. The existing prepare, empty and
+diagnostic providers remain unchanged. A single native-guided retry-loop
+experiment removes duplicated transfer bodies; synchronous loading has full
+256-byte relocation-normalized equality. Async remains 256 versus 272 bytes
+with 84 diagnostic differences; cancel/progress/length retain 18/91/5 differences.
+No raw match is added. Cancellation's observed zero EAX result agrees with the
+existing engine-interface return view, and all five ordinary callback assignments
+compile without casts under VC5 `/W4 /WX`. Original unique prototypes remain open.
+
+The 131 finite cases include five complete loading sequences and 169 actual
+family invocations per side. They preserve requested-sector cursor advancement,
+signed sector rounding, retry ordering, live context reloads, cancellation and
+the twelve-tick completion delay. Suppressing automatic close keeps mode one
+and repeats the completion callback on later progress calls, as the native code
+does. Four wrong implementations are rejected. The actual prepare/empty/diagnostic
+code executes; virtual I/O, formatting, callback responses and layout are modeled.
+No real file access, initialized host table or game execution follows from this.
+See `evidence/host_file_callbacks_recovery.json`.
+
+```
+python scripts/host_file_callbacks_differential.py --original-root D:/Prog/hercules_recon --output work/host_file_callbacks_replay
+```
+
+These real callers expose their separate writable filename buffer at `0x215c10`.
+It remains an unsized external dependency; neither its next neighbor nor the
+fixture's 512-byte array establishes an original capacity. The selected graph
+therefore has seven missing data providers, rather than hiding this dependency
+behind the unrelated empty text or a guessed production buffer.
 
 The loader now has an independent source provider for four observed DWORD cells
 and the pinned SDK's 64-byte `jmp_buf` representation. All 80 source bytes have

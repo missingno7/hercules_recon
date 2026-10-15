@@ -1,0 +1,300 @@
+{
+  "schema": 1,
+  "scope": "Original PC host synchronous/asynchronous file loading,cancel,progress and length source recovery. Fresh historical contributions and finite normal-flow oracle comparisons. No original TU/prototype/layout,real I/O or game-execution acceptance. recovery.json alone owns recovery states.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "calibration/host_file_callbacks.h",
+      "sha256": "6789851f85e21a330b30fd8d3ef2a7bfc63be688af597f6c3ce10972310aeced"
+    },
+    {
+      "path": "calibration/host_file_callback_formats.c",
+      "sha256": "46ef4b900bdfd5d31d1df6190ea22629d0271b1ee5c01c0c93fb71d5c2fea141"
+    },
+    {
+      "path": "src/pc/host_file_callbacks.c",
+      "sha256": "a54f9e2a651871fe0514637e65feabc1bdb05cd830c8b1977f4210d0308bb6fb"
+    },
+    {
+      "path": "scripts/host_file_callbacks_differential.py",
+      "sha256": "d257e72b62236b13fd61f156dd6f44bbc4767a34fae1521f67969465db4e852c"
+    }
+  ],
+  "reading_packet": {
+    "path": "work/host_data_owners/file_service_packet.json",
+    "sha256": "f9ef180ff38ad757b6413b7664f52b0b72d880a25e6c1212a30a0a2234261db4"
+  },
+  "prediction": {
+    "path": "work/host_file_callbacks/prediction.json",
+    "sha256": "8d11af55bc23c16b0bb642dfe8b6ef757e915c254db55e62033721fe4325ef2d"
+  },
+  "retry_discriminator": {
+    "path": "work/host_file_callbacks/retry_discriminator.json",
+    "sha256": "e3c9c779559cf238c3a0eea72ea58999a2ab4f24c898145fda1ecd9916538035"
+  },
+  "baseline": {
+    "path": "work/host_file_callbacks/baseline.json",
+    "sha256": "1c22b1e561720a57399effc7e1b9f634b10b3a700971260d46132c114daef2c5"
+  },
+  "candidate": {
+    "path": "work/host_file_callbacks/candidate_measurement.json",
+    "sha256": "d693d804f176364f6c504b2b27996afb49a8ec8ed17a9dca1a9ff026561a66e0"
+  },
+  "canonical_preservation": {
+    "path": "work/host_file_callbacks/canonical_preservation.json",
+    "sha256": "9f9e17f3cdec2eb5da053ae33bf85ff34aea950c5e7f4a3a0102e12c76288666"
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest": {
+      "path": "toolchains/manifest.json",
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    },
+    "flags": [
+      "/O2"
+    ],
+    "implicit_flag": "/Gy",
+    "emulator": "Existing Unicorn2.1.4; runtime DLL010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1. No tool/dependency installed or patched."
+  },
+  "functions": [
+    {
+      "role": "sync",
+      "symbol": "_host_file_sync",
+      "rva": "0x3b50",
+      "native_complete_bytes": 256,
+      "compiled_complete_bytes": 256,
+      "raw_equal": false,
+      "raw_differing_bytes": 68,
+      "source_code_relocations": 25,
+      "diagnostic_differing_bytes": 0,
+      "status": "CODEGEN_SIMILAR"
+    },
+    {
+      "role": "async",
+      "symbol": "_host_file_async",
+      "rva": "0x3d90",
+      "native_complete_bytes": 272,
+      "compiled_complete_bytes": 256,
+      "raw_equal": false,
+      "raw_differing_bytes": 138,
+      "source_code_relocations": 18,
+      "diagnostic_differing_bytes": 84,
+      "status": "RECONSTRUCTED"
+    },
+    {
+      "role": "cancel",
+      "symbol": "_host_cancel_load",
+      "rva": "0x3ea0",
+      "native_complete_bytes": 96,
+      "compiled_complete_bytes": 96,
+      "raw_equal": false,
+      "raw_differing_bytes": 36,
+      "source_code_relocations": 6,
+      "diagnostic_differing_bytes": 18,
+      "status": "RECONSTRUCTED"
+    },
+    {
+      "role": "progress",
+      "symbol": "_host_file_progress",
+      "rva": "0x3f00",
+      "native_complete_bytes": 320,
+      "compiled_complete_bytes": 320,
+      "raw_equal": false,
+      "raw_differing_bytes": 139,
+      "source_code_relocations": 15,
+      "diagnostic_differing_bytes": 91,
+      "status": "RECONSTRUCTED"
+    },
+    {
+      "role": "length",
+      "symbol": "_resource_file_length",
+      "rva": "0x40d0",
+      "native_complete_bytes": 176,
+      "compiled_complete_bytes": 176,
+      "raw_equal": false,
+      "raw_differing_bytes": 42,
+      "source_code_relocations": 14,
+      "diagnostic_differing_bytes": 5,
+      "status": "RECONSTRUCTED"
+    }
+  ],
+  "source_family": {
+    "native_bytes": 1120,
+    "compiled_bytes": 1104,
+    "new_game_functions": 5,
+    "raw_matches_added": 0,
+    "diagnostic_equals": 1,
+    "prior_prepare_preserved": "calibration/host_file_prepare.c remains the selected32-byte provider; no duplicate implementation added.",
+    "experiment": "One ordinary guarded while(handle!=-1) retry region emits a single transfer body. Synchronous loading reaches full256-byte diagnostic equality; length reaches176bytes with5encoding differences. Stop equivalent source-form search; other remaining differences remain reconstructed.",
+    "cancel_ABI": "Every native return at3ea0 defines EAX0. Current int(void) provider agrees with the existing engine_file_cancel int return view. This does not uniquely identify an original prototype.",
+    "callback_fields": "Existing resource-context historical C unprototyped callback fields accept observed host calls with one zero argument and no-argument engine calls; shared headers and accepted callback bodies are unchanged.",
+    "abi_prediction": {
+      "path": "work/host_file_callbacks/abi_prediction.json",
+      "sha256": "e659a257446017e2a538f49fad6442742a7d16f8827e4a033b16063cdbdb1242"
+    },
+    "abi_probe": {
+      "path": "work/host_file_callbacks/abi_probe.json",
+      "sha256": "81955cdd4feb1989e6b61532ee5568ab64699c73498c82693ba41aa98a295558"
+    },
+    "abi_limit": "Five ordinary assignments to existing EngineInterface slots20/24/2c/48/68 compile under VC5 /W4 /WX without casts. Only current source compatibility is proved; no initialized table provider or original type identity."
+  },
+  "literal_data": [
+    {
+      "symbol": "_g_resource_filename_format",
+      "rva": "0x36024",
+      "bytes": 5,
+      "sha256": "0c12582270939f383c07b5f8439aa0cbe33fb62008e8bc2f39fd5953e3e7b584"
+    },
+    {
+      "symbol": "_g_resource_loading_format",
+      "rva": "0x36008",
+      "bytes": 27,
+      "sha256": "00766afb59872884859f849727047e55b90b21a93af3616de714ac123bfbeba7"
+    },
+    {
+      "symbol": "_g_resource_async_open_failure_format",
+      "rva": "0x36050",
+      "bytes": 24,
+      "sha256": "2d865690202e725554cc817d7e53d39c6695dc6272619414b4569b0eac139ae7"
+    },
+    {
+      "symbol": "_g_resource_sync_open_failure_format",
+      "rva": "0x35ff4",
+      "bytes": 20,
+      "sha256": "b0ff7fc8624c0c666614b42869e90d869c477e8e4d6426495de6b120d6d70845"
+    },
+    {
+      "symbol": "_g_resource_sync_loaded_format",
+      "rva": "0x35fe8",
+      "bytes": 11,
+      "sha256": "ddcc2e7ded72524c02d5ac5b492838f9ca56050aaa85643271d7272b54300050"
+    },
+    {
+      "symbol": "_g_resource_close_failure_format",
+      "rva": "0x36044",
+      "bytes": 11,
+      "sha256": "ce0934869d56f6b9056cb8670c7595d222cf39fc5b7c9e85e27fd08755507f9e"
+    }
+  ],
+  "literal_bytes": 98,
+  "data_limits": "Six complete NUL-terminated PC format literals are file-backed writable .data and equal fresh source prefixes. Their owner/TU and pooling with other source literals remain unproved. The separate filename buffer at215c10 remains unsized/unprovided; fixture512bytes is not production capacity. Shared zero text at3f74c is a different object.",
+  "semantics": [
+    "Synchronous load prepares,formats prefix+suffix,opens and writes the result through the live context. While handle!=-1,it logs,reads the captured destination/count,closes the current handle,and reopens after any nonzero close result. Success clears WORDstatusDC,logs and returns the requested byte count;failed open returns0.",
+    "Asynchronous load returns1 immediately only when WORDmode9C==1. Otherwise prepare/format/open occur;failed open returns3. Nonzero sector offset is shifted11 in32bits for seek. Current context receives destination and mode1. Wrapped32-bit count+2047 is interpreted signed,divided by2048 with truncation toward zero,then narrowed to signed16-bit sector counts. Countdown is cleared and EAX2 returned.",
+    "Cancel with mode0 returns0. Other modes close the live handle. A nonzero close result logs failure and retains fields;success clears live mode9C and DWORDAC. Every path returns0;remaining sectors and countdown are not gratuitously cleared.",
+    "Progress decrements nonzero unsigned countdown and clears mode when it reaches0. Only mode1 transfers. ResultD8==-1 writes WORDstatus100hex,invokes the current failure callback with0 if present,then reloads and clears live mode/result.",
+    "Normal progress takes a signed minimum of remaining16-bit sectors and5. Nonzero chosen count requests chosen*2048 bytes,then advances the live destination by that requested count,irrespective of the read return. It reloads remaining/status/suppress/callback state after calls.",
+    "With no remaining sectors,statusDC clears. Unless BYTEE0 suppresses automatic close,it executes actual cancel,then writes live mode4/countdown12. The current completion callback receives0. Suppression leaves mode1 and repeats completion on later progress calls,as native code does.",
+    "Length formats and opens,then seeks the live handle to end. Successful close returns that iteration captured length;nonzero close result reopens/retries. A failed initial/reopened handle returns0."
+  ],
+  "fixture": {
+    "report": {
+      "path": "work/host_file_callbacks/final_sequence_fixture/host_file_callbacks_differential.json",
+      "sha256": "299cc2fdbd60f937eb3541beac1a3cada4e0c858217fa2aa0f4b77bd9622e3cb"
+    },
+    "cases": 131,
+    "all_equal": true,
+    "full_sequences": 5,
+    "actual_family_invocations_per_side": 169,
+    "negative_controls": [
+      {
+        "name": "advance_returned_count",
+        "detected": true
+      },
+      {
+        "name": "cached_read_context",
+        "detected": true
+      },
+      {
+        "name": "unsigned_sector_rounding",
+        "detected": true
+      },
+      {
+        "name": "cancel_returns_one",
+        "detected": true
+      }
+    ],
+    "actual_execution": "Fresh canonical five-function source plus unchanged actual prepare,empty callback and diagnostic source execute;the native equivalents execute in Unicorn. Six real literal prefixes and existing prepare scalar initialization are checked.",
+    "checks": [
+      "Three complete guarded6964-byte context views,1000-byte synthetic table,64KiB destination and512-byte filename model. Intermediate state snapshots in full sequences.",
+      "Captured I/O arguments,requested-vs-returned byte counts,reopen/close/seek order,nullable callbacks and live table/context/handle/destination reloads.",
+      "Signed sector/count overflow inputs and negative16-bit remaining counts;unsigned countdown high-bit values.",
+      "Full source/native state/event equality,stack argument/guard preservation,nonvolatile registers,and code/write whitelists."
+    ],
+    "sequences": [
+      "One-chunk completion through twelve-tick delay to idle",
+      "13sectors split into5+5+3,then twelve-tick delay to idle",
+      "Cancellation with one sector still pending",
+      "Asynchronous transfer-failure callback and later idle progress",
+      "Automatic-close suppression with three repeated completion callbacks"
+    ],
+    "models": "sprintf,all four virtual file adapters,caller-supplied completion/failure bodies,1000-byte table/context pointers and native-address layout are explicit synthetic boundaries. No actual archive or filesystem behavior is proved.",
+    "return_scope": "Full EAX compared for sync/async/cancel/length. Progress has the existing void consumer view; unspecified return EAX is excluded. Sequence runner keeps invocation identity separate from intercepted endpoint kind.",
+    "allocation_limit": "All buffers/guards in the fixture are test preconditions. None establishes an unknown production allocation size or global adjacency."
+  },
+  "regression": {
+    "strict_gate": {
+      "path": "work/host_file_callbacks/strict134.json",
+      "sha256": "4ac47ac681d1f10af3b4f319f831911b637bc756ac3e3a643d02bb8ef8169279"
+    },
+    "all_134_raw_exact": true,
+    "all_prior_761_rows_unchanged": true,
+    "new_rows": 5,
+    "current_counts": {
+      "FUNCTION_MATCH": 134,
+      "CODEGEN_SIMILAR": 565,
+      "RECONSTRUCTED": 67
+    },
+    "canonical_candidate_code_and_ordered_relocations_identical": true
+  },
+  "natural_graph": {
+    "prediction": {
+      "path": "work/host_file_callbacks/graph_prediction.json",
+      "sha256": "99b4b09e2b2330e84cbd382abf3d818a74d46b2893a86c52c27b9260e73989a5"
+    },
+    "receipt": {
+      "path": "work/host_current_graph/report-8db59305930d6082.json",
+      "sha256": "8db59305930d60826d7e086151a57be0e97ad3306c090fe6e57586f15c5bb16c"
+    },
+    "units": 141,
+    "recorded_EXE_functions": 245,
+    "accepted_EXE_functions": 27,
+    "unresolved_data": [
+      "_g_archive_scratch",
+      "_g_host_engine_error_91c040",
+      "_g_host_engine_interface",
+      "_g_host_engine_path_91bbd8",
+      "_g_host_setup_input_buffer0_7a2a00",
+      "_g_host_setup_input_buffer1_7a2a40",
+      "_g_resource_filename"
+    ],
+    "duplicate_link_errors": 0,
+    "images_produced": 0,
+    "images_executed": 0,
+    "explanation": "Real file-service callers expose their distinct filename dependency instead of aliasing the empty text or providing a guessed buffer."
+  },
+  "next_interface_census": {
+    "receipt": {
+      "path": "work/host_file_callbacks/table_frontier.json",
+      "sha256": "6e276b0140240f8d8a52bbee7d0b304e2e82eb9a108adf5956e76313c530046b"
+    },
+    "unique_code_destinations": 165,
+    "current_recorded_states": {
+      "FUNCTION_MATCH": 21,
+      "RECONSTRUCTED": 18,
+      "UNRECORDED": 103,
+      "CODEGEN_SIMILAR": 23
+    },
+    "limit": "Unrecorded means absent from recovery.json,not necessarily missing source or library identification. This is a native-address classification; the EXE relocation directory is stripped."
+  },
+  "replay_commands": [
+    "python scripts/host_file_callbacks_differential.py --original-root D:/Prog/hercules_recon --output work/host_file_callbacks_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/host_file_callbacks_raw_replay.json"
+  ],
+  "limits": [
+    "Fresh full source/native function diagnostics are not raw matching or whole-module equality. No arbitrary assembly,aliases,placement controls or library rewrites used.",
+    "Original source spelling,TU ownership,unique prototypes,table initializer and unknown data capacities remain unproved.",
+    "Only bounded synchronous normal returns. No real I/O,process,DLL initialization,windows,input,registry,exception unwind,renderer or gameplay execution."
+  ]
+}
