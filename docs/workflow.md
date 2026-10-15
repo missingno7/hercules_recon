@@ -96,8 +96,8 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 112 actual source units with
-148 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+The current natural selected host graph compiles 114 actual source units with
+149 recorded EXE functions and preserves 26 accepted EXE functions. It has no
 duplicate providers and 33 unresolved dependencies: 18 newly exposed frame
 callbacks and 15 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
@@ -348,7 +348,7 @@ consumer survives modulo exactly two data member offsets; other initialized/BSS
 semantics remain unchanged. Source71A0 has full code differences and stays
 `RECONSTRUCTED`. This ordinary representation preserves the native overlap but
 does not prove the original aggregate, allocation, TU or linker placement.
-All133exact functions and29graphics-startup cases remain valid. See
+All 133exact functions and29graphics-startup cases remain valid. See
 `evidence/host_graphics_tables_recovery.json`. The natural graph now has103units,
 136recordedEXE functions and36missing providers;71A0 is resolved and the actual
 palette setter6780 is exposed. No game executable is produced.
@@ -772,3 +772,24 @@ the 288-byte native contribution. All 133 accepted functions remain raw exact.
 This supplies an actual sample-decoding dependency for F3D0 validation, without
 reopening its exhausted compiler families. The selected host link still has 33
 unresolved dependencies. See `evidence/host_sound_decoder_recovery.json`.
+
+The original sound-bank constructor `0xf3d0` now has canonical source rebound
+from the preserved shared-cursor/memset recipe. Its complete 832-byte contribution
+retains 393 diagnostic differences; no exhausted compiler family was reopened.
+
+```
+python scripts/host_sound_bank_differential.py --output work/sound_bank_replay
+```
+
+Twenty-nine cases execute actual construction, nibble decoding and bank release.
+They compare whole header/counter/bank/loop state, synthetic PCM scratch and COM
+heap, descriptor/format bytes and ordered events. Coverage includes both PCM
+widths, odd lengths, split/empty locks, failed/null creation, ignored HRESULTs,
+duplication failure cleanup and bank 824 protection. Archive/format/fatal/COM
+effects remain modeled. A separate 44-case caller replay preserves all seven
+complete game contributions after adopting a common working void declaration.
+The new 16-byte header and 2400-byte counter prefix have fresh/native zero backing,
+and full native literals agree. Production scratch remains external; 1MiB fixture
+backing is not a capacity proof. The natural link resolves F3D0 and exposes this
+real storage dependency, retaining 33 missing symbols without stubs. All 133
+accepted matches remain raw exact. See `evidence/host_sound_bank_recovery.json`.

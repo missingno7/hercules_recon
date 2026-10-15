@@ -5,7 +5,7 @@
   "sources": [
     {
       "path": "src/pc/host_sound_channels.cpp",
-      "sha256": "cf4440222c14eccdf54508d53675a4c58614c31971793c4953d0b6f86f49a881"
+      "sha256": "9bd55bb79ba0b7a07fae9f59e000e15f81bc4462f3b5932a22772f78c5ab472f"
     },
     {
       "path": "calibration/host_sound_channel_storage.cpp",
@@ -17,7 +17,7 @@
     },
     {
       "path": "scripts/host_sound_channels_differential.py",
-      "sha256": "dcab06282a282d6d155e54f6c5d0e69c2cccc12c0db736ae90e80eab2c2bc2fc"
+      "sha256": "f5cf46c3f944ef6a89c34d7cee28a28429184660a47b0bcfac7881a4ca95f4ed"
     },
     {
       "path": "calibration/host_warm_delivery.cpp",
@@ -46,6 +46,10 @@
     {
       "path": "calibration/registry_storage.c",
       "sha256": "e9f7c60fd443f486260a622e2beb5cde2be2d7a500b2cd486afab6ccbe35eda7"
+    },
+    {
+      "path": "calibration/host_sound_bank.h",
+      "sha256": "2dfbb9fc973f34d6625be59a867b65440ad5a9492855f2af4059d3c0024dc3ee"
     }
   ],
   "prediction": {
@@ -397,8 +401,8 @@
   },
   "validation": {
     "report": {
-      "path": "work/host_sound_channels/flag_fixed_pinned/sound_channels_differential.json",
-      "sha256": "d04bdae98fd51544e3e2d50d7b71ae6e85c0cddfa281d09efed9d65a67109bcd"
+      "path": "work/host_sound_bank/channels_common_prototype/sound_channels_differential.json",
+      "sha256": "78b91f370d16eef906a74900595efe2b44342d0c8320f857b6d9729ba166e39d"
     },
     "case_count": 44,
     "all_equal": true,
@@ -525,7 +529,7 @@
     "Complete normalized similarity and39finite cases do not grant raw function/source/prototype/TU/layout matching or real-device/process/game acceptance.",
     "Packed tests use valid0..23channel slots and decoded in-range bank/lane pointers. Native pre-guard negative/slot24 accesses and arbitrary invalid pointer behavior are not justified as safe by source prefixes.",
     "GetStatus fixtures write an output even on failure; no uninitialized output-domain guarantee follows.",
-    "The real F3D0 initializer, graphics startup service, platform sync integration, main-frame callbacks, initialized host interface and other storage remain incomplete. No production stub or forced executable was supplied."
+    "The constructor is now canonical with an external unknown scratch allocation; platform sync, startup services, main-frame callbacks, initialized host interface and other storage remain incomplete. This fixture still models constructor effects. No production stub or forced executable was supplied."
   ],
   "fixture_flag_correction": {
     "historical_report": {
@@ -540,5 +544,15 @@
     "old_address_rejected": true,
     "game_function_contributions_unchanged": 7,
     "recovery_state_unchanged": true
+  },
+  "initializer_prototype_followup": {
+    "evidence": "evidence/host_sound_bank_recovery.json",
+    "prior_report": {
+      "path": "work/host_sound_channels/flag_fixed_pinned/sound_channels_differential.json",
+      "sha256": "d04bdae98fd51544e3e2d50d7b71ae6e85c0cddfa281d09efed9d65a67109bcd"
+    },
+    "change": "Use common working void initializer declaration in F760 and test-only initializer boundary,matching the actual constructor source. Caller discards EAX; original return type is unproved.",
+    "preservation": "All seven complete game contributions and relocation records unchanged; all44cases and rejecting old flag control pass.",
+    "scope": "This44-case fixture still models F3D0 effects. Actual constructor29-case proof is separate; no retroactive full restore-to-constructor integration claim."
   }
 }

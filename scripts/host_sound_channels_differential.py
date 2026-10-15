@@ -69,7 +69,7 @@ def build():
         'calibration/audio_small_helpers.c', 'calibration/audio_gain_storage.c']]]
     watched = [*files, ORACLE, Path(__file__), ROOT/'calibration/host_warm_delivery.h',
                ROOT/'calibration/host_callback_protocol_externs.h',
-               ROOT/'calibration/host_sound_channel_storage.h',
+               ROOT/'calibration/host_sound_channel_storage.h', ROOT/'calibration/host_sound_bank.h',
                DEFAULT_TOOLCHAIN/'include/dsound.h', DEFAULT_TOOLCHAIN/'include/windows.h',
                ROOT/'toolchains/manifest.json', *[ROOT/'scripts'/p for p in
                ['match.py', 'coff.py', 'pe.py', 'masked.py', 'env.py']]]
@@ -77,7 +77,7 @@ def build():
     fixture = OUT/'fixture.cpp'
     fixture.write_bytes(b'''#include <windows.h>
 extern "C" {
-int __cdecl host_sound_bank_initialize_f3d0(unsigned int) { for (;;) {} return 0; }
+void __cdecl host_sound_bank_initialize_f3d0(unsigned int) { for (;;) {} }
 DWORD __cdecl host_input_collect_8040(void) { for (;;) {} return 0; }
 void __cdecl host_invoke_callback_one(void) { for (;;) {} }
 void __cdecl audio_native_fa10(int,int);
