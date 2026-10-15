@@ -30,18 +30,18 @@ def read_cstring(u,a,limit=512):
   if b==0:return bytes(out)
   out.append(b)
  raise AssertionError('unterminated string')
-def describe_data(coffs,oracle):
+def describe_data(coffs,oracle,specs=None):
  pe=PE(oracle);fields=[]
- for name,rv,n in DATA_SPECS:
+ for name,rv,n in (DATA_SPECS if specs is None else specs):
   owners=[(c,s)for c in coffs for s in c.symbols.values()if s['name']==name and(s['section']>0 or s['section']==0 and s['value']>0)];assert len(owners)==1,name;c,s=owners[0]
   if s['section']==0:assert s['value']==n;raw=bytes(n)
   else:section=c.sections[s['section']-1];assert s['value']+n<=section['size']and not section['relocations'];raw=section['data'][s['value']:s['value']+n]if section['data']else bytes(n)
   sec=next(t for t in pe.pe.sections if t.VirtualAddress<=rv and rv+n<=t.VirtualAddress+t.Misc_VirtualSize);virtual=rv>=sec.VirtualAddress+sec.SizeOfRawData;assert raw==(bytes(n)if virtual else pe.read_rva(rv,n)),name
   fields.append(dict(symbol=name,rva=hex(rv),bytes=n,data=raw.hex(),sha256=hashlib.sha256(raw).hexdigest(),origin='virtual_zero'if virtual else'file_backed'))
  return fields
-def build(oracle,out,normalizer=None,backend=None,read_source=None,virtual_source=None):
+def build(oracle,out,normalizer=None,backend=None,read_source=None,virtual_source=None,source_files=None,profile=None,data_specs=None):
  verify_toolchain(DEFAULT_TOOLCHAIN);assert sha(oracle)=='587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d';library=verified_copy(oracle,out)
- files=[ROOT/p for p in SOURCE_FILES]+[ROOT/'src/pc/exe_helpers.c']
+ files=[ROOT/p for p in (SOURCE_FILES if source_files is None else source_files)]+[ROOT/'src/pc/exe_helpers.c']
  replacements={'archive_names.c':normalizer,'archive_backend.c':backend,'archive_read.c':read_source,'virtual_file.c':virtual_source};files=[Path(replacements.get(p.name)or p).resolve()for p in files]
  runtime=Path('C:/tools/hercules/renderer-oracle-python/unicorn/lib/unicorn.dll');assert sha(runtime)=='010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1'
  watched={Path(__file__),oracle,runtime,ROOT/'recovery.json',ROOT/'toolchains/manifest.json',ROOT/'evidence/archive_storage_closure_2026_10_11.json',ROOT/'evidence/host_music_paths_data.json',oracle.parents[3]/'assets/pc/HERCULES/HERCULES.FS',ROOT/'scripts/host_resize_differential.py',ROOT/'scripts/crt_copy_evidence.py',Path(library['archive']),*[ROOT/'scripts'/p for p in ['match.py','coff.py','masked.py','pe.py','env.py','title_behavioral.py']]}
@@ -50,14 +50,14 @@ def build(oracle,out,normalizer=None,backend=None,read_source=None,virtual_sourc
  for p in files:
   obj,cmd=compile_source(p,['/O2']);coffs.append(COFF(obj));compiles.append(dict(source=str(p),source_sha256=sha(p),object=str(obj),object_sha256=sha(obj),command=cmd))
  objects=[x['object']for x in compiles]+[library['object']];coffs.append(COFF(library['object']));measurements=[]
- for role,(sym,rv,n)in PROFILE.items():
+ for role,(sym,rv,n)in (PROFILE if profile is None else profile).items():
   if role=='copy':measurements.append(dict(role=role,symbol=sym,rva=hex(rv),native_size=n,compiled_size=821,library_identity=True));continue
   i=next(i for i,c in enumerate(coffs)if any(s['name']==sym and s['section']>0 for s in c.symbols.values()));raw=compare(Path(objects[i]),sym,oracle,rv,n)
   if role=='hash':assert raw['exact']
   measurements.append(dict(role=role,symbol=sym,rva=hex(rv),native_size=n,compiled_size=coffs[i].function(sym)['size'],raw=raw,diagnostic=masked_compare(Path(objects[i]),sym,oracle,rv,n)))
- fields=describe_data(coffs,oracle);assert pins=={p:sha(p)for p in pins}
+ fields=describe_data(coffs,oracle,data_specs);assert pins=={p:sha(p)for p in pins}
  return dict(inputs=pins,compiles=compiles,objects=objects,measurements=measurements,data=fields,library=library)
-def prepare(b):
+def prepare(b,profile=None):
  symbols={'_g_archive_scratch':SCRATCH};segments=[];where={};coffs=[COFF(p)for p in b['objects']];cursor=0x20000000
  for x in b['data']:symbols[x['symbol']]=BASE+int(x['rva'],0);segments.append((symbols[x['symbol']],bytes.fromhex(x['data'])))
  endpoints={MODEL+i*32:role for i,role in enumerate(MODELS)}
@@ -74,7 +74,7 @@ def prepare(b):
    for r in s['relocations']:
     local=next((v for v in c.symbols.values()if v['name']==r['symbol']and v['section']>0),None);target=where[k,local['section']]+local['value']if local and(k,local['section'])in where else symbols[r['symbol']];at=r['offset'];assert r['type']in [6,20];value=struct.unpack_from('<I',raw,at)[0]+target-(where[k,i]+at+4 if r['type']==20 else 0);struct.pack_into('<I',raw,at,value&0xffffffff)
    segments.append((where[k,i],bytes(raw)))
- addresses={role:symbols[sym]for role,(sym,rv,n)in PROFILE.items()};allowed=[(addresses[x['role']],addresses[x['role']]+x['compiled_size'])for x in b['measurements']]
+ addresses={role:symbols[sym]for role,(sym,rv,n)in (PROFILE if profile is None else profile).items()};allowed=[(addresses[x['role']],addresses[x['role']]+x['compiled_size'])for x in b['measurements']]
  return dict(segments=segments,addresses=addresses,endpoints=endpoints,allowed=allowed)
 def execute(native,b,p,oracle,archive,s):
  image=pefile.PE(str(oracle));u=Uc(UC_ARCH_X86,UC_MODE_32);u.mem_map(BASE,(image.OPTIONAL_HEADER.SizeOfImage+4095)&~4095)

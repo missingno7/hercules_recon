@@ -1,0 +1,195 @@
+{
+  "schema": 1,
+  "scope": "Original PC archive-to-sound-bank/PCM composition. No game-source,header,data-provider or recovery-state changes. All function statuses remain owned by recovery.json. Original game process and audio device do not execute.",
+  "baseline_commit": "cf1cda0",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "archive_sha256": "affa380e45918448895932cd466ea9a02096b8dcf08644f91b9da5ec34cd48b4",
+  "prediction": {
+    "path": "work/sound_archive/prediction.json",
+    "sha256": "97687c2d44ebd5a3d69d7c6679a6b2da7948fbe16744357993cd698350572a13"
+  },
+  "sources": [
+    {
+      "path": "src/pc/host_sound_bank.cpp",
+      "sha256": "44e09a44f05ad68ba733da551f93cf7078794744d0125ee60a0a5d04ff7c8404"
+    },
+    {
+      "path": "src/pc/host_sound_decoder.c",
+      "sha256": "fcfd5e45280af9c73a4775f0a9af7361221faec2885082d422c5dc96c6035a0f"
+    },
+    {
+      "path": "calibration/audio_bank_release.cpp",
+      "sha256": "325bf57df0ffcb2d4ff0fa895c4e46e5b08c4765f9d3c2629aa1cfaf00757e40"
+    },
+    {
+      "path": "scripts/host_sound_archive_differential.py",
+      "sha256": "ec40bc4ec866cc522b9fb9f3fe012606d935dd7318bd9a8695f1946519fba2a8"
+    },
+    {
+      "path": "scripts/host_archive_pipeline_differential.py",
+      "sha256": "2772ada86e3bf0c47c7a42852c7bb426b891c4017438cdb48e11767a7cf66055"
+    }
+  ],
+  "functions": [
+    {
+      "symbol": "_host_sound_bank_initialize_f3d0",
+      "rva": "0xf3d0",
+      "native_complete_bytes": 832,
+      "compiled_complete_bytes": 832,
+      "raw_equal": false,
+      "raw_differing_bytes": 508,
+      "source_relocations": 33,
+      "diagnostic_differing_bytes": 393,
+      "unchanged_status": "RECONSTRUCTED"
+    },
+    {
+      "symbol": "_host_sound_decode_2410",
+      "rva": "0x2410",
+      "native_complete_bytes": 288,
+      "compiled_complete_bytes": 256,
+      "raw_equal": false,
+      "raw_differing_bytes": 281,
+      "source_relocations": 3,
+      "diagnostic_differing_bytes": 271,
+      "unchanged_status": "RECONSTRUCTED"
+    },
+    {
+      "symbol": "_cleanup_native_f710",
+      "rva": "0xf710",
+      "native_complete_bytes": 80,
+      "compiled_complete_bytes": 80,
+      "raw_equal": false,
+      "raw_differing_bytes": 6,
+      "source_relocations": 2,
+      "diagnostic_differing_bytes": 0,
+      "unchanged_status": "CODEGEN_SIMILAR"
+    }
+  ],
+  "catalogue": {
+    "receipt": {
+      "path": "work/sound_archive/final/catalogue.json",
+      "sha256": "64ea361cf166a0b54639e5578b2f7cb044685839b7471533743b54944ad72a21"
+    },
+    "physical_ESF_members": 559,
+    "unique_constructor_domain_names": 559,
+    "member_bytes": 6865477,
+    "decoded_sample_bytes": 27426632,
+    "normal_PCM_bytes": 18764386,
+    "max_sample_bytes": 732726,
+    "PCM16_members": 54,
+    "PCM8_members": 505,
+    "packed_tail_members": 250,
+    "all_531_prior_music_SFX_preload_IDs_have_members": true,
+    "limits": "Coverage of all physicalESFmagic rows in the pinned PCarchive and the constructor0..1199index domain. No general naming/asset-domain theorem or upstream-to-constructor execution claim."
+  },
+  "validation": {
+    "receipt": {
+      "path": "work/sound_archive/final/host_sound_archive_differential.json",
+      "sha256": "b15dde901f46ac7f553b6777f744e5ab8d6fe93a516867cb231ae3aa54754700"
+    },
+    "cases": 1074,
+    "all_equal": true,
+    "negative_controls": [
+      "pcm8_bias",
+      "scratch_offset",
+      "low_nibble_first",
+      "archive_read_offset_off_by_one"
+    ],
+    "tail_last_sample_changes": 250,
+    "tail_PCM_changes": 250,
+    "actual_game_code": [
+      "Archive normalizer4e10,exact hash4fe0,open5130,read5210,close51f0;read executes its actual seek/cache policy. Virtual file adapters/seek remain linked but are not constructor boundaries.",
+      "Sound constructorF3D0,decoder2410 and releaseF710. No archive open/read/close or decoder entry/return stand-in remains."
+    ],
+    "checks": [
+      "Every complete original ESF header/payload is supplied through actual archive lookup/read from the pinned fullFS at a modeled CRTstream boundary;correct bytes are not preseeded in header,scratch orPCM.",
+      "Independent descriptor20-byte andPCM16-byte-prefix checks use actual member index,size,rate lowWORD andflags. Native8/16bit mode distinctions and index1000software threshold are preserved.",
+      "Compare complete1MiB scratch,16-byteheader,1200WORDcounters,1200loopbytes,4800buffer pointers,PCMoutput andsecondblock,archive directory/1024logicalpositions/sharedscratch/cache/stream/count/publicslots,and ordered CRT/COMevents.",
+      "All559base reads have the exact member offsets and full-item returns. Directed cache/release cases verify actual second construction/reload. Missing member stops at first real fatal entry.",
+      "Both extra tail values70/F0hex change the last decoded sample across all250affected physicalmembers. Native scratch-tail dependence is preserved,not silently padded/repaired.",
+      "Split lock leaves the second block untouched. Empty/null locks skip decoding. Ignored HRESULTs,duplicate failures,protected bank824cleanup and cached construction preserve native behavior.",
+      "Returning paths preserve caller guard,return address,ESP,nonvolatiles and clear direction flag. Code/write ranges,explicit guard gaps and per-segment instruction/boundary caps reject unexpected behavior."
+    ],
+    "modeled": "Only CRTfseek/fread/sprintf effects and DirectSoundCOM ABI effects. No real FILElayout,CRTlocking/errno/partial-item behavior,OS I/O,device/driver or fatal UI/exit semantics are claimed.",
+    "observer": "Code hooks filter the complete constructor/decoder contributions in Unicorn and observe their entries. Other code is checked against explicit complete function ranges. Write hooks cover complements of merged allowed data/stack/PCM ranges;boundary guards also detect crossing writes. No opcodes are written for endpoints or game code."
+  },
+  "regression": {
+    "receipt": {
+      "path": "work/sound_archive/preservation.json",
+      "sha256": "bb6c8245edeb108a6aa15eeb45af17caaad74c9c7dbe6abb1d76bf1e4185dc4f"
+    },
+    "unchanged_source_units": 17,
+    "complete_game_contributions_bytes_and_relocations_unchanged": 14,
+    "recovery_rows_unchanged": 783,
+    "new_function_matches": 0,
+    "strict_134_fresh_raw_exact": {
+      "path": "work/sound_archive/strict134.json",
+      "sha256": "9404b96f988103da3dece24aec423a9c31f27c1932451aa1f428593e450ebddd"
+    },
+    "default_archive": {
+      "path": "work/sound_archive/default_archive/host_archive_pipeline_differential.json",
+      "sha256": "74c522cc8dd520d237d862a741386cd3a2127e9697bc33cb4435025ba3ac0917"
+    },
+    "default_archive_cases": 119,
+    "default_archive_negatives": 6,
+    "default_music": {
+      "path": "work/sound_archive/default_music/host_music_differential.json",
+      "sha256": "59cf4e200e5868c2839121b51ecf80569d9e360eafa839c15e8bb02e09f5cfca"
+    },
+    "default_music_cases": 427,
+    "default_music_negatives": 11,
+    "default_builder_behavior": "Shared builder gains optional explicit source/profile/data specifications. Existing default calls and complete ordered comparisons remain unchanged.",
+    "natural_graph_protected_inputs_unchanged": true,
+    "natural_graph_receipt": {
+      "path": "work/host_current_graph/report-a784b11c1e5f3382.json",
+      "sha256": "a784b11c1e5f33826344dbe723e39f984a7004e344df7a0b43f2eed744910b79"
+    },
+    "source_units": 149,
+    "recorded_EXE_functions": 262,
+    "unresolved_data": 7,
+    "images_produced": 0,
+    "images_executed": 0
+  },
+  "dependencies": [
+    "evidence/host_sound_bank_recovery.json",
+    "evidence/host_sound_decoder_recovery.json",
+    "evidence/host_sound_scratch_recovery.json",
+    "evidence/host_sound_channels_recovery.json",
+    "evidence/host_archive_pipeline_recovery.json",
+    "evidence/archive_storage_closure_2026_10_11.json",
+    "evidence/resource_host_bindings.json"
+  ],
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest": {
+      "path": "toolchains/manifest.json",
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    },
+    "flags": [
+      "/O2"
+    ],
+    "implicit_flag": "/Gy",
+    "runtime": "Existing pinned Unicorn2.1.4 DLL010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1;no tool installed or patched."
+  },
+  "observer_corrections": [
+    "Two private guard labels described the same16-byte gap between loopflags andcounters with different fill values. Unified the labels before acceptance;no game-source edit.",
+    "An initial wrong archive_seek variant was not detected because this constructor calls archive_read,whose resynchronization directly callsCRTseek. Rejected that ineffective control and changed the actual read-offset expression instead;it is detected.",
+    "A decoder-only hot-range observer still called Python for everyPCMcopy instruction. The identified private process70796was deliberately stopped after verifying its command line;final observer filters both complete hot contributions. This was a diagnosed observer change,not a restart after timeout."
+  ],
+  "replay_commands": [
+    "python scripts/host_sound_archive_differential.py --original-root D:/Prog/hercules_recon --output work/sound_archive_replay",
+    "python scripts/host_sound_archive_differential.py --original-root D:/Prog/hercules_recon --limit 3 --output work/sound_archive_quick",
+    "python scripts/host_archive_pipeline_differential.py --output work/sound_archive_defaults_replay",
+    "python scripts/host_music_differential.py --output work/sound_archive_music_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/sound_archive_raw_replay.json"
+  ],
+  "limits": [
+    "Actual archive initialization is not reexecuted. The821-row directory,zero sentinel,1024logicalpositions and opaque stream are explicit post-initialization inputs.",
+    "Existing measured sound-scratch/BSSproviders are reused;no new production buffer capacity,aggregate/type/TU/placement,arbitrary pointers/forged headers or oversized lock-output safety is inferred. PCMbacking and guard/tail patterns are fixture inputs.",
+    "The16-bytePCMformat prefix and actualCOMcall protocol are measured;this is not execution of DirectSoundor a larger WAVEFORMATEXobject safety proof.",
+    "The35MUSIC/SFXcaller cases still model F3D0entry;all531preloadIDs resolving here does not establish that full caller-to-constructor shared-state composition. Platform restore and broader audio integration retain their prior proof scopes.",
+    "Native/source finite agreement is not raw function equality,original source identity,compiler/linker layout or a playable build. Three measured bodies retain their existingstatuses and byte differences.",
+    "Seven data providers and broader engine/host ownership remain open. Actual startup,menu,input/gameplay and renderer execution remain unverified;the execution-isolation/authorization gate is unchanged."
+  ]
+}

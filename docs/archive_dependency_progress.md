@@ -118,3 +118,30 @@ This gives later matching work a connected behavioral constraint and frozen
 contributions. It helps distinguish an algorithm error from remaining code
 generation, dependency and layout questions without reopening exhausted source
 spellings or treating relocation-normalized equality as an exact match.
+
+The sound-bank constructor now also has a real archive-to-PCM replay:
+
+```
+python scripts/host_sound_archive_differential.py --output work/sound_archive_replay
+```
+
+It compares all 559 physical ESF members against the original PC code, including
+the recovered archive normalizer, hash, search, read/close, sound constructor,
+decoder and bank release. The catalogue independently covers every ESF header in
+the pinned archive and checks the unique generated filenames. DirectSound
+descriptors and PCM formats are checked against the actual member metadata.
+
+The 1,074 cases include two alternate tail bytes for all 250 members that consume
+a nibble beyond their packed payload, plus cached construction, release/reload,
+split/empty locks, ignored HRESULTs, duplicate failures and a missing member.
+The native 127 bias for 8-bit conversion and protected bank824 cleanup behavior
+are preserved. Four incorrect source variants are rejected. Correct payloads are
+not preloaded: actual archive reads supply both the header and compressed data.
+
+CRT stream effects, formatting and DirectSound calls remain explicit models;
+fatal comparisons stop at entry. The 35-case MUSIC/SFX replay still models its
+sample-preload entry, so this separate constructor proof does not retroactively
+establish that larger composition. All 531 distinct preload IDs from those cases
+have corresponding ESF members in the verified catalogue. Game sources and
+recovery state are unchanged. See `evidence/host_sound_archive_recovery.json` for
+fresh compilation, frozen contributions, regression receipts and limits.
