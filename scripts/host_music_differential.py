@@ -17,6 +17,7 @@ parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--source',type=Path,default=ROOT/'src/pc/host_music.c');parser.add_argument('--data',type=Path,default=ROOT/'calibration/host_music_storage.c')
 parser.add_argument('--paths-source',type=Path,default=ROOT/'calibration/host_music_paths.c');parser.add_argument('--paths-definition',type=Path,default=ROOT/'evidence/host_music_paths_data.json')
 parser.add_argument('--sfx-source',type=Path,default=ROOT/'src/pc/host_sfx.c');parser.add_argument('--sfx-data',type=Path,default=ROOT/'calibration/host_sfx_storage.c')
+parser.add_argument('--pool-source',type=Path,default=ROOT/'calibration/host_pool_repaired.c')
 parser.add_argument('--output',type=Path,required=True);parser.add_argument('--original-root',type=Path,default=Path('D:/Prog/hercules_recon'))
 args=parser.parse_args();OUT=args.output.resolve();assert OUT.is_relative_to(ROOT/'work');OUT.mkdir(parents=True,exist_ok=True)
 ORACLE=args.original_root/'work/discs/pc_install/HERCULES.EXE'
@@ -26,15 +27,16 @@ PROFILE={k:('_host_music_'+k+'_'+format(rv,'x'),rv,n)for k,(rv,n)in MUSIC.items(
 PROFILE.update(sync=('_host_file_sync',0x3b50,256),length=('_resource_file_length',0x40d0,176),prepare=('_host_file_prepare',0x1d60,32),empty=('_empty_host_callback',0xbe30,16),diagnostic=('_host_diagnostic',0x63c0,16),zero=('_host_zero_callback',0xa340,16),true=('_return_true',0xc240,16))
 PROFILE.update(resize=('_shrink_relocate',0x4690,192),coalesce=('_coalesce_pool',0x4830,96),copy=('_memmove',0x10fb0,821))
 PROFILE.update(load_sfx=('_host_sfx_load_1330',0x1330,672),program_attributes=('_host_sfx_program_attributes_be60',0xbe60,96),tone_attributes=('_host_sfx_tone_attributes_bec0',0xbec0,96))
+PROFILE.update(allocate=('_host_allocate',0x4570,288))
 FILE_DATA=[('_g_resource_filename_format',0x36024,5),('_g_resource_loading_format',0x36008,27),('_g_resource_async_open_failure_format',0x36050,24),('_g_resource_sync_open_failure_format',0x35ff4,20),('_g_resource_sync_loaded_format',0x35fe8,11),('_g_resource_close_failure_format',0x36044,11),('_g_resource_opening_format',0x3602c,12),('_g_resource_close_success_format',0x36038,11)]
 MUSIC_DATA=[('_g_host_music_init_text',0x35bc4),('_g_host_music_load_text',0x35c18),('_g_host_music_filename',0x35c0c),('_g_host_music_open_error',0x35bf4),('_g_host_music_download_error',0x35bd8)]
 SFX_DATA=[('_g_host_sfx_'+name,rv)for name,rv in [('load_text',0x35d1c),('filename',0x35d14),('warning_begin',0x35cd4),('warning_detail',0x35c98),('warning_program',0x35c6c),('warning_end',0x35c2c)]]
-MODELS={'format':('_sprintf',0x10f40),'open':('_virtual_file_open',0xa210),'read':('_virtual_file_read',0xa2f0),'close':('_virtual_file_close',0xa350),'seek':('_virtual_file_seek',0xa280),'allocate':('_host_allocate',0x4570),'preload':('_host_sound_bank_initialize_f3d0',0xf3d0)}
+MODELS={'format':('_sprintf',0x10f40),'open':('_virtual_file_open',0xa210),'read':('_virtual_file_read',0xa2f0),'close':('_virtual_file_close',0xa350),'seek':('_virtual_file_seek',0xa280),'preload':('_host_sound_bank_initialize_f3d0',0xf3d0)}
 BASE=0x400000;TABLE=BASE+0x361b8;PATH_TABLE=BASE+0x35178;BANKS=BASE+0x68e790;FILENAME=BASE+0x215c10;SCALAR=BASE+0x352b0
 POOL=BASE+0x7a29c0
 DATA=0x61000000;CONTEXTS=[DATA+0x10020,DATA+0x20020,DATA+0x30020];CTX_SIZE=0x1b34;PATHS=[DATA+0x4000,DATA+0x4200]
 QUERY_OUT=DATA+0x4800
-BLOBS=[0x62000040,0x62010040];STACK=0x63000000;ESP=STACK+0x8000;STOP=STACK+0xf000;MODEL=0x65000000
+STACK=0x63000000;ESP=STACK+0x8000;STOP=STACK+0xf000;MODEL=0x65000000
 NV=[UC_X86_REG_EBX,UC_X86_REG_ESI,UC_X86_REG_EDI,UC_X86_REG_EBP];SEEDS=[0x11223344,0x22334455,0x33445566,0x44556677]
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();pack=lambda v:struct.pack('<I',v&0xffffffff)
 def u32(u,a):return struct.unpack('<I',u.mem_read(a,4))[0]
@@ -51,7 +53,7 @@ def build(source,data,out):
  assert sha(ORACLE)=='587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d'
  runtime=Path('C:/tools/hercules/renderer-oracle-python/unicorn/lib/unicorn.dll');assert sha(runtime)=='010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1'
  files=[source,ROOT/'src/pc/host_file_callbacks.c',ROOT/'calibration/host_file_prepare.c',ROOT/'src/pc/interface_callbacks.c',ROOT/'src/pc/host_diagnostic.c',ROOT/'src/pc/host_zero_callback.c',ROOT/'src/pc/exe_helpers.c',data,ROOT/'calibration/host_file_callback_formats.c',ROOT/'calibration/host_resource_storage.c']
- files.extend([ROOT/'calibration/host_pool_shrink.c',ROOT/'calibration/host_pool_repaired.c',ROOT/'calibration/host_pool_storage.c',ROOT/'calibration/host_pool_formats.c',ROOT/'calibration/host_pool_shrink_format.c'])
+ files.extend([ROOT/'calibration/host_pool_shrink.c',args.pool_source.resolve(),ROOT/'calibration/host_pool_storage.c',ROOT/'calibration/host_pool_formats.c',ROOT/'calibration/host_pool_shrink_format.c'])
  files.extend([args.sfx_source.resolve(),args.sfx_data.resolve()])
  library=verified_copy(ORACLE,out);watched={Path(__file__),ORACLE,runtime,ROOT/'recovery.json',ROOT/'toolchains/manifest.json',ROOT/'scripts/host_resize_differential.py',ROOT/'scripts/crt_copy_evidence.py',Path(library['archive'])}
  paths=verify_data(args.paths_source.resolve(),args.paths_definition.resolve(),ORACLE,out/'paths');watched.update(Path(p)for p in paths['inputs'])
@@ -120,6 +122,9 @@ def execute(native,b,p,s):
   addresses=p['addresses'];endpoints=p['endpoints'];allowed=p['allowed']
   for a,raw in p['segments']:u.mem_write(a,raw)
  slot=s.get('slot',1)&255;header_off=s.get('header_offset',0x100);sample_off=s.get('sample_offset',0x280);file_bytes=s.get('file_bytes',0x400)
+ capacity=0x9000 if s.get('allocation_fail')else (file_bytes&0xfffff800)+0x1000;assert 0x1000<=capacity<=0x9000
+ heap_start=0x62000040;heap_bytes=capacity+16 if s.get('allocation_fail')else 0x10000;heap_end=heap_start+heap_bytes-8
+ BLOBS=[0x62020040 if s.get('allocation_fail')else heap_end-capacity*2-8,heap_end-capacity]
  content=bytearray(max(0x400,min(file_bytes,0x8000)))
  for i,v in enumerate([sample_off,header_off,0x10,0x20,0x30,0x40,0x50]):struct.pack_into('<I',content,i*4,v)
  for i,v in enumerate(s.get('samples',[])):struct.pack_into('<h',content,header_off+0x44+i*2,v)
@@ -130,12 +135,10 @@ def execute(native,b,p,s):
  contents=[bytes(content),bytes(content)];alternate=bytearray(content)
  if s.get('preload_swap'):struct.pack_into('<h',alternate,header_off+0x46,9)
  contents[1]=bytes(alternate)
- capacity=0x9000 if s.get('allocation_fail')else (file_bytes&0xfffff800)+0x1000;assert 0x1000<=capacity<=0x9000
- heap_start=BLOBS[0]-8;heap_end=BLOBS[1]+capacity
  u.mem_write(heap_start-32,bytes([0xd1])*32+bytes([0x5d])*(heap_end+4-heap_start)+bytes([0xd2])*32)
- for a,raw in zip(BLOBS,contents):u.mem_write(a-32,bytes([0xd1])*32+raw+bytes([0xd2])*32)
- for i,a in enumerate(BLOBS):u.mem_write(a-8,pack(0x40000000+(capacity>>2)+2)+pack(CONTEXTS[0 if i==0 else 2]+0x13c+slot*4))
- gap=BLOBS[0]+capacity;u.mem_write(gap,pack(0x80000000+((BLOBS[1]-8-gap)>>2)));u.mem_write(heap_end,pack(1))
+ u.mem_write(heap_start,pack(0x80000000+((heap_end-heap_start)>>2)));u.mem_write(heap_end,pack(1))
+ if s.get('fragmented_pool'):
+  assert not s.get('allocation_fail');barrier=heap_start+0x2000;high=barrier+16;u.mem_write(heap_start,pack(0x80000800));u.mem_write(barrier,pack(0x40000004)+pack(DATA+0x4900));u.mem_write(DATA+0x4900,pack(barrier+8));u.mem_write(high,pack(0x80000000+((heap_end-high)>>2)))
  pool=bytearray(48);struct.pack_into('<I',pool,0,heap_start);struct.pack_into('<I',pool,16,heap_end);u.mem_write(POOL,bytes(pool))
  table=bytearray(bytes([0x2d])*1000);table[4:8]=pack(CONTEXTS[0]);u.mem_write(TABLE,bytes(table));u.mem_write(FILENAME-32,bytes([0xe1])*32+bytes([0xe2])*512+bytes([0xe3])*32)
  for a,text in zip(PATHS,[b'X:\\first\\\0',b'Y:\\second\\\0']):u.mem_write(a,text)
@@ -149,6 +152,7 @@ def execute(native,b,p,s):
   raw=bytearray(bytes([0xa1+i])*CTX_SIZE)
   fields={0x9c:('H',0),0xb8:('I',10+i),0x1afc:('I',s.get('handle',0)&0xffffffff),0x1b04:('I',s.get('music_base',128)),0x1b08:('I',s.get('effects_base',128)),0x1b0c:('I',s.get('music_user',256)),0x1b10:('I',s.get('effects_user',256)),0x1b14:('I',0x22334455),0x1b18:('I',0x33445566),0x1b1c:('H',s.get('cached',0)&65535),0x13c+slot*4:('I',BLOBS[1])}
   for off,(fmt,v)in fields.items():struct.pack_into('<'+fmt,raw,off,v)
+  if i==2:struct.pack_into('<I',raw,0x13c+slot*4,0)
   if s['role']=='load_sfx' or 'load_sfx'in s.get('commands',[]):
    ids={struct.unpack_from('<h',content,header_off+0x44+j*2)[0]for j in range(128)}
    if s.get('preload_swap'):ids.add(9)
@@ -160,9 +164,9 @@ def execute(native,b,p,s):
  u.mem_write(QUERY_OUT-32,bytes([0xe4])*32+bytes([0xcc])*32+bytes([0xe5])*32)
  def frame_for(role):
   header=0 if s.get('register_null')else BLOBS[0]+header_off
-  args={'apply':[],'signal':[],'set_bases':[s.get('set_music',128),s.get('set_effects',256)],'initialize':[],'load':[s.get('bank',0),s.get('slot',1)],'load_sfx':[s.get('bank',0),s.get('slot',1)],'bank_register':[header,s.get('slot_word',-1)],'bank_preload':[BLOBS[0]+sample_off,s.get('slot_word',1)],'program_attributes':[s.get('slot_word',1),s.get('program_word',0),0 if s.get('null_output')else output],'tone_attributes':[s.get('slot_word',1),s.get('program_word',0),s.get('tone_word',0),0 if s.get('null_output')else output]}[role]
+  args={'allocate':[CONTEXTS[2]+0x13c+slot*4,capacity,0x10],'apply':[],'signal':[],'set_bases':[s.get('set_music',128),s.get('set_effects',256)],'initialize':[],'load':[s.get('bank',0),s.get('slot',1)],'load_sfx':[s.get('bank',0),s.get('slot',1)],'bank_register':[header,s.get('slot_word',-1)],'bank_preload':[BLOBS[0]+sample_off,s.get('slot_word',1)],'program_attributes':[s.get('slot_word',1),s.get('program_word',0),0 if s.get('null_output')else output],'tone_attributes':[s.get('slot_word',1),s.get('program_word',0),s.get('tone_word',0),0 if s.get('null_output')else output]}[role]
   return pack(STOP)+b''.join(pack(v)for v in args)+bytes([0xf7])*32
- trace=[];counts={};pending=[];illegal=[];writes=[];instructions=0;handles={};argument_end=ESP+4
+ trace=[];counts={};pending=[];illegal=[];writes=[];instructions=0;handles={};argument_end=ESP+4;phase='preparation'
  def effect(role):
   key=role+'_'+str(counts.get(role,0));index=s.get('effects',{}).get(key)
   if index is not None:u.mem_write(TABLE+4,pack(CONTEXTS[index]));trace.append(dict(effect=key,context=index))
@@ -175,7 +179,9 @@ def execute(native,b,p,s):
   if instructions>200000:illegal.append('instruction cap');machine.emu_stop();return
   if address==STOP:machine.emu_stop();return
   if address in endpoints:pending.append(address);machine.emu_stop();return
-  if address in [addresses['program_attributes'],addresses['tone_attributes']]:
+  if address==addresses['allocate']:
+   sp=machine.reg_read(UC_X86_REG_ESP);owner,n,flags=[u32(machine,sp+i)for i in [4,8,12]];trace.append(dict(call='allocate',phase=phase,owner=hex(owner),requested=n,flags=flags,previous=hex(u32(machine,owner))))
+  elif address in [addresses['program_attributes'],addresses['tone_attributes']]:
    sp=machine.reg_read(UC_X86_REG_ESP);trace.append(dict(call='program_attributes'if address==addresses['program_attributes']else'tone_attributes',bank=u32(machine,sp+4)&65535,program=u32(machine,sp+8)&65535))
   elif address==addresses['resize']:
    sp=machine.reg_read(UC_X86_REG_ESP);old,n,pool,owner_only=[u32(machine,sp+i)for i in [4,8,12,16]];trace.append(dict(call='resize',old=hex(old),requested=n,pool=pool,owner_only=owner_only))
@@ -187,11 +193,13 @@ def execute(native,b,p,s):
    sp=machine.reg_read(UC_X86_REG_ESP);caller=u32(machine,sp);site=next(tag for lo,hi,tag in allowed if lo<=caller<hi);n=3 if site=='apply'else 1 if site=='signal'else 0
    trace.append(dict(call='empty',site=site,defined_word_arguments=[u32(machine,sp+4+i*4)&65535 for i in range(n)]))
   elif address==addresses['diagnostic']:
-   sp=machine.reg_read(UC_X86_REG_ESP);fmt=cstring(machine,u32(machine,sp+4));event=dict(call='diagnostic',format=fmt)
+   sp=machine.reg_read(UC_X86_REG_ESP);fmt=cstring(machine,u32(machine,sp+4));event=dict(call='diagnostic',phase=phase,format=fmt)
    if fmt.startswith('LoadMusic')or fmt.startswith('LoadSfx')or 'attribute number::'in fmt:event['arguments']=[u32(machine,sp+8),u32(machine,sp+12)]
    if '%s'in fmt:event['text']=cstring(machine,u32(machine,sp+8))
    if fmt.startswith('Loading'):event.update(destination=hex(u32(machine,sp+12)),requested=u32(machine,sp+16))
    if fmt.startswith('ReMalloc'):event.update(pool=u32(machine,sp+8),payload=hex(u32(machine,sp+12)),bytes=u32(machine,sp+16))
+   if fmt.startswith('Malloc Heap'):event.update(pool=u32(machine,sp+8),payload=hex(u32(machine,sp+12)),bytes=u32(machine,sp+16))
+   if fmt.startswith('Malloc FAILED'):event.update(owner=hex(u32(machine,sp+8)),previous=hex(u32(machine,sp+12)))
    trace.append(event)
   elif address in [addresses['zero'],addresses['true']]:
    sp=machine.reg_read(UC_X86_REG_ESP);trace.append(dict(call='zero'if address==addresses['zero']else'true',argument=u32(machine,sp+4)&65535))
@@ -212,15 +220,12 @@ def execute(native,b,p,s):
     dest,fmt,a,c=[u32(u,sp+i)for i in [4,8,12,16]];assert dest==FILENAME and cstring(u,fmt)=='%s%s';text=cstring(u,a)+cstring(u,c);assert len(text)<512;u.mem_write(dest,text.encode()+b'\0');result=len(text);trace.append(dict(call=role,text=text))
    elif role=='open':
     path=cstring(u,u32(u,sp+4));result=2+number;handles[result]=1 if path.startswith('Y:')else 0;trace.append(dict(call=role,path=path,mode=u32(u,sp+8),flags=u32(u,sp+12),result=result))
-   elif role=='seek':result=file_bytes;trace.append(dict(call=role,handle=u32(u,sp+4),offset=u32(u,sp+8),origin=u32(u,sp+12),result=result))
+   elif role=='seek':
+    result=file_bytes;trace.append(dict(call=role,handle=u32(u,sp+4),offset=u32(u,sp+8),origin=u32(u,sp+12),result=result))
+    if s.get('path_swap')and number==1:u.mem_write(PATH_TABLE+(s.get('bank',0)&255)*8,pack(PATHS[1]))
    elif role=='close':result=0;trace.append(dict(call=role,handle=u32(u,sp+4),result=0))
    elif role=='read':
-    handle,dest,n=[u32(u,sp+i)for i in [4,8,12]];payload=contents[handles[handle]][:n];assert any(a<=dest and dest+len(payload)<=a+len(content)for a in BLOBS);u.mem_write(dest,payload);result=len(payload);trace.append(dict(call=role,handle=handle,destination=hex(dest),requested=n,returned=result))
-   elif role=='allocate':
-    owner,n,flags=[u32(u,sp+i)for i in [4,8,12]];result=0 if s.get('allocation_fail')else BLOBS[0];u.mem_write(owner,pack(result));trace.append(dict(call=role,owner=hex(owner),requested=n,flags=flags,result=hex(result)))
-    if result:
-     assert n<=0x9000 and n%4==0;u.mem_write(result-8,pack(0x40000000+(n>>2)+2)+pack(owner));gap=result+n;u.mem_write(gap,pack(0x80000000+((BLOBS[1]-8-gap)>>2)))
-    if s.get('path_swap'):u.mem_write(PATH_TABLE+(s.get('bank',0)&255)*8,pack(PATHS[1]))
+    handle,dest,n=[u32(u,sp+i)for i in [4,8,12]];payload=contents[handles[handle]][:n];assert heap_start+8<=dest and dest+len(payload)<=heap_end;u.mem_write(dest,payload);result=len(payload);trace.append(dict(call=role,handle=handle,destination=hex(dest),requested=n,returned=result))
    else:
     value=u32(u,sp+4);result=0x12345678;trace.append(dict(call='sample_preload',index=value))
     if s.get('preload_swap')and number==1:u.mem_write(BANKS+(s.get('slot_word',slot)&15)*4,pack(BLOBS[1]+header_off))
@@ -237,11 +242,15 @@ def execute(native,b,p,s):
   assert bytes(u.mem_read(QUERY_OUT-32,32))==bytes([0xe4])*32 and bytes(u.mem_read(QUERY_OUT+32,32))==bytes([0xe5])*32
   assert bytes(u.mem_read(heap_start-32,32))==bytes([0xd1])*32 and bytes(u.mem_read(heap_end+4,32))==bytes([0xd2])*32,(s,bytes(u.mem_read(heap_start-32,32)).hex(),bytes(u.mem_read(heap_end+4,32)).hex())
   value=u.reg_read(UC_X86_REG_EAX)
-  return value&65535 if function_role in ['bank_register','bank_preload','program_attributes','tone_attributes']else value if function_role in ['load','load_sfx']else None
+  return value&65535 if function_role in ['bank_register','bank_preload','program_attributes','tone_attributes']else value if function_role in ['allocate','load','load_sfx']else None
+ reserved=invoke('allocate');assert reserved==BLOBS[1],(s,hex(reserved),hex(BLOBS[1]))
+ preparation=dict(reserved_payload=hex(reserved),pool=bytes(u.mem_read(POOL,48)).hex(),heap=hashlib.sha256(bytes(u.mem_read(heap_start,heap_end+4-heap_start))).hexdigest(),valid_explicit_free_pool_and_actual_reservation=True)
+ for a,raw in zip(BLOBS,contents):u.mem_write(a,raw)
+ phase='caller'
  calls=[]
  for role in s.get('commands',[s['role']]):calls.append(dict(role=role,result=invoke(role),context_hashes=[hashlib.sha256(bytes(u.mem_read(a,CTX_SIZE))).hexdigest()for a in CONTEXTS]))
  digest=lambda a,n:hashlib.sha256(bytes(u.mem_read(a,n))).hexdigest()
- return dict(events=trace,calls=calls,query_output=bytes(u.mem_read(output,32)).hex(),contexts=[digest(a,CTX_SIZE)for a in CONTEXTS],table=digest(TABLE,1000),banks=digest(BANKS,64),paths=digest(PATH_TABLE,312 if s.get('native_paths')else 2048),path_literals=[digest(BASE+int(x['rva'],0),x['bytes'])for x in b['paths']['literals']]if s.get('native_paths')else [],filename=digest(FILENAME,512),blobs=[digest(a,len(content))for a in BLOBS],heap=digest(heap_start,heap_end+4-heap_start),pool=digest(POOL,48),prepare_scalar=u32(u,SCALAR),guards_stack_nonvolatiles_and_whitelists=True)
+ return dict(events=trace,preparation=preparation,calls=calls,query_output=bytes(u.mem_read(output,32)).hex(),contexts=[digest(a,CTX_SIZE)for a in CONTEXTS],table=digest(TABLE,1000),banks=digest(BANKS,64),paths=digest(PATH_TABLE,312 if s.get('native_paths')else 2048),path_literals=[digest(BASE+int(x['rva'],0),x['bytes'])for x in b['paths']['literals']]if s.get('native_paths')else [],filename=digest(FILENAME,512),blobs=[digest(a,len(content))for a in BLOBS],heap=digest(heap_start,heap_end+4-heap_start),pool=digest(POOL,48),prepare_scalar=u32(u,SCALAR),guards_stack_nonvolatiles_and_whitelists=True)
 
 def scenarios():
  cases=[]
@@ -268,7 +277,7 @@ def scenarios():
  for offset in [0,1,3,4,7,8,0x104]:add('load','load_shrink_offset_%x'%offset,header_offset=offset)
  add('load','load_samples',samples=[1,0,-1,1199,1200])
  add('load','load_path_reload',path_swap=True)
- add('load','load_context_reload',effects={'allocate_1':1,'read_1':2})
+ add('load','load_context_reload',effects={'seek_1':1,'read_1':2})
  add('load','load_sample_context',samples=[1,2],effects={'preload_1':1})
  for bank in range(39):add('load','native_path_'+str(bank),bank=bank,native_paths=True)
  add('load','native_path_masked_38',bank=0xabcd0026,native_paths=True)
@@ -291,13 +300,16 @@ def scenarios():
  add('load_sfx','sfx_all_programs',samples=[7]*128,parameters=parameters)
  add('load_sfx','sfx_header_reload',samples=[7,2],parameters=parameters,preload_swap=True)
  add('load_sfx','sfx_path_reload',path_swap=True)
- add('load_sfx','sfx_context_reload',samples=[7],parameters=parameters,effects={'allocate_1':1,'read_1':2})
+ add('load_sfx','sfx_context_reload',samples=[7],parameters=parameters,effects={'seek_1':1,'read_1':2})
  add('load_sfx','sfx_sample_context',samples=[7],parameters=parameters,effects={'preload_1':1})
  add('load_sfx','sfx_rounding_801',file_bytes=2049,samples=[7],parameters=parameters)
  for n in [0,2049,0x7fffffff,0xffffffff]:add('load_sfx','sfx_alloc_fail_%x'%n,file_bytes=n,allocation_fail=True)
  for off in [0,4,8,0x104]:add('load_sfx','sfx_shrink_%x'%off,header_offset=off)
  add('sequence','sfx_twice',samples=[7,2],parameters=parameters,commands=['load_sfx','load_sfx'])
  add('sequence','music_then_sfx',samples=[7,2],parameters=parameters,commands=['load','load_sfx','apply'])
+ add('load','load_fragmented_pool',fragmented_pool=True)
+ add('load_sfx','sfx_fragmented_pool',samples=[7,2],parameters=parameters,fragmented_pool=True)
+ add('sequence','load_until_exhausted',commands=['load']*17)
  lookup=__import__('host_music_paths_data').asset_lookup(args.paths_definition.resolve(),ORACLE,ARCHIVE);seen=set()
  for row in lookup['rows']:
   item=next(x for x in row['files']if x['filename']=='SFX.SFX')
@@ -344,6 +356,7 @@ def main():
  for s in ss:
   if 'archive_member'in s:
    key,off,n=struct.unpack_from('<III',ARCHIVE_BYTES,s['archive_member']*12);payload=ARCHIVE_BYTES[off:off+n];members.append(dict(scenario=s['name'],bank=s['bank'],directory_index=s['archive_member'],key=hex(key),offset=off,bytes=n,sha256=hashlib.sha256(payload).hexdigest(),root_offsets=list(struct.unpack_from('<II',payload))))
- report=dict(scope=__doc__,build=b,case_count=len(cases),all_equal=True,cases=cases,negative_controls=negatives,archive_members=members,archive_sha256=sha(ARCHIVE),native_path_cases=sum(bool(x['scenario'].get('native_paths'))for x in cases),full_sequences=sum(x['scenario']['role']=='sequence'for x in cases),actual_family_invocations=sum(len(x['native']['calls'])for x in cases),limits=['Actual music/SFX loaders,attribute queries,file-length/synchronous-load,prepare,empty,diagnostic,zero,return-true,resize and coalescer execute. Identified unchanged CRT copy is linked but these owner-only loaders do not call it;separate resize tests execute it.','Virtual I/O,formatting,allocation and sample-device entry remain models;23SFX cases replay exact original FS member bytes through the read model. No original archive opener,Windows allocation or audio device executes. Compiled host_allocate is intercepted at entry.','Sixty-three cases consume the actual39-record initialized path prefix and25literal identities. Other cases substitute a256-record synthetic external table for adversarial/reload discriminators;this proves no production capacity or legal access beyond the prefix.','Context pointers,512-byte filename and heap descriptors/owner cells are synthetic preconditions. Non-archive file bytes are synthetic. Failure-case backing is bounded,not derived from malicious file lengths.','Only defined WORD arguments/returns are compared for narrow APIs. Native bank-query helpers do not bound the bank index;valid prefix indices are fixture preconditions. No unique original prototype identity or arbitrary-header safety is proved.','Native1110/1330reuse incoming parameter slots as scratch. Return address,caller guard,ESP,nonvolatiles and direction flag are checked;argument-slot bytes are not promised unchanged.','SFX caller ignores query failures. Locals left undefined by a failed query are not repaired or zero-initialized;loader cases retain a valid registered-header precondition. Standalone query failures preserve the output bytes.'])
+ exhaustion=next(c for c in cases if c['scenario']['name']=='load_until_exhausted');assert [r['result']for r in exhaustion['native']['calls']]==[0]*15+[0xffffffff]*2
+ report=dict(scope=__doc__,build=b,case_count=len(cases),all_equal=True,cases=cases,negative_controls=negatives,archive_members=members,archive_sha256=sha(ARCHIVE),native_path_cases=sum(bool(x['scenario'].get('native_paths'))for x in cases),full_sequences=sum(x['scenario']['role']=='sequence'for x in cases),actual_family_invocations=sum(len(x['native']['calls'])for x in cases),allocator_is_modeled=False,limits=['Actual music/SFX loaders,attribute queries,file-length/synchronous-load,prepare,empty,diagnostic,zero,return-true,pool allocator,resize and coalescer execute. Identified unchanged CRT copy is linked but these owner-only loaders do not call it;separate resize tests execute it.','Virtual I/O,formatting and sample-device entry remain models;23SFX cases replay exact original FS member bytes. Allocation has no entry/return hook. No original archive opener,Windows arena allocation or audio device executes.','Every case starts from explicit valid pool metadata/free-block inputs and runs one actual allocation reserving the alternate-context block. Caller allocations then execute normally. Failure cases exhaust the pool;repeated loading naturally exhausts the normal64KiBfixture. These are test arenas,not production capacity evidence.','Sixty-three cases consume the actual39-record initialized path prefix and25literal identities. Other cases substitute a256-record synthetic external table for adversarial/reload discriminators;this proves no production capacity or legal access beyond the prefix.','Context pointers,512-byte filename and pool backing are synthetic preconditions. Non-archive file bytes are synthetic. The two fragmented cases add a valid pinned barrier between free blocks.','Prior modeled allocation-return mutations are retired;path/context interventions now occur at the still-modeled seek/read boundaries. They test caller reloads,not actual callee side-effect reachability.','Only defined WORD arguments/returns are compared for narrow APIs. Native bank-query helpers do not bound bank indices;valid prefix indices and bounded context-accessing sample IDs remain preconditions.','Native1110/1330and allocator4570reuse incoming parameter slots as scratch. Return address,caller guard,ESP,nonvolatiles and direction flag are checked;argument-slot bytes are not promised unchanged.','SFX caller ignores query failures. Undefined local attributes on failed queries are not repaired;loader cases keep a valid registered header. Standalone query failures preserve output bytes.'])
  dest=OUT/'host_music_differential.json';dest.write_bytes((json.dumps(report,indent=2)+'\n').encode());print(json.dumps(dict(cases=len(cases),all_equal=True,negatives=len(negatives),report=str(dest))))
 if __name__=='__main__':main()

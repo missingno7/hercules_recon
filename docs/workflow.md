@@ -97,7 +97,7 @@ python scripts/host_frame_precreate_differential.py --original-root D:/Prog/herc
 ```
 
 The current natural selected host graph compiles 149 actual source units with
-258 recorded EXE functions and preserves 27 accepted EXE functions. It has no
+259 recorded EXE functions and preserves 27 accepted EXE functions. It has no
 duplicate link errors and seven unresolved data providers. Resize and the observed
 music-path records now have native-verified providers. Including
 the real map replaces one missing map symbol with its actual missing callback bodies. These counts are diagnostics,
@@ -406,7 +406,7 @@ The loader is 688 versus 672 bytes, retains 481 diagnostic differences and
 remains `RECONSTRUCTED`. The existing 17 music/file/resize contributions are
 unchanged. Six complete native text fields add 245 initialized literal bytes.
 
-The combined replay passes 412 guarded cases and rejects eleven wrong variants.
+The SFX checkpoint replay passed 412 guarded cases and rejected eleven wrong variants.
 It includes all 23 distinct SFX members found by the native path/hash lookup in
 the PC archive: each has 452 bytes and two zero root offsets. Exact member bytes
 flow through the modeled read boundary into the real loader and attribute code.
@@ -425,6 +425,36 @@ See `evidence/host_sfx_recovery.json`. The matching context is indexed for repla
 ```
 python scripts/region.py packet host_sfx_loader --more
 python scripts/host_music_differential.py --original-root D:/Prog/hercules_recon --output work/host_sfx_replay
+```
+
+The existing custom-pool allocator at `0x4570` is now recorded after native
+verification, with its source and all pool peers unchanged. Its full 288-byte
+contribution retains 238 diagnostic differences and remains `RECONSTRUCTED`.
+In 700 guarded cases, actual allocation and initialization agree on complete
+heap/owner/metadata state, returns and ordered calls. These cover last adequate
+block selection, allocation from the high end, pinned/preserve flags, rounding
+wrap, exact fits, one-word remainders and owner/header/metadata aliases.
+
+The current 415-case music/SFX replay executes that allocator with no allocation
+entry/return stand-in. Each case supplies a valid pool and uses a real allocation
+to reserve the alternate-context block. Fragmented pools have multiple fitting
+blocks. Seventeen successive music loads in the normal 64 KiB fixture produce
+fifteen successes followed by two genuine allocation failures. Initial pool
+metadata and backing are test preconditions, not production arena-size evidence;
+the initializer is tested separately in the 700-case suite. Original output-slot
+warnings and overwrite behavior stay intact, including old allocated blocks.
+
+The 23 original SFX payloads are still replayed. Source callback, music, SFX,
+resize and pool contributions retain their bytes and relocations. Path/context
+reload interventions now occur at modeled seek/read boundaries; the former
+modeled allocation-return mutations are retired. Archive I/O, formatting and
+sample-device entry remain modeled. This does not close the unrelated natural
+MFC/CRT allocator-selection or Windows arena-allocation questions. All 134 exact
+matches remain exact. See `evidence/host_allocate_recovery.json` and replay:
+
+```
+python scripts/host_allocate_differential.py --original-root D:/Prog/hercules_recon --output work/host_allocate_replay
+python scripts/host_music_differential.py --original-root D:/Prog/hercules_recon --output work/host_allocate_callers_replay
 ```
 
 The loader now has an independent source provider for four observed DWORD cells

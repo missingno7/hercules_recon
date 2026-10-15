@@ -1,0 +1,213 @@
+{
+  "schema": 1,
+  "scope": "Native verification of the existing unchanged original-PC custom-pool allocator and removal of its loading-fixture stand-in. Full source/native heap/owner/metadata comparisons;no original game process,production arena-capacity,TU/layout or raw function acceptance. recovery.json alone owns function state.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "prediction": {
+    "path": "work/host_allocate/prediction.json",
+    "sha256": "6fc560b30ce009bc40c3d1f1ce0bca81b5982c980e59507c316151c8901af071"
+  },
+  "native_instructions": {
+    "path": "work/host_allocate/native.json",
+    "sha256": "024bc407eb0062c3d6b699baca712d9320aa6c3f743eca312c44fd1547bb76ca"
+  },
+  "existing_region": {
+    "path": "evidence/host_pool_region.json",
+    "sha256": "e2bfa5f3b67dea2d83495aab0cdca2327cdb74310a0fdf4d16b0d1daa8e011f3"
+  },
+  "sources": [
+    {
+      "path": "calibration/host_pool_repaired.c",
+      "sha256": "115c5e969b4cfff3470d2f08e1a8923b03a392536448ebe14815df17d2bc4ac0"
+    },
+    {
+      "path": "calibration/host_pool_storage.c",
+      "sha256": "a8cf197cec1b0310ccb4f2f1f27059e8e029be16708b09dd2966bdc05a7271de"
+    },
+    {
+      "path": "calibration/host_pool_formats.c",
+      "sha256": "19f2244bb88998915d03b16f25fca40adf21b91c86677499bca693b7545abe66"
+    },
+    {
+      "path": "scripts/host_allocate_differential.py",
+      "sha256": "67edcf8a79a3db257e885d8383b9753808958888e76dbeb0228788569d4bd15a"
+    },
+    {
+      "path": "scripts/host_music_differential.py",
+      "sha256": "d258981ceaccc8fe55e10922dfea56c0d5aebcd63fe06e07f835e14467e4b036"
+    }
+  ],
+  "function": {
+    "id": "exe.host_pool_allocate_4570",
+    "symbol": "_host_allocate",
+    "rva": "0x4570",
+    "native_complete_bytes": 288,
+    "native_body_bytes": 285,
+    "compiled_complete_bytes": 288,
+    "raw_equal": false,
+    "raw_differing_bytes": 259,
+    "source_relocations": 6,
+    "diagnostic_differing_bytes": 238,
+    "status": "RECONSTRUCTED",
+    "canonical_game_source_unchanged": true
+  },
+  "behavior": [
+    "Read the old output pointer first. A nonzero value emits the native MallocFAILED diagnostic but allocation continues without freeing the old block.",
+    "PoolID is flags&3. Bit10hex requests the pinned flag;bit20hex preserves the old output only on failure. Other flag bits do not become descriptor flags.",
+    "Round requested bytes upward with unsigned32-bit wrap,then add two header words. Scan to the end and retain the last adequate free block;allocate from its high end,including exact and one-word remainders.",
+    "Write allocation descriptor and owner word,emit the allocation diagnostic,then update the output slot and return the payload. Failure returns0 and clears the output unless bit20hex is set.",
+    "Owner/header/metadata aliases preserve native mutation order,even when the resulting heap/ownership is malformed. No new validation or repair is introduced."
+  ],
+  "unit": {
+    "receipt": {
+      "path": "work/host_allocate/final_unit/host_allocate_differential.json",
+      "sha256": "d05c946a7f16ef2101682738c66e93c914382bfdbe6182042268bb259bb0ea3e"
+    },
+    "cases": 700,
+    "allocation_cases": 680,
+    "initialization_cases": 20,
+    "all_equal": true,
+    "negative_controls": [
+      "first_adequate_block",
+      "pinned_flag_lost",
+      "preserve_failure_ignored",
+      "request_rounds_down",
+      "exact_fit_rejected"
+    ],
+    "checks": [
+      "Complete heap and sentinel,48-byte pool prefix,external/aliased owner,full pointer return and ordered diagnostics.",
+      "Empty/single/fragmented pools;zero/unaligned/exact/too-large/overflow requests;pools0..3,pinned/free-pinned descriptors and flag combinations.",
+      "Valid initialization sizes16,20,31,256,4096acrossfourpools,preserving untouched bytes and metadata.",
+      "Code/write whitelists,return address,caller guard,ESP,nonvolatile registers and clear direction flag. Allocator reuses its incoming flag home as scratch."
+    ],
+    "models": "No modeled callees on these exercised paths;actual allocator/initializer and no-op diagnostic execute. Heap and output slots are explicit inputs.",
+    "observer_correction": "The initial scratch observer read a third word for the two-argument MallocFAILED diagnostic. The final public runner reads only the two passed arguments,using the verified literal identity. No game-source change."
+  },
+  "callers": {
+    "receipt": {
+      "path": "work/host_allocate/final_music/host_music_differential.json",
+      "sha256": "883f9b6b5a516b2287900eb7965d13f6f8acf6c09b0e525ab18d2b427d599e29"
+    },
+    "cases": 415,
+    "all_equal": true,
+    "allocator_is_modeled": false,
+    "allocation_entries_by_phase": {
+      "preparation": 415,
+      "caller": 174
+    },
+    "family_invocations": 440,
+    "sequences": 5,
+    "negative_controls": [
+      "gain_compares_only_cached_word",
+      "auto_slot_rejected",
+      "allocation_rounds_up",
+      "bank_id_loses_upper_nibble",
+      "preload_caches_header",
+      "loader_includes_program127",
+      "unsigned_sample_test",
+      "duplicate_same_slot_suppressed",
+      "tone_output_clears_only16",
+      "program_output_clears_only8",
+      "tone_captured_before_clear"
+    ],
+    "fragmented_cases": [
+      "load_fragmented_pool",
+      "sfx_fragmented_pool"
+    ],
+    "exhaustion_case": "load_until_exhausted",
+    "exhaustion_returns": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      4294967295,
+      4294967295
+    ],
+    "original_SFX_members": 23,
+    "original_SFX_member_identities_unchanged": true,
+    "preconditions": "Explicit valid pool metadata and backing. An actual allocation reserves an alternate-context block in every case;payload/header addresses are not injected by a return hook. Failure inputs reserve the whole pool. Normal backing is64KiBonlyasafinitefixture,notproductioncapacity. Initializer executes separately in the unit suite,not in these caller preparations.",
+    "boundary_change": "Former allocation-return context/path mutations are retired. Synthetic reload interventions now occur at the still-modeled seek/read/sample-device boundaries and do not prove actual callee side-effect reachability.",
+    "models": "Only virtual I/O,formatting and sample-device entry remain models. Exact original SFX bytes enter through the read model. No original archive opener,Windows arena allocation or audio device executes."
+  },
+  "preservation": {
+    "all_five_pool_complete_contributions_and_ordered_relocations_preserved": true,
+    "all20previous_caller_contributions_preserved": true,
+    "all21private_to_canonical_caller_contributions_preserved": true,
+    "prior_779_rows_unchanged": true,
+    "new_rows": 1,
+    "counts": {
+      "FUNCTION_MATCH": 134,
+      "CODEGEN_SIMILAR": 572,
+      "RECONSTRUCTED": 74
+    },
+    "strict_gate": {
+      "path": "work/host_allocate/strict134.json",
+      "sha256": "1405f763bacdabf14702dc666de8c10145aa59ce613a922f80eaf7864d316696"
+    },
+    "all_134_raw_exact": true,
+    "new_FUNCTION_MATCHes": 0
+  },
+  "natural_graph": {
+    "prediction": {
+      "path": "work/host_allocate/graph_prediction.json",
+      "sha256": "29d74f5e90535e39d7d40efe5cfbde0ac9f01e9b128cda586a9a99e33fe833da"
+    },
+    "receipt": {
+      "path": "work/host_current_graph/report-88f2c16a4f54c3a1.json",
+      "sha256": "88f2c16a4f54c3a10813654b8b3965573c427a0256e96b65ebec606a0713559d"
+    },
+    "source_units": 149,
+    "recorded_EXE_functions": 259,
+    "preserved_exact_EXE_functions": 27,
+    "unresolved": [
+      "_g_archive_scratch",
+      "_g_host_engine_error_91c040",
+      "_g_host_engine_interface",
+      "_g_host_engine_path_91bbd8",
+      "_g_host_setup_input_buffer0_7a2a00",
+      "_g_host_setup_input_buffer1_7a2a40",
+      "_g_resource_filename"
+    ],
+    "unresolved_data": 7,
+    "unresolved_functions": 0,
+    "duplicate_link_errors": 0,
+    "images_produced": 0,
+    "images_executed": 0
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest": {
+      "path": "toolchains/manifest.json",
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    },
+    "flags": [
+      "/O2"
+    ],
+    "implicit_flag": "/Gy",
+    "runtime": "Existing Unicorn2.1.4 DLL010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1;no dependency installed or patched."
+  },
+  "replay_commands": [
+    "python scripts/region.py packet host_pool_core --more",
+    "python scripts/host_allocate_differential.py --original-root D:/Prog/hercules_recon --output work/host_allocate_replay",
+    "python scripts/host_music_differential.py --original-root D:/Prog/hercules_recon --output work/host_allocate_callers_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/host_allocate_raw_replay.json"
+  ],
+  "limits": [
+    "288/288size and finite agreement are not raw equality;238diagnostic differences remain. No exhausted source-spelling family was reopened or source body changed.",
+    "No original declaration,source identity,TU,module placement,whole-binary equality or arbitrary-pointer/arena safety. Source traversal is measured under the historical32-bit compiler.",
+    "Fixture pools/fragmentation/exhaustion do not prove original arena capacity or actual Windows backing. They do not resolve the unrelated natural MFC/CRT allocator-library selection issue.",
+    "SFX query-failure locals,narrow WORD contracts,path-prefix extent and remaining modeled I/O/device boundaries retain their earlier limits.",
+    "Seven genuine data providers/full host-interface ownership remain unresolved;the selected graph is not a whole-game completeness denominator. Actual startup,menu,input and gameplay remain unverified;renderer work stays deferred."
+  ]
+}
