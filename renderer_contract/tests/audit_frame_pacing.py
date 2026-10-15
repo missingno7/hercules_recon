@@ -632,7 +632,7 @@ def main():
         "model": model,
     }
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(result, indent=1) + "\n")
+    output.write_text(json.dumps(result, indent=1) + "\n", newline="\n")
     for c in checks:
         print(("PASS " if c["ok"] else "FAIL ") + c["check"])
     print("ALL_OK" if result["all_ok"] else "NOT_OK")
