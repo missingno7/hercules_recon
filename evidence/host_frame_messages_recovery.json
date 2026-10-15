@@ -1,0 +1,468 @@
+{
+  "schema": 1,
+  "scope": "Six original PC CMainFrame callback bodies and one measured state byte, useful to later matching decompilation. Actual recovered platform descendants execute in offline emulation. MFC methods are identified library boundaries modeled at entry. No message loop, real window, original process or runnable game acceptance; recovery.json alone owns function status.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_frame_messages.cpp",
+      "sha256": "89fef57c616c636bde01c0c5bf796bf783ab077b02e15b776b8ba4d3efb1ae6e"
+    },
+    {
+      "path": "calibration/host_frame_state_storage.c",
+      "sha256": "931ac2079dd27462785e44facf6bbe6181eeb26f4fcc4b2181cabb066c202ec3"
+    },
+    {
+      "path": "scripts/host_frame_messages_differential.py",
+      "sha256": "12ab06b3af322555cc4b71675cd3a384ca069d1ac45393c1edbc4237c05e7b31"
+    },
+    {
+      "path": "calibration/host_system_keys.h",
+      "sha256": "056341d7075f5b74e7f6d8e29e390e5fd9f72ff8b4fc39a06fdd0fdd729f1385"
+    }
+  ],
+  "prediction": {
+    "path": "work/host_frame_messages/prediction.json",
+    "sha256": "915d22a240c21a6598df17cb264e571f3ab9856e46d399705023a107f4e6caf5"
+  },
+  "toolchain": {
+    "name": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest": {
+      "path": "toolchains/manifest.json",
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    },
+    "flags": [
+      "/O2",
+      "/MT",
+      "/IC:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\include"
+    ]
+  },
+  "functions": [
+    {
+      "role": "activate",
+      "symbol": "?OnRva_00009820@CMainFrame@@QAEXHPAUHTASK__@@@Z",
+      "rva": "0x9820",
+      "native_bytes": 32,
+      "native_body_bytes": 30,
+      "source_bytes": 32,
+      "raw_exact": false,
+      "raw_differences": 17,
+      "diagnostic_equal": false,
+      "diagnostic_differences": 7,
+      "relocations_grouped": [
+        {
+          "symbol": "?Default@CWnd@@IAEJXZ",
+          "type": 20,
+          "offsets": [
+            1
+          ]
+        },
+        {
+          "symbol": "_g_exe_ba0238",
+          "type": 6,
+          "offsets": [
+            19
+          ]
+        },
+        {
+          "symbol": "_graphics_native_05a50",
+          "type": 20,
+          "offsets": [
+            24
+          ]
+        }
+      ],
+      "target_relocation_count": 0,
+      "status": "RECONSTRUCTED"
+    },
+    {
+      "role": "size",
+      "symbol": "?OnRva_00009870@CMainFrame@@QAEXIHH@Z",
+      "rva": "0x9870",
+      "native_bytes": 144,
+      "native_body_bytes": 130,
+      "source_bytes": 144,
+      "raw_exact": false,
+      "raw_differences": 24,
+      "diagnostic_equal": true,
+      "diagnostic_differences": 0,
+      "relocations_grouped": [
+        {
+          "symbol": "?OnSize@CFrameWnd@@IAEXIHH@Z",
+          "type": 20,
+          "offsets": [
+            25
+          ]
+        },
+        {
+          "symbol": "_g_fatal_suppress_dialog",
+          "type": 6,
+          "offsets": [
+            30
+          ]
+        },
+        {
+          "symbol": "_g_host_frame_maximized_7a022c",
+          "type": 6,
+          "offsets": [
+            48
+          ]
+        },
+        {
+          "symbol": "__imp__GetClientRect@8",
+          "type": 6,
+          "offsets": [
+            63
+          ]
+        },
+        {
+          "symbol": "_g_exe_ba0220",
+          "type": 6,
+          "offsets": [
+            91
+          ]
+        },
+        {
+          "symbol": "_g_exe_ba0224",
+          "type": 6,
+          "offsets": [
+            97
+          ]
+        },
+        {
+          "symbol": "_g_exe_ba0228",
+          "type": 6,
+          "offsets": [
+            108,
+            117
+          ]
+        }
+      ],
+      "target_relocation_count": 0,
+      "status": "CODEGEN_SIMILAR"
+    },
+    {
+      "role": "syscommand",
+      "symbol": "?OnRva_00009910@CMainFrame@@QAEXIJ@Z",
+      "rva": "0x9910",
+      "native_bytes": 64,
+      "native_body_bytes": 51,
+      "source_bytes": 64,
+      "raw_exact": false,
+      "raw_differences": 10,
+      "diagnostic_equal": true,
+      "diagnostic_differences": 0,
+      "relocations_grouped": [
+        {
+          "symbol": "_g_exe_ba0230",
+          "type": 6,
+          "offsets": [
+            24
+          ]
+        },
+        {
+          "symbol": "_graphics_native_05a50",
+          "type": 20,
+          "offsets": [
+            29
+          ]
+        },
+        {
+          "symbol": "?OnSysCommand@CFrameWnd@@IAEXIJ@Z",
+          "type": 20,
+          "offsets": [
+            42
+          ]
+        }
+      ],
+      "target_relocation_count": 0,
+      "status": "CODEGEN_SIMILAR"
+    },
+    {
+      "role": "ncmouse",
+      "symbol": "?OnRva_00009950@CMainFrame@@QAEXIVCPoint@@@Z",
+      "rva": "0x9950",
+      "native_bytes": 32,
+      "native_body_bytes": 30,
+      "source_bytes": 32,
+      "raw_exact": false,
+      "raw_differences": 13,
+      "diagnostic_equal": true,
+      "diagnostic_differences": 0,
+      "relocations_grouped": [
+        {
+          "symbol": "_g_exe_ba0230",
+          "type": 6,
+          "offsets": [
+            1,
+            10
+          ]
+        },
+        {
+          "symbol": "_graphics_native_05a50",
+          "type": 20,
+          "offsets": [
+            15
+          ]
+        },
+        {
+          "symbol": "?Default@CWnd@@IAEJXZ",
+          "type": 20,
+          "offsets": [
+            22
+          ]
+        }
+      ],
+      "target_relocation_count": 0,
+      "status": "CODEGEN_SIMILAR"
+    },
+    {
+      "role": "initmenu",
+      "symbol": "?OnRva_00009970@CMainFrame@@QAEXPAVCMenu@@@Z",
+      "rva": "0x9970",
+      "native_bytes": 32,
+      "native_body_bytes": 30,
+      "source_bytes": 32,
+      "raw_exact": false,
+      "raw_differences": 13,
+      "diagnostic_equal": true,
+      "diagnostic_differences": 0,
+      "relocations_grouped": [
+        {
+          "symbol": "_g_exe_ba0230",
+          "type": 6,
+          "offsets": [
+            1,
+            10
+          ]
+        },
+        {
+          "symbol": "_graphics_native_05a50",
+          "type": 20,
+          "offsets": [
+            15
+          ]
+        },
+        {
+          "symbol": "?Default@CWnd@@IAEJXZ",
+          "type": 20,
+          "offsets": [
+            22
+          ]
+        }
+      ],
+      "target_relocation_count": 0,
+      "status": "CODEGEN_SIMILAR"
+    },
+    {
+      "role": "help",
+      "symbol": "?OnRva_00009840@CMainFrame@@QAEXXZ",
+      "rva": "0x9840",
+      "native_bytes": 48,
+      "native_body_bytes": 33,
+      "source_bytes": 48,
+      "raw_exact": false,
+      "raw_differences": 7,
+      "diagnostic_equal": true,
+      "diagnostic_differences": 0,
+      "relocations_grouped": [
+        {
+          "symbol": "_cleanup_native_6ec0",
+          "type": 20,
+          "offsets": [
+            6
+          ]
+        },
+        {
+          "symbol": "_g_exe_ba0238",
+          "type": 6,
+          "offsets": [
+            19
+          ]
+        }
+      ],
+      "target_relocation_count": 0,
+      "status": "CODEGEN_SIMILAR"
+    }
+  ],
+  "semantics": [
+    "Activation calls CWnd::Default first, writes modeBYTE=(active!=0)+1 and executes the actual platform synchronizer. Task argument is untouched.",
+    "Size calls the MFC base before reading fullscreen. Only a zero fullscreen BYTE updates the maximized flag, receiver HWND client rectangle, signed dimensions and zero-or-negative client flag. HWND is loaded from receiver+0x1c, independently of global owner.",
+    "System command mask is literally0xfff0, including clearing upper16bits. Screen-save commands return without depth increment or base/platform calls. Other commands preserve original UINT/LPARAM arguments through the actual platform call.",
+    "Nonclient mouse and menu entry increment the shared DWORD depth, execute platform synchronization and call Default. No local decrement or synthetic balance was added; DWORD wrap is preserved.",
+    "Help calls the actual display-mode setter with0, writes modeBYTE1, then dispatches virtual WinHelp(0,HELP_INDEX=3) through slot29/offset0x74. Existing receiver/vtable/map declarations are unchanged."
+  ],
+  "boundaries": {
+    "size_handler": "RVA0x9870 through0x98ff,144bytes; RET0x98ef ends130-byte body followed by14NOPs. Derived160-byte function span overlaps accepted0x9900 and was rejected.",
+    "alignment": "Full32/144/64/32/32/48-byte contributions measured, including NOPs; no trimmed equality.",
+    "activation": "Seven non-relocation differences remain; no unsupported compiler-steering search."
+  },
+  "library": {
+    "archive": {
+      "path": "C:/tools/hercules/msvc500-8abf95ce980161ad87b0b02402269cce76988953/mfc/lib/nafxcw.lib",
+      "sha256": "5d9c3585552412a9b94a9a0b7c3a4208061a76d48a6c3283518bfe9f674c9e22"
+    },
+    "identity": [
+      {
+        "role": "WinHelp",
+        "symbol": "?WinHelpA@CWnd@@UAEXKI@Z",
+        "native_rva": "0x23412",
+        "complete_bytes": 224,
+        "archive_member": 148,
+        "member_sha256": "b8bbb902f332f2e1d2291646e511b8a35b03e2e9ccf1985b2c8e75f275aac343",
+        "diagnostic_equal": true,
+        "scope": "Complete unmodified library member code comparison; relocations normalized, not raw equality. Library entry modeled in behavioral cases."
+      },
+      {
+        "role": "Default",
+        "symbol": "?Default@CWnd@@IAEJXZ",
+        "native_rva": "0x225ec",
+        "complete_bytes": 39,
+        "archive_member": 148,
+        "member_sha256": "b8bbb902f332f2e1d2291646e511b8a35b03e2e9ccf1985b2c8e75f275aac343",
+        "diagnostic_equal": true,
+        "scope": "Complete unmodified library member code comparison; relocations normalized, not raw equality. Library entry modeled in behavioral cases."
+      },
+      {
+        "role": "BaseSize",
+        "symbol": "?OnSize@CFrameWnd@@IAEXIHH@Z",
+        "native_rva": "0x2b778",
+        "complete_bytes": 31,
+        "archive_member": 147,
+        "member_sha256": "a657c3050288d0761f28310a80c717b4382bb09407c1383203224ae21a0a1df4",
+        "diagnostic_equal": true,
+        "scope": "Complete unmodified library member code comparison; relocations normalized, not raw equality. Library entry modeled in behavioral cases."
+      },
+      {
+        "role": "BaseSysCommand",
+        "symbol": "?OnSysCommand@CFrameWnd@@IAEXIJ@Z",
+        "native_rva": "0x2a74c",
+        "complete_bytes": 151,
+        "archive_member": 147,
+        "member_sha256": "a657c3050288d0761f28310a80c717b4382bb09407c1383203224ae21a0a1df4",
+        "diagnostic_equal": true,
+        "scope": "Complete unmodified library member code comparison; relocations normalized, not raw equality. Library entry modeled in behavioral cases."
+      }
+    ],
+    "virtual_help": {
+      "native_vtable_rva": "0x2e870",
+      "slot": 29,
+      "offset": "0x74",
+      "target_rva": "0x23412",
+      "symbol": "?WinHelpA@CWnd@@UAEXKI@Z",
+      "receiver_bytes": 188
+    }
+  },
+  "data": {
+    "symbol": "_g_host_frame_maximized_7a022c",
+    "rva": "0x7a022c",
+    "bytes": 1,
+    "backing": "Original virtual loader zero",
+    "code_bytes": 0,
+    "relocations": 0,
+    "limits": "Minimum observed prefix only. No original declared type, total capacity, TU owner, placement or neighboring state inferred."
+  },
+  "validation": {
+    "private_receipt": {
+      "path": "work/host_frame_messages/replay/frame_messages_differential.json",
+      "sha256": "38be6650aa8809f5ee778cf9f68499c5247375bf6f187c295e7ab6036dd4b24f"
+    },
+    "cases": 67,
+    "frame_cases": 30,
+    "platform_regression_cases": 37,
+    "all_equal": true,
+    "executed_actual_roles": [
+      "activate",
+      "constructor",
+      "decoder",
+      "help",
+      "initmenu",
+      "music_off",
+      "music_on",
+      "music_pause",
+      "ncmouse",
+      "poll",
+      "priority",
+      "ready",
+      "release",
+      "restore",
+      "set_mode",
+      "size",
+      "sound_off",
+      "sound_on",
+      "sound_pause",
+      "stop",
+      "suspend",
+      "sync",
+      "syscommand"
+    ],
+    "checks": [
+      "Ordered library/API/COM events and actual function entries",
+      "Every modeled global prefix including the1MiB sound scratch, complete188-byte receiver and complete COM heap",
+      "Thiscall receiver, argument cleanup, nonvolatile registers, stack guards and write whitelist",
+      "Live state/receiver HWND mutations at base/API boundaries",
+      "Null menu, high-bit commands/BOOLs, depth wrap, fullscreen base mutation, signed/empty client rectangles and ignored API failure"
+    ],
+    "negative_control": {
+      "scenario": {
+        "name": "sys_0x1234f141",
+        "handler": "syscommand",
+        "arguments": [
+          305459521,
+          2309737967
+        ]
+      },
+      "detected": true,
+      "wrong": "command & ~0xf",
+      "correct": "command & 0xfff0",
+      "result": "Native suppresses0x1234f141; wrong source invokes synchronization/base. Negative code exists only in ignored fixture output."
+    },
+    "modeled_boundaries": [
+      "Identified static MFC Default/OnSize/OnSysCommand/WinHelp",
+      "Archive I/O/fatal and identified CRT formatting/comparison",
+      "Windows and DirectSound COM endpoints"
+    ],
+    "fixture_limits": "Finite synthetic member calls; no actual MFC method body or Windows message loop executed. Fail-on-entry link-only fixture dependencies never execute and are absent from the natural graph."
+  },
+  "regression": {
+    "strict": {
+      "path": "work/host_frame_messages/strict133.json",
+      "sha256": "6a017a84213df5d5219d6fc08976cf2cb7429cff79bbccd4c8ca360137b8072d"
+    },
+    "all_133_raw_exact": true,
+    "prior_673_recovery_rows_unchanged": true,
+    "complete_peer_preservation": {
+      "path": "work/host_frame_messages/preservation.json",
+      "sha256": "9768f4a33df7ea504da1806d9e43c8d79b6d09f7dad81f85f2e445b1998e454b"
+    },
+    "peer_scope": "Fresh class32sections, SYSKEY5sections and message-map2sections equal to their prior compiled contributions, including bytes, sizes, flags and relocations. Covers63virtual slots, runtime metadata and8class contributions.",
+    "map_replay": {
+      "path": "work/host_frame_messages/map_replay/public_message_map_data_verifier.json",
+      "sha256": "5a8582d716e5f52fafd437aca3588ce534e6abc29f9c4393a6e6207a90d1f06b"
+    },
+    "map_bytes": 752,
+    "map_relocations": 32,
+    "natural_graph": {
+      "path": "work/host_current_graph/report-ecc45406605d1551.json",
+      "sha256": "ecc45406605d1551a923b7f206aeb71b1c213b08b9076a63cb747e8179943a2e"
+    },
+    "source_units": 121,
+    "recorded_EXE_functions": 158,
+    "accepted_EXE_functions": 26,
+    "unresolved": 24,
+    "missing_frame_callbacks": 12,
+    "missing_data_providers": 12,
+    "duplicate_link_errors": 0,
+    "images_produced": 0
+  },
+  "replay_commands": [
+    "python scripts/host_frame_messages_differential.py --output work/frame_messages_replay",
+    "python scripts/host_frame_message_map_data.py --output work/frame_map_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/strict_verification.json"
+  ],
+  "limits": [
+    "No new FUNCTION_MATCH. Relocation-normalized equals stay diagnostic; activation remains RECONSTRUCTED.",
+    "Original source spelling, translation-unit grouping, linker flags, module layout and whole-binary equality are unproved.",
+    "The selected natural host graph still fails to link. Twelve frame bodies and twelve genuine data providers remain; no aliases, placement controls or production stubs were added."
+  ]
+}

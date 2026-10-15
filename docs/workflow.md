@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 119 actual source units with
-152 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 30 unresolved dependencies: 18 newly exposed frame
-callbacks and 12 other providers. Including the real map replaces one missing
+The current natural selected host graph compiles 121 actual source units with
+158 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 24 unresolved dependencies: 12 frame
+callbacks and 12 data providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -110,6 +110,22 @@ See `evidence/host_frame_message_map_recovery.json`,
 `evidence/host_current_source_graph.json`. Earlier receipts retain their original
 header and graph contexts. Reconstruction remains the current phase; renderer
 implementation is deferred.
+
+Six further frame callbacks now have ordinary historical C++ definitions: activation,
+client sizing, system commands, nonclient mouse/menu entry and help. The existing
+receiver declarations, class layout, virtual table and message map are unchanged.
+In 67 guarded native/source cases, these handlers execute the recovered platform
+and audio descendants. Four identified MFC library methods are linked unchanged
+and modeled at entry; this does not execute a Windows message loop. An incorrect
+system-command mask is rejected by a directed negative control. Five complete
+contributions are relocation-normalized equals; activation retains seven other
+byte differences. All six fail raw equality, so none is a new FUNCTION_MATCH.
+The one-byte maximized flag has measured loader-zero backing; larger storage and
+original ownership remain unproved. See `evidence/host_frame_messages_recovery.json`.
+
+```
+python scripts/host_frame_messages_differential.py --output work/frame_messages_replay
+```
 
 The loader now has an independent source provider for four observed DWORD cells
 and the pinned SDK's 64-byte `jmp_buf` representation. All 80 source bytes have
