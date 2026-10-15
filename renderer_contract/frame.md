@@ -65,3 +65,5 @@ The private investigation paths above identify provenance. In this package, run 
 The shipped test_frame.c uses synthetic raw32 chains by default. The private x86 gate also linked the existing accepted AC20 writer; that historical source is not duplicated in this package.
 
 See [frame lifetime](frame_lifetime.md) for separate arena requests, complementary cursor selection and reset/submit/swap order. Allocation requests and observed writes are distinct from usable capacity.
+
+See [frame pacing](frame_pacing.md) for the 33 ms wall-clock step in `0x5F20`, the `BA01FC` catch-up flag that skips drawing and presentation, and whether a vsync-blocking present in this bracket changes game speed.

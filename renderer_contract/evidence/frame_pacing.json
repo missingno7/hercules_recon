@@ -1,0 +1,1164 @@
+{
+ "kind": "frame_pacing_audit",
+ "inputs": {
+  "HERCULES.EXE": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "ENG3.DLL": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "TITLE.DLL": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b"
+ },
+ "all_ok": true,
+ "checks": [
+  {
+   "check": "exe_clock_imports",
+   "ok": true,
+   "detail": {
+    "present": [
+     "CreateThread",
+     "GetMessageTime",
+     "KillTimer",
+     "ResumeThread",
+     "SetThreadPriority",
+     "SetTimer",
+     "Sleep",
+     "SuspendThread",
+     "WaitMessage",
+     "timeBeginPeriod",
+     "timeEndPeriod",
+     "timeGetTime"
+    ],
+    "absent": [
+     "CreateWaitableTimerA",
+     "GetLocalTime",
+     "GetSystemTime",
+     "GetSystemTimeAsFileTime",
+     "GetTickCount",
+     "GetTickCount64",
+     "MsgWaitForMultipleObjects",
+     "MsgWaitForMultipleObjectsEx",
+     "QueryPerformanceCounter",
+     "QueryPerformanceFrequency",
+     "SetWaitableTimer",
+     "SleepEx",
+     "WaitForMultipleObjects",
+     "WaitForMultipleObjectsEx",
+     "WaitForSingleObject",
+     "WaitForSingleObjectEx",
+     "timeGetSystemTime",
+     "timeKillEvent",
+     "timeSetEvent"
+    ]
+   }
+  },
+  {
+   "check": "engine_dlls_have_no_clock_or_wait_api",
+   "ok": true,
+   "detail": {
+    "imports": {
+     "ENG1.DLL": [],
+     "ENG3.DLL": [],
+     "TITLE.DLL": []
+    },
+    "name_strings_anywhere_in_file": {
+     "ENG1.DLL": [],
+     "ENG3.DLL": [],
+     "TITLE.DLL": []
+    },
+    "note": "DLLs import GetProcAddress (CRT); no clock/wait API name exists in their bytes to resolve"
+   }
+  },
+  {
+   "check": "exe_clock_names_only_in_import_table",
+   "ok": true,
+   "detail": {
+    "CreateThread": 1,
+    "GetMessageTime": 1,
+    "KillTimer": 1,
+    "ResumeThread": 1,
+    "SetThreadPriority": 1,
+    "SetTimer": 1,
+    "Sleep": 1,
+    "SuspendThread": 1,
+    "WaitMessage": 1,
+    "timeBeginPeriod": 1,
+    "timeEndPeriod": 1,
+    "timeGetTime": 1
+   }
+  },
+  {
+   "check": "onidle_tick_bracket",
+   "ok": true,
+   "detail": {
+    "calls": [
+     "0x4079e0: call 0x405a50",
+     "0x4079e5: call 0x406bb0",
+     "0x4079fc: call 0x405f20",
+     "0x407a11: call 0x406bb0",
+     "0x407a16: call 0x405a50",
+     "0x407a45: call 0x410f40",
+     "0x407a54: call 0x410460",
+     "0x407a75: call dword ptr [0xba5abc]  ; WaitMessage",
+     "0x407a83: call 0x425886"
+    ],
+    "gate": [
+     "0x4079ea: mov al, byte ptr [0xba0238]",
+     "0x4079ef: test al, al",
+     "0x4079f1: je 0x407a5c",
+     "0x4079f3: mov al, byte ptr [0xba0228]",
+     "0x4079f8: test al, al",
+     "0x4079fa: jne 0x407a5c",
+     "0x4079fc: call 0x405f20"
+    ]
+   }
+  },
+  {
+   "check": "onidle_waits_only_when_tick_gate_closed",
+   "ok": true,
+   "detail": [
+    "0x407a63: mov al, byte ptr [0xba0238]",
+    "0x407a68: test al, al",
+    "0x407a6a: je 0x407a75",
+    "0x407a6c: mov al, byte ptr [0xba0228]",
+    "0x407a71: test al, al",
+    "0x407a73: je 0x407a7b",
+    "0x407a75: call dword ptr [0xba5abc]  ; WaitMessage",
+    "0x407a7b: push 0"
+   ]
+  },
+  {
+   "check": "onidle_returns_base_onidle_0_true",
+   "ok": true,
+   "detail": {
+    "detail": [
+     "0x407a7b: push 0",
+     "0x407a7d: mov ecx, dword ptr [ebp - 0x420]",
+     "0x407a83: call 0x425886",
+     "0x4258de: xor eax, eax",
+     "0x4258e0: cmp edi, 1",
+     "0x4258e3: pop edi",
+     "0x4258e4: pop esi",
+     "0x4258e5: setl al",
+     "0x4258e8: pop ebp"
+    ],
+    "meaning": "OnIdle(n) -> CWinApp::OnIdle(0) == (0 < 1) == TRUE, so CWinThread::Run keeps calling OnIdle without blocking"
+   }
+  },
+  {
+   "check": "onidle_side_calls_do_not_sleep",
+   "ok": true,
+   "detail": [
+    "SetThreadPriority",
+    "timeEndPeriod",
+    "timeGetTime"
+   ]
+  },
+  {
+   "check": "tick_body_is_reconstructed_oracle",
+   "ok": true,
+   "detail": {
+    "sha256": "2da2abca95296d27f38f85a3e65df55f188a014d1a3f0470f26cb39d47224802",
+    "bytes": 173
+   }
+  },
+  {
+   "check": "tick_order_helper_then_timegettime",
+   "ok": true,
+   "detail": [
+    "0x405f20: push ebx",
+    "0x405f21: push esi",
+    "0x405f22: call 0x409cd0",
+    "0x405f27: call dword ptr [0xba5b24]  ; timeGetTime"
+   ]
+  },
+  {
+   "check": "tick_constants",
+   "ok": true,
+   "detail": {
+    "clamp_hi": "ecx, 0x42",
+    "clamp_hi_store": "ecx, 0x42",
+    "clamp_lo": "ecx, -0x42",
+    "clamp_lo_store": "ecx, 0xffffffbe",
+    "step_test": "ecx, 0x21",
+    "step_sub_loop": "ecx, 0x21",
+    "loop_bound": "esi, 2",
+    "step_sub_final": "ecx, 0x21",
+    "decoded": {
+     "clamp_ms": 66,
+     "step_ms": 33,
+     "max_flagged_per_tick": 2
+    }
+   }
+  },
+  {
+   "check": "tick_flag_protocol",
+   "ok": true,
+   "detail": [
+    "0x405f91: mov byte ptr [0xba01fc], bl",
+    "0x405f97: call 0x405ec0",
+    "0x405fb3: mov byte ptr [0xba01fc], 0",
+    "0x405fba: jl 0x405fca",
+    "0x405fc5: call 0x405ec0"
+   ]
+  },
+  {
+   "check": "tick_reset_branch",
+   "ok": true,
+   "detail": [
+    "0x405f2d: mov edx, dword ptr [0x91c474]",
+    "0x405f33: test edx, edx",
+    "0x405f35: je 0x405f41",
+    "0x405f37: mov ecx, dword ptr [0x91c46c]",
+    "0x405f3d: test ecx, ecx",
+    "0x405f3f: je 0x405f51",
+    "0x405f41: mov dword ptr [0x91c46c], 0",
+    "0x405f4b: mov edx, eax",
+    "0x405f4d: xor ecx, ecx",
+    "0x405f4f: jmp 0x405f57"
+   ]
+  },
+  {
+   "check": "accumulator_and_previous_sample_private_to_tick",
+   "ok": true,
+   "detail": {
+    "0x91c470": [
+     "0x405f51: mov ecx, dword ptr [0x91c470]",
+     "0x405f65: mov dword ptr [0x91c470], ecx",
+     "0x405f72: mov dword ptr [0x91c470], ecx",
+     "0x405f82: mov dword ptr [0x91c470], ecx",
+     "0x405f9c: mov ecx, dword ptr [0x91c470]",
+     "0x405fa9: mov dword ptr [0x91c470], ecx",
+     "0x405fbf: mov dword ptr [0x91c470], ecx"
+    ],
+    "0x91c474": [
+     "0x405f2d: mov edx, dword ptr [0x91c474]",
+     "0x405f59: mov dword ptr [0x91c474], eax"
+    ]
+   }
+  },
+  {
+   "check": "catchup_flag_written_only_by_tick",
+   "ok": true,
+   "detail": {
+    "writes": [
+     "0x405f91: mov byte ptr [0xba01fc], bl",
+     "0x405fb3: mov byte ptr [0xba01fc], 0"
+    ],
+    "reads": [
+     "0x405efb: mov cl, byte ptr [0xba01fc]",
+     "0x40ac60: mov al, byte ptr [0xba01fc]",
+     "0x40accf: mov cl, byte ptr [0xba01fc]",
+     "0x40b057: mov cl, byte ptr [0xba01fc]",
+     "0x40b17b: mov al, byte ptr [0xba01fc]",
+     "0x40b2c2: mov al, byte ptr [0xba01fc]"
+    ]
+   }
+  },
+  {
+   "check": "clock_reset_writers",
+   "ok": true,
+   "detail": {
+    "sites": {
+     "0x405aed": "0x405aed: mov dword ptr [0x91c46c], ebx",
+     "0x4069a1": "0x4069a1: mov dword ptr [0x91c46c], 1",
+     "0x409f41": "0x409f41: mov dword ptr [0x91c46c], 1"
+    },
+    "owners": {
+     "0x405aed": "0x5A50 platform sync (OnIdle side call; depth/mode request ba0230 != 0)",
+     "0x4069a1": "0x69A0 palette refresh",
+     "0x409f41": "0x9E60 CD play (also stamps 96e624 with timeGetTime)"
+    },
+    "effect": "next 0x5F20 discards elapsed time: accumulator=0, one unflagged step"
+   }
+  },
+  {
+   "check": "palette_refresh_waits_vblank_and_presents",
+   "ok": true,
+   "detail": {
+    "WaitForVerticalBlank_vtbl_0x58": [
+     {
+      "site": "0x4069d8",
+      "pushes": [
+       "0",
+       "1",
+       "eax"
+      ]
+     },
+     {
+      "site": "0x406a11",
+      "pushes": [
+       "0",
+       "4",
+       "eax"
+      ]
+     },
+     {
+      "site": "0x406a24",
+      "pushes": [
+       "0",
+       "1",
+       "eax"
+      ]
+     }
+    ],
+    "calls": [
+     "0x4069ab: call 0x407140",
+     "0x4069b6: call 0x406ee0",
+     "0x4069be: call 0x406620",
+     "0x4069d8: call dword ptr [ecx + 0x58]",
+     "0x4069fa: call dword ptr [edx + 0x18]",
+     "0x406a11: call dword ptr [edx + 0x58]",
+     "0x406a24: call dword ptr [ecx + 0x58]",
+     "0x406a40: call dword ptr [0xba5668]  ; SetPaletteEntries",
+     "0x406a48: call 0x406700"
+    ],
+    "flags": "1=DDWAITVB_BLOCKBEGIN, 4=DDWAITVB_BLOCKEND (pinned ddraw.h); DirectDraw-mode branch only"
+   }
+  },
+  {
+   "check": "palette_slot145_and_movie_slot148_reach_69a0",
+   "ok": true,
+   "detail": {
+    "slot145": "0x405760",
+    "slot148": "0x405450",
+    "callers_of_69a0": [
+     "0x4055d8",
+     "0x405720",
+     "0x4057da",
+     "0x4059ef",
+     "0x406ea6",
+     "0x40728f"
+    ],
+    "slot148_calls": [
+     "0x401f60",
+     "0x403140",
+     "0x403680",
+     "0x403770",
+     "0x4037a0",
+     "0x405350",
+     "0x405a50",
+     "0x406620",
+     "0x406780",
+     "0x406810",
+     "0x4069a0",
+     "0x406bb0",
+     "0x406ec0",
+     "0x406ff0",
+     "0x407140",
+     "0x409e10",
+     "0x40bcf0",
+     "0x40fb10",
+     "0x410f40"
+    ],
+    "note": "0x4059EF is slot 145's switch path (indirect jmp table at 0x405A04)"
+   }
+  },
+  {
+   "check": "palette_refresh_callers_owned",
+   "ok": true,
+   "detail": {
+    "callers": {
+     "0x4055d8": [
+      "0x405450"
+     ],
+     "0x405720": [
+      "0x405450"
+     ],
+     "0x4057da": [
+      "0x405760"
+     ],
+     "0x4059ef": [
+      "0x405760 (switch path)"
+     ],
+     "0x406ea6": [
+      "0x406bb0"
+     ],
+     "0x40728f": [
+      "0x4071a0"
+     ]
+    },
+    "slot145_preset_indices_returning_without_refresh": [
+     0,
+     4
+    ],
+    "note": "slot 145 with a NULL path switches on index+6 (0..0x11); out-of-range indices also return at 0x4059F7"
+   }
+  },
+  {
+   "check": "cd_play_retry_sleeps_100ms",
+   "ok": true,
+   "detail": {
+    "sites": [
+     "0x409f25: push 0x64 / 0x409f27: call ebp"
+    ],
+    "sleep_loaded": "0x409e83: mov ebp, dword ptr [0xba58b0]  ; Sleep"
+   }
+  },
+  {
+   "check": "dispatch_passes_table_and_flag_to_export",
+   "ok": true,
+   "detail": {
+    "dispatch": [
+     "0x405ef3: mov edx, dword ptr [0x4365a0]",
+     "0x405ef9: xor ecx, ecx",
+     "0x405efb: mov cl, byte ptr [0xba01fc]",
+     "0x405f01: push ecx",
+     "0x405f02: push edx",
+     "0x405f03: call eax",
+     "0x405f05: add esp, 8"
+    ],
+    "binding": [
+     "0x405c89: mov edx, dword ptr [0x91c468]",
+     "0x405c8f: push 0x436868",
+     "0x405c94: push edx",
+     "0x405c95: call dword ptr [0xba58ac]  ; GetProcAddress",
+     "0x405c9b: test eax, eax",
+     "0x405c9d: mov dword ptr [0x91c45c], eax"
+    ],
+    "proc_name": "PC_DLLEngineMain"
+   }
+  },
+  {
+   "check": "exports_latch_flag_into_context_0x40",
+   "ok": true,
+   "detail": {
+    "ENG1.DLL": [
+     "0x1002c1e2: mov edx, dword ptr [esp + 0x10]",
+     "0x1002c1e6: mov eax, dword ptr [0x10070f24]",
+     "0x1002c1eb: and edx, 1",
+     "0x1002c1ee: mov dword ptr [eax + 0x40], edx",
+     "0x1002c1f1: call 0x10020300"
+    ],
+    "ENG3.DLL": [
+     "0x1001f892: mov edx, dword ptr [esp + 0x10]",
+     "0x1001f896: mov eax, dword ptr [0x100407a4]",
+     "0x1001f89b: and edx, 1",
+     "0x1001f89e: mov dword ptr [eax + 0x40], edx",
+     "0x1001f8a1: call 0x1001abb0"
+    ],
+    "TITLE.DLL": [
+     "0x1000c252: mov edx, dword ptr [esp + 0x10]",
+     "0x1000c256: mov eax, dword ptr [0x1002bb44]",
+     "0x1000c25b: and edx, 1",
+     "0x1000c25e: mov dword ptr [eax + 0x40], edx",
+     "0x1000c261: call 0x10005fb0"
+    ]
+   }
+  },
+  {
+   "check": "eng1_flag_skips_two_calls_per_step",
+   "ok": true,
+   "detail": {
+    "ebx_zero": [
+     "0x10020307: xor ebx, ebx"
+    ],
+    "ebx_note": "only the prologue writes ebx (besides the epilogue pop); ebx is callee-saved across the calls",
+    "gated": [
+     {
+      "load": "0x1002056c: mov eax, dword ptr [0x10070f24]",
+      "test": "0x10020571: cmp dword ptr [eax + 0x40], ebx",
+      "branch": "0x10020574: jne 0x1002057b",
+      "call": "0x10020576: call 0x10032bd0",
+      "skip_lands_after_call": true
+     },
+     {
+      "load": "0x1002057b: mov ecx, dword ptr [0x10070f24]",
+      "test": "0x10020581: cmp dword ptr [ecx + 0x40], ebx",
+      "branch": "0x10020584: jne 0x1002058b",
+      "call": "0x10020586: call 0x1002da90",
+      "skip_lands_after_call": true
+     }
+    ],
+    "restart_clears": [
+     "0x10020498: mov dword ptr [ecx + 0x40], ebx"
+    ],
+    "unchanged_on_flagged_steps": "every other iteration call, including 0x2C620 order-table submission to slot 89 and the context tick increment at +0x38"
+   }
+  },
+  {
+   "check": "slot89_flag_gates",
+   "ok": true,
+   "detail": {
+    "gates": {
+     "0x40ac60": [
+      "0x40ac60: mov al, byte ptr [0xba01fc]",
+      "0x40ac65: push ebx",
+      "0x40ac66: push ebp"
+     ],
+     "0x40accf": [
+      "0x40accf: mov cl, byte ptr [0xba01fc]",
+      "0x40acd5: test cl, cl",
+      "0x40acd7: jne 0x40aca2"
+     ],
+     "0x40b057": [
+      "0x40b057: mov cl, byte ptr [0xba01fc]",
+      "0x40b05d: test cl, cl",
+      "0x40b05f: jne 0x40aca2"
+     ],
+     "0x40b17b": [
+      "0x40b17b: mov al, byte ptr [0xba01fc]",
+      "0x40b180: jmp 0x40aca2",
+      "0x40b185: cmp ecx, 0xe0"
+     ],
+     "0x40b2c2": [
+      "0x40b2c2: mov al, byte ptr [0xba01fc]",
+      "0x40b2c7: test al, al",
+      "0x40b2c9: jne 0x40b2e2"
+     ]
+    },
+    "meaning": {
+     "0x40ac60": "flag=1 skips color fill 0x6EE0 and surface lock 0x6FF0",
+     "0x40accf": "class 0x20 primitives skipped (walk continues)",
+     "0x40b057": "class 0x60 primitives skipped: 0x40b05f: jne 0x40aca2",
+     "0x40b17b": "class 0x40: no effect on either path",
+     "0x40b2c2": "flag=1 skips 0x70C0(0xFF) LUT, 0x7140 unlock, 0x6620 present; 0xBD80 runs on both"
+    }
+   }
+  },
+  {
+   "check": "present_flip_wait_and_lock_wait",
+   "ok": true,
+   "detail": {
+    "flip": [
+     "0x406664: push 1",
+     "0x406666: push 0",
+     "0x406668: push eax",
+     "0x406669: call dword ptr [ecx + 0x2c]"
+    ],
+    "lock": [
+     "0x40704d: mov ecx, dword ptr [eax]",
+     "0x40704f: push 0",
+     "0x407051: lea edx, [esp + 8]",
+     "0x407055: push 1",
+     "0x407057: push edx",
+     "0x407058: push 0",
+     "0x40705a: push eax",
+     "0x40705b: call dword ptr [ecx + 0x64]"
+    ],
+    "meaning": "IDirectDrawSurface::Flip(NULL, DDFLIP_WAIT) on 0x96E3E8; Lock(NULL,&desc,DDLOCK_WAIT,NULL) on 0x96E3EC; GDI path StretchDIBits+GdiFlush (no vblank wait)"
+   }
+  },
+  {
+   "check": "slot248_is_a_call_counter",
+   "ok": true,
+   "detail": {
+    "slot248": [
+     "0x40ac10: mov ecx, dword ptr [0xa8e700]",
+     "0x40ac16: mov eax, ecx",
+     "0x40ac18: inc ecx",
+     "0x40ac19: mov dword ptr [0xa8e700], ecx",
+     "0x40ac1f: ret"
+    ],
+    "meaning": "returns the previous count and increments it; ignores its argument; never waits"
+   }
+  },
+  {
+   "check": "engine_slot248_wrappers",
+   "ok": true,
+   "detail": {
+    "ENG1.DLL": [
+     "0x1002cc30: mov eax, dword ptr [esp + 4]",
+     "0x1002cc34: push eax",
+     "0x1002cc35: call dword ptr [0x10071300]",
+     "0x1002cc3b: add esp, 4"
+    ],
+    "ENG3.DLL": [
+     "0x10020170: mov eax, dword ptr [esp + 4]",
+     "0x10020174: push eax",
+     "0x10020175: call dword ptr [0x10040b80]",
+     "0x1002017b: add esp, 4"
+    ],
+    "TITLE.DLL": [
+     "0x1000cc70: mov eax, dword ptr [esp + 4]",
+     "0x1000cc74: push eax",
+     "0x1000cc75: call dword ptr [0x1002bf20]",
+     "0x1000cc7b: add esp, 4"
+    ]
+   }
+  },
+  {
+   "check": "engine_callbacks_invoked_synchronously",
+   "ok": true,
+   "detail": {
+    "setters": {
+     "slot92": "0x40bda0",
+     "slot249": "0x40bdd0"
+    },
+    "invokers": {
+     "0x40bd80": [
+      "0x40a7f7",
+      "0x40a8db",
+      "0x40aa5f",
+      "0x40abe4",
+      "0x40ac00",
+      "0x40ac40",
+      "0x40b2e2"
+     ],
+     "0x40bdb0": [
+      "0x40bd21"
+     ]
+    },
+    "note": "invokers are reached by direct calls only (no pointer to them in the image)",
+    "absolute_pointer_occurrences": {
+     "0x40bd80": 0,
+     "0x40bdb0": 0
+    }
+   }
+  },
+  {
+   "check": "timer_resolution_1ms_for_engine_lifetime",
+   "ok": true,
+   "detail": {
+    "timeBeginPeriod": [
+     {
+      "site": "0x40314e: call dword ptr [0xba5b1c]  ; timeBeginPeriod",
+      "owner": [
+       "0x403140"
+      ]
+     },
+     {
+      "site": "0x405e12: call dword ptr [0xba5b1c]  ; timeBeginPeriod",
+      "owner": [
+       "0x405e10"
+      ]
+     }
+    ],
+    "timeEndPeriod": [
+     {
+      "site": "0x403691: call dword ptr [0xba5b20]  ; timeEndPeriod",
+      "owner": [
+       "0x403680"
+      ]
+     },
+     {
+      "site": "0x405e92: call dword ptr [0xba5b20]  ; timeEndPeriod",
+      "owner": [
+       "0x405e90"
+      ]
+     }
+    ],
+    "meaning": "0x5E10 (InitInstance tail, engine startup) requests 1 ms; 0x5E90 fatal/shutdown chain releases it; the movie stream open/close pair 0x3140/0x3680 nests a second request"
+   }
+  },
+  {
+   "check": "timegettime_call_sites_classified",
+   "ok": true,
+   "detail": {
+    "sites": [
+     {
+      "site": "0x40380b: call dword ptr [0xba5b24]  ; timeGetTime",
+      "owner": [
+       "0x4037a0"
+      ]
+     },
+     {
+      "site": "0x40385b: call dword ptr [0xba5b24]  ; timeGetTime",
+      "owner": [
+       "0x4037a0"
+      ]
+     },
+     {
+      "site": "0x40397e: call dword ptr [0xba5b24]  ; timeGetTime",
+      "owner": [
+       "0x4037a0"
+      ]
+     },
+     {
+      "site": "0x403aeb: call dword ptr [0xba5b24]  ; timeGetTime",
+      "owner": [
+       "0x4037a0"
+      ]
+     },
+     {
+      "site": "0x405f27: call dword ptr [0xba5b24]  ; timeGetTime",
+      "owner": [
+       "0x405f20"
+      ]
+     },
+     {
+      "site": "0x409d22: call dword ptr [0xba5b24]  ; timeGetTime",
+      "owner": [
+       "0x409cd0"
+      ]
+     },
+     {
+      "site": "0x409d8c: call dword ptr [0xba5b24]  ; timeGetTime",
+      "owner": [
+       "0x409d60"
+      ]
+     },
+     {
+      "site": "0x409ddc: call dword ptr [0xba5b24]  ; timeGetTime",
+      "owner": [
+       "0x409db0"
+      ]
+     },
+     {
+      "site": "0x409f33: call dword ptr [0xba5b24]  ; timeGetTime",
+      "owner": [
+       "0x409e60"
+      ]
+     },
+     {
+      "site": "0x409fba: call dword ptr [0xba5b24]  ; timeGetTime",
+      "owner": [
+       "0x409f60"
+      ]
+     },
+     {
+      "site": "0x40a072: call dword ptr [0xba5b24]  ; timeGetTime",
+      "owner": [
+       "0x409f60"
+      ]
+     }
+    ],
+    "classes": {
+     "0x405f20": "frame clock",
+     "0x409c00-0x40a100": "CD-audio track timer (MCI)",
+     "0x4033e0/0x4037a0": "movie stream thread / frame wait"
+    }
+   }
+  },
+  {
+   "check": "sleep_call_sites_classified",
+   "ok": true,
+   "detail": {
+    "sites": [
+     {
+      "site": "0x40339c: mov edi, dword ptr [0xba58b0]  ; Sleep",
+      "owner": [
+       "0x403140"
+      ]
+     },
+     {
+      "site": "0x40369c: mov edi, dword ptr [0xba58b0]  ; Sleep",
+      "owner": [
+       "0x403680"
+      ]
+     },
+     {
+      "site": "0x40387d: call dword ptr [0xba58b0]  ; Sleep",
+      "owner": [
+       "0x4037a0"
+      ]
+     },
+     {
+      "site": "0x40389d: mov ebp, dword ptr [0xba58b0]  ; Sleep",
+      "owner": [
+       "0x4037a0"
+      ]
+     },
+     {
+      "site": "0x409e83: mov ebp, dword ptr [0xba58b0]  ; Sleep",
+      "owner": [
+       "0x409e60"
+      ]
+     }
+    ],
+    "meaning": "movie stream open/close/frame wait and CD play retry (Sleep(100) on MCI failure); none in OnIdle's own calls, slot 89 or present; 0x5F20 reaches Sleep only via 0x9CD0 -> 0x9E60 (see tick_closure_waits)"
+   }
+  },
+  {
+   "check": "tick_closure_waits",
+   "ok": true,
+   "detail": {
+    "clock_or_wait_apis_reachable_from_0x5f20_by_direct_calls": [
+     "SetThreadPriority",
+     "Sleep",
+     "timeEndPeriod",
+     "timeGetTime"
+    ],
+    "only_sleep_path": "0x5F20 -> 0x9CD0 (CD track ended) -> 0x9E60 -> Sleep(100) retry; engine-export calls are indirect and not followed"
+   }
+  },
+  {
+   "check": "stream_thread_does_not_touch_frame_clock",
+   "ok": true,
+   "detail": {
+    "thread_start": "0x4033e0 (CreateThread at 0x403379)",
+    "functions": 1,
+    "clock_refs": []
+   }
+  },
+  {
+   "check": "engine_palette_slot145_callers",
+   "ok": true,
+   "detail": {
+    "ENG1.DLL": {
+     "wrapper": "0x1002c840",
+     "callers": [
+      "0x100203f6"
+     ]
+    },
+    "ENG3.DLL": {
+     "wrapper": "0x1001fe80",
+     "callers": [
+      "0x1001aca6"
+     ]
+    },
+    "TITLE.DLL": {
+     "wrapper": "0x1000c990",
+     "callers": [
+      "0x1000172a",
+      "0x10001cce",
+      "0x10007569",
+      "0x1000f070",
+      "0x1000f85c",
+      "0x10016752",
+      "0x1001cc48"
+     ]
+    },
+    "ENG1_context": "0x100203F6 lies in the dispatcher's state-0 initial block (0x20325..0x203FE), run once per module entry, not in the iteration"
+   }
+  },
+  {
+   "check": "model_constants_from_bytes",
+   "ok": true,
+   "detail": {
+    "clamp": 66,
+    "step": 33,
+    "bound": 2
+   }
+  }
+ ],
+ "model": {
+  "assumption": "No callback re-enters 0x5F20 or mutates its cells; idle loop iterations take ~0 ms; vblank model is synchronous (a presenting step returns at the next vblank after its CPU work). Driver flip-queue depth is not modelled.",
+  "nominal": {
+   "step_ms": 33,
+   "steps_per_s": 30.303
+  },
+  "fixed_period_full_speed_contiguous_max_ms": 67,
+  "fixed_period_full_speed_isolated_above": [
+   69,
+   77,
+   99
+  ],
+  "fixed_period_first_slowdown": {
+   "period_ms": 68,
+   "speed": 0.9988,
+   "steps_per_s": 30.267,
+   "presents_per_s": 14.708,
+   "flagged_fraction": 0.514
+  },
+  "fixed_period_samples": [
+   {
+    "period_ms": 1,
+    "speed": 1.0002,
+    "steps_per_s": 30.308,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "period_ms": 16,
+    "speed": 0.9999,
+    "steps_per_s": 30.3,
+    "presents_per_s": 30.3,
+    "flagged_fraction": 0.0
+   },
+   {
+    "period_ms": 17,
+    "speed": 0.9999,
+    "steps_per_s": 30.3,
+    "presents_per_s": 30.3,
+    "flagged_fraction": 0.0
+   },
+   {
+    "period_ms": 33,
+    "speed": 1.0002,
+    "steps_per_s": 30.308,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "period_ms": 34,
+    "speed": 0.9999,
+    "steps_per_s": 30.3,
+    "presents_per_s": 29.417,
+    "flagged_fraction": 0.0292
+   },
+   {
+    "period_ms": 40,
+    "speed": 0.9999,
+    "steps_per_s": 30.3,
+    "presents_per_s": 25.0,
+    "flagged_fraction": 0.1749
+   },
+   {
+    "period_ms": 50,
+    "speed": 0.9996,
+    "steps_per_s": 30.292,
+    "presents_per_s": 20.0,
+    "flagged_fraction": 0.3398
+   },
+   {
+    "period_ms": 60,
+    "speed": 0.9996,
+    "steps_per_s": 30.292,
+    "presents_per_s": 16.667,
+    "flagged_fraction": 0.4498
+   },
+   {
+    "period_ms": 66,
+    "speed": 1.0002,
+    "steps_per_s": 30.308,
+    "presents_per_s": 15.158,
+    "flagged_fraction": 0.4999
+   },
+   {
+    "period_ms": 67,
+    "speed": 1.0002,
+    "steps_per_s": 30.308,
+    "presents_per_s": 14.933,
+    "flagged_fraction": 0.5073
+   },
+   {
+    "period_ms": 70,
+    "speed": 0.9952,
+    "steps_per_s": 30.158,
+    "presents_per_s": 14.292,
+    "flagged_fraction": 0.5261
+   },
+   {
+    "period_ms": 80,
+    "speed": 0.9619,
+    "steps_per_s": 29.15,
+    "presents_per_s": 12.5,
+    "flagged_fraction": 0.5712
+   },
+   {
+    "period_ms": 99,
+    "speed": 1.0002,
+    "steps_per_s": 30.308,
+    "presents_per_s": 10.108,
+    "flagged_fraction": 0.6665
+   },
+   {
+    "period_ms": 100,
+    "speed": 0.9895,
+    "steps_per_s": 29.983,
+    "presents_per_s": 10.0,
+    "flagged_fraction": 0.6665
+   },
+   {
+    "period_ms": 120,
+    "speed": 0.8245,
+    "steps_per_s": 24.983,
+    "presents_per_s": 8.333,
+    "flagged_fraction": 0.6664
+   },
+   {
+    "period_ms": 140,
+    "speed": 0.7073,
+    "steps_per_s": 21.433,
+    "presents_per_s": 7.15,
+    "flagged_fraction": 0.6664
+   }
+  ],
+  "vsync_blocking": [
+   {
+    "refresh_hz": 50,
+    "cpu_ms": 2.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 50,
+    "cpu_ms": 12.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 50,
+    "cpu_ms": 20.0,
+    "speed": 0.9999,
+    "presents_per_s": 25.0,
+    "flagged_fraction": 0.1749
+   },
+   {
+    "refresh_hz": 60,
+    "cpu_ms": 2.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 60,
+    "cpu_ms": 12.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 60,
+    "cpu_ms": 20.0,
+    "speed": 0.9999,
+    "presents_per_s": 30.0,
+    "flagged_fraction": 0.0099
+   },
+   {
+    "refresh_hz": 75,
+    "cpu_ms": 2.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 75,
+    "cpu_ms": 12.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 75,
+    "cpu_ms": 20.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 85,
+    "cpu_ms": 2.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 85,
+    "cpu_ms": 12.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 85,
+    "cpu_ms": 20.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 100,
+    "cpu_ms": 2.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 100,
+    "cpu_ms": 12.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 100,
+    "cpu_ms": 20.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 120,
+    "cpu_ms": 2.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 120,
+    "cpu_ms": 12.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 120,
+    "cpu_ms": 20.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 144,
+    "cpu_ms": 2.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 144,
+    "cpu_ms": 12.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   },
+   {
+    "refresh_hz": 144,
+    "cpu_ms": 20.0,
+    "speed": 1.0002,
+    "presents_per_s": 30.308,
+    "flagged_fraction": 0.0
+   }
+  ],
+  "vsync_slow_frames": [
+   {
+    "refresh_hz": 60,
+    "cpu_ms": 17.0,
+    "speed": 0.9999,
+    "presents_per_s": 30.0,
+    "flagged_fraction": 0.0099
+   },
+   {
+    "refresh_hz": 60,
+    "cpu_ms": 34.0,
+    "speed": 0.9996,
+    "presents_per_s": 20.0,
+    "flagged_fraction": 0.3398
+   },
+   {
+    "refresh_hz": 60,
+    "cpu_ms": 50.0,
+    "speed": 0.9996,
+    "presents_per_s": 15.0,
+    "flagged_fraction": 0.5048
+   },
+   {
+    "refresh_hz": 30,
+    "cpu_ms": 2.0,
+    "speed": 0.9999,
+    "presents_per_s": 30.0,
+    "flagged_fraction": 0.0099
+   },
+   {
+    "refresh_hz": 20,
+    "cpu_ms": 2.0,
+    "speed": 0.9996,
+    "presents_per_s": 20.0,
+    "flagged_fraction": 0.3398
+   }
+  ],
+  "reset_every_present_worst_case": [
+   {
+    "refresh_hz": 60,
+    "vblank_waits": true,
+    "speed": 0.99
+   },
+   {
+    "refresh_hz": 75,
+    "vblank_waits": true,
+    "speed": 1.238
+   },
+   {
+    "refresh_hz": 120,
+    "vblank_waits": true,
+    "speed": 1.98
+   },
+   {
+    "refresh_hz": 60,
+    "vblank_waits": false,
+    "speed": 66.0
+   }
+  ]
+ }
+}
