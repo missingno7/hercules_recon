@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 103 actual source units with
-136 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 36 unresolved dependencies: 18 newly exposed frame
-callbacks and 18 other providers. Including the real map replaces one missing
+The current natural selected host graph compiles 104 actual source units with
+138 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 35 unresolved dependencies: 18 newly exposed frame
+callbacks and 17 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -352,6 +352,24 @@ All133exact functions and29graphics-startup cases remain valid. See
 `evidence/host_graphics_tables_recovery.json`. The natural graph now has103units,
 136recordedEXE functions and36missing providers;71A0 is resolved and the actual
 palette setter6780 is exposed. No game executable is produced.
+
+Palette writer6780 and RGB getter6810 now have SDK source with complete
+144/64-byte normalized equality; data relocations prevent raw matching.
+
+```
+python scripts/host_palette_entries_differential.py --output work/palette_entries_replay
+```
+
+Twenty guarded comparisons cover endpoint0/255 overrides,low16/BYTE truncation,
+the green caller-slot byte mutation,aliased outputs and live global pointer
+reloads. The table-to256writer chain executes actually,including grayscale RGB,
+palette flags4 and bitmap reserved0. Only refresh69A0 remains modeled. A shared
+typed caller declaration preserves every byte/relocation of table256; both
+335680-byte table regressions still pass. Original common prototype/source/TU
+and arbitrary invalid-pointer domains remain unproved. See
+`evidence/host_palette_entries_recovery.json`. All657prior rows and133exact
+functions remain valid. The natural graph now has104units,138recordedEXE
+functions and35missing providers,with no executable.
 
 The journaled promotion gate now supports `.c` and `.cpp` destinations under
 `src/`. A C++ candidate must already occupy its exact canonical path. The gate

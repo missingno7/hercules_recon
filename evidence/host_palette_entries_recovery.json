@@ -1,0 +1,368 @@
+{
+  "schema": 1,
+  "scope": "Original6780 palette writer,6810 RGB getter and actual71A0->256writer chain using existing SDK pointer owners. recovery.json alone owns recovery; no device/process/whole game or original source/prototype/TU acceptance.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_palette_entries.cpp",
+      "sha256": "9a160c10dbdd6dc8ad2646153313317cdcb138fd5d4c2dd8692d693eaf0ea1a1"
+    },
+    {
+      "path": "src/pc/host_graphics_tables.cpp",
+      "sha256": "c9189e5fb115a74a441c9451ed65cb786ebaffe6f801de1f43a969475ae49856"
+    },
+    {
+      "path": "scripts/host_palette_entries_differential.py",
+      "sha256": "dd07109d90b13240bdbaf13be1987c12473c15f94916eec19be3e7447080d155"
+    },
+    {
+      "path": "calibration/graphics_storage.cpp",
+      "sha256": "c7b4221f7cf2820584e652e6bfd0d932fc4fd24c99e0dc65ddfd97f33a20ed6c"
+    }
+  ],
+  "prediction": {
+    "path": "work/host_palette_entries/prediction.json",
+    "sha256": "942e17070d16e4145194586c12e105fdaa0aa9ac24fee2ab01428dcd42e49da8"
+  },
+  "measurement": {
+    "first_candidate": {
+      "path": "work/host_palette_entries/candidate.json",
+      "sha256": "f45cfb93acc66cff941821fa6d13aa26d9d5a891629ef21c94335ddcbb411c31"
+    },
+    "functions": [
+      {
+        "role": "set",
+        "symbol": "_graphics_native_06780",
+        "source_size": 144,
+        "native_size": 144,
+        "raw_exact": false,
+        "raw_differences": 24,
+        "diagnostic_equal": true,
+        "diagnostic_differences": 0,
+        "relocations": [
+          {
+            "offset": 38,
+            "symbol": "_g_exe_96e3f4",
+            "type": 6
+          },
+          {
+            "offset": 51,
+            "symbol": "_g_exe_96e3f8",
+            "type": 6
+          },
+          {
+            "offset": 68,
+            "symbol": "_g_exe_96e3f4",
+            "type": 6
+          },
+          {
+            "offset": 82,
+            "symbol": "_g_exe_96e3f8",
+            "type": 6
+          },
+          {
+            "offset": 92,
+            "symbol": "_g_exe_96e3f4",
+            "type": 6
+          },
+          {
+            "offset": 102,
+            "symbol": "_g_exe_96e3f8",
+            "type": 6
+          },
+          {
+            "offset": 114,
+            "symbol": "_g_exe_96e3f8",
+            "type": 6
+          },
+          {
+            "offset": 125,
+            "symbol": "_g_exe_96e3f4",
+            "type": 6
+          }
+        ],
+        "compiled_sha256": "cf24597b5bff23a23afeba2b1a0c64c9ddc61bab221af803c6c05e71e94c25bc",
+        "native_sha256": "414f68c7b9e4a46dd8da7a1f94632c01fe96339ddd99d8781334c4703d285025"
+      },
+      {
+        "role": "get",
+        "symbol": "_host_palette_get_rgb_6810",
+        "source_size": 64,
+        "native_size": 64,
+        "raw_exact": false,
+        "raw_differences": 9,
+        "diagnostic_equal": true,
+        "diagnostic_differences": 0,
+        "relocations": [
+          {
+            "offset": 7,
+            "symbol": "_g_exe_96e3f8",
+            "type": 6
+          },
+          {
+            "offset": 26,
+            "symbol": "_g_exe_96e3f8",
+            "type": 6
+          },
+          {
+            "offset": 42,
+            "symbol": "_g_exe_96e3f8",
+            "type": 6
+          }
+        ],
+        "compiled_sha256": "8855ed2aea2e5661a28cd9336f7a665ce11073c89552b9c894a072dcf5541793",
+        "native_sha256": "43a81110658c3003b23bbe53c5a7c8e3a257e27b9fb45900da4feae6895046c4"
+      },
+      {
+        "role": "tables",
+        "symbol": "_graphics_native_071a0",
+        "source_size": 256,
+        "native_size": 256,
+        "raw_exact": false,
+        "raw_differences": 215,
+        "diagnostic_equal": false,
+        "diagnostic_differences": 188,
+        "relocations": [
+          {
+            "offset": 11,
+            "symbol": "_graphics_native_06780",
+            "type": 20
+          },
+          {
+            "offset": 30,
+            "symbol": "_g_host_graphics_shade_51c488",
+            "type": 6
+          },
+          {
+            "offset": 78,
+            "symbol": "_g_host_graphics_shade_51c488",
+            "type": 6
+          },
+          {
+            "offset": 87,
+            "symbol": "_g_host_graphics_tables_52c490",
+            "type": 6
+          },
+          {
+            "offset": 191,
+            "symbol": "_g_host_graphics_tables_52c490",
+            "type": 6
+          },
+          {
+            "offset": 198,
+            "symbol": "_g_host_graphics_tables_52c490",
+            "type": 6
+          },
+          {
+            "offset": 223,
+            "symbol": "_g_host_graphics_tables_52c490",
+            "type": 6
+          },
+          {
+            "offset": 232,
+            "symbol": "_graphics_native_069a0",
+            "type": 20
+          }
+        ],
+        "compiled_sha256": "3385c4a21301f59a5978f84f4be91327b236a122edfb08acbe9478e8daf1ae17",
+        "native_sha256": "b58cd0d20ad2e5df602c224ad40d8ef92e25e5f029ec0396d7e50246d0a248e4"
+      }
+    ],
+    "scope": "Full144/64 new contributions normalize; raw code differs and retains data relocations. Both CODEGEN_SIMILAR,not exact."
+  },
+  "writer_behavior": [
+    "Use signed low16-bit index; tests cover valid0..255 with varying upper16 argument bits. RGB consume lowBYTE values. No new bounds check is invented.",
+    "Index0/255 overrides all RGB with index lowBYTE. Green parameter slot lowBYTE is overwritten while its upper24caller bits remain untouched; stack effects are compared.",
+    "Write RGB separately to BITMAPINFO RGBQUAD and LOGPALETTE PALETTEENTRY with their actual SDK BGR/RGB order. Palette flags=4 and bitmap reserved=0. All real pointer loads/order remain live."
+  ],
+  "getter_behavior": [
+    "Write red,green,blue separately and reload the global palette pointer between channels. Outputs may alias each other,following palette channels or the global pointer representation.",
+    "Pointer-alias case changes palette lowBYTE twice; subsequent green/blue reads come from shifted valid test regions. This tests the actual reload,not a hook that substitutes getter effects."
+  ],
+  "prototype": {
+    "prediction": {
+      "path": "work/host_palette_entries/prototype_prediction.json",
+      "sha256": "7d98de6d4aa0f2f71ec51fdb00340c8042af4a79503cf92755382b26774a4b05"
+    },
+    "control": {
+      "path": "work/host_palette_entries/prototype_control.json",
+      "sha256": "70aa144d3c39397a916ea5ae365fc5fe08fc5a78999051eb3ba2e5f19fdc7a10"
+    },
+    "whole_table_code_and_relocations_preserved": true,
+    "complete_bytes": 256,
+    "change": "Table caller now declares the same working short/BYTE/BYTE/BYTE C linkage as the recovered writer. Full code,extent and every relocation remain identical. This resolves the current source declaration mismatch without proving the original common prototype or source spelling."
+  },
+  "validation": {
+    "report": {
+      "path": "work/host_palette_entries/public_pinned/palette_entries_differential.json",
+      "sha256": "810224d34db4133302f25a7bda18d2bce824c0a7604a78adf0055581a27e4f28"
+    },
+    "case_count": 20,
+    "all_equal": true,
+    "scenarios": [
+      {
+        "name": "set_0",
+        "index": 0
+      },
+      {
+        "name": "set_1",
+        "index": 1
+      },
+      {
+        "name": "set_7",
+        "index": 7
+      },
+      {
+        "name": "set_127",
+        "index": 127
+      },
+      {
+        "name": "set_254",
+        "index": 254
+      },
+      {
+        "name": "set_255",
+        "index": 255
+      },
+      {
+        "name": "set_65536",
+        "index": 65536
+      },
+      {
+        "name": "set_65537",
+        "index": 65537
+      },
+      {
+        "name": "set_65791",
+        "index": 65791
+      },
+      {
+        "name": "set_4294901761",
+        "index": 4294901761
+      },
+      {
+        "name": "get_0",
+        "role": "get",
+        "index": 0
+      },
+      {
+        "name": "get_1",
+        "role": "get",
+        "index": 1
+      },
+      {
+        "name": "get_127",
+        "role": "get",
+        "index": 127
+      },
+      {
+        "name": "get_254",
+        "role": "get",
+        "index": 254
+      },
+      {
+        "name": "get_255",
+        "role": "get",
+        "index": 255
+      },
+      {
+        "name": "get_65791",
+        "role": "get",
+        "index": 65791
+      },
+      {
+        "name": "get_alias_outputs",
+        "role": "get",
+        "index": 7,
+        "alias": "outputs"
+      },
+      {
+        "name": "get_alias_palette",
+        "role": "get",
+        "index": 7,
+        "alias": "palette"
+      },
+      {
+        "name": "get_alias_global",
+        "role": "get",
+        "index": 7,
+        "alias": "global"
+      },
+      {
+        "name": "actual_grayscale_table_chain",
+        "role": "tables"
+      }
+    ],
+    "compared": "Whole4096-byte palette test backing,1068-byte bitmap allocation,16-byte outputs,live pointer cells,allcaller argument slots/green-byte effect,guards,stack/nonvolatiles and bounded execution/writes. Valid index domain0..255 with high16 variations; no arbitrary negative-index/full malformed-pointer proof.",
+    "actual_table_chain": "Whole table initializer and all256 palette writer calls execute original/fresh code. Grayscale RGB/flags/reserved and all335680table bytes agree;refresh69A0alone modeled.",
+    "boundaries": "No writer/getter effects modeled. Only final palette refresh69A0 is an explicit offline return boundary; no actual GDI/DirectDraw/CRT/process entry."
+  },
+  "regression": {
+    "strict": {
+      "path": "work/host_palette_entries/strict133.json",
+      "sha256": "14c513c3b206bc59fc6c19bfbdf15e1f488cd86cda11aa50d5dd79b4dc1cbfc5"
+    },
+    "raw_exact_functions": 133,
+    "all_657_prior_rows_identical": true,
+    "rows_added": 2,
+    "status_counts": {
+      "FUNCTION_MATCH": 133,
+      "CODEGEN_SIMILAR": 475,
+      "RECONSTRUCTED": 51
+    },
+    "table_report": {
+      "path": "work/host_palette_entries/table_regression/table_differential.json",
+      "sha256": "47f2ccf2ec2f90493d0ca21c6b4558f07e190ee379653c537eefd1b2f68e2c26"
+    },
+    "table_full_bytes_each": 335680,
+    "table_seeds": 2,
+    "table_all_equal": true,
+    "natural_graph": {
+      "path": "work/host_current_graph/report-3423e1ef2d949313.json",
+      "sha256": "3423e1ef2d9493131d4036df5c3a4006fb5241102f742e655961aa644f8d339d"
+    },
+    "source_units": 104,
+    "recorded_EXE_functions": 138,
+    "preserved_exact_EXE_functions": 26,
+    "unresolved": 35,
+    "missing_frame_callbacks": 18,
+    "other_missing_providers": 17,
+    "duplicate_providers": 0,
+    "images_produced": 0
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "implicit_compile_flag": "/Gy",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "analysis_tools": {
+    "python": {
+      "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "version": "3.12.14",
+      "sha256": "d41bad46673f64e0d02f23797f53f90ccf60f27d6eda8d86dd2d4bbeae5a858c"
+    },
+    "pefile": {
+      "path": "C:\\tools\\hercules\\python\\pefile.py",
+      "version": "2024.8.26",
+      "sha256": "0d0eb68f0f169182613dc64b3ab50b20855508c1c1d2faafe8fccf23edb6a345"
+    },
+    "unicorn": {
+      "path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+      "version": "2.1.4",
+      "sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+    },
+    "origin": "Existing C:/tools/hercules installations and bundled workspace Python; prior provenance in evidence/host_engine_loader_recovery.json. No tool/dependency added or modified."
+  },
+  "commands": [
+    "python scripts/host_palette_entries_differential.py --output work/palette_entries_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/palette_entries_strict_replay.json"
+  ],
+  "limits": [
+    "Normalized code equality and20bounded cases do not establish raw matching,source/TU/allocation/layout or complete RGB pointer domains.",
+    "Refresh/fill06EE0,real loaded-palette/device pipeline,Windows loop,startup/menu/input/gameplay and renderer remain unverified. Natural source graph still produces no executable."
+  ]
+}

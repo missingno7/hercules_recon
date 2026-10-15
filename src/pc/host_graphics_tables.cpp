@@ -1,7 +1,7 @@
 #include "../../calibration/host_graphics_table_storage.h"
 extern "C" {
-/* Physical four-DWORD call view; original common palette prototype is open. */
-extern void __cdecl graphics_native_06780(int,int,int,int);
+/* Shared working SDK-width view; original source/prototype remains unproved. */
+extern void __cdecl graphics_native_06780(short,BYTE,BYTE,BYTE);
 extern void __cdecl graphics_native_069a0(unsigned char);
 void __cdecl graphics_native_071a0(void)
 {
