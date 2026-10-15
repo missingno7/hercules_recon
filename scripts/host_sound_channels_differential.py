@@ -47,7 +47,7 @@ DATA = {
     'loops': ('_g_host_sound_loop_flags_698a18', 0x698a18, 1200),
     'gain_first': ('_g_exe_79e438', 0x79e438, 2),
     'gain_second': ('_g_exe_79e43c', 0x79e43c, 2),
-    'release_flag': ('_g_audio_cleanup_iteration_flag', 0x79e448, 1),
+    'release_flag': ('_g_audio_cleanup_iteration_flag', 0x79e450, 1),
 }
 STACK, ESP, STOP = 0x62000000, 0x62008000, 0x6200f000
 METHODS, OBJECTS, OBJECT_SIZE = 0x65000000, 0x66000000, 0x20000
@@ -127,6 +127,8 @@ __declspec(dllexport) void anchor(void) {
             assert diagnostic['masked_equal'], (role, diagnostic)
         measurements.append(dict(role=role, symbol=symbol, source_size=extent,
                                  raw=raw, diagnostic=diagnostic))
+    release_proof = next(m for m in measurements if m['role'] == 'release')
+    assert release_proof['diagnostic']['symbols']['_g_audio_cleanup_iteration_flag'] == hex(DATA['release_flag'][1])
     native, data = pefile.PE(str(ORACLE)), []
     for key, (symbol, rva, width) in DATA.items():
         assert len(owners[symbol]) == 1
@@ -181,6 +183,7 @@ def execute(kind, build, scenario):
     u.mem_write(fields['registry'][0], bytes((i*13+7)&255 for i in range(72)))
     put('registry', 14, scenario.get('enabled', 1), 1)
     put('paused', 0, scenario.get('paused', 1))
+    put('release_flag', 0, scenario.get('release_flag', 0), 1)
     for bank in scenario.get('banks', [0, 1, 2]):
         for lane in range(4):
             put('bank', bank*4+lane, object_address(bank*4+lane))
@@ -308,13 +311,21 @@ def execute(kind, build, scenario):
                   entries=entries, checks=checks)
     if scenario.get('expect_no_calls'):
         assert not events and objects_after == initial_obj
+    if 'expect_releases' in scenario:
+        count = sum(e[0] == 'Release' for e in events)
+        assert count == scenario['expect_releases'], ('release_count', kind, count, scenario)
     if 'expect_initializations' in scenario:
         assert [e[1] for e in events if e[0]=='Initialize'] == scenario['expect_initializations']
     return result
 
 
 def scenarios():
-    result = [dict(name='stop_all',entry='stop_all'),
+    result = [dict(name='release_special_protected',entry='release',value=824,banks=[824],release_flag=0,expect_releases=0),
+              dict(name='release_special_enabled',entry='release',value=824,banks=[824],release_flag=1,expect_releases=4),
+              dict(name='release_special_highbit',entry='release',value=824,banks=[824],release_flag=128,expect_releases=4),
+              dict(name='restore_special_protected',entry='restore',banks=[824],status={3296:2},release_flag=0,expect_releases=0,expect_initializations=[824]),
+              dict(name='restore_special_enabled',entry='restore',banks=[824],status={3296:2},release_flag=1,expect_releases=4,expect_initializations=[824]),
+              dict(name='stop_all',entry='stop_all'),
               dict(name='stop_all_reload_later',entry='stop_all',mutations={'Stop':[{'ids':{23:0x10001}}]}),
               dict(name='stop_all_preserves_tagged',entry='stop_all',ids={3:0x03380000}),
               dict(name='stop_packed',entry='stop'),
@@ -357,9 +368,22 @@ def main():
         source = execute('source', b, scenario)
         assert native == source, (scenario, native, source)
         cases.append(dict(scenario=scenario, native=native, source=source, equal=True))
+    # Reproduce the historical fixture defect as a deliberate negative control.
+    correct = DATA['release_flag']
+    DATA['release_flag'] = (correct[0], 0x79e448, correct[2])
+    rejected = False
+    try:
+        scenario = next(x for x in scenarios() if x['name'] == 'release_special_enabled')
+        execute('native', b, scenario)
+    except AssertionError as error:
+        assert error.args[0][0] == 'release_count', error
+        rejected = True
+    finally:
+        DATA['release_flag'] = correct
+    assert rejected, 'Old flag address must fail the bank-824 discriminator.'
     assert b['inputs'] == {p:sha(Path(p)) for p in b['inputs']}
     report = dict(scope='Actual native/fresh channel stop, pause, resume, restore, poll and bank release. Only COM methods and the explicitly unrecovered F3D0 initializer are modeled. No process/device/game execution.',
-                  build=b, cases=cases, case_count=len(cases), all_equal=True)
+                  build=b, cases=cases, case_count=len(cases), all_equal=True, old_flag_address_rejected=rejected)
     p = OUT/'sound_channels_differential.json'
     p.write_bytes((json.dumps(report,indent=2)+'\n').encode())
     print(json.dumps(dict(case_count=len(cases),all_equal=True,report=str(p))))

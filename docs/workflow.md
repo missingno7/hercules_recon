@@ -735,7 +735,7 @@ discriminator; stop retains 177 diagnostic differences. None is raw exact.
 python scripts/host_sound_channels_differential.py --output work/sound_channels_replay
 ```
 
-Thirty-nine comparisons execute actual stop-all, channel control, polling and
+Forty-four comparisons execute actual stop-all, channel control, polling and
 bank release. Tests compare complete bank/channel/registry/loop state and the
 synthetic COM arena, with post-COM reload mutations, signed-short slot truncation,
 paused guards, ignored failures, cursor/loop restoration and boundary bank 1199.
@@ -746,3 +746,11 @@ BSS and native virtual-zero backing; existing state providers are reused.
 All 133 accepted functions remain raw exact. The real FA10 dependency is resolved
 and the real F3D0 dependency exposed, leaving 33 unresolved symbols in the selected
 110-unit graph. See `evidence/host_sound_channels_recovery.json`.
+
+The DirectSound fixture now binds its cleanup exception flag to the proven
+`0xb9e450` cell, rather than the earlier incorrect `0xb9e448` shadow. Five bank-824
+release/restore cases distinguish zero, one and high-bit flag states. A deliberate
+negative run with the old address fails the release-count assertion. All seven
+executed game contributions remain byte-for-byte unchanged across fresh fixture
+builds; no recovery row changed. Earlier 39-case receipts retain their historical
+limits. See the correction in `evidence/host_sound_channels_recovery.json`.

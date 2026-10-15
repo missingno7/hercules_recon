@@ -17,7 +17,7 @@
     },
     {
       "path": "scripts/host_sound_channels_differential.py",
-      "sha256": "9212f186d086c0bd2a0a80508e1ed49b0ba01b62c94a41f1e0bc5e85da69cc8e"
+      "sha256": "dcab06282a282d6d155e54f6c5d0e69c2cccc12c0db736ae90e80eab2c2bc2fc"
     },
     {
       "path": "calibration/host_warm_delivery.cpp",
@@ -383,7 +383,7 @@
         "symbol": "_g_audio_cleanup_iteration_flag",
         "provider": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\sound_bank_storage.cpp",
         "bytes": 1,
-        "rva": "0x79e448",
+        "rva": "0x79e450",
         "source_kind": "BSS",
         "native_backing": "virtual_loader_zero"
       }
@@ -397,15 +397,20 @@
   },
   "validation": {
     "report": {
-      "path": "work/host_sound_channels/public_pinned/sound_channels_differential.json",
-      "sha256": "a85b27c914d9b478965a5d01738527e756a23c6b556e0169851ac344cbf1fc18"
+      "path": "work/host_sound_channels/flag_fixed_pinned/sound_channels_differential.json",
+      "sha256": "d04bdae98fd51544e3e2d50d7b71ae6e85c0cddfa281d09efed9d65a67109bcd"
     },
-    "case_count": 39,
+    "case_count": 44,
     "all_equal": true,
     "private_initial_cases": 36,
     "added_actual_stop_all_cases": 3,
     "compared_bytes": "All19200bank bytes,96IDs,96cursors,1200loopflags,72registry bytes,pauseDWORD,release flag,two existing gainWORDs and full131072-byte synthetic COM arena, plus ordered method events and ABI/guards.",
     "scenarios": [
+      "release_special_protected",
+      "release_special_enabled",
+      "release_special_highbit",
+      "restore_special_protected",
+      "restore_special_enabled",
       "stop_all",
       "stop_all_reload_later",
       "stop_all_preserves_tagged",
@@ -447,7 +452,9 @@
       "com_failures_ignored"
     ],
     "checks": "Source/native whole state and synthetic COM arena digests agree; caller/nonvolatile/argument/stack guards and execution/write whitelists hold. Directed no-call and exact restoration-count assertions guard the important cases.",
-    "modeled": "Only genuine COM ABI boundaries and unrecovered F3D0 entry are modeled. Initializer receives actual bank index; controlled refill effects do not prove its implementation. Unexecuted fixture-only input/callback dependencies fail on entry. No game opcode is patched."
+    "modeled": "Only genuine COM ABI boundaries and unrecovered F3D0 entry are modeled. Initializer receives actual bank index; controlled refill effects do not prove its implementation. Unexecuted fixture-only input/callback dependencies fail on entry. No game opcode is patched.",
+    "old_flag_address_rejected": true,
+    "added_flag_discriminators": 5
   },
   "fixture_failure": {
     "receipt": {
@@ -519,5 +526,19 @@
     "Packed tests use valid0..23channel slots and decoded in-range bank/lane pointers. Native pre-guard negative/slot24 accesses and arbitrary invalid pointer behavior are not justified as safe by source prefixes.",
     "GetStatus fixtures write an output even on failure; no uninitialized output-domain guarantee follows.",
     "The real F3D0 initializer, graphics startup service, platform sync integration, main-frame callbacks, initialized host interface and other storage remain incomplete. No production stub or forced executable was supplied."
-  ]
+  ],
+  "fixture_flag_correction": {
+    "historical_report": {
+      "path": "work/host_sound_channels/public_pinned/sound_channels_differential.json",
+      "sha256": "a85b27c914d9b478965a5d01738527e756a23c6b556e0169851ac344cbf1fc18"
+    },
+    "wrong_fixture_rva": "0x79e448",
+    "correct_rva": "0x79e450",
+    "evidence": "Native F71E reads BYTE[0xb9e450]. The fresh complete normalized F710 contribution independently binds _g_audio_cleanup_iteration_flag toRVA79e450; the fixture now asserts this binding before emulation.",
+    "cause": "The earlier fixture placed its shadow flag8bytes before the bank-release flag. All earlier cases left it zero, so source/native agreement did not distinguish the cells. This did not change the canonical game symbol or source.",
+    "discriminator": "Bank824 is protected at flag0 but four buffers release at flag1 or128. Added direct-release and restore-chain cases exercise both states. A deliberate rerun with the former native mapping fails the release-count assertion.",
+    "old_address_rejected": true,
+    "game_function_contributions_unchanged": 7,
+    "recovery_state_unchanged": true
+  }
 }
