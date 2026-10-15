@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 146 actual source units with
+The current natural selected host graph compiles 147 actual source units with
 255 recorded EXE functions and preserves 27 accepted EXE functions. It has no
-duplicate link errors and eight unresolved data providers. The resize dependency
-now has its native-verified source provider and measured diagnostic text. Including
+duplicate link errors and seven unresolved data providers. Resize and the observed
+music-path records now have native-verified providers. Including
 the real map replaces one missing map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -365,7 +365,26 @@ argument bytes survive. Defined WORD argument/return bits exclude unspecified
 upper register bits. All 134 accepted raw matches remain exact.
 
 The measured data adds a 64-byte bank-pointer prefix and 94 literal bytes.
-The real music-path table remains an explicit unresolved graph dependency.
+The observed music-path prefix now has a source provider: 39 initialized records
+and 25 shared writable path literals. The data audit verifies all 39 COFF pointer
+relocations against actual literal targets, all unknown DWORDs and 304 literal
+bytes. It preserves repeated native pointer identities. This establishes the
+selected initialized prefix, not original total capacity, TU or global layout.
+The second DWORD remains unknown: none equals the PC archive length in the
+matching directory-key lookups. Of 39 record lookups, 25 find a MUSIC.MUS key and
+36 find an SFX.SFX key; duplicates are included. Missing entries stay unchanged.
+
+The current music replay passes 180 cases and five rejected errors. Forty cases
+consume the actual path prefix, including its final record and byte-masked index.
+The other cases substitute a synthetic external path table for adversarial and
+reload checks; they do not establish legal production access beyond the prefix.
+Archive I/O and file content remain modeled. See
+`evidence/host_music_paths_recovery.json` and replay:
+
+```
+python scripts/host_music_paths_data.py --original-root D:/Prog/hercules_recon --output work/host_music_paths_replay
+```
+
 The unchanged resize draft has now passed 247 guarded native/source cases and
 five rejected wrong variants, including overlapping copies, unsigned rounding
 wrap, pinned flags, neighboring free blocks and the one-word owner-word alias.

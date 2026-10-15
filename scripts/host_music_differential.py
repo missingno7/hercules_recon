@@ -9,11 +9,13 @@ from coff import COFF
 from pe import PE
 from title_behavioral import context_files
 from host_resize_differential import verified_copy,SPECS
+from host_music_paths_data import verify_data
 import pefile
 from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn.x86_const import *
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--source',type=Path,default=ROOT/'src/pc/host_music.c');parser.add_argument('--data',type=Path,default=ROOT/'calibration/host_music_storage.c')
+parser.add_argument('--paths-source',type=Path,default=ROOT/'calibration/host_music_paths.c');parser.add_argument('--paths-definition',type=Path,default=ROOT/'evidence/host_music_paths_data.json')
 parser.add_argument('--output',type=Path,required=True);parser.add_argument('--original-root',type=Path,default=Path('D:/Prog/hercules_recon'))
 args=parser.parse_args();OUT=args.output.resolve();assert OUT.is_relative_to(ROOT/'work');OUT.mkdir(parents=True,exist_ok=True)
 ORACLE=args.original_root/'work/discs/pc_install/HERCULES.EXE'
@@ -46,12 +48,13 @@ def build(source,data,out):
  files=[source,ROOT/'src/pc/host_file_callbacks.c',ROOT/'calibration/host_file_prepare.c',ROOT/'src/pc/interface_callbacks.c',ROOT/'src/pc/host_diagnostic.c',ROOT/'src/pc/host_zero_callback.c',ROOT/'src/pc/exe_helpers.c',data,ROOT/'calibration/host_file_callback_formats.c',ROOT/'calibration/host_resource_storage.c']
  files.extend([ROOT/'calibration/host_pool_shrink.c',ROOT/'calibration/host_pool_repaired.c',ROOT/'calibration/host_pool_storage.c',ROOT/'calibration/host_pool_formats.c',ROOT/'calibration/host_pool_shrink_format.c'])
  library=verified_copy(ORACLE,out);watched={Path(__file__),ORACLE,runtime,ROOT/'recovery.json',ROOT/'toolchains/manifest.json',ROOT/'scripts/host_resize_differential.py',ROOT/'scripts/crt_copy_evidence.py',Path(library['archive'])}
+ paths=verify_data(args.paths_source.resolve(),args.paths_definition.resolve(),ORACLE,out/'paths');watched.update(Path(p)for p in paths['inputs'])
  for p in files:watched.update(context_files(p))
  for name in ['match.py','masked.py','coff.py','pe.py','env.py','title_behavioral.py']:watched.add(ROOT/'scripts'/name)
  pins={str(p):sha(p)for p in watched};compiles=[];coffs=[];measurements=[];native=PE(ORACLE)
  for p in files:
   obj,cmd=compile_source(p,['/O2']);coffs.append(COFF(obj));compiles.append(dict(source=str(p),source_sha256=sha(p),object=str(obj),object_sha256=sha(obj),command=cmd))
- objects=[x['object']for x in compiles]+[library['object']];coffs.append(COFF(library['object']))
+ objects=[x['object']for x in compiles]+[paths['object'],library['object']];coffs.extend([COFF(paths['object']),COFF(library['object'])])
  for role,(sym,rv,n)in PROFILE.items():
   if role=='copy':measurements.append(dict(role=role,symbol=sym,rva=hex(rv),native_size=n,compiled_size=821,library_identity=True));continue
   owners=[i for i,c in enumerate(coffs)if any(s['name']==sym and s['section']>0 for s in c.symbols.values())];assert len(owners)==1,(role,owners);i=owners[0]
@@ -72,11 +75,12 @@ def build(source,data,out):
   assert raw==(bytes(n)if virtual else native.read_rva(rv,n)),name
   fields.append(dict(symbol=name,rva=hex(rv),bytes=n,data=raw.hex(),sha256=hashlib.sha256(raw).hexdigest(),origin='virtual_zero'if virtual else'file_backed'))
  assert pins=={str(p):sha(p)for p in watched}
- return dict(inputs=pins,compiles=compiles,objects=objects,library=library,measurements=measurements,data=fields)
+ return dict(inputs=pins,compiles=compiles,objects=objects,library=library,paths=paths,measurements=measurements,data=fields)
 
 def prepare(b):
  symbols={'_g_host_engine_interface':TABLE,'_g_resource_filename':FILENAME,'_g_host_music_paths_rva_35178':PATH_TABLE};segments=[];where={};coffs=[COFF(x)for x in b['objects']];cursor=0x20000000
  for x in b['data']:symbols[x['symbol']]=BASE+int(x['rva'],0);segments.append((symbols[x['symbol']],bytes.fromhex(x['data'])))
+ for x in b['paths']['fixture_segments']:segments.append((BASE+int(x['rva'],0),bytes.fromhex(x['data'])))
  endpoints={MODEL+i*32:role for i,role in enumerate(MODELS)}
  for a,role in endpoints.items():symbols[MODELS[role][0]]=a
  for k,c in enumerate(coffs):
@@ -123,7 +127,8 @@ def execute(native,b,p,s):
  pool=bytearray(48);struct.pack_into('<I',pool,0,heap_start);struct.pack_into('<I',pool,16,heap_end);u.mem_write(POOL,bytes(pool))
  table=bytearray(bytes([0x2d])*1000);table[4:8]=pack(CONTEXTS[0]);u.mem_write(TABLE,bytes(table));u.mem_write(FILENAME-32,bytes([0xe1])*32+bytes([0xe2])*512+bytes([0xe3])*32)
  for a,text in zip(PATHS,[b'X:\\first\\\0',b'Y:\\second\\\0']):u.mem_write(a,text)
- for i in range(256):u.mem_write(PATH_TABLE+i*8,pack(PATHS[0])+pack(0x11110000+i))
+ if not s.get('native_paths'):
+  for i in range(256):u.mem_write(PATH_TABLE+i*8,pack(PATHS[0])+pack(0x11110000+i))
  bank_cells=bytearray(64)
  for i in s.get('occupied',[]):bank_cells[i*4:i*4+4]=pack(BLOBS[0]+header_off)
  if s['role']=='bank_preload'and not s.get('null_header'):bank_cells[(s.get('slot_word',1)&15)*4:(s.get('slot_word',1)&15)*4+4]=pack(BLOBS[0]+header_off)
@@ -213,7 +218,7 @@ def execute(native,b,p,s):
  calls=[]
  for role in s.get('commands',[s['role']]):calls.append(dict(role=role,result=invoke(role),context_hashes=[hashlib.sha256(bytes(u.mem_read(a,CTX_SIZE))).hexdigest()for a in CONTEXTS]))
  digest=lambda a,n:hashlib.sha256(bytes(u.mem_read(a,n))).hexdigest()
- return dict(events=trace,calls=calls,contexts=[digest(a,CTX_SIZE)for a in CONTEXTS],table=digest(TABLE,1000),banks=digest(BANKS,64),paths=digest(PATH_TABLE,2048),filename=digest(FILENAME,512),blobs=[digest(a,len(content))for a in BLOBS],heap=digest(heap_start,heap_end+4-heap_start),pool=digest(POOL,48),prepare_scalar=u32(u,SCALAR),guards_stack_nonvolatiles_and_whitelists=True)
+ return dict(events=trace,calls=calls,contexts=[digest(a,CTX_SIZE)for a in CONTEXTS],table=digest(TABLE,1000),banks=digest(BANKS,64),paths=digest(PATH_TABLE,312 if s.get('native_paths')else 2048),path_literals=[digest(BASE+int(x['rva'],0),x['bytes'])for x in b['paths']['literals']]if s.get('native_paths')else [],filename=digest(FILENAME,512),blobs=[digest(a,len(content))for a in BLOBS],heap=digest(heap_start,heap_end+4-heap_start),pool=digest(POOL,48),prepare_scalar=u32(u,SCALAR),guards_stack_nonvolatiles_and_whitelists=True)
 
 def scenarios():
  cases=[]
@@ -242,6 +247,8 @@ def scenarios():
  add('load','load_path_reload',path_swap=True)
  add('load','load_context_reload',effects={'allocate_1':1,'read_1':2})
  add('load','load_sample_context',samples=[1,2],effects={'preload_1':1})
+ for bank in range(39):add('load','native_path_'+str(bank),bank=bank,native_paths=True)
+ add('load','native_path_masked_38',bank=0xabcd0026,native_paths=True)
  add('sequence','controls_to_load',commands=['initialize','set_bases','load','apply','signal'])
  add('sequence','register_preload_apply',slot_word=1,samples=[1,2],commands=['bank_register','bank_preload','apply'])
  return cases
@@ -267,6 +274,6 @@ def main():
   bad=build(source,args.data.resolve(),lane/'build');plan=prepare(bad);s=next(x for x in ss if x['name']==names[name]);a=execute(True,b,p,s);c=execute(False,bad,plan,s);assert a!=c,name
   negatives.append(dict(name=name,detected=True,scenario=s,native=a,wrong=c,build=bad))
  assert b['inputs']=={path:sha(path)for path in b['inputs']}
- report=dict(scope=__doc__,build=b,case_count=len(cases),all_equal=True,cases=cases,negative_controls=negatives,full_sequences=sum(x['scenario']['role']=='sequence'for x in cases),actual_family_invocations=sum(len(x['native']['calls'])for x in cases),limits=['Actual file-length/synchronous-load,prepare,empty,diagnostic,zero,return-true,resize and coalescer execute. Identified unchanged CRT copy is linked but the owner-only music path does not call it;separate resize tests execute it.','Virtual I/O,formatting,allocation and sample-device entry are explicit models; no real archive,Windows allocation or audio execution is proved. Compiled host_allocate is intercepted at entry.','Path table256records,context pointers,512-byte filename,heap descriptors/owner cells and blob data are synthetic preconditions;unknown production capacities/owner are not supplied. Failure-case backing is bounded,not derived from malicious file lengths.','WORD-only ignored arguments/returns exclude unspecified upper bits;no original prototype identity or game execution acceptance.','Native1110reuses incoming parameter slots as scratch. Return address,caller guard,ESP and nonvolatiles are checked;argument-slot bytes are not promised unchanged.'])
+ report=dict(scope=__doc__,build=b,case_count=len(cases),all_equal=True,cases=cases,negative_controls=negatives,native_path_cases=sum(bool(x['scenario'].get('native_paths'))for x in cases),full_sequences=sum(x['scenario']['role']=='sequence'for x in cases),actual_family_invocations=sum(len(x['native']['calls'])for x in cases),limits=['Actual file-length/synchronous-load,prepare,empty,diagnostic,zero,return-true,resize and coalescer execute. Identified unchanged CRT copy is linked but the owner-only music path does not call it;separate resize tests execute it.','Virtual I/O,formatting,allocation and sample-device entry are explicit models; no real archive,Windows allocation or audio execution is proved. Compiled host_allocate is intercepted at entry.','Forty cases consume the actual39-record initialized path prefix and25literal identities. Other cases substitute a256-record synthetic external table for adversarial/reload discriminators;this does not prove production capacity or legal access beyond the observed prefix.','Context pointers,512-byte filename,heap descriptors/owner cells and blob data remain synthetic preconditions. Failure-case backing is bounded,not derived from malicious file lengths.','WORD-only ignored arguments/returns exclude unspecified upper bits;no original prototype identity or game execution acceptance.','Native1110reuses incoming parameter slots as scratch. Return address,caller guard,ESP and nonvolatiles are checked;argument-slot bytes are not promised unchanged.'])
  dest=OUT/'host_music_differential.json';dest.write_bytes((json.dumps(report,indent=2)+'\n').encode());print(json.dumps(dict(cases=len(cases),all_equal=True,negatives=len(negatives),report=str(dest))))
 if __name__=='__main__':main()
