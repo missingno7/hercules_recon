@@ -11,6 +11,9 @@
 #include <cwchar>
 
 #include "dropin_renderer/ddraw_proxy.hpp"
+#if defined(DROPIN_HOST_SHIM)
+#include "dropin_renderer/host_bootstrap.h"
+#endif
 #if defined(DROPIN_PROXY_TESTING)
 #include "dropin_renderer/proxy_test_support.hpp"
 #endif
@@ -250,8 +253,14 @@ extern "C" HRESULT WINAPI DirectDrawCreate(
 
 BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, LPVOID)
 {
-    if (reason == DLL_PROCESS_ATTACH)
+    if (reason == DLL_PROCESS_ATTACH) {
         g_proxy_module = instance;
+#if defined(DROPIN_HOST_SHIM)
+        const DWORD incoming_error = GetLastError();
+        hs_bootstrap_attach();
+        SetLastError(incoming_error);
+#endif
+    }
     return TRUE;
 }
 

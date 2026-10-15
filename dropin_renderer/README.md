@@ -16,7 +16,8 @@ The original TITLE producer and image/palette timing remain to be recovered.
   DirectDraw import, `DirectDrawCreate`. It resolves system DirectDraw once,
   outside DllMain, validates its system path including WOW64 redirection, and
   forwards the original arguments, HRESULT and COM object without wrapping it.
-  DllMain records only its own module. No game files or instructions are patched.
+  DllMain records its own module; the optional MSVC combined build also publishes
+  a content-checked callback clone. No game files or instructions are patched.
 - `dropin_host_adapter`: explicit, process-lifetime callback-table clone using
   the shared 250-DWORD ABI and clone helper. Slots 81/89 forward to the supplied
   callbacks and publish synchronous entry/return observations. Installation is a
@@ -81,7 +82,12 @@ cmake --build work/dropin-build --config Release
 ctest --test-dir work/dropin-build -C Release --output-on-failure
 ```
 
-That generator is an alternate build recipe, not a recorded MSVC verification.
+The optional **combined DLL** is freshly verified with MSVC x86: enable
+`DROPIN_BUILD_HOST_SHIM=ON`. See [the inventory, ABI/lifetime boundaries and
+reproducible synthetic acceptance run](docs/combined_dll.md). It retains
+forwarding-only operation and rejects unsupported hosts. It is not a verified
+original-process deployment or a complete native renderer.
+
 Enable `DROPIN_BUILD_SDL_GPU_DIAGNOSTIC=ON` and point `SDL3_DIR` at a compatible
 x86 SDL3 CMake package to build the optional probe and indexed backend.
 

@@ -4,6 +4,7 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <float.h>
+#include <intrin.h>
 #include <string.h>
 #include <xmmintrin.h>
 
@@ -60,30 +61,27 @@ static renderer_u32 visit_capacity(void)
 
 /* ---- backend firewall ------------------------------------------------- */
 
-typedef struct HsFpuState {
-    unsigned int x87;
-    unsigned int mxcsr;
+typedef __declspec(align(16)) struct HsFpuState {
+    unsigned char image[512];
 } HsFpuState;
 
 static void fpu_save(HsFpuState *s)
 {
-    unsigned short cw;
-    __asm fnstcw cw
-    s->x87 = cw;
-    s->mxcsr = _mm_getcsr();
+    _fxsave(s->image);
 }
 
 static void fpu_restore(const HsFpuState *s)
 {
-    unsigned short cw;
-    unsigned short want = (unsigned short)s->x87;
-    __asm fnstcw cw
-    if (cw != want || _mm_getcsr() != s->mxcsr) {
-        __asm fnclex
-        __asm fldcw want
-        _mm_setcsr(s->mxcsr);
+    HsFpuState current;
+    _fxsave(current.image);
+    if (memcmp(current.image, s->image, 6) != 0 ||
+        memcmp(current.image + 24, s->image + 24, 4) != 0 ||
+        memcmp(current.image + 32, s->image + 32, 128) != 0)
         g_stats.fpu_restores++;
-    }
+    /* Restore even when controls agree: x87 tags, pending exception flags and
+     * register values (including a host return in ST0) are part of the state.
+     * Modern Windows x86 targets support FXSAVE/FXRSTOR and SSE. */
+    _fxrstor(s->image);
 }
 
 static int backend_live(void)
@@ -507,7 +505,8 @@ HS_API HsInstallStatus HS_CALL hs_install(const renderer_u32 *source_words,
     LONG observed;
 
     if (!source_words || !host_pointer_cell || !config ||
-        config->struct_size < sizeof(HsConfig) || ((UINT_PTR)host_pointer_cell & 3))
+        config->struct_size < sizeof(HsConfig) || config->mode > HS_MODE_OBSERVE ||
+        ((UINT_PTR)host_pointer_cell & 3))
         return HS_INVALID_ARGUMENT;
     if (backend && (backend->struct_size < sizeof(HsBackendV1) ||
                     backend->abi_version != HS_ABI_VERSION))

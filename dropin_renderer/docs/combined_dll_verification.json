@@ -1,0 +1,255 @@
+{
+ "kind": "combined_ddraw_synthetic_acceptance",
+ "date": "2026-10-15",
+ "base_commit": "c52dd91",
+ "status": "complete_within_synthetic_integration_boundary",
+ "original_process_executed": false,
+ "historical_acceptance_changed": false,
+ "assets_or_originals_modified": false,
+ "reproduce": "python dropin_renderer/tests/run_combined.py --exe <pinned-unmodified-HERCULES.EXE> --output work/<fresh-directory>",
+ "proof_scope": [
+  "PE32 i386 MSVC composition using existing forwarder and shim",
+  "data-only attach, original content profile checked offline",
+  "synthetic attach before CRT cold copy, 250 words and 13 relays",
+  "identical host logs with observation off, on and faulting",
+  "same module system DirectDraw forwarding",
+  "unsupported host/text/table and explicit opt-out paths"
+ ],
+ "toolchain": {
+  "origin": "Existing Visual Studio 2022 Community installation; no tools installed or patched",
+  "compiler": "Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35225 for x86",
+  "standalone_flags": "/nologo /W3 /WX /O2 /MT /GS- /Oy-",
+  "cmake_sha256": "b540efece9172930877dff0c9fedda7a69b0dd82446e0e8bba13372aac6c8ac8",
+  "cmake_version": "3.31.6-msvc6",
+  "tools": {
+   "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x86\\cl.exe": "462714b433d56b4fa674f99d22afbb0f574721195a2e9963ec2684ca710dd957",
+   "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x86\\link.exe": "2098585bbc1c5e6785c35f186cecb85cb6d73924c571356d76be713141db91f4"
+  },
+  "fixture_cl": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx86\\x86\\cl.exe",
+  "fixture_cl_sha256": "e100ada87294976abfba7cd4e288a0f659fb13971472fc59b9538efc86d014eb",
+  "python": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "python_sha256": "b847bb9f4e48c19f585c8bf7d8b355f3f8c6d2125717ece9c9d7e16fb9f09de8"
+ },
+ "identity": {
+  "machine": "0x14c",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "production_profile": {
+   "HS_HOST_BASE": 4194304,
+   "HS_HOST_IMAGE_SIZE": 8048640,
+   "HS_HOST_TEXT_RVA": 4096,
+   "HS_HOST_TEXT_SIZE": 183742,
+   "HS_HOST_TEXT_HASH": 580881636678988802,
+   "HS_HOST_TABLE_HASH": 10922530876250155495,
+   "HS_HOST_TABLE_RVA": 221624,
+   "HS_HOST_POINTER_RVA": 222624,
+   "HS_HOST_PRIMARY_RVA": 6875008
+  },
+  "synthetic_profile": {
+   "HS_HOST_BASE": 5242880,
+   "HS_HOST_IMAGE_SIZE": 131072,
+   "HS_HOST_TEXT_RVA": 4096,
+   "HS_HOST_TEXT_SIZE": 81806,
+   "HS_HOST_TEXT_HASH": 15715767112085568305,
+   "HS_HOST_TABLE_HASH": 2407584291349009528,
+   "HS_HOST_TABLE_RVA": 118784,
+   "HS_HOST_POINTER_RVA": 119784,
+   "HS_HOST_PRIMARY_RVA": 125736
+  },
+  "production_dll_sha256": "011325d901e2485f2f313f47793c914e1ab2a43ce2a3298e136c55f2bdb14d3d",
+  "synthetic_dll_sha256": "392f132ee0816d9174dc10aaa3d355a6242679a742052cfbac860644d83f40dd"
+ },
+ "results": {
+  "standalone_shim_harness": "PASS: 349 passed, 0 failed",
+  "standalone_ac60": {
+   "passed": 9,
+   "all_ok": true
+  },
+  "combined_shim_harness": "PASS: 349 passed, 0 failed",
+  "combined_ac60": {
+   "order_original_eq_shim_prewalk": true,
+   "order_original_eq_synthetic_host": true,
+   "original_never_writes_order_table": true,
+   "final_state_cells": true,
+   "a8f0_args_eq_synthetic_host": true,
+   "a8f0_args_eq_staged_destination": true,
+   "raster_route_per_primitive": true,
+   "frame_prologue": true,
+   "frame_epilogue": true
+  },
+  "modern_ctest": [
+   [
+    "readonly_archive_reader",
+    "Passed"
+   ],
+   [
+    "owned_indexed_memory",
+    "Passed"
+   ],
+   [
+    "indexed_reference",
+    "Passed"
+   ],
+   [
+    "command_capture",
+    "Passed"
+   ],
+   [
+    "geometry_diagnostic",
+    "Passed"
+   ],
+   [
+    "shared_capture_extent",
+    "Passed"
+   ],
+   [
+    "mesh_runner_validation",
+    "Passed"
+   ],
+   [
+    "proxy_forwarding_and_adapter",
+    "Passed"
+   ],
+   [
+    "proxy_system_forwarding",
+    "Passed"
+   ]
+  ],
+  "portable": {
+   "discovered": 25,
+   "passed": 25,
+   "failed": 0
+  },
+  "synthetic_bootstrap": [
+   "COMBINED_HOST status=3 cold_copy=250 modes=3 errors=0",
+   "COMBINED_HOST status=1 cold_copy=250 modes=3 errors=0",
+   "COMBINED_HOST status=2 cold_copy=250 modes=3 errors=0",
+   "COMBINED_HOST status=2 cold_copy=250 modes=3 errors=0",
+   "COMBINED_HOST status=3 cold_copy=250 modes=3 errors=0",
+   "COMBINED_HOST status=4 cold_copy=250 modes=3 errors=0"
+  ],
+  "system_smoke_runs": 1
+ },
+ "discriminators": {
+  "fpu_before_fix": "346 passed, 2 failed: x87 stack/status leakage on backend return and fault",
+  "fpu_after_fix": "349 passed, 0 failed, including invalid install mode",
+  "msvc_memory_test": "Expected vector size was 238; direct list initialization produces the intended single element; production memory code unchanged",
+  "content_rejection": "Synthetic text variant changes only the text hash; table variant changes only the table hash among compared profile fields"
+ },
+ "execution_environment": "Fixed-address synthetic EXE received sandbox WinError 623 before entry; accepted suite ran through approved execution outside sandbox. No original-process gate was bypassed.",
+ "source_sha256": {
+  "dropin_renderer/backends/geometry_diagnostic.cpp": "a621d01e571782561a6e6f619474892c5ac01995ef25ecb94d16cefd4beb35cf",
+  "dropin_renderer/backends/geometry_diagnostic.h": "3c18b0c319a112fe02e0d08d13227782c3ea4240194af5d2c81c70de02f2cfac",
+  "dropin_renderer/backends/indexed_gpu.cpp": "b0777246a2f728c1be328675ff4a3ddc63a8cd0482f64947874ed18a6f80c68b",
+  "dropin_renderer/backends/indexed_gpu.hpp": "9ea710fa3f3b651513b731da638374e29581a0698c10bd039f52a291460b5815",
+  "dropin_renderer/backends/indexed_reference.cpp": "a2f77926de8b8c37ee59d34aa1c3d7e59a24eb8daf6ac7067ea80f3b3ab0d5b5",
+  "dropin_renderer/backends/indexed_reference.hpp": "910de80905cf426992f3d57792473164ad4dbabdb5569ab6468354ca94f2fc3a",
+  "dropin_renderer/backends/indexed_sprite_reference.cpp": "1a33f74511a0354ddcc56742078d06ee4ceaac86b8fcff637973e6dc83938765",
+  "dropin_renderer/backends/indexed_sprite_reference.hpp": "78887cb8685a1340e43ef11e9fbef2ea2cb1ba625e7f174ce13da9cda67c412c",
+  "dropin_renderer/backends/sdl_gpu_probe.cpp": "f14926ee2aa10bfef300f0bc0289ccfab1b993678bdd283ad892b7daaf325f98",
+  "dropin_renderer/capture/packet_capture.cpp": "4b014809f5ed1e3536ff578941b85d429951bdadb487957c877e3b975ba4bfa9",
+  "dropin_renderer/capture/packet_capture.hpp": "a93482af76e3d443aba6f320ff8e296dc2a41f0ec69ac1449afd5109e91d2906",
+  "dropin_renderer/CMakeLists.txt": "b380c5a0ab5f752e64674561e1e81b082f86b969cf8ab8e5cc52bbd69ab52216",
+  "dropin_renderer/core/archive_reader.cpp": "6ef38c8c1ce22d1ca566f60181692dc7ad00857c2a9a963b2a06344c2db9fa19",
+  "dropin_renderer/core/archive_reader.hpp": "765d404cc5807b62c9501290f7fc8cbf3f32cfa1673a2576de0617ec30c695c4",
+  "dropin_renderer/core/event.hpp": "dbd20511accc7b594dd6eabbf4cc516034ef7d85548f025fac8d096b56e77663",
+  "dropin_renderer/core/indexed_command.hpp": "572aa9c56c9609dc1dbbd2ddf60714137fc2ba81a9f55806fcd38b36b5775a4e",
+  "dropin_renderer/core/indexed_memory.cpp": "01975bab39dccf08535710d0769a914eb74bdd4573bc4473e3e406f947feec20",
+  "dropin_renderer/core/indexed_memory.hpp": "4bd24442e06bdb411f10313c6ba01375a9a6d7c98075f2013e4a66ddedce9ca6",
+  "dropin_renderer/core/indexed_sprite_command.hpp": "ba970f14b2740b24c15a398f72c45a93a692a99765b9b3660606edd09a1ec2e2",
+  "dropin_renderer/core/title_resource.cpp": "cbd09dd5cb883955b85ca2349605019882b3accb28f8fd1ec1a122ed93014965",
+  "dropin_renderer/core/title_resource.hpp": "98c45f2a5e87838cfb95e98cdc0361c06e09acb653c708b44735e320551c5e47",
+  "dropin_renderer/proxy/ddraw.def": "55b01a647af8160262ed2c3055f0671d01d191a695ba3673a6100172f34c7539",
+  "dropin_renderer/proxy/include/dropin_renderer/ddraw_proxy.hpp": "b50d47dca0eefcc7868a27a3d896808db7485310a08b571f08f8bf3c658d3e2c",
+  "dropin_renderer/proxy/include/dropin_renderer/host_bootstrap.h": "b5d33af67ff9704dd0aee43d435b8ed958fcf6ba1c1aaf30b33a2f7d61eed9db",
+  "dropin_renderer/proxy/include/dropin_renderer/proxy_api.hpp": "926604d97ac28830b5d36b0deb1ffe26a2fe4a907a0f46acd07d818a71bea331",
+  "dropin_renderer/proxy/include/dropin_renderer/proxy_test_support.hpp": "68dafa90a136eea5bc7f6efba0d4db84125efe4141213a04373480ff7ab9ed1d",
+  "dropin_renderer/proxy/src/ddraw_proxy.cpp": "8667a862d6037e7038f236fc8149c0a6d2d8a40b41d62b694f3a8b0e97adbe99",
+  "dropin_renderer/proxy/src/engine_table_proxy.cpp": "4336093733533203171361aa433fce2a02706dc87a03f6ef0c181cb0e43c8009",
+  "dropin_renderer/proxy/src/host_bootstrap.c": "4fabfb336103787f5d33afc2588ce17b499cf9aa55d903f869ddbe70df0048de",
+  "dropin_renderer/tests/combined_host.c": "e456986cb7211eb47246b6d6fa73577184c16bd11a9f48b8090f2265049e781d",
+  "dropin_renderer/tests/mock_ddraw_backend.cpp": "9c0116c197ef376edf836ac6c1e9262691544e54ed89b6eb6e880ead202d921d",
+  "dropin_renderer/tests/mock_ddraw_backend.hpp": "c1b9c446296e1788a9476c5cb2c3dd9e6f789897f65f5329a491738ebbf0bf53",
+  "dropin_renderer/tests/proxy_system_smoke.cpp": "fdc1a5807501f1e534736407df14034c1dbc818a10a822ea887568724df5af2a",
+  "dropin_renderer/tests/proxy_test.cpp": "106770c6f0f106b6bb23612bc493d6170ce9f6f4bc0be67cb234bd30bb842f24",
+  "dropin_renderer/tests/run_build.py": "5f5068983c2cbe4ec2b401ec53333c830f4d4f2e676e9d880ccb8cce4457ab1f",
+  "dropin_renderer/tests/run_combined.py": "7b01361ff5d81aef3684e5028506b7d6616341de6b4b59a89439b70702cae423",
+  "dropin_renderer/tests/run_indexed_blend.py": "ef4f5d7d50700e5ecfa289f2b0aef39b99d619016927dbad55693a7f46ef8872",
+  "dropin_renderer/tests/run_indexed_rectangle.py": "de27e533d73971822e753437a3051f04334485ad0213741de5cc0f8b002cfcc5",
+  "dropin_renderer/tests/run_title_screen.py": "2ac59b4ccd840a21a7e22b9e4c1a24b522e43c80a9327c92866bd49083161410",
+  "dropin_renderer/tests/test_archive_reader.cpp": "5c733cdb51c449228ffa8f0c68f4c24d86ae1d3a75664ec42714dc2345e20fbc",
+  "dropin_renderer/tests/test_commands.cpp": "185958ec3f46d65f447599b6881c21bed9688b164fdabf51ae12cd8e79bbf114",
+  "dropin_renderer/tests/test_indexed_gpu.cpp": "59bcf08764c21889b47253f282d968680d3039beb3026b5446328418648cda9c",
+  "dropin_renderer/tests/test_indexed_memory.cpp": "a8c2d2cd6787d061fe3ffd550d5c234db3e7aaa350a0edef0f3dfaf4881a2f9a",
+  "dropin_renderer/tests/test_indexed_reference.cpp": "8d2ec8e97bc4f782af1305d6fefb5b5411e27519ffd111e0f06a97506f89cf2a",
+  "dropin_renderer/tests/verify_historical.py": "66f124880f872890332721766538d458112cda6ca910f17f07b29e6c9088b322",
+  "dropin_renderer/tools/geometry_diagnostic_cli.cpp": "38429ee798b88d5c12d632daf2aa40da61b96af2e93792a31b31ea246c9c9530",
+  "dropin_renderer/tools/hercules_preview.cpp": "fb4fb5e9dcd00ff2ebcccd8856e89311e9a9825bc8c17f786009febb8c5cd512",
+  "dropin_renderer/tools/indexed_rectangle_cli.cpp": "7321fba005cbac046fd4092eeacd0675165c6fcd1136d0ac35aaa375322752c3",
+  "dropin_renderer/tools/run_preview.py": "c0d34f10d3223644851696abb0c33800aa6af797065254cd8b9a71fea850f875",
+  "dropin_renderer/tools/run_real_mesh_geometry.py": "bb1a6aa50e8991516a4a6283d9f18edb355003eb4bf430c5fbc6f5255fdb4f27",
+  "dropin_renderer/tools/title_resource_cli.cpp": "08dd45709cfe164463508532fca9d47ac8e0a9aeabb72462d8bb2a0641b6b5b3",
+  "prototypes/host_shim/build.py": "a77beafcb14686ef65084b163e8031efbc414fb9a2170bdc31d45342e48cd9a1",
+  "prototypes/host_shim/include/hercules_shim.h": "91e6bb6ee2b6d52036770ce46a51c78eac521e00dd188fa995f3a0811e3524b0",
+  "prototypes/host_shim/src/host_shim.c": "e7d6ff7802a5a6ac71db8a48f735682f3d64b9718eba4cfd49c0f316f6c915ba",
+  "prototypes/host_shim/tests/ac60_oracle.py": "ece02bf75cd6a2a7d782ab80170c7865085e1f147467aa46d3e965e003ebcda8",
+  "prototypes/host_shim/tests/test_host_shim.c": "efec56178e191a7541468084490c570ef7aa7340d01ea5e20e3d5ffa171dc9ce",
+  "renderer_contract/CMakeLists.txt": "2c300518a88b3356a969be964ec3a97e6f269153ffcdfbf1740b39219365cc70",
+  "renderer_contract/eng1_geometry_association_observer.h": "1a8ea7b25e755fa63e6411a0c85bf7bc2ba4c5691a82e89786df74b629a82e7b",
+  "renderer_contract/fixtures/presentation_probe/src/postentry_engine.c": "14e062f2f067b87a54e0412c6f561007f2e1cf5838a4ccae9802ec89df3db2a3",
+  "renderer_contract/fixtures/presentation_probe/src/postentry_engine.def": "a90bac94d2d314c11365d5b738f633a5b68784fb7d50983e2de69d9c348b0f29",
+  "renderer_contract/fixtures/presentation_probe/src/postentry_shared.h": "4132f5025019af743058efe583cfb6686fa60fe60ebd375a93481ab6af0d2021",
+  "renderer_contract/fixtures/presentation_probe/src/presentation_probe.h": "f84530f20ada0e0427e3dcf94996f3d7fb05b94966babb13cd10ce4e06f10882",
+  "renderer_contract/hercules_cif.c": "5e51bde43238dfc0d5dfded06ea724373a5248ec7eae92b0e304c3ff83c74c8c",
+  "renderer_contract/hercules_cif.h": "2771199758a18e58d577b5bb1149a9b2f28b0902914e324263143bab90e674bb",
+  "renderer_contract/hercules_edge_steps.c": "259c9c183daaad329bca78bf23fc3ab5f7aef0a9344c1317ab1a67f941967996",
+  "renderer_contract/hercules_edge_steps.h": "987ddf243a92d60b381d12c0d14e1f3d361f55981d25b5a1fcd6690fd2e45109",
+  "renderer_contract/hercules_frame.c": "0c51696b5aa5af4d9e08527151a1ce32021c64d378123bffd7df92672291c1a4",
+  "renderer_contract/hercules_frame.h": "e743695844317c5819cd969a93280b8931517ddff21e893238760aef990d2189",
+  "renderer_contract/hercules_host_abi.c": "d16ded99adeafe204df1ccc1d1652621153c5ab2b51f331d5226f1b6acb08036",
+  "renderer_contract/hercules_host_abi.h": "b51d75b165c4800aa9ef5431bdf6f6210ee289d36f5b1c000e1ad1048f52cf5b",
+  "renderer_contract/hercules_packed_uv.c": "29491844f7e6aa593dc9009a266c965b3e76e3911c5c21fca4c41baef56b00ca",
+  "renderer_contract/hercules_packed_uv.h": "6a09683d104256ba1a2a1e4c6dff38f222185a38a84a76c2dc19c2c3a9a976bf",
+  "renderer_contract/hercules_packets.c": "7803ee275c1b9cbf28af55394e3243c8b086053623ae0e49cb5f7cd6f76ed1d7",
+  "renderer_contract/hercules_packets.h": "2d53945dc9a1cf5e4d10bdbfe1e8b76c7677227fc3b8c765b6161834351a16f8",
+  "renderer_contract/hercules_pixels.c": "a5479335fb97f3a395b8e74c0bc94f0481b609d2511d04f99484a0af0dec76c4",
+  "renderer_contract/hercules_pixels.h": "5685c7653d05e55e0b1a8a343cf4d72db9d5fc02adf3d0da50d9f63fda1fbea1",
+  "renderer_contract/hercules_projection.c": "c0189e13f46f580dd79f2f834e7680a50a70e392b5f93ea9d5f78732f63492bf",
+  "renderer_contract/hercules_projection.h": "290b3922cd2ae474dc8dd2decf5c18e260bfccab9c79d49a2e5d24ea28dec216",
+  "renderer_contract/hercules_quad_dispatch.h": "760dbea6cd1e70f94847da3e2815830fff557e4d86820a8a825e41b9e88cb9c8",
+  "renderer_contract/hercules_rectangle.c": "1fbf94ffa6e7f175b2e417cf4394e88b77b5abd33457d38441e323066f350b59",
+  "renderer_contract/hercules_rectangle.h": "410c038a444d4e5b26ac1311a1c3d357b92549fc1447c8f559a678330f9ac53e",
+  "renderer_contract/hercules_reprojection.c": "fd528d8dd7ba5ad88328c267b24adee148cfc5dd05172753eb524cf3a13aa76b",
+  "renderer_contract/hercules_reprojection.h": "1339fe8023721db2746eaaa95c41183af9645d24843c17d20bc8dd2dfdcd8e08",
+  "renderer_contract/hercules_route_uv_models.c": "0a129769ae0a5ec7481f7548b0474041de4016da7595eb5edc71a83e1a90283b",
+  "renderer_contract/hercules_route_uv_models.h": "14292be083acb6fb1f7d272cb0f4a52db9dc7c181e761925a33aa639297bfb9d",
+  "renderer_contract/hercules_sprite_geometry.c": "680ebba6b2bb09e71e4b7d03f9bc0e9f0b55835dc06b17375edfd477b2b1c07a",
+  "renderer_contract/hercules_sprite_geometry.h": "46e8aa1711e9f158f54abe38c4bb2dbe4ad0c2ba66e6b1bb5394497a153612ea",
+  "renderer_contract/hercules_sprite_raster.c": "0a1a15208864918f256de845e32eab2b0b32aa06d61d36a24ff40f61f48fdc10",
+  "renderer_contract/hercules_sprite_raster.h": "8f3fe4e2c316f82c0e4b941ec8ce618742439481d66a3e824934a45bb5602c8c",
+  "renderer_contract/hercules_staging.c": "d6c112e5ec5aecc095958292345ce03348ad267443efc2f9fb85fd64d1038d0b",
+  "renderer_contract/hercules_staging.h": "699ced0da2f8070c24523fc4adc8e25d68180eab7fc18e053acabd0ff56a64e5",
+  "renderer_contract/hercules_state.c": "1c8b050d684837966f58eca3e5435ac33eb756ba4f5e13e8741bd52d5312ee8f",
+  "renderer_contract/hercules_state.h": "c6c528b7f5e18f0f3bc0aa5f794da689043b9f777f4e73bdb5e6a77aa64b26a2",
+  "renderer_contract/hercules_state_wire.h": "268a893be201a230c3b397ed78961f6ce1c4c774406f92009c23889f5714653e",
+  "renderer_contract/hercules_surface.h": "b000453d7b568d980faae45f1f472fb21dc43c06e4d0306bbb4e00acbff97e44",
+  "renderer_contract/hercules_textures.c": "07c951a693b8aeab12cff7cf6b09dc802de7c203e0c8387bd4d2bdf4ce23a5c5",
+  "renderer_contract/hercules_textures.h": "3fdd37291af16f6328a42b545d5655058f1d7d510d796ffdcbe562596e8369ad",
+  "renderer_contract/hercules_types.h": "e957f5f142850a66c3368d4c37913b5c4528d04a4b86e1c9e78e0cc653569b4d",
+  "renderer_contract/tests/run_portable_tests.py": "8fd106e2cd6c39c9641d1bae6f62597b59c2a92ca12477dd9cd857db28d59807"
+ },
+ "full_receipts": {
+  "receipt.json": "4ef9a7b108c36c1274ce3efd1ea35048b167ad1dd736b149abf619b6392cff16",
+  "commands.json": "5343bdb788116b0635a69d65669b024fb6bfc207c52edff7bf6b2f1fa1c0adcd",
+  "standalone/receipt.json": "60db1225dc037577c0587a1afe387b731e51abe06b373df1fbdc900e8ee6d06f",
+  "ac60_differential.json": "469ce152151ee5510172f79f84e6efda5271998a52c70274a671ca1efaeb3a2c",
+  "portable/portable_tests.json": "4e2850693ef305b5f1689e847eef750cbebb710f030d842e5638eac1057f392a"
+ },
+ "limits": [
+  "No original host or engine process execution; retail automatic profile validated statically only",
+  "Known modified-assets EXE intentionally rejected",
+  "No framebuffer/presentation ownership or native rendering",
+  "Backend registration is serialized on the UI thread; published DLL/clone have process lifetime",
+  "Next renderer dependency is an owned event/resource bridge into existing indexed memory and capture, with complete writer ordering; live use remains gated"
+ ]
+}

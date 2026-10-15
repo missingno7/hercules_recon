@@ -15,12 +15,14 @@ python prototypes/host_shim/build.py --exe work\discs\pc_install\HERCULES.EXE --
 
 This builds `hercules_shim.dll` (PE32 i386, VS2022 `cl` 19.44 x86, `/W3 /WX`)
 from `src/host_shim.c` plus the shared `renderer_contract` frame, packet,
-staging, state and clone sources. It then runs both test layers. The receipt
-is [evidence/build_test_receipt.json](evidence/build_test_receipt.json).
+staging, state and clone sources. It then runs both test layers. The original
+baseline receipt is [evidence/build_test_receipt.json](evidence/build_test_receipt.json).
+Fresh standalone and combined verification is recorded in
+[the combined-DLL receipt](../../dropin_renderer/docs/combined_dll_verification.json).
 
 ## What the DLL does
 
-- **Publication.** `hs_install` validates the source table, builds a process-lifetime clone through `engine_table_clone_selected`, and publishes it with compare-exchange. It never runs from `DllMain`, and there is no live attach.
+- **Publication.** `hs_install` validates the source table, builds a process-lifetime clone through `engine_table_clone_selected`, and publishes it with compare-exchange. The standalone build has no attach publisher; the optional combined build calls this data-only path during attach after checking host content.
 - **Relay.** Thirteen allowlisted slots are relayed: 81, 89, 101, 102, 106, 107, 114, 117, 129, 130, 131, 143 and 148. Each points at a naked stub, `mov eax, slot; jmp hs_relay`.
   - The relay copies an 8-DWORD stack window and passes the caller's ECX/EDX through.
   - It returns the original's EAX/EDX untouched and preserves EBX/ESI/EDI/EBP. Callers still clean up (cdecl).
@@ -30,12 +32,12 @@ is [evidence/build_test_receipt.json](evidence/build_test_receipt.json).
   - Slot 89 pre-walks the order table with `frame_walk_ac60_order_table_visit` *before* forwarding. It decodes each node (`renderer_decode_packet`) and applies it to a shim-owned `RendererAc60StateView`, then emits `frame_begin` / `primitive` / `frame_end`.
   - The pre-walk runs only when the primary BD80 callback cell is NULL and the extent is known. Otherwise AC60 could run foreign code that changes the consumption order.
   - After the original returns, a re-walk must reproduce the pre-walk exactly. That is a built-in falsifier, reported as `consumption_consistent`.
-- **Fault firewall.** Backend calls run under `__try/__except` with x87 control word and MXCSR save/restore. A backend fault disables the backend and the game continues. Original-code exceptions are never caught: a `__finally` only closes an abandoned slot-89 bracket while the host unwinds.
+- **Fault firewall.** Backend calls run under `__try/__except` with full FXSAVE state restoration, including the x87 register stack, tags, status, control word and MXCSR. A backend fault disables the backend and forwarding continues. Original-code exceptions are never caught: a `__finally` only closes an abandoned slot-89 bracket while the host unwinds.
 - **Backend switching.** `hs_select_backend` swaps the backend or mode between frames. The published table never changes, so gameplay-visible calls are identical with any backend or none, which is tested.
 
 ## Verification
 
-**Synthetic host: 346/346 checks.** The fakes are cdecl services, including
+**Synthetic host: 349/349 checks (original baseline: 346).** The fakes are cdecl services, including
 an AC20 with the original's shape and an AC60 loop transcribed from the
 decompile. The "engine" copies the table as `rep movsd` would and calls
 through an assembly caller that checks ESP balance and callee-saved registers.
@@ -44,6 +46,7 @@ through an assembly caller that checks ESP balance and callee-saved registers.
 - Slot 89 returns EDX:EAX intact. The pre-walk order equals the consumed order, and the event bracket order is S‑B‑P…‑E‑S.
 - Forward-only, observe, and faulting-backend runs produce **identical host call logs**.
 - An access violation or C++ throw (`0xE06D7363`) in the backend is contained, and the backend is disabled. A backend that changes x87 precision has the control word restored.
+- Backend destruction of x87 stack/status and MXCSR is restored on both return and fault. Unsupported install modes reject without publication. These are the three new checks beyond the baseline.
 - Original exceptions (slot 143 and slot 89) propagate unchanged, and the abandoned bracket recovers.
 - The pre-walk is skipped for a non-null primary callback or an unknown extent. A consumed link rewritten by the original is detected.
 
@@ -85,7 +88,7 @@ turns any fault into a fatal `exit(-123)`
 B alone cannot be bootstrapped without A. A alone has no render commands.
 
 Constraints a backend must respect, all derived from evidence:
-- **Threading and timing.** Every event is synchronous on the UI thread inside OnIdle. A backend that blocks, for example on vsync, throttles the idle loop. Whether that changes simulation speed depends on `5F20`'s timing policy, which is not yet characterized: measure before presenting from a GPU backend. Never pump messages from a backend.
+- **Threading and timing.** Every event is synchronous on the UI thread inside OnIdle. The later [frame-pacing audit](../../renderer_contract/frame_pacing.md) establishes the 33 ms wall-clock step, render-skipping catch-up and clock-reset coupling in `5F20`. This passive integration adds no waits. Never pump messages from a backend.
 - **Faults and FPU.** The firewall is mandatory. Without it, a driver fault becomes the host's fatal exit. D3D-style x87 precision changes would leak into game code.
 - **Lifetimes.** The clone and the relay must live for the whole process, because engines copy once (cold copy); a static import is never unloaded. Order-table nodes and packets are engine memory, valid only inside the slot-89 bracket, since the order tables are double-buffered. Copy anything you keep.
 - **Texture memory.** Host texture memory (`0x96E6E0`/`0xA6E6E0`) is mutated synchronously by slots 129/130/131 and command‑01 nodes, all observable here. Exclusive ownership of those banks is still unproved (contract open question 8).
@@ -110,11 +113,14 @@ forwards as raw events (101–117), plus per-module association. ENG1 needs
 observers before face selection (`2E0F1`/`2E27B`). Association is the gating
 problem for "true" native geometry, not interception.
 
-### Milestone: combined app-local `ddraw.dll` (not started)
+### Milestone: combined app-local `ddraw.dll`
 
-**Status.** No code exists for this milestone. A first attempt (2026-10-15) was
-reverted before commit because its synthetic test fixture could not be
-completed. Nothing from it is kept except the identity facts below.
+**Status: complete within the synthetic integration boundary.** The earlier
+attempt was reverted before compilation/integration testing; this independently
+built composition now passes the criteria below. See
+[implementation, inventory and reproduction](../../dropin_renderer/docs/combined_dll.md)
+and [fresh proof](../../dropin_renderer/docs/combined_dll_verification.json).
+Original-process deployment and native rendering remain unverified.
 
 **Acceptance criteria.** All must hold before this is called done:
 1. **Composition.** One DLL built from the existing components: the `dropin_renderer` forwarder (behavior unchanged) and this shim. No copied or re-implemented forwarding.
@@ -125,8 +131,8 @@ completed. Nothing from it is kept except the identity facts below.
    - a cold-copying engine receives the relays;
    - forward-only and observe modes produce identical host call logs;
    - `DirectDrawCreate` forwards to the system implementation from the same module.
-5. **No regressions.** This shim (346 harness + 9 oracle checks), the `dropin_renderer` proxy tests and the `renderer_contract` portable suite (25) all stay green.
+5. **No regressions.** This shim (349 harness + 9 oracle checks, both standalone and composed), all 9 `dropin_renderer` CTest cases including the proxy tests, and the `renderer_contract` portable suite (25) all pass freshly.
 6. **Live run gated.** Any original post-entry run stays behind the AGENTS.md gate: explicit authorization, isolated writable state, windowed startup and display restoration.
 
-Until then the shim is verified only through the synthetic host and the
-original-AC60 oracle above.
+This milestone verifies synthetic composition and the original-AC60 oracle;
+it does not satisfy the live-run gate or prove framebuffer ownership.

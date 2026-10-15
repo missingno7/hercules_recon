@@ -12,6 +12,8 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <float.h>
+#include <intrin.h>
+#include <xmmintrin.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -244,6 +246,7 @@ typedef struct Recorder {
     int fault_at_primitive; /* -1 none */
     int raise_cpp_at_primitive;
     int change_fpu;
+    int change_registers;
     u32 thread_mismatch;
 } Recorder;
 static Recorder g_rec;
@@ -259,6 +262,13 @@ static void __cdecl rec_service(void *ctx, const HsServiceEvent *e)
     if (g_rec.change_fpu) {
         unsigned int cw;
         _controlfp_s(&cw, _PC_24, _MCW_PC);
+    }
+    if (g_rec.change_registers) {
+        __asm fninit
+        __asm fld1
+        _mm_setcsr(_mm_getcsr() ^ 0x6000);
+        if (g_rec.change_registers == 2)
+            RaiseException(0xe000f001, 0, 0, NULL);
     }
 }
 static void __cdecl rec_begin(void *ctx, const HsFrameBegin *f)
@@ -514,6 +524,10 @@ int main(int argc, char **argv)
     config.primary_callback_cell = &g_primary_cell;
 
     /* 1. Installation and publication. */
+    config.mode = 2;
+    CHECK(hs_install(g_source, g_pointer_cell, &config, &backend) == HS_INVALID_ARGUMENT &&
+          *g_pointer_cell == (u32)g_source, "unsupported install mode leaves pointer unchanged");
+    config.mode = HS_MODE_OBSERVE;
     CHECK(hs_install(g_source, g_pointer_cell, &config, &backend) == HS_INSTALLED, "install");
     CHECK(hs_install(g_source, g_pointer_cell, &config, &backend) == HS_ALREADY_INSTALLED, "reinstall");
     CHECK(*g_pointer_cell != (u32)g_source, "pointer cell not republished");
@@ -620,6 +634,30 @@ int main(int argc, char **argv)
         CHECK(before_cw == after_cw && stats.fpu_restores > restores_before, "x87 control word restored");
     }
     g_rec.change_fpu = 0;
+
+    /* A backend may destroy the x87 stack/status before returning or faulting.
+     * Control-word restoration alone cannot preserve an original FP result. */
+    {
+        __declspec(align(16)) unsigned char before[512], after[512];
+        int variant;
+        for (variant = 1; variant <= 2; ++variant) {
+            reset_recorder();
+            g_rec.change_registers = variant;
+            hs_select_backend(&backend, HS_MODE_OBSERVE);
+            __asm fldpi
+            _fxsave(before);
+            call_checked(g_engine[143], relay_args, 1);
+            _fxsave(after);
+            _fxrstor(before);
+            __asm fstp st(0)
+            CHECK(memcmp(before, after, 6) == 0 &&
+                  memcmp(before + 32, after + 32, 10) == 0 &&
+                  memcmp(before + 24, after + 24, 4) == 0,
+                  "x87 stack/status and MXCSR restored (fault=%d)", variant == 2);
+        }
+        reset_recorder();
+        hs_select_backend(&backend, HS_MODE_OBSERVE);
+    }
 
     /* 8. Exceptions raised by the original propagate unchanged. */
     {

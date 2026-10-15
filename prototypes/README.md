@@ -29,6 +29,6 @@ modifies `recovery.json`, `src/` or `calibration/`. Findings move into
 
 ## Next steps
 
-- **In progress:** characterize `5F20`'s timing policy statically. It decides whether a GPU backend's present cadence can change simulation speed.
-- **Milestone, not started:** the combined app-local `ddraw.dll`. Acceptance criteria are in [host_shim/README.md](host_shim/README.md#milestone-combined-app-local-ddrawdll-not-started).
+- **Complete, static scope:** the [frame-pacing audit](../renderer_contract/frame_pacing.md) establishes `5F20`'s 33 ms step, catch-up and reset coupling.
+- **Complete, synthetic scope:** the [combined app-local `ddraw.dll`](../dropin_renderer/docs/combined_dll.md) builds from the existing forwarder and shim and passes fresh integration/regression checks. Native rendering and original-process deployment remain open.
 - **Gated:** any live run needs the AGENTS.md authorization gate.

@@ -123,7 +123,7 @@ int main()
     check(memory.read_observed_span(kMapBase + 0x100U, 2U, &unchanged_span) ==
               IndexedMemoryStatus::unobserved_byte,
           "span read rejects any missing byte");
-    check(unchanged_span == std::vector<std::uint8_t>({0xEEU}),
+    check(unchanged_span == std::vector<std::uint8_t>{0xEEU},
           "failed span read leaves output unchanged");
 
     const std::uint64_t before_empty = memory.generation();

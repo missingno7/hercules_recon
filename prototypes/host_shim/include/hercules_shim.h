@@ -130,7 +130,7 @@ typedef struct HsStats {
     renderer_u32 backend_disabled;
     renderer_u32 prewalk_skips[7];
     renderer_u32 consumption_mismatches;
-    renderer_u32 fpu_restores;   /* backend changed x87 CW or MXCSR */
+    renderer_u32 fpu_restores;   /* backend changed x87 state or MXCSR */
     renderer_u32 abandoned_brackets; /* slot-89 original unwound by an exception */
 } HsStats;
 
