@@ -1,4 +1,4 @@
-"""Original/source music and SFX loading with actual archive-byte replays; modeled I/O/device boundaries."""
+"""Original/source music and SFX loading through actual archive code or explicit synthetic I/O probes."""
 import argparse,hashlib,json,re,struct,sys
 from pathlib import Path
 ROOT=next(p for p in Path(__file__).resolve().parents if(p/'scripts/match.py').is_file())
@@ -10,6 +10,7 @@ from pe import PE
 from title_behavioral import context_files
 from host_resize_differential import verified_copy,SPECS
 from host_music_paths_data import verify_data
+import host_archive_pipeline_differential as archive_pipeline
 import pefile
 from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn.x86_const import *
@@ -27,11 +28,14 @@ PROFILE={k:('_host_music_'+k+'_'+format(rv,'x'),rv,n)for k,(rv,n)in MUSIC.items(
 PROFILE.update(sync=('_host_file_sync',0x3b50,256),length=('_resource_file_length',0x40d0,176),prepare=('_host_file_prepare',0x1d60,32),empty=('_empty_host_callback',0xbe30,16),diagnostic=('_host_diagnostic',0x63c0,16),zero=('_host_zero_callback',0xa340,16),true=('_return_true',0xc240,16))
 PROFILE.update(resize=('_shrink_relocate',0x4690,192),coalesce=('_coalesce_pool',0x4830,96),copy=('_memmove',0x10fb0,821))
 PROFILE.update(load_sfx=('_host_sfx_load_1330',0x1330,672),program_attributes=('_host_sfx_program_attributes_be60',0xbe60,96),tone_attributes=('_host_sfx_tone_attributes_bec0',0xbec0,96))
+PROFILE.update({k:v for k,v in archive_pipeline.PROFILE.items()if k!="copy"})
 PROFILE.update(allocate=('_host_allocate',0x4570,288))
 FILE_DATA=[('_g_resource_filename_format',0x36024,5),('_g_resource_loading_format',0x36008,27),('_g_resource_async_open_failure_format',0x36050,24),('_g_resource_sync_open_failure_format',0x35ff4,20),('_g_resource_sync_loaded_format',0x35fe8,11),('_g_resource_close_failure_format',0x36044,11),('_g_resource_opening_format',0x3602c,12),('_g_resource_close_success_format',0x36038,11)]
 MUSIC_DATA=[('_g_host_music_init_text',0x35bc4),('_g_host_music_load_text',0x35c18),('_g_host_music_filename',0x35c0c),('_g_host_music_open_error',0x35bf4),('_g_host_music_download_error',0x35bd8)]
 SFX_DATA=[('_g_host_sfx_'+name,rv)for name,rv in [('load_text',0x35d1c),('filename',0x35d14),('warning_begin',0x35cd4),('warning_detail',0x35c98),('warning_program',0x35c6c),('warning_end',0x35c2c)]]
 MODELS={'format':('_sprintf',0x10f40),'open':('_virtual_file_open',0xa210),'read':('_virtual_file_read',0xa2f0),'close':('_virtual_file_close',0xa350),'seek':('_virtual_file_seek',0xa280),'preload':('_host_sound_bank_initialize_f3d0',0xf3d0)}
+MODELS.update({k:v for k,v in archive_pipeline.MODELS.items()if k!='format'})
+DIRECTORY=archive_pipeline.DIRECTORY;POSITIONS=archive_pipeline.POSITIONS;SCRATCH=archive_pipeline.SCRATCH;STREAM_CELL=archive_pipeline.STREAM_CELL;COUNT_CELL=archive_pipeline.COUNT_CELL;LAST=archive_pipeline.LAST;PUBLIC_COUNT=archive_pipeline.PUBLIC_COUNT;SLOTS=archive_pipeline.SLOTS;STREAM=archive_pipeline.STREAM
 BASE=0x400000;TABLE=BASE+0x361b8;PATH_TABLE=BASE+0x35178;BANKS=BASE+0x68e790;FILENAME=BASE+0x215c10;SCALAR=BASE+0x352b0
 POOL=BASE+0x7a29c0
 DATA=0x61000000;CONTEXTS=[DATA+0x10020,DATA+0x20020,DATA+0x30020];CTX_SIZE=0x1b34;PATHS=[DATA+0x4000,DATA+0x4200]
@@ -55,9 +59,10 @@ def build(source,data,out):
  files=[source,ROOT/'src/pc/host_file_callbacks.c',ROOT/'calibration/host_file_prepare.c',ROOT/'src/pc/interface_callbacks.c',ROOT/'src/pc/host_diagnostic.c',ROOT/'src/pc/host_zero_callback.c',ROOT/'src/pc/exe_helpers.c',data,ROOT/'calibration/host_file_callback_formats.c',ROOT/'calibration/host_resource_storage.c']
  files.extend([ROOT/'calibration/host_pool_shrink.c',args.pool_source.resolve(),ROOT/'calibration/host_pool_storage.c',ROOT/'calibration/host_pool_formats.c',ROOT/'calibration/host_pool_shrink_format.c'])
  files.extend([args.sfx_source.resolve(),args.sfx_data.resolve()])
+ files.extend([ROOT/p for p in archive_pipeline.SOURCE_FILES])
  library=verified_copy(ORACLE,out);watched={Path(__file__),ORACLE,runtime,ROOT/'recovery.json',ROOT/'toolchains/manifest.json',ROOT/'scripts/host_resize_differential.py',ROOT/'scripts/crt_copy_evidence.py',Path(library['archive'])}
  paths=verify_data(args.paths_source.resolve(),args.paths_definition.resolve(),ORACLE,out/'paths');watched.update(Path(p)for p in paths['inputs'])
- watched.add(ARCHIVE)
+ watched.update([ARCHIVE,Path(archive_pipeline.__file__),ROOT/'evidence/archive_storage_closure_2026_10_11.json'])
  for p in files:watched.update(context_files(p))
  for name in ['match.py','masked.py','coff.py','pe.py','env.py','title_behavioral.py']:watched.add(ROOT/'scripts'/name)
  pins={str(p):sha(p)for p in watched};compiles=[];coffs=[];measurements=[];native=PE(ORACLE)
@@ -84,18 +89,19 @@ def build(source,data,out):
   ns=next(s for s in native.pe.sections if s.VirtualAddress<=rv and rv+n<=s.VirtualAddress+s.Misc_VirtualSize);virtual=rv>=ns.VirtualAddress+ns.SizeOfRawData
   assert raw==(bytes(n)if virtual else native.read_rva(rv,n)),name
   fields.append(dict(symbol=name,rva=hex(rv),bytes=n,data=raw.hex(),sha256=hashlib.sha256(raw).hexdigest(),origin='virtual_zero'if virtual else'file_backed'))
+ fields.extend(archive_pipeline.describe_data(coffs,ORACLE))
  assert pins=={str(p):sha(p)for p in watched}
  return dict(inputs=pins,compiles=compiles,objects=objects,library=library,paths=paths,measurements=measurements,data=fields)
 
 def prepare(b):
- symbols={'_g_host_engine_interface':TABLE,'_g_resource_filename':FILENAME,'_g_host_music_paths_rva_35178':PATH_TABLE};segments=[];where={};coffs=[COFF(x)for x in b['objects']];cursor=0x20000000
+ symbols={'_g_archive_scratch':SCRATCH,'_g_host_engine_interface':TABLE,'_g_resource_filename':FILENAME,'_g_host_music_paths_rva_35178':PATH_TABLE};segments=[];where={};coffs=[COFF(x)for x in b['objects']];cursor=0x20000000
  for x in b['data']:symbols[x['symbol']]=BASE+int(x['rva'],0);segments.append((symbols[x['symbol']],bytes.fromhex(x['data'])))
  for x in b['paths']['fixture_segments']:segments.append((BASE+int(x['rva'],0),bytes.fromhex(x['data'])))
  endpoints={MODEL+i*32:role for i,role in enumerate(MODELS)}
  for a,role in endpoints.items():symbols[MODELS[role][0]]=a
  for k,c in enumerate(coffs):
   for i,s in enumerate(c.sections,1):
-   if s['flags']&0x20 and s['size']:where[k,i]=cursor;cursor+=(s['size']+15)&~15
+   if s['size']and(s['flags']&0x20 or s['name'].startswith('.rdata')and s['relocations']):where[k,i]=cursor;cursor+=(s['size']+15)&~15
   for s in c.symbols.values():
    if s['storage']==2 and s['section']>0 and(k,s['section'])in where:
     if s['name']in [v[0]for v in MODELS.values()]:
@@ -107,7 +113,7 @@ def prepare(b):
    if(k,i)not in where:continue
    raw=bytearray(s['data']);assert len(raw)==s['size']
    for rel in s['relocations']:
-    local=next((x for x in c.symbols.values()if x['name']==rel['symbol']and x['section']>0),None);target=where[k,local['section']]+local['value']if local else symbols[rel['symbol']]
+    local=next((x for x in c.symbols.values()if x['name']==rel['symbol']and x['section']>0),None);target=where[k,local['section']]+local['value']if local and(k,local['section'])in where else symbols[rel['symbol']]
     at=rel['offset'];assert rel['type']in [6,20];value=struct.unpack_from('<I',raw,at)[0]+target-(where[k,i]+at+4 if rel['type']==20 else 0);struct.pack_into('<I',raw,at,value&0xffffffff)
    segments.append((where[k,i],bytes(raw)))
  addresses={role:symbols[sym]for role,(sym,rv,n)in PROFILE.items()};allowed=[(addresses[x['role']],addresses[x['role']]+x['compiled_size'],x['role'])for x in b['measurements']]
@@ -121,6 +127,10 @@ def execute(native,b,p,s):
  else:
   addresses=p['addresses'];endpoints=p['endpoints'];allowed=p['allowed']
   for a,raw in p['segments']:u.mem_write(a,raw)
+ archive_io=bool(s.get('archive_io'))
+ if archive_io:endpoints={a:r for a,r in endpoints.items()if r not in ['open','seek','read','close']}
+ u.mem_write(DIRECTORY-32,bytes([0xd3])*32+ARCHIVE_BYTES[:12288]+bytes([0xff])*4096+bytes([0xa7])*256+bytes([0xd4])*32);u.mem_write(STREAM_CELL,pack(STREAM)+pack(821));u.mem_write(LAST,pack(-1));u.mem_write(PUBLIC_COUNT,pack(0));u.mem_write(SLOTS-4,bytes([0xe6])*4+bytes(64)+bytes([0xe7])*32)
+ cursor=0
  slot=s.get('slot',1)&255;header_off=s.get('header_offset',0x100);sample_off=s.get('sample_offset',0x280);file_bytes=s.get('file_bytes',0x400)
  capacity=0x9000 if s.get('allocation_fail')else (file_bytes&0xfffff800)+0x1000;assert 0x1000<=capacity<=0x9000
  heap_start=0x62000040;heap_bytes=capacity+16 if s.get('allocation_fail')else 0x10000;heap_end=heap_start+heap_bytes-8
@@ -171,7 +181,7 @@ def execute(native,b,p,s):
   key=role+'_'+str(counts.get(role,0));index=s.get('effects',{}).get(key)
   if index is not None:u.mem_write(TABLE+4,pack(CONTEXTS[index]));trace.append(dict(effect=key,context=index))
  def on_write(machine,access,address,n,value,user):
-  ranges=[(a,a+CTX_SIZE)for a in CONTEXTS]+[(BANKS,BANKS+64),(SCALAR,SCALAR+4),(heap_start,heap_end+4),(QUERY_OUT,QUERY_OUT+32),(ESP-0x1000,ESP),(ESP+4,argument_end)]
+  ranges=[(POSITIONS,POSITIONS+4096),(SCRATCH,SCRATCH+256),(LAST,LAST+4),(PUBLIC_COUNT,PUBLIC_COUNT+4),(SLOTS,SLOTS+64)]+[(a,a+CTX_SIZE)for a in CONTEXTS]+[(BANKS,BANKS+64),(SCALAR,SCALAR+4),(heap_start,heap_end+4),(QUERY_OUT,QUERY_OUT+32),(ESP-0x1000,ESP),(ESP+4,argument_end)]
   if not any(lo<=address and address+n<=hi for lo,hi in ranges):writes.append([hex(address),n]);machine.emu_stop()
  def on_code(machine,address,n,user):
   nonlocal instructions
@@ -206,7 +216,7 @@ def execute(native,b,p,s):
   if not any(lo<=address<hi for lo,hi,tag in allowed):illegal.append(hex(address));machine.emu_stop()
  u.hook_add(UC_HOOK_CODE,on_code);u.hook_add(UC_HOOK_MEM_WRITE,on_write)
  def invoke(function_role):
-  nonlocal argument_end
+  nonlocal argument_end,cursor
   frame=frame_for(function_role);u.mem_write(ESP,frame);u.reg_write(UC_X86_REG_ESP,ESP)
   u.reg_write(UC_X86_REG_EFLAGS,0x202)
   argument_end=ESP+len(frame)-32
@@ -218,6 +228,11 @@ def execute(native,b,p,s):
    assert pending,'unexpected stop';address=pending[-1];sp=u.reg_read(UC_X86_REG_ESP);role=endpoints[address];counts[role]=counts.get(role,0)+1;number=counts[role]
    if role=='format':
     dest,fmt,a,c=[u32(u,sp+i)for i in [4,8,12,16]];assert dest==FILENAME and cstring(u,fmt)=='%s%s';text=cstring(u,a)+cstring(u,c);assert len(text)<512;u.mem_write(dest,text.encode()+b'\0');result=len(text);trace.append(dict(call=role,text=text))
+   elif role=='crt_seek':
+    stream,offset,origin=[u32(u,sp+i)for i in [4,8,12]];assert archive_io and stream==STREAM and origin==0 and offset<=len(ARCHIVE_BYTES);cursor=offset;result=0;trace.append(dict(call=role,offset=offset,origin=origin,result=result))
+   elif role=='crt_read':
+    dest,size,count,stream=[u32(u,sp+i)for i in [4,8,12,16]];assert archive_io and stream==STREAM;items=min(count,(len(ARCHIVE_BYTES)-cursor)//size)if size else 0;length=items*size;assert heap_start+8<=dest and dest+length<=heap_end;payload=ARCHIVE_BYTES[cursor:cursor+length];u.mem_write(dest,payload);trace.append(dict(call=role,destination=hex(dest),size=size,count=count,offset=cursor,items=items,sha256=hashlib.sha256(payload).hexdigest()));cursor+=length;result=items
+   elif role=='fatal':raise AssertionError(('unexpected archive fatal',s,cstring(u,u32(u,sp+4))))
    elif role=='open':
     path=cstring(u,u32(u,sp+4));result=2+number;handles[result]=1 if path.startswith('Y:')else 0;trace.append(dict(call=role,path=path,mode=u32(u,sp+8),flags=u32(u,sp+12),result=result))
    elif role=='seek':
@@ -245,12 +260,20 @@ def execute(native,b,p,s):
   return value&65535 if function_role in ['bank_register','bank_preload','program_attributes','tone_attributes']else value if function_role in ['allocate','load','load_sfx']else None
  reserved=invoke('allocate');assert reserved==BLOBS[1],(s,hex(reserved),hex(BLOBS[1]))
  preparation=dict(reserved_payload=hex(reserved),pool=bytes(u.mem_read(POOL,48)).hex(),heap=hashlib.sha256(bytes(u.mem_read(heap_start,heap_end+4-heap_start))).hexdigest(),valid_explicit_free_pool_and_actual_reservation=True)
- for a,raw in zip(BLOBS,contents):u.mem_write(a,raw)
+ for i,(a,raw)in enumerate(zip(BLOBS,contents)):
+  if not archive_io or i==1:u.mem_write(a,raw)
  phase='caller'
  calls=[]
  for role in s.get('commands',[s['role']]):calls.append(dict(role=role,result=invoke(role),context_hashes=[hashlib.sha256(bytes(u.mem_read(a,CTX_SIZE))).hexdigest()for a in CONTEXTS]))
+ assert bytes(u.mem_read(DIRECTORY-32,32))==bytes([0xd3])*32 and bytes(u.mem_read(SCRATCH+256,32))==bytes([0xd4])*32
+ assert bytes(u.mem_read(SLOTS-4,4))==bytes([0xe6])*4 and bytes(u.mem_read(SLOTS+64,32))==bytes([0xe7])*32
+ if archive_io:
+  assert bytes(u.mem_read(BLOBS[0],len(content)))==bytes(content),(s,'member bytes did not reach actual allocation')
+  assert u32(u,PUBLIC_COUNT)==0 and bytes(u.mem_read(SLOTS,64))==bytes(64)
+  assert bytes(u.mem_read(POSITIONS,4096))==bytes([0xff])*4096 and u32(u,LAST)==s['archive_member']+1 and cursor==offset+file_bytes
+  assert len([x for x in trace if x.get('call')=='crt_read'])==1 and len([x for x in trace if x.get('call')=='crt_seek'])==2
  digest=lambda a,n:hashlib.sha256(bytes(u.mem_read(a,n))).hexdigest()
- return dict(events=trace,preparation=preparation,calls=calls,query_output=bytes(u.mem_read(output,32)).hex(),contexts=[digest(a,CTX_SIZE)for a in CONTEXTS],table=digest(TABLE,1000),banks=digest(BANKS,64),paths=digest(PATH_TABLE,312 if s.get('native_paths')else 2048),path_literals=[digest(BASE+int(x['rva'],0),x['bytes'])for x in b['paths']['literals']]if s.get('native_paths')else [],filename=digest(FILENAME,512),blobs=[digest(a,len(content))for a in BLOBS],heap=digest(heap_start,heap_end+4-heap_start),pool=digest(POOL,48),prepare_scalar=u32(u,SCALAR),guards_stack_nonvolatiles_and_whitelists=True)
+ return dict(archive=dict(actual_io=archive_io,cursor=cursor,directory=digest(DIRECTORY,12288),positions=digest(POSITIONS,4096),scratch=digest(SCRATCH,256),public_count=u32(u,PUBLIC_COUNT),slots=digest(SLOTS,64),last_handle=u32(u,LAST),stream=u32(u,STREAM_CELL),directory_count=u32(u,COUNT_CELL)),events=trace,preparation=preparation,calls=calls,query_output=bytes(u.mem_read(output,32)).hex(),contexts=[digest(a,CTX_SIZE)for a in CONTEXTS],table=digest(TABLE,1000),banks=digest(BANKS,64),paths=digest(PATH_TABLE,312 if s.get('native_paths')else 2048),path_literals=[digest(BASE+int(x['rva'],0),x['bytes'])for x in b['paths']['literals']]if s.get('native_paths')else [],filename=digest(FILENAME,512),blobs=[digest(a,len(content))for a in BLOBS],heap=digest(heap_start,heap_end+4-heap_start),pool=digest(POOL,48),prepare_scalar=u32(u,SCALAR),guards_stack_nonvolatiles_and_whitelists=True)
 
 def scenarios():
  cases=[]
@@ -314,15 +337,20 @@ def scenarios():
  for row in lookup['rows']:
   item=next(x for x in row['files']if x['filename']=='SFX.SFX')
   if item['found']and item['directory_record'][0]not in seen:
-   member,offset,n=item['directory_record'];seen.add(member);add('load_sfx','sfx_archive_'+str(member),bank=row['index'],native_paths=True,file_bytes=n,archive_member=member)
+   member,offset,n=item['directory_record'];seen.add(member);add('load_sfx','sfx_archive_'+str(member),bank=row['index'],native_paths=True,file_bytes=n,archive_member=member,archive_io=True)
+ for member in archive_pipeline.scenarios(ARCHIVE_BYTES)[1]:
+  if member['filename']=='MUSIC.MUS':add('load','music_archive_'+str(member['index']),bank=member['bank'],native_paths=True,file_bytes=member['bytes'],archive_member=member['index'],archive_io=True)
  return cases
+
+def equivalent(a,c):
+ return a==c
 
 def main():
  b=build(args.source.resolve(),args.data.resolve(),OUT/'build');p=prepare(b);ss=scenarios();cases=[]
  for role in ['set_bases','initialize','bank_register','bank_preload']:
   assert next(x for x in b['measurements']if x['role']==role)['diagnostic']['masked_equal']
  for s in ss:
-  a=execute(True,b,p,s);c=execute(False,b,p,s);assert a==c,(s,a,c);cases.append(dict(scenario=s,equal=True,native=a,source=c))
+  a=execute(True,b,p,s);c=execute(False,b,p,s);assert equivalent(a,c),(s,a,c);cases.append(dict(scenario=s,equal=True,native=a,source=c))
  text=args.source.resolve().read_text();wrong={
   'gain_compares_only_cached_word':text.replace('(MusicU32)MUSIC_WORD(0x1b1c)!=MUSIC_DWORD(0x1b14)','(MusicU32)MUSIC_WORD(0x1b1c)!=MUSIC_WORD(0x1b14)'),
   'auto_slot_rejected':text.replace('if (slot < -1 || slot >= 16)','if ((unsigned short)slot >= 16)'),
@@ -335,7 +363,7 @@ def main():
  for name,code in wrong.items():
   assert code!=text,name
   lane=OUT/name;lane.mkdir(exist_ok=True);code=re.sub(r'#include "([^"]+)"',lambda m:'#include "'+(args.source.resolve().parent/m.group(1)).resolve().as_posix()+'"',code);source=lane/'wrong.c';source.write_bytes(code.encode())
-  bad=build(source,args.data.resolve(),lane/'build');plan=prepare(bad);s=next(x for x in ss if x['name']==names[name]);a=execute(True,b,p,s);c=execute(False,bad,plan,s);assert a!=c,name
+  bad=build(source,args.data.resolve(),lane/'build');plan=prepare(bad);s=next(x for x in ss if x['name']==names[name]);a=execute(True,b,p,s);c=execute(False,bad,plan,s);assert not equivalent(a,c),name
   negatives.append(dict(name=name,detected=True,scenario=s,native=a,wrong=c,build=bad))
  text=args.sfx_source.resolve().read_text();wrong_sfx={
   'loader_includes_program127':(text.replace('program<127','program<=127'),'sfx_only_program127'),
@@ -348,7 +376,7 @@ def main():
  for name,(code,case)in wrong_sfx.items():
   assert code!=text,name
   lane=OUT/name;lane.mkdir(exist_ok=True);code=re.sub(r'#include "([^"]+)"',lambda m:'#include "'+(original_sfx.resolve().parent/m.group(1)).resolve().as_posix()+'"',code);source=lane/'wrong.c';source.write_bytes(code.encode());args.sfx_source=source
-  bad=build(args.source.resolve(),args.data.resolve(),lane/'build');plan=prepare(bad);s=next(x for x in ss if x['name']==case);a=execute(True,b,p,s);c=execute(False,bad,plan,s);assert a!=c,name
+  bad=build(args.source.resolve(),args.data.resolve(),lane/'build');plan=prepare(bad);s=next(x for x in ss if x['name']==case);a=execute(True,b,p,s);c=execute(False,bad,plan,s);assert not equivalent(a,c),name
   negatives.append(dict(name=name,detected=True,scenario=s,native=a,wrong=c,build=bad))
  args.sfx_source=original_sfx
  assert b['inputs']=={path:sha(path)for path in b['inputs']}
@@ -357,6 +385,6 @@ def main():
   if 'archive_member'in s:
    key,off,n=struct.unpack_from('<III',ARCHIVE_BYTES,s['archive_member']*12);payload=ARCHIVE_BYTES[off:off+n];members.append(dict(scenario=s['name'],bank=s['bank'],directory_index=s['archive_member'],key=hex(key),offset=off,bytes=n,sha256=hashlib.sha256(payload).hexdigest(),root_offsets=list(struct.unpack_from('<II',payload))))
  exhaustion=next(c for c in cases if c['scenario']['name']=='load_until_exhausted');assert [r['result']for r in exhaustion['native']['calls']]==[0]*15+[0xffffffff]*2
- report=dict(scope=__doc__,build=b,case_count=len(cases),all_equal=True,cases=cases,negative_controls=negatives,archive_members=members,archive_sha256=sha(ARCHIVE),native_path_cases=sum(bool(x['scenario'].get('native_paths'))for x in cases),full_sequences=sum(x['scenario']['role']=='sequence'for x in cases),actual_family_invocations=sum(len(x['native']['calls'])for x in cases),allocator_is_modeled=False,limits=['Actual music/SFX loaders,attribute queries,file-length/synchronous-load,prepare,empty,diagnostic,zero,return-true,pool allocator,resize and coalescer execute. Identified unchanged CRT copy is linked but these owner-only loaders do not call it;separate resize tests execute it.','Virtual I/O,formatting and sample-device entry remain models;23SFX cases replay exact original FS member bytes. Allocation has no entry/return hook. No original archive opener,Windows arena allocation or audio device executes.','Every case starts from explicit valid pool metadata/free-block inputs and runs one actual allocation reserving the alternate-context block. Caller allocations then execute normally. Failure cases exhaust the pool;repeated loading naturally exhausts the normal64KiBfixture. These are test arenas,not production capacity evidence.','Sixty-three cases consume the actual39-record initialized path prefix and25literal identities. Other cases substitute a256-record synthetic external table for adversarial/reload discriminators;this proves no production capacity or legal access beyond the prefix.','Context pointers,512-byte filename and pool backing are synthetic preconditions. Non-archive file bytes are synthetic. The two fragmented cases add a valid pinned barrier between free blocks.','Prior modeled allocation-return mutations are retired;path/context interventions now occur at the still-modeled seek/read boundaries. They test caller reloads,not actual callee side-effect reachability.','Only defined WORD arguments/returns are compared for narrow APIs. Native bank-query helpers do not bound bank indices;valid prefix indices and bounded context-accessing sample IDs remain preconditions.','Native1110/1330and allocator4570reuse incoming parameter slots as scratch. Return address,caller guard,ESP,nonvolatiles and direction flag are checked;argument-slot bytes are not promised unchanged.','SFX caller ignores query failures. Undefined local attributes on failed queries are not repaired;loader cases keep a valid registered header. Standalone query failures preserve output bytes.'])
+ report=dict(scope=__doc__,archive_io_cases=sum(bool(s.get("archive_io"))for s in ss),build=b,case_count=len(cases),all_equal=True,cases=cases,negative_controls=negatives,archive_members=members,archive_sha256=sha(ARCHIVE),native_path_cases=sum(bool(x['scenario'].get('native_paths'))for x in cases),full_sequences=sum(x['scenario']['role']=='sequence'for x in cases),actual_family_invocations=sum(len(x['native']['calls'])for x in cases),allocator_is_modeled=False,limits=['Actual music/SFX loaders,attribute queries,file-length/synchronous-load,prepare,empty,diagnostic,zero,return-true,pool allocator,resize and coalescer execute. The35archive cases also execute original/source normalization,hash,search,virtual handles,logical positioning and read/seek/close. Complete ordered event/state dictionaries are compared without exclusions.','For35original archive cases(23SFX+12MUSIC),onlyCRTstreamseek/read,formatting and sample-device entry are modeled. Other synthetic probes retain virtual-file entry models. No allocation-entry/return hook,Windows arena allocation or audio device executes. The selected verified CRTcopy member is not entered by these owner-only loading cases.','Every case starts from explicit valid pool metadata/free-block inputs and runs one actual allocation reserving the alternate-context block. Caller allocations then execute normally. Failure cases exhaust the pool;repeated loading naturally exhausts the normal64KiBfixture. These are test arenas,not production capacity evidence.','Seventy-five cases consume the actual39-record initialized path prefix and25literal identities. Other cases substitute a256-record synthetic external table for adversarial/reload discriminators;this proves no production capacity or legal access beyond the prefix.','Directory821rows and1024logical positions are explicit post-initialization inputs. Archive scratch256bytes,context pointers,512-byte filename and pool backing are fixture preconditions;production bounds/ownership are not inferred. Non-archive file bytes are synthetic. The two fragmented cases add a valid pinned barrier between free blocks.','Prior modeled allocation-return mutations are retired;synthetic path/context interventions occur at modeled virtual seek/read boundaries. They test caller reloads,not actual callee side-effect reachability.','Only defined WORD arguments/returns are compared for narrow APIs. Native bank-query helpers do not bound bank indices;valid prefix indices and bounded context-accessing sample IDs remain preconditions.','Native1110/1330and allocator4570reuse incoming parameter slots as scratch. Return address,caller guard,ESP,nonvolatiles and direction flag are checked;argument-slot bytes are not promised unchanged.','SFX caller ignores query failures. Undefined local attributes on failed queries are not repaired;loader cases keep a valid registered header. Standalone query failures preserve output bytes.'])
  dest=OUT/'host_music_differential.json';dest.write_bytes((json.dumps(report,indent=2)+'\n').encode());print(json.dumps(dict(cases=len(cases),all_equal=True,negatives=len(negatives),report=str(dest))))
 if __name__=='__main__':main()

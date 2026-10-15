@@ -84,3 +84,37 @@ checks. The fresh 240-byte contribution still differs at 76 raw bytes, with
 14 unmasked bytes and a relocation conflict, so the row is `RECONSTRUCTED`.
 Earlier metrics above are historical. Current provenance and limits are in
 `evidence/host_archive_initializer_recovery.json`.
+
+The current native/source archive comparison executes the existing normalizer,
+hash, search, virtual handle, seek/read and close code in 119 guarded cases.
+It reads all 35 distinct MUSIC/SFX members reached through the recovered path
+prefix, checks their complete bytes independently, and rejects six incorrect
+variants. Interleaved seeks preserve the stale last-read cache; public handle
+holes preserve validation against active count. These are now measured against
+the original PC instructions, extending the earlier source-only composition test.
+
+The connected loading runner passes 427 cases, including 23 original SFX and
+12 original MUSIC members through actual archive code and actual pool allocation.
+Correct bytes are not preloaded into the destination allocation. CRT stream
+effects, formatting and sample-device entry remain modeled boundaries; synthetic
+caller reload probes retain their explicit virtual I/O models. These experiments
+execute in the offline instruction fixture, without starting the original game.
+
+The three existing normalizer/open/seek source bodies are unchanged and newly
+recorded as `RECONSTRUCTED`. They retain 289/93/85 diagnostic byte differences;
+finite agreement grants no raw acceptance. All 780 previous recovery rows remain
+identical, 28 prior game contributions retain complete bytes and relocations, and
+all 134 accepted functions pass fresh raw verification. The natural selected host
+graph has 149 units, 262 recorded EXE functions and the same seven missing data
+providers. Production scratch/filename capacities and original source ownership
+remain open. See `evidence/host_archive_pipeline_recovery.json`.
+
+```
+python scripts/host_archive_pipeline_differential.py --output work/archive_pipeline_replay
+python scripts/host_music_differential.py --output work/archive_pipeline_callers_replay
+```
+
+This gives later matching work a connected behavioral constraint and frozen
+contributions. It helps distinguish an algorithm error from remaining code
+generation, dependency and layout questions without reopening exhausted source
+spellings or treating relocation-normalized equality as an exact match.

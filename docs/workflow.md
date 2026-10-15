@@ -97,7 +97,7 @@ python scripts/host_frame_precreate_differential.py --original-root D:/Prog/herc
 ```
 
 The current natural selected host graph compiles 149 actual source units with
-259 recorded EXE functions and preserves 27 accepted EXE functions. It has no
+262 recorded EXE functions and preserves 27 accepted EXE functions. It has no
 duplicate link errors and seven unresolved data providers. Resize and the observed
 music-path records now have native-verified providers. Including
 the real map replaces one missing map symbol with its actual missing callback bodies. These counts are diagnostics,

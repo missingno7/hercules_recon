@@ -1,0 +1,240 @@
+{
+  "schema": 1,
+  "scope": "Native/source original-PC archive pipeline and connected music/SFX loading. Existing game C bodies are unchanged;only recovery rows,test runners and compact evidence are added. recovery.json alone owns function state. No original game process executes.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "archive_sha256": "affa380e45918448895932cd466ea9a02096b8dcf08644f91b9da5ec34cd48b4",
+  "prediction": {
+    "path": "work/archive_pipeline/prediction.json",
+    "sha256": "210f09f9387535747d4e268f4da155d3d1a9a0bf1e777fa17eae8f1480fe74e9"
+  },
+  "region_packets": [
+    {
+      "path": "work/host_allocate/archive_packet.json",
+      "sha256": "8959f542b45fa0d9163aa163e609b2dcb70de3f324a1a448169208655c8d970b"
+    },
+    {
+      "path": "work/archive_pipeline/backend_packet.json",
+      "sha256": "90cd2d6b8ba3587dea2a4f8dca68df05ca419b3b7aadc7f63b240068eb96a4a6"
+    }
+  ],
+  "native_instruction_review": {
+    "path": "work/archive_pipeline/native.json",
+    "sha256": "b7bc55482d4f0e9d6d8ed2af7b2dca5b725f668a3341d82be325a686cc83c50b"
+  },
+  "functions": [
+    {
+      "symbol": "_archive_normalize_name",
+      "rva": "0x4e10",
+      "native_complete_bytes": 464,
+      "native_body_bytes": 426,
+      "compiled_complete_bytes": 416,
+      "raw_equal": false,
+      "raw_differing_bytes": 428,
+      "source_relocations": 40,
+      "diagnostic_differing_bytes": 289,
+      "status": "RECONSTRUCTED",
+      "source_body_unchanged": true
+    },
+    {
+      "symbol": "_archive_open",
+      "rva": "0x5130",
+      "native_complete_bytes": 192,
+      "native_body_bytes": 177,
+      "compiled_complete_bytes": 176,
+      "raw_equal": false,
+      "raw_differing_bytes": 122,
+      "source_relocations": 9,
+      "diagnostic_differing_bytes": 93,
+      "status": "RECONSTRUCTED",
+      "source_body_unchanged": true
+    },
+    {
+      "symbol": "_archive_seek",
+      "rva": "0x52c0",
+      "native_complete_bytes": 128,
+      "native_body_bytes": 126,
+      "compiled_complete_bytes": 128,
+      "raw_equal": false,
+      "raw_differing_bytes": 120,
+      "source_relocations": 9,
+      "diagnostic_differing_bytes": 85,
+      "status": "RECONSTRUCTED",
+      "source_body_unchanged": true
+    }
+  ],
+  "sources": [
+    {
+      "path": "calibration/archive_names.c",
+      "sha256": "9d15fc823717b512a6049aac63933fff61b3d5ab423dce906f1cd2ae68b243ec"
+    },
+    {
+      "path": "calibration/archive_backend.c",
+      "sha256": "3625a1b244b5f3dcee88bd4ec2da9a5d221309e830b18479c6e7db0f0f1960f6"
+    },
+    {
+      "path": "scripts/host_archive_pipeline_differential.py",
+      "sha256": "122657a097c698a091e03c7a5e1ea2030edf92e3c35a5bdd208b350f99838d84"
+    },
+    {
+      "path": "scripts/host_music_differential.py",
+      "sha256": "2c136a046483964f3093ca3c4ea97be75e107f0b2650cf30579c09e55881324c"
+    }
+  ],
+  "dependencies": [
+    "evidence/archive_names_region.json",
+    "evidence/archive_backend_region.json",
+    "evidence/archive_storage_closure_2026_10_11.json",
+    "evidence/archive_array_prefixes_adoption_2026_10_11.json",
+    "evidence/resource_host_bindings.json",
+    "evidence/host_archive_initializer_recovery.json",
+    "evidence/host_music_recovery.json",
+    "evidence/host_sfx_recovery.json",
+    "evidence/host_allocate_recovery.json",
+    "evidence/host_resize_recovery.json",
+    "evidence/host_music_paths_recovery.json"
+  ],
+  "unit": {
+    "receipt": {
+      "path": "work/archive_pipeline/final_unit/host_archive_pipeline_differential.json",
+      "sha256": "09637baf6208cf1d344a3802e4cb6d2c11a9b945b6db96d6543835f3d3d0c8cf"
+    },
+    "cases": 119,
+    "all_equal": true,
+    "distinct_real_members": 35,
+    "negative_controls": [
+      "uppercase_removed",
+      "archive_handle_zero_based",
+      "negative_seek_clamps_signed",
+      "seek_repairs_read_cache",
+      "handle_validation_uses16",
+      "read_ceil_instead_of_floor"
+    ],
+    "checks": [
+      "Actual original/source normalization,hash,lagged binary search,virtual handles,logical positioning and read/seek/close execute.",
+      "35complete member reads independently equal the exact pinned FSslice and untouched destination padding.52upper/lower drive cases,high-byte names and sequential scratch reuse preserve complete scratch state.",
+      "Shared members/aliases and interleaved physical-seek/read cache;public-handle holes/capacity,fatal messages,missing names,negative seeks,EOF,full-item short reads and failed seek status.",
+      "Complete1024logical positions,256fixture scratch bytes,16public slots,count,stream,last-read cache,physical cursor,buffer digests,ordered CRT boundaries and full defined returns.",
+      "Code/write whitelists,guards,return address,caller guard,ESP,nonvolatiles and direction flag. Fatal comparisons stop at first entry and do not assert return/termination behavior."
+    ]
+  },
+  "native_quirks": [
+    "archive_seek moves the physical stream but does not update/invalidate last-read-handle. A same-handle read can consume bytes from another file after its seek;the unit verifies2seeks and the differing final physical read offset/hash.",
+    "Public read/seek/close validation uses active count. After closing a lower slot,a higher occupied slot can become invalid;read stops atPCread(1)fatal entry and close returnsFFFFFFFF.",
+    "Opening the same directory member through another public handle resets their shared logical position. Closing one resets that member position toFFFFFFFF.",
+    "Negative offsets are composed with32-bit unsigned arithmetic and clamp toEOF. The virtual seek ignores failed CRTseek status and reports the logical position.",
+    "The normalizer uses shared scratch at offset100,uppercase ASCII and measured drive-prefix mappings. Sequential calls retain untouched bytes;no larger capacity or independent ownership is inferred."
+  ],
+  "callers": {
+    "receipt": {
+      "path": "work/archive_pipeline/final_music/host_music_differential.json",
+      "sha256": "390aec3623b0a7ee89139d051c4e30daa58452e9b1d048d3855033ac40898921"
+    },
+    "cases": 427,
+    "all_equal": true,
+    "negative_controls": [
+      "gain_compares_only_cached_word",
+      "auto_slot_rejected",
+      "allocation_rounds_up",
+      "bank_id_loses_upper_nibble",
+      "preload_caches_header",
+      "loader_includes_program127",
+      "unsigned_sample_test",
+      "duplicate_same_slot_suppressed",
+      "tone_output_clears_only16",
+      "program_output_clears_only8",
+      "tone_captured_before_clear"
+    ],
+    "actual_archive_io_cases": 35,
+    "distinct_SFX_members": 23,
+    "distinct_MUSIC_members": 12,
+    "native_path_cases": 75,
+    "real_member_bytes": 452,
+    "actual_archive_event_counts": {
+      "crt_seek": 70,
+      "crt_read": 35,
+      "allocate": 70,
+      "resize": 35,
+      "coalesce": 0,
+      "copy": 0
+    },
+    "checks": [
+      "35real-member cases remove all virtual open/seek/read/close entry/return models and execute actual downstream game code. Only CRTstream seek/read,formatting and sample-device entry effects remain models.",
+      "Before actual loading,the destination free block retains5Dfixture fill;correct payload bytes are not preseeded there. The loader must fill its actual allocated block through game archive reads.",
+      "Every complete452-byte payload is independently checked after loading. Final logical positions areFFFFFFFF,public slots/count are cleared,last-read ID equals member+1,physical cursor equals exact member end,and there are2CRTseeks+1CRTread.",
+      "Complete ordered event/state dictionaries are compared without exclusions. No copy entry occurs in these owner-only loaders. Synthetic probes retain explicit virtual I/Omodels for caller reload discriminators."
+    ]
+  },
+  "regression": {
+    "receipt": {
+      "path": "work/archive_pipeline/preservation.json",
+      "sha256": "17a9e7774b3d6996e50e15b222a675efe208993d6fb8013b8aa5ca7384e7efa7"
+    },
+    "prior_recovery_rows_identical": 780,
+    "source_units_unchanged": 25,
+    "complete_prior_game_functions_bytes_and_relocations_unchanged": 28,
+    "identified_CRT_member_unchanged": true,
+    "strict_receipt": {
+      "path": "work/archive_pipeline/strict134.json",
+      "sha256": "49dae9998784dd9248c30bbea282387e23ac617166dd0760a9d1b4a3d99fffbf"
+    },
+    "all_134_FUNCTION_MATCH_fresh_raw_exact": true,
+    "current_recovery_rows": 783,
+    "status_counts": {
+      "FUNCTION_MATCH": 134,
+      "CODEGEN_SIMILAR": 572,
+      "RECONSTRUCTED": 77
+    }
+  },
+  "natural_graph": {
+    "receipt": {
+      "path": "work/host_current_graph/report-a784b11c1e5f3382.json",
+      "sha256": "a784b11c1e5f33826344dbe723e39f984a7004e344df7a0b43f2eed744910b79"
+    },
+    "source_units": 149,
+    "recorded_EXE_functions": 262,
+    "preserved_exact_EXE_functions": 27,
+    "unresolved_data": [
+      "_g_archive_scratch",
+      "_g_host_engine_error_91c040",
+      "_g_host_engine_interface",
+      "_g_host_engine_path_91bbd8",
+      "_g_host_setup_input_buffer0_7a2a00",
+      "_g_host_setup_input_buffer1_7a2a40",
+      "_g_resource_filename"
+    ],
+    "duplicate_link_errors": 0,
+    "images_produced": 0,
+    "images_executed": 0
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest": {
+      "path": "toolchains/manifest.json",
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    },
+    "flags": [
+      "/O2"
+    ],
+    "implicit_flag": "/Gy",
+    "runtime": "Existing pinned Unicorn2.1.4 DLL010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1;no tools installed or patched."
+  },
+  "observer_corrections": [
+    "Initial private fixture placed an8-byte lower guard across the adjacent public count. It was corrected to4bytes before measured cases;no game-source edit.",
+    "Private preservation audit initially treated the unchanged CRTcopy object as a/Gyfunction. The audit now checks its complete identified member hash separately;28actual game contributions compare complete bytes+relocations."
+  ],
+  "replay_commands": [
+    "python scripts/region.py packet archive_names --more",
+    "python scripts/region.py packet archive_backend_v2 --more",
+    "python scripts/host_archive_pipeline_differential.py --original-root D:/Prog/hercules_recon --output work/archive_pipeline_replay",
+    "python scripts/host_music_differential.py --original-root D:/Prog/hercules_recon --output work/archive_pipeline_callers_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/archive_pipeline_raw_replay.json"
+  ],
+  "limits": [
+    "The3newRECONSTRUCTEDrows retain nonrelocation differences. No raw acceptance,source identity,TU/module layout,linker flags or whole-binary equality is claimed. Native base-relocation metadata is stripped;diagnostic symbol resolution is not exactness.",
+    "The821realrows plus zero sentinel and1024entry array prefixes are explicit post-initialization inputs. This fixture does not reexecute initialization;the earlier9caseinitializer proof retains its own scope.",
+    "Scratch256bytes,filename512bytes,pool arenas and contexts are bounded fixture inputs. Production declaration,capacity,aggregate ownership and arbitrary-pointer/handle safety remain unresolved. The7missing data providers remain genuine dependencies.",
+    "CRT FILElayout,locking,OSfile I/O,partial-item behavior,errno and unmodeled stream errors do not execute. Only full-item CRTread effects and directed seek statuses are modeled. Fatal tests stop at entry;UI/exit/cleanup/return behavior is not invented.",
+    "Actual Windows startup/menu/input/gameplay remain unverified. Renderer implementation stays deferred;the existing execution-isolation/authorization gate is unchanged."
+  ]
+}
