@@ -50,6 +50,7 @@ public:
     virtual void OnOK();
     afx_msg void OnDestroy();
     afx_msg void OnTimer(UINT);
+    void OnRva_000083F0(CEdit*, DWORD, BOOL);
     afx_msg void OnRva_00008850();
 protected:
     virtual void DoDataExchange(CDataExchange*);

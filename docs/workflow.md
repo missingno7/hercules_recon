@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 130 actual source units with
-215 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 21 unresolved dependencies: four frame
-callbacks, five joystick callbacks and 12 data providers. Including
+The current natural selected host graph compiles 132 actual source units with
+221 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 16 unresolved dependencies: four frame
+callbacks and 12 data providers. Including
 the real map replaces one missing map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -181,8 +181,8 @@ that has zero unmasked instruction differences. The relocation-stripped EXE has
 no native base-relocation inventory; that equality is not claimed.
 
 Introducing the real hierarchy initially exposed twenty missing page callbacks
-while resolving the frame Options entry. Subsequent recoveries below leave five
-joystick callbacks unresolved. No modal dialog or UI callback execution is
+while resolving the frame Options entry. Subsequent recoveries below provide the
+actual Options callback bodies. No modal dialog or UI callback execution is
 accepted from the initial static audit, which preserved all 133 exact functions
 and 81 sections in nine frame units. See `evidence/host_options_class_recovery.json`.
 
@@ -235,6 +235,23 @@ and 107 individually verified local-label reference renames are documented in
 
 ```
 python scripts/host_options_keyboard_differential.py --output work/options_keyboard_replay
+```
+
+The joystick page now has its five callbacks, shared button-binding member and
+seven working DWORDs. Five callbacks are full diagnostic equals; the helper
+retains eight encoding differences. Its 416-byte selection contribution includes
+the actual 44-byte switch table and excludes the following generated destructor.
+All 313 directed comparisons pass with four rejected negative controls. Actual
+native/source input sampling and table building execute; their RECONSTRUCTED
+status remains unchanged. The fixture uses conventional COFF relocation and an
+explicit data-address model. Four None-selection cases depend on that model,
+not accepted natural adjacency. The shared text cell has only a one-byte zero
+view; its real provider/capacity remains open. All 133 exact matches, 34 class
+contributions and 207 prior sections survive, including individually verified
+local-label renames. See `evidence/host_options_joystick_recovery.json`.
+
+```
+python scripts/host_options_joystick_differential.py --output work/options_joystick_replay
 ```
 
 The loader now has an independent source provider for four observed DWORD cells

@@ -8,7 +8,7 @@
     "baseline": "D:/Prog/hercules_recon/work/root_actor_relative_28/exe_graph.json",
     "scope": "Current actual-source host dependency evidence, not runtime or completion. No code edits planned for this measurement.",
     "recorded_before_compile": true,
-    "context": "Five actual keyboard callbacks plus their key-binding helper and exact typed key-caption/working data join the current source graph. Direct virtual OnReset message-map binding identifies an8-byte compiler thunk.130units/215recordedEXEfunctions;4frame,5joystick callbacks and12data providers remain."
+    "context": "All five joystick callbacks and their real button helper/28-byte working state now join Options.132units/221recordedEXEfunctions;4frame callbacks and12data providers remain. Existing raw exacts/class data preserved. Helper encoding and native None-selection/global-layout gaps remain explicit."
   },
   "sources": [
     {
@@ -761,6 +761,16 @@
       ]
     },
     {
+      "source": "src/pc/host_options_joystick.cpp",
+      "source_sha256": "f8e6a59a5e464282f20727c9cb31d52d0943d589e81b48f0d3a2f838e03ad87f",
+      "flags": [
+        "/O2",
+        "/MT",
+        "/GX",
+        "/IC:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\include"
+      ]
+    },
+    {
       "source": "calibration/host_startup_storage.c",
       "source_sha256": "654dd90ddb9133cd45dfd434d347067082b4bd2772d4fa25b8e92071d7834c6e",
       "flags": [
@@ -957,35 +967,30 @@
       "flags": [
         "/O2"
       ]
+    },
+    {
+      "source": "calibration/host_joystick_state.c",
+      "source_sha256": "b061d577f7644eeab9df5380b607010a8709ccb66f7e7948a904248bc6304e2d",
+      "flags": [
+        "/O2"
+      ]
     }
   ],
   "validation": {
-    "fresh_source_units": 130,
-    "recorded_EXE_functions": 215,
+    "fresh_source_units": 132,
+    "recorded_EXE_functions": 221,
     "preserved_exact_EXE_functions": 26,
     "duplicate_providers": 0,
-    "unresolved_symbols": 21,
+    "unresolved_symbols": 16,
     "missing_frame_callbacks": 4,
     "other_missing_providers": 12,
     "natural_link_exit_code": 25,
     "images_produced": 0,
     "images_executed": 0,
     "all_accepted_functions_raw_exact": 133,
-    "missing_options_callbacks": 5
+    "missing_options_callbacks": 0
   },
   "missing_providers": {
-    "?OnDestroy@CJoystickPage@@QAEXXZ": [
-      "src/pc/host_options_classes.cpp"
-    ],
-    "?OnInitDialog@CJoystickPage@@UAEHXZ": [
-      "src/pc/host_options_classes.cpp"
-    ],
-    "?OnOK@CJoystickPage@@UAEXXZ": [
-      "src/pc/host_options_classes.cpp"
-    ],
-    "?OnRva_00008850@CJoystickPage@@QAEXXZ": [
-      "src/pc/host_options_classes.cpp"
-    ],
     "?OnRva_000096C0@CMainFrame@@QAEXXZ": [
       "calibration/host_frame_message_map.cpp"
     ],
@@ -997,9 +1002,6 @@
     ],
     "?OnRva_00009B40@CMainFrame@@QAEXIII@Z": [
       "calibration/host_frame_message_map.cpp"
-    ],
-    "?OnTimer@CJoystickPage@@QAEXI@Z": [
-      "src/pc/host_options_classes.cpp"
     ],
     "_g_archive_scratch": [
       "calibration/archive_names.c"
@@ -1043,7 +1045,8 @@
       "src/pc/host_setup.c"
     ],
     "_g_resource_filename": [
-      "src/pc/host_context_bootstrap.c"
+      "src/pc/host_context_bootstrap.c",
+      "src/pc/host_options_joystick.cpp"
     ]
   },
   "libraries": [
@@ -1101,24 +1104,24 @@
     }
   ],
   "private_receipt": {
-    "path": "work/host_current_graph/report-b2951d708ed04bce.json",
-    "sha256": "b2951d708ed04bce18162cdc9785d8f0d11c271a125404aa963216e5fd8688fe"
+    "path": "work/host_current_graph/report-6b219e4f7a83268a.json",
+    "sha256": "6b219e4f7a83268a84e7089a1fbe2000c9db7d4c75533a82ec91c87e00db0c95"
   },
   "command": "python work/host_current_graph/run.py",
   "toolchain": "msvc5_rtm",
   "limits": [
-    "Selected actual-source graph has130units and215recordedEXEfunctions;counts are not whole-game coverage or a complete application denominator.",
-    "Four frame callbacks,five joystick callbacks and twelve real data providers remain missing. Key helper has3temporary-string stack-offset differences;paint EH registration and allocator selection gaps remain. No returning stubs,guessed buffers or forced executable were used.",
+    "Selected actual-source graph has132units and221recordedEXEfunctions;counts are not whole-game coverage or a complete application denominator.",
+    "Four frame callbacks and twelve real data providers remain missing. Joystick helper8encoding bytes,keyboard helper3stack offsets,paint EH registration and allocator selection remain open. Native None-selection adjacency is an explicit fixture model,not accepted natural global layout. No returning stubs,guessed buffers or forced executable were used.",
     "The natural source link fails on the recorded realdependencies; do not count this receipt as a playable build.",
     "Known allocator dependency mismatch: MFC-first selects afxmem.obj; CRT-first duplicates new/delete. See evidence/host_frame_class_recovery.json. No forced link or library rewrite used."
   ],
-  "recovery_sha256": "e730bfc90bf2e28259808c2a8aadc7e754565ddcc60959c9debdb4b7b633178b",
+  "recovery_sha256": "4e57d90af84086a54840fb4c71a752d42f16d7d2bdf5c50bcd0c9f0dee1483fd",
   "previous_graph_receipt": {
-    "path": "work/host_current_graph/report-194a916dcbb453af.json",
-    "sha256": "194a916dcbb453af565f5a2e1a0298e0660cef6f8d74c04718d8ee33b03d96b5"
+    "path": "work/host_current_graph/report-b2951d708ed04bce.json",
+    "sha256": "b2951d708ed04bce18162cdc9785d8f0d11c271a125404aa963216e5fd8688fe"
   },
   "current_prediction": {
-    "path": "work/options_input/keyboard_prediction.json",
-    "sha256": "d7113b7ba79bde336ecfbb41db910f066a22b970c8e1e1ef5a8af49f334ddb71"
+    "path": "work/options_joystick/prediction.json",
+    "sha256": "6dd7bcb8db0702c148d2d6ddc186284bdef3fec022ed6f83f71c7eebc20d6bb7"
   }
 }
