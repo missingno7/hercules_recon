@@ -12,6 +12,9 @@
 #include "../src/eng1/behavioral/actor_pipeline_storage.h"
 #include "../src/eng1/behavioral/initial_spatial_roots.h"
 static int level6_active;
+#ifdef COLOR_LIST_PRODUCER_TEST
+static int producer_active;
+#endif
 #endif
 
 typedef unsigned char eng1_u8;
@@ -133,6 +136,11 @@ static void module_before(void)
 }
 static int permitted_output(eng1_u32 rva)
 {
+#ifdef COLOR_LIST_PRODUCER_TEST
+    if(producer_active && ((rva>=0x71ae0 && rva<0x71d00) || (rva>=0x6f4a8 && rva<0x6f4c8) ||
+       (rva>=0x70f24 && rva<0x70f28) || (rva>=0x70cbc && rva<0x70cc0) ||
+       (rva>=0x6ee88 && rva<0x6ee8c) || (rva>=0x6ee90 && rva<0x6ee98)))return 1;
+#endif
     #ifdef LEVEL6_COLOR_TEST
     if(level6_active && ((rva>=0x5a7b0 && rva<0x5a7b6) || (rva>=0x5a7b8 && rva<0x5a7be) || (rva>=0x6fea0 && rva<0x6fea4) || (rva>=0x70cbc && rva<0x70cc0)))return 1;
 #endif
@@ -372,6 +380,193 @@ static void level6_suite(void)
 }
 #endif
 
+#ifdef COLOR_LIST_PRODUCER_TEST
+#include "../src/eng1/behavioral/color_transition_views.h"
+extern unsigned long g_fx_effect_index_6ee88,g_fx_bank_value_6ee90,g_fx_sample_value_6ee94;
+unsigned long g_dispatch_callback_flag_71ec0;
+typedef void (__cdecl *Producer)(void *);
+typedef struct ProducerEvent {unsigned long kind,arg,result,actor,current,count,tick;} ProducerEvent;
+static ProducerEvent producer_events[2][16];
+static int producer_event_count[2],producer_rng_count[2],producer_mode,producer_cases;
+static unsigned long producer_returns[3];
+static unsigned char producer_actors[2][128];
+static void *producer_arguments[2];
+static ResourceCallbackContext producer_contexts[2][2];
+static short *producer_actor(void){return (short *)((unsigned char *)producer_arguments[side]+0x32);}
+static unsigned long *producer_current(void)
+{return side?&g_eng1_color_transition_state_6f4a8.current_value:(unsigned long *)cell(0x6f4c0);}
+static unsigned long *producer_count(void)
+{return side?&g_actor_pipeline_storage_71440.dword_cells[0x6a0/4]:(unsigned long *)cell(0x71ae0);}
+static ResourceCallbackContext *producer_context(void)
+{return side?g_engine_interface.context_004:*(ResourceCallbackContext **)cell(0x70f24);}
+static void producer_event(unsigned long kind,unsigned long arg,unsigned long result)
+{
+    int n=producer_event_count[side]++;
+    if(n<16){ProducerEvent *p=&producer_events[side][n];
+        p->kind=kind;p->arg=arg;p->result=result;p->actor=(unsigned long)(long)*producer_actor();
+        p->current=*producer_current();p->count=*producer_count();p->tick=producer_context()->tick_038;
+    }
+}
+static void producer_swap_context(void)
+{
+    if(side)g_engine_interface.context_004=&producer_contexts[side][1];
+    else *(void **)cell(0x70f24)=&producer_contexts[side][1];
+}
+static unsigned int __cdecl producer_random(int limit)
+{
+    int n=producer_rng_count[side]++;
+    unsigned long value=n<3?producer_returns[n]:0xdeadbeefUL;
+    producer_event(1,(unsigned long)limit,value);
+    if(n==0 && producer_mode==1){*producer_current()=0x80000001UL;*producer_actor()=3;*producer_count()=2;}
+    if(n==0 && producer_mode==5){
+        *producer_actor()=2;
+        if(side)g_eng1_color_transition_state_6f4a8.previous_selection=0xffffffffUL;
+        else *(unsigned long *)cell(0x6f4a8)=0xffffffffUL;
+    }
+    if(n==1 && producer_mode==3)*producer_actor()=-2;
+    if(n==1 && producer_mode==6)producer_swap_context();
+    return value;
+}
+static void __cdecl producer_audio_begin(void){producer_event(2,0,0);}
+static void __cdecl producer_audio_end(void)
+{
+    unsigned long effect=side?g_fx_effect_index_6ee88:*(unsigned long *)cell(0x6ee88);
+    producer_event(3,effect,0);
+    if(producer_mode==2){*producer_actor()=7;*producer_current()=0x7fffffffUL;*producer_count()=3;producer_swap_context();}
+    if(producer_mode==4)*producer_actor()=-69;
+    if(producer_mode==7)*producer_actor()=10;
+}
+static unsigned long producer_invoke(Producer fn,void *actor)
+{
+    unsigned long fault=0,a,b;
+    __asm mov a,esp
+    __try {fn(actor);} __except(fault=GetExceptionCode(),EXCEPTION_EXECUTE_HANDLER) {}
+    __asm mov b,esp
+    check(a==b,"1ebf0","ESP preserved");return fault;
+}
+static void producer_bind(int selection,int tick,int count,int inactive,unsigned long current)
+{
+    Snapshot start;int i,j;EngineInterface *native_interface=(EngineInterface *)cell(0x70f20);
+    initial(&start,producer_cases);bind_fixture(&start);producer_active=1;
+    memset(producer_events,0,sizeof producer_events);memset(producer_event_count,0,sizeof producer_event_count);
+    memset(producer_rng_count,0,sizeof producer_rng_count);memset(producer_actors,0xb6,sizeof producer_actors);
+    memset(producer_contexts,0,sizeof producer_contexts);
+    for(i=0;i<2;++i){
+        producer_arguments[i]=producer_actors[i]+16;
+        *(short *)(producer_actors[i]+16+0x32)=(short)selection;
+        for(j=0;j<2;++j){
+            producer_contexts[i][j].unknown_000[0]=6;
+            producer_contexts[i][j].tick_038=(unsigned long)(tick^j);
+            memset(producer_contexts[i][j].sound_2f0,0xff,sizeof producer_contexts[i][j].sound_2f0);
+        }
+    }
+    g_engine_interface.context_004=&producer_contexts[1][0];
+    native_interface->context_004=&producer_contexts[0][0];
+    g_engine_interface.opaque_090[1]=native_interface->opaque_090[1]=(unsigned long)producer_random;
+    g_engine_interface.opaque_174[1]=native_interface->opaque_174[1]=(unsigned long)producer_audio_begin;
+    g_engine_interface.opaque_174[3]=native_interface->opaque_174[3]=(unsigned long)producer_audio_end;
+    memset(&g_eng1_color_transition_state_6f4a8,0x6c,sizeof g_eng1_color_transition_state_6f4a8);
+    g_eng1_color_transition_state_6f4a8.previous_selection=inactive?0xffffffffUL:2;
+    g_eng1_color_transition_state_6f4a8.current_value=current;
+    memcpy(cell(0x6f4a8),&g_eng1_color_transition_state_6f4a8,sizeof g_eng1_color_transition_state_6f4a8);
+    memset(&g_actor_pipeline_storage_71440,0xa5,sizeof g_actor_pipeline_storage_71440);
+    g_actor_pipeline_storage_71440.dword_cells[0x240/4]=0;
+    g_actor_pipeline_storage_71440.dword_cells[0x244/4]=0;
+    g_actor_pipeline_storage_71440.dword_cells[0x6a0/4]=(unsigned long)count;
+    for(j=0;j<135;++j)g_actor_pipeline_storage_71440.dword_cells[0x6a4/4+j]=(unsigned long)g_eng1_color_list_rows_58a20[j%10];
+    memcpy(cell(0x71440),&g_actor_pipeline_storage_71440,sizeof g_actor_pipeline_storage_71440);
+    for(j=0;j<135;++j)*(void **)cell(0x71ae4+j*4)=cell(0x58a20+(j%10)*6);
+    g_fx_effect_index_6ee88=0x1234;g_fx_bank_value_6ee90=0x3456;g_fx_sample_value_6ee94=0x5678;
+    *(unsigned long *)cell(0x6ee88)=0x1234;*(unsigned long *)cell(0x6ee90)=0x3456;*(unsigned long *)cell(0x6ee94)=0x5678;
+    memset(g_level6_color_target_5a7b0,0,6);memset(g_level6_color_current_5a7b8,0,6);
+    memset(cell(0x5a7b0),0,6);memset(cell(0x5a7b8),0,6);
+    g_level6_color_pending_6fea0=0;*(void **)cell(0x6fea0)=0;
+    g_camera_offset_y_70cbc=0;*(long *)cell(0x70cbc)=0;
+    module_before();
+}
+static void producer_compare_pipeline(void)
+{
+    unsigned char copy[0x8c0];int i;unsigned long *p=(unsigned long *)(copy+0x6a4);
+    memcpy(copy,cell(0x71440),sizeof copy);
+    for(i=0;i<135;++i){unsigned long address=p[i],base=(unsigned long)cell(0x58a20);
+        if(address>=base && address<base+60)p[i]=(unsigned long)g_eng1_color_list_rows_58a20+address-base;
+    }
+    check(memcmp(copy,&g_actor_pipeline_storage_71440,sizeof copy)==0,"1ebf0","entire pipeline; only measured row pointers normalized");
+}
+static void producer_run(int selection,int tick,int count,int inactive,unsigned long current,
+                         unsigned long r0,unsigned long r1,unsigned long r2,int mode,int consume)
+{
+    unsigned long a,b;unsigned char rows[60];int i;
+    producer_mode=mode;producer_returns[0]=r0;producer_returns[1]=r1;producer_returns[2]=r2;
+    producer_bind(selection,tick,count,inactive,current);case_index=producer_cases++;
+    memcpy(rows,g_eng1_color_list_rows_58a20,60);
+    if(mode==8){
+        /* Real object+32/count alias: the row is captured before count stores.
+         * An odd tick decrements that same count WORD after the pointer write. */
+        producer_arguments[0]=cell(0x71ae0-0x32);
+        producer_arguments[1]=g_actor_pipeline_storage_71440.byte_cells+0x6a0-0x32;
+    }
+    side=0;a=producer_invoke((Producer)cell(0x1ebf0),inactive?0:producer_arguments[0]);
+    if(consume && *producer_count()>0)a|=level6_invoke((Command0)cell(0x26730));capture(0);
+    side=1;b=producer_invoke(eng1_native_code_target_01ebf0,inactive?0:producer_arguments[1]);
+    if(consume && *producer_count()>0)b|=level6_invoke(eng1_call_26730);capture(1);
+    compare("1ebf0");
+    check(a==0 && b==0,"1ebf0","no exception on supported paths");
+    check(memcmp(producer_actors[0],producer_actors[1],128)==0,"1ebf0","entire actor plus guards");
+    for(i=0;i<128;++i)if(i!=16+0x32 && i!=16+0x33 && producer_actors[0][i]!=0xb6)break;
+    check(i==128,"1ebf0","only actor WORD32 changed");
+    check(memcmp(&producer_contexts[0],&producer_contexts[1],sizeof producer_contexts[0])==0,"1ebf0","complete context buffers");
+    check(producer_contexts[0][0].tick_038==(unsigned long)tick && producer_contexts[0][1].tick_038==(unsigned long)(tick^1),"1ebf0","contexts retained");
+    check(memcmp(cell(0x6f4a8),&g_eng1_color_transition_state_6f4a8,sizeof g_eng1_color_transition_state_6f4a8)==0,"1ebf0","whole shared transition state");
+    check(producer_event_count[0]==producer_event_count[1] && producer_event_count[0]<16 &&
+          memcmp(producer_events[0],producer_events[1],sizeof producer_events[0])==0,"1ebf0","raw RNG/audio transcript and callback-visible state");
+    check(producer_rng_count[0]==producer_rng_count[1] && producer_rng_count[0]<=3,"1ebf0","RNG consumption");
+    check(*(unsigned long *)cell(0x6ee88)==g_fx_effect_index_6ee88 && *(unsigned long *)cell(0x6ee90)==g_fx_bank_value_6ee90 &&
+          *(unsigned long *)cell(0x6ee94)==g_fx_sample_value_6ee94,"1ebf0","actual audio scratch outputs");
+    producer_compare_pipeline();
+    check(memcmp(rows,g_eng1_color_list_rows_58a20,60)==0 && memcmp(rows,cell(0x58a20),60)==0,"1ebf0","original row bytes and read-only source rows");
+    check(memcmp(cell(0x5a7b0),g_level6_color_target_5a7b0,6)==0 && memcmp(cell(0x5a7b8),g_level6_color_current_5a7b8,6)==0,"1ebf0","composed target/current colors");
+    check(*(long *)cell(0x70cbc)==g_camera_offset_y_70cbc,"1ebf0","composed common offset");
+    producer_active=0;
+}
+static void producer_suite(void)
+{
+    int i,j,k,old_checks=checks;unsigned long fault;unsigned char pipeline[0x8c0];
+    static unsigned long edge_limits[]={1,100,0x80000001UL,0xffffffffUL};
+    static unsigned long random_results[]={0,1,2,0xffffffffUL};
+    static int negatives[]={-32768,-70,-1};
+    for(i=0;i<4;++i)for(j=0;j<2;++j)producer_run(10,0,0,1,edge_limits[i],j?10:0,0,0,0,0);
+    for(i=0;i<4;++i)for(j=0;j<2;++j)for(k=0;k<2;++k)
+        producer_run(-69,j,k?134:0,0,100,random_results[i],0,0,0,1);
+    for(i=0;i<10;++i)for(j=0;j<2;++j)producer_run(i,j,0,0,100,1,11,0,0,1);
+    for(i=0;i<3;++i)for(j=0;j<2;++j)producer_run(negatives[i],j,0,0,100,1,10,0,0,0);
+    for(i=0;i<3;++i)for(j=0;j<2;++j)for(k=0;k<2;++k)
+        producer_run(-1,j,0,0,100,0,random_results[i],k?10:9,0,1);
+    for(i=0;i<4;++i)producer_run(2,1,0,0,edge_limits[i],1,11,0,0,1);
+    producer_run(2,1,0,0,100,1,10,0,1,1);
+    producer_run(2,0,0,0,100,0,1,10,2,1);
+    producer_run(2,1,0,0,100,1,11,0,3,0);
+    producer_run(-69,1,0,0,100,1,0,0,4,0);
+    producer_run(2,1,0,0,100,1,11,0,5,1);
+    producer_run(2,0,0,0,100,1,11,0,6,1);
+    producer_run(3,0,3,0,100,1,11,0,8,1);
+    producer_run(3,1,3,0,100,1,11,0,8,1);
+    printf("color_producer_native_cases=%d checks=%d failures=%d\n",producer_cases,checks-old_checks,failures);
+    old_checks=checks;
+    for(i=0;i<4;++i){
+        producer_mode=i==3?7:0;producer_returns[0]=i==3?0:1;producer_returns[1]=i==3?1:11;producer_returns[2]=11;
+        producer_bind(i==0?10:2,1,i==1?-1:(i==2?135:0),0,100);
+        memcpy(pipeline,&g_actor_pipeline_storage_71440,sizeof pipeline);
+        side=1;fault=producer_invoke(eng1_native_code_target_01ebf0,producer_actors[1]+16);
+        check(fault==0xe0484731UL,"1ebf0-guard","explicit unsupported diagnostic after services");
+        check(memcmp(pipeline,&g_actor_pipeline_storage_71440,sizeof pipeline)==0,"1ebf0-guard","no append beyond measured prefix");
+        check(*producer_actor()==(i==0||i==3?10:2),"1ebf0-guard","no decrement after rejection; service mutations retained");
+    }
+    producer_active=0;
+    printf("color_producer_source_guard_cases=4 checks=%d failures=%d\n",checks-old_checks,failures);
+}
+#endif
+
 int main(int argc,char **argv)
 {
     static const int directed_grid[][7]={
@@ -473,7 +668,11 @@ int main(int argc,char **argv)
         side=0;native1(-123);capture(0);side=1;eng1_frame_color_write_5e00(-123);capture(1);compare("5e00");
     }
     #ifdef LEVEL6_COLOR_TEST
+    #ifdef COLOR_LIST_PRODUCER_TEST
+    producer_suite();
+    #else
     level6_suite();
+    #endif
     #endif
     module_restore();
     printf("native_states=%d checks=%d failures=%d raw_callback_differences=%d\n",states,checks,failures,raw_callback_differences);

@@ -30,6 +30,9 @@ typedef char color_state_extent_is_measured[
 extern Eng1ColorTransitionPair8 g_eng1_color_transition_pairs_589b8[8];
 extern Eng1ColorTransitionState32 g_eng1_color_transition_state_6f4a8;
 extern color_u32 g_eng1_color_transition_timer_71ecc;
+/* Ten six-byte rows reached by the observed 9/4/decrement producer states. */
+extern unsigned char g_eng1_color_list_rows_58a20[10][6];
+extern void __cdecl eng1_native_code_target_01ebf0(void *object);
 extern void __cdecl eng1_native_code_target_01eba0(void *object);
 
 #endif

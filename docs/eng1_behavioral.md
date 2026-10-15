@@ -6,10 +6,10 @@ frontier at `0x28290`; that routine now has reconstructed source, but this does
 not establish a later runtime frontier. No new original-host run, reconstructed
 gameplay frame, continuous gameplay, or normal engine shutdown is verified.
 
-The latest genuine graph has 369 mapped compiled entries and 400 function
-symbols. See `evidence/eng1_level6_color.json` for its pinned private receipt.
+The latest genuine graph has 370 mapped compiled entries and 401 function
+symbols. See `evidence/eng1_color_list_producer.json` for its pinned private receipt.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
-denominator. The genuine link has 529 unresolved symbols and zero duplicate
+denominator. The genuine link has 528 unresolved symbols and zero duplicate
 providers. Its intended export is `PC_DLLEngineMain` at ordinal 1; no current
 DLL is produced. Earlier transitional links used explicit fail-on-entry
 diagnostics, which do not supply game dependencies.
@@ -33,6 +33,11 @@ keeps the pending pointer in its existing spatial-data owner. Equal real colors
 with an empty list remain stack-dependent and explicitly guarded, along with
 unsupported list extents and partial target overlap.
 
+The [color-list producer](eng1_color_list_producer.md) now supplies `1ebf0`
+using the existing RNG/audio services and shared queue. Its 74 original/source
+cases preserve live callback changes and an actor/count alias through actual
+color consumption. Pending-target producer `1ed30` remains a separate dependency.
+
 All 76 accepted ENG1 function instances remain exact under fresh pinned VC5
 compilation and complete raw contribution comparison. The recorded experiment
 also passed all then-current strict rows; current totals come from `recovery.json`.
@@ -40,8 +45,8 @@ This work leaves `recovery.json`
 unchanged. The stable TITLE milestone and historical matching branch remain
 preserved.
 
-All 38 source fixture groups pass. The generic data gate verifies 59 providers,
-923 fields and 4,787 native-matching pointer relocations. Seven boundary
+All 38 source fixture groups pass. The generic data gate verifies 60 providers,
+930 fields and 4,787 native-matching pointer relocations. Seven boundary
 regressions cover explicit read-only and mixed file/loader-zero storage.
 A separate legacy-resource gate verifies 81 rows, 1,296 non-pointer bytes and
 81 actual NUL-terminated path contents. These data comparisons do not establish

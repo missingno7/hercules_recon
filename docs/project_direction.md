@@ -153,3 +153,8 @@ error and supplies a bounded actor-pipeline dependency using the same owners.
 The [level-6 follow-up](eng1_level6_color.md) connects its supported color paths,
 repairs list lifetime and preserves a discovered spatial/color storage alias;
 no final renderer architecture decision is needed to continue this work.
+The [color-list producer](eng1_color_list_producer.md) then reuses existing
+RNG/audio services and the shared queue to remove another real dependency,
+verified through the existing color consumer. Continue with the pending-target
+producer and its measured service dependencies, preserving the explicit
+equal-color/empty-list stack boundary.

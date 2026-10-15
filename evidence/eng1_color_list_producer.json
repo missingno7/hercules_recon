@@ -1,0 +1,168 @@
+{
+  "schema": 1,
+  "baseline_commit": "81cf7cd6086bc0a27a48579b219e53ca56261a6c",
+  "scope": "Bounded original color-list producer through existing host/audio/color services; no exact function acceptance or game process.",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "prediction": {
+    "prediction": "1ebf0 performs scripted RNG/audio service calls before appending a six-byte58a20 row using live actor/count/context state; copied host thunks and existing audio/color implementation can be composed without another renderer or data owner.",
+    "falsifier": "Original/source return-independent state, RNG/audio transcripts, callback-visible intermediate state, pointer-normalized pipeline buffers, actor/context bytes or ESP differ.",
+    "recovery_sha256": "d8d525766f1f2cfc0aa5899c422c297c86ae8d6aea5bf150508a6c242c669884",
+    "primary_file_sha256": {
+      "calibration/title/title_proc.cpp": "e5db718f8a7bf3121b861f830bf753b8ff75677aa19c11c635ae5196fc1e8810",
+      "recovery.json": "465ee5ea057cd3bfb23508e18b16958c27b9d391e11a0bc874cfc413436644d5",
+      "docs/process_audit_2026_10_11.md": "e1ce2feaed3838204576eb4b87870198e610df24c1194bed224b26a885fea43f",
+      "evidence/process_audit_2026_10_11.json": "44587ad472ff9742274d69913ea2ef7728060a706acae08c2391ee835d129328",
+      "evidence/title_scheduler_storage_adoption_2026_10_11.json": "81daf35d45265f4d4beffd1cf8a1b681c1b2266bd02ab701074911ed0c3cf8b2"
+    }
+  },
+  "rea": {
+    "reused_query": "Seeded original1ebf0 query from level6 investigation; no new tool dependency or server",
+    "provenance": "evidence/eng1_level6_color.json",
+    "provenance_sha256": "161cd0db9c9249ccc7c329d9fd1e2a080346861e3d2f54df83ff1f8f90f262ee",
+    "version": "6.5.0",
+    "provider": "Ghidra12.1",
+    "transcript_sha256": "528671cda498bf471386505cb0c719243c24429205f86a933ce267c5f67585d4",
+    "contribution": "Identified transition state and six-byte row relationships. Independent PC instruction decode and original/source tests decide behavior; no pseudocode acceptance."
+  },
+  "native_evidence": {
+    "spans": {
+      "0x1ebf0": {
+        "size": 272,
+        "sha256": "9a7d602a2beb45da2083c47512fa6b3110b0adcde73209ea0ef6897883a8ea3a"
+      },
+      "0x26730": {
+        "size": 1438,
+        "sha256": "b408668cff13e93112df9ae99000fef0f70626007f3b88a800aba26e3c2e79b7"
+      },
+      "0x6da0": {
+        "size": 2115,
+        "sha256": "e4039cfa38ae27d0850d5bc477fca23b729f4d7f7de687ecf06ef430c2faa1cc"
+      }
+    },
+    "independent_decode_sha256": "590d618be02ac0ed64bb1ffa00cf6c3c48f6f34d4dd7f2a29c4edb5b0a76ca8f",
+    "abi": "One cdecl actor pointer, caller ignores return. Previous selection-1 branch never reads actor.",
+    "order": "Sentinel-69 writes9 before RNG2. Ordinary RNG0 writes4 before RNG2; then reload current_value*2 low32 for another RNG. Sound IDs18b/190/19c use null owner. Late signed WORD actor+32 selects58a20+index*6. Capture row before count increment/pointer store; captured post-service context tick lowbit decrements live actorWORD afterward.",
+    "ownership": "Ten measured six-byte rows added to existing transition provider. State6f4a8 and count/pointers71ae0 retain their owners; no duplicate storage or host service."
+  },
+  "verification": {
+    "native_source": {
+      "cases": 74,
+      "checks": 2262,
+      "failures": 0,
+      "source_guard_cases": 4,
+      "source_guard_checks": 16,
+      "source_guard_failures": 0,
+      "all_color_states": 2558,
+      "all_color_checks": 38279,
+      "all_color_failures": 0,
+      "raw_callback_differences": 1
+    },
+    "negative_controls": [
+      {
+        "mutation": "Cache context before RNG/audio callbacks rather than reload before append",
+        "expected": "Callback-driven context swap cases disagree with original tick/decrement",
+        "exit_code": 1,
+        "failures": [
+          "FAIL 1ebf0 case=67 entire actor plus guards",
+          "FAIL 1ebf0 case=71 entire actor plus guards"
+        ]
+      },
+      {
+        "mutation": "Reload actor selection after queue count store instead of capture row before writes",
+        "exit_code": 1,
+        "failures": [
+          "FAIL 1ebf0 case=72 scaled RGB",
+          "FAIL 1ebf0 case=72 entire pipeline; only measured row pointers normalized",
+          "FAIL 1ebf0 case=73 entire pipeline; only measured row pointers normalized"
+        ]
+      }
+    ],
+    "level6": {
+      "cases": 101,
+      "checks": 2538,
+      "failures": 0,
+      "source_guard_cases": 6,
+      "source_guard_checks": 30,
+      "all_color_states": 2585,
+      "all_color_checks": 38569
+    },
+    "initializer": {
+      "cases": 5,
+      "checks": 178,
+      "failures": 0
+    },
+    "strict_fresh_raw": 134,
+    "source_fixtures": 38,
+    "python_tests": 85,
+    "data": {
+      "providers": 60,
+      "fields": 930,
+      "relocations": 4787,
+      "unsupported": 0,
+      "mismatches": 0
+    },
+    "genuine_link": {
+      "mapped_entries": 370,
+      "function_symbols": 401,
+      "unresolved": 528,
+      "duplicate_providers": 0,
+      "preserved_ENG1_strict": 76,
+      "link_exit_code": 25,
+      "dll_emitted": false
+    },
+    "raw": {
+      "exact": false,
+      "target_size": 272,
+      "compiled_size": 336,
+      "different_bytes": 326,
+      "target_sha256": "9a7d602a2beb45da2083c47512fa6b3110b0adcde73209ea0ef6897883a8ea3a",
+      "compiled_sha256": "09caf9db9fd4e5d6ae1a3271e0ce9970e89443672cbec69936c831d73dbcf1a0",
+      "object_relocations": 21,
+      "target_relocations": 9
+    }
+  },
+  "source_sha256": {
+    "src/eng1/behavioral/color_list_producer_1ebf0.c": "5f6c757749a010c12af5004ccb50696abef02fd0ae07ee375ef1b2ea6dbe67a0",
+    "src/eng1/behavioral/color_transition_storage.c": "7e79901f4aeba9943f7afecc9d925c1657a1664c5b0dd96bf855ab5d4e6e1a53",
+    "src/eng1/behavioral/color_transition_views.h": "bd336ff423a225772b1f145356eb98a3355664890d428c7ecb1fd21be9b0f31d",
+    "src/eng1/behavioral/incomplete_bodies.c": "be69a2ee21bb809df9075f9263fa4083e69a448a2788039f3119a57a769371c9",
+    "tests/eng1_color_differential.c": "a63d8d54575e06854a51af1a3247bbed0edd53b8053abaae5a3af53c8d98aee3",
+    "scripts/eng1_bounded_differential.py": "9280de361dc8ef00c3a6b5464fc611710aa58eee3657c697f3a1d67c9fe9d23d",
+    "evidence/eng1_behavioral_build.json": "d4fba37dec63bcb2c25a672f17470a203d3ed6d5399572b805def9c563a9d248",
+    "evidence/eng1_behavioral_incomplete.json": "93ed32cae60391492ce0dc566f22daebe1b862456c6e12c9320b3c36d1b27f11",
+    "evidence/eng1_data_evidence_manifest.json": "e1ee43dc6403a2619db442a8120d9a56ab88a0875d578bba3b906988c9be0ad9",
+    "evidence/eng1_color_list_storage.json": "9aadc79b26e1c98c4dc8fdba7e20a6d2e5139b0392a9d60b2cbeb87e6986dce8"
+  },
+  "private_receipts": {
+    "work/eng1_behavioral/differential/color-list-producer/report.json": "7d9da113a1f32b8b9e80fcad5b01da8c93c0e47235733f010d1bc4fc5de29462",
+    "work/eng1_behavioral/differential/level6-color/report.json": "9445256c6627649cacd1f90c0a1f89794558c38b8751b278813bfff5cec4bbdd",
+    "work/eng1_behavioral/differential/color-transition-init/report.json": "c7b0199451319e2078b220797e3cb95a6f4f46578ca78f96025b140e12e1dd2c",
+    "work/eng1_behavioral/differential/color-producer-row-reload-negative/report.json": "a284f79db83c10f71ed39b34cccb6cb3910d679fb592c7f53763e49588eb8c6f",
+    "work/color_list_producer/prediction.json": "74033c8967885acf88ba3e9e7ea6413c79f183db19c0150ad0fd5750a16cca0a",
+    "work/color_list_producer/negative_control.json": "57668647f3acb99fb77cae0195308e1a5bfeb7698d38746571db83f4a124ad25",
+    "work/color_list_producer/alias_negative.json": "36ea4a86c2cc4b5da66d297ab060a18d732016a36792f40973d5d1e7ca199d38",
+    "work/color_list_producer/raw_comparison.json": "a7837e7061ffc5b0a3b0875a8f3d57c5de064e9a580faca467763524e4d97b67",
+    "work/color_list_producer/unit.log": "c82dfe3770b7464f8a6293f91f2606907428efdca767a2517863170fb749650e",
+    "work/color_list_producer/strict.json": "eedee2db3951ad55fb05d0ca2ec3a7fc81c2b40353d3b061ae6777f8123220fc",
+    "work/color_list_producer/data_verification.json": "d2cc4099781c12f669e48029085cfbd2d2432b3cd062d9cc8b67b53fa763e691",
+    "work/color_list_producer/source_regression/report.json": "09382c322f58dfc105f49b946bf6dda210237bdb1b1507fe6feeac6df16b17ac",
+    "work/color_list_producer/genuine_graph/report.json": "9883f23974c70e4d0cd765d296f7094b73b2918c20cda1ab7e102c05809cc603"
+  },
+  "reproduce": [
+    "python scripts/eng1_bounded_differential.py color-list-producer --native-eng1 <pinned ENG1.DLL>",
+    "python scripts/eng1_bounded_differential.py level6-color --native-eng1 <pinned ENG1.DLL>",
+    "python scripts/eng1_bounded_differential.py color-transition-init --native-eng1 <pinned ENG1.DLL>",
+    "python scripts/match.py verify --original-root <primary checkout> --report work/color_list_producer/strict.json",
+    "python scripts/test_eng1_behavioral.py --output work/color_list_producer/source_regression",
+    "python -m unittest discover -s tests -p test_*.py",
+    "python scripts/eng1_data_evidence.py --original-root <primary checkout> --output work/color_list_producer/data_verification.json",
+    "python scripts/eng1_behavioral.py --original-root <primary checkout> --output work/color_list_producer/genuine_graph"
+  ],
+  "limits": [
+    "Ten rows and append counts0..134 are measured supported prefixes, not original maximum capacities. Guard after earlier RNG/audio service effects, before append/decrement.",
+    "Actual sound composition tests silent-bank FF paths; other existing audio fixture evidence remains separate. No audio device or complete sound behavior claim.",
+    "Two finite actor/count aliases are tested; arbitrary malformed pointers, wider aliases, row lifetimes and whole-domain equivalence are not accepted.",
+    "Pending-target1ed30 and setup1ac10 remain missing. Equal real color/empty-list26730 still depends on ambient stack and stays unsupported.",
+    "No FUNCTION_MATCH, source spelling/TU/layout, whole image, initializer, original game execution or framebuffer ownership claim. Recovery, originals and primary dirty files unchanged."
+  ]
+}

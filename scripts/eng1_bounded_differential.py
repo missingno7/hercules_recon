@@ -17,6 +17,28 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'color-list-producer': dict(
+        sources=['tests/eng1_color_differential.c',
+                 'src/eng1/behavioral/color_list_producer_1ebf0.c',
+                 'src/eng1/behavioral/color_transition_storage.c',
+                 'src/eng1/behavioral/host_control_wrappers.c',
+                 'src/eng1/behavioral/audio_behavior.c',
+                 'src/eng1/behavioral/audio_host.c',
+                 'src/eng1/behavioral/host_wrappers.c',
+                 'calibration/dispatcher_bridges.c',
+                 'calibration/engine_fx_storage.c',
+                 'calibration/resource_data.c',
+                 'src/eng1/behavioral/camera_smoothing_26730.c',
+                 'src/eng1/behavioral/initial_spatial_roots.c',
+                 'src/eng1/behavioral/color_storage.c',
+                 'src/eng1/behavioral/color.c',
+                 'src/eng1/behavioral/host_color_callback.c',
+                 'src/eng1/behavioral/camera_storage.c',
+                 'src/eng1/behavioral/actor_pipeline_storage.c',
+                 'src/eng1/behavioral/incomplete.c'],
+        flags={'tests/eng1_color_differential.c':['/DLEVEL6_COLOR_TEST','/DCOLOR_LIST_PRODUCER_TEST']},
+        spans=[(0x1ebf0,272),(0x26730,1438),(0x6da0,0x843)], cases=74,
+        scope='74 original/source list-producer cases, real copied RNG/audio bridges and silent-bank sound paths; composed26730/5a60 outputs, raw service transcript, live callback mutations, actor/count alias, full actor/context/pipeline, measured rows, frames/LUT, ESP and module audit. Existing2484 color states rerun. Four source-only guards reject unsupported ten-row/shared-list prefixes after native-order service effects; no game or byte-identity claim.'),
     'level6-color': dict(
         sources=['tests/eng1_color_differential.c',
                  'src/eng1/behavioral/camera_smoothing_26730.c',
@@ -777,7 +799,14 @@ def run(profile, oracle, captured_payload=None):
                     raise ValueError('Alternate bootstrap null-pool guard failed')
                 report.update(source_guard_cases=1,source_guard_failures=0)
         report.update(run_exit_code=tested.returncode, stdout=tested.stdout, stderr=tested.stderr, executable_sha256=sha(exe))
-        if profile == 'level6-color':
+        if profile == 'color-list-producer':
+            match=re.search(r'color_producer_native_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
+            guard=re.search(r'color_producer_source_guard_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
+            baseline=re.search(r'native_states=(\d+) checks=(\d+) failures=(\d+) raw_callback_differences=(\d+)',tested.stdout)
+            if match:report.update(cases=int(match[1]),checks=int(match[2]),failures=int(match[3]))
+            if guard:report.update(source_guard_cases=int(guard[1]),source_guard_checks=int(guard[2]),source_guard_failures=int(guard[3]))
+            if baseline:report.update(all_color_states=int(baseline[1]),all_color_checks=int(baseline[2]),all_color_failures=int(baseline[3]),raw_callback_differences=int(baseline[4]))
+        elif profile == 'level6-color':
             match=re.search(r'level6_native_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
             guard=re.search(r'level6_source_guard_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
             baseline=re.search(r'native_states=(\d+) checks=(\d+) failures=(\d+) raw_callback_differences=(\d+)',tested.stdout)
@@ -868,6 +897,8 @@ def run(profile, oracle, captured_payload=None):
             report.update(cases=len(re.findall(r'^differential .*: pass ', tested.stdout, re.M)), failures=0 if tested.returncode==0 else None)
     report['inputs_unchanged'] = all(sha(ROOT / p)==value for p,value in before.items()) and sha(oracle)==report['oracle_sha256']
     coverage = report.get('cases') == cfg['cases'] and (profile=='command-writers' or 'success_marker' in cfg or report.get('checks',0)>0)
+    if profile == 'color-list-producer':
+        coverage = coverage and report.get('source_guard_cases')==4 and report.get('source_guard_failures')==0 and report.get('all_color_states')==2558 and report.get('all_color_failures')==0
     if profile == 'level6-color':
         coverage = coverage and report.get('source_guard_cases')==6 and report.get('source_guard_failures')==0 and report.get('all_color_states')==2585 and report.get('all_color_failures')==0 and report.get('stack_discriminator',{}).get('all_expected') is True
     if profile == 'camera-chain':

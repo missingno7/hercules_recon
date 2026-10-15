@@ -23,8 +23,9 @@ through the existing REA client:
 - `25d00` consumes the list, then clears count `71ae0`, even at level 9 where
   consumption is skipped. That reset was absent in source and is now restored.
 
-These producer roles do not claim reconstructed callback bodies or complete
-producer/resource closure. The reset negative control failed three nonzero-count
+At this checkpoint those producer roles did not claim reconstructed callback
+bodies. The [next increment](eng1_color_list_producer.md) supplies bounded `1ebf0`
+source; complete producer/resource closure remains open. The reset negative control failed three nonzero-count
 cases before the correction; all four reset cases now pass.
 
 ## Exact remaining boundary

@@ -1,0 +1,21 @@
+{
+  "scope": "Measured ten-row color-list prefix, added to existing transition storage; no historical declarations, capacity, placement or function acceptance.",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "source": "src/eng1/behavioral/color_transition_storage.c",
+  "source_sha256": "7e79901f4aeba9943f7afecc9d925c1657a1664c5b0dd96bf855ab5d4e6e1a53",
+  "header": "src/eng1/behavioral/color_transition_views.h",
+  "header_sha256": "bd336ff423a225772b1f145356eb98a3355664890d428c7ecb1fd21be9b0f31d",
+  "fields": [
+    {
+      "symbol": "_g_eng1_color_list_rows_58a20",
+      "rva": "0x58a20",
+      "size": 60,
+      "scope": "prefix",
+      "native_sha256": "245b4f491c7c62b265b9bc22dbcf12dd630e5dc04ea1ab4de12e5992dadceb6a",
+      "native_storage": "initialized"
+    }
+  ],
+  "basis": "1ebf0 loads signed actor WORD+0x32; sentinel-69 assigns9 and random0 assigns4. Nonnegative late index selects58a20+index*6 and an odd tick decrements after append. Ten-row extent is a supported prefix, not an asserted original maximum.",
+  "ownership": "58a20..58a5c only; following four padding bytes excluded, next callback table starts58a60. Existing transition state and pipeline queue owners reused.",
+  "reproduce": "python scripts/eng1_data_evidence.py --original-root <original checkout> --output work/color_list_producer/data_verification.json"
+}
