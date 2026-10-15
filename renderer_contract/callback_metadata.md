@@ -24,9 +24,18 @@ Two neighboring objects independently match this metadata shape: `CJoystickPage 
 
 The installed VC5 MFC headers declare `CRuntimeClass` fields in the observed order, `AFX_MSGMAP` as `{pBaseMap, lpEntries}` for the static-MFC form, and `AFX_MSGMAP_ENTRY` as `{nMessage,nCode,nID,nLastID,nSig,pfn}`. The EXE descriptors point to file-backed `.rdata` base-map data and 24-byte rows. The report uses the headers to name and interpret those fields; it does not infer exact source spelling or MFC runtime behavior.
 
-## Unowned `0x79A0` pointer
+## `0x79A0` owner: application `OnIdle` override
 
-The code pointer RVA `0x79A0` occurs at `.rdata` RVA `0x2E240`, index 12 in the 28-DWORD span `0x2E210..0x2E27F` (SHA-256 `37bbfdd6506f03425633e9248b34195a21cdd06aab860ade466b89871cbaaa2c`). The span contains 27 pointers into host `.text` followed by zero. The bounded direct-operand scan of all four pinned module `.text` sections and aligned pointer-root scan found no reference to this span. It also does not occur as a `pfn` in the three traced class maps. Its owner and slot consumer remain unresolved; do not label it a vtable, message map, or callback registration table.
+Resolved (2026-10-15). The earlier bounded scan looked only for references into `0x2E210..0x2E27F`; that span is the tail (slots 14..40) of the application object's vtable, whose base `0x42E1D8` is referenced by the constructor. An REA/Ghidra session supplied the lead (`prototypes/rea_eval`); every fact below is re-derived from bytes by [audit_idle_owner.py](tests/audit_idle_owner.py), receipt [idle_owner.json](evidence/idle_owner.json):
+
+- The static initializer at `0x7660` passes object `0x96E428` to the constructor chain; constructor `0x75E0` calls the CWinApp constructor `0x2BAC5` and stores vptr `0x42E1D8` at `0x75EA`. The base constructor stores vptr `0x4309F4`.
+- The derived vtable differs from the base in exactly slots 1, 12, 22, 26 and 28. Slot 12 (`0x75D0`) returns the app message map `0x42E170` (`{pBaseMap=0x430958, lpEntries=0x42E178}`; ON_COMMAND rows for `0x800E`, `0xE100`, `0xE101`). This matches the slot-12 `GetMessageMap` of the three classes above.
+- Base slot 26 is `0x25886`, whose body is MFC `CWinApp::OnIdle(LONG)`: `m_pDocManager` at `+0x80`, result `lCount < 1`, `ret 4`. The override `0x79A0` is `__thiscall` with `ret 4` and ends by calling `0x25886(0)` with the saved `this`. In the VC5 MFC 4.2 layout, slot 22 is `InitInstance` (`0x7670`), 26 `OnIdle` (`0x79A0`) and 28 `ExitInstance` (`0x7960`).
+- `CWinThread::Run` (`0x25A22`, base slot 23 → `0x257B6` → `0x25A22`) calls `[vtbl+0x68](lIdleCount++)` at `0x25A56` while `PeekMessageA(..., PM_NOREMOVE)` finds no message. Of the six `call [reg+0x68]` sites in `.text`, only this one passes the single stack argument `OnIdle` pops. `0x64CE` calls slot 26 of the COM object in `0x96E3EC` after `TextOutA` (the `IDirectDrawSurface::ReleaseDC` slot). `0x118BF` is CRT exception machinery. `0x241A3`/`0x2B6B8` push two words and `0x2A465` pushes none.
+- `0x79A0` runs its tick (`5A50`, `6BB0`, then `5F20` when `BA0238 != 0 && BA0228 == 0`) inside `__try`. Its scope table `0x42E280` is `{-1, filter 0x7A1D, handler 0x7A27}`. The handler formats `"Exception %08lX at Address %08lX"` and calls fatal service `0x10460` (MessageBox when windowed, `WM_CLOSE`, CRT exit `-123`). When the gates are closed it blocks in `WaitMessage`, then returns `CWinApp::OnIdle(0)`, which is TRUE.
+- `InitInstance` (`0x7670`) ends with `UpdateWindow` then `call 0x5E10`, the direct DirectDraw/engine-load route, before returning.
+
+Consequence: the engine frame (export call, AC60 rasterization and present) executes synchronously on the UI thread inside MFC idle processing, bracketed by OnIdle's `__except`. A fault anywhere below that call, including host callbacks and any interposed code, becomes the fatal exit unless contained. This is a static dispatch result. It does not prove the run-time frame cadence, `5F20`'s timing policy, or that no other code path invokes the slot.
 
 ## Provenance and replay
 

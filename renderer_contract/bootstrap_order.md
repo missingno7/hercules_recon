@@ -27,7 +27,10 @@ file-backed code-address literal at `.rdata` RVA `0x2e240`, consistent with an
 indirect dispatch route. That callback's direct routine chain reaches the
 guarded export call without traversing `DirectDrawCreate`. Whether the
 framework invokes it before or after initialization, or re-enters while the
-forwarded import is active, is unresolved. So the static evidence does not
+forwarded import is active, was unresolved here. It is now statically identified
+as the application `OnIdle` override, dispatched by `CWinThread::Run` after
+`InitInstance` returns, with `InitInstance` ending in `0x5E10`
+([callback_metadata.md](callback_metadata.md)). So the static evidence does not
 rule out a cold table copy before the DirectDraw call returns or on an
 independent path that never calls it. Keep publication before the first
 possible engine dispatch; a strict post-return guarantee needs

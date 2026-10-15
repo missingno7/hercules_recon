@@ -165,6 +165,22 @@ absent from these trees. Identities are in `evidence/crt.json`; this inventory
 does not establish an SDK release or test the headers against Hercules source.
 
 Ghidra's existing installations remain available for deeper analysis but are not
-part of the compiler or acceptance environment. Further SDK/runtime acquisition
+part of the compiler or acceptance environment.
+
+Optional analysis provider (experimental, 2026-10-15): REA `rea-agents` 6.5.0
+from npm (`https://registry.npmjs.org/rea-agents/-/rea-agents-6.5.0.tgz`,
+tarball SHA-256 `531717a06e92ca651aab52691190f916fac044272c01f875e22c5e293218e699`,
+MIT), installed with `npm install --ignore-scripts` into
+`C:\tools\rea-agents-6.5.0` and run from there. `rea setup` was not run, so no
+agent configuration was registered or changed. It drives the existing
+`C:\tools\ghidra_12.1_PUBLIC` through `GHIDRA_INSTALL_DIR`. That install's
+`application.properties` has SHA-256
+`b452af52da50b61a26e175d3046d3996b8b14f8c0c9dce26139ce11eec75e65d`, and REA
+reports it as compatible with 12.1.4. The runtimes are Node 24.18.0 and Temurin
+JDK 25.0.4.1. REA output is evidence only; see `prototypes/rea_eval/README.md`.
+The experimental host shim in `prototypes/host_shim` uses the installed VS2022
+x86 `cl.exe` 19.44.35225 (`...\MSVC\14.44.35207\bin\Hostx86\x86\cl.exe`,
+SHA-256 `e100ada87294976abfba7cd4e288a0f659fb13971472fc59b9538efc86d014eb`).
+That is a modern-layer compiler, never a historical toolchain. Further SDK/runtime acquisition
 should follow a concrete unresolved import, header, or library fingerprint
 instead of assuming a version from the game's release year.

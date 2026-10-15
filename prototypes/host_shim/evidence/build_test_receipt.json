@@ -1,0 +1,234 @@
+{
+ "kind": "host_shim_build_and_test",
+ "compiler": "Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35225 for x86",
+ "vcvars": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Auxiliary\\Build\\vcvars32.bat",
+ "cflags": "/nologo /W3 /WX /O2 /MT /GS- /Oy-",
+ "sources": {
+  "prototypes/host_shim/include/hercules_shim.h": "600a81e0ec9c52ba08e78a3604b84457b74f75904205249f1ef7475d1a1ef1fd",
+  "prototypes/host_shim/src/host_shim.c": "43e63ea0481b730b8cdff1c09b5cf2d29174404b39c7c6cdf7d4c95f3d5356e0",
+  "prototypes/host_shim/tests/test_host_shim.c": "3a6eafc81d5a908f88ae7a97e80e0df23bfe32bfa600ca8d71b30c6234296c18",
+  "prototypes/host_shim/tests/ac60_oracle.py": "ece02bf75cd6a2a7d782ab80170c7865085e1f147467aa46d3e965e003ebcda8",
+  "renderer_contract/hercules_frame.c": "0c51696b5aa5af4d9e08527151a1ce32021c64d378123bffd7df92672291c1a4",
+  "renderer_contract/hercules_packets.c": "7803ee275c1b9cbf28af55394e3243c8b086053623ae0e49cb5f7cd6f76ed1d7",
+  "renderer_contract/hercules_staging.c": "d6c112e5ec5aecc095958292345ce03348ad267443efc2f9fb85fd64d1038d0b",
+  "renderer_contract/hercules_state.c": "1c8b050d684837966f58eca3e5435ac33eb756ba4f5e13e8741bd52d5312ee8f",
+  "renderer_contract/hercules_host_abi.c": "d16ded99adeafe204df1ccc1d1652621153c5ab2b51f331d5226f1b6acb08036"
+ },
+ "dll_sha256": "35a7a16e0f3ac5535c96308f9206842b624a8e76e043b5e80aec25cd16fc1591",
+ "dll_machine": "0x14c",
+ "harness_exit": 0,
+ "harness_summary": "PASS: 346 passed, 0 failed",
+ "oracle_exit": 0,
+ "oracle": {
+  "kind": "host_shim_ac60_differential",
+  "exe_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "ot_image_sha256": "7251f12c5d4b7a4ba1326fb83d95970379b6c611c22593e49a17c1ce191cb6fb",
+  "primitives": 10,
+  "route_by_semitransparent": {
+   "poly:0": "poly_d420",
+   "poly:1": "poly_e680",
+   "sprite:0": "sprite_cab0"
+  },
+  "all_ok": true,
+  "checks": [
+   {
+    "check": "order_original_eq_shim_prewalk",
+    "ok": true,
+    "detail": {
+     "original": [
+      536887296,
+      536887308,
+      536887360,
+      536887320,
+      536887400,
+      536887436,
+      536887420,
+      536887452,
+      536887476,
+      536887496
+     ],
+     "shim": [
+      536887296,
+      536887308,
+      536887360,
+      536887320,
+      536887400,
+      536887436,
+      536887420,
+      536887452,
+      536887476,
+      536887496
+     ]
+    }
+   },
+   {
+    "check": "order_original_eq_synthetic_host",
+    "ok": true,
+    "detail": null
+   },
+   {
+    "check": "original_never_writes_order_table",
+    "ok": true,
+    "detail": []
+   },
+   {
+    "check": "final_state_cells",
+    "ok": true,
+    "detail": {
+     "original": {
+      "A8E6F4": 1,
+      "A8E6F8": 0,
+      "A8E6FC": 0,
+      "A909B0": 0,
+      "A909B4": 10,
+      "43A488": 320,
+      "43A48C": 30
+     },
+     "shim": {
+      "A8E6F4": 1,
+      "A8E6F8": 0,
+      "A8E6FC": 0,
+      "A909B0": 0,
+      "A909B4": 10,
+      "43A488": 320,
+      "43A48C": 30
+     }
+    }
+   },
+   {
+    "check": "a8f0_args_eq_synthetic_host",
+    "ok": true,
+    "detail": {
+     "original": [
+      [
+       536887468,
+       12,
+       34
+      ]
+     ],
+     "shim": [
+      [
+       536887468,
+       12,
+       34
+      ]
+     ]
+    }
+   },
+   {
+    "check": "a8f0_args_eq_staged_destination",
+    "ok": true,
+    "detail": [
+     [
+      536887452,
+      [
+       12,
+       34,
+       64,
+       256,
+       32,
+       16
+      ]
+     ]
+    ]
+   },
+   {
+    "check": "raster_route_per_primitive",
+    "ok": true,
+    "detail": [
+     {
+      "node": 536887296,
+      "staged_kind": 7,
+      "semi": 0,
+      "original": []
+     },
+     {
+      "node": 536887308,
+      "staged_kind": 8,
+      "semi": 1,
+      "original": []
+     },
+     {
+      "node": 536887360,
+      "staged_kind": 2,
+      "semi": 1,
+      "original": [
+       "poly_e680"
+      ]
+     },
+     {
+      "node": 536887320,
+      "staged_kind": 2,
+      "semi": 0,
+      "original": [
+       "poly_d420"
+      ]
+     },
+     {
+      "node": 536887400,
+      "staged_kind": 4,
+      "semi": 0,
+      "original": [
+       "sprite_cab0"
+      ]
+     },
+     {
+      "node": 536887436,
+      "staged_kind": 6,
+      "semi": 0,
+      "original": [
+       "sprite_cab0"
+      ]
+     },
+     {
+      "node": 536887420,
+      "staged_kind": 5,
+      "semi": 0,
+      "original": [
+       "sprite_cab0"
+      ]
+     },
+     {
+      "node": 536887452,
+      "staged_kind": 9,
+      "semi": 0,
+      "original": [
+       "move_a8f0"
+      ]
+     },
+     {
+      "node": 536887476,
+      "staged_kind": 11,
+      "semi": 0,
+      "original": []
+     },
+     {
+      "node": 536887496,
+      "staged_kind": 3,
+      "semi": 0,
+      "original": [
+       "poly_d420"
+      ]
+     }
+    ]
+   },
+   {
+    "check": "frame_prologue",
+    "ok": true,
+    "detail": [
+     "lock_6ff0"
+    ]
+   },
+   {
+    "check": "frame_epilogue",
+    "ok": true,
+    "detail": [
+     "remap_70c0",
+     "unlock_7140",
+     "present_6620",
+     "notify_bd80"
+    ]
+   }
+  ]
+ }
+}

@@ -8,7 +8,7 @@ The normal direct initialization route publishes the export pointer after `Direc
 
 This does not prove a process-wide “no cold export call before DirectDraw” guarantee. The enable writers at `9820` and `9840`, and suppression writer at `9870`, have no direct `.text` callsites in the four pinned originals, but their code addresses appear in EXE `.rdata` at `2E5CC`, `2E62C`, and `2E644`. Their possible indirect invocation order is unknown. The resolver gate can also be set at `5DE3` only when `91C464 != 0`; the dispatcher sets `91C464` around its opaque call at `5ED4`. A callback or reentrant route into `5CD0` while that cell is set is not excluded by this audit. No direct caller of `5CD0` besides `40C4` was found, but linear-sweep call xrefs and absent direct references do not rule out aliases or indirect calls.
 
-The code address `0x4079A0` appears at `.rdata` RVA `0x2E240` within a short run of dwords that mostly point into `.text` (the final dword at `0x2E27C` is zero). No instruction directly references the `0x42E240` address. The nearby immediate references at `79A5` and `80F0` target `0x42E280` and `0x42E290`; they do not identify the preceding run’s consumer. Treat the `2E240` value as function-pointer data, not proof of a registration mechanism or schedule.
+The code address `0x4079A0` appears at `.rdata` RVA `0x2E240` within a short run of dwords that mostly point into `.text` (the final dword at `0x2E27C` is zero). No instruction directly references the `0x42E240` address. The nearby immediate references at `79A5` and `80F0` target `0x42E280` and `0x42E290`; they do not identify the preceding run’s consumer. Treat the `2E240` value as function-pointer data, not proof of a registration mechanism or schedule. **Update 2026-10-15:** the run is the tail of the application vtable `0x42E1D8`; `0x79A0` is the `OnIdle` override (slot 26) called from `CWinThread::Run`'s idle loop after `InitInstance` (whose last call is `0x5E10`) returns. See [callback_metadata.md](callback_metadata.md) and [idle_owner.json](evidence/idle_owner.json).
 
 ## Direct writes
 
@@ -41,5 +41,5 @@ The JSON receipt contains the exact per-site instruction hashes, direct callers,
 
 The [metadata audit](callback_metadata.md) identifies the three gate-setter
 literals as CMainFrame message-map entries with original constructor/getter
-links. The 79A0 callback cluster remains unowned; message delivery and global
-startup ordering are not inferred from those tables.
+links. The 79A0 callback is the application `OnIdle` override (see the metadata
+audit); message delivery and global startup ordering are not inferred from those tables.

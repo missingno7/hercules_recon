@@ -1,0 +1,213 @@
+{
+ "kind": "idle_owner_audit",
+ "exe_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+ "all_ok": true,
+ "checks": [
+  {
+   "check": "static_init_object",
+   "ok": true,
+   "detail": [
+    "0x407660: mov ecx, 0x96e428",
+    "0x407665: jmp 0x407620"
+   ]
+  },
+  {
+   "check": "ctor_stores_vptr",
+   "ok": true,
+   "detail": [
+    "0x4075e0: push esi",
+    "0x4075e1: mov esi, ecx",
+    "0x4075e3: push 0",
+    "0x4075e5: call 0x42bac5",
+    "0x4075ea: mov dword ptr [esi], 0x42e1d8",
+    "0x4075f0: mov eax, esi",
+    "0x4075f2: pop esi",
+    "0x4075f3: ret"
+   ]
+  },
+  {
+   "check": "slot12_get_message_map",
+   "ok": true,
+   "detail": [
+    "0x4075d0: mov eax, 0x42e170",
+    "0x4075d5: ret"
+   ]
+  },
+  {
+   "check": "cwinapp_base_vtable",
+   "ok": true,
+   "detail": {
+    "base_ctor": "0x42bac5",
+    "vtable": "0x4309f4"
+   }
+  },
+  {
+   "check": "override_slots",
+   "ok": true,
+   "detail": {
+    "1": "0x407600",
+    "12": "0x4075d0",
+    "22": "0x407670",
+    "26": "0x4079a0",
+    "28": "0x407960"
+   }
+  },
+  {
+   "check": "legacy_span_is_vtable_tail",
+   "ok": true,
+   "detail": "renderer_contract's earlier 0x2E210..0x2E27F span = app vtable slots 14..40"
+  },
+  {
+   "check": "base_slot26_cwinapp_onidle",
+   "ok": true,
+   "detail": [
+    "0x4258e0: cmp edi, 1",
+    "0x4258e3: pop edi",
+    "0x4258e4: pop esi",
+    "0x4258e5: setl al",
+    "0x4258e8: pop ebp",
+    "0x4258e9: ret 4"
+   ]
+  },
+  {
+   "check": "override_is_0x4079a0_thiscall_ret4",
+   "ok": true,
+   "detail": [
+    "0x407a75: call dword ptr [0xba5abc]  ; WaitMessage",
+    "0x407a7b: push 0",
+    "0x407a7d: mov ecx, dword ptr [ebp - 0x420]",
+    "0x407a83: call 0x425886",
+    "0x407a88: mov ecx, dword ptr [ebp - 0x10]",
+    "0x407a8b: mov dword ptr fs:[0], ecx",
+    "0x407a92: pop edi",
+    "0x407a93: pop esi",
+    "0x407a94: pop ebx",
+    "0x407a95: mov esp, ebp",
+    "0x407a97: pop ebp",
+    "0x407a98: ret 4"
+   ]
+  },
+  {
+   "check": "override_tick_and_wait",
+   "ok": true,
+   "detail": [
+    "0x4079e0: call 0x405a50",
+    "0x4079e5: call 0x406bb0",
+    "0x4079fc: call 0x405f20",
+    "0x407a11: call 0x406bb0",
+    "0x407a16: call 0x405a50",
+    "0x407a45: call 0x410f40",
+    "0x407a54: call 0x410460",
+    "0x407a75: call dword ptr [0xba5abc]  ; WaitMessage",
+    "0x407a83: call 0x425886"
+   ]
+  },
+  {
+   "check": "waitmessage_import",
+   "ok": true,
+   "detail": "WaitMessage"
+  },
+  {
+   "check": "override_seh_reports_fatal",
+   "ok": true,
+   "detail": [
+    "0x407a1d: mov eax, dword ptr [ebp - 0x14]",
+    "0x407a20: mov dword ptr [ebp - 0x41c], eax",
+    "0x407a26: ret",
+    "0x407a27: mov esp, dword ptr [ebp - 0x18]",
+    "0x407a2a: mov eax, dword ptr [ebp - 0x41c]",
+    "0x407a30: mov eax, dword ptr [eax]",
+    "0x407a32: mov ecx, dword ptr [eax + 0xc]",
+    "0x407a35: push ecx",
+    "0x407a36: mov edx, dword ptr [eax]",
+    "0x407a38: push edx",
+    "0x407a39: push 0x436c38",
+    "0x407a3e: lea eax, [ebp - 0x418]",
+    "0x407a44: push eax",
+    "0x407a45: call 0x410f40",
+    "0x407a4a: add esp, 0x10",
+    "0x407a4d: lea ecx, [ebp - 0x418]",
+    "0x407a53: push ecx",
+    "0x407a54: call 0x410460",
+    "0x407a59: add esp, 4"
+   ]
+  },
+  {
+   "check": "cwinthread_run_idle_loop",
+   "ok": true,
+   "detail": [
+    "0x425a22: push ecx",
+    "0x425a23: push ebx",
+    "0x425a24: push ebp",
+    "0x425a25: push esi",
+    "0x425a26: mov esi, ecx",
+    "0x425a28: push edi",
+    "0x425a29: mov dword ptr [esp + 0x10], 1",
+    "0x425a31: mov edi, dword ptr [esi]",
+    "0x425a33: xor ebp, ebp",
+    "0x425a35: cmp dword ptr [esp + 0x10], 0",
+    "0x425a3a: je 0x425a68",
+    "0x425a3c: lea ebx, [esi + 0x30]",
+    "0x425a3f: xor eax, eax",
+    "0x425a41: push eax",
+    "0x425a42: push eax",
+    "0x425a43: push eax",
+    "0x425a44: push eax",
+    "0x425a45: push ebx",
+    "0x425a46: call dword ptr [0xba5ab0]  ; PeekMessageA",
+    "0x425a4c: test eax, eax",
+    "0x425a4e: jne 0x425a68",
+    "0x425a50: mov eax, ebp",
+    "0x425a52: mov ecx, esi",
+    "0x425a54: push eax",
+    "0x425a55: inc ebp",
+    "0x425a56: call dword ptr [edi + 0x68]",
+    "0x425a59: test eax, eax",
+    "0x425a5b: jne 0x425a61",
+    "0x425a5d: and dword ptr [esp + 0x10], eax",
+    "0x425a61: cmp dword ptr [esp + 0x10], 0",
+    "0x425a66: jne 0x425a3f",
+    "0x425a68: mov ecx, esi",
+    "0x425a6a: call dword ptr [edi + 0x64]"
+   ]
+  },
+  {
+   "check": "only_run_matches_onidle_arity",
+   "ok": true,
+   "detail": {
+    "0x4064ce": {
+     "stack_pushes": 2,
+     "note": "COM object at [0x96E3EC] slot 26 after TextOutA (IDirectDrawSurface::ReleaseDC shape)"
+    },
+    "0x4118bf": {
+     "stack_pushes": 0
+    },
+    "0x4241a3": {
+     "stack_pushes": 2
+    },
+    "0x425a56": {
+     "stack_pushes": 1,
+     "note": "CWinThread::Run idle loop: OnIdle(lIdleCount++)"
+    },
+    "0x42a465": {
+     "stack_pushes": 0
+    },
+    "0x42b6b8": {
+     "stack_pushes": 2
+    }
+   }
+  },
+  {
+   "check": "initinstance_last_call_is_5e10",
+   "ok": true,
+   "detail": [
+    "0x407925: call 0x425113",
+    "0x407931: call dword ptr [0xba5a6c]  ; UpdateWindow",
+    "0x407937: call 0x405e10"
+   ]
+  }
+ ],
+ "one_push_sites": [
+  "0x425a56"
+ ]
+}
