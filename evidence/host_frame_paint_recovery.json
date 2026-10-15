@@ -1,0 +1,376 @@
+{
+  "schema": 1,
+  "scope": "Normal-path reconstruction of original PC frame paint/DC lifetime with an explicit unmatched outer EH registration. Source48/native96 are not function equivalents. Genuine MFC/CRT code and actual presentation6620 execute offline; identified handle-map and OS/COM effects are modeled. No exception-dispatch/unwind,window,message loop,original process or runnable-game acceptance. recovery.json alone owns function status.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_frame_paint.cpp",
+      "sha256": "f45790efd44cfc59c2126785dd38720dafb1aaf4377505bcea4c46bc2985c97d"
+    },
+    {
+      "path": "scripts/host_frame_paint_differential.py",
+      "sha256": "4a940a1b247b6b6158f4d789b35ac0307c1e63885a9815e78920bbef86d260ff"
+    },
+    {
+      "path": "calibration/host_system_keys.h",
+      "sha256": "8ac7c4bfb37573d0f81d367ad811b4d59921ac8bbaa3b35cfd5afdde8ad850aa"
+    },
+    {
+      "path": "calibration/graphics_update.cpp",
+      "sha256": "cc369d39505ad4d0e0e084a992315b86a2d81e1fcdeb7c192368c98279defc51"
+    },
+    {
+      "path": "calibration/graphics_storage.cpp",
+      "sha256": "c7b4221f7cf2820584e652e6bfd0d932fc4fd24c99e0dc65ddfd97f33a20ed6c"
+    },
+    {
+      "path": "calibration/fatal_storage.c",
+      "sha256": "c69df3c20891c6229e061b74bebe2f8880948b34d356c7f4ce8124f13d9e562c"
+    }
+  ],
+  "prediction": {
+    "path": "work/host_frame_paint/prediction.json",
+    "sha256": "5b80ce514bfe7570e8cce0edc50962eb64546ff68ec855a3d8b48a05c1bee5f6"
+  },
+  "toolchain": {
+    "name": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest": {
+      "path": "toolchains/manifest.json",
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    },
+    "flags": [
+      "/O2",
+      "/MT",
+      "/GX",
+      "/IC:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\include"
+    ],
+    "basis": "Existing canonical CMainFrame class /O2 /MT /GX context and native C++ EH metadata;no compiler-setting grid."
+  },
+  "function": {
+    "symbol": "?OnRva_00009740@CMainFrame@@QAEXXZ",
+    "native_rva": "0x9740",
+    "native_bytes": 96,
+    "native_body_bytes": 87,
+    "native_alignment_bytes": 9,
+    "source_bytes": 48,
+    "raw_exact": false,
+    "raw_differences": 92,
+    "diagnostic_equal": false,
+    "diagnostic_differences": 75,
+    "relocations_grouped": [
+      {
+        "symbol": "??0CPaintDC@@QAE@PAVCWnd@@@Z",
+        "type": 20,
+        "offsets": [
+          9
+        ]
+      },
+      {
+        "symbol": "_g_fatal_suppress_dialog",
+        "type": 6,
+        "offsets": [
+          14
+        ]
+      },
+      {
+        "symbol": "_g_exe_43a590",
+        "type": 6,
+        "offsets": [
+          24
+        ]
+      },
+      {
+        "symbol": "_graphics_native_06620",
+        "type": 20,
+        "offsets": [
+          30
+        ]
+      },
+      {
+        "symbol": "??1CPaintDC@@UAE@XZ",
+        "type": 20,
+        "offsets": [
+          39
+        ]
+      }
+    ],
+    "target_relocation_count": 0,
+    "status": "RECONSTRUCTED",
+    "boundary": "Actual9740/96contribution. Derived9730/112span includes a preceding independent contribution;do not trim or merge it into paint equality."
+  },
+  "matching_gap": {
+    "original": "Outer registration record and one-entry unwind metadata exist. Visible callback initializes state to-1 and writes-1 before destruction;no activation to0 occurs. Its generated cleanup target isRVA0x2d660;handlerRVA0x2d668;FuncInfoRVA0x33040;unwind tableRVA0x33060.",
+    "source": "VC5 elides that outer inactive record in the current ordinary C-call context. The callback stays48bytes and has no corresponding generated outer unwind metadata. This difference is retained,not masked.",
+    "observed": "At every instrumented normal-path event except initial callback entry,native registration states equal source states plus exactly one trailing inactive0xffffffff record. Parent FS:[0] and the complete synthetic TIB page are restored in both.",
+    "declaration_discriminator": {
+      "prediction": {
+        "path": "work/host_frame_paint/exception_discriminator.json",
+        "sha256": "ec1612a1eb7ad46370b363d62768e30e8db1579b70b48e61852bde2b20c8b28c"
+      },
+      "result": {
+        "path": "work/host_frame_paint/exception_discriminator_result.json",
+        "sha256": "7be8552cecf8cf79c7864c4274bef6eaf245d70b55be40009c1956b822c21813"
+      },
+      "source": {
+        "path": "work/host_frame_paint/cpp_call_diagnostic.cpp",
+        "sha256": "0277c72bf71742c71c13d6885b26347880a93f9f35016d24cb869e7bec3ad736"
+      },
+      "first": {
+        "path": "work/host_frame_paint/first_candidate.json",
+        "sha256": "9a621e0d0db84eae5506d35419216340cfe672e4e053c2d5cb808d3b7d833843"
+      },
+      "result_summary": "An isolated C++ declaration produces96bytes but activates cleanup state0 around presentation. Original does not. Equal size is not evidence to migrate the existing production C-linkage owner or invent a wrapper.",
+      "production_linkage_changed": false
+    },
+    "open_question": "Original retained-frame compiler/TU/declaration context remains unknown. Reopen only with a new discriminator;no exception/source-spelling flag grid or forced instruction emission."
+  },
+  "semantics": [
+    "Ordinary automatic CPaintDC dc(this) always acquires and releases a paint DC,even when fullscreen suppresses presentation. Existing188-byte frame and84-byte CPaintDC/64-byte PAINTSTRUCT ABI are checked.",
+    "Only a zero fullscreenBYTE writes dirtyBYTE1 and executes actual graphics_native_06620. Nonzero1/2/128/255 skip that branch. Dirty is otherwise preserved except explicit endpoint effects.",
+    "Actual MFC constructor captures receiver HWND before BeginPaint. EndPaint uses that captured HWND and same PAINTSTRUCT after callback changes to the receiver. Presentation uses the separate existing global DC,not the BeginPaint HDC.",
+    "Actual CDC Attach/Detach and attribute-DC methods execute. The temporary handle-map entry is added and removed;no DeleteDC call occurs for the detached paint HDC.",
+    "Actual CPaintDC/CDC constructor/destructor code and byte-identical CRT EH prolog execute. Final object bytes show cleared CDC handles and CObject base vtable;full84bytes are compared with vtable identity normalization only.",
+    "Presentation6620 source remains unchanged and whole224-byte diagnostic equality is freshly verified. Directed cases exercise StretchDIBits/GdiFlush and fallback GetDC/GetClientRect/FillRect/ReleaseDC;the negative fullscreen case reaches Flip."
+  ],
+  "library": {
+    "mfc_archive": {
+      "path": "C:/tools/hercules/msvc500-8abf95ce980161ad87b0b02402269cce76988953/mfc/lib/nafxcw.lib",
+      "sha256": "5d9c3585552412a9b94a9a0b7c3a4208061a76d48a6c3283518bfe9f674c9e22"
+    },
+    "crt_archive": {
+      "path": "C:/tools/hercules/msvc500-8abf95ce980161ad87b0b02402269cce76988953/lib/libcmt.lib",
+      "sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b"
+    },
+    "proofs": [
+      {
+        "role": "paint_ctor",
+        "symbol": "??0CPaintDC@@QAE@PAVCWnd@@@Z",
+        "rva": "0x273e5",
+        "bytes": 86,
+        "member": 112,
+        "member_sha256": "5c6166039ce953c31289bfd975e4db2916eb0bf89e1a918ba83c3a5530203fa3",
+        "execution": "actual unmodified code",
+        "linked_code_diagnostic_equal": true,
+        "code_diagnostic_equal": true
+      },
+      {
+        "role": "paint_dtor",
+        "symbol": "??1CPaintDC@@UAE@XZ",
+        "rva": "0x27457",
+        "bytes": 71,
+        "member": 112,
+        "member_sha256": "5c6166039ce953c31289bfd975e4db2916eb0bf89e1a918ba83c3a5530203fa3",
+        "execution": "actual unmodified code",
+        "linked_code_diagnostic_equal": true,
+        "code_diagnostic_equal": true
+      },
+      {
+        "role": "dc_ctor",
+        "symbol": "??0CDC@@QAE@XZ",
+        "rva": "0x26eb0",
+        "bytes": 20,
+        "member": 112,
+        "member_sha256": "5c6166039ce953c31289bfd975e4db2916eb0bf89e1a918ba83c3a5530203fa3",
+        "execution": "actual unmodified code",
+        "linked_code_diagnostic_equal": true,
+        "code_diagnostic_equal": true
+      },
+      {
+        "role": "dc_dtor",
+        "symbol": "??1CDC@@UAE@XZ",
+        "rva": "0x26fe2",
+        "bytes": 64,
+        "member": 112,
+        "member_sha256": "5c6166039ce953c31289bfd975e4db2916eb0bf89e1a918ba83c3a5530203fa3",
+        "execution": "actual unmodified code",
+        "linked_code_diagnostic_equal": true,
+        "code_diagnostic_equal": true
+      },
+      {
+        "role": "attach",
+        "symbol": "?Attach@CDC@@QAEHPAUHDC__@@@Z",
+        "rva": "0x26f7a",
+        "bytes": 55,
+        "member": 112,
+        "member_sha256": "5c6166039ce953c31289bfd975e4db2916eb0bf89e1a918ba83c3a5530203fa3",
+        "execution": "actual unmodified code",
+        "linked_code_diagnostic_equal": true,
+        "code_diagnostic_equal": true
+      },
+      {
+        "role": "detach",
+        "symbol": "?Detach@CDC@@QAEPAUHDC__@@XZ",
+        "rva": "0x26fb1",
+        "bytes": 49,
+        "member": 112,
+        "member_sha256": "5c6166039ce953c31289bfd975e4db2916eb0bf89e1a918ba83c3a5530203fa3",
+        "execution": "actual unmodified code",
+        "linked_code_diagnostic_equal": true,
+        "code_diagnostic_equal": true
+      },
+      {
+        "role": "set_attrib",
+        "symbol": "?SetAttribDC@CDC@@UAEXPAUHDC__@@@Z",
+        "rva": "0x27022",
+        "bytes": 10,
+        "member": 112,
+        "member_sha256": "5c6166039ce953c31289bfd975e4db2916eb0bf89e1a918ba83c3a5530203fa3",
+        "execution": "actual unmodified code",
+        "linked_code_diagnostic_equal": true,
+        "code_diagnostic_equal": true
+      },
+      {
+        "role": "release_attrib",
+        "symbol": "?ReleaseAttribDC@CDC@@UAEXXZ",
+        "rva": "0x27036",
+        "bytes": 5,
+        "member": 112,
+        "member_sha256": "5c6166039ce953c31289bfd975e4db2916eb0bf89e1a918ba83c3a5530203fa3",
+        "execution": "actual unmodified code",
+        "linked_code_diagnostic_equal": true,
+        "code_diagnostic_equal": true
+      },
+      {
+        "role": "map",
+        "symbol": "?afxMapHDC@@YAPAVCHandleMap@@H@Z",
+        "rva": "0x26ef4",
+        "bytes": 112,
+        "member": 112,
+        "member_sha256": "5c6166039ce953c31289bfd975e4db2916eb0bf89e1a918ba83c3a5530203fa3",
+        "execution": "modeled identified boundary",
+        "linked_code_diagnostic_equal": true,
+        "code_diagnostic_equal": true
+      },
+      {
+        "role": "map_slot",
+        "symbol": "??ACMapPtrToPtr@@QAEAAPAXPAX@Z",
+        "rva": "0x216cf",
+        "bytes": 80,
+        "member": 164,
+        "member_sha256": "f69aa40ac36b0180ca80c2d9e98ad12606945bbbed0351a75a7125e63c006e47",
+        "execution": "modeled identified boundary",
+        "linked_code_diagnostic_equal": true,
+        "code_diagnostic_equal": true
+      },
+      {
+        "role": "map_remove",
+        "symbol": "?RemoveKey@CMapPtrToPtr@@QAEHPAX@Z",
+        "rva": "0x2171f",
+        "bytes": 66,
+        "member": 164,
+        "member_sha256": "f69aa40ac36b0180ca80c2d9e98ad12606945bbbed0351a75a7125e63c006e47",
+        "execution": "modeled identified boundary",
+        "linked_code_diagnostic_equal": true,
+        "code_diagnostic_equal": true
+      },
+      {
+        "role": "eh_prolog",
+        "symbol": "__EH_prolog",
+        "rva": "0x20590",
+        "bytes": 31,
+        "member": 67,
+        "member_sha256": "0d37ce2008da84308316ef18f41170d1e724897ba1847b055ba77193ad9faefa",
+        "execution": "actual byte-identical library code",
+        "whole_archive_section_raw_equal": true,
+        "section_sha256": "7f8b0849af9dd6f8eaa8c1e19d51a2bbb461b2c4c14fa3f213efa88cd3a7fc95",
+        "linked_raw_equal": true,
+        "scope": "Unmodified31-byte non-COMDAT assembly library section;not a source FUNCTION_MATCH gate."
+      }
+    ],
+    "actually_executed_mfc_bodies": 8,
+    "actually_executed_crt_bodies": 1,
+    "modeled_handle_map_boundaries": [
+      "afxMapHDC",
+      "CMapPtrToPtr::operator[]",
+      "CMapPtrToPtr::RemoveKey"
+    ],
+    "virtual_identity": "Both CPaintDC/CDC vtables resolve slots0x14/0x1c to identified actual SetAttribDC/ReleaseAttribDC. Full class-vtable recovery is not claimed.",
+    "crt_scope": "The existing assembly EH prolog occupies one non-COMDAT31-byte archive section. Complete section and linked bytes equal the original;it is library identification,not a bypass of the source FUNCTION_MATCH gate. No library code was rewritten or copied into production source."
+  },
+  "validation": {
+    "private_receipt": {
+      "path": "work/host_frame_paint/replay/frame_paint_differential.json",
+      "sha256": "660e5437cd58c6cb4ec16bf8dda12722aa94feb8053bda8e711f3ed330f710aa"
+    },
+    "normal_cases": 27,
+    "all_normal_semantic_projections_equal": true,
+    "outer_registration_equal": false,
+    "only_inactive_outer_record_differs": true,
+    "actual_roles": [
+      "attach",
+      "dc_ctor",
+      "dc_dtor",
+      "detach",
+      "eh_prolog",
+      "paint",
+      "paint_ctor",
+      "paint_dtor",
+      "present",
+      "release_attrib",
+      "set_attrib"
+    ],
+    "checks": [
+      "Ordered API/handle-map events and actual function entries",
+      "Complete188-byte frame,84-byte paint object,64-byte PAINTSTRUCT,nine source-backed state prefixes and64KiB synthetic arena",
+      "Normal-path FS-chain structure,exact parent-chain/TIB restoration,thiscall receiver,stack/nonvolatile/guard and execution/write constraints",
+      "Full BYTE fullscreen values,dirty values,opaque nonzero HDCs and distinct paint/global DC handles",
+      "Live state/receiver changes during BeginPaint,presentation,EndPaint and modeled handle-map insertion",
+      "Captured paint HWND and complete PAINTSTRUCT retained until EndPaint;temporary map cell cleared and no DeleteDC"
+    ],
+    "negative_control": {
+      "description": "Wrong fullscreen !=1 versus original ==0",
+      "detected": true,
+      "scenario": {
+        "name": "fullscreen_128",
+        "values": {
+          "fullscreen": 128
+        }
+      },
+      "result": "Bad !=1 predicate presents in fullscreen128 while original skips;private negative source only."
+    },
+    "projection_exclusions": [
+      "In-call original outer exception registration is intentionally different and is measured separately in every case.",
+      "Exception dispatch,resource-exception throwing on null BeginPaint,and actual C++/SEH unwinding remain unverified.",
+      "No real BeginPaint/EndPaint,GDI drawing,DirectDraw device or game process is executed."
+    ]
+  },
+  "regression": {
+    "strict": {
+      "path": "work/host_frame_paint/strict133.json",
+      "sha256": "b955e9b33b5fe5e7138204b048e0811a45a3417f72839052e99a7a3545fea528"
+    },
+    "all_133_raw_exact": true,
+    "prior_686_recovery_rows_unchanged": true,
+    "complete_peer_preservation": {
+      "path": "work/host_frame_paint/preservation.json",
+      "sha256": "4dd0d81a5b134d6b7d5b4b32c139ea98762152638da4f592e5235279de454df6"
+    },
+    "header_consumers_preserved": 8,
+    "complete_sections_preserved": 78,
+    "all_section_bytes_and_ordered_relocations_equal": true,
+    "header_unchanged": true,
+    "natural_graph": {
+      "path": "work/host_current_graph/report-c2d1e0002d4d9887.json",
+      "sha256": "c2d1e0002d4d9887874068d0f5d22cc2a515647faa43380f928998e12fdca777"
+    },
+    "source_units": 124,
+    "recorded_EXE_functions": 166,
+    "accepted_EXE_functions": 26,
+    "unresolved": 17,
+    "missing_frame_callbacks": 5,
+    "missing_data_providers": 12,
+    "duplicate_link_errors": 0,
+    "images_produced": 0
+  },
+  "replay_commands": [
+    "python scripts/host_frame_paint_differential.py --output work/frame_paint_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/strict_verification.json"
+  ],
+  "limits": [
+    "One new RECONSTRUCTED row only;no CODEGEN_SIMILAR or FUNCTION_MATCH claim. Original96-byte callback and its generated EH contributions are not reproduced.",
+    "Normal-path projection agreement does not establish full function,exception or Windows-message-loop equivalence.",
+    "Original compiler/TU/declaration context,source identity,linked layout and whole-binary equality remain unproved.",
+    "Natural source graph still fails on five frame callbacks and twelve real data providers. No production stubs,aliases,assembly placement tricks,guessed buffers or original-binary dispatch were added."
+  ]
+}

@@ -96,9 +96,9 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 123 actual source units with
-165 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 18 unresolved dependencies: six frame
+The current natural selected host graph compiles 124 actual source units with
+166 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 17 unresolved dependencies: five frame
 callbacks and 12 data providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
@@ -153,6 +153,21 @@ message map survive. See `evidence/host_frame_resize_recovery.json`.
 
 ```
 python scripts/host_frame_resize_differential.py --output work/frame_resize_replay
+```
+
+The paint callback now has an ordinary automatic CPaintDC reconstruction. In
+27 guarded normal-path cases it executes eight unmodified MFC bodies, the actual
+CRT EH prolog and existing presentation code. Captured paint HWND, complete paint
+object/PAINTSTRUCT, handle-map cleanup and parent exception-chain restoration
+agree. Its 48-byte source does **not** reproduce the original 96-byte callback's
+inactive outer exception registration; every in-call trace retains that measured
+difference. A C++-linkage diagnostic activates cleanup and is not adopted merely
+because its size is 96 bytes. The function remains RECONSTRUCTED; exception
+dispatch and unwinding are unverified. All 133 exact peers and 78 existing frame
+consumer sections survive. See `evidence/host_frame_paint_recovery.json`.
+
+```
+python scripts/host_frame_paint_differential.py --output work/frame_paint_replay
 ```
 
 The loader now has an independent source provider for four observed DWORD cells
