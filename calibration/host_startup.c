@@ -1,3 +1,4 @@
+#include "display_mode_contract.h"
 #include <windows.h>
 #include <mmsystem.h>
 
@@ -11,7 +12,6 @@ extern void __cdecl host_service_a0b0(void);
 extern void __cdecl host_service_fdf0(void);
 extern void __cdecl host_service_1ff0(void);
 extern void __cdecl cleanup_native_4ac0(void);
-extern unsigned short __cdecl cleanup_native_6ec0(int);
 extern void __cdecl host_normal_exit_104d0(void);
 extern DWORD g_startup_apply_guard_rva_51c450;
 extern BYTE g_host_input_gate_rva_03a594;

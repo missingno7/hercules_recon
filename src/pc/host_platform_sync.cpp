@@ -1,3 +1,4 @@
+#include "../../calibration/display_mode_contract.h"
 /* Original PC platform-state callback hypothesis; source/TU identity unproved. */
 #include <windows.h>
 #include "../../calibration/host_startup_storage.h"
@@ -26,7 +27,6 @@ BYTE g_exe_436648 = 0xff;
 BYTE g_exe_43664c = 0xff;
 DWORD g_exe_436650 = 0xff;
 
-extern unsigned short __cdecl cleanup_native_6ec0(int value);
 extern void __cdecl graphics_native_03770(void);
 extern void __cdecl cleanup_native_9d60(void);
 extern void __cdecl host_cd_unpause_9db0(void);

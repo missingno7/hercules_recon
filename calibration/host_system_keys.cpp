@@ -1,3 +1,4 @@
+#include "display_mode_contract.h"
 #include "host_system_keys.h"
 
 extern "C" {
@@ -8,7 +9,6 @@ extern BYTE g_exe_ba0228;
 extern DWORD g_exe_ba0230;
 extern DWORD g_host_input_pending_rva_7a0234;
 extern BYTE g_fatal_suppress_dialog;
-unsigned short __cdecl cleanup_native_6ec0(int value);
 }
 
 void CMainFrame::OnSysKeyDown(UINT key, UINT repeatCount, UINT flags)

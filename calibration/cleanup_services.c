@@ -1,3 +1,4 @@
+#include "display_mode_contract.h"
 #include <stdlib.h>
 #include <windows.h>
 #include <ddraw.h>
@@ -12,7 +13,6 @@
         } \
     } while (0)
 
-extern unsigned short __cdecl cleanup_native_6ec0(int value);
 extern void __cdecl cleanup_native_6bb0(void);
 extern void __cdecl cleanup_native_9e10(void);
 extern void __cdecl cleanup_native_ff40(int value);

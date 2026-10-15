@@ -1,3 +1,4 @@
+#include "../../calibration/display_mode_contract.h"
 #include "../../calibration/host_system_keys.h"
 extern "C" {
 extern signed char g_exe_ba0238;
@@ -9,7 +10,6 @@ extern int g_exe_ba0220;
 extern int g_exe_ba0224;
 extern BYTE g_host_frame_maximized_7a022c;
 void __cdecl graphics_native_05a50(void);
-unsigned short __cdecl cleanup_native_6ec0(int);
 }
 typedef char frame_receiver_is_188[(sizeof(CMainFrame)==188)?1:-1];
 typedef char frame_point_is_8[(sizeof(CPoint)==8)?1:-1];

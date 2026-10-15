@@ -1,3 +1,4 @@
+#include "display_mode_contract.h"
 #include <windows.h>
 #include <ddraw.h>
 #include <stddef.h>
@@ -12,7 +13,6 @@ extern BYTE *g_exe_96e3d8;
 extern IDirectDrawSurface *g_exe_96e3e8;
 extern IDirectDrawSurface *g_exe_96e3ec;
 extern void __cdecl cleanup_native_6bb0(void);
-extern unsigned short __cdecl cleanup_native_6ec0(int value);
 void __cdecl graphics_native_06ff0(void)
 {
     if (g_exe_ba01f0 != 0)

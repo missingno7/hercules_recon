@@ -96,10 +96,9 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 132 actual source units with
-221 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 16 unresolved dependencies: four frame
-callbacks and 12 data providers. Including
+The current natural selected host graph compiles 137 actual source units with
+240 recorded EXE functions and preserves 27 accepted EXE functions. It has no
+duplicate providers and 12 unresolved data providers. Including
 the real map replaces one missing map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -252,6 +251,29 @@ local-label renames. See `evidence/host_options_joystick_recovery.json`.
 
 ```
 python scripts/host_options_joystick_differential.py --output work/options_joystick_replay
+```
+
+The remaining frame commands now use the actual Restart Level dialog (resource
+B5), not the earlier provisional About label. Its inherited CDialog identity,
+92-byte extent, 54 virtual slots, four overrides, ten message entries and 488
+bytes of class data are measured. Eighteen new contributions have full diagnostic
+equality; the selector retains 54 normalized differences and stays RECONSTRUCTED.
+The empty 16-byte DDX method also passes the unchanged journaled exact gate in a
+function-scoped unit. This raises accepted raw matches from 133 to 134 without
+claiming historical TU ownership or complete game execution.
+
+A shared WORD mode contract explains F2/F3 save/restore and preserves all 41
+sections in seven prior provider/caller units exactly. Original declaration
+identity is unproved; the implementation consumes low BYTE and undefined upper
+argument/return bits remain outside the WORD contract. The 356 directed normal
+flow cases pass with four rejected negative controls. Ten MFC and four existing
+game boundaries remain explicit models. Exception dispatch/unwinding and real
+modal/display behavior remain unverified. See
+`evidence/host_frame_restart_recovery.json`.
+
+```
+python scripts/host_frame_restart_differential.py --output work/frame_restart_replay
+python scripts/host_restart_dialog_audit.py --output work/restart_class_audit
 ```
 
 The loader now has an independent source provider for four observed DWORD cells
