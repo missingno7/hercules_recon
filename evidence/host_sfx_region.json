@@ -1,0 +1,72 @@
+{
+  "region": {
+    "id": "host_sfx_loader",
+    "ownership": "inferred_region",
+    "rationale": "Original SFX loader and its two output-attribute helpers form a coherent call/data region;original source/TU ownership is unproved."
+  },
+  "target": "work/discs/pc_install/HERCULES.EXE",
+  "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "source": "src/pc/host_sfx.c",
+  "flags": [
+    "/O2"
+  ],
+  "functions": [
+    {
+      "symbol": "_host_sfx_load_1330",
+      "rva": "0x1330",
+      "size": 672,
+      "body_size": 659,
+      "target_sha256": "493cb98fe62b194dfd6fc1f1ded595d5f846e3dd5c46bf3b304cadfe3bc03d97",
+      "control": false,
+      "boundary_evidence": "Complete callable interval including natural trailing NOPs;native instruction boundaries and direct caller/table evidence in work/host_sfx/native.json. No body-prefix acceptance."
+    },
+    {
+      "symbol": "_host_sfx_program_attributes_be60",
+      "rva": "0xbe60",
+      "size": 96,
+      "body_size": 85,
+      "target_sha256": "a8595666a43196e06f06f9c385c4ada7648203e609c842f956521047e255cac4",
+      "control": false,
+      "boundary_evidence": "Complete callable interval including natural trailing NOPs;native instruction boundaries and direct caller/table evidence in work/host_sfx/native.json. No body-prefix acceptance."
+    },
+    {
+      "symbol": "_host_sfx_tone_attributes_bec0",
+      "rva": "0xbec0",
+      "size": 96,
+      "body_size": 85,
+      "target_sha256": "1e1f1a6ac74a5948cb23e933a5d829c6a32637b8b20cab298a141f03896c2bd6",
+      "control": false,
+      "boundary_evidence": "Complete callable interval including natural trailing NOPs;native instruction boundaries and direct caller/table evidence in work/host_sfx/native.json. No body-prefix acceptance."
+    }
+  ],
+  "symbol_rvas": {
+    "_g_host_engine_interface": "0x361b8",
+    "_g_host_music_paths_rva_35178": "0x35178",
+    "_g_host_music_bank_headers_rva_68e790": "0x68e790",
+    "_host_diagnostic": "0x63c0",
+    "_resource_file_length": "0x40d0",
+    "_host_file_sync": "0x3b50",
+    "_host_allocate": "0x4570",
+    "_shrink_relocate": "0x4690",
+    "_empty_host_callback": "0xbe30",
+    "_host_zero_callback": "0xa340",
+    "_return_true": "0xc240",
+    "_host_music_bank_register_c040": "0xc040",
+    "_host_music_bank_preload_c090": "0xc090",
+    "_g_host_music_open_error": "0x35bf4",
+    "_g_host_music_download_error": "0x35bd8",
+    "_g_host_sfx_load_text": "0x35d1c",
+    "_g_host_sfx_filename": "0x35d14",
+    "_g_host_sfx_warning_begin": "0x35cd4",
+    "_g_host_sfx_warning_detail": "0x35c98",
+    "_g_host_sfx_warning_program": "0x35c6c",
+    "_g_host_sfx_warning_end": "0x35c2c"
+  },
+  "context_files": [
+    "calibration/host_sfx.h",
+    "calibration/host_music.h",
+    "calibration/host_file_callbacks.h",
+    "calibration/engine_interface.h",
+    "calibration/resource_context.h"
+  ]
+}

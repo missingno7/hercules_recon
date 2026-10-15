@@ -96,8 +96,8 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 147 actual source units with
-255 recorded EXE functions and preserves 27 accepted EXE functions. It has no
+The current natural selected host graph compiles 149 actual source units with
+258 recorded EXE functions and preserves 27 accepted EXE functions. It has no
 duplicate link errors and seven unresolved data providers. Resize and the observed
 music-path records now have native-verified providers. Including
 the real map replaces one missing map symbol with its actual missing callback bodies. These counts are diagnostics,
@@ -374,7 +374,7 @@ The second DWORD remains unknown: none equals the PC archive length in the
 matching directory-key lookups. Of 39 record lookups, 25 find a MUSIC.MUS key and
 36 find an SFX.SFX key; duplicates are included. Missing entries stay unchanged.
 
-The current music replay passes 180 cases and five rejected errors. Forty cases
+The path-provider checkpoint passed 180 cases and five rejected errors. Forty cases
 consume the actual path prefix, including its final record and byte-masked index.
 The other cases substitute a synthetic external path table for adversarial and
 reload checks; they do not establish legal production access beyond the prefix.
@@ -397,6 +397,34 @@ All 134 previously accepted functions remain raw exact. See
 ```
 python scripts/host_music_differential.py --original-root D:/Prog/hercules_recon --output work/host_music_replay
 python scripts/host_resize_differential.py --original-root D:/Prog/hercules_recon --output work/host_resize_replay
+```
+
+The SFX loader at `0x1330` now has ordinary C source with its actual program and
+tone attribute helpers at `0xbe60` and `0xbec0`. The helpers reproduce their full
+96-byte contributions apart from relocations and remain `CODEGEN_SIMILAR`.
+The loader is 688 versus 672 bytes, retains 481 diagnostic differences and
+remains `RECONSTRUCTED`. The existing 17 music/file/resize contributions are
+unchanged. Six complete native text fields add 245 initialized literal bytes.
+
+The combined replay passes 412 guarded cases and rejects eleven wrong variants.
+It includes all 23 distinct SFX members found by the native path/hash lookup in
+the PC archive: each has 452 bytes and two zero root offsets. Exact member bytes
+flow through the modeled read boundary into the real loader and attribute code.
+Allocation, archive I/O and sample-device effects remain modeled; no Windows
+audio or original game process executes.
+
+The source preserves signed sample IDs and the three-byte mapping at context
+offset `0x2f0`, including duplicate warnings for an already claimed slot. The
+loader visits programs 0 through 126; both query helpers accept 127. Their full
+16/32-byte output clearing precedes a live header read, including overlapping
+output/header cases. Failed queries leave output unchanged. The caller ignores
+those failures and its local attributes are not initialized; loader tests keep
+a valid registered header rather than supplying a new fallback behavior.
+See `evidence/host_sfx_recovery.json`. The matching context is indexed for replay:
+
+```
+python scripts/region.py packet host_sfx_loader --more
+python scripts/host_music_differential.py --original-root D:/Prog/hercules_recon --output work/host_sfx_replay
 ```
 
 The loader now has an independent source provider for four observed DWORD cells

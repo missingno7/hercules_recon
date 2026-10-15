@@ -1,0 +1,300 @@
+{
+  "schema": 1,
+  "scope": "Original PC SFX loader and its actual program/tone attribute descendants. Historical C source and guarded native/source comparisons,including original archive member bytes;no game process,audio device,whole-source/TU/layout or whole-binary acceptance. recovery.json alone owns function states.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "prediction": {
+    "path": "work/host_sfx/prediction.json",
+    "sha256": "c661e819e1781d11865aad41cd2d8c9115c484866821b074464d32d235d473b3"
+  },
+  "region": {
+    "path": "evidence/host_sfx_region.json",
+    "sha256": "6501ec895e5bef332ec63f33c8037b65ceb9053b2aeab8c7f4adfae06644da0d"
+  },
+  "native_instructions": {
+    "path": "work/host_sfx/native.json",
+    "sha256": "b9b4a33e3741a0129892f1aaebf5f15e1f8fac06f5127d4ba499ecfaa830d014"
+  },
+  "sources": [
+    {
+      "path": "src/pc/host_sfx.c",
+      "sha256": "48a0ad56ce9217c91a78b6a6dc971695ba0538e85683d6cb4e3684069c30138b"
+    },
+    {
+      "path": "calibration/host_sfx.h",
+      "sha256": "0a7e528ef4e23179dd2b6d6d3e21775ff4e7632410262c9270ceb7ac94088a78"
+    },
+    {
+      "path": "calibration/host_sfx_storage.c",
+      "sha256": "2bf177eca1e398e97bc68cb4c0f72bfcad60d6726add958a89524d70ee9af55d"
+    },
+    {
+      "path": "scripts/host_music_differential.py",
+      "sha256": "17f2fd5addc889453f4b59685773f99d4993a2a8501db34b22a739b19384f99e"
+    }
+  ],
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest": {
+      "path": "toolchains/manifest.json",
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    },
+    "flags": [
+      "/O2"
+    ],
+    "implicit_flag": "/Gy",
+    "runtime": "Existing Unicorn2.1.4 DLL010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1;no tool installed or patched."
+  },
+  "functions": [
+    {
+      "id": "exe.host_sfx_load_1330",
+      "symbol": "_host_sfx_load_1330",
+      "rva": "0x1330",
+      "native_complete_bytes": 672,
+      "compiled_complete_bytes": 688,
+      "raw_equal": false,
+      "raw_differing_bytes": 633,
+      "source_relocations": 43,
+      "diagnostic_differing_bytes": 481,
+      "status": "RECONSTRUCTED"
+    },
+    {
+      "id": "exe.host_sfx_program_attributes_be60",
+      "symbol": "_host_sfx_program_attributes_be60",
+      "rva": "0xbe60",
+      "native_complete_bytes": 96,
+      "compiled_complete_bytes": 96,
+      "raw_equal": false,
+      "raw_differing_bytes": 6,
+      "source_relocations": 2,
+      "diagnostic_differing_bytes": 0,
+      "status": "CODEGEN_SIMILAR"
+    },
+    {
+      "id": "exe.host_sfx_tone_attributes_bec0",
+      "symbol": "_host_sfx_tone_attributes_bec0",
+      "rva": "0xbec0",
+      "native_complete_bytes": 96,
+      "compiled_complete_bytes": 96,
+      "raw_equal": false,
+      "raw_differing_bytes": 6,
+      "source_relocations": 2,
+      "diagnostic_differing_bytes": 0,
+      "status": "CODEGEN_SIMILAR"
+    }
+  ],
+  "entry_evidence": {
+    "loader_table_offset": "0x74",
+    "loader_table_value": "0x401330",
+    "program_query_table_offset": "0x378",
+    "program_query_table_value": "0x40be60",
+    "direct_program_call": "0x14ec -> 0xbe60",
+    "direct_tone_call": "0x158e -> 0xbec0",
+    "limit": "Physical targets and consumed argument widths only;the actual whole table owner and original unique prototypes remain unproved."
+  },
+  "representation": {
+    "program_output": "16bytes;sampleWORDat6,interpreted signed by caller.",
+    "tone_output": "32bytes;definedBYTEat2. Third toneWORDargument is ignored.",
+    "context": "Non-owning byte view of the unchanged6964-byte context. Three bytes at0x2f0+3*signedSample:slot,program,attributeBYTE. No complete array extent or arbitrary-header safety claim.",
+    "new_literal_bytes": 245,
+    "data_fields": [
+      {
+        "symbol": "_g_host_sfx_load_text",
+        "rva": "0x35d1c",
+        "bytes": 15,
+        "sha256": "675d6543661aaabfc6dd032a91996e158bacb5e6adebc8a8377507d2533d3745",
+        "origin": "file_backed"
+      },
+      {
+        "symbol": "_g_host_sfx_filename",
+        "rva": "0x35d14",
+        "bytes": 8,
+        "sha256": "3ab7230117dba39c547fa86735041cd997a3136e2c25147a84514f6ee805fdd1",
+        "origin": "file_backed"
+      },
+      {
+        "symbol": "_g_host_sfx_warning_begin",
+        "rva": "0x35cd4",
+        "bytes": 61,
+        "sha256": "9ec531b8ac3b2754979cd5041e32ac7de2469546e456eba6aab25246e5fc2df4",
+        "origin": "file_backed"
+      },
+      {
+        "symbol": "_g_host_sfx_warning_detail",
+        "rva": "0x35c98",
+        "bytes": 57,
+        "sha256": "e9775448c19ac02d43d8c34bc98cf6827ab99be2a878f3c55a5f353dbe657a63",
+        "origin": "file_backed"
+      },
+      {
+        "symbol": "_g_host_sfx_warning_program",
+        "rva": "0x35c6c",
+        "bytes": 42,
+        "sha256": "c5f5886c8f230fa72dc23ccf8c49fdeab5e90fc3b6c111cd921cf7b852d70020",
+        "origin": "file_backed"
+      },
+      {
+        "symbol": "_g_host_sfx_warning_end",
+        "rva": "0x35c2c",
+        "bytes": 62,
+        "sha256": "6390dcc70261739ea61c24c5c00d9a6276ecf44827af6938360e44f9ed83b641",
+        "origin": "file_backed"
+      }
+    ]
+  },
+  "behavior": [
+    "Loader uses byte-masked bank/slot IDs,actual path/file callbacks,pool output owner,and two serialized root offsets. It preserves the music registration/preload/delta/owner-only resize chain and leaves the other music-root fields unchanged.",
+    "All128sample words are preloaded by the existing bank helper. SFX binding visits programs0..126 only;the standalone program/tone helpers accept signedWORDprogram0..127.",
+    "A nonzero signed sample ID addresses three context bytes. Any prior first byte other thanFF emits all four duplicate warnings,including a claim by the same slot,before the binding is overwritten.",
+    "Both queries check the live bank header and signed program range,clear all16/32output bytes,then reload source fields. Output overlapping the source data observes the clearing first. Failure returnsWORD-1without changing output.",
+    "Query helpers lack a bank-index bound check. The loader ignores query failures and its local attributes stay uninitialized on failure;no recovery fallback is invented."
+  ],
+  "fixture": {
+    "receipt": {
+      "path": "work/host_sfx/final_fixture/host_music_differential.json",
+      "sha256": "257bd5fa97555e8b076cfe77a3c7a6aa17eda389426f8c379a32d4d739d132b2"
+    },
+    "cases": 412,
+    "all_equal": true,
+    "cases_by_role": {
+      "apply": 45,
+      "signal": 5,
+      "initialize": 1,
+      "set_bases": 4,
+      "bank_register": 28,
+      "bank_preload": 11,
+      "load": 84,
+      "sequence": 4,
+      "program_attributes": 82,
+      "tone_attributes": 82,
+      "load_sfx": 66
+    },
+    "native_path_cases": 63,
+    "family_invocations": 421,
+    "sequences": 4,
+    "actual_events": {
+      "empty": 319,
+      "diagnostic": 1077,
+      "sample_preload": 1199,
+      "format": 298,
+      "open": 298,
+      "seek": 155,
+      "close": 298,
+      "allocate": 155,
+      "read": 143,
+      "true": 127,
+      "zero": 127,
+      "resize": 127,
+      "coalesce": 98,
+      "program_attributes": 7321,
+      "tone_attributes": 1126
+    },
+    "negative_controls": [
+      "gain_compares_only_cached_word",
+      "auto_slot_rejected",
+      "allocation_rounds_up",
+      "bank_id_loses_upper_nibble",
+      "preload_caches_header",
+      "loader_includes_program127",
+      "unsigned_sample_test",
+      "duplicate_same_slot_suppressed",
+      "tone_output_clears_only16",
+      "program_output_clears_only8",
+      "tone_captured_before_clear"
+    ],
+    "negative_control_note": "The label unsigned_sample_test identifies the wrong sample>0 condition,which drops negative nonzero IDs;it is not an unsigned-index implementation.",
+    "checks": [
+      "Whole guarded context/interface/bank/path/filename/blob/heap/pool and16/32-byte query-output state,full loader return and defined queryWORDreturns.",
+      "Code/write whitelists,return address,caller guard,ESP,nonvolatile registers and clear direction flag. Incoming argument homes are scratch storage in both loaders.",
+      "Signed negative sample ID,program127query versus loader exclusion,duplicate/same-slot warnings,full output clearing,output/header aliases and ignored toneWORD.",
+      "Actual path/context/header reloads through modeled boundary interventions,two composed SFX sequences,and actual resize/coalescer."
+    ],
+    "models": "Virtual I/O,formatting,host_allocate entry and sample-device entry remain models. Heap/owner/context/filename backing is explicit fixture state. Sixty-three cases use the observed native path prefix;other path tables are synthetic substitutes and prove no production capacity. Query loader cases keep a valid registered header;standalone failures test output preservation."
+  },
+  "original_assets": {
+    "archive": "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\HERCULES.FS",
+    "archive_sha256": "affa380e45918448895932cd466ea9a02096b8dcf08644f91b9da5ec34cd48b4",
+    "distinct_members": 23,
+    "bytes_per_member": 452,
+    "root_offsets": [
+      0,
+      0
+    ],
+    "nonzero_sample_id_min": 1,
+    "nonzero_sample_id_max": 1117,
+    "members_with_nonzero_program127": 0,
+    "member_identity_receipt": {
+      "path": "work/host_sfx/final_fixture/host_music_differential.json",
+      "sha256": "257bd5fa97555e8b076cfe77a3c7a6aa17eda389426f8c379a32d4d739d132b2"
+    },
+    "limit": "Exact FS payload bytes enter via the read model after native-path/directory-key lookup. No real archive opener,physical I/O protocol or audio device executes. Key identity is not a unique unhashed filename proof."
+  },
+  "canonical_integration": {
+    "nineteen_private_complete_code_contributions_preserved": true,
+    "all20ordered_relocations_identical": true,
+    "all17prior_complete_code_and_ordered_relocations_preserved": true,
+    "loader_context_change": {
+      "path": "work/host_sfx/canonical_preservation.json",
+      "sha256": "f9e0e0a2063071d9162e94082abbe1b08a89417918acd01a04b5394c1af2a619"
+    },
+    "private_receipt": {
+      "path": "work/host_sfx/private_fixture/host_music_differential.json",
+      "sha256": "f8ac85588913107b3c5b6ba1b9f7edfd44a6c5a405a21f260191e694a6a4d3b5"
+    },
+    "shared_music_context_header_and_prior_function_sources_unchanged": true
+  },
+  "regression": {
+    "prior_776_rows_unchanged": true,
+    "new_rows": 3,
+    "counts": {
+      "FUNCTION_MATCH": 134,
+      "CODEGEN_SIMILAR": 572,
+      "RECONSTRUCTED": 73
+    },
+    "strict_gate": {
+      "path": "work/host_sfx/strict134.json",
+      "sha256": "24b44ab22345875fb146fb9059e32637eb32d065264a980cbb96756990af918e"
+    },
+    "all_134_raw_exact": true,
+    "new_FUNCTION_MATCHes": 0
+  },
+  "natural_graph": {
+    "prediction": {
+      "path": "work/host_sfx/graph_prediction.json",
+      "sha256": "090fc578a883a49d05440cf655078d4ed01a007e078fcc1de9604957b48d40c5"
+    },
+    "receipt": {
+      "path": "work/host_current_graph/report-d03f76e5e96f2bd0.json",
+      "sha256": "d03f76e5e96f2bd0646cca8fbe1db28c52168e1f7f64b200ce590ea3a7511c9a"
+    },
+    "source_units": 149,
+    "recorded_EXE_functions": 258,
+    "preserved_exact_EXE_functions": 27,
+    "unresolved": [
+      "_g_archive_scratch",
+      "_g_host_engine_error_91c040",
+      "_g_host_engine_interface",
+      "_g_host_engine_path_91bbd8",
+      "_g_host_setup_input_buffer0_7a2a00",
+      "_g_host_setup_input_buffer1_7a2a40",
+      "_g_resource_filename"
+    ],
+    "unresolved_data": 7,
+    "unresolved_functions": 0,
+    "duplicate_link_errors": 0,
+    "images_produced": 0,
+    "images_executed": 0
+  },
+  "replay_commands": [
+    "python scripts/region.py packet host_sfx_loader --more",
+    "python scripts/host_music_differential.py --original-root D:/Prog/hercules_recon --output work/host_sfx_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/host_sfx_raw_replay.json"
+  ],
+  "limits": [
+    "Both complete96-byte diagnostic equals retain two relocations each;they are not raw matches. Loader688-vs672and481diagnostic differences remain open.",
+    "Source physical structs and working declarations do not prove original PSX types/names,TU,source identity or module layout. Native base relocations are stripped.",
+    "A valid registered header and bounded context-accessing IDs are caller-fixture preconditions. This does not establish safe behavior for arbitrary bank indices,IDs or query failures with undefined caller locals.",
+    "Seven real data providers,full initialized host-table ownership and known MFC/CRT allocator/EH issues remain. The current graph is not a whole-game denominator or a runnable image.",
+    "Actual startup,menu,input and gameplay remain unverified. Renderer implementation is deferred until original-game reconstruction supports it."
+  ]
+}

@@ -1,4 +1,4 @@
-"""Bounded native/source music controls and bank-loading pipeline; synthetic I/O/device boundaries."""
+"""Original/source music and SFX loading with actual archive-byte replays; modeled I/O/device boundaries."""
 import argparse,hashlib,json,re,struct,sys
 from pathlib import Path
 ROOT=next(p for p in Path(__file__).resolve().parents if(p/'scripts/match.py').is_file())
@@ -16,19 +16,24 @@ from unicorn.x86_const import *
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--source',type=Path,default=ROOT/'src/pc/host_music.c');parser.add_argument('--data',type=Path,default=ROOT/'calibration/host_music_storage.c')
 parser.add_argument('--paths-source',type=Path,default=ROOT/'calibration/host_music_paths.c');parser.add_argument('--paths-definition',type=Path,default=ROOT/'evidence/host_music_paths_data.json')
+parser.add_argument('--sfx-source',type=Path,default=ROOT/'src/pc/host_sfx.c');parser.add_argument('--sfx-data',type=Path,default=ROOT/'calibration/host_sfx_storage.c')
 parser.add_argument('--output',type=Path,required=True);parser.add_argument('--original-root',type=Path,default=Path('D:/Prog/hercules_recon'))
 args=parser.parse_args();OUT=args.output.resolve();assert OUT.is_relative_to(ROOT/'work');OUT.mkdir(parents=True,exist_ok=True)
 ORACLE=args.original_root/'work/discs/pc_install/HERCULES.EXE'
+ARCHIVE=args.original_root/'assets/pc/HERCULES/HERCULES.FS';ARCHIVE_BYTES=ARCHIVE.read_bytes();assert hashlib.sha256(ARCHIVE_BYTES).hexdigest()=='affa380e45918448895932cd466ea9a02096b8dcf08644f91b9da5ec34cd48b4'
 MUSIC={'apply':(0x1000,144),'signal':(0x1090,32),'set_bases':(0x10b0,48),'initialize':(0x10e0,48),'load':(0x1110,544),'bank_register':(0xc040,80),'bank_preload':(0xc090,80)}
 PROFILE={k:('_host_music_'+k+'_'+format(rv,'x'),rv,n)for k,(rv,n)in MUSIC.items()}
 PROFILE.update(sync=('_host_file_sync',0x3b50,256),length=('_resource_file_length',0x40d0,176),prepare=('_host_file_prepare',0x1d60,32),empty=('_empty_host_callback',0xbe30,16),diagnostic=('_host_diagnostic',0x63c0,16),zero=('_host_zero_callback',0xa340,16),true=('_return_true',0xc240,16))
 PROFILE.update(resize=('_shrink_relocate',0x4690,192),coalesce=('_coalesce_pool',0x4830,96),copy=('_memmove',0x10fb0,821))
+PROFILE.update(load_sfx=('_host_sfx_load_1330',0x1330,672),program_attributes=('_host_sfx_program_attributes_be60',0xbe60,96),tone_attributes=('_host_sfx_tone_attributes_bec0',0xbec0,96))
 FILE_DATA=[('_g_resource_filename_format',0x36024,5),('_g_resource_loading_format',0x36008,27),('_g_resource_async_open_failure_format',0x36050,24),('_g_resource_sync_open_failure_format',0x35ff4,20),('_g_resource_sync_loaded_format',0x35fe8,11),('_g_resource_close_failure_format',0x36044,11),('_g_resource_opening_format',0x3602c,12),('_g_resource_close_success_format',0x36038,11)]
 MUSIC_DATA=[('_g_host_music_init_text',0x35bc4),('_g_host_music_load_text',0x35c18),('_g_host_music_filename',0x35c0c),('_g_host_music_open_error',0x35bf4),('_g_host_music_download_error',0x35bd8)]
+SFX_DATA=[('_g_host_sfx_'+name,rv)for name,rv in [('load_text',0x35d1c),('filename',0x35d14),('warning_begin',0x35cd4),('warning_detail',0x35c98),('warning_program',0x35c6c),('warning_end',0x35c2c)]]
 MODELS={'format':('_sprintf',0x10f40),'open':('_virtual_file_open',0xa210),'read':('_virtual_file_read',0xa2f0),'close':('_virtual_file_close',0xa350),'seek':('_virtual_file_seek',0xa280),'allocate':('_host_allocate',0x4570),'preload':('_host_sound_bank_initialize_f3d0',0xf3d0)}
 BASE=0x400000;TABLE=BASE+0x361b8;PATH_TABLE=BASE+0x35178;BANKS=BASE+0x68e790;FILENAME=BASE+0x215c10;SCALAR=BASE+0x352b0
 POOL=BASE+0x7a29c0
 DATA=0x61000000;CONTEXTS=[DATA+0x10020,DATA+0x20020,DATA+0x30020];CTX_SIZE=0x1b34;PATHS=[DATA+0x4000,DATA+0x4200]
+QUERY_OUT=DATA+0x4800
 BLOBS=[0x62000040,0x62010040];STACK=0x63000000;ESP=STACK+0x8000;STOP=STACK+0xf000;MODEL=0x65000000
 NV=[UC_X86_REG_EBX,UC_X86_REG_ESI,UC_X86_REG_EDI,UC_X86_REG_EBP];SEEDS=[0x11223344,0x22334455,0x33445566,0x44556677]
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();pack=lambda v:struct.pack('<I',v&0xffffffff)
@@ -47,8 +52,10 @@ def build(source,data,out):
  runtime=Path('C:/tools/hercules/renderer-oracle-python/unicorn/lib/unicorn.dll');assert sha(runtime)=='010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1'
  files=[source,ROOT/'src/pc/host_file_callbacks.c',ROOT/'calibration/host_file_prepare.c',ROOT/'src/pc/interface_callbacks.c',ROOT/'src/pc/host_diagnostic.c',ROOT/'src/pc/host_zero_callback.c',ROOT/'src/pc/exe_helpers.c',data,ROOT/'calibration/host_file_callback_formats.c',ROOT/'calibration/host_resource_storage.c']
  files.extend([ROOT/'calibration/host_pool_shrink.c',ROOT/'calibration/host_pool_repaired.c',ROOT/'calibration/host_pool_storage.c',ROOT/'calibration/host_pool_formats.c',ROOT/'calibration/host_pool_shrink_format.c'])
+ files.extend([args.sfx_source.resolve(),args.sfx_data.resolve()])
  library=verified_copy(ORACLE,out);watched={Path(__file__),ORACLE,runtime,ROOT/'recovery.json',ROOT/'toolchains/manifest.json',ROOT/'scripts/host_resize_differential.py',ROOT/'scripts/crt_copy_evidence.py',Path(library['archive'])}
  paths=verify_data(args.paths_source.resolve(),args.paths_definition.resolve(),ORACLE,out/'paths');watched.update(Path(p)for p in paths['inputs'])
+ watched.add(ARCHIVE)
  for p in files:watched.update(context_files(p))
  for name in ['match.py','masked.py','coff.py','pe.py','env.py','title_behavioral.py']:watched.add(ROOT/'scripts'/name)
  pins={str(p):sha(p)for p in watched};compiles=[];coffs=[];measurements=[];native=PE(ORACLE)
@@ -63,6 +70,7 @@ def build(source,data,out):
   measurements.append(dict(role=role,symbol=sym,rva=hex(rv),native_size=n,compiled_size=coffs[i].function(sym)['size'],raw=raw,diagnostic=d))
  fields=[];spec=[(i,*v)for i,vv in [(8,FILE_DATA)]for v in vv]
  for name,rv in MUSIC_DATA:spec.append((7,name,rv,len(native.read_rva(rv,128).split(b'\0')[0])+1))
+ for name,rv in SFX_DATA:spec.append((16,name,rv,len(native.read_rva(rv,256).split(b'\0')[0])+1))
  spec.extend([(7,'_g_host_music_bank_headers_rva_68e790',0x68e790,64),(9,'_g_resource_prepare_scalar',0x352b0,4)])
  for name,rv,n in SPECS:
   i=next(i for i,c in enumerate(coffs)if any(s['name']==name and(s['section']>0 or s['section']==0 and s['value']>0)for s in c.symbols.values()));spec.append((i,name,rv,n))
@@ -115,6 +123,10 @@ def execute(native,b,p,s):
  content=bytearray(max(0x400,min(file_bytes,0x8000)))
  for i,v in enumerate([sample_off,header_off,0x10,0x20,0x30,0x40,0x50]):struct.pack_into('<I',content,i*4,v)
  for i,v in enumerate(s.get('samples',[])):struct.pack_into('<h',content,header_off+0x44+i*2,v)
+ for i,v in enumerate(s.get('parameters',[])):content[header_off+0x144+i]=v
+ if 'archive_member'in s:
+  key,offset,n=struct.unpack_from('<III',ARCHIVE_BYTES,s['archive_member']*12);assert n==file_bytes
+  content=bytearray(ARCHIVE_BYTES[offset:offset+n]);sample_off,header_off=struct.unpack_from('<II',content);assert header_off+0x1c4<=len(content)
  contents=[bytes(content),bytes(content)];alternate=bytearray(content)
  if s.get('preload_swap'):struct.pack_into('<h',alternate,header_off+0x46,9)
  contents[1]=bytes(alternate)
@@ -131,23 +143,31 @@ def execute(native,b,p,s):
   for i in range(256):u.mem_write(PATH_TABLE+i*8,pack(PATHS[0])+pack(0x11110000+i))
  bank_cells=bytearray(64)
  for i in s.get('occupied',[]):bank_cells[i*4:i*4+4]=pack(BLOBS[0]+header_off)
- if s['role']=='bank_preload'and not s.get('null_header'):bank_cells[(s.get('slot_word',1)&15)*4:(s.get('slot_word',1)&15)*4+4]=pack(BLOBS[0]+header_off)
+ if s['role']in ['bank_preload','program_attributes','tone_attributes']and not s.get('null_header'):bank_cells[(s.get('slot_word',1)&15)*4:(s.get('slot_word',1)&15)*4+4]=pack(BLOBS[0]+header_off)
  u.mem_write(BANKS-32,bytes([0xb1])*32+bank_cells+bytes([0xb2])*32)
  for i,a in enumerate(CONTEXTS):
   raw=bytearray(bytes([0xa1+i])*CTX_SIZE)
   fields={0x9c:('H',0),0xb8:('I',10+i),0x1afc:('I',s.get('handle',0)&0xffffffff),0x1b04:('I',s.get('music_base',128)),0x1b08:('I',s.get('effects_base',128)),0x1b0c:('I',s.get('music_user',256)),0x1b10:('I',s.get('effects_user',256)),0x1b14:('I',0x22334455),0x1b18:('I',0x33445566),0x1b1c:('H',s.get('cached',0)&65535),0x13c+slot*4:('I',BLOBS[1])}
   for off,(fmt,v)in fields.items():struct.pack_into('<'+fmt,raw,off,v)
+  if s['role']=='load_sfx' or 'load_sfx'in s.get('commands',[]):
+   ids={struct.unpack_from('<h',content,header_off+0x44+j*2)[0]for j in range(128)}
+   if s.get('preload_swap'):ids.add(9)
+   for value in ids:
+    if value:
+     assert 0<=0x2f0+value*3<CTX_SIZE-2,(s,value);raw[0x2f0+value*3]=s.get('initial_claim',0xff)
   u.mem_write(a-32,bytes([0xc1])*32+raw+bytes([0xc2])*32)
+ output=BLOBS[0]+header_off+s['output_alias']if 'output_alias'in s else QUERY_OUT
+ u.mem_write(QUERY_OUT-32,bytes([0xe4])*32+bytes([0xcc])*32+bytes([0xe5])*32)
  def frame_for(role):
   header=0 if s.get('register_null')else BLOBS[0]+header_off
-  args={'apply':[],'signal':[],'set_bases':[s.get('set_music',128),s.get('set_effects',256)],'initialize':[],'load':[s.get('bank',0),s.get('slot',1)],'bank_register':[header,s.get('slot_word',-1)],'bank_preload':[BLOBS[0]+sample_off,s.get('slot_word',1)]}[role]
+  args={'apply':[],'signal':[],'set_bases':[s.get('set_music',128),s.get('set_effects',256)],'initialize':[],'load':[s.get('bank',0),s.get('slot',1)],'load_sfx':[s.get('bank',0),s.get('slot',1)],'bank_register':[header,s.get('slot_word',-1)],'bank_preload':[BLOBS[0]+sample_off,s.get('slot_word',1)],'program_attributes':[s.get('slot_word',1),s.get('program_word',0),0 if s.get('null_output')else output],'tone_attributes':[s.get('slot_word',1),s.get('program_word',0),s.get('tone_word',0),0 if s.get('null_output')else output]}[role]
   return pack(STOP)+b''.join(pack(v)for v in args)+bytes([0xf7])*32
  trace=[];counts={};pending=[];illegal=[];writes=[];instructions=0;handles={};argument_end=ESP+4
  def effect(role):
   key=role+'_'+str(counts.get(role,0));index=s.get('effects',{}).get(key)
   if index is not None:u.mem_write(TABLE+4,pack(CONTEXTS[index]));trace.append(dict(effect=key,context=index))
  def on_write(machine,access,address,n,value,user):
-  ranges=[(a,a+CTX_SIZE)for a in CONTEXTS]+[(BANKS,BANKS+64),(SCALAR,SCALAR+4),(heap_start,heap_end+4),(ESP-0x1000,ESP),(ESP+4,argument_end)]
+  ranges=[(a,a+CTX_SIZE)for a in CONTEXTS]+[(BANKS,BANKS+64),(SCALAR,SCALAR+4),(heap_start,heap_end+4),(QUERY_OUT,QUERY_OUT+32),(ESP-0x1000,ESP),(ESP+4,argument_end)]
   if not any(lo<=address and address+n<=hi for lo,hi in ranges):writes.append([hex(address),n]);machine.emu_stop()
  def on_code(machine,address,n,user):
   nonlocal instructions
@@ -155,7 +175,9 @@ def execute(native,b,p,s):
   if instructions>200000:illegal.append('instruction cap');machine.emu_stop();return
   if address==STOP:machine.emu_stop();return
   if address in endpoints:pending.append(address);machine.emu_stop();return
-  if address==addresses['resize']:
+  if address in [addresses['program_attributes'],addresses['tone_attributes']]:
+   sp=machine.reg_read(UC_X86_REG_ESP);trace.append(dict(call='program_attributes'if address==addresses['program_attributes']else'tone_attributes',bank=u32(machine,sp+4)&65535,program=u32(machine,sp+8)&65535))
+  elif address==addresses['resize']:
    sp=machine.reg_read(UC_X86_REG_ESP);old,n,pool,owner_only=[u32(machine,sp+i)for i in [4,8,12,16]];trace.append(dict(call='resize',old=hex(old),requested=n,pool=pool,owner_only=owner_only))
   elif address==addresses['coalesce']:
    sp=machine.reg_read(UC_X86_REG_ESP);trace.append(dict(call='coalesce',pool=u32(machine,sp+4),heap_before=hashlib.sha256(bytes(machine.mem_read(heap_start,heap_end+4-heap_start))).hexdigest()))
@@ -166,7 +188,7 @@ def execute(native,b,p,s):
    trace.append(dict(call='empty',site=site,defined_word_arguments=[u32(machine,sp+4+i*4)&65535 for i in range(n)]))
   elif address==addresses['diagnostic']:
    sp=machine.reg_read(UC_X86_REG_ESP);fmt=cstring(machine,u32(machine,sp+4));event=dict(call='diagnostic',format=fmt)
-   if fmt.startswith('LoadMusic'):event['arguments']=[u32(machine,sp+8),u32(machine,sp+12)]
+   if fmt.startswith('LoadMusic')or fmt.startswith('LoadSfx')or 'attribute number::'in fmt:event['arguments']=[u32(machine,sp+8),u32(machine,sp+12)]
    if '%s'in fmt:event['text']=cstring(machine,u32(machine,sp+8))
    if fmt.startswith('Loading'):event.update(destination=hex(u32(machine,sp+12)),requested=u32(machine,sp+16))
    if fmt.startswith('ReMalloc'):event.update(pool=u32(machine,sp+8),payload=hex(u32(machine,sp+12)),bytes=u32(machine,sp+16))
@@ -212,13 +234,14 @@ def execute(native,b,p,s):
   for a in CONTEXTS:assert bytes(u.mem_read(a-32,32))==bytes([0xc1])*32 and bytes(u.mem_read(a+CTX_SIZE,32))==bytes([0xc2])*32
   assert bytes(u.mem_read(BANKS-32,32))==bytes([0xb1])*32 and bytes(u.mem_read(BANKS+64,32))==bytes([0xb2])*32
   assert bytes(u.mem_read(FILENAME-32,32))==bytes([0xe1])*32 and bytes(u.mem_read(FILENAME+512,32))==bytes([0xe3])*32
+  assert bytes(u.mem_read(QUERY_OUT-32,32))==bytes([0xe4])*32 and bytes(u.mem_read(QUERY_OUT+32,32))==bytes([0xe5])*32
   assert bytes(u.mem_read(heap_start-32,32))==bytes([0xd1])*32 and bytes(u.mem_read(heap_end+4,32))==bytes([0xd2])*32,(s,bytes(u.mem_read(heap_start-32,32)).hex(),bytes(u.mem_read(heap_end+4,32)).hex())
   value=u.reg_read(UC_X86_REG_EAX)
-  return value&65535 if function_role in ['bank_register','bank_preload']else value if function_role=='load'else None
+  return value&65535 if function_role in ['bank_register','bank_preload','program_attributes','tone_attributes']else value if function_role in ['load','load_sfx']else None
  calls=[]
  for role in s.get('commands',[s['role']]):calls.append(dict(role=role,result=invoke(role),context_hashes=[hashlib.sha256(bytes(u.mem_read(a,CTX_SIZE))).hexdigest()for a in CONTEXTS]))
  digest=lambda a,n:hashlib.sha256(bytes(u.mem_read(a,n))).hexdigest()
- return dict(events=trace,calls=calls,contexts=[digest(a,CTX_SIZE)for a in CONTEXTS],table=digest(TABLE,1000),banks=digest(BANKS,64),paths=digest(PATH_TABLE,312 if s.get('native_paths')else 2048),path_literals=[digest(BASE+int(x['rva'],0),x['bytes'])for x in b['paths']['literals']]if s.get('native_paths')else [],filename=digest(FILENAME,512),blobs=[digest(a,len(content))for a in BLOBS],heap=digest(heap_start,heap_end+4-heap_start),pool=digest(POOL,48),prepare_scalar=u32(u,SCALAR),guards_stack_nonvolatiles_and_whitelists=True)
+ return dict(events=trace,calls=calls,query_output=bytes(u.mem_read(output,32)).hex(),contexts=[digest(a,CTX_SIZE)for a in CONTEXTS],table=digest(TABLE,1000),banks=digest(BANKS,64),paths=digest(PATH_TABLE,312 if s.get('native_paths')else 2048),path_literals=[digest(BASE+int(x['rva'],0),x['bytes'])for x in b['paths']['literals']]if s.get('native_paths')else [],filename=digest(FILENAME,512),blobs=[digest(a,len(content))for a in BLOBS],heap=digest(heap_start,heap_end+4-heap_start),pool=digest(POOL,48),prepare_scalar=u32(u,SCALAR),guards_stack_nonvolatiles_and_whitelists=True)
 
 def scenarios():
  cases=[]
@@ -251,6 +274,35 @@ def scenarios():
  add('load','native_path_masked_38',bank=0xabcd0026,native_paths=True)
  add('sequence','controls_to_load',commands=['initialize','set_bases','load','apply','signal'])
  add('sequence','register_preload_apply',slot_word=1,samples=[1,2],commands=['bank_register','bank_preload','apply'])
+ values=[0]*128;values[0]=7;values[1]=-1;values[126]=1199;values[127]=1200;parameters=[(j*7+9)&255 for j in range(128)]
+ for role in ['program_attributes','tone_attributes']:
+  for bank in [0,1,15,0xabcd0001]:
+   for program in [-32768,-1,0,1,126,127,128,32767,0xabcd007f,0xabcdffff]:
+    for missing in [False,True]:add(role,'query_%s_%x_%x_%d'%(role,bank,program&0xffffffff,missing),slot_word=bank,program_word=program,null_header=missing,samples=values,parameters=parameters,tone_word=0xdeadffff)
+  add(role,'query_null_out_'+role,slot_word=1,program_word=-1,null_output=True)
+  add(role,'query_alias_'+role,slot_word=1,program_word=0,samples=values,parameters=parameters,output_alias=0x40 if role=='program_attributes'else 0x140)
+ for bank in [0,17,0x12340101,0xffffffff]:
+  for slot in [0,1,15,16,255,0xabcd0001]:add('load_sfx','sfx_%x_%x'%(bank,slot),bank=bank,slot=slot)
+ add('load_sfx','sfx_samples',samples=[7,0,-1,1199,1200],parameters=parameters)
+ add('load_sfx','sfx_signed_sample',samples=[-1],parameters=parameters)
+ add('load_sfx','sfx_duplicate_claim',samples=[7,7],parameters=parameters,initial_claim=1)
+ add('load_sfx','sfx_last_program',samples=values,parameters=parameters)
+ add('load_sfx','sfx_only_program127',samples=[0]*127+[7],parameters=parameters)
+ add('load_sfx','sfx_all_programs',samples=[7]*128,parameters=parameters)
+ add('load_sfx','sfx_header_reload',samples=[7,2],parameters=parameters,preload_swap=True)
+ add('load_sfx','sfx_path_reload',path_swap=True)
+ add('load_sfx','sfx_context_reload',samples=[7],parameters=parameters,effects={'allocate_1':1,'read_1':2})
+ add('load_sfx','sfx_sample_context',samples=[7],parameters=parameters,effects={'preload_1':1})
+ add('load_sfx','sfx_rounding_801',file_bytes=2049,samples=[7],parameters=parameters)
+ for n in [0,2049,0x7fffffff,0xffffffff]:add('load_sfx','sfx_alloc_fail_%x'%n,file_bytes=n,allocation_fail=True)
+ for off in [0,4,8,0x104]:add('load_sfx','sfx_shrink_%x'%off,header_offset=off)
+ add('sequence','sfx_twice',samples=[7,2],parameters=parameters,commands=['load_sfx','load_sfx'])
+ add('sequence','music_then_sfx',samples=[7,2],parameters=parameters,commands=['load','load_sfx','apply'])
+ lookup=__import__('host_music_paths_data').asset_lookup(args.paths_definition.resolve(),ORACLE,ARCHIVE);seen=set()
+ for row in lookup['rows']:
+  item=next(x for x in row['files']if x['filename']=='SFX.SFX')
+  if item['found']and item['directory_record'][0]not in seen:
+   member,offset,n=item['directory_record'];seen.add(member);add('load_sfx','sfx_archive_'+str(member),bank=row['index'],native_paths=True,file_bytes=n,archive_member=member)
  return cases
 
 def main():
@@ -273,7 +325,25 @@ def main():
   lane=OUT/name;lane.mkdir(exist_ok=True);code=re.sub(r'#include "([^"]+)"',lambda m:'#include "'+(args.source.resolve().parent/m.group(1)).resolve().as_posix()+'"',code);source=lane/'wrong.c';source.write_bytes(code.encode())
   bad=build(source,args.data.resolve(),lane/'build');plan=prepare(bad);s=next(x for x in ss if x['name']==names[name]);a=execute(True,b,p,s);c=execute(False,bad,plan,s);assert a!=c,name
   negatives.append(dict(name=name,detected=True,scenario=s,native=a,wrong=c,build=bad))
+ text=args.sfx_source.resolve().read_text();wrong_sfx={
+  'loader_includes_program127':(text.replace('program<127','program<=127'),'sfx_only_program127'),
+  'unsigned_sample_test':(text.replace('attributes.sample_006!=0','attributes.sample_006>0'),'sfx_signed_sample'),
+  'duplicate_same_slot_suppressed':(text.replace('SFX_BYTE(0x2f0+(long)attributes.sample_006*3)!=0xff','SFX_BYTE(0x2f0+(long)attributes.sample_006*3)!=0xff && SFX_BYTE(0x2f0+(long)attributes.sample_006*3)!=(MusicU8)slot'),'sfx_duplicate_claim'),
+  'tone_output_clears_only16':(text.replace('memset(out,0,sizeof(*out));\n        out->byte_002','memset(out,0,16);\n        out->byte_002'),'query_tone_attributes_1_0_0'),
+  'program_output_clears_only8':(text.replace('memset(out,0,sizeof(*out));\n        out->sample_006','memset(out,0,8);\n        out->sample_006'),'query_program_attributes_1_0_0'),
+  'tone_captured_before_clear':(text.replace('memset(out,0,sizeof(*out));\n        out->byte_002=*((MusicU8 *)g_host_music_bank_headers_rva_68e790[bank]+0x144+program);','MusicU8 saved=*((MusicU8 *)g_host_music_bank_headers_rva_68e790[bank]+0x144+program);\n        memset(out,0,sizeof(*out));\n        out->byte_002=saved;'),'query_alias_tone_attributes')}
+ original_sfx=args.sfx_source
+ for name,(code,case)in wrong_sfx.items():
+  assert code!=text,name
+  lane=OUT/name;lane.mkdir(exist_ok=True);code=re.sub(r'#include "([^"]+)"',lambda m:'#include "'+(original_sfx.resolve().parent/m.group(1)).resolve().as_posix()+'"',code);source=lane/'wrong.c';source.write_bytes(code.encode());args.sfx_source=source
+  bad=build(args.source.resolve(),args.data.resolve(),lane/'build');plan=prepare(bad);s=next(x for x in ss if x['name']==case);a=execute(True,b,p,s);c=execute(False,bad,plan,s);assert a!=c,name
+  negatives.append(dict(name=name,detected=True,scenario=s,native=a,wrong=c,build=bad))
+ args.sfx_source=original_sfx
  assert b['inputs']=={path:sha(path)for path in b['inputs']}
- report=dict(scope=__doc__,build=b,case_count=len(cases),all_equal=True,cases=cases,negative_controls=negatives,native_path_cases=sum(bool(x['scenario'].get('native_paths'))for x in cases),full_sequences=sum(x['scenario']['role']=='sequence'for x in cases),actual_family_invocations=sum(len(x['native']['calls'])for x in cases),limits=['Actual file-length/synchronous-load,prepare,empty,diagnostic,zero,return-true,resize and coalescer execute. Identified unchanged CRT copy is linked but the owner-only music path does not call it;separate resize tests execute it.','Virtual I/O,formatting,allocation and sample-device entry are explicit models; no real archive,Windows allocation or audio execution is proved. Compiled host_allocate is intercepted at entry.','Forty cases consume the actual39-record initialized path prefix and25literal identities. Other cases substitute a256-record synthetic external table for adversarial/reload discriminators;this does not prove production capacity or legal access beyond the observed prefix.','Context pointers,512-byte filename,heap descriptors/owner cells and blob data remain synthetic preconditions. Failure-case backing is bounded,not derived from malicious file lengths.','WORD-only ignored arguments/returns exclude unspecified upper bits;no original prototype identity or game execution acceptance.','Native1110reuses incoming parameter slots as scratch. Return address,caller guard,ESP and nonvolatiles are checked;argument-slot bytes are not promised unchanged.'])
+ members=[]
+ for s in ss:
+  if 'archive_member'in s:
+   key,off,n=struct.unpack_from('<III',ARCHIVE_BYTES,s['archive_member']*12);payload=ARCHIVE_BYTES[off:off+n];members.append(dict(scenario=s['name'],bank=s['bank'],directory_index=s['archive_member'],key=hex(key),offset=off,bytes=n,sha256=hashlib.sha256(payload).hexdigest(),root_offsets=list(struct.unpack_from('<II',payload))))
+ report=dict(scope=__doc__,build=b,case_count=len(cases),all_equal=True,cases=cases,negative_controls=negatives,archive_members=members,archive_sha256=sha(ARCHIVE),native_path_cases=sum(bool(x['scenario'].get('native_paths'))for x in cases),full_sequences=sum(x['scenario']['role']=='sequence'for x in cases),actual_family_invocations=sum(len(x['native']['calls'])for x in cases),limits=['Actual music/SFX loaders,attribute queries,file-length/synchronous-load,prepare,empty,diagnostic,zero,return-true,resize and coalescer execute. Identified unchanged CRT copy is linked but these owner-only loaders do not call it;separate resize tests execute it.','Virtual I/O,formatting,allocation and sample-device entry remain models;23SFX cases replay exact original FS member bytes through the read model. No original archive opener,Windows allocation or audio device executes. Compiled host_allocate is intercepted at entry.','Sixty-three cases consume the actual39-record initialized path prefix and25literal identities. Other cases substitute a256-record synthetic external table for adversarial/reload discriminators;this proves no production capacity or legal access beyond the prefix.','Context pointers,512-byte filename and heap descriptors/owner cells are synthetic preconditions. Non-archive file bytes are synthetic. Failure-case backing is bounded,not derived from malicious file lengths.','Only defined WORD arguments/returns are compared for narrow APIs. Native bank-query helpers do not bound the bank index;valid prefix indices are fixture preconditions. No unique original prototype identity or arbitrary-header safety is proved.','Native1110/1330reuse incoming parameter slots as scratch. Return address,caller guard,ESP,nonvolatiles and direction flag are checked;argument-slot bytes are not promised unchanged.','SFX caller ignores query failures. Locals left undefined by a failed query are not repaired or zero-initialized;loader cases retain a valid registered-header precondition. Standalone query failures preserve the output bytes.'])
  dest=OUT/'host_music_differential.json';dest.write_bytes((json.dumps(report,indent=2)+'\n').encode());print(json.dumps(dict(cases=len(cases),all_equal=True,negatives=len(negatives),report=str(dest))))
 if __name__=='__main__':main()
