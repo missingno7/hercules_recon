@@ -1,0 +1,467 @@
+{
+  "schema": 1,
+  "scope": "Original PC sound startup FDF0 and primary format FD50 with the actual existing gain setter and byte-identical CRT conversion. DirectSoundCreate/COM effects alone are modeled. No real device/process/startup/game acceptance; recovery.json alone owns function status.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_sound_startup.cpp",
+      "sha256": "ad36d511a3230e1a66738f10ef961da31ccb7ba5a209f19388e7621d553e987d"
+    },
+    {
+      "path": "calibration/host_sound_startup.h",
+      "sha256": "39322b563a72f6e7b926fdd06e09290a35b7135a4c0137e9a86fe51ad6730d2b"
+    },
+    {
+      "path": "calibration/host_sound_startup_storage.c",
+      "sha256": "285c89a431a767957a077b02ef5cf77fa9bcc907b4dd6a7e036e55a04d0e4d0a"
+    },
+    {
+      "path": "scripts/host_sound_startup_differential.py",
+      "sha256": "8b77bb053bfa5b36cef0312f0f38b9a96d46ae73a1abfac9544f2bfb0ee295ca"
+    },
+    {
+      "path": "calibration/audio_small_helpers.c",
+      "sha256": "6060ff932b6118c26d4ca33102ad5ec1cc7411dc4efa0c2286a6700335fe3967"
+    },
+    {
+      "path": "calibration/audio_gain_storage.c",
+      "sha256": "8acd5da42ad06765966f236b170ecfbaef68e4b4957dd39d2dd42bb3b999d9d4"
+    },
+    {
+      "path": "calibration/sound_bank_storage.cpp",
+      "sha256": "015e5da7a8d81d5711437c40767e6abcb35506a76ff3fe2e7fd7b5a5d24c76fb"
+    },
+    {
+      "path": "calibration/host_sound_channel_storage.cpp",
+      "sha256": "c284652229f8e5ab69bd5bb58ff7274696a9f3d4d78d99664caeb1d416ea6eab"
+    },
+    {
+      "path": "calibration/host_warm_delivery_storage.cpp",
+      "sha256": "f9f73be2ad2f1cafb9fc3aae49d750b00c4b195663295ec6ca2064eec0d92575"
+    },
+    {
+      "path": "calibration/registry_storage.c",
+      "sha256": "e9f7c60fd443f486260a622e2beb5cde2be2d7a500b2cd486afab6ccbe35eda7"
+    }
+  ],
+  "prediction": {
+    "path": "work/host_sound_startup/prediction.json",
+    "sha256": "03d28e3b7c2cd66c4327d14a1652923fd77f574662d502fe045c64f1d641588b"
+  },
+  "measurement": {
+    "private": {
+      "path": "work/host_sound_startup/candidate.json",
+      "sha256": "b1d1e55d353080e0d84c6c0bb1122e756cda089b9db3b7097a2bdd013e76042f"
+    },
+    "functions": [
+      {
+        "role": "startup",
+        "symbol": "_host_service_fdf0",
+        "source_bytes": 336,
+        "native_bytes": 336,
+        "raw_exact": false,
+        "raw_differences": 218,
+        "diagnostic_equal": false,
+        "diagnostic_differences": 140,
+        "relocation_count": 26,
+        "relocations_grouped": [
+          {
+            "symbol": "_g_host_sound_paused_79e44c",
+            "type": 6,
+            "offsets": [
+              7
+            ]
+          },
+          {
+            "symbol": "_g_host_sound_volume_table_690a18",
+            "type": 6,
+            "offsets": [
+              18,
+              33,
+              125
+            ]
+          },
+          {
+            "symbol": "$T29803",
+            "type": 6,
+            "offsets": [
+              45
+            ]
+          },
+          {
+            "symbol": "$T29804",
+            "type": 6,
+            "offsets": [
+              53
+            ]
+          },
+          {
+            "symbol": "$T29805",
+            "type": 6,
+            "offsets": [
+              59,
+              74
+            ]
+          },
+          {
+            "symbol": "$T29806",
+            "type": 6,
+            "offsets": [
+              82,
+              97
+            ]
+          },
+          {
+            "symbol": "$T29807",
+            "type": 6,
+            "offsets": [
+              103
+            ]
+          },
+          {
+            "symbol": "__ftol",
+            "type": 20,
+            "offsets": [
+              108
+            ]
+          },
+          {
+            "symbol": "_g_registry_config",
+            "type": 6,
+            "offsets": [
+              136
+            ]
+          },
+          {
+            "symbol": "_audio_native_fdd0",
+            "type": 20,
+            "offsets": [
+              143
+            ]
+          },
+          {
+            "symbol": "_g_exe_799908",
+            "type": 6,
+            "offsets": [
+              155
+            ]
+          },
+          {
+            "symbol": "_g_host_sound_bank_counters_698ed8",
+            "type": 6,
+            "offsets": [
+              170
+            ]
+          },
+          {
+            "symbol": "_g_host_audio_channel_ids_799848",
+            "type": 6,
+            "offsets": [
+              185
+            ]
+          },
+          {
+            "symbol": "_g_host_sound_channel_lanes_79e408",
+            "type": 6,
+            "offsets": [
+              202
+            ]
+          },
+          {
+            "symbol": "_g_exe_79e440",
+            "type": 6,
+            "offsets": [
+              207,
+              231,
+              297
+            ]
+          },
+          {
+            "symbol": "_g_host_sound_next_slot_79e448",
+            "type": 6,
+            "offsets": [
+              217
+            ]
+          },
+          {
+            "symbol": "_DirectSoundCreate@12",
+            "type": 20,
+            "offsets": [
+              226
+            ]
+          },
+          {
+            "symbol": "_g_fatal_owner_window",
+            "type": 6,
+            "offsets": [
+              241
+            ]
+          },
+          {
+            "symbol": "_g_exe_79e444",
+            "type": 6,
+            "offsets": [
+              271
+            ]
+          },
+          {
+            "symbol": "_host_sound_primary_format_fd50",
+            "type": 20,
+            "offsets": [
+              321
+            ]
+          }
+        ],
+        "compiled_sha256": "a493623b1d4ec631ada44ce4c64f7bf896410eb4b87f0f6a40fd93008cfe1140",
+        "native_sha256": "07814482e43f180b29a6c443aa70bd667e92387bfb052a13b978e9a4fa0990f7"
+      },
+      {
+        "role": "format",
+        "symbol": "_host_sound_primary_format_fd50",
+        "source_bytes": 128,
+        "native_bytes": 128,
+        "raw_exact": false,
+        "raw_differences": 56,
+        "diagnostic_equal": false,
+        "diagnostic_differences": 11,
+        "relocation_count": 14,
+        "relocations_grouped": [
+          {
+            "symbol": "_g_exe_79e440",
+            "type": 6,
+            "offsets": [
+              1
+            ]
+          },
+          {
+            "symbol": "_g_exe_79e444",
+            "type": 6,
+            "offsets": [
+              13
+            ]
+          },
+          {
+            "symbol": "_g_host_sound_primary_format_698ec8",
+            "type": 6,
+            "offsets": [
+              23,
+              31,
+              36,
+              42,
+              49,
+              56,
+              64,
+              74,
+              81,
+              98,
+              105,
+              114
+            ]
+          }
+        ],
+        "compiled_sha256": "72ea087a862d9d01a6dd132d22ce468ae03dc3c6a70aea9cc86b7c222e3230e1",
+        "native_sha256": "8518604679045aa3df6f9befc7b3346d5ca909f055ca2a18f24e7a8ba3fe5b97"
+      }
+    ],
+    "scope": "One ordinary SDK/log10 source hypothesis. Startup336 and format128 retain140/11diagnostic differences. Three complete canonical contributions,including existing gain32,preserve the private measured bytes/relocations. No type/order/flag/source-spelling family follows."
+  },
+  "behavior": [
+    "Always clear pauseDWORD and build all16384volume entries before creating DirectSound. Entry0 is literal-10000;entries1..16383 are trunc(clamp(1650*log10(i/16384),-10000,0)-200). Actual x87 FYL2X and actual CRT __ftol execute.",
+    "Forward the current registryDWORD at offset16 as two identical lowWORD gain arguments. The highWORD is not the second channel value;preserve native behavior. Existing actual FDD0 writes both gainWORDs.",
+    "Clear4800bank pointers and1200counterWORDs. Set24channel IDs and24auxiliary laneWORDs to allones. Clear next-slotDWORD at79e448. Cursors,loop flags,scratch and cleanup flag79e450 remain untouched.",
+    "Call DirectSoundCreate(0,&device,0),ignoring HRESULT. Any resulting nonnull device permits SetCooperativeLevel(current owner,3). Reload device after that call,then CreateSoundBuffer with exact20-byte zeroed primary descriptor: size20,flags1,other fields0.",
+    "Do not clear an existing primary pointer before creation. Ignore creation HRESULT;the final real format helper decides from current nonnull device/primary pointers. Set stereo16-bit PCM at22050.",
+    "Primary-format helper returns0 and leaves format untouched when either pointer is null. Otherwise capture the prior sample rate,clear exactPCMWAVEFORMAT16,write PCM tag1/channels2/rate/bytesPerSec=rate*4/block4/bits16,call SetFormat and return saved rate despite failure or callback mutation."
+  ],
+  "data": {
+    "new_prefixes": [
+      {
+        "role": "table",
+        "symbol": "_g_host_sound_volume_table_690a18",
+        "rva": "0x690a18",
+        "bytes": 32768,
+        "provider": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_sound_startup_storage.c",
+        "kind": "BSS",
+        "native_virtual_zero": true
+      },
+      {
+        "role": "lanes",
+        "symbol": "_g_host_sound_channel_lanes_79e408",
+        "rva": "0x79e408",
+        "bytes": 48,
+        "provider": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_sound_startup_storage.c",
+        "kind": "BSS",
+        "native_virtual_zero": true
+      },
+      {
+        "role": "next",
+        "symbol": "_g_host_sound_next_slot_79e448",
+        "rva": "0x79e448",
+        "bytes": 4,
+        "provider": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_sound_startup_storage.c",
+        "kind": "BSS",
+        "native_virtual_zero": true
+      },
+      {
+        "role": "format",
+        "symbol": "_g_host_sound_primary_format_698ec8",
+        "rva": "0x698ec8",
+        "bytes": 16,
+        "provider": "D:\\Prog\\hercules_recon\\work\\renderer_interface_repo\\calibration\\host_sound_startup_storage.c",
+        "kind": "BSS",
+        "native_virtual_zero": true
+      }
+    ],
+    "verified_existing_prefix_count": 14,
+    "native_references": {
+      "path": "work/host_sound_startup/native_data_refs.json",
+      "sha256": "9394e30288e7168186df478d41b539d425b940855ab3a7213a153601c5c0535f"
+    },
+    "scope": "Fresh data objects agree with native virtual-loaderzero backing. Volume SHORT[16384] is bounded by the native end-pointer loop. Auxiliary SHORT[24] has native WORD consumers and48-byte reset,not twelve declared DWORDs. Format is the measured16-byte PCM prefix;next-slot is oneDWORD. Original full allocation,type/TU/placement remain unproved."
+  },
+  "conversion": {
+    "member": 602,
+    "member_sha256": "4c68cac6975e7868a1ed4f422a2a3ef5333d930298ea2617e76a2366681eb79b",
+    "bytes": 39,
+    "raw_native_equal": true,
+    "raw_linked_equal": true,
+    "code_sha256": "d0a2aca68648a0ae9d5cbfae1b276d4a64d4f797fc0c60f28b64096cdfa3148c",
+    "library": {
+      "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+      "sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b"
+    },
+    "scope": "Unmodified library member602 is extracted only for audit. Actual normal libcmt linkage selects39bytes equal to both native body and member;no injected/extracted member is linked and no game/library function is rewritten or accepted."
+  },
+  "directsound_library": {
+    "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\dsound.lib",
+    "sha256": "4d6e8e1e0af841da16eb621f52ef40cab455b9bd31d4b9407a549e827d257773",
+    "bytes": 4550,
+    "origin": "Existing pinned MSVC5 RTM toolchain lib/dsound.lib;no download,installation or patch. Ordinary import library;native/source API import entries are modeled as DirectSoundCreate boundaries,not game code."
+  },
+  "validation": {
+    "report": {
+      "path": "work/host_sound_startup/public_pinned/sound_startup_differential.json",
+      "sha256": "520f90432a0196175455fc3e3da530e3ef8068a5ec1b73eba07695fcd83f0fcd"
+    },
+    "case_count": 25,
+    "all_equal": true,
+    "startup_cases": 17,
+    "primary_format_cases": 8,
+    "independent_reference": {
+      "precision_decimal_digits": 60,
+      "min_distance_to_integer": "0.000039084229003438946375836065751362783619883125156722379",
+      "table_sha256": "b8aafe676c6ee66c9dea62a3c1277926ee9ad785610e92ff2f63f04cbeef1e10"
+    },
+    "control_words": [
+      "0x027f",
+      "0x037f",
+      "0x067f",
+      "0x0a7f",
+      "0x0e7f"
+    ],
+    "actual_conversion_calls_per_startup": 16383,
+    "scenario_names": [
+      "normal",
+      "null_device",
+      "api_failure_with_device",
+      "stale_device_on_failure",
+      "null_primary",
+      "create_failure_with_primary",
+      "stale_primary_on_failure",
+      "cooperative_failure_and_retarget",
+      "window_live_reload",
+      "format_failure_ignored",
+      "format_callback_mutation",
+      "zero_configured_gain",
+      "gain_high_bits_ignored",
+      "cw_0x37f",
+      "cw_0x67f",
+      "cw_0xa7f",
+      "cw_0xe7f",
+      "format_rate_0",
+      "format_rate_22050",
+      "format_rate_44100",
+      "format_rate_1073741824",
+      "format_rate_4294967295",
+      "format_no_device",
+      "format_no_primary",
+      "format_return_snapshot"
+    ],
+    "coverage": [
+      "All32768table bytes versus separate60-digit decimal log10/truncation reference;the nearest integer boundary is over3.9e-5 away. No modeled logarithm or conversion.",
+      "Full observed prefixes,selective clears and untouched neighbors,caller/stack/nonvolatile guards,x87 empty stack and preserved control word.",
+      "API failure with nonnull output,null output,stale device/primary on omitted output,live owner/device reload,ignored cooperative/Create/SetFormat failures.",
+      "Both gains from lowWORD,zero/high-bit configuration,format-rate zero/overflow/high values and saved prior-rate return after synthetic callback mutation."
+    ],
+    "modeled": "Only DirectSoundCreate and cooperative/CreateSoundBuffer/SetFormat COM effects. Synthetic output/retarget/format mutations are discriminator preconditions,not claims of actual API behavior. Unexecuted fixture-only FA10/main dependencies fail on entry.",
+    "limits": "Unicorn comparison and decimal quantization do not establish physical x87 instruction equality,unmasked exception domains,real device format acceptance or original post-entry behavior. Only the observed16-byte PCM prefix is read by the SetFormat model."
+  },
+  "regression": {
+    "strict": {
+      "path": "work/host_sound_startup/strict133.json",
+      "sha256": "29b586f81f8c3714744de53fc1a7cfe1a889c8df727210e7e8e291fd092282d7"
+    },
+    "raw_exact_functions": 133,
+    "all_671_prior_rows_identical": true,
+    "rows_added": 2,
+    "status_counts": {
+      "FUNCTION_MATCH": 133,
+      "CODEGEN_SIMILAR": 480,
+      "RECONSTRUCTED": 60
+    },
+    "natural_graph": {
+      "path": "work/host_current_graph/report-5835b599d0b3a9a5.json",
+      "sha256": "5835b599d0b3a9a547ab6f688ed648287f01ed94d7a5ee00d63388a7416543e3"
+    },
+    "source_units": 119,
+    "recorded_EXE_functions": 152,
+    "preserved_exact_EXE_functions": 26,
+    "unresolved": 30,
+    "resolved": "_host_service_fdf0",
+    "duplicate_providers": 0,
+    "images_produced": 0
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "implicit_compile_flag": "/Gy",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "analysis_tools": {
+    "python": {
+      "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "version": "3.12.14",
+      "sha256": "d41bad46673f64e0d02f23797f53f90ccf60f27d6eda8d86dd2d4bbeae5a858c"
+    },
+    "pefile": {
+      "path": "C:\\tools\\hercules\\python\\pefile.py",
+      "version": "2024.8.26",
+      "sha256": "0d0eb68f0f169182613dc64b3ab50b20855508c1c1d2faafe8fccf23edb6a345"
+    },
+    "unicorn": {
+      "path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+      "version": "2.1.4",
+      "sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+    },
+    "origin": "Existing C:/tools/hercules installations and bundled workspace Python; prior provenance in evidence/host_engine_loader_recovery.json. No tool/dependency added or modified.",
+    "capstone": {
+      "path": "C:\\tools\\hercules\\python\\capstone\\__init__.py",
+      "version": "5.0.7",
+      "sha256": "0417ae554252be8e8d03e328054fad4c3cec6cf4895deecec637078380840f8b",
+      "scope": "Read-only native instruction inspection; existing installation, no dependency change."
+    }
+  },
+  "commands": [
+    "python scripts/host_sound_startup_differential.py --output work/sound_startup_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/sound_startup_strict_replay.json",
+    "python work/host_current_graph/run.py"
+  ],
+  "limits": [
+    "Full bytecode comparisons still fail;function extent and25finite cases do not establish original source/prototype/TU,module layout or raw function acceptance.",
+    "Older whole-host startup fixtures may still model FDF0;this sound-service proof does not retroactively execute the complete startup sequence. The initialized host interface,other data and18frame callbacks remain missing.",
+    "No original process,real OS/device,menu/input/gameplay or renderer was run. The natural host link still fails on30genuine providers;goal remains active."
+  ]
+}

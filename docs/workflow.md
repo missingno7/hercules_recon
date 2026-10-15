@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 117 actual source units with
-150 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 31 unresolved dependencies: 18 newly exposed frame
-callbacks and 13 other providers. Including the real map replaces one missing
+The current natural selected host graph compiles 119 actual source units with
+152 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 30 unresolved dependencies: 18 newly exposed frame
+callbacks and 12 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -833,3 +833,22 @@ diagnostic differences and remains `RECONSTRUCTED`. All 133 accepted matches rem
 raw exact. The selected 117-unit host graph resolves this real dependency and
 has 31 missing providers. Earlier caller-only receipts retain their historical
 scope. See `evidence/host_platform_sync_recovery.json`.
+
+The actual sound-startup service `0xfdf0` and primary-format helper `0xfd50` now
+have canonical SDK-based source. Their complete 336/128-byte contributions retain
+140/11 diagnostic differences and remain `RECONSTRUCTED`.
+
+```
+python scripts/host_sound_startup_differential.py --output work/sound_startup_replay
+```
+
+Twenty-five comparisons execute actual startup, format, gain and the identified
+39-byte CRT conversion helper. All 16384 volume entries agree with an independent
+60-digit decimal reference across five x87 control-word settings; no logarithm or
+conversion is modeled. Tests preserve selective resets and untouched neighbors,
+the lowWORD duplicated into both gains, ignored HRESULTs, live device reload and
+the format helper's saved prior-rate return. Only DirectSound/COM effects are
+modeled. Four measured zero-backed data prefixes and the existing pinned
+DirectSound import library supply genuine dependencies. All 133 accepted matches
+remain raw exact. The selected 119-unit graph resolves FDF0 and now has 30 missing
+providers. See `evidence/host_sound_startup_recovery.json`.
