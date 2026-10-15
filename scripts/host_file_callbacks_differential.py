@@ -14,6 +14,7 @@ from unicorn.x86_const import *
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--source',type=Path,default=ROOT/'src/pc/host_file_callbacks.c')
 parser.add_argument('--formats',type=Path,default=ROOT/'calibration/host_file_callback_formats.c')
+parser.add_argument('--open-close-source',type=Path,default=ROOT/'src/pc/host_file_open_close.c')
 parser.add_argument('--output',type=Path,required=True)
 parser.add_argument('--original-root',type=Path,default=Path('D:/Prog/hercules_recon'))
 args=parser.parse_args();OUT=args.output.resolve();OUT.mkdir(parents=True,exist_ok=True)
@@ -22,10 +23,13 @@ ORACLE=args.original_root/'work/discs/pc_install/HERCULES.EXE'
 PROFILE={'sync':('_host_file_sync',0x3b50,256),'async':('_host_file_async',0x3d90,272),
  'cancel':('_host_cancel_load',0x3ea0,96),'progress':('_host_file_progress',0x3f00,320),
  'length':('_resource_file_length',0x40d0,176),'prepare':('_host_file_prepare',0x1d60,32),
- 'empty':('_empty_host_callback',0xbe30,16),'diagnostic':('_host_diagnostic',0x63c0,16)}
+ 'empty':('_empty_host_callback',0xbe30,16),'diagnostic':('_host_diagnostic',0x63c0,16),
+ 'open_only':('_host_file_open_only',0x3c50,144),'close_state':('_host_frame_close_state',0x3d30,96),
+ 'sector_seek':('_host_sector_seek',0x3ce0,32),'sector_read':('_host_sector_read',0x3d00,48)}
 FORMATS=[('_g_resource_filename_format',0x36024,5),('_g_resource_loading_format',0x36008,27),
  ('_g_resource_async_open_failure_format',0x36050,24),('_g_resource_sync_open_failure_format',0x35ff4,20),
- ('_g_resource_sync_loaded_format',0x35fe8,11),('_g_resource_close_failure_format',0x36044,11)]
+ ('_g_resource_sync_loaded_format',0x35fe8,11),('_g_resource_close_failure_format',0x36044,11),
+ ('_g_resource_opening_format',0x3602c,12),('_g_resource_close_success_format',0x36038,11)]
 MODELS={'format':('_sprintf',0x10f40),'open':('_virtual_file_open',0xa210),
  'read':('_virtual_file_read',0xa2f0),'close':('_virtual_file_close',0xa350),'seek':('_virtual_file_seek',0xa280)}
 BASE=0x400000;TABLE=BASE+0x361b8;FILENAME=BASE+0x215c10;SCALAR=BASE+0x352b0
@@ -44,12 +48,12 @@ def cstring(u,a):
   b.append(v)
  raise AssertionError('Unterminated fixture string')
 
-def build(source,formats,out):
+def build(source,formats,out,open_close_source=None):
  verify_toolchain(DEFAULT_TOOLCHAIN);out.mkdir(parents=True,exist_ok=True)
  assert sha(ORACLE)=='587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d'
  runtime=Path('C:/tools/hercules/renderer-oracle-python/unicorn/lib/unicorn.dll')
  assert sha(runtime)=='010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1'
- paths=[source,ROOT/'calibration/host_file_prepare.c',ROOT/'src/pc/interface_callbacks.c',ROOT/'src/pc/host_diagnostic.c',formats,ROOT/'calibration/host_resource_storage.c']
+ paths=[source,open_close_source or args.open_close_source.resolve(),ROOT/'calibration/host_sector_io.c',ROOT/'calibration/host_file_prepare.c',ROOT/'src/pc/interface_callbacks.c',ROOT/'src/pc/host_diagnostic.c',formats,ROOT/'calibration/host_resource_storage.c']
  watched={Path(__file__),ORACLE,runtime,ROOT/'recovery.json',ROOT/'toolchains/manifest.json'}
  for p in paths:watched.update(context_files(p))
  for name in ['match.py','masked.py','coff.py','pe.py','env.py','title_behavioral.py']:watched.add(ROOT/'scripts'/name)
@@ -58,14 +62,14 @@ def build(source,formats,out):
   obj,cmd=compile_source(p,['/O2']);co=COFF(obj);coffs.append(co)
   compiles.append(dict(source=str(p),source_sha256=sha(p),object=str(obj),object_sha256=sha(obj),command=cmd))
  for role,(sym,rva,n)in PROFILE.items():
-  index=0 if role in ['sync','async','cancel','progress','length']else {'prepare':1,'empty':2,'diagnostic':3}[role]
+  owners=[i for i,co in enumerate(coffs)if any(s['name']==sym and s['section']>0 for s in co.symbols.values())];assert len(owners)==1,(role,owners);index=owners[0]
   obj=Path(compiles[index]['object']);raw=compare(obj,sym,ORACLE,rva,n);diag=masked_compare(obj,sym,ORACLE,rva,n)
-  if role in ['prepare','empty','diagnostic']:assert diag['masked_equal']
+  if role in ['prepare','empty','diagnostic','sector_seek','sector_read']:assert diag['masked_equal']
   if role in ['empty','diagnostic']:assert raw['exact']
   measurements.append(dict(role=role,symbol=sym,rva=hex(rva),target_size=n,compiled_size=coffs[index].function(sym)['size'],raw=raw,diagnostic=diag))
  data=[]
  for name,rva,n in [*FORMATS,('_g_resource_prepare_scalar',0x352b0,4)]:
-  co=coffs[4 if name!='_g_resource_prepare_scalar'else 5]
+  co=coffs[6 if name!='_g_resource_prepare_scalar'else 7]
   s=next(s for s in co.symbols.values()if s['name']==name and s['section']>0);sec=co.sections[s['section']-1]
   raw=sec['data'][s['value']:s['value']+n];assert len(raw)==n and not sec['relocations']and raw==native.read_rva(rva,n)
   data.append(dict(symbol=name,rva=hex(rva),bytes=n,data=raw.hex(),sha256=hashlib.sha256(raw).hexdigest()))
@@ -73,7 +77,7 @@ def build(source,formats,out):
  return dict(inputs=pins,compiles=compiles,measurements=measurements,data=data)
 
 def prepare(b):
- symbols={'_g_host_engine_interface':TABLE,'_g_resource_filename':FILENAME};segments=[];addr={};coffs=[COFF(x['object'])for x in b['compiles'][:4]];cursor=0x20000000
+ symbols={'_g_host_engine_interface':TABLE,'_g_resource_filename':FILENAME};segments=[];addr={};coffs=[COFF(x['object'])for x in b['compiles'][:6]];cursor=0x20000000
  for x in b['data']:symbols[x['symbol']]=BASE+int(x['rva'],0);segments.append((symbols[x['symbol']],bytes.fromhex(x['data'])))
  endpoints={MODEL+i*32:role for i,role in enumerate(MODELS)}
  for a,role in endpoints.items():symbols[MODELS[role][0]]=a
@@ -124,7 +128,7 @@ def execute(native,b,p,s):
   for off,(fmt,v)in fields.items():struct.pack_into('<'+fmt,raw,off,v)
   u.mem_write(a-32,bytes([0xc1])*32+raw+bytes([0xc2])*32)
  def frame_for(role):
-  arguments={'sync':[PREFIX,SUFFIX,DEST,s.get('bytes',11)],'async':[PREFIX,SUFFIX,s.get('sector',0),DEST,s.get('bytes',11)],'cancel':[],'progress':[],'length':[PREFIX,SUFFIX]}[role]
+  arguments={'sync':[PREFIX,SUFFIX,DEST,s.get('bytes',11)],'async':[PREFIX,SUFFIX,s.get('sector',0),DEST,s.get('bytes',11)],'cancel':[],'progress':[],'length':[PREFIX,SUFFIX],'open_only':[PREFIX,SUFFIX],'close_state':[],'sector_seek':[s.get('sector',0)],'sector_read':[DEST,s.get('sectors',1)]}[role]
   return pack(STOP)+b''.join(pack(v)for v in arguments)+bytes([0xf7])*32
  trace=[];counts={};pending=[];illegal=[];writes=[];instructions=0
  def effect(role):
@@ -140,7 +144,11 @@ def execute(native,b,p,s):
   if address==STOP:machine.emu_stop();return
   if address in endpoints or address in [COMPLETE,FAILED]:pending.append(address);machine.emu_stop();return
   if address==addresses['diagnostic']:
-   sp=machine.reg_read(UC_X86_REG_ESP);trace.append(dict(call='diagnostic',format=cstring(machine,u32(machine,sp+4))))
+   sp=machine.reg_read(UC_X86_REG_ESP);fmt=cstring(machine,u32(machine,sp+4));event=dict(call='diagnostic',format=fmt)
+   if '%s' in fmt:event['text']=cstring(machine,u32(machine,sp+8))
+   if fmt.startswith('Loading '):event.update(destination=hex(u32(machine,sp+12)),requested=u32(machine,sp+16))
+   elif '(%d)'in fmt:event['requested']=u32(machine,sp+12)
+   trace.append(event)
   if not any(lo<=address<hi for lo,hi in allowed):illegal.append(hex(address));machine.emu_stop()
  u.hook_add(UC_HOOK_CODE,hook_code);u.hook_add(UC_HOOK_MEM_WRITE,hook_write)
  def invoke(function_role):
@@ -217,10 +225,21 @@ def scenarios():
  add('pipeline','pipeline_cancel_mid_transfer',mode=0,bytes=6*2048,commands=['async','progress','cancel','progress'])
  add('pipeline','pipeline_transfer_failure',mode=0,bytes=2048,transfer=-1,commands=['async','progress','progress'])
  add('pipeline','pipeline_suppress_repeated_completion',mode=0,bytes=1,suppress=1,commands=['async']+['progress']*3)
+ for mode in [0,1,2,4,0xffff]:
+  for result in [0,3,7,-1,-2,0x80000001,0xffffffff]:add('open_only','open_%x_%x'%(mode,result&0xffffffff),mode=mode,open_results=[result])
+ add('open_only','open_live_context',mode=4,open_results=[7],effects={'open_1':1})
+ for mode in [0,1,4,0xffff]:
+  for result in [0,1,-1,0x80000000]:add('close_state','close_%x_%x'%(mode,result&0xffffffff),mode=mode,close_results=[result],effects={'close_1':1})
+ for sector in [0,1,0x1fffff,0x200000,0x7fffffff,0x80000000,0xffffffff]:add('sector_seek','sector_seek_%x'%sector,sector=sector)
+ for n in [0,1,0x1fffff,0x200000,0xffffffff]:add('sector_read','sector_read_%x'%n,sectors=n,read_result=0)
+ add('pipeline','pipeline_open_seek_read_close',mode=4,sector=3,sectors=2,commands=['open_only','sector_seek','sector_read','close_state'])
+ add('pipeline','pipeline_open_live_close',mode=4,effects={'open_1':1,'close_1':2},commands=['open_only','close_state'])
+ add('pipeline','pipeline_busy_open_preserves_async',mode=0,bytes=2049,commands=['async','open_only','progress'])
  return cases
 
 def main():
  b=build(args.source.resolve(),args.formats.resolve(),OUT/'build');p=prepare(b);ss=scenarios();cases=[]
+ assert next(x for x in b['measurements']if x['role']=='close_state')['diagnostic']['masked_equal']
  for s in ss:
   native=execute(True,b,p,s);source=execute(False,b,p,s);assert native==source,(s,native,source)
   cases.append(dict(scenario=s,equal=True,native=native,source=source))
@@ -239,6 +258,17 @@ def main():
   code=re.sub(r'#include "([^"]+)"',lambda m:'#include "'+(args.source.resolve().parent/m.group(1)).resolve().as_posix()+'"',code)
   source=lane/'wrong.c';source.write_bytes(code.encode());bad=build(source,args.formats.resolve(),lane/'build');plan=prepare(bad)
   s=next(x for x in ss if x['name']==names[name]);a=execute(True,b,p,s);c=execute(False,bad,plan,s);assert a!=c,name
+  negatives.append(dict(name=name,detected=True,scenario=s,native=a,wrong=c,build=bad))
+ extension=args.open_close_source.resolve();ext_text=extension.read_text();close_at=ext_text.index('int __cdecl host_frame_close_state')
+ wrong_ext={'open_loses_return':ext_text.replace('return opened;','return 1;')}
+ close_body=ext_text[close_at:];close_body=close_body.replace('{\n','{\n    ResourceCallbackContext *saved = g_host_engine_interface.context_004;\n',1)
+ close_body=close_body.replace('g_host_engine_interface.context_004->unknown_0ac = 0;','saved->unknown_0ac = 0;').replace('g_host_engine_interface.context_004->mode_09c = 0;','saved->mode_09c = 0;')
+ wrong_ext['close_caches_context']=ext_text[:close_at]+close_body
+ for name,code in wrong_ext.items():
+  assert code!=ext_text,name
+  lane=OUT/name;lane.mkdir(exist_ok=True);code=re.sub(r'#include "([^"]+)"',lambda m:'#include "'+(extension.parent/m.group(1)).resolve().as_posix()+'"',code)
+  source=lane/'wrong.c';source.write_bytes(code.encode());bad=build(args.source.resolve(),args.formats.resolve(),lane/'build',source);plan=prepare(bad)
+  case='open_0_80000001'if name=='open_loses_return'else'close_4_0';s=next(x for x in ss if x['name']==case);a=execute(True,b,p,s);c=execute(False,bad,plan,s);assert a!=c,name
   negatives.append(dict(name=name,detected=True,scenario=s,native=a,wrong=c,build=bad))
  assert b['inputs']=={path:sha(path)for path in b['inputs']}
  report=dict(scope=__doc__,build=b,case_count=len(cases),all_equal=True,cases=cases,negative_controls=negatives,

@@ -96,8 +96,8 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 141 actual source units with
-245 recorded EXE functions and preserves 27 accepted EXE functions. It has no
+The current natural selected host graph compiles 142 actual source units with
+247 recorded EXE functions and preserves 27 accepted EXE functions. It has no
 duplicate providers and seven unresolved data providers. Including
 the real map replaces one missing map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
@@ -316,6 +316,25 @@ See `evidence/host_file_callbacks_recovery.json`.
 ```
 python scripts/host_file_callbacks_differential.py --original-root D:/Prog/hercules_recon --output work/host_file_callbacks_replay
 ```
+
+The neighboring open-only callback at `0x3c50` is a complete 144-byte interval;
+the old derived 224-byte span includes the separately recovered sector seek/read
+helpers at `0x3ce0`/32 and `0x3d00`/48. The close-state callback at `0x3d30` has
+full 96-byte relocation-normalized equality. Open-only keeps 76 diagnostic
+differences while preserving the measured busy/failure zero and success EAX
+through an ordinary captured return. Original formal prototypes and the partial
+interface's slot-30/slot-80 owner declarations remain unresolved. The accepted
+empty diagnostic source is unchanged.
+
+The extended 198-case comparison executes both callbacks and the actual sector
+helpers, preserving all earlier cases. Eight complete sequences make 242 family
+invocations per side, with six wrong variants rejected. Open/seek/read/close and
+an open attempt during a busy asynchronous transfer agree with the native code.
+All five prior callback contributions and 98 literal bytes remain identical;
+two new complete literals add 23 bytes. All 134 accepted functions remain raw
+exact. The explicit I/O, formatting, callback and layout models still limit the
+result; game execution remains unverified. See
+`evidence/host_file_open_close_recovery.json` and use the same replay command above.
 
 These real callers expose their separate writable filename buffer at `0x215c10`.
 It remains an unsized external dependency; neither its next neighbor nor the

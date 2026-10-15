@@ -1,0 +1,242 @@
+{
+  "schema": 1,
+  "scope": "Original PC open-only3c50/144 and file close-state3d30/96 source recovery. Preserve existing file/sector/prepare/empty/diagnostic code. Fresh compiler and finite normal-flow oracle comparisons; no whole-table,TU,layout or game-execution acceptance. recovery.json alone owns function states.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_file_open_close.c",
+      "sha256": "bf2ee67c7e8f4f5fb96b351641dc80204799f3ee6dc325a14f8b25dcca1a4b32"
+    },
+    {
+      "path": "calibration/host_file_callbacks.h",
+      "sha256": "b8e1cd07662de4d8e10b8c69f3bf5593a69e01091ad322b8ba105ecf8e702819"
+    },
+    {
+      "path": "calibration/host_file_callback_formats.c",
+      "sha256": "fadadaf70cea71b6b78e6de3a0bb90ae229ec709d211b82e55d30aaf0d992970"
+    },
+    {
+      "path": "scripts/host_file_callbacks_differential.py",
+      "sha256": "0a7ec72ba1c992275aae1d3cf6e8024e021ebf329a8c3f055e1c3ad902c84ac1"
+    }
+  ],
+  "prediction": {
+    "path": "work/host_file_open_close/prediction.json",
+    "sha256": "4d9b49f69a63cd6ae4aa8386e3a6d66968a3ea3e154f346ec210d6bc45b555b0"
+  },
+  "native_instruction_evidence": {
+    "path": "work/host_file_open_close/native.json",
+    "sha256": "ef270f799963b9ac692ecb31579339946f075f8dcc03347788e2fa0b55da3f60"
+  },
+  "existing_close_packet": {
+    "path": "work/host_file_callbacks/close_packet.json",
+    "sha256": "d508ed703311ed17533493a7533ec53b75b9c278a8b794199a9419476370fbd7"
+  },
+  "eng1_callers": {
+    "path": "work/host_file_open_close/eng1_callers.json",
+    "sha256": "2b39d2c37a41bb90097087fc3d6e411b7865ca7f76b242511256506e87904b7e"
+  },
+  "private_measurement": {
+    "path": "work/host_file_open_close/candidate_measurement.json",
+    "sha256": "780f45ceefb5630b743270dbc03220aa3d89a5ef7f19be48e050ddb8f1731319"
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest": {
+      "path": "toolchains/manifest.json",
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    },
+    "flags": [
+      "/O2"
+    ],
+    "implicit_flag": "/Gy",
+    "emulator": "Existing Unicorn2.1.4 DLL010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1. No tool installed or patched."
+  },
+  "functions": [
+    {
+      "role": "open_only",
+      "symbol": "_host_file_open_only",
+      "rva": "0x3c50",
+      "native_complete_bytes": 144,
+      "compiled_complete_bytes": 144,
+      "raw_equal": false,
+      "raw_differing_bytes": 120,
+      "source_code_relocations": 14,
+      "diagnostic_differing_bytes": 76,
+      "status": "RECONSTRUCTED"
+    },
+    {
+      "role": "close_state",
+      "symbol": "_host_frame_close_state",
+      "rva": "0x3d30",
+      "native_complete_bytes": 96,
+      "compiled_complete_bytes": 96,
+      "raw_equal": false,
+      "raw_differing_bytes": 21,
+      "source_code_relocations": 8,
+      "diagnostic_differing_bytes": 0,
+      "status": "CODEGEN_SIMILAR"
+    }
+  ],
+  "boundaries": {
+    "open_complete_bytes": 144,
+    "open_body_bytes": 130,
+    "open_padding_bytes": 14,
+    "close_complete_bytes": 96,
+    "close_body_bytes": 86,
+    "close_padding_bytes": 10,
+    "rejected_merged_extent": {
+      "path": "work/host_file_open_close/merged_extent_rejection.json",
+      "sha256": "72b56741c4beb98cd3db137dd0eb927f862b1fb538bbd67f4f0747f67c35fe28"
+    },
+    "reason": "The old224-byte derived open span includes two separately callable,already recorded sector functions at3ce0/32and3d00/48. Full source COFF contribution is144bytes;no prefix matching or adjacent-function absorption.",
+    "existing_sector_functions": [
+      {
+        "id": "exe.host_sector_seek",
+        "rva": "0x3ce0",
+        "bytes": 32
+      },
+      {
+        "id": "exe.host_sector_read",
+        "rva": "0x3d00",
+        "bytes": 48
+      }
+    ]
+  },
+  "return_and_type_contract": {
+    "open": "Native modeWORD==1 and failed-handle paths explicitly return EAX0. Normal success makes its last call to the actual16-byte empty diagnostic,with EAXstill the virtual-open result. The valid C source captures and explicitly returns that result. All32bits are compared,including0,negative nonsentinel andhigh-bit handles.",
+    "open_source_limit": "This ordinary captured return retains76diagnostic differences. No type/spelling grid or attempt to turn incidental EAX into source identity. Source uses the unchanged void diagnostic declaration and an explicit return;no incompatible diagnostic declaration or missing C return introduced.",
+    "close": "Native close attempts the live handle for every mode. Nonzero close result logs failure and returns0 without clearing fields. Success reloads the live context,clears DWORDACthen WORDmode9C,logs and returns1. This is a file-close-state role;the provisional frame name does not imply a GUI window method.",
+    "eng1": "Native wrapper2c400 forwards two pointers through copied interface offset80and leaves callback EAXunchanged;the reviewed row-loader caller ignores that EAX. This does not uniquely prove an original formal return prototype.",
+    "owner_gap": "Existing EngineInterface offset30is a void consumer view and offset80remains inside opaque words. These partial views are not a legal proven whole-owner initializer for the recovered int providers. No casts,aliases,overlapping owners or synthetic initializer are added to conceal the gap."
+  },
+  "semantics": [
+    "Open-only returns0 immediately for exact WORDmode1,with no prepare/format/open/log call. Other modes execute actual prepare,concatenate prefix/suffix,open and store the result through the live context. A reloaded handle equal to-1 logs failure and returns0. Other results log Opening %s and preserve the measured result bits. It does not set asynchronous mode or clear unrelated state.",
+    "Close-state differs from cancellation:it tries closing even when mode0. A nonzero close result preserves state except explicit modeled callee effects. On success the post-call context is reloaded for both observed clears;no handle/countdown/remaining-sector clear is invented."
+  ],
+  "new_literal_data": [
+    {
+      "symbol": "_g_resource_opening_format",
+      "rva": "0x3602c",
+      "bytes": 12,
+      "sha256": "f033525585fca55f3fe3dae3154c351fe979aebf1a274c38611979b1345bb502"
+    },
+    {
+      "symbol": "_g_resource_close_success_format",
+      "rva": "0x36038",
+      "bytes": 11,
+      "sha256": "5126c1860b8847957cf9cd9c7276297f4a9255924fb8115a98c1e08d171ddfb9"
+    }
+  ],
+  "new_literal_bytes": 23,
+  "total_complete_file_literals": 8,
+  "total_literal_bytes": 121,
+  "literal_limit": "Complete file-backed writable NUL-terminated strings only. Original TU,pooling and surrounding layout remain unknown. Filename buffer at215c10 remains unsized/unprovided;512fixture bytes are not production capacity.",
+  "fixture": {
+    "report": {
+      "path": "work/host_file_open_close/final_fixture/host_file_callbacks_differential.json",
+      "sha256": "0b0eef115552502d08f15bf8450f55049af57e9ea5685d7af6e5b2bbd795010c"
+    },
+    "cases": 198,
+    "all_equal": true,
+    "full_sequences": 8,
+    "actual_family_invocations_per_side": 242,
+    "negative_controls": [
+      {
+        "name": "advance_returned_count",
+        "detected": true
+      },
+      {
+        "name": "cached_read_context",
+        "detected": true
+      },
+      {
+        "name": "unsigned_sector_rounding",
+        "detected": true
+      },
+      {
+        "name": "cancel_returns_one",
+        "detected": true
+      },
+      {
+        "name": "open_loses_return",
+        "detected": true
+      },
+      {
+        "name": "close_caches_context",
+        "detected": true
+      }
+    ],
+    "actual_execution": "Seven recovered file callbacks,the existing32/48-byte sector helpers and actual prepare/empty/diagnostic source/native bodies execute. Conventional source COFF DIR32/REL32 fixups and actual literal prefixes are used.",
+    "new_sequences": [
+      "Open-only,sector seek,sector read and close-state",
+      "Open-only and close-state with live context replacement by callees",
+      "Busy open-only attempt between async begin and progress"
+    ],
+    "preserved_sequences": "All earlier five loading/cancel/delay/suppression sequences and131earlier directed cases remain. Diagnostic entry observations additionally record actual string/data arguments.",
+    "checks": [
+      "Complete guarded6964-byte contexts,1000-byte synthetic table,64KiB destination,512-byte filename model and intermediate sequence states.",
+      "Full EAX for integer-returning callbacks and both sector helpers;progress keeps its void view. Stack/nonvolatile/argument guards and code/write whitelists.",
+      "Open modeWORD comparisons,all-bits handle returns,close failures in inactive/active modes,and post-close live context reloads."
+    ],
+    "models": "sprintf,four virtual file adapters,caller callback effects and native-address layout remain explicit models. No actual archive/filesystem,process,window,registry,exceptions or gameplay execution."
+  },
+  "regression": {
+    "prior_proof": {
+      "path": "work/host_file_open_close/canonical_preservation.json",
+      "sha256": "1f37f09ed72dbe04c2662b9961c68dd852034c2555f4850f84a85fb13871ba8f"
+    },
+    "all_five_prior_callback_code_bytes_sizes_and_ordered_relocations_identical": true,
+    "both_new_canonical_bodies_equal_private_candidates": true,
+    "prior_98_literal_bytes_unchanged": true,
+    "prior_766_recovery_rows_unchanged": true,
+    "new_rows": 2,
+    "current_counts": {
+      "FUNCTION_MATCH": 134,
+      "CODEGEN_SIMILAR": 566,
+      "RECONSTRUCTED": 68
+    },
+    "strict_gate": {
+      "path": "work/host_file_open_close/strict134.json",
+      "sha256": "157e8c6560e544f9c714b2945cd81f1d06ff83e928ad6d02662bff7ff73ee43c"
+    },
+    "all_134_raw_exact": true,
+    "new_raw_matches": 0
+  },
+  "natural_graph": {
+    "prediction": {
+      "path": "work/host_file_open_close/graph_prediction.json",
+      "sha256": "489ab51904426f4c1b13e68105622460cc1224adcf7700ddde68a4e4bb1e93ca"
+    },
+    "receipt": {
+      "path": "work/host_current_graph/report-933889ca828cf117.json",
+      "sha256": "933889ca828cf1176fcd163e4207be9b3748db53160d5d91954a0b136bd0ba1c"
+    },
+    "units": 142,
+    "recorded_EXE_functions": 247,
+    "accepted_EXE_functions": 27,
+    "unresolved_data": [
+      "_g_archive_scratch",
+      "_g_host_engine_error_91c040",
+      "_g_host_engine_interface",
+      "_g_host_engine_path_91bbd8",
+      "_g_host_setup_input_buffer0_7a2a00",
+      "_g_host_setup_input_buffer1_7a2a40",
+      "_g_resource_filename"
+    ],
+    "duplicate_link_errors": 0,
+    "images_produced": 0,
+    "images_executed": 0
+  },
+  "replay_commands": [
+    "python scripts/host_file_callbacks_differential.py --original-root D:/Prog/hercules_recon --output work/host_file_callbacks_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/host_open_close_raw_replay.json"
+  ],
+  "limits": [
+    "Close96diagnostic equality is not raw/function or whole-module equality;open remains reconstructed with76codegen differences.",
+    "Original unique prototypes,source spelling,TU and initialized table ownership are unresolved. Native base relocations are stripped;none are invented.",
+    "Seven real data providers remain missing. No guessed capacity,arbitrary placement,original binary dispatch or renderer/gameplay changes.",
+    "Only bounded synthetic normal returns;actual startup/menu/input/gameplay is still required for goal completion."
+  ]
+}

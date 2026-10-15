@@ -6,3 +6,5 @@ char g_resource_async_open_failure_format[] = "Unable to open %s (%d)\n";
 char g_resource_sync_open_failure_format[] = "Unable to open %s \n";
 char g_resource_sync_loaded_format[] = "- Loaded \n";
 char g_resource_close_failure_format[] = "- Failed \n";
+char g_resource_opening_format[] = "Opening %s ";
+char g_resource_close_success_format[] = "- Closed \n";
