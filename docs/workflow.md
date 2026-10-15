@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 144 actual source units with
-254 recorded EXE functions and preserves 27 accepted EXE functions. It has no
-duplicate providers and nine unresolved dependencies: eight data providers and
-the resize-function provider. Including
+The current natural selected host graph compiles 146 actual source units with
+255 recorded EXE functions and preserves 27 accepted EXE functions. It has no
+duplicate link errors and eight unresolved data providers. The resize dependency
+now has its native-verified source provider and measured diagnostic text. Including
 the real map replaces one missing map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -352,22 +352,32 @@ differences; the loader is 528 versus 544 bytes and remains reconstructed.
 The source uses a non-owning byte view of the existing context, preserving all
 shared layouts and leaving path-record capacity/ownership unresolved.
 
-All 133 native/source cases pass, with five rejected errors and two composed
-control/loading sequences. Actual file-length/synchronous-load and existing
-prepare/empty/diagnostic/zero/true bodies execute. Allocation, resize, virtual I/O
-and sample-device entry remain modeled; their source provenance is recorded.
+The initial 133 native/source cases passed, with five rejected errors and two
+composed control/loading sequences. The extended 140-case replay now executes
+the actual resize/coalescer alongside file-length/synchronous-load and
+prepare/empty/diagnostic/zero/true bodies. The identified unmodified VC5 CRT copy
+is linked; this owner-only caller does not invoke it. Separate resize tests do.
+Allocation, virtual I/O and sample-device entry remain modeled. The synthetic
+heap has explicit descriptors and context-owned slots; it is not real allocation.
 Native loader argument slots are scratch storage, so the ABI check protects the
 return address, caller guard, stack balance and nonvolatiles without promising
 argument bytes survive. Defined WORD argument/return bits exclude unspecified
 upper register bits. All 134 accepted raw matches remain exact.
 
 The measured data adds a 64-byte bank-pointer prefix and 94 literal bytes.
-The real music-path table and resize callback become explicit graph dependencies;
-the existing resize draft still needs native verification before selection.
-See `evidence/host_music_recovery.json` and replay:
+The real music-path table remains an explicit unresolved graph dependency.
+The unchanged resize draft has now passed 247 guarded native/source cases and
+five rejected wrong variants, including overlapping copies, unsigned rounding
+wrap, pinned flags, neighboring free blocks and the one-word owner-word alias.
+Its complete 192-byte contribution still has 148 diagnostic differences and
+remains `RECONSTRUCTED`. No spelling search or exact-match promotion occurred.
+All 134 previously accepted functions remain raw exact. See
+`evidence/host_music_recovery.json` for the initial evidence and
+`evidence/host_resize_recovery.json` for the integrated replay:
 
 ```
 python scripts/host_music_differential.py --original-root D:/Prog/hercules_recon --output work/host_music_replay
+python scripts/host_resize_differential.py --original-root D:/Prog/hercules_recon --output work/host_resize_replay
 ```
 
 The loader now has an independent source provider for four observed DWORD cells

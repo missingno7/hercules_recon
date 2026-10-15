@@ -1,0 +1,200 @@
+{
+  "schema": 1,
+  "scope": "Original PC heap resize provider and actual music-caller integration. Existing historical source body unchanged. Native instructions execute only inside a guarded offline emulator;no game process,Windows allocation,audio or gameplay acceptance. recovery.json alone owns function states.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "prediction": {
+    "path": "work/host_resize/prediction.json",
+    "sha256": "a5f9128de8aa851179be0a8e4959239133732ce28719c739706705d5527a3ad8"
+  },
+  "sources": [
+    {
+      "path": "calibration/host_pool_shrink.c",
+      "sha256": "9e7c250a8e48eb0e60aec6c09099a2f5ac0ec8576fa360a594b89b65eac309dc"
+    },
+    {
+      "path": "calibration/host_pool_shrink_format.c",
+      "sha256": "642849e32fc0879950f2284d0ad19e0c3f794f7cf3b13872f710e7690ce4661a"
+    },
+    {
+      "path": "scripts/host_resize_differential.py",
+      "sha256": "5fe1d420c2662cc190864acc5a9fafac986773693233de3033d9789414d9a655"
+    },
+    {
+      "path": "scripts/host_music_differential.py",
+      "sha256": "312184224bea0b2c5b5b0173b4d3f6afd6b3cbc87949d496a529347bca7446e8"
+    }
+  ],
+  "prior_context": [
+    "evidence/host_pool_shrink_region.json",
+    "evidence/host_pool_shrink_experiment.json",
+    "evidence/host_pool_shrink_alias.json",
+    "evidence/crt_copy.json",
+    "evidence/host_music_recovery.json"
+  ],
+  "new_discriminator": "The actual music loader calls owner-only1 through a context-owned output slot. Native/source execution with actual coalescer and identified CRT tests the existing draft and its one-word alias,without reopening exhausted source-spelling families.",
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest": {
+      "path": "toolchains/manifest.json",
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    },
+    "flags": [
+      "/O2"
+    ],
+    "implicit_flag": "/Gy",
+    "emulator": "Existing Unicorn2.1.4 DLL010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1;no dependency installed or patched."
+  },
+  "function": {
+    "id": "exe.host_pool_shrink_4690",
+    "symbol": "_shrink_relocate",
+    "rva": "0x4690",
+    "native_complete_bytes": 192,
+    "body_bytes": 184,
+    "compiled_complete_bytes": 192,
+    "raw_equal": false,
+    "raw_differing_bytes": 159,
+    "source_relocations": 4,
+    "diagnostic_differing_bytes": 148,
+    "status": "RECONSTRUCTED",
+    "canonical_body_unchanged": true
+  },
+  "behavior": [
+    "Null and equal-rounded-capacity return0 unchanged;growth returns old payload unchanged. Rounding is unsigned32-bit wrap.",
+    "Strict shrink creates a high-end allocated block,preserves pinned flag,marks the low remainder free and separately captures the external owner-slot address before stores.",
+    "Owner-only rereads the live old-header owner word after descriptor stores. A one-word remainder therefore transfers descriptor bits into the new owner word. The saved external owner slot still receives the new payload. This native behavior is preserved.",
+    "Copy mode moves the owner word plus retained payload through identified unmodified CRT memmove. Actual coalescence follows the external owner update;diagnostic follows coalescence. Return remains the old payload."
+  ],
+  "literal": {
+    "symbol": "_g_fmt_remalloc",
+    "rva": "0x360f0",
+    "bytes": 32,
+    "sha256": "b8fa99b8ce0838a0bbd56b0119bc9b6a8eddfcc1ad33e3b83c9e3324e1f2aad8",
+    "fresh_native_prefix_equal": true,
+    "limit": "Observed complete NUL-terminated diagnostic text. Current const view follows the frozen helper declaration;original source constness,section/TU,total ownership and placement unproved."
+  },
+  "library": {
+    "archive": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+    "archive_sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b",
+    "member_sha256": "0f29aab09e6fc7a2a24f13e6be7a9404c5226ab776a9f60b7d7bcc33a29b3078",
+    "complete_bytes": 821,
+    "local_operands_verified": 46,
+    "nonrelocation_bytes_equal": true,
+    "variant_limit": "LIBC/LIBCMT and memcpy/memmove code are identical here;original public name/runtime variant is unproved."
+  },
+  "isolated_fixture": {
+    "receipt": {
+      "path": "work/host_resize/accepted_unit/host_resize_differential.json",
+      "sha256": "132b8074fc5d5a3c5df0ce10a5a681035f7e3b20039fc421029f7b2f4b3e62bb"
+    },
+    "cases": 247,
+    "all_equal": true,
+    "actual_calls": {
+      "copy": 60,
+      "coalesce": 168,
+      "diagnostic": 168
+    },
+    "negative_controls": [
+      "cached_owner_word",
+      "returns_new_payload",
+      "loses_pinned_flag",
+      "copy_omits_final_word",
+      "omits_coalescence"
+    ],
+    "checks": [
+      "Complete heap including terminal descriptor,48-byte pool state,external/inside owner cells,full DWORD return and ordered calls.",
+      "Four sizes,aligned/unaligned/zero/equal/growth/overflow requests,pinned flag,zero/nonzero owner-only,pool IDs0..3,neighboring free blocks and overlapping copy.",
+      "Code/write whitelists,outer guards,return address,caller guard,ESP,nonvolatile registers and clear direction flag."
+    ],
+    "models": "No modeled callees on the exercised resize path. Heap and owner cells are explicit synthetic preconditions."
+  },
+  "composed_music_fixture": {
+    "receipt": {
+      "path": "work/host_resize/accepted_music/host_music_differential.json",
+      "sha256": "d1affe4716bcadc8c84b2c3b00f1c88916382732419c57f18d72a3653d0baf70"
+    },
+    "cases": 140,
+    "all_equal": true,
+    "actual_family_invocations": 146,
+    "sequences": 2,
+    "actual_resize_entries": 29,
+    "actual_coalesce_entries": 25,
+    "CRT_copy_entries": 0,
+    "negative_controls": [
+      "gain_compares_only_cached_word",
+      "auto_slot_rejected",
+      "allocation_rounds_up",
+      "bank_id_loses_upper_nibble",
+      "preload_caches_header"
+    ],
+    "new_offsets": [
+      0,
+      1,
+      3,
+      4,
+      7,
+      8,
+      260
+    ],
+    "checks": [
+      "Whole guarded context/interface/bank/path/filename/blob/heap/pool hashes,ordered effects and returns.",
+      "Real music loader updates its context-owned slot through actual resize/coalescer,including equal-capacity and one-word remainder.",
+      "Identified CRT member is linked but owner-only music path does not invoke it;isolated resize tests execute copy mode."
+    ],
+    "models": "Virtual I/O,formatting,allocation and sample-device entry remain modeled. Compiled host_allocate is intercepted at its real entry. Context reload effects,table capacities and fixture heap descriptors are test preconditions,not production ownership/capacity proof."
+  },
+  "regression": {
+    "prior_775_rows_unchanged": true,
+    "new_rows": 1,
+    "current_counts": {
+      "FUNCTION_MATCH": 134,
+      "CODEGEN_SIMILAR": 570,
+      "RECONSTRUCTED": 72
+    },
+    "strict_gate": {
+      "path": "work/host_resize/strict134.json",
+      "sha256": "dcc1d0d4bdcad9024e867256ec0231630a070016836ef39be30a8380a5606475"
+    },
+    "all_134_raw_exact": true,
+    "new_raw_matches": 0
+  },
+  "natural_graph": {
+    "prediction": {
+      "path": "work/host_resize/graph_prediction.json",
+      "sha256": "0b7e2561f9da54cd59dbc38f8978ebb078f97e0f9ad9505718291e82baf28d1e"
+    },
+    "receipt": {
+      "path": "work/host_current_graph/report-81b089522bda6bd1.json",
+      "sha256": "81b089522bda6bd1abae91a8e4f3ca874a02cf6d5aad770ddb51fffd84c6fea2"
+    },
+    "units": 146,
+    "recorded_EXE_functions": 255,
+    "accepted_EXE_functions": 27,
+    "unresolved": [
+      "_g_archive_scratch",
+      "_g_host_engine_error_91c040",
+      "_g_host_engine_interface",
+      "_g_host_engine_path_91bbd8",
+      "_g_host_music_paths_rva_35178",
+      "_g_host_setup_input_buffer0_7a2a00",
+      "_g_host_setup_input_buffer1_7a2a40",
+      "_g_resource_filename"
+    ],
+    "unresolved_data": 8,
+    "unresolved_functions": 0,
+    "duplicate_link_errors": 0,
+    "images_produced": 0,
+    "images_executed": 0
+  },
+  "replay_commands": [
+    "python scripts/host_resize_differential.py --original-root D:/Prog/hercules_recon --output work/host_resize_replay",
+    "python scripts/host_music_differential.py --original-root D:/Prog/hercules_recon --output work/host_music_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/host_resize_raw_replay.json"
+  ],
+  "limits": [
+    "Finite semantic agreement does not establish raw code equality;148diagnostic differences remain.",
+    "No original unique declaration,TU,source identity,global adjacency,library public-name/runtime variant or linked-image equality. EXE base relocations are stripped.",
+    "Eight real data providers and known natural MFC/CRT allocator selection discrepancy remain. No guessed storage capacities,stubs,aliases,forced image or game process.",
+    "Actual startup,menu,input and gameplay remain required for the user-testable game goal;renderer work is deferred."
+  ]
+}
