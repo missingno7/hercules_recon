@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 115 actual source units with
-149 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 32 unresolved dependencies: 18 newly exposed frame
-callbacks and 14 other providers. Including the real map replaces one missing
+The current natural selected host graph compiles 117 actual source units with
+150 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 31 unresolved dependencies: 18 newly exposed frame
+callbacks and 13 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -812,3 +812,24 @@ The natural link resolves this real storage dependency and now has 32 missing
 providers. Original total allocation,type/TU/layout,indirect ownership closure
 and arbitrary-header/COM safety remain unproved. Earlier fixture-only receipts
 retain their historical scope. See `evidence/host_sound_scratch_recovery.json`.
+
+The original platform-state reconciliation at `0x5a50` now has canonical source
+bound to existing input/pending,registry and audio/display owners. It executes
+the actual eight platform callbacks and eight descendants,including restoration,
+construction,decoding,release,CD readiness and priority transitions.
+
+```
+python scripts/host_platform_integrated_differential.py --output work/platform_integrated_replay
+```
+
+Thirty-seven whole-state/heap/event comparisons pass. They retain the native
+cache early-return behavior even with dirty flags, signed-byte comparisons,
+full-DWORD fields, post-callback reloads and final live cache capture. An ignored
+negative copy restoring the old snapshots skips sound pause after the controlled
+COMStop mutation;native and corrected source execute it. Only OS/COM/CRT/archive
+boundaries are modeled. Fresh initialized cache bytes and complete native title
+literals agree; new dirty BYTEs have native zero backing. Source 464 retains 147
+diagnostic differences and remains `RECONSTRUCTED`. All 133 accepted matches remain
+raw exact. The selected 117-unit host graph resolves this real dependency and
+has 31 missing providers. Earlier caller-only receipts retain their historical
+scope. See `evidence/host_platform_sync_recovery.json`.
