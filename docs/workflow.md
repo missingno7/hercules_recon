@@ -96,11 +96,11 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 124 actual source units with
-166 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 17 unresolved dependencies: five frame
-callbacks and 12 data providers. Including the real map replaces one missing
-map symbol with its actual missing callback bodies. These counts are diagnostics,
+The current natural selected host graph compiles 126 actual source units with
+200 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 36 unresolved dependencies: four frame
+callbacks, twenty newly exposed Options callbacks and 12 data providers. Including
+the real map replaces one missing map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
 PreCreateWindow fixture deliberately omits the production map unit; its sole
@@ -168,6 +168,26 @@ consumer sections survive. See `evidence/host_frame_paint_recovery.json`.
 
 ```
 python scripts/host_frame_paint_differential.py --output work/frame_paint_replay
+```
+
+The actual Options class hierarchy is now represented with COptionsSheet and
+four embedded pages: CKeyboardPage, CJoystickPage, CSoundPage and CGamePlayPage.
+Their runtime names, sizes, real control types, member offsets, 299 own virtual
+slots and five message maps are measured against the PC image. Fresh VC5 output
+for 33 class contributions and the 160-byte frame caller is diagnostic-equal;
+all retain raw relocation differences. The audit checks shared symbol bindings
+across code and typed data. It rejects a same-size wrong-control substitution
+that has zero unmasked instruction differences. The relocation-stripped EXE has
+no native base-relocation inventory; that equality is not claimed.
+
+The real hierarchy exposes twenty missing page callbacks while resolving the
+frame Options entry. These remain declarations, so the larger natural unresolved
+count records genuine work still needed. No modal dialog or UI callback execution
+is accepted from this static audit. All 133 exact functions and the 81 sections
+in nine existing frame units survive. See `evidence/host_options_class_recovery.json`.
+
+```
+python scripts/host_options_class_audit.py --output work/options_class_audit
 ```
 
 The loader now has an independent source provider for four observed DWORD cells
