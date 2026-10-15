@@ -96,9 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 142 actual source units with
-247 recorded EXE functions and preserves 27 accepted EXE functions. It has no
-duplicate providers and seven unresolved data providers. Including
+The current natural selected host graph compiles 144 actual source units with
+254 recorded EXE functions and preserves 27 accepted EXE functions. It has no
+duplicate providers and nine unresolved dependencies: eight data providers and
+the resize-function provider. Including
 the real map replaces one missing map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -339,8 +340,35 @@ result; game execution remains unverified. See
 These real callers expose their separate writable filename buffer at `0x215c10`.
 It remains an unsized external dependency; neither its next neighbor nor the
 fixture's 512-byte array establishes an original capacity. The selected graph
-therefore has seven missing data providers, rather than hiding this dependency
+therefore retains that missing data provider, rather than hiding this dependency
 behind the unrelated empty text or a guessed production buffer.
+
+The first EXE region is now identified as music/control code by the native
+`LoadMusic`, `MUSIC.MUS` and VAB messages. Seven source functions cover gain
+application, signaling, base/user initialization, music loading, sixteen-slot
+bank registration and the live 128-sample preload walk. Four complete contributions
+have relocation-normalized equality. Apply/signal/load retain 68/2/393 diagnostic
+differences; the loader is 528 versus 544 bytes and remains reconstructed.
+The source uses a non-owning byte view of the existing context, preserving all
+shared layouts and leaving path-record capacity/ownership unresolved.
+
+All 133 native/source cases pass, with five rejected errors and two composed
+control/loading sequences. Actual file-length/synchronous-load and existing
+prepare/empty/diagnostic/zero/true bodies execute. Allocation, resize, virtual I/O
+and sample-device entry remain modeled; their source provenance is recorded.
+Native loader argument slots are scratch storage, so the ABI check protects the
+return address, caller guard, stack balance and nonvolatiles without promising
+argument bytes survive. Defined WORD argument/return bits exclude unspecified
+upper register bits. All 134 accepted raw matches remain exact.
+
+The measured data adds a 64-byte bank-pointer prefix and 94 literal bytes.
+The real music-path table and resize callback become explicit graph dependencies;
+the existing resize draft still needs native verification before selection.
+See `evidence/host_music_recovery.json` and replay:
+
+```
+python scripts/host_music_differential.py --original-root D:/Prog/hercules_recon --output work/host_music_replay
+```
 
 The loader now has an independent source provider for four observed DWORD cells
 and the pinned SDK's 64-byte `jmp_buf` representation. All 80 source bytes have
