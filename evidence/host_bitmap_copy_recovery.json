@@ -1,0 +1,446 @@
+{
+  "schema": 1,
+  "scope": "Original PC indexed bitmap resampling at RVA 0x6530. Actual native and fresh historical source execute with the identified unmodified CRT __ftol. Recovery state remains solely in recovery.json.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_bitmap_copy.cpp",
+      "sha256": "61a52e60391e36dace3f4b2f4494591378d3742249ee53aa35e705b72b93ea6d"
+    },
+    {
+      "path": "scripts/host_bitmap_copy_differential.py",
+      "sha256": "8bb71bc62b899d04bdde51e1210a0cbc568577e4bca23f0b20a97cce653fc2c7"
+    }
+  ],
+  "prediction": {
+    "path": "work/host_bitmap_copy/prediction.json",
+    "sha256": "a878aceef7eacaed8051d96e25ef0c54bf568dacef5d36f807542856ab5219b5"
+  },
+  "measurement": {
+    "initial": {
+      "path": "work/host_bitmap_copy/candidate-initial-order.json",
+      "sha256": "6b6502ab1ed8e67dcbad89d42c24f5df4eb95b06f608bda9d795288f6ffa8a7d"
+    },
+    "current_public": {
+      "path": "work/host_bitmap_copy/public_pinned/bitmap_copy_differential.json",
+      "sha256": "161b2a2321703d1b4e576f6b81833e0698fc209c4dc12f278c65fe1787b8687e"
+    },
+    "native_bytes": 240,
+    "body_bytes": 226,
+    "raw_exact": false,
+    "raw_differences": 17,
+    "diagnostic_equal": false,
+    "diagnostic_differences": 5,
+    "object_relocations": [
+      {
+        "offset": 122,
+        "symbol": "$T201",
+        "type": 6
+      },
+      {
+        "offset": 144,
+        "symbol": "$T201",
+        "type": 6
+      },
+      {
+        "offset": 151,
+        "symbol": "__ftol",
+        "type": 20
+      },
+      {
+        "offset": 171,
+        "symbol": "__ftol",
+        "type": 20
+      }
+    ],
+    "native_relocations": [],
+    "native_sha256": "a0d624fc8145dc622cd43cbdae9182a6e8f28b4e2c3ae78c45435e42d308806a",
+    "compiled_sha256": "a6ed63789babb68839b3274c93f500c79fb31163f7406f08a57b287096794757",
+    "residual": "Native clears column ESI at +0x96 before the first conversion call at +0x98; source calls at +0x96, moves EAX to EDI at +0x9b and clears ESI at +0x9d. Both rejoin at +0x9f. This changes five diagnostic bytes and the first call relocation position. The resulting inconsistent normalized __ftol address is an instruction-order consequence, not a second conversion provider."
+  },
+  "behavior": [
+    "Reject null pointers, nonpositive signed dimensions or pitches smaller than their widths.",
+    "Compute float32 source/target width and height ratios once under the current x87 rounding mode. Accumulate x/y in x87, resetting x for each target row; truncate through actual CRT __ftol.",
+    "Copy scalar bytes forward with no clamping or overlap temporary; advance destination by target pitch. Preserve all untouched arena and padding bytes."
+  ],
+  "controlled_experiment": {
+    "change": "Only row > 0 and x initialization before y-to-row conversion changed from the initial ordinary candidate.",
+    "result": "Full contribution remains 240 bytes; diagnostic differences decreased from nine to five. Remaining call/column scheduling difference is retained without a syntax/register grid."
+  },
+  "runtime_library": {
+    "member": 602,
+    "member_sha256": "4c68cac6975e7868a1ed4f422a2a3ef5333d930298ea2617e76a2366681eb79b",
+    "bytes": 39,
+    "raw_original_equal": true,
+    "raw_linked_equal": true,
+    "code_sha256": "d0a2aca68648a0ae9d5cbfae1b276d4a64d4f797fc0c60f28b64096cdfa3148c",
+    "relocations": 0,
+    "scope": "Identified unmodified CRTcode,not reconstructed game function or acceptance.",
+    "library_path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\lib\\libcmt.lib",
+    "library_sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b",
+    "native_rva": "0x10d90",
+    "method": "Read archive member 602 for audit only. Link the normal pinned libcmt library; independently require the selected 39-byte linked __ftol to equal both the member and native body. No extracted member injection, helper rewrite or game function acceptance."
+  },
+  "fixture_link": {
+    "first_failure": {
+      "path": "work/host_bitmap_copy/private_run/initial_missing_runtime_imports.log",
+      "sha256": "b089c71f3d8409a9899eda4002bb5a2fba62013ff964ef3c80a70a5e67ebdc3f"
+    },
+    "correction": "Float CRT linkage exposed ordinary runtime import dependencies; normal pinned kernel32.lib and user32.lib resolved them. Inert main supplies the selected CRT startup dependency but is never executed. Only bitmap copy and __ftol are executable in the emulator whitelist.",
+    "production_scope": "Fixture /NOENTRY and export anchor establish no historical game entry point or linker flags."
+  },
+  "validation": {
+    "report": {
+      "path": "work/host_bitmap_copy/public_pinned/bitmap_copy_differential.json",
+      "sha256": "161b2a2321703d1b4e576f6b81833e0698fc209c4dc12f278c65fe1787b8687e"
+    },
+    "case_count": 26,
+    "all_equal": true,
+    "arena_bytes_each": 393216,
+    "scenarios": [
+      {
+        "name": "normal"
+      },
+      {
+        "name": "null_source",
+        "source": null
+      },
+      {
+        "name": "null_target",
+        "target": null
+      },
+      {
+        "name": "zero_guard_0",
+        "shape": [
+          0,
+          5,
+          11,
+          13,
+          9,
+          17
+        ]
+      },
+      {
+        "name": "zero_guard_1",
+        "shape": [
+          7,
+          0,
+          11,
+          13,
+          9,
+          17
+        ]
+      },
+      {
+        "name": "zero_guard_2",
+        "shape": [
+          7,
+          5,
+          0,
+          13,
+          9,
+          17
+        ]
+      },
+      {
+        "name": "zero_guard_3",
+        "shape": [
+          7,
+          5,
+          11,
+          0,
+          9,
+          17
+        ]
+      },
+      {
+        "name": "zero_guard_4",
+        "shape": [
+          7,
+          5,
+          11,
+          13,
+          0,
+          17
+        ]
+      },
+      {
+        "name": "zero_guard_5",
+        "shape": [
+          7,
+          5,
+          11,
+          13,
+          9,
+          0
+        ]
+      },
+      {
+        "name": "negative_source_width",
+        "shape": [
+          -1,
+          5,
+          11,
+          13,
+          9,
+          17
+        ]
+      },
+      {
+        "name": "negative_target_height",
+        "shape": [
+          7,
+          5,
+          11,
+          13,
+          -1,
+          17
+        ]
+      },
+      {
+        "name": "short_source_pitch",
+        "shape": [
+          7,
+          5,
+          6,
+          13,
+          9,
+          17
+        ]
+      },
+      {
+        "name": "short_target_pitch",
+        "shape": [
+          7,
+          5,
+          11,
+          13,
+          9,
+          12
+        ]
+      },
+      {
+        "name": "one_pixel",
+        "shape": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "identity_padded",
+        "shape": [
+          17,
+          11,
+          23,
+          17,
+          11,
+          29
+        ]
+      },
+      {
+        "name": "upscale",
+        "shape": [
+          3,
+          2,
+          7,
+          17,
+          13,
+          23
+        ]
+      },
+      {
+        "name": "downscale",
+        "shape": [
+          31,
+          23,
+          37,
+          7,
+          5,
+          13
+        ]
+      },
+      {
+        "name": "fractional_boundary",
+        "shape": [
+          1,
+          1,
+          3,
+          49,
+          17,
+          53
+        ]
+      },
+      {
+        "name": "self_copy",
+        "source": 65568,
+        "target": 65568,
+        "shape": [
+          17,
+          11,
+          23,
+          17,
+          11,
+          23
+        ]
+      },
+      {
+        "name": "forward_overlap",
+        "source": 65568,
+        "target": 65571,
+        "shape": [
+          17,
+          11,
+          23,
+          19,
+          9,
+          27
+        ]
+      },
+      {
+        "name": "backward_overlap",
+        "source": 65573,
+        "target": 65568,
+        "shape": [
+          17,
+          11,
+          23,
+          13,
+          9,
+          21
+        ]
+      },
+      {
+        "name": "game_frame",
+        "shape": [
+          320,
+          240,
+          324,
+          320,
+          240,
+          336
+        ]
+      },
+      {
+        "name": "control_0x37f",
+        "cw": 895,
+        "shape": [
+          7,
+          5,
+          11,
+          49,
+          17,
+          53
+        ]
+      },
+      {
+        "name": "control_0x67f",
+        "cw": 1663,
+        "shape": [
+          7,
+          5,
+          11,
+          49,
+          17,
+          53
+        ]
+      },
+      {
+        "name": "control_0xa7f",
+        "cw": 2687,
+        "shape": [
+          7,
+          5,
+          11,
+          49,
+          17,
+          53
+        ]
+      },
+      {
+        "name": "control_0xe7f",
+        "cw": 3711,
+        "shape": [
+          7,
+          5,
+          11,
+          49,
+          17,
+          53
+        ]
+      }
+    ],
+    "checks": "Whole arena equals independent dyadic-ratio forward-copy reference and source/native peer, including padding and overlapping writes. Check conversion count, caller stack, nonvolatile registers, stack guards, FPU control word, empty FPU tag and execution/write whitelists.",
+    "fpu_controls": [
+      "0x027f",
+      "0x037f",
+      "0x067f",
+      "0x0a7f",
+      "0x0e7f"
+    ],
+    "reference_limit": "Bounded tested dimensions keep float32-step products exactly representable at tested x87 precisions; this reference is not an arbitrary-size or all-FPU-state proof."
+  },
+  "regression": {
+    "strict": {
+      "path": "work/host_bitmap_copy/strict133.json",
+      "sha256": "47e1ca86c29135ad3d650f35a4518cd284d437a9f3c59b89803ce18af6e3fecf"
+    },
+    "raw_exact_functions": 133,
+    "all_661_prior_rows_identical": true,
+    "rows_added": 1,
+    "status_counts": {
+      "FUNCTION_MATCH": 133,
+      "CODEGEN_SIMILAR": 476,
+      "RECONSTRUCTED": 53
+    },
+    "natural_graph": {
+      "path": "work/host_current_graph/report-030ee362226b283e.json",
+      "sha256": "030ee362226b283ebef026bcc543589a6e465356c4817856bdd0925c93d7885f"
+    },
+    "source_units": 107,
+    "recorded_EXE_functions": 141,
+    "preserved_exact_EXE_functions": 26,
+    "unresolved": 33,
+    "duplicate_providers": 0,
+    "images_produced": 0
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "implicit_compile_flag": "/Gy",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "analysis_tools": {
+    "python": {
+      "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "version": "3.12.14",
+      "sha256": "d41bad46673f64e0d02f23797f53f90ccf60f27d6eda8d86dd2d4bbeae5a858c"
+    },
+    "pefile": {
+      "path": "C:\\tools\\hercules\\python\\pefile.py",
+      "version": "2024.8.26",
+      "sha256": "0d0eb68f0f169182613dc64b3ab50b20855508c1c1d2faafe8fccf23edb6a345"
+    },
+    "unicorn": {
+      "path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+      "version": "2.1.4",
+      "sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+    },
+    "origin": "Existing C:/tools/hercules installations and bundled workspace Python; prior provenance in evidence/host_engine_loader_recovery.json. No tool/dependency added or modified."
+  },
+  "commands": [
+    "python scripts/host_bitmap_copy_differential.py --output work/bitmap_copy_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/bitmap_copy_strict_replay.json",
+    "python work/host_current_graph/run.py"
+  ],
+  "limits": [
+    "Finite pixel/FPU/ABI agreement does not establish exact machine-code matching, original source/prototype/TU, module layout or arbitrary pointer, huge-dimension, exceptional/unmasked FPU behavior.",
+    "No game process, OS API, display device, menu, gameplay or renderer execution occurs. The natural host link still fails on 33 real dependencies; reconstruction goal remains active."
+  ]
+}

@@ -8,7 +8,7 @@
     "baseline": "D:/Prog/hercules_recon/work/root_actor_relative_28/exe_graph.json",
     "scope": "Current actual-source host dependency evidence, not runtime or completion. No code edits planned for this measurement.",
     "recorded_before_compile": true,
-    "context": "Actual color fill6EE0,search6850 and16-bytecache prefix now participate.106units/140recordedEXE functions;18frame callbacks and16otherdependencies remain."
+    "context": "Actual bitmap copy at 0x6530 now participates, with identified CRT conversion dependency. 107 units / 141 recorded EXE functions; 18 frame callbacks and 15 other dependencies remain."
   },
   "sources": [
     {
@@ -625,6 +625,13 @@
       ]
     },
     {
+      "source": "src/pc/host_bitmap_copy.cpp",
+      "source_sha256": "61a52e60391e36dace3f4b2f4494591378d3742249ee53aa35e705b72b93ea6d",
+      "flags": [
+        "/O2"
+      ]
+    },
+    {
       "source": "calibration/host_startup_storage.c",
       "source_sha256": "654dd90ddb9133cd45dfd434d347067082b4bd2772d4fa25b8e92071d7834c6e",
       "flags": [
@@ -768,13 +775,13 @@
     }
   ],
   "validation": {
-    "fresh_source_units": 106,
-    "recorded_EXE_functions": 140,
+    "fresh_source_units": 107,
+    "recorded_EXE_functions": 141,
     "preserved_exact_EXE_functions": 26,
     "duplicate_providers": 0,
-    "unresolved_symbols": 34,
+    "unresolved_symbols": 33,
     "missing_frame_callbacks": 18,
-    "other_missing_providers": 16,
+    "other_missing_providers": 15,
     "natural_link_exit_code": 25,
     "images_produced": 0,
     "images_executed": 0,
@@ -885,9 +892,6 @@
     "_graphics_native_05a50": [
       "calibration/display_mode_transition.cpp"
     ],
-    "_graphics_native_06530": [
-      "calibration/display_mode_transition.cpp"
-    ],
     "_host_service_fdf0": [
       "calibration/host_startup.c"
     ]
@@ -943,24 +947,24 @@
     }
   ],
   "private_receipt": {
-    "path": "work/host_current_graph/report-64c5349fecb5f9fa.json",
-    "sha256": "64c5349fecb5f9fa7785a09f10f88ea99cc6b19d4682a20121c4e221eca143e6"
+    "path": "work/host_current_graph/report-030ee362226b283e.json",
+    "sha256": "030ee362226b283ebef026bcc543589a6e465356c4817856bdd0925c93d7885f"
   },
   "command": "python work/host_current_graph/run.py",
   "toolchain": "msvc5_rtm",
   "limits": [
-    "Selectedactual-source graph has106units and140recordedEXE functions;counts are not complete application coverage orwhole-game denominator.",
+    "Selected actual-source graph has 107 units and 141 recorded EXE functions; these counts are not complete application coverage or a whole-game denominator.",
     "The real host interface initializer, graphics/startup services and loader storage remain missing. No returning stubs, guessed path/archive buffers or forced executable were used.",
     "The natural source link fails on the recorded realdependencies; do not count this receipt as a playable build.",
     "Known allocator dependency mismatch: MFC-first selects afxmem.obj; CRT-first duplicates new/delete. See evidence/host_frame_class_recovery.json. No forced link or library rewrite used."
   ],
-  "recovery_sha256": "7dc927aafe5cf253791c1aa9e02477c63b83505397033af72bdee50b4f8514cd",
+  "recovery_sha256": "68643675551455c46cd13b62cc9a0108d301fb10bc5909d67600a3f8d05cb864",
   "previous_graph_receipt": {
-    "path": "work/host_current_graph/report-3423e1ef2d949313.json",
-    "sha256": "3423e1ef2d9493131d4036df5c3a4006fb5241102f742e655961aa644f8d339d"
+    "path": "work/host_current_graph/report-64c5349fecb5f9fa.json",
+    "sha256": "64c5349fecb5f9fa7785a09f10f88ea99cc6b19d4682a20121c4e221eca143e6"
   },
   "current_prediction": {
-    "path": "work/host_color_fill/prediction.json",
-    "sha256": "dc77b0ffa1005bddd1f90e56d057e9ae1c6e1b9f8b07662b62605703b8eeddf9"
+    "path": "work/host_bitmap_copy/prediction.json",
+    "sha256": "a878aceef7eacaed8051d96e25ef0c54bf568dacef5d36f807542856ab5219b5"
   }
 }

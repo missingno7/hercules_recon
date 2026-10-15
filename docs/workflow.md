@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 106 actual source units with
-140 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 34 unresolved dependencies: 18 newly exposed frame
-callbacks and 16 other providers. Including the real map replaces one missing
+The current natural selected host graph compiles 107 actual source units with
+141 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 33 unresolved dependencies: 18 newly exposed frame
+callbacks and 15 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -676,3 +676,23 @@ initialized sections to have consistent inferred bases and complete raw equality
 with no omitted storage. Neither result accepts a function, TU or native layout.
 Keep genuine-prefix uncertainty explicit and leave normal staging/promotion
 unchanged. See `evidence/fx_unit_convergence_2026_10_11.json` for a pinned example.
+
+The original indexed bitmap copy at EXE `0x6530` now has ordinary historical
+source, preserving float32 ratios, x87 accumulation and forward byte copies.
+Its actual CRT `__ftol` is identified as libcmt member 602: all 39 bytes equal
+the native helper and the independently selected, normally linked library body.
+It is library code, not a rewritten recovered game function.
+
+```
+python scripts/host_bitmap_copy_differential.py --output work/bitmap_copy_replay
+```
+
+Twenty-six cases compare whole 393,216-byte arenas, guards, ABI and FPU state,
+including overlap, row padding, a 320x240 frame and five control-word settings.
+No conversion effect is modeled. The source remains `RECONSTRUCTED`: the complete
+240-byte contribution retains five diagnostic differences in scheduling the
+column clear around the first conversion call, plus four relocations. A bounded
+source-order discriminator reduced nine differences to five; no spelling grid
+was used. All 133 accepted functions remain raw exact. This removes the actual
+bitmap-copy dependency from display-mode transition; it does not run a display
+or game. See `evidence/host_bitmap_copy_recovery.json`.
