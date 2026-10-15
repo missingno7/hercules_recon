@@ -1,5 +1,11 @@
 # REA evaluation (experimental, 2026-10-15)
 
+The later [ENG1 camera follow-up](../../docs/eng1_camera_bounds.md) uses this
+existing client/provider to recover a real missing dependency and correct its
+caller's output extent. REA's inferred ABI was rejected using x86 evidence.
+The historical calibration below remains evidence for its original inputs;
+the follow-up adds source and finite tests without changing strict acceptance.
+
 This directory evaluates whether [REA](https://github.com/morluto/rea), the
 `rea-agents` npm package (an MCP server/CLI over Ghidra, Hopper, IDA and
 others), helps Hercules reconstruction. REA output is **evidence only**. Nothing

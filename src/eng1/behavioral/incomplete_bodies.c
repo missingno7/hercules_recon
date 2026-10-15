@@ -14,14 +14,6 @@ void __cdecl dispatch_local_0e670(void)
     ExitProcess(0xe0484731UL);
 }
 
-/* INCOMPLETE: ENG1.DLL RVA 0x20ea0; unimplemented_function. */
-void __cdecl dispatch_local_20ea0(void)
-{
-    eng1_incomplete_behavior(0x20ea0UL,
-        "unimplemented entry dispatch_local_20ea0; opaque arguments; no success return");
-    ExitProcess(0xe0484731UL);
-}
-
 /* INCOMPLETE: ENG1.DLL RVA 0x26730; unimplemented_function. */
 void __cdecl eng1_call_26730(void)
 {

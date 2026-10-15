@@ -67,7 +67,8 @@ void __cdecl dispatch_local_2fb70(void)
     int index, bounded;
     u32 flags;
     u8 *actor;
-    short bounds[4];
+    /* 20ea0 writes seven WORDs for every nonzero mode, including 0x18. */
+    short bounds[7];
 
     g_camera_prior_y_70cc8 = g_camera_y_70ca4;
     x = g_camera_x_70ca0;

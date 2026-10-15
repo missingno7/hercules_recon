@@ -1,0 +1,141 @@
+{
+  "schema": 1,
+  "scope": "Bounded original/source recovery of ENG1 camera packed-row helper; recovery.json alone owns function status.",
+  "oracle": {
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "rva": "0x20ea0",
+    "body_size": 422,
+    "padded_size": 432,
+    "span_sha256": "adc9c78f9ae99d00e37f62cc6cca4f97ddfef8fb4e5a6f52a86373891c8525ae"
+  },
+  "prediction": {
+    "family": "ENG1 direct dispatcher/camera/actor dependencies",
+    "prediction": "Every nonzero mode writes seven WORDs, including a repeated live read of lane+12. Count-zero clamps to one and signed root count rejects only id>=count. A fourteen-byte output is required.",
+    "falsifier": "Original/source return, fault, packed-byte mutations or output guard bytes disagree on boundary, overflow or overlapping storage cases.",
+    "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "recovery_before_sha256": "d8d525766f1f2cfc0aa5899c422c297c86ae8d6aea5bf150508a6c242c669884",
+    "selected": "0x20ea0, cdecl four stack arguments; packed resource rows; no callees"
+  },
+  "rea": {
+    "version": "6.5.0",
+    "provider": "Ghidra 12.1",
+    "origin_and_tarball_pin": "prototypes/rea_eval/README.md",
+    "launcher_sha256": "526105418604cc6e5a202a6275b700814e27450bfaffd45e7510530ba669de8d",
+    "client_sha256": "44924c7934939bb9a28bb4c0fe2c7d3cd9ed36ef7104537b1f3868547abe66d2",
+    "seed_sha256": "36b822f502933a887b948fb052038f8d0cd9637a58f5ae202c7f66908f3a032f",
+    "plan_sha256": "935f70ca37d37c2bb8d5903628fc3914ba39e8a4e27458d0d10a0b9ba6cfcb89",
+    "transcript_sha256": "58127600be631f2a3a9c0a35c9792b0f52c80fec81cd4488644ece773df58ef3",
+    "query_ms": {
+      "initialize": 952,
+      "open_binary": 80,
+      "pc_e670": 45954,
+      "ins_e670": 12,
+      "pc_20ea0": 18,
+      "ins_20ea0": 4,
+      "pc_26730": 43,
+      "ins_26730": 7
+    },
+    "initial_sandbox_failure": "EACCES creating private temporary input; analysis succeeded through approved execution outside the sandbox, with unchanged tools.",
+    "contribution": "Packed relative row/count structure, selection loop, repeated nonzero-mode output blocks.",
+    "rejected_inference": "REA labeled six parameters, fastcall and longlong return. The caller/x86 show four cdecl stack arguments and EAX success; EDX is incidental.",
+    "other_targets": {
+      "0xe670": "State dispatcher with tail transfers and services; investigated, not implemented.",
+      "0x26730": "Broader camera/actor update path; investigated, not implemented."
+    }
+  },
+  "instruction_evidence": {
+    "arguments": [
+      "out at entry ESP+4",
+      "signed id at ESP+8",
+      "mode at ESP+12",
+      "position at ESP+16"
+    ],
+    "cells": {
+      "signed_count_byte": "0x70ed3",
+      "relative_table_pointer": "0x70d4c"
+    },
+    "relative_offset": "cell + ((DWORD(cell)>>2)*4), equivalently low two bits cleared",
+    "record": "WORD count, four-byte prefix; sixteen-byte records; count zero clamps to one",
+    "selection": "Only id>=signed count rejects; negative ids are not checked. Negative position clamps to zero.",
+    "arithmetic": "Unsigned low32 products/left shift, signed right shift and signed division including native overflow fault.",
+    "output": "Every nonzero mode writes WORD offsets 0,4,2,6,8,10,12 in that order. Offsets10/12 reread the same input lane+12 separately; aliased inputs can change between writes.",
+    "caller": "2fb70 reserves0x1c stack bytes plus four saved registers; out points to offset0x1c within that frame (sixteen bytes available). Old C bounds[4] was only eight bytes; bounds[7] supplies the observed minimum fourteen. No gameplay crash is claimed."
+  },
+  "verification": {
+    "native_source": {
+      "cases": 108,
+      "checks": 649,
+      "failures": 0,
+      "reproduce": "python scripts/eng1_bounded_differential.py camera-bounds --native-eng1 <pinned ENG1.DLL>",
+      "domains": [
+        "96 dataset/mode/position cases",
+        "early rejection with null resource root",
+        "negative index with valid fixture prefix",
+        "four overlapping input/output layouts",
+        "explicit signed division overflow",
+        "duplicate/unsorted keys",
+        "relative offset low bits"
+      ]
+    },
+    "source_regression_fixtures": 38,
+    "strict_fresh_raw": 134,
+    "python_unit_tests": 85,
+    "data": {
+      "providers": 59,
+      "fields": 923,
+      "unsupported": 0,
+      "mismatches": 0
+    },
+    "genuine_link": {
+      "before_unresolved": 531,
+      "after_unresolved": 530,
+      "mapped_compiled_entries": 368,
+      "function_symbols": 399,
+      "duplicate_providers": 0,
+      "ENG1_strict_preserved": 76,
+      "dll_emitted": false
+    },
+    "raw": {
+      "exact": false,
+      "target_size": 432,
+      "compiled_size": 432,
+      "different_bytes": 383,
+      "target_sha256": "adc9c78f9ae99d00e37f62cc6cca4f97ddfef8fb4e5a6f52a86373891c8525ae",
+      "compiled_sha256": "29bae4ed3c2f8da3a75d3db61b910a8171006693ca4286d2a0f006441fd74938"
+    },
+    "masked_diagnostic": {
+      "equal": false,
+      "differing_bytes": 351,
+      "binding_conflicts": 5,
+      "scope": "Non-equivalent codegen; implied mismatched helper bindings are not actual native-address evidence."
+    }
+  },
+  "source_sha256": {
+    "src/eng1/behavioral/camera_bounds_20ea0.c": "b9690ba633a01db7aa2c5436fc6afed606b19db4d1df3f0bcfe1bc53f2ffabaf",
+    "src/eng1/behavioral/camera.c": "30a038b7e09091fa8c917e145e199b333d8bd0310f5e9a56a09ce683077b10c8",
+    "src/eng1/behavioral/resource_data.c": "43d3b7dba919a3ee1b1577dadb602e49e2e14816cd418d3fb931197d54ca96a2",
+    "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+    "src/eng1/behavioral/incomplete_bodies.c": "886decb65ebed942a75ebad305c1d9e4631a7b3e4af636688b11fc32aaa0332b",
+    "tests/eng1_camera_bounds_differential.c": "7c464d47f65ae5f899f31fa28cba99d7ec6f507e44c8684817d5230be83f001a",
+    "tests/eng1_camera_semantics.c": "1401350495a7dad2052f0b9fae1fedfe24a0620e8fcf9c09578af5e2f5a705fc",
+    "scripts/eng1_bounded_differential.py": "f0a8aa6d0f84cea978b28eaabdc0eb9fba5ae98238a3a3a0df24cfbff29b971e",
+    "evidence/eng1_behavioral_build.json": "28f2ab9d0162b7c116b2981ff8d591d5480d2c1b4bc5f1fee865dbc6d55aa9f7",
+    "evidence/eng1_behavioral_incomplete.json": "347efcd7fc728bf9d562bf00b06585ce0bec5215aff4895a741c21bdc0caa4fc",
+    "evidence/eng1_data_evidence_manifest.json": "1537acddbeab86251ed29e5c2aedda1812f1c674e16b28a46cde20e35f920d4e"
+  },
+  "private_receipts": {
+    "work/eng1_behavioral/differential/camera-bounds/report.json": "81377648f1124a8de818eb36fb4fd413c87ff3a62890216ae795bf5a2630bce8",
+    "work/rea_dependency/genuine_graph/report.json": "20db02d4c96746383ad3bc19d45f4c6385be74ae4ce7062796cc087e6c72a8af",
+    "work/rea_dependency/source_regression_full_write/report.json": "9e859e7ef610e97a7f5122ae0f4a3509d01021eabb27d4d7c55113bd8817c685",
+    "work/rea_dependency/strict.json": "9d4c7bc7815846b3337bdc159d24ba5102c93724cefe0a769c77e41c47ecec78",
+    "work/rea_dependency/data_verification.json": "3042be7dedd4a34857cb2798d45154ea878057f799c2df18d67ff37bc05dd065",
+    "work/rea_dependency/unit.log": "acdc52cc229f506494b6135974d1ad5288d62d22ded964094a4c1e4302890be9"
+  },
+  "limits": [
+    "recovery.json unchanged; no FUNCTION_MATCH or whole-image claim",
+    "Finite controlled packed-storage cases, not all malformed pointers, arbitrary stack aliases or complete shipped-resource validation",
+    "No original engine initializer, game process, gameplay frame or runtime frontier observed",
+    "One genuine dependency removed; the remaining530 unresolved symbols still prevent a natural DLL link",
+    "Primary uncommitted source/recovery/evidence retained unchanged"
+  ]
+}

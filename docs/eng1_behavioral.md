@@ -6,13 +6,20 @@ frontier at `0x28290`; that routine now has reconstructed source, but this does
 not establish a later runtime frontier. No new original-host run, reconstructed
 gameplay frame, continuous gameplay, or normal engine shutdown is verified.
 
-The latest genuine graph has 367 mapped compiled entries and 398 function
-symbols. See `evidence/eng1_angle_clamp.json` for its pinned private receipt.
+The latest genuine graph has 368 mapped compiled entries and 399 function
+symbols. See `evidence/eng1_camera_bounds_20ea0.json` for its pinned private receipt.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
-denominator. The genuine link has 531 unresolved symbols and zero duplicate
+denominator. The genuine link has 530 unresolved symbols and zero duplicate
 providers. Its intended export is `PC_DLLEngineMain` at ordinal 1; no current
 DLL is produced. Earlier transitional links used explicit fail-on-entry
 diagnostics, which do not supply game dependencies.
+
+The REA-assisted `20ea0` recovery supplies the camera's packed-row interpolation
+dependency using existing resource-data owners. Instructions establish four
+cdecl arguments, rejecting REA's fastcall/six-argument label. Every nonzero mode
+writes fourteen bytes; the caller's old eight-byte local now has the observed
+seven-WORD minimum. There are 108 native/source cases and 649 checks, including
+live output aliases and a division fault. See [the follow-up](eng1_camera_bounds.md).
 
 All 76 accepted ENG1 function instances remain exact under fresh pinned VC5
 compilation and complete raw contribution comparison. The recorded experiment

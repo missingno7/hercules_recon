@@ -8,7 +8,10 @@ successful previews and finite comparisons retain their stated proof limits.
 
 ## Repository assessment, 2026-10-15
 
-After refreshing origin, the relevant branches form this **single ancestry**:
+After refreshing origin, the relevant branches form this **single ancestry**.
+The table records the pre-promotion audit. Following owner approval, `main` was
+fast-forwarded to the consolidated descendant in the clean worktree; the primary
+ENG1 checkout and its uncommitted files remain intact.
 
 | Branch | Audited head | Contribution already included downstream |
 | --- | --- | --- |
@@ -39,7 +42,7 @@ TITLE links, the genuine ENG1 graph remains unresolved, and ENG3 has partial
 source and paired-PC evidence. No complete source-built host or playable
 reconstructed game exists.
 
-A fresh genuine ENG1 rebuild in this audit confirms 367 mapped compiled entries,
+A fresh genuine ENG1 rebuild in the consolidation audit confirmed 367 mapped compiled entries,
 398 function symbols, 531 unresolved symbols, zero duplicate providers and 76
 preserved strict ENG1 functions. It emits no DLL. The old transitional runtime
 stop at `0x28290` is not a current frontier: that routine now has source.
@@ -141,7 +144,8 @@ forced layout opt-in and confined the legacy adapter target to tests.
 source identities, fresh results and unchanged-input checks.
 
 Promoting a common ref and deleting superseded refs are separate Git decisions.
-No merge is needed: the latest tested descendant can be promoted by fast-forward
-after the primary checkout's uncommitted work is handled. This audit does not
-advance `main`, push or delete refs. No final renderer architecture decision is
-needed to continue original source/dependency recovery.
+No content merge was needed. The original audit left refs unchanged; the owner
+subsequently approved promotion and the clean worktree now uses `main`. Checked-out
+worktrees and uncommitted work remain protected. The first
+[REA-assisted follow-up](eng1_camera_bounds.md) removes a real ENG1 dependency;
+no final renderer architecture decision is needed to continue this work.

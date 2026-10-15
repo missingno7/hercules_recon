@@ -40,6 +40,8 @@ int __cdecl dispatch_local_20ea0(void *out, int id, int mode, long x)
     ++bounds_calls;
     CHECK(id == -2); CHECK(mode == 24); CHECK(x == 12);
     bounds[0]=120; bounds[1]=0; bounds[2]=240; bounds[3]=0;
+    /* The original helper writes all seven WORDs for mode 24 as well. */
+    bounds[4]=0x4444; bounds[5]=0x5555; bounds[6]=0x6666;
     if (bounds_mutates) {
         g_camera_x_70ca0=777;
         g_frame_global_734f4=(u32)actor_b;

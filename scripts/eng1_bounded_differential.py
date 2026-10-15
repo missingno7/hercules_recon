@@ -17,6 +17,12 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'camera-bounds': dict(
+        sources=['tests/eng1_camera_bounds_differential.c',
+                 'src/eng1/behavioral/camera_bounds_20ea0.c',
+                 'src/eng1/behavioral/resource_data.c'],
+        spans=[(0x20ea0, 432)], cases=108,
+        scope='108 original/source packed camera-bound cases with real resource data providers: signed count/index, zero/nonzero mode, key boundaries, low32 wrap, division fault, output guards and four overlapping-buffer layouts. No engine initialization, gameplay or whole-domain equivalence claim.'),
     'color-transition-init': dict(
         sources=['tests/eng1_color_transition_init_differential.c',
                  'src/eng1/behavioral/color_transition_init.c',
