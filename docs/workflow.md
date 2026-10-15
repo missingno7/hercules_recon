@@ -96,8 +96,8 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 110 actual source units with
-147 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+The current natural selected host graph compiles 112 actual source units with
+148 recorded EXE functions and preserves 26 accepted EXE functions. It has no
 duplicate providers and 33 unresolved dependencies: 18 newly exposed frame
 callbacks and 15 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
@@ -754,3 +754,21 @@ negative run with the old address fails the release-count assertion. All seven
 executed game contributions remain byte-for-byte unchanged across fresh fixture
 builds; no recovery row changed. Earlier 39-case receipts retain their historical
 limits. See the correction in `evidence/host_sound_channels_recovery.json`.
+
+The original nibble decoder `0x2410` now has ordinary C source and the complete
+16/89-DWORD numeric lookup tables. Fresh initialized object and fixture bytes
+equal all 420 original table bytes; original constness/TU/layout is unproved.
+
+```
+python scripts/host_sound_decoder_differential.py --output work/sound_decoder_replay
+```
+
+Thirty-nine whole-arena cases execute actual native/source decoding with no
+modeled decoder operations. They cover every nibble, saturation, count boundaries,
+state seeding and input/output/state aliases. Preserve the native low-WORD
+zero extension and final signed predictor OR, which can overwrite high state
+bits. The source remains `RECONSTRUCTED`: its 256-byte contribution differs from
+the 288-byte native contribution. All 133 accepted functions remain raw exact.
+This supplies an actual sample-decoding dependency for F3D0 validation, without
+reopening its exhausted compiler families. The selected host link still has 33
+unresolved dependencies. See `evidence/host_sound_decoder_recovery.json`.

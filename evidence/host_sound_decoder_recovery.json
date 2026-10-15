@@ -1,0 +1,334 @@
+{
+  "schema": 1,
+  "scope": "Original PC nibble sound decoder0x2410 and actual initialized16/89DWORDtables. Native/fresh bodies execute without modeled callees or operations. Finite behavior and initialized data equality do not grant machine-code acceptance; recovery.json alone owns function status.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_sound_decoder.c",
+      "sha256": "fcfd5e45280af9c73a4775f0a9af7361221faec2885082d422c5dc96c6035a0f"
+    },
+    {
+      "path": "calibration/host_sound_decoder_tables.c",
+      "sha256": "31018aaf9de1a9da587252893ea832435a330af4a31b64fe7d2ecaf245a9366a"
+    },
+    {
+      "path": "calibration/host_sound_decoder_tables.h",
+      "sha256": "0b82f9ab78527e662ced3210dd56076d4f0bb93732b46fbb3f16b0fe21b8123f"
+    },
+    {
+      "path": "scripts/host_sound_decoder_differential.py",
+      "sha256": "8086cbd581f95e2a40816d1c379f20f1b90289cb517c86d0429dd5641558e155"
+    }
+  ],
+  "prediction": {
+    "path": "work/host_sound_decoder/prediction.json",
+    "sha256": "3dfcd3847ff40d03028a694a1ac48f5f12706125e080e1713bd0a39ee3683364"
+  },
+  "measurement": {
+    "private": {
+      "path": "work/host_sound_decoder/candidate.json",
+      "sha256": "2e4c4d099fd8617bc7135c3aba2b4fddec22feceae442e4efa4040d40af2f0a5"
+    },
+    "native_bytes": 288,
+    "native_body_bytes": 274,
+    "source_bytes": 256,
+    "raw_exact": false,
+    "raw_differences": 281,
+    "diagnostic_equal": false,
+    "diagnostic_differences": 271,
+    "relocations": [
+      {
+        "offset": 33,
+        "symbol": "_g_host_sound_steps_35e48",
+        "type": 6
+      },
+      {
+        "offset": 98,
+        "symbol": "_g_host_sound_index_deltas_35e08",
+        "type": 6
+      },
+      {
+        "offset": 202,
+        "symbol": "_g_host_sound_steps_35e48",
+        "type": 6
+      }
+    ],
+    "compiled_sha256": "60026d5a69021156f86bbd7f12bdb7e2a3cd05c173d23eb6e1bd9d6b6a5b7296",
+    "native_sha256": "622abe9cdbf8359b4eaad99ad87dda50b33f7b125deaafc36603977114461fd4",
+    "canonical_header_binding_preserves_private_code_and_relocations": true,
+    "scope": "One ordinary source hypothesis: source256/native288 bytes. No type,loop,order or flag grid; no codegen promotion."
+  },
+  "tables": {
+    "prefixes": [
+      {
+        "symbol": "_g_host_sound_index_deltas_35e08",
+        "rva": "0x35e08",
+        "bytes": 64,
+        "raw_initialized_equal": true,
+        "sha256": "0b45ddadddc2d6d1b0cbfaf3fabfbe714ae2b22b74af4c5df04c35a5194f1396"
+      },
+      {
+        "symbol": "_g_host_sound_steps_35e48",
+        "rva": "0x35e48",
+        "bytes": 356,
+        "raw_initialized_equal": true,
+        "sha256": "0d9dfda921258ad4f2e62a1f93df7f6aaa0bd2b58569d53a74883f24e67b4c68"
+      }
+    ],
+    "private_audit": {
+      "path": "work/host_sound_decoder/table_audit.json",
+      "sha256": "3a29c0ef2c033901b31b0ac98117df7befee166624055e3a1f7d3986cc552cb4"
+    },
+    "source": "Numeric int constants for actual decoder lookup data,not executable machine code. Fresh initialized COFF and naturally linked fixture bytes equal all420native bytes with no data relocations.",
+    "limits": "The16/89DWORDsizes are the accessed tables supported by native nibble indexing and index clamp0..88. Original declaration,constness,TU,allocation,section protection and final placement remain unproved."
+  },
+  "behavior": [
+    "Read step index from arithmetic highWORD and predictor from zero-extended lowWORD of initial state. Even nonpositive sample counts read state and step; no new guard is introduced.",
+    "Number of output samples is signed byte_count>>1, clamped by loop entry atzero. Fetch packed input high nibble first, then cached low nibble, preserving live next-byte reads under overlapping input/output.",
+    "Update index through the16entrytable and clamp0..88. Compute signed difference from the prior step using bits4/2/1 and sign8; clamp predictor to[-32768,32767], write short, then load the new step.",
+    "Final state is (index<<16)|predictor with signed predictor,not a masked lowWORD. Negative predictor therefore sets high state bits. Do not normalize this to a standard decoder representation; a later call with an invalid resulting index is outside the validated initial-state domain."
+  ],
+  "validation": {
+    "report": {
+      "path": "work/host_sound_decoder/public_pinned/sound_decoder_differential.json",
+      "sha256": "b3e6307e6dc02d37940bb0e247a2920daddcc2ed000539e9a3ad9c002f3a1996"
+    },
+    "case_count": 39,
+    "all_equal": true,
+    "modeled_operations": 0,
+    "arena_bytes_each": 131072,
+    "scenarios": [
+      {
+        "name": "all_nibbles"
+      },
+      {
+        "name": "null_zero",
+        "source": null,
+        "target": null,
+        "count": 0
+      },
+      {
+        "name": "negative_count",
+        "source": null,
+        "target": null,
+        "count": -1
+      },
+      {
+        "name": "nibble_0",
+        "packed": "0000000000000000"
+      },
+      {
+        "name": "nibble_1",
+        "packed": "1111111111111111"
+      },
+      {
+        "name": "nibble_2",
+        "packed": "2222222222222222"
+      },
+      {
+        "name": "nibble_3",
+        "packed": "3333333333333333"
+      },
+      {
+        "name": "nibble_4",
+        "packed": "4444444444444444"
+      },
+      {
+        "name": "nibble_5",
+        "packed": "5555555555555555"
+      },
+      {
+        "name": "nibble_6",
+        "packed": "6666666666666666"
+      },
+      {
+        "name": "nibble_7",
+        "packed": "7777777777777777"
+      },
+      {
+        "name": "nibble_8",
+        "packed": "8888888888888888"
+      },
+      {
+        "name": "nibble_9",
+        "packed": "9999999999999999"
+      },
+      {
+        "name": "nibble_10",
+        "packed": "aaaaaaaaaaaaaaaa"
+      },
+      {
+        "name": "nibble_11",
+        "packed": "bbbbbbbbbbbbbbbb"
+      },
+      {
+        "name": "nibble_12",
+        "packed": "cccccccccccccccc"
+      },
+      {
+        "name": "nibble_13",
+        "packed": "dddddddddddddddd"
+      },
+      {
+        "name": "nibble_14",
+        "packed": "eeeeeeeeeeeeeeee"
+      },
+      {
+        "name": "nibble_15",
+        "packed": "ffffffffffffffff"
+      },
+      {
+        "name": "state_0x0",
+        "initial_state": 0
+      },
+      {
+        "name": "state_0xffff",
+        "initial_state": 65535
+      },
+      {
+        "name": "state_0x18000",
+        "initial_state": 98304
+      },
+      {
+        "name": "state_0x580000",
+        "initial_state": 5767168
+      },
+      {
+        "name": "state_0x587fff",
+        "initial_state": 5799935
+      },
+      {
+        "name": "state_0x58ffff",
+        "initial_state": 5832703
+      },
+      {
+        "name": "count_0",
+        "count": 0
+      },
+      {
+        "name": "count_1",
+        "count": 1
+      },
+      {
+        "name": "count_2",
+        "count": 2
+      },
+      {
+        "name": "count_3",
+        "count": 3
+      },
+      {
+        "name": "count_5",
+        "count": 5
+      },
+      {
+        "name": "count_6",
+        "count": 6
+      },
+      {
+        "name": "count_7",
+        "count": 7
+      },
+      {
+        "name": "count_9",
+        "count": 9
+      },
+      {
+        "name": "count_31",
+        "count": 31
+      },
+      {
+        "name": "forward_alias",
+        "target": 4097
+      },
+      {
+        "name": "backward_alias",
+        "source": 4100,
+        "target": 4096
+      },
+      {
+        "name": "state_output_alias",
+        "state": 32768
+      },
+      {
+        "name": "state_input_alias",
+        "state": 4096,
+        "initial_state": 0
+      },
+      {
+        "name": "long_sequence",
+        "packed": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+      }
+    ],
+    "checks": "Whole arena equals independent stateful byte/nibble reference and native/source peer, including untouched bytes, overlaps and state/output aliases. Caller stack balance, four nonvolatile registers, stack guards, execution and write whitelists hold.",
+    "domain": "Initial state index0..88,sufficient packed/output backing,up to4096output samples. Null packed/output tested only with nonpositive sample count. Invalid table indices/pointers and table-memory aliases are not newly guarded.",
+    "abi_limit": "Original VC5 body reuses incoming argument slots as private scratch. Such argument-slot contents are not a preservation guarantee or compared with source; stack balance/guards and nonvolatiles are checked. No fixture arena pointer aliases caller stack."
+  },
+  "regression": {
+    "strict": {
+      "path": "work/host_sound_decoder/strict133.json",
+      "sha256": "91894217afa6e0cfffcb2f6a67e78c1e00568365891f2aa67f0bae967497df14"
+    },
+    "raw_exact_functions": 133,
+    "all_668_prior_rows_identical": true,
+    "rows_added": 1,
+    "status_counts": {
+      "FUNCTION_MATCH": 133,
+      "CODEGEN_SIMILAR": 480,
+      "RECONSTRUCTED": 56
+    },
+    "natural_graph": {
+      "path": "work/host_current_graph/report-34ce19570c55030e.json",
+      "sha256": "34ce19570c55030e1557e0d15906d2ed3ebb748f17d359f5e5eb79e24f6fd498"
+    },
+    "source_units": 112,
+    "recorded_EXE_functions": 148,
+    "preserved_exact_EXE_functions": 26,
+    "unresolved": 33,
+    "duplicate_providers": 0,
+    "images_produced": 0
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "implicit_compile_flag": "/Gy",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "analysis_tools": {
+    "python": {
+      "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "version": "3.12.14",
+      "sha256": "d41bad46673f64e0d02f23797f53f90ccf60f27d6eda8d86dd2d4bbeae5a858c"
+    },
+    "pefile": {
+      "path": "C:\\tools\\hercules\\python\\pefile.py",
+      "version": "2024.8.26",
+      "sha256": "0d0eb68f0f169182613dc64b3ab50b20855508c1c1d2faafe8fccf23edb6a345"
+    },
+    "unicorn": {
+      "path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+      "version": "2.1.4",
+      "sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+    },
+    "origin": "Existing C:/tools/hercules installations and bundled workspace Python; prior provenance in evidence/host_engine_loader_recovery.json. No tool/dependency added or modified.",
+    "capstone": {
+      "path": "C:\\tools\\hercules\\python\\capstone\\__init__.py",
+      "version": "5.0.7",
+      "sha256": "0417ae554252be8e8d03e328054fad4c3cec6cf4895deecec637078380840f8b",
+      "scope": "Read-only native instruction inspection; existing installation, no dependency change."
+    }
+  },
+  "commands": [
+    "python scripts/host_sound_decoder_differential.py --output work/sound_decoder_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/sound_decoder_strict_replay.json",
+    "python work/host_current_graph/run.py"
+  ],
+  "next_context": "F3D0 sound-bank initialization can now use the actual decoder instead of a modeled sample conversion. Prior initializer zeroing/type/order/visibility families remain exhausted; validate full callback/sample flow and real providers before pursuing a distinct codegen discriminator.",
+  "limits": [
+    "No raw function match, original source/prototype/TU/module-layout equality, universal alias/pointer-domain proof or entire audio/game acceptance.",
+    "No original process, OS, device, menu, gameplay or renderer execution occurs. The original initializer, scratch extent, host callbacks/interface and other actual dependencies remain incomplete."
+  ]
+}
