@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 126 actual source units with
-200 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 36 unresolved dependencies: four frame
-callbacks, twenty newly exposed Options callbacks and 12 data providers. Including
+The current natural selected host graph compiles 127 actual source units with
+208 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 28 unresolved dependencies: four frame
+callbacks, twelve Options callbacks and 12 data providers. Including
 the real map replaces one missing map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -188,6 +188,20 @@ in nine existing frame units survive. See `evidence/host_options_class_recovery.
 
 ```
 python scripts/host_options_class_audit.py --output work/options_class_audit
+```
+
+Eight sound/gameplay page callbacks now preserve the original settings behavior:
+32-bit logical toggles, low-byte saves, inverted 16383-position volume, difficulty
+0..2 and lives 2..4, plus live title-menu gating of controls. Semantic member names
+replace numeric labels without changing any prior layout or code. All eight full
+contributions are diagnostic equals. In 68 directed offline cases, five unmodified
+MFC bodies execute; base initialization, lookup and Windows effects are explicit
+models. XOR toggling and a cached menu guard are rejected by negative controls.
+All 133 exact matches, 34 class contributions and 222 prior sections survive.
+See `evidence/host_options_sound_gameplay_recovery.json`.
+
+```
+python scripts/host_options_sound_gameplay_differential.py --output work/options_sound_gameplay_replay
 ```
 
 The loader now has an independent source provider for four observed DWORD cells

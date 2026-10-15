@@ -1,0 +1,431 @@
+{
+  "schema": 1,
+  "scope": "Original PC sound/gameplay Options callbacks over recovered typed classes. Fresh complete VC5 contributions and finite synthetic native/source receiver tests. No actual Options dialog,DDX,trackbar,registry,device,original process or gameplay execution accepted. recovery.json alone owns function state.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_options_sound_gameplay.cpp",
+      "sha256": "2beb1fdfc4bb89649119b7ecadea03b0ad8632c6942a8762125d5f970fc3e1b5"
+    },
+    {
+      "path": "calibration/host_options_classes.h",
+      "sha256": "409d145d78ecddec4d698cb108d56036e7513ddb1914006f97f5af94f794ed6c"
+    },
+    {
+      "path": "scripts/host_options_sound_gameplay_differential.py",
+      "sha256": "8da6a8fe07e6905fb2de32eb3a81063a9152fe86dfb72e09db2ba8e1743b3b11"
+    },
+    {
+      "path": "calibration/registry_storage.c",
+      "sha256": "e9f7c60fd443f486260a622e2beb5cde2be2d7a500b2cd486afab6ccbe35eda7"
+    },
+    {
+      "path": "calibration/host_startup_storage.c",
+      "sha256": "654dd90ddb9133cd45dfd434d347067082b4bd2772d4fa25b8e92071d7834c6e"
+    }
+  ],
+  "prediction": {
+    "path": "work/options_sound_gameplay/prediction.json",
+    "sha256": "cc8fb4c291a50848c13f6039a3a1f16cd20493521badce01c021797d2ed7004c"
+  },
+  "toolchain": {
+    "name": "msvc5_rtm",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest": {
+      "path": "toolchains/manifest.json",
+      "sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+    },
+    "flags": [
+      "/O2",
+      "/MT",
+      "/GX",
+      "/IC:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\mfc\\include"
+    ],
+    "emulator": {
+      "version": "Unicorn2.1.4",
+      "origin": "Existing C:/tools/hercules/renderer-oracle-python runtime;no dependency installed or patched",
+      "dll": {
+        "path": "C:/tools/hercules/renderer-oracle-python/unicorn/lib/unicorn.dll",
+        "sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+      }
+    },
+    "fixture_flags_note": "Canonical recipe and public fixture both use /O2 /MT /GX plus the pinned MFC include path. Earlier no-/GX fixture was superseded before integration."
+  },
+  "measurement": {
+    "private_receipt": {
+      "path": "work/options_sound_gameplay/canonical_gx/options_sound_gameplay_differential.json",
+      "sha256": "105528542ea1e83d823efae80e0d37c4b9ff34a35e4445fc0ba7ce00ff5977c4"
+    },
+    "functions": 8,
+    "complete_code_bytes": 784,
+    "all_full_sizes_equal": true,
+    "all_diagnostic_differences": 0,
+    "raw_equal_functions": 0,
+    "record_columns": [
+      "native_rva",
+      "complete_bytes",
+      "raw_differences",
+      "source_relocations"
+    ],
+    "records": {
+      "sound_init": [
+        "0x102d0",
+        192,
+        34,
+        13
+      ],
+      "sound_toggle": [
+        "0x10390",
+        48,
+        9,
+        3
+      ],
+      "music_toggle": [
+        "0x103c0",
+        48,
+        9,
+        3
+      ],
+      "sound_ok": [
+        "0x103f0",
+        80,
+        15,
+        5
+      ],
+      "game_init": [
+        "0x6210",
+        192,
+        50,
+        18
+      ],
+      "difficulty": [
+        "0x62d0",
+        96,
+        12,
+        4
+      ],
+      "lives": [
+        "0x6330",
+        96,
+        11,
+        4
+      ],
+      "game_ok": [
+        "0x6390",
+        32,
+        9,
+        3
+      ]
+    },
+    "boundary": "Sound OnOK103f0/80 has70-byte body plus10NOPs and ends1043f. Derived112-byte span includes independent generated slider deleting-destructor10440/32and is rejected."
+  },
+  "semantics": [
+    "Sound initialization calls the identified CDialog base,sets page/volume captions,then reads each live config BYTE and uses the actual toggle method to set normalized BOOL fields and exact ON/OFF labels. It ignores the base return and returns literalTRUE.",
+    "Both sound/music toggles test the entire32-bit BOOL for zero and write0or1. XOR1 is not equivalent for values2/128/high bits.",
+    "The slider range is0..16383 with redrawTRUE in both actual MFC range messages;position is16383-configDWORDvolume and tick frequency2048. The range helper rereads HWND between its two SendMessage calls;caller position/tick messages also consume live HWNDs.",
+    "Sound OnOK stores lowBYTEs of both32-bit fields before querying slider position,then stores DWORD16383-position and executes the actual no-op CPropertyPage::OnOK. No extra boolean normalization or volume clamp added.",
+    "Gameplay initialization uses lowBYTEdifficulty from the observed DWORD view and a fullDWORD lives value. It decrements each working selector before invoking the actual cycle method,then rereads the full title-menu guard independently for two EnableWindow and two ShowWindow calls.",
+    "Difficulty cycles0..2 with Beginner/Medium/Herculean labels. Lives cycles2..4 with Two/Three/Four Lives labels. Signed upper-bound checks are preserved;no invented lower-bound clamp.",
+    "Only nonzero title-menu guard enables the two selector buttons;the two explanatory labels use SW_HIDE0 when enabled and SW_SHOWNA8 otherwise. Each call sees later callback mutations rather than an entry snapshot.",
+    "Gameplay OnOK stores only the low difficulty BYTE and the full lives DWORD before the actual base no-op. Other registry bytes remain owned and unchanged except explicitly modeled endpoint effects."
+  ],
+  "scalar_names": {
+    "reason": "Names now reflect measured labels,registry slots and toggle/cycle behavior;original source spellings remain unproved.",
+    "renamed": [
+      [
+        "CSoundPage",
+        "m_native_140",
+        "m_sound_enabled",
+        "BOOL",
+        "0x140"
+      ],
+      [
+        "CSoundPage",
+        "m_native_144",
+        "m_music_enabled",
+        "BOOL",
+        "0x144"
+      ],
+      [
+        "CGamePlayPage",
+        "m_native_17c",
+        "m_difficulty",
+        "int",
+        "0x17c"
+      ],
+      [
+        "CGamePlayPage",
+        "m_native_180",
+        "m_lives",
+        "int",
+        "0x180"
+      ]
+    ],
+    "prior_header_sha256": "00b6522b07171305988750fc944a849f2a3a07b3f66a361300e6336d359a8b3f",
+    "current_header_sha256": "409d145d78ecddec4d698cb108d56036e7513ddb1914006f97f5af94f794ed6c",
+    "sizes_offsets_and_prior_bytes_unchanged": true
+  },
+  "diagnosed_correction": {
+    "prediction": {
+      "path": "work/options_sound_gameplay/range_discriminator.json",
+      "sha256": "be8f969447a6749924c69231a0451bbce4e43b7e0428a2c8d9ab41e3fe5d36a9"
+    },
+    "first": {
+      "path": "work/options_sound_gameplay/first_candidate.json",
+      "sha256": "865699a67b1e73e181b7bb5e8be7de0ece64d26a20c461566e4fcfd4a98db3ad"
+    },
+    "observation": "First seven callbacks diagnostic-equal;SoundInit differed only at offset98 because omitted third SetRange argument uses SDK defaultFALSE. Native passesTRUE. Explicit observed argument removes that single difference.",
+    "unsupported_compiler_or_type_steering": false
+  },
+  "library": {
+    "archive": {
+      "path": "C:/tools/hercules/msvc500-8abf95ce980161ad87b0b02402269cce76988953/mfc/lib/nafxcw.lib",
+      "sha256": "5d9c3585552412a9b94a9a0b7c3a4208061a76d48a6c3283518bfe9f674c9e22"
+    },
+    "proofs": [
+      {
+        "role": "BaseInit",
+        "symbol": "?OnInitDialog@CDialog@@UAEHXZ",
+        "native_rva": "0x220bd",
+        "bytes": 101,
+        "member": 124,
+        "member_sha256": "1fb5e76cd1fa3743c40b9b6d4eda27e8a7894da1188d3fdc75c5b835bb1f8dfb",
+        "diagnostic_equal": true,
+        "linked_code_diagnostic_equal": true,
+        "mode": "modeled identified boundary"
+      },
+      {
+        "role": "GetDlgItem",
+        "symbol": "?GetDlgItem@CWnd@@QBEPAV1@H@Z",
+        "native_rva": "0x24faa",
+        "bytes": 42,
+        "member": 104,
+        "member_sha256": "2913d8fac06f5881ada9c9d5603d17b939de73baa23ff04cb451ba71c0592477",
+        "diagnostic_equal": true,
+        "linked_code_diagnostic_equal": true,
+        "mode": "modeled identified boundary"
+      },
+      {
+        "role": "SetText",
+        "symbol": "?SetWindowTextA@CWnd@@QAEXPBD@Z",
+        "native_rva": "0x2509d",
+        "bytes": 39,
+        "member": 104,
+        "member_sha256": "2913d8fac06f5881ada9c9d5603d17b939de73baa23ff04cb451ba71c0592477",
+        "diagnostic_equal": true,
+        "linked_code_diagnostic_equal": true,
+        "mode": "actual unchanged code"
+      },
+      {
+        "role": "Enable",
+        "symbol": "?EnableWindow@CWnd@@QAEHH@Z",
+        "native_rva": "0x25155",
+        "bytes": 39,
+        "member": 104,
+        "member_sha256": "2913d8fac06f5881ada9c9d5603d17b939de73baa23ff04cb451ba71c0592477",
+        "diagnostic_equal": true,
+        "linked_code_diagnostic_equal": true,
+        "mode": "actual unchanged code"
+      },
+      {
+        "role": "Show",
+        "symbol": "?ShowWindow@CWnd@@QAEHH@Z",
+        "native_rva": "0x25113",
+        "bytes": 39,
+        "member": 104,
+        "member_sha256": "2913d8fac06f5881ada9c9d5603d17b939de73baa23ff04cb451ba71c0592477",
+        "diagnostic_equal": true,
+        "linked_code_diagnostic_equal": true,
+        "mode": "actual unchanged code"
+      },
+      {
+        "role": "Range",
+        "symbol": "?SetRange@CSliderCtrl@@QAEXHHH@Z",
+        "native_rva": "0x1c9cc",
+        "bytes": 51,
+        "member": 128,
+        "member_sha256": "2afe6d6a25158039419bb9b7a332b894c23b3017c8214a3f90dfc97efd88cbce",
+        "diagnostic_equal": true,
+        "linked_code_diagnostic_equal": true,
+        "mode": "actual unchanged code"
+      },
+      {
+        "role": "BaseOK",
+        "symbol": "?OnOK@CPropertyPage@@UAEXXZ",
+        "native_rva": "0x28ac0",
+        "bytes": 1,
+        "member": 121,
+        "member_sha256": "af9dcab86a429f70eceff3ed911ed474c2132924fd140d7b8e20197ffccb2510",
+        "diagnostic_equal": true,
+        "linked_code_diagnostic_equal": true,
+        "mode": "actual unchanged code"
+      }
+    ],
+    "actual_bodies": [
+      "CWnd::SetWindowTextA",
+      "CWnd::EnableWindow",
+      "CWnd::ShowWindow",
+      "CSliderCtrl::SetRange",
+      "CPropertyPage::OnOK"
+    ],
+    "actual_branch_scope": "Ordinary HWND-backed controls with null control-site pointers. Optional OLE control-site branches not exercised.",
+    "modeled_identified_boundaries": [
+      "CDialog::OnInitDialog",
+      "CWnd::GetDlgItem"
+    ],
+    "noop_scope": "The actual original/archive/linked base OnOK is a one-byte RET section. It is executed,not replaced with a game stub. Library identification does not grant FUNCTION_MATCH."
+  },
+  "data": {
+    "existing_providers": [
+      {
+        "symbol": "_g_registry_config",
+        "rva": "0x79e858",
+        "bytes": 72,
+        "backing": "virtual_zero",
+        "new_provider": false
+      },
+      {
+        "symbol": "_g_startup_apply_guard_rva_51c450",
+        "rva": "0x51c450",
+        "bytes": 4,
+        "backing": "virtual_zero",
+        "new_provider": false
+      }
+    ],
+    "new_providers": 0,
+    "registry_bytes": 72,
+    "menu_guard_bytes": 4,
+    "source_backed_initial_prefixes_equal": true
+  },
+  "validation": {
+    "private_receipt": {
+      "path": "work/options_sound_gameplay/canonical/options_sound_gameplay_differential.json",
+      "sha256": "4c3bea9b03d73fa5273b3abe1a383fa0e2199ed6651a5f8f592b2dbc9f9277f0"
+    },
+    "cases": 68,
+    "all_equal": true,
+    "actual_roles": [
+      "BaseInit",
+      "BaseOK",
+      "Enable",
+      "GetDlgItem",
+      "Range",
+      "SetText",
+      "Show",
+      "difficulty",
+      "game_init",
+      "game_ok",
+      "lives",
+      "music_toggle",
+      "sound_init",
+      "sound_ok",
+      "sound_toggle"
+    ],
+    "checks": [
+      "Complete328/388-byte page receivers,72-byte registry,guard and64KiB synthetic arena",
+      "Ordered MFC/Windows calls,exact label bytes,slider messages and returns",
+      "Thiscall receiver,stack/nonvolatiles,guards and code/write whitelists",
+      "FullDWORD toggles,lowBYTE commits,inverted volume,valid selector wrap and guard high bits",
+      "Live registry/guard/handle changes during title/text/range/enable/show/GetPos calls",
+      "Initialization-to-toggle-to-save sequences and ignored API/base failures"
+    ],
+    "negative_controls": [
+      {
+        "name": "xor_toggle",
+        "scenario": {
+          "name": "sound_toggle_0x80",
+          "role": "sound_toggle",
+          "fields": {
+            "sound": 128
+          }
+        },
+        "detected": true
+      },
+      {
+        "name": "cached_guard",
+        "scenario": {
+          "name": "guard_live_each_call",
+          "role": "game_init",
+          "guard": 1,
+          "actions": {
+            "EnableWindow": [
+              {
+                "mutate": {
+                  "guard": 0
+                },
+                "handles": {
+                  "lives_button": 1879048448
+                }
+              },
+              {
+                "mutate": {
+                  "guard": 2147483648
+                }
+              }
+            ],
+            "ShowWindow": [
+              {
+                "mutate": {
+                  "guard": 0
+                }
+              },
+              {}
+            ]
+          }
+        },
+        "detected": true
+      }
+    ],
+    "negative_meaning": [
+      "XOR1 on0x80 retains a nonzero value and wrong ON caption;original logicalNOT becomes0.",
+      "Cached title guard misses changes before later enable/show calls."
+    ],
+    "model_limits": "Slider endpoints record raw messages and supply controlled position returns;they do not establish actual Windows trackbar clamping. Lookup returns controlled nonnull CWnd views. No real modal/window/control creation or DDX execution."
+  },
+  "regression": {
+    "strict": {
+      "path": "work/options_sound_gameplay/strict133.json",
+      "sha256": "42c05ff802f7eff148df6a8c568af5872fcd5f2d985c31e800f02c910d3402b0"
+    },
+    "all_133_raw_exact": true,
+    "prior_721_recovery_rows_unchanged": true,
+    "complete_peer_preservation": {
+      "path": "work/options_sound_gameplay/preservation.json",
+      "sha256": "bc506e4d87b5e4decd70802e04edc1805b64ace0af14071be8906da54be6cf0f"
+    },
+    "prior_affected_units": 11,
+    "complete_sections": 222,
+    "all_section_bytes_sizes_flags_ordered_relocations_equal": true,
+    "class_audit": {
+      "path": "work/options_sound_gameplay/class_audit/options_class_audit.json",
+      "sha256": "c664a5aecd997b5b5a266e46d4fd66945374f193d3b1d992a2b3837017b8f869"
+    },
+    "all_prior_34_class_contributions_still_diagnostic_equal": true,
+    "class_data_objects": 35,
+    "own_virtual_slots_preserved": 299,
+    "natural_graph": {
+      "path": "work/host_current_graph/report-070b51adf976b936.json",
+      "sha256": "070b51adf976b936f279c7690f8389611ea32eed0ffc87c108cac606d21a20c8"
+    },
+    "source_units": 127,
+    "recorded_EXE_functions": 208,
+    "accepted_EXE_functions": 26,
+    "unresolved": 28,
+    "missing_frame_callbacks": 4,
+    "remaining_options_callbacks": 12,
+    "missing_data_providers": 12,
+    "duplicate_link_errors": 0,
+    "images_produced": 0
+  },
+  "replay_commands": [
+    "python scripts/host_options_sound_gameplay_differential.py --output work/options_sound_gameplay_replay",
+    "python scripts/host_options_class_audit.py --output work/options_class_audit",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/strict_verification.json"
+  ],
+  "limits": [
+    "Eight new CODEGEN_SIMILAR rows only;raw relocations prevent FUNCTION_MATCH.",
+    "Invalid selector indices below the original label-array domains are not repaired or broadly runtime-accepted. Directed wrap results describe the pinned compiler,not portable signed-overflow guarantees.",
+    "Original member spellings,TU grouping,library selection/layout and whole-binary equality remain unproved. Earlier class receipts retain their original header context;the new class audit covers these semantic names.",
+    "Twelve Options callbacks,four frame callbacks and twelve real data providers still prevent natural linkage. Earlier paint EH and allocator-selection gaps remain open."
+  ]
+}

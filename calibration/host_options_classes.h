@@ -81,8 +81,8 @@ public:
     CSliderCtrl m_control_045f;
     CButton m_control_045d;
     CButton m_control_045e;
-    BOOL m_native_140;
-    BOOL m_native_144;
+    BOOL m_sound_enabled;
+    BOOL m_music_enabled;
 };
 
 class CGamePlayPage : public CPropertyPage
@@ -104,8 +104,8 @@ public:
     CStatic m_control_0467;
     CButton m_control_0466;
     CButton m_control_0472;
-    int m_native_17c;
-    int m_native_180;
+    int m_difficulty;
+    int m_lives;
 };
 
 class COptionsSheet : public CPropertySheet
