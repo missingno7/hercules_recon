@@ -96,8 +96,8 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 108 actual source units with
-143 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+The current natural selected host graph compiles 110 actual source units with
+147 recorded EXE functions and preserves 26 accepted EXE functions. It has no
 duplicate providers and 33 unresolved dependencies: 18 newly exposed frame
 callbacks and 15 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
@@ -725,3 +725,24 @@ disabled or failed-readiness resume still adjusts a live paused tick. Only OS
 and identified CRT boundaries are modeled. All 133 accepted matches remain raw
 exact; the selected host graph has no duplicate providers and still has 33 real
 missing dependencies. See `evidence/host_cd_resume_recovery.json`.
+
+The actual DirectSound channel stop `0xfa10`, pause `0xffb0`, resume `0x10030`
+and bank restore `0xf760` now have canonical SDK-based source. Three complete
+contributions have relocation diagnostic equality after a single signed-loop
+discriminator; stop retains 177 diagnostic differences. None is raw exact.
+
+```
+python scripts/host_sound_channels_differential.py --output work/sound_channels_replay
+```
+
+Thirty-nine comparisons execute actual stop-all, channel control, polling and
+bank release. Tests compare complete bank/channel/registry/loop state and the
+synthetic COM arena, with post-COM reload mutations, signed-short slot truncation,
+paused guards, ignored failures, cursor/loop restoration and boundary bank 1199.
+Restore requires status exactly 2; mixed status 6 does not qualify. COM effects and
+the still unrecovered F3D0 initializer alone are modeled. Its production symbol
+remains unresolved. The new 4-byte pause cell and 1200-byte loop prefix have fresh
+BSS and native virtual-zero backing; existing state providers are reused.
+All 133 accepted functions remain raw exact. The real FA10 dependency is resolved
+and the real F3D0 dependency exposed, leaving 33 unresolved symbols in the selected
+110-unit graph. See `evidence/host_sound_channels_recovery.json`.

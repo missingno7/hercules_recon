@@ -8,7 +8,7 @@
     "baseline": "D:/Prog/hercules_recon/work/root_actor_relative_28/exe_graph.json",
     "scope": "Current actual-source host dependency evidence, not runtime or completion. No code edits planned for this measurement.",
     "recorded_before_compile": true,
-    "context": "Actual CD unpause at 0x9db0 and resume at 0x9f60 now participate. 108 units / 143 recorded EXE functions; 18 frame callbacks and 15 other dependencies remain."
+    "context": "Actual DirectSound channel stop, pause, resume, restore and two measured data prefixes now participate. The real stop-all dependency is resolved; real F3D0 bank initialization is exposed.110units/147recordedEXE functions;18frame callbacks and15other dependencies remain."
   },
   "sources": [
     {
@@ -639,6 +639,13 @@
       ]
     },
     {
+      "source": "src/pc/host_sound_channels.cpp",
+      "source_sha256": "cf4440222c14eccdf54508d53675a4c58614c31971793c4953d0b6f86f49a881",
+      "flags": [
+        "/O2"
+      ]
+    },
+    {
       "source": "calibration/host_startup_storage.c",
       "source_sha256": "654dd90ddb9133cd45dfd434d347067082b4bd2772d4fa25b8e92071d7834c6e",
       "flags": [
@@ -758,6 +765,13 @@
       ]
     },
     {
+      "source": "calibration/host_sound_channel_storage.cpp",
+      "source_sha256": "c284652229f8e5ab69bd5bb58ff7274696a9f3d4d78d99664caeb1d416ea6eab",
+      "flags": [
+        "/O2"
+      ]
+    },
+    {
       "source": "calibration/graphics_lock_storage.c",
       "source_sha256": "c119bf8dc3de3f444328c83ea4ec86ff8d16b703f81a0c373373c76d448b8318",
       "flags": [
@@ -782,8 +796,8 @@
     }
   ],
   "validation": {
-    "fresh_source_units": 108,
-    "recorded_EXE_functions": 143,
+    "fresh_source_units": 110,
+    "recorded_EXE_functions": 147,
     "preserved_exact_EXE_functions": 26,
     "duplicate_providers": 0,
     "unresolved_symbols": 33,
@@ -849,9 +863,6 @@
     "?OnRva_00009BC0@CMainFrame@@QAEHPAVCWnd@@II@Z": [
       "calibration/host_frame_message_map.cpp"
     ],
-    "_audio_native_fa10": [
-      "calibration/audio_small_helpers.c"
-    ],
     "_g_archive_scratch": [
       "calibration/archive_names.c"
     ],
@@ -901,6 +912,9 @@
     ],
     "_host_service_fdf0": [
       "calibration/host_startup.c"
+    ],
+    "_host_sound_bank_initialize_f3d0": [
+      "src/pc/host_sound_channels.cpp"
     ]
   },
   "libraries": [
@@ -954,24 +968,24 @@
     }
   ],
   "private_receipt": {
-    "path": "work/host_current_graph/report-f1a4a87f257c4201.json",
-    "sha256": "f1a4a87f257c420150282d580954cddf165810b229109269ff8d4bc9b2e9f832"
+    "path": "work/host_current_graph/report-4d291032f0b1d6e5.json",
+    "sha256": "4d291032f0b1d6e56d0a490c9ba1ce267430a7a6749d4a7fa20f2221bacaec25"
   },
   "command": "python work/host_current_graph/run.py",
   "toolchain": "msvc5_rtm",
   "limits": [
-    "Selected actual-source graph has 108 units and 143 recorded EXE functions; these counts are not complete application coverage or a whole-game denominator.",
+    "Selected actual-source graph has110units and147recordedEXE functions;counts are not whole-game coverage or a complete application denominator.",
     "The real host interface initializer, graphics/startup services and loader storage remain missing. No returning stubs, guessed path/archive buffers or forced executable were used.",
     "The natural source link fails on the recorded realdependencies; do not count this receipt as a playable build.",
     "Known allocator dependency mismatch: MFC-first selects afxmem.obj; CRT-first duplicates new/delete. See evidence/host_frame_class_recovery.json. No forced link or library rewrite used."
   ],
-  "recovery_sha256": "0980a9fa9412b8da7f95e2adcaa8d8a67d073497c22e44f845e956aa127c1450",
+  "recovery_sha256": "abcfb482deb09fc84b300f2248674785c599ed69214a3bbb03b79ecc5df43c2b",
   "previous_graph_receipt": {
-    "path": "work/host_current_graph/report-030ee362226b283e.json",
-    "sha256": "030ee362226b283ebef026bcc543589a6e465356c4817856bdd0925c93d7885f"
+    "path": "work/host_current_graph/report-f1a4a87f257c4201.json",
+    "sha256": "f1a4a87f257c420150282d580954cddf165810b229109269ff8d4bc9b2e9f832"
   },
   "current_prediction": {
-    "path": "work/host_cd_resume/prediction.json",
-    "sha256": "ffcf83443eb6c9c9b047d16f1b27212dd661f0b5552de8fe789103913ffc6534"
+    "path": "work/host_sound_channels/prediction.json",
+    "sha256": "4a1e564d55b5ff627298ea67cff50ad1e98a30e5b4129753b22267159f6df1ad"
   }
 }
