@@ -8,7 +8,7 @@
     "baseline": "D:/Prog/hercules_recon/work/root_actor_relative_28/exe_graph.json",
     "scope": "Current actual-source host dependency evidence, not runtime or completion. No code edits planned for this measurement.",
     "recorded_before_compile": true,
-    "context": "Actual bitmap copy at 0x6530 now participates, with identified CRT conversion dependency. 107 units / 141 recorded EXE functions; 18 frame callbacks and 15 other dependencies remain."
+    "context": "Actual CD unpause at 0x9db0 and resume at 0x9f60 now participate. 108 units / 143 recorded EXE functions; 18 frame callbacks and 15 other dependencies remain."
   },
   "sources": [
     {
@@ -632,6 +632,13 @@
       ]
     },
     {
+      "source": "src/pc/host_cd_resume.c",
+      "source_sha256": "41e76ea303aeea0760ab5611f6036f4228c6bb649fe1fea2429f935bcc47b664",
+      "flags": [
+        "/O2"
+      ]
+    },
+    {
       "source": "calibration/host_startup_storage.c",
       "source_sha256": "654dd90ddb9133cd45dfd434d347067082b4bd2772d4fa25b8e92071d7834c6e",
       "flags": [
@@ -775,8 +782,8 @@
     }
   ],
   "validation": {
-    "fresh_source_units": 107,
-    "recorded_EXE_functions": 141,
+    "fresh_source_units": 108,
+    "recorded_EXE_functions": 143,
     "preserved_exact_EXE_functions": 26,
     "duplicate_providers": 0,
     "unresolved_symbols": 33,
@@ -947,24 +954,24 @@
     }
   ],
   "private_receipt": {
-    "path": "work/host_current_graph/report-030ee362226b283e.json",
-    "sha256": "030ee362226b283ebef026bcc543589a6e465356c4817856bdd0925c93d7885f"
+    "path": "work/host_current_graph/report-f1a4a87f257c4201.json",
+    "sha256": "f1a4a87f257c420150282d580954cddf165810b229109269ff8d4bc9b2e9f832"
   },
   "command": "python work/host_current_graph/run.py",
   "toolchain": "msvc5_rtm",
   "limits": [
-    "Selected actual-source graph has 107 units and 141 recorded EXE functions; these counts are not complete application coverage or a whole-game denominator.",
+    "Selected actual-source graph has 108 units and 143 recorded EXE functions; these counts are not complete application coverage or a whole-game denominator.",
     "The real host interface initializer, graphics/startup services and loader storage remain missing. No returning stubs, guessed path/archive buffers or forced executable were used.",
     "The natural source link fails on the recorded realdependencies; do not count this receipt as a playable build.",
     "Known allocator dependency mismatch: MFC-first selects afxmem.obj; CRT-first duplicates new/delete. See evidence/host_frame_class_recovery.json. No forced link or library rewrite used."
   ],
-  "recovery_sha256": "68643675551455c46cd13b62cc9a0108d301fb10bc5909d67600a3f8d05cb864",
+  "recovery_sha256": "0980a9fa9412b8da7f95e2adcaa8d8a67d073497c22e44f845e956aa127c1450",
   "previous_graph_receipt": {
-    "path": "work/host_current_graph/report-64c5349fecb5f9fa.json",
-    "sha256": "64c5349fecb5f9fa7785a09f10f88ea99cc6b19d4682a20121c4e221eca143e6"
+    "path": "work/host_current_graph/report-030ee362226b283e.json",
+    "sha256": "030ee362226b283ebef026bcc543589a6e465356c4817856bdd0925c93d7885f"
   },
   "current_prediction": {
-    "path": "work/host_bitmap_copy/prediction.json",
-    "sha256": "a878aceef7eacaed8051d96e25ef0c54bf568dacef5d36f807542856ab5219b5"
+    "path": "work/host_cd_resume/prediction.json",
+    "sha256": "ffcf83443eb6c9c9b047d16f1b27212dd661f0b5552de8fe789103913ffc6534"
   }
 }

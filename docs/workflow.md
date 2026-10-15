@@ -96,8 +96,8 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 107 actual source units with
-141 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+The current natural selected host graph compiles 108 actual source units with
+143 recorded EXE functions and preserves 26 accepted EXE functions. It has no
 duplicate providers and 33 unresolved dependencies: 18 newly exposed frame
 callbacks and 15 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
@@ -706,3 +706,22 @@ behavior. The corrected extent is 464 bytes but 147 diagnostic differences
 remain. Shared cell/callee bindings and cache/literal auditing are still pending;
 no canonical source or recovery row was adopted. Preserve the reload finding for
 that integration. See `evidence/host_platform_sync_reload_discriminator.json`.
+
+The actual CD unpause `0x9db0` and resume `0x9f60` now have canonical source
+using the existing MCI and registry owners. The former has full 96-byte
+relocation diagnostic equality; the latter has the full 336-byte extent with
+143 diagnostic differences. Neither is raw exact.
+
+```
+python scripts/host_cd_resume_differential.py --output work/cd_resume_replay
+```
+
+Eighty-eight guarded native/source cases execute actual pause, unpause, resume,
+readiness, playback, cleanup and timer bodies. The 35 prior playback/timer cases
+remain included. Tests preserve live state after callbacks, tick wrap, failed
+commands and the SDK WORD-minute packing, whose high bits overlap the second
+field. Zero start/already-playing resume leaves paused state unchanged, while
+disabled or failed-readiness resume still adjusts a live paused tick. Only OS
+and identified CRT boundaries are modeled. All 133 accepted matches remain raw
+exact; the selected host graph has no duplicate providers and still has 33 real
+missing dependencies. See `evidence/host_cd_resume_recovery.json`.

@@ -1,0 +1,457 @@
+{
+  "schema": 1,
+  "scope": "Original PC CD unpause 0x9db0 and resume 0x9f60, integrated with the actual existing readiness/pause/playback/cleanup/timer sources. No real process or OS execution; recovery.json alone owns recovery status.",
+  "oracle_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "sources": [
+    {
+      "path": "src/pc/host_cd_resume.c",
+      "sha256": "41e76ea303aeea0760ab5611f6036f4228c6bb649fe1fea2429f935bcc47b664"
+    },
+    {
+      "path": "scripts/host_cd_resume_differential.py",
+      "sha256": "0883918bd5e14f09b593a0986dad1a2d97c62527a013229bc2fcee749eb1af1a"
+    },
+    {
+      "path": "calibration/mci_storage.c",
+      "sha256": "ffc36970d2cb0f507ea7598b0b9977b66c8e9b1609a92111d4d2e8b051d1ecab"
+    },
+    {
+      "path": "calibration/mci_pause.c",
+      "sha256": "d452ce81e79774f53048bb961f8d38270ad55cee3305d3104425c3558ba146e7"
+    },
+    {
+      "path": "calibration/mci_readiness.cpp",
+      "sha256": "2e4e294275b2061fa530ccfbc8ef58f69be56fec7f3449b33b13463a7b52825f"
+    },
+    {
+      "path": "src/pc/host_cd_play.c",
+      "sha256": "244f57360447f185ebaf4deda90621b2853bd3dcef98a736c459125262d8e0b4"
+    },
+    {
+      "path": "src/pc/host_cd_timer.c",
+      "sha256": "e26c33c62b4b21e10b435884cae9430a4b9bc88753831504b83c53803b6787ad"
+    },
+    {
+      "path": "calibration/audio_cleanup_dependencies.c",
+      "sha256": "174152b49b12549cb57891bcca50fc3630ffb18a177dfbab6b07f12731d3e4c9"
+    },
+    {
+      "path": "calibration/registry_storage.c",
+      "sha256": "e9f7c60fd443f486260a622e2beb5cde2be2d7a500b2cd486afab6ccbe35eda7"
+    }
+  ],
+  "prediction": {
+    "path": "work/host_cd_resume/prediction.json",
+    "sha256": "ffcf83443eb6c9c9b047d16f1b27212dd661f0b5552de8fe789103913ffc6534"
+  },
+  "measurement": {
+    "private": {
+      "path": "work/host_cd_resume/candidate.json",
+      "sha256": "0d1f4f6362d66028e73ff7789aafaa56ed075f38c8ac87482426f55e83cd0a02"
+    },
+    "functions": [
+      {
+        "role": "unpause",
+        "symbol": "_host_cd_unpause_9db0",
+        "source_bytes": 96,
+        "native_bytes": 96,
+        "raw_exact": false,
+        "raw_differences": 34,
+        "diagnostic_equal": true,
+        "diagnostic_differences": 0,
+        "relocations": [
+          {
+            "offset": 1,
+            "symbol": "_g_exe_96e62c",
+            "type": 6
+          },
+          {
+            "offset": 10,
+            "symbol": "_cleanup_native_9c30",
+            "type": 20
+          },
+          {
+            "offset": 25,
+            "symbol": "_audio_stop_command",
+            "type": 6
+          },
+          {
+            "offset": 31,
+            "symbol": "__imp__mciSendStringA@16",
+            "type": 6
+          },
+          {
+            "offset": 36,
+            "symbol": "_g_exe_96e628",
+            "type": 6
+          },
+          {
+            "offset": 46,
+            "symbol": "__imp__timeGetTime@0",
+            "type": 6
+          },
+          {
+            "offset": 52,
+            "symbol": "_g_exe_96e628",
+            "type": 6
+          },
+          {
+            "offset": 58,
+            "symbol": "_g_exe_96e624",
+            "type": 6
+          },
+          {
+            "offset": 66,
+            "symbol": "_g_exe_96e628",
+            "type": 6
+          },
+          {
+            "offset": 78,
+            "symbol": "_g_exe_96e624",
+            "type": 6
+          },
+          {
+            "offset": 84,
+            "symbol": "_g_exe_96e62c",
+            "type": 6
+          }
+        ],
+        "compiled_sha256": "bc2fdb994d9e4ac500b2bdd331e78cf06e6c99b14b18d4c9d3ccbe622c030101",
+        "native_sha256": "63841037c466fddde575717708e1f369bdd0ce2cd49f8545f3d466f98f506970"
+      },
+      {
+        "role": "resume",
+        "symbol": "_host_cd_resume_9f60",
+        "source_bytes": 336,
+        "native_bytes": 336,
+        "raw_exact": false,
+        "raw_differences": 201,
+        "diagnostic_equal": false,
+        "diagnostic_differences": 143,
+        "relocations": [
+          {
+            "offset": 1,
+            "symbol": "_g_exe_96e62c",
+            "type": 6
+          },
+          {
+            "offset": 24,
+            "symbol": "_g_exe_96e61c",
+            "type": 6
+          },
+          {
+            "offset": 38,
+            "symbol": "_g_registry_config",
+            "type": 6
+          },
+          {
+            "offset": 50,
+            "symbol": "_cleanup_native_9c30",
+            "type": 20
+          },
+          {
+            "offset": 64,
+            "symbol": "__imp__mciSendStringA@16",
+            "type": 6
+          },
+          {
+            "offset": 75,
+            "symbol": "??_C@_0BN@BPNP@set?5cdaudio?5time?5format?5tmsf?$AA@",
+            "type": 6
+          },
+          {
+            "offset": 82,
+            "symbol": "_g_exe_96e628",
+            "type": 6
+          },
+          {
+            "offset": 92,
+            "symbol": "__imp__timeGetTime@0",
+            "type": 6
+          },
+          {
+            "offset": 98,
+            "symbol": "_g_exe_96e624",
+            "type": 6
+          },
+          {
+            "offset": 104,
+            "symbol": "_g_exe_96e61c",
+            "type": 6
+          },
+          {
+            "offset": 139,
+            "symbol": "_g_exe_96e620",
+            "type": 6
+          },
+          {
+            "offset": 232,
+            "symbol": "??_C@_0BL@LBPN@play?5cdaudio?5from?5?$CFd?5to?5?$CFd?$AA@",
+            "type": 6
+          },
+          {
+            "offset": 238,
+            "symbol": "_sprintf",
+            "type": 20
+          },
+          {
+            "offset": 264,
+            "symbol": "_g_exe_96e62c",
+            "type": 6
+          },
+          {
+            "offset": 269,
+            "symbol": "_g_exe_96e628",
+            "type": 6
+          },
+          {
+            "offset": 279,
+            "symbol": "__imp__timeGetTime@0",
+            "type": 6
+          },
+          {
+            "offset": 285,
+            "symbol": "_g_exe_96e628",
+            "type": 6
+          },
+          {
+            "offset": 291,
+            "symbol": "_g_exe_96e624",
+            "type": 6
+          },
+          {
+            "offset": 299,
+            "symbol": "_g_exe_96e628",
+            "type": 6
+          },
+          {
+            "offset": 311,
+            "symbol": "_g_exe_96e624",
+            "type": 6
+          }
+        ],
+        "compiled_sha256": "870290ed77945c53f009d4526933670ff95fc797fa82f3e29bde5e4ec6010a87",
+        "native_sha256": "4802e89dc2853645891b25592e6de78093c2e369d26523ad592530d094b96254"
+      }
+    ],
+    "scope": "One ordinary source family; no code-generation grid. Complete unpause 96 bytes normalize but retain 11 relocations and 34 raw differences. Resume 336 retains 143 diagnostic differences, 20 relocations and 201 raw differences."
+  },
+  "behavior": [
+    "Unpause optionally stops a playing/ready device. If paused tick is nonzero, call timeGetTime, reload current previous/paused state, add the modulo DWORD clock difference, clear paused, and finally clear playing.",
+    "Resume returns unchanged if already playing or start is zero. Otherwise registry byte13 must be exactly1 and actual readiness must pass before issuing set-time-format and play commands. No retry or Sleep is introduced.",
+    "Read paused tick after set-format; use it if nonzero, otherwise read current time. Subtract live previous tick, apply the pinned compiler signed abs/division behavior, and add elapsed minutes/seconds to the current packed start.",
+    "The pinned SDK MCI_MAKE_TMSF macro takes WORD minute and BYTE second. Do not normalize seconds, carry them into minutes, clamp time or narrow minute early; high minute bits overlap the second field. Both from/to track bytes come from current start.",
+    "After the optional play path, a live nonzero paused tick still adjusts previous and clears paused even when configuration/readiness prevented playback. Preserve live state reads after tick/format/MCI boundaries."
+  ],
+  "sdk": {
+    "path": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\mmsystem.h",
+    "macro_line": 2727,
+    "packing": "BYTE track | (WORD minute << 8) | (BYTE second << 16) | (WORD frame << 24)",
+    "source_flags": [
+      "/O2"
+    ]
+  },
+  "validation": {
+    "report": {
+      "path": "work/host_cd_resume/public_pinned/host_cd_resume_differential.json",
+      "sha256": "0734eb4768a7ac892e5ec15f77194b6baa0334b7df32a5cf26f990712cbd1c46"
+    },
+    "case_count": 88,
+    "all_equal": true,
+    "prior_playback_timer_cases": 35,
+    "additional_pause_unpause_resume_cases": 53,
+    "coverage": [
+      "Enabled bytes 0,1,2,128,255; playing 0,1,high-bit; open and readiness failures; stop failures and live mutations.",
+      "Paused/current tick selection, zero start, disabled/readiness-failed resume still adjusting paused state, set-format failure ignored, failed play result.",
+      "Elapsed delta 0,999,1000,59999,60000,61000,0x7fffffff,0x80000000,0xffffffff; WORD-minute overflow and current start/end track behavior.",
+      "Full six-cell MCI state, all72 registry bytes, reset DWORD, ordered MCI/tick/format/stricmp events, ABI, guards and bounded execution/writes."
+    ],
+    "actual_bodies": [
+      "resume9f60",
+      "unpause9db0",
+      "pause9d60",
+      "play9e60",
+      "timer9cd0",
+      "cleanup9e10",
+      "readiness9c30"
+    ],
+    "modeled": "Only MCI/timeGetTime/Sleep APIs and identified CRT sprintf/ASCII stricmp boundaries. Unreachable cleanup-bank/main fixture dependencies fail on entry, never production providers.",
+    "data_prefixes": [
+      {
+        "symbol": "_g_exe_96e61c",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e61c",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_96e620",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e620",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_96e624",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e624",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_96e628",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e628",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_96e62c",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e62c",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_96e630",
+        "owner": "calibration\\mci_storage.c",
+        "rva": "0x56e630",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_registry_config",
+        "owner": "calibration\\registry_storage.c",
+        "rva": "0x79e858",
+        "bytes": 72,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      },
+      {
+        "symbol": "_g_exe_91c46c",
+        "owner": "calibration\\graphics_storage.cpp",
+        "rva": "0x51c46c",
+        "bytes": 4,
+        "coff_kind": "BSS",
+        "native_backing": "virtual_loader_zero"
+      }
+    ],
+    "crt_library_identity": [
+      {
+        "symbol": "_sprintf",
+        "member": 419,
+        "rva": "0x10f40",
+        "size": 112,
+        "member_sha256": "42418dec737f0bbc1dbf1f762c799c20fcfe328fe33409ee2af1c371cadc72e1",
+        "complete_code_diagnostic": {
+          "masked_equal": true,
+          "compiled_size": 112,
+          "target_size": 112,
+          "differing_bytes": 0,
+          "mismatch_regions": [],
+          "symbols": {
+            "__flsbuf": "0x12b80",
+            "__output": "0x14160"
+          },
+          "conflicts": [],
+          "unsupported": [],
+          "relocations": 2
+        },
+        "scope": "Unmodified identified libcmt member; private whole-section diagnostic permits the existing alias names. No function/layout acceptance; CRT body is not executed in these cases."
+      },
+      {
+        "symbol": "__stricmp",
+        "member": 460,
+        "rva": "0x1c270",
+        "size": 208,
+        "member_sha256": "a02804730780cdbc4e0c3a675c777c752185be9bcad4c816a807e5db632746e8",
+        "complete_code_diagnostic": {
+          "masked_equal": true,
+          "compiled_size": 208,
+          "target_size": 208,
+          "differing_bytes": 0,
+          "mismatch_regions": [],
+          "symbols": {
+            "___lc_handle": "0x7a0558",
+            "___setlc_active": "0x7a2e98",
+            "___unguarded_readlc_active": "0x7a2e9c",
+            "__lock": "0x121f0",
+            "__tolower_lk": "0x18520",
+            "__unlock": "0x12270"
+          },
+          "conflicts": [],
+          "unsupported": [],
+          "relocations": 9
+        },
+        "scope": "Unmodified identified libcmt member; private whole-section diagnostic permits the existing alias names. No function/layout acceptance; CRT body is not executed in these cases."
+      }
+    ]
+  },
+  "regression": {
+    "strict": {
+      "path": "work/host_cd_resume/strict133.json",
+      "sha256": "dac07e2d7577f40305210800d3e09e4235fd9dff9a40097c9c8289a9586efc01"
+    },
+    "raw_exact_functions": 133,
+    "all_662_prior_rows_identical": true,
+    "rows_added": 2,
+    "status_counts": {
+      "FUNCTION_MATCH": 133,
+      "CODEGEN_SIMILAR": 477,
+      "RECONSTRUCTED": 54
+    },
+    "natural_graph": {
+      "path": "work/host_current_graph/report-f1a4a87f257c4201.json",
+      "sha256": "f1a4a87f257c420150282d580954cddf165810b229109269ff8d4bc9b2e9f832"
+    },
+    "source_units": 108,
+    "recorded_EXE_functions": 143,
+    "preserved_exact_EXE_functions": 26,
+    "unresolved": 33,
+    "duplicate_providers": 0,
+    "images_produced": 0
+  },
+  "toolchain": {
+    "id": "msvc5_rtm",
+    "flags": [
+      "/O2"
+    ],
+    "implicit_compile_flag": "/Gy",
+    "compiler_sha256": "bf9f9c74f756fed96e13f7f9a4273495c7dde0a1fb968e3ef6d760ad6d73dfeb",
+    "manifest_sha256": "cc37f4e00434eacec0053d4562a1b2715fda46f8891f8c865c90e809772f0b03"
+  },
+  "analysis_tools": {
+    "python": {
+      "path": "C:\\Users\\jiriv\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "version": "3.12.14",
+      "sha256": "d41bad46673f64e0d02f23797f53f90ccf60f27d6eda8d86dd2d4bbeae5a858c"
+    },
+    "pefile": {
+      "path": "C:\\tools\\hercules\\python\\pefile.py",
+      "version": "2024.8.26",
+      "sha256": "0d0eb68f0f169182613dc64b3ab50b20855508c1c1d2faafe8fccf23edb6a345"
+    },
+    "unicorn": {
+      "path": "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll",
+      "version": "2.1.4",
+      "sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1"
+    },
+    "origin": "Existing C:/tools/hercules installations and bundled workspace Python; prior provenance in evidence/host_engine_loader_recovery.json. No tool/dependency added or modified."
+  },
+  "commands": [
+    "python scripts/host_cd_resume_differential.py --output work/cd_resume_replay",
+    "python scripts/match.py verify --original-root D:/Prog/hercules_recon --report work/cd_resume_strict_replay.json",
+    "python work/host_current_graph/run.py"
+  ],
+  "limits": [
+    "Finite MCI/clock/format comparisons do not establish exact matching, original source/TU/prototype/module layout, locale-general CRT semantics, real devices or game execution.",
+    "The deliberate INT_MIN delta records the actual pinned VC5/native result; it is not a portable C guarantee for abs(INT_MIN).",
+    "Platform synchronization 0x5a50 remains private pending shared bindings and DirectSound pause/resume dependencies. The natural host link still fails on33 genuine dependencies."
+  ]
+}
