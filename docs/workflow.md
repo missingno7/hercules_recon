@@ -96,10 +96,10 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 104 actual source units with
-138 recorded EXE functions and preserves 26 accepted EXE functions. It has no
-duplicate providers and 35 unresolved dependencies: 18 newly exposed frame
-callbacks and 17 other providers. Including the real map replaces one missing
+The current natural selected host graph compiles 106 actual source units with
+140 recorded EXE functions and preserves 26 accepted EXE functions. It has no
+duplicate providers and 34 unresolved dependencies: 18 newly exposed frame
+callbacks and 16 other providers. Including the real map replaces one missing
 map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -370,6 +370,24 @@ and arbitrary invalid-pointer domains remain unproved. See
 `evidence/host_palette_entries_recovery.json`. All657prior rows and133exact
 functions remain valid. The natural graph now has104units,138recordedEXE
 functions and35missing providers,with no executable.
+
+Cached-color fill at `0x6ee0` now supplies the missing palette refresh dependency,
+with complete 272-byte normalized equality. Its palette search at `0x6850` has
+source but retains code differences. No exact promotion follows.
+
+```
+python scripts/host_color_fill_differential.py --output work/color_fill_replay
+```
+
+Twenty-five guarded cases compare all 16 cache bytes, 76,800 bitmap bytes and
+100-byte fullscreen effect descriptors, including locked calls, cache hits,
+low-byte conversion, null targets and ignored Blt failure. Search uses fixed RGB,
+retains the first equal minimum and stops on zero distance. The first recurrence
+hypothesis was falsified: the loop includes the red reload, and gray 255 selects
+255 rather than 170. Source was corrected from that discriminator.
+Only COM Blt remains modeled. All 659 prior rows and 133 exact functions remain
+intact. See `evidence/host_color_fill_recovery.json`. The natural graph now has
+106 units, 140 recorded EXE functions and 34 missing providers, with no executable.
 
 The journaled promotion gate now supports `.c` and `.cpp` destinations under
 `src/`. A C++ candidate must already occupy its exact canonical path. The gate
