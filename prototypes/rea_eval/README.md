@@ -7,6 +7,9 @@ The historical calibration below remains evidence for its original inputs;
 the follow-up adds source and finite tests without changing strict acceptance.
 The [camera-chain follow-up](../../docs/eng1_camera_chain.md) reuses the saved
 `26730` analysis for bounded smoothing recovery and corrects a camera step error.
+The [level-6 follow-up](../../docs/eng1_level6_color.md) identifies its native
+producers and connects supported color paths; controlled emulation discriminates
+the remaining stack-dependent branch.
 
 This directory evaluates whether [REA](https://github.com/morluto/rea), the
 `rea-agents` npm package (an MCP server/CLI over Ghidra, Hopper, IDA and

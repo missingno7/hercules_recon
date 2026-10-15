@@ -46,6 +46,9 @@ static unsigned char *cell(unsigned long rva) { return (unsigned char *)oracle+r
 void __cdecl dispatch_engine_2c9d0(unsigned long x,unsigned long y)
 { (void)x;(void)y;CHECK(0); }
 void __cdecl dispatch_engine_2c9f0(unsigned long x) { (void)x;CHECK(0); }
+/* All selected camera-chain paths exclude level-6 color execution. */
+void __cdecl eng1_color_grid_update_5a60(int r,int g,int b,int x,int y,int z)
+{ (void)r;(void)g;(void)b;(void)x;(void)y;(void)z;CHECK(0); }
 static void seed(unsigned long rva,const void *value,unsigned size)
 { memcpy(cell(rva),value,size); }
 static void setup(unsigned flags,int scenario,long position,unsigned iterations)

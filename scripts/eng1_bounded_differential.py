@@ -17,17 +17,32 @@ from title_behavioral import context_files
 from refinery_forms import function_text, replace_function
 
 PROFILES = {
+    'level6-color': dict(
+        sources=['tests/eng1_color_differential.c',
+                 'src/eng1/behavioral/camera_smoothing_26730.c',
+                 'src/eng1/behavioral/initial_spatial_roots.c',
+                 'src/eng1/behavioral/color_storage.c',
+                 'src/eng1/behavioral/color.c',
+                 'src/eng1/behavioral/host_color_callback.c',
+                 'src/eng1/behavioral/camera_storage.c',
+                 'src/eng1/behavioral/actor_pipeline_storage.c',
+                 'src/eng1/behavioral/incomplete.c'],
+        flags={'tests/eng1_color_differential.c':['/DLEVEL6_COLOR_TEST']},
+        spans=[(0x26730,1438),(0x5a60,752)], cases=101,
+        scope='101 original/source level-6 color cases through actual5a60/5e00 with shared storage, pending consumption, six independent lanes, pointer lists, all512 colors, guarded frames, common camera offset, ESP and module write audit. Existing2484 color states rerun. Six source-only guards reject stack-dependent equality, unsupported list extents and target overlap.'),
     'camera-chain': dict(
         sources=['tests/eng1_camera_chain_differential.c',
                  'src/eng1/behavioral/camera.c',
                  'src/eng1/behavioral/camera_smoothing_26730.c',
+                 'src/eng1/behavioral/initial_spatial_roots.c',
                  'src/eng1/behavioral/camera_bounds_20ea0.c',
                  'src/eng1/behavioral/camera_storage.c',
                  'src/eng1/behavioral/resource_data.c',
                  'src/eng1/behavioral/actor_pipeline_storage.c',
+                 'src/eng1/behavioral/color_storage.c',
                  'src/eng1/behavioral/incomplete.c'],
         spans=[(0x2fb70,990),(0x20ea0,432),(0x26730,1438)], cases=324,
-        scope='190 real camera/bounds-chain, 130 non-level-6 smoothing and four composed smoothing/camera original/source cases, plus five source-only fail-before-write guards. Existing camera/resource/pipeline owners; full native module write audit, output state, input buffers, faults and ESP. No level-6 color implementation, original initializer, game process or FUNCTION_MATCH claim.'),
+        scope='190 real camera/bounds-chain, 130 non-level-6 smoothing and four composed smoothing/camera original/source cases, plus five source-only fail-before-write guards. Existing camera/resource/pipeline owners; full native module write audit, output state, input buffers, faults and ESP. Selected paths exclude level-6 color execution; no original initializer, game process or FUNCTION_MATCH claim.'),
     'camera-bounds': dict(
         sources=['tests/eng1_camera_bounds_differential.c',
                  'src/eng1/behavioral/camera_bounds_20ea0.c',
@@ -615,6 +630,50 @@ def bootstrap_cases(exe, oracle, out, env):
     return tested, dict(source_guard_cases=5,source_guard_failures=0)
 
 
+def level6_stack_discriminator(oracle):
+    """Original instructions with explicit input stack bytes; stop before5a60."""
+    import struct
+    sys.path.append('C:/tools/hercules/renderer-oracle-python')
+    import unicorn
+    from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE
+    from unicorn.x86_const import UC_X86_REG_ESP, UC_X86_REG_ECX
+    library=Path(unicorn.__file__).parent/'lib/unicorn.dll'
+    expected='010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1'
+    if unicorn.__version__!='2.1.4' or sha(library)!=expected:
+        raise ValueError('Unreviewed Unicorn runtime for the level-6 stack discriminator')
+    pe=PE(oracle);base=pe.image_base;size=pe.pe.OPTIONAL_HEADER.SizeOfImage
+    pack=lambda n:struct.pack('<I',n&0xffffffff)
+    rows=[]
+    for tail in (0,1,65536,65535):
+        machine=Uc(UC_ARCH_X86,UC_MODE_32)
+        machine.mem_map(base,(size+4095)&~4095)
+        machine.mem_write(base,pe.pe.get_memory_mapped_image().ljust(size,b'\0'))
+        machine.mem_map(0x62000000,0x10000);esp=0x62008000;stop=0x6200f000
+        machine.mem_write(esp,pack(stop));machine.mem_write(esp-8,pack(tail))
+        machine.mem_write(base+0x70f24,pack(0x62000100));machine.mem_write(0x62000100,b'\x06')
+        machine.mem_write(base+0x71440,bytes(0x8c0));machine.mem_write(base+0x70cbc,pack(0))
+        machine.mem_write(base+0x6fea0,pack(0))
+        for rva in (0x5a7b0,0x5a7b8):machine.mem_write(base+rva,bytes([0,0,0,128,128,128]))
+        machine.reg_write(UC_X86_REG_ESP,esp)
+        row=dict(input_tail_dword=tail,lanes=[],color_call=False)
+        def observe(uc,address,length,data):
+            if address==base+0x26b45:
+                sp=uc.reg_read(UC_X86_REG_ESP);index=uc.reg_read(UC_X86_REG_ECX)
+                read=lambda offset:struct.unpack('<H',uc.mem_read(sp+index+offset,2))[0]
+                row['lanes'].append(dict(index=index,target=read(0x14),current=read(0x34)))
+            if address==base+0x5a60:
+                row['color_call']=True;uc.emu_stop()
+        machine.hook_add(UC_HOOK_CODE,observe)
+        machine.emu_start(base+0x26730,stop,count=10000)
+        rows.append(row)
+    valid=[r['color_call'] for r in rows]==[False,True,False,True] and all(
+        len(r['lanes'])==8 and all(x['target']==x['current'] for x in r['lanes'][:6]) for r in rows)
+    if not valid:raise ValueError('Level-6 original stack discriminator changed')
+    return dict(scope='Unmodified original instructions; six real lanes equal, list empty. Input stack bytes only changed; stop before5a60. No source acceptance.',
+                origin='https://pypi.org/project/unicorn/2.1.4/',version=unicorn.__version__,library_sha256=expected,
+                cases=rows,all_expected=True)
+
+
 def run(profile, oracle, captured_payload=None):
     cfg = dict(PROFILES[profile])
     oracle = oracle.resolve()
@@ -718,7 +777,15 @@ def run(profile, oracle, captured_payload=None):
                     raise ValueError('Alternate bootstrap null-pool guard failed')
                 report.update(source_guard_cases=1,source_guard_failures=0)
         report.update(run_exit_code=tested.returncode, stdout=tested.stdout, stderr=tested.stderr, executable_sha256=sha(exe))
-        if profile == 'camera-chain':
+        if profile == 'level6-color':
+            match=re.search(r'level6_native_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
+            guard=re.search(r'level6_source_guard_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
+            baseline=re.search(r'native_states=(\d+) checks=(\d+) failures=(\d+) raw_callback_differences=(\d+)',tested.stdout)
+            if match:report.update(cases=int(match[1]),checks=int(match[2]),failures=int(match[3]))
+            if guard:report.update(source_guard_cases=int(guard[1]),source_guard_checks=int(guard[2]),source_guard_failures=int(guard[3]))
+            if baseline:report.update(all_color_states=int(baseline[1]),all_color_checks=int(baseline[2]),all_color_failures=int(baseline[3]),raw_callback_differences=int(baseline[4]))
+            report['stack_discriminator']=level6_stack_discriminator(oracle)
+        elif profile == 'camera-chain':
             match=re.search(r'camera_chain_native_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
             guard=re.search(r'camera_source_guard_cases=(\d+) checks=(\d+) failures=(\d+)',tested.stdout)
             if match:report.update(cases=int(match[1]),checks=int(match[2]),failures=int(match[3]))
@@ -801,6 +868,8 @@ def run(profile, oracle, captured_payload=None):
             report.update(cases=len(re.findall(r'^differential .*: pass ', tested.stdout, re.M)), failures=0 if tested.returncode==0 else None)
     report['inputs_unchanged'] = all(sha(ROOT / p)==value for p,value in before.items()) and sha(oracle)==report['oracle_sha256']
     coverage = report.get('cases') == cfg['cases'] and (profile=='command-writers' or 'success_marker' in cfg or report.get('checks',0)>0)
+    if profile == 'level6-color':
+        coverage = coverage and report.get('source_guard_cases')==6 and report.get('source_guard_failures')==0 and report.get('all_color_states')==2585 and report.get('all_color_failures')==0 and report.get('stack_discriminator',{}).get('all_expected') is True
     if profile == 'camera-chain':
         coverage = coverage and report.get('source_guard_cases') == 5 and report.get('source_guard_failures') == 0
     if profile == 'simulation-helpers':

@@ -363,7 +363,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "evidence/eng1_runtime_color.json"
+      "evidence": "evidence/eng1_level6_color.json"
     },
     {
       "source": "src/eng1/behavioral/host_color_callback.c",
@@ -4041,9 +4041,9 @@
       "symbol": "_eng1_call_26730",
       "source": "src/eng1/behavioral/camera_smoothing_26730.c",
       "implementation_status": "bounded_original_source_verified",
-      "evidence": "evidence/eng1_camera_chain.json",
-      "contract": "Non-level-6 camera smoothing over existing measured pipeline storage; signed WORD averages, yaw skip, angular wrapping, signed offset smoothing. Explicit guards reject level 6 and lists beyond measured prefix.",
-      "uncertainty": "Level-6 color branch remains unimplemented; no raw identity, full gameplay or arbitrary alias/extent claim."
+      "evidence": "evidence/eng1_level6_color.json",
+      "contract": "Camera smoothing plus bounded level6 pending-target consumption, list averaging and changed-color interpolation through real5a60. Reuses pipeline owner and measured color records.",
+      "uncertainty": "Empty-list equality depends on two uninitialized native stack lanes and remains guarded. Lists beyond measured prefix, negative color counts and partial pending/target overlap unsupported; no raw identity or whole-game claim."
     }
   ],
   "source_adaptations": {

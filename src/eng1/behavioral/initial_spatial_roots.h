@@ -8,6 +8,10 @@ extern Eng1SpatialType10 g_eng1_spatial_types_04ede8[101];
 extern Eng1SpatialType10 g_eng1_spatial_types_061130[148];
 extern Eng1SpatialType10 g_eng1_spatial_types_0587a0[13];
 extern Eng1SpatialType10 g_eng1_spatial_types_06fe60[7];
+/* Level-6 pending color pointer shares bytes +0x40..+0x43 of this existing
+ * measured prefix. Preserve one owner and the native cross-mode alias. */
+#define g_level6_color_pending_6fea0 \
+    (*(unsigned char **)(void *)((unsigned char *)g_eng1_spatial_types_06fe60+0x40))
 extern Eng1SpatialType10 g_eng1_spatial_types_062bf8[82];
 extern unsigned short g_eng1_collision_map_04f1e0[32];
 extern unsigned short g_eng1_collision_map_058830[24];

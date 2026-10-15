@@ -7,7 +7,7 @@ not establish a later runtime frontier. No new original-host run, reconstructed
 gameplay frame, continuous gameplay, or normal engine shutdown is verified.
 
 The latest genuine graph has 369 mapped compiled entries and 400 function
-symbols. See `evidence/eng1_camera_chain.json` for its pinned private receipt.
+symbols. See `evidence/eng1_level6_color.json` for its pinned private receipt.
 Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
 denominator. The genuine link has 529 unresolved symbols and zero duplicate
 providers. Its intended export is `PC_DLLEngineMain` at ordinal 1; no current
@@ -25,7 +25,13 @@ The [camera-chain comparison](eng1_camera_chain.md) subsequently exposed and
 corrected the camera threshold scan's final pointer advancement. It also supplies
 `26730`'s non-level-6 smoothing using the existing storage owners: 324 original/
 source cases and 6,614 checks, plus five source-only guards. The level-6 color
-branch and lists beyond the measured storage prefix remain explicitly unsupported.
+branch was initially unsupported. The [level-6 follow-up](eng1_level6_color.md)
+now supplies changed-color and pointer-list paths through the existing color
+implementation, with 101 original/source cases and four controlled native-stack
+discriminators. It restores the actor pipeline's missing consumed-list reset and
+keeps the pending pointer in its existing spatial-data owner. Equal real colors
+with an empty list remain stack-dependent and explicitly guarded, along with
+unsupported list extents and partial target overlap.
 
 All 76 accepted ENG1 function instances remain exact under fresh pinned VC5
 compilation and complete raw contribution comparison. The recorded experiment

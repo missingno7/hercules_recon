@@ -1,5 +1,9 @@
 # Camera and actor smoothing recovery
 
+This records the initial camera-chain recovery. The later
+[level-6 follow-up](eng1_level6_color.md) implements the supported color paths
+and narrows the original level-6 guard.
+
 The real reconstructed `2fb70 -> 20ea0` chain now has an original/source
 comparison. This exposed an error in the existing camera source: the native
 threshold scan advances after its final read, while the old C scan did not.
@@ -16,18 +20,18 @@ thresholds, including the native signed `abs(INT_MIN)` outcome. It adds no data
 owner or runtime dependency. REA supplied structure; instructions and original
 comparisons determine the implemented contract.
 
-The function explicitly rejects level 6 and lists extending beyond the existing
+At this checkpoint the function rejected level 6 and lists extending beyond the existing
 `0x8c0` pipeline storage prefix, before changing camera state. These limits are
 recorded as an incomplete branch, rather than an all-entry placeholder. They
 are source safety bounds, not claims about original list capacities.
 
-Level 6 remains a concrete dependency. Native `26b45..26b8c` visits eight DWORD
+Level 6 was the next dependency. Native `26b45..26b8c` visits eight DWORD
 stack lanes, but only six lanes in each group are visibly initialized before
 that loop. Its change flag can determine the call to the existing `5a60` color
 routine; the last two lanes must not be invented as zero. The branch also uses
 pending color storage and pointer lists that require owner/producer recovery.
-The next step is to establish those producers and discriminate the native
-stack-dependent path before implementing it.
+The follow-up identifies those producers, proves the stack dependence and
+implements the paths independent of the two extra stack lanes.
 
 ```powershell
 python scripts/eng1_bounded_differential.py camera-chain --native-eng1 <pinned-ENG1.DLL>

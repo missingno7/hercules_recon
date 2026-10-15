@@ -10,7 +10,7 @@
     "evidence/actor_pool_layout.json": "13e4b6ea5c268ee49daba9e678d2edd5e8b97fe7c0dac820311996b996e6bd36",
     "evidence/actor_pool_reset_region.json": "0e7dee4128d0a061b335d94c67b73d006f93c0600c395d37acff4c18c2ae7de6",
     "evidence/eng1_actor_storage.json": "9bc63bc5f9d9cda03b66d6ec73cb7f2acc9fd8e95211ef1de595341c767710eb",
-    "evidence/eng1_behavioral_build.json": "028d125016abd0955ecc3796832a5651d2d67a0df17c8be6ca5f8a56f0891b6b",
+    "evidence/eng1_behavioral_build.json": "5b6ac3a6d5e8e9b6bfd7d13659d87a8a1a4f1e8084db4ec32597cc4e83f7d971",
     "evidence/eng1_camera.json": "42f52814b488bedabba5bfe41694fb43e7768e8c79457723de1d371eece46ecc",
     "evidence/eng1_descriptor_pointees.json": "2eb5a2f15638cadd140cac7c074758f84735d23cc12a72f7fe76e2a60ed131af",
     "evidence/eng1_dispatch_storage.json": "d0f8a47d6eef3024fa6ef69a20c787ee4bb67376ad579e1e1c1a17397273d272",
@@ -66,7 +66,9 @@
     "evidence/eng1_actor_position_classifier_41fd0.json": "1ba6b7b82e9f2538aa753d40e28da0cd2463512ba694a4abc5095bba9f749a9d",
     "evidence/eng1_actor_script_initializer_13990.json": "816c258419598dddde8bf40d50dd6b0cf138a4090686628b0d60b997c7addf26",
     "evidence/eng1_tile_draw_storage.json": "d16d0df586e989428ed62b5a8932cea7adb0a3e21c85c5ffa69c00f53dbb28dd",
-    "evidence/eng1_color_transition_init.json": "ca80ee0e02a7fdf2309595aee2940f93b691a8efeb068ae3c4b472c821460484"
+    "evidence/eng1_color_transition_init.json": "ca80ee0e02a7fdf2309595aee2940f93b691a8efeb068ae3c4b472c821460484",
+    "evidence/eng1_level6_color_storage.json": "6c46da028068cebc5daecb92b0b3f432963d24ceae8cbfe51de20387374aad5b",
+    "evidence/eng1_runtime_color.json": "c3148906d0d85eaeda269437700f4c260dcb4e40c26c50e421e53d75075a5057"
   },
   "providers": [
     {
@@ -6367,6 +6369,55 @@
           "symbol": "_g_eng1_color_transition_timer_71ecc",
           "rva": "0x71ecc",
           "size": 4,
+          "scope": "prefix"
+        }
+      ]
+    },
+    {
+      "source": "src/eng1/behavioral/color_storage.c",
+      "source_sha256": "8d05e9ab44df05bb0bd53510eff89a83e3d782b990b4b9bb8392b639b36d5e77",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": [
+        "evidence/eng1_runtime_color.json",
+        "evidence/eng1_level6_color_storage.json"
+      ],
+      "fields": [
+        {
+          "symbol": "_g_mesh_colors_6f4e8",
+          "rva": "0x6f4e8",
+          "size": 2048,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_frame_global_70cf8",
+          "rva": "0x70cf8",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_frame_global_70cfc",
+          "rva": "0x70cfc",
+          "size": 1,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_frame_global_73488",
+          "rva": "0x73488",
+          "size": 4,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_level6_color_target_5a7b0",
+          "rva": "0x5a7b0",
+          "size": 6,
+          "scope": "prefix"
+        },
+        {
+          "symbol": "_g_level6_color_current_5a7b8",
+          "rva": "0x5a7b8",
+          "size": 6,
           "scope": "prefix"
         }
       ]

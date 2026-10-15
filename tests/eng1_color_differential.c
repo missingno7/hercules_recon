@@ -8,6 +8,12 @@
 #include <string.h>
 #include "../calibration/engine_interface.h"
 
+#ifdef LEVEL6_COLOR_TEST
+#include "../src/eng1/behavioral/actor_pipeline_storage.h"
+#include "../src/eng1/behavioral/initial_spatial_roots.h"
+static int level6_active;
+#endif
+
 typedef unsigned char eng1_u8;
 typedef unsigned short eng1_u16;
 typedef unsigned long eng1_u32;
@@ -127,6 +133,9 @@ static void module_before(void)
 }
 static int permitted_output(eng1_u32 rva)
 {
+    #ifdef LEVEL6_COLOR_TEST
+    if(level6_active && ((rva>=0x5a7b0 && rva<0x5a7b6) || (rva>=0x5a7b8 && rva<0x5a7be) || (rva>=0x6fea0 && rva<0x6fea4) || (rva>=0x70cbc && rva<0x70cc0)))return 1;
+#endif
     return (rva>=0x6f4e8 && rva<0x6fce8) ||
         (rva>=0x6ee84 && rva<0x6ee86) || rva==0x7286c ||
         (rva>=0x70cf4 && rva<0x70cfd) ||
@@ -248,6 +257,121 @@ static void run_grid(const char *family,Snapshot *start,const int *a)
     side=1;eng1_color_grid_update_5a60(a[0],a[1],a[2],a[3],a[4],a[5]);capture(1);compare(family);
     if(failures!=before_failures)printf("INPUT word=%04x weights=%u,%u,%u args=%d,%d,%d,%d,%d,%d\n",start->word,start->weight[0],start->weight[1],start->weight[2],a[0],a[1],a[2],a[3],a[4],a[5]);
 }
+#ifdef LEVEL6_COLOR_TEST
+/* Reuse this fixture's complete color, frame and native-module comparisons. */
+extern void __cdecl eng1_call_26730(void);
+extern unsigned char g_level6_color_target_5a7b0[6],g_level6_color_current_5a7b8[6];
+extern long g_camera_offset_y_70cbc,g_camera_z_offset_70d18;
+extern long g_camera_angle_x_70cd0,g_camera_angle_y_70cd4;
+extern short g_camera_adjust_y_70d04;
+static unsigned char color_context[0x100],pending_bytes[32],row_bytes[135][8];
+static unsigned char pending_before[32],rows_before[135][8];
+static int level6_cases;
+static unsigned long level6_invoke(Command0 fn)
+{
+    unsigned long fault=0,a,b;
+    __asm mov a,esp
+    __try {fn();} __except(fault=GetExceptionCode(),EXCEPTION_EXECUTE_HANDLER) {}
+    __asm mov b,esp
+    check(a==b,"26730","ESP preserved");return fault;
+}
+static void level6_bind(Snapshot *start,int lane,int delta,int high,int count,int pending)
+{
+    int i,j;unsigned long *d=g_actor_pipeline_storage_71440.dword_cells;
+    static long offsets[]={0,16384,16385,-0x560001L,(-2147483647L-1)};
+    bind_fixture(start);level6_active=1;
+    memset(color_context,0,sizeof color_context);color_context[0]=6;
+    g_engine_interface.context_004=(ResourceCallbackContext *)color_context;
+    *(void **)cell(0x70f24)=color_context;
+    memset(&g_actor_pipeline_storage_71440,0,sizeof g_actor_pipeline_storage_71440);
+    d[0x6a0/4]=(unsigned long)count;
+    memset(pending_bytes,0xa7,sizeof pending_bytes);
+    memset(row_bytes,0xb6,sizeof row_bytes);
+    for(i=0;i<6;++i){
+        g_level6_color_target_5a7b0[i]=g_level6_color_current_5a7b8[i]=(eng1_u8)high;
+        pending_bytes[8+i]=(eng1_u8)(255-high-i*13);
+    }
+    g_level6_color_target_5a7b0[lane]=(eng1_u8)(high?high-delta:delta);
+    for(j=0;j<count && j<135;++j){
+        for(i=0;i<6;++i)row_bytes[j][i]=(eng1_u8)(j*19+i*31+level6_cases);
+        d[0x6a4/4+j]=(unsigned long)row_bytes[j];
+    }
+    g_level6_color_pending_6fea0=pending?pending_bytes+8:0;
+    memcpy(cell(0x5a7b0),g_level6_color_target_5a7b0,6);
+    memcpy(cell(0x5a7b8),g_level6_color_current_5a7b8,6);
+    memcpy(cell(0x6fea0),&g_level6_color_pending_6fea0,4);
+    memcpy(cell(0x71440),&g_actor_pipeline_storage_71440,sizeof g_actor_pipeline_storage_71440);
+    g_camera_offset_y_70cbc=offsets[level6_cases%5];
+    memcpy(cell(0x70cbc),&g_camera_offset_y_70cbc,4);
+    g_camera_angle_x_70cd0=111;g_camera_angle_y_70cd4=-222;g_camera_z_offset_70d18=333;
+    g_camera_adjust_y_70d04=0x1234;
+    *(long *)cell(0x70cd0)=111;*(long *)cell(0x70cd4)=-222;*(long *)cell(0x70d18)=333;
+    *(short *)cell(0x70d04)=0x1234;
+    memcpy(pending_before,pending_bytes,sizeof pending_bytes);memcpy(rows_before,row_bytes,sizeof row_bytes);
+    module_before();
+}
+static void run_level6(int lane,int delta,int high,int count,int pending,int cache)
+{
+    Snapshot start;unsigned long a,b;unsigned char current[6];
+    initial(&start,level6_cases);if(cache)start.current=0;
+    level6_bind(&start,lane,delta,high,count,pending);
+    if(cache){memset(row_bytes,0,sizeof row_bytes);memcpy(rows_before,row_bytes,sizeof row_bytes);}
+    if(pending==2){
+        g_level6_color_pending_6fea0=g_level6_color_current_5a7b8;
+        *(void **)cell(0x6fea0)=cell(0x5a7b8);module_before();
+    }
+    memcpy(current,g_level6_color_current_5a7b8,6);
+    case_index=level6_cases++;side=0;a=level6_invoke((Command0)cell(0x26730));capture(0);
+    side=1;b=level6_invoke(eng1_call_26730);capture(1);compare("26730-level6");
+    check(a==0 && b==0,"26730-level6","no exception on supported path");
+    check(memcmp(cell(0x5a7b0),g_level6_color_target_5a7b0,6)==0,"26730-level6","target six bytes");
+    check(memcmp(cell(0x5a7b8),g_level6_color_current_5a7b8,6)==0,"26730-level6","current six bytes");
+    check(*(void **)cell(0x6fea0)==0 && !g_level6_color_pending_6fea0,"26730-level6","pending target consumed");
+    check(memcmp(cell(0x6fe60),g_eng1_spatial_types_06fe60,sizeof g_eng1_spatial_types_06fe60)==0,"26730-level6","shared spatial prefix and pending pointer alias");
+    check(*(long *)cell(0x70cbc)==g_camera_offset_y_70cbc,"26730-level6","common offset smoothing");
+    check(g_camera_angle_x_70cd0==111 && g_camera_angle_y_70cd4==-222 && g_camera_z_offset_70d18==333 && g_camera_adjust_y_70d04==0x1234,"26730-level6","camera angle stages skipped");
+    check(memcmp(cell(0x71440),&g_actor_pipeline_storage_71440,sizeof g_actor_pipeline_storage_71440)==0,"26730-level6","whole shared pipeline state");
+    check(memcmp(pending_bytes,pending_before,sizeof pending_bytes)==0 && memcmp(row_bytes,rows_before,sizeof row_bytes)==0,"26730-level6","pending and row guards");
+    if(count)check(memcmp(current,g_level6_color_current_5a7b8,6)==0,"26730-level6","list leaves current color record unchanged");
+    if(cache)check(memcmp(logs[0].lut,start.lut,sizeof start.lut)==0,"26730-level6","native cache hit retains poisoned LUT");
+    level6_active=0;
+}
+static void level6_suite(void)
+{
+    static int deltas[]={1,2,3,16,127,254,255};
+    static int counts[]={1,3,135};
+    int lane,d,high,count,pending,old_checks=checks;Snapshot start;
+    for(lane=0;lane<6;++lane)for(d=0;d<7;++d)for(high=0;high<2;++high)
+        run_level6(lane,deltas[d],high?255:0,0,0,0);
+    for(count=0;count<3;++count)for(pending=0;pending<3;++pending)
+        run_level6(0,0,0,counts[count],pending,0);
+    for(lane=0;lane<6;++lane)run_level6(lane,1,0,0,1,0);
+    run_level6(0,0,0,1,0,1);run_level6(0,0,0,3,1,1);
+    printf("level6_native_cases=%d checks=%d failures=%d\n",level6_cases,checks-old_checks,failures);
+    old_checks=checks;
+    for(d=0;d<6;++d){
+        unsigned long fault;Snapshot saved;unsigned char target[6],current[6],pipeline[0x8c0];
+        unsigned char *saved_pending;long offset;
+        initial(&start,0);level6_bind(&start,0,0,0,0,0);
+        if(d==1)g_level6_color_pending_6fea0=g_level6_color_current_5a7b8;
+        if(d==2)g_actor_pipeline_storage_71440.dword_cells[0x6a0/4]=0xffffffffUL;
+        if(d==3)g_actor_pipeline_storage_71440.dword_cells[0x6a0/4]=136;
+        if(d==4)g_level6_color_pending_6fea0=g_level6_color_target_5a7b0+1;
+        if(d==5){g_actor_pipeline_storage_71440.dword_cells[0x6a0/4]=1;g_actor_pipeline_storage_71440.dword_cells[0x240/4]=416;}
+        capture(1);saved=logs[1];memcpy(target,g_level6_color_target_5a7b0,6);memcpy(current,g_level6_color_current_5a7b8,6);
+        memcpy(pipeline,&g_actor_pipeline_storage_71440,sizeof pipeline);
+        saved_pending=g_level6_color_pending_6fea0;offset=g_camera_offset_y_70cbc;
+        fault=level6_invoke(eng1_call_26730);capture(1);
+        check(fault==0xe0484731UL,"26730-guard","explicit unsupported diagnostic");
+        check(memcmp(&saved,&logs[1],sizeof saved)==0,"26730-guard","color/LUT/frame state unchanged");
+        check(memcmp(target,g_level6_color_target_5a7b0,6)==0 && memcmp(current,g_level6_color_current_5a7b8,6)==0 && saved_pending==g_level6_color_pending_6fea0,"26730-guard","pending/color records unchanged");
+        check(memcmp(pipeline,&g_actor_pipeline_storage_71440,sizeof pipeline)==0 && offset==g_camera_offset_y_70cbc,"26730-guard","pipeline and camera unchanged");
+    }
+    level6_active=0;
+    printf("level6_source_guard_cases=6 checks=%d failures=%d\n",checks-old_checks,failures);
+}
+#endif
+
 int main(int argc,char **argv)
 {
     static const int directed_grid[][7]={
@@ -348,6 +472,9 @@ int main(int argc,char **argv)
         case_index=i;initial(&start,i);bind_fixture(&start);
         side=0;native1(-123);capture(0);side=1;eng1_frame_color_write_5e00(-123);capture(1);compare("5e00");
     }
+    #ifdef LEVEL6_COLOR_TEST
+    level6_suite();
+    #endif
     module_restore();
     printf("native_states=%d checks=%d failures=%d raw_callback_differences=%d\n",states,checks,failures,raw_callback_differences);
     FreeLibrary(oracle);return failures?1:0;

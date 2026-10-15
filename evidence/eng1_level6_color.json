@@ -1,0 +1,354 @@
+{
+  "schema": 1,
+  "baseline_commit": "7d2a798b212324b78a0268349bd533904ab287f1",
+  "scope": "Bounded level6 color consumption, shared storage ownership and consumed-list reset; incomplete native stack-dependent branch remains explicit.",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "prediction": {
+    "prediction": "The six initialized color lanes determine outputs when their delta is nonzero or the pointer list supplies a color. Saved-stack lanes only affect an otherwise-equal no-list branch; producers and input owners can be recovered without inventing stack values.",
+    "falsifier": "Independent x86 decode or controlled original-source state/fault/write comparisons disagree; pending/list alias or extent is unsupported.",
+    "recovery_sha256": "d8d525766f1f2cfc0aa5899c422c297c86ae8d6aea5bf150508a6c242c669884",
+    "primary_file_sha256": {
+      "calibration/title/title_proc.cpp": "e5db718f8a7bf3121b861f830bf753b8ff75677aa19c11c635ae5196fc1e8810",
+      "recovery.json": "465ee5ea057cd3bfb23508e18b16958c27b9d391e11a0bc874cfc413436644d5",
+      "docs/process_audit_2026_10_11.md": "e1ce2feaed3838204576eb4b87870198e610df24c1194bed224b26a885fea43f",
+      "evidence/process_audit_2026_10_11.json": "44587ad472ff9742274d69913ea2ef7728060a706acae08c2391ee835d129328",
+      "evidence/title_scheduler_storage_adoption_2026_10_11.json": "81daf35d45265f4d4beffd1cf8a1b681c1b2266bd02ab701074911ed0c3cf8b2"
+    }
+  },
+  "reset_prediction": {
+    "prediction": "Native25d00 clears count71ae0 after26730 or level9 skip; current source omits that write. Four empty-pool level9 fixtures can expose the omission without unresolved callbacks.",
+    "falsifier": "Native does not clear the count, original2a880 type-zero branches call additional services, or any undeclared native write occurs."
+  },
+  "rea": {
+    "version": "6.5.0",
+    "provider": "Ghidra12.1",
+    "existing_client": "prototypes/rea_eval/rea_mcp.mjs",
+    "client_sha256": "44924c7934939bb9a28bb4c0fe2c7d3cd9ed36ef7104537b1f3868547abe66d2",
+    "prior_tool_provenance": "evidence/eng1_camera_bounds_20ea0.json",
+    "plan_sha256": "004c9bbe9ce8a3e2be4ad7c42553bc59e24afa2c4d1e5e9a2e5774bbb47fc0f3",
+    "seed_sha256": "b2a37a20628a0728d02f6a84a8a92f8cfb578eb8f24b90571b730693b983317b",
+    "transcript_sha256": "528671cda498bf471386505cb0c719243c24429205f86a933ce267c5f67585d4",
+    "producer_queries": [
+      "1ebf0 list append",
+      "1ed30 pending target"
+    ],
+    "contribution": "Typed six-byte row structure and state relationships, independently corroborated by PC instructions.",
+    "limits": "Initial queries lacked seeded procedure starts; a corrected address/type/name seed list resolved them. Ghidra unreachable-block warnings do not justify source promotion."
+  },
+  "native_evidence": {
+    "producer_references_sha256": "cabfbdc0a165371ac14a3286d231d14d4f2d5abfca320e4189907e57f5d33dd7",
+    "setup": "1ac10 initializes pending null and both six-byte records to0,0,0,128,128,128.",
+    "pending": "1ed30 stores row589f8 + selection*6 at6fea0, using existing transition state.",
+    "list": "1ebf0 appends row58a20 + signed actorWORD+32 *6 to71ae0 count/pointers.",
+    "reset": "25f60 clears71ae0 after26730 or context9 skip. Source omitted it; restored in25d00.",
+    "physical_order": "Record bytes0,2,1,3,5,4 map to the six cdecl5a60 arguments.",
+    "pending_alias": "6fea0 overlaps existing spatial prefix6fe60+0x40; separate owner rejected by data audit and removed. Header view reuses existing owner and fixture compares all70 bytes.",
+    "stack": {
+      "scope": "Unmodified original instructions; six real lanes equal, list empty. Input stack bytes only changed; stop before5a60. No source acceptance.",
+      "origin": "https://pypi.org/project/unicorn/2.1.4/",
+      "version": "2.1.4",
+      "library_sha256": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+      "cases": [
+        {
+          "input_tail_dword": 0,
+          "lanes": [
+            {
+              "index": 0,
+              "target": 0,
+              "current": 0
+            },
+            {
+              "index": 4,
+              "target": 0,
+              "current": 0
+            },
+            {
+              "index": 8,
+              "target": 0,
+              "current": 0
+            },
+            {
+              "index": 12,
+              "target": 128,
+              "current": 128
+            },
+            {
+              "index": 16,
+              "target": 128,
+              "current": 128
+            },
+            {
+              "index": 20,
+              "target": 128,
+              "current": 128
+            },
+            {
+              "index": 24,
+              "target": 0,
+              "current": 0
+            },
+            {
+              "index": 28,
+              "target": 0,
+              "current": 0
+            }
+          ],
+          "color_call": false
+        },
+        {
+          "input_tail_dword": 1,
+          "lanes": [
+            {
+              "index": 0,
+              "target": 0,
+              "current": 0
+            },
+            {
+              "index": 4,
+              "target": 0,
+              "current": 0
+            },
+            {
+              "index": 8,
+              "target": 0,
+              "current": 0
+            },
+            {
+              "index": 12,
+              "target": 128,
+              "current": 128
+            },
+            {
+              "index": 16,
+              "target": 128,
+              "current": 128
+            },
+            {
+              "index": 20,
+              "target": 128,
+              "current": 128
+            },
+            {
+              "index": 24,
+              "target": 0,
+              "current": 1
+            },
+            {
+              "index": 28,
+              "target": 0,
+              "current": 0
+            }
+          ],
+          "color_call": true
+        },
+        {
+          "input_tail_dword": 65536,
+          "lanes": [
+            {
+              "index": 0,
+              "target": 0,
+              "current": 0
+            },
+            {
+              "index": 4,
+              "target": 0,
+              "current": 0
+            },
+            {
+              "index": 8,
+              "target": 0,
+              "current": 0
+            },
+            {
+              "index": 12,
+              "target": 128,
+              "current": 128
+            },
+            {
+              "index": 16,
+              "target": 128,
+              "current": 128
+            },
+            {
+              "index": 20,
+              "target": 128,
+              "current": 128
+            },
+            {
+              "index": 24,
+              "target": 0,
+              "current": 0
+            },
+            {
+              "index": 28,
+              "target": 0,
+              "current": 0
+            }
+          ],
+          "color_call": false
+        },
+        {
+          "input_tail_dword": 65535,
+          "lanes": [
+            {
+              "index": 0,
+              "target": 0,
+              "current": 0
+            },
+            {
+              "index": 4,
+              "target": 0,
+              "current": 0
+            },
+            {
+              "index": 8,
+              "target": 0,
+              "current": 0
+            },
+            {
+              "index": 12,
+              "target": 128,
+              "current": 128
+            },
+            {
+              "index": 16,
+              "target": 128,
+              "current": 128
+            },
+            {
+              "index": 20,
+              "target": 128,
+              "current": 128
+            },
+            {
+              "index": 24,
+              "target": 0,
+              "current": 65535
+            },
+            {
+              "index": 28,
+              "target": 0,
+              "current": 0
+            }
+          ],
+          "color_call": true
+        }
+      ],
+      "all_expected": true
+    }
+  },
+  "verification": {
+    "level6_native_source": {
+      "cases": 101,
+      "checks": 2538,
+      "failures": 0,
+      "source_guard_cases": 6,
+      "source_guard_checks": 30,
+      "all_color_states": 2585,
+      "all_fixture_checks": 38569,
+      "raw_fade_callback_residue_differences": 1,
+      "scope": "Actual source/native26730->5a60->5e00; all512 LUT words, full guarded frames, source cache-hit preservation, six-byte records, shared spatial owner, pipeline input, pending consumption, common offset, ESP and full native module write audit."
+    },
+    "camera": {
+      "cases": 324,
+      "checks": 6614,
+      "source_guard_cases": 5,
+      "source_guard_checks": 75,
+      "failures": 0
+    },
+    "actor": {
+      "prior_cases": 512,
+      "total_checks": 6718,
+      "reset_cases": 4,
+      "reset_checks": 56,
+      "failures": 0,
+      "before_correction_failures": 3,
+      "scope": "Empty pools/context9; native2a880 type-zero rejection, explicit source bounds spies. Not general25d00 equivalence."
+    },
+    "strict_fresh_raw": 134,
+    "source_fixtures": 38,
+    "python_tests": 85,
+    "data": {
+      "providers": 60,
+      "fields": 929,
+      "relocations": 4787,
+      "unsupported": 0,
+      "mismatches": 0
+    },
+    "genuine_link": {
+      "mapped_entries": 369,
+      "function_symbols": 400,
+      "unresolved": 529,
+      "duplicate_providers": 0,
+      "preserved_ENG1_strict": 76,
+      "dll_emitted": false
+    },
+    "raw": {
+      "_dispatch_local_25d00": {
+        "exact": false,
+        "target_size": 832,
+        "compiled_size": 864,
+        "different_bytes": 815,
+        "target_sha256": "fa7e6b9cae1985255efe2b104c8fa833b7a8151d3985c446786855fab8e06311",
+        "compiled_sha256": "895da992aba14df934ea8a9ea391a5ad0a293644415c6775774c139336023b5c",
+        "object_relocations": 56,
+        "target_relocations": 52
+      },
+      "_eng1_call_26730": {
+        "exact": false,
+        "target_size": 1440,
+        "compiled_size": 432,
+        "different_bytes": 1434,
+        "target_sha256": "792873cffe7f3e35fc7d474d1c0cd4e12e197e2bdfaee5e8600d1dfbf116725d",
+        "compiled_sha256": "a86047eea4be2245d1b1cb8af4e9cd893a9ec09594f437a46df41a5a45e81c92",
+        "object_relocations": 30,
+        "target_relocations": 72
+      }
+    }
+  },
+  "reproduce": [
+    "python scripts/eng1_bounded_differential.py level6-color --native-eng1 <pinned ENG1.DLL>",
+    "python scripts/eng1_bounded_differential.py camera-chain --native-eng1 <pinned ENG1.DLL>",
+    "python scripts/eng1_actor_differential.py --native-eng1 <pinned ENG1.DLL> --output work/level6_color/actor_regression",
+    "python scripts/match.py verify --original-root <primary checkout> --report work/level6_color/strict.json",
+    "python scripts/eng1_data_evidence.py --original-root <primary checkout> --output work/level6_color/data_verification.json",
+    "python scripts/eng1_behavioral.py --original-root <primary checkout> --output work/level6_color/genuine_graph"
+  ],
+  "source_sha256": {
+    "src/eng1/behavioral/camera_smoothing_26730.c": "99fa7444b4fbc243d20f46eb36bf5d249532f8741d4a691d694f044c4470f0f6",
+    "src/eng1/behavioral/color_storage.c": "8d05e9ab44df05bb0bd53510eff89a83e3d782b990b4b9bb8392b639b36d5e77",
+    "src/eng1/behavioral/initial_spatial_roots.h": "3795d4ef0f121ed7ca659a0ddc507bd39af86057a4300d2a7bacd75a05f17cfe",
+    "src/eng1/behavioral/initial_spatial_roots.c": "4dcb1ce15a01503e195c298b86c0e9ea9be5163eb3f13fdd60f3373ed8380176",
+    "src/eng1/behavioral/actor_pipeline.c": "6f86d259f2fc35c903a3412640cd3131b9b5723b6f57cba0feb9e87068893310",
+    "tests/eng1_color_differential.c": "b76d0c18df5daf280721eaf755d5c96cd4dfd07df15b9d1d97df4c8e144f9703",
+    "tests/eng1_camera_chain_differential.c": "f6efb524053624e978d291036d3d71ddf4b8d82b9a2d468fba1849ef6f3b968c",
+    "tests/eng1_actor_pipeline_differential.c": "ec87ed765970b41a7f5cc7a056dee36a3788b757d9c61320e309f1e4cd9cdbf6",
+    "scripts/eng1_bounded_differential.py": "f9405d55df03ab7e7abccc3067931600e529af95a96929eff3683188849f27f9",
+    "scripts/eng1_actor_differential.py": "65a8bd9dd8ba8cd8b8592798f55e5f5cdaf8eef77e2ed7b127b6df9c3abaa902",
+    "evidence/eng1_behavioral_build.json": "5b6ac3a6d5e8e9b6bfd7d13659d87a8a1a4f1e8084db4ec32597cc4e83f7d971",
+    "evidence/eng1_behavioral_incomplete.json": "22cae43c38af8b8e404a6a5dba91badb9fccfff077f745322380de7822e724cb",
+    "evidence/eng1_data_evidence_manifest.json": "6c531d8215e4f779c1ce6b1e593379ad5a9a54867a8fc2027e1abcb1688e37f5",
+    "evidence/eng1_level6_color_storage.json": "6c46da028068cebc5daecb92b0b3f432963d24ceae8cbfe51de20387374aad5b"
+  },
+  "private_receipts": {
+    "work/eng1_behavioral/differential/level6-color/report.json": "e81150f256b6e1ab5bb9a0fb51fac9ebedd678780773f8d8924633acc2349801",
+    "work/eng1_behavioral/differential/camera-chain/report.json": "17fb8315bb0d27ed9da0a68c94f758cd2baccedfd21fcd77a2bc6aded6c66430",
+    "work/eng1_behavioral/differential/level6-reset-before/report.json": "a9e282d7e8f6b67e7f441678e7f7d114e09edc9d0e25dc0d99ab62e1037178d4",
+    "work/level6_color/actor_regression/report.json": "aa68ea331ac35480e759d27c8087bda621f8c8e69b772b8041c20759d1253316",
+    "work/level6_color/data_verification.json": "0530a45e19a8d334389689ee7b8c926481dcde24ef08be95b3d730b00d4fe052",
+    "work/level6_color/strict.json": "7e63e1f99e578f5816e52e85136672f0e718baa38336345a81a1a4a9e1a1006e",
+    "work/level6_color/source_regression/report.json": "d5a335105392c6b09d25883ad1837b0bb819299f82f419cfbfce053c08579211",
+    "work/level6_color/genuine_graph/report.json": "a056677a76a80f3472c6416be8240422df2293adad82db474a689b7f805de889",
+    "work/level6_color/unit.log": "8556816bbb9339ee5b775f908e950c64a0940927b21662a577ef7fce7f83c3e2",
+    "work/level6_color/raw_comparison.json": "c411624732c40e49303e1398dc23b7445a71dd2bddca25f6c10ae15ecff350d5",
+    "work/level6_color/stack_discriminator.json": "641b7aa99a2b97774314fb5a404e7d78f15c777a7e825b63b016739b1f612d4d"
+  },
+  "limits": [
+    "Equal effective color bytes with empty list are guarded before writes: native behavior depends on two uninitialized ambient stack lanes.",
+    "Source rejects negative/out-of-prefix color counts and partial pending/target overlap; other camera prefix guards retained.",
+    "Native-only ordinary C stack-poison trials always called5a60; controlled input-stack emulation, not those trials, discriminates the branch.",
+    "Producer roles are evidenced; full callback bodies, table lifetimes and arbitrary malformed pointers/aliases are not accepted.",
+    "No new FUNCTION_MATCH, original-source identity, layout, original game execution, DLL initialization or framebuffer ownership claim.",
+    "All originals, recovery state and the primary uncommitted files remain unchanged."
+  ]
+}

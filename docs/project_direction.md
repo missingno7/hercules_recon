@@ -149,5 +149,7 @@ subsequently approved promotion and the clean worktree now uses `main`. Checked-
 worktrees and uncommitted work remain protected. The first
 [REA-assisted follow-up](eng1_camera_bounds.md) removes a real ENG1 dependency.
 The [camera-chain recovery](eng1_camera_chain.md) then corrects a camera behavior
-error and supplies a bounded actor-pipeline dependency using the same owners;
+error and supplies a bounded actor-pipeline dependency using the same owners.
+The [level-6 follow-up](eng1_level6_color.md) connects its supported color paths,
+repairs list lifetime and preserves a discovered spatial/color storage alias;
 no final renderer architecture decision is needed to continue this work.

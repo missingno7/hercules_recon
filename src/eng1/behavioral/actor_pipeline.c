@@ -575,6 +575,9 @@ void __cdecl dispatch_local_25d00(void)
     if (level != 9)
         eng1_call_26730();
 
+    /* Native25f60 clears the consumed color list even when level9 skips26730. */
+    g_actor_pipeline_storage_71440.dword_cells[0x6a0 / 4] = 0;
+
     context = g_engine_interface.context_004;
     level = (signed char)context->unknown_000[0];
     mode_row = (unsigned char *)eng1_profile_rows_5df08;
