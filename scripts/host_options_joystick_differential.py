@@ -55,7 +55,7 @@ def build(source,state,out,accept=True):
  assert Path(libs[1]['path']).name=='libcmt.lib'and libs[1]['sha256']=='7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b'
  assert all(sha(x['path'])==x['sha256']for x in libs)
  runtime=Path('C:/tools/hercules/renderer-oracle-python/unicorn/lib/unicorn.dll');assert sha(runtime)=='010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1'
- files=[source,state,ROOT/'calibration/registry_storage.c',ROOT/'calibration/host_startup_storage.c',ROOT/'calibration/host_input.c',ROOT/'calibration/host_config_helpers.c']
+ files=[source,state,ROOT/'calibration/registry_storage.c',ROOT/'calibration/host_startup_storage.c',ROOT/'calibration/host_input.c',ROOT/'calibration/host_config_helpers.c',ROOT/'calibration/host_bootstrap_text.c']
  watched={Path(__file__),graph,HEADER,ORACLE,runtime,ROOT/'recovery.json',ROOT/'toolchains/manifest.json',*[Path(x['path'])for x in libs]}
  for p in files:watched.update(context_files(p))
  watched.update(ROOT/'scripts'/p for p in ['match.py','coff.py','masked.py','pe.py','env.py','title_behavioral.py'])
@@ -111,9 +111,10 @@ def build(source,state,out,accept=True):
     proofs.append(dict(role=role,symbol=sym,rva=hex(rva),bytes=width,member=member,library=libs[owner]['path'],member_sha256=sha(obj),diagnostic=d,object=str(obj),execution='actual unchanged body'if role in ['SetText','BaseDestroy','BaseOK']else'modeled identified boundary'))
    pos+=60+n+(n&1);index+=1
  assert len(proofs)==8 and pins=={p:sha(p)for p in pins}
- return dict(inputs=pins,compiles=compiles,measurements=measurements,dependencies=dependencies,literals=literal_proofs,working=dict(rva='0x56e5d8',bytes=28,backing='virtual_zero'),external_text=dict(symbol='_g_resource_filename',native_rva='0x3f74c',synthetic_prefix_bytes=1,canonical_provider=False,capacity_accepted=False),library=proofs,libraries=libs,coff_code_objects=[str(object_by_source[p])for p in [source,ROOT/'calibration/host_input.c',ROOT/'calibration/host_config_helpers.c']],coff_data_objects=[str(object_by_source[p])for p in [state,ROOT/'calibration/registry_storage.c',ROOT/'calibration/host_startup_storage.c']])
+ return dict(inputs=pins,compiles=compiles,measurements=measurements,dependencies=dependencies,literals=literal_proofs,working=dict(rva='0x56e5d8',bytes=28,backing='virtual_zero'),external_text=dict(symbol='_g_host_empty_text_3f74c',native_rva='0x3f74c',observed_prefix_bytes=1,canonical_provider=True,capacity_accepted=False),library=proofs,libraries=libs,coff_code_objects=[str(object_by_source[p])for p in [source,ROOT/'calibration/host_input.c',ROOT/'calibration/host_config_helpers.c']],coff_data_objects=[str(object_by_source[p])for p in [state,ROOT/'calibration/registry_storage.c',ROOT/'calibration/host_startup_storage.c',ROOT/'calibration/host_bootstrap_text.c']])
 
 DATA_SPECS=[
+ ('_g_host_empty_text_3f74c',0x3f74c,1),
  ('_g_joystick_working_rva_56e5d8',0x56e5d8,28),('_g_registry_config',0x79e858,72),
  ('_g_exe_b9e458',0x79e458,1024),('_g_config_default_values_rva_36158',0x36158,36),
  ('_g_config_table_a_rva_56e4f0',0x56e4f0,112),('_g_config_table_b_rva_56e560',0x56e560,112),
@@ -140,7 +141,6 @@ def prepare(b):
   expected=bytes(n)if virtual_zero else oracle.read_rva(rva,n);assert raw==expected,name
   symbols[name]=0x400000+rva;segments.append(dict(address=symbols[name],data=raw.hex(),kind='verified source data prefix'))
   data_proofs.append(dict(symbol=name,rva=hex(rva),bytes=n,source_object=provider_paths[id(co)],sha256=hashlib.sha256(raw).hexdigest(),backing='virtual_zero'if virtual_zero else'file_backed',fixture_native_addresses=True))
- symbols['_g_resource_filename']=0x43f74c;segments.append(dict(address=0x43f74c,data='00',kind='explicit external one-byte zero text model'))
  endpoints={API+i*0x20:(name,n)for i,(name,n)in enumerate({**API_CALLS,**MODELED}.items())}
  api_addresses={name:addr for addr,(name,n)in endpoints.items()}
  for role,(sym,rva,n,member,owner)in LIBRARY.items():
@@ -402,7 +402,7 @@ def main():
  negatives=[]
  for name,code in wrong.items():
   assert code!=text,name
-  lane=OUT/name;lane.mkdir(exist_ok=True);source=lane/'wrong.cpp';code=re.sub(r'#include "[^"]*host_options_classes.h"','#include "'+HEADER.as_posix()+'"',code);source.write_bytes(code.encode())
+  lane=OUT/name;lane.mkdir(exist_ok=True);source=lane/'wrong.cpp';code=re.sub(r'#include "[^"]*host_options_classes.h"','#include "'+HEADER.as_posix()+'"',code);code=re.sub(r'#include "[^"]*host_bootstrap_text.h"','#include "'+(ROOT/'calibration/host_bootstrap_text.h').as_posix()+'"',code);source.write_bytes(code.encode())
   bad=build(source,STATE,lane,False);plan=prepare(bad);s=next(x for x in ss if x['name']==names[name]);native=execute(True,b,p,s);candidate=execute(False,bad,plan,s);assert native!=candidate,name
   negatives.append(dict(name=name,detected=True,scenario=s,native=native,wrong=candidate,build=bad))
  assert b['inputs']=={path:sha(path)for path in b['inputs']}

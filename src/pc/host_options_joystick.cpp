@@ -1,4 +1,5 @@
 #include "../../calibration/host_options_classes.h"
+#include "../../calibration/host_bootstrap_text.h"
 #include <mmsystem.h>
 #include <stdio.h>
 extern "C" {
@@ -6,7 +7,6 @@ extern BYTE g_registry_config[72];
 extern BYTE g_host_input_joy_available_rva_79e8a0[16];
 extern JOYCAPSA g_host_input_joy_caps_rva_79e8b0[16];
 extern DWORD g_joystick_working_rva_56e5d8[7];
-extern char g_resource_filename[];
 DWORD host_input_sample_7c50(int);
 void cleanup_native_7aa0(void);
 }
@@ -31,7 +31,7 @@ void CJoystickPage::OnRva_000083F0(CEdit* edit, DWORD buttons, BOOL active)
         for (int bit = 0; bit < 28; ++bit)
             if ((buttons >> bit) & 1) ++count;
         if (count > 3) return;
-        edit->SetWindowText(g_resource_filename);
+        edit->SetWindowText(g_host_empty_text_3f74c);
         for (int button = 0; button < 28; ++button) {
             if (buttons & (1UL << button)) {
                 sprintf(text," %d",button+1);

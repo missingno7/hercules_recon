@@ -46,7 +46,7 @@ def build():
     assert sha(ORACLE)==ORACLE_SHA
     verify_toolchain(DEFAULT_TOOLCHAIN)
     watched=[SOURCE,ROOT/'calibration/engine_interface.h',ROOT/'calibration/resource_context.h',ROOT/'calibration/host_pool_repaired.c',ROOT/'calibration/host_pool_storage.c',ROOT/'calibration/host_pool_formats.c',ROOT/'src/pc/host_diagnostic.c',Path(__file__).resolve(),ROOT/'toolchains/manifest.json',ROOT/'scripts/host_dispatch_differential.py',ROOT/'scripts/coff.py',ROOT/'scripts/match.py',ROOT/'scripts/masked.py',ORACLE]
-    watched += [DEFAULT_TOOLCHAIN/'include/stdlib.h',DEFAULT_TOOLCHAIN/'include/string.h']
+    watched += [DEFAULT_TOOLCHAIN/'include/stdlib.h',DEFAULT_TOOLCHAIN/'include/string.h',ROOT/'calibration/host_bootstrap_text.c',ROOT/'calibration/host_bootstrap_text.h']
     archives=[DEFAULT_TOOLCHAIN/'lib'/n for n in ['libcmt.lib','kernel32.lib','user32.lib','advapi32.lib']]
     watched+=archives
     before={str(p):sha(p)for p in watched}
@@ -63,15 +63,13 @@ def build():
     fixture.write_bytes(('''#include "%s"
 extern void __cdecl host_service_1ff0(void);
 EngineInterface g_host_engine_interface = {0};
-const char *g_host_default_engine_name_cell_35100 = 0;
-char g_resource_filename[512] = {0};
 void __cdecl host_service_10690(void) {}
 int __cdecl host_service_4040(const char *a,const char *b) { return 0; }
 /* Unexecuted link boundaries; code whitelist rejects every entry. */
 int main(void) { for (;;) {} }
 __declspec(dllexport) void __cdecl context_bootstrap_fixture_anchor(void) { host_service_1ff0(); }
 '''%header).encode())
-    sources=[SOURCE,ROOT/'calibration/host_pool_repaired.c',ROOT/'calibration/host_pool_storage.c',fixture,ROOT/'calibration/host_pool_formats.c',ROOT/'src/pc/host_diagnostic.c']
+    sources=[SOURCE,ROOT/'calibration/host_pool_repaired.c',ROOT/'calibration/host_pool_storage.c',fixture,ROOT/'calibration/host_pool_formats.c',ROOT/'src/pc/host_diagnostic.c',ROOT/'calibration/host_bootstrap_text.c']
     objects=[];compiles=[]
     for s in sources:
         obj,cmd=compile_source(s,['/O2'])
@@ -85,7 +83,7 @@ __declspec(dllexport) void __cdecl context_bootstrap_fixture_anchor(void) { host
     (OUT/'link.log').write_bytes((p.stdout+p.stderr).encode())
     assert p.returncode==0,(p.stdout,p.stderr)
     symbols=map_symbols(mp)
-    needed=['_host_service_1ff0','_save_arena','_host_service_10690','_host_service_4040','_srand','_g_host_engine_interface','_g_host_pool','_g_host_default_engine_name_cell_35100','_g_resource_filename']
+    needed=['_host_service_1ff0','_save_arena','_host_service_10690','_host_service_4040','_srand','_g_host_engine_interface','_g_host_pool','_g_host_default_engine_name_cell_35100','_g_host_empty_text_3f74c']
     assert all(n in symbols for n in needed)
     comparisons=[]
     for obj,sym,rva,size in [(objects[0],'_host_service_1ff0',0x1ff0,208),(objects[1],'_save_arena',0x4450,32),(objects[5],'_host_diagnostic',0x63c0,16)]:
@@ -111,9 +109,9 @@ def execute(kind,build,scenario):
     u=Uc(UC_ARCH_X86,UC_MODE_32);u.mem_map(base,(size+4095)&~4095);u.mem_write(base,image)
     u.mem_map(DATA,0x50000);u.mem_map(ARENA-32,0x302000);u.mem_map(STACK,0x10000)
     if kind=='native':
-        addresses=dict(entry=0x401ff0,save=0x404450,setup=0x410690,seed=0x410a30,switch=0x404040,table=0x4361b8,pool=0xba29c0,name_cell=0x435100,filename=0x43f74c)
+        addresses=dict(entry=0x401ff0,save=0x404450,setup=0x410690,seed=0x410a30,switch=0x404040,table=0x4361b8,pool=0xba29c0,name_cell=0x435100,empty_text=0x43f74c)
     else:
-        m=build['symbols'];addresses={k:m[n]for k,n in [('entry','_host_service_1ff0'),('save','_save_arena'),('setup','_host_service_10690'),('seed','_srand'),('switch','_host_service_4040'),('table','_g_host_engine_interface'),('pool','_g_host_pool'),('name_cell','_g_host_default_engine_name_cell_35100'),('filename','_g_resource_filename')]}
+        m=build['symbols'];addresses={k:m[n]for k,n in [('entry','_host_service_1ff0'),('save','_save_arena'),('setup','_host_service_10690'),('seed','_srand'),('switch','_host_service_4040'),('table','_g_host_engine_interface'),('pool','_g_host_pool'),('name_cell','_g_host_default_engine_name_cell_35100'),('empty_text','_g_host_empty_text_3f74c')]}
     table=addresses['table'];pool=addresses['pool'];n=scenario['arena_bytes']
     expected_contexts=[bytearray(bytes([0xa1+i])*CTX_SIZE)for i in range(3)]
     for a,b in zip(CONTEXTS,expected_contexts):u.mem_write(a-32,bytes([0xc1])*32+b+bytes([0xc2])*32)
@@ -122,7 +120,8 @@ def execute(kind,build,scenario):
     for offset,value in [(4,CONTEXTS[0]),(8,ARENA),(12,n)]:table_before[offset:offset+4]=pack(value)
     u.mem_write(table,bytes(table_before));u.mem_write(pool,bytes([0x3d])*POOL_SIZE)
     u.mem_write(NAME_A,b'\\TITLE\\ENGINE\\TITLE\0');u.mem_write(NAME_B,b'\\ENGINE1\\ENGINE1\0')
-    u.mem_write(addresses['name_cell'],pack(NAME_A));u.mem_write(addresses['filename'],b'C:\\bootstrap\0')
+    assert string(u,u32(u,addresses['name_cell'])) == '\\TITLE\\ENGINE\\TITLE'
+    assert u.mem_read(addresses['empty_text'],1) == b'\0'
     u.mem_write(ESP,pack(SENTINEL));u.reg_write(UC_X86_REG_ESP,ESP)
     for k,v in SEEDS.items():u.reg_write(REGS[k],v)
     events=[];illegal=[];writes=[];count=0;pending=[]
@@ -158,7 +157,7 @@ def execute(kind,build,scenario):
             c=u32(u,table+4)
             events.append(dict(call='srand',seed=u32(u,esp+4),context_index=CONTEXTS.index(c),byte0=u.mem_read(c,1)[0],byte3=u.mem_read(c+3,1)[0],word12c=bytes(u.mem_read(c+0x12c,2)).hex(),word12e=bytes(u.mem_read(c+0x12e,2)).hex(),magic48=hex(u32(u,c+0x48)),magic4c=hex(u32(u,c+0x4c))))
             if scenario.get('seed_mutation'):
-                u.mem_write(table+4,pack(CONTEXTS[2]));u.mem_write(addresses['name_cell'],pack(NAME_B));u.mem_write(addresses['filename'],b'M:\\seed\0')
+                u.mem_write(table+4,pack(CONTEXTS[2]));u.mem_write(addresses['name_cell'],pack(NAME_B))
         else:
             events.append(dict(call='switch_4040',prefix=string(u,u32(u,esp+4)),suffix=string(u,u32(u,esp+8)),context_index=CONTEXTS.index(u32(u,table+4))))
         pc=u32(u,esp);u.reg_write(UC_X86_REG_ESP,esp+4);u.reg_write(UC_X86_REG_EIP,pc)
@@ -176,7 +175,7 @@ def execute(kind,build,scenario):
     assert events[0]==dict(call='save_arena',arena=hex(ARENA),bytes=n)
     assert events[1]==dict(call='setup_10690',context_index=0,byte9=0,dword30=0,pool_saved_arena=hex(ARENA),pool_saved_bytes=n)
     assert events[2]==dict(call='srand',seed=0x13546547,context_index=index,byte0=0xff,byte3=0x11,word12c='0000',word12e='0000',magic48='0x13546547',magic4c='0xecab9ab8')
-    assert events[3]==dict(call='switch_4040',prefix='M:\\seed' if scenario.get('seed_mutation')else 'C:\\bootstrap',suffix='\\ENGINE1\\ENGINE1' if scenario.get('seed_mutation')else '\\TITLE\\ENGINE\\TITLE',context_index=2 if scenario.get('seed_mutation')else index)
+    assert events[3]==dict(call='switch_4040',prefix='',suffix='\\ENGINE1\\ENGINE1' if scenario.get('seed_mutation')else '\\TITLE\\ENGINE\\TITLE',context_index=2 if scenario.get('seed_mutation')else index)
     return dict(events=events,checks=checks,context_hashes=[hashlib.sha256(bytes(u.mem_read(a,CTX_SIZE))).hexdigest()for a in CONTEXTS],pool_sha256=hashlib.sha256(bytes(u.mem_read(pool,POOL_SIZE))).hexdigest(),table_sha256=hashlib.sha256(bytes(u.mem_read(table,TABLE_SIZE))).hexdigest(),arena_sha256=hashlib.sha256(bytes(u.mem_read(ARENA,n))).hexdigest(),instructions=count)
 def main():
     b=build();cases=[]
@@ -186,7 +185,7 @@ def main():
         assert {k:v for k,v in a.items()if k!='instructions'}=={k:v for k,v in c.items()if k!='instructions'}
         cases.append(dict(scenario=scenario,native=a,source=c,equal=True))
     assert b['inputs']=={p:sha(Path(p))for p in b['inputs']}
-    report=dict(scope='Bounded initializer and actual save_arena code only. Synthetic table/context/arena preconditions and setup/srand/switch endpoint effects; no process/DLL initializer/Windows API/whole startup/game execution.',build=b,cases=cases,case_count=len(cases),all_equal=True,original_context_prefix=6964,original_configured_arena_bytes=3145728,oracle_sha256=sha(ORACLE),runner_sha256=sha(Path(__file__)),limits=['No original default-name cell, filename capacity or full host-table initializer is supplied by these fixtures.','Mutating callees are synthetic discriminators of caller reload behavior, not recovered callee implementations.','Complete relocation diagnostics are not FUNCTION_MATCH; real module layout and initialized gameplay remain unproved.'])
+    report=dict(scope='Bounded initializer and actual save_arena code only. Synthetic table/context/arena preconditions and setup/srand/switch endpoint effects; no process/DLL initializer/Windows API/whole startup/game execution.',build=b,cases=cases,case_count=len(cases),all_equal=True,original_context_prefix=6964,original_configured_arena_bytes=3145728,oracle_sha256=sha(ORACLE),runner_sha256=sha(Path(__file__)),limits=['Actual initial default-name cell/string and observed one-byte empty-text provider are supplied. No complete empty-text extent or full host-table initializer is accepted.','Mutating callees are synthetic discriminators of caller reload behavior, not recovered callee implementations.','Complete relocation diagnostics are not FUNCTION_MATCH; real module layout and initialized gameplay remain unproved.'])
     dest=OUT/'host_context_bootstrap_differential.json';dest.write_bytes((json.dumps(report,indent=2)+'\n').encode())
     print(json.dumps(dict(cases=len(cases),all_equal=True,full_context_bytes=6964,full_original_arena_bytes=3145728,report=str(dest)),indent=2))
 if __name__=='__main__':main()

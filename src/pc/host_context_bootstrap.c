@@ -1,13 +1,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../../calibration/engine_interface.h"
+#include "../../calibration/host_bootstrap_text.h"
 
 extern EngineInterface g_host_engine_interface;
 extern void __cdecl save_arena(unsigned char *, unsigned long);
 extern void __cdecl host_service_10690(void);
 extern int __cdecl host_service_4040(const char *, const char *);
-extern const char *g_host_default_engine_name_cell_35100;
-extern char g_resource_filename[];
 
 void __cdecl host_service_1ff0(void)
 {
@@ -24,5 +23,5 @@ void __cdecl host_service_1ff0(void)
     g_host_engine_interface.context_004->unknown_048 = 0x13546547UL;
     g_host_engine_interface.context_004->unknown_04c = 0xecab9ab8UL;
     srand(0x13546547U);
-    (void)host_service_4040(g_resource_filename, g_host_default_engine_name_cell_35100);
+    (void)host_service_4040(g_host_empty_text_3f74c, g_host_default_engine_name_cell_35100);
 }

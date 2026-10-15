@@ -96,9 +96,9 @@ python scripts/host_system_keys_differential.py --output work/frame_keys_replay
 python scripts/host_frame_precreate_differential.py --original-root D:/Prog/hercules_recon --output work/frame_precreate_replay
 ```
 
-The current natural selected host graph compiles 137 actual source units with
+The current natural selected host graph compiles 139 actual source units with
 240 recorded EXE functions and preserves 27 accepted EXE functions. It has no
-duplicate providers and 12 unresolved data providers. Including
+duplicate providers and six unresolved data providers. Including
 the real map replaces one missing map symbol with its actual missing callback bodies. These counts are diagnostics,
 not whole-game coverage or a runnable build. The known natural MFC/CRT allocator
 selection discrepancy still needs genuine dependency evidence. The isolated
@@ -276,6 +276,22 @@ python scripts/host_frame_restart_differential.py --output work/frame_restart_re
 python scripts/host_restart_dialog_audit.py --output work/restart_class_audit
 ```
 
+The current graph includes the previously measured four movie clear/write
+storage prefixes and the startup default-name cell/string. The shared text at
+`0x3f74c` now has a distinct source identity and a measured one-byte zero view.
+It is separate from the file-service filename buffer at `0x215c10` and MFC's
+`afxChNil`. Its full original extent and owner remain unknown. Seven complete
+function contributions preserve their bytes; ordinary local labels change with
+the shared header, and their section/offset targets remain identical. No recovery
+state changes. All 134 accepted functions remain raw exact. The bootstrap and
+joystick fixtures now consume the real observed text storage; only the bootstrap
+name pointer and context are changed by the synthetic callee interventions.
+See `evidence/host_bootstrap_text_recovery.json`.
+
+```
+python scripts/host_bootstrap_data_audit.py --original-root D:/Prog/hercules_recon --output work/bootstrap_data_replay
+```
+
 The loader now has an independent source provider for four observed DWORD cells
 and the pinned SDK's 64-byte `jmp_buf` representation. All 80 source bytes have
 the original virtual loader-zero backing and no code or relocations. This does
@@ -300,7 +316,7 @@ The original bootstrap at `0x1ff0` now has ordinary source for its complete
 208-byte contribution. It clears the 6,964-byte context prefix and the current
 configured arena, calls the real `save_arena` source, retains post-callee context
 reloads, writes the observed startup fields, seeds the identified CRT `srand`,
-and passes the current buffer/name to the still unresolved engine-switch routine.
+and passes the shared empty text and current name to the engine-switch routine.
 The existing 32-byte pool-save contribution is now recorded alongside it.
 Both remain `CODEGEN_SIMILAR`: full relocation diagnostics agree, raw bytes fail.
 The shared headers and existing pool/diagnostic function sources are unchanged.
@@ -317,7 +333,9 @@ are modeled at their call boundaries; mutation cases distinguish live reloads
 from cached views without proving those callee implementations. The fixture
 uses the actual pool metadata, four native format literals and already exact
 diagnostic provider; inert main and other linked code fail on entry. Its zero
-table, filename capacity and alternate context preconditions remain test inputs.
+table and alternate context preconditions remain test inputs. The current text
+and default-name providers are measured separately as described above; the
+one-byte view does not establish an original buffer capacity.
 The pool base is the independently proved `0xba29c0`, not the unrelated data at
 `0x43a630`; the write whitelist caught the initial private fixture mistake.
 See `evidence/host_context_bootstrap_recovery.json` for the source, CRT identity,
