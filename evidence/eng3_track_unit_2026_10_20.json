@@ -1,0 +1,15 @@
+{
+ "date": "2026-10-20",
+ "lane": "y6 (+ sub-lanes, merged by y6m)",
+ "module": "ENG3.DLL",
+ "source": "calibration/eng3/track_unit_20010.cpp",
+ "region": "0x20010..0x22e00",
+ "result": "27 new relocation-masked equal (18 interface-slot wrappers incl. 0x20120 slot 0x388, face/colour/track emitters 0x206f0, 0x20c50, 0x20ed0, curved projector 0x21390, 0x22620, track cells 0x22690/0x22710, tile/spawn 0x22b30/0x22bd0/0x22cb0); 6 size-exact RECONSTRUCTED (0x204c0 stack-slot swap, 0x20b60, 0x21a10, 0x222c0, 0x22790, 0x22b90); 0x20190, 0x21200, 0x22070 not size-exact in the merged context (pinned source only)",
+ "no_headers": "No context headers; 0x206f0 would also match with any system header standalone; equalities shift with declaration count (reported, not steered).",
+ "corrections": [
+  "eng3_slot_294 takes (matrix, scale): the target pushes the scale table first",
+  "0x22620: the scaled width is computed once and shifted at each use (dx = width << 7; x -= dx << 16) - folded forms give a single shl 0x17",
+  "unit boundaries: the slot wrappers continue the wrapper run from 0x1f830; the tile/spawn group 0x22b30..0x22e40 likely opens the renderer unit at 0x22f00 (moving it there makes 0x22f00 equal without headers: 15/23 vs 9/23)"
+ ],
+ "naming": "Several callee names differ from other recorded files (e.g. 0x1fd20 eng3_slot_1b0 vs _eng3_1fd20; 0x1cb00 recorded as _title_08a50); a unified ENG3 naming pass is needed before an ENG3 natural link."
+}
