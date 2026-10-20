@@ -5,7 +5,7 @@ stage PLAN     install a region source under calibration/, compile it once, and
                every listed function; rows become CODEGEN_SIMILAR (diagnostic only).
 verify         recompile every masked row's source and recheck it.
 
-Plan: {"source": "calibration/<module>/<region>.c", "candidate": "...c", "module": "TITLE.DLL",
+Plan: {"source": "calibration/<module>/<region>.c", "candidate": "...c", "module": "TITLE.DLL", "flags" (default ["/O2"]),
        "functions": [{"rva", "size", "symbol", "evidence"}]}
 A region file must define exactly the functions recorded for it. An existing provider can instead be
 staged in place ("in_place": true, no candidate): it is never rewritten, and every other function it
@@ -65,7 +65,10 @@ def check_rows(rows, source, co_defined=()):
     for target, expected in targets.items():
         if digest(target.read_bytes()) != expected:
             raise ValueError(f'Target hash mismatch: {target}')
-    obj, _ = compile_source(ROOT / source, ['/O2'])
+    flag_sets = {tuple(r.get('flags') or ['/O2']) for r in rows}
+    if len(flag_sets) != 1:
+        raise ValueError(f'{source}: rows record different compiler flags {sorted(flag_sets)}')
+    obj, _ = compile_source(ROOT / source, list(next(iter(flag_sets))))
     if digest(source_path.read_bytes()) != source_before:
         raise ValueError('Source changed during compilation')
     db = sqlite3.connect(DB)
@@ -156,14 +159,14 @@ def stage(plan_path):
         rows.append(dict(id=f.get('id') or f'{prefix}.{name}', status='CODEGEN_SIMILAR',
                          name_status='provisional address label', target=target_rel,
                          target_sha256=digest((ROOT / target_rel).read_bytes()), rva=f['rva'], size=f['size'],
-                         source=source, symbol=f['symbol'], flags=['/O2'], evidence=evidence,
+                         source=source, symbol=f['symbol'], flags=list(plan.get('flags') or ['/O2']), evidence=evidence,
                          boundary=BOUNDARY))
     keep = [r for r in existing if (r['rva'], r['symbol']) not in {(x['rva'], x['symbol']) for x in rows}]
     if in_place:
         content = (ROOT / source).read_bytes()
         if b'\r' in content:
             raise ValueError('In-place provider must already be LF text')
-        obj, _ = compile_source(ROOT / source, ['/O2'])
+        obj, _ = compile_source(ROOT / source, list(plan.get('flags') or ['/O2']))
         co_defined = sorted(defined_functions(obj) - {r['symbol'] for r in keep + rows})
         results = check_rows(keep + rows, source, co_defined)
         if STATE.read_bytes() != state_before or (ROOT / source).read_bytes() != content:

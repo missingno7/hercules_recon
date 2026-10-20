@@ -32,5 +32,17 @@
   "communal gaps 0x2bb2c (4), g_2c000 extent, 0x2cbd0..0x2cbdf, 0x2cbf8..0x2cc01",
   "internal order of incomplete blocks u09a40, u0ff70, u06bb0, u197f0 (no layout names per policy)"
  ],
- "note": "Adoption deferred until the canonical TITLE link is viable (0x54f0 and the .bss hole block any linked gain today)."
+ "note": "Adoption deferred until the canonical TITLE link is viable (0x54f0 and the .bss hole block any linked gain today).",
+ "followup_29990": {
+  "hypothesis": "0x29990..0x29d90 is one 256-dword table read by 0xd910 at 0xe41d ([frame*4 + 0x29c2c]) and defined as an explicit-zero global in u02b70.c",
+  "verdict": "FALSIFIED",
+  "evidence": "0xe41d is one of four parallel [frame*4 + base] reads (bases 0x29c2c, 0x2a0b4, 0x2a0b0, 0x2a538) whose frame ranges (0x1e7..0x23f, 0x125..0x17d, 0x186..0x1de, 0xc4..0x11c) land inside u0cc90's own 96-dword static tables (g_2a3b8[frame-0x1e3], g_2a538[frame-0x121], g_2a6b8[frame-0x182], g_2a838[frame-0xc0]); 0x29c2c is a folded displacement. The only relocation target in the window is 0x29990 = g_29590 + 0x400 (end pointer in 0x3da0).",
+  "measured_bss_rule": "Within one object, uninitialized statics come first in identifier-hash order, then explicit-zero objects in definition order.",
+  "best_diagnostic": "h3 (all seven u02b70 objects explicit-zero at the top in address order, including an invented g_29990[256]) reduces the .bss shift after 0x29588 from -0x408 to -8 but adds no raw-equal function (49/5712); not recommended: 0x400 bytes of storage with no code reference need an owner ruling.",
+  "next_blockers": [
+   "8 bytes at 0x29588..0x2958f",
+   "title_proc unreferenced slots 0x29e0c, 0x29e14, 0x29fa0",
+   "other holes listed above"
+  ]
+ }
 }
