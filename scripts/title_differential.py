@@ -16,7 +16,8 @@ from pe import PE
 LANE = ROOT / 'work/title_behavioral/differential'
 HARNESS = ROOT / 'tests/title_oracle_differential.c'
 RUNNER = Path(__file__).resolve()
-SOURCES = [ROOT / 'calibration/title_digits.c', ROOT / 'src/title/pilot.c']
+UNIT = ROOT / 'calibration/title/u197f0.c'
+SOURCES = [ROOT / 'src/title/pilot.c']
 ORACLE = ROOT / 'assets/pc/HERCULES/TITLE.DLL'
 RECOVERY = ROOT / 'recovery.json'
 MANIFEST = ROOT / 'toolchains/manifest.json'
@@ -29,6 +30,24 @@ def contained(path, parent):
         return True
     except ValueError:
         return False
+
+
+def extract_unit_digits(unit_text):
+    """Exactly the canonical DigitSprite definition and set_decimal_digits body from their unit (no edits)."""
+    def block(start):
+        depth, i = 0, unit_text.index('{', start)
+        while True:
+            depth += {'{': 1, '}': -1}.get(unit_text[i], 0)
+            if depth == 0:
+                return unit_text[start:i + 1]
+            i += 1
+    struct = block(unit_text.index('struct DigitSprite {')) + ';\n'
+    start = unit_text.index('void set_decimal_digits(')
+    while unit_text.index(';', start) < unit_text.index('{', start):   # skip prototypes
+        start = unit_text.index('void set_decimal_digits(', start + 1)
+    body = block(start)
+    return ('/* Extracted verbatim from calibration/title/u197f0.c for the behavioral fixture. */\n'
+            + struct + '\n' + body + '\n')
 
 
 def run(output):
@@ -46,7 +65,7 @@ def run(output):
     rows = {row['id']: row for row in recovery['functions']
             if row.get('id') in ('title.decimal_digits', 'title.make_colour', 'title.sentinel_count')}
     expected = {
-        'title.decimal_digits': ('calibration/title_digits.c', '_set_decimal_digits', 0x1a2c0),
+        'title.decimal_digits': ('calibration/title/u197f0.c', '_set_decimal_digits', 0x1a2c0),
         'title.make_colour': ('src/title/pilot.c', '_make_colour', 0x189a0),
         'title.sentinel_count': ('src/title/pilot.c', '_sentinel_count', 0xcee0),
     }
@@ -63,7 +82,9 @@ def run(output):
     if metadata['machine'] != 0x14c:
         raise ValueError('Oracle is not x86 PE32')
 
-    inputs = [RUNNER, HARNESS, *SOURCES, RECOVERY, MANIFEST, INVENTORY, ORACLE]
+    digits = output / 'decimal_digits_from_unit.c'
+    digits.write_bytes(extract_unit_digits(UNIT.read_text()).encode())
+    inputs = [RUNNER, HARNESS, UNIT, *SOURCES, RECOVERY, MANIFEST, INVENTORY, ORACLE]
     input_hashes = {str(path.relative_to(ROOT)): digest(path.read_bytes()) for path in inputs}
     environment = os.environ.copy()
     for key in ('CL', '_CL_', 'LINK', '_LINK_'):
@@ -74,7 +95,7 @@ def run(output):
     object_dir = str(output) + os.sep
     compile_command = [str(DEFAULT_TOOLCHAIN / 'bin/cl.exe'), '/nologo', '/O2', '/Gy', '/ML', '/W3',
                        '/Fo' + object_dir, '/Fe' + str(executable), str(HARNESS),
-                       *map(str, SOURCES), '/link', '/INCREMENTAL:NO']
+                       str(digits), *map(str, SOURCES), '/link', '/INCREMENTAL:NO']
     compile_result = subprocess.run(compile_command, cwd=output, env=environment,
                                     capture_output=True, text=True, timeout=120)
     compile_text = compile_result.stdout + compile_result.stderr

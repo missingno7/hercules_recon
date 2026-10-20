@@ -1,3 +1,10 @@
+/* TU-context hypothesis (lane tJ 2026-10-20; adopted under the owner's per-unit real-header policy):
+   <windows.h> gives g_engine_interface front-end id 21823, whose hash bits 11..9 (=010) make c2 sort the
+   0c9b0 level-switch operands as the original does (cases 3/5/6 c|e, others e|c), restoring the 3712-byte
+   size. <memory.h> stands for any genuine +1..+8 (mod 16) id shift; it selects the numerator/denominator
+   load order parity. Header identity is not established. */
+#include <windows.h>
+#include <memory.h>
 /* TITLE unit 0x197f0..0x1d380 (one C object; 0x1c500, the tally screen, is its last function and owns
    the literal that ends its .data). Its functions share one private .bss
    block (scripts/unit_bounds.py). Declarations unified from six region files; title_0c4a0 is
@@ -28,7 +35,12 @@ struct title_pos {
     short y;
 };
 
-struct DigitSprite;
+struct DigitSprite {
+    char unknown_00[0x34];
+    short frame;
+    char unknown_36[0x54-0x36];
+    unsigned long flags;
+};
 
 static int g_2aea8[48];
 static int g_2ad00[48];
@@ -501,6 +513,32 @@ void title_1a180(void)
         break;
     }
     g_2b31c->unknown_04a = g_2afe4;
+}
+
+void set_decimal_digits(struct DigitSprite *thousands, struct DigitSprite *hundreds,
+                        struct DigitSprite *tens, struct DigitSprite *units, int value)
+{
+    int r1, r2, r3, digit;
+    digit = value / 1000;
+    thousands->frame = digit;
+    r1 = value - digit * 1000;
+    digit = r1 / 100;
+    r2 = r1 - digit * 100;
+    hundreds->frame = digit;
+    digit = r2 / 10;
+    tens->frame = digit;
+    r3 = r2 - digit * 10;
+    units->frame = r3;
+    thousands->frame += 90;
+    hundreds->frame += 90;
+    tens->frame += 90;
+    units->frame += 90;
+    if (value < 1000) thousands->flags &= 0x7fffffff;
+    else thousands->flags |= 0x80000000;
+    if (value < 100) hundreds->flags &= 0x7fffffff;
+    else hundreds->flags |= 0x80000000;
+    if (value < 10) tens->flags &= 0x7fffffff;
+    else tens->flags |= 0x80000000;
 }
 
 void title_1a3a0(void)
@@ -1526,7 +1564,6 @@ void title_1c500(TitleProc *self)
     int local;
     int x = ((ScreenContext *)g_engine_interface.context_004)->cursor_5c;
     unsigned long buttons = (unsigned short)((ScreenContext *)g_engine_interface.context_004)->cursor_5e;
-    int i;
     int k;
 
     switch (self->state_04) {
@@ -1860,14 +1897,14 @@ void title_1c500(TitleProc *self)
         g_2b088 = 0xf;
         title_0c560(0, 4);
         title_197f0();
-        for (i = 0; i < 8; i++) {
-            g_2b330[i] = 0;
+        for (k = 0; k < 8; k++) {
+            g_2b330[k] = 0;
             if (TS->unknown_00 == 6 || TS->unknown_00 == 7) {
-                g_2ae88[i] = 0xc;
+                g_2ae88[k] = 0xc;
             } else if (TS->unknown_00 == 11) {
-                g_2ae88[i] = 0xc;
+                g_2ae88[k] = 0xc;
             } else {
-                g_2ae88[i] = 0;
+                g_2ae88[k] = 0;
             }
         }
         g_2afcc = 0;
