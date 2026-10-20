@@ -71,7 +71,9 @@ typedef struct PanelContext {       /* view of g_engine_interface.context_004 */
     short value_022;
     short energy_024[6];
     unsigned long cheats_030;
-    unsigned char unknown_034[0x5c - 0x34];
+    unsigned char unknown_034[0x38 - 0x34];
+    unsigned long tick_038;
+    unsigned char unknown_03c[0x5c - 0x3c];
     unsigned short held_05c;
     unsigned char unknown_05e[0x64 - 0x5e];
     unsigned short pressed_064;
@@ -240,7 +242,7 @@ extern unsigned char g_player_table_63530[];
 extern unsigned char g_player_palette_636f0[];
 extern unsigned char g_player_palette_63a78[];
 extern unsigned char g_player_palette_63ef8[];
-extern short g_burst_done_6ffec;
+static unsigned short g_burst_done_6ffec;
 extern long g_player_grace_6fff0;
 extern Actor *g_player_glow_707dc;
 extern void *g_player_palette_707e0;
@@ -285,7 +287,7 @@ void eng1_empty_c720(Actor *p);
 void measure_absolute_vector(FixedPosition *a, FixedPosition *b, RelativeMeasure *m);
 void eng1_color_rgb_forward_5a30(int r, int g, int b);
 void eng1_tile_draw_2ff0(FixedPosition *xy);
-void eng1_05c70(void *a, void *b, void *c, int d, int e);
+void eng1_05c70(void *a, void *b, void *c, int d, unsigned char e);
 void dispatch_local_15d00(void);
 int dispatch_local_20ea0(short *bounds, int id, int mode, long x);
 void dispatch_engine_2c4e0(unsigned long value);
@@ -1278,4 +1280,1010 @@ void eng1_37fe0(Actor *p)
         select_frame(p, 3);
         eng1_interpret_signed_pairs(p);
     }
+}
+
+typedef struct SpawnOffset {        /* 16-byte local spawn table entry (0x38b30) */
+    long x, y;
+    long x_velocity, y_velocity;
+} SpawnOffset;
+
+extern unsigned short *g_configuration_dword_713bc;
+extern long g_camera_x_70ca0;
+extern long g_camera_offset_y_70cbc;
+extern long g_camera_shake_638f8[];
+extern unsigned short g_pipeline_word_6fec4;
+extern Bounds g_actor_pipeline_storage_71440;
+extern BurstRecord g_burst_records_63c80[];
+
+void engine_diagnostic(const char *format, ...);
+void RemoveFxIdLinks_7f8e(unsigned short id, Actor *p);
+void advance_frame(Actor *p);
+int eng1_2a710(Bounds *b, Actor *p);
+int actor_bounds_2a880(Actor *p, Bounds *b, int mode);
+unsigned long dispatch_local_2a170(long x, long y, long z, int profile);
+void eng1_3c490(Actor *p);
+
+void eng1_38090(Actor *p)
+{
+    p->render_flags = 0xc0000000;
+    p->mode = 6;
+    p->unknown_03e = 0x4bb;
+    advance_frame(p);
+    p->state = 0x37;
+    select_frame(p, 1);
+    p->unknown_108 = 0;
+    eng1_interpret_signed_pairs(p);
+    p->x = 0x1900000;
+    p->y = 0x820000;
+    g_player_flag_707f4 = g_camera_x_70ca0;
+    g_burst_done_6ffec = 0;
+}
+
+void eng1_38100(Actor *p)
+{
+    Actor *a;
+
+    if (g_burst_done_6ffec != 0) {
+        g_burst_done_6ffec++;
+        g_camera_offset_y_70cbc = g_camera_shake_638f8[g_burst_done_6ffec];
+        if (g_camera_offset_y_70cbc == 0) {
+            g_burst_done_6ffec = 0;
+        }
+    }
+    switch (p->state) {
+    case 0x1a:
+    case 0x2e:
+        if (eng1_interpret_signed_pairs(p)) {
+            eng1_37fe0(p);
+        }
+        break;
+    case 0xd:
+        if (eng1_interpret_signed_pairs(p)) {
+            p->state = 0xe;
+            select_frame(p, 4);
+            eng1_interpret_signed_pairs(p);
+        }
+        break;
+    case 0xe:
+        if (eng1_interpret_signed_pairs(p)) {
+            eng1_37fe0(p);
+        } else if (p->unknown_032 == 8 && p->unknown_030 == 1) {
+            a = spawn_normal(p->x + 0x100000, p->y - 0x600000, p->z, 0x39);
+            if (a != 0) {
+                g_configuration_dword_71370[0x39].init(a);
+            }
+        }
+        break;
+    case 0x37:
+        p->unknown_108 += 4;
+        if (p->unknown_108 > 0xff) {
+            p->unknown_108 = 0xff;
+        }
+        eng1_05c70(g_player_palette_707e0, g_player_palette_636f0, g_72874, 0x100, p->unknown_108);
+        if (p->unknown_108 == 0xff) {
+            eng1_37fe0(p);
+            g_player_palette_707e0 = g_player_palette_636f0;
+        }
+        break;
+    case 0x39:
+        eng1_interpret_signed_pairs(p);
+        if (++p->unknown_108 > 0xc8) {
+            eng1_37fa0(p);
+            return;
+        }
+        break;
+    }
+    p->x = ((g_player_flag_707f4 - g_camera_x_70ca0) << 16) / 6 + 0x1900000;
+}
+
+void eng1_38310(Actor *p)
+{
+    eng1_empty_c720(p);
+    p->motion_y_velocity += 0x8000;
+    if (p->direction_x == 0) {
+        p->x += p->motion_x_velocity;
+    } else {
+        p->x -= p->motion_x_velocity;
+    }
+    p->y += p->motion_y_velocity;
+    p->z += p->motion_z_velocity;
+    eng1_interpret_signed_pairs(p);
+    if (g_burst_origin_707e4->x - p->x > 0xa00000 || p->y - g_burst_origin_707e4->y > 0xc80000) {
+        remove_actor(p);
+    }
+}
+
+void eng1_383b0(Actor *p)
+{
+    p->state = 2;
+    p->scale = 0x200;
+    advance_frame(p);
+}
+
+void eng1_383d0(Actor *p)
+{
+    engine_diagnostic(" GoodbyeRockT %d, %d, %d\n", p->x >> 16, p->y >> 16, p->z >> 16);
+    eng1_empty_c720(p);
+    p->motion_y_velocity += 0x8000;
+    if (p->direction_x == 0) {
+        p->x += p->motion_x_velocity;
+    } else {
+        p->x -= p->motion_x_velocity;
+    }
+    p->y += p->motion_y_velocity;
+    p->z += p->motion_z_velocity;
+    eng1_interpret_signed_pairs(p);
+    if (p->x - g_burst_origin_707e4->x > 0x12c0000 || p->y - g_burst_origin_707e4->y > 0xc80000) {
+        remove_actor(p);
+    }
+}
+
+void eng1_38490(Actor *p)
+{
+    eng1_27410(p);
+    resource_cancel(0x32);
+    resource_reset(0x33);
+    g_player_flag_707f4 = 0;
+}
+
+void eng1_384c0(Actor *p)
+{
+    if (p->x < 0) {
+        p->state = 0x39;
+        select_frame(p, 1);
+        p->unknown_108 = 0;
+        eng1_empty_c720(p);
+        eng1_interpret_signed_pairs(p);
+    } else {
+        random_limit(0x8000);
+        if (random_limit(0x8000) < 0x3000) {
+            p->state = 0x2e;
+            select_frame(p, 1);
+            eng1_interpret_signed_pairs(p);
+        } else if (random_limit(0x8000) < 0x4000) {
+            p->state = 0x2f;
+            select_frame(p, 2);
+            eng1_interpret_signed_pairs(p);
+        } else {
+            p->state = 0x30;
+            select_frame(p, 3);
+            eng1_interpret_signed_pairs(p);
+        }
+    }
+}
+
+void eng1_38590(Actor *p)
+{
+    resource_cancel(0x31);
+    if (g_player_flag_707f4 != 0) {
+        remove_actor(p);
+        return;
+    }
+    p->render_flags = 0xc0000000;
+    p->mode = 6;
+    p->unknown_03e = 0x4bb;
+    advance_frame(p);
+    p->state = 0x37;
+    select_frame(p, 1);
+    eng1_interpret_signed_pairs(p);
+    p->x = 0x1900000;
+    p->y = 0x800000;
+    p->unknown_108 = 0;
+    g_player_flag_707f4 = g_camera_x_70ca0;
+}
+
+void eng1_38610(Actor *p)
+{
+    switch (p->state) {
+    case 0x2e:
+    case 0x2f:
+    case 0x30:
+        if (eng1_interpret_signed_pairs(p)) {
+            eng1_384c0(p);
+        }
+        break;
+    case 0x37:
+        eng1_interpret_signed_pairs(p);
+        p->unknown_108 += 4;
+        if (p->unknown_108 > 0xff) {
+            p->unknown_108 = 0xff;
+        }
+        eng1_05c70(g_player_palette_707e0, g_player_palette_63a78, g_72874, 0x100, p->unknown_108);
+        if (p->unknown_108 == 0xff) {
+            eng1_384c0(p);
+            g_player_palette_707e0 = g_player_palette_63a78;
+        }
+        break;
+    case 0x39:
+        eng1_interpret_signed_pairs(p);
+        if (++p->unknown_108 > 0xc8) {
+            eng1_38490(p);
+            return;
+        }
+        break;
+    }
+    p->x = ((g_player_flag_707f4 - g_camera_x_70ca0) << 16) / 6 + 0x1900000;
+}
+
+void eng1_38740(Actor *p)
+{
+    p->angle_70 = 0x280;
+    p->angle_72 = 0x20;
+    p->render_flags |= 0x10000000;
+    p->scale = random_limit(0x180) + 0x40;
+    p->motion_x_velocity = g_player_cruise_707e8 - (random_limit(0x800) << 8);
+    p->motion_y_velocity = -0x50000 - (random_limit(0x100) << 8);
+    p->motion_z_velocity = 0x8000 - (random_limit(0x400) << 8);
+    p->angle_70 = p->angle_72 = p->angle_74 = random_limit(0x400);
+}
+
+void eng1_387f0(Actor *p)
+{
+    p->motion_y_velocity += 0x8000;
+    if (p->direction_x == 0) {
+        p->x += p->motion_x_velocity;
+    } else {
+        p->x -= p->motion_x_velocity;
+    }
+    p->y += p->motion_y_velocity;
+    p->z += p->motion_z_velocity;
+    p->x += p->motion_x_velocity;
+    p->y += p->motion_y_velocity;
+    p->z += p->motion_z_velocity;
+    p->angle_70 += 6;
+    p->angle_72 += 0xa;
+    p->angle_74 += 0xe;
+    eng1_interpret_word_stream(p);
+    if (p->y - g_burst_origin_707e4->y > 0x640000) {
+        remove_actor(p);
+    }
+}
+
+void eng1_38880(Actor *p)
+{
+    long x, y, z;
+    int frame;
+    int i;
+    Actor *a;
+
+    play_sound(0xe242, p);
+    x = p->x;
+    y = p->y;
+    z = p->z;
+    frame = random_limit(0x8000);
+    for (i = 0; i < 12; i++) {
+        a = spawn_normal((g_burst_records_63c80[i].x << 16) + x, (g_burst_records_63c80[i].y << 16) + y,
+                         (g_burst_records_63c80[i].z << 16) + z, g_burst_records_63c80[i].kind);
+        if (a != 0) {
+            g_configuration_dword_71370[0x68].init(a);
+            select_frame(a, frame & 3);
+            eng1_interpret_signed_pairs(a);
+            frame++;
+        }
+    }
+    remove_actor(p);
+}
+
+void eng1_38950(Actor *p)
+{
+    p->y = ((random_limit(0xc00) - 0x20000) << 8) + g_burst_origin_707e4->y;
+    p->render_flags |= 0x10000000;
+    p->scale = 0x200;
+    p->angle_70 = 0x280;
+    p->angle_72 = 0x20;
+    p->motion_y_rate = random_limit(0x20);
+    reset_frame_state(p);
+    p->unknown_108 = 0;
+}
+
+void eng1_389c0(Actor *p)
+{
+    if (p->unknown_108 == 0 && g_frame_owner_72860->y - p->y < 0x200000) {
+        p->unknown_108 = 1;
+        switch (random_limit(0x30) >> 4) {
+        case 0:
+            play_sound(0x6a43, p);
+            break;
+        case 1:
+            play_sound(0x6a44, p);
+            break;
+        case 2:
+            play_sound(0x6a45, p);
+            break;
+        }
+    }
+    p->angle_74 += p->motion_y_rate;
+    if (p->direction_x == 0) {
+        p->x += p->motion_x_velocity;
+    } else {
+        p->x -= p->motion_x_velocity;
+    }
+    p->y += p->motion_y_velocity;
+    eng1_interpret_word_stream(p);
+    if (g_pipeline_word_6fec4 && eng1_2a710(&g_actor_pipeline_storage_71440, p)) {
+        eng1_38880(p);
+        eng1_3c490(p);
+        play_sound(0x6a43, p);
+        return;
+    }
+    if (eng1_2a710(&g_native_pointer_7217c->bounds, p)) {
+        eng1_37e30(2);
+        eng1_38880(p);
+        return;
+    }
+    if (p->y - g_frame_owner_72860->y > 0x2000000) {
+        remove_actor(p);
+    }
+}
+
+void eng1_38b00(Actor *p)
+{
+    if (p->x - g_burst_origin_707e4->x < 0xc00000) {
+        remove_actor(p);
+    }
+    p->unknown_108 = 0;
+}
+
+void eng1_38b30(Actor *p)
+{
+    SpawnOffset offsets[8];
+    int i;
+    Actor *a;
+
+    offsets[0].x = 0x1200000;
+    offsets[0].y = 0;
+    offsets[0].x_velocity = 0x60000;
+    offsets[0].y_velocity = 0xa0000;
+    offsets[1].x = 0xe00000;
+    offsets[1].y = 0;
+    offsets[1].x_velocity = 0x20000;
+    offsets[1].y_velocity = 0xc0000;
+    offsets[2].x = 0x400000;
+    offsets[2].y = 0;
+    offsets[2].x_velocity = -0x80000;
+    offsets[2].y_velocity = 0x90000;
+    offsets[3].x = 0xc00000;
+    offsets[3].y = 0;
+    offsets[3].x_velocity = 0;
+    offsets[3].y_velocity = 0xc0000;
+    offsets[4].x = 0xa00000;
+    offsets[4].y = 0;
+    offsets[4].x_velocity = -0x20000;
+    offsets[4].y_velocity = 0xc0000;
+    offsets[5].x = 0x800000;
+    offsets[5].y = 0;
+    offsets[5].x_velocity = -0x40000;
+    offsets[5].y_velocity = 0xb0000;
+    offsets[6].x = 0x1000000;
+    offsets[6].y = 0;
+    offsets[6].x_velocity = 0x40000;
+    offsets[6].y_velocity = 0xb0000;
+    offsets[7].x = 0x600000;
+    offsets[7].y = 0;
+    offsets[7].x_velocity = -0x60000;
+    offsets[7].y_velocity = 0xa0000;
+    i = ((p->x - g_burst_origin_707e4->x) >> 16) / 64 + 3;
+    if ((g_engine_interface.context_004->tick_038 & 0xf) == 0 && i >= 0 && i < 8) {
+        if ((g_engine_interface.context_004->tick_038 & 0x10) == 0x10) {
+            a = spawn_normal(p->x + offsets[i].x, p->y + offsets[i].y / 4, p->z, 0x52);
+        } else {
+            a = spawn_normal(p->x + offsets[i].x, p->y + offsets[i].y / 4, p->z, 0x53);
+        }
+        if (a != 0) {
+            g_configuration_dword_71370[0x52].init(a);
+            a->motion_x_velocity = offsets[i].x_velocity;
+            a->motion_y_velocity = offsets[i].y_velocity;
+        }
+    }
+    if (g_frame_owner_72860->x - p->x > 0x1300000) {
+        remove_actor(p);
+    }
+}
+
+void eng1_38d10(Actor *p)
+{
+    p->scale = 0x200;
+    p->render_flags |= 0x10000000;
+    p->angle_70 = 0x3c0;
+    p->angle_72 = 0x300;
+    p->angle_74 = random_limit(0x400);
+    p->scale = random_limit(0x100) + 0x100;
+    advance_frame(p);
+}
+
+void eng1_38d70(Actor *p)
+{
+    if (p->direction_x == 0) {
+        p->x += p->motion_x_velocity;
+    } else {
+        p->x -= p->motion_x_velocity;
+    }
+    p->y += p->motion_y_velocity;
+    p->angle_74 += 0x14;
+    eng1_interpret_signed_pairs(p);
+    if (g_burst_origin_707e4->x - p->x > 0x12c0000) {
+        remove_actor(p);
+    }
+}
+
+void eng1_38de0(Actor *p)
+{
+    p->angle_70 = 0x3c0;
+    p->render_flags |= 0x10000000;
+    p->angle_72 = 0x100;
+    p->angle_74 = random_limit(0x400);
+    p->scale = random_limit(0x100) + 0x100;
+    advance_frame(p);
+}
+
+void eng1_38e30(Actor *p)
+{
+    if (p->direction_x == 0) {
+        p->x += p->motion_x_velocity;
+    } else {
+        p->x -= p->motion_x_velocity;
+    }
+    p->y += p->motion_y_velocity;
+    p->angle_74 += 0x14;
+    eng1_interpret_signed_pairs(p);
+    if (p->x - g_burst_origin_707e4->x > 0x12c0000) {
+        remove_actor(p);
+    }
+}
+
+void eng1_38ea0(Actor *p)
+{
+    int r;
+
+    r = random_limit(0x8000);
+    if (p->x < 0) {
+        p->state = 0x39;
+        select_frame(p, 1);
+        p->unknown_108 = 0;
+        eng1_empty_c720(p);
+        eng1_interpret_signed_pairs(p);
+    } else if (r < 0x3000) {
+        p->state = 0x2e;
+        select_frame(p, 1);
+        eng1_interpret_signed_pairs(p);
+    } else if (r < 0x6000) {
+        p->state = 0x1a;
+        select_frame(p, 2);
+        eng1_interpret_signed_pairs(p);
+    } else {
+        p->state = 0x31;
+        select_frame(p, 3);
+        eng1_interpret_signed_pairs(p);
+    }
+}
+
+void eng1_38f50(Actor *p)
+{
+    Actor *a;
+
+    resource_cancel(0x32);
+    if (g_player_flag_707f4 != 0) {
+        remove_actor(p);
+    } else {
+        p->render_flags = 0xc0000000;
+        p->mode = 6;
+        p->unknown_03e = 0x4bb;
+        advance_frame(p);
+        p->state = 0x37;
+        select_frame(p, 3);
+        p->unknown_108 = 0;
+        eng1_interpret_signed_pairs(p);
+        p->x = 0x1900000;
+        p->y = 0x820000;
+        g_player_flag_707f4 = g_camera_x_70ca0;
+        a = spawn_normal(p->x, p->y, p->z, 0x31);
+        if (a != 0) {
+            g_configuration_dword_71370[0x31].init(a);
+            a->x = 0x500000;
+        }
+        a = spawn_normal(p->x, p->y, p->z, 0x31);
+        if (a != 0) {
+            g_configuration_dword_71370[0x31].init(a);
+            a->x = 0xf60000;
+        }
+        a = spawn_normal(p->x, p->y, p->z, 0x31);
+        if (a != 0) {
+            g_configuration_dword_71370[0x31].init(a);
+            a->x = 0xa80000;
+            a->y -= 0xa0000;
+            a->scale = 0x180;
+        }
+    }
+    play_sound(0x246, 0);
+    p->render_flags |= 5;
+}
+
+void eng1_39090(Actor *p)
+{
+    Actor *a;
+    long n;
+
+    switch (p->state) {
+    case 0x1a:
+    case 0x2e:
+        if (eng1_interpret_signed_pairs(p)) {
+            eng1_38ea0(p);
+        }
+    case 0x31:
+        if (eng1_interpret_signed_pairs(p)) {
+            eng1_38ea0(p);
+        } else if (p->unknown_032 == 0xd) {
+            a = spawn_normal(p->x, p->y - 0x2e0000, 0, 0x33);
+            if (a != 0) {
+                g_configuration_dword_71370[0x33].init(a);
+            }
+            a = spawn_normal(p->x, p->y - 0x320000, 0, 0x33);
+            if (a != 0) {
+                g_configuration_dword_71370[0x33].init(a);
+            }
+            a = spawn_normal(p->x, p->y - 0x340000, 0, 0x33);
+            if (a != 0) {
+                g_configuration_dword_71370[0x33].init(a);
+            }
+            a = spawn_normal(p->x, p->y - 0x360000, 0, 0x33);
+            if (a != 0) {
+                g_configuration_dword_71370[0x33].init(a);
+            }
+        }
+        break;
+    case 0x37:
+        eng1_interpret_signed_pairs(p);
+        p->unknown_108 += 2;
+        if (p->unknown_108 > 0xff) {
+            p->unknown_108 = 0xff;
+        }
+        eng1_05c70(g_player_palette_707e0, g_player_palette_63ef8, g_72874, 0x100, p->unknown_108);
+        n = p->unknown_108;
+        if (n == 0xff) {
+            eng1_38ea0(p);
+            g_player_palette_707e0 = g_player_palette_63ef8;
+        } else if ((n & 7) == 0 && n < 0x90) {
+            a = spawn_normal(0x1400000, (0x12c - n) << 16, g_burst_origin_707e4->z, 0x56);
+            if (a != 0) {
+                g_configuration_dword_71370[0x56].init(a);
+            }
+            if ((n & 1) == 0) {
+                if (random_limit(0x8000) < 0x4000) {
+                    play_sound(0x6a4c, g_frame_owner_72860);
+                } else {
+                    play_sound(0x6a4d, g_frame_owner_72860);
+                }
+            }
+        }
+        break;
+    case 0x39:
+        eng1_interpret_word_stream(p);
+        p->unknown_108++;
+        break;
+    }
+    p->x = ((g_player_flag_707f4 - g_camera_x_70ca0) << 16) / 6 + 0x1900000;
+    if (p->x < -0x280000) {
+        g_player_flag_707f4 = 0;
+        eng1_27410(p);
+        resource_cancel(0x33);
+    }
+}
+
+void eng1_39360(Actor *p)
+{
+    p->render_flags = 0xc0000000;
+    p->mode = 6;
+    p->unknown_03e = 0x4b3;
+    reset_frame_state(p);
+    p->y = 0x12c0000;
+    p->unknown_108 = 0x78;
+    p->scale = 0x1c0;
+    p->state = 0x36;
+    p->render_flags |= 5;
+}
+
+void eng1_393b0(Actor *p)
+{
+    engine_diagnostic("FIRE Here, Special1 = %d", p->unknown_108);
+    eng1_interpret_word_stream(p);
+    switch (p->state) {
+    case 1:
+        if (p->unknown_108-- < 0) {
+            p->state = 0x1c;
+        }
+        break;
+    case 0x1c:
+        p->y += 0x10000;
+        if (p->y > 0x12c0000) {
+            remove_actor(p);
+        }
+        RemoveFxIdLinks_7f8e(0x246, 0);
+        break;
+    case 0x36:
+        p->y -= 0x8000;
+        if (--p->unknown_108 == 0) {
+            p->state = 1;
+            p->unknown_108 = 0x1e0;
+        }
+        break;
+    }
+}
+
+void eng1_39460(Actor *p)
+{
+    advance_frame(p);
+    p->motion_y_velocity = (random_limit(0x400) - 0x1400) << 8;
+    p->direction_y = 0xff;
+    p->motion_x_velocity = (0x200 - random_limit(0x400)) << 8;
+    p->scale = random_limit(0x80) + 0x100;
+    p->render_flags |= 5;
+    switch (random_limit(0x80) >> 4) {
+    case 0:
+        play_sound(0x6a49, g_frame_owner_72860);
+        break;
+    case 1:
+        play_sound(0x6a4a, g_frame_owner_72860);
+        break;
+    case 2:
+        play_sound(0x6a4b, g_frame_owner_72860);
+        break;
+    }
+}
+
+void eng1_39530(Actor *p)
+{
+    Bounds b;
+
+    engine_diagnostic(" FirBAll %d, %d, %d\n", p->x >> 16, p->y >> 16, p->z >> 16);
+    p->motion_y_velocity += 0x8000;
+    if (p->direction_y == 0xff && p->motion_y_velocity > 0) {
+        p->direction_y = 0;
+        select_frame(p, 1);
+    }
+    p->y += p->motion_y_velocity;
+    p->saved_x = p->x;
+    if (p->direction_x == 0) {
+        p->x += p->motion_x_velocity;
+        if (actor_bounds_2a880(p, &b, 1) &&
+            g_configuration_dword_713bc[(unsigned short)dispatch_local_2a170(b.max_x << 16, p->y, p->z, p->profile)] & 2) {
+            p->x -= p->motion_x_velocity;
+        }
+    } else {
+        p->x -= p->motion_x_velocity;
+        if (actor_bounds_2a880(p, &b, 1) &&
+            g_configuration_dword_713bc[(unsigned short)dispatch_local_2a170(b.min_x << 16, p->y, p->z, p->profile)] & 2) {
+            p->x += p->motion_x_velocity;
+        }
+    }
+    p->z -= 0x20000;
+    if (p->z < g_frame_owner_72860->z) {
+        p->z = g_frame_owner_72860->z;
+    }
+    eng1_interpret_signed_pairs(p);
+    if (eng1_2a710(&g_native_pointer_7217c->bounds, p)) {
+        eng1_37e30(3);
+        remove_actor(p);
+        return;
+    }
+    if (eng1_native_code_target_002aa30(p, 0xc8, 0xc8)) {
+        remove_actor(p);
+    }
+}
+
+extern short g_sine_table_5a848[];
+extern long g_level_actors_6fe78[];
+extern long g_player_wave_6ffe8;
+
+void eng1_3c4d0(Actor *p);
+void eng1_3c510(Actor *p);
+
+void eng1_396e0(Actor *p)
+{
+    p->render_flags = 0xc0000000;
+    p->mode = 6;
+    p->unknown_03e = 0x4b7;
+    p->scale = 0x20;
+    reset_frame_state(p);
+    p->motion_y_velocity = (random_limit(0x300) - 0x600) << 8;
+    p->motion_x_velocity = (0x400 - random_limit(0x800)) << 8;
+    p->render_flags |= 7;
+}
+
+void eng1_39750(Actor *p)
+{
+    Bounds b;
+
+    p->scale += 0xc;
+    p->motion_y_velocity += 0x9000;
+    p->y += p->motion_y_velocity;
+    p->saved_x = p->x;
+    if (p->direction_x == 0) {
+        p->x += p->motion_x_velocity;
+        if (actor_bounds_2a880(p, &b, 1) &&
+            g_configuration_dword_713bc[(unsigned short)dispatch_local_2a170(b.max_x << 16, p->y, p->z, p->profile)] & 2) {
+            p->x -= p->motion_x_velocity;
+        }
+    } else {
+        p->x -= p->motion_x_velocity;
+        if (actor_bounds_2a880(p, &b, 1) &&
+            g_configuration_dword_713bc[(unsigned short)dispatch_local_2a170(b.min_x << 16, p->y, p->z, p->profile)] & 2) {
+            p->x += p->motion_x_velocity;
+        }
+    }
+    eng1_interpret_word_stream(p);
+    if (p->y > 0xdc0000 || p->x > 0x1680000 || p->x < -0x280000) {
+        remove_actor(p);
+    }
+}
+
+void eng1_39870(Actor *p)
+{
+    p->render_flags = 0xc0000000;
+    p->mode = 6;
+    p->unknown_03e = 0x4b3;
+    reset_frame_state(p);
+    p->angle_74 = p->scale = 0x180;
+    p->unknown_108 = 0x60;
+    p->render_flags |= 5;
+}
+
+void eng1_398b0(Actor *p)
+{
+    int angle;
+    int dx, dy;
+
+    p->x -= 0x20000;
+    p->angle_74 -= 8;
+    p->unknown_03e = g_frame_owner_72860->unknown_03e - 4;
+    p->z = g_frame_owner_72860->z;
+    p->unknown_03e = g_frame_owner_72860->screen_z;
+    eng1_interpret_word_stream(p);
+    angle = p->angle_74 & 0x3ff;
+    dx = (g_sine_table_5a848[angle & 0x3ff] * 0xb400 / 0x100 >> 16) + (p->x >> 16) - g_frame_owner_72860->screen_x;
+    dy = (-g_sine_table_5a848[(angle + 0x100) & 0x3ff] * 0xb400 / 0x100 >> 16) + (p->y >> 16) -
+         g_frame_owner_72860->screen_y;
+    if (dy * dy + dx * dx < 0x9c4) {
+        eng1_37e30(2);
+    }
+    if (p->unknown_108-- < 0) {
+        remove_actor(p);
+    }
+}
+
+void eng1_399c0(Actor *p)
+{
+    p->x = 0x12c0000;
+    p->y = 0xaa0000;
+    p->unknown_108 = 0;
+    play_sound(0x6a4e, g_frame_owner_72860);
+}
+
+void eng1_399f0(Actor *p)
+{
+    Actor *a;
+
+    if (++p->unknown_108 > 0x320) {
+        remove_actor(p);
+        return;
+    }
+    p->x -= 0x20000;
+    if (p->unknown_108 < 0x64 && (p->unknown_108 & 7) == 0) {
+        a = spawn_normal(p->x + 0x300000, p->y, p->z, 0x34);
+        if (a != 0) {
+            g_configuration_dword_71370[0x34].init(a);
+            a->render_flags |= 0x80000;
+        }
+    }
+}
+
+void eng1_39a70(Actor *p)
+{
+    Actor *a;
+
+    if ((g_engine_interface.context_004->tick_038 & 0x1f) == 0) {
+        a = spawn_normal(g_frame_owner_72860->x + 0x400000, g_frame_owner_72860->y + 0x800000,
+                         g_frame_owner_72860->z + 0x800000, 0x32);
+        if (a != 0) {
+            g_configuration_dword_71370[0x32].init(a);
+        }
+    }
+    if (g_frame_owner_72860->x - p->x > 0x1000000) {
+        remove_actor(p);
+    }
+}
+
+void eng1_39ae0(Actor *p)
+{
+    p->motion_x_velocity = -0x20000;
+    p->scale = 0x200;
+    reset_frame_state(p);
+}
+
+void eng1_39b00(Actor *p)
+{
+    engine_diagnostic(" WofBall at %d, %d, %d\n", p->x >> 16, p->y >> 16, p->z >> 16);
+    eng1_3c4d0(p);
+    p->x -= 0x20000;
+    eng1_interpret_word_stream(p);
+    if (g_burst_origin_707e4->x - p->x > 0x12c0000) {
+        remove_actor(p);
+    }
+}
+
+void eng1_39b60(Actor *p, unsigned short facing)
+{
+    unsigned char direction;
+    long x, y, z;
+    int i;
+    Actor *a;
+
+    direction = facing;
+    x = p->x;
+    y = p->y;
+    z = p->z;
+    play_sound(0x6a4e, g_frame_owner_72860);
+    for (i = 0; i < 3; i++) {
+        a = spawn_normal(x, y, z, 0x3d);
+        if (a != 0) {
+            g_configuration_dword_71370[0x3d].init(a);
+            y -= 0x500000;
+            a->direction_x = direction;
+            a->render_flags = (a->render_flags & ~0x10) | (direction & 0x10);
+            a->render_flags |= 5;
+        }
+    }
+}
+
+void eng1_39bf0(Actor *p)
+{
+    eng1_39b60(p, 0);
+}
+
+void eng1_39c00(Actor *p)
+{
+    p->x -= 0x2700000;
+    eng1_39b60(p, 0xffff);
+}
+
+void eng1_39c20(Actor *p)
+{
+    p->scale = 0x1c0;
+    p->mode = 6;
+    p->unknown_03e = 4;
+    p->motion_x_velocity = -0x280000;
+    p->render_flags = 0xc0080005;
+    reset_frame_state(p);
+}
+
+void eng1_39c50(Actor *p)
+{
+    eng1_3c510(p);
+    if (p->direction_x == 0) {
+        p->x += p->motion_x_velocity;
+    } else {
+        p->x -= p->motion_x_velocity;
+    }
+    eng1_interpret_word_stream(p);
+    if (p->x < -0x320000) {
+        remove_actor(p);
+    }
+}
+
+void eng1_39ca0(Actor *p)
+{
+    p->scale = 0x200;
+    p->render_flags = 0xc0080000;
+    p->mode = 6;
+    p->unknown_03e = 4;
+    reset_frame_state(p);
+    p->motion_x_velocity = g_player_cruise_707e8 * 2 - 0x280000;
+    p->direction_x = 0xff;
+    p->render_flags |= 0x10;
+}
+
+void eng1_39cf0(Actor *p)
+{
+    if (p->direction_x == 0) {
+        p->x += p->motion_x_velocity;
+    } else {
+        p->x -= p->motion_x_velocity;
+    }
+    eng1_interpret_word_stream(p);
+    if (p->x > 0x1680000) {
+        remove_actor(p);
+    }
+}
+
+void eng1_39d40(Actor *p)
+{
+    if (g_pipeline_word_6fec4 && eng1_2a710(&g_actor_pipeline_storage_71440, p)) {
+        p->motion_y_velocity = 0;
+        eng1_3c490(p);
+        play_sound(0x6a43, p);
+        return;
+    }
+    if (eng1_2a710(&g_native_pointer_7217c->bounds, p)) {
+        eng1_37e30(2);
+        p->motion_y_velocity = 0;
+        play_sound(0x6a43, p);
+    }
+}
+
+void eng1_39dc0(Actor *p)
+{
+    int r;
+
+    r = random_limit(0x8000);
+    if (p->x < 0) {
+        p->state = 0x39;
+        select_frame(p, 1);
+        p->unknown_108 = 0;
+        eng1_empty_c720(p);
+        eng1_interpret_signed_pairs(p);
+    } else if (r < 0x2000) {
+        p->state = 0x2e;
+        select_frame(p, 1);
+        eng1_interpret_signed_pairs(p);
+    } else if (r < 0x7000) {
+        p->state = 0x32;
+        select_frame(p, 2);
+        switch (random_limit(0x40) >> 4) {
+        case 0:
+            play_sound(0x257, 0);
+            break;
+        case 1:
+            play_sound(0x258, 0);
+            break;
+        case 2:
+            play_sound(0x259, 0);
+            break;
+        case 3:
+            play_sound(0x25a, 0);
+            break;
+        }
+        eng1_interpret_signed_pairs(p);
+    } else if (r < 0x6000) {
+        p->state = 0x33;
+        select_frame(p, 3);
+        eng1_interpret_signed_pairs(p);
+    } else {
+        p->state = 0x34;
+        select_frame(p, 4);
+        eng1_interpret_signed_pairs(p);
+    }
+}
+
+void eng1_39f20(Actor *p)
+{
+    int i;
+
+    resource_cancel(0x33);
+    if (g_player_flag_707f4 != 0) {
+        remove_actor(p);
+    } else {
+        p->render_flags = 0xc0000000;
+        p->mode = 6;
+        p->unknown_03e = 0x4bb;
+        advance_frame(p);
+        p->state = 0x37;
+        select_frame(p, 1);
+        p->unknown_108 = 0;
+        eng1_interpret_signed_pairs(p);
+        p->x = 0x1900000;
+        p->y = 0x500000;
+        g_player_flag_707f4 = g_camera_x_70ca0;
+    }
+    p->render_flags |= 4;
+    p->scale = 0x120;
+    play_sound(0x256, 0);
+    for (i = 0; i < g_level_actors_6fe78[0];) {
+        ((Actor *)g_level_actors_6fe78[++i])->render_flags |= 0x80000000;
+    }
+}
+
+void eng1_39ff0(Actor *p)
+{
+    g_player_wave_6ffe8++;
+    p->y += g_sine_table_5a848[(g_player_wave_6ffe8 & 0x3f) << 4] * 6 / 2;
+    p->scale = (g_sine_table_5a848[(g_player_wave_6ffe8 & 0x7f) << 3] * 2 >> 11) + 0x120;
 }

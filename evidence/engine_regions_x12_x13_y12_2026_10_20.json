@@ -24,7 +24,25 @@
    "0x72012 read as a byte; 0x6efb4 signed char weapon index; 0x72140[6] signed weapon timers; 0x7082e = g_panel_70820.flash_0e; 0x70f24 = g_engine_interface.context_004; 0x72860 player Actor * (pool actor 0); 0x73494 middle-actor pool (0xec slots)",
    "LevelContext +0x5c read as a 16-bit word (level_frame_01e50.c declares a byte + word at +0x5e)",
    "recovery symbol of ENG1 0x277e0 is _title_08ed0, units call it spawn_middle_277e0"
-  ]
+  ],
+  "x14": {
+   "source": "calibration/eng1/player_unit_36030.c",
+   "region": "0x38090..0x3a040",
+   "result": "47/47 masked equal (plain C; C++ also 47/47, so C kept); appended to the player unit 83/83, strict 0x36120/0x36b60 proofs renewed (compiled bytes identical)",
+   "unit_evidence": "0x38100 reads 0x6ffec with cmp word [mem] / inc word [mem] and a dword load & 0xffff: only a file-static unsigned short reproduces it (probes: extern or plain definition caches in ax); 0x36e90 writes the same variable, so both spans are one file",
+   "forms": [
+    "0x39090 cases 0x1a and 0x2e fall through into 0x31",
+    "0x384c0 discards the first random_limit(0x8000)",
+    "0x39dc0 keeps an unreachable r < 0x6000 branch after r >= 0x7000",
+    "0x39b60 second parameter unsigned short copied into an unsigned char local (callers push 0xffff)",
+    "0x398b0 x -= 0x20000 before angle_74 -= 8; dy*dy + dx*dx"
+   ],
+   "identity": [
+    "g_player_flag_707f4 is the scene scroll anchor (set to g_camera_x_70ca0, blocks a second scene)",
+    "g_burst_done_6ffec is a camera-shake step index into 0x638f8 driving g_camera_offset_y_70cbc",
+    "recovery symbols 0x3870 _title_04ea0 = resource_cancel, 0x271d0 _title_08a50 = spawn_normal"
+   ]
+  }
  },
  "ENG3": {
   "calibration/eng3/handlers_16240.cpp": "y12: level mode handlers 0x180e0..0x1a070 appended (C++): 28 masked + 0x195d0 RECONSTRUCTED (671 B: VC5 groups identical case bodies differently); 0x19f30 compiles 176 of 160 B (a8 + f0 operand order prevents arm merging), unrecorded. Existing 17 masked + 3 RECONSTRUCTED unchanged. eng3_18370 returns int (1 when a script reaches op -3). held input word +0x5c volatile (engine-context held field already owner-approved): fixes 0x18630, 0x18d00, 0x19d40 (+0x18eb0 via context); standalone 23/30, appended without volatile 25/30.",
