@@ -1,0 +1,694 @@
+{
+ "ENG1.DLL": {
+  "region": [
+   "0x5ea0",
+   "0x83e0"
+  ],
+  "functions": [
+   {
+    "rva": "0x5ea0",
+    "end": "0x6005",
+    "size": 357,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x203e7"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xae00",
+    "symbol": "_demo_load_5ea0",
+    "identity": "demo playback: load M:\\\\DEMO\\\\DEMO*.DAT sequence into context"
+   },
+   {
+    "rva": "0x6005",
+    "end": "0x60f9",
+    "size": 244,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x20506"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xaf65",
+    "symbol": "_demo_step_6005",
+    "identity": "demo playback: step recorded pad words into context +0x5c/+0x5e"
+   },
+   {
+    "rva": "0x60f9",
+    "end": "0x646c",
+    "size": 883,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x20656"
+    ],
+    "tables": [
+     {
+      "kind": "jump_table",
+      "rva": "0x6432",
+      "entries": 6
+     },
+     {
+      "kind": "index_table",
+      "rva": "0x644a",
+      "entries": 34
+     }
+    ],
+    "padding_after": 0,
+    "eng3_twin": "0xb059",
+    "symbol": "_game_state_60f9",
+    "identity": "game mode switch on context+3 (cases 0,5,1/2,18/19->33,default); jump+index tables inside; ENG3 omits the case-1/2 engine-start block (#ifndef ENGINE3)"
+   },
+   {
+    "rva": "0x646c",
+    "end": "0x6613",
+    "size": 423,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x62b3"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xb313",
+    "symbol": "_demo_title_646c",
+    "identity": "return-to-title helper (clip rects, palette rgb, start TITLE engine, run until done); only caller 0x62b3"
+   },
+   {
+    "rva": "0x6613",
+    "end": "0x666b",
+    "size": 88,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x6ee5",
+     "0x76c7"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xb4ba",
+    "symbol": "_fx_count_6613",
+    "identity": "count active effect rows with id",
+    "title_optimized_copy": "title_05080"
+   },
+   {
+    "rva": "0x666b",
+    "end": "0x6da0",
+    "size": 1845,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call",
+     "immediate",
+     "pointer"
+    ],
+    "callers": [
+     "0x6382",
+     "0x65b1",
+     "0x82da",
+     "0x82db",
+     "0x2061e"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xb512",
+    "symbol": "_fx_update_666b",
+    "identity": "per-frame effect channel update (pan/volume, music fade)",
+    "title_optimized_copy": "title_050b0"
+   },
+   {
+    "rva": "0x6da0",
+    "end": "0x75e3",
+    "size": 2115,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x2317",
+     "0x2340",
+     "0x236f",
+     "0x2399",
+     "0x8809",
+     "0x8939"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xbc47",
+    "symbol": "_LinkedSoundFx_6da0",
+    "identity": "LinkedSoundFx(id, owner) with file-scope pending row",
+    "title_optimized_copy": "title_054f0"
+   },
+   {
+    "rva": "0x75e3",
+    "end": "0x7cde",
+    "size": 1787,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x1a098",
+     "0x21e86",
+     "0x2342a",
+     "0x45ab6",
+     "0x45d0a",
+     "0x45d21"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xc48a",
+    "symbol": "_LinkedSoundFxAt_75e3",
+    "identity": "LinkedSoundFx variant (id, owner, source) with local pending row; no debug print",
+    "title_optimized_copy": "(none in TITLE)"
+   },
+   {
+    "rva": "0x7cde",
+    "end": "0x7d67",
+    "size": 137,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x2958c"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xcb85",
+    "symbol": "_RemoveFxLinksKeep_7cde",
+    "identity": "RemoveFxLinks: stop unless flags&0x8000, clear owner",
+    "title_optimized_copy": "title_05a70"
+   },
+   {
+    "rva": "0x7d67",
+    "end": "0x7ef6",
+    "size": 399,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [],
+    "callers": [],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xcc0e",
+    "symbol": "_RemoveFxIdLinksKeep_7d67",
+    "identity": "RemoveFxIdLinks variant: stop unless flags&0x8000, clear owner only",
+    "title_optimized_copy": "(none in TITLE)"
+   },
+   {
+    "rva": "0x7ef6",
+    "end": "0x7f8e",
+    "size": 152,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x9200",
+     "0x9237",
+     "0x9551",
+     "0xb346",
+     "0xd4a0",
+     "0xd4d2"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xcd9d",
+    "symbol": "_RemoveFxLinks_7ef6",
+    "identity": "RemoveFxLinks variant: always stop, clear owner->linked",
+    "title_optimized_copy": "(none in TITLE)"
+   },
+   {
+    "rva": "0x7f8e",
+    "end": "0x8117",
+    "size": 393,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0xc431",
+     "0x162e1",
+     "0x1a42d",
+     "0x1eb54",
+     "0x21545",
+     "0x2257c"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xce35",
+    "symbol": "_RemoveFxIdLinks_7f8e",
+    "identity": "RemoveFxIdLinks",
+    "title_optimized_copy": "title_05ad0"
+   },
+   {
+    "rva": "0x8117",
+    "end": "0x819a",
+    "size": 131,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x6350",
+     "0x37a95"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xcfbe",
+    "symbol": "_fx_clear_all_8117",
+    "identity": "ClearAllSoundFx()",
+    "title_optimized_copy": "(none in TITLE)"
+   },
+   {
+    "rva": "0x819a",
+    "end": "0x827f",
+    "size": 229,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [],
+    "callers": [],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xd041",
+    "symbol": "_fx_clear_except_819a",
+    "identity": "ClearAllSoundFx_Excpt(id)",
+    "title_optimized_copy": "title_05bc0"
+   },
+   {
+    "rva": "0x827f",
+    "end": "0x82b7",
+    "size": 56,
+    "epilogue": "pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x203c5"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xd126",
+    "symbol": "_fx_mode_827f",
+    "identity": "sound mode select (0x1000 vs 5) between lock/unlock"
+   },
+   {
+    "rva": "0x82b7",
+    "end": "0x8330",
+    "size": 121,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x20393"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xd15e",
+    "symbol": "_fx_init_82b7",
+    "identity": "effect init: install update callback, reset rows",
+    "title_optimized_copy": "title_05c60"
+   },
+   {
+    "rva": "0x8330",
+    "end": "0x83d3",
+    "size": 163,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [],
+    "callers": [],
+    "tables": [],
+    "padding_after": 0,
+    "eng3_twin": "0xd1d7",
+    "symbol": "_load_file_8330",
+    "identity": "synchronous file load with retry (sprintf path, open/read/close)"
+   },
+   {
+    "rva": "0x83d3",
+    "end": "0x83d8",
+    "size": 5,
+    "epilogue": "pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x2038d"
+    ],
+    "tables": [],
+    "padding_after": 8,
+    "eng3_twin": "0xd27a",
+    "symbol": "_fx_nop_83d3",
+    "identity": "empty function"
+   }
+  ]
+ },
+ "ENG3.DLL": {
+  "region": [
+   "0xae00",
+   "0xd280"
+  ],
+  "functions": [
+   {
+    "rva": "0xae00",
+    "end": "0xaf65",
+    "size": 357,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x1ac97"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x5ea0",
+    "symbol": "_demo_load_5ea0",
+    "identity": "demo playback: load M:\\\\DEMO\\\\DEMO*.DAT sequence into context"
+   },
+   {
+    "rva": "0xaf65",
+    "end": "0xb059",
+    "size": 244,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x1ada3"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x6005",
+    "symbol": "_demo_step_6005",
+    "identity": "demo playback: step recorded pad words into context +0x5c/+0x5e"
+   },
+   {
+    "rva": "0xb059",
+    "end": "0xb313",
+    "size": 698,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x1aeef"
+    ],
+    "tables": [
+     {
+      "kind": "jump_table",
+      "rva": "0xb2d9",
+      "entries": 6
+     },
+     {
+      "kind": "index_table",
+      "rva": "0xb2f1",
+      "entries": 34
+     }
+    ],
+    "padding_after": 0,
+    "eng1_twin": "0x60f9",
+    "symbol": "_game_state_60f9",
+    "identity": "game mode switch on context+3 (cases 0,5,1/2,18/19->33,default); jump+index tables inside; ENG3 omits the case-1/2 engine-start block (#ifndef ENGINE3)"
+   },
+   {
+    "rva": "0xb313",
+    "end": "0xb4ba",
+    "size": 423,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0xb15a"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x646c",
+    "symbol": "_demo_title_646c",
+    "identity": "return-to-title helper (clip rects, palette rgb, start TITLE engine, run until done); only caller 0x62b3"
+   },
+   {
+    "rva": "0xb4ba",
+    "end": "0xb512",
+    "size": 88,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0xbd8c",
+     "0xc56e"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x6613",
+    "symbol": "_fx_count_6613",
+    "identity": "count active effect rows with id",
+    "title_optimized_copy": "title_05080"
+   },
+   {
+    "rva": "0xb512",
+    "end": "0xbc47",
+    "size": 1845,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call",
+     "immediate",
+     "pointer"
+    ],
+    "callers": [
+     "0xb229",
+     "0xb458",
+     "0xd181",
+     "0xd182",
+     "0x1aeb7"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x666b",
+    "symbol": "_fx_update_666b",
+    "identity": "per-frame effect channel update (pan/volume, music fade)",
+    "title_optimized_copy": "title_050b0"
+   },
+   {
+    "rva": "0xbc47",
+    "end": "0xc48a",
+    "size": 2115,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x2120",
+     "0x21c7",
+     "0x2458",
+     "0x2bf9",
+     "0x2cfa",
+     "0x306e"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x6da0",
+    "symbol": "_LinkedSoundFx_6da0",
+    "identity": "LinkedSoundFx(id, owner) with file-scope pending row",
+    "title_optimized_copy": "title_054f0"
+   },
+   {
+    "rva": "0xc48a",
+    "end": "0xcb85",
+    "size": 1787,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [],
+    "callers": [],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x75e3",
+    "symbol": "_LinkedSoundFxAt_75e3",
+    "identity": "LinkedSoundFx variant (id, owner, source) with local pending row; no debug print",
+    "title_optimized_copy": "(none in TITLE)"
+   },
+   {
+    "rva": "0xcb85",
+    "end": "0xcc0e",
+    "size": 137,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x1e42c"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x7cde",
+    "symbol": "_RemoveFxLinksKeep_7cde",
+    "identity": "RemoveFxLinks: stop unless flags&0x8000, clear owner",
+    "title_optimized_copy": "title_05a70"
+   },
+   {
+    "rva": "0xcc0e",
+    "end": "0xcd9d",
+    "size": 399,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [],
+    "callers": [],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x7d67",
+    "symbol": "_RemoveFxIdLinksKeep_7d67",
+    "identity": "RemoveFxIdLinks variant: stop unless flags&0x8000, clear owner only",
+    "title_optimized_copy": "(none in TITLE)"
+   },
+   {
+    "rva": "0xcd9d",
+    "end": "0xce35",
+    "size": 152,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x11253",
+     "0x1de65",
+     "0x1e19f"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x7ef6",
+    "symbol": "_RemoveFxLinks_7ef6",
+    "identity": "RemoveFxLinks variant: always stop, clear owner->linked",
+    "title_optimized_copy": "(none in TITLE)"
+   },
+   {
+    "rva": "0xce35",
+    "end": "0xcfbe",
+    "size": 393,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x192b1"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x7f8e",
+    "symbol": "_RemoveFxIdLinks_7f8e",
+    "identity": "RemoveFxIdLinks",
+    "title_optimized_copy": "title_05ad0"
+   },
+   {
+    "rva": "0xcfbe",
+    "end": "0xd041",
+    "size": 131,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0xb1f7"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x8117",
+    "symbol": "_fx_clear_all_8117",
+    "identity": "ClearAllSoundFx()",
+    "title_optimized_copy": "(none in TITLE)"
+   },
+   {
+    "rva": "0xd041",
+    "end": "0xd126",
+    "size": 229,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [],
+    "callers": [],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x819a",
+    "symbol": "_fx_clear_except_819a",
+    "identity": "ClearAllSoundFx_Excpt(id)",
+    "title_optimized_copy": "title_05bc0"
+   },
+   {
+    "rva": "0xd126",
+    "end": "0xd15e",
+    "size": 56,
+    "epilogue": "pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x1ac75"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x827f",
+    "symbol": "_fx_mode_827f",
+    "identity": "sound mode select (0x1000 vs 5) between lock/unlock"
+   },
+   {
+    "rva": "0xd15e",
+    "end": "0xd1d7",
+    "size": 121,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x1ac43"
+    ],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x82b7",
+    "symbol": "_fx_init_82b7",
+    "identity": "effect init: install update callback, reset rows",
+    "title_optimized_copy": "title_05c60"
+   },
+   {
+    "rva": "0xd1d7",
+    "end": "0xd27a",
+    "size": 163,
+    "epilogue": "mov esp,ebp;pop ebp;ret",
+    "incoming": [],
+    "callers": [],
+    "tables": [],
+    "padding_after": 0,
+    "eng1_twin": "0x8330",
+    "symbol": "_load_file_8330",
+    "identity": "synchronous file load with retry (sprintf path, open/read/close)"
+   },
+   {
+    "rva": "0xd27a",
+    "end": "0xd27f",
+    "size": 5,
+    "epilogue": "pop ebp;ret",
+    "incoming": [
+     "call"
+    ],
+    "callers": [
+     "0x1ac3d"
+    ],
+    "tables": [],
+    "padding_after": 1,
+    "eng1_twin": "0x83d3",
+    "symbol": "_fx_nop_83d3",
+    "identity": "empty function"
+   }
+  ]
+ },
+ "notes": "Each region is one contiguous /Od .text contribution: functions are byte-adjacent (no NOP alignment), the only switch keeps its jump table and byte index table inside the function, and the contribution ends with INT3 linker padding to the next 16-byte boundary. Function count and order are identical in ENG1 and ENG3.",
+ "function_map_changes": {
+  "ENG1.DLL": "work/function_map/ENG1.DLL.json (16-byte alignment filter) had 2 entries: 0x5ea0 size 3840 (merges 0x5ea0..0x6d9f: 6 functions) and 0x6da0 size 5696 (merges 0x6da0..0x83df: 12 functions + 8 INT3 bytes). Replaced by 18 functions, 0 padding between them, 8 INT3 bytes after 0x83d3.",
+  "ENG3.DLL": "work/function_map/ENG3.DLL.json had 1 entry 0xae00 size 9344 (decoded:false; 0xae00..0xd27f). Replaced by 18 functions + 1 INT3 byte after 0xd27a.",
+  "od_scan_note": "work/converge/od_scan.json split ENG1 into [0x5ea0,0x6da0] and [0x75e3,0x83d3] and ENG3 into [0xae00,0xbc47] and [0xcb85,0xd27a]; actually each module has one contiguous /Od contribution 0x5ea0..0x83d8 / 0xae00..0xd27f (the gaps are the large functions 0x6da0, 0x75e3 / 0xbc47, 0xc48a whose callers are numerous or absent)."
+ }
+}

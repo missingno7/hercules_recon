@@ -82,7 +82,10 @@ def check_rows(rows, source, co_defined=()):
     for r in rows:
         module = Path(r['target']).name.upper()
         rva, size = int(r['rva'], 16), r['size']
-        if rva & 15 or (rva + size) & 15 or interior_entries(db, module, rva, size):
+        # /O2 /Gy contributions start and end on 16-byte boundaries; unoptimized (/Od) units pack
+        # functions back to back at unaligned addresses, so only the interior-entry check applies.
+        aligned = '/Od' not in (r.get('flags') or [])
+        if (aligned and (rva & 15 or (rva + size) & 15)) or interior_entries(db, module, rva, size):
             raise ValueError(f"Extent problem for {r['id']}")
         m = masked_compare(obj, r['symbol'], ROOT / r['target'], rva, size)
         if not m['masked_equal']:
@@ -138,7 +141,9 @@ def stage(plan_path):
     moved = [r for r in state['functions'] if r.get('source') in replaces]
     if any(r['status'] != 'CODEGEN_SIMILAR' or r.get('proof', {}).get('scope') != SCOPE for r in moved):
         raise ValueError('Only masked rows can be moved')
-    existing = [r for r in state['functions'] if r.get('source') == source]
+    plan_flags = list(plan.get('flags') or ['/O2'])
+    existing = [r for r in state['functions'] if r.get('source') == source
+                and list(r.get('flags') or ['/O2']) == plan_flags]
     if in_place:
         # RECONSTRUCTED rows of the same provider stay as they are; their functions are pinned co-defined.
         # A planned function that is RECONSTRUCTED now replaces that row once it verifies masked equal.
@@ -232,9 +237,11 @@ def verify(report=None):
     groups = {}
     for r in state['functions']:
         if r['status'] == 'CODEGEN_SIMILAR' and r.get('proof', {}).get('scope') == SCOPE:
-            groups.setdefault(r['source'], []).append(r)
+            # One compilation per (source, flags): a source built with different preprocessor/flag
+            # settings for two modules (e.g. /Od vs /Od /DENGINE3) is two compilations.
+            groups.setdefault((r['source'], tuple(r.get('flags') or ['/O2'])), []).append(r)
     failures, count = [], 0
-    for source, rows in sorted(groups.items()):
+    for (source, _flags), rows in sorted(groups.items()):
         if digest((ROOT / source).read_bytes()) != rows[0]['proof']['source_sha256']:
             failures.append(f'{source}: source differs from recorded proof')
             continue
