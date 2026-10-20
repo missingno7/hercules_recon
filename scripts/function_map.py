@@ -21,6 +21,7 @@ import capstone
 from pe import PE
 
 DB = ROOT / 'work/archaeology.sqlite'
+LIBRARY_COVERAGE = 0.75  # share of the trailing text covered by identified library contributions (EXE ~0.81 without CTL3D; ENG3 false cut ~0.60)
 
 
 def build(module, entry_evidence=None, original_root=None, include_unaligned=False):
@@ -40,11 +41,19 @@ def _build_from_database(module, entry_evidence, inputs, include_unaligned, db):
     hi = lo + min(text['virtual_size'], text['raw_size'])
     code = pe.read_rva(lo, hi - lo)
     library = json.loads((inputs / 'work/library_map/library_map.json').read_text())['contributions'][module]
-    lib = set()
-    for c in library:
-        if c['size'] > 16:  # lone RET bodies are ambiguous, not library evidence
-            lib.update(range(int(c['rva'], 16), int(c['rva'], 16) + c['size']))
-    end = min([r for r in lib] + [hi])
+    # The library block is the trailing run where identified library contributions dominate
+    # (unattributed EH stubs and initializers allowed). An isolated masked collision earlier in game code (ENG3 0x25040 vs
+    # LIBCMT __scalb, whose call lands in game code) must not truncate the first-party map.
+    spans = sorted((int(c['rva'], 16), int(c['rva'], 16) + c['size']) for c in library
+                   if c['size'] > 16)  # lone RET bodies are ambiguous, not library evidence
+    covered = set()
+    for start, stop in spans:
+        covered.update(range(start, stop))
+    end = hi
+    for start, _ in spans:  # lowest start whose remaining text is predominantly library
+        if sum(1 for x in covered if x >= start) >= LIBRARY_COVERAGE * (hi - start):
+            end = start
+            break
     starts = set()
     reviewed_boundaries = set()
     if entry_evidence is not None:

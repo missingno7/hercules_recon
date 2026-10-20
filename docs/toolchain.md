@@ -15,8 +15,13 @@ DirectDraw, DirectSound and WinMM APIs. None imports a CRT/MFC runtime DLL in th
 analyzed import table. The EXE contains `AfxWnd42s`, `AfxControlBar42s`,
 `AfxMDIFrame42s`, `AfxFrameOrView42s`, and `AfxOleControl42s` class strings, plus
 C++ RTTI descriptors for `CWinApp`, `CWnd`, and `CException`. Together these
-strongly support static MFC 4.2-family code; the exact library revision remains
-unproved. All four modules contain Microsoft Visual C++ runtime error strings.
+strongly support static MFC 4.2-family code. The 2026-10-20 library audit
+(`evidence/library_attribution_2026_10_20.json`, `scripts/library_scan.py`) matches
+every member of LIBCMT, NAFXCW and CTL3D32S from VC5 RTM, SP2, SP3 and VC6 against
+all four modules with only relocation fields masked: RTM members cover strictly more
+(e.g. `__CRT_INIT@12` 0 vs 141 differing bytes in SP2/SP3, `AfxWinMain` 0 vs 90) and
+later revisions cover nothing RTM misses, so the libraries are VC5 RTM (SP1 untested).
+This does not prove the compiler revision. All four modules contain Microsoft Visual C++ runtime error strings.
 TITLE's TLS-based random-number implementation at RVA `0x1d7b0` uses the Microsoft
 CRT recurrence `214013*x + 2531011`, extracting bits 16 through 30. Direct library
 comparison now identifies the **static multithreaded CRT / LIBCMT (`/MT`) family**:
