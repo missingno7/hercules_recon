@@ -1,0 +1,26 @@
+{
+ "date": "2026-10-20",
+ "lane": "h1",
+ "module": "HERCULES.EXE",
+ "region": "0x1000..0x4000 (33 unrecorded first-party functions)",
+ "units": {
+  "calibration/host_sound_015d0.cpp": "Sonix sound control 0x15d0..0x1b90, 8/8 masked equal; C++ (as C, 0x1610/0x16b0/0x1a00 show 3/2/3-byte SIB residues); continues host_music.c/host_sfx.c 0x1000..0x1330, which may then be C++ too",
+  "calibration/host_psx_shim_01bd0.c": "PSX shim 0x1bd0..0x1f60 (display/VSync, XA speech, pad), 10/10 masked equal, C; surrounds recorded host_file_prepare 0x1d60",
+  "calibration/host_movie_codec_02130.c": "movie block codec 0x2130/0x21e0, 2/2; same TU as movie_native_020c0 (calibration/movie_initializer.c): static BYTE noise phase 0x4a3818 reproduces the static-object reload (dword load + and 0xff); extern gives 359 B",
+  "calibration/host_rnc_02530.c": "RNC ProPack depacker 0x2530..0x3140, 8 masked + 0x27f0 RECONSTRUCTED (1 B, swapped pointer registers in the final output<end recheck); strict reset_slots 0x3060 and reverse_low_bits 0x3110 moved here raw-exact with unchanged compiled hashes (src/pc/exe_helpers.c is not a real unit; kept for older evidence)",
+  "movie player 0x3140..0x37a0 (C++)": "not installed: 0x3140/0x33e0 equal only with volatile on loader-thread shared globals 0x615bc0/0x615bc4 (owner approval pending); 0x37a0 8 B scheduling residue"
+ },
+ "stub_hypothesis": "0xbe30 (empty_host_callback) is called with 0..3 short arguments and the original pushes unextended words, so each call site saw a distinct short-parameter prototype. The sound unit declares per-shape stubs (host_sound_stub_1/2/3/attr); one variadic declaration gives sign-extended pushes (4/8 equal). Hypothesis: distinct empty PSX sound-API stubs folded to one address by the linker (identical-COMDAT folding); a natural EXE link must reproduce that.",
+ "forms": [
+  "0x1f60 pad word ctx+0x5e read as signed short & 0xffff",
+  "0x37a0 (float)(frame * 1000.0f / chunk) + 0.5f",
+  "locals: input pointer 0x25f0, table cursor 0x2cb0, vab id 0x17d0/0x18f0, voice result 0x1dd0; while loop in 0x30a0",
+  "0x1ee0 keeps a dead sample-average loop as in the original"
+ ],
+ "declarations_to_reconcile": [
+  "g_resource_prepare_scalar 0x4352b0 is signed (calibration: unsigned long)",
+  "g_exe_4a3810/4a3814 width/height and g_exe_47f750 are signed int (movie_initializer.c: DWORD)",
+  "host_music_load_1110/host_sfx_load_1330 receive BYTE arguments at 0x16b0 (host_music.h: unsigned int)",
+  "ResourceCallbackContext +0x5e is signed short"
+ ]
+}

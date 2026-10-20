@@ -2306,7 +2306,7 @@
       "rva": "0x3060",
       "size": 64,
       "body_size": 60,
-      "source": "src/pc/exe_helpers.c",
+      "source": "calibration/host_rnc_02530.c",
       "symbol": "_reset_slots",
       "flags": [
         "/O2"
@@ -2318,7 +2318,7 @@
       ],
       "proof": {
         "scope": "complete relocation-free function COFF contribution",
-        "source_sha256": "7dce6e81530a0e58c4deb439a1ca65041de1d20b5bb0b1126ff6dec394d3540e",
+        "source_sha256": "ab425aa92866dbf3093ecd2cb9b90935fc3e674d9d6507c988cec8328f13884b",
         "compiled_sha256": "847bd520d63f2dc4e94bd9ddfddadc96c224410f2c6801f4ca68e5208618edbe",
         "target_sha256": "847bd520d63f2dc4e94bd9ddfddadc96c224410f2c6801f4ca68e5208618edbe",
         "toolchain": "msvc5_rtm"
@@ -2333,7 +2333,7 @@
       "rva": "0x3110",
       "size": 48,
       "body_size": 48,
-      "source": "src/pc/exe_helpers.c",
+      "source": "calibration/host_rnc_02530.c",
       "symbol": "_reverse_low_bits",
       "flags": [
         "/O2"
@@ -2345,7 +2345,7 @@
       ],
       "proof": {
         "scope": "complete relocation-free function COFF contribution",
-        "source_sha256": "7dce6e81530a0e58c4deb439a1ca65041de1d20b5bb0b1126ff6dec394d3540e",
+        "source_sha256": "ab425aa92866dbf3093ecd2cb9b90935fc3e674d9d6507c988cec8328f13884b",
         "compiled_sha256": "506cf84ee0f1f2a1b7067614964647b549b4bff7958592495ca7c66e0e50ba8f",
         "target_sha256": "506cf84ee0f1f2a1b7067614964647b549b4bff7958592495ca7c66e0e50ba8f",
         "toolchain": "msvc5_rtm"
@@ -48905,6 +48905,894 @@
           "_resource_metadata_pointer",
           "_spawn_at_group_300c0"
         ]
+      }
+    },
+    {
+      "id": "exe.host_015d0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x15d0",
+      "size": 64,
+      "source": "calibration/host_sound_015d0.cpp",
+      "symbol": "_host_015d0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): Sonix sound control 0x15d0..0x1b90, C++ (base/index order of 0x1610/0x16b0/0x1a00 equal only as C++). Calls to 0xbe30 use per-shape short-parameter stub prototypes (hypothesis: distinct empty PSX-API stubs folded by the linker; the original pushes unextended words, so the call sites saw short prototypes).",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_empty_host_callback": "0xbe30",
+        "_g_host_engine_interface": "0x361b8",
+        "_host_0c2b0": "0xc2b0",
+        "_host_sound_stub_1": "0xbe30"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "4e1a7e21eb6123742dc6569e79778fa36cc8e3165ffff0ca00d6dfe9c09c027e",
+        "masked_sha256": "51d3f48ab6079c09ed7a79e0d4c7c6e70bec0367c4d7fc53d12a59ded9d32299",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_01610",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x1610",
+      "size": 160,
+      "source": "calibration/host_sound_015d0.cpp",
+      "symbol": "_host_01610",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): Sonix sound control 0x15d0..0x1b90, C++ (base/index order of 0x1610/0x16b0/0x1a00 equal only as C++). Calls to 0xbe30 use per-shape short-parameter stub prototypes (hypothesis: distinct empty PSX-API stubs folded by the linker; the original pushes unextended words, so the call sites saw short prototypes).",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "??_C@_0BD@PODK@UnLoadAllSfxMusic?6?$AA@": "0x35d2c",
+        "_empty_host_callback": "0xbe30",
+        "_g_host_engine_interface": "0x361b8",
+        "_host_015d0": "0x15d0",
+        "_host_0bfe0": "0xbfe0",
+        "_host_0c140": "0xc140",
+        "_host_0c2d0": "0xc2d0",
+        "_host_diagnostic": "0x63c0",
+        "_host_free": "0x4750",
+        "_host_sequence_next": "0xac10"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "4e1a7e21eb6123742dc6569e79778fa36cc8e3165ffff0ca00d6dfe9c09c027e",
+        "masked_sha256": "c44acfd7eb09e7ebe89159e1ffa457620e9e9fcb2783569801194cbb8fb0c820",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_016b0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x16b0",
+      "size": 288,
+      "source": "calibration/host_sound_015d0.cpp",
+      "symbol": "_host_016b0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): Sonix sound control 0x15d0..0x1b90, C++ (base/index order of 0x1610/0x16b0/0x1a00 equal only as C++). Calls to 0xbe30 use per-shape short-parameter stub prototypes (hypothesis: distinct empty PSX-API stubs folded by the linker; the original pushes unextended words, so the call sites saw short prototypes).",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "??_C@_0BH@CO@?6?5Load?5Level?5Sonix?5?$CFd?6?$AA@": "0x35d40",
+        "??_C@_0CH@LMOJ@LoadLevelSonix?5?9?9?9?9?9?9?9?5?9?9?9?9?9?9?9?5?9@": "0x35d84",
+        "??_C@_0CJ@DFOI@?6?5LoadLevelSonix?5setting?5Music?5?$CF@": "0x35d58",
+        "_g_host_engine_interface": "0x361b8",
+        "_host_01f40": "0x1f40",
+        "_host_diagnostic": "0x63c0",
+        "_host_music_apply_1000": "0x1000",
+        "_host_music_load_1110": "0x1110",
+        "_host_sfx_load_1330": "0x1330",
+        "_host_sound_stub_2": "0xbe30"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "4e1a7e21eb6123742dc6569e79778fa36cc8e3165ffff0ca00d6dfe9c09c027e",
+        "masked_sha256": "e0039ab3ed0b4a9054fd0e1ec105ad70d4370c3c8ada32b099c598ed9a9f989f",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_017d0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x17d0",
+      "size": 288,
+      "source": "calibration/host_sound_015d0.cpp",
+      "symbol": "_host_017d0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): Sonix sound control 0x15d0..0x1b90, C++ (base/index order of 0x1610/0x16b0/0x1a00 equal only as C++). Calls to 0xbe30 use per-shape short-parameter stub prototypes (hypothesis: distinct empty PSX-API stubs folded by the linker; the original pushes unextended words, so the call sites saw short prototypes).",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "??_C@_0BC@FHKC@StartMusic?5?$CFd?5?$CFd?6?$AA@": "0x35dac",
+        "??_C@_0BM@OCAN@?6?5StartMusic?50x?$CFx?50x?$CFx?50x?$CFx?$AA@": "0x35dc0",
+        "??_C@_0CH@NGAP@ERROR?5Specified?5vabid?5is?5not?5loa@": "0x35ddc",
+        "_g_host_engine_interface": "0x361b8",
+        "_host_015d0": "0x15d0",
+        "_host_01b40": "0x1b40",
+        "_host_0c250": "0xc250",
+        "_host_0c280": "0xc280",
+        "_host_diagnostic": "0x63c0",
+        "_host_sound_stub_3": "0xbe30"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "4e1a7e21eb6123742dc6569e79778fa36cc8e3165ffff0ca00d6dfe9c09c027e",
+        "masked_sha256": "276308e4f6c7c5c90df4830ae760e9c0b534efc37b5055d257ab93c836d46d33",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_018f0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x18f0",
+      "size": 272,
+      "source": "calibration/host_sound_015d0.cpp",
+      "symbol": "_host_018f0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): Sonix sound control 0x15d0..0x1b90, C++ (base/index order of 0x1610/0x16b0/0x1a00 equal only as C++). Calls to 0xbe30 use per-shape short-parameter stub prototypes (hypothesis: distinct empty PSX-API stubs folded by the linker; the original pushes unextended words, so the call sites saw short prototypes).",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "??_C@_0BC@FHKC@StartMusic?5?$CFd?5?$CFd?6?$AA@": "0x35dac",
+        "??_C@_0BM@OCAN@?6?5StartMusic?50x?$CFx?50x?$CFx?50x?$CFx?$AA@": "0x35dc0",
+        "??_C@_0CH@NGAP@ERROR?5Specified?5vabid?5is?5not?5loa@": "0x35ddc",
+        "_g_host_engine_interface": "0x361b8",
+        "_host_015d0": "0x15d0",
+        "_host_01b40": "0x1b40",
+        "_host_0c250": "0xc250",
+        "_host_0c280": "0xc280",
+        "_host_diagnostic": "0x63c0",
+        "_host_sound_stub_3": "0xbe30"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "4e1a7e21eb6123742dc6569e79778fa36cc8e3165ffff0ca00d6dfe9c09c027e",
+        "masked_sha256": "bde9632cb98da04c425ede13fbc882e8f726236fe3865fbfdb6541d49f6eb527",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_01a00",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x1a00",
+      "size": 320,
+      "source": "calibration/host_sound_015d0.cpp",
+      "symbol": "_host_01a00",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): Sonix sound control 0x15d0..0x1b90, C++ (base/index order of 0x1610/0x16b0/0x1a00 equal only as C++). Calls to 0xbe30 use per-shape short-parameter stub prototypes (hypothesis: distinct empty PSX-API stubs folded by the linker; the original pushes unextended words, so the call sites saw short prototypes).",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_empty_host_callback": "0xbe30",
+        "_g_exe_43f738": "0x3f738",
+        "_g_host_engine_interface": "0x361b8",
+        "_host_0c100": "0xc100",
+        "_host_0c200": "0xc200",
+        "_host_0c220": "0xc220",
+        "_host_0c2d0": "0xc2d0",
+        "_host_music_initialize_10e0": "0x10e0",
+        "_host_sound_stub_2": "0xbe30",
+        "_host_sound_stub_attr": "0xbe30",
+        "_host_zero_callback": "0xa340",
+        "_return_false": "0xc2c0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "4e1a7e21eb6123742dc6569e79778fa36cc8e3165ffff0ca00d6dfe9c09c027e",
+        "masked_sha256": "dc6fe029b0d3ae648586e9bea9155d62712700422052f9c5914c8abecbbd58a4",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_01b40",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x1b40",
+      "size": 80,
+      "source": "calibration/host_sound_015d0.cpp",
+      "symbol": "_host_01b40",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): Sonix sound control 0x15d0..0x1b90, C++ (base/index order of 0x1610/0x16b0/0x1a00 equal only as C++). Calls to 0xbe30 use per-shape short-parameter stub prototypes (hypothesis: distinct empty PSX-API stubs folded by the linker; the original pushes unextended words, so the call sites saw short prototypes).",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_host_engine_interface": "0x361b8",
+        "_host_0c200": "0xc200"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "4e1a7e21eb6123742dc6569e79778fa36cc8e3165ffff0ca00d6dfe9c09c027e",
+        "masked_sha256": "814e6b114ed8f2fbc712d237acd107b6ac21ecd694e517481caf280500aceed3",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_01b90",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x1b90",
+      "size": 64,
+      "source": "calibration/host_sound_015d0.cpp",
+      "symbol": "_host_01b90",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): Sonix sound control 0x15d0..0x1b90, C++ (base/index order of 0x1610/0x16b0/0x1a00 equal only as C++). Calls to 0xbe30 use per-shape short-parameter stub prototypes (hypothesis: distinct empty PSX-API stubs folded by the linker; the original pushes unextended words, so the call sites saw short prototypes).",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_host_engine_interface": "0x361b8"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "4e1a7e21eb6123742dc6569e79778fa36cc8e3165ffff0ca00d6dfe9c09c027e",
+        "masked_sha256": "169d52ae875d3025530b223fecbd4f88fbfcf8dca35e359e1ac44f5408f03912",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_01bd0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x1bd0",
+      "size": 304,
+      "source": "calibration/host_psx_shim_01bd0.c",
+      "symbol": "_host_01bd0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): PSX shim (display/VSync, XA speech, pad) 0x1bd0..0x1f60, C; surrounds the recorded host_file_prepare 0x1d60.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_frame_chain_write": "0xac20",
+        "_g_exe_43f748": "0x3f748",
+        "_g_exe_ba2da0": "0x7a2da0",
+        "_g_host_engine_interface": "0x361b8",
+        "_host_01d00": "0x1d00",
+        "_host_pair_frame_initialize": "0x4300"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "06c08fe7801900afde81db5455d378a2a6baff3842f3bab4473e6259c6c8a867",
+        "masked_sha256": "0d172019088806db522457cacf091844c7af1be325f9307bde48f78af9ad23e8",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_01d00",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x1d00",
+      "size": 48,
+      "source": "calibration/host_psx_shim_01bd0.c",
+      "symbol": "_host_01d00",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): PSX shim (display/VSync, XA speech, pad) 0x1bd0..0x1f60, C; surrounds the recorded host_file_prepare 0x1d60.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_host_engine_interface": "0x361b8",
+        "_host_sequence_next": "0xac10",
+        "_host_set_callback_one": "0xbdd0",
+        "_host_zero_callback": "0xa340"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "06c08fe7801900afde81db5455d378a2a6baff3842f3bab4473e6259c6c8a867",
+        "masked_sha256": "16003cb56569afbc72cba7d844f26c8fec78e1d729020a1708e972e96f3f137e",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_01d30",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x1d30",
+      "size": 48,
+      "source": "calibration/host_psx_shim_01bd0.c",
+      "symbol": "_host_01d30",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): PSX shim (display/VSync, XA speech, pad) 0x1bd0..0x1f60, C; surrounds the recorded host_file_prepare 0x1d60.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_host_engine_interface": "0x361b8",
+        "_host_set_callback_one": "0xbdd0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "06c08fe7801900afde81db5455d378a2a6baff3842f3bab4473e6259c6c8a867",
+        "masked_sha256": "55e7df0e076528ade207ad5aa6b557ac73d6fa2b22da2b76374b652f10e0bce1",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_01d80",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x1d80",
+      "size": 80,
+      "source": "calibration/host_psx_shim_01bd0.c",
+      "symbol": "_host_01d80",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): PSX shim (display/VSync, XA speech, pad) 0x1bd0..0x1f60, C; surrounds the recorded host_file_prepare 0x1d60.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_empty_host_callback": "0xbe30",
+        "_g_host_engine_interface": "0x361b8",
+        "_g_resource_prepare_scalar": "0x352b0",
+        "_host_0a150": "0xa150"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "06c08fe7801900afde81db5455d378a2a6baff3842f3bab4473e6259c6c8a867",
+        "masked_sha256": "65a3149e647195489845302abfb3af78c9b93efa5c29b8c37377d7c73770f6da",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_01dd0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x1dd0",
+      "size": 192,
+      "source": "calibration/host_psx_shim_01bd0.c",
+      "symbol": "_host_01dd0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): PSX shim (display/VSync, XA speech, pad) 0x1bd0..0x1f60, C; surrounds the recorded host_file_prepare 0x1d60.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_exe_4352b8": "0x352b8",
+        "_g_exe_43e530": "0x3e530",
+        "_g_exe_43f744": "0x3f744",
+        "_g_host_engine_interface": "0x361b8",
+        "_g_resource_prepare_scalar": "0x352b0",
+        "_host_0f940": "0xf940",
+        "_host_0fbf0": "0xfbf0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "06c08fe7801900afde81db5455d378a2a6baff3842f3bab4473e6259c6c8a867",
+        "masked_sha256": "68156881bedcae4189b51bf29e6f9fb35bd4e830fcbb202b8931d86e8f426520",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_01e90",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x1e90",
+      "size": 80,
+      "source": "calibration/host_psx_shim_01bd0.c",
+      "symbol": "_host_01e90",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): PSX shim (display/VSync, XA speech, pad) 0x1bd0..0x1f60, C; surrounds the recorded host_file_prepare 0x1d60.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_audio_native_fa10": "0xfa10",
+        "_empty_host_callback": "0xbe30",
+        "_g_exe_43f744": "0x3f744",
+        "_g_host_engine_interface": "0x361b8",
+        "_g_resource_prepare_scalar": "0x352b0",
+        "_host_0a150": "0xa150"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "06c08fe7801900afde81db5455d378a2a6baff3842f3bab4473e6259c6c8a867",
+        "masked_sha256": "1463df8959f350c314112f7404a4901fb34a3184494c2a79b91be5c3d502ce8f",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_01ee0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x1ee0",
+      "size": 96,
+      "source": "calibration/host_psx_shim_01bd0.c",
+      "symbol": "_host_01ee0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): PSX shim (display/VSync, XA speech, pad) 0x1bd0..0x1f60, C; surrounds the recorded host_file_prepare 0x1d60.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_exe_43e738": "0x3e738",
+        "_g_exe_43f744": "0x3f744",
+        "_host_0f7c0": "0xf7c0",
+        "_host_zero_callback": "0xa340",
+        "_rand": "0x10a40"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "06c08fe7801900afde81db5455d378a2a6baff3842f3bab4473e6259c6c8a867",
+        "masked_sha256": "d903582285912fdb6e6392253ffa93618713389054105dc8a086079e6b3a6c53",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_01f40",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x1f40",
+      "size": 16,
+      "source": "calibration/host_psx_shim_01bd0.c",
+      "symbol": "_host_01f40",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): PSX shim (display/VSync, XA speech, pad) 0x1bd0..0x1f60, C; surrounds the recorded host_file_prepare 0x1d60.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_exe_43f73c": "0x3f73c"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "06c08fe7801900afde81db5455d378a2a6baff3842f3bab4473e6259c6c8a867",
+        "masked_sha256": "6ab84b840a79913c5efdf66e0b8492e8a0cc5063e45c4ccf1bd68114c053228a",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_01f50",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x1f50",
+      "size": 16,
+      "source": "calibration/host_psx_shim_01bd0.c",
+      "symbol": "_host_01f50",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): PSX shim (display/VSync, XA speech, pad) 0x1bd0..0x1f60, C; surrounds the recorded host_file_prepare 0x1d60.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_exe_43f73c": "0x3f73c"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "06c08fe7801900afde81db5455d378a2a6baff3842f3bab4473e6259c6c8a867",
+        "masked_sha256": "abe944925d4f3b974a0bd6e1ec5523804233ecf1d23afb41bf05be96ee3ddc59",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_01f60",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x1f60",
+      "size": 80,
+      "source": "calibration/host_psx_shim_01bd0.c",
+      "symbol": "_host_01f60",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): PSX shim (display/VSync, XA speech, pad) 0x1bd0..0x1f60, C; surrounds the recorded host_file_prepare 0x1d60.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_host_engine_interface": "0x361b8",
+        "_host_041a0": "0x41a0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "06c08fe7801900afde81db5455d378a2a6baff3842f3bab4473e6259c6c8a867",
+        "masked_sha256": "041972947075e0b1bc432395dc644da8161081270774a232020ac3f8d5a26c9f",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_02130",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x2130",
+      "size": 176,
+      "source": "calibration/host_movie_codec_02130.c",
+      "symbol": "_host_02130",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): movie block codec 0x2130/0x21e0, C; same TU as movie_native_020c0 (file-static noise phase 0x4a3818 reproduces the static reload idiom).",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_exe_47f810": "0x7f810"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "9af5f4a6b233b25c1dacc2eb24261dc4a4fc25fe43b333e69be88797105a40be",
+        "masked_sha256": "97ee0dcedfb42f4ef195c4e168f7059733129e39c3e845e02a1a46063ba68f68",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_021e0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x21e0",
+      "size": 560,
+      "source": "calibration/host_movie_codec_02130.c",
+      "symbol": "_host_021e0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): movie block codec 0x2130/0x21e0, C; same TU as movie_native_020c0 (file-static noise phase 0x4a3818 reproduces the static reload idiom).",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_exe_43f754": "0x3f754",
+        "_g_exe_47f750": "0x7f750",
+        "_g_exe_47f810": "0x7f810",
+        "_g_exe_48f810": "0x8f810",
+        "_g_exe_4a3810": "0xa3810",
+        "_g_exe_4a3814": "0xa3814",
+        "_g_exe_4a3818$S21819": "0xa3818",
+        "_host_02530": "0x2530"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "9af5f4a6b233b25c1dacc2eb24261dc4a4fc25fe43b333e69be88797105a40be",
+        "masked_sha256": "632175518e1a34da855617567eb85aef02b2f067e01144043820834350187aec",
+        "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "exe.host_02530",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x2530",
+      "size": 192,
+      "source": "calibration/host_rnc_02530.c",
+      "symbol": "_host_02530",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): RNC ProPack depacker 0x2530..0x3140, C; contains the strict reset_slots (0x3060) and reverse_low_bits (0x3110) at their unit positions.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "??_C@_03DCJK@RNC?$AA@": "0x35fe0",
+        "_host_025f0": "0x25f0",
+        "_host_027f0": "0x27f0",
+        "_strncmp": "0x10a70"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "ab425aa92866dbf3093ecd2cb9b90935fc3e674d9d6507c988cec8328f13884b",
+        "masked_sha256": "d6ecafa9b5d0ed68ac557336c2082464732caed02345087879fc21ecb0b408a2",
+        "toolchain": "msvc5_rtm",
+        "co_defined_functions": [
+          "_host_027f0",
+          "_reset_slots",
+          "_reverse_low_bits"
+        ]
+      }
+    },
+    {
+      "id": "exe.host_025f0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x25f0",
+      "size": 512,
+      "source": "calibration/host_rnc_02530.c",
+      "symbol": "_host_025f0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): RNC ProPack depacker 0x2530..0x3140, C; contains the strict reset_slots (0x3060) and reverse_low_bits (0x3110) at their unit positions.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_exe_ba0244": "0x7a0244",
+        "_g_exe_ba0248": "0x7a0248",
+        "_g_exe_ba024c": "0x7a024c",
+        "_g_exe_ba2a64": "0x7a2a64",
+        "_g_exe_ba2a80": "0x7a2a80",
+        "_g_exe_ba2b80": "0x7a2b80",
+        "_g_exe_ba2c80": "0x7a2c80",
+        "_g_exe_ba2d80": "0x7a2d80",
+        "_host_02b50": "0x2b50",
+        "_host_02ba0": "0x2ba0",
+        "_host_02cb0": "0x2cb0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "ab425aa92866dbf3093ecd2cb9b90935fc3e674d9d6507c988cec8328f13884b",
+        "masked_sha256": "240ed2a492fd1837739cbeffd41cc92cd793600a01881c9867158a105d57a825",
+        "toolchain": "msvc5_rtm",
+        "co_defined_functions": [
+          "_host_027f0",
+          "_reset_slots",
+          "_reverse_low_bits"
+        ]
+      }
+    },
+    {
+      "id": "exe.host_02b50",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x2b50",
+      "size": 80,
+      "source": "calibration/host_rnc_02530.c",
+      "symbol": "_host_02b50",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): RNC ProPack depacker 0x2530..0x3140, C; contains the strict reset_slots (0x3060) and reverse_low_bits (0x3110) at their unit positions.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_exe_ba0244": "0x7a0244",
+        "_g_exe_ba0248": "0x7a0248",
+        "_g_exe_ba024c": "0x7a024c",
+        "_g_exe_ba2d80": "0x7a2d80"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "ab425aa92866dbf3093ecd2cb9b90935fc3e674d9d6507c988cec8328f13884b",
+        "masked_sha256": "9c4a2eed741a8a7fd5474a05dd3a4db7d5a503d71ebed19677cd071ba9303f8a",
+        "toolchain": "msvc5_rtm",
+        "co_defined_functions": [
+          "_host_027f0",
+          "_reset_slots",
+          "_reverse_low_bits"
+        ]
+      }
+    },
+    {
+      "id": "exe.host_02ba0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x2ba0",
+      "size": 272,
+      "source": "calibration/host_rnc_02530.c",
+      "symbol": "_host_02ba0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): RNC ProPack depacker 0x2530..0x3140, C; contains the strict reset_slots (0x3060) and reverse_low_bits (0x3110) at their unit positions.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_exe_ba0244": "0x7a0244",
+        "_g_exe_ba0248": "0x7a0248",
+        "_g_exe_ba2a64": "0x7a2a64",
+        "_host_030a0": "0x30a0",
+        "_reset_slots": "0x3060"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "ab425aa92866dbf3093ecd2cb9b90935fc3e674d9d6507c988cec8328f13884b",
+        "masked_sha256": "ae5803cd8142cea7f970e3fa8fe264e81663059e82e356bb4868cd7bfad417d8",
+        "toolchain": "msvc5_rtm",
+        "co_defined_functions": [
+          "_host_027f0",
+          "_reset_slots",
+          "_reverse_low_bits"
+        ]
+      }
+    },
+    {
+      "id": "exe.host_02cb0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x2cb0",
+      "size": 288,
+      "source": "calibration/host_rnc_02530.c",
+      "symbol": "_host_02cb0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): RNC ProPack depacker 0x2530..0x3140, C; contains the strict reset_slots (0x3060) and reverse_low_bits (0x3110) at their unit positions.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_exe_ba0244": "0x7a0244",
+        "_g_exe_ba0248": "0x7a0248",
+        "_g_exe_ba2a64": "0x7a2a64"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "ab425aa92866dbf3093ecd2cb9b90935fc3e674d9d6507c988cec8328f13884b",
+        "masked_sha256": "aab0dc76d9cf2245db0277ef4bfeb510095de3038bda2c582f6ea4c8cb400af7",
+        "toolchain": "msvc5_rtm",
+        "co_defined_functions": [
+          "_host_027f0",
+          "_reset_slots",
+          "_reverse_low_bits"
+        ]
+      }
+    },
+    {
+      "id": "exe.host_02dd0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x2dd0",
+      "size": 208,
+      "source": "calibration/host_rnc_02530.c",
+      "symbol": "_host_02dd0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): RNC ProPack depacker 0x2530..0x3140, C; contains the strict reset_slots (0x3060) and reverse_low_bits (0x3110) at their unit positions.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_exe_ba0240": "0x7a0240",
+        "_g_exe_ba0244": "0x7a0244",
+        "_g_exe_ba0248": "0x7a0248"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "ab425aa92866dbf3093ecd2cb9b90935fc3e674d9d6507c988cec8328f13884b",
+        "masked_sha256": "198213412e2d351fe7db7240777ba552a45613680731cc23ec16468ed4314551",
+        "toolchain": "msvc5_rtm",
+        "co_defined_functions": [
+          "_host_027f0",
+          "_reset_slots",
+          "_reverse_low_bits"
+        ]
+      }
+    },
+    {
+      "id": "exe.host_02ea0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x2ea0",
+      "size": 448,
+      "source": "calibration/host_rnc_02530.c",
+      "symbol": "_host_02ea0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): RNC ProPack depacker 0x2530..0x3140, C; contains the strict reset_slots (0x3060) and reverse_low_bits (0x3110) at their unit positions.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_exe_ba0240": "0x7a0240",
+        "_g_exe_ba0244": "0x7a0244",
+        "_g_exe_ba0248": "0x7a0248"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "ab425aa92866dbf3093ecd2cb9b90935fc3e674d9d6507c988cec8328f13884b",
+        "masked_sha256": "ef8425edf5c2f7816dd1bc0d4c940e7c048f1a68b0bd4ac84b08d3b2fe3c365d",
+        "toolchain": "msvc5_rtm",
+        "co_defined_functions": [
+          "_host_027f0",
+          "_reset_slots",
+          "_reverse_low_bits"
+        ]
+      }
+    },
+    {
+      "id": "exe.host_030a0",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x30a0",
+      "size": 112,
+      "source": "calibration/host_rnc_02530.c",
+      "symbol": "_host_030a0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "lane h1 (2026-10-20): RNC ProPack depacker 0x2530..0x3140, C; contains the strict reset_slots (0x3060) and reverse_low_bits (0x3110) at their unit positions.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_reverse_low_bits": "0x3110"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "ab425aa92866dbf3093ecd2cb9b90935fc3e674d9d6507c988cec8328f13884b",
+        "masked_sha256": "160091d873fcf3d625787fcb356fb5561754cbcabbff5203a18dab4020b3981f",
+        "toolchain": "msvc5_rtm",
+        "co_defined_functions": [
+          "_host_027f0",
+          "_reset_slots",
+          "_reverse_low_bits"
+        ]
+      }
+    },
+    {
+      "id": "exe.host_027f0",
+      "status": "RECONSTRUCTED",
+      "name_status": "provisional address label",
+      "source": "calibration/host_rnc_02530.c",
+      "symbol": "_host_027f0",
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": "0x27f0",
+      "size": 864,
+      "flags": [
+        "/O2"
+      ],
+      "boundary": "Function-map span; compiled /Gy contribution size equals the span.",
+      "evidence": "lane h1 (2026-10-20): RNC ProPack depacker 0x2530..0x3140, C; contains the strict reset_slots (0x3060) and reverse_low_bits (0x3110) at their unit positions. Size-exact; 1 non-relocation bytes differ.",
+      "proof": {
+        "scope": "fresh size-exact reconstructed contribution; neither raw nor masked equality",
+        "compiled_size": 864,
+        "source_sha256": "ab425aa92866dbf3093ecd2cb9b90935fc3e674d9d6507c988cec8328f13884b",
+        "compiled_sha256": "4ad65658f09aaaa6237d704cbc995b8d46f7264202379a2b803680b72e2f99a8",
+        "nonrelocation_differences": 1,
+        "raw_differences": 180,
+        "binding_conflicts": 2,
+        "toolchain": "msvc5_rtm"
+      },
+      "link_symbols": {
+        "_g_exe_ba0240": "0x7a0240",
+        "_g_exe_ba0244": "0x7a0244",
+        "_g_exe_ba0248": "0x7a0248",
+        "_g_exe_ba024c": "0x7a024c",
+        "_g_exe_ba2d80": "0x7a2d80",
+        "_host_02b50": "0x2b50",
+        "_host_02dd0": "0x2dd0",
+        "_host_02ea0": "0x2ea0"
       }
     }
   ]
