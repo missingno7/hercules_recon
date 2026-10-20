@@ -35,6 +35,12 @@ evidence (genuine use of the header, or the unit's real extent):
 - `calibration/actor_factories.c`, `calibration/actor_pool_reset_repaired.c`, `calibration/eng3/actor_middle_pool_driver.c`: `<windows.h>`
 - earlier TITLE units (u01de0.c, u02b70.c, u06350.c) from the 2026-10-09 ruling
 
+Delivered **without** the count context (rows stay RECONSTRUCTED until independent evidence appears):
+
+- `calibration/eng3/handlers_10370.c` 0x10590 (commutative add destination; lean windows.h equalises,
+  0..63 extra externs do not) and 0x10df0 (which `random_limit` call is evaluated first; 9..17, 24
+  or 48 leading declarations equalise). Same mechanism as y4's 0x292f0/0x28ae0/0x297d0.
+
 ## Negative results (do not repeat without new evidence)
 
 Value/pointer locals, casts, literal suffixes, OR-operand order, inline helpers, prototype forms

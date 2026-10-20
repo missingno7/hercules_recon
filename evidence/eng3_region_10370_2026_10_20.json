@@ -1,0 +1,24 @@
+{
+ "date": "2026-10-20",
+ "lane": "y8",
+ "module": "ENG3.DLL",
+ "source": "calibration/eng3/handlers_10370.c",
+ "region": "0x10370..0x12190",
+ "functions": 19,
+ "bytes": 7712,
+ "result": "17 relocation-masked equal in plain C; 0x10590 (814 B differing, one add-destination tie-break cascading through allocation) and 0x10df0 (10 B, random_limit evaluation order) RECONSTRUCTED size-exact; all 19 equal with lean <windows.h> count context, which is not delivered (owner ruling: count-only header is not evidence)",
+ "forms": [
+  "Actor.state is unsigned short in this unit (0x11f90 tests the byte at +0x2b); other ENG3 units declare short - to reconcile",
+  "0x10b10 int[24] local tables are partial initialisers (20 values)",
+  "0x10590 focus/position copies are long[4] frame slots",
+  "0x11b90 pivot is long base[3] = {z, y, x}; sine/cosine reads inline through long locals",
+  "0x10370 x offset is strength-reduced i * 0x800000"
+ ],
+ "identity": [
+  "handlers referenced from table 0x364e4..0x365bc; 0x11ea0 also from 0x340a8; 0x11b90 helper of 0x11adc",
+  "0x10590 is a near copy of 0x292f0 (handlers_28ae0.c); no ENG1 counterparts (byte similarity < 0.32)",
+  "0x407b4 is the sine table (aliases g_eng3_table_407b4/g_sine_table_70f34)",
+  "0x1cb00 recorded _title_08a50; 0x1fab0 linked as _random_limit, defined eng3_1fab0",
+  "new global g_eng3_script_35be8"
+ ]
+}
