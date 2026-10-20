@@ -1,0 +1,26 @@
+{
+ "date": "2026-10-20",
+ "lane": "x9",
+ "module": "ENG1.DLL",
+ "source": "calibration/eng1/level_actors_083e0.cpp",
+ "region": "0x83e0..0xa420",
+ "functions": 24,
+ "bytes": 8256,
+ "result": "23 relocation-masked equal as C++ (extern \"C\"); 0x8480 RECONSTRUCTED (5 bytes: order of two `and reg,0xffff`, follows declaration-count phase in C and C++; not forced)",
+ "language": "C++: as C, 0x92c0/0x9ec0/0xa2c0 need ~180/55/10 extra declarations (scratch-only measurement); C++ equal with no added context. Evidence, not proof.",
+ "extent": [
+  "/O2 /Gy region (aligned, no frame pointer), not part of the /Od sound unit",
+  "region ends 0xa420 (0xa2c0 runs to 0xa412 + padding)",
+  "function map wrongly splits 0x84d0: 0x8600 (48 B) is its 10-entry jump table; real size 0x160",
+  "jump/index tables at 0x86f0, 0x92c0, 0x9890 lie inside their functions"
+ ],
+ "semantics": "level actors: throwing walker 8660/86f0, leaping fish 8dd0/8e10 + splash 90c0/9100, centaur 9190/91f0/92c0, rising object 9850/9890/99e0, lava rock 9a20, breakable rock 9fb0/a010 + debris 9db0/9ec0/a140/a2c0; helpers 83e0 (find by kind in 0x71760 worklist), 8450, 8480 (floor clamp), 84d0 (script interpreter over 0x4f378)",
+ "identity": [
+  "no ENG3/TITLE twins (max byte similarity 0.63; strings WCENTAUR WALKING / LCROCK only in ENG1)",
+  "play_sound 0x6da0 takes unsigned short (sound_od.c); actor_unit_282e0.cpp declares short - to reconcile",
+  "0x72860 used as player-actor pointer (aliases _g_normal_actor_pool/_g_2d320/_g_frame_owner_72860)",
+  "0x71370 12-byte callback table (five aliases)",
+  "0x718e0 acts as water level",
+  "tables: debris 0x4fb50 (13x{x,y,z,kind}), 0x4fbb8 (12), bob steps 0x4fc18, script 0x4f378"
+ ]
+}
