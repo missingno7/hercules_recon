@@ -2193,7 +2193,7 @@
     {
       "rva": "0x2cb0",
       "symbol": "_dispatch_local_02cb0",
-      "source": "src/eng1/behavioral/frame_commands.c",
+      "source": "calibration/eng1/level_frame_01e50.c",
       "implementation_status": "behaviorally_validated_limited",
       "contract": "Native field/callback reconstruction; bounded differential fixtures pending.",
       "evidence": "tests/eng1_frame_differential.c; scripts/eng1_frame_differential.py",
@@ -2438,7 +2438,7 @@
     {
       "rva": "0x2180",
       "symbol": "_dispatch_local_02180",
-      "source": "src/eng1/behavioral/level_loading.c",
+      "source": "calibration/eng1/level_frame_01e50.c",
       "implementation_status": "plausible_unverified",
       "contract": "Native resource transition/reallocation, scheduling, references and frame-list setup.",
       "evidence": "evidence/eng1_level_loading.json",
@@ -3549,7 +3549,7 @@
     {
       "rva": "0x2c60",
       "symbol": "_dispatch_local_2c60",
-      "source": "src/eng1/behavioral/frame_runtime_callees.c",
+      "source": "calibration/eng1/level_frame_01e50.c",
       "evidence": "evidence/eng1_dialog_frame.json",
       "implementation_status": "behaviorally_validated_limited",
       "contract": "Captured cursor record, host rectangle callback, live current-frame head linkage and captured+18 cursor.",
@@ -3569,7 +3569,7 @@
     {
       "rva": "0x1f40",
       "symbol": "_dispatch_local_1f40",
-      "source": "src/eng1/behavioral/frame_runtime_callees.c",
+      "source": "calibration/eng1/level_frame_01e50.c",
       "evidence": "evidence/eng1_dialog_frame.json",
       "implementation_status": "behaviorally_validated_limited",
       "contract": "No-arg state/phase dialog dispatcher, callback-aware context reloads.",
@@ -3579,7 +3579,7 @@
     {
       "rva": "0x2450",
       "symbol": "_dispatch_local_2450",
-      "source": "src/eng1/behavioral/frame_runtime_callees.c",
+      "source": "calibration/eng1/level_frame_01e50.c",
       "evidence": "evidence/eng1_dialog_frame.json",
       "implementation_status": "behaviorally_validated_limited",
       "contract": "Four-argument dialog parser, signed BYTE opcodes, live widths and modulo DWORD x.",
@@ -3809,7 +3809,7 @@
     {
       "rva": "0x1e50",
       "symbol": "_eng1_call_01e50",
-      "source": "src/eng1/behavioral/actor_bootstrap_1e50.c",
+      "source": "calibration/eng1/level_frame_01e50.c",
       "implementation_status": "behaviorally_validated_limited",
       "evidence": "evidence/eng1_actor_bootstrap_1e50.json",
       "contract": "Noarg cdecl actor bootstrap; slot1 normal init, signed descriptor selection, zero-kind return, ordered coordinates/camera/kind/category writes and live slot0/slot8 callback reloads. Known caller discards EAX."
@@ -5166,6 +5166,44 @@
         "function": "unlink_0e4",
         "provider": "Existing per-RVA source or not yet selected in this behavioral graph",
         "reason": "Select only hide_and_unlink; preserve recovered original unit unchanged."
+      }
+    ],
+    "src/eng1/behavioral/actor_bootstrap_1e50.c": [
+      {
+        "function": "eng1_call_01e50",
+        "provider": "calibration/eng1/level_frame_01e50.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source. Provider reconstructed by lane x1 (2026-10-20); see evidence/eng1_level_frame_region_2026_10_20.json."
+      }
+    ],
+    "src/eng1/behavioral/frame_runtime_callees.c": [
+      {
+        "function": "dispatch_local_1f40",
+        "provider": "calibration/eng1/level_frame_01e50.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source. Provider reconstructed by lane x1 (2026-10-20); see evidence/eng1_level_frame_region_2026_10_20.json."
+      },
+      {
+        "function": "dispatch_local_2450",
+        "provider": "calibration/eng1/level_frame_01e50.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source. Provider reconstructed by lane x1 (2026-10-20); see evidence/eng1_level_frame_region_2026_10_20.json."
+      },
+      {
+        "function": "dispatch_local_2c60",
+        "provider": "calibration/eng1/level_frame_01e50.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source. Provider reconstructed by lane x1 (2026-10-20); see evidence/eng1_level_frame_region_2026_10_20.json."
+      }
+    ],
+    "src/eng1/behavioral/level_loading.c": [
+      {
+        "function": "dispatch_local_02180",
+        "provider": "calibration/eng1/level_frame_01e50.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source. Provider reconstructed by lane x1 (2026-10-20); see evidence/eng1_level_frame_region_2026_10_20.json."
+      }
+    ],
+    "src/eng1/behavioral/frame_commands.c": [
+      {
+        "function": "dispatch_local_02cb0",
+        "provider": "calibration/eng1/level_frame_01e50.c",
+        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source. Provider reconstructed by lane x1 (2026-10-20); see evidence/eng1_level_frame_region_2026_10_20.json."
       }
     ]
   },

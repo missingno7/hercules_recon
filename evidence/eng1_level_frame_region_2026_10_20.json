@@ -1,0 +1,35 @@
+{
+ "date": "2026-10-20",
+ "lane": "x1",
+ "region": "ENG1.DLL 0x1e50..0x2f30 (level loading, frame runtime, primitive emitters), one unit: calibration/eng1/level_frame_01e50.c",
+ "result": {
+  "eng1_masked_equal": ["0x1e50", "0x1f40", "0x2400", "0x2430", "0x2450", "0x2a10", "0x2a80", "0x2ac0", "0x2b30", "0x2c60"],
+  "eng3_twins_masked_equal_same_source": ["0x19b0", "0x7330", "0x77f0", "0x7820", "0x7840", "0x7e00", "0x7e70", "0x7f10", "0x8000"],
+  "pinned_not_equal": {
+   "0x2180": "256 of 272 bytes, 165 differing: the original re-reads context byte +0x5c and word +0x5e at every test",
+   "0x2290": "368/368, 228 differing: same re-read pattern",
+   "0x2500": "672/672, 616 differing: register allocation only (0xff held in ebx and tpage spilled vs immediates)",
+   "0x27a0": "384/384, 181 differing: add edx,edi vs lea (one byte shifts the rest) and context-pointer register",
+   "0x2920": "240/240: stack layout only (z at -4 with ot reusing the dead parameter slot); long z[2]/&z[1] matches but is a dummy-array form and is not adopted",
+   "0x2cb0": "208/208, 152 differing: one add form (mov ecx,[ebx]; add ecx,ebx) 3 bytes shorter",
+   "0x2d80": "432/432, 29 differing: header address formation"
+  }
+ },
+ "owner_decision_needed": {
+  "volatile_input_fields": "Declaring the input context fields held (+0x5c, byte) and pressed (+0x5e, word) volatile makes 0x2180 and 0x2290 equal in ENG1 and ENG3 with no regressions; tick (+0x38) volatile changes nothing and state (+0x04) volatile breaks 0x1f40, so the evidence is field-specific. The TITLE screen-handler context fields +0x5c/+0x5e are already approved volatile in TITLE; this would extend the same ruling to the engine context view. Diagnostic copy: candidates/x1/region_volatile_pad_hypothesis.c (not adopted)."
+ },
+ "semantic_corrections_vs_behavioral_provider": [
+  "0x2180: with ticks nonzero and (held & 9) == 9 the original increments and returns, and sets next_state 0x13/0x12 only when the count passes 60; it never falls through to the 0x2290 gate.",
+  "0x2c60 arguments are (rect, dest_x, dest_y): it queues a deferred VRAM move (0x2d80 calls it that way), not (rect, mode, key).",
+  "0x1f40 is a plain switch where case 0x40 shares the 2/3 body and case 0x80 sits between 8 and 0x10.",
+  "0x2500 builds pairs of POLY_FT3 primitives from 0x24-byte descriptors (rows at 0x588e0); 0x2ac0 is a place callback from that table."
+ ],
+ "type_findings": [
+  "context tick +0x38 is signed (idiv in 0x2cb0 and 0x27a0); ResourceCallbackContext declares unsigned long",
+  "context bytes +0x00/+0x01 are signed char (movsx in 0x1e50)",
+  "g_frame_word_6ee84 is read as a signed short in 0x2a10 (declared u16 elsewhere)",
+  "g_configuration_dword_71370 points to 12-byte callback rows, not a u32",
+  "0x2920's near twin ENG3 0x7d10 differs only in ordering-table constants (+0x2080/0x1ff4 vs +0x1384/0x12f8): a per-DLL macro"
+ ],
+ "integration": "The region is the single provider of 0x1e50, 0x1f40, 0x2450, 0x2c60, 0x2180 and 0x2cb0 in the ENG1 behavioral build (omit_functions entries for the behavioral copies). Callee references use the ENG1 graph names initialize_normal_actor (0x27520) and dispatch_local_056c0 (0x56c0). ENG1 build: 376 mapped compiled entries, 412 symbols, 0 duplicates, 76 preserved strict; unresolved 537 vs 528, the nine new names being real dependencies the earlier approximations did not reference (engine thunks 0x2c450/0x2c4d0/0x2c590/0x2c7a0/0x2c7c0/0x2ca00, functions 0x320d0/0x32810, data 0x6ee64/0x6ee68/0x4d7f0/0x70f34)."
+}
