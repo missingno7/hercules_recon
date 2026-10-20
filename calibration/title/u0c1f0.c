@@ -23,6 +23,39 @@ void title_02090(int a, int b, int c, int d, int e, int f, int g, int h);
 void *title_17ad0(int a, int b, int c, int d, int e);
 int title_0c4a0(int a);
 
+/* 0xc1f0 is the DLL export PC_DLLEngineMain (ordinal 1); named title_0c1f0 here. Masked equal also
+   against its byte twins ENG1 0x2c180 and ENG3 0x1f830. The second test of the gate is what VC5
+   leaves as the unfolded zero test on the first-use path (lane tC). */
+extern int g_257e8;  /* first-use gate, initialized 1 (.data 0x257e8) */
+void title_0ca00(void);
+void title_05fb0(void);
+int title_0c390(int a, int b);
+
+/*@BEGIN_FUNC 0xc1f0 _title_0c1f0*/
+void title_0c1f0(TitleEngineInterface *source, unsigned long flags)
+{
+    unsigned long i;
+
+    if (g_257e8 != 0) {
+        if (source == 0)
+            return;
+        g_engine_interface = *source;
+        if (g_engine_interface.signature_000 != 0x5ac00cac)
+            return;
+        for (i = 0; i < 250; i++)
+            if (source->signature_000 == 0)
+                return;
+        title_0c390((int)g_engine_interface.arena_008, (int)g_engine_interface.arena_bytes_00c);
+        g_257e8 = 0;
+    }
+    if (g_257e8 == 0) {
+        title_0ca00();
+        g_engine_interface.context_004->unknown_040 = flags & 1;
+        title_05fb0();
+    }
+}
+/*@END_FUNC*/
+
 void title_0c270(void)
 {
     g_engine_interface.slot_018();
