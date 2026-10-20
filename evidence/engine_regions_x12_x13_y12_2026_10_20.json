@@ -141,6 +141,21 @@
     "no ENG3 counterparts (0x3fe00 vs ENG3 0x13d30 0.83 but a different function)",
     "RelativeMeasure.distance compared unsigned (short in this unit, unsigned short in level_unit_10120.c)"
    ]
+  },
+  "x22": {
+   "source": "calibration/eng1/mode_handlers_16840.cpp",
+   "region": "0x16840..0x188a0",
+   "result": "C++: 39 masked + 0x171b0 (134 B) / 0x17290 (107 B) held_5c & X memory-operand form (context), 0x17810 (77 B) RECONSTRUCTED; 0x17ff0 compiles 608 of 592 B, unrecorded",
+   "not_adopted": "0x17810 is masked equal only with `facing ? p->x : p->x` (identical-arm ternary reproducing an unused facing test) - same category as TITLE 0x54f0; written as plain p->x and kept RECONSTRUCTED",
+   "volatile": "held_5c volatile (existing owner ruling for the engine-context held field) fixes 0x16990/0x16b40/0x17ba0/0x17d00; pressed_5e volatile breaks 0x16fa0/0x16fd0, so it stays plain here (39/43 neither, 40/43 held only, 38/43 both)",
+   "data_evidence": "0x6ef74/0x6ef78 are read with dword load & 0xffff: defined in this unit (static .bss), 0x182c0/0x18550 match only so",
+   "identity": [
+    "g_camera_flags_70d10 is signed short (or/and byte forms)",
+    "ENG1 Actor child pointer at +0x60 (not +0x5c as in ENG3)",
+    "g_eng1_setup_dword_72118 holds an Actor *",
+    "0x15d00 dispatch_local_15d00 returns int (player script runner)",
+    "ENG3 counterparts (y12) are diverged: none share text"
+   ]
   }
  },
  "ENG3": {
