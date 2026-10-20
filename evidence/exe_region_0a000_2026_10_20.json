@@ -1,0 +1,35 @@
+{
+ "date": "2026-10-20",
+ "lane": "h2",
+ "module": "HERCULES.EXE",
+ "region": "0xa000..0xd000 (66 unrecorded first-party functions, 11,424 B)",
+ "units": {
+  "calibration/host_cd_shim_0a150.c": "CD control shim a150/a190, 2/2",
+  "calibration/host_gpu_0a3a0.c": "GPU emulation, 6 masked + a3f0 (39 B x/y registers), a710 (322 B source pointer edx vs ebp), a8f0 (247) RECONSTRUCTED; a640 (192 vs 208 B) and ac60 DrawOTag (1712 vs 1680 B: constant 2 in bl vs 4 in ebx blocks the shared-tail jump) unrecorded",
+  "calibration/host_gte_0b2f0.c": "GTE emulation over one aggregate at 0xa8e708, 26 masked + b320 (84 B), b740 (14 B) commutative-sum order (changes only with struct field split: context), bb00 (249), bc30 (147) RECONSTRUCTED; b9e0 (304 vs 288 B, extra spill slot) unrecorded",
+  "calibration/host_gte_flags_0bd60.c": "bd60/bd70/be10, 3/3",
+  "calibration/host_libsnd_0bf20.c": "libsnd-style shims, 12 masked + bf20 (1 B base/index tie-break; not steered) and c280 (8 B) RECONSTRUCTED; carries recorded be60/bec0/c040/c090 bodies (equal there, rows stay in host_sfx.c/host_music.c)",
+  "calibration/host_warm_delivery.cpp": "5 stale RECONSTRUCTED rows (bcf0, bd30, bd50, be40, f820) are masked equal unchanged; upgraded"
+ },
+ "unit_evidence": [
+  "host_cd_startup.c + a140/a150/a190 appended: all masked equal (likely one unit)",
+  "host_warm_delivery.cpp + bd60/bd70/be10: all 8 masked equal (bd60/bd70 belong there although they write GTE state)",
+  "GPU functions interleaved with recorded a4a0, a540..a610, ac00..ac50: all recorded stay equal (16/21)",
+  "Not merged canonically: the pinned host_cd_startup/host_warm differential fixtures link those files and would gain unresolved externals; standalone files keep them passing"
+ ],
+ "not_attempted": "software rasterizer 0xc2e0, 0xc700, 0xc8f0, 0xcab0, 0xcc50 (4,416 B): frame-pointer prologues inside an /O2 unit and hand-written inner loops (cld/rep stos, ebp as a data register) indicate original __asm blocks; needs an owner decision",
+ "forms": [
+  "memcpy in 0xb880/0xb8c0/0xb8f0 (memcpy(&trans, m->t, 12))",
+  "0xa4c0 mode local and a single store",
+  "DrawOTag texture base through a 64 KB page view of VRAM",
+  "0xa710 byte-pointer local copied from the u_long * parameter",
+  "0xbf20 explicit square temporaries",
+  "0xac60 unsigned int code"
+ ],
+ "identity": [
+  "0xa8e700 g_host_sequence; 0xa8e708..0xa8e77f GTE aggregate (one object: cross-field addressing in 0xb320); 0xa8e780 callback prefix; 0xa8e78c input packet; 0xa8e790 bank headers; 0xa8e7d0/0xa8e830 24-entry voice volume tables; 0xa8e890 31 sequence slots",
+  "0xc2d0 swaps g_host_secondary_callback_68e90c; 0xc220 sets g_host_secondary_delivery_68e910 = (mode == 5)",
+  "0xa8e6f4..0xa8e6fc texture-page state; VRAM 0x96e6e0 spans 0x120000 B; rasterizer state 0xa909b0..0xa90a10, clip 0x43a488/0x43a48c",
+  "prototype disagreements: graphics_native_06ee0 receives BYTE args from 0xac8a (declared int); host_0fbf0 receives short voice/volume from 0xc160"
+ ]
+}
