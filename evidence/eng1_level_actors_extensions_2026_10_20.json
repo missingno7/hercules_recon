@@ -1,0 +1,23 @@
+{
+ "date": "2026-10-20",
+ "lanes": [
+  "x10",
+  "x11"
+ ],
+ "module": "ENG1.DLL",
+ "units": {
+  "calibration/eng1/level_actors_083e0.cpp": "x10 appended 0xa420..0xc720 (16 functions, all masked equal in the unit; standalone 14/16, 0xa910/0xbc50 differ only in render_flags facing-idiom load order). 0x8480 becomes masked equal in the extended unit (context-fragile: equal at 3 of 8 declaration phases per x9; replacing the abs prototype by <stdlib.h> breaks it again). WALK_X macro became `inline int walk_x_blocked(Actor *, Bounds *)`: 0xbc50 case 10 needs its return value and only the inlined-return form reproduces its block layout; all existing uses stay equal. EngineContext +0x0e signed char, +0x24 signed short (jg in 0xbc50).",
+  "calibration/eng1/status_panel_32b10.c": "x11 appended 0x34000..0x36030 (33 functions): 29 masked equal, 0x34210 (32 B), 0x343e0 (37), 0x34910 (116) RECONSTRUCTED with the same rotated argument-register residue as canonical 0x33830, 0x35d70 (11 B, add destination; equal standalone) RECONSTRUCTED. Status panel rows unchanged (16 masked, 3 RECONSTRUCTED at the same residues). C chosen: C++ never gains beyond appended C and breaks 0x33db0. Actor view extended; play_sound takes unsigned short; eng1_interpret_signed_pairs returns int."
+ },
+ "data_evidence": "0x34000 dword-loads the counter at 0x6ffd8 before & 7; a probe shows VC5 does this only for an object defined in the same file (static or initialised), not for an extern - so the counter is defined in this unit (function static effect_set), next to the status panel's 0x6ffc8..0x6ffd0 data, which is then probably also defined here.",
+ "identity": [
+  "grid_query_20d30 is unsigned short (short, short, short, int); actor_unit_282e0.cpp declares (long, long, long, int) returning long (switching it there keeps 17/23)",
+  "g_eng1_setup_dword_72118 holds the boss Actor * (stored by 0xbb10)",
+  "0xbb90 updates g_normal_actor_pool 0x72860 and g_collision_context 0x7217c together as one player entity",
+  "0x5a848 used as a sine table by x11 (graph name g_actor_stage_table_5a848 - not renamed, conflicting identity)",
+  "g_sine_table_70f34 is a short * pointer",
+  "Actor +0x5c read as entries pointer, vertex array (0x34b40) and owner Actor (0x35fe0)",
+  "0x34b40/0x34bb0 place/update callbacks of the effect descriptor 0x5ebf0 (siblings of eng1_02ac0); 0x34c00 passes it to eng1_02500",
+  "no ENG3/TITLE twins for either region"
+ ]
+}

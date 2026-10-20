@@ -397,29 +397,40 @@ typedef struct Bounds {
 } Bounds;
 struct Actor {
     long x, y, z;
-    unsigned char unknown_00c[0x1f - 0x0c];
+    short screen_x, screen_y, screen_z;
+    unsigned char unknown_012[0x1c - 0x12];
+    unsigned char clut_01c;
+    unsigned char unknown_01d[0x1f - 0x1d];
     unsigned char status_01f;
-    unsigned char unknown_020[0x22 - 0x20];
+    unsigned char unknown_020;
+    unsigned char counter_021;
     unsigned char category;
     unsigned char mode;
     unsigned char unknown_024;
     unsigned char control_025;
-    unsigned char unknown_026[0x2a - 0x26];
+    short unknown_026;
+    unsigned char unknown_028[0x2a - 0x28];
     unsigned short state;
-    unsigned char unknown_02c[0x34 - 0x2c];
+    unsigned char unknown_02c[0x2e - 0x2c];
+    unsigned short kind;
+    unsigned char unknown_030[0x34 - 0x30];
     unsigned short sprite;
     unsigned short entry_count;
     unsigned short profile;
-    unsigned char unknown_03a[0x4a - 0x3a];
+    unsigned short scale;
+    unsigned char unknown_03c[0x4a - 0x3c];
     unsigned short unknown_04a;
     long parameter;
     unsigned long flags;
     unsigned long render_flags;
-    unsigned char unknown_058[0x5c - 0x58];
+    long record_offset;
     ActorEntry *entries;
     unsigned char unknown_060[0x64 - 0x60];
     void *image_064;
-    unsigned char unknown_068[0x74 - 0x68];
+    unsigned char unknown_068[0x6c - 0x68];
+    void *sound_06c;
+    short angle_70;
+    short angle_72;
     short angle_74;
     unsigned char unknown_076[0x88 - 0x76];
     Bounds bounds;
@@ -429,12 +440,21 @@ struct Actor {
     unsigned char unknown_097;
     unsigned short unknown_098;
     short delay;
-    long saved_x, saved_y;
-    unsigned char unknown_0a4[0xee - 0xa4];
+    long saved_x, saved_y, saved_z;
+    long motion_x_velocity, motion_x_target, motion_x_rate, motion_x_unknown;
+    long motion_y_velocity, motion_y_target, motion_y_rate, motion_y_unknown;
+    long motion_z_velocity, motion_z_target, motion_z_rate, motion_z_unknown;
+    unsigned char unknown_0d8[0xe0 - 0xd8];
+    long limit_0e0;
+    unsigned char unknown_0e4[0xec - 0xe4];
+    unsigned char lifetime;
+    unsigned char unknown_0ed;
     short hits;
     unsigned char unknown_0f0[0xf4 - 0xf0];
     long unknown_0f4;
-    unsigned char unknown_0f8[0x114 - 0xf8];
+    unsigned char unknown_0f8[0x108 - 0xf8];
+    unsigned long unknown_108;
+    unsigned char unknown_10c[0x114 - 0x10c];
     short unknown_114;
     unsigned char unknown_116[0x11e - 0x116];
     short unknown_11e;
@@ -442,6 +462,7 @@ struct Actor {
     short unknown_124;
     unsigned char unknown_126[0x12c - 0x126];
     Actor *link_12c;
+    Actor *link_130;
 };
 
 extern short g_level_timer_70800;
@@ -461,14 +482,14 @@ unsigned int random_limit(int limit);
 Actor *spawn_at_group_300c0(long x, long y, long z, int kind, int group);
 void spawn_actor_with_owner(Actor *owner, long x, long y, long z, int kind);
 Actor *action_spawn_27d40(Actor *actor, unsigned long action);
-void play_sound(int id, Actor *p);
+void play_sound(unsigned short id, Actor *p);
 void reset_frame_state(Actor *p);
 void advance_frame(Actor *p);
 void restart_steps(Actor *p);
 void select_frame(Actor *p, int frame);
 void apply_frame_motion_2d(Actor *p);
 void eng1_interpret_word_stream(Actor *p);
-void eng1_interpret_signed_pairs(Actor *p);
+int eng1_interpret_signed_pairs(Actor *p);
 int eng1_29c20(Actor *p);
 unsigned long dispatch_local_2a170(long x, long y, long z, int step);
 void eng1_native_code_target_002a290(Actor *p);
@@ -791,4 +812,1134 @@ void eng1_33fc0(Actor *p)
     eng1_native_code_target_002a290(p);
     p->render_flags |= 8;
     p->unknown_097 = 1;
+}
+
+typedef struct FixedPosition { long x, y, z; } FixedPosition;
+typedef struct RelativeMeasure {
+    short x, y, z;
+    short planar_distance;
+    short distance;
+    unsigned short direction;
+} RelativeMeasure;
+typedef struct SVector { short vx, vy, vz, pad; } SVector;
+typedef struct KindInfo { unsigned char *owner; long count; } KindInfo;
+typedef struct SpawnRecord {        /* 12-byte child placement */
+    short x, y, z;
+    short kind;
+    unsigned short sprite;
+    unsigned char direction;
+    unsigned char unknown_0b;
+} SpawnRecord;
+typedef struct Callback8 { void (*initialize)(Actor *); void (*update)(Actor *); } Callback8;
+extern Actor *g_frame_global_734f4;
+extern KindInfo g_kind_info[];
+extern long g_pipeline_dword_71680[];
+extern long g_camera_focal_70ce4;
+extern short *g_sine_table_70f34;
+extern short g_sine_table_5a848[];
+extern unsigned short g_native_word_72168;
+extern long g_level_effects_5e9c0[8][8];
+extern unsigned short g_level_noise_5ef88[];
+extern unsigned char g_debris_sprites_5ef60[];
+extern unsigned char g_clut_rows_602a8[];
+extern unsigned char g_clut_rows_602b0[];
+extern unsigned char g_clut_rows_602b4[];
+extern unsigned char g_clut_rows_602b8[];
+extern unsigned char g_clut_rows_602bc[];
+extern unsigned char g_clut_rows_602c0[];
+extern unsigned long eng1_sim_state_72110;
+extern SpawnRecord g_spawn_records_5ff60[];
+extern Callback8 *g_configuration_dword_7137c;
+extern unsigned short g_debris_sounds_5febc[];
+unsigned int dispatch_engine_2c470(void);
+void RemoveFxLinks_7ef6(Actor *p);
+void apply_frame_motion_3d(Actor *p);
+int eng1_2a710(Bounds *b, Actor *p);
+int eng1_2aab0(Actor *p, int a, int b);
+int remove_actor_variant(Actor *p);
+void hide_and_unlink(Actor *p);
+unsigned long eng1_26de0(Actor *p);
+void eng1_26f20(Actor *p);
+void eng1_131c0(long x, long y, long z, long id);
+int eng1_19b40(int mask);
+void eng1_1aba0(void);
+void eng1_24980(Actor *p);
+void eng1_30290(unsigned long hit, int b);
+int eng1_2bd20(Actor *p);
+void eng1_2ae50(Actor *p);
+void measure_absolute_vector(FixedPosition *a, FixedPosition *b, RelativeMeasure *m);
+void measure_relative_vector(FixedPosition *a, FixedPosition *b, RelativeMeasure *m);
+int actor_bounds_2a880(Actor *p, Bounds *b, int mode);
+int bounds_overlap(Bounds *a, Bounds *b);
+Actor *find_tag(int tag);
+void append_chain(Actor *owner, Actor *p);
+int eng1_02500(Actor *p, void *descriptor);
+void eng1_02920(Actor *p, int width);
+void eng1_02a80(Actor *p, int y);
+Actor *spawn_middle_277e0(long x, long y, long z, unsigned short kind);
+void attach_actor(Actor *p, int tag);
+int eng1_30050(long x, long y, long z);
+unsigned int dispatch_local_30010(long x, long y, long z, unsigned short mask);
+int eng1_native_code_target_002aa30(Actor *p, int a, int b);
+
+void eng1_34000(Actor *p)
+{
+    static unsigned short effect_set;   /* 0x6ffd8: dword-loaded, so its alignment is known to this unit */
+    RelativeMeasure m;
+    int i;
+    int t;
+
+    if (p->control_025 & 1) {
+        eng1_native_code_target_002a290(p);
+    } else {
+        measure_absolute_vector((FixedPosition *)g_native_pointer_7217c, (FixedPosition *)p, &m);
+        if (p->unknown_097 != 2) {
+            if (m.z < 0x10) {
+                if (m.x < 0x30) {
+                    select_frame(p, 4);
+                    p->unknown_097 = 2;
+                    if (p->state == 0) {
+                        for (i = 0; i < 8; i++) {
+                            eng1_131c0(p->x, p->y - 0x200000, p->z, g_level_effects_5e9c0[effect_set & 7][i]);
+                        }
+                        effect_set++;
+                        p->state++;
+                    }
+                }
+            } else if (m.z > 0x5a && m.x < 0x60) {
+                select_frame(p, 4);
+                p->unknown_097 = 2;
+            }
+        } else if (m.x > 0x80 || (m.z < 0x5a && m.z > 0x10)) {
+            select_frame(p, 9);
+            p->unknown_097 = 4;
+        }
+        t = p->unknown_097;
+        p->unknown_097 = p->state;
+        p->state = t;
+        if (eng1_interpret_signed_pairs(p) && p->state == 1 && random_limit(5) == 0) {
+            select_frame(p, 1);
+            p->state = 4;
+        }
+        t = p->unknown_097;
+        p->unknown_097 = p->state;
+        p->state = t;
+    }
+    p->render_flags = (p->render_flags & ~0x10) | (p->direction_x & 0x10);
+    if (eng1_2a9e0(p, 0x140)) {
+        remove_actor(p);
+    }
+}
+
+void eng1_341a0(Actor *p)
+{
+    p->direction_x = -random_limit(2);
+    advance_frame(p);
+    select_frame(p, random_limit(6));
+    restart_steps(p);
+    p->render_flags |= 8;
+    p->unknown_0f4 = 2;
+    p->clut_01c = g_clut_rows_602b0[random_limit(3)];
+    eng1_native_code_target_002a290(p);
+}
+
+void eng1_34210(Actor *p)
+{
+    unsigned int w;
+
+    if (p->control_025 & 1) {
+        eng1_native_code_target_002a290(p);
+    } else {
+        apply_frame_motion_2d(p);
+        eng1_interpret_signed_pairs(p);
+        if (!eng1_29c20(p) ||
+            ((w = g_configuration_dword_713bc[dispatch_local_2a170(p->x + (p->direction_x ? -0x180000 : 0x180000), p->y,
+                                                              (p->z + 0x400000) & 0xf800000, p->profile)]) & 6)) {
+            p->x = p->saved_x;
+            p->y = p->saved_y;
+            select_frame(p, 8);
+        }
+    }
+    p->render_flags = (p->render_flags & ~0x10) | (p->direction_x & 0x10);
+    if (eng1_2a9e0(p, 0x200)) {
+        remove_actor(p);
+    }
+}
+
+void eng1_342f0(Actor *p)
+{
+    int c;
+
+    if (p->record_offset) {
+        c = g_kind_info[p->profile].owner[p->record_offset + 0xc] & 0x3f;
+        if (c != 0x3f) {
+            p->clut_01c = c;
+        }
+    }
+    p->render_flags |= 8;
+    advance_frame(p);
+    select_frame(p, random_limit(0xc));
+    eng1_native_code_target_002a290(p);
+}
+
+void eng1_34350(Actor *p)
+{
+    if (p->control_025 & 1) {
+        eng1_native_code_target_002a290(p);
+    } else {
+        eng1_interpret_signed_pairs(p);
+    }
+    p->render_flags = (p->render_flags & ~0x10) | (p->direction_x & 0x10);
+    if (eng1_2a9e0(p, 0x200)) {
+        remove_actor(p);
+    }
+}
+
+void eng1_343a0(Actor *p)
+{
+    advance_frame(p);
+    p->render_flags |= 8;
+    p->unknown_124 = 2;
+    p->clut_01c = g_clut_rows_602bc[random_limit(3)];
+    eng1_native_code_target_002a290(p);
+}
+
+void eng1_343e0(Actor *p)
+{
+    unsigned int w;
+    RelativeMeasure m;
+    int d;
+    int v;
+
+    if (p->control_025 & 1) {
+        eng1_native_code_target_002a290(p);
+    } else {
+        eng1_interpret_signed_pairs(p);
+        if (!eng1_29c20(p) ||
+            ((w = g_configuration_dword_713bc[dispatch_local_2a170(p->x + (p->direction_x ? -0x180000 : 0x180000), p->y,
+                                                              (p->z + 0x400000) & 0xf800000, p->profile)]) & 7)) {
+            p->x = p->saved_x;
+            p->y = p->saved_y;
+            select_frame(p, 3);
+        }
+        if (p->state == 4) {
+            d = p->sprite - 0x22;
+            if (d > 0 && d < 0x28) {
+                measure_relative_vector((FixedPosition *)g_frame_global_734f4, (FixedPosition *)p, &m);
+                v = 0x200 - (unsigned short)m.distance;
+                if (v < 1) {
+                    v = 0;
+                }
+                v *= g_level_noise_5ef88[d];
+                if (v) {
+                    g_pipeline_dword_71680[++g_pipeline_dword_71680[0]] = (random_limit(v + v) - v) << 6;
+                }
+                if (!random_limit(10)) {
+                    spawn_at_group_300c0(p->x, p->y, p->z, 0x402a, p->profile);
+                }
+            }
+        }
+    }
+    p->render_flags = (p->render_flags & ~0x10) | (p->direction_x & 0x10);
+    if (eng1_2a9e0(p, 0x200)) {
+        remove_actor(p);
+    }
+}
+
+void eng1_34570(Actor *p)
+{
+    int r;
+    long dz;
+
+    if (p->state == 4) {
+        p->state = 1;
+        select_frame(p, 0);
+        return;
+    }
+    r = random_limit(0x28);
+    dz = (g_native_pointer_7217c->z - p->z) >> 16;
+    if ((p->status_01f & 2) && p->screen_x > 0x14 && p->screen_x < 0x12c) {
+        if (r < 10) {
+            return;
+        }
+        if (r < 0xf) {
+            select_frame(p, 0x10);
+            return;
+        }
+        if (dz > 0x20) {
+            return;
+        }
+        if (r < 0x1c) {
+            select_frame(p, 6);
+            p->state = 4;
+            return;
+        }
+    } else {
+        if (r < 0x19) {
+            return;
+        }
+        if (r < 0x26) {
+            select_frame(p, 0x10);
+            return;
+        }
+        if (dz > 0x20) {
+            return;
+        }
+        if (r < 0x27) {
+            select_frame(p, 6);
+            p->state = 4;
+            return;
+        }
+    }
+    select_frame(p, 0xb);
+    p->state = 4;
+}
+
+void eng1_34650(Actor *p)
+{
+    p->render_flags |= 0x10000040;
+    p->y -= 0x12c0000;
+    p->x += (random_limit(200) - 100) << 16;
+    p->z += (random_limit(200) - 100) << 16;
+    p->delay = random_limit(0x26);
+    p->sprite = g_debris_sprites_5ef60[p->delay];
+    if (p->delay > 0xf) {
+        p->scale = random_limit(0x200) + 0x80;
+    }
+    p->direction_y = 0xff;
+    p->direction_z = 0xff;
+    p->motion_y_target = ((dispatch_engine_2c470() & 0x1ff) + 0xc00) << 8;
+    p->motion_y_velocity = 0;
+    p->motion_y_rate = 0;
+    p->motion_y_unknown = random_limit(0x2000) + 0x8000;
+    p->motion_z_velocity = 0;
+    p->motion_z_target = 0xf0000;
+    p->motion_z_rate = 0;
+    p->motion_z_unknown = 0;
+}
+
+void eng1_34750(Actor *p)
+{
+    p->angle_70 = 0x400 - ((p->z >> 13) & 0x3ff);
+    p->angle_72 = 0x400 - ((p->x >> 13) & 0x3ff);
+    if (p->state == 1) {
+        if (eng1_2bd20(p) & 2) {
+            remove_actor_variant(p);
+        }
+    } else if (eng1_2bd20(p) & 1) {
+        if (p->scale > 0x180 || p->delay < 0xb) {
+            play_sound(0xd150, p);
+            eng1_24980(p);
+            remove_actor_variant(p);
+            return;
+        }
+        if (p->motion_z_rate == 0 && random_limit(2)) {
+            if (p->delay < 0x18) {
+                play_sound(0xd151, p);
+            } else {
+                play_sound(0xd152, p);
+            }
+        }
+        p->motion_z_velocity = 0x40000;
+        p->motion_z_rate += 0x8000;
+    }
+    if (eng1_2a710(&g_native_pointer_7217c->bounds, p)) {
+        eng1_native_code_target_00266a0(p, 1, 0);
+    }
+    if (p->z < -0x400000 || p->z > 0x1f00000 || p->y > 0x5800000 || eng1_2a9e0(p, 0x80)) {
+        remove_actor_variant(p);
+    }
+}
+
+void eng1_348a0(Actor *p)
+{
+    advance_frame(p);
+    restart_steps(p);
+    p->render_flags |= 8;
+    p->unknown_0f4 = 4;
+    p->unknown_124 = 2;
+    p->clut_01c = g_clut_rows_602b8[random_limit(2)];
+    eng1_native_code_target_002a290(p);
+    spawn_actor_with_owner(p, p->x, p->y, p->z, 0x42);
+}
+
+void eng1_34910(Actor *p)
+{
+    unsigned int w;
+
+    if (p->control_025 & 1) {
+        eng1_native_code_target_002a290(p);
+    } else {
+        apply_frame_motion_2d(p);
+        eng1_interpret_signed_pairs(p);
+        if (!eng1_29c20(p) ||
+            ((w = g_configuration_dword_713bc[dispatch_local_2a170(p->x + (p->direction_x ? -0x180000 : 0x180000), p->y,
+                                                              p->z, p->profile)]) & 7)) {
+            p->x = p->saved_x;
+            p->y = p->saved_y;
+            select_frame(p, 0xc);
+        }
+    }
+    p->render_flags = (p->render_flags & ~0x10) | (p->direction_x & 0x10);
+    if (eng1_2aab0(p, 0x40, 0x40) || eng1_2a9e0(p, 0x400)) {
+        remove_actor(p);
+    }
+}
+
+void eng1_349f0(Actor *p)
+{
+    p->sprite = 1;
+    p->render_flags |= 0x604;
+    p->unknown_04a = 0x60;
+    p->direction_x = -random_limit(2);
+    eng1_26f20(p);
+}
+
+void eng1_34a30(Actor *p)
+{
+    Actor *q;
+    int y;
+
+    q = p->link_12c;
+    if (q != 0) {
+        if (g_native_pointer_7217c->z - p->z > 0x800000) {
+            if (p->sound_06c != 0) {
+                RemoveFxLinks_7ef6(p);
+            }
+        } else if (p->status_01f & 1) {
+            if (p->sound_06c == 0) {
+                p->unknown_097 = 1;
+                play_sound(0x594f, p);
+            }
+            if (p->counter_021 != 0) {
+                p->counter_021--;
+            } else if (p->status_01f & 2) {
+                play_sound(0x514e, p);
+                p->counter_021 = random_limit(0x78) + 0x5a;
+            }
+        }
+        eng1_2ae50(p);
+        y = p->screen_y - (g_camera_focal_70ce4 >> 1) * 130 / p->screen_z;
+        if (y < 0) {
+            y = 0;
+        }
+        if (p->link_130 != 0) {
+            p->link_130->unknown_026 = y;
+        }
+        while (q->link_12c != 0) {
+            q = q->link_12c;
+        }
+        if (q->kind == 0x2c) {
+            p->x = q->x;
+            p->y = q->y;
+            p->z = q->z;
+            return;
+        }
+    }
+    remove_actor(p);
+}
+
+void eng1_34b40(Actor *p, int i)
+{
+    SVector *v;
+    int angle;
+    int radius;
+    int x;
+    int z;
+
+    v = (SVector *)p->entries;
+    angle = random_limit(0x1000);
+    radius = random_limit(0xc) + 8;
+    x = g_sine_table_70f34[angle & 0xfff] * radius >> 12;
+    z = g_sine_table_70f34[(angle - 0x400) & 0xfff] * radius >> 12;
+    v[i].vx = x;
+    v[i].vz = z;
+    v[i].vy = 0;
+}
+
+void eng1_34bb0(Actor *p, int t)
+{
+    int w;
+
+    w = g_sine_table_5a848[((t >> 2) + 0x100) & 0x3ff] * 20 >> 16;
+    eng1_02a80(p, p->unknown_026);
+    eng1_02920(p, w);
+}
+
+void eng1_34c00(Actor *p)
+{
+    p->flags |= 0x10000000;
+    p->render_flags = 0x800;
+    eng1_02500(p, p->image_064);
+}
+
+void eng1_34c30(Actor *p)
+{
+    Actor *q;
+
+    q = p->link_12c;
+    if (q != 0) {
+        while (q != 0) {
+            if (q->kind == 0x42) {
+                p->x = q->x;
+                p->y = q->y;
+                p->z = q->z;
+                return;
+            }
+            q = q->link_12c;
+        }
+        hide_and_unlink(p);
+    } else {
+        p->render_flags &= 0x7fffffff;
+    }
+}
+
+void eng1_34c80(Actor *p)
+{
+    advance_frame(p);
+    select_frame(p, random_limit(0x17));
+    restart_steps(p);
+    p->direction_x = -random_limit(2);
+    p->render_flags |= 8;
+    p->unknown_0f4 = random_limit(3) & 1;
+    p->clut_01c = g_clut_rows_602a8[random_limit(5)];
+    eng1_native_code_target_002a290(p);
+}
+
+void eng1_34d00(Actor *p)
+{
+    unsigned int w;
+
+    if (p->control_025 & 1) {
+        eng1_native_code_target_002a290(p);
+    } else {
+        apply_frame_motion_2d(p);
+        eng1_interpret_signed_pairs(p);
+        if (!eng1_29c20(p) ||
+            ((w = g_configuration_dword_713bc[dispatch_local_2a170(p->x + (p->direction_x ? -0x100000 : 0x100000), p->y,
+                                                              (p->z + 0x400000) & 0xf800000, p->profile)]) & 6)) {
+            p->x = p->saved_x;
+            p->y = p->saved_y;
+            p->direction_x = ~p->direction_x;
+            select_frame(p, 0);
+        }
+    }
+    p->render_flags = (p->render_flags & ~0x10) | (p->direction_x & 0x10);
+    if (eng1_2a9e0(p, 0x140)) {
+        remove_actor(p);
+    }
+}
+
+void eng1_34de0(Actor *p)
+{
+    p->unknown_124 = 1;
+    p->direction_z = 0xff;
+    p->render_flags = 8;
+    advance_frame(p);
+    restart_steps(p);
+    eng1_native_code_target_002a290(p);
+}
+
+void eng1_34e20(Actor *p)
+{
+    unsigned int w;
+
+    if (p->control_025 & 1) {
+        eng1_native_code_target_002a290(p);
+    } else {
+        p->render_flags |= 0x80000000;
+        eng1_interpret_signed_pairs(p);
+        apply_frame_motion_3d(p);
+        switch (p->state) {
+        case 3:
+            eng1_29c20(p);
+            break;
+        case 2:
+        case 12:
+            eng1_29c20(p);
+            if (p->z > p->limit_0e0) {
+                w = g_configuration_dword_713bc[dispatch_local_2a170(p->x, p->y, p->z, p->profile)];
+                if (w & 0x10) {
+                    p->limit_0e0 += 0x800000;
+                    break;
+                }
+                p->z = p->limit_0e0;
+                p->direction_x = ~p->direction_x;
+                select_frame(p, 4);
+                p->state = 0;
+            }
+            break;
+        case 1:
+        case 11:
+            eng1_29c20(p);
+            if (p->z < p->limit_0e0) {
+                w = g_configuration_dword_713bc[dispatch_local_2a170(p->x, p->y, p->z, p->profile)];
+                if (w & 0x20) {
+                    p->limit_0e0 -= 0x800000;
+                    break;
+                }
+                p->z = p->limit_0e0;
+                p->direction_x = ~p->direction_x;
+                select_frame(p, 4);
+                p->state = 0;
+            }
+            break;
+        default:
+            if (!eng1_29c20(p)) {
+                p->x = p->saved_x;
+                p->y = p->saved_y - 0x80000;
+                eng1_native_code_target_002a290(p);
+                select_frame(p, 7);
+                break;
+            }
+            if (eng1_2a710(&g_native_pointer_7217c->bounds, p)) {
+                p->state = 3;
+                eng1_native_code_target_00266a0(p, 1, 0);
+                select_frame(p, 0x16);
+                break;
+            }
+            w = g_configuration_dword_713bc[dispatch_local_2a170(p->x + (p->direction_x ? -0x100000 : 0x100000), p->y,
+                                                                 p->z, p->profile)];
+            if (w & 2) {
+                p->state = 3;
+                select_frame(p, 0x16);
+            } else if (w & 4) {
+                p->x = p->saved_x;
+                p->y = p->saved_y;
+                select_frame(p, 7);
+            }
+            break;
+        }
+    }
+    p->render_flags = (p->render_flags & ~0x10) | (p->direction_x & 0x10);
+    if (abs((p->x - g_frame_global_734f4->x) >> 16) > 0x1000) {
+        remove_actor(p);
+    }
+}
+
+void eng1_350a0(Actor *p)
+{
+    unsigned long cell;
+    unsigned int w;
+
+    if (p->state == 1 || p->state == 2) {
+        cell = dispatch_local_2a170(p->x, p->y, p->z, p->profile);
+        if (cell != 0) {
+            w = g_configuration_dword_713bc[cell];
+            if (p->direction_x) {
+                if (w & 0x20) {
+                    p->state = 0xb;
+                    return;
+                }
+            } else if (w & 0x10) {
+                p->state = 0xc;
+                return;
+            }
+        }
+        select_frame(p, 0);
+        p->state = 0;
+        return;
+    }
+    p->state = 0;
+    if (p->record_offset &&
+        abs(p->x - *(long *)(g_kind_info[p->profile].owner + p->record_offset)) > 0x8000000) {
+        select_frame(p, 7);
+        return;
+    }
+    cell = dispatch_local_2a170(p->x, p->y, p->z, p->profile);
+    if (cell != 0) {
+        w = g_configuration_dword_713bc[cell];
+        if (p->direction_x) {
+            if (w & 0x20) {
+                select_frame(p, 0x10);
+                p->state = 1;
+                p->limit_0e0 = (p->z & 0x7f800000) - 0x800000;
+            }
+        } else if (w & 0x10) {
+            p->limit_0e0 = (p->z & 0x7f800000) + 0x800000;
+            select_frame(p, 10);
+            p->state = 2;
+        }
+    } else {
+        p->unknown_097 = 0;
+    }
+}
+
+void eng1_35200(Actor *p)
+{
+    Actor *t;
+
+    t = find_tag(0x2a);
+    if (t != 0) {
+        append_chain(t, p);
+    }
+    advance_frame(p);
+    restart_steps(p);
+    p->render_flags |= 8;
+    if (p->record_offset) {
+        p->unknown_097 = g_kind_info[p->profile].owner[p->record_offset + 0xc] & 0x3f;
+    }
+    if (p->state == 0) {
+        p->clut_01c = g_clut_rows_602c0[random_limit(4)];
+    } else {
+        p->clut_01c = p->state >> 8;
+        p->state &= 0xff;
+    }
+    if (p->state >= 8) {
+        select_frame(p, 0x16);
+        p->hits = -1;
+        p->flags = 2;
+    } else {
+        select_frame(p, 0x22);
+        p->hits = 3;
+        p->flags = 0x202;
+    }
+    p->unknown_124 = 4;
+    p->unknown_108 = p->clut_01c;
+    p->lifetime = 0x3c;
+    eng1_native_code_target_002a290(p);
+}
+
+void eng1_352f0(Actor *p)
+{
+    Bounds b;
+    unsigned int w;
+    unsigned long hit;
+    int n;
+
+    if (p->parameter != 0) {
+        p->parameter--;
+    }
+    if (eng1_2a9e0(p, 0x80)) {
+        remove_actor(p);
+        return;
+    }
+    if (p->control_025 & 1) {
+        eng1_native_code_target_002a290(p);
+    } else {
+        eng1_interpret_signed_pairs(p);
+        if (p->hits <= 0) {
+            return;
+        }
+        apply_frame_motion_2d(p);
+        hit = eng1_26de0(p);
+        if (hit && !p->lifetime) {
+            if (hit == 0x80) {
+                n = eng1_19b40(~g_native_word_72168 & 0x5f);
+                if (n) {
+                    eng1_1aba0();
+                    p->hits -= n;
+                    select_frame(p, 0x12);
+                }
+            } else {
+                eng1_30290(hit, 0);
+                p->hits -= 100;
+                select_frame(p, 0x12);
+            }
+            p->lifetime = 0x28;
+        }
+        if (p->hits <= 0) {
+            select_frame(p, 0x15);
+            spawn_at_group_300c0(p->x, p->y - 0x200000, p->z, 0x2027, 0);
+            p->flags &= ~0x200;
+            return;
+        }
+        if (p->state > 1) {
+            if (!eng1_29c20(p)) {
+                p->x = p->saved_x;
+                p->y = p->saved_y;
+                select_frame(p, 1);
+            } else if ((w = g_configuration_dword_713bc[dispatch_local_2a170(p->x, p->y, p->z, p->profile)]) & 2) {
+                p->x = p->saved_x;
+                p->y = p->saved_y;
+                select_frame(p, 1);
+            }
+        }
+    }
+    if (p->state == 3 && eng1_2a710(&g_native_pointer_7217c->bounds, p)) {
+        select_frame(p, 6);
+    }
+    if (actor_bounds_2a880(p, &b, 3) && bounds_overlap(&g_native_pointer_7217c->bounds, &b)) {
+        eng1_native_code_target_00266a0(p, 3, 0);
+        if (p->parameter == 0) {
+            play_sound(0x51dd, p);
+            p->parameter = 0x14;
+        }
+        p->render_flags = (p->render_flags & ~0x10) | (p->direction_x & 0x10);
+        return;
+    }
+    if (actor_bounds_2a880(p, &b, 2) && bounds_overlap(&g_native_pointer_7217c->bounds, &b)) {
+        eng1_native_code_target_00266a0(p, 3, 0);
+        if (p->parameter == 0) {
+            play_sound(0x51dd, p);
+            p->parameter = 0x14;
+        }
+    }
+    p->render_flags = (p->render_flags & ~0x10) | (p->direction_x & 0x10);
+}
+
+void eng1_35590(Actor *p)
+{
+    RelativeMeasure m;
+    long dx;
+    int active;
+    int attacking;
+    Actor *q;
+    Actor *c;
+    SpawnRecord *r;
+    long x, y, z;
+    int kind;
+    Actor *child;
+    int d;
+    int n;
+
+    dx = (p->x - g_native_pointer_7217c->x) >> 16;
+    active = 0;
+    attacking = 0;
+    if (p->link_12c != 0) {
+        for (q = p; q->link_12c != 0; q = q->link_12c) {
+        }
+        for (c = q->link_130; c != 0; c = c->link_130) {
+            if (c->state > 0) {
+                if (c->state < 10) {
+                    active++;
+                }
+                if (c->state == 4) {
+                    attacking++;
+                }
+            }
+        }
+    }
+    if (eng1_sim_state_72110) {
+        attacking = 999;
+    }
+    measure_absolute_vector((FixedPosition *)g_native_pointer_7217c, (FixedPosition *)p, &m);
+    switch (p->state) {
+    case 0:
+        if (m.z > 0x10 || m.y > 0x10 || m.x < 0x20) {
+            break;
+        }
+        if (active < 1) {
+            if (m.x > 0x100) {
+                break;
+            }
+            eng1_2ae50(p);
+            if (p->status_01f & 2) {
+                select_frame(p, 0x1f);
+                return;
+            }
+            select_frame(p, 0);
+            return;
+        }
+        if (active >= random_limit(3) + 2 || m.x > 0x100) {
+            break;
+        }
+        eng1_2ae50(p);
+        if (p->status_01f & 2) {
+            select_frame(p, 0x1f);
+            return;
+        }
+        break;
+    case 1:
+    case 2:
+    case 3:
+        d = abs(dx);
+        if (d > 0x40 && random_limit(9) == 0) {
+            select_frame(p, 0);
+            return;
+        }
+        if ((dx < 0 && p->direction_x == 0xff) || (dx >= 0 && p->direction_x == 0)) {
+            if (d < 0x14) {
+                select_frame(p, 0x19);
+                return;
+            }
+            select_frame(p, 1);
+            return;
+        }
+        if (attacking < 3) {
+            if (d < 0x10) {
+                select_frame(p, 0x19);
+                return;
+            }
+            if (d < 0x22) {
+                select_frame(p, 0x1c);
+                return;
+            }
+        } else {
+            select_frame(p, 0x19);
+        }
+        if (d < 0x2c) {
+            if (attacking < 5) {
+                if (random_limit(5) == 0) {
+                    select_frame(p, 0x19);
+                    return;
+                }
+                if (random_limit(2)) {
+                    select_frame(p, 9);
+                    return;
+                }
+                select_frame(p, 0xc);
+                return;
+            }
+            if (random_limit(5) == 0) {
+                select_frame(p, 0x1c);
+                return;
+            }
+            select_frame(p, 0x19);
+            return;
+        }
+        if (d < 0x56) {
+            if (attacking < 2) {
+                if (d > 0x3c && random_limit(4) == 0) {
+                    select_frame(p, 0xf);
+                    return;
+                }
+                if (random_limit(10) == 0) {
+                    select_frame(p, 0x19);
+                    return;
+                }
+                if (random_limit(8) == 0) {
+                    select_frame(p, 0x1c);
+                    return;
+                }
+                select_frame(p, 0xc);
+                return;
+            }
+            if (random_limit(6) == 0) {
+                select_frame(p, 0x1c);
+                return;
+            }
+            if (random_limit(8) == 0) {
+                select_frame(p, 0x19);
+                return;
+            }
+            select_frame(p, 0);
+            return;
+        }
+        if (p->unknown_114 == 4 || p->unknown_114 == 5) {
+            select_frame(p, 5);
+            return;
+        }
+        select_frame(p, 4);
+        return;
+    case 8:
+        p->flags &= ~0x200;
+        x = p->x;
+        y = p->y;
+        z = p->z;
+        n = p->unknown_097;
+        if (n) {
+            eng1_131c0(x, y - 0x200000, z, n - 1);
+        }
+        for (r = g_spawn_records_5ff60; (kind = r->kind) != 0; r++) {
+            child = spawn_middle_277e0((r->x << 16) + x, (r->y << 16) + y, (r->z << 16) + z, kind);
+            if (child != 0) {
+                g_configuration_dword_7137c[kind & 0x1ff].initialize(child);
+                child->sprite = r->sprite;
+                child->direction_x = r->direction;
+                if (child->direction_x == 0x69) {
+                    child->direction_x = p->direction_x;
+                }
+                if (child->direction_x == 0x99) {
+                    child->direction_x = p->direction_x == 0;
+                }
+                child->clut_01c = p->clut_01c;
+            }
+        }
+        break;
+    }
+}
+
+void eng1_35a30(Actor *p)
+{
+    p->direction_x = p->state == 0;
+    p->direction_z = -random_limit(2);
+    p->direction_y = 0xff;
+    p->state = 0;
+    p->motion_y_velocity = p->motion_y_target = ((dispatch_engine_2c470() & 0x1ff) + 0x800) << 8;
+    p->motion_y_rate = 0;
+    p->motion_y_unknown = random_limit(0x2000) + 0x8000;
+    p->motion_z_velocity = (p->motion_z_target = ((dispatch_engine_2c470() & 0x7f) + 0x80) << 8) >> 1;
+    p->motion_z_rate = random_limit(0x1000) + 0x1000;
+    p->motion_z_unknown = 0;
+    p->motion_x_velocity = (p->motion_x_target = ((dispatch_engine_2c470() & 0x3ff) + 0x300) << 8) >> 1;
+    p->motion_x_rate = random_limit(0x4000) + 0x1000;
+    p->motion_x_unknown = 0;
+}
+
+void eng1_35b20(Actor *p)
+{
+    long step;
+
+    p->angle_74 = 0x400 - ((p->x >> 13) & 0x3ff);
+    if ((eng1_2bd20(p) & 1) && p->state < random_limit(3) + 1) {
+        play_sound(g_debris_sounds_5febc[p->sprite], p);
+        p->state++;
+    }
+    step = 8;
+    if (p->direction_x) {
+        step = -8;
+    }
+    if (eng1_30050((step << 16) + p->x, p->y, p->z)) {
+        p->direction_x = ~p->direction_x;
+    } else if (dispatch_local_30010((step << 16) + p->x, p->y, p->z, 1)) {
+        p->direction_x = ~p->direction_x;
+    }
+    if (p->motion_y_velocity < 0x10000) {
+        if (random_limit(0x800) < 0x100) {
+            p->scale -= 0x10;
+        }
+        if (p->scale < 0x20) {
+            remove_actor_variant(p);
+        }
+    } else {
+        p->angle_74 += (signed char)p->direction_x * 8;
+    }
+    if (eng1_native_code_target_002aa30(p, 0x40, 0x40) || p->z < -0x800000) {
+        remove_actor_variant(p);
+    }
+}
+
+void eng1_35c60(Actor *p)
+{
+    advance_frame(p);
+    select_frame(p, 1);
+    restart_steps(p);
+    p->render_flags |= 8;
+    p->clut_01c = g_clut_rows_602b4[random_limit(4)];
+    p->unknown_0f4 = random_limit(0xe) + 1;
+    p->y = 0x4e00000;
+    p->direction_z = 0xff;
+    p->flags |= 0x800;
+    p->saved_x = p->x;
+    p->state = 2;
+    p->mode = 8;
+    attach_actor(p, 0x202e);
+}
+
+void eng1_35cf0(Actor *p)
+{
+    advance_frame(p);
+    restart_steps(p);
+    p->render_flags |= 8;
+    p->clut_01c = g_clut_rows_602b4[random_limit(4)];
+    p->unknown_0f4 = random_limit(0xe) + 1;
+    p->y = 0x4e00000;
+    p->direction_z = 0;
+    p->flags |= 0x800;
+    p->saved_x = p->x;
+    p->state = 1;
+    p->mode = 8;
+    attach_actor(p, 0x202e);
+}
+
+void eng1_35d70(Actor *p)
+{
+    long z;
+    int a;
+
+    if (p->sound_06c == 0 && (p->status_01f & 2)) {
+        if (p->unknown_0f4 > 6) {
+            play_sound(0x5949, p);
+        } else {
+            play_sound(0x594a, p);
+        }
+    }
+    eng1_interpret_signed_pairs(p);
+    if (p->state != 0) {
+        apply_frame_motion_3d(p);
+    }
+    z = p->z >> 16;
+    if (z < -0x30) {
+        p->render_flags |= 0x105;
+        a = z * 2 + 0xe0;
+        if (a < 0) {
+            a = 0;
+        }
+        p->unknown_04a = a;
+    } else {
+        p->unknown_04a = 0x80;
+        p->render_flags &= ~0x107;
+    }
+    if (g_level_toggle_70802 == 0 && p->state == 0) {
+        p->state = 1;
+        if (p->unknown_114 > 1) {
+            select_frame(p, p->unknown_114 - 2);
+        }
+    }
+    if (p->direction_z != 0) {
+        if (z > 0x180) {
+            p->x = p->saved_x - (z << 16) + 0x1800000;
+        }
+        if (z > 0x240) {
+            p->z = -0x800000;
+            p->x = p->saved_x;
+            p->unknown_0f4 = random_limit(0xe) + 1;
+            p->sprite = 0;
+            if (p->unknown_0f4 > 4) {
+                p->state = 3;
+            }
+            if (p->unknown_0f4 > 8) {
+                p->state = 2;
+            }
+            RemoveFxLinks_7ef6(p);
+            p->sound_06c = 0;
+        }
+        if (p->unknown_0f4 > 10 && z < -0x20 && z > -0x40 && g_level_toggle_70802 == 1) {
+            p->state = 0;
+        }
+    } else {
+        if (z > 0x180) {
+            p->x = ((z - 0x180) << 16) + p->saved_x;
+        }
+        if (z < -0x6c) {
+            p->z = 0x2400000;
+            p->x = p->saved_x;
+            p->unknown_0f4 = random_limit(0xe) + 1;
+            p->sprite = 0;
+            p->state = 1;
+            if (p->unknown_0f4 > 4) {
+                p->state = 2;
+            }
+            if (p->unknown_0f4 > 8) {
+                p->state = 3;
+            }
+            RemoveFxLinks_7ef6(p);
+            p->sound_06c = 0;
+        }
+        if (p->unknown_0f4 > 10 && z > 0x50 && z < 0x80 && g_level_toggle_70802 == 1) {
+            p->state = 0;
+        }
+    }
+    if (p->state == 0 && p->unknown_114 < 2) {
+        select_frame(p, p->unknown_114 + 2);
+    }
+    if (eng1_2a710(&g_native_pointer_7217c->bounds, p)) {
+        eng1_native_code_target_00266a0(p, 2, 0);
+    }
+}
+
+void eng1_35fb0(Actor *p)
+{
+    p->flags = 0x10000;
+    p->render_flags |= 5;
+    p->unknown_04a = 0x20;
+    reset_frame_state(p);
+    eng1_interpret_word_stream(p);
+}
+
+void eng1_35fe0(Actor *p)
+{
+    Actor *q;
+
+    q = (Actor *)p->entries;
+    p->x = q->x;
+    p->y = q->y;
+    p->z = q->z;
+    eng1_interpret_word_stream(p);
+    if (q->state == 0) {
+        p->render_flags &= 0x7fffffff;
+    } else {
+        p->render_flags |= 0x80000000;
+    }
 }
