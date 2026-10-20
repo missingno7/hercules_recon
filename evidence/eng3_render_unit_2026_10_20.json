@@ -1,0 +1,20 @@
+{
+ "date": "2026-10-20",
+ "lane": "y7",
+ "module": "ENG3.DLL",
+ "source": "calibration/eng3/render_unit_22f00.cpp",
+ "region": "0x22f00..0x25040",
+ "result": "9 new relocation-masked equal (0x23d90, 0x24280, 0x24340, 0x243d0, 0x24420, 0x24570, 0x24a80, 0x24b00 and one more) + 8 size-exact RECONSTRUCTED; carried recorded twins stay equal",
+ "header_decision": "No count-only header (owner guidance 2026-10-20): with <string.h> first (as in the ENG1 unit) 0x22f00 is also equal; with <string.h>+<setjmp.h> 0x24f50 too.",
+ "eng3_specifics": [
+  "0x23ef0: NCLIP sign reversed (back-facing when clip > 0); depth z = v0+v3+v1+v2 (>>4) or v0+v2 (>>3); uv words stored +0c before +14",
+  "0x23b00: track lane cell shade blend (lane map 0x40684, rows 0x40704, columns 0x40744, cell flags 0x4067c, shades 0x40678, ambient 0x40634, colours 0x41460)",
+  "0x24bb0: track-relative camera transform (matrices 0x394f8 / 0x394d8, curved radius 0x518)"
+ ],
+ "identity": [
+  "0x24280 is the ENG1 0x318d0 counterpart (vertex list transform into interface data_010 scratch), not a print helper; 0x25040 forwards to it",
+  "0x24f50 corresponds to TITLE 0x196f0 / ENG1 0x32810 with vy += v/2",
+  "0x1ff40 = slot_290 (rotation matrix), 0x1ff60 = slot_294 (scale)"
+ ],
+ "context_note": "Register/stack-slot choices depend on low bits of the symbol count and on local declaration order here; the real ENG3 unit likely starts at 0x22b30 (lane y6 functions), so these rows must be re-checked when the unit is merged."
+}
