@@ -68,7 +68,14 @@
      "status": "not integrated",
      "best": "1408 bytes / 460 non-relocation differing with an always-false identical-arm compare (owner->unknown_022 == -1) that reproduces the original's dead zero-extended load and separate exit; 1392 bytes / 848 without it.",
      "decision_needed": "Owner ruling: the identical-arm compare is dead code that steers the compiler (AGENTS.md forbids it in accepted source). Kept in candidates/tB only.",
-     "residue": "Linked 0x4000 block: the original re-reads [g_29dc0+0x34]; ours reuses the stored value. Volatile on that one store reproduces the reload shape (443), then a cyclic esi/edi/ebp permutation remains."
+     "residue": "Linked 0x4000 block: the original re-reads [g_29dc0+0x34]; ours reuses the stored value. Volatile on that one store reproduces the reload shape (443), then a cyclic esi/edi/ebp permutation remains.",
+     "owner_ruling_2026_10_20": "Keep the identical-arm compare out of canonical source for now; keep searching for a natural form; private natural-link measurements may use it as a labelled diagnostic.",
+     "integrator_controls": {
+      "if (u022 != -1) {0c700(); return;} 0c700(); return;": "1408 B / 460 (identical to the == -1 identical-arm form)",
+      "if (u022 == -1) owner->unknown_068 = 1; then 0c700(); return;": "1424 B / 843",
+      "if (u022 == -1) return; then 0c700(); return;": "1408 B / 828",
+      "conclusion": "Only identical arms reproduce the dead zero-extended load plus separate exit; the original arms were likely identical after preprocessing (e.g. a macro). Unresolved."
+     }
     }
    }
   },
