@@ -438,7 +438,7 @@ typedef struct TitleTile {         /* 12-byte single-pixel tile primitive (code 
     unsigned long xy_008;
 } TitleTile;
 
-extern TitleObj *g_734e0;
+extern TitleObj *g_frame_owner_734e0;
 extern TitleTile *g_frame_global_73484;
 void eng1_03bd0(TitleObj *o);
 int eng1_31e30(char *obj, int *vec, int k);
@@ -471,15 +471,15 @@ void eng1_304f0(TitleObj *obj)
     dispatch_engine_2c6c0();
     span = (TitleSpan *)obj->stream_05c - 1;
     count = obj->w_036;
-    g_734e0->byte_023 = 0;
-    g_734e0->w_02c = obj->w_02c;
+    g_frame_owner_734e0->byte_023 = 0;
+    g_frame_owner_734e0->w_02c = obj->w_02c;
     acc = 0;
-    g_734e0->b_022 = obj->b_022;
-    g_734e0->w_04a = obj->w_04a;
+    g_frame_owner_734e0->b_022 = obj->b_022;
+    g_frame_owner_734e0->w_04a = obj->w_04a;
     if (flags & 0x100000) {
-        g_734e0->rot_070 = obj->rot_070;
+        g_frame_owner_734e0->rot_070 = obj->rot_070;
     } else {
-        g_734e0->rot_070.vx = g_734e0->rot_070.vy = g_734e0->rot_070.vz = 0;
+        g_frame_owner_734e0->rot_070.vx = g_frame_owner_734e0->rot_070.vy = g_frame_owner_734e0->rot_070.vz = 0;
     }
     z = obj->rot_070.vz;
     ot = &g_dispatch_frame_current_71ec4->ot[ENG1_OT_SIZE - 0x41 - obj->w_10];
@@ -501,26 +501,26 @@ void eng1_304f0(TitleObj *obj)
                 } else {
                     acc = span->z_008;
                 }
-                g_734e0->rot_070.vz = z - acc;
-                eng1_31e30((char *)&g_734e0->w_0c, (int *)span, acc);
+                g_frame_owner_734e0->rot_070.vz = z - acc;
+                eng1_31e30((char *)&g_frame_owner_734e0->w_0c, (int *)span, acc);
             } else {
                 if (flags & 0x400000) {
                     dispatch_engine_2c6c0();
                 }
-                eng1_31dc0((char *)&g_734e0->w_0c, (int *)span);
+                eng1_31dc0((char *)&g_frame_owner_734e0->w_0c, (int *)span);
             }
             id = span->id_00c;
-            e = (unsigned short *)g_5cee0[g_734e0->b_022].table_0c + (short)(id * 2);
+            e = (unsigned short *)g_5cee0[g_frame_owner_734e0->b_022].table_0c + (short)(id * 2);
             if (e[0] != 0) {
-                g_734e0->w_034 = id;
-                g_734e0->flags_054 = (obj->flags_054 & 0xffff0000) | span->flags_00e;
-                if ((g_734e0->flags_054 & 0x600) == 0x600) {
-                    g_734e0->pos_000.x = obj->pos_000.x + span->pos_000.x;
-                    g_734e0->pos_000.y = span->pos_000.y + obj->pos_000.y;
+                g_frame_owner_734e0->w_034 = id;
+                g_frame_owner_734e0->flags_054 = (obj->flags_054 & 0xffff0000) | span->flags_00e;
+                if ((g_frame_owner_734e0->flags_054 & 0x600) == 0x600) {
+                    g_frame_owner_734e0->pos_000.x = obj->pos_000.x + span->pos_000.x;
+                    g_frame_owner_734e0->pos_000.y = span->pos_000.y + obj->pos_000.y;
                 }
-                g_734e0->w_046 = e[1];
-                eng1_03bd0(g_734e0);
-                eng1_03cd0(g_734e0);
+                g_frame_owner_734e0->w_046 = e[1];
+                eng1_03bd0(g_frame_owner_734e0);
+                eng1_03cd0(g_frame_owner_734e0);
             }
         }
     }
@@ -579,9 +579,9 @@ typedef void (*TitleHandler)(TitleObj *o, unsigned char *p, int n);
 
 extern TitleCell g_72880[];
 extern signed char g_5e128[];
-extern int g_72868;
-extern unsigned int *g_70d28;
-extern unsigned char *g_70d30;
+extern int g_frame_setup_gate_72868;
+extern unsigned int *g_header_pointer_70d28;
+extern unsigned char *g_header_pointer_70d30;
 extern int g_6ffbc;
 extern int *g_70c44;
 void eng1_31d30(TitleObj *o, int k);
@@ -626,9 +626,9 @@ void eng1_30790(unsigned char *stream, TitleObj *obj, unsigned char count)
     TitlePrim *p;
 
     dispatch_engine_2c700(g_5ce50);
-    dispatch_engine_2c730(g_734e0->trans_078);
-    g_734e0->trans_078[1] += obj->w_028 * 2;
-    dispatch_engine_2c720(g_734e0->trans_078);
+    dispatch_engine_2c730(g_frame_owner_734e0->trans_078);
+    g_frame_owner_734e0->trans_078[1] += obj->w_028 * 2;
+    dispatch_engine_2c720(g_frame_owner_734e0->trans_078);
     v0.z = 0;
     v1.z = 0;
     v2.z = 0;
@@ -741,7 +741,7 @@ void eng1_30a20(unsigned char *stream, TitleObj *obj, unsigned char count)
     if (sel) {
         eng1_058e0(obj, ot);
     }
-    if (g_72868 != 0) {
+    if (g_frame_setup_gate_72868 != 0) {
         eng1_32810(obj, 0);
         dispatch_engine_2c6c0();
     }
@@ -1029,8 +1029,8 @@ void eng1_310e0(unsigned char *stream, TitleObj *p, unsigned char count)
 
 extern unsigned long g_6f4e8[8][64];
 extern int *g_70d50;
-extern int g_70cfc;
-extern unsigned long g_70cf4;
+extern int g_frame_global_70cfc;
+extern unsigned long g_frame_global_70cf4;
 
 unsigned long eng1_311a0(TitleObj *p)
 {
@@ -1061,7 +1061,7 @@ unsigned long eng1_311a0(TitleObj *p)
                 t1 = (((((v >> 16) & 0xff) - hi) * fx) >> 6) + hi;
                 v = (((t1 - t0) * fy) >> 6) + t0;
             }
-            base = g_70cfc & 0xff;
+            base = g_frame_global_70cfc & 0xff;
             v = (((v - base) * p->b_024) >> 10) + base;
             if (v < 0) {
                 v = 0;
@@ -1071,7 +1071,7 @@ unsigned long eng1_311a0(TitleObj *p)
             c = g_6f4e8[w & 7][v];
         }
     } else {
-        c = g_70cf4;
+        c = g_frame_global_70cf4;
     }
     n = p->w_04a;
     if (n != 0x80) {
@@ -1234,7 +1234,7 @@ int eng1_31540(TitleObj *o, unsigned char *q, unsigned long c)
     } else if (lvl > 0x1d) {
         lvl = 0x1d;
     }
-    rec = (TitlePair8 *)(g_70d28 + *(short *)q);
+    rec = (TitlePair8 *)(g_header_pointer_70d28 + *(short *)q);
     q += 2;
     k = *q;
     q += 2;
@@ -1246,7 +1246,7 @@ int eng1_31540(TitleObj *o, unsigned char *q, unsigned long c)
     } else {
         dispatch_engine_2c720(o->trans_078);
     }
-    uvt = g_70d30;
+    uvt = g_header_pointer_70d30;
     o->flags_01f |= 2;
     h = o->byte_023;
     dbl = o->flags_054 & 0x40;
@@ -1759,6 +1759,279 @@ void eng1_32130(TitleObj *o)
     dispatch_engine_2c760(&o->w_0c);
     dispatch_engine_2c730(o->trans_078);
     o->w_10 = (short)(o->trans_078[2] / 4);
+}
+
+/* ---- ENG1 tail 0x32300..0x32b10 (lane x8) ---- */
+
+typedef struct TrackRef {         /* 4-byte cell reference (g_header_pointer_70d54) */
+    unsigned short ref_000;
+    unsigned short unknown_002;
+} TrackRef;
+typedef struct TrackCell {        /* 16-byte track cell (g_header_pointer_70d58) */
+    long x;
+    long z;
+    unsigned long angle_008;
+    unsigned short ref_00c;
+    unsigned short row_00e;
+} TrackCell;
+
+extern long g_camera_z_70ca8;
+extern char g_group_count_70ece;
+extern short g_rebuilt_row_offsets_70e0c[32];
+extern short g_element_width_70d14;
+extern long *g_rebuilt_row_pointers_70dcc[16];
+extern TrackRef *g_header_pointer_70d54;
+extern TrackCell *g_header_pointer_70d58;
+extern TrackCell *g_frame_state_70c4c;
+extern int g_render_transform_70c60;
+extern int g_70c68;
+extern int g_70c6c;
+extern TitleMatrix g_5ce90;
+extern long g_mesh_scale_5ceb0[3];
+void dispatch_engine_2c940(TitleMatrix *m, long *s);
+
+int eng1_32300(TitleObj *o)
+{
+    short angles[3];
+    int t[3];
+    short *v;
+    TrackCell *cell;
+    TrackCell *pc;
+    int z, d;
+    short h;
+    int layer;
+    int row, column;
+    int key;
+    int curve, base;
+    int yaw;
+    int a, r, k;
+    int dx, dz, s, c;
+    int x, y;
+    unsigned long packed;
+
+    z = (short)(o->z_008 >> 16);
+    d = z - g_camera_z_70ca8;
+    if (d < 0x20) {
+        return -1;
+    }
+    h = z - g_camera_z_base_70d1c;
+    layer = (z + 0x40) >> 7;
+    if (layer < 0) {
+        layer = 0;
+    } else if (layer > g_group_count_70ece - 1) {
+        layer = g_group_count_70ece - 1;
+    }
+    column = o->pos_000.y >> 16;
+    row = o->pos_000.x >> 16;
+    column = (short)column >> 6;
+    row = ((short)row >> 6) - g_rebuilt_row_offsets_70e0c[layer + 16];
+    if ((unsigned int)row > (unsigned int)(g_rebuilt_row_offsets_70e0c[layer] - 1)) {
+        row = g_rebuilt_row_offsets_70e0c[layer] - 1;
+    }
+    if ((unsigned int)column > (unsigned int)(g_element_width_70d14 - 1)) {
+        column = g_element_width_70d14 - 1;
+    }
+    key = (g_rebuilt_row_pointers_70dcc[layer][g_element_width_70d14 * row + column] >> 11) & 0x1fff;
+    cell = &g_header_pointer_70d58[g_header_pointer_70d54[key].ref_000];
+    pc = &g_header_pointer_70d58[cell->ref_00c];
+    o->w_02c = key >> 16;
+    curve = cell->row_00e >> 14;
+    base = cell->row_00e & 0x3fff;
+    yaw = g_70c70;
+    packed = pc->angle_008;
+    if (curve == 0) {
+        r = -((packed & 0xfff) + yaw);
+        if (g_frame_state_70c4c != pc) {
+            g_frame_state_70c4c = pc;
+            dx = pc->x - g_render_transform_70c60;
+            dz = pc->z - g_70c68;
+            s = g_sine_table_70f34[yaw & 0xfff];
+            c = g_sine_table_70f34[(yaw - 0x400) & 0xfff];
+            dz >>= 6;
+            dx >>= 6;
+            g_5ce90.t[0] = ((dx * s - dz * c) >> 18) << 1;
+            g_5ce90.t[1] = 0;
+            g_5ce90.t[2] = (d - h + ((dz * s + dx * c) >> 18)) * 2;
+            angles[0] = (short)g_70c6c;
+            angles[1] = (short)r;
+            angles[2] = 0;
+            dispatch_engine_2c920((unsigned short *)angles, (unsigned char *)&g_5ce90);
+            dispatch_engine_2c940(&g_5ce90, g_mesh_scale_5ceb0);
+        }
+        dispatch_engine_2c700(&g_5ce90);
+        dispatch_engine_2c710(&g_5ce90);
+        v = (short *)g_engine_interface.data_010;
+        v[0] = (short)((o->pos_000.x >> 16) - (base << 6));
+        v[1] = (short)((o->pos_000.y >> 16) - g_70c64);
+        v[2] = h;
+        dispatch_engine_2c690(v);
+        dispatch_engine_2c6e0();
+        return r * 2;
+    }
+    a = (packed >> 24) + yaw;
+    if (g_frame_state_70c48 != (int)pc) {
+        g_frame_state_70c48 = (int)pc;
+        dx = (pc->x - g_render_transform_70c60) >> 6;
+        dz = (pc->z - g_70c68) >> 6;
+        s = g_sine_table_70f34[yaw & 0xfff];
+        c = g_sine_table_70f34[(yaw - 0x400) & 0xfff];
+        x = (dx * s - dz * c) >> 6;
+        y = (dz * s + dx * c) >> 6;
+        if (curve == 1) {
+            k = a + 0x400;
+        } else {
+            k = a - 0x400;
+        }
+        g_5ce70.t[0] = ((x + g_sine_table_70f34[k & 0xfff] * 0x28c) >> 12) << 1;
+        g_5ce70.t[1] = 0;
+        g_5ce70.t[2] = (((y + g_sine_table_70f34[(k - 0x400) & 0xfff] * 0x28c) >> 12) << 1) + (d - h) * 2;
+        angles[0] = (short)g_70c6c;
+        angles[1] = 0;
+        angles[2] = 0;
+        dispatch_engine_2c920((unsigned short *)angles, (unsigned char *)&g_5ce70);
+        dispatch_engine_2c940(&g_5ce70, g_mesh_scale_5ceb0);
+    }
+    dispatch_engine_2c700(&g_5ce70);
+    if (curve == 1) {
+        r = (base << 6) - (short)(o->pos_000.x >> 16) - a;
+        k = h - 0x28c;
+        a = r - 0x400;
+    } else {
+        r = (short)(o->pos_000.x >> 16) - (base << 6) - a;
+        k = h + 0x28c;
+        a = r + 0x400;
+    }
+    if (o->flags_054 & 0x1000) {
+        x = o->w_014;
+        z = o->w_018;
+        s = g_sine_table_70f34[yaw & 0xfff];
+        c = g_sine_table_70f34[(yaw - 0x400) & 0xfff];
+        t[0] = ((x * s - z * c) >> 12) + g_5ce70.t[0];
+        t[1] = o->w_016 + g_5ce70.t[1];
+        t[2] = ((z * s + x * c) >> 12) + g_5ce70.t[2];
+        dispatch_engine_2c720(t);
+    } else {
+        dispatch_engine_2c710(&g_5ce70);
+    }
+    v = (short *)g_engine_interface.data_010;
+    v[0] = (short)((g_sine_table_70f34[-a & 0xfff] * k) >> 12);
+    v[2] = (short)((g_sine_table_70f34[(-0x400 - a) & 0xfff] * k) >> 12);
+    v[1] = (short)((o->pos_000.y >> 16) - g_70c64);
+    dispatch_engine_2c690(v);
+    dispatch_engine_2c6e0();
+    return r * 2;
+}
+
+extern int g_camera_angle_x_70cd0;
+void eng1_2c900(short *r, int *m);
+
+void eng1_32810(TitleObj *o, int v)
+{
+    short src[4];
+    int scale[4];
+    int m[8];
+    unsigned int flags;
+    int s;
+
+    flags = o->flags_054;
+    src[0] = (short)((o->rot_070.vx << 2) + g_camera_angle_x_70cd0);
+    src[1] = (short)(v / 2 + (o->rot_070.vy << 2));
+    src[2] = (short)(o->rot_070.vz << 2);
+    if (flags & 0x4000) {
+        eng1_2c900(src, m);
+    } else {
+        dispatch_engine_2c920((unsigned short *)src, (unsigned char *)m);
+    }
+    if (flags & 0x80) {
+        scale[0] = o->w_03a << 5;
+        scale[1] = o->w_03c << 5;
+        scale[2] = o->w_03e << 5;
+    } else if (o->w_03a != 0x100) {
+        s = o->w_03a << 5;
+        scale[2] = s;
+        scale[1] = s;
+        scale[0] = s;
+    } else {
+        dispatch_engine_2c940((TitleMatrix *)m, g_mesh_scale_5ceb0);
+        dispatch_engine_2c700(m);
+        return;
+    }
+    dispatch_engine_2c940((TitleMatrix *)m, (long *)scale);
+    dispatch_engine_2c700(m);
+}
+
+void eng1_32920(TitleObj *o, int *vals, int count)
+{
+    short v[4];
+    unsigned char *dst;
+    unsigned char *dst4;
+    int a;
+    short ang, r;
+
+    if (o->flags_054 & 0x2000000) {
+        dst = (unsigned char *)g_engine_interface.data_010 + 0x10;
+        dst4 = dst + 4;
+        do {
+            a = *vals++;
+            ang = (short)((a >> 8) + 0x400);
+            r = (short)((signed char)a - 0x28c);
+            v[0] = (short)((g_sine_table_70f34[ang & 0xfff] * r) >> 12);
+            v[2] = (short)((g_sine_table_70f34[(ang - 0x400) & 0xfff] * r) >> 12);
+            v[1] = (short)(a >> 24);
+            dispatch_engine_2c760(dst);
+            dispatch_engine_2c7a0(dst4);
+            dispatch_engine_2c690(v);
+            dispatch_engine_2c6e0();
+            dst += 8;
+            dst4 += 8;
+        } while (--count);
+        dispatch_engine_2c760(dst);
+        dispatch_engine_2c7a0(dst + 4);
+        o->w_10 -= 0x146;
+    } else {
+        eng1_318d0((int)o, vals, count);
+    }
+}
+
+void eng1_32a30(TitleObj *o, int *vals, int count)
+{
+    int pair[2];
+    TitlePair8 *dst;
+    int a;
+
+    dst = (TitlePair8 *)((char *)g_engine_interface.data_010 + 0x10);
+    do {
+        a = *vals++;
+        pair[0] = (a >> 8) << 1;
+        pair[1] = (signed char)a << 1;
+        dispatch_engine_2c690(pair);
+        dispatch_engine_2c6e0();
+        dst++;
+        dispatch_engine_2c760(dst);
+        dst->b_04 = 0xc00;
+    } while (--count);
+}
+
+void eng1_32aa0(TitleObj *o, int *vals, int count)
+{
+    int pair[2];
+    unsigned char *dst;
+    unsigned char *dst4;
+    int a;
+
+    dst = (unsigned char *)g_engine_interface.data_010 + 0x10;
+    dst4 = dst + 4;
+    do {
+        a = *vals++;
+        pair[0] = (a >> 8) << 1;
+        pair[1] = (signed char)a << 1;
+        dispatch_engine_2c690(pair);
+        dispatch_engine_2c6e0();
+        dst += 8;
+        dst4 += 8;
+        dispatch_engine_2c760(dst);
+        dispatch_engine_2c7a0(dst4);
+    } while (--count);
 }
 
 } /* extern "C" */

@@ -1,0 +1,31 @@
+{
+ "date": "2026-10-20",
+ "lane": "x8",
+ "module": "ENG1.DLL",
+ "units": {
+  "calibration/eng1/render_unit_30010.cpp": "tail 0x32300..0x32b10 appended (pure append; existing 16 masked + 6 RECONSTRUCTED rows re-verified unchanged): 0x32920, 0x32a30, 0x32aa0 masked equal; 0x32300 (972 B, allocation/spills) and 0x32810 (8 B, operand order of (vy<<2) + v/2) RECONSTRUCTED",
+  "calibration/eng1/status_panel_32b10.c": "new C unit 0x32b10..0x34000 (status panel, loads stpanel1.dat, level actor handlers; separate .bss 0x70800..0x7083c and callees): 16 masked equal; 0x32bd0 (824 B), 0x33830 (70), 0x33990 (45) RECONSTRUCTED; 0x33420 compiles 496 of 512 B, unrecorded"
+ },
+ "header_measurements": [
+  "render unit <string.h> (pending hypothesis): with it 0x32300 is size-exact (972 B) and 0x32810 8 B; without it 0x32300 compiles 1280 B and 0x32810 13 B; the three equal tail entries are equal either way",
+  "status panel <stdlib.h> has a real use (abs in 0x33990); with it 0x33f30 equal, with a bare abs prototype 0x33f30 differs 40 B",
+  "signed render_flags or direction_x would also equalise 0x33f30; not adopted (no independent support)"
+ ],
+ "forms": [
+  "0x32bd0 timer is (t + 30) / 60",
+  "0x70820 panel state is one aggregate struct (dword load + mask at 4-aligned members, byte/word loads otherwise)",
+  "0x32bd0 k==0 branch does height -= level before the shared rest draw"
+ ],
+ "extent": [
+  "census size of 0x32bd0 (1024) is wrong; real 2128 (0x850)",
+  "0x33420 compiles 16 B short of the 512-B map span"
+ ],
+ "identity": [
+  "g_native_word_70832 is member +0x12 of the 0x70820 panel state",
+  "g_frame_state_70c48/70c4c are cached track-cell pointers (curved/straight)",
+  "g_70c64/g_70c70 are elements of g_render_transform_70c60[] (x, y, z, pitch, yaw)",
+  "dispatch_engine_2c7c0 returns unsigned short (control_unit_2c030.c declares int)",
+  "0x6ffc8 two colours, fade level 0x6ffd0; 0x6eee8 timer g_context_sequence_index; 0x6fe78 counted actor list; 0x71714 spatial-sound word-list pointer (set to 0x60268 by 0x33700)",
+  "ENG3 0x25620 = ENG1 0x33620 except frame-buffer slot offset (0x2070 vs 0x1374); ENG3 0x25060/0x250f0 are counterparts of 0x32b10/0x32bd0"
+ ]
+}
