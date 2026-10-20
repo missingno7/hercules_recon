@@ -1,0 +1,267 @@
+{
+ "date": "2026-10-20",
+ "scope": "Diagnostic census of existing source with reviewed RVA/symbol mappings that recovery.json did not record. Masked equality is never FUNCTION_MATCH.",
+ "method": "scripts/census.py: harvest (module, rva, symbol, source) from evidence JSON (symbol/rva rows, symbol_rvas maps) and evidence/eng1_behavioral_build.json; compile each source once with pinned VC5 RTM /O2 /Gy; masked_compare the compiled contribution at the mapped RVA.",
+ "baseline": {
+  "strict_rows": 134,
+  "masked_rows_verified": 449,
+  "note": "Four sources edited in de17c6f had stale proof hashes; masked identities were unchanged and proofs were refreshed in 8fdf77b."
+ },
+ "recorded": {
+  "functions": 102,
+  "bytes": 5104,
+  "by_module": {
+   "ENG1.DLL": 100,
+   "HERCULES.EXE": 2
+  },
+  "sources": 37,
+  "mechanism": "similar.py stage with \"in_place\": the existing provider is recorded where it lives (no copy, no rewrite); its other defined functions are pinned in each proof as co_defined_functions and verify requires that exact set.",
+  "duplicate_rva": "ENG1 0x218f0 has two equal providers (refinery_blind.c _reset_effect, actor_links.c _finish_actor); the behavioral-graph provider actor_links.c was recorded."
+ },
+ "after": {
+  "masked_rows_verified": 551,
+  "strict_rows": 134,
+  "tests": "all pass"
+ },
+ "remaining_unrecorded_compiled": {
+  "distinct_functions": 167,
+  "bands_functions": {
+   "1-8": 12,
+   "9-32": 19,
+   "33-128": 45,
+   ">128": 91
+  },
+  "bands_bytes": {
+   "1-8": 1376,
+   "9-32": 1344,
+   "33-128": 5328,
+   ">128": 54960
+  },
+  "nearest": [
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x28360",
+    "size": 64,
+    "nonreloc_differing": 1,
+    "conflicts": 0,
+    "symbol": "_allocate_command",
+    "source": "src/eng1/behavioral/command_table.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x274e0",
+    "size": 64,
+    "nonreloc_differing": 1,
+    "conflicts": 0,
+    "symbol": "_eng1_call_274e0",
+    "source": "src/eng1/behavioral/pool_startup.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x27fa0",
+    "size": 64,
+    "nonreloc_differing": 1,
+    "conflicts": 0,
+    "symbol": "_eng1_call_27fa0",
+    "source": "src/eng1/behavioral/pool_startup.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x27db0",
+    "size": 112,
+    "nonreloc_differing": 2,
+    "conflicts": 0,
+    "symbol": "_spawn_kind",
+    "source": "calibration/actor_factories.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x1310",
+    "size": 176,
+    "nonreloc_differing": 2,
+    "conflicts": 0,
+    "symbol": "_eng1_native_code_target_001310",
+    "source": "src/eng1/behavioral/eng1_default_callbacks.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x1040",
+    "size": 176,
+    "nonreloc_differing": 2,
+    "conflicts": 0,
+    "symbol": "_eng1_native_code_target_001040",
+    "source": "src/eng1/behavioral/eng1_default_callbacks.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x279f0",
+    "size": 96,
+    "nonreloc_differing": 2,
+    "conflicts": 0,
+    "symbol": "_eng1_call_279f0",
+    "source": "src/eng1/behavioral/pool_startup.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x271d0",
+    "size": 144,
+    "nonreloc_differing": 4,
+    "conflicts": 0,
+    "symbol": "_spawn_normal",
+    "source": "calibration/actor_factories.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x2f30",
+    "size": 112,
+    "nonreloc_differing": 4,
+    "conflicts": 0,
+    "symbol": "_dispatch_local_02f30",
+    "source": "src/eng1/behavioral/level_loading.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x2af80",
+    "size": 96,
+    "nonreloc_differing": 6,
+    "conflicts": 2,
+    "symbol": "_initialize_pending_action_groups",
+    "source": "calibration/registry_allocation.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x29320",
+    "size": 208,
+    "nonreloc_differing": 8,
+    "conflicts": 0,
+    "symbol": "_change_kind",
+    "source": "calibration/macro_actor.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x19440",
+    "size": 64,
+    "nonreloc_differing": 8,
+    "conflicts": 1,
+    "symbol": "_dispatch_local_19440",
+    "source": "src/eng1/behavioral/setup_source.c"
+   },
+   {
+    "module": "HERCULES.EXE",
+    "rva": "0x4470",
+    "size": 160,
+    "nonreloc_differing": 10,
+    "conflicts": 2,
+    "symbol": "_reinitialize_pool0",
+    "source": "calibration/host_arena_reset.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x27cd0",
+    "size": 112,
+    "nonreloc_differing": 11,
+    "conflicts": 0,
+    "symbol": "_attach_actor",
+    "source": "src/eng1/behavioral/actor_links.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x3470",
+    "size": 96,
+    "nonreloc_differing": 11,
+    "conflicts": 0,
+    "symbol": "_dispatch_local_03470",
+    "source": "src/eng1/behavioral/level_loading.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x1e30",
+    "size": 32,
+    "nonreloc_differing": 12,
+    "conflicts": 0,
+    "symbol": "_eng1_native_code_target_001e30",
+    "source": "src/eng1/behavioral/eng1_default_callbacks.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x2ef60",
+    "size": 16,
+    "nonreloc_differing": 12,
+    "conflicts": 1,
+    "symbol": "_dispatch_local_2ef60",
+    "source": "src/eng1/behavioral/mesh_prepare.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x3ca10",
+    "size": 64,
+    "nonreloc_differing": 14,
+    "conflicts": 2,
+    "symbol": "_eng1_native_code_target_003ca10",
+    "source": "src/eng1/behavioral/forest_level_initializer_3ca10.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x5600",
+    "size": 96,
+    "nonreloc_differing": 14,
+    "conflicts": 2,
+    "symbol": "_dispatch_local_05600",
+    "source": "src/eng1/behavioral/frame_commands.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x83d3",
+    "size": 16,
+    "nonreloc_differing": 16,
+    "conflicts": 0,
+    "symbol": "_dispatch_local_083d3",
+    "source": "src/eng1/behavioral/audio_behavior.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x15670",
+    "size": 48,
+    "nonreloc_differing": 16,
+    "conflicts": 2,
+    "symbol": "_dispatch_local_15670",
+    "source": "src/eng1/behavioral/setup_leaf_dependencies.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x2c9b0",
+    "size": 32,
+    "nonreloc_differing": 20,
+    "conflicts": 1,
+    "symbol": "_dispatch_local_2c9b0",
+    "source": "src/eng1/behavioral/frame_runtime_callees.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x2a810",
+    "size": 112,
+    "nonreloc_differing": 20,
+    "conflicts": 0,
+    "symbol": "_point_in_box_2a810",
+    "source": "src/eng1/behavioral/point_in_box_2a810.c"
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x21980",
+    "size": 96,
+    "nonreloc_differing": 23,
+    "conflicts": 0,
+    "symbol": "_initialize_sound_effect",
+    "source": "calibration/refinery_blind.c"
+   }
+  ]
+ },
+ "strict_lead": {
+  "module": "ENG1.DLL",
+  "rva": "0xf380",
+  "size": 48,
+  "symbol": "_eng1_native_code_target_00f380",
+  "source": "src/eng1/behavioral/spatial_effects.c",
+  "note": "Relocation-free and raw-equal; now a masked row. Strict promotion needs a src/ provider defining only strict rows; not done yet."
+ }
+}

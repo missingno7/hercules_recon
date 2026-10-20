@@ -1,0 +1,34 @@
+{
+ "date": "2026-10-20",
+ "source": {
+  "url": "https://github.com/obaidr1/hercules-recompiled",
+  "commit": "747d4de22ad695ed45eec6e000cebedaea38b20e",
+  "version": "0.5.5",
+  "licence": "No licence file for the repository code (treat as all rights reserved); port/psxrecomp submodule PolyForm Noncommercial 1.0.0."
+ },
+ "what": "PSX PAL (SCES-00891..00895, reference SCES-00893) static recompilation (MIPS machine-translated C) plus an early splat/GCC 2.7.2 decomp of the boot executable. No PC addresses, names, bodies or layouts; no game data in git.",
+ "policy": "Evidence of behaviour/format only. No body, translated code or text is copied into Hercules source. Addresses do not transfer to the PC binaries.",
+ "pc_correspondences_verified": [
+  {
+   "pc": "ENG1 0x1005e120 bytes 01 03 05 0F",
+   "psx": "quadrant-mask table D_8006AAB8 {1,3,5,15} (decomp/docs/sprite_format.md)"
+  },
+  {
+   "pc": "ENG1 0x1005e138 slot-to-field-id table",
+   "psx": "D_8006AACC"
+  },
+  {
+   "pc": "ENG1 RVA 0x4ca0 uses both tables",
+   "psx": "func_8003F9D4 sprite-cell VRAM slot allocator"
+  },
+  {
+   "pc": "g_frame_upload_coordinates_734a0[32], flush at >= 32",
+   "psx": "32-entry upload queue flushed when full"
+  }
+ ],
+ "leads": [
+  "ENG1 sprite/VRAM-cache region RVA ~0x4010..0x5400 (other users of 0x1005e128: 0x4010, 0x4330, 0x48b0, 0x51d0, 0x30790, 0x30a20)",
+  "level/resource header and object field +0x23 render mode / +0x34 model index hypotheses (decomp/docs/level_format.md)",
+  "PSX TITLE task table 16 x 0x18 (handler, step, countdown) and step constants; PC correspondence unestablished"
+ ]
+}

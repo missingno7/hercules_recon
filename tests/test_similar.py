@@ -57,6 +57,21 @@ class MaskedInputTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'different module'):
                 similar.summary('TEST.DLL', mapping)
 
+    def test_unpinned_co_defined_function_rejected(self):
+        patches = (patch.object(similar, 'compile_source', return_value=(self.root / 'fake.obj', [])),
+                   patch.object(similar.sqlite3, 'connect'),
+                   patch.object(similar, 'defined_functions', return_value={'_sample', '_other'}),
+                   patch.object(similar, 'interior_entries', return_value=0))
+        for p in patches:
+            p.start()
+        with self.assertRaisesRegex(ValueError, 'pinned co-defined'):
+            similar.check_rows([self.row], 'candidate.c')
+        with self.assertRaisesRegex(ValueError, 'pinned co-defined'):
+            similar.check_rows([self.row], 'candidate.c', ['_third'])
+        with patch.object(similar, 'masked_compare', return_value=dict(masked_equal=True)), \
+             patch.object(similar, 'masked_identity', return_value='diagnostic'):
+            self.assertIn('test.sample', similar.check_rows([self.row], 'candidate.c', ['_other']))
+
     def test_oracle_changed_after_comparison_rejected(self):
         def mutate(*args):
             self.target.write_bytes(b'changed during comparison')

@@ -7,7 +7,9 @@ verify         recompile every masked row's source and recheck it.
 
 Plan: {"source": "calibration/<module>/<region>.c", "candidate": "...c", "module": "TITLE.DLL",
        "functions": [{"rva", "size", "symbol", "evidence"}]}
-A region file must define exactly the functions recorded for it. Masked equality is
+A region file must define exactly the functions recorded for it. An existing provider can instead be
+staged in place ("in_place": true, no candidate): it is never rewritten, and every other function it
+defines is pinned by name in each row's proof (co_defined_functions); verify requires that exact set. Masked equality is
 never FUNCTION_MATCH: only a natural link that places the real bytes can promote.
 """
 import argparse
@@ -47,7 +49,7 @@ def interior_entries(db, module, rva, size):
                       (module, rva, rva + size, rva, rva + size)).fetchone()[0]
 
 
-def check_rows(rows, source):
+def check_rows(rows, source, co_defined=()):
     # The complete oracle identity belongs to each row, even when a changed
     # image happens to retain these function bytes. Masked equality cannot
     # establish that identity by itself.
@@ -68,8 +70,10 @@ def check_rows(rows, source):
         raise ValueError('Source changed during compilation')
     db = sqlite3.connect(DB)
     expected = {r['symbol'] for r in rows}
-    if defined_functions(obj) != expected:
-        raise ValueError(f'{source} must define exactly {sorted(expected)}; found {sorted(defined_functions(obj))}')
+    defined = defined_functions(obj)
+    if not expected <= defined or defined - expected != set(co_defined):
+        raise ValueError(f'{source} must define exactly {sorted(expected)} plus pinned co-defined '
+                         f'{sorted(co_defined)}; found {sorted(defined)}')
     results = {}
     for r in rows:
         module = Path(r['target']).name.upper()
@@ -97,7 +101,14 @@ def write_state(state):
 def stage(plan_path):
     plan = json.loads(Path(plan_path).read_text())
     source = plan['source']
-    if not (ROOT / source).resolve().is_relative_to((ROOT / 'calibration').resolve()):
+    in_place = bool(plan.get('in_place'))
+    if in_place:
+        # Existing provider recorded where it already lives (no copy, no rewrite).
+        if not any((ROOT / source).resolve().is_relative_to((ROOT / d).resolve()) for d in ('calibration', 'src')):
+            raise ValueError('In-place masked providers belong under calibration/ or src/')
+        if plan.get('candidate') or plan.get('replaces'):
+            raise ValueError('In-place staging takes no candidate or replaced sources')
+    elif not (ROOT / source).resolve().is_relative_to((ROOT / 'calibration').resolve()):
         raise ValueError('Masked reconstructions belong under calibration/')
     db = sqlite3.connect(DB)
     module = plan['module']
@@ -116,6 +127,8 @@ def stage(plan_path):
     if any(r['status'] != 'CODEGEN_SIMILAR' or r.get('proof', {}).get('scope') != SCOPE for r in moved):
         raise ValueError('Only masked rows can be moved')
     existing = [r for r in state['functions'] if r.get('source') == source]
+    if in_place and any(r['status'] != 'CODEGEN_SIMILAR' or r.get('proof', {}).get('scope') != SCOPE for r in existing):
+        raise ValueError('In-place staging only extends sources whose recorded rows are all masked rows')
     prior_evidence = {(r['rva'], r['symbol']): r['evidence'] for r in moved}
     rows = []
     for f in plan['functions']:
@@ -137,7 +150,20 @@ def stage(plan_path):
                          source=source, symbol=f['symbol'], flags=['/O2'], evidence=evidence,
                          boundary=BOUNDARY))
     keep = [r for r in existing if (r['rva'], r['symbol']) not in {(x['rva'], x['symbol']) for x in rows}]
-    content = (ROOT / plan['candidate']).read_bytes().replace(b'\r\n', b'\n')
+    if in_place:
+        content = (ROOT / source).read_bytes()
+        if b'\r' in content:
+            raise ValueError('In-place provider must already be LF text')
+        obj, _ = compile_source(ROOT / source, ['/O2'])
+        co_defined = sorted(defined_functions(obj) - {r['symbol'] for r in keep + rows})
+        results = check_rows(keep + rows, source, co_defined)
+        if STATE.read_bytes() != state_before or (ROOT / source).read_bytes() != content:
+            raise ValueError('recovery.json or source changed during staging')
+        _record(state, existing, moved, keep, rows, results, content, co_defined)
+        print(f'Staged {len(rows)} CODEGEN_SIMILAR rows ({len(keep)} retained) in place in {source}; '
+              f'{len(co_defined)} pinned co-defined functions')
+        return
+    content =(ROOT / plan['candidate']).read_bytes().replace(b'\r\n', b'\n')
     # Worker lanes include shared calibration headers from candidates/<lane>/.
     installed = (ROOT / source).parent
     for header in sorted((ROOT / 'calibration').rglob('*.h')):
@@ -158,6 +184,14 @@ def stage(plan_path):
         else:
             destination.write_bytes(before)
         raise
+    _record(state, existing, moved, keep, rows, results, content, [])
+    for old in replaces:
+        (ROOT / old).unlink(missing_ok=True)
+    print(f'Staged {len(rows)} CODEGEN_SIMILAR rows ({len(keep)} retained) in {source}'
+          + (f'; replaced {len(replaces)} sources' if replaces else ''))
+
+
+def _record(state, existing, moved, keep, rows, results, content, co_defined):
     toolchain = verify_toolchain(DEFAULT_TOOLCHAIN)
     replaced = {r['id'] for r in existing} | {r['id'] for r in moved}
     state['functions'] = [r for r in state['functions'] if r['id'] not in replaced]
@@ -166,12 +200,10 @@ def stage(plan_path):
         r['link_symbols'] = res['symbols']
         r['proof'] = dict(scope=SCOPE, source_sha256=digest(content), masked_sha256=res['masked_sha256'],
                           toolchain=toolchain)
+        if co_defined:
+            r['proof']['co_defined_functions'] = list(co_defined)
         state['functions'].append(r)
     write_state(state)
-    for old in replaces:
-        (ROOT / old).unlink(missing_ok=True)
-    print(f'Staged {len(rows)} CODEGEN_SIMILAR rows ({len(keep)} retained) in {source}'
-          + (f'; replaced {len(replaces)} sources' if replaces else ''))
 
 
 def verify(report=None):
@@ -186,7 +218,7 @@ def verify(report=None):
             failures.append(f'{source}: source differs from recorded proof')
             continue
         try:
-            results = check_rows(rows, source)
+            results = check_rows(rows, source, rows[0]['proof'].get('co_defined_functions', ()))
         except ValueError as error:
             failures.append(f'{source}: {error}')
             continue
