@@ -4,7 +4,12 @@
  "tools": "work/converge/titlelane.py (scratch unit copy and whole-unit check) and work/converge/integrate_title.py (install, in-place stage, RECONSTRUCTED rows with measured proofs); diagnostic helpers outside the gate.",
  "lanes": {
   "tE u09a40.c": {
-   "functions": {"0xa450": {"span": 7408, "result": "MASKED EQUAL"}},
+   "functions": {
+    "0xa450": {
+     "span": 7408,
+     "result": "MASKED EQUAL"
+    }
+   },
    "causes": [
     "TitlePadMap.button must be short (unsigned short gives 7440 bytes).",
     "The delay test is written as if (g_2a210 == 0) {...} else g_2a210--; which places the decrement at 0xb6cc.",
@@ -14,22 +19,113 @@
   },
   "tD u09a40.c": {
    "functions": {
-    "0x9a40": {"span": 592, "size_exact": true, "nonreloc": 202},
-    "0x9c90": {"span": 912, "size_exact": true, "nonreloc": 163},
-    "0xa020": {"span": 736, "size_exact": true, "nonreloc": 278}
+    "0x9a40": {
+     "span": 592,
+     "size_exact": true,
+     "nonreloc": 202
+    },
+    "0x9c90": {
+     "span": 912,
+     "size_exact": true,
+     "nonreloc": 163
+    },
+    "0xa020": {
+     "span": 736,
+     "size_exact": true,
+     "nonreloc": 278
+    }
    },
    "cause": "One effect: in the 999-loop calls to title_054f0 the original allocates the sound value first (movsx eax,[eax+T+2], reusing the dying index register) and the object pointer second (ecx); ours allocates the pointer first, the value lands in edx and later rotor choices shift. A diagnostic callee with swapped parameters leaves only the two swapped push pairs (4 bytes). The isolated loop also yields edx, so whole-function context (rotor across earlier-emitted cases) or IR argument order is involved.",
-   "inert": ["value or pointer locals (function/block scope, register, short)", "int/unsigned/long/short casts", "0x4000U/0x4000L", "swapped OR operands", "(T+1)[i] and (&T[i])[1]", "inline value helpers", "old-style or missing prototype", "extern instead of static", "object pointers as one array", "volatile object pointers", "for/while/do/goto/comma loop shapes"],
-   "worse": ["volatile tables or indices", "increment before the call", "increment inside the argument"]
+   "inert": [
+    "value or pointer locals (function/block scope, register, short)",
+    "int/unsigned/long/short casts",
+    "0x4000U/0x4000L",
+    "swapped OR operands",
+    "(T+1)[i] and (&T[i])[1]",
+    "inline value helpers",
+    "old-style or missing prototype",
+    "extern instead of static",
+    "object pointers as one array",
+    "volatile object pointers",
+    "for/while/do/goto/comma loop shapes"
+   ],
+   "worse": [
+    "volatile tables or indices",
+    "increment before the call",
+    "increment inside the argument"
+   ]
   },
   "tB r04d80.c": {
    "functions": {
-    "0x4fe0": {"span": 160, "size_exact": true, "nonreloc": 45, "residue": "Commutative OR operand order (y&0x100 vs y&0x200 terms), a TU tie-break; lean windows.h gives 6 but breaks 0x4dd0. Exact size needs a pointer-cursor loop. ENG3 0x8a80 is the same function (51 bytes with this source)."},
-    "0x54f0": {"span": 1408, "status": "not integrated",
-               "best": "1408 bytes / 460 non-relocation differing with an always-false identical-arm compare (owner->unknown_022 == -1) that reproduces the original's dead zero-extended load and separate exit; 1392 bytes / 848 without it.",
-               "decision_needed": "Owner ruling: the identical-arm compare is dead code that steers the compiler (AGENTS.md forbids it in accepted source). Kept in candidates/tB only.",
-               "residue": "Linked 0x4000 block: the original re-reads [g_29dc0+0x34]; ours reuses the stored value. Volatile on that one store reproduces the reload shape (443), then a cyclic esi/edi/ebp permutation remains."}
+    "0x4fe0": {
+     "span": 160,
+     "size_exact": true,
+     "nonreloc": 45,
+     "residue": "Commutative OR operand order (y&0x100 vs y&0x200 terms), a TU tie-break; lean windows.h gives 6 but breaks 0x4dd0. Exact size needs a pointer-cursor loop. ENG3 0x8a80 is the same function (51 bytes with this source)."
+    },
+    "0x54f0": {
+     "span": 1408,
+     "status": "not integrated",
+     "best": "1408 bytes / 460 non-relocation differing with an always-false identical-arm compare (owner->unknown_022 == -1) that reproduces the original's dead zero-extended load and separate exit; 1392 bytes / 848 without it.",
+     "decision_needed": "Owner ruling: the identical-arm compare is dead code that steers the compiler (AGENTS.md forbids it in accepted source). Kept in candidates/tB only.",
+     "residue": "Linked 0x4000 block: the original re-reads [g_29dc0+0x34]; ours reuses the stored value. Volatile on that one store reproduces the reload shape (443), then a cyclic esi/edi/ebp permutation remains."
+    }
    }
+  },
+  "tC u06bb0.cpp + u0c1f0.c": {
+   "functions": {
+    "0x94c0": "MASKED EQUAL (272)",
+    "0x95d0": "MASKED EQUAL (416)",
+    "0xc1f0": "MASKED EQUAL (128, exported PC_DLLEngineMain)"
+   },
+   "causes": [
+    "0xc1f0: struct assignment for the 1000-byte interface copy (rep movsd); unsigned long signature index; a separate second if (g_257e8 == 0) block reproduces the unfolded zero test (old blocker B3).",
+    "0x95d0 and 0x94c0: statement order only (pool fields in struct order then cursors then dwords; zero runs written as blocks)."
+   ],
+   "twins": "0xc1f0 = ENG1 0x2c180 = ENG3 0x1f830 (PC_DLLEngineMain in every DLL); 0x95d0 = ENG3 0x1d9b0; 0x94c0 = ENG1 0x27fe0 / ENG3 0x1d8a0 without the null test."
+  },
+  "tG r16110.c": {
+   "functions": {
+    "0x164b0": {
+     "span": 5664,
+     "size_exact": true,
+     "nonreloc": 17
+    }
+   },
+   "origin": "Surviving behavioral draft src/title/behavioral/input_boot.c reproduced the lost 17-byte draft; static names are layout-chosen (owner policy).",
+   "residue": "Scheduling only: a stack store after title_0cc80 precedes the call cleanup in ours; micro-tests tie it to a possible-alias store through the context pointer; /Oa reproduces it but breaks all reloads (not the original build). Inert: types, scope, const, C++, /G3-/G6, RTM/SP2/SP3/VC6."
+  },
+  "tI u197f0.c": {
+   "functions": {
+    "0x1c500": {
+     "span": 3712,
+     "compiled": 3696,
+     "size_exact": false,
+     "nonreloc": 1660
+    }
+   },
+   "origin": "Behavioral draft tally.inc plus PSX TITLE v1.0 0x8004bc28 evidence (real k<4 loops unrolled by VC5).",
+   "decision": "Adopted the faithful 3696-byte source; a size-exact variant existed only through cancelling errors.",
+   "residue": "Register/operand order only: level-switch cases 3/5/6 merge into a shared tail (16 bytes), 0xffff loop registers, percentage numerator load order (context)."
+  },
+  "tF u0cc90.c": {
+   "functions": {
+    "0xd910": {
+     "span": 6992,
+     "size_exact": true,
+     "nonreloc": 3779,
+     "conflicts": 557
+    }
+   },
+   "residue": "Scratch-register rotation phase only (each 999-loop block advances eax/ecx/edx one step more than the original); instruction-length changes inflate the byte count. Same mechanism as tD.",
+   "forms": [
+    "case-24 level switch order 1,2,3,5,7,6,8",
+    "sine index (g_2a390 * 0x100) & 0xfff (shift form folds differently)"
+   ]
   }
- }
+ },
+ "negative_controls": [
+  "Declaring title_054f0 as (unsigned short id, TitleObject *owner) does not change the 0x9a40/0x9c90/0xa020 residue (204/167/280 vs 202/163/278)."
+ ],
+ "behavioral_build": "Superseded behavioral fragments (cell_init.c, screens.inc, object_setup.inc, password_actor.inc, tally.inc, input_boot.c) were retired from evidence/title_behavioral_build.json; the TITLE behavioral DLL still links 362/362 with 0 unresolved and 0 duplicates; test_title_behavioral, title_differential, title_render_differential (2560 cases) and title_password_differential pass."
 }

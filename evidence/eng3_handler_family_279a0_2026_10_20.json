@@ -1,0 +1,16 @@
+{
+ "date": "2026-10-20",
+ "module": "ENG3.DLL",
+ "region": "0x279a0..0x28390",
+ "source": "calibration/eng3/handlers_279a0.c",
+ "functions": 12,
+ "bytes": 2560,
+ "result": "all relocation-masked equal standalone and inside src/eng3/actor_handlers.c context",
+ "cause": "The six 336-352-byte init handlers share one pattern; the only fix needed was o->profile = g_focus->profile before o->flags = 0x202.",
+ "provisional_names": [
+  "random_limit 0x1fab0 and g_focus 0x41d54 borrowed from ENG1 naming",
+  "g_kind_info 0x3fbd0 (also called _g_eng3_sidecar_offsets_3fbd0 in wave27 evidence)",
+  "eng3_1eeb0, eng3_1dbc0, eng3_01460, eng3_1b920, eng3_1f0a0, eng3_19200"
+ ],
+ "leads": "The same sidecar-load pattern recurs near ENG3 0x16258, 0x26d66, 0x26f16, 0x272f6, 0x287c6 (more family members). Region referenced from a data table at 0x3a910."
+}
