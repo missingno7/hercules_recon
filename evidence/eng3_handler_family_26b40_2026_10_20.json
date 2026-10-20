@@ -1,0 +1,28 @@
+{
+ "date": "2026-10-20",
+ "module": "ENG3.DLL",
+ "lane": "y2",
+ "source": "calibration/eng3/handlers_26b40.c",
+ "regions": [
+  "0x26b40..0x27370",
+  "0x28390..0x28ae0"
+ ],
+ "functions": 20,
+ "bytes": 3888,
+ "result": "all relocation-masked equal standalone; also equal merged with src/eng3/actor_handlers.c and calibration/eng3/handlers_279a0.c (44/44), so ownership of one contiguous unit is compatible but unproved.",
+ "family": "Sidecar-load init members at 0x26b80, 0x26d50, 0x26f00, 0x272e0, 0x284a0, 0x287b0 (each ends with if (dc) render_flags |= 0x10).",
+ "review_flags": [
+  "A 12-byte frame local filled by vec_diff_fixed_1420 is declared short d[6] (short d[3] gives an 8-byte frame); all 12 bytes are written by the callee and read as 16-bit halves, plausibly three 16.16 fixed longs read by their integer part. Type-view hypothesis, not padding; real type unknown.",
+  "0x289a0 reproduces movsx/sub edx,0x1e/je only with d[1] - 0x1e != 0 && d[1] < 0x1e."
+ ],
+ "forms": [
+  "0x284f0: (o->x >> 23) * 0x800000 (a << 23 folds to and); child->unknown_b4 *= 2; b4/cc stores after phase = 0",
+  "0x28840 mirrored-branch order: method_2e8 call, profile, render_flags &= ~0x10, 74 += 0x200"
+ ],
+ "identity_notes": [
+  "0x1010 is an in-module LCG (seed % n, state 0x33070/0x33074), 95 callers",
+  "0x1fab0 random_limit only forwards to an import; the borrowed ENG1 name may belong to the other random function",
+  "0x1cb00 creates an actor from (x, y, z, kind) via the kind table 0x40ba4; distinct from create_eng3_kind_actor 0x1d670",
+  "0x40b8c host/game object with methods +0x2c4/+0x2e8/+0x330 (g_eng3_game_40b8c), distinct from g_eng3_host_40bb4"
+ ]
+}
