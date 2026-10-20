@@ -1,0 +1,46 @@
+{
+ "date": "2026-10-20",
+ "lanes": [
+  "x12",
+  "x13",
+  "y12"
+ ],
+ "ENG1": {
+  "calibration/eng1/player_unit_36030.c": "x12: 0x36030..0x38090 plain C, 34 new masked + strict set_mode_flags_36120/reset_extent_36b60 moved here raw-exact (C++ 33/36). .data 0x6ffe4..0x6fff4 follows the status panel's 0x6ffc0..0x6ffdc and .bss 0x707dc..0x707fc precedes its 0x70800, both referenced by 0x36e90..0x3c330: likely one object with the status panel continuing past 0x38000; appended there 35/36 (the unit's real <stdlib.h> flips one commutative & in 0x379e0), so kept standalone pending the unit's full extent.",
+  "calibration/eng1/level_actors_0c730.c": "x13: 0xc730..0xe170 plain C, 31 masked + 0xc940 RECONSTRUCTED (splash kind 0x48 | (~tick & 1): original loads the dword and movsx's the low byte; 460+ spellings give a byte load).",
+  "fix": "calibration/eng1/level_actors_083e0.cpp 0x8480 called dispatch_local_2a170 but the original calls 0x2a010 (masking hid it; x13 found the implied map binding one symbol to two addresses); now eng1_2a010, all 40 rows re-verified.",
+  "forms": [
+   "group loops need union PendingActionGroup { long count; Actor *entries[1]; } and for (i = 0; i < g->count;) a = g->entries[++i]",
+   "0x36e10 applies motion as two explicit steps (every *2 spelling 104 B off)",
+   "0x36d70 is a switch with a single case 2",
+   "0x379e0 outer case order 0x24, 0x23, 2, 0x49, 0x4a, 0x48/0x4b, 0x4c, 0x4d (ascending 582 B off)",
+   "0xc8c0 store order render_flags |= 0x10; z = ...; flags |= 0x20000; render_flags |= 5",
+   "0xdd10 must not keep the player pointer in a named local"
+  ],
+  "identity": [
+   "0xd440 vs ENG3 0x279d0 masked equal only by binding different callees (0x28820 word stream vs ENG3 0x1dbc0 = ENG1 0x283e0 signed pairs): not the same source",
+   "0xc910 = ENG3 0x28a80 (callees agree)",
+   "eng1_interpret_word_stream returns int",
+   "0x72012 read as a byte; 0x6efb4 signed char weapon index; 0x72140[6] signed weapon timers; 0x7082e = g_panel_70820.flash_0e; 0x70f24 = g_engine_interface.context_004; 0x72860 player Actor * (pool actor 0); 0x73494 middle-actor pool (0xec slots)",
+   "LevelContext +0x5c read as a 16-bit word (level_frame_01e50.c declares a byte + word at +0x5e)",
+   "recovery symbol of ENG1 0x277e0 is _title_08ed0, units call it spawn_middle_277e0"
+  ]
+ },
+ "ENG3": {
+  "calibration/eng3/handlers_16240.cpp": "y12: level mode handlers 0x180e0..0x1a070 appended (C++): 28 masked + 0x195d0 RECONSTRUCTED (671 B: VC5 groups identical case bodies differently); 0x19f30 compiles 176 of 160 B (a8 + f0 operand order prevents arm merging), unrecorded. Existing 17 masked + 3 RECONSTRUCTED unchanged. eng3_18370 returns int (1 when a script reaches op -3). held input word +0x5c volatile (engine-context held field already owner-approved): fixes 0x18630, 0x18d00, 0x19d40 (+0x18eb0 via context); standalone 23/30, appended without volatile 25/30.",
+  "extent": "function-map entry 0x18560 is the 13-entry jump table + 40-byte index table of 0x18370 (real extent 0x18370..0x185c0)",
+  "forms": [
+   "0x19410 damage switch: every case its own body, ascending; grouping labels changes lowering",
+   "0x18370 do { ... if (op < 0) switch ... } while (op < 0) like the 0x1e000 interpreter",
+   "0x18950 goto for the profile exceptions",
+   "0x19130 if ((u4a = tbl[i++]) == 0)",
+   "0x19d40 eng3_1b2e0(...) & 0xffff"
+  ],
+  "eng1_counterparts": "same source masked equal only for 0x19fd0 at ENG1 0x19aa0; diverged variants 0x18370~0x15d00, 0x185c0~0x17a50, 0x18600~0x17cd0, 0x18630~0x17d00, 0x18690~0x178f0, 0x18bc0~0x18a10, 0x18dc0~0x16fa0, 0x18f70~0x17340, 0x19100~0x15670, 0x19d40~0x19480, 0x19f30~0x19a10",
+  "identity": [
+   "ENG3 0x1e8e0 recorded as _eng1_29c20",
+   "Actor +0x110 attached actor here, frames in actor_services_1e000.c"
+  ]
+ },
+ "audit": "work/converge/symmap_audit.py over masked/strict rows: one remaining conflict - ENG3 twin rows of calibration/title/u0c1f0.c imply g_engine_interface at 0x407a0/0x40920/0x40a2c (ENG3 interface layout differs; open identity question)"
+}

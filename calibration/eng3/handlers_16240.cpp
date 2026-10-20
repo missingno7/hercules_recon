@@ -55,7 +55,7 @@ struct Actor {
     unsigned char unknown_94, unknown_95;
     unsigned char unknown_96[0x98 - 0x96];
     short unknown_98, unknown_9a;
-    unsigned char unknown_9c[0xa8 - 0x9c];
+    long prev_x, prev_y, prev_z;
     long unknown_a8, unknown_ac, unknown_b0, unknown_b4;
     long unknown_b8, unknown_bc, unknown_c0, unknown_c4;
     long unknown_c8, unknown_cc, unknown_d0, unknown_d4;
@@ -64,7 +64,12 @@ struct Actor {
     unsigned char unknown_ec;
     unsigned char unknown_ed;
     short unknown_ee;
-    unsigned char unknown_f0[0x116 - 0xf0];
+    long unknown_f0, unknown_f4;
+    unsigned char unknown_f8[0xfc - 0xf8];
+    long unknown_fc, unknown_100;
+    unsigned char unknown_104[0x110 - 0x104];
+    Actor *unknown_110;
+    unsigned char unknown_114[0x116 - 0x114];
     short unknown_116;
     unsigned char unknown_118[0x11e - 0x118];
     short unknown_11e;
@@ -86,14 +91,15 @@ typedef struct LevelContext {
     unsigned char unknown_06[0x0c - 0x06];
     signed char unknown_0c;
     unsigned char unknown_0d;
-    unsigned char unknown_0e[0x10 - 0x0e];
+    unsigned char difficulty;
+    unsigned char unknown_0f;
     unsigned char unknown_10;
     unsigned char flags_11;
     unsigned char unknown_12[0x14 - 0x12];
     short unknown_14;
-    unsigned char unknown_16[0x18 - 0x16];
+    short unknown_16;
     short unknown_18;
-    unsigned char unknown_1a[0x1c - 0x1a];
+    short unknown_1a;
     unsigned short unknown_1c;
     short bar_length_target;
     short bar_length;
@@ -104,8 +110,15 @@ typedef struct LevelContext {
     unsigned long buttons_30;
     unsigned char unknown_34[0x38 - 0x34];
     long tick;
-    unsigned char unknown_3c[0x65 - 0x3c];
+    unsigned char unknown_3c[0x5c - 0x3c];
+    volatile unsigned short held_5c;
+    unsigned short pressed_5e;
+    unsigned char unknown_60[0x65 - 0x60];
     unsigned char unknown_65;
+    unsigned char unknown_66[0x6e - 0x66];
+    unsigned short enabled_6e;
+    unsigned char unknown_70[0x1b30 - 0x70];
+    unsigned long unknown_1b30;
 } LevelContext;
 
 typedef struct EngineInterfaceView {
@@ -248,7 +261,7 @@ extern void vec_diff_fixed_1420(const int *, const int *, short *);
 extern void eng3_072a0(int, int, int, int, int, int, int);
 extern void play_sound(unsigned short, Actor *);
 extern void eng3_15340(Actor *);
-extern void eng3_18370(void);
+extern int eng3_18370(void);
 extern void eng3_180e0(void);
 extern void eng3_18600(void);
 extern void eng3_18880(void);
@@ -285,6 +298,67 @@ extern void eng3_22b30(int, Actor *);
 extern Actor *eng3_22bd0(long, long, long, int, int);
 extern int title_18600(Actor *, FramePos *);
 extern void eng3_284f0(Actor *);
+
+/* Signed-pair animation script step (op < 0: command, else sprite with duration arg). */
+typedef struct ScriptStep {
+    short op;
+    short arg;
+} ScriptStep;
+/* Per-difficulty damage row at 0x380a0 (32 bytes). */
+typedef struct DamageRow {
+    long hit_a0, hit_a4, hit_a8, hit_ac, hit_b0;
+    long unknown_14[3];
+} DamageRow;
+/* Profile offset pair at 0x40c40. */
+typedef struct ProfileOffset {
+    long dx, dy;
+} ProfileOffset;
+extern Actor *g_eng3_actor_3fb48;
+extern void (**g_eng3_callbacks_40ba0)(Actor *);
+extern DamageRow g_eng3_damage_380a0[];
+extern ProfileOffset g_eng3_offsets_40c40[];
+extern long g_eng3_fade_38148[];
+extern unsigned char g_eng3_image_37df0[];
+extern unsigned char g_eng3_image_37e08[];
+extern unsigned char g_eng3_image_37e48[];
+extern unsigned char g_eng3_image_37e58[];
+extern unsigned char g_eng3_image_37e98[];
+extern unsigned char g_eng3_image_37ea0[];
+extern unsigned char g_eng3_image_37f50[];
+extern unsigned char g_eng3_image_37f88[];
+extern unsigned char g_eng3_image_37fb8[];
+extern unsigned char g_eng3_image_37fe8[];
+extern signed char g_eng3_4063a;
+extern signed char g_eng3_iterations_x_40635;
+extern long g_eng3_view_angle_40614;
+extern long g_eng3_38038;
+extern unsigned char g_eng3_4254c;
+extern short g_eng3_35168;
+extern short g_eng3_3fa40;
+extern int g_eng3_3fb24;
+extern int g_eng3_3fb28;
+extern int g_eng3_3fb68;
+extern int g_eng3_3fb6c;
+extern int g_eng3_3fb70;
+extern int g_eng3_3fb74;
+extern int g_eng3_3fb78;
+extern int g_eng3_3fb7c;
+extern short g_eng3_3fba0;
+extern int g_eng3_41cb8;
+extern long g_eng3_41d4c;
+extern void RemoveFxIdLinks_7f8e(unsigned short, Actor *);
+extern void eng3_17ae0(int);
+extern void eng3_1a070(void);
+extern void eng3_1a110(void);
+extern void eng3_1a180(void);
+extern void eng3_1a290(void);
+extern void unlink_0e4(Actor *);
+extern int eng1_29c20(Actor *);
+extern int eng3_1ea60(Actor *);
+extern int eng3_1eaf0(Actor *);
+extern void eng3_1eeb0(Actor *);
+extern void eng3_1fb00(void);
+extern int eng3_1fb10(int);
 
 /* Functions in address order. */
 void eng3_16240(Actor *o)
@@ -1215,5 +1289,1169 @@ void eng3_17ae0(int code)
             break;
         }
     }
+}
+int eng3_18630(void);
+void eng3_18690(void);
+void eng3_18790(void);
+void eng3_18bc0(void);
+void eng3_18d00(void);
+int eng3_18dc0(void);
+void eng3_18de0(void);
+void eng3_18f70(void);
+void eng3_19100(void);
+void eng3_19410(short kind);
+void eng3_19a30(void);
+void eng3_19f30(void);
+void eng3_19fd0(void);
+void eng3_185c0(void);
+void eng3_18350(int tile, short *bounds);
+
+
+void eng3_180e0(void)
+{
+    short bounds[8];
+    int tile;
+
+    eng3_1a290();
+    g_eng3_actor_42540->prev_x = g_eng3_actor_42540->x;
+    g_eng3_actor_42540->prev_y = g_eng3_actor_42540->y;
+    g_eng3_actor_42540->prev_z = g_eng3_actor_42540->z;
+    if (g_eng3_mode_41cb4 != 7) {
+        if (g_eng3_mode_41cb4 == 6)
+            return;
+        if (g_engine_interface.context_004->buttons_30 & 0x8000) {
+            if (g_eng3_41d48 < 0) {
+                g_eng3_41d48++;
+            } else if (g_engine_interface.context_004->held_5c & 0xc00) {
+                g_eng3_mode_41cb4 = 7;
+                g_eng3_actor_42540->sprite = 0x32;
+                g_eng3_actor_42540->category = 1;
+                g_eng3_41d48 = 0;
+                g_eng3_41d4c = (g_engine_interface.context_004->held_5c & 0x400) ? 0x100000 : 0x400000;
+                g_eng3_actor_42540->unknown_bc = g_eng3_41d4c;
+                g_eng3_actor_42540->unknown_ac = g_eng3_41d4c;
+                g_eng3_actor_42540->unknown_b8 = 0;
+                g_eng3_actor_42540->unknown_a8 = 0;
+                g_eng3_actor_42540->unknown_c0 = 0x10000;
+                g_eng3_actor_42540->unknown_b0 = 0x10000;
+                unlink_0e4(g_eng3_actor_42540);
+                return;
+            }
+        }
+    }
+    tile = dispatch_local_2a170(g_eng3_actor_42540->x, g_eng3_actor_42540->y, g_eng3_actor_42540->z, g_focus->profile);
+    eng3_17ae0(tile);
+    if (g_eng3_actor_3fb48)
+        g_eng3_actor_3fb48->profile = g_focus->profile;
+    g_eng3_bounds_id_40639 = g_eng3_3fb9c;
+    g_eng3_4063a = 0x3e;
+    eng3_1b650(bounds, g_eng3_3fb9c, 0x19, g_focus->x >> 16);
+    if (g_engine_interface.context_004->level == 2 && g_focus->x < 0x3000000) {
+        if ((g_focus->profile == 2 || g_focus->profile == 6 || g_focus->profile == 4) && g_focus->z <= 0x200000)
+            g_focus->z = 0x200000;
+        if ((g_focus->profile == 1 || g_focus->profile == 5 || g_focus->profile == 3) && g_focus->z >= -0x200000)
+            g_focus->z = -0x200000;
+    }
+    if (g_engine_interface.context_004->level == 10 && g_focus->x < 0x3000000) {
+        if (g_focus->profile == 2 && g_focus->z <= 0x200000)
+            g_focus->z = 0x200000;
+        if (g_focus->profile == 1 && g_focus->z >= -0x200000)
+            g_focus->z = -0x200000;
+    }
+    if (g_focus->unknown_ee > 0)
+        g_focus->unknown_ee--;
+    eng3_18350(tile, bounds);
+}
+
+void eng3_18350(int tile, short *bounds)
+{
+    g_eng3_center_y_40620 = 0xe8 - bounds[4];
+}
+
+/* Signed-pair script runner for the player actor (ops -1..-40); returns 1 on op -3. */
+int eng3_18370(void)
+{
+    short op;
+
+    if (--g_eng3_actor_42540->ticks >= 0)
+        return 0;
+    do {
+        g_eng3_actor_42540->phase++;
+        op = ((ScriptStep *)g_eng3_actor_42540->image)[g_eng3_actor_42540->phase].op;
+        if (op < 0)
+        switch (op) {
+        case -5:
+            if (!(g_engine_interface.context_004->held_5c & 0x40))
+                g_eng3_actor_42540->image = (ScriptStep *)g_eng3_actor_42540->image + g_eng3_actor_42540->phase + 1;
+            g_eng3_actor_42540->phase = -1;
+            break;
+        case -9:
+            if (g_engine_interface.context_004->held_5c & 0x10)
+                goto restart;
+        case -2:
+            g_eng3_actor_42540->image = (ScriptStep *)g_eng3_actor_42540->image + g_eng3_actor_42540->phase + 1;
+        case -1:
+        restart:
+            g_eng3_actor_42540->phase = -1;
+            break;
+        case -4:
+            g_eng3_actor_42540->unknown_94 = ~g_eng3_actor_42540->unknown_94;
+            g_eng3_actor_42540->render_flags = g_eng3_actor_42540->unknown_94 & 0x10
+                                             | g_eng3_actor_42540->render_flags & ~0x10;
+            if (g_eng3_actor_42540->unknown_94) {
+                if ((g_eng3_actor_42540->x & 0xf0000) < 0x50000)
+                    g_eng3_actor_42540->x = g_eng3_actor_42540->x & 0xfff50000 | 0x50000;
+            } else {
+                if ((g_eng3_actor_42540->x & 0xf0000) > 0xb0000)
+                    g_eng3_actor_42540->x = g_eng3_actor_42540->x & 0xfffb0000 | 0xb0000;
+            }
+            break;
+        case -6:
+            g_eng3_actor_42540->render_flags ^= 0x10;
+            break;
+        case -7:
+            g_eng3_4254c = 0xf8;
+            g_eng3_35168 = 0x80;
+            g_eng3_3fa40 = 0;
+            eng3_1fb10(1);
+            g_engine_interface.context_004->unknown_1b30 = 4;
+            break;
+        case -8:
+            g_engine_interface.context_004->unknown_03 = 0x21;
+        case -39:
+            /* reads the short at image + phase * 8 + 6 of g_focus's script (stride as observed) */
+            play_sound(((ScriptStep *)g_focus->image)[g_focus->phase * 2 + 1].arg, 0);
+            break;
+        case -40:
+            play_sound(((ScriptStep *)g_eng3_actor_42540->image)[g_eng3_actor_42540->phase].arg, g_focus);
+            break;
+        case -11:
+            g_eng3_callbacks_40ba0[((ScriptStep *)g_focus->image)[g_focus->phase].arg](g_focus);
+            break;
+        case -3:
+            return 1;
+        }
+    } while (op < 0);
+    g_eng3_actor_42540->sprite = op;
+    g_eng3_actor_42540->ticks = ((ScriptStep *)g_eng3_actor_42540->image)[g_eng3_actor_42540->phase].arg;
+    if (g_eng3_actor_42540->sprite > 0x143)
+        g_eng3_actor_42540->sprite = 0x32;
+    return 0;
+}
+
+void eng3_185c0(void)
+{
+    g_eng3_mode_41cb4 = 0;
+    g_eng3_actor_42540->image = g_eng3_image_37df0;
+    g_eng3_actor_42540->ticks = -1;
+    g_eng3_actor_42540->phase = -1;
+    eng3_18370();
+}
+
+void eng3_18600(void)
+{
+    if (!eng1_29c20(g_eng3_actor_42540)) {
+        eng3_18f70();
+        return;
+    }
+    if (!eng3_18630())
+        eng3_18370();
+}
+
+int eng3_18630(void)
+{
+    if (g_eng3_3faf0) {
+        eng3_18bc0();
+        return 1;
+    }
+    if (g_engine_interface.context_004->held_5c & 0x10) {
+        eng3_18690();
+        g_eng3_actor_42540->unknown_94 = 0;
+        return 1;
+    }
+    if (g_engine_interface.context_004->held_5c & 0x40) {
+        eng3_18690();
+        g_eng3_actor_42540->unknown_94 = 0xff;
+        return 1;
+    }
+    return 0;
+}
+
+void eng3_18690(void)
+{
+    g_eng3_mode_41cb4 = 1;
+    g_eng3_actor_42540->image = g_eng3_image_37c38;
+    g_eng3_actor_42540->ticks = -1;
+    g_eng3_actor_42540->phase = -1;
+    eng3_18370();
+    g_eng3_actor_42540->unknown_f0 = 0;
+    g_eng3_actor_42540->unknown_f4 = 0;
+    g_eng3_actor_42540->unknown_fc = 0;
+    g_eng3_actor_42540->unknown_100 = 0;
+    g_eng3_actor_42540->unknown_b4 = 0x6000;
+    g_eng3_actor_42540->unknown_a8 = 0xc0000;
+    g_eng3_actor_42540->unknown_b8 = 0;
+    g_eng3_actor_42540->unknown_bc = 0;
+    g_eng3_actor_42540->unknown_c8 = 0;
+    g_eng3_actor_42540->unknown_cc = 0;
+    g_eng3_actor_42540->unknown_d0 = 0;
+    g_focus->unknown_dc = 0;
+    g_eng3_3fb24 = 0;
+    g_eng3_actor_42540->unknown_ac = g_eng3_38038;
+    g_eng3_actor_42540->unknown_b0 = 0x60000;
+}
+
+void eng3_18790(void)
+{
+    g_eng3_mode_41cb4 = 8;
+    g_eng3_actor_42540->image = g_eng3_image_37fe8;
+    g_eng3_actor_42540->ticks = -1;
+    g_eng3_actor_42540->phase = -1;
+    eng3_18370();
+    g_eng3_actor_42540->unknown_f0 = 0;
+    g_eng3_actor_42540->unknown_f4 = 0;
+    g_eng3_actor_42540->unknown_fc = 0;
+    g_eng3_actor_42540->unknown_100 = 0;
+    g_eng3_actor_42540->unknown_ac = 0x280000;
+    g_eng3_actor_42540->unknown_b0 = 0x6000;
+    g_eng3_actor_42540->unknown_b4 = 0x6000;
+    g_eng3_actor_42540->unknown_a8 = 0xc0000;
+    g_eng3_actor_42540->unknown_b8 = 0;
+    g_eng3_actor_42540->unknown_bc = 0;
+    g_eng3_actor_42540->unknown_c8 = 0;
+    g_eng3_actor_42540->unknown_cc = 0;
+    g_eng3_actor_42540->unknown_d0 = 0;
+    g_focus->unknown_d8 = 8;
+}
+
+void eng3_18880(void)
+{
+    g_eng3_actor_42540->unknown_ac = 0x180000;
+    g_eng3_actor_42540->unknown_b0 = 0x60000;
+    eng3_1a110();
+    if (g_focus->sprite == 0x4a) {
+        if (g_focus->unknown_ee > 0) {
+            g_focus->phase = (short)g_focus->unknown_d8;
+            g_focus->unknown_d8 = 8;
+        } else {
+            g_focus->phase = 0xd;
+        }
+    }
+    if (g_focus->sprite != 0x4b && g_focus->unknown_ee > 0) {
+        if (eng3_18dc0())
+            return;
+        eng3_19f30();
+        eng3_1a070();
+        if (!eng1_29c20(g_eng3_actor_42540))
+            eng3_18f70();
+        eng3_18d00();
+        eng3_18370();
+        return;
+    }
+    g_eng3_3fb20 = 0;
+    g_eng3_3fae8 = 2;
+    eng3_18690();
+}
+
+void eng3_18950(void)
+{
+    if (g_eng3_3faf0) {
+        if (g_eng3_mode_41cb4 != 10)
+            eng3_18bc0();
+        return;
+    }
+    eng3_1a110();
+    if (g_engine_interface.context_004->bar_value_target <= 0
+        && (!(g_engine_interface.context_004->buttons_30 & 1) || !(g_engine_interface.context_004->buttons_30 & 2))) {
+        eng3_19a30();
+        return;
+    }
+    if (g_focus->y > 0x2000000)
+        g_focus->y = 0x2000000;
+    if (g_engine_interface.context_004->level == 2) {
+        if (g_focus->x >= 0x39800000) {
+            if (g_focus->profile == 7 || g_focus->profile == 8 || g_focus->profile == 9 || g_focus->profile == 10)
+                goto moving;
+            if (eng3_18dc0())
+                return;
+        } else if (eng3_18dc0()) {
+            return;
+        }
+    }
+    if (g_engine_interface.context_004->level == 8) {
+        if (g_focus->x >= 0x74800000) {
+            if (g_focus->profile == 2)
+                goto moving;
+            if (eng3_18dc0())
+                return;
+        } else if (eng3_18dc0()) {
+            return;
+        }
+    }
+    if (g_engine_interface.context_004->level == 10) {
+        if (g_focus->x >= 0x71000000) {
+            if (g_focus->profile == 3 || g_focus->profile == 4)
+                goto moving;
+            if (eng3_18dc0())
+                return;
+        } else if (eng3_18dc0()) {
+            return;
+        }
+    }
+moving:
+    if (g_eng3_view_angle_40614 <= 0x4e8)
+        g_focus->image = g_eng3_image_37c38;
+    g_eng3_actor_42540->unknown_ac = g_eng3_38038;
+    if (g_eng3_3fb20) {
+        eng3_18790();
+        return;
+    }
+    eng3_18d00();
+    g_eng3_iterations_x_40635 = 2;
+    g_eng3_3803c = 0x140;
+    if (!g_eng3_3faf0) {
+        if (g_engine_interface.context_004->held_5c & 0x10) {
+            g_eng3_actor_42540->unknown_ac = 0x100000;
+            g_focus->image = g_eng3_image_37cd8;
+            g_eng3_3803c = 0x168;
+        }
+        if (g_engine_interface.context_004->held_5c & 0x40) {
+            g_eng3_actor_42540->unknown_ac = -0x40000;
+            g_focus->image = g_eng3_image_37ca0;
+            g_eng3_3803c = 0xf0;
+            if (g_eng3_height_40640 <= 0xf0)
+                g_eng3_actor_42540->unknown_ac = 0x50000;
+        }
+    }
+    if (g_engine_interface.context_004->level == 2 && g_focus->y > 0x1e10000)
+        g_eng3_actor_42540->unknown_ac >>= 1;
+    if (g_eng3_3fb2c)
+        g_eng3_actor_42540->unknown_ac = g_eng3_38038 >> 1;
+    eng3_19f30();
+    eng3_1a070();
+    if (!eng1_29c20(g_eng3_actor_42540))
+        eng3_18f70();
+    eng3_18370();
+}
+
+void eng3_18bc0(void)
+{
+    g_eng3_mode_41cb4 = 10;
+    g_eng3_actor_42540->image = g_eng3_image_37ca0;
+    g_eng3_actor_42540->ticks = -1;
+    g_eng3_actor_42540->phase = -1;
+    eng3_18370();
+    g_eng3_actor_42540->unknown_f0 = 0;
+    g_eng3_actor_42540->unknown_f4 = 0;
+    g_eng3_actor_42540->unknown_fc = 0;
+    g_eng3_actor_42540->unknown_100 = 0;
+    g_eng3_actor_42540->unknown_ac = 0x10000;
+    g_eng3_actor_42540->unknown_a8 = 0x10000;
+    g_eng3_actor_42540->unknown_b8 = 0;
+    g_eng3_actor_42540->unknown_bc = 0;
+    g_eng3_actor_42540->unknown_c8 = 0;
+    g_eng3_actor_42540->unknown_cc = 0;
+    g_eng3_actor_42540->unknown_d0 = 0;
+    g_focus->unknown_dc = 0;
+    g_eng3_3fb24 = 0;
+}
+
+void eng3_18c90(void)
+{
+    if (g_engine_interface.context_004->level == 2)
+        g_eng3_actor_42540->unknown_ac = 0x10000;
+    if (g_engine_interface.context_004->level == 8)
+        g_eng3_actor_42540->unknown_ac = 0x50000;
+    if (g_engine_interface.context_004->level == 10)
+        g_eng3_actor_42540->unknown_ac = 0x10000;
+    eng3_19f30();
+    if (!eng1_29c20(g_eng3_actor_42540))
+        eng3_18f70();
+    eng3_18370();
+}
+
+void eng3_18d00(void)
+{
+    if (!(g_engine_interface.context_004->held_5c & 0xa0)) {
+        g_eng3_actor_42540->unknown_c8 = 0;
+        return;
+    }
+    if (g_engine_interface.context_004->held_5c & 0x80) {
+        g_eng3_actor_42540->unknown_c8 = 0x40000;
+        g_eng3_actor_42540->unknown_cc = 0x40000;
+        if (g_eng3_3fb40) {
+            g_eng3_actor_42540->unknown_c8 = 0;
+            g_eng3_actor_42540->unknown_cc = 0;
+            g_eng3_3fb40 = 0;
+        }
+    }
+    if (g_engine_interface.context_004->held_5c & 0x20) {
+        g_eng3_actor_42540->unknown_c8 = -0x40000;
+        g_eng3_actor_42540->unknown_cc = -0x40000;
+        if (g_eng3_3fb44) {
+            g_eng3_actor_42540->unknown_c8 = 0;
+            g_eng3_actor_42540->unknown_cc = 0;
+            g_eng3_3fb44 = 0;
+        }
+    }
+}
+
+int eng3_18dc0(void)
+{
+    if (g_engine_interface.context_004->pressed_5e & g_engine_interface.context_004->enabled_6e) {
+        eng3_18de0();
+        return 1;
+    }
+    return 0;
+}
+
+void eng3_18de0(void)
+{
+    g_eng3_mode_41cb4 = 2;
+    g_eng3_actor_42540->image = g_eng3_image_37e08;
+    g_eng3_actor_42540->ticks = -1;
+    g_eng3_actor_42540->phase = -1;
+    eng3_18370();
+    if (g_eng3_3fb20) {
+        g_eng3_mode_41cb4 = 2;
+        g_eng3_actor_42540->image = g_eng3_image_37fe8;
+        g_eng3_actor_42540->ticks = -1;
+        g_eng3_actor_42540->phase = -1;
+        eng3_18370();
+    }
+    g_eng3_actor_42540->unknown_95 = 0xff;
+    g_eng3_actor_42540->unknown_b8 = 0xba000;
+    g_eng3_actor_42540->unknown_c0 = 0x6000;
+    g_eng3_actor_42540->unknown_c4 = 0xa000;
+    g_eng3_actor_42540->unknown_bc = 0x100000;
+    unlink_0e4(g_eng3_actor_42540);
+    g_eng3_3fb24 = 1;
+}
+
+void eng3_18eb0(void)
+{
+    g_eng3_actor_42540->unknown_ac -= 0x100;
+    eng3_18370();
+    eng3_18d00();
+    if (!g_eng3_3faf0 && (g_engine_interface.context_004->held_5c & 0x40)) {
+        g_eng3_actor_42540->unknown_ac = -0x60000;
+        g_eng3_3803c = 0xf0;
+        if (g_eng3_height_40640 <= 0xf0)
+            g_eng3_actor_42540->unknown_ac = 0x50000;
+    }
+    eng3_19f30();
+    eng3_1a070();
+    if (!(g_engine_interface.context_004->held_5c & g_engine_interface.context_004->enabled_6e)) {
+        g_eng3_actor_42540->unknown_b8 -= 0x10000;
+        if (g_eng3_actor_42540->unknown_b8 < 0)
+            g_eng3_actor_42540->unknown_b8 = 0;
+    }
+    eng3_1a180();
+    eng3_1ea60(g_focus);
+}
+
+void eng3_18f70(void)
+{
+    g_eng3_mode_41cb4 = 3;
+    g_eng3_actor_42540->image = g_eng3_image_37e48;
+    g_eng3_actor_42540->ticks = -1;
+    g_eng3_actor_42540->phase = -1;
+    eng3_18370();
+    g_eng3_actor_42540->unknown_fc = 0;
+    g_eng3_actor_42540->unknown_100 = 0;
+    g_eng3_actor_42540->unknown_b8 = 0x40000;
+    g_eng3_actor_42540->unknown_bc = 0x100000;
+    g_eng3_actor_42540->unknown_c0 = 0x28000;
+    g_eng3_actor_42540->unknown_95 = 0;
+    g_eng3_actor_42540->unknown_c0 = 0x6000;
+    g_eng3_actor_42540->unknown_c4 = 0xa000;
+    g_eng3_actor_42540->unknown_bc = 0x100000;
+    g_eng3_3fb24 = 1;
+}
+
+void eng3_19030(void)
+{
+    if (!g_eng3_3faf0 && (g_engine_interface.context_004->held_5c & 0x40)) {
+        g_eng3_actor_42540->unknown_ac = -0x60000;
+        g_eng3_3803c = 0xf0;
+        if (g_eng3_height_40640 <= 0xf0)
+            g_eng3_actor_42540->unknown_ac = 0x50000;
+    }
+    eng3_18d00();
+    eng3_19f30();
+    eng3_1a070();
+    eng3_1a180();
+    if (eng3_1eaf0(g_eng3_actor_42540)) {
+        if (g_eng3_3fb68)
+            play_sound(0x6037, g_focus);
+        g_eng3_3fb68 = 1;
+        if (g_engine_interface.context_004->level == 2 && g_focus->y > g_eng3_water_level_410e0 << 16)
+            play_sound(0x6036, g_focus);
+        eng3_18690();
+    } else {
+        eng3_18370();
+    }
+}
+
+void eng3_19100(void)
+{
+    g_eng3_3fb6c = 0;
+    g_focus->render_flags &= ~4;
+    g_focus->unknown_4a = 0xa0;
+}
+
+void eng3_19130(void)
+{
+    if (g_focus->unknown_ec) {
+        g_focus->render_flags &= ~3;
+        g_focus->render_flags |= 4;
+        if ((g_focus->unknown_4a = (unsigned short)g_eng3_fade_38148[g_eng3_3fb6c++]) == 0)
+            eng3_19100();
+        g_focus->unknown_4a = (unsigned short)g_eng3_fade_38148[g_eng3_3fb6c++];
+        g_focus->render_flags &= ~3;
+        g_focus->render_flags |= 4;
+        g_focus->unknown_4a -= 0x40;
+        return;
+    }
+    if (g_eng3_3fae4 == 4)
+        g_eng3_3fae4 = 2;
+    eng3_19100();
+}
+
+void eng3_19200(void)
+{
+    g_eng3_3fb70 = (g_focus->z >> 16) & 0x7f;
+    g_eng3_3fb74 = (g_focus->x >> 16) & 0x7f;
+    g_eng3_3fb78 = (g_focus->z >> 16) - g_eng3_3fb70 + 0x40;
+    g_eng3_3fb7c = (g_focus->z >> 16) - g_eng3_3fb70;
+    if (g_eng3_3fb20
+        && (g_focus->unknown_116 == 0x22 || g_focus->unknown_116 == 0x26 || g_focus->unknown_116 == 0x36
+            || g_focus->unknown_116 == 0x32))
+        return;
+    g_eng3_3fb20 = 0;
+    g_focus->unknown_ee = 0;
+    g_eng3_hud_40110.gauge = 0;
+    if (!g_focus->unknown_ec)
+        g_eng3_3fae8 = 2;
+    RemoveFxIdLinks_7f8e(0x2c, g_focus);
+    if (g_eng3_mode_41cb4 == 6 || g_eng3_mode_41cb4 == 7)
+        return;
+    if ((g_focus->x & 0x7f0000) < 0x400000 && g_focus->unknown_116 == 1)
+        return;
+    if (!g_focus->unknown_ec) {
+        if (!(g_engine_interface.context_004->buttons_30 & 7)) {
+            eng3_19410(g_focus->unknown_116);
+            if (g_engine_interface.context_004->bar_value_target <= 0
+                && (!(g_engine_interface.context_004->buttons_30 & 1)
+                    || !(g_engine_interface.context_004->buttons_30 & 2))) {
+                eng3_19a30();
+                return;
+            }
+            g_focus->unknown_ec = 0x40;
+        }
+    } else if (g_focus->unknown_116 == 4 || g_focus->unknown_116 == 0x30) {
+        return;
+    }
+    if (g_focus->unknown_116 == 0x80) {
+        g_eng3_mode_41cb4 = 5;
+        g_eng3_actor_42540->image = g_eng3_image_37f50;
+        g_eng3_actor_42540->ticks = -1;
+        g_eng3_actor_42540->phase = -1;
+        eng3_18370();
+        return;
+    }
+    if (!g_eng3_3fb24) {
+        g_eng3_mode_41cb4 = 5;
+        g_eng3_actor_42540->image = g_eng3_image_37f50;
+        g_eng3_actor_42540->ticks = -1;
+        g_eng3_actor_42540->phase = -1;
+        eng3_18370();
+    } else {
+        g_eng3_mode_41cb4 = 5;
+        g_eng3_actor_42540->image = g_eng3_image_37f88;
+        g_eng3_actor_42540->ticks = -1;
+        g_eng3_actor_42540->phase = -1;
+        eng3_18370();
+    }
+}
+
+/* Damage by tile kind; every case is a separate body (the compiler merges identical bodies;
+ * grouped labels change the switch lowering). */
+void eng3_19410(short kind)
+{
+    if (g_focus->unknown_ec)
+        return;
+    if (!g_eng3_3fb24) {
+        if (kind != 0x10 && kind != 0x20)
+            play_sound(0x602e, g_focus);
+    } else {
+        if (kind != 0x10 && kind != 0x20)
+            play_sound(0x602d, g_focus);
+    }
+    switch (kind) {
+    case 2:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_ac;
+        break;
+    case 4:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a0;
+        break;
+    case 0x21:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a4;
+        break;
+    case 0x22:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a0;
+        break;
+    case 0x23:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a0;
+        break;
+    case 0x24:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a0;
+        break;
+    case 0x25:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a0;
+        break;
+    case 0x26:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a4;
+        break;
+    case 0x27:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a0;
+        break;
+    case 0x28:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a8;
+        break;
+    case 0x29:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a4;
+        break;
+    case 0x2a:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a4;
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a4;
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a0;
+        break;
+    case 0x2b:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a4;
+        break;
+    case 0x2c:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a4;
+        break;
+    case 0x2d:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a4;
+        break;
+    case 0x2e:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a8;
+        break;
+    case 0x2f:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a8;
+        break;
+    case 0x30:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a8;
+        break;
+    case 0x31:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a8;
+        break;
+    case 0x32:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a8;
+        break;
+    case 0x33:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a8;
+        break;
+    case 0x34:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a0;
+        break;
+    case 0x35:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a0;
+        break;
+    case 0x36:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a8;
+        break;
+    case 0x40:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a4;
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a0;
+        break;
+    case 0x80:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_a4;
+        break;
+    case 0x100:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_b0;
+        break;
+    case 0x200:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_ac;
+        break;
+    case 0x400:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_ac;
+        break;
+    case 0x800:
+        g_engine_interface.context_004->bar_value_target
+            -= g_eng3_damage_380a0[g_engine_interface.context_004->difficulty & 3].hit_ac;
+        break;
+    }
+}
+
+/* Mode 5 (hit/push) handler.  Separate case bodies; the 0x21..0x36 cases are listed in descending
+ * order (ascending gives 1168 bytes, descending the original 1120); identical bodies still merge into
+ * a different register partition than the original (open residue). */
+void eng3_195d0(void)
+{
+    short d[6];
+
+    eng1_29c20(g_eng3_actor_42540);
+    eng3_1a110();
+    if (g_focus->unknown_ec && g_eng3_3fae4 == 4)
+        g_focus->image = g_eng3_image_37fb8;
+    if (g_focus->unknown_116 == 0x10 || g_focus->unknown_116 == 0x20)
+        g_focus->image = g_eng3_image_37fb8;
+    switch (g_focus->unknown_116) {
+    case 2:
+        if (g_focus->unknown_110->z < 0) {
+            g_focus->render_flags |= 0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z += 0x30000;
+        } else {
+            g_focus->render_flags &= ~0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z -= 0x30000;
+        }
+        break;
+    case 4:
+        g_eng3_actor_42540->unknown_ac = 0x80000;
+        eng3_19f30();
+        break;
+    case 8:
+        if (g_focus->unknown_110->z < 0) {
+            g_focus->render_flags |= 0x10;
+            g_focus->z += 0x30000;
+        } else {
+            g_focus->render_flags &= ~0x10;
+            g_focus->z -= 0x30000;
+        }
+        break;
+    case 0x10:
+        g_focus->render_flags &= ~0x10;
+        g_focus->z -= 0x20000;
+        g_focus->x -= 0x10000;
+        break;
+    case 0x20:
+        g_focus->render_flags |= 0x10;
+        g_focus->z += 0x20000;
+        g_focus->x -= 0x10000;
+        break;
+    case 0x40:
+        g_eng3_actor_42540->unknown_ac = 0x80000;
+        eng3_19f30();
+        break;
+    case 0x80:
+        if (g_focus->z >= g_eng3_3fb78 << 16) {
+            g_focus->render_flags |= 0x10;
+            g_focus->z += 0x20000;
+        } else {
+            g_focus->render_flags &= ~0x10;
+            g_focus->z -= 0x20000;
+        }
+        g_focus->x -= 0x10000;
+        break;
+    case 0x100:
+        if (g_focus->unknown_110->z < 0) {
+            g_focus->render_flags |= 0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z += 0x30000;
+        } else {
+            g_focus->render_flags &= ~0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z -= 0x30000;
+        }
+        break;
+    case 0x200:
+        if (g_focus->unknown_110->z < 0) {
+            g_focus->render_flags |= 0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z += 0x30000;
+        } else {
+            g_focus->render_flags &= ~0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z -= 0x30000;
+        }
+        break;
+    case 0x400:
+        g_focus->x -= 0x10000;
+        break;
+    case 0x800:
+        g_focus->x -= 0x10000;
+        break;
+    case 0x36:
+        if (g_focus->unknown_110->z < 0) {
+            g_focus->render_flags |= 0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z += 0x30000;
+        } else {
+            g_focus->render_flags &= ~0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z -= 0x30000;
+        }
+        break;
+    case 0x35:
+        vec_diff_fixed_1420((const int *)g_focus->unknown_110, (const int *)g_focus, d);
+        if (d[2] < 0) {
+            g_focus->render_flags |= 0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z += 0x38000;
+        } else {
+            g_focus->render_flags &= ~0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z -= 0x30000;
+        }
+        break;
+    case 0x34:
+        g_eng3_actor_42540->unknown_ac = 0x80000;
+        eng3_19f30();
+        break;
+    case 0x33:
+        g_eng3_actor_42540->unknown_ac = 0x80000;
+        eng3_19f30();
+        break;
+    case 0x32:
+        g_eng3_actor_42540->unknown_ac = 0x80000;
+        eng3_19f30();
+        break;
+    case 0x31:
+        if (g_focus->unknown_110->z < 0) {
+            g_focus->render_flags |= 0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z += 0x30000;
+        } else {
+            g_focus->render_flags &= ~0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z -= 0x30000;
+        }
+        break;
+    case 0x30:
+        g_eng3_actor_42540->unknown_ac = 0x80000;
+        eng3_19f30();
+        break;
+    case 0x2f:
+        g_eng3_actor_42540->unknown_ac = 0x80000;
+        eng3_19f30();
+        break;
+    case 0x2e:
+        g_eng3_actor_42540->unknown_ac = 0x80000;
+        eng3_19f30();
+        break;
+    case 0x2d:
+        if (g_focus->unknown_110->z < 0)
+            g_focus->render_flags |= 0x10;
+        else
+            g_focus->render_flags &= ~0x10;
+        g_focus->x -= 0x10000;
+        break;
+    case 0x2c:
+        g_focus->x -= 0x10000;
+        break;
+    case 0x2b:
+        if (g_focus->unknown_110->z < 0) {
+            g_focus->render_flags |= 0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z += 0x10000;
+        } else {
+            g_focus->render_flags &= ~0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z -= 0x10000;
+        }
+        break;
+    case 0x2a:
+        g_focus->x -= 0x10000;
+        break;
+    case 0x29:
+        if (g_focus->unknown_110->z < 0) {
+            g_focus->render_flags |= 0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z += 0x10000;
+        } else {
+            g_focus->render_flags &= ~0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z -= 0x10000;
+        }
+        break;
+    case 0x28:
+        g_eng3_actor_42540->unknown_ac = 0x80000;
+        eng3_19f30();
+        break;
+    case 0x27:
+        g_focus->x -= 0x10000;
+        break;
+    case 0x26:
+        g_focus->x -= 0x10000;
+        break;
+    case 0x25:
+        if (g_focus->unknown_110->z < 0) {
+            g_focus->render_flags |= 0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z += 0x30000;
+        } else {
+            g_focus->render_flags &= ~0x10;
+            g_focus->x -= 0x10000;
+            g_focus->z -= 0x30000;
+        }
+        break;
+    case 0x24:
+        g_eng3_actor_42540->unknown_ac = 0x80000;
+        eng3_19f30();
+        break;
+    case 0x23:
+        g_eng3_actor_42540->unknown_ac = 0x80000;
+        eng3_19f30();
+        break;
+    case 0x22:
+        g_focus->x -= 0x10000;
+        break;
+    case 0x21:
+        g_focus->x -= 0x10000;
+        break;
+    }
+    if (g_focus->y > 0x2000000)
+        g_focus->y = 0x2000000;
+    if (!eng1_29c20(g_eng3_actor_42540)) {
+        g_eng3_actor_42540->unknown_b8 = 0x40000;
+        g_eng3_actor_42540->unknown_bc = 0x80000;
+        g_eng3_actor_42540->unknown_c0 = 0x28000;
+        g_eng3_actor_42540->unknown_95 = 0;
+        eng3_1a180();
+    }
+    if (eng3_18370() == 1) {
+        g_eng3_3fba0 = 0;
+        eng3_18690();
+        g_eng3_41cb8 = 10;
+    }
+}
+
+void eng3_19a30(void)
+{
+    if (g_eng3_3fb2c)
+        return;
+    g_engine_interface.context_004->unknown_05 = 1;
+    g_eng3_3fb68 = 0;
+    g_eng3_3fb20 = 0;
+    g_eng3_3fae4 = 2;
+    g_focus->unknown_ec = 0;
+    g_focus->unknown_ee = 0;
+    g_eng3_41d50 = 0;
+    eng3_1fb00();
+    if (g_engine_interface.context_004->unknown_0c && !(g_engine_interface.context_004->buttons_30 & 8)) {
+        g_engine_interface.context_004->unknown_0c--;
+        g_engine_interface.context_004->unknown_0d++;
+    }
+    if (g_engine_interface.context_004->unknown_0c == 0)
+        g_engine_interface.context_004->unknown_03 = 1;
+    g_eng3_actor_42540->unknown_ac = 0;
+    g_eng3_actor_42540->unknown_bc = 0;
+    g_eng3_actor_42540->unknown_cc = 0;
+    unlink_0e4(g_eng3_actor_42540);
+    g_engine_interface.context_004->sublevel = g_engine_interface.context_004->unknown_02;
+    g_eng3_mode_41cb4 = 6;
+    g_eng3_actor_42540->image = g_eng3_image_37e58;
+    g_eng3_actor_42540->ticks = -1;
+    g_eng3_actor_42540->phase = -1;
+    eng3_18370();
+    if (g_focus->unknown_126) {
+        g_focus->scale = 0x200;
+        g_eng3_mode_41cb4 = 6;
+        g_eng3_actor_42540->image = g_eng3_image_37e98;
+        g_eng3_actor_42540->ticks = -1;
+        g_eng3_actor_42540->phase = -1;
+        eng3_18370();
+    }
+}
+
+void eng3_19b70(void)
+{
+    g_engine_interface.context_004->unknown_05 = 1;
+    eng3_1a180();
+    eng3_1a110();
+    if (g_focus->phase >= 0xb) {
+        g_eng3_4254c = 0xf8;
+        g_eng3_35168 = 0x80;
+        g_eng3_3fa40 = 0;
+        eng3_1fb10(1);
+        g_engine_interface.context_004->unknown_1b30 = 4;
+    }
+    if (!g_focus->unknown_e0 && !g_focus->unknown_dc) {
+        eng3_1eeb0(g_focus);
+        if (eng3_18370()) {
+            if (g_engine_interface.context_004->unknown_0c == 0)
+                g_engine_interface.context_004->unknown_03 = 0x22;
+            else
+                g_engine_interface.context_004->unknown_03 = 0x21;
+        }
+    } else if (eng3_18370()) {
+        if (g_engine_interface.context_004->unknown_0c == 0)
+            g_engine_interface.context_004->unknown_03 = 0x22;
+        else
+            g_engine_interface.context_004->unknown_03 = 0x21;
+    }
+}
+
+void eng3_19c20(void)
+{
+    int i;
+
+    g_eng3_mode_41cb4 = 9;
+    g_eng3_actor_42540->image = g_eng3_image_37ea0;
+    g_eng3_actor_42540->ticks = -1;
+    g_eng3_actor_42540->phase = -1;
+    eng3_18370();
+    g_engine_interface.context_004->sublevel = g_engine_interface.context_004->unknown_02;
+    g_eng3_actor_42540->unknown_ac = 0;
+    g_eng3_actor_42540->unknown_bc = 0;
+    g_eng3_actor_42540->unknown_cc = 0;
+    for (i = 0; i < g_eng3_3fb08 + 1; i++) {
+        g_engine_interface.context_004->unknown_16 += g_eng3_offsets_40c40[g_eng3_41cc0[i]].dx;
+        g_engine_interface.context_004->unknown_1a += g_eng3_offsets_40c40[g_eng3_41cc0[i]].dy;
+    }
+}
+
+void eng3_19cd0(void)
+{
+    if (g_focus->phase > 0x1e) {
+        g_eng3_4254c = 0xf8;
+        g_eng3_35168 = 0x80;
+        g_eng3_3fa40 = 0;
+        eng3_1fb10(1);
+        g_engine_interface.context_004->unknown_1b30 = 4;
+    }
+    if (eng3_18370()) {
+        g_eng3_3fba0 = 0;
+        eng3_185c0();
+        g_engine_interface.context_004->unknown_03 = 0x31;
+    }
+}
+
+void eng3_19d40(void)
+{
+    g_eng3_3fb28 = 1;
+    if (g_eng3_41d48 < 0) {
+        if (g_engine_interface.context_004->pressed_5e & 0xc00) {
+            eng3_18f70();
+            return;
+        }
+    } else if (g_eng3_41d48 > 5) {
+        if (!(g_engine_interface.context_004->held_5c & 0xc00)) {
+            if (eng3_1b2e0(g_eng3_actor_42540->x >> 16, g_eng3_actor_42540->y >> 16, g_focus->z >> 16,
+                           g_focus->profile) & 0xffff)
+                eng3_18f70();
+            else
+                eng3_185c0();
+            return;
+        }
+    } else if (g_eng3_41d48++ < 6) {
+        if (!(g_engine_interface.context_004->held_5c & 0xc00))
+            g_eng3_41d48 = -8;
+    } else {
+        g_eng3_41d48 = 6;
+    }
+    if (g_engine_interface.context_004->held_5c & 0x1000) {
+        if (g_eng3_actor_42540->unknown_95 == 0)
+            g_eng3_actor_42540->unknown_b8 = 0;
+        eng3_19fd0();
+        g_eng3_actor_42540->unknown_95 = 1;
+    } else if (g_engine_interface.context_004->held_5c & 0x4000) {
+        if (g_eng3_actor_42540->unknown_95 != 0)
+            g_eng3_actor_42540->unknown_b8 = 0;
+        eng3_19fd0();
+        g_eng3_actor_42540->unknown_95 = 0;
+    } else {
+        g_eng3_actor_42540->unknown_b8 = 0;
+    }
+    if (g_engine_interface.context_004->held_5c & 0x40) {
+        if (g_eng3_actor_42540->unknown_94 == 0)
+            g_eng3_actor_42540->unknown_a8 = 0;
+        eng3_19f30();
+        g_eng3_actor_42540->unknown_94 = 0xff;
+        g_eng3_actor_42540->render_flags = g_eng3_actor_42540->unknown_94 & 0x10
+                                         | g_eng3_actor_42540->render_flags & ~0x10;
+        g_eng3_actor_42540->render_flags |= 0x80000000;
+    } else if (g_engine_interface.context_004->held_5c & 0x10) {
+        if ((g_eng3_actor_42540->unknown_94 & 0x10) == 0x10)
+            g_eng3_actor_42540->unknown_a8 = 0;
+        eng3_19f30();
+        g_eng3_actor_42540->unknown_94 = 0;
+        g_eng3_actor_42540->render_flags = g_eng3_actor_42540->unknown_94 & 0x10
+                                         | g_eng3_actor_42540->render_flags & ~0x10;
+        g_eng3_actor_42540->render_flags |= 0x80000000;
+    } else if (g_engine_interface.context_004->held_5c & 0x80) {
+        g_focus->z -= 0x40000;
+    } else if (g_engine_interface.context_004->held_5c & 0x20) {
+        g_focus->z += 0x40000;
+    } else {
+        g_eng3_actor_42540->unknown_a8 = 0;
+    }
+}
+
+void eng3_19f30(void)
+{
+    if (g_eng3_actor_42540->unknown_a8 != g_eng3_actor_42540->unknown_ac) {
+        if (g_eng3_actor_42540->unknown_a8 > g_eng3_actor_42540->unknown_ac) {
+            g_eng3_actor_42540->unknown_a8 -= g_eng3_actor_42540->unknown_b4;
+            if (g_eng3_actor_42540->unknown_a8 < g_eng3_actor_42540->unknown_ac)
+                g_eng3_actor_42540->unknown_a8 = g_eng3_actor_42540->unknown_ac;
+        } else {
+            g_eng3_actor_42540->unknown_a8 += g_eng3_actor_42540->unknown_b0;
+            if (g_eng3_actor_42540->unknown_a8 > g_eng3_actor_42540->unknown_ac)
+                g_eng3_actor_42540->unknown_a8 = g_eng3_actor_42540->unknown_ac;
+        }
+    }
+    if (g_eng3_actor_42540->unknown_94)
+        g_eng3_actor_42540->x += g_eng3_actor_42540->unknown_f0 - g_eng3_actor_42540->unknown_a8;
+    else
+        g_eng3_actor_42540->x += g_eng3_actor_42540->unknown_a8 + g_eng3_actor_42540->unknown_f0;
+    eng3_empty_2390();
+}
+
+void eng3_19fd0(void)
+{
+    if (g_eng3_actor_42540->unknown_b8 != g_eng3_actor_42540->unknown_bc) {
+        if (g_eng3_actor_42540->unknown_b8 > g_eng3_actor_42540->unknown_bc) {
+            g_eng3_actor_42540->unknown_b8 -= g_eng3_actor_42540->unknown_c4;
+            if (g_eng3_actor_42540->unknown_b8 < g_eng3_actor_42540->unknown_bc)
+                g_eng3_actor_42540->unknown_b8 = g_eng3_actor_42540->unknown_bc;
+        } else {
+            g_eng3_actor_42540->unknown_b8 += g_eng3_actor_42540->unknown_c0;
+            if (g_eng3_actor_42540->unknown_b8 > g_eng3_actor_42540->unknown_bc)
+                g_eng3_actor_42540->unknown_b8 = g_eng3_actor_42540->unknown_bc;
+        }
+    }
+    if (g_eng3_actor_42540->unknown_95)
+        g_eng3_actor_42540->y -= g_eng3_actor_42540->unknown_b8;
+    else
+        g_eng3_actor_42540->y += g_eng3_actor_42540->unknown_b8;
+    eng3_1a110();
 }
 }

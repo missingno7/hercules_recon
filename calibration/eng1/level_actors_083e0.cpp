@@ -196,7 +196,7 @@ void eng1_08450(Actor *p)
 
 void eng1_08480(Actor *p, unsigned short floor)
 {
-    unsigned short ground = (unsigned short)dispatch_local_2a170(p->x, p->y, p->z, p->profile);
+    unsigned short ground = (unsigned short)eng1_2a010(p->x, p->y, p->z, p->profile);
     if (ground < floor)
         p->y += (ground - floor) << 16;
 }
