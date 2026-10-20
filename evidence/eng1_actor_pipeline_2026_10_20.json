@@ -1,0 +1,27 @@
+{
+ "date": "2026-10-20",
+ "lane": "x7",
+ "module": "ENG1.DLL",
+ "sources": [
+  "calibration/eng1/boss_unit_24090.c (C, 0x24090..0x255c0)",
+  "calibration/eng1/actor_pipeline_255f0.cpp (C++, 0x255f0..0x26700)",
+  "calibration/eng1/actor_region.h (shared declarations)"
+ ],
+ "result": "23 new relocation-masked equal rows (17 boss/projectile handlers as C; 6 actor-pipeline functions as C++, where 0x256e0/0x25d00 match only under the C++ front end and 0x24780 only as C); 0x258e0 (4 bytes, SIB base/index) and 0x26040 (251 bytes, allocation) are size-exact RECONSTRUCTED; carried neighbours 0x253b0/0x26700 and recorded 0x255f0/0x25620/0x256a0 stay equal and keep their providers",
+ "semantic_corrections": [
+  "0x258e0: list 0x71580 flag bit is 0x200 (test dh,2), not 0x20000; the middle-pool pass starts at index 0; the normal-pool callback index is kind & 0x1ff",
+  "0x266a0 is not a void stub: when priority+1 >= g_6feb4 it stores it, measures the actor-to-player vector, writes 0x6feb8/0x6febc and returns the dword at 0x72008",
+  "0x26480: 0x28290 receives the zero-extended kind (unsigned long)",
+  "0x262a0: three independent type ifs; the 0xc000 test repeats per visibility branch; the record pointer is the owner plus one record"
+ ],
+ "identity": [
+  "g_pipeline_dword_71680 is a count-prefixed list of longs",
+  "g_pipeline_dword_71a18 holds an actor pointer",
+  "g_frame_global_734f4 is an actor pointer compared with g_pipeline_actor_7200c",
+  "g_configuration_dword_713bc points to an unsigned short collision map",
+  "g_pipeline_actor_slots_71440 is used as a bounds box",
+  "_engine_shutdown (0x256a0) only resets the actor pools and scan cursors",
+  "_dispatch_engine_2c460 is the same address as _random_limit"
+ ],
+ "context": "Results depend on file context (prototype parameter names, declaration counts, extern placement); typed pool arrays, initialized-local declaration order, statement order and an explicit case 1: break mattered here (contrary to some inert rules transferred from SP3)."
+}
