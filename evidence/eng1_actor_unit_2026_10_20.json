@@ -1,0 +1,62 @@
+{
+ "date": "2026-10-20",
+ "lane": "x3",
+ "module": "ENG1.DLL",
+ "source": "calibration/eng1/actor_unit_282e0.cpp",
+ "unit": "Contiguous ENG1 actor/command unit 0x282e0..0x2a660 as one C++ unit (extern \"C\") with <stdlib.h>/<string.h> TU-context hypothesis; recorded neighbours (command table, clear_command_high_bit, frame motion/state, chain and scene helpers, detach helpers, insert_scene, hide_and_unlink, planar_bounds_overlap) carried verbatim for unit context and kept equal; point_in_planar_bounds 0x2a520 left out (context-sensitive).",
+ "masked_equal_new": [
+  "0x283e0 interpret_signed_pairs",
+  "0x28820 interpret_word_stream",
+  "0x29320 change_kind",
+  "0x293f0 create_command",
+  "0x29670 find_tag",
+  "0x29b70",
+  "0x29c20",
+  "0x29da0",
+  "0x29e20",
+  "0x29f50",
+  "0x2a170",
+  "0x2a220",
+  "0x2a290",
+  "0x2a330",
+  "0x2a3d0",
+  "0x2a460",
+  "0x2a660"
+ ],
+ "eng3_twins_masked": [
+  "0x1dbc0",
+  "0x1e830",
+  "0x1e8e0",
+  "0x1ecf0",
+  "0x1ee40",
+  "0x1eff0"
+ ],
+ "reconstructed": {
+  "0x28aa0": "register allocation in the tail (165 in the chosen context, 73 in the best)",
+  "0x296e0": "315, register allocation (below/x/z roles)",
+  "0x299d0": "321, same as 0x296e0",
+  "0x29870": "10, add destination",
+  "0x2a010": "13, operand order in return tails",
+  "0x2a570": "31 in the chosen context, compare order"
+ },
+ "forms": [
+  "negation written ~x + 1",
+  "interpreters: do { } while (op < 0) with if (op < 0) switch; local record/position/child pointers",
+  "bounds tests (lo = ...) > v || (max << 16) + lo < v",
+  "0x29b70 (unsigned long)min_y << 16; 0x2a330 h unsigned long; 0x2a570 local Bounds3D",
+  "g_6fed8 = 0 before the coordinate loads; create_command statement order"
+ ],
+ "semantic_corrections": [
+  "behavioral interpreters.c: the pairs interpreter lacks case -24 (+0x36)",
+  "triples interpreter: no -31 case; its -5 case reads with pair stride (original bug, reproduced); interpolation update is an else-chain under the ticks test",
+  "word stream: -1 sets frame_state = 0; -17 and -41 take the low byte",
+  "0x29b70 compares prev_z (+0xa4) against x; 0x2a570 y extent uses the shape x fields (+0x88/+0x8e): original quirks reproduced"
+ ],
+ "identity": [
+  "0x28820 is named refresh_actor in macro_actor.c and eng1_interpret_word_stream in behavioral sources",
+  "0x300c0 is spawn_at_group_300c0 in behavioral sources (shared row name _title_17ad0)",
+  "Actor +0x124 is the action callback index in interpreters but a column-width divisor in 0x2a330 (role-dependent or union)"
+ ],
+ "context_sensitivity": "Commutative operand order, SIB order and some allocation decisions change with the declaration count; removing one unused local elsewhere flips 0x29b70/0x29e20/0x29f50. <math.h> gives one more match but breaks append_chain.",
+ "integration": "The unit is the single ENG1 behavioral-build provider for its masked rows (change_kind, create_command, find_tag, two interpreters, 0x2a170, 0x2a290); every other carried function yields to its existing provider. ENG1 build: 402 mapped, 440 symbols, 0 duplicates, 76 strict preserved."
+}
