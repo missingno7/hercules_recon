@@ -162,10 +162,8 @@ void __cdecl dispatch_local_02f30(void)
     if (count <= 0)
         return;
     do {
-        buffer = (unsigned char *)g_resource_leaf_buffer_70c58;
-        buffer[i * 2] = 0;
-        buffer = (unsigned char *)g_resource_leaf_buffer_70c58;
-        buffer[i * 2 + 1] = 0;
+        ((unsigned char *)g_resource_leaf_buffer_70c58)[i * 2] = 0;
+        ((unsigned char *)g_resource_leaf_buffer_70c58)[i * 2 + 1] = 0;
         ++i;
         count = (signed char)g_root_count_70ed2;
     } while (i < (long)count);
@@ -268,7 +266,7 @@ void __cdecl dispatch_local_03470(void)
         return;
 
     resource_index = (long)g_resource_scan_cursor_6ee74;
-    for (attempts = 0; attempts < 80; ++attempts) {
+    for (attempts = 1; attempts < 0x51; ++attempts) {
         ++resource_index;
         if (resource_index >= 0x51)
             resource_index = 1;

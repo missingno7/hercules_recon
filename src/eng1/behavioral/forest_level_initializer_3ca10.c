@@ -5,14 +5,15 @@ extern int __cdecl initialize_command_table(unsigned long bytes,
                                              unsigned int opcode,
                                              unsigned long count);
 
-/* ENG1 RVA 0x3ca10. The callee's return is deliberately ignored; native
- * overwrites EAX with -2 before storing the final two WORD cells. */
+/* ENG1 RVA 0x3ca10. The callee's return is deliberately ignored.  The
+ * 0x7183c cell is the signed camera-Y limit read by camera smoothing as
+ * (short)W(7183c); storing -2 to it as a short lets the compiler share one
+ * EAX = -2 for both WORD stores, as native does. */
 void __cdecl eng1_native_code_target_003ca10(void)
 {
-    *(volatile unsigned short *)&g_eng1_setup_word_718e0 = 0x0360;
-    *(unsigned short *volatile *)(void *)&g_actor_pipeline_storage_71440.byte_cells[0x2d4] =
-        g_eng1_sound_words_66d68;
+    g_eng1_setup_word_718e0 = 0x0360;
+    eng1_native_ptr_071714 = g_eng1_sound_words_66d68;
     (void)initialize_command_table(0x14UL, 0x3781U, 0x0eUL);
-    *(volatile short *)&g_camera_adjust_y_70d04 = (short)0xfffeU;
-    *(volatile unsigned short *)&g_eng1_setup_word_7183c = (short)0xfffeU;
+    g_camera_adjust_y_70d04 = -2;
+    *(short *)&g_eng1_setup_word_7183c = -2;
 }

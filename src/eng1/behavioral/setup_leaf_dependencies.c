@@ -30,22 +30,13 @@ void __cdecl dispatch_local_11fc0(void)
         g_eng1_setup_clear_72140[i] = 0;
 }
 
-/* Native 0x15670 is a no-argument cdecl leaf. The normal-pool pointer is
- * captured before the first write. The collision context is loaded once for
- * the +0x54 DWORD update and reloaded for the later +0x4a WORD store. */
+/* Native 0x15670 is a no-argument cdecl leaf. Plain global accesses: the
+ * DWORD store through the collision context may alias the pointer cell, so
+ * the compiler reloads it for the later +0x4a WORD store, as native does. */
 void __cdecl dispatch_local_15670(void)
 {
-    unsigned char *normal_pool;
-    unsigned char *collision;
-    unsigned long flags;
-
-    normal_pool = (unsigned char *)g_normal_actor_pool;
     g_eng1_setup_word_6ef94 = 0;
-    normal_pool[0xec] = 0;
-    collision = *(unsigned char * volatile *)(void *)&g_collision_context;
-    flags = *(unsigned long *)(void *)(collision + 0x54);
-    flags &= 0xfffffffbUL;
-    *(unsigned long *)(void *)(collision + 0x54) = flags;
-    collision = *(unsigned char * volatile *)(void *)&g_collision_context;
-    *(unsigned short *)(void *)(collision + 0x4a) = 0x00a0;
+    ((unsigned char *)g_normal_actor_pool)[0xec] = 0;
+    *(unsigned long *)(void *)(g_collision_context + 0x54) &= ~4UL;
+    *(unsigned short *)(void *)(g_collision_context + 0x4a) = 0x00a0;
 }

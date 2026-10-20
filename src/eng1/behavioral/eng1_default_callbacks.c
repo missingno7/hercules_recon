@@ -422,8 +422,8 @@ void __cdecl eng1_native_code_target_001e00(Eng1CallbackActor *actor)
 /* RVA 0x1e30: decrement the countdown, then dispatch its zero fallback. */
 void __cdecl eng1_native_code_target_001e30(Eng1CallbackActor *actor)
 {
-    if (actor->timer_04c != 0)
-        --actor->timer_04c;
-    else
+    if (actor->timer_04c == 0)
         eng1_native_code_target_0028820(actor);
+    else
+        --actor->timer_04c;
 }

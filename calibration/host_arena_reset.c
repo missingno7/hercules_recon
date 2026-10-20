@@ -33,7 +33,7 @@ void __cdecl reinitialize_pool0(U8 *new_arena)
 
     if (new_arena) {
         old_bytes = (U32)new_arena - (U32)g_host_pool.saved_arena;
-        g_host_pool.saved_arena = new_arena;
+        g_host_pool.saved_arena += old_bytes;
         g_host_pool.saved_bytes -= old_bytes;
     }
 

@@ -65,19 +65,11 @@ extern void __cdecl eng1_native_code_target_00374c0(void);
  * this path leaves it at 1 and does not reenter 0x16790. */
 void __cdecl dispatch_local_19440(void)
 {
-    eng1_setup_u8 *actor;
-    unsigned long state;
-
-    actor = (eng1_setup_u8 *)ENG1_READ_NORMAL_POOL();
-    state = *(unsigned long *)(void *)(actor + 0x108);
-    --state;
-    *(unsigned long *)(void *)(actor + 0x108) = state;
-    actor = (eng1_setup_u8 *)ENG1_READ_NORMAL_POOL();
-    state = *(unsigned long *)(void *)(actor + 0x108);
-    if (state == 0)
+    --*(unsigned long *)(void *)((eng1_setup_u8 *)g_normal_actor_pool + 0x108);
+    if (*(unsigned long *)(void *)((eng1_setup_u8 *)g_normal_actor_pool + 0x108) == 0)
         dispatch_local_16790();
     eng1_native_code_target_0015d00();
-    eng1_native_code_target_002a290(ENG1_READ_COLLISION_CONTEXT());
+    eng1_native_code_target_002a290(g_collision_context);
 }
 
 /* Native 0x16790's default branch uses the source-owned interior view at
