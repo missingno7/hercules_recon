@@ -1,0 +1,32 @@
+{
+ "date": "2026-10-20",
+ "lanes": [
+  "y10",
+  "y11"
+ ],
+ "module": "ENG3.DLL",
+ "units": {
+  "calibration/eng3/handlers_121c0.c": "0x12190..0x14190 plain C: 24 masked + 0x12820 (15 B, frame slots of extent/delta locals swap: reference-weight tie) and 0x130e0 (151 B, commutative add destination cascade) RECONSTRUCTED; the strict 0x12190/0x121b0/0x121f0/0x13840 moved here raw-exact from src/eng3/actor_handlers.c",
+  "calibration/eng3/handlers_16240.cpp": "0x16240..0x180e0 C++ (base/index order of 0x16f30/0x17090/0x17130; C 14/20): 17 masked + 0x16c40 (58 B operand order; one site equal only in C), 0x171a0 (45 B, zero store vs inline memset scheduling), 0x174e0 (260 B, one `ctx+0x65 & 4` byte-load vs memory test shifting the rest) RECONSTRUCTED; <string.h> for memset"
+ },
+ "unit_question": {
+  "finding": "handlers_10370.c + y10 + handlers_14190 merged as one C file: 71/75 masked equal (0x10590, 0x10df0, 0x133b0, 0x15680 differ); 0x12820/0x130e0 and y9's C++-only 0x14850 become equal in C; 0x10df0 and 0x133b0 flip together on one evaluation-order phase. As C++: 71/75 with 0x10590, 0x130e0, 0x14850, 0x15680 differing. y11 appended to handlers_14190 as C++: 16/20 (0x17210 drops out). Compatible with one unit 0x10370..0x180e0, not proof; the 0x16240 part needs C++ while the merged 0x10370..0x16240 prefers C, so the unit boundary/language is open. Separate files kept until resolved.",
+  "diagnostics_not_delivered": "merged C + 3..8 leading extern declarations: 73/75; lean windows.h fixes 0x10590 but breaks 0x10df0/0x12820/0x12aa0/0x133b0"
+ },
+ "forms": [
+  "spawners 0x12250/0x13a90/0x13ea0: +0x116 assigned, then +0x126 updated, then the copy (+0x4a or +0x74) = +0x116; chained assignment differs",
+  "0x12e80 outer if/else-if chain on +0x11e (switch differs)",
+  "0x16550 two static __inline range helpers and a separate hi += 0x100",
+  "0x17ae0 separate identical case bodies 0x55/0x5a and 0x7a/0x7b (merged code, separate jump-table indices)",
+  "0x40110 HudCells view (handlers_25040.c) extended with +0xa; 0x17210 needs the struct member form"
+ ],
+ "identity": [
+  "Actor stride 0x134 (g_eng3_actor_42540)",
+  "+0x120 holds an Actor * in 0x12250/0x133b0/0x13ea0 but a pending-action group in 0x12500/0x12820",
+  "+0x64 called script (10370) and image (14190); new globals g_eng3_script_355b0/355d0",
+  "eng3_empty_2390 is a void(void) mode handler (track_unit_20010.cpp declares (const char *))",
+  "g_eng3_41c80[11] level mode-handler table filled by 0x178a0 (0x18600..0x19d40)",
+  "0x72a0 unrecorded 7-argument sprite-strip primitive",
+  "near copies: 0x12500~0x11760, 0x133b0~0x10df0, 0x12aa0/0x12820~0x11b90/0x11a80; ENG1 diverged variants of 0x165f0/0x16ea0/0x16f30/0x168f0/0x17130/0x171a0 at 0x13990/0x15600/0x12620/0x12b00/0x12960/0x11fc0 (not same source)"
+ ]
+}
