@@ -17,6 +17,7 @@ import hashlib
 import json
 import os
 import sqlite3
+import time
 from pathlib import Path
 
 from env import ROOT
@@ -98,7 +99,15 @@ def check_rows(rows, source, co_defined=()):
 def write_state(state):
     temporary = STATE.with_name('recovery.json.similar-tmp')
     temporary.write_bytes((json.dumps(state, indent=2) + '\n').encode('utf-8'))
-    os.replace(temporary, STATE)
+    for attempt in range(20):
+        try:
+            os.replace(temporary, STATE)
+            return
+        except OSError:
+            # Windows refuses the replace while another process holds the file open for reading.
+            if attempt == 19:
+                raise
+            time.sleep(0.5)
 
 
 def stage(plan_path):
