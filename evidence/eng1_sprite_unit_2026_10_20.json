@@ -1,0 +1,38 @@
+{
+ "date": "2026-10-20",
+ "lane": "x2",
+ "module": "ENG1.DLL",
+ "source": "calibration/eng1/sprite_unit_03cd0.c",
+ "unit": "ENG1 sprite-cell/primitive unit 0x3cd0..0x5dc0: the same shared source as TITLE calibration/title/u02b70.c (C, <windows.h> TU context), ENG1 names and per-DLL ordering-table constants (0x4e1 vs TITLE 0x51a, 0x4bf).",
+ "new_masked": [
+  "0x3f60 (176; the function map split it at 0x4000)",
+  "0x5370 (576; TITLE 0x4470 plus an ENG1 streaming branch: slot loading and >60 ticks projects the object and calls 0x2400(0x80))",
+  "0x5600 (96)",
+  "0x5820 (144 palette row writer)",
+  "0x58e0 (272) / 0x59f0 (64) drawing-area bracket replacing TITLE 0x1dd0 (else branch stores y before h)",
+  "0x5c70 (224 two-palette blend)",
+  "0x5d50 (112 colour fade step)"
+ ],
+ "eng3_twins_masked": [
+  "0xa470",
+  "0xa760",
+  "0xa870",
+  "0xacb0"
+ ],
+ "reconstructed_size_exact": {
+  "0x4010": 717,
+  "0x4330": 701,
+  "0x4650": 521,
+  "0x48b0": 716,
+  "0x5a60": 373
+ },
+ "notes": [
+  "0x4010/0x4330/0x48b0 differ from TITLE 0x3100/0x3420/0x39b0 only by the ordering-table constant (and a flip-branch uv store order in 0x4010): the same open register-allocation problem as TITLE lane tA.",
+  "0x4650 became size-exact with the prologue/tail form of TITLE 0x186e0 (cell = obj->046 after the x flip; more = *stream ... more &= 0x80; stream++), giving the original obj/cell/stream roles; one flags/more register swap remains.",
+  "ENG3 0x9da0 (twin of 0x4ca0) differs by 6 bytes of base/index order.",
+  "Function order inside the unit differs between ENG1 and ENG3 (0xa760/0xa870 follow 0xa700 in ENG3).",
+  "g_70f30 is g_engine_interface.data_010; TITLE g_220f0 clip rectangles are ENG1 g_4d800[2]; g_734f0 and g_70cf0 are byte RGB structs; g_4d858 is an int compared as unsigned short.",
+  "Lead: ENG1 0x3bd0 (TITLE 0x2cc0 analog) compiled from the TITLE source differs by only 4 bytes."
+ ],
+ "integration": "Globals renamed to the ENG1 graph names embedding the same RVA (all rows re-verified unchanged). The region is the single ENG1 behavioral-build provider for 0x4ca0, 0x50d0, 0x5600, 0x5660, 0x56c0, 0x5710, 0x5780, 0x5a60, 0x5d50 (omit entries for behavioral copies) and yields to recorded providers for clear_actor, release_actor_resource_state, release_actor_token, 0x58b0 and 0x5dc0. ENG1 build: 387 mapped / 425 symbols / 0 duplicates / 76 strict preserved; unresolved 552 (real new references from the faithful unit)."
+}
