@@ -1,0 +1,28 @@
+{
+ "date": "2026-10-20",
+ "lane": "h5",
+ "module": "HERCULES.EXE",
+ "source": "calibration/host_raster_0c2e0.c",
+ "region": "0xc2e0..0xef5f (software rasterizer)",
+ "owner_ruling": "2026-10-20: original-style MSVC inline __asm allowed where evidence shows handwritten assembly; no _emit, raw bytes, padding or forced sequences",
+ "result": "0xc2e0 masked equal; 0xcc50/0xd420/0xdd70/0xe680 RECONSTRUCTED size-exact, 26 B each (polygon template: two global allocation decisions - clip g_y_end store order and next-line minimum eax/ecx); 0xc8f0 RECONSTRUCTED (226 B, sprite clip prologue x1 = x + w shape); 0xc700 (480/496 B) and 0xcab0 (400/416 B) unrecorded",
+ "asm_evidence": [
+  "/O2 code with frame-pointer prologues and saved ebx/esi/edi = VC5 functions containing __asm",
+  "span fill: cld, colour replicated to 4 bytes, rep stosb to alignment, rep stosd, tail",
+  "texel loops push ebp and use ebp as a table base, count [esi+ebx] up to zero, packed u/v fractions with add/adc",
+  "2.30 slopes: imul m32 then shrd eax,edx,30 against the reciprocal table 0xa8e918",
+  "no compiler-only explanation: /Od 1360 vs 1056 B, /O1 /Os /G3../G6 rejected, SP2 = SP3 = RTM output, C++ and 0..64 leading declarations inert"
+ ],
+ "boundary": "one C translation unit with inline asm (C and asm interleave inside each function; the compiler schedules and reloads around the asm blocks) - not a separate assembly module",
+ "unit_findings": [
+  "scan-conversion temporaries 0xa9091c..0xa909ac/0xa90a08 are file statics (0xc2e0 matches only with g_xr/g_y static; g_raster_fill extern costs 1032 B in 0xd420)",
+  "shared raster state 0xa909b0..0xa90a13 likely defined here (.bss order statics then explicit-zero objects; layout evidence only)",
+  "g_lines-- first in the per-line advance fixes a register rotation in 0xd420/0xdd70"
+ ],
+ "faithful_original_bug": "calibration/host_gpu_0a3a0.c 0xac60 case 0x24 `g_raster_v[3] = g_raster_u[2] = PB(0x1c) << 16` is in the original: 0xafaa and 0xafbe both store to 0xa909f4 (v[3]); u[3] is never written in that case",
+ "identity": [
+  "0xa8e918 = g_host_graphics_reciprocal_68e918 (filled by 0x72a0 with 0x40000000/n)",
+  "0x92c390/0x92c490 = g_host_graphics_tables_52c490.remap[clut-1]/[clut]; 0x92e3d0 + abr*0x10000 blend tables; 0x91c488 = g_host_graphics_shade_51c488",
+  "0xa9094c inside the static block is never referenced"
+ ]
+}
