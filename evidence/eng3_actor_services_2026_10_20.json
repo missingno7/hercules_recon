@@ -1,0 +1,27 @@
+{
+ "date": "2026-10-20",
+ "lane": "y5",
+ "module": "ENG3.DLL",
+ "source": "calibration/eng3/actor_services_1e000.c",
+ "region": "0x1e000..0x20000",
+ "result": "72 of 78 functions relocation-masked equal (8 of 14 actor/support functions and all 64 interface-slot wrappers 0x1f8b0..0x1fff0); 6 size-exact RECONSTRUCTED rows (0x1e540, 0x1e6d0, 0x1eaf0, 0x1ec20, 0x1f0a0, 0x1f130) with allocation or compiler-chosen term-order residues that change with surrounding unit context",
+ "wrapper_validation": "Masked equality cannot see a relocation addend, so slot identity was checked through the implied symbol maps: all 65 interface-referencing rows imply g_engine_interface = 0x407a0 (a wrong slot would imply a shifted base).",
+ "extent": "0x1e000 is 640 bytes; the leads 0x1e200..0x1e240 are its jump/index tables.",
+ "shared_text": [
+  "0x1e000 = ENG1 eng1_interpret_word_stream (0x28820) unchanged",
+  "0x1ea60 = ENG1 0x29da0 with constant 8 replaced by g at 0x431e0",
+  "0x1eeb0 = ENG1 0x2a290 with threshold 0x200",
+  "0x1ef50 = ENG1 eng1_2a330 text",
+  "0x1f410 = ENG1 append_kind_action plus a store of argument 6 into +0x38",
+  "0x1f7b0 arctangent-style table search = byte twin of unrecorded ENG1 0x2bf30"
+ ],
+ "identity_conflicts": [
+  "_g_scene_anchor and _g_support_actor_6fed8 name one variable (ENG1 0x6fed8, ENG3 0x3fbc0)",
+  "0x40ba0 is _g_2bf3c / _g_configuration_dword_71384; 0x40b98 has three names; 0x40bb0 is _g_2bf4c / _pending_action_group_limit",
+  "0x1b4a0 is _eng3_1b4a0 / _grid_query_20d30; 0x1e510 is _actor_refusal_296b0 / _title_098f0 (ENG1 hide_and_unlink)",
+  "row eng3.shared_1ffa0 carries symbol _title_0c2a0 (a TITLE slot-0x20 wrapper) but ENG3 0x1ffa0 calls slot 0x2ac",
+  "ENG3 bounds code swaps the x and z axes relative to ENG1 (0x1eda0, 0x1f1a0, 0x1f130, 0x1f0a0)",
+  "field +0x38 is frame_group in ENG1 and profile in the ENG3 view"
+ ],
+ "context": "Neither C nor C++ wins outright: shared bodies are all equal as C++ in a full-unit experiment, while some ENG3-only functions flip with context; classified as allocation/context."
+}
