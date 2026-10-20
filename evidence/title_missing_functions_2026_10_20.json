@@ -1,0 +1,35 @@
+{
+ "date": "2026-10-20",
+ "scope": "Recovery of the 22 TITLE functions that had no source (35,024 bytes). Lanes worked in private scratch inside their canonical units; the integrator installed results with in-place restaging. Masked equality is never FUNCTION_MATCH; size-exact RECONSTRUCTED rows enable natural placement but are not codegen equality.",
+ "tools": "work/converge/titlelane.py (scratch unit copy and whole-unit check) and work/converge/integrate_title.py (install, in-place stage, RECONSTRUCTED rows with measured proofs); diagnostic helpers outside the gate.",
+ "lanes": {
+  "tE u09a40.c": {
+   "functions": {"0xa450": {"span": 7408, "result": "MASKED EQUAL"}},
+   "causes": [
+    "TitlePadMap.button must be short (unsigned short gives 7440 bytes).",
+    "The delay test is written as if (g_2a210 == 0) {...} else g_2a210--; which places the decrement at 0xb6cc.",
+    "The outer switch case order decides the join reload at 0xb440: equal exactly when case 0xffff precedes case 4 (30 placements measured, identical layout). This contradicts the SP3-derived 'case order is inert' rule for this RTM allocation decision."
+   ],
+   "discriminator": "A signed pressed local (cursor_5c) gives 16 bytes, so cursor_5c is read unsigned."
+  },
+  "tD u09a40.c": {
+   "functions": {
+    "0x9a40": {"span": 592, "size_exact": true, "nonreloc": 202},
+    "0x9c90": {"span": 912, "size_exact": true, "nonreloc": 163},
+    "0xa020": {"span": 736, "size_exact": true, "nonreloc": 278}
+   },
+   "cause": "One effect: in the 999-loop calls to title_054f0 the original allocates the sound value first (movsx eax,[eax+T+2], reusing the dying index register) and the object pointer second (ecx); ours allocates the pointer first, the value lands in edx and later rotor choices shift. A diagnostic callee with swapped parameters leaves only the two swapped push pairs (4 bytes). The isolated loop also yields edx, so whole-function context (rotor across earlier-emitted cases) or IR argument order is involved.",
+   "inert": ["value or pointer locals (function/block scope, register, short)", "int/unsigned/long/short casts", "0x4000U/0x4000L", "swapped OR operands", "(T+1)[i] and (&T[i])[1]", "inline value helpers", "old-style or missing prototype", "extern instead of static", "object pointers as one array", "volatile object pointers", "for/while/do/goto/comma loop shapes"],
+   "worse": ["volatile tables or indices", "increment before the call", "increment inside the argument"]
+  },
+  "tB r04d80.c": {
+   "functions": {
+    "0x4fe0": {"span": 160, "size_exact": true, "nonreloc": 45, "residue": "Commutative OR operand order (y&0x100 vs y&0x200 terms), a TU tie-break; lean windows.h gives 6 but breaks 0x4dd0. Exact size needs a pointer-cursor loop. ENG3 0x8a80 is the same function (51 bytes with this source)."},
+    "0x54f0": {"span": 1408, "status": "not integrated",
+               "best": "1408 bytes / 460 non-relocation differing with an always-false identical-arm compare (owner->unknown_022 == -1) that reproduces the original's dead zero-extended load and separate exit; 1392 bytes / 848 without it.",
+               "decision_needed": "Owner ruling: the identical-arm compare is dead code that steers the compiler (AGENTS.md forbids it in accepted source). Kept in candidates/tB only.",
+               "residue": "Linked 0x4000 block: the original re-reads [g_29dc0+0x34]; ours reuses the stored value. Volatile on that one store reproduces the reload shape (443), then a cyclic esi/edi/ebp permutation remains."}
+   }
+  }
+ }
+}

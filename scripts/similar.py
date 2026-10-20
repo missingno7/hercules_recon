@@ -127,8 +127,17 @@ def stage(plan_path):
     if any(r['status'] != 'CODEGEN_SIMILAR' or r.get('proof', {}).get('scope') != SCOPE for r in moved):
         raise ValueError('Only masked rows can be moved')
     existing = [r for r in state['functions'] if r.get('source') == source]
-    if in_place and any(r['status'] != 'CODEGEN_SIMILAR' or r.get('proof', {}).get('scope') != SCOPE for r in existing):
-        raise ValueError('In-place staging only extends sources whose recorded rows are all masked rows')
+    if in_place:
+        # RECONSTRUCTED rows of the same provider stay as they are; their functions are pinned co-defined.
+        # A planned function that is RECONSTRUCTED now replaces that row once it verifies masked equal.
+        planned = {f['symbol'] for f in plan['functions']}
+        upgraded = [r for r in existing if r['status'] == 'RECONSTRUCTED' and r['symbol'] in planned]
+        existing = [r for r in existing if r['status'] != 'RECONSTRUCTED']
+        if any(r['status'] != 'CODEGEN_SIMILAR' or r.get('proof', {}).get('scope') != SCOPE for r in existing):
+            raise ValueError('In-place staging only extends sources whose recorded rows are masked or reconstructed rows')
+        for r in upgraded:
+            taken.pop((Path(r['target']).name.upper(), int(r['rva'], 16)), None)
+        moved = moved + upgraded
     prior_evidence = {(r['rva'], r['symbol']): r['evidence'] for r in moved}
     rows = []
     for f in plan['functions']:

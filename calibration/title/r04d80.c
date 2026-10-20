@@ -183,6 +183,37 @@ void title_04f40(const unsigned char *a, const unsigned char *b)
     title_04b00();
 }
 
+
+typedef struct TitleCell {
+    unsigned short mask_00;
+    unsigned short w_02;
+    unsigned short next_04[4];
+} TitleCell;
+
+extern TitleCell g_2d340[256];
+
+#define getTPage(tp, abr, x, y) \
+    ((((tp) & 0x3) << 7) | (((abr) & 0x3) << 5) | (((y) & 0x100) >> 4) | (((x) & 0x3ff) >> 6) | (((y) & 0x200) << 2))
+
+void title_04fe0(void)
+{
+    int i;
+    int c;
+    TitleCell *p;
+
+    p = g_2d340;
+    for (i = 0; i < 256; i++) {
+        p->mask_00 = 0;
+        c = ((i / 64) & 2) + ((i / 8) & 1);
+        p->w_02 = getTPage(1, 0, (c / 2) * 128 + 768, (c & 1) * 256);
+        p++;
+    }
+    g_2d340[0].mask_00 = 15;
+    g_2d340[16].mask_00 = 15;
+    g_2d340[4].mask_00 = 15;
+    g_2d340[1].mask_00 = 15;
+}
+
 /* ---- f_5080 ---- */
 
 int title_05080(int id)
@@ -371,6 +402,7 @@ void title_0c6f0(void);
 void title_0c700(void);
 int title_016e0(const char *fmt, ...);
 short title_0cc10(short a, short b, short c, short d, short e, short f, short g);
+
 
 /* ---- f_5a70 ---- */
 
