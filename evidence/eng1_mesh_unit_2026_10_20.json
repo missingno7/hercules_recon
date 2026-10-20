@@ -1,0 +1,19 @@
+{
+ "date": "2026-10-20",
+ "lane": "x6",
+ "module": "ENG1.DLL",
+ "source": "calibration/eng1/mesh_unit_2e3b0.c",
+ "region": "0x2e3b0..0x30010",
+ "result": "3 relocation-masked equal (0x2e600, 0x2e6c0, 0x2ff50); 4 size-exact RECONSTRUCTED (0x2e7a0, 0x2ea50, 0x2ef60, 0x2f120); 5 carried as pinned source only (0x2e3b0, 0x2ed10, 0x2f340, 0x2f840, 0x2fb70 not yet size-exact); ENG3 has no byte twins in the range",
+ "findings": [
+  "the census extent of 0x2ef60 (16 bytes) was wrong: it is a separate 448-byte cylinder setup copy",
+  "C vs C++ unresolved for the unit (0x2e6c0 only as C; 0x2ea50 cleaner as C++ with only loop-boundary reload order left)",
+  "shading corner deltas are compiler-hoisted, not source locals"
+ ],
+ "identity": [
+  "0x70f30 is a scratchpad pointer laid out as matrix 0 (+0), matrix 1 (+0x20) and vectors (+0x40); the behavioral g_engine_interface.opaque_010[0] view hides it",
+  "0x70d10 is read as a dword but tested in 16 bits (declared type unresolved)",
+  "0x70d54/0x70d58: 4-byte records with a u16 reference and 16-byte mesh-child records",
+  "0x6f4e8 is an [8][64] dword table"
+ ]
+}
