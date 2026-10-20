@@ -1,0 +1,29 @@
+{
+ "date": "2026-10-20",
+ "module": "ENG3.DLL",
+ "lane": "y3",
+ "source": "calibration/eng3/handlers_25040.c",
+ "region": "0x25040..0x26b40",
+ "functions": 22,
+ "masked_equal": 19,
+ "size_exact": 22,
+ "reconstructed": {
+  "0x250f0": "HUD draw: the original compares [0x40118] in memory and reloads it where ours caches it (allocation/context).",
+  "0x25b60": "Orbit update: x = focus.x - S + e0 operand order; equal as C++ or with an (unsigned long) cast (not adopted: e0 is signed elsewhere).",
+  "0x26770": "Particle burst: only the y-argument subtraction order of two random results; equal only as C."
+ },
+ "language": "C; as C++ 0x25b60 matches but 0x26770 regresses (621), so one unit cannot satisfy both: unresolved",
+ "forms": [
+  "sine terms (sin*64 >> 12) << 16",
+  "0x25ec0: three int[24] offset tables with 19/20/20 explicit initializers (initializer counts decide store order); select_frame on the parent actor",
+  "0x26340 loop: for (i = 0; i < count;) { a = actors[i++]; if (i == 1 && o->e0-- < 0) ... }",
+  "HUD words at 0x40110 are one struct {cell[2], cached[2], gauge}",
+  "0x25e90 scale is unsigned short"
+ ],
+ "identity_notes": [
+  "ENG3 0x1ffa0 is interface slot 0x2ac wrapper (recovery shared row names it _title_0c2a0)",
+  "0x100407b4 is g_engine_interface+0x14 (sine table pointer), not a separate global; ENG1 g_sine_table_70f34 may be the same case",
+  "slot wrappers 0x1fab0 (0x94 random_limit), 0x1fde0 (0x1e8 clut), 0x1fe30 (0x204 image upload)",
+  "globals: 0x43164 primitive cursor, 0x41448 frame buffer (list head +0x2070), 0x43168 sprite colour, 0x3faa8 level timer, 0x3529c stpanel2.dat path"
+ ]
+}
