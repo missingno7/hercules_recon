@@ -1,0 +1,42 @@
+{
+ "date": "2026-10-20",
+ "scope": "Scratch natural link of TITLE.DLL from canonical sources plus documented scratch fixes; measurement only, no acceptance and no /FORCE.",
+ "inputs": [
+  "36 canonical objects in unit address order compiled with the pinned VC5 RTM toolchain",
+  "scratch: private size-exact 0x54f0 draft (identical-arm dead compare, awaiting owner ruling)",
+  "scratch: nine out-of-unit rows moved into their address units (0x4a10, 0x6430, 0x9770, 0x97b0, 0x98a0, 0xcee0, 0xd410, 0x189a0, 0x1a2c0) with every unit re-verified (no regressions; the five moved FUNCTION_MATCH rows are raw-equal in the linked image)",
+  "scratch: data providers from the TITLE behavioral build (title_data.c, title_init_table.c) with four name adaptations",
+  "u06350.c POSIX spellings resolved through OLDNAMES"
+ ],
+ "link": "link.exe /DLL /NODEFAULTLIB /INCREMENTAL:NO /OPT:REF /OPT:NOICF /EXPORT:PC_DLLEngineMain=title_0c1f0 ... LIBCMT.LIB OLDNAMES.LIB KERNEL32.LIB (pinned RTM)",
+ "result": {
+  "unresolved": 0,
+  "duplicates": 0,
+  "text_size": "130,287 = original",
+  "functions_at_original_rva": "345 / 362 (104,400 bytes)",
+  "raw_equal_functions": "31 (2,768 bytes)",
+  "text_bytes_identical_at_equal_rva": "98,263 (75.4%)",
+  "rdata": "925 = 925; only the export timestamp differs",
+  "library_block": "placed exactly; all 716 differing bytes are relocated address fields",
+  "data": "51,800 vs 53,496 bytes; .idata at 0x2f000 vs 0x30000"
+ },
+ "differing_text_bytes_by_cause": {
+  "shift window 0x1a2c0 (+16) .. 0x1c500 (-16)": 11640,
+  "non-masked-equal drafts (15 RECONSTRUCTED + 0x54f0)": 11603,
+  "wrong data addresses in 298 otherwise matching placed functions": 8065,
+  "library address fields": 716
+ },
+ "data_placement": {
+  "initialized": "9/65 referenced symbols at original address; four unowned initialized blocks (0x22170 36 B, 0x22214..0x22288 116 B, 0x23660 8 B, 0x243b0 40 zero bytes) explain the steps",
+  "bss": "0/437 at original address; communal block starts 0x2ad34 vs 0x2b720 and is reordered; original first-party .bss ends ~0x2b3d8 before LIBCMT .bss then communals"
+ },
+ "minimal_changes_for_full_placement": [
+  "canonical unit ownership for the nine out-of-unit rows (conflicts with the per-file strict promotion structure)",
+  "canonical size-exact title_054f0",
+  "0x1a2c0 exactly 224 and 0x1c500 exactly 3712 bytes",
+  "canonical owners for the 88 data symbols",
+  "link policy: POSIX spellings + OLDNAMES, /OPT:REF /OPT:NOICF, PC_DLLEngineMain export"
+ ],
+ "open_lead": "Original .reloc reserves 2,164 bytes beyond its contents vs 334 here: possibly extra relocation-bearing link input.",
+ "artifacts": "work/tlink (ignored scratch): assemble.py, link.py, measure.py, analyze.py, report.json"
+}
