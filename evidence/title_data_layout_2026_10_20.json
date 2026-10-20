@@ -1,0 +1,36 @@
+{
+ "date": "2026-10-20",
+ "scope": "Scratch TITLE natural-link data-layout experiment (work/tdata, reproducible with run.sh); no canonical change.",
+ "result": {
+  "base": "31 raw-equal functions / 2768 bytes",
+  "s1 three real-content initialized blocks": "34 / 3264",
+  "s1z + 40 zero bytes at 0x243b0 as extent hypothesis": "46 / 4416 (all 65 code-referenced .data symbols at original addresses)",
+  "s2 + layout names for u01de0 (17/17 statics placed)": "49 / 5712",
+  "s3-s4 communal and static fixes": "49 (internal layout right; would-be raw-equal with correct bases 225 -> 277)"
+ },
+ "link5_rules_measured": [
+  ".data: an object's initialized globals form one section in definition order before its string literals; all-zero initialized objects go to .bss; partial initializers keep their zero tail in .data",
+  "communal owner: the first command-line object with a tentative definition (externs do not count)",
+  "communal order: object groups in reverse command-line order, library communals after all object groups; within a group ascending by the identifier hash bucket (symbol_order)",
+  "communal alignment: min(32, next power of two >= size) (corrects the earlier note)"
+ ],
+ "recommended_adoption": [
+  "r04d80.c: short g_22170[18] (real content) before the code",
+  "title_files.c: int g_22218[27] (real content) first; the 4-byte pad at 0x22214 fits an 8-aligned new object",
+  "u06bb0.cpp: int g_23660 = -1; before g_23668",
+  "u01de0.c layout-chosen names for its complete static block",
+  "g_29590 static in u02b70; volatile int g_2a244 = 0; in u09a40; int g_2acf4 = 0; in r16110; drop the dead g_2b36c duplicate in the behavioral title_data.c",
+  "tentative communal definitions in the group owners (u0cc90, u0c1f0, r097f0, u06350, title_files, r04d80, u02b70) with layout names",
+  "layout names for complete static blocks u0cc90 (33), r04d80 (8), u06350 (2)"
+ ],
+ "rulings_needed": [
+  "0x243b0..0x243d7: 40 zero bytes that must belong to an object with non-zero content (candidate g_242e8[60] or a prefix object ending in the marker); every .bss gain depends on it"
+ ],
+ "blockers": [
+  "0x29990..0x29d90: 0x400 bytes of first-party .bss with unknown owner/extent after g_29590 (also unowned); everything after 0x29588 shifts",
+  "unexplained .bss holes in title_proc, u06bb0, r097f0, u09a40, u0ff70, u197f0 and 0x2acdc; u197f0 array extents overlap separately named statics",
+  "communal gaps 0x2bb2c (4), g_2c000 extent, 0x2cbd0..0x2cbdf, 0x2cbf8..0x2cc01",
+  "internal order of incomplete blocks u09a40, u0ff70, u06bb0, u197f0 (no layout names per policy)"
+ ],
+ "note": "Adoption deferred until the canonical TITLE link is viable (0x54f0 and the .bss hole block any linked gain today)."
+}

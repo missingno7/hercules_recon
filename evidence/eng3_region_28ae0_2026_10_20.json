@@ -1,0 +1,23 @@
+{
+ "date": "2026-10-20",
+ "lane": "y4",
+ "module": "ENG3.DLL",
+ "source": "calibration/eng3/handlers_28ae0.c",
+ "region": "0x28ae0..0x2a210",
+ "functions": 12,
+ "bytes": 5952,
+ "result": "all relocation-masked equal with WIN32_LEAN_AND_MEAN + <windows.h> TU context (owner real-header policy); 9/12 without; full windows.h breaks 0x292f0/0x29a10/0x29ea0",
+ "mechanism": "The resolved residues are declaration-position tie-breaks (which of two random_limit calls is evaluated first; a commutative add destination); moving the random_limit extern flips them in ~16-declaration blocks (period 32). Merged with the y1/y2 units: 52/56 (53/56 lean), so the phase must be re-decided once the real unit is known.",
+ "forms": [
+  "pending-action group loops: if (group) for (i = 0; i < group->count;) e = entries[++i];",
+  "the 12-byte box filled by 0x24870 is a struct of six shorts (a short[6] array gives a word load where the target loads a dword)",
+  "0x29ea0 stores unknown_98 = 0 inside the i == 3 || i == 7 block and after the loop"
+ ],
+ "identity": [
+  "0x1d110 create_eng3_middle_actor; init via g_40b98[kind & 0x1ff] 8-byte rows",
+  "0x1f410 (group, x, y, z, kind, profile) creates, initialises and appends a middle actor",
+  "0x1b4a0 returns an unsigned short surface code",
+  "0x407a4 is g_engine_interface.context_004",
+  "Actor.scale is unsigned short (compared unsigned in 0x29a10)"
+ ]
+}
