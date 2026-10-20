@@ -1,0 +1,33 @@
+{
+ "date": "2026-10-20",
+ "lanes": [
+  "h3",
+  "h4"
+ ],
+ "module": "HERCULES.EXE",
+ "units": {
+  "calibration/host_psx_shim_041a0.c": "0x41a0..0x42e0 PSX shim continuation, 3 masked + 0x41a0 RECONSTRUCTED (82 B: original reloads ctx+0x5c twice in (old ^ now) & now; volatile on both reads gives 49 B, not equal - not adopted)",
+  "calibration/host_registry_04b10.c": "0x4b10 level-record raise/clamp, 1/1",
+  "calibration/host_movie_05350.cpp": "0x5350..0x5a50 C++ (local-static guard), 3 masked + 0x5450 RECONSTRUCTED (217 B: width in ecx vs esi, 2-byte encoding shift); the volume argument needs host_0fb10(..) << 16 >> 16 passed to a 32-bit host_037a0 parameter",
+  "calibration/host_graphics_06440.cpp": "0x6440/0x68c0 masked, 0x70c0 RECONSTRUCTED (29 B, x/pixel registers swapped)",
+  "calibration/host_app_075d0.cpp": "CHerculesApp 0x75d0..0x7aa0 MFC /GX: 11 masked + InitInstance 0x7670 RECONSTRUCTED (3 B, UpdateWindow temp in ebx vs eax/ecx); GetDriveTypeA(strcat(drive, \"\\\\\")) fixes the local array order",
+  "calibration/host_sound_voice_0f7c0.cpp": "h3: 6 sound-voice functions 0xf7c0..0xfd50, C++ extern C, 6/6; all 10 equal inserted into host_sound_channels.cpp (fixture-linked, kept standalone)",
+  "COMDAT rows (no source change)": "compiler/MFC-header COMDATs emitted masked equal by unchanged TUs: host_options_classes.cpp 0x63b0 ??3CObject, 0x63d0 (folded empty slot: DoDataExchange/Serialize/Dump), 0x63e0/0x63f0 Begin/EndModalState, 0x6400/0x6420/0x89f0/0x8a10 ??_G CStatic/CButton/CListBox/CEdit, 0x10440 ??_GCSliderCtrl; host_restart_dialog.cpp 0xef80 ??_GCHostRestartDialog; host_frame_remaining.cpp 0x9730 ??1CHostRestartDialog. 0x9410 (8-byte vcall thunk ??_9@$BNM@AE) not representable under the 16-byte extent rule. scripts/host_options_class_audit.py skips exe.comdat_ rows (they are not class members)."
+ },
+ "asm": "0xd420, 0xdd70, 0xe680 continue the software rasterizer 0xc2e0..0xef5f (frame-pointer prologues, ebp as data register): lane h5 under the 2026-10-20 owner __asm ruling",
+ "library": "0x10a20 import thunks (DirectDrawCreate/DirectSoundCreate) and 0x10a30 _srand (byte-identical RTM libcmt rand.obj; library scan missed it under its 16-byte threshold): the library block starts at 0x10a20",
+ "structure": [
+  "one TU per property page is suggested by COMDAT placement (member-control destructors after each page: 0x6400/0x6420 GamePlay, 0x89f0/0x8a10 Joystick, 0x10440 Sound); canonical host_options_classes.cpp is a single TU",
+  "identical-COMDAT folding happened in the original link (several empty inlines at 0x63d0), supporting the 0xbe30 stub-folding hypothesis",
+  "string pooling across functions ('Hercules Notice', 'rb' stored once)",
+  "0x63c0 recorded _host_diagnostic sits in the CObject::AssertValid slot of 35 vtables (possible misname)",
+  "0xfa10 (RECONSTRUCTED, host_sound_channels.cpp) is masked equal with a short slot parameter, re-read channel id and int lane counter (candidates/h3/tfa10.cpp); not adopted because that file is fixture-linked"
+ ],
+ "docs_error": "docs/host_runtime_reconstruction.md: 0x7660 is the theApp static-destructor thunk (atexit at 0x7650), 0x7670 is InitInstance (vtable 0x42e1d8 slot 22); function map 0x7620/0x7660/0x9730 extents are wrong",
+ "declarations_to_reconcile": [
+  "g_host_sound_bank_counters_698ed8 signed short (declared WORD)",
+  "g_exe_79e438/79e43c signed short; g_host_sound_volume_table_690a18 WORD",
+  "host_0f940 returns short; host_0fbf0/audio_native_fa10 take short",
+  "host_037a0 volume parameter is 32-bit at 0x5450"
+ ]
+}

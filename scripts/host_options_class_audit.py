@@ -26,6 +26,7 @@ def run():
  state=json.loads((ROOT/'recovery.json').read_bytes());rows=[]
  for item in state['functions']:
   if item['source']not in ['src/pc/host_options_classes.cpp','src/pc/host_frame_options.cpp']:continue
+  if item['id'].startswith('exe.comdat_'):continue  # compiler/MFC-header COMDATs emitted by the TU, not class members
   name=item['symbol'];cls=next(c for c in [x[0]for x in CLASSES]+['CMainFrame']if c+'@@'in name)
   role=('ctor'if name.startswith('??0')else'dtor'if name.startswith('??1')else'deleter'if name.startswith('??_G')else'factory'if name.startswith('?CreateObject@')else'runtime'if name.startswith('?GetRuntimeClass@')else'getmap'if name.startswith('?GetMessageMap@')else'ddx'if name.startswith('?DoDataExchange@')else'options')
   rows.append(dict(cls=cls,role=role,symbol=name,rva=item['rva'],size=item['size'],flags=item['flags']))
