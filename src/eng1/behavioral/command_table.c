@@ -57,7 +57,7 @@ int __cdecl initialize_command_table(unsigned long bytes,
  */
 unsigned short **__cdecl allocate_command(unsigned int opcode)
 {
-    unsigned long index;
+    int index;
 
     for (index = 0; index < ENG1_COMMAND_SLOT_COUNT; ++index) {
         if (g_command_slot_storage_71320[index] &&

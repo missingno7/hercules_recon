@@ -64,8 +64,8 @@ ActorLinkView *attach_actor(ActorLinkView *actor, int kind)
     if (attached) {
         actor->attachment_05c = attached;
         attached->attachment_05c = actor;
-        attached->flags_050 = 0x00010000UL;
         attached->word_038 = actor->word_038;
+        attached->flags_050 = 0x00010000UL;
         g_alt_callbacks[kind & 0x0fff].initialize(attached);
     }
 

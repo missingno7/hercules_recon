@@ -1,3 +1,4 @@
+#include <windows.h>
 /* PC-derived actor factories; descriptive names and field views only. */
 typedef struct Actor Actor;
 typedef unsigned short ActorKind;

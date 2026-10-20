@@ -1,3 +1,4 @@
+#include <windows.h>
 #include <stddef.h>
 
 typedef unsigned short ActorKind;
@@ -438,14 +439,12 @@ void reset_normal_actor_pool(void)
 {
     int index;
 
-    if (g_normal_limit_primary == 0)
-        return;
     for (index = 0; index < g_normal_limit_primary; ++index) {
         ActorNormal *actor = &g_normal_actor_pool[index];
-        if (remove_actor(actor))
-            initialize_normal_actor(actor);
-        else
+        if (remove_actor(actor) == 0)
             clear_actor(actor);
+        else
+            initialize_normal_actor(actor);
     }
 }
 
@@ -453,14 +452,12 @@ void reset_middle_actor_pool(void)
 {
     int index;
 
-    if (g_middle_limit_primary == 0)
-        return;
     for (index = 0; index < g_middle_limit_primary; ++index) {
         ActorMiddle *actor = &g_middle_actor_pool[index];
-        if (remove_middle_actor(actor))
-            initialize_middle_actor(actor);
-        else
+        if (remove_middle_actor(actor) == 0)
             clear_actor(actor);
+        else
+            initialize_middle_actor(actor);
     }
 }
 
@@ -468,13 +465,11 @@ void reset_alternate_actor_pool(void)
 {
     int index;
 
-    if (g_alternate_limit_primary == 0)
-        return;
     for (index = 0; index < g_alternate_limit_primary; ++index) {
         ActorCore *actor = &g_alternate_actor_pool[index];
-        if (release_actor(actor))
-            initialize_alternate_actor(actor);
-        else
+        if (release_actor(actor) == 0)
             clear_actor(actor);
+        else
+            initialize_alternate_actor(actor);
     }
 }

@@ -29,7 +29,10 @@ def build(output, include_incomplete=False, original_root=None):
         dll.unlink()
     state_bytes, config_bytes = (ROOT / 'recovery.json').read_bytes(), CONFIG.read_bytes()
     state, config = json.loads(state_bytes), json.loads(config_bytes)
-    rows = [row for row in state['functions'] if Path(row['target']).name.upper() == 'ENG1.DLL']
+    # Cross-module identity rows (*.shared_*) reuse another module's unit (e.g. a TITLE unit compiled
+    # masked-equal at an ENG1 twin); they document shared source, not an ENG1 provider.
+    rows = [row for row in state['functions'] if Path(row['target']).name.upper() == 'ENG1.DLL'
+            and '.shared_' not in row['id']]
     original_root = Path(original_root).resolve() if original_root is not None else ROOT
     target = original_root / 'assets/pc/HERCULES/ENG1.DLL'
     if digest(target.read_bytes()) != config['target_sha256']:
@@ -42,7 +45,10 @@ def build(output, include_incomplete=False, original_root=None):
         graph[row['source']] = flags
     for unit in config['additional_sources']:
         if unit['source'] in graph:
-            raise ValueError('Duplicate source provider: ' + unit['source'])
+            # A provider recorded in recovery.json (e.g. staged in place) is the same object.
+            if graph[unit['source']] != unit.get('flags', ['/O2']):
+                raise ValueError('Conflicting flags for source provider: ' + unit['source'])
+            continue
         graph[unit['source']] = unit.get('flags', ['/O2'])
     incomplete_bytes=(ROOT/config['incomplete_manifest']).read_bytes()
     incomplete_rows=json.loads(incomplete_bytes)['functions']

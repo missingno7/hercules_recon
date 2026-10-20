@@ -22,12 +22,12 @@ extern void __cdecl initialize_alternate_actor(void *actor);
  * 0x134 through the existing native-27520 behavioral provider. */
 void __cdecl eng1_call_274e0(void)
 {
-    unsigned long index;
+    int index;
 
     index = 0;
     while (index < g_configuration_word_713b4) {
         initialize_normal_actor((unsigned char *)g_normal_actor_pool +
-                                index * 0x134UL);
+                                index * 0x134);
         ++index;
     }
 }
@@ -37,12 +37,12 @@ void __cdecl eng1_call_274e0(void)
  * 0x713e0 to -1 using the configured 0x71380 prefix. */
 void __cdecl eng1_call_279f0(void)
 {
-    unsigned long index;
+    int index;
 
     index = 0;
     while (index < g_configuration_word_71432) {
         initialize_middle_actor((unsigned char *)g_middle_actor_pool +
-                                index * 0xecUL);
+                                index * 0xec);
         ++index;
     }
 
@@ -57,12 +57,12 @@ void __cdecl eng1_call_279f0(void)
  * 0x94 through the existing native-27fe0 behavioral provider. */
 void __cdecl eng1_call_27fa0(void)
 {
-    unsigned long index;
+    int index;
 
     index = 0;
     while (index < g_configuration_word_713ba) {
         initialize_alternate_actor((unsigned char *)g_alternate_actor_pool +
-                                   index * 0x94UL);
+                                   index * 0x94);
         ++index;
     }
 }

@@ -1,0 +1,39 @@
+{
+ "date": "2026-10-20",
+ "scope": "Two bounded lanes on census near-misses (existing source within 1-16 non-relocation bytes). Each residue was classified before editing; behaviour suites were run by the integrator. Masked equality is never FUNCTION_MATCH.",
+ "lane_e2": {
+  "masked_equal_after_fix": {
+   "ENG1 0x1e30": "branch layout: native tests timer_04c == 0 first",
+   "ENG1 0x2f30": "source form: index the leaf buffer global directly instead of a reused local",
+   "ENG1 0x19440": "volatile-read macros changed allocation and caused a binding conflict; plain global accesses match",
+   "ENG1 0x15670": "same volatile-helper cause; the natural reload follows from possible aliasing",
+   "ENG1 0x3ca10": "0x7183c is the signed camera-Y limit; one EAX=-2 serves both WORD stores; volatile casts removed",
+   "EXE 0x4470": "statement content: saved_arena += old_bytes"
+  },
+  "improved": {"ENG1 0x3470": "native counter 1..0x50 (11 -> 4 bytes; same 80 iterations); remaining epilogue sharing"},
+  "corrections": {
+   "ENG1 0x5600": "calls the direct provider 0x2c600 (engine_frame_chain_write), not interface slot +0x144; not installed yet because two differential harnesses must add calibration/frame_chain_bridge.c",
+   "ENG1 0x2ef60": "census extent wrong: a complete 448-byte cylinder-setup function, not a 16-byte wrapper",
+   "ENG1 0x2a810": "only the order of six commutative & terms differs; VC5 orders them by symbol identity (declaration order/field names); not pursued (name steering)"
+  }
+ },
+ "lane_e1": {
+  "masked_equal_after_fix": {
+   "ENG1 0x28360, 0x27fa0, 0x274e0, 0x279f0": "signed int index (native JL); unsigned gave JB",
+   "ENG1 0x2af80": "indexed access after the guard (native strength-reduces after the guard)",
+   "ENG1 0x27cd0": "store order: word_038 read before flags_050 store",
+   "ENG1 0x27490, 0x27f50, 0x279a0 (+ENG3 0x1cdc0, 0x1d810 twins)": "redundant limit guard removed, native if/else sense, then a SIB tie-break resolved by <windows.h> TU context",
+   "ENG3 0x1d2d0": "&pool[index] over the complete 0xec-byte Eng3MiddleActor plus <windows.h> TU context (upgraded from RECONSTRUCTED)",
+   "ENG1 0x27db0, 0x271d0": "equal as C plus <windows.h>; already recorded through TITLE u06bb0.cpp twins, so not restaged"
+  },
+  "falsified": [
+   "Pool-reset family residue was not a C-vs-C++ effect: the C++ copy keeps the identical 71-byte residue; the cause was the redundant guard and branch sense.",
+   "The C front end is NOT count-insensitive for base/index order: with unchanged C source, equality starts at 77 (spawn_kind), 82 (spawn_normal), 161 (change_kind) and 37 (fixed normal reset) extra declarations; C++ shows the same transition at lower counts. So these bytes do not discriminate C from C++."
+  ],
+  "not_adopted": {"ENG1 0x29320 change_kind": "equal as C plus <windows.h>, but calibration/macro_actor.c is pinned by historical macro/effect/dispatcher/archive reproductions; left unchanged"}
+ },
+ "integration_fixes": [
+  "scripts/eng1_behavioral.py ignores *.shared_* cross-module identity rows and treats a source both recorded in recovery.json and listed as an additional source as one provider; four census rows on the historical calibration/refinery_blind.c were removed because that experiment file is not a graph provider. The ENG1 behavioral build is back to 370 mapped / 401 symbols / 528 unresolved / 0 duplicates / 76 preserved strict functions."
+ ],
+ "behaviour_runs": "test_eng1_behavioral 38/38; test_pilot actor_factories (131,090 checks), registry_allocation, macro, actor_pool_reset, actor_pool_reset_basic, action_registry, actor_pools (262,408), host_arena_reset; eng1_bounded_differential attachment-callback, owned-spawn-callback, spawn-services, action-spawn, forest-initializer (4,660), setup-leaves, player-setup, descriptor-reload; eng1_descriptor_resource_differential; eng1_actor_list_success_differential; tests.test_macro_compare: all pass. scripts/host_pool_full_linkage.py rejects a changed frozen count_used contribution in an untouched file (pre-existing)."
+}

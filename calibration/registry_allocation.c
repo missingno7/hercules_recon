@@ -23,18 +23,16 @@ void *forward_host_allocation(void **slot, unsigned int bytes,
 int initialize_pending_action_groups(void)
 {
     int index = 0;
-    PendingActionGroup **slot = pending_action_group_table;
 
     while (index < pending_action_group_count) {
         if (!forward_host_allocation(
-                (void **)slot,
+                (void **)&pending_action_group_table[index],
                 (unsigned int)pending_action_group_limit << 2,
                 0))
             return 0;
 
-        (*slot)->count = -1;
+        pending_action_group_table[index]->count = -1;
         ++index;
-        ++slot;
     }
 
     return 1;
