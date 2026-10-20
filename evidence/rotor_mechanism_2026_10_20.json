@@ -1,0 +1,24 @@
+{
+ "date": "2026-10-20",
+ "scope": "Compiler-mechanism study (scratch candidates/rotor) for the residue shared by TITLE 0x9a40, 0x9c90, 0xa020 and 0xd910 (size-exact RECONSTRUCTED rows). Diagnostic only; canonical sources unchanged.",
+ "toolchain": "pinned VC5 RTM /O2; pinned SP2 identical; unpinned msvc5_sp3 identical (diagnostic)",
+ "mechanism": "In every original 999-loop sound call the value lands in eax (9a40 x2, 9c90 x3, a020 x2, d910 x4) regardless of address register or rotor position, and never advances the scratch rotor: it is assigned by the named-local route (first free register, no rotor advance; sister-project rule VC5-RA-01). Our value is an ordinary expression temp that takes the rotor register and advances it once per loop, which shifts every later scratch choice.",
+ "prediction": "Routing the value through a range that survives to register assignment gives eax and one fewer rotor step; falsifier: edx remains. Confirmed.",
+ "minimal_pair": {
+  "A_expression_temp": "snd(U[h+1] | 0x4000, p); -> movsx edx,[eax+U+2]; mov ecx,[p]; or dh,40h; push ecx; push edx; next block eax/edx/cx",
+  "B_address_taken_local": "int v, *pv = &v; *pv = U[h+1] | 0x4000; snd(v, p); -> movsx eax,...; or ah,40h; push ecx; push eax; next block edx/ecx/ax (original pattern)",
+  "C_struct_by_value": "identical bytes to B",
+  "size": "112 bytes each, identical instruction sequences except registers"
+ },
+ "diagnostic_results": {
+  "canonical": {"0x9a40": 202, "0x9c90": 163, "0xa020": 278, "0xa450": "MASKED EQUAL", "0xd910": "size-exact, differs"},
+  "address_taken_local": "all four MASKED EQUAL, 0xa450 stays equal, 0 unit regressions (steering form, not adopted)",
+  "struct_argument_loops_only": "all four MASKED EQUAL (contradicts the constant calls, not adopted)",
+  "struct_argument_all_calls": {"0x9a40": "EQUAL", "0x9c90": 476, "0xa020": 271}
+ },
+ "rejected": ["argument evaluation order (0xd910 has a single temp; swapping callee parameters breaks 0x9c90)", "symbol names and declaration count", "service pack", "C++ front end"],
+ "inert": ["what precedes the loop", "post-loop test form", "g += 2/for/while shapes", "table type", "pointer source", "parameter types and casts", "variadic/K&R/indirect callee declarations", "inline wrappers (C and C++)", "every scalar local (block or function scope, short/int/register)", "struct-field locals read back as scalars", "one-element array locals"],
+ "why_no_admissible_form": "C copy propagation removes every scalar local; a value only survives as a range when pushed as an aggregate or address-taken. The original constant calls (push 0x430a/0x430c/0x4311/0x4316) are plain dword pushes, so a by-value struct parameter is contradicted. An unprototyped/old-style callee taking a real 4-byte sound struct in the loops would need owner review and evidence from callee 0x54f0, which reads the argument as a dword masked with 0xffff/0xf800/0x4000.",
+ "side_finding": "Adding only the unused prototype title_054f0_sw(TitleObject*, int) changes 0xa450 by 16 bytes while other names do not: name-dependent hashed symbol keys (VC5-RA-06); choose new names in u09a40.c carefully.",
+ "artifacts": "candidates/rotor (ignored scratch): mt/pair.c, diag_addr*.c, diag_struct*.c, sig.py, score.py"
+}

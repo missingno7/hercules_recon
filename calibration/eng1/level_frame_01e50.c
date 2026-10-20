@@ -20,9 +20,9 @@ typedef struct LevelContext {
     u8 unknown_07[0x38 - 0x07];
     long tick;                  /* 0x38 */
     u8 unknown_3c[0x5c - 0x3c];
-    u8 held;                    /* 0x5c */
+    volatile u8 held;           /* 0x5c: volatile per owner ruling 2026-10-20 (re-read at every test; codegen hypothesis) */
     u8 unknown_5d;
-    u16 pressed;                /* 0x5e */
+    volatile u16 pressed;       /* 0x5e: volatile per owner ruling 2026-10-20 (re-read at every test; codegen hypothesis) */
     u16 unknown_60;             /* 0x60 */
     u8 unknown_62[0x9c - 0x62];
     u16 mode_09c;               /* 0x9c */
