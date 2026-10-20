@@ -144,7 +144,7 @@ def stage(plan_path):
         evidence = f['evidence']
         if (f['rva'], f['symbol']) in prior_evidence:
             evidence = f"{evidence} Previously: {prior_evidence[(f['rva'], f['symbol'])]}"
-        rows.append(dict(id=f'{prefix}.{name}', status='CODEGEN_SIMILAR',
+        rows.append(dict(id=f.get('id') or f'{prefix}.{name}', status='CODEGEN_SIMILAR',
                          name_status='provisional address label', target=target_rel,
                          target_sha256=digest((ROOT / target_rel).read_bytes()), rva=f['rva'], size=f['size'],
                          source=source, symbol=f['symbol'], flags=['/O2'], evidence=evidence,

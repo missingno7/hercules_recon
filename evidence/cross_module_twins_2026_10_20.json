@@ -1,0 +1,114 @@
+{
+ "date": "2026-10-20",
+ "scope": "Diagnostic shared-implementation evidence; relocation-masked equality is never FUNCTION_MATCH.",
+ "method": [
+  "scripts/twins.py: per function-map span (>= 32 bytes) of all four modules, hash the bytes with base-relocated fields and external rel32 call/jmp displacements zeroed; group equal (size, hash) across modules.",
+  "scripts/twin_transfer.py: compile the unchanged recorded source of the recorded member (pinned RTM, row flags) and masked_compare its symbol at each unrecorded twin."
+ ],
+ "twin_groups": {
+  "groups": 121,
+  "bytes_in_groups": 56096,
+  "by_module_set": {
+   "ENG1+ENG3+TITLE": 7920,
+   "ENG3+TITLE": 784,
+   "ENG1+TITLE": 2384,
+   "ENG1+ENG3": 11296
+  }
+ },
+ "transfer": {
+  "targets": 131,
+  "masked_equal": 125,
+  "masked_equal_bytes": 14816,
+  "recorded": {
+   "rows": 83,
+   "bytes": 13472,
+   "id_form": "eng1.shared_XXXXX / eng3.shared_XXXXX",
+   "sources": "existing TITLE units (u02b70.c, u06bb0.cpp, u17cb0.cpp, r04d80.c, r17ad0.c, r097f0.c, u0c1f0.c) and ENG1 providers (action_registry.c, macro_actor.c, color.c, frame_runtime_callees.c)"
+  },
+  "excluded_one_to_many": {
+   "rows": 42,
+   "bytes": 1344,
+   "reason": "TITLE 0xc280/0xc3f0/0xc450 (32-byte single-relocation slot wrappers) masked-match several engine functions each; masked equality cannot distinguish the referenced slot, so no row is recorded."
+  },
+  "symbol_conflicts": [
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x3270",
+    "from_rva": "0x48a0",
+    "conflict": {
+     "symbol": "_g_26110",
+     "offset": 317,
+     "implied": "0x5d3cc",
+     "previous": "0x5cee0"
+    }
+   },
+   {
+    "module": "ENG3.DLL",
+    "rva": "0x8340",
+    "from_rva": "0x48a0",
+    "conflict": {
+     "symbol": "_g_26110",
+     "offset": 317,
+     "implied": "0x394a8",
+     "previous": "0x39548"
+    }
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x34d0",
+    "from_rva": "0x4b00",
+    "conflict": {
+     "symbol": "_g_26110",
+     "offset": 57,
+     "implied": "0x5d3cc",
+     "previous": "0x5cee0"
+    }
+   },
+   {
+    "module": "ENG3.DLL",
+    "rva": "0x85a0",
+    "from_rva": "0x4b00",
+    "conflict": {
+     "symbol": "_g_26110",
+     "offset": 57,
+     "implied": "0x394a8",
+     "previous": "0x39548"
+    }
+   },
+   {
+    "module": "ENG1.DLL",
+    "rva": "0x3910",
+    "from_rva": "0x4f40",
+    "conflict": {
+     "symbol": "_g_26110",
+     "offset": 129,
+     "implied": "0x5d3cc",
+     "previous": "0x5cee0"
+    }
+   },
+   {
+    "module": "ENG3.DLL",
+    "rva": "0x89e0",
+    "from_rva": "0x4f40",
+    "conflict": {
+     "symbol": "_g_26110",
+     "offset": 129,
+     "implied": "0x394a8",
+     "previous": "0x39548"
+    }
+   }
+  ]
+ },
+ "findings": [
+  "Shared engine code: TITLE units u02b70.c (sprite/VRAM cache, primitives), u06bb0.cpp (object pools/allocators), u17cb0.cpp and r04d80.c compile unchanged to ENG1/ENG3 functions. The ENG1 sprite-cell allocator 0x4ca0 (1,072 bytes) is TITLE 0x3da0.",
+  "The object-system twins come from the C++ unit u06bb0.cpp; ENG1 behavioral C versions of 0x271d0/0x27db0/0x279f0/0x274e0/0x27fa0 missed by 1-4 bytes. The engines therefore likely compiled this shared object-system source as C++ as well (consistent with TITLE 0x8a50/0x8ed0 matching only as C++).",
+  "TITLE binds one symbol _g_26110 where ENG1/ENG3 reference two distinct addresses (6 conflicts at 0x3270/0x34d0/0x3910 in ENG1 and 0x8340/0x85a0/0x89e0 in ENG3): the engines have two objects or members where TITLE has one; this is data-identity evidence, not a code difference.",
+  "ENG1+ENG3 twin groups with no recorded member total 11,296 bytes: reconstructing one module recovers the other."
+ ],
+ "limits": "Same source text producing both functions does not establish engine unit ownership, names, TU context in an engine natural link, or placement. Each recorded engine row reuses the TITLE symbol name.",
+ "after": {
+  "masked_rows_verified": 634,
+  "strict_rows": 134,
+  "tests": "86 OK"
+ }
+}
