@@ -42,6 +42,26 @@
     "g_burst_done_6ffec is a camera-shake step index into 0x638f8 driving g_camera_offset_y_70cbc",
     "recovery symbols 0x3870 _title_04ea0 = resource_cancel, 0x271d0 _title_08a50 = spawn_normal"
    ]
+  },
+  "x15": {
+   "source": "calibration/eng1/player_scene_3a040.c",
+   "region": "0x3a040..0x3c410",
+   "result": "60/60 masked equal standalone (plain C; C++ 58/60). Appended to player_unit_36030.c 141/143: all 83 canonical rows stay equal, 0x3a550 (script_10c + angle_72) and 0x3c1e0 (low + bounds[2]) flip commutative operand order - context residue; kept standalone like x12.",
+   "forms": [
+    "0x3a040 three identical case bodies kept as distinct jump-table indices (tail-merged); cases 0x2b/0x2c update y before scale",
+    "0x3b310 case 2 own body, cases 0x4f, 0x23, 9, 0x40 in that order",
+    "0x3bde0 case 0x51 own body, case 0x24 last",
+    "0x3ba00 case bodies 0,2,1,3..6",
+    "0x3b200/0x3bcb0 hit != 0x80"
+   ],
+   "identity": [
+    "0x707e4 is the scroll/camera anchor actor (= g_frame_global_734f4)",
+    "0x707e8 per-frame x scroll speed",
+    "0x707f4 an x coordinate",
+    "0x707f8 signed z-wobble accumulator",
+    "0x644d0 effect descriptor points at 0x3a340/0x3a390 (data likely defined in this unit, unproven)",
+    "0x3bc00/0x3b970 match ENG3 0x279d0/0x28a80 by shape only (one-call wrappers)"
+   ]
   }
  },
  "ENG3": {
