@@ -11,5 +11,19 @@
   "0x22620: the scaled width is computed once and shifted at each use (dx = width << 7; x -= dx << 16) - folded forms give a single shl 0x17",
   "unit boundaries: the slot wrappers continue the wrapper run from 0x1f830; the tile/spawn group 0x22b30..0x22e40 likely opens the renderer unit at 0x22f00 (moving it there makes 0x22f00 equal without headers: 15/23 vs 9/23)"
  ],
- "naming": "Several callee names differ from other recorded files (e.g. 0x1fd20 eng3_slot_1b0 vs _eng3_1fd20; 0x1cb00 recorded as _title_08a50); a unified ENG3 naming pass is needed before an ENG3 natural link."
+ "naming": "Several callee names differ from other recorded files (e.g. 0x1fd20 eng3_slot_1b0 vs _eng3_1fd20; 0x1cb00 recorded as _title_08a50); a unified ENG3 naming pass is needed before an ENG3 natural link.",
+ "wave2": {
+  "date": "2026-10-20",
+  "functions": [
+   "0x20b60",
+   "0x21200"
+  ],
+  "result": "0x20b60 162 -> 23 non-relocation bytes; 0x21200 now size-exact (416 -> 400), 143 bytes, recorded RECONSTRUCTED; 0x22b90 became masked equal in the same unit (28 masked, 6 RECONSTRUCTED)",
+  "fix": "slot_294 takes the matrix first (original pushes 0x10039518 then the matrix; cf. PSX ScaleMatrix(MATRIX*, VECTOR*))",
+  "forms": [
+   "0x20b60: tz/tx computed locals in a scoped block, stores t[0]=tx&~1, t[1]=0, t[2]=tz*2; sine table pointer local; angles stored [0],[2],[1]",
+   "0x21200: a = -(cell->angle_0a + yaw) early, m->t[2] store first; statement order cell, yaw, m, a, pivot"
+  ],
+  "residue": "allocation/operand order in the multiply block (original spills the cosine; ours the sine) and VC5 canonicalising (tz + S) + H to (tz + H) + S; declaration orders (40,320 exhaustive on one form), statement orders and count scans 0..95 never equal. Next step: a c2 colouring tracer for the pinned c2.exe (blood2's tracer is pinned to a different c2 hash)."
+ }
 }

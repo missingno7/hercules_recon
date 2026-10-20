@@ -806,30 +806,36 @@ int eng3_20b60(Eng3Visit *visit)
 
     m = (Eng3Matrix *)g_engine_interface.scratch;
     {
-        Eng3Cell *cell;
-        long x;
-        long z;
-        long c;
+        short *sine;
         long s;
+        long x;
+        long c;
+        long tx;
         long yaw;
+        long tz;
+        Eng3Cell *cell;
+        long z;
 
         cell = visit->cell;
         yaw = visit->view.yaw;
         x = (cell->x - visit->view.x) >> 12;
         z = (cell->z - visit->view.z) >> 12;
-        c = g_engine_interface.sine[(yaw - 0x400) & 0xfff];
-        s = g_engine_interface.sine[yaw & 0xfff];
-        m->t[0] = ((x * s - z * c) >> 11) & ~1;
+        sine = g_engine_interface.sine;
+        c = sine[(yaw - 0x400) & 0xfff];
+        s = sine[yaw & 0xfff];
+        tz = ((x * c + z * s) >> 12) + g_eng3_height_40640;
+        tx = (x * s - z * c) >> 11;
+        m->t[0] = tx & ~1;
         m->t[1] = 0;
-        m->t[2] = (((x * c + z * s) >> 12) + g_eng3_height_40640) * 2;
+        m->t[2] = tz * 2;
         a = -(cell->angle_08 + visit->view.yaw);
     }
     {
         short angles[3];
 
         angles[0] = (short)visit->view.pitch;
-        angles[1] = (short)a;
         angles[2] = 0;
+        angles[1] = (short)a;
         eng3_slot_290(angles, m);
     }
     eng3_slot_294(m, g_eng3_scale_39518);
@@ -1002,30 +1008,31 @@ int eng3_20ed0(long *stream, Eng3Visit *visit, int count)
 
 int eng3_21200(Eng3Visit *visit)
 {
-    Eng3Matrix *m;
-    Eng3Cell *cell;
-    Eng3Cell *pivot;
-    short angles[3];
-    long a;
+    long tx;
+    long c;
+    long tz;
     long b;
     long x;
-    long z;
-    long c;
+    Eng3Cell *pivot;
     long s;
-    long tx;
-    long tz;
+    Eng3Cell *cell;
+    long z;
+    long a;
+    short angles[3];
+    Eng3Matrix *m;
+    long yaw;
 
-    m = (Eng3Matrix *)(g_engine_interface.scratch + 0x20);
     cell = visit->cell;
-    pivot = &g_eng3_cells_40540[visit->layer][cell->pivot];
-    a = cell->angle_0a + visit->view.yaw;
+    yaw = visit->view.yaw;
+    m = (Eng3Matrix *)(g_engine_interface.scratch + 0x20);
+    a = -(cell->angle_0a + yaw);
+    pivot = g_eng3_cells_40540[visit->layer] + cell->pivot;
     x = (pivot->x - visit->view.x) >> 6;
     z = (pivot->z - visit->view.z) >> 6;
-    c = g_engine_interface.sine[(visit->view.yaw - 0x400) & 0xfff];
-    s = g_engine_interface.sine[visit->view.yaw & 0xfff];
+    c = g_engine_interface.sine[(yaw - 0x400) & 0xfff];
+    s = g_engine_interface.sine[yaw & 0xfff];
     tz = (x * c + z * s) >> 6;
     tx = (x * s - z * c) >> 6;
-    a = -a;
     if (visit->curve == 1) {
         tx += g_engine_interface.sine[a & 0xfff] * 1304;
         b = a + 0x400;
@@ -1033,11 +1040,11 @@ int eng3_21200(Eng3Visit *visit)
         tx += g_engine_interface.sine[(a - 0x800) & 0xfff] * 1304;
         b = a - 0x400;
     }
+    m->t[2] = ((g_engine_interface.sine[b & 0xfff] * 1304 + tz + (g_eng3_height_40640 << 12)) >> 11) & ~1;
     m->t[0] = (tx >> 11) & ~1;
     m->t[1] = 0;
     angles[2] = 0;
     angles[1] = 0;
-    m->t[2] = ((tz + g_engine_interface.sine[b & 0xfff] * 1304 + (g_eng3_height_40640 << 12)) >> 11) & ~1;
     angles[0] = (short)visit->view.pitch;
     eng3_slot_290(angles, m);
     eng3_slot_294(m, g_eng3_scale_39518);
