@@ -39,6 +39,11 @@ extern int g_2cc84;
 static unsigned long g_29dac;
 static unsigned long g_29db8;
 static unsigned long g_29e04;
+static unsigned long g_29da8;
+static unsigned long g_29db0;
+static unsigned long g_29db4;
+static TitleRec64 g_29dc0;
+static long g_29e00;
 
 /* ---- f_4d80 ---- */
 
@@ -402,7 +407,91 @@ void title_0c6f0(void);
 void title_0c700(void);
 int title_016e0(const char *fmt, ...);
 short title_0cc10(short a, short b, short c, short d, short e, short f, short g);
+int title_05080(int id);
 
+void title_054f0(unsigned short id, TitleObject *owner)
+{
+    unsigned short linked;
+    unsigned long vol;
+
+    title_0c6f0();
+    g_29da8 = id & ~0xf800;
+    g_29db0 = g_engine_interface.context_004->sound_2f0[g_29da8][0];
+    g_29db4 = g_engine_interface.context_004->sound_2f0[g_29da8][1];
+    title_016e0("\n LinkedSoundFx %d :: %d %d", g_29da8, g_29db0, g_29db4);
+    title_016e0("\n 0x%x 0x%x 0x%x \n",
+                g_engine_interface.context_004->unknown_150[g_29db0],
+                g_engine_interface.context_004->unknown_178[g_29db0],
+                g_engine_interface.context_004->unknown_18c[g_29db0]);
+    if (g_29db0 != 0xff && g_29db4 != 0xff && (owner != 0 || (id & 0xf800) == 0)) {
+        linked = id & 0x4000;
+        if (linked && owner != 0 && owner->unknown_068 == 0) {
+            /* Recovered control flow (owner ruling 2026-10-20): the unoptimized ENG1 (0x6ebb) and ENG3 (0xbd62)
+               copies of this function test the owner's slot state (== 3, loaded) and jump to the common exit from
+               both outcomes; the then-branch content, if any, is not recoverable. */
+            if (g_26110[owner->unknown_022].state_10 == 3)
+                goto done;
+            goto done;
+        }
+        if (title_05080(g_29da8) <= 5) {
+            if (linked) {
+                g_29dc0.word_0c = (short)g_29db0;
+                g_29dc0.unknown_0e = (short)g_29db4;
+                g_29dc0.owner_30 = owner;
+                g_29dc0.flags_34 = id;
+                g_29dc0.unknown_38 = g_engine_interface.context_004->sound_2f0[g_29da8][2];
+                title_fx_pan(&g_29dc0);
+                if (g_engine_interface.context_004->unknown_1b24 == 0) {
+                    g_29e00 = title_0cc10((short)g_29db0, (short)g_29db4, 0, 0x3c, 0,
+                                          (short)((g_29dc0.unknown_10 + g_29dc0.unknown_14) * g_engine_interface.context_004->unknown_1b18 >> 8),
+                                          (short)((g_29dc0.unknown_10 + g_29dc0.unknown_14) * g_engine_interface.context_004->unknown_1b18 >> 8));
+                } else {
+                    g_29e00 = title_0cc10((short)g_29db0, (short)g_29db4, 0, 0x3c, 0,
+                                          (short)(g_29dc0.unknown_10 * g_engine_interface.context_004->unknown_1b18 >> 7),
+                                          (short)(g_29dc0.unknown_14 * g_engine_interface.context_004->unknown_1b18 >> 7));
+                }
+                if (g_29e00 >= 0) {
+                    g_2cca0[g_29e00].unknown_00 = g_29dc0.unknown_00;
+                    g_2cca0[g_29e00].unknown_04 = g_29dc0.unknown_04;
+                    g_2cca0[g_29e00].unknown_10 = g_29dc0.unknown_10;
+                    g_2cca0[g_29e00].unknown_14 = g_29dc0.unknown_14;
+                    g_2cca0[g_29e00].unknown_18 = g_29dc0.unknown_18;
+                    g_2cca0[g_29e00].unknown_1c = g_29dc0.unknown_1c;
+                }
+                id &= ~0x4000;
+            } else if (id & 0x800) {
+                g_29e00 = title_0cc10((short)g_29db0, (short)g_29db4, 0, 0x3c, 0, 0, 0);
+                if (g_29e00 >= 0) {
+                    g_2cca0[g_29e00].unknown_14 = 0;
+                    g_2cca0[g_29e00].unknown_10 = 0;
+                }
+            } else {
+                vol = g_engine_interface.context_004->unknown_1b18 * 127 >> 7;
+                g_29e00 = title_0cc10((short)g_29db0, (short)g_29db4, 0, 0x3c, 0, (short)vol, (short)vol);
+                if (g_29e00 >= 0) {
+                    g_2cca0[g_29e00].unknown_14 = vol;
+                    g_2cca0[g_29e00].unknown_10 = vol;
+                }
+            }
+            if (g_29e00 >= 0) {
+                g_2cca0[g_29e00].unknown_20 = g_2cca0[g_29e00].unknown_10;
+                g_2cca0[g_29e00].unknown_24 = g_2cca0[g_29e00].unknown_14;
+                g_2cca0[g_29e00].word_0c = (short)g_29db0;
+                g_2cca0[g_29e00].unknown_0e = (short)g_29db4;
+                g_2cca0[g_29e00].owner_30 = owner;
+                g_2cca0[g_29e00].id_08 = (short)g_29da8;
+                g_2cca0[g_29e00].flags_34 = id;
+                g_2cca0[g_29e00].unknown_0a = 0;
+                g_2cca0[g_29e00].unknown_38 = g_engine_interface.context_004->sound_2f0[g_29da8][2];
+                if (owner != 0) {
+                    owner->unknown_06c = (void *)1;
+                }
+            }
+        }
+    }
+done:
+    title_0c700();
+}
 
 /* ---- f_5a70 ---- */
 

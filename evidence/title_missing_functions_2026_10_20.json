@@ -65,7 +65,7 @@
     },
     "0x54f0": {
      "span": 1408,
-     "status": "not integrated",
+     "status": "integrated as RECONSTRUCTED (owner ruling 2026-10-20, recovered form)",
      "best": "1408 bytes / 460 non-relocation differing with an always-false identical-arm compare (owner->unknown_022 == -1) that reproduces the original's dead zero-extended load and separate exit; 1392 bytes / 848 without it.",
      "decision_needed": "Owner ruling: the identical-arm compare is dead code that steers the compiler (AGENTS.md forbids it in accepted source). Kept in candidates/tB only.",
      "residue": "Linked 0x4000 block: the original re-reads [g_29dc0+0x34]; ours reuses the stored value. Volatile on that one store reproduces the reload shape (443), then a cyclic esi/edi/ebp permutation remains.",
@@ -75,6 +75,20 @@
       "if (u022 == -1) owner->unknown_068 = 1; then 0c700(); return;": "1424 B / 843",
       "if (u022 == -1) return; then 0c700(); return;": "1408 B / 828",
       "conclusion": "Only identical arms reproduce the dead zero-extended load plus separate exit; the original arms were likely identical after preprocessing (e.g. a macro). Unresolved."
+     },
+     "recovered_form": {
+      "evidence": "Unoptimized (/Od) copies of LinkedSoundFx in ENG1 (entry 0x6da0, test 0x6ebb, common exit 0x75d9 = call unlock; pop; ret) and ENG3 (string reference 0xbcb0, test 0xbd62): movzx edx,[owner+0x22]; imul edx,0x14; movzx eax,word [edx+slot_table+0x10]; cmp eax,3; jne +5; jmp EXIT; jmp EXIT.",
+      "source": "if (g_26110[owner->unknown_022].state_10 == 3) goto done; goto done; with done: before the final title_0c700() unlock",
+      "result": "1408/1408 bytes, early exit (0x0c2..0x0e8) byte-identical including the dead load, 458 non-relocation bytes differ (all in the linked 0x4000 block)",
+      "claims": "Recovered behaviour and control flow are evidenced by two independent unoptimized builds; the then-branch content (if any) is unknown; no byte identity is claimed.",
+      "inert": [
+       "keeping pan l/r in g_2cc70/g_2cc74 as ENG1 does",
+       "ENG1 squared-term order"
+      ],
+      "worse": [
+       "moving the unknown_38 store ahead of owner/flags (1376/516)",
+       "ending both arms with title_0c700(); return; (822)"
+      ]
      }
     }
    }
@@ -193,5 +207,6 @@
  "negative_controls": [
   "Declaring title_054f0 as (unsigned short id, TitleObject *owner) does not change the 0x9a40/0x9c90/0xa020 residue (204/167/280 vs 202/163/278)."
  ],
- "behavioral_build": "Superseded behavioral fragments (cell_init.c, screens.inc, object_setup.inc, password_actor.inc, tally.inc, input_boot.c, emitters.c, render.inc) and eight source adaptations now incorporated in canonical units were retired from evidence/title_behavioral_build.json. The TITLE behavioral DLL links 362/362 with 0 unresolved and 0 duplicates; test_title_behavioral, title_differential, title_render_differential (2560 cases), title_password_differential and title_menu_differential (20 cases) pass."
+ "behavioral_build": "Superseded behavioral fragments (cell_init.c, screens.inc, object_setup.inc, password_actor.inc, tally.inc, input_boot.c, emitters.c, render.inc) and eight source adaptations now incorporated in canonical units were retired from evidence/title_behavioral_build.json. The TITLE behavioral DLL links 362/362 with 0 unresolved and 0 duplicates; test_title_behavioral, title_differential, title_render_differential (2560 cases), title_password_differential and title_menu_differential (20 cases) pass.",
+ "status_2026_10_20": "All 22 previously missing TITLE functions now have canonical source: 6 masked equal (0xa450, 0x94c0, 0x95d0, 0xc1f0, 0x184c0, 0x18b20), 15 size-exact RECONSTRUCTED, 0x1c500 RECONSTRUCTED 16 bytes short. The TITLE behavioral build needs no draft fragments any more."
 }
