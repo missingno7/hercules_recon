@@ -158,6 +158,10 @@ TitleTab g_2a0a0[2];
 /* Initialized tables of this object (TITLE.DLL .data 0x23668..0x242e7), in address order: five
    0xffff-terminated frame tables and offset tables. Arrays of 8+ bytes are 8-aligned in .data, so
    0x241a4, 0x241e2 and 0x24202 are entries inside them (read as table[i + k]). */
+/* .data 0x23660: -1 (then 4 alignment bytes before g_23668); no PC code reference; ownership hypothesis
+   (owner ruling 2026-10-20). */
+int g_23660 = -1;
+
 short g_23668[292] = {
     1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 5, 4, 4, 6, 6, 4,
     4, 5, 5, 5, 4, 4, 6, 7, 8, 9, 9, 10, 10, 10, 9, 9,
@@ -362,7 +366,10 @@ typedef struct TitleMenuState {
 } TitleMenuState;
 
 /* Sparkle positions on the menu picture (x, y pairs): .data 0x242e8. */
-int g_242e8[50] = {
+/* Extent hypothesis (owner ruling 2026-10-20): the 40 zero bytes 0x243b0..0x243d7 lie inside initialized .data, and
+   VC5 moves all-zero objects to .bss, so they must be the implicit-zero tail of an object with non-zero content;
+   0x7510 reads only the first 50 ints. */
+int g_242e8[60] = {
     125, 27, 144, 41, 153, 38, 159, 41, 167, 39, 182, 35, 178, 40, 187, 38,
     91, 49, 105, 64, 133, 67, 122, 79, 153, 59, 155, 79, 182, 71, 196, 69,
     202, 80, 211, 63, 220, 79, 233, 60, 234, 80, 71, 78, 84, 64, 74, 57,

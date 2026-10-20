@@ -53,26 +53,28 @@ typedef struct TitlePolyGT4 {         /* PSX POLY_GT4, 0x34 bytes */
 
 /* Private .bss of the unit (extents from the next known address; layout order not reproduced).
    Each table is indexed by slot + display buffer (g_2cc04 == second buffer). */
-static TitleTPage g_29148[4];         /* 0x1de0 texture page, first sprite */
-static TitleTPage g_29178[8];         /* 0x2090 texture page, second sprite */
-static TitleTPage g_291d8[8];         /* 0x28c0 texture page (abr) */
-static TitleSprt g_29238[4];          /* 0x1de0 second sprite (x 0x100/0x80) */
-static TitleTPage g_29288[8];         /* 0x2090 texture page, first sprite */
-static TitlePolyF4 g_292e8[8];        /* 0x28c0 flat quad */
-static TitleTPage g_293a8[4];         /* 0x1de0 texture page, second sprite */
-static TitleSprt g_293d8[8];          /* 0x2090 second sprite */
-static TitleSprt g_29480[8];          /* 0x2090 first sprite */
-static TitleSprt g_29520[4];          /* 0x1de0 first sprite */
+/* Static names below are layout-chosen (owner policy 2026-10-09): VC5 orders this block by identifier hash, and
+   these role-derived names reproduce the original .bss order 0x29148..0x29588 (17/17); they are not recovered names. */
+static TitleTPage s_overlay_tpages[4];         /* 0x1de0 texture page, first sprite */
+static TitleTPage s_slot_tpage2s[8];         /* 0x2090 texture page, second sprite */
+static TitleTPage s_abr_tpage[8];         /* 0x28c0 texture page (abr) */
+static TitleSprt s_big_sprt2[4];          /* 0x1de0 second sprite (x 0x100/0x80) */
+static TitleTPage s_slot_tpage1[8];         /* 0x2090 texture page, first sprite */
+static TitlePolyF4 s_flat_quad[8];        /* 0x28c0 flat quad */
+static TitleTPage overlay_tpage2s[4];         /* 0x1de0 texture page, second sprite */
+static TitleSprt s_slot_sprt2_buf[8];          /* 0x2090 second sprite */
+static TitleSprt s_pair_sprt1[8];          /* 0x2090 first sprite */
+static TitleSprt overlay_sprt1[4];          /* 0x1de0 first sprite */
 
-static int g_29478;                   /* 0x23c0 clears it on grid setup (0x29478; 0x2947c unseen) */
+static int s_grid_states;                   /* 0x23c0 clears it on grid setup (0x29478; 0x2947c unseen) */
 
 /* 25 x 25 grid of 0x10.0x10 fixed-point vertices (allocated by 0x23c0, released by 0x2350). */
-static int (*g_29570)[25];                 /* x << 20 */
-static int (*g_29574)[25];                 /* y (accumulates the wave) */
-static int (*g_29578)[25];                 /* amplitude */
-static int (*g_2957c)[25];                 /* shade delta */
-static int (*g_29580)[25];                 /* phase */
-static TitlePolyGT4 *g_29584;          /* 24 x 24 textured quads */
+static int (*s_wave_x_tab)[25];                 /* x << 20 */
+static int (*wave_ys)[25];                 /* y (accumulates the wave) */
+static int (*s_wave_amp_buf)[25];                 /* amplitude */
+static int (*s_grid_shade)[25];                 /* shade delta */
+static int (*s_wave_phase_list)[25];                 /* phase */
+static TitlePolyGT4 *s_grid_quads_buf;          /* 24 x 24 textured quads */
 
 
 void title_0c330(void *p);
@@ -99,54 +101,54 @@ void title_01de0(int x, int y, unsigned int shade, int unused, int depth)
     if (depth)
         i += 2;
 
-    title_0caf0(&g_29148[i], 0, 0, (unsigned short)title_0c860(2, 0, x, y));
-    g_29520[i].code = 0x64;
-    g_29520[i].u0 = 0;
-    g_29520[i].v0 = 0;
-    g_29520[i].x0 = 0;
-    g_29520[i].y0 = 0;
-    g_29520[i].w = 0x100;
-    g_29520[i].h = 0x100;
-    g_29520[i].r0 = shade;
-    g_29520[i].g0 = shade;
-    g_29520[i].b0 = shade;
-    g_29520[i].code &= 0xfd;
+    title_0caf0(&s_overlay_tpages[i], 0, 0, (unsigned short)title_0c860(2, 0, x, y));
+    overlay_sprt1[i].code = 0x64;
+    overlay_sprt1[i].u0 = 0;
+    overlay_sprt1[i].v0 = 0;
+    overlay_sprt1[i].x0 = 0;
+    overlay_sprt1[i].y0 = 0;
+    overlay_sprt1[i].w = 0x100;
+    overlay_sprt1[i].h = 0x100;
+    overlay_sprt1[i].r0 = shade;
+    overlay_sprt1[i].g0 = shade;
+    overlay_sprt1[i].b0 = shade;
+    overlay_sprt1[i].code &= 0xfd;
     if (title_0c860(2, 0, x, y) & 1) {
-        g_29520[i].u0 = 0x80;
-        g_29520[i].v0 = 0;
-        g_29520[i].w = 0x80;
-        g_29520[i].h = 0x100;
+        overlay_sprt1[i].u0 = 0x80;
+        overlay_sprt1[i].v0 = 0;
+        overlay_sprt1[i].w = 0x80;
+        overlay_sprt1[i].h = 0x100;
     } else {
-        g_29520[i].w = 0x100;
-        g_29520[i].h = 0x100;
+        overlay_sprt1[i].w = 0x100;
+        overlay_sprt1[i].h = 0x100;
     }
-    title_0c650(&g_2cc04->ot[depth], &g_29520[i]);
-    title_0c650(&g_2cc04->ot[depth], &g_29148[i]);
+    title_0c650(&g_2cc04->ot[depth], &overlay_sprt1[i]);
+    title_0c650(&g_2cc04->ot[depth], &s_overlay_tpages[i]);
 
-    title_0caf0(&g_293a8[i], 0, 0, (unsigned short)title_0c860(2, 0, x + 0x100, y));
-    g_29238[i].code = 0x64;
-    g_29238[i].u0 = 0;
-    g_29238[i].v0 = 0;
-    g_29238[i].x0 = 0x100;
-    g_29238[i].y0 = 0;
-    g_29238[i].w = 0x40;
-    g_29238[i].h = 0x100;
-    g_29238[i].r0 = shade;
-    g_29238[i].g0 = shade;
-    g_29238[i].b0 = shade;
-    g_29238[i].code &= 0xfd;
+    title_0caf0(&overlay_tpage2s[i], 0, 0, (unsigned short)title_0c860(2, 0, x + 0x100, y));
+    s_big_sprt2[i].code = 0x64;
+    s_big_sprt2[i].u0 = 0;
+    s_big_sprt2[i].v0 = 0;
+    s_big_sprt2[i].x0 = 0x100;
+    s_big_sprt2[i].y0 = 0;
+    s_big_sprt2[i].w = 0x40;
+    s_big_sprt2[i].h = 0x100;
+    s_big_sprt2[i].r0 = shade;
+    s_big_sprt2[i].g0 = shade;
+    s_big_sprt2[i].b0 = shade;
+    s_big_sprt2[i].code &= 0xfd;
     if (title_0c860(2, 0, x + 0x80, y) & 1) {
-        title_0caf0(&g_293a8[i], 0, 0, (unsigned short)title_0c860(2, 0, x + 0x80, y));
-        g_29238[i].w = 0xc0;
-        g_29238[i].h = 0x100;
-        g_29238[i].x0 = 0x80;
+        title_0caf0(&overlay_tpage2s[i], 0, 0, (unsigned short)title_0c860(2, 0, x + 0x80, y));
+        s_big_sprt2[i].w = 0xc0;
+        s_big_sprt2[i].h = 0x100;
+        s_big_sprt2[i].x0 = 0x80;
     } else {
-        title_0caf0(&g_293a8[i], 0, 0, (unsigned short)title_0c860(2, 0, x + 0x80, y));
-        g_29238[i].x0 = 0x100;
+        title_0caf0(&overlay_tpage2s[i], 0, 0, (unsigned short)title_0c860(2, 0, x + 0x80, y));
+        s_big_sprt2[i].x0 = 0x100;
     }
-    g_29238[i].y0 = 0;
-    title_0c650(&g_2cc04->ot[depth], &g_29238[i]);
-    title_0c650(&g_2cc04->ot[depth], &g_293a8[i]);
+    s_big_sprt2[i].y0 = 0;
+    title_0c650(&g_2cc04->ot[depth], &s_big_sprt2[i]);
+    title_0c650(&g_2cc04->ot[depth], &overlay_tpage2s[i]);
 }
 
 void title_02090(int x, int y, unsigned int shade, int unused, int sx, int sy, int slot, int depth)
@@ -160,62 +162,62 @@ void title_02090(int x, int y, unsigned int shade, int unused, int sx, int sy, i
         i = 1;
     i += slot * 2;
 
-    title_0caf0(&g_29288[i], 0, 0, (unsigned short)title_0c860(2, 0, x, y));
-    g_29480[i].code = 0x64;
-    g_29480[i].u0 = 0;
-    g_29480[i].v0 = 0;
-    g_29480[i].x0 = sx;
-    g_29480[i].y0 = sy;
-    g_29480[i].w = 0x100;
-    g_29480[i].h = 0x100;
-    g_29480[i].r0 = shade;
-    g_29480[i].g0 = shade;
-    g_29480[i].b0 = shade;
-    g_29480[i].code &= 0xfd;
+    title_0caf0(&s_slot_tpage1[i], 0, 0, (unsigned short)title_0c860(2, 0, x, y));
+    s_pair_sprt1[i].code = 0x64;
+    s_pair_sprt1[i].u0 = 0;
+    s_pair_sprt1[i].v0 = 0;
+    s_pair_sprt1[i].x0 = sx;
+    s_pair_sprt1[i].y0 = sy;
+    s_pair_sprt1[i].w = 0x100;
+    s_pair_sprt1[i].h = 0x100;
+    s_pair_sprt1[i].r0 = shade;
+    s_pair_sprt1[i].g0 = shade;
+    s_pair_sprt1[i].b0 = shade;
+    s_pair_sprt1[i].code &= 0xfd;
     if (title_0c860(2, 0, x, y) & 1) {
-        g_29480[i].u0 = 0x80;
-        g_29480[i].v0 = 0;
-        g_29480[i].w = 0x80;
-        g_29480[i].h = 0x100;
+        s_pair_sprt1[i].u0 = 0x80;
+        s_pair_sprt1[i].v0 = 0;
+        s_pair_sprt1[i].w = 0x80;
+        s_pair_sprt1[i].h = 0x100;
     }
-    title_0c650(&g_2cc04->ot[depth], &g_29480[i]);
-    title_0c650(&g_2cc04->ot[depth], &g_29288[i]);
+    title_0c650(&g_2cc04->ot[depth], &s_pair_sprt1[i]);
+    title_0c650(&g_2cc04->ot[depth], &s_slot_tpage1[i]);
 
-    title_0caf0(&g_29178[i], 0, 0, (unsigned short)title_0c860(2, 0, x + 0x100, y));
-    g_293d8[i].code = 0x64;
-    g_293d8[i].u0 = 0;
-    g_293d8[i].v0 = 0;
-    g_293d8[i].x0 = sx + 0x100;
-    g_293d8[i].y0 = sy;
-    g_293d8[i].w = 0x40;
-    g_293d8[i].h = 0x100;
-    g_293d8[i].r0 = shade;
-    g_293d8[i].g0 = shade;
-    g_293d8[i].b0 = shade;
-    g_293d8[i].code &= 0xfd;
+    title_0caf0(&s_slot_tpage2s[i], 0, 0, (unsigned short)title_0c860(2, 0, x + 0x100, y));
+    s_slot_sprt2_buf[i].code = 0x64;
+    s_slot_sprt2_buf[i].u0 = 0;
+    s_slot_sprt2_buf[i].v0 = 0;
+    s_slot_sprt2_buf[i].x0 = sx + 0x100;
+    s_slot_sprt2_buf[i].y0 = sy;
+    s_slot_sprt2_buf[i].w = 0x40;
+    s_slot_sprt2_buf[i].h = 0x100;
+    s_slot_sprt2_buf[i].r0 = shade;
+    s_slot_sprt2_buf[i].g0 = shade;
+    s_slot_sprt2_buf[i].b0 = shade;
+    s_slot_sprt2_buf[i].code &= 0xfd;
     if (title_0c860(2, 0, x + 0x100, y) & 1) {
-        title_0caf0(&g_29178[i], 0, 0, (unsigned short)title_0c860(2, 0, x + 0x80, y));
-        g_293d8[i].w = 0xc0;
-        g_293d8[i].h = 0x100;
-        g_293d8[i].x0 = sx + 0x80;
-        g_293d8[i].y0 = sy;
+        title_0caf0(&s_slot_tpage2s[i], 0, 0, (unsigned short)title_0c860(2, 0, x + 0x80, y));
+        s_slot_sprt2_buf[i].w = 0xc0;
+        s_slot_sprt2_buf[i].h = 0x100;
+        s_slot_sprt2_buf[i].x0 = sx + 0x80;
+        s_slot_sprt2_buf[i].y0 = sy;
     } else {
-        title_0caf0(&g_29178[i], 0, 0, (unsigned short)title_0c860(2, 0, x + 0x80, y));
+        title_0caf0(&s_slot_tpage2s[i], 0, 0, (unsigned short)title_0c860(2, 0, x + 0x80, y));
     }
-    title_0c650(&g_2cc04->ot[depth], &g_293d8[i]);
-    title_0c650(&g_2cc04->ot[depth], &g_29178[i]);
+    title_0c650(&g_2cc04->ot[depth], &s_slot_sprt2_buf[i]);
+    title_0c650(&g_2cc04->ot[depth], &s_slot_tpage2s[i]);
 }
 
 void title_02350(void)
 {
-    if (g_29570) {
-        title_0c330(g_29584);
-        title_0c330(g_29574);
-        title_0c330(g_29580);
-        title_0c330(g_2957c);
-        title_0c330(g_29578);
-        title_0c330(g_29570);
-        g_29570 = 0;
+    if (s_wave_x_tab) {
+        title_0c330(s_grid_quads_buf);
+        title_0c330(wave_ys);
+        title_0c330(s_wave_phase_list);
+        title_0c330(s_grid_shade);
+        title_0c330(s_wave_amp_buf);
+        title_0c330(s_wave_x_tab);
+        s_wave_x_tab = 0;
     }
 }
 
@@ -226,22 +228,22 @@ void title_023c0(int x, int y)
     int n;
     int u;
 
-    g_29478 = 0;
-    if (!g_29570) {
-        title_0c450(&g_29570, 0x9c4, 0);
-        title_0c450(&g_29578, 0x9c4, 0);
-        title_0c450(&g_2957c, 0x9c4, 0);
-        title_0c450(&g_29580, 0x9c4, 0);
-        title_0c450(&g_29574, 0x9c4, 0);
-        title_0c450(&g_29584, 0x7500, 0);
+    s_grid_states = 0;
+    if (!s_wave_x_tab) {
+        title_0c450(&s_wave_x_tab, 0x9c4, 0);
+        title_0c450(&s_wave_amp_buf, 0x9c4, 0);
+        title_0c450(&s_grid_shade, 0x9c4, 0);
+        title_0c450(&s_wave_phase_list, 0x9c4, 0);
+        title_0c450(&wave_ys, 0x9c4, 0);
+        title_0c450(&s_grid_quads_buf, 0x7500, 0);
     }
 
     for (i = 0; i < 25; i++) {
         for (j = 0; j < 25; j++) {
-            g_29570[i][j] = j << 20;
-            g_29574[i][j] = i * 0xb0000;
-            g_29578[i][j] = 0xff - (j - 12) * (j - 12) - (i - 12) * (i - 12);
-            g_29580[i][j] = g_29578[i][j] * 50;
+            s_wave_x_tab[i][j] = j << 20;
+            wave_ys[i][j] = i * 0xb0000;
+            s_wave_amp_buf[i][j] = 0xff - (j - 12) * (j - 12) - (i - 12) * (i - 12);
+            s_wave_phase_list[i][j] = s_wave_amp_buf[i][j] * 50;
         }
     }
 
@@ -249,17 +251,17 @@ void title_023c0(int x, int y)
     for (i = 0; i < 240; i += 10) {
         for (j = 0; j < 24; j++) {
             u = j * 16 & 0x3f;
-            title_0cb50(&g_29584[n]);
-            g_29584[n].code &= 0xfd;
-            g_29584[n].tpage = title_0c860(2, 1, x + j * 16, y);
-            g_29584[n].u0 = u;
-            g_29584[n].v0 = i;
-            g_29584[n].u1 = u + 0x10;
-            g_29584[n].v1 = i;
-            g_29584[n].u2 = u;
-            g_29584[n].v2 = i + 10;
-            g_29584[n].u3 = u + 0x10;
-            g_29584[n].v3 = i + 10;
+            title_0cb50(&s_grid_quads_buf[n]);
+            s_grid_quads_buf[n].code &= 0xfd;
+            s_grid_quads_buf[n].tpage = title_0c860(2, 1, x + j * 16, y);
+            s_grid_quads_buf[n].u0 = u;
+            s_grid_quads_buf[n].v0 = i;
+            s_grid_quads_buf[n].u1 = u + 0x10;
+            s_grid_quads_buf[n].v1 = i;
+            s_grid_quads_buf[n].u2 = u;
+            s_grid_quads_buf[n].v2 = i + 10;
+            s_grid_quads_buf[n].u3 = u + 0x10;
+            s_grid_quads_buf[n].v3 = i + 10;
             n++;
         }
     }
@@ -277,17 +279,17 @@ void title_025c0(int scale, int semi)
 
     for (i = 0; i < 25; i++) {
         for (j = 0; j < 25; j++) {
-            g_2957c[i][j] = (g_29574[i][j] >> 13) - (g_29574[i][j + 1] >> 13);
+            s_grid_shade[i][j] = (wave_ys[i][j] >> 13) - (wave_ys[i][j + 1] >> 13);
         }
     }
 
     n = 0;
     for (i = 0; i < 24; i++) {
         for (j = 0; j < 24; j++) {
-            c0 = (g_2957c[i][j] + 0x80) * scale >> 7;
-            c1 = (g_2957c[i][j + 1] + 0x80) * scale >> 7;
-            c2 = (g_2957c[i + 1][j] + 0x80) * scale >> 7;
-            c3 = (g_2957c[i + 1][j + 1] + 0x80) * scale >> 7;
+            c0 = (s_grid_shade[i][j] + 0x80) * scale >> 7;
+            c1 = (s_grid_shade[i][j + 1] + 0x80) * scale >> 7;
+            c2 = (s_grid_shade[i + 1][j] + 0x80) * scale >> 7;
+            c3 = (s_grid_shade[i + 1][j + 1] + 0x80) * scale >> 7;
             if (c0 < 0)
                 c0 = 0;
             if (c1 < 0)
@@ -305,30 +307,30 @@ void title_025c0(int scale, int semi)
             if (c3 > 0xff)
                 c3 = 0xff;
             if (semi)
-                g_29584[n].code |= 2;
+                s_grid_quads_buf[n].code |= 2;
             else
-                g_29584[n].code &= 0xfd;
-            g_29584[n].r0 = c0;
-            g_29584[n].g0 = c0;
-            g_29584[n].b0 = c0;
-            g_29584[n].r1 = c1;
-            g_29584[n].g1 = c1;
-            g_29584[n].b1 = c1;
-            g_29584[n].r2 = c2;
-            g_29584[n].g2 = c2;
-            g_29584[n].b2 = c2;
-            g_29584[n].r3 = c3;
-            g_29584[n].g3 = c3;
-            g_29584[n].b3 = c3;
-            g_29584[n].x0 = g_29570[i][j] >> 16;
-            g_29584[n].y0 = g_29574[i][j] >> 16;
-            g_29584[n].x1 = g_29570[i][j + 1] >> 16;
-            g_29584[n].y1 = g_29574[i][j + 1] >> 16;
-            g_29584[n].x2 = g_29570[i + 1][j] >> 16;
-            g_29584[n].y2 = g_29574[i + 1][j] >> 16;
-            g_29584[n].x3 = g_29570[i + 1][j + 1] >> 16;
-            g_29584[n].y3 = g_29574[i + 1][j + 1] >> 16;
-            title_0c6c0(&g_29584[n]);
+                s_grid_quads_buf[n].code &= 0xfd;
+            s_grid_quads_buf[n].r0 = c0;
+            s_grid_quads_buf[n].g0 = c0;
+            s_grid_quads_buf[n].b0 = c0;
+            s_grid_quads_buf[n].r1 = c1;
+            s_grid_quads_buf[n].g1 = c1;
+            s_grid_quads_buf[n].b1 = c1;
+            s_grid_quads_buf[n].r2 = c2;
+            s_grid_quads_buf[n].g2 = c2;
+            s_grid_quads_buf[n].b2 = c2;
+            s_grid_quads_buf[n].r3 = c3;
+            s_grid_quads_buf[n].g3 = c3;
+            s_grid_quads_buf[n].b3 = c3;
+            s_grid_quads_buf[n].x0 = s_wave_x_tab[i][j] >> 16;
+            s_grid_quads_buf[n].y0 = wave_ys[i][j] >> 16;
+            s_grid_quads_buf[n].x1 = s_wave_x_tab[i][j + 1] >> 16;
+            s_grid_quads_buf[n].y1 = wave_ys[i][j + 1] >> 16;
+            s_grid_quads_buf[n].x2 = s_wave_x_tab[i + 1][j] >> 16;
+            s_grid_quads_buf[n].y2 = wave_ys[i + 1][j] >> 16;
+            s_grid_quads_buf[n].x3 = s_wave_x_tab[i + 1][j + 1] >> 16;
+            s_grid_quads_buf[n].y3 = wave_ys[i + 1][j + 1] >> 16;
+            title_0c6c0(&s_grid_quads_buf[n]);
             n++;
         }
     }
@@ -342,9 +344,9 @@ void title_02860(void)
 
     for (i = 0; i < 25; i++) {
         for (j = 0; j < 25; j++) {
-            phase = g_29580[i][j];
-            g_29580[i][j] = g_29578[i][j] + phase;
-            g_29574[i][j] += g_29578[i][j] * ((short *)g_engine_interface.data_014)[phase & 0xfff] >> 4;
+            phase = s_wave_phase_list[i][j];
+            s_wave_phase_list[i][j] = s_wave_amp_buf[i][j] + phase;
+            wave_ys[i][j] += s_wave_amp_buf[i][j] * ((short *)g_engine_interface.data_014)[phase & 0xfff] >> 4;
         }
     }
 }
@@ -362,25 +364,25 @@ void title_028c0(int x, int y, int w, int h, unsigned int r, unsigned int g, uns
     r = r * scale >> 7;
     g = g * scale >> 7;
     b = b * scale >> 7;
-    title_0caf0(&g_291d8[i], 0, 0, (unsigned short)title_0c860(2, abr, 0, 0));
-    title_0cb40(&g_292e8[i]);
-    g_292e8[i].x0 = x;
-    g_292e8[i].y0 = y;
-    g_292e8[i].x1 = x + w;
-    g_292e8[i].y1 = y;
-    g_292e8[i].x2 = x;
-    g_292e8[i].y2 = y + h;
-    g_292e8[i].x3 = x + w;
-    g_292e8[i].y3 = y + h;
-    g_292e8[i].r0 = r;
-    g_292e8[i].g0 = g;
-    g_292e8[i].b0 = b;
+    title_0caf0(&s_abr_tpage[i], 0, 0, (unsigned short)title_0c860(2, abr, 0, 0));
+    title_0cb40(&s_flat_quad[i]);
+    s_flat_quad[i].x0 = x;
+    s_flat_quad[i].y0 = y;
+    s_flat_quad[i].x1 = x + w;
+    s_flat_quad[i].y1 = y;
+    s_flat_quad[i].x2 = x;
+    s_flat_quad[i].y2 = y + h;
+    s_flat_quad[i].x3 = x + w;
+    s_flat_quad[i].y3 = y + h;
+    s_flat_quad[i].r0 = r;
+    s_flat_quad[i].g0 = g;
+    s_flat_quad[i].b0 = b;
     if (!abr)
-        g_292e8[i].code &= 0xfd;
+        s_flat_quad[i].code &= 0xfd;
     else
-        g_292e8[i].code |= 2;
-    title_0c650(&g_2cc04->ot[depth], &g_292e8[i]);
-    title_0c650(&g_2cc04->ot[depth], &g_291d8[i]);
+        s_flat_quad[i].code |= 2;
+    title_0c650(&g_2cc04->ot[depth], &s_flat_quad[i]);
+    title_0c650(&g_2cc04->ot[depth], &s_abr_tpage[i]);
 }
 
 void title_02a20(void)

@@ -6,6 +6,13 @@
 
 extern int g_22148;
 
+/* .data 0x22170: 18 ascending shorts before this unit's literals; no PC code reference. Ownership from layout
+   (an object's initialized globals precede its literals); owner ruling 2026-10-20, hypothesis. */
+short g_22170[18] = {
+    4323, 4515, 4768, 5072, 5093, 5114, 5135, 5156, 5177,
+    5198, 5219, 5241, 5542, 5563, 5571, 5575, 5596, 5636,
+};
+
 typedef struct TitleRec64 {
     unsigned long unknown_00;
     unsigned long unknown_04;

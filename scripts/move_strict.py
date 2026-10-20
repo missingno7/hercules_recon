@@ -81,9 +81,13 @@ def move(ids, source, dry_run=False, original_root=None):
     for row in rows:
         if row['status'] != 'FUNCTION_MATCH':
             raise ValueError(f"{row['id']} is {row['status']}; only FUNCTION_MATCH rows move with this tool")
-        old = check(row, original_root=original_root)  # current canonical proof must still verify
-        if not old['exact']:
-            raise ValueError(f"{row['id']}: current source no longer verifies")
+        if row['source'] != rel.as_posix():
+            old = check(row, original_root=original_root)  # current canonical proof must still verify
+            if not old['exact']:
+                raise ValueError(f"{row['id']}: current source no longer verifies")
+        # Same source after a code-neutral edit of its unit (e.g. new data definitions): the old source hash
+        # cannot verify, so the proof is renewed only if the fresh compile is raw exact AND its compiled bytes
+        # are identical to the recorded compiled_sha256 (checked below).
         result = check(row, path, original_root=original_root)
         if not result['exact']:
             raise ValueError(f"{row['id']} is not raw exact in {source}: {result['different_bytes']} bytes, "

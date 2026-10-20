@@ -33,5 +33,19 @@
   "+ s1 + 0x243b0 zero tail as g_242e8[60] (owner ruling needed)": 40,
   "+ zero tail + u01de0 layout names": 43
  },
- "limits": "A LINKED_MATCH proves only its own bytes in this link; the plan object order is a convention, not proof of the original command line; title_common.c ownership is not established; no whole-image equality is claimed."
+ "limits": "A LINKED_MATCH proves only its own bytes in this link; the plan object order is a convention, not proof of the original command line; title_common.c ownership is not established; no whole-image equality is claimed.",
+ "data_adoption_2026_10_20": {
+  "rulings": [
+   "adopt three unreferenced real-content initialized blocks as documented ownership hypotheses (r04d80.c g_22170[18], title_files.c g_22218[27], u06bb0.cpp g_23660 = -1)",
+   "accept g_242e8[60] as an extent hypothesis for the 40 zero bytes 0x243b0..0x243d7 (all-zero objects go to .bss, so the zeros are an implicit tail)"
+  ],
+  "also": "u01de0.c static block 0x29148..0x29588 uses layout-chosen role names (17/17 placed); scripts/title_menu_differential.py bindings follow the renames.",
+  "result": {
+   "raw_equal_functions": 49,
+   "raw_equal_bytes": 5712,
+   "linked_match_rows": 43,
+   "linked_match_bytes": 5360
+  },
+  "proof_maintenance": "Editing a unit that hosts strict or linked rows requires renewing their proofs: scripts/move_strict.py renews a FUNCTION_MATCH proof in place only when a fresh compile is raw exact with compiled bytes identical to the recorded compiled_sha256; LINKED_MATCH rows are re-promoted on a fresh natural link."
+ }
 }

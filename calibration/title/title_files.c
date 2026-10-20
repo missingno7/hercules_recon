@@ -2,6 +2,13 @@
    The four arrays and their literals reproduce TITLE.DLL .data 0x22288..0x23267. */
 #include "title_files.h"
 
+/* .data 0x22218: 27 ascending ints after the 0x4d80 unit's literals (8-aligned object start); no PC code
+   reference. Ownership hypothesis (first array of this data unit); owner ruling 2026-10-20. */
+int g_22218[27] = {
+    21473, 22560, 24927, 26014, 27709, 29404, 30875, 32698, 33881, 36888, 38487, 41526, 46837, 51060,
+    69555, 73074, 83569, 94544, 102575, 104366, 105069, 107820, 109003, 110186, 114441, 117288, 126599,
+};
+
 /* Engine module path per level (indexed by the level byte). */
 char *g_engine_paths[] = {
     "\\SRC1\\ENGINE\\ENGINE1",

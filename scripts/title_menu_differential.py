@@ -45,10 +45,10 @@ BINDINGS = (
     ('G_SOUND_ID', 0x29da8, '_g_29da8'),
     ('G_SOUND_BANK', 0x29db0, '_g_29db0'),
     ('G_SOUND_SAMPLE', 0x29db4, '_g_29db4'),
-    ('D_PAGE_A', 0x29178, '_g_29178'),
-    ('D_PAGE_B', 0x29288, '_g_29288'),
-    ('D_SPRITE_A', 0x293d8, '_g_293d8'),
-    ('D_SPRITE_B', 0x29480, '_g_29480'),
+    ('D_PAGE_A', 0x29178, '_s_slot_tpage2s'),
+    ('D_PAGE_B', 0x29288, '_s_slot_tpage1'),
+    ('D_SPRITE_A', 0x293d8, '_s_slot_sprt2_buf'),
+    ('D_SPRITE_B', 0x29480, '_s_pair_sprt1'),
 )
 
 
