@@ -148,7 +148,10 @@ def stage(plan_path):
         # RECONSTRUCTED rows of the same provider stay as they are; their functions are pinned co-defined.
         # A planned function that is RECONSTRUCTED now replaces that row once it verifies masked equal.
         planned = {f['symbol'] for f in plan['functions']}
-        upgraded = [r for r in existing if r['status'] == 'RECONSTRUCTED' and r['symbol'] in planned]
+        # Legacy CODEGEN_SIMILAR rows (recorded before masked proofs existed) are upgraded the same way.
+        legacy = lambda r: r['status'] == 'CODEGEN_SIMILAR' and r.get('proof', {}).get('scope') != SCOPE
+        upgraded = [r for r in existing if (r['status'] == 'RECONSTRUCTED' or legacy(r)) and r['symbol'] in planned]
+        existing = [r for r in existing if r not in upgraded]
         # Strict rows (FUNCTION_MATCH, LINKED_MATCH) keep their own proofs; like RECONSTRUCTED rows their
         # functions are pinned co-defined, and they are never restaged as masked rows.
         strict = [r for r in existing if r['status'] in ('FUNCTION_MATCH', 'LINKED_MATCH')]
