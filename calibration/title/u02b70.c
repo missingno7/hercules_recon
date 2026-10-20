@@ -5,7 +5,9 @@
    <windows.h> first. All 24 current rows match with it (none: 0x3da0 differs by 1 byte; WIN32_LEAN_AND_MEAN: 6
    bytes). The headers act as phases of a declaration-count tie-break (evidence/title_stage1.json,
    tu_count_phase_2026_10_10), so this records TU context that reproduces the rows, not which header the
-   original included; re-decide once the four emitters are final. */
+   original included; re-decide once the four emitters are final.
+   Lane tA (2026-10-20): the four primitive emitters 0x3100/0x3420/0x3740/0x39b0 are inserted in address
+   order; with them all rows stay masked equal under <windows.h> (WIN32_LEAN_AND_MEAN also works). */
 #include <windows.h>
 #include "title_engine.h"
 #include "title_screen.h"
@@ -33,11 +35,11 @@ typedef struct TitlePrim {
 
 extern TitlePrim *g_2df40;
 
-unsigned long title_189a0(TitleObject *obj);
-void title_03100(unsigned char *stream, TitleObject *obj, unsigned long count);
+unsigned long make_colour(TitleObject *obj);
+void title_03100(unsigned char *stream, TitleObject *obj, unsigned char count);
 void title_03420(unsigned char *stream, TitleObject *obj, unsigned char count);
-void title_03740(unsigned char *stream, TitleObject *obj, unsigned long count, unsigned long y, unsigned long x);
-void title_039b0(unsigned char *stream, TitleObject *obj, unsigned long count, unsigned long y, unsigned long x);
+void title_03740(unsigned char *stream, TitleObject *obj, unsigned char count, int sx, int sy);
+void title_039b0(unsigned char *stream, TitleObject *obj, unsigned char count, int sx, int sy);
 
 extern int g_2d328;
 extern void (*g_220d0[8])();
@@ -296,6 +298,439 @@ void title_03050(int a1, TitleObject *p, int a3)
         title_03740(a1, p, a3, v1, v2);
 }
 
+typedef struct TitleCell {
+    unsigned short mask_00;
+    unsigned short w_02;
+    unsigned short next_04[4];
+} TitleCell;
+extern TitleCell g_2d340[];
+extern signed char g_264f8[];
+extern short g_243e0[];
+
+/* 0x3100: emit the object's sprite parts (unrotated, unscaled) as textured quads into the
+   ordering table. stream: dx, dy, header byte, then per part size byte, x, y and the next
+   header byte (bit 7: the part continues in the same cell). */
+void title_03100(unsigned char *stream, TitleObject *obj, unsigned char count)
+{
+    unsigned long tex;
+    unsigned long flags;
+    int d;
+    int x0;
+    int y0;
+    unsigned short cell;
+    unsigned char hb;
+    unsigned char flag;
+    unsigned long mode;
+    unsigned short clut;
+    unsigned long *ot;
+    unsigned short flip;
+    TitlePrim *prim;
+    signed char *quad;
+    unsigned char u;
+    unsigned char v;
+    int w;
+    int h;
+    int x;
+    int y;
+    int xa;
+    int xb;
+    unsigned int off;
+
+    tex = make_colour(obj);
+    flags = obj->unknown_054;
+    d = *(signed char *)stream++;
+    if (flags & 0x10)
+        d = -d;
+    x0 = obj->unknown_00c + d;
+    y0 = obj->unknown_00e + *(signed char *)stream++;
+    hb = *stream++;
+    cell = obj->unknown_046;
+    mode = (flags & 3) << 5;
+    clut = ((obj->unknown_01e + 0xe0) << 6) | 0x30;
+    flag = hb & 0x80;
+    ot = &g_2cc04->ot[TITLE_OT_SIZE - 2 - obj->unknown_010];
+    flip = flags & 0x10;
+    prim = g_2df40;
+    do {
+        quad = &g_264f8[cell & 15];
+        v = ((cell >> 4) * 2 + (*quad >> 1)) << 4;
+        u = ((cell >> 8) * 2 + (*quad & 1)) << 4;
+        if (flag) {
+            u += (hb & 15) << 3;
+            v += (hb >> 1) & 0x38;
+        }
+        w = (*(signed char *)stream & 15) << 3;
+        h = (*(signed char *)stream >> 1) & ~7;
+        stream++;
+        x = *(signed char *)stream++ * 2;
+        y = *(signed char *)stream++ * 2;
+        y += y0;
+        if (flip) {
+            xa = (x0 - x) & 0xffff;
+            prim->xy_008 = (y << 16) + xa;
+            xb = (x0 - w - x) & 0xffff;
+            prim->xy_010 = (y << 16) + xb;
+            y = (y + h) << 16;
+            prim->xy_018 = xa + y;
+            prim->xy_020 = y + xb;
+            if (u == 0) {
+                u = 1;
+                w--;
+            }
+            if (v + h == 0x100)
+                h--;
+            prim->w_014 = (unsigned char)(u + w - 1) + (v << 8);
+            prim->w_00c = (unsigned char)(u - 1) + (v << 8);
+            prim->w_01c = (unsigned char)(u - 1) + ((v + h) << 8);
+            prim->w_024 = (unsigned char)(u + w - 1) + ((v + h) << 8);
+        } else {
+            xa = (x + x0) & 0xffff;
+            prim->xy_008 = (y << 16) + xa;
+            xb = (x + w + x0) & 0xffff;
+            prim->xy_010 = (y << 16) + xb;
+            y = (y + h) << 16;
+            prim->xy_018 = xa + y;
+            prim->xy_020 = xb + y;
+            if (u + w == 0x100)
+                w--;
+            if (v + h == 0x100)
+                h--;
+            prim->w_014 = (unsigned char)(u + w) + (v << 8);
+            prim->w_00c = u + (v << 8);
+            prim->w_01c = u + ((v + h) << 8);
+            prim->w_024 = (unsigned char)(u + w) + ((v + h) << 8);
+        }
+        off = (cell >> 4) * sizeof(TitleCell);
+        prim->w_016 = ((TitleCell *)((char *)g_2d340 + off))->w_02 | mode;
+        prim->tex_004 = tex;
+        prim->w_00e = clut;
+        prim->next_000 = (TitlePrim *)*ot;
+        *ot = (unsigned long)prim;
+        hb = *stream;
+        prim++;
+        flag = hb & 0x80;
+        stream++;
+        if (!flag)
+            cell = ((TitleCell *)((char *)g_2d340 + off))->next_04[*quad];
+    } while (--count != 0);
+    g_2df40 = prim;
+}
+
+/* 0x3420: as 0x3100 with the part corners rotated by the object angle (+0x74, 1024 steps; sine table
+   g_243e0, cos = entry + 0x100), 16.16 products. Origin: 2026-10-10 draft (src/title/behavioral/emitters.c). */
+void title_03420(unsigned char *stream, TitleObject *obj, unsigned char count)
+{
+    unsigned long tex;
+    unsigned long flags;
+    int dx;
+    int x0;
+    int y0;
+    unsigned char hb;
+    unsigned char flag;
+    unsigned short cell;
+    unsigned long attr;
+    unsigned short clut;
+    unsigned long *bucket;
+    unsigned short flip;
+    TitlePrim *prim;
+    unsigned int u;
+    unsigned int v;
+    signed char *q;
+    int g;
+    int a;
+    int w;
+    int h;
+    int A;
+    int Vn;
+    int B;
+    int W;
+    int sin2;
+    int cos2;
+    unsigned int off;
+
+    tex = make_colour(obj);
+    flags = obj->unknown_054;
+    dx = (signed char)*stream++;
+    if (flags & 0x10)
+        dx = -dx;
+    x0 = obj->unknown_00c + dx;
+    y0 = obj->unknown_00e + (signed char)*stream++;
+    cell = obj->unknown_046;
+    clut = ((obj->unknown_01e + 0xe0) << 6) | 0x30;
+    hb = *stream++;
+    flag = hb & 0x80;
+    sin2 = g_243e0[(short)obj->unknown_074 & 0x3ff] * 2;
+    cos2 = g_243e0[((short)obj->unknown_074 + 0x100) & 0x3ff] * 2;
+    attr = (flags & 3) << 5;
+    bucket = &g_2cc04->ot[TITLE_OT_SIZE - 2 - obj->unknown_010];
+    prim = g_2df40;
+    flip = (unsigned short)(flags & 0x10);
+    do {
+        q = &g_264f8[cell & 0xf];
+        g = *q;
+        u = ((cell >> 4) * 2 + (g >> 1)) << 4;
+        v = ((cell >> 8) * 2 + (g & 1)) << 4;
+        if (flag) {
+            v += (hb & 0xf) * 8;
+            u += (hb >> 1) & 0x38;
+        }
+        a = (signed char)*stream++;
+        w = (a & 0xf) << 3;
+        h = (a >> 1) & ~7;
+        prim->w_00c = (unsigned char)v + (u << 8);
+        prim->w_014 = (unsigned char)(v + w - 1) + (u << 8);
+        prim->w_01c = (unsigned char)v + ((u + h + 0xff) << 8);
+        prim->w_024 = (unsigned char)(v + w - 1) + ((u + h + 0xff) << 8);
+        if (flip) {
+            A = -(signed char)*stream++ * 2;
+            Vn = A - w;
+        } else {
+            A = (signed char)*stream++ * 2;
+            Vn = A + w;
+        }
+        B = (signed char)*stream++ * 2;
+        W = B + h;
+        prim->xy_008 = (unsigned short)(x0 + ((cos2 * A - sin2 * B) >> 16)) + ((y0 + ((sin2 * A + cos2 * B) >> 16)) << 16);
+        prim->xy_010 = (unsigned short)(x0 + ((cos2 * Vn - sin2 * B) >> 16)) + ((y0 + ((sin2 * Vn + cos2 * B) >> 16)) << 16);
+        prim->xy_018 = (unsigned short)(x0 + ((cos2 * A - sin2 * W) >> 16)) + ((y0 + ((sin2 * A + cos2 * W) >> 16)) << 16);
+        prim->xy_020 = (unsigned short)(x0 + ((cos2 * Vn - sin2 * W) >> 16)) + ((y0 + ((sin2 * Vn + cos2 * W) >> 16)) << 16);
+        off = (cell >> 4) * sizeof(TitleCell);
+        prim->w_016 = ((TitleCell *)((char *)g_2d340 + off))->w_02 | attr;
+        prim->tex_004 = tex;
+        prim->next_000 = (TitlePrim *)*bucket;
+        *bucket = (unsigned long)prim;
+        prim->w_00e = clut;
+        hb = *stream;
+        prim++;
+        flag = hb & 0x80;
+        stream++;
+        if (!flag)
+            cell = ((TitleCell *)((char *)g_2d340 + off))->next_04[*q];
+    } while (--count);
+    g_2df40 = prim;
+}
+
+/* 0x3740: as 0x3100 with the part offsets and sizes scaled by sx/sy (8.8 fixed point). Origin: lane tA. */
+void title_03740(unsigned char *stream, TitleObject *obj, unsigned char count, int sx, int sy)
+{
+    unsigned long tex;
+    unsigned long flags;
+    int d;
+    int x0;
+    int y0;
+    unsigned short cell;
+    unsigned char hb;
+    unsigned char flag;
+    unsigned long mode;
+    unsigned short clut;
+    unsigned long *ot;
+    unsigned short flip;
+    TitlePrim *prim;
+    signed char *quad;
+    unsigned int k;
+    int g;
+    int u;
+    int v;
+    int w;
+    int h;
+    int xa;
+    int xb;
+    int y;
+    unsigned short x1;
+    unsigned short x2;
+    int y1;
+    int y2;
+    int y3;
+    unsigned int off;
+
+    tex = make_colour(obj);
+    flags = obj->unknown_054;
+    d = sx * *(signed char *)stream++ >> 8;
+    if (flags & 0x10)
+        d = -d;
+    x0 = obj->unknown_00c + d;
+    y0 = obj->unknown_00e + (sy * *(signed char *)stream++ >> 8);
+    prim = g_2df40;
+    clut = ((obj->unknown_01e + 0xe0) << 6) | 0x30;
+    hb = *stream++;
+    mode = (flags & 3) << 5;
+    cell = obj->unknown_046;
+    flag = hb & 0x80;
+    ot = &g_2cc04->ot[TITLE_OT_SIZE - 2 - obj->unknown_010];
+    flip = flags & 0x10;
+    do {
+        quad = &g_264f8[cell & 15];
+        g = *quad;
+        k = cell >> 4;
+        v = (k * 2 + (g >> 1)) << 4;
+        u = ((cell >> 8) * 2 + (g & 1)) << 4;
+        if (flag) {
+            u += (hb & 15) * 8;
+            v += (hb >> 1) & 0x38;
+        }
+        w = (*(signed char *)stream & 15) << 3;
+        h = (*(signed char *)stream >> 1) & ~7;
+        stream++;
+        prim->w_00c = (unsigned char)u + (v << 8);
+        prim->w_014 = (unsigned char)(u + w - 1) + (v << 8);
+        prim->w_01c = (unsigned char)u + ((v + h - 1) << 8);
+        prim->w_024 = (unsigned char)(u + w - 1) + ((v + h - 1) << 8);
+        if (flip) {
+            xa = -*(signed char *)stream++ * 2;
+            xb = xa - w;
+        } else {
+            xa = *(signed char *)stream++ * 2;
+            xb = xa + w;
+        }
+        y = *(signed char *)stream++ * 2;
+        xa *= sx;
+        xb *= sx;
+        y2 = (y + h) * sy;
+        y *= sy;
+        x1 = (xa >> 8) + x0;
+        y1 = (y >> 8) + y0;
+        prim->xy_008 = (y1 << 16) + x1;
+        x2 = (xb >> 8) + x0;
+        prim->xy_010 = (y1 << 16) + x2;
+        y3 = (y2 >> 8) + y0;
+        prim->xy_018 = (y3 << 16) + x1;
+        prim->xy_020 = (y3 << 16) + x2;
+        off = k * sizeof(TitleCell);
+        prim->w_016 = ((TitleCell *)((char *)g_2d340 + off))->w_02 | mode;
+        prim->tex_004 = tex;
+        prim->w_00e = clut;
+        prim->next_000 = (TitlePrim *)*ot;
+        *ot = (unsigned long)prim;
+        hb = *stream;
+        prim++;
+        flag = hb & 0x80;
+        stream++;
+        if (!flag)
+            cell = ((TitleCell *)((char *)g_2d340 + off))->next_04[*quad];
+    } while (--count != 0);
+    g_2df40 = prim;
+}
+
+/* 0x39b0: as 0x3420 with the corners first scaled by sx/sy (8.8); the -sin products are negated once and
+   reused. Origin: 2026-10-10 draft (src/title/behavioral/emitters.c) plus the quadrant pointer q (the
+   original spills &g_264f8[cell & 15] and rereads it for the next link). */
+void title_039b0(unsigned char *stream, TitleObject *obj, unsigned char count, int sx, int sy)
+{
+    unsigned long tex;
+    unsigned long flags;
+    int dx;
+    int x0;
+    int y0;
+    unsigned char hb;
+    unsigned char flag;
+    unsigned short cell;
+    unsigned long attr;
+    unsigned short clut;
+    unsigned long *bucket;
+    unsigned short flip;
+    TitlePrim *prim;
+    unsigned int u;
+    unsigned int v;
+    signed char *q;
+    int g;
+    int a;
+    int w;
+    int h;
+    int A;
+    int Vn;
+    int B;
+    int W;
+    int sin2;
+    int cos2;
+    int sa;
+    int ca;
+    int sb;
+    int cb;
+    int sv;
+    int cv;
+    int sw;
+    int cw;
+    unsigned int off;
+
+    tex = make_colour(obj);
+    flags = obj->unknown_054;
+    dx = (sx * (signed char)*stream++) >> 8;
+    if (flags & 0x10)
+        dx = -dx;
+    x0 = obj->unknown_00c + dx;
+    y0 = ((sy * (signed char)*stream) >> 8) + obj->unknown_00e;
+    hb = stream[1];
+    cos2 = g_243e0[((short)obj->unknown_074 + 0x100) & 0x3ff] * 2;
+    clut = ((obj->unknown_01e + 0xe0) << 6) | 0x30;
+    attr = (flags & 3) << 5;
+    bucket = &g_2cc04->ot[TITLE_OT_SIZE - 2 - obj->unknown_010];
+    stream += 2;
+    sin2 = g_243e0[(short)obj->unknown_074 & 0x3ff] * 2;
+    flag = hb & 0x80;
+    flip = (unsigned short)(flags & 0x10);
+    prim = g_2df40;
+    cell = obj->unknown_046;
+    do {
+        q = &g_264f8[cell & 0xf];
+        g = *q;
+        v = ((cell >> 8) * 2 + (g & 1)) << 4;
+        u = ((cell >> 4) * 2 + (g >> 1)) << 4;
+        if (flag) {
+            v += (hb & 0xf) * 8;
+            u += (hb >> 1) & 0x38;
+        }
+        a = (signed char)*stream++;
+        w = (a & 0xf) << 3;
+        h = (a >> 1) & ~7;
+        prim->w_00c = (unsigned char)v + (u << 8);
+        prim->w_014 = (unsigned char)(v + w - 1) + (u << 8);
+        prim->w_01c = (unsigned char)v + ((u + h + 0xff) << 8);
+        prim->w_024 = (unsigned char)(v + w - 1) + ((u + h + 0xff) << 8);
+        if (flip) {
+            A = -(signed char)*stream++ * 2;
+            Vn = A - w;
+        } else {
+            A = (signed char)*stream++ * 2;
+            Vn = A + w;
+        }
+        A *= sx;
+        Vn *= sx;
+        A >>= 8;
+        sa = sin2 * A;
+        ca = cos2 * A;
+        B = (signed char)*stream++ * 2;
+        W = h + B;
+        B *= sy;
+        W *= sy;
+        B >>= 8;
+        sb = -(sin2 * B);
+        cb = cos2 * B;
+        Vn >>= 8;
+        sv = sin2 * Vn;
+        cv = cos2 * Vn;
+        W >>= 8;
+        sw = -(sin2 * W);
+        cw = cos2 * W;
+        prim->xy_008 = (unsigned short)(((sb + ca) >> 16) + x0) + ((((cb + sa) >> 16) + y0) << 16);
+        prim->xy_010 = (unsigned short)(((cv + sb) >> 16) + x0) + ((((sv + cb) >> 16) + y0) << 16);
+        prim->xy_018 = (unsigned short)(((sw + ca) >> 16) + x0) + ((((sa + cw) >> 16) + y0) << 16);
+        prim->xy_020 = (unsigned short)(((sw + cv) >> 16) + x0) + ((((sv + cw) >> 16) + y0) << 16);
+        off = (cell >> 4) * sizeof(TitleCell);
+        prim->w_016 = ((TitleCell *)((char *)g_2d340 + off))->w_02 | attr;
+        prim->tex_004 = tex;
+        prim->w_00e = clut;
+        prim->next_000 = (TitlePrim *)*bucket;
+        *bucket = (unsigned long)prim;
+        hb = *stream;
+        prim++;
+        flag = hb & 0x80;
+        stream++;
+        if (!flag)
+            cell = ((TitleCell *)((char *)g_2d340 + off))->next_04[*q];
+    } while (--count);
+    g_2df40 = prim;
+}
+
 void title_03d10(unsigned char *stream, TitleObject *obj, unsigned long count)
 {
     unsigned long edx; unsigned long eax; unsigned long esi;
@@ -321,13 +756,6 @@ void title_03d10(unsigned char *stream, TitleObject *obj, unsigned long count)
     }
 }
 
-typedef struct TitleCell {
-    unsigned short mask_00;
-    unsigned short w_02;
-    unsigned short next_04[4];
-} TitleCell;
-extern TitleCell g_2d340[];
-extern signed char g_264f8[];
 /* 0x3da0: place n sprite parts (4-byte headers at q, RLE pixel data after them) into free
    quadrants of the 0x2d340 cells; returns the first link (cell * 16 + quadrant bits). */
 extern signed char g_264f0[4];

@@ -122,10 +122,69 @@
     "case-24 level switch order 1,2,3,5,7,6,8",
     "sine index (g_2a390 * 0x100) & 0xfff (shift form folds differently)"
    ]
+  },
+  "tA u02b70.c": {
+   "functions": {
+    "0x3100": {
+     "span": 800,
+     "size_exact": true,
+     "nonreloc": 712
+    },
+    "0x3420": {
+     "span": 800,
+     "size_exact": true,
+     "nonreloc": 571
+    },
+    "0x3740": {
+     "span": 624,
+     "size_exact": true,
+     "nonreloc": 562
+    },
+    "0x39b0": {
+     "span": 864,
+     "size_exact": true,
+     "nonreloc": 672
+    }
+   },
+   "residue": "Register roles (obj/cell/flags) plus local/product scheduling; the unit is declaration-count fragile (0x3da0 matches only in a mod-16 window).",
+   "forms": [
+    "(v + h - 1) << 8 gives the native lea +0xff",
+    "the y term must be an int variable shifted afterwards",
+    "q = &g_264f8[cell & 15] kept in a stack slot in 0x39b0"
+   ],
+   "binding": "Calls to 0x189a0 now use its accepted strict name make_colour (src/title/pilot.c) instead of the title_189a0 alias; the unit compiles identically.",
+   "engine_counterparts": "Same source at ENG1 0x4010 (723), ENG3 0x9420 (569), ENG3 0x9740 (553), ENG3 0x99b0 (760): same register roles, no extra help."
+  },
+  "tH u17cb0.cpp": {
+   "functions": {
+    "0x184c0": "MASKED EQUAL (320)",
+    "0x18b20": "MASKED EQUAL (208; also ENG1 0x31470, ENG3 0x23e20)",
+    "0x17f50": {
+     "size_exact": true,
+     "nonreloc": 41
+    },
+    "0x181e0": {
+     "size_exact": true,
+     "nonreloc": 236
+    },
+    "0x186e0": {
+     "size_exact": true,
+     "nonreloc": 2
+    },
+    "0x18bf0": {
+     "size_exact": true,
+     "nonreloc": 154
+    }
+   },
+   "causes": [
+    "0x184c0: x and y read before flip = flags & 0x10; TitleFrameBox struct view",
+    "0x18b20: n = *(short *)q; q += 2; before the handler call"
+   ],
+   "residue": "Register order/ranking and back-edge reload order; 0x186e0 is a 2-byte reference-weight tie between sx and x0; the unit is TU-context sensitive."
   }
  },
  "negative_controls": [
   "Declaring title_054f0 as (unsigned short id, TitleObject *owner) does not change the 0x9a40/0x9c90/0xa020 residue (204/167/280 vs 202/163/278)."
  ],
- "behavioral_build": "Superseded behavioral fragments (cell_init.c, screens.inc, object_setup.inc, password_actor.inc, tally.inc, input_boot.c) were retired from evidence/title_behavioral_build.json; the TITLE behavioral DLL still links 362/362 with 0 unresolved and 0 duplicates; test_title_behavioral, title_differential, title_render_differential (2560 cases) and title_password_differential pass."
+ "behavioral_build": "Superseded behavioral fragments (cell_init.c, screens.inc, object_setup.inc, password_actor.inc, tally.inc, input_boot.c, emitters.c, render.inc) and eight source adaptations now incorporated in canonical units were retired from evidence/title_behavioral_build.json. The TITLE behavioral DLL links 362/362 with 0 unresolved and 0 duplicates; test_title_behavioral, title_differential, title_render_differential (2560 cases), title_password_differential and title_menu_differential (20 cases) pass."
 }

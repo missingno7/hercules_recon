@@ -65,8 +65,7 @@
         "g_243e0",
         "make_colour"
       ],
-      "uncertainty": "The 40-byte primitive and 12-byte cell views are behaviorally supported by observed consumers; source identity and original declarations remain unproved.",
-      "source_fragment": "src/title/behavioral/emitters.c"
+      "uncertainty": "The 40-byte primitive and 12-byte cell views are behaviorally supported by observed consumers; source identity and original declarations remain unproved."
     },
     {
       "module": "TITLE.DLL",
@@ -83,8 +82,7 @@
         "g_243e0",
         "make_colour"
       ],
-      "uncertainty": "Behavior follows the emitter family draft; original source spelling and exact shared-record declarations remain unknown.",
-      "source_fragment": "src/title/behavioral/emitters.c"
+      "uncertainty": "Behavior follows the emitter family draft; original source spelling and exact shared-record declarations remain unknown."
     },
     {
       "module": "TITLE.DLL",
@@ -100,8 +98,7 @@
         "g_2d340",
         "make_colour"
       ],
-      "uncertainty": "The signed scale view is inferred from callers; scale units and historical parameter types are not independently established.",
-      "source_fragment": "src/title/behavioral/emitters.c"
+      "uncertainty": "The signed scale view is inferred from callers; scale units and historical parameter types are not independently established."
     },
     {
       "module": "TITLE.DLL",
@@ -118,8 +115,7 @@
         "g_243e0",
         "make_colour"
       ],
-      "uncertainty": "Angle-table and object-field use are supported by the neighboring dispatchers; exact source declaration and allocation history remain unknown.",
-      "source_fragment": "src/title/behavioral/emitters.c"
+      "uncertainty": "Angle-table and object-field use are supported by the neighboring dispatchers; exact source declaration and allocation history remain unknown."
     },
     {
       "module": "TITLE.DLL",
@@ -205,7 +201,6 @@
       "uncertainty": "Object field names are rebound to the existing TitleObj fields; runtime behavior and function-level equality remain unverified.",
       "module": "TITLE.DLL",
       "source": "calibration/title/u17cb0.cpp",
-      "source_fragment": "src/title/behavioral/render.inc",
       "implementation_status": "behaviorally_validated_limited",
       "behavioral_verification": "512 deterministic native x86 comparisons per renderer passed; selected host helpers are controlled identically.",
       "tests": [
@@ -221,7 +216,6 @@
       "uncertainty": "External helper/data providers are incomplete; runtime behavior and function-level equality remain unverified.",
       "module": "TITLE.DLL",
       "source": "calibration/title/u17cb0.cpp",
-      "source_fragment": "src/title/behavioral/render.inc",
       "implementation_status": "behaviorally_validated_limited",
       "behavioral_verification": "512 deterministic native x86 comparisons per renderer passed; selected host helpers are controlled identically.",
       "tests": [
@@ -237,7 +231,6 @@
       "uncertainty": "The frame box interpretation and scaled clipping contract follow the structural draft; runtime behavior remains unverified.",
       "module": "TITLE.DLL",
       "source": "calibration/title/u17cb0.cpp",
-      "source_fragment": "src/title/behavioral/render.inc",
       "implementation_status": "behaviorally_validated_limited",
       "behavioral_verification": "512 deterministic native x86 comparisons per renderer passed; selected host helpers are controlled identically.",
       "tests": [
@@ -253,7 +246,6 @@
       "uncertainty": "External helper/data providers are incomplete; runtime behavior and function-level equality remain unverified.",
       "module": "TITLE.DLL",
       "source": "calibration/title/u17cb0.cpp",
-      "source_fragment": "src/title/behavioral/render.inc",
       "implementation_status": "behaviorally_validated_limited",
       "behavioral_verification": "512 deterministic native x86 comparisons per renderer passed; selected host helpers are controlled identically.",
       "tests": [
@@ -269,7 +261,6 @@
       "uncertainty": "The draft’s unknown_078 member was rebound to existing TitleObj::trans_078; runtime behavior remains unverified.",
       "module": "TITLE.DLL",
       "source": "calibration/title/u17cb0.cpp",
-      "source_fragment": "src/title/behavioral/render.inc",
       "implementation_status": "plausible_unverified"
     },
     {
@@ -281,7 +272,6 @@
       "uncertainty": "The draft reports 143 raw-byte differences; runtime behavior and function-level equality remain unverified.",
       "module": "TITLE.DLL",
       "source": "calibration/title/u17cb0.cpp",
-      "source_fragment": "src/title/behavioral/render.inc",
       "implementation_status": "behaviorally_validated_limited",
       "behavioral_verification": "512 deterministic native x86 comparisons per renderer passed; selected host helpers are controlled identically.",
       "tests": [
@@ -362,34 +352,10 @@
         "reason": "Recovered interior identity and shared screen-center storage; see evidence/title_behavioral_data.json"
       },
       {
-        "before": "void title_03100(unsigned char *stream, TitleObject *obj, unsigned long count);",
-        "after": "void title_03100(unsigned char *stream, TitleObject *obj, unsigned char count);",
-        "count": 1,
-        "reason": "The emitter consumes the byte-sized sprite-part count from its stream."
-      },
-      {
-        "before": "void title_03740(unsigned char *stream, TitleObject *obj, unsigned long count, unsigned long y, unsigned long x);",
-        "after": "void title_03740(unsigned char *stream, TitleObject *obj, unsigned char count, long sx, long sy);",
-        "count": 1,
-        "reason": "Match the scaled-emitter prototype to its byte count and signed 8.8 scale inputs."
-      },
-      {
-        "before": "void title_039b0(unsigned char *stream, TitleObject *obj, unsigned long count, unsigned long y, unsigned long x);",
-        "after": "void title_039b0(unsigned char *stream, TitleObject *obj, unsigned char count, long sx, long sy);",
-        "count": 1,
-        "reason": "Match the rotated scaled-emitter prototype to its byte count and signed scale inputs."
-      },
-      {
         "before": "void title_03050(int a1, TitleObject *p, int a3)",
         "after": "void title_03050(unsigned char *a1, TitleObject *p, unsigned char a3)",
         "count": 1,
         "reason": "Match the existing dispatcher definition to its stream-pointer and byte-count prototype."
-      },
-      {
-        "before": "unsigned long title_189a0(TitleObject *obj);",
-        "after": "unsigned long make_colour(TitleObject *obj);",
-        "count": 1,
-        "reason": "RVA189a0 is the existing byte-exact make_colour provider in src/title/pilot.c; use its true linked source name."
       }
     ],
     "calibration/title/u17cb0.cpp": [
@@ -410,24 +376,6 @@
         "after": "+ g_2cbe0[0]);",
         "count": 1,
         "reason": "Recovered interior identity and shared screen-center storage; see evidence/title_behavioral_data.json"
-      },
-      {
-        "before": "void title_18bf0(TitleObj *o, unsigned char *q, unsigned long c);",
-        "after": "int title_18bf0(TitleObj *o, unsigned char *q, unsigned long c);",
-        "reason": "The renderer body returns 1; existing callers ignore the return value.",
-        "count": 1
-      },
-      {
-        "before": "unsigned char unknown_012[0x1f - 0x12];",
-        "after": "unsigned char unknown_012[0x1e - 0x12];\n    unsigned char b_01e;",
-        "reason": "Names the existing object byte consumed by the texture handlers while preserving its offset.",
-        "count": 1
-      },
-      {
-        "before": "unsigned char unknown_024[0x2c - 0x24];",
-        "after": "unsigned char unknown_024[0x26 - 0x24];\n    short w_026;\n    short w_028;\n    unsigned char unknown_02a[0x2c - 0x2a];",
-        "reason": "Names the existing object WORDs consumed by the renderers while preserving the 8-byte interval.",
-        "count": 1
       }
     ],
     "calibration/title/title_proc.cpp": [
@@ -491,14 +439,8 @@
     ]
   },
   "unit_extensions": {
-    "calibration/title/u02b70.c": [
-      "src/title/behavioral/emitters.c"
-    ],
     "calibration/title/r04d80.c": [
       "src/title/behavioral/sound.c"
-    ],
-    "calibration/title/u17cb0.cpp": [
-      "src/title/behavioral/render.inc"
     ]
   }
 }
