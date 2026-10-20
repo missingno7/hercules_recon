@@ -1,0 +1,37 @@
+{
+ "date": "2026-10-20",
+ "lane": "y9",
+ "module": "ENG3.DLL",
+ "source": "calibration/eng3/handlers_14190.cpp",
+ "region": "0x14190..0x16240",
+ "functions": 26,
+ "bytes": 8224,
+ "result": "25 relocation-masked equal as C++ (24 as C); 0x15680 RECONSTRUCTED size-exact (2064 B)",
+ "language": "undecided: only 0x14850 flips (3-byte cx/dx allocation), and only in whole-region context; standalone it differs identically as C and C++. Delivered as C++ (extern \"C\") because it measures better; not evidence of the original language.",
+ "residues": [
+  "0x15680: target keeps both tests of `dc == 3 || dc == 0` before the final remove_actor; one-symbol source folds the identical arms. Masked equal only if the arms call two distinct symbols resolving to 0x1cb90 (not delivered: one symbol per address; /OPT:ICF folding is an untested hypothesis)."
+ ],
+ "forms": [
+  "ENG3 grid query 0x1b2e0 returns int; 0x15340 casts to unsigned short",
+  "0x142b0 case bodies in observed code order (level 2: 2,11,18,3,6,9,13; level 8: 33,1,2,11,3)",
+  "0x142b0 `(short)scale < 0`; 0x14f00/0x15110/0x152c0 scale unsigned",
+  "0x14c30 stores d8 and flags before `if (o)`"
+ ],
+ "eng1_counterparts": {
+  "source": "calibration/eng1/actor_effects_0ef10.c",
+  "rows": [
+   "0xef10 (144)",
+   "0xf0a0 (224; census said 208)",
+   "0xf180 (512; census said 592)"
+  ],
+  "result": "3/3 relocation-masked equal as C and C++; near (not byte) counterparts of ENG3 0x15340, 0x145d0, 0x14850; graph names kept, behavioral copies omitted. Globals 0x716a8/0x71718/0x718e0 are storage-block macro views in the behavioral build (unresolved there)."
+ },
+ "identity": [
+  "0x1eff0 recorded _eng1_2a660 (calibration eng3_1eff0)",
+  "0x1dbc0 recorded _eng1_interpret_signed_pairs",
+  "0x1fab0 recorded _eng3_1fab0, calibration random_limit",
+  "0x1b2e0 is ENG3 counterpart of ENG1 0x20b50",
+  "0x41d60: five 16-byte trail records, cursor 0x37b60",
+  "0x410e0/0x40dc4/0x40ee4 water level values = ENG1 0x718e0/0x716a8/0x71718"
+ ]
+}
