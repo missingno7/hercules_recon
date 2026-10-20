@@ -1,0 +1,167 @@
+{
+ "date": "2026-10-20",
+ "scope": "Scratch data archaeology for TITLE.DLL first-party .bss and communal holes using the shared ENG1/ENG3 copies. No canonical change. Diagnostic placeholders and layout-chosen names below are invented and are not proposals.",
+ "new_measured_rules": [
+  "Unreferenced statics and unreferenced C++ globals keep their .bss storage in the natural /OPT:REF link (work_bufs, g_2a098 measured in place).",
+  "Unreferenced C tentative definitions (communals) are discarded by the natural /OPT:REF link: placeholder communals were emitted by the compiler (COFF section 0, value=size) but are absent from the map and take no space (dall/out/link.map). So a communal gap can only be alignment padding or the extent of a referenced communal, never a separate unused communal.",
+  "8+ byte .bss arrays are 8-aligned (confirmed again: canonical g_2b104[2] lands at 0x2b108)."
+ ],
+ "holes": [
+  {
+   "hole": "0x29990..0x29d8f (0x400) after g_29590",
+   "engine_map": "TITLE g_29590 0x29590 = ENG1 0x6e660 = ENG3 0x3f220 (end-pointer compare 0x29990 = 0x6ea60 = 0x3f620 in the shared decoder 0x3da0 / 0x4ca0 / 0x9da0); next referenced static: TITLE 0x29d90 (g_29d90), ENG1 0x6ee64 (ENG-only statics A..E 0x6ee64..0x6ee74, then g_29d90' 0x6ee78), ENG3 0x3fa24 (then g_29d90' 0x3fa38)",
+   "engine_references": "none in either engine (no reloc target and no folded displacement in the window; ENG1/ENG3 windows are 0x404). The buffer is at offset 0 of its object in both engines (ENG1: first .bss byte after .data end 0x6e65c; ENG3: after an earlier object's 0x3f218).",
+   "decision_0x800_vs_separate": "separate object. The decoder's bound check uses the end pointer base+0x400 and its copy-out writes at most rows(<=32) x 2w shorts (w<=8) = 1024 bytes from the buffer, so the buffer's use is exactly 0x400 (sizeof idiom); a [0x800] array with a hand-written 0x400 bound has no support, and the engines' 0x404 window would still need another 4-byte object. Both spellings produce identical bytes; no codegen discriminator exists in any module.",
+   "mechanism": "static storage of a function that /OPT:REF discarded keeps its .bss (measured), consistent with the window being unreferenced in all three modules",
+   "proposal": "u02b70.c: g_29590 becomes the unit's static decoder buffer (ownership: offset 0 of the shared unit block in ENG1/ENG3, only user the shared decoder) and a second static unsigned char [0x400] follows it in hash order (type unknown; char array is the neutral choice). Layout names needed: buffer < second buffer < g_29d90 (e.g. g_decode_buf, work_bufs).",
+   "measured": {
+    "alone_on_canonical": 0,
+    "with_u06bb0_and_g2c000_on_canonical": "+4 (0x6530 0x65a0 0x6840 0x6a50: coincidental, the u06350 communal group lands by a size sum)",
+    "leave_one_out_from_full_diagnostic": "282 -> 49 (all 233 gained rows need it)"
+   },
+   "confidence": "existence and 0x400 extent: medium-high (three modules); type/name: none"
+  },
+  {
+   "hole": "0x29588..0x2958f (8)",
+   "evidence": "none. Not alignment (u02b70 .bss is 8-aligned, measured: the block starts at 0x29588). Not a shared static before the buffer (buffer at object offset 0 in ENG1/ENG3). Candidates: u01de0 tail, r02a80 .bss, or a TITLE-only u02b70 static that hashes first.",
+   "proposal": "no evidence; owner ruling needed",
+   "measured": "gates everything after 0x29590: without it no later row can match (diagnostic hole8 used below)",
+   "confidence": "n/a"
+  },
+  {
+   "hole": "u06bb0 0x2a090..0x2a09f (16) and g_2a0a0 extent",
+   "engine_map": "g_2a0a0 (8-byte records, [idx*8+base] in 0x8ae0/0x8f50/0x9350) = ENG1 0x6fee8 = ENG3 0x3fbd0",
+   "engine_references": "both engines have exactly 16 bytes before the table: A dword (ENG1 0x6fed8 / ENG3 0x3fbc0; written by the actor/r097f0-region code 0x296e0/0x29870/0x299d0 = ENG3 0x1e540/0x1e6d0, read by macro_actor 0x295a0 = 0x1e440), B dword (ENG1 0x6fedc / ENG3 0x3fbc4; cmp dword in 0x13d70.., written by 0x2a170 = 0x1ecf0), 8 bytes unreferenced in all three modules, then the table. In both engines the next object starts at table+0xa0 (ENG1 0x6ff88, ENG3 0x3fc70); ENG1 actor_pipeline 0x26040 writes table entries [esi-4]/[esi] with stride 8 from index 0 under a runtime count.",
+   "proposal": "u06bb0.cpp: two dword globals (A, B) and one 8-byte unreferenced object before g_2a0a0 in hash order; extent TitleTab g_2a0a0[20] (0x2a0a0..0x2a13f). Types: A,B int/pointer-sized (only whole-dword loads/stores/compares); C unknown 8 bytes.",
+   "measured": {
+    "alone_on_canonical": 0,
+    "leave_one_out_from_full_diagnostic": "without A/B/C: 282 -> 53; without [20] extent: 282 -> 53"
+   },
+   "confidence": "A/B/C: medium (identical 16-byte preamble in two engines matches the TITLE hole exactly); [20]: medium (same 0xa0 distance in both engines; upper bound by neighbours)"
+  },
+  {
+   "hole": "g_2c000 extent 0x2c001..0x2c07f",
+   "engine_map": "g_2c000 (written byte 0 = 0 by 0x95d0) = ENG3 0x41060 (written by twin 0x1d9b0)",
+   "engine_references": "next reference is +0x80 in both TITLE (g_2c080) and ENG3 (0x410e0) although the following communals differ; with the discard rule an unused separate communal cannot fill the gap",
+   "proposal": "unsigned char g_2c000[0x80] (char buffer cleared via [0]=0)",
+   "measured": {
+    "alone_on_canonical": 0,
+    "leave_one_out_from_full_diagnostic": "282 -> 274"
+   },
+   "confidence": "medium"
+  },
+  {
+   "hole": "u197f0 g_2b104/g_2b108 (canonical static TitleObject *g_2b104[2] overlapping g_2b108)",
+   "evidence": "measured alignment rule: an 8-byte array cannot sit at 0x2b104 (it links at 0x2b108); hence two 4-byte statics (g_2b104, g_2b108; the code's g_2b104[1] is g_2b108). Not engine-based (u197f0 is TITLE-only).",
+   "proposal": "split into two 4-byte statics",
+   "measured": {
+    "leave_one_out_from_full_diagnostic": "282 -> 260"
+   },
+   "confidence": "high for 'not an 8-byte array'; spelling open"
+  },
+  {
+   "hole": "u197f0 aliasing overlaps g_2aff8[4] vs g_2affc/g_2b000/g_2b004, g_2b058[2] vs g_2b05c, g_2b118[7] vs g_2b120..g_2b12c (0x2b130 is g_2b118[6], not a hole)",
+   "evidence": "each pair names the same storage; the diagnostic replaces the separate statics by element references and the block then reproduces exactly",
+   "proposal": "remove the duplicate statics, use array elements (needs row re-verification)",
+   "measured": "part of the full diagnostic (not isolated)",
+   "confidence": "high that they alias; codegen impact untested per row"
+  },
+  {
+   "hole": "communal 0x2bb2c (4)",
+   "evidence": "no engine counterpart (g_2bb30..g_2bb3c are TITLE-only users). Discard rule excludes an unused communal; g_2bb28 cannot be 8 bytes (ENG1 0x70c44 / ENG3 0x40524 are not 8-aligned). Hypothesis H: 0x2bb30..0x2bb3f is one 16-byte communal (int[4]); its 16-alignment pads 0x2bb2c.",
+   "proposal": "hypothesis H (one int[4] with elements used by r16110 0x164b0, u06bb0 0x7510, u0cc90 0xd4b0/0xd720/0xd910)",
+   "measured": {
+    "H_on_full_diagnostic": "282 -> 284 (+0xd4b0, +0xd720), 0x2bb20..0x2bb5c all at original"
+   },
+   "confidence": "low-medium (fits; single-module evidence)"
+  },
+  {
+   "hole": "communal 0x2cbd0..0x2cbdf and 0x2cbf8..0x2cc01",
+   "evidence": "none from engines (ENG1/ENG3 keep these renderer variables as separate communals with different neighbours). Discard rule: must be alignment or extents of referenced communals; a 32-aligned object at 0x2cbe0 would explain both but conflicts with g_2cbec/g_2cbf0/g_2cbf4 being separate in ENG1.",
+   "proposal": "no evidence",
+   "measured": "remaining 61 in-place masked-equal rows after the H test are blocked by these group E/F/G shifts",
+   "confidence": "n/a"
+  },
+  {
+   "hole": "title_proc 0x29e0c, 0x29e14, 0x29fa0",
+   "evidence": "none: title_proc has no engine twin (best loose mnemonic similarity 0.5-0.87 on tiny functions only)",
+   "proposal": "no evidence",
+   "measured": "gates rows after 0x29e0c",
+   "confidence": "n/a"
+  },
+  {
+   "hole": "0x29fc4..0x29feb (0x28; missing from the given list)",
+   "evidence": "TITLE-only (u06350 file I/O / u06bb0 menu); u06bb0 .bss is 8-aligned (contains 8+ byte arrays) so its block starts at or before 0x29fe8: at least 4 bytes are u06bb0's",
+   "proposal": "no evidence",
+   "measured": "gates rows after 0x29fec",
+   "confidence": "n/a"
+  },
+  {
+   "hole": "u06bb0 0x2a00c (4)",
+   "evidence": "none; neighbours are TITLE-only menu counters g_2a008..g_2a034 (five counters for five frame tables)",
+   "proposal": "no evidence",
+   "confidence": "n/a"
+  },
+  {
+   "hole": "0x2a140..0x2a177 (0x38, after the [20] table; new), r097f0 0x2a188..0x2a18f, 0x2a198, 0x2a1a4..0x2a1b3 (new)",
+   "evidence": "none: r097f0's statics are used only by TITLE 0x9980/0x9920 which have no engine analog; the shared r097f0 twins reference no first-party .bss",
+   "proposal": "no evidence",
+   "confidence": "n/a"
+  },
+  {
+   "hole": "u09a40 0x2a238..0x2a23f; 0x2a248..0x2a24f (after g_2a244)",
+   "evidence": "none (TITLE-only unit)",
+   "proposal": "no evidence",
+   "confidence": "n/a"
+  },
+  {
+   "hole": "u0cc90 0x2a3b4, 0x2a9c4..0x2a9c7",
+   "evidence": "alignment padding: complete layout names reproduce them with no storage",
+   "proposal": "none needed",
+   "confidence": "high"
+  },
+  {
+   "hole": "u0ff70 0x2a9d4, 0x2a9e0, 0x2a9f8..0x2aa03, 0x2aa10",
+   "evidence": "none (TITLE-only)",
+   "proposal": "no evidence",
+   "confidence": "n/a"
+  },
+  {
+   "hole": "0x2acdc (4)",
+   "evidence": "none; weak sibling pattern: seq4 and seq10 have 12 statics, seq9 has 11 referenced",
+   "proposal": "no evidence",
+   "confidence": "n/a"
+  },
+  {
+   "hole": "u197f0 0x2b064, 0x2b094, 0x2b17c, 0x2b23c, 0x2b32c, 0x2b364..0x2b36b",
+   "evidence": "none (TITLE-only)",
+   "proposal": "no evidence",
+   "confidence": "n/a"
+  },
+  {
+   "hole": "g_2acf4 (ownership, not a hole)",
+   "evidence": "ENG1 0x6ffbc is read by the same renderer instruction (TITLE 0x18d83 = ENG1 0x316d4, test bl,4 / mov eax,[g] / test / je), written by ENG1-only 0x1ac10/0x1d780; in ENG1 it sits just before render-unit storage. Its placement as an explicit-zero global after r16110's statics (tdata) reproduces the layout.",
+   "proposal": "keep the tdata owner hypothesis; an alternative is a C++ global of u17cb0 (same position because r17ad0 has no .bss)",
+   "confidence": "low"
+  }
+ ],
+ "measurements": {
+  "base (canonical copy)": 49,
+  "s1 = canonical + u02b70 window + u06bb0 A/B/C/[20] + g_2c000[0x80] (all evidence-backed)": "53 (+4 coincidental u06350 rows; each change alone: 0)",
+  "dp = s1 + diagnostic hole8 + layout names/placeholders through 0x2a13f": "53 (+0x5e90 0x6350 0x6fb0 0x8140; 0x29580..0x2a0a0 all at original)",
+  "df = complete first-party .bss (diagnostic placeholders for every no-evidence hole, layout names, g_2a244/g_2acf4 tdata owners, u197f0 alias fixes, g_2b104 split)": "98 (+49); matches the in-place simulation for 'data correct below 0x2b3d8'",
+  "dall = df + tdata s3c communal groups with layout names": "282 (+233)",
+  "dall + hypothesis H (0x2bb30 int[4])": 284,
+  "in-place masked-equal ceiling": 345,
+  "leave_one_out_from_dall": {
+   "no 0x400 window": 49,
+   "no A/B/C": 53,
+   "no [20] extent": 53,
+   "no g_2c000[0x80]": 274,
+   "g_2b104 kept [2]": 260,
+   "none of window/A,B,C/[20]": 49
+  }
+ },
+ "caveats": "Only 282/284 are measured links; all of them contain invented placeholder storage and layout-chosen names, so they bound the value of each evidence-backed item and are not candidates. Gains depend on every earlier hole: one unresolved hole shifts everything after it, including the communal base.",
+ "status": "diagnostic evidence only; no canonical change adopted. Evidence-backed proposals (static 0x400 window after g_29590 in u02b70, u06bb0 two ints + 8-byte object + TitleTab g_2a0a0[20], g_2c000[0x80], g_2b104 split) gain only a coincidental +4 linked rows until the unexplained 8 bytes at 0x29588 are resolved; pending owner ruling."
+}
