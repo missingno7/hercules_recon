@@ -167,6 +167,25 @@
     "0xe2f0 calls unrecorded ENG3 0xdae0; 0xe960 calls unrecorded eng3_1cd40",
     "no ENG1 counterparts (ENG3-specific level objects)"
    ]
+  },
+  "y15": {
+   "source": "calibration/eng3/handlers_023a0.c",
+   "region": "0x23a0..0x6150",
+   "result": "plain C: 32 masked + RECONSTRUCTED 0x28f0 (314 B, frame 0x5c vs 0x60: original keeps 8 spill slots), 0x42a0 (342 B allocation, which eng3_1fac0() feeds <<8 vs <<7), 0x48e0 (9 B random term order), 0x5b40 (577 B with a plain else; an else-if re-test of spawn->z gives 455 B but the original tests once - not adopted)",
+   "forms": [
+    "0x2580 cell snap (o->x >> 23) * 0x800000 ((x >> 23) << 23 folds to and)",
+    "chained assignments store the rightmost target first (c->ac = c->bc = ...)",
+    "0x3020 if/else play_sound (ternary folds branchless)",
+    "0x4dc0 two int[24] partial initialisers of 20 entries",
+    "0x4650/0x4a40/0x5ee0 test d[1] - 0x18 for truth (original, probably meant d[1] > -0x18)"
+   ],
+   "identity": [
+    "no ENG1/TITLE counterparts (best byte ratio 0.48): level-specific ENG3 handlers",
+    "reset_state_53a0 (src/eng3/actor_handlers.c) belongs to this unit (equal at its position)",
+    "0x3290/0x3610 are called from level code 0x187a/0x188a (companion actor g_eng3_actor_3fb0c)",
+    "int tables 0x34f98 (18) and 0x34fe0 (5) adjacent in .data, probably this unit's",
+    "eng3_1fac0 returns int; Actor.unknown_d8 holds a parent Actor * on middle actors"
+   ]
   }
  },
  "audit": "work/converge/symmap_audit.py over masked/strict rows: one remaining conflict - ENG3 twin rows of calibration/title/u0c1f0.c imply g_engine_interface at 0x407a0/0x40920/0x40a2c (ENG3 interface layout differs; open identity question)"
