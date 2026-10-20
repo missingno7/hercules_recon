@@ -1,0 +1,26 @@
+{
+ "date": "2026-10-20",
+ "lane": "x5",
+ "module": "ENG1.DLL",
+ "source": "calibration/eng1/control_unit_2c030.c",
+ "region": "0x2c030..0x2e000",
+ "result": "41 relocation-masked equal (incl. 33 host interface slot wrappers named by real slot; all imply g_engine_interface 0x70f20 in ENG1 and 0x407a0 at the 21 ENG3 same-slot twins already recorded in calibration/eng3/actor_services_1e000.c); 3 size-exact RECONSTRUCTED (0x2cd30, 0x2d440, 0x2da90); 0x2df20 carried as pinned source only (1136 of 1168 bytes without context headers)",
+ "header_decision": "The lane used <stdio.h>/<math.h> purely as declaration-count context (with them 42/45, 0x2cd30 equal, 0x2df20 size-exact). Omitted per owner guidance 2026-10-20; <stdlib.h> kept for abs(). The lane also chose the declaration order of three timer globals by permutation for 0x2cd30 (measured operand-order sensitivity, noted in source).",
+ "extents": [
+  "0x2d970 is not a function: 0x2d440 jump table plus padding; 0x2d440 spans 0x2d440..0x2d9b0 (1392 bytes)",
+  "0x2df20 extends to 0x2e3b0"
+ ],
+ "identity": [
+  "0x70ed8..0x70f10 behave as separate scalar globals (the Eng1ActorControlState70ed8 aggregate view changes caching)",
+  "0x70ece group count belongs with the 0x70e4c aggregate (0x2da90 reloads it per bounds store)",
+  "g_header_pointer_70d34 is a dword table whose low short is read",
+  "0x6da0 is recorded as _LinkedSoundFx_6da0 but called play_sound by the behavioral graph",
+  "0x2bf30 is recorded under an ENG3 symbol name",
+  "incomplete_bodies.c declares 0x2d1f0/0x2d320/0x2d9e0/0x2da10/0x2da40 as void(void); all take Actor *"
+ ],
+ "residues": {
+  "0x2d440": "20 bytes: VC5 merges two identical select_frame; dir = 0; 0x70f0a = 0 blocks unless the first stores 0x70f0a before dir; the original keeps both and stores dir first",
+  "0x2da90": "registers of the 0/-1/6 constants",
+  "0x2cd30": "109 bytes without the count-context headers (OR operand order and allocation)"
+ }
+}
