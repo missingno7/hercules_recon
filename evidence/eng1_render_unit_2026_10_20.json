@@ -1,0 +1,44 @@
+{
+ "date": "2026-10-20",
+ "lane": "x4",
+ "module": "ENG1.DLL",
+ "source": "calibration/eng1/render_unit_30010.cpp",
+ "unit": "ENG1 renderer/primitive unit 0x30010..0x32300: the same shared source as TITLE calibration/title/u17cb0.cpp; one C++ unit (extern \"C\") with <string.h> first as a declaration-count TU-context hypothesis (owner real-header policy; no evidence of the real include). The same source still gives the recorded TITLE and ENG3 twins.",
+ "new_masked": [
+  "0x30010",
+  "0x30050",
+  "0x30180 spawn_actor_with_owner",
+  "0x30290 (C++ only)",
+  "0x30380 (C++ only)",
+  "0x30430 (TITLE 0x17bf0 form)",
+  "0x304f0 (TITLE 0x17cb0)",
+  "0x30d00 (TITLE 0x184c0)",
+  "0x30e40 extent_producer (ENG3 twin 0x23860 also equal)",
+  "0x310e0",
+  "0x313e0 (TITLE 0x18a90 form, depth limit 0x43f)",
+  "0x320d0"
+ ],
+ "reconstructed": {
+  "0x30790": "41, same residue as TITLE 0x17f50",
+  "0x30a20": "236, same as TITLE 0x181e0",
+  "0x311a0": "277, ENG1 colour routine (TITLE make_colour counterpart) spills v",
+  "0x31540": "533, TITLE 0x18bf0 form with ENG1 ordering table and z clamp 0x4bf",
+  "0x31ec0": "278, spill choice; ENG3 twin 0x24870 has the same residue",
+  "0x32130": "50, context-sensitive (50 or 276); extends to 0x32300"
+ },
+ "findings": [
+  "kind parameter to the spawn factories is unsigned short (0x30290 pushes it without widening)",
+  "0x30290/0x30380 match only under the C++ front end",
+  "unit data (0x5ce50 int[8], 0x5ce70/0x5ce90 matrices, 0x5ceb0, handler table 0x5cec0, 81-row slot table 0x5cee0) left extern",
+  "the unit continues past 0x32300 (handler table entries 0x32920, 0x32a30, 0x32aa0)",
+  "eng1_2ff50 (0x2ff50, 192 B) is masked equal in candidates/x4/region_a2.cpp and plausibly belongs here (not integrated)"
+ ],
+ "identity": [
+  "shared rows still carry TITLE symbols (0x300c0 is _title_17ad0, graph name spawn_at_group_300c0)",
+  "sprite_unit_03cd0.c declares an unused int eng1_31330(int); 0x31330 is void (TitleObj *)",
+  "g_configuration_dword_713bc is a pointer to an unsigned short collision map",
+  "0x5ce84/0x5ce88/0x5ce8c are g_5ce70.t[] translation members",
+  "g_mode_table_value_70d00 is a byte enable flag"
+ ],
+ "integration": "Single ENG1 behavioral-build provider for its three new masked symbols that duplicated behavioral copies; yields to existing providers for three carried functions. ENG1 build: 416 mapped / 467 symbols / 0 duplicates / 76 strict preserved."
+}
