@@ -161,7 +161,9 @@ void title_0c7e0(void *p);
 unsigned long make_colour(void *p);
 int title_18bf0(TitleObj *o, unsigned char *q, unsigned long c);
 int title_19570(TitleShape *obj, int k);
-extern int g_2cbe8;
+extern int g_2cbe0[3];  /* screen centre x, y, height */
+#define g_2cbe8 (g_2cbe0[2])
+#define g_2cbe4 (g_2cbe0[1])
 extern int g_2b1e8[];
 extern int g_2aea8[];
 extern int g_2ad00[];
@@ -786,6 +788,26 @@ void title_186e0(unsigned char *stream, TitleObj *obj, unsigned char count)
     g_2df40 = (TitleTile *)p;
 }
 
+/* 0x189a0, moved from src/title/pilot.c; the unit prototype is make_colour(void *). */
+typedef struct TlColourInput {
+    unsigned char unknown_000[0x4a];
+    unsigned short intensity_04a;
+    unsigned char unknown_04c[8];
+    unsigned long flags_054;
+} TlColourInput;
+
+unsigned long make_colour(void *pv)
+{
+    TlColourInput *p = (TlColourInput *)pv;
+    int intensity = p->intensity_04a;
+    unsigned long result;
+    if (intensity < 0) intensity = 0;
+    else if (intensity > 255) intensity = 255;
+    result = (((intensity | 0x2c00) << 8) | intensity) << 8 | intensity;
+    if (p->flags_054 & 4) result |= 0x02000000;
+    return result;
+}
+
 void title_189e0(TitleObj *arg)
 {
     TitleObj *cur;
@@ -1312,8 +1334,7 @@ int title_19570(TitleShape *obj, int k)
     return (unsigned int)(m * 2 + 0xf0) < (unsigned int)b;
 }
 
-extern int g_2cbe0;
-extern int g_2cbe4;
+/* Screen-centre members are provided by g_2cbe0[3]. */
 
 typedef struct TitleBox {
     int unknown_000;
@@ -1332,7 +1353,7 @@ int title_195f0(TitleObj *o)
 
     title_0c810(&box->unknown_00c);
     title_0c850(&box->unknown_010);
-    box->unknown_00c = (short)(((box->unknown_000 >> 16) * d >> 10) + g_2cbe0);
+    box->unknown_00c = (short)(((box->unknown_000 >> 16) * d >> 10) + g_2cbe0[0]);
     box->unknown_00e = (short)(((box->unknown_004 >> 16) * d >> 10) + g_2cbe4);
     box->unknown_010 = (short)((box->unknown_008 >> 16) + (g_2cbe8 >> 1));
     return r;

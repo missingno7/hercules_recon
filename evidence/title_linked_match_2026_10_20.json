@@ -1,0 +1,37 @@
+{
+ "date": "2026-10-20",
+ "owner_ruling": "2026-10-20: separate strict status LINKED_MATCH for raw byte equality at the original RVA in a fresh unresolved-free natural link; strict functions may live inside their unit sources; FUNCTION_MATCH gate unchanged.",
+ "gate": "scripts/linked.py (build/candidates/promote/verify) with calibration/title/link_plan.json: fresh pinned VC5 RTM compile of every plan object, natural link (/DLL /NODEFAULTLIB /INCREMENTAL:NO /OPT:REF /OPT:NOICF, PC_DLLEngineMain export) with pinned RTM LIBCMT/OLDNAMES/KERNEL32; refuses any unresolved symbol, duplicate or linker warning, forbidden link/compile flags, placement pragmas/asm, and non-natural object sections; row accepted only if its own source defines the symbol at the original RVA and the full extent is raw-equal in file-backed code of both images. tests/test_linked.py (13 synthetic tests).",
+ "result": {
+  "objects": 36,
+  "functions_placed_at_original_rva": "362/362",
+  "raw_equal_functions": 31,
+  "raw_equal_bytes": 2768,
+  "new_linked_match": 25,
+  "linked_match_bytes": 2416,
+  "existing_function_match_raw_equal_in_image": 6,
+  "image_normalized_sha256": "2acc33b8e5e5beaa0142b6404ed66ea919788f88b340e73771e7df58bcd0a3a6"
+ },
+ "canonical_changes": [
+  "out-of-unit functions moved into their address units: 0x4a10 (u02b70.c), 0x6430 (u06350.c), 0x9770/0x97b0 (u06bb0.cpp), 0x98a0 (r097f0.c), 0xcee0/0xd410 (u0cc90.c), 0x189a0 (u17cb0.cpp); six FUNCTION_MATCH rows re-proven raw-exact in their units by scripts/move_strict.py (same raw criterion; ENG1/ENG3 rows keep pilot.c/object_commands.c)",
+  "legacy pilot rows 0x4a10/0x6430 became proof-backed masked rows in their units",
+  "data identity renames (g_23389 -> g_23388 + 1; g_2cbe4/g_2cbe8 -> g_2cbe0[1]/[2])",
+  "27 communals defined in place in their first-definer units (u0cc90 3, r04d80 8, u02b70 16)",
+  "u06350.c uses open/read/write/close through OLDNAMES (library block 12,915/13,631 bytes identical vs 314 with underscore names)",
+  "new data units calibration/title/title_init_table.c (g_257e8[30]) and calibration/title/title_common.c (residual communals; ownership and extents behavioral-derived, owner decision pending)",
+  "toolchains/manifest.json pins lib/oldnames.lib"
+ ],
+ "blockers": {
+  "codegen": 17,
+  "communals_only": 159,
+  "first_party_bss_only": 57,
+  "initialized_data_only": 11,
+  "note": "g_engine_interface (off by -0x340 through the communal base) is the sole blocker of 123 rows; communal base depends on complete first-party .bss (unowned 0x29990..0x29d90 window, title_proc/u06bb0/r097f0/u09a40/u0ff70/u197f0 holes) and the 0x243b0 zero-tail ruling"
+ },
+ "dry_run_projection": {
+  "+ real-content initialized blocks (s1)": 28,
+  "+ s1 + 0x243b0 zero tail as g_242e8[60] (owner ruling needed)": 40,
+  "+ zero tail + u01de0 layout names": 43
+ },
+ "limits": "A LINKED_MATCH proves only its own bytes in this link; the plan object order is a convention, not proof of the original command line; title_common.c ownership is not established; no whole-image equality is claimed."
+}

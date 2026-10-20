@@ -149,7 +149,12 @@ def stage(plan_path):
         # A planned function that is RECONSTRUCTED now replaces that row once it verifies masked equal.
         planned = {f['symbol'] for f in plan['functions']}
         upgraded = [r for r in existing if r['status'] == 'RECONSTRUCTED' and r['symbol'] in planned]
-        existing = [r for r in existing if r['status'] != 'RECONSTRUCTED']
+        # Strict rows (FUNCTION_MATCH, LINKED_MATCH) keep their own proofs; like RECONSTRUCTED rows their
+        # functions are pinned co-defined, and they are never restaged as masked rows.
+        strict = [r for r in existing if r['status'] in ('FUNCTION_MATCH', 'LINKED_MATCH')]
+        if {r['symbol'] for r in strict} & planned:
+            raise ValueError('A strict row cannot be staged as a masked row')
+        existing = [r for r in existing if r['status'] not in ('RECONSTRUCTED', 'FUNCTION_MATCH', 'LINKED_MATCH')]
         if any(r['status'] != 'CODEGEN_SIMILAR' or r.get('proof', {}).get('scope') != SCOPE for r in existing):
             raise ValueError('In-place staging only extends sources whose recorded rows are masked or reconstructed rows')
         for r in upgraded:

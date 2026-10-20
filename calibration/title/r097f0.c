@@ -109,6 +109,28 @@ void title_09870(TitleObject *p)
     }
 }
 
+/* 0x98a0, moved from src/title/pilot.c (which stays for the ENG1/ENG3 rows). */
+typedef struct TlLinkNode {
+    unsigned char unknown_000[0x50];
+    unsigned long flags_050;
+    unsigned char unknown_054[0x90];
+    struct TlLinkNode *prev_0e4;
+    struct TlLinkNode *next_0e8;
+    unsigned char unknown_0ec[0x40];
+    struct TlLinkNode *prev_12c;
+    struct TlLinkNode *next_130;
+} TlLinkNode;
+
+void unlink_0e4(TlLinkNode *p)
+{
+    if (!(p->flags_050 & 0x80000)) {
+        if (p->prev_0e4) p->prev_0e4->next_0e8 = p->next_0e8;
+        if (p->next_0e8) p->next_0e8->prev_0e4 = p->prev_0e4;
+        p->prev_0e4 = 0;
+        p->next_0e8 = 0;
+    }
+}
+
 void title_098f0(TitleObject *p)
 {
     p->unknown_054 &= 0x7fffffff;

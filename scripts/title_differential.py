@@ -66,8 +66,10 @@ def run(output):
             if row.get('id') in ('title.decimal_digits', 'title.make_colour', 'title.sentinel_count')}
     expected = {
         'title.decimal_digits': ('calibration/title/u197f0.c', '_set_decimal_digits', 0x1a2c0),
-        'title.make_colour': ('src/title/pilot.c', '_make_colour', 0x189a0),
-        'title.sentinel_count': ('src/title/pilot.c', '_sentinel_count', 0xcee0),
+        # Strict rows now live in their units; src/title/pilot.c keeps byte-identical bodies (both are raw-exact
+        # FUNCTION_MATCH copies of the same original bytes), so the harness still links pilot.c.
+        'title.make_colour': ('calibration/title/u17cb0.cpp', '_make_colour', 0x189a0),
+        'title.sentinel_count': ('calibration/title/u0cc90.c', '_sentinel_count', 0xcee0),
     }
     for name, (source, symbol, rva) in expected.items():
         row = rows.get(name)

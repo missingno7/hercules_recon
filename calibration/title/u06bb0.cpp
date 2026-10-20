@@ -2011,4 +2011,44 @@ void title_095d0(void)
 }
 /*@END_FUNC*/
 
+/* 0x9770 and 0x97b0, moved from src/shared/object_commands.c and src/title/pilot.c
+   (those files stay for the ENG1/ENG3 rows); the unit prototypes take TitleObj *. */
+typedef struct TlCommandOwner {
+    unsigned char unknown_000[0x50];
+    unsigned long flags_050;
+    unsigned char unknown_054[0xd4];
+    unsigned short **command_128;
+} TlCommandOwner;
+
+void clear_command_high_bit(TitleObj *o)
+{
+    TlCommandOwner *p = (TlCommandOwner *)o;
+    if (!(p->flags_050 & 0x10000000)) {
+        if (p->command_128) {
+            unsigned short *command = *p->command_128;
+            unsigned short code = *command;
+            if ((code & ~0x7f) == 0xb780)
+                *command = code & 0x7fff;
+        }
+    }
+}
+
+typedef struct TlLinkNode {
+    unsigned char unknown_000[0x50];
+    unsigned long flags_050;
+    unsigned char unknown_054[0x90];
+    struct TlLinkNode *prev_0e4;
+    struct TlLinkNode *next_0e8;
+    unsigned char unknown_0ec[0x40];
+    struct TlLinkNode *prev_12c;
+    struct TlLinkNode *next_130;
+} TlLinkNode;
+
+void unlink_12c(TitleObj *o)
+{
+    TlLinkNode *p = (TlLinkNode *)o;
+    if (p->prev_12c) p->prev_12c->next_130 = p->next_130;
+    if (p->next_130) p->next_130->prev_12c = p->prev_12c;
+}
+
 } /* extern "C" */

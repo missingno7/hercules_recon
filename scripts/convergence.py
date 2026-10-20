@@ -27,6 +27,8 @@ def category(row):
         return 'untracked_lead'
     if row['status'] == 'FUNCTION_MATCH':
         return 'strict'
+    if row['status'] == 'LINKED_MATCH':
+        return 'linked_strict'
     if row['status'] == 'CODEGEN_SIMILAR':
         return 'masked' if row.get('proof', {}).get('scope') == SCOPE else 'legacy_similar'
     if row['status'] == 'RECONSTRUCTED':
@@ -72,7 +74,7 @@ def build(state, maps=(), annotations=None):
     modules = {}
     for module in sorted({key(r)[0] for r in rows} | mapped_modules):
         metrics = {c: dict(functions=0, bytes=0) for c in
-                   ('strict', 'masked', 'legacy_similar', 'reconstructed_non_strict')}
+                   ('strict', 'linked_strict', 'masked', 'legacy_similar', 'reconstructed_non_strict')}
         for r in rows:
             if key(r)[0] == module:
                 bucket = metrics[category(r)]
@@ -95,7 +97,7 @@ def build(state, maps=(), annotations=None):
             f = r or spans.get(k)
             members.append(dict(module=k[0], rva=hex(k[1]), category=category(r),
                                 bytes=f['size'] if f else None))
-        pending = [m for m in members if m['category'] not in ('strict', 'masked')]
+        pending = [m for m in members if m['category'] not in ('strict', 'linked_strict', 'masked')]
         families.append(dict(id=family['id'], kind=family['kind'],
                              pending_codegen_functions=len(pending),
                              pending_codegen_byte_ceiling=sum(m['bytes'] or 0 for m in pending),
@@ -105,6 +107,7 @@ def build(state, maps=(), annotations=None):
     families.sort(key=lambda f: (-f['pending_codegen_byte_ceiling'], f['id']))
     return dict(scope='Derived diagnostics only; recovery.json alone grants recovery state.',
                 definitions=dict(strict='FUNCTION_MATCH raw contribution bytes including padding',
+                                 linked_strict='LINKED_MATCH raw bytes at the original RVA in the natural link of the reviewed plan',
                                  masked='CODEGEN_SIMILAR with the exact masked proof scope; no strict gain',
                                  legacy_similar='older CODEGEN_SIMILAR diagnostics; not counted as masked equality',
                                  reconstructed_non_strict='RECONSTRUCTED rows; status does not prove exhaustive behavior',

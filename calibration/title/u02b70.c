@@ -33,7 +33,7 @@ typedef struct TitlePrim {
     unsigned short unknown_026;
 } TitlePrim;
 
-extern TitlePrim *g_2df40;
+TitlePrim *g_2df40;
 
 unsigned long make_colour(TitleObject *obj);
 void title_03100(unsigned char *stream, TitleObject *obj, unsigned char count);
@@ -41,10 +41,11 @@ void title_03420(unsigned char *stream, TitleObject *obj, unsigned char count);
 void title_03740(unsigned char *stream, TitleObject *obj, unsigned char count, int sx, int sy);
 void title_039b0(unsigned char *stream, TitleObject *obj, unsigned char count, int sx, int sy);
 
-extern int g_2d328;
+int g_2d328;
 extern void (*g_220d0[8])();
 
-extern int g_2cbe8;
+extern int g_2cbe0[3];  /* screen centre x, y, height */
+#define g_2cbe8 (g_2cbe0[2])
 void title_04470(TitleObject *p, int count, int stride);
 int title_189e0(int a);
 int title_195f0(TitleObject *p);
@@ -57,12 +58,12 @@ void title_17f50(unsigned char *stream, TitleObject *p, unsigned char count);
 int title_184c0(TitleObject *p, unsigned char *box, int pass);
 
 typedef struct TitleTabEntry { unsigned short a_00; unsigned short b_02; } TitleTabEntry;
-extern TitleTabEntry g_2d2a0[];
-extern unsigned char g_2df50;
-extern int g_2df44;
+TitleTabEntry g_2d2a0[32];
+unsigned char g_2df50;
+int g_2df44;
 extern TitleRect g_22100;
 extern unsigned short g_22108[32];
-extern unsigned char g_2dfac;
+unsigned char g_2dfac;
 extern char *g_2bb24;
 unsigned char title_04710(char *p, int b, int c, int d);
 unsigned char title_046b0(unsigned short key, unsigned int f);
@@ -70,8 +71,8 @@ void title_047d0(int a, int v, int b);
 void title_042d0(TitleObject *p);
 TitleTabEntry *title_047a0(TitleObject *c);
 static int g_29d94;
-extern int g_2d32c;
-extern unsigned short g_2df60[0x20];
+int g_2d32c;
+unsigned short g_2df60[0x20];
 void title_0c890(void *p, int n);
 
 extern TitleRect g_220f0[2];
@@ -79,12 +80,12 @@ static int g_29d90;
 extern unsigned short g_2bf58;
 extern unsigned short g_2bf60;
 extern unsigned short g_2bf6e;
-extern void *g_2d320;
-extern TitleObject *g_2df48;
-extern void *g_2df4c;
-extern void *g_2dfa0;
-extern TitleObject *g_2dfa4;
-extern TitleObject *g_2dfb4;
+void *g_2d320;
+TitleObject *g_2df48;
+void *g_2df4c;
+void *g_2dfa0;
+TitleObject *g_2dfa4;
+TitleObject *g_2dfb4;
 
 void title_02b70(void)
 {
@@ -303,7 +304,7 @@ typedef struct TitleCell {
     unsigned short w_02;
     unsigned short next_04[4];
 } TitleCell;
-extern TitleCell g_2d340[];
+TitleCell g_2d340[256];
 extern signed char g_264f8[];
 extern short g_243e0[];
 
@@ -1320,6 +1321,18 @@ void title_048a0(const unsigned char *a, const unsigned char *b)
     title_0c700();
 }
 
+/* 0x4a10, moved from calibration/title_control.c */
+void title_04a40(const unsigned char *s, int x);
+
+void title_04a10(const unsigned char *first, const unsigned char *second)
+{
+    int index;
+    for (index = 0; index < 18; ++index) {
+        title_04a40(first, index);
+        title_04a40(second, index);
+    }
+}
+
 /* f_4a40 */
 void title_04a40(const unsigned char *s, int x)
 {
@@ -1383,7 +1396,7 @@ void title_04b50(int idx)
 
 
 /* f_4b70 */
-extern TitleRecord *g_2d324;
+TitleRecord *g_2d324;
 static unsigned long g_29d98;
 static unsigned long g_29d9c;
 extern int g_22148;

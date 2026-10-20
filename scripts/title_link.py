@@ -29,7 +29,7 @@ from coff import COFF
 from match import DEFAULT_TOOLCHAIN, compile_source, digest, verify_toolchain
 from pe import PE
 
-LIBRARIES = ['libcmt.lib', 'kernel32.lib']
+LIBRARIES = ['libcmt.lib', 'oldnames.lib', 'kernel32.lib']
 
 
 def sources(module):

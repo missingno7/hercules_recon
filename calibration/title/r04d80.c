@@ -26,15 +26,15 @@ typedef struct TitleRec64 {
     unsigned long active_3c;
 } TitleRec64;
 
-extern TitleRec64 g_2cca0[24];
+TitleRec64 g_2cca0[24];
 
-extern int g_2cc6c;
-extern int g_2cc70;
-extern int g_2cc74;
-extern int g_2cc78;
-extern int g_2cc7c;
-extern int g_2cc80;
-extern int g_2cc84;
+int g_2cc6c;
+int g_2cc70;
+int g_2cc74;
+int g_2cc78;
+int g_2cc7c;
+int g_2cc80;
+int g_2cc84;
 
 static unsigned long g_29dac;
 static unsigned long g_29db8;

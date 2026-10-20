@@ -111,7 +111,7 @@ int g_25a30[] = {
 char g_25e20[] = " Meg_Speech_Time %d";
 extern int g_29f98;
 static int g_2a250;
-extern int g_2bb3c;
+int g_2bb3c;
 static int g_2a270;
 static int g_2a3ac;
 static int g_2a3a0;
@@ -146,8 +146,8 @@ static int g_2a838[96];
 static int g_2a25c;
 static int g_2a390;
 extern int g_257e8[];
-extern int g_2bb34;
-extern int g_2bb38;
+int g_2bb34;
+int g_2bb38;
 extern char g_29128[];
 int sentinel_count(short *p);
 void title_016e0();
@@ -252,6 +252,14 @@ found:
     ((TitleCtxView *)g_engine_interface.context_004)->byte_00e = (unsigned char)g_25a30[k * 6 + 5];
     ((TitleCtxView *)g_engine_interface.context_004)->byte_012 = (unsigned char)k;
     return g_25a30[k * 6 + 4];
+}
+
+/* 0xcee0, moved from src/title/pilot.c */
+int sentinel_count(short *p)
+{
+    int count = 0;
+    while (*p != -1) { ++p; ++count; }
+    return count - 1;
 }
 
 void title_0cf00(void) {
@@ -392,6 +400,41 @@ int title_0d380(int a, int b)
         }
     }
     return 0;
+}
+
+/* 0xd410, moved from src/title/title_handlers.c */
+typedef struct TlActor TlActor;
+struct TlActor {
+    long x, y, z;
+    unsigned char unknown_0c[0x22 - 0x0c];
+    unsigned char category;
+    unsigned char mode;
+    unsigned char unknown_24[0x2a - 0x24];
+    short state;
+    unsigned char unknown_2c[0x30 - 0x2c];
+    short ticks, phase;
+    unsigned short sprite;
+    unsigned char unknown_36[0x3a - 0x36];
+    short scale;
+    unsigned char unknown_3c[0x3e - 0x3c];
+    unsigned short unknown_3e;
+    unsigned char unknown_40[0x4a - 0x40];
+    unsigned short unknown_4a;
+    long parameter;
+    unsigned long flags, render_flags;
+    unsigned char unknown_58[0x5c - 0x58];
+    TlActor *attachment;
+    unsigned char unknown_60[0x70 - 0x60];
+    short speed, step;
+};
+
+void init_title_fields_d410(TlActor *p)
+{
+    p->unknown_3e = 0x14;
+    p->render_flags |= 0x2005;
+    p->mode = 6;
+    p->unknown_4a = 0xff;
+    p->sprite = 0xb6;
 }
 
 void title_0d440(TitleObject *p)

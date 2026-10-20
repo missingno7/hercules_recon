@@ -80,7 +80,7 @@ typedef struct CardHeader {
 } CardHeader;
 
 extern unsigned short g_23368[16];
-extern unsigned char g_23389[];
+/* RVA 0x23389 is the existing icon array g_23388 + 1. */
 
 void title_066f0(CardHeader *header, int blank);
 
@@ -122,6 +122,33 @@ int title_063c0(int a)
     if (r == 2) return 0;
     if (buf[0] == 'M' && buf[1] == 'C') return 2;
     return 4;
+}
+
+/* 0x6430, moved from calibration/title_control.c; the unit prototype is title_06430(int). */
+int title_06430(int unused)
+{
+    int result;
+    title_0c610(0);
+    result = title_06480();
+    switch (result) {
+    case 0:
+        title_064f0();
+        title_0c620(0);
+        result = title_06480();
+        break;
+    case 2:
+        break;
+    case 3:
+        title_065a0();
+        title_0c600(0);
+        title_06530();
+    default:
+        title_064f0();
+        title_0c620(0);
+        result = title_06480();
+        break;
+    }
+    return result;
 }
 
 int title_06480(void)
@@ -225,7 +252,7 @@ void title_066f0(CardHeader *header, int blank)
     for (i = 0; i < 16; i++)
         header->clut[i] = g_23368[i];
     memcpy(header->title, title, sizeof(title));
-    source = g_23389;
+    source = g_23388 + 1;
     for (row = 0; row < 16; row++) {
         column = 0;
         pixel = source;
@@ -279,30 +306,30 @@ int title_06840(char a1, const void *a2, int a3, int a4, int a5)
     memcpy((char *)save_image + 0x200, a2, a3);
 
     if (a4 == 1) {
-        fd = _open(path, 0x10100);
+        fd = open(path, 0x10100);
         if (fd == -1) {
             return 1;
         }
-        _close(fd);
+        close(fd);
     }
 
-    fd = _open(path, 1);
+    fd = open(path, 1);
     if (fd == -1) {
         return 4;
     }
-    if (_write(fd, save_image, 0x400) != 0x400) {
+    if (write(fd, save_image, 0x400) != 0x400) {
         return 4;
     }
-    _close(fd);
+    close(fd);
 
-    fd = _open(path, 0);
+    fd = open(path, 0);
     if (fd == -1) {
         return 5;
     }
-    if (_read(fd, rec, 0x200) != 0x200) {
+    if (read(fd, rec, 0x200) != 0x200) {
         return 5;
     }
-    _close(fd);
+    close(fd);
     return 3;
 }
 
@@ -338,14 +365,14 @@ int title_06a50(char a1, void *a2, int a3)
     path[0x18] = 'E';
     path[0x19] = 0;
 
-    fd = _open(path, 0);
+    fd = open(path, 0);
     if (fd == -1) {
         return 6;
     }
-    if (_read(fd, load_image, 0x400) != 0x400) {
+    if (read(fd, load_image, 0x400) != 0x400) {
         return 7;
     }
-    _close(fd);
+    close(fd);
     memcpy(a2, (char *)load_image + 0x200, a3);
     return 8;
 }
