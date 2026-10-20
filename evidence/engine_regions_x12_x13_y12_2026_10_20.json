@@ -62,6 +62,19 @@
     "0x644d0 effect descriptor points at 0x3a340/0x3a390 (data likely defined in this unit, unproven)",
     "0x3bc00/0x3b970 match ENG3 0x279d0/0x28a80 by shape only (one-call wrappers)"
    ]
+  },
+  "x16": {
+   "source": "calibration/eng1/level_actors_0c730.c",
+   "region": "0xe170..0x10120",
+   "result": "appended to the 0xc730 unit (plain C): 27 masked + 0xe8d0 (371 B, base/index + pointer registers in the 0x800-slot clear loop), 0xebd0 (220 B, music index and index*8 kept in two registers with displacement addressing; ~15 spellings fail), 0xf4f0 (5 B, add destination) RECONSTRUCTED; standalone 26/30. All 31 earlier rows unchanged. With the 8 recorded neighbours (0xe3e0, 0xe610, 0xef10, 0xf070, 0xf0a0, 0xf180, 0xf380, 0xf430) rewritten in the same view, 0xc730..0x10120 compiles as one contiguous C unit (all 8 masked equal; 0xfa00 then 54 B) - not yet consolidated canonically.",
+   "behavioral_fix": "src/eng1/behavioral/spatial_effects.c 0xf4f0 is wrong for states 1/11 (target adds -0x800000 and checks bit 0x20 / frame 0x15; states 2/12 use +0x800000, bit 0x10, frame 0x0f); the ENG1 behavioral build now takes the x16 body",
+   "identity": [
+    "0x2c460 _dispatch_engine_2c460 = random_limit; 0x6da0 = play_sound; 0x300c0 _title_17ad0 = spawn_at_group_300c0; 0x27db0 _title_092e0 = spawn_kind; 0x277e0 _title_08ed0 = spawn_middle_277e0; 0x27410 = remove_actor_preserving_resource",
+    "eng1_native_dep_00ff70 returns void",
+    "loader state 0x6ef1c..0x6ef38 (0x6ef38 state machine 0..7 shared with BensMusicControl)",
+    "0x2cb20/0x2cb40/0x2cbe0..0x2cc20 behave like PSX libsnd program/tone attribute calls (working assumption)",
+    "0xe670..0xee40 sound/music loader may be its own file (undecided)"
+   ]
   }
  },
  "ENG3": {
