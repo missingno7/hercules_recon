@@ -19,7 +19,9 @@ typedef struct Bounds3D {
 
 struct Actor {
     long x, y, z;
-    unsigned char unknown_0c[0x1c - 0x0c];
+    unsigned char unknown_0c[2];
+    short unknown_0e;
+    unsigned char unknown_10[0x1c - 0x10];
     unsigned char unknown_1c;
     unsigned char unknown_1d[0x21 - 0x1d];
     unsigned char unknown_21;
@@ -53,7 +55,7 @@ struct Actor {
     unsigned char unknown_76[0x88 - 0x76];
     Bounds3D shape;
     unsigned char unknown_94, unknown_95;
-    unsigned char unknown_96[0x98 - 0x96];
+    unsigned char unknown_96, unknown_97;
     short unknown_98, unknown_9a;
     long prev_x, prev_y, prev_z;
     long unknown_a8, unknown_ac, unknown_b0, unknown_b4;
@@ -81,6 +83,7 @@ struct Actor {
 };
 
 /* Interface context (g_engine_interface.context_004). */
+/* Interface context (g_engine_interface.context_004). */
 typedef struct LevelContext {
     signed char level;
     signed char sublevel;
@@ -88,7 +91,9 @@ typedef struct LevelContext {
     unsigned char unknown_03;
     unsigned char unknown_04;
     unsigned char unknown_05;
-    unsigned char unknown_06[0x0c - 0x06];
+    unsigned char unknown_06[0x0a - 0x06];
+    unsigned char unknown_0a;
+    unsigned char unknown_0b;
     signed char unknown_0c;
     unsigned char unknown_0d;
     unsigned char difficulty;
@@ -108,23 +113,44 @@ typedef struct LevelContext {
     short unknown_26, unknown_28, unknown_2a, unknown_2c;
     unsigned char unknown_2e[0x30 - 0x2e];
     unsigned long buttons_30;
-    unsigned char unknown_34[0x38 - 0x34];
+    long unknown_34;
     long tick;
-    unsigned char unknown_3c[0x5c - 0x3c];
+    unsigned long unknown_3c;
+    long unknown_40;
+    unsigned char unknown_44[0x48 - 0x44];
+    unsigned long unknown_48, unknown_4c;
+    unsigned char unknown_50[0x54 - 0x50];
+    long unknown_54;
+    unsigned char unknown_58[0x5c - 0x58];
     volatile unsigned short held_5c;
-    unsigned short pressed_5e;
-    unsigned char unknown_60[0x65 - 0x60];
-    unsigned char unknown_65;
-    unsigned char unknown_66[0x6e - 0x66];
+    volatile unsigned short pressed_5e;
+    unsigned short unknown_60, unknown_62, unknown_64, unknown_66;
+    unsigned char unknown_68[0x6c - 0x68];
+    unsigned short unknown_6c;
     unsigned short enabled_6e;
-    unsigned char unknown_70[0x1b30 - 0x70];
+    unsigned long unknown_70[3];
+    unsigned long saved_7c[4];
+    unsigned long unknown_8c;
+    unsigned long unknown_90;
+    unsigned long unknown_94;
+    unsigned char unknown_98[0x9c - 0x98];
+    unsigned short unknown_9c;
+    unsigned char unknown_9e[0xb4 - 0x9e];
+    void (*unknown_b4)(int);
+    unsigned char unknown_b8[0x128 - 0xb8];
+    unsigned char unknown_128;
+    unsigned char unknown_129[0x1b30 - 0x129];
     unsigned long unknown_1b30;
 } LevelContext;
 
 typedef struct EngineInterfaceView {
     unsigned long signature_000;
     LevelContext *context_004;
+    unsigned long unknown_008, unknown_00c;
+    unsigned long unknown_010;
 } EngineInterfaceView;
+
+
 
 typedef struct KindInfo {
     unsigned long sidecar_offset;
@@ -156,11 +182,16 @@ typedef struct Eng3Game {
 } Eng3Game;
 
 /* Frame buffer view: two 12-byte primitives ahead of the ordering table. */
+/* Double-buffered frame (0x2088 bytes): draw environment, display environment, two mode
+ * primitives and the 0x800-entry ordering table (PSX DB layout). */
 typedef struct Eng3Buffer {
-    unsigned char unknown_00[0x70];
+    unsigned char unknown_00[0x16];
+    unsigned char dtd, dfe, isbg;
+    unsigned char unknown_19[0x5c - 0x19];
+    unsigned char disp_5c[0x70 - 0x5c];
     unsigned long prim_70[3];
     unsigned long prim_7c[3];
-    unsigned long ot[4];
+    unsigned long ot[0x800];
 } Eng3Buffer;
 
 typedef struct Rect16 {
@@ -278,7 +309,7 @@ extern void eng3_empty_2390(void);
 extern void eng3_19200(void);
 extern void eng3_19a30(void);
 extern void eng3_19c20(void);
-extern long eng3_1b2e0(long, long, long, int);
+extern long eng3_1b2e0(unsigned short, short, unsigned short, int);
 extern int eng3_1b650(short *, int, int, long);
 extern int eng3_1b920(Actor *, int);
 extern Actor *eng3_1cb00(long, long, long, int);
@@ -348,7 +379,7 @@ extern int g_eng3_41cb8;
 extern long g_eng3_41d4c;
 extern void RemoveFxIdLinks_7f8e(unsigned short, Actor *);
 extern void eng3_17ae0(int);
-extern void eng3_1a070(void);
+extern int eng3_1a070(void);
 extern void eng3_1a110(void);
 extern void eng3_1a180(void);
 extern void eng3_1a290(void);
@@ -1028,18 +1059,18 @@ void eng3_174e0(void)
             g_eng3_41c68 = 999;
         }
     }
-    if ((g_engine_interface.context_004->unknown_65 & 4) && (g_engine_interface.context_004->buttons_30 & 0x4000))
+    if ((g_engine_interface.context_004->unknown_64 & 0x400) && (g_engine_interface.context_004->buttons_30 & 0x4000))
         eng3_19a30();
-    if ((g_engine_interface.context_004->unknown_65 & 1) && (g_engine_interface.context_004->buttons_30 & 0x4000)) {
+    if ((g_engine_interface.context_004->unknown_64 & 0x100) && (g_engine_interface.context_004->buttons_30 & 0x4000)) {
         eng3_19a30();
         if (g_engine_interface.context_004->unknown_10 == 0)
             g_engine_interface.context_004->unknown_10 = 1;
     }
-    if ((g_engine_interface.context_004->unknown_65 & 2) && (g_engine_interface.context_004->buttons_30 & 0x4000)) {
+    if ((g_engine_interface.context_004->unknown_64 & 0x200) && (g_engine_interface.context_004->buttons_30 & 0x4000)) {
         eng3_19a30();
         g_engine_interface.context_004->unknown_10 = 0;
     }
-    if ((g_engine_interface.context_004->unknown_65 & 8) && (g_engine_interface.context_004->buttons_30 & 0x2000))
+    if ((g_engine_interface.context_004->unknown_64 & 0x800) && (g_engine_interface.context_004->buttons_30 & 0x2000))
         eng3_19c20();
     if (g_focus->unknown_ec)
         g_focus->unknown_ec--;
@@ -2453,5 +2484,1160 @@ void eng3_19fd0(void)
     else
         g_eng3_actor_42540->y += g_eng3_actor_42540->unknown_b8;
     eng3_1a110();
+}
+
+/* ---- lane y13 (0x1a070..0x1c010) declarations ----
+ * ENG3.DLL 0x1a070..0x1c010 (29 functions; follows the level mode handlers): player axis/limit
+ * helpers, level setup/teardown (allocation, frame DB, MAP_PSX.BIN load and header decode), the
+ * engine main loop 0x1abb0, grid height/surface queries (0x1b100 decode, 0x1b2e0 height, 0x1b4a0
+ * surface code, 0x1b650 track bounds), actor range tests and the per-frame update/draw passes.
+ * Delivered as C++ (extern "C"), appended after calibration/eng3/handlers_16240.cpp; the widened
+ * Actor / LevelContext / EngineInterfaceView / Eng3Buffer views keep their existing offsets.
+ * Context +0x64 is a 16-bit word (0x1a560 clears it with a word store; with that view the
+ * canonical 0x174e0 tests unknown_64 & 0x400.. become masked equal).  0x40650..0x4078b is one
+ * map-header object (Eng3Map): 0x1af10 reloads lanes[i] after the column/row stores only when
+ * they are fields of one object.  Open residues: 0x1a290 (pad word +0x5e loads, equal only with
+ * that field volatile), 0x1abb0 (0x3fc70 load order, equal only with it volatile), 0x1b9f0
+ * (one base/index order), 0x1b100/0x1b2e0/0x1b4a0/0x1b650 (register allocation/reassociation). */
+/* 32-byte per-level row at 0x39870 (Eng3LevelInfo in track_unit_20010.cpp, widened view). */
+typedef struct Eng3LevelRow {
+    unsigned char unknown_00, unknown_01, unknown_02, unknown_03;
+    unsigned char flags_04;
+    unsigned char unknown_05[3];
+    unsigned long prim_count_08;
+    unsigned char unknown_0c[4];
+    void (*after_draw_10)(void);
+    unsigned char unknown_14[0x20 - 0x14];
+} Eng3LevelRow;
+
+/* 24-byte per-sublevel and per-level file rows at 0x38528. */
+typedef struct Eng3SubFile {
+    unsigned char unknown_00[8];
+    unsigned long arg_08;
+    unsigned char unknown_0c[0x18 - 0x0c];
+} Eng3SubFile;
+
+typedef struct Eng3LevelFile {
+    const char *map_00;
+    unsigned char unknown_04[8];
+    Eng3SubFile *subs_0c;
+    unsigned long arg_10;
+    unsigned long arg_14;
+} Eng3LevelFile;
+
+/* 16-byte grid subdivision row at 0x39a68 (step, fraction mask, scale, row stride - 1). */
+typedef struct Eng3GridScale {
+    long step;
+    long mask;
+    long scale;
+    long stride;
+} Eng3GridScale;
+
+/* 16-byte layer header (g_eng3_layers_40674); the shorts are self-relative offsets. */
+typedef struct Eng3Layer {
+    unsigned char link;
+    unsigned char width;
+    unsigned char extent;
+    unsigned char depth;
+    unsigned short rotation;
+    short entries;
+    short neighbours;
+    short shape;
+    unsigned char unknown_0c[4];
+} Eng3Layer;
+
+/* Per-kind hook records: host 0x40bb4 / middle 0x40b98 (8 bytes), game 0x40b8c (12 bytes). */
+typedef struct Eng3Hooks8 {
+    void (*create)(void *);
+    void (*update)(void *);
+} Eng3Hooks8;
+
+typedef struct Eng3Hooks12 {
+    void (*create)(Actor *);
+    void (*update)(Actor *);
+    void (*draw)(Actor *);
+} Eng3Hooks12;
+
+/* 0x94-byte host object (0x431c0) and 0xec-byte middle object (0x43174) views. */
+typedef struct Eng3Host {
+    long x, y, z;
+    unsigned char unknown_0c[0x2e - 0x0c];
+    unsigned short kind;
+    unsigned char unknown_30[0x50 - 0x30];
+    unsigned long flags;
+    unsigned char unknown_54[0x94 - 0x54];
+} Eng3Host;
+
+typedef struct Eng3Middle {
+    long x, y, z;
+    unsigned char unknown_0c[0x2e - 0x0c];
+    unsigned short kind;
+    unsigned char unknown_30[0x50 - 0x30];
+    unsigned long flags;
+    unsigned char unknown_54[0x9c - 0x54];
+    long prev_x, prev_y;
+    unsigned char unknown_a4[0xec - 0xa4];
+} Eng3Middle;
+
+extern Eng3LevelRow g_eng3_levels_39870[];
+extern Eng3LevelFile g_eng3_files_38528[];
+extern Eng3GridScale g_eng3_grid_39a68[];
+extern short g_eng3_sine_38688[];
+extern Rect16 g_eng3_clear_rect_381c0;
+extern unsigned char g_eng3_script_381d8[];
+extern unsigned char g_eng3_script_38210[];
+extern unsigned long g_eng3_version_38510;
+extern unsigned long g_eng3_version_38518;
+extern unsigned short g_eng3_prev_key_3805c;
+extern unsigned short g_eng3_next_key_38060;
+extern signed char g_eng3_selection_431e4;
+extern int g_eng3_vsync_gate_41444;
+extern Eng3Hooks8 *g_eng3_host_40bb4;
+extern Eng3Hooks8 *g_eng3_middle_40b98;
+extern Eng3Host *g_eng3_actor_431c0;
+extern unsigned char *g_eng3_prims_405c4;
+extern unsigned char *g_eng3_4316c;
+extern long *g_eng3_42550;
+extern long *g_eng3_431c8;
+extern unsigned char *g_eng3_map_40790;
+extern unsigned short g_eng3_40b94, g_eng3_40ba8, g_eng3_40bc2;
+extern unsigned short g_eng3_40bcc, g_eng3_40bd2, g_eng3_40c32;
+extern short g_eng3_40bc6;
+extern int g_eng3_41048;
+extern int g_eng3_41044;
+extern unsigned char g_eng3_3fb80;
+extern int g_eng3_3fb84;
+extern unsigned long g_eng3_3fc70;
+extern short g_eng3_3fa44;
+extern short g_eng3_3fba4, g_eng3_3fba8;
+extern long g_eng3_3fb94, g_eng3_3fb98;
+extern long g_eng3_camera_x_405e0;
+extern unsigned char g_eng3_431d0, g_eng3_431d1, g_eng3_431d2;
+extern unsigned char g_eng3_43178;
+extern long g_eng3_colour_40630;
+extern signed char g_eng3_spread_4063b;
+extern signed char g_eng3_spread_4063c;
+extern short g_eng3_4063e;
+extern void (*g_eng3_after_draw_4064c)(void);
+extern unsigned char g_eng3_40628, g_eng3_40629, g_eng3_4062a;
+/* Map header globals 0x40650..0x4078b (one object: stores to its arrays reload its pointers). */
+typedef struct Eng3Map {
+    unsigned long *table_50;
+    unsigned long *shape_table_54;
+    unsigned char *uvs_58;
+    short *shapes_5c;
+    unsigned long *table_60;
+    unsigned long *table_64;
+    unsigned long *table_68;
+    unsigned long *table_6c;
+    unsigned long *table_70;
+    Eng3Layer *layers_74;
+    unsigned long *shades_78;
+    unsigned short *cell_flags_7c;
+    unsigned long *table_80;
+    unsigned long *lanes_84[32];
+    short lane_rows_104[32];
+    short lane_columns_144[32];
+    signed char lane_limit_184;
+    signed char groups_185;
+    signed char layer_count_186;
+    signed char lane_count_187;
+    signed char shape_count_188;
+    signed char count_189;
+    signed char count_18a;
+} Eng3Map;
+
+extern Eng3Map g_eng3_map_40650;
+extern short g_eng3_412a4, g_eng3_412a6;
+extern short g_eng3_412c0;
+extern long g_eng3_40dc4;
+extern long g_eng3_40ee4;
+extern short g_eng3_41380[];
+extern short g_eng3_40f00[];
+extern short g_eng3_40f20[];
+extern long g_eng3_40cc0[];
+extern long g_eng3_40d20[];
+extern long g_eng3_40de0[];
+extern long g_eng3_40e40[];
+extern long g_eng3_40f40[];
+extern long g_eng3_40fa0[];
+extern long g_eng3_41100[];
+extern long g_eng3_411c0[];
+extern long g_eng3_41200[];
+extern long g_eng3_413a0[];
+extern Actor *g_eng3_actor_41c60;
+
+extern void eng3_empty_1000(const char *);
+extern void eng3_01870(void);
+extern void eng3_01880(void);
+extern void eng3_01890(Actor *);
+extern void eng1_call_01e50(void);
+extern void dispatch_local_02180(void);
+extern void eng3_08050(void);
+extern void eng3_082d0(void);
+extern void eng3_08340(unsigned long, unsigned long);
+extern void eng3_08540(void);
+extern void eng3_085a0(void);
+extern void eng3_08b20(void);
+extern void title_041d0(void);
+extern void eng3_0a700(void);
+extern void title_04760(void);
+extern void title_04870(void);
+extern void eng3_0aaa0(int, int, int, int, int, int);
+extern void eng1_color_fade_step_5d50(void);
+extern void demo_load_5ea0(void);
+extern void demo_step_6005(void);
+extern int game_state_60f9(void);
+extern void fx_update_666b(void);
+extern void fx_mode_827f(int);
+extern void fx_init_82b7(int);
+extern void fx_nop_83d3(void);
+extern void eng3_16ea0(void);
+extern void eng3_17130(void);
+extern void eng3_174e0(void);
+extern void eng3_178a0(void);
+extern void eng3_1c010(void);
+extern void eng3_1c290(void);
+extern void eng3_1c430(void);
+extern void eng3_1c5c0(void);
+extern void eng3_1c720(void);
+extern void reset_normal_actor_pool(void);
+extern void title_08c90(void);
+extern void eng3_process_middle_actor_pool(void);
+extern void title_09090(void);
+extern void reset_alternate_actor_pool(void);
+extern void title_09480(void);
+extern void title_095d0(void);
+extern void eng3_1f1a0(Actor *, Bounds3D *, int);
+extern void initialize_pending_action_groups(void);
+extern void eng3_slot_024(void);
+extern void eng3_slot_02c(void);
+extern void eng3_slot_030(void);
+extern int eng3_slot_034(int);
+extern void eng3_slot_040(void *);
+extern void eng3_slot_044(unsigned long);
+extern unsigned long eng3_slot_048(const char *, const char *);
+extern void eng3_slot_05c(void);
+extern void eng3_slot_060(void);
+extern unsigned long eng3_slot_068(const char *, const char *, void *, unsigned long);
+extern void eng3_slot_06c(unsigned long);
+extern void *eng3_slot_078(void **, unsigned long, unsigned long);
+extern void eng3_slot_084(void);
+extern void eng3_slot_08c(void);
+extern int eng3_1fad0(unsigned char *, long, int, int);
+extern int eng3_1fb20(Eng3Buffer *, Eng3Buffer *);
+extern int eng3_1fb40(int);
+extern int eng3_1fb60(int, int);
+extern int eng3_1fb80(Eng3Buffer *);
+extern int eng3_1fbb0(int);
+extern void eng3_slot_140(Rect16 *, int, int, int);
+extern void eng3_slot_144(unsigned long *, unsigned long);
+extern void eng3_slot_164(unsigned long *);
+extern void eng3_slot_16c(unsigned long);
+extern void eng3_slot_170(unsigned long);
+extern void eng3_1fc60(void);
+extern void eng3_1fc70(void);
+extern unsigned short eng3_1fe00(int, int, int, int);
+extern void eng3_1fe20(void);
+extern int eng3_1fe30(Rect16 *, unsigned long *);
+extern int eng3_1fe80(int, int);
+extern int eng3_1fea0(int, int);
+extern int eng3_1ff20(unsigned char *);
+extern int eng3_1ff30(Eng3Buffer *);
+extern void eng3_1ffa0(unsigned long *, int, int, int, int);
+extern long eng3_slot_2ec(unsigned long);
+extern void eng3_slot_330(void);
+extern long eng3_slot_3e0(unsigned long);
+extern void eng3_slot_3e4(void (*)(void));
+extern void eng3_20190(void);
+extern void eng3_22070(void);
+extern void eng3_222c0(void);
+extern void eng3_22790(void);
+extern void eng3_22b90(long, long, long, int);
+extern int eng3_24a80(Actor *);
+extern void eng3_25060(void);
+extern void eng3_250f0(void);
+
+long eng3_1aa30(unsigned long);
+void eng3_1af10(void);
+void eng3_1b8f0(void);
+void eng3_1b9c0(void);
+void eng3_1b9f0(void);
+void eng3_1bd40(void);
+
+int eng3_1a070(void)
+{
+    if (g_eng3_actor_42540->unknown_c8 != g_eng3_actor_42540->unknown_cc) {
+        if (g_eng3_actor_42540->unknown_c8 > g_eng3_actor_42540->unknown_cc) {
+            g_eng3_actor_42540->unknown_c8 -= g_eng3_actor_42540->unknown_d4;
+            if (g_eng3_actor_42540->unknown_c8 < g_eng3_actor_42540->unknown_cc)
+                g_eng3_actor_42540->unknown_c8 = g_eng3_actor_42540->unknown_cc;
+        } else {
+            g_eng3_actor_42540->unknown_c8 += g_eng3_actor_42540->unknown_d0;
+            if (g_eng3_actor_42540->unknown_c8 > g_eng3_actor_42540->unknown_cc)
+                g_eng3_actor_42540->unknown_c8 = g_eng3_actor_42540->unknown_cc;
+        }
+    }
+    if (g_eng3_actor_42540->unknown_96)
+        g_eng3_actor_42540->z += g_eng3_actor_42540->unknown_c8;
+    else
+        g_eng3_actor_42540->z -= g_eng3_actor_42540->unknown_c8;
+    return 0;
+}
+
+void eng3_1a110(void)
+{
+    if (g_engine_interface.context_004->level == 8 && (g_engine_interface.context_004->buttons_30 & 7)) {
+        if (g_focus->y > 0x1c00000)
+            g_focus->y = 0x1c00000;
+    }
+    if (g_engine_interface.context_004->level == 2 && g_focus->y > 0x2000000)
+        g_focus->y = 0x2000000;
+    if (g_engine_interface.context_004->level == 10 && (g_engine_interface.context_004->buttons_30 & 7)) {
+        if (g_focus->y > 0xc80000)
+            g_focus->y = 0xc80000;
+    }
+}
+
+void eng3_1a180(void)
+{
+    if (g_eng3_actor_42540->unknown_95) {
+        g_eng3_actor_42540->unknown_b8 -= g_eng3_actor_42540->unknown_c4;
+        if (g_eng3_actor_42540->unknown_b8 < 0) {
+            g_eng3_actor_42540->unknown_b8 = 0;
+            g_eng3_actor_42540->unknown_95 = 0;
+            g_eng3_actor_42540->unknown_bc = 0x100000;
+            g_eng3_actor_42540->unknown_c0 = 0x18000;
+            if (g_eng3_mode_41cb4 != 6)
+                g_eng3_mode_41cb4 = 3;
+            return;
+        }
+        g_eng3_actor_42540->y -= g_eng3_actor_42540->unknown_b8;
+        eng3_1a110();
+        return;
+    }
+    g_eng3_actor_42540->unknown_b8 += g_eng3_actor_42540->unknown_c0;
+    if (g_eng3_actor_42540->unknown_b8 > g_eng3_actor_42540->unknown_bc)
+        g_eng3_actor_42540->unknown_b8 = g_eng3_actor_42540->unknown_bc;
+    g_eng3_actor_42540->y += g_eng3_actor_42540->unknown_b8;
+    if (g_eng3_actor_42540->y > g_eng3_map_40650.lane_columns_144[g_eng3_layer_40638] << 23) {
+        g_eng3_actor_42540->y = g_eng3_map_40650.lane_columns_144[g_eng3_layer_40638] << 23;
+        g_eng3_actor_42540->unknown_b8 = 0x80000;
+        return;
+    }
+    eng3_1a110();
+}
+
+void eng3_1a290(void)
+{
+    eng3_22b90(g_eng3_actor_42540->x, g_eng3_actor_42540->y, g_eng3_actor_42540->z, 1);
+    if (g_eng3_mode_41cb4 != 0 && g_eng3_mode_41cb4 != 5)
+        g_eng3_3fba0 = 0;
+    if ((unsigned short)(g_eng3_prev_key_3805c & g_engine_interface.context_004->pressed_5e)) {
+        if (--g_eng3_selection_431e4 < 0)
+            g_eng3_selection_431e4 = 2;
+    }
+    if ((unsigned short)(g_engine_interface.context_004->pressed_5e & g_eng3_next_key_38060)) {
+        if (++g_eng3_selection_431e4 > 3)
+            g_eng3_selection_431e4 = 0;
+    }
+}
+
+void eng3_1a320(void)
+{
+    if (g_eng3_vsync_gate_41444)
+        eng3_slot_330();
+}
+
+void eng3_1a330(void)
+{
+    title_095d0();
+    eng3_slot_078((void **)&g_eng3_actor_42540, 0x134 * g_eng3_40bcc, 16);
+    eng3_slot_078((void **)&g_eng3_43174, 0xec * g_eng3_40c32 + 0x134, 16);
+    eng3_slot_078((void **)&g_eng3_actor_431c0, 0x94 * g_eng3_40bd2 + 0x134, 16);
+    eng3_1fe20();
+    eng3_slot_078((void **)&g_eng3_frame_4144c, 0x4110, 16);
+    eng3_slot_078((void **)&g_eng3_prims_405c4,
+                  80 * g_eng3_levels_39870[g_engine_interface.context_004->level].prim_count_08, 16);
+    eng3_slot_078((void **)&g_eng3_4316c, 0x4000, 0);
+    eng3_slot_078((void **)&g_eng3_42550, 0x8000, 0);
+    eng3_slot_078((void **)&g_eng3_431c8, 0x300, 0);
+    memset(g_eng3_42550, 0, 0x8000);
+    memset(g_eng3_431c8, 0, 0x300);
+    title_04760();
+    eng3_16ea0();
+    g_eng3_layer_40638 = 1;
+}
+
+void eng3_1a460(void)
+{
+    g_eng3_vsync_gate_41444 = 0;
+    eng3_slot_170(0);
+    eng3_slot_3e4(0);
+    if (g_engine_interface.context_004->unknown_9c == 1) {
+        eng3_slot_024();
+        if (g_engine_interface.context_004->unknown_b4)
+            g_engine_interface.context_004->unknown_b4(0);
+    } else if (g_engine_interface.context_004->unknown_9c) {
+        eng3_slot_030();
+    }
+    eng3_slot_16c(0);
+    eng3_slot_3e0(0);
+    if (g_eng3_actor_42540)
+        eng3_slot_040(g_eng3_actor_42540);
+    if (g_eng3_43174)
+        eng3_slot_040((void *)g_eng3_43174);
+    if (g_eng3_actor_431c0)
+        eng3_slot_040(g_eng3_actor_431c0);
+    if (g_eng3_prims_405c4)
+        eng3_slot_040(g_eng3_prims_405c4);
+    if (g_eng3_frame_4144c)
+        eng3_slot_040(g_eng3_frame_4144c);
+    eng3_slot_044(0);
+    memcpy(&g_engine_interface.context_004->unknown_6c, g_engine_interface.context_004->saved_7c, 16);
+    g_engine_interface.context_004->difficulty = g_engine_interface.context_004->unknown_0f;
+}
+
+void eng3_1a560(void)
+{
+    int dtd;
+
+    g_engine_interface.context_004->pressed_5e = 0;
+    g_engine_interface.context_004->held_5c = 0;
+    g_engine_interface.context_004->unknown_64 = 0;
+    g_engine_interface.context_004->unknown_62 = 0;
+    g_eng3_4254c = 0;
+    g_eng3_3fa44 = 0;
+    g_engine_interface.context_004->unknown_03 = 0;
+    g_engine_interface.context_004->tick = 0;
+    g_eng3_frame_41448 = g_eng3_frame_4144c;
+    eng3_slot_140(&g_eng3_clear_rect_381c0, 0, 0, 0);
+    g_eng3_after_draw_4064c = g_eng3_levels_39870[g_engine_interface.context_004->level].after_draw_10;
+    g_eng3_actor_431d4 = g_eng3_actor_42540;
+    eng3_08340(g_eng3_files_38528[g_engine_interface.context_004->level].arg_10,
+               g_eng3_files_38528[g_engine_interface.context_004->level]
+                   .subs_0c[g_engine_interface.context_004->sublevel].arg_08);
+    eng3_1af10();
+    g_eng3_431d0 = g_eng3_levels_39870[g_engine_interface.context_004->level].unknown_00;
+    g_eng3_431d1 = g_eng3_levels_39870[g_engine_interface.context_004->level].unknown_01;
+    g_eng3_431d2 = g_eng3_levels_39870[g_engine_interface.context_004->level].unknown_02;
+    g_eng3_colour_40630 = -1;
+    eng3_0aaa0(0, 0, 0, g_eng3_35168, g_eng3_35168, g_eng3_35168);
+    g_eng3_4063e = 0x7fff;
+    g_eng3_spread_4063b = 0x10;
+    g_eng3_spread_4063c = 0;
+    eng3_22790();
+    eng3_082d0();
+    eng3_178a0();
+    eng3_1c720();
+    eng3_1b9c0();
+    eng3_slot_144(g_eng3_frame_4144c[0].ot, 0x800);
+    eng3_slot_144(g_eng3_frame_4144c[1].ot, 0x800);
+    if (g_eng3_frame_41448 == g_eng3_frame_4144c)
+        g_eng3_prim_43164 = g_eng3_prims_405c4
+            + g_eng3_levels_39870[g_engine_interface.context_004->level].prim_count_08 * 40;
+    else
+        g_eng3_prim_43164 = g_eng3_prims_405c4;
+    eng3_1fb20(&g_eng3_frame_4144c[0], &g_eng3_frame_4144c[1]);
+    dtd = g_eng3_levels_39870[g_engine_interface.context_004->level].flags_04 & 1;
+    g_eng3_frame_4144c[1].dtd = dtd;
+    g_eng3_frame_4144c[0].dtd = dtd;
+    g_eng3_frame_4144c[1].dfe = 0;
+    g_eng3_frame_4144c[0].dfe = 0;
+    g_eng3_frame_4144c[1].isbg = g_eng3_levels_39870[g_engine_interface.context_004->level].flags_04 & 2;
+    g_eng3_frame_4144c[0].isbg = g_eng3_frame_4144c[1].isbg;
+    eng3_1ffa0(g_eng3_frame_4144c[0].prim_70, 1, dtd, eng3_1fe00(1, 0, 0x300, 0x100), 0);
+    eng3_1ffa0(g_eng3_frame_4144c[1].prim_70, 1, dtd, eng3_1fe00(1, 0, 0x300, 0x100), 0);
+    eng3_1ffa0(g_eng3_frame_4144c[0].prim_7c, 1, dtd, eng3_1fe00(1, 0, 0x380, 0x100), 0);
+    eng3_1ffa0(g_eng3_frame_4144c[1].prim_7c, 1, dtd, eng3_1fe00(1, 0, 0x380, 0x100), 0);
+    g_eng3_43178 = 1;
+    eng1_color_fade_step_5d50();
+    eng3_1fc60();
+    title_04870();
+    eng3_1fc70();
+    eng3_1fb80(g_eng3_frame_41448);
+    eng3_1fb80(g_eng3_frame_41448);
+    eng3_22070();
+    eng3_222c0();
+    eng3_20190();
+    eng3_1c290();
+    eng3_1ff30(g_eng3_frame_41448);
+    eng3_1ff20(g_eng3_frame_41448->disp_5c);
+    g_eng3_frame_41448 = g_eng3_frame_41448 == g_eng3_frame_4144c ? &g_eng3_frame_4144c[1] : g_eng3_frame_4144c;
+}
+
+void eng3_1a8f0(int wait)
+{
+    if (wait)
+        while (!eng3_slot_034(0))
+            ;
+    else
+        eng3_slot_034(0);
+    eng3_1af10();
+}
+
+int eng3_1a930(void)
+{
+    unsigned long size;
+
+    eng3_slot_16c(0);
+    eng3_slot_034(0);
+    size = eng3_slot_048(g_eng3_files_38528[g_engine_interface.context_004->level].map_00, "MAP_PSX.BIN");
+    if (!eng3_slot_078((void **)&g_eng3_map_40790, (size & 0xfffff800) + 0x1000, 0))
+        return -1;
+    g_engine_interface.context_004->unknown_128 |= 2;
+    eng3_slot_068(g_eng3_files_38528[g_engine_interface.context_004->level].map_00, "MAP_PSX.BIN",
+                  g_eng3_map_40790, size);
+    g_engine_interface.context_004->unknown_90 = *(unsigned long *)g_eng3_map_40790;
+    if (g_engine_interface.context_004->unknown_90 != g_engine_interface.context_004->unknown_8c)
+        for (;;)
+            ;
+    eng3_1fbb0(2);
+    size = eng3_1aa30(size);
+    eng3_slot_16c(0);
+    eng3_1fad0(g_eng3_map_40790, size, 0, 0);
+    return 0;
+}
+
+long eng3_1aa30(unsigned long size)
+{
+    Rect16 rect;
+    unsigned long *p;
+    unsigned long *image;
+    long end;
+
+    p = (unsigned long *)(g_eng3_map_40790 + 0x18);
+    image = p + (*p >> 2);
+    rect.w = 0x300;
+    rect.h = 0x200;
+    end = (unsigned char *)image - g_eng3_map_40790 + 0x20;
+    rect.x = 0;
+    rect.y = 0;
+    eng3_1fe30(&rect, image);
+    p++;
+    rect.x = 0x300;
+    rect.y = 0x100;
+    rect.w = 0x100;
+    rect.h = 0x100;
+    eng3_1fe30(&rect, p + (*p >> 2));
+    return end;
+}
+
+void eng3_1aac0(Actor *o)
+{
+    o->sprite = 0;
+    o->render_flags = 0;
+    o->flags = 2;
+    o->attachment = g_focus;
+    o->unknown_f0 = (long)g_eng3_script_381d8;
+    g_eng3_actor_431d4 = o;
+}
+
+void eng3_1aaf0(Actor *o)
+{
+    o->sprite = 0;
+    o->render_flags = 0;
+    o->flags = 2;
+    o->attachment = g_focus;
+    o->unknown_f0 = (long)g_eng3_script_38210;
+    g_eng3_actor_431d4 = o;
+}
+
+void eng3_1ab20(Actor *o)
+{
+    eng3_01890(o);
+    g_eng3_41380[++g_eng3_41380[0]] = o->shape.max_x;
+    g_eng3_40f00[++g_eng3_40f00[0]] = o->shape.max_z;
+    g_eng3_40f20[++g_eng3_40f20[0]] = o->shape.max_y;
+    if (g_eng3_actor_431d4 == o->attachment)
+        g_eng3_41048 = 1;
+}
+
+void eng3_1abb0(void)
+{
+    switch (g_eng3_3fb84) {
+    case 0:
+        eng3_1fea0(8, 8);
+        g_engine_interface.context_004->sublevel = 0;
+        g_engine_interface.context_004->unknown_02 = 0;
+        g_engine_interface.context_004->unknown_0a = 3;
+        g_engine_interface.context_004->unknown_8c = g_eng3_version_38518;
+        g_engine_interface.context_004->unknown_94 = g_eng3_version_38510;
+        g_engine_interface.context_004->unknown_48 = 0x13546547;
+        g_engine_interface.context_004->unknown_4c = 0xecab9ab8;
+        eng3_slot_05c();
+        fx_nop_83d3();
+        fx_init_82b7(0);
+        eng3_slot_06c(g_eng3_files_38528[g_engine_interface.context_004->level].arg_14);
+        eng3_slot_3e0(1);
+        fx_mode_827f(1);
+        g_eng3_3fb80 = 0;
+        eng3_1a330();
+        eng3_1a930();
+        eng3_25060();
+        eng3_1b8f0();
+        demo_load_5ea0();
+        eng3_1fe80(g_engine_interface.context_004->level, 0);
+    restart:
+        eng3_1a560();
+        eng3_1fbb0(4);
+        eng3_slot_060();
+        if (!g_eng3_3fb80)
+            eng3_1fb60(0, 0);
+        g_eng3_3fb80 = 1;
+        g_eng3_vsync_gate_41444 = 0;
+        eng3_slot_3e4(eng3_1a320);
+        g_eng3_4254c = 8;
+        g_eng3_35168 = 0x80;
+        g_eng3_3fa40 = 0;
+        eng3_1fb10(0);
+        g_engine_interface.context_004->unknown_1b30 = 0x100;
+        eng3_1fb40(1);
+        g_engine_interface.context_004->unknown_3c = g_eng3_3fc70;
+        g_engine_interface.context_004->unknown_40 = 0;
+        g_engine_interface.context_004->unknown_04 = 0;
+        g_engine_interface.context_004->unknown_05 = 1;
+        g_engine_interface.context_004->unknown_03 = 5;
+        g_engine_interface.context_004->unknown_54 = eng3_slot_3e0(1);
+        eng3_empty_1000("-------------------------------------------\n");
+        g_eng3_3fb84 = 1;
+        break;
+    case 1:
+        break;
+    default:
+        return;
+    }
+    g_engine_interface.context_004->unknown_34 = eng3_slot_2ec(g_engine_interface.unknown_010 + 0x400);
+    eng3_slot_084();
+    demo_step_6005();
+    dispatch_local_02180();
+    eng3_slot_02c();
+    eng3_slot_08c();
+    eng3_slot_3e4(eng3_1a320);
+    eng1_color_fade_step_5d50();
+    eng3_0a700();
+    eng3_08540();
+    if (!g_engine_interface.context_004->unknown_04) {
+        eng3_222c0();
+        eng3_22070();
+        eng3_20190();
+        eng3_08b20();
+        eng3_1b9f0();
+        eng3_085a0();
+        eng3_174e0();
+        eng3_01880();
+        eng3_1bd40();
+    } else {
+        eng3_20190();
+        eng3_08b20();
+        eng3_085a0();
+    }
+    eng3_250f0();
+    eng3_slot_16c(0);
+    if (g_eng3_3fc70 < g_engine_interface.context_004->unknown_3c + 1)
+        eng3_slot_3e0(0);
+    g_eng3_vsync_gate_41444 = 0;
+    eng3_slot_3e0(0);
+    g_eng3_vsync_gate_41444 = 1;
+    g_engine_interface.context_004->unknown_3c = g_eng3_3fc70;
+    g_engine_interface.context_004->unknown_54 = eng3_slot_3e0(1);
+    eng3_1fb80(g_eng3_frame_41448);
+    if (!g_engine_interface.context_004->unknown_04)
+        eng3_08050();
+    title_041d0();
+    title_04870();
+    eng3_slot_164(g_eng3_frame_41448->ot);
+    fx_update_666b();
+    eng3_slot_2ec(g_engine_interface.context_004->unknown_34);
+    g_eng3_frame_41448 = g_eng3_frame_41448 == g_eng3_frame_4144c ? &g_eng3_frame_4144c[1] : g_eng3_frame_4144c;
+    g_engine_interface.context_004->tick++;
+    if (game_state_60f9())
+        goto restart;
+}
+
+void eng3_1af10(void)
+{
+    unsigned short *h;
+    unsigned long *p;
+    long colour;
+    int shapes, lanes, layers, shades, cells, entries, groups;
+    int i;
+
+    h = (unsigned short *)(g_eng3_map_40790 + 8);
+    shapes = *h++;
+    lanes = *h++;
+    layers = *h++;
+    shades = *h++;
+    cells = *h++;
+    entries = *h++;
+    groups = *h++;
+    h++;
+    g_eng3_map_40650.layer_count_186 = layers;
+    g_eng3_map_40650.count_189 = cells;
+    g_eng3_map_40650.count_18a = entries;
+    g_eng3_map_40650.lane_count_187 = lanes;
+    g_eng3_map_40650.shape_count_188 = shades;
+    g_eng3_map_40650.groups_185 = groups;
+    g_eng3_map_40650.lane_limit_184 = lanes > 6 ? 6 : lanes;
+    p = (unsigned long *)h + 4;
+    g_eng3_map_40650.table_50 = p + (*p >> 2);
+    p++;
+    g_eng3_map_40650.uvs_58 = (unsigned char *)(p + (*p >> 2));
+    p++;
+    g_eng3_map_40650.layers_74 = (Eng3Layer *)(p + (*p >> 2));
+    p++;
+    colour = *p++;
+    g_eng3_40628 = colour;
+    g_eng3_40629 = colour >> 8;
+    g_eng3_4062a = colour >> 16;
+    for (i = 0; i < lanes; i++, p++) {
+        g_eng3_map_40650.lanes_84[i] = (unsigned long *)((unsigned short *)p + (*p >> 1));
+        g_eng3_map_40650.lane_columns_144[i] = ((short *)g_eng3_map_40650.lanes_84[i])[0];
+        g_eng3_map_40650.lane_rows_104[i] = ((short *)g_eng3_map_40650.lanes_84[i])[1];
+        g_eng3_map_40650.lanes_84[i]++;
+    }
+    g_eng3_map_40650.table_80 = p + (*p >> 2);
+    p++;
+    g_eng3_map_40650.cell_flags_7c = (unsigned short *)(p + (*p >> 2));
+    p++;
+    g_eng3_map_40650.shades_78 = p + (*p >> 2);
+    p++;
+    g_eng3_map_40650.table_6c = p + (*p >> 2);
+    p++;
+    g_eng3_map_40650.shapes_5c = (short *)p;
+    g_eng3_map_40650.shape_table_54 = p + shapes - 1;
+    g_eng3_map_40650.table_60 = p + (shades + shapes);
+    g_eng3_map_40650.table_64 = p + (cells + shades + shapes);
+    g_eng3_map_40650.table_70 = p + (entries + cells + shades + shapes);
+    g_eng3_map_40650.table_68 = p + (groups + entries + cells + shades + shapes);
+}
+
+short eng3_1b100(long fx, long fz, signed char *p)
+{
+    int type, xi, zi;
+    unsigned short h0, h1, h2, h3;
+    long a, b;
+
+    type = *p++;
+    if (type == 0) {
+        h0 = *p++ << 1;
+        if (h0 & 0x100)
+            return -1;
+        if (h0 & 0x80)
+            return h0 & 0x7f;
+        h1 = (signed char)(*p & 0x3f) << 1;
+        return ((h1 - h0) * (fx & g_eng3_grid_39a68[0].mask) * g_eng3_grid_39a68[0].scale >> 8) + h0;
+    }
+    if (!(type & ~0xf)) {
+        xi = type & 0xf;
+        p += g_eng3_grid_39a68[xi].step * fx >> 8;
+        h0 = *p++ << 1;
+        if (h0 & 0x100)
+            return -1;
+        if (h0 & 0x80)
+            return h0 & 0x7f;
+        h1 = (signed char)(*p & 0x3f) << 1;
+        return ((g_eng3_grid_39a68[xi].mask & fx) * g_eng3_grid_39a68[xi].scale * (h1 - h0) >> 8) + h0;
+    }
+    xi = type & 0xf;
+    zi = (type >> 4) - 1;
+    p += g_eng3_grid_39a68[xi].step * fx >> 8;
+    p += (g_eng3_grid_39a68[zi].step * fz >> 8) * (g_eng3_grid_39a68[xi].stride + 1);
+    h0 = *p++ << 1;
+    if (h0 & 0x100)
+        return -1;
+    if (h0 & 0x80)
+        return h0 & 0x7f;
+    h1 = (signed char)(*p & 0x3f) << 1;
+    p += g_eng3_grid_39a68[xi].stride;
+    a = ((h1 - h0) * g_eng3_grid_39a68[xi].scale * (g_eng3_grid_39a68[xi].mask & fx) >> 8) + h0;
+    h2 = *p++ << 1;
+    if (h2 & 0x100)
+        return -1;
+    h3 = (signed char)(*p & 0x3f) << 1;
+    b = ((h3 - h2) * g_eng3_grid_39a68[xi].scale * (g_eng3_grid_39a68[xi].mask & fx) >> 8) + h2;
+    return ((g_eng3_grid_39a68[zi].mask & fz) * g_eng3_grid_39a68[zi].scale * (b - a) >> 8) + a;
+}
+
+long eng3_1b2e0(unsigned short x, short y, unsigned short z, int layer)
+{
+    unsigned char *entry;
+    unsigned long *cell;
+    short *shape;
+    long value, flip, height, above, below, off;
+    long cx, cz;
+    int fx, fz, count, lane, r;
+
+    z += 0x300;
+    above = 0x7fff;
+    below = 0x7fff;
+    if (x >= 0x8000)
+        x = 0x80;
+    fx = (x >> 1) & 0x3f;
+    fz = (z >> 1) & 0x3f;
+    entry = (unsigned char *)&g_eng3_map_40650.layers_74[layer].entries + g_eng3_map_40650.layers_74[layer].entries;
+    cx = x >> 7;
+    cz = z >> 7;
+    count = *entry++;
+    while (count--) {
+        lane = *entry++;
+        height = (signed char)*entry++ << 5;
+        if ((unsigned short)cz >= (unsigned short)g_eng3_map_40650.lane_columns_144[lane])
+            continue;
+        if ((unsigned short)cx >= (unsigned short)g_eng3_map_40650.lane_rows_104[lane])
+            continue;
+        cell = &g_eng3_map_40650.lanes_84[lane][cx * g_eng3_map_40650.lane_columns_144[lane] + cz];
+        value = *cell;
+        if (value & 1)
+            continue;
+        flip = value & 0x1000000;
+        shape = g_eng3_map_40650.shapes_5c + ((value >> 1) & 0x3ff) * 2 - 1;
+        off = *shape;
+        if (!off)
+            continue;
+        r = eng3_1b100(flip ? 0x3f - fz : fz, fx, (signed char *)shape + off);
+        if (r == -1)
+            continue;
+        height = height - r * 2 - (((signed char)(*cell >> 24) & ~1) << 1) - y + 0x40;
+        if (height < 0) {
+            if (height < below)
+                below = -height;
+        } else if (height < above) {
+            above = height;
+        }
+    }
+    if (above == 0x7fff && g_eng3_4063e != 0x7fff) {
+        above = g_eng3_4063e - (unsigned short)y;
+        if (above < 0)
+            above = 0;
+    }
+    return (below << 16) + above;
+}
+
+unsigned short eng3_1b4a0(unsigned short x, short y, unsigned short z, int layer)
+{
+    unsigned char *entry;
+    unsigned long value;
+    unsigned long *cell;
+    unsigned char *shape;
+    long cx, cz, height, dy;
+    int flag, info;
+    int count, lane, xs, ys, zs;
+
+    entry = (unsigned char *)&g_eng3_map_40650.layers_74[layer].entries + g_eng3_map_40650.layers_74[layer].entries;
+    z += 0x300;
+    x -= 0x40;
+    count = *entry++;
+    cz = z >> 7;
+    cx = x >> 7;
+    while (count--) {
+        lane = *entry++;
+        height = (signed char)*entry++ << 5;
+        if ((unsigned short)cz >= (unsigned short)g_eng3_map_40650.lane_columns_144[lane])
+            continue;
+        if ((unsigned short)cx >= (unsigned short)g_eng3_map_40650.lane_rows_104[lane])
+            continue;
+        cell = &g_eng3_map_40650.lanes_84[lane][cx * g_eng3_map_40650.lane_columns_144[lane] + cz];
+        dy = height - (((signed char)(*cell >> 24) & ~1) << 1) - y + 0x40;
+        flag = g_eng3_map_40650.cell_flags_7c[((*cell >> 11) & 0x1fff) * 2];
+        if (!flag)
+            continue;
+        shape = (unsigned char *)&g_eng3_map_40650.table_68[flag - 1] + g_eng3_map_40650.table_68[flag - 1];
+        info = *(unsigned short *)shape;
+        shape += 2;
+        if (!info)
+            return *(signed char *)shape;
+        xs = (unsigned char)info >> 4;
+        ys = info >> 8;
+        zs = info & 0xf;
+        if (xs)
+            shape += ((0x7f - (x & 0x7f)) >> 1) * g_eng3_grid_39a68[xs].step >> 8;
+        if (ys)
+            shape += (g_eng3_grid_39a68[ys].step * (dy >> 1) >> 8) * g_eng3_grid_39a68[xs].stride;
+        if (zs)
+            shape += (g_eng3_grid_39a68[zs].step * ((z >> 1) & 0x3f) >> 8) * g_eng3_grid_39a68[ys].stride
+                     * g_eng3_grid_39a68[xs].stride;
+        return *(signed char *)shape;
+    }
+    return 0;
+}
+
+int eng3_1b650(short *out, int id, int mode, long pos)
+{
+    unsigned short *left, *right;
+    unsigned long *p;
+    long frac;
+    long next;
+    long l1, l3, r1, r3;
+    int count, i;
+
+    if (id >= g_eng3_map_40650.groups_185)
+        return 0;
+    if (pos < 0)
+        pos = 0;
+    p = &g_eng3_map_40650.table_70[id];
+    p += *p >> 2;
+    count = *(unsigned short *)p;
+    right = (unsigned short *)(p + 1);
+    left = right;
+    next = 0;
+    for (i = 1; i < count; i++) {
+        right += 8;
+        next = right[0];
+        if (next > pos)
+            break;
+        left = right;
+    }
+    frac = next - left[0];
+    if (frac)
+        frac = ((pos - left[0]) << 16) / frac;
+    if (mode) {
+        r1 = right[1];
+        l3 = left[3];
+        l1 = left[1];
+        r3 = right[3];
+        out[0] = (((l3 + r1 - l1 - r3) * frac) >> 16) + l1 - l3 - 0x300;
+        out[2] = (((r3 + r1 - l1 - l3) * frac) >> 16) + l3 + l1 - 0x300;
+    }
+    if (mode) {
+        r1 = right[2];
+        r3 = right[4];
+        l1 = left[2];
+        l3 = left[4];
+        out[3] = out[1] = l1 + ((((r1 + r3 - l1 - l3) * frac) >> 16) + l3);
+    }
+    if (mode)
+        out[4] = ((((signed char *)right)[0xa] - ((signed char *)left)[0xa]) * frac >> 16)
+                 + (short)((signed char *)left)[0xa];
+    if (mode)
+        out[5] = ((((signed char *)right)[0xc] - ((signed char *)left)[0xc]) * frac >> 16)
+                 + (short)((signed char *)left)[0xc];
+    if (mode)
+        out[6] = ((((signed char *)right)[0xc] - ((signed char *)left)[0xc]) * frac >> 16)
+                 + (short)((signed char *)left)[0xc];
+    return 1;
+}
+
+int eng3_1b7f0(Actor *o)
+{
+    long x;
+
+    x = o->x >> 16;
+    eng3_1eeb0(o);
+    if (x < range_first(o->profile)) {
+        release_actor(o);
+        return 0;
+    }
+    if (x > range_end(o->profile))
+        return 0;
+    return eng3_24a80(o) != -1;
+}
+
+void eng3_1b890(Actor *o)
+{
+    if (eng3_1b7f0(o)) {
+        if (g_eng3_unknown_3fb88 < o->unknown_0e)
+            g_eng3_unknown_3fb88 = o->unknown_0e;
+        g_eng3_unknown_3fb8c = 1;
+    }
+}
+
+void eng3_1b8c0(Actor *o)
+{
+    if (eng3_1b7f0(o)) {
+        if (g_eng3_unknown_38520 > o->unknown_0e)
+            g_eng3_unknown_38520 = o->unknown_0e;
+        g_eng3_unknown_3fb8c = 1;
+    }
+}
+
+void eng3_1b8f0(void)
+{
+    g_eng3_41048 = 0;
+    g_eng3_40bc6 = 0;
+    initialize_pending_action_groups();
+    title_08c90();
+    title_09090();
+    title_09480();
+}
+
+int eng3_1b920(Actor *o, int margin)
+{
+    long lo, hi;
+
+    lo = range_first(o->profile);
+    if (lo == -1)
+        return 1;
+    hi = range_end(o->profile);
+    if (hi == -1)
+        return 1;
+    if ((short)(o->x >> 16) < lo - (unsigned short)margin
+        || (short)(o->x >> 16) > hi + (unsigned short)margin + 0x100)
+        return 1;
+    return 0;
+}
+
+void eng3_1b9c0(void)
+{
+    eng1_call_01e50();
+    eng3_17130();
+    eng3_1c010();
+    eng3_01870();
+    g_eng3_40b92 = 3;
+}
+
+void eng3_1b9e0(void)
+{
+    reset_normal_actor_pool();
+    eng3_process_middle_actor_pool();
+    reset_alternate_actor_pool();
+}
+
+void eng3_1b9f0(void)
+{
+    int i;
+    Eng3Host *h;
+    Eng3Middle *m;
+    Actor *a;
+    unsigned long flags;
+    unsigned short kind;
+
+    g_eng3_41044 = 0;
+    g_eng3_412a4 = g_eng3_actor_42540->z >> 16;
+    g_eng3_412a6 = g_eng3_actor_42540->z >> 16;
+    g_eng3_40dc4 = g_eng3_sine_38688[(g_engine_interface.context_004->tick & 0x7f) << 3] * 64 >> 16;
+    g_eng3_40ee4 = g_eng3_sine_38688[((g_engine_interface.context_004->tick + 0x10) << 4) & 0x3ff] * 80 >> 16;
+    g_eng3_41380[0] = 0;
+    g_eng3_40f20[0] = 0;
+    g_eng3_40f00[0] = 0;
+    g_eng3_412c0 = 0;
+    eng3_1c430();
+    g_eng3_3fb98 = g_eng3_3fb94;
+    g_eng3_3fb94 = g_eng3_camera_x_405e0;
+    g_eng3_40d20[0] = 0;
+    g_eng3_40fa0[0] = 0;
+    g_eng3_40f40[0] = 0;
+    g_eng3_40de0[0] = 0;
+    g_eng3_411c0[0] = 0;
+    g_eng3_41200[0] = 0;
+    g_eng3_40e40[0] = 0;
+    for (i = g_eng3_40ba8; i < g_eng3_40bd2; i++) {
+        h = &g_eng3_actor_431c0[i];
+        kind = h->kind;
+        if (kind) {
+            if (h->flags & 0x40)
+                g_eng3_411c0[++g_eng3_411c0[0]] = (long)h;
+            if (h->flags & 1)
+                g_eng3_host_40bb4[kind & 0xfff].update(h);
+        }
+    }
+    for (i = g_eng3_40bc2; i < g_eng3_40c32; i++) {
+        m = &((Eng3Middle *)g_eng3_43174)[i];
+        kind = m->kind;
+        if (kind) {
+            flags = m->flags;
+            if (!(flags & 0x800)) {
+                m->prev_x = m->x;
+                m->prev_y = m->y;
+            }
+            if (flags & 0x40000)
+                g_eng3_40d20[++g_eng3_40d20[0]] = (long)m;
+            if (flags & 0x100000)
+                g_eng3_41200[++g_eng3_41200[0]] = (long)m;
+            if (flags & 1)
+                g_eng3_middle_40b98[kind & 0xfff].update(m);
+            if (flags & 0x400000)
+                g_eng3_40e40[++g_eng3_40e40[0]] = (long)m;
+        }
+    }
+    for (i = g_eng3_40b94; i < g_eng3_40bcc; i++) {
+        a = &g_eng3_actor_42540[i];
+        if (a->kind) {
+            flags = a->flags;
+            if (!(flags & 0x800)) {
+                a->prev_x = a->x;
+                a->prev_y = a->y;
+                a->prev_z = a->z;
+            }
+            if (flags & 0x100000)
+                g_eng3_41200[++g_eng3_41200[0]] = (long)a;
+            if (flags & 0x80)
+                g_eng3_40de0[++g_eng3_40de0[0]] = (long)a;
+            if (!(flags & 0x10)) {
+                if (a->unknown_ec)
+                    a->unknown_ec--;
+                else
+                    a->unknown_ed = 0;
+            } else {
+                g_eng3_40f40[++g_eng3_40f40[0]] = (long)a;
+            }
+            if (flags & 0x240000)
+                g_eng3_40d20[++g_eng3_40d20[0]] = (long)a;
+            if (flags & 1)
+                ((Eng3Hooks12 *)g_eng3_game_40b8c)[a->kind].update(a);
+            if (flags & 0x400000)
+                g_eng3_40fa0[++g_eng3_40fa0[0]] = (long)a;
+        }
+    }
+}
+
+void eng3_1bd40(void)
+{
+    int i;
+    Eng3Host *h;
+    Eng3Middle *m;
+    Actor *a;
+    unsigned short kind;
+
+    g_eng3_40cc0[0] = 0;
+    g_eng3_41100[0] = 0;
+    g_eng3_413a0[0] = 0;
+    eng3_1f1a0(g_focus, &g_focus->shape, 0);
+    g_eng3_3fba8 = 0;
+    g_eng3_3fba4 = 0;
+    if (g_eng3_40b92)
+        g_eng3_40b92--;
+    for (i = g_eng3_40ba8; i < g_eng3_40bd2; i++) {
+        h = &g_eng3_actor_431c0[i];
+        kind = h->kind;
+        if (kind) {
+            if (h->flags & 0x10000)
+                g_eng3_413a0[++g_eng3_413a0[0]] = (long)h;
+            if (h->flags & 2)
+                g_eng3_host_40bb4[kind & 0xfff].update(h);
+        }
+    }
+    for (i = g_eng3_40bc2; i < g_eng3_40c32; i++) {
+        m = &((Eng3Middle *)g_eng3_43174)[i];
+        kind = m->kind;
+        if (kind && (m->flags & 2))
+            g_eng3_middle_40b98[kind & 0xfff].update(m);
+    }
+    for (i = g_eng3_40b94; i < g_eng3_40bcc; i++) {
+        a = &g_eng3_actor_42540[i];
+        kind = a->kind;
+        if (kind && (a->flags & 2))
+            ((Eng3Hooks12 *)g_eng3_game_40b8c)[kind].draw(a);
+    }
+    for (i = 0; i < g_eng3_413a0[0];) {
+        h = (Eng3Host *)g_eng3_413a0[++i];
+        g_eng3_host_40bb4[h->kind & 0xfff].update(h);
+    }
+    a = g_eng3_actor_41c60;
+    kind = a->kind;
+    if (kind)
+        ((Eng3Hooks12 *)g_eng3_game_40b8c)[kind].draw(a);
+    eng3_1c5c0();
+    if (g_eng3_levels_39870[g_engine_interface.context_004->level].unknown_03) {
+        a = g_eng3_actor_42540;
+        for (i = 0; i < g_eng3_40bcc; i++, a++)
+            a->x = ((a->x - 0x800000) & 0x1fffffff) + 0x800000;
+        m = ((Eng3Middle *)g_eng3_43174);
+        for (i = 0; i < g_eng3_40c32; i++, m++)
+            m->x = ((m->x - 0x800000) & 0x1fffffff) + 0x800000;
+        h = g_eng3_actor_431c0;
+        for (i = 0; i < g_eng3_40bd2; i++, h++)
+            h->x = ((h->x - 0x800000) & 0x1fffffff) + 0x800000;
+    }
 }
 }
