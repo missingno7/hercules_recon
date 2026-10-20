@@ -75,6 +75,36 @@
     "0x2cb20/0x2cb40/0x2cbe0..0x2cc20 behave like PSX libsnd program/tone attribute calls (working assumption)",
     "0xe670..0xee40 sound/music loader may be its own file (undecided)"
    ]
+  },
+  "x17": {
+   "source": "calibration/eng1/level_unit_10120.c",
+   "region": "0x10120..0x12620",
+   "result": "36 masked + 0x10800/0x11df0 (32 B argument-register rotation, context), 0x10900/0x10a40/0x10cc0 (85/158/167 B allocation, early p->profile load) RECONSTRUCTED; 0x11fc0 (112 of 128 B) and 0x12040 (1488 of 1504 B: original reloads ctx->held_05c before the next-weapon test) unrecorded; strict 0x10380/0x117d0 stay in src/eng1/actor_handlers_low.c",
+   "extent": [
+    "function map 0x10780 is the 15-entry jump table of 0x105a0 (544 B)",
+    "0x125f0 is the 9-entry jump table of 0x12040 (1504 B, ends 0x12620)"
+   ],
+   "identity": [
+    "0x11fc0/0x12040 are diverged siblings of ENG3 0x171a0/0x17210 (ENG1 adds weapon cycling and a boss-bar state machine)",
+    "g_spatial_sound_words_71714 is a per-level word table (sound and sprite ids)",
+    "g_boss_threshold_72184 is the boss-bar damage per step",
+    "g_pipeline_word_71ca0/71720/71740 are counted short arrays"
+   ]
+  },
+  "x18": {
+   "source": "calibration/eng1/player_scene_3a040.c",
+   "region": "0x3c410..0x3e580",
+   "result": "appended (plain C): 27/27 masked equal (26 new rows; 0x3ca10 stays recorded in its behavioral source), all 60 existing rows unchanged; standalone 26/27 (0x3c980 context); C++ drops 2 existing rows",
+   "forms": [
+    "0x3c410 three eng1_131c0 calls tail-merged",
+    "five platform handlers: difference t before the row store, height (short)((y - d8) >> 16) stored in an int",
+    "0x3e3d0 v = ~v + 1 (plain -v compiles differently)"
+   ],
+   "identity": [
+    "0x3c980 = ENG3 0x72a0 (same 24 B context residue standalone)",
+    "Actor+0x21 is a zone/classifier index",
+    "platform update handlers read a->kind after a = a->link_130 even when null (original behaviour kept)"
+   ]
   }
  },
  "ENG3": {
