@@ -105,6 +105,28 @@
     "Actor+0x21 is a zone/classifier index",
     "platform update handlers read a->kind after a = a->link_130 even when null (original behaviour kept)"
    ]
+  },
+  "x19": {
+   "source": "calibration/eng1/pickup_lift_unit_12620.c",
+   "region": "0x12620..0x14790",
+   "result": "plain C: 17 new masked (incl. 0x12910, previously a RECONSTRUCTED row in src/eng1/behavioral/resource_action_masks.c), strict set_mode_13c90 moved here raw-exact; 0x128a0 stays recorded in its behavioral source (also equal here); RECONSTRUCTED 0x12620 (29 B base/index), 0x12960 (1 B base/index, equal as C++), 0x13880 (3 B), 0x13d70/0x142d0 (39 B ecx/edx swap; C++ far worse)",
+   "extent": [
+    "0x12ae0 is the jump table of 0x12a10 (real extent 240 B)",
+    "0x125f0 is the jump table of 0x12040"
+   ],
+   "forms": [
+    "negation as ~x + 1 in 0x12a10/0x13d70/0x142d0",
+    "lift x = ~(row.x << 16) + d + player->x (original off-by-one)",
+    "(unsigned long)(x + y) >> 17 in 0x12c00/0x131c0",
+    "0x142d0 reads y from 0x52c08 while the rest uses 0x530d8 (original slip kept)"
+   ],
+   "eng3_counterparts": "0x12620~0x16f30 (same text, other constants), 0x12790~0x17090, 0x12960~0x17130, 0x12a10~0x168b0 (opening only), 0x12b00~0x168f0 (ENG3 statement order made ENG1 match), 0x13990~0x165f0, 0x139f0~0x16670",
+   "identity": [
+    "0x734e0 array of 0x94-byte AltActor rows (g_alternate_actor_pool / g_frame_owner_734e0)",
+    "0x6ef40 signed short",
+    "context +0x0e difficulty signed",
+    "0x72198 g_spawn_argument_72198"
+   ]
   }
  },
  "ENG3": {
@@ -133,6 +155,17 @@
     "eng3_1b2e0 is (unsigned short, short, unsigned short, int)",
     "0x381c0 RECT {0,0,320,512}, then 'MAP_PSX.BIN'; 0x38528 24-byte level file table; 0x39870 32-byte level row",
     "ENG1 counterparts: same source masked equal at 0x1f0e0 (1a320) and 0x1f220 (1a460); diverged 1a330~0x1f0f0, 1a560~0x1f320, 1a8f0~0x1f6f0, 1a930~0x1f750, 1aa30~0x1fc90, 1abb0~0x20300, 1af10~0x20670, 1b100~0x20990, 1b2e0~0x20b50, 1b4a0~0x20d30, 1b650~0x20ea0"
+   ]
+  },
+  "y14": {
+   "source": "calibration/eng3/handlers_0e020.cpp",
+   "region": "0xe020..0x10370",
+   "result": "C++ 20/22 masked (C 18/22: 0xf650/0xfab0 random_limit evaluation order); RECONSTRUCTED 0xeeb0 (10 B, random_limit pair order - declaration-count phase like 0x10df0) and 0xe700 (7 B, allocation)",
+   "unit_question": "prepended to handlers_10370.c as one C++ file: 38/41 and 0x10590 becomes masked equal (only 0xe700, 0xeeb0, 0x10df0 differ); as C unchanged. Suggests one C++ unit 0xe020..0x12190 (probably from 0xd280), conflicting with lane y10's merged-C result for 0x10370..0x16240 and y11's C++ for 0x16240.. - the ENG3 handler unit boundaries/language need a dedicated resolution pass",
+   "identity": [
+    "eng3_1fac0 returns int (actor_services_1e000.c declares void)",
+    "0xe2f0 calls unrecorded ENG3 0xdae0; 0xe960 calls unrecorded eng3_1cd40",
+    "no ENG1 counterparts (ENG3-specific level objects)"
    ]
   }
  },
