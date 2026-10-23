@@ -219,8 +219,9 @@ def reference_inputs(path, row):
     observed = {path: digest(content)}
     for name, expected in document['evidence_files'].items():
         item = (ROOT / name).resolve()
-        if not item.is_relative_to(ROOT.resolve()) or item == ROOT / 'recovery.json':
-            raise ValueError('Reference evidence must be independent of mutable recovery state')
+        if (not any(item.is_relative_to(root.resolve()) for root in (ROOT, DEFAULT_TOOLCHAIN)) or
+                item == ROOT / 'recovery.json'):
+            raise ValueError('Reference evidence must be repository evidence or pinned SDK inputs, independent of recovery state')
         if digest(item.read_bytes()) != expected:
             raise ValueError('Independent reference evidence changed: ' + name)
         observed[item] = expected
@@ -275,7 +276,14 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
                 if context_proof(contexts[key]) != row['proof']['context_sha256']:
                     raise ValueError('Accepted compiler input changed: ' + row['id'])
 
-    def stable():
+    frozen_inputs = {}
+    for context in contexts.values():
+        for path, expected in context.items():
+            if path in frozen_inputs and frozen_inputs[path] != expected:
+                raise ValueError('Conflicting frozen compiler input')
+            frozen_inputs[path] = expected
+
+    def stable(resolve_includes=False):
         if manifest.read_bytes() != manifest_before:
             raise ValueError('Toolchain manifest changed during verification')
         for target, expected in targets.items():
@@ -284,16 +292,26 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
         for path, expected in evidence_inputs.items():
             if digest(path.read_bytes()) != expected:
                 raise ValueError('Independent reference input changed during verification: ' + str(path))
-        for key, expected in contexts.items():
-            if compile_inputs(*key, toolchain) != expected:
-                raise ValueError('Compile inputs changed during verification: ' + str(key[0]))
+        for path, expected in frozen_inputs.items():
+            if digest(path.read_bytes()) != expected:
+                raise ValueError('Compile inputs changed during verification: ' + str(path))
+        if resolve_includes:
+            for key, expected in contexts.items():
+                if compile_inputs(*key, toolchain) != expected:
+                    raise ValueError('Include resolution changed during verification: ' + str(key[0]))
 
     stable()
     results, objects = [], {}
     for (source, flags), members in groups.items():
+        # Re-resolve the active group around its compile. Hash every unique
+        # frozen input between groups; do not reparse every other TU N times.
+        if compile_inputs(source, flags, toolchain) != contexts[(source, flags)]:
+            raise ValueError('Include resolution changed before compilation')
         obj, command = compile_source(source, list(flags), toolchain)
         objects[obj] = digest(obj.read_bytes())
         stable()
+        if compile_inputs(source, flags, toolchain) != contexts[(source, flags)]:
+            raise ValueError('Include resolution changed during compilation')
         # Full object identity guards all sections, symbols, auxiliaries and
         # relocations against mutation; it is not a cross-build identity/cache.
         for row in members:
@@ -320,7 +338,7 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
             results.append(result)
         if digest(obj.read_bytes()) != objects[obj]:
             raise ValueError('Object changed during verification')
-    stable()
+    stable(resolve_includes=True)
     if any(digest(p.read_bytes()) != h for p, h in objects.items()):
         raise ValueError('Object changed during verification')
     verify_toolchain.cache_clear()

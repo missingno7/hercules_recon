@@ -123,6 +123,20 @@ class GroupedMatchingTests(unittest.TestCase):
             with self.subTest(flag=flag), self.assertRaises(ValueError):
                 match.compile_inputs(self.source, [flag], self.root)
 
+    def test_new_shadow_header_during_compile_is_detected(self):
+        sdk = self.root / 'toolchain/include'
+        sdk.mkdir(parents=True)
+        (sdk / 'shadow.h').write_bytes(b'#define VALUE 0\n')
+        self.source.write_bytes(b'#include "shadow.h"\nint sample(void) { return VALUE; }\n')
+        for row in self.rows:
+            row['proof']['source_sha256'] = match.digest(self.source.read_bytes())
+        def mutate(*args, **kwargs):
+            (self.root / 'shadow.h').write_bytes(b'#define VALUE 1\n')
+            return self.obj, ['synthetic']
+        with patch.object(match, 'compile_source', side_effect=mutate):
+            with self.assertRaisesRegex(ValueError, 'Include resolution changed'):
+                self.run_rows()
+
 
 if __name__ == '__main__':
     unittest.main()

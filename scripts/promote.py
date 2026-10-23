@@ -157,8 +157,13 @@ def promote(ids, candidate, verify_only=False, original_root=None):
     if not rows or {r["id"] for r in rows} != wanted:
         raise ValueError("Every requested function must already have reviewed target context in recovery.json")
     sources = {r["source"] for r in rows}
-    if any(r['status'] == 'FUNCTION_MATCH_RELOCATED' and r.get('source') in sources for r in state['functions']):
+    if any(r['status'] == 'FUNCTION_MATCH_RELOCATED' and
+           (r.get('source') in sources or sources & set(r.get('proof', {}).get('context_sha256', {})))
+           for r in state['functions']):
         raise ValueError('Source replacement would touch accepted relocated peers; use reviewed in-place adoption')
+    relocated_peers = [r for r in state['functions'] if r['status'] == 'FUNCTION_MATCH_RELOCATED']
+    if relocated_peers and not all(r['exact'] for r in verify_rows(relocated_peers, original_root=original_root)[0]):
+        raise ValueError('Previously accepted relocated peer regressed')
     if len(sources) != 1:
         raise ValueError("One source file per promotion")
     destination = ROOT / next(iter(sources))
