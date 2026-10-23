@@ -270,6 +270,7 @@ def promote_existing_units(ids, verify_only=False, report=None):
     """
     from similar import SCOPE, masked_identity
     from masked import masked_compare
+    from match import accepted_rows
     if JOURNAL.exists():
         raise ValueError('Interrupted promotion: recover it first')
     if report is not None and not any(report.resolve().is_relative_to(ROOT / d) for d in ('work', 'build')):
@@ -292,10 +293,10 @@ def promote_existing_units(ids, verify_only=False, report=None):
             raise ValueError('Every existing-unit peer needs a supported prior proof')
         if digest(path.read_bytes()) != row['proof']['source_sha256']:
             raise ValueError('Existing source differs from recorded proof: ' + row['id'])
-    checked = [copy.deepcopy(r) for r in state['functions']
-               if r['status'] == 'FUNCTION_MATCH' or r['id'] in wanted]
+    checked = copy.deepcopy(accepted_rows(state['functions']) + selected)
     for row in checked:
-        row['status'] = 'FUNCTION_MATCH'  # a request to the raw gate, not state publication
+        if row['id'] in wanted:
+            row['status'] = 'FUNCTION_MATCH'  # a request to the raw gate, not state publication
     observed = {STATE: state_before, ROOT / 'toolchains/manifest.json': (ROOT / 'toolchains/manifest.json').read_bytes()}
     for row in checked + peers:
         observed[ROOT / row['target']] = (ROOT / row['target']).read_bytes()
@@ -304,6 +305,9 @@ def promote_existing_units(ids, verify_only=False, report=None):
     results, statistics = verify_rows(checked)
     if not all(r['exact'] for r in results):
         raise ValueError('Existing-unit promotion rejected by complete raw comparison')
+    if any(r['status'] == 'LINKED_MATCH' for r in state['functions']):
+        from linked import verify
+        verify()
     by_id = {r['id']: r for r in results}
     units = {}
     for source in sorted(sources):
@@ -332,6 +336,7 @@ def promote_existing_units(ids, verify_only=False, report=None):
     for path, before in observed.items():
         if path.read_bytes() != before:
             raise ValueError('Input/object changed during promotion: ' + str(path))
+    assert_verified_inputs(checked, results)
     for row in selected:
         result, unit = by_id[row['id']], units[row['source']]
         row['prior_masked_proof'] = row['proof']
@@ -358,8 +363,27 @@ def promote_existing_units(ids, verify_only=False, report=None):
             raise
         JOURNAL.unlink()
     print(f"{'Verified' if verify_only else 'Promoted'} existing units: {', '.join(sorted(wanted))}; "
-          f"{len(results)} raw rows, {len(peers)} unit peers preserved")
+          f"{len(results)} accepted/candidate rows, {len(peers)} unit peers preserved")
     return receipt
+
+
+def assert_verified_inputs(rows, results, original_root=None):
+    """Recheck frozen compiler, reference and oracle inputs before publication."""
+    from match import RELOCATED, reference_inputs, reference_digest
+    by_id = {r['id']: r for r in results}
+    for row in rows:
+        result = by_id[row['id']]
+        if digest(Path(result['object']).read_bytes()) != result['object_sha256']:
+            raise ValueError('Compiler object changed before publication')
+        for path, expected in result['compile_inputs'].items():
+            if digest(Path(path).read_bytes()) != expected:
+                raise ValueError('Compiler input changed before publication')
+        if digest(((original_root or ROOT) / row['target']).read_bytes()) != row['target_sha256']:
+            raise ValueError('Oracle changed before publication')
+        if result.get('proof_category') == RELOCATED:
+            binding, evidence, _ = reference_inputs(result['bindings_path'], row)
+            if reference_digest(binding) != result['bindings_sha256'] or reference_digest(evidence) != result['reference_evidence_sha256']:
+                raise ValueError('Reference binding changed before publication')
 
 
 def promote_relocated(ids, bindings, verify_only=False, report=None, original_root=None):
@@ -409,21 +433,7 @@ def promote_relocated(ids, bindings, verify_only=False, report=None, original_ro
         report.write_text(json.dumps(receipt, indent=2) + '\n')
     if STATE.read_bytes() != before:
         raise ValueError('Recovery state changed during promotion')
-    # Recheck every frozen compiler/reference/oracle input immediately before publication.
-    from match import reference_inputs, reference_digest
-    for row in rows:
-        result = by_id[row['id']]
-        if digest(Path(result['object']).read_bytes()) != result['object_sha256']:
-            raise ValueError('Compiler object changed before publication')
-        for path, expected in result['compile_inputs'].items():
-            if digest(Path(path).read_bytes()) != expected:
-                raise ValueError('Compiler input changed before publication')
-        if digest(((original_root or ROOT) / row['target']).read_bytes()) != row['target_sha256']:
-            raise ValueError('Oracle changed before publication')
-        if result.get('proof_category') == RELOCATED:
-            binding, evidence, _ = reference_inputs(result['bindings_path'], row)
-            if reference_digest(binding) != result['bindings_sha256'] or reference_digest(evidence) != result['reference_evidence_sha256']:
-                raise ValueError('Reference binding changed before publication')
+    assert_verified_inputs(rows, results, original_root)
     if not verify_only:
         after = (json.dumps(state, indent=2) + '\n').encode()
         journal = [dict(path='recovery.json', before=base64.b64encode(before).decode(),

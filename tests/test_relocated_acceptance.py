@@ -307,6 +307,49 @@ class RelocatedAcceptanceTests(unittest.TestCase):
         self.assertEqual(self.state.read_bytes(), before)
         self.assertFalse(self.journal.exists())
 
+    def prepare_existing_unit_candidate(self):
+        import similar
+        alpha = self.add_relocated_candidate('alpha', 0x1000, 0x1100)
+        self.write_state([alpha])
+        self.promote(['alpha'])
+        accepted = self.accepted_row('alpha')
+        raw = self.add_raw_peer()
+        raw['status'] = 'CODEGEN_SIMILAR'
+        raw['link_symbols'] = {}
+        raw['proof'].update(scope=similar.SCOPE, masked_sha256=match.digest(CODE))
+        self.write_state([accepted, raw])
+        return accepted
+
+    def test_existing_unit_raw_promotion_also_verifies_relocated_peers(self):
+        accepted = self.prepare_existing_unit_candidate()
+        receipt = promote.promote_existing_units(['raw-peer'])
+        self.assertEqual({r['id'] for r in receipt['results']}, {'raw-peer', 'alpha'})
+        self.assertEqual(self.accepted_row('alpha'), accepted)
+        self.assertEqual(self.accepted_row('raw-peer')['status'], 'FUNCTION_MATCH')
+
+    def test_stale_relocated_peer_blocks_existing_unit_raw_promotion(self):
+        self.prepare_existing_unit_candidate()
+        before = self.state.read_bytes()
+        self.write_bindings({'alpha': 0x1110})
+        with self.assertRaisesRegex(ValueError, 'Accepted reference bindings changed'):
+            promote.promote_existing_units(['raw-peer'])
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_existing_unit_promotion_rechecks_relocated_evidence_before_publication(self):
+        self.prepare_existing_unit_candidate()
+        before = self.state.read_bytes()
+        real_verify = match.verify_rows
+
+        def mutate_evidence_after_verification(*args, **kwargs):
+            results = real_verify(*args, **kwargs)
+            self.reference_note.write_bytes(b'raced independent evidence change\n')
+            return results
+
+        with patch.object(promote, 'verify_rows', side_effect=mutate_evidence_after_verification):
+            with self.assertRaisesRegex(ValueError, 'Independent reference evidence changed'):
+                promote.promote_existing_units(['raw-peer'])
+        self.assertEqual(self.state.read_bytes(), before)
+
     def test_new_acceptance_does_not_downgrade_raw_or_relocated_peers(self):
         raw = self.add_raw_peer()
         alpha = self.add_relocated_candidate('alpha', 0x1000, 0x1100)
