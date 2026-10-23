@@ -15,10 +15,28 @@ from pe import PE
 from coff import COFF
 
 DEFAULT_TOOLCHAIN = Path(r"C:\tools\hercules\msvc500-8abf95ce980161ad87b0b02402269cce76988953")
+RAW_STATUSES = {'FUNCTION_MATCH', 'FUNCTION_MATCH_RAW'}
+RELOCATED = 'FUNCTION_MATCH_RELOCATED'
+ACCEPTED = RAW_STATUSES | {RELOCATED}
 
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def reference_digest(evidence):
+    return digest(json.dumps(evidence, sort_keys=True, separators=(',', ':')).encode())
+
+
+def accepted_rows(rows, raw_only=False):
+    """Include retained RAW proofs even when the row also has legacy linked proof."""
+    result = []
+    for row in rows:
+        if row['status'] in (RAW_STATUSES if raw_only else ACCEPTED):
+            result.append(row)
+        elif row.get('prior_raw_proof'):
+            result.append(dict(row, status='FUNCTION_MATCH', proof=row['prior_raw_proof']))
+    return result
 
 
 def unit_inventory(obj):
@@ -189,7 +207,29 @@ def compile_inputs(source, flags, toolchain):
     return result
 
 
-def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None):
+def reference_inputs(path, row):
+    """Read reviewed evidence, never infer bindings from the caller's operands."""
+    path = (ROOT / path).resolve()
+    if not path.is_relative_to(ROOT.resolve()):
+        raise ValueError('Reference bindings must be repository evidence')
+    content = path.read_bytes()
+    document = json.loads(content)
+    if document.get('schema') != 1 or not document.get('evidence_files'):
+        raise ValueError('Reference bindings need versioned, pinned independent evidence')
+    observed = {path: digest(content)}
+    for name, expected in document['evidence_files'].items():
+        item = (ROOT / name).resolve()
+        if not item.is_relative_to(ROOT.resolve()) or item == ROOT / 'recovery.json':
+            raise ValueError('Reference evidence must be independent of mutable recovery state')
+        if digest(item.read_bytes()) != expected:
+            raise ValueError('Independent reference evidence changed: ' + name)
+        observed[item] = expected
+    identity = {k: v for k, v in document.items() if k not in ('functions', 'evidence_files')}
+    context = dict(files=document['evidence_files'], identity_sha256=reference_digest(identity))
+    return document['functions'][row['id']], context, observed
+
+
+def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocation_candidates=None):
     """One fresh compile per immutable source/ordered-profile group, per run only."""
     started = time.perf_counter()
     toolchain = toolchain.resolve()
@@ -197,16 +237,33 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None):
     manifest_before = manifest.read_bytes()
     verify_toolchain.cache_clear()
     toolchain_id = verify_toolchain(toolchain)
-    groups, targets = {}, {}
+    pending = relocation_candidates or {}
+    if not set(pending) <= {r['id'] for r in rows}:
+        raise ValueError('Relocation candidates must be included in verification')
+    groups, targets, references, evidence_inputs = {}, {}, {}, {}
     for row in rows:
         source, target = (ROOT / row['source']).resolve(), ((original_root or ROOT) / row['target']).resolve()
-        if row['status'] != 'FUNCTION_MATCH':
+        if row['status'] not in ACCEPTED and row['id'] not in pending:
             raise ValueError('Strict verification requires accepted rows')
         if digest(source.read_bytes()) != row['proof']['source_sha256']:
             raise ValueError('Canonical source differs from accepted proof: ' + row['id'])
         if target in targets and targets[target] != row['target_sha256']:
             raise ValueError('Conflicting target identities')
         targets[target] = row['target_sha256']
+        if row['status'] == RELOCATED or row['id'] in pending:
+            path = pending.get(row['id']) or row['proof']['bindings_path']
+            binding, evidence, observed = reference_inputs(path, row)
+            references[row['id']] = (binding, evidence, path)
+            for item, sha in observed.items():
+                if item in evidence_inputs and evidence_inputs[item] != sha:
+                    raise ValueError('Conflicting independent evidence identities')
+                evidence_inputs[item] = sha
+            if row['id'] not in pending:
+                if reference_digest(evidence) != row['proof']['reference_evidence_sha256']:
+                    raise ValueError('Accepted independent evidence inventory changed: ' + row['id'])
+                sha = digest(json.dumps(binding, sort_keys=True, separators=(',', ':')).encode())
+                if sha != row['proof']['bindings_sha256']:
+                    raise ValueError('Accepted reference bindings changed: ' + row['id'])
         groups.setdefault((source, tuple(row['flags'])), []).append(row)
     contexts = {key: compile_inputs(*key, toolchain) for key in groups}
     for key, members in groups.items():
@@ -214,6 +271,9 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None):
             raise ValueError('Source changed while freezing compile inputs')
         for row in members:
             validate_unit_proof(row, contexts[key])
+            if row['status'] == RELOCATED and row['id'] not in pending:
+                if context_proof(contexts[key]) != row['proof']['context_sha256']:
+                    raise ValueError('Accepted compiler input changed: ' + row['id'])
 
     def stable():
         if manifest.read_bytes() != manifest_before:
@@ -221,6 +281,9 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None):
         for target, expected in targets.items():
             if digest(target.read_bytes()) != expected:
                 raise ValueError('Target hash mismatch or mutation: ' + str(target))
+        for path, expected in evidence_inputs.items():
+            if digest(path.read_bytes()) != expected:
+                raise ValueError('Independent reference input changed during verification: ' + str(path))
         for key, expected in contexts.items():
             if compile_inputs(*key, toolchain) != expected:
                 raise ValueError('Compile inputs changed during verification: ' + str(key[0]))
@@ -235,7 +298,21 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None):
         # relocations against mutation; it is not a cross-build identity/cache.
         for row in members:
             validate_unit_proof(row, contexts[(source, flags)], obj)
-            result = compare(obj, row['symbol'], (original_root or ROOT) / row['target'], int(row['rva'], 0), row['size'])
+            if row['id'] in references:
+                from masked import relocated_compare
+                binding, evidence, path = references[row['id']]
+                result = relocated_compare(obj, row['symbol'], (original_root or ROOT) / row['target'],
+                                           int(row['rva'], 0), row['size'], binding)
+                result.update(exact=result['relocated_equal'], proof_category=RELOCATED,
+                              bindings_path=path, reference_evidence_sha256=reference_digest(evidence),
+                              context_sha256=context_proof(contexts[(source, flags)]), object=str(obj.resolve()))
+                if row['status'] == RELOCATED and row['id'] not in pending:
+                    for field in ('compiled_sha256', 'target_sha256'):
+                        if result[field] != row['proof'][field]:
+                            raise ValueError('Accepted relocated bytes changed: ' + row['id'])
+            else:
+                result = compare(obj, row['symbol'], (original_root or ROOT) / row['target'], int(row['rva'], 0), row['size'])
+                result['proof_category'] = 'FUNCTION_MATCH_RAW'
             result.update(id=row['id'], source_sha256=contexts[(source, flags)][source],
                           command=command, toolchain=toolchain_id,
                           compile_inputs={str(p): h for p, h in contexts[(source, flags)].items()},
@@ -258,7 +335,7 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["verify", "candidate", "object"])
+    parser.add_argument("command", choices=["verify", "candidate", "object", "references"])
     parser.add_argument("id", nargs="?")
     parser.add_argument("--source", type=Path)
     parser.add_argument("--obj", type=Path)
@@ -266,13 +343,26 @@ def main():
     parser.add_argument("--original-root", type=Path,
                         help="Read hash-pinned originals from this checkout; retain local canonical source, recovery state and strict gate")
     parser.add_argument("--report", type=Path)
+    parser.add_argument('--raw-only', action='store_true', help='independent legacy raw regression only')
+    parser.add_argument('--bindings', type=Path, help='reviewed evidence for the references comparison command')
     args = parser.parse_args()
     state_before = (ROOT / "recovery.json").read_bytes()
     state = json.loads(state_before)
     rows = [r for r in state["functions"] if r["id"] == args.id] if args.id else state["functions"]
     if args.id and not rows:
         raise SystemExit(f"Unknown function {args.id}")
-    if args.command == "object":
+    if args.command == 'references':
+        if args.bindings is None or args.source or args.obj:
+            parser.error('references requires --bindings and canonical source')
+        path = args.bindings.resolve().relative_to(ROOT.resolve()).as_posix()
+        ids = set(json.loads(args.bindings.read_bytes())['functions'])
+        rows = [r for r in rows if r['id'] in ids]
+        if not rows:
+            parser.error('No selected functions have reviewed bindings')
+        results, statistics = verify_rows(rows, args.toolchain, args.original_root,
+                                          relocation_candidates={r['id']: path for r in rows})
+        print('Reference comparison only; recovery state is unchanged.')
+    elif args.command == "object":
         if len(rows) != 1 or args.obj is None:
             parser.error("object requires one function id and --obj")
         row = rows[0]
@@ -285,7 +375,7 @@ def main():
             parser.error("candidate requires one function id and --source")
         results = [check(rows[0], args.source, args.toolchain, args.original_root)]
     else:
-        rows = [r for r in rows if r["status"] == "FUNCTION_MATCH"]
+        rows = accepted_rows(rows, args.raw_only)
         if not rows:
             raise SystemExit("No accepted functions to verify")
         results, statistics = verify_rows(rows, args.toolchain, args.original_root)
@@ -299,6 +389,11 @@ def main():
         args.report.parent.mkdir(parents=True, exist_ok=True)
         args.report.write_text(json.dumps(results, indent=2) + "\n")
     for result in results:
+        if result.get('proof_category') == RELOCATED:
+            print(f"{result['id']}: {'RELOCATED EXACT' if result['exact'] else 'MISMATCH'} "
+                  f"{result['target_size']} bytes; {len(result['references'])} verified references; "
+                  f"{result['differing_nonreference_bytes']} non-reference differences; {result['errors']}")
+            continue
         print(f"{result.get('id', args.id)}: {'EXACT' if result['exact'] else 'MISMATCH'} "
               f"{result['compiled_size']}/{result['target_size']} bytes; "
               f"{result['different_bytes']} differing bytes; "

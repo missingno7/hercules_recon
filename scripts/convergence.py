@@ -25,8 +25,10 @@ def key(row):
 def category(row):
     if row is None:
         return 'untracked_lead'
-    if row['status'] == 'FUNCTION_MATCH':
+    if row['status'] in ('FUNCTION_MATCH', 'FUNCTION_MATCH_RAW'):
         return 'strict'
+    if row['status'] == 'FUNCTION_MATCH_RELOCATED':
+        return 'relocated'
     if row['status'] == 'LINKED_MATCH':
         return 'linked_strict'
     if row['status'] == 'CODEGEN_SIMILAR':
@@ -74,7 +76,7 @@ def build(state, maps=(), annotations=None):
     modules = {}
     for module in sorted({key(r)[0] for r in rows} | mapped_modules):
         metrics = {c: dict(functions=0, bytes=0) for c in
-                   ('strict', 'linked_strict', 'masked', 'legacy_similar', 'reconstructed_non_strict')}
+                   ('strict', 'relocated', 'linked_strict', 'masked', 'legacy_similar', 'reconstructed_non_strict')}
         for r in rows:
             if key(r)[0] == module:
                 bucket = metrics[category(r)]
@@ -97,7 +99,7 @@ def build(state, maps=(), annotations=None):
             f = r or spans.get(k)
             members.append(dict(module=k[0], rva=hex(k[1]), category=category(r),
                                 bytes=f['size'] if f else None))
-        pending = [m for m in members if m['category'] not in ('strict', 'linked_strict', 'masked')]
+        pending = [m for m in members if m['category'] not in ('strict', 'relocated', 'linked_strict', 'masked')]
         families.append(dict(id=family['id'], kind=family['kind'],
                              pending_codegen_functions=len(pending),
                              pending_codegen_byte_ceiling=sum(m['bytes'] or 0 for m in pending),
@@ -106,7 +108,8 @@ def build(state, maps=(), annotations=None):
                              next_discriminator=family['next_discriminator']))
     families.sort(key=lambda f: (-f['pending_codegen_byte_ceiling'], f['id']))
     return dict(scope='Derived diagnostics only; recovery.json alone grants recovery state.',
-                definitions=dict(strict='FUNCTION_MATCH raw contribution bytes including padding',
+                definitions=dict(strict='FUNCTION_MATCH (legacy RAW name) complete raw contribution bytes',
+                                 relocated='FUNCTION_MATCH_RELOCATED complete code with independently verified references',
                                  linked_strict='LINKED_MATCH raw bytes at the original RVA in the natural link of the reviewed plan',
                                  masked='CODEGEN_SIMILAR with the exact masked proof scope; no strict gain',
                                  legacy_similar='older CODEGEN_SIMILAR diagnostics; not counted as masked equality',

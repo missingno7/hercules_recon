@@ -12,7 +12,7 @@ import re
 
 from env import ROOT
 from coff import COFF
-from match import digest,compare,verify_toolchain,DEFAULT_TOOLCHAIN
+from match import digest,compare,verify_toolchain,DEFAULT_TOOLCHAIN,ACCEPTED
 from macro_compare import declared_context_files
 
 
@@ -195,14 +195,14 @@ def packet(region_id,more=False):
     scope=ownership(spec);base=(ROOT/entry['baseline']).read_text();ctx=context_identity(spec,base)
     receipts=[read(ROOT/p) for p in entry.get('receipts',[])]
     current=[r for r in receipts if r['context_id']==ctx]
-    accepted={(r['target_sha256'],int(r['rva'],0)):r for r in state['functions'] if r['status']=='FUNCTION_MATCH'}
+    accepted={(r['target_sha256'],int(r['rva'],0)):r for r in state['functions'] if r['status'] in ACCEPTED | {'LINKED_MATCH'}}
     unresolved=[f['symbol'] for f in spec['functions'] if (spec['target_sha256'],int(f['rva'],0)) not in accepted]
     recorded={(r['target_sha256'],int(r['rva'],0)):r for r in state['functions']}
     non_strict=[];unrecorded=[]
     for f in spec['functions']:
         row=recorded.get((spec['target_sha256'],int(f['rva'],0)))
         if row is None:unrecorded.append(f['symbol'])
-        elif row['status']!='FUNCTION_MATCH':
+        elif row['status'] not in ACCEPTED | {'LINKED_MATCH'}:
             non_strict.append(dict(region_symbol=f['symbol'],recovery_id=row['id'],status=row['status'],
                 source=row.get('source'),bytes=row.get('size'),extent_agrees=row.get('size')==f['size'],
                 proof_scope=row.get('proof',{}).get('scope')))

@@ -10,7 +10,7 @@ Plan: {"source": "calibration/<module>/<region>.c", "candidate": "...c", "module
 A region file must define exactly the functions recorded for it. An existing provider can instead be
 staged in place ("in_place": true, no candidate): it is never rewritten, and every other function it
 defines is pinned by name in each row's proof (co_defined_functions); verify requires that exact set. Masked equality is
-never FUNCTION_MATCH: only a natural link that places the real bytes can promote.
+never acceptance: match.py and promote.py verify raw bytes or independently bound references.
 """
 import argparse
 import hashlib
@@ -156,10 +156,10 @@ def stage(plan_path):
         existing = [r for r in existing if r not in upgraded]
         # Strict rows (FUNCTION_MATCH, LINKED_MATCH) keep their own proofs; like RECONSTRUCTED rows their
         # functions are pinned co-defined, and they are never restaged as masked rows.
-        strict = [r for r in existing if r['status'] in ('FUNCTION_MATCH', 'LINKED_MATCH')]
+        strict = [r for r in existing if r['status'] in ('FUNCTION_MATCH', 'FUNCTION_MATCH_RAW', 'FUNCTION_MATCH_RELOCATED', 'LINKED_MATCH')]
         if {r['symbol'] for r in strict} & planned:
             raise ValueError('A strict row cannot be staged as a masked row')
-        existing = [r for r in existing if r['status'] not in ('RECONSTRUCTED', 'FUNCTION_MATCH', 'LINKED_MATCH')]
+        existing = [r for r in existing if r['status'] not in ('RECONSTRUCTED', 'FUNCTION_MATCH', 'FUNCTION_MATCH_RAW', 'FUNCTION_MATCH_RELOCATED', 'LINKED_MATCH')]
         if any(r['status'] != 'CODEGEN_SIMILAR' or r.get('proof', {}).get('scope') != SCOPE for r in existing):
             raise ValueError('In-place staging only extends sources whose recorded rows are masked or reconstructed rows')
         for r in upgraded:
@@ -281,15 +281,21 @@ def summary(module, function_map=None):
     masked = [r for r in rows if r['status'] == 'CODEGEN_SIMILAR' and r.get('proof', {}).get('scope') == SCOPE]
     legacy = [r for r in rows if r['status'] == 'CODEGEN_SIMILAR' and r not in masked]
     exact = [r for r in rows if r['status'] == 'FUNCTION_MATCH']
+    relocated = [r for r in rows if r['status'] == 'FUNCTION_MATCH_RELOCATED']
+    linked = [r for r in rows if r['status'] == 'LINKED_MATCH']
+    recovered = [r for r in rows if r['status'] == 'RECONSTRUCTED']
     out = dict(module=module,
                definitions=dict(masked_rows='CODEGEN_SIMILAR rows with the relocation-masked proof scope',
                                 legacy_similar_rows='older CODEGEN_SIMILAR calibration rows (relocation-only diagnostics)',
                                 function_match_rows='raw-exact accepted rows',
-                                covered='masked + legacy similar + function match rows (one row per function)'),
+                                covered='all recorded source extents; not an exhaustive first-party census'),
                masked_rows=len(masked), masked_bytes=sum(r['size'] for r in masked),
                legacy_similar_rows=len(legacy), legacy_similar_bytes=sum(r['size'] for r in legacy),
-               function_match_rows=len(exact), function_match_bytes=sum(r['size'] for r in exact))
-    covered = masked + legacy + exact
+               function_match_rows=len(exact), function_match_bytes=sum(r['size'] for r in exact),
+               relocated_rows=len(relocated), relocated_bytes=sum(r['size'] for r in relocated),
+               linked_rows=len(linked), linked_bytes=sum(r['size'] for r in linked),
+               recovered_rows=len(recovered), recovered_bytes=sum(r['size'] for r in recovered))
+    covered = rows
     out['covered_functions'] = len({(r['target'], r['rva']) for r in covered})
     out['covered_bytes'] = sum(r['size'] for r in covered)
     if function_map and Path(function_map).exists():

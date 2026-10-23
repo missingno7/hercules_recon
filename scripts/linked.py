@@ -1,4 +1,4 @@
-"""Strict natural-link acceptance: LINKED_MATCH (owner decision 2026-10-20).
+"""Source-only module link, code diagnostics, and retained legacy LINKED_MATCH proofs.
 
 A LINKED_MATCH function is raw byte-identical over its complete recorded extent at its original
 RVA in a fresh, unresolved-free natural link of the module's canonical sources: the pinned VC5 RTM
@@ -38,7 +38,7 @@ from pe import PE
 
 STATE = ROOT / 'recovery.json'
 STATUS = 'LINKED_MATCH'
-STRICT = {'FUNCTION_MATCH', STATUS}
+STRICT = {'FUNCTION_MATCH', 'FUNCTION_MATCH_RAW', 'FUNCTION_MATCH_RELOCATED', STATUS}
 SCOPE = ('complete raw function extent at its original RVA in a fresh unresolved-free natural link of the '
          'canonical sources under the reviewed link plan')
 MASKED_SCOPE = 'relocation-masked diagnostic equality with consistent implied symbol map; not acceptance'
@@ -263,7 +263,9 @@ def build(module, plan_file=None, out=None, original_root=None, quiet=False):
         raise LinkRefused(f'Target hash mismatch: {target}')
     files = snapshot(plan, ROOT, extra=[plan_file, STATE])
     libs = libraries(plan)
-    out = Path(out) if out else ROOT / 'work/linked' / Path(module).stem.lower()
+    out = (Path(out) if out else ROOT / 'work/linked' / Path(module).stem.lower()).resolve()
+    if not out.is_relative_to((ROOT / 'work').resolve()) or out == (ROOT / 'work').resolve():
+        raise LinkRefused('Build output must be a dedicated directory under ignored work/')
     if out.exists():
         shutil.rmtree(out)
     (out / 'objects').mkdir(parents=True)
@@ -312,6 +314,19 @@ def build(module, plan_file=None, out=None, original_root=None, quiet=False):
     recorded = module_rows(state, module)
     original = PE(target) if recorded else None
     rows = [check_row(row, plan, symbols, by_object, image_pe, original) for row in recorded]
+    # Layout-independent diagnostics reuse the same complete objects and actual
+    # linked bytes. These categories never supply symbolic-reference acceptance.
+    from linked_compare import compare_function
+    contributions = {o['source']: COFF(out / 'objects' / o['object']) for o in listing}
+    for row, result in zip(recorded, rows):
+        if result['linked_rva'] is None:
+            continue
+        try:
+            result['code_comparison'] = compare_function(
+                contributions[row['source']].function(row['symbol']), image_pe, original,
+                int(result['linked_rva'], 0), int(row['rva'], 0), row['size'])
+        except ValueError as error:
+            result['code_comparison'] = dict(category='unsupported extent', reason=str(error))
     report = dict(scope='Natural-link build for LINKED_MATCH; not whole-module equality.',
                   module=module, plan=plan_file.relative_to(ROOT).as_posix() if plan_file.is_relative_to(ROOT) else str(plan_file),
                   link_plan_sha256=digest(plan_raw), toolchain=plan['toolchain'],
@@ -327,6 +342,11 @@ def build(module, plan_file=None, out=None, original_root=None, quiet=False):
                                linked_equal=sum(r['equal'] for r in rows),
                                linked_equal_bytes=sum(r['size'] for r in rows if r['equal']),
                                candidates=sum(r['equal'] and r['status'] not in STRICT for r in rows)))
+    categories = sorted({r['code_comparison']['category'] for r in rows if 'code_comparison' in r})
+    report['summary']['code_categories'] = {
+        c: dict(functions=sum(r.get('code_comparison', {}).get('category') == c for r in rows),
+                bytes=sum(r['size'] for r in rows if r.get('code_comparison', {}).get('category') == c))
+        for c in categories}
     (out / 'report.json').write_text(json.dumps(report, indent=1) + '\n')
     if not quiet:
         s = report['summary']
@@ -434,7 +454,7 @@ def promote(module, ids, **kw):
     missing = [i for i in ids if i not in rows]
     if missing:
         raise LinkRefused(f'Unknown {module} rows: {missing}')
-    if any(rows[i]['status'] == 'FUNCTION_MATCH' for i in ids):
+    if any(rows[i]['status'] in STRICT - {STATUS} for i in ids):
         raise LinkRefused('FUNCTION_MATCH rows keep their standalone proof; LINKED_MATCH is not a replacement')
     report = build(module, quiet=True, **kw)
     if report['state_sha256'] != digest(state_before):
