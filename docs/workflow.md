@@ -33,9 +33,16 @@ Inspect the source before integration: exact bytes are not permission to insert
 copied code, original-binary dispatch, unsupported assembly, or guessed behavior.
 Recover any interrupted promotion before starting another one.
 
+For raw-equal functions already in a fully inventoried canonical unit, use
+`python scripts/promote.py <ids...> --existing-unit --verify-only`, then omit
+`--verify-only` to publish. This status-only path keeps the source in place and
+rechecks RAW, RELOCATED and legacy linked peers. Mixed or incompletely inventoried
+units can remain blocked even when one contribution is raw-equal; retain that
+diagnostic result until the unit ownership has been reviewed.
+
 ## Revalidate and inspect source closure
 
-Run the raw regression gate after canonical source changes:
+Run the RAW and RELOCATED regression gate after canonical source changes:
 
     python scripts/match.py verify --report work/strict_verification.json
 
@@ -45,9 +52,39 @@ their own documentation and source-graph commands. A successful link establishes
 closure only for the inputs that were selected. Diagnostic placeholders do not
 count as reconstructed gameplay and must stay out of production builds.
 
-The relocated-match verifier and promotion command are still being integrated.
-Until their interface is finalized, masked or linked diagnostics remain leads;
-do not record them as accepted relocated matches.
+For existing source with exact code and reviewed reference identities:
+
+    python scripts/match.py references <id> --bindings evidence/relocated_reference_bindings.json
+
+    python scripts/promote.py <ids...> --relocated --bindings evidence/relocated_reference_bindings.json --verify-only
+    python scripts/promote.py <ids...> --relocated --bindings evidence/relocated_reference_bindings.json
+
+Use the same command without `--verify-only` only after reviewing those independent
+bindings. It retains source in its real translation unit and protects all accepted
+peers. Masked equality and implied addresses alone cannot supply bindings.
+
+The ordinary module/build and diagnostic commands are:
+
+    python scripts/linked.py build TITLE.DLL
+    python scripts/eng1_behavioral.py --output work/eng1_behavioral/build
+    python scripts/linked.py verify
+    python scripts/match.py verify --raw-only
+    python scripts/similar.py verify
+    python scripts/census.py --recorded --output work/census/recorded.json
+    python scripts/convergence.py --output work/coverage.json
+    python -m unittest discover -s tests -q
+
+TITLE has a complete reviewed source graph. ENG1 deliberately fails its genuine
+link while dependencies remain missing. ENG3 and the host need reviewed complete
+link plans before claiming closure. ENG1 `--include-incomplete` is an explicit
+diagnostic option: generated fail-on-entry bodies live only in ignored work/ and
+never establish source completeness. Use bounded differential fixtures for actual
+semantic changes; do not launch autonomous gameplay.
+
+The recorded census freshly compiles each source/ordered-flags profile and
+separates raw equality, reference-only differences, real code differences, and
+different function extents. It is diagnostic: reference-only results do not prove
+symbol identities and cannot promote matching state.
 
 ## Durable results
 

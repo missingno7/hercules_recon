@@ -1,86 +1,65 @@
 # Working contract
 
-Reconstruct the 1997 Windows Hercules game with historical C/C++ tools. The PC
-binaries are the matching oracle. PSX builds provide secondary evidence only.
-The goal is one independently reconstructed game, with historical matching as
-the foundation and a faithful modernized implementation eventually built on
-that knowledge. See docs/project_direction.md for the current synthesis.
+Reconstruct one faithful native source game from Disney's 1997 Windows Hercules.
+The long-term runtime uses SDL3 and modern compilers, without original first-party
+executable modules. Historical compiler matching, semantic recovery, renderer
+evidence, and runtime experiments all contribute to that game. The PC binaries
+are the evidence oracle; PSX builds are secondary.
 
-Behavioral source, emulation, REA, renderer and runtime experiments are discovery
-techniques, not separate products or alternative acceptance authorities. Work
-ahead when a bounded question resolves original behavior, dependencies or an
-integration risk. Reuse existing source, evidence and fixtures; retain useful
-findings without automatically retaining every experimental implementation.
-Do not assume the drop-in renderer is the final architecture. Preserve an
-independently reproducible historical build and original gameplay semantics.
+## Proof and ownership boundaries
 
-## Ownership and proof boundaries
+- recovery.json is the sole authority for accepted function matching.
+  Source coverage, semantic evidence, dependency closure, and runtime completeness
+  are distinct dimensions.
+- Existing FUNCTION_MATCH rows keep strict RAW acceptance; FUNCTION_MATCH is
+  their legacy ledger name. FUNCTION_MATCH_RELOCATED requires exact
+  compiler-generated instructions and independently verified references. Masked
+  similarity alone never qualifies.
+- renderer_contract owns evidence-backed, GPU-independent original interfaces
+  and reference utilities. Correct uncertain semantics from original evidence.
+- dropin_renderer owns modern build, forwarding, diagnostics, and backend code.
+  Consume renderer_contract directly. Treat this as an experiment, not a promised
+  final architecture.
+- Preserve original gameplay semantics: call ordering, state reloads, integer
+  behavior, update order, RNG, resource behavior, and renderer command semantics.
+- Original host execution still requires explicit authorization, verified write
+  and profile isolation, windowed startup, and display restoration. A synthetic
+  fixture or pre-entry probe does not satisfy that gate.
+- Screenshots, forwarding experiments, and finite comparisons prove only the
+  boundary they measure.
 
-- `src/`, `calibration/`, and `recovery.json` retain the historical reconstruction
-  rules below. Modern implementation never grants historical acceptance.
-- `renderer_contract/` owns evidence-backed, GPU-independent original interfaces
-  and reference utilities. Correct unknown semantics here from original evidence
-  before consuming them in a renderer; never silently redefine them downstream.
-- `dropin_renderer/` owns modern C++ build, forwarding, diagnostic capture and
-  backend code. Consume the shared contract directly; do not copy its package.
-  These are present build/proof boundaries, not permanent product boundaries.
-  Justify implementation by reconstruction value, with explicit unsupported paths.
-  Keep original screen-space behavior separate from private resolution policies.
-- Forwarding to original callbacks/APIs is permitted only in the modern reference
-  and diagnostic integration layer; it is never historical source recovery.
-  Do not patch original code, embed machine code, or change original game files.
-- Preserve synchronous callback ordering and live-link/state reloads. A borrowed
-  frame entry snapshot is not a consumption trace or an asynchronous owned scene.
-- Original post-entry execution still needs explicit execution authorization,
-  verified writable-path/profile/registry isolation, windowed startup and display
-  restoration. A synthetic fixture or prior pre-entry probe does not satisfy that
-  gate. Continue independent offline and source-built work while it is unresolved.
-- GPU screenshots, synthetic forwarding and finite semantic comparisons establish
-  only their measured boundaries, not original-host or whole-renderer equivalence.
+## Historical source and verification
 
-## Historical reconstruction
-
-- Never modify `assets/`. Never commit originals, extracted game files, tools,
+- Never modify assets/. Never commit original or extracted game files, tools,
   generated builds, databases, or large disassemblies.
-- Follow evidence -> scratch experiment -> strict acceptance. Keep experiments in
-  ignored `candidates/` or `work/`; do not copy entire source trees per experiment.
-- `recovery.json` is the sole authoritative function recovery state. Evidence,
-  toolchain provenance, commands, and confidence belong in compact durable files.
-- Fresh historical compilation and actual target-byte equality are required for
-  `FUNCTION_MATCH`. Relocation-normalized similarity is diagnostic, never exact.
-- No copied machine code, byte-array functions, patching, original-binary dispatch,
-  arbitrary assembly/placement tricks, or unsupported compiler-steering hacks.
-- User-authorized exception (2026-10-23): explicit, documented layout constraints
-  and measured compiler steering may be explored when logic is preserved. Keep
-  the intervention and its preservation evidence explicit; constrained results
-  do not imply natural historical layout. Do not infer permission for copied
-  original code, instruction patching or unproved semantic changes. Existing raw
-  FUNCTION_MATCH acceptance remains unchanged.
-- Canonical source changes require measured evidence and regression verification.
-  Previously accepted matches must remain exact. Treat compiler/library code as
-  library code and identify it instead of casually rewriting it.
-- Keep claims narrower than proof: function equality does not prove module layout,
-  linker flags, source identity, or whole-binary equality.
-- Agents own disjoint files/functions, use private scratch directories, and report
-  provenance. One integrator changes canonical state and makes Git commits.
-- Use tools under `C:\tools`; inspect existing tools before adding dependencies.
-  External tools need documented origin, version, and SHA-256. Do not patch them.
+- Keep experiments in ignored candidates/ or work/. Reuse existing source and
+  evidence; do not clone full source trees for experiments.
+- Fresh compilation with the pinned historical toolchain and complete target-byte
+  equality are required for the existing FUNCTION_MATCH gate.
+- Do not copy original machine code, patch instructions, dispatch into original
+  binaries, use byte-array functions, or substitute guessed gameplay stubs.
+  Diagnostic fail-on-entry placeholders must not enter production builds.
+- Document any measured compiler steering and preserve the source logic. Original
+  function addresses, ordering, padding, PE placement, and whole-image equality
+  are not matching milestones.
+- Protect all accepted raw and relocated matches after canonical source changes. Identify
+  compiler and runtime library code instead of casually rewriting it.
+- Keep claims narrower than their evidence. Function equality does not prove
+  source identity, semantic completeness, module layout, or whole-image equality.
 
-## Workers and context
+## Work coordination
 
-- Default to GPT-6 Luna **xhigh** for bounded reconstruction and compiler iteration.
-  Use GPT-6.1 Sol **high** when the explanation is uncertain or a shared question
-  has leverage; hand diagnosed experiments back to Luna. Other tiers are exceptional.
-  Neither size, similarity nor a first failed candidate determines routing.
-- Do not add model review after deterministic acceptance, a retry ladder, routing
-  ledger, or automatic difficulty scoring. Every model passes the same gate.
-- Choose coherent regions while shared representation is uncertain, then shrink
-  to local hypotheses. Do not rewrite relocation-only equals to solve link layout;
-  recover the real missing contributions and dependencies.
-- Start with `python scripts/region.py packet <region>` when indexed; use `--more`
-  for spans. See `docs/workflow.md` for private receipts and compact handoffs.
-  Packets are disposable context; `recovery.json` alone decides acceptance.
-- Record a prediction and falsifier before a family. Reopen exhausted work only
-  with new evidence, a new discriminator, or changed context. Keep outcome identity
-  separate from source spelling and accepted proof. Preserve exact peers.
-
+- One integrator owns canonical recovery state and commits. Parallel work must
+  have explicit ownership of disjoint files/functions, private scratch space, and
+  a compact provenance handoff.
+- Default to GPT-6 Luna xhigh for bounded reconstruction and compiler work. Use
+  GPT-6.1 Sol high when the explanation is uncertain or one shared question can
+  unlock several regions. Prefer deterministic verification over extra model
+  review; do not add a retry ladder, routing ledger, or automatic difficulty score.
+- Use tools under C:\tools. Inspect existing dependencies before adding any.
+  External tools need documented origin, version, and SHA-256; do not patch them.
+- Begin with a falsifiable question and the smallest useful original-backed
+  experiment. Keep durable findings compact. Disposable packets and receipts do
+  not grant acceptance.
+- Use python scripts/region.py packet <region> when indexed; add --more for
+  wider context. See docs/workflow.md for the current work loop.
