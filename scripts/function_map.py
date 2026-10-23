@@ -5,6 +5,10 @@ non-code sections, and entries after RET + NOP alignment (unreferenced functions
 Pointers stored inside code are jump-table entries and never start a function.
 Library code located by scripts/library_map.py is excluded. Each span is decoded
 from its own entry with capstone.
+
+Unreviewed entries are filtered to 16-byte alignment. This biased discovery map
+is neither a complete function census nor evidence of original /Gy flags. Reviewed
+unaligned entries and recorded contribution boundaries override that filter.
 """
 import argparse
 import hashlib
@@ -124,7 +128,9 @@ def build(module, entry_evidence=None):
                              (module, s)).fetchone()[0]
         rows.append(dict(rva=hex(s), size=e - s, body_size=len(body), decoded=decoded, last=last,
                          references=relocs, callers=callers, start_from_proven_extent=s in from_proven))
-    report = dict(module=module, first_party_end=hex(end), functions=rows)
+    report = dict(module=module, first_party_end=hex(end), functions=rows,
+                  scope='Diagnostic leads with heuristic extents; not a complete function census or /Gy proof',
+                  unreviewed_alignment_filter=16)
     if entry_evidence is not None:
         assert entry_evidence.read_bytes() == evidence_bytes
         assert (ROOT / path).read_bytes() == pe.data

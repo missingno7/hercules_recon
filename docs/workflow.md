@@ -1,5 +1,31 @@
 # Reconstruction work and compact context
 
+User-authorized constrained reproduction is now a separate diagnostic option:
+`title_behavioral.py --matching-diagnostic --original-code-order --output work/LANE`.
+It supplies native function order to the unmodified historical linker, rejects
+link warnings and verifies actual map order. No instruction bytes are rewritten.
+Use `title_order_check.py BASELINE/report.json work/LANE/report.json` to compare
+complete compiled contributions and verify the narrow direct-call pilot. This
+does not alter the FUNCTION_MATCH gate or certify whole-game semantics. See
+[the measured result and limitations](constrained_title_2026_10_23.md).
+
+Current process corrections and complete TITLE source-graph diagnostics are in
+[the 2026-10-23 audit](matching_state_2026_10_23.md). `match.py verify` now compiles
+once per fresh immutable source/flag group, with all original raw comparisons.
+Use `title_behavioral.py --matching-diagnostic --output work/LANE` followed by
+`title_match_diagnostic.py work/LANE/report.json --linked` to inspect every recorded peer
+and the unrecorded leads in a complete graph. This is diagnostic only; it does
+not relax staging/promotion or turn behavioral providers into accepted matches.
+
+For reviewed relocation-free functions already in mixed/data-bearing units, use
+`promote.py ID... --existing-unit --report work/LANE/promotion.json`. It changes
+only the selected recovery statuses; sources stay in place. Fresh raw acceptance
+protects all existing exact functions, inventories every emitted unit member and
+section, preserves masked peers and records source/header and full COFF inventory
+hashes. Later strict verification rejects drift. This does not accept the unit's
+data, other functions or native layout. Use `--verify-only` for an unpublished
+measurement. See [the measured adoption and linked report](title_matching_progress_2026_10_23.md).
+
 `recovery.json` remains the only recovery authority. The sequence is evidence,
 private scratch, fresh compiler/oracle measurement, and the existing journaled
 promotion. No model opinion or context receipt grants `FUNCTION_MATCH`.

@@ -8,7 +8,8 @@ verify         recompile every masked row's source and recheck it.
 Plan: {"source": "calibration/<module>/<region>.c", "candidate": "...c", "module": "TITLE.DLL",
        "functions": [{"rva", "size", "symbol", "evidence"}]}
 A region file must define exactly the functions recorded for it. Masked equality is
-never FUNCTION_MATCH: only a natural link that places the real bytes can promote.
+never FUNCTION_MATCH. Relocation-free contributions may pass the raw existing-unit
+gate; functions with references need separate complete linked-byte proof.
 """
 import argparse
 import hashlib
@@ -18,7 +19,7 @@ import sqlite3
 from pathlib import Path
 
 from env import ROOT
-from match import compile_source, digest, verify_toolchain, DEFAULT_TOOLCHAIN
+from match import compile_source, compare, digest, verify_toolchain, DEFAULT_TOOLCHAIN
 from coff import COFF
 from masked import masked_compare
 
@@ -79,6 +80,8 @@ def check_rows(rows, source):
         m = masked_compare(obj, r['symbol'], ROOT / r['target'], rva, size)
         if not m['masked_equal']:
             raise ValueError(f"{r['id']} not masked equal: {m['differing_bytes']} bytes, {m['conflicts'][:2]}")
+        if r.get('status') == 'FUNCTION_MATCH' and not compare(obj, r['symbol'], ROOT / r['target'], rva, size)['exact']:
+            raise ValueError('Raw peer regressed: ' + r['id'])
         results[r['id']] = dict(m, masked_sha256=masked_identity(obj, r['symbol']))
     for target, expected in targets.items():
         if digest(target.read_bytes()) != expected:
@@ -116,6 +119,8 @@ def stage(plan_path):
     if any(r['status'] != 'CODEGEN_SIMILAR' or r.get('proof', {}).get('scope') != SCOPE for r in moved):
         raise ValueError('Only masked rows can be moved')
     existing = [r for r in state['functions'] if r.get('source') == source]
+    if any(r['status'] == 'FUNCTION_MATCH' for r in existing):
+        raise ValueError('Masked staging cannot replace a unit containing accepted raw functions')
     prior_evidence = {(r['rva'], r['symbol']): r['evidence'] for r in moved}
     rows = []
     for f in plan['functions']:
@@ -186,7 +191,8 @@ def verify(report=None):
             failures.append(f'{source}: source differs from recorded proof')
             continue
         try:
-            results = check_rows(rows, source)
+            raw_peers = [r for r in state['functions'] if r.get('source') == source and r['status'] == 'FUNCTION_MATCH']
+            results = check_rows(rows + raw_peers, source)
         except ValueError as error:
             failures.append(f'{source}: {error}')
             continue

@@ -1,14 +1,11 @@
-"""Diagnostic: minimal translation-unit intervals implied by per-object .bss sharing (oracle only).
+"""Conditional TU grouping leads from shared zero-storage references (oracle only).
 
-In C, an uninitialized variable placed in the per-object .bss region (before the communal tail) is
-a file static, so every function that uses it belongs to the same object. Objects are contiguous
-code ranges in link order, so the user span of each such variable must lie inside one object.
-Merging overlapping spans gives minimal unit intervals: a gap between two merged intervals is a
-possible boundary; inside an interval there is none. Variables of C++ units (shared DLL-wide,
-listed with --exclude) do not constrain ownership and are skipped.
-
-Second rule: one object's .bss is contiguous (its variables are ordered by name, not by user), so
-two intervals whose .bss address ranges interleave are the same object and are merged too.
+These are hypotheses, not minimal or proven TU boundaries. Ordinary C external
+explicit-zero definitions can occupy .bss too, and their users can cross TUs.
+Neither address order nor the language identifies linkage or defining-object
+ownership. The legacy grouping assumes local ownership and contiguous code/data
+contributions; it is useful only after those premises receive independent evidence.
+Interleaving variable addresses is likewise conditional, never a same-object proof.
 """
 import argparse
 import json
@@ -54,7 +51,14 @@ def build(module, function_map, bss_lo, tail, exclude):
         funcs = [s for s, _ in spans if m['lo'] <= s <= m['hi']]
         out.append(dict(code=[hex(m['lo']), hex(m['hi'])], functions=len(funcs), bss=[hex(min(m['vars'])), hex(max(m['vars']))],
                         variables=len(m['vars'])))
-    return dict(module=module, scope=f'per-object .bss {bss_lo:#x}..{tail:#x}', excluded=[hex(x) for x in sorted(exclude)],
+    return dict(module=module, scope=f'Conditional shared-storage grouping in {bss_lo:#x}..{tail:#x}; not TU proof',
+                ownership_proven=False,
+                assumptions=['Referenced cells are local to one defining object (not established by BSS)',
+                             'Code and storage contributions are contiguous in original link order'],
+                limitations=['External explicit-zero C definitions can have cross-TU users',
+                             'The selected address window does not prove a communal-tail boundary',
+                             'Function-map coverage may omit unreviewed unaligned entries'],
+                excluded=[hex(x) for x in sorted(exclude)],
                 intervals=out)
 
 
@@ -62,14 +66,16 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('module', nargs='?', default='TITLE.DLL')
     parser.add_argument('--function-map', default=str(ROOT / 'work/function_map/title_v4.json'))
-    parser.add_argument('--bss', default='0x290e8', help='start of per-object .bss (initialized .data ends at 0x290e8)')
-    parser.add_argument('--tail', default='0x2b370', help='start of the communal tail')
+    parser.add_argument('--bss', default='0x290e8', help='lower bound of the selected zero-storage window')
+    parser.add_argument('--tail', default='0x2b370', help='exclusive upper bound (legacy window, not a proven communal start)')
     parser.add_argument('--exclude', nargs='*', default=['0x29128', '0x29e08', '0x29f98', '0x29c2c', '0x2a244'],
-                        help='DLL-wide shared variables (C++ definers) and unclear indexed bases')
+                        help='cells excluded from the local-ownership hypothesis, regardless of source language')
     args = parser.parse_args()
     report = build(args.module, args.function_map, int(args.bss, 16), int(args.tail, 16), {int(x, 16) for x in args.exclude})
     out = ROOT / 'work/closure' / f'{args.module.lower()}_unit_bounds.json'
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, indent=1) + '\n', encoding='utf-8')
+    print(report['scope'])
     for i in report['intervals']:
         print(f"code {i['code'][0]:>8}..{i['code'][1]:<8} {i['functions']:3d} fns   bss {i['bss'][0]}..{i['bss'][1]} ({i['variables']} vars)")
     print('report:', out)
