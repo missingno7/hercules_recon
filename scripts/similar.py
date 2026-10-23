@@ -21,7 +21,7 @@ import time
 from pathlib import Path
 
 from env import ROOT
-from match import compile_source, digest, verify_toolchain, DEFAULT_TOOLCHAIN
+from match import compile_source, compare, digest, verify_toolchain, DEFAULT_TOOLCHAIN
 from coff import COFF
 from masked import masked_compare
 
@@ -90,6 +90,8 @@ def check_rows(rows, source, co_defined=()):
         m = masked_compare(obj, r['symbol'], ROOT / r['target'], rva, size)
         if not m['masked_equal']:
             raise ValueError(f"{r['id']} not masked equal: {m['differing_bytes']} bytes, {m['conflicts'][:2]}")
+        if r.get('status') == 'FUNCTION_MATCH' and not compare(obj, r['symbol'], ROOT / r['target'], rva, size)['exact']:
+            raise ValueError('Raw peer regressed: ' + r['id'])
         results[r['id']] = dict(m, masked_sha256=masked_identity(obj, r['symbol']))
     for target, expected in targets.items():
         if digest(target.read_bytes()) != expected:
@@ -254,7 +256,9 @@ def verify(report=None):
             failures.append(f'{source}: source differs from recorded proof')
             continue
         try:
-            results = check_rows(rows, source, rows[0]['proof'].get('co_defined_functions', ()))
+            raw_peers = [r for r in state['functions'] if r.get('source') == source and r['status'] == 'FUNCTION_MATCH' and list(r.get('flags') or ['/O2']) == rows[0]['flags']]
+            co_defined = set(rows[0]['proof'].get('co_defined_functions', ())) - {r['symbol'] for r in raw_peers}
+            results = check_rows(rows + raw_peers, source, co_defined)
         except ValueError as error:
             failures.append(f'{source}: {error}')
             continue

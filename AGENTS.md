@@ -50,6 +50,12 @@ independently reproducible historical build and original gameplay semantics.
   `FUNCTION_MATCH`. Relocation-normalized similarity is diagnostic, never exact.
 - No copied machine code, byte-array functions, patching, original-binary dispatch,
   arbitrary assembly/placement tricks, or unsupported compiler-steering hacks.
+- User-authorized exception (2026-10-23): explicit, documented layout constraints
+  and measured compiler steering may be explored when logic is preserved. Keep
+  the intervention and its preservation evidence explicit; constrained results
+  do not imply natural historical layout. Do not infer permission for copied
+  original code, instruction patching or unproved semantic changes. Existing raw
+  FUNCTION_MATCH acceptance remains unchanged.
 - Canonical source changes require measured evidence and regression verification.
   Previously accepted matches must remain exact. Treat compiler/library code as
   library code and identify it instead of casually rewriting it.

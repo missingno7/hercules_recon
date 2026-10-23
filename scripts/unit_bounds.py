@@ -77,6 +77,7 @@ def main():
     out = ROOT / 'work/closure' / f'{args.module.lower()}_unit_bounds.json'
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, indent=1) + '\n', encoding='utf-8')
+    print(report['scope'])
     for i in report['intervals']:
         print(f"code {i['code'][0]:>8}..{i['code'][1]:<8} {i['functions']:3d} fns   bss {i['bss'][0]}..{i['bss'][1]} ({i['variables']} vars)")
     print('report:', out)

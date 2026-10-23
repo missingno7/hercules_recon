@@ -1,3 +1,28 @@
+# Current checkpoint, 2026-10-23
+
+Latest follow-up: the user permits documented layout constraints and measured
+steering when logic is preserved. The [constrained TITLE pilot](constrained_title_2026_10_23.md)
+changes function order only: 25 complete linked functions / 2,112 bytes compare
+raw-equal, with 275/362 functions at original RVAs. Three call-only functions
+(256 bytes, eight references) have additional independent callee checks. All 43
+units preserve their emitted sections and non-FILE symbols. These are diagnostic
+results; the authoritative 134 FUNCTION_MATCH / 8,336-byte total is unchanged.
+
+Read [the latest matching progress](title_matching_progress_2026_10_23.md) and
+[the preceding audit](matching_state_2026_10_23.md) before the historical handoffs.
+Fresh gates preserve **134 exact rows / 8,336 bytes**, with 447 masked rows passing
+the supported verifier. The two additions are `title.016e0` and `title.01dd0`;
+their mixed units remain intact. Strict verification uses 32 fresh compilations.
+The complete TITLE diagnostic links 362 game entries from 43 sources without our
+tracing provider. Its DLL is 181,760 bytes versus the original 180,736, but is not
+exact: 326 functions differ only in reference operands, 20 have other byte
+differences and three have different sizes. Thirteen linked functions compare
+raw-equal (only two at original RVAs); these observations grant no further status.
+The four existing binding-view discrepancies remain explicit. Next work should
+recover real data/code contributions and ownership, with bounded experiments on
+the three size mismatches; do not sweep source spelling for relocation-only rows.
+`recovery.json` remains the sole matching authority.
+
 # Hercules reconstruction handoff, 2026-10-10 (TITLE.DLL stage-1 convergence)
 
 **Historical checkpoint.** Counts, priorities, compiler hypotheses and owner

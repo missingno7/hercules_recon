@@ -1,0 +1,257 @@
+{
+  "date": "2026-10-11",
+  "scope": "Fresh actual64-byte TITLE scheduler head provider and complete code/ref/data preservation; no function promotion or original TU/native placement proof.",
+  "canonical_provider": {
+    "path": "calibration/title/title_proc.cpp",
+    "sha256": "e5db718f8a7bf3121b861f830bf753b8ff75677aa19c11c635ae5196fc1e8810"
+  },
+  "working_definition": "TitleProc *g_2cc20[16] = {0};",
+  "working_type_context": {
+    "path": "calibration/title/title_proc.h",
+    "sha256": "e47311fdfe6e88084912c8515ce6331498b63b76c8ecdb085bd4a97a391cb3fc"
+  },
+  "prior_source_sha256": "244598eb7b3cfc137889ef211f271241856a0f08212b1c6df385d1d80cba912e",
+  "prior_source_git": "9306aa0:calibration/title/title_proc.cpp",
+  "native_field": {
+    "oracle": "assets/pc/HERCULES/TITLE.DLL",
+    "oracle_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+    "rva": "0x2cc20",
+    "end_exclusive": "0x2cc60",
+    "supported_bytes": 64,
+    "entries": 16,
+    "element_bytes": 4,
+    "initialized_file_backed_bytes": 0,
+    "loader_zero_bytes": 64,
+    "loader_zero_sha256": "f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b",
+    "origin": "Writable.data virtual tail; rawend29200,virtualend2F0F8. No unsupported missing file bytes interpreted aszeros.",
+    "witness": "Actual5D90 ECX16/REPSTOSD; 5E40 and5F10 one-past2CC60 pointer walks; 5DB0 indexedDWORD load/store. Adjacent counters excluded.",
+    "compact_instruction_witnesses": [
+      {
+        "rva": "0x5d91",
+        "hex": "b910000000",
+        "instruction": "mov ecx, 0x10"
+      },
+      {
+        "rva": "0x5d96",
+        "hex": "33c0",
+        "instruction": "xor eax, eax"
+      },
+      {
+        "rva": "0x5d98",
+        "hex": "bf20cc0210",
+        "instruction": "mov edi, 0x1002cc20"
+      },
+      {
+        "rva": "0x5d9d",
+        "hex": "f3ab",
+        "instruction": "rep stosd dword ptr es:[edi], eax"
+      },
+      {
+        "rva": "0x5db8",
+        "hex": "8b3c9520cc0210",
+        "instruction": "mov edi, dword ptr [edx*4 + 0x1002cc20]"
+      },
+      {
+        "rva": "0x5dea",
+        "hex": "89349520cc0210",
+        "instruction": "mov dword ptr [edx*4 + 0x1002cc20], esi"
+      },
+      {
+        "rva": "0x5e4d",
+        "hex": "bf20cc0210",
+        "instruction": "mov edi, 0x1002cc20"
+      },
+      {
+        "rva": "0x5e52",
+        "hex": "8b37",
+        "instruction": "mov esi, dword ptr [edi]"
+      },
+      {
+        "rva": "0x5e6e",
+        "hex": "8b7610",
+        "instruction": "mov esi, dword ptr [esi + 0x10]"
+      },
+      {
+        "rva": "0x5e75",
+        "hex": "83c704",
+        "instruction": "add edi, 4"
+      },
+      {
+        "rva": "0x5e78",
+        "hex": "81ff60cc0210",
+        "instruction": "cmp edi, 0x1002cc60"
+      },
+      {
+        "rva": "0x5f26",
+        "hex": "b820cc0210",
+        "instruction": "mov eax, 0x1002cc20"
+      },
+      {
+        "rva": "0x5f2b",
+        "hex": "3910",
+        "instruction": "cmp dword ptr [eax], edx"
+      },
+      {
+        "rva": "0x5f2f",
+        "hex": "83c004",
+        "instruction": "add eax, 4"
+      },
+      {
+        "rva": "0x5f33",
+        "hex": "3d60cc0210",
+        "instruction": "cmp eax, 0x1002cc60"
+      },
+      {
+        "rva": "0x5f72",
+        "hex": "89148d20cc0210",
+        "instruction": "mov dword ptr [ecx*4 + 0x1002cc20], edx"
+      }
+    ]
+  },
+  "fresh_canonical": {
+    "object": "work\\root_title_scheduler_50\\canonical_scheduler.obj",
+    "object_sha256": "e4d2fd11725d867f9111885242d839db4fc16cc8435f74777ef71b23652681f8",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-og7doo0e\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\calibration\\title\\title_proc.cpp"
+    ],
+    "toolchain": "msvc5_rtm",
+    "canonical_full_worker_sections_equal": true,
+    "preserved_functions": 8,
+    "preserved_function_bytes": 1680,
+    "preserved_ordered_refs_and_initialized_data": true,
+    "new_public_definition": "_g_2cc20",
+    "object_section": ".bss",
+    "object_offset": 424,
+    "baseline_bss_bytes": 424,
+    "canonical_bss_bytes": 488,
+    "supported_loader_zero_bytes": 64,
+    "padding_credit": 0,
+    "natural_section_correspondence": {
+      "1": 1,
+      "2": 3,
+      "3": 2,
+      "4": 4,
+      "5": 5,
+      "6": 6,
+      "7": 7,
+      "8": 8,
+      "9": 9,
+      "10": 10,
+      "11": 11,
+      "12": 12,
+      "13": 13,
+      "14": 14,
+      "15": 15,
+      "16": 16,
+      "17": 17,
+      "18": 18,
+      "19": 19,
+      "20": 20,
+      "21": 21,
+      "22": 22,
+      "23": 23,
+      "24": 24
+    }
+  },
+  "natural_section_order": "The actual new definition causes compiler BSS/data sections2/3 toexchange. Allother fullsectiondata/flags/ref contributions and existing public offsets preserve under explicitsection correspondence. No source or flags changed to force section ordering.",
+  "natural_link": {
+    "baseline": {
+      "path": "work/root_title_scheduler_50/baseline.json",
+      "sha256": "d2fa13d80a1f3b44d2fb23728811e96cf246aaa61077d040fb95d851a8f65928"
+    },
+    "measurement": {
+      "path": "work/root_title_scheduler_50/adoption.json",
+      "sha256": "fa01ddd0c83395280a80c4865b1dbc0ed00582e4734260ac4d67275a4d68e975"
+    },
+    "fresh_actual_sources": 39,
+    "function_definitions": 340,
+    "strict_TITLE_functions": 6,
+    "masked_TITLE_functions": 331,
+    "unresolved_before": 97,
+    "unresolved_after": 96,
+    "removed_unresolved": [
+      "_g_2cc20"
+    ],
+    "remaining_code_names": 21,
+    "remaining_data_names": 75,
+    "other_names": 0,
+    "image_produced": false,
+    "forced_image": false,
+    "strict_or_masked_byte_gain": 0,
+    "all38_other_source_contributions_preserved": true,
+    "old_graph_limit": "Earlier362-function private assembly includes22 drafts, one nowcanonical. Its old93 unresolved data count is a different source context and is not the currentgraph."
+  },
+  "root_diagnostic_correction": {
+    "scope": "Privatewrapper only, no matching/tool/gate changes.",
+    "failed_checks": "Two prelink attempts wrongly rejected compiler-pooled literals, first as strong duplicates and then asreadonly. The actual identical writable.data COMDAT literals have pick-any selection2; completecode/binding gatespassed.",
+    "final_link": "Retained secondfresh39 objects rechecked offline and linked with no additional compiler calls; actuallink has no LNK2005. Root freshcanonical compile later replaces only schedulerobject.",
+    "actual_pooled_literal_duplicates": {
+      "??_C@_07KAGO@ENGINE3?$AA@": {
+        "sources": [
+          "calibration/title/title_levels.c",
+          "calibration/title/r16110.c"
+        ],
+        "bytes": 8,
+        "payload_sha256": "9bdf41e9a4f818800481b83706183889f7dfde1db988c93a045ac7504eb8e7be",
+        "flags": "0xc0301040"
+      },
+      "??_C@_0O@LKEB@?2SRC3?2ENGINE?2?$AA@": {
+        "sources": [
+          "calibration/title/title_levels.c",
+          "calibration/title/r16110.c"
+        ],
+        "bytes": 14,
+        "payload_sha256": "9aeff1110dc2e43d81bd160b0cb39dbca816f8dcaba62ead815d1f7fd2bda087",
+        "flags": "0xc0301040"
+      },
+      "??_C@_07PFEA@ENGINE1?$AA@": {
+        "sources": [
+          "calibration/title/title_levels.c",
+          "calibration/title/r16110.c"
+        ],
+        "bytes": 8,
+        "payload_sha256": "3b54880b1a2db730e801443d654f88df206e70aeaea82c09ace655dfb7656897",
+        "flags": "0xc0301040"
+      },
+      "??_C@_0O@DONB@?2SRC1?2ENGINE?2?$AA@": {
+        "sources": [
+          "calibration/title/title_levels.c",
+          "calibration/title/r16110.c"
+        ],
+        "bytes": 14,
+        "payload_sha256": "f8bf04f15504b176573a4855b9eab30901ceb939216bf89698522695738a1a2f",
+        "flags": "0xc0301040"
+      }
+    }
+  },
+  "evidence": [
+    {
+      "path": "work/title_data_frontier_49/handoff.json",
+      "sha256": "7a1664355315ea804420783bf04d54a1f1d0f0d28474cf52c7e4fa11fbb201c1"
+    },
+    {
+      "path": "work/title_scheduler_storage_gate_50/handoff.json",
+      "sha256": "c9c94c13fdcb36260bdfbbdfeb41d3e5c694bc8e341e9a84a0a2add2c53ee362"
+    },
+    {
+      "path": "work/root_title_scheduler_50/adoption_prediction.json",
+      "sha256": "adacdc5bec57b06b3b2bba1e89eaa8488037c431b1347597c441cae6bf3fabe5"
+    }
+  ],
+  "recovery_scope": {
+    "updated_source_proofs": 8,
+    "status_changes": 0,
+    "other_recovery_rows_preserved": 582,
+    "strict_functions": 132,
+    "strict_bytes": 8304,
+    "scoped_masked_functions": 449,
+    "scoped_masked_bytes": 89920
+  },
+  "limits": "Observed16-pointer static prefix only; no adjacent counters, arraypaddingcredit, original aggregate/fullTU/declaration ownership or linkerplacement. No arbitraryruntime index-bound/safety or whole-binary equality claim. Compiler/library inputs and verification rules unchanged."
+}
