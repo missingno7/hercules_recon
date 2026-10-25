@@ -1374,6 +1374,13 @@
         "/O2"
       ],
       "evidence": "evidence/entry_level_initializer_references_2026_10_25.json"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_pair_animation.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/actor_pair_animation_references_2026_10_25.json"
     }
   ],
   "functions": [
@@ -4393,6 +4400,33 @@
       "implementation_status": "behaviorally_validated_limited",
       "contract": "Native112-byte initializer; real reset/attach helpers and modeled WORD interpreter tested in480cases. Actual initialized WORD root55478+120 and Entry root5e688.",
       "uncertainty": "WORD interpreter dependencies/complete behavior and later rendering remain outside caller matching/composition evidence."
+    },
+    {
+      "rva": "0x1a280",
+      "symbol": "_eng1_native_code_target_001a280",
+      "source": "src/eng1/behavioral/actor_pair_animation.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Native-backed actor-pair release/init/update; actual scalar roots and existing initialized WORD owner; real reset and explicit WORD/removal models.",
+      "uncertainty": "4428 guarded composition cases; interpreter/removal model effects, original allocation capacities and later gameplay remain outside this proof.",
+      "evidence": "evidence/actor_pair_animation_references_2026_10_25.json"
+    },
+    {
+      "rva": "0x1a2b0",
+      "symbol": "_eng1_native_code_target_01a2b0",
+      "source": "src/eng1/behavioral/actor_pair_animation.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Native-backed actor-pair release/init/update; actual scalar roots and existing initialized WORD owner; real reset and explicit WORD/removal models.",
+      "uncertainty": "4428 guarded composition cases; interpreter/removal model effects, original allocation capacities and later gameplay remain outside this proof.",
+      "evidence": "evidence/actor_pair_animation_references_2026_10_25.json"
+    },
+    {
+      "rva": "0x1a390",
+      "symbol": "_eng1_native_code_target_01a390",
+      "source": "src/eng1/behavioral/actor_pair_animation.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Native-backed actor-pair release/init/update; actual scalar roots and existing initialized WORD owner; real reset and explicit WORD/removal models.",
+      "uncertainty": "4428 guarded composition cases; interpreter/removal model effects, original allocation capacities and later gameplay remain outside this proof.",
+      "evidence": "evidence/actor_pair_animation_references_2026_10_25.json"
     }
   ],
   "source_adaptations": {
@@ -5483,6 +5517,13 @@
       "evidence": "evidence/motion_contacts_runtime_2026_10_25.json",
       "confidence": "verified_same_PC_entry_identity",
       "limits": "One pointer cdecl argument; existing void consumer ignores the real EAX result. Historical source/TU identity unknown."
+    },
+    "eng1_1a280": {
+      "provider": "eng1_native_code_target_001a280",
+      "original_rva": "0x1a280",
+      "evidence": "evidence/actor_pair_animation_references_2026_10_25.json#legacy_release_alias",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "No-argument x86 cdecl release; complete actual caller object retains every section and symbol after the sole function-name map."
     }
   },
   "omit_functions": {

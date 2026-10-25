@@ -239,6 +239,10 @@ Verification freshly compiles the owner alongside callers and preserves the same
 complete instruction/reference gate. A source COMMON prefix or zero-filled native
 range alone is insufficient. The pool-pointer audit and first three accepted
 callers are documented in [the loader-zero review](loader_zero_matching_2026_10_25.md).
+Pin the owner's complete include context as well as its source. Native clients
+of an already verified initialized owner can reveal genuinely missing source;
+the [actor-pair recovery](actor_pair_animation_matching_2026_10_25.md) reuses
+one WORD owner for three real providers without duplicating storage.
 
 For a legacy name of an existing WORD owner, use an explicit compiler-renaming
 header only after the independent scalar identity/extent audit. The verifier

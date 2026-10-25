@@ -6,12 +6,15 @@ frontier at `0x28290`; that routine now has reconstructed source, but this does
 not establish a later runtime frontier. No new original-host run, reconstructed
 gameplay frame, continuous gameplay, or normal engine shutdown is verified.
 
-The latest genuine graph has 962 mapped compiled entries and 1,039 external
-function symbols across 247 source units. The initialized boss and attachment
+The latest genuine graph has 965 mapped compiled entries and 1,042 external
+function symbols across 248 source units. The initialized boss and attachment
 Entry owners plus the level initializer's actual interior WORD root resolve six
 data dependencies across their two reviews; see
-[the latest review](attachment_entry_matching_2026_10_25.md). Its 1,231 diagnostic starts/leads
-are not a reviewed complete first-party denominator. The genuine link has 730
+[the Entry review](attachment_entry_matching_2026_10_25.md). Three newly recovered
+actor-pair functions and one verified legacy function alias resolve four further
+function references; see [the latest review](actor_pair_animation_matching_2026_10_25.md).
+Its 1,231 diagnostic starts/leads
+are not a reviewed complete first-party denominator. The genuine link has 726
 unresolved symbols and zero duplicate
 providers. Its intended export is `PC_DLLEngineMain` at ordinal 1; no current
 DLL is produced. Earlier transitional links used explicit fail-on-entry

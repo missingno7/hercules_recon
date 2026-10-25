@@ -32,10 +32,10 @@ loader-zero, collision-pointer, spatial-predicate, spatial-neighbor, target-stee
 initialized angle-table, motion/contact, grid-caller, scene-cell, WORD-limit and
 pool-pressure, allocator/base-initializer, pool-caller, pointer-owner, pointer-client
 and player-state-owner/program/animation, coordinate-factory, action-appender,
-middle-factory and initialized boss/attachment-Entry batches, there are
-484 accepted function rows at 484 distinct native entries / 48,672 bytes:
-137 RAW rows, 43 retained linked rows and 304 RELOCATED rows / 34,464 bytes.
-These batches add 149 functions / 22,160 bytes, with independently
+middle-factory, initialized boss/attachment-Entry and actor-pair animation batches, there are
+487 accepted function rows at 487 distinct native entries / 49,024 bytes:
+137 RAW rows, 43 retained linked rows and 307 RELOCATED rows / 34,816 bytes.
+These batches add 152 functions / 22,512 bytes, with independently
 reviewed references and four bounded local switch tables. See
 `docs/nfsmw_matching_2026_10_24.md`, `docs/actor_call_followup_2026_10_24.md`,
 `docs/engine_helper_matching_2026_10_24.md`, `docs/full_matching_2026_10_25.md`,
@@ -61,7 +61,8 @@ reviewed references and four bounded local switch tables. See
 `docs/action_appender_matching_2026_10_25.md`, and
 `docs/middle_factory_matching_2026_10_25.md`, and
 `docs/boss_entry_matching_2026_10_25.md`, and
-`docs/attachment_entry_matching_2026_10_25.md`.
+`docs/attachment_entry_matching_2026_10_25.md`, and
+`docs/actor_pair_animation_matching_2026_10_25.md`.
 The RAW gate and complete relocated instruction/reference requirements remain.
 Explicit, independently owned loader-zero references now have fail-closed support.
 Separately, eleven missing player-mode bodies now have real source in
