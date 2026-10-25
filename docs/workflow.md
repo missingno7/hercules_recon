@@ -5,6 +5,13 @@ and the focused source/evidence for the function or dependency family. Work from
 a falsifiable question; keep experiments under ignored candidates/ or work/.
 Generated packets and reports are disposable and never grant acceptance.
 
+For a genuine code-generation residue, the bounded
+[cpp_permuter pilot](permuter_pilot_2026_10_25.md) establishes an optional explicit
+alternative generator with the pinned VC5 toolchain. It produced two
+instruction-equal candidates and no new STRICT acceptance; finish their reference
+proof before reopening those source searches. Use existing comparison gates,
+reviewed alternatives and hard caps; avoid its random/all-pass defaults.
+
 ## Short matching campaign loop
 
 Before spending compiler calls, review a focused source/region packet, exact
