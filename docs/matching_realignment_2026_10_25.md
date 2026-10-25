@@ -1,6 +1,6 @@
 # Matching realignment: measured census and pilot
 
-Latest measured continuation: [529 accepted entries / 54,784 bytes](#reference-reuse-continuation), with 629 ENG1 unresolved names. Earlier sections retain their dated baseline/checkpoint figures.
+Latest measured continuation: [537 accepted entries / 55,456 bytes](#provider-continuation), with 622 ENG1 unresolved names. Earlier sections retain their baseline/checkpoint figures.
 
 Snapshot: `a29d71a814cce19f0ae59486c767e257c58af777`; `recovery.json` SHA-256 `bebc1468846c1ef12f4e870d46fb017d853ee80883643b751a774a50ee947795`.
 
@@ -80,7 +80,7 @@ Use one current source tree and the existing tools. Before another experiment:
 
 No semantic-IR framework was needed for these pilots: their first blockers were reference ownership and an inventory bug. The existing residual and differential tools remain the semantic diagnostic path. Behavioral agreement never supplies a matching verdict.
 
-Luna xhigh workers owned disjoint TITLE, ENG1 dependency, ENG1 reference, ENG3/EXE, census, and small tool/test tasks. Their private compiler budgets were 12â€“35 calls, with explicit separate allowances for one full census and the baseline/final module graphs. A single integrator owned configuration, binding publication, recovery state and commits. Sol high inspected the exhausted compiler question, then audited the shared interface owner; repetitive caller application returned to Luna. There is no new routing system or second ledger.
+Luna xhigh workers owned disjoint TITLE, ENG1 dependency, ENG1 reference, ENG3/EXE, census, and small tool/test tasks. Their private compiler budgets were 12Ă˘â‚¬â€ś35 calls, with explicit separate allowances for one full census and the baseline/final module graphs. A single integrator owned configuration, binding publication, recovery state and commits. Sol high inspected the exhausted compiler question, then audited the shared interface owner; repetitive caller application returned to Luna. There is no new routing system or second ledger.
 
 The source-only RAW adoption fix counts unique emitted symbols across target modules and the already pinned co-defined inventory. It checks every target row, every supported masked peer, complete COFF contributions, source/include context and full object inventory. Existing RELOCATED peers retain their full independent reference checks and unchanged records. Missing/extra/duplicate contributions, inconsistent helper inventories, changed references, and RECONSTRUCTED peers still reject. Pinned helpers and data gain no acceptance.
 
@@ -130,7 +130,7 @@ behavior proof. The already present `266a0` provider also gains a reviewed
 legacy spelling alias, without replacing its implementation.
 
 The final genuine ENG1 build compiles 249 units and supplies 966 mapped provider
-RVAs / 1,043 external function symbols. Unresolved names fall **726â†’723**:
+RVAs / 1,043 external function symbols. Unresolved names fall **726Ă˘â€ â€™723**:
 428 function and 295 untyped symbols. Only `_resolve_collision`, `_query_collision`
 and `_eng1_200e0` disappear; no unresolved name or duplicate provider is added.
 All 79 current ENG1 RAW rows survive, and no generated placeholder is selected.
@@ -198,7 +198,7 @@ no original host/module process was launched.
    imply the same numeric RVA in a different module; the old wrong-helper
    substitution remains rejected. This is a bounded follow-up, not assumed acceptance.
 2. Audit the remaining direct-call-only, one-identity-blocked families, such as
-   ENG1 `113c0`/`27410` and ENG3 `27d70`/`280b0`â†’`01460`, from callee-own source,
+   ENG1 `113c0`/`27410` and ENG3 `27d70`/`280b0`Ă˘â€ â€™`01460`, from callee-own source,
    native entry and outside callers. Stop immediately on missing independent ABI
    or owner evidence rather than retuning already equal callers.
 3. Resolve actual ENG1 data/provider ownership among the remaining 428 function
@@ -254,7 +254,7 @@ invocations**: 1.05 new accepted entries / 148.8 accepted bytes per 100 calls.
 Reference-directed work alone is 16 accepted entries / 2,144 bytes in 20 calls.
 The measured source/dependency result stays 966 mapped ENG1 providers and 723
 unresolved names; the new 208-byte query remains NEAR. Continue with queue items
-2â€“5, retaining their stated evidence and reentry limits.
+2Ă˘â‚¬â€ś5, retaining their stated evidence and reentry limits.
 
 ## Scratch files
 
@@ -370,3 +370,104 @@ Reproducible receipts: [continuation metrics](../evidence/strict_continuation_pr
 [RNG source evidence](../evidence/eng3_rng_provider_2026_10_25.json), and
 [interface blocker](../evidence/interface_wrapper_blocker_2026_10_25.json).
 `recovery.json` remains the only matching authority.
+
+## Provider continuation
+
+From `e306f0d`, **eight new RELOCATED functions / 672 bytes** are accepted with
+**34 independently verified references**. All 529 previous accepted records remain
+unchanged. `caeaa8f` publishes the matching changes; no verifier rule changed.
+
+| Target, current | RAW rows / bytes | RELOCATED rows / bytes | LINKED rows / bytes | Unique accepted rows / bytes |
+| --- | ---: | ---: | ---: | ---: |
+| HERCULES.EXE | 28 / 656 | 33 / 1,712 | 0 | 61 / 2,368 |
+| TITLE.DLL | 6 / 352 | 7 / 976 | 43 / 5,360 | 56 / 6,688 |
+| ENG1.DLL | 79 / 6,368 | 250 / 28,672 | 0 | 329 / 35,040 |
+| ENG3.DLL | 27 / 2,032 | 64 / 9,328 | 0 | 91 / 11,360 |
+
+Total **537 / 55,456 bytes**: 140 RAW, 354 RELOCATED, 43 LINKED. This is
+**50 functions / 6,432 bytes above the regenerated mission baseline**. Fresh
+protection passes **496 RAW/RELOCATED obligations in 122 compiler calls** and
+all 43 LINKED rows (zero failures, the same 86 provenance drifts). All 356 tests pass.
+
+The harvest closes TITLE `03050` through four independently reviewed emitter
+entries and the existing screen-state owner, four EXE option-state helpers through
+the unique pinned MFC SetWindowTextA body/import and ten complete unique literals,
+and ENG3 `27d70`/`280b0` through the independently established `01460` entry/ABI.
+The MFC body is identity evidence, not accepted game coverage.
+
+The new canonical ENG1 `sound_choice_1aba0.c` matches its complete **80-byte**
+contribution with seven proven references. Native RET at `1abef` and separately
+referenced callback `1abf0` correct the old 112-byte heuristic span. The ordinary
+unsigned-char view of the setup WORD emits the native byte test; experimental
+`volatile` was unnecessary and was removed before staging/acceptance.
+
+Three further real function bodies are reconstructed without a STRICT claim.
+ENG1 `27410`/`27450` preserve the resource WORD update and unconditional removal
+for `27410`, with an explicit guard only when an unproved kind-info row would be
+read. Eight valid-row cases and four native skip cases agree; two controls stop
+before unsupported data access. The guarded 96-byte contributions differ from
+the native 64-byte spans. Their private unchecked instruction-equal forms are not
+production source or acceptance. ENG3 `actor_transition_01460.c` uses the shared
+interface header and checked physical layouts; it recovers the complete 416-byte
+algorithm but retains 11 nonreference scheduling differences and an unowned actor
+pointer cell. No complete ENG3 source/link closure is claimed.
+
+The fresh **251-unit ENG1 build** has **622 unresolved names (327 function /
+295 untyped)**, down seven. It adds three real mapped providers: **969 provider
+RVAs / 1,046 function symbols**. Two existing near providers also gain reviewed
+same-entry aliases. Every previous 249 complete object preserves section bytes,
+non-file symbol metadata and relocation offsets/types after four reviewed name
+substitutions; only 54 generated `.file` paths are normalized separately. All 79
+RAW peers pass, there are no duplicate providers or generated stubs, and link
+exit 25 still means no standalone ENG1 DLL. The incomplete manifest has 464 entries:
+292 whole-entry function placeholders and 75 conditional incomplete-data reads.
+
+The original 275 measured census profiles retain current source/flag/target
+guards, supplemented by the freshly proved sound profile: **276 profiles /
+2,238 recorded rows**. Unaccepted diagnostics now comprise 16 exact, 1,496
+reference-only, 176 instruction-different and 13 extent-different rows. Unrecorded
+guarded/NEAR sources remain separate. No game-coverage percentage is inferred
+from vendor-inclusive `.text` or heuristic spans.
+
+| Bounded lane | Accepted functions / bytes | Focused compiler calls | Source/dependency result |
+| --- | ---: | ---: | --- |
+| Luna TITLE identities | 1 / 176 | 4 | Four native callee identities |
+| Luna EXE identities | 4 / 288 | 1 | MFC entry/import and ten literals |
+| Luna ENG1 sound, including integration staging | 1 / 80 | 11 | One genuine provider; corrected boundary |
+| Luna ENG3 provider/callers, including canonical checks | 2 / 128 | 10 | One new 416-byte NEAR provider |
+| Luna ENG1 guarded helpers, including canonical check | 0 | 6 | Two real providers, bounded data domain |
+| Luna callback aliases | 0 | 2 | Two existing-provider name closures |
+
+These 34 focused calls plus baseline 120, protected promotion/LINKED 158, full
+source build 251 and measured test 29 total **592 historical compiler invocations**.
+The audit finds 590 persisted compiler logs plus two private direct compiler calls;
+the failed Win623 prelaunch is excluded. End-to-end throughput is 1.35 accepted
+functions / 114 accepted bytes per 100 calls. This campaign moves from the earlier
+cheap reference-only queue into missing-provider recovery, so its 8/34 focused
+yield is not a generalized speedup over 23/28. It adds genuine source and dependency
+closure. Six avoidable preflight calls identify practical corrections: derive
+offsets from the candidate COFF, check anchor instruction forms first, and use
+the pinned compile wrapper/environment. No new infrastructure is needed.
+
+The final zero-compile sound-caller audit found no ready promotion: the three
+best complete instruction-equal callers still lack other reference identities;
+others contain local tables or instruction differences. Stop there rather than
+spending on unchanged bodies. The next bounded queue is:
+
+1. Recover ENG1 `1a9b0`/`1a9e0`/`1ab00` and `2a7a0`, then `26de0` (176 bytes,
+   five consumer TUs, 25 native calls). Resolve the actual filter/query behavior.
+2. Audit remaining references in `9a20` (912 bytes), `a010` (304), `a490` (368).
+   A near callee can supply identity if independently proved; acceptance never
+   requires dependency closure alone. The new `1aba0` proof closes only one edge.
+3. Establish original kind-info capacity/index-domain evidence before reopening
+   `27410`/`27450` matching. Keep the current explicit guards and one source body.
+4. For ENG3 `01460`, independently establish actor-cell `41d54` ownership and
+   test one predicted paired-field scheduling change. Avoid broad permutations.
+5. Keep the 97 interface wrappers deferred at their live-table/ABI evidence gap;
+   retain the earlier exhausted compiler-search exclusions.
+
+[Current receipt](../evidence/provider_continuation_progress_2026_10_25.json),
+[guarded helper evidence](../evidence/eng1_actor_resource_helpers_2026_10_25.json),
+[callback aliases](../evidence/eng1_callback_provider_reuse_2026_10_25.json),
+and [transition evidence](../evidence/eng3_actor_transition_01460_2026_10_25.json)
+retain the proof limits. `recovery.json` remains the only matching authority.

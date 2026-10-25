@@ -2100,42 +2100,6 @@
     },
     {
       "module": "ENG1.DLL",
-      "rva": "0x29c20",
-      "symbol": "_eng1_native_code_target_0029c20",
-      "source": "work/<explicit-diagnostic-build>/diagnostic/incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/eng1_default_callbacks.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x30290",
-      "symbol": "_eng1_native_code_target_0030290",
-      "source": "work/<explicit-diagnostic-build>/diagnostic/incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
-      "consumers": [
-        {
-          "source": "src/eng1/eng1_default_callbacks.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
       "rva": "0x33700",
       "symbol": "_eng1_native_code_target_0033700",
       "source": "work/<explicit-diagnostic-build>/diagnostic/incomplete_bodies.c",
@@ -7089,42 +7053,6 @@
     },
     {
       "module": "ENG1.DLL",
-      "rva": "0x27450",
-      "symbol": "_mark_actor_resource_for_release",
-      "source": "work/<explicit-diagnostic-build>/diagnostic/incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "evidence/eng1_unresolved_identity_map.json",
-      "consumers": [
-        {
-          "source": "src/eng1/interpreters.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
-      "rva": "0x27410",
-      "symbol": "_remove_actor_preserving_resource",
-      "source": "work/<explicit-diagnostic-build>/diagnostic/incomplete_bodies.c",
-      "kind": "unimplemented_function",
-      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
-      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
-      "evidence": "evidence/eng1_unresolved_identity_map.json",
-      "consumers": [
-        {
-          "source": "src/eng1/interpreters.c",
-          "kind": "function"
-        }
-      ],
-      "implementation_status": "known_incomplete",
-      "compiled_source_is_not_reconstructed_behavior": true
-    },
-    {
-      "module": "ENG1.DLL",
       "rva": "0x646c",
       "symbol": "_resource_helper_646c",
       "source": "work/<explicit-diagnostic-build>/diagnostic/incomplete_bodies.c",
@@ -7158,6 +7086,28 @@
       ],
       "implementation_status": "known_incomplete",
       "compiled_source_is_not_reconstructed_behavior": true
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x27410",
+      "source": "src/eng1/actor_resource_helpers.c",
+      "function": "remove_actor_preserving_resource",
+      "kind": "incomplete_data_read",
+      "condition": "Only inside native kind!=0 && record_offset!=0 branch, profile>=1 exceeds the one measured 8-byte g_kind_info row at 0x6fee8.",
+      "original_context": "Native reads owner from g_kind_info[profile], adds record_offset, then accesses WORD +0x0c; it has no native range check. The 27410 remove_actor call remains unconditional after supported updates/skip paths.",
+      "runtime_report": "eng1_incomplete_behavior(0x6fee8,reason) before any unowned owner-row read; no guessed rows.",
+      "evidence": "evidence/eng1_actor_resource_helpers_2026_10_25.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x27450",
+      "source": "src/eng1/actor_resource_helpers.c",
+      "function": "mark_actor_resource_for_release",
+      "kind": "incomplete_data_read",
+      "condition": "Only inside native kind!=0 && record_offset!=0 branch, profile>=1 exceeds the one measured 8-byte g_kind_info row at 0x6fee8.",
+      "original_context": "Native reads owner from g_kind_info[profile], adds record_offset, then accesses WORD +0x0c; it has no native range check.",
+      "runtime_report": "eng1_incomplete_behavior(0x6fee8,reason) before any unowned owner-row read; no guessed rows.",
+      "evidence": "evidence/eng1_actor_resource_helpers_2026_10_25.json"
     }
   ],
   "bounded_source_adoption": {
