@@ -1,0 +1,147 @@
+{
+  "schema": 1,
+  "scope": "Rejected family hypothesis and concrete reentry conditions; no matching acceptance or verifier change.",
+  "family": {
+    "functions": 97,
+    "bytes": 2160,
+    "eng1_functions": 33,
+    "eng3_functions": 64,
+    "calls": 73,
+    "tail_jumps": 24
+  },
+  "hypothesis": "Existing rooted-callback profile cannot express fixed owner-member CALL/JMP; owner+slot alone cannot prove dynamic callee ABI.",
+  "compiler_calls": 3,
+  "representatives": [
+    {
+      "id": "eng1.2c310",
+      "instruction_equal": true,
+      "size": 32,
+      "owner_rva": 462624,
+      "failures": {
+        "existing_gate": "Unsupported indirect control transfer",
+        "rooted_callback_shape": "Unsupported callback window instruction inventory"
+      },
+      "negative_controls": [
+        {
+          "control": "wrong_slot",
+          "rejected": true,
+          "error": "COFF relocation differs from reviewed symbol/type/addend use"
+        },
+        {
+          "control": "wrong_base",
+          "rejected": true,
+          "error": "Independent loader-zero anchor identifies another storage cell"
+        },
+        {
+          "control": "wrong_reference_kind",
+          "rejected": true,
+          "error": "Extent must be wholly in unique file-backed executable code"
+        }
+      ]
+    },
+    {
+      "id": "eng3.1f8b0",
+      "instruction_equal": true,
+      "size": 16,
+      "owner_rva": 264096,
+      "failures": {
+        "existing_gate": "Unsupported indirect control transfer",
+        "rooted_callback_shape": "Unsupported callback window instruction inventory"
+      },
+      "negative_controls": [
+        {
+          "control": "wrong_slot",
+          "rejected": true,
+          "error": "COFF relocation differs from reviewed symbol/type/addend use"
+        },
+        {
+          "control": "wrong_base",
+          "rejected": true,
+          "error": "Independent loader-zero anchor identifies another storage cell"
+        },
+        {
+          "control": "wrong_reference_kind",
+          "rejected": true,
+          "error": "Extent must be wholly in unique file-backed executable code"
+        }
+      ]
+    }
+  ],
+  "independent_title_twins": [
+    {
+      "module": "TITLE.DLL",
+      "rva": "0xc370",
+      "size": 32,
+      "slot": "0x4c",
+      "sha256": "a4af45faca0766c38a7cd195090909222754c59187f72a559a085004a4848951"
+    },
+    {
+      "module": "TITLE.DLL",
+      "rva": "0xc270",
+      "size": 16,
+      "slot": "0x18",
+      "sha256": "c84e1ef80ee3bf9f4908867dc625d0b379473723a840b593b1fa01506b5d6618"
+    }
+  ],
+  "native_static_host_table": {
+    "rva": "0x361b8",
+    "size": 1000,
+    "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+    "slot_targets": {
+      "0x18": "0x40be30",
+      "0x4c": "0x401bd0"
+    }
+  },
+  "controls": [
+    {
+      "module": "ENG1.DLL",
+      "destination": "0x401bd0",
+      "esp_delta": -12,
+      "entry_words": [
+        "0x1002c320",
+        "0x11111111",
+        "0x22222222",
+        "0xdeadc0de",
+        "0x11111111",
+        "0x22222222"
+      ],
+      "trace": [
+        "0x1002c310",
+        "0x1002c314",
+        "0x1002c318",
+        "0x1002c319",
+        "0x1002c31a",
+        "0x401bd0"
+      ]
+    },
+    {
+      "module": "ENG3.DLL",
+      "destination": "0x40be30",
+      "esp_delta": 0,
+      "entry_words": [
+        "0xdeadc0de",
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x0",
+        "0x0"
+      ],
+      "trace": [
+        "0x1001f8b0",
+        "0x40be30"
+      ]
+    }
+  ],
+  "abi_discriminator": "ENG1 2c310 forwards two DWORDs. Static host table slot+0x4c points to native host_01bd0, which consumes five; with distinct A1..A5 the bounded original-wrapper fixture supplies A1,A2,outer-return,A1,A2. This falsifies the proposed static ABI composition, not actual runtime behavior.",
+  "limits": [
+    "The synthetic native-instruction fixtures stop at provider entry; no original Windows host/module execution or live-table observation.",
+    "ENG3 tail-JMP slot+0x18 composes with the static empty callback only in that fixture; a tail jump cannot establish C arity/type.",
+    "Whole-owner storage proof and exact slot addresses do not identify the live callback ABI or table lifetime."
+  ],
+  "required_evidence": [
+    "Identify the actual passed table, copy timing and any provider/slot mutations or aliases during the relevant engine invocations.",
+    "Establish each live provider ABI from its own native body and independent outside callers; resolve the two-versus-five conflict.",
+    "Only then consider a narrow fixed-slot CALL/JMP proof with wrong slot/base/transfer/ABI controls; no blanket BSS indirect-call exception."
+  ],
+  "conclusion": "NO-GO for existing gate or family-wide acceptance: fixed-slot representation and independently justified runtime ABI/lifetime evidence are absent."
+}
