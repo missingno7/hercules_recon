@@ -379,9 +379,253 @@ def packet(region_id,more=False):
     print(json.dumps(result,indent=2));return path
 
 
+def _frontier_path(name):
+    path=Path(name)
+    path=path.resolve() if path.is_absolute() else (ROOT/path).resolve()
+    if not path.is_relative_to(ROOT.resolve()):raise ValueError('Frontier input must stay inside the repository')
+    return path.relative_to(ROOT.resolve()).as_posix(),path
+
+
+def _frontier_pin(raw):
+    if not isinstance(raw,dict) or not raw.get('path') or not re.fullmatch(r'[0-9a-f]{64}',str(raw.get('sha256',''))):
+        raise ValueError('Evidence pins require repository path and SHA-256')
+    relative,path=_frontier_path(raw['path'])
+    actual=digest(path.read_bytes()) if path.is_file() else None
+    return dict(path=relative,sha256=raw['sha256'],current=actual==raw['sha256'])
+
+
+def _frontier_targets(group):
+    values=group.get('target_sha256') or {}
+    if isinstance(values,str):return {'':values}
+    return {_frontier_path(name)[0]:sha for name,sha in values.items()}
+
+
+def _frontier_context(group):
+    values=group.get('context_files_sha256') or group.get('include_context_sha256')
+    if values is None:values=group.get('context_files')
+    if values is None:return True
+    if isinstance(values,dict):pins=[dict(path=name,sha256=sha) for name,sha in values.items()]
+    elif isinstance(values,list):pins=values
+    else:return False
+    try:return all(_frontier_pin(pin)['current'] for pin in pins)
+    except (ValueError,TypeError):return False
+
+
+def _typed_requirement(requirement):
+    return isinstance(requirement,dict) and bool(
+        requirement.get('owner') or requirement.get('typed_owner') or
+        requirement.get('abi') or requirement.get('typed_profile'))
+
+
+def _frontier_handoffs(path):
+    value=read(path)
+    tasks=value if isinstance(value,list) else value.get('tasks',[value])
+    if not isinstance(tasks,list):raise ValueError('Handoff must be a task object or tasks array')
+    return tasks
+
+
+def _frontier_region_context(region_id,ledger):
+    """Return a live region context only when the indexed inputs resolve now."""
+    index=ROOT/'evidence/region_index.json'
+    if not region_id or not index.exists():return None
+    try:
+        entry=next(r for r in read(index)['regions'] if r['id']==region_id)
+        spec=read(ROOT/entry['spec'])
+        resolved,baseline,_=_resolve_packet_context(entry,spec,ledger)
+        return context_identity(resolved,baseline) if resolved is not None else None
+    except (KeyError,StopIteration,ValueError,FileNotFoundError):return None
+
+
+def matching_frontier(census_path,handoff_paths=(),ids=None,limit=8):
+    """Build a read-only, hash-guarded work frontier; never change recovery state."""
+    if not isinstance(limit,int) or limit<1:raise ValueError('limit must be a positive integer')
+    _,census_file=_frontier_path(census_path)
+    census=read(census_file);ledger_path=ROOT/'recovery.json';ledger=read(ledger_path)
+    ledger_sha=digest(ledger_path.read_bytes());rows=ledger.get('functions',[])
+    by_id={row['id']:row for row in rows}
+    accepted_statuses=ACCEPTED|{'LINKED_MATCH'}
+    selected=list(dict.fromkeys(ids or []));selected_set=set(selected)
+    handoffs=[]
+    for path in handoff_paths:
+        _,handoff_file=_frontier_path(path);handoffs.extend(_frontier_handoffs(handoff_file))
+    accepted_filtered=[];unknown_ids=[];tasks=[];covered_ids=set()
+    census_rows={row.get('id'):row for row in census.get('rows',[]) if row.get('id')}
+    groups=census.get('compile_group_results',[])
+
+    def add_task(raw):
+        if not isinstance(raw,dict):raise ValueError('Handoff task must be an object')
+        required=('function_ids','source','source_sha256','flags','target','target_sha256','outcome','blockers')
+        if any(key not in raw for key in required):raise ValueError('Handoff missing required planning fields')
+        function_ids=raw['function_ids']
+        if not isinstance(function_ids,list) or not function_ids or any(not isinstance(i,str) for i in function_ids):
+            raise ValueError('function_ids must be a nonempty string array')
+        all_function_ids=list(dict.fromkeys(function_ids))
+        function_ids=list(dict.fromkeys(i for i in function_ids if not selected_set or i in selected_set))
+        if not function_ids:return
+        unresolved=[]
+        for fid in function_ids:
+            row=by_id.get(fid)
+            if row is None:unknown_ids.append(fid);continue
+            if row.get('status') in accepted_statuses:accepted_filtered.append(fid);continue
+            unresolved.append(fid)
+        if not unresolved:return
+        source,source_path=_frontier_path(raw['source']);target,target_path=_frontier_path(raw['target'])
+        stale=[];source_hash=raw['source_sha256'];target_hash=raw['target_sha256'];flags=raw['flags']
+        if not isinstance(flags,list):raise ValueError('flags must be an ordered array')
+        if not re.fullmatch(r'[0-9a-f]{64}',str(source_hash)) or not re.fullmatch(r'[0-9a-f]{64}',str(target_hash)):
+            raise ValueError('Handoff source/target hashes must be SHA-256')
+        if not source_path.is_file() or digest(source_path.read_bytes())!=source_hash:stale.append('source_bytes')
+        if not target_path.is_file() or digest(target_path.read_bytes())!=target_hash:stale.append('target_bytes')
+        member_rows=[];profile_ok=True
+        for fid in unresolved:
+            row=by_id[fid]
+            if row.get('source')!=source or row.get('target_sha256')!=target_hash or row.get('target')!=target:
+                stale.append('ledger_binding:'+fid)
+            if row.get('flags')!=flags:stale.append('ledger_flags:'+fid)
+            proof_source=row.get('proof',{}).get('source_sha256')
+            if proof_source and proof_source!=source_hash:stale.append('ledger_source_hash:'+fid)
+            c=census_rows.get(fid)
+            if not c:profile_ok=False
+            else:
+                if c.get('source')!=source or c.get('target_sha256')!=target_hash or c.get('flags')!=flags:
+                    stale.append('census_profile:'+fid)
+                if c.get('source_sha256_matches_current') is False:stale.append('census_source_hash:'+fid)
+            if c and (c.get('size')!=row.get('size') or c.get('target_size')!=row.get('size')):
+                stale.append('census_extent:'+fid)
+            member_rows.append(row)
+        profile_groups=[g for g in groups if g.get('source')==source and g.get('flags')==flags]
+        for group in profile_groups:
+            targets=_frontier_targets(group)
+            if target in targets and (targets[target]!=target_hash or group.get('source_sha256')!=source_hash or
+                    group.get('source_sha256_after',source_hash)!=source_hash or
+                    group.get('matches_recorded_source_sha256') is False):
+                stale.append('recorded_profile_hash_mismatch')
+        compile_group=next((g for g in groups if g.get('source')==source and g.get('flags')==flags and
+            g.get('source_sha256')==source_hash and g.get('matches_recorded_source_sha256') is not False and
+            g.get('source_sha256_after',source_hash)==source_hash and g.get('status')=='compiled' and
+            _frontier_targets(g).get(target)==target_hash),None)
+        if compile_group and not _frontier_context(compile_group):stale.append('recorded_include_context')
+        if compile_group and compile_group.get('target_sha256_after'):
+            after=_frontier_targets(dict(target_sha256=compile_group['target_sha256_after']))
+            if after.get(target)!=target_hash:stale.append('recorded_target_after')
+        current_compile=(not stale and census.get('recovery_sha256')==ledger_sha and profile_ok and
+            bool(compile_group) and bool(member_rows) and all(
+                census_rows[fid].get('category') in ('raw_equal','reference_only') and
+                census_rows[fid].get('source_sha256_matches_current',True) is not False
+                for fid in unresolved))
+        freshness='stale_inputs' if stale else ('current_profile_compile' if current_compile else 'recorded_only')
+        context=dict(function_ids=unresolved,source=source,source_sha256=source_hash,flags=flags,
+                     target=target,target_sha256=target_hash)
+        task_id=identity(context)
+        blockers=[]
+        if not isinstance(raw['blockers'],list):raise ValueError('blockers must be an array')
+        for b in raw['blockers']:
+            if not isinstance(b,dict) or not b.get('kind') or not isinstance(b.get('requirement'),dict):
+                raise ValueError('Each blocker requires kind and requirement object')
+            affected=b.get('function_ids')
+            if not isinstance(affected,list) or not affected or not set(affected)<=set(all_function_ids):
+                raise ValueError('Each blocker must name its affected function_ids explicitly')
+            affected=[fid for fid in affected if fid in unresolved]
+            if not affected:continue
+            pins=b.get('evidence_files')
+            if not isinstance(pins,list) or not pins:raise ValueError('Blockers require at least one evidence pin')
+            pin_map={(p['path'],p['sha256']):p for p in (_frontier_pin(pin) for pin in pins)}
+            checked=sorted(pin_map.values(),key=lambda p:(p['path'],p['sha256']))
+            pins_current=all(pin['current'] for pin in checked)
+            typed=_typed_requirement(b['requirement'])
+            shared_key=identity(dict(target_module_sha256=target_hash,requirement=b['requirement'],
+                                     evidence_pins=[dict(path=p['path'],sha256=p['sha256']) for p in checked])) if typed and pins_current else None
+            blockers.append(dict(kind=b['kind'],requirement=b['requirement'],function_ids=affected,
+                evidence_files=checked,scope='shared_owner' if shared_key else 'function_local',
+                blocker_key=shared_key,stale_evidence=not pins_current))
+        task=dict(task_context_id=task_id,function_ids=unresolved,source=source,source_sha256=source_hash,
+            flags=flags,target=target,target_sha256=target_hash,outcome=raw['outcome'],
+            freshness=freshness,stale_reasons=sorted(set(stale)),blockers=blockers,
+            dispatch_status='stale_inputs' if stale else 'preflight_required',
+            region=raw.get('region'),family=raw.get('family'),region_context_id=raw.get('context_id'),
+            ledger_status={fid:by_id[fid]['status'] for fid in unresolved},
+            census_category={fid:census_rows[fid].get('category') for fid in unresolved if fid in census_rows},
+            recorded_relocations={fid:census_rows[fid].get('relocation_count') for fid in unresolved if fid in census_rows},
+            compiler_call_count=raw.get('compiler_call_count',0))
+        if any(b['stale_evidence'] for b in blockers):
+            task['freshness']='stale_inputs';task['dispatch_status']='stale_inputs'
+            task['stale_reasons']=sorted(set(task['stale_reasons']+['blocker_evidence']))
+        task['first_blocker']=raw.get('first_blocker') or (blockers[0]['kind'] if blockers else
+            'No pinned handoff blocker; current per-caller preflight is required')
+        existing=next((t for t in tasks if t['task_context_id']==task_id),None)
+        if existing is None:tasks.append(task)
+        else:
+            known={(b['kind'],identity(b['requirement']),tuple(b['function_ids']),b['blocker_key']) for b in existing['blockers']}
+            for blocker in task['blockers']:
+                key=(blocker['kind'],identity(blocker['requirement']),tuple(blocker['function_ids']),blocker['blocker_key'])
+                if key not in known:existing['blockers'].append(blocker);known.add(key)
+            if task['freshness']=='stale_inputs' or any(b['stale_evidence'] for b in task['blockers']):
+                existing['freshness']='stale_inputs';existing['dispatch_status']='stale_inputs'
+                existing['stale_reasons']=sorted(set(existing['stale_reasons']+task['stale_reasons']+
+                    (['blocker_evidence'] if any(b['stale_evidence'] for b in task['blockers']) else [])))
+        covered_ids.update(unresolved)
+
+    for handoff in handoffs:add_task(handoff)
+    # Explicit ID-only requests produce function-local packets, never inferred owner groups.
+    for fid in selected:
+        if fid in covered_ids:continue
+        row=by_id.get(fid)
+        if row is None:unknown_ids.append(fid);continue
+        if row.get('status') in accepted_statuses:accepted_filtered.append(fid);continue
+        source,source_path=_frontier_path(row['source']);target,target_path=_frontier_path(row['target'])
+        source_hash=digest(source_path.read_bytes()) if source_path.is_file() else ''
+        add_task(dict(function_ids=[fid],source=source,source_sha256=source_hash,flags=row.get('flags',[]),
+            target=target,target_sha256=row['target_sha256'],outcome='no_handoff',blockers=[]))
+
+    omitted_tasks=tasks[limit:]
+    tasks=tasks[:limit]
+    knowledge_path=ROOT/'evidence/region_knowledge.json'
+    knowledge=read(knowledge_path) if knowledge_path.exists() else {'observations':[]}
+    knowledge_hash=digest(knowledge_path.read_bytes()) if knowledge_path.exists() else None
+    groups_by_key={};local=[];context_cache={}
+    for task in tasks:
+        region=task.get('region');context=task.get('region_context_id')
+        if region and region not in context_cache:context_cache[region]=_frontier_region_context(region,ledger)
+        current_context=context_cache.get(region) if region else None
+        matching=[n for n in knowledge.get('observations',[]) if region and task.get('family') and context and
+            current_context==context and n.get('region')==region and n.get('family')==task['family'] and
+            n.get('context_id')==task['region_context_id'] and n.get('verdict') in ('exhausted','falsified','blocked')]
+        task['negative_knowledge']=matching
+        task['negative_knowledge_state']='applicable_reentry_required' if matching else 'unknown'
+        if matching and task['dispatch_status']!='stale_inputs':task['dispatch_status']='negative_reentry_required'
+        for blocker in task['blockers']:
+            if not blocker['blocker_key']:
+                local.append(dict(task_context_id=task['task_context_id'],function_ids=blocker['function_ids'],
+                                  kind=blocker['kind'],requirement=blocker['requirement']))
+                continue
+            prior=groups_by_key.get(blocker['blocker_key'])
+            if prior and prior['target_module']!=task['target']:
+                # Version one never shares a blocker group across distinct modules.
+                local.append(dict(task_context_id=task['task_context_id'],function_ids=blocker['function_ids'],
+                    kind=blocker['kind'],requirement=blocker['requirement'],reason='cross_module_no_shared_proof_profile'))
+                continue
+            group=groups_by_key.setdefault(blocker['blocker_key'],dict(blocker_key=blocker['blocker_key'],
+                target_module_sha256=task['target_sha256'],requirement=blocker['requirement'],
+                target_module=task['target'],evidence_files=blocker['evidence_files'],kind=blocker['kind'],members=[]))
+            member=next((m for m in group['members'] if m['task_context_id']==task['task_context_id']),None)
+            if member is None:group['members'].append(dict(task_context_id=task['task_context_id'],function_ids=blocker['function_ids']))
+            else:member['function_ids']=sorted(set(member['function_ids'])|set(blocker['function_ids']))
+    result=dict(scope='on-demand planning only; recovery.json remains the sole acceptance authority',
+        ledger_sha256=ledger_sha,census_path=_frontier_path(census_path)[0],census_sha256=digest(census_file.read_bytes()),
+        census_freshness='current_ledger_header' if census.get('recovery_sha256')==ledger_sha else 'stale_recovery_provenance',
+        region_knowledge_sha256=knowledge_hash,candidates=tasks,shared_blockers=list(groups_by_key.values()),
+        function_local_blockers=local,omitted_candidate_count=len(omitted_tasks),
+        omitted_task_context_ids=[task['task_context_id'] for task in omitted_tasks],
+        accepted_filtered=sorted(set(accepted_filtered)),unknown_ids=sorted(set(unknown_ids)))
+    return result
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__);sub=parser.add_subparsers(dest='command',required=True)
     q=sub.add_parser('packet');q.add_argument('region');q.add_argument('--more',action='store_true')
+    f=sub.add_parser('matching-frontier',help='Emit current-hash-guarded matching candidates from explicit IDs/handoffs')
+    f.add_argument('--census',type=Path,required=True);f.add_argument('--handoff',type=Path,action='append',default=[])
+    f.add_argument('--ids',nargs='+');f.add_argument('--limit',type=int,default=8)
     r=sub.add_parser('record')
     for name in ('spec','source','baseline','report','meta'):r.add_argument('--'+name,type=Path,required=True)
     r.add_argument('--parent',type=Path,action='append',default=[])
@@ -389,6 +633,7 @@ def main():
     m=sub.add_parser('materialize');m.add_argument('--receipt',type=Path,required=True);m.add_argument('--baseline',type=Path,required=True);m.add_argument('--output',type=Path,required=True)
     a=parser.parse_args()
     if a.command=='packet':packet(a.region,a.more)
+    elif a.command=='matching-frontier':print(json.dumps(matching_frontier(a.census,a.handoff,a.ids,a.limit),indent=2))
     elif a.command=='record':record(a.spec,a.source,a.baseline,a.report,a.meta,a.parent)
     elif a.command=='check':check_reentry(read(a.meta),known_observations(a.prior),context_identity(read(a.spec),a.baseline.read_text()));print('New discriminator/context allowed; no proof or compilation cached.')
     else:

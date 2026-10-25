@@ -239,6 +239,24 @@ class ExistingUnitPromotionTests(unittest.TestCase):
 
         self.assertEqual(self.state.read_bytes(), before)
 
+    def test_pinned_unsupported_peer_is_rejected_before_strict_compile(self):
+        selected = copy.deepcopy(self.rows[0])
+        selected.update(id='candidate', symbol='_sample', status='CODEGEN_SIMILAR',
+                        proof=dict(selected['proof'], co_defined_functions=['_extra']))
+        unsupported = copy.deepcopy(self.rows[1])
+        unsupported.update(id='unsupported-peer', symbol='_extra', status='CODEGEN_SIMILAR',
+                           rva='0x1010', proof=dict(unsupported['proof'], co_defined_functions=['_extra']))
+        self.state.write_text(json.dumps({'functions': [selected, unsupported]}))
+        before = self.state.read_bytes()
+
+        with patch.object(promote, 'verify_rows', side_effect=AssertionError('strict verification must not run')) as verify:
+            with self.assertRaisesRegex(ValueError, 'Pinned co-defined function overlaps an unsupported peer'):
+                promote.promote_existing_units(['candidate'])
+
+        verify.assert_not_called()
+        self.compiler.assert_not_called()
+        self.assertEqual(self.state.read_bytes(), before)
+
     def test_duplicate_emitted_function_symbols_are_rejected(self):
         self.multi_target_rows()
         obj = bytearray(self.obj.read_bytes())

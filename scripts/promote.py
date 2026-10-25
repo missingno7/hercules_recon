@@ -19,6 +19,113 @@ QUOTED_INCLUDE = re.compile(rb'^\s*#\s*include\s*"([^"\r\n]+)"')
 RECONSTRUCTED_PEER_SCOPE = 'fresh size-exact reconstructed contribution; neither raw nor masked equality'
 
 
+def existing_unit_metadata(rows, ids, preserve_reconstructed=False, *, root=None, target_root=None, toolchain=None):
+    """Validate ledger-only mixed-unit eligibility before any fresh compilation.
+
+    This is shared with the compiler-free RAW preflight. Object inventory,
+    reconstructed contribution hashes, masked identities, and strict accepted
+    function checks remain the responsibility of the later fresh promotion gate.
+    """
+    from similar import SCOPE
+    from match import RAW_STATUSES, RELOCATED
+
+    root = Path(root or ROOT).resolve()
+    target_root = Path(target_root or root).resolve()
+    toolchain = Path(toolchain or DEFAULT_TOOLCHAIN).resolve()
+    rows = list(rows)
+    wanted = set(ids)
+    selected = [row for row in rows if row.get('id') in wanted]
+    if not wanted or len(selected) != len(wanted) or any(
+            row.get('status') != 'CODEGEN_SIMILAR' or not isinstance(row.get('proof'), dict) or
+            row['proof'].get('scope') != SCOPE for row in selected):
+        raise ValueError('Existing-unit adoption requires unique, reviewed masked rows')
+
+    sources = {row['source'] for row in selected}
+    peers = [row for row in rows if row.get('source') in sources]
+    reconstructed_peers = []
+    for row in peers:
+        path = (root / row['source']).resolve()
+        if not path.is_relative_to(root / 'src'):
+            raise ValueError('Existing units must be repository source')
+        proof = row.get('proof')
+        if not isinstance(proof, dict):
+            raise ValueError('Existing-unit peer lacks a prior proof: ' + row['id'])
+        if row['status'] == 'RECONSTRUCTED':
+            if not preserve_reconstructed:
+                raise ValueError('Every existing-unit peer needs a supported prior proof')
+            if proof.get('scope') != RECONSTRUCTED_PEER_SCOPE:
+                raise ValueError('Preserved reconstructed peer has an unsupported prior proof: ' + row['id'])
+            if (type(proof.get('compiled_size')) is not int or proof['compiled_size'] != row.get('size') or
+                    not isinstance(proof.get('compiled_sha256'), str) or
+                    not re.fullmatch(r'[0-9a-f]{64}', proof['compiled_sha256']) or
+                    not isinstance(proof.get('source_sha256'), str) or
+                    not re.fullmatch(r'[0-9a-f]{64}', proof['source_sha256']) or
+                    not isinstance(proof.get('toolchain'), str) or not proof['toolchain']):
+                raise ValueError('Preserved reconstructed peer lacks complete size/hash/toolchain proof: ' + row['id'])
+            target = target_root / row['target']
+            if digest(target.read_bytes()) != row.get('target_sha256'):
+                raise ValueError('Preserved reconstructed peer target identity changed: ' + row['id'])
+            reconstructed_peers.append(row)
+        elif row['status'] not in (RAW_STATUSES | {RELOCATED}) and not (
+                row['status'] == 'CODEGEN_SIMILAR' and proof.get('scope') == SCOPE):
+            raise ValueError('Every existing-unit peer needs a supported prior proof')
+        if digest(path.read_bytes()) != proof.get('source_sha256'):
+            raise ValueError('Existing source differs from recorded proof: ' + row['id'])
+
+    units = {}
+    for source in sorted(sources):
+        members = [row for row in peers if row['source'] == source]
+        if len({row['id'] for row in members}) != len(members):
+            raise ValueError('Duplicate existing-unit peer records')
+        if any(not isinstance(row.get('flags'), list) or any(not isinstance(flag, str) for flag in row['flags'])
+               for row in members):
+            raise ValueError('Unit peer has an invalid compiler flags profile')
+        if len({tuple(row['flags']) for row in members}) != 1:
+            raise ValueError('Unit peers disagree about compiler flags')
+        reconstructed_members = [row for row in reconstructed_peers if row['source'] == source]
+        if reconstructed_members:
+            source_path = (root / source).resolve()
+            context = compile_inputs(source_path, members[0]['flags'], toolchain)
+            if set(context) != {source_path}:
+                raise ValueError('Preserved reconstructed peers require a source-only compile context')
+
+        mapped_names = [row.get('symbol') for row in members]
+        if any(not isinstance(symbol, str) or not symbol for symbol in mapped_names):
+            raise ValueError('Existing-unit peer has an invalid function symbol')
+        mapped = set(mapped_names)
+        symbol_targets = {}
+        for row in members:
+            target = (target_root / row['target']).resolve().as_posix().casefold()
+            if target in symbol_targets.setdefault(row['symbol'], set()):
+                raise ValueError('Function inventory maps one symbol more than once per target')
+            symbol_targets[row['symbol']].add(target)
+
+        masked_members = [row for row in members if row['status'] == 'CODEGEN_SIMILAR']
+        declarations = set()
+        for row in masked_members:
+            names = row.get('proof', {}).get('co_defined_functions', [])
+            if (not isinstance(names, list) or any(not isinstance(name, str) or not name for name in names) or
+                    len(names) != len(set(names))):
+                raise ValueError('Invalid pinned co-defined function inventory: ' + row['id'])
+            declarations.add(frozenset(names))
+        if len(declarations) != 1:
+            raise ValueError('Unit peers disagree about pinned co-defined functions')
+        pinned = set(next(iter(declarations)))
+        relocated_symbols = {row['symbol'] for row in members if row['status'] == RELOCATED}
+        raw_symbols = {row['symbol'] for row in members if row['status'] in RAW_STATUSES}
+        reconstructed_symbols = {row['symbol'] for row in reconstructed_members}
+        if reconstructed_symbols - pinned:
+            raise ValueError('Recorded reconstructed peer is absent from pinned co-defined inventory')
+        if (pinned & mapped) - relocated_symbols - raw_symbols - reconstructed_symbols:
+            raise ValueError('Pinned co-defined function overlaps an unsupported peer')
+        units[source] = dict(members=members, mapped_names=mapped_names, mapped=mapped,
+                             pinned_co_defined=pinned, co_defined=pinned - mapped,
+                             reconstructed_members=reconstructed_members,
+                             flags=list(members[0]['flags']))
+    return dict(selected=selected, sources=sources, peers=peers,
+                reconstructed_peers=reconstructed_peers, units=units)
+
+
 def atomic_bytes(path, content):
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.name + ".promotion-tmp")
@@ -269,9 +376,9 @@ def promote_existing_units(ids, verify_only=False, report=None, preserve_reconst
     No source is moved, extracted, rewritten or replaced. Other code/data remains
     at its existing proof level. The pilot source-replacement gate stays intact.
     """
-    from similar import SCOPE, masked_identity
+    from similar import masked_identity
     from masked import masked_compare
-    from match import accepted_rows, RAW_STATUSES, RELOCATED
+    from match import accepted_rows
     if JOURNAL.exists():
         raise ValueError('Interrupted promotion: recover it first')
     if report is not None and not any(report.resolve().is_relative_to(ROOT / d) for d in ('work', 'build')):
@@ -279,55 +386,11 @@ def promote_existing_units(ids, verify_only=False, report=None, preserve_reconst
     state_before = STATE.read_bytes()
     state = json.loads(state_before)
     wanted = set(ids)
-    selected = [r for r in state['functions'] if r['id'] in wanted]
-    if not wanted or len(selected) != len(wanted) or any(
-            r['status'] != 'CODEGEN_SIMILAR' or not isinstance(r.get('proof'), dict) or
-            r['proof'].get('scope') != SCOPE for r in selected):
-        raise ValueError('Existing-unit adoption requires unique, reviewed masked rows')
-    sources = {r['source'] for r in selected}
-    peers = [r for r in state['functions'] if r.get('source') in sources]
-    reconstructed_peers = []
-    for row in peers:
-        path = (ROOT / row['source']).resolve()
-        if not path.is_relative_to(ROOT / 'src'):
-            raise ValueError('Existing units must be repository source')
-        proof = row.get('proof')
-        if not isinstance(proof, dict):
-            raise ValueError('Existing-unit peer lacks a prior proof: ' + row['id'])
-        if row['status'] == 'RECONSTRUCTED':
-            if not preserve_reconstructed:
-                raise ValueError('Every existing-unit peer needs a supported prior proof')
-            if proof.get('scope') != RECONSTRUCTED_PEER_SCOPE:
-                raise ValueError('Preserved reconstructed peer has an unsupported prior proof: ' + row['id'])
-            if (type(proof.get('compiled_size')) is not int or proof['compiled_size'] != row.get('size') or
-                    not isinstance(proof.get('compiled_sha256'), str) or
-                    not re.fullmatch(r'[0-9a-f]{64}', proof['compiled_sha256']) or
-                    not isinstance(proof.get('source_sha256'), str) or
-                    not re.fullmatch(r'[0-9a-f]{64}', proof['source_sha256']) or
-                    not isinstance(proof.get('toolchain'), str) or not proof['toolchain']):
-                raise ValueError('Preserved reconstructed peer lacks complete size/hash/toolchain proof: ' + row['id'])
-            target = ROOT / row['target']
-            if digest(target.read_bytes()) != row.get('target_sha256'):
-                raise ValueError('Preserved reconstructed peer target identity changed: ' + row['id'])
-            reconstructed_peers.append(row)
-        elif row['status'] not in (RAW_STATUSES | {RELOCATED}) and not (
-                row['status'] == 'CODEGEN_SIMILAR' and proof.get('scope') == SCOPE):
-            raise ValueError('Every existing-unit peer needs a supported prior proof')
-        if digest(path.read_bytes()) != proof.get('source_sha256'):
-            raise ValueError('Existing source differs from recorded proof: ' + row['id'])
-    for source in sources:
-        members = [r for r in peers if r['source'] == source]
-        if any(not isinstance(r.get('flags'), list) or any(not isinstance(flag, str) for flag in r['flags'])
-               for r in members):
-            raise ValueError('Unit peer has an invalid compiler flags profile')
-        if len({tuple(r['flags']) for r in members}) != 1:
-            raise ValueError('Unit peers disagree about compiler flags')
-        reconstructed_members = [r for r in reconstructed_peers if r['source'] == source]
-        if reconstructed_members:
-            source_path = (ROOT / source).resolve()
-            context = compile_inputs(source_path, members[0]['flags'], DEFAULT_TOOLCHAIN)
-            if set(context) != {source_path}:
-                raise ValueError('Preserved reconstructed peers require a source-only compile context')
+    metadata = existing_unit_metadata(state['functions'], wanted, preserve_reconstructed,
+                                      root=ROOT, toolchain=DEFAULT_TOOLCHAIN)
+    selected = metadata['selected']
+    sources = metadata['sources']
+    peers = metadata['peers']
     checked = copy.deepcopy(accepted_rows(state['functions']) + selected)
     for row in checked:
         if row['id'] in wanted:
@@ -346,47 +409,11 @@ def promote_existing_units(ids, verify_only=False, report=None, preserve_reconst
     by_id = {r['id']: r for r in results}
     units = {}
     for source in sorted(sources):
-        members = [r for r in peers if r['source'] == source]
-        if len({r['id'] for r in members}) != len(members):
-            raise ValueError('Duplicate existing-unit peer records')
-        mapped_names = [r.get('symbol') for r in members]
-        if any(not isinstance(symbol, str) or not symbol for symbol in mapped_names):
-            raise ValueError('Existing-unit peer has an invalid function symbol')
-        mapped = set(mapped_names)
-        # The same source function can be recorded against different target
-        # modules. It still denotes one emitted COFF definition, and cannot be
-        # claimed twice within the same target.
-        symbol_targets = {}
-        for row in members:
-            target = (ROOT / row['target']).resolve().as_posix().casefold()
-            if target in symbol_targets.setdefault(row['symbol'], set()):
-                raise ValueError('Function inventory maps one symbol more than once per target')
-            symbol_targets[row['symbol']].add(target)
-
-        masked_members = [r for r in members if r['status'] == 'CODEGEN_SIMILAR']
-        declarations = set()
-        for row in masked_members:
-            names = row.get('proof', {}).get('co_defined_functions', [])
-            if (not isinstance(names, list) or
-                    any(not isinstance(name, str) or not name for name in names) or
-                    len(names) != len(set(names))):
-                raise ValueError('Invalid pinned co-defined function inventory: ' + row['id'])
-            declarations.add(frozenset(names))
-        if len(declarations) != 1:
-            raise ValueError('Unit peers disagree about pinned co-defined functions')
-        pinned_co_defined = set(next(iter(declarations)))
-        # Relocated peers may appear in masked rows' pinned inventory because
-        # the masked verifier treats them as co-defined. Strict RAW peers have
-        # the same inventory overlap and are freshly checked by verify_rows.
-        relocated_symbols = {r['symbol'] for r in members if r['status'] == RELOCATED}
-        raw_symbols = {r['symbol'] for r in members if r['status'] in RAW_STATUSES}
-        reconstructed_members = [r for r in members if r['status'] == 'RECONSTRUCTED']
-        reconstructed_symbols = {r['symbol'] for r in reconstructed_members}
-        if reconstructed_symbols - pinned_co_defined:
-            raise ValueError('Recorded reconstructed peer is absent from pinned co-defined inventory')
-        if (pinned_co_defined & mapped) - relocated_symbols - raw_symbols - reconstructed_symbols:
-            raise ValueError('Pinned co-defined function overlaps an unsupported peer')
-        co_defined = pinned_co_defined - mapped
+        plan = metadata['units'][source]
+        members = plan['members']
+        mapped = plan['mapped']
+        co_defined = plan['co_defined']
+        reconstructed_members = plan['reconstructed_members']
         result = by_id[next(r['id'] for r in members if r['id'] in wanted)]
         obj = Path(result['object'])
         observed[obj] = obj.read_bytes()

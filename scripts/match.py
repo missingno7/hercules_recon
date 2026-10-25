@@ -75,7 +75,7 @@ def verify_toolchain(toolchain):
 
 
 def compile_source(source, flags, toolchain=DEFAULT_TOOLCHAIN):
-    verify_toolchain(toolchain)
+    toolchain_id = verify_toolchain(toolchain)
     scratch = ROOT / "build/match"
     scratch.mkdir(parents=True, exist_ok=True)
     output = Path(tempfile.mkdtemp(prefix="compile-", dir=scratch))
@@ -88,7 +88,47 @@ def compile_source(source, flags, toolchain=DEFAULT_TOOLCHAIN):
     env["LIB"] = str(toolchain / "lib")
     command = [str(toolchain / "bin/cl.exe"), "/nologo", "/c", "/Gy", *flags,
                "/Fo" + str(obj), str(Path(source).resolve())]
-    result = subprocess.run(command, env=env, cwd=output, capture_output=True, text=True)
+    metrics_dir = None
+    metrics = os.environ.get("HERCULES_COMPILE_METRICS_DIR")
+    if metrics:
+        repo_root = Path(__file__).resolve().parents[1]
+        requested = Path(metrics)
+        metrics_dir = (requested if requested.is_absolute() else repo_root / requested).resolve()
+        roots = [(repo_root / name).resolve() for name in ("work", "build")]
+        if not any(root.is_relative_to(repo_root) and metrics_dir.is_relative_to(root) for root in roots):
+            raise ValueError("Compile metrics directory must resolve under repository work/ or build/")
+        metrics_dir.mkdir(parents=True, exist_ok=True)
+        metrics_dir = metrics_dir.resolve()
+        if not any(root.is_relative_to(repo_root) and metrics_dir.is_relative_to(root) for root in roots):
+            raise ValueError("Compile metrics directory must resolve under repository work/ or build/")
+        from datetime import datetime, timezone
+        import uuid
+        source_path = Path(source).resolve()
+        try:
+            source_hash = digest(source_path.read_bytes())
+        except OSError:
+            source_hash = None
+        started_utc = datetime.now(timezone.utc)
+        started = time.perf_counter()
+
+        def record(returncode, error):
+            event = {"command": command, "source_path": str(source_path), "source_sha256": source_hash,
+                     "flags": command[4:-2], "toolchain_id": toolchain_id,
+                     "started_utc": started_utc.isoformat(), "ended_utc": datetime.now(timezone.utc).isoformat(),
+                     "elapsed_seconds": time.perf_counter() - started,
+                     "returncode": returncode, "error": error}
+            with (metrics_dir / (uuid.uuid4().hex + ".json")).open("x", encoding="utf-8") as stream:
+                json.dump(event, stream, sort_keys=True)
+                stream.write("\n")
+
+        try:
+            result = subprocess.run(command, env=env, cwd=output, capture_output=True, text=True)
+        except BaseException as exc:
+            record(None, f"{type(exc).__name__}: {exc}")
+            raise
+        record(result.returncode, f"compiler exited with status {result.returncode}" if result.returncode else None)
+    else:
+        result = subprocess.run(command, env=env, cwd=output, capture_output=True, text=True)
     (output / "compile.log").write_text(result.stdout + result.stderr)
     if result.returncode != 0 or not obj.is_file():
         raise RuntimeError(f"Historical compiler failed ({result.returncode}); see {output / 'compile.log'}")
@@ -495,25 +535,52 @@ def main():
     parser.add_argument('--raw-only', action='store_true', help='independent legacy raw regression only')
     parser.add_argument('--bindings', type=Path, help='reviewed evidence for references or preflight')
     parser.add_argument('--objects', type=Path, help='recorded object report for compiler-free preflight')
+    parser.add_argument('--select', nargs='+', help='explicit recovery IDs for compiler-free preflight')
+    parser.add_argument('--raw', action='store_true', help='preflight unchanged-unit RAW eligibility')
+    parser.add_argument('--preserve-reconstructed', action='store_true',
+                        help='preflight recorded source-only reconstructed peers with --raw')
     args = parser.parse_args()
     state_before = (ROOT / "recovery.json").read_bytes()
     state = json.loads(state_before)
     rows = [r for r in state["functions"] if r["id"] == args.id] if args.id else state["functions"]
     if args.id and not rows:
         raise SystemExit(f"Unknown function {args.id}")
+    if args.select:
+        if args.command != 'preflight' or args.id or len(args.select) != len(set(args.select)):
+            parser.error('--select requires preflight, unique IDs and no positional ID')
+        selected = set(args.select)
+        rows = [row for row in rows if row['id'] in selected]
+        if {row['id'] for row in rows} != selected:
+            parser.error('--select contains unknown recovery IDs')
+    if args.raw and args.command != 'preflight':
+        parser.error('--raw is only used by preflight')
+    if args.preserve_reconstructed and not (args.command == 'preflight' and args.raw):
+        parser.error('--preserve-reconstructed requires preflight --raw')
     if args.objects and args.command != 'preflight':
         parser.error('--objects is only used by preflight')
     if args.command == 'preflight':
-        if args.bindings is None or args.objects is None or args.source or args.obj or args.raw_only:
-            parser.error('preflight requires --bindings and --objects, forbids --source/--obj/--raw-only')
-        from reference_preflight import preflight
-        ids = set(json.loads(args.bindings.read_bytes())['functions'])
-        if not args.id and ids - {r['id'] for r in rows}:
-            parser.error('Reference bindings contain unknown recovery IDs')
-        rows = [r for r in rows if r['id'] in ids]
-        if not rows:
-            parser.error('No selected functions have reviewed bindings')
-        result = preflight(rows, args.bindings, args.objects, args.toolchain, args.original_root)
+        if args.objects is None or args.source or args.obj or args.raw_only:
+            parser.error('preflight requires --objects, forbids --source/--obj/--raw-only')
+        if args.raw:
+            if args.bindings or not (args.id or args.select):
+                parser.error('preflight --raw requires explicit IDs and no --bindings')
+            from reference_preflight import preflight_raw
+            result = preflight_raw(rows, args.objects, args.preserve_reconstructed,
+                                   args.toolchain, args.original_root)
+        else:
+            if args.bindings is None:
+                parser.error('reference preflight requires --bindings')
+            from reference_preflight import preflight
+            ids = set(json.loads(args.bindings.read_bytes())['functions'])
+            known = {r['id'] for r in state['functions']}
+            if ids - known:
+                parser.error('Reference bindings contain unknown recovery IDs')
+            if (args.id or args.select) and {r['id'] for r in rows} - ids:
+                parser.error('Selected functions are missing reviewed bindings')
+            rows = [r for r in rows if r['id'] in ids]
+            if not rows:
+                parser.error('No selected functions have reviewed bindings')
+            result = preflight(rows, args.bindings, args.objects, args.toolchain, args.original_root)
         if (ROOT / 'recovery.json').read_bytes() != state_before:
             raise ValueError('Recovery state changed during preflight')
         if args.report:
@@ -529,6 +596,9 @@ def main():
         for item in result['functions']:
             for message in item['errors']:
                 print(f"  {item['id']}: {message}")
+        for unit in result.get('units', []):
+            for message in unit['errors']:
+                print(f"  {unit['source']}: {message}")
         if not result['ok']:
             raise SystemExit(1)
         return

@@ -5,6 +5,41 @@ and the focused source/evidence for the function or dependency family. Work from
 a falsifiable question; keep experiments under ignored candidates/ or work/.
 Generated packets and reports are disposable and never grant acceptance.
 
+For the current blocker frontier and measured integration results, see
+[the velocity pilot](matching_velocity_2026_10_25.md). Build a planning view from
+the recorded census and small, reviewed handoffs; do not rebuild the census:
+
+    python scripts/region.py matching-frontier --census work/realignment/census/recorded.json --handoff work/lane/handoff.json --ids title.0cce0 title.0cd00 --limit 8
+
+Handoffs name `function_ids`, `source`, `source_sha256`, ordered `flags`, `target`,
+`target_sha256`, `outcome`, and `blockers`. Each blocker names affected IDs, a typed
+`requirement`, and hashed `evidence_files` (`path`/`sha256`). Group an owner only
+when the requirement, module identity, and evidence agree; an address or name is
+insufficient. The frontier filters accepted/stale work and reports exact-context
+negative knowledge. Old census context remains `recorded_only`; every candidate
+requires current preflight. Unclassified proof stays local rather than acquiring
+an inferred shared identity. Truncated output reports omitted task IDs.
+
+For unchanged-unit RAW candidates, check eligibility before integration:
+
+    python scripts/match.py preflight --raw --select module.function --objects work/lane/objects.json --report work/lane/preflight.json
+
+Add `--preserve-reconstructed` only for the existing reviewed mixed-status path.
+Reference preflight also accepts explicit `--select` IDs. These checks inventory
+recorded contributions and current inputs without compiling; they never publish
+acceptance. Promotion now rejects unsupported unchanged-unit metadata before
+running full protection. Fresh compilation, peer protection, independent reference
+proof, and journaled publication remain required.
+
+For complete invocation accounting in a new campaign, set
+`HERCULES_COMPILE_METRICS_DIR=work/<campaign>/compiler-events` in its process
+environment. The existing compiler wrapper writes one uniquely named JSON event
+per attempt, including UTC bounds, duration, command, source hash, compiler identity
+and exit/error. It also captures fixture calls when their temporary root is later
+removed. The path must resolve within this repository's ignored work/build trees.
+Unset it to use the normal path. Events are diagnostic, contain no acceptance
+cache, and measure compiler execution rather than worker or integration wait.
+
 For a genuine code-generation residue, the bounded
 [cpp_permuter pilot](permuter_pilot_2026_10_25.md) establishes an optional explicit
 alternative generator with the pinned VC5 toolchain. It produced two
