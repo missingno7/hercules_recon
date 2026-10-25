@@ -55,6 +55,10 @@ are the evidence oracle; PSX builds are secondary.
 
 ## Work coordination
 
+- Use main as the canonical integration branch for the one reconstruction.
+  Keep task branches temporary and remove them after their work is merged.
+  Source recovery, matching, renderer evidence and platform work feed the same
+  source tree and proof ledger; retained experiments are not alternate products.
 - One integrator owns canonical recovery state and commits. Parallel work must
   have explicit ownership of disjoint files/functions, private scratch space, and
   a compact provenance handoff.

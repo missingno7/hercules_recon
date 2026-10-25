@@ -9,6 +9,10 @@ The goal is one game implementation. First-party code from HERCULES.EXE, TITLE,
 ENG1, and ENG3 must ultimately exist as source. The finished native runtime must
 not depend on those original executable modules.
 
+`main` is the canonical integrated reconstruction. Source recovery, strict
+matching, renderer evidence and platform work advance that same source tree.
+Task branches are temporary and are removed after integration.
+
 ## Start here
 
 - [Project direction](docs/project_direction.md) explains the target and proof boundaries.

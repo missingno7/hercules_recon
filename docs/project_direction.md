@@ -35,6 +35,11 @@ evidence and source coverage do not silently promote a matching row.
 
 ## Direction of work
 
+Keep the integrated project on `main`, with one current source tree and
+`recovery.json` as its function-matching authority. Task branches are temporary;
+merge completed work and remove the merged branch names. Historical worktrees
+and dated evidence are research snapshots rather than alternate directions.
+
 Prioritize real source recovery, shared state, ABI and data ownership, and
 coherent dependency families. Use exact matching where the evidence supports
 it, while keeping nonmatching but useful source visibly classified. Do not spend

@@ -1,6 +1,8 @@
 # Current handoff
 
 Current source is consolidated under `src/{pc,title,eng1,eng3,shared}`.
+`main` is the canonical integration branch; completed task branches are merged
+and removed. Earlier branch names in dated reports are provenance.
 Read [the source guide](../src/README.md) and [layout migration](source_layout.md).
 Active build selection is in `config/`; historical paths in dated reports are provenance.
 
@@ -29,8 +31,8 @@ valuable for integration must not be labeled as matching without proof.
 
 Historical dated documents and their evidence files remain provenance. Review
 their hypotheses against current source and tools before reusing a command.
-Current realignment: branch `codex/function-matching-realignment` contains main
-`c12c7fc` and the earlier `6640420` branch work. After the 2026-10-24 direct-call,
+The integrated history retains `c12c7fc` and the earlier `6640420` work, together
+with the source-layout consolidation. After the 2026-10-24 direct-call,
 actor and engine-helper batches, the 2026-10-25 caller-entry review, and the first
 loader-zero, collision-pointer, spatial-predicate, spatial-neighbor, target-steering,
 initialized angle-table, motion/contact, grid-caller, scene-cell, WORD-limit and
