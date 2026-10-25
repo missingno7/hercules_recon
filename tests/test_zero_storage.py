@@ -12,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import match
 import masked
 import promote
+from zero_storage import owner_profile, verify_common, verify_zero_section
 from test_matching import make_pe, workspace_temporary_directory
 from test_relocated import binding, coff_file
 
@@ -35,6 +36,18 @@ def fixture_owner(path, size=4, symbols=None):
 def fixture_caller(path, code=b'\xa1\0\0\0\0\xc3', offset=1):
     coff_file(path, code, [(offset, 1, masked.DIR32)],
               [('_sample', 0, 1, 0x20), ('_cell', 0, 0, 0)])
+
+
+def fixture_zero_section(path, size=4, symbols=None, payload=None, relocations=(), extra=None):
+    coff_file(path, b'' if payload is None else payload, relocations,
+              symbols or [('_cell', 0, 1, 0)], data=extra)
+    data = bytearray(path.read_bytes())
+    data[20:28] = b'.bss\0\0\0\0'
+    struct.pack_into('<I', data, 36, size)
+    if payload is None:
+        struct.pack_into('<I', data, 40, 0)
+    struct.pack_into('<I', data, 56, 0xc0300080)
+    path.write_bytes(data)
 
 
 class ZeroStorageTests(unittest.TestCase):
@@ -152,6 +165,108 @@ class ZeroStorageTests(unittest.TestCase):
         self.assertFalse(self.compare()['relocated_equal'])
 
 
+class ZeroSectionTests(ZeroStorageTests):
+    def setUp(self):
+        super().setUp()
+        fixture_zero_section(self.owner)
+        self.record['owner_storage'] = 'zero-section-v1'
+
+    def test_owner_object_is_mandatory_and_must_be_complete_common(self):
+        # The inherited mandatory/default-owner test has COMMON-specific cases.
+        with self.assertRaisesRegex(ValueError, 'compiled owner'):
+            self.compare(owners={})
+        with self.assertRaises(ValueError):
+            verify_common(self.owner, '_cell', 4)
+        del self.record['owner_storage']
+        with self.assertRaisesRegex(ValueError, 'COMMON'):
+            self.compare()
+        self.record['owner_storage'] = 'zero-section-v1'
+        fixture_owner(self.owner)
+        with self.assertRaises(ValueError):
+            self.compare()
+
+    def test_exact_section_extent_and_unique_object(self):
+        for symbols in ([('_cell', 1, 1, 0)], [('_cell', 0, 1, 0x20)],
+                        [('_cell', 0, 1, 0), ('_other', 0, 1, 0)],
+                        [('_cell', 0, 1, 0), ('_cell', 0, 1, 0)],
+                        [('_cell', 0, 1, 0), ('_code', 0, 1, 0x20)]):
+            with self.subTest(symbols=symbols):
+                fixture_zero_section(self.owner, symbols=symbols)
+                with self.assertRaises(ValueError): self.compare()
+        fixture_zero_section(self.owner)
+        for extent in (3, 5):
+            with self.assertRaises(ValueError): verify_zero_section(self.owner, '_cell', extent)
+
+    def test_initialized_payload_relocations_and_other_storage_rejected(self):
+        for options in (dict(payload=bytes(4)), dict(payload=b'\1\0\0\0'),
+                        dict(relocations=[(0, 0, masked.DIR32)]), dict(extra=b'\0')):
+            with self.subTest(options=options):
+                fixture_zero_section(self.owner, **options)
+                with self.assertRaises(ValueError): self.compare()
+        fixture_zero_section(self.owner, extra=b'-alternatename:a=b ')
+        data = bytearray(self.owner.read_bytes()); data[60:68] = b'.drectve'
+        struct.pack_into('<I', data, 96, 0x100a00); self.owner.write_bytes(data)
+        with self.assertRaisesRegex(ValueError, 'directives'): self.compare()
+
+    def test_section_kind_flags_weak_symbols_and_static_aliases_rejected(self):
+        fixture_zero_section(self.owner)
+        original = self.owner.read_bytes()
+        for flags in (0xc0300040, 0xe0300080, 0xc2300080, 0xc0301080,
+                      0xc0300280, 0xc0f00080):
+            data = bytearray(original); struct.pack_into('<I', data, 56, flags)
+            self.owner.write_bytes(data)
+            with self.assertRaises(ValueError): self.compare()
+        self.owner.write_bytes(original)
+        for storage in (3, 105):
+            fixture_zero_section(self.owner, symbols=[('_cell', 0, 1, 0), ('_alias', 0, 1, 0)])
+            data = bytearray(self.owner.read_bytes())
+            symbols_at = struct.unpack_from('<I', data, 8)[0]
+            data[symbols_at + 18 + 16] = storage; self.owner.write_bytes(data)
+            with self.assertRaises(ValueError): self.compare()
+
+    def test_section_definition_auxiliary_cannot_hide_comdat_selection(self):
+        fixture_zero_section(self.owner)
+        data = bytearray(self.owner.read_bytes())
+        symbols_at, count = struct.unpack_from('<II', data, 8)
+        strings_at = symbols_at + count * 18
+        section_symbol = struct.pack('<8sIhHBB', b'.bss', 0, 1, 0, 3, 1)
+        auxiliary = struct.pack('<I', 4) + bytes(14)
+        data[strings_at:strings_at] = section_symbol + auxiliary
+        struct.pack_into('<I', data, 12, count + 2)
+        self.owner.write_bytes(data)
+        self.assertTrue(self.compare()['relocated_equal'])
+        data[strings_at + 18 + 14] = 2
+        self.owner.write_bytes(data)
+        with self.assertRaisesRegex(ValueError, 'objects, aliases or functions'):
+            self.compare()
+
+    def test_unknown_representation_and_non_c_or_alias_profile_rejected(self):
+        for representation in ('guess-zero', None):
+            self.record['owner_storage'] = representation
+            with self.assertRaisesRegex(ValueError, 'representation'): self.compare()
+            with self.assertRaisesRegex(ValueError, 'representation'):
+                owner_profile(self.record, '_cell', self.root)
+        self.record['owner_storage'] = 'zero-section-v1'
+        for update in (dict(source='src/owner.cpp'), dict(flags=['/TP'])):
+            record = copy.deepcopy(self.record); record['owner'].update(update)
+            with self.assertRaisesRegex(ValueError, 'C data-only'):
+                owner_profile(record, '_cell', self.root)
+        record = copy.deepcopy(self.record); record['owner']['symbol'] = '_alias'
+        with self.assertRaisesRegex(ValueError, 'aliases'): owner_profile(record, '_cell', self.root)
+        record = copy.deepcopy(self.record); record['source_alias'] = {}
+        with self.assertRaisesRegex(ValueError, 'aliases'): owner_profile(record, '_cell', self.root)
+
+    def test_data_owner_does_not_authorize_indirect_control_flow(self):
+        fixture_caller(self.caller, bytes.fromhex('ff1500000000'), 2)
+        self.record['references'][0].update(offset=2)
+        def indirect(data):
+            data[0x400:0x406] = bytes.fromhex('ff15') + struct.pack('<I', 0x402200)
+            struct.pack_into('<H', data, 0x808, 0x3002)
+        self.edit_pe(indirect)
+        with self.assertRaisesRegex(ValueError, 'indirect control transfer'):
+            self.compare()
+
+
 class ZeroStorageAcceptanceTests(unittest.TestCase):
     def setUp(self):
         directory = workspace_temporary_directory('zero-acceptance-')
@@ -237,6 +352,38 @@ class ZeroStorageAcceptanceTests(unittest.TestCase):
         self.write_bindings()
         with self.assertRaisesRegex(ValueError,'selected caller'):
             match.verify_rows([self.row,other],relocation_candidates={r['id']:'evidence/bindings.json' for r in (self.row,other)})
+
+    def use_zero_section(self):
+        self.document['functions']['cell-reader']['symbols']['_cell']['owner_storage'] = 'zero-section-v1'
+        self.owner_source.write_text('#include "owner.h"\nint cell = {0};\n')
+        self.document['evidence_files']['src/owner.c'] = match.digest(self.owner_source.read_bytes())
+        fixture_zero_section(self.owner_obj)
+        self.write_bindings()
+
+    def test_zero_section_uses_fresh_owner_and_existing_relocated_category(self):
+        self.use_zero_section()
+        result, stats = self.verify()
+        self.assertTrue(result[0]['exact']); self.assertEqual(stats['compiler_calls'], 2)
+        promote.promote_relocated(['cell-reader'], self.bindings)
+        accepted = json.loads(self.state.read_text())['functions'][0]
+        self.assertEqual(accepted['status'], 'FUNCTION_MATCH_RELOCATED')
+        checked, stats = match.verify_rows([accepted])
+        self.assertTrue(checked[0]['exact']); self.assertEqual(stats['compiler_calls'], 2)
+        self.assertEqual(self.compiler.call_count, 6)
+
+    def test_zero_section_preserves_include_pinning_and_race_guards(self):
+        self.use_zero_section()
+        del self.document['evidence_files']['src/owner.h']; self.write_bindings()
+        with self.assertRaisesRegex(ValueError, 'independently pinned'): self.verify()
+        self.assertEqual(self.compiler.call_count, 0)
+        self.document['evidence_files']['src/owner.h'] = match.digest(self.header.read_bytes())
+        self.write_bindings()
+        original = self.compile
+        def raced(source, flags, toolchain):
+            if Path(source) == self.source: self.header.write_text('/* raced */\n')
+            return original(source, flags, toolchain)
+        self.compiler.side_effect = raced
+        with self.assertRaisesRegex(ValueError, 'changed'): self.verify()
 
 
 if __name__=='__main__': unittest.main()

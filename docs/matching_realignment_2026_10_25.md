@@ -93,7 +93,7 @@ Current implementations were inspected at pinned revisions:
 
 Hercules keeps its pinned RTM compiler, C/C++ contexts, COFF/PE decoder, static CRT/MFC attribution, module identities and existing acceptance gates. No external compiler rule is claimed transferred merely because these sources describe it.
 
-## Integrated pilot results
+## Initial pilot results
 
 | Workstream | Unique functions promoted | Complete bytes | New verified reference uses | Focused compiler calls |
 | --- | ---: | ---: | ---: | ---: |
@@ -138,14 +138,14 @@ The link still deliberately fails with exit 25 and produces no standalone DLL.
 The graph's compiler/source/config inputs remain identical after the subsequent
 status-only promotion; accepted counts come from the current ledger separately.
 
-| Target, after integration | RAW rows / bytes | RELOCATED rows / bytes | LINKED rows / bytes | Unique accepted rows / bytes |
+| Target, after the initial pilot | RAW rows / bytes | RELOCATED rows / bytes | LINKED rows / bytes | Unique accepted rows / bytes |
 | --- | ---: | ---: | ---: | ---: |
 | HERCULES.EXE | 28 / 656 | 25 / 896 | 0 | 53 / 1,552 |
 | TITLE.DLL | 6 / 352 | 4 / 528 | 43 / 5,360 | 53 / 6,240 |
 | ENG1.DLL | 79 / 6,368 | 232 / 26,160 | 0 | 311 / 32,528 |
 | ENG3.DLL | 27 / 2,032 | 58 / 8,752 | 0 | 85 / 10,784 |
 
-Total: **502 unique accepted entries / 51,104 bytes**, up 15 / 2,080 bytes:
+Initial checkpoint: **502 unique accepted entries / 51,104 bytes**, up 15 / 2,080 bytes:
 140 RAW, 319 RELOCATED, and the same 43 LINKED entries. The two retained prior RAW
 proofs are checked separately without double-counting their LINKED rows.
 These are target-entry/contribution counts, not a source-identity or whole-image claim.
@@ -181,15 +181,15 @@ reference-first selection; sustained throughput still needs measurement over
 further batches. Do not repeat the common census or every module build after an
 unsuccessful local hypothesis.
 
-Both promotions passed the separate 43-row LINKED gate with zero failures; its
+Both initial promotions passed the separate 43-row LINKED gate with zero failures; its
 86 existing source/image provenance drifts remain unchanged. The final STRICT
-gate checks all 461 RAW/RELOCATED obligations with zero failures. All 333
+gate at that checkpoint checks all 461 RAW/RELOCATED obligations with zero failures. All 333
 repository tests pass. Original assets and binaries were comparison inputs only;
 no original host/module process was launched.
 
 ## Next queue, ordered by concrete remaining proof
 
-1. Apply the proven complete-interface-owner review to `eng1.shared_318d0`,
+1. **Completed in the continuation below:** apply the complete-interface-owner review to `eng1.shared_318d0`,
    `eng1.shared_31990`, `eng1.shared_31e30`, and `eng3.shared_247e0` (624 bytes).
    Independently establish each module's native copy base, real source owner,
    terminal extent and actual helper entries. TITLE-labelled symbols must not
@@ -211,6 +211,48 @@ no original host/module process was launched.
    `comdat_63d0`, unsupported five-byte sound slices and ambiguous RET/NOP shims
    from the cheap game-code queue. Do not reopen `186e0` or ENG3's relative-vector
    algebraic sweep without the new evidence specified in their negative records.
+
+## Scaled continuation: real zero-section owners
+
+The first queued transfer closed all four functions, adding **624 bytes and 24
+verified references**. The first probe found the real shared owner emits one
+1,000-byte `.bss` section, rather than COMMON. Its initializer and source remain
+unchanged. The explicit `zero-section-v1` profile proves this complete data-only
+C object through its exact section extent, unique strong symbol, strict section
+flags/auxiliaries and independent native copy/zero-tail identity. It requires
+no payload, relocations, additional storage, functions or aliases. The default
+COMMON check and all instruction/reference comparisons remain intact.
+
+Luna audited the two module-specific bases and nine actual helper entries;
+Sol supplied the bounded owner mechanism and controls. All 27 outside-call
+witnesses were checked directly against immutable original bytes. TITLE-labelled
+COFF names bind to each engine's own helper entries, not TITLE RVAs. Wrong-module
+callee, wrong-base/extent, extra-storage and hidden COMDAT/section-flag controls
+reject. These are shared-source function proofs and add no module dependency
+closure; the ENG1 source build excludes cross-module identity rows.
+
+| Target, current | RAW rows / bytes | RELOCATED rows / bytes | LINKED rows / bytes | Unique accepted rows / bytes |
+| --- | ---: | ---: | ---: | ---: |
+| HERCULES.EXE | 28 / 656 | 25 / 896 | 0 | 53 / 1,552 |
+| TITLE.DLL | 6 / 352 | 4 / 528 | 43 / 5,360 | 53 / 6,240 |
+| ENG1.DLL | 79 / 6,368 | 235 / 26,640 | 0 | 314 / 33,008 |
+| ENG3.DLL | 27 / 2,032 | 59 / 8,896 | 0 | 86 / 10,928 |
+
+Current total: **506 accepted entries / 51,728 bytes**, up **19 / 2,704 bytes**
+from the baseline: 140 RAW, 323 RELOCATED and 43 LINKED. The continuation preserves
+all 502 preceding accepted records unchanged. Its fresh protected promotion
+passes **465 RAW/RELOCATED obligations in 119 compiler calls**, plus the same
+43 legacy LINKED rows with zero failures and 86 unchanged provenance drifts.
+All **356 tests pass**, including 44 focused zero-storage tests.
+
+The continuation adds six private compiler calls (four failed preflights and
+two positive profiles), eight compiler controls in the final regression suite,
+and 119 + 36 protected promotion builds. The cumulative count is **1,817 compiler
+invocations**: 1.05 new accepted entries / 148.8 accepted bytes per 100 calls.
+Reference-directed work alone is 16 accepted entries / 2,144 bytes in 20 calls.
+The measured source/dependency result stays 966 mapped ENG1 providers and 723
+unresolved names; the new 208-byte query remains NEAR. Continue with queue items
+2–5, retaining their stated evidence and reentry limits.
 
 ## Scratch files
 

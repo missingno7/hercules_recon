@@ -98,6 +98,18 @@ native identity, scalar access, full-instruction, relocation and HIGHLOW gates
 then apply. This does not enable pointer views, indexed BSS, one-past BSS or new
 indirect control transfers. See `docs/owner_alias_matching_2026_10_25.md`.
 
+An explicit `owner_storage: zero-section-v1` instead proves a real initialized-zero
+data-only C owner such as `g_engine_interface = {0}`. The unchanged source must
+emit exactly one strong external object at offset zero of one complete `.bss`
+section of the reviewed size. The section has no raw payload, relocations,
+COMDAT/alias metadata or other storage; only known read/write, uninitialized-data
+and alignment flags are allowed. Other objects, functions, unsafe directives,
+unknown profiles and aliases reject. Native zero-tail, complete independent
+HIGHLOW anchor, source/include freshness and bounded direct scalar accesses
+remain mandatory. The default COMMON path is unchanged. See the
+[interface transfer review](../evidence/interface_transfer_review_2026_10_25.json)
+and [measured continuation](matching_realignment_2026_10_25.md).
+
 Current support is intentionally conservative: i386 REL32 direct entry calls/jumps
 and DIR32 function/data/IAT/local-table references in complete /Gy contributions.
 Other BSS forms, relocated data tables, ambiguous aliases, weak symbols, register

@@ -1,10 +1,12 @@
-"""Explicit COMMON-owner and native loader-zero checks for relocated proofs.
+"""Explicit complete-owner and native loader-zero checks for relocated proofs.
 
 No zero-byte similarity or caller-implied address can identify an owner. The
 reviewed binding must supply an independent native anchor, and match.py must
 freshly compile its separately pinned source/include context on every run.
 """
 import hashlib
+import re
+import struct
 from coff import COFF
 
 
@@ -12,6 +14,11 @@ def owner_profile(record, name, root):
     owner = record.get('owner')
     if not isinstance(owner, dict) or set(owner) != {'source', 'flags', 'symbol'}:
         raise ValueError('Loader-zero binding requires an explicit source/flags/symbol owner')
+    if 'owner_storage' in record and record['owner_storage'] != 'zero-section-v1':
+        raise ValueError('Unsupported loader-zero owner storage representation')
+    if record.get('owner_storage') == 'zero-section-v1' and (
+            owner['symbol'] != name or 'source_alias' in record):
+        raise ValueError('Zero-section owner cannot carry aliases')
     if owner['symbol'] != name:
         from storage_alias import alias_profile
         alias_profile(record, name, root)
@@ -23,6 +30,9 @@ def owner_profile(record, name, root):
     source = (root / owner['source']).resolve()
     if not source.is_relative_to((root / 'src').resolve()):
         raise ValueError('Loader-zero owner must be canonical repository source')
+    if record.get('owner_storage') == 'zero-section-v1' and (
+            source.suffix != '.c' or any(flag.lower().startswith(('/tp', '-tp')) for flag in owner['flags'])):
+        raise ValueError('Zero-section owner requires a C data-only profile')
     if record.get('source_alias', {}).get('kind') == 'owner-compile-renaming' and (
             source.suffix != '.c' or any(flag.lower().startswith(('/tp', '-tp')) for flag in owner['flags'])):
         raise ValueError('Owner renaming requires a C data-only owner profile')
@@ -38,6 +48,52 @@ def verify_common(obj, name, extent):
     if (sym['storage'] != 2 or sym['section'] != 0 or sym['type'] & 0x20 or
             sym['value'] <= 0 or sym['value'] != extent or sym.get('aux')):
         raise ValueError('Loader-zero owner must be one complete exact-size COMMON definition')
+    return sym
+
+
+def verify_zero_section(obj, name, extent):
+    """One whole uninitialized section and one strong object; never zero similarity."""
+    coff = COFF(obj)
+    choices = [s for s in coff.symbols.values() if s['name'] == name]
+    if len(choices) != 1 or type(extent) is not int or extent <= 0:
+        raise ValueError('Zero-section owner symbol is missing or ambiguous')
+    sym = choices[0]
+    if (sym['storage'] != 2 or sym['type'] or sym['value'] or sym.get('aux') or
+            not 1 <= sym['section'] <= len(coff.sections)):
+        raise ValueError('Zero-section owner requires one strong data object at offset zero')
+    number = sym['section']
+    section = coff.sections[number - 1]
+    if (section['name'] != '.bss' or section['size'] != extent or section['data'] or
+            section['flags'] & 0xc0000080 != 0xc0000080 or
+            section['flags'] & ~0xc0f00080 or section['flags'] & 0xf00000 == 0xf00000 or
+            section['relocations'] or
+            sum(s['name'] == '.bss' for s in coff.sections) != 1):
+        raise ValueError('Zero-section owner must cover one exact uninitialized .bss section')
+    for sec in coff.sections:
+        if sec['relocations']:
+            raise ValueError('Zero-section owner cannot contain relocations')
+        if sec is section:
+            continue
+        if sec['name'] == '.drectve':
+            if sec['flags'] & 0x20000020 or any(
+                    not re.fullmatch(rb'[-/]defaultlib:[A-Za-z0-9_.-]+', token, re.I)
+                    for token in sec['data'].split()):
+                raise ValueError('Zero-section owner has unsupported linker directives')
+        elif sec['size'] or sec['data']:
+            raise ValueError('Zero-section owner cannot contain other storage or executable code')
+    for other in coff.symbols.values():
+        if other is sym:
+            continue
+        if (other['storage'] == 103 and other['name'] == '.file' and
+                other['section'] == -2 and not other['type'] and not other['value']):
+            continue
+        if (other['storage'] == 3 and 1 <= other['section'] <= len(coff.sections) and
+                other['name'] == coff.sections[other['section'] - 1]['name'] and
+                not other['type'] and not other['value'] and len(other['aux']) == 1 and
+                struct.unpack_from('<I', other['aux'][0])[0] == coff.sections[other['section'] - 1]['size'] and
+                not any(other['aux'][0][4:])):
+            continue
+        raise ValueError('Zero-section owner cannot contain other objects, aliases or functions')
     return sym
 
 

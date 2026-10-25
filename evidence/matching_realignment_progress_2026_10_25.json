@@ -3,7 +3,7 @@
   "scope": "Measured realignment checkpoint; derived census/progress only. recovery.json alone grants matching acceptance.",
   "baseline_commit": "a29d71a814cce19f0ae59486c767e257c58af777",
   "raw_commit": "0b83cb1",
-  "recovery_sha256": "fcd0cfc7a2ca57cd6a3f2cfc9363ffd8979dca87122be644ec93c1cd79a53100",
+  "recovery_sha256": "f56d6f37e83d5460d3d3c2a61ed5e2082d6068e1d0e5f1cda814c8f6ece8b66c",
   "baseline_by_module": {
     "HERCULES.EXE": {
       "FUNCTION_MATCH": {
@@ -97,8 +97,8 @@
         "bytes": 6368
       },
       "FUNCTION_MATCH_RELOCATED": {
-        "functions": 232,
-        "bytes": 26160
+        "functions": 235,
+        "bytes": 26640
       },
       "LINKED_MATCH": {
         "functions": 0,
@@ -111,8 +111,8 @@
         "bytes": 2032
       },
       "FUNCTION_MATCH_RELOCATED": {
-        "functions": 58,
-        "bytes": 8752
+        "functions": 59,
+        "bytes": 8896
       },
       "LINKED_MATCH": {
         "functions": 0,
@@ -121,8 +121,8 @@
     }
   },
   "existing_accepted_records_unchanged": 487,
-  "new_functions": 15,
-  "new_accepted_bytes": 2080,
+  "new_functions": 19,
+  "new_accepted_bytes": 2704,
   "new_rows": [
     {
       "id": "eng1.02b30",
@@ -215,6 +215,42 @@
       "symbol": "_title_196c0"
     },
     {
+      "id": "eng1.shared_318d0",
+      "status": "FUNCTION_MATCH_RELOCATED",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "rva": "0x318d0",
+      "size": 192,
+      "source": "src/title/u17cb0.cpp",
+      "symbol": "_title_18f80"
+    },
+    {
+      "id": "eng1.shared_31990",
+      "status": "FUNCTION_MATCH_RELOCATED",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "rva": "0x31990",
+      "size": 144,
+      "source": "src/title/u17cb0.cpp",
+      "symbol": "_title_19040"
+    },
+    {
+      "id": "eng1.shared_31e30",
+      "status": "FUNCTION_MATCH_RELOCATED",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "rva": "0x31e30",
+      "size": 144,
+      "source": "src/title/u17cb0.cpp",
+      "symbol": "_title_194e0"
+    },
+    {
+      "id": "eng3.shared_247e0",
+      "status": "FUNCTION_MATCH_RELOCATED",
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "rva": "0x247e0",
+      "size": 144,
+      "source": "src/title/u17cb0.cpp",
+      "symbol": "_title_194e0"
+    },
+    {
       "id": "eng1.native_code_target_00e470",
       "status": "FUNCTION_MATCH_RELOCATED",
       "target": "assets/pc/HERCULES/ENG1.DLL",
@@ -272,10 +308,11 @@
     "producer_revision": "a29d71a:scripts/census.py; before object-diagnostic fields were added"
   },
   "full_strict": {
-    "rows": 461,
+    "rows": 465,
     "all_exact": true,
-    "compiler_calls": 118,
-    "report_sha256": "2e9a86a384777f3ef33d062fb8f2a98087c80e50db9b1e0d423310d7808624d3"
+    "compiler_calls": 119,
+    "operation": "Fresh verify_rows within journaled promotion, including all previous proofs",
+    "report_sha256": "9264f347fd4629822a70b911217fc235beffd57d30993ebe3b5a19b870272640"
   },
   "legacy_linked": {
     "rows": 43,
@@ -283,8 +320,9 @@
     "unchanged_provenance_drifts": 86
   },
   "tests": {
-    "repository": 333,
+    "repository": 356,
     "passed": true,
+    "focused_zero_storage": 44,
     "finite_query_cases": 24,
     "finite_query_all_equal": true
   },
@@ -361,18 +399,275 @@
     "final_eng1_graphs": 498,
     "focused_reference_and_dependency": 25,
     "three_regression_runs": 24,
-    "total": 1648
+    "total": 1817,
+    "interface_followup_preflights": 4,
+    "interface_followup_positive": 2,
+    "interface_promotion_strict": 119,
+    "interface_promotion_linked": 36,
+    "fourth_regression_run": 8
   },
   "efficiency": {
-    "focused_reference_functions_per100": 85.71428571428571,
-    "focused_reference_bytes_per100": 10857.142857142857,
-    "all_in_functions_per100": 0.9101941747572815,
-    "all_in_bytes_per100": 126.21359223300972,
+    "focused_reference_functions_per100": 80.0,
+    "focused_reference_bytes_per100": 10720.0,
+    "all_in_functions_per100": 1.0456796917996698,
+    "all_in_bytes_per100": 148.8167308750688,
     "token_usage": "not exposed"
   },
   "limitations": [
     "Census and library maps do not provide a fully attributed first-party denominator.",
     "The new 208-byte source provider is NEAR and unaccepted; finite helper-modeled agreement is not instruction matching.",
     "No whole-module equality, complete gameplay behavior, standalone ENG1 link or native runtime completeness is claimed."
-  ]
+  ],
+  "initial_pilot_checkpoint": {
+    "recovery_sha256": "fcd0cfc7a2ca57cd6a3f2cfc9363ffd8979dca87122be644ec93c1cd79a53100",
+    "final_by_module": {
+      "HERCULES.EXE": {
+        "FUNCTION_MATCH": {
+          "functions": 28,
+          "bytes": 656
+        },
+        "FUNCTION_MATCH_RELOCATED": {
+          "functions": 25,
+          "bytes": 896
+        },
+        "LINKED_MATCH": {
+          "functions": 0,
+          "bytes": 0
+        }
+      },
+      "TITLE.DLL": {
+        "FUNCTION_MATCH": {
+          "functions": 6,
+          "bytes": 352
+        },
+        "FUNCTION_MATCH_RELOCATED": {
+          "functions": 4,
+          "bytes": 528
+        },
+        "LINKED_MATCH": {
+          "functions": 43,
+          "bytes": 5360
+        }
+      },
+      "ENG1.DLL": {
+        "FUNCTION_MATCH": {
+          "functions": 79,
+          "bytes": 6368
+        },
+        "FUNCTION_MATCH_RELOCATED": {
+          "functions": 232,
+          "bytes": 26160
+        },
+        "LINKED_MATCH": {
+          "functions": 0,
+          "bytes": 0
+        }
+      },
+      "ENG3.DLL": {
+        "FUNCTION_MATCH": {
+          "functions": 27,
+          "bytes": 2032
+        },
+        "FUNCTION_MATCH_RELOCATED": {
+          "functions": 58,
+          "bytes": 8752
+        },
+        "LINKED_MATCH": {
+          "functions": 0,
+          "bytes": 0
+        }
+      }
+    },
+    "new_functions": 15,
+    "new_accepted_bytes": 2080,
+    "new_rows": [
+      {
+        "id": "eng1.02b30",
+        "status": "FUNCTION_MATCH",
+        "target": "assets/pc/HERCULES/ENG1.DLL",
+        "rva": "0x2b30",
+        "size": 240,
+        "source": "src/eng1/level_frame_01e50.c",
+        "symbol": "_eng1_02b30"
+      },
+      {
+        "id": "eng3.shared_07f10",
+        "status": "FUNCTION_MATCH",
+        "target": "assets/pc/HERCULES/ENG3.DLL",
+        "rva": "0x7f10",
+        "size": 240,
+        "source": "src/eng1/level_frame_01e50.c",
+        "symbol": "_eng1_02b30"
+      },
+      {
+        "id": "eng3.29e50",
+        "status": "FUNCTION_MATCH",
+        "target": "assets/pc/HERCULES/ENG3.DLL",
+        "rva": "0x29e50",
+        "size": 80,
+        "source": "src/eng3/handlers_28ae0.c",
+        "symbol": "_eng3_29e50"
+      },
+      {
+        "id": "eng1.2a3d0",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "target": "assets/pc/HERCULES/ENG1.DLL",
+        "rva": "0x2a3d0",
+        "size": 144,
+        "source": "src/eng1/actor_unit_282e0.cpp",
+        "symbol": "_eng1_2a3d0"
+      },
+      {
+        "id": "eng1.2a460",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "target": "assets/pc/HERCULES/ENG1.DLL",
+        "rva": "0x2a460",
+        "size": 112,
+        "source": "src/eng1/actor_unit_282e0.cpp",
+        "symbol": "_eng1_2a460"
+      },
+      {
+        "id": "eng1.2a660",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "target": "assets/pc/HERCULES/ENG1.DLL",
+        "rva": "0x2a660",
+        "size": 176,
+        "source": "src/eng1/actor_unit_282e0.cpp",
+        "symbol": "_eng1_2a660"
+      },
+      {
+        "id": "title.18f80",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "target": "assets/pc/HERCULES/TITLE.DLL",
+        "rva": "0x18f80",
+        "size": 192,
+        "source": "src/title/u17cb0.cpp",
+        "symbol": "_title_18f80"
+      },
+      {
+        "id": "title.19040",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "target": "assets/pc/HERCULES/TITLE.DLL",
+        "rva": "0x19040",
+        "size": 144,
+        "source": "src/title/u17cb0.cpp",
+        "symbol": "_title_19040"
+      },
+      {
+        "id": "title.194e0",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "target": "assets/pc/HERCULES/TITLE.DLL",
+        "rva": "0x194e0",
+        "size": 144,
+        "source": "src/title/u17cb0.cpp",
+        "symbol": "_title_194e0"
+      },
+      {
+        "id": "title.196c0",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "target": "assets/pc/HERCULES/TITLE.DLL",
+        "rva": "0x196c0",
+        "size": 48,
+        "source": "src/title/u17cb0.cpp",
+        "symbol": "_title_196c0"
+      },
+      {
+        "id": "eng1.native_code_target_00e470",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "target": "assets/pc/HERCULES/ENG1.DLL",
+        "rva": "0xe470",
+        "size": 176,
+        "source": "src/eng1/level_actors_0c730.c",
+        "symbol": "_eng1_native_code_target_00e470"
+      },
+      {
+        "id": "eng1.native_code_target_00e560",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "target": "assets/pc/HERCULES/ENG1.DLL",
+        "rva": "0xe560",
+        "size": 176,
+        "source": "src/eng1/level_actors_0c730.c",
+        "symbol": "_eng1_native_code_target_00e560"
+      },
+      {
+        "id": "eng1.native_code_target_00ee70",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "target": "assets/pc/HERCULES/ENG1.DLL",
+        "rva": "0xee70",
+        "size": 80,
+        "source": "src/eng1/level_actors_0c730.c",
+        "symbol": "_eng1_native_code_target_00ee70"
+      },
+      {
+        "id": "eng1.native_code_target_00eee0",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "target": "assets/pc/HERCULES/ENG1.DLL",
+        "rva": "0xeee0",
+        "size": 48,
+        "source": "src/eng1/level_actors_0c730.c",
+        "symbol": "_eng1_native_code_target_00eee0"
+      },
+      {
+        "id": "eng1.3c1e0",
+        "status": "FUNCTION_MATCH_RELOCATED",
+        "target": "assets/pc/HERCULES/ENG1.DLL",
+        "rva": "0x3c1e0",
+        "size": 80,
+        "source": "src/eng1/player_scene_3a040.c",
+        "symbol": "_eng1_3c1e0"
+      }
+    ],
+    "full_strict": {
+      "rows": 461,
+      "all_exact": true,
+      "compiler_calls": 118,
+      "report_sha256": "2e9a86a384777f3ef33d062fb8f2a98087c80e50db9b1e0d423310d7808624d3"
+    },
+    "tests": {
+      "repository": 333,
+      "passed": true,
+      "finite_query_cases": 24,
+      "finite_query_all_equal": true
+    },
+    "compiler_invocations": {
+      "census": 275,
+      "baseline_strict": 116,
+      "baseline_linked": 36,
+      "baseline_eng1": 248,
+      "object_reuse_control": 1,
+      "raw_promotion_strict": 117,
+      "raw_promotion_linked": 36,
+      "relocated_promotion_strict": 118,
+      "relocated_promotion_linked": 36,
+      "final_strict": 118,
+      "final_eng1_graphs": 498,
+      "focused_reference_and_dependency": 25,
+      "three_regression_runs": 24,
+      "total": 1648
+    },
+    "efficiency": {
+      "focused_reference_functions_per100": 85.71428571428571,
+      "focused_reference_bytes_per100": 10857.142857142857,
+      "all_in_functions_per100": 0.9101941747572815,
+      "all_in_bytes_per100": 126.21359223300972,
+      "token_usage": "not exposed"
+    },
+    "commit": "18fbc2d"
+  },
+  "continuation": {
+    "prior_commit": "18fbc2d",
+    "prior_accepted_unchanged": 502,
+    "new_relocated": 4,
+    "new_bytes": 624,
+    "new_verified_references": 24,
+    "new_owner_profile": "zero-section-v1",
+    "canonical_owner_unchanged": true,
+    "private_compiler_calls": 6,
+    "protected_compiler_calls": 119,
+    "legacy_linked_compiler_calls": 36,
+    "regression_compiler_calls": 8,
+    "binding_manifest": "evidence/interface_transfer_bindings_2026_10_25.json",
+    "review": "evidence/interface_transfer_review_2026_10_25.json",
+    "source_dependency_gain": 0
+  }
 }

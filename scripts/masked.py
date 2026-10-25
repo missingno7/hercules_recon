@@ -148,7 +148,7 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
     A reviewed use may explicitly set one_past:true for a data end pointer;
     this requires addend==size and a DIR32 immediate, never a memory displacement.
     Data additionally has sha256 of its complete original storage payload.
-    BSS requires a separately freshly compiled COMMON owner plus an independent
+    BSS requires a separately freshly compiled complete owner plus an independent
     native absolute-address instruction anchor; it is never inferred from zeros.
     storage_owners maps each BSS symbol to its owner object. Explicit WORD aliases
     additionally need storage_aliases: freshly compiled include-adapted objects
@@ -284,7 +284,7 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                 if sec['data'][pos:pos + extent] != payload:
                     errors.append('Compiled data payload differs: ' + name)
         elif kind == 'bss':
-            from zero_storage import verify_common, verify_native
+            from zero_storage import verify_common, verify_zero_section, verify_native
             if sym['type'] & 0x20 or sym['section'] != 0 or sym['value'] not in (0, extent):
                 raise ValueError('Loader-zero caller symbol must be undefined or exact-size COMMON data')
             owner = (storage_owners or {}).get(name)
@@ -303,7 +303,13 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
                     alias_checks[name] = verify_alias_object(obj, adapted, symbol, names)
             elif 'source_alias' in record:
                 raise ValueError('Same-name loader-zero owner cannot carry an alias adapter')
-            verify_common(owner, owner_name, extent)
+            representation = record.get('owner_storage')
+            if representation == 'zero-section-v1':
+                verify_zero_section(owner, owner_name, extent)
+            elif 'owner_storage' not in record:
+                verify_common(owner, owner_name, extent)
+            else:
+                raise ValueError('Unsupported loader-zero owner storage representation')
             verify_native(pe, dest, extent, record.get('identity'), rva, size)
         elif kind == 'import':
             if sym['section'] or extent != 4 or bool(record.get('name')) == ('ordinal' in record):
