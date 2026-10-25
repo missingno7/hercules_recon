@@ -5,6 +5,14 @@ and the focused source/evidence for the function or dependency family. Work from
 a falsifiable question; keep experiments under ignored candidates/ or work/.
 Generated packets and reports are disposable and never grant acceptance.
 
+For a bounded matching campaign, use the measured
+[census, worker loop and pilot results](matching_realignment_2026_10_25.md).
+Classify the first current blocker before compiling a source variant. The recorded
+census now retains diagnostic object paths, complete hashes and commands; inspect
+those objects instead of rebuilding a baseline in every worker. A fresh promotion
+gate is still mandatory. Keep one writer for source selection, bindings and ledger
+publication, and count full regression/module builds separately from focused work.
+
 Reuse existing recovered source and cross-module twins before retuning a body.
 A recorded residual belongs to its source hash and compile profile. Freshly
 check the current provider and existing twins before treating an old stop note
@@ -275,7 +283,7 @@ The ordinary module/build and diagnostic commands are:
     python scripts/linked.py verify
     python scripts/match.py verify --raw-only
     python scripts/similar.py verify
-    python scripts/census.py --recorded --output work/census/recorded.json
+    python scripts/census.py --recorded --jobs 2 --output work/census/recorded.json
     python scripts/convergence.py --output work/coverage.json
     python -m unittest discover -s tests -q
 

@@ -1,0 +1,172 @@
+{
+  "schema": 1,
+  "scope": "Same-entry ENG1 source-graph alias evidence. This closes one unresolved provider spelling only; no function matching, behavior completeness, original-source or whole-module claim.",
+  "canonical_state": {
+    "recovery_sha256": "bebc1468846c1ef12f4e870d46fb017d853ee80883643b751a774a50ee947795",
+    "sources_config_sha256": "d47e3cace6977fd39a00366de8d664f001545a57b4d62fdd00c024547696c250",
+    "target": "assets/pc/HERCULES/ENG1.DLL",
+    "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "baseline_graph": {
+    "source_units": 248,
+    "mapped_compiled_function_entries": 965,
+    "compiled_function_symbols": 1042,
+    "unresolved": 726,
+    "duplicate_providers": 0,
+    "provisional_functions": 0,
+    "link_exit_code": 25,
+    "raw_function_matches_preserved": 78
+  },
+  "spelling": {
+    "consumer_symbol": "_resolve_collision",
+    "consumer_source": "src/eng1/actor_continuation.c",
+    "consumer_source_sha256": "0bf51abc80dddd98b5fe064223fa95a673dd4c082654dac3699d3a390d69e29c",
+    "consumer_compiler_input_sha256": "7f6f27d4aa1abd07cdb442accb4f2fa0daa211fb19750542e853e1fe2e43945c",
+    "consumer_declarations": [
+      "extern void resolve_collision(Actor *,int,int);",
+      "if(collision) resolve_collision(p,0,0);"
+    ],
+    "consumer_call": "resolve_collision(p,0,0); return value discarded",
+    "consumers": [
+      {
+        "source": "src/eng1/actor_continuation.c",
+        "kind": "function"
+      }
+    ],
+    "provider_symbol": "_eng1_native_code_target_00266a0",
+    "provider_source": "src/eng1/actor_pipeline_255f0.cpp",
+    "provider_source_sha256": "f6a00f08c02fb46d216f7ee62e9cbac96d354c58148349f21d79f3ced3970ac6",
+    "provider_definition_signature": "long eng1_native_code_target_00266a0(Actor *p, int priority, int value)",
+    "provider_header_declarations": [
+      "long eng1_native_code_target_00266a0(Actor *, int, int);"
+    ],
+    "provider_definition_source": "src/eng1/actor_pipeline_255f0.cpp",
+    "outside_caller_declarations": [
+      "extern long eng1_native_code_target_00266a0(Actor *, int, int);"
+    ],
+    "source_alias_refs": [
+      {
+        "source": "src/eng1/actor_continuation.c",
+        "line": 54,
+        "text": "extern void resolve_collision(Actor *,int,int);"
+      },
+      {
+        "source": "src/eng1/actor_continuation.c",
+        "line": 136,
+        "text": "if(collision) resolve_collision(p,0,0);"
+      }
+    ]
+  },
+  "native_target_entry": {
+    "module": "ENG1.DLL",
+    "rva": "0x266a0",
+    "recorded_extent": 96,
+    "recorded_extent_sha256": "810872c96d4e4b19e92e4c2a0718dd86f0495d763e5e6b8e0c6203a3e81f5371",
+    "recorded_status": "CODEGEN_SIMILAR",
+    "recorded_source": "src/eng1/actor_pipeline_255f0.cpp",
+    "native_entry_bytes_sha256": "810872c96d4e4b19e92e4c2a0718dd86f0495d763e5e6b8e0c6203a3e81f5371",
+    "disassembly_facts": {
+      "body_ret_rva": "0x266f2",
+      "following_padding_bytes": 13,
+      "next_entry_rva": "0x26700",
+      "native_abi": "cdecl, three 32-bit stack slots, plain RET; returns result DWORD in EAX"
+    },
+    "native_direct_callers": 42,
+    "address_identity_scope": "The actual original caller instructions resolve to this entry RVA; source symbol spelling remains unproved."
+  },
+  "independent_accepted_caller": {
+    "id": "eng1.native_code_target_00d240",
+    "status": "FUNCTION_MATCH_RELOCATED",
+    "source": "src/eng1/level_actors_0c730.c",
+    "symbol": "_eng1_native_code_target_00d240",
+    "rva": "0xd240",
+    "size": 128,
+    "target_bytes_sha256": "6affc1a8d2b097d4879e98928751d78754617ca44e8a341674e8cc1e09661311",
+    "recorded_target_bytes_sha256": "6affc1a8d2b097d4879e98928751d78754617ca44e8a341674e8cc1e09661311",
+    "call_site_rva": "0xd291",
+    "call_setup_rva": "0xd28c",
+    "call_setup_size": 13,
+    "call_setup_bytes": "6a006a0356e80a94010083c40c",
+    "decoded_call_target": "0x266a0",
+    "argument_setup": "push 0; push 3; push esi (Actor *); CALL 266a0; add esp, 0x0c",
+    "return_observation": "EAX discarded after caller cleanup",
+    "outside_selected_consumer_source": true,
+    "strict_reference_source": "The complete 128-byte caller is FUNCTION_MATCH_RELOCATED in recovery.json; the call instruction bytes are part of that accepted complete contribution.",
+    "entry_callsite_owner_rva": "0xd240",
+    "entry_callsite_owner_size": 128,
+    "entry_callsite_owner_target_sha256": "6affc1a8d2b097d4879e98928751d78754617ca44e8a341674e8cc1e09661311"
+  },
+  "candidate_link_probe": {
+    "candidate_macro": "resolve_collision=eng1_native_code_target_00266a0",
+    "historical_compiler": "MSVC 5.0 RTM, /O2, one private fresh compile of actor_continuation TU",
+    "candidate_object_sha256": "e199302546577c2b24e4779f32c5a58712802805f481549a07dda6c5c7db9053",
+    "baseline_object_sha256": "ac19c493de0f473d8bfdc0a45e4ecfe5e0bc0172a69a06f7bba072b49541d2a9",
+    "complete_object_comparison": {
+      "section_count": 11,
+      "symbol_record_count": 49,
+      "function_count": 5,
+      "all_section_names_flags_sizes_and_bytes_equal": true,
+      "all_symbol_records_equal_after_single_external_name_rename": true,
+      "all_function_bytes_and_normalized_relocations_equal": true,
+      "single_relocation_name_change": [
+        {
+          "section_index": 9,
+          "section": ".text",
+          "offset": "0xb1",
+          "old_symbol": "_resolve_collision",
+          "new_symbol": "_eng1_native_code_target_00266a0",
+          "type": 20
+        }
+      ],
+      "accepted_same_unit_peers": [
+        {
+          "id": "eng1.initialize_spinning_particle",
+          "status": "FUNCTION_MATCH_RELOCATED",
+          "rva": "0x21c00",
+          "size": 272,
+          "symbol": "_initialize_spinning_particle",
+          "complete_function_bytes_and_relocations_unchanged": true
+        }
+      ],
+      "raw_object_file_sizes": [
+        4158,
+        4172
+      ],
+      "raw_object_file_equality": false,
+      "raw_object_size_difference_explained_by_longer_symbol_string_table_name": true
+    },
+    "link_delta": {
+      "baseline_unresolved": 726,
+      "candidate_unresolved": 725,
+      "removed": [
+        "_resolve_collision"
+      ],
+      "added": [],
+      "candidate_duplicate_link_errors": false,
+      "candidate_link_exit_code": 25,
+      "source_definitions_unchanged": true,
+      "mapped_provider_count_unchanged": 965
+    },
+    "unrelated_current_missing_names": {
+      "_query_collision": [
+        {
+          "source": "src/eng1/actor_continuation.c",
+          "kind": "function"
+        }
+      ],
+      "_eng1_200e0": [
+        {
+          "source": "src/eng1/pickup_lift_unit_12620.c",
+          "kind": "function"
+        }
+      ]
+    }
+  },
+  "falsifier": "Reject if the caller body does not encode a direct call to 0x266a0 with three 32-bit cdecl arguments, if its accepted full contribution/hash differs, if the alias object changes any section bytes/function body/symbol records beyond the one external symbol rename and its relocation target, or if the same-input complete link adds any unresolved name or duplicate.",
+  "limitations": [
+    "Provider 0x266a0 remains CODEGEN_SIMILAR; this alias does not upgrade its acceptance or prove semantic completeness.",
+    "Original source spellings and historical TU identity remain unknown.",
+    "Link still fails because 725 other unresolved symbols remain.",
+    "The independent accepted caller is a native reference/ABI witness, not proof of the callee behavior."
+  ]
+}

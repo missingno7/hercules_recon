@@ -1,0 +1,139 @@
+{
+  "purpose": "Native-backed reconstructed ENG1 collision query and finite semantic evidence; NEAR diagnostic only. No matching acceptance.",
+  "candidate": {
+    "source": "src/eng1/collision_query.c",
+    "symbol": "_eng1_200e0",
+    "source_sha256": "fc25944cf4ff551952d5b9eca0a720fbed165f27236b54f40dd80a49e31cb6a3",
+    "abi": "cdecl(Query2a170Bounds *area, Actor *actor) -> int",
+    "headers": [
+      "src/eng1/actor_bounds_2a880.h",
+      "src/eng1/query_2a170.h"
+    ],
+    "strict_status": "NEAR only; do not promote to FUNCTION_MATCH or FUNCTION_MATCH_RELOCATED"
+  },
+  "compiler": {
+    "toolchain": "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953",
+    "flags": [
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2"
+    ],
+    "query_campaign_invocations": 10,
+    "breakdown": "8 bounded leaf comparisons (including the initial symbol-name lookup failure after compilation), plus candidate and modeled-service compilations for the finite Unicorn differential. The separate resolve_collision alias proof used one compile; full module builds are separately counted.",
+    "compiled_function_contribution_bytes": 208,
+    "compiled_function_contribution_sha256": "06907795db4dcf29007833a47a6a63ce8405abaa193fdd3fda15dffc323a67a1",
+    "object_relocations": [
+      {
+        "offset": "0x10",
+        "type": "REL32",
+        "symbol": "_actor_bounds_2a880"
+      }
+    ]
+  },
+  "original": {
+    "module": "ENG1.DLL",
+    "dll_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "rva": "0x200e0",
+    "span_bytes": 208,
+    "body_bytes": 198,
+    "body_sha256": "14f1790967f56fa282620d91d6bdcca0552591fbc0057503a7d652a408f55d1d",
+    "span_sha256": "e8eab7f37dae3e8db97f893b3df2e4297e797d98bf46564a13f90843b8dafd5f",
+    "extent": "Reachable body returns at 0x2019f and 0x201a5; 10 NOP alignment bytes through 0x201af; next independently reviewed entry is 0x201b0.",
+    "helper_call": {
+      "site": "0x200ef",
+      "target": "0x2a880",
+      "setup": "actor, local 12-byte bounds output, mode 0",
+      "published_identity": "evidence/eng1_actor_bounds_2a880.json",
+      "identity_limit": "Behaviorally validated on finite cases, not strict matching acceptance."
+    },
+    "behavior_facts": [
+      "If actor_bounds returns EAX zero, return zero before reading or mutating area.",
+      "Compute signed area.min_x minus local actor.min_x. For delta > 0x800, subtract 4096 from area max_x then min_x as WORD stores; for delta < -0x800, subtract 4096 from local actor min_x then max_x as WORD stores.",
+      "Return one iff all six signed-WORD separation predicates are false; touching edges overlap."
+    ],
+    "indexed_direct_callers": [
+      {
+        "site": "0x12dfd",
+        "owner": "0x12d80 / eng1.native_code_target_012d80",
+        "owner_status": "CODEGEN_SIMILAR",
+        "owner_source": "src/eng1/pickup_lift_unit_12620.c",
+        "call_setup": "push actor ESI at 0x12dea; push g_collision_context+0x88 at 0x12dfc; call; cdecl add esp,8 at 0x12e16"
+      },
+      {
+        "site": "0x21d9a",
+        "owner": "0x21d10 / _tick_spinning_particle",
+        "owner_extent_evidence": "evidence/actor_continuation_region.json",
+        "owner_extent_bytes": 448,
+        "owner_body_sha256": "2387bb90e15fa85c8abcfadd3e2be297ffcec2a6d6d6f2b9ee2460eae7961c08",
+        "owner_source": "src/eng1/actor_continuation.c",
+        "call_setup": "push actor ESI at 0x21d16; push g_collision_context+0x88 at 0x21d99; call; cdecl add esp,8 at 0x21da2"
+      }
+    ]
+  },
+  "instruction_comparison": {
+    "report": "work/realignment/eng1/query_200e0_final_residual.json",
+    "raw_equal": false,
+    "raw_differing_bytes": 49,
+    "non_relocation_differing_bytes": 47,
+    "binding_conflicts": 0,
+    "unsupported_relocations": 0,
+    "residual_classification": "Two sign-extension instructions are emitted in the opposite order; the six signed separation tests use the same predicates but a different load/comparison schedule. Wrap stores, helper call/setup, early return, and extents agree. The predicates are combined with non-short-circuit OR and execute after the wrap stores.",
+    "control": "One source-form control matching accepted overlap_wrapped_bounds at 0x201b0 (dy pair, dz pair, dx pair) emitted the same candidate bytes. Direct-delta/source-order and sequential-OR spellings also emitted the same bytes; no further permutations were run.",
+    "known_twins": "overlap_wrapped_bounds at 0x201b0 is an accepted exact lower-level wrap/6-plane twin; eng1_2a460 at 0x2a460 checks only planar dimensions; ENG3 eng3_1f0a0 checks four planes. evidence/region_knowledge.json and evidence/cross_module_twins_2026_10_20.json contain no 0x200e0 or full collision-query negative record."
+  },
+  "finite_semantics": {
+    "report": "work/realignment/eng1/query_200e0_behavior/report.json",
+    "cases": 24,
+    "all_equal": true,
+    "cases_sha256": "dd9e287e32ecc3533737f45041f6a216803e11a7a196c1497cf80a6f875fb5d9",
+    "coverage": [
+      "all six signed separation planes with touching and one-unit gaps",
+      "x deltas -2049, -2048, -2047, +2047, +2048, +2049",
+      "signed WORD normalization edge values",
+      "modeled helper EAX results 0, 1, 2, 0x80000000",
+      "area writes and ordering, local bounds writes, helper arguments, EAX, caller frame, ESP, and callee-saved registers"
+    ],
+    "scope_limit": "The helper is modeled as the same 12-byte output and EAX result for original and source. Does not validate actor extent/resource behavior or prove universal equivalence."
+  },
+  "source_graph": {
+    "baseline_report": "work/realignment/eng1/baseline/report.json",
+    "baseline_before_parent_followup": {
+      "units": 248,
+      "unresolved_symbols": 726,
+      "mapped_providers": 965,
+      "config_sha256": "d47e3cace6977fd39a00366de8d664f001545a57b4d62fdd00c024547696c250",
+      "recovery_sha256": "bebc1468846c1ef12f4e870d46fb017d853ee80883643b751a774a50ee947795"
+    },
+    "parent_already_measured": "resolve_collision alias object link delta: unresolved 726 to 725, no extra providers or duplicates.",
+    "expected_after_query_provider_and_query_collision_alias": {
+      "units": 249,
+      "unresolved_symbols": 723,
+      "delta_from_post_resolve_alias": -2,
+      "pending": "Fresh final graph verification required; see matching realignment report for the measured result."
+    },
+    "verified_final": {
+      "units": 249,
+      "mapped_provider_rvas": 966,
+      "function_symbols": 1043,
+      "unresolved": 723,
+      "function_unresolved": 428,
+      "untyped_unresolved": 295,
+      "removed_unresolved": [
+        "_eng1_200e0",
+        "_query_collision",
+        "_resolve_collision"
+      ],
+      "added_unresolved": [],
+      "duplicate_providers": 0,
+      "generated_placeholders": 0,
+      "preserved_RAW": 79,
+      "source_complete": false,
+      "link_exit_code": 25,
+      "config_sha256": "7fcea9222893d20ae932ca3aba7bc417e734f638c4b300b27d3801b66a51c2f2",
+      "all_final_compiler_inputs_current": true,
+      "status_only_promotion_note": "The module graph was built before the subsequent status-only promotion. All source/profile/config/context inputs are still identical; accepted status counts come from the current ledger.",
+      "report_sha256": "3c9a7f60e602647977c3e20fe4e46c02d93ab67934d72911e2a2d0076170a624"
+    }
+  }
+}

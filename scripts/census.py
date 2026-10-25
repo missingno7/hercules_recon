@@ -25,6 +25,16 @@ RECORDED_CATEGORIES = ('raw_equal', 'reference_only', 'nonreference_code_differe
                        'extent_difference', 'unsupported')
 
 
+def positive_int(value):
+    try:
+        result = int(value)
+    except ValueError as error:
+        raise argparse.ArgumentTypeError('jobs must be a positive integer') from error
+    if result < 1:
+        raise argparse.ArgumentTypeError('jobs must be a positive integer')
+    return result
+
+
 def module_of(target):
     name = Path(target).name.upper()
     return name if name in MODULES else None
@@ -123,7 +133,7 @@ def output_path(value, default):
     return resolved
 
 
-def recorded_census(state, state_sha256):
+def recorded_census(state, state_sha256, jobs=8):
     """Freshly compile every recorded source/ordered-flags profile once."""
     expected_targets = defaultdict(set)
     groups = defaultdict(list)
@@ -200,8 +210,12 @@ def recorded_census(state, state_sha256):
         group['matches_recorded_source_sha256'] = not proof_hashes or proof_hashes == [source_before]
         target_errors_before = check_targets(members)
         group['target_hashes_before'] = target_errors_before
+        obj = None
         try:
-            obj, _ = compile_source(source, list(flags), DEFAULT_TOOLCHAIN)
+            obj, command = compile_source(source, list(flags), DEFAULT_TOOLCHAIN)
+            group.update(object_path=str(Path(obj).resolve()), command=command)
+            object_before = digest(Path(obj).read_bytes())
+            group['object_sha256'] = object_before
             coff = COFF(obj)
         except Exception as error:
             group.update(status='unsupported', error='compile/COFF failure: ' + str(error)[:180])
@@ -209,6 +223,14 @@ def recorded_census(state, state_sha256):
             group['source_sha256_after'] = source_after
             group['source_hash_after_error'] = source_error
             group['target_hashes_after'] = target_errors_after
+            if obj is not None:
+                try:
+                    object_after = digest(Path(obj).read_bytes())
+                    group['object_sha256_after'] = object_after
+                    group['object_stable'] = object_after == group.get('object_sha256')
+                except Exception as object_error:
+                    group['object_hash_after_error'] = str(object_error)[:180]
+                    group['object_stable'] = False
             return group, [unsupported_row(r, group['error']) for r in members]
 
         for row in members:
@@ -234,9 +256,17 @@ def recorded_census(state, state_sha256):
         if source_error:
             group['source_hash_after_error'] = source_error
         group['target_hashes_after'] = target_errors_after
-        changed = source_after != source_before or target_errors_before or target_errors_after
+        try:
+            object_after = digest(Path(obj).read_bytes())
+            group['object_sha256_after'] = object_after
+            group['object_stable'] = object_after == object_before
+        except Exception as error:
+            group['object_hash_after_error'] = str(error)[:180]
+            group['object_stable'] = False
+        changed = (source_after != source_before or target_errors_before or target_errors_after
+                   or not group['object_stable'])
         if changed:
-            reason = 'source or target hash guard failed during source-profile group'
+            reason = 'source, target, or object hash guard failed during source-profile group'
             group.update(status='unsupported', error=reason)
             for record in records:
                 record.update(category='unsupported', reason=reason)
@@ -247,7 +277,7 @@ def recorded_census(state, state_sha256):
     verify_toolchain(DEFAULT_TOOLCHAIN)
     ordered_groups = sorted(groups.items(), key=lambda item: (item[0][0], item[0][1]))
     group_results, results = [], []
-    with ThreadPoolExecutor(8) as pool:
+    with ThreadPoolExecutor(max_workers=jobs) as pool:
         futures = [pool.submit(work, item) for item in ordered_groups]
         for index, future in enumerate(as_completed(futures), 1):
             group, rows = future.result()
@@ -276,7 +306,8 @@ def recorded_census(state, state_sha256):
                                  conflicts=sum(r.get('conflicts', 0) for r in rows),
                                  unsupported_relocations=sum(r.get('unsupported_relocations', 0) for r in rows))
     return dict(scope=('Fresh recorded-source COFF byte comparison; reference_only means all byte differences '
-                       'fall within supported object relocation fields. No destination bindings or acceptance.'),
+                       'fall within supported object relocation fields. No destination bindings or acceptance; '
+                       'diagnostic objects are not promotion proof and require a fresh strict match gate.'),
                 recovery_sha256=state_sha256, toolchain=verify_toolchain(DEFAULT_TOOLCHAIN),
                 compile_group_count=len(ordered_groups), compile_group_results=group_results,
                 summary=dict(functions=len(results), recorded_bytes=sum(r['size'] for r in results),
@@ -293,12 +324,14 @@ def main():
     parser.add_argument('--recorded', action='store_true',
                         help='compile all recovery source/ordered-flags profiles and compare recorded extents')
     parser.add_argument('--output', help='JSON output under ignored work/')
+    parser.add_argument('--jobs', type=positive_int, default=8,
+                        help='maximum parallel compile workers (default: 8)')
     args = parser.parse_args()
     state_raw = (ROOT / 'recovery.json').read_bytes()
     state = json.loads(state_raw)
     state_sha256 = digest(state_raw)
     if args.recorded:
-        report = recorded_census(state, state_sha256)
+        report = recorded_census(state, state_sha256, args.jobs)
         path = output_path(args.output, ROOT / 'work/census/recorded.json')
         path.write_text(json.dumps(report, indent=1) + '\n', encoding='utf-8')
         print('recorded rows:', report['summary']['functions'], 'groups:', report['compile_group_count'])
@@ -339,7 +372,7 @@ def main():
         return out
 
     results = []
-    with ThreadPoolExecutor(8) as pool:
+    with ThreadPoolExecutor(max_workers=args.jobs) as pool:
         for out in pool.map(work, sorted(by_source)):
             results.extend(out)
     path = output_path(args.output, ROOT / 'work/census/census.json')

@@ -1381,6 +1381,13 @@
         "/O2"
       ],
       "evidence": "evidence/actor_pair_animation_references_2026_10_25.json"
+    },
+    {
+      "source": "src/eng1/collision_query.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/collision_query_2026_10_25.json"
     }
   ],
   "functions": [
@@ -4427,6 +4434,15 @@
       "contract": "Native-backed actor-pair release/init/update; actual scalar roots and existing initialized WORD owner; real reset and explicit WORD/removal models.",
       "uncertainty": "4428 guarded composition cases; interpreter/removal model effects, original allocation capacities and later gameplay remain outside this proof.",
       "evidence": "evidence/actor_pair_animation_references_2026_10_25.json"
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x200e0",
+      "symbol": "_eng1_200e0",
+      "source": "src/eng1/collision_query.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "One real bounds helper call, early failure return, signed WORD x normalization including passed-area mutation, and six signed separating planes. 208-byte NEAR contribution with 47 non-reference differences; finite24-case modeled-helper evidence only.",
+      "evidence": "evidence/collision_query_2026_10_25.json"
     }
   ],
   "source_adaptations": {
@@ -5524,6 +5540,20 @@
       "evidence": "evidence/actor_pair_animation_references_2026_10_25.json#legacy_release_alias",
       "confidence": "verified_same_PC_entry_identity",
       "limits": "No-argument x86 cdecl release; complete actual caller object retains every section and symbol after the sole function-name map."
+    },
+    "resolve_collision": {
+      "provider": "eng1_native_code_target_00266a0",
+      "original_rva": "0x266a0",
+      "evidence": "evidence/resolve_collision_alias_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Three DWORD cdecl arguments; the consumer discards the provider return. Original source spelling and TU remain unproved; no new matching acceptance."
+    },
+    "query_collision": {
+      "provider": "eng1_200e0",
+      "original_rva": "0x200e0",
+      "evidence": "evidence/collision_query_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Two pointer DWORD cdecl arguments; EAX predicate. Reconstructed source remains NEAR; no matching acceptance."
     }
   },
   "omit_functions": {

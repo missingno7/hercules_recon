@@ -1,0 +1,178 @@
+{
+  "schema": 1,
+  "scope": "Independent complete interface-owner and callee-entry review for four unchanged TITLE callers; acceptance remains solely in recovery.json.",
+  "target": {
+    "path": "assets/pc/HERCULES/TITLE.DLL",
+    "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b"
+  },
+  "source_inventory": {
+    "src/title/u17cb0.cpp": "24f0718161e0e687793d32041ec5c9b541820f5e45e5e58d2f4a629d0b3fb010",
+    "src/title/u0c1f0.c": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+    "src/title/title_engine.h": "460a1ed9004806155171691926cff2a92fbd98c4ff098db9d8d874a04e3512e4",
+    "src/title/title_gpu.h": "6533d696eb5d7ae7d7bc63c13dd0c955944355a0b5900f0d6976166f9fc1e860"
+  },
+  "candidates": [
+    {
+      "id": "title.18f80",
+      "rva": "0x18f80",
+      "size": 192,
+      "source": "src/title/u17cb0.cpp",
+      "original_sha256": "790dbd278364c51a8139df24121be1abefd92f794546d942ed32df0bcbae961d",
+      "reference_count": 9,
+      "interface_field": 16
+    },
+    {
+      "id": "title.19040",
+      "rva": "0x19040",
+      "size": 144,
+      "source": "src/title/u17cb0.cpp",
+      "original_sha256": "be29e3e11985fc09e96112e17417dbbbeba09ca3fb9abf5f733d3ca8e3307147",
+      "reference_count": 5,
+      "interface_field": 16
+    },
+    {
+      "id": "title.194e0",
+      "rva": "0x194e0",
+      "size": 144,
+      "source": "src/title/u17cb0.cpp",
+      "original_sha256": "b1e78319193bfc2fbc371b20193f1085e2ab0c195536c2c23721aa587b5820d5",
+      "reference_count": 5,
+      "interface_field": 20
+    },
+    {
+      "id": "title.196c0",
+      "rva": "0x196c0",
+      "size": 48,
+      "source": "src/title/u17cb0.cpp",
+      "original_sha256": "6df64e5563696ff941be35d1f44bf7d0ad987125a8ed7ad86e2d381e13a8239a",
+      "reference_count": 3,
+      "interface_field": 16
+    }
+  ],
+  "owner": {
+    "source": "src/title/u0c1f0.c",
+    "flags": [
+      "/O2"
+    ],
+    "symbol": "_g_engine_interface",
+    "size": 1000,
+    "rva": "0x2bb40",
+    "identity": {
+      "rva": 49674,
+      "size": 5,
+      "operand": 1,
+      "sha256": "a7002ba7539fbb90d2600664fc7580c948a8833e5a7a7022850ddbafa25ffe62"
+    },
+    "copy": [
+      "0xc203: mov ecx,250",
+      "0xc208: mov esi,edx",
+      "0xc20a: mov edi,0x1002bb40",
+      "0xc20f: rep movsd"
+    ],
+    "copy_window_rva": "0xc203",
+    "copy_window_size": 14,
+    "copy_window_sha256": "0e0d1f1ef7201804b8d2cf3a72b5f1b75da0fbd57f95581a3ef8cd04731f3409",
+    "terminal_field_rva": "0xcc85",
+    "terminal_instruction_sha256": "6c0d2348d80e3d59561945dc3d5ae2065aa1cef658cc6fa2fd41b75e9c5c00bb",
+    "extent_basis": "250 DWORD copy from the independently encoded owner base; final four-byte field at +996 ends exactly at1000.",
+    "accesses": "Only direct absolute four-byte field loads at +16/+20. No indexing or indirect call in any selected caller.",
+    "positive_common_and_native_checks": true,
+    "rejected_controls": {
+      "wrong_base_plus4": "Independent loader-zero anchor identifies another storage cell",
+      "wrong_extent996": "Loader-zero owner must be one complete exact-size COMMON definition",
+      "wrong_extent1004": "Loader-zero owner must be one complete exact-size COMMON definition",
+      "dependent_anchor": "Loader-zero identity must be independent of the compared caller"
+    }
+  },
+  "callee_identities": [
+    {
+      "id": "title.0c760",
+      "rva": "0xc760",
+      "size": 16,
+      "source": "src/title/u0c1f0.c",
+      "source_sha256": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+      "basis": "parent function identity table"
+    },
+    {
+      "id": "title.0c7b0",
+      "rva": "0xc7b0",
+      "size": 16,
+      "source": "src/title/u0c1f0.c",
+      "source_sha256": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+      "basis": "parent function identity table"
+    },
+    {
+      "id": "title.0c810",
+      "rva": "0xc810",
+      "size": 16,
+      "source": "src/title/u0c1f0.c",
+      "source_sha256": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+      "basis": "parent function identity table"
+    },
+    {
+      "id": "title.0c840",
+      "rva": "0xc840",
+      "size": 16,
+      "source": "src/title/u0c1f0.c",
+      "source_sha256": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+      "basis": "new independent c840 review"
+    },
+    {
+      "id": "title.0c850",
+      "rva": "0xc850",
+      "size": 16,
+      "source": "src/title/u0c1f0.c",
+      "source_sha256": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+      "basis": "parent function identity table"
+    }
+  ],
+  "additional_callee_identity": {
+    "id": "title.0c840",
+    "rva": "0xc840",
+    "size": 16,
+    "source": "src/title/u0c1f0.c",
+    "source_sha256": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+    "original_sha256": "3db1327f29740e15448870593227b91ffd1cc6086cbd1a1754959aef3dc821bc",
+    "native_slot_offset": "0x1e0",
+    "outside_caller": {
+      "id": "title.19270",
+      "rva": "0x19270",
+      "extent": 368,
+      "not_in_candidate_set": true,
+      "call_site_rva": "0x1939c",
+      "bytes_hex": "53e89e34ffff8b4424388b6c241c83c404",
+      "sha256": "53eacdc6e770cad0472a2ffc01a0c51d5f2fce7b3672fa66ba54f73c4485e9ab",
+      "decoded": [
+        "0x1939c: push ebx",
+        "0x1939d: call 0x1000c840",
+        "0x193aa: add esp,4"
+      ],
+      "source_file": "src/title/u17cb0.cpp",
+      "prototype_line": 159,
+      "call_line": 1258,
+      "prototype": "void title_0c840(void *b);",
+      "call": "title_0c840(dst4);"
+    },
+    "abi": {
+      "native_calling_convention": "cdecl: caller removes one four-byte argument at 0x193aa; callee returns with ret at 0xc84e.",
+      "provider": "one int argument under default cdecl, one 32-bit slot access, EAX return.",
+      "caller": "one pointer argument; x86 pointer and int are both 32 bits; return value is ignored.",
+      "scope": "This supports binding the direct branch to the independent callee entry for this reference check; no claim about target service semantics."
+    }
+  },
+  "compiler_calls": {
+    "confirmed_two_candidate_gate_runs": 4,
+    "owner_component_audit": 1,
+    "preflight_failures_before_compiler_launch": 2,
+    "total_TITLE_candidate_historical_compiler_invocations": 5,
+    "final_four_candidate_gate_calls": 2,
+    "reused_recorded_census_profiles": 275,
+    "census_producer": "separate parent-authorized work/realignment/census recorded census; reused without another run"
+  },
+  "private_four_row_receipt_sha256": "f2cae9a21c26922192ccbba4b5e33e544132850bfc37648f918f3895eba40336",
+  "limitations": [
+    "Complete owner identity does not establish its pointee storage, service behavior, or native module layout.",
+    "Original callee source names and int/pointer source declarations are not proved; the observed one-DWORD cdecl ABI is identified independently.",
+    "Only journaled fresh promotion may accept these four callers. No wrapper or other shared-source twin is accepted by this review."
+  ]
+}
