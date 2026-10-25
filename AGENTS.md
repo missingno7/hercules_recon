@@ -62,6 +62,13 @@ are the evidence oracle; PSX builds are secondary.
 - One integrator owns canonical recovery state and commits. Parallel work must
   have explicit ownership of disjoint files/functions, private scratch space, and
   a compact provenance handoff.
+- Keep matching workers narrow (usually four to six Luna workers) under one
+  integrator; assign a shared uncertain blocker to one Sol reviewer. Reassign
+  finished workers while integration proceeds; don't delay a ready batch for an
+  optional trailing audit.
+- Handoffs name exact IDs and source ownership, base and input hashes, existing
+  binding/native evidence, one focused receipt, compiler-call count, and the
+  first blocker. Link large reports; don't paste ledgers or hash inventories.
 - Default to GPT-6 Luna xhigh for bounded reconstruction and compiler work. Use
   GPT-6.1 Sol high when the explanation is uncertain or one shared question can
   unlock several regions. Prefer deterministic verification over extra model

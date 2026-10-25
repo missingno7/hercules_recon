@@ -5,6 +5,43 @@ and the focused source/evidence for the function or dependency family. Work from
 a falsifiable question; keep experiments under ignored candidates/ or work/.
 Generated packets and reports are disposable and never grant acceptance.
 
+## Short matching campaign loop
+
+Before spending compiler calls, review a focused source/region packet, exact
+function IDs, current source ownership and hashes, original callers/callees, and
+only the few relevant negative notes. For a proposed lane, run the compiler-free
+preflight against its canonical bindings and recorded baseline objects:
+
+    python scripts/match.py preflight --bindings evidence/lane.json --objects work/baseline.json --report work/lane/preflight.json
+
+Preflight is a diagnostic, not a match or acceptance proof. Follow it with the
+focused fresh candidate/reference check and the normal fresh promotion gate; do
+not reuse preflight or prior-run proofs. Run at most one fresh compile per distinct
+compiler profile for each experiment. Programmatic probes should use the pinned
+`match.compile_source` helper and write generated source as UTF-8; avoid ad hoc
+compiler environments or flag overrides.
+
+Use four to six narrow Luna workers with one integrator. Give one Sol reviewer a
+shared blocker when its explanation could unlock several lanes. Reassign finished
+workers to independent families while integration proceeds; do not hold a ready
+batch for optional trailing audits. Rerun the full source graph only after source,
+header, or active-selection inputs change. Run fresh full protection once at the
+batched integration boundary; never carry strict proofs across runs.
+
+Keep the handoff small: exact IDs and source ownership, base revision and current
+source/input hashes, existing-format bindings plus native evidence, one focused
+receipt, compiler-call count, and first blocker. Link reports in the workspace;
+do not paste whole ledgers, reports, or hash lists into chat. Routine commit
+reports need only generated statistics, exceptions, and the next four to six items.
+
+The 2026-10-25 process check preserved all 496 strict proof hashes while replaying
+eight functions from two binding documents, with 43 legacy LINKED checks passing
+(their 86 existing provenance drifts remain). The fresh strict phase used 122
+compiler calls both times: 84.237 seconds before, 60.148 after. This single timing
+pair is not a performance guarantee. The 373-test suite passed; preflight also
+rejected a deliberately wrong relocation offset without compiling. Recovery state
+and game source stayed unchanged. Scratch receipts are under `work/process/`.
+
 For a bounded matching campaign, use the measured
 [census, worker loop and pilot results](matching_realignment_2026_10_25.md).
 Classify the first current blocker before compiling a source variant. The recorded
@@ -224,12 +261,17 @@ For existing source with exact code and reviewed reference identities:
 
     python scripts/match.py references <id> --bindings evidence/relocated_reference_bindings.json
 
-    python scripts/promote.py <ids...> --relocated --bindings evidence/relocated_reference_bindings.json --verify-only
-    python scripts/promote.py <ids...> --relocated --bindings evidence/relocated_reference_bindings.json
+The protected batch form accepts repeatable worker-specific canonical binding
+files, so keep each lane's evidence in its own document rather than building a
+large combined manifest:
 
-Use the same command without `--verify-only` only after reviewing those independent
-bindings. It retains source in its real translation unit and protects all accepted
-peers. Masked equality and implied addresses alone cannot supply bindings.
+    python scripts/promote.py <ids...> --relocated --bindings evidence/lane-a.json --bindings evidence/lane-b.json --report work/lane/promotion.json
+
+Review the independent bindings before promotion. Add `--verify-only` for a full
+dry run when needed; a routine integration need not run it before promotion,
+which performs the same fresh protection itself. Source stays in its real
+translation unit and every accepted peer is protected. Masked equality and implied
+addresses alone cannot supply bindings.
 
 Shared-source symbol names can retain addresses from another module. In the
 2026-10-24 helper review, `_title_0c7e0` in an ENG1 contribution did not identify

@@ -1,5 +1,6 @@
 """Fresh historical compile, full COFF contribution comparison, strict regression."""
 import argparse
+import copy
 import hashlib
 import json
 import os
@@ -207,27 +208,56 @@ def compile_inputs(source, flags, toolchain):
     return result
 
 
-def reference_inputs(path, row):
+class ReferenceSnapshot:
+    """One phase's immutable evidence reads, never a persisted acceptance cache.
+
+    Verification still hashes all frozen inputs at its original guard points.
+    Publication starts another snapshot and checks it again before writing.
+    """
+    def __init__(self):
+        self.files = {}
+        self.documents = {}
+
+    def read(self, path, row):
+        path = (ROOT / path).resolve()
+        if not path.is_relative_to(ROOT.resolve()):
+            raise ValueError('Reference bindings must be repository evidence')
+        if path not in self.documents:
+            content = path.read_bytes()
+            actual = digest(content)
+            if path in self.files and self.files[path] != actual:
+                raise ValueError('Independent reference input changed during verification: ' + str(path))
+            self.files[path] = actual
+            document = json.loads(content)
+            if document.get('schema') != 1 or not document.get('evidence_files'):
+                raise ValueError('Reference bindings need versioned, pinned independent evidence')
+            observed = {path: actual}
+            for name, expected in document['evidence_files'].items():
+                item = (ROOT / name).resolve()
+                if (not any(item.is_relative_to(root.resolve()) for root in (ROOT, DEFAULT_TOOLCHAIN)) or
+                        item == ROOT / 'recovery.json'):
+                    raise ValueError('Reference evidence must be repository evidence or pinned SDK inputs, independent of recovery state')
+                if item not in self.files:
+                    self.files[item] = digest(item.read_bytes())
+                if self.files[item] != expected:
+                    raise ValueError('Independent reference evidence changed: ' + name)
+                observed[item] = expected
+            identity = {k: v for k, v in document.items() if k not in ('functions', 'evidence_files')}
+            context = dict(files=document['evidence_files'], identity_sha256=reference_digest(identity))
+            self.documents[path] = document, context, observed
+        document, context, observed = self.documents[path]
+        # Callers cannot alter a later row's frozen metadata by mutating a result.
+        return copy.deepcopy(document['functions'][row['id']]), copy.deepcopy(context), dict(observed)
+
+    def assert_unchanged(self):
+        for path, expected in self.files.items():
+            if digest(path.read_bytes()) != expected:
+                raise ValueError('Independent reference input changed during verification: ' + str(path))
+
+
+def reference_inputs(path, row, *, snapshot=None):
     """Read reviewed evidence, never infer bindings from the caller's operands."""
-    path = (ROOT / path).resolve()
-    if not path.is_relative_to(ROOT.resolve()):
-        raise ValueError('Reference bindings must be repository evidence')
-    content = path.read_bytes()
-    document = json.loads(content)
-    if document.get('schema') != 1 or not document.get('evidence_files'):
-        raise ValueError('Reference bindings need versioned, pinned independent evidence')
-    observed = {path: digest(content)}
-    for name, expected in document['evidence_files'].items():
-        item = (ROOT / name).resolve()
-        if (not any(item.is_relative_to(root.resolve()) for root in (ROOT, DEFAULT_TOOLCHAIN)) or
-                item == ROOT / 'recovery.json'):
-            raise ValueError('Reference evidence must be repository evidence or pinned SDK inputs, independent of recovery state')
-        if digest(item.read_bytes()) != expected:
-            raise ValueError('Independent reference evidence changed: ' + name)
-        observed[item] = expected
-    identity = {k: v for k, v in document.items() if k not in ('functions', 'evidence_files')}
-    context = dict(files=document['evidence_files'], identity_sha256=reference_digest(identity))
-    return document['functions'][row['id']], context, observed
+    return (snapshot if snapshot is not None else ReferenceSnapshot()).read(path, row)
 
 
 def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocation_candidates=None):
@@ -243,6 +273,7 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
         raise ValueError('Relocation candidates must be included in verification')
     groups, targets, references, evidence_inputs = {}, {}, {}, {}
     storage_profiles, storage_evidence, alias_records = {}, {}, {}
+    reference_snapshot = ReferenceSnapshot()
     for row in rows:
         source, target = (ROOT / row['source']).resolve(), ((original_root or ROOT) / row['target']).resolve()
         if row['status'] not in ACCEPTED and row['id'] not in pending:
@@ -254,7 +285,7 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
         targets[target] = row['target_sha256']
         if row['status'] == RELOCATED or row['id'] in pending:
             path = pending.get(row['id']) or row['proof']['bindings_path']
-            binding, evidence, observed = reference_inputs(path, row)
+            binding, evidence, observed = reference_inputs(path, row, snapshot=reference_snapshot)
             references[row['id']] = (binding, evidence, path)
             records = binding.get('symbols', {})
             if not isinstance(records, dict) or any(not isinstance(record, dict) for record in records.values()):
@@ -453,7 +484,7 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["verify", "candidate", "object", "references"])
+    parser.add_argument("command", choices=["verify", "candidate", "object", "references", "preflight"])
     parser.add_argument("id", nargs="?")
     parser.add_argument("--source", type=Path)
     parser.add_argument("--obj", type=Path)
@@ -462,13 +493,45 @@ def main():
                         help="Read hash-pinned originals from this checkout; retain local canonical source, recovery state and strict gate")
     parser.add_argument("--report", type=Path)
     parser.add_argument('--raw-only', action='store_true', help='independent legacy raw regression only')
-    parser.add_argument('--bindings', type=Path, help='reviewed evidence for the references comparison command')
+    parser.add_argument('--bindings', type=Path, help='reviewed evidence for references or preflight')
+    parser.add_argument('--objects', type=Path, help='recorded object report for compiler-free preflight')
     args = parser.parse_args()
     state_before = (ROOT / "recovery.json").read_bytes()
     state = json.loads(state_before)
     rows = [r for r in state["functions"] if r["id"] == args.id] if args.id else state["functions"]
     if args.id and not rows:
         raise SystemExit(f"Unknown function {args.id}")
+    if args.objects and args.command != 'preflight':
+        parser.error('--objects is only used by preflight')
+    if args.command == 'preflight':
+        if args.bindings is None or args.objects is None or args.source or args.obj or args.raw_only:
+            parser.error('preflight requires --bindings and --objects, forbids --source/--obj/--raw-only')
+        from reference_preflight import preflight
+        ids = set(json.loads(args.bindings.read_bytes())['functions'])
+        if not args.id and ids - {r['id'] for r in rows}:
+            parser.error('Reference bindings contain unknown recovery IDs')
+        rows = [r for r in rows if r['id'] in ids]
+        if not rows:
+            parser.error('No selected functions have reviewed bindings')
+        result = preflight(rows, args.bindings, args.objects, args.toolchain, args.original_root)
+        if (ROOT / 'recovery.json').read_bytes() != state_before:
+            raise ValueError('Recovery state changed during preflight')
+        if args.report:
+            if not any(args.report.resolve().is_relative_to((ROOT / directory).resolve())
+                       for directory in ('work', 'build')):
+                parser.error('Generated reports must go under work/ or build/')
+            args.report.parent.mkdir(parents=True, exist_ok=True)
+            args.report.write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
+        print(f"Diagnostic preflight: {'PASS' if result['ok'] else 'BLOCKED'}; "
+              f"{len(result['functions'])} functions; 0 compiler calls; no acceptance proof")
+        for message in result['errors']:
+            print('  ' + message)
+        for item in result['functions']:
+            for message in item['errors']:
+                print(f"  {item['id']}: {message}")
+        if not result['ok']:
+            raise SystemExit(1)
+        return
     if args.command == 'references':
         if args.bindings is None or args.source or args.obj:
             parser.error('references requires --bindings and canonical source')

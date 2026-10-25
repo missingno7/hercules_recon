@@ -406,8 +406,12 @@ def promote_existing_units(ids, verify_only=False, report=None):
 
 def assert_verified_inputs(rows, results, original_root=None):
     """Recheck frozen compiler, reference and oracle inputs before publication."""
-    from match import RELOCATED, reference_inputs, reference_digest
+    from match import RELOCATED, ReferenceSnapshot, reference_inputs, reference_digest
     by_id = {r['id']: r for r in results}
+    # Publication gets its own snapshot, separate from the verification pass.
+    # Repeated bindings can share evidence files, but all of those inputs are
+    # freshly rehashed once more at the end of this phase.
+    reference_snapshot = ReferenceSnapshot()
     for row in rows:
         result = by_id[row['id']]
         if digest(Path(result['object']).read_bytes()) != result['object_sha256']:
@@ -430,9 +434,53 @@ def assert_verified_inputs(rows, results, original_root=None):
         if digest(((original_root or ROOT) / row['target']).read_bytes()) != row['target_sha256']:
             raise ValueError('Oracle changed before publication')
         if result.get('proof_category') == RELOCATED:
-            binding, evidence, _ = reference_inputs(result['bindings_path'], row)
+            binding, evidence, _ = reference_inputs(result['bindings_path'], row,
+                                                     snapshot=reference_snapshot)
             if reference_digest(binding) != result['bindings_sha256'] or reference_digest(evidence) != result['reference_evidence_sha256']:
                 raise ValueError('Reference binding changed before publication')
+    reference_snapshot.assert_unchanged()
+
+
+def _relocation_bindings(ids, bindings):
+    """Map every requested ID to exactly one repository evidence document."""
+    from match import ROOT as MATCH_ROOT
+
+    supplied = list(bindings) if isinstance(bindings, (list, tuple)) else [bindings]
+    if not supplied or any(not isinstance(path, (str, Path)) for path in supplied):
+        raise ValueError('Provide one or more reference binding documents')
+    root = MATCH_ROOT.resolve()
+    documents = []
+    seen_paths = set()
+    for item in supplied:
+        path = Path(item).resolve()
+        if path in seen_paths:
+            raise ValueError('Duplicate reference binding document path')
+        seen_paths.add(path)
+        if not path.is_relative_to(root):
+            raise ValueError('Reference bindings must be repository evidence')
+        try:
+            document = json.loads(path.read_text(encoding='utf-8'))
+        except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+            raise ValueError('Cannot read reference binding document: ' + str(path)) from exc
+        if not isinstance(document, dict):
+            raise ValueError('Reference bindings need a versioned function inventory')
+        functions = document.get('functions')
+        if document.get('schema') != 1 or not isinstance(functions, dict):
+            raise ValueError('Reference bindings need a versioned function inventory')
+        documents.append((path.relative_to(root).as_posix(), set(functions)))
+
+    owners = {}
+    for function_id in ids:
+        paths = [relative for relative, functions in documents if function_id in functions]
+        if not paths:
+            raise ValueError('No reference binding document covers: ' + function_id)
+        if len(paths) != 1:
+            raise ValueError('Multiple reference binding documents cover: ' + function_id)
+        owners[function_id] = paths[0]
+    used_paths = set(owners.values())
+    if used_paths != {relative for relative, _ in documents}:
+        raise ValueError('Every supplied reference binding document must cover a requested function')
+    return owners
 
 
 def promote_relocated(ids, bindings, verify_only=False, report=None, original_root=None):
@@ -447,8 +495,7 @@ def promote_relocated(ids, bindings, verify_only=False, report=None, original_ro
         raise ValueError('Provide unique existing recovery IDs')
     if any(r['status'] != 'CODEGEN_SIMILAR' for r in selected):
         raise ValueError('Relocated adoption requires reviewed CODEGEN_SIMILAR rows; preserves existing acceptance')
-    binding_path = Path(bindings).resolve().relative_to(ROOT.resolve()).as_posix()
-    pending = {r['id']: binding_path for r in selected}
+    pending = _relocation_bindings([r['id'] for r in selected], bindings)
     rows = accepted_rows(state['functions']) + selected
     results, statistics = verify_rows(rows, original_root=original_root, relocation_candidates=pending)
     if not all(r['exact'] for r in results):
@@ -510,7 +557,8 @@ def main():
     parser.add_argument('--existing-unit', action='store_true', help='accept raw functions in unchanged recorded units; status only')
     parser.add_argument('--report', type=Path)
     parser.add_argument('--relocated', action='store_true', help='status-only acceptance with reviewed references')
-    parser.add_argument('--bindings', type=Path, help='independent reference evidence document')
+    parser.add_argument('--bindings', type=Path, action='append',
+                        help='independent reference evidence document (repeat for multiple documents)')
     args = parser.parse_args()
     with lock():
         if args.recover:
