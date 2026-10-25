@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "scope": "Canonical reconstructed ENG3 provider, NEAR only. No matching acceptance or whole-module link closure.",
+  "target": "assets/pc/HERCULES/ENG3.DLL",
+  "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "source": "src/eng3/rng_state_01010.c",
+  "source_sha256": "e3e1633cc100be5f547db0d1e50f4e50a5af23783669d8173dea40d6fe12c006",
+  "symbol": "_eng3_01010",
+  "rva": "0x1010",
+  "size": 64,
+  "flags": [
+    "/O2"
+  ],
+  "status": "NEAR",
+  "native_function_sha256": "c733b08ff5bb8e1f58f8d6b3f6e301749f7493d4c691d6acbcbd168f72bf36f9",
+  "state": {
+    "rva": "0x33070",
+    "bytes": "7b000000c8010000",
+    "cells": [
+      123,
+      456
+    ],
+    "width_bits": 32,
+    "native_reference_scope": "Observed absolute references to both cells are confined to the helper. This does not exclude computed references or establish original static/TU spelling."
+  },
+  "semantics": "high += low; low += high; increment low when updated high bit31 is set; return unsigned low % limit. All arithmetic wraps at32 bits. No invented reset or seed.",
+  "native_abi_witness": {
+    "rva": "0x540c",
+    "size": 16,
+    "sha256": "4f6056999d8da64d9cc4d225abd260d6e7bcdb248b7501084dcaea19f65b3b5a",
+    "observations": "push6; call0x1010; add esp,4; test EAX. Plain RET supports unsigned DWORD cdecl argument/result."
+  },
+  "verification": {
+    "historical_compiler_calls": 1,
+    "compiled_size": 64,
+    "different_raw_bytes": 54,
+    "different_nonreference_bytes": 36,
+    "compiled_sha256": "475133e080424dfdd1fe57cdec2329faac4020eacacedef25d95dedc7efa9201",
+    "object_sha256": "4993b159b8b6c9c14c534a892da78a0013615592dfa39120d03cbf9d89f287a4",
+    "compiled_initial_state_equal": true,
+    "source_consumer": "src/eng3/handlers_121c0.c",
+    "previously_undefined_symbol_now_provided": true,
+    "consumer_object_sha256": "2f0cbc27e225d3b8a3b83c373407d848bbd766e3f9774d5d835dc641008b12a9"
+  },
+  "finite_evidence": {
+    "nonzero_limit_cases": 1726,
+    "method": "Independent arithmetic model of native instruction sequence versus source recurrence; no original module execution.",
+    "model_sha256": "c3a4b7202a4ff324f2a526b17d98c427acfd3b43b9ecab6e530d772750b8d8e7"
+  },
+  "limits": [
+    "This is source reconstruction, not RAW, RELOCATED, SEMANTIC_VERIFIED ledger acceptance or complete behavioral proof.",
+    "Limit0 faults in native DIV. C remainder by zero is undefined; finite evidence excludes that input. Disassembly of this historical candidate commits state before DIV.",
+    "The existing source caller now has a genuine provider object; no complete ENG3 source graph/link was measured.",
+    "Direct-state/local-state/volatile variants were tried in five worker compiles; do not repeat the same shapes without a new causal codegen hypothesis."
+  ]
+}

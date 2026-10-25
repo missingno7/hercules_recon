@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "scope": "Three real ENG1 consumer names bind to existing exact same-entry providers; no new STRICT body is claimed.",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "providers": [
+    {
+      "symbol": "_eng1_27db0",
+      "provider": "_spawn_kind",
+      "rva": "0x27db0",
+      "accepted_id": "eng1.spawn_kind",
+      "source": "src/eng1/coordinate_factories.cpp",
+      "source_sha256": "469680b5aa7d7abc4146d0a38b57d6a2373368bd43ca548f1b3e5ca3d8fba28d",
+      "consumer": "src/eng1/player_scene_3a040.c",
+      "complete_object_preserved": true,
+      "original_object_sha256": "9e8d5ac197bc704c838a3a9d758abe68cd810af56f17990be3f5e99589c0ccca",
+      "candidate_object_sha256": "c4037053d1a3e7350f9b27c41abde053c6545c4e133ba3c30a0280cd238c4d81",
+      "abi": "Four cdecl DWORD arguments; return is an actor pointer in EAX.",
+      "native_direct_call_count": 37,
+      "independent_outside_calls": [
+        {
+          "rva": "0x1a5e8",
+          "size": 5,
+          "sha256": "53f0999a226d6d5b82cf7c5d782f73628c1f61fcc687e1287f0a1c3fc73fd199"
+        },
+        {
+          "rva": "0x21de2",
+          "size": 5,
+          "sha256": "56ccd317ae8906d5c003613eb7ed850184f36b1ffc972085e547f338492594dd"
+        }
+      ],
+      "native_pointer_cells": []
+    },
+    {
+      "symbol": "_eng1_291d0",
+      "provider": "_apply_frame_motion_3d",
+      "rva": "0x291d0",
+      "accepted_id": "eng1.apply_frame_motion_3d",
+      "source": "src/shared/frame_motion.c",
+      "source_sha256": "cedcf3f754f74ab81b87abe2e7f4248bef5bff8b293ef7d2441f2951d9169493",
+      "consumer": "src/eng1/mode_handlers_16840.cpp",
+      "complete_object_preserved": true,
+      "original_object_sha256": "4472087906842679a7723340c95a86a10a994abe78d190e92a9c2770906af3aa",
+      "candidate_object_sha256": "414d2a44294feb831b395b3b83eaf177f2b43f5d1b130e2aa48ed66c8c930cf1",
+      "abi": "One cdecl pointer argument; native callers add four bytes to ESP and ignore the EAX value.",
+      "native_direct_call_count": 5,
+      "independent_outside_calls": [
+        {
+          "rva": "0xf52a",
+          "size": 5,
+          "sha256": "22fbed9c83bd786b75c426367551a46a2b76d9c1b05d3c7369851bc5a2c2a110"
+        },
+        {
+          "rva": "0x34e4e",
+          "size": 5,
+          "sha256": "0596805a2480b12bf711907ac48cbeab22a6955a5b370cf332d076dc7a9fd5c3"
+        },
+        {
+          "rva": "0x35db5",
+          "size": 5,
+          "sha256": "eeada0a1bf4b2ed1771ab27b2eb4ec7cd53780d1ac753a761ccfa8345d322253"
+        },
+        {
+          "rva": "0x3e3e0",
+          "size": 5,
+          "sha256": "8264413b64ebe061bbcac453232c5d49561f83804dcc4b5b6f9ebd5a2ee1ba5c"
+        }
+      ],
+      "native_pointer_cells": []
+    },
+    {
+      "symbol": "_eng1_native_code_target_034570",
+      "provider": "_eng1_34570",
+      "rva": "0x34570",
+      "accepted_id": "eng1.34570",
+      "source": "src/eng1/status_panel_32b10.c",
+      "source_sha256": "504d2e4775f146b0e99e7b3190435c8061f90a87769139b45e6b2bea319a48ca",
+      "consumer": "src/eng1/config_aux_callbacks.c",
+      "complete_object_preserved": true,
+      "original_object_sha256": "277e34706aefff8fa23f056aa524ab805796cd12786fce5574e199ae56e8385a",
+      "candidate_object_sha256": "b79378ebf7ba18bc5504d6f4fad6ad0557fe1c4d8986417198c440355699ac46",
+      "abi": "Four-byte cdecl function-pointer storage is verified; callback argument prototype and invocation behavior remain unknown.",
+      "native_direct_call_count": 0,
+      "independent_outside_calls": [],
+      "native_pointer_cells": [
+        {
+          "cell_rva": "0x610f0",
+          "value_va": "0x10034570",
+          "target_rva": "0x34570",
+          "relocation_type": 3,
+          "image_base": "0x10000000",
+          "storage_width": 4,
+          "callback_prototype": "not established by pointer data"
+        }
+      ]
+    }
+  ],
+  "historical_compiler_invocations": 3,
+  "private_combined_link": {
+    "baseline_unresolved": 723,
+    "after_94_aliases": 629,
+    "new_unresolved_names": 0,
+    "duplicate_providers": 0,
+    "units": 249,
+    "exit_code": 25
+  },
+  "complete_object_proof": "Only one external symbol name changes in each of three objects. All complete section bytes/flags, symbol types/values/indexes and relocation offsets/types are preserved.",
+  "removed_diagnostic_placeholders": 1,
+  "limits": [
+    "A pointer cell identifies a function entry but does not establish the callback ABI.",
+    "No missing body is replaced by a stub; all providers existed and had strict acceptance before this review.",
+    "The genuine module still has unresolved dependencies; no standalone link or runtime completeness is claimed."
+  ],
+  "fresh_integration_graph": {
+    "scope": "Fresh full ENG1 source graph compared against all preceding selected objects; only94 reviewed external symbol identities differ.",
+    "units": 249,
+    "changed_objects": 4,
+    "renamed_symbols": 94,
+    "sections_symbols_relocations_preserved_after_reviewed_renames": true,
+    "derived_input_file_path_changes": 54,
+    "file_provenance_limit": "Only .file auxiliary names for the changed generated-input output directory are normalized. Each matches its actual compiler input path; source bytes and all other symbol metadata/section bytes/relocation offsets/types remain equal.",
+    "unresolved_before": 723,
+    "unresolved_after": 629,
+    "unresolved_by_kind": {
+      "function": 334,
+      "untyped": 295
+    },
+    "mapped_providers": 966,
+    "compiled_function_symbols": 1043,
+    "duplicate_providers": 0,
+    "raw_peers_preserved": 79,
+    "includes_provisional_functions": false,
+    "link_exit_code": 25,
+    "config_sha256": "1a259de68c167e622b839e14973f311bc310c61aebadf822eaae10542dfe1c21",
+    "recovery_sha256": "c8437194fb622c925356db24f439830be320a185910b2a16a56f375fa5f63167",
+    "graph_report_sha256": "56801cf93a0e3048d6e047f03e435126ef9471ae62e06ef2600724a0a5af24a7",
+    "historical_compiler_invocations": 249
+  },
+  "final_incomplete_manifest_rows": 466,
+  "final_unimplemented_function_placeholders": 296
+}
