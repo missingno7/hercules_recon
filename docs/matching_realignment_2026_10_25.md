@@ -422,6 +422,9 @@ RAW peers pass, there are no duplicate providers or generated stubs, and link
 exit 25 still means no standalone ENG1 DLL. The incomplete manifest has 464 entries:
 292 whole-entry function placeholders and 75 conditional incomplete-data reads.
 
+The tree has 630 current source/header files: PC 187, TITLE 61, ENG1 315,
+ENG3 23 and shared 44. These provider-path counts are separate from target-module coverage.
+
 The original 275 measured census profiles retain current source/flag/target
 guards, supplemented by the freshly proved sound profile: **276 profiles /
 2,238 recorded rows**. Unaccepted diagnostics now comprise 16 exact, 1,496
