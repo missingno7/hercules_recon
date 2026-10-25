@@ -270,7 +270,7 @@ def promote_existing_units(ids, verify_only=False, report=None):
     """
     from similar import SCOPE, masked_identity
     from masked import masked_compare
-    from match import accepted_rows
+    from match import accepted_rows, RELOCATED
     if JOURNAL.exists():
         raise ValueError('Interrupted promotion: recover it first')
     if report is not None and not any(report.resolve().is_relative_to(ROOT / d) for d in ('work', 'build')):
@@ -288,7 +288,7 @@ def promote_existing_units(ids, verify_only=False, report=None):
         path = (ROOT / row['source']).resolve()
         if not path.is_relative_to(ROOT / 'src'):
             raise ValueError('Existing units must be repository source')
-        if row['status'] != 'FUNCTION_MATCH' and not (
+        if row['status'] not in ('FUNCTION_MATCH', RELOCATED) and not (
                 row['status'] == 'CODEGEN_SIMILAR' and row.get('proof', {}).get('scope') == SCOPE):
             raise ValueError('Every existing-unit peer needs a supported prior proof')
         if digest(path.read_bytes()) != row['proof']['source_sha256']:
@@ -314,15 +314,52 @@ def promote_existing_units(ids, verify_only=False, report=None):
         members = [r for r in peers if r['source'] == source]
         if len({tuple(r['flags']) for r in members}) != 1:
             raise ValueError('Unit peers disagree about compiler flags')
+        if len({r['id'] for r in members}) != len(members):
+            raise ValueError('Duplicate existing-unit peer records')
+        mapped_names = [r.get('symbol') for r in members]
+        if any(not isinstance(symbol, str) or not symbol for symbol in mapped_names):
+            raise ValueError('Existing-unit peer has an invalid function symbol')
+        mapped = set(mapped_names)
+        # The same source function can be recorded against different target
+        # modules. It still denotes one emitted COFF definition, and cannot be
+        # claimed twice within the same target.
+        symbol_targets = {}
+        for row in members:
+            target = (ROOT / row['target']).resolve().as_posix().casefold()
+            if target in symbol_targets.setdefault(row['symbol'], set()):
+                raise ValueError('Function inventory maps one symbol more than once per target')
+            symbol_targets[row['symbol']].add(target)
+
+        masked_members = [r for r in members if r['status'] == 'CODEGEN_SIMILAR']
+        declarations = set()
+        for row in masked_members:
+            names = row.get('proof', {}).get('co_defined_functions', [])
+            if (not isinstance(names, list) or
+                    any(not isinstance(name, str) or not name for name in names) or
+                    len(names) != len(set(names))):
+                raise ValueError('Invalid pinned co-defined function inventory: ' + row['id'])
+            declarations.add(frozenset(names))
+        if len(declarations) != 1:
+            raise ValueError('Unit peers disagree about pinned co-defined functions')
+        pinned_co_defined = set(next(iter(declarations)))
+        # Relocated peers may appear in masked rows' pinned inventory because
+        # the masked verifier treats them as co-defined. They remain accepted
+        # only through their unchanged, independently checked relocated proof.
+        relocated_symbols = {r['symbol'] for r in members if r['status'] == RELOCATED}
+        if (pinned_co_defined & mapped) - relocated_symbols:
+            raise ValueError('Pinned co-defined function overlaps an unsupported peer')
+        co_defined = pinned_co_defined - mapped
         result = by_id[next(r['id'] for r in members if r['id'] in wanted)]
         obj = Path(result['object'])
         observed[obj] = obj.read_bytes()
         coff = COFF(obj)
         defined = [s['name'] for s in coff.symbols.values() if s['section'] > 0 and s['type'] & 0x20]
-        if len(defined) != len(members) or set(defined) != {r['symbol'] for r in members}:
+        expected = mapped | co_defined
+        if len(defined) != len(set(defined)) or set(defined) != expected:
             raise ValueError('Complete emitted function inventory differs from recorded unit')
+        for symbol in sorted(expected):
+            coff.function(symbol)  # complete independently bounded COMDAT, never slices
         for row in members:
-            coff.function(row['symbol'])  # full independently bounded COMDAT, never slices
             if row['status'] == 'CODEGEN_SIMILAR':
                 measured = masked_compare(obj, row['symbol'], ROOT / row['target'], int(row['rva'], 0), row['size'])
                 if (not measured['masked_equal'] or measured['symbols'] != row['link_symbols'] or
