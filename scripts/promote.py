@@ -1,6 +1,7 @@
 """Serialize source promotion; freshly verify every accepted function before writing."""
 import argparse
 import base64
+import copy
 from contextlib import contextmanager
 import json
 import os
@@ -8,7 +9,8 @@ from pathlib import Path
 import re
 
 from env import ROOT
-from match import check, digest, DEFAULT_TOOLCHAIN
+from match import (check, digest, verify_rows, compile_inputs, context_proof,
+                   unit_inventory, DEFAULT_TOOLCHAIN)
 from coff import COFF
 
 STATE = ROOT / "recovery.json"
@@ -155,6 +157,13 @@ def promote(ids, candidate, verify_only=False, original_root=None):
     if not rows or {r["id"] for r in rows} != wanted:
         raise ValueError("Every requested function must already have reviewed target context in recovery.json")
     sources = {r["source"] for r in rows}
+    if any(r['status'] == 'FUNCTION_MATCH_RELOCATED' and
+           (r.get('source') in sources or sources & set(r.get('proof', {}).get('context_sha256', {})))
+           for r in state['functions']):
+        raise ValueError('Source replacement would touch accepted relocated peers; use reviewed in-place adoption')
+    relocated_peers = [r for r in state['functions'] if r['status'] == 'FUNCTION_MATCH_RELOCATED']
+    if relocated_peers and not all(r['exact'] for r in verify_rows(relocated_peers, original_root=original_root)[0]):
+        raise ValueError('Previously accepted relocated peer regressed')
     if len(sources) != 1:
         raise ValueError("One source file per promotion")
     destination = ROOT / next(iter(sources))
@@ -253,6 +262,206 @@ def promote(ids, candidate, verify_only=False, original_root=None):
         frozen.unlink(missing_ok=True)
 
 
+def promote_existing_units(ids, verify_only=False, report=None):
+    """Status-only adoption of raw functions in unchanged, fully inventoried units.
+
+    No source is moved, extracted, rewritten or replaced. Other code/data remains
+    at its existing proof level. The pilot source-replacement gate stays intact.
+    """
+    from similar import SCOPE, masked_identity
+    from masked import masked_compare
+    from match import accepted_rows
+    if JOURNAL.exists():
+        raise ValueError('Interrupted promotion: recover it first')
+    if report is not None and not any(report.resolve().is_relative_to(ROOT / d) for d in ('work', 'build')):
+        raise ValueError('Promotion reports belong under work/ or build/')
+    state_before = STATE.read_bytes()
+    state = json.loads(state_before)
+    wanted = set(ids)
+    selected = [r for r in state['functions'] if r['id'] in wanted]
+    if not wanted or len(selected) != len(wanted) or any(
+            r['status'] != 'CODEGEN_SIMILAR' or r.get('proof', {}).get('scope') != SCOPE for r in selected):
+        raise ValueError('Existing-unit adoption requires unique, reviewed masked rows')
+    sources = {r['source'] for r in selected}
+    peers = [r for r in state['functions'] if r.get('source') in sources]
+    for row in peers:
+        path = (ROOT / row['source']).resolve()
+        if not path.is_relative_to(ROOT / 'src'):
+            raise ValueError('Existing units must be repository source')
+        if row['status'] != 'FUNCTION_MATCH' and not (
+                row['status'] == 'CODEGEN_SIMILAR' and row.get('proof', {}).get('scope') == SCOPE):
+            raise ValueError('Every existing-unit peer needs a supported prior proof')
+        if digest(path.read_bytes()) != row['proof']['source_sha256']:
+            raise ValueError('Existing source differs from recorded proof: ' + row['id'])
+    checked = copy.deepcopy(accepted_rows(state['functions']) + selected)
+    for row in checked:
+        if row['id'] in wanted:
+            row['status'] = 'FUNCTION_MATCH'  # a request to the raw gate, not state publication
+    observed = {STATE: state_before, ROOT / 'toolchains/manifest.json': (ROOT / 'toolchains/manifest.json').read_bytes()}
+    for row in checked + peers:
+        observed[ROOT / row['target']] = (ROOT / row['target']).read_bytes()
+        for path in compile_inputs((ROOT / row['source']).resolve(), row['flags'], DEFAULT_TOOLCHAIN):
+            observed[path] = path.read_bytes()
+    results, statistics = verify_rows(checked)
+    if not all(r['exact'] for r in results):
+        raise ValueError('Existing-unit promotion rejected by complete raw comparison')
+    if any(r['status'] == 'LINKED_MATCH' for r in state['functions']):
+        from linked import verify
+        verify()
+    by_id = {r['id']: r for r in results}
+    units = {}
+    for source in sorted(sources):
+        members = [r for r in peers if r['source'] == source]
+        if len({tuple(r['flags']) for r in members}) != 1:
+            raise ValueError('Unit peers disagree about compiler flags')
+        result = by_id[next(r['id'] for r in members if r['id'] in wanted)]
+        obj = Path(result['object'])
+        observed[obj] = obj.read_bytes()
+        coff = COFF(obj)
+        defined = [s['name'] for s in coff.symbols.values() if s['section'] > 0 and s['type'] & 0x20]
+        if len(defined) != len(members) or set(defined) != {r['symbol'] for r in members}:
+            raise ValueError('Complete emitted function inventory differs from recorded unit')
+        for row in members:
+            coff.function(row['symbol'])  # full independently bounded COMDAT, never slices
+            if row['status'] == 'CODEGEN_SIMILAR':
+                measured = masked_compare(obj, row['symbol'], ROOT / row['target'], int(row['rva'], 0), row['size'])
+                if (not measured['masked_equal'] or measured['symbols'] != row['link_symbols'] or
+                        masked_identity(obj, row['symbol']) != row['proof']['masked_sha256']):
+                    raise ValueError('Recorded masked peer regressed: ' + row['id'])
+        context = compile_inputs((ROOT / source).resolve(), members[0]['flags'], DEFAULT_TOOLCHAIN)
+        units[source] = dict(unit_inventory_sha256=unit_inventory(obj), context_sha256=context_proof(context),
+                             functions=defined, sections=[dict(name=s['name'], size=s['size'], flags=s['flags'],
+                             payload_sha256=digest(s['data']), relocation_count=len(s['relocations'])) for s in coff.sections],
+                             scope='Inventory preservation only; non-selected code and data are not accepted')
+    for path, before in observed.items():
+        if path.read_bytes() != before:
+            raise ValueError('Input/object changed during promotion: ' + str(path))
+    assert_verified_inputs(checked, results)
+    for row in selected:
+        result, unit = by_id[row['id']], units[row['source']]
+        row['prior_masked_proof'] = row['proof']
+        row['status'] = 'FUNCTION_MATCH'
+        row['proof'] = {k: result[k] for k in ('scope', 'source_sha256', 'compiled_sha256', 'target_sha256', 'toolchain')}
+        row['proof'].update({k: unit[k] for k in ('unit_inventory_sha256', 'context_sha256')})
+    receipt = dict(scope='Fresh raw function acceptance in unchanged mixed units; no unit/data/layout acceptance',
+                   promoted=sorted(wanted), state_before_sha256=digest(state_before),
+                   statistics=statistics, results=results, units=units, verify_only=verify_only)
+    if report is not None:
+        report.parent.mkdir(parents=True, exist_ok=True)
+        report.write_bytes((json.dumps(receipt, indent=2) + '\n').encode())
+    if not verify_only:
+        after = (json.dumps(state, indent=2) + '\n').encode()
+        if STATE.read_bytes() != state_before:
+            raise ValueError('Recovery state changed before publication')
+        journal = [dict(path=STATE.relative_to(ROOT).as_posix(), before=base64.b64encode(state_before).decode(),
+                        before_sha256=digest(state_before), after_sha256=digest(after))]
+        atomic_bytes(JOURNAL, json.dumps(journal).encode())
+        try:
+            atomic_bytes(STATE, after)
+        except BaseException:
+            recover()
+            raise
+        JOURNAL.unlink()
+    print(f"{'Verified' if verify_only else 'Promoted'} existing units: {', '.join(sorted(wanted))}; "
+          f"{len(results)} accepted/candidate rows, {len(peers)} unit peers preserved")
+    return receipt
+
+
+def assert_verified_inputs(rows, results, original_root=None):
+    """Recheck frozen compiler, reference and oracle inputs before publication."""
+    from match import RELOCATED, reference_inputs, reference_digest
+    by_id = {r['id']: r for r in results}
+    for row in rows:
+        result = by_id[row['id']]
+        if digest(Path(result['object']).read_bytes()) != result['object_sha256']:
+            raise ValueError('Compiler object changed before publication')
+        for storage in result.get('storage_objects', {}).values():
+            if digest(Path(storage['object']).read_bytes()) != storage['object_sha256']:
+                raise ValueError('Loader-zero owner object changed before publication')
+            for path, expected in storage['compile_inputs'].items():
+                if digest(Path(path).read_bytes()) != expected:
+                    raise ValueError('Loader-zero owner input changed before publication')
+        for adapted in result.get('storage_alias_objects', {}).values():
+            if digest(Path(adapted['object']).read_bytes()) != adapted['object_sha256']:
+                raise ValueError('Compiler-renaming object changed before publication')
+            for path, expected in adapted['compile_inputs'].items():
+                if digest(Path(path).read_bytes()) != expected:
+                    raise ValueError('Compiler-renaming input changed before publication')
+        for path, expected in result['compile_inputs'].items():
+            if digest(Path(path).read_bytes()) != expected:
+                raise ValueError('Compiler input changed before publication')
+        if digest(((original_root or ROOT) / row['target']).read_bytes()) != row['target_sha256']:
+            raise ValueError('Oracle changed before publication')
+        if result.get('proof_category') == RELOCATED:
+            binding, evidence, _ = reference_inputs(result['bindings_path'], row)
+            if reference_digest(binding) != result['bindings_sha256'] or reference_digest(evidence) != result['reference_evidence_sha256']:
+                raise ValueError('Reference binding changed before publication')
+
+
+def promote_relocated(ids, bindings, verify_only=False, report=None, original_root=None):
+    """Status-only acceptance with independently reviewed references and full regression."""
+    from match import RELOCATED, accepted_rows
+    if JOURNAL.exists():
+        raise ValueError('Interrupted promotion: recover it first')
+    before = STATE.read_bytes()
+    state = json.loads(before)
+    selected = [r for r in state['functions'] if r['id'] in set(ids)]
+    if not ids or len(ids) != len(set(ids)) or len(selected) != len(ids):
+        raise ValueError('Provide unique existing recovery IDs')
+    if any(r['status'] != 'CODEGEN_SIMILAR' for r in selected):
+        raise ValueError('Relocated adoption requires reviewed CODEGEN_SIMILAR rows; preserves existing acceptance')
+    binding_path = Path(bindings).resolve().relative_to(ROOT.resolve()).as_posix()
+    pending = {r['id']: binding_path for r in selected}
+    rows = accepted_rows(state['functions']) + selected
+    results, statistics = verify_rows(rows, original_root=original_root, relocation_candidates=pending)
+    if not all(r['exact'] for r in results):
+        raise ValueError('Promotion rejected by complete function/reference regression')
+    # Existing linked acceptance remains independently verified, never downgraded.
+    if any(r['status'] == 'LINKED_MATCH' for r in state['functions']):
+        from linked import verify
+        verify(original_root=original_root)
+    by_id = {r['id']: r for r in results}
+    for row in selected:
+        result = by_id[row['id']]
+        row['prior_masked_proof'] = row['proof']
+        row['status'] = RELOCATED
+        row['proof'] = {k: result[k] for k in (
+            'scope', 'source_sha256', 'compiled_sha256', 'target_sha256', 'toolchain',
+            'bindings_path', 'bindings_sha256', 'reference_evidence_sha256', 'context_sha256')}
+    # The diagnostic verifier inventories whole translation units. Accepted peers
+    # remain present but are now checked by match.py rather than by the masked gate.
+    promoted_sources = {r['source'] for r in selected}
+    for row in state['functions']:
+        if row['status'] == 'CODEGEN_SIMILAR' and row.get('source') in promoted_sources:
+            peers = {r['symbol'] for r in selected if r['source'] == row['source'] and r['flags'] == row['flags']}
+            remaining = {r['symbol'] for r in state['functions'] if r['status'] == 'CODEGEN_SIMILAR'
+                         and r.get('source') == row['source'] and r['flags'] == row['flags']}
+            row['proof']['co_defined_functions'] = sorted((set(row['proof'].get('co_defined_functions', [])) | peers) - remaining)
+    receipt = dict(promoted=sorted(ids), statistics=statistics, results=results, verify_only=verify_only)
+    if report:
+        if not any(report.resolve().is_relative_to(ROOT / d) for d in ('work', 'build')):
+            raise ValueError('Generated promotion reports belong under work/ or build/')
+        report.parent.mkdir(parents=True, exist_ok=True)
+        report.write_text(json.dumps(receipt, indent=2) + '\n')
+    if STATE.read_bytes() != before:
+        raise ValueError('Recovery state changed during promotion')
+    assert_verified_inputs(rows, results, original_root)
+    if not verify_only:
+        after = (json.dumps(state, indent=2) + '\n').encode()
+        journal = [dict(path='recovery.json', before=base64.b64encode(before).decode(),
+                        before_sha256=digest(before), after_sha256=digest(after))]
+        atomic_bytes(JOURNAL, json.dumps(journal).encode())
+        try:
+            atomic_bytes(STATE, after)
+        except BaseException:
+            recover()
+            raise
+        JOURNAL.unlink()
+    print(f"{'Verified' if verify_only else 'Promoted'} {len(selected)} relocated functions, "
+          f"{sum(r['size'] for r in selected)} bytes; {len(results) - len(selected)} accepted peers preserved")
+    return receipt
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("ids", nargs="*")
@@ -261,10 +470,22 @@ def main():
     parser.add_argument("--recover", action="store_true")
     parser.add_argument("--original-root", type=Path,
                         help="Read hash-pinned originals from this checkout while keeping local source and recovery state")
+    parser.add_argument('--existing-unit', action='store_true', help='accept raw functions in unchanged recorded units; status only')
+    parser.add_argument('--report', type=Path)
+    parser.add_argument('--relocated', action='store_true', help='status-only acceptance with reviewed references')
+    parser.add_argument('--bindings', type=Path, help='independent reference evidence document')
     args = parser.parse_args()
     with lock():
         if args.recover:
             recover()
+        elif args.relocated:
+            if not args.ids or not args.bindings or args.source or args.existing_unit:
+                parser.error('--relocated requires IDs and --bindings, forbids --source/--existing-unit')
+            promote_relocated(args.ids, args.bindings, args.verify_only, args.report, args.original_root)
+        elif args.existing_unit:
+            if not args.ids or args.source is not None:
+                parser.error('--existing-unit requires IDs and forbids --source')
+            promote_existing_units(args.ids, args.verify_only, args.report)
         elif not args.ids or args.source is None:
             parser.error("provide function ids and --source, or --recover")
         else:

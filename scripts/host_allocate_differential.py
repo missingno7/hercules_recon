@@ -23,7 +23,7 @@ def text_at(u,a):
 def build(source,out):
  verify_toolchain(DEFAULT_TOOLCHAIN);out.mkdir(parents=True,exist_ok=True);assert sha(ORACLE)=='587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d'
  runtime=Path('C:/tools/hercules/renderer-oracle-python/unicorn/lib/unicorn.dll');assert sha(runtime)=='010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1'
- files=[source,ROOT/'src/pc/host_diagnostic.c',ROOT/'calibration/host_pool_storage.c',ROOT/'calibration/host_pool_formats.c'];watched={Path(__file__),ORACLE,runtime,ROOT/'recovery.json',ROOT/'toolchains/manifest.json',*[ROOT/'scripts'/p for p in ['match.py','masked.py','coff.py','pe.py','env.py','title_behavioral.py']]}
+ files=[source,ROOT/'src/pc/host_diagnostic.c',ROOT/'src/pc/host_pool_storage.c',ROOT/'src/pc/host_pool_formats.c'];watched={Path(__file__),ORACLE,runtime,ROOT/'recovery.json',ROOT/'toolchains/manifest.json',*[ROOT/'scripts'/p for p in ['match.py','masked.py','coff.py','pe.py','env.py','title_behavioral.py']]}
  for p in files:watched.update(context_files(p))
  pins={str(p):sha(p)for p in watched};compiles=[];coffs=[]
  for p in files:
@@ -117,7 +117,7 @@ def scenarios():
  return result
 def main():
  global ORACLE
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--source',type=Path,default=ROOT/'calibration/host_pool_repaired.c');p.add_argument('--original-root',type=Path,default=Path('D:/Prog/hercules_recon'));p.add_argument('--output',type=Path,required=True);a=p.parse_args();out=a.output.resolve();assert out.is_relative_to(ROOT/'work');out.mkdir(parents=True,exist_ok=True);ORACLE=a.original_root/'work/discs/pc_install/HERCULES.EXE'
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--source',type=Path,default=ROOT/'src/pc/host_pool_repaired.c');p.add_argument('--original-root',type=Path,default=Path('D:/Prog/hercules_recon'));p.add_argument('--output',type=Path,required=True);a=p.parse_args();out=a.output.resolve();assert out.is_relative_to(ROOT/'work');out.mkdir(parents=True,exist_ok=True);ORACLE=a.original_root/'work/discs/pc_install/HERCULES.EXE'
  b=build(a.source.resolve(),out/'build');plan=prepare(b);ss=scenarios();cases=[]
  for s in ss:
   native=execute(True,b,plan,s);source=execute(False,b,plan,s);assert native==source,(s,native,source);cases.append(dict(scenario=s,equal=True,native=native,source=source))

@@ -10,7 +10,7 @@ from unicorn.x86_const import *
 BASE=ap.BASE;STACK=ap.STACK;ESP=ap.ESP;STOP=ap.STOP
 DEVICE=0x66000000;DVT=DEVICE+0x1000;BVT=DEVICE+0x2000;BUFFERS=DEVICE+0x3000;PCM=0x67000020;PCM_MAP=0x67000000;SECOND=0x67100020
 HEADER=BASE+0x699838;SCRATCH=BASE+0x699848;BANK=BASE+0x799908;COUNTERS=BASE+0x698ed8;LOOPS=BASE+0x698a18;DEVICE_CELL=BASE+0x79e440;RELEASE_FLAG=BASE+0x79e450
-SOUND_FILES=['src/pc/host_sound_bank.cpp','calibration/host_sound_bank_storage.c','src/pc/host_sound_decoder.c','calibration/host_sound_decoder_tables.c','calibration/audio_bank_release.cpp','calibration/host_sound_channel_storage.cpp','calibration/sound_bank_storage.cpp','calibration/host_sound_scratch_storage.c']
+SOUND_FILES=['src/pc/host_sound_bank.cpp','src/pc/host_sound_bank_storage.c','src/pc/host_sound_decoder.c','src/pc/host_sound_decoder_tables.c','src/pc/audio_bank_release.cpp','src/pc/host_sound_channel_storage.cpp','src/pc/sound_bank_storage.cpp','src/pc/host_sound_scratch_storage.c']
 PROFILE={**ap.PROFILE,'constructor':('_host_sound_bank_initialize_f3d0',0xf3d0,832),'decoder':('_host_sound_decode_2410',0x2410,288),'release':('_cleanup_native_f710',0xf710,80)}
 EXTRA_DATA=[('_g_host_sound_header_699838',0x699838,16),('_g_host_sound_bank_counters_698ed8',0x698ed8,2400),('_g_host_sound_scratch_699848',0x699848,0x100000),('_g_host_sound_loop_flags_698a18',0x698a18,1200),('_g_exe_799908',0x799908,19200),('_g_exe_79e440',0x79e440,4),('_g_audio_cleanup_iteration_flag',0x79e450,1),('_g_host_sound_filename_format',0x3a510,len(b'm:\\language\\sonix\\pc_%ld.esf')+1),('_g_host_sound_create_error',0x3a500,16),('_g_host_sound_index_deltas_35e08',0x35e08,64),('_g_host_sound_steps_35e48',0x35e48,356)]
 METHODS={'Create':(0xc,12),'Duplicate':(0x14,8),'Stop':(0x48,0),'Release':(8,0),'Position':(0x34,4),'Frequency':(0x44,4),'Pan':(0x40,4),'Volume':(0x3c,4),'Lock':(0x2c,28),'Unlock':(0x4c,16)}
@@ -150,12 +150,12 @@ def main():
   if len(cases)%50==0:print(json.dumps(dict(done=len(cases),index=member['index'])),flush=True)
  negatives=[]
  if args.limit is None:
-  ctor=(ROOT/'src/pc/host_sound_bank.cpp').read_text();decoder=(ROOT/'src/pc/host_sound_decoder.c').read_text();reader=(ROOT/'calibration/archive_read.c').read_text()
+  ctor=(ROOT/'src/pc/host_sound_bank.cpp').read_text();decoder=(ROOT/'src/pc/host_sound_decoder.c').read_text();reader=(ROOT/'src/pc/archive_read.c').read_text()
   variants=[
    ('pcm8_bias','src/pc/host_sound_bank.cpp',ctor.replace('(BYTE)(127-','(BYTE)(128-'),ss[0]),
    ('scratch_offset','src/pc/host_sound_bank.cpp',ctor.replace('+0xfffff-','+0x100000-'),ss[0]),
    ('low_nibble_first','src/pc/host_sound_decoder.c',decoder.replace('code = cached;','code = cached >> 4;').replace('code = cached >> 4;\n        }','code = cached;\n        }'),ss[0]),
-   ('archive_read_offset_off_by_one','calibration/archive_read.c',reader.replace('.offset + position)', '.offset + position + 1)'),ss[0])]
+   ('archive_read_offset_off_by_one','src/pc/archive_read.c',reader.replace('.offset + position)', '.offset + position + 1)'),ss[0])]
   for name,owner,code,s in variants:
    assert code!=(ROOT/owner).read_text();lane=out/name;lane.mkdir(exist_ok=True);source=lane/Path(owner).name
    import re

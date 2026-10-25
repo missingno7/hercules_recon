@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../calibration/host_pool_counts.c"
+#include "../src/pc/host_pool_counts.c"
 #define POOL_PINNED 0x40000000UL
 
 HostPoolState g_host_pool;

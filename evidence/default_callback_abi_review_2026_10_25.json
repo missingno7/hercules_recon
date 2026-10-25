@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "source": "src/eng1/behavioral/eng1_default_callbacks.c",
+  "before_sha256": "61ff638b1424773d0094369bc925b7cfd02a1f81018a51b4c2c1e48272f706d7",
+  "after_sha256": "cbf2b6df6980cfb778db76aa5a7dfa8aae8031f933b9aab892d5a02645af773c",
+  "changed_symbols": [
+    "_eng1_native_code_target_0010f0",
+    "_eng1_native_code_target_0013c0"
+  ],
+  "reason": "Correct two unaccepted callback calls to the native area-first, actor-second 2a710 ABI. The accepted1e00 contribution and every other function/data contribution remain identical.",
+  "original_target": "assets/pc/HERCULES/ENG1.DLL",
+  "original_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "native_caller_witnesses": [
+    {
+      "caller_rva": 4336,
+      "call_rva": 4750,
+      "setup_rva": 4736,
+      "size": 19,
+      "sha256": "81c310c31d52c4c7c3dfb72c4f883f0efc72752f3081da2078d0d6b5d7b10c7e",
+      "physical_arguments": [
+        "collision+88",
+        "actor"
+      ]
+    },
+    {
+      "caller_rva": 5056,
+      "call_rva": 5470,
+      "setup_rva": 5456,
+      "size": 19,
+      "sha256": "340bf73d0ab77f9d1f3e4390b598f81c8ac029f0a8432225380c9eba2e921008",
+      "physical_arguments": [
+        "collision+88",
+        "actor"
+      ]
+    }
+  ],
+  "callee": {
+    "rva": 173840,
+    "size": 144,
+    "sha256": "b9b0e25ff8d674dd17efc0ff8828928670ab18de8aae3c3f34d0d212ad1ed785",
+    "argument_basis": "Entry2a710 loads second stack argument as actor and passes it to2a880(mode0); after that call it loads first stack argument as six-WORD bounds. Own body review, independent of call operands."
+  },
+  "previous_fixture_gap": "The old spy declared actor-first and never exercised these state2 branches. New fixture must assert area-first arguments for both callbacks.",
+  "baseline_command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/c",
+    "/Gy",
+    "/O2",
+    "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-pbw18axo\\candidate.obj",
+    "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\eng1_default_callbacks.c"
+  ],
+  "candidate_command": [
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+    "/nologo",
+    "/c",
+    "/Gy",
+    "/O2",
+    "/ID:\\Prog\\hercules_recon\\src\\eng1\\behavioral",
+    "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-dviy45ep\\candidate.obj",
+    "D:\\Prog\\hercules_recon\\candidates\\spatial_predicates_2026_10_25\\eng1_default_callbacks.c"
+  ],
+  "evidence_files": {
+    "evidence/eng1_actor_bounds_2a880.json": "b749d2921751ec78836520b6f5c708fc7e2e7cbc5536370101f31215ce51829a"
+  },
+  "limits": [
+    "Only argument order in two unaccepted bodies changes. No callback/function acceptance is added; old accepted code, binding maps, categories and targets must remain identical.",
+    "Original host/game execution is not authorized or performed."
+  ]
+}

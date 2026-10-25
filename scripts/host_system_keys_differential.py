@@ -117,18 +117,18 @@ def parse_map(path: Path) -> dict[str, int]:
 
 
 def source_inventory(root: Path, toolchain: Path) -> tuple[list[Path], list[Path]]:
-    calibration = root / "calibration"
+    source_dir = root / "src/pc"
     sources = [
-        calibration / "host_system_keys.cpp",
-        calibration / "host_system_key_storage.c",
-        calibration / "display_mode_setter.c",
-        calibration / "graphics_storage.cpp",
-        calibration / "fatal_storage.c",
-        calibration / "host_startup_storage.c",
+        source_dir / "host_system_keys.cpp",
+        source_dir / "host_system_key_storage.c",
+        source_dir / "display_mode_setter.c",
+        source_dir / "graphics_storage.cpp",
+        source_dir / "fatal_storage.c",
+        source_dir / "host_startup_storage.c",
     ]
     headers = [
-        calibration / "host_system_keys.h",
-        calibration / "host_startup_storage.h",
+        source_dir / "host_system_keys.h",
+        source_dir / "host_startup_storage.h",
         toolchain / "mfc" / "include" / "afxwin.h",
         toolchain / "mfc" / "include" / "afxmsg_.h",
         toolchain / "include" / "windows.h",
@@ -235,7 +235,7 @@ def compile_link(root: Path, output: Path, oracle: Path) -> dict:
     if verify_toolchain(TOOLCHAIN) != "msvc5_rtm":
         raise RuntimeError("unexpected historical compiler identity")
     sources, headers = source_inventory(root, TOOLCHAIN)
-    source_storage = root / "calibration" / "host_system_key_storage.c"
+    source_storage = root / 'src/pc/host_system_key_storage.c'
     storage_declarations = declaration_check(source_storage)
     native_pe = pefile.PE(str(oracle), fast_load=False)
     native_mapped = native_pe.get_memory_mapped_image()
@@ -271,7 +271,7 @@ def compile_link(root: Path, output: Path, oracle: Path) -> dict:
     sources.append(runner_source)
     input_hashes_before = {str(p.resolve()): sha(p) for p in sources + headers}
 
-    include_dirs = [TOOLCHAIN / "include", TOOLCHAIN / "mfc" / "include", root / "calibration"]
+    include_dirs = [TOOLCHAIN / "include", TOOLCHAIN / "mfc" / "include", root / "src/pc"]
     env = os.environ.copy()
     env.pop("CL", None)
     env.pop("_CL_", None)
@@ -307,7 +307,7 @@ def compile_link(root: Path, output: Path, oracle: Path) -> dict:
     if input_hashes_before != input_hashes_after:
         raise RuntimeError("a canonical source/header changed during fresh compile/link")
 
-    handler_source = root / "calibration" / "host_system_keys.cpp"
+    handler_source = root / 'src/pc/host_system_keys.cpp'
     handler_obj = build / "host_system_keys.obj"
     coff = COFF(handler_obj)
     comparisons = []
@@ -579,7 +579,7 @@ def run_semantics(root: Path, report: dict, symbols: dict[str, int], exe: Path,
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-root", type=Path,
-                        help="repository containing the canonical calibration sources; defaults from this script's installation")
+                        help="repository containing the canonical src/ sources; defaults from this script's installation")
     parser.add_argument("--native-exe", type=Path, default=ORACLE_DEFAULT,
                         help="read-only pinned retail oracle location")
     parser.add_argument("--output", type=Path,

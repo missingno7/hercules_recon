@@ -2,7 +2,7 @@
 #include <setjmp.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/initial_spatial_roots.h"
+#include "../src/eng1/initial_spatial_roots.h"
 
 typedef unsigned char u8;
 typedef unsigned short u16;

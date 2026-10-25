@@ -8,8 +8,8 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/engine_dispatch_externs.h"
-#include "../src/eng1/behavioral/data_layouts.h"
+#include "../src/shared/engine_dispatch_externs.h"
+#include "../src/eng1/data_layouts.h"
 
 #define ORACLE_05600 0x5600UL
 #define ORACLE_02CB0 0x2cb0UL

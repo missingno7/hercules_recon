@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../src/eng1/behavioral/color_transition_views.h"
+#include "../src/eng1/color_transition_views.h"
 
 typedef void (__cdecl *NativeInit)(void *object);
 

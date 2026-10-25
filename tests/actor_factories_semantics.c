@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../calibration/actor_factories.c"
+#include "../src/shared/actor_factories.c"
 
 static NormalFactoryAsset normal_rows[65536];
 static AlternateFactoryAsset alternate_rows[4096];

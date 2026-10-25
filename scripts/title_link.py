@@ -8,12 +8,7 @@ no aliases, no placement). The report classifies what is missing:
   data              globals that are referenced but defined by no source (owner unknown)
   other             anything else (library or import gaps)
 
-and lists duplicate definitions. Data-only units come from calibration/title/data_units.json.
-
-Legacy layout reproduction is available only with --legacy-forced-layout. It
-adds a /FORCE:UNRESOLVED image used to inspect section and relative data layout.
-That image is never executed or accepted. Ordinary dependency work needs only
-the natural link; a failed link remains a useful result without a forced image.
+and lists duplicate definitions. Data-only units come from config/title/data_units.json.
 """
 import argparse
 import json
@@ -27,7 +22,6 @@ from pathlib import Path
 from env import ROOT
 from coff import COFF
 from match import DEFAULT_TOOLCHAIN, compile_source, digest, verify_toolchain
-from pe import PE
 
 LIBRARIES = ['libcmt.lib', 'oldnames.lib', 'kernel32.lib']
 
@@ -55,7 +49,7 @@ def sources(module):
 
 
 def data_units():
-    path = ROOT / 'calibration/title/data_units.json'
+    path = ROOT / 'config/title/data_units.json'
     return json.loads(path.read_text())['units'] if path.exists() else []
 
 
@@ -89,109 +83,7 @@ def virtual_data(pe, rva, size):
     return data + bytes(zero_size), zero_size
 
 
-def compare_object(ours, o_base, orig, lo, hi, places):
-    """Bytes of [lo, hi) in the original against the same span at o_base in ours. A pointer slot is equal
-    when it targets the same place: the same offset in this or another measured data unit, or the
-    same reconstructed function (places maps an original RVA to our RVA)."""
-    size = hi - lo
-    a, orig_zero = virtual_data(orig, lo, size)
-    b, ours_zero = virtual_data(ours, o_base, size)
-    rel = lambda pe, base: {e.rva - base for blk in pe.pe.DIRECTORY_ENTRY_BASERELOC for e in blk.entries
-                            if e.type and 0 <= e.rva - base < size}
-    ra, rb = rel(orig, lo), rel(ours, o_base)
-    slots_equal = unplaced = 0
-    for off in ra & rb:
-        expected = places(int.from_bytes(a[off:off + 4], 'little') - orig.image_base)
-        unplaced += expected is None
-        slots_equal += expected == int.from_bytes(b[off:off + 4], 'little') - ours.image_base
-    covered = {i for r in ra | rb for i in range(r, r + 4)}
-    plain = [i for i in range(size) if i not in covered]
-    return dict(size=size, loader_zero_bytes_original=orig_zero, loader_zero_bytes_ours=ours_zero,
-                scope='Mapped data diagnostic; loader-zero equality is not file-backed byte acceptance.',
-                pointer_slots=len(ra), pointer_slots_equal=slots_equal, pointer_slots_extra=len(rb - ra),
-                pointer_targets_unplaced=unplaced, plain_bytes=len(plain),
-                plain_bytes_differing=sum(a[i] != b[i] for i in plain))
-
-
-def layout(module, lane, objects, env, tc, definitions):
-    command = [str(tc / 'bin/link.exe'), '/nologo', '/DLL', '/NODEFAULTLIB', '/INCREMENTAL:NO', '/OPT:NOREF',
-               '/FORCE:UNRESOLVED', '/OUT:' + str(lane / 'layout.dll'), '/MAP:' + str(lane / 'layout.map'),
-               *map(str, objects), *LIBRARIES]
-    subprocess.run(command, cwd=lane, env=env, capture_output=True, text=True, timeout=120)
-    if not (lane / 'layout.dll').exists():
-        return dict(error='forced layout link produced no image')
-    ours, symbols = PE(lane / 'layout.dll'), read_map(lane / 'layout.map')
-    # File statics are absent from the map: recover each from a placed function's relocation to it
-    # (linked dword minus the object's addend).
-    for obj in objects:
-        coff = COFF(obj)
-        for sym in coff.symbols.values():
-            if not (sym['type'] & 0x20 and sym['section'] > 0 and sym['name'] in symbols):
-                continue
-            fn = coff.function(sym['name'])
-            for r in fn['relocations']:
-                if r['type'] == 0x06 and '$S' in r['symbol'] and '$SG' not in r['symbol'] and r['symbol'] not in symbols:
-                    addend = int.from_bytes(fn['data'][r['offset']:r['offset'] + 4], 'little')
-                    linked = int.from_bytes(ours.read_rva(symbols[sym['name']] - ours.image_base + r['offset'], 4), 'little')
-                    symbols[r['symbol']] = linked - addend
-    state = json.loads((ROOT / 'recovery.json').read_text())
-    rows = [r for r in state['functions'] if Path(r['target']).name.upper() == module.upper()]
-    orig = PE(ROOT / rows[0]['target'])
-    deltas = defaultdict(int)
-    for r in rows:
-        if r['symbol'] in symbols:
-            deltas[symbols[r['symbol']] - ours.image_base - int(r['rva'], 16)] += 1
-    sections = {s['name']: dict(ours=[hex(s['virtual_address']), s['virtual_size']]) for s in ours.sections}
-    for s in orig.sections:
-        sections.setdefault(s['name'], {})['original'] = [hex(s['virtual_address']), s['virtual_size']]
-    spans = [(*(int(x, 16) for x in u['original']), symbols[u['first_symbol']] - ours.image_base) for u in data_units()]
-    functions = {int(r['rva'], 16): symbols[r['symbol']] - ours.image_base for r in rows if r['symbol'] in symbols}
-
-    def places(target):
-        if target in functions:
-            return functions[target]
-        return next((base + target - lo for lo, hi, base in spans if lo <= target < hi), None)
-
-    units = []
-    for unit, (lo, hi, base) in zip(data_units(), spans):
-        data = next(s for s in ours.sections if s['virtual_address'] <= base < s['virtual_address'] + s['virtual_size'])
-        o_data = next(s for s in orig.sections if s['virtual_address'] <= lo < s['virtual_address'] + s['virtual_size'])
-        units.append(dict(source=unit['source'], ours=hex(base), original=hex(lo),
-                          section_offset_ours=hex(base - data['virtual_address']),
-                          section_offset_original=hex(lo - o_data['virtual_address']),
-                          bytes=compare_object(ours, base, orig, lo, hi, places)))
-    # Data symbols defined by our sources with an implied original address: per defining object,
-    # do they keep their original offsets relative to each other (one common delta)?
-    implied = {}
-    for r in rows:
-        for name, address in (r.get('link_symbols') or {}).items():
-            implied[name] = int(address, 16)
-    function_symbols = {r['symbol'] for r in rows}
-    objects_data = defaultdict(list)
-    for name, owners in definitions.items():
-        if name in implied and name in symbols and name not in function_symbols and len(owners) == 1:
-            # Preserve the old numeric bins for receipt reproduction without
-            # treating these cutoffs as evidence of linkage or storage class.
-            region = ('legacy_initialized_range' if implied[name] < 0x290e8 else
-                      'legacy_zero_range' if implied[name] < 0x2b370 else 'legacy_tail_range')
-            objects_data[(owners[0], region)].append((name, symbols[name] - ours.image_base - implied[name]))
-    data_objects = []
-    for (source, region), items in sorted(objects_data.items()):
-        counts = defaultdict(int)
-        for _, d in items:
-            counts[d] += 1
-        modal, n = max(counts.items(), key=lambda kv: kv[1])
-        data_objects.append(dict(source=source, region=region, symbols=len(items), common_delta=hex(modal) if modal >= 0 else '-' + hex(-modal),
-                                 at_common_delta=n, off=[(s, hex(d - modal)) for s, d in items if d != modal][:8]))
-    top = sorted(deltas.items(), key=lambda kv: -kv[1])[:8]
-    return dict(scope='Legacy forced-image layout; bins do not prove storage class or TU ownership.',
-                sections=sections, function_rows_placed=sum(deltas.values()),
-                function_rows_at_original_rva=deltas.get(0, 0),
-                function_rva_deltas_most_common=[(hex(d) if d >= 0 else '-' + hex(-d), n) for d, n in top],
-                data_units=units, data_objects=data_objects)
-
-
-def build(module, include_legacy_layout=False):
+def build(module):
     toolchain = verify_toolchain(DEFAULT_TOOLCHAIN)
     lane = Path(tempfile.mkdtemp(prefix='title-link-', dir=ROOT / 'work'))
     objects, definitions, rows = [], defaultdict(list), []
@@ -225,10 +117,8 @@ def build(module, include_legacy_layout=False):
             classes['data'].append(name)
         else:
             classes['other'].append(name)
-    placed = (layout(module, lane, objects, env, tc, definitions) if include_legacy_layout else
-              dict(status='not_requested', scope='Legacy forced layout is opt-in and never acceptance.'))
     return dict(scope='Diagnostic natural link of canonical TITLE sources; no stubs, aliases or placement; not acceptance.',
-                toolchain=toolchain, libraries=LIBRARIES, sources=rows, link_exit_code=result.returncode, layout=placed,
+                toolchain=toolchain, libraries=LIBRARIES, sources=rows, link_exit_code=result.returncode,
                 unresolved_count=len(unresolved), unresolved=dict(classes), duplicates=duplicates,
                 duplicate_source_definitions={k: v for k, v in definitions.items() if len(v) > 1},
                 lane=str(lane.relative_to(ROOT)))
@@ -237,9 +127,8 @@ def build(module, include_legacy_layout=False):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('module', nargs='?', default='TITLE.DLL')
-    parser.add_argument('--legacy-forced-layout', action='store_true', help='Reproduce old forced-image layout diagnostics; never executable or accepted')
     args = parser.parse_args()
-    report = build(args.module, args.legacy_forced_layout)
+    report = build(args.module)
     out = ROOT / 'work/closure' / f'{args.module.lower()}_link.json'
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, indent=1) + '\n', encoding='utf-8')
@@ -247,18 +136,6 @@ def main():
     print(f"{len(report['sources'])} sources; link exit {report['link_exit_code']}; unresolved {report['unresolved_count']} "
           f"(title functions {len(u.get('title_functions', []))}, data {len(u.get('data', []))}, "
           f"other {len(u.get('other', []))}); duplicates {len(report['duplicates'])}; report: {out}")
-    lay = report['layout']
-    if lay.get('status') == 'not_requested':
-        print('layout: not requested (legacy forced-image diagnostic)')
-    else:
-        print(f"layout: {lay.get('function_rows_placed')} function rows placed, {lay.get('function_rows_at_original_rva')} at the "
-              f"original RVA; most common deltas {lay.get('function_rva_deltas_most_common', [])[:4]}")
-    for unit in lay.get('data_units', []):
-        print(f"  data unit {unit['source']}: section offset ours {unit['section_offset_ours']} vs original "
-              f"{unit['section_offset_original']}; bytes {unit['bytes']}")
-    for obj in lay.get('data_objects', []):
-        print(f"  {obj['region']} in {obj['source']}: {obj['at_common_delta']}/{obj['symbols']} symbols keep their relative offsets"
-              + (f"; off: {obj['off']}" if obj['off'] else ''))
     for name in u.get('other', [])[:40]:
         print('  other:', name)
     for name in report['duplicates'][:40]:

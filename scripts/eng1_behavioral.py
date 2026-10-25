@@ -16,7 +16,7 @@ from refinery_forms import function_text, replace_function
 from title_behavioral import context_files
 from title_link import read_map
 
-CONFIG = ROOT / 'evidence/eng1_behavioral_build.json'
+CONFIG = ROOT / 'config/eng1/sources.json'
 
 
 def build(output, include_incomplete=False, original_root=None):
@@ -54,12 +54,15 @@ def build(output, include_incomplete=False, original_root=None):
     incomplete_rows=json.loads(incomplete_bytes)['functions']
     provisional=[x for x in incomplete_rows if x.get('kind') in ('unimplemented_function','unimplemented_binding')]
     provisional_symbols={x['symbol'] for x in provisional}
+    if any('incomplete_bodies' in source for source in graph):
+        raise ValueError('Generated placeholders cannot be canonical source providers')
     if include_incomplete:
         from eng1_provisional import render
-        source=ROOT/config['provisional_source']
-        if source.read_bytes()!=render(provisional):
-            raise ValueError('Provisional source differs from centralized manifest')
-        graph[config['provisional_source']]=['/O2']
+        source = output / 'diagnostic' / 'incomplete_bodies.c'
+        source.parent.mkdir(exist_ok=True)
+        header = (ROOT / 'src/eng1/incomplete.h').as_posix()
+        source.write_bytes(render(provisional).replace(b'"incomplete.h"', ('"' + header + '"').encode()))
+        graph[source.relative_to(ROOT).as_posix()] = ['/O2']
     contexts = {str(path.relative_to(ROOT)): digest(path.read_bytes())
                 for source in graph for path in context_files(ROOT / source)}
     contexts[config['incomplete_manifest']]=digest(incomplete_bytes)

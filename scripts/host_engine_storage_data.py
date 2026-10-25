@@ -35,8 +35,8 @@ def main():
     if not out.is_relative_to((ROOT / 'work').resolve()):
         parser.error('--output must remain under ignored work/')
     out.mkdir(parents=True, exist_ok=True)
-    source = ROOT / 'calibration/host_engine_storage.c'
-    header = ROOT / 'calibration/host_engine_cells.h'
+    source = ROOT / 'src/pc/host_engine_storage.c'
+    header = ROOT / 'src/pc/host_engine_cells.h'
     oracle = args.native_exe.resolve()
     if sha(oracle) != ORACLE_SHA256:
         raise ValueError('pinned retail oracle changed')

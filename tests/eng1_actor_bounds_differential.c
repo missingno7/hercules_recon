@@ -1,10 +1,10 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/query_2a170.h"
-#include "../src/eng1/behavioral/resource_runtime_data.h"
-#include "../src/eng1/behavioral/actor_bounds_2a880.h"
-#include "../src/eng1/behavioral/extent_producer_30e40.h"
+#include "../src/eng1/query_2a170.h"
+#include "../src/eng1/resource_runtime_data.h"
+#include "../src/eng1/actor_bounds_2a880.h"
+#include "../src/eng1/extent_producer_30e40.h"
 
 typedef unsigned char u8;
 typedef unsigned short u16;

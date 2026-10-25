@@ -21,7 +21,7 @@ ORACLE = args.original_root/'work/discs/pc_install/HERCULES.EXE'
 sha = lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
 assert sha(ORACLE) == '587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d'
 tool = verify_toolchain(DEFAULT_TOOLCHAIN)
-sources = ['calibration/host_bootstrap_text.c', 'calibration/movie_initializer_storage.c',
+sources = ['src/pc/host_bootstrap_text.c', 'src/pc/movie_initializer_storage.c',
            'src/pc/host_context_bootstrap.c', 'src/pc/host_options_joystick.cpp']
 watched = {Path(__file__), ORACLE, ROOT/'recovery.json', ROOT/'toolchains/manifest.json'}
 for source in sources:
@@ -55,10 +55,10 @@ native = PE(ORACLE)
 assert native.pe.OPTIONAL_HEADER.DATA_DIRECTORY[5].VirtualAddress == 0
 data = []
 specs = {
-    'calibration/host_bootstrap_text.c': [('_g_host_empty_text_3f74c', 0x3f74c, 1),
+    'src/pc/host_bootstrap_text.c': [('_g_host_empty_text_3f74c', 0x3f74c, 1),
         ('_g_host_default_engine_name_35160', 0x35160, 20),
         ('_g_host_default_engine_name_cell_35100', 0x35100, 4)],
-    'calibration/movie_initializer_storage.c': [('_g_exe_4a3810', 0xa3810, 4),
+    'src/pc/movie_initializer_storage.c': [('_g_exe_4a3810', 0xa3810, 4),
         ('_g_exe_4a3814', 0xa3814, 4), ('_g_exe_48f810', 0x8f810, 81920),
         ('_g_exe_47f750', 0x7f750, 188)]}
 for source, entries in specs.items():

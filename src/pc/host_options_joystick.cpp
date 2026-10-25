@@ -1,5 +1,5 @@
-#include "../../calibration/host_options_classes.h"
-#include "../../calibration/host_bootstrap_text.h"
+#include "host_options_classes.h"
+#include "host_bootstrap_text.h"
 #include <mmsystem.h>
 #include <stdio.h>
 extern "C" {

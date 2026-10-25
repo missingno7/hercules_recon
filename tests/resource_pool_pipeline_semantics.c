@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/engine_interface.h"
+#include "../src/shared/engine_interface.h"
 
 typedef unsigned char u8;
 typedef signed char s8;

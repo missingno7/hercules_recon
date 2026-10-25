@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../src/eng1/behavioral/color.c"
-#include "../src/eng1/behavioral/color_storage.c"
+#include "../src/eng1/color.c"
+#include "../src/eng1/color_storage.c"
 
 unsigned short g_frame_word_6ee84;
 unsigned char g_dispatch_key_7286c;

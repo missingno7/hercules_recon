@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <windows.h>
-#include "../src/eng1/behavioral/actor_control_update.h"
-#include "../src/eng1/behavioral/actor_control_state.h"
-#include "../src/eng1/behavioral/actor_control_cells.h"
-#include "../src/eng1/behavioral/actor_pipeline_storage.h"
-#include "../src/eng1/behavioral/interpreters.h"
-#include "../calibration/engine_interface.h"
+#include "../src/eng1/actor_control_update.h"
+#include "../src/eng1/actor_control_state.h"
+#include "../src/eng1/actor_control_cells.h"
+#include "../src/eng1/actor_pipeline_storage.h"
+#include "../src/eng1/interpreters.h"
+#include "../src/shared/engine_interface.h"
 
 typedef int (__cdecl *FixtureHostDispatch)(unsigned long);
 

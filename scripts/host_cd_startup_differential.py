@@ -40,10 +40,10 @@ def members(data):
         yield index,payload;position=start+size+(size&1);index+=1
 def build():
     assert sha(ORACLE)==ORACLE_SHA;tool=verify_toolchain(DEFAULT_TOOLCHAIN)
-    files=[SOURCE,*[ROOT/p for p in ['calibration/mci_storage.c','calibration/mci_readiness.cpp','calibration/host_startup_storage.c','calibration/fatal_storage.c']]]
+    files=[SOURCE,*[ROOT/p for p in ['src/pc/mci_storage.c','src/pc/mci_readiness.cpp','src/pc/host_startup_storage.c','src/pc/fatal_storage.c']]]
     libraries=[DEFAULT_TOOLCHAIN/'lib'/p for p in ['libcmt.lib','winmm.lib','kernel32.lib','user32.lib']]
     map_path=Path('D:/Prog/hercules_recon/work/library_map/library_map.json')
-    watched=[*files,*libraries,ORACLE,map_path,Path(__file__),*[ROOT/p for p in ['scripts/coff.py','scripts/match.py','scripts/masked.py','scripts/pe.py','scripts/env.py','toolchains/manifest.json']],DEFAULT_TOOLCHAIN/'include/mmsystem.h',ROOT/'calibration/host_startup_storage.h']
+    watched=[*files,*libraries,ORACLE,map_path,Path(__file__),*[ROOT/p for p in ['scripts/coff.py','scripts/match.py','scripts/masked.py','scripts/pe.py','scripts/env.py','toolchains/manifest.json']],DEFAULT_TOOLCHAIN/'include/mmsystem.h',ROOT/'src/pc/host_startup_storage.h']
     pins={str(p):sha(p)for p in watched}
     assert sha(libraries[0])=='7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b'
     library_map=json.loads(map_path.read_bytes())['contributions']['HERCULES.EXE'];contracts=[]

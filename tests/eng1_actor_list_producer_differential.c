@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../src/eng1/behavioral/interpreters.h"
+#include "../src/eng1/interpreters.h"
 extern int __cdecl eng1_native_code_target_002b130(Actor *actor);
 
 typedef unsigned char u8;

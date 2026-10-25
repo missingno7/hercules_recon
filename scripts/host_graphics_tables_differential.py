@@ -11,7 +11,7 @@ from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn.x86_const import *
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();pack=lambda v:struct.pack('<I',v&0xffffffff)
 ORACLE=Path('D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE');assert sha(ORACLE)=='587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d';verify_toolchain(DEFAULT_TOOLCHAIN)
-files=[ROOT/'src/pc/host_graphics_tables.cpp',ROOT/'calibration/host_graphics_table_storage.c'];watched=[*files,ROOT/'calibration/host_graphics_table_storage.h',ORACLE,Path(__file__),*[ROOT/p for p in['scripts/coff.py','scripts/match.py','scripts/pe.py','scripts/env.py','toolchains/manifest.json']]];pins={str(p):sha(p)for p in watched}
+files=[ROOT/'src/pc/host_graphics_tables.cpp',ROOT/'src/pc/host_graphics_table_storage.c'];watched=[*files,ROOT/'src/pc/host_graphics_table_storage.h',ORACLE,Path(__file__),*[ROOT/p for p in['scripts/coff.py','scripts/match.py','scripts/pe.py','scripts/env.py','toolchains/manifest.json']]];pins={str(p):sha(p)for p in watched}
 fixture=OUT/'fixture.c';fixture.write_bytes(b'''extern void __cdecl graphics_native_071a0(void);
 void __cdecl graphics_native_06780(int a,int b,int c,int d) { for (;;) {} }
 void __cdecl graphics_native_069a0(unsigned char wait) { for (;;) {} }

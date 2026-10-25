@@ -1,8 +1,8 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/interpreters.h"
-#include "../src/eng1/behavioral/read_guard.h"
+#include "../src/eng1/interpreters.h"
+#include "../src/eng1/read_guard.h"
 
 typedef unsigned char u8;
 typedef unsigned short u16;

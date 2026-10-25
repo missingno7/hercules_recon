@@ -114,7 +114,7 @@ def native_relocation_map(image: PE) -> dict[int, int]:
 def run() -> dict:
     # The base checker performs its own source/oracle pin checks and exact
     # scalar-byte, local-string-content, map, and zero-view checks.
-    tracked = set(context_files(ROOT / "calibration/resource_data.c")) | {Path(__file__).resolve(), ROOT / "scripts/resource_data_evidence.py", ROOT / "evidence/resource_writer_layout.json", ROOT / "toolchains/manifest.json"}
+    tracked = set(context_files(ROOT / "src/shared/resource_data.c")) | {Path(__file__).resolve(), ROOT / "scripts/resource_data_evidence.py", ROOT / "evidence/resource_writer_layout.json", ROOT / "toolchains/manifest.json"}
     before = {p.relative_to(ROOT).as_posix(): sha(p.read_bytes()) for p in tracked}
     base.compile_source = fresh_compile
     result = base.audit()
@@ -136,7 +136,7 @@ def run() -> dict:
 
     # Source-level static assertions plus the complete 1,620-byte COFF symbol
     # slice establish the proposed field offsets/widths for this C definition.
-    source_text = (ROOT / "calibration/resource_data.c").read_text(encoding="utf-8")
+    source_text = (ROOT / "src/shared/resource_data.c").read_text(encoding="utf-8")
     required_assertions = [
         "sizeof(ActorReference) == 4",
         "sizeof(ActorResource) == 20",
@@ -231,8 +231,8 @@ def run() -> dict:
     result["scope"] = ("Fresh pinned MSVC 5 data-only comparison of the default 81-row table; "
                        "no FUNCTION_MATCH, source TU identity, placement, or whole-module claim.")
     result["table"] = {
-        "source": "calibration/resource_data.c",
-        "source_sha256": sha((ROOT / "calibration/resource_data.c").read_bytes()),
+        "source": "src/shared/resource_data.c",
+        "source_sha256": sha((ROOT / "src/shared/resource_data.c").read_bytes()),
         "native_rva": hex(TABLE_RVA),
         "native_end_rva_exclusive": hex(TABLE_RVA + count),
         "rows": ROW_COUNT,

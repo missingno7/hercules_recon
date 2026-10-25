@@ -43,7 +43,7 @@ class Fixture:
         self.root = Path(tmp.name).resolve()
         patch.object(linked, 'ROOT', self.root).start()
         patch.object(linked, 'STATE', self.root / 'recovery.json').start()
-        (self.root / 'calibration/fix').mkdir(parents=True)
+        (self.root / 'src/fix').mkdir(parents=True)
         (self.root / 'work').mkdir()
         self.write('a.c', A)
         self.write('b.c', B)
@@ -52,8 +52,8 @@ class Fixture:
         lib = DEFAULT_TOOLCHAIN / 'lib'
         self.plan = dict(module='FIX.DLL', target='oracle/FIX.DLL', target_sha256='0' * 64,
                          toolchain=linked.verify_toolchain(DEFAULT_TOOLCHAIN), output_name='Fix.dll',
-                         objects=[dict(source='calibration/fix/a.c', flags=['/O2']),
-                                  dict(source='calibration/fix/b.c', flags=['/O2'])],
+                         objects=[dict(source='src/fix/a.c', flags=['/O2']),
+                                  dict(source='src/fix/b.c', flags=['/O2'])],
                          libraries=[dict(name=n, sha256=digest((lib / n).read_bytes()))
                                     for n in ('libcmt.lib', 'kernel32.lib')],
                          link_flags=['/DLL', '/NODEFAULTLIB', '/INCREMENTAL:NO', '/OPT:NOREF', '/OPT:NOICF',
@@ -61,13 +61,14 @@ class Fixture:
         self.save_plan()
 
     def write(self, name, text):
-        (self.root / 'calibration/fix' / name).write_text(text, newline='\n')
+        (self.root / 'src/fix' / name).write_text(text, newline='\n')
 
     def save_state(self):
         (self.root / 'recovery.json').write_text(json.dumps(self.state, indent=2) + '\n')
 
     def save_plan(self):
-        (self.root / 'calibration/fix/link_plan.json').write_text(json.dumps(self.plan, indent=1))
+        (self.root / 'config/fix').mkdir(parents=True, exist_ok=True)
+        (self.root / 'config/fix/link_plan.json').write_text(json.dumps(self.plan, indent=1))
 
     def oracle_from_build(self):
         """Link once with no rows, then adopt that image as the synthetic oracle and record rows."""
@@ -88,7 +89,7 @@ class Fixture:
         for (rva, name, obj), end in zip(funcs, ends):
             if end is None:
                 continue  # last first-party function: extent to the library is not a function size
-            src = 'calibration/fix/a.c' if obj.startswith('00_') else 'calibration/fix/b.c'
+            src = 'src/fix/a.c' if obj.startswith('00_') else 'src/fix/b.c'
             self.state['functions'].append(dict(
                 id='fix.' + name.lstrip('_'), status='CODEGEN_SIMILAR', target='oracle/FIX.DLL',
                 target_sha256=self.plan['target_sha256'], rva=hex(rva), size=end - rva, source=src,
@@ -119,16 +120,16 @@ class PlanRefusalTests(unittest.TestCase):
             self.refused('Link flag not allowed', link_flags=self.f.plan['link_flags'] + [flag])
 
     def test_compiler_steering_flags_refused(self):
-        objs = [dict(source='calibration/fix/a.c', flags=['/O2', '/d1Binl'])]
+        objs = [dict(source='src/fix/a.c', flags=['/O2', '/d1Binl'])]
         self.refused('Compiler flag not allowed', objects=objs)
-        objs = [dict(source='calibration/fix/a.c', flags=['/O2', '/Fa'])]
+        objs = [dict(source='src/fix/a.c', flags=['/O2', '/Fa'])]
         self.refused('Compiler flag not allowed', objects=objs)
 
     def test_sources_outside_canonical_trees_refused(self):
         (self.f.root / 'work/stub.c').write_text('int stub;\n')
         self.refused('outside', objects=[dict(source='work/stub.c', flags=['/O2'])])
-        self.refused('repository-relative', objects=[dict(source='calibration/../work/stub.c', flags=['/O2'])])
-        self.refused('Duplicate', objects=[dict(source='calibration/fix/a.c'), dict(source='calibration/fix/a.c')])
+        self.refused('repository-relative', objects=[dict(source='src/../work/stub.c', flags=['/O2'])])
+        self.refused('Duplicate', objects=[dict(source='src/fix/a.c'), dict(source='src/fix/a.c')])
 
     def test_unpinned_library_refused(self):
         self.refused('pinned toolchain library', libraries=[dict(name='libcmt.lib')])
@@ -218,7 +219,7 @@ class LinkTests(unittest.TestCase):
         self.assertNotIn(strict_id, {r['id'] for r in linked.candidates('FIX.DLL')})
         with self.assertRaisesRegex(linked.LinkRefused, 'FUNCTION_MATCH'):
             linked.promote('FIX.DLL', [strict_id])
-        promote_ids = [r['id'] for r in state['functions'][1:] if r['source'] == 'calibration/fix/a.c'][:1]
+        promote_ids = [r['id'] for r in state['functions'][1:] if r['source'] == 'src/fix/a.c'][:1]
         linked.promote('FIX.DLL', promote_ids)
         state = json.loads(self.f.root.joinpath('recovery.json').read_text())
         promoted = next(r for r in state['functions'] if r['id'] == promote_ids[0])

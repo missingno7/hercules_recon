@@ -2,8 +2,8 @@
 #include <setjmp.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/actor_pipeline_storage_views.h"
-#include "../src/eng1/behavioral/query_2a170.h"
+#include "../src/eng1/actor_pipeline_storage_views.h"
+#include "../src/eng1/query_2a170.h"
 
 typedef unsigned char u8;
 typedef unsigned short u16;

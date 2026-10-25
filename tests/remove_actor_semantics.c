@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/remove_actor.c"
+#include "../src/shared/remove_actor.c"
 
 enum {
     EV_PENDING = 1, EV_CLEAR_COMMAND, EV_ATTACHMENT, EV_CHILD, EV_BUFFER,

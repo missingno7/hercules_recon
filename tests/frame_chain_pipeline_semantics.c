@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../calibration/engine_interface.h"
+#include "../src/shared/engine_interface.h"
 
 EngineInterface g_engine_interface;
 extern int __cdecl frame_chain_write(void *first, unsigned long raw_count);

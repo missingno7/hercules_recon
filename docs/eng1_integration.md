@@ -37,7 +37,6 @@ Reproduce a diagnostic build and one bounded integration attempt:
 
 ```powershell
 python scripts/eng1_behavioral.py
-python scripts/eng1_provisional.py
 python scripts/eng1_behavioral.py --include-incomplete --output work/eng1_behavioral/transition_build
 python scripts/eng1_data_evidence.py
 python scripts/test_eng1_behavioral.py
@@ -94,7 +93,8 @@ python scripts/eng1_integration.py launch-once --runtime work/eng1_behavioral/in
 ```
 
 The first genuine build currently fails to link and records missing symbols.
-The optional profile explicitly supplies fail-on-entry diagnostics; those
+The optional profile generates fail-on-entry diagnostics only under ignored work/.
+No generated placeholder source is kept in src/. Those
 definitions never return success and do not count as reconstructed functions.
 Every entry records its original RVA in the centralized incomplete manifest.
 The final engine must replace reachable incomplete behavior with real source.

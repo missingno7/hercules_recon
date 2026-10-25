@@ -104,7 +104,7 @@ def _build_from_database(module, entry_evidence, inputs, include_unaligned, db):
     # entries reached by neither calls nor pointers whose predecessor needs no NOP padding.
     # (A RET-on-boundary + prologue heuristic was tried and rejected: most hits were mid-function.)
     proven = [(int(r['rva'], 16), r['size']) for r in json.loads((ROOT / 'recovery.json').read_text())['functions']
-              if Path(r['target']).name.upper() == module.upper() and r['status'] in ('CODEGEN_SIMILAR', 'FUNCTION_MATCH')]
+              if Path(r['target']).name.upper() == module.upper() and r['status'] in ('CODEGEN_SIMILAR', 'FUNCTION_MATCH', 'FUNCTION_MATCH_RAW', 'FUNCTION_MATCH_RELOCATED', 'LINKED_MATCH')]
     if entry_evidence is not None:
         for entry in evidence['entries']:
             start = int(entry['rva'], 0)

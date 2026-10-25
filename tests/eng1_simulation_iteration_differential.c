@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/simulation_iteration.c"
+#include "../src/eng1/simulation_iteration.c"
 
 #define CONTEXT_BYTES 0x1b34
 #define NORMAL_BYTES 0x200

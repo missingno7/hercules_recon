@@ -39,7 +39,7 @@ static int checks,failures;
 #define EXPECT(x) do {++checks;if(!(x)){++failures;printf("line %d\n",__LINE__);}}while(0)
 void __cdecl archive_fatal(const char *message) {fatal_seen=message;longjmp(fatal_jump,1);}
 
-#include "../calibration/resource_context.h"
+#include "../src/shared/resource_context.h"
 ResourceCallbackContext context;
 ResourceCallbackContext *g_resource_context=&context;
 /* Test-only capacities; original complete backing declarations remain unknown. */

@@ -1,7 +1,7 @@
-#include "../../calibration/display_mode_contract.h"
+#include "display_mode_contract.h"
 /* Original PC platform-state callback hypothesis; source/TU identity unproved. */
 #include <windows.h>
-#include "../../calibration/host_startup_storage.h"
+#include "host_startup_storage.h"
 
 extern "C" {
 extern HWND g_fatal_owner_window;

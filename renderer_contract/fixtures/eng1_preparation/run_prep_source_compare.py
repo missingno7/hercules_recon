@@ -368,7 +368,7 @@ def main() -> int:
             raise RuntimeError(f"could not pin complete observed branch tail at {pin['target_rva']}")
         tail_pins.append({**pin, "tail_bytes_sha256": sha(tail_bytes)})
 
-    src = repo / "src/eng1/behavioral"
+    src = repo / "src/eng1"
     source_files = [
         LANE / "prep_source_compare.c",
         src / "mesh_prepare.c",
@@ -384,10 +384,10 @@ def main() -> int:
     ]
     source_hashes = {str(path.relative_to(repo)): sha(path.read_bytes())
                      for path in source_files + integrated_files}
-    for rel in ("src/eng1/behavioral/mesh_visit.h",
-                "calibration/engine_interface.h",
-                "calibration/engine_dispatch_externs.h",
-                "calibration/resource_context.h",
+    for rel in ("src/eng1/mesh_visit.h",
+                "src/shared/engine_interface.h",
+                "src/shared/engine_dispatch_externs.h",
+                "src/shared/resource_context.h",
                 "renderer_contract/hercules_projection.h",
                 "renderer_contract/hercules_host_abi.h",
                 "renderer_contract/hercules_types.h"):

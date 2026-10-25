@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/engine_interface.h"
+#include "../src/shared/engine_interface.h"
 
 extern unsigned long g_eng1_entry_first_use_5b648;
 extern void __cdecl PC_DLLEngineMain(const EngineInterface *, unsigned long);

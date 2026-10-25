@@ -22,7 +22,8 @@
       "flags": [
         "/O2",
         "/MT"
-      ]
+      ],
+      "diagnostic_only": true
     },
     {
       "source": "src/title/behavioral/title_init_table.c"
@@ -350,37 +351,43 @@
         "before": "#include \"title_gpu.h\"",
         "after": "#include \"title_gpu.h\"\nvoid title_trace(const char *, unsigned long, unsigned long, unsigned long);",
         "count": 1,
-        "reason": "Optional frame-stage diagnostics to identify earliest runtime divergence; matching source remains untouched."
+        "reason": "Optional frame-stage diagnostics to identify earliest runtime divergence; matching source remains untouched.",
+        "diagnostic_only": true
       },
       {
         "before": "    title_05e40();",
         "after": "    title_trace(\"scheduler_begin\", CTX->tick_038, (unsigned long)g_2cc04, (unsigned long)g_2cc04->ot);\n    title_05e40();\n    title_trace(\"scheduler_return\", CTX->tick_038, (unsigned long)g_2cc04, (unsigned long)g_2cc04->ot);",
         "count": 1,
-        "reason": "Optional frame-stage diagnostics to identify earliest runtime divergence; matching source remains untouched."
+        "reason": "Optional frame-stage diagnostics to identify earliest runtime divergence; matching source remains untouched.",
+        "diagnostic_only": true
       },
       {
         "before": "    title_02b70();",
         "after": "    title_trace(\"emit_begin\", CTX->tick_038, (unsigned long)g_2cc04, (unsigned long)g_2cc04->ot);\n    title_02b70();\n    title_trace(\"emit_return\", CTX->tick_038, (unsigned long)g_2cc04, (unsigned long)g_2cc04->ot);",
         "count": 1,
-        "reason": "Optional frame-stage diagnostics to identify earliest runtime divergence; matching source remains untouched."
+        "reason": "Optional frame-stage diagnostics to identify earliest runtime divergence; matching source remains untouched.",
+        "diagnostic_only": true
       },
       {
         "before": "    title_0c6b0(g_2cc04->ot);",
         "after": "    title_trace(\"host_draw_begin\", CTX->tick_038, (unsigned long)g_2cc04, (unsigned long)g_2cc04->ot);\n    title_0c6b0(g_2cc04->ot);\n    title_trace(\"host_draw_return\", CTX->tick_038, (unsigned long)g_2cc04, (unsigned long)g_2cc04->ot);",
         "count": 1,
-        "reason": "Optional frame-stage diagnostics to identify earliest runtime divergence; matching source remains untouched."
+        "reason": "Optional frame-stage diagnostics to identify earliest runtime divergence; matching source remains untouched.",
+        "diagnostic_only": true
       },
       {
         "before": "                o->fn_00(o);",
         "after": "                title_trace(\"process_begin\", (unsigned long)o->fn_00, o->state_04, (unsigned long)o);\n                o->fn_00(o);\n                title_trace(\"process_return\", (unsigned long)o->fn_00, o->state_04, (unsigned long)o);",
         "count": 1,
-        "reason": "Optional scheduler callback/state diagnostics after measured fifth-frame windowed stall."
+        "reason": "Optional scheduler callback/state diagnostics after measured fifth-frame windowed stall.",
+        "diagnostic_only": true
       },
       {
         "before": "    p->fn_00(p);",
         "after": "    title_trace(\"process_spawn_begin\", (unsigned long)p->fn_00, p->state_04, (unsigned long)p);\n    p->fn_00(p);\n    title_trace(\"process_spawn_return\", (unsigned long)p->fn_00, p->state_04, (unsigned long)p);",
         "count": 1,
-        "reason": "Optional scheduler callback/state diagnostics after measured fifth-frame windowed stall."
+        "reason": "Optional scheduler callback/state diagnostics after measured fifth-frame windowed stall.",
+        "diagnostic_only": true
       }
     ],
     "calibration/title/r097f0.c": [
@@ -388,13 +395,15 @@
         "before": "#include \"title_screen.h\"",
         "after": "#include \"title_screen.h\"\nvoid title_trace(const char *, unsigned long, unsigned long, unsigned long);",
         "count": 1,
-        "reason": "Optional movie-service diagnostics to distinguish original host playback from a reconstructed pre-movie helper stall."
+        "reason": "Optional movie-service diagnostics to distinguish original host playback from a reconstructed pre-movie helper stall.",
+        "diagnostic_only": true
       },
       {
         "before": "    r = title_0c9e0(a, b);",
         "after": "    title_trace(\"movie_begin\", a, b, ctx->flags_030);\n    r = title_0c9e0(a, b);\n    title_trace(\"movie_return\", a, r, ctx->flags_030);",
         "count": 1,
-        "reason": "Optional movie-service diagnostics to distinguish original host playback from a reconstructed pre-movie helper stall."
+        "reason": "Optional movie-service diagnostics to distinguish original host playback from a reconstructed pre-movie helper stall.",
+        "diagnostic_only": true
       }
     ]
   },

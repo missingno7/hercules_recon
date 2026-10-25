@@ -94,21 +94,21 @@ def build(source=None,out=None):
     out.mkdir(parents=True,exist_ok=True)
     assert sha(ORACLE)=='587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d'
     verify_toolchain(DEFAULT_TOOLCHAIN)
-    files=[source,ROOT/'calibration/host_platform_state_storage.c',
+    files=[source,ROOT/'src/pc/host_platform_state_storage.c',
            *[ROOT/p for p in ['src/pc/host_sound_channels.cpp','src/pc/host_sound_bank.cpp',
-            'src/pc/host_sound_decoder.c','calibration/host_sound_decoder_tables.c',
-            'calibration/host_sound_bank_storage.c','calibration/host_sound_scratch_storage.c',
-            'calibration/audio_bank_release.cpp','calibration/host_sound_channel_storage.cpp',
-            'calibration/sound_bank_storage.cpp','calibration/archive_storage.c',
-            'calibration/host_warm_delivery.cpp','calibration/host_warm_delivery_storage.cpp',
-            'calibration/host_callback_storage.c','calibration/registry_storage.c',
-            'calibration/audio_small_helpers.c','calibration/audio_gain_storage.c',
-            'src/pc/host_cd_resume.c','calibration/mci_pause.c','calibration/mci_readiness.cpp',
-            'calibration/mci_storage.c','calibration/display_mode_setter.c',
-            'calibration/graphics_storage.cpp','calibration/host_system_key_storage.c',
-            'calibration/host_startup_storage.c','calibration/audio_suspend.cpp',
-            'calibration/audio_priority.cpp','calibration/audio_storage.cpp',
-            'calibration/fatal_storage.c']]]
+            'src/pc/host_sound_decoder.c','src/pc/host_sound_decoder_tables.c',
+            'src/pc/host_sound_bank_storage.c','src/pc/host_sound_scratch_storage.c',
+            'src/pc/audio_bank_release.cpp','src/pc/host_sound_channel_storage.cpp',
+            'src/pc/sound_bank_storage.cpp','src/pc/archive_storage.c',
+            'src/pc/host_warm_delivery.cpp','src/pc/host_warm_delivery_storage.cpp',
+            'src/pc/host_callback_storage.c','src/shared/registry_storage.c',
+            'src/pc/audio_small_helpers.c','src/pc/audio_gain_storage.c',
+            'src/pc/host_cd_resume.c','src/pc/mci_pause.c','src/pc/mci_readiness.cpp',
+            'src/pc/mci_storage.c','src/pc/display_mode_setter.c',
+            'src/pc/graphics_storage.cpp','src/pc/host_system_key_storage.c',
+            'src/pc/host_startup_storage.c','src/pc/audio_suspend.cpp',
+            'src/pc/audio_priority.cpp','src/pc/audio_storage.cpp',
+            'src/pc/fatal_storage.c']]]
     libraries=[DEFAULT_TOOLCHAIN/'lib'/p for p in ['libcmt.lib','kernel32.lib','user32.lib','winmm.lib']]
     watched={ORACLE,ROOT/'recovery.json',Path(__file__),ROOT/'toolchains/manifest.json',*libraries}
     for source in files:watched.update(context_files(source))

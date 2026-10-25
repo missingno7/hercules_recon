@@ -1,12 +1,12 @@
 #include <setjmp.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/initial_read_guards.h"
-#include "../src/eng1/behavioral/interpreters.h"
-#include "../src/eng1/behavioral/initial_custom_roots.h"
-#include "../src/eng1/behavioral/initial_motion_roots.h"
-#include "../src/eng1/behavioral/initial_unreadable_identities.h"
-#include "../src/eng1/behavioral/descriptor_prefix_data.h"
+#include "../src/eng1/initial_read_guards.h"
+#include "../src/eng1/interpreters.h"
+#include "../src/eng1/initial_custom_roots.h"
+#include "../src/eng1/initial_motion_roots.h"
+#include "../src/eng1/initial_unreadable_identities.h"
+#include "../src/eng1/descriptor_prefix_data.h"
 extern unsigned short g_eng1_sound_words_66d68[8];
 static jmp_buf escape;
 static unsigned long reported;

@@ -1,6 +1,6 @@
-#include "../../calibration/host_system_keys.h"
-#include "../../calibration/host_restart_dialog.h"
-#include "../../calibration/display_mode_contract.h"
+#include "host_system_keys.h"
+#include "host_restart_dialog.h"
+#include "display_mode_contract.h"
 extern "C" {
 extern DWORD g_exe_ba0230;
 extern int g_exe_91c44c;

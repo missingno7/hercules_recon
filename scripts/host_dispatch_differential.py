@@ -27,11 +27,11 @@ if SCRIPT.parent.name == "scripts":
 else:
     REPO = next((parent for parent in SCRIPT.parents
                  if (parent / "scripts").is_dir() and
-                 (parent / "calibration").is_dir()), None)
+                 (parent / "src/pc").is_dir()), None)
     if REPO is None:
         raise RuntimeError(f"cannot derive repository root from {SCRIPT}")
 WORK = REPO / "work/host_dispatch_differential"
-SOURCE_DIR = REPO / "calibration"
+SOURCE_DIR = REPO / "src/pc"
 LOADER_SOURCE = SOURCE_DIR / "host_engine_loader.c"
 SELECT_SOURCE = SOURCE_DIR / "host_engine_select.c"
 HEADER_SOURCE = SOURCE_DIR / "host_engine_cells.h"

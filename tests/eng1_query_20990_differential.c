@@ -2,7 +2,7 @@
 #include <setjmp.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/query_20990.h"
+#include "../src/eng1/query_20990.h"
 
 typedef unsigned char u8;
 typedef unsigned long u32;

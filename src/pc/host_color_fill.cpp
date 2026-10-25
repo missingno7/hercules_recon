@@ -2,7 +2,7 @@
 #include <ddraw.h>
 #include <stddef.h>
 #include <string.h>
-#include "../../calibration/host_color_cache.h"
+#include "host_color_cache.h"
 typedef char fill_fx_layout[(sizeof(DDBLTFX)==100 && offsetof(DDBLTFX,dwFillColor)==80)?1:-1];
 extern "C" {
 extern LOGPALETTE *g_exe_96e3f8;

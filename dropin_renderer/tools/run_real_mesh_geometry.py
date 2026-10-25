@@ -43,9 +43,9 @@ SOURCE_FILES = (
     "renderer_contract/fixtures/eng1_preparation/run_prep_source_compare.py",
     "renderer_contract/fixtures/eng1_preparation/run_native_prep_trace.py",
     "renderer_contract/fixtures/eng1_real_mesh/make_real_manifest.py",
-    "src/eng1/behavioral/mesh_prepare.c",
-    "src/eng1/behavioral/mesh_emit.c",
-    "src/eng1/behavioral/primitive_emitters_a.c",
+    "src/eng1/mesh_prepare.c",
+    "src/eng1/mesh_emit.c",
+    "src/eng1/primitive_emitters_a.c",
     "renderer_contract/hercules_projection.c",
     "renderer_contract/hercules_reprojection.h",
     "renderer_contract/hercules_types.h",
@@ -156,9 +156,9 @@ def validate_prep_emitter_receipt(receipt: dict, report_bytes: bytes,
         raise ValueError("prep/emitter receipt does not bind this native resource report")
     for relative in ("renderer_contract/fixtures/eng1_preparation/prep_source_compare.c",
                      "renderer_contract/fixtures/eng1_preparation/prep_emitter_compare.c",
-                     "src/eng1/behavioral/mesh_prepare.c",
-                     "src/eng1/behavioral/mesh_emit.c",
-                     "src/eng1/behavioral/primitive_emitters_a.c",
+                     "src/eng1/mesh_prepare.c",
+                     "src/eng1/mesh_emit.c",
+                     "src/eng1/primitive_emitters_a.c",
                      "renderer_contract/hercules_projection.c"):
         if source_hashes.get(relative) != sha_file(ROOT / relative):
             raise ValueError(f"fresh prep/emitter receipt source hash mismatch: {relative}")

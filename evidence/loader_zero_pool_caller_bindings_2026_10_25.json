@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "scope": "Reviewed pool COMMON owner and independently RAW-exact frame helper.",
+  "evidence_files": {
+    "evidence/loader_zero_pool_caller_2026_10_25.json": "4a161ed9b66025e17e0631ed7bb0903c0b09faacc163f8bfc0d6c510cc7e1b62",
+    "evidence/normal_pool_pointer_2026_10_25.json": "d87cff10b461c18e90bd881ab2d0bef309db13cd9fc7073678fa2c577d387165",
+    "evidence/loader_zero_axis_references_2026_10_25.json": "6221129c6cdbfc25da3d2880e825c2abb5b13c33bdde8851d411d71c23e8bf83",
+    "src/eng1/behavioral/actor_storage.c": "7c20021aee04622f627c1052d683962672c8aa9ed1e9d52df3166f2abe7b4c84",
+    "src/shared/frame_state.c": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859"
+  },
+  "functions": {
+    "eng1.native_code_target_00c8c0": {
+      "symbols": {
+        "_g_normal_actor_pool": {
+          "kind": "bss",
+          "rva": 469088,
+          "size": 4,
+          "owner": {
+            "source": "src/eng1/behavioral/actor_storage.c",
+            "flags": [
+              "/O2"
+            ],
+            "symbol": "_g_normal_actor_pool"
+          },
+          "identity": {
+            "rva": 127245,
+            "size": 5,
+            "operand": 0,
+            "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5"
+          },
+          "evidence": [
+            "evidence/loader_zero_axis_references_2026_10_25.json#pool_owner",
+            "evidence/normal_pool_pointer_2026_10_25.json"
+          ],
+          "references": [
+            {
+              "offset": 39,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        },
+        "_advance_frame": {
+          "kind": "function",
+          "rva": 168560,
+          "size": 80,
+          "references": [
+            {
+              "offset": 14,
+              "type": 20,
+              "addend": 0
+            }
+          ],
+          "evidence": [
+            "evidence/loader_zero_pool_caller_2026_10_25.json#frame_helper"
+          ]
+        }
+      }
+    }
+  }
+}

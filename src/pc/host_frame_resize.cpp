@@ -1,4 +1,4 @@
-#include "../../calibration/host_system_keys.h"
+#include "host_system_keys.h"
 extern "C" BYTE g_host_frame_maximized_7a022c;
 /* Original PC resize helper/callers; names and TU ownership remain provisional. */
 typedef char frame_receiver_is_188[(sizeof(CMainFrame)==188)?1:-1];

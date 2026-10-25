@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "date": "2026-10-25",
+  "scope": "Complete reconstructed initialized Entry owner plus already RAW-accepted attach_entries identity; no scalar/indexed/callback gate change.",
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "selected_function": {
+    "id": "eng1.25580",
+    "rva": "0x25580",
+    "size": 64,
+    "source": "calibration/eng1/boss_unit_24090.c",
+    "symbol": "_eng1_25580",
+    "flags": [
+      "/O2"
+    ]
+  },
+  "source_data_owner": {
+    "source": "src/eng1/behavioral/boss_entry_data.c",
+    "source_sha256": "159877988946c21284ad9c474f67f239a0b10b0b40d96737a4fe3c2c6eb119b8",
+    "symbol": "_g_entries_5a450",
+    "size": 576,
+    "rows": 36,
+    "usable_rows": 35,
+    "record_stride": 16,
+    "tag_offset": 14,
+    "first_sentinel_index": 35,
+    "terminal_record": "All four physical DWORDs are -1; whole 16-byte terminal record is included.",
+    "payload_sha256": "3c5e6bfcf9bab0a3fc8a4053f35323e0e9f3cd9120be5622968a38037ee822c8",
+    "native_occurrences": [
+      "0x5a450"
+    ],
+    "identity": "Compile the complete standalone owner, then locate its entire unrelocated payload uniquely in native file-backed data, without solving the caller operands.",
+    "source_layout": "Uses the unchanged shared Entry type and explicit little-endian data-field initializers for its opaque prefix. The three DWORDs are integral signed16.16; wider gameplay meanings are not inferred.",
+    "coordinate_range": "Signed integral fields from -32 to32; source multiplication by65536 is representable.",
+    "next_native_bytes_rva": "0x5a690",
+    "data_address_highlow_fields": [
+      "0x25585"
+    ],
+    "no_additional_data_address_anchor_claim": true,
+    "negative_controls": [
+      "changed_value",
+      "truncated"
+    ]
+  },
+  "helper": {
+    "id": "eng1.attach_entries",
+    "rva": "0x26700",
+    "size": 48,
+    "source": "src/eng1/actor_handlers_mid.c",
+    "source_sha256": "64bb0250db784c1e512d75d5c4c7232ec27d20ebd9f7497c88c4b469c6d5b27e",
+    "compiled_and_target_sha256": "a63131435c0bba3150ca89c36d935fb51a3bf1b0f11de8e03f1c087a5239fa2e",
+    "fresh_raw_exact": true,
+    "independent_entry_witnesses": [
+      {
+        "rva": "0x1a502",
+        "size": 5,
+        "sha256": "370f729d88af0a99aa4b2e7e223da9425b744bafe7277ae5a0e341e7c03f56ab"
+      },
+      {
+        "rva": "0x33e60",
+        "size": 5,
+        "sha256": "ab2ae9dead25f859a2adf3cbc59a1ae1ff008e10deae6e255909089964cbfaa5"
+      }
+    ]
+  },
+  "runtime": {
+    "path": "evidence/boss_entry_runtime_2026_10_25.json",
+    "cases": 240,
+    "failed_cases": 0,
+    "helper_models": 0,
+    "scope": [
+      "Entry pointer writes are normalized by the independently verified owner role; raw pointers are checked separately.",
+      "Early sentinels change data only in isolated memory; no native instruction/file is patched.",
+      "These cases do not establish coordinate meanings, later rendering or whole-game behavior."
+    ]
+  },
+  "canonical_function_source_changed": false,
+  "acceptance_scope": "One complete 64-byte function with independently checked data and helper-entry references. Table identity and function equality do not establish coordinate/rendering semantics or whole-game closure."
+}

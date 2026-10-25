@@ -5,9 +5,9 @@
 #include <stdio.h>
 #include <stddef.h>
 
-#include "../../calibration/host_sound_bank.h"
-#include "../../calibration/host_sound_channel_storage.h"
-#include "../../calibration/host_sound_decoder_tables.h"
+#include "host_sound_bank.h"
+#include "host_sound_channel_storage.h"
+#include "host_sound_decoder_tables.h"
 
 extern "C" {
 typedef char header_prefix_is_16[(sizeof(HostSoundHeaderPrefix)==16)?1:-1];

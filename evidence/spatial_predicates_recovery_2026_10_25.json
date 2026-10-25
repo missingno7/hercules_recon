@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-25",
+  "scope": "Two real original-backed spatial predicates and corrected consumer ABI; independent reference acceptance remains separate.",
+  "source": "src/eng1/behavioral/actor_spatial_predicates.cpp",
+  "source_sha256": "aa24a31dedafbeda8673b65e2fded19780bcad78f13c926567b7dad67a851107",
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "functions": {
+    "0x2a710": {
+      "size": 144,
+      "symbol": "_eng1_native_code_target_002a710",
+      "native_sha256": "b9b0e25ff8d674dd17efc0ff8828928670ab18de8aae3c3f34d0d212ad1ed785",
+      "fresh_nonreference_equal": true
+    },
+    "0x2aa30": {
+      "size": 128,
+      "symbol": "_eng1_native_code_target_002aa30",
+      "native_sha256": "4efdc7a3fb4d54ffa197262b671684b7a5cecfbc6cdeecda86bcd44612c0427a",
+      "fresh_nonreference_equal": true
+    }
+  },
+  "compiler_context": {
+    "profile": [
+      "/O2"
+    ],
+    "language": "C++ with C linkage",
+    "claim": "Measured reproducing context, not historical language/TU identity.",
+    "controls": [
+      "C direct six-comparison OR: complete144-byte contribution,62 nonreference differences.",
+      "Equivalent OR-term reordering and explicit accumulation: same62-byte residue.",
+      "Named members versus3-element arrays: same62-byte residue.",
+      "C++ frontend with identical logical six comparisons and C ABI: zero differences for both predicates."
+    ],
+    "cpp_control_sha256": "bc4e539d86b493f8f7d8aa0cd9156acff04bf285ccf3af49dcb11bf2e2bb1135"
+  },
+  "semantics": {
+    "bounds": "area first, actor second; actor_bounds(actor,&scratch,0); failure returns0; six signed-WORD separating comparisons ORed then inverted; touching overlaps.",
+    "screen": "Nonzero71376 WORD returns0 before actor read; otherwise screen_flags&3 must equal1. Signed screen coordinates atc/e; unsigned lowWORD margins; y239/x319 outside comparisons, no short-circuit OR."
+  },
+  "differential": {
+    "driver": "scripts/eng1_spatial_predicates_differential.py",
+    "driver_sha256": "796b3d9ea2efe77edf22e2cd061f3ac3a003a0e684a18312b2a3fb6a02728ba8",
+    "cases": 1079,
+    "by_entry": {
+      "0x2a710": 237,
+      "0x2aa30": 842
+    },
+    "all_equal": true,
+    "report_sha256": "addab29d8a05884b0cf8c228b10a10af31810098a5a1903d7928d3ad28db2bab",
+    "scope": "Finite isolated spatial predicates, modeled actor_bounds service, exact argument transcript, guards/inputs/stack/callee-saved state; not actual extent behavior or game execution.",
+    "checks": "Return values, physical call argument transcript, caller frame/guards, callee-saved registers, full synthetic input region, expected modeled-area mutation, timer unchanged; signed extremes, malformed bounds, touching, failed bounds query, high margin bits and null-actor guarded returns."
+  },
+  "consumer_correction": "evidence/default_callback_abi_review_2026_10_25.json",
+  "source_graph": {
+    "new_providers": 2,
+    "removed_diagnostic_spellings": [
+      "_eng1_native_code_target_002a710",
+      "_eng1_native_code_target_002aa30",
+      "_eng1_native_dep_02aa30"
+    ],
+    "aliases": {
+      "eng1_2a710": "eng1_native_code_target_002a710",
+      "eng1_native_dep_02aa30": "eng1_native_code_target_002aa30"
+    }
+  },
+  "limitations": [
+    "Actor-bounds service modeled in these cases; no actual resource/extent chain or whole-game execution.",
+    "Full native actor capacity, pointer lifetime, source identity and whole-module closure unproved.",
+    "Masked equality is diagnostic only; owner/reference proof required for acceptance."
+  ]
+}

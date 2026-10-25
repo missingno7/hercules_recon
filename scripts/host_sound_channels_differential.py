@@ -61,15 +61,15 @@ def build():
     assert sha(ORACLE) == '587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d'
     verify_toolchain(DEFAULT_TOOLCHAIN)
     source = ROOT/'src/pc/host_sound_channels.cpp'
-    storage = ROOT/'calibration/host_sound_channel_storage.cpp'
+    storage = ROOT/'src/pc/host_sound_channel_storage.cpp'
     files = [source, storage, *[ROOT/p for p in [
-        'calibration/host_warm_delivery.cpp', 'calibration/host_warm_delivery_storage.cpp',
-        'calibration/host_callback_storage.c', 'calibration/sound_bank_storage.cpp',
-        'calibration/registry_storage.c', 'calibration/audio_bank_release.cpp',
-        'calibration/audio_small_helpers.c', 'calibration/audio_gain_storage.c']]]
-    watched = [*files, ORACLE, Path(__file__), ROOT/'calibration/host_warm_delivery.h',
-               ROOT/'calibration/host_callback_protocol_externs.h',
-               ROOT/'calibration/host_sound_channel_storage.h', ROOT/'calibration/host_sound_bank.h',
+        'src/pc/host_warm_delivery.cpp', 'src/pc/host_warm_delivery_storage.cpp',
+        'src/pc/host_callback_storage.c', 'src/pc/sound_bank_storage.cpp',
+        'src/shared/registry_storage.c', 'src/pc/audio_bank_release.cpp',
+        'src/pc/audio_small_helpers.c', 'src/pc/audio_gain_storage.c']]]
+    watched = [*files, ORACLE, Path(__file__), ROOT/'src/pc/host_warm_delivery.h',
+               ROOT/'src/pc/host_callback_protocol_externs.h',
+               ROOT/'src/pc/host_sound_channel_storage.h', ROOT/'src/pc/host_sound_bank.h',
                DEFAULT_TOOLCHAIN/'include/dsound.h', DEFAULT_TOOLCHAIN/'include/windows.h',
                ROOT/'toolchains/manifest.json', *[ROOT/'scripts'/p for p in
                ['match.py', 'coff.py', 'pe.py', 'masked.py', 'env.py']]]

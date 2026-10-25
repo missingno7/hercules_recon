@@ -2,8 +2,8 @@
 #include <setjmp.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/grid_query_20b50.h"
-#include "../src/eng1/behavioral/resource_runtime_data.h"
+#include "../src/eng1/grid_query_20b50.h"
+#include "../src/eng1/resource_runtime_data.h"
 
 typedef unsigned char u8;
 typedef unsigned short u16;

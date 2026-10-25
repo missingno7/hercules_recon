@@ -127,19 +127,24 @@ class DiagnosticTests(unittest.TestCase):
                 unit_bounds.main()
         self.assertEqual(result.exception.code, 2)
 
-    def test_natural_link_does_not_implicitly_make_forced_image(self):
+    def test_natural_link_never_uses_forced_layout(self):
         with patch.object(title_link, 'ROOT', self.local), \
              patch.object(title_link, 'sources', return_value={}), \
              patch.object(title_link, 'verify_toolchain', return_value='fixture'), \
              patch.object(title_link.subprocess, 'run', return_value=types.SimpleNamespace(
-                 returncode=1, stdout='unresolved external symbol _g_missing', stderr='')), \
-             patch.object(title_link, 'layout', return_value=dict(status='legacy')) as legacy:
+                 returncode=1, stdout='unresolved external symbol _g_missing', stderr='')) as link:
             result = title_link.build('TITLE.DLL')
-            legacy.assert_not_called()
             self.assertEqual(result['unresolved_count'], 1)
-            self.assertEqual(result['layout']['status'], 'not_requested')
-            self.assertEqual(title_link.build('TITLE.DLL', True)['layout']['status'], 'legacy')
-            legacy.assert_called_once()
+            self.assertNotIn('layout', result)
+        command = link.call_args.args[0]
+        self.assertFalse(any(argument.upper().startswith('/FORCE') for argument in command))
+
+    def test_legacy_forced_layout_option_is_rejected(self):
+        with patch.object(sys, 'argv', ['title_link.py', 'TITLE.DLL', '--legacy-forced-layout']), \
+             contextlib.redirect_stderr(io.StringIO()):
+            with self.assertRaises(SystemExit) as result:
+                title_link.main()
+        self.assertEqual(result.exception.code, 2)
 
 
 if __name__ == '__main__':

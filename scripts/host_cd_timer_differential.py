@@ -13,7 +13,7 @@ parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--output',type=Path,default=ROOT/'work/host_cd_timer_public')
 parser.add_argument('--native-exe',type=Path,default=Path('D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE'))
 args=parser.parse_args();OUT=args.output.resolve();assert OUT.is_relative_to((ROOT/'work').resolve());OUT.mkdir(parents=True,exist_ok=True)
-SOURCE=ROOT/'src/pc/host_cd_timer.c';STORAGE=ROOT/'calibration/mci_storage.c';ORACLE=args.native_exe.resolve()
+SOURCE=ROOT/'src/pc/host_cd_timer.c';STORAGE=ROOT/'src/pc/mci_storage.c';ORACLE=args.native_exe.resolve()
 ORACLE_SHA='587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d'
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();pack=lambda v:struct.pack('<I',v&0xffffffff)
 symbol='_host_timing_service_409cd0';CELLS=['_g_exe_96e61c','_g_exe_96e620','_g_exe_96e624','_g_exe_96e628','_g_exe_96e62c','_g_exe_96e630']

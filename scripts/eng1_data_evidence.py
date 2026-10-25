@@ -338,7 +338,7 @@ def validate_public_contracts(manifest: dict[str, Any], tracked_before: dict[str
         if parse_rva(field["rva"]) != parse_rva(rva) or int(field["size"]) != int(size):
             raise CheckError(f"{evidence} interval differs from manifest for {canonical}")
 
-    actor_source = "src/eng1/behavioral/actor_storage.c"
+    actor_source = "src/eng1/actor_storage.c"
     actor = loaded["evidence/eng1_actor_storage.json"]
     actor_fields = fields_by_source[actor_source]
     expected_actor = sorted((parse_rva(f["rva"]), int(f["size"])) for f in actor_fields.values())
@@ -346,22 +346,22 @@ def validate_public_contracts(manifest: dict[str, Any], tracked_before: dict[str
     if expected_actor != observed_actor:
         raise CheckError("actor storage manifest intervals differ from the adopted native backing contract")
 
-    dispatch_source = "src/eng1/behavioral/dispatch_storage.c"
+    dispatch_source = "src/eng1/dispatch_storage.c"
     dispatch = loaded["evidence/eng1_dispatch_storage.json"]
     for field in dispatch["fields"]:
         expect(dispatch_source, field["symbol"], field["rva"], field["minimum_bytes"], "dispatch contract")
 
-    camera_source = "src/eng1/behavioral/camera_storage.c"
+    camera_source = "src/eng1/camera_storage.c"
     camera = loaded["evidence/eng1_camera.json"]
     for field in camera["fields"]:
         expect(camera_source, field["symbol"], field["rva"], field["bytes"], "camera contract")
 
-    static_source = "src/eng1/behavioral/static_pointees.c"
+    static_source = "src/eng1/static_pointees.c"
     static = loaded["evidence/eng1_static_pointees.json"]
     for field in static["checks"]:
         expect(static_source, field["symbol"], field["rva"], field["size"], "static-pointee contract")
 
-    row0_source = "src/eng1/behavioral/row0_pointees.c"
+    row0_source = "src/eng1/row0_pointees.c"
     row0 = loaded["evidence/eng1_row0_pointees.json"]
     start = parse_rva(row0["target_span"]["start"])
     end = parse_rva(row0["target_span"]["end"])
@@ -371,7 +371,7 @@ def validate_public_contracts(manifest: dict[str, Any], tracked_before: dict[str
         next_offset = table_offsets[index + 1][0] if index + 1 < len(table_offsets) else end - start
         expect(row0_source, symbol, start + offset, next_offset - offset, "row-0 table contract")
 
-    frame_source = "src/eng1/behavioral/frame_data.c"
+    frame_source = "src/eng1/frame_data.c"
     descriptor = loaded["evidence/eng1_descriptor_pointees.json"]
     for field in descriptor["checks"]:
         expect(frame_source, field["symbol"], field["oracle_rva"], field["size"], "descriptor-pointee contract")

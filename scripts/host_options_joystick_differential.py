@@ -14,8 +14,8 @@ from unicorn.x86_const import *
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--output',type=Path,required=True)
 parser.add_argument('--source',type=Path,default=ROOT/'src/pc/host_options_joystick.cpp')
-parser.add_argument('--header',type=Path,default=ROOT/'calibration/host_options_classes.h')
-parser.add_argument('--state',type=Path,default=ROOT/'calibration/host_joystick_state.c')
+parser.add_argument('--header',type=Path,default=ROOT/'src/pc/host_options_classes.h')
+parser.add_argument('--state',type=Path,default=ROOT/'src/pc/host_joystick_state.c')
 args=parser.parse_args();OUT=args.output.resolve();SOURCE=args.source.resolve();HEADER=args.header.resolve();STATE=args.state.resolve()
 assert OUT.is_relative_to(ROOT/'work');OUT.mkdir(parents=True,exist_ok=True)
 ORACLE=Path('D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE')
@@ -27,9 +27,9 @@ PROFILE={
  'destroy':('?OnDestroy@CJoystickPage@@QAEXXZ',0x8830,32),
  'selection':('?OnRva_00008850@CJoystickPage@@QAEXXZ',0x8850,416)}
 DEPENDENCIES={
- 'sample':('_host_input_sample_7c50',0x7c50,576,'calibration/host_input.c'),
- 'rebuild':('_cleanup_native_7aa0',0x7aa0,208,'calibration/host_config_helpers.c'),
- 'append':('_cleanup_native_7b70',0x7b70,64,'calibration/host_config_helpers.c')}
+ 'sample':('_host_input_sample_7c50',0x7c50,576,'src/pc/host_input.c'),
+ 'rebuild':('_cleanup_native_7aa0',0x7aa0,208,'src/pc/host_config_helpers.c'),
+ 'append':('_cleanup_native_7b70',0x7b70,64,'src/pc/host_config_helpers.c')}
 LIBRARY={
  'BaseInit':('?OnInitDialog@CDialog@@UAEHXZ',0x220bd,101,124,0),
  'GetDlgItem':('?GetDlgItem@CWnd@@QBEPAV1@H@Z',0x24faa,42,104,0),
@@ -55,7 +55,7 @@ def build(source,state,out,accept=True):
  assert Path(libs[1]['path']).name=='libcmt.lib'and libs[1]['sha256']=='7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b'
  assert all(sha(x['path'])==x['sha256']for x in libs)
  runtime=Path('C:/tools/hercules/renderer-oracle-python/unicorn/lib/unicorn.dll');assert sha(runtime)=='010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1'
- files=[source,state,ROOT/'calibration/registry_storage.c',ROOT/'calibration/host_startup_storage.c',ROOT/'calibration/host_input.c',ROOT/'calibration/host_config_helpers.c',ROOT/'calibration/host_bootstrap_text.c']
+ files=[source,state,ROOT/'src/shared/registry_storage.c',ROOT/'src/pc/host_startup_storage.c',ROOT/'src/pc/host_input.c',ROOT/'src/pc/host_config_helpers.c',ROOT/'src/pc/host_bootstrap_text.c']
  watched={Path(__file__),graph,HEADER,ORACLE,runtime,ROOT/'recovery.json',ROOT/'toolchains/manifest.json',*[Path(x['path'])for x in libs]}
  for p in files:watched.update(context_files(p))
  watched.update(ROOT/'scripts'/p for p in ['match.py','coff.py','masked.py','pe.py','env.py','title_behavioral.py'])
@@ -111,7 +111,7 @@ def build(source,state,out,accept=True):
     proofs.append(dict(role=role,symbol=sym,rva=hex(rva),bytes=width,member=member,library=libs[owner]['path'],member_sha256=sha(obj),diagnostic=d,object=str(obj),execution='actual unchanged body'if role in ['SetText','BaseDestroy','BaseOK']else'modeled identified boundary'))
    pos+=60+n+(n&1);index+=1
  assert len(proofs)==8 and pins=={p:sha(p)for p in pins}
- return dict(inputs=pins,compiles=compiles,measurements=measurements,dependencies=dependencies,literals=literal_proofs,working=dict(rva='0x56e5d8',bytes=28,backing='virtual_zero'),external_text=dict(symbol='_g_host_empty_text_3f74c',native_rva='0x3f74c',observed_prefix_bytes=1,canonical_provider=True,capacity_accepted=False),library=proofs,libraries=libs,coff_code_objects=[str(object_by_source[p])for p in [source,ROOT/'calibration/host_input.c',ROOT/'calibration/host_config_helpers.c']],coff_data_objects=[str(object_by_source[p])for p in [state,ROOT/'calibration/registry_storage.c',ROOT/'calibration/host_startup_storage.c',ROOT/'calibration/host_bootstrap_text.c']])
+ return dict(inputs=pins,compiles=compiles,measurements=measurements,dependencies=dependencies,literals=literal_proofs,working=dict(rva='0x56e5d8',bytes=28,backing='virtual_zero'),external_text=dict(symbol='_g_host_empty_text_3f74c',native_rva='0x3f74c',observed_prefix_bytes=1,canonical_provider=True,capacity_accepted=False),library=proofs,libraries=libs,coff_code_objects=[str(object_by_source[p])for p in [source,ROOT/'src/pc/host_input.c',ROOT/'src/pc/host_config_helpers.c']],coff_data_objects=[str(object_by_source[p])for p in [state,ROOT/'src/shared/registry_storage.c',ROOT/'src/pc/host_startup_storage.c',ROOT/'src/pc/host_bootstrap_text.c']])
 
 DATA_SPECS=[
  ('_g_host_empty_text_3f74c',0x3f74c,1),
@@ -402,7 +402,7 @@ def main():
  negatives=[]
  for name,code in wrong.items():
   assert code!=text,name
-  lane=OUT/name;lane.mkdir(exist_ok=True);source=lane/'wrong.cpp';code=re.sub(r'#include "[^"]*host_options_classes.h"','#include "'+HEADER.as_posix()+'"',code);code=re.sub(r'#include "[^"]*host_bootstrap_text.h"','#include "'+(ROOT/'calibration/host_bootstrap_text.h').as_posix()+'"',code);source.write_bytes(code.encode())
+  lane=OUT/name;lane.mkdir(exist_ok=True);source=lane/'wrong.cpp';code=re.sub(r'#include "[^"]*host_options_classes.h"','#include "'+HEADER.as_posix()+'"',code);code=re.sub(r'#include "[^"]*host_bootstrap_text.h"','#include "'+(ROOT/'src/pc/host_bootstrap_text.h').as_posix()+'"',code);source.write_bytes(code.encode())
   bad=build(source,STATE,lane,False);plan=prepare(bad);s=next(x for x in ss if x['name']==names[name]);native=execute(True,b,p,s);candidate=execute(False,bad,plan,s);assert native!=candidate,name
   negatives.append(dict(name=name,detected=True,scenario=s,native=native,wrong=candidate,build=bad))
  assert b['inputs']=={path:sha(path)for path in b['inputs']}

@@ -5,12 +5,12 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/actor_control_state.h"
-#include "../src/eng1/behavioral/actor_control_cells.h"
-#include "../src/eng1/behavioral/group_layouts.h"
-#include "../src/eng1/behavioral/interpreters.h"
-#include "../src/eng1/behavioral/actor_control_tail.h"
-#include "../src/eng1/behavioral/actor_control_tables.h"
+#include "../src/eng1/actor_control_state.h"
+#include "../src/eng1/actor_control_cells.h"
+#include "../src/eng1/group_layouts.h"
+#include "../src/eng1/interpreters.h"
+#include "../src/eng1/actor_control_tail.h"
+#include "../src/eng1/actor_control_tables.h"
 
 typedef unsigned char diff_u8;
 typedef unsigned short diff_u16;

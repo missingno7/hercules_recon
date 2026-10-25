@@ -42,7 +42,7 @@ def members(data):
         yield index,payload;position=start+size+(size&1);index+=1
 def build():
     assert sha(ORACLE)==ORACLE_SHA;tool=verify_toolchain(DEFAULT_TOOLCHAIN)
-    files=[SOURCE,*[ROOT/p for p in ['calibration/host_graphics_startup_storage.c','calibration/graphics_storage.cpp','calibration/graphics_lock.cpp','calibration/graphics_lock_storage.c','calibration/host_system_key_storage.c','calibration/fatal_storage.c']]]
+    files=[SOURCE,*[ROOT/p for p in ['src/pc/host_graphics_startup_storage.c','src/pc/graphics_storage.cpp','src/pc/graphics_lock.cpp','src/pc/graphics_lock_storage.c','src/pc/host_system_key_storage.c','src/pc/fatal_storage.c']]]
     libraries=[DEFAULT_TOOLCHAIN/'lib'/p for p in ['libcmt.lib','kernel32.lib','user32.lib','gdi32.lib','ddraw.lib']]
     map_path=Path('D:/Prog/hercules_recon/work/library_map/library_map.json')
     watched=[*files,*libraries,ORACLE,map_path,Path(__file__),*[ROOT/p for p in ['scripts/coff.py','scripts/match.py','scripts/masked.py','scripts/pe.py','scripts/env.py','toolchains/manifest.json']],DEFAULT_TOOLCHAIN/'include/ddraw.h',DEFAULT_TOOLCHAIN/'include/wingdi.h']

@@ -1,8 +1,8 @@
 """Re-point FUNCTION_MATCH rows at a new canonical source (e.g. their address unit).
 
-usage: move_strict.py ID... --source calibration/title/u0cc90.c [--dry-run] [--original-root PATH]
+usage: move_strict.py ID... --source src/title/u0cc90.c [--dry-run] [--original-root PATH]
 
-The new source must already be installed (LF, under calibration/ or src/, same language suffix as
+The new source must already be installed (LF, under src/, same language suffix as
 the row's flags imply nothing else). Each row is freshly compiled from the new source with its
 recorded flags and must be raw exact exactly as scripts/match.py check requires, with the same
 compiled/target bytes as its existing proof. Only the row's `source` and `proof` change; the proof
@@ -64,8 +64,8 @@ def move(ids, source, dry_run=False, original_root=None):
     if rel.is_absolute() or '..' in rel.parts:
         raise ValueError('Source must be repository-relative')
     path = (ROOT / rel).resolve()
-    if not any(path.is_relative_to((ROOT / d).resolve()) for d in ('calibration', 'src')):
-        raise ValueError('Strict sources belong under calibration/ or src/')
+    if not path.is_relative_to((ROOT / 'src').resolve()):
+        raise ValueError('Strict sources belong under src/')
     if path.suffix.lower() not in ('.c', '.cpp') or not path.is_file():
         raise ValueError('Source must be an existing .c or .cpp file')
     content = path.read_bytes()

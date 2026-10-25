@@ -1,4 +1,4 @@
-#include "../calibration/host_callback_protocol_externs.h"
+#include "../src/pc/host_callback_protocol_externs.h"
 #include <stdio.h>
 
 HostCallbackStoragePrefix g_host_callback_prefix;

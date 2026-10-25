@@ -22,7 +22,7 @@ def summarize(path):
         raise ValueError('Recorded link map identity changed')
     context = dict(build['context_sha256'])
     context['recovery.json'] = build['recovery_sha256']
-    context['evidence/eng1_behavioral_build.json'] = build['config_sha256']
+    context['config/eng1/sources.json'] = build['config_sha256']
     current = all((ROOT / p).is_file() and sha(ROOT / p) == value for p, value in context.items())
     events = run['events']
     loads = [x for x in events if x['type'] == 'eng1_module_load']

@@ -1,0 +1,447 @@
+{
+  "schema": 1,
+  "date": "2026-10-25",
+  "scope": "Independent native entry/ABI identity, not callee function matching.",
+  "oracle_sha256": {
+    "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "work/discs/pc_install/HERCULES.EXE": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "assets/pc/HERCULES/ENG3.DLL": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+  },
+  "callee_identities": {
+    "eng1.apply_frame_motion_2d": {
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": 168288,
+      "size": 112,
+      "source": "src/shared/frame_motion.c",
+      "symbol": "_apply_frame_motion_2d",
+      "source_sha256": "cedcf3f754f74ab81b87abe2e7f4248bef5bff8b293ef7d2441f2951d9169493",
+      "prior_own_evidence": "Negative signed active field at 0x11e suppresses updates. Indexed 4-byte signed-short step at pointer 0xf0/index 0xf4; x direction at 0x94, y additive, z from signed short 0x98. Explicit short x temporary matches the observed narrow load.",
+      "prior_status": "FUNCTION_MATCH",
+      "complete_native_sha256": "bb1c169d4a8dcd9e91e6dc00b1cff05c17951a5ff0b42a4eba64ae95810f0470",
+      "own_compiled_nonreference_equal": true,
+      "own_compiled_nonreference_differences": 0,
+      "entry_identity_review": {
+        "review": "Own earlier recorded entry/source and fresh complete non-reference equality independently corroborate helper identity; unresolved helper references remain outside caller acceptance."
+      },
+      "independent_entry_witnesses": [
+        {
+          "rva": 4425,
+          "instruction_sha256": "7ae86d09ee70315fd9b9bb7d2b258071e1adfc04e26571cb8f120482f748db01",
+          "outside_selected_callers": true
+        },
+        {
+          "rva": 5145,
+          "instruction_sha256": "5c24ecb6d89fed13d8338138d50a9735fc3c87e1eb7aff309eb63d969a203b2f",
+          "outside_selected_callers": true
+        }
+      ],
+      "scope": "Referenced entry identity only; does not accept callee implementation, data, or dependency closure."
+    },
+    "eng1.dispatch_engine_2c730": {
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": 182064,
+      "size": 16,
+      "source": "calibration/eng1/control_unit_2c030.c",
+      "symbol": "_dispatch_engine_2c730",
+      "source_sha256": "86303da6a12ceed36db29edfdfd296cc292b9587cac1b85247290cc88f7c23de",
+      "prior_own_evidence": "Lane x5 (2026-10-20): ENG1 0x2c030..0x2e000 (approximate distance/quadrant helpers, host interface slot wrappers named by real slot with implied g_engine_interface 0x70f20, actor control, mesh traversal); the span likely crosses several original units; ownership unproved.",
+      "prior_status": "CODEGEN_SIMILAR",
+      "complete_native_sha256": "927ea8e84146b288e1f748f2bb9894a7dd0c912bfd074f25919cab1b2282b69a",
+      "own_compiled_nonreference_equal": true,
+      "own_compiled_nonreference_differences": 0,
+      "entry_identity_review": {
+        "review": "Own earlier recorded entry/source and fresh complete non-reference equality independently corroborate helper identity; unresolved helper references remain outside caller acceptance."
+      },
+      "independent_entry_witnesses": [
+        {
+          "rva": 198573,
+          "instruction_sha256": "6434a99b4c3e95390ce48e47c5de11a17349b7418ff80fac746a7d4958e81e5b",
+          "outside_selected_callers": true
+        },
+        {
+          "rva": 205469,
+          "instruction_sha256": "c6fce781af284d67b39f37c4f27b8b943242843af3f8f02c6d9a1159c0c32b62",
+          "outside_selected_callers": true
+        }
+      ],
+      "scope": "Referenced entry identity only; does not accept callee implementation, data, or dependency closure."
+    },
+    "eng1.dispatch_engine_2c760": {
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": 182112,
+      "size": 16,
+      "source": "src/eng1/behavioral/host_wrappers_extra.c",
+      "symbol": "_dispatch_engine_2c760",
+      "source_sha256": "ef481c4f33a6c66c03cdabfad9e07b97f8e0aa84afb144717e86e93fc075ef88",
+      "prior_own_evidence": "Existing provider recorded in place by the 2026-10-20 unrecorded-source census: fresh pinned RTM /O2 compilation of the unchanged source is relocation-masked equal with a consistent implied symbol map. RVA/symbol mapping from evidence/eng1_behavioral_build.json. Diagnostic only; original prototype, TU and placement unproved.",
+      "prior_status": "CODEGEN_SIMILAR",
+      "complete_native_sha256": "ad3c45480f319f5089e4d6caa0edd1cc8e8d366e12f7f57cc52a4eb9155e9e40",
+      "own_compiled_nonreference_equal": true,
+      "own_compiled_nonreference_differences": 0,
+      "entry_identity_review": {
+        "review": "Own earlier recorded entry/source and fresh complete non-reference equality independently corroborate helper identity; unresolved helper references remain outside caller acceptance."
+      },
+      "independent_entry_witnesses": [
+        {
+          "rva": 10617,
+          "instruction_sha256": "0e68c7225d941d25e5ee207b7bdb7dcebddf00a0b73573543072f91942ab481b",
+          "outside_selected_callers": true
+        },
+        {
+          "rva": 22831,
+          "instruction_sha256": "407fd30da9986d45e8a8406861eb402c4b2acd02c484c43326f9fef2d1a78efe",
+          "outside_selected_callers": true
+        }
+      ],
+      "scope": "Referenced entry identity only; does not accept callee implementation, data, or dependency closure."
+    },
+    "eng1.eng1_10a40": {
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": 68160,
+      "size": 208,
+      "source": "calibration/eng1/level_unit_10120.c",
+      "symbol": "_eng1_10a40",
+      "source_sha256": "33b3576a099e0e540dcba8353a770dfb8bcc3363609e928c59930fb681b66180",
+      "prior_own_evidence": "lane x17 (2026-10-20): ENG1 0x10120..0x12620 one plain C unit (C++ same 36/43); includes <stdlib.h> (abs) and <string.h> (memset in 0x11fc0) for real uses; 0x109e0/0x10b10 equal only in this file context. Size-exact; 158 non-relocation bytes differ.",
+      "prior_status": "RECONSTRUCTED",
+      "complete_native_sha256": "b41ee3f9066aaaa2564c8b014e2513cbfe2a46bc8747710f7fd17911bf773e70",
+      "own_compiled_nonreference_equal": false,
+      "own_compiled_nonreference_differences": 158,
+      "entry_identity_review": {
+        "review": "One actor pointer; three ff direction bytes; counter 0x28/state 4; x/y/z velocity, target and rate constants; profile-indexed owner plus record offset; conditional three home-coordinate loads; select_frame(actor,13). Original field widths, order and null sum guard reviewed against own source, independently of selected caller.",
+        "anchors": {
+          "0": "mov eax, dword ptr [esp + 4]",
+          "32": "mov byte ptr [eax + 0x21], 0x28",
+          "36": "mov word ptr [eax + 0x2a], 4",
+          "190": "push 0xd",
+          "193": "call 0x292f0"
+        }
+      },
+      "independent_entry_witnesses": [
+        {
+          "rva": 72685,
+          "instruction_sha256": "c4b963bc72b8c4a30ecaaa066a60f395bc90424224433081c912e25f8b0bc471",
+          "outside_selected_callers": true
+        }
+      ],
+      "scope": "Referenced entry identity only; does not accept callee implementation, data, or dependency closure."
+    },
+    "eng1.eng1_2a010": {
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": 172048,
+      "size": 352,
+      "source": "calibration/eng1/actor_unit_282e0.cpp",
+      "symbol": "_eng1_2a010",
+      "source_sha256": "629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7",
+      "prior_own_evidence": "Lane x3 (2026-10-20): ENG1 actor/command unit 0x282e0..0x2a660 as one C++ unit (extern \"C\") with <stdlib.h>/<string.h> as TU-context hypothesis (best context keeping every recorded neighbour exact; declaration-count sensitive, re-decide with the final unit). Recorded neighbours are carried for unit context; their recorded providers stay authoritative. Size-exact; 13 non-relocation bytes differ.",
+      "prior_status": "RECONSTRUCTED",
+      "complete_native_sha256": "b509f69603e95c67b0210d279765884288cb39880acf8f532c28cf51ef1149dd",
+      "own_compiled_nonreference_equal": false,
+      "own_compiled_nonreference_differences": 13,
+      "entry_identity_review": {
+        "review": "Four cdecl words x/y/z/group; independent actor-worklist bounds scan and grid height query, two 0x7fff distance halves and packed minimum result. Caller consumes the low word after the same physical four-word call. Full original/source role and signed/unsigned comparison paths reviewed; helper non-reference differences remain.",
+        "anchors": {
+          "16": "mov edi, 0x7fff",
+          "74": "call 0x2a220",
+          "256": "call 0x20b50",
+          "250": "shl edi, 0x10"
+        }
+      },
+      "independent_entry_witnesses": [
+        {
+          "rva": 7272,
+          "instruction_sha256": "8de28d87c0f844938b1b7294c77fa013d70a3e19e851b8a6048d14e133c3de35",
+          "outside_selected_callers": true
+        },
+        {
+          "rva": 7301,
+          "instruction_sha256": "7ed88c5a6e828eec74b90f4ddca7e66987f881fe43da90c30efc8cd471e7fc9c",
+          "outside_selected_callers": true
+        }
+      ],
+      "scope": "Referenced entry identity only; does not accept callee implementation, data, or dependency closure."
+    },
+    "eng1.eng1_32300": {
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": 205568,
+      "size": 1296,
+      "source": "calibration/eng1/render_unit_30010.cpp",
+      "symbol": "_eng1_32300",
+      "source_sha256": "b7648c7683bed779e944ce0934bca9328fd722a7100b6956a2615629c61e00db",
+      "prior_own_evidence": "lane x8 (2026-10-20): renderer unit tail. Size-exact; 972 non-relocation bytes differ. register assignment/spills differ; control flow and size match",
+      "prior_status": "RECONSTRUCTED",
+      "complete_native_sha256": "09a84c587542da84d8ffb0b67ea2a3a1a187177ca4c7d36e7422dc8b93a7c08d",
+      "own_compiled_nonreference_equal": false,
+      "own_compiled_nonreference_differences": 972,
+      "entry_identity_review": {
+        "review": "One object pointer, EAX result; signed z/camera difference rejects<0x20 with-1, clamps track layer and cell, straight/curved transform caches, sine/scale helpers and optional object translation, returns doubled angle. Complete original and existing source reviewed for entry role; complex helper remains reconstructed and none of its globals or semantics gains matching acceptance.",
+        "anchors": {
+          "30": "cmp edi, 0x20",
+          "35": "or eax, 0xffffffff",
+          "59": "sar edx, 7",
+          "446": "call 0x2c920",
+          "464": "call 0x2c940",
+          "1276": "lea eax, [edi + edi]"
+        }
+      },
+      "independent_entry_witnesses": [
+        {
+          "rva": 127037,
+          "instruction_sha256": "369273daa968ca7c6790446c74ed7ed9049abe0ac72745e2d07e68fcc0663272",
+          "outside_selected_callers": true
+        },
+        {
+          "rva": 205529,
+          "instruction_sha256": "244a1ae5c5e9b1efabb9fa9e40e190ecbd876bae40e1db1a91e187a6ad201ebd",
+          "outside_selected_callers": true
+        }
+      ],
+      "scope": "Referenced entry identity only; does not accept callee implementation, data, or dependency closure."
+    },
+    "eng1.initialize_alternate_actor": {
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": 163808,
+      "size": 272,
+      "source": "calibration/actor_pools.c",
+      "symbol": "_initialize_alternate_actor",
+      "source_sha256": "2ff49187935e13c68d9a64ae477c009107871e12fc8b440848e5d862d7ecb5b4",
+      "prior_own_evidence": "evidence/shared_actor_reset_behavior_2026_10_11.json; final 130 written record bytes and untouched 18 bytes agree under ordinary nonoverlapping 0x94 record/cdecl preconditions; raw/masked remain false.",
+      "prior_status": "RECONSTRUCTED",
+      "complete_native_sha256": "8b8c2737815548fbaf4b771cb5ee28774740b408216aa4ebf52122c1efd9fad1",
+      "own_compiled_nonreference_equal": false,
+      "own_compiled_nonreference_differences": 209,
+      "entry_identity_review": {
+        "basis": "evidence/shared_actor_reset_behavior_2026_10_11.json",
+        "review": "One ActorCore* cdecl argument; constant stores through offset 0x92, flags 2/0x80000000, category 1, ff direction bytes, 0x100 scale words and 0x80 defaults; no calls or branches. Prior full store-map/ABI proof independently identifies this entry, not its caller operand.",
+        "anchors": {
+          "0": "mov eax, dword ptr [esp + 4]",
+          "18": "mov dword ptr [eax + 0x54], 0x80000000",
+          "40": "mov dword ptr [eax + 0x50], 2",
+          "263": "ret"
+        }
+      },
+      "independent_entry_witnesses": [
+        {
+          "rva": 76153,
+          "instruction_sha256": "38d3f7d3d97786f277f9f9ebbeff0553a3f0b11b2b03e6175dc679b3d3eb341f",
+          "outside_selected_callers": true
+        },
+        {
+          "rva": 162907,
+          "instruction_sha256": "50a3b7712eb3d4df2c0f021c86df0c2576fdd9c1af28c632d9a563e86d8d3e11",
+          "outside_selected_callers": true
+        }
+      ],
+      "scope": "Referenced entry identity only; does not accept callee implementation, data, or dependency closure."
+    },
+    "eng1.interpret_signed_pairs": {
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": 164832,
+      "size": 1088,
+      "source": "calibration/eng1/actor_unit_282e0.cpp",
+      "symbol": "_eng1_interpret_signed_pairs",
+      "source_sha256": "629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7",
+      "prior_own_evidence": "Lane x3 (2026-10-20): ENG1 actor/command unit 0x282e0..0x2a660 as one C++ unit (extern \"C\") with <stdlib.h>/<string.h> as TU-context hypothesis (best context keeping every recorded neighbour exact; declaration-count sensitive, re-decide with the final unit). Recorded neighbours are carried for unit context; their recorded providers stay authoritative.",
+      "prior_status": "CODEGEN_SIMILAR",
+      "complete_native_sha256": "042751c515addd81f0fbd4be6456c8d7de6a940f5733ae8ae25c31f6982b4bf6",
+      "own_compiled_nonreference_equal": true,
+      "own_compiled_nonreference_differences": 0,
+      "entry_identity_review": {
+        "review": "Own earlier recorded entry/source and fresh complete non-reference equality independently corroborate helper identity; unresolved helper references remain outside caller acceptance."
+      },
+      "independent_entry_witnesses": [
+        {
+          "rva": 4401,
+          "instruction_sha256": "cfe058288d5d222d8883a130e80d69e658e8c66fb3115f18e7d7b29d6087b68c",
+          "outside_selected_callers": true
+        },
+        {
+          "rva": 5121,
+          "instruction_sha256": "fb86a5d28eb2c5d13ffc7dde6cb95df947ce1e315813ba896b4f4fea184f9f3e",
+          "outside_selected_callers": true
+        }
+      ],
+      "scope": "Referenced entry identity only; does not accept callee implementation, data, or dependency closure."
+    },
+    "eng3.eng3_1b2e0": {
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": 111328,
+      "size": 448,
+      "source": "calibration/eng3/handlers_16240.cpp",
+      "symbol": "_eng3_1b2e0",
+      "source_sha256": "3e415a77c6e8b8d0ea0b54baeb7909cc763fc557097c53be2b09d89534d1686e",
+      "prior_own_evidence": "lane y13 (2026-10-20): appended to the 0x16240 unit. Size-exact; 376 non-relocation bytes differ. grid query allocation/reassociation",
+      "prior_status": "RECONSTRUCTED",
+      "complete_native_sha256": "3cd5ed27316450bd1057b0a43e55861cbcf7e31a87bac04006f452188fcb7806",
+      "own_compiled_nonreference_equal": false,
+      "own_compiled_nonreference_differences": 376,
+      "entry_identity_review": {
+        "review": "Four cdecl argument slots, unsigned-short x/z and signed-short y consumed from low words; z+0x300, x>=0x8000 maps to0x80; lane/shape decoding, two0x7fff distance halves, shape helper1b100, fallback water height4063e, packed return. Reviewed complete original/source role, not equality or original C prototype.",
+        "anchors": {
+          "14": "add ecx, 0x300",
+          "25": "cmp ax, 0x8000",
+          "274": "call 0x1b100",
+          "372": "mov ax, word ptr [0x1004063e]",
+          "422": "shl eax, 0x10"
+        }
+      },
+      "independent_entry_witnesses": [
+        {
+          "rva": 82683,
+          "instruction_sha256": "bd95ed97f85aa87fa81fe9402fdb302f5a305e7d8dc9e234ba4acc2998a0de87",
+          "outside_selected_callers": true
+        },
+        {
+          "rva": 84211,
+          "instruction_sha256": "3d730dfcbd077d2346882aab50688682c330131ace187a9a908990c18acad357",
+          "outside_selected_callers": true
+        }
+      ],
+      "scope": "Referenced entry identity only; does not accept callee implementation, data, or dependency closure."
+    },
+    "eng3.initialize_alternate_actor": {
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "rva": 120992,
+      "size": 272,
+      "source": "calibration/actor_pools.c",
+      "symbol": "_initialize_alternate_actor",
+      "source_sha256": "2ff49187935e13c68d9a64ae477c009107871e12fc8b440848e5d862d7ecb5b4",
+      "prior_own_evidence": "evidence/shared_actor_reset_behavior_2026_10_11.json; final 130 written record bytes and untouched 18 bytes agree under ordinary nonoverlapping 0x94 record/cdecl preconditions; raw/masked remain false.",
+      "prior_status": "RECONSTRUCTED",
+      "complete_native_sha256": "8b8c2737815548fbaf4b771cb5ee28774740b408216aa4ebf52122c1efd9fad1",
+      "own_compiled_nonreference_equal": false,
+      "own_compiled_nonreference_differences": 209,
+      "entry_identity_review": {
+        "basis": "evidence/shared_actor_reset_behavior_2026_10_11.json",
+        "review": "Same independently traced complete reset body as ENG1 27fe0 at its own ENG3 entry 1d8a0; identical original bytes. Source remains bounded semantic evidence only.",
+        "anchors": {
+          "0": "mov eax, dword ptr [esp + 4]",
+          "18": "mov dword ptr [eax + 0x54], 0x80000000",
+          "263": "ret"
+        }
+      },
+      "independent_entry_witnesses": [
+        {
+          "rva": 120203,
+          "instruction_sha256": "99966d056616dd7a23e51b921b8d65bcf99b62fc1a3c7f217223e15ded2584a1",
+          "outside_selected_callers": true
+        },
+        {
+          "rva": 120454,
+          "instruction_sha256": "c7e2340c4b751115f9636da86777768ef6735d4880d226b5f43cb0759ce283d0",
+          "outside_selected_callers": true
+        }
+      ],
+      "scope": "Referenced entry identity only; does not accept callee implementation, data, or dependency closure."
+    },
+    "exe.host_sound_channel_stop_fa10": {
+      "target": "work/discs/pc_install/HERCULES.EXE",
+      "target_sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+      "rva": 64016,
+      "size": 256,
+      "source": "src/pc/host_sound_channels.cpp",
+      "symbol": "_audio_native_fa10",
+      "source_sha256": "9bd55bb79ba0b7a07fae9f59e000e15f81bc4462f3b5932a22772f78c5ab472f",
+      "prior_own_evidence": "evidence/host_sound_channels_recovery.json: ordinary SDK calls over existing bank/channel/registry owners, two new virtual-zero prefixes. Guarded native/source comparisons execute real stop-all, stop, pause, resume, restore, polling and release; COM effects and unrecovered F3D0 initialization alone modeled. Three functions normalize after native JL loop evidence; stop retains code differences. No raw/device/game acceptance.",
+      "prior_status": "RECONSTRUCTED",
+      "complete_native_sha256": "6ed65b2e67e332814daff00e75bfa64d5cdefe9931a3a64a1ea11688ead23b25",
+      "own_compiled_nonreference_equal": false,
+      "own_compiled_nonreference_differences": 177,
+      "entry_identity_review": {
+        "basis": "evidence/host_sound_channels_recovery.json",
+        "review": "Two cdecl ints value/slot; -1 slot path sign-extends the low word, rejects 0x03380000, reads slot before range checks, Stop then reloads id and SetCurrentPosition(0), writes -1. Bank path excludes 1200+ and 824, loops four lanes. Prior guarded COM comparisons independently identify this entry; no callee byte-match claim.",
+        "anchors": {
+          "7": "cmp ebx, -1",
+          "40": "cmp edx, 0x3380000",
+          "121": "call dword ptr [ecx + 0x48]",
+          "157": "call dword ptr [ecx + 0x34]",
+          "239": "cmp edi, 4"
+        }
+      },
+      "independent_entry_witnesses": [
+        {
+          "rva": 7848,
+          "instruction_sha256": "c73177d047b38824d0f7d00d964172688723fb841fb719b2ae1c108ba8439fae",
+          "outside_selected_callers": true
+        }
+      ],
+      "scope": "Referenced entry identity only; does not accept callee implementation, data, or dependency closure."
+    }
+  },
+  "caller_reviews": {
+    "eng1.initialize_middle_actor": {
+      "source": "calibration/eng1/actor_middle_init.c",
+      "rva": "0x27a50",
+      "size": 176,
+      "review": "Core reset first, then original byte/word/dword zero-store ordering through0xe8.",
+      "direct_calls": 1
+    },
+    "exe.audio_native_10010": {
+      "source": "calibration/audio_small_helpers.c",
+      "rva": "0x10010",
+      "size": 32,
+      "review": "Twenty-four stop(-1,slot) calls in ascending slot order.",
+      "direct_calls": 1
+    },
+    "eng3.reset_eng3_middle_actor": {
+      "source": "calibration/eng3/actor_middle_reset.c",
+      "rva": "0x1d380",
+      "size": 176,
+      "review": "Own module core reset first, followed by full middle-record reset, including position copies.",
+      "direct_calls": 1
+    },
+    "eng3.145d0": {
+      "source": "calibration/eng3/handlers_14190.cpp",
+      "rva": "0x145d0",
+      "size": 256,
+      "review": "Copy attached actor fields and masked flags; signed shifts/height query; original invalid-height early return, scaling and repeated speed store.",
+      "direct_calls": 1
+    },
+    "eng3.15340": {
+      "source": "calibration/eng3/handlers_14190.cpp",
+      "rva": "0x15340",
+      "size": 112,
+      "review": "Low-word height result; sentinel0x7fff early return, threshold0x100 and original flag writes.",
+      "direct_calls": 1
+    },
+    "eng1.320d0": {
+      "source": "calibration/eng1/render_unit_30010.cpp",
+      "rva": "0x320d0",
+      "size": 96,
+      "review": "Projection helper result stored before two interface calls and signed divide by4; unsigned depth range check returns-1.",
+      "direct_calls": 3
+    },
+    "exe.host_0c140": {
+      "source": "calibration/host_libsnd_0bf20.c",
+      "rva": "0xc140",
+      "size": 32,
+      "review": "Sign-extended voice argument to stop(-1,voice), then zero short result.",
+      "direct_calls": 1
+    },
+    "eng1.08480": {
+      "source": "calibration/eng1/level_actors_083e0.cpp",
+      "rva": "0x8480",
+      "size": 80,
+      "review": "Four-word height query, low-word unsigned floor test, original fixed-point y adjustment.",
+      "direct_calls": 1
+    },
+    "eng1.112d0": {
+      "source": "calibration/eng1/level_unit_10120.c",
+      "rva": "0x112d0",
+      "size": 48,
+      "review": "Interpreter then 2D motion; live byte countdown else state initializer. Call order and reload retained.",
+      "direct_calls": 3
+    }
+  },
+  "source_policy": "No source, flags or verifier changes. Prior semantic evidence is used only to identify a referenced entry; exact caller equality alone cannot accept its callee."
+}

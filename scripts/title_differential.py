@@ -16,7 +16,7 @@ from pe import PE
 LANE = ROOT / 'work/title_behavioral/differential'
 HARNESS = ROOT / 'tests/title_oracle_differential.c'
 RUNNER = Path(__file__).resolve()
-UNIT = ROOT / 'calibration/title/u197f0.c'
+UNIT = ROOT / 'src/title/u197f0.c'
 SOURCES = [ROOT / 'src/title/pilot.c']
 ORACLE = ROOT / 'assets/pc/HERCULES/TITLE.DLL'
 RECOVERY = ROOT / 'recovery.json'
@@ -46,7 +46,7 @@ def extract_unit_digits(unit_text):
     while unit_text.index(';', start) < unit_text.index('{', start):   # skip prototypes
         start = unit_text.index('void set_decimal_digits(', start + 1)
     body = block(start)
-    return ('/* Extracted verbatim from calibration/title/u197f0.c for the behavioral fixture. */\n'
+    return ('/* Extracted verbatim from src/title/u197f0.c for the behavioral fixture. */\n'
             + struct + '\n' + body + '\n')
 
 
@@ -65,11 +65,11 @@ def run(output):
     rows = {row['id']: row for row in recovery['functions']
             if row.get('id') in ('title.decimal_digits', 'title.make_colour', 'title.sentinel_count')}
     expected = {
-        'title.decimal_digits': ('calibration/title/u197f0.c', '_set_decimal_digits', 0x1a2c0),
+        'title.decimal_digits': ('src/title/u197f0.c', '_set_decimal_digits', 0x1a2c0),
         # Strict rows now live in their units; src/title/pilot.c keeps byte-identical bodies (both are raw-exact
         # FUNCTION_MATCH copies of the same original bytes), so the harness still links pilot.c.
-        'title.make_colour': ('calibration/title/u17cb0.cpp', '_make_colour', 0x189a0),
-        'title.sentinel_count': ('calibration/title/u0cc90.c', '_sentinel_count', 0xcee0),
+        'title.make_colour': ('src/title/u17cb0.cpp', '_make_colour', 0x189a0),
+        'title.sentinel_count': ('src/title/u0cc90.c', '_sentinel_count', 0xcee0),
     }
     for name, (source, symbol, rva) in expected.items():
         row = rows.get(name)

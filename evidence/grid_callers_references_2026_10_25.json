@@ -1,0 +1,595 @@
+{
+  "schema": 1,
+  "scope": "Seven complete instruction-equal ENG1 callers; independently reviewed native callee entries. No acceptance or data-ownership transfer to the referenced scene/grid functions.",
+  "original_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "independent_entries": {
+    "0x20b50": {
+      "rva": 133968,
+      "size": 480,
+      "source": "src/eng1/behavioral/grid_query_20b50.c",
+      "symbol": "_grid_scan_20b50",
+      "source_sha256": "5807ffe8b4d3530e0582bb921fe612e7c6bf1cd2290c9a02ff272b425b404be4",
+      "native_complete_observed_sha256": "3e1e18b11617907635bedb66c67108988247d4643025a50b4c54edb97f96c7b1",
+      "summary": "DWORD cdecl(signed DWORD x,y,z,DWORD step); fourth argument unused. Active-row sentinel, signed layer-count clamp, WORD coordinate bounds, forward then reverse row scans, real20990 decoder, packed two-WORD distance. Existing source is guarded/known incomplete;725 native compositions and the private480-byte draft do not grant its matching or table capacity.",
+      "own_compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-cvybw5__\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\grid_query_20b50.c"
+      ],
+      "own_compiled_size": 624,
+      "own_diagnostic_masked_equal": false,
+      "own_nonreference_differences": 524,
+      "call_anchors_outside_selected": [
+        {
+          "rva": "0xf00d",
+          "instruction_sha256": "3a608b9334162464d0635ed476128155eecc90e84404368d3f49344cd28e76d5"
+        },
+        {
+          "rva": "0xf217",
+          "instruction_sha256": "bf4e6ea2b52e29e047fd06a99348b2ed07ced2a7490970bce476f92a5a46a175"
+        },
+        {
+          "rva": "0x10bf2",
+          "instruction_sha256": "8b9707ad20c8285d5ac1ab259ebe896e5e730fae7b1b508a2698a926d7da782d"
+        }
+      ],
+      "return_offsets": [
+        24,
+        113,
+        161,
+        457,
+        473
+      ],
+      "outbound_calls": [
+        {
+          "rva": "0x20c69",
+          "target": "0x10020990"
+        },
+        {
+          "rva": "0x20ced",
+          "target": "0x10020990"
+        }
+      ],
+      "entry_identity_limit": "Native own body, ABI and boundaries identify the referenced entry. No acceptance, complete native storage, or correctness claim for its currently unaccepted source. The sole selected caller of29870 has no additional external call anchor; its own captured-coordinate loop and calls to independently accepted2a220/2a330 identify its entry independently of caller-implied relocation bytes."
+    },
+    "0x29870": {
+      "rva": 170096,
+      "size": 352,
+      "source": "calibration/eng1/actor_unit_282e0.cpp",
+      "symbol": "_eng1_29870",
+      "source_sha256": "629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7",
+      "native_complete_observed_sha256": "07edfcbbed5d706b49015966add6fa42693301722ff26df7b6cac7283204404f",
+      "summary": "DWORD cdecl(actor*). Clears support cell6fed8, captures x/y/z, walks live count714c0, skips self; flag200000 selects2a330 plane path, otherwise2a220 bounds path. Chooses strict nearest negative vertical distance using the native two different negate/shift orders; returns highWORDabove |7fff. Worklist capacity and source matching remain unproved.",
+      "own_compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-8qdid8ov\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\eng1\\actor_unit_282e0.cpp"
+      ],
+      "own_compiled_size": 352,
+      "own_diagnostic_masked_equal": false,
+      "own_nonreference_differences": 10,
+      "call_anchors_outside_selected": [],
+      "return_offsets": [
+        340
+      ],
+      "outbound_calls": [
+        {
+          "rva": "0x29905",
+          "target": "0x1002a330"
+        },
+        {
+          "rva": "0x2992c",
+          "target": "0x1002a220"
+        }
+      ],
+      "entry_identity_limit": "Native own body, ABI and boundaries identify the referenced entry. No acceptance, complete native storage, or correctness claim for its currently unaccepted source. The sole selected caller of29870 has no additional external call anchor; its own captured-coordinate loop and calls to independently accepted2a220/2a330 identify its entry independently of caller-implied relocation bytes."
+    },
+    "0x295a0": {
+      "rva": 169376,
+      "size": 128,
+      "source": "calibration/macro_actor.c",
+      "symbol": "_insert_scene",
+      "source_sha256": "8e5573535c58ed16cf5da403cdb4f833a933cb450182ab3f54ee45d09e419fb7",
+      "native_complete_observed_sha256": "4f392a0755e2b434f018396f323a7a9f9a087d1e3b136d501becc276f960c167",
+      "summary": "Pointer cdecl(actor*,anchor*). Flag80000 rejects with zero; null supplied anchor reads6fed8. Flag40000 traverses scene links; inserts actor by next/previous links at e8/e4 and returns original chosen anchor. Shared-cell ownership remains unaccepted.",
+      "own_compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-40vvvzj_\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\macro_actor.c"
+      ],
+      "own_compiled_size": 128,
+      "own_diagnostic_masked_equal": true,
+      "own_nonreference_differences": 0,
+      "call_anchors_outside_selected": [
+        {
+          "rva": "0x29d82",
+          "instruction_sha256": "55fae93997d3913a629915ac287ecb3579c4566ca12d08d6ced14c48a6717bf6"
+        }
+      ],
+      "return_offsets": [
+        19,
+        113
+      ],
+      "outbound_calls": [],
+      "entry_identity_limit": "Native own body, ABI and boundaries identify the referenced entry. No acceptance, complete native storage, or correctness claim for its currently unaccepted source. The sole selected caller of29870 has no additional external call anchor; its own captured-coordinate loop and calls to independently accepted2a220/2a330 identify its entry independently of caller-implied relocation bytes."
+    },
+    "0x29620": {
+      "rva": 169504,
+      "size": 80,
+      "source": "src/title/pilot.c",
+      "symbol": "_unlink_0e4",
+      "source_sha256": "b52f52a2e17d2fc7bb26951a4b6212182804ed248705a66dfae8ba0706465372",
+      "native_complete_observed_sha256": "1fda9bbdff578bced2106f579ffc9d474dff091fae74c33d3233a30ba3f9ad75",
+      "summary": "void cdecl(actor*). Flag80000 bypass; writes neighbor scene links and clears actor e4/e8. Independently RAW accepted native entry.",
+      "own_compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-8sialfeu\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\src\\title\\pilot.c"
+      ],
+      "own_compiled_size": 80,
+      "own_diagnostic_masked_equal": true,
+      "own_nonreference_differences": 0,
+      "call_anchors_outside_selected": [
+        {
+          "rva": "0x15b72",
+          "instruction_sha256": "1e950458f1d25cae840453f02c556bf9fe8bf6f24f10d7a756edd2012fa8cec2"
+        },
+        {
+          "rva": "0x170a5",
+          "instruction_sha256": "b95a2a47609d18f2a3467e962b7f472dd2f8a17a1aa4978cb89906950e6c421b"
+        },
+        {
+          "rva": "0x170fc",
+          "instruction_sha256": "a53b565a493737a14af61264294a868188215a9c04c372b0af6c9a12d4f7902c"
+        }
+      ],
+      "return_offsets": [
+        73
+      ],
+      "outbound_calls": [],
+      "entry_identity_limit": "Native own body, ABI and boundaries identify the referenced entry. No acceptance, complete native storage, or correctness claim for its currently unaccepted source. The sole selected caller of29870 has no additional external call anchor; its own captured-coordinate loop and calls to independently accepted2a220/2a330 identify its entry independently of caller-implied relocation bytes."
+    }
+  },
+  "callers": {
+    "eng1.29da0": {
+      "source": "calibration/eng1/actor_unit_282e0.cpp",
+      "source_sha256": "629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7",
+      "rva": "0x29da0",
+      "size": 128,
+      "compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-8qdid8ov\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\eng1\\actor_unit_282e0.cpp"
+      ],
+      "complete_verification": {
+        "relocated_equal": true,
+        "compiled_size": 128,
+        "target_size": 128,
+        "differing_nonreference_bytes": 0,
+        "errors": [],
+        "references": [
+          {
+            "offset": 70,
+            "type": 20,
+            "symbol": "_grid_scan_20b50",
+            "addend": 0,
+            "kind": "function",
+            "destination_rva": 133968,
+            "target_destination_rva": 133968,
+            "evidence": [
+              "evidence/grid_callers_references_2026_10_25.json#independent_entries.0x20b50"
+            ],
+            "one_past": false
+          }
+        ],
+        "compiled_sha256": "af7be0787e7aca96c9787bb68245a09047aa7e10a6447c13e5182aac76bb43ed",
+        "target_sha256": "beaeab722f3a542c729249f4793c5555a2fca9736b1787ec2bf3000b55e64d0f",
+        "bindings_sha256": "7915f67f56389a45270eb6f42d6bd1d7759791648d41dfdb78f482a3b356543a",
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned"
+      }
+    },
+    "eng1.29e20": {
+      "source": "calibration/eng1/actor_unit_282e0.cpp",
+      "source_sha256": "629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7",
+      "rva": "0x29e20",
+      "size": 304,
+      "compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-8qdid8ov\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\eng1\\actor_unit_282e0.cpp"
+      ],
+      "complete_verification": {
+        "relocated_equal": true,
+        "compiled_size": 304,
+        "target_size": 304,
+        "differing_nonreference_bytes": 0,
+        "errors": [],
+        "references": [
+          {
+            "offset": 101,
+            "type": 20,
+            "symbol": "_unlink_0e4",
+            "addend": 0,
+            "kind": "function",
+            "destination_rva": 169504,
+            "target_destination_rva": 169504,
+            "evidence": [
+              "evidence/grid_callers_references_2026_10_25.json#independent_entries.0x29620"
+            ],
+            "one_past": false
+          },
+          {
+            "offset": 110,
+            "type": 20,
+            "symbol": "_eng1_29870",
+            "addend": 0,
+            "kind": "function",
+            "destination_rva": 170096,
+            "target_destination_rva": 170096,
+            "evidence": [
+              "evidence/grid_callers_references_2026_10_25.json#independent_entries.0x29870"
+            ],
+            "one_past": false
+          },
+          {
+            "offset": 163,
+            "type": 20,
+            "symbol": "_insert_scene",
+            "addend": 0,
+            "kind": "function",
+            "destination_rva": 169376,
+            "target_destination_rva": 169376,
+            "evidence": [
+              "evidence/grid_callers_references_2026_10_25.json#independent_entries.0x295a0"
+            ],
+            "one_past": false
+          },
+          {
+            "offset": 208,
+            "type": 20,
+            "symbol": "_grid_scan_20b50",
+            "addend": 0,
+            "kind": "function",
+            "destination_rva": 133968,
+            "target_destination_rva": 133968,
+            "evidence": [
+              "evidence/grid_callers_references_2026_10_25.json#independent_entries.0x20b50"
+            ],
+            "one_past": false
+          }
+        ],
+        "compiled_sha256": "d0d2085cf114e185a440fa0b7446d9f4731a9dbedc8894c6352d7c10ca0b5a55",
+        "target_sha256": "6b75787bdfd0b1cc236cd0750ee8e485436f5ca82509da456bbd8acf0c5c8d7a",
+        "bindings_sha256": "b4c6f8481b85e12d6b5b193d45c7c4c84c1ff8fc585ae0b8703d8e1ed59e1852",
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned"
+      }
+    },
+    "eng1.29f50": {
+      "source": "calibration/eng1/actor_unit_282e0.cpp",
+      "source_sha256": "629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7",
+      "rva": "0x29f50",
+      "size": 192,
+      "compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-8qdid8ov\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\eng1\\actor_unit_282e0.cpp"
+      ],
+      "complete_verification": {
+        "relocated_equal": true,
+        "compiled_size": 192,
+        "target_size": 192,
+        "differing_nonreference_bytes": 0,
+        "errors": [],
+        "references": [
+          {
+            "offset": 105,
+            "type": 20,
+            "symbol": "_grid_scan_20b50",
+            "addend": 0,
+            "kind": "function",
+            "destination_rva": 133968,
+            "target_destination_rva": 133968,
+            "evidence": [
+              "evidence/grid_callers_references_2026_10_25.json#independent_entries.0x20b50"
+            ],
+            "one_past": false
+          }
+        ],
+        "compiled_sha256": "fd9d30dbd558439b49d7a6465a2f18616f4b5718c630b6be5d03e6a5041f7d9d",
+        "target_sha256": "78185bfca96c2240283d15246df7365f1afbb03a8f0cc4689c4950ab9f076f1f",
+        "bindings_sha256": "aff380c7adeb5604ea5a25ce61a14474cb8eb9a34f296d031e54ba9ad5281602",
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned"
+      }
+    },
+    "eng1.native_code_target_000ef10": {
+      "source": "calibration/eng1/actor_effects_0ef10.c",
+      "source_sha256": "7b51bc76754d35738b8f307e7a970102ee559b852ec025b3cdf5856f579a2ddf",
+      "rva": "0xef10",
+      "size": 144,
+      "compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-pib420ya\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\eng1\\actor_effects_0ef10.c"
+      ],
+      "complete_verification": {
+        "relocated_equal": true,
+        "compiled_size": 144,
+        "target_size": 144,
+        "differing_nonreference_bytes": 0,
+        "errors": [],
+        "references": [
+          {
+            "offset": 59,
+            "type": 20,
+            "symbol": "_grid_scan_20b50",
+            "addend": 0,
+            "kind": "function",
+            "destination_rva": 133968,
+            "target_destination_rva": 133968,
+            "evidence": [
+              "evidence/grid_callers_references_2026_10_25.json#independent_entries.0x20b50"
+            ],
+            "one_past": false
+          }
+        ],
+        "compiled_sha256": "5a725c39993ec994fdf40d0523f7c62e1941e70062ab016219573728ad67ec54",
+        "target_sha256": "1fb961fb6c152c877f2dbf030180db8442e53d1d3eced76d0ec94a6c9e0fa210",
+        "bindings_sha256": "328ec775ffbb5bfde409defff2100759f60658ae5395b3508639bf59b51209c1",
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned"
+      }
+    },
+    "eng1.native_code_target_00f0a0": {
+      "source": "calibration/eng1/actor_effects_0ef10.c",
+      "source_sha256": "7b51bc76754d35738b8f307e7a970102ee559b852ec025b3cdf5856f579a2ddf",
+      "rva": "0xf0a0",
+      "size": 224,
+      "compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-pib420ya\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\eng1\\actor_effects_0ef10.c"
+      ],
+      "complete_verification": {
+        "relocated_equal": true,
+        "compiled_size": 224,
+        "target_size": 224,
+        "differing_nonreference_bytes": 0,
+        "errors": [],
+        "references": [
+          {
+            "offset": 139,
+            "type": 20,
+            "symbol": "_grid_scan_20b50",
+            "addend": 0,
+            "kind": "function",
+            "destination_rva": 133968,
+            "target_destination_rva": 133968,
+            "evidence": [
+              "evidence/grid_callers_references_2026_10_25.json#independent_entries.0x20b50"
+            ],
+            "one_past": false
+          }
+        ],
+        "compiled_sha256": "3e008c197d96896380e23309b90a9e7a041fdac31406ac25b5304d1eb53a53c9",
+        "target_sha256": "5e2e3c926559437847b6b902ee5ffa1680348362b22c877e5ccd24b7f2d62091",
+        "bindings_sha256": "91eb7bfe524cb6a2f88cef34f06f673810f0e48b072f0a3ad3420b7b6c299fa6",
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned"
+      }
+    },
+    "eng1.native_code_target_00f3b0": {
+      "source": "calibration/eng1/level_actors_0c730.c",
+      "source_sha256": "ef20a448a909d982adcb7593dbc4a5a77b71da0a357910f79cce5e67c6c49a6f",
+      "rva": "0xf3b0",
+      "size": 128,
+      "compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-xeny0hue\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\eng1\\level_actors_0c730.c"
+      ],
+      "complete_verification": {
+        "relocated_equal": true,
+        "compiled_size": 128,
+        "target_size": 128,
+        "differing_nonreference_bytes": 0,
+        "errors": [],
+        "references": [
+          {
+            "offset": 70,
+            "type": 20,
+            "symbol": "_grid_scan_20b50",
+            "addend": 0,
+            "kind": "function",
+            "destination_rva": 133968,
+            "target_destination_rva": 133968,
+            "evidence": [
+              "evidence/grid_callers_references_2026_10_25.json#independent_entries.0x20b50"
+            ],
+            "one_past": false
+          }
+        ],
+        "compiled_sha256": "d589ea65d7d16c3fa52b256d12abecdad999bb4ffad2e888ac883b82d01117bc",
+        "target_sha256": "0333cb5ad410b6c13b25da74992a8a2bcac2da11e8ea4b43cdf54c5823e19ec9",
+        "bindings_sha256": "7915f67f56389a45270eb6f42d6bd1d7759791648d41dfdb78f482a3b356543a",
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned"
+      }
+    },
+    "eng1.3f0b0": {
+      "source": "calibration/eng1/player_scene_3a040.c",
+      "source_sha256": "fd1951d328bee4f1f9fddfe41fc49c6f0fc4d060b1b01a0ff7618fe5f27c334d",
+      "rva": "0x3f0b0",
+      "size": 144,
+      "compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-4j2f53m_\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\eng1\\player_scene_3a040.c"
+      ],
+      "complete_verification": {
+        "relocated_equal": true,
+        "compiled_size": 144,
+        "target_size": 144,
+        "differing_nonreference_bytes": 0,
+        "errors": [],
+        "references": [
+          {
+            "offset": 69,
+            "type": 20,
+            "symbol": "_grid_scan_20b50",
+            "addend": 0,
+            "kind": "function",
+            "destination_rva": 133968,
+            "target_destination_rva": 133968,
+            "evidence": [
+              "evidence/grid_callers_references_2026_10_25.json#independent_entries.0x20b50"
+            ],
+            "one_past": false
+          }
+        ],
+        "compiled_sha256": "b86ecc563e12d5ab369f55d8aa67f97ae57d5e4bea5d83b56f38a83f09d9a9e1",
+        "target_sha256": "6bf62c3795e3e616052ef4bdbeb50fd6580bef8b7234b6a40fbd04422df80c72",
+        "bindings_sha256": "5ddc80af5d5fc6e78bb3c1a1df9e186be95026c9b72c4fdfa3e33c116057081b",
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned"
+      }
+    }
+  },
+  "negative_controls": [
+    {
+      "id": "eng1.29da0",
+      "symbol": "_grid_scan_20b50",
+      "rejected": true,
+      "errors": [
+        "Relocation destination differs at 0x46: _grid_scan_20b50"
+      ],
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.29e20",
+      "symbol": "_unlink_0e4",
+      "rejected": true,
+      "errors": [
+        "Relocation destination differs at 0x65: _unlink_0e4"
+      ],
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.29e20",
+      "symbol": "_eng1_29870",
+      "rejected": true,
+      "errors": [
+        "Relocation destination differs at 0x6e: _eng1_29870"
+      ],
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.29e20",
+      "symbol": "_insert_scene",
+      "rejected": true,
+      "errors": [
+        "Relocation destination differs at 0xa3: _insert_scene"
+      ],
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.29e20",
+      "symbol": "_grid_scan_20b50",
+      "rejected": true,
+      "errors": [
+        "Relocation destination differs at 0xd0: _grid_scan_20b50"
+      ],
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.29f50",
+      "symbol": "_grid_scan_20b50",
+      "rejected": true,
+      "errors": [
+        "Relocation destination differs at 0x69: _grid_scan_20b50"
+      ],
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.native_code_target_000ef10",
+      "symbol": "_grid_scan_20b50",
+      "rejected": true,
+      "errors": [
+        "Relocation destination differs at 0x3b: _grid_scan_20b50"
+      ],
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.native_code_target_00f0a0",
+      "symbol": "_grid_scan_20b50",
+      "rejected": true,
+      "errors": [
+        "Relocation destination differs at 0x8b: _grid_scan_20b50"
+      ],
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.native_code_target_00f3b0",
+      "symbol": "_grid_scan_20b50",
+      "rejected": true,
+      "errors": [
+        "Relocation destination differs at 0x46: _grid_scan_20b50"
+      ],
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.3f0b0",
+      "symbol": "_grid_scan_20b50",
+      "rejected": true,
+      "errors": [
+        "Relocation destination differs at 0x45: _grid_scan_20b50"
+      ],
+      "nonreference_differences": 0
+    }
+  ],
+  "limits": [
+    "No function-body source, flags, names, target spans or prior acceptance is changed.",
+    "Observed20b50 span480 has decoded returns and no indexed external interior entry; own compiler source remains unequal/known incomplete.",
+    "29870 is independently identified by its own loop/ABI and accepted2a220/2a330 call roles, not by caller-implied symbol maps; it has only the selected native29e20 call anchor.",
+    "Matching callers does not prove the callee sources, table/header/stream capacities, source-link closure or whole-game behavior."
+  ]
+}

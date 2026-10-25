@@ -1,5 +1,5 @@
 #define CLEANUP_HELPERS_SEMANTIC_FIXTURE
-#include "../calibration/cleanup_helpers.c"
+#include "../src/shared/cleanup_helpers.c"
 #include <stdio.h>
 
 typedef struct CallRecord {

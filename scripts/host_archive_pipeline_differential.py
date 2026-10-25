@@ -15,11 +15,11 @@ from unicorn.x86_const import *
 BASE=0x400000;DIRECTORY=BASE+0x5177d0;POSITIONS=BASE+0x51a7d0;SCRATCH=BASE+0x51b7d0;STREAM_CELL=BASE+0x51bbd0;COUNT_CELL=BASE+0x51bbd4;LAST=BASE+0x365a4;PUBLIC_COUNT=BASE+0x56e638;SLOTS=BASE+0x56e640
 DATA=0x61000000;BUFFER=DATA+0x10000;BUFFER_BYTES=0x2000;STACK=0x63000000;ESP=STACK+0x8000;STOP=STACK+0xf000;MODEL=0x65000000;STREAM=0x66000040
 NV=[UC_X86_REG_EBX,UC_X86_REG_ESI,UC_X86_REG_EDI,UC_X86_REG_EBP];SEEDS=[0x11223344,0x22334455,0x33445566,0x44556677]
-SOURCE_FILES=['calibration/virtual_file.c','calibration/archive_backend.c','calibration/archive_names.c','calibration/archive_read.c','calibration/archive_positions.c','calibration/archive_storage.c','calibration/archive_array_prefixes.c','calibration/public_file_handles.c']
+SOURCE_FILES=['src/pc/virtual_file.c','src/pc/archive_backend.c','src/pc/archive_names.c','src/pc/archive_read.c','src/pc/archive_positions.c','src/pc/archive_storage.c','src/pc/archive_array_prefixes.c','src/pc/public_file_handles.c']
 PROFILE={'vopen':('_virtual_file_open',0xa210,112),'vseek':('_virtual_file_seek',0xa280,112),'vread':('_virtual_file_read',0xa2f0,80),'vclose':('_virtual_file_close',0xa350,80),'aopen':('_archive_open',0x5130,192),'aseek':('_archive_seek',0x52c0,128),'aread':('_archive_read',0x5210,176),'aclose':('_archive_close',0x51f0,32),'position':('_archive_position',0x5340,16),'normalize':('_archive_normalize_name',0x4e10,464),'hash':('_name_hash',0x4fe0,64),'copy':('_memmove',0x10fb0,821)}
 MODELS={'format':('_sprintf',0x10f40),'crt_seek':('_fseek',0x112f0),'crt_read':('_fread',0x10dc0),'fatal':('_archive_fatal',0x10460)}
 proof=json.loads((ROOT/'evidence/archive_storage_closure_2026_10_11.json').read_bytes())
-DATA_SPECS=[('_'+x['name'],int(x['rva'],0),x['bytes'])for x in proof['fresh_canonical']['providers']['calibration/archive_storage.c']['strings']]
+DATA_SPECS=[('_'+x['name'],int(x['rva'],0),x['bytes'])for x in proof['fresh_canonical']['providers']['src/pc/archive_storage.c']['strings']]
 DATA_SPECS +=[('_g_archive_stream',0x51bbd0,4),('_g_archive_directory_count',0x51bbd4,4),('_g_archive_last_stream_handle',0x365a4,4),('_g_public_file_count',0x56e638,4),('_g_public_file_handles',0x56e640,64),('_g_archive_directory',0x5177d0,12288),('_g_archive_logical_positions',0x51a7d0,4096)]
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();pack=lambda v:struct.pack('<I',v&0xffffffff)
 def u32(u,a):return struct.unpack('<I',u.mem_read(a,4))[0]
@@ -178,13 +178,13 @@ def main():
   cases.append(dict(scenario=s,equal=True,native=n,source=c))
  cache=next(c for c in cases if c['scenario']['name']=='shared_cache_after_other_seek')['native'];assert len([x for x in cache['events']if x['call']=='crt_seek'])==2
  reads=[x for x in cache['events']if x['call']=='crt_read'];assert reads[-1]['offset']!=reads[0]['offset']+4 and reads[-1]['sha256']!=reads[0]['sha256']
- texts={p:(ROOT/p).read_text()for p in ['calibration/archive_names.c','calibration/archive_backend.c','calibration/archive_read.c','calibration/virtual_file.c']};negative_specs=[
-  ('uppercase_removed','calibration/archive_names.c',texts['calibration/archive_names.c'].replace("value = (unsigned char)(value - (unsigned char)('a' - 'A'));","value = value;"),next(s['name']for s in ss if s['commands'][0].get('path')=='q:\\training\\sfx.sfx'and s['commands'][0]['op']=='normalize'),None),
-  ('archive_handle_zero_based','calibration/archive_backend.c',texts['calibration/archive_backend.c'].replace('return row + 1;','return row;'),ss[0]['name'],None),
-  ('negative_seek_clamps_signed','calibration/archive_backend.c',texts['calibration/archive_backend.c'].replace('(unsigned long)g_archive_logical_positions[handle - 1] > file_length','g_archive_logical_positions[handle - 1] > (long)file_length'),'seek_-1_0',None),
-  ('seek_repairs_read_cache','calibration/archive_backend.c',texts['calibration/archive_backend.c'].replace('return fseek(g_archive_stream,','g_archive_last_stream_handle = -1;\n    return fseek(g_archive_stream,'),'shared_cache_after_other_seek',None),
-  ('handle_validation_uses16','calibration/virtual_file.c',texts['calibration/virtual_file.c'].replace('handle>g_public_file_count','handle>16'),'public_hole_read',None),
-  ('read_ceil_instead_of_floor','calibration/archive_read.c',texts['calibration/archive_read.c'].replace('(file_length - position) / divisor','(file_length - position + divisor - 1) / divisor'),'item_sizes',2)]
+ texts={p:(ROOT/p).read_text()for p in ['src/pc/archive_names.c','src/pc/archive_backend.c','src/pc/archive_read.c','src/pc/virtual_file.c']};negative_specs=[
+  ('uppercase_removed','src/pc/archive_names.c',texts['src/pc/archive_names.c'].replace("value = (unsigned char)(value - (unsigned char)('a' - 'A'));","value = value;"),next(s['name']for s in ss if s['commands'][0].get('path')=='q:\\training\\sfx.sfx'and s['commands'][0]['op']=='normalize'),None),
+  ('archive_handle_zero_based','src/pc/archive_backend.c',texts['src/pc/archive_backend.c'].replace('return row + 1;','return row;'),ss[0]['name'],None),
+  ('negative_seek_clamps_signed','src/pc/archive_backend.c',texts['src/pc/archive_backend.c'].replace('(unsigned long)g_archive_logical_positions[handle - 1] > file_length','g_archive_logical_positions[handle - 1] > (long)file_length'),'seek_-1_0',None),
+  ('seek_repairs_read_cache','src/pc/archive_backend.c',texts['src/pc/archive_backend.c'].replace('return fseek(g_archive_stream,','g_archive_last_stream_handle = -1;\n    return fseek(g_archive_stream,'),'shared_cache_after_other_seek',None),
+  ('handle_validation_uses16','src/pc/virtual_file.c',texts['src/pc/virtual_file.c'].replace('handle>g_public_file_count','handle>16'),'public_hole_read',None),
+  ('read_ceil_instead_of_floor','src/pc/archive_read.c',texts['src/pc/archive_read.c'].replace('(file_length - position) / divisor','(file_length - position + divisor - 1) / divisor'),'item_sizes',2)]
  negatives=[]
  for name,owner,code,case,command_limit in negative_specs:
   assert code!=texts[owner],name;lane=out/name;lane.mkdir(exist_ok=True);source=lane/'wrong.c';source.write_bytes(code.encode());kwargs={dict([('archive_names.c','normalizer'),('archive_backend.c','backend'),('archive_read.c','read_source'),('virtual_file.c','virtual_source')])[Path(owner).name]:source};bad=build(oracle,lane/'build',**kwargs);bp=prepare(bad);s=dict(next(x for x in ss if x['name']==case))

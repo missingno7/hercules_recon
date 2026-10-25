@@ -1,6 +1,6 @@
 /* Source-only traversal observer; this file is excluded from production. */
 #include <stdio.h>
-#include "../src/eng1/behavioral/mesh_traversal.c"
+#include "../src/eng1/mesh_traversal.c"
 EngineInterface g_engine_interface;
 ResourceCallbackContext context;
 long g_render_transform_70c60[8];

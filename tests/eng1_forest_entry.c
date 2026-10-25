@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../src/eng1/behavioral/forest_entry_data.h"
+#include "../src/eng1/forest_entry_data.h"
 
 static unsigned long unrelated_before = 0x13579bdfUL;
 static unsigned long unrelated_after = 0x2468ace0UL;

@@ -2,7 +2,7 @@
  * paths and is excluded from registered suites. Use release_actor_semantics.c. */
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/release_actor.c"
+#include "../prototypes/reconstruction/release_actor.c"
 
 KindInfo g_kind_info[16];
 signed char g_special_kind;

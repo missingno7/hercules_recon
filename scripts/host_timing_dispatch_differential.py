@@ -27,16 +27,16 @@ if SCRIPT.parent.name == "scripts":
 else:
     REPO = next((parent for parent in SCRIPT.parents
                  if (parent / "scripts").is_dir() and
-                 (parent / "calibration").is_dir()), None)
+                 (parent / "src/pc").is_dir()), None)
     if REPO is None:
         raise RuntimeError(f"cannot derive repository root from {SCRIPT}")
 LANE = REPO / "work/host_engine_loader_recovery"
-CANONICAL_SOURCE = REPO / "calibration/host_timing_dispatch_5f20.c"
-POINTER_SOURCE = REPO / "calibration/host_source_table_pointer_cell_365a0.c"
-FLAG_SOURCE = REPO / "calibration/host_dispatch_flag_cell_7a01fc.c"
-RESET_CELL_SOURCE = REPO / "calibration/graphics_storage.cpp"
-ACCUMULATOR_CELL_SOURCE = REPO / "calibration/host_timing_cell_91c470.c"
-PREVIOUS_TICK_CELL_SOURCE = REPO / "calibration/host_timing_cell_91c474.c"
+CANONICAL_SOURCE = REPO / "src/pc/host_timing_dispatch_5f20.c"
+POINTER_SOURCE = REPO / "src/pc/host_source_table_pointer_cell_365a0.c"
+FLAG_SOURCE = REPO / "src/pc/host_dispatch_flag_cell_7a01fc.c"
+RESET_CELL_SOURCE = REPO / "src/pc/graphics_storage.cpp"
+ACCUMULATOR_CELL_SOURCE = REPO / "src/pc/host_timing_cell_91c470.c"
+PREVIOUS_TICK_CELL_SOURCE = REPO / "src/pc/host_timing_cell_91c474.c"
 RESET_CELL_MEASUREMENT = REPO / "evidence/host_timing_dispatch_recovery.json"
 PUBLISHED_SOURCE_PINS = REPO / "evidence/host_timing_dispatch_recovery.json"
 PUBLIC_RUNNER = REPO / "scripts/host_dispatch_differential.py"
@@ -425,9 +425,9 @@ def main(argv=None):
     source = CANONICAL_SOURCE.resolve()
     required_canonical = (source, POINTER_SOURCE, FLAG_SOURCE, RESET_CELL_SOURCE,
                           ACCUMULATOR_CELL_SOURCE, PREVIOUS_TICK_CELL_SOURCE,
-                          REPO / "calibration/host_engine_loader.c",
-                          REPO / "calibration/host_engine_select.c",
-                          REPO / "calibration/host_engine_dispatch.c")
+                          REPO / "src/pc/host_engine_loader.c",
+                          REPO / "src/pc/host_engine_select.c",
+                          REPO / "src/pc/host_engine_dispatch.c")
     missing = [str(path) for path in required_canonical if not path.is_file()]
     if missing:
         parser.error("required canonical source missing (private fallback disabled): " +
@@ -453,8 +453,8 @@ def main(argv=None):
                     RESET_CELL_SOURCE, ACCUMULATOR_CELL_SOURCE,
                     PREVIOUS_TICK_CELL_SOURCE,
                     RESET_CELL_MEASUREMENT, PUBLISHED_SOURCE_PINS,
-                    REPO / "calibration/engine_interface.h",
-                    REPO / "calibration/resource_context.h",
+                    REPO / "src/shared/engine_interface.h",
+                    REPO / "src/shared/resource_context.h",
                     r.TOOLCHAIN / "include/windows.h",
                     r.TOOLCHAIN / "include/mmsystem.h",
                     PUBLIC_RUNNER)

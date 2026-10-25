@@ -5,7 +5,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/actor_pipeline.c"
+#include "../src/eng1/actor_pipeline.c"
 
 EngineInterface g_engine_interface;
 ENG1ActorPipelineStorage71440 g_actor_pipeline_storage_71440;

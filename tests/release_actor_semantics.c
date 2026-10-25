@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/release_actor_repaired.c"
+#include "../src/shared/release_actor_repaired.c"
 KindInfo g_kind_info[65536];
 signed char g_special_kind;
 static unsigned checks, failures;

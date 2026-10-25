@@ -1,5 +1,5 @@
-#include "../../calibration/host_system_keys.h"
-#include "../../calibration/host_options_classes.h"
+#include "host_system_keys.h"
+#include "host_options_classes.h"
 extern "C" {
 extern DWORD g_exe_ba0230;
 void __cdecl graphics_native_05a50(void);

@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../src/eng1/behavioral/interpreters.h"
-#include "../src/eng1/behavioral/resource_runtime_data.h"
-#include "../src/eng1/behavioral/actor_pipeline_storage.h"
-#include "../src/eng1/behavioral/actor_control_state.h"
-#include "../src/eng1/behavioral/initial_motion_roots.h"
+#include "../src/eng1/interpreters.h"
+#include "../src/eng1/resource_runtime_data.h"
+#include "../src/eng1/actor_pipeline_storage.h"
+#include "../src/eng1/actor_control_state.h"
+#include "../src/eng1/initial_motion_roots.h"
 
 #define PIPELINE_BYTES 0x8c0UL
 #define STATE_BYTES 0x38UL

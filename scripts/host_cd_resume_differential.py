@@ -40,7 +40,7 @@ def members(data):
         yield index,payload;position=start+size+(size&1);index+=1
 def build():
     assert sha(ORACLE)==ORACLE_SHA;tool=verify_toolchain(DEFAULT_TOOLCHAIN)
-    files=[SOURCE,*[ROOT/p for p in ['src/pc/host_cd_play.c','calibration/mci_pause.c','src/pc/host_cd_timer.c','calibration/mci_storage.c','calibration/audio_cleanup_dependencies.c','calibration/mci_readiness.cpp','calibration/registry_storage.c','calibration/graphics_storage.cpp','calibration/sound_bank_storage.cpp']]]
+    files=[SOURCE,*[ROOT/p for p in ['src/pc/host_cd_play.c','src/pc/mci_pause.c','src/pc/host_cd_timer.c','src/pc/mci_storage.c','src/pc/audio_cleanup_dependencies.c','src/pc/mci_readiness.cpp','src/shared/registry_storage.c','src/pc/graphics_storage.cpp','src/pc/sound_bank_storage.cpp']]]
     libraries=[DEFAULT_TOOLCHAIN/'lib'/p for p in ['libcmt.lib','winmm.lib','kernel32.lib','user32.lib']]
     map_path=Path('D:/Prog/hercules_recon/work/library_map/library_map.json')
     watched=[*files,*libraries,ORACLE,map_path,Path(__file__),*[ROOT/p for p in ['scripts/coff.py','scripts/match.py','scripts/masked.py','scripts/pe.py','scripts/env.py','toolchains/manifest.json']],DEFAULT_TOOLCHAIN/'include/mmsystem.h']

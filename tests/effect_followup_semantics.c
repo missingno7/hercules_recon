@@ -1,7 +1,7 @@
 /* Full 16-bit state coverage and callback observations for the three follow-ups. */
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/refinery_blind.c"
+#include "../prototypes/reconstruction/refinery_blind.c"
 Effect *g_focus;
 unsigned long g_clock;
 long g_delay,g_busy,g_blocked,g_cooldown;

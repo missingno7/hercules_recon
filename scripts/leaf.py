@@ -44,12 +44,25 @@ def packet(module, rva, size, callers=4, before=8):
     db = sqlite3.connect(DB)
     pe = PE(module_path(db, module))
     names = library_names(module)
-    called = sorted({t for (t,) in db.execute(
-        "select target_rva from refs where module=? and source_rva>=? and source_rva<? and kind='linear_call'",
-        (module, rva, rva + size))})
+    # A section-wide database walk can lose instruction alignment after an
+    # inline jump table. Decode this entry afresh instead of inheriting that
+    # alignment (observed at ENG1 1b1d0). This is still a span/inline-data lead.
+    from capstone import Cs, CS_ARCH_X86, CS_MODE_32
+    from capstone.x86 import X86_OP_IMM
+    decoder = Cs(CS_ARCH_X86, CS_MODE_32)
+    decoder.detail = True
+    raw = pe.read_rva(rva, size)
+    instructions = list(decoder.disasm(raw, pe.image_base + rva))
+    called = sorted({i.operands[0].imm - pe.image_base for i in instructions
+                     if i.mnemonic == 'call' and i.operands[0].type == X86_OP_IMM})
     lines = [f'{module} {rva:#x} size {size} (span to next aligned entry; lead, not reviewed extent)',
-             'bytes: ' + pe.read_rva(rva, size).hex(), '']
-    lines += listing(db, module, rva, rva + size)
+             'bytes: ' + raw.hex(), '',
+             'entry-decoded instructions (inline data is not classified):']
+    lines += [f'{i.address - pe.image_base:#07x}  {i.bytes.hex():<16} {i.mnemonic} {i.op_str}'.rstrip()
+              for i in instructions]
+    decoded = sum(i.size for i in instructions)
+    if decoded != size:
+        lines.append(f'undecoded tail at {rva + decoded:#x}: {size - decoded} bytes')
     if called:
         lines += ['', 'call targets: ' + ' '.join(f'{t:#x}' + (f' [library {names[t]}]' if t in names else '')
                                                for t in called)]
@@ -119,7 +132,11 @@ def main():
     parser.add_argument('--callers', type=int, default=4)
     parser.add_argument('--islands', type=int, default=4)
     parser.add_argument('--report', type=Path)
+    parser.add_argument('--baseline-object', type=Path,
+                        help='optional objdiff comparison with a previous candidate object; residual only')
     args = parser.parse_args()
+    if args.baseline_object and args.command != 'residual':
+        parser.error('--baseline-object requires residual')
     rva, size = int(args.rva, 0), int(args.size, 0)
     if args.command == 'packet':
         print(packet(args.module, rva, size, args.callers))
@@ -141,6 +158,10 @@ def main():
         if args.report and not any(args.report.resolve().is_relative_to((ROOT / d).resolve()) for d in ('work', 'build')):
             parser.error('Generated residual reports belong under work/ or build/')
         result = residual(args.module, rva, size, args.symbol, args.source, args.flags, args.islands)
+        if args.baseline_object:
+            from objdiff_diagnostic import compare_objects
+            result['candidate_difference'] = compare_objects(
+                args.baseline_object, result['raw']['object'], args.symbol)
         if args.report:
             args.report.parent.mkdir(parents=True, exist_ok=True)
             args.report.write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
@@ -159,6 +180,14 @@ def main():
                 if island['omitted_instructions'][side]:
                     print(f"  {island['omitted_instructions'][side]} further instructions omitted")
         print(f"{result['omitted_islands']} further islands omitted; diagnostic only")
+        if args.baseline_object:
+            change = result['candidate_difference']
+            print(f"Previous/current candidate: {change['complete_contribution_sizes']} complete bytes; "
+                  f"{change['complete_byte_differences']} byte differences; "
+                  f"ordered relocations equal: {change['ordered_relocations_equal']}")
+            for side in ('left', 'right'):
+                for row in change[side]['changes']:
+                    print(f"  {side} {row['offset']} {row['instruction']}")
         return
     if args.command == 'diff':
         print(diff(args.module, rva, size, args.symbol, args.source, args.flags))

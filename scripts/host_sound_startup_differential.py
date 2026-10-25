@@ -63,12 +63,12 @@ def build():
     assert sha(ORACLE)=='587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d'
     verify_toolchain(DEFAULT_TOOLCHAIN)
     source=ROOT/'src/pc/host_sound_startup.cpp'
-    files=[source,ROOT/'calibration/host_sound_startup_storage.c',*[ROOT/p for p in [
-        'calibration/sound_bank_storage.cpp','calibration/host_sound_channel_storage.cpp',
-        'calibration/host_warm_delivery_storage.cpp','calibration/registry_storage.c',
-        'calibration/fatal_storage.c','calibration/host_sound_bank_storage.c',
-        'calibration/host_sound_scratch_storage.c','calibration/audio_small_helpers.c',
-        'calibration/audio_gain_storage.c']]]
+    files=[source,ROOT/'src/pc/host_sound_startup_storage.c',*[ROOT/p for p in [
+        'src/pc/sound_bank_storage.cpp','src/pc/host_sound_channel_storage.cpp',
+        'src/pc/host_warm_delivery_storage.cpp','src/shared/registry_storage.c',
+        'src/pc/fatal_storage.c','src/pc/host_sound_bank_storage.c',
+        'src/pc/host_sound_scratch_storage.c','src/pc/audio_small_helpers.c',
+        'src/pc/audio_gain_storage.c']]]
     libraries=[DEFAULT_TOOLCHAIN/'lib'/p for p in ['libcmt.lib','kernel32.lib','user32.lib','dsound.lib']]
     assert sha(libraries[0])=='7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b'
     assert sha(libraries[-1])=='4d6e8e1e0af841da16eb621f52ef40cab455b9bd31d4b9407a549e827d257773'

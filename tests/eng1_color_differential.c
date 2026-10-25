@@ -6,11 +6,11 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/engine_interface.h"
+#include "../src/shared/engine_interface.h"
 
 #ifdef LEVEL6_COLOR_TEST
-#include "../src/eng1/behavioral/actor_pipeline_storage.h"
-#include "../src/eng1/behavioral/initial_spatial_roots.h"
+#include "../src/eng1/actor_pipeline_storage.h"
+#include "../src/eng1/initial_spatial_roots.h"
 static int level6_active;
 #ifdef COLOR_LIST_PRODUCER_TEST
 static int producer_active;
@@ -381,7 +381,7 @@ static void level6_suite(void)
 #endif
 
 #ifdef COLOR_LIST_PRODUCER_TEST
-#include "../src/eng1/behavioral/color_transition_views.h"
+#include "../src/eng1/color_transition_views.h"
 extern unsigned long g_fx_effect_index_6ee88,g_fx_bank_value_6ee90,g_fx_sample_value_6ee94;
 unsigned long g_dispatch_callback_flag_71ec0;
 typedef void (__cdecl *Producer)(void *);

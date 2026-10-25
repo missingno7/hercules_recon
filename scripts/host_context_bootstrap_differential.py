@@ -45,8 +45,8 @@ def map_symbols(path):
 def build():
     assert sha(ORACLE)==ORACLE_SHA
     verify_toolchain(DEFAULT_TOOLCHAIN)
-    watched=[SOURCE,ROOT/'calibration/engine_interface.h',ROOT/'calibration/resource_context.h',ROOT/'calibration/host_pool_repaired.c',ROOT/'calibration/host_pool_storage.c',ROOT/'calibration/host_pool_formats.c',ROOT/'src/pc/host_diagnostic.c',Path(__file__).resolve(),ROOT/'toolchains/manifest.json',ROOT/'scripts/host_dispatch_differential.py',ROOT/'scripts/coff.py',ROOT/'scripts/match.py',ROOT/'scripts/masked.py',ORACLE]
-    watched += [DEFAULT_TOOLCHAIN/'include/stdlib.h',DEFAULT_TOOLCHAIN/'include/string.h',ROOT/'calibration/host_bootstrap_text.c',ROOT/'calibration/host_bootstrap_text.h']
+    watched=[SOURCE,ROOT/'src/shared/engine_interface.h',ROOT/'src/shared/resource_context.h',ROOT/'src/pc/host_pool_repaired.c',ROOT/'src/pc/host_pool_storage.c',ROOT/'src/pc/host_pool_formats.c',ROOT/'src/pc/host_diagnostic.c',Path(__file__).resolve(),ROOT/'toolchains/manifest.json',ROOT/'scripts/host_dispatch_differential.py',ROOT/'scripts/coff.py',ROOT/'scripts/match.py',ROOT/'scripts/masked.py',ORACLE]
+    watched += [DEFAULT_TOOLCHAIN/'include/stdlib.h',DEFAULT_TOOLCHAIN/'include/string.h',ROOT/'src/pc/host_bootstrap_text.c',ROOT/'src/pc/host_bootstrap_text.h']
     archives=[DEFAULT_TOOLCHAIN/'lib'/n for n in ['libcmt.lib','kernel32.lib','user32.lib','advapi32.lib']]
     watched+=archives
     before={str(p):sha(p)for p in watched}
@@ -58,7 +58,7 @@ def build():
     crt_raw=compare(crt,'_srand',ORACLE,0x10a30,16)
     crt_diagnostic=masked_compare(crt,'_srand',ORACLE,0x10a30,16)
     assert crt_diagnostic['masked_equal'] and crt_diagnostic['symbols']=={'__getptd':'0x12100'}
-    header=os.path.relpath(ROOT/'calibration/engine_interface.h',OUT).replace('\\','/')
+    header=os.path.relpath(ROOT/'src/shared/engine_interface.h',OUT).replace('\\','/')
     fixture=OUT/'fixture.c'
     fixture.write_bytes(('''#include "%s"
 extern void __cdecl host_service_1ff0(void);
@@ -69,7 +69,7 @@ int __cdecl host_service_4040(const char *a,const char *b) { return 0; }
 int main(void) { for (;;) {} }
 __declspec(dllexport) void __cdecl context_bootstrap_fixture_anchor(void) { host_service_1ff0(); }
 '''%header).encode())
-    sources=[SOURCE,ROOT/'calibration/host_pool_repaired.c',ROOT/'calibration/host_pool_storage.c',fixture,ROOT/'calibration/host_pool_formats.c',ROOT/'src/pc/host_diagnostic.c',ROOT/'calibration/host_bootstrap_text.c']
+    sources=[SOURCE,ROOT/'src/pc/host_pool_repaired.c',ROOT/'src/pc/host_pool_storage.c',fixture,ROOT/'src/pc/host_pool_formats.c',ROOT/'src/pc/host_diagnostic.c',ROOT/'src/pc/host_bootstrap_text.c']
     objects=[];compiles=[]
     for s in sources:
         obj,cmd=compile_source(s,['/O2'])

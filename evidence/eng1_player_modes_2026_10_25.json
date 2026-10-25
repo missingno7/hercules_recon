@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-25",
+  "scope": "Eleven source bodies and finite isolated behavior; no new function acceptance.",
+  "source": "src/eng1/behavioral/player_modes_remaining.c",
+  "source_sha256": "eb168936136ccd62f96d19f608d49e2bf4acb89f62ea10d2f2c4b1c8396d88cc",
+  "oracle": "assets/pc/HERCULES/ENG1.DLL",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "complete_native_bytes": 1536,
+  "complete_instruction_equal_functions": [
+    "0x18a10",
+    "0x18ba0",
+    "0x18c30",
+    "0x18ed0",
+    "0x19140",
+    "0x191e0",
+    "0x19c20"
+  ],
+  "nonmatching_functions": [
+    {
+      "rva": "0x19260",
+      "native_size": 48,
+      "compiled_size": 48,
+      "nonreference_differences": 6,
+      "reference_conflicts": 0
+    },
+    {
+      "rva": "0x19290",
+      "native_size": 352,
+      "compiled_size": 352,
+      "nonreference_differences": 229,
+      "reference_conflicts": 14
+    },
+    {
+      "rva": "0x193f0",
+      "native_size": 80,
+      "compiled_size": 80,
+      "nonreference_differences": 16,
+      "reference_conflicts": 2
+    },
+    {
+      "rva": "0x19480",
+      "native_size": 464,
+      "compiled_size": 464,
+      "nonreference_differences": 232,
+      "reference_conflicts": 19
+    }
+  ],
+  "differential": {
+    "cases": 360,
+    "all_equal": true,
+    "external_services": "Explicitly modeled and intercepted; no nested original code or service equivalence.",
+    "comparisons": [
+      "Ordered calls and arguments",
+      "Ordered fixed-width writes",
+      "All four full actor records and selected cells",
+      "Live actor/collision/context changes at callbacks",
+      "Signed timer, direction, chain and low-word query boundaries",
+      "Coordinate source alias",
+      "Stack frame, callee-saved registers and direction flag"
+    ]
+  },
+  "fixture": {
+    "origin": "Existing pinned Unicorn 2.1.4 runtime, official PyPI distribution; normal VC5 fixture linking, no original/candidate instruction patches or OS DLL loading.",
+    "report": "work/player_modes_differential_2026_10_25/report.json",
+    "report_sha256": "53b9092134b662379aacc62a24cbab84da39099214720deec50635ef7a6ae82e",
+    "driver": "scripts/eng1_player_modes_differential.py",
+    "driver_sha256": "a50caf704d109d36abe939a1e2f66bb54dff3dc319350cfba6cecd97ab6dd0f1",
+    "commands": [
+      [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-1f__55kr\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\player_modes_remaining.c"
+      ],
+      [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-21ombwlt\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\work\\player_modes_differential_2026_10_25\\services.c"
+      ],
+      [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\link.exe",
+        "/NOLOGO",
+        "/DLL",
+        "/NOENTRY",
+        "/NODEFAULTLIB",
+        "/INCREMENTAL:NO",
+        "/OPT:NOREF",
+        "/BASE:0x20000000",
+        "/OUT:D:\\Prog\\hercules_recon\\work\\player_modes_differential_2026_10_25\\player_modes.dll",
+        "/MAP:D:\\Prog\\hercules_recon\\work\\player_modes_differential_2026_10_25\\player_modes.map",
+        "D:\\Prog\\hercules_recon\\build\\match\\compile-1f__55kr\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\build\\match\\compile-21ombwlt\\candidate.obj"
+      ]
+    ]
+  },
+  "removed_diagnostic_placeholders": [
+    "0x18a10",
+    "0x18ba0",
+    "0x18c30",
+    "0x18ed0",
+    "0x19140",
+    "0x191e0",
+    "0x19260",
+    "0x19290",
+    "0x193f0",
+    "0x19480",
+    "0x19c20"
+  ],
+  "limitations": [
+    "No nested-service, unowned storage, whole-game behavior, original source/TU, or module-layout claim.",
+    "Seven complete instruction-equal functions are diagnostic until independent references qualify.",
+    "Four functions retain compiler differences. No flags, gate changes, original host/game execution or guessed production data."
+  ]
+}

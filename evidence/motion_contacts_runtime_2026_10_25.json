@@ -1,0 +1,45 @@
+{
+  "scope": "Retire two obsolete diagnostic function placeholders after complete real source acceptance; no generated placeholder is promoted or added to production.",
+  "retired": [
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x2bc50",
+      "symbol": "_eng1_native_dep_02bc50",
+      "source": "work/<explicit-diagnostic-build>/diagnostic/incomplete_bodies.c",
+      "kind": "unimplemented_function",
+      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
+      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
+      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
+      "consumers": [
+        {
+          "source": "src/eng1/behavioral/spatial_effects.c",
+          "kind": "function"
+        }
+      ],
+      "implementation_status": "known_incomplete",
+      "compiled_source_is_not_reconstructed_behavior": true
+    },
+    {
+      "module": "ENG1.DLL",
+      "rva": "0x2bd20",
+      "symbol": "_eng1_native_dep_02bd20",
+      "source": "work/<explicit-diagnostic-build>/diagnostic/incomplete_bodies.c",
+      "kind": "unimplemented_function",
+      "condition": "Always fails on entry; behavior and returning argument protocol unsupported.",
+      "runtime_report": "Logs original RVA/name, raises noncontinuable0xe0484731, then ExitProcess; never fabricates success.",
+      "evidence": "Encoded native RVA and verified original .text section; diagnostic target, function extent not universally reviewed.",
+      "consumers": [
+        {
+          "source": "src/eng1/behavioral/spatial_effects.c",
+          "kind": "function"
+        }
+      ],
+      "implementation_status": "known_incomplete",
+      "compiled_source_is_not_reconstructed_behavior": true
+    }
+  ],
+  "evidence": "evidence/motion_contacts_recovery_2026_10_25.json",
+  "source": "src/eng1/behavioral/contact_motion.c",
+  "source_sha256": "384601e3f2bb4905f2cb12b8c03e708a6eac22cf0fd9dbdf63672c06a443deab",
+  "limits": "Spatial-effects consumers have one pointer argument; the first ignores the full EAX result, the second consumes it. No claim that the entire spatial-effects unit is integrated."
+}

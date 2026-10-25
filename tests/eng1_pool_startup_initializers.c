@@ -1,4 +1,4 @@
-#include "../src/eng1/behavioral/resource_runtime_data.h"
+#include "../src/eng1/resource_runtime_data.h"
 #include <stdio.h>
 
 typedef char pointer_is_32[(sizeof(void *) == 4) ? 1 : -1];

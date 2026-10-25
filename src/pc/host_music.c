@@ -1,6 +1,6 @@
 /* Original PC music/control source hypothesis; original declarations/TU unproved. */
-#include "../../calibration/host_music.h"
-#include "../../calibration/host_file_callbacks.h"
+#include "host_music.h"
+#include "host_file_callbacks.h"
 extern void __cdecl host_diagnostic(const char *,...);
 /* Historical C callsite views; common original ignored-argument declarations unproved. */
 extern void __cdecl empty_host_callback();

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/engine_interface.h"
-#include "../calibration/engine_dispatch_externs.h"
+#include "../src/shared/engine_interface.h"
+#include "../src/shared/engine_dispatch_externs.h"
 
 extern void __cdecl dispatch_local_1f220(void);
 extern void __cdecl dispatch_local_1f320(void);
@@ -33,7 +33,7 @@ u8 g_dispatch_key_7286c;
 u8 *g_dispatch_frame_current_71ec4;
 u8 *g_dispatch_frame_base_71ec8;
 
-#include "../calibration/frame_configuration_row.h"
+#include "../src/shared/frame_configuration_row.h"
 ConfigurationRow72 g_configuration_rows_68af0[9];
 unsigned char g_configuration_selected_71860;
 unsigned short g_configuration_word_71378, g_configuration_word_713c4;

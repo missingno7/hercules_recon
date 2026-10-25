@@ -18,13 +18,13 @@ from difflib import SequenceMatcher
 def evaluate(output):
     spec=json.loads((ROOT/'evidence/resource_destroy_region.json').read_text())
     evidence=json.loads((ROOT/'evidence/resource_data_source.json').read_text())
-    source=ROOT/spec['source'];header=ROOT/'calibration/resource_record.h'
+    source=ROOT/spec['source'];header=ROOT/'src/shared/resource_record.h'
     before=digest(source.read_bytes());header_before=digest(header.read_bytes())
     pe=PE(ROOT/spec['target'])
     if digest(pe.data)!=spec['target_sha256']:raise ValueError('Changed oracle')
     # The physical record base is supported by the separate 81-row data audit.
     if spec['symbol_rvas']['_g_actor_resources']!='0x5cee0':raise ValueError('Unreviewed table base')
-    if digest((ROOT/'calibration/resource_data.c').read_bytes())!=evidence['source_sha256']:raise ValueError('Changed independent data source')
+    if digest((ROOT/'src/shared/resource_data.c').read_bytes())!=evidence['source_sha256']:raise ValueError('Changed independent data source')
     obj,command=compile_source(source,spec['flags'])
     f=spec['functions'][0];rva=int(f['rva'],0);coff=COFF(obj);c=coff.function(f['symbol'])
     original=pe.read_rva(rva,f['size']);strict=compare(obj,f['symbol'],ROOT/spec['target'],rva,f['size'])

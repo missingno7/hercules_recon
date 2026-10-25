@@ -59,16 +59,16 @@ METHODS = {
 def build():
     assert sha(ORACLE)=='587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d'
     verify_toolchain(DEFAULT_TOOLCHAIN)
-    files=[ROOT/'src/pc/host_sound_bank.cpp',ROOT/'calibration/host_sound_bank_storage.c',
+    files=[ROOT/'src/pc/host_sound_bank.cpp',ROOT/'src/pc/host_sound_bank_storage.c',
            *[ROOT/p for p in ['src/pc/host_sound_decoder.c',
-            'calibration/host_sound_decoder_tables.c','calibration/audio_bank_release.cpp',
-            'calibration/host_sound_channel_storage.cpp','calibration/sound_bank_storage.cpp',
-            'calibration/archive_storage.c','calibration/host_sound_scratch_storage.c']]]
+            'src/pc/host_sound_decoder_tables.c','src/pc/audio_bank_release.cpp',
+            'src/pc/host_sound_channel_storage.cpp','src/pc/sound_bank_storage.cpp',
+            'src/pc/archive_storage.c','src/pc/host_sound_scratch_storage.c']]]
     libraries=[DEFAULT_TOOLCHAIN/'lib'/p for p in ['libcmt.lib','kernel32.lib','user32.lib']]
     assert sha(FS)==FS_SHA
     pins={str(p):sha(p)for p in [*files,*libraries,ORACLE,FS,Path(__file__),
-          ROOT/'calibration/host_sound_bank.h',ROOT/'calibration/host_sound_decoder_tables.h',
-          ROOT/'calibration/host_sound_channel_storage.h',ROOT/'toolchains/manifest.json',
+          ROOT/'src/pc/host_sound_bank.h',ROOT/'src/pc/host_sound_decoder_tables.h',
+          ROOT/'src/pc/host_sound_channel_storage.h',ROOT/'toolchains/manifest.json',
           DEFAULT_TOOLCHAIN/'include/dsound.h',DEFAULT_TOOLCHAIN/'include/mmsystem.h',
           *[ROOT/'scripts'/p for p in ['match.py','coff.py','masked.py','pe.py','env.py']]]}
     fixture=OUT/'fixture.c'

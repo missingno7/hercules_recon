@@ -17,8 +17,8 @@ PAL=0x61000120;INFO=0x61004020;OUTPUT=0x61007020;STACK=0x62000000;ESP=STACK+0x80
 NV=[UC_X86_REG_EBX,UC_X86_REG_ESI,UC_X86_REG_EDI,UC_X86_REG_EBP];SEEDS=[0x11223344,0x22334455,0x33445566,0x44556677]
 def build():
  assert sha(ORACLE)=='587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d';verify_toolchain(DEFAULT_TOOLCHAIN)
- files=[SOURCE,*[ROOT/p for p in['src/pc/host_graphics_tables.cpp','calibration/host_graphics_table_storage.c','calibration/graphics_storage.cpp']]]
- watched=[*files,ORACLE,Path(__file__),ROOT/'calibration/host_graphics_table_storage.h',*[ROOT/p for p in['scripts/coff.py','scripts/match.py','scripts/masked.py','scripts/pe.py','scripts/env.py','toolchains/manifest.json']]];pins={str(p):sha(p)for p in watched}
+ files=[SOURCE,*[ROOT/p for p in['src/pc/host_graphics_tables.cpp','src/pc/host_graphics_table_storage.c','src/pc/graphics_storage.cpp']]]
+ watched=[*files,ORACLE,Path(__file__),ROOT/'src/pc/host_graphics_table_storage.h',*[ROOT/p for p in['scripts/coff.py','scripts/match.py','scripts/masked.py','scripts/pe.py','scripts/env.py','toolchains/manifest.json']]];pins={str(p):sha(p)for p in watched}
  fixture=OUT/'fixture.c';fixture.write_bytes(b'''extern void __cdecl graphics_native_06780(short,unsigned char,unsigned char,unsigned char);
 extern void __cdecl host_palette_get_rgb_6810(short,unsigned char*,unsigned char*,unsigned char*);
 extern void __cdecl graphics_native_071a0(void);

@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../src/eng1/behavioral/interpreters.h"
-#include "../src/eng1/behavioral/resource_runtime_data.h"
-#include "../src/eng1/behavioral/simulation_data_owners.h"
-#include "../calibration/engine_interface.h"
+#include "../src/eng1/interpreters.h"
+#include "../src/eng1/resource_runtime_data.h"
+#include "../src/eng1/simulation_data_owners.h"
+#include "../src/shared/engine_interface.h"
 #undef g_special_kind
 
 extern void __cdecl eng1_native_code_target_012c00(Actor *actor);

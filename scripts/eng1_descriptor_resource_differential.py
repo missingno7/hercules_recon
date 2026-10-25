@@ -11,13 +11,13 @@ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def run():
     out=ROOT/'work/eng1_behavioral/differential/descriptor_resource'
     out.mkdir(parents=True,exist_ok=True)
-    cleanup=ROOT/'src/eng1/behavioral/level_loading.c'
+    cleanup=ROOT/'src/eng1/level_loading.c'
     body=function_text(cleanup.read_text(),'dispatch_local_034d0')
     provider=out/'cleanup_provider.c'
-    provider.write_bytes(('#include "../../../../calibration/resource_record.h"\nextern ActorResource g_actor_resources[81];\nextern void __cdecl resource_destroy(int);\n'+body+'\n').encode())
+    provider.write_bytes(('#include "../../../../src/shared/resource_record.h"\nextern ActorResource g_actor_resources[81];\nextern void __cdecl resource_destroy(int);\n'+body+'\n').encode())
     if function_text(provider.read_text(),'dispatch_local_034d0')!=body:
         raise ValueError('Fixture cleanup extraction differs from canonical source')
-    sources=[ROOT/p for p in ['tests/eng1_descriptor_resource_differential.c','src/eng1/behavioral/descriptor_resource_scan.c','calibration/resource_data.c','src/eng1/behavioral/resource_data.c','calibration/resource_callbacks.c','calibration/resource_destroy.c','calibration/engine_interface_storage.c','calibration/engine_file_bridge.c','calibration/frame_lifecycle_bridges.c']]+[provider]
+    sources=[ROOT/p for p in ['tests/eng1_descriptor_resource_differential.c','src/eng1/descriptor_resource_scan.c','src/shared/resource_data.c','src/eng1/resource_data.c','src/eng1/resource_callbacks.c','src/shared/resource_destroy.c','src/shared/engine_interface_storage.c','src/eng1/engine_file_bridge.c','src/eng1/frame_lifecycle_bridges.c']]+[provider]
     oracle=ROOT/'assets/pc/HERCULES/ENG1.DLL'
     if sha(oracle)!='01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757':
         raise ValueError('Original ENG1 identity changed')

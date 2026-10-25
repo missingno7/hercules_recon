@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/engine_interface.h"
-#include "../src/eng1/behavioral/data_layouts.h"
+#include "../src/shared/engine_interface.h"
+#include "../src/eng1/data_layouts.h"
 
 typedef unsigned char u8;
 typedef unsigned short u16;

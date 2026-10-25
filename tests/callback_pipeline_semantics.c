@@ -2,8 +2,8 @@
  * Observing game callbacks and initial storage are synthetic fixture boundaries. */
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/engine_interface.h"
-#include "../calibration/host_callback_protocol_externs.h"
+#include "../src/shared/engine_interface.h"
+#include "../src/pc/host_callback_protocol_externs.h"
 
 EngineInterface g_engine_interface;
 HostCallbackStoragePrefix g_host_callback_prefix;

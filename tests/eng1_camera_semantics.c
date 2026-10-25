@@ -1,7 +1,7 @@
 /* Source-only fixture storage and controlled observers; never linked into DLL. */
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/camera.c"
+#include "../src/eng1/camera.c"
 
 EngineInterface g_engine_interface;
 u32 g_frame_global_734f4, g_frame_global_70ce8, g_frame_global_70cec;

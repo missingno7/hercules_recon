@@ -16,7 +16,7 @@ parser.add_argument('--output',type=Path,required=True)
 parser.add_argument('--source',type=Path,default=ROOT/'src/pc/host_options_sheet_init.cpp')
 args=parser.parse_args();OUT=args.output.resolve();SOURCE=args.source.resolve()
 assert OUT.is_relative_to(ROOT/'work');OUT.mkdir(parents=True,exist_ok=True)
-HEADER=ROOT/'calibration/host_options_classes.h'
+HEADER=ROOT/'src/pc/host_options_classes.h'
 ORACLE=Path('D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE')
 SYM='?OnInitDialog@COptionsSheet@@UAEHXZ'
 MFC={'BaseInit':('?OnInitDialog@CPropertySheet@@UAEHXZ',0x292f0,489,121),

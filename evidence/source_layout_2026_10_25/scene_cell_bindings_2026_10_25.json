@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "scope": "Complete source COMMON and independently identified loader-zero support/scene cells in each PC engine; two unchanged128-byte scene insertion twins. Additional middle/alternate pointer identities do not accept resetters.",
+  "evidence_files": {
+    "evidence/scene_cell_references_2026_10_25.json": "efa7d4fe0f610a86ba6fed1007637a015882525892a3c4c75f682c47b7d8d03d",
+    "src/eng1/actor_storage.c": "7c20021aee04622f627c1052d683962672c8aa9ed1e9d52df3166f2abe7b4c84",
+    "src/shared/macro_actor.c": "8e5573535c58ed16cf5da403cdb4f833a933cb450182ab3f54ee45d09e419fb7",
+    "scripts/scene_insert_differential.py": "410f06f6dc34d9f78d27681d40b6f641da446fde86faa873ecfd159c41c2085c",
+    "evidence/actor_pool_layout.json": "13e4b6ea5c268ee49daba9e678d2edd5e8b97fe7c0dac820311996b996e6bd36",
+    "evidence/grid_callers_references_2026_10_25.json": "e7cec15345a5f10486ea87ffb7c7f6b270f9bf075781fca196fde310a7581151",
+    "evidence/scene_cell_bindings_2026_10_25.json": "9a8de399f8f0df3e158567c4b9b2a8f53d7d5b6f59f43113d82540cc33506110",
+    "evidence/source_layout_2026_10_25/review.json": "a168fdfd9be70c236db7ec9e54ad8760f1fb47f7eb45d4bba6f2184455d093d7"
+  },
+  "functions": {
+    "eng1.insert_scene": {
+      "symbols": {
+        "_g_scene_anchor": {
+          "kind": "bss",
+          "rva": 458456,
+          "size": 4,
+          "owner": {
+            "source": "src/eng1/actor_storage.c",
+            "flags": [
+              "/O2"
+            ],
+            "symbol": "_g_scene_anchor"
+          },
+          "identity": {
+            "rva": 170105,
+            "size": 6,
+            "operand": 0,
+            "sha256": "94984e9809a3577f80cd0081c8d7d05b56e5bc1999fb3bc60b2f21f32f653341"
+          },
+          "evidence": [
+            "evidence/scene_cell_references_2026_10_25.json#modules.ENG1.DLL"
+          ],
+          "references": [
+            {
+              "offset": 31,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng3.shared_1e440": {
+      "symbols": {
+        "_g_scene_anchor": {
+          "kind": "bss",
+          "rva": 261056,
+          "size": 4,
+          "owner": {
+            "source": "src/eng1/actor_storage.c",
+            "flags": [
+              "/O2"
+            ],
+            "symbol": "_g_scene_anchor"
+          },
+          "identity": {
+            "rva": 124633,
+            "size": 6,
+            "operand": 0,
+            "sha256": "9b1118ad95340d10d0dd3164fa77cf585560809eed8f921cf66e2e6583601a9f"
+          },
+          "evidence": [
+            "evidence/scene_cell_references_2026_10_25.json#modules.ENG3.DLL"
+          ],
+          "references": [
+            {
+              "offset": 31,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "source_layout_parent": "evidence/scene_cell_bindings_2026_10_25.json",
+  "source_layout_review": "evidence/source_layout_2026_10_25/review.json"
+}

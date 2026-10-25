@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/actor_pool_reset_repaired.c"
+#include "../src/shared/actor_pool_reset_repaired.c"
 
 static ActorNormal normal_old_pool[3];
 static ActorNormal normal_new_pool[3];

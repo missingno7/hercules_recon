@@ -28,8 +28,8 @@ from unicorn.x86_const import *
 
 ORACLE = args.native_exe.resolve()
 SOURCE = ROOT/'src/pc/host_sound_decoder.c'
-TABLE_SOURCE = ROOT/'calibration/host_sound_decoder_tables.c'
-TABLE_HEADER = ROOT/'calibration/host_sound_decoder_tables.h'
+TABLE_SOURCE = ROOT/'src/pc/host_sound_decoder_tables.c'
+TABLE_HEADER = ROOT/'src/pc/host_sound_decoder_tables.h'
 sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
 pack = lambda v: struct.pack('<I', v & 0xffffffff)
 ARENA, ARENA_SIZE, STACK = 0x61000000, 0x20000, 0x62000000

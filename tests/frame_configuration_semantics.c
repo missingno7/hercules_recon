@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/engine_interface.h"
+#include "../src/shared/engine_interface.h"
 
-#include "../calibration/frame_configuration_row.h"
+#include "../src/shared/frame_configuration_row.h"
 
 extern void __cdecl frame_configuration_280f0(void);
 extern void __cdecl frame_context_defaults_15600(void);

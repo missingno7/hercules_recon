@@ -1,0 +1,1792 @@
+{
+  "schema": 1,
+  "date": "2026-10-25",
+  "scope": "Complete 336/320-byte ENG1 allocator source with actual same-name scalar references; independent configuration stores and allocation output anchors, never caller-implied identities.",
+  "source": "src/eng1/behavioral/actor_pool_allocators.c",
+  "source_sha256": "6c630e0492549e590281d5bd3fc89ca065cbf759011273e9766528d621bdf7ac",
+  "oracle_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "cells": {
+    "_g_configuration_word_71308": {
+      "rva": 463624,
+      "size": 2,
+      "owner_common": {
+        "name": "_g_configuration_word_71308",
+        "value": 2,
+        "section": 0,
+        "type": 0,
+        "storage": 2,
+        "aux": []
+      },
+      "identity": {
+        "rva": 164206,
+        "size": 7,
+        "operand": 0,
+        "sha256": "b48491410fa118b1dd1db4507a1e57d35fb380a484d73c6bdeb393ebf60b7cac"
+      },
+      "native": {
+        "section": ".data",
+        "zero_start": 452608,
+        "zero_end": 476760,
+        "identity_rva": 164206
+      },
+      "direct_overlapping_accesses": [
+        {
+          "entry": "0x26f70",
+          "rva": "0x26f87",
+          "size": 7,
+          "field": "0x26f8a",
+          "base": "0x71308",
+          "width": 2,
+          "indexed": false,
+          "sha256": "da8d0b726bcb9de3cec2b71257837de8699bb2ceb5bf6e5d8b2393f2870ffcd7",
+          "instruction": "mov si, word ptr [0x10071308]"
+        },
+        {
+          "entry": "0x26f70",
+          "rva": "0x26fc2",
+          "size": 6,
+          "field": "0x26fc4",
+          "base": "0x71308",
+          "width": 2,
+          "indexed": false,
+          "sha256": "b1a39c0c644f44cb878173ec3b52a583384808687923ac9f7595b374768bf3d4",
+          "instruction": "mov word ptr [0x10071308], ax"
+        },
+        {
+          "entry": "0x26f70",
+          "rva": "0x2700d",
+          "size": 6,
+          "field": "0x2700f",
+          "base": "0x71308",
+          "width": 2,
+          "indexed": false,
+          "sha256": "b1a39c0c644f44cb878173ec3b52a583384808687923ac9f7595b374768bf3d4",
+          "instruction": "mov word ptr [0x10071308], ax"
+        },
+        {
+          "entry": "0x280f0",
+          "rva": "0x2816e",
+          "size": 7,
+          "field": "0x28171",
+          "base": "0x71308",
+          "width": 2,
+          "indexed": false,
+          "sha256": "b48491410fa118b1dd1db4507a1e57d35fb380a484d73c6bdeb393ebf60b7cac",
+          "instruction": "mov word ptr [0x10071308], dx"
+        }
+      ],
+      "adjacent_nonoverlapping_accesses": [],
+      "role": "normal primary cursor initialized from selected row WORD+0xe"
+    },
+    "_g_configuration_word_713b4": {
+      "rva": 463796,
+      "size": 2,
+      "owner_common": {
+        "name": "_g_configuration_word_713b4",
+        "value": 2,
+        "section": 0,
+        "type": 0,
+        "storage": 2,
+        "aux": []
+      },
+      "identity": {
+        "rva": 164331,
+        "size": 7,
+        "operand": 0,
+        "sha256": "44a40066f229fd57059253ddf60873cde86bfe671ed8991c2eb6561ec804c0f9"
+      },
+      "native": {
+        "section": ".data",
+        "zero_start": 452608,
+        "zero_end": 476760,
+        "identity_rva": 164331
+      },
+      "direct_overlapping_accesses": [
+        {
+          "entry": "0x1c660",
+          "rva": "0x1c668",
+          "size": 6,
+          "field": "0x1c66a",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "5eee8f81ebd91423b5b9ba5864d5a8d348a6f7c7f5cbf442a5a86436e5776f5b",
+          "instruction": "mov ax, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x1f0f0",
+          "rva": "0x1f0fa",
+          "size": 6,
+          "field": "0x1f0fc",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "5eee8f81ebd91423b5b9ba5864d5a8d348a6f7c7f5cbf442a5a86436e5776f5b",
+          "instruction": "mov ax, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x21f60",
+          "rva": "0x22028",
+          "size": 6,
+          "field": "0x2202a",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "5eee8f81ebd91423b5b9ba5864d5a8d348a6f7c7f5cbf442a5a86436e5776f5b",
+          "instruction": "mov ax, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x22440",
+          "rva": "0x2281a",
+          "size": 8,
+          "field": "0x2281d",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "7e204e1d1cef54ee316a4d3f0e24380a2b9fc93958ce5dcc844e1b37bf6e1d1b",
+          "instruction": "cmp word ptr [0x100713b4], 0"
+        },
+        {
+          "entry": "0x22440",
+          "rva": "0x229d9",
+          "size": 7,
+          "field": "0x229dc",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "bd2b1f9a73572274e68bb19336ea4eb6f35879d38992ba20655e53c78579e38f",
+          "instruction": "mov cx, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x22440",
+          "rva": "0x22a07",
+          "size": 8,
+          "field": "0x22a0a",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "7e204e1d1cef54ee316a4d3f0e24380a2b9fc93958ce5dcc844e1b37bf6e1d1b",
+          "instruction": "cmp word ptr [0x100713b4], 0"
+        },
+        {
+          "entry": "0x22440",
+          "rva": "0x22adb",
+          "size": 7,
+          "field": "0x22ade",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "bd2b1f9a73572274e68bb19336ea4eb6f35879d38992ba20655e53c78579e38f",
+          "instruction": "mov cx, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x25d00",
+          "rva": "0x25f86",
+          "size": 7,
+          "field": "0x25f89",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "005325bf4bcd99be2603a17431b6d5f25def222d0e7b63ea75edeb63977887c8",
+          "instruction": "cmp word ptr [0x100713b4], bp"
+        },
+        {
+          "entry": "0x25d00",
+          "rva": "0x25fb1",
+          "size": 7,
+          "field": "0x25fb4",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "d2792ee0321191f254a5756a704576139af062dba0e9951c582d97a171faa3d6",
+          "instruction": "mov dx, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x26f70",
+          "rva": "0x26f90",
+          "size": 7,
+          "field": "0x26f93",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "bd2b1f9a73572274e68bb19336ea4eb6f35879d38992ba20655e53c78579e38f",
+          "instruction": "mov cx, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x27490",
+          "rva": "0x27493",
+          "size": 7,
+          "field": "0x27496",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "9116b71e574566330c01b1a6cd24fba2f7a5cd50f277dbf81ceb1cad8fb10462",
+          "instruction": "cmp word ptr [0x100713b4], bx"
+        },
+        {
+          "entry": "0x27490",
+          "rva": "0x274c7",
+          "size": 7,
+          "field": "0x274ca",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "bd2b1f9a73572274e68bb19336ea4eb6f35879d38992ba20655e53c78579e38f",
+          "instruction": "mov cx, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x274e0",
+          "rva": "0x274e3",
+          "size": 7,
+          "field": "0x274e6",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "131e77440aee6042958c3aebbdc47aa01d9eb3a9e2258b8429e132ed18e9a78e",
+          "instruction": "cmp word ptr [0x100713b4], di"
+        },
+        {
+          "entry": "0x274e0",
+          "rva": "0x27501",
+          "size": 7,
+          "field": "0x27504",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "bd2b1f9a73572274e68bb19336ea4eb6f35879d38992ba20655e53c78579e38f",
+          "instruction": "mov cx, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x280f0",
+          "rva": "0x281eb",
+          "size": 7,
+          "field": "0x281ee",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "44a40066f229fd57059253ddf60873cde86bfe671ed8991c2eb6561ec804c0f9",
+          "instruction": "mov word ptr [0x100713b4], si"
+        }
+      ],
+      "adjacent_nonoverlapping_accesses": [],
+      "role": "normal primary upper bound from selected row WORD+2"
+    },
+    "_g_configuration_word_713a8": {
+      "rva": 463784,
+      "size": 2,
+      "owner_common": {
+        "name": "_g_configuration_word_713a8",
+        "value": 2,
+        "section": 0,
+        "type": 0,
+        "storage": 2,
+        "aux": []
+      },
+      "identity": {
+        "rva": 164171,
+        "size": 7,
+        "operand": 0,
+        "sha256": "88688e631a7618373ca89c1db05be3a7e904297ac9624aee1221a5cfce7f207f"
+      },
+      "native": {
+        "section": ".data",
+        "zero_start": 452608,
+        "zero_end": 476760,
+        "identity_rva": 164171
+      },
+      "direct_overlapping_accesses": [
+        {
+          "entry": "0x3a50",
+          "rva": "0x3acb",
+          "size": 7,
+          "field": "0x3ace",
+          "base": "0x713a8",
+          "width": 2,
+          "indexed": false,
+          "sha256": "9b284f01b64cf4ed3855febfdec602d84c375ec0fe45bf1237fede15ecd9317d",
+          "instruction": "mov cx, word ptr [0x100713a8]"
+        },
+        {
+          "entry": "0x256e0",
+          "rva": "0x2582e",
+          "size": 6,
+          "field": "0x25830",
+          "base": "0x713a8",
+          "width": 2,
+          "indexed": false,
+          "sha256": "1bc979e6b0f4737599263d0d865b2fd7494ce67f0155f82ba4d10307f5cf1ceb",
+          "instruction": "mov ax, word ptr [0x100713a8]"
+        },
+        {
+          "entry": "0x256e0",
+          "rva": "0x258be",
+          "size": 6,
+          "field": "0x258c0",
+          "base": "0x713a8",
+          "width": 2,
+          "indexed": false,
+          "sha256": "1bc979e6b0f4737599263d0d865b2fd7494ce67f0155f82ba4d10307f5cf1ceb",
+          "instruction": "mov ax, word ptr [0x100713a8]"
+        },
+        {
+          "entry": "0x258e0",
+          "rva": "0x25b78",
+          "size": 7,
+          "field": "0x25b7b",
+          "base": "0x713a8",
+          "width": 2,
+          "indexed": false,
+          "sha256": "5ce24d9268137ef6eca06f7d1fa086cc97a29f4b63d7127668010fc16bae67b9",
+          "instruction": "mov dx, word ptr [0x100713a8]"
+        },
+        {
+          "entry": "0x258e0",
+          "rva": "0x25cdb",
+          "size": 7,
+          "field": "0x25cde",
+          "base": "0x713a8",
+          "width": 2,
+          "indexed": false,
+          "sha256": "9b284f01b64cf4ed3855febfdec602d84c375ec0fe45bf1237fede15ecd9317d",
+          "instruction": "mov cx, word ptr [0x100713a8]"
+        },
+        {
+          "entry": "0x25d00",
+          "rva": "0x25dcd",
+          "size": 7,
+          "field": "0x25dd0",
+          "base": "0x713a8",
+          "width": 2,
+          "indexed": false,
+          "sha256": "5ce24d9268137ef6eca06f7d1fa086cc97a29f4b63d7127668010fc16bae67b9",
+          "instruction": "mov dx, word ptr [0x100713a8]"
+        },
+        {
+          "entry": "0x25d00",
+          "rva": "0x25e15",
+          "size": 7,
+          "field": "0x25e18",
+          "base": "0x713a8",
+          "width": 2,
+          "indexed": false,
+          "sha256": "5ce24d9268137ef6eca06f7d1fa086cc97a29f4b63d7127668010fc16bae67b9",
+          "instruction": "mov dx, word ptr [0x100713a8]"
+        },
+        {
+          "entry": "0x26f70",
+          "rva": "0x26fd6",
+          "size": 6,
+          "field": "0x26fd8",
+          "base": "0x713a8",
+          "width": 2,
+          "indexed": false,
+          "sha256": "1bc979e6b0f4737599263d0d865b2fd7494ce67f0155f82ba4d10307f5cf1ceb",
+          "instruction": "mov ax, word ptr [0x100713a8]"
+        },
+        {
+          "entry": "0x26f70",
+          "rva": "0x27030",
+          "size": 7,
+          "field": "0x27033",
+          "base": "0x713a8",
+          "width": 2,
+          "indexed": false,
+          "sha256": "9b284f01b64cf4ed3855febfdec602d84c375ec0fe45bf1237fede15ecd9317d",
+          "instruction": "mov cx, word ptr [0x100713a8]"
+        },
+        {
+          "entry": "0x280f0",
+          "rva": "0x2814b",
+          "size": 7,
+          "field": "0x2814e",
+          "base": "0x713a8",
+          "width": 2,
+          "indexed": false,
+          "sha256": "88688e631a7618373ca89c1db05be3a7e904297ac9624aee1221a5cfce7f207f",
+          "instruction": "mov word ptr [0x100713a8], dx"
+        }
+      ],
+      "adjacent_nonoverlapping_accesses": [],
+      "role": "normal partition split and primary wrap start from selected row WORD+0xe"
+    },
+    "_g_configuration_word_713c4": {
+      "rva": 463812,
+      "size": 2,
+      "owner_common": {
+        "name": "_g_configuration_word_713c4",
+        "value": 2,
+        "section": 0,
+        "type": 0,
+        "storage": 2,
+        "aux": []
+      },
+      "identity": {
+        "rva": 164192,
+        "size": 7,
+        "operand": 0,
+        "sha256": "a36a6d87eb49143110b73b49e7b373e0310bd420fd8ddc722fb4b3ec5f60c73a"
+      },
+      "native": {
+        "section": ".data",
+        "zero_start": 452608,
+        "zero_end": 476760,
+        "identity_rva": 164192
+      },
+      "direct_overlapping_accesses": [
+        {
+          "entry": "0x256a0",
+          "rva": "0x256c3",
+          "size": 6,
+          "field": "0x256c5",
+          "base": "0x713c4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "afc8bd3a63d623007890f7d992401dc64c7e2d98f53b9551c2f898e21658a962",
+          "instruction": "mov word ptr [0x100713c4], ax"
+        },
+        {
+          "entry": "0x26f70",
+          "rva": "0x27027",
+          "size": 7,
+          "field": "0x2702a",
+          "base": "0x713c4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "ff2a4a2057b06abdd1aab5d71ed4af47ffc20ba7c3efb586c700dff8938ddd74",
+          "instruction": "mov si, word ptr [0x100713c4]"
+        },
+        {
+          "entry": "0x26f70",
+          "rva": "0x27062",
+          "size": 6,
+          "field": "0x27064",
+          "base": "0x713c4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "afc8bd3a63d623007890f7d992401dc64c7e2d98f53b9551c2f898e21658a962",
+          "instruction": "mov word ptr [0x100713c4], ax"
+        },
+        {
+          "entry": "0x26f70",
+          "rva": "0x270a5",
+          "size": 6,
+          "field": "0x270a7",
+          "base": "0x713c4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "afc8bd3a63d623007890f7d992401dc64c7e2d98f53b9551c2f898e21658a962",
+          "instruction": "mov word ptr [0x100713c4], ax"
+        },
+        {
+          "entry": "0x280f0",
+          "rva": "0x28160",
+          "size": 7,
+          "field": "0x28163",
+          "base": "0x713c4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "a36a6d87eb49143110b73b49e7b373e0310bd420fd8ddc722fb4b3ec5f60c73a",
+          "instruction": "mov word ptr [0x100713c4], cx"
+        }
+      ],
+      "adjacent_nonoverlapping_accesses": [],
+      "role": "normal alternate cursor initialized from selected row WORD+8"
+    },
+    "_g_configuration_word_71378": {
+      "rva": 463736,
+      "size": 2,
+      "owner_common": {
+        "name": "_g_configuration_word_71378",
+        "value": 2,
+        "section": 0,
+        "type": 0,
+        "storage": 2,
+        "aux": []
+      },
+      "identity": {
+        "rva": 164164,
+        "size": 7,
+        "operand": 0,
+        "sha256": "be1ccf3eca5e6e382a763cc8232d257c308adc6fa88a9d20a8563f14a42ad70b"
+      },
+      "native": {
+        "section": ".data",
+        "zero_start": 452608,
+        "zero_end": 476760,
+        "identity_rva": 164164
+      },
+      "direct_overlapping_accesses": [
+        {
+          "entry": "0x256a0",
+          "rva": "0x256af",
+          "size": 6,
+          "field": "0x256b1",
+          "base": "0x71378",
+          "width": 2,
+          "indexed": false,
+          "sha256": "c4ae1a01af47e55da5c4b6e0fc715f20620e2f357089e826b63b7dd1e1740837",
+          "instruction": "mov ax, word ptr [0x10071378]"
+        },
+        {
+          "entry": "0x256e0",
+          "rva": "0x25827",
+          "size": 7,
+          "field": "0x2582a",
+          "base": "0x71378",
+          "width": 2,
+          "indexed": false,
+          "sha256": "1b8302082503003bfaa1e4db078254121e0b92b24199442ef699961050e11945",
+          "instruction": "mov bp, word ptr [0x10071378]"
+        },
+        {
+          "entry": "0x258e0",
+          "rva": "0x25b71",
+          "size": 7,
+          "field": "0x25b74",
+          "base": "0x71378",
+          "width": 2,
+          "indexed": false,
+          "sha256": "4cbc921598b66add852a4be249a509e0790232e4ef95b526fc3d11299b93bf4e",
+          "instruction": "mov si, word ptr [0x10071378]"
+        },
+        {
+          "entry": "0x25d00",
+          "rva": "0x25dc6",
+          "size": 7,
+          "field": "0x25dc9",
+          "base": "0x71378",
+          "width": 2,
+          "indexed": false,
+          "sha256": "4cbc921598b66add852a4be249a509e0790232e4ef95b526fc3d11299b93bf4e",
+          "instruction": "mov si, word ptr [0x10071378]"
+        },
+        {
+          "entry": "0x26f70",
+          "rva": "0x27076",
+          "size": 6,
+          "field": "0x27078",
+          "base": "0x71378",
+          "width": 2,
+          "indexed": false,
+          "sha256": "c4ae1a01af47e55da5c4b6e0fc715f20620e2f357089e826b63b7dd1e1740837",
+          "instruction": "mov ax, word ptr [0x10071378]"
+        },
+        {
+          "entry": "0x280f0",
+          "rva": "0x28144",
+          "size": 7,
+          "field": "0x28147",
+          "base": "0x71378",
+          "width": 2,
+          "indexed": false,
+          "sha256": "be1ccf3eca5e6e382a763cc8232d257c308adc6fa88a9d20a8563f14a42ad70b",
+          "instruction": "mov word ptr [0x10071378], cx"
+        }
+      ],
+      "adjacent_nonoverlapping_accesses": [
+        {
+          "entry": "0x25620",
+          "rva": "0x2568b",
+          "size": 9,
+          "field": "0x2568e",
+          "base": "0x71376",
+          "width": 2,
+          "indexed": false,
+          "sha256": "4c4ccce22ae3d48ffd70716951454bd9c309af82cca9829792a1a9f1c6493cfe",
+          "instruction": "mov word ptr [0x10071376], 5"
+        },
+        {
+          "entry": "0x25d00",
+          "rva": "0x25d49",
+          "size": 7,
+          "field": "0x25d4c",
+          "base": "0x71376",
+          "width": 2,
+          "indexed": false,
+          "sha256": "4e0add96bbf3e5360c2633809df768ff58d4924be80299b4bf87ad48448ca7e7",
+          "instruction": "cmp word ptr [0x10071376], bp"
+        },
+        {
+          "entry": "0x25d00",
+          "rva": "0x25d5f",
+          "size": 7,
+          "field": "0x25d62",
+          "base": "0x71376",
+          "width": 2,
+          "indexed": false,
+          "sha256": "24608bf951caa2e34681aa6b5d1b8ef37fc599962f3d46ceef4e177033ff87ee",
+          "instruction": "dec word ptr [0x10071376]"
+        },
+        {
+          "entry": "0x2a9e0",
+          "rva": "0x2a9e0",
+          "size": 8,
+          "field": "0x2a9e3",
+          "base": "0x71376",
+          "width": 2,
+          "indexed": false,
+          "sha256": "7dea6f8e21acf05e908fa4b9be6ca521dc4aaa5ebb7c0b3e4e676f7dc4c886ce",
+          "instruction": "cmp word ptr [0x10071376], 0"
+        },
+        {
+          "entry": "0x2aa30",
+          "rva": "0x2aa30",
+          "size": 8,
+          "field": "0x2aa33",
+          "base": "0x71376",
+          "width": 2,
+          "indexed": false,
+          "sha256": "7dea6f8e21acf05e908fa4b9be6ca521dc4aaa5ebb7c0b3e4e676f7dc4c886ce",
+          "instruction": "cmp word ptr [0x10071376], 0"
+        },
+        {
+          "entry": "0x2aab0",
+          "rva": "0x2aab0",
+          "size": 8,
+          "field": "0x2aab3",
+          "base": "0x71376",
+          "width": 2,
+          "indexed": false,
+          "sha256": "7dea6f8e21acf05e908fa4b9be6ca521dc4aaa5ebb7c0b3e4e676f7dc4c886ce",
+          "instruction": "cmp word ptr [0x10071376], 0"
+        },
+        {
+          "entry": "0x2ae50",
+          "rva": "0x2ae69",
+          "size": 8,
+          "field": "0x2ae6c",
+          "base": "0x71376",
+          "width": 2,
+          "indexed": false,
+          "sha256": "7dea6f8e21acf05e908fa4b9be6ca521dc4aaa5ebb7c0b3e4e676f7dc4c886ce",
+          "instruction": "cmp word ptr [0x10071376], 0"
+        }
+      ],
+      "role": "normal alternate wrap start from selected row WORD+8"
+    },
+    "_g_configuration_word_71374": {
+      "rva": 463732,
+      "size": 2,
+      "owner_common": {
+        "name": "_g_configuration_word_71374",
+        "value": 2,
+        "section": 0,
+        "type": 0,
+        "storage": 2,
+        "aux": []
+      },
+      "identity": {
+        "rva": 164233,
+        "size": 7,
+        "operand": 0,
+        "sha256": "b16f96a26abdcd5680a8d00afa320479ca64fc75982535278302d8856eb7b3d6"
+      },
+      "native": {
+        "section": ".data",
+        "zero_start": 452608,
+        "zero_end": 476760,
+        "identity_rva": 164233
+      },
+      "direct_overlapping_accesses": [
+        {
+          "entry": "0x27b00",
+          "rva": "0x27b17",
+          "size": 7,
+          "field": "0x27b1a",
+          "base": "0x71374",
+          "width": 2,
+          "indexed": false,
+          "sha256": "38719e649fb01644fe7f44246b11b6d5edf3190f4fa28bbeddaa895de5876ff4",
+          "instruction": "mov si, word ptr [0x10071374]"
+        },
+        {
+          "entry": "0x27b00",
+          "rva": "0x27b4f",
+          "size": 6,
+          "field": "0x27b51",
+          "base": "0x71374",
+          "width": 2,
+          "indexed": false,
+          "sha256": "c0d26c37d9aadd30ebbc433a149d4560df42c02a304963becbd28278479445cf",
+          "instruction": "mov word ptr [0x10071374], ax"
+        },
+        {
+          "entry": "0x27b00",
+          "rva": "0x27b94",
+          "size": 6,
+          "field": "0x27b96",
+          "base": "0x71374",
+          "width": 2,
+          "indexed": false,
+          "sha256": "c0d26c37d9aadd30ebbc433a149d4560df42c02a304963becbd28278479445cf",
+          "instruction": "mov word ptr [0x10071374], ax"
+        },
+        {
+          "entry": "0x280f0",
+          "rva": "0x28189",
+          "size": 7,
+          "field": "0x2818c",
+          "base": "0x71374",
+          "width": 2,
+          "indexed": false,
+          "sha256": "b16f96a26abdcd5680a8d00afa320479ca64fc75982535278302d8856eb7b3d6",
+          "instruction": "mov word ptr [0x10071374], cx"
+        }
+      ],
+      "adjacent_nonoverlapping_accesses": [],
+      "role": "alternate primary cursor initialized from selected row WORD+0x12"
+    },
+    "_g_configuration_word_713ba": {
+      "rva": 463802,
+      "size": 2,
+      "owner_common": {
+        "name": "_g_configuration_word_713ba",
+        "value": 2,
+        "section": 0,
+        "type": 0,
+        "storage": 2,
+        "aux": []
+      },
+      "identity": {
+        "rva": 164317,
+        "size": 7,
+        "operand": 0,
+        "sha256": "ecc2ee1372d7e20435b4a5215f5b21bdd088646511ce3287bd01822b5a74bac4"
+      },
+      "native": {
+        "section": ".data",
+        "zero_start": 452608,
+        "zero_end": 476760,
+        "identity_rva": 164317
+      },
+      "direct_overlapping_accesses": [
+        {
+          "entry": "0x1b1d0",
+          "rva": "0x1b1d8",
+          "size": 6,
+          "field": "0x1b1da",
+          "base": "0x713ba",
+          "width": 2,
+          "indexed": false,
+          "sha256": "92de15c9482c09fefedbaec71422c5981f20a24f22570099f4f816c70bf01498",
+          "instruction": "mov ax, word ptr [0x100713ba]"
+        },
+        {
+          "entry": "0x1f0f0",
+          "rva": "0x1f148",
+          "size": 6,
+          "field": "0x1f14a",
+          "base": "0x713ba",
+          "width": 2,
+          "indexed": false,
+          "sha256": "92de15c9482c09fefedbaec71422c5981f20a24f22570099f4f816c70bf01498",
+          "instruction": "mov ax, word ptr [0x100713ba]"
+        },
+        {
+          "entry": "0x25d00",
+          "rva": "0x26000",
+          "size": 7,
+          "field": "0x26003",
+          "base": "0x713ba",
+          "width": 2,
+          "indexed": false,
+          "sha256": "fb85cfe3d7250d737bf284e89fac6ae86da63303a2921eb8c1235474fab390b6",
+          "instruction": "cmp word ptr [0x100713ba], bp"
+        },
+        {
+          "entry": "0x25d00",
+          "rva": "0x2602b",
+          "size": 7,
+          "field": "0x2602e",
+          "base": "0x713ba",
+          "width": 2,
+          "indexed": false,
+          "sha256": "e97034537a261172abf0c5eb1cb3405670ac83256f5b293748622cbea2a88805",
+          "instruction": "mov dx, word ptr [0x100713ba]"
+        },
+        {
+          "entry": "0x27b00",
+          "rva": "0x27b20",
+          "size": 7,
+          "field": "0x27b23",
+          "base": "0x713ba",
+          "width": 2,
+          "indexed": false,
+          "sha256": "362d74749dd1116f996aaf6df0ae9118284bffcfb26a30fd6e42c9a06b89decd",
+          "instruction": "mov cx, word ptr [0x100713ba]"
+        },
+        {
+          "entry": "0x27f50",
+          "rva": "0x27f53",
+          "size": 7,
+          "field": "0x27f56",
+          "base": "0x713ba",
+          "width": 2,
+          "indexed": false,
+          "sha256": "abd0cdeafd3d0438cacd78d19146597e97efa1375ec4fa8b5aed7805dfa89820",
+          "instruction": "cmp word ptr [0x100713ba], bx"
+        },
+        {
+          "entry": "0x27f50",
+          "rva": "0x27f87",
+          "size": 7,
+          "field": "0x27f8a",
+          "base": "0x713ba",
+          "width": 2,
+          "indexed": false,
+          "sha256": "362d74749dd1116f996aaf6df0ae9118284bffcfb26a30fd6e42c9a06b89decd",
+          "instruction": "mov cx, word ptr [0x100713ba]"
+        },
+        {
+          "entry": "0x27fa0",
+          "rva": "0x27fa3",
+          "size": 7,
+          "field": "0x27fa6",
+          "base": "0x713ba",
+          "width": 2,
+          "indexed": false,
+          "sha256": "957b28fb90fc899f44af2e66e9ccc65e11f326c0eb5cc8b79ea41ba2a40cac17",
+          "instruction": "cmp word ptr [0x100713ba], di"
+        },
+        {
+          "entry": "0x27fa0",
+          "rva": "0x27fc1",
+          "size": 7,
+          "field": "0x27fc4",
+          "base": "0x713ba",
+          "width": 2,
+          "indexed": false,
+          "sha256": "362d74749dd1116f996aaf6df0ae9118284bffcfb26a30fd6e42c9a06b89decd",
+          "instruction": "mov cx, word ptr [0x100713ba]"
+        },
+        {
+          "entry": "0x280f0",
+          "rva": "0x281dd",
+          "size": 7,
+          "field": "0x281e0",
+          "base": "0x713ba",
+          "width": 2,
+          "indexed": false,
+          "sha256": "ecc2ee1372d7e20435b4a5215f5b21bdd088646511ce3287bd01822b5a74bac4",
+          "instruction": "mov word ptr [0x100713ba], bp"
+        }
+      ],
+      "adjacent_nonoverlapping_accesses": [
+        {
+          "entry": "0x256a0",
+          "rva": "0x256c9",
+          "size": 7,
+          "field": "0x256cc",
+          "base": "0x713b8",
+          "width": 2,
+          "indexed": false,
+          "sha256": "f1413f1d65d4ebd2eb622c8f2df5a76b79aad550030ec446420d72c1bcb52d97",
+          "instruction": "mov word ptr [0x100713b8], cx"
+        },
+        {
+          "entry": "0x275d0",
+          "rva": "0x2767b",
+          "size": 7,
+          "field": "0x2767e",
+          "base": "0x713b8",
+          "width": 2,
+          "indexed": false,
+          "sha256": "194e8e6b4cfcfd35ad9dc959741d0eb73f46824695841b243532f3e4db9c6e54",
+          "instruction": "mov si, word ptr [0x100713b8]"
+        },
+        {
+          "entry": "0x275d0",
+          "rva": "0x276b7",
+          "size": 6,
+          "field": "0x276b9",
+          "base": "0x713b8",
+          "width": 2,
+          "indexed": false,
+          "sha256": "c24606113f77ff90abfc91477664952e0e7efa8ce108cf51d439e90e757181a2",
+          "instruction": "mov word ptr [0x100713b8], ax"
+        },
+        {
+          "entry": "0x275d0",
+          "rva": "0x27702",
+          "size": 6,
+          "field": "0x27704",
+          "base": "0x713b8",
+          "width": 2,
+          "indexed": false,
+          "sha256": "c24606113f77ff90abfc91477664952e0e7efa8ce108cf51d439e90e757181a2",
+          "instruction": "mov word ptr [0x100713b8], ax"
+        },
+        {
+          "entry": "0x280f0",
+          "rva": "0x28246",
+          "size": 7,
+          "field": "0x28249",
+          "base": "0x713b8",
+          "width": 2,
+          "indexed": false,
+          "sha256": "5eb9c60bbb9bb48081e9a3bcc3ae2a5cf87760bb069c7d5ad9338a0615a3c1c5",
+          "instruction": "mov word ptr [0x100713b8], si"
+        }
+      ],
+      "role": "alternate primary upper bound from selected row WORD+6 plus5 modulo16 bits"
+    },
+    "_g_configuration_word_713b6": {
+      "rva": 463798,
+      "size": 2,
+      "owner_common": {
+        "name": "_g_configuration_word_713b6",
+        "value": 2,
+        "section": 0,
+        "type": 0,
+        "storage": 2,
+        "aux": []
+      },
+      "identity": {
+        "rva": 164178,
+        "size": 7,
+        "operand": 0,
+        "sha256": "a84ded199d3e34d174612e0b2eb421776e27250d4c9f3d184d65b811a7e36d4f"
+      },
+      "native": {
+        "section": ".data",
+        "zero_start": 452608,
+        "zero_end": 476760,
+        "identity_rva": 164178
+      },
+      "direct_overlapping_accesses": [
+        {
+          "entry": "0x3a50",
+          "rva": "0x3a5a",
+          "size": 6,
+          "field": "0x3a5c",
+          "base": "0x713b6",
+          "width": 2,
+          "indexed": false,
+          "sha256": "33094a872788fe13f039ceb263fac7dbcca6e6e029f3ea2b0fcfcb19c11a5376",
+          "instruction": "mov ax, word ptr [0x100713b6]"
+        },
+        {
+          "entry": "0x256e0",
+          "rva": "0x256ee",
+          "size": 6,
+          "field": "0x256f0",
+          "base": "0x713b6",
+          "width": 2,
+          "indexed": false,
+          "sha256": "33094a872788fe13f039ceb263fac7dbcca6e6e029f3ea2b0fcfcb19c11a5376",
+          "instruction": "mov ax, word ptr [0x100713b6]"
+        },
+        {
+          "entry": "0x256e0",
+          "rva": "0x2575e",
+          "size": 7,
+          "field": "0x25761",
+          "base": "0x713b6",
+          "width": 2,
+          "indexed": false,
+          "sha256": "dd9d57d5006222e01b19bb208ed79d89d5b230a613dea08cf6fb862ad7b31e29",
+          "instruction": "mov cx, word ptr [0x100713b6]"
+        },
+        {
+          "entry": "0x258e0",
+          "rva": "0x259d4",
+          "size": 6,
+          "field": "0x259d6",
+          "base": "0x713b6",
+          "width": 2,
+          "indexed": false,
+          "sha256": "33094a872788fe13f039ceb263fac7dbcca6e6e029f3ea2b0fcfcb19c11a5376",
+          "instruction": "mov ax, word ptr [0x100713b6]"
+        },
+        {
+          "entry": "0x258e0",
+          "rva": "0x25a64",
+          "size": 7,
+          "field": "0x25a67",
+          "base": "0x713b6",
+          "width": 2,
+          "indexed": false,
+          "sha256": "6abc32914d93fd3a3aeb24c34fdad5e55100023c231dfc783c24add0ed38a55f",
+          "instruction": "mov dx, word ptr [0x100713b6]"
+        },
+        {
+          "entry": "0x25d00",
+          "rva": "0x25e7c",
+          "size": 6,
+          "field": "0x25e7e",
+          "base": "0x713b6",
+          "width": 2,
+          "indexed": false,
+          "sha256": "33094a872788fe13f039ceb263fac7dbcca6e6e029f3ea2b0fcfcb19c11a5376",
+          "instruction": "mov ax, word ptr [0x100713b6]"
+        },
+        {
+          "entry": "0x25d00",
+          "rva": "0x25edb",
+          "size": 7,
+          "field": "0x25ede",
+          "base": "0x713b6",
+          "width": 2,
+          "indexed": false,
+          "sha256": "6abc32914d93fd3a3aeb24c34fdad5e55100023c231dfc783c24add0ed38a55f",
+          "instruction": "mov dx, word ptr [0x100713b6]"
+        },
+        {
+          "entry": "0x27b00",
+          "rva": "0x27b60",
+          "size": 6,
+          "field": "0x27b62",
+          "base": "0x713b6",
+          "width": 2,
+          "indexed": false,
+          "sha256": "33094a872788fe13f039ceb263fac7dbcca6e6e029f3ea2b0fcfcb19c11a5376",
+          "instruction": "mov ax, word ptr [0x100713b6]"
+        },
+        {
+          "entry": "0x27b00",
+          "rva": "0x27bb4",
+          "size": 7,
+          "field": "0x27bb7",
+          "base": "0x713b6",
+          "width": 2,
+          "indexed": false,
+          "sha256": "dd9d57d5006222e01b19bb208ed79d89d5b230a613dea08cf6fb862ad7b31e29",
+          "instruction": "mov cx, word ptr [0x100713b6]"
+        },
+        {
+          "entry": "0x280f0",
+          "rva": "0x28152",
+          "size": 7,
+          "field": "0x28155",
+          "base": "0x713b6",
+          "width": 2,
+          "indexed": false,
+          "sha256": "a84ded199d3e34d174612e0b2eb421776e27250d4c9f3d184d65b811a7e36d4f",
+          "instruction": "mov word ptr [0x100713b6], bp"
+        },
+        {
+          "entry": "0x280f0",
+          "rva": "0x28167",
+          "size": 7,
+          "field": "0x2816a",
+          "base": "0x713b6",
+          "width": 2,
+          "indexed": false,
+          "sha256": "dd9d57d5006222e01b19bb208ed79d89d5b230a613dea08cf6fb862ad7b31e29",
+          "instruction": "mov cx, word ptr [0x100713b6]"
+        }
+      ],
+      "adjacent_nonoverlapping_accesses": [
+        {
+          "entry": "0x1c660",
+          "rva": "0x1c668",
+          "size": 6,
+          "field": "0x1c66a",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "5eee8f81ebd91423b5b9ba5864d5a8d348a6f7c7f5cbf442a5a86436e5776f5b",
+          "instruction": "mov ax, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x1f0f0",
+          "rva": "0x1f0fa",
+          "size": 6,
+          "field": "0x1f0fc",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "5eee8f81ebd91423b5b9ba5864d5a8d348a6f7c7f5cbf442a5a86436e5776f5b",
+          "instruction": "mov ax, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x21f60",
+          "rva": "0x22028",
+          "size": 6,
+          "field": "0x2202a",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "5eee8f81ebd91423b5b9ba5864d5a8d348a6f7c7f5cbf442a5a86436e5776f5b",
+          "instruction": "mov ax, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x22440",
+          "rva": "0x2281a",
+          "size": 8,
+          "field": "0x2281d",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "7e204e1d1cef54ee316a4d3f0e24380a2b9fc93958ce5dcc844e1b37bf6e1d1b",
+          "instruction": "cmp word ptr [0x100713b4], 0"
+        },
+        {
+          "entry": "0x22440",
+          "rva": "0x229d9",
+          "size": 7,
+          "field": "0x229dc",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "bd2b1f9a73572274e68bb19336ea4eb6f35879d38992ba20655e53c78579e38f",
+          "instruction": "mov cx, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x22440",
+          "rva": "0x22a07",
+          "size": 8,
+          "field": "0x22a0a",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "7e204e1d1cef54ee316a4d3f0e24380a2b9fc93958ce5dcc844e1b37bf6e1d1b",
+          "instruction": "cmp word ptr [0x100713b4], 0"
+        },
+        {
+          "entry": "0x22440",
+          "rva": "0x22adb",
+          "size": 7,
+          "field": "0x22ade",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "bd2b1f9a73572274e68bb19336ea4eb6f35879d38992ba20655e53c78579e38f",
+          "instruction": "mov cx, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x25d00",
+          "rva": "0x25f86",
+          "size": 7,
+          "field": "0x25f89",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "005325bf4bcd99be2603a17431b6d5f25def222d0e7b63ea75edeb63977887c8",
+          "instruction": "cmp word ptr [0x100713b4], bp"
+        },
+        {
+          "entry": "0x25d00",
+          "rva": "0x25fb1",
+          "size": 7,
+          "field": "0x25fb4",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "d2792ee0321191f254a5756a704576139af062dba0e9951c582d97a171faa3d6",
+          "instruction": "mov dx, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x26f70",
+          "rva": "0x26f90",
+          "size": 7,
+          "field": "0x26f93",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "bd2b1f9a73572274e68bb19336ea4eb6f35879d38992ba20655e53c78579e38f",
+          "instruction": "mov cx, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x27490",
+          "rva": "0x27493",
+          "size": 7,
+          "field": "0x27496",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "9116b71e574566330c01b1a6cd24fba2f7a5cd50f277dbf81ceb1cad8fb10462",
+          "instruction": "cmp word ptr [0x100713b4], bx"
+        },
+        {
+          "entry": "0x27490",
+          "rva": "0x274c7",
+          "size": 7,
+          "field": "0x274ca",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "bd2b1f9a73572274e68bb19336ea4eb6f35879d38992ba20655e53c78579e38f",
+          "instruction": "mov cx, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x274e0",
+          "rva": "0x274e3",
+          "size": 7,
+          "field": "0x274e6",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "131e77440aee6042958c3aebbdc47aa01d9eb3a9e2258b8429e132ed18e9a78e",
+          "instruction": "cmp word ptr [0x100713b4], di"
+        },
+        {
+          "entry": "0x274e0",
+          "rva": "0x27501",
+          "size": 7,
+          "field": "0x27504",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "bd2b1f9a73572274e68bb19336ea4eb6f35879d38992ba20655e53c78579e38f",
+          "instruction": "mov cx, word ptr [0x100713b4]"
+        },
+        {
+          "entry": "0x280f0",
+          "rva": "0x281eb",
+          "size": 7,
+          "field": "0x281ee",
+          "base": "0x713b4",
+          "width": 2,
+          "indexed": false,
+          "sha256": "44a40066f229fd57059253ddf60873cde86bfe671ed8991c2eb6561ec804c0f9",
+          "instruction": "mov word ptr [0x100713b4], si"
+        }
+      ],
+      "role": "alternate partition split and primary wrap start from selected row WORD+0x12"
+    },
+    "_g_configuration_word_71430": {
+      "rva": 463920,
+      "size": 2,
+      "owner_common": {
+        "name": "_g_configuration_word_71430",
+        "value": 2,
+        "section": 0,
+        "type": 0,
+        "storage": 2,
+        "aux": []
+      },
+      "identity": {
+        "rva": 164469,
+        "size": 7,
+        "operand": 0,
+        "sha256": "e4b23e8f80982732ca94bce11c7ed425e3eb1edc1f9b6a429976a6fd95651f68"
+      },
+      "native": {
+        "section": ".data",
+        "zero_start": 452608,
+        "zero_end": 476760,
+        "identity_rva": 164469
+      },
+      "direct_overlapping_accesses": [
+        {
+          "entry": "0x256a0",
+          "rva": "0x256d0",
+          "size": 7,
+          "field": "0x256d3",
+          "base": "0x71430",
+          "width": 2,
+          "indexed": false,
+          "sha256": "f26542636e22d91d86f128811b1f49fae6d916e6499a289d28b0f18cfdf22f82",
+          "instruction": "mov word ptr [0x10071430], dx"
+        },
+        {
+          "entry": "0x27b00",
+          "rva": "0x27bab",
+          "size": 7,
+          "field": "0x27bae",
+          "base": "0x71430",
+          "width": 2,
+          "indexed": false,
+          "sha256": "2e7f4d6c4a7b40dcdbc014c3d81c0baac0945782f62a52d5a9c0c08704e25212",
+          "instruction": "mov si, word ptr [0x10071430]"
+        },
+        {
+          "entry": "0x27b00",
+          "rva": "0x27be3",
+          "size": 6,
+          "field": "0x27be5",
+          "base": "0x71430",
+          "width": 2,
+          "indexed": false,
+          "sha256": "b78716b59a9e872e6355f8849cedec7ec5e3e254e2484b3f935ab31cfb87428e",
+          "instruction": "mov word ptr [0x10071430], ax"
+        },
+        {
+          "entry": "0x27b00",
+          "rva": "0x27c20",
+          "size": 6,
+          "field": "0x27c22",
+          "base": "0x71430",
+          "width": 2,
+          "indexed": false,
+          "sha256": "b78716b59a9e872e6355f8849cedec7ec5e3e254e2484b3f935ab31cfb87428e",
+          "instruction": "mov word ptr [0x10071430], ax"
+        },
+        {
+          "entry": "0x280f0",
+          "rva": "0x28275",
+          "size": 7,
+          "field": "0x28278",
+          "base": "0x71430",
+          "width": 2,
+          "indexed": false,
+          "sha256": "e4b23e8f80982732ca94bce11c7ed425e3eb1edc1f9b6a429976a6fd95651f68",
+          "instruction": "mov word ptr [0x10071430], bx"
+        }
+      ],
+      "adjacent_nonoverlapping_accesses": [],
+      "role": "alternate secondary cursor initialized from selected row WORD+0xc"
+    },
+    "_g_configuration_word_7138c": {
+      "rva": 463756,
+      "size": 2,
+      "owner_common": {
+        "name": "_g_configuration_word_7138c",
+        "value": 2,
+        "section": 0,
+        "type": 0,
+        "storage": 2,
+        "aux": []
+      },
+      "identity": {
+        "rva": 164462,
+        "size": 7,
+        "operand": 0,
+        "sha256": "373768f81ddfa1952d9e94f1a7803d3917818da020471cda0554ed496f679a0e"
+      },
+      "native": {
+        "section": ".data",
+        "zero_start": 452608,
+        "zero_end": 476760,
+        "identity_rva": 164462
+      },
+      "direct_overlapping_accesses": [
+        {
+          "entry": "0x256a0",
+          "rva": "0x256bc",
+          "size": 7,
+          "field": "0x256bf",
+          "base": "0x7138c",
+          "width": 2,
+          "indexed": false,
+          "sha256": "5b1d65004582e0494a0291cffb9bae56f481f0bab23f1b21343a29fcee773cbd",
+          "instruction": "mov dx, word ptr [0x1007138c]"
+        },
+        {
+          "entry": "0x256e0",
+          "rva": "0x256e7",
+          "size": 7,
+          "field": "0x256ea",
+          "base": "0x7138c",
+          "width": 2,
+          "indexed": false,
+          "sha256": "68711c96071d116210bcc4ab0197e794750f4afb9415f228b11fa2b560c36935",
+          "instruction": "mov bp, word ptr [0x1007138c]"
+        },
+        {
+          "entry": "0x258e0",
+          "rva": "0x259cd",
+          "size": 7,
+          "field": "0x259d0",
+          "base": "0x7138c",
+          "width": 2,
+          "indexed": false,
+          "sha256": "781cb6d6a2d63ecc9bcd7a9f2b3d119a3d7afaca07bc21ed9823adcdeb3f54d0",
+          "instruction": "mov si, word ptr [0x1007138c]"
+        },
+        {
+          "entry": "0x25d00",
+          "rva": "0x25e75",
+          "size": 7,
+          "field": "0x25e78",
+          "base": "0x7138c",
+          "width": 2,
+          "indexed": false,
+          "sha256": "0132f42f0826f8339c264afed29f521a3464b9787d4ad2a584dd624bfe43b161",
+          "instruction": "mov di, word ptr [0x1007138c]"
+        },
+        {
+          "entry": "0x27b00",
+          "rva": "0x27bf4",
+          "size": 6,
+          "field": "0x27bf6",
+          "base": "0x7138c",
+          "width": 2,
+          "indexed": false,
+          "sha256": "ccf8744ff2009142ed2aa8b5b8604b8f6d6a6c64621b68e6c62c31a7747f82b9",
+          "instruction": "mov ax, word ptr [0x1007138c]"
+        },
+        {
+          "entry": "0x280f0",
+          "rva": "0x2826e",
+          "size": 7,
+          "field": "0x28271",
+          "base": "0x7138c",
+          "width": 2,
+          "indexed": false,
+          "sha256": "373768f81ddfa1952d9e94f1a7803d3917818da020471cda0554ed496f679a0e",
+          "instruction": "mov word ptr [0x1007138c], bx"
+        }
+      ],
+      "adjacent_nonoverlapping_accesses": [],
+      "role": "alternate secondary wrap start from selected row WORD+0xc"
+    },
+    "_g_normal_actor_pool": {
+      "rva": 469088,
+      "size": 4,
+      "owner_common": {
+        "name": "_g_normal_actor_pool",
+        "value": 4,
+        "section": 0,
+        "type": 0,
+        "storage": 2,
+        "aux": []
+      },
+      "identity": {
+        "rva": 127245,
+        "size": 5,
+        "operand": 0,
+        "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5"
+      },
+      "native": {
+        "section": ".data",
+        "zero_start": 452608,
+        "zero_end": 476760,
+        "identity_rva": 127245
+      }
+    },
+    "_g_alternate_actor_pool": {
+      "rva": 472288,
+      "size": 4,
+      "owner_common": {
+        "name": "_g_alternate_actor_pool",
+        "value": 4,
+        "section": 0,
+        "type": 0,
+        "storage": 2,
+        "aux": []
+      },
+      "identity": {
+        "rva": 127326,
+        "size": 5,
+        "operand": 0,
+        "sha256": "d9f86c6643ee56e76a4194bba148793fc8c7e78390b8bdcebe9c42e75b17ff1e"
+      },
+      "native": {
+        "section": ".data",
+        "zero_start": 452608,
+        "zero_end": 476760,
+        "identity_rva": 127326
+      }
+    }
+  },
+  "configuration": {
+    "source": "calibration/frame_configuration.c",
+    "source_sha256": "bfcc1308c1d1523b0ebded3b129c6178229c5b4c5e768b9341781e4f5cf26e94",
+    "entry_rva": "0x280f0",
+    "reviewed_window_size": 416,
+    "window_sha256": "a151f3196e1813aea80fcd7dc6a4b203845db44186f02bddde506424027dc2c7",
+    "review": "Own row-based configuration writer, outside both allocators. Counter roles come from its decoded original stores and existing source/layout evidence; not the new callers implied maps."
+  },
+  "prior_diagnostic_rows": [
+    {
+      "id": "eng1.shared_26f70",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x26f70",
+      "size": 336,
+      "source": "calibration/title/u06bb0.cpp",
+      "symbol": "_title_08900",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Shared implementation (2026-10-20 cross-module twin test): the unchanged recorded source of TITLE.DLL 0x8900 (calibration/title/u06bb0.cpp, symbol _title_08900) compiled with pinned RTM /O2 is relocation-masked equal at ENG1.DLL 0x26f70 with a consistent implied symbol map. Evidence that the same source text produced both functions; ENG1.DLL unit ownership, names and placement are unproved and may require their own unit context in a natural link.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_2bf28": "0x71308",
+        "_g_2bf32": "0x71378",
+        "_g_2bf60": "0x713a8",
+        "_g_2bf6c": "0x713b4",
+        "_g_2bf80": "0x713c4",
+        "_g_2d320": "0x72860"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "e5f2779970d47ebef4e1cbb92544a2a54f8acab075f5b0cd8f97bf916ae6ee1b",
+        "masked_sha256": "dbb6fcda02c305b61edb0a3b53af0a7720808825c864085562d7a08dfd608eb0",
+        "toolchain": "msvc5_rtm",
+        "co_defined_functions": [
+          "_clear_command_high_bit",
+          "_title_090f0",
+          "_title_094c0",
+          "_unlink_12c"
+        ]
+      }
+    },
+    {
+      "id": "eng1.shared_27b00",
+      "status": "CODEGEN_SIMILAR",
+      "name_status": "provisional address label",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x27b00",
+      "size": 320,
+      "source": "calibration/title/u06bb0.cpp",
+      "symbol": "_title_091a0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "Shared implementation (2026-10-20 cross-module twin test): the unchanged recorded source of TITLE.DLL 0x91a0 (calibration/title/u06bb0.cpp, symbol _title_091a0) compiled with pinned RTM /O2 is relocation-masked equal at ENG1.DLL 0x27b00 with a consistent implied symbol map. Evidence that the same source text produced both functions; ENG1.DLL unit ownership, names and placement are unproved and may require their own unit context in a natural link.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_g_2bf30": "0x71374",
+        "_g_2bf44": "0x7138c",
+        "_g_2bf6e": "0x713b6",
+        "_g_2bf72": "0x713ba",
+        "_g_2bff0": "0x71430",
+        "_g_2dfa0": "0x734e0"
+      },
+      "proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "e5f2779970d47ebef4e1cbb92544a2a54f8acab075f5b0cd8f97bf916ae6ee1b",
+        "masked_sha256": "1d48f5f28b8c58746ce7f97a2fee740cc3bcb70860b92b6112216ea7a602588c",
+        "toolchain": "msvc5_rtm",
+        "co_defined_functions": [
+          "_clear_command_high_bit",
+          "_title_090f0",
+          "_title_094c0",
+          "_unlink_12c"
+        ]
+      }
+    }
+  ],
+  "compiler_commands": [
+    [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-_horvmsh\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\actor_pool_allocators.c"
+    ],
+    [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-fl4ephz5\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\frame_data.c"
+    ],
+    [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-4nmfv6c4\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\actor_storage.c"
+    ]
+  ],
+  "owner_input_sha256": {
+    "src/eng1/behavioral/frame_data.c": "87b8e3820a9b45babcd23731d06fe09db950f88872bc53106f0cf52356343fcf",
+    "src/eng1/behavioral/data_layouts.h": "310fe04a43cd1a73589d5b7bdb3058b3a16bdbbd1f9465b87ee768326f3671d3",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
+    "calibration/frame_configuration_row.h": "228c2bd5d3d8b0545bb093fbdc3b13b8f636c5afdc3fbdd16dcf97d74aa49479",
+    "src/eng1/behavioral/pointee_views.h": "9cf0968ada0bbb95156c707945d521a76007a738c2c1dd1c2a41024b7505bd9b",
+    "src/eng1/behavioral/pointee_layouts.h": "d4e1dd061f2a03eafc17ff4b77731347f7dd573d13afa62939933bd1c27e90c6",
+    "src/eng1/behavioral/row0_layouts.h": "f01891cb6bca4813c7fc28b8b9c6083cf7d3ffe563d3d00a78e2cfd4675ba048",
+    "src/eng1/behavioral/descriptor_pointees.inc": "b60899ef5366360e2bf5665130cde0fd28815d52ee52f86e4d2c105f7a6aa8c9",
+    "src/eng1/behavioral/initial_unreadable_identities.h": "eb07f5e26419f5bc449ed03c4ba56f75e92261e634735f36919870d4de0211b2",
+    "src/eng1/behavioral/resource_overlap_owners.h": "7d3ce4ea4c26048dffbc01f4d457c82d0447f5040238e2154a2d6defbbdb06e1",
+    "src/eng1/behavioral/frame_programs.h": "612fbdccffb6f0c1e8ac871206c2b44e828b17a5a4af18e490b06bd6dff354a8",
+    "src/eng1/behavioral/frame_data_callback_records.inc": "9211343c0fdcf3766d2d20daf09ed21363d5edc5478506809fbffff5d664d31d",
+    "src/eng1/behavioral/frame_data_asset_flag_tables.inc": "13096560596b7b0c6629872ba3294d563994eab5d2ba1f0d8daf8f6a6f140033",
+    "src/eng1/behavioral/frame_data_config_word_aliases.inc": "9adb844e3c29caf38df931452cecd0ac7412ebc01787ce31c8c3460ba3cdc14d",
+    "src/eng1/behavioral/flags_word_program_views.inc": "680f6af20d48a8c44e54a54fc6915386230cfe2b1ccce450442e65cf8b6d7b5f",
+    "src/eng1/behavioral/flags_word_programs.h": "31b888ca9cb8f026b9f4f05d76752f34324ce593161e4ef859b8961fc75413a4",
+    "src/eng1/behavioral/frame_program_views.inc": "03c815a08b06a434631e0ae131c0eac4675ba8de7ab6d53e5495ebde43f09a28",
+    "src/eng1/behavioral/secondary_record_views.inc": "f4c64e19e99b85ac3c4bf00d214b1b5f9d6fedfcb0ec9365affc2712978c92b7",
+    "src/eng1/behavioral/secondary_records.h": "3ca6b1981eeffb849d85028a22ff8443f309fa42565e4db403f80427044ebeb9",
+    "src/eng1/behavioral/row1_spawn_record_views.inc": "c141efecb8378de9d9824cc3009d615b6ed0fd967bd8ce442ba701ef54c0e18a",
+    "src/eng1/behavioral/row1_spawn_records.h": "48b93fd67491588a02c549532c358d335cd1d1614f01f8416961d8536edbc89a",
+    "src/eng1/behavioral/initial_unreadable_identities_views.inc": "5d0283c734e5c7e81e9a39a8950724ec9171c932e3c9e68dd40da904cafe5e69",
+    "src/eng1/behavioral/initial_motion_roots_views.inc": "edac7595ee6edaf63e12b897b1c9724031f5d85d1763ff7c41d7ea801b2d5fec",
+    "src/eng1/behavioral/initial_motion_roots.h": "8612382ca6bb764da7955a6e83bd32d4a51fe88c8d220666d27a9f93990f4112",
+    "src/eng1/behavioral/initial_custom_roots_views.inc": "9ad4d17bc499a4ec672d15fb920086621999ae80385f0544eb27fbd0e2154c99",
+    "src/eng1/behavioral/initial_custom_roots.h": "8cc9fc800040161d2d19d643b7b00ff9db9295d883c8d547656a12532ee05a78",
+    "src/eng1/behavioral/initial_spatial_roots_views.inc": "d305965048ff0d498aa15727c2f7cb0e1e292900a6e357cfabc778a08108ab6e",
+    "src/eng1/behavioral/initial_spatial_roots.h": "3795d4ef0f121ed7ca659a0ddc507bd39af86057a4300d2a7bacd75a05f17cfe",
+    "src/eng1/behavioral/finite_frame_prefixes_views.inc": "ec566380f2c445472e8c9c9ccb7c401db22f4b26b951305f9d16e79670fb0c22",
+    "src/eng1/behavioral/finite_frame_prefixes.h": "60ecb2609ec2463d83c4d09d3275d9c7a71b6d7a931973e94be4b1510585ce70",
+    "src/eng1/behavioral/provisional_frame_pairs_views.inc": "6a645270fd04f1c57c42b8d6a63dda0ce9eb4b78c06708e004c8533981ee43a5",
+    "src/eng1/behavioral/provisional_frame_pairs.h": "0111a0cbce84423ff8c4468aaff41c480d3e568652e830e92a8a5caa23321e77",
+    "src/eng1/behavioral/shared_selector_assets_views.inc": "83ef3a784056e538b676babf7fa3d5efaaf14f363d0350c13abac4f2e5121fef",
+    "src/eng1/behavioral/shared_selector_assets.h": "d8ac87af169c6cb90c5403369c346ea71f16124457311d93828dea46175f49e4",
+    "src/eng1/behavioral/config_aux_callbacks_views.inc": "a46b5371f12277e7bb2094ee08bc0e3a37a0c3c230e589615baaca9c08285f88",
+    "src/eng1/behavioral/config_aux_callbacks.h": "6a7d4037e25fc3bd6d5ccb831662a0797e165f31c67371d01b50a708cf832a93",
+    "src/eng1/behavioral/remaining_word_assets_views.inc": "920d13535e3a68adaf56d6ac58510eeffbb9469856b874c3a4e4ca8c06d0ee4f",
+    "src/eng1/behavioral/remaining_word_assets.h": "caa5667a54a75094d2efdd0a8613867c8d2e51181a399f86a8603c8b66ee9f46",
+    "src/eng1/behavioral/row6_actor_frames_views.inc": "03ebb7182369f221c4c267509a3801e079428b1f9dea414b610fe111715de572",
+    "src/eng1/behavioral/row6_actor_frames.h": "9407ca559c5f10282568a52577e7f8c05f1e0b5b3f9360883f78f5a2c7932861",
+    "src/eng1/behavioral/row3_actor_frames_views.inc": "ddccb1d294b6049b1339ba8351b6fec937bc91cce3f6690812d9591b4c4668a2",
+    "src/eng1/behavioral/row3_actor_frames.h": "92b83b65d0503c48d2b138b430837e4c610807295385f44a28e7dbebd32f1ef3",
+    "src/eng1/behavioral/row2_actor_frames_views.inc": "d2ae09e21e4e6738ddc9422ebc57ed48925831596717c35b289480a031fac8d3",
+    "src/eng1/behavioral/row2_actor_frames.h": "5608636b7a025eb9a07a5c374e1f9cadc8071c06bd53642a3cc99bf5011b63a8",
+    "src/eng1/behavioral/row1_remaining_frames_views.inc": "db3624531230eacbee53f04430bc8cfd614e683897ebe2b9f2d46ce087924750",
+    "src/eng1/behavioral/row1_remaining_frames.h": "2f604c97cc32134ed7259db0e24728467c1acfac4ce5685aff08d182f8f2982d",
+    "src/eng1/behavioral/shared_spawn_record_views.inc": "99690f2c16042de0c0cb608a22acf2499f4322798dd8adf876bf6f33d8b73ddc",
+    "src/eng1/behavioral/shared_spawn_records.h": "68cbda4e64f01fc28f00172150ad248bb7e17755043050382507b1672912e75f",
+    "src/eng1/behavioral/row1_actor_asset_views.inc": "9dd06c4f35da63d396497daa312de8367f8f8436b975fc6fc257d57059f8175c",
+    "src/eng1/behavioral/row1_actor_assets.h": "73a2fe1bf665ef6160854da079f52af264afc8daa42653c54057a097c7c2c83c",
+    "src/eng1/behavioral/config_root_views.inc": "38813b81af8812225a92ab4a2d91542eaebcd75d5f61c961385d3a6e01e6cbd5",
+    "src/eng1/behavioral/actor_storage.c": "7c20021aee04622f627c1052d683962672c8aa9ed1e9d52df3166f2abe7b4c84"
+  },
+  "negative_controls": [
+    {
+      "id": "eng1.allocate_normal_actor",
+      "symbol": "_g_normal_actor_pool",
+      "rejected": true,
+      "error": "Independent loader-zero anchor identifies another storage cell",
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.allocate_normal_actor",
+      "symbol": "_g_configuration_word_71308",
+      "rejected": true,
+      "error": "Independent loader-zero anchor identifies another storage cell",
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.allocate_normal_actor",
+      "symbol": "_g_configuration_word_713b4",
+      "rejected": true,
+      "error": "Independent loader-zero anchor identifies another storage cell",
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.allocate_normal_actor",
+      "symbol": "_g_configuration_word_713a8",
+      "rejected": true,
+      "error": "Independent loader-zero anchor identifies another storage cell",
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.allocate_normal_actor",
+      "symbol": "_g_configuration_word_713c4",
+      "rejected": true,
+      "error": "Independent loader-zero anchor identifies another storage cell",
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.allocate_normal_actor",
+      "symbol": "_g_configuration_word_71378",
+      "rejected": true,
+      "error": "Independent loader-zero anchor identifies another storage cell",
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.allocate_alternate_actor",
+      "symbol": "_g_alternate_actor_pool",
+      "rejected": true,
+      "error": "Independent loader-zero anchor identifies another storage cell",
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.allocate_alternate_actor",
+      "symbol": "_g_configuration_word_71374",
+      "rejected": true,
+      "error": "Independent loader-zero anchor identifies another storage cell",
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.allocate_alternate_actor",
+      "symbol": "_g_configuration_word_713ba",
+      "rejected": true,
+      "error": "Independent loader-zero anchor identifies another storage cell",
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.allocate_alternate_actor",
+      "symbol": "_g_configuration_word_713b6",
+      "rejected": true,
+      "error": "Independent loader-zero anchor identifies another storage cell",
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.allocate_alternate_actor",
+      "symbol": "_g_configuration_word_71430",
+      "rejected": true,
+      "error": "Independent loader-zero anchor identifies another storage cell",
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.allocate_alternate_actor",
+      "symbol": "_g_configuration_word_7138c",
+      "rejected": true,
+      "error": "Independent loader-zero anchor identifies another storage cell",
+      "nonreference_differences": 0
+    }
+  ],
+  "semantic_comparison": {
+    "scope": "Finite original/source first-fit/wrap allocator comparisons in Unicorn.\n\nBoth allocators are leaf routines. All storage and readable capacities are\nsynthetic; no original OS module load, instruction patch or game startup occurs.\n",
+    "cases": 1922,
+    "all_equal": true,
+    "build": {
+      "input_sha256": {
+        "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\actor_pool_allocators.c": "6c630e0492549e590281d5bd3fc89ca065cbf759011273e9766528d621bdf7ac",
+        "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+        "D:\\Prog\\hercules_recon\\scripts\\actor_pool_allocators_differential.py": "fcccec3f75be8bc5f3eeaa35383eba11e4d248e1eebd14a838bb3e000c8fbbe1",
+        "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+        "D:\\Prog\\hercules_recon\\toolchains\\manifest.json": "d52d560ef78589b6008df0fd3ca42f8d258a34248015398158716e9a811e063d"
+      },
+      "commands": [
+        [
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+          "/nologo",
+          "/c",
+          "/Gy",
+          "/O2",
+          "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-c16jqyus\\candidate.obj",
+          "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\actor_pool_allocators.c"
+        ],
+        [
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+          "/nologo",
+          "/c",
+          "/Gy",
+          "/O2",
+          "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-eza2aq3q\\candidate.obj",
+          "D:\\Prog\\hercules_recon\\work\\allocator_matching_2026_10_25\\differential\\storage.c"
+        ],
+        [
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\link.exe",
+          "/NOLOGO",
+          "/DLL",
+          "/NOENTRY",
+          "/NODEFAULTLIB",
+          "/INCREMENTAL:NO",
+          "/OPT:NOREF",
+          "/BASE:0x45000000",
+          "/OUT:D:\\Prog\\hercules_recon\\work\\allocator_matching_2026_10_25\\differential\\fixture.dll",
+          "/MAP:D:\\Prog\\hercules_recon\\work\\allocator_matching_2026_10_25\\differential\\fixture.map",
+          "D:\\Prog\\hercules_recon\\build\\match\\compile-c16jqyus\\candidate.obj",
+          "D:\\Prog\\hercules_recon\\build\\match\\compile-eza2aq3q\\candidate.obj"
+        ]
+      ],
+      "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-c16jqyus\\candidate.obj",
+      "object_sha256": "ee3faced1b6f59825166785d98f2373ba83c7064535206de0de6383f3497a0b1",
+      "image_sha256": "9324db0508cba9b618bfd8eb25383c2c8618f570539e85dcc6a90abcb2528e3d"
+    },
+    "cases_sha256": "c877b66384163ccfcc21e62c4a5ccfd341cede9b8623471a8f1a6d67052bd12e",
+    "kind_reads": 396071,
+    "by_pool": {
+      "normal": 961,
+      "alternate": 961
+    },
+    "limits": [
+      "Readable capacities and globals are synthetic; independent actual owner proof is separate. No native capacity or complete factory lifecycle follows.",
+      "Neither routine reserves a returned slot; cursor remains at the found index. Repeated-call controls preserve this behavior."
+    ]
+  },
+  "compiler_steering": "Use direct globals in each scan and condition instead of captured locals; full contributions and native reference offsets then agree. Compact sparse slot views and actual owner names retain equality.",
+  "limits": [
+    "No allocator reserves a slot or advances beyond the found index; physical pool capacities remain unproved.",
+    "HIGHLOW direct and adjacent-root accesses are classified; computed aliases are not exhaustively proved.",
+    "Existing historical source units, their accepted functions and headers remain unchanged; only reviewed unaccepted diagnostic rows migrate."
+  ]
+}

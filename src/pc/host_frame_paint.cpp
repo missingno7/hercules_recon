@@ -1,4 +1,4 @@
-#include "../../calibration/host_system_keys.h"
+#include "host_system_keys.h"
 extern "C" {
 extern BYTE g_fatal_suppress_dialog;
 extern BYTE g_exe_43a590;

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/actor_pool_reset_repaired.c"
+#include "../src/shared/actor_pool_reset_repaired.c"
 
 ActorNormal *g_normal_actor_pool;
 ActorCore *g_alternate_actor_pool;

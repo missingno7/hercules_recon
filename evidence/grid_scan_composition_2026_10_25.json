@@ -1,0 +1,160 @@
+{
+  "date": "2026-10-25",
+  "scope": "Finite real-decoder grid compositions and private compiler controls; no new function acceptance or production-source replacement.",
+  "current": {
+    "recovery_sha256": "668c739efad1d5d4a9f1a014ebd39575a9034d363170559d4b5fbd33405132ec",
+    "accepted_unique_rows": 408,
+    "distinct_native_entries": 408,
+    "accepted_unique_bytes": 39296,
+    "relocated_bytes": 25360,
+    "statuses": {
+      "FUNCTION_MATCH": 136,
+      "CODEGEN_SIMILAR": 1638,
+      "LINKED_MATCH": 43,
+      "FUNCTION_MATCH_RELOCATED": 229,
+      "RECONSTRUCTED": 187
+    }
+  },
+  "new_accepted_functions": 0,
+  "canonical_sources_unchanged": true,
+  "strict_proof_inputs_unchanged": 367,
+  "python_tests": 218,
+  "native_cases": 725,
+  "source_comparisons": 1450,
+  "real_decoder": true,
+  "coverage": {
+    "cases_with_real_decoder": 336,
+    "real_decoder_invocations": 1030,
+    "cases_with_row_reads": 371,
+    "observed_layer_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "negative_relative_cases_with_decoder": 36,
+    "one_past_width_read_cases": 237
+  },
+  "private_compiler_control": {
+    "source": "candidates/grid_scan_2026_10_25/grid_scan.c",
+    "source_sha256": "7224b19880198d546cdeba13b06d8ae8afb65a434c5e248f60ba693aca7ff38d",
+    "flags": [
+      "/O2"
+    ],
+    "compiled_bytes": 480,
+    "observed_native_span": 480,
+    "nonreference_byte_differences": 358,
+    "masked_equal": false,
+    "implied_reference_map_valid": false,
+    "explanation": "Native input-copy reuse and explicit materialized lower-result copy recover the480-byte extent, but register allocation, instruction order and relocation positions still differ. C++ alone, merging a local lifetime and declaration order did not resolve it. Raw/relocated gates unchanged."
+  },
+  "negative_controls": [
+    {
+      "control": "wrong_reverse_seed",
+      "rejected": true,
+      "native_result": "0x0",
+      "mutant_result": "0x280000",
+      "native_row_reads": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "mutant_row_reads": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "mutant_sha256": "80c399f29887b20aa0267f2020cbe68d19a205b6960ceb4b61dbd1da544a5a0d"
+    },
+    {
+      "control": "skip_one_past",
+      "rejected": true,
+      "native_result": "0x17fff",
+      "mutant_result": "0x7fff7fff",
+      "native_row_reads": [
+        [
+          12,
+          4
+        ],
+        [
+          16,
+          4
+        ]
+      ],
+      "mutant_row_reads": [
+        [
+          12,
+          4
+        ],
+        [
+          12,
+          4
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "mutant_sha256": "510ccbd11ede6116c5b7a014f2b8edde579568613b7417a45f2bd4ef12baeb6e"
+    }
+  ],
+  "reproduce": "python scripts/eng1_grid_scan_differential.py",
+  "private_reproduce": "python scripts/eng1_grid_scan_differential.py --candidate candidates/grid_scan_2026_10_25/grid_scan.c",
+  "sha256": {
+    "scripts/eng1_grid_scan_differential.py": "8caa4349cb7c5050966e942ec2be50ad12e22ad4ce09b775909137b437cf0708",
+    "src/eng1/behavioral/grid_query_20b50.c": "5807ffe8b4d3530e0582bb921fe612e7c6bf1cd2290c9a02ff272b425b404be4",
+    "src/eng1/behavioral/query_20990.c": "75458c849fc3bf850487af6f9fb23ba10191026e47bfd24f09bd7a49c76b8227",
+    "src/eng1/behavioral/grid_query_data.c": "841bb6c71cafb23a995421bb4f6a5560e486b61d377d33bd9fed81780b6be5b7",
+    "evidence/eng1_grid_query_20b50.json": "434d0ebd4c7b5694613c55050d61109e17c55d1d81c4bc9799553ad9d9bf4301",
+    "recovery.json": "668c739efad1d5d4a9f1a014ebd39575a9034d363170559d4b5fbd33405132ec",
+    "work/grid_scan_2026_10_25/check.json": "3bec11588d440ee3a63f7817c15a4f16c5f444e08c5c2c84a6b6c83a50361cb5",
+    "work/grid_scan_2026_10_25/differential/report.json": "488934f91a39456e556c5051b93807099b2ac375920b6b9624057d40de014742",
+    "work/grid_scan_2026_10_25/differential/cases.json": "5cba76432375b02fd433155f45f20cde482db041b1bc2354fc75b57d3bc9a155",
+    "work/grid_scan_2026_10_25/negative.json": "a49763bcc496e2e5519ac5247787662aae3e34a6e181a1a372cbde7f80076b07",
+    "work/grid_scan_2026_10_25/tests.log": "8d1def060b6b77b5d6001d166df79438cdf5796c44192ddf40a723e69f73fe15"
+  },
+  "limits": [
+    "Synthetic16-layer readable storage and tag-zero programs only; no allocation-capacity proof.",
+    "No null/nonpositive-width or nonpositive-group-count domain claim; guarded canonical behavior remains distinct.",
+    "Argument-copy values excluded; return address, ESP, callee-saved registers and caller guards checked.",
+    "Finite compositions and similar compiled extent do not grant matching acceptance.",
+    "Only tag-zero decoder programs, including constant, sentinel and linear interpolation; compressed program families1..15 and multi-axis families remain outside this corpus.",
+    "Cell tags1..3 select fixture programs; cell tag4 has a zero relative record. These are separate from the decoder program tag.",
+    "All16 layer slots and signed relative offsets are synthetic readable fixtures; no native complete array/header/stream ownership claim.",
+    "Canonical null/count/index/width diagnostics remain unchanged; the private native-body draft is not integrated or staged."
+  ]
+}

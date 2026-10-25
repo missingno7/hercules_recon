@@ -1,6 +1,6 @@
 /* Original PC decoder hypothesis; source/TU identity is unproved.
  * Preserve low-WORD zero extension on entry and signed-predictor OR on exit. */
-#include "../../calibration/host_sound_decoder_tables.h"
+#include "host_sound_decoder_tables.h"
 
 void __cdecl host_sound_decode_2410(const signed char *packed, short *samples,
     int byte_count, int *state)

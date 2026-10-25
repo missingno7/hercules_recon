@@ -12,7 +12,7 @@ parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--output',type=Path,default=ROOT/'work/options_class_audit')
 args=parser.parse_args();OUT=args.output.resolve();assert OUT.is_relative_to((ROOT/'work').resolve());OUT.mkdir(parents=True,exist_ok=True)
 SOURCES=[ROOT/'src/pc/host_options_classes.cpp',ROOT/'src/pc/host_frame_options.cpp']
-HEADER=ROOT/'calibration/host_options_classes.h'
+HEADER=ROOT/'src/pc/host_options_classes.h'
 ORACLE=Path('D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE')
 CLASSES=[('CKeyboardPage',744,0x2e408,0x2e470,62),('CJoystickPage',560,0x2e290,0x2e310,62),
  ('CSoundPage',328,0x2eb88,0x2ebf0,62),('CGamePlayPage',388,0x2e008,0x2e070,62),('COptionsSheet',2156,0x2ece8,0x2ed20,51)]

@@ -24,7 +24,7 @@ parser.add_argument('--output',type=Path,default=ROOT/'work/frame_resize_replay'
 args=parser.parse_args();OUT=args.output.resolve()
 assert OUT.is_relative_to((ROOT/'work').resolve());OUT.mkdir(parents=True,exist_ok=True)
 SOURCE=ROOT/'src/pc/host_frame_resize.cpp'
-HEADER=ROOT/'calibration/host_system_keys.h'
+HEADER=ROOT/'src/pc/host_system_keys.h'
 ORACLE=Path('D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE')
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
 pack=lambda v:struct.pack('<I',v&0xffffffff)
@@ -65,7 +65,7 @@ def build(source=None,out=None):
  ]
  libraries=[dict(path=str(DEFAULT_TOOLCHAIN/path),sha256=expected)for path,expected in inputs]
  assert all(sha(x['path'])==x['sha256']for x in libraries)
- files=[source,ROOT/'calibration/host_frame_state_storage.c']
+ files=[source,ROOT/'src/pc/host_frame_state_storage.c']
  watched={ORACLE,HEADER,Path(__file__),ROOT/'recovery.json',ROOT/'toolchains/manifest.json',
   *[Path(x['path'])for x in libraries]}
  for p in files:watched.update(context_files(p))
@@ -230,7 +230,7 @@ def main():
   assert 'MFCSetWindowPos'in native['entries']
   cases.append(dict(scenario=s,native=native,source=source,equal=True))
  source=SOURCE.read_text();assert source.count('SM_CXEDGE')==1 and source.count('SM_CYEDGE')==1
- negative=OUT/'negative_metrics.cpp';negative.write_bytes(source.replace('"../../calibration/host_system_keys.h"','"'+HEADER.as_posix()+'"').replace('SM_CXEDGE','SM_CXSIZEFRAME').replace('SM_CYEDGE','SM_CYSIZEFRAME').encode())
+ negative=OUT/'negative_metrics.cpp';negative.write_bytes(source.replace('"../../src/pc/host_system_keys.h"','"'+HEADER.as_posix()+'"').replace('SM_CXEDGE','SM_CXSIZEFRAME').replace('SM_CYEDGE','SM_CYSIZEFRAME').encode())
  bad=build(negative,OUT/'negative_metrics');s=dict(name='wrong_metric_discriminator');native=execute('native',b,s);wrong=execute('source',bad,s)
  assert native!=wrong
  report=dict(scope='Actual resize callbacks and two unmodified MFC method bodies in offline emulation. Windows and control-site virtual endpoints modeled. No original process,window,message loop or device.',build=b,cases=cases,case_count=len(cases),all_equal=True,

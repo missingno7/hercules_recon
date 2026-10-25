@@ -45,10 +45,10 @@ def start_forms(source):
 
 
 def main():
-    baseline=ROOT/'calibration/refinery_blind.c';spec=ROOT/'evidence/refinery_blind.json'
+    baseline=ROOT/'prototypes/reconstruction/refinery_blind.c';spec=ROOT/'config/research/refinery_blind.json'
     config=json.loads(spec.read_text())
     if digest(baseline.read_bytes())!=config['first_source_sha256']:raise ValueError('Baseline changed')
-    harness=ROOT/'tests/refinery_blind_semantics.c';include='../calibration/refinery_blind.c'
+    harness=ROOT/'tests/refinery_blind_semantics.c';include='../prototypes/reconstruction/refinery_blind.c'
     root=ROOT/'work/effect_followup';root.mkdir(parents=True,exist_ok=True)
     text=baseline.read_text();results=[];final=text.replace('p->ticks=p->sprite=0;','p->ticks=0; p->sprite=0;')
     for name,family in [('tick_particle',particle_forms),('initialize_sound_effect',sound_forms),('maybe_start_effect',start_forms)]:

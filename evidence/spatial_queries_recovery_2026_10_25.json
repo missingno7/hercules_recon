@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-25",
+  "scope": "Two real reconstructed spatial bodies. Only2b5e0 has complete instruction equality;2aea0 remains unaccepted.",
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "steering": {
+    "source": "src/eng1/behavioral/target_actor_motion.c",
+    "source_sha256": "5c985107d934bc0a90069278e96716535287034c4dbaecdb83abdedb9f4c09b8",
+    "rva": "0x2b5e0",
+    "size": 960,
+    "nonreference_equal": true,
+    "refs": 1,
+    "controls": [
+      "C and C++ flat-null paths both had847 nonreference differences despite960-byte size.",
+      "Native-backed null-target branch bypassing all three steering blocks closes every nonreference difference.",
+      "Including the existing bounds header and explicit DWORD-wrap macros retain complete equality."
+    ]
+  },
+  "nearest": {
+    "source": "src/eng1/behavioral/nearest_actor_2aea0.c",
+    "source_sha256": "7350af6d0e0060da2736d70007336046d7a98c9603f297d30041faa3fc81f05f",
+    "rva": "0x2aea0",
+    "size": 224,
+    "compiled_size": 224,
+    "nonreference_differences": 190,
+    "matching_claimed": false,
+    "semantics": "Signed captured count; point highWORD coordinates; signed-short wrapped deltas/absolute values; depth limit arg2; best planar limit arg3; strict improvement keeps first equal-distance entry. Reuses the existing aggregate interior view at71580.",
+    "blockers": [
+      "Compiler instruction/relocation positions still differ; no consistent implied reference map is evidence.",
+      "The shared worklist has no proven complete capacity/standalone owner; aggregate aliases/indexed BSS are outside the current explicit scalar gate."
+    ],
+    "owner_evidence": "evidence/eng1_actor_pipeline_storage.json"
+  },
+  "differential": {
+    "driver": "scripts/eng1_spatial_queries_differential.py",
+    "driver_sha256": "d51ebeb13eed96802d628bc8c923ecad06551807b622fe65fb560fc2f0357a27",
+    "cases": 2674,
+    "by_entry": {
+      "0x2b5e0": 1626,
+      "0x2aea0": 1048
+    },
+    "all_equal": true,
+    "report_sha256": "669db270d2355630555c4fc6544a4b76c611eb3998d8cfc68d23ae8566cf6359",
+    "scope": "Finite unpatched original/source query and steering cases, modeled bounds producer and synthetic0..8-entry worklists; no game execution or list-capacity acceptance.",
+    "limitations": [
+      "Bounds behavior modeled; no resource chain or whole-game claim.",
+      "Worklist prefix and backing aggregate do not establish complete native storage ownership or matching acceptance for2aea0.",
+      "Query compiler may reuse incoming cdecl argument-copy slots; their values are excluded from equivalence. Return address,ESP,callee-saved values,caller guards and complete heap/worklist effects are checked. Inputs do not alias those copies."
+    ]
+  },
+  "limits": [
+    "Finite component contracts and matching are separate. No nearest-query matching acceptance, worklist capacity, source/TU identity or whole-game claim.",
+    "No original game/host process or OS DLL load."
+  ]
+}

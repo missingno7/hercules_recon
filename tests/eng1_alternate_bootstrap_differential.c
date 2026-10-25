@@ -2,7 +2,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/simulation_data_owners.h"
+#include "../src/eng1/simulation_data_owners.h"
 extern void *g_alternate_actor_pool;
 extern void __cdecl eng1_call_12960(void);
 extern unsigned long g_eng1_call_12960_dword_52b50[8];

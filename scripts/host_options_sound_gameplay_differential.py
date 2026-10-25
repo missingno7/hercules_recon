@@ -25,7 +25,7 @@ parser.add_argument('--output',type=Path,default=ROOT/'work/options_sound_gamepl
 args=parser.parse_args();OUT=args.output.resolve()
 assert OUT.is_relative_to((ROOT/'work').resolve());OUT.mkdir(parents=True,exist_ok=True)
 SOURCE=ROOT/'src/pc/host_options_sound_gameplay.cpp'
-HEADER=ROOT/'calibration/host_options_classes.h'
+HEADER=ROOT/'src/pc/host_options_classes.h'
 ORACLE=Path('D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE')
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
 pack=lambda v:struct.pack('<I',v&0xffffffff)
@@ -75,7 +75,7 @@ def build(source=None,out=None):
  ]
  libraries=[dict(path=str(DEFAULT_TOOLCHAIN/path),sha256=expected)for path,expected in inputs]
  assert all(sha(x['path'])==x['sha256']for x in libraries)
- files=[source,ROOT/'calibration/registry_storage.c',ROOT/'calibration/host_startup_storage.c']
+ files=[source,ROOT/'src/shared/registry_storage.c',ROOT/'src/pc/host_startup_storage.c']
  watched={ORACLE,HEADER,Path(__file__),ROOT/'recovery.json',ROOT/'toolchains/manifest.json',
   *[Path(x['path'])for x in libraries]}
  for p in files:watched.update(context_files(p))

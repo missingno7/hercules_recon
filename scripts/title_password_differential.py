@@ -26,7 +26,7 @@ BUILT_MAP = BUILD_DIR / 'TITLE.map'
 BUILD_REPORT = BUILD_DIR / 'report.json'
 STAGED_DLL = LANE / 'TITLE_PASSWORD_RECON.DLL'
 RECOVERY = ROOT / 'recovery.json'
-BUILD_CONFIG = ROOT / 'evidence/title_behavioral_build.json'
+BUILD_CONFIG = ROOT / 'config/title/sources.json'
 NATIVE_FUNCTION_RVA = 0x0CD30
 NATIVE_TABLE_RVA = 0x25A30
 NATIVE_INTERFACE_RVA = 0x2BB40
@@ -113,7 +113,7 @@ def run():
     oracle_sha = digest(ORIGINAL.read_bytes())
     row = next((r for r in recovery['functions'] if r.get('id') == 'title.0cd30'), None)
     if not row or int(row['rva'], 0) != NATIVE_FUNCTION_RVA or \
-            row.get('target_sha256') != oracle_sha or row.get('source') != 'calibration/title/u0cc90.c':
+            row.get('target_sha256') != oracle_sha or row.get('source') != 'src/title/u0cc90.c':
         raise ValueError('Original password checker recovery identity/hash does not match the oracle')
 
     original = PE(ORIGINAL)

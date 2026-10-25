@@ -1,0 +1,510 @@
+{
+  "schema": 1,
+  "scope": "Four new complete ordinary-C motion/contact and fixed-degree helpers; own-entry identities and existing independently located complete initialized sine table. No source layout or whole-game claim.",
+  "original_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "independent_entries": {
+    "0x2b4c0": {
+      "rva": 177344,
+      "size": 288,
+      "native_complete_sha256": "8befa93bda0b4a11abf7c51b0e8d3fd54e6965db510766e826cc3585b1f16bca",
+      "summary": "Full three-axis acceleration/deceleration, lower/upper clamp and directional position update; RAW accepted source.",
+      "source": "src/shared/motion.c",
+      "source_sha256": "58b771d5770876b3f62b03b72805aa9e337b2f69b8f19e1497402981672385fa",
+      "own_body_compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-4_ibcsvk\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\src\\shared\\motion.c"
+      ],
+      "own_body_masked_comparison": {
+        "masked_equal": true,
+        "compiled_size": 288,
+        "target_size": 288,
+        "differing_bytes": 0,
+        "mismatch_regions": [],
+        "symbols": {},
+        "conflicts": [],
+        "unsupported": [],
+        "relocations": 0
+      },
+      "independent_call_anchors": [
+        {
+          "instruction_rva": "0x3fb37",
+          "instruction_sha256": "2bc0b1860fed138167b38993f4153d61726625da80b1ef0688ceb4707c0a702b"
+        },
+        {
+          "instruction_rva": "0x411c2",
+          "instruction_sha256": "843427a369e4d1be738f2978ffb860ee54be3460ee1ab06ff628ec02784b45b8"
+        },
+        {
+          "instruction_rva": "0x41573",
+          "instruction_sha256": "50cf22f074848672c40086c31856ae12d086829f71b47ca50d28e5935a62c8fd"
+        }
+      ],
+      "calls": [],
+      "return_offsets": [
+        263,
+        279
+      ]
+    },
+    "0x29e20": {
+      "rva": 171552,
+      "size": 304,
+      "native_complete_sha256": "6b75787bdfd0b1cc236cd0750ee8e485436f5ca82509da456bbd8acf0c5c8d7a",
+      "summary": "Actor-pointer cdecl contact resolver: previous-position deltas; optional scene unlink/query/insert then grid query; y correction and full EAX boolean returns. External scene/grid ownership remains unaccepted.",
+      "source": "calibration/eng1/actor_unit_282e0.cpp",
+      "source_sha256": "629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7",
+      "own_body_compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-8wf4s89i\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\eng1\\actor_unit_282e0.cpp"
+      ],
+      "own_body_masked_comparison": {
+        "masked_equal": true,
+        "compiled_size": 304,
+        "target_size": 304,
+        "differing_bytes": 0,
+        "mismatch_regions": [],
+        "symbols": {
+          "_eng1_29870": "0x29870",
+          "_grid_scan_20b50": "0x20b50",
+          "_insert_scene": "0x295a0",
+          "_unlink_0e4": "0x29620"
+        },
+        "conflicts": [],
+        "unsupported": [],
+        "relocations": 4
+      },
+      "independent_call_anchors": [
+        {
+          "instruction_rva": "0x9bd0",
+          "instruction_sha256": "2d9c69cd2417ffaaa7a519146e7412bbc4ef93aa69b473bd4d13adc9ac4a7805"
+        },
+        {
+          "instruction_rva": "0xca38",
+          "instruction_sha256": "f359d27c23d17ad2b5cb5e28df80c7ca1608966962849739d7598563ace66020"
+        },
+        {
+          "instruction_rva": "0xcd91",
+          "instruction_sha256": "7f88a19148002d5ad435293357e1b86b78efa33b8a4f2391be373907b0dda180"
+        }
+      ],
+      "calls": [
+        {
+          "rva": "0x29e84",
+          "target": "0x10029620"
+        },
+        {
+          "rva": "0x29e8d",
+          "target": "0x10029870"
+        },
+        {
+          "rva": "0x29ec2",
+          "target": "0x100295a0"
+        },
+        {
+          "rva": "0x29eef",
+          "target": "0x10020b50"
+        }
+      ],
+      "return_offsets": [
+        179,
+        236,
+        288,
+        295
+      ]
+    },
+    "0x29f50": {
+      "rva": 171856,
+      "size": 192,
+      "native_complete_sha256": "78185bfca96c2240283d15246df7365f1afbb03a8f0cc4689c4950ab9f076f1f",
+      "summary": "Actor-pointer cdecl grid contact resolver: signed-WORD delta magnitudes, grid_scan_20b50, 0x7fff7fff sentinel, low-WORD zero hit or upper signed-WORD threshold(dx+dy+dz+8), y correction and full EAX boolean returns.",
+      "source": "calibration/eng1/actor_unit_282e0.cpp",
+      "source_sha256": "629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7",
+      "own_body_compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-8wf4s89i\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\eng1\\actor_unit_282e0.cpp"
+      ],
+      "own_body_masked_comparison": {
+        "masked_equal": true,
+        "compiled_size": 192,
+        "target_size": 192,
+        "differing_bytes": 0,
+        "mismatch_regions": [],
+        "symbols": {
+          "_grid_scan_20b50": "0x20b50"
+        },
+        "conflicts": [],
+        "unsupported": [],
+        "relocations": 1
+      },
+      "independent_call_anchors": [
+        {
+          "instruction_rva": "0x1a14a",
+          "instruction_sha256": "a4c93d13a8c47d5212bbfc70d95aecca3fef6646851bf041f1b846ffdf0ae4fe"
+        }
+      ],
+      "calls": [
+        {
+          "rva": "0x29fb8",
+          "target": "0x10020b50"
+        }
+      ],
+      "return_offsets": [
+        133,
+        183,
+        190
+      ]
+    }
+  },
+  "functions": {
+    "eng1.damped_contact_motion": {
+      "rva": "0x2bc50",
+      "size": 208,
+      "source": "src/eng1/behavioral/contact_motion.c",
+      "source_sha256": "384601e3f2bb4905f2cb12b8c03e708a6eac22cf0fd9dbdf63672c06a443deab",
+      "native_complete_sha256": "9941600236c26fce45be1a83dfed55f8162b556e394f2c39b69788ddbdd180fb",
+      "compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-jycs20y7\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\contact_motion.c"
+      ],
+      "complete_verification": {
+        "relocated_equal": true,
+        "compiled_size": 208,
+        "target_size": 208,
+        "differing_nonreference_bytes": 0,
+        "errors": [],
+        "references": [
+          {
+            "offset": 13,
+            "type": 20,
+            "symbol": "_advance_object_motion",
+            "addend": 0,
+            "kind": "function",
+            "destination_rva": 177344,
+            "target_destination_rva": 177344,
+            "evidence": [
+              "evidence/motion_contacts_recovery_2026_10_25.json#independent_entries.0x2b4c0"
+            ],
+            "one_past": false
+          },
+          {
+            "offset": 82,
+            "type": 20,
+            "symbol": "_eng1_29e20",
+            "addend": 0,
+            "kind": "function",
+            "destination_rva": 171552,
+            "target_destination_rva": 171552,
+            "evidence": [
+              "evidence/motion_contacts_recovery_2026_10_25.json#independent_entries.0x29e20"
+            ],
+            "one_past": false
+          }
+        ],
+        "compiled_sha256": "455f30de999fea6684f5350a543379ada4c42f0277806edd8f02c1cb3390b9ca",
+        "target_sha256": "9941600236c26fce45be1a83dfed55f8162b556e394f2c39b69788ddbdd180fb",
+        "bindings_sha256": "7289eb9d72693a035c136b45c75392e802c4aebdaf81abbd2f6d5d1ed224bff7",
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned"
+      }
+    },
+    "eng1.contact_motion": {
+      "rva": "0x2bd20",
+      "size": 416,
+      "source": "src/eng1/behavioral/contact_motion.c",
+      "source_sha256": "384601e3f2bb4905f2cb12b8c03e708a6eac22cf0fd9dbdf63672c06a443deab",
+      "native_complete_sha256": "1c3a9a2aca5d1a5ece1813d161fd22a8b11d7c4074b431e3deca333be71a8f1c",
+      "compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-jycs20y7\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\contact_motion.c"
+      ],
+      "complete_verification": {
+        "relocated_equal": true,
+        "compiled_size": 416,
+        "target_size": 416,
+        "differing_nonreference_bytes": 0,
+        "errors": [],
+        "references": [
+          {
+            "offset": 308,
+            "type": 20,
+            "symbol": "_eng1_29f50",
+            "addend": 0,
+            "kind": "function",
+            "destination_rva": 171856,
+            "target_destination_rva": 171856,
+            "evidence": [
+              "evidence/motion_contacts_recovery_2026_10_25.json#independent_entries.0x29f50"
+            ],
+            "one_past": false
+          }
+        ],
+        "compiled_sha256": "fae006f41a0184dc56a8d727196cc5384c3940e1f8eeff6e6e929d8a82669fb8",
+        "target_sha256": "1c3a9a2aca5d1a5ece1813d161fd22a8b11d7c4074b431e3deca333be71a8f1c",
+        "bindings_sha256": "a1826cf25026a5394ecfdf790acec142a0adf143cc0024a9fb2fade58437b34c",
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned"
+      }
+    },
+    "eng1.rounded_sine_angle": {
+      "rva": "0x2bec0",
+      "size": 48,
+      "source": "src/shared/fixed_angle.c",
+      "source_sha256": "37a1312b53ef67d840d93056398f3326374d8eff07fad0bae95e592e42f40fed",
+      "native_complete_sha256": "b3518c045dcdbca85fec0acb2e6e0efe72a391e585751706f8f0e0684740d4cb",
+      "compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-7p2blnj1\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\src\\shared\\fixed_angle.c"
+      ],
+      "complete_verification": {
+        "relocated_equal": true,
+        "compiled_size": 48,
+        "target_size": 48,
+        "differing_nonreference_bytes": 0,
+        "errors": [],
+        "references": [
+          {
+            "offset": 41,
+            "type": 6,
+            "symbol": "_g_243e0",
+            "addend": 0,
+            "kind": "data",
+            "destination_rva": 370760,
+            "target_destination_rva": 370760,
+            "evidence": [
+              "evidence/angle_lookup_recovery_2026_10_25.json#data_identity: unique complete initialized owner payload"
+            ],
+            "one_past": false
+          }
+        ],
+        "compiled_sha256": "bfddd5d675dfae20d4f9fb7ebdf73694c9b0998bc1f3b52b22c1939fee87c869",
+        "target_sha256": "b3518c045dcdbca85fec0acb2e6e0efe72a391e585751706f8f0e0684740d4cb",
+        "bindings_sha256": "eb7680c81178eb94b03229439c9c5402e23c250ded27eaf5afc8105ac07c3274",
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned"
+      }
+    },
+    "eng1.cosine_angle": {
+      "rva": "0x2bef0",
+      "size": 64,
+      "source": "src/shared/fixed_angle.c",
+      "source_sha256": "37a1312b53ef67d840d93056398f3326374d8eff07fad0bae95e592e42f40fed",
+      "native_complete_sha256": "a295b03044d62588337f30b9c8e84aed8ea3b3be29568f6ffa15e1ee8f187e1a",
+      "compile_command": [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-7p2blnj1\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\src\\shared\\fixed_angle.c"
+      ],
+      "complete_verification": {
+        "relocated_equal": true,
+        "compiled_size": 64,
+        "target_size": 64,
+        "differing_nonreference_bytes": 0,
+        "errors": [],
+        "references": [
+          {
+            "offset": 42,
+            "type": 6,
+            "symbol": "_g_243e0",
+            "addend": 0,
+            "kind": "data",
+            "destination_rva": 370760,
+            "target_destination_rva": 370760,
+            "evidence": [
+              "evidence/angle_lookup_recovery_2026_10_25.json#data_identity: unique complete initialized owner payload"
+            ],
+            "one_past": false
+          }
+        ],
+        "compiled_sha256": "d81ad0f204e254595cff52b45257d09547ce6801111bb6ab701784efdeed440b",
+        "target_sha256": "a295b03044d62588337f30b9c8e84aed8ea3b3be29568f6ffa15e1ee8f187e1a",
+        "bindings_sha256": "6344268206fba5d90e04fb446ea06d3ee92bd91a5f1376ec2ca81b39ab85b56b",
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned"
+      }
+    }
+  },
+  "differential": {
+    "scope": "Guarded finite motion/contact and fixed-angle fixtures; no OS module load.\n\nThe original motion routine executes normally. The two contact services are\nmodeled at their entry, including live actor mutations. Their internal scene\nand collision chains are outside this fixture's scope.\n",
+    "all_equal": true,
+    "case_count": 1550,
+    "by_entry": {
+      "0x2bc50": 268,
+      "0x2bd20": 268,
+      "0x2bec0": 507,
+      "0x2bef0": 507
+    },
+    "build": {
+      "input_sha256": {
+        "D:\\Prog\\hercules_recon\\calibration\\title\\title_sine.c": "b5abce4a7d6a2f9ef44433812669b028e4f0ee659ecd01c0bd75cece054f511b",
+        "D:\\Prog\\hercules_recon\\scripts\\contact_motion_differential.py": "a8e0b7dc527688379676300dca5025791443ce2addec1609c9b0b602d896a6df",
+        "D:\\Prog\\hercules_recon\\toolchains\\manifest.json": "d52d560ef78589b6008df0fd3ca42f8d258a34248015398158716e9a811e063d",
+        "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+        "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+        "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\contact_motion.c": "384601e3f2bb4905f2cb12b8c03e708a6eac22cf0fd9dbdf63672c06a443deab",
+        "D:\\Prog\\hercules_recon\\src\\shared\\motion.c": "58b771d5770876b3f62b03b72805aa9e337b2f69b8f19e1497402981672385fa",
+        "D:\\Prog\\hercules_recon\\src\\shared\\fixed_angle.c": "37a1312b53ef67d840d93056398f3326374d8eff07fad0bae95e592e42f40fed"
+      },
+      "commands": [
+        [
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+          "/nologo",
+          "/c",
+          "/Gy",
+          "/O2",
+          "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-5j1b9lo3\\candidate.obj",
+          "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\contact_motion.c"
+        ],
+        [
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+          "/nologo",
+          "/c",
+          "/Gy",
+          "/O2",
+          "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-5_rjamjn\\candidate.obj",
+          "D:\\Prog\\hercules_recon\\src\\shared\\fixed_angle.c"
+        ],
+        [
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+          "/nologo",
+          "/c",
+          "/Gy",
+          "/O2",
+          "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-s58o7op6\\candidate.obj",
+          "D:\\Prog\\hercules_recon\\src\\shared\\motion.c"
+        ],
+        [
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+          "/nologo",
+          "/c",
+          "/Gy",
+          "/O2",
+          "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-gg079tb7\\candidate.obj",
+          "D:\\Prog\\hercules_recon\\calibration\\title\\title_sine.c"
+        ],
+        [
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+          "/nologo",
+          "/c",
+          "/Gy",
+          "/O2",
+          "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-9kpwzn9b\\candidate.obj",
+          "D:\\Prog\\hercules_recon\\work\\motion_contacts_2026_10_25\\differential\\services.c"
+        ],
+        [
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\link.exe",
+          "/NOLOGO",
+          "/DLL",
+          "/NOENTRY",
+          "/NODEFAULTLIB",
+          "/INCREMENTAL:NO",
+          "/OPT:NOREF",
+          "/BASE:0x45000000",
+          "/OUT:D:\\Prog\\hercules_recon\\work\\motion_contacts_2026_10_25\\differential\\fixture.dll",
+          "/MAP:D:\\Prog\\hercules_recon\\work\\motion_contacts_2026_10_25\\differential\\fixture.map",
+          "D:\\Prog\\hercules_recon\\build\\match\\compile-5j1b9lo3\\candidate.obj",
+          "D:\\Prog\\hercules_recon\\build\\match\\compile-5_rjamjn\\candidate.obj",
+          "D:\\Prog\\hercules_recon\\build\\match\\compile-s58o7op6\\candidate.obj",
+          "D:\\Prog\\hercules_recon\\build\\match\\compile-gg079tb7\\candidate.obj",
+          "D:\\Prog\\hercules_recon\\build\\match\\compile-9kpwzn9b\\candidate.obj"
+        ]
+      ],
+      "object_sha256": [
+        "a95b9a135f9bcb2606c64138863848c861411af47fd354b8d2885bd5164e8848",
+        "0e1c63089c4f2a829e92b083bb2b49840da4b30b352112823a14175c24d30291",
+        "1670b3818e9228633599b68b65c9b03638fa77159f46337c6b94ad98fdc75a93",
+        "cc9b8393332001e7777dd5a85e71c573c766b729050bad253801d6902a1e55e2",
+        "30874ddae90033257d2c42b0ff7d168c91b76a3e9f4e5ae81c2d5be93374d4c0"
+      ],
+      "image_sha256": "8ae53605f4d90f1ec2f76a3a123c7b2d5f7c6ea138f3baf7a43f09f1df41efe3"
+    },
+    "cases_sha256": "613ed2e95892cf443c194f7a9dd51973ba8cb4d6dd811f518714b35c6c5d515d",
+    "limitations": [
+      "Contact services modeled, including actor mutations; scene/grid/resource chains not executed.",
+      "Finite cases do not establish universal equivalence or whole-game completeness."
+    ]
+  },
+  "negative_controls": [
+    {
+      "id": "eng1.damped_contact_motion",
+      "symbol": "_advance_object_motion",
+      "rejected": true,
+      "errors": [
+        "Relocation destination differs at 0xd: _advance_object_motion"
+      ],
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.damped_contact_motion",
+      "symbol": "_eng1_29e20",
+      "rejected": true,
+      "errors": [
+        "Relocation destination differs at 0x52: _eng1_29e20"
+      ],
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.contact_motion",
+      "symbol": "_eng1_29f50",
+      "rejected": true,
+      "errors": [
+        "Relocation destination differs at 0x134: _eng1_29f50"
+      ],
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.rounded_sine_angle",
+      "symbol": "_g_243e0",
+      "rejected": true,
+      "errors": [
+        "Data payload identity differs: _g_243e0",
+        "Relocation destination differs at 0x29: _g_243e0"
+      ],
+      "nonreference_differences": 0
+    },
+    {
+      "id": "eng1.cosine_angle",
+      "symbol": "_g_243e0",
+      "rejected": true,
+      "errors": [
+        "Data payload identity differs: _g_243e0",
+        "Relocation destination differs at 0x2a: _g_243e0"
+      ],
+      "nonreference_differences": 0
+    }
+  ],
+  "compiler_steering": "Initial damped-contact source had73 non-reference differences at208bytes. Move independent damping calculations before response state assignments:6 remain. Set result=1 before the final z-limit store:0 remain. Other three complete contributions matched on the initial ordinary-C control. Unsigned DWORD wrap before signed clamps preserves physical arithmetic.",
+  "limits": [
+    "Entry identity of unaccepted29e20/29f50 does not grant their matching or scene/grid dependency acceptance.",
+    "Contact callbacks modeled including live state mutation; original accepted motion executes normally.",
+    "rounded_sine_angle adds256 before >>9; cosine_angle adds256 after >>9. Both use signed division by45 and signed-WORD table values."
+  ]
+}

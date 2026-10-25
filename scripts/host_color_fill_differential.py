@@ -9,7 +9,7 @@ import pefile
 from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn.x86_const import *
 parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,default=ROOT/'work/host_color_fill_public');args=parser.parse_args();OUT=args.output.resolve();assert OUT.is_relative_to((ROOT/'work').resolve());OUT.mkdir(parents=True,exist_ok=True)
-SOURCE=ROOT/'src/pc/host_color_fill.cpp';CACHE_SOURCE=ROOT/'calibration/host_color_cache.c';HEADER=ROOT/'calibration/host_color_cache.h';ORACLE=Path('D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE')
+SOURCE=ROOT/'src/pc/host_color_fill.cpp';CACHE_SOURCE=ROOT/'src/pc/host_color_cache.c';HEADER=ROOT/'src/pc/host_color_cache.h';ORACLE=Path('D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE')
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();pack=lambda v:struct.pack('<I',v&0xffffffff)
 PROFILE={'fill':('_graphics_native_06ee0',0x6ee0,272),'search':('_graphics_native_06850',0x6850,112)}
 PIXELS=0x61000020;PAL=0x61014020;SURFACE=0x64000100;VTABLE=0x64000200;BLT=0x64000300;STACK=0x62000000;ESP=STACK+0x8000;STOP=STACK+0xf000
@@ -18,7 +18,7 @@ FIELDS={'locked':('_g_exe_ba01f0',0xba01f0,1),'fullscreen':('_g_fatal_suppress_d
 def read32(u,a):return struct.unpack('<I',u.mem_read(a,4))[0]
 def build():
  assert sha(ORACLE)=='587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d';verify_toolchain(DEFAULT_TOOLCHAIN)
- files=[SOURCE,CACHE_SOURCE,*[ROOT/p for p in['calibration/graphics_storage.cpp','calibration/fatal_storage.c','calibration/graphics_lock_storage.c']]];watched=[*files,HEADER,ORACLE,Path(__file__),ROOT/'calibration/host_graphics_table_storage.h',*[ROOT/p for p in['scripts/coff.py','scripts/match.py','scripts/masked.py','scripts/pe.py','scripts/env.py','toolchains/manifest.json']]];pins={str(p):sha(p)for p in watched}
+ files=[SOURCE,CACHE_SOURCE,*[ROOT/p for p in['src/pc/graphics_storage.cpp','src/pc/fatal_storage.c','src/pc/graphics_lock_storage.c']]];watched=[*files,HEADER,ORACLE,Path(__file__),ROOT/'src/pc/host_graphics_table_storage.h',*[ROOT/p for p in['scripts/coff.py','scripts/match.py','scripts/masked.py','scripts/pe.py','scripts/env.py','toolchains/manifest.json']]];pins={str(p):sha(p)for p in watched}
  fixture=OUT/'fixture.c';fixture.write_bytes(b'''extern void __cdecl graphics_native_06ee0(int,int,int);
 extern unsigned char __cdecl graphics_native_06850(int,int,int);
 __declspec(dllexport) void __cdecl fill_fixture_anchor(void) { graphics_native_06ee0(0,0,0); graphics_native_06850(0,0,0); }

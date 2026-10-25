@@ -1,5 +1,5 @@
-#include "../../calibration/display_mode_contract.h"
-#include "../../calibration/host_system_keys.h"
+#include "display_mode_contract.h"
+#include "host_system_keys.h"
 extern "C" {
 extern signed char g_exe_ba0238;
 extern BYTE g_exe_ba0228;

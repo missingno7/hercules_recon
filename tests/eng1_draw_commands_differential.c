@@ -1,8 +1,8 @@
 #include <string.h>
 #include <stdio.h>
 #include <windows.h>
-#include "../calibration/engine_interface.h"
-#include "../src/eng1/behavioral/cold_start_frame_data.h"
+#include "../src/shared/engine_interface.h"
+#include "../src/eng1/cold_start_frame_data.h"
 
 typedef unsigned char u8;
 typedef unsigned short u16;

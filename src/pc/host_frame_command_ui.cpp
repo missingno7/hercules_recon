@@ -1,5 +1,5 @@
-#include "../../calibration/host_system_keys.h"
-#include "../../calibration/host_startup_storage.h"
+#include "host_system_keys.h"
+#include "host_startup_storage.h"
 
 extern "C" {
 extern BYTE g_exe_92c488;

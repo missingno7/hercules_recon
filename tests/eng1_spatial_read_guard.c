@@ -1,7 +1,7 @@
 #include <setjmp.h>
 #include <stdio.h>
-#include "../src/eng1/behavioral/initial_spatial_roots.h"
-#include "../src/eng1/behavioral/spatial_read_guard.h"
+#include "../src/eng1/initial_spatial_roots.h"
+#include "../src/eng1/spatial_read_guard.h"
 static jmp_buf escape;
 static unsigned long reported;
 void eng1_incomplete_behavior(unsigned long rva, const char *reason)

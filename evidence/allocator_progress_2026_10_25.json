@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-25",
+  "scope": "Two complete relocated allocator proofs and one complete RAW base initializer in real ENG1 providers. Existing acceptance policies and historical source files unchanged.",
+  "new": {
+    "functions": 3,
+    "complete_bytes": 928,
+    "relocated_bytes": 656,
+    "raw_bytes": 272,
+    "ids": [
+      "eng1.allocate_normal_actor",
+      "eng1.allocate_alternate_actor",
+      "eng1.initialize_alternate_actor"
+    ]
+  },
+  "current": {
+    "recovery_sha256": "a2b6ffa186e6053848935fb2fee501963e7acca89aa187cf38bc2ccb69b4d20e",
+    "accepted_unique_rows": 425,
+    "distinct_native_entries": 425,
+    "accepted_unique_bytes": 42256,
+    "relocated_bytes": 28048,
+    "statuses": {
+      "FUNCTION_MATCH": 137,
+      "CODEGEN_SIMILAR": 1623,
+      "LINKED_MATCH": 43,
+      "FUNCTION_MATCH_RELOCATED": 245,
+      "RECONSTRUCTED": 186
+    }
+  },
+  "validation": {
+    "prior_accepted_records_identical": 422,
+    "other_prior_recovery_records_identical": 2231,
+    "superseded_shared_diagnostics": 2,
+    "replaced_unaccepted_reconstruction": 1,
+    "strict_proofs": 384,
+    "strict_failures": 0,
+    "raw_proofs": 139,
+    "raw_promotion_statistics": {
+      "compiler_calls": 105,
+      "rows": 384,
+      "elapsed_seconds": 50.16388290000032
+    },
+    "relocated_promotion_statistics": {
+      "compiler_calls": 104,
+      "rows": 383,
+      "elapsed_seconds": 50.976337600004626
+    },
+    "legacy_linked_checks": 43,
+    "legacy_linked_failures": 0,
+    "existing_linked_provenance_drifts": 86,
+    "python_tests": 245,
+    "masked_rows": 1610,
+    "masked_sources": 198,
+    "masked_failures": 0,
+    "component_cases": 2120,
+    "allocator_cases": 1922,
+    "initializer_cases": 198,
+    "negative_reference_controls": 12,
+    "complete_scalar_owners": 12,
+    "direct_WORD_accesses_classified": 76,
+    "signed_index_witnesses": 7,
+    "initializer_ordered_stores": 58,
+    "initializer_untouched_bytes": 18,
+    "source_graph_allocator_instructions_rechecked": true,
+    "final_reference_pins_rechecked": true
+  },
+  "source_graph": {
+    "mapped_providers": 962,
+    "diagnostic_spans": 1231,
+    "unresolved": 744,
+    "unresolved_kinds": {
+      "function": 435,
+      "data_or_untyped": 309
+    },
+    "unresolved_set_unchanged": true,
+    "duplicates": 0,
+    "generated_placeholders": 0,
+    "preserved_raw_functions": 78,
+    "link_exit_code": 25,
+    "provider_retention": "The last old initializer row moved out of actor_pools.c; explicitly retain its remaining normal-initializer provider with other four bodies omitted."
+  },
+  "sha256": {
+    "recovery.json": "a2b6ffa186e6053848935fb2fee501963e7acca89aa187cf38bc2ccb69b4d20e",
+    "evidence/eng1_behavioral_build.json": "b89479881789792261b4f0cb72f2d46b1f6398254e296cc590665e91e9b59a81",
+    "evidence/eng1_behavioral_incomplete.json": "90414702d77c8a11ff31758784ba3c0a356dd9382172003b246e54c2cd26bcd2",
+    "src/eng1/behavioral/actor_pool_allocators.c": "6c630e0492549e590281d5bd3fc89ca065cbf759011273e9766528d621bdf7ac",
+    "src/eng1/behavioral/actor_base_init.c": "d89198c74856308f2ed9c120f6a9536f4f8aaec46ce07cbddc5777a87cd91f3b",
+    "scripts/actor_pool_allocators_differential.py": "fcccec3f75be8bc5f3eeaa35383eba11e4d248e1eebd14a838bb3e000c8fbbe1",
+    "scripts/actor_base_init_differential.py": "83dcd8a943bbcb60a3bfcb525166b4768bb35af9049298263273bedc92e73770",
+    "evidence/allocator_references_2026_10_25.json": "6f740d8237825c41f307dd4878cee892985b12ef3e3cb798622ee9796822ec7f",
+    "evidence/allocator_bindings_2026_10_25.json": "5f8978887bddea95d0bcdc776e7c47426c925f2a82be547a42719bad5c4b4cbb",
+    "evidence/actor_base_init_recovery_2026_10_25.json": "ad8b08a9f42cc1ce80ee017d11b2f4387341ee700cf580f2a8bed178795d254a",
+    "work/allocator_matching_2026_10_25/migration.json": "4b59c55a94a378df7632296c9a0273f0ab6ec07a184db0dae45416eedd53a962",
+    "work/allocator_matching_2026_10_25/promotion.json": "755a9e07c7a5aeb94488965ad18353ff59c1374bd6e51aa4b6c6dfe8f723f7da",
+    "work/allocator_matching_2026_10_25/promotion.log": "c41c9592b7f87ac2f0344eb5f041783648a04fe6e9d43b34d572afdf5796c6db",
+    "work/allocator_matching_2026_10_25/initializer/migration.json": "04d8a8f99bfa455b5bb761b1ae241213a4ef1a4cbcf2b84e045021aeb11d3e0d",
+    "work/allocator_matching_2026_10_25/initializer/promotion.json": "0d4fd932ddd2428be0936b450006280868594a48b4c9078a4ae7f0af4ed68ad4",
+    "work/allocator_matching_2026_10_25/initializer/promotion.log": "6befa0820129412bb09af5658b4cf454087477042e2038adedd34214720608f3",
+    "work/allocator_matching_2026_10_25/final_tests.log": "4deefee1e306119bd92cf9f2c4f83c05ba581c9e992e8018fdc9089a933ec761",
+    "work/allocator_matching_2026_10_25/final_masked.log": "8ac45bd5edf145973abc676e286ad3b6088bc4e55b11141349715d53bac0b41d",
+    "work/allocator_matching_2026_10_25/retained_graph/report.json": "21dc08120fe0a0db1ef9240b2def9a4bb91155be6b9c04b639bf36115eae91ae",
+    "work/allocator_matching_2026_10_25/provider_retention.json": "7b0c5cd8dc16d138e77f3f19004c3060e2d424b90f29fd9dd4b0ed0e59a864c7",
+    "work/allocator_matching_2026_10_25/differential/report.json": "27ea1e39c1f8e51c26c97a8533112018a25121e727f659e2a6858ef22dbbddc6",
+    "work/allocator_matching_2026_10_25/initializer/differential/report.json": "05bf9b9ee971d64be43f3730c702c0bf4f7b802d0c11e6beb5b47bcf3c80702e"
+  },
+  "limits": [
+    "All five indexed actor-pool entries have function proofs; this does not validate every separate runtime provider or full factory/lifecycle chain.",
+    "Native allocation capacities, computed aliases and complete game behavior remain unproved. No original OS module or game/host startup.",
+    "Existing broader linked provenance drifts remain unchanged. Full matching remains incomplete."
+  ]
+}

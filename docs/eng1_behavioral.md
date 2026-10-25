@@ -6,13 +6,23 @@ frontier at `0x28290`; that routine now has reconstructed source, but this does
 not establish a later runtime frontier. No new original-host run, reconstructed
 gameplay frame, continuous gameplay, or normal engine shutdown is verified.
 
-The latest genuine graph has 370 mapped compiled entries and 401 function
-symbols. See `evidence/eng1_color_list_producer.json` for its pinned private receipt.
-Its 1,219 diagnostic starts/leads are not a reviewed complete first-party
-denominator. The genuine link has 528 unresolved symbols and zero duplicate
+The latest genuine graph has 965 mapped compiled entries and 1,042 external
+function symbols across 248 source units. The initialized boss and attachment
+Entry owners plus the level initializer's actual interior WORD root resolve six
+data dependencies across their two reviews; see
+[the Entry review](attachment_entry_matching_2026_10_25.md). Three newly recovered
+actor-pair functions and one verified legacy function alias resolve four further
+function references; see [the latest review](actor_pair_animation_matching_2026_10_25.md).
+Its 1,231 diagnostic starts/leads
+are not a reviewed complete first-party denominator. The genuine link has 726
+unresolved symbols and zero duplicate
 providers. Its intended export is `PC_DLLEngineMain` at ordinal 1; no current
 DLL is produced. Earlier transitional links used explicit fail-on-entry
 diagnostics, which do not supply game dependencies.
+
+The earlier `evidence/eng1_color_list_producer.json` receipt measured 370 mapped
+entries, 401 function symbols and 528 unresolved symbols in its smaller source
+selection. It remains dated evidence rather than the current graph census.
 
 The REA-assisted `20ea0` recovery supplies the camera's packed-row interpolation
 dependency using existing resource-data owners. Instructions establish four
@@ -430,6 +440,24 @@ bodies or fabricated success would not establish a working engine. The current
 shared storage provider supplies measured cells and the producer-supported
 32-WORD upload queue. Original aggregate/TU identity, complete array extents,
 native DLL layout and all gameplay paths remain open.
+
+The worklist factory command below now uses isolated Unicorn execution and a
+source-only guard fixture. It preserves native live asset reads and passes108
+native/source cases plus nine source-prefix controls; see the
+[2026-10-25 correction](worklist_live_reads_2026_10_25.md). This changes no matching
+status or original OS execution authorization.
+
+The initialized boss Entry table now has a complete 576-byte source owner.
+`python scripts/boss_entries_differential.py` audits its entire payload and
+passes240 cases using the real `attach_entries` helper. The caller at25580 now
+has relocated acceptance; this supplies one missing data dependency without
+establishing later rendering or gameplay behavior.
+The attachment follow-up adds four initialized Entry owners and three simple
+callers, then migrates 33e10 to its actual existing interior WORD owner. All 1,200
+new composition cases pass; the fourth caller uses a modeled WORD interpreter
+and real reset/attachment helpers. The final graph retains all old accepted
+records and has 730 unresolved symbols. See the
+[attachment-family review](attachment_entry_matching_2026_10_25.md).
 
 Reproduce the current graph and bounded checks with:
 

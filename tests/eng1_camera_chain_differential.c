@@ -3,9 +3,9 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/engine_interface.h"
-#include "../src/eng1/behavioral/resource_runtime_data.h"
-#include "../src/eng1/behavioral/actor_pipeline_storage.h"
+#include "../src/shared/engine_interface.h"
+#include "../src/eng1/resource_runtime_data.h"
+#include "../src/eng1/actor_pipeline_storage.h"
 
 extern void __cdecl dispatch_local_2fb70(void);
 extern long g_camera_x_70ca0, g_camera_y_70ca4, g_camera_z_70ca8;

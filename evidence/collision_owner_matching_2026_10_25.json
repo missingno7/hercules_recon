@@ -1,0 +1,176 @@
+{
+  "date": "2026-10-25",
+  "scope": "Independent scalar collision-pointer identity and three complete callers. recovery.json alone grants acceptance.",
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "collision_cell": {
+    "rva": 467324,
+    "size": 4,
+    "source": "src/eng1/behavioral/actor_control_cells.c",
+    "source_sha256": "2bc12ffd0ada012a7fa5d027c326123d6a4a8a192755279643bcfc17df27abb4",
+    "common_size": 4,
+    "compile_command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-8_qd3yio\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\actor_control_cells.c"
+    ],
+    "native_identity": {
+      "rva": 87043,
+      "size": 5,
+      "operand": 0,
+      "sha256": "5643f772837e8044d1c932dbfa548ad4224aeded6fadfc7193293340b1aab5c1"
+    },
+    "direct_refs": 256,
+    "highlow_refs": 256,
+    "all_direct_access_widths": [
+      4
+    ],
+    "population": "Normal setup decoded from15090:153c4 loads the normal-pool pointer; no EAX writes before15403 stores that value to7217c;15408 passes it to27520. Separate level9 setup374c0 loads72860 intoESI and374fd stores that value to7217c before27520. Both are outside all selected callers.",
+    "writer_instructions": [
+      {
+        "rva": 87043,
+        "size": 5,
+        "operand": 0,
+        "width": 4,
+        "write": true,
+        "text": "mov dword ptr [0x1007217c], eax",
+        "sha256": "5643f772837e8044d1c932dbfa548ad4224aeded6fadfc7193293340b1aab5c1"
+      },
+      {
+        "rva": 226557,
+        "size": 6,
+        "operand": 0,
+        "width": 4,
+        "write": true,
+        "text": "mov dword ptr [0x1007217c], esi",
+        "sha256": "186f1e82716cd0315c1b849e3d06982ac0b426f344efb3ca2b727d9fd554a599"
+      }
+    ],
+    "prior": "evidence/eng1_actor_control_cells.json",
+    "lifetime_claimed": false
+  },
+  "callee_identities": {
+    "eng1.17340": {
+      "source": "calibration/eng1/mode_handlers_16840.cpp",
+      "symbol": "_eng1_17340",
+      "rva": 95040,
+      "size": 192,
+      "source_sha256": "d0c0172d2484c6a8adef62b533f489e7603aaabec6e8b022e7df1dad3507accc",
+      "native_sha256": "d794bf0e9c44f11a130586e29963e08c8a217999efdf057dd83bf57152ceb516",
+      "outside_caller_witnesses": [
+        {
+          "rva": 92374,
+          "size": 5,
+          "sha256": "c9c211453b0c5d0188261df3f88b30436257fd4e6aa5d13f1f1bf7d05482b8a0"
+        }
+      ],
+      "fresh_complete_raw_equal": false,
+      "fresh_own_nonreference_equal": true,
+      "review": "Own 17340 entry sets mode7, image53df8, ticks/phase=-1, calls15d00, saves ac to108, writes ac/b8=40000,b4/c0=8000,b0=2000,bc=d0000,diry=0,state6ef70=7; no arguments, void result. Entry/body and existing independent mode_handlers provider reviewed. Internal references and helper acceptance are not claimed."
+    },
+    "eng1.dispatch_engine_2c460": {
+      "source": "src/eng1/behavioral/host_control_wrappers.c",
+      "symbol": "_dispatch_engine_2c460",
+      "rva": 181344,
+      "size": 16,
+      "source_sha256": "b8fb689e2d58293d4ccaeee91f66df31476815106266afc85e34557cb5eb54c7",
+      "native_sha256": "66cd6edb815abb95bab746d959ce5a66fd318fadcf8d7d1b46f5e5d2429a1cb5",
+      "outside_caller_witnesses": [
+        {
+          "rva": 102618,
+          "size": 5,
+          "sha256": "c8b73c6ed7308090a8ba2878c8e7acd69ad1c316fc91b519102ca9df0e4af05b"
+        }
+      ],
+      "fresh_complete_raw_equal": false,
+      "fresh_own_nonreference_equal": true,
+      "review": "Own wrapper copies stack argument, calls copied-interface slot37 at70f20+94, cleans4 bytes and preserves32-bit return; independently reviewed initialization maps this slot to host4260 unsigned remainder implementation. unsigned int __cdecl(int); no new RNG state or consumption.",
+      "prior": "evidence/eng1_host_control.json; evidence/eng1_actor_followup_matching_2026_10_24.json"
+    },
+    "eng1.select_frame": {
+      "source": "src/shared/frame_state.c",
+      "symbol": "_select_frame",
+      "rva": 168688,
+      "size": 48,
+      "source_sha256": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+      "native_sha256": "917b682e51b774b82e968a1ae690c864e90200f4e5a4476a50708f8ee1ea28af",
+      "outside_caller_witnesses": [
+        {
+          "rva": 112720,
+          "size": 5,
+          "sha256": "4ba990186d04fc3fff77e075906b2b2e197a1c3cee309802666e39e00a26f76e"
+        }
+      ],
+      "fresh_complete_raw_equal": true,
+      "fresh_own_nonreference_equal": true,
+      "review": "Fresh complete RAW equality of its own accepted48-byte frame helper; cdecl actor pointer and frame integer. Independent helper identity, not caller-implied."
+    }
+  },
+  "caller_reviews": {
+    "eng1.native_code_target_0019c20": {
+      "source": "src/eng1/behavioral/player_modes_remaining.c",
+      "symbol": "_eng1_native_code_target_0019c20",
+      "rva": 105504,
+      "size": 16,
+      "source_sha256": "3a57f6673705aa9ffa48a792181225b5a4779cbcb830f9ba65e9a77ad2007c56",
+      "review": "Live collision pointer load followed by WORD zero at actor+34; no arguments and no pointer substitution.",
+      "references": 1
+    },
+    "eng1.0bb90": {
+      "source": "calibration/eng1/level_actors_083e0.cpp",
+      "symbol": "_eng1_0bb90",
+      "rva": 48016,
+      "size": 192,
+      "source_sha256": "0709a93f4573d72352d3682613a2e1d667242915d8a8af9f84997f273af62528",
+      "review": "Copy y minus3c0000 and inverted direction to live normal pool; copy collision direction bit10 to collision render flags; choose signed x offset/velocity from original actor direction, write normal x/y velocity, then call17340. Distinct cells and live reload ordering retained.",
+      "references": 9
+    },
+    "eng1.native_code_target_02d320": {
+      "source": "calibration/eng1/control_unit_2c030.c",
+      "symbol": "_eng1_native_code_target_02d320",
+      "rva": 185120,
+      "size": 208,
+      "source_sha256": "86303da6a12ceed36db29edfdfd296cc292b9587cac1b85247290cc88f7c23de",
+      "review": "WORD2a gate; direction-sensitive signed collision-x comparison and frame3 early return; one bounded RNG call(4), original six-arm switch kept intact, frames16/19/1c/25/28/2b. No assumption that RNG can produce case4/5.",
+      "table": {
+        "offset": 176,
+        "size": 24,
+        "compare_offset": 84,
+        "max_index": 5,
+        "dispatch_offset": 89,
+        "default_offset": 172,
+        "destinations": [
+          96,
+          109,
+          122,
+          135,
+          148,
+          161
+        ],
+        "payload_sha256": "3714009d1c3421a0ccc5a6c90e293080f32e0ee368bbf155b7eade396d3e809c",
+        "all_destinations_are_native_instruction_boundaries": true
+      },
+      "references": 18
+    }
+  },
+  "deferred": {
+    "id": "eng1.dispatch_local_15670",
+    "reason": "Source owner6ef94 declares a2-byte prefix, but independent native15c74 and15cbc read4 bytes then maskffff. This batch does not establish a complete scalar2-byte native object or adopt this caller.",
+    "widths": {
+      "2": 5,
+      "4": 2
+    },
+    "four_byte_read_rvas": [
+      89204,
+      89276
+    ]
+  },
+  "limitations": [
+    "No pointer lifetime, current-actor alias, pool capacity, historical source/TU identity, link closure, renderer or whole-game behavior claim.",
+    "No source or acceptance-gate changes; table/native operands are proof inputs only, never compiler output or code copied into source."
+  ]
+}

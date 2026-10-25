@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/interpreters.h"
+#include "../src/eng1/interpreters.h"
 
 static unsigned long calls;
 static unsigned long checks;

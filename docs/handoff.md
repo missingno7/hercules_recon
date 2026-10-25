@@ -1,222 +1,342 @@
-# Hercules reconstruction handoff, 2026-10-10 (TITLE.DLL stage-1 convergence)
+# Current handoff
 
-**Historical checkpoint.** Counts, priorities, compiler hypotheses and owner
-rulings below describe this dated investigation. They are not current project
-instructions or acceptance state. Start with [project direction](project_direction.md),
-[the current contract](../AGENTS.md), [workflow](workflow.md) and `recovery.json`.
-Declaration/name steering and automatic push instructions below are not standing
-authorization for new work. Retain outcomes while reviewing their hypotheses
-against later evidence.
+Current source is consolidated under `src/{pc,title,eng1,eng3,shared}`.
+`main` is the canonical integration branch; completed task branches are merged
+and removed. Earlier branch names in dated reports are provenance.
+Read [the source guide](../src/README.md) and [layout migration](source_layout.md).
+Active build selection is in `config/`; historical paths in dated reports are provenance.
 
-The latest work concentrated on TITLE.DLL. Claude integrated. General-purpose and Haiku 5.5 lanes did
-bounded grinding in ignored `candidates/` directories. The 2026-10-09 checkpoint below still describes the
-other modules.
+The direction is one faithful native source game, eventually built on SDL3.
+Original PC binaries remain the evidence oracle; original first-party EXE/DLL
+modules will not be runtime dependencies of the finished game.
 
-## Authoritative checkpoint
+Start with the [project direction](project_direction.md), [working contract](../AGENTS.md),
+[matching rules](matching.md), [workflow](workflow.md), and recovery.json. The
+ledger decides accepted function status. Dated evidence reports preserve
+measurements for their specific source and toolchain inputs; they are not a
+current task queue or current coverage census.
 
-- `recovery.json` SHA-256 `8fc21ee815b97f12c3164954138c1ca1767e4ee900f2c666380395573988602e`
-  at commit `7fba07e` or later.
-- Gates:
-  - `python scripts/match.py verify`: 113 exact rows (FUNCTION_MATCH, raw bytes).
-  - `python scripts/similar.py verify`: 331 masked rows in 29 sources, 0 failures.
-- TITLE.DLL:
-  - 6 FUNCTION_MATCH, 333 CODEGEN_SIMILAR (masked, diagnostic only) and 1 RECONSTRUCTED (0x1a2c0, 16 bytes
-    too long).
-  - Coverage: 70.0% of first-party code bytes. 22 functions are uncovered.
-- Other modules:
-  - ENG1.DLL: 73 exact.
-  - ENG3.DLL: 23 exact and 1 masked.
-  - HERCULES.EXE: 11 exact.
-  - These are essentially untouched beyond the leaf harvest.
+Existing FUNCTION_MATCH claims remain under the raw-byte gate. The new
+FUNCTION_MATCH_RELOCATED definition requires exact non-reference code and
+independent reference identity checks. Both are checked by `scripts/match.py verify`.
+The `scripts/promote.py --relocated --bindings ...` command provides journaled
+adoption of reviewed existing source.
+Masked or constrained-link results alone are not acceptance.
 
-## Where things are recorded
+Continue source, semantic, and dependency reconstruction using those gates.
+Prefer real missing implementations and shared-state or ABI corrections in coherent dependency families. Keep source completeness,
+matching, semantic evidence, source-link closure, and runtime behavior distinct.
+A module that links is not necessarily behavior-complete, and source that is
+valuable for integration must not be labeled as matching without proof.
 
-- `evidence/title_stage1.json` holds:
-  - `open_functions`: residue per open function;
-  - `best_candidates_2026_10_10`: the best scratch draft for each of the 22 open functions;
-  - per-lane findings: `lane_*` and `diag_*` keys;
-  - the compiler models: `register_model_2026_10_10`, `rotation_study` (including `RR_model_2026_10_10`,
-    `R4_resolved_order`, `R8_two_increments`) and `scheduler_study`;
-  - `tu_count_phase_2026_10_10`;
-  - the volatile and header rulings.
-- `evidence/title_closure.json` holds the unit extents and data units, `full_link_2026_10_10` (the full
-  natural-link assembly) and `unit_title_objcfg`.
-- `docs/title_link_goal.md` has the narrative, including the sections "Levers and rulings from the tail work"
-  and "Register model and TU-count phase".
+Historical dated documents and their evidence files remain provenance. Review
+their hypotheses against current source and tools before reusing a command.
+The integrated history retains `c12c7fc` and the earlier `6640420` work, together
+with the source-layout consolidation. After the 2026-10-24 direct-call,
+actor and engine-helper batches, the 2026-10-25 caller-entry review, and the first
+loader-zero, collision-pointer, spatial-predicate, spatial-neighbor, target-steering,
+initialized angle-table, motion/contact, grid-caller, scene-cell, WORD-limit and
+pool-pressure, allocator/base-initializer, pool-caller, pointer-owner, pointer-client
+and player-state-owner/program/animation, coordinate-factory, action-appender,
+middle-factory, initialized boss/attachment-Entry and actor-pair animation batches, there are
+487 accepted function rows at 487 distinct native entries / 49,024 bytes:
+137 RAW rows, 43 retained linked rows and 307 RELOCATED rows / 34,816 bytes.
+These batches add 152 functions / 22,512 bytes, with independently
+reviewed references and four bounded local switch tables. See
+`docs/nfsmw_matching_2026_10_24.md`, `docs/actor_call_followup_2026_10_24.md`,
+`docs/engine_helper_matching_2026_10_24.md`, `docs/full_matching_2026_10_25.md`,
+`docs/loader_zero_matching_2026_10_25.md`,
+`docs/collision_owner_matching_2026_10_25.md`,
+`docs/spatial_predicates_2026_10_25.md`,
+`docs/spatial_neighbors_2026_10_25.md`,
+`docs/spatial_queries_2026_10_25.md`,
+`docs/angle_lookup_matching_2026_10_25.md`,
+`docs/motion_contacts_2026_10_25.md`,
+`docs/grid_callers_2026_10_25.md`,
+`docs/scene_cell_matching_2026_10_25.md`,
+`docs/pool_limit_alias_matching_2026_10_25.md`,
+`docs/pool_pressure_matching_2026_10_25.md`,
+`docs/allocator_matching_2026_10_25.md`,
+`docs/pool_callers_matching_2026_10_25.md`,
+`docs/owner_alias_matching_2026_10_25.md`,
+`docs/pointer_clients_matching_2026_10_25.md`, and
+`docs/player_cells_matching_2026_10_25.md`,
+`docs/player_programs_matching_2026_10_25.md`, and
+`docs/player_animation_matching_2026_10_25.md`, and
+`docs/coordinate_factory_matching_2026_10_25.md`, and
+`docs/action_appender_matching_2026_10_25.md`, and
+`docs/middle_factory_matching_2026_10_25.md`, and
+`docs/boss_entry_matching_2026_10_25.md`, and
+`docs/attachment_entry_matching_2026_10_25.md`, and
+`docs/actor_pair_animation_matching_2026_10_25.md`.
+The RAW gate and complete relocated instruction/reference requirements remain.
+Explicit, independently owned loader-zero references now have fail-closed support.
+Separately, eleven missing player-mode bodies now have real source in
+`src/eng1/player_modes_remaining.c`. Two linked rows retain
+earlier raw proofs,
+so `match.py verify --raw-only` checks 139 proofs without double-counting rows.
+All 134 old RAW rows remain accepted; `exe.host_0a190` adds 16 RAW bytes and
+`eng1.native_code_target_002ad70` adds 224 RAW bytes. The unconditional base
+initializer adds 272 RAW bytes in a fully inventoried single-function unit.
 
-## Owner rulings in force
+The 2026-10-23 2,211-row / 502,791-byte source census left 1,667 unaccepted rows with
+reference-only differences, 177 with code differences, 13 with extent differences,
+and 19 raw-equal diagnostics awaiting unit ownership/inventory review. Those counts
+are diagnostic categories, not additional matching acceptance or whole-game coverage.
+Existing diagnostic rows account for 126 of the latest additions. Eighteen new or
+corrected bodies were reconstructed and accepted: two axis bodies, one
+player-mode body, two spatial predicates, five spatial neighbors, target steering
+and the cosine-phase search, plus two motion/contact, two fixed-degree helpers
+and the alternate-pool pressure helper, plus the corrected base initializer.
+The nearest-actor query has real source and finite evidence but remains unaccepted
+with compiler differences and unproved worklist ownership/capacity. Six player-mode functions
+remain diagnostics; their unresolved references do not add accepted matches.
 
-- **Layout names:** variable names may be chosen so that VC5's identifier hash reproduces the .bss order.
-  Document each such choice.
-- **Real system headers as TU context:** allowed, documented and decided per unit. Measured: headers act only
-  as phases of a declaration-count tie-break (none = full + 2, lean = full + 13, mod 32). A header that makes a
-  unit match records context, not the original header's identity. Re-decide once each unit is complete.
-  Current choices:
-  - u01de0.c and u02b70.c: full `<windows.h>`;
-  - u06350.c: `WIN32_LEAN_AND_MEAN`.
-- **volatile:** allowed per variable with codegen evidence and owner approval. Approved: the context fields
-  +0x5c/+0x5e, `g_25a28` (0xd720) and `g_2a244` (0x5fb0). Not approved: `TitleObject.unknown_022` (0x54f0
-  stays a documented hypothesis; the shared qualification breaks 3 rows).
-- **Language:** new units are C; use C++ only with evidence. Push after every verified commit.
+`leaf.py residual --baseline-object ...` now optionally adds bounded, pinned
+objdiff candidate comparisons alongside the original-backed residual report.
+See `docs/workflow.md`. The tested signed-address input initializer remains in
+ignored candidates/: the existing independent-evidence manifest pins its canonical
+source for earlier proofs. Mixed-unit raw adoption restrictions remain unchanged.
 
-## Measured compiler models (use these before guessing)
+TITLE's 362 mapped source functions link. ENG1 has 962 compiled mapped providers
+out of 1,231 diagnostic spans and 730 genuine unresolved symbols (435 function,
+295 data/untyped); no generated placeholder is in that build. The latest angle
+batch adds two actual ENG1 lookup providers and reuses the existing complete
+initialized sine/tangent owner. All 3,522 isolated angle cases agree, including
+one physical divide exception. Unique full-payload searches identify the tables
+independently of caller addresses; six wrong-payload/base controls reject.
+The subsequent four motion/contact and fixed-degree helpers pass 1,550 guarded
+cases. Two stale diagnostic contact placeholders were retired and their physical
+ABI aliases now target the real source. Contact services remain modeled in that
+fixture; their scene/grid/resource chains are not proved complete. The existing
+20b50 grid candidate is explicitly known incomplete, with unproved row/header/
+stream capacities and four finite native cases. See its current source and
+`evidence/eng1_grid_query_20b50.json` before treating entry identity as closure.
+The later Unicorn-only grid composition expands that evidence to 725 native
+cases / 1,450 comparisons of canonical source and a private draft, each with the
+real stream decoder. Wrong reverse-seed and skipped one-past-cell mutants fail
+with different return values. The draft reaches the observed 480-byte span but
+still has 358 non-reference differences and is neither integrated nor accepted.
+See `docs/grid_scan_composition_2026_10_25.md`; native row/header/stream capacities
+and non-tag-zero decoder families remain unproved.
+Seven unchanged grid/contact callers subsequently gained complete relocated
+acceptance for 1,264 bytes, without transferring acceptance to their referenced
+scene/grid helpers. The private 29870 scheduling control reaches 3 residual bytes
+but also changes unrelated unit contributions and remains ignored; canonical
+29870 still has 10 differences. No source-graph providers or closure changed.
+The scene-insertion twins at ENG1 295a0 and ENG3 1e440 now also pass complete
+relocated proofs against independently identified four-byte scene/support cells.
+Their unchanged COMMON owner and 1,792 isolated comparisons prove only those
+slots/functions. All three resetters and the shared normal initializer subsequently
+gained 416 bytes of complete relocated acceptance. Their complete WORD owners
+have independent native anchors. An explicit pinned compiler-renaming header
+connects the existing legacy names to those owners; fresh whole-unit COFF
+comparison permits only those undefined-data name changes. No gameplay or
+storage source was changed. The 624 guarded resetter comparisons agree, with
+cleanup/initialization services modeled. A HIGHLOW census accounts for all 34
+direct root references; an inline jump table had hidden one WORD load from the
+linear scan. The initial private `1b1d0` draft had 17 positional differences.
+Resetting and reusing the scan cursor resolves them; its new real provider now
+has complete 96-byte relocated acceptance. All 421 earlier accepted records
+remain identical. The helper passes 382 guarded original/source cases, including
+full-DWORD argument controls and a synthetic 65,535-slot bank. See
+`docs/pool_limit_alias_matching_2026_10_25.md` and
+`docs/pool_pressure_matching_2026_10_25.md`. The source build confirms the new
+provider and the same unresolved-symbol set. `leaf.py packet` now decodes from
+the requested entry instead of inheriting the database's linear alignment.
+The two real allocator providers now pass complete relocated proofs for 656 bytes
+against ten actual WORD owners and two pointer cells. The configuration writer
+independently anchors the counters; all 76 overlapping HIGHLOW WORD accesses are
+classified. The two shared diagnostics migrated without changing old source or
+TITLE/ENG3 peer inventory. Their 1,922 guarded comparisons cover first-fit/wrap
+ordering and show that success neither advances nor reserves a slot. The base
+initializer now also has a real RAW-exact provider for 272 bytes, using the
+existing recovered signed-index view and assignment groups. Its 198 guarded
+cases preserve all 58 ordered stores and 18 untouched bytes. All 422 earlier
+accepted records remain unchanged. See `docs/allocator_matching_2026_10_25.md`.
+The final source build explicitly retains the old unit's remaining normal
+initializer after its last recorded sibling migrated. It has 962 mapped
+providers, the same 744 unresolved symbols, zero duplicates/placeholders and
+78 preserved RAW functions; both new allocator object contributions were rechecked.
+Shutdown and the normal/alternate startup sweeps subsequently gain 192 relocated
+bytes with actual same-name scalar owners. Two additional middle cursor/start
+WORDs have independent configuration anchors; no alias support was added. The
+168 guarded comparisons compose real reset loops under shutdown and model their
+lifecycle services, including live count/bank changes and final cursor-start
+reloads. The middle startup sweep migrates to its existing real source but stays
+diagnostic because indexed pointer-table ownership is unclosed. All 425 prior
+accepted records remain unchanged. See `docs/pool_callers_matching_2026_10_25.md`.
+Ten unchanged player/pickup/scene callers subsequently gain 1,120 relocated bytes
+through explicit data-only pointer-owner proofs. The caller is compiled unchanged;
+typed wrappers rename the two actual four-byte COMMON owners and must preserve
+their complete objects. Twenty-nine new adversarial tests protect that distinct
+mode, including historical compiler type checks and publication races. All 428
+prior accepted records remain identical. See `docs/owner_alias_matching_2026_10_25.md`.
+Four additional unchanged clamp/animation/sine clients gain 720 relocated bytes.
+They reuse both pointer owners and the complete initialized sine payload. Their
+2,117 guarded comparisons compose the real frame selector and model the other
+services, including root/counter changes that test state reloads. All 438 prior
+accepted records remain identical. See `docs/pointer_clients_matching_2026_10_25.md`.
+Five complete player-state cells subsequently gain actual source owners, closing
+exactly five unresolved data symbols. Their 128 original relocation-root operands
+all have direct exact-root DWORD accesses; independent setup/burst/cruise writers
+anchor three opaque pointers and two signed DWORDs. Twenty-six unchanged callers
+gain 2,576 relocated bytes. Their 2,418 guarded cases include 3,066 invocations
+and 324 composed flag/scroll sequences, with real frame helpers and modeled
+remaining services. All 442 previous accepted records remain identical. See
+`docs/player_cells_matching_2026_10_25.md` and its frozen evidence.
+The existing mirror DWORD and two existing flag programs subsequently close
+416 relocated bytes in four unchanged setup callers. Ten arrays / 186 bytes now
+have a bounded frame/sound/restart closure proof, with all words observed during
+3,697 real interpreter invocations in 453 guarded scenarios. Sound and signed
+pairs remain modeled; real initializers and frame helpers execute. The pending
+caller independence guard first rejected old burst anchors inside3aef0. A separate
+anchor-only transaction recompiled all 427 prior strict proofs before and after,
+preserved every function identity and immutable parent manifest, and retained
+old proofs for 26 manifest members while replacing 20 instruction anchors.
+No source, cell destination/owner, profile or verifier policy changed. See
+`docs/player_programs_matching_2026_10_25.md`.
+Three additional unique animation objects / 92 bytes now have complete typed
+pair/WORD owners. They close exactly three unresolved symbols. The unchanged
+37390 return-transition client gains 112 relocated bytes. Its 306 guarded cases /
+1,103 top-level calls compose both real interpreters and reset, including an
+actual change from the longer WORD loop to634e0. Removing unrelated C++ bodies
+changes200 pair-interpreter bytes, so that fixture retains the canonical unit
+unchanged and denies unrelated entry/read paths. All 472 prior accepted records
+remain identical, including reference histories. See
+`docs/player_animation_matching_2026_10_25.md`.
+The two coordinate factories now use an ENG1 C++ provider with the existing
+DWORD address owners at71388/713a4. Independent configuration stores, complete
+four-byte COMMON owners and18 direct-root references close their data bindings;
+all four helper entries have earlier freshly rechecked proofs. The old4/2 SIB
+residual describes an older source context: both current C and shared C++ were
+already instruction-equal. There was no new expression sweep. Their264 guarded
+native/source cases compose the actual allocator and complete initializer
+chain, including explicit external descriptor-root interventions. All473 prior
+accepted records and242 other integrated source objects remain identical. See
+`docs/coordinate_factory_matching_2026_10_25.md`.
+The two action appenders now use actual DWORD callback roots and the WORD limit.
+The separate explicit rooted-callback proof verifies exact source/native
+load/mask/stride/argument/call/cleanup provenance and an independent native
+witness outside all pending callers. Default unreviewed indirect calls still
+reject. All 434 prior strict proofs retain identical instruction/reference/context
+hashes across the verifier addition, and 20 new adversarial tests pass. The
+776 composed cases execute real factories/allocators/initializers with632 modeled
+callback mutations, including signed count wrap and16 group/actor aliases. The
+retirement neighbor moves source but remains diagnostic because its indexed
+registry extent is unproved. All475 earlier accepted records remain identical.
+See `docs/action_appender_matching_2026_10_25.md`.
+The middle allocator275d0 and coordinate factory277e0 now have a real provider
+with complete336/128-byte native contributions. Five existing WORD owners, the
+middle pool pointer and its descriptor DWORD have independent native population
+anchors. Their1,111 guarded cases /1,411 top-level calls compose the actual
+middle/base initializers, distinguish non-reserving allocation from creation,
+and cover descriptor aliases, root changes and large readable pools. All477
+previously accepted records remain identical. Source-plan omissions replace the
+older352/176-byte runtime bodies while preserving their six remaining functions;
+241 other source objects remain identical. See
+`docs/middle_factory_matching_2026_10_25.md`.
+All 438 strict proofs, 43 linked function checks, 321 tests and 1,556 supported
+masked rows across 199 sources pass; 86 existing broader linked provenance drifts remain.
+The subsequent worklist correction adds no matches: normal asset reads now
+reload the record kind, while its callback retains the entry kind; all three
+families reload asset roots between stores. The final Unicorn harness reproduces
+54 prior mismatches and passes all108 corrected cases, with nine actual
+source-prefix controls preserved. The standard worklist differential command
+now uses this isolated path. Compiler equality, indexed group-owner extent and
+dynamic dispatch remain open for these three functions. See
+`docs/worklist_live_reads_2026_10_25.md`.
+A subsequent private typed recipe reduces those contributions to the native
+272/192/144-byte extents. Alternate has zero masked residual bytes;
+normal/middle retain 2/17. All 108 cases and nine production guard controls pass.
+`scripts/worklist_typed_probe.py` replays the frozen recipe without changing
+providers or acceptance. Further type-only controls reproduced the same code;
+review `docs/worklist_typed_probe_2026_10_25.md` before retrying them. Indexed
+group-owner and callback proofs remain open even for alternate.
+The next frontend control closes normal's two residual bytes by compiling the
+same typed logic as C, and reduces middle to three SIB bytes. C++ still closes
+alternate. All 108 C-profile cases pass with unchanged native results; the probe
+accepts an explicit frozen C recipe. Four addressing controls produce identical
+code. The 120 selected native HIGHLOW references across ENG1/ENG3/TITLE do not
+establish the indexed owner's full capacity. See
+`docs/worklist_c_frontend_2026_10_25.md` before another expression/type retry.
+The initialized boss Entry owner then resolves `_g_entries_5a450` and closes
+the unchanged25580 caller's two references. All240 cases execute the actual RAW
+helper, and all244 earlier source units retain their complete contributions.
+The new data-only unit reduces unresolved symbols to735. All439 strict proofs,
+43 linked checks, 321 tests and remaining supported masked rows pass. See
+`docs/boss_entry_matching_2026_10_25.md`.
+The attachment follow-up adds four more complete Entry owners and accepts
+3a730/3a8a0/3a910, then moves 33e10 to a real provider using WORD+60 of the existing
+192-byte owner. All 480 previous accepted records remain identical. The old
+calibration source and its thirteen accepted peers stay unchanged; only the
+derived runtime body is omitted. All 1,200 composed cases pass, with a modeled
+WORD interpreter only in the fourth caller. The graph has 247 units and 730
+unresolved symbols; all 443 strict proofs, 43 linked checks, 321 tests and 1,551
+supported masked rows pass. See `docs/attachment_entry_matching_2026_10_25.md`.
+Eleven missing player-mode entries were implemented and removed from the diagnostic placeholder
+manifest. Two neighboring axis-motion services now also have real source. All
+thirteen bodies pass 470 isolated/composed original/source cases, with remaining
+external services modeled. Nine have complete instruction equality apart from
+unresolved references; four retain compiler differences. The input WORD view
+reduces `19480` from 232 to 22 differing non-reference bytes. See
+`evidence/eng1_player_modes_2026_10_25.json` for the earlier snapshot and
+`evidence/player_axis_recovery_2026_10_25.json` for that snapshot. The two axis
+bodies are now accepted relocated matches. Separate reference-only boundary
+reconstructions extend isolated/composed testing to 565 cases; their unreviewed
+header/table capacities keep them out of production integration and matching.
+Nineteen measured
+setup-dispatch bindings closed real dependencies. Ninety-nine other implemented
+functions were removed from stale provisional classifications. ENG3 and the host
+still need complete reviewed link plans; current source rows are 555 and 403.
 
-- **Callee-saved priority:**
-  - W(v) = sum over blocks of refs x freq x N(B), where N(B) is the number of distinct candidates in the block.
-  - Structured loops weigh 2^(depth+1).
-  - Assignment is greedy: ranges with calls get esi, edi, ebx, ebp; call-free ranges try eax, ecx, edx first.
-  - A byte candidate takes ebx.
-  - Known gap: statement order inside a block can decide a contested register.
-- **Scratch registers:** round-robin eax -> ecx -> edx. Call arguments are allocated right to left.
-- **Loop lever:** a 999-marker loop written as `while (T[++g] == 999) { ...; g++; }` (two separate +1 steps)
-  gives later loops the original register pair. The first loop in layout never gets it (open).
-- **Other natural levers that worked:**
-  - region-local cursors for heavy loop pointers (0x3da0);
-  - writing results straight into arrays instead of locals (0x193e0);
-  - passing a value through an existing pointer variable (0x2b70);
-  - a duplicated tail written once (0x10fe0);
-  - a goto-built loop to avoid loop rotation (0x3da0);
-  - one loop writing two arrays (0x1b150);
-  - a byte loop instead of memset (0x66f0).
-
-## Full natural link (diagnostic, candidates/wlink)
-
-- With all 362 functions present, 57 land at their original RVA. The only shifts come from four draft size
-  errors: 0x54f0 (-32), 0x9c90 (-16), 0x186e0 (-16) and 0x1a2c0 (+16).
-- **Link-flag evidence:** `/OPT:REF /OPT:NOICF /EXPORT:PC_DLLEngineMain` plus OLDNAMES reproduce .rdata,
-  .idata and the library block exactly.
-- **Canonical steps already taken:**
-  - u02b70.c is in address order;
-  - the data unit `calibration/title/title_objcfg.c` (0x26770..0x269c8, 600/600 bytes) is added.
-- **Blockers:**
-  - unowned initialized data, some of it unreferenced, which must not be defined as placeholders;
-  - communal owners and order;
-  - TU-count phases that shift when units are completed;
-  - the six exact rows that still live outside their units;
-  - type conflicts between drafts.
-
-## Suggested next steps
-
-1. Fix the four wrong-size drafts and re-run the full assembly. Many masked rows may then become raw-exact in
-   one natural link.
-2. Reconcile and complete units, then re-decide each unit's header/phase context on the complete unit.
-3. Resolve data ownership as functions are recovered. Use `scripts/layout_names.py` for the .bss and communal
-   order.
-4. Start ENG1/ENG3/EXE with the same toolchain, models and workflow.
-
----
-
-# Hercules reconstruction handoff, 2026-10-09 (updated after the leaf harvest)
-
-The project moved to a new host (user `jiriv`). Originals, pinned VC5 RTM/SP2 trees
-(`setup_toolchain.ps1 -VerifyOnly`) and analysis packages verified unchanged; VC5
-runs there without sandbox escalation. Python is the WindowsApps CPython 3.11.9
-(see README). No Codex workers were used for this chunk; Claude integrated, with
-Haiku 5.5 lanes for bounded candidate grinding.
-
-## Authoritative checkpoint
-
-- `recovery.json`: 113 accepted instances. Its SHA-256 is
-  `4bb3ea675b42893bfb0302bf883de16548d021a3c3d19a0c9c162fcc74ce4ce5`.
-- All 113 passed fresh historical compilation and the unchanged complete raw-byte
-  gate. The leaf harvest added 69 ([docs/leaf_harvest.md](leaf_harvest.md),
-  `evidence/leaf_harvest.json`). The frame-family state below is unchanged: its
-  link diagnostic still reports 8 objects and 114 unresolved names.
-- The primary EXE oracle remains `work/discs/pc_install/HERCULES.EXE`, SHA-256
-  `587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d`.
-  The installed asset EXE has the user-confirmed one-byte no-CD modification.
-- Original files remain immutable; the last inventory check verified all 12.
-  No original executable or DLL was loaded or run.
-- `scripts/dependency_link.py` now resolves `--output` before the linker runs in
-  its lane, so the relative command below works as documented.
-
-## Leaf pool status
-
-The relocation-free leaf pool is essentially exhausted. Nine genuine leaves stay open
-with recorded families and re-entry conditions in `evidence/leaf_harvest.json`.
-Do not rerun their falsified families without a new discriminator. The measured
-TU-context effect at ENG1 `0x2a520` is the most useful new input for TU recovery.
-New acceptance otherwise depends on the natural-link dependency work below.
-
-## Earlier finished work (frame dependency binding)
-
-`calibration/frame_bootstrap_family.c` now calls recovered configuration/defaults
-and allocator/cancellation providers directly. Three count references share the
-configuration writer's observed cell names. The seven identity mappings were
-checked against the same ENG1 image hash and RVA; return declarations agree with
-the recovered providers. Historical names and formal prototypes remain unproved.
-
-Across eight freshly compiled source units and 46 function contributions, 44 full
-output identities stayed unchanged. The two affected functions retained identical
-code bytes and relocation offsets/types; only reviewed reference names changed.
-Bootstrap is still relocation-only equal. Cleanup/setup retain their previous
-non-reference differences and must not be promoted from similarity.
-
-The synthetic bootstrap fixture now links the real configuration and engine-file
-bridge units. It passed 193 checks, including selected configuration reaching
-allocation sizes, callback-visible count changes, live-context defaults,
-cancellation, cleanup and setup. Other dependencies/storage are observing fixtures.
-Python verification passed 32 tests. The diagnostic's four negative experiments
-rejected stale source, header, specification and oracle inputs before compilation.
-
-The natural link went from 121 to 114 unique unresolved names. Four callable names
-resolved to real definitions; three count names were coalesced but still lack
-production storage. No duplicate definitions were found. The remaining selected
-closure has 13 local calls and 101 data names without providers; these are name
-counts, not distinct original storage objects. The natural link uses no fixture
-stubs, aliases or placement controls and remains incomplete.
-
-Durable evidence: `evidence/frame_dependency_binding.json`,
-`evidence/regions/frame_bootstrap_bound.json`, `evidence/frame_link_plan.json`.
-Reading context: `docs/frame_dependency_binding.md`, `docs/blood2_convergence_review.md`
-and `docs/workflow.md`. Generated reports and worker handoff paths are recorded
-with hashes in the evidence, but stay ignored under `work/` or `build/`.
-
-## Resume with dependency recovery
-
-Read `AGENTS.md`, then run from the repository root using the configured Python:
-
-```
-python scripts/region.py packet frame_bootstrap_family --more
-python scripts/dependency_link.py --plan evidence/frame_link_plan.json --output work/frame_dependency_links
-```
-
-The second command freshly checks pinned tools, source/header/specification
-receipts, oracles, frozen contributions and the accepted writer, then produces a
-new ignored report. An unresolved link is an expected diagnostic outcome. Neither
-command grants acceptance. Historical VC5 execution on this host requires the
-existing process-permission escalation because the sandbox rejects its old DLL
-layout; do not modify the toolchain.
-
-First review the two remaining same-address data naming pairs:
-`g_active_row_70d01` / `g_frame_byte_70d01`, and
-`g_selected_width_70d12` / `g_frame_word_70d12`. Check target identity, access width,
-caller behavior and full contributions before changing either name. Coalescing
-names does not supply storage or prove the original aggregate.
-
-Next choose a coherent missing dependency, preferably the `0x5710` initializer
-and its token-protocol callees, using PC evidence to determine bodies and genuine
-data ownership. The other unresolved local calls are `0x2f30`, `0x3270`, `0x50d0`,
-`0x58b0`, `0x5dc0`, `0x15090`, `0x1f870`, `0x25620`, `0x262a0`, `0x2da90`,
-`0x2f840` and `0x2fb70`. Distinguish source omitted from this bounded link plan
-from source genuinely absent from the repository.
-
-Record a prediction and falsifier before the next family. Keep private experiments
-in ignored scratch, preserve exact peers and do not repeat exhausted source-form
-work without a new discriminator. Recover actual data/library contributions;
-do not invent empty production providers, pad declarations, steer placement, or
-rewrite relocation-only equals to solve layout. Keep the existing Luna xhigh /
-Sol high routing contract and raw acceptance gate.
-
-For a changed source family, rerun its affected semantic pipeline and all accepted
-matches. Broaden verification only when shared inputs or failures justify it:
-
-```
-python scripts/test_pilot.py --suite frame_bootstrap_family
-python scripts/match.py verify --report work/resume/raw_regression.json
-python scripts/inventory.py --verify
-```
-
-Original game files and pinned tools are local prerequisites and are intentionally
-absent from Git. A fresh checkout can regenerate diagnostic reports once those
-prerequisites are present; ignored scratch reports are not portable proof caches.
+The active goal is full faithful first-party function matching under the existing
+RAW/RELOCATED rules, with every earlier proof preserved. All five indexed actor-pool
+entries now have function proofs, though the shared normal initializer's runtime
+provider remains a separate concern. Use the independently audited WORD owners
+to review further actual callers; preserve the frozen headers/manifests.
+Literal pointer-name renaming changes functions in all three tested caller
+units. The distinct `owner-compile-renaming` mode instead keeps the caller
+unchanged and proves one complete four-byte pointer owner with a typed `/WX`
+wrapper and exact full data-only COFF comparison. The old WORD mode is unchanged.
+See `evidence/owner_alias_progress_2026_10_25.json` for that mode's controls and
+`evidence/pointer_clients_progress_2026_10_25.json` for that caller batch.
+The current matching/source-graph census is
+`evidence/attachment_entry_progress_2026_10_25.json`. The private worklist compiler
+investigation remains `evidence/worklist_c_frontend_progress_2026_10_25.json`.
+New reference work should start from the smallest complete independently owned
+cell or helper entry; do not infer ownership/capacity from operand agreement.
+Player glow/trail pointers at 0x707dc/0x707fc, burst-origin pointer at 0x707e4,
+cruise DWORD at 0x707e8 and flag DWORD at 0x707f8 now have complete canonical
+owners in `player_state_cells.c`. Preserve that header and the accepted bindings.
+The burst initializer now uses the existing mirror DWORD owner at 0x734f4 with
+an independent native writer. Two setup programs have complete closed-loop
+proofs from their actual WORD consumer, independently of adjacent labels. The
+returning program at0x634e0 now has its complete nine-WORD owner, as do the
+38-byte loop at634b0 and 36-byte pair loop at633e8. Payloads at63350/63378 are
+identical and the six-byte634d8 payload occurs seven times; independent physical
+ownership is still needed for them. Do not infer extents from the next label or
+promote all historical prefixes because some have proved complete for a consumer.
+The
+normal/alternate factory source still has four/two scale-1 SIB differences: the
+existing negative-knowledge record requires a new source-abstraction/TU
+discriminator before retuning equivalent pointer expressions. Their descriptor
+pointer identities/complete owners also need review. The final
+`allocator_progress_2026_10_25.json` records the provider migrations and limits.
+Also resolve player-mode compiler differences at `0x19260`, `0x19290`, `0x193f0`, and `0x19480`, then
+the neighboring image/data and missing service dependencies. Keep the new unit
+editable while its compiler context is being recovered. For matching,
+verify callback-table/BSS ownership before expanding symbolic-reference support;
+do not retune reference-only functions. One pool-pointer scalar now has a fresh
+independent owner/slot audit in `evidence/normal_pool_pointer_2026_10_25.json`.
+That audit supplies independent identity evidence for the new explicit COMMON-owner
+path; the old file-backed `data` path still rejects this storage. Three caller
+functions now pass the full relocated gate with that owner. Next audit other
+named scalar owners independently. Explicit complete-WORD compiler renaming now
+has its own guarded proof path, as does the separate complete pointer-cell owner
+mode. Pointer views, COMMON merging and indexed BSS remain unsupported. Preserve
+both accepted alias modes' headers and frozen bindings.
+See `docs/loader_zero_matching_2026_10_25.md`,
+`docs/player_axis_recovery_2026_10_25.md`, and
+`evidence/realignment.json` for the
+frozen commands, counts and limitations of this consolidation.

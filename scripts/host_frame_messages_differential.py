@@ -115,22 +115,22 @@ def build(source=None,out=None,frame_source=None):
     out.mkdir(parents=True,exist_ok=True)
     assert sha(ORACLE)=='587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d'
     verify_toolchain(DEFAULT_TOOLCHAIN)
-    files=[source,ROOT/'calibration/host_platform_state_storage.c',
-           frame_source or ROOT/'src/pc/host_frame_messages.cpp',ROOT/'calibration/host_frame_state_storage.c',
+    files=[source,ROOT/'src/pc/host_platform_state_storage.c',
+           frame_source or ROOT/'src/pc/host_frame_messages.cpp',ROOT/'src/pc/host_frame_state_storage.c',
            *[ROOT/p for p in ['src/pc/host_sound_channels.cpp','src/pc/host_sound_bank.cpp',
-            'src/pc/host_sound_decoder.c','calibration/host_sound_decoder_tables.c',
-            'calibration/host_sound_bank_storage.c','calibration/host_sound_scratch_storage.c',
-            'calibration/audio_bank_release.cpp','calibration/host_sound_channel_storage.cpp',
-            'calibration/sound_bank_storage.cpp','calibration/archive_storage.c',
-            'calibration/host_warm_delivery.cpp','calibration/host_warm_delivery_storage.cpp',
-            'calibration/host_callback_storage.c','calibration/registry_storage.c',
-            'calibration/audio_small_helpers.c','calibration/audio_gain_storage.c',
-            'src/pc/host_cd_resume.c','calibration/mci_pause.c','calibration/mci_readiness.cpp',
-            'calibration/mci_storage.c','calibration/display_mode_setter.c',
-            'calibration/graphics_storage.cpp','calibration/host_system_key_storage.c',
-            'calibration/host_startup_storage.c','calibration/audio_suspend.cpp',
-            'calibration/audio_priority.cpp','calibration/audio_storage.cpp',
-            'calibration/fatal_storage.c']]]
+            'src/pc/host_sound_decoder.c','src/pc/host_sound_decoder_tables.c',
+            'src/pc/host_sound_bank_storage.c','src/pc/host_sound_scratch_storage.c',
+            'src/pc/audio_bank_release.cpp','src/pc/host_sound_channel_storage.cpp',
+            'src/pc/sound_bank_storage.cpp','src/pc/archive_storage.c',
+            'src/pc/host_warm_delivery.cpp','src/pc/host_warm_delivery_storage.cpp',
+            'src/pc/host_callback_storage.c','src/shared/registry_storage.c',
+            'src/pc/audio_small_helpers.c','src/pc/audio_gain_storage.c',
+            'src/pc/host_cd_resume.c','src/pc/mci_pause.c','src/pc/mci_readiness.cpp',
+            'src/pc/mci_storage.c','src/pc/display_mode_setter.c',
+            'src/pc/graphics_storage.cpp','src/pc/host_system_key_storage.c',
+            'src/pc/host_startup_storage.c','src/pc/audio_suspend.cpp',
+            'src/pc/audio_priority.cpp','src/pc/audio_storage.cpp',
+            'src/pc/fatal_storage.c']]]
     # Existing pinned historical inputs, in natural MFC-first order.
     library_inputs=[
         ('mfc/lib/nafxcw.lib', '5d9c3585552412a9b94a9a0b7c3a4208061a76d48a6c3283518bfe9f674c9e22'),
@@ -166,7 +166,7 @@ extern void __cdecl graphics_native_05a50(void);
 __declspec(dllexport) void anchor(void) { graphics_native_05a50(); }
 ''')
     frame_anchor=out/'frame_anchor.cpp'
-    frame_anchor.write_bytes(('#include "'+(ROOT/'calibration/host_system_keys.h').as_posix()+'"\n'+
+    frame_anchor.write_bytes(('#include "'+(ROOT/'src/pc/host_system_keys.h').as_posix()+'"\n'+
         'extern "C" __declspec(dllexport) void frame_anchor(CMainFrame *p) { p->OnRva_00009820(0,0); p->OnRva_00009870(0,1,1); p->OnRva_00009910(0,0); p->OnRva_00009950(0,CPoint(1,2)); p->OnRva_00009970(0); p->OnRva_00009840(); }\n').encode())
     files.append(frame_anchor)
     objects,compiles,definitions,owners=[],[],{},{}
@@ -496,7 +496,7 @@ def main():
     original=(ROOT/'src/pc/host_frame_messages.cpp').read_text()
     assert original.count('command & 0xfff0')==1
     # Absolute include preserves the real receiver context in the private negative.
-    negative_source.write_bytes(original.replace('../../calibration/host_system_keys.h',(ROOT/'calibration/host_system_keys.h').as_posix()).replace('command & 0xfff0','command & ~0xf').encode())
+    negative_source.write_bytes(original.replace('../../src/pc/host_system_keys.h',(ROOT/'src/pc/host_system_keys.h').as_posix()).replace('command & 0xfff0','command & ~0xf').encode())
     bad=build(out=OUT/'negative_mask',frame_source=negative_source)
     discriminator=next(s for s in scenarios() if s['name']=='sys_0x1234f141')
     native=execute('native',b,discriminator);wrong=execute('source',bad,discriminator)

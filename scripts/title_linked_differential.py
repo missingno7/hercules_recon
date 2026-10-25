@@ -25,7 +25,7 @@ BUILT_MAP = BUILD_DIR / 'TITLE.map'
 BUILD_REPORT = BUILD_DIR / 'report.json'
 STAGED_DLL = LANE / 'TITLE_RECON.DLL'
 RECOVERY = ROOT / 'recovery.json'
-BUILD_CONFIG = ROOT / 'evidence/title_behavioral_build.json'
+BUILD_CONFIG = ROOT / 'config/title/sources.json'
 DATA_CONFIG = ROOT / 'evidence/title_behavioral_data.json'
 NATIVE_CELL_DATA_RVA = 0x2d340
 CELL_PREFIX_BYTES = 3072
@@ -115,13 +115,17 @@ def address_rva(symbols, name, image_base):
 def verify_target_rows(recovery, oracle_sha):
     build = json.loads(BUILD_CONFIG.read_bytes())
     rows = {row['symbol']: row for row in build.get('functions', [])}
-    for name, rva, symbol, fragment in (
-        ('object reset', 0x94c0, '_title_094c0', 'src/title/behavioral/object_setup.inc'),
-        ('cell initializer', 0x4fe0, '_title_04fe0', 'src/title/behavioral/cell_init.c'),
+    for name, rva, symbol, source in (
+        ('object reset', 0x94c0, '_title_094c0', 'src/title/u06bb0.cpp'),
+        ('cell initializer', 0x4fe0, '_title_04fe0', 'src/title/r04d80.c'),
     ):
         row = rows.get(symbol)
-        if not row or int(row['rva'], 0) != rva or row.get('source_fragment') != fragment:
+        if not row or int(row['rva'], 0) != rva or row.get('source') != source:
             raise ValueError('Behavioral build config identity changed for ' + name)
+        owners = [r for r in recovery['functions'] if r['target'] == 'assets/pc/HERCULES/TITLE.DLL'
+                  and int(r['rva'], 0) == rva and r['symbol'] == symbol and r['source'] == source]
+        if len(owners) != 1 or digest((ROOT / source).read_bytes()) != owners[0]['proof']['source_sha256']:
+            raise ValueError('Canonical provider identity changed for ' + name)
     targets = {row['target_sha256'] for row in recovery['functions']
                if row.get('target') == 'assets/pc/HERCULES/TITLE.DLL'}
     if targets and oracle_sha not in targets:
