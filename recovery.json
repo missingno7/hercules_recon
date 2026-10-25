@@ -6657,7 +6657,7 @@
     },
     {
       "id": "eng1.resource_metadata_pointer",
-      "status": "CODEGEN_SIMILAR",
+      "status": "FUNCTION_MATCH_RELOCATED",
       "name_status": "provisional address label",
       "target": "assets/pc/HERCULES/ENG1.DLL",
       "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
@@ -6675,6 +6675,21 @@
         "_g_actor_resources": "0x5cee0"
       },
       "proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+        "source_sha256": "a6c579e74b9d008d11f5eb3735f09e1bfe107b7847d323befba2a88bece044f0",
+        "compiled_sha256": "0d583f2ce31c2c0bafa80ca47577051dd7a550bd19294015d04344765eea9af3",
+        "target_sha256": "04c1f9d66daf72d4c5d1903088225d8cf76f987d52b7bea9a79caf4a2489f13d",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/velocity_resource_metadata_bindings_2026_10_25.json",
+        "bindings_sha256": "d9a22c18ae9b74d47bed50f7818804862d47fb813b0b389fcc61b8779009cbf6",
+        "reference_evidence_sha256": "f482d0310f52c80e2384d3588236f2721bf748b549150240c34c819a94ae3500",
+        "context_sha256": {
+          "src/eng1/resource_metadata.c": "a6c579e74b9d008d11f5eb3735f09e1bfe107b7847d323befba2a88bece044f0",
+          "src/shared/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9"
+        }
+      },
+      "prior_masked_proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
         "source_sha256": "a6c579e74b9d008d11f5eb3735f09e1bfe107b7847d323befba2a88bece044f0",
         "masked_sha256": "f0d69ffd2af335755cb2d12c99caed562fd330fc4024421599b9345d60b0eafc",
@@ -95085,6 +95100,62 @@
         "source_sha256": "86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5",
         "masked_sha256": "de60d1a2c03536f34c1fa28bc9f87a8e48b9bd3abd46ced8761e9c09736d6cce",
         "toolchain": "msvc5_rtm"
+      }
+    },
+    {
+      "id": "eng1.spatial_query_1a9b0",
+      "status": "FUNCTION_MATCH_RELOCATED",
+      "name_status": "provisional address label",
+      "target": "assets/pc/HERCULES/ENG1.DLL",
+      "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "rva": "0x1a9b0",
+      "size": 48,
+      "source": "src/eng1/spatial_query_family_1a9b0.c",
+      "symbol": "_eng1_1a9b0",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_spatial_query_recovery_2026_10_25.json: own native dispatcher, full extent, independently inspected callees and finite family semantics; reference proof and strict acceptance remain separate.",
+      "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
+      "link_symbols": {
+        "_eng1_1a9e0": "0x1a9e0",
+        "_eng1_1ab00": "0x1ab00",
+        "_g_engine_interface": "0x70f20"
+      },
+      "proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+        "source_sha256": "4e8555018694420b0acd4223588d9a59235e4c001e9fa543ca97f04538187cd6",
+        "compiled_sha256": "380c0f739c40f4ff07bd9ac113d514907b0d75818c8376d1cdb94ebeb0adf605",
+        "target_sha256": "db0be3c40954c8d5cac0036f7048349153f381b60e1f70f79c2fc3a60d142298",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/velocity_spatial_query_bindings_2026_10_25.json",
+        "bindings_sha256": "14c6528d84878b96a8521061b3de6de1a255afc3968523b9b5d3224330bf909f",
+        "reference_evidence_sha256": "112afe0a6910cdc7ec7bf675e272b5e1e4a616c63528e981ab75bcdf32e9ae52",
+        "context_sha256": {
+          "src/eng1/spatial_query_family_1a9b0.c": "4e8555018694420b0acd4223588d9a59235e4c001e9fa543ca97f04538187cd6",
+          "src/eng1/actor_bounds_2a880.h": "b136bd16d35b8e18f686dd5cf69b0971968f2c58b79018505b9e2fb23daefce1",
+          "src/eng1/query_2a170.h": "30eb882e358f93159d9729d9e48e2bac0ce746cd1406332891eac060ab45cc8b",
+          "src/eng1/actor_pipeline_storage_views.h": "47238506969ab204a6cbd2e11e174bdcc220a07fcf283867cc10eb2dab6e9bc4",
+          "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e",
+          "src/eng1/setup_shared_state.h": "3f190988b41c625f893546085fe4276b7694291388fce78f511cc50c9b2a7e9e",
+          "src/eng1/resource_runtime_data.h": "037cde5643ee13367217a408c09ece4a90e346592bc08454165f5d763bd6719e",
+          "src/shared/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
+          "src/eng1/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+          "src/shared/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+          "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608"
+        }
+      },
+      "prior_masked_proof": {
+        "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
+        "source_sha256": "4e8555018694420b0acd4223588d9a59235e4c001e9fa543ca97f04538187cd6",
+        "masked_sha256": "25a3b717cec664aa80b2e28a017655925759ea4222f980c1e2031cb54ea89b1c",
+        "toolchain": "msvc5_rtm",
+        "co_defined_functions": [
+          "_eng1_1a9e0",
+          "_eng1_1ab00",
+          "_eng1_26de0"
+        ]
       }
     }
   ]

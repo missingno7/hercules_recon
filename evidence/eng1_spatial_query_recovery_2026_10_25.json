@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "scope": "Native-entry and finite semantic review for ENG1 spatial query family; does not grant recovery or matching acceptance.",
+  "reviewed_at_utc": "2026-10-25",
+  "oracle": {"path": "assets/pc/HERCULES/ENG1.DLL", "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757", "image_base": "0x10000000", "inspection": "Capstone 5.0.7 x86-32; direct PE RVA reads"},
+  "functions": {
+    "eng1.spatial_query_1a9b0": {
+      "symbol": "_eng1_1a9b0", "rva": "0x1a9b0", "extent_bytes": 48, "extent_end_exclusive": "0x1a9e0", "native_sha256": "db0be3c40954c8d5cac0036f7048349153f381b60e1f70f79c2fc3a60d142298", "abi": "cdecl(Query2a170Bounds*) -> unsigned 32-bit EAX",
+      "semantics": "Call 1a9e0 with unchanged query pointer; return its nonzero selector immediately. Otherwise reload EngineInterface.context_004 (cell 0x70f24); return 0 if its first byte is 9, else call 1ab00 with the same pointer and return its result."
+    },
+    "eng1.spatial_query_1a9e0": {
+      "symbol": "_eng1_1a9e0", "rva": "0x1a9e0", "extent_bytes": 288, "extent_end_exclusive": "0x1ab00", "native_sha256": "b2da8323094152d4c4d95cae06f70b632ce176c0bdb6097701a5b949cf315994", "abi": "cdecl(six-WORD query pointer) -> 0 or one-based selector",
+      "semantics": "Require WORD[state_72020+0x2e] != 0 and count WORD[state+0x36] != 0. Snapshot six query WORDs before scanning count 12-byte rows at VA 0x10071ee0 as six signed WORDs. Reject if r3<q0 || r4<q1 || r5<q2 || q3<r0 || q4<r1 || q5<r2 using signed WORDs; touching overlaps. First overlap reloads state pointer, stores index+1 to +0x36, and returns it; no hit returns 0 without the store.",
+      "extent": "RET at 0x1aaf3; 12 NOPs through 0x1aaff; next entry 0x1ab00."
+    },
+    "eng1.spatial_query_1ab00": {
+      "symbol": "_eng1_1ab00", "rva": "0x1ab00", "extent_bytes": 80, "extent_end_exclusive": "0x1ab50", "native_sha256": "4dd6c2ca646e2ceb9d79bd660b57aed665e9f4be2cbbd3d961ac4b8dc9353258", "abi": "cdecl(six-WORD query pointer) -> 0 or 0x20",
+      "semantics": "Require WORD[state_72018+0x2e] != 0; call actor_bounds_2a880(actor, local 12-byte bounds, mode 2), then existing bounds_overlap(query, local bounds). Any failed gate/helper returns 0; both helpers succeeding returns 0x20. No direct persistent-state store.",
+      "extent": "RET at 0x1ab41/0x1ab47; 8 NOPs through 0x1ab4f; next entry 0x1ab50."
+    },
+    "eng1.spatial_query_26de0": {
+      "symbol": "_eng1_26de0", "rva": "0x26de0", "extent_bytes": 176, "extent_end_exclusive": "0x26e90", "native_sha256": "b62a0366a9da129b4ac73710b25793e908c60b996271f6b8e5c48ef049402065", "abi": "cdecl(void*) -> 32-bit EAX",
+      "semantics": "Produce query bounds with actor_bounds_2a880(actor, bounds, mode 1); failure returns 0. Call 1a9b0 and propagate nonzero selector unchanged. Otherwise scan the signed-count worklist at 0x71900, testing candidate XYZ with point_in_box_2a810 and returning the first hit pointer; after a miss, if WORD[0x6fec4] is set and bounds at 0x71440 overlap, return 0x80; otherwise return 0."
+    }
+  },
+  "candidate_comparison": {
+    "source": "src/eng1/spatial_query_family_1a9b0.c", "source_sha256": "4e8555018694420b0acd4223588d9a59235e4c001e9fa543ca97f04538187cd6", "toolchain": "msvc5_rtm /O2", "object_sha256": "accca3cae634bc83074304bb76662d279ffd019e5f90357a2ed7444018a77a7c",
+    "eng1_1a9b0": {"native_bytes": 48, "candidate_bytes": 48, "relocation_masked_equal": true, "nonreference_differences": 0, "relocations": [[7,"_eng1_1a9e0",20],[19,"_g_engine_interface",6],[34,"_eng1_1ab00",20]], "status": "sole 48-byte relocation-equivalent instruction candidate; unaccepted pending fresh strict verify_rows gate"},
+    "eng1_1a9e0": "NEAR: candidate contribution 256 vs native extent 288; masked unequal.",
+    "eng1_1ab00": "NEAR: candidate contribution 80; masked unequal.",
+    "eng1_26de0": "NEAR: candidate contribution 224 vs native extent 176; masked unequal."
+  },
+  "finite_differential": {"cases": 18, "all_equal": true, "counts": {"1a9e0": 4, "1ab00": 4, "1a9b0": 3, "26de0": 7}, "report": "work/velocity/query_canonical_semantics/report.json", "report_sha256": "ae411c6ed8082a9b8997430f7d956f0683a28e3c43bd3dff37ce06759e54f994", "scope": "Unicorn comparison of native entries with private linked source; no game or OS-module execution."},
+  "limitations": ["actor_bounds_2a880 output is modeled by the same fixture service on both sides; its semantics are not re-proved.", "At most two synthetic g_71ee0 rows are populated; owner, allocation size, capacity, and out-of-prefix behavior are unknown.", "Finite comparisons establish only tested cases; they are not function matching or runtime completeness evidence."],
+  "provenance": {"native_identity": "work/velocity/query_bindings/native_review.json and work/velocity/eng1_closure/family_receipt.json", "fresh_comparison": "work/velocity/query_bindings/fresh_run_receipt.json", "compiler_calls": 2}
+}
+
