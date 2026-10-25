@@ -62,10 +62,19 @@ are the evidence oracle; PSX builds are secondary.
 - One integrator owns canonical recovery state and commits. Parallel work must
   have explicit ownership of disjoint files/functions, private scratch space, and
   a compact provenance handoff.
-- Keep matching workers narrow (usually four to six Luna workers) under one
-  integrator; assign a shared uncertain blocker to one Sol reviewer. Reassign
-  finished workers while integration proceeds; don't delay a ready batch for an
-  optional trailing audit.
+- Scale independent reasoning across tens of narrow Luna workers (start with
+  24 on this host), under one integrator. Increase only while disjoint useful
+  tasks and integration capacity exist; machine core count is not a task quota.
+  Give a shared uncertain blocker to one Sol investigator. Reassign finished
+  workers while integration proceeds; do not wait for an entire wave or an
+  optional trailing audit before integrating a ready batch.
+- Workers use focused packets, existing source/evidence and private scratch;
+  they do not rebuild the census, run full regression, edit shared registries or
+  spawn further workers without the integrator's assignment. Count reasoning
+  concurrency separately from simultaneous compiler jobs and canonical writes.
+- With native collaboration tools, `send_message` only notifies an existing
+  worker; use `followup_task` to restart a completed worker with a new bounded
+  assignment. Do not wait for a queued notification to produce work.
 - Handoffs name exact IDs and source ownership, base and input hashes, existing
   binding/native evidence, one focused receipt, compiler-call count, and the
   first blocker. Link large reports; don't paste ledgers or hash inventories.

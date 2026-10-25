@@ -67,10 +67,10 @@ class RegionTests(unittest.TestCase):
             write('toolchains/manifest.json',{})
             spec=dict(region=dict(id='r',ownership='inferred_region'),target_sha256='oracle',flags=['/O2'],
                       functions=[dict(symbol='_f',rva='0x1000',size=4,target_sha256='span')])
-            write('evidence/spec.json',spec);(root/'base.c').write_text('source')
-            write('evidence/receipt.json',dict(context_id=context_identity(spec,'source'),receipt_id='one',output_id='one',
+            (root/'src').mkdir();(root/'src/base.c').write_text('source')
+            write('evidence/spec.json',spec);write('evidence/receipt.json',dict(context_id=context_identity(spec,'source'),receipt_id='one',output_id='one',
                 source_sha256='source',summary={},functions=[dict(symbol='_f',strict_equal=True,target_size=4,normalized_different_bytes=0)]))
-            write('evidence/region_index.json',dict(regions=[dict(id='r',spec='evidence/spec.json',baseline='base.c',receipts=['evidence/receipt.json'])]))
+            write('evidence/region_index.json',dict(regions=[dict(id='r',spec='evidence/spec.json',baseline='src/base.c',receipts=['evidence/receipt.json'])]))
             write('recovery.json',dict(functions=[dict(id='accepted',status='FUNCTION_MATCH',target_sha256='oracle',rva='0x1000')]))
             with redirect_stdout(io.StringIO()):p=packet('r')
             result=json.loads(p.read_text())
@@ -87,8 +87,8 @@ class RegionTests(unittest.TestCase):
             write('toolchains/manifest.json',{})
             spec=dict(region=dict(id='r',ownership='inferred_region'),target_sha256='oracle',flags=['/O2'],
                       functions=[dict(symbol='_f',rva='0x1000',size=16),dict(symbol='_g',rva='0x1010',size=16)])
-            write('evidence/spec.json',spec);(root/'base.c').write_text('source')
-            write('evidence/region_index.json',dict(regions=[dict(id='r',spec='evidence/spec.json',baseline='base.c')]))
+            write('evidence/spec.json',spec);(root/'src').mkdir();(root/'src/f.c').write_text('source')
+            write('evidence/region_index.json',dict(regions=[dict(id='r',spec='evidence/spec.json',baseline='src/f.c')]))
             write('recovery.json',dict(functions=[dict(id='known',status='CODEGEN_SIMILAR',target_sha256='oracle',
                 rva='0x1000',size=16,source='src/f.c',proof=dict(scope='masked diagnostic'))]))
             with redirect_stdout(io.StringIO()):p=packet('r')
@@ -98,6 +98,123 @@ class RegionTests(unittest.TestCase):
             self.assertEqual(result['unrecorded_functions'],['_g'])
             self.assertEqual(result['recorded_non_strict_functions'],[dict(region_symbol='_f',recovery_id='known',
                 status='CODEGEN_SIMILAR',source='src/f.c',bytes=16,extent_agrees=True,proof_scope='masked diagnostic')])
+
+    def test_packet_resolves_reviewed_retired_baseline_and_context_files(self):
+        scratch=Path(__file__).resolve().parents[1]/'work'
+        with tempfile.TemporaryDirectory(dir=scratch) as temp,patch('region.ROOT',Path(temp)):
+            root=Path(temp)
+            def write_text(name,value):
+                p=root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(value)
+            def write_json(name,value):
+                p=root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(value))
+            write_json('toolchains/manifest.json',{})
+            write_text('calibration/old.c','historical source')
+            write_text('calibration/view.h','historical header')
+            write_text('src/current.c','current complete TU')
+            write_text('src/view.h','current header')
+            spec=dict(source='calibration/old.c',region=dict(id='r',ownership='inferred_region'),
+                target_sha256='oracle',flags=['/O2'],context_files=['calibration/view.h'],
+                functions=[dict(symbol='_f',rva='0x1000',size=4)])
+            old_context=context_identity(spec,'historical source')
+            write_json('evidence/spec.json',spec)
+            write_json('evidence/region_index.json',dict(regions=[dict(id='r',spec='evidence/spec.json',
+                baseline='calibration/old.c',receipts=['evidence/old_receipt.json'])]))
+            write_json('evidence/source_layout_2026_10_25/review.json',dict(moves={
+                'calibration/old.c':'src/current.c','calibration/view.h':'src/view.h'}))
+            write_json('evidence/old_receipt.json',dict(receipt_id='old',context_id=old_context,
+                functions=[],output_id='old-output'))
+            write_json('recovery.json',dict(functions=[dict(id='f',symbol='_f',status='CODEGEN_SIMILAR',
+                target_sha256='oracle',rva='0x1000',size=4,source='src/current.c')]))
+            with redirect_stdout(io.StringIO()):packet_path=packet('r')
+            result=json.loads(packet_path.read_text())
+            self.assertEqual(result['baseline_source'],'src/current.c')
+            self.assertEqual(result['baseline_resolution']['resolution_basis'],'reviewed source-layout move')
+            self.assertEqual(result['baseline_resolution']['context_files'],{'calibration/view.h':'src/view.h'})
+            self.assertNotEqual(result['context_id'],old_context)
+            self.assertEqual(result['stale_receipts'],['old'])
+            self.assertEqual(result['frontier'],[])
+            self.assertEqual(result['tried'],[])
+
+    def test_packet_uses_unambiguous_current_baseline_context(self):
+        scratch=Path(__file__).resolve().parents[1]/'work'
+        with tempfile.TemporaryDirectory(dir=scratch) as temp,patch('region.ROOT',Path(temp)):
+            root=Path(temp)
+            def write(name,value):
+                p=root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(value))
+            write('toolchains/manifest.json',{})
+            (root/'src').mkdir();(root/'src/current.c').write_text('current TU')
+            spec=dict(source='src/current.c',region=dict(id='r',ownership='inferred_region'),
+                target_sha256='oracle',flags=['/O2'],functions=[dict(symbol='_f',rva='0x1000',size=4)])
+            write('evidence/spec.json',spec)
+            write('evidence/region_index.json',dict(regions=[dict(id='r',spec='evidence/spec.json',baseline='src/current.c')]))
+            write('recovery.json',dict(functions=[dict(id='f',symbol='_f',status='CODEGEN_SIMILAR',
+                target_sha256='oracle',rva='0x1000',size=4,source='src/current.c')]))
+            with redirect_stdout(io.StringIO()):packet_path=packet('r')
+            result=json.loads(packet_path.read_text())
+            self.assertEqual(result['baseline_source'],'src/current.c')
+            self.assertEqual(result['baseline_resolution']['status'],'resolved')
+            self.assertEqual(result['context_id'],context_identity(spec,'current TU'))
+
+    def test_packet_rejects_retired_baseline_without_owner(self):
+        scratch=Path(__file__).resolve().parents[1]/'work'
+        with tempfile.TemporaryDirectory(dir=scratch) as temp,patch('region.ROOT',Path(temp)):
+            root=Path(temp)
+            def write(name,value):
+                p=root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(value))
+            write('toolchains/manifest.json',{})
+            spec=dict(region=dict(id='r',ownership='inferred_region'),target_sha256='oracle',flags=['/O2'],
+                functions=[dict(symbol='_f',rva='0x1000',size=4)])
+            write('evidence/spec.json',spec)
+            write('evidence/region_index.json',dict(regions=[dict(id='r',spec='evidence/spec.json',baseline='calibration/old.c')]))
+            write('recovery.json',dict(functions=[]))
+            with self.assertRaisesRegex(ValueError,'no reviewed move or complete unambiguous current ledger ownership'):
+                packet('r')
+
+    def test_packet_rejects_ambiguous_ledger_owner(self):
+        scratch=Path(__file__).resolve().parents[1]/'work'
+        with tempfile.TemporaryDirectory(dir=scratch) as temp,patch('region.ROOT',Path(temp)):
+            root=Path(temp)
+            def write(name,value):
+                p=root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(value))
+            write('toolchains/manifest.json',{})
+            spec=dict(region=dict(id='r',ownership='inferred_region'),target_sha256='oracle',flags=['/O2'],
+                functions=[dict(symbol='_f',rva='0x1000',size=4)])
+            write('evidence/spec.json',spec)
+            write('evidence/region_index.json',dict(regions=[dict(id='r',spec='evidence/spec.json',baseline='calibration/old.c')]))
+            write('recovery.json',dict(functions=[
+                dict(id='f1',symbol='_f',status='CODEGEN_SIMILAR',target_sha256='oracle',rva='0x1000',size=4,source='src/a.c'),
+                dict(id='f2',symbol='_f_alias',status='CODEGEN_SIMILAR',target_sha256='oracle',rva='0x1000',size=4,source='src/b.c')]))
+            with self.assertRaisesRegex(ValueError,'Ambiguous recovery source ownership'):
+                packet('r')
+
+    def test_packet_reports_split_current_units_without_reusing_receipts(self):
+        scratch=Path(__file__).resolve().parents[1]/'work'
+        with tempfile.TemporaryDirectory(dir=scratch) as temp,patch('region.ROOT',Path(temp)):
+            root=Path(temp)
+            def write(name,value):
+                p=root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(value))
+            write('toolchains/manifest.json',{})
+            (root/'src').mkdir();(root/'src/a.c').write_text('unit a');(root/'src/b.c').write_text('unit b')
+            spec=dict(source='calibration/a.c',region=dict(id='r',ownership='inferred_region'),
+                target_sha256='oracle',flags=['/O2'],functions=[
+                    dict(symbol='_f',rva='0x1000',size=4),dict(symbol='_g',rva='0x1010',size=4)])
+            write('evidence/spec.json',spec)
+            write('evidence/region_index.json',dict(regions=[dict(id='r',spec='evidence/spec.json',
+                baseline='calibration/a.c',receipts=['evidence/old_receipt.json'])]))
+            write('evidence/source_layout_2026_10_25/review.json',dict(moves={'calibration/a.c':'src/a.c'}))
+            write('evidence/old_receipt.json',dict(receipt_id='old',context_id='old-context',functions=[],output_id='old-output'))
+            write('recovery.json',dict(functions=[
+                dict(id='f',symbol='_f',status='CODEGEN_SIMILAR',target_sha256='oracle',rva='0x1000',size=4,source='src/a.c'),
+                dict(id='g',symbol='_g',status='CODEGEN_SIMILAR',target_sha256='oracle',rva='0x1010',size=4,source='src/b.c')]))
+            with redirect_stdout(io.StringIO()):packet_path=packet('r')
+            result=json.loads(packet_path.read_text())
+            self.assertIsNone(result['context_id'])
+            self.assertIsNone(result['baseline_source'])
+            self.assertEqual(result['baseline_resolution']['status'],'split_current_ownership')
+            self.assertEqual([s['path'] for s in result['baseline_resolution']['baseline_sources']],['src/a.c','src/b.c'])
+            self.assertEqual(result['stale_receipts'],['old'])
+            self.assertEqual(result['frontier'],[])
+            self.assertEqual(result['tried'],[])
 
 
 if __name__=='__main__':unittest.main()

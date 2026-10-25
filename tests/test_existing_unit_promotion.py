@@ -77,6 +77,35 @@ class ExistingUnitPromotionTests(unittest.TestCase):
         patch.object(match, 'verify_toolchain', Mock(return_value='fixture')).start()
         self.compiler = patch.object(match, 'compile_source', return_value=(self.obj, ['synthetic'])).start()
 
+    def prepare_reconstructed_peer(self, *, include_header=False, compiled_hash=None,
+                                   include_reconstructed=True, co_defined=('_extra',)):
+        source_rel = 'src/unit.c'
+        source = self.source
+        source_bytes = (b'#include "unit.h"\n' if include_header else b'') + b'void eng3_121c0(void) {}\n'
+        source.write_bytes(source_bytes)
+        if include_header:
+            self.header.write_bytes(b'/* synthetic context */\n')
+        source_sha = match.digest(source_bytes)
+        make_coff(self.obj, extra_function=include_reconstructed, extra_data=True)
+        selected = copy.deepcopy(self.rows[0])
+        selected.update(id='sample', source=source_rel, symbol='_sample',
+                        target=self.target.name, target_sha256=match.digest(self.target.read_bytes()),
+                        rva='0x1000', size=len(CODE), flags=['/O2'], status='CODEGEN_SIMILAR')
+        selected['proof'].update(source_sha256=source_sha, masked_sha256=match.digest(CODE),
+                                 co_defined_functions=list(co_defined))
+        reconstructed = copy.deepcopy(self.rows[1])
+        reconstructed.update(id='fixture-reconstructed', source=source_rel, symbol='_extra',
+                             target=self.target.name, target_sha256=match.digest(self.target.read_bytes()),
+                             rva='0x1010', size=len(CODE), flags=['/O2'], status='RECONSTRUCTED')
+        reconstructed['proof'] = dict(
+            scope=promote.RECONSTRUCTED_PEER_SCOPE,
+            compiled_size=len(CODE),
+            source_sha256=source_sha,
+            compiled_sha256=compiled_hash or match.digest(CODE),
+            toolchain='fixture')
+        self.state.write_text(json.dumps({'functions': [selected, reconstructed]}))
+        return source, selected, reconstructed
+
     def multi_target_rows(self, co_defined=('_extra',)):
         """Represent one source symbol mapped to two target modules."""
         other = self.root / 'OTHER.DLL'
@@ -88,6 +117,18 @@ class ExistingUnitPromotionTests(unittest.TestCase):
                        symbol='_sample', rva='0x1000', size=16, link_symbols={})
             row['proof']['co_defined_functions'] = list(co_defined)
             rows.append(row)
+        self.state.write_text(json.dumps({'functions': rows}))
+        return rows
+
+    def prepare_raw_peer_in_co_defined(self):
+        rows = self.multi_target_rows(co_defined=('_extra',))
+        raw = rows[1]
+        raw.update(id='raw-peer', status='FUNCTION_MATCH', symbol='_extra',
+                   rva='0x1010', size=len(CODE))
+        raw['proof'] = dict(scope='complete relocation-free function COFF contribution',
+                            source_sha256=raw['proof']['source_sha256'],
+                            compiled_sha256=match.digest(CODE),
+                            target_sha256=raw['target_sha256'], toolchain='fixture')
         self.state.write_text(json.dumps({'functions': rows}))
         return rows
 
@@ -151,6 +192,33 @@ class ExistingUnitPromotionTests(unittest.TestCase):
         self.assertEqual(len(receipt['results']), 2)
         self.assertEqual({row['target'] for row in rows}, {'TEST.DLL', 'OTHER.DLL'})
 
+    def test_existing_raw_peer_in_masked_co_defined_inventory_is_preserved(self):
+        rows = self.prepare_raw_peer_in_co_defined()
+        raw_before = copy.deepcopy(rows[1])
+
+        receipt = promote.promote_existing_units(['module-a'])
+
+        after = json.loads(self.state.read_text())['functions']
+        self.assertEqual(next(row for row in after if row['id'] == 'raw-peer'), raw_before)
+        self.assertEqual(next(row for row in after if row['id'] == 'module-a')['status'], 'FUNCTION_MATCH')
+        self.assertEqual(receipt['units']['src/unit.c']['functions'], ['_sample', '_extra'])
+
+    def test_regressed_existing_raw_peer_still_blocks_co_defined_inventory(self):
+        rows = self.prepare_raw_peer_in_co_defined()
+        target = self.root / rows[1]['target']
+        data = bytearray(target.read_bytes())
+        data[0x410] ^= 1
+        target.write_bytes(data)
+        rows[1]['target_sha256'] = match.digest(data)
+        rows[1]['proof']['target_sha256'] = rows[1]['target_sha256']
+        self.state.write_text(json.dumps({'functions': rows}))
+        before = self.state.read_bytes()
+
+        with self.assertRaisesRegex(ValueError, 'complete raw comparison'):
+            promote.promote_existing_units(['module-a'])
+
+        self.assertEqual(self.state.read_bytes(), before)
+
     def test_missing_pinned_function_and_unrecorded_helper_are_rejected(self):
         self.multi_target_rows(('_missing',))
         before = self.state.read_bytes()
@@ -201,6 +269,112 @@ class ExistingUnitPromotionTests(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, 'supported prior proof'):
             promote.promote_existing_units(['module-a'])
+
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_reconstructed_peer_requires_explicit_opt_in_by_default(self):
+        self.prepare_reconstructed_peer()
+        before = self.state.read_bytes()
+
+        with self.assertRaisesRegex(ValueError, 'supported prior proof'):
+            promote.promote_existing_units(['sample'])
+
+        self.assertEqual(self.state.read_bytes(), before)
+        self.compiler.assert_not_called()
+
+    def test_explicit_opt_in_preserves_verified_reconstructed_peer(self):
+        _source, selected, reconstructed = self.prepare_reconstructed_peer()
+        before_peer = copy.deepcopy(reconstructed)
+
+        receipt = promote.promote_existing_units(['sample'], preserve_reconstructed=True)
+
+        after = json.loads(self.state.read_text())['functions']
+        promoted = next(row for row in after if row['id'] == selected['id'])
+        preserved = next(row for row in after if row['id'] == reconstructed['id'])
+        self.assertEqual(promoted['status'], 'FUNCTION_MATCH')
+        self.assertEqual(preserved, before_peer)
+        self.assertIn('unit_inventory_sha256', promoted['proof'])
+        self.assertIn('context_sha256', promoted['proof'])
+        unit = receipt['units']['src/unit.c']
+        self.assertEqual(unit['compile_flags'], ['/O2'])
+        self.assertEqual(unit['functions'], ['_sample', '_extra'])
+        self.assertEqual(unit['preserved_reconstructed'], [dict(
+            id='fixture-reconstructed', symbol='_extra', compiled_size=len(CODE),
+            compiled_sha256=match.digest(CODE), source_sha256=selected['proof']['source_sha256'],
+            flags=['/O2'], toolchain='fixture')])
+
+    def test_bad_reconstructed_peer_compiled_hash_rejects_before_publication(self):
+        self.prepare_reconstructed_peer(compiled_hash='f' * 64)
+        before = self.state.read_bytes()
+
+        with self.assertRaisesRegex(ValueError, 'compiled contribution hash changed'):
+            promote.promote_existing_units(['sample'], preserve_reconstructed=True)
+
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_reconstructed_peer_requires_complete_recorded_size_hash_and_toolchain(self):
+        _source, _selected, reconstructed = self.prepare_reconstructed_peer()
+        del reconstructed['proof']['compiled_size']
+        self.state.write_text(json.dumps({'functions': [
+            json.loads(self.state.read_text())['functions'][0], reconstructed]}))
+        before = self.state.read_bytes()
+
+        with self.assertRaisesRegex(ValueError, 'lacks complete size/hash/toolchain proof'):
+            promote.promote_existing_units(['sample'], preserve_reconstructed=True)
+
+        self.assertEqual(self.state.read_bytes(), before)
+        self.compiler.assert_not_called()
+
+    def test_reconstructed_peer_requires_pinned_toolchain_match(self):
+        _source, _selected, reconstructed = self.prepare_reconstructed_peer()
+        reconstructed['proof']['toolchain'] = 'other-toolchain'
+        self.state.write_text(json.dumps({'functions': [
+            json.loads(self.state.read_text())['functions'][0], reconstructed]}))
+        before = self.state.read_bytes()
+
+        with self.assertRaisesRegex(ValueError, 'toolchain differs from the fresh pinned compile'):
+            promote.promote_existing_units(['sample'], preserve_reconstructed=True)
+
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_reconstructed_peer_requires_consistent_recorded_flags_profile(self):
+        _source, _selected, reconstructed = self.prepare_reconstructed_peer()
+        reconstructed['flags'] = ['/O1']
+        self.state.write_text(json.dumps({'functions': [
+            json.loads(self.state.read_text())['functions'][0], reconstructed]}))
+        before = self.state.read_bytes()
+
+        with self.assertRaisesRegex(ValueError, 'disagree about compiler flags'):
+            promote.promote_existing_units(['sample'], preserve_reconstructed=True)
+
+        self.assertEqual(self.state.read_bytes(), before)
+        self.compiler.assert_not_called()
+
+    def test_reconstructed_peer_header_context_without_prior_pin_is_rejected(self):
+        self.prepare_reconstructed_peer(include_header=True)
+        before = self.state.read_bytes()
+
+        with self.assertRaisesRegex(ValueError, 'source-only compile context'):
+            promote.promote_existing_units(['sample'], preserve_reconstructed=True)
+
+        self.assertEqual(self.state.read_bytes(), before)
+        self.compiler.assert_not_called()
+
+    def test_reconstructed_peer_must_match_masked_co_defined_inventory(self):
+        self.prepare_reconstructed_peer(co_defined=('_other',))
+        before = self.state.read_bytes()
+
+        with self.assertRaisesRegex(ValueError, 'absent from pinned co-defined inventory'):
+            promote.promote_existing_units(['sample'], preserve_reconstructed=True)
+
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_reconstructed_peer_missing_from_emitted_symbols_is_rejected(self):
+        self.prepare_reconstructed_peer(include_reconstructed=False)
+        before = self.state.read_bytes()
+
+        with self.assertRaisesRegex(ValueError, 'function inventory'):
+            promote.promote_existing_units(['sample'], preserve_reconstructed=True)
 
         self.assertEqual(self.state.read_bytes(), before)
 
@@ -275,6 +449,18 @@ class ExistingUnitPromotionTests(unittest.TestCase):
         before = self.state.read_bytes()
         promote.promote_existing_units(['sample'], verify_only=True)
         self.assertEqual(self.state.read_bytes(), before)
+
+    def test_preserve_cli_flag_requires_existing_unit(self):
+        with patch.object(sys, 'argv', ['promote.py', 'sample', '--preserve-reconstructed']):
+            with self.assertRaises(SystemExit) as error:
+                promote.main()
+        self.assertEqual(error.exception.code, 2)
+
+    def test_preserve_cli_flag_rejects_recovery_action(self):
+        with patch.object(sys, 'argv', ['promote.py', '--existing-unit', '--preserve-reconstructed', '--recover']):
+            with self.assertRaises(SystemExit) as error:
+                promote.main()
+        self.assertEqual(error.exception.code, 2)
 
     def test_source_hash_mismatch_is_not_reaccepted(self):
         self.source.write_bytes(self.source.read_bytes() + b'/* edited */')

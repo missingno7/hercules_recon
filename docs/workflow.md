@@ -28,12 +28,39 @@ compiler profile for each experiment. Programmatic probes should use the pinned
 `match.compile_source` helper and write generated source as UTF-8; avoid ad hoc
 compiler environments or flag overrides.
 
-Use four to six narrow Luna workers with one integrator. Give one Sol reviewer a
-shared blocker when its explanation could unlock several lanes. Reassign finished
-workers to independent families while integration proceeds; do not hold a ready
-batch for optional trailing audits. Rerun the full source graph only after source,
-header, or active-selection inputs change. Run fresh full protection once at the
-batched integration boundary; never carry strict proofs across runs.
+Use tens of narrow Luna workers with one integrator: start with 24 on this host,
+not a four-to-six-worker ceiling. Parallelize LLM inspection, source recovery and
+reference proof across disjoint units. Each worker gets exact IDs, one objective,
+an explicit compile/token budget, source/symbol ownership, a focused existing
+packet and a required verification method. No full-history fork or repeated
+repository census is needed. Give one Sol investigator a shared causal blocker
+when it could unlock several lanes; routine work stays with Luna.
+
+Keep workers productive while the integrator consumes ready batches. A batch need
+not wait for the slowest worker; completed and blocked workers get a different
+independent task. Limit each handoff to the candidate, existing-format proof,
+input hashes, focused result and first blocker. Reuse a diagnostic baseline only
+after checking its source/include/flag/object identities. A new unrelated commit
+does not invalidate unchanged inputs, but a changed shared header does. Workers
+never write the ledger/shared headers, run the full gate, or start more agents on
+their own. Use the existing native subagent tools, not a new routing framework.
+Use `followup_task` for another assignment to a completed worker; `send_message`
+does not restart one. Notify running workers without creating overlapping tasks.
+
+The host exposes 32 logical processors and about 63 GiB to the runtime. An ignored
+capacity probe freshly compiled an existing RAW control 8 and then 24 ways in
+parallel: all 32 complete-function checks passed, every object path was unique,
+and all timestamp-independent unit inventories agreed. Measured throughput was
+13.38 and 14.12 compilations/second respectively; this is an isolation check, not
+evidence that tripling compiler concurrency triples throughput. Extra LLM workers
+primarily parallelize reasoning. Receipt: `work/scale/compile_capacity.json`.
+
+Rerun the full source graph only after source, header, or active-selection inputs
+change. The integrator runs fresh full protection once at each actual batched
+integration boundary; never carry strict proofs across runs. Keep the number of
+ready, independently verifiable candidates small enough to review promptly; if
+that queue grows, spend workers on missing evidence or other families rather than
+producing more unreviewed variants.
 
 Keep the handoff small: exact IDs and source ownership, base revision and current
 source/input hashes, existing-format bindings plus native evidence, one focused
@@ -231,7 +258,6 @@ grant acceptance. Reports are bounded and stay under ignored work/ or build/.
 Review source and original context, then use the existing journaled promotion
 path for a function that meets the raw gate:
 
-    python scripts/promote.py <id> --source candidates/<candidate>.c --verify-only
     python scripts/promote.py <id> --source candidates/<candidate>.c
 
 Promotion protects established matches and checks the selected source unit.
@@ -240,11 +266,24 @@ copied code, original-binary dispatch, unsupported assembly, or guessed behavior
 Recover any interrupted promotion before starting another one.
 
 For raw-equal functions already in a fully inventoried canonical unit, use
-`python scripts/promote.py <ids...> --existing-unit --verify-only`, then omit
-`--verify-only` to publish. This status-only path keeps the source in place and
-rechecks RAW, RELOCATED and legacy linked peers. Mixed or incompletely inventoried
-units can remain blocked even when one contribution is raw-equal; retain that
-diagnostic result until the unit ownership has been reviewed.
+`python scripts/promote.py <ids...> --existing-unit --report work/batch.json`.
+This status-only path keeps source in place and freshly rechecks RAW, RELOCATED
+and legacy linked peers. Add `--verify-only` for a full dry run when needed;
+publication already performs the same fresh gate, so a routine reviewed batch
+does not need both commands.
+
+For an unchanged, source-only unit with previously recorded size-exact
+`RECONSTRUCTED` peers, reviewed `--preserve-reconstructed` additionally checks
+their full compiled hashes, extents, source, flags and toolchain. Their status
+and proof remain unchanged. Only selected RAW-equal functions are accepted, with
+the entire unit inventory and context pinned. Unpinned headers, changed peers
+and missing/extra symbols reject publication. This is peer preservation, not
+matching credit for the reconstructed neighbors; the default gate still refuses
+unsupported peers. Review current unit metadata/inventory before the expensive
+global gate, using the worker's hash-validated object as a diagnostic only.
+
+The first 24-lane wave, its six accepted functions, costs and shared next blockers
+are recorded in [parallel matching results](parallel_matching_2026_10_25.md).
 
 ## Revalidate and inspect source closure
 

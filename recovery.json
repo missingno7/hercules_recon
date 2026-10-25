@@ -11190,7 +11190,7 @@
     },
     {
       "id": "eng1.resource_reset",
-      "status": "CODEGEN_SIMILAR",
+      "status": "FUNCTION_MATCH_RELOCATED",
       "name_status": "provisional address label",
       "target": "assets/pc/HERCULES/ENG1.DLL",
       "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
@@ -11207,6 +11207,21 @@
         "_g_actor_resources": "0x5cee0"
       },
       "proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+        "source_sha256": "430253a93d7021b622437009a3258560b60f744bd7468de6b8c1eef9b2b6e007",
+        "compiled_sha256": "148d0a2f479a0bff46d7e79d2df27c40fe9148c60a2d38206955c96fe276a23a",
+        "target_sha256": "6aa1ca86d36db469b15590c8b307b41dae8f931a9b1cdc688d5aa0f8a953f42d",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/scale_resource_callbacks_bindings_2026_10_25.json",
+        "bindings_sha256": "d28c930c64021704ad91f691f903a69c3ef8417425521368b8feebfd1df921bb",
+        "reference_evidence_sha256": "d1fc2b4e693c62b2f7626e82534897dcbd91b11d48f2e01586bf54a91f1238c3",
+        "context_sha256": {
+          "src/eng1/resource_callbacks.c": "430253a93d7021b622437009a3258560b60f744bd7468de6b8c1eef9b2b6e007",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
+          "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608"
+        }
+      },
+      "prior_masked_proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
         "source_sha256": "430253a93d7021b622437009a3258560b60f744bd7468de6b8c1eef9b2b6e007",
         "masked_sha256": "9d3e6fb26f57648d30f2406546188ac2da02428f11d7b840032904fdd464312a",
@@ -11218,7 +11233,7 @@
     },
     {
       "id": "eng1.resource_load_complete",
-      "status": "CODEGEN_SIMILAR",
+      "status": "FUNCTION_MATCH_RELOCATED",
       "name_status": "provisional address label",
       "target": "assets/pc/HERCULES/ENG1.DLL",
       "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
@@ -11236,6 +11251,21 @@
         "_g_loading_resource": "0x4d7f8"
       },
       "proof": {
+        "scope": "complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned",
+        "source_sha256": "430253a93d7021b622437009a3258560b60f744bd7468de6b8c1eef9b2b6e007",
+        "compiled_sha256": "678a958035f58c3dcd452de29964c157104d1b266ed01972322becc16b96ec98",
+        "target_sha256": "653bd9ac2af2f26e2adc81064ad1c456ad2f6f822bfbc678158ee73157633120",
+        "toolchain": "msvc5_rtm",
+        "bindings_path": "evidence/scale_resource_callbacks_bindings_2026_10_25.json",
+        "bindings_sha256": "7e645000e8dcea0aef9dc47666c91edd3cf9c3dc56ddbf19d76f62af284e735b",
+        "reference_evidence_sha256": "d1fc2b4e693c62b2f7626e82534897dcbd91b11d48f2e01586bf54a91f1238c3",
+        "context_sha256": {
+          "src/eng1/resource_callbacks.c": "430253a93d7021b622437009a3258560b60f744bd7468de6b8c1eef9b2b6e007",
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
+          "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608"
+        }
+      },
+      "prior_masked_proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
         "source_sha256": "430253a93d7021b622437009a3258560b60f744bd7468de6b8c1eef9b2b6e007",
         "masked_sha256": "21f0307431fc2c4738c0ee3dadd3ac8c0ea4f89b025a5a90bab62459f4de2385",
@@ -11273,7 +11303,9 @@
         "masked_sha256": "41f599fd8adc25cab0a1455314720041c223bbec502d355caf6063c1ac16ca8b",
         "toolchain": "msvc5_rtm",
         "co_defined_functions": [
-          "_resource_cancel"
+          "_resource_cancel",
+          "_resource_load_complete",
+          "_resource_reset"
         ]
       }
     },
@@ -49855,7 +49887,7 @@
     },
     {
       "id": "eng3.121c0",
-      "status": "CODEGEN_SIMILAR",
+      "status": "FUNCTION_MATCH",
       "name_status": "provisional address label",
       "target": "assets/pc/HERCULES/ENG3.DLL",
       "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
@@ -49870,6 +49902,17 @@
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {},
       "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "5d1480090320234df6441ab8dcad951224b3fd18bd2457916db839da5a46f736",
+        "compiled_sha256": "ae2c7d525047fed158dfc9cd1765671ece7a736fe24cd64c452d03f80027783c",
+        "target_sha256": "ae2c7d525047fed158dfc9cd1765671ece7a736fe24cd64c452d03f80027783c",
+        "toolchain": "msvc5_rtm",
+        "unit_inventory_sha256": "9eb10bf6edf2beb455c559404771ee9df3e99607b6119b36febb6b31706ee1bd",
+        "context_sha256": {
+          "src/eng3/handlers_121c0.c": "5d1480090320234df6441ab8dcad951224b3fd18bd2457916db839da5a46f736"
+        }
+      },
+      "prior_masked_proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
         "source_sha256": "5d1480090320234df6441ab8dcad951224b3fd18bd2457916db839da5a46f736",
         "masked_sha256": "ae2c7d525047fed158dfc9cd1765671ece7a736fe24cd64c452d03f80027783c",
@@ -50172,7 +50215,7 @@
     },
     {
       "id": "eng3.12e40",
-      "status": "CODEGEN_SIMILAR",
+      "status": "FUNCTION_MATCH",
       "name_status": "provisional address label",
       "target": "assets/pc/HERCULES/ENG3.DLL",
       "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
@@ -50187,6 +50230,17 @@
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {},
       "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "5d1480090320234df6441ab8dcad951224b3fd18bd2457916db839da5a46f736",
+        "compiled_sha256": "7f9a33bace299a840eabaec62ba49f169b616f2a43f8f33003a24b1352459fbd",
+        "target_sha256": "7f9a33bace299a840eabaec62ba49f169b616f2a43f8f33003a24b1352459fbd",
+        "toolchain": "msvc5_rtm",
+        "unit_inventory_sha256": "9eb10bf6edf2beb455c559404771ee9df3e99607b6119b36febb6b31706ee1bd",
+        "context_sha256": {
+          "src/eng3/handlers_121c0.c": "5d1480090320234df6441ab8dcad951224b3fd18bd2457916db839da5a46f736"
+        }
+      },
+      "prior_masked_proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
         "source_sha256": "5d1480090320234df6441ab8dcad951224b3fd18bd2457916db839da5a46f736",
         "masked_sha256": "7f9a33bace299a840eabaec62ba49f169b616f2a43f8f33003a24b1352459fbd",
@@ -79271,7 +79325,7 @@
     },
     {
       "id": "eng3.0f3a0",
-      "status": "CODEGEN_SIMILAR",
+      "status": "FUNCTION_MATCH",
       "name_status": "provisional address label",
       "target": "assets/pc/HERCULES/ENG3.DLL",
       "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
@@ -79286,6 +79340,17 @@
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {},
       "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4",
+        "compiled_sha256": "6f552288cedd0d83617e3cc9dd4e4385121bdea39219862fc5dfe8ee720a9bc4",
+        "target_sha256": "6f552288cedd0d83617e3cc9dd4e4385121bdea39219862fc5dfe8ee720a9bc4",
+        "toolchain": "msvc5_rtm",
+        "unit_inventory_sha256": "350c83c0b1a425a385c23ca3ab7b5fe2b36f8308a9163543812bb47e20bfef19",
+        "context_sha256": {
+          "src/eng3/handlers_0e020.cpp": "a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4"
+        }
+      },
+      "prior_masked_proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
         "source_sha256": "a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4",
         "masked_sha256": "6f552288cedd0d83617e3cc9dd4e4385121bdea39219862fc5dfe8ee720a9bc4",
@@ -79350,7 +79415,7 @@
     },
     {
       "id": "eng3.0f400",
-      "status": "CODEGEN_SIMILAR",
+      "status": "FUNCTION_MATCH",
       "name_status": "provisional address label",
       "target": "assets/pc/HERCULES/ENG3.DLL",
       "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
@@ -79365,6 +79430,17 @@
       "boundary": "Span to the next 16-byte entry; extent proven by equal compiled /Gy contribution size, masked bytes, and absolute relocation offsets equal to target base relocations.",
       "link_symbols": {},
       "proof": {
+        "scope": "complete relocation-free function COFF contribution",
+        "source_sha256": "a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4",
+        "compiled_sha256": "eec569406ed4c9a1dafcb700aa319cd856e8bcc8519c9e3abf8b7261f3828228",
+        "target_sha256": "eec569406ed4c9a1dafcb700aa319cd856e8bcc8519c9e3abf8b7261f3828228",
+        "toolchain": "msvc5_rtm",
+        "unit_inventory_sha256": "350c83c0b1a425a385c23ca3ab7b5fe2b36f8308a9163543812bb47e20bfef19",
+        "context_sha256": {
+          "src/eng3/handlers_0e020.cpp": "a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4"
+        }
+      },
+      "prior_masked_proof": {
         "scope": "relocation-masked diagnostic equality with consistent implied symbol map; not acceptance",
         "source_sha256": "a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4",
         "masked_sha256": "eec569406ed4c9a1dafcb700aa319cd856e8bcc8519c9e3abf8b7261f3828228",

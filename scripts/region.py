@@ -188,13 +188,163 @@ def frontier(receipts):
     return [r for r in choices if not any(all(a>=b for a,b in zip(score(q),score(r))) and score(q)!=score(r) for q in choices)]
 
 
+def _normalized_repo_name(name):
+    path=Path(name)
+    if path.is_absolute() or '..' in path.parts:
+        raise ValueError('Packet source path must be repository-relative: '+str(name))
+    return path.as_posix()
+
+
+def _repo_file(name):
+    relative=_normalized_repo_name(name)
+    path=(ROOT/relative).resolve()
+    if not path.is_relative_to(ROOT.resolve()):
+        raise ValueError('Packet source path escapes repository: '+str(name))
+    return relative,path
+
+
+def _source_layout_moves():
+    review=ROOT/'evidence/source_layout_2026_10_25/review.json'
+    if not review.exists():return {}
+    moves=read(review).get('moves')
+    if not isinstance(moves,dict):raise ValueError('Invalid reviewed source-layout move map')
+    return {_normalized_repo_name(old):_normalized_repo_name(new) for old,new in moves.items()}
+
+
+def _ledger_region_owners(spec,state,moves):
+    owners={}
+    for f in spec['functions']:
+        rva=int(f['rva'],0)
+        matches=[row for row in state['functions']
+                 if row.get('target_sha256')==spec['target_sha256'] and int(row.get('rva','0'),0)==rva]
+        if not matches:continue
+        extent_matches=[]
+        for row in matches:
+            if row.get('size') is None:continue
+            if row['size']!=f['size']:raise ValueError('Recovery extent disagrees with region function: '+f['symbol'])
+            extent_matches.append(row)
+        records=set()
+        for row in extent_matches:
+            source=row.get('source')
+            if not source:continue
+            relative=_normalized_repo_name(source)
+            relative=moves.get(relative,relative)
+            records.add((relative,row.get('id'),row.get('symbol')))
+        if records:owners[f['symbol']]=[dict(source=path,recovery_id=rid,recovery_symbol=symbol)
+                                        for path,rid,symbol in sorted(records)]
+    return owners
+
+
+def _resolve_packet_context_files(spec,moves):
+    resolved=[];mapping={}
+    for name in spec.get('context_files',[]):
+        old=_normalized_repo_name(name)
+        new=moves.get(old,old)
+        if old.startswith('calibration/') and old not in moves:
+            raise ValueError('Retired context file has no reviewed source-layout move: '+old)
+        new,path=_repo_file(new)
+        if not path.is_file():raise FileNotFoundError('Resolved packet context file does not exist: '+new)
+        resolved.append(new);mapping[old]=new
+    if len(set(resolved))!=len(resolved):
+        raise ValueError('Reviewed context-file moves collapse distinct inputs: '+', '.join(resolved))
+    return resolved,mapping
+
+
+def _resolve_packet_context(entry,spec,state):
+    """Resolve a retired index baseline only through reviewed moves or exact ledger ownership."""
+    moves=_source_layout_moves()
+    indexed=_normalized_repo_name(entry['baseline'])
+    owners=_ledger_region_owners(spec,state,moves)
+    by_function={name:rows for name,rows in owners.items()}
+    paths_by_function={name:sorted({row['source'] for row in rows}) for name,rows in by_function.items()}
+    ambiguous=[name for name,paths in paths_by_function.items() if len(paths)>1]
+    if ambiguous:
+        detail='; '.join(name+': '+', '.join(paths_by_function[name]) for name in ambiguous)
+        raise ValueError('Ambiguous recovery source ownership for region functions: '+detail)
+    current_paths=sorted({path for paths in paths_by_function.values() for path in paths})
+    mapped=moves.get(indexed)
+    all_functions_owned=len(by_function)==len(spec['functions'])
+    if len(current_paths)>1:
+        if not mapped and (not indexed.startswith('calibration/') or not all_functions_owned):
+            raise ValueError('Split current ownership cannot be tied to a reviewed baseline move: '+', '.join(current_paths))
+        if mapped and mapped not in current_paths:
+            raise ValueError('Reviewed baseline move disagrees with split current ledger owners: '+mapped)
+        declared=spec.get('source')
+        if declared:
+            declared=_normalized_repo_name(declared)
+            declared=moves.get(declared,declared)
+            if declared not in current_paths:
+                raise ValueError('Region source is not among split current ledger owners: '+declared)
+        sources=[]
+        for relative in current_paths:
+            relative,path=_repo_file(relative)
+            if not path.is_file():raise FileNotFoundError('Current ledger owner does not exist: '+relative)
+            if not relative.startswith('src/'):
+                raise ValueError('Split region includes a noncanonical source owner: '+relative)
+            functions=[]
+            for name,rows in by_function.items():
+                matching=[row for row in rows if row['source']==relative]
+                if matching:
+                    functions.append(dict(region_symbol=name,ledger_rows=[dict(id=row['recovery_id'],
+                        symbol=row['recovery_symbol']) for row in matching]))
+            sources.append(dict(path=relative,sha256=digest(path.read_bytes()),functions=functions))
+        context_files,context_mapping=_resolve_packet_context_files(spec,moves)
+        resolution=dict(status='split_current_ownership',indexed_baseline=indexed,
+            resolved_baseline=None,resolution_basis='current recovery ledger identifies multiple canonical source units',
+            baseline_sources=sources,ledger_owners=by_function,context_files=context_mapping,
+            unowned_functions=[f['symbol'] for f in spec['functions'] if f['symbol'] not in by_function],
+            limitation='No single full-TU context exists for this region; receipts are excluded from the frontier.')
+        return None,None,resolution
+    owner=current_paths[0] if current_paths else None
+    if mapped:
+        relative=mapped
+        basis='reviewed source-layout move'
+        if owner is not None and owner!=relative:
+            raise ValueError('Reviewed move disagrees with current recovery owner: '+relative+' vs '+owner)
+    elif indexed.startswith('calibration/'):
+        if owner is None or not all_functions_owned:
+            raise ValueError('Retired calibration baseline has no reviewed move or complete unambiguous current ledger ownership: '+indexed)
+        relative=owner
+        basis='unambiguous current recovery ownership'
+    else:
+        relative=indexed
+        basis='indexed current source path'
+        if owner is not None and owner!=relative:
+            raise ValueError('Indexed source path disagrees with current recovery owner: '+relative+' vs '+owner)
+        _,indexed_path=_repo_file(relative)
+        if not indexed_path.is_file() and owner is not None:
+            relative=owner
+            basis='unambiguous current recovery ownership'
+    relative,path=_repo_file(relative)
+    if not path.is_file():raise FileNotFoundError('Resolved packet source does not exist: '+relative)
+    if not relative.startswith('src/'):
+        raise ValueError('Packet baseline did not resolve to current game source: '+relative)
+    if owner is not None and owner!=relative:
+        raise ValueError('Reviewed move disagrees with current recovery owner: '+relative+' vs '+owner)
+    declared=spec.get('source')
+    if declared:
+        declared=_normalized_repo_name(declared)
+        declared=moves.get(declared,declared)
+        if declared!=relative:
+            raise ValueError('Region source and baseline resolve to different current units: '+declared+' vs '+relative)
+    baseline=path.read_text(encoding='utf-8-sig')
+
+    resolved_spec=dict(spec)
+    resolved_context,context_mapping=_resolve_packet_context_files(spec,moves)
+    if 'context_files' in spec:resolved_spec['context_files']=resolved_context
+    provenance=dict(indexed_baseline=indexed,resolved_baseline=relative,resolution_basis=basis,
+                    ledger_owners=by_function,context_files=context_mapping,status='resolved')
+    return resolved_spec,baseline,provenance
+
+
 def packet(region_id,more=False):
     if not re.fullmatch(r'[a-z0-9_-]+',region_id):raise ValueError('Unsafe region name')
     catalog=read(ROOT/'evidence/region_index.json');entry=next(r for r in catalog['regions'] if r['id']==region_id)
     state=read(ROOT/'recovery.json');spec=read(ROOT/entry['spec'])
-    scope=ownership(spec);base=(ROOT/entry['baseline']).read_text();ctx=context_identity(spec,base)
+    scope=ownership(spec);packet_spec,base,baseline_resolution=_resolve_packet_context(entry,spec,state)
+    ctx=context_identity(packet_spec,base) if baseline_resolution['status']=='resolved' else None
     receipts=[read(ROOT/p) for p in entry.get('receipts',[])]
-    current=[r for r in receipts if r['context_id']==ctx]
+    current=[r for r in receipts if ctx is not None and r['context_id']==ctx]
     accepted={(r['target_sha256'],int(r['rva'],0)):r for r in state['functions'] if r['status'] in ACCEPTED | {'LINKED_MATCH'}}
     unresolved=[f['symbol'] for f in spec['functions'] if (spec['target_sha256'],int(f['rva'],0)) not in accepted]
     recorded={(r['target_sha256'],int(r['rva'],0)):r for r in state['functions']}
@@ -220,7 +370,8 @@ def packet(region_id,more=False):
         tried=[{k:r.get(k) for k in ('family','verdict','prediction','falsifier','blocker','reentry_condition','output_id')} for r in current],
         negative_knowledge=[n for n in notes['observations'] if n['region']==region_id and unresolved],
         progressive_references=entry.get('references',[]),model_policy='Luna xhigh normally; Sol high for unresolved explanation. See AGENTS.md.',
-        baseline_source=entry['baseline'],baseline_sha256=digest(base.encode()))
+        baseline_source=baseline_resolution['resolved_baseline'],baseline_resolution=baseline_resolution,
+        baseline_sha256=digest(base.encode()) if base is not None else None)
     if more:result['functions']=[dict(f,accepted_id=accepted.get((spec['target_sha256'],int(f['rva'],0)),{}).get('id')) for f in spec['functions']]
     out=ROOT/'work/packets';out.mkdir(parents=True,exist_ok=True)
     path=out/(region_id+'-'+identity(result)[:16]+'.json')
