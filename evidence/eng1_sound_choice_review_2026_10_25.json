@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "date": "2026-10-25",
+  "scope": "Canonical reconstructed ENG1 sound selector and independently bounded80B native function; recovery.json alone grants matching acceptance.",
+  "selection": {
+    "provider": "eng1_1aba0",
+    "reason": "Small self-contained native routine with independently available sound/RNG helper identities and two measured data owners; 12 native direct callers across five current ENG1 consumer TUs.",
+    "candidate_source": "src/eng1/sound_choice_1aba0.c",
+    "candidate_source_sha256": "86581c578ba529c50b421d0e6b3e1106bd2becb9827d3dc02f1165c5e9cadbf5"
+  },
+  "native_extent": {
+    "module": "ENG1.DLL",
+    "target": "assets/pc/HERCULES/ENG1.DLL",
+    "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "rva": "0x1aba0",
+    "size": 80,
+    "body_end_ret": "0x1abef",
+    "target_function_sha256": "b7c87b887f6c04428ffc20b45ca987d5156b55897af1af564b9917595b2d5487",
+    "extent_note": "The function-map 112-byte span merges the following separately referenced 0x1abf0 setup callback. evidence/eng1_setup_dispatch.json maps 0x1abf0 as the level-6 callback; its native body is not part of 0x1aba0."
+  },
+  "behavior_from_native": [
+    "If byte [0x72012] has either 0x08 or 0x10 set, call play_sound(0x27a, null) and return.",
+    "Otherwise call dispatch_engine_2c460(0x8000). If its unsigned result is below 0x4000, call play_sound(0x24, g_normal_actor_pool); otherwise use 0x25."
+  ],
+  "references": [
+    {
+      "symbol": "_g_eng1_setup_word_72012",
+      "rva": "0x72012",
+      "kind": "2-byte loader-zero owner",
+      "source": "src/eng1/setup_shared_state.c",
+      "anchor": "ENG1 0x168c1 MOV [0x72012],0; separate from candidate",
+      "evidence": [
+        "evidence/eng1_setup_source.json",
+        "evidence/eng1_data_evidence_manifest.json"
+      ]
+    },
+    {
+      "symbol": "_g_normal_actor_pool",
+      "rva": "0x72860",
+      "kind": "4-byte loader-zero pointer owner",
+      "source": "src/eng1/actor_storage.c",
+      "anchor": "ENG1 0x1f10d absolute pool-cell reference",
+      "evidence": [
+        "evidence/normal_pool_pointer_2026_10_25.json",
+        "evidence/eng1_actor_storage.json"
+      ]
+    },
+    {
+      "symbol": "_dispatch_engine_2c460",
+      "rva": "0x2c460",
+      "extent": 16,
+      "abi": "cdecl unsigned int(int); prior independent host-slot-37/callee review",
+      "evidence": [
+        "evidence/eng1_actor_followup_matching_2026_10_24.json",
+        "src/eng1/host_control_wrappers.c"
+      ]
+    },
+    {
+      "symbol": "_play_sound",
+      "rva": "0x6da0",
+      "extent": 2115,
+      "abi": "cdecl void(unsigned-short id, owner pointer); independently reviewed native callee and outside callers",
+      "evidence": [
+        "evidence/eng1_exact_harvest_review_2026_10_25.json",
+        "evidence/owner_alias_references_2026_10_25.json"
+      ]
+    }
+  ],
+  "fresh_private_gate": {
+    "receipt": "work/third/eng1_provider_family/fresh_gate_receipt.json",
+    "binding_manifest": "work/third/eng1_provider_family/bindings.json",
+    "complete_contribution_bytes": 80,
+    "result": "RELOCATED EXACT",
+    "relocation_uses": 7,
+    "nonreference_differences": 0,
+    "compiled_contribution_sha256": "de60d1a2c03536f34c1fa28bc9f87a8e48b9bd3abd46ced8761e9c09736d6cce",
+    "compiler_calls_successful_gate": 3,
+    "total_historical_compiler_calls_task": 8,
+    "wrong_target_control": "Changing dispatch_engine_2c460 from 0x2c460 to 0x2c461 was rejected at relocation offset 0x1f without recompilation.",
+    "acceptance": "Diagnostic private comparison only; no recovery acceptance or canonical integration."
+  },
+  "other_candidate": {
+    "id": "eng1_26de0",
+    "consumer_tus": [
+      "src/eng1/level_actors_083e0.cpp",
+      "src/eng1/level_unit_10120.c",
+      "src/eng1/player_scene_3a040.c",
+      "src/eng1/player_unit_36030.c",
+      "src/eng1/status_panel_32b10.c"
+    ],
+    "native_direct_call_refs": 25,
+    "extent_lead": {
+      "span_bytes": 176,
+      "decoded_body_bytes": 168,
+      "last": "ret"
+    },
+    "native_callees": [
+      "0x2a880",
+      "0x1a9b0",
+      "0x2a810",
+      "0x2a7a0"
+    ],
+    "first_blocker": "0x1a9b0 has no current ENG1 source provider; its own 43-byte body calls 0x1a9e0 (276-byte decoded body) and 0x1ab00 (72-byte decoded body), also absent from current source. 0x2a7a0 is another absent current provider. The native calls 0x2a880 and 0x2a810 have current source counterparts.",
+    "next_evidence": "Recover or independently identify/ABI-bind the 0x1a9b0 filter chain and 0x2a7a0 collision-context query from their own native entries/bodies and outside callers, including the engine-interface data they read; then revisit 0x26de0. No provider behavior should be guessed from the 0x26de0 return patterns."
+  },
+  "canonical_correction": "The ordinary unsigned-char byte view produces the same complete instruction/reference shape. The experimental volatile qualifier was removed because no volatile semantics are established."
+}

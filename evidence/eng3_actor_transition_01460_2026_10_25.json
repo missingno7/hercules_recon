@@ -1,0 +1,115 @@
+{
+  "schema": 1,
+  "scope": "Canonical reconstructed ENG3 transition helper; NEAR source, no matching acceptance or full module dependency/link claim.",
+  "target": "assets/pc/HERCULES/ENG3.DLL",
+  "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "source": "src/eng3/actor_transition_01460.c",
+  "source_sha256": "48b0a1583184036ae9abc7b9f2165fdb36634d4e4f0ee2ee9915c967aeb9720e",
+  "symbol": "_eng3_01460",
+  "rva": "0x1460",
+  "size": 416,
+  "flags": [
+    "/O2"
+  ],
+  "status": "NEAR",
+  "native_identity": {
+    "scope": "Native entry and caller ABI identity only; no strict source-match claim.",
+    "module": "ENG3.DLL",
+    "module_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+    "entry": {
+      "rva": "0x1460",
+      "size": 416,
+      "body_size": 404,
+      "padding_size": 12,
+      "ret_rva": "0x15f3",
+      "complete_span_sha256": "130439deb41269c8382ca0b96f0d13c1c877caa2b4fd9251213af385dde80207"
+    },
+    "abi": {
+      "argument_count": 1,
+      "argument": "32-bit actor pointer on stack",
+      "convention": "caller-clean cdecl evidence: push pointer; add esp,4 after call",
+      "result": "EAX integer/boolean; outside callers test EAX; entry paths return 0 or 1",
+      "entry_prologue": "a1a407041053568b74240c8a",
+      "return_instruction": "plain RET at 0x15f3"
+    },
+    "direct_dependencies": [
+      {
+        "rva": "0x1f690",
+        "source_symbol": "advance_object_motion",
+        "identity": "evidence/shared_functions.json#src/shared/motion.c.advance_object_motion"
+      },
+      {
+        "rva": "0x1eaf0",
+        "source_symbol": "eng3_1eaf0",
+        "status": "RECONSTRUCTED source identity; direct native call target is entry 0x1eaf0"
+      }
+    ],
+    "independent_outside_callers": [
+      {
+        "caller_id": "eng3.04a40",
+        "caller_extent": {
+          "rva": "0x4a40",
+          "size": 288,
+          "source": "src/eng3/handlers_023a0.c",
+          "symbol": "_eng3_04a40"
+        },
+        "witness_window_rva": "0x4b04",
+        "witness_window_bytes": "56e856c9ffff83c40485c0",
+        "witness_window_sha256": "cc8d29c6f7656a2ec0996d97dcdaaa654054d77ea1a7c5d5fdcc78cfb8fcb455",
+        "call_rva": "0x4b05",
+        "call_bytes": "e856c9ffff",
+        "decoded_direct_destination": "0x1460",
+        "argument_setup": "push esi before E8; no stack adjustment between push and call",
+        "caller_cleanup_rva": "0x4b0a",
+        "caller_cleanup_bytes": "83c404",
+        "result_test_rva": "0x4b0d",
+        "result_test_bytes": "85c0",
+        "outside_pending_callers": true
+      },
+      {
+        "caller_id": "eng3.14d40",
+        "caller_extent": {
+          "rva": "0x14d40",
+          "size": 80,
+          "source": "src/eng3/handlers_14190.cpp",
+          "symbol": "_eng3_14d40"
+        },
+        "witness_window_rva": "0x14d45",
+        "witness_window_bytes": "56668b463066014674e80dc7feff83c40485c0",
+        "witness_window_sha256": "567c0f180a421450d6bc303ad0de2618cf7fbba49ea195a7d5c590888fe957ed",
+        "call_rva": "0x14d4e",
+        "call_bytes": "e80dc7feff",
+        "decoded_direct_destination": "0x1460",
+        "argument_setup": "push esi before E8; no stack adjustment between push and call",
+        "caller_cleanup_rva": "0x14d53",
+        "caller_cleanup_bytes": "83c404",
+        "result_test_rva": "0x14d56",
+        "result_test_bytes": "85c0",
+        "outside_pending_callers": true
+      }
+    ]
+  },
+  "header": "src/shared/engine_interface.h",
+  "header_sha256": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+  "comparison": {
+    "compiler_calls": 1,
+    "compiled_size": 416,
+    "raw_different_bytes": 33,
+    "nonreference_differences": 11,
+    "relocations": 6,
+    "compiled_sha256": "f19af6dece04d6fba1224a0882b909d71118f145b0e7a956e74bdc894f2c5029",
+    "object_sha256": "cc37e9c2ea41447e29517281f100d2a638c3d11eb12995ee5b550f05448291bc"
+  },
+  "semantics": [
+    "Level8 threshold depends on the observed actor pointer cell+profile and signed x-sector bounds.",
+    "Advance motion, clear transition marker, and transfer paired fields when y-speed is zero.",
+    "Level8/y threshold or level2/10 collision success halves three motion fields and sets transition flags; return1 only when resulting y-speed is zero.",
+    "Each context-byte reload and the two transition paths remain explicit."
+  ],
+  "limits": [
+    "The11 residual instruction bytes are paired independent field load/store scheduling; no strict or finite behavioral-equivalence claim.",
+    "The address-qualified 0x41d54 Actor pointer is declared, not defined; original source name and full data ownership remain unproved.",
+    "advance_object_motion is accepted; eng3_1eaf0 remains reconstructed. No service stub is included.",
+    "Build-time32-bit layout checks pass; no full ENG3 source-only graph/link or original host execution was performed."
+  ]
+}
