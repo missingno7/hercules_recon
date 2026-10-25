@@ -78,6 +78,8 @@ are the evidence oracle; PSX builds are secondary.
 - Handoffs name exact IDs and source ownership, base and input hashes, existing
   binding/native evidence, one focused receipt, compiler-call count, and the
   first blocker. Link large reports; don't paste ledgers or hash inventories.
+- Before committing hash-pinned evidence, check that staged Git blobs preserve
+  the verified file bytes; use the existing exact-byte attributes where needed.
 - Default to GPT-6 Luna xhigh for bounded reconstruction and compiler work. Use
   GPT-6.1 Sol high when the explanation is uncertain or one shared question can
   unlock several regions. Prefer deterministic verification over extra model
