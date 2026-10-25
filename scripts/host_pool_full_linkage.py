@@ -19,12 +19,12 @@ def main():
     if digest(target.data) != core['target_sha256']:
         raise ValueError('Changed host oracle')
     units = [
-        ('host_pool', 'calibration/host_pool_repaired.c', 'evidence/regions/pool_predicates.json'),
-        ('host_pool_counts', 'calibration/host_pool_counts.c', 'evidence/regions/host_pool_counts_common.json'),
-        ('host_pool_lifecycle', 'calibration/host_pool_lifecycle_repaired.c', 'evidence/regions/bulk_owner_guard.json'),
-        ('host_arena_reset', 'calibration/host_arena_reset.c', 'evidence/regions/host_arena_reset_first.json'),
-        ('host_pool_shrink', 'calibration/host_pool_shrink.c', 'evidence/regions/host_pool_shrink_common.json'),
-        ('pool_reverse_copy', 'calibration/pool_reverse_copy.c', 'evidence/regions/pool_reverse_copy_common.json'),
+        ('host_pool', 'src/pc/host_pool_repaired.c', 'evidence/regions/pool_predicates.json'),
+        ('host_pool_counts', 'src/pc/host_pool_counts.c', 'evidence/regions/host_pool_counts_common.json'),
+        ('host_pool_lifecycle', 'src/pc/host_pool_lifecycle_repaired.c', 'evidence/regions/bulk_owner_guard.json'),
+        ('host_arena_reset', 'src/pc/host_arena_reset.c', 'evidence/regions/host_arena_reset_first.json'),
+        ('host_pool_shrink', 'src/pc/host_pool_shrink.c', 'evidence/regions/host_pool_shrink_common.json'),
+        ('pool_reverse_copy', 'src/pc/pool_reverse_copy.c', 'evidence/regions/pool_reverse_copy_common.json'),
     ]
     specifications = [json.loads((ROOT / f'evidence/{name}_region.json').read_text()) for name, _, _ in units]
     strings = {}
@@ -44,7 +44,7 @@ def main():
             else:
                 raise ValueError('Unterminated observed string')
             strings[name] = dict(target_rva=value,text=data.decode('ascii'),sha256=digest(bytes(data)+b'\0'),bytes=len(data)+1)
-    prefix = (ROOT / 'calibration/host_pool_repaired.c').read_text().split('void __cdecl save_arena')[0]
+    prefix = (ROOT / 'src/pc/host_pool_repaired.c').read_text().split('void __cdecl save_arena')[0]
     data_source = lane / 'pool_data.c'
     data_text = prefix + '\nHostPoolState g_host_pool;\n'
     for name, row in strings.items():

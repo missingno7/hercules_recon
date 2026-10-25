@@ -286,7 +286,7 @@ def promote_existing_units(ids, verify_only=False, report=None):
     peers = [r for r in state['functions'] if r.get('source') in sources]
     for row in peers:
         path = (ROOT / row['source']).resolve()
-        if not any(path.is_relative_to(ROOT / d) for d in ('src', 'calibration')):
+        if not path.is_relative_to(ROOT / 'src'):
             raise ValueError('Existing units must be repository source')
         if row['status'] != 'FUNCTION_MATCH' and not (
                 row['status'] == 'CODEGEN_SIMILAR' and row.get('proof', {}).get('scope') == SCOPE):

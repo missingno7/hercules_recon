@@ -3,9 +3,9 @@
 #include <string.h>
 #include <setjmp.h>
 #include <windows.h>
-#include "../calibration/engine_interface.h"
-#include "../src/eng1/behavioral/cold_start_frame_data.h"
-#include "../src/eng1/behavioral/frame_program_data.h"
+#include "../src/shared/engine_interface.h"
+#include "../src/eng1/cold_start_frame_data.h"
+#include "../src/eng1/frame_program_data.h"
 
 typedef unsigned char u8;
 typedef unsigned short u16;

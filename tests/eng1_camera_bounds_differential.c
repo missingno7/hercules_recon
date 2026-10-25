@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/resource_runtime_data.h"
+#include "../src/eng1/resource_runtime_data.h"
 
 extern int __cdecl dispatch_local_20ea0(void *, int, int, long);
 typedef int (__cdecl *Bounds)(void *, int, int, long);

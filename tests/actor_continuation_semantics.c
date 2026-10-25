@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <string.h>
-#include "../calibration/actor_continuation.c"
+#include "../src/eng1/actor_continuation.c"
 ScriptWord g_frame_script[8];
 unsigned char g_spawn_gate;
 long g_countdown,g_effect_speed,g_effect_phase;

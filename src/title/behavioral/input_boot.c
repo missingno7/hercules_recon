@@ -1,8 +1,8 @@
 /* Behavioral source for TITLE.DLL 0x164b0. Source-unit ownership remains provisional;
    its four private cells are native BSS 0x2ace0..0x2acec. */
-#include "../../../calibration/title/title_engine.h"
-#include "../../../calibration/title/title_files.h"
-#include "../../../calibration/title/title_screen.h"
+#include "../title_engine.h"
+#include "../title_files.h"
+#include "../title_screen.h"
 
 typedef struct TitlePadMap {
     unsigned short button[8];

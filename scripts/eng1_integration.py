@@ -100,8 +100,8 @@ def load_eng1_report(report_path=DEFAULT_BUILD_REPORT):
 
     recorded = dict(report.get("context_sha256", {}))
     recorded["recovery.json"] = report.get("recovery_sha256")
-    recorded["evidence/eng1_behavioral_build.json"] = report.get("config_sha256")
-    if not recorded.get("recovery.json") or not recorded.get("evidence/eng1_behavioral_build.json"):
+    recorded["config/eng1/sources.json"] = report.get("config_sha256")
+    if not recorded.get("recovery.json") or not recorded.get("config/eng1/sources.json"):
         raise ValueError("ENG1 report lacks recovery/configuration input hashes")
     for relative, expected in recorded.items():
         source = (ROOT / relative).resolve()
@@ -427,7 +427,7 @@ def source_call_capture_specifications(build, original_rva):
         raise ValueError('No reviewed caller capture ABI for this RVA')
     caller = '_dispatch_local_03270'
     target = '_eng1_target_04ca0'
-    source = 'src/eng1/behavioral/level_loading.c'
+    source = 'src/eng1/level_loading.c'
     unit = next(x for x in build['report']['compiled_sources'] if x['source']==source)
     obj = Path(next(x[3:] for x in unit['command'] if x.startswith('/Fo')))
     if sha256(obj) != unit['object_sha256']:

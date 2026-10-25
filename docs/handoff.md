@@ -1,5 +1,9 @@
 # Current handoff
 
+Current source is consolidated under `src/{pc,title,eng1,eng3,shared}`.
+Read [the source guide](../src/README.md) and [layout migration](source_layout.md).
+Active build selection is in `config/`; historical paths in dated reports are provenance.
+
 The direction is one faithful native source game, eventually built on SDL3.
 Original PC binaries remain the evidence oracle; original first-party EXE/DLL
 modules will not be runtime dependencies of the finished game.
@@ -66,7 +70,7 @@ reviewed references and four bounded local switch tables. See
 The RAW gate and complete relocated instruction/reference requirements remain.
 Explicit, independently owned loader-zero references now have fail-closed support.
 Separately, eleven missing player-mode bodies now have real source in
-`src/eng1/behavioral/player_modes_remaining.c`. Two linked rows retain
+`src/eng1/player_modes_remaining.c`. Two linked rows retain
 earlier raw proofs,
 so `match.py verify --raw-only` checks 139 proofs without double-counting rows.
 All 134 old RAW rows remain accepted; `exe.host_0a190` adds 16 RAW bytes and

@@ -13,7 +13,7 @@ sys.path.insert(0,'C:/tools/hercules/renderer-oracle-python')
 import unicorn
 from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_READ,UC_HOOK_MEM_WRITE
 from unicorn.x86_const import (UC_X86_REG_EAX,UC_X86_REG_ECX,UC_X86_REG_EDX,UC_X86_REG_EBX,UC_X86_REG_ESI,UC_X86_REG_EDI,UC_X86_REG_EBP,UC_X86_REG_ESP,UC_X86_REG_EIP)
-SOURCE=ROOT/'src/eng1/behavioral/actor_base_init.c';ORACLE=ROOT/'assets/pc/HERCULES/ENG1.DLL'
+SOURCE=ROOT/'src/eng1/actor_base_init.c';ORACLE=ROOT/'assets/pc/HERCULES/ENG1.DLL'
 DATA=0x61000000;STACK=0x62000000;ESP=STACK+0x8000;STOP=STACK+0xf000
 NV=(UC_X86_REG_EBX,UC_X86_REG_ESI,UC_X86_REG_EDI,UC_X86_REG_EBP);SEEDS=(0x12345678,0x23456789,0x3456789a,0x456789ab)
 pack=lambda n:struct.pack('<I',n&0xffffffff)

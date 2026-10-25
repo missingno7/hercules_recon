@@ -1,7 +1,7 @@
 /* Original PC open/close physical return views; original prototypes/TU unproved. */
 #include <stdio.h>
-#include "../../calibration/engine_interface.h"
-#include "../../calibration/host_file_callbacks.h"
+#include "../shared/engine_interface.h"
+#include "host_file_callbacks.h"
 extern EngineInterface g_host_engine_interface;
 extern void __cdecl host_diagnostic(const char *format, ...);
 extern int __cdecl virtual_file_open(const char *path, int mode, int flags);

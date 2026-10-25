@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/resource_rebind.c"
+#include "../src/shared/resource_rebind.c"
 
 EngineInterface g_engine_interface;
 u8 *g_resource_root;

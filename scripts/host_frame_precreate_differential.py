@@ -77,7 +77,7 @@ def sha(path: Path) -> str:
 
 def repository_root(start: Path) -> Path:
     for candidate in (start, *start.parents):
-        if ((candidate / "scripts").is_dir() and (candidate / "calibration").is_dir()
+        if ((candidate / "scripts").is_dir() and (candidate / "src/pc").is_dir()
                 and (candidate / "toolchains" / "manifest.json").is_file()):
             return candidate
     raise RuntimeError("cannot derive repository root from runner installation path")
@@ -91,7 +91,7 @@ def source_pins(root: Path) -> dict[str, str]:
     evidence_path = root / "evidence" / "host_frame_class_recovery.json"
     evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
     pins = {row["path"].replace("\\", "/"): row["sha256"] for row in evidence["sources"]}
-    required = {"calibration/host_window_class.cpp", "calibration/host_system_keys.h"}
+    required = {"src/pc/host_window_class.cpp", "src/pc/host_system_keys.h"}
     if not required.issubset(pins):
         raise RuntimeError(f"durable host-frame evidence lacks source pins: {required - set(pins)}")
     return {str((root / name).resolve()): pins[name] for name in sorted(required)}
@@ -506,8 +506,8 @@ def run(root: Path, original_root: Path, output: Path) -> dict:
     output.mkdir(parents=True, exist_ok=True)
     build = output / "build"
     build.mkdir(parents=True, exist_ok=True)
-    source = root / "calibration" / "host_window_class.cpp"
-    header = root / "calibration" / "host_system_keys.h"
+    source = root / 'src/pc/host_window_class.cpp'
+    header = root / 'src/pc/host_system_keys.h'
     oracle = original_root / "work" / "discs" / "pc_install" / "HERCULES.EXE"
     evidence = root / "evidence" / "host_frame_class_recovery.json"
     manifest = root / "toolchains" / "manifest.json"
@@ -552,7 +552,7 @@ def run(root: Path, original_root: Path, output: Path) -> dict:
         'int main(void) { for (;;) { } return 0; }\n',
         encoding="utf-8", newline="\n")
     sources = [source, driver, map_boundary, entry_guard]
-    include_dirs = [TOOLCHAIN / "include", TOOLCHAIN / "mfc" / "include", root / "calibration"]
+    include_dirs = [TOOLCHAIN / "include", TOOLCHAIN / "mfc" / "include", root / "src/pc"]
     env = os.environ.copy()
     for key in ("CL", "_CL_", "LINK", "_LINK_"):
         env.pop(key, None)
@@ -664,7 +664,7 @@ def run(root: Path, original_root: Path, output: Path) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-root", type=Path,
-                        help="repository holding canonical calibration sources; derived from this script by default")
+                        help="repository holding canonical src/ sources; derived from this script by default")
     parser.add_argument("--original-root", type=Path, default=Path(r"D:\Prog\hercules_recon"),
                         help="read-only root containing work/discs/pc_install/HERCULES.EXE")
     parser.add_argument("--output", type=Path,

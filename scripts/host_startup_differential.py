@@ -181,8 +181,8 @@ def invoke(mode,case,layout,pe):
 
 def main():
     assert digest(ORACLE.read_bytes())==EXPECTED
-    paths=[ROOT/'calibration'/n for n,_,_,_ in FUNCTIONS]+[ROOT/'calibration'/n for n in ('fatal_cleanup_chain.c','display_mode_setter.c','fatal_storage.c','host_startup_storage.c','graphics_storage.cpp')]
-    headers=[ROOT/'calibration/host_startup_storage.h',DEFAULT_TOOLCHAIN/'include/windows.h',DEFAULT_TOOLCHAIN/'include/mmsystem.h',DEFAULT_TOOLCHAIN/'include/stdlib.h']
+    paths=[ROOT/'src/pc'/n for n,_,_,_ in FUNCTIONS]+[ROOT/'src/pc'/n for n in ('fatal_cleanup_chain.c','display_mode_setter.c','fatal_storage.c','host_startup_storage.c','graphics_storage.cpp')]
+    headers=[ROOT/'src/pc/host_startup_storage.h',DEFAULT_TOOLCHAIN/'include/windows.h',DEFAULT_TOOLCHAIN/'include/mmsystem.h',DEFAULT_TOOLCHAIN/'include/stdlib.h']
     snapshot={str(p):digest(p.read_bytes()) for p in paths+headers+[ORACLE,Path(__file__),ROOT/'scripts/host_dispatch_differential.py',ROOT/'toolchains/manifest.json']}
     units=[]
     for p in paths:

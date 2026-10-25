@@ -21,9 +21,9 @@ proof=json.loads(evidence_before)
 target=root/'work/discs/pc_install/HERCULES.EXE'
 pe=PE(target)
 assert digest(pe.data)==proof['fresh_canonical']['target_sha256']
-sources=['calibration/archive_storage.c','calibration/public_file_handles.c']
+sources=['src/pc/archive_storage.c','src/pc/public_file_handles.c']
 fatal_evidence=root/'evidence/fatal_storage_2026_10_11.json'
-fatal_source=root/'calibration/fatal_storage.c'
+fatal_source=root/'src/pc/fatal_storage.c'
 fatal_before=None;fatal_proof=None
 if fatal_evidence.exists() or fatal_source.exists():
  assert fatal_evidence.is_file() and fatal_source.is_file()
@@ -32,7 +32,7 @@ if fatal_evidence.exists() or fatal_source.exists():
  assert digest(fatal_source.read_bytes())==fatal_proof['canonical_provider']['sha256']
  sources.append(fatal_proof['canonical_provider']['source'])
 registry_evidence=root/'evidence/registry_storage_adoption_2026_10_11.json'
-registry_paths=['calibration/registry_storage.c','calibration/registry_literals.c']
+registry_paths=['src/shared/registry_storage.c','src/shared/registry_literals.c']
 registry_before=None;registry_proof=None
 if registry_evidence.exists() or any((root/p).exists() for p in registry_paths):
  assert registry_evidence.is_file() and all((root/p).is_file() for p in registry_paths)
@@ -43,43 +43,43 @@ if registry_evidence.exists() or any((root/p).exists() for p in registry_paths):
   assert digest((root/provider['source']).read_bytes())==provider['source_sha256']
  sources.extend(registry_paths)
 graphics_evidence=root/'evidence/graphics_storage_adoption_2026_10_11.json'
-graphics_source=root/'calibration/graphics_storage.cpp'
+graphics_source=root/'src/pc/graphics_storage.cpp'
 graphics_before=None;graphics_proof=None
 if graphics_evidence.exists() or graphics_source.exists():
  assert graphics_evidence.is_file() and graphics_source.is_file()
  graphics_before=graphics_evidence.read_bytes();graphics_proof=json.loads(graphics_before)
  assert graphics_proof['oracle']['sha256']==digest(pe.data)
- assert graphics_proof['canonical_provider']['source']=='calibration/graphics_storage.cpp'
+ assert graphics_proof['canonical_provider']['source']=='src/pc/graphics_storage.cpp'
  assert digest(graphics_source.read_bytes())==graphics_proof['canonical_provider']['source_sha256']
  for header in graphics_proof['actual_headers']:
   assert digest(Path(header['path']).read_bytes())==header['sha256']
- sources.append('calibration/graphics_storage.cpp')
+ sources.append('src/pc/graphics_storage.cpp')
 audio_evidence=root/'evidence/audio_storage_adoption_2026_10_11.json'
-audio_source=root/'calibration/audio_storage.cpp'
+audio_source=root/'src/pc/audio_storage.cpp'
 audio_before=None;audio_proof=None
 if audio_evidence.exists() or audio_source.exists():
  assert audio_evidence.is_file() and audio_source.is_file()
  audio_before=audio_evidence.read_bytes();audio_proof=json.loads(audio_before)
  assert audio_proof['oracle']['sha256']==digest(pe.data)
- assert audio_proof['canonical_provider']['source']=='calibration/audio_storage.cpp'
+ assert audio_proof['canonical_provider']['source']=='src/pc/audio_storage.cpp'
  assert digest(audio_source.read_bytes())==audio_proof['canonical_provider']['source_sha256']
  for header in audio_proof['actual_headers']:
   assert digest(Path(header['path']).read_bytes())==header['sha256']
- sources.append('calibration/audio_storage.cpp')
+ sources.append('src/pc/audio_storage.cpp')
 extra_fields={}
 for source_name,evidence_name,count,initialized,zero,bss_flags in (
- ('calibration/sound_bank_storage.cpp','evidence/sound_bank_storage_adoption_2026_10_11.json',4,0,19209,0xc0400080),
- ('calibration/mci_storage.c','evidence/mci_storage_adoption_2026_10_11.json',7,18,24,0xc0300080),
- ('calibration/archive_array_prefixes.c','evidence/archive_array_prefixes_adoption_2026_10_11.json',2,0,16384,0xc0400080),
- ('calibration/movie_scratch_storage.c','evidence/movie_storage_adoption_2026_10_11.json',1,0,81920,0xc0400080),
- ('calibration/host_resource_storage.c','evidence/host_resource_storage_adoption_2026_10_11.json',2,4,6964,0xc0400080),
- ('calibration/movie_header_storage.c','evidence/movie_header_storage_adoption_2026_10_11.json',1,0,840,0xc0400080),
- ('calibration/movie_initializer_storage.c','evidence/movie_initializer_storage_adoption_2026_10_11.json',4,0,82116,0xc0400080),
- ('calibration/audio_gain_storage.c','evidence/audio_gain_storage_adoption_2026_10_11.json',2,0,4,0xc0300080),
- ('calibration/host_sequence_storage.c','evidence/host_sequence_storage_adoption_2026_10_11.json',1,0,4,0xc0300080),
- ('calibration/host_callback_storage.c','evidence/host_callback_storage_adoption_2026_10_11.json',1,0,12,0xc0400080),
- ('calibration/host_pool_storage.c','evidence/host_pool_storage_adoption_2026_10_11.json',1,0,48,0xc0400080),
- ('calibration/graphics_lock_storage.c','evidence/graphics_lock_storage_adoption_2026_10_11.json',1,0,1,0xc0300080),
+ ('src/pc/sound_bank_storage.cpp','evidence/sound_bank_storage_adoption_2026_10_11.json',4,0,19209,0xc0400080),
+ ('src/pc/mci_storage.c','evidence/mci_storage_adoption_2026_10_11.json',7,18,24,0xc0300080),
+ ('src/pc/archive_array_prefixes.c','evidence/archive_array_prefixes_adoption_2026_10_11.json',2,0,16384,0xc0400080),
+ ('src/pc/movie_scratch_storage.c','evidence/movie_storage_adoption_2026_10_11.json',1,0,81920,0xc0400080),
+ ('src/pc/host_resource_storage.c','evidence/host_resource_storage_adoption_2026_10_11.json',2,4,6964,0xc0400080),
+ ('src/pc/movie_header_storage.c','evidence/movie_header_storage_adoption_2026_10_11.json',1,0,840,0xc0400080),
+ ('src/pc/movie_initializer_storage.c','evidence/movie_initializer_storage_adoption_2026_10_11.json',4,0,82116,0xc0400080),
+ ('src/pc/audio_gain_storage.c','evidence/audio_gain_storage_adoption_2026_10_11.json',2,0,4,0xc0300080),
+ ('src/pc/host_sequence_storage.c','evidence/host_sequence_storage_adoption_2026_10_11.json',1,0,4,0xc0300080),
+ ('src/pc/host_callback_storage.c','evidence/host_callback_storage_adoption_2026_10_11.json',1,0,12,0xc0400080),
+ ('src/pc/host_pool_storage.c','evidence/host_pool_storage_adoption_2026_10_11.json',1,0,48,0xc0400080),
+ ('src/pc/graphics_lock_storage.c','evidence/graphics_lock_storage_adoption_2026_10_11.json',1,0,1,0xc0300080),
 ):
  source_path=root/source_name;proof_path=root/evidence_name
  if proof_path.exists() or source_path.exists():
@@ -95,8 +95,8 @@ for source_name,evidence_name,count,initialized,zero,bss_flags in (
   extra_fields[source_name]=(field_proof,count,initialized,zero,bss_flags,proof_path,content)
   sources.append(source_name)
 field_specs={
- 'calibration/graphics_storage.cpp':(graphics_proof,27,1,150,0xc0400080),
- 'calibration/audio_storage.cpp':(audio_proof,6,0,24,0xc0300080),
+ 'src/pc/graphics_storage.cpp':(graphics_proof,27,1,150,0xc0400080),
+ 'src/pc/audio_storage.cpp':(audio_proof,6,0,24,0xc0300080),
  **{name:entry[:5] for name,entry in extra_fields.items()},
 }
 before={p:digest((root/p).read_bytes()) for p in sources}
@@ -174,7 +174,7 @@ for path in sources:
     assert cell['native_initial_origin']=='loader-zero virtual tail'
     assert sec['name']=='.bss' and sec['flags']==bss_flags and not sec['data']
     assert rva>=native['virtual_address']+native['raw_size'] and rva+width<=native['virtual_address']+native['virtual_size']
-    if path in ('calibration/sound_bank_storage.cpp','calibration/archive_array_prefixes.c','calibration/movie_scratch_storage.c','calibration/host_resource_storage.c','calibration/movie_header_storage.c','calibration/movie_initializer_storage.c'):
+    if path in ('src/pc/sound_bank_storage.cpp','src/pc/archive_array_prefixes.c','src/pc/movie_scratch_storage.c','src/pc/host_resource_storage.c','src/pc/movie_header_storage.c','src/pc/movie_initializer_storage.c'):
      assert cell['zero_initializer'] is True
     else:
      assert bytes.fromhex(cell['initializer'])==bytes(width)
@@ -184,7 +184,7 @@ for path in sources:
   assert initialized==expected_initialized and zero==expected_zero
   reports[path]['access_width_cells']=cells
   reports[path]['initialized_field_bytes']=initialized
-  if path=='calibration/audio_gain_storage.c':
+  if path=='src/pc/audio_gain_storage.c':
    assert {cell['name']:symbols['_'+cell['name']]['value'] for cell in cells}=={'g_exe_79e438':0,'g_exe_79e43c':4}
    assert sum(s['size'] for s in c.sections if s['name']=='.bss')==6
    reports[path]['compiler_bss_bytes']=6
@@ -245,13 +245,13 @@ if audio_before is not None:
 if extra_fields:
  result['additional_field_evidence']={name:digest(entry[6]) for name,entry in extra_fields.items()}
  result['additional_field_limit']='Observed sound-bank/archive prefixes and MCI cells/literal only; neighbor cache/gaps, scratch capacity, terminal source representation, pointed-to objects, original full extent/aggregate/TU/native placement remain unproved.'
-engine_source=root/'calibration/engine_interface_storage.c'
+engine_source=root/'src/shared/engine_interface_storage.c'
 engine_evidence=root/'evidence/engine_interface_storage_adoption_2026_10_11.json'
 if engine_source.exists() or engine_evidence.exists():
  assert engine_source.is_file() and engine_evidence.is_file()
  engine_before=engine_evidence.read_bytes();engine_proof=json.loads(engine_before)
  provider=engine_proof['canonical_provider'];engine_sha=digest(engine_source.read_bytes())
- assert provider['source']=='calibration/engine_interface_storage.c' and engine_sha==provider['source_sha256']
+ assert provider['source']=='src/shared/engine_interface_storage.c' and engine_sha==provider['source_sha256']
  assert provider['symbol']=='_g_engine_interface' and provider['bytes']==1000 and provider['bss_flags']=='0xc0400080'
  for header in engine_proof['actual_headers']:
   assert digest(Path(header['path']).read_bytes())==header['sha256']
@@ -278,13 +278,13 @@ if engine_source.exists() or engine_evidence.exists():
  for oracle in engine_proof['oracles']:
   assert digest((root/oracle['path']).read_bytes())==oracle['sha256']
  result['engine_interface_provider']={'source':provider['source'],'source_sha256':engine_sha,'evidence_sha256':digest(engine_before),'object':str(obj),'object_sha256':digest(Path(obj).read_bytes()),'command':command,'object_zero_bytes':1000,'native_zero_bytes_by_module':{o['module']:1000 for o in engine_proof['oracles']},'functions':0,'relocations':0,'uncredited_padding_bytes':0,'limit':'Separate image-local copies; EXE data totals above exclude these engine prefixes. No body/whole-image/TU/layout acceptance.'}
-fx_source=root/'calibration/engine_fx_storage.c'
+fx_source=root/'src/shared/engine_fx_storage.c'
 fx_evidence=root/'evidence/engine_fx_storage_adoption_2026_10_11.json'
 if fx_source.exists() or fx_evidence.exists():
  assert fx_source.is_file() and fx_evidence.is_file()
  fx_before=fx_evidence.read_bytes();fx_proof=json.loads(fx_before)
  provider=fx_proof['canonical_provider'];fx_sha=digest(fx_source.read_bytes())
- assert provider['source']=='calibration/engine_fx_storage.c' and fx_sha==provider['source_sha256']
+ assert provider['source']=='src/shared/engine_fx_storage.c' and fx_sha==provider['source_sha256']
  assert provider['symbol']=='_g_engine_fx_records' and provider['bytes']==1536
  assert provider['rows']==24 and provider['stride']==64 and provider['bss_flags']=='0xc0400080'
  for header in fx_proof['actual_headers']:
@@ -312,13 +312,13 @@ if fx_source.exists() or fx_evidence.exists():
  for oracle in fx_proof['oracles']:
   assert digest((root/oracle['path']).read_bytes())==oracle['sha256']
  result['engine_fx_provider']={'source':provider['source'],'source_sha256':fx_sha,'evidence_sha256':digest(fx_before),'object':str(obj),'object_sha256':digest(Path(obj).read_bytes()),'command':command,'object_zero_bytes':1536,'native_zero_bytes_by_module':{o['module']:1536 for o in fx_proof['oracles']},'functions':0,'relocations':0,'uncredited_padding_bytes':0,'limit':'Minimum observed24-record storage in each engine; separate from EXE totals. Unknown members remain opaque. No original fullcapacity/TU/placement or function acceptance.'}
-title_source=root/'calibration/title/title_buffer_cells.c'
+title_source=root/'src/title/title_buffer_cells.c'
 title_evidence=root/'evidence/title_buffer_cells_adoption_2026_10_11.json'
 if title_source.exists() or title_evidence.exists():
  assert title_source.is_file() and title_evidence.is_file()
  title_before=title_evidence.read_bytes();title_proof=json.loads(title_before)
  provider=title_proof['canonical_provider'];title_sha=digest(title_source.read_bytes())
- assert provider['source']=='calibration/title/title_buffer_cells.c' and title_sha==provider['source_sha256']
+ assert provider['source']=='src/title/title_buffer_cells.c' and title_sha==provider['source_sha256']
  assert provider['bytes']==8 and provider['bss_flags']=='0xc0300080'
  native=PE(root/title_proof['oracle']['path']);assert digest(native.data)==title_proof['oracle']['sha256']
  for header in title_proof['actual_headers']:

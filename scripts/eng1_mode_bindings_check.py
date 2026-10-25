@@ -9,7 +9,7 @@ from match import DEFAULT_TOOLCHAIN, digest, verify_toolchain
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'work/eng1_mode_bindings_check'
-ADAPTER = ROOT / 'src/eng1/behavioral/mode_handler_bindings.c'
+ADAPTER = ROOT / 'src/eng1/mode_handler_bindings.c'
 FIXTURE = ROOT / 'tests/eng1_mode_handler_bindings.c'
 EVIDENCE = ROOT / 'evidence/eng1_mode_handler_bindings.json'
 

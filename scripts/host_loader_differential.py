@@ -1,6 +1,6 @@
 """Independent 15-case source/original differential for the two host loader units.
 
-Uses canonical calibration sources, freshly compiled as separate stock-VC5 objects.
+Uses canonical src/ sources, freshly compiled as separate stock-VC5 objects.
 Only retail function bytes are interpreted; OS APIs, CRT services, fatal and
 longjmp are synthetic callbacks/boundaries. No game process or real DLL is run.
 """
@@ -20,7 +20,7 @@ from pathlib import Path
 SCRIPT = Path(__file__).resolve()
 REPO = SCRIPT.parents[1]
 WORK = REPO / "work/host_loader_differential"
-SOURCE_DIR = REPO / "calibration"
+SOURCE_DIR = REPO / "src/pc"
 LOADER_SOURCE = SOURCE_DIR / "host_engine_loader.c"
 SELECT_SOURCE = SOURCE_DIR / "host_engine_select.c"
 HEADER_SOURCE = SOURCE_DIR / "host_engine_cells.h"

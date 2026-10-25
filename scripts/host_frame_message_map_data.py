@@ -77,7 +77,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     here = Path(__file__).resolve()
     root = find_root(here.parent)
-    ap.add_argument("--source", type=Path, default=root / "calibration" / "host_frame_message_map.cpp")
+    ap.add_argument("--source", type=Path, default=root / 'src/pc/host_frame_message_map.cpp')
     ap.add_argument("--native-exe", type=Path, default=ORACLE_DEFAULT)
     ap.add_argument("--output", type=Path, default=root / "work" / "host_message_map_data")
     args = ap.parse_args()

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/resource_callbacks.c"
+#include "../src/eng1/resource_callbacks.c"
 ActorResource g_actor_resources[81];
 int g_loading_resource;
 ResourceCallbackContext context;

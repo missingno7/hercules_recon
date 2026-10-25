@@ -27,8 +27,8 @@ from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UC_HOOK_MEM_WRITE
 from unicorn.x86_const import (UC_X86_REG_EAX, UC_X86_REG_ESP, UC_X86_REG_EIP,
                               UC_X86_REG_EBX, UC_X86_REG_ESI, UC_X86_REG_EDI, UC_X86_REG_EBP)
 
-SOURCES = ['src/eng1/behavioral/contact_motion.c', 'src/shared/fixed_angle.c',
-           'src/shared/motion.c', 'calibration/title/title_sine.c']
+SOURCES = ['src/eng1/contact_motion.c', 'src/shared/fixed_angle.c',
+           'src/shared/motion.c', 'src/title/title_sine.c']
 ENTRIES = {0x2bc50: ('_damped_contact_motion', 208), 0x2bd20: ('_contact_motion', 416),
            0x2bec0: ('_rounded_sine_angle', 48), 0x2bef0: ('_cosine_angle', 64)}
 ORACLE = ROOT / 'assets/pc/HERCULES/ENG1.DLL'

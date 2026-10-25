@@ -72,14 +72,14 @@ def evaluate(source,output):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--source',type=Path,default=ROOT/'calibration/actor_continuation.c')
+    p.add_argument('--source',type=Path,default=ROOT/'src/eng1/actor_continuation.c')
     p.add_argument('--output',type=Path,default=ROOT/'work/actor_region_replay')
     p.add_argument('--semantics',action='store_true');a=p.parse_args()
     a.output=a.output.resolve()
     evaluate(a.source.resolve(),a.output)
     if a.semantics:
         result=semantics(a.source.resolve(),ROOT/'tests/actor_continuation_semantics.c',
-            {'../calibration/actor_continuation.c':a.source.resolve()},a.output)
+            {'../src/eng1/actor_continuation.c':a.source.resolve()},a.output)
         (a.output/'semantics.json').write_bytes((json.dumps(result,indent=2)+'\n').encode())
         print(result['stdout'])
         if result['exit_code']:raise SystemExit(result['exit_code'])

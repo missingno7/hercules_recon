@@ -17,7 +17,7 @@ from refinery_forms import function_text
 def main():
     tc=DEFAULT_TOOLCHAIN;identity=verify_toolchain(tc)
     root=ROOT/'work/linkage_probe';root.mkdir(parents=True,exist_ok=True)
-    baseline=ROOT/'calibration/macro_actor.c'
+    baseline=ROOT/'src/shared/macro_actor.c'
     original=baseline.read_text()
     names=['unlink_12c','hide_and_unlink']
     text='/* Minimal natural link probe, reconstructed C only. */\n'
@@ -36,7 +36,7 @@ def main():
     if result.returncode:raise ValueError(result.stdout+result.stderr)
     pe=PE(binary);coff=COFF(obj)
     exports={e.name.decode():e.address for e in pe.pe.DIRECTORY_ENTRY_EXPORT.symbols}
-    spec=json.loads((ROOT/'evidence/macro_actor.json').read_text());target=PE(ROOT/spec['target'])
+    spec=json.loads((ROOT/'config/research/macro_actor.json').read_text());target=PE(ROOT/spec['target'])
     if digest(target.data)!=spec['target_sha256']:raise ValueError('Original changed')
     rows=[]
     for name in names:

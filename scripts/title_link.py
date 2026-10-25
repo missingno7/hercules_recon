@@ -8,7 +8,7 @@ no aliases, no placement). The report classifies what is missing:
   data              globals that are referenced but defined by no source (owner unknown)
   other             anything else (library or import gaps)
 
-and lists duplicate definitions. Data-only units come from calibration/title/data_units.json.
+and lists duplicate definitions. Data-only units come from config/title/data_units.json.
 """
 import argparse
 import json
@@ -49,7 +49,7 @@ def sources(module):
 
 
 def data_units():
-    path = ROOT / 'calibration/title/data_units.json'
+    path = ROOT / 'config/title/data_units.json'
     return json.loads(path.read_text())['units'] if path.exists() else []
 
 

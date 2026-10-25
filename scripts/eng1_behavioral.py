@@ -16,7 +16,7 @@ from refinery_forms import function_text, replace_function
 from title_behavioral import context_files
 from title_link import read_map
 
-CONFIG = ROOT / 'evidence/eng1_behavioral_build.json'
+CONFIG = ROOT / 'config/eng1/sources.json'
 
 
 def build(output, include_incomplete=False, original_root=None):
@@ -60,7 +60,7 @@ def build(output, include_incomplete=False, original_root=None):
         from eng1_provisional import render
         source = output / 'diagnostic' / 'incomplete_bodies.c'
         source.parent.mkdir(exist_ok=True)
-        header = (ROOT / 'src/eng1/behavioral/incomplete.h').as_posix()
+        header = (ROOT / 'src/eng1/incomplete.h').as_posix()
         source.write_bytes(render(provisional).replace(b'"incomplete.h"', ('"' + header + '"').encode()))
         graph[source.relative_to(ROOT).as_posix()] = ['/O2']
     contexts = {str(path.relative_to(ROOT)): digest(path.read_bytes())

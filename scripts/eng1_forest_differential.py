@@ -5,7 +5,7 @@ from match import DEFAULT_TOOLCHAIN,verify_toolchain
 from title_behavioral import context_files
 sha=lambda b:hashlib.sha256(b).hexdigest()
 o=root/'work/eng1_behavioral/differential/forest_actor_init';o.mkdir(parents=True,exist_ok=True)
-sources=[root/'tests/eng1_forest_actor_differential.c',root/'src/eng1/behavioral/initial_spatial_roots.c',root/'src/eng1/behavioral/spatial_read_guard.c',root/'calibration/engine_file_bridge.c']
+sources=[root/'tests/eng1_forest_actor_differential.c',root/'src/eng1/initial_spatial_roots.c',root/'src/eng1/spatial_read_guard.c',root/'src/eng1/engine_file_bridge.c']
 oracle=root/'assets/pc/HERCULES/ENG1.DLL'
 archive=root/'assets/pc/HERCULES/HERCULES.FS'
 evidence_path=root/'evidence/eng1_forest_actor_init.json'

@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../src/eng1/behavioral/interpreters.h"
-#include "../src/eng1/behavioral/actor_control_tables.h"
-#include "../src/eng1/behavioral/read_guard.h"
-#include "../src/eng1/behavioral/incomplete.h"
+#include "../src/eng1/interpreters.h"
+#include "../src/eng1/actor_control_tables.h"
+#include "../src/eng1/read_guard.h"
+#include "../src/eng1/incomplete.h"
 
 typedef unsigned char u8;
 typedef unsigned short u16;

@@ -13,7 +13,7 @@ from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn.x86_const import *
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--source',type=Path,default=ROOT/'src/pc/host_file_callbacks.c')
-parser.add_argument('--formats',type=Path,default=ROOT/'calibration/host_file_callback_formats.c')
+parser.add_argument('--formats',type=Path,default=ROOT/'src/pc/host_file_callback_formats.c')
 parser.add_argument('--open-close-source',type=Path,default=ROOT/'src/pc/host_file_open_close.c')
 parser.add_argument('--output',type=Path,required=True)
 parser.add_argument('--original-root',type=Path,default=Path('D:/Prog/hercules_recon'))
@@ -53,7 +53,7 @@ def build(source,formats,out,open_close_source=None):
  assert sha(ORACLE)=='587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d'
  runtime=Path('C:/tools/hercules/renderer-oracle-python/unicorn/lib/unicorn.dll')
  assert sha(runtime)=='010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1'
- paths=[source,open_close_source or args.open_close_source.resolve(),ROOT/'calibration/host_sector_io.c',ROOT/'calibration/host_file_prepare.c',ROOT/'src/pc/interface_callbacks.c',ROOT/'src/pc/host_diagnostic.c',formats,ROOT/'calibration/host_resource_storage.c']
+ paths=[source,open_close_source or args.open_close_source.resolve(),ROOT/'src/pc/host_sector_io.c',ROOT/'src/pc/host_file_prepare.c',ROOT/'src/pc/interface_callbacks.c',ROOT/'src/pc/host_diagnostic.c',formats,ROOT/'src/pc/host_resource_storage.c']
  watched={Path(__file__),ORACLE,runtime,ROOT/'recovery.json',ROOT/'toolchains/manifest.json'}
  for p in paths:watched.update(context_files(p))
  for name in ['match.py','masked.py','coff.py','pe.py','env.py','title_behavioral.py']:watched.add(ROOT/'scripts'/name)

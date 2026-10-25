@@ -1,8 +1,8 @@
 #include <setjmp.h>
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/engine_interface.h"
-#include "../calibration/resource_record.h"
+#include "../src/shared/engine_interface.h"
+#include "../src/shared/resource_record.h"
 
 int __cdecl runtime_control(void);
 EngineInterface g_engine_interface;

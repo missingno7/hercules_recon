@@ -40,7 +40,7 @@ def verified_copy(oracle,out):
 
 def build(source,fmt,out):
  library=verified_copy(ORACLE,out);archive=Path(library['archive']);lib=Path(library['object']);co=COFF(lib)
- files=[source,ROOT/'calibration/host_pool_repaired.c',ROOT/'src/pc/host_diagnostic.c',ROOT/'calibration/host_pool_storage.c',ROOT/'calibration/host_pool_formats.c',fmt]
+ files=[source,ROOT/'src/pc/host_pool_repaired.c',ROOT/'src/pc/host_diagnostic.c',ROOT/'src/pc/host_pool_storage.c',ROOT/'src/pc/host_pool_formats.c',fmt]
  runtime=Path('C:/tools/hercules/renderer-oracle-python/unicorn/lib/unicorn.dll');assert sha(runtime)=='010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1'
  watched={Path(__file__),ORACLE,archive,runtime,ROOT/'recovery.json',ROOT/'toolchains/manifest.json',ROOT/'scripts/crt_copy_evidence.py'}
  for p in files:watched.update(context_files(p))
@@ -144,7 +144,7 @@ def scenarios():
 
 def main():
  global ORACLE
- parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--source',type=Path,default=ROOT/'calibration/host_pool_shrink.c');parser.add_argument('--format',type=Path,default=ROOT/'calibration/host_pool_shrink_format.c');parser.add_argument('--output',type=Path,required=True);parser.add_argument('--original-root',type=Path,default=Path('D:/Prog/hercules_recon'))
+ parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--source',type=Path,default=ROOT/'src/pc/host_pool_shrink.c');parser.add_argument('--format',type=Path,default=ROOT/'src/pc/host_pool_shrink_format.c');parser.add_argument('--output',type=Path,required=True);parser.add_argument('--original-root',type=Path,default=Path('D:/Prog/hercules_recon'))
  args=parser.parse_args();OUT=args.output.resolve();assert OUT.is_relative_to(ROOT/'work');OUT.mkdir(parents=True,exist_ok=True);ORACLE=args.original_root/'work/discs/pc_install/HERCULES.EXE'
  b=build(args.source.resolve(),args.format.resolve(),OUT/'build');p=prepare(b);ss=scenarios();cases=[]
  for s in ss:

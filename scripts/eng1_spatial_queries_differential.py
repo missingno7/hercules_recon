@@ -27,7 +27,7 @@ from unicorn.x86_const import (UC_X86_REG_EAX,UC_X86_REG_ECX,UC_X86_REG_EDX,
  UC_X86_REG_EBX,UC_X86_REG_ESI,UC_X86_REG_EDI,UC_X86_REG_EBP,UC_X86_REG_ESP,UC_X86_REG_EIP)
 
 ORACLE=ROOT/'assets/pc/HERCULES/ENG1.DLL'
-SOURCES=[ROOT/'src/eng1/behavioral/nearest_actor_2aea0.c',ROOT/'src/eng1/behavioral/target_actor_motion.c',ROOT/'src/eng1/behavioral/actor_pipeline_storage.c']
+SOURCES=[ROOT/'src/eng1/nearest_actor_2aea0.c',ROOT/'src/eng1/target_actor_motion.c',ROOT/'src/eng1/actor_pipeline_storage.c']
 SPANS={0x2aea0:224,0x2b5e0:960}
 DATA=0x61000000;P=DATA+0x100;T=DATA+0x500
 ROWS=[DATA+0x1000+i*0x100 for i in range(8)]

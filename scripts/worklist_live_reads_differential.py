@@ -18,7 +18,7 @@ from title_link import read_map
 from coordinate_factories_differential import build as build_helpers,ORACLE,NV,SEEDS,pack,STACK,SP,STOP
 from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_READ,UC_HOOK_MEM_WRITE
 from unicorn.x86_const import UC_X86_REG_EAX,UC_X86_REG_ECX,UC_X86_REG_EDX,UC_X86_REG_ESP,UC_X86_REG_EIP
-SOURCE='src/eng1/behavioral/worklist_factories.c';MIDDLE='src/eng1/behavioral/middle_actor_factory.cpp'
+SOURCE='src/eng1/worklist_factories.c';MIDDLE='src/eng1/middle_actor_factory.cpp'
 HELPERS={'_allocate_normal_actor':(0x26f70,336),'_allocate_middle_actor':(0x275d0,336),'_allocate_alternate_actor':(0x27b00,320),'_initialize_normal_actor':(0x27520,176),'_initialize_middle_actor':(0x27a50,176),'_initialize_alternate_actor':(0x27fe0,272)}
 SPECS={'normal':dict(entry=0x270c0,size=272,stride=0x134,pointer=0x72860,roots=[0x71308,0x713b4,0x713a8,0x713c4,0x71378],assets=0x71388,callbacks=0x71370,row=16,callback_stride=12),'middle':dict(entry=0x27720,size=192,stride=0xec,pointer=0x73494,roots=[0x713ac,0x71432,0x713a0,0x713b8,0x713aa],assets=0x71390,callbacks=0x7137c,row=8,callback_stride=8),'alternate':dict(entry=0x27c40,size=144,stride=0x94,pointer=0x734e0,roots=[0x71374,0x713ba,0x713b6,0x71430,0x7138c],assets=0x713a4,callbacks=0x7139c,row=8,callback_stride=8)}
 POOL=0x61001000;RECORD=POOL+0x2000;OWNER=POOL+0x3000;A=0x63000000;B=0x63100000;CBTABLE=0x63200000;CALLBACK=0x63400000
@@ -31,7 +31,7 @@ def build(out,source):
         pins.update({str(p):h for p,h in compile_inputs(src,flags,DEFAULT_TOOLCHAIN).items()});obj,cmd=compile_source(src,flags);objects.append(str(obj));commands.append(cmd)
         if src==source:source_coff=COFF(obj)
         else:assert masked_compare(obj,'_allocate_middle_actor',ORACLE,0x275d0,336)['masked_equal']
-    fixture=out/'cells_and_models.c';fixture.write_text('#include "'+(ROOT/'src/eng1/behavioral/resource_runtime_data.h').as_posix()+'"\n/* Private complete fixture objects and intercepted model endpoints only. */\nResourceKindInfo g_kind_info[1];\nvoid *g_middle_actor_pool;\nunsigned long g_configuration_dword_71390,g_configuration_dword_71370,g_configuration_dword_7137c,g_configuration_dword_7139c;\n'+''.join('unsigned short g_configuration_word_%x;\n'%r for r in SPECS['middle']['roots'])+'void eng1_guard_worklist_table_read(const void*p,unsigned long i,unsigned long s,unsigned long w,const char*n){for(;;){}}\nvoid eng1_guard_worklist_group_owner(unsigned long i){for(;;){}}\n')
+    fixture=out/'cells_and_models.c';fixture.write_text('#include "'+(ROOT/'src/eng1/resource_runtime_data.h').as_posix()+'"\n/* Private complete fixture objects and intercepted model endpoints only. */\nResourceKindInfo g_kind_info[1];\nvoid *g_middle_actor_pool;\nunsigned long g_configuration_dword_71390,g_configuration_dword_71370,g_configuration_dword_7137c,g_configuration_dword_7139c;\n'+''.join('unsigned short g_configuration_word_%x;\n'%r for r in SPECS['middle']['roots'])+'void eng1_guard_worklist_table_read(const void*p,unsigned long i,unsigned long s,unsigned long w,const char*n){for(;;){}}\nvoid eng1_guard_worklist_group_owner(unsigned long i){for(;;){}}\n')
     pins[str(fixture)]=digest(fixture.read_bytes());obj,cmd=compile_source(fixture,['/O2']);objects.append(str(obj));commands.append(cmd)
     image=out/'fixture.dll';mapfile=out/'fixture.map';cmd=[str(DEFAULT_TOOLCHAIN/'bin/link.exe'),'/NOLOGO','/DLL','/NOENTRY','/NODEFAULTLIB','/INCREMENTAL:NO','/OPT:REF','/OPT:NOICF','/BASE:0x45000000','/OUT:'+str(image),'/MAP:'+str(mapfile),*['/EXPORT:eng1_call_%x'%s['entry'] for s in SPECS.values()],*objects];commands.append(cmd)
     env=os.environ.copy()
@@ -46,7 +46,7 @@ def source_guard_fixture(out,source):
     """Execute only newly compiled source/spies, with the real prefix guards."""
     from eng1_data_evidence import scan_quoted_includes
     out.mkdir(parents=True,exist_ok=True)
-    sources=[ROOT/'tests/eng1_worklist_factory_spies.c',source,ROOT/'src/eng1/behavioral/worklist_read_guards.c',ROOT/'calibration/actor_pool_reset_repaired.c'];inputs=sources+scan_quoted_includes([sources[0],ROOT/SOURCE,*sources[2:]])
+    sources=[ROOT/'tests/eng1_worklist_factory_spies.c',source,ROOT/'src/eng1/worklist_read_guards.c',ROOT/'src/shared/actor_pool_reset_repaired.c'];inputs=sources+scan_quoted_includes([sources[0],ROOT/SOURCE,*sources[2:]])
     pins={str(p.resolve()):digest(p.read_bytes()) for p in inputs};image=out/'source_guard_fixture.exe'
     env=os.environ.copy()
     for name in ['CL','_CL_','LINK','_LINK_']:env.pop(name,None)

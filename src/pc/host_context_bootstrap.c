@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
-#include "../../calibration/engine_interface.h"
-#include "../../calibration/host_bootstrap_text.h"
+#include "../shared/engine_interface.h"
+#include "host_bootstrap_text.h"
 
 extern EngineInterface g_host_engine_interface;
 extern void __cdecl save_arena(unsigned char *, unsigned long);

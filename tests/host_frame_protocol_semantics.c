@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/resource_context.h"
-#include "../calibration/host_callback_protocol_externs.h"
+#include "../src/shared/resource_context.h"
+#include "../src/pc/host_callback_protocol_externs.h"
 
 extern int __cdecl host_frame_close_state(void);
-extern int __cdecl host_frame_notify_zero(void);
+extern int __cdecl host_frame_notify_zero(const void *, unsigned long, unsigned long, unsigned long);
 extern EngineNoArgCallback __cdecl host_set_callback_zero(EngineNoArgCallback callback);
 extern EngineNoArgCallback __cdecl host_set_callback_one(EngineNoArgCallback callback);
 extern unsigned long __cdecl host_disable_callback_gate(void);
@@ -228,22 +228,22 @@ int main(void)
     host_set_callback_zero(callback_zero_a);
     host_set_callback_one(callback_one);
     g_host_callback_prefix.delivery_gate_008 = 0;
-    result = host_frame_notify_zero();
+    result = host_frame_notify_zero(0, 0, 0, 0);
     EXPECT(result == 0 && callback_zero_a_count == 0 && callback_one_count == 0,
            "channel-zero notification returns 0 and gate zero blocks callback delivery");
     g_host_callback_prefix.delivery_gate_008 = 1;
-    result = host_frame_notify_zero();
+    result = host_frame_notify_zero(0, 0, 0, 0);
     EXPECT(result == 0 && callback_zero_a_count == 1 && callback_one_count == 0,
            "channel-zero notification invokes only channel zero despite channel-one registration");
     callback_zero_a_replaces_itself = 1;
-    result = host_frame_notify_zero();
+    result = host_frame_notify_zero(0, 0, 0, 0);
     EXPECT(result == 0 && callback_zero_a_count == 2 && callback_zero_b_count == 0,
            "active channel-zero invocation uses the callback captured at entry");
-    result = host_frame_notify_zero();
+    result = host_frame_notify_zero(0, 0, 0, 0);
     EXPECT(result == 0 && callback_zero_b_count == 1 && callback_one_count == 0,
            "later channel-zero notification observes callback replacement");
     host_disable_callback_gate();
-    result = host_frame_notify_zero();
+    result = host_frame_notify_zero(0, 0, 0, 0);
     EXPECT(result == 0 && callback_zero_b_count == 1,
            "disabled shared gate prevents later channel-zero callback delivery");
 

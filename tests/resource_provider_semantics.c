@@ -1,4 +1,4 @@
-#include "../calibration/resource_provider.c"
+#include "../src/shared/resource_provider.c"
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>

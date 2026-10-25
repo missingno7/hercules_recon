@@ -21,8 +21,8 @@ from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UC_HOOK_MEM_WRITE
 from unicorn.x86_const import (UC_X86_REG_EAX, UC_X86_REG_ESP, UC_X86_REG_EIP,
                               UC_X86_REG_EBX, UC_X86_REG_ESI, UC_X86_REG_EDI, UC_X86_REG_EBP)
 
-SOURCE = ROOT / 'calibration/macro_actor.c'
-OWNER = ROOT / 'src/eng1/behavioral/actor_storage.c'
+SOURCE = ROOT / 'src/shared/macro_actor.c'
+OWNER = ROOT / 'src/eng1/actor_storage.c'
 MODULES = {'ENG1.DLL': (0x295a0, 0x6fed8, '01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757'),
            'ENG3.DLL': (0x1e440, 0x3fbc0, 'aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7')}
 DATA = 0x61000000

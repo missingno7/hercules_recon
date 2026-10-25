@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdarg.h>
-#include "../calibration/host_pool_shrink.c"
+#include "../src/pc/host_pool_shrink.c"
 
 const char g_fmt_remalloc[] = "ReMalloc Heap%d @ 0x%x,Size %d\n";
 static U32 checks;

@@ -13,10 +13,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../calibration/engine_interface.h"
-#include "../src/eng1/behavioral/interpreters.h"
-#include "../src/eng1/behavioral/grid_query_20b50.h"
-#include "../src/eng1/behavioral/incomplete.h"
+#include "../src/shared/engine_interface.h"
+#include "../src/eng1/interpreters.h"
+#include "../src/eng1/grid_query_20b50.h"
+#include "../src/eng1/incomplete.h"
 
 typedef unsigned char fixture_u8;
 typedef unsigned short fixture_u16;

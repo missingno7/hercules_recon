@@ -17,7 +17,7 @@ from title_link import read_map
 from coordinate_factories_differential import build as build_factories,REAL as FACTORIES,SPECS,ORACLE,POOL,A,B,STACK,SP,STOP,NV,SEEDS,pack
 from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_READ,UC_HOOK_MEM_WRITE
 from unicorn.x86_const import UC_X86_REG_EAX,UC_X86_REG_ECX,UC_X86_REG_EDX,UC_X86_REG_ESP,UC_X86_REG_EIP
-SOURCE='src/eng1/behavioral/action_group_writers.c'
+SOURCE='src/eng1/action_group_writers.c'
 REAL={**FACTORIES,'_append_normal_action':(0x2b070,96),'_append_kind_action':(0x2b0d0,96)}
 GROUP=POOL+0x1800;CALLTABLE=0x61300000;CALLBACK=0x61400000
 

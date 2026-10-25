@@ -19,8 +19,8 @@ from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn.x86_const import (UC_X86_REG_EAX,UC_X86_REG_ECX,UC_X86_REG_EDX,UC_X86_REG_EBX,UC_X86_REG_ESI,UC_X86_REG_EDI,UC_X86_REG_EBP,UC_X86_REG_ESP,UC_X86_REG_EIP)
 
 ORACLE=ROOT/'assets/pc/HERCULES/ENG1.DLL'
-PIPELINE=ROOT/'src/eng1/behavioral/actor_pipeline.c';STARTUP=ROOT/'src/eng1/behavioral/pool_startup.c'
-RESET=ROOT/'calibration/actor_pool_reset_repaired.c';ALIAS=ROOT/'src/eng1/behavioral/actor_pool_limit_aliases.h'
+PIPELINE=ROOT/'src/eng1/actor_pipeline.c';STARTUP=ROOT/'src/eng1/pool_startup.c'
+RESET=ROOT/'src/shared/actor_pool_reset_repaired.c';ALIAS=ROOT/'src/eng1/actor_pool_limit_aliases.h'
 DATA=0x61000000;STACK=0x62000000;SP=STACK+0x8000;STOP=STACK+0xf000
 NV=(UC_X86_REG_EBX,UC_X86_REG_ESI,UC_X86_REG_EDI,UC_X86_REG_EBP);SEEDS=(0x12345678,0x23456789,0x3456789a,0x456789ab)
 SPECS={
@@ -52,7 +52,7 @@ def build(out):
     resetters=out/'resetters.c';resetters.write_text('#include "'+ALIAS.as_posix()+'"\n'+extract(RESET,{'reset_'+f+'_actor_pool' for f in SPECS},reset))
     services=out/'services.c'
     names=['g_configuration_word_%x'%s[k] for s in SPECS.values() for k in ('limit','start','cursor')]
-    services.write_text('/* Synthetic fixture only; all lifecycle services intercepted. */\n#include "'+(ROOT/'src/eng1/behavioral/resource_runtime_data.h').as_posix()+'"\n'+''.join('void *g_'+f+'_actor_pool;\n' for f in SPECS)+'unsigned short '+','.join(names+['g_configuration_word_71380'])+';\nPendingActionGroup *pending_action_group_table[20];\n'+''.join('int '+s['remove'][0]+'(void *p){for(;;){}}\nvoid '+s['init'][0]+'(void *p){for(;;){}}\n' for s in SPECS.values())+'void clear_actor(void *p){for(;;){}}\n')
+    services.write_text('/* Synthetic fixture only; all lifecycle services intercepted. */\n#include "'+(ROOT/'src/eng1/resource_runtime_data.h').as_posix()+'"\n'+''.join('void *g_'+f+'_actor_pool;\n' for f in SPECS)+'unsigned short '+','.join(names+['g_configuration_word_71380'])+';\nPendingActionGroup *pending_action_group_table[20];\n'+''.join('int '+s['remove'][0]+'(void *p){for(;;){}}\nvoid '+s['init'][0]+'(void *p){for(;;){}}\n' for s in SPECS.values())+'void clear_actor(void *p){for(;;){}}\n')
     for source,flags in [(shutdown,['/O2','/I'+str(PIPELINE.parent)]),(resetters,['/O2']),(STARTUP,['/O2']),(services,['/O2'])]:
         obj,cmd=compile_source(source,flags);objects.append(obj);commands.append(cmd)
     assert masked_compare(objects[0],'_engine_shutdown',ORACLE,0x256a0,64)['masked_equal']

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../calibration/registry_allocation.c"
+#include "../src/shared/registry_allocation.c"
 
 unsigned short pending_action_group_count;
 PendingActionGroup *pending_action_group_table[8];

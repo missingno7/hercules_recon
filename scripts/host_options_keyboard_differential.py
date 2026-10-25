@@ -14,8 +14,8 @@ from unicorn.x86_const import *
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--output',type=Path,required=True)
 parser.add_argument('--source',type=Path,default=ROOT/'src/pc/host_options_keyboard.cpp')
-parser.add_argument('--header',type=Path,default=ROOT/'calibration/host_options_classes.h')
-parser.add_argument('--state',type=Path,default=ROOT/'calibration/host_keyboard_state.c')
+parser.add_argument('--header',type=Path,default=ROOT/'src/pc/host_options_classes.h')
+parser.add_argument('--state',type=Path,default=ROOT/'src/pc/host_keyboard_state.c')
 args=parser.parse_args();OUT=args.output.resolve();SOURCE=args.source.resolve();HEADER=args.header.resolve();STATE=args.state.resolve()
 assert OUT.is_relative_to(ROOT/'work');OUT.mkdir(parents=True,exist_ok=True)
 ORACLE=Path('D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE')
@@ -49,7 +49,7 @@ def build(source,state,out,accept=True):
  assert all(sha(x['path'])==x['sha256']for x in libs)
  runtime=Path('C:/tools/hercules/renderer-oracle-python/unicorn/lib/unicorn.dll')
  assert sha(runtime)=='010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1'
- files=[source,state,ROOT/'calibration/registry_storage.c',ROOT/'calibration/host_startup_storage.c']
+ files=[source,state,ROOT/'src/shared/registry_storage.c',ROOT/'src/pc/host_startup_storage.c']
  watched={Path(__file__),graph,HEADER,ORACLE,runtime,ROOT/'toolchains/manifest.json',*[Path(x['path'])for x in libs]}
  for p in files:watched.update(context_files(p))
  watched.update(ROOT/'scripts'/p for p in ['match.py','coff.py','masked.py','pe.py','env.py','title_behavioral.py'])

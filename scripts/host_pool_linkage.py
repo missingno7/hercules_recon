@@ -20,10 +20,10 @@ spec=json.loads((root/'evidence/host_pool_region.json').read_text())
 counts=json.loads((root/'evidence/host_pool_counts_region.json').read_text())
 target=PE(root/spec['target'])
 assert digest(target.data)==spec['target_sha256']
-baseline=(root/'calibration/host_pool_repaired.c').read_text()
+baseline=(root/'src/pc/host_pool_repaired.c').read_text()
 prefix=baseline[:baseline.index('void __cdecl save_arena')]
 source=lane/'pool_region.c'
-source.write_text(baseline+'\n'+function_text((root/'calibration/host_pool_counts.c').read_text(),'count_used')+'\n',encoding='utf-8',newline='\n')
+source.write_text(baseline+'\n'+function_text((root/'src/pc/host_pool_counts.c').read_text(),'count_used')+'\n',encoding='utf-8',newline='\n')
 strings=[]
 data=prefix+'\nHostPoolState g_host_pool;\n'
 for name,rva in spec['symbol_rvas'].items():

@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../calibration/engine_interface.h"
-#include "../calibration/resource_record.h"
-#include "../src/eng1/behavioral/setup_shared_state.h"
-#include "../src/eng1/behavioral/simulation_data_owners.h"
+#include "../src/shared/engine_interface.h"
+#include "../src/shared/resource_record.h"
+#include "../src/eng1/setup_shared_state.h"
+#include "../src/eng1/simulation_data_owners.h"
 
 extern ActorResource g_actor_resources[81];
 extern int g_loading_resource;

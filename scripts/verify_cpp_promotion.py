@@ -21,7 +21,7 @@ if not LANE.is_relative_to((ROOT / "work").resolve()):
 LANE.mkdir(parents=True, exist_ok=True)
 ORACLE = _args.original_root.resolve() / "work/discs/pc_install/HERCULES.EXE"
 ORIGINAL_ROOT = ORACLE.parent
-CANONICAL_HEADER = ROOT / "calibration/host_system_keys.h"
+CANONICAL_HEADER = ROOT / "src/pc/host_system_keys.h"
 TOOLCHAIN = Path(r"C:\tools\hercules\msvc500-8abf95ce980161ad87b0b02402269cce76988953")
 sys.path[:0] = [str(ROOT / "scripts"), r"C:\tools\hercules\python"]
 
@@ -58,8 +58,8 @@ def create_fixture(source_text: str, *, destination: str = "src/pc/host_frame_er
     source.parent.mkdir(parents=True)
     source.write_text(source_text, encoding="ascii", newline="\n")
 
-    header = root / "calibration/host_system_keys.h"
-    header.parent.mkdir(parents=True)
+    header = root / "src/pc/host_system_keys.h"
+    header.parent.mkdir(parents=True, exist_ok=True)
     header_text = CANONICAL_HEADER.read_text(encoding="ascii")
     marker = "protected:\n    virtual BOOL PreCreateWindow"
     declaration = "public:\n    afx_msg BOOL OnRva_00009900(CDC*);\n\nprotected:\n    virtual BOOL PreCreateWindow"
@@ -69,12 +69,12 @@ def create_fixture(source_text: str, *, destination: str = "src/pc/host_frame_er
         header_text = header_text.replace(marker, declaration, 1)
     header.write_text(header_text, encoding="ascii", newline="\n")
 
-    (root / "calibration/nested").mkdir(parents=True)
-    (root / "calibration/promotion_context.h").write_text(
+    (root / "src/pc/nested").mkdir(parents=True)
+    (root / "src/pc/promotion_context.h").write_text(
         '#ifndef PRIVATE_PROMOTION_CONTEXT_H\n#define PRIVATE_PROMOTION_CONTEXT_H\n'
         '#include "nested/promotion_nested.h"\n#define PRIVATE_UNUSED_CONTEXT_VALUE 19\n#endif\n',
         encoding="ascii", newline="\n")
-    (root / "calibration/nested/promotion_nested.h").write_text(
+    (root / "src/pc/nested/promotion_nested.h").write_text(
         '#ifndef PRIVATE_PROMOTION_NESTED_H\n#define PRIVATE_PROMOTION_NESTED_H\n'
         '#define PRIVATE_UNUSED_NESTED_VALUE 23\n#endif\n',
         encoding="ascii", newline="\n")
@@ -224,7 +224,7 @@ def test_case(name: str, source_text: str, *, expected_error: str | None = None,
 
 def test_cpp_transaction(*, fail_state_write: bool):
     label = "cpp-transaction-rollback" if fail_state_write else "cpp-transaction-commit"
-    source_text = '#include "../../calibration/host_system_keys.h"\n\nBOOL CMainFrame::OnRva_00009900(CDC*)\n{\n    return TRUE;\n}\n'
+    source_text = '#include "../../src/pc/host_system_keys.h"\n\nBOOL CMainFrame::OnRva_00009900(CDC*)\n{\n    return TRUE;\n}\n'
     temp, root, candidate, header, state_path, row, state_before = create_fixture(source_text)
     try:
         source_before = candidate.read_bytes()
@@ -282,12 +282,12 @@ def test_header_mutation(*, nested: bool, after_journal: bool = False):
     mode = "nested" if nested else "direct"
     timing = "after-journal" if after_journal else "after-first-compile"
     name = f"{mode}-quoted-header-mutation-{timing}-refused"
-    base = '#include "../../calibration/host_system_keys.h"\n'
-    base += '#include "../../calibration/promotion_context.h"\n\n'
+    base = '#include "../../src/pc/host_system_keys.h"\n'
+    base += '#include "../../src/pc/promotion_context.h"\n\n'
     base += "BOOL CMainFrame::OnRva_00009900(CDC*)\n{\n    return TRUE;\n}\n"
     temp, root, candidate, class_header, state_path, row, state_before = create_fixture(base)
-    direct = root / "calibration/promotion_context.h"
-    nested_file = root / "calibration/nested/promotion_nested.h"
+    direct = root / "src/pc/promotion_context.h"
+    nested_file = root / "src/pc/nested/promotion_nested.h"
     changed = nested_file if nested else direct
     changed_before = changed.read_bytes()
     source_before = candidate.read_bytes()
@@ -422,7 +422,7 @@ def test_self_contained_c_compatibility():
 
 
 def test_original_root_cli_override():
-    source_text = '#include "../../calibration/host_system_keys.h"\n\nBOOL CMainFrame::OnRva_00009900(CDC*)\n{\n    return TRUE;\n}\n'
+    source_text = '#include "../../src/pc/host_system_keys.h"\n\nBOOL CMainFrame::OnRva_00009900(CDC*)\n{\n    return TRUE;\n}\n'
     temp, root, candidate, header, state_path, row, state_before = create_fixture(source_text)
     try:
         source_before = candidate.read_bytes()
@@ -479,7 +479,7 @@ def test_original_root_cli_override():
 def main():
     if hash_file(ORACLE) != "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d":
         raise ValueError("Pinned HERCULES.EXE hash changed")
-    base = '#include "../../calibration/host_system_keys.h"\n\nBOOL CMainFrame::OnRva_00009900(CDC*)\n{\n    return TRUE;\n}\n'
+    base = '#include "../../src/pc/host_system_keys.h"\n\nBOOL CMainFrame::OnRva_00009900(CDC*)\n{\n    return TRUE;\n}\n'
     report = {
         "scope": "Private strict tool experiment only; temporary recovery row is a harness fixture, not repository recovery status.",
         "fixture_row_present_in_real_recovery_json": any(row["id"] == "private.host_frame_erase" for row in json.loads((ROOT / "recovery.json").read_bytes())["functions"]),
@@ -492,7 +492,7 @@ def main():
         "toolchain_id": match.verify_toolchain(TOOLCHAIN),
         "toolchain_manifest_sha256": hash_file(ROOT / "toolchains/manifest.json"),
         "compiler_cl_sha256": hash_file(TOOLCHAIN / "bin/cl.exe"),
-        "historical_class_source_sha256": hash_file(ROOT / "calibration/host_window_class.cpp"),
+        "historical_class_source_sha256": hash_file(ROOT / "src/pc/host_window_class.cpp"),
         "canonical_header_context_sha256": hash_file(CANONICAL_HEADER),
         "candidate_tool_sha256": hash_file(ROOT / "scripts/promote.py"),
         "runner_sha256": hash_file(Path(__file__).resolve()),

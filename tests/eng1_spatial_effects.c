@@ -1,4 +1,4 @@
-#include "../src/eng1/behavioral/resource_runtime_data.h"
+#include "../src/eng1/resource_runtime_data.h"
 /* Bounded callback-spy fixture. Helpers here are test spies, not production providers. */
 #include <stdio.h>
 #include <string.h>

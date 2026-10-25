@@ -1,8 +1,8 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/engine_interface.h"
-#include "../src/eng1/behavioral/setup_shared_state.h"
+#include "../src/shared/engine_interface.h"
+#include "../src/eng1/setup_shared_state.h"
 
 extern void *g_normal_actor_pool;
 void __cdecl dispatch_local_11fc0(void);

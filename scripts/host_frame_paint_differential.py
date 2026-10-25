@@ -65,7 +65,7 @@ def build(source=None,out=None):
  source=source or SOURCE;out=out or OUT;out.mkdir(parents=True,exist_ok=True)
  assert sha(ORACLE)=='587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d'
  verify_toolchain(DEFAULT_TOOLCHAIN)
- files=[source,*[ROOT/p for p in ['calibration/graphics_update.cpp','calibration/graphics_storage.cpp','calibration/fatal_storage.c']]]
+ files=[source,*[ROOT/p for p in ['src/pc/graphics_update.cpp','src/pc/graphics_storage.cpp','src/pc/fatal_storage.c']]]
  # Same pinned historical MFC-first link inputs as the existing host graph.
  inputs=[
   ('mfc/lib/nafxcw.lib', '5d9c3585552412a9b94a9a0b7c3a4208061a76d48a6c3283518bfe9f674c9e22'),
@@ -90,7 +90,7 @@ def build(source=None,out=None):
  watched.update(ROOT/'scripts'/p for p in ['match.py','coff.py','masked.py','pe.py','env.py','title_behavioral.py'])
  pins={str(p):sha(p)for p in watched}
  anchor=out/'anchor.cpp'
- anchor.write_bytes(('#include "'+(ROOT/'calibration/host_system_keys.h').as_posix()+'"\n'+
+ anchor.write_bytes(('#include "'+(ROOT/'src/pc/host_system_keys.h').as_posix()+'"\n'+
   'extern "C" int main(void) { for (;;) {} }\n'+
   'extern "C" __declspec(dllexport) void anchor(CMainFrame*p) { p->OnRva_00009740(); }\n').encode())
  objects,compiles,definitions,owners=[],[],{},{}
@@ -308,7 +308,7 @@ def main():
    assert left['states']==expected,(s,left,right)
   cases.append(dict(scenario=s,native=native,source=source,normal_semantic_projection_equal=True,outer_registration_equal=False,only_inactive_outer_record_differs=True))
  original=SOURCE.read_text();assert original.count('g_fatal_suppress_dialog == 0')==1
- negative=OUT/'negative_fullscreen.cpp';negative.write_bytes(original.replace('../../calibration/host_system_keys.h',(ROOT/'calibration/host_system_keys.h').as_posix()).replace('g_fatal_suppress_dialog == 0','g_fatal_suppress_dialog != 1').encode())
+ negative=OUT/'negative_fullscreen.cpp';negative.write_bytes(original.replace('../../src/pc/host_system_keys.h',(ROOT/'src/pc/host_system_keys.h').as_posix()).replace('g_fatal_suppress_dialog == 0','g_fatal_suppress_dialog != 1').encode())
  bad=build(negative,OUT/'negative_fullscreen');s=next(x for x in scenarios()if x['name']=='fullscreen_128')
  native=execute('native',b,s);wrong=execute('source',bad,s)
  assert native['semantic']!=wrong['semantic']and 'present'not in native['semantic']['entries']and 'present'in wrong['semantic']['entries']

@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/macro_actor.c"
+#include "../src/shared/macro_actor.c"
 
 #define LAYOUT(name, expression) typedef char name[(expression) ? 1 : -1]
 LAYOUT(actor_kind, offsetof(Actor,kind)==0x2e);

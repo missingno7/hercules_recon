@@ -50,14 +50,14 @@ def build(out):
     assert digest(ORACLE.read_bytes())==ORACLE_SHA
     state=json.loads((ROOT/'recovery.json').read_text())['functions']
     rows=[next(r for r in state if r['id']==i) for i in IDS]
-    inputs={Path(__file__).resolve(),runtime,ORACLE,ROOT/'toolchains/manifest.json',ROOT/'evidence/owner_alias_bindings_2026_10_25.json'}
-    bindings=json.loads((ROOT/'evidence/owner_alias_bindings_2026_10_25.json').read_text())
+    inputs={Path(__file__).resolve(),runtime,ORACLE,ROOT/'toolchains/manifest.json',ROOT/'evidence/source_layout_2026_10_25/owner_alias_bindings_2026_10_25.json'}
+    bindings=json.loads((ROOT/'evidence/source_layout_2026_10_25/owner_alias_bindings_2026_10_25.json').read_text())
     known={n:r for f in bindings['functions'].values() for n,r in f['symbols'].items()}
     for row in rows:inputs.update(compile_inputs(ROOT/row['source'],row['flags'],DEFAULT_TOOLCHAIN))
     for name in ('_g_frame_owner_72860','_g_native_pointer_7217c'):
         record=known[name];owner=record['owner'];header,_=alias_profile(record,name,ROOT)
         inputs.add(header);inputs.update(compile_inputs(ROOT/owner['source'],owner['flags'],DEFAULT_TOOLCHAIN))
-    for source,flags in [('calibration/title/title_sine.c',['/O2','/Dg_243e0=g_sine_table_5a848']),('src/shared/frame_state.c',['/O2'])]:
+    for source,flags in [('src/title/title_sine.c',['/O2','/Dg_243e0=g_sine_table_5a848']),('src/shared/frame_state.c',['/O2'])]:
         inputs.update(compile_inputs(ROOT/source,flags,DEFAULT_TOOLCHAIN))
     pins={str(p):digest(p.read_bytes()) for p in inputs}
     out.mkdir(parents=True,exist_ok=True)
@@ -89,7 +89,7 @@ def build(out):
         wrapper=wrapper_source((ROOT/owner['source']).resolve(),header,ROOT,pointer_types=record['source_alias']['pointer_types'])
         pins[str(wrapper)]=digest(wrapper.read_bytes())
         obj,cmd=compile_source(wrapper,[*owner['flags'],'/WX']);objects.append(obj);commands.append(cmd)
-    for source,flags in [('calibration/title/title_sine.c',['/O2','/Dg_243e0=g_sine_table_5a848']),('src/shared/frame_state.c',['/O2'])]:
+    for source,flags in [('src/title/title_sine.c',['/O2','/Dg_243e0=g_sine_table_5a848']),('src/shared/frame_state.c',['/O2'])]:
         inputs.update(compile_inputs(ROOT/source,flags,DEFAULT_TOOLCHAIN))
         obj,cmd=compile_source(ROOT/source,flags);objects.append(obj);commands.append(cmd)
         if source.endswith('frame_state.c'):

@@ -18,12 +18,12 @@ class ExistingUnitPromotionTests(unittest.TestCase):
         self.directory = workspace_temporary_directory('unit-promotion-')
         self.addCleanup(self.directory.cleanup)
         self.root = Path(self.directory.name)
-        (self.root / 'calibration').mkdir()
+        (self.root / 'src').mkdir()
         (self.root / 'toolchains').mkdir()
         (self.root / 'toolchains/manifest.json').write_bytes(b'fixture manifest')
-        self.source = self.root / 'calibration/unit.c'
+        self.source = self.root / 'src/unit.c'
         self.source.write_bytes(b'#include "unit.h"\nint sample(void) { return 0; }\n')
-        self.header = self.root / 'calibration/unit.h'
+        self.header = self.root / 'src/unit.h'
         self.header.write_bytes(b'/* genuine header */\n')
         self.obj = self.root / 'unit.obj'
         make_coff(self.obj, extra_function=True, extra_data=True)
@@ -32,7 +32,7 @@ class ExistingUnitPromotionTests(unittest.TestCase):
         data = bytearray(self.target.read_bytes())
         data[0x410:0x420] = CODE
         self.target.write_bytes(data)
-        self.rows = [dict(id=name, source='calibration/unit.c', symbol=symbol,
+        self.rows = [dict(id=name, source='src/unit.c', symbol=symbol,
                          target='TEST.DLL', target_sha256=match.digest(data), rva=hex(rva), size=16,
                          flags=['/O2'], status='CODEGEN_SIMILAR', link_symbols={},
                          proof=dict(scope=similar.SCOPE, source_sha256=match.digest(self.source.read_bytes()),
@@ -57,8 +57,8 @@ class ExistingUnitPromotionTests(unittest.TestCase):
         self.assertEqual(after[1], self.rows[1])
         self.assertEqual(self.source.read_bytes(), source_before)
         self.assertIn('unit_inventory_sha256', after[0]['proof'])
-        self.assertIn('calibration/unit.h', after[0]['proof']['context_sha256'])
-        self.assertEqual(len(receipt['units']['calibration/unit.c']['sections']), 3)
+        self.assertIn('src/unit.h', after[0]['proof']['context_sha256'])
+        self.assertEqual(len(receipt['units']['src/unit.c']['sections']), 3)
         self.assertFalse(self.journal.exists())
         self.assertTrue(match.verify_rows([after[0]])[0][0]['exact'])
 

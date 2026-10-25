@@ -1,4 +1,4 @@
-#include "../../calibration/host_system_keys.h"
+#include "host_system_keys.h"
 extern "C" {
 extern BYTE g_fatal_suppress_dialog;
 UINT __cdecl graphics_native_06700(int);

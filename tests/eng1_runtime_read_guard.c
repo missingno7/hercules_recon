@@ -1,12 +1,12 @@
 #include <setjmp.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/interpreters.h"
-#include "../src/eng1/behavioral/flags_word_programs.h"
-#include "../src/eng1/behavioral/provisional_frame_pairs.h"
-#include "../src/eng1/behavioral/finite_frame_prefixes.h"
-#include "../src/eng1/behavioral/shared_selector_assets.h"
-#include "../src/eng1/behavioral/read_guard.h"
+#include "../src/eng1/interpreters.h"
+#include "../src/eng1/flags_word_programs.h"
+#include "../src/eng1/provisional_frame_pairs.h"
+#include "../src/eng1/finite_frame_prefixes.h"
+#include "../src/eng1/shared_selector_assets.h"
+#include "../src/eng1/read_guard.h"
 extern unsigned short g_eng1_config_word_prefix_53370[44];
 extern unsigned short g_eng1_config_word_pool_533c8[282];
 

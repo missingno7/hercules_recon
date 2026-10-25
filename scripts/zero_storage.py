@@ -21,7 +21,7 @@ def owner_profile(record, name, root):
             not isinstance(flag, str) for flag in owner['flags']):
         raise ValueError('Invalid loader-zero owner compile profile')
     source = (root / owner['source']).resolve()
-    if not any(source.is_relative_to((root / directory).resolve()) for directory in ('src', 'calibration')):
+    if not source.is_relative_to((root / 'src').resolve()):
         raise ValueError('Loader-zero owner must be canonical repository source')
     if record.get('source_alias', {}).get('kind') == 'owner-compile-renaming' and (
             source.suffix != '.c' or any(flag.lower().startswith(('/tp', '-tp')) for flag in owner['flags'])):

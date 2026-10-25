@@ -1,13 +1,13 @@
 #include <setjmp.h>
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/engine_interface.h"
-#include "../src/eng1/behavioral/data_layouts.h"
-#include "../src/eng1/behavioral/incomplete.h"
-#include "../src/eng1/behavioral/actor_pipeline_storage.h"
-#include "../src/eng1/behavioral/simulation_data_owners.h"
-#include "../src/eng1/behavioral/setup_shared_state.h"
-#include "../src/eng1/behavioral/script_54558_owner.h"
+#include "../src/shared/engine_interface.h"
+#include "../src/eng1/data_layouts.h"
+#include "../src/eng1/incomplete.h"
+#include "../src/eng1/actor_pipeline_storage.h"
+#include "../src/eng1/simulation_data_owners.h"
+#include "../src/eng1/setup_shared_state.h"
+#include "../src/eng1/script_54558_owner.h"
 
 extern void __cdecl dispatch_local_15090(void);
 extern void __cdecl dispatch_local_16790(void);

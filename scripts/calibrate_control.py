@@ -12,7 +12,7 @@ from pe import PE
 
 TARGET = 'assets/pc/HERCULES/TITLE.DLL'
 TARGET_SHA256 = 'b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b'
-CONTROL_SOURCE = 'calibration/title_control.c'
+CONTROL_SOURCE = 'src/title/title_control.c'
 PILOT_SOURCE = 'src/title/pilot.c'
 # Original CALL operand offsets and their independently decoded destination RVAs.
 # No bytes from this mapping or oracle enter compilation or an output executable.

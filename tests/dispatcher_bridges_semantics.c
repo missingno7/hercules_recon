@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "../calibration/engine_file_bridge.c"
-#include "../calibration/engine_dependency_bridges.c"
-#include "../calibration/dispatcher_bridges.c"
+#include "../src/eng1/engine_file_bridge.c"
+#include "../src/eng1/engine_dependency_bridges.c"
+#include "../src/eng1/dispatcher_bridges.c"
 
 EngineInterface g_engine_interface;
 unsigned long g_dispatch_callback_flag_71ec0;

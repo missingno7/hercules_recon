@@ -33,10 +33,10 @@ def maps(path):
     return {m.group(1):int(m.group(2),16)for l in path.read_text(errors='replace').splitlines()if (m:=pat.match(l))}
 def build():
     assert sha(ORACLE)==ORACLE_SHA;verify_toolchain(DEFAULT_TOOLCHAIN)
-    files=[SOURCE,*[ROOT/p for p in ['calibration/host_pool_repaired.c','calibration/host_pool_lifecycle_repaired.c','calibration/host_pool_counts.c','calibration/pool_reverse_copy.c','calibration/host_pool_storage.c','calibration/host_callback_protocol.c','calibration/host_callback_storage.c','src/pc/host_zero_callback.c','src/pc/interface_callbacks.c','src/pc/host_diagnostic.c','calibration/host_pool_formats.c','calibration/host_pool_compact_format.c']]]
-    watched=[*files,*[ROOT/p for p in ['calibration/engine_interface.h','calibration/resource_context.h','calibration/host_callback_protocol_externs.h','toolchains/manifest.json','scripts/coff.py','scripts/match.py','scripts/masked.py']],ORACLE,Path(__file__).resolve()]
+    files=[SOURCE,*[ROOT/p for p in ['src/pc/host_pool_repaired.c','src/pc/host_pool_lifecycle_repaired.c','src/pc/host_pool_counts.c','src/pc/pool_reverse_copy.c','src/pc/host_pool_storage.c','src/pc/host_callback_protocol.c','src/pc/host_callback_storage.c','src/pc/host_zero_callback.c','src/pc/interface_callbacks.c','src/pc/host_diagnostic.c','src/pc/host_pool_formats.c','src/pc/host_pool_compact_format.c']]]
+    watched=[*files,*[ROOT/p for p in ['src/shared/engine_interface.h','src/shared/resource_context.h','src/pc/host_callback_protocol_externs.h','toolchains/manifest.json','scripts/coff.py','scripts/match.py','scripts/masked.py']],ORACLE,Path(__file__).resolve()]
     before={str(p):sha(p)for p in watched}
-    h=os.path.relpath(ROOT/'calibration/engine_interface.h',OUT).replace('\\','/')
+    h=os.path.relpath(ROOT/'src/shared/engine_interface.h',OUT).replace('\\','/')
     fixture=OUT/'fixture.c';fixture.write_bytes(('''#include "%s"
 EngineInterface g_host_engine_interface = {0};
 void __cdecl host_engine_select(const char *prefix,const char *suffix) {}
@@ -64,7 +64,7 @@ __declspec(dllexport) int __cdecl engine_switch_fixture_anchor(const char *a,con
         comps.append(dict(role=name,symbol=symbol,source_extent=width,native_extent=size,raw=raw,diagnostic=diag))
     assert next(r for r in comps if r['role']=='switch')['diagnostic']['masked_equal']
     assert all(next(r for r in comps if r['role']==name)['raw']['exact']for name in ['zero','empty','diagnostic'])
-    format_index=next(i for i,p in enumerate(files) if p==ROOT/'calibration/host_pool_compact_format.c')
+    format_index=next(i for i,p in enumerate(files) if p==ROOT/'src/pc/host_pool_compact_format.c')
     co=COFF(objects[format_index]);defined=[s for s in co.symbols.values() if s['storage']==2 and s['section']>0]
     assert len(defined)==1 and defined[0]['name']=='_g_fmt_compact'
     symbol=defined[0];section=co.sections[symbol['section']-1]

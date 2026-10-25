@@ -5,10 +5,10 @@
 #include <math.h>
 #include <string.h>
 #include <stddef.h>
-#include "../../calibration/host_sound_startup.h"
-#include "../../calibration/host_warm_delivery.h"
-#include "../../calibration/host_sound_bank.h"
-#include "../../calibration/host_sound_channel_storage.h"
+#include "host_sound_startup.h"
+#include "host_warm_delivery.h"
+#include "host_sound_bank.h"
+#include "host_sound_channel_storage.h"
 
 extern "C" {
 extern IDirectSound *g_exe_79e440;

@@ -28,8 +28,8 @@ from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_READ,UC_H
 from unicorn.x86_const import (UC_X86_REG_EAX,UC_X86_REG_ECX,UC_X86_REG_EDX,UC_X86_REG_ESP,UC_X86_REG_EIP,
     UC_X86_REG_EBX,UC_X86_REG_ESI,UC_X86_REG_EDI,UC_X86_REG_EBP)
 ORACLE=ROOT/'assets/pc/HERCULES/ENG1.DLL';ORACLE_SHA='01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757'
-TABLE_SOURCE='src/eng1/behavioral/flags_word_programs.c';TABLE_HEADER='src/eng1/behavioral/flags_word_programs.h'
-INTERPRETER='calibration/eng1/actor_unit_282e0.cpp'
+TABLE_SOURCE='src/eng1/flags_word_programs.c';TABLE_HEADER='src/eng1/flags_word_programs.h'
+INTERPRETER='src/eng1/actor_unit_282e0.cpp'
 IDS=['eng1.37230','eng1.37300','eng1.37460','eng1.3aef0']
 DATA=0x61000000;P=DATA+0x100;G=DATA+0x300;T=DATA+0x500;N=DATA+0x700;A=DATA+0x900;B=DATA+0xb00;C=DATA+0xd00;FRAMES=DATA+0x1200
 STACK=0x62000000;SP=STACK+0x8000;STOP=STACK+0xf000
@@ -111,7 +111,7 @@ def build(out,binding_path,table_audit):
     bindings=json.loads(binding_path.read_text());state=json.loads((ROOT/'recovery.json').read_text())['functions']
     rows={i:next(r for r in state if r['id']==i) for i in IDS};known={n:r for f in bindings['functions'].values() for n,r in f['symbols'].items()}
     inputs={Path(__file__).resolve(),runtime,ORACLE,binding_path,ROOT/'toolchains/manifest.json'}
-    for source in {r['source'] for r in rows.values()}|{INTERPRETER,TABLE_SOURCE,'calibration/eng1/actor_middle_init.c','src/eng1/behavioral/actor_base_init.c','src/shared/frame_state.c'}:
+    for source in {r['source'] for r in rows.values()}|{INTERPRETER,TABLE_SOURCE,'src/eng1/actor_middle_init.c','src/eng1/actor_base_init.c','src/shared/frame_state.c'}:
         inputs.update(compile_inputs(ROOT/source,['/O2'],DEFAULT_TOOLCHAIN))
     owner_profiles={}
     for name,rec in known.items():
@@ -139,7 +139,7 @@ def build(out,binding_path,table_audit):
         obj,cmd=compile_source(source,flags);objects.append(obj);commands.append(cmd)
     real={'_eng1_interpret_word_stream':(0x28820,640),'_reset_frame_state':(0x29260,16),'_select_frame':(0x292f0,48),'_initialize_middle_actor':(0x27a50,176),'_initialize_alternate_actor':(0x27fe0,272)}
     canonical_frames,_=compile_source(ROOT/'src/shared/frame_state.c',['/O2'])
-    for source in [INTERPRETER,TABLE_SOURCE,'calibration/eng1/actor_middle_init.c','src/eng1/behavioral/actor_base_init.c']:
+    for source in [INTERPRETER,TABLE_SOURCE,'src/eng1/actor_middle_init.c','src/eng1/actor_base_init.c']:
         obj,cmd=compile_source(ROOT/source,['/O2']);commands.append(cmd);coff=COFF(obj)
         if source==INTERPRETER:
             original_coff=coff;keep={'_eng1_interpret_word_stream','_reset_frame_state','_select_frame'}
@@ -256,7 +256,7 @@ def execute(pe,symbols,rows,known,real,programs,case,original):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--audit-only',action='store_true')
-    parser.add_argument('--bindings',type=Path,default=ROOT/'evidence/player_programs_bindings_2026_10_25.json');parser.add_argument('--output',type=Path,default=ROOT/'work/player_programs_2026_10_25/differential')
+    parser.add_argument('--bindings',type=Path,default=ROOT/'evidence/source_layout_2026_10_25/player_programs_bindings_2026_10_25.json');parser.add_argument('--output',type=Path,default=ROOT/'work/player_programs_2026_10_25/differential')
     args=parser.parse_args();out=args.output.resolve();assert out.is_relative_to(ROOT/'work');out.mkdir(parents=True,exist_ok=True)
     audit=audit_programs();(out/'programs.json').write_text(json.dumps(audit,indent=2)+'\n')
     if args.audit_only:print(json.dumps(dict(programs=len(audit['programs']),complete_bytes=186,excluded=len(audit['excluded']))));return

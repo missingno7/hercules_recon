@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../src/eng1/behavioral/setup_shared_state.h"
-#include "../src/eng1/behavioral/actor_control_state.h"
+#include "../src/eng1/setup_shared_state.h"
+#include "../src/eng1/actor_control_state.h"
 
 typedef unsigned char u8;
 typedef unsigned short u16;

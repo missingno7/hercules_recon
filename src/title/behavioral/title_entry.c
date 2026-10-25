@@ -3,7 +3,7 @@
  * The EXE caller at RVA 0x5f03 discards EAX and cleans both arguments.
  */
 #include <string.h>
-#include "../../../calibration/title/title_engine.h"
+#include "../title_engine.h"
 #include "title_trace.h"
 
 typedef char title_entry_interface_is_1000[

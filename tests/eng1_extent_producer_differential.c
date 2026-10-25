@@ -1,8 +1,8 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/extent_producer_30e40.h"
-#include "../src/eng1/behavioral/resource_runtime_data.h"
+#include "../src/eng1/extent_producer_30e40.h"
+#include "../src/eng1/resource_runtime_data.h"
 
 typedef unsigned char u8;
 typedef unsigned short u16;

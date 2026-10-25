@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <setjmp.h>
-#include "../src/eng1/behavioral/forest_actor_init.c"
+#include "../src/eng1/forest_actor_init.c"
 
 EngineInterface g_engine_interface;
 ResourceKindInfo g_kind_info[1];

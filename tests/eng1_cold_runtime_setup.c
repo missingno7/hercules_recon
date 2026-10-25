@@ -1,6 +1,6 @@
 #include <string.h>
-#include "../calibration/engine_interface.h"
-#include "../calibration/engine_fx_record.h"
+#include "../src/shared/engine_interface.h"
+#include "../src/shared/engine_fx_record.h"
 
 extern int g_context_sequence_phase;
 extern int g_context_sequence_index;

@@ -1,5 +1,5 @@
-#include "../../calibration/engine_interface.h"
-#include "../../calibration/host_callback_protocol_externs.h"
+#include "../shared/engine_interface.h"
+#include "host_callback_protocol_externs.h"
 
 extern EngineInterface g_host_engine_interface;
 /* Observed callsite view: one ignored DWORD; common original leaf prototype

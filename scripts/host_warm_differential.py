@@ -16,7 +16,7 @@ from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE
 from unicorn.x86_const import *
 
 ORACLE = ROOT / 'work/discs/pc_install/HERCULES.EXE'
-SRC = ROOT / 'calibration/host_warm_delivery.cpp'
+SRC = ROOT / 'src/pc/host_warm_delivery.cpp'
 OUT = ROOT / 'work/host_warm_differential'
 FUNCTIONS = [('host_warm_delivery_bcf0', 0xbcf0, 64),
              ('host_register_input_packet_bd30', 0xbd30, 16),
@@ -38,7 +38,7 @@ STORAGE_FIELDS = [('_g_host_input_packet_68e78c', 0x68e78c, 4),
                   ('_g_host_audio_channel_cursors_7998a8', 0x7998a8, 96)]
 
 def verify_storage():
-    source = ROOT / 'calibration/host_warm_delivery_storage.cpp'
+    source = ROOT / 'src/pc/host_warm_delivery_storage.cpp'
     obj, command = compile_source(source, ['/O2'])
     coff, image = COFF(obj), PE(ORACLE)
     fields = []
@@ -68,12 +68,12 @@ def put(uc, addr, value):
 
 def compile_inputs():
     from title_behavioral import context_files
-    source_paths = [SRC, ROOT / 'calibration/host_callback_protocol.c', ROOT / 'calibration/host_warm_delivery_storage.cpp', ROOT / 'calibration/sound_bank_storage.cpp', ROOT / 'calibration/registry_storage.c']
+    source_paths = [SRC, ROOT / 'src/pc/host_callback_protocol.c', ROOT / 'src/pc/host_warm_delivery_storage.cpp', ROOT / 'src/pc/sound_bank_storage.cpp', ROOT / 'src/shared/registry_storage.c']
     paths = {p for source in source_paths for p in context_files(source)} | {ORACLE, Path(__file__).resolve(), ROOT / 'toolchains/manifest.json', ROOT / 'scripts/eng1_data_evidence.py'}
     before = {p: digest(p.read_bytes()) for p in sorted(paths)}
     assert before[ORACLE] == '587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d'
     obj, cmd = compile_source(SRC, ['/O2'])
-    peer, peer_cmd = compile_source(ROOT / 'calibration/host_callback_protocol.c', ['/O2'])
+    peer, peer_cmd = compile_source(ROOT / 'src/pc/host_callback_protocol.c', ['/O2'])
     assert all(digest(p.read_bytes()) == h for p, h in before.items())
     comparisons = []
     for name, rva, size in FUNCTIONS:

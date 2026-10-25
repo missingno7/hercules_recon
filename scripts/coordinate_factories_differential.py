@@ -21,7 +21,7 @@ import unicorn
 from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_READ,UC_HOOK_MEM_WRITE
 from unicorn.x86_const import UC_X86_REG_EAX,UC_X86_REG_ESP,UC_X86_REG_EIP,UC_X86_REG_EBX,UC_X86_REG_ESI,UC_X86_REG_EDI,UC_X86_REG_EBP
 ORACLE=ROOT/'assets/pc/HERCULES/ENG1.DLL'
-SOURCE='src/eng1/behavioral/coordinate_factories.cpp'
+SOURCE='src/eng1/coordinate_factories.cpp'
 REAL={'_spawn_normal':(0x271d0,144),'_spawn_kind':(0x27db0,112),'_allocate_normal_actor':(0x26f70,336),'_allocate_alternate_actor':(0x27b00,320),'_initialize_normal_actor':(0x27520,176),'_initialize_middle_actor':(0x27a50,176),'_initialize_alternate_actor':(0x27fe0,272)}
 POOL=0x61001000;A=0x61100000;B=0x61200000;STACK=0x65000000;SP=STACK+0x8000;STOP=STACK+0xf000
 NV=[UC_X86_REG_EBX,UC_X86_REG_ESI,UC_X86_REG_EDI,UC_X86_REG_EBP];SEEDS=[0x12345678,0x23456789,0x3456789a,0x456789ab]
@@ -34,12 +34,12 @@ def build(out):
     assert unicorn.__version__=='2.1.4' and digest(runtime.read_bytes())=='010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1'
     assert digest(ORACLE.read_bytes())=='01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757'
     inputs={ORACLE,runtime,Path(__file__).resolve(),ROOT/'scripts/actor_pool_allocators_differential.py',ROOT/'toolchains/manifest.json'}
-    sources=[SOURCE,'src/eng1/behavioral/actor_pool_allocators.c','calibration/eng1/actor_middle_init.c','src/eng1/behavioral/actor_base_init.c','calibration/title/u06bb0.cpp']
+    sources=[SOURCE,'src/eng1/actor_pool_allocators.c','src/eng1/actor_middle_init.c','src/eng1/actor_base_init.c','src/title/u06bb0.cpp']
     for source in sources:inputs.update(compile_inputs(ROOT/source,['/O2'],DEFAULT_TOOLCHAIN))
     pins={str(p):digest(p.read_bytes()) for p in inputs};objects=[];commands=[];checks=[];out.mkdir(parents=True,exist_ok=True)
     for source in sources:
         obj,cmd=compile_source(ROOT/source,['/O2']);commands.append(cmd)
-        if source=='calibration/title/u06bb0.cpp':
+        if source=='src/title/u06bb0.cpp':
             original=COFF(obj);text=(ROOT/source).read_text()
             for sym in original.symbols.values():
                 if sym['section']<=0 or not sym['type']&0x20 or sym['name']=='_title_08cd0':continue

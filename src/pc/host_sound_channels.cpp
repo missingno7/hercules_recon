@@ -2,10 +2,10 @@
 // Retain native pre-guard ID access and live reloads after COM callbacks.
 #include <windows.h>
 #include <dsound.h>
-#include "../../calibration/host_warm_delivery.h"
+#include "host_warm_delivery.h"
 
-#include "../../calibration/host_sound_channel_storage.h"
-#include "../../calibration/host_sound_bank.h"
+#include "host_sound_channel_storage.h"
+#include "host_sound_bank.h"
 
 extern "C" {
 extern void __cdecl cleanup_native_f710(unsigned int);

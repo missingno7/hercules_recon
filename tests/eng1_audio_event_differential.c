@@ -6,8 +6,8 @@
 unsigned long g_dispatch_callback_flag_71ec0;
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/engine_interface.h"
-#include "../calibration/engine_fx_record.h"
+#include "../src/shared/engine_interface.h"
+#include "../src/shared/engine_fx_record.h"
 
 typedef struct FxActorView FxActorView;
 struct FxActorView {

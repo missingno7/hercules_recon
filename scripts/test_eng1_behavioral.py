@@ -33,76 +33,76 @@ def run(output, wrapper_fixture):
                INCLUDE=str(DEFAULT_TOOLCHAIN / 'include'), LIB=str(DEFAULT_TOOLCHAIN / 'lib'))
     fixtures = {
         'attachment_callback_order': ['tests/eng1_attachment_callback_order.c',
-                                      'src/eng1/behavioral/attachment_callback_3e220.c'],
+                                      'src/eng1/attachment_callback_3e220.c'],
         'owned_spawn_callback_order': ['tests/eng1_owned_spawn_callback_order.c',
-                                      'src/eng1/behavioral/owned_spawn_callback_40e20.c'],
+                                      'src/eng1/owned_spawn_callback_40e20.c'],
         'forest_actor_child_source': ['tests/eng1_forest_actor_child_source.c',
-                                     'src/eng1/behavioral/forest_actor_callback_3ca80.c',
+                                     'src/eng1/forest_actor_callback_3ca80.c',
                                      'tests/eng1_classifier_child_spy_alias.c',
-                                     'src/eng1/behavioral/actor_control_tables.c',
-                                     'src/eng1/behavioral/actor_position_classifier_41fd0.c',
+                                     'src/eng1/actor_control_tables.c',
+                                     'src/eng1/actor_position_classifier_41fd0.c',
                                      'src/shared/frame_state.c'],
-        'entry': ['tests/eng1_entry_semantics.c', 'src/eng1/behavioral/entry.c',
-                  'calibration/engine_interface_storage.c'],
-        'host_wrappers': [str(wrapper_fixture), 'src/eng1/behavioral/host_wrappers.c'],
+        'entry': ['tests/eng1_entry_semantics.c', 'src/eng1/entry.c',
+                  'src/shared/engine_interface_storage.c'],
+        'host_wrappers': [str(wrapper_fixture), 'src/eng1/host_wrappers.c'],
         'camera': ['tests/eng1_camera_semantics.c'],
-        'host_wrappers_extra': ['tests/eng1_host_wrappers_extra.c', 'src/eng1/behavioral/host_wrappers_extra.c'],
-        'resource_host_forwarders': ['tests/eng1_resource_host_forwarders.c', 'src/eng1/behavioral/resource_host_forwarders.c'],
-        'startup_host_forwarders': ['tests/eng1_startup_host_forwarders.c', 'src/eng1/behavioral/startup_host_forwarders.c'],
-        'audio_host': ['tests/eng1_audio_host.c', 'src/eng1/behavioral/audio_host.c'],
-        'host_control_wrappers': ['tests/eng1_host_control_wrappers.c', 'src/eng1/behavioral/host_control_wrappers.c'],
-        'host_color_callback': ['tests/eng1_host_color_callback.c', 'src/eng1/behavioral/host_color_callback.c'],
+        'host_wrappers_extra': ['tests/eng1_host_wrappers_extra.c', 'src/eng1/host_wrappers_extra.c'],
+        'resource_host_forwarders': ['tests/eng1_resource_host_forwarders.c', 'src/eng1/resource_host_forwarders.c'],
+        'startup_host_forwarders': ['tests/eng1_startup_host_forwarders.c', 'src/eng1/startup_host_forwarders.c'],
+        'audio_host': ['tests/eng1_audio_host.c', 'src/eng1/audio_host.c'],
+        'host_control_wrappers': ['tests/eng1_host_control_wrappers.c', 'src/eng1/host_control_wrappers.c'],
+        'host_color_callback': ['tests/eng1_host_color_callback.c', 'src/eng1/host_color_callback.c'],
         'geometry': ['tests/eng1_geometry_semantics.c'],
         'mesh_traversal': ['tests/eng1_mesh_traversal.c'],
         'color': ['tests/eng1_color_semantics.c'],
         'program_interpreters': ['tests/eng1_program_interpreters.c',
-                                 'src/eng1/behavioral/interpreters.c', 'src/shared/frame_state.c'],
-        'raw_rng_callback': ['tests/eng1_raw_rng_callback.c', 'src/eng1/behavioral/host_control_wrappers.c'],
+                                 'src/eng1/interpreters.c', 'src/shared/frame_state.c'],
+        'raw_rng_callback': ['tests/eng1_raw_rng_callback.c', 'src/eng1/host_control_wrappers.c'],
         'default_callbacks': ['tests/eng1_default_callback_semantics.c',
-                              'src/eng1/behavioral/eng1_default_callbacks.c',
-                              'src/eng1/behavioral/default_storage.c'],
-        'spatial_effects': ['tests/eng1_spatial_effects.c', 'src/eng1/behavioral/spatial_effects.c'],
+                              'src/eng1/eng1_default_callbacks.c',
+                              'src/eng1/default_storage.c'],
+        'spatial_effects': ['tests/eng1_spatial_effects.c', 'src/eng1/spatial_effects.c'],
         'frame_token_setup': ['tests/eng1_frame_token_setup.c',
-                              'src/eng1/behavioral/frame_token_setup.c', 'src/eng1/behavioral/frame_token_storage.c'],
+                              'src/eng1/frame_token_setup.c', 'src/eng1/frame_token_storage.c'],
         'frame_data_prefixes': ['tests/eng1_frame_data_prefixes.c',
-                                'src/eng1/behavioral/frame_data_prefixes.c', 'src/eng1/behavioral/incomplete.c'],
-        'resource_completion': ['tests/eng1_resource_completion.c', 'src/eng1/behavioral/resource_completion.c', 'src/eng1/behavioral/resource_completion_data.c', 'calibration/engine_dependency_bridges.c'],
-        'cold_start_32b10': ['tests/eng1_cold_start_32b10.c', 'src/eng1/behavioral/cold_start_32b10.c', 'src/eng1/behavioral/viewport_state_data.c', 'calibration/engine_file_bridge.c', 'calibration/dispatcher_bridges.c', 'calibration/frame_lifecycle_bridges.c', 'src/eng1/behavioral/host_wrappers.c', 'calibration/engine_interface_storage.c', 'src/eng1/behavioral/runtime_storage.c', 'src/eng1/behavioral/actor_control_cells.c'],
-        'cold_start_32bd0': ['tests/eng1_cold_start_32bd0.c', 'tests/eng1_cold_frame_fixture_state.c', 'src/eng1/behavioral/cold_start_32bd0.c', 'src/eng1/behavioral/cold_start_frame_data.c', 'src/eng1/behavioral/viewport_state_data.c', 'calibration/engine_interface_storage.c', 'calibration/frame_lifecycle_bridges.c'],
-        'setup_source_spies': ['tests/eng1_setup_source_spies.c', 'src/eng1/behavioral/setup_source.c', 'src/eng1/behavioral/setup_shared_state.c', 'src/eng1/behavioral/setup_leaf_dependencies.c', 'src/eng1/behavioral/script_54558_owner.c', 'src/eng1/behavioral/simulation_data_owners.c'],
-        'pool_startup_spies': ['tests/eng1_pool_startup_spies.c', 'src/eng1/behavioral/pool_startup.c'],
-        'pool_startup_initializers': ['tests/eng1_pool_startup_initializers.c', 'src/eng1/behavioral/pool_startup.c', 'calibration/actor_pool_reset_repaired.c'],
+                                'src/eng1/frame_data_prefixes.c', 'src/eng1/incomplete.c'],
+        'resource_completion': ['tests/eng1_resource_completion.c', 'src/eng1/resource_completion.c', 'src/eng1/resource_completion_data.c', 'src/eng1/engine_dependency_bridges.c'],
+        'cold_start_32b10': ['tests/eng1_cold_start_32b10.c', 'src/eng1/cold_start_32b10.c', 'src/eng1/viewport_state_data.c', 'src/eng1/engine_file_bridge.c', 'src/eng1/dispatcher_bridges.c', 'src/eng1/frame_lifecycle_bridges.c', 'src/eng1/host_wrappers.c', 'src/shared/engine_interface_storage.c', 'src/eng1/runtime_storage.c', 'src/eng1/actor_control_cells.c'],
+        'cold_start_32bd0': ['tests/eng1_cold_start_32bd0.c', 'tests/eng1_cold_frame_fixture_state.c', 'src/eng1/cold_start_32bd0.c', 'src/eng1/cold_start_frame_data.c', 'src/eng1/viewport_state_data.c', 'src/shared/engine_interface_storage.c', 'src/eng1/frame_lifecycle_bridges.c'],
+        'setup_source_spies': ['tests/eng1_setup_source_spies.c', 'src/eng1/setup_source.c', 'src/eng1/setup_shared_state.c', 'src/eng1/setup_leaf_dependencies.c', 'src/eng1/script_54558_owner.c', 'src/eng1/simulation_data_owners.c'],
+        'pool_startup_spies': ['tests/eng1_pool_startup_spies.c', 'src/eng1/pool_startup.c'],
+        'pool_startup_initializers': ['tests/eng1_pool_startup_initializers.c', 'src/eng1/pool_startup.c', 'src/shared/actor_pool_reset_repaired.c'],
         'resource_rebind': ['tests/resource_rebind_semantics.c'],
-        'worklist_factories': ['tests/eng1_worklist_factory_spies.c', 'src/eng1/behavioral/worklist_factories.c', 'src/eng1/behavioral/worklist_read_guards.c', 'calibration/actor_pool_reset_repaired.c'],
-        'command_table': ['tests/eng1_command_table.c', 'src/eng1/behavioral/command_table.c', 'src/eng1/behavioral/command_table_storage.c', 'calibration/engine_file_bridge.c', 'calibration/engine_interface_storage.c'],
-        'forest_entry': ['tests/eng1_forest_entry.c', 'src/eng1/behavioral/forest_entry.c', 'src/eng1/behavioral/forest_entry_state_data.c', 'src/eng1/behavioral/forest_entry_words_data.c', 'src/eng1/behavioral/actor_pipeline_storage.c'],
-        'context_dispatch': ['tests/eng1_context_dispatch.c', 'src/eng1/behavioral/context_dispatch.c'],
-        'cold_runtime_setup': ['tests/eng1_cold_runtime_setup.c', 'src/eng1/behavioral/cold_sequence_setup.c', 'src/eng1/behavioral/cold_sequence_storage.c', 'src/eng1/behavioral/engine_fx_reset.c', 'src/eng1/behavioral/audio_stop_wrapper.c', 'src/eng1/behavioral/runtime_storage.c', 'src/eng1/behavioral/actor_control_cells.c', 'calibration/engine_fx_storage.c', 'src/eng1/behavioral/host_wrappers.c'],
+        'worklist_factories': ['tests/eng1_worklist_factory_spies.c', 'src/eng1/worklist_factories.c', 'src/eng1/worklist_read_guards.c', 'src/shared/actor_pool_reset_repaired.c'],
+        'command_table': ['tests/eng1_command_table.c', 'src/eng1/command_table.c', 'src/eng1/command_table_storage.c', 'src/eng1/engine_file_bridge.c', 'src/shared/engine_interface_storage.c'],
+        'forest_entry': ['tests/eng1_forest_entry.c', 'src/eng1/forest_entry.c', 'src/eng1/forest_entry_state_data.c', 'src/eng1/forest_entry_words_data.c', 'src/eng1/actor_pipeline_storage.c'],
+        'context_dispatch': ['tests/eng1_context_dispatch.c', 'src/eng1/context_dispatch.c'],
+        'cold_runtime_setup': ['tests/eng1_cold_runtime_setup.c', 'src/eng1/cold_sequence_setup.c', 'src/eng1/cold_sequence_storage.c', 'src/eng1/engine_fx_reset.c', 'src/eng1/audio_stop_wrapper.c', 'src/eng1/runtime_storage.c', 'src/eng1/actor_control_cells.c', 'src/shared/engine_fx_storage.c', 'src/eng1/host_wrappers.c'],
         'startup_frame_helpers': ['tests/eng1_startup_frame_helpers.c',
-                                  'src/eng1/behavioral/startup_frame_helpers.c',
-                                  'src/eng1/behavioral/startup_frame_storage.c'],
+                                  'src/eng1/startup_frame_helpers.c',
+                                  'src/eng1/startup_frame_storage.c'],
     }
-    spatial_sources = ['src/eng1/behavioral/spatial_read_guard.c', 'src/eng1/behavioral/initial_spatial_roots.c', 'src/eng1/behavioral/incomplete.c']
+    spatial_sources = ['src/eng1/spatial_read_guard.c', 'src/eng1/initial_spatial_roots.c', 'src/eng1/incomplete.c']
     fixtures['default_callbacks'] += spatial_sources
     fixtures['spatial_effects'] += spatial_sources
     fixtures['spatial_read_guard'] = ['tests/eng1_spatial_read_guard.c', *spatial_sources[:-1]]
-    initial_sources = ['tests/eng1_initial_guard_owner_spies.c', 'src/eng1/behavioral/initial_read_guards.c', 'src/eng1/behavioral/initial_custom_roots.c', 'src/eng1/behavioral/initial_motion_roots.c', 'src/eng1/behavioral/initial_unreadable_identities.c', 'src/eng1/behavioral/forest_entry_words_data.c']
+    initial_sources = ['tests/eng1_initial_guard_owner_spies.c', 'src/eng1/initial_read_guards.c', 'src/eng1/initial_custom_roots.c', 'src/eng1/initial_motion_roots.c', 'src/eng1/initial_unreadable_identities.c', 'src/eng1/forest_entry_words_data.c']
     fixtures['default_callbacks'] += [*initial_sources, 'tests/eng1_custom_data_callback_spies.c']
     fixtures['spatial_effects'] += [*initial_sources, 'tests/eng1_custom_data_callback_spies.c']
-    fixtures['frame_token_setup'] += [*initial_sources, 'tests/eng1_custom_data_callback_spies.c', 'src/shared/frame_motion.c', 'src/eng1/behavioral/incomplete.c']
-    fixtures['initial_read_guards'] = ['tests/eng1_initial_read_guards.c', *initial_sources, 'src/eng1/behavioral/frame_token_setup.c', 'src/shared/frame_motion.c']
-    guard_sources = ['src/eng1/behavioral/frame_data_config_word_pool.c', 'src/eng1/behavioral/read_guard.c',
-                     'src/eng1/behavioral/flags_word_programs.c',
-                     'src/eng1/behavioral/provisional_frame_pairs.c',
-                     'src/eng1/behavioral/shared_selector_assets.c',
-                     'src/eng1/behavioral/finite_frame_prefixes.c']
-    guard_sources += ['src/eng1/behavioral/initial_zero_word_program.c']
+    fixtures['frame_token_setup'] += [*initial_sources, 'tests/eng1_custom_data_callback_spies.c', 'src/shared/frame_motion.c', 'src/eng1/incomplete.c']
+    fixtures['initial_read_guards'] = ['tests/eng1_initial_read_guards.c', *initial_sources, 'src/eng1/frame_token_setup.c', 'src/shared/frame_motion.c']
+    guard_sources = ['src/eng1/frame_data_config_word_pool.c', 'src/eng1/read_guard.c',
+                     'src/eng1/flags_word_programs.c',
+                     'src/eng1/provisional_frame_pairs.c',
+                     'src/eng1/shared_selector_assets.c',
+                     'src/eng1/finite_frame_prefixes.c']
+    guard_sources += ['src/eng1/initial_zero_word_program.c']
     fixtures['program_interpreters'] += guard_sources
-    fixtures['program_interpreters'] += ['src/eng1/behavioral/incomplete.c']
+    fixtures['program_interpreters'] += ['src/eng1/incomplete.c']
     fixtures['runtime_read_guard'] = ['tests/eng1_runtime_read_guard.c',
-                                    'src/eng1/behavioral/interpreters.c',
+                                    'src/eng1/interpreters.c',
                                     'src/shared/frame_state.c', *guard_sources]
-    fixtures['initial_zero_word_runtime'] = ['tests/eng1_initial_zero_word_runtime.c', 'src/eng1/behavioral/interpreters.c', 'src/shared/frame_state.c', *guard_sources]
+    fixtures['initial_zero_word_runtime'] = ['tests/eng1_initial_zero_word_runtime.c', 'src/eng1/interpreters.c', 'src/shared/frame_state.c', *guard_sources]
     fixture_flags = {'worklist_factories': ['/DENG1_WORKLIST_GUARD_FIXTURE']}
     reports = []
     for name, names in fixtures.items():

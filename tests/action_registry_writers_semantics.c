@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/action_registry_writers.c"
+#include "../src/shared/action_registry_writers.c"
 
 struct Actor { int id; };
 

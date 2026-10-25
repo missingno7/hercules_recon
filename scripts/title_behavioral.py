@@ -1,7 +1,7 @@
 """Ordinary source-only TITLE build; derived coverage, never matching acceptance.
 
 Existing source providers and their flags come from recovery.json. Behavioral
-additions are explicit in evidence/title_behavioral_build.json. An opt-in matching
+additions are explicit in config/title/sources.json. An opt-in matching
 profile may constrain function order; it never claims natural layout. No forced
 link, original code, fixed-address bodies, or recovery-state mutations occur here.
 """
@@ -21,7 +21,7 @@ from pe import PE
 from title_link import read_map, sources
 
 
-CONFIG = ROOT / 'evidence/title_behavioral_build.json'
+CONFIG = ROOT / 'config/title/sources.json'
 
 
 def context_files(path, seen=None, include_dirs=()):

@@ -22,8 +22,8 @@ assert OUT.is_relative_to((ROOT/'work').resolve())
 OUT.mkdir(parents=True,exist_ok=True)
 ORACLE=Path('D:/Prog/hercules_recon/work/discs/pc_install/HERCULES.EXE')
 FS=Path('D:/Prog/hercules_recon/assets/pc/HERCULES/HERCULES.FS')
-SOURCE=ROOT/'calibration/host_sound_scratch_storage.c'
-HEADER=ROOT/'calibration/host_sound_bank.h'
+SOURCE=ROOT/'src/pc/host_sound_scratch_storage.c'
+HEADER=ROOT/'src/pc/host_sound_bank.h'
 BASE,WIDTH=0x699848,1048576
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 

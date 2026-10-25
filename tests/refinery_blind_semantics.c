@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stddef.h>
-#include "../calibration/refinery_blind.c"
+#include "../prototypes/reconstruction/refinery_blind.c"
 typedef char layout[(offsetof(Effect,flags)==0x50 && offsetof(Effect,step)==0x72 && offsetof(Effect,sprite)==0x34)?1:-1];
 Effect *g_focus;
 unsigned long g_clock;

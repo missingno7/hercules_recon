@@ -10,7 +10,7 @@ from pathlib import Path
 
 from env import ROOT
 
-MANIFEST = ROOT / 'evidence/eng1_behavioral_incomplete.json'
+MANIFEST = ROOT / 'config/eng1/incomplete.json'
 
 
 def render(entries):
@@ -40,7 +40,7 @@ def main():
     manifest = json.loads(MANIFEST.read_bytes())
     entries = [r for r in manifest['functions'] if r.get('kind') in ('unimplemented_function', 'unimplemented_binding')]
     output.parent.mkdir(parents=True, exist_ok=True)
-    header = (ROOT / 'src/eng1/behavioral/incomplete.h').as_posix()
+    header = (ROOT / 'src/eng1/incomplete.h').as_posix()
     output.write_bytes(render(entries).replace(b'"incomplete.h"', ('"' + header + '"').encode()))
     print(f'{len(entries)} fail-on-entry diagnostic bodies: {output}; no source recovery or link-closure claim')
 

@@ -2,11 +2,11 @@
  * Observer callbacks below are fixture-only and never DLL providers. */
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/mesh_emit.c"
-#include "../src/eng1/behavioral/mesh_prepare.c"
-#include "../src/eng1/behavioral/primitive_emitters_a.c"
-#include "../src/eng1/behavioral/primitive_emitters_b.c"
-#include "../src/eng1/behavioral/mesh_storage.c"
+#include "../src/eng1/mesh_emit.c"
+#include "../src/eng1/mesh_prepare.c"
+#include "../src/eng1/primitive_emitters_a.c"
+#include "../src/eng1/primitive_emitters_b.c"
+#include "../src/eng1/mesh_storage.c"
 
 EngineInterface g_engine_interface;
 ResourceCallbackContext context;

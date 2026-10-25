@@ -54,15 +54,15 @@ for row in toolchain["files"]:
         raise ValueError(f"Pinned toolchain identity changed: {path}")
 
 source_units = [
-    ("reader", "host_registry_readers", source_root / "calibration/host_config_readers.c"),
-    ("cluster", "host_config_helpers", source_root / "calibration/host_config_helpers.c"),
-    ("context", "host_config_context_setters", source_root / "calibration/host_config_context_setters.c"),
-    ("cleanup", "cleanup_registry", source_root / "calibration/cleanup_registry.c"),
-    ("audio", "audio_small_helpers", source_root / "calibration/audio_small_helpers.c"),
-    ("registry_storage", "registry_storage", source_root / "calibration/registry_storage.c"),
-    ("audio_storage", "audio_gain_storage", source_root / "calibration/audio_gain_storage.c"),
-    ("literals", "registry_literals", source_root / "calibration/registry_literals.c"),
-    ("startup_storage", "host_startup_storage", source_root / "calibration/host_startup_storage.c"),
+    ("reader", "host_registry_readers", source_root / "src/pc/host_config_readers.c"),
+    ("cluster", "host_config_helpers", source_root / "src/pc/host_config_helpers.c"),
+    ("context", "host_config_context_setters", source_root / "src/pc/host_config_context_setters.c"),
+    ("cleanup", "cleanup_registry", source_root / "src/pc/cleanup_registry.c"),
+    ("audio", "audio_small_helpers", source_root / "src/pc/audio_small_helpers.c"),
+    ("registry_storage", "registry_storage", source_root / "src/shared/registry_storage.c"),
+    ("audio_storage", "audio_gain_storage", source_root / "src/pc/audio_gain_storage.c"),
+    ("literals", "registry_literals", source_root / "src/shared/registry_literals.c"),
+    ("startup_storage", "host_startup_storage", source_root / "src/pc/host_startup_storage.c"),
 ]
 for _, _, source in source_units:
     if not source.is_file():

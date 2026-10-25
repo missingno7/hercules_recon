@@ -1,7 +1,7 @@
 /* Original PC SFX loading source hypothesis; source names/TU unproved. */
 #include <string.h>
-#include "../../calibration/host_sfx.h"
-#include "../../calibration/host_file_callbacks.h"
+#include "host_sfx.h"
+#include "host_file_callbacks.h"
 extern void __cdecl host_diagnostic(const char *,...);
 extern void __cdecl empty_host_callback();
 extern int __cdecl host_zero_callback();

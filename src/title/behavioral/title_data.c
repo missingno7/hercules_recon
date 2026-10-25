@@ -2,7 +2,7 @@
  * recovery acceptance. Native storage starts loader-zero; ordinary typed C
  * definitions supply only observed cells/prefixes. Extent uncertainty is in
  * evidence/title_behavioral_data.json; no native placement is requested. */
-#include "../../../calibration/title/title_screen.h"
+#include "../title_screen.h"
 
 typedef struct TitlePair8 { unsigned int a_00, b_04; } TitlePair8;
 typedef struct TitleTabEntry { unsigned short a_00, b_02; } TitleTabEntry;

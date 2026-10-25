@@ -18,7 +18,7 @@ from coordinate_factories_differential import build as build_factories,ORACLE,NV
 from actor_pool_allocators_differential import cases as allocator_cases,expected
 from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_READ,UC_HOOK_MEM_WRITE
 from unicorn.x86_const import UC_X86_REG_EAX,UC_X86_REG_ESP,UC_X86_REG_EIP
-SOURCE='src/eng1/behavioral/middle_actor_factory.cpp'
+SOURCE='src/eng1/middle_actor_factory.cpp'
 REAL={'_allocate_middle_actor':(0x275d0,336),'_spawn_middle_277e0':(0x277e0,128),'_initialize_middle_actor':(0x27a50,176),'_initialize_alternate_actor':(0x27fe0,272)}
 ROOTS=[0x713ac,0x71432,0x713a0,0x713b8,0x713aa];POOL=0x61001000;A=0x63000000;B=0x63100000;STRIDE=0xec
 

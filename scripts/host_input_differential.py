@@ -283,8 +283,8 @@ def main():
  output=output.resolve()
  try:output.relative_to((root/'work').resolve())
  except ValueError:raise SystemExit('--output must remain under source-root/work')
- source=root/'calibration'/'host_input.c'
- providers=[root/'calibration'/'host_startup_storage.c',root/'calibration'/'registry_storage.c']
+ source=root/'src/pc/host_input.c'
+ providers=[root/'src/pc/host_startup_storage.c',root/'src/shared/registry_storage.c']
  fixture=build/'runner_fixture.c'
  fixture_text='''#include <windows.h>
 #include <mmsystem.h>
@@ -316,7 +316,7 @@ int main(void)
  if not compiler.is_file():raise SystemExit('pinned historical compiler not found: '+str(compiler))
  oracle_hash=hashlib.sha256(native.read_bytes()).hexdigest()
  if oracle_hash!=EXPECTED:raise SystemExit('pinned oracle SHA-256 mismatch: '+oracle_hash)
- headers={'windows.h':toolchain/'include'/'windows.h','mmsystem.h':toolchain/'include'/'mmsystem.h','string.h':toolchain/'include'/'string.h','host_startup_storage.h':root/'calibration'/'host_startup_storage.h'}
+ headers={'windows.h':toolchain/'include'/'windows.h','mmsystem.h':toolchain/'include'/'mmsystem.h','string.h':toolchain/'include'/'string.h','host_startup_storage.h':root/'src/pc/host_startup_storage.h'}
  for p in headers.values():
   if not p.is_file():raise SystemExit('missing compile header: '+str(p))
  sys.path.insert(0,str(root/'scripts'))

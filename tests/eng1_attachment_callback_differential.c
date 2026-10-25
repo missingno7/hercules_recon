@@ -1,10 +1,10 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/interpreters.h"
-#include "../src/eng1/behavioral/worklist_factory_types.h"
-#include "../calibration/engine_interface.h"
-#include "../calibration/engine_fx_record.h"
+#include "../src/eng1/interpreters.h"
+#include "../src/eng1/worklist_factory_types.h"
+#include "../src/shared/engine_interface.h"
+#include "../src/shared/engine_fx_record.h"
 
 typedef struct NormalFactoryAsset NormalFactoryAsset;
 struct NormalFactoryAsset {

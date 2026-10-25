@@ -27,9 +27,9 @@ from unicorn.x86_const import (UC_X86_REG_EAX, UC_X86_REG_ESP, UC_X86_REG_EIP,
                               UC_X86_REG_EBX, UC_X86_REG_ESI, UC_X86_REG_EDI, UC_X86_REG_EBP)
 
 ORACLE = ROOT / 'assets/pc/HERCULES/ENG1.DLL'
-SOURCE = ROOT / 'calibration/eng1/boss_unit_24090.c'
+SOURCE = ROOT / 'src/eng1/boss_unit_24090.c'
 HELPER = ROOT / 'src/eng1/actor_handlers_mid.c'
-OWNER = ROOT / 'src/eng1/behavioral/boss_entry_data.c'
+OWNER = ROOT / 'src/eng1/boss_entry_data.c'
 ACTOR, STACK = 0x61001000, 0x65000000
 SP, STOP = STACK + 0x8000, STACK + 0xf000
 NV = [UC_X86_REG_EBX, UC_X86_REG_ESI, UC_X86_REG_EDI, UC_X86_REG_EBP]

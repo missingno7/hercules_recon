@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/setup_dispatch.c"
+#include "../src/eng1/setup_dispatch.c"
 EngineInterface g_engine_interface;
 extern void __cdecl eng1_empty_c720(void);
 static int cases,checks,failures,called_id,called_count;

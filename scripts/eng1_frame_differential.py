@@ -21,7 +21,7 @@ def run(output):
     if oracle_hash != '01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757':
         raise ValueError('Original ENG1 identity changed')
     sources = [ROOT / path for path in ('tests/eng1_frame_differential.c',
-               'src/eng1/behavioral/frame_commands.c', 'src/eng1/behavioral/host_wrappers.c')]
+               'src/eng1/frame_commands.c', 'src/eng1/host_wrappers.c')]
     contexts = {str(path.relative_to(ROOT)): digest(path.read_bytes())
                 for source in sources for path in context_files(source)}
     environment = os.environ.copy()

@@ -20,8 +20,8 @@ from title_link import read_map
 import boss_entries_differential as base
 from unicorn.x86_const import UC_X86_REG_ECX,UC_X86_REG_EDX
 
-SOURCE=ROOT/'src/eng1/behavioral/actor_pair_animation.c'
-WORDS=ROOT/'src/eng1/behavioral/frame_data_config_word_pool_55478.c'
+SOURCE=ROOT/'src/eng1/actor_pair_animation.c'
+WORDS=ROOT/'src/eng1/frame_data_config_word_pool_55478.c'
 REAL={'_eng1_native_code_target_001a280':(0x1a280,48),'_eng1_native_code_target_01a2b0':(0x1a2b0,224),'_eng1_native_code_target_01a390':(0x1a390,80),'_reset_frame_state':(0x29260,16)}
 ROOTS={'_g_eng1_setup_pointer_72018':0x72018,'_g_eng1_setup_pointer_72164':0x72164,'_g_collision_context':0x7217c,'_g_normal_actor_pool':0x72860}
 ARENA=0x61000000;A=ARENA+0x1000;B=ARENA+0x2000;C=ARENA+0x3000;N=ARENA+0x4000
@@ -31,7 +31,7 @@ def build(out):
     verify_toolchain(DEFAULT_TOOLCHAIN);library=Path(base.unicorn.__file__).parent/'lib/unicorn.dll'
     assert base.unicorn.__version__=='2.1.4' and digest(library.read_bytes())=='010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1'
     assert digest(base.ORACLE.read_bytes())=='01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757'
-    sources=[SOURCE,ROOT/'src/shared/frame_state.c',WORDS,*[ROOT/'src/eng1/behavioral'/s for s in ['actor_storage.c','actor_control_cells.c','setup_shared_state.c']]]
+    sources=[SOURCE,ROOT/'src/shared/frame_state.c',WORDS,*[ROOT/'src/eng1'/s for s in ['actor_storage.c','actor_control_cells.c','setup_shared_state.c']]]
     pins={str(p):digest(p.read_bytes()) for p in [base.ORACLE,library,Path(__file__).resolve(),Path(base.__file__),ROOT/'toolchains/manifest.json']};objects=[];commands=[];checks={};owners={}
     for source in sources:
         pins.update({str(p):h for p,h in compile_inputs(source,['/O2'],DEFAULT_TOOLCHAIN).items()});obj,command=compile_source(source,['/O2']);objects.append(str(obj));commands.append(command);coff=COFF(obj)

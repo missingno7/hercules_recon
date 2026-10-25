@@ -24,7 +24,7 @@ from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn.x86_const import (UC_X86_REG_EAX,UC_X86_REG_ECX,UC_X86_REG_EDX,
  UC_X86_REG_EBX,UC_X86_REG_ESI,UC_X86_REG_EDI,UC_X86_REG_EBP,UC_X86_REG_ESP,UC_X86_REG_EIP)
 
-SOURCE=ROOT/'src/eng1/behavioral/actor_spatial_predicates.cpp'
+SOURCE=ROOT/'src/eng1/actor_spatial_predicates.cpp'
 ORACLE=ROOT/'assets/pc/HERCULES/ENG1.DLL'
 SPANS={0x2a710:144,0x2aa30:128}
 DATA=0x61000000;ACTOR=DATA+0x100;AREA=DATA+0x400

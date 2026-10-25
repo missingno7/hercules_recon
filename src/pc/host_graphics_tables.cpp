@@ -1,4 +1,4 @@
-#include "../../calibration/host_graphics_table_storage.h"
+#include "host_graphics_table_storage.h"
 extern "C" {
 /* Shared working SDK-width view; original source/prototype remains unproved. */
 extern void __cdecl graphics_native_06780(short,BYTE,BYTE,BYTE);

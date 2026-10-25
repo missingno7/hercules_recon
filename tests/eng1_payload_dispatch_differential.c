@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/engine_interface.h"
+#include "../src/shared/engine_interface.h"
 
 #define ENTRY_RVA 0x4ca0UL
 #define INIT_RVA 0x39b0UL

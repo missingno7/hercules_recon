@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../calibration/frame_lifecycle_bridges.h"
+#include "../src/shared/frame_lifecycle_bridges.h"
 
 EngineInterface g_engine_interface;
 

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/resource_metadata.c"
+#include "../src/eng1/resource_metadata.c"
 
 typedef char fixture_pointer_is_32[(sizeof(void *) == 4) ? 1 : -1];
 

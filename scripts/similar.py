@@ -1,11 +1,11 @@
 """Integrator-only staging and regression of relocation-masked reconstructions.
 
-stage PLAN     install a region source under calibration/, compile it once, and
+stage PLAN     install a region source under src/, compile it once, and
                require relocation-masked equality with a consistent symbol map for
                every listed function; rows become CODEGEN_SIMILAR (diagnostic only).
 verify         recompile every masked row's source and recheck it.
 
-Plan: {"source": "calibration/<module>/<region>.c", "candidate": "...c", "module": "TITLE.DLL", "flags" (default ["/O2"]),
+Plan: {"source": "src/<module>/<region>.c", "candidate": "...c", "module": "TITLE.DLL", "flags" (default ["/O2"]),
        "functions": [{"rva", "size", "symbol", "evidence"}]}
 A region file must define exactly the functions recorded for it. An existing provider can instead be
 staged in place ("in_place": true, no candidate): it is never rewritten, and every other function it
@@ -121,12 +121,12 @@ def stage(plan_path):
     in_place = bool(plan.get('in_place'))
     if in_place:
         # Existing provider recorded where it already lives (no copy, no rewrite).
-        if not any((ROOT / source).resolve().is_relative_to((ROOT / d).resolve()) for d in ('calibration', 'src')):
-            raise ValueError('In-place masked providers belong under calibration/ or src/')
+        if not (ROOT / source).resolve().is_relative_to((ROOT / 'src').resolve()):
+            raise ValueError('In-place masked providers belong under src/')
         if plan.get('candidate') or plan.get('replaces'):
             raise ValueError('In-place staging takes no candidate or replaced sources')
-    elif not (ROOT / source).resolve().is_relative_to((ROOT / 'calibration').resolve()):
-        raise ValueError('Masked reconstructions belong under calibration/')
+    elif not (ROOT / source).resolve().is_relative_to((ROOT / 'src').resolve()):
+        raise ValueError('Masked reconstructions belong under src/')
     db = sqlite3.connect(DB)
     module = plan['module']
     target_rel = Path(db.execute('select path from modules where name=?', (module,)).fetchone()[0]).as_posix()
@@ -138,8 +138,8 @@ def stage(plan_path):
     # are removed only after every moved row verifies in the new file.
     replaces = [s for s in plan.get('replaces', []) if s != source]
     for old in replaces:
-        if not (ROOT / old).resolve().is_relative_to((ROOT / 'calibration').resolve()):
-            raise ValueError('Only calibration sources can be replaced')
+        if not (ROOT / old).resolve().is_relative_to((ROOT / 'src').resolve()):
+            raise ValueError('Only canonical src/ sources can be replaced')
     moved = [r for r in state['functions'] if r.get('source') in replaces]
     if any(r['status'] != 'CODEGEN_SIMILAR' or r.get('proof', {}).get('scope') != SCOPE for r in moved):
         raise ValueError('Only masked rows can be moved')
@@ -200,9 +200,9 @@ def stage(plan_path):
               f'{len(co_defined)} pinned co-defined functions')
         return
     content =(ROOT / plan['candidate']).read_bytes().replace(b'\r\n', b'\n')
-    # Worker lanes include shared calibration headers from candidates/<lane>/.
+    # Worker lanes include canonical headers from candidates/<lane>/.
     installed = (ROOT / source).parent
-    for header in sorted((ROOT / 'calibration').rglob('*.h')):
+    for header in sorted((ROOT / 'src').rglob('*.h')):
         lane_path = '../../' + header.relative_to(ROOT).as_posix()
         local = Path(os.path.relpath(header, installed)).as_posix()
         content = content.replace(f'"{lane_path}"'.encode(), f'"{local}"'.encode())

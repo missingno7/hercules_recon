@@ -1,4 +1,4 @@
-#include "../../calibration/host_options_classes.h"
+#include "host_options_classes.h"
 /* Original PC Options behavior; member spellings/TU ownership remain provisional. */
 extern "C" {
 extern BYTE g_registry_config[72];

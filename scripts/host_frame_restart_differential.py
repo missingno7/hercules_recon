@@ -26,7 +26,7 @@ def build():
  command=[sys.executable,str(ROOT/'scripts/host_restart_dialog_audit.py'),'--output',str(OUT/'static')]
  result=subprocess.run(command,capture_output=True,text=True);assert result.returncode==0,result.stdout+result.stderr
  a=json.loads((OUT/'static/class_audit.json').read_text());graph=ROOT/'evidence/host_current_source_graph.json';g=json.loads(graph.read_text())
- paths=['calibration/display_mode_setter.c','calibration/host_restart_state.c','calibration/graphics_storage.cpp','calibration/fatal_storage.c','calibration/host_startup_storage.c','calibration/registry_storage.c','calibration/host_system_key_storage.c']
+ paths=['src/pc/display_mode_setter.c','src/pc/host_restart_state.c','src/pc/graphics_storage.cpp','src/pc/fatal_storage.c','src/pc/host_startup_storage.c','src/shared/registry_storage.c','src/pc/host_system_key_storage.c']
  watched={Path(__file__),graph,ORACLE,ROOT/'scripts/host_restart_dialog_audit.py',ROOT/'toolchains/manifest.json',Path('C:/tools/hercules/renderer-oracle-python/unicorn/lib/unicorn.dll')}
  assert sha(next(p for p in watched if p.name=='unicorn.dll'))=='010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1'
  compiles=[];game_boundaries=[]

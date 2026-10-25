@@ -1,8 +1,8 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/interpreters.h"
-#include "../src/eng1/behavioral/actor_control_tables.h"
+#include "../src/eng1/interpreters.h"
+#include "../src/eng1/actor_control_tables.h"
 
 typedef void (__cdecl *NativeD9b0)(Actor *);
 

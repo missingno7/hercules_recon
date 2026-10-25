@@ -1,9 +1,9 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/engine_interface.h"
-#include "../src/eng1/behavioral/setup_shared_state.h"
-#include "../src/eng1/behavioral/forest_entry_data.h"
+#include "../src/shared/engine_interface.h"
+#include "../src/eng1/setup_shared_state.h"
+#include "../src/eng1/forest_entry_data.h"
 
 #define SLOT_COUNT 20
 #define RECORD_WORDS 10

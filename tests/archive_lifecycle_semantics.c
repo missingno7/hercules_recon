@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../calibration/archive_lifecycle.c"
+#include "../src/pc/archive_lifecycle.c"
 extern void __cdecl archive_shutdown(void);
 
 ArchiveDirectoryEntry g_archive_directory[1024];

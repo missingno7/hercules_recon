@@ -19,8 +19,8 @@ from title_link import read_map
 import attachment_entries_differential as entries
 
 base=entries.base
-SOURCE=ROOT/'src/eng1/behavioral/entry_level_initializer.c'
-WORDS=ROOT/'src/eng1/behavioral/frame_data_config_word_pool_55478.c'
+SOURCE=ROOT/'src/eng1/entry_level_initializer.c'
+WORDS=ROOT/'src/eng1/frame_data_config_word_pool_55478.c'
 FRAME=ROOT/'src/shared/frame_state.c'
 Uc=base.Uc
 

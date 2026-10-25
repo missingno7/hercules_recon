@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/interpreters.h"
+#include "../src/eng1/interpreters.h"
 
 typedef void (__cdecl *NativeA50)(Actor *);
 

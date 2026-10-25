@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/action_spawn_27d40.h"
+#include "../src/eng1/action_spawn_27d40.h"
 
 typedef unsigned char u8;
 typedef unsigned short u16;

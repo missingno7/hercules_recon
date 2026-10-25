@@ -1,7 +1,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/host_file_service.c"
+#include "../src/pc/host_file_service.c"
 
 ResourceCallbackContext *g_resource_context;
 /* Synthetic fixture storage only; this does not claim the shipped capacity. */

@@ -27,7 +27,7 @@ from unicorn.x86_const import (UC_X86_REG_EAX, UC_X86_REG_ESP, UC_X86_REG_EIP,
                               UC_X86_REG_EBX, UC_X86_REG_ESI, UC_X86_REG_EDI, UC_X86_REG_EBP)
 
 SOURCE = ROOT / 'src/shared/angle_lookup.c'
-OWNER = ROOT / 'calibration/title/title_sine.c'
+OWNER = ROOT / 'src/title/title_sine.c'
 MODULES = {'TITLE.DLL': 'b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b',
            'ENG1.DLL': '01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757',
            'ENG3.DLL': 'aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7'}

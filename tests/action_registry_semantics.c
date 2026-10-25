@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/action_registry.c"
+#include "../src/shared/action_registry.c"
 
 unsigned short pending_action_group_count;
 PendingActionGroup *pending_action_group_table[16];

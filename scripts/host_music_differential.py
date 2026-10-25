@@ -15,10 +15,10 @@ import pefile
 from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn.x86_const import *
 parser=argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--source',type=Path,default=ROOT/'src/pc/host_music.c');parser.add_argument('--data',type=Path,default=ROOT/'calibration/host_music_storage.c')
-parser.add_argument('--paths-source',type=Path,default=ROOT/'calibration/host_music_paths.c');parser.add_argument('--paths-definition',type=Path,default=ROOT/'evidence/host_music_paths_data.json')
-parser.add_argument('--sfx-source',type=Path,default=ROOT/'src/pc/host_sfx.c');parser.add_argument('--sfx-data',type=Path,default=ROOT/'calibration/host_sfx_storage.c')
-parser.add_argument('--pool-source',type=Path,default=ROOT/'calibration/host_pool_repaired.c')
+parser.add_argument('--source',type=Path,default=ROOT/'src/pc/host_music.c');parser.add_argument('--data',type=Path,default=ROOT/'src/pc/host_music_storage.c')
+parser.add_argument('--paths-source',type=Path,default=ROOT/'src/pc/host_music_paths.c');parser.add_argument('--paths-definition',type=Path,default=ROOT/'evidence/host_music_paths_data.json')
+parser.add_argument('--sfx-source',type=Path,default=ROOT/'src/pc/host_sfx.c');parser.add_argument('--sfx-data',type=Path,default=ROOT/'src/pc/host_sfx_storage.c')
+parser.add_argument('--pool-source',type=Path,default=ROOT/'src/pc/host_pool_repaired.c')
 parser.add_argument('--output',type=Path,required=True);parser.add_argument('--original-root',type=Path,default=Path('D:/Prog/hercules_recon'))
 args=parser.parse_args();OUT=args.output.resolve();assert OUT.is_relative_to(ROOT/'work');OUT.mkdir(parents=True,exist_ok=True)
 ORACLE=args.original_root/'work/discs/pc_install/HERCULES.EXE'
@@ -56,8 +56,8 @@ def build(source,data,out):
  verify_toolchain(DEFAULT_TOOLCHAIN);out.mkdir(parents=True,exist_ok=True)
  assert sha(ORACLE)=='587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d'
  runtime=Path('C:/tools/hercules/renderer-oracle-python/unicorn/lib/unicorn.dll');assert sha(runtime)=='010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1'
- files=[source,ROOT/'src/pc/host_file_callbacks.c',ROOT/'calibration/host_file_prepare.c',ROOT/'src/pc/interface_callbacks.c',ROOT/'src/pc/host_diagnostic.c',ROOT/'src/pc/host_zero_callback.c',ROOT/'src/pc/exe_helpers.c',data,ROOT/'calibration/host_file_callback_formats.c',ROOT/'calibration/host_resource_storage.c']
- files.extend([ROOT/'calibration/host_pool_shrink.c',args.pool_source.resolve(),ROOT/'calibration/host_pool_storage.c',ROOT/'calibration/host_pool_formats.c',ROOT/'calibration/host_pool_shrink_format.c'])
+ files=[source,ROOT/'src/pc/host_file_callbacks.c',ROOT/'src/pc/host_file_prepare.c',ROOT/'src/pc/interface_callbacks.c',ROOT/'src/pc/host_diagnostic.c',ROOT/'src/pc/host_zero_callback.c',ROOT/'src/pc/exe_helpers.c',data,ROOT/'src/pc/host_file_callback_formats.c',ROOT/'src/pc/host_resource_storage.c']
+ files.extend([ROOT/'src/pc/host_pool_shrink.c',args.pool_source.resolve(),ROOT/'src/pc/host_pool_storage.c',ROOT/'src/pc/host_pool_formats.c',ROOT/'src/pc/host_pool_shrink_format.c'])
  files.extend([args.sfx_source.resolve(),args.sfx_data.resolve()])
  files.extend([ROOT/p for p in archive_pipeline.SOURCE_FILES])
  library=verified_copy(ORACLE,out);watched={Path(__file__),ORACLE,runtime,ROOT/'recovery.json',ROOT/'toolchains/manifest.json',ROOT/'scripts/host_resize_differential.py',ROOT/'scripts/crt_copy_evidence.py',Path(library['archive'])}

@@ -68,14 +68,14 @@ class MacroMetricsTests(unittest.TestCase):
         self.assertNotEqual(tokens_and_calls(first,0x1000)[1],tokens_and_calls(wrong,0x2000)[1])
 
     def test_every_wave_is_recoverable(self):
-        spec = json.loads((ROOT/'evidence/macro_actor.json').read_text())
+        spec = json.loads((ROOT/'config/research/macro_actor.json').read_text())
         source = (ROOT/spec['source']).read_text()
         for wave in spec['waves']:
             restored = restore_wave(spec,wave['wave'],source)
             self.assertEqual(digest(restored.encode()),wave['source_sha256'])
 
     def test_wave_recovery_rejects_changed_source(self):
-        spec = json.loads((ROOT/'evidence/macro_actor.json').read_text())
+        spec = json.loads((ROOT/'config/research/macro_actor.json').read_text())
         with self.assertRaises(ValueError):
             restore_wave(spec,0,(ROOT/spec['source']).read_text()+'\n')
 

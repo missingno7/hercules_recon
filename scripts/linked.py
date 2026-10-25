@@ -14,7 +14,7 @@ candidates MODULE      rows not yet strict whose linked RVA equals the original 
 promote MODULE ID...   rebuild fresh, re-check, record LINKED_MATCH with its proof.
 verify [MODULE]        rebuild and re-check every LINKED_MATCH row.
 
-Link plan (calibration/<module stem>/link_plan.json): module, target, target_sha256, toolchain,
+Link plan (config/<module stem>/link_plan.json): module, target, target_sha256, toolchain,
 output_name, objects [{source, flags, role, evidence}] in command-line order, libraries
 [{name, sha256}] from the pinned toolchain lib directory, link_flags (allowlisted).
 Linked equality says nothing about module layout beyond the recorded extent, source identity,
@@ -42,7 +42,7 @@ STRICT = {'FUNCTION_MATCH', 'FUNCTION_MATCH_RAW', 'FUNCTION_MATCH_RELOCATED', ST
 SCOPE = ('complete raw function extent at its original RVA in a fresh unresolved-free natural link of the '
          'canonical sources under the reviewed link plan')
 MASKED_SCOPE = 'relocation-masked diagnostic equality with consistent implied symbol map; not acceptance'
-SOURCE_DIRS = ('calibration', 'src')
+SOURCE_DIRS = ('src',)
 LINK_FLAGS = {'/DLL', '/NODEFAULTLIB', '/INCREMENTAL:NO', '/OPT:REF', '/OPT:NOREF', '/OPT:ICF', '/OPT:NOICF'}
 EXPORT_FLAG = re.compile(r'^/EXPORT:[A-Za-z_@?$][\w@?$]*(=[A-Za-z_@?$][\w@?$]*)?$')
 COMPILE_FLAG = re.compile(r'^/(O[12xdsgtiby-]+|Og-|Ob[012]|Oy-|G[3456]|Gs|Gf|Gy|Gz|Gd|Gr|M[TDL]d?|TP|TC|W[0-4]|Za|Ze|J|'
@@ -68,7 +68,7 @@ def jdigest(value):
 
 
 def plan_path(module):
-    return ROOT / 'calibration' / Path(module).stem.lower() / 'link_plan.json'
+    return ROOT / 'config' / Path(module).stem.lower() / 'link_plan.json'
 
 
 def _relative_inside(root, value, dirs):

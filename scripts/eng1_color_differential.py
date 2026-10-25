@@ -32,8 +32,8 @@ def run(output):
     if host_load != bytes.fromhex('8a442404'):
         raise ValueError('Original host byte argument load changed')
     sources = [ROOT / path for path in ('tests/eng1_color_differential.c',
-        'src/eng1/behavioral/color.c', 'src/eng1/behavioral/color_storage.c',
-        'src/eng1/behavioral/host_color_callback.c')]
+        'src/eng1/color.c', 'src/eng1/color_storage.c',
+        'src/eng1/host_color_callback.c')]
     contexts = {str(path.relative_to(ROOT)): digest(path.read_bytes())
                 for source in sources for path in context_files(source)}
     prediction = ROOT / 'evidence/eng1_color_differential_prediction.json'

@@ -25,7 +25,7 @@ BUILT_MAP = BUILD_DIR / 'TITLE.map'
 BUILD_REPORT = BUILD_DIR / 'report.json'
 STAGED_DLL = LANE / 'TITLE_RECON.DLL'
 RECOVERY = ROOT / 'recovery.json'
-BUILD_CONFIG = ROOT / 'evidence/title_behavioral_build.json'
+BUILD_CONFIG = ROOT / 'config/title/sources.json'
 DATA_CONFIG = ROOT / 'evidence/title_behavioral_data.json'
 NATIVE_CELL_DATA_RVA = 0x2d340
 CELL_PREFIX_BYTES = 3072
@@ -116,8 +116,8 @@ def verify_target_rows(recovery, oracle_sha):
     build = json.loads(BUILD_CONFIG.read_bytes())
     rows = {row['symbol']: row for row in build.get('functions', [])}
     for name, rva, symbol, source in (
-        ('object reset', 0x94c0, '_title_094c0', 'calibration/title/u06bb0.cpp'),
-        ('cell initializer', 0x4fe0, '_title_04fe0', 'calibration/title/r04d80.c'),
+        ('object reset', 0x94c0, '_title_094c0', 'src/title/u06bb0.cpp'),
+        ('cell initializer', 0x4fe0, '_title_04fe0', 'src/title/r04d80.c'),
     ):
         row = rows.get(symbol)
         if not row or int(row['rva'], 0) != rva or row.get('source') != source:

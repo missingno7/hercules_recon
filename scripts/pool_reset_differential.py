@@ -27,9 +27,9 @@ from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UC_HOOK_MEM_WRITE
 from unicorn.x86_const import (UC_X86_REG_EAX, UC_X86_REG_ESP, UC_X86_REG_EIP,
                               UC_X86_REG_EBX, UC_X86_REG_ESI, UC_X86_REG_EDI, UC_X86_REG_EBP)
 
-SOURCE = ROOT / 'calibration/actor_pool_reset_repaired.c'
-ALIAS = ROOT / 'src/eng1/behavioral/actor_pool_limit_aliases.h'
-OWNER = ROOT / 'src/eng1/behavioral/actor_storage.c'
+SOURCE = ROOT / 'src/shared/actor_pool_reset_repaired.c'
+ALIAS = ROOT / 'src/eng1/actor_pool_limit_aliases.h'
+OWNER = ROOT / 'src/eng1/actor_storage.c'
 ORACLE = ROOT / 'assets/pc/HERCULES/ENG1.DLL'
 SPECS = {
     'normal': (0x27490, 0x134, 'g_normal_actor_pool', 0x72860, 'g_configuration_word_713b4', 0x713b4, 'remove_actor', 0x27260, 'initialize_normal_actor', 0x27520),

@@ -89,7 +89,7 @@ def load_report(path=BUILD_REPORT):
         raise ValueError("Behavioral DLL hash differs from its build report")
     recorded_inputs = dict(report.get("context_sha256", {}))
     recorded_inputs["recovery.json"] = report.get("recovery_sha256")
-    recorded_inputs["evidence/title_behavioral_build.json"] = report.get("config_sha256")
+    recorded_inputs["config/title/sources.json"] = report.get("config_sha256")
     if report.get('layout_constraint'):
         constraint = report['layout_constraint']
         recorded_inputs[constraint['path']] = constraint['sha256']

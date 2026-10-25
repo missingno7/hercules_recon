@@ -23,7 +23,7 @@ import unicorn
 from unicorn import Uc,UC_ARCH_X86,UC_MODE_32,UC_HOOK_CODE,UC_HOOK_MEM_READ,UC_HOOK_MEM_WRITE
 from unicorn.x86_const import (UC_X86_REG_EAX,UC_X86_REG_ESP,UC_X86_REG_EIP,UC_X86_REG_EBX,UC_X86_REG_ESI,UC_X86_REG_EDI,UC_X86_REG_EBP)
 ORACLE=ROOT/'assets/pc/HERCULES/ENG1.DLL';ORACLE_SHA='01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757'
-SOURCE='src/eng1/behavioral/player_animation_programs.c';INTERPRETER='calibration/eng1/actor_unit_282e0.cpp'
+SOURCE='src/eng1/player_animation_programs.c';INTERPRETER='src/eng1/actor_unit_282e0.cpp'
 SPECS={'_g_player_program_633e8':('pair',36),'_g_player_program_634b0':('word',38),'_g_player_program_634e0':('word',18)}
 REAL={'_eng1_interpret_signed_pairs':(0x283e0,1088),'_eng1_interpret_word_stream':(0x28820,640),'_reset_frame_state':(0x29260,16)}
 DATA=0x61000000;P=DATA+0x100;N=DATA+0x300;G=DATA+0x500;A=DATA+0x700;B=DATA+0x900
@@ -182,7 +182,7 @@ def execute(pe,symbols,known,programs,case,original):
 
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--audit-only',action='store_true');p.add_argument('--bindings',type=Path,default=ROOT/'evidence/player_animation_bindings_2026_10_25.json');p.add_argument('--output',type=Path,default=ROOT/'work/player_animation_2026_10_25/differential');args=p.parse_args();out=args.output.resolve();assert out.is_relative_to(ROOT/'work');out.mkdir(parents=True,exist_ok=True)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--audit-only',action='store_true');p.add_argument('--bindings',type=Path,default=ROOT/'evidence/source_layout_2026_10_25/player_animation_bindings_2026_10_25.json');p.add_argument('--output',type=Path,default=ROOT/'work/player_animation_2026_10_25/differential');args=p.parse_args();out=args.output.resolve();assert out.is_relative_to(ROOT/'work');out.mkdir(parents=True,exist_ok=True)
     audit=audit_programs();(out/'programs.json').write_text(json.dumps(audit,indent=2)+'\n')
     if args.audit_only:print(json.dumps(dict(programs=3,complete_bytes=92)));return
     built,source,symbols,known=build(out,args.bindings.resolve(),audit);original=PE(ORACLE);programs=audit['programs'];cases=[]

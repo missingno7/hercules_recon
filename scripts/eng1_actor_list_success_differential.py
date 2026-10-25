@@ -21,27 +21,27 @@ ORACLE_SHA256 = "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f75
 PREVIOUS_REPORT = ROOT / "evidence/eng1_actor_list_producer_2b130.json"
 PREVIOUS_REPORT_SHA256 = hashlib.sha256(PREVIOUS_REPORT.read_bytes()).hexdigest()
 FIXTURE = ROOT / "tests/eng1_actor_list_success_differential.c"
-PRODUCER = ROOT / "src/eng1/behavioral/actor_list_producer_2b130.c"
-REGISTRY = ROOT / "calibration/action_registry.c"
-FACTORIES = ROOT / "calibration/actor_factories.c"
-POOLS = ROOT / "calibration/actor_pool_reset_repaired.c"
-SPAWN_SERVICES = ROOT / "src/eng1/behavioral/spawn_services.c"
-TABLE_GUARDS = ROOT / "src/eng1/behavioral/worklist_read_guards.c"
-INCOMPLETE = ROOT / "src/eng1/behavioral/incomplete.c"
+PRODUCER = ROOT / "src/eng1/actor_list_producer_2b130.c"
+REGISTRY = ROOT / "src/shared/action_registry.c"
+FACTORIES = ROOT / "src/shared/actor_factories.c"
+POOLS = ROOT / "src/shared/actor_pool_reset_repaired.c"
+SPAWN_SERVICES = ROOT / "src/eng1/spawn_services.c"
+TABLE_GUARDS = ROOT / "src/eng1/worklist_read_guards.c"
+INCOMPLETE = ROOT / "src/eng1/incomplete.c"
 EXECUTABLE = OUT / "neutralfixture.exe"
 PREDICTION = ROOT / "evidence/eng1_actor_list_success_2b130.json"
 NATIVE_RVA = 0x2B130
 NATIVE_SPAN = 0x1F0
 
 REFERENCES = [
-    ROOT / "src/eng1/behavioral/interpreters.h",
-    ROOT / "src/eng1/behavioral/secondary_records.h",
-    ROOT / "src/eng1/behavioral/resource_runtime_data.h",
-    ROOT / "src/eng1/behavioral/worklist_factory_types.h",
-    ROOT / "src/eng1/behavioral/forest_actor_init.h",
-    ROOT / "src/eng1/behavioral/worklist_read_guards.h",
-    ROOT / "src/eng1/behavioral/incomplete.h",
-    ROOT / "src/eng1/behavioral/row0_layouts.h",
+    ROOT / "src/eng1/interpreters.h",
+    ROOT / "src/eng1/secondary_records.h",
+    ROOT / "src/eng1/resource_runtime_data.h",
+    ROOT / "src/eng1/worklist_factory_types.h",
+    ROOT / "src/eng1/forest_actor_init.h",
+    ROOT / "src/eng1/worklist_read_guards.h",
+    ROOT / "src/eng1/incomplete.h",
+    ROOT / "src/eng1/row0_layouts.h",
     ROOT / "evidence/actor_pool_reset_region.json",
     ROOT / "evidence/actor_pools_region.json",
     ROOT / "evidence/actor_factories_region.json",
@@ -93,8 +93,8 @@ for path in (EXECUTABLE, OUT / "eng1_actor_list_success_differential.obj", OUT /
 command = [
     str(DEFAULT_TOOLCHAIN / "bin/cl.exe"), "/nologo", "/O2", "/Gy", "/MT",
     "/DWIN32", "/D_CRT_SECURE_NO_WARNINGS", "/DENG1_WORKLIST_GUARD_FIXTURE",
-    "/I" + str(ROOT / "src/eng1/behavioral"),
-    "/I" + str(ROOT / "calibration"),
+    "/I" + str(ROOT / "src/eng1"),
+    "/I" + str(ROOT / "src/shared"),
     "/Fe" + str(EXECUTABLE),
     str(FIXTURE), str(PRODUCER), str(REGISTRY), str(FACTORIES), str(POOLS),
     str(SPAWN_SERVICES), str(TABLE_GUARDS), str(INCOMPLETE),
@@ -276,12 +276,12 @@ report = {
         "falsifier": json.loads(PREDICTION.read_text(encoding="utf-8"))["private_prediction"]["falsifier"],
     },
     "source_owners_exercised": {
-        "producer": {"path": "src/eng1/behavioral/actor_list_producer_2b130.c", "sha256": digest(PRODUCER)},
-        "registry_helpers": {"path": "calibration/action_registry.c", "sha256": digest(REGISTRY)},
-        "pool_allocator_initializer": {"path": "calibration/actor_pool_reset_repaired.c", "sha256": digest(POOLS)},
-        "normal_and_alternate_factories": {"path": "calibration/actor_factories.c", "sha256": digest(FACTORIES)},
-        "middle_factory": {"path": "src/eng1/behavioral/spawn_services.c", "sha256": digest(SPAWN_SERVICES), "function": "spawn_middle_277e0"},
-        "bounded_table_guard": {"path": "src/eng1/behavioral/worklist_read_guards.c", "sha256": digest(TABLE_GUARDS), "build_define": "ENG1_WORKLIST_GUARD_FIXTURE"},
+        "producer": {"path": "src/eng1/actor_list_producer_2b130.c", "sha256": digest(PRODUCER)},
+        "registry_helpers": {"path": "src/shared/action_registry.c", "sha256": digest(REGISTRY)},
+        "pool_allocator_initializer": {"path": "src/shared/actor_pool_reset_repaired.c", "sha256": digest(POOLS)},
+        "normal_and_alternate_factories": {"path": "src/shared/actor_factories.c", "sha256": digest(FACTORIES)},
+        "middle_factory": {"path": "src/eng1/spawn_services.c", "sha256": digest(SPAWN_SERVICES), "function": "spawn_middle_277e0"},
+        "bounded_table_guard": {"path": "src/eng1/worklist_read_guards.c", "sha256": digest(TABLE_GUARDS), "build_define": "ENG1_WORKLIST_GUARD_FIXTURE"},
     },
     "cases": cases,
     "checks": sum(row["checks_per_native_source_pair"] for row in cases),

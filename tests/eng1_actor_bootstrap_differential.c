@@ -6,10 +6,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../calibration/engine_interface.h"
-#include "../calibration/frame_configuration_row.h"
-#include "../src/eng1/behavioral/data_layouts.h"
-#include "../src/eng1/behavioral/actor_pipeline_storage.h"
+#include "../src/shared/engine_interface.h"
+#include "../src/shared/frame_configuration_row.h"
+#include "../src/eng1/data_layouts.h"
+#include "../src/eng1/actor_pipeline_storage.h"
 
 typedef unsigned char fx_u8;
 typedef unsigned short fx_u16;

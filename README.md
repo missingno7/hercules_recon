@@ -13,6 +13,7 @@ not depend on those original executable modules.
 
 - [Project direction](docs/project_direction.md) explains the target and proof boundaries.
 - [Working contract](AGENTS.md) gives repository-wide rules.
+- [Source guide](src/README.md) explains the module layout and how to look up a function's status.
 - [Matching](docs/matching.md) defines accepted function evidence.
 - [Workflow](docs/workflow.md) gives the short reconstruction loop.
 - [Original binary architecture](docs/architecture.md), [source inventory](docs/inventory.md),
@@ -35,6 +36,24 @@ semantic evidence, link closure, and runtime behavior are separate facts.
 Dated reports are historical measurements. Read current status from recovery.json
 and the relevant module evidence; do not treat old counts as current state.
 
+## Repository layout
+
+| Path | Contents |
+| --- | --- |
+| `src/pc/`, `src/title/`, `src/eng1/`, `src/eng3/` | Current reconstructed source by original PC module |
+| `src/shared/` | Shared engine logic, interfaces, layouts and data owners |
+| `recovery.json` | Per-function matching authority; accepted and incomplete units share `src/` |
+| `config/` | Active source selection, link plans and bounded analysis recipes |
+| `scripts/`, `tests/` | Analysis/build/verification tools and their regression fixtures |
+| `evidence/`, `docs/` | Proof inputs, provenance and documented findings |
+| `renderer_contract/` | Recovered renderer interfaces and reference utilities |
+| `prototypes/`, `dropin_renderer/` | Explicit host, renderer and reconstruction experiments |
+| `work/`, `candidates/`, `build/` | Ignored generated output and disposable experiments |
+
+The old `behavioral/` and `calibration/` source directories are retired. Matching
+status belongs to each function's ledger row, not its directory. See the
+[cleanup record](docs/source_layout.md) for old-path lookup and proof preservation.
+
 ## Everyday commands
 
 Use the configured Python 3.11+ environment and the pinned dependencies under
@@ -42,6 +61,11 @@ C:\tools. Put generated artifacts in ignored work/ or candidates/ directories.
 The RAW and RELOCATED acceptance regression command is:
 
     python scripts/match.py verify --report work/strict_verification.json
+
+To inspect current source without treating filenames as proof tiers:
+
+    python scripts/source_status.py
+    python scripts/source_status.py actor_pair_animation.c
 
 A secondary worktree may add --original-root D:/Prog/hercules_recon to read the
 primary checkout's originals. The source and recovery state still come from the

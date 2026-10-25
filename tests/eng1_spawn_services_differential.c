@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-#include "../src/eng1/behavioral/worklist_factory_types.h"
+#include "../src/eng1/worklist_factory_types.h"
 
 typedef struct ActorNormal ActorNormal;
 typedef struct ActorMiddle ActorMiddle;

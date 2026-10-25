@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../calibration/archive_names.c"
+#include "../src/pc/archive_names.c"
 extern int __cdecl name_hash(const char *);
 
 /* A synthetic test backing store, not a declaration of target capacity. */

@@ -1,4 +1,4 @@
-#include "../calibration/resource_destroy.c"
+#include "../src/shared/resource_destroy.c"
 #include <stdio.h>
 
 ActorResource g_actor_resources[81];

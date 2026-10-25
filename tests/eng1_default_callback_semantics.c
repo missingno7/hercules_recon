@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "../calibration/engine_interface.h"
+#include "../src/shared/engine_interface.h"
 
 /* The 3D preflight wrapper is linked but outside this fixture's callback path. */
 void __cdecl apply_frame_motion_3d(void *pointer)

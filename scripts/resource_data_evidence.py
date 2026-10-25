@@ -10,7 +10,7 @@ from pe import PE
 
 
 def audit():
-    source = ROOT / 'calibration/resource_data.c'
+    source = ROOT / 'src/shared/resource_data.c'
     evidence = json.loads((ROOT / 'evidence/resource_writer_layout.json').read_text())
     image_path = ROOT / evidence['target']
     if digest(image_path.read_bytes()) != evidence['target_sha256']:
@@ -94,7 +94,7 @@ def audit():
             raise ValueError('Changed zero-storage view: ' + name)
         zero_views.append(dict(symbol=name, bytes=length, storage='COFF common; initial zero'))
     result = dict(scope='Data-only initial-content/reference audit; no FUNCTION_MATCH, original declarations, capacity beyond reviewed leading extents, runtime alias or natural-layout proof.',
-                  source='calibration/resource_data.c', source_sha256=digest(source.read_bytes()),
+                  source='src/shared/resource_data.c', source_sha256=digest(source.read_bytes()),
                   oracle_sha256=digest(image.data), toolchain=verify_toolchain(DEFAULT_TOOLCHAIN),
                   command=command, object=str(obj.relative_to(ROOT)), object_sha256=digest(obj.read_bytes()),
                   rows=81, row_bytes=20, nonrelocated_fields_exact=True, local_strings_equal=81,

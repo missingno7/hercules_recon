@@ -27,8 +27,8 @@ from unicorn.x86_const import (UC_X86_REG_EAX, UC_X86_REG_ESP, UC_X86_REG_EIP,
 
 ORACLE = ROOT / 'assets/pc/HERCULES/ENG1.DLL'
 ORACLE_SHA = '01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757'
-SOURCES = ['src/eng1/behavioral/grid_query_20b50.c', 'src/eng1/behavioral/query_20990.c',
-           'src/eng1/behavioral/grid_query_data.c']
+SOURCES = ['src/eng1/grid_query_20b50.c', 'src/eng1/query_20990.c',
+           'src/eng1/grid_query_data.c']
 DATA = 0x61000000
 HEADER = DATA + 0x100
 ROWS = DATA + 0x2000

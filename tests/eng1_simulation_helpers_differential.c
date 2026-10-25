@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <setjmp.h>
-#include "../src/eng1/behavioral/simulation_dependency.c"
-#include "../calibration/resource_context.h"
-#include "../src/eng1/behavioral/read_guard.h"
+#include "../src/eng1/simulation_dependency.c"
+#include "../src/shared/resource_context.h"
+#include "../src/eng1/read_guard.h"
 
 #define SIM_CONTEXT_BYTES 0x1b34
 #define SIM_POOL_BYTES 0x600

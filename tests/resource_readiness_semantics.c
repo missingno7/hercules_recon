@@ -1,4 +1,4 @@
-#include "../calibration/resource_readiness.c"
+#include "../src/shared/resource_readiness.c"
 
 #include <stdio.h>
 

@@ -1,4 +1,4 @@
-#include "../../calibration/host_restart_dialog.h"
+#include "host_restart_dialog.h"
 extern "C" {
 extern BYTE g_registry_config[72];
 int cleanup_native_4b50(int);

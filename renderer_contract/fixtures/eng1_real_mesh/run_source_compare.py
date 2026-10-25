@@ -216,14 +216,14 @@ def main(argv=None) -> int:
         "output_pathguard": sha((LANE / "pathguard.py").read_bytes()),
         "output_pathguard_tests": sha((LANE / "test_path_guards.py").read_bytes()),
         "prediction": sha((LANE / "prediction.md").read_bytes()),
-        "mesh_emit.c": sha((ROOT / "src/eng1/behavioral/mesh_emit.c").read_bytes()),
-        "primitive_emitters_a.c": sha((ROOT / "src/eng1/behavioral/primitive_emitters_a.c").read_bytes()),
-        "mesh_visit.h": sha((ROOT / "src/eng1/behavioral/mesh_visit.h").read_bytes()),
+        "mesh_emit.c": sha((ROOT / "src/eng1/mesh_emit.c").read_bytes()),
+        "primitive_emitters_a.c": sha((ROOT / "src/eng1/primitive_emitters_a.c").read_bytes()),
+        "mesh_visit.h": sha((ROOT / "src/eng1/mesh_visit.h").read_bytes()),
         "hercules_projection.h": sha((ROOT / "renderer_contract/hercules_projection.h").read_bytes()),
         "hercules_projection.c": sha((ROOT / "renderer_contract/hercules_projection.c").read_bytes()),
-        "engine_interface.h": sha((ROOT / "calibration/engine_interface.h").read_bytes()),
-        "engine_dispatch_externs.h": sha((ROOT / "calibration/engine_dispatch_externs.h").read_bytes()),
-        "resource_context.h": sha((ROOT / "calibration/resource_context.h").read_bytes()),
+        "engine_interface.h": sha((ROOT / "src/shared/engine_interface.h").read_bytes()),
+        "engine_dispatch_externs.h": sha((ROOT / "src/shared/engine_dispatch_externs.h").read_bytes()),
+        "resource_context.h": sha((ROOT / "src/shared/resource_context.h").read_bytes()),
     }
     for tool_name, expected_hash in TOOLCHAIN_HASHES.items():
         tool_path = TOOLCHAIN / "bin" / tool_name

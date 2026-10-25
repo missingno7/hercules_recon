@@ -64,7 +64,7 @@ def harvest():
             elif isinstance(node, list):
                 for v in node:
                     stack.append((v, target, source))
-    config = json.load(open(ROOT / 'evidence/eng1_behavioral_build.json'))
+    config = json.load(open(ROOT / 'config/eng1/sources.json'))
     for row in config['functions']:
         found.add(('ENG1.DLL', int(row['rva'], 16), row['symbol'], row['source']))
     return found

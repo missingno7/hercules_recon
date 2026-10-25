@@ -30,6 +30,12 @@ are the evidence oracle; PSX builds are secondary.
 
 ## Historical source and verification
 
+- Keep current game source under src/pc, src/title, src/eng1, src/eng3 or
+  src/shared, according to ownership. Matching status is per function in
+  recovery.json; do not split source into behavioral, matching or calibration
+  tiers. Active source/link selection belongs in config/. Preserve real compiler
+  units; see src/README.md and docs/source_layout.md for the reviewed migration.
+
 - Never modify assets/. Never commit original or extracted game files, tools,
   generated builds, databases, or large disassemblies.
 - Keep experiments in ignored candidates/ or work/. Reuse existing source and

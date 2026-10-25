@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../src/eng1/behavioral/interpreters.h"
+#include "../src/eng1/interpreters.h"
 
 ResourceKindInfo g_kind_info[1];
 unsigned long g_configuration_dword_71384;

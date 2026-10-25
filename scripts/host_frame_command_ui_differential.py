@@ -15,7 +15,7 @@ import sys
 def repository_root(script: Path) -> Path:
     """Find the checkout by its installed matching/verification scripts."""
     for parent in script.resolve().parents:
-        if (parent / "scripts" / "match.py").is_file() and (parent / "calibration").is_dir():
+        if (parent / "scripts" / "match.py").is_file() and (parent / "src/pc").is_dir():
             return parent
     raise RuntimeError("cannot locate repository root from installed scripts")
 
@@ -35,11 +35,11 @@ ORACLE_SHA256 = "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1
 NATIVE_SPAN_RECEIPT = "work/host_frame_ui_callbacks/host_frame_ui_callbacks_canonical_header_report.json"
 NATIVE_SPAN_RECEIPT_SHA256 = "1c8cf238a44f443e69d0b5db779d33c9ee1a53734a3c6b070d24ab603aa15983"
 SOURCE = ROOT / "src" / "pc" / "host_frame_command_ui.cpp"
-CANONICAL_HEADER = ROOT / "calibration" / "host_system_keys.h"
-STARTUP_HEADER = ROOT / "calibration" / "host_startup_storage.h"
-SYSTEM_KEY_OWNER = ROOT / "calibration" / "host_system_key_storage.c"
-STARTUP_OWNER = ROOT / "calibration" / "host_startup_storage.c"
-GRAPHICS_OWNER = ROOT / "calibration" / "graphics_storage.cpp"
+CANONICAL_HEADER = ROOT / 'src/pc/host_system_keys.h'
+STARTUP_HEADER = ROOT / 'src/pc/host_startup_storage.h'
+SYSTEM_KEY_OWNER = ROOT / 'src/pc/host_system_key_storage.c'
+STARTUP_OWNER = ROOT / 'src/pc/host_startup_storage.c'
+GRAPHICS_OWNER = ROOT / 'src/pc/graphics_storage.cpp'
 TOOLCHAIN = Path(r"C:\tools\hercules\msvc500-8abf95ce980161ad87b0b02402269cce76988953")
 TOOLCHAIN_MANIFEST = ROOT / "toolchains" / "manifest.json"
 SDK_HEADERS = [
@@ -220,7 +220,7 @@ def compile_and_link() -> dict:
     before = {str(path.resolve()): sha(path) for path in base_inputs}
     before[str(ANCHOR.resolve())] = sha(ANCHOR)
     include_dirs = [TOOLCHAIN / "include", TOOLCHAIN / "mfc" / "include",
-                    ROOT / "calibration"]
+                    ROOT / "src/pc"]
     env = os.environ.copy()
     for key in ("CL", "_CL_", "LINK", "_LINK_"):
         env.pop(key, None)
@@ -668,7 +668,7 @@ def main() -> None:
     report = {
         "status": "PASS_BOUNDED_DIRECT_UNICORN_DIFFERENTIAL" if diff["status"] == "PASS" else "FAIL_DIFFERENTIAL",
         "scope": "Self-contained published runner for three canonical HERCULES.EXE command-UI callbacks; no production entry or canonical/recovery mutation.",
-        "repository_root_discovery": "Walk this runner's parent directories until installed scripts/match.py and calibration/ are found.",
+        "repository_root_discovery": "Walk this runner's parent directories until installed scripts/match.py and src/pc/ are found.",
         "oracle": {"path": str(ORACLE.resolve()), "sha256": sha(ORACLE),
                    "image_base": build["native_image_base"], "image_size": build["native_image_size"]},
         "native_span_receipt": {

@@ -21,7 +21,7 @@ def derive(output, build_report):
     output = output.resolve()
     if not output.is_relative_to(ROOT / 'work'):
         raise ValueError('Derived graph output must remain under work/')
-    config_bytes = (ROOT / 'evidence/eng1_behavioral_build.json').read_bytes()
+    config_bytes = (ROOT / 'config/eng1/sources.json').read_bytes()
     recovery_bytes = (ROOT / 'recovery.json').read_bytes()
     config, recovery = json.loads(config_bytes), json.loads(recovery_bytes)
     image = PE(ROOT / 'assets/pc/HERCULES/ENG1.DLL')

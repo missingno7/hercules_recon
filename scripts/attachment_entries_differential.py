@@ -21,8 +21,8 @@ from refinery_forms import replace_function
 from title_link import read_map
 import boss_entries_differential as base
 
-SOURCE = ROOT/'calibration/eng1/player_scene_3a040.c'
-OWNER = ROOT/'src/eng1/behavioral/attachment_entry_data.c'
+SOURCE = ROOT/'src/eng1/player_scene_3a040.c'
+OWNER = ROOT/'src/eng1/attachment_entry_data.c'
 TABLES = {'_g_entries_64510':(0x64510,464), '_g_entries_646e0':(0x646e0,240),
           '_g_entries_647d0':(0x647d0,144), '_g_level_entries_5e688':(0x5e688,272)}
 CALLERS = {'_eng1_3a730':(0x3a730,'_g_entries_64510'),

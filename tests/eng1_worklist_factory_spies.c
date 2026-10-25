@@ -2,8 +2,8 @@
 #include <string.h>
 #include <setjmp.h>
 #include <stdlib.h>
-#include "../src/eng1/behavioral/worklist_factory_types.h"
-#include "../src/eng1/behavioral/resource_runtime_data.h"
+#include "../src/eng1/worklist_factory_types.h"
+#include "../src/eng1/resource_runtime_data.h"
 
 ActorNormal *g_normal_actor_pool;
 ActorMiddle *g_middle_actor_pool;

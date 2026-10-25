@@ -1,4 +1,4 @@
-#include "../../calibration/host_options_classes.h"
+#include "host_options_classes.h"
 BOOL COptionsSheet::OnInitDialog()
 {
     BOOL result = CPropertySheet::OnInitDialog();

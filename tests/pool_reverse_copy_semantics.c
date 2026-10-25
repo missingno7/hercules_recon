@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../calibration/pool_reverse_copy.c"
+#include "../src/pc/pool_reverse_copy.c"
 
 static unsigned long checks;
 static unsigned long failures;

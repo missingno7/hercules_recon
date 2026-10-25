@@ -27,9 +27,9 @@ from unicorn.x86_const import (UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_EDX,
     UC_X86_REG_EBX, UC_X86_REG_ESI, UC_X86_REG_EDI, UC_X86_REG_EBP,
     UC_X86_REG_ESP, UC_X86_REG_EIP, UC_X86_REG_EFLAGS)
 
-SOURCE = ROOT/'src/eng1/behavioral/player_modes_remaining.c'
-AXIS_SOURCE = ROOT/'src/eng1/behavioral/player_axis_motion.c'
-BOUNDARY_SOURCE = ROOT/'calibration/eng1/player_boundary_19c30.c'
+SOURCE = ROOT/'src/eng1/player_modes_remaining.c'
+AXIS_SOURCE = ROOT/'src/eng1/player_axis_motion.c'
+BOUNDARY_SOURCE = ROOT/'src/eng1/player_boundary_19c30.c'
 ORACLE = ROOT/'assets/pc/HERCULES/ENG1.DLL'
 SPANS = {0x18a10:256,0x18ba0:16,0x18c30:32,0x18ed0:144,0x19140:32,
          0x191e0:96,0x19260:48,0x19290:352,0x193f0:80,0x19480:464,0x19c20:16,

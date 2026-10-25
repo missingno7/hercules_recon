@@ -22,7 +22,7 @@ def run(output, native_eng1=None):
     if oracle_hash != '01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757':
         raise ValueError('Original ENG1 identity changed')
     sources = [ROOT / path for path in ('tests/eng1_actor_pipeline_differential.c',
-               'src/eng1/behavioral/sine_table.c')]
+               'src/eng1/sine_table.c')]
     contexts = {str(path.relative_to(ROOT)): digest(path.read_bytes())
                 for source in sources for path in context_files(source)}
     environment = os.environ.copy()
