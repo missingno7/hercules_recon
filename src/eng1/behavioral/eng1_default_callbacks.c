@@ -100,7 +100,7 @@ extern void __cdecl eng1_native_code_target_0030290(eng1_u32, eng1_u32);
 extern int __cdecl eng1_native_code_target_0029c20(Eng1CallbackActor *);
 extern eng1_u32 __cdecl eng1_native_code_target_002a170(eng1_u32, eng1_u32,
                                              eng1_u32, eng1_u32);
-extern int __cdecl eng1_native_code_target_002a710(Eng1CallbackActor *, void *);
+extern int __cdecl eng1_native_code_target_002a710(void *, Eng1CallbackActor *);
 extern int __cdecl eng1_native_code_target_002a880(Eng1CallbackActor *, Eng1Bounds3D *,
                                         eng1_u32);
 extern int __cdecl bounds_overlap(Eng1Bounds3D *, Eng1Bounds3D *);
@@ -280,7 +280,7 @@ void __cdecl eng1_native_code_target_0010f0(Eng1CallbackActor *actor)
 continue_update:
     if (actor->state_02a == 2) {
         if (eng1_native_code_target_002a710(
-                actor, (void *)(g_native_pointer_7217c + 0x88)))
+                (void *)(g_native_pointer_7217c + 0x88), actor))
             select_frame(actor, 6);
     } else {
         if (eng1_native_code_target_002a880(actor, &sample, 2) &&
@@ -378,7 +378,7 @@ void __cdecl eng1_native_code_target_0013c0(Eng1CallbackActor *actor)
 continue_update:
     if (actor->state_02a == 2) {
         if (eng1_native_code_target_002a710(
-                actor, (void *)(g_native_pointer_7217c + 0x88)))
+                (void *)(g_native_pointer_7217c + 0x88), actor))
             select_frame(actor, 6);
     } else {
         if (eng1_native_code_target_002a880(actor, &sample, 2) &&

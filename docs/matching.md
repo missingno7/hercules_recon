@@ -45,12 +45,82 @@ Each acceptance pins source/include context, compiled bytes, target, reference
 bindings and independent evidence. Promotion recompiles every accepted peer and
 uses the existing recovery transaction.
 
+An explicit `bss` binding can identify a reviewed loader-zero object. It requires
+a separately pinned owner source/flags/symbol profile, freshly compiled on every
+verification run. The owner must emit one unambiguous, exact-size COMMON data
+definition under the same COFF name, or one of the explicit compiler-renaming
+proofs described below. All owner includes must be pinned by that
+binding's evidence manifest. The native extent must lie wholly inside one
+writable, non-executable zero tail within SizeOfImage, outside loader fixups,
+data directories and unreviewed TLS/load-config effects.
+
+The binding also pins one complete independent native MOV/LEA/PUSH address
+instruction and its exact HIGHLOW operand fixup. It must identify the owner base
+outside the compared caller and outside every selected promotion candidate.
+All-zero similarity cannot select an object. Memory uses require bounded direct
+scalar accesses; indexing, implicit aliases, one-past uses and implicit indirect
+call authorization remain unsupported for this kind. A scalar root alone never
+authorizes a call. The separate explicit callback proof below has its own
+instruction/identity requirements. Owner objects and inputs are rechecked immediately
+before publication. Ordinary `data` bindings continue requiring file-backed
+payloads. See `docs/loader_zero_matching_2026_10_25.md` and the published bindings.
+
+A two-byte scalar `bss` reference may carry a `source_alias` record with
+`kind: compile-renaming`, a pinned canonical header and an explicit one-to-one
+map of C data identifiers. The legacy caller names must be undefined strong data,
+and the actual owners must be complete WORD COMMON definitions. The verifier
+freshly compiles the unchanged caller normally and through the header, then
+requires every function, other executable section, non-code contribution,
+linker directive and external symbol to be identical after only those data names
+are normalized. No instruction or object bytes are patched. Both objects and
+their complete input closures are checked through publication. The original
+native identity, zero-tail, full-instruction, reference and HIGHLOW requirements
+still apply. This is not name-based or zero-based alias inference. Pointer views,
+weak aliases, COMMON-object merging and broader alias forms remain unsupported.
+See `docs/pool_limit_alias_matching_2026_10_25.md`.
+
+A four-byte pointer-cell alias may instead use `kind: owner-compile-renaming`.
+It permits one caller/owner C-name pair and an explicit `pointer_types` choice
+of `void` or `byte`. The caller must contain an undefined strong DATA symbol;
+its actual owner name must not already occur in the caller. The separately
+compiled C owner must emit the exact four-byte COMMON object and no functions
+or executable storage. Its pinned header contains only the inverse macro map.
+An ignored wrapper declares the specified pointer before including that owner,
+asserts pointer width four, and compiles under the original owner profile plus
+`/WX`. Integer, array, function-pointer and incompatible/qualified declarations
+reject. The full owner sections, relocations and every non-FILE symbol/auxiliary
+must agree after that single name rename; FILE metadata is validated separately.
+Both COMMON definitions, all other storage and directives remain accounted for.
+No COMMON merging, weak symbols/linker aliases or extra storage is allowed.
+The original caller is compiled unchanged. Fresh original/adapted owner objects,
+both input closures and the caller are guarded through publication. The same
+native identity, scalar access, full-instruction, relocation and HIGHLOW gates
+then apply. This does not enable pointer views, indexed BSS, one-past BSS or new
+indirect control transfers. See `docs/owner_alias_matching_2026_10_25.md`.
+
 Current support is intentionally conservative: i386 REL32 direct entry calls/jumps
 and DIR32 function/data/IAT/local-table references in complete /Gy contributions.
-BSS payloads, relocated data tables, ambiguous aliases, weak symbols, register
+Other BSS forms, relocated data tables, ambiguous aliases, weak symbols, register
 indirect dispatch and other unsupported forms remain unaccepted. Do not remove
 these checks to increase a count. Complete compiler padding is checked; padding
 inserted outside the contribution by the linker is outside this proof.
+
+An optional `indirect_calls` inventory can separately prove the narrowly defined
+`rooted-callback-v1` expression. Each entry names one CALL and one earlier root
+load, a complete independently verified four-byte scalar `bss` root, low9-bit
+index mask, stride8 or12, and an independent native witness window/hash. The
+caller and original must both contain the exact straight-line root load, mask,
+one DWORD register argument, optional x3 LEA, slot-zero memory CALL, optional
+count reload and four-byte caller cleanup. Root/index/argument registers are
+disjoint; no instruction can clobber their provenance. Direct or local-table
+entries inside that window reject. An independent file-backed native window
+must corroborate the same root/mask/stride/call/cleanup shape with exactly one
+HIGHLOW root field; it cannot overlap this caller or any selected promotion
+candidate. All other instructions, references, owner proofs and complete bytes
+still pass their original gates. Unreviewed calls and register-indirect calls
+remain unsupported. This proves the dispatch expression, not dynamic callee
+identities, callback behavior or pointee capacity. See
+[the appender and mode review](action_appender_matching_2026_10_25.md).
 
 ## Keep evidence dimensions separate
 

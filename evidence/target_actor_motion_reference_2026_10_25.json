@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "date": "2026-10-25",
+  "scope": "Independent existing bounds entry/ABI for the960-byte target-steering caller; recovery.json alone grants acceptance.",
+  "caller": {
+    "source": "src/eng1/behavioral/target_actor_motion.c",
+    "source_sha256": "5c985107d934bc0a90069278e96716535287034c4dbaecdb83abdedb9f4c09b8",
+    "rva": "0x2b5e0",
+    "size": 960,
+    "native_sha256": "b58c87c40ce9619a86585074c3932ed976ed2f3f2b15310b3d6dca6b7eae0bca",
+    "physical_abi": "cdecl(actor pointer,optional target pointer,lowBYTEflags) -> lowBYTEresult",
+    "review": "Null target masks flagsf8 and bypasses all steering. Otherwise call actor_bounds(target,&12-byte scratch,0); use signed-WORD bound centers with DWORD wrap, or fallback coordinates. Keep lower3 steering bits, ordinary acceleration bits8/10/20, acceleration-only40/80, whole-byte direction complements, historical cross-axis clamp comparisons, all position updates and lowBYTEresult."
+  },
+  "independent_bounds_entry": {
+    "source": "src/eng1/behavioral/actor_bounds_2a880.c",
+    "symbol": "_actor_bounds_2a880",
+    "rva": 174208,
+    "size": 208,
+    "source_sha256": "81d7415cfe7b20b9388cf906532e45628adde64b91faeffe48e813588664c44f",
+    "native_sha256": "d414b3b121bc82b26edbc5f47a6e0c596e13d0c3db8e0f4ef8905680ce02ee24",
+    "review": "Own208-byte extent-consumer body: actor,12-byte output,mode; calls30e40 with lowWORDmode, rejects failed/zero extents, writes six relative WORD bounds. Return EAX0/1. Independently documented in eng1_actor_bounds_2a880.json; source not claimed matching.",
+    "outside_selected_caller_witnesses": [
+      {
+        "rva": 4783,
+        "size": 5,
+        "sha256": "b255498aa522840f65108ba985be9a4f3b87e6dcc69819d31a41564499e1907c"
+      }
+    ],
+    "fresh_own_nonreference_equal": false,
+    "helper_acceptance_claimed": false
+  },
+  "source_header": "src/eng1/behavioral/actor_bounds_2a880.h",
+  "entry_basis": "Prior independent own208-byte body/ABI, source, native hash and outside-caller witness from the earlier spatial-predicate review; not the new caller implied map.",
+  "limitations": [
+    "Bounds helper remains bounded/unaccepted; entry identity does not establish its resource/profile chain or whole-game behavior.",
+    "No worklist ownership or nearest-query acceptance is supplied by this manifest."
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "date": "2026-10-25",
+  "scope": "Independent loader-zero cell and boundary-entry identities for two caller functions; acceptance remains recovery.json.",
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "pool_owner": {
+    "source": "src/eng1/behavioral/actor_storage.c",
+    "symbol": "_g_normal_actor_pool",
+    "rva": 469088,
+    "size": 4,
+    "native_identity": {
+      "rva": 127245,
+      "size": 5,
+      "operand": 0,
+      "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5"
+    },
+    "role": "Host-written normal actor pool base; consumers address its first actor and stride-based entries.",
+    "basis": "evidence/normal_pool_pointer_2026_10_25.json"
+  },
+  "boundary_entries": {
+    "_eng1_19c30": {
+      "rva": 105520,
+      "size": 192,
+      "native_sha256": "f5e986bb4e03bb39bfb7789c3c628ad86c99d42264bf4687373310aaa16eb13c",
+      "source": "calibration/eng1/player_boundary_19c30.c",
+      "source_sha256": "52d4fa07573929a1277817963582f89097fc349cf3a7c5fca21c02383438d549",
+      "review": "X boundary: camera bit0 gate, lower floor, header-width limit with asymmetric comparison/store offsets, then row bounds.",
+      "entry_basis": "Own original entry/body decoded independently, neighboring complete callable extents reviewed, and separate source-body/native comparisons. Not selected from axis relocation-implied symbol values.",
+      "code_match_claimed": false,
+      "production_provider": false,
+      "scope": "Entry identity only. Internal data ownership, full header capacity and boundary byte matching remain unaccepted."
+    },
+    "_eng1_19d30": {
+      "rva": 105776,
+      "size": 64,
+      "native_sha256": "b620b7689f08c42087129623eb843e369b0c972aebe9193cff7340bc0276b3bb",
+      "source": "calibration/eng1/player_boundary_19c30.c",
+      "source_sha256": "52d4fa07573929a1277817963582f89097fc349cf3a7c5fca21c02383438d549",
+      "review": "Y boundary: lower floor, live pool reload, signed comparison with the unsigned header-height WORD shifted by22.",
+      "entry_basis": "Own original entry/body decoded independently, neighboring complete callable extents reviewed, and separate source-body/native comparisons. Not selected from axis relocation-implied symbol values.",
+      "code_match_claimed": false,
+      "production_provider": false,
+      "scope": "Entry identity only. Internal data ownership, full header capacity and boundary byte matching remain unaccepted."
+    }
+  },
+  "caller_reviews": {
+    "eng1.19a10": {
+      "source": "src/eng1/behavioral/player_axis_motion.c",
+      "symbol": "_eng1_19a10",
+      "rva": "0x19a10",
+      "size": 144,
+      "complete_nonreference_equal": true,
+      "references": 5,
+      "semantics": "Original signed approach and wrap update; identical reloads, direction update and boundary tail target. Boundary/global identities supplied independently of caller operand values."
+    },
+    "eng1.19aa0": {
+      "source": "src/eng1/behavioral/player_axis_motion.c",
+      "symbol": "_eng1_19aa0",
+      "rva": "0x19aa0",
+      "size": 160,
+      "complete_nonreference_equal": true,
+      "references": 5,
+      "semantics": "Original signed approach and wrap update; identical reloads, direction update and boundary tail target. Boundary/global identities supplied independently of caller operand values."
+    }
+  },
+  "differential": {
+    "cases": 565,
+    "all_equal": true,
+    "report_sha256": "77c4e5bf79f4cbfafb31354d66cf30b4dc1e951bb94533fb6fc3de00d67b8f33",
+    "driver": "scripts/eng1_player_modes_differential.py",
+    "driver_sha256": "01e61782253c5ccd8f4083824f57e8681ee4daf1df74bd97feb63c11a2423cbf",
+    "scope": "Isolated handlers, actual axis/boundary compositions, and finite synthetic header/row cases. Other services modeled. No boundary-function or whole-game acceptance."
+  },
+  "limitations": [
+    "Only one independently reviewed four-byte loader-zero owner is used.",
+    "No source/TU identity, pool capacity, helper byte equality, runtime dependency closure or original process execution claim."
+  ]
+}

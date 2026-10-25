@@ -1,0 +1,140 @@
+{
+  "scope": "Audit four complete initialized Entry owners and compose three real callers.\n\nUses the frozen boss-Entry instruction harness, with additional per-owner read\nbounds. No original OS module or game starts; no instruction/file is patched.\n",
+  "cases": 720,
+  "all_equal": true,
+  "failed_cases": 0,
+  "by_function": {
+    "_eng1_3a730": 240,
+    "_eng1_3a8a0": 240,
+    "_eng1_3a910": 240
+  },
+  "cases_sha256": "ec709c4d625abf1405dd0eafb0d632a187c75280aa71043188dabd240d9bd003",
+  "build": {
+    "input_sha256": {
+      "D:\\Prog\\hercules_recon\\scripts\\attachment_entries_differential.py": "55abb9626d8b2af0857cd0a025645e611e8a160c24273842bb5109650e2e1f08",
+      "D:\\Prog\\hercules_recon\\scripts\\boss_entries_differential.py": "a3303b3154f6b3977e14d37db30edb865978faf46d57b3d36c21a2905df564f7",
+      "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+      "D:\\Prog\\hercules_recon\\toolchains\\manifest.json": "d52d560ef78589b6008df0fd3ca42f8d258a34248015398158716e9a811e063d",
+      "D:\\Prog\\hercules_recon\\calibration\\eng1\\player_scene_3a040.c": "fd1951d328bee4f1f9fddfe41fc49c6f0fc4d060b1b01a0ff7618fe5f27c334d",
+      "D:\\Prog\\hercules_recon\\work\\scene_entries_2026_10_25\\differential\\callers.c": "edc1415f2d95565c48ab253bea48b90c25fd5da57c175704ccd1713200cf149f",
+      "D:\\Prog\\hercules_recon\\src\\eng1\\actor_handlers_mid.c": "64bb0250db784c1e512d75d5c4c7232ec27d20ebd9f7497c88c4b469c6d5b27e",
+      "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\attachment_entry_data.c": "de315b08d79534cbefa2ed4f65e180bf812c2f42db932454169bdb603794618c"
+    },
+    "commands": [
+      [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-cx3o4dbf\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\eng1\\player_scene_3a040.c"
+      ],
+      [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-gwwgfytc\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\work\\scene_entries_2026_10_25\\differential\\callers.c"
+      ],
+      [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-v0pgi0kv\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\src\\eng1\\actor_handlers_mid.c"
+      ],
+      [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-djzonca3\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\attachment_entry_data.c"
+      ],
+      [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\link.exe",
+        "/NOLOGO",
+        "/DLL",
+        "/NOENTRY",
+        "/NODEFAULTLIB",
+        "/INCREMENTAL:NO",
+        "/OPT:REF",
+        "/OPT:NOICF",
+        "/BASE:0x45000000",
+        "/OUT:D:\\Prog\\hercules_recon\\work\\scene_entries_2026_10_25\\differential\\fixture.dll",
+        "/MAP:D:\\Prog\\hercules_recon\\work\\scene_entries_2026_10_25\\differential\\fixture.map",
+        "/EXPORT:eng1_3a730",
+        "/EXPORT:eng1_3a8a0",
+        "/EXPORT:eng1_3a910",
+        "D:\\Prog\\hercules_recon\\build\\match\\compile-gwwgfytc\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\build\\match\\compile-v0pgi0kv\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\build\\match\\compile-djzonca3\\candidate.obj"
+      ]
+    ],
+    "data": {
+      "_g_entries_64510": {
+        "native_rva": "0x64510",
+        "size": 464,
+        "rows": 29,
+        "usable_rows": 28,
+        "payload_sha256": "bafd761075734efa4c3cafa5e60c1c5d31fb4f1cefd15292bb7e9ea2d520453e",
+        "unique_native_occurrence": true,
+        "negative_controls": [
+          "changed_value",
+          "truncated"
+        ]
+      },
+      "_g_entries_646e0": {
+        "native_rva": "0x646e0",
+        "size": 240,
+        "rows": 15,
+        "usable_rows": 14,
+        "payload_sha256": "588dc27c276cd9f1f40d038bb8ad1ec9adece6e19b2db6e7f52f78b5c1ccaafb",
+        "unique_native_occurrence": true,
+        "negative_controls": [
+          "changed_value",
+          "truncated"
+        ]
+      },
+      "_g_entries_647d0": {
+        "native_rva": "0x647d0",
+        "size": 144,
+        "rows": 9,
+        "usable_rows": 8,
+        "payload_sha256": "38d684728b3521130000faa25e7a486bea1c62586fab4d21cc5f2734dc2c5413",
+        "unique_native_occurrence": true,
+        "negative_controls": [
+          "changed_value",
+          "truncated"
+        ]
+      },
+      "_g_level_entries_5e688": {
+        "native_rva": "0x5e688",
+        "size": 272,
+        "rows": 17,
+        "usable_rows": 16,
+        "payload_sha256": "80fdf92917ee2d54c92cd8494ccd66f7cc1f8563db0f514fddee94b0223c43f7",
+        "unique_native_occurrence": true,
+        "negative_controls": [
+          "changed_value",
+          "truncated"
+        ]
+      }
+    },
+    "complete_selected_contributions_equal": true,
+    "helper_raw_exact": true,
+    "image_sha256": "699f8830428d1b131c11089f39f9ae2a5106cf41ca1c91c52167f5f8466d2ba3"
+  },
+  "limits": [
+    "All four source payloads are audited. Only the three simple callers execute in these720 composition cases;33e10 remains outside the claim.",
+    "Real attach_entries executes with no modeled services. Pointer normalization follows separate raw-pointer checks.",
+    "Finite actor/sentinel cases establish no later coordinate/rendering/gameplay semantics."
+  ]
+}

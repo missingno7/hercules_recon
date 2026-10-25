@@ -36,11 +36,11 @@
       "evidence": "evidence/action_registry_region.json"
     },
     {
-      "source": "calibration/action_registry_writers.c",
+      "source": "src/eng1/behavioral/action_group_writers.c",
       "flags": [
         "/O2"
       ],
-      "evidence": "evidence/action_registry_writers_region.json"
+      "evidence": "evidence/action_appender_references_2026_10_25.json"
     },
     {
       "source": "calibration/registry_allocation.c",
@@ -50,11 +50,11 @@
       "evidence": "evidence/registry_allocation_region.json"
     },
     {
-      "source": "calibration/actor_factories.c",
+      "source": "src/eng1/behavioral/coordinate_factories.cpp",
       "flags": [
         "/O2"
       ],
-      "evidence": "evidence/actor_factories_region.json"
+      "evidence": "evidence/coordinate_factory_references_2026_10_25.json"
     },
     {
       "source": "calibration/actor_pool_reset_repaired.c",
@@ -195,6 +195,13 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_actor_storage.json"
+    },
+    {
+      "source": "src/eng1/behavioral/player_state_cells.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/player_cells_references_2026_10_25.json"
     },
     {
       "source": "src/eng1/behavioral/dispatch_storage.c",
@@ -387,6 +394,13 @@
       "evidence": [
         "evidence/eng1_config_tables.json"
       ]
+    },
+    {
+      "source": "src/eng1/behavioral/player_animation_programs.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/player_animation_references_2026_10_25.json"
     },
     {
       "source": "src/eng1/behavioral/frame_programs.c",
@@ -813,7 +827,7 @@
       "flags": [
         "/O2"
       ],
-      "evidence": "evidence/eng1_worklist_factories.json"
+      "evidence": "evidence/worklist_live_reads_recovery_2026_10_25.json"
     },
     {
       "source": "src/eng1/behavioral/worklist_read_guards.c",
@@ -1269,6 +1283,97 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_setup_source.json"
+    },
+    {
+      "source": "src/eng1/behavioral/player_modes_remaining.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/eng1_player_modes_2026_10_25.json"
+    },
+    {
+      "source": "src/eng1/behavioral/player_axis_motion.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/player_axis_recovery_2026_10_25.json"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_spatial_predicates.cpp",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/spatial_predicates_recovery_2026_10_25.json"
+    },
+    {
+      "source": "src/eng1/behavioral/spatial_neighbor_helpers.cpp",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/spatial_neighbors_recovery_2026_10_25.json"
+    },
+    {
+      "source": "src/eng1/behavioral/actor_target_relative.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/spatial_neighbors_recovery_2026_10_25.json"
+    },
+    {
+      "source": "src/eng1/behavioral/target_actor_motion.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/spatial_queries_recovery_2026_10_25.json"
+    },
+    {
+      "source": "src/eng1/behavioral/nearest_actor_2aea0.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/spatial_queries_recovery_2026_10_25.json"
+    },
+    {
+      "source": "src/shared/angle_lookup.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/angle_lookup_runtime_2026_10_25.json"
+    },
+    {
+      "source": "calibration/title/title_sine.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/angle_lookup_runtime_2026_10_25.json"
+    },
+    {
+      "source": "calibration/actor_pools.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/actor_pools_region.json; evidence/actor_base_init_recovery_2026_10_25.json. Retain the existing normal-initializer provider after its last recorded source row migrated; other four bodies are omitted through the existing provider selections."
+    },
+    {
+      "source": "src/eng1/behavioral/boss_entry_data.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/boss_entry_references_2026_10_25.json"
+    },
+    {
+      "source": "src/eng1/behavioral/attachment_entry_data.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/attachment_entry_references_2026_10_25.json"
+    },
+    {
+      "source": "src/eng1/behavioral/entry_level_initializer.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/entry_level_initializer_references_2026_10_25.json"
     }
   ],
   "functions": [
@@ -1446,29 +1551,29 @@
     {
       "rva": "0x2b030",
       "symbol": "_retire_pending_action_group",
-      "source": "calibration/action_registry_writers.c",
+      "source": "src/eng1/behavioral/action_group_writers.c",
       "implementation_status": "plausible_unverified",
-      "evidence": "evidence/action_registry_writers_region.json",
+      "evidence": "evidence/action_appender_references_2026_10_25.json",
       "contract": "Three adjacent PC-proven pending-action group retirement/append helpers share one observed count-entry overlay; original translation-unit ownership is unproved.",
       "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
     },
     {
       "rva": "0x2b070",
       "symbol": "_append_normal_action",
-      "source": "calibration/action_registry_writers.c",
-      "implementation_status": "plausible_unverified",
-      "evidence": "evidence/action_registry_writers_region.json",
-      "contract": "Three adjacent PC-proven pending-action group retirement/append helpers share one observed count-entry overlay; original translation-unit ownership is unproved.",
-      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+      "source": "src/eng1/behavioral/action_group_writers.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "evidence": "evidence/action_appender_references_2026_10_25.json",
+      "contract": "Signed live count vs selected unsignedWORD limit; real factory; low9-bit rooted callback; reload count after callback, wrap increment32, store count before actor slot. Slot zero overlays count.",
+      "uncertainty": "776 guarded composed cases with modeled callbacks and synthetic capacities. Dynamic callback bodies and native allocation extents remain unproved."
     },
     {
       "rva": "0x2b0d0",
       "symbol": "_append_kind_action",
-      "source": "calibration/action_registry_writers.c",
-      "implementation_status": "plausible_unverified",
-      "evidence": "evidence/action_registry_writers_region.json",
-      "contract": "Three adjacent PC-proven pending-action group retirement/append helpers share one observed count-entry overlay; original translation-unit ownership is unproved.",
-      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+      "source": "src/eng1/behavioral/action_group_writers.c",
+      "implementation_status": "behaviorally_validated_limited",
+      "evidence": "evidence/action_appender_references_2026_10_25.json",
+      "contract": "Signed live count vs selected unsignedWORD limit; real factory; low9-bit rooted callback; reload count after callback, wrap increment32, store count before actor slot. Slot zero overlays count.",
+      "uncertainty": "776 guarded composed cases with modeled callbacks and synthetic capacities. Dynamic callback bodies and native allocation extents remain unproved."
     },
     {
       "rva": "0x2af80",
@@ -1491,47 +1596,20 @@
     {
       "rva": "0x271d0",
       "symbol": "_spawn_normal",
-      "source": "calibration/actor_factories.c",
-      "implementation_status": "plausible_unverified",
-      "evidence": "evidence/actor_factories_region.json",
-      "contract": "The normal and alternate actor factories form the real allocation dependency called by the already measured action appenders; original TU ownership is unknown.",
-      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+      "source": "src/eng1/behavioral/coordinate_factories.cpp",
+      "implementation_status": "behaviorally_validated_limited",
+      "evidence": "evidence/coordinate_factory_references_2026_10_25.json",
+      "contract": "Real allocation/initialization then native ordered coordinate and descriptor stores, with low16/12-bit descriptor indices and actual DWORD root owners.",
+      "uncertainty": "264 guarded composed cases; synthetic capacities and external root interventions do not prove native bank capacities or complete gameplay."
     },
     {
       "rva": "0x27db0",
       "symbol": "_spawn_kind",
-      "source": "calibration/actor_factories.c",
-      "implementation_status": "plausible_unverified",
-      "evidence": "evidence/actor_factories_region.json",
-      "contract": "The normal and alternate actor factories form the real allocation dependency called by the already measured action appenders; original TU ownership is unknown.",
-      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
-    },
-    {
-      "rva": "0x26f70",
-      "symbol": "_allocate_normal_actor",
-      "source": "calibration/actor_pools.c",
-      "implementation_status": "plausible_unverified",
-      "evidence": "evidence/actor_pools_region.json",
-      "contract": "Two leaf pool allocators and the three nested actor initialization levels form a verified allocation/data-frame dependency. Original TU and source declarations remain unproved.",
-      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
-    },
-    {
-      "rva": "0x27b00",
-      "symbol": "_allocate_alternate_actor",
-      "source": "calibration/actor_pools.c",
-      "implementation_status": "plausible_unverified",
-      "evidence": "evidence/actor_pools_region.json",
-      "contract": "Two leaf pool allocators and the three nested actor initialization levels form a verified allocation/data-frame dependency. Original TU and source declarations remain unproved.",
-      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
-    },
-    {
-      "rva": "0x27fe0",
-      "symbol": "_initialize_alternate_actor",
-      "source": "calibration/actor_pools.c",
-      "implementation_status": "plausible_unverified",
-      "evidence": "evidence/actor_pools_region.json",
-      "contract": "Two leaf pool allocators and the three nested actor initialization levels form a verified allocation/data-frame dependency. Original TU and source declarations remain unproved.",
-      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+      "source": "src/eng1/behavioral/coordinate_factories.cpp",
+      "implementation_status": "behaviorally_validated_limited",
+      "evidence": "evidence/coordinate_factory_references_2026_10_25.json",
+      "contract": "Real allocation/initialization then native ordered coordinate and descriptor stores, with low16/12-bit descriptor indices and actual DWORD root owners.",
+      "uncertainty": "264 guarded composed cases; synthetic capacities and external root interventions do not prove native bank capacities or complete gameplay."
     },
     {
       "rva": "0x27a50",
@@ -1549,33 +1627,6 @@
       "implementation_status": "plausible_unverified",
       "evidence": "evidence/actor_pools_region.json",
       "contract": "Two leaf pool allocators and the three nested actor initialization levels form a verified allocation/data-frame dependency. Original TU and source declarations remain unproved.",
-      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
-    },
-    {
-      "rva": "0x26f70",
-      "symbol": "_allocate_normal_actor",
-      "source": "calibration/actor_pool_reset_repaired.c",
-      "implementation_status": "plausible_unverified",
-      "evidence": "evidence/actor_pool_reset_region.json",
-      "contract": "Combined allocation/initialization/reset dependency region; original translation-unit ownership remains unproved.",
-      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
-    },
-    {
-      "rva": "0x27b00",
-      "symbol": "_allocate_alternate_actor",
-      "source": "calibration/actor_pool_reset_repaired.c",
-      "implementation_status": "plausible_unverified",
-      "evidence": "evidence/actor_pool_reset_region.json",
-      "contract": "Combined allocation/initialization/reset dependency region; original translation-unit ownership remains unproved.",
-      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
-    },
-    {
-      "rva": "0x27fe0",
-      "symbol": "_initialize_alternate_actor",
-      "source": "calibration/actor_pool_reset_repaired.c",
-      "implementation_status": "plausible_unverified",
-      "evidence": "evidence/actor_pool_reset_region.json",
-      "contract": "Combined allocation/initialization/reset dependency region; original translation-unit ownership remains unproved.",
       "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
     },
     {
@@ -1599,11 +1650,11 @@
     {
       "rva": "0x275d0",
       "symbol": "_allocate_middle_actor",
-      "source": "calibration/actor_pool_reset_repaired.c",
-      "implementation_status": "plausible_unverified",
-      "evidence": "evidence/actor_pool_reset_region.json",
-      "contract": "Combined allocation/initialization/reset dependency region; original translation-unit ownership remains unproved.",
-      "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
+      "source": "src/eng1/behavioral/middle_actor_factory.cpp",
+      "implementation_status": "behaviorally_validated_limited",
+      "evidence": "evidence/middle_factory_references_2026_10_25.json",
+      "contract": "Native middle first-fit/wrap allocator or coordinate factory with actual WORD/pointer/DWORD scalar owners; complete336/128-byte contributions.",
+      "uncertainty": "1111 guarded native/source cases; synthetic capacities and root interventions do not prove native table/actor capacities or broader lifecycle."
     },
     {
       "rva": "0x27490",
@@ -3457,31 +3508,31 @@
       "rva": "0x270c0",
       "symbol": "_eng1_call_270c0",
       "source": "src/eng1/behavioral/worklist_factories.c",
-      "evidence": "evidence/eng1_worklist_factories.json",
+      "evidence": "evidence/worklist_live_reads_recovery_2026_10_25.json",
       "implementation_status": "behaviorally_validated_limited",
-      "contract": "cdecl Actor*(20-byte record*,u32 group); reuse actual allocator/init, mark+0d, bind family fields/assets and owner delta, then action callback; NULL preserves failed allocation state.",
+      "contract": "Real allocator/init then native worklist stores. Normal reloads record.kind and asset root per asset field; middle/alternate retain cached low12-bit kind but reload their root. Callback uses initial kind. Existing source-prefix guards remain.",
       "behavioral_test": "tests/eng1_worklist_factory_differential.c; tests/eng1_worklist_factory_spies.c",
-      "uncertainty": "Finite group0/table records and exhausted allocator only; unsupported exact-owned data prefix accesses fail visibly."
+      "uncertainty": "108 group0 native/source cases with modeled callbacks/transparent guards and9 real source-prefix controls; compiler equality, indexed owner extent and dynamic dispatch proofs remain unclosed."
     },
     {
       "rva": "0x27720",
       "symbol": "_eng1_call_27720",
       "source": "src/eng1/behavioral/worklist_factories.c",
-      "evidence": "evidence/eng1_worklist_factories.json",
+      "evidence": "evidence/worklist_live_reads_recovery_2026_10_25.json",
       "implementation_status": "behaviorally_validated_limited",
-      "contract": "cdecl Actor*(20-byte record*,u32 group); reuse actual allocator/init, mark+0d, bind family fields/assets and owner delta, then action callback; NULL preserves failed allocation state.",
+      "contract": "Real allocator/init then native worklist stores. Normal reloads record.kind and asset root per asset field; middle/alternate retain cached low12-bit kind but reload their root. Callback uses initial kind. Existing source-prefix guards remain.",
       "behavioral_test": "tests/eng1_worklist_factory_differential.c; tests/eng1_worklist_factory_spies.c",
-      "uncertainty": "Finite group0/table records and exhausted allocator only; unsupported exact-owned data prefix accesses fail visibly."
+      "uncertainty": "108 group0 native/source cases with modeled callbacks/transparent guards and9 real source-prefix controls; compiler equality, indexed owner extent and dynamic dispatch proofs remain unclosed."
     },
     {
       "rva": "0x27c40",
       "symbol": "_eng1_call_27c40",
       "source": "src/eng1/behavioral/worklist_factories.c",
-      "evidence": "evidence/eng1_worklist_factories.json",
+      "evidence": "evidence/worklist_live_reads_recovery_2026_10_25.json",
       "implementation_status": "behaviorally_validated_limited",
-      "contract": "cdecl Actor*(20-byte record*,u32 group); reuse actual allocator/init, mark+0d, bind family fields/assets and owner delta, then action callback; NULL preserves failed allocation state.",
+      "contract": "Real allocator/init then native worklist stores. Normal reloads record.kind and asset root per asset field; middle/alternate retain cached low12-bit kind but reload their root. Callback uses initial kind. Existing source-prefix guards remain.",
       "behavioral_test": "tests/eng1_worklist_factory_differential.c; tests/eng1_worklist_factory_spies.c",
-      "uncertainty": "Finite group0/table records and exhausted allocator only; unsupported exact-owned data prefix accesses fail visibly."
+      "uncertainty": "108 group0 native/source cases with modeled callbacks/transparent guards and9 real source-prefix controls; compiler equality, indexed owner extent and dynamic dispatch proofs remain unclosed."
     },
     {
       "rva": "0x3910",
@@ -3808,10 +3859,11 @@
     {
       "rva": "0x277e0",
       "symbol": "_spawn_middle_277e0",
-      "source": "src/eng1/behavioral/spawn_services.c",
+      "source": "src/eng1/behavioral/middle_actor_factory.cpp",
       "implementation_status": "behaviorally_validated_limited",
-      "evidence": "evidence/eng1_spawn_services.json",
-      "contract": "Existingmiddleallocator/init, kindOR4000, duplicatedpositions +9c/a0/a4, live71390assetcategory/image withmeasuredprefixguard."
+      "evidence": "evidence/middle_factory_references_2026_10_25.json",
+      "contract": "Native middle first-fit/wrap allocator or coordinate factory with actual WORD/pointer/DWORD scalar owners; complete336/128-byte contributions.",
+      "uncertainty": "1111 guarded native/source cases; synthetic capacities and root interventions do not prove native table/actor capacities or broader lifecycle."
     },
     {
       "rva": "0x1e50",
@@ -4067,6 +4119,280 @@
       "evidence": "evidence/eng1_color_list_producer.json",
       "contract": "Ordered RNG/sound services and live actor/context/count reloads, append measured six-byte row, odd-tick WORD decrement; existing shared owners and host thunks.",
       "uncertainty": "Only ten observed rows and the shared 135-pointer prefix supported; sound composition measured with silent banks. Unsupported guards run after earlier services. No byte, complete sound or whole-game equivalence."
+    },
+    {
+      "rva": "0x18a10",
+      "symbol": "_eng1_native_code_target_0018a10",
+      "source": "src/eng1/behavioral/player_modes_remaining.c",
+      "evidence": "evidence/eng1_player_modes_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Original zero-argument player-mode body; fixed-width stores, live actor/context reloads, ordered services and original branch conditions.",
+      "behavioral_test": "scripts/eng1_player_modes_differential.py",
+      "uncertainty": "360 finite isolated original/source cases. All external services modeled; unowned image/data and missing services remain ordinary unresolved dependencies. Matching status comes only from recovery.json."
+    },
+    {
+      "rva": "0x18ba0",
+      "symbol": "_eng1_native_code_target_0018ba0",
+      "source": "src/eng1/behavioral/player_modes_remaining.c",
+      "evidence": "evidence/eng1_player_modes_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Original zero-argument player-mode body; fixed-width stores, live actor/context reloads, ordered services and original branch conditions.",
+      "behavioral_test": "scripts/eng1_player_modes_differential.py",
+      "uncertainty": "360 finite isolated original/source cases. All external services modeled; unowned image/data and missing services remain ordinary unresolved dependencies. Matching status comes only from recovery.json."
+    },
+    {
+      "rva": "0x18c30",
+      "symbol": "_eng1_native_code_target_0018c30",
+      "source": "src/eng1/behavioral/player_modes_remaining.c",
+      "evidence": "evidence/eng1_player_modes_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Original zero-argument player-mode body; fixed-width stores, live actor/context reloads, ordered services and original branch conditions.",
+      "behavioral_test": "scripts/eng1_player_modes_differential.py",
+      "uncertainty": "360 finite isolated original/source cases. All external services modeled; unowned image/data and missing services remain ordinary unresolved dependencies. Matching status comes only from recovery.json."
+    },
+    {
+      "rva": "0x18ed0",
+      "symbol": "_eng1_native_code_target_0018ed0",
+      "source": "src/eng1/behavioral/player_modes_remaining.c",
+      "evidence": "evidence/eng1_player_modes_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Original zero-argument player-mode body; fixed-width stores, live actor/context reloads, ordered services and original branch conditions.",
+      "behavioral_test": "scripts/eng1_player_modes_differential.py",
+      "uncertainty": "360 finite isolated original/source cases. All external services modeled; unowned image/data and missing services remain ordinary unresolved dependencies. Matching status comes only from recovery.json."
+    },
+    {
+      "rva": "0x19140",
+      "symbol": "_eng1_native_code_target_0019140",
+      "source": "src/eng1/behavioral/player_modes_remaining.c",
+      "evidence": "evidence/eng1_player_modes_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Original zero-argument player-mode body; fixed-width stores, live actor/context reloads, ordered services and original branch conditions.",
+      "behavioral_test": "scripts/eng1_player_modes_differential.py",
+      "uncertainty": "360 finite isolated original/source cases. All external services modeled; unowned image/data and missing services remain ordinary unresolved dependencies. Matching status comes only from recovery.json."
+    },
+    {
+      "rva": "0x191e0",
+      "symbol": "_eng1_native_code_target_00191e0",
+      "source": "src/eng1/behavioral/player_modes_remaining.c",
+      "evidence": "evidence/eng1_player_modes_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Original zero-argument player-mode body; fixed-width stores, live actor/context reloads, ordered services and original branch conditions.",
+      "behavioral_test": "scripts/eng1_player_modes_differential.py",
+      "uncertainty": "360 finite isolated original/source cases. All external services modeled; unowned image/data and missing services remain ordinary unresolved dependencies. Matching status comes only from recovery.json."
+    },
+    {
+      "rva": "0x19260",
+      "symbol": "_eng1_native_code_target_0019260",
+      "source": "src/eng1/behavioral/player_modes_remaining.c",
+      "evidence": "evidence/eng1_player_modes_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Original zero-argument player-mode body; fixed-width stores, live actor/context reloads, ordered services and original branch conditions.",
+      "behavioral_test": "scripts/eng1_player_modes_differential.py",
+      "uncertainty": "360 finite isolated original/source cases. All external services modeled; unowned image/data and missing services remain ordinary unresolved dependencies. Matching status comes only from recovery.json."
+    },
+    {
+      "rva": "0x19290",
+      "symbol": "_eng1_native_code_target_0019290",
+      "source": "src/eng1/behavioral/player_modes_remaining.c",
+      "evidence": "evidence/eng1_player_modes_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Original zero-argument player-mode body; fixed-width stores, live actor/context reloads, ordered services and original branch conditions.",
+      "behavioral_test": "scripts/eng1_player_modes_differential.py",
+      "uncertainty": "360 finite isolated original/source cases. All external services modeled; unowned image/data and missing services remain ordinary unresolved dependencies. Matching status comes only from recovery.json."
+    },
+    {
+      "rva": "0x193f0",
+      "symbol": "_eng1_native_code_target_00193f0",
+      "source": "src/eng1/behavioral/player_modes_remaining.c",
+      "evidence": "evidence/eng1_player_modes_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Original zero-argument player-mode body; fixed-width stores, live actor/context reloads, ordered services and original branch conditions.",
+      "behavioral_test": "scripts/eng1_player_modes_differential.py",
+      "uncertainty": "360 finite isolated original/source cases. All external services modeled; unowned image/data and missing services remain ordinary unresolved dependencies. Matching status comes only from recovery.json."
+    },
+    {
+      "rva": "0x19480",
+      "symbol": "_eng1_native_code_target_0019480",
+      "source": "src/eng1/behavioral/player_modes_remaining.c",
+      "evidence": "evidence/eng1_player_modes_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Original zero-argument player-mode body; fixed-width stores, live actor/context reloads, ordered services and original branch conditions.",
+      "behavioral_test": "scripts/eng1_player_modes_differential.py",
+      "uncertainty": "360 finite isolated original/source cases. All external services modeled; unowned image/data and missing services remain ordinary unresolved dependencies. Matching status comes only from recovery.json."
+    },
+    {
+      "rva": "0x19c20",
+      "symbol": "_eng1_native_code_target_0019c20",
+      "source": "src/eng1/behavioral/player_modes_remaining.c",
+      "evidence": "evidence/eng1_player_modes_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Original zero-argument player-mode body; fixed-width stores, live actor/context reloads, ordered services and original branch conditions.",
+      "behavioral_test": "scripts/eng1_player_modes_differential.py",
+      "uncertainty": "360 finite isolated original/source cases. All external services modeled; unowned image/data and missing services remain ordinary unresolved dependencies. Matching status comes only from recovery.json."
+    },
+    {
+      "rva": "0x19a10",
+      "symbol": "_eng1_19a10",
+      "source": "src/eng1/behavioral/player_axis_motion.c",
+      "evidence": "evidence/player_axis_recovery_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Signed approach-to-target with DWORD wrap, live pointer reload after stores, coordinate update and boundary continuation.",
+      "behavioral_test": "scripts/eng1_player_modes_differential.py",
+      "uncertainty": "470 finite isolated/composed cases overall; boundary services modeled. Complete instruction equality remains diagnostic until BSS and function references independently qualify."
+    },
+    {
+      "rva": "0x19aa0",
+      "symbol": "_eng1_19aa0",
+      "source": "src/eng1/behavioral/player_axis_motion.c",
+      "evidence": "evidence/player_axis_recovery_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Signed approach-to-target with DWORD wrap, live pointer reload after stores, coordinate update and boundary continuation.",
+      "behavioral_test": "scripts/eng1_player_modes_differential.py",
+      "uncertainty": "470 finite isolated/composed cases overall; boundary services modeled. Complete instruction equality remains diagnostic until BSS and function references independently qualify."
+    },
+    {
+      "rva": "0x2a710",
+      "symbol": "_eng1_native_code_target_002a710",
+      "source": "src/eng1/behavioral/actor_spatial_predicates.cpp",
+      "evidence": "evidence/spatial_predicates_recovery_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "area first, actor second; actor_bounds(actor,&scratch,0); failure returns0; six signed-WORD separating comparisons ORed then inverted; touching overlaps.",
+      "uncertainty": "Finite isolated cases with modeled bounds producer; function/reference acceptance remains recovery.json only."
+    },
+    {
+      "rva": "0x2aa30",
+      "symbol": "_eng1_native_code_target_002aa30",
+      "source": "src/eng1/behavioral/actor_spatial_predicates.cpp",
+      "evidence": "evidence/spatial_predicates_recovery_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Nonzero71376 WORD returns0 before actor read; otherwise screen_flags&3 must equal1. Signed screen coordinates atc/e; unsigned lowWORD margins; y239/x319 outside comparisons, no short-circuit OR.",
+      "uncertainty": "Finite isolated cases with modeled bounds producer; function/reference acceptance remains recovery.json only."
+    },
+    {
+      "rva": "0x2a950",
+      "symbol": "_eng1_native_code_target_002a950",
+      "source": "src/eng1/behavioral/spatial_neighbor_helpers.cpp",
+      "evidence": "evidence/spatial_neighbors_recovery_2026_10_25.json",
+      "implementation_status": "original_backed_complete_instructions",
+      "contract": "LowWORDmode extent call; shared failure return0 for failed producer or zero x/y extents; six WORD copies at88..92 in native generated order; return1.",
+      "uncertainty": "Function equality only; dependency and whole-game completeness remain separate."
+    },
+    {
+      "rva": "0x2a9e0",
+      "symbol": "_eng1_native_code_target_002a9e0",
+      "source": "src/eng1/behavioral/spatial_neighbor_helpers.cpp",
+      "evidence": "evidence/spatial_neighbors_recovery_2026_10_25.json",
+      "implementation_status": "original_backed_complete_instructions",
+      "contract": "WORD71376 gate; low2 screen-flag bits equal1; signed screen-X WORD and unsigned lowWORD margin; non-short-circuit OR of left/right outside checks.",
+      "uncertainty": "Function equality only; dependency and whole-game completeness remain separate."
+    },
+    {
+      "rva": "0x2aab0",
+      "symbol": "_eng1_native_code_target_002aab0",
+      "source": "src/eng1/behavioral/spatial_neighbor_helpers.cpp",
+      "evidence": "evidence/spatial_neighbors_recovery_2026_10_25.json",
+      "implementation_status": "original_backed_complete_instructions",
+      "contract": "WORD71376 gate; screen-flag bit8 required; signed screen x/y WORDs and unsigned lowWORD margins; four outside comparisons ORed.",
+      "uncertainty": "Function equality only; dependency and whole-game completeness remain separate."
+    },
+    {
+      "rva": "0x2ae50",
+      "symbol": "_eng1_native_code_target_002ae50",
+      "source": "src/eng1/behavioral/spatial_neighbor_helpers.cpp",
+      "evidence": "evidence/spatial_neighbors_recovery_2026_10_25.json",
+      "implementation_status": "original_backed_complete_instructions",
+      "contract": "Call320d0(actor); exact-1 sets flag8 and returns. Otherwise live71376 gates zero coordinates versus signed screen WORDs; inclusive[-32,352] x/[-32,272] y sets flag2; no unrelated flag clearing.",
+      "uncertainty": "Function equality only; dependency and whole-game completeness remain separate."
+    },
+    {
+      "rva": "0x2ad70",
+      "symbol": "_eng1_native_code_target_002ad70",
+      "source": "src/eng1/behavioral/actor_target_relative.c",
+      "evidence": "evidence/spatial_neighbors_recovery_2026_10_25.json",
+      "implementation_status": "original_backed_complete_instructions",
+      "contract": "Same previously recovered absolute estimator as shared/relative.c with second input at actor+d8/dc/e0. Explicit DWORD wrap before signed highWORD extraction; signed16-bit absolute-value overflow, magnitude stores before sorting, direction bits and both historical distance estimates preserved.",
+      "uncertainty": "Function equality only; dependency and whole-game completeness remain separate."
+    },
+    {
+      "rva": "0x2b5e0",
+      "symbol": "_eng1_native_code_target_002b5e0",
+      "source": "src/eng1/behavioral/target_actor_motion.c",
+      "evidence": "evidence/spatial_queries_recovery_2026_10_25.json",
+      "implementation_status": "original_backed_complete_instructions",
+      "contract": "Null target masks flagsf8 and bypasses all steering. Otherwise call actor_bounds(target,&12-byte scratch,0); use signed-WORD bound centers with DWORD wrap, or fallback coordinates. Keep lower3 steering bits, ordinary acceleration bits8/10/20, acceleration-only40/80, whole-byte direction complements, historical cross-axis clamp comparisons, all position updates and lowBYTEresult.",
+      "uncertainty": "Finite modeled bounds/syntheticworklist cases only; matching acceptance is recovery.json, and worklistcapacity remains unproved."
+    },
+    {
+      "rva": "0x2aea0",
+      "symbol": "_eng1_native_code_target_002aea0",
+      "source": "src/eng1/behavioral/nearest_actor_2aea0.c",
+      "evidence": "evidence/spatial_queries_recovery_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Signed captured count; point highWORD coordinates; signed-short wrapped deltas/absolute values; depth limit arg2; best planar limit arg3; strict improvement keeps first equal-distance entry. Reuses the existing aggregate interior view at71580.",
+      "uncertainty": "Finite modeled bounds/syntheticworklist cases only; matching acceptance is recovery.json, and worklistcapacity remains unproved."
+    },
+    {
+      "rva": "0x2bf30",
+      "symbol": "_lookup_tangent_angle",
+      "source": "src/shared/angle_lookup.c",
+      "evidence": "evidence/angle_lookup_runtime_2026_10_25.json",
+      "implementation_status": "original_backed_complete_instructions",
+      "contract": "Unsigned WORD inputs, signed fixed16 quotient after DWORD shift; zero denominator returns0x5a0000; 360-entry binary search with quarter-degree result.",
+      "uncertainty": "Complete function/reference proof plus finite guarded fixtures; historical TU and whole-game completeness unproved."
+    },
+    {
+      "rva": "0x2bfb0",
+      "symbol": "_lookup_cosine_phase",
+      "source": "src/shared/angle_lookup.c",
+      "evidence": "evidence/angle_lookup_runtime_2026_10_25.json",
+      "implementation_status": "original_backed_complete_instructions",
+      "contract": "Signed DWORD inputs, wrapped left15 numerator and signed division; b==0 first returns0, a==0 returns255; descending sine-table phase search256..767, lower bracket on no exact hit.",
+      "uncertainty": "Complete function/reference proof plus finite guarded fixtures; historical TU and whole-game completeness unproved."
+    },
+    {
+      "rva": "0x2bc50",
+      "symbol": "_damped_contact_motion",
+      "source": "src/eng1/behavioral/contact_motion.c",
+      "evidence": "evidence/motion_contacts_recovery_2026_10_25.json",
+      "implementation_status": "original_backed_complete_instructions",
+      "contract": "Call accepted full motion first; zero y-speed transfers acceleration/deceleration roles; only downward contact29e20 triggers response, halves y-speed/x and z limits, returns1 or3.",
+      "uncertainty": "Finite fixtures model contact services; scene/grid/resource chains and whole-game completeness remain unproved."
+    },
+    {
+      "rva": "0x2bd20",
+      "symbol": "_contact_motion",
+      "source": "src/eng1/behavioral/contact_motion.c",
+      "evidence": "evidence/motion_contacts_recovery_2026_10_25.json",
+      "implementation_status": "original_backed_complete_instructions",
+      "contract": "Inline all three wrapped acceleration/clamp/position stages. Zero y-speed transfers roles. Only downward contact29f50 triggers y-speed damping and response; reload mutable state after call; return1 or3.",
+      "uncertainty": "Finite fixtures model contact services; scene/grid/resource chains and whole-game completeness remain unproved."
+    },
+    {
+      "rva": "0x2bec0",
+      "symbol": "_rounded_sine_angle",
+      "source": "src/shared/fixed_angle.c",
+      "evidence": "evidence/motion_contacts_recovery_2026_10_25.json",
+      "implementation_status": "original_backed_complete_instructions",
+      "contract": "Signed divide45; add256 before arithmetic right9; wrap to1024 samples; signed-WORD sine multiplied2.",
+      "uncertainty": "Finite fixtures model contact services; scene/grid/resource chains and whole-game completeness remain unproved."
+    },
+    {
+      "rva": "0x2bef0",
+      "symbol": "_cosine_angle",
+      "source": "src/shared/fixed_angle.c",
+      "evidence": "evidence/motion_contacts_recovery_2026_10_25.json",
+      "implementation_status": "original_backed_complete_instructions",
+      "contract": "Signed divide45 then arithmetic right9; add256 after shift, mask1023; signed-WORD sine multiplied2.",
+      "uncertainty": "Finite fixtures model contact services; scene/grid/resource chains and whole-game completeness remain unproved."
+    },
+    {
+      "rva": "0x33e10",
+      "symbol": "_eng1_33e10",
+      "source": "src/eng1/behavioral/entry_level_initializer.c",
+      "evidence": "evidence/entry_level_initializer_references_2026_10_25.json",
+      "implementation_status": "behaviorally_validated_limited",
+      "contract": "Native112-byte initializer; real reset/attach helpers and modeled WORD interpreter tested in480cases. Actual initialized WORD root55478+120 and Entry root5e688.",
+      "uncertainty": "WORD interpreter dependencies/complete behavior and later rendering remain outside caller matching/composition evidence."
     }
   ],
   "source_adaptations": {
@@ -5038,6 +5364,125 @@
       "evidence": "evidence/eng1_spatial_provider_aliases.json",
       "confidence": "same_native_entry_and_one_pointer_cdecl_command_view",
       "limits": "Consumer discards result; existing provider behavior remains limited/plausible. Source spelling and TU unproved."
+    },
+    "eng1_2a710": {
+      "provider": "eng1_native_code_target_002a710",
+      "original_rva": "0x2a710",
+      "evidence": "evidence/spatial_predicates_recovery_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Same physical cdecl argument order; WORD margin narrowing is in the actual callee."
+    },
+    "eng1_native_dep_02aa30": {
+      "provider": "eng1_native_code_target_002aa30",
+      "original_rva": "0x2aa30",
+      "evidence": "evidence/spatial_predicates_recovery_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Same physical cdecl argument order; WORD margin narrowing is in the actual callee."
+    },
+    "eng1_2a950": {
+      "provider": "eng1_native_code_target_002a950",
+      "original_rva": "0x2a950",
+      "evidence": "evidence/spatial_neighbors_recovery_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Measured physical cdecl inputs/returns; no historical source spelling or TU identity."
+    },
+    "eng1_2a9e0": {
+      "provider": "eng1_native_code_target_002a9e0",
+      "original_rva": "0x2a9e0",
+      "evidence": "evidence/spatial_neighbors_recovery_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Measured physical cdecl inputs/returns; no historical source spelling or TU identity."
+    },
+    "eng1_2aab0": {
+      "provider": "eng1_native_code_target_002aab0",
+      "original_rva": "0x2aab0",
+      "evidence": "evidence/spatial_neighbors_recovery_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Measured physical cdecl inputs/returns; no historical source spelling or TU identity."
+    },
+    "eng1_2ad70": {
+      "provider": "eng1_native_code_target_002ad70",
+      "original_rva": "0x2ad70",
+      "evidence": "evidence/spatial_neighbors_recovery_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Measured physical cdecl inputs/returns; no historical source spelling or TU identity."
+    },
+    "eng1_2ae50": {
+      "provider": "eng1_native_code_target_002ae50",
+      "original_rva": "0x2ae50",
+      "evidence": "evidence/spatial_neighbors_recovery_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Measured physical cdecl inputs/returns; no historical source spelling or TU identity."
+    },
+    "eng1_2aea0": {
+      "provider": "eng1_native_code_target_002aea0",
+      "original_rva": "0x2aea0",
+      "evidence": "evidence/spatial_queries_recovery_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "cdecl stack inputs and lowBYTE steering result, or32-bit query pointer; no historical source spelling/TU or full query matching claim."
+    },
+    "eng1_2b5e0": {
+      "provider": "eng1_native_code_target_002b5e0",
+      "original_rva": "0x2b5e0",
+      "evidence": "evidence/spatial_queries_recovery_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "cdecl stack inputs and lowBYTE steering result, or32-bit query pointer; no historical source spelling/TU or full query matching claim."
+    },
+    "eng3_1f7b0": {
+      "provider": "lookup_tangent_angle",
+      "original_rva": "0x2bf30",
+      "evidence": "evidence/angle_lookup_runtime_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Native cdecl ABI or signed-WORD table payload; historical source spelling/TU unknown."
+    },
+    "eng1_2bfb0": {
+      "provider": "lookup_cosine_phase",
+      "original_rva": "0x2bfb0",
+      "evidence": "evidence/angle_lookup_runtime_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Native cdecl ABI or signed-WORD table payload; historical source spelling/TU unknown."
+    },
+    "g_sine_table_5a848": {
+      "provider": "g_243e0",
+      "original_rva": "0x5a848",
+      "evidence": "evidence/angle_lookup_runtime_2026_10_25.json",
+      "confidence": "verified_unique_complete_initialized_payload",
+      "limits": "Native cdecl ABI or signed-WORD table payload; historical source spelling/TU unknown."
+    },
+    "eng1_2bc50": {
+      "provider": "damped_contact_motion",
+      "original_rva": "0x2bc50",
+      "evidence": "evidence/motion_contacts_recovery_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Original physical cdecl input/result ABI; callers that ignore a result remain valid. Historical source spelling/TU unknown."
+    },
+    "eng1_2bd20": {
+      "provider": "contact_motion",
+      "original_rva": "0x2bd20",
+      "evidence": "evidence/motion_contacts_recovery_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Original physical cdecl input/result ABI; callers that ignore a result remain valid. Historical source spelling/TU unknown."
+    },
+    "eng1_2bef0": {
+      "provider": "cosine_angle",
+      "original_rva": "0x2bef0",
+      "evidence": "evidence/motion_contacts_recovery_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Original physical cdecl input/result ABI; callers that ignore a result remain valid. Historical source spelling/TU unknown."
+    },
+    "eng1_native_dep_02bc50": {
+      "provider": "damped_contact_motion",
+      "original_rva": "0x2bc50",
+      "evidence": "evidence/motion_contacts_runtime_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "One pointer cdecl argument; existing void consumer ignores the real EAX result. Historical source/TU identity unknown."
+    },
+    "eng1_native_dep_02bd20": {
+      "provider": "contact_motion",
+      "original_rva": "0x2bd20",
+      "evidence": "evidence/motion_contacts_runtime_2026_10_25.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "One pointer cdecl argument; existing void consumer ignores the real EAX result. Historical source/TU identity unknown."
     }
   },
   "omit_functions": {
@@ -5058,23 +5503,38 @@
         "function": "initialize_middle_actor",
         "provider": "calibration/eng1/actor_middle_init.c",
         "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+      },
+      {
+        "function": "allocate_normal_actor",
+        "provider": "src/eng1/behavioral/actor_pool_allocators.c",
+        "reason": "Retain the reviewed real ENG1 allocator provider with native first-fit/wrap code. See evidence/allocator_references_2026_10_25.json. Historical source stays unchanged."
+      },
+      {
+        "function": "allocate_alternate_actor",
+        "provider": "src/eng1/behavioral/actor_pool_allocators.c",
+        "reason": "Retain the reviewed real ENG1 allocator provider with native first-fit/wrap code. See evidence/allocator_references_2026_10_25.json. Historical source stays unchanged."
+      },
+      {
+        "function": "initialize_alternate_actor",
+        "provider": "src/eng1/behavioral/actor_base_init.c",
+        "reason": "Use the recovered unconditional base initializer in its own complete unit; see evidence/actor_base_init_recovery_2026_10_25.json. Historical source remains unchanged."
       }
     ],
     "calibration/actor_pool_reset_repaired.c": [
       {
         "function": "allocate_alternate_actor",
-        "provider": "calibration/actor_pools.c",
-        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+        "provider": "src/eng1/behavioral/actor_pool_allocators.c",
+        "reason": "Retain the reviewed real ENG1 allocator provider; see evidence/allocator_references_2026_10_25.json. Historical source stays unchanged."
       },
       {
         "function": "allocate_normal_actor",
-        "provider": "calibration/actor_pools.c",
-        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+        "provider": "src/eng1/behavioral/actor_pool_allocators.c",
+        "reason": "Retain the reviewed real ENG1 allocator provider; see evidence/allocator_references_2026_10_25.json. Historical source stays unchanged."
       },
       {
         "function": "initialize_alternate_actor",
-        "provider": "calibration/actor_pools.c",
-        "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+        "provider": "src/eng1/behavioral/actor_base_init.c",
+        "reason": "Use the recovered base initializer; see evidence/actor_base_init_recovery_2026_10_25.json. Historical source remains unchanged."
       },
       {
         "function": "initialize_middle_actor",
@@ -5085,6 +5545,11 @@
         "function": "initialize_normal_actor",
         "provider": "calibration/actor_pools.c",
         "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source."
+      },
+      {
+        "function": "allocate_middle_actor",
+        "provider": "src/eng1/behavioral/middle_actor_factory.cpp",
+        "reason": "Use the complete native middle allocator/factory provider; see evidence/middle_factory_references_2026_10_25.json. Keep all other existing providers and canonical source bytes unchanged."
       }
     ],
     "calibration/cleanup_helpers_writers.c": [
@@ -5473,6 +5938,11 @@
         "function": "spawn_actor_with_owner",
         "provider": "calibration/eng1/render_unit_30010.cpp",
         "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source. Lane x4 render-unit provider (relocation-masked equal) replaces this copy (2026-10-20)."
+      },
+      {
+        "function": "spawn_middle_277e0",
+        "provider": "src/eng1/behavioral/middle_actor_factory.cpp",
+        "reason": "Use the complete native middle allocator/factory provider; see evidence/middle_factory_references_2026_10_25.json. Keep all other existing providers and canonical source bytes unchanged."
       }
     ],
     "src/eng1/behavioral/extent_producer_30e40.c": [
@@ -5694,6 +6164,11 @@
         "function": "dispatch_local_33420",
         "provider": "src/eng1/behavioral/draw_commands.c",
         "reason": "Retain one existing real provider; omitted body becomes its typed declaration in derived source. Existing provider kept (2026-10-20)."
+      },
+      {
+        "function": "eng1_33e10",
+        "provider": "src/eng1/behavioral/entry_level_initializer.c",
+        "reason": "Reviewed actual WORD-owner interior root and separate real initializer provider; preserve13 accepted calibration peers and omit only this replaced body."
       }
     ],
     "src/eng1/behavioral/draw_commands.c": [

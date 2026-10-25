@@ -375,6 +375,18 @@ def assert_verified_inputs(rows, results, original_root=None):
         result = by_id[row['id']]
         if digest(Path(result['object']).read_bytes()) != result['object_sha256']:
             raise ValueError('Compiler object changed before publication')
+        for storage in result.get('storage_objects', {}).values():
+            if digest(Path(storage['object']).read_bytes()) != storage['object_sha256']:
+                raise ValueError('Loader-zero owner object changed before publication')
+            for path, expected in storage['compile_inputs'].items():
+                if digest(Path(path).read_bytes()) != expected:
+                    raise ValueError('Loader-zero owner input changed before publication')
+        for adapted in result.get('storage_alias_objects', {}).values():
+            if digest(Path(adapted['object']).read_bytes()) != adapted['object_sha256']:
+                raise ValueError('Compiler-renaming object changed before publication')
+            for path, expected in adapted['compile_inputs'].items():
+                if digest(Path(path).read_bytes()) != expected:
+                    raise ValueError('Compiler-renaming input changed before publication')
         for path, expected in result['compile_inputs'].items():
             if digest(Path(path).read_bytes()) != expected:
                 raise ValueError('Compiler input changed before publication')

@@ -1,0 +1,963 @@
+{
+  "schema": 1,
+  "scope": "Function entries and one fully bounded local switch table; no BSS or new reference support.",
+  "evidence_files": {
+    "evidence/engine_helper_matching_2026_10_24.json": "ef7a5225b7afad18d3cb64b64cbf395351e135837f88df580663e167a7184771",
+    "evidence/engine_interface_binding.json": "14d9953831bf8788a7f44eb170806de745d1275dc0a7bdd1f7e6d4d5714fdc3f",
+    "evidence/eng3_interface_wrappers.json": "65a455ff0e4d157b396efa7e69177d492c42054725d22fb8f70cde77c1a36614",
+    "toolchains/manifest.json": "d52d560ef78589b6008df0fd3ca42f8d258a34248015398158716e9a811e063d",
+    "work/discs/pc_install/HERCULES.EXE": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+    "calibration/eng3/handlers_279a0.c": "b34073a44aea147bfd961b8f777d99c7e2585c95698fc3f9331b4f3d379879db",
+    "calibration/eng1/actor_unit_282e0.cpp": "629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
+    "calibration/remove_actor.c": "9ee60475338734cd7f83184eddd5cb24af578f3649c4d46f407407de672f5b22",
+    "calibration/eng3/handlers_26b40.c": "299b6098e43028edea8d7083659d18d60022548c214a6c8d17667060b4643867",
+    "calibration/eng3/handlers_16240.cpp": "3e415a77c6e8b8d0ea0b54baeb7909cc763fc557097c53be2b09d89534d1686e",
+    "calibration/eng3/handlers_28ae0.c": "315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\windows.h": "1de22ddc1b079d330a8f5b02338a5ad5681b060cf3ac86f984a243ff2bdd9303",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winresrc.h": "11b7cb81346fdb5868a17e28e6d478a33e63a0e30cab57b9fb0fdf7b77620cdf",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\dlgs.h": "574abaa60ee96ca80c660badf12201a26d705f0aa0d2fd8461b3dfb2f3a64c44",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winver.h": "3300c37a50556184b9350efed0340bd745543c90e5b4eb732b545c0e5ffbd9ab",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\excpt.h": "f55feba8c0b082fd6fcb4b0c4994f45524663268201caacdd6debe7a11c57f40",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdarg.h": "0b757d642e8c3825d898f8856c810c3d5b30709a28b76fb0f832f3c71b9b7a35",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\windef.h": "766cb00a0cfef84ae773f88426b3daf2be078651e3edb7f1e9c37a0ccdc55cd6",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winnt.h": "1dd56925da5382831a1cc2ce3dd35421608f495d5e17600ed49a723a265f6ea2",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\ctype.h": "0e78f9365bbefc267bc828eb62a284b9e264242735e1f8d62978a1d41a8aabf6",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\pshpack4.h": "e7fe25e42321b87ddac3f409523d363179b9d48841c013924a06df1f7dbfe416",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\poppack.h": "2285f7d4b158ae700dd5c2840fea412613238e7b90384ef8853bd5350e417e67",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\pshpack2.h": "e9bab3bee620c8af1adf83c49eb75910bb3cdd2a049123a13e6a60f5296ee921",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winbase.h": "343f4e188107520e0e215bcb074c95924a999d0debf36ecd5a74fbedc43c9e2f",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winerror.h": "c0c74a389028deb19cb407b2159bee4fc1c789f25f8bf212b46ee15083f119ce",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\wingdi.h": "23f25eec95cf776f75add1c694f0cb920e8e54dd9bf26320755e864ac76f0554",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\pshpack1.h": "28725bcd47f82df5b75ee8e8057cbbb9818386533f12ad538d8fbe0c1bc00953",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winuser.h": "df89c70f2c4392643f25d8b7e70d19b2052041d3bf4e2cb08f671ee6483a20ea",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winnls.h": "7fff71440b5eb8bc49ee2fef8586d815159c4f0632b513d7b3b9ef9d02012249",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\wincon.h": "e5f81f33185cade977c962bb25f46255dc71a51352a1cde230025f2cfdb3af8f",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winreg.h": "0737d6be515977cf2e3574e9071b8f2f1d6e7bd835db538ab91d5ee4ca758f1d",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winnetwk.h": "3ec8a55f41ea158638963d32fafdd068688e53083686416c3e106ea82bfe4cea",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\cderr.h": "da0d72c38f6268810b94f721845fb745979f290b2813e40796b7ea8f76fff2b0",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\dde.h": "ef0fa2aa9775651ba62e96ea1ebdad1f038b0c220d5a2faa3fabe2bfd0f99758",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\ddeml.h": "87280ef211e489bb59249143d61953843aa7b733a3f524b8face8731d59c0c75",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\lzexpand.h": "a425be116f26a76708161a4ce687ab3cd3d4aa60efae9cb818f5498a60b9c452",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\mmsystem.h": "3ba7c98ffc53b070a60d3ea18fb3b0cdb4c0ceb1743fad6239d6dda9cb8c09f0",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\nb30.h": "ea9df4be61e7a50a2aae841d5da8344d45692c5a39bb0b327858509fb762fe72",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpc.h": "3d7e3afb3600d79164e3a63d7192ac70750e40d1cda11b8759d46e27a7cf03b4",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcdce.h": "8c23d02c36ae0e5a91996d8ffc1530ac0fc07c24f638d5349bbd8c7325049775",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcdcep.h": "05de5cf218e56e213ea9658341eaf60e393954309a880b05ac69ed4366ed7ac2",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcnsi.h": "b9fb67d0f6b53dd16a262ded2d5099ef07465c9db8450b9ebfdc6d4a5ea4a8bf",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcnterr.h": "380678ead8758442cc7ad69e99c8b0fb887af547a7e522ee89afa28390cabdfa",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\shellapi.h": "494520fe788d0538cb27158d2dad7f6a5366852ad86f840643a8dc702f146e31",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winperf.h": "cd783635384bc6c59a79c17b1ff3c4045a2103fb827158d809f8a32c6dc3de15",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winsock2.h": "4865b037234d0852380d27f192cbf8cf731fba8b61af81812945e84ff092a2cb",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\mswsock.h": "c34752d2456927fb4079f65b7c2268a0664b7fab0f15427cb27a33b2a92403bd",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winsock.h": "4f74706eb39d851b15bfb2d05b473e9ec1f3ca331ac917e686081ad0d2fbbb11",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\wincrypt.h": "169cafded4dd1da79b1b86eaee91d73fb8ed3b4a35a83ba75304015bee48c38d",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\commdlg.h": "b7a108e6a73169d950e27f5e6cf66c673f52ec4b22088c8072fa3d88f962ec3d",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winspool.h": "9b94359ceaf4fa70e634e688c19345b5648dff46a9fba26380648a52fa961f71",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\prsht.h": "21989b733a0ea8e0f74e95865239ebb349084608902aabf7bf7b13cd6d060bcd",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\ole.h": "a3a8c2c7fe2913fa103b09c6ede7b31dec9443c15e4662ddd2db617c75986071",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\ole2.h": "a22c4339e6e64a90e7ef75fcdbacc752c59852e11bc15649cae3cdf5813d55ae",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\pshpack8.h": "52d62aa2959c87054194387de0e84f223fa88e8b4092e28f312f7e636dfc8658",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\objbase.h": "17bb4450555c046ad995c8af7d921296b510cf30f916f56f23c232b800b6c418",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcndr.h": "a2af090d449fe24f8218367e79630e803fcbaf992a432c98483cf4bf291a671f",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\rpcnsip.h": "389e9ab616c887452ad891a7efea363a9f15c4bfe37b56c7ffa791bc83455972",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\wtypes.h": "b78d73651e374bdb981ce3be29d255b9733165c8ea88234a36d68849357f6b7f",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\unknwn.h": "c8aa825b43be35df38faea40dd4c6eda2874fbd50dd3af62ebf2896ecbe92ca1",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\objidl.h": "dbfb3320d07a3944de5769fd8efba3b31e3e160921c35e2661889dfbff81226f",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\cguid.h": "8febc26d3a317c29a53e1da0a7e9af9bf1e44c6e91b695970c8e860e90e08669",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\oleauto.h": "a34e06ca11208ed48bf83e3631a2901772088687d21bb949c9d41623d5ba5271",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\oaidl.h": "7907293e23cab3f5f6993eb2f206d57692811b2da99eae9d180fe7a367d1ee73",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\oleidl.h": "06d9e9bd79bd50902d56ced82d6dc310f3478e4d98f77cb0a98026e27d998f3d",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\winsvc.h": "fef31bda20de40b9f769317ede721d0f3b897ebce4d9c1617d04c6617bd7fd42",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\mcx.h": "10e6cd5919883ed49ba3ea3fcf792b8c521cb9b2c9c80e2bcb6d7b04131927ac",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\imm.h": "d024b7cd9fd5db3fd5dbcf1431e0eb3744c1710409a790c40e6c44c4f1d83e5a",
+    "calibration/action_registry.c": "ae49b52838b955875b1cf883701f585ffe73d308ce6e54c2856932a402583424",
+    "calibration/eng3/actor_services_1e000.c": "d2734246b7304b8bcbc1f9b5f44010bca5e743542276934054d5765b6e798475",
+    "calibration/eng1/control_unit_2c030.c": "86303da6a12ceed36db29edfdfd296cc292b9587cac1b85247290cc88f7c23de",
+    "calibration/eng3/handlers_10370.c": "01d04f6da76bc2b9c82641aebbdc5b8f2063823461a8b735f1654894b0fcf038",
+    "src/eng1/behavioral/actor_links.c": "17bfe6a5baa9f096dd1ddd05d048635b3780c11e43435187c923c0e3a9fcef0b",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
+    "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+    "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+    "calibration/engine_fx_record.h": "39a59bc8f8c901bb58245d906e66b6e9499dc9641e4571e08b549b00873604a1",
+    "src/shared/frame_state.c": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+    "calibration/eng1/render_unit_30010.cpp": "b7648c7683bed779e944ce0934bca9328fd722a7100b6956a2615629c61e00db",
+    "calibration/title/title_engine.h": "c9129ad4b8fe6dc88b1a29815faec87b0c0064abb656a07df9fe8a665af6c466",
+    "src/eng1/behavioral/host_wrappers.c": "75173678432407e5abd5318792ae75cec99b7277e62ae67ef0ce462ff079d67d",
+    "src/eng1/behavioral/host_wrappers_extra.c": "ef481c4f33a6c66c03cdabfad9e07b97f8e0aa84afb144717e86e93fc075ef88",
+    "calibration/title/u17cb0.cpp": "24f0718161e0e687793d32041ec5c9b541820f5e45e5e58d2f4a629d0b3fb010",
+    "calibration/title/title_gpu.h": "6533d696eb5d7ae7d7bc63c13dd0c955944355a0b5900f0d6976166f9fc1e860",
+    "calibration/title/u02b70.c": "3f7d417710daf1ecc7a6efaac8a1f1833afe244c3fcdcddb1d99575243e3ebfa",
+    "calibration/title/title_screen.h": "18ddb6112c5592b914e64880e1cc8426b2f556d95ef3dcd7c5ef4e1d14f7f3fd",
+    "calibration/title/title_proc.h": "e47311fdfe6e88084912c8515ce6331498b63b76c8ecdb085bd4a97a391cb3fc",
+    "calibration/title/title_slots.h": "301aded52d8e071ec0fd4788caeefed6b7528fe1d1fc6459cf27c693dc221a66",
+    "calibration/eng3/handlers_121c0.c": "5d1480090320234df6441ab8dcad951224b3fd18bd2457916db839da5a46f736",
+    "calibration/eng3/handlers_0e020.cpp": "a4b5960462c176c1024bfe7993e287ff5cb5b1df31d6076316f4a28ac5df50a4",
+    "calibration/eng3/handlers_14190.cpp": "cbd957c12e6e1b3f3ee522cfd68303ee645b34b241eb718a86aea4f4fe40658a",
+    "calibration/eng3/handlers_023a0.c": "081e10eec0e08ab77d9155bd931b9b7f52931c7fd4306904b6c13e652296e8da"
+  },
+  "functions": {
+    "eng3.279d0": {
+      "symbols": {
+        "_eng3_1dbc0": {
+          "kind": "function",
+          "rva": 121792,
+          "size": 1088,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.shared_1dbc0"
+          ],
+          "references": [
+            {
+              "offset": 7,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_remove_actor": {
+          "kind": "function",
+          "rva": 117648,
+          "size": 432,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.remove_actor"
+          ],
+          "references": [
+            {
+              "offset": 20,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng3.26b40": {
+      "symbols": {
+        "_eng3_1dbc0": {
+          "kind": "function",
+          "rva": 121792,
+          "size": 1088,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.shared_1dbc0"
+          ],
+          "references": [
+            {
+              "offset": 7,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_remove_actor": {
+          "kind": "function",
+          "rva": 117648,
+          "size": 432,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.remove_actor"
+          ],
+          "references": [
+            {
+              "offset": 20,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 47,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng3_1b920": {
+          "kind": "function",
+          "rva": 112928,
+          "size": 160,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1b920"
+          ],
+          "references": [
+            {
+              "offset": 34,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng3.28a80": {
+      "symbols": {
+        "_eng3_1dbc0": {
+          "kind": "function",
+          "rva": 121792,
+          "size": 1088,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.shared_1dbc0"
+          ],
+          "references": [
+            {
+              "offset": 6,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng3.297d0": {
+      "symbols": {
+        "_acquire_pending_action_group": {
+          "kind": "function",
+          "rva": 127936,
+          "size": 80,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.shared_1f3c0"
+          ],
+          "references": [
+            {
+              "offset": 47,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_random_limit": {
+          "kind": "function",
+          "rva": 129712,
+          "size": 16,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1fab0"
+          ],
+          "references": [
+            {
+              "offset": 107,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 125,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng3_1f410": {
+          "kind": "function",
+          "rva": 128016,
+          "size": 112,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1f410"
+          ],
+          "references": [
+            {
+              "offset": 168,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng1.2c090": {
+      "symbols": {
+        "_eng3_1f7b0": {
+          "kind": "function",
+          "rva": 180016,
+          "size": 128,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng1.shared_2bf30"
+          ],
+          "references": [
+            {
+              "offset": 66,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "$L890": {
+          "kind": "local",
+          "role": "table",
+          "rva": 180588,
+          "size": 16,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#caller_reviews.eng1.2c090.table"
+          ],
+          "references": [
+            {
+              "offset": 87,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        },
+        "$L247": {
+          "kind": "local",
+          "role": "code",
+          "rva": 180459,
+          "size": 1,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#caller_reviews.eng1.2c090.table"
+          ],
+          "references": [
+            {
+              "offset": 220,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        },
+        "$L248": {
+          "kind": "local",
+          "role": "code",
+          "rva": 180490,
+          "size": 1,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#caller_reviews.eng1.2c090.table"
+          ],
+          "references": [
+            {
+              "offset": 224,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        },
+        "$L249": {
+          "kind": "local",
+          "role": "code",
+          "rva": 180521,
+          "size": 1,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#caller_reviews.eng1.2c090.table"
+          ],
+          "references": [
+            {
+              "offset": 228,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        },
+        "$L250": {
+          "kind": "local",
+          "role": "code",
+          "rva": 180552,
+          "size": 1,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#caller_reviews.eng1.2c090.table"
+          ],
+          "references": [
+            {
+              "offset": 232,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        }
+      },
+      "tables": [
+        {
+          "offset": 220,
+          "size": 16,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#caller_reviews.eng1.2c090.table"
+          ]
+        }
+      ]
+    },
+    "eng3.10b10": {
+      "symbols": {
+        "_acquire_pending_action_group": {
+          "kind": "function",
+          "rva": 127936,
+          "size": 80,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.shared_1f3c0"
+          ],
+          "references": [
+            {
+              "offset": 371,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng3_1f410": {
+          "kind": "function",
+          "rva": 128016,
+          "size": 112,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1f410"
+          ],
+          "references": [
+            {
+              "offset": 490,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_attach_actor": {
+          "kind": "function",
+          "rva": 120320,
+          "size": 112,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.shared_1d600"
+          ],
+          "references": [
+            {
+              "offset": 530,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_select_frame": {
+          "kind": "function",
+          "rva": 123616,
+          "size": 48,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.select_frame"
+          ],
+          "references": [
+            {
+              "offset": 572,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_random_limit": {
+          "kind": "function",
+          "rva": 129712,
+          "size": 16,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1fab0"
+          ],
+          "references": [
+            {
+              "offset": 615,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 645,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 669,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng3.11760": {
+      "symbols": {
+        "_random_limit": {
+          "kind": "function",
+          "rva": 129712,
+          "size": 16,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1fab0"
+          ],
+          "references": [
+            {
+              "offset": 70,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_acquire_pending_action_group": {
+          "kind": "function",
+          "rva": 127936,
+          "size": 80,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.shared_1f3c0"
+          ],
+          "references": [
+            {
+              "offset": 117,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng3_1f410": {
+          "kind": "function",
+          "rva": 128016,
+          "size": 112,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1f410"
+          ],
+          "references": [
+            {
+              "offset": 162,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 331,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 492,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 654,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_attach_actor": {
+          "kind": "function",
+          "rva": 120320,
+          "size": 112,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.shared_1d600"
+          ],
+          "references": [
+            {
+              "offset": 294,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 454,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 616,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 777,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng1.30430": {
+      "symbols": {
+        "_eng1_320d0": {
+          "kind": "function",
+          "rva": 205008,
+          "size": 96,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng1.320d0"
+          ],
+          "references": [
+            {
+              "offset": 12,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_dispatch_engine_2c920": {
+          "kind": "function",
+          "rva": 182560,
+          "size": 32,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng1.dispatch_engine_2c920"
+          ],
+          "references": [
+            {
+              "offset": 103,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_dispatch_engine_2c700": {
+          "kind": "function",
+          "rva": 182016,
+          "size": 16,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng1.dispatch_engine_2c700"
+          ],
+          "references": [
+            {
+              "offset": 116,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_dispatch_engine_2c6c0": {
+          "kind": "function",
+          "rva": 181952,
+          "size": 16,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng1.dispatch_engine_2c6c0"
+          ],
+          "references": [
+            {
+              "offset": 124,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng1_31dc0": {
+          "kind": "function",
+          "rva": 204224,
+          "size": 112,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng1.shared_31dc0"
+          ],
+          "references": [
+            {
+              "offset": 151,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng1_05310": {
+          "kind": "function",
+          "rva": 21264,
+          "size": 96,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng1.shared_05310"
+          ],
+          "references": [
+            {
+              "offset": 164,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng1_03cd0": {
+          "kind": "function",
+          "rva": 15568,
+          "size": 656,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng1.shared_03cd0"
+          ],
+          "references": [
+            {
+              "offset": 173,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng3.13d30": {
+      "symbols": {
+        "_eng3_1dbc0": {
+          "kind": "function",
+          "rva": 121792,
+          "size": 1088,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.shared_1dbc0"
+          ],
+          "references": [
+            {
+              "offset": 7,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng3_1b920": {
+          "kind": "function",
+          "rva": 112928,
+          "size": 160,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1b920"
+          ],
+          "references": [
+            {
+              "offset": 31,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_remove_actor": {
+          "kind": "function",
+          "rva": 117648,
+          "size": 432,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.remove_actor"
+          ],
+          "references": [
+            {
+              "offset": 44,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng3.0ebe0": {
+      "symbols": {
+        "_random_limit": {
+          "kind": "function",
+          "rva": 129712,
+          "size": 16,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1fab0"
+          ],
+          "references": [
+            {
+              "offset": 24,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_select_frame": {
+          "kind": "function",
+          "rva": 123616,
+          "size": 48,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.select_frame"
+          ],
+          "references": [
+            {
+              "offset": 42,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_attach_actor": {
+          "kind": "function",
+          "rva": 120320,
+          "size": 112,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.shared_1d600"
+          ],
+          "references": [
+            {
+              "offset": 106,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng3.0ee40": {
+      "symbols": {
+        "_select_frame": {
+          "kind": "function",
+          "rva": 123616,
+          "size": 48,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.select_frame"
+          ],
+          "references": [
+            {
+              "offset": 68,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng3_1dbc0": {
+          "kind": "function",
+          "rva": 121792,
+          "size": 1088,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.shared_1dbc0"
+          ],
+          "references": [
+            {
+              "offset": 77,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng3_1eeb0": {
+          "kind": "function",
+          "rva": 126640,
+          "size": 160,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1eeb0"
+          ],
+          "references": [
+            {
+              "offset": 93,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng3_15340": {
+          "kind": "function",
+          "rva": 86848,
+          "size": 112,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.15340"
+          ],
+          "references": [
+            {
+              "offset": 102,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng3.0f650": {
+      "symbols": {
+        "_random_limit": {
+          "kind": "function",
+          "rva": 129712,
+          "size": 16,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1fab0"
+          ],
+          "references": [
+            {
+              "offset": 31,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 61,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 85,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 153,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 177,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 247,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 271,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng3_1fac0": {
+          "kind": "function",
+          "rva": 129728,
+          "size": 16,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1fac0"
+          ],
+          "references": [
+            {
+              "offset": 104,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 117,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 196,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 212,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng3.056a0": {
+      "symbols": {
+        "_random_limit": {
+          "kind": "function",
+          "rva": 129712,
+          "size": 16,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1fab0"
+          ],
+          "references": [
+            {
+              "offset": 46,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 76,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 100,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng3_1eeb0": {
+          "kind": "function",
+          "rva": 126640,
+          "size": 160,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1eeb0"
+          ],
+          "references": [
+            {
+              "offset": 167,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng3_15340": {
+          "kind": "function",
+          "rva": 86848,
+          "size": 112,
+          "evidence": [
+            "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.15340"
+          ],
+          "references": [
+            {
+              "offset": 176,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    }
+  }
+}

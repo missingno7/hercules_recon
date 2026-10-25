@@ -122,8 +122,8 @@ int __cdecl eng1_native_code_target_0029c20(void *actor)
 { record_call(13, (u32)actor, 0, 0); return 1; }
 u32 __cdecl eng1_native_code_target_002a170(u32 x, u32 y, u32 z, u32 step)
 { record_call(14, x, y, z ^ step); return 0; }
-int __cdecl eng1_native_code_target_002a710(void *actor, void *area)
-{ record_call(15, (u32)actor, (u32)area, 0); return 0; }
+int __cdecl eng1_native_code_target_002a710(void *area, void *actor)
+{ record_call(15, (u32)area, (u32)actor, 0); return 0; }
 int __cdecl eng1_native_code_target_002a880(void *actor, void *bounds, u32 kind)
 { record_call(16, (u32)actor, (u32)bounds, kind); return 0; }
 int __cdecl bounds_overlap(void *a, void *b)
@@ -216,6 +216,22 @@ int main(void)
     eng1_native_code_target_0013c0(actor);
     REQUIRE(expect_calls(expected, 2));
     REQUIRE(call_args[0][1] == 0x17c && call_args[1][0] == (u32)actor);
+
+    /* Original128e/155e push actor then collision+88: cdecl area comes first. */
+    memset(actor, 0, sizeof(actor));
+    put16(actor, 0x2a, 2);
+    put8(actor, 0x25, 1);
+    reset_calls();
+    eng1_native_code_target_0010f0(actor);
+    expected[0] = 8; expected[1] = 6; expected[2] = 15;
+    REQUIRE(expect_calls(expected, 3));
+    REQUIRE(call_args[2][0] == (u32)(g_native_world_7217c + 0x88));
+    REQUIRE(call_args[2][1] == (u32)actor);
+    reset_calls();
+    eng1_native_code_target_0013c0(actor);
+    REQUIRE(expect_calls(expected, 3));
+    REQUIRE(call_args[2][0] == (u32)(g_native_world_7217c + 0x88));
+    REQUIRE(call_args[2][1] == (u32)actor);
 
     /* 0x1d80 calls the planar helper, checks the frame area, then merges flags. */
     memset(actor, 0, sizeof(actor));

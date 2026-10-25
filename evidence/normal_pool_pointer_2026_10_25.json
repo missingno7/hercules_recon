@@ -1,0 +1,116 @@
+{
+  "date": "2026-10-25",
+  "scope": "Independent identity of one four-byte semantic owner slot and its initial storage class; not BSS function acceptance.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "cell": {
+    "rva": "0x72860",
+    "size": 4,
+    "role": "Host-written normal actor pool base; consumers address its first actor and stride-based entries.",
+    "alias": "g_frame_owner_72860 -> g_normal_actor_pool (existing reviewed source-graph alias)",
+    "storage": "PE loader-zero tail of writable non-executable .data",
+    "section": {
+      "name": ".data",
+      "virtual_address": 315392,
+      "virtual_size": 161368,
+      "raw_offset": 311296,
+      "raw_size": 137216,
+      "characteristics": 3221225536
+    },
+    "initial_dword": 0,
+    "limitation": "No original C declaration, pool capacity, allocated payload, allocator completeness or whole-game state claim."
+  },
+  "source_owner": {
+    "source": "src/eng1/behavioral/actor_storage.c",
+    "source_sha256": "7c20021aee04622f627c1052d683962672c8aa9ed1e9d52df3166f2abe7b4c84",
+    "symbol": "_g_normal_actor_pool",
+    "symbol_record": {
+      "value": 4,
+      "section": 0,
+      "type": 0,
+      "storage": 2
+    },
+    "complete_size": 4,
+    "object_sha256": "bb61b4c4e615b2e40d03380d21e8cc82ddc0480be5bc04c5e40ba872e4953d14",
+    "command": [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-n2v03aad\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\actor_storage.c"
+    ],
+    "compile_inputs": {
+      "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\actor_storage.c": "7c20021aee04622f627c1052d683962672c8aa9ed1e9d52df3166f2abe7b4c84"
+    }
+  },
+  "native_witnesses": [
+    {
+      "rva": "0x1f10d",
+      "size": 5,
+      "instruction": "push 0x10072860",
+      "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5"
+    },
+    {
+      "rva": "0x1f112",
+      "size": 5,
+      "instruction": "call 0x2c3c0",
+      "sha256": "aed140fa1eee6ca39642316c775488841f6810628f4e9062a7ef5bf406d27b59"
+    },
+    {
+      "rva": "0x274a0",
+      "size": 5,
+      "instruction": "mov eax, dword ptr [0x10072860]",
+      "sha256": "852a1f06d6f11c6b560bbe2b28ea910b359cd6a6ae7f4190dd54646ff7024dce"
+    },
+    {
+      "rva": "0x274cf",
+      "size": 6,
+      "instruction": "add edi, 0x134",
+      "sha256": "b8b85605d3717687bce4247b8543ac137cb9254c03f36ce6ae36ec706ebac1b5"
+    }
+  ],
+  "interpretation": "Independent bootstrap passes &cell to three-argument pool allocator2c3c0; reset reads cell and advances actor records by0x134. The source owner and earlier native role/alias evidence independently agree, without using axis-caller relocation values to select the slot.",
+  "source_graph": {
+    "report": "work/eng1_behavioral/player_axis_2026_10_25/report.json",
+    "report_sha256": "d5384fa2ec140127e5cfeadbf1c675d1496f1d50db88df018480d810ba78b750",
+    "duplicate_providers": 0
+  },
+  "negative_controls": [
+    {
+      "control": "same_zero_neighbor",
+      "rejected": true,
+      "reason": "Independent allocation output-slot witness identifies another cell"
+    },
+    {
+      "control": "oversized_owner",
+      "rejected": true,
+      "reason": "Requested extent differs from complete compiler COMMON owner"
+    },
+    {
+      "control": "file_backed_zero_is_not_BSS",
+      "rejected": true,
+      "reason": "Cell is not wholly in one writable non-executable loader-zero tail"
+    }
+  ],
+  "current_reference_gate": {
+    "accepted": false,
+    "reason": "Extent must be wholly in unique file-backed storage",
+    "verifier_unchanged": true
+  },
+  "evidence_sha256": {
+    "evidence/actor_pool_layout.json": "13e4b6ea5c268ee49daba9e678d2edd5e8b97fe7c0dac820311996b996e6bd36",
+    "evidence/actor_pool_reset_region.json": "0e7dee4128d0a061b335d94c67b73d006f93c0600c395d37acff4c18c2ae7de6",
+    "evidence/frame_bootstrap_contract.json": "d3d5b509e83769d8d9d3c2d210cde1802e2ab9ff7869e9073049efc7b9bf41e1",
+    "calibration/frame_bootstrap_family.c": "d0eb45c7cb1a7e26c57439c199f85bf3dbd2772f2c4128f00d4ede18a23676da",
+    "evidence/eng1_behavioral_build.json": "c59bc8f947d16ad62c62f781b941dc474f0b34841606e95519b6d0b05c08ad77"
+  },
+  "limitations": [
+    "All-zero bytes alone cannot identify this cell; a same-zero neighbor fails the independent output-slot witness.",
+    "The existing relocated comparator deliberately requires file-backed data. This audit changes no verifier or recovery acceptance.",
+    "Any future loader-zero support needs explicit fresh-owner, native-range and reference checks; this receipt does not supply an exception."
+  ]
+}

@@ -109,7 +109,7 @@ ActorNormal *__cdecl eng1_call_270c0(Eng1ForestRecord20 *record,
                                     unsigned long group_index)
 {
     unsigned short kind = record->kind;
-    unsigned long asset_offset = (unsigned long)kind * 16UL;
+    unsigned short asset_kind;
     unsigned char *assets;
     ActorNormal *allocated = allocate_normal_actor(kind);
 
@@ -135,12 +135,29 @@ ActorNormal *__cdecl eng1_call_270c0(Eng1ForestRecord20 *record,
         store_u32(actor + 0x54, state);
 
         assets = configuration_table(g_configuration_dword_71388);
-        eng1_guard_worklist_table_read(assets, kind, 16UL, 16UL,
+        asset_kind = record->kind;
+        eng1_guard_worklist_table_read(assets, asset_kind, 16UL, 16UL,
                                        "0x270c0 normal asset record");
-        store_u8(actor + 0x22, assets[asset_offset + 0x0c]);
-        store_u32(actor + 0x64, load_u32(assets + asset_offset));
-        store_u32(actor + 0x110, load_u32(assets + asset_offset + 4));
-        store_u32(actor + 0x118, load_u32(assets + asset_offset + 8));
+        store_u8(actor + 0x22, assets[(unsigned long)asset_kind * 16UL + 0x0c]);
+        /* Native reloads the record kind and root after each actor store.
+         * The callback below still uses the kind captured before allocation. */
+        asset_kind = record->kind;
+        assets = configuration_table(g_configuration_dword_71388);
+        eng1_guard_worklist_table_read(assets, asset_kind, 16UL, 16UL,
+                                       "0x270c0 normal asset record");
+        store_u32(actor + 0x64, load_u32(assets + (unsigned long)asset_kind * 16UL));
+        asset_kind = record->kind;
+        assets = configuration_table(g_configuration_dword_71388);
+        eng1_guard_worklist_table_read(assets, asset_kind, 16UL, 16UL,
+                                       "0x270c0 normal asset record");
+        store_u32(actor + 0x110,
+                  load_u32(assets + (unsigned long)asset_kind * 16UL + 4));
+        asset_kind = record->kind;
+        assets = configuration_table(g_configuration_dword_71388);
+        eng1_guard_worklist_table_read(assets, asset_kind, 16UL, 16UL,
+                                       "0x270c0 normal asset record");
+        store_u32(actor + 0x118,
+                  load_u32(assets + (unsigned long)asset_kind * 16UL + 8));
         store_u16(actor + 0x38, (unsigned short)group_index);
         store_u32(actor + 0x58,
                   pointer_delta_from_owner(record, group_index));
@@ -187,6 +204,9 @@ ActorMiddle *__cdecl eng1_call_27720(Eng1ForestRecord20 *record,
         eng1_guard_worklist_table_read(assets, asset_index, 8UL, 8UL,
                                        "0x27720 middle asset record");
         store_u8(actor + 0x22, assets[asset_offset + 6]);
+        assets = configuration_table(g_configuration_dword_71390);
+        eng1_guard_worklist_table_read(assets, asset_index, 8UL, 8UL,
+                                       "0x27720 middle asset record");
         store_u32(actor + 0x64, load_u32(assets + asset_offset));
 
         call_action(g_configuration_dword_7137c, asset_offset, 8UL,
@@ -222,6 +242,9 @@ ActorCore *__cdecl eng1_call_27c40(Eng1ForestRecord20 *record,
         eng1_guard_worklist_table_read(assets, asset_index, 8UL, 8UL,
                                        "0x27c40 alternate asset record");
         store_u8(actor + 0x22, assets[asset_offset + 6]);
+        assets = configuration_table(g_configuration_dword_713a4);
+        eng1_guard_worklist_table_read(assets, asset_index, 8UL, 8UL,
+                                       "0x27c40 alternate asset record");
         store_u32(actor + 0x64, load_u32(assets + asset_offset));
 
         call_action(g_configuration_dword_7139c, asset_offset, 8UL,

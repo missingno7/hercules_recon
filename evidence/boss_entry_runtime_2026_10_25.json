@@ -1,0 +1,97 @@
+{
+  "scope": "Complete Entry-data audit and isolated ENG1 25580/26700 composition.\n\nOnly unpatched original/source instructions execute in Unicorn. No original OS\nmodule is loaded. The fixture uses the actual source data owner and helper.\n",
+  "cases": 240,
+  "all_equal": true,
+  "failed_cases": 0,
+  "cases_sha256": "014cb03bd82d62599f046e305c7e798e5404c3c5ff2427e8811f6330adc1524b",
+  "build": {
+    "input_sha256": {
+      "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+      "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+      "D:\\Prog\\hercules_recon\\scripts\\boss_entries_differential.py": "a3303b3154f6b3977e14d37db30edb865978faf46d57b3d36c21a2905df564f7",
+      "D:\\Prog\\hercules_recon\\toolchains\\manifest.json": "d52d560ef78589b6008df0fd3ca42f8d258a34248015398158716e9a811e063d",
+      "D:\\Prog\\hercules_recon\\calibration\\eng1\\boss_unit_24090.c": "92b95d69daca3b7dc46158c0b5d0501adb78add7e42ded1542b4f8fe39c58668",
+      "D:\\Prog\\hercules_recon\\calibration\\eng1\\actor_region.h": "62ae1383e63024a4856759f210b03475a49ee4b1503df57508528d720bbbcdd0",
+      "D:\\Prog\\hercules_recon\\calibration\\engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
+      "D:\\Prog\\hercules_recon\\calibration\\resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+      "D:\\Prog\\hercules_recon\\work\\boss_entries_2026_10_25\\differential\\caller.c": "c1a027f216b52f41bc1ab7edd5d47e2822e7f1727392850aaecd41c2745629a8",
+      "D:\\Prog\\hercules_recon\\src\\eng1\\actor_handlers_mid.c": "64bb0250db784c1e512d75d5c4c7232ec27d20ebd9f7497c88c4b469c6d5b27e",
+      "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\boss_entry_data.c": "159877988946c21284ad9c474f67f239a0b10b0b40d96737a4fe3c2c6eb119b8"
+    },
+    "commands": [
+      [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-6znjomnh\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\calibration\\eng1\\boss_unit_24090.c"
+      ],
+      [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-j9bg23su\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\work\\boss_entries_2026_10_25\\differential\\caller.c"
+      ],
+      [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-vniqfqkd\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\src\\eng1\\actor_handlers_mid.c"
+      ],
+      [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+        "/nologo",
+        "/c",
+        "/Gy",
+        "/O2",
+        "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-kgjuro_i\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\boss_entry_data.c"
+      ],
+      [
+        "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\link.exe",
+        "/NOLOGO",
+        "/DLL",
+        "/NOENTRY",
+        "/NODEFAULTLIB",
+        "/INCREMENTAL:NO",
+        "/OPT:REF",
+        "/OPT:NOICF",
+        "/BASE:0x45000000",
+        "/OUT:D:\\Prog\\hercules_recon\\work\\boss_entries_2026_10_25\\differential\\fixture.dll",
+        "/MAP:D:\\Prog\\hercules_recon\\work\\boss_entries_2026_10_25\\differential\\fixture.map",
+        "/EXPORT:eng1_25580",
+        "D:\\Prog\\hercules_recon\\build\\match\\compile-j9bg23su\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\build\\match\\compile-vniqfqkd\\candidate.obj",
+        "D:\\Prog\\hercules_recon\\build\\match\\compile-kgjuro_i\\candidate.obj"
+      ]
+    ],
+    "complete_caller_extraction_equal": true,
+    "data": {
+      "size": 576,
+      "rows": 36,
+      "usable_rows": 35,
+      "native_rva": "0x5a450",
+      "payload_sha256": "3c5e6bfcf9bab0a3fc8a4053f35323e0e9f3cd9120be5622968a38037ee822c8",
+      "negative_controls": [
+        "changed_value",
+        "truncated"
+      ]
+    },
+    "helper_raw_exact": true,
+    "image_sha256": "bfc0c174a65bf1947c72718f6eda90a71b194731b12b9d0b28426cf46ee3c5d3"
+  },
+  "limits": [
+    "Entry pointer writes are normalized by the independently verified owner role; raw pointers are checked separately.",
+    "Early sentinels change data only in isolated memory; no native instruction/file is patched.",
+    "These cases do not establish coordinate meanings, later rendering or whole-game behavior."
+  ]
+}

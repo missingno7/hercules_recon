@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "date": "2026-10-25",
+  "scope": "Private C frontend control for the same typed factory logic; not a production provider or acceptance record.",
+  "baseline": "src/eng1/behavioral/coordinate_factories.cpp",
+  "baseline_file_sha256": "469680b5aa7d7abc4146d0a38b57d6a2373368bd43ca548f1b3e5ca3d8fba28d",
+  "source_patch": {
+    "base_sha256": "469680b5aa7d7abc4146d0a38b57d6a2373368bd43ca548f1b3e5ca3d8fba28d",
+    "result_sha256": "3bbb80a709f535b26ad0bd1e8d7c590970b025c2f28eb13f324c65309002dc92",
+    "edits": [
+      {
+        "line": 0,
+        "old": "/* ENG1 271d0 / 27db0: allocate, initialize, then bind coordinates and assets.\n * Reuses the instruction-equal TITLE twin's field view and assignment groups.\n * The configuration owners are the existing DWORD address carriers. Repeated\n * root reads and actor stores are intentional; do not capture a descriptor.\n * Descriptor strides are native-backed; their allocation capacities and the\n * historical declarations/translation unit remain unknown. The alternate\n * path uses only the shared 0x94 prefix of the view below.\n */\nextern \"C\" {\n",
+        "new": "/* Private typed worklist reconstruction; no capacity/acceptance claim. */\n"
+      },
+      {
+        "line": 29,
+        "old": "    unsigned char unknown_24[0x0a];\n",
+        "new": "    unsigned char unknown_24[6];\n    unsigned short w2a, w2c;\n"
+      },
+      {
+        "line": 33,
+        "old": "    unsigned char unknown_36[8];\n",
+        "new": "    unsigned short w36,w38,w3a,w3c;\n"
+      },
+      {
+        "line": 40,
+        "old": "    unsigned char unknown_58[0x0c];\n",
+        "new": "    unsigned long d58,d5c,d60;\n"
+      },
+      {
+        "line": 61,
+        "old": "extern unsigned long g_configuration_dword_71388,g_configuration_dword_713a4;\n",
+        "new": "typedef union RecordFlags { unsigned short word; struct {unsigned char low, high;} bytes; } RecordFlags;\ntypedef struct PlacedRecord20 {long x,y,z;RecordFlags flags;unsigned short state,kind,pad;} PlacedRecord20;\ntypedef struct OwnerGroup8 {void *owner;unsigned long count;} OwnerGroup8;\ntypedef struct Callback12 {void (*action)(FactoryActorView*);unsigned long b,c;} Callback12;\ntypedef struct Callback8 {void (*action)(FactoryActorView*);unsigned long b;} Callback8;\nextern OwnerGroup8 g_kind_info[];\nextern unsigned long g_configuration_dword_71388,g_configuration_dword_71390,g_configuration_dword_713a4;\nextern unsigned long g_configuration_dword_71370,g_configuration_dword_7137c,g_configuration_dword_7139c;\n"
+      },
+      {
+        "line": 63,
+        "old": "void *allocate_alternate_actor(unsigned short);\n",
+        "new": "FactoryActorView *allocate_middle_actor(unsigned short);\nFactoryActorView *allocate_alternate_actor(unsigned short);\n"
+      },
+      {
+        "line": 65,
+        "old": "void initialize_alternate_actor(void*);\n#define normal_factory_descriptors ((NormalFactoryDescriptor *)g_configuration_dword_71388)\n#define alternate_factory_descriptors ((AlternateFactoryDescriptor *)g_configuration_dword_713a4)\ntypedef char factory_normal_row16[sizeof(NormalFactoryDescriptor)==16?1:-1];\ntypedef char factory_alternate_row8[sizeof(AlternateFactoryDescriptor)==8?1:-1];\ntypedef char factory_actor134[sizeof(FactoryActorView)==0x134?1:-1];\nFactoryActorView *spawn_normal(int a1, int a2, int a3, int a4)\n",
+        "new": "void initialize_middle_actor(FactoryActorView*);\nvoid initialize_alternate_actor(FactoryActorView*);\n#define NORMAL_ASSETS ((NormalFactoryDescriptor*)g_configuration_dword_71388)\n#define MIDDLE_ASSETS ((AlternateFactoryDescriptor*)g_configuration_dword_71390)\n#define ALT_ASSETS ((AlternateFactoryDescriptor*)g_configuration_dword_713a4)\n#define NORMAL_ACTIONS ((Callback12*)g_configuration_dword_71370)\n#define MIDDLE_ACTIONS ((Callback8*)g_configuration_dword_7137c)\n#define ALT_ACTIONS ((Callback8*)g_configuration_dword_7139c)\ntypedef char view134[sizeof(FactoryActorView)==0x134?1:-1];\ntypedef char record20[sizeof(PlacedRecord20)==20?1:-1];\ntypedef char owner8[sizeof(OwnerGroup8)==8?1:-1];\nFactoryActorView *eng1_call_270c0(PlacedRecord20 *record,unsigned long group)\n"
+      },
+      {
+        "line": 73,
+        "old": "    FactoryActorView *rec;\n\n    rec = allocate_normal_actor(a4);\n    if (rec != 0) {\n        initialize_normal_actor(rec);\n        rec->w2e = (unsigned short)a4;\n        rec->d00 = a1;\n        rec->d9c = a1;\n        rec->d04 = a2;\n        rec->da0 = a2;\n        rec->d08 = a3;\n        rec->da4 = a3;\n        rec->b22 = normal_factory_descriptors[a4 & 0xffff].d_0c;\n        rec->d64 = normal_factory_descriptors[a4 & 0xffff].a_00;\n        rec->d110 = normal_factory_descriptors[a4 & 0xffff].b_04;\n        rec->d118 = normal_factory_descriptors[a4 & 0xffff].c_08;\n    }\n    return rec;\n}\n\nFactoryActorView *spawn_kind(unsigned long a1, unsigned long a2, unsigned long a3, unsigned long a4)\n{\n    FactoryActorView *p = (FactoryActorView *)allocate_alternate_actor(a4);\n    if (p != 0) {\n        initialize_alternate_actor(p);\n        p->w2e = (unsigned short)(a4 | 0x2000);\n        p->d00 = a1;\n        p->d04 = a2;\n        p->d08 = a3;\n        p->b22 = alternate_factory_descriptors[a4 & 0xfff].b6;\n        p->d64 = alternate_factory_descriptors[a4 & 0xfff].d0;\n",
+        "new": "    unsigned short kind=record->kind;\n    FactoryActorView *p=allocate_normal_actor(kind);\n    if(p){\n        initialize_normal_actor(p);\n        record->flags.word |= 0x8000;\n        p->w2e=kind;\n        p->d9c=p->d00=record->x;\n        p->da0=p->d04=record->y;\n        p->da4=p->d08=record->z;\n        p->w2a=record->state;\n        p->b94=(unsigned char)-((record->flags.word>>12)&1);\n        p->d54 |= (p->b94&0x10) | (p->b95&0x20);\n        p->b22=NORMAL_ASSETS[record->kind].d_0c;\n        p->d64=NORMAL_ASSETS[record->kind].a_00;\n        p->d110=NORMAL_ASSETS[record->kind].b_04;\n        p->d118=NORMAL_ASSETS[record->kind].c_08;\n        p->d58=(unsigned long)record-(unsigned long)g_kind_info[group].owner;\n        p->w38=(unsigned short)group;\n        NORMAL_ACTIONS[kind].action(p);\n"
+      },
+      {
+        "line": 107,
+        "old": "",
+        "new": "FactoryActorView *eng1_call_27720(PlacedRecord20 *record,unsigned long group)\n{\n    unsigned short kind=record->kind;\n    FactoryActorView *p=allocate_middle_actor(kind);\n    if(p){\n        initialize_middle_actor(p);\n        record->flags.word |= 0x8000;\n        p->w2e=kind;\n        p->d9c=p->d00=record->x;\n        p->da0=p->d04=record->y;\n        p->da4=p->d08=record->z;\n        p->b94=(unsigned char)-((record->flags.word>>12)&1);\n        p->d54 |= (p->b94&0x10) | (p->b95&0x20);\n        p->d58=(unsigned long)record-(unsigned long)g_kind_info[group].owner;\n        p->w38=(unsigned short)group;\n        p->b22=MIDDLE_ASSETS[kind & 0x0fff].b6;\n        p->d64=MIDDLE_ASSETS[kind & 0x0fff].d0;\n        MIDDLE_ACTIONS[kind & 0x0fff].action(p);\n    }\n    return p;\n"
+      },
+      {
+        "line": 108,
+        "old": "",
+        "new": "FactoryActorView *eng1_call_27c40(PlacedRecord20 *record,unsigned long group)\n{\n    unsigned short kind=record->kind;\n    FactoryActorView *p=allocate_alternate_actor(kind);\n    if(p){\n        initialize_alternate_actor(p);\n        record->flags.word |= 0x8000;\n        p->w2e=kind;\n        p->d00=record->x;\n        p->d04=record->y;\n        p->d08=record->z;\n        p->d58=(unsigned long)record-(unsigned long)g_kind_info[group].owner;\n        p->w38=(unsigned short)group;\n        p->b22=ALT_ASSETS[kind & 0x0fff].b6;\n        p->d64=ALT_ASSETS[kind & 0x0fff].d0;\n        ALT_ACTIONS[kind & 0x0fff].action(p);\n    }\n    return p;\n}\n"
+      }
+    ]
+  },
+  "materialized_source_sha256": "3bbb80a709f535b26ad0bd1e8d7c590970b025c2f28eb13f324c65309002dc92",
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "flags": [
+    "/O2"
+  ],
+  "functions": [
+    {
+      "symbol": "_eng1_call_270c0",
+      "rva": "0x270c0",
+      "size": 272
+    },
+    {
+      "symbol": "_eng1_call_27720",
+      "rva": "0x27720",
+      "size": 192
+    },
+    {
+      "symbol": "_eng1_call_27c40",
+      "rva": "0x27c40",
+      "size": 144
+    }
+  ],
+  "remaining_obligations": [
+    "Normal is instruction-equal only after relocation masking; every reference and the indexed owner/callback proofs remain open.",
+    "Middle and alternate retain three scale-one SIB operand-order bytes under C. Alternate is already masked-equal in the previous C++ recipe.",
+    "No historical frontend/TU identity is established by these reproducing configurations.",
+    "g_kind_info has only a one-entry recovered prefix; arbitrary indexed native owner identity and extent remain unproved.",
+    "Full16/low12 factory callbacks are outside rooted-callback-v1; scalar roots and masked equality do not authorize the indirect transfers.",
+    "The private typed source omits production prefix guards. It must not silently replace the guarded C providers.",
+    "108 synthetic group0 cases do not establish actual allocation capacities, arbitrary alias behavior, or dynamic callback semantics."
+  ],
+  "source_suffix": ".c"
+}

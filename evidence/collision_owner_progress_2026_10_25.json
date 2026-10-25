@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-25",
+  "scope": "Three accepted collision-cell callers; frozen receipt, not an additional acceptance ledger. Full matching remains incomplete.",
+  "new": {
+    "ids": [
+      "eng1.native_code_target_0019c20",
+      "eng1.0bb90",
+      "eng1.native_code_target_02d320"
+    ],
+    "functions": 3,
+    "complete_bytes": 416,
+    "references": 28,
+    "reference_kinds": {
+      "bss": 11,
+      "function": 10,
+      "local": 7
+    },
+    "bounded_tables": 1,
+    "table_cells": 6
+  },
+  "current": {
+    "recovery_sha256": "1769213336707eae7e8d4a2afd17d5c002528ff4ee9d395c5b291a9cc0ff0617",
+    "accepted_unique_rows": 386,
+    "accepted_unique_bytes": 35664,
+    "relocated_bytes": 21952,
+    "statuses": {
+      "FUNCTION_MATCH": 135,
+      "CODEGEN_SIMILAR": 1647,
+      "LINKED_MATCH": 43,
+      "FUNCTION_MATCH_RELOCATED": 208,
+      "RECONSTRUCTED": 187
+    }
+  },
+  "validation": {
+    "prior_accepted_records_identical": 383,
+    "strict_proofs": 345,
+    "strict_failures": 0,
+    "statistics": {
+      "compiler_calls": 89,
+      "rows": 345,
+      "elapsed_seconds": 44.69623830000637
+    },
+    "fresh_storage_owner_profiles": 2,
+    "legacy_linked_checks": 43,
+    "legacy_linked_failures": 0,
+    "existing_linked_provenance_drifts": 86,
+    "masked_rows": 1634,
+    "masked_sources": 200,
+    "masked_failures": 0,
+    "negative_controls": [
+      {
+        "control": "wrong_zero_cell",
+        "rejected": true,
+        "error": "Independent loader-zero anchor identifies another storage cell"
+      },
+      {
+        "control": "short_owner",
+        "rejected": true,
+        "error": "Loader-zero owner must be one complete exact-size COMMON definition"
+      },
+      {
+        "control": "wrong_helper",
+        "rejected": true,
+        "errors": [
+          "Relocation destination differs at 0xaa: _eng1_17340"
+        ],
+        "nonreference_differences": 0
+      },
+      {
+        "control": "wrong_switch_cell",
+        "rejected": true,
+        "error": "Own-section binding differs from complete contribution"
+      }
+    ]
+  },
+  "deferred": {
+    "id": "eng1.dispatch_local_15670",
+    "reason": "6ef94 is declared as a WORD prefix while two native accesses read DWORD then maskffff. Complete storage ownership remains unproven; gate unchanged."
+  },
+  "source_changes": false,
+  "acceptance_gate_changes": false,
+  "original_game_execution": false,
+  "limitations": [
+    "No pointer-lifetime, source/TU identity, storage capacity, source-link closure or whole-game behavior claim.",
+    "Four-byte collision owner and specific caller references only; no general BSS alias support."
+  ],
+  "artifacts": {
+    "evidence/collision_owner_bindings_2026_10_25.json": "352dd2f13e8a23df594217826ef1e353376eb3424cfeea4471ed453cc80f45ba",
+    "evidence/collision_owner_matching_2026_10_25.json": "c4c1efb99618c947a3436f1464de9a48dfda130e4ef0cbcfdc18a872fd6876f3",
+    "work/collision_matching_2026_10_25/state_before.json": "c422f4799da6b403479bf8f0f31a1834c78ec1809f28c563d2be686f81ccf433",
+    "work/collision_matching_2026_10_25/audit.json": "d1087293aa47cb1ce6d2d48ee365d5bd9cb246c15464a4d768571c9df4c9a2eb",
+    "work/collision_matching_2026_10_25/preflight.json": "169d344767d912e2cdd55ec5c42f1e476daf6b7cc795769a725d1f880e7407ca",
+    "work/collision_matching_2026_10_25/references.json": "b6a0b8dbdf06495322210e724baceb161f2e7f945ed9a9ec271293430f926415",
+    "work/collision_matching_2026_10_25/negative_controls.json": "29d50876c59ae70e93ff17f9b3df60fb98ec5dc7dfe44897d04621bceb418f27",
+    "work/collision_matching_2026_10_25/promotion.json": "caf8f9b8221c5f885c356a44498371efb612858a8617cffbe0a20db56ec3c5f3",
+    "work/collision_matching_2026_10_25/masked.log": "d59727e5f226a6e76e9aa69da9cb54b7c02e35a4b5887c4e7151f73bcba79166"
+  }
+}

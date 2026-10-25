@@ -138,16 +138,23 @@ def masked_unit_compare(obj, target, rva, size, expected_functions):
                 unit_equal=result['masked_equal'] and not conflicts and not unmapped and all(d['equal'] for d in data))
 
 
-def relocated_compare(obj, symbol, target, rva, size, bindings):
+def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=None, storage_aliases=None):
     """Compare one complete compiler contribution with independently reviewed fixups.
 
     ``bindings`` is {"symbols": {COFF_NAME: RECORD}, "tables": [TABLE, ...]}.
-    Each RECORD has kind (function/data/import/local), rva, size, evidence (a
+    Each RECORD has kind (function/data/bss/import/local), rva, size, evidence (a
     nonempty list of durable reference strings), and references: a list of
     {offset, type, addend} exactly describing its COFF uses. Numbers are integers.
     A reviewed use may explicitly set one_past:true for a data end pointer;
     this requires addend==size and a DIR32 immediate, never a memory displacement.
     Data additionally has sha256 of its complete original storage payload.
+    BSS requires a separately freshly compiled COMMON owner plus an independent
+    native absolute-address instruction anchor; it is never inferred from zeros.
+    storage_owners maps each BSS symbol to its owner object. Explicit WORD aliases
+    additionally need storage_aliases: freshly compiled include-adapted objects
+    equal across every function, storage contribution and external symbol after
+    only the recorded renaming. Ordinary aliases remain rejected. Build provenance is
+    caller-owned, just as for obj; match.py freezes and recompiles those inputs.
     Imports have dll and exactly one of name/ordinal. Local records have role
     code/table/section and identify symbols in this same compiler contribution.
     Section records delimit this whole contribution; reviewed addends identify
@@ -194,7 +201,7 @@ def relocated_compare(obj, symbol, target, rva, size, bindings):
     if len(actual) != section['size'] or size != section['size'] or size <= 0:
         raise ValueError('Complete compiler-owned function extent must equal target extent')
     expected = interval(rva, size, True)
-    if not isinstance(bindings, dict) or set(bindings) - {'symbols', 'tables'}:
+    if not isinstance(bindings, dict) or set(bindings) - {'symbols', 'tables', 'indirect_calls'}:
         raise ValueError('Invalid binding document')
     records = bindings.get('symbols', {})
     if not isinstance(records, dict):
@@ -246,6 +253,7 @@ def relocated_compare(obj, symbol, target, rva, size, bindings):
                 operand_fields[ins.address - rva + field_off] = ins
 
     reviewed, bases, errors, receipts, storage_extents = {}, {}, [], [], []
+    alias_checks = {}
     for name, record in records.items():
         if not isinstance(record, dict):
             raise ValueError('Invalid symbol record')
@@ -275,6 +283,28 @@ def relocated_compare(obj, symbol, target, rva, size, bindings):
                     raise ValueError('Relocated data payload requires separate verification')
                 if sec['data'][pos:pos + extent] != payload:
                     errors.append('Compiled data payload differs: ' + name)
+        elif kind == 'bss':
+            from zero_storage import verify_common, verify_native
+            if sym['type'] & 0x20 or sym['section'] != 0 or sym['value'] not in (0, extent):
+                raise ValueError('Loader-zero caller symbol must be undefined or exact-size COMMON data')
+            owner = (storage_owners or {}).get(name)
+            owner_name = record.get('owner', {}).get('symbol')
+            if owner is None or not isinstance(owner_name, str):
+                raise ValueError('Loader-zero binding needs its independently compiled owner object')
+            if owner_name != name:
+                from storage_alias import alias_names, verify_alias_object, verify_owner_alias_object
+                names = alias_names(record, name)
+                adapted = (storage_aliases or {}).get(name)
+                if adapted is None:
+                    raise ValueError('Loader-zero aliases need a freshly compiled rename object')
+                if record['source_alias']['kind'] == 'owner-compile-renaming':
+                    alias_checks[name] = verify_owner_alias_object(obj, owner, adapted, names)
+                else:
+                    alias_checks[name] = verify_alias_object(obj, adapted, symbol, names)
+            elif 'source_alias' in record:
+                raise ValueError('Same-name loader-zero owner cannot carry an alias adapter')
+            verify_common(owner, owner_name, extent)
+            verify_native(pe, dest, extent, record.get('identity'), rva, size)
         elif kind == 'import':
             if sym['section'] or extent != 4 or bool(record.get('name')) == ('ordinal' in record):
                 raise ValueError('Import must be an undefined exact four-byte IAT identity')
@@ -351,13 +381,21 @@ def relocated_compare(obj, symbol, target, rva, size, bindings):
         if kind in ('function', 'import') and addend != 0:
             raise ValueError('Function/import interior addends need separate verification')
         one_past = reviewed[off][3]
-        if kind in ('data', 'local') and not (0 <= addend < record['size'] or one_past):
+        if kind in ('data', 'bss', 'local') and not (0 <= addend < record['size'] or one_past):
             raise ValueError('Interior offset exceeds independently bound object')
         destination = record['rva'] + addend
         if (kind == 'local' and record.get('role') == 'section' and
                 destination - rva not in starts and destination - rva not in table_starts):
             raise ValueError('Section-symbol addend does not identify an instruction or table entry')
         ins = operand_fields.get(off)
+        if kind == 'bss':
+            if typ != DIR32 or ins is None:
+                raise ValueError('Loader-zero references require direct absolute instruction operands')
+            if ins.disp_size == 4 and ins.address - rva + ins.disp_offset == off:
+                mem = [op for op in ins.operands if op.type == capstone.x86.X86_OP_MEM]
+                if (len(mem) != 1 or mem[0].mem.base or mem[0].mem.index or mem[0].mem.segment or
+                        addend + mem[0].size > record['size']):
+                    raise ValueError('Loader-zero memory access exceeds its complete scalar owner')
         if one_past and (ins is None or ins.imm_size != 4 or ins.address - rva + ins.imm_offset != off):
             raise ValueError('Reviewed one-past pointer requires an immediate operand, not memory')
         if (typ == DIR32 and ins is not None and
@@ -382,6 +420,8 @@ def relocated_compare(obj, symbol, target, rva, size, bindings):
                              evidence=record['evidence'], one_past=one_past))
     if set(reviewed) != actual_offsets or not table_starts <= actual_offsets:
         raise ValueError('Reviewed relocation/table entry inventory differs from COFF')
+    from callback_transfer import verify_calls
+    callback_calls = verify_calls(pe, bindings, records, reviewed, instructions, rva, size, receipts)
     for ins in instructions:
         if not (ins.group(capstone.CS_GRP_CALL) or ins.group(capstone.CS_GRP_JUMP)):
             continue
@@ -401,7 +441,8 @@ def relocated_compare(obj, symbol, target, rva, size, bindings):
             valid_table = (record.get('kind') == 'local' and record.get('role') in ('table', 'section') and
                            table_destination in table_starts and
                            ins.group(capstone.CS_GRP_JUMP) and mem.base == 0 and mem.index != 0 and mem.scale == 4)
-            if not (valid_import or valid_table):
+            valid_callback = offset in callback_calls and ins.group(capstone.CS_GRP_CALL)
+            if not (valid_import or valid_table or valid_callback):
                 raise ValueError('Unsupported indirect control transfer')
         else:
             raise ValueError('Register indirect control transfer needs separate verification')
@@ -413,8 +454,13 @@ def relocated_compare(obj, symbol, target, rva, size, bindings):
         if sorted(native_relocs) != wanted:
             raise ValueError('Original HIGHLOW relocation inventory differs from compiler DIR32 fields')
     different = [i for i in range(size) if i not in fields and actual[i] != expected[i]]
-    return dict(relocated_equal=not different and not errors, compiled_size=size, target_size=size,
+    result = dict(relocated_equal=not different and not errors, compiled_size=size, target_size=size,
                 differing_nonreference_bytes=len(different), errors=errors, references=receipts,
                 compiled_sha256=hashlib.sha256(actual).hexdigest(), target_sha256=hashlib.sha256(expected).hexdigest(),
                 bindings_sha256=hashlib.sha256(json.dumps(bindings, sort_keys=True, separators=(',', ':')).encode()).hexdigest(),
                 scope='complete compiler contribution and independently supplied reference bindings; build provenance is caller-owned')
+    if alias_checks:
+        result['source_alias_checks'] = alias_checks
+    if callback_calls:
+        result['indirect_call_checks'] = list(callback_calls.values())
+    return result

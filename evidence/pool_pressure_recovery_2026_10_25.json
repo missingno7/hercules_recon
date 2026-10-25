@@ -1,0 +1,402 @@
+{
+  "schema": 1,
+  "date": "2026-10-25",
+  "scope": "New 96-byte alternate-pool pressure helper, complete instruction diagnostic and independent actual same-name scalar owners. Recovery.json alone grants acceptance.",
+  "caller": {
+    "id": "eng1.native_code_target_001b1d0",
+    "source": "src/eng1/behavioral/alternate_pool_pressure.c",
+    "source_sha256": "53b51538fda8562eda1fb37f5539589ed162bcfda9de41a3fa1afb5745286fe0",
+    "symbol": "_eng1_native_code_target_001b1d0",
+    "rva": "0x1b1d0",
+    "size": 96,
+    "native_sha256": "ad31e36deb7f4d054d2b5d7bfb457655342ca52df04ac27257a21643e6259810",
+    "lead": {
+      "rva": "0x1b1d0",
+      "size": 96,
+      "body_size": 88,
+      "decoded": true,
+      "last": "ret",
+      "references": 4,
+      "callers": 5,
+      "start_from_proven_extent": false
+    },
+    "abi": "One full DWORD kind cdecl argument; all five observed callers discard the result. Source models void effects.",
+    "review": "Capture pointer and zero-extended WORD count once. Any zero kind in the first scan returns without release, even when an earlier slot matched. Otherwise release the first slot whose zero-extended WORD kind equals the full argument. No reservation or allocation performed."
+  },
+  "release_entry": {
+    "source": "calibration/release_actor_repaired.c",
+    "source_sha256": "df9b49a321fe9d261201a42c0b2d0088595671d74a99188ba310f55e348cf8ac",
+    "symbol": "_release_actor",
+    "rva": 163360,
+    "size": 304,
+    "native_sha256": "f1204ab183d95adb935f5d9a243b84fa4a22ea410c7debc5657a58e9792202e5",
+    "status": "CODEGEN_SIMILAR",
+    "outside_selected_caller_witness": {
+      "rva": "0x27f69",
+      "size": 5,
+      "sha256": "1022ee68d06e513e9479a0f2b295cde2f4b14d4da4b3de424527cfea0e612a20"
+    },
+    "review": "Existing own-body release_actor reconstruction and lifecycle/sidecar branches identify this pointer cdecl entry. The resetter provides an outside call witness; no source or matching acceptance is transferred to the callee."
+  },
+  "callers": [
+    {
+      "call_rva": "0x1af48",
+      "argument_bytes": "682f200000",
+      "after": [
+        {
+          "rva": "0x1af4d",
+          "instruction": "add esp, 4",
+          "bytes": "83c404"
+        },
+        {
+          "rva": "0x1af50",
+          "instruction": "push 0x202e",
+          "bytes": "682e200000"
+        },
+        {
+          "rva": "0x1af55",
+          "instruction": "push 0",
+          "bytes": "6a00"
+        },
+        {
+          "rva": "0x1af57",
+          "instruction": "push 0",
+          "bytes": "6a00"
+        },
+        {
+          "rva": "0x1af59",
+          "instruction": "push 0",
+          "bytes": "6a00"
+        },
+        {
+          "rva": "0x1af5b",
+          "instruction": "call 0x10027db0",
+          "bytes": "e850ce0000"
+        }
+      ],
+      "window_sha256": "894f99cb021b37d0ba52fb2018b75e50c8f2edb90e7c9fa394d59eebf939d8c8"
+    },
+    {
+      "call_rva": "0x1afb7",
+      "argument_bytes": "682f200000",
+      "after": [
+        {
+          "rva": "0x1afbc",
+          "instruction": "add esp, 4",
+          "bytes": "83c404"
+        },
+        {
+          "rva": "0x1afbf",
+          "instruction": "push 0x202e",
+          "bytes": "682e200000"
+        },
+        {
+          "rva": "0x1afc4",
+          "instruction": "push 0",
+          "bytes": "6a00"
+        },
+        {
+          "rva": "0x1afc6",
+          "instruction": "push 0",
+          "bytes": "6a00"
+        },
+        {
+          "rva": "0x1afc8",
+          "instruction": "push 0",
+          "bytes": "6a00"
+        },
+        {
+          "rva": "0x1afca",
+          "instruction": "call 0x10027db0",
+          "bytes": "e8e1cd0000"
+        }
+      ],
+      "window_sha256": "bafd8c92cac4c610a07c079bfc1b8cfbfc673245eb234bebe0405bb976dca1ad"
+    },
+    {
+      "call_rva": "0x1b02c",
+      "argument_bytes": "682f200000",
+      "after": [
+        {
+          "rva": "0x1b031",
+          "instruction": "add esp, 4",
+          "bytes": "83c404"
+        },
+        {
+          "rva": "0x1b034",
+          "instruction": "push 0x202e",
+          "bytes": "682e200000"
+        },
+        {
+          "rva": "0x1b039",
+          "instruction": "push 0",
+          "bytes": "6a00"
+        },
+        {
+          "rva": "0x1b03b",
+          "instruction": "push 0",
+          "bytes": "6a00"
+        },
+        {
+          "rva": "0x1b03d",
+          "instruction": "push 0",
+          "bytes": "6a00"
+        },
+        {
+          "rva": "0x1b03f",
+          "instruction": "call 0x10027db0",
+          "bytes": "e86ccd0000"
+        }
+      ],
+      "window_sha256": "ce43c2389db07614a5dd6a56da1d5bec70b5baabc1699c4d7175d5f8153fc4dd"
+    },
+    {
+      "call_rva": "0x1b0a2",
+      "argument_bytes": "682f200000",
+      "after": [
+        {
+          "rva": "0x1b0a7",
+          "instruction": "add esp, 4",
+          "bytes": "83c404"
+        },
+        {
+          "rva": "0x1b0aa",
+          "instruction": "push 0x202e",
+          "bytes": "682e200000"
+        },
+        {
+          "rva": "0x1b0af",
+          "instruction": "push 0",
+          "bytes": "6a00"
+        },
+        {
+          "rva": "0x1b0b1",
+          "instruction": "push 0",
+          "bytes": "6a00"
+        },
+        {
+          "rva": "0x1b0b3",
+          "instruction": "push 0",
+          "bytes": "6a00"
+        },
+        {
+          "rva": "0x1b0b5",
+          "instruction": "call 0x10027db0",
+          "bytes": "e8f6cc0000"
+        }
+      ],
+      "window_sha256": "b5c8c01b608b2e4e79aab40462eb1d046962b8e874af67977f77b72371137b1c"
+    },
+    {
+      "call_rva": "0x1b11e",
+      "argument_bytes": "682f200000",
+      "after": [
+        {
+          "rva": "0x1b123",
+          "instruction": "add esp, 4",
+          "bytes": "83c404"
+        },
+        {
+          "rva": "0x1b126",
+          "instruction": "push 0x202e",
+          "bytes": "682e200000"
+        },
+        {
+          "rva": "0x1b12b",
+          "instruction": "push 0",
+          "bytes": "6a00"
+        },
+        {
+          "rva": "0x1b12d",
+          "instruction": "push 0",
+          "bytes": "6a00"
+        },
+        {
+          "rva": "0x1b12f",
+          "instruction": "push 0",
+          "bytes": "6a00"
+        },
+        {
+          "rva": "0x1b131",
+          "instruction": "call 0x10027db0",
+          "bytes": "e87acc0000"
+        }
+      ],
+      "window_sha256": "2d9c3332268570ba520f4c9fedf041cb6eaa2a49372184c1da1d50d20beaaf47"
+    }
+  ],
+  "owner_checks": {
+    "_g_alternate_actor_pool": {
+      "symbol": {
+        "name": "_g_alternate_actor_pool",
+        "value": 4,
+        "section": 0,
+        "type": 0,
+        "storage": 2,
+        "aux": []
+      },
+      "native": {
+        "section": ".data",
+        "zero_start": 452608,
+        "zero_end": 476760,
+        "identity_rva": 127326
+      }
+    },
+    "_g_configuration_word_713ba": {
+      "symbol": {
+        "name": "_g_configuration_word_713ba",
+        "value": 2,
+        "section": 0,
+        "type": 0,
+        "storage": 2,
+        "aux": []
+      },
+      "native": {
+        "section": ".data",
+        "zero_start": 452608,
+        "zero_end": 476760,
+        "identity_rva": 164317
+      }
+    }
+  },
+  "compiler_commands": [
+    [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-oa18ntj8\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\alternate_pool_pressure.c"
+    ],
+    [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-gw6ogmyq\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\actor_storage.c"
+    ],
+    [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-dvk8sp8n\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\frame_data.c"
+    ]
+  ],
+  "diagnostic": {
+    "masked_equal": true,
+    "compiled_size": 96,
+    "target_size": 96,
+    "differing_bytes": 0,
+    "mismatch_regions": [],
+    "symbols": {
+      "_g_alternate_actor_pool": "0x734e0",
+      "_g_configuration_word_713ba": "0x713ba",
+      "_release_actor": "0x27e20"
+    },
+    "conflicts": [],
+    "unsupported": [],
+    "relocations": 3
+  },
+  "negative_controls": [
+    {
+      "symbol": "_g_alternate_actor_pool",
+      "rejected": true,
+      "error": "Independent loader-zero anchor identifies another storage cell",
+      "nonreference_differences": 0
+    },
+    {
+      "symbol": "_g_configuration_word_713ba",
+      "rejected": true,
+      "error": "Independent loader-zero anchor identifies another storage cell",
+      "nonreference_differences": 0
+    },
+    {
+      "symbol": "_release_actor",
+      "rejected": true,
+      "error": [
+        "Relocation destination differs at 0x4e: _release_actor"
+      ],
+      "nonreference_differences": 0
+    }
+  ],
+  "semantic_comparison": {
+    "scope": "Guarded alternate-pool pressure helper with a modeled release service.\n\nOriginal and freshly linked source instructions run only inside Unicorn. No OS\nmodule load, instruction patching, native allocation-capacity or lifecycle claim.\n",
+    "cases": 382,
+    "all_equal": true,
+    "build": {
+      "input_sha256": {
+        "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\alternate_pool_pressure.c": "53b51538fda8562eda1fb37f5539589ed162bcfda9de41a3fa1afb5745286fe0",
+        "D:\\Prog\\hercules_recon\\assets\\pc\\HERCULES\\ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+        "D:\\Prog\\hercules_recon\\scripts\\pool_pressure_differential.py": "4112bf9f5d5658daa211657f37fb85e68f8da1d299ae0f857b36f5d022b5f029",
+        "C:\\tools\\hercules\\renderer-oracle-python\\unicorn\\lib\\unicorn.dll": "010d85dce84b8f6ffaec3d5420f1b5f7768f859eb831be574c7da23e656ee8f1",
+        "D:\\Prog\\hercules_recon\\toolchains\\manifest.json": "d52d560ef78589b6008df0fd3ca42f8d258a34248015398158716e9a811e063d"
+      },
+      "commands": [
+        [
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+          "/nologo",
+          "/c",
+          "/Gy",
+          "/O2",
+          "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-bhgvmenm\\candidate.obj",
+          "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\alternate_pool_pressure.c"
+        ],
+        [
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+          "/nologo",
+          "/c",
+          "/Gy",
+          "/O2",
+          "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-dghotqb9\\candidate.obj",
+          "D:\\Prog\\hercules_recon\\work\\pool_pressure_2026_10_25\\differential\\services.c"
+        ],
+        [
+          "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\link.exe",
+          "/NOLOGO",
+          "/DLL",
+          "/NOENTRY",
+          "/NODEFAULTLIB",
+          "/INCREMENTAL:NO",
+          "/OPT:NOREF",
+          "/BASE:0x45000000",
+          "/OUT:D:\\Prog\\hercules_recon\\work\\pool_pressure_2026_10_25\\differential\\fixture.dll",
+          "/MAP:D:\\Prog\\hercules_recon\\work\\pool_pressure_2026_10_25\\differential\\fixture.map",
+          "D:\\Prog\\hercules_recon\\build\\match\\compile-bhgvmenm\\candidate.obj",
+          "D:\\Prog\\hercules_recon\\build\\match\\compile-dghotqb9\\candidate.obj"
+        ]
+      ],
+      "object": "D:\\Prog\\hercules_recon\\build\\match\\compile-bhgvmenm\\candidate.obj",
+      "object_sha256": "aa06c776298fb1d67899e2125e7a081168104f92410d4d4938851310d559ea9f",
+      "image_sha256": "296d432310df82fe473b92a837a985d94acbb545ca4d510e7045958f8da8d17a"
+    },
+    "cases_sha256": "bfca5839acf59ad5fad4eaa86707f58e67637175813eb3353101621fb75d6d89",
+    "kind_reads": 329844,
+    "release_cases": 49,
+    "maximum_count": 65535,
+    "limits": [
+      "Release service and storage are synthetic. No complete callee, native capacity, allocator reservation or source-graph closure follows.",
+      "All five observed callers discard the result before their next cdecl call. This fixture compares void behavior and excludes incidental EAX."
+    ]
+  },
+  "compiler_steering": {
+    "baseline": "Separate first-scan cursor plus advancing saved pool in the second scan yields 96 bytes with 17 positional differences and wrong absolute-relocation offsets.",
+    "change": "Reuse the scan cursor after resetting it to the captured pool for the second pass; saved pool is not advanced.",
+    "result": "Complete 96-byte contribution including eight NOP padding bytes is instruction-equal with all three references in the original positions.",
+    "negative_controls": [
+      "Full actor type/alignment, explicit initialization and local declaration order do not resolve the baseline differences.",
+      "First scan as indexed array compiles identically to baseline; second scan as indexed array produces 112 bytes.",
+      "Register hint does not change baseline output."
+    ]
+  },
+  "limits": [
+    "Actual source owner identity is separate from synthetic runtime storage. Reused accepted owner headers/inputs remain unchanged.",
+    "Native pool capacities, complete release lifecycle, hidden computed aliases and whole-game behavior remain unproved.",
+    "No original OS module load or game/host startup."
+  ]
+}

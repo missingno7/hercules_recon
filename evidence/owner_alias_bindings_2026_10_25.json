@@ -1,0 +1,825 @@
+{
+  "schema": 1,
+  "scope": "Ten unchanged caller contributions; exact complete data-only owner COMMON renames with explicit pointer type declarations and independent native identities. No caller-code rewriting or alias-view/merge/indexed-storage support.",
+  "evidence_files": {
+    "src/eng1/behavioral/actor_pool_pointer_owner_alias.h": "a89c3550137fa3bdd527d53c74702500e30d0129a59bcf0ddb6447c0909f8068",
+    "src/eng1/behavioral/collision_pointer_owner_alias.h": "100934002a244e02bb1292616ae4f953ed1ce5ff42c42f43a297ab23f4461391",
+    "src/eng1/behavioral/actor_storage.c": "7c20021aee04622f627c1052d683962672c8aa9ed1e9d52df3166f2abe7b4c84",
+    "src/eng1/behavioral/actor_control_cells.c": "2bc12ffd0ada012a7fa5d027c326123d6a4a8a192755279643bcfc17df27abb4",
+    "src/eng1/behavioral/actor_control_cells.h": "b367659f10059f662f45acddd904ce50b19dc09d97ce3b495d7c6b5c1ecf2e6f",
+    "calibration/eng1/actor_unit_282e0.cpp": "629642c65e4bf18484e1d06d03dc664ff9035257f51fca28596b304abe0540b7",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stdlib.h": "a2ebec0508c7d684a414ea988204c30e3a12b189c713a19755fa763c3badcd67",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\string.h": "92d11aac755a3a7e633bb13f5af986ec7df57db9c1e5a02b5eb48ce876a796ec",
+    "calibration/eng1/sound_od.c": "1a34991c4f610ad78407d757e2f4443510408d4f62612962256e783d01f6dffc",
+    "src/shared/frame_state.c": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+    "src/eng1/behavioral/host_control_wrappers.c": "b8fb689e2d58293d4ccaeee91f66df31476815106266afc85e34557cb5eb54c7",
+    "calibration/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+    "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
+    "calibration/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+    "calibration/eng1/player_unit_36030.c": "a5f53b808e44ad54681b8b2a935269a64352e6ff35e9c7dfaf69a755e21a4830",
+    "src/eng1/behavioral/actor_spatial_predicates.cpp": "aa24a31dedafbeda8673b65e2fded19780bcad78f13c926567b7dad67a851107",
+    "src/eng1/behavioral/spatial_neighbor_helpers.cpp": "325a22994199395a728293a50329b027df89ed2282a72b6db36bcbc88a2f1d46",
+    "src/shared/bounds.c": "fabe0115b1618cca6eaf3545a22fb7ccb1cbbd7a0f19a0bcc990c20a10da7a52",
+    "src/eng1/behavioral/camera_bounds_20ea0.c": "b9690ba633a01db7aa2c5436fc6afed606b19db4d1df3f0bcfe1bc53f2ffabaf",
+    "src/eng1/behavioral/resource_runtime_data.h": "14a16810945e05b8cad8df963e40759de01136bff179f8d9d46c52f1d502c31c",
+    "calibration/resource_record.h": "680b677d8e2e6310bb8f205d7bcc4fa87ab7c658169160c5dbf68e7655b08b92",
+    "src/eng1/behavioral/group_layouts.h": "0bea932408e48788665ab942cf42e0bd9057d912a97539f5d29519dec0dfb9dc",
+    "calibration/eng1/pickup_lift_unit_12620.c": "3e0bf7b9dba4e51a0c9d1967874a4ca54c60539087b3a14eeccfcdc1a8c00cb4",
+    "calibration/eng1/player_scene_3a040.c": "fd1951d328bee4f1f9fddfe41fc49c6f0fc4d060b1b01a0ff7618fe5f27c334d",
+    "evidence/owner_alias_references_2026_10_25.json": "d728c9fcb23170ad3ffa21c8e9606e85d261a0bfaf701f64f358763bd1f8b2b0",
+    "evidence/normal_pool_pointer_2026_10_25.json": "d87cff10b461c18e90bd881ab2d0bef309db13cd9fc7073678fa2c577d387165",
+    "evidence/collision_owner_matching_2026_10_25.json": "c4c1efb99618c947a3436f1464de9a48dfda130e4ef0cbcfdc18a872fd6876f3",
+    "evidence/pool_callers_progress_2026_10_25.json": "ce22d2d8730ddb42d599a8afdd957c13f06118f77efbb8adae146be909abb8a1",
+    "evidence/eng1_camera_bounds_20ea0.json": "f319cf3f704e7ec8ed5a7b437a199cf2868c9183ed2c6c143706f84c8cb60c06"
+  },
+  "functions": {
+    "eng1.36ce0": {
+      "symbols": {
+        "_g_frame_owner_72860": {
+          "kind": "bss",
+          "rva": 469088,
+          "size": 4,
+          "owner": {
+            "source": "src/eng1/behavioral/actor_storage.c",
+            "flags": [
+              "/O2"
+            ],
+            "symbol": "_g_normal_actor_pool"
+          },
+          "identity": {
+            "rva": 127245,
+            "size": 5,
+            "operand": 0,
+            "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5"
+          },
+          "source_alias": {
+            "kind": "owner-compile-renaming",
+            "header": "src/eng1/behavioral/actor_pool_pointer_owner_alias.h",
+            "renames": {
+              "g_frame_owner_72860": "g_normal_actor_pool"
+            },
+            "pointer_types": {
+              "g_frame_owner_72860": "void"
+            }
+          },
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#owners._g_frame_owner_72860"
+          ],
+          "references": [
+            {
+              "offset": 1,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 15,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 27,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng1_interpret_signed_pairs": {
+          "kind": "function",
+          "rva": 164832,
+          "size": 1088,
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#helpers._eng1_interpret_signed_pairs"
+          ],
+          "references": [
+            {
+              "offset": 40,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng1.37400": {
+      "symbols": {
+        "_g_frame_owner_72860": {
+          "kind": "bss",
+          "rva": 469088,
+          "size": 4,
+          "owner": {
+            "source": "src/eng1/behavioral/actor_storage.c",
+            "flags": [
+              "/O2"
+            ],
+            "symbol": "_g_normal_actor_pool"
+          },
+          "identity": {
+            "rva": 127245,
+            "size": 5,
+            "operand": 0,
+            "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5"
+          },
+          "source_alias": {
+            "kind": "owner-compile-renaming",
+            "header": "src/eng1/behavioral/actor_pool_pointer_owner_alias.h",
+            "renames": {
+              "g_frame_owner_72860": "g_normal_actor_pool"
+            },
+            "pointer_types": {
+              "g_frame_owner_72860": "void"
+            }
+          },
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#owners._g_frame_owner_72860"
+          ],
+          "references": [
+            {
+              "offset": 1,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 15,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 27,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 48,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 66,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng1_interpret_word_stream": {
+          "kind": "function",
+          "rva": 165920,
+          "size": 640,
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#helpers._eng1_interpret_word_stream"
+          ],
+          "references": [
+            {
+              "offset": 79,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng1.37770": {
+      "symbols": {
+        "_g_frame_owner_72860": {
+          "kind": "bss",
+          "rva": 469088,
+          "size": 4,
+          "owner": {
+            "source": "src/eng1/behavioral/actor_storage.c",
+            "flags": [
+              "/O2"
+            ],
+            "symbol": "_g_normal_actor_pool"
+          },
+          "identity": {
+            "rva": 127245,
+            "size": 5,
+            "operand": 0,
+            "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5"
+          },
+          "source_alias": {
+            "kind": "owner-compile-renaming",
+            "header": "src/eng1/behavioral/actor_pool_pointer_owner_alias.h",
+            "renames": {
+              "g_frame_owner_72860": "g_normal_actor_pool"
+            },
+            "pointer_types": {
+              "g_frame_owner_72860": "void"
+            }
+          },
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#owners._g_frame_owner_72860"
+          ],
+          "references": [
+            {
+              "offset": 1,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 35,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 60,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 91,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        },
+        "_dispatch_local_20ea0": {
+          "kind": "function",
+          "rva": 134816,
+          "size": 432,
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#helpers._dispatch_local_20ea0"
+          ],
+          "references": [
+            {
+              "offset": 24,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 80,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng1.37f80": {
+      "symbols": {
+        "_g_frame_owner_72860": {
+          "kind": "bss",
+          "rva": 469088,
+          "size": 4,
+          "owner": {
+            "source": "src/eng1/behavioral/actor_storage.c",
+            "flags": [
+              "/O2"
+            ],
+            "symbol": "_g_normal_actor_pool"
+          },
+          "identity": {
+            "rva": 127245,
+            "size": 5,
+            "operand": 0,
+            "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5"
+          },
+          "source_alias": {
+            "kind": "owner-compile-renaming",
+            "header": "src/eng1/behavioral/actor_pool_pointer_owner_alias.h",
+            "renames": {
+              "g_frame_owner_72860": "g_normal_actor_pool"
+            },
+            "pointer_types": {
+              "g_frame_owner_72860": "void"
+            }
+          },
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#owners._g_frame_owner_72860"
+          ],
+          "references": [
+            {
+              "offset": 1,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        },
+        "_play_sound": {
+          "kind": "function",
+          "rva": 28064,
+          "size": 2115,
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#helpers._play_sound"
+          ],
+          "references": [
+            {
+              "offset": 12,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng1.39460": {
+      "symbols": {
+        "_advance_frame": {
+          "kind": "function",
+          "rva": 168560,
+          "size": 80,
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#helpers._advance_frame"
+          ],
+          "references": [
+            {
+              "offset": 7,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_random_limit": {
+          "kind": "function",
+          "rva": 181344,
+          "size": 16,
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#helpers._random_limit"
+          ],
+          "references": [
+            {
+              "offset": 20,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 54,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 83,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 114,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_g_frame_owner_72860": {
+          "kind": "bss",
+          "rva": 469088,
+          "size": 4,
+          "owner": {
+            "source": "src/eng1/behavioral/actor_storage.c",
+            "flags": [
+              "/O2"
+            ],
+            "symbol": "_g_normal_actor_pool"
+          },
+          "identity": {
+            "rva": 127245,
+            "size": 5,
+            "operand": 0,
+            "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5"
+          },
+          "source_alias": {
+            "kind": "owner-compile-renaming",
+            "header": "src/eng1/behavioral/actor_pool_pointer_owner_alias.h",
+            "renames": {
+              "g_frame_owner_72860": "g_normal_actor_pool"
+            },
+            "pointer_types": {
+              "g_frame_owner_72860": "void"
+            }
+          },
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#owners._g_frame_owner_72860"
+          ],
+          "references": [
+            {
+              "offset": 137,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 158,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 180,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        },
+        "_play_sound": {
+          "kind": "function",
+          "rva": 28064,
+          "size": 2115,
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#helpers._play_sound"
+          ],
+          "references": [
+            {
+              "offset": 148,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 169,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 191,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng1.399c0": {
+      "symbols": {
+        "_g_frame_owner_72860": {
+          "kind": "bss",
+          "rva": 469088,
+          "size": 4,
+          "owner": {
+            "source": "src/eng1/behavioral/actor_storage.c",
+            "flags": [
+              "/O2"
+            ],
+            "symbol": "_g_normal_actor_pool"
+          },
+          "identity": {
+            "rva": 127245,
+            "size": 5,
+            "operand": 0,
+            "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5"
+          },
+          "source_alias": {
+            "kind": "owner-compile-renaming",
+            "header": "src/eng1/behavioral/actor_pool_pointer_owner_alias.h",
+            "renames": {
+              "g_frame_owner_72860": "g_normal_actor_pool"
+            },
+            "pointer_types": {
+              "g_frame_owner_72860": "void"
+            }
+          },
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#owners._g_frame_owner_72860"
+          ],
+          "references": [
+            {
+              "offset": 28,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        },
+        "_play_sound": {
+          "kind": "function",
+          "rva": 28064,
+          "size": 2115,
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#helpers._play_sound"
+          ],
+          "references": [
+            {
+              "offset": 39,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng1.native_code_target_012b00": {
+      "symbols": {
+        "_g_frame_owner_72860": {
+          "kind": "bss",
+          "rva": 469088,
+          "size": 4,
+          "owner": {
+            "source": "src/eng1/behavioral/actor_storage.c",
+            "flags": [
+              "/O2"
+            ],
+            "symbol": "_g_normal_actor_pool"
+          },
+          "identity": {
+            "rva": 127245,
+            "size": 5,
+            "operand": 0,
+            "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5"
+          },
+          "source_alias": {
+            "kind": "owner-compile-renaming",
+            "header": "src/eng1/behavioral/actor_pool_pointer_owner_alias.h",
+            "renames": {
+              "g_frame_owner_72860": "g_normal_actor_pool"
+            },
+            "pointer_types": {
+              "g_frame_owner_72860": "void"
+            }
+          },
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#owners._g_frame_owner_72860"
+          ],
+          "references": [
+            {
+              "offset": 125,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng1_interpret_word_stream": {
+          "kind": "function",
+          "rva": 165920,
+          "size": 640,
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#helpers._eng1_interpret_word_stream"
+          ],
+          "references": [
+            {
+              "offset": 212,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 230,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng1.3c4d0": {
+      "symbols": {
+        "_g_frame_owner_72860": {
+          "kind": "bss",
+          "rva": 469088,
+          "size": 4,
+          "owner": {
+            "source": "src/eng1/behavioral/actor_storage.c",
+            "flags": [
+              "/O2"
+            ],
+            "symbol": "_g_normal_actor_pool"
+          },
+          "identity": {
+            "rva": 127245,
+            "size": 5,
+            "operand": 0,
+            "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5"
+          },
+          "source_alias": {
+            "kind": "owner-compile-renaming",
+            "header": "src/eng1/behavioral/actor_pool_pointer_owner_alias.h",
+            "renames": {
+              "g_frame_owner_72860": "g_normal_actor_pool"
+            },
+            "pointer_types": {
+              "g_frame_owner_72860": "void"
+            }
+          },
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#owners._g_frame_owner_72860"
+          ],
+          "references": [
+            {
+              "offset": 1,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        },
+        "_g_native_pointer_7217c": {
+          "kind": "bss",
+          "rva": 467324,
+          "size": 4,
+          "owner": {
+            "source": "src/eng1/behavioral/actor_control_cells.c",
+            "flags": [
+              "/O2"
+            ],
+            "symbol": "_g_collision_context"
+          },
+          "identity": {
+            "rva": 87043,
+            "size": 5,
+            "operand": 0,
+            "sha256": "5643f772837e8044d1c932dbfa548ad4224aeded6fadfc7193293340b1aab5c1"
+          },
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#owners._g_native_pointer_7217c"
+          ],
+          "source_alias": {
+            "kind": "owner-compile-renaming",
+            "header": "src/eng1/behavioral/collision_pointer_owner_alias.h",
+            "renames": {
+              "g_native_pointer_7217c": "g_collision_context"
+            },
+            "pointer_types": {
+              "g_native_pointer_7217c": "byte"
+            }
+          },
+          "references": [
+            {
+              "offset": 23,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng1_2a710": {
+          "kind": "function",
+          "rva": 173840,
+          "size": 144,
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#helpers._eng1_2a710"
+          ],
+          "references": [
+            {
+              "offset": 40,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng1_37e30": {
+          "kind": "function",
+          "rva": 228912,
+          "size": 336,
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#helpers._eng1_37e30"
+          ],
+          "references": [
+            {
+              "offset": 54,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng1.3c510": {
+      "symbols": {
+        "_eng1_2a950": {
+          "kind": "function",
+          "rva": 174416,
+          "size": 144,
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#helpers._eng1_2a950"
+          ],
+          "references": [
+            {
+              "offset": 10,
+              "type": 20,
+              "addend": 0
+            },
+            {
+              "offset": 67,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_g_frame_owner_72860": {
+          "kind": "bss",
+          "rva": 469088,
+          "size": 4,
+          "owner": {
+            "source": "src/eng1/behavioral/actor_storage.c",
+            "flags": [
+              "/O2"
+            ],
+            "symbol": "_g_normal_actor_pool"
+          },
+          "identity": {
+            "rva": 127245,
+            "size": 5,
+            "operand": 0,
+            "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5"
+          },
+          "source_alias": {
+            "kind": "owner-compile-renaming",
+            "header": "src/eng1/behavioral/actor_pool_pointer_owner_alias.h",
+            "renames": {
+              "g_frame_owner_72860": "g_normal_actor_pool"
+            },
+            "pointer_types": {
+              "g_frame_owner_72860": "void"
+            }
+          },
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#owners._g_frame_owner_72860"
+          ],
+          "references": [
+            {
+              "offset": 59,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 72,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 92,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 108,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 124,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 140,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        },
+        "_planar_bounds_overlap": {
+          "kind": "function",
+          "rva": 173264,
+          "size": 80,
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#helpers._planar_bounds_overlap"
+          ],
+          "references": [
+            {
+              "offset": 151,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng1_37e30": {
+          "kind": "function",
+          "rva": 228912,
+          "size": 336,
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#helpers._eng1_37e30"
+          ],
+          "references": [
+            {
+              "offset": 165,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    },
+    "eng1.3c5c0": {
+      "symbols": {
+        "_g_frame_owner_72860": {
+          "kind": "bss",
+          "rva": 469088,
+          "size": 4,
+          "owner": {
+            "source": "src/eng1/behavioral/actor_storage.c",
+            "flags": [
+              "/O2"
+            ],
+            "symbol": "_g_normal_actor_pool"
+          },
+          "identity": {
+            "rva": 127245,
+            "size": 5,
+            "operand": 0,
+            "sha256": "836e409cdea35de995bd24f3da119d06584b5d9fbba437c970386cda0efee7b5"
+          },
+          "source_alias": {
+            "kind": "owner-compile-renaming",
+            "header": "src/eng1/behavioral/actor_pool_pointer_owner_alias.h",
+            "renames": {
+              "g_frame_owner_72860": "g_normal_actor_pool"
+            },
+            "pointer_types": {
+              "g_frame_owner_72860": "void"
+            }
+          },
+          "evidence": [
+            "evidence/owner_alias_references_2026_10_25.json#owners._g_frame_owner_72860"
+          ],
+          "references": [
+            {
+              "offset": 7,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    }
+  }
+}

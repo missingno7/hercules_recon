@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-25",
+  "scope": "Five genuine neighboring spatial bodies; fresh complete RAW/relocation-masked equality plus independent references. Acceptance remains recovery.json.",
+  "target": "assets/pc/HERCULES/ENG1.DLL",
+  "target_sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "functions": {
+    "0x2a950": {
+      "size": 144,
+      "symbol": "_eng1_native_code_target_002a950",
+      "source": "src/eng1/behavioral/spatial_neighbor_helpers.cpp",
+      "source_sha256": "325a22994199395a728293a50329b027df89ed2282a72b6db36bcbc88a2f1d46",
+      "native_sha256": "3eb2d4e771ca8b4042099b5e3871208110a9508a9f831a37355ed97f4da5a593",
+      "review": "LowWORDmode extent call; shared failure return0 for failed producer or zero x/y extents; six WORD copies at88..92 in native generated order; return1.",
+      "nonreference_equal": true,
+      "references": 1
+    },
+    "0x2a9e0": {
+      "size": 80,
+      "symbol": "_eng1_native_code_target_002a9e0",
+      "source": "src/eng1/behavioral/spatial_neighbor_helpers.cpp",
+      "source_sha256": "325a22994199395a728293a50329b027df89ed2282a72b6db36bcbc88a2f1d46",
+      "native_sha256": "65853568e6c8fa1aaed2e00119b29885157e52ddbd988fc9106cb99cde8d40f6",
+      "review": "WORD71376 gate; low2 screen-flag bits equal1; signed screen-X WORD and unsigned lowWORD margin; non-short-circuit OR of left/right outside checks.",
+      "nonreference_equal": true,
+      "references": 1
+    },
+    "0x2aab0": {
+      "size": 128,
+      "symbol": "_eng1_native_code_target_002aab0",
+      "source": "src/eng1/behavioral/spatial_neighbor_helpers.cpp",
+      "source_sha256": "325a22994199395a728293a50329b027df89ed2282a72b6db36bcbc88a2f1d46",
+      "native_sha256": "00c782e6164d69f79d1c790b4ff1589aa121f75ffead2836b54fe273c6be13cc",
+      "review": "WORD71376 gate; screen-flag bit8 required; signed screen x/y WORDs and unsigned lowWORD margins; four outside comparisons ORed.",
+      "nonreference_equal": true,
+      "references": 1
+    },
+    "0x2ae50": {
+      "size": 80,
+      "symbol": "_eng1_native_code_target_002ae50",
+      "source": "src/eng1/behavioral/spatial_neighbor_helpers.cpp",
+      "source_sha256": "325a22994199395a728293a50329b027df89ed2282a72b6db36bcbc88a2f1d46",
+      "native_sha256": "2288ab76d641c7c3b59513440bd9924162fd8b3f4813bb24b92af670e7c55cf7",
+      "review": "Call320d0(actor); exact-1 sets flag8 and returns. Otherwise live71376 gates zero coordinates versus signed screen WORDs; inclusive[-32,352] x/[-32,272] y sets flag2; no unrelated flag clearing.",
+      "nonreference_equal": true,
+      "references": 2
+    },
+    "0x2ad70": {
+      "size": 224,
+      "symbol": "_eng1_native_code_target_002ad70",
+      "source": "src/eng1/behavioral/actor_target_relative.c",
+      "source_sha256": "57cb8e5289813303a22d53ec7554c6dcaab5d934462b4c0f9b6999515cc0973a",
+      "native_sha256": "16cf6346026f3d83c99589ed4bbc10d4443c40472432a15cd3bc5ee8434d3207",
+      "raw_equal": true,
+      "references": 0,
+      "review": "Same previously recovered absolute estimator as shared/relative.c with second input at actor+d8/dc/e0. Explicit DWORD wrap before signed highWORD extraction; signed16-bit absolute-value overflow, magnitude stores before sorting, direction bits and both historical distance estimates preserved."
+    }
+  },
+  "independent_entries": {
+    "_extent_producer_30e40": {
+      "rva": 200256,
+      "size": 448,
+      "source": "src/eng1/behavioral/extent_producer_30e40.c",
+      "review": "Independent existing extent-producer entry/body: cdecl(actor,output,mode); lowWORDmode; six output WORDs, EAX truth/count. Source remains bounded/incomplete. No helper matching or resource/profile capacity claim.",
+      "native_sha256": "6af6f0bb010c911e8c51b1ee594b9a638c351e5f751ff30c79828d7cdf6036c4",
+      "source_sha256": "4fc9dc291cc1b254f0a1dff791f860f9e5339603c89aecd0b95813e9dd2fa62a",
+      "outside_caller_witness": {
+        "rva": 111535,
+        "size": 5,
+        "sha256": "363b6b2e1b34f04cc04384ba61c9ec281ce6a0ddb2bf0ad55503b803d613bdcb"
+      }
+    },
+    "_eng1_320d0": {
+      "rva": 205008,
+      "size": 96,
+      "source": "calibration/eng1/render_unit_30010.cpp",
+      "review": "Existing accepted projection wrapper: one actor/object pointer; returns physical32-bit result or-1. Updates screen fields through its copied-interface calls. Fresh own strict proof succeeds; caller reads live timer/coordinates after the call.",
+      "native_sha256": "6512097fb662a368b2f604e5be265b0c07265cf10c197ed3fa039d23d4df45fc",
+      "source_sha256": "b7648c7683bed779e944ce0934bca9328fd722a7100b6956a2615629c61e00db",
+      "outside_caller_witness": {
+        "rva": 10206,
+        "size": 5,
+        "sha256": "d21406cb462e71520abf3efa9f60849ec5c9f5d59fa5f7f60092f1b36a2d74eb"
+      },
+      "fresh_own_strict_equal": true
+    }
+  },
+  "timer_owner_prior": "evidence/spatial_predicates_references_2026_10_25.json#timer_owner",
+  "compiler_controls": [
+    "Setter separate early returns:69 nonreference differences. Shared failure block:14.",
+    "C/C++, named fields/array fields and full actor header: same14-byte scheduling residue.",
+    "Natural per-axis minimum/maximum source copy order:complete equality.",
+    "Screen-flag helper X-before-Y zero assignments:2 differing bytes; measured Y-before-X order:complete equality."
+  ],
+  "commands": [
+    [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-btp53b1y\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\spatial_neighbor_helpers.cpp"
+    ],
+    [
+      "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\bin\\cl.exe",
+      "/nologo",
+      "/c",
+      "/Gy",
+      "/O2",
+      "/FoD:\\Prog\\hercules_recon\\build\\match\\compile-zqciu7sx\\candidate.obj",
+      "D:\\Prog\\hercules_recon\\src\\eng1\\behavioral\\actor_target_relative.c"
+    ]
+  ],
+  "prior_relative_algorithm": "src/shared/relative.c:measure_absolute_vector",
+  "validation_scope": "Deterministic complete contribution/ref proofs, not additional finite gameplay cases. No original host/game process execution.",
+  "limitations": [
+    "Source/TU identity and whole-game behavior are not established.",
+    "Extent producer remains independently named, bounded and incomplete; no new resource/profile capacity claim.",
+    "All accepted source, tool code and acceptance gates remain unchanged."
+  ]
+}
