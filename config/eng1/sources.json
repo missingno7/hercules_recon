@@ -1402,6 +1402,13 @@
         "/O2"
       ],
       "evidence": "evidence/eng1_spatial_query_recovery_2026_10_25.json"
+    },
+    {
+      "source": "src/eng1/frame_callbacks_14fb0.c",
+      "flags": [
+        "/O2"
+      ],
+      "evidence": "evidence/frame_callbacks_recovery_2026_10_26.json"
     }
   ],
   "functions": [
@@ -1480,10 +1487,10 @@
     {
       "rva": "0x27e20",
       "symbol": "_release_actor",
-      "source": "prototypes/reconstruction/release_actor.c",
+      "source": "src/shared/release_actor_repaired.c",
       "implementation_status": "plausible_unverified",
       "evidence": "evidence/release_dependency.json",
-      "contract": "Actual release dependency of the earlier natural-link interval.",
+      "contract": "Current compiled canonical release provider; native ownership unchanged.",
       "uncertainty": "Existing region source reused without byte-exact or universal behavioral claim."
     },
     {
@@ -4521,6 +4528,46 @@
       "contract": "Original-backed cdecl query family; 18 finite native/source branch, call, register and write comparisons; no complete runtime claim.",
       "uncertainty": "Actor-bounds service is modeled; g_71ee0 owner/capacity remains unresolved; matching is per recovery.json.",
       "evidence": "evidence/eng1_spatial_query_recovery_2026_10_25.json"
+    },
+    {
+      "rva": "0x14fb0",
+      "size": 80,
+      "symbol": "_eng1_native_code_target_014fb0",
+      "source": "src/eng1/frame_callbacks_14fb0.c",
+      "implementation_status": "reconstructed",
+      "contract": "Original-backed one-Actor-pointer frame callback, preserving ordered stores and calls. Matching authority remains recovery.json.",
+      "uncertainty": "Callee source identity and whole-game completeness are separate from callback acceptance.",
+      "evidence": "evidence/frame_callbacks_recovery_2026_10_26.json"
+    },
+    {
+      "rva": "0x15000",
+      "size": 48,
+      "symbol": "_eng1_native_code_target_015000",
+      "source": "src/eng1/frame_callbacks_14fb0.c",
+      "implementation_status": "reconstructed",
+      "contract": "Original-backed one-Actor-pointer frame callback, preserving ordered stores and calls. Matching authority remains recovery.json.",
+      "uncertainty": "Callee source identity and whole-game completeness are separate from callback acceptance.",
+      "evidence": "evidence/frame_callbacks_recovery_2026_10_26.json"
+    },
+    {
+      "rva": "0x15030",
+      "size": 48,
+      "symbol": "_eng1_native_code_target_015030",
+      "source": "src/eng1/frame_callbacks_14fb0.c",
+      "implementation_status": "reconstructed",
+      "contract": "Original-backed one-Actor-pointer frame callback, preserving ordered stores and calls. Matching authority remains recovery.json.",
+      "uncertainty": "Callee source identity and whole-game completeness are separate from callback acceptance.",
+      "evidence": "evidence/frame_callbacks_recovery_2026_10_26.json"
+    },
+    {
+      "rva": "0x15060",
+      "size": 48,
+      "symbol": "_eng1_native_code_target_015060",
+      "source": "src/eng1/frame_callbacks_14fb0.c",
+      "implementation_status": "reconstructed",
+      "contract": "Original-backed one-Actor-pointer frame callback, preserving ordered stores and calls. Matching authority remains recovery.json.",
+      "uncertainty": "Callee source identity and whole-game completeness are separate from callback acceptance.",
+      "evidence": "evidence/frame_callbacks_recovery_2026_10_26.json"
     }
   ],
   "source_adaptations": {
@@ -4636,6 +4683,14 @@
         "after": "#include \"../eng1/macro_views.h\"\n\nvoid change_kind(Actor *p, unsigned short kind)",
         "count": 1,
         "reason": "Reuse recovered kind/list/command helpers and bind the tag lane to its shared owner."
+      }
+    ],
+    "src/eng1/sprite_unit_03cd0.c": [
+      {
+        "before": "TitleTabEntry *release_actor_token(TitleObject *c);",
+        "after": "void release_actor_token(TitleObject *c);",
+        "count": 2,
+        "reason": "After the ENG1 source plan omits the release_actor_token body and retains the selected void provider in src/eng1/cleanup_helpers_writers.c, the derived sprite unit contains two pointer-return declarations: its original prototype and the declaration generated for the omitted body. Change only those derived declarations to void. The selected provider is void, all remaining calls are discarded expression statements, and the native row-address value left in EAX is not evidence of an original C return contract. This keeps the historical source unit and its 17 function proof baselines unchanged."
       }
     ]
   },
@@ -6332,6 +6387,20 @@
       "evidence": "evidence/eng1_spatial_query_recovery_2026_10_25.json",
       "confidence": "verified_same_PC_entry_identity",
       "limits": "Native cdecl entry and 32-bit argument/result view only; source name/TU are unproved."
+    },
+    "dbg_printf": {
+      "provider": "engine_diagnostic",
+      "original_rva": "0x1000",
+      "evidence": "evidence/eng1_provider_reuse_2026_10_26.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Independent native caller/body review; provider dependencies and source spelling remain separate."
+    },
+    "stop_actor_sounds": {
+      "provider": "RemoveFxLinks_7ef6",
+      "original_rva": "0x7ef6",
+      "evidence": "evidence/eng1_provider_reuse_2026_10_26.json",
+      "confidence": "verified_same_PC_entry_identity",
+      "limits": "Independent native caller/body review; provider dependencies and source spelling remain separate."
     }
   },
   "omit_functions": {

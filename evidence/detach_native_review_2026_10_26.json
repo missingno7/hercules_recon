@@ -1,0 +1,142 @@
+{
+  "schema": 1,
+  "scope": "Independent native identity/ABI and current canonical provider evidence for ENG1 detach_buffer -> remove_fx_links. This supports a working-source name and pointer ABI only; no original C source identity, full source equality, or acceptance claim.",
+  "target": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "image_base": "0x10000000"
+  },
+  "evidence_files": {
+    "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "src/shared/actor_detach_helpers.c": "dea6029c9173a2e2c73cdd181d742c1d62eb9ec301c688310105be8ab936c8c5",
+    "src/eng1/actor_links.c": "88aa85f0879a7b41badb11828d5cbb839e0e1211f3ef0b26e6df768dd02b2b49",
+    "src/shared/engine_fx_record.h": "39a59bc8f8c901bb58245d906e66b6e9499dc9641e4571e08b549b00873604a1",
+    "src/shared/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+    "evidence/source_layout_2026_10_25/review.json": "a168fdfd9be70c236db7ec9e54ad8760f1fb47f7eb45d4bba6f2184455d093d7",
+    "evidence/source_layout_2026_10_25/progress.json": "9468684b98d070b7775a57edf0b5332a54ff59de436df026a9ce1315518d49c1"
+  },
+  "native_caller": {
+    "rva": "0x29570",
+    "size": 48,
+    "sha256": "98dcda69efc3ffb7f678d4c0510f5a77947c199c410df9357d031b180a8a3d9b",
+    "call": {
+      "instruction_rva": "0x2958c",
+      "operand_rva": "0x2958d",
+      "target_rva": "0x7cde",
+      "bytes": "e84de7fdff"
+    },
+    "argument": {
+      "push_rva": "0x29584",
+      "bytes": "50",
+      "meaning": "owner pointer in EAX pushed as the sole stack argument"
+    },
+    "cleanup": {
+      "rva": "0x29591",
+      "bytes": "83c404",
+      "meaning": "caller adds four bytes after the call"
+    },
+    "only_call_to_candidate_in_this_body": true
+  },
+  "native_callee": {
+    "rva": "0x7cde",
+    "observed_size_through_ret": 137,
+    "sha256": "5c49efd35d2cb920dfee71ee2b572adf95d955451219350b2158ef6c823ca7d0",
+    "ret": {
+      "rva": "0x7d66",
+      "bytes": "c3",
+      "meaning": "plain RET; no callee argument pop"
+    },
+    "direct_calls": [
+      {
+        "instruction_rva": "0x7cea",
+        "target_rva": "0x2c650",
+        "bytes": "e861490200"
+      },
+      {
+        "instruction_rva": "0x7cf8",
+        "target_rva": "0x1000",
+        "bytes": "e80393ffff"
+      },
+      {
+        "instruction_rva": "0x7d44",
+        "target_rva": "0x2cb70",
+        "bytes": "e8274e0200"
+      },
+      {
+        "instruction_rva": "0x7d5e",
+        "target_rva": "0x2c660",
+        "bytes": "e8fd480200"
+      }
+    ],
+    "trace_literal": {
+      "immediate_operand_rva": "0x7cf4",
+      "literal_rva": "0x4db54",
+      "bytes_hex_with_nul": "0a2052656d6f766546784c696e6b7328307825782900",
+      "text_without_nul": "\n RemoveFxLinks(0x%x)"
+    },
+    "native_abi": {
+      "argument": "one DWORD owner/actor pointer at [EBP+8]",
+      "calling_convention": "cdecl",
+      "return": "void/ignored",
+      "independent_basis": [
+        "callee reads [EBP+8]",
+        "caller pushes one DWORD and cleans four bytes",
+        "callee returns with plain RET",
+        "caller has no post-call EAX use"
+      ]
+    },
+    "protocol": [
+      "NULL owner exits before enter callback",
+      "calls enter callback RVA 0x2c650 and leave callback RVA 0x2c660",
+      "passes the owner to a log call with the RemoveFxLinks string",
+      "iterates signed index 0 through 23 using 64-byte records",
+      "compares owner DWORD at row +0x30 with the argument",
+      "on a match, tests DWORD flags at +0x34 against 0x8000",
+      "when that bit is clear, calls stop-channel wrapper RVA 0x2cb70 with the low WORD index",
+      "clears matching row owner DWORD +0x30"
+    ],
+    "absolute_relocation_operand_rvas": [
+      "0x7cf4",
+      "0x7d20",
+      "0x7d31",
+      "0x7d54"
+    ]
+  },
+  "current_canonical_provider": {
+    "path": "src/eng1/actor_links.c",
+    "sha256": "88aa85f0879a7b41badb11828d5cbb839e0e1211f3ef0b26e6df768dd02b2b49",
+    "function": "void remove_fx_links(ActorLinkView *owner)",
+    "current_path_provenance": {
+      "source_layout_review": "evidence/source_layout_2026_10_25/review.json",
+      "source_layout_review_sha256": "a168fdfd9be70c236db7ec9e54ad8760f1fb47f7eb45d4bba6f2184455d093d7",
+      "path_move": "src/eng1/behavioral/actor_links.c -> src/eng1/actor_links.c",
+      "source_layout_progress": "evidence/source_layout_2026_10_25/progress.json",
+      "source_layout_progress_sha256": "9468684b98d070b7775a57edf0b5332a54ff59de436df026a9ce1315518d49c1",
+      "recorded_current_source_sha256_matches": true,
+      "scope": "tracked path consolidation and current source hash; does not prove original symbol identity"
+    },
+    "source_agreement": [
+      "one owner pointer and NULL early return",
+      "enter/leave callbacks surround removal",
+      "24 FX records, stride 0x40",
+      "compares owner field +0x30",
+      "tests row flags +0x34 bit 0x8000",
+      "stops low-word channel through interface slot 20",
+      "clears matching row owner"
+    ],
+    "working_name_conclusion": "The current canonical C provider remove_fx_links is independently consistent with the directly called native routine whose own trace says RemoveFxLinks."
+  },
+  "current_caller_source": {
+    "path": "src/shared/actor_detach_helpers.c",
+    "sha256": "dea6029c9173a2e2c73cdd181d742c1d62eb9ec301c688310105be8ab936c8c5",
+    "declaration": "extern void remove_fx_links(ActorDetachView *actor);",
+    "use": "detach_buffer clears actor+0x6c then calls remove_fx_links(actor);",
+    "only_call_in_source_unit": true
+  },
+  "limitations": [
+    "The trace string and current C provider support the logical/working name, not the original source identifier or translation-unit boundary.",
+    "Native body evidence does not establish the current provider as raw-equal to all 137 bytes.",
+    "No ENG3 source provider is claimed.",
+    "No compiler call, native execution, or matching acceptance is represented in this review."
+  ]
+}

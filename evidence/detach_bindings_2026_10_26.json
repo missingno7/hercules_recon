@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "scope": "Fresh diagnostic reference binding for eng1.detach_buffer. Native identity review is hash-pinned; actual COFF relocation coordinates come from one fresh pinned compilation. No acceptance claim.",
+  "native_review_path": "evidence/detach_native_review_2026_10_26.json",
+  "native_review_sha256": "91833c9f6d282cd1289f7f282f6c0ca9f22a8ca41911c8ad1a4cb55c6b217866",
+  "evidence_files": {
+    "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+    "src/shared/actor_detach_helpers.c": "dea6029c9173a2e2c73cdd181d742c1d62eb9ec301c688310105be8ab936c8c5",
+    "src/eng1/actor_links.c": "88aa85f0879a7b41badb11828d5cbb839e0e1211f3ef0b26e6df768dd02b2b49",
+    "src/shared/engine_fx_record.h": "39a59bc8f8c901bb58245d906e66b6e9499dc9641e4571e08b549b00873604a1",
+    "src/shared/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+    "evidence/source_layout_2026_10_25/review.json": "a168fdfd9be70c236db7ec9e54ad8760f1fb47f7eb45d4bba6f2184455d093d7",
+    "evidence/source_layout_2026_10_25/progress.json": "9468684b98d070b7775a57edf0b5332a54ff59de436df026a9ce1315518d49c1",
+    "evidence/detach_native_review_2026_10_26.json": "91833c9f6d282cd1289f7f282f6c0ca9f22a8ca41911c8ad1a4cb55c6b217866"
+  },
+  "functions": {
+    "eng1.detach_buffer": {
+      "symbols": {
+        "_remove_fx_links": {
+          "kind": "function",
+          "rva": 31966,
+          "size": 137,
+          "evidence": [
+            "evidence/detach_native_review_2026_10_26.json#native_caller.call",
+            "evidence/detach_native_review_2026_10_26.json#native_callee",
+            "evidence/detach_native_review_2026_10_26.json#current_canonical_provider"
+          ],
+          "references": [
+            {
+              "offset": 29,
+              "type": 20,
+              "addend": 0
+            }
+          ],
+          "fresh_coff_uses": [
+            {
+              "offset": 29,
+              "type": 20,
+              "symbol": "_remove_fx_links",
+              "addend": 0,
+              "field_bytes": "00000000",
+              "preceding_opcode": "e8"
+            }
+          ],
+          "fresh_check": "work/velocity_20261026/detach/fresh_reference_check.json#coff_reference_result",
+          "reference_status": "independently_verified"
+        }
+      }
+    }
+  }
+}

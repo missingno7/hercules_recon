@@ -93,6 +93,15 @@ class ReferencePreflightTests(unittest.TestCase):
         report_path.write_text(json.dumps(self.report) + "\n")
         self.assertTrue(self._run(report=report_path)["ok"])
 
+    def test_extra_function_metadata_is_rejected_without_compilation(self):
+        document = json.loads(self.bindings.read_bytes())
+        document["functions"][self.row["id"]]["source"] = self.row["source"]
+        self.bindings.write_text(json.dumps(document) + "\n")
+        result = self._run()
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["compiler_calls"], 0)
+        self.assertIn("Invalid binding document", str(result))
+
     def test_binding_offset_addend_and_type_mismatches_show_actual_use(self):
         for change in ({"offset": 2}, {"addend": 1}, {"type": 6}):
             with self.subTest(change=change):

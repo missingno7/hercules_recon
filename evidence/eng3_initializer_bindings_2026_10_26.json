@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "scope": "Private relocated-reference binding proposal for eng3.266a0; not acceptance.",
+  "methodology": [
+    "Native review independently identifies the file-backed provider body at ENG3 RVA 0x1010, its initialized state and its native caller ABI witness.",
+    "Native ENG3 bytes at 0x266a0 contain a direct call at 0x26752 to 0x1010.",
+    "The proposed complete COFF use is one REL32 at contribution offset 0xb3 (179), addend 0; the root-owned fresh full gate must verify the COFF use and all 208 bytes.",
+    "No original source spelling or translation-unit identity is inferred from the COFF symbol."
+  ],
+  "evidence_files": {
+    "evidence/eng3_rng_provider_2026_10_25.json": "9065d84486464d690e69aeecf4d670d976ad725f3de02d819e00f38751b5c33c",
+    "assets/pc/HERCULES/ENG3.DLL": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+    "evidence/eng3_initializer_rng_review_2026_10_26.json": "b011421ed6720f8842a3a9e320c70933e8a6161b9fd10d8ea5fd6a857ee7b2ea"
+  },
+  "function_identities": {
+    "eng3.native_rng_provider_01010": {
+      "rva": 4112,
+      "size": 64,
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "native_function_sha256": "c733b08ff5bb8e1f58f8d6b3f6e301749f7493d4c691d6acbcbd168f72bf36f9",
+      "origin": "File-backed native bytes, state and caller observations in the pinned native review; no original source/TU claim."
+    }
+  },
+  "functions": {
+    "eng3.266a0": {
+      "symbols": {
+        "_eng3_01010": {
+          "kind": "function",
+          "rva": 4112,
+          "size": 64,
+          "evidence": [
+            "evidence/eng3_initializer_rng_review_2026_10_26.json#provider",
+            "evidence/eng3_initializer_rng_review_2026_10_26.json#abi_witness",
+            "evidence/eng3_rng_provider_2026_10_25.json#native_abi_witness"
+          ],
+          "references": [
+            {
+              "offset": 179,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -15,6 +15,16 @@ from pe import PE
 REL32, DIR32, DIR32NB, SECTION = 0x14, 0x06, 0x07, 0x0a
 
 
+def binding_records(bindings):
+    """Share the comparator's cheap document guard with pre-compile readers."""
+    if not isinstance(bindings, dict) or set(bindings) - {'symbols', 'tables', 'indirect_calls'}:
+        raise ValueError('Invalid binding document')
+    records = bindings.get('symbols', {})
+    if not isinstance(records, dict):
+        raise ValueError('Invalid symbol bindings')
+    return records
+
+
 def masked_compare(obj, symbol, target, rva, size):
     coff = COFF(obj)
     section = coff.function(symbol)
@@ -201,11 +211,7 @@ def relocated_compare(obj, symbol, target, rva, size, bindings, storage_owners=N
     if len(actual) != section['size'] or size != section['size'] or size <= 0:
         raise ValueError('Complete compiler-owned function extent must equal target extent')
     expected = interval(rva, size, True)
-    if not isinstance(bindings, dict) or set(bindings) - {'symbols', 'tables', 'indirect_calls'}:
-        raise ValueError('Invalid binding document')
-    records = bindings.get('symbols', {})
-    if not isinstance(records, dict):
-        raise ValueError('Invalid symbol bindings')
+    records = binding_records(bindings)
     by_name = {}
     for s in coff.symbols.values():
         by_name.setdefault(s['name'], []).append(s)

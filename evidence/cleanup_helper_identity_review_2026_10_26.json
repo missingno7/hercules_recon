@@ -1,0 +1,243 @@
+{
+  "schema": 1,
+  "scope": "Native helper identity and ABI review for the clear_actor dependency bindings. Behavioral identity and target extents only; no matching acceptance, source-TU ownership, original function-name claim, or original C prototype claim.",
+  "generated_utc": "2026-10-26T06:32:02.660Z",
+  "source_provenance": {
+    "candidate_cleanup_unit": {
+      "path": "src/title/u02b70.c",
+      "sha256": "3f7d417710daf1ecc7a6efaac8a1f1833afe244c3fcdcddb1d99575243e3ebfa",
+      "role": "TITLE.DLL source candidate for the resource-state and token helpers; not an original source/TU claim."
+    },
+    "candidate_caller": {
+      "path": "src/shared/clear_actor.c",
+      "sha256": "3ff1bebf0bfc438924db0e8e5547daec9d68d2b2c217f88015b90de498ae145c",
+      "role": "Shared source candidate for both ENG1 and ENG3 clear_actor callers."
+    },
+    "selected_provider": {
+      "path": "src/eng1/cleanup_helpers_writers.c",
+      "sha256": "967edcf7cbf135e4fd3e47cc8bb95df1364893371e52818ac682d5689cf1c7e5",
+      "role": "Current ENG1 selected provider for release_actor_resource_state and release_actor_token."
+    },
+    "sprite_unit": {
+      "path": "src/eng1/sprite_unit_03cd0.c",
+      "sha256": "7a2b277a8b213f3e8d85846dd04ca8888ce7d410334d599d77565aa4f01ef185",
+      "role": "Contains the sprite-unit omitted-body declaration for release_actor_token."
+    },
+    "compile_history": "This packaging reuses the prior identity review and caller diagnostics; it performed no compiler calls. The relocation comparison remains diagnostic only.",
+    "historical_source_selection_snapshot": {
+      "path": "config/eng1/sources.json",
+      "sha256": "b1d5faf7c60f01b5cdd56f57dbde561d757ee89c598bae80d835b3dba8f101f8",
+      "related_sprite_unit": "src/eng1/sprite_unit_03cd0.c",
+      "related_sprite_sha256": "7a2b277a8b213f3e8d85846dd04ca8888ce7d410334d599d77565aa4f01ef185",
+      "finding": "The selected provider for the sprite-unit release_actor_token is src/eng1/cleanup_helpers_writers.c. The retained sprite-unit omitted-body declaration is TitleTabEntry *release_actor_token(TitleObject *); the selected provider defines void release_actor_token(Actor *). This is an actual incompatible declaration in the current reconstructed ENG1 source graph. src/shared/clear_actor.c declares the symbol void, matching the selected writer. This reconstructed-source conflict does not establish the original game C return type.",
+      "status": "Historical provenance only. Source correction is pending review; this snapshot is not an acceptance input."
+    }
+  },
+  "native_images": {
+    "ENG1.DLL": {
+      "path": "assets/pc/HERCULES/ENG1.DLL",
+      "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+    },
+    "ENG3.DLL": {
+      "path": "assets/pc/HERCULES/ENG3.DLL",
+      "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7"
+    },
+    "TITLE.DLL": {
+      "path": "assets/pc/HERCULES/TITLE.DLL",
+      "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b"
+    }
+  },
+  "helpers": {
+    "ENG3.resource_state": {
+      "entry": "0xa2d0",
+      "size": 320,
+      "sha256": "776a7816de9cdffece9addc0af88bf52897f216a7922814a7c9a38d27b8bb4de",
+      "candidate": "src/title/u02b70.c:title_042d0; void(pointer), cdecl/caller-cleanup ABI",
+      "native_semantics": "Actor WORD+0x44 selects a 20-byte resource record (record table 0x39548); member+0x10 is the residency WORD and +0x0c is the reference table pointer. For each non-ffff chain key at actor +0x46/+0x48, decrement the selected reference count; release if the count reaches zero or saved residency is zero. Walk 12-byte rows at 0x42560 using key>>4, clear mask bit key&15, select the next WORD through the 16-byte signed map at 0x39ac0, and stop at key 0xffff. Clear consumed heads; copy WORD+0x34 to +0x40 and BYTE+0x22 to WORD+0x44; preserve +0x42.",
+      "native_body_anchors": [
+        "0xa2d5 reads actor+0x44; 0xa2dd checks 0xffff",
+        "0xa2ef/0xa2f3 form index*20",
+        "0xa34a/0xa3d2 load signed map bytes",
+        "0xa359/0xa3df clear row mask",
+        "0xa360/0xa3e6 load successor WORD",
+        "0xa40f ret"
+      ],
+      "reference_closure": {
+        "resource_records": "0x39548 (stride 20; fields +0x0c/+0x10)",
+        "signed_map": "0x39ac0 (16 entries; raw bytes 00000100020000000301000002000000)",
+        "link_rows": "0x42560 (row stride 12; next keys start +4)"
+      },
+      "independent_writer_context": [
+        {
+          "rva": "0x85f7",
+          "bytes": "66833c855895031000",
+          "effect": "cmp WORD [index*20+0x39558],0"
+        },
+        {
+          "rva": "0x8602",
+          "bytes": "66c70485589503100100",
+          "effect": "store WORD 1 to [index*20+0x39558]"
+        },
+        {
+          "rva": "0x866f",
+          "bytes": "6683bd5895031003",
+          "effect": "cmp WORD [record+0x10],3"
+        },
+        {
+          "rva": "0x8745",
+          "bytes": "66c785589503100200",
+          "effect": "store WORD 2 to [record+0x10]"
+        },
+        {
+          "rva": "0x88e8",
+          "bytes": "66833c855895031002",
+          "effect": "cmp WORD [index*20+0x39558],2"
+        },
+        {
+          "rva": "0x88f3",
+          "bytes": "66c70485589503100300",
+          "effect": "store WORD 3 to [index*20+0x39558]"
+        },
+        {
+          "rva": "0x89c8",
+          "bytes": "66c786589503100000",
+          "effect": "store WORD 0 to [record+0x10]"
+        }
+      ]
+    },
+    "ENG3.token": {
+      "entry": "0xa9a0",
+      "size": 48,
+      "sha256": "128e52e3eb5af209428a0d36352855d665502eec9e6bbe4c79059b1c34d61d7c",
+      "candidate": "src/title/u02b70.c:title_047a0; pointer-return reconstruction candidate only, not an original prototype claim",
+      "native_semantics": "Read actor BYTE+0x1e. If it is 0xff, return without a table update. Otherwise decrement count WORD at row base+index*4, write 0xff to actor bytes +0x1e and +0x1d, then form the row address in EAX. Callers discard EAX; this register value does not establish the original C return type.",
+      "native_body_anchors": [
+        "0xa9a9 loads actor+0x1e",
+        "0xa9b2 decrements WORD at 0x424c0+index*4",
+        "0xa9ba/0xa9bd clear actor bytes +0x1e/+0x1d",
+        "0xa9c0 forms row address in EAX",
+        "0xa9c7 ret; 0xa9c8..0xa9cf padding"
+      ],
+      "independent_table_writer": {
+        "base": "0x424c0",
+        "rows": 32,
+        "stride": 4,
+        "initializer": {
+          "entry": "0xa960",
+          "size": 64,
+          "sha256": "8d73a3b47336ab1ab13c03be18163843f9ad97272e50f4736588018b362af4d3",
+          "instructions": [
+            {
+              "rva": "0xa960",
+              "bytes": "b8c0240410",
+              "effect": "load table base"
+            },
+            {
+              "rva": "0xa965",
+              "bytes": "b920000000",
+              "effect": "32 rows"
+            },
+            {
+              "rva": "0xa96a",
+              "bytes": "baffff0000",
+              "effect": "key sentinel"
+            },
+            {
+              "rva": "0xa96f",
+              "bytes": "66895002",
+              "effect": "write key WORD+2"
+            },
+            {
+              "rva": "0xa973",
+              "bytes": "66c7000000",
+              "effect": "write count WORD+0"
+            },
+            {
+              "rva": "0xa978",
+              "bytes": "83c004",
+              "effect": "advance by four bytes"
+            }
+          ]
+        },
+        "allocator": {
+          "entry": "0xa8b0",
+          "size": 96,
+          "sha256": "57198f9d979cb5bcf3b1261dea6313cb5ea37abf04c897d138e4345b09833e7c",
+          "source_body_fresh_diagnostic": "complete span and table reference match"
+        }
+      }
+    },
+    "ENG1.peers": {
+      "resource_state": {
+        "entry": "0x51d0",
+        "size": 320,
+        "sha256": "8130287b031d9e3defb7645c1b9efe3c0bd0a601bf39810ea00c9568b78a7be3",
+        "record_map": {
+          "resources": "0x5cee0",
+          "signed_map": "0x5e128",
+          "link_rows": "0x72880"
+        }
+      },
+      "token": {
+        "entry": "0x5750",
+        "size": 48,
+        "sha256": "c71747b9d0aea603b560defd7f5aebad8a97760e12f7baa75f6d52039993b585",
+        "token_rows": "0x727e0"
+      }
+    }
+  },
+  "independent_call_context": {
+    "resource_and_token_transition": "ENG3 0xa410 (96B) independently calls token 0xa9a0 at 0xa43d (e85e050000), then resource helper 0xa2d0 at 0xa446 (e885feffff) when resource identity changes. ENG1 peer 0x5310 calls 0x5750 at 0x533d (e80e040000), then 0x51d0 at 0x5346 (e885feffff). Both complete caller spans were source-to-native reference diagnostics, not helper-name derivations.",
+    "clear_actor": "ENG3 0xa6b0 calls resource 0xa2d0 at +0x12; token 0xa9a0 at +0x1b; recurses at +0x33; token at +0x3c. ENG1 0x55b0 has the same relative call roles to 0x51d0/0x5750. The external ENG3 pool-driver context at evidence/eng3_pool_driver_fallback_2026_10_11.json independently calls 0xa6b0.",
+    "complete_fresh_coff_uses": [
+      {
+        "offset": 19,
+        "type": 20,
+        "symbol": "_release_actor_resource_state",
+        "addend": 0
+      },
+      {
+        "offset": 28,
+        "type": 20,
+        "symbol": "_release_actor_token",
+        "addend": 0
+      },
+      {
+        "offset": 52,
+        "type": 20,
+        "symbol": "_clear_actor",
+        "addend": 0
+      },
+      {
+        "offset": 61,
+        "type": 20,
+        "symbol": "_release_actor_token",
+        "addend": 0
+      }
+    ]
+  },
+  "prototype_and_abi_limit": "Historical reconstructed-source snapshot: src/eng1/sprite_unit_03cd0.c retained a pointer-return omitted-body declaration for release_actor_token while the configured provider was void; src/shared/clear_actor.c and the selected writer both declared/defined it void. Cleanup-source correction is pending review, so this snapshot is not an acceptance premise. The native token path forms a row address in EAX, but observed callers discard EAX; do not infer the original C return type from that register value.",
+  "limits": [
+    "Behavioral/source-body identity only; no original symbol, source TU, original declaration, or strict acceptance claim.",
+    "ENG1 and ENG3 addresses/data maps were measured separately; no RVA twin transfer.",
+    "The helper return type remains unresolved from native register use; no original C return-type claim is made.",
+    "No recovery ledger update or matching acceptance is represented.",
+    "ENG1 cleanup-source correction is pending review; historical sprite declaration/configuration snapshot is provenance only and not an acceptance input."
+  ],
+  "canonical_evidence": {
+    "evidence/cleanup_helpers_region.json": "f9762c3cffb5ca188bc6b1cadf8f9fd81aa8affc27457a7a18980e6de8af6b7b",
+    "evidence/cleanup_helpers_writers_region.json": "82a6ce3ea968ff4602769160d9fdad844079b4359694964d6766a8a97d823222",
+    "evidence/clear_actor_peer_adoption_2026_10_11.json": "44bff7a4bfc86ced7dae1d2e740f407be163ab611557c22db355a4a9bbebcf50",
+    "evidence/eng3_pool_driver_fallback_2026_10_11.json": "c73ecba316168199232d7ff88ef5f1f7f5be9d8e73a2a8d2752f276bf5651bb0",
+    "evidence/resource_writer_layout.json": "c449d77865b109f0afe8bedb921f887b45a49b0c3ded92fdd2fdb2d7137e8d87",
+    "evidence/resource_data_source.json": "87babc9ace9604c9e7f1ef87e1c87e77ceb9afef8c0b7a06063fd5a5dbeb1e5d",
+    "evidence/actor_prefix_types.json": "6d77bf60d98892da95d42db73366f4a3d591e2c149e1807178e573e0d822cb3e",
+    "evidence/actor_pool_layout.json": "13e4b6ea5c268ee49daba9e678d2edd5e8b97fe7c0dac820311996b996e6bd36",
+    "evidence/actor_pool_reset_region.json": "0e7dee4128d0a061b335d94c67b73d006f93c0600c395d37acff4c18c2ae7de6"
+  },
+  "source_contract_resolution": {
+    "review": "evidence/eng1_provider_reuse_2026_10_26.json",
+    "sha256": "98b5aa05f7e3f6f5cb55f9d68b0f23511f88bbd8a5bd559011360d1a6d1cf651",
+    "change": "Active omitted-body unit declarations now use void, matching the selected provider; canonical historical source and existing proof contexts stay unchanged. Source graph is freshly checked separately."
+  }
+}

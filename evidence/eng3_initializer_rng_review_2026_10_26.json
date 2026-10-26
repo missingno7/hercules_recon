@@ -1,0 +1,233 @@
+{
+  "schema": 1,
+  "scope": "Native-only review proposal for the ENG3 RNG provider identity at RVA 0x1010 and its direct use by the 0x266a0 contribution. No matching or source-ownership claim.",
+  "target": {
+    "module": "ENG3.DLL",
+    "path": "assets/pc/HERCULES/ENG3.DLL",
+    "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+    "image_base": "0x10000000"
+  },
+  "provider": {
+    "rva": "0x1010",
+    "span_size": 64,
+    "span_sha256": "c733b08ff5bb8e1f58f8d6b3f6e301749f7493d4c691d6acbcbd168f72bf36f9",
+    "bytes": "8b1574300310a1703003108bca03d081e1ffff000003c233ca891574300310f7c100000080a370300310740640a37030031033d2f77424048bc2c39090909090",
+    "instructions": [
+      {
+        "rva": "0x1010",
+        "bytes": "8b1574300310",
+        "mnemonic": "mov",
+        "operands": "edx, dword ptr [0x10033074]"
+      },
+      {
+        "rva": "0x1016",
+        "bytes": "a170300310",
+        "mnemonic": "mov",
+        "operands": "eax, dword ptr [0x10033070]"
+      },
+      {
+        "rva": "0x101b",
+        "bytes": "8bca",
+        "mnemonic": "mov",
+        "operands": "ecx, edx"
+      },
+      {
+        "rva": "0x101d",
+        "bytes": "03d0",
+        "mnemonic": "add",
+        "operands": "edx, eax"
+      },
+      {
+        "rva": "0x101f",
+        "bytes": "81e1ffff0000",
+        "mnemonic": "and",
+        "operands": "ecx, 0xffff"
+      },
+      {
+        "rva": "0x1025",
+        "bytes": "03c2",
+        "mnemonic": "add",
+        "operands": "eax, edx"
+      },
+      {
+        "rva": "0x1027",
+        "bytes": "33ca",
+        "mnemonic": "xor",
+        "operands": "ecx, edx"
+      },
+      {
+        "rva": "0x1029",
+        "bytes": "891574300310",
+        "mnemonic": "mov",
+        "operands": "dword ptr [0x10033074], edx"
+      },
+      {
+        "rva": "0x102f",
+        "bytes": "f7c100000080",
+        "mnemonic": "test",
+        "operands": "ecx, 0x80000000"
+      },
+      {
+        "rva": "0x1035",
+        "bytes": "a370300310",
+        "mnemonic": "mov",
+        "operands": "dword ptr [0x10033070], eax"
+      },
+      {
+        "rva": "0x103a",
+        "bytes": "7406",
+        "mnemonic": "je",
+        "operands": "0x10001042"
+      },
+      {
+        "rva": "0x103c",
+        "bytes": "40",
+        "mnemonic": "inc",
+        "operands": "eax"
+      },
+      {
+        "rva": "0x103d",
+        "bytes": "a370300310",
+        "mnemonic": "mov",
+        "operands": "dword ptr [0x10033070], eax"
+      },
+      {
+        "rva": "0x1042",
+        "bytes": "33d2",
+        "mnemonic": "xor",
+        "operands": "edx, edx"
+      },
+      {
+        "rva": "0x1044",
+        "bytes": "f7742404",
+        "mnemonic": "div",
+        "operands": "dword ptr [esp + 4]"
+      },
+      {
+        "rva": "0x1048",
+        "bytes": "8bc2",
+        "mnemonic": "mov",
+        "operands": "eax, edx"
+      },
+      {
+        "rva": "0x104a",
+        "bytes": "c3",
+        "mnemonic": "ret",
+        "operands": ""
+      },
+      {
+        "rva": "0x104b",
+        "bytes": "90",
+        "mnemonic": "nop",
+        "operands": ""
+      },
+      {
+        "rva": "0x104c",
+        "bytes": "90",
+        "mnemonic": "nop",
+        "operands": ""
+      },
+      {
+        "rva": "0x104d",
+        "bytes": "90",
+        "mnemonic": "nop",
+        "operands": ""
+      },
+      {
+        "rva": "0x104e",
+        "bytes": "90",
+        "mnemonic": "nop",
+        "operands": ""
+      },
+      {
+        "rva": "0x104f",
+        "bytes": "90",
+        "mnemonic": "nop",
+        "operands": ""
+      }
+    ],
+    "extent_basis": "Existing eng3_rng_provider evidence records this 64-byte file-backed span; native decode includes the helper return followed by padding.",
+    "state_cells": [
+      {
+        "rva": "0x33070",
+        "width_bits": 32,
+        "bytes": "7b000000",
+        "initial_value": 123
+      },
+      {
+        "rva": "0x33074",
+        "width_bits": 32,
+        "bytes": "c8010000",
+        "initial_value": 456
+      }
+    ],
+    "semantics": "high += low; low += high; increment low when updated high bit31 is set; return unsigned low % limit. Arithmetic wraps modulo 2^32. Limit zero faults at native DIV.",
+    "identity_limit": "This identifies the file-backed native body and its behavior. It does not establish original symbol spelling, source file, or translation-unit ownership."
+  },
+  "abi_witness": {
+    "rva": "0x540c",
+    "span_size": 16,
+    "sha256": "4f6056999d8da64d9cc4d225abd260d6e7bcdb248b7501084dcaea19f65b3b5a",
+    "bytes": "6a06896c2418e8f9bbffff83c40485c0",
+    "instructions": [
+      {
+        "rva": "0x540c",
+        "bytes": "6a06",
+        "mnemonic": "push",
+        "operands": "6"
+      },
+      {
+        "rva": "0x540e",
+        "bytes": "896c2418",
+        "mnemonic": "mov",
+        "operands": "dword ptr [esp + 0x18], ebp"
+      },
+      {
+        "rva": "0x5412",
+        "bytes": "e8f9bbffff",
+        "mnemonic": "call",
+        "operands": "0x10001010"
+      },
+      {
+        "rva": "0x5417",
+        "bytes": "83c404",
+        "mnemonic": "add",
+        "operands": "esp, 4"
+      },
+      {
+        "rva": "0x541a",
+        "bytes": "85c0",
+        "mnemonic": "test",
+        "operands": "eax, eax"
+      }
+    ],
+    "observation": "The native caller pushes one DWORD limit, calls RVA 0x1010, cleans four stack bytes, then tests EAX; the helper ends in plain RET. This supports DWORD __cdecl argument/result behavior."
+  },
+  "consumer_call": {
+    "rva": "0x266a0",
+    "span_size": 208,
+    "span_sha256": "cf039d675c3b8e17045134282a502967935d234072f146b41d9c75477ae5f91d",
+    "bytes": "568b742408b9010000006a108b46548b56040d4000001081c2000000fc89465433c0c746500202000066c7462a080066898e980000008986e00000006689861601000066898e1e010000888695000000c786bc00000000001e008986ac000000c786cc00000000000f008986b8000000c786c000000000000200c786c4000000ffff000066c746300a006689869a00000066c74634020066c74672000189560466c7463a000266c7464afe00898edc000000e8b9a8fdff83c40483c0608986d80000005ec39090909090909090909090",
+    "direct_calls": [
+      {
+        "site_rva": "0x26752",
+        "bytes": "e8b9a8fdff",
+        "target_rva": "0x1010"
+      }
+    ],
+    "identity_observation": "The native direct call at 0x26752 resolves to ENG3 RVA 0x1010. This native destination is independent of the current COFF symbol map.",
+    "coff_inventory_note": "A separate private binding proposal retains the candidate COFF reference at contribution offset 179 (0xb3), IMAGE_REL_I386_REL32, addend 0. The normal full gate must freshly validate that use; no compiler receipt is pinned by this review."
+  },
+  "existing_provider_evidence": {
+    "path": "evidence/eng3_rng_provider_2026_10_25.json",
+    "sha256": "9065d84486464d690e69aeecf4d670d976ad725f3de02d819e00f38751b5c33c",
+    "status": "NEAR",
+    "flags": [
+      "/O2"
+    ],
+    "native_function_sha256": "c733b08ff5bb8e1f58f8d6b3f6e301749f7493d4c691d6acbcbd168f72bf36f9",
+    "abi_witness_sha256": "4f6056999d8da64d9cc4d225abd260d6e7bcdb248b7501084dcaea19f65b3b5a",
+    "source_sha256": "e3e1633cc100be5f547db0d1e50f4e50a5af23783669d8173dea40d6fe12c006",
+    "scope_limit": "Existing provider proof is NEAR, not a function match; source code is corroborating reconstruction, not authority for the native destination."
+  }
+}

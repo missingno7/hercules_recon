@@ -286,6 +286,8 @@ class ReferenceSnapshot:
             context = dict(files=document['evidence_files'], identity_sha256=reference_digest(identity))
             self.documents[path] = document, context, observed
         document, context, observed = self.documents[path]
+        from masked import binding_records
+        binding_records(document['functions'][row['id']])
         # Callers cannot alter a later row's frozen metadata by mutating a result.
         return copy.deepcopy(document['functions'][row['id']]), copy.deepcopy(context), dict(observed)
 

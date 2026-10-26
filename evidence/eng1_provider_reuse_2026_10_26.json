@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "scope": "Original-backed source provider reuse and active-source declaration correction; no new matching acceptance or source-completeness claim.",
+  "oracle": {
+    "path": "assets/pc/HERCULES/ENG1.DLL",
+    "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757"
+  },
+  "providers": {
+    "dbg_printf": {
+      "provider": "engine_diagnostic",
+      "rva": "0x1000",
+      "size": 16,
+      "native_sha256": "499f1f307c1cb989f968a6b7fcaec591e1828877223d0b0e7e8e8b76cde8c9ca",
+      "caller_contexts": [
+        {
+          "rva": "0x945f",
+          "bytes": "e89c7bffff8a8e940000008b"
+        },
+        {
+          "rva": "0xc7e6",
+          "bytes": "e81548ffffa1602807108b74"
+        }
+      ],
+      "abi": "cdecl, callers discard EAX; format plus DWORD varargs for diagnostic, one Actor pointer for sound cleanup",
+      "limits": "Native identity and supported call shape, not original C name/type/TU or strict provider acceptance.",
+      "semantics": "Original entry is RET plus 15 NOPs; reuses the existing native no-op diagnostic body, without deleting a live logging implementation."
+    },
+    "stop_actor_sounds": {
+      "provider": "RemoveFxLinks_7ef6",
+      "rva": "0x7ef6",
+      "size": 152,
+      "native_sha256": "c82b79744c8c4fbad5c864695b1c9a7a9988242d43d8f9f10225352e352cddf0",
+      "caller_contexts": [
+        {
+          "rva": "0x28685",
+          "bytes": "e86cf8fdff83c404e99b0000"
+        },
+        {
+          "rva": "0x289bf",
+          "bytes": "e832f5fdff83c404eb21400f"
+        },
+        {
+          "rva": "0x28e85",
+          "bytes": "e86cf0fdff83c404eb7b668b"
+        }
+      ],
+      "abi": "cdecl, callers discard EAX; format plus DWORD varargs for diagnostic, one Actor pointer for sound cleanup",
+      "limits": "Native identity and supported call shape, not original C name/type/TU or strict provider acceptance.",
+      "semantics": "RemoveFxLinks_7ef6 null-checks owner, locks and scans 24 sound rows; matching owners stop their channel, clear actor+0x6c and clear row owner; unlock. It is distinct from the keep-links entry 0x7cde."
+    }
+  },
+  "cleanup_return_declaration": {
+    "source": "src/eng1/sprite_unit_03cd0.c",
+    "source_sha256": "7a2b277a8b213f3e8d85846dd04ca8888ce7d410334d599d77565aa4f01ef185",
+    "selected_provider": "src/eng1/cleanup_helpers_writers.c",
+    "provider_sha256": "967edcf7cbf135e4fd3e47cc8bb95df1364893371e52818ac682d5689cf1c7e5",
+    "adaptation": {
+      "src/eng1/sprite_unit_03cd0.c": [
+        {
+          "before": "TitleTabEntry *release_actor_token(TitleObject *c);",
+          "after": "void release_actor_token(TitleObject *c);",
+          "count": 2,
+          "reason": "After the ENG1 source plan omits the release_actor_token body and retains the selected void provider in src/eng1/cleanup_helpers_writers.c, the derived sprite unit contains two pointer-return declarations: its original prototype and the declaration generated for the omitted body. Change only those derived declarations to void. The selected provider is void, all remaining calls are discarded expression statements, and the native row-address value left in EAX is not evidence of an original C return contract. This keeps the historical source unit and its 17 function proof baselines unchanged."
+        }
+      ]
+    },
+    "basis": "The selected provider returns void. Both retained calls discard EAX. After omitted-body extraction exactly two declarations are corrected; the canonical historical unit and all 17 proof source hashes stay unchanged. Native residual EAX does not prove the original C return type.",
+    "focused_control": "Private void declaration/body control preserves all 27 complete function contributions, non-code and symbol dependencies with the same 62 include inputs."
+  },
+  "evidence_files": {
+    "evidence/engine_diagnostic.json": "be178eeace2f2ce74056b6e068d3bfa595efa04716a300562d31bf1c83d77944",
+    "evidence/engine_dispatch_region.json": "39d182daac4a577fe7dabde2832ab818b4a1a8306372845009db83626957b88f",
+    "evidence/eng1_unresolved_identity_map.json": "0649611a7bf4ac485c66315174dc66045fe73afde009c24d1d5497b241df321d",
+    "evidence/cleanup_helpers_writers_region.json": "82a6ce3ea968ff4602769160d9fdad844079b4359694964d6766a8a97d823222"
+  }
+}
