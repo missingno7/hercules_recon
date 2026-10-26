@@ -1,0 +1,639 @@
+{
+ "schema": 1,
+ "scope": "Private ENG3-only relocated-reference binding proposal for four shared-source rows. The _g_26110 COFF name is bound to ENG3 native resource records at 0x39548, independently from TITLE storage; no acceptance claim. Follow-up adds ENG3, TITLE, and ENG1 resource rows plus the independently anchored ENG3 _g_22148 scalar; earlier unsupported rows remain diagnostic only.",
+ "methodology": [
+  "ENG3 0x39548 is independently identified by native resource-state and writer instructions, the existing module-local resource review, and the complete 10-record file-backed payload.",
+  "TITLE source g_26110[18] and its native storage at 0x26110 remain a separate 18-record object; the ENG3 binding does not reuse the TITLE RVA or extent.",
+  "Each function reference uses the callee own recovery row plus its recorded own masked source-to-native proof and native span/hash."
+ ],
+ "evidence_files": {
+  "assets/pc/HERCULES/ENG3.DLL": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "assets/pc/HERCULES/TITLE.DLL": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+  "evidence/g_26110_review_2026_10_26.json": "5c0e96f9ec9de1e3c07ec894c3afe32a0b51bcffed460c08b2ce8ded7bb888b4",
+  "evidence/cleanup_helper_identity_review_2026_10_26.json": "e16a937984cbf6df557a9030523291eaf41322879c270a9cc3a2d0008b535b2f",
+  "evidence/fx_graph_controls_2026_10_11.json": "3803bf20697f175fd53e5d3d589f8700792cefdf08b9666957d3a732ebadbbf4",
+  "evidence/cross_module_twins_2026_10_20.json": "a28c0e99d755e785ccfde64b089d1cbaedaae35c0c1b26ffde9be15200d7614f",
+  "evidence/eng3_render_unit_2026_10_20.json": "5d7c6b49cf7579f788b70ff421102f9416b996085088539b21161bbad89f6be6",
+  "evidence/title_data_layout_2026_10_20.json": "a0898af679aebafdc73aea6a17b76ff28c7d54a5ba0465e12c5a975a4a049b3d",
+  "evidence/resource_data_source.json": "87babc9ace9604c9e7f1ef87e1c87e77ceb9afef8c0b7a06063fd5a5dbeb1e5d",
+  "src/eng3/render_unit_22f00.cpp": "2daa8f8452946436b18ee991896f25d992a24defb364b4deb02a37c8cdc7d7ac",
+  "src/title/u17cb0.cpp": "24f0718161e0e687793d32041ec5c9b541820f5e45e5e58d2f4a629d0b3fb010",
+  "src/title/u02b70.c": "3f7d417710daf1ecc7a6efaac8a1f1833afe244c3fcdcddb1d99575243e3ebfa",
+  "src/title/r04d80.c": "3da3ac403e6a26d434960c8e3db31d21161e32fb906ef551ae3f0581db035e74",
+  "assets/pc/HERCULES/ENG1.DLL": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "evidence/engine_interface_binding.json": "14d9953831bf8788a7f44eb170806de745d1275dc0a7bdd1f7e6d4d5714fdc3f",
+  "evidence/engine_interface_storage_adoption_2026_10_11.json": "316fc2107510ad7d9ea47f687ea33714986e1fe81611b349f82aaf5cfb170085",
+  "evidence/interface_transfer_bindings_2026_10_25.json": "09be12c74d1b897c1019b69d69cf8ab87935f3572012b7232640043fd113685f",
+  "evidence/interface_transfer_review_2026_10_25.json": "427833ba30f811174b9631bae52250e9f768ee69d5186d54c8047dd911256664",
+  "evidence/matching_harvest_bindings_2026_10_25.json": "615693ec4a7f2aa54d11356a5eaaadbc859d5f3a2240a75af02d50240bd3fc8b",
+  "evidence/source_layout_2026_10_25/review.json": "a168fdfd9be70c236db7ec9e54ad8760f1fb47f7eb45d4bba6f2184455d093d7",
+  "evidence/title_interface_member_rebind_2026_10_11.json": "e757505df370441332a3b0e61758054ed129161eaeeb14afad3cd4b208f35e36",
+  "evidence/title_interface_review_2026_10_25.json": "b5ef693eece22f26535d0c52df5f182f5b68dc3eaf116524845e75df9e7596eb",
+  "src/shared/engine_interface_storage.c": "608a2ef0fa60071f45fb7efccc8bdb2ee7451b0998841a68ad8c7c6fb2e882b5",
+  "src/title/u0c1f0.c": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+  "src/shared/engine_interface.h": "5a4cf5dd7a4d996d1b5f7f196977f611f2afe0891ba7e063730d07e8d8633529",
+  "src/shared/resource_context.h": "38192b0401d08795f15b2f9605bcbdc6d2e92b0a55aae7651171129bdebd0608",
+  "C:\\tools\\hercules\\msvc500-8abf95ce980161ad87b0b02402269cce76988953\\include\\stddef.h": "54177f0a56974ea8db942bc2e09343762aee85be504e31b6d97ebc58b873b6a9",
+  "src/title/title_engine.h": "460a1ed9004806155171691926cff2a92fbd98c4ff098db9d8d874a04e3512e4",
+  "src/title/title_screen.h": "18ddb6112c5592b914e64880e1cc8426b2f556d95ef3dcd7c5ef4e1d14f7f3fd",
+  "src/title/title_proc.h": "e47311fdfe6e88084912c8515ce6331498b63b76c8ecdb085bd4a97a391cb3fc"
+ },
+ "function_identities": {
+  "eng3.shared_085f0": {
+   "rva": 34288,
+   "size": 32,
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "native_function_sha256": "760128d169e57967c04389e5b9fe281ce16fcba582fd4e879fec7aa62edd0d8e",
+   "source": "src/title/u02b70.c",
+   "source_sha256": "3f7d417710daf1ecc7a6efaac8a1f1833afe244c3fcdcddb1d99575243e3ebfa",
+   "ledger_id": "eng3.shared_085f0",
+   "ledger_status": "CODEGEN_SIMILAR",
+   "prior_masked_sha256": "9d3e6fb26f57648d30f2406546188ac2da02428f11d7b840032904fdd464312a",
+   "origin": "Callee own recovery row and recorded own source-to-native masked proof; exact native span/hash is captured in the independent native review. No acceptance claim."
+  },
+  "eng3.shared_08820": {
+   "rva": 34848,
+   "size": 80,
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "native_function_sha256": "6a507ea95701c588f9967b6ebbc550f51658b9111716d3eb246bff5ae4fc21c3",
+   "source": "src/title/r04d80.c",
+   "source_sha256": "3da3ac403e6a26d434960c8e3db31d21161e32fb906ef551ae3f0581db035e74",
+   "ledger_id": "eng3.shared_08820",
+   "ledger_status": "CODEGEN_SIMILAR",
+   "prior_masked_sha256": "a1af9f59067deeeb985e506db596cf6852551a5a40570237adcef2952bb7bfdc",
+   "origin": "Own recovery row and its recorded masked source-to-native proof; native extent/hash independently captured in native_review.json. This is function identity only, not acceptance."
+  },
+  "eng3.shared_08870": {
+   "rva": 34928,
+   "size": 112,
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "native_function_sha256": "9d6a02c03664040a2c6998a064cfb35a8affb76b60cad8d5f1f73643d6d67d7e",
+   "source": "src/title/r04d80.c",
+   "source_sha256": "3da3ac403e6a26d434960c8e3db31d21161e32fb906ef551ae3f0581db035e74",
+   "ledger_id": "eng3.shared_08870",
+   "ledger_status": "CODEGEN_SIMILAR",
+   "prior_masked_sha256": "c0b387444be602de382d889b63f8c2fdac7dd667dc79f866bb2505d8aaf0ff7e",
+   "origin": "Own recovery row and its recorded masked source-to-native proof; native extent/hash independently captured in native_review.json. This is function identity only, not acceptance."
+  },
+  "eng3.shared_23aa0": {
+   "rva": 146080,
+   "size": 96,
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "native_function_sha256": "4340fe2c69368f166a2751ba733a9476187af37c45f067f6fa3ca46b65c91202",
+   "source": "src/title/u17cb0.cpp",
+   "source_sha256": "24f0718161e0e687793d32041ec5c9b541820f5e45e5e58d2f4a629d0b3fb010",
+   "ledger_id": "eng3.shared_23aa0",
+   "ledger_status": "CODEGEN_SIMILAR",
+   "prior_masked_sha256": "f0d69ffd2af335755cb2d12c99caed562fd330fc4024421599b9345d60b0eafc",
+   "origin": "Own recovery row and its recorded masked source-to-native proof; native extent/hash independently captured in native_review.json. This is function identity only, not acceptance."
+  },
+  "eng3.shared_08940": {
+   "rva": 35136,
+   "size": 96,
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "native_function_sha256": "0ec6858ffb764986513f092d9571490d86a05d0c4a5ab9cfb9d743680f6b60e4",
+   "source": "src/title/r04d80.c",
+   "source_sha256": "3da3ac403e6a26d434960c8e3db31d21161e32fb906ef551ae3f0581db035e74",
+   "ledger_id": "eng3.shared_08940",
+   "ledger_status": "CODEGEN_SIMILAR",
+   "prior_masked_sha256": "10ffe91de54de91207f7302e7286f9213b73b64f73a723e324358ee268278c1f",
+   "origin": "Callee own recovery row and recorded own source-to-native masked proof; exact native span/hash is captured in the independent native review. No acceptance claim."
+  },
+  "eng3.shared_089a0": {
+   "rva": 35232,
+   "size": 64,
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "native_function_sha256": "bf7b96af658ded2aee9d40c07fdd32e73e228cbdaebaf0a9579e945c7431b864",
+   "source": "src/title/r04d80.c",
+   "source_sha256": "3da3ac403e6a26d434960c8e3db31d21161e32fb906ef551ae3f0581db035e74",
+   "ledger_id": "eng3.shared_089a0",
+   "ledger_status": "CODEGEN_SIMILAR",
+   "prior_masked_sha256": "cc1b2c9147b6f55ff5876e4a9343e7a797b05e8cbb0cafdd020e08f78e2c56a0",
+   "origin": "Callee own recovery row and recorded own source-to-native masked proof; exact native span/hash is captured in the independent native review. No acceptance claim."
+  },
+  "title.0c2d0": {
+   "rva": 49872,
+   "size": 16,
+   "target": "assets/pc/HERCULES/TITLE.DLL",
+   "target_sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+   "native_function_sha256": "39f15f7acbf68f2541b4b1f3466c7167cc25b67e4f132edabd2dc07550637cbf",
+   "source": "src/title/u0c1f0.c",
+   "source_sha256": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+   "ledger_id": "title.0c2d0",
+   "ledger_status": "CODEGEN_SIMILAR",
+   "prior_masked_sha256": "247599aa11966badf77d9bbec40b25aca3a5e0bc652cb153ca2a57eb58b7c953",
+   "origin": "Callee own recovery row and recorded own source-to-native masked proof; exact native span/hash is captured in the independent native review. No acceptance claim."
+  }
+ },
+ "functions": {
+  "eng3.shared_085f0": {
+   "symbols": {
+    "_g_26110": {
+     "kind": "data",
+     "rva": 234824,
+     "size": 200,
+     "sha256": "18a9d8c449bbbaa90e1a9c2833c1d8efd4a3fbecdc884f4575a1fe704dcba612",
+     "evidence": [
+      "evidence/g_26110_review_2026_10_26.json#module_storage.ENG3.DLL",
+      "evidence/cleanup_helper_identity_review_2026_10_26.json#helpers.ENG3.resource_state.reference_closure.resource_records",
+      "evidence/fx_graph_controls_2026_10_11.json#resource_binding",
+      "evidence/cross_module_twins_2026_10_20.json#transfer.symbol_conflicts"
+     ],
+     "references": [
+      {
+       "offset": 11,
+       "type": 6,
+       "addend": 16
+      },
+      {
+       "offset": 22,
+       "type": 6,
+       "addend": 16
+      }
+     ]
+    }
+   }
+  },
+  "eng3.shared_08820": {
+   "symbols": {
+    "_g_26110": {
+     "kind": "data",
+     "rva": 234824,
+     "size": 200,
+     "sha256": "18a9d8c449bbbaa90e1a9c2833c1d8efd4a3fbecdc884f4575a1fe704dcba612",
+     "evidence": [
+      "evidence/g_26110_review_2026_10_26.json#module_storage.ENG3.DLL",
+      "evidence/cleanup_helper_identity_review_2026_10_26.json#helpers.ENG3.resource_state.reference_closure.resource_records",
+      "evidence/fx_graph_controls_2026_10_11.json#resource_binding",
+      "evidence/cross_module_twins_2026_10_20.json#transfer.symbol_conflicts"
+     ],
+     "references": [
+      {
+       "offset": 16,
+       "type": 6,
+       "addend": 16
+      },
+      {
+       "offset": 57,
+       "type": 6,
+       "addend": 18
+      }
+     ]
+    },
+    "_title_04dd0": {
+     "kind": "function",
+     "rva": 34928,
+     "size": 112,
+     "evidence": [
+      "evidence/g_26110_review_2026_10_26.json#callee_identities.eng3.shared_08870",
+      "evidence/cross_module_twins_2026_10_20.json#transfer",
+      "recovery.json#eng3.shared_08870 (own row; caller-independent source-to-native masked proof)"
+     ],
+     "references": [
+      {
+       "offset": 32,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_title_04b50": {
+     "kind": "function",
+     "rva": 34288,
+     "size": 32,
+     "evidence": [
+      "evidence/g_26110_review_2026_10_26.json#callee_identities.eng3.shared_085f0",
+      "evidence/cross_module_twins_2026_10_20.json#transfer",
+      "recovery.json#eng3.shared_085f0 (own row; caller-independent source-to-native masked proof)"
+     ],
+     "references": [
+      {
+       "offset": 47,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "eng3.shared_08870": {
+   "symbols": {
+    "_g_engine_interface": {
+     "kind": "bss",
+     "rva": 264096,
+     "size": 1000,
+     "owner": {
+      "source": "src/shared/engine_interface_storage.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_engine_interface"
+     },
+     "identity": {
+      "rva": 129098,
+      "size": 5,
+      "operand": 1,
+      "sha256": "9ca36042e6ca86a4ad21c5ddd5d9e3aada822b9e31e52a4a702304376807ee47"
+     },
+     "evidence": [
+      "evidence/engine_interface_storage_adoption_2026_10_11.json#oracles.ENG3.DLL",
+      "evidence/engine_interface_binding.json#destination_table",
+      "evidence/source_layout_2026_10_25/review.json#moves.calibration/engine_interface_storage.c",
+      "evidence/interface_transfer_review_2026_10_25.json#owners",
+      "evidence/interface_transfer_bindings_2026_10_25.json#functions.eng3.shared_247e0.symbols._g_engine_interface"
+     ],
+     "references": [
+      {
+       "offset": 1,
+       "type": 6,
+       "addend": 4
+      }
+     ],
+     "owner_storage": "zero-section-v1"
+    },
+    "_g_26110": {
+     "kind": "data",
+     "rva": 234824,
+     "size": 200,
+     "sha256": "18a9d8c449bbbaa90e1a9c2833c1d8efd4a3fbecdc884f4575a1fe704dcba612",
+     "evidence": [
+      "evidence/g_26110_review_2026_10_26.json#module_storage.ENG3.DLL",
+      "evidence/g_26110_review_2026_10_26.json#module_storage.ENG3.DLL",
+      "evidence/cleanup_helper_identity_review_2026_10_26.json#helpers.ENG3.resource_state.reference_closure.resource_records",
+      "evidence/fx_graph_controls_2026_10_11.json#resource_binding"
+     ],
+     "references": [
+      {
+       "offset": 58,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 64,
+       "type": 6,
+       "addend": 12
+      }
+     ]
+    }
+   }
+  },
+  "eng3.shared_088e0": {
+   "symbols": {
+    "_g_22148": {
+     "kind": "data",
+     "rva": 217352,
+     "size": 4,
+     "sha256": "ad95131bc0b799c0b1af477fb14fcf26a6a9f76079e48bf090acb7e8367bfd0e",
+     "evidence": [
+      "evidence/g_26110_review_2026_10_26.json#followup.g_22148",
+      "evidence/g_26110_review_2026_10_26.json#followup.g_22148",
+      "src/title/u02b70.c#int g_22148 = -1 (owner at line 1500)"
+     ],
+     "references": [
+      {
+       "offset": 1,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_26110": {
+     "kind": "data",
+     "rva": 234824,
+     "size": 200,
+     "sha256": "18a9d8c449bbbaa90e1a9c2833c1d8efd4a3fbecdc884f4575a1fe704dcba612",
+     "evidence": [
+      "evidence/g_26110_review_2026_10_26.json#module_storage.ENG3.DLL",
+      "evidence/g_26110_review_2026_10_26.json#module_storage.ENG3.DLL",
+      "evidence/cleanup_helper_identity_review_2026_10_26.json#helpers.ENG3.resource_state.reference_closure.resource_records",
+      "evidence/fx_graph_controls_2026_10_11.json#resource_binding"
+     ],
+     "references": [
+      {
+       "offset": 12,
+       "type": 6,
+       "addend": 16
+      },
+      {
+       "offset": 23,
+       "type": 6,
+       "addend": 16
+      }
+     ]
+    }
+   }
+  },
+  "eng3.shared_08900": {
+   "symbols": {
+    "_g_22148": {
+     "kind": "data",
+     "rva": 217352,
+     "size": 4,
+     "sha256": "ad95131bc0b799c0b1af477fb14fcf26a6a9f76079e48bf090acb7e8367bfd0e",
+     "evidence": [
+      "evidence/g_26110_review_2026_10_26.json#followup.g_22148",
+      "evidence/g_26110_review_2026_10_26.json#followup.g_22148",
+      "src/title/u02b70.c#int g_22148 = -1 (owner at line 1500)"
+     ],
+     "references": [
+      {
+       "offset": 1,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 12,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 41,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_title_04ea0": {
+     "kind": "function",
+     "rva": 35136,
+     "size": 96,
+     "evidence": [
+      "evidence/g_26110_review_2026_10_26.json#callee_identities.eng3.shared_08940",
+      "evidence/g_26110_review_2026_10_26.json#callee_identities.eng3.shared_08940",
+      "evidence/cross_module_twins_2026_10_20.json#transfer"
+     ],
+     "references": [
+      {
+       "offset": 7,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_26110": {
+     "kind": "data",
+     "rva": 234824,
+     "size": 200,
+     "sha256": "18a9d8c449bbbaa90e1a9c2833c1d8efd4a3fbecdc884f4575a1fe704dcba612",
+     "evidence": [
+      "evidence/g_26110_review_2026_10_26.json#module_storage.ENG3.DLL",
+      "evidence/g_26110_review_2026_10_26.json#module_storage.ENG3.DLL",
+      "evidence/cleanup_helper_identity_review_2026_10_26.json#helpers.ENG3.resource_state.reference_closure.resource_records",
+      "evidence/fx_graph_controls_2026_10_11.json#resource_binding"
+     ],
+     "references": [
+      {
+       "offset": 26,
+       "type": 6,
+       "addend": 16
+      }
+     ]
+    },
+    "_title_04f00": {
+     "kind": "function",
+     "rva": 35232,
+     "size": 64,
+     "evidence": [
+      "evidence/g_26110_review_2026_10_26.json#callee_identities.eng3.shared_089a0",
+      "evidence/g_26110_review_2026_10_26.json#callee_identities.eng3.shared_089a0",
+      "evidence/cross_module_twins_2026_10_20.json#transfer"
+     ],
+     "references": [
+      {
+       "offset": 35,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_title_04b50": {
+     "kind": "function",
+     "rva": 34288,
+     "size": 32,
+     "evidence": [
+      "evidence/g_26110_review_2026_10_26.json#callee_identities.eng3.shared_085f0",
+      "evidence/g_26110_review_2026_10_26.json#callee_identities.eng3.shared_085f0",
+      "evidence/cross_module_twins_2026_10_20.json#transfer"
+     ],
+     "references": [
+      {
+       "offset": 50,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "title.04dd0": {
+   "symbols": {
+    "_g_engine_interface": {
+     "kind": "bss",
+     "rva": 179008,
+     "size": 1000,
+     "owner": {
+      "source": "src/title/u0c1f0.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_engine_interface"
+     },
+     "identity": {
+      "rva": 49674,
+      "size": 5,
+      "operand": 1,
+      "sha256": "a7002ba7539fbb90d2600664fc7580c948a8833e5a7a7022850ddbafa25ffe62"
+     },
+     "evidence": [
+      "evidence/title_interface_review_2026_10_25.json#owner",
+      "evidence/title_interface_member_rebind_2026_10_11.json#owner",
+      "evidence/matching_harvest_bindings_2026_10_25.json#functions.title.18f80.symbols._g_engine_interface"
+     ],
+     "references": [
+      {
+       "offset": 1,
+       "type": 6,
+       "addend": 4
+      }
+     ]
+    },
+    "_g_26110": {
+     "kind": "data",
+     "rva": 155920,
+     "size": 360,
+     "sha256": "81591b07e0997a659bb7933e74381b35256e8cdb74ffcbeb4d38b4a5e844e938",
+     "evidence": [
+      "evidence/g_26110_review_2026_10_26.json#module_storage.TITLE.DLL",
+      "evidence/g_26110_review_2026_10_26.json#module_storage.TITLE.DLL",
+      "evidence/title_data_layout_2026_10_20.json#initialized_data.g_26110",
+      "evidence/fx_graph_controls_2026_10_11.json#resource_binding"
+     ],
+     "references": [
+      {
+       "offset": 58,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 64,
+       "type": 6,
+       "addend": 12
+      }
+     ]
+    }
+   }
+  },
+  "title.04ea0": {
+   "symbols": {
+    "_g_26110": {
+     "kind": "data",
+     "rva": 155920,
+     "size": 360,
+     "sha256": "81591b07e0997a659bb7933e74381b35256e8cdb74ffcbeb4d38b4a5e844e938",
+     "evidence": [
+      "evidence/g_26110_review_2026_10_26.json#module_storage.TITLE.DLL",
+      "evidence/g_26110_review_2026_10_26.json#module_storage.TITLE.DLL",
+      "evidence/title_data_layout_2026_10_20.json#initialized_data.g_26110",
+      "evidence/fx_graph_controls_2026_10_11.json#resource_binding"
+     ],
+     "references": [
+      {
+       "offset": 14,
+       "type": 6,
+       "addend": 16
+      },
+      {
+       "offset": 31,
+       "type": 6,
+       "addend": 16
+      },
+      {
+       "offset": 74,
+       "type": 6,
+       "addend": 16
+      }
+     ]
+    },
+    "_g_engine_interface": {
+     "kind": "bss",
+     "rva": 179008,
+     "size": 1000,
+     "owner": {
+      "source": "src/title/u0c1f0.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_engine_interface"
+     },
+     "identity": {
+      "rva": 49674,
+      "size": 5,
+      "operand": 1,
+      "sha256": "a7002ba7539fbb90d2600664fc7580c948a8833e5a7a7022850ddbafa25ffe62"
+     },
+     "evidence": [
+      "evidence/title_interface_review_2026_10_25.json#owner",
+      "evidence/title_interface_member_rebind_2026_10_11.json#owner",
+      "evidence/matching_harvest_bindings_2026_10_25.json#functions.title.18f80.symbols._g_engine_interface"
+     ],
+     "references": [
+      {
+       "offset": 41,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 55,
+       "type": 6,
+       "addend": 4
+      }
+     ]
+    },
+    "_title_0c2d0": {
+     "kind": "function",
+     "rva": 49872,
+     "size": 16,
+     "evidence": [
+      "evidence/g_26110_review_2026_10_26.json#callee_identities.title.0c2d0",
+      "evidence/g_26110_review_2026_10_26.json#callee_identities.title.0c2d0",
+      "evidence/cross_module_twins_2026_10_20.json#transfer"
+     ],
+     "references": [
+      {
+       "offset": 66,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "eng1.shared_037a0": {
+   "symbols": {
+    "_g_engine_interface": {
+     "kind": "bss",
+     "rva": 462624,
+     "size": 1000,
+     "owner": {
+      "source": "src/shared/engine_interface_storage.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_engine_interface"
+     },
+     "identity": {
+      "rva": 180634,
+      "size": 5,
+      "operand": 1,
+      "sha256": "5d052be9cb3a2701ebf0d708801ceaf31160766215fffcd979d243a148234932"
+     },
+     "evidence": [
+      "evidence/engine_interface_storage_adoption_2026_10_11.json#oracles.ENG1.DLL",
+      "evidence/engine_interface_binding.json#destination_table",
+      "evidence/source_layout_2026_10_25/review.json#moves.calibration/engine_interface_storage.c",
+      "evidence/interface_transfer_review_2026_10_25.json#owners",
+      "evidence/interface_transfer_bindings_2026_10_25.json#functions.eng1.shared_318d0.symbols._g_engine_interface"
+     ],
+     "references": [
+      {
+       "offset": 1,
+       "type": 6,
+       "addend": 4
+      }
+     ],
+     "owner_storage": "zero-section-v1"
+    },
+    "_g_26110": {
+     "kind": "data",
+     "rva": 380640,
+     "size": 1620,
+     "sha256": "4ba542e0c2ac3b325b4ac9a1a9e68699cfd9ec288b80b17abe6885509bdcd4be",
+     "evidence": [
+      "evidence/g_26110_review_2026_10_26.json#module_storage.ENG1.DLL",
+      "evidence/g_26110_review_2026_10_26.json#module_storage.ENG1.DLL",
+      "evidence/resource_data_source.json#rows",
+      "evidence/fx_graph_controls_2026_10_11.json#resource_binding"
+     ],
+     "references": [
+      {
+       "offset": 58,
+       "type": 6,
+       "addend": 4
+      },
+      {
+       "offset": 64,
+       "type": 6,
+       "addend": 12
+      }
+     ]
+    }
+   }
+  }
+ }
+}

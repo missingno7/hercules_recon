@@ -1,0 +1,967 @@
+{
+ "schema": 1,
+ "task_id": "velocity_b/exe_delete",
+ "scope": "Independent VC5 RTM CRT/MFC identity review for HERCULES.EXE operator delete. Library implementation identification only; no game source replacement or acceptance claim.",
+ "selected_function_ids": [
+  "exe.options_CGamePlayPage_deleter_60f0",
+  "exe.comdat_63b0",
+  "exe.options_CJoystickPage_deleter_81f0",
+  "exe.options_CKeyboardPage_deleter_8be0",
+  "exe.options_CSoundPage_deleter_101d0",
+  "exe.options_COptionsSheet_deleter_107d0",
+  "exe.??_GCHerculesApp",
+  "exe.host_frame_scalar_deleting_destructor_94c0",
+  "exe.comdat_ef80"
+ ],
+ "sources": [
+  {
+   "path": "src/pc/host_app_075d0.cpp",
+   "sha256": "cfaf7073bbd4ce2d1a8d5f3d38831c98dfe4b0217394346d1f07370ddd02f844"
+  },
+  {
+   "path": "src/pc/host_options_classes.cpp",
+   "sha256": "daf4f0949f4f40415c310d1d24c426dd575ea23617754a8ed34a55d0f81df3aa"
+  },
+  {
+   "path": "src/pc/host_restart_dialog.cpp",
+   "sha256": "0412da53dc45d2702eca893956c9a4bf62b6650b59dc9624a5b38212c9a576c3"
+  },
+  {
+   "path": "src/pc/host_window_class.cpp",
+   "sha256": "30d1c9ba4954aa6f22b48b54c774c45cb10d87872546edd8eecb9afe5521c10a"
+  }
+ ],
+ "native_target": {
+  "path": "work/discs/pc_install/HERCULES.EXE",
+  "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "rva": "0x11b00",
+  "size": 16,
+  "bytes_hex": "8b44240450e8a6efffff83c404c39090",
+  "sha256_body": "1d75c3fd4e8e7e2f25565e6ee95def13a01c4a813b881f4982b28b40d06be8ff",
+  "disassembly": [
+   "00011b00: mov eax, dword ptr [esp + 4]",
+   "00011b04: push eax",
+   "00011b05: call 0x10ab0",
+   "00011b0a: add esp, 4",
+   "00011b0d: ret",
+   "00011b0e: nop",
+   "00011b0f: nop"
+  ],
+  "identified_symbol": "??3@YAXPAX@Z"
+ },
+ "rtm_library_map": {
+  "path": "work/realignment/census/library_map.json",
+  "sha256": "a9d3b07a9fef962d5832c72383391851a7f43c15ea384afdc792ee6626863a4e",
+  "summary": {
+   "contributions": 1016,
+   "covered_bytes": 97074,
+   "text_bytes": 183742
+  },
+  "contribution_covering_0x11b00": [],
+  "not_in_map_reason": {
+   "method_source": "scripts/library_map.py",
+   "library_scan_uses": "VC5 RTM lib/libcmt.lib and mfc/lib/nafxcw.lib; code sections of at least 16 bytes are located by a 12-byte unrelocated anchor.",
+   "this_member_section_size": 16,
+   "relocation_field": {
+    "offset": 6,
+    "width": 4,
+    "symbol": "_free",
+    "type": 20
+   },
+   "unrelocated_runs": [
+    6,
+    6
+   ],
+   "longest_fixed_anchor": 6,
+   "interpretation": "The existing census map does not locate this entry because its anchor rule cannot seed the 16-byte contribution. The own-entry archive comparison below supplies identity."
+  },
+  "broader_attribution": {
+   "path": "evidence/library_attribution_2026_10_20.json",
+   "sha256": "1846e5238a71e665591544cb912f3818c78f82ac813ee7a185249106069e1a9b",
+   "hercules_rtm_by_library": {
+    "libcmt": 50603,
+    "nafxcw": 49839,
+    "ctl3d32s": 13743
+   },
+   "revision_finding": "Every module: RTM LIBCMT/NAFXCW cover strictly more than SP2/SP3/VC6 and SP2/SP3 cover zero bytes that RTM does not. Discriminators (nonrelocation diffs vs oracle): TITLE __CRT_INIT@12 RTM 368B/0 vs SP2,SP3 288B/141; __freeptd 160B/0 vs 176B/25; __setmbcp 544B/0 vs 324-328 diffs; EXE AfxWinMain 101B/0 vs 105B/90; _AfxCbtFilterHook 398B/0 vs 433B/248 (SP3 483B/347); CFrameWnd::OnClose 265B/0 vs 254B/206. Library revision = VC5.0 RTM (SP1 untested/unavailable). Library revision is not proof of CL revision."
+  }
+ },
+ "own_entry_archive_comparisons": {
+  "libcmt": {
+   "archive_path": "C:/tools/hercules/msvc500-8abf95ce980161ad87b0b02402269cce76988953/lib/libcmt.lib",
+   "archive_sha256": "7e161e461fd97f6fd5a8e6c1fdb5c7ec1b408e75bfacbc1c226f7556ccd1995b",
+   "member_index": 141,
+   "member_sha256": "940b3b9bcedc7b873c695ab30a37f94f4acd351d5ff82e3e61e165bbd6b3c32e",
+   "symbol": {
+    "name": "??3@YAXPAX@Z",
+    "value": 0,
+    "section": 1,
+    "type": 32,
+    "storage": 2
+   },
+   "section_name": ".text",
+   "section_size": 16,
+   "section_flags": "0x60501020",
+   "section_bytes_hex": "8b44240450e80000000083c404c39090",
+   "section_bytes_sha256": "4f471fd24dad4994d57a22f544aa1850b3929d9bdcde9ae2579cfbe3c5498842",
+   "relocations": [
+    {
+     "offset": 6,
+     "symbol": "_free",
+     "type": 20
+    }
+   ],
+   "native_prefix_hex": "8b44240450e8a6efffff83c404c39090",
+   "native_prefix_sha256": "1d75c3fd4e8e7e2f25565e6ee95def13a01c4a813b881f4982b28b40d06be8ff",
+   "nonrelocation_bytes_equal": true,
+   "nonrelocation_byte_count": 12,
+   "native_disassembly": [
+    "00011b00: mov eax, dword ptr [esp + 4]",
+    "00011b04: push eax",
+    "00011b05: call 0x10ab0",
+    "00011b0a: add esp, 4",
+    "00011b0d: ret",
+    "00011b0e: nop",
+    "00011b0f: nop"
+   ]
+  },
+  "nafxcw": {
+   "archive_path": "C:/tools/hercules/msvc500-8abf95ce980161ad87b0b02402269cce76988953/mfc/lib/nafxcw.lib",
+   "archive_sha256": "5d9c3585552412a9b94a9a0b7c3a4208061a76d48a6c3283518bfe9f674c9e22",
+   "member_index": 182,
+   "member_sha256": "bee6c822b9f80baadfb09618e7bd0c6f90b8232bf3bf85ec9d81e16e9e84c2fe",
+   "symbol": {
+    "name": "??3@YAXPAX@Z",
+    "value": 0,
+    "section": 16,
+    "type": 32,
+    "storage": 2
+   },
+   "section_name": "/383",
+   "section_size": 11,
+   "section_flags": "0x60101020",
+   "section_bytes_hex": "ff742404e80000000059c3",
+   "section_bytes_sha256": "8251d4c3d717b1dba8e6c7ba14fcff5e8ce53406347f5a02ff23b0348ae10932",
+   "relocations": [
+    {
+     "offset": 5,
+     "symbol": "_free",
+     "type": 20
+    }
+   ],
+   "native_prefix_hex": "8b44240450e8a6efffff83",
+   "native_prefix_sha256": "e4a6949f6e73e6524ccc9d7c6ec891eaae50fc2e15df5c6bd00571e55327f107",
+   "nonrelocation_bytes_equal": false,
+   "nonrelocation_byte_count": 7,
+   "native_disassembly": [
+    "00011b00: mov eax, dword ptr [esp + 4]",
+    "00011b04: push eax",
+    "00011b05: call 0x10ab0"
+   ]
+  }
+ },
+ "outside_callers": {
+  "direct_native_call_count": 14,
+  "caller_rows_with_delete_relocation": 14,
+  "outside_selected_nine_count": 5,
+  "outside_selected_nine": [
+   {
+    "id": "exe.comdat_6400",
+    "outside_selected_nine": true,
+    "symbol": "??_GCStatic@@UAEPAXI@Z",
+    "rva": "0x6400",
+    "size": 32,
+    "call_site_rva": "0x6410",
+    "native_disassembly": [
+     "00006400: push esi",
+     "00006401: mov esi, ecx",
+     "00006403: call 0x295fd",
+     "00006408: test byte ptr [esp + 8], 1",
+     "0000640d: je 0x6418",
+     "0000640f: push esi",
+     "00006410: call 0x11b00",
+     "00006415: add esp, 4",
+     "00006418: mov eax, esi",
+     "0000641a: pop esi",
+     "0000641b: ret 4",
+     "0000641e: nop",
+     "0000641f: nop"
+    ]
+   },
+   {
+    "id": "exe.comdat_6420",
+    "outside_selected_nine": true,
+    "symbol": "??_GCButton@@UAEPAXI@Z",
+    "rva": "0x6420",
+    "size": 32,
+    "call_site_rva": "0x6430",
+    "native_disassembly": [
+     "00006420: push esi",
+     "00006421: mov esi, ecx",
+     "00006423: call 0x29635",
+     "00006428: test byte ptr [esp + 8], 1",
+     "0000642d: je 0x6438",
+     "0000642f: push esi",
+     "00006430: call 0x11b00",
+     "00006435: add esp, 4",
+     "00006438: mov eax, esi",
+     "0000643a: pop esi",
+     "0000643b: ret 4",
+     "0000643e: nop",
+     "0000643f: nop"
+    ]
+   },
+   {
+    "id": "exe.comdat_89f0",
+    "outside_selected_nine": true,
+    "symbol": "??_GCListBox@@UAEPAXI@Z",
+    "rva": "0x89f0",
+    "size": 32,
+    "call_site_rva": "0x8a00",
+    "native_disassembly": [
+     "000089f0: push esi",
+     "000089f1: mov esi, ecx",
+     "000089f3: call 0x2969e",
+     "000089f8: test byte ptr [esp + 8], 1",
+     "000089fd: je 0x8a08",
+     "000089ff: push esi",
+     "00008a00: call 0x11b00",
+     "00008a05: add esp, 4",
+     "00008a08: mov eax, esi",
+     "00008a0a: pop esi",
+     "00008a0b: ret 4",
+     "00008a0e: nop",
+     "00008a0f: nop"
+    ]
+   },
+   {
+    "id": "exe.comdat_8a10",
+    "outside_selected_nine": true,
+    "symbol": "??_GCEdit@@UAEPAXI@Z",
+    "rva": "0x8a10",
+    "size": 32,
+    "call_site_rva": "0x8a20",
+    "native_disassembly": [
+     "00008a10: push esi",
+     "00008a11: mov esi, ecx",
+     "00008a13: call 0x2978d",
+     "00008a18: test byte ptr [esp + 8], 1",
+     "00008a1d: je 0x8a28",
+     "00008a1f: push esi",
+     "00008a20: call 0x11b00",
+     "00008a25: add esp, 4",
+     "00008a28: mov eax, esi",
+     "00008a2a: pop esi",
+     "00008a2b: ret 4",
+     "00008a2e: nop",
+     "00008a2f: nop"
+    ]
+   },
+   {
+    "id": "exe.comdat_10440",
+    "outside_selected_nine": true,
+    "symbol": "??_GCSliderCtrl@@UAEPAXI@Z",
+    "rva": "0x10440",
+    "size": 32,
+    "call_site_rva": "0x10450",
+    "native_disassembly": [
+     "00010440: push esi",
+     "00010441: mov esi, ecx",
+     "00010443: call 0x1c994",
+     "00010448: test byte ptr [esp + 8], 1",
+     "0001044d: je 0x10458",
+     "0001044f: push esi",
+     "00010450: call 0x11b00",
+     "00010455: add esp, 4",
+     "00010458: mov eax, esi",
+     "0001045a: pop esi",
+     "0001045b: ret 4",
+     "0001045e: nop",
+     "0001045f: nop"
+    ]
+   }
+  ],
+  "all_direct_callers": [
+   {
+    "id": "exe.options_CGamePlayPage_deleter_60f0",
+    "outside_selected_nine": false,
+    "symbol": "??_GCGamePlayPage@@UAEPAXI@Z",
+    "rva": "0x60f0",
+    "size": 32,
+    "call_site_rva": "0x6100",
+    "native_disassembly": [
+     "000060f0: push esi",
+     "000060f1: mov esi, ecx",
+     "000060f3: call 0x6110",
+     "000060f8: test byte ptr [esp + 8], 1",
+     "000060fd: je 0x6108",
+     "000060ff: push esi",
+     "00006100: call 0x11b00",
+     "00006105: add esp, 4",
+     "00006108: mov eax, esi",
+     "0000610a: pop esi",
+     "0000610b: ret 4",
+     "0000610e: nop",
+     "0000610f: nop"
+    ]
+   },
+   {
+    "id": "exe.comdat_63b0",
+    "outside_selected_nine": false,
+    "symbol": "??3CObject@@SGXPAX@Z",
+    "rva": "0x63b0",
+    "size": 16,
+    "call_site_rva": "0x63b5",
+    "native_disassembly": [
+     "000063b0: mov eax, dword ptr [esp + 4]",
+     "000063b4: push eax",
+     "000063b5: call 0x11b00",
+     "000063ba: add esp, 4",
+     "000063bd: ret 4"
+    ]
+   },
+   {
+    "id": "exe.comdat_6400",
+    "outside_selected_nine": true,
+    "symbol": "??_GCStatic@@UAEPAXI@Z",
+    "rva": "0x6400",
+    "size": 32,
+    "call_site_rva": "0x6410",
+    "native_disassembly": [
+     "00006400: push esi",
+     "00006401: mov esi, ecx",
+     "00006403: call 0x295fd",
+     "00006408: test byte ptr [esp + 8], 1",
+     "0000640d: je 0x6418",
+     "0000640f: push esi",
+     "00006410: call 0x11b00",
+     "00006415: add esp, 4",
+     "00006418: mov eax, esi",
+     "0000641a: pop esi",
+     "0000641b: ret 4",
+     "0000641e: nop",
+     "0000641f: nop"
+    ]
+   },
+   {
+    "id": "exe.comdat_6420",
+    "outside_selected_nine": true,
+    "symbol": "??_GCButton@@UAEPAXI@Z",
+    "rva": "0x6420",
+    "size": 32,
+    "call_site_rva": "0x6430",
+    "native_disassembly": [
+     "00006420: push esi",
+     "00006421: mov esi, ecx",
+     "00006423: call 0x29635",
+     "00006428: test byte ptr [esp + 8], 1",
+     "0000642d: je 0x6438",
+     "0000642f: push esi",
+     "00006430: call 0x11b00",
+     "00006435: add esp, 4",
+     "00006438: mov eax, esi",
+     "0000643a: pop esi",
+     "0000643b: ret 4",
+     "0000643e: nop",
+     "0000643f: nop"
+    ]
+   },
+   {
+    "id": "exe.??_GCHerculesApp",
+    "outside_selected_nine": false,
+    "symbol": "??_GCHerculesApp@@UAEPAXI@Z",
+    "rva": "0x7600",
+    "size": 32,
+    "call_site_rva": "0x7610",
+    "native_disassembly": [
+     "00007600: push esi",
+     "00007601: mov esi, ecx",
+     "00007603: call 0x7620",
+     "00007608: test byte ptr [esp + 8], 1",
+     "0000760d: je 0x7618",
+     "0000760f: push esi",
+     "00007610: call 0x11b00",
+     "00007615: add esp, 4",
+     "00007618: mov eax, esi",
+     "0000761a: pop esi",
+     "0000761b: ret 4",
+     "0000761e: nop",
+     "0000761f: nop"
+    ]
+   },
+   {
+    "id": "exe.options_CJoystickPage_deleter_81f0",
+    "outside_selected_nine": false,
+    "symbol": "??_GCJoystickPage@@UAEPAXI@Z",
+    "rva": "0x81f0",
+    "size": 32,
+    "call_site_rva": "0x8200",
+    "native_disassembly": [
+     "000081f0: push esi",
+     "000081f1: mov esi, ecx",
+     "000081f3: call 0x8210",
+     "000081f8: test byte ptr [esp + 8], 1",
+     "000081fd: je 0x8208",
+     "000081ff: push esi",
+     "00008200: call 0x11b00",
+     "00008205: add esp, 4",
+     "00008208: mov eax, esi",
+     "0000820a: pop esi",
+     "0000820b: ret 4",
+     "0000820e: nop",
+     "0000820f: nop"
+    ]
+   },
+   {
+    "id": "exe.comdat_89f0",
+    "outside_selected_nine": true,
+    "symbol": "??_GCListBox@@UAEPAXI@Z",
+    "rva": "0x89f0",
+    "size": 32,
+    "call_site_rva": "0x8a00",
+    "native_disassembly": [
+     "000089f0: push esi",
+     "000089f1: mov esi, ecx",
+     "000089f3: call 0x2969e",
+     "000089f8: test byte ptr [esp + 8], 1",
+     "000089fd: je 0x8a08",
+     "000089ff: push esi",
+     "00008a00: call 0x11b00",
+     "00008a05: add esp, 4",
+     "00008a08: mov eax, esi",
+     "00008a0a: pop esi",
+     "00008a0b: ret 4",
+     "00008a0e: nop",
+     "00008a0f: nop"
+    ]
+   },
+   {
+    "id": "exe.comdat_8a10",
+    "outside_selected_nine": true,
+    "symbol": "??_GCEdit@@UAEPAXI@Z",
+    "rva": "0x8a10",
+    "size": 32,
+    "call_site_rva": "0x8a20",
+    "native_disassembly": [
+     "00008a10: push esi",
+     "00008a11: mov esi, ecx",
+     "00008a13: call 0x2978d",
+     "00008a18: test byte ptr [esp + 8], 1",
+     "00008a1d: je 0x8a28",
+     "00008a1f: push esi",
+     "00008a20: call 0x11b00",
+     "00008a25: add esp, 4",
+     "00008a28: mov eax, esi",
+     "00008a2a: pop esi",
+     "00008a2b: ret 4",
+     "00008a2e: nop",
+     "00008a2f: nop"
+    ]
+   },
+   {
+    "id": "exe.options_CKeyboardPage_deleter_8be0",
+    "outside_selected_nine": false,
+    "symbol": "??_GCKeyboardPage@@UAEPAXI@Z",
+    "rva": "0x8be0",
+    "size": 32,
+    "call_site_rva": "0x8bf0",
+    "native_disassembly": [
+     "00008be0: push esi",
+     "00008be1: mov esi, ecx",
+     "00008be3: call 0x8c00",
+     "00008be8: test byte ptr [esp + 8], 1",
+     "00008bed: je 0x8bf8",
+     "00008bef: push esi",
+     "00008bf0: call 0x11b00",
+     "00008bf5: add esp, 4",
+     "00008bf8: mov eax, esi",
+     "00008bfa: pop esi",
+     "00008bfb: ret 4",
+     "00008bfe: nop",
+     "00008bff: nop"
+    ]
+   },
+   {
+    "id": "exe.host_frame_scalar_deleting_destructor_94c0",
+    "outside_selected_nine": false,
+    "symbol": "??_GCMainFrame@@UAEPAXI@Z",
+    "rva": "0x94c0",
+    "size": 32,
+    "call_site_rva": "0x94d0",
+    "native_disassembly": [
+     "000094c0: push esi",
+     "000094c1: mov esi, ecx",
+     "000094c3: call 0x94e0",
+     "000094c8: test byte ptr [esp + 8], 1",
+     "000094cd: je 0x94d8",
+     "000094cf: push esi",
+     "000094d0: call 0x11b00",
+     "000094d5: add esp, 4",
+     "000094d8: mov eax, esi",
+     "000094da: pop esi",
+     "000094db: ret 4",
+     "000094de: nop",
+     "000094df: nop"
+    ]
+   },
+   {
+    "id": "exe.comdat_ef80",
+    "outside_selected_nine": false,
+    "symbol": "??_GCHostRestartDialog@@UAEPAXI@Z",
+    "rva": "0xef80",
+    "size": 32,
+    "call_site_rva": "0xef90",
+    "native_disassembly": [
+     "0000ef80: push esi",
+     "0000ef81: mov esi, ecx",
+     "0000ef83: call 0x9730",
+     "0000ef88: test byte ptr [esp + 8], 1",
+     "0000ef8d: je 0xef98",
+     "0000ef8f: push esi",
+     "0000ef90: call 0x11b00",
+     "0000ef95: add esp, 4",
+     "0000ef98: mov eax, esi",
+     "0000ef9a: pop esi",
+     "0000ef9b: ret 4",
+     "0000ef9e: nop",
+     "0000ef9f: nop"
+    ]
+   },
+   {
+    "id": "exe.options_CSoundPage_deleter_101d0",
+    "outside_selected_nine": false,
+    "symbol": "??_GCSoundPage@@UAEPAXI@Z",
+    "rva": "0x101d0",
+    "size": 32,
+    "call_site_rva": "0x101e0",
+    "native_disassembly": [
+     "000101d0: push esi",
+     "000101d1: mov esi, ecx",
+     "000101d3: call 0x101f0",
+     "000101d8: test byte ptr [esp + 8], 1",
+     "000101dd: je 0x101e8",
+     "000101df: push esi",
+     "000101e0: call 0x11b00",
+     "000101e5: add esp, 4",
+     "000101e8: mov eax, esi",
+     "000101ea: pop esi",
+     "000101eb: ret 4",
+     "000101ee: nop",
+     "000101ef: nop"
+    ]
+   },
+   {
+    "id": "exe.comdat_10440",
+    "outside_selected_nine": true,
+    "symbol": "??_GCSliderCtrl@@UAEPAXI@Z",
+    "rva": "0x10440",
+    "size": 32,
+    "call_site_rva": "0x10450",
+    "native_disassembly": [
+     "00010440: push esi",
+     "00010441: mov esi, ecx",
+     "00010443: call 0x1c994",
+     "00010448: test byte ptr [esp + 8], 1",
+     "0001044d: je 0x10458",
+     "0001044f: push esi",
+     "00010450: call 0x11b00",
+     "00010455: add esp, 4",
+     "00010458: mov eax, esi",
+     "0001045a: pop esi",
+     "0001045b: ret 4",
+     "0001045e: nop",
+     "0001045f: nop"
+    ]
+   },
+   {
+    "id": "exe.options_COptionsSheet_deleter_107d0",
+    "outside_selected_nine": false,
+    "symbol": "??_GCOptionsSheet@@UAEPAXI@Z",
+    "rva": "0x107d0",
+    "size": 32,
+    "call_site_rva": "0x107e0",
+    "native_disassembly": [
+     "000107d0: push esi",
+     "000107d1: mov esi, ecx",
+     "000107d3: call 0x108c0",
+     "000107d8: test byte ptr [esp + 8], 1",
+     "000107dd: je 0x107e8",
+     "000107df: push esi",
+     "000107e0: call 0x11b00",
+     "000107e5: add esp, 4",
+     "000107e8: mov eax, esi",
+     "000107ea: pop esi",
+     "000107eb: ret 4",
+     "000107ee: nop",
+     "000107ef: nop"
+    ]
+   }
+  ],
+  "role": "Corroborate the same one-pointer-argument, caller-cleanup shape from five other function contributions. Their call operands are not used as identity evidence."
+ },
+ "caller_rows": [
+  {
+   "id": "exe.options_CGamePlayPage_deleter_60f0",
+   "symbol": "??_GCGamePlayPage@@UAEPAXI@Z",
+   "rva": "0x60f0",
+   "size": 32,
+   "source": "src/pc/host_options_classes.cpp",
+   "source_sha256": "daf4f0949f4f40415c310d1d24c426dd575ea23617754a8ed34a55d0f81df3aa",
+   "relocations": [
+    {
+     "symbol": "??1CGamePlayPage@@UAE@XZ",
+     "kind": "function_shape_equal",
+     "offset": 4,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x6110"
+    },
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "kind": "function_unknown",
+     "offset": 17,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x11b00"
+    }
+   ],
+   "native_bytes_hex": "568bf1e818000000f644240801740956e8fbb9000083c4048bc65ec204009090",
+   "native_disassembly": [
+    "000060f0: push esi",
+    "000060f1: mov esi, ecx",
+    "000060f3: call 0x6110",
+    "000060f8: test byte ptr [esp + 8], 1",
+    "000060fd: je 0x6108",
+    "000060ff: push esi",
+    "00006100: call 0x11b00",
+    "00006105: add esp, 4",
+    "00006108: mov eax, esi",
+    "0000610a: pop esi",
+    "0000610b: ret 4",
+    "0000610e: nop",
+    "0000610f: nop"
+   ]
+  },
+  {
+   "id": "exe.comdat_63b0",
+   "symbol": "??3CObject@@SGXPAX@Z",
+   "rva": "0x63b0",
+   "size": 16,
+   "source": "src/pc/host_options_classes.cpp",
+   "source_sha256": "daf4f0949f4f40415c310d1d24c426dd575ea23617754a8ed34a55d0f81df3aa",
+   "relocations": [
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "kind": "function_unknown",
+     "offset": 6,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x11b00"
+    }
+   ],
+   "native_bytes_hex": "8b44240450e846b7000083c404c20400",
+   "native_disassembly": [
+    "000063b0: mov eax, dword ptr [esp + 4]",
+    "000063b4: push eax",
+    "000063b5: call 0x11b00",
+    "000063ba: add esp, 4",
+    "000063bd: ret 4"
+   ]
+  },
+  {
+   "id": "exe.options_CJoystickPage_deleter_81f0",
+   "symbol": "??_GCJoystickPage@@UAEPAXI@Z",
+   "rva": "0x81f0",
+   "size": 32,
+   "source": "src/pc/host_options_classes.cpp",
+   "source_sha256": "daf4f0949f4f40415c310d1d24c426dd575ea23617754a8ed34a55d0f81df3aa",
+   "relocations": [
+    {
+     "symbol": "??1CJoystickPage@@UAE@XZ",
+     "kind": "function_shape_equal",
+     "offset": 4,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x8210"
+    },
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "kind": "function_unknown",
+     "offset": 17,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x11b00"
+    }
+   ],
+   "native_bytes_hex": "568bf1e818000000f644240801740956e8fb98000083c4048bc65ec204009090",
+   "native_disassembly": [
+    "000081f0: push esi",
+    "000081f1: mov esi, ecx",
+    "000081f3: call 0x8210",
+    "000081f8: test byte ptr [esp + 8], 1",
+    "000081fd: je 0x8208",
+    "000081ff: push esi",
+    "00008200: call 0x11b00",
+    "00008205: add esp, 4",
+    "00008208: mov eax, esi",
+    "0000820a: pop esi",
+    "0000820b: ret 4",
+    "0000820e: nop",
+    "0000820f: nop"
+   ]
+  },
+  {
+   "id": "exe.options_CKeyboardPage_deleter_8be0",
+   "symbol": "??_GCKeyboardPage@@UAEPAXI@Z",
+   "rva": "0x8be0",
+   "size": 32,
+   "source": "src/pc/host_options_classes.cpp",
+   "source_sha256": "daf4f0949f4f40415c310d1d24c426dd575ea23617754a8ed34a55d0f81df3aa",
+   "relocations": [
+    {
+     "symbol": "??1CKeyboardPage@@UAE@XZ",
+     "kind": "function_shape_equal",
+     "offset": 4,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x8c00"
+    },
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "kind": "function_unknown",
+     "offset": 17,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x11b00"
+    }
+   ],
+   "native_bytes_hex": "568bf1e818000000f644240801740956e80b8f000083c4048bc65ec204009090",
+   "native_disassembly": [
+    "00008be0: push esi",
+    "00008be1: mov esi, ecx",
+    "00008be3: call 0x8c00",
+    "00008be8: test byte ptr [esp + 8], 1",
+    "00008bed: je 0x8bf8",
+    "00008bef: push esi",
+    "00008bf0: call 0x11b00",
+    "00008bf5: add esp, 4",
+    "00008bf8: mov eax, esi",
+    "00008bfa: pop esi",
+    "00008bfb: ret 4",
+    "00008bfe: nop",
+    "00008bff: nop"
+   ]
+  },
+  {
+   "id": "exe.options_CSoundPage_deleter_101d0",
+   "symbol": "??_GCSoundPage@@UAEPAXI@Z",
+   "rva": "0x101d0",
+   "size": 32,
+   "source": "src/pc/host_options_classes.cpp",
+   "source_sha256": "daf4f0949f4f40415c310d1d24c426dd575ea23617754a8ed34a55d0f81df3aa",
+   "relocations": [
+    {
+     "symbol": "??1CSoundPage@@UAE@XZ",
+     "kind": "function_shape_equal",
+     "offset": 4,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x101f0"
+    },
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "kind": "function_unknown",
+     "offset": 17,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x11b00"
+    }
+   ],
+   "native_bytes_hex": "568bf1e818000000f644240801740956e81b19000083c4048bc65ec204009090",
+   "native_disassembly": [
+    "000101d0: push esi",
+    "000101d1: mov esi, ecx",
+    "000101d3: call 0x101f0",
+    "000101d8: test byte ptr [esp + 8], 1",
+    "000101dd: je 0x101e8",
+    "000101df: push esi",
+    "000101e0: call 0x11b00",
+    "000101e5: add esp, 4",
+    "000101e8: mov eax, esi",
+    "000101ea: pop esi",
+    "000101eb: ret 4",
+    "000101ee: nop",
+    "000101ef: nop"
+   ]
+  },
+  {
+   "id": "exe.options_COptionsSheet_deleter_107d0",
+   "symbol": "??_GCOptionsSheet@@UAEPAXI@Z",
+   "rva": "0x107d0",
+   "size": 32,
+   "source": "src/pc/host_options_classes.cpp",
+   "source_sha256": "daf4f0949f4f40415c310d1d24c426dd575ea23617754a8ed34a55d0f81df3aa",
+   "relocations": [
+    {
+     "symbol": "??1COptionsSheet@@UAE@XZ",
+     "kind": "function_shape_equal",
+     "offset": 4,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x108c0"
+    },
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "kind": "function_unknown",
+     "offset": 17,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x11b00"
+    }
+   ],
+   "native_bytes_hex": "568bf1e8e8000000f644240801740956e81b13000083c4048bc65ec204009090",
+   "native_disassembly": [
+    "000107d0: push esi",
+    "000107d1: mov esi, ecx",
+    "000107d3: call 0x108c0",
+    "000107d8: test byte ptr [esp + 8], 1",
+    "000107dd: je 0x107e8",
+    "000107df: push esi",
+    "000107e0: call 0x11b00",
+    "000107e5: add esp, 4",
+    "000107e8: mov eax, esi",
+    "000107ea: pop esi",
+    "000107eb: ret 4",
+    "000107ee: nop",
+    "000107ef: nop"
+   ]
+  },
+  {
+   "id": "exe.??_GCHerculesApp",
+   "symbol": "??_GCHerculesApp@@UAEPAXI@Z",
+   "rva": "0x7600",
+   "size": 32,
+   "source": "src/pc/host_app_075d0.cpp",
+   "source_sha256": "cfaf7073bbd4ce2d1a8d5f3d38831c98dfe4b0217394346d1f07370ddd02f844",
+   "relocations": [
+    {
+     "symbol": "??1CHerculesApp@@UAE@XZ",
+     "kind": "function_shape_equal",
+     "offset": 4,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x7620"
+    },
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "kind": "function_unknown",
+     "offset": 17,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x11b00"
+    }
+   ],
+   "native_bytes_hex": "568bf1e818000000f644240801740956e8eba4000083c4048bc65ec204009090",
+   "native_disassembly": [
+    "00007600: push esi",
+    "00007601: mov esi, ecx",
+    "00007603: call 0x7620",
+    "00007608: test byte ptr [esp + 8], 1",
+    "0000760d: je 0x7618",
+    "0000760f: push esi",
+    "00007610: call 0x11b00",
+    "00007615: add esp, 4",
+    "00007618: mov eax, esi",
+    "0000761a: pop esi",
+    "0000761b: ret 4",
+    "0000761e: nop",
+    "0000761f: nop"
+   ]
+  },
+  {
+   "id": "exe.host_frame_scalar_deleting_destructor_94c0",
+   "symbol": "??_GCMainFrame@@UAEPAXI@Z",
+   "rva": "0x94c0",
+   "size": 32,
+   "source": "src/pc/host_window_class.cpp",
+   "source_sha256": "30d1c9ba4954aa6f22b48b54c774c45cb10d87872546edd8eecb9afe5521c10a",
+   "relocations": [
+    {
+     "symbol": "??1CMainFrame@@UAE@XZ",
+     "kind": "function_shape_equal",
+     "offset": 4,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x94e0"
+    },
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "kind": "function_unknown",
+     "offset": 17,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x11b00"
+    }
+   ],
+   "native_bytes_hex": "568bf1e818000000f644240801740956e82b86000083c4048bc65ec204009090",
+   "native_disassembly": [
+    "000094c0: push esi",
+    "000094c1: mov esi, ecx",
+    "000094c3: call 0x94e0",
+    "000094c8: test byte ptr [esp + 8], 1",
+    "000094cd: je 0x94d8",
+    "000094cf: push esi",
+    "000094d0: call 0x11b00",
+    "000094d5: add esp, 4",
+    "000094d8: mov eax, esi",
+    "000094da: pop esi",
+    "000094db: ret 4",
+    "000094de: nop",
+    "000094df: nop"
+   ]
+  },
+  {
+   "id": "exe.comdat_ef80",
+   "symbol": "??_GCHostRestartDialog@@UAEPAXI@Z",
+   "rva": "0xef80",
+   "size": 32,
+   "source": "src/pc/host_restart_dialog.cpp",
+   "source_sha256": "0412da53dc45d2702eca893956c9a4bf62b6650b59dc9624a5b38212c9a576c3",
+   "relocations": [
+    {
+     "symbol": "??1CHostRestartDialog@@UAE@XZ",
+     "kind": "function_shape_equal",
+     "offset": 4,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x9730"
+    },
+    {
+     "symbol": "??3@YAXPAX@Z",
+     "kind": "function_unknown",
+     "offset": 17,
+     "type": 20,
+     "addend": 0,
+     "implied_native_destination": "0x11b00"
+    }
+   ],
+   "native_bytes_hex": "568bf1e8a8a7fffff644240801740956e86b2b000083c4048bc65ec204009090",
+   "native_disassembly": [
+    "0000ef80: push esi",
+    "0000ef81: mov esi, ecx",
+    "0000ef83: call 0x9730",
+    "0000ef88: test byte ptr [esp + 8], 1",
+    "0000ef8d: je 0xef98",
+    "0000ef8f: push esi",
+    "0000ef90: call 0x11b00",
+    "0000ef95: add esp, 4",
+    "0000ef98: mov eax, esi",
+    "0000ef9a: pop esi",
+    "0000ef9b: ret 4",
+    "0000ef9e: nop",
+    "0000ef9f: nop"
+   ]
+  }
+ ],
+ "conclusion": "The complete 16-byte native body at EXE RVA 0x11b00 matches the sole decorated-symbol definition in the pinned VC5 RTM libcmt.lib member 141 at its own entry outside its single REL32 field. The competing NAFXCW member 182 definition is a different 11-byte body. Five additional native callers outside this nine-row set corroborate the scalar deleting cleanup convention. The existing 12-byte-anchor census map omits this contribution; it is not claimed as a map hit."
+}
