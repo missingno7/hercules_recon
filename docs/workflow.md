@@ -40,6 +40,27 @@ removed. The path must resolve within this repository's ignored work/build trees
 Unset it to use the normal path. Events are diagnostic, contain no acceptance
 cache, and measure compiler execution rather than worker or integration wait.
 
+The next [24-worker campaign](matching_velocity_2026_10_26.md) accepted nine
+functions / 688 bytes and closed six ENG1 dependency names. Keep handoff metadata
+outside reference function records: each `functions[id]` binding permits only
+`symbols`, `tables` and `indirect_calls`. The comparator's existing schema guard
+now also runs during evidence loading, before compilation and in preflight.
+Use existing reference commands/API receipts rather than a custom lookalike that
+omits include context or mixes a recovery row into a binding.
+
+For private candidates, resolve includes with `compile_inputs` before spending a
+compiler call; preserve the source language and canonical include roots. Inspect
+actual callee declarations before importing a broad region header. An opaque
+native pointer type and evidenced field views can avoid incompatible inherited
+prototypes without changing a shared header. Verify the complete contribution.
+Track saved-register stack movement before inferring argument positions.
+
+For ENG1 active ownership, consult the source graph's `compiled_sources` and
+compiled definitions. `functions[].additional_evidence` can contain historical
+source paths; it is not the build selection. Reuse reviewed source-plan omission
+and declaration adaptations when reconciling selected providers, preserving the
+historical unit's proof context and one production implementation.
+
 For a genuine code-generation residue, the bounded
 [cpp_permuter pilot](permuter_pilot_2026_10_25.md) establishes an optional explicit
 alternative generator with the pinned VC5 toolchain. It produced two
