@@ -27,11 +27,19 @@ def migrate(verify_only=False, report=None):
         raise ValueError('Interrupted promotion: run scripts/promote.py --recover first')
     before = STATE.read_bytes()
     state = json.loads(before)
-    rows = [r for r in state['functions'] if r['status'] == 'FUNCTION_MATCH'
-            and 'unit_inventory_sha256' in r.get('proof', {}) and 'unit_inventory_portable_sha256' not in r['proof']]
+    # RAW proofs: the live proof of FUNCTION_MATCH rows, and the retained prior_raw_proof
+    # that match.accepted_rows verifies for legacy LINKED rows.
+    rows = []
+    for row in state['functions']:
+        for key in ('proof', 'prior_raw_proof'):
+            proof = row.get(key)
+            if (isinstance(proof, dict) and 'unit_inventory_sha256' in proof
+                    and 'unit_inventory_portable_sha256' not in proof
+                    and (key == 'prior_raw_proof' or row['status'] == 'FUNCTION_MATCH')):
+                rows.append((row, proof))
     groups = {}
-    for row in rows:
-        groups.setdefault((row['source'], tuple(row['flags'])), []).append(row)
+    for row, proof in rows:
+        groups.setdefault((row['source'], tuple(row['flags'])), []).append((row, proof))
     receipt = {}
     for (source, flags), members in sorted(groups.items()):
         path = ROOT / source
@@ -41,14 +49,13 @@ def migrate(verify_only=False, report=None):
         if path.read_bytes() != source_before:
             raise ValueError('Source changed during compilation: ' + source)
         original, portable = unit_inventory(obj), portable_unit_inventory(obj)
-        for row in members:
-            proof = row['proof']
+        for row, proof in members:
             if digest(source_before) != proof['source_sha256'] or context_proof(context) != proof['context_sha256']:
                 raise ValueError('Accepted unit source/context differs: ' + row['id'])
             if original != proof['unit_inventory_sha256']:
                 raise ValueError('Original unit inventory does not reproduce here: ' + row['id'])
             proof['unit_inventory_portable_sha256'] = portable
-        receipt[source] = dict(rows=[r['id'] for r in members], unit_inventory_sha256=original,
+        receipt[source] = dict(rows=[r['id'] for r, _ in members], unit_inventory_sha256=original,
                                unit_inventory_portable_sha256=portable)
     after = (json.dumps(state, indent=2) + '\n').encode()
     if report:
