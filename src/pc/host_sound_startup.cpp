@@ -27,9 +27,9 @@ DWORD __cdecl host_sound_primary_format_fd50(DWORD rate)
         g_host_sound_primary_format_698ec8.wf.wFormatTag = WAVE_FORMAT_PCM;
         g_host_sound_primary_format_698ec8.wf.nChannels = 2;
         g_host_sound_primary_format_698ec8.wf.nSamplesPerSec = rate;
-        g_host_sound_primary_format_698ec8.wf.nAvgBytesPerSec = rate * 4;
-        g_host_sound_primary_format_698ec8.wf.nBlockAlign = 4;
         g_host_sound_primary_format_698ec8.wBitsPerSample = 16;
+        g_host_sound_primary_format_698ec8.wf.nBlockAlign = 4;
+        g_host_sound_primary_format_698ec8.wf.nAvgBytesPerSec = rate * 4;
         g_exe_79e444->SetFormat((WAVEFORMATEX *)&g_host_sound_primary_format_698ec8);
     }
     return previous;

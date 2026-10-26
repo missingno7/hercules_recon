@@ -1268,6 +1268,7 @@ void eng3_04650(Actor *o)
 
 void eng3_048e0(Actor *o)
 {
+    int first_random_term;
     o->unknown_dc = o->owner_context[g_kind_info[o->profile].sidecar_offset + 0xc];
     o->flags = 0x202;
     o->state = 4;
@@ -1280,7 +1281,9 @@ void eng3_048e0(Actor *o)
         o->unknown_a8 = 0;
         o->unknown_b4 = random_limit(0x1000) + 0x1000;
         o->unknown_b0 = random_limit(0x1000) + 0x1000;
-        o->unknown_cc = ((eng3_1fac0() & 0x14ff) << 8) - ((eng3_1fac0() & 0x14ff) << 8);
+        first_random_term = (eng3_1fac0() & 0x14ff) << 8;
+        first_random_term -= (eng3_1fac0() & 0x14ff) << 8;
+        o->unknown_cc = first_random_term;
         o->unknown_c8 = o->unknown_cc << 5;
         o->unknown_d0 = random_limit(0x7d0) - 0x2000;
         o->unknown_d4 = random_limit(0x1000) - 0x1000;

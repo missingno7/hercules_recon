@@ -164,7 +164,7 @@ void __cdecl host_0b720(short *out)
 
 void __cdecl host_0b740(void)
 {
-    long vx, vy, vz;
+    long vx, vz, vy;
     vx = g_host_gte.v[0][0];
     vy = g_host_gte.v[1][0];
     vz = g_host_gte.v[2][0];

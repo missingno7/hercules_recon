@@ -85,7 +85,8 @@ def frozen_before(state, results, original_root, baseline):
         raise ValueError('Before phase was not exact')
     rows = copy.deepcopy(accepted_rows(state['functions']))
     for row in rows:
-        row['proof']['reference_snapshots'] = dict(baseline)
+        # Keep redirects recorded by earlier re-pins; the baseline only adds to them.
+        row['proof']['reference_snapshots'] = {**row['proof'].get('reference_snapshots', {}), **baseline}
     assert_verified_inputs(rows, results, original_root)
     match.verify_toolchain.cache_clear()
     match.verify_toolchain(match.DEFAULT_TOOLCHAIN)
@@ -198,7 +199,8 @@ def apply(plan_path, before_path, original_root, directory):
             pins = docs.get(path, {}).get('evidence_files', {})
             mapping = {n: snapshots[n] for n in snapshots if n in pins}
             if mapping:
-                proof['reference_snapshots'] = mapping
+                # Merge: a row may already read older pins through earlier snapshots.
+                proof['reference_snapshots'] = {**proof.get('reference_snapshots', {}), **mapping}
             if row['source'] in changed:
                 proof['source_sha256'] = sha(candidates[ROOT/row['source']])
             if isinstance(proof.get('context_sha256'), dict):

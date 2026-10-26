@@ -29,7 +29,7 @@ void __cdecl host_music_apply_1000(void)
 void __cdecl host_music_signal_1090(void)
 {
     if (MUSIC_DWORD(0x1afc)!=0xffffffffUL)
-        empty_host_callback((short)MUSIC_WORD(0x1afc));
+        ((void (__cdecl *)(unsigned short))empty_host_callback)(MUSIC_WORD(0x1afc));
 }
 void __cdecl host_music_set_bases_10b0(MusicU32 music,MusicU32 effects)
 {

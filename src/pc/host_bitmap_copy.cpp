@@ -14,8 +14,9 @@ extern "C" void __cdecl graphics_native_06530(unsigned char *source,
     y=0.0f;
     for (row=target_height;row>0;--row) {
         x=0.0f;
+        column=0;
         offset=(int)y*source_pitch;
-        for (column=0;column<target_width;++column) {
+        for (;column<target_width;++column) {
             target[column]=source[offset+(int)x];
             x+=step_x;
         }

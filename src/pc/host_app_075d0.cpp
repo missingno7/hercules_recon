@@ -78,7 +78,7 @@ BOOL CHerculesApp::InitInstance()
     if (!pFrame->LoadFrame(0x80))
         return FALSE;
     m_pMainWnd = pFrame;
-    g_fatal_owner_window = pFrame->m_hWnd;
+    g_fatal_owner_window = m_pMainWnd->m_hWnd;
     g_exe_ba01f4 = m_hInstance;
     g_exe_ba01f8 = m_pszAppName;
     g_exe_ba0204 = GetMenu(g_fatal_owner_window);

@@ -27,8 +27,9 @@ void CJoystickPage::OnRva_000083F0(CEdit* edit, DWORD buttons, BOOL active)
         edit->SetWindowText("None");
     } else {
         if (buttons == 0) return;
+        int bit = 0;
         int count = 0;
-        for (int bit = 0; bit < 28; ++bit)
+        for (; bit < 28; ++bit)
             if ((buttons >> bit) & 1) ++count;
         if (count > 3) return;
         edit->SetWindowText(g_host_empty_text_3f74c);
@@ -39,12 +40,12 @@ void CJoystickPage::OnRva_000083F0(CEdit* edit, DWORD buttons, BOOL active)
             }
         }
     }
-    if (edit == &m_control_03ea) SWORD = buttons;
-    else if (edit == &m_control_03eb) JUMP = buttons;
-    else if (edit == &m_control_03ec) PUNCH = buttons;
-    else if (edit == &m_control_03ed) POWER = buttons;
-    else if (edit == &m_control_03ef) WEAPON = buttons;
-    else if (edit == &m_control_03f0) PAUSE = buttons;
+    if (&m_control_03ea == edit) SWORD = buttons;
+    else if (&m_control_03eb == edit) JUMP = buttons;
+    else if (&m_control_03ec == edit) PUNCH = buttons;
+    else if (&m_control_03ed == edit) POWER = buttons;
+    else if (&m_control_03ef == edit) WEAPON = buttons;
+    else if (&m_control_03f0 == edit) PAUSE = buttons;
 }
 
 void CJoystickPage::OnTimer(UINT event)

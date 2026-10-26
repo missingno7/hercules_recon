@@ -46,7 +46,7 @@ void host_input_initialize_7bb0(void)
     g_host_input_joy_count_rva_7a0218 = 0;
     capabilities = &g_host_input_joy_caps_rva_79e8b0[0];
     capabilities_end = &g_host_input_joy_caps_rva_79e8b0[16];
-    for (device = 0; capabilities < capabilities_end; ++device, ++capabilities) {
+    for (device = 0; (LONG)capabilities < (LONG)capabilities_end; ++device, ++capabilities) {
         g_host_input_joy_available_rva_79e8a0[device] = 0;
         if (joyGetPos(device, &position) == JOYERR_NOERROR &&
             joyGetDevCapsA(device, capabilities, sizeof(JOYCAPSA)) == JOYERR_NOERROR) {
@@ -152,12 +152,12 @@ DWORD host_input_keyboard_7f30(void)
     DWORD result;
     SHORT state;
 
+    result = 0;
     if (INPUT_ENABLED == 0)
-        return 0;
+        return result;
     state = GetAsyncKeyState(0x12);
     if (((DWORD)(unsigned short)state & 0x8001UL) != 0)
-        return 0;
-    result = 0;
+        return result;
     if (GetAsyncKeyState(0x1b) & 0x8000)
         result = g_host_input_last_state_first_rva_56e5d0;
     if (GetAsyncKeyState(0x20) & 0x8000)

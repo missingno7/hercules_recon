@@ -18,7 +18,9 @@ typedef char frame_point_is_8[(sizeof(CPoint)==8)?1:-1];
 void CMainFrame::OnRva_00009820(BOOL active, HTASK task)
 {
     Default();
-    g_exe_ba0238 = (active != 0) + 1;
+    int active_state = active != 0;
+    ++active_state;
+    g_exe_ba0238 = active_state;
     graphics_native_05a50();
 }
 

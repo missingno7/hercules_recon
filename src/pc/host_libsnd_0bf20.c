@@ -172,8 +172,9 @@ int __cdecl host_0c250(unsigned long *sequence)
 
 void __cdecl host_0c280(short id)
 {
-    if (g_host_sequences[(short)(id - 1)] != 0)
-        host_cd_play_9e60(g_host_sequences[(short)(id - 1)][0] >> 8, g_host_sequences[(short)(id - 1)][1] >> 8);
+    --id;
+    if (g_host_sequences[id] != 0)
+        host_cd_play_9e60(g_host_sequences[id][0] >> 8, g_host_sequences[id][1] >> 8);
 }
 
 void __cdecl host_0c2b0(void)

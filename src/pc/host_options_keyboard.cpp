@@ -8,6 +8,7 @@ extern DWORD g_keyboard_working_rva_56e5f4[9];
 
 BOOL CKeyboardPage::OnRva_00008DD0(HWND window, SHORT key, BOOL clear_conflict)
 {
+    char text[2];
     key &= 0xff;
     WORD* slot;
     WORD* previous_slot = 0;
@@ -51,7 +52,6 @@ BOOL CKeyboardPage::OnRva_00008DD0(HWND window, SHORT key, BOOL clear_conflict)
     if (label == 0) {
         UINT character = MapVirtualKey(key,2);
         if (!(character & 0x80) && character != 0) {
-            char text[2];
             text[0] = (char)character;
             text[1] = 0;
             ::SetWindowText(window,text);

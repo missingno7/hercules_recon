@@ -136,4 +136,23 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(c.symbols,before)
 
 
+class SecondRepinTests(unittest.TestCase):
+    def test_before_check_keeps_redirects_recorded_by_an_earlier_repin(self):
+        earlier = {'src/eng3/a.cpp': 'evidence/repin_snapshots/' + 'a' * 64 + '.txt'}
+        added = {'evidence/b.json': 'evidence/repin_snapshots/' + 'b' * 64 + '.txt'}
+        row = dict(id='m.r', status='FUNCTION_MATCH_RELOCATED', symbol='_f',
+                   proof=dict(reference_snapshots=dict(earlier), compiled_sha256='c'))
+        result = dict(id='m.r', exact=True, compiled_sha256='c', object='obj')
+        seen = {}
+        def capture(rows, results, original_root):
+            seen.update(rows[0]['proof']['reference_snapshots'])
+            raise StopIteration
+        with patch('promote.assert_verified_inputs', capture), \
+                patch.object(repin, 'accepted_rows', lambda rows: rows):
+            with self.assertRaises(StopIteration):
+                repin.frozen_before(dict(functions=[row]), [result], None, added)
+        self.assertEqual(seen, {**earlier, **added})
+        self.assertEqual(row['proof']['reference_snapshots'], earlier)  # the ledger copy is untouched
+
+
 if __name__=='__main__':unittest.main()
