@@ -72,3 +72,36 @@ Result at `6fcd741`, in a fresh `autocrlf=true` clone outside the developer chec
 - pins: 57,533 checked, 0 problems, under both EOL settings;
 - `match.py verify --original-root`: 995 of 995 RAW/RELOCATED rows exact, 183 compiles;
 - LINKED: 43 rows verified, 0 failures.
+
+## Source-fix batches through the reviewed re-pin
+
+The re-pin landed two batches of scheduling-lane source fixes. Lanes were guided by
+`scripts/funcdiff.py` and the VC5 allocator/scheduler model (work/velocity_e/vc5model_sol).
+Before each re-pin transaction, a cheap pre-check compiled every candidate once and confirmed
+two things: every accepted peer was byte- and relocation-identical, and no masked row regressed.
+
+- Batch 1 (`fdea1e8`): 12 sources; 24 rows became masked-equal. Three of them were then bound
+  and accepted (`0826a2a`): host_music_signal_1090, options_keyboard_reset_9330 and
+  options_keyboard_toggle_92c0.
+- Batch 2 (`05c0fe6`): 2 sources; 3 rows became masked-equal.
+- The second re-pin exposed two fail-closed gaps in `repin.py`, now fixed with tests:
+  - it overwrote earlier `reference_snapshots` redirects;
+  - pins of an older, already preserved source version did not resolve to their own snapshot.
+- Deferred: `handlers_10370.c` reaches masked equality only with a lean `<windows.h>` context
+  hypothesis. That changes the include closure its accepted peers pin, so it needs a reviewed
+  context re-proof.
+
+Accepted functions: **1,039** (146 RAW, 850 RELOCATED, 43 LINKED). Masked rows: 1,034 verified,
+0 failures. RECONSTRUCTED rows: 185 down to 170.
+
+Compiler use for this work (2026-10-27), about 3,860 invocations in total:
+
+| Activity | Compiles |
+|---|---:|
+| Lanes and investigators | 1,097 |
+| Batch 1 (pre-check 24, baseline 211, re-pin 183) | 430 |
+| Batch 2 (pre-check, baseline 184, re-pin 184) | 378 |
+| Withdrawal transaction | 233 |
+| Gate runs (full verification and test suite) | about 1,450 |
+| Promotion | 223 |
+| Portable-inventory migration | 40 |
