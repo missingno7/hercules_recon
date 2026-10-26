@@ -128,3 +128,10 @@ cells in 643 of 1,000 pending rows; for 229 they are the only blocker.
   cannot change without breaking a proof. promote.py correctly refused the `actor_pools.c` fix. A
   reviewed re-pin path (fresh peer equality, snapshot-preserved evidence, journaled re-pin) is under
   investigation; until it exists, source-changing lanes cannot pay.
+- **Re-pin landed (`1de4a5f`).** `scripts/repin.py` runs a full fresh before/after verification.
+  It requires identical complete contributions, relocation records and reference findings for
+  every accepted row, and keeps old pinned bytes at `evidence/repin_snapshots/<sha256>.txt`.
+  It accepted `eng3.initialize_alternate_actor` (RAW) and the new row `eng3.19f30`
+  (RELOCATED); main has 1,050 accepted. One re-pin costs about 370 compiles, so batch many
+  reviewed source fixes into each run. Live owner/include/alias pins still need a versioned
+  re-proof.
