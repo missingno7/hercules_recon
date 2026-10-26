@@ -1,0 +1,3284 @@
+{
+ "schema": 1,
+ "task_id": "c8_eng3",
+ "date": "2026-10-26",
+ "scope": "Read-only ENG3 loader-zero scalar ownership and access review; no acceptance claim.",
+ "durable_path": "evidence/c8_eng3_review_2026_10_26.json",
+ "source_question": "Do the assigned loader-zero cells have one direct native access width, a complete zero-tail extent, a writer survey, and an independent HIGHLOW MOV/LEA/PUSH anchor outside pending rows?",
+ "target": {
+  "path": "assets/pc/HERCULES/ENG3.DLL",
+  "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "image_base": 268435456
+ },
+ "observed_recovery_sha256": "a9504a0a6284de756950b60626f97178ac66ed297260596299527aea62ea55ba",
+ "input_hashes": {
+  "queue.json": "bc61842cf570c5ed322bd85f2db0fb7ad7f9816366d968646af803d671d3c9c9",
+  "supported.json": "3b81aee6fe84144dd56bc5b894fcfe66a76499e1a3f656a3377b7e5c3165f1a2",
+  "native_function_map.json": "6e334515f9510ec2a7462cc173c7c61238afa96f3a312ea90a8267663d0421d2",
+  "archaeology.sqlite": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390",
+  "velocity_b_blockers.json": "6f4c0d1f6383c9ae5771e609237c938e3cdf8fd1ad8be4b6f35f97c0c38d0acc",
+  "file_data_review.json": "03dfe03a8f5c9cddcec2bb94b945c6e59b54d8d39dae0eb90ae995127b83d3d7"
+ },
+ "method": {
+  "instruction_source": "Read-only ENG3.DLL Capstone instruction index in work/archaeology.sqlite; each examined instruction was byte-checked against ENG3.DLL.",
+  "access_classification": "Enumerated every indexed absolute memory operand at each candidate RVA, recorded its width, read/write use, and exact HIGHLOW displacement fixup. Checked all absolute operands overlapping the proposed scalar extent.",
+  "anchor_rule": "Selected only complete MOV/LEA/PUSH anchors with one HIGHLOW fixup, width within the owner, outside this lane's caller spans, mapped to an ENG3 ledger row not in the pending blocker set.",
+  "writer_rule": "Counted each native memory operand with a Capstone write bit; repeated references to the same instruction are deduplicated by instruction RVA.",
+  "storage_rule": "Verified writable .data zero-tail placement, declared extent, and no loader relocation overlap."
+ },
+ "assigned_function_ids": [
+  "eng3.18880",
+  "eng3.18950",
+  "eng3.18bc0",
+  "eng3.18de0",
+  "eng3.18eb0",
+  "eng3.18f70",
+  "eng3.19030",
+  "eng3.19100",
+  "eng3.19130",
+  "eng3.19410",
+  "eng3.19a30",
+  "eng3.19b70",
+  "eng3.19cd0",
+  "eng3.19d40",
+  "eng3.1a290",
+  "eng3.27180",
+  "eng3.289a0",
+  "eng3.2a090"
+ ],
+ "cells": {
+  "g_eng3_3fae4": {
+   "symbol": "_g_eng3_3fae4",
+   "rva": 260836,
+   "size": 4,
+   "declared_type": "int",
+   "owner_source": "src/eng3/loader_zero_cells_c8_eng3.c",
+   "owner_source_sha256": "66aab99f573cc0c3186bdb84764f359e97b1bac563ea8c1245aba66337b3c303",
+   "section_storage": {
+    "section": ".data",
+    "section_rva": 208896,
+    "raw_end_rva": 259072,
+    "virtual_end_rva": 279348,
+    "inside_zero_tail": true,
+    "loader_fixup_overlap": false
+   },
+   "access_count": 9,
+   "memory_widths": [
+    4
+   ],
+   "access_counts": {
+    "W": 5,
+    "R": 4
+   },
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "all_accesses": [
+    {
+     "instruction_rva": 87762,
+     "size": 6,
+     "bytes": "892de4fa0310",
+     "sha256": "743a963149e428ac27f03442a3daba4ac91256799225a29c87123a29c3f4d326",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae4], ebp",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 87764,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 94910,
+     "size": 6,
+     "bytes": "8b3de4fa0310",
+     "sha256": "2855c6346894655d532c5c138c44e18057c736f16f29d626f938aa094257507a",
+     "mnemonic": "mov",
+     "operands": "edi, dword ptr [0x1003fae4]",
+     "operand": 1,
+     "width": 4,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 94912,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 94943,
+     "size": 6,
+     "bytes": "893de4fa0310",
+     "sha256": "8220a396cb01c31c8870334d48314998aec2b8da94706145633d7a4c0a5885b7",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae4], edi",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 94945,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 94986,
+     "size": 6,
+     "bytes": "893de4fa0310",
+     "sha256": "8220a396cb01c31c8870334d48314998aec2b8da94706145633d7a4c0a5885b7",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae4], edi",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 94988,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 95317,
+     "size": 6,
+     "bytes": "8b3de4fa0310",
+     "sha256": "2855c6346894655d532c5c138c44e18057c736f16f29d626f938aa094257507a",
+     "mnemonic": "mov",
+     "operands": "edi, dword ptr [0x1003fae4]",
+     "operand": 1,
+     "width": 4,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 95319,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 102878,
+     "size": 7,
+     "bytes": "833de4fa031004",
+     "sha256": "abab1e0771a0442c68fad1068bac69f2eeb0dadd193683702443c9f8314d1f73",
+     "mnemonic": "cmp",
+     "operands": "dword ptr [0x1003fae4], 4",
+     "operand": 0,
+     "width": 4,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 102880,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 102887,
+     "size": 10,
+     "bytes": "c705e4fa031002000000",
+     "sha256": "9fcf39ad9dd35ad20ea2fd7fca68ff21061ebb8f21d670804d8a75a0161504ca",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae4], 2",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 102889,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 103932,
+     "size": 7,
+     "bytes": "833de4fa031004",
+     "sha256": "abab1e0771a0442c68fad1068bac69f2eeb0dadd193683702443c9f8314d1f73",
+     "mnemonic": "cmp",
+     "operands": "dword ptr [0x1003fae4], 4",
+     "operand": 0,
+     "width": 4,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 103934,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 105052,
+     "size": 10,
+     "bytes": "c705e4fa031002000000",
+     "sha256": "9fcf39ad9dd35ad20ea2fd7fca68ff21061ebb8f21d670804d8a75a0161504ca",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae4], 2",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 105054,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writers": [
+    {
+     "instruction_rva": 87762,
+     "size": 6,
+     "bytes": "892de4fa0310",
+     "sha256": "743a963149e428ac27f03442a3daba4ac91256799225a29c87123a29c3f4d326",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae4], ebp",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 87764,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 94943,
+     "size": 6,
+     "bytes": "893de4fa0310",
+     "sha256": "8220a396cb01c31c8870334d48314998aec2b8da94706145633d7a4c0a5885b7",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae4], edi",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 94945,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 94986,
+     "size": 6,
+     "bytes": "893de4fa0310",
+     "sha256": "8220a396cb01c31c8870334d48314998aec2b8da94706145633d7a4c0a5885b7",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae4], edi",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 94988,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 102887,
+     "size": 10,
+     "bytes": "c705e4fa031002000000",
+     "sha256": "9fcf39ad9dd35ad20ea2fd7fca68ff21061ebb8f21d670804d8a75a0161504ca",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae4], 2",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 102889,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 105052,
+     "size": 10,
+     "bytes": "c705e4fa031002000000",
+     "sha256": "9fcf39ad9dd35ad20ea2fd7fca68ff21061ebb8f21d670804d8a75a0161504ca",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae4], 2",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 105054,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writer_count": 5,
+   "overlapping_accesses": [],
+   "address_takings": [],
+   "independent_anchor_candidates": [
+    {
+     "rva": 87762,
+     "size": 6,
+     "operand": 0,
+     "sha256": "743a963149e428ac27f03442a3daba4ac91256799225a29c87123a29c3f4d326",
+     "bytes": "892de4fa0310",
+     "instruction": "dword ptr [0x1003fae4], ebp",
+     "fixup_rva": 87764,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 87680,
+     "containing_row_id": "eng3.eng3_15680",
+     "containing_row_status": "RECONSTRUCTED",
+     "in_velocity_b_blockers": false
+    },
+    {
+     "rva": 94910,
+     "size": 6,
+     "operand": 1,
+     "sha256": "2855c6346894655d532c5c138c44e18057c736f16f29d626f938aa094257507a",
+     "bytes": "8b3de4fa0310",
+     "instruction": "edi, dword ptr [0x1003fae4]",
+     "fixup_rva": 94912,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 94736,
+     "containing_row_id": "eng3.17210",
+     "containing_row_status": "CODEGEN_SIMILAR",
+     "in_velocity_b_blockers": true
+    },
+    {
+     "rva": 94943,
+     "size": 6,
+     "operand": 0,
+     "sha256": "8220a396cb01c31c8870334d48314998aec2b8da94706145633d7a4c0a5885b7",
+     "bytes": "893de4fa0310",
+     "instruction": "dword ptr [0x1003fae4], edi",
+     "fixup_rva": 94945,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 94736,
+     "containing_row_id": "eng3.17210",
+     "containing_row_status": "CODEGEN_SIMILAR",
+     "in_velocity_b_blockers": true
+    },
+    {
+     "rva": 94986,
+     "size": 6,
+     "operand": 0,
+     "sha256": "8220a396cb01c31c8870334d48314998aec2b8da94706145633d7a4c0a5885b7",
+     "bytes": "893de4fa0310",
+     "instruction": "dword ptr [0x1003fae4], edi",
+     "fixup_rva": 94988,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 94736,
+     "containing_row_id": "eng3.17210",
+     "containing_row_status": "CODEGEN_SIMILAR",
+     "in_velocity_b_blockers": true
+    },
+    {
+     "rva": 95317,
+     "size": 6,
+     "operand": 1,
+     "sha256": "2855c6346894655d532c5c138c44e18057c736f16f29d626f938aa094257507a",
+     "bytes": "8b3de4fa0310",
+     "instruction": "edi, dword ptr [0x1003fae4]",
+     "fixup_rva": 95319,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 94736,
+     "containing_row_id": "eng3.17210",
+     "containing_row_status": "CODEGEN_SIMILAR",
+     "in_velocity_b_blockers": true
+    }
+   ],
+   "cmp_test_anchor_candidates": [
+    {
+     "rva": 103932,
+     "bytes": "833de4fa031004",
+     "size": 7,
+     "operand": 0,
+     "sha256": "abab1e0771a0442c68fad1068bac69f2eeb0dadd193683702443c9f8314d1f73",
+     "instruction": "dword ptr [0x1003fae4], 4",
+     "fixup_rva": 103934,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 103888,
+     "containing_row_id": "eng3.eng3_195d0",
+     "containing_row_status": "RECONSTRUCTED",
+     "in_velocity_b_blockers": false,
+     "profile": "cmp-test-absolute-v1"
+    }
+   ],
+   "anchor": {
+    "rva": 87762,
+    "size": 6,
+    "operand": 0,
+    "sha256": "743a963149e428ac27f03442a3daba4ac91256799225a29c87123a29c3f4d326",
+    "bytes": "892de4fa0310",
+    "instruction": "dword ptr [0x1003fae4], ebp",
+    "fixup_rva": 87764,
+    "fixup_type": 3,
+    "outside_assigned_rows": true,
+    "mapped_function_rva": 87680,
+    "containing_row_id": "eng3.eng3_15680",
+    "containing_row_status": "RECONSTRUCTED",
+    "in_velocity_b_blockers": false
+   },
+   "anchor_profile": null,
+   "anchor_pass": true,
+   "extent_pass": true,
+   "binding_status": "pass",
+   "prior_finding": null,
+   "assigned_row_references": {
+    "eng3.17210": [
+     {
+      "offset": 176,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 209,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 252,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 583,
+      "type": 6,
+      "addend": 0
+     }
+    ],
+    "eng3.19130": [
+     {
+      "offset": 176,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 185,
+      "type": 6,
+      "addend": 0
+     }
+    ],
+    "eng3.19a30": [
+     {
+      "offset": 46,
+      "type": 6,
+      "addend": 0
+     }
+    ]
+   }
+  },
+  "g_eng3_3fae8": {
+   "symbol": "_g_eng3_3fae8",
+   "rva": 260840,
+   "size": 4,
+   "declared_type": "int",
+   "owner_source": "src/eng3/loader_zero_cells_c8_eng3.c",
+   "owner_source_sha256": "66aab99f573cc0c3186bdb84764f359e97b1bac563ea8c1245aba66337b3c303",
+   "section_storage": {
+    "section": ".data",
+    "section_rva": 208896,
+    "raw_end_rva": 259072,
+    "virtual_end_rva": 279348,
+    "inside_zero_tail": true,
+    "loader_fixup_overlap": false
+   },
+   "access_count": 6,
+   "memory_widths": [
+    4
+   ],
+   "access_counts": {
+    "W": 5,
+    "R": 1
+   },
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "all_accesses": [
+    {
+     "instruction_rva": 88024,
+     "size": 6,
+     "bytes": "892de8fa0310",
+     "sha256": "cdc8452ac0219f5d335cb0a807552920d65f7081859d1e0dd2fc6dd1935060c3",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae8], ebp",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 88026,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 94992,
+     "size": 5,
+     "bytes": "a1e8fa0310",
+     "sha256": "1a168089b45efc8ff5ea1b9c3dd4ab60a5c0042c9d34ecf1b02282a6e603dfd7",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x1003fae8]",
+     "operand": 1,
+     "width": 4,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 94993,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 95021,
+     "size": 5,
+     "bytes": "a3e8fa0310",
+     "sha256": "6e8c5aa536d83286aa69d4155331231ef18ce0df783caadfdf8f7aae1faa96ef",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae8], eax",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 95022,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 95049,
+     "size": 6,
+     "bytes": "891de8fa0310",
+     "sha256": "44b340f448db7cc6796d74f7597c5e905896e22abc298e7bee66a36c6d0059fa",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae8], ebx",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 95051,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 100657,
+     "size": 10,
+     "bytes": "c705e8fa031002000000",
+     "sha256": "9ce335110934920d466b5510f8662e4a03cbf2380d79034602d9d41a9168fc79",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae8], 2",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 100659,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 103076,
+     "size": 10,
+     "bytes": "c705e8fa031002000000",
+     "sha256": "9ce335110934920d466b5510f8662e4a03cbf2380d79034602d9d41a9168fc79",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae8], 2",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 103078,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writers": [
+    {
+     "instruction_rva": 88024,
+     "size": 6,
+     "bytes": "892de8fa0310",
+     "sha256": "cdc8452ac0219f5d335cb0a807552920d65f7081859d1e0dd2fc6dd1935060c3",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae8], ebp",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 88026,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 95021,
+     "size": 5,
+     "bytes": "a3e8fa0310",
+     "sha256": "6e8c5aa536d83286aa69d4155331231ef18ce0df783caadfdf8f7aae1faa96ef",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae8], eax",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 95022,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 95049,
+     "size": 6,
+     "bytes": "891de8fa0310",
+     "sha256": "44b340f448db7cc6796d74f7597c5e905896e22abc298e7bee66a36c6d0059fa",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae8], ebx",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 95051,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 100657,
+     "size": 10,
+     "bytes": "c705e8fa031002000000",
+     "sha256": "9ce335110934920d466b5510f8662e4a03cbf2380d79034602d9d41a9168fc79",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae8], 2",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 100659,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 103076,
+     "size": 10,
+     "bytes": "c705e8fa031002000000",
+     "sha256": "9ce335110934920d466b5510f8662e4a03cbf2380d79034602d9d41a9168fc79",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fae8], 2",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 103078,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writer_count": 5,
+   "overlapping_accesses": [],
+   "address_takings": [],
+   "independent_anchor_candidates": [
+    {
+     "rva": 88024,
+     "size": 6,
+     "operand": 0,
+     "sha256": "cdc8452ac0219f5d335cb0a807552920d65f7081859d1e0dd2fc6dd1935060c3",
+     "bytes": "892de8fa0310",
+     "instruction": "dword ptr [0x1003fae8], ebp",
+     "fixup_rva": 88026,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 87680,
+     "containing_row_id": "eng3.eng3_15680",
+     "containing_row_status": "RECONSTRUCTED",
+     "in_velocity_b_blockers": false
+    },
+    {
+     "rva": 94992,
+     "size": 5,
+     "operand": 1,
+     "sha256": "1a168089b45efc8ff5ea1b9c3dd4ab60a5c0042c9d34ecf1b02282a6e603dfd7",
+     "bytes": "a1e8fa0310",
+     "instruction": "eax, dword ptr [0x1003fae8]",
+     "fixup_rva": 94993,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 94736,
+     "containing_row_id": "eng3.17210",
+     "containing_row_status": "CODEGEN_SIMILAR",
+     "in_velocity_b_blockers": true
+    },
+    {
+     "rva": 95021,
+     "size": 5,
+     "operand": 0,
+     "sha256": "6e8c5aa536d83286aa69d4155331231ef18ce0df783caadfdf8f7aae1faa96ef",
+     "bytes": "a3e8fa0310",
+     "instruction": "dword ptr [0x1003fae8], eax",
+     "fixup_rva": 95022,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 94736,
+     "containing_row_id": "eng3.17210",
+     "containing_row_status": "CODEGEN_SIMILAR",
+     "in_velocity_b_blockers": true
+    },
+    {
+     "rva": 95049,
+     "size": 6,
+     "operand": 0,
+     "sha256": "44b340f448db7cc6796d74f7597c5e905896e22abc298e7bee66a36c6d0059fa",
+     "bytes": "891de8fa0310",
+     "instruction": "dword ptr [0x1003fae8], ebx",
+     "fixup_rva": 95051,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 94736,
+     "containing_row_id": "eng3.17210",
+     "containing_row_status": "CODEGEN_SIMILAR",
+     "in_velocity_b_blockers": true
+    },
+    {
+     "rva": 103076,
+     "size": 10,
+     "operand": 0,
+     "sha256": "9ce335110934920d466b5510f8662e4a03cbf2380d79034602d9d41a9168fc79",
+     "bytes": "c705e8fa031002000000",
+     "instruction": "dword ptr [0x1003fae8], 2",
+     "fixup_rva": 103078,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 102912,
+     "containing_row_id": "eng3.19200",
+     "containing_row_status": "CODEGEN_SIMILAR",
+     "in_velocity_b_blockers": true
+    }
+   ],
+   "cmp_test_anchor_candidates": [],
+   "anchor": {
+    "rva": 88024,
+    "size": 6,
+    "operand": 0,
+    "sha256": "cdc8452ac0219f5d335cb0a807552920d65f7081859d1e0dd2fc6dd1935060c3",
+    "bytes": "892de8fa0310",
+    "instruction": "dword ptr [0x1003fae8], ebp",
+    "fixup_rva": 88026,
+    "fixup_type": 3,
+    "outside_assigned_rows": true,
+    "mapped_function_rva": 87680,
+    "containing_row_id": "eng3.eng3_15680",
+    "containing_row_status": "RECONSTRUCTED",
+    "in_velocity_b_blockers": false
+   },
+   "anchor_profile": null,
+   "anchor_pass": true,
+   "extent_pass": true,
+   "binding_status": "pass",
+   "prior_finding": null,
+   "assigned_row_references": {
+    "eng3.17210": [
+     {
+      "offset": 257,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 286,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 315,
+      "type": 6,
+      "addend": 0
+     }
+    ],
+    "eng3.18880": [
+     {
+      "offset": 179,
+      "type": 6,
+      "addend": 0
+     }
+    ],
+    "eng3.19200": [
+     {
+      "offset": 166,
+      "type": 6,
+      "addend": 0
+     }
+    ]
+   }
+  },
+  "g_eng3_3fb28": {
+   "symbol": "_g_eng3_3fb28",
+   "rva": 260904,
+   "size": 4,
+   "declared_type": "int",
+   "owner_source": null,
+   "owner_source_sha256": null,
+   "section_storage": {
+    "section": ".data",
+    "section_rva": 208896,
+    "raw_end_rva": 259072,
+    "virtual_end_rva": 279348,
+    "inside_zero_tail": true,
+    "loader_fixup_overlap": false
+   },
+   "access_count": 1,
+   "memory_widths": [
+    4
+   ],
+   "access_counts": {
+    "W": 1
+   },
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "all_accesses": [
+    {
+     "instruction_rva": 105810,
+     "size": 10,
+     "bytes": "c70528fb031001000000",
+     "sha256": "9e658989849729e34fd4a978a8e491ce2d6af5f26d283f982580b1987f6011f3",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb28], 1",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 105812,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writers": [
+    {
+     "instruction_rva": 105810,
+     "size": 10,
+     "bytes": "c70528fb031001000000",
+     "sha256": "9e658989849729e34fd4a978a8e491ce2d6af5f26d283f982580b1987f6011f3",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb28], 1",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 105812,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writer_count": 1,
+   "overlapping_accesses": [],
+   "address_takings": [],
+   "independent_anchor_candidates": [],
+   "cmp_test_anchor_candidates": [],
+   "anchor": null,
+   "anchor_profile": null,
+   "anchor_pass": false,
+   "extent_pass": true,
+   "binding_status": "stop: no independent MOV/LEA/PUSH anchor outside this lane's callers",
+   "prior_finding": null,
+   "assigned_row_references": {
+    "eng3.19d40": [
+     {
+      "offset": 20,
+      "type": 6,
+      "addend": 0
+     }
+    ]
+   }
+  },
+  "g_eng3_3fb2c": {
+   "symbol": "_g_eng3_3fb2c",
+   "rva": 260908,
+   "size": 4,
+   "declared_type": "int",
+   "owner_source": null,
+   "owner_source_sha256": null,
+   "section_storage": {
+    "section": ".data",
+    "section_rva": 208896,
+    "raw_end_rva": 259072,
+    "virtual_end_rva": 279348,
+    "inside_zero_tail": true,
+    "loader_fixup_overlap": false
+   },
+   "access_count": 7,
+   "memory_widths": [
+    4
+   ],
+   "access_counts": {
+    "W": 5,
+    "R": 2
+   },
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "all_accesses": [
+    {
+     "instruction_rva": 96271,
+     "size": 10,
+     "bytes": "c7052cfb031001000000",
+     "sha256": "cb12f10a285f9611ba6f9823ba1096e07840bc45daf16c068e26fa0532e7e6e3",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb2c], 1",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 96273,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 96283,
+     "size": 10,
+     "bytes": "c7052cfb031000000000",
+     "sha256": "799fa13bb75eff96773673f4070e28fbf43712acc99d977c96c36c790b99e4aa",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb2c], 0",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 96285,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 96377,
+     "size": 10,
+     "bytes": "c7052cfb031000000000",
+     "sha256": "799fa13bb75eff96773673f4070e28fbf43712acc99d977c96c36c790b99e4aa",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb2c], 0",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 96379,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 97773,
+     "size": 6,
+     "bytes": "893d2cfb0310",
+     "sha256": "5f3f09d997cd92da9d2f7daed4f6493438aaabf69104ebe8278c69206bf95e5a",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb2c], edi",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 97775,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 97781,
+     "size": 6,
+     "bytes": "892d2cfb0310",
+     "sha256": "ff4b44b8a26880cdcd295b7e301d6b0b8572423419d24bff632c1c366c962cd2",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb2c], ebp",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 97783,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 101241,
+     "size": 5,
+     "bytes": "a12cfb0310",
+     "sha256": "74f52d77d783f9e37f254543821c957b01f17abaddda7c18b9e5e724600d8669",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x1003fb2c]",
+     "operand": 1,
+     "width": 4,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 101242,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 105008,
+     "size": 5,
+     "bytes": "a12cfb0310",
+     "sha256": "74f52d77d783f9e37f254543821c957b01f17abaddda7c18b9e5e724600d8669",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x1003fb2c]",
+     "operand": 1,
+     "width": 4,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 105009,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writers": [
+    {
+     "instruction_rva": 96271,
+     "size": 10,
+     "bytes": "c7052cfb031001000000",
+     "sha256": "cb12f10a285f9611ba6f9823ba1096e07840bc45daf16c068e26fa0532e7e6e3",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb2c], 1",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 96273,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 96283,
+     "size": 10,
+     "bytes": "c7052cfb031000000000",
+     "sha256": "799fa13bb75eff96773673f4070e28fbf43712acc99d977c96c36c790b99e4aa",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb2c], 0",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 96285,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 96377,
+     "size": 10,
+     "bytes": "c7052cfb031000000000",
+     "sha256": "799fa13bb75eff96773673f4070e28fbf43712acc99d977c96c36c790b99e4aa",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb2c], 0",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 96379,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 97773,
+     "size": 6,
+     "bytes": "893d2cfb0310",
+     "sha256": "5f3f09d997cd92da9d2f7daed4f6493438aaabf69104ebe8278c69206bf95e5a",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb2c], edi",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 97775,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 97781,
+     "size": 6,
+     "bytes": "892d2cfb0310",
+     "sha256": "ff4b44b8a26880cdcd295b7e301d6b0b8572423419d24bff632c1c366c962cd2",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb2c], ebp",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 97783,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writer_count": 5,
+   "overlapping_accesses": [],
+   "address_takings": [],
+   "independent_anchor_candidates": [
+    {
+     "rva": 96271,
+     "size": 10,
+     "operand": 0,
+     "sha256": "cb12f10a285f9611ba6f9823ba1096e07840bc45daf16c068e26fa0532e7e6e3",
+     "bytes": "c7052cfb031001000000",
+     "instruction": "dword ptr [0x1003fb2c], 1",
+     "fixup_rva": 96273,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 95456,
+     "containing_row_id": "eng3.174e0",
+     "containing_row_status": "CODEGEN_SIMILAR",
+     "in_velocity_b_blockers": true
+    },
+    {
+     "rva": 96283,
+     "size": 10,
+     "operand": 0,
+     "sha256": "799fa13bb75eff96773673f4070e28fbf43712acc99d977c96c36c790b99e4aa",
+     "bytes": "c7052cfb031000000000",
+     "instruction": "dword ptr [0x1003fb2c], 0",
+     "fixup_rva": 96285,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 95456,
+     "containing_row_id": "eng3.174e0",
+     "containing_row_status": "CODEGEN_SIMILAR",
+     "in_velocity_b_blockers": true
+    },
+    {
+     "rva": 96377,
+     "size": 10,
+     "operand": 0,
+     "sha256": "799fa13bb75eff96773673f4070e28fbf43712acc99d977c96c36c790b99e4aa",
+     "bytes": "c7052cfb031000000000",
+     "instruction": "dword ptr [0x1003fb2c], 0",
+     "fixup_rva": 96379,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 95456,
+     "containing_row_id": "eng3.174e0",
+     "containing_row_status": "CODEGEN_SIMILAR",
+     "in_velocity_b_blockers": true
+    },
+    {
+     "rva": 97773,
+     "size": 6,
+     "operand": 0,
+     "sha256": "5f3f09d997cd92da9d2f7daed4f6493438aaabf69104ebe8278c69206bf95e5a",
+     "bytes": "893d2cfb0310",
+     "instruction": "dword ptr [0x1003fb2c], edi",
+     "fixup_rva": 97775,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 96992,
+     "containing_row_id": "eng3.17ae0",
+     "containing_row_status": "CODEGEN_SIMILAR",
+     "in_velocity_b_blockers": true
+    },
+    {
+     "rva": 97781,
+     "size": 6,
+     "operand": 0,
+     "sha256": "ff4b44b8a26880cdcd295b7e301d6b0b8572423419d24bff632c1c366c962cd2",
+     "bytes": "892d2cfb0310",
+     "instruction": "dword ptr [0x1003fb2c], ebp",
+     "fixup_rva": 97783,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 96992,
+     "containing_row_id": "eng3.17ae0",
+     "containing_row_status": "CODEGEN_SIMILAR",
+     "in_velocity_b_blockers": true
+    }
+   ],
+   "cmp_test_anchor_candidates": [],
+   "anchor": null,
+   "anchor_profile": null,
+   "anchor_pass": false,
+   "extent_pass": true,
+   "binding_status": "stop: no independent MOV/LEA/PUSH anchor outside this lane's callers",
+   "prior_finding": null,
+   "assigned_row_references": {
+    "eng3.174e0": [
+     {
+      "offset": 817,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 829,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 923,
+      "type": 6,
+      "addend": 0
+     }
+    ],
+    "eng3.17ae0": [
+     {
+      "offset": 783,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 791,
+      "type": 6,
+      "addend": 0
+     }
+    ],
+    "eng3.18950": [
+     {
+      "offset": 554,
+      "type": 6,
+      "addend": 0
+     }
+    ],
+    "eng3.19a30": [
+     {
+      "offset": 1,
+      "type": 6,
+      "addend": 0
+     }
+    ]
+   }
+  },
+  "g_eng3_3fb68": {
+   "symbol": "_g_eng3_3fb68",
+   "rva": 260968,
+   "size": 4,
+   "declared_type": "int",
+   "owner_source": null,
+   "owner_source_sha256": null,
+   "section_storage": {
+    "section": ".data",
+    "section_rva": 208896,
+    "raw_end_rva": 259072,
+    "virtual_end_rva": 279348,
+    "inside_zero_tail": true,
+    "loader_fixup_overlap": false
+   },
+   "access_count": 3,
+   "memory_widths": [
+    4
+   ],
+   "access_counts": {
+    "R": 1,
+    "W": 2
+   },
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "all_accesses": [
+    {
+     "instruction_rva": 102557,
+     "size": 5,
+     "bytes": "a168fb0310",
+     "sha256": "6e4bb54f9775f139c3499645cc5aea66d9bc649759efbeb5df038e723cf53d75",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x1003fb68]",
+     "operand": 1,
+     "width": 4,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 102558,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 102592,
+     "size": 10,
+     "bytes": "c70568fb031001000000",
+     "sha256": "367375efadab447135c5c5c3b7a8903a4073d49baebeb174dc995a50b1c9b5bf",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb68], 1",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 102594,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 105040,
+     "size": 6,
+     "bytes": "891d68fb0310",
+     "sha256": "1a81cc694449870c065de46d19af63a744e37eca2bba02d29910b765d2593a6c",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb68], ebx",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 105042,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writers": [
+    {
+     "instruction_rva": 102592,
+     "size": 10,
+     "bytes": "c70568fb031001000000",
+     "sha256": "367375efadab447135c5c5c3b7a8903a4073d49baebeb174dc995a50b1c9b5bf",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb68], 1",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 102594,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 105040,
+     "size": 6,
+     "bytes": "891d68fb0310",
+     "sha256": "1a81cc694449870c065de46d19af63a744e37eca2bba02d29910b765d2593a6c",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb68], ebx",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 105042,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writer_count": 2,
+   "overlapping_accesses": [],
+   "address_takings": [],
+   "independent_anchor_candidates": [],
+   "cmp_test_anchor_candidates": [],
+   "anchor": null,
+   "anchor_profile": null,
+   "anchor_pass": false,
+   "extent_pass": true,
+   "binding_status": "stop: no independent MOV/LEA/PUSH anchor outside this lane's callers",
+   "prior_finding": null,
+   "assigned_row_references": {
+    "eng3.19030": [
+     {
+      "offset": 110,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 146,
+      "type": 6,
+      "addend": 0
+     }
+    ],
+    "eng3.19a30": [
+     {
+      "offset": 34,
+      "type": 6,
+      "addend": 0
+     }
+    ]
+   }
+  },
+  "g_eng3_3fb6c": {
+   "symbol": "_g_eng3_3fb6c",
+   "rva": 260972,
+   "size": 4,
+   "declared_type": "int",
+   "owner_source": null,
+   "owner_source_sha256": null,
+   "section_storage": {
+    "section": ".data",
+    "section_rva": 208896,
+    "raw_end_rva": 259072,
+    "virtual_end_rva": 279348,
+    "inside_zero_tail": true,
+    "loader_fixup_overlap": false
+   },
+   "access_count": 7,
+   "memory_widths": [
+    4
+   ],
+   "access_counts": {
+    "W": 3,
+    "R": 4
+   },
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "all_accesses": [
+    {
+     "instruction_rva": 102661,
+     "size": 10,
+     "bytes": "c7056cfb031000000000",
+     "sha256": "43747c1dc4be3235ed36a0ae169a0f21895cd60926881cb6fec25e28b24bcd68",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb6c], 0",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 102663,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 102746,
+     "size": 5,
+     "bytes": "a16cfb0310",
+     "sha256": "a9def6c96965a3e2d19c48f06dd03f34a44fc480c300c826e0d0354a287a73ed",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x1003fb6c]",
+     "operand": 1,
+     "width": 4,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 102747,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 102774,
+     "size": 6,
+     "bytes": "8b156cfb0310",
+     "sha256": "10366d2be1d778dd6303caaa88d51d5400f9fe83afd66836a0522bb0e621a352",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x1003fb6c]",
+     "operand": 1,
+     "width": 4,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 102776,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 102788,
+     "size": 6,
+     "bytes": "89156cfb0310",
+     "sha256": "0fc38aa38f4bc75653592c933abadff6204cea4139f0572772f22d8ca73ca5a6",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb6c], edx",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 102790,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 102801,
+     "size": 6,
+     "bytes": "8b156cfb0310",
+     "sha256": "10366d2be1d778dd6303caaa88d51d5400f9fe83afd66836a0522bb0e621a352",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x1003fb6c]",
+     "operand": 1,
+     "width": 4,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 102803,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 102825,
+     "size": 6,
+     "bytes": "8b156cfb0310",
+     "sha256": "10366d2be1d778dd6303caaa88d51d5400f9fe83afd66836a0522bb0e621a352",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x1003fb6c]",
+     "operand": 1,
+     "width": 4,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 102827,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 102837,
+     "size": 6,
+     "bytes": "89156cfb0310",
+     "sha256": "0fc38aa38f4bc75653592c933abadff6204cea4139f0572772f22d8ca73ca5a6",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb6c], edx",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 102839,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writers": [
+    {
+     "instruction_rva": 102661,
+     "size": 10,
+     "bytes": "c7056cfb031000000000",
+     "sha256": "43747c1dc4be3235ed36a0ae169a0f21895cd60926881cb6fec25e28b24bcd68",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb6c], 0",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 102663,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 102788,
+     "size": 6,
+     "bytes": "89156cfb0310",
+     "sha256": "0fc38aa38f4bc75653592c933abadff6204cea4139f0572772f22d8ca73ca5a6",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb6c], edx",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 102790,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 102837,
+     "size": 6,
+     "bytes": "89156cfb0310",
+     "sha256": "0fc38aa38f4bc75653592c933abadff6204cea4139f0572772f22d8ca73ca5a6",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x1003fb6c], edx",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 102839,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writer_count": 3,
+   "overlapping_accesses": [],
+   "address_takings": [],
+   "independent_anchor_candidates": [],
+   "cmp_test_anchor_candidates": [],
+   "anchor": null,
+   "anchor_profile": null,
+   "anchor_pass": false,
+   "extent_pass": true,
+   "binding_status": "stop: no independent MOV/LEA/PUSH anchor outside this lane's callers",
+   "prior_finding": null,
+   "assigned_row_references": {
+    "eng3.19100": [
+     {
+      "offset": 7,
+      "type": 6,
+      "addend": 0
+     }
+    ],
+    "eng3.19130": [
+     {
+      "offset": 43,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 72,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 86,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 99,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 123,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 135,
+      "type": 6,
+      "addend": 0
+     }
+    ]
+   }
+  },
+  "g_eng3_3fba0": {
+   "symbol": "_g_eng3_3fba0",
+   "rva": 261024,
+   "size": 2,
+   "declared_type": "short",
+   "owner_source": "src/eng3/loader_zero_cells_c8_eng3.c",
+   "owner_source_sha256": "66aab99f573cc0c3186bdb84764f359e97b1bac563ea8c1245aba66337b3c303",
+   "section_storage": {
+    "section": ".data",
+    "section_rva": 208896,
+    "raw_end_rva": 259072,
+    "virtual_end_rva": 279348,
+    "inside_zero_tail": true,
+    "loader_fixup_overlap": false
+   },
+   "access_count": 3,
+   "memory_widths": [
+    2
+   ],
+   "access_counts": {
+    "W": 3
+   },
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "all_accesses": [
+    {
+     "instruction_rva": 104426,
+     "size": 9,
+     "bytes": "66c705a0fb03100000",
+     "sha256": "d253e7e8ec55509c84211eef7ba4ad0a7da9999ca8e62ad2dc3a83cdeadb8b02",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x1003fba0], 0",
+     "operand": 0,
+     "width": 2,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 104429,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 105752,
+     "size": 9,
+     "bytes": "66c705a0fb03100000",
+     "sha256": "d253e7e8ec55509c84211eef7ba4ad0a7da9999ca8e62ad2dc3a83cdeadb8b02",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x1003fba0], 0",
+     "operand": 0,
+     "width": 2,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 105755,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 107198,
+     "size": 7,
+     "bytes": "66890da0fb0310",
+     "sha256": "c190b38dde460afe337856323cffc96bb51016d3d0db4a46381e1bf2cf30dac0",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x1003fba0], cx",
+     "operand": 0,
+     "width": 2,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 107201,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writers": [
+    {
+     "instruction_rva": 104426,
+     "size": 9,
+     "bytes": "66c705a0fb03100000",
+     "sha256": "d253e7e8ec55509c84211eef7ba4ad0a7da9999ca8e62ad2dc3a83cdeadb8b02",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x1003fba0], 0",
+     "operand": 0,
+     "width": 2,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 104429,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 105752,
+     "size": 9,
+     "bytes": "66c705a0fb03100000",
+     "sha256": "d253e7e8ec55509c84211eef7ba4ad0a7da9999ca8e62ad2dc3a83cdeadb8b02",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x1003fba0], 0",
+     "operand": 0,
+     "width": 2,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 105755,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 107198,
+     "size": 7,
+     "bytes": "66890da0fb0310",
+     "sha256": "c190b38dde460afe337856323cffc96bb51016d3d0db4a46381e1bf2cf30dac0",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x1003fba0], cx",
+     "operand": 0,
+     "width": 2,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 107201,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writer_count": 3,
+   "overlapping_accesses": [],
+   "address_takings": [],
+   "independent_anchor_candidates": [
+    {
+     "rva": 104426,
+     "size": 9,
+     "operand": 0,
+     "sha256": "d253e7e8ec55509c84211eef7ba4ad0a7da9999ca8e62ad2dc3a83cdeadb8b02",
+     "bytes": "66c705a0fb03100000",
+     "instruction": "word ptr [0x1003fba0], 0",
+     "fixup_rva": 104429,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 103888,
+     "containing_row_id": "eng3.eng3_195d0",
+     "containing_row_status": "RECONSTRUCTED",
+     "in_velocity_b_blockers": false
+    }
+   ],
+   "cmp_test_anchor_candidates": [],
+   "anchor": {
+    "rva": 104426,
+    "size": 9,
+    "operand": 0,
+    "sha256": "d253e7e8ec55509c84211eef7ba4ad0a7da9999ca8e62ad2dc3a83cdeadb8b02",
+    "bytes": "66c705a0fb03100000",
+    "instruction": "word ptr [0x1003fba0], 0",
+    "fixup_rva": 104429,
+    "fixup_type": 3,
+    "outside_assigned_rows": true,
+    "mapped_function_rva": 103888,
+    "containing_row_id": "eng3.eng3_195d0",
+    "containing_row_status": "RECONSTRUCTED",
+    "in_velocity_b_blockers": false
+   },
+   "anchor_profile": null,
+   "anchor_pass": true,
+   "extent_pass": true,
+   "binding_status": "pass",
+   "prior_finding": null,
+   "assigned_row_references": {
+    "eng3.19cd0": [
+     {
+      "offset": 75,
+      "type": 6,
+      "addend": 0
+     }
+    ],
+    "eng3.1a290": [
+     {
+      "offset": 49,
+      "type": 6,
+      "addend": 0
+     }
+    ]
+   }
+  },
+  "g_eng3_height_40640": {
+   "symbol": "_g_eng3_height_40640",
+   "rva": 263744,
+   "size": 2,
+   "declared_type": "short",
+   "owner_source": "src/eng3/loader_zero_cells_c8_eng3.c",
+   "owner_source_sha256": "66aab99f573cc0c3186bdb84764f359e97b1bac563ea8c1245aba66337b3c303",
+   "section_storage": {
+    "section": ".data",
+    "section_rva": 208896,
+    "raw_end_rva": 259072,
+    "virtual_end_rva": 279348,
+    "inside_zero_tail": true,
+    "loader_fixup_overlap": false
+   },
+   "access_count": 12,
+   "memory_widths": [
+    2
+   ],
+   "access_counts": {
+    "R": 9,
+    "W": 3
+   },
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "all_accesses": [
+    {
+     "instruction_rva": 95525,
+     "size": 6,
+     "bytes": "66a140060410",
+     "sha256": "d3441abccaf58cc148285effffac0b4a42924e4b0a099c9f1506c72cf58b2999",
+     "mnemonic": "mov",
+     "operands": "ax, word ptr [0x10040640]",
+     "operand": 1,
+     "width": 2,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 95527,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 95553,
+     "size": 6,
+     "bytes": "66a340060410",
+     "sha256": "0a43229571db3dcc92aae5c690fb248be973d04752945a51752d0207bb4124f5",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040640], ax",
+     "operand": 0,
+     "width": 2,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 95555,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 95569,
+     "size": 6,
+     "bytes": "66a340060410",
+     "sha256": "0a43229571db3dcc92aae5c690fb248be973d04752945a51752d0207bb4124f5",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040640], ax",
+     "operand": 0,
+     "width": 2,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 95571,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 101175,
+     "size": 7,
+     "bytes": "66390540060410",
+     "sha256": "e7f14ce04c4e6ac8dfb20fa41e645a684587d9be839f4aa6d41fc3ea30640b02",
+     "mnemonic": "cmp",
+     "operands": "word ptr [0x10040640], ax",
+     "operand": 0,
+     "width": 2,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 101178,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 102130,
+     "size": 7,
+     "bytes": "66390540060410",
+     "sha256": "e7f14ce04c4e6ac8dfb20fa41e645a684587d9be839f4aa6d41fc3ea30640b02",
+     "mnemonic": "cmp",
+     "operands": "word ptr [0x10040640], ax",
+     "operand": 0,
+     "width": 2,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 102133,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 102489,
+     "size": 7,
+     "bytes": "66390540060410",
+     "sha256": "e7f14ce04c4e6ac8dfb20fa41e645a684587d9be839f4aa6d41fc3ea30640b02",
+     "mnemonic": "cmp",
+     "operands": "word ptr [0x10040640], ax",
+     "operand": 0,
+     "width": 2,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 102492,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 116648,
+     "size": 6,
+     "bytes": "66a340060410",
+     "sha256": "0a43229571db3dcc92aae5c690fb248be973d04752945a51752d0207bb4124f5",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040640], ax",
+     "operand": 0,
+     "width": 2,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 116650,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 134091,
+     "size": 7,
+     "bytes": "0fbf2d40060410",
+     "sha256": "cf0c6b897bb6e240bea4208bafc9f71343e21eeb03a4cba18119b5cf72026eb2",
+     "mnemonic": "movsx",
+     "operands": "ebp, word ptr [0x10040640]",
+     "operand": 1,
+     "width": 2,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 134094,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 135950,
+     "size": 7,
+     "bytes": "0fbf0d40060410",
+     "sha256": "b453e39d2ab368e258ddeabb354182a1ba72717c4078ca6ba32450702c8996ed",
+     "mnemonic": "movsx",
+     "operands": "ecx, word ptr [0x10040640]",
+     "operand": 1,
+     "width": 2,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 135953,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 140113,
+     "size": 7,
+     "bytes": "668b3d40060410",
+     "sha256": "765883d567c7aab2969dfe82b06687d57a6e705b10ba50824fb1415a983674ea",
+     "mnemonic": "mov",
+     "operands": "di, word ptr [0x10040640]",
+     "operand": 1,
+     "width": 2,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 140116,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 150641,
+     "size": 7,
+     "bytes": "0fbf3d40060410",
+     "sha256": "1d53dd3c2f00f5f4cd1c0d30fcb851d711e2e869b1e5fa5b759f81091e3cbf4f",
+     "mnemonic": "movsx",
+     "operands": "edi, word ptr [0x10040640]",
+     "operand": 1,
+     "width": 2,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 150644,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 151055,
+     "size": 7,
+     "bytes": "0fbf0d40060410",
+     "sha256": "b453e39d2ab368e258ddeabb354182a1ba72717c4078ca6ba32450702c8996ed",
+     "mnemonic": "movsx",
+     "operands": "ecx, word ptr [0x10040640]",
+     "operand": 1,
+     "width": 2,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 151058,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writers": [
+    {
+     "instruction_rva": 95553,
+     "size": 6,
+     "bytes": "66a340060410",
+     "sha256": "0a43229571db3dcc92aae5c690fb248be973d04752945a51752d0207bb4124f5",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040640], ax",
+     "operand": 0,
+     "width": 2,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 95555,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 95569,
+     "size": 6,
+     "bytes": "66a340060410",
+     "sha256": "0a43229571db3dcc92aae5c690fb248be973d04752945a51752d0207bb4124f5",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040640], ax",
+     "operand": 0,
+     "width": 2,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 95571,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 116648,
+     "size": 6,
+     "bytes": "66a340060410",
+     "sha256": "0a43229571db3dcc92aae5c690fb248be973d04752945a51752d0207bb4124f5",
+     "mnemonic": "mov",
+     "operands": "word ptr [0x10040640], ax",
+     "operand": 0,
+     "width": 2,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 116650,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writer_count": 3,
+   "overlapping_accesses": [],
+   "address_takings": [],
+   "independent_anchor_candidates": [
+    {
+     "rva": 95525,
+     "size": 6,
+     "operand": 1,
+     "sha256": "d3441abccaf58cc148285effffac0b4a42924e4b0a099c9f1506c72cf58b2999",
+     "bytes": "66a140060410",
+     "instruction": "ax, word ptr [0x10040640]",
+     "fixup_rva": 95527,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 95456,
+     "containing_row_id": "eng3.174e0",
+     "containing_row_status": "CODEGEN_SIMILAR",
+     "in_velocity_b_blockers": true
+    },
+    {
+     "rva": 95553,
+     "size": 6,
+     "operand": 0,
+     "sha256": "0a43229571db3dcc92aae5c690fb248be973d04752945a51752d0207bb4124f5",
+     "bytes": "66a340060410",
+     "instruction": "word ptr [0x10040640], ax",
+     "fixup_rva": 95555,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 95456,
+     "containing_row_id": "eng3.174e0",
+     "containing_row_status": "CODEGEN_SIMILAR",
+     "in_velocity_b_blockers": true
+    },
+    {
+     "rva": 95569,
+     "size": 6,
+     "operand": 0,
+     "sha256": "0a43229571db3dcc92aae5c690fb248be973d04752945a51752d0207bb4124f5",
+     "bytes": "66a340060410",
+     "instruction": "word ptr [0x10040640], ax",
+     "fixup_rva": 95571,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 95456,
+     "containing_row_id": "eng3.174e0",
+     "containing_row_status": "CODEGEN_SIMILAR",
+     "in_velocity_b_blockers": true
+    },
+    {
+     "rva": 116648,
+     "size": 6,
+     "operand": 0,
+     "sha256": "0a43229571db3dcc92aae5c690fb248be973d04752945a51752d0207bb4124f5",
+     "bytes": "66a340060410",
+     "instruction": "word ptr [0x10040640], ax",
+     "fixup_rva": 116650,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 116512,
+     "containing_row_id": null,
+     "containing_row_status": null,
+     "in_velocity_b_blockers": null
+    },
+    {
+     "rva": 140113,
+     "size": 7,
+     "operand": 1,
+     "sha256": "765883d567c7aab2969dfe82b06687d57a6e705b10ba50824fb1415a983674ea",
+     "bytes": "668b3d40060410",
+     "instruction": "di, word ptr [0x10040640]",
+     "fixup_rva": 140116,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 139968,
+     "containing_row_id": "eng3.eng3_222c0",
+     "containing_row_status": "RECONSTRUCTED",
+     "in_velocity_b_blockers": false
+    }
+   ],
+   "cmp_test_anchor_candidates": [],
+   "anchor": {
+    "rva": 140113,
+    "size": 7,
+    "operand": 1,
+    "sha256": "765883d567c7aab2969dfe82b06687d57a6e705b10ba50824fb1415a983674ea",
+    "bytes": "668b3d40060410",
+    "instruction": "di, word ptr [0x10040640]",
+    "fixup_rva": 140116,
+    "fixup_type": 3,
+    "outside_assigned_rows": true,
+    "mapped_function_rva": 139968,
+    "containing_row_id": "eng3.eng3_222c0",
+    "containing_row_status": "RECONSTRUCTED",
+    "in_velocity_b_blockers": false
+   },
+   "anchor_profile": null,
+   "anchor_pass": true,
+   "extent_pass": true,
+   "binding_status": "pass",
+   "prior_finding": null,
+   "assigned_row_references": {
+    "eng3.174e0": [
+     {
+      "offset": 71,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 99,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 115,
+      "type": 6,
+      "addend": 0
+     }
+    ],
+    "eng3.18950": [
+     {
+      "offset": 490,
+      "type": 6,
+      "addend": 0
+     }
+    ],
+    "eng3.18eb0": [
+     {
+      "offset": 69,
+      "type": 6,
+      "addend": 0
+     }
+    ],
+    "eng3.19030": [
+     {
+      "offset": 44,
+      "type": 6,
+      "addend": 0
+     }
+    ]
+   }
+  },
+  "g_eng3_iterations_x_40635": {
+   "symbol": "_g_eng3_iterations_x_40635",
+   "rva": 263733,
+   "size": 1,
+   "declared_type": "signed char",
+   "owner_source": null,
+   "owner_source_sha256": null,
+   "section_storage": {
+    "section": ".data",
+    "section_rva": 208896,
+    "raw_end_rva": 259072,
+    "virtual_end_rva": 279348,
+    "inside_zero_tail": true,
+    "loader_fixup_overlap": false
+   },
+   "access_count": 3,
+   "memory_widths": [
+    1
+   ],
+   "access_counts": {
+    "W": 2,
+    "R": 1
+   },
+   "all_memory_accesses_direct_at_offset_zero": false,
+   "all_accesses": [
+    {
+     "instruction_rva": 101059,
+     "size": 7,
+     "bytes": "c6053506041002",
+     "sha256": "61efcbb2532c04c1bffa5dce5f012649348b7d79f17523dc54979e246f2785c7",
+     "mnemonic": "mov",
+     "operands": "byte ptr [0x10040635], 2",
+     "operand": 0,
+     "width": 1,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 101061,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 116700,
+     "size": 6,
+     "bytes": "880d35060410",
+     "sha256": "347d5c0eee4c26c845c6c7a4258dfc8e37fa4e028bc4d7cefd5f3a971e544193",
+     "mnemonic": "mov",
+     "operands": "byte ptr [0x10040635], cl",
+     "operand": 0,
+     "width": 1,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 116702,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 140075,
+     "size": 7,
+     "bytes": "0fbe0535060410",
+     "sha256": "d201d093ca2be06e789bcebad770c6c6cca4b5fca05a337940ab24a690bf02b9",
+     "mnemonic": "movsx",
+     "operands": "eax, byte ptr [0x10040635]",
+     "operand": 1,
+     "width": 1,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 140078,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writers": [
+    {
+     "instruction_rva": 101059,
+     "size": 7,
+     "bytes": "c6053506041002",
+     "sha256": "61efcbb2532c04c1bffa5dce5f012649348b7d79f17523dc54979e246f2785c7",
+     "mnemonic": "mov",
+     "operands": "byte ptr [0x10040635], 2",
+     "operand": 0,
+     "width": 1,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 101061,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 116700,
+     "size": 6,
+     "bytes": "880d35060410",
+     "sha256": "347d5c0eee4c26c845c6c7a4258dfc8e37fa4e028bc4d7cefd5f3a971e544193",
+     "mnemonic": "mov",
+     "operands": "byte ptr [0x10040635], cl",
+     "operand": 0,
+     "width": 1,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 116702,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writer_count": 2,
+   "overlapping_accesses": [
+    {
+     "instruction_rva": 146464,
+     "target_rva": 263732,
+     "width": 4,
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x10040634]",
+     "bytes": "a134060410"
+    }
+   ],
+   "address_takings": [],
+   "independent_anchor_candidates": [
+    {
+     "rva": 116700,
+     "size": 6,
+     "operand": 0,
+     "sha256": "347d5c0eee4c26c845c6c7a4258dfc8e37fa4e028bc4d7cefd5f3a971e544193",
+     "bytes": "880d35060410",
+     "instruction": "byte ptr [0x10040635], cl",
+     "fixup_rva": 116702,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 116512,
+     "containing_row_id": null,
+     "containing_row_status": null,
+     "in_velocity_b_blockers": null
+    }
+   ],
+   "cmp_test_anchor_candidates": [],
+   "anchor": null,
+   "anchor_profile": null,
+   "anchor_pass": false,
+   "extent_pass": false,
+   "binding_status": "stop: native widths or storage extent are not one scalar cell",
+   "prior_finding": null,
+   "assigned_row_references": {
+    "eng3.18950": [
+     {
+      "offset": 373,
+      "type": 6,
+      "addend": 0
+     }
+    ]
+   }
+  },
+  "g_eng3_selection_431e4": {
+   "symbol": "_g_eng3_selection_431e4",
+   "rva": 274916,
+   "size": 1,
+   "declared_type": "signed char",
+   "owner_source": null,
+   "owner_source_sha256": null,
+   "section_storage": {
+    "section": ".data",
+    "section_rva": 208896,
+    "raw_end_rva": 259072,
+    "virtual_end_rva": 279348,
+    "inside_zero_tail": true,
+    "loader_fixup_overlap": false
+   },
+   "access_count": 6,
+   "memory_widths": [
+    1
+   ],
+   "access_counts": {
+    "R": 2,
+    "W": 4
+   },
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "all_accesses": [
+    {
+     "instruction_rva": 107228,
+     "size": 6,
+     "bytes": "8a15e4310410",
+     "sha256": "8a2ab2096e27328062b3f1c1558926b575c8935ee5db0e85099d95ce730d954b",
+     "mnemonic": "mov",
+     "operands": "dl, byte ptr [0x100431e4]",
+     "operand": 1,
+     "width": 1,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 107230,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 107236,
+     "size": 6,
+     "bytes": "8815e4310410",
+     "sha256": "3a798a2aa0632deea213f1b161e9c288dd95bf37c73a67c2f08b1e2ad49cec47",
+     "mnemonic": "mov",
+     "operands": "byte ptr [0x100431e4], dl",
+     "operand": 0,
+     "width": 1,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 107238,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 107244,
+     "size": 7,
+     "bytes": "c605e431041002",
+     "sha256": "a7572ae7b1aa343e2aae711a712ff00a0023b35adc1c925b564fd1942ba4795e",
+     "mnemonic": "mov",
+     "operands": "byte ptr [0x100431e4], 2",
+     "operand": 0,
+     "width": 1,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 107246,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 107269,
+     "size": 5,
+     "bytes": "a0e4310410",
+     "sha256": "3784ac2113f8334e0a915c057ba8cc8be3fe0e31569f41b3e42e49b34617fe1c",
+     "mnemonic": "mov",
+     "operands": "al, byte ptr [0x100431e4]",
+     "operand": 1,
+     "width": 1,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 107270,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 107278,
+     "size": 5,
+     "bytes": "a2e4310410",
+     "sha256": "b499db973e92d8431358c71356faac5de6d6665261a54186ab280da1334aa0f0",
+     "mnemonic": "mov",
+     "operands": "byte ptr [0x100431e4], al",
+     "operand": 0,
+     "width": 1,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 107279,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 107285,
+     "size": 6,
+     "bytes": "880de4310410",
+     "sha256": "c4559c7cf6ab84fb1c975c8a9da5a60a6bee4195f457099468a234cb0309129e",
+     "mnemonic": "mov",
+     "operands": "byte ptr [0x100431e4], cl",
+     "operand": 0,
+     "width": 1,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 107287,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writers": [
+    {
+     "instruction_rva": 107236,
+     "size": 6,
+     "bytes": "8815e4310410",
+     "sha256": "3a798a2aa0632deea213f1b161e9c288dd95bf37c73a67c2f08b1e2ad49cec47",
+     "mnemonic": "mov",
+     "operands": "byte ptr [0x100431e4], dl",
+     "operand": 0,
+     "width": 1,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 107238,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 107244,
+     "size": 7,
+     "bytes": "c605e431041002",
+     "sha256": "a7572ae7b1aa343e2aae711a712ff00a0023b35adc1c925b564fd1942ba4795e",
+     "mnemonic": "mov",
+     "operands": "byte ptr [0x100431e4], 2",
+     "operand": 0,
+     "width": 1,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 107246,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 107278,
+     "size": 5,
+     "bytes": "a2e4310410",
+     "sha256": "b499db973e92d8431358c71356faac5de6d6665261a54186ab280da1334aa0f0",
+     "mnemonic": "mov",
+     "operands": "byte ptr [0x100431e4], al",
+     "operand": 0,
+     "width": 1,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 107279,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 107285,
+     "size": 6,
+     "bytes": "880de4310410",
+     "sha256": "c4559c7cf6ab84fb1c975c8a9da5a60a6bee4195f457099468a234cb0309129e",
+     "mnemonic": "mov",
+     "operands": "byte ptr [0x100431e4], cl",
+     "operand": 0,
+     "width": 1,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 107287,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writer_count": 4,
+   "overlapping_accesses": [],
+   "address_takings": [],
+   "independent_anchor_candidates": [],
+   "cmp_test_anchor_candidates": [],
+   "anchor": null,
+   "anchor_profile": null,
+   "anchor_pass": false,
+   "extent_pass": true,
+   "binding_status": "stop: no independent MOV/LEA/PUSH anchor outside this lane's callers",
+   "prior_finding": null,
+   "assigned_row_references": {
+    "eng3.1a290": [
+     {
+      "offset": 78,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 86,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 94,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 118,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 127,
+      "type": 6,
+      "addend": 0
+     },
+     {
+      "offset": 135,
+      "type": 6,
+      "addend": 0
+     }
+    ]
+   }
+  },
+  "g_eng3_view_angle_40614": {
+   "symbol": "_g_eng3_view_angle_40614",
+   "rva": 263700,
+   "size": 4,
+   "declared_type": "long",
+   "owner_source": null,
+   "owner_source_sha256": null,
+   "section_storage": {
+    "section": ".data",
+    "section_rva": 208896,
+    "raw_end_rva": 259072,
+    "virtual_end_rva": 279348,
+    "inside_zero_tail": true,
+    "loader_fixup_overlap": false
+   },
+   "access_count": 4,
+   "memory_widths": [
+    4
+   ],
+   "access_counts": {
+    "R": 3,
+    "W": 1
+   },
+   "all_memory_accesses_direct_at_offset_zero": true,
+   "all_accesses": [
+    {
+     "instruction_rva": 100998,
+     "size": 10,
+     "bytes": "813d14060410e8040000",
+     "sha256": "e18f96e9b0b21f3a746cdb8ae10948c17b9576e555aa12e35c92049fcd54a6b5",
+     "mnemonic": "cmp",
+     "operands": "dword ptr [0x10040614], 0x4e8",
+     "operand": 0,
+     "width": 4,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 101000,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 116718,
+     "size": 10,
+     "bytes": "c7051406041000000000",
+     "sha256": "c27b6cc741ac45f7326c2e1c76a505c9932811d821034fa0c69e12b7ad563cd4",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x10040614], 0",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 116720,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 131611,
+     "size": 5,
+     "bytes": "a114060410",
+     "sha256": "72124e07e41535f9dacd4a005528ed25e2b3be05be5b5255f6277b7d9d3e78cc",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x10040614]",
+     "operand": 1,
+     "width": 4,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 131612,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    },
+    {
+     "instruction_rva": 139837,
+     "size": 6,
+     "bytes": "8b1514060410",
+     "sha256": "5f7c0f0f8ab28d0c536a0d498078f80567543510dfde1e1e83c7f3d41ff73a9d",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x10040614]",
+     "operand": 1,
+     "width": 4,
+     "access": "R",
+     "offset": 0,
+     "field_rva": 139839,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writers": [
+    {
+     "instruction_rva": 116718,
+     "size": 10,
+     "bytes": "c7051406041000000000",
+     "sha256": "c27b6cc741ac45f7326c2e1c76a505c9932811d821034fa0c69e12b7ad563cd4",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x10040614], 0",
+     "operand": 0,
+     "width": 4,
+     "access": "W",
+     "offset": 0,
+     "field_rva": 116720,
+     "fixup_types": [
+      3
+     ],
+     "db_reference_kinds": [
+      "linear_memory"
+     ]
+    }
+   ],
+   "writer_count": 1,
+   "overlapping_accesses": [],
+   "address_takings": [],
+   "independent_anchor_candidates": [
+    {
+     "rva": 116718,
+     "size": 10,
+     "operand": 0,
+     "sha256": "c27b6cc741ac45f7326c2e1c76a505c9932811d821034fa0c69e12b7ad563cd4",
+     "bytes": "c7051406041000000000",
+     "instruction": "dword ptr [0x10040614], 0",
+     "fixup_rva": 116720,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 116512,
+     "containing_row_id": null,
+     "containing_row_status": null,
+     "in_velocity_b_blockers": null
+    },
+    {
+     "rva": 131611,
+     "size": 5,
+     "operand": 1,
+     "sha256": "72124e07e41535f9dacd4a005528ed25e2b3be05be5b5255f6277b7d9d3e78cc",
+     "bytes": "a114060410",
+     "instruction": "eax, dword ptr [0x10040614]",
+     "fixup_rva": 131612,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 131472,
+     "containing_row_id": null,
+     "containing_row_status": null,
+     "in_velocity_b_blockers": null
+    },
+    {
+     "rva": 139837,
+     "size": 6,
+     "operand": 1,
+     "sha256": "5f7c0f0f8ab28d0c536a0d498078f80567543510dfde1e1e83c7f3d41ff73a9d",
+     "bytes": "8b1514060410",
+     "instruction": "edx, dword ptr [0x10040614]",
+     "fixup_rva": 139839,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 139376,
+     "containing_row_id": null,
+     "containing_row_status": null,
+     "in_velocity_b_blockers": null
+    }
+   ],
+   "cmp_test_anchor_candidates": [],
+   "anchor": null,
+   "anchor_profile": null,
+   "anchor_pass": false,
+   "extent_pass": true,
+   "binding_status": "stop: no independent MOV/LEA/PUSH anchor outside this lane's callers",
+   "prior_finding": null,
+   "assigned_row_references": {
+    "eng3.18950": [
+     {
+      "offset": 312,
+      "type": 6,
+      "addend": 0
+     }
+    ]
+   }
+  }
+ },
+ "cross_lane_cell_reassessments": {
+  "_g_eng3_3fb24": {
+   "prior_selected_anchor": {
+    "rva": 101512,
+    "size": 5,
+    "operand": 0,
+    "sha256": "9f83251970b0d74f4f5cb8e71bf4d9c746a24ee6a9ae0090241c1dca5981a41e",
+    "bytes": "a324fb0310",
+    "instruction": "dword ptr [0x1003fb24], eax",
+    "fixup_rva": 101513,
+    "fixup_type": 3,
+    "outside_assigned_rows": true,
+    "mapped_function_rva": 101312,
+    "containing_row_id": "eng3.18bc0",
+    "containing_row_status": "CODEGEN_SIMILAR",
+    "in_velocity_b_blockers": true
+   },
+   "prior_anchor_overlaps_assigned_c8_rows": true,
+   "qualifying_alternate_anchors": [],
+   "selected_alternate_anchor": null,
+   "status": "deferred: no independent anchor outside pending rows",
+   "source_review": "work/velocity_c/c7_eng3/native_review.json#cells.g_eng3_3fb24"
+  },
+  "_g_eng3_water_level_410e0": {
+   "prior_selected_anchor": {
+    "rva": 102609,
+    "size": 6,
+    "operand": 1,
+    "sha256": "96343e4a73a841eef62bf83a510f009a533bd0b8db609dfbf83a8cbb07640318",
+    "bytes": "66a1e0100410",
+    "instruction": "ax, word ptr [0x100410e0]",
+    "fixup_rva": 102611,
+    "fixup_type": 3,
+    "outside_assigned_rows": true,
+    "mapped_function_rva": 102448,
+    "containing_row_id": "eng3.19030",
+    "containing_row_status": "CODEGEN_SIMILAR",
+    "in_velocity_b_blockers": true
+   },
+   "prior_anchor_overlaps_assigned_c8_rows": true,
+   "qualifying_alternate_anchors": [
+    {
+     "rva": 116777,
+     "size": 7,
+     "operand": 0,
+     "sha256": "05900f946d12e8285bbcc9e9a09cd81c1123b55dfff4ff31f953ad84ebd88ef0",
+     "bytes": "668935e0100410",
+     "instruction": "word ptr [0x100410e0], si",
+     "fixup_rva": 116780,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 116512,
+     "containing_row_id": null,
+     "containing_row_status": null,
+     "in_velocity_b_blockers": null
+    },
+    {
+     "rva": 116828,
+     "size": 7,
+     "operand": 0,
+     "sha256": "05900f946d12e8285bbcc9e9a09cd81c1123b55dfff4ff31f953ad84ebd88ef0",
+     "bytes": "668935e0100410",
+     "instruction": "word ptr [0x100410e0], si",
+     "fixup_rva": 116831,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 116512,
+     "containing_row_id": null,
+     "containing_row_status": null,
+     "in_velocity_b_blockers": null
+    },
+    {
+     "rva": 116846,
+     "size": 9,
+     "operand": 0,
+     "sha256": "5c11e7ef4ab6f5c5dd9822fd2e2c7ab4cec9bf99f1ebeac31b07b96f8df69c8b",
+     "bytes": "66c705e0100410e101",
+     "instruction": "word ptr [0x100410e0], 0x1e1",
+     "fixup_rva": 116849,
+     "fixup_type": 3,
+     "outside_assigned_rows": true,
+     "mapped_function_rva": 116512,
+     "containing_row_id": null,
+     "containing_row_status": null,
+     "in_velocity_b_blockers": null
+    }
+   ],
+   "selected_alternate_anchor": {
+    "rva": 116777,
+    "size": 7,
+    "operand": 0,
+    "sha256": "05900f946d12e8285bbcc9e9a09cd81c1123b55dfff4ff31f953ad84ebd88ef0",
+    "bytes": "668935e0100410",
+    "instruction": "word ptr [0x100410e0], si",
+    "fixup_rva": 116780,
+    "fixup_type": 3,
+    "outside_assigned_rows": true,
+    "mapped_function_rva": 116512,
+    "containing_row_id": null,
+    "containing_row_status": null,
+    "in_velocity_b_blockers": null
+   },
+   "status": "pass with alternate anchor",
+   "source_review": "work/velocity_c/c7_eng3/native_review.json#cells.g_eng3_water_level_410e0"
+  }
+ },
+ "summary": {
+  "pass_symbols": [
+   "g_eng3_3fae4",
+   "g_eng3_3fae8",
+   "g_eng3_3fba0",
+   "g_eng3_height_40640"
+  ],
+  "stop_symbols": [
+   "g_eng3_3fb28",
+   "g_eng3_3fb2c",
+   "g_eng3_3fb68",
+   "g_eng3_3fb6c",
+   "g_eng3_iterations_x_40635",
+   "g_eng3_selection_431e4",
+   "g_eng3_view_angle_40614"
+  ],
+  "acceptance_claim": false
+ },
+ "file_data_symbols": {
+  "_g_eng3_next_key_38060": {
+   "candidate_rva_from_queue_not_identity": 229472,
+   "declaration": {
+    "type": "unsigned short",
+    "size": 2,
+    "source": "src/eng3/handlers_16240.cpp",
+    "extern_declaration_seen": true
+   },
+   "native_access_widths": [
+    2
+   ],
+   "access_count": 1,
+   "independent_exact_HIGHLOW_accesses": [],
+   "all_exact_accesses": [
+    {
+     "instruction_rva": 107255,
+     "size": 7,
+     "bytes": "668b1560800310",
+     "sha256": "16b9dba1546533b9aac2f39a2372daca065440e85738c5ea53edd279095c24f2",
+     "mnemonic": "mov",
+     "operands": "dx, word ptr [0x10038060]",
+     "operand": 1,
+     "width": 2,
+     "access": "R",
+     "target_rva": 229472,
+     "fixup_rva": 107258,
+     "fixup_types": [
+      3
+     ],
+     "containing_row_id": null,
+     "outside_lane_rows": false,
+     "in_velocity_b_blockers": false
+    }
+   ],
+   "overlapping_accesses": [],
+   "storage": {
+    "section": ".data",
+    "file_backed_complete": true,
+    "payload_sha256": "b4c43b50bf245bd727623e3c775a8fcfb8d823d00b57dd65f7f79dd33f126315",
+    "payload_hex": "0008",
+    "internal_HIGHLOW_rvas": []
+   },
+   "relocated_data_v1_eligible": false,
+   "relocated_data_v1_reason": "All source occurrences are extern references; no caller-defined initialized payload allocation is present for this symbol.",
+   "status": "stop: no complete independent scalar data identity"
+  },
+  "_g_eng3_prev_key_3805c": {
+   "candidate_rva_from_queue_not_identity": 229468,
+   "declaration": {
+    "type": "unsigned short",
+    "size": 2,
+    "source": "src/eng3/handlers_16240.cpp",
+    "extern_declaration_seen": true
+   },
+   "native_access_widths": [
+    2
+   ],
+   "access_count": 1,
+   "independent_exact_HIGHLOW_accesses": [],
+   "all_exact_accesses": [
+    {
+     "instruction_rva": 107210,
+     "size": 7,
+     "bytes": "668b355c800310",
+     "sha256": "2947c181882945ec1d49d40cdfc0f1c9075878933371eb859fe0804dcbe7d932",
+     "mnemonic": "mov",
+     "operands": "si, word ptr [0x1003805c]",
+     "operand": 1,
+     "width": 2,
+     "access": "R",
+     "target_rva": 229468,
+     "fixup_rva": 107213,
+     "fixup_types": [
+      3
+     ],
+     "containing_row_id": null,
+     "outside_lane_rows": false,
+     "in_velocity_b_blockers": false
+    }
+   ],
+   "overlapping_accesses": [],
+   "storage": {
+    "section": ".data",
+    "file_backed_complete": true,
+    "payload_sha256": "4f35212d12f9ad2036492c95f1fe79baf4ec7bd9bef3dffa7579f2293ff546a4",
+    "payload_hex": "0004",
+    "internal_HIGHLOW_rvas": []
+   },
+   "relocated_data_v1_eligible": false,
+   "relocated_data_v1_reason": "All source occurrences are extern references; no caller-defined initialized payload allocation is present for this symbol.",
+   "status": "stop: no complete independent scalar data identity"
+  }
+ },
+ "file_data_summary": {
+  "pass": [],
+  "stops": [
+   "_g_eng3_next_key_38060",
+   "_g_eng3_prev_key_3805c"
+  ],
+  "relocated_data_v1_eligible": []
+ }
+}

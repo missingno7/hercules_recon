@@ -1,0 +1,3246 @@
+{
+ "schema": 1,
+ "lane": "c11_eng3",
+ "date": "2026-10-26",
+ "scope": "Proposed native identity and loader-zero cell review for reference-only worker bindings; not acceptance or promotion.",
+ "target": "assets/pc/HERCULES/ENG3.DLL",
+ "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+ "image_base": 268435456,
+ "pe_tools": {
+  "pefile": "2024.8.26",
+  "capstone": "5.0.7"
+ },
+ "recovery_sha256": "cfada547d8b6aaf220107267ac891c82a9350caee2a86029949772091aa1f006",
+ "source_hashes": {
+  "src/eng3/track_unit_20010.cpp": "629d9271c5771e823424e5918fab502cb511cb742c75932151083f4ef2a50d41",
+  "src/eng1/sound_od.c": "1a34991c4f610ad78407d757e2f4443510408d4f62612962256e783d01f6dffc",
+  "src/eng3/render_unit_22f00.cpp": "2daa8f8452946436b18ee991896f25d992a24defb364b4deb02a37c8cdc7d7ac",
+  "src/eng3/actor_services_1e000.c": "d2734246b7304b8bcbc1f9b5f44010bca5e743542276934054d5765b6e798475",
+  "src/title/u0c1f0.c": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+  "src/title/u17cb0.cpp": "24f0718161e0e687793d32041ec5c9b541820f5e45e5e58d2f4a629d0b3fb010"
+ },
+ "owner_source": {
+  "path": "src/eng3/loader_zero_cells_c11_eng3.c",
+  "sha256": "f09689b958f6d480665acb2fecdac0c98f336bc9c98a04cb5137ea2781e0817d",
+  "flags": [
+   "/O2"
+  ],
+  "definitions": {
+   "_g_configuration_dword_71384": {
+    "type": "ActorCallback *",
+    "size": 4,
+    "rva": 265120
+   },
+   "_g_eng3_color_43168": {
+    "type": "unsigned long",
+    "size": 4,
+    "rva": 274792
+   },
+   "_g_eng3_frame_41448": {
+    "type": "Eng3Buffer *",
+    "size": 4,
+    "rva": 267336
+   },
+   "_g_eng3_prim_43164": {
+    "type": "unsigned char *",
+    "size": 4,
+    "rva": 274788
+   },
+   "_g_eng3_shape_count_40788": {
+    "type": "signed char",
+    "size": 1,
+    "rva": 264072
+   },
+   "_g_eng3_step_tolerance_431e0": {
+    "type": "long",
+    "size": 4,
+    "rva": 274912
+   }
+  }
+ },
+ "zero_tail": {
+  "section": ".data",
+  "rva_start": 259072,
+  "rva_end": 279348,
+  "virtual_size": 70452,
+  "raw_size": 50176
+ },
+ "definitions_checked": {
+  "module_source_search": "No existing definitions of these six symbols under src/eng3; prior loader_zero_cells_5.c does not define them. ENG1 g_configuration_dword_71384 is a distinct module instance."
+ },
+ "cells": {
+  "_g_configuration_dword_71384": {
+   "rva": 265120,
+   "size": 4,
+   "type": "ActorCallback *",
+   "zero_initialized_storage": "PE writable .data zero tail",
+   "survey": {
+    "access_count": 5,
+    "widths_bytes": [
+     4
+    ],
+    "writer_count": 1,
+    "highlow_fields_count": 5,
+    "raw_text_target_occurrences_equal_highlow_fields": true,
+    "accesses": [
+     {
+      "field_rva": 99593,
+      "fixup_type": 3,
+      "instruction_rva": 99591,
+      "instruction_size": 6,
+      "bytes": "8b15a00b0410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10040ba0]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.18370"
+     },
+     {
+      "field_rva": 121593,
+      "fixup_type": 3,
+      "instruction_rva": 121591,
+      "instruction_size": 6,
+      "bytes": "8915a00b0410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10040ba0], edx",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_1d9b0"
+     },
+     {
+      "field_rva": 122043,
+      "fixup_type": 3,
+      "instruction_rva": 122041,
+      "instruction_size": 6,
+      "bytes": "8b0da00b0410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10040ba0]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_1dbc0"
+     },
+     {
+      "field_rva": 122064,
+      "fixup_type": 3,
+      "instruction_rva": 122063,
+      "instruction_size": 5,
+      "bytes": "a1a00b0410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10040ba0]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_1dbc0"
+     },
+     {
+      "field_rva": 123131,
+      "fixup_type": 3,
+      "instruction_rva": 123129,
+      "instruction_size": 6,
+      "bytes": "8b15a00b0410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10040ba0]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.1e000"
+     }
+    ],
+    "anchor": {
+     "rva": 122063,
+     "size": 5,
+     "operand": 1,
+     "sha256": "beb7b70c279556c88e17ac859d819a5e56559f97a71936f5bb14dbc4dd1e5397",
+     "bytes": "a1a00b0410",
+     "native_instruction": "mov eax, dword ptr [0x10040ba0]"
+    }
+   }
+  },
+  "_g_eng3_color_43168": {
+   "rva": 274792,
+   "size": 4,
+   "type": "unsigned long",
+   "zero_initialized_storage": "PE writable .data zero tail",
+   "survey": {
+    "access_count": 3,
+    "widths_bytes": [
+     4
+    ],
+    "writer_count": 1,
+    "highlow_fields_count": 3,
+    "raw_text_target_occurrences_equal_highlow_fields": true,
+    "accesses": [
+     {
+      "field_rva": 29414,
+      "fixup_type": 3,
+      "instruction_rva": 29412,
+      "instruction_size": 6,
+      "bytes": "8b0d68310410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10043168]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 44364,
+      "fixup_type": 3,
+      "instruction_rva": 44362,
+      "instruction_size": 6,
+      "bytes": "891568310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043168], edx",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_0ad20"
+     },
+     {
+      "field_rva": 153202,
+      "fixup_type": 3,
+      "instruction_rva": 153200,
+      "instruction_size": 6,
+      "bytes": "8b0d68310410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10043168]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.25620"
+     }
+    ],
+    "anchor": {
+     "rva": 44362,
+     "size": 6,
+     "operand": 0,
+     "sha256": "e409c7d82b90b63d616024d38656154282b7949fc9be843b1cc08e1835f2709e",
+     "bytes": "891568310410",
+     "native_instruction": "mov dword ptr [0x10043168], edx"
+    }
+   }
+  },
+  "_g_eng3_frame_41448": {
+   "rva": 267336,
+   "size": 4,
+   "type": "Eng3Buffer *",
+   "zero_initialized_storage": "PE writable .data zero tail",
+   "survey": {
+    "access_count": 54,
+    "widths_bytes": [
+     4
+    ],
+    "writer_count": 3,
+    "highlow_fields_count": 54,
+    "raw_text_target_occurrences_equal_highlow_fields": true,
+    "accesses": [
+     {
+      "field_rva": 29270,
+      "fixup_type": 3,
+      "instruction_rva": 29269,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 29287,
+      "fixup_type": 3,
+      "instruction_rva": 29286,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 29301,
+      "fixup_type": 3,
+      "instruction_rva": 29300,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 29315,
+      "fixup_type": 3,
+      "instruction_rva": 29314,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 29432,
+      "fixup_type": 3,
+      "instruction_rva": 29430,
+      "instruction_size": 6,
+      "bytes": "8b0d48140410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 29457,
+      "fixup_type": 3,
+      "instruction_rva": 29455,
+      "instruction_size": 6,
+      "bytes": "8b0d48140410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 32022,
+      "fixup_type": 3,
+      "instruction_rva": 32020,
+      "instruction_size": 6,
+      "bytes": "8b0d48140410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 32297,
+      "fixup_type": 3,
+      "instruction_rva": 32295,
+      "instruction_size": 6,
+      "bytes": "8b2d48140410",
+      "mnemonic": "mov",
+      "operands": "ebp, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_07e00"
+     },
+     {
+      "field_rva": 32797,
+      "fixup_type": 3,
+      "instruction_rva": 32796,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_08000"
+     },
+     {
+      "field_rva": 32814,
+      "fixup_type": 3,
+      "instruction_rva": 32812,
+      "instruction_size": 6,
+      "bytes": "8b1548140410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_08000"
+     },
+     {
+      "field_rva": 35760,
+      "fixup_type": 3,
+      "instruction_rva": 35758,
+      "instruction_size": 6,
+      "bytes": "8b0d48140410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 36031,
+      "fixup_type": 3,
+      "instruction_rva": 36029,
+      "instruction_size": 6,
+      "bytes": "8b0d48140410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 36216,
+      "fixup_type": 3,
+      "instruction_rva": 36215,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 37201,
+      "fixup_type": 3,
+      "instruction_rva": 37199,
+      "instruction_size": 6,
+      "bytes": "8b0d48140410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 38100,
+      "fixup_type": 3,
+      "instruction_rva": 38099,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 38880,
+      "fixup_type": 3,
+      "instruction_rva": 38879,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 39532,
+      "fixup_type": 3,
+      "instruction_rva": 39530,
+      "instruction_size": 6,
+      "bytes": "8b0d48140410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 42753,
+      "fixup_type": 3,
+      "instruction_rva": 42752,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 42775,
+      "fixup_type": 3,
+      "instruction_rva": 42773,
+      "instruction_size": 6,
+      "bytes": "8b0d48140410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 45874,
+      "fixup_type": 3,
+      "instruction_rva": 45873,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.od_0b313"
+     },
+     {
+      "field_rva": 45916,
+      "fixup_type": 3,
+      "instruction_rva": 45915,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.od_0b313"
+     },
+     {
+      "field_rva": 45984,
+      "fixup_type": 3,
+      "instruction_rva": 45982,
+      "instruction_size": 6,
+      "bytes": "8b1548140410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.od_0b313"
+     },
+     {
+      "field_rva": 46005,
+      "fixup_type": 3,
+      "instruction_rva": 46003,
+      "instruction_size": 6,
+      "bytes": "8b1548140410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.od_0b313"
+     },
+     {
+      "field_rva": 46026,
+      "fixup_type": 3,
+      "instruction_rva": 46024,
+      "instruction_size": 6,
+      "bytes": "8b1548140410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.od_0b313"
+     },
+     {
+      "field_rva": 93448,
+      "fixup_type": 3,
+      "instruction_rva": 93446,
+      "instruction_size": 6,
+      "bytes": "8b0d48140410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_16c40"
+     },
+     {
+      "field_rva": 93493,
+      "fixup_type": 3,
+      "instruction_rva": 93491,
+      "instruction_size": 6,
+      "bytes": "8b0d48140410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_16c40"
+     },
+     {
+      "field_rva": 93663,
+      "fixup_type": 3,
+      "instruction_rva": 93661,
+      "instruction_size": 6,
+      "bytes": "8b1548140410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_16c40"
+     },
+     {
+      "field_rva": 93790,
+      "fixup_type": 3,
+      "instruction_rva": 93789,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_16c40"
+     },
+     {
+      "field_rva": 93808,
+      "fixup_type": 3,
+      "instruction_rva": 93807,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_16c40"
+     },
+     {
+      "field_rva": 93822,
+      "fixup_type": 3,
+      "instruction_rva": 93821,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_16c40"
+     },
+     {
+      "field_rva": 93836,
+      "fixup_type": 3,
+      "instruction_rva": 93835,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_16c40"
+     },
+     {
+      "field_rva": 107961,
+      "fixup_type": 3,
+      "instruction_rva": 107960,
+      "instruction_size": 5,
+      "bytes": "a348140410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10041448], eax",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.1a560"
+     },
+     {
+      "field_rva": 108247,
+      "fixup_type": 3,
+      "instruction_rva": 108245,
+      "instruction_size": 6,
+      "bytes": "8b0d48140410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.1a560"
+     },
+     {
+      "field_rva": 108663,
+      "fixup_type": 3,
+      "instruction_rva": 108662,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.1a560"
+     },
+     {
+      "field_rva": 108675,
+      "fixup_type": 3,
+      "instruction_rva": 108673,
+      "instruction_size": 6,
+      "bytes": "8b0d48140410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.1a560"
+     },
+     {
+      "field_rva": 108713,
+      "fixup_type": 3,
+      "instruction_rva": 108711,
+      "instruction_size": 6,
+      "bytes": "8b1548140410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.1a560"
+     },
+     {
+      "field_rva": 108724,
+      "fixup_type": 3,
+      "instruction_rva": 108723,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.1a560"
+     },
+     {
+      "field_rva": 108747,
+      "fixup_type": 3,
+      "instruction_rva": 108745,
+      "instruction_size": 6,
+      "bytes": "8b0d48140410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.1a560"
+     },
+     {
+      "field_rva": 108765,
+      "fixup_type": 3,
+      "instruction_rva": 108764,
+      "instruction_size": 5,
+      "bytes": "a348140410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10041448], eax",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.1a560"
+     },
+     {
+      "field_rva": 110204,
+      "fixup_type": 3,
+      "instruction_rva": 110202,
+      "instruction_size": 6,
+      "bytes": "8b1548140410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_1abb0"
+     },
+     {
+      "field_rva": 110244,
+      "fixup_type": 3,
+      "instruction_rva": 110242,
+      "instruction_size": 6,
+      "bytes": "8b0d48140410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_1abb0"
+     },
+     {
+      "field_rva": 110290,
+      "fixup_type": 3,
+      "instruction_rva": 110288,
+      "instruction_size": 6,
+      "bytes": "8b0d48140410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_1abb0"
+     },
+     {
+      "field_rva": 110307,
+      "fixup_type": 3,
+      "instruction_rva": 110306,
+      "instruction_size": 5,
+      "bytes": "a348140410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10041448], eax",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_1abb0"
+     },
+     {
+      "field_rva": 133110,
+      "fixup_type": 3,
+      "instruction_rva": 133108,
+      "instruction_size": 6,
+      "bytes": "8b1548140410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.206f0"
+     },
+     {
+      "field_rva": 143360,
+      "fixup_type": 3,
+      "instruction_rva": 143358,
+      "instruction_size": 6,
+      "bytes": "8b1548140410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_22f00"
+     },
+     {
+      "field_rva": 143937,
+      "fixup_type": 3,
+      "instruction_rva": 143935,
+      "instruction_size": 6,
+      "bytes": "8b3548140410",
+      "mnemonic": "mov",
+      "operands": "esi, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_231a0"
+     },
+     {
+      "field_rva": 144483,
+      "fixup_type": 3,
+      "instruction_rva": 144482,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_23440"
+     },
+     {
+      "field_rva": 147188,
+      "fixup_type": 3,
+      "instruction_rva": 147187,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_23ef0"
+     },
+     {
+      "field_rva": 153054,
+      "fixup_type": 3,
+      "instruction_rva": 153052,
+      "instruction_size": 6,
+      "bytes": "8b1548140410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_250f0"
+     },
+     {
+      "field_rva": 153076,
+      "fixup_type": 3,
+      "instruction_rva": 153075,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_250f0"
+     },
+     {
+      "field_rva": 153227,
+      "fixup_type": 3,
+      "instruction_rva": 153225,
+      "instruction_size": 6,
+      "bytes": "8b1548140410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.25620"
+     },
+     {
+      "field_rva": 153244,
+      "fixup_type": 3,
+      "instruction_rva": 153242,
+      "instruction_size": 6,
+      "bytes": "8b0d48140410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.25620"
+     },
+     {
+      "field_rva": 153283,
+      "fixup_type": 3,
+      "instruction_rva": 153281,
+      "instruction_size": 6,
+      "bytes": "8b1548140410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.25620"
+     },
+     {
+      "field_rva": 153305,
+      "fixup_type": 3,
+      "instruction_rva": 153304,
+      "instruction_size": 5,
+      "bytes": "a148140410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10041448]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.25620"
+     }
+    ],
+    "anchor": {
+     "rva": 32295,
+     "size": 6,
+     "operand": 1,
+     "sha256": "e789f35a5027d9b7dec80880130e95be0d0190f18cf9e9308336f2ede16ac768",
+     "bytes": "8b2d48140410",
+     "native_instruction": "mov ebp, dword ptr [0x10041448]"
+    }
+   }
+  },
+  "_g_eng3_prim_43164": {
+   "rva": 274788,
+   "size": 4,
+   "type": "unsigned char *",
+   "zero_initialized_storage": "PE writable .data zero tail",
+   "survey": {
+    "access_count": 59,
+    "widths_bytes": [
+     4
+    ],
+    "writer_count": 23,
+    "highlow_fields_count": 59,
+    "raw_text_target_occurrences_equal_highlow_fields": true,
+    "accesses": [
+     {
+      "field_rva": 29362,
+      "fixup_type": 3,
+      "instruction_rva": 29360,
+      "instruction_size": 6,
+      "bytes": "8b3564310410",
+      "mnemonic": "mov",
+      "operands": "esi, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 29473,
+      "fixup_type": 3,
+      "instruction_rva": 29471,
+      "instruction_size": 6,
+      "bytes": "893564310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], esi",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 32783,
+      "fixup_type": 3,
+      "instruction_rva": 32781,
+      "instruction_size": 6,
+      "bytes": "8b3564310410",
+      "mnemonic": "mov",
+      "operands": "esi, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_08000"
+     },
+     {
+      "field_rva": 32829,
+      "fixup_type": 3,
+      "instruction_rva": 32827,
+      "instruction_size": 6,
+      "bytes": "893564310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], esi",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_08000"
+     },
+     {
+      "field_rva": 37230,
+      "fixup_type": 3,
+      "instruction_rva": 37228,
+      "instruction_size": 6,
+      "bytes": "8b0d64310410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 37905,
+      "fixup_type": 3,
+      "instruction_rva": 37903,
+      "instruction_size": 6,
+      "bytes": "890d64310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], ecx",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 38120,
+      "fixup_type": 3,
+      "instruction_rva": 38118,
+      "instruction_size": 6,
+      "bytes": "8b0d64310410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 38711,
+      "fixup_type": 3,
+      "instruction_rva": 38709,
+      "instruction_size": 6,
+      "bytes": "890d64310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], ecx",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 38819,
+      "fixup_type": 3,
+      "instruction_rva": 38817,
+      "instruction_size": 6,
+      "bytes": "8b0d64310410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 39325,
+      "fixup_type": 3,
+      "instruction_rva": 39323,
+      "instruction_size": 6,
+      "bytes": "890d64310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], ecx",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 39558,
+      "fixup_type": 3,
+      "instruction_rva": 39556,
+      "instruction_size": 6,
+      "bytes": "8b0d64310410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 40190,
+      "fixup_type": 3,
+      "instruction_rva": 40188,
+      "instruction_size": 6,
+      "bytes": "890d64310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], ecx",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 42822,
+      "fixup_type": 3,
+      "instruction_rva": 42821,
+      "instruction_size": 5,
+      "bytes": "a364310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], eax",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 42835,
+      "fixup_type": 3,
+      "instruction_rva": 42833,
+      "instruction_size": 6,
+      "bytes": "890d64310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], ecx",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 42900,
+      "fixup_type": 3,
+      "instruction_rva": 42898,
+      "instruction_size": 6,
+      "bytes": "8b1564310410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_0a760"
+     },
+     {
+      "field_rva": 43073,
+      "fixup_type": 3,
+      "instruction_rva": 43072,
+      "instruction_size": 5,
+      "bytes": "a164310410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_0a760"
+     },
+     {
+      "field_rva": 43089,
+      "fixup_type": 3,
+      "instruction_rva": 43088,
+      "instruction_size": 5,
+      "bytes": "a164310410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_0a760"
+     },
+     {
+      "field_rva": 43101,
+      "fixup_type": 3,
+      "instruction_rva": 43100,
+      "instruction_size": 5,
+      "bytes": "a364310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], eax",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_0a760"
+     },
+     {
+      "field_rva": 43121,
+      "fixup_type": 3,
+      "instruction_rva": 43120,
+      "instruction_size": 5,
+      "bytes": "a164310410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_0a870"
+     },
+     {
+      "field_rva": 43138,
+      "fixup_type": 3,
+      "instruction_rva": 43136,
+      "instruction_size": 6,
+      "bytes": "8b0d64310410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_0a870"
+     },
+     {
+      "field_rva": 43157,
+      "fixup_type": 3,
+      "instruction_rva": 43156,
+      "instruction_size": 5,
+      "bytes": "a164310410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_0a870"
+     },
+     {
+      "field_rva": 43168,
+      "fixup_type": 3,
+      "instruction_rva": 43167,
+      "instruction_size": 5,
+      "bytes": "a364310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], eax",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.shared_0a870"
+     },
+     {
+      "field_rva": 93460,
+      "fixup_type": 3,
+      "instruction_rva": 93458,
+      "instruction_size": 6,
+      "bytes": "8b1564310410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_16c40"
+     },
+     {
+      "field_rva": 93498,
+      "fixup_type": 3,
+      "instruction_rva": 93497,
+      "instruction_size": 5,
+      "bytes": "a164310410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_16c40"
+     },
+     {
+      "field_rva": 93520,
+      "fixup_type": 3,
+      "instruction_rva": 93518,
+      "instruction_size": 6,
+      "bytes": "8b1d64310410",
+      "mnemonic": "mov",
+      "operands": "ebx, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_16c40"
+     },
+     {
+      "field_rva": 93536,
+      "fixup_type": 3,
+      "instruction_rva": 93534,
+      "instruction_size": 6,
+      "bytes": "891d64310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], ebx",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_16c40"
+     },
+     {
+      "field_rva": 93614,
+      "fixup_type": 3,
+      "instruction_rva": 93613,
+      "instruction_size": 5,
+      "bytes": "a164310410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_16c40"
+     },
+     {
+      "field_rva": 93669,
+      "fixup_type": 3,
+      "instruction_rva": 93667,
+      "instruction_size": 6,
+      "bytes": "8b0d64310410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_16c40"
+     },
+     {
+      "field_rva": 93690,
+      "fixup_type": 3,
+      "instruction_rva": 93689,
+      "instruction_size": 5,
+      "bytes": "a164310410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_16c40"
+     },
+     {
+      "field_rva": 93705,
+      "fixup_type": 3,
+      "instruction_rva": 93704,
+      "instruction_size": 5,
+      "bytes": "a364310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], eax",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_16c40"
+     },
+     {
+      "field_rva": 108290,
+      "fixup_type": 3,
+      "instruction_rva": 108288,
+      "instruction_size": 6,
+      "bytes": "890d64310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], ecx",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.1a560"
+     },
+     {
+      "field_rva": 108304,
+      "fixup_type": 3,
+      "instruction_rva": 108302,
+      "instruction_size": 6,
+      "bytes": "891564310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], edx",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.1a560"
+     },
+     {
+      "field_rva": 133120,
+      "fixup_type": 3,
+      "instruction_rva": 133118,
+      "instruction_size": 6,
+      "bytes": "8b3564310410",
+      "mnemonic": "mov",
+      "operands": "esi, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.206f0"
+     },
+     {
+      "field_rva": 133586,
+      "fixup_type": 3,
+      "instruction_rva": 133584,
+      "instruction_size": 6,
+      "bytes": "893564310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], esi",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.206f0"
+     },
+     {
+      "field_rva": 133957,
+      "fixup_type": 3,
+      "instruction_rva": 133955,
+      "instruction_size": 6,
+      "bytes": "893564310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], esi",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.206f0"
+     },
+     {
+      "field_rva": 143404,
+      "fixup_type": 3,
+      "instruction_rva": 143403,
+      "instruction_size": 5,
+      "bytes": "a164310410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_22f00"
+     },
+     {
+      "field_rva": 143420,
+      "fixup_type": 3,
+      "instruction_rva": 143418,
+      "instruction_size": 6,
+      "bytes": "8b1564310410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_22f00"
+     },
+     {
+      "field_rva": 143432,
+      "fixup_type": 3,
+      "instruction_rva": 143431,
+      "instruction_size": 5,
+      "bytes": "a164310410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_22f00"
+     },
+     {
+      "field_rva": 143442,
+      "fixup_type": 3,
+      "instruction_rva": 143440,
+      "instruction_size": 6,
+      "bytes": "8b1564310410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_22f00"
+     },
+     {
+      "field_rva": 143451,
+      "fixup_type": 3,
+      "instruction_rva": 143450,
+      "instruction_size": 5,
+      "bytes": "a164310410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_22f00"
+     },
+     {
+      "field_rva": 143458,
+      "fixup_type": 3,
+      "instruction_rva": 143457,
+      "instruction_size": 5,
+      "bytes": "a164310410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_22f00"
+     },
+     {
+      "field_rva": 143466,
+      "fixup_type": 3,
+      "instruction_rva": 143465,
+      "instruction_size": 5,
+      "bytes": "a364310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], eax",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_22f00"
+     },
+     {
+      "field_rva": 143961,
+      "fixup_type": 3,
+      "instruction_rva": 143959,
+      "instruction_size": 6,
+      "bytes": "8b3564310410",
+      "mnemonic": "mov",
+      "operands": "esi, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_231a0"
+     },
+     {
+      "field_rva": 144423,
+      "fixup_type": 3,
+      "instruction_rva": 144421,
+      "instruction_size": 6,
+      "bytes": "893564310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], esi",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_231a0"
+     },
+     {
+      "field_rva": 144666,
+      "fixup_type": 3,
+      "instruction_rva": 144664,
+      "instruction_size": 6,
+      "bytes": "8b3564310410",
+      "mnemonic": "mov",
+      "operands": "esi, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_23440"
+     },
+     {
+      "field_rva": 145149,
+      "fixup_type": 3,
+      "instruction_rva": 145147,
+      "instruction_size": 6,
+      "bytes": "893564310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], esi",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_23440"
+     },
+     {
+      "field_rva": 147373,
+      "fixup_type": 3,
+      "instruction_rva": 147371,
+      "instruction_size": 6,
+      "bytes": "8b3564310410",
+      "mnemonic": "mov",
+      "operands": "esi, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_23ef0"
+     },
+     {
+      "field_rva": 148073,
+      "fixup_type": 3,
+      "instruction_rva": 148071,
+      "instruction_size": 6,
+      "bytes": "893564310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], esi",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_23ef0"
+     },
+     {
+      "field_rva": 153031,
+      "fixup_type": 3,
+      "instruction_rva": 153029,
+      "instruction_size": 6,
+      "bytes": "8b0d64310410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_250f0"
+     },
+     {
+      "field_rva": 153060,
+      "fixup_type": 3,
+      "instruction_rva": 153058,
+      "instruction_size": 6,
+      "bytes": "8b0d64310410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_250f0"
+     },
+     {
+      "field_rva": 153082,
+      "fixup_type": 3,
+      "instruction_rva": 153080,
+      "instruction_size": 6,
+      "bytes": "8b1564310410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_250f0"
+     },
+     {
+      "field_rva": 153094,
+      "fixup_type": 3,
+      "instruction_rva": 153093,
+      "instruction_size": 5,
+      "bytes": "a164310410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_250f0"
+     },
+     {
+      "field_rva": 153104,
+      "fixup_type": 3,
+      "instruction_rva": 153103,
+      "instruction_size": 5,
+      "bytes": "a364310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], eax",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_250f0"
+     },
+     {
+      "field_rva": 153128,
+      "fixup_type": 3,
+      "instruction_rva": 153126,
+      "instruction_size": 6,
+      "bytes": "8b3564310410",
+      "mnemonic": "mov",
+      "operands": "esi, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.25620"
+     },
+     {
+      "field_rva": 153258,
+      "fixup_type": 3,
+      "instruction_rva": 153257,
+      "instruction_size": 5,
+      "bytes": "a364310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], eax",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.25620"
+     },
+     {
+      "field_rva": 153289,
+      "fixup_type": 3,
+      "instruction_rva": 153287,
+      "instruction_size": 6,
+      "bytes": "8b0d64310410",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.25620"
+     },
+     {
+      "field_rva": 153311,
+      "fixup_type": 3,
+      "instruction_rva": 153309,
+      "instruction_size": 6,
+      "bytes": "8b1564310410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.25620"
+     },
+     {
+      "field_rva": 153322,
+      "fixup_type": 3,
+      "instruction_rva": 153321,
+      "instruction_size": 5,
+      "bytes": "a164310410",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [0x10043164]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.25620"
+     },
+     {
+      "field_rva": 153330,
+      "fixup_type": 3,
+      "instruction_rva": 153329,
+      "instruction_size": 5,
+      "bytes": "a364310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x10043164], eax",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.25620"
+     }
+    ],
+    "anchor": {
+     "rva": 32781,
+     "size": 6,
+     "operand": 1,
+     "sha256": "b0d18f01e4f4f5988934093088b091b1c470207b52692af3906197e63fb83dc1",
+     "bytes": "8b3564310410",
+     "native_instruction": "mov esi, dword ptr [0x10043164]"
+    }
+   }
+  },
+  "_g_eng3_shape_count_40788": {
+   "rva": 264072,
+   "size": 1,
+   "type": "signed char",
+   "zero_initialized_storage": "PE writable .data zero tail",
+   "survey": {
+    "access_count": 3,
+    "widths_bytes": [
+     1
+    ],
+    "writer_count": 1,
+    "highlow_fields_count": 3,
+    "raw_text_target_occurrences_equal_highlow_fields": true,
+    "accesses": [
+     {
+      "field_rva": 33659,
+      "fixup_type": 3,
+      "instruction_rva": 33658,
+      "instruction_size": 5,
+      "bytes": "a088070410",
+      "mnemonic": "mov",
+      "operands": "al, byte ptr [0x10040788]",
+      "operand_index": 1,
+      "access_width_bytes": 1,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 110486,
+      "fixup_type": 3,
+      "instruction_rva": 110484,
+      "instruction_size": 6,
+      "bytes": "881d88070410",
+      "mnemonic": "mov",
+      "operands": "byte ptr [0x10040788], bl",
+      "operand_index": 0,
+      "access_width_bytes": 1,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.1af10"
+     },
+     {
+      "field_rva": 146853,
+      "fixup_type": 3,
+      "instruction_rva": 146850,
+      "instruction_size": 7,
+      "bytes": "0fbe0d88070410",
+      "mnemonic": "movsx",
+      "operands": "ecx, byte ptr [0x10040788]",
+      "operand_index": 1,
+      "access_width_bytes": 1,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.23d90"
+     }
+    ],
+    "anchor": {
+     "rva": 33658,
+     "size": 5,
+     "operand": 1,
+     "sha256": "76d31a81e356e2b5c6051f4e780a2bb4ac39ea76510c66c71531740ef042558c",
+     "bytes": "a088070410",
+     "native_instruction": "mov al, byte ptr [0x10040788]"
+    }
+   }
+  },
+  "_g_eng3_step_tolerance_431e0": {
+   "rva": 274912,
+   "size": 4,
+   "type": "long",
+   "zero_initialized_storage": "PE writable .data zero tail",
+   "survey": {
+    "access_count": 6,
+    "widths_bytes": [
+     4
+    ],
+    "writer_count": 3,
+    "highlow_fields_count": 6,
+    "raw_text_target_occurrences_equal_highlow_fields": true,
+    "accesses": [
+     {
+      "field_rva": 116786,
+      "fixup_type": 3,
+      "instruction_rva": 116784,
+      "instruction_size": 6,
+      "bytes": "890de0310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x100431e0], ecx",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 116819,
+      "fixup_type": 3,
+      "instruction_rva": 116818,
+      "instruction_size": 5,
+      "bytes": "a3e0310410",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x100431e0], eax",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 116857,
+      "fixup_type": 3,
+      "instruction_rva": 116855,
+      "instruction_size": 10,
+      "bytes": "c705e031041008000000",
+      "mnemonic": "mov",
+      "operands": "dword ptr [0x100431e0], 8",
+      "operand_index": 0,
+      "access_width_bytes": 4,
+      "access": "write",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "outside_recovery_function_map"
+     },
+     {
+      "field_rva": 125579,
+      "fixup_type": 3,
+      "instruction_rva": 125577,
+      "instruction_size": 6,
+      "bytes": "8b15e0310410",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [0x100431e0]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.1ea60"
+     },
+     {
+      "field_rva": 125925,
+      "fixup_type": 3,
+      "instruction_rva": 125923,
+      "instruction_size": 6,
+      "bytes": "0315e0310410",
+      "mnemonic": "add",
+      "operands": "edx, dword ptr [0x100431e0]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_1eaf0"
+     },
+     {
+      "field_rva": 126123,
+      "fixup_type": 3,
+      "instruction_rva": 126121,
+      "instruction_size": 6,
+      "bytes": "8b3de0310410",
+      "mnemonic": "mov",
+      "operands": "edi, dword ptr [0x100431e0]",
+      "operand_index": 1,
+      "access_width_bytes": 4,
+      "access": "read",
+      "form": "direct_absolute_unindexed_offset_0",
+      "row_id": "eng3.eng3_1ec20"
+     }
+    ],
+    "anchor": {
+     "rva": 126121,
+     "size": 6,
+     "operand": 1,
+     "sha256": "b8738aa62817f7803a57a2114bc6efe7be4df400b60a564884737500b085568b",
+     "bytes": "8b3de0310410",
+     "native_instruction": "mov edi, dword ptr [0x100431e0]"
+    }
+   }
+  }
+ },
+ "function_identities": {
+  "_title_17ad0": {
+   "symbol": "_title_17ad0",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "rva": 142288,
+   "size": 224,
+   "native_span_sha256": "a6fa105cadc76fa14de747d0a388e8db8bafd4e020f53eada771e8f818d1c6e4",
+   "entry_bytes": "568b742414f7c600600000570f848800",
+   "entry_extent_basis": "complete function-owned recovery span with decoded RET",
+   "decoded_ret_rvas": [
+    142380,
+    142441,
+    142506
+   ],
+   "ledger_row": "eng3.22bd0",
+   "ledger_status": "CODEGEN_SIMILAR",
+   "source": "src/eng3/track_unit_20010.cpp",
+   "source_sha256": "629d9271c5771e823424e5918fab502cb511cb742c75932151083f4ef2a50d41",
+   "source_signature": "Actor * eng3_22bd0(long x, long y, long z, int kind, int profile)",
+   "identity_basis": "own-entry row, independent direct callers, native body decode; source signature/caller cleanups establish cdecl five 32-bit arguments",
+   "origin": "recovery.json#functions[eng3.22bd0]",
+   "direct_callers": [
+    {
+     "site_rva": 121950,
+     "bytes": "e86d4f0000",
+     "caller_row": "eng3.shared_1dbc0",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 123025,
+     "bytes": "e83a4b0000",
+     "caller_row": "eng3.1e000",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": false,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 92081,
+     "bytes": "e81ac40000",
+     "caller_row": "eng3.16670",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 92169,
+     "bytes": "e8c2c30000",
+     "caller_row": "eng3.16670",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 92257,
+     "bytes": "e86ac30000",
+     "caller_row": "eng3.16670",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "outside_assigned_direct_callers": [
+    {
+     "site_rva": 121950,
+     "bytes": "e86d4f0000",
+     "caller_row": "eng3.shared_1dbc0",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 92081,
+     "bytes": "e81ac40000",
+     "caller_row": "eng3.16670",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 92169,
+     "bytes": "e8c2c30000",
+     "caller_row": "eng3.16670",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 92257,
+     "bytes": "e86ac30000",
+     "caller_row": "eng3.16670",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "identity_status": "ready_for_durable_review"
+  },
+  "_remove_actor_preserving_resource": {
+   "symbol": "_remove_actor_preserving_resource",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "rva": 118080,
+   "size": 64,
+   "native_span_sha256": "630da85b2ffec02e9d670a5b245c58dcfa014e9e0abac581196435407d76301d",
+   "entry_bytes": "8b54240466837a2e0074278b4a5885c9",
+   "entry_extent_basis": "complete function-owned recovery span with decoded RET; exact reviewed 64-byte ENG3 twin span",
+   "decoded_ret_rvas": [
+    118139
+   ],
+   "ledger_row": null,
+   "ledger_status": "native twin from independent helper review",
+   "source": "evidence/eng1_actor_resource_helpers_2026_10_25.json",
+   "source_sha256": null,
+   "source_signature": "one 32-bit Actor * argument",
+   "identity_basis": "independent helper review reports ENG3 twin RVA 0x1cd40, extent 64, native hash, four callers, and cdecl plain-RET ABI; current ENG3 bytes hash-checked",
+   "origin": "evidence/eng1_actor_resource_helpers_2026_10_25.json#native_identity.functions[0]",
+   "direct_callers": [
+    {
+     "site_rva": 121980,
+     "bytes": "e8bff0ffff",
+     "caller_row": "eng3.shared_1dbc0",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 123055,
+     "bytes": "e88cecffff",
+     "caller_row": "eng3.1e000",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": false,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 90587,
+     "bytes": "e8606b0000",
+     "caller_row": "eng3.15f30",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 59935,
+     "bytes": "e81ce30000",
+     "caller_row": "eng3.0e960",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "outside_assigned_direct_callers": [
+    {
+     "site_rva": 121980,
+     "bytes": "e8bff0ffff",
+     "caller_row": "eng3.shared_1dbc0",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 90587,
+     "bytes": "e8606b0000",
+     "caller_row": "eng3.15f30",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 59935,
+     "bytes": "e81ce30000",
+     "caller_row": "eng3.0e960",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "identity_status": "ready_for_durable_review"
+  },
+  "_mark_actor_resource_for_release": {
+   "symbol": "_mark_actor_resource_for_release",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "rva": 118144,
+   "size": 64,
+   "native_span_sha256": "21ba2f7d4799ceb0d5948383e41c2a043f65f19e54d4f9745a617b4c5baad66d",
+   "entry_bytes": "8b4424046683782e0074278b485885c9",
+   "entry_extent_basis": "complete function-owned recovery span with decoded RET; exact reviewed 64-byte ENG3 twin span",
+   "decoded_ret_rvas": [
+    118194
+   ],
+   "ledger_row": null,
+   "ledger_status": "native twin from independent helper review",
+   "source": "evidence/eng1_actor_resource_helpers_2026_10_25.json",
+   "source_sha256": null,
+   "source_signature": "one 32-bit Actor * argument",
+   "identity_basis": "independent helper review reports ENG3 twin RVA 0x1cd80, extent 64, native hash, three callers, and cdecl plain-RET ABI; current ENG3 bytes hash-checked",
+   "origin": "evidence/eng1_actor_resource_helpers_2026_10_25.json#native_identity.functions[1]",
+   "direct_callers": [
+    {
+     "site_rva": 121996,
+     "bytes": "e8eff0ffff",
+     "caller_row": "eng3.shared_1dbc0",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 123071,
+     "bytes": "e8bcecffff",
+     "caller_row": "eng3.1e000",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": false,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 89576,
+     "bytes": "e8936f0000",
+     "caller_row": "eng3.eng3_15680",
+     "caller_status": "RECONSTRUCTED",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "outside_assigned_direct_callers": [
+    {
+     "site_rva": 121996,
+     "bytes": "e8eff0ffff",
+     "caller_row": "eng3.shared_1dbc0",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 89576,
+     "bytes": "e8936f0000",
+     "caller_row": "eng3.eng3_15680",
+     "caller_status": "RECONSTRUCTED",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "identity_status": "ready_for_durable_review"
+  },
+  "_stop_actor_sounds": {
+   "symbol": "_stop_actor_sounds",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "rva": 52637,
+   "size": 152,
+   "native_span_sha256": "99ad22c2f93d4aa43a04c09deccf498af3cdbff837f36ddc5402457d148b9938",
+   "entry_bytes": "558bec51837d08007505e985000000e8",
+   "entry_extent_basis": "complete function-owned recovery span with decoded RET",
+   "decoded_ret_rvas": [
+    52788
+   ],
+   "ledger_row": "eng3.od_0cd9d",
+   "ledger_status": "CODEGEN_SIMILAR",
+   "source": "src/eng1/sound_od.c",
+   "source_sha256": "1a34991c4f610ad78407d757e2f4443510408d4f62612962256e783d01f6dffc",
+   "source_signature": "void RemoveFxLinks_7ef6(int arg)",
+   "identity_basis": "ENG3 own-entry row, complete body decode and native hash; source signature is cdecl one 32-bit argument; external callers clean four stack bytes",
+   "origin": "recovery.json#functions[eng3.od_0cd9d]",
+   "direct_callers": [
+    {
+     "site_rva": 122469,
+     "bytes": "e833effeff",
+     "caller_row": "eng3.shared_1dbc0",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 123295,
+     "bytes": "e8f9ebfeff",
+     "caller_row": "eng3.1e000",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": false,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 70227,
+     "bytes": "e845bbffff",
+     "caller_row": "eng3.eng3_10df0",
+     "caller_status": "RECONSTRUCTED",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "outside_assigned_direct_callers": [
+    {
+     "site_rva": 122469,
+     "bytes": "e833effeff",
+     "caller_row": "eng3.shared_1dbc0",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 70227,
+     "bytes": "e845bbffff",
+     "caller_row": "eng3.eng3_10df0",
+     "caller_status": "RECONSTRUCTED",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "identity_status": "ready_for_durable_review"
+  },
+  "_eng3_23b00": {
+   "symbol": "_eng3_23b00",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "rva": 146176,
+   "size": 480,
+   "native_span_sha256": "5d09cc011117039e906c961101dcefb41aaa6841f4c18c81492f42ee7fe53ea0",
+   "entry_bytes": "83ec0c8b4c24105333db558b5154568b",
+   "entry_extent_basis": "complete function-owned recovery span with decoded RET",
+   "decoded_ret_rvas": [
+    146638,
+    146651
+   ],
+   "ledger_row": "eng3.eng3_23b00",
+   "ledger_status": "RECONSTRUCTED",
+   "source": "src/eng3/render_unit_22f00.cpp",
+   "source_sha256": "2daa8f8452946436b18ee991896f25d992a24defb364b4deb02a37c8cdc7d7ac",
+   "source_signature": "unsigned long eng3_23b00(TitleObj *p)",
+   "identity_basis": "native entry/body decode and independent direct callers; source signature and caller cleanup establish cdecl one 32-bit argument; no source-equality claim",
+   "origin": "recovery.json#functions[eng3.eng3_23b00]",
+   "direct_callers": [
+    {
+     "site_rva": 147092,
+     "bytes": "e867fcffff",
+     "caller_row": "eng3.shared_23e20",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 146937,
+     "bytes": "e802fdffff",
+     "caller_row": "eng3.23d90",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": false,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 144554,
+     "bytes": "e851060000",
+     "caller_row": "eng3.eng3_23440",
+     "caller_status": "RECONSTRUCTED",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 37100,
+     "bytes": "e80faa0100",
+     "caller_row": null,
+     "caller_status": null,
+     "outside_assigned_rows": true,
+     "verification": "continuous Capstone decode from ENG3 RVA 0x9030 through 0x90ec; one pushed argument; caller cleanup at 0x90f8"
+    }
+   ],
+   "outside_assigned_direct_callers": [
+    {
+     "site_rva": 147092,
+     "bytes": "e867fcffff",
+     "caller_row": "eng3.shared_23e20",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 144554,
+     "bytes": "e851060000",
+     "caller_row": "eng3.eng3_23440",
+     "caller_status": "RECONSTRUCTED",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 37100,
+     "bytes": "e80faa0100",
+     "caller_row": null,
+     "caller_status": null,
+     "outside_assigned_rows": true,
+     "verification": "continuous Capstone decode from ENG3 RVA 0x9030 through 0x90ec; one pushed argument; caller cleanup at 0x90f8"
+    }
+   ],
+   "identity_status": "ready_for_durable_review"
+  },
+  "_eng3_23ef0": {
+   "symbol": "_eng3_23ef0",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "rva": 147184,
+   "size": 912,
+   "native_span_sha256": "4bdecf9867bcec731b5cb4b5dedff0ebd593636a7f27664eccc2f85c6d1faada",
+   "entry_bytes": "83ec38a1481404105355568b74244805",
+   "entry_extent_basis": "complete function-owned recovery span with decoded RET",
+   "decoded_ret_rvas": [
+    148089
+   ],
+   "ledger_row": "eng3.eng3_23ef0",
+   "ledger_status": "RECONSTRUCTED",
+   "source": "src/eng3/render_unit_22f00.cpp",
+   "source_sha256": "2daa8f8452946436b18ee991896f25d992a24defb364b4deb02a37c8cdc7d7ac",
+   "source_signature": "int eng3_23ef0(TitleObj *o, unsigned char *q, unsigned long c)",
+   "identity_basis": "native entry/body decode and independent direct caller; source signature and caller cleanup establish cdecl three 32-bit arguments; no source-equality claim",
+   "origin": "recovery.json#functions[eng3.eng3_23ef0]",
+   "direct_callers": [
+    {
+     "site_rva": 147158,
+     "bytes": "e815000000",
+     "caller_row": "eng3.shared_23e20",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 146948,
+     "bytes": "e8e7000000",
+     "caller_row": "eng3.23d90",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": false,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "outside_assigned_direct_callers": [
+    {
+     "site_rva": 147158,
+     "bytes": "e815000000",
+     "caller_row": "eng3.shared_23e20",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "identity_status": "ready_for_durable_review"
+  },
+  "_eng3_24f50": {
+   "symbol": "_eng3_24f50",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "rva": 151376,
+   "size": 240,
+   "native_span_sha256": "baea4f7ec867288526ab5f9c0dbad87a350fb8fe5c36d7a1c2a1c077790cf4d3",
+   "entry_bytes": "83ec38568b742440668b4670668b4e72",
+   "entry_extent_basis": "complete function-owned recovery span with decoded RET",
+   "decoded_ret_rvas": [
+    151608
+   ],
+   "ledger_row": "eng3.24f50",
+   "ledger_status": "CODEGEN_SIMILAR",
+   "source": "src/eng3/render_unit_22f00.cpp",
+   "source_sha256": "2daa8f8452946436b18ee991896f25d992a24defb364b4deb02a37c8cdc7d7ac",
+   "source_signature": "void eng3_24f50(TitleObj *o, int v)",
+   "identity_basis": "native entry/body decode and independent direct callers; source signature and caller cleanups establish cdecl two 32-bit arguments",
+   "origin": "recovery.json#functions[eng3.24f50]",
+   "direct_callers": [
+    {
+     "site_rva": 146990,
+     "bytes": "e81d110000",
+     "caller_row": "eng3.shared_23e20",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 147147,
+     "bytes": "e880100000",
+     "caller_row": "eng3.shared_23e20",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 146928,
+     "bytes": "e85b110000",
+     "caller_row": "eng3.23d90",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": false,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 143193,
+     "bytes": "e8f21f0000",
+     "caller_row": "eng3.eng3_22f00",
+     "caller_status": "RECONSTRUCTED",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 144540,
+     "bytes": "e8af1a0000",
+     "caller_row": "eng3.eng3_23440",
+     "caller_status": "RECONSTRUCTED",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "outside_assigned_direct_callers": [
+    {
+     "site_rva": 146990,
+     "bytes": "e81d110000",
+     "caller_row": "eng3.shared_23e20",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 147147,
+     "bytes": "e880100000",
+     "caller_row": "eng3.shared_23e20",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 143193,
+     "bytes": "e8f21f0000",
+     "caller_row": "eng3.eng3_22f00",
+     "caller_status": "RECONSTRUCTED",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 144540,
+     "bytes": "e8af1a0000",
+     "caller_row": "eng3.eng3_23440",
+     "caller_status": "RECONSTRUCTED",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "identity_status": "ready_for_durable_review"
+  },
+  "_eng3_slot_1e8": {
+   "symbol": "_eng3_slot_1e8",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "rva": 130528,
+   "size": 32,
+   "native_span_sha256": "181080ea338d426af576a4376c92fb8bac5b338a397f218728f65a48128fa88b",
+   "entry_bytes": "8b4424088b4c24045051ff1588090410",
+   "entry_extent_basis": "complete function-owned recovery span with decoded RET",
+   "decoded_ret_rvas": [
+    130547
+   ],
+   "ledger_row": "eng3.1fde0",
+   "ledger_status": "FUNCTION_MATCH_RELOCATED",
+   "source": "src/eng3/actor_services_1e000.c",
+   "source_sha256": "d2734246b7304b8bcbc1f9b5f44010bca5e743542276934054d5765b6e798475",
+   "source_signature": "int eng3_1fde0(int a, int b)",
+   "identity_basis": "FUNCTION_MATCH_RELOCATED own row; independent direct caller at 0x7a62 pushes two arguments and cleans eight bytes",
+   "origin": "recovery.json#functions[eng3.1fde0]",
+   "direct_callers": [
+    {
+     "site_rva": 153141,
+     "bytes": "e8a6a7ffff",
+     "caller_row": "eng3.25620",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": false,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 31330,
+     "bytes": "e879830100",
+     "caller_row": null,
+     "caller_status": null,
+     "outside_assigned_rows": true,
+     "verification": "continuous Capstone decode from ENG3 RVA 0x7950 through 0x7a90; two pushed arguments; caller cleanup at 0x7a6c"
+    }
+   ],
+   "outside_assigned_direct_callers": [
+    {
+     "site_rva": 31330,
+     "bytes": "e879830100",
+     "caller_row": null,
+     "caller_status": null,
+     "outside_assigned_rows": true,
+     "verification": "continuous Capstone decode from ENG3 RVA 0x7950 through 0x7a90; two pushed arguments; caller cleanup at 0x7a6c"
+    }
+   ],
+   "identity_status": "ready_for_durable_review"
+  },
+  "_eng3_slot_2ac": {
+   "symbol": "_eng3_slot_2ac",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "rva": 130976,
+   "size": 48,
+   "native_span_sha256": "3455e9e51d7201a190a8a32af12ffbd3d424e99c26f016746342e4c04d6f3cbb",
+   "entry_bytes": "8b4424148b4c24108b54240c508b4424",
+   "entry_extent_basis": "complete function-owned recovery span with decoded RET",
+   "decoded_ret_rvas": [
+    131010
+   ],
+   "ledger_row": "eng3.shared_1ffa0",
+   "ledger_status": "CODEGEN_SIMILAR",
+   "source": "src/title/u0c1f0.c",
+   "source_sha256": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+   "source_signature": "int title_0c2a0(int a, int b, int c, int d, int e)",
+   "identity_basis": "native entry/body decode and independent direct callers; source signature and caller cleanups establish cdecl five 32-bit arguments",
+   "origin": "recovery.json#functions[eng3.shared_1ffa0]",
+   "direct_callers": [
+    {
+     "site_rva": 153276,
+     "bytes": "e8dfa8ffff",
+     "caller_row": "eng3.25620",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": false,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 153047,
+     "bytes": "e8c4a9ffff",
+     "caller_row": "eng3.eng3_250f0",
+     "caller_status": "RECONSTRUCTED",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 108476,
+     "bytes": "e8df570000",
+     "caller_row": "eng3.1a560",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 108526,
+     "bytes": "e8ad570000",
+     "caller_row": "eng3.1a560",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 108575,
+     "bytes": "e87c570000",
+     "caller_row": "eng3.1a560",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 108627,
+     "bytes": "e848570000",
+     "caller_row": "eng3.1a560",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "outside_assigned_direct_callers": [
+    {
+     "site_rva": 153047,
+     "bytes": "e8c4a9ffff",
+     "caller_row": "eng3.eng3_250f0",
+     "caller_status": "RECONSTRUCTED",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 108476,
+     "bytes": "e8df570000",
+     "caller_row": "eng3.1a560",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 108526,
+     "bytes": "e8ad570000",
+     "caller_row": "eng3.1a560",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 108575,
+     "bytes": "e87c570000",
+     "caller_row": "eng3.1a560",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 108627,
+     "bytes": "e848570000",
+     "caller_row": "eng3.1a560",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "identity_status": "ready_for_durable_review"
+  },
+  "_title_19570": {
+   "symbol": "_title_19570",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "rva": 150016,
+   "size": 128,
+   "native_span_sha256": "bbb4ffe7429bc7ec6bdbdbe7c94ac039d7b94e1897b7b8145033c8d7cf9a3f8e",
+   "entry_bytes": "53568b74240c578b3d2406041033c066",
+   "ledger_row": "eng3.shared_24a00",
+   "ledger_status": "CODEGEN_SIMILAR",
+   "source": "src/title/u17cb0.cpp",
+   "source_sha256": "24f0718161e0e687793d32041ec5c9b541820f5e45e5e58d2f4a629d0b3fb010",
+   "source_signature": "int title_19570(TitleShape *obj, int k)",
+   "direct_callers": [
+    {
+     "site_rva": 146910,
+     "bytes": "e81d0c0000",
+     "caller_row": "eng3.23d90",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": false,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "outside_assigned_direct_callers": [],
+   "identity_status": "stop_no_outside_direct_caller",
+   "conclusion": "Only direct call is at 0x23dde in pending eng3.23d90; TITLE-module identity must not substitute for ENG3 own entry."
+  }
+ },
+ "prior_stops": {
+  "_grid_scan_20b50": {
+   "evidence": "evidence/fn_eng3_review_2026_10_26.json#independent_function_identities._grid_scan_20b50",
+   "identity_status": "candidate",
+   "rva": 111328,
+   "size": 448,
+   "prior_source_shape_differences": 376,
+   "prior_source_shape_extent": 448,
+   "prior_status": "candidate; not identity",
+   "new_outside_call_witnesses": [
+    {
+     "site_rva": 83564,
+     "caller_row": "eng3.145d0",
+     "caller_status": "FUNCTION_MATCH_RELOCATED"
+    },
+    {
+     "site_rva": 86880,
+     "caller_row": "eng3.15340",
+     "caller_status": "FUNCTION_MATCH_RELOCATED"
+    }
+   ],
+   "conclusion": "Additional independent call references do not resolve the prior native/source identity mismatch; retain stop without recompiling grid_scan."
+  }
+ },
+ "local_binding_review": {
+  "target_function_id": "eng3.1e000",
+  "target_function_rva": 122880,
+  "target_function_size": 640,
+  "compiler_object_path": "build/match/compile-mseg3_p7/candidate.obj",
+  "compiler_object_sha256": "bc1ad9fbfb90bbb09bd87c616ddfee9d7ccc97575263e0515be360e8e8f74165",
+  "compiler_event_ids": [
+   "bc957eca157c42ea90d79831911a76f5",
+   "ab1fbed4917a489eaf8b7f97c5c73c51"
+  ],
+  "compiler_invocations": 2,
+  "source_sha256": "d2734246b7304b8bcbc1f9b5f44010bca5e743542276934054d5765b6e798475",
+  "local_storage_ranges": [
+   {
+    "symbol": "$L767",
+    "offset": 500,
+    "size": 80,
+    "role": "table",
+    "rva": 123380,
+    "payload_sha256": "4330acf62019976269598f5142ed3d133112e8e243f78e41a30b6e23d0687482",
+    "masked_candidate_payload_sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+    "native_payload_after_reloc_mask_sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+    "references": [
+     {
+      "symbol": "$L767",
+      "coff_value": 500,
+      "reference_offset": 82,
+      "reference_type": 6,
+      "native_field_rva": 122962,
+      "native_destination_rva": 123380,
+      "role": "table",
+      "size": 80,
+      "instruction_start": null
+     }
+    ],
+    "native_relocation_fields": [
+     500,
+     504,
+     508,
+     512,
+     516,
+     520,
+     524,
+     528,
+     532,
+     536,
+     540,
+     544,
+     548,
+     552,
+     556,
+     560,
+     564,
+     568,
+     572,
+     576
+    ]
+   },
+   {
+    "symbol": "$L766",
+    "offset": 580,
+    "size": 60,
+    "role": "table",
+    "rva": 123460,
+    "payload_sha256": "f07c2e8548916cad9f3664e4fa94ea22a0853da5ca6b8821b52e5367945ab5ff",
+    "masked_candidate_payload_sha256": "f07c2e8548916cad9f3664e4fa94ea22a0853da5ca6b8821b52e5367945ab5ff",
+    "native_payload_after_reloc_mask_sha256": "f07c2e8548916cad9f3664e4fa94ea22a0853da5ca6b8821b52e5367945ab5ff",
+    "references": [
+     {
+      "symbol": "$L766",
+      "coff_value": 580,
+      "reference_offset": 75,
+      "reference_type": 6,
+      "native_field_rva": 122955,
+      "native_destination_rva": 123460,
+      "role": "table",
+      "size": 60,
+      "instruction_start": null
+     }
+    ],
+    "native_relocation_fields": []
+   }
+  ],
+  "local_symbols": [
+   {
+    "symbol": "$L766",
+    "coff_value": 580,
+    "reference_offset": 75,
+    "reference_type": 6,
+    "native_field_rva": 122955,
+    "native_destination_rva": 123460,
+    "role": "table",
+    "size": 60,
+    "instruction_start": null
+   },
+   {
+    "symbol": "$L767",
+    "coff_value": 500,
+    "reference_offset": 82,
+    "reference_type": 6,
+    "native_field_rva": 122962,
+    "native_destination_rva": 123380,
+    "role": "table",
+    "size": 80,
+    "instruction_start": null
+   },
+   {
+    "symbol": "$L292",
+    "coff_value": 414,
+    "reference_offset": 500,
+    "reference_type": 6,
+    "native_field_rva": 123380,
+    "native_destination_rva": 123294,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123294,
+     "size": 1,
+     "bytes": "56",
+     "mnemonic": "push",
+     "operands": "esi"
+    }
+   },
+   {
+    "symbol": "$L293",
+    "coff_value": 425,
+    "reference_offset": 504,
+    "reference_type": 6,
+    "native_field_rva": 123384,
+    "native_destination_rva": 123305,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123305,
+     "size": 1,
+     "bytes": "40",
+     "mnemonic": "inc",
+     "operands": "eax"
+    }
+   },
+   {
+    "symbol": "$L291",
+    "coff_value": 390,
+    "reference_offset": 508,
+    "reference_type": 6,
+    "native_field_rva": 123388,
+    "native_destination_rva": 123270,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123270,
+     "size": 1,
+     "bytes": "40",
+     "mnemonic": "inc",
+     "operands": "eax"
+    }
+   },
+   {
+    "symbol": "$L290",
+    "coff_value": 382,
+    "reference_offset": 512,
+    "reference_type": 6,
+    "native_field_rva": 123392,
+    "native_destination_rva": 123262,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123262,
+     "size": 1,
+     "bytes": "40",
+     "mnemonic": "inc",
+     "operands": "eax"
+    }
+   },
+   {
+    "symbol": "$L276",
+    "coff_value": 114,
+    "reference_offset": 516,
+    "reference_type": 6,
+    "native_field_rva": 123396,
+    "native_destination_rva": 122994,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 122994,
+     "size": 1,
+     "bytes": "40",
+     "mnemonic": "inc",
+     "operands": "eax"
+    }
+   },
+   {
+    "symbol": "$L294",
+    "coff_value": 444,
+    "reference_offset": 520,
+    "reference_type": 6,
+    "native_field_rva": 123400,
+    "native_destination_rva": 123324,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123324,
+     "size": 1,
+     "bytes": "40",
+     "mnemonic": "inc",
+     "operands": "eax"
+    }
+   },
+   {
+    "symbol": "$L289",
+    "coff_value": 360,
+    "reference_offset": 524,
+    "reference_type": 6,
+    "native_field_rva": 123404,
+    "native_destination_rva": 123240,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123240,
+     "size": 1,
+     "bytes": "40",
+     "mnemonic": "inc",
+     "operands": "eax"
+    }
+   },
+   {
+    "symbol": "$L288",
+    "coff_value": 340,
+    "reference_offset": 528,
+    "reference_type": 6,
+    "native_field_rva": 123408,
+    "native_destination_rva": 123220,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123220,
+     "size": 1,
+     "bytes": "40",
+     "mnemonic": "inc",
+     "operands": "eax"
+    }
+   },
+   {
+    "symbol": "$L287",
+    "coff_value": 314,
+    "reference_offset": 532,
+    "reference_type": 6,
+    "native_field_rva": 123412,
+    "native_destination_rva": 123194,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123194,
+     "size": 7,
+     "bytes": "668b861e010000",
+     "mnemonic": "mov",
+     "operands": "ax, word ptr [esi + 0x11e]"
+    }
+   },
+   {
+    "symbol": "$L285",
+    "coff_value": 281,
+    "reference_offset": 536,
+    "reference_type": 6,
+    "native_field_rva": 123416,
+    "native_destination_rva": 123161,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123161,
+     "size": 7,
+     "bytes": "668b861e010000",
+     "mnemonic": "mov",
+     "operands": "ax, word ptr [esi + 0x11e]"
+    }
+   },
+   {
+    "symbol": "$L283",
+    "coff_value": 267,
+    "reference_offset": 540,
+    "reference_type": 6,
+    "native_field_rva": 123420,
+    "native_destination_rva": 123147,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123147,
+     "size": 7,
+     "bytes": "668b861e010000",
+     "mnemonic": "mov",
+     "operands": "ax, word ptr [esi + 0x11e]"
+    }
+   },
+   {
+    "symbol": "$L282",
+    "coff_value": 242,
+    "reference_offset": 544,
+    "reference_type": 6,
+    "native_field_rva": 123424,
+    "native_destination_rva": 123122,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123122,
+     "size": 7,
+     "bytes": "0fbf8e24010000",
+     "mnemonic": "movsx",
+     "operands": "ecx, word ptr [esi + 0x124]"
+    }
+   },
+   {
+    "symbol": "$L281",
+    "coff_value": 221,
+    "reference_offset": 548,
+    "reference_type": 6,
+    "native_field_rva": 123428,
+    "native_destination_rva": 123101,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123101,
+     "size": 1,
+     "bytes": "40",
+     "mnemonic": "inc",
+     "operands": "eax"
+    }
+   },
+   {
+    "symbol": "$L279",
+    "coff_value": 190,
+    "reference_offset": 552,
+    "reference_type": 6,
+    "native_field_rva": 123432,
+    "native_destination_rva": 123070,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123070,
+     "size": 1,
+     "bytes": "56",
+     "mnemonic": "push",
+     "operands": "esi"
+    }
+   },
+   {
+    "symbol": "$L278",
+    "coff_value": 174,
+    "reference_offset": 556,
+    "reference_type": 6,
+    "native_field_rva": 123436,
+    "native_destination_rva": 123054,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123054,
+     "size": 1,
+     "bytes": "56",
+     "mnemonic": "push",
+     "operands": "esi"
+    }
+   },
+   {
+    "symbol": "$L277",
+    "coff_value": 158,
+    "reference_offset": 560,
+    "reference_type": 6,
+    "native_field_rva": 123440,
+    "native_destination_rva": 123038,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123038,
+     "size": 1,
+     "bytes": "56",
+     "mnemonic": "push",
+     "operands": "esi"
+    }
+   },
+   {
+    "symbol": "$L275",
+    "coff_value": 105,
+    "reference_offset": 564,
+    "reference_type": 6,
+    "native_field_rva": 123444,
+    "native_destination_rva": 122985,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 122985,
+     "size": 4,
+     "bytes": "83765410",
+     "mnemonic": "xor",
+     "operands": "dword ptr [esi + 0x54], 0x10"
+    }
+   },
+   {
+    "symbol": "$L274",
+    "coff_value": 86,
+    "reference_offset": 568,
+    "reference_type": 6,
+    "native_field_rva": 123448,
+    "native_destination_rva": 122966,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 122966,
+     "size": 6,
+     "bytes": "8a8694000000",
+     "mnemonic": "mov",
+     "operands": "al, byte ptr [esi + 0x94]"
+    }
+   },
+   {
+    "symbol": "$L280",
+    "coff_value": 204,
+    "reference_offset": 572,
+    "reference_type": 6,
+    "native_field_rva": 123452,
+    "native_destination_rva": 123084,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123084,
+     "size": 4,
+     "bytes": "66895e32",
+     "mnemonic": "mov",
+     "operands": "word ptr [esi + 0x32], bx"
+    }
+   },
+   {
+    "symbol": "$L267",
+    "coff_value": 458,
+    "reference_offset": 576,
+    "reference_type": 6,
+    "native_field_rva": 123456,
+    "native_destination_rva": 123338,
+    "role": "code",
+    "size": 1,
+    "instruction_start": {
+     "rva": 123338,
+     "size": 3,
+     "bytes": "663beb",
+     "mnemonic": "cmp",
+     "operands": "bp, bx"
+    }
+   }
+  ],
+  "review": "Each local destination is independently read from the original ENG3 1e000 body HIGHLOW field and compared with the freshly compiled COFF local value; no queue implied_destination_rva is used. Local code labels are verified instruction starts. The 80-byte switch table matches after its 20 relocation fields are masked; the 60-byte constant table matches byte-for-byte."
+ },
+ "durable_review_path": "evidence/c11_eng3_review_2026_10_26.json"
+}

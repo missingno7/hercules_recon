@@ -71,3 +71,33 @@ verifier files byte-stable; add new profiles in new modules.
   restricted disp32 memory-operand witness; only about 32 rows qualify. Deferred.
 - The ENG1 source graph does not yet select the new data-only owner units; add
   them to `config/` when the next graph build runs.
+
+## Wave c (same day, evening)
+
+**Published: 23 more STRICT functions / 2,688 bytes; 1,043 accepted** (145 RAW,
+855 RELOCATED, 43 legacy LINKED). Commits `fd25d3d` (verifier forms), `b494797`,
+`8845220`, plus the final pair. About 950 compiler invocations went into 13 Luna lanes,
+one Sol investigation and four protection runs: 2.4 functions per 100 calls. That is a
+tenth of the first wave's rate. The cheap forms are exhausted.
+
+- One Sol investigator added three opt-in verifier forms in new modules (see
+  [verifier forms](verifier_forms_2026_10_26.md)): `relocated-data-v1`,
+  `msvc-undef-comdat-v1` and `cmp-test-absolute-v1`. They admitted the eight EXE
+  scalar-deleting destructors, one MFC runtime-class accessor and the ENG3 WORD
+  mode cell. Same-TU `.bss` statics were **rejected**: VC5 COFF has no
+  per-object sizes and next-symbol spacing includes padding (`u0cc90.c`: a 4-byte
+  static spans 8). The TITLE menu statics also lie in file-backed `.data`.
+- Most remaining rows each need several identities at once. The largest single
+  class is direct callees with no ledger row at all (`function_unknown`, ~650 uses).
+  Their entries need native identity reviews, so mechanical lanes no longer pay.
+- Two protection lessons. Accepted proofs pin `docs/matching.md` (cited by three
+  batch-5 documents), so living docs must never be cited as binding evidence.
+  Also, an anchor used by an accepted proof blocks acceptance of the function that
+  contains it: `eng1.color_profile_5dc0` holds the `_g_frame_global_73488` anchor of
+  two accepted rows. `work/velocity_c/anchor_preflight.py` finds such conflicts
+  without compiling; run it before every batch.
+
+Next candidates: a reviewed bulk method for native callee identities (entry from
+the function map, extent, independent outside callers, ABI) for `function_unknown`
+symbols; capacity evidence for indexed BSS; re-anchoring accepted proofs whose
+anchors sit inside pending functions (`scripts/reanchor.py`).

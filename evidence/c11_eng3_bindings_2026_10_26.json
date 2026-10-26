@@ -1,0 +1,348 @@
+{
+ "schema": 1,
+ "scope": "Worker-prepared independent references only; proposed identities are documented in native_review.json and are not an acceptance claim.",
+ "evidence_files": {
+  "src/eng3/actor_services_1e000.c": "d2734246b7304b8bcbc1f9b5f44010bca5e743542276934054d5765b6e798475",
+  "src/eng3/handlers_25040.c": "3aa2c3be889d92ca3962085aa34c9a6c54ed7d2326d91e728a04ff10e7e4de78",
+  "src/eng3/render_unit_22f00.cpp": "2daa8f8452946436b18ee991896f25d992a24defb364b4deb02a37c8cdc7d7ac",
+  "src/eng3/track_unit_20010.cpp": "629d9271c5771e823424e5918fab502cb511cb742c75932151083f4ef2a50d41",
+  "src/eng3/handlers_16240.cpp": "3e415a77c6e8b8d0ea0b54baeb7909cc763fc557097c53be2b09d89534d1686e",
+  "src/eng1/sound_od.c": "1a34991c4f610ad78407d757e2f4443510408d4f62612962256e783d01f6dffc",
+  "src/title/u0c1f0.c": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+  "src/title/u17cb0.cpp": "24f0718161e0e687793d32041ec5c9b541820f5e45e5e58d2f4a629d0b3fb010",
+  "src/title/title_engine.h": "460a1ed9004806155171691926cff2a92fbd98c4ff098db9d8d874a04e3512e4",
+  "src/eng3/loader_zero_cells_c11_eng3.c": "f09689b958f6d480665acb2fecdac0c98f336bc9c98a04cb5137ea2781e0817d",
+  "evidence/c11_eng3_review_2026_10_26.json": "159e93ff2ce1053db963a04c1d8ecb414beb4ec1b7b4e8d3f758804821a9d183",
+  "evidence/eng3_focus_bindings_2026_10_26.json": "aadc6734b7fdcf317aad710cc7acf65fbc965ae291a3e8398fd5394ea9a8e0f5",
+  "evidence/scalar_eng3_5_bindings_2026_10_26.json": "9924c689761020ec864dca839054b50ebed441a2ee5afb2406bc14a76e83238e",
+  "evidence/scalar_eng3_5_review_2026_10_26.json": "2dbb76ebdf13ed6d6c59ff1e3b0b6931c7e870f575368d0951ccf06cad4712a7",
+  "evidence/eng1_actor_resource_helpers_2026_10_25.json": "1e1cbe5a9ac0af9a42783ce81affc369ecf40f950405dafb7a1dbc1a98a3b41c",
+  "evidence/eng3_render_unit_2026_10_20.json": "5d7c6b49cf7579f788b70ff421102f9416b996085088539b21161bbad89f6be6",
+  "evidence/eng3_track_unit_2026_10_20.json": "ba8a0bcf2adda96c859caa61b87dee839ba83185df3e8440ee66ba73c848f53e",
+  "evidence/fn_eng3_review_2026_10_26.json": "c4cc8a10be7becf2beacdd54b0a7a5481f1687828a0251caf4e13b3bd7240e44"
+ },
+ "function_identities": {
+  "_eng3_slot_1e8": {
+   "symbol": "_eng3_slot_1e8",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "rva": 130528,
+   "size": 32,
+   "native_span_sha256": "181080ea338d426af576a4376c92fb8bac5b338a397f218728f65a48128fa88b",
+   "entry_bytes": "8b4424088b4c24045051ff1588090410",
+   "entry_extent_basis": "complete function-owned recovery span with decoded RET",
+   "decoded_ret_rvas": [
+    130547
+   ],
+   "ledger_row": "eng3.1fde0",
+   "ledger_status": "FUNCTION_MATCH_RELOCATED",
+   "source": "src/eng3/actor_services_1e000.c",
+   "source_sha256": "d2734246b7304b8bcbc1f9b5f44010bca5e743542276934054d5765b6e798475",
+   "source_signature": "int eng3_1fde0(int a, int b)",
+   "identity_basis": "FUNCTION_MATCH_RELOCATED own row; independent direct caller at 0x7a62 pushes two arguments and cleans eight bytes",
+   "origin": "recovery.json#functions[eng3.1fde0]",
+   "direct_callers": [
+    {
+     "site_rva": 153141,
+     "bytes": "e8a6a7ffff",
+     "caller_row": "eng3.25620",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": false,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 31330,
+     "bytes": "e879830100",
+     "caller_row": null,
+     "caller_status": null,
+     "outside_assigned_rows": true,
+     "verification": "continuous Capstone decode from ENG3 RVA 0x7950 through 0x7a90; two pushed arguments; caller cleanup at 0x7a6c"
+    }
+   ],
+   "outside_assigned_direct_callers": [
+    {
+     "site_rva": 31330,
+     "bytes": "e879830100",
+     "caller_row": null,
+     "caller_status": null,
+     "outside_assigned_rows": true,
+     "verification": "continuous Capstone decode from ENG3 RVA 0x7950 through 0x7a90; two pushed arguments; caller cleanup at 0x7a6c"
+    }
+   ],
+   "identity_status": "ready_for_durable_review"
+  },
+  "_eng3_slot_2ac": {
+   "symbol": "_eng3_slot_2ac",
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "rva": 130976,
+   "size": 48,
+   "native_span_sha256": "3455e9e51d7201a190a8a32af12ffbd3d424e99c26f016746342e4c04d6f3cbb",
+   "entry_bytes": "8b4424148b4c24108b54240c508b4424",
+   "entry_extent_basis": "complete function-owned recovery span with decoded RET",
+   "decoded_ret_rvas": [
+    131010
+   ],
+   "ledger_row": "eng3.shared_1ffa0",
+   "ledger_status": "CODEGEN_SIMILAR",
+   "source": "src/title/u0c1f0.c",
+   "source_sha256": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631",
+   "source_signature": "int title_0c2a0(int a, int b, int c, int d, int e)",
+   "identity_basis": "native entry/body decode and independent direct callers; source signature and caller cleanups establish cdecl five 32-bit arguments",
+   "origin": "recovery.json#functions[eng3.shared_1ffa0]",
+   "direct_callers": [
+    {
+     "site_rva": 153276,
+     "bytes": "e8dfa8ffff",
+     "caller_row": "eng3.25620",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": false,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 153047,
+     "bytes": "e8c4a9ffff",
+     "caller_row": "eng3.eng3_250f0",
+     "caller_status": "RECONSTRUCTED",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 108476,
+     "bytes": "e8df570000",
+     "caller_row": "eng3.1a560",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 108526,
+     "bytes": "e8ad570000",
+     "caller_row": "eng3.1a560",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 108575,
+     "bytes": "e87c570000",
+     "caller_row": "eng3.1a560",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 108627,
+     "bytes": "e848570000",
+     "caller_row": "eng3.1a560",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "outside_assigned_direct_callers": [
+    {
+     "site_rva": 153047,
+     "bytes": "e8c4a9ffff",
+     "caller_row": "eng3.eng3_250f0",
+     "caller_status": "RECONSTRUCTED",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 108476,
+     "bytes": "e8df570000",
+     "caller_row": "eng3.1a560",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 108526,
+     "bytes": "e8ad570000",
+     "caller_row": "eng3.1a560",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 108575,
+     "bytes": "e87c570000",
+     "caller_row": "eng3.1a560",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    },
+    {
+     "site_rva": 108627,
+     "bytes": "e848570000",
+     "caller_row": "eng3.1a560",
+     "caller_status": "CODEGEN_SIMILAR",
+     "outside_assigned_rows": true,
+     "verification": "Capstone decode from recovery function span"
+    }
+   ],
+   "identity_status": "ready_for_durable_review"
+  }
+ },
+ "functions": {
+  "eng3.25620": {
+   "symbols": {
+    "_g_eng3_prim_43164": {
+     "kind": "bss",
+     "rva": 274788,
+     "size": 4,
+     "owner": {
+      "source": "src/eng3/loader_zero_cells_c11_eng3.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_eng3_prim_43164"
+     },
+     "identity": {
+      "rva": 32781,
+      "size": 6,
+      "operand": 1,
+      "sha256": "b0d18f01e4f4f5988934093088b091b1c470207b52692af3906197e63fb83dc1"
+     },
+     "evidence": [
+      "evidence/c11_eng3_review_2026_10_26.json#cells._g_eng3_prim_43164"
+     ],
+     "references": [
+      {
+       "offset": 8,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 138,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 169,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 191,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 202,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 210,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng3_slot_1e8": {
+     "kind": "function",
+     "rva": 130528,
+     "size": 32,
+     "evidence": [
+      "evidence/c11_eng3_review_2026_10_26.json#function_identities._eng3_slot_1e8"
+     ],
+     "references": [
+      {
+       "offset": 22,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_eng3_color_43168": {
+     "kind": "bss",
+     "rva": 274792,
+     "size": 4,
+     "owner": {
+      "source": "src/eng3/loader_zero_cells_c11_eng3.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_eng3_color_43168"
+     },
+     "identity": {
+      "rva": 44362,
+      "size": 6,
+      "operand": 0,
+      "sha256": "e409c7d82b90b63d616024d38656154282b7949fc9be843b1cc08e1835f2709e"
+     },
+     "evidence": [
+      "evidence/c11_eng3_review_2026_10_26.json#cells._g_eng3_color_43168"
+     ],
+     "references": [
+      {
+       "offset": 82,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_g_eng3_frame_41448": {
+     "kind": "bss",
+     "rva": 267336,
+     "size": 4,
+     "owner": {
+      "source": "src/eng3/loader_zero_cells_c11_eng3.c",
+      "flags": [
+       "/O2"
+      ],
+      "symbol": "_g_eng3_frame_41448"
+     },
+     "identity": {
+      "rva": 32295,
+      "size": 6,
+      "operand": 1,
+      "sha256": "e789f35a5027d9b7dec80880130e95be0d0190f18cf9e9308336f2ede16ac768"
+     },
+     "evidence": [
+      "evidence/c11_eng3_review_2026_10_26.json#cells._g_eng3_frame_41448"
+     ],
+     "references": [
+      {
+       "offset": 107,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 124,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 163,
+       "type": 6,
+       "addend": 0
+      },
+      {
+       "offset": 185,
+       "type": 6,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng3_slot_2ac": {
+     "kind": "function",
+     "rva": 130976,
+     "size": 48,
+     "evidence": [
+      "evidence/c11_eng3_review_2026_10_26.json#function_identities._eng3_slot_2ac"
+     ],
+     "references": [
+      {
+       "offset": 157,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  }
+ }
+}
