@@ -1,0 +1,2210 @@
+{
+ "schema": 1,
+ "task_id": "c4_eng1",
+ "status": "partial; no recovery acceptance claim",
+ "proposed_durable_path": "evidence/c4_eng1_review_2026_10_26.json",
+ "question": "For each assigned loader-zero cell, do all indexed native accesses verified against ENG1.DLL bytes and HIGHLOW fields use one direct width at offset zero, and is there a separate MOV/LEA/PUSH anchor outside all 18 pending rows?",
+ "target_identity": {
+  "path": "assets/pc/HERCULES/ENG1.DLL",
+  "sha256": "01b78ae814892007bb6031b2470f10e09bdd912fdb8d30de9f4cfea7c638f757",
+  "image_base": "0x10000000"
+ },
+ "recovery_sha256": "18bf490419c6489f66bd16b433a5fa386d25198973c6690ce49d06ad2753607b",
+ "archaeology_sha256": "41381cde37150246b0c4529205b82ec56535d344a165d65aa5032e467b931390",
+ "indexed_linear_memory_ref_count": 282,
+ "highlow_count": 13882,
+ "tls_directory_size": 0,
+ "load_config_directory_size": 0,
+ "evidence": {
+  "native_scan_path": "work/velocity_c/c4_eng1/native_db_scan.json",
+  "native_scan_sha256": "0355a51b20e804813a21c3b5f8925a50c97828f2ed8225aebe81c0dbaa38f718",
+  "pinned_evidence_sha256": {
+   "evidence/eng1_data_evidence_manifest.json": "05b4ef4e263f19c8854af695a4947a14b723718abd95c2cc07a2c742c22568e6",
+   "evidence/eng1_filedata_bindings_2026_10_26.json": "48cbc07e410dd2f800a6da9c1e7cab190b89e3e54b80361b58d36a3540e0fbf6",
+   "evidence/fn_eng1_bindings_2026_10_26.json": "e59364da0c6f506ac444c47d2fcf16c86e07dc7007aac98a06a9a25cade7ae02",
+   "evidence/eng1_classifier_child_41000.json": "e8eed9db3b78a913ab19f2883e54b52bb9a39d9cb1ce6d76884680e4b8edcfe3",
+   "evidence/eng1_tile_draw_2ff0.json": "5b1892d1555a61924ae5f8c6183add5ac063e8848816f14a77ec1005d5517293",
+   "evidence/eng1_frame_palette_42320.json": "08acb77ee9cb5f3d6aaf0fc042f5a2e24f5d551f0c54fd2584b1a020e60a1843",
+   "evidence/eng1_runtime_color.json": "c3148906d0d85eaeda269437700f4c260dcb4e40c26c50e421e53d75075a5057",
+   "work/velocity_b/fn_eng1/fn_eng1_review_2026_10_26.json": "7b17ed8727e1234b97f3247486c29125b244dae5a7c267753617f70af81f8419"
+  }
+ },
+ "source_paths_sha256": {
+  "src/eng1/actor_pipeline_storage.c": "900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668",
+  "src/eng1/actor_pipeline_storage.h": "6dd3f88dcabd999167401b3924e9188eca46dde78906c02ec2428feb40eb044e",
+  "src/eng1/camera_storage.c": "96f1ee73f7d583451a9c9099bed4b0e76c8bb9e51fa8866b0c40e8ec051dfe0d",
+  "src/eng1/dispatch_storage.c": "96bcf0af67619d613768784a544ff693669574a196e6301c4a5c16b03e5e62bc",
+  "src/eng1/frame_data.c": "afc55666c65a4bdef9c8efbdf47371df812f7a621fb9321fa9d4f14fb06591f1",
+  "src/eng1/frame_palette_42320.c": "1c2b4eb449fb217c311aa80231dfeb5780b515afb6f4fd14722000073426d72d",
+  "src/eng1/level_actors_0c730.c": "ef20a448a909d982adcb7593dbc4a5a77b71da0a357910f79cce5e67c6c49a6f",
+  "src/eng1/level_frame_01e50.c": "0499866aec5e068f0b4db3e0b3f559c2b82006680a3aef0a358bb1ab53877d87",
+  "src/eng1/loader_zero_cells_c4_eng1.c": "fd77fedac4b0fe7424b73e9ae0568bbf3513b878860553f7229521eaa20e9ea4",
+  "src/eng1/player_scene_3a040.c": "fd1951d328bee4f1f9fddfe41fc49c6f0fc4d060b1b01a0ff7618fe5f27c334d",
+  "src/eng1/player_unit_36030.c": "a5f53b808e44ad54681b8b2a935269a64352e6ff35e9c7dfaf69a755e21a4830",
+  "src/eng1/sprite_unit_03cd0.c": "7a2b277a8b213f3e8d85846dd04ca8888ce7d410334d599d77565aa4f01ef185"
+ },
+ "cell_review": {
+  "_g_72874": {
+   "rva": "0x72874",
+   "candidate_size": 4,
+   "native_reference_count": 5,
+   "access_widths": [
+    4
+   ],
+   "direct_scalar_count": 5,
+   "writers": 0,
+   "readers": 5,
+   "one_width_offset_zero": true,
+   "references_complete": true,
+   "anchors_outside_pending": [
+    {
+     "rva": 227083,
+     "size": 6,
+     "sha256": "094df699b392e07943da48a7bbf6ef4f7c3ef12115cefc706d55dc9bfaadfaf3",
+     "instruction": "mov ecx, dword ptr [0x10072874]",
+     "function_rows": [
+      "eng1.374c0"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 229956,
+     "size": 6,
+     "sha256": "094df699b392e07943da48a7bbf6ef4f7c3ef12115cefc706d55dc9bfaadfaf3",
+     "instruction": "mov ecx, dword ptr [0x10072874]",
+     "function_rows": [
+      "eng1.38100"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 233953,
+     "size": 5,
+     "sha256": "2199f4018127f7f85b2c49e64217716a865f05f2469134d770a114e27a217828",
+     "instruction": "mov eax, dword ptr [0x10072874]",
+     "function_rows": [
+      "eng1.39090"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 237752,
+     "size": 5,
+     "sha256": "2199f4018127f7f85b2c49e64217716a865f05f2469134d770a114e27a217828",
+     "instruction": "mov eax, dword ptr [0x10072874]",
+     "function_rows": [
+      "eng1.3a040"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    }
+   ],
+   "zero_tail": {
+    "section": ".data",
+    "start_rva": 452608,
+    "end_rva": 476760,
+    "inside_zero_tail_for_size": [
+     4
+    ]
+   },
+   "data_directory_overlaps": [],
+   "fixups_inside_extent": [],
+   "overlapping_native_accesses": [],
+   "owner_disposition": "exact-size COMMON in the lane owner object; one caller row also validates this owner through match.py references."
+  },
+  "_g_camera_x_70ca0": {
+   "rva": "0x70ca0",
+   "candidate_size": 4,
+   "native_reference_count": 39,
+   "access_widths": [
+    4
+   ],
+   "direct_scalar_count": 39,
+   "writers": 8,
+   "readers": 31,
+   "one_width_offset_zero": true,
+   "references_complete": true,
+   "anchors_outside_pending": [
+    {
+     "rva": 12195,
+     "size": 5,
+     "sha256": "8c658bf737353507e5df8deed6843356c5137d5e68b16d350cd3029c066f0d28",
+     "instruction": "mov eax, dword ptr [0x10070ca0]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 85687,
+     "size": 5,
+     "sha256": "8c658bf737353507e5df8deed6843356c5137d5e68b16d350cd3029c066f0d28",
+     "instruction": "mov eax, dword ptr [0x10070ca0]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 87162,
+     "size": 6,
+     "sha256": "9cafeff1bb6e1450ea17186ffd9188001d176c01152e836f7b9bb5c31a20b891",
+     "instruction": "mov dword ptr [0x10070ca0], edx",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 126944,
+     "size": 6,
+     "sha256": "28a0ec161ecd91f3d5420b60dd7e85cca73bcc04dce5443e29d961bcf2ef4453",
+     "instruction": "mov edx, dword ptr [0x10070ca0]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 127093,
+     "size": 5,
+     "sha256": "8c658bf737353507e5df8deed6843356c5137d5e68b16d350cd3029c066f0d28",
+     "instruction": "mov eax, dword ptr [0x10070ca0]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 129182,
+     "size": 6,
+     "sha256": "a198c83297432232b52c0bc5315bbc5afd48f28fef2a75a4a9a155a4bfe50969",
+     "instruction": "mov ebp, dword ptr [0x10070ca0]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 129966,
+     "size": 6,
+     "sha256": "28a0ec161ecd91f3d5420b60dd7e85cca73bcc04dce5443e29d961bcf2ef4453",
+     "instruction": "mov edx, dword ptr [0x10070ca0]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 129993,
+     "size": 6,
+     "sha256": "9cafeff1bb6e1450ea17186ffd9188001d176c01152e836f7b9bb5c31a20b891",
+     "instruction": "mov dword ptr [0x10070ca0], edx",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 139121,
+     "size": 6,
+     "sha256": "9eca1507b35fade687e92bb966d118d0c9d5f17196e608c91bd4e9dea319e6dd",
+     "instruction": "mov esi, dword ptr [0x10070ca0]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 156326,
+     "size": 6,
+     "sha256": "ea74be9ce9f29eef19deafbae378d8a9af1268ec120d1d55bc2e20de6619dd67",
+     "instruction": "mov ecx, dword ptr [0x10070ca0]",
+     "function_rows": [
+      "eng1.dispatch_local_262a0"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 156810,
+     "size": 6,
+     "sha256": "9ae9e8448a975a27c1f8bb87d75cb7d2a0a168659d29e1666d21c70141f1ce15",
+     "instruction": "mov ebx, dword ptr [0x10070ca0]",
+     "function_rows": [
+      "eng1.call_26480"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 188059,
+     "size": 5,
+     "sha256": "8c658bf737353507e5df8deed6843356c5137d5e68b16d350cd3029c066f0d28",
+     "instruction": "mov eax, dword ptr [0x10070ca0]",
+     "function_rows": [
+      "eng1.dispatch_local_2da90"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 194633,
+     "size": 6,
+     "sha256": "28a0ec161ecd91f3d5420b60dd7e85cca73bcc04dce5443e29d961bcf2ef4453",
+     "instruction": "mov edx, dword ptr [0x10070ca0]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 194840,
+     "size": 6,
+     "sha256": "a198c83297432232b52c0bc5315bbc5afd48f28fef2a75a4a9a155a4bfe50969",
+     "instruction": "mov ebp, dword ptr [0x10070ca0]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 195101,
+     "size": 6,
+     "sha256": "9ae9e8448a975a27c1f8bb87d75cb7d2a0a168659d29e1666d21c70141f1ce15",
+     "instruction": "mov ebx, dword ptr [0x10070ca0]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 195350,
+     "size": 5,
+     "sha256": "8c658bf737353507e5df8deed6843356c5137d5e68b16d350cd3029c066f0d28",
+     "instruction": "mov eax, dword ptr [0x10070ca0]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 195450,
+     "size": 6,
+     "sha256": "a198c83297432232b52c0bc5315bbc5afd48f28fef2a75a4a9a155a4bfe50969",
+     "instruction": "mov ebp, dword ptr [0x10070ca0]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 195505,
+     "size": 6,
+     "sha256": "a198c83297432232b52c0bc5315bbc5afd48f28fef2a75a4a9a155a4bfe50969",
+     "instruction": "mov ebp, dword ptr [0x10070ca0]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 195768,
+     "size": 6,
+     "sha256": "673fcd4fbcd8d88c47e20cf5a4715cbd8c2d4c84b4787b87570e91eaf8d46569",
+     "instruction": "mov dword ptr [0x10070ca0], ebp",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 195790,
+     "size": 6,
+     "sha256": "673fcd4fbcd8d88c47e20cf5a4715cbd8c2d4c84b4787b87570e91eaf8d46569",
+     "instruction": "mov dword ptr [0x10070ca0], ebp",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 195816,
+     "size": 6,
+     "sha256": "673fcd4fbcd8d88c47e20cf5a4715cbd8c2d4c84b4787b87570e91eaf8d46569",
+     "instruction": "mov dword ptr [0x10070ca0], ebp",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 195840,
+     "size": 6,
+     "sha256": "673fcd4fbcd8d88c47e20cf5a4715cbd8c2d4c84b4787b87570e91eaf8d46569",
+     "instruction": "mov dword ptr [0x10070ca0], ebp",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 226803,
+     "size": 6,
+     "sha256": "b4d0ac43eb653724ade180d23a98f79596d5b96c12bb4164c197af23f04ae140",
+     "instruction": "mov dword ptr [0x10070ca0], ecx",
+     "function_rows": [
+      "eng1.374c0"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 229600,
+     "size": 5,
+     "sha256": "8c658bf737353507e5df8deed6843356c5137d5e68b16d350cd3029c066f0d28",
+     "instruction": "mov eax, dword ptr [0x10070ca0]",
+     "function_rows": [
+      "eng1.38090"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 229743,
+     "size": 5,
+     "sha256": "8c658bf737353507e5df8deed6843356c5137d5e68b16d350cd3029c066f0d28",
+     "instruction": "mov eax, dword ptr [0x10070ca0]",
+     "function_rows": [
+      "eng1.38100"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 233407,
+     "size": 5,
+     "sha256": "8c658bf737353507e5df8deed6843356c5137d5e68b16d350cd3029c066f0d28",
+     "instruction": "mov eax, dword ptr [0x10070ca0]",
+     "function_rows": [
+      "eng1.38f50"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 234196,
+     "size": 6,
+     "sha256": "28a0ec161ecd91f3d5420b60dd7e85cca73bcc04dce5443e29d961bcf2ef4453",
+     "instruction": "mov edx, dword ptr [0x10070ca0]",
+     "function_rows": [
+      "eng1.39090"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 237452,
+     "size": 5,
+     "sha256": "8c658bf737353507e5df8deed6843356c5137d5e68b16d350cd3029c066f0d28",
+     "instruction": "mov eax, dword ptr [0x10070ca0]",
+     "function_rows": [
+      "eng1.39f20"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 238259,
+     "size": 6,
+     "sha256": "28a0ec161ecd91f3d5420b60dd7e85cca73bcc04dce5443e29d961bcf2ef4453",
+     "instruction": "mov edx, dword ptr [0x10070ca0]",
+     "function_rows": [
+      "eng1.3a040"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 271139,
+     "size": 5,
+     "sha256": "8c658bf737353507e5df8deed6843356c5137d5e68b16d350cd3029c066f0d28",
+     "instruction": "mov eax, dword ptr [0x10070ca0]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 279385,
+     "size": 6,
+     "sha256": "ea74be9ce9f29eef19deafbae378d8a9af1268ec120d1d55bc2e20de6619dd67",
+     "instruction": "mov ecx, dword ptr [0x10070ca0]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    }
+   ],
+   "zero_tail": {
+    "section": ".data",
+    "start_rva": 452608,
+    "end_rva": 476760,
+    "inside_zero_tail_for_size": [
+     4
+    ]
+   },
+   "data_directory_overlaps": [],
+   "fixups_inside_extent": [],
+   "overlapping_native_accesses": [],
+   "owner_disposition": "native form passes; existing camera_storage.c emits this symbol in .data (section 3, offset 32 of 152-byte .data), so the exact-size COMMON owner gate fails."
+  },
+  "_g_camera_y_70ca4": {
+   "rva": "0x70ca4",
+   "candidate_size": 4,
+   "native_reference_count": 13,
+   "access_widths": [
+    4
+   ],
+   "direct_scalar_count": 13,
+   "writers": 4,
+   "readers": 9,
+   "one_width_offset_zero": true,
+   "references_complete": true,
+   "anchors_outside_pending": [
+    {
+     "rva": 12219,
+     "size": 5,
+     "sha256": "1b5af140e7e0a6647402887a90887a1c64edddcbcfceb2f1834615f07a1e7f9a",
+     "instruction": "mov eax, dword ptr [0x10070ca4]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 87174,
+     "size": 6,
+     "sha256": "29a0880db5928502a7d5ecdca632e6fe07fbf8af89f5382c1b6072579619a2b1",
+     "instruction": "mov dword ptr [0x10070ca4], ecx",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 195292,
+     "size": 6,
+     "sha256": "91229473a4f3e6f0700c6555d606ed9b1f54440c4a3f9d0a7666d3eae061ac76",
+     "instruction": "mov ecx, dword ptr [0x10070ca4]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 195443,
+     "size": 5,
+     "sha256": "1b5af140e7e0a6647402887a90887a1c64edddcbcfceb2f1834615f07a1e7f9a",
+     "instruction": "mov eax, dword ptr [0x10070ca4]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 196045,
+     "size": 6,
+     "sha256": "91229473a4f3e6f0700c6555d606ed9b1f54440c4a3f9d0a7666d3eae061ac76",
+     "instruction": "mov ecx, dword ptr [0x10070ca4]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 196357,
+     "size": 6,
+     "sha256": "29a0880db5928502a7d5ecdca632e6fe07fbf8af89f5382c1b6072579619a2b1",
+     "instruction": "mov dword ptr [0x10070ca4], ecx",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 196387,
+     "size": 5,
+     "sha256": "1b5af140e7e0a6647402887a90887a1c64edddcbcfceb2f1834615f07a1e7f9a",
+     "instruction": "mov eax, dword ptr [0x10070ca4]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 226818,
+     "size": 6,
+     "sha256": "2e99c6e42be3fc6d2a2e895fc7542bc0b0e6c7d6a6cabb740448d78abc93cc4e",
+     "instruction": "mov dword ptr [0x10070ca4], edx",
+     "function_rows": [
+      "eng1.374c0"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 271144,
+     "size": 6,
+     "sha256": "91229473a4f3e6f0700c6555d606ed9b1f54440c4a3f9d0a7666d3eae061ac76",
+     "instruction": "mov ecx, dword ptr [0x10070ca4]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 279391,
+     "size": 6,
+     "sha256": "8e4f4c7d5d3e2b6146195493580386416627074f33eb06a25aa2f7cb07ff2715",
+     "instruction": "mov edx, dword ptr [0x10070ca4]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    }
+   ],
+   "zero_tail": {
+    "section": ".data",
+    "start_rva": 452608,
+    "end_rva": 476760,
+    "inside_zero_tail_for_size": [
+     4
+    ]
+   },
+   "data_directory_overlaps": [],
+   "fixups_inside_extent": [],
+   "overlapping_native_accesses": [],
+   "owner_disposition": "native form passes; existing camera_storage.c emits this symbol in .data (section 3, offset 36 of 152-byte .data), so the exact-size COMMON owner gate fails."
+  },
+  "_g_dispatch_key_7286c": {
+   "rva": "0x7286c",
+   "candidate_size": 1,
+   "native_reference_count": 8,
+   "access_widths": [
+    1
+   ],
+   "direct_scalar_count": 8,
+   "writers": 6,
+   "readers": 2,
+   "one_width_offset_zero": true,
+   "references_complete": true,
+   "anchors_outside_pending": [
+    {
+     "rva": 10144,
+     "size": 5,
+     "sha256": "decd4373e9bf7fdc810646c9bdc27b70a58ae63b5881d594c575f646b602bd3f",
+     "instruction": "mov al, byte ptr [0x1007286c]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 89945,
+     "size": 7,
+     "sha256": "0d57f813f924839a81e76e53f60e0551585f3ff4f2181b8ae117c7809e2b26f9",
+     "instruction": "mov byte ptr [0x1007286c], 0xf8",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 127860,
+     "size": 7,
+     "sha256": "103f87aafc1fcc9ca32e23dbd668577fdda115e506ceba1628f673cb3ccffe54",
+     "instruction": "mov byte ptr [0x1007286c], 0",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 132158,
+     "size": 7,
+     "sha256": "4ac58c6fd6134d088fd64170a88e1131b554f4fe17dedd269be61f63da47bcd4",
+     "instruction": "mov byte ptr [0x1007286c], 8",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 227943,
+     "size": 7,
+     "sha256": "0d57f813f924839a81e76e53f60e0551585f3ff4f2181b8ae117c7809e2b26f9",
+     "instruction": "mov byte ptr [0x1007286c], 0xf8",
+     "function_rows": [
+      "eng1.379e0"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    }
+   ],
+   "zero_tail": {
+    "section": ".data",
+    "start_rva": 452608,
+    "end_rva": 476760,
+    "inside_zero_tail_for_size": [
+     1
+    ]
+   },
+   "data_directory_overlaps": [],
+   "fixups_inside_extent": [],
+   "overlapping_native_accesses": [],
+   "owner_disposition": "native form passes; existing dispatch_storage.c emits it in an 80-byte .bss aggregate (section 2, offset 4), not as an exact-size COMMON or one-symbol zero-section owner."
+  },
+  "_g_dispatch_word_6ee80": {
+   "rva": "0x6ee80",
+   "candidate_size": 2,
+   "native_reference_count": 5,
+   "access_widths": [
+    2
+   ],
+   "direct_scalar_count": 5,
+   "writers": 4,
+   "readers": 1,
+   "one_width_offset_zero": true,
+   "references_complete": true,
+   "anchors_outside_pending": [
+    {
+     "rva": 89961,
+     "size": 9,
+     "sha256": "9f3a32c3261387635354af2e0f4b4f7df50c9e4e75339de9958694789c7f3046",
+     "instruction": "mov word ptr [0x1006ee80], 0",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 132172,
+     "size": 7,
+     "sha256": "9699645e1aec69d35c6b708d0a8616fbdd215a7429232e500c4e9ec7ead6aefb",
+     "instruction": "mov word ptr [0x1006ee80], bx",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 227959,
+     "size": 7,
+     "sha256": "9699645e1aec69d35c6b708d0a8616fbdd215a7429232e500c4e9ec7ead6aefb",
+     "instruction": "mov word ptr [0x1006ee80], bx",
+     "function_rows": [
+      "eng1.379e0"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    }
+   ],
+   "zero_tail": {
+    "section": ".data",
+    "start_rva": 452608,
+    "end_rva": 476760,
+    "inside_zero_tail_for_size": [
+     2
+    ]
+   },
+   "data_directory_overlaps": [],
+   "fixups_inside_extent": [],
+   "overlapping_native_accesses": [],
+   "owner_disposition": "native form passes; existing dispatch_storage.c emits it in an 80-byte .bss aggregate (section 2, offset 8), not as an exact-size COMMON or one-symbol zero-section owner."
+  },
+  "_g_frame_global_734f0": {
+   "rva": "0x734f0",
+   "candidate_size": 1,
+   "native_reference_count": 3,
+   "access_widths": [
+    1,
+    4
+   ],
+   "direct_scalar_count": 3,
+   "writers": 2,
+   "readers": 1,
+   "one_width_offset_zero": false,
+   "references_complete": true,
+   "anchors_outside_pending": [
+    {
+     "rva": 24064,
+     "size": 6,
+     "sha256": "e148a21278891c2051a97ec5708af5bc1bbcad56458529efaf3a0307d9b7f2f9",
+     "instruction": "mov ecx, dword ptr [0x100734f0]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 128102,
+     "size": 6,
+     "sha256": "392c6c99abbee75c3894b22e62406417a30c6354f31d6fbceaa6688abb4f77e6",
+     "instruction": "mov byte ptr [0x100734f0], cl",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    }
+   ],
+   "zero_tail": {
+    "section": ".data",
+    "start_rva": 452608,
+    "end_rva": 476760,
+    "inside_zero_tail_for_size": [
+     1,
+     4
+    ]
+   },
+   "data_directory_overlaps": [],
+   "fixups_inside_extent": [],
+   "overlapping_native_accesses": [
+    {
+     "instruction_rva": 24064,
+     "bytes": "8b0df0340710",
+     "instruction": "mov ecx, dword ptr [0x100734f0]",
+     "target_rva": 472304,
+     "width": 4,
+     "source_offset": 0,
+     "function_rows": []
+    }
+   ],
+   "owner_disposition": "stop: native direct accesses use widths 1 and 4; the 4-byte access overlaps the source-sized one-byte cell."
+  },
+  "_g_frame_global_734f1": {
+   "rva": "0x734f1",
+   "candidate_size": 1,
+   "native_reference_count": 2,
+   "access_widths": [
+    1
+   ],
+   "direct_scalar_count": 2,
+   "writers": 2,
+   "readers": 0,
+   "one_width_offset_zero": true,
+   "references_complete": true,
+   "anchors_outside_pending": [
+    {
+     "rva": 128126,
+     "size": 6,
+     "sha256": "e89e09b5b5c1e8f9c73d4543fac442b3c1185d9b1c6842042409d3c21b8fb5bd",
+     "instruction": "mov byte ptr [0x100734f1], cl",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    }
+   ],
+   "zero_tail": {
+    "section": ".data",
+    "start_rva": 452608,
+    "end_rva": 476760,
+    "inside_zero_tail_for_size": [
+     1
+    ]
+   },
+   "data_directory_overlaps": [],
+   "fixups_inside_extent": [],
+   "overlapping_native_accesses": [
+    {
+     "instruction_rva": 24064,
+     "bytes": "8b0df0340710",
+     "instruction": "mov ecx, dword ptr [0x100734f0]",
+     "target_rva": 472304,
+     "width": 4,
+     "source_offset": -1,
+     "function_rows": []
+    }
+   ],
+   "owner_disposition": "stop: exact references are byte width, but an access starting at 0x734f0 overlaps this cell as an interior byte."
+  },
+  "_g_frame_global_734f2": {
+   "rva": "0x734f2",
+   "candidate_size": 1,
+   "native_reference_count": 3,
+   "access_widths": [
+    1
+   ],
+   "direct_scalar_count": 3,
+   "writers": 2,
+   "readers": 1,
+   "one_width_offset_zero": true,
+   "references_complete": true,
+   "anchors_outside_pending": [
+    {
+     "rva": 24083,
+     "size": 6,
+     "sha256": "05413c5f56b3ee7cc1f05ec9890e5dc9c326f0e818bf9b3183bd85804273c6cc",
+     "instruction": "mov cl, byte ptr [0x100734f2]",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 128155,
+     "size": 5,
+     "sha256": "3de0afea146ab2591d947a4e03b43c307b7a73f7e5317aca995049c604d1c2e8",
+     "instruction": "mov byte ptr [0x100734f2], al",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    }
+   ],
+   "zero_tail": {
+    "section": ".data",
+    "start_rva": 452608,
+    "end_rva": 476760,
+    "inside_zero_tail_for_size": [
+     1
+    ]
+   },
+   "data_directory_overlaps": [],
+   "fixups_inside_extent": [],
+   "overlapping_native_accesses": [
+    {
+     "instruction_rva": 24064,
+     "bytes": "8b0df0340710",
+     "instruction": "mov ecx, dword ptr [0x100734f0]",
+     "target_rva": 472304,
+     "width": 4,
+     "source_offset": -2,
+     "function_rows": []
+    }
+   ],
+   "owner_disposition": "stop: exact references are byte width, but an access starting at 0x734f0 overlaps this cell as an interior byte."
+  },
+  "_g_frame_word_6ee84": {
+   "rva": "0x6ee84",
+   "candidate_size": 2,
+   "native_reference_count": 10,
+   "access_widths": [
+    1,
+    2
+   ],
+   "direct_scalar_count": 10,
+   "writers": 3,
+   "readers": 7,
+   "one_width_offset_zero": false,
+   "references_complete": true,
+   "anchors_outside_pending": [
+    {
+     "rva": 127867,
+     "size": 7,
+     "sha256": "c90b3bb210b42c62586a0d8488045582ac40e0010355bc5a32af86750d9e7986",
+     "instruction": "mov word ptr [0x1006ee84], si",
+     "function_rows": [],
+     "pending_overlap": [],
+     "highlow_verified": true
+    }
+   ],
+   "zero_tail": {
+    "section": ".data",
+    "start_rva": 452608,
+    "end_rva": 476760,
+    "inside_zero_tail_for_size": [
+     1,
+     2
+    ]
+   },
+   "data_directory_overlaps": [],
+   "fixups_inside_extent": [],
+   "overlapping_native_accesses": [
+    {
+     "instruction_rva": 23971,
+     "bytes": "8a0d84ee0610",
+     "instruction": "mov cl, byte ptr [0x1006ee84]",
+     "target_rva": 454276,
+     "width": 1,
+     "source_offset": 0,
+     "function_rows": [
+      "eng1.color_fade_step_5d50"
+     ]
+    }
+   ],
+   "owner_disposition": "stop: native direct accesses use widths 1 and 2, with an overlapping access; no single-width cell owner."
+  },
+  "_g_pipeline_actor_7200c": {
+   "rva": "0x7200c",
+   "candidate_size": 4,
+   "native_reference_count": 12,
+   "access_widths": [
+    4
+   ],
+   "direct_scalar_count": 12,
+   "writers": 1,
+   "readers": 11,
+   "one_width_offset_zero": true,
+   "references_complete": true,
+   "anchors_outside_pending": [
+    {
+     "rva": 155430,
+     "size": 6,
+     "sha256": "926de81f87468322b0b2fed586415ef36ef1346085837019307fe985bbc747d1",
+     "instruction": "mov ecx, dword ptr [0x1007200c]",
+     "function_rows": [
+      "eng1.dispatch_local_25d00"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 156391,
+     "size": 6,
+     "sha256": "926de81f87468322b0b2fed586415ef36ef1346085837019307fe985bbc747d1",
+     "instruction": "mov ecx, dword ptr [0x1007200c]",
+     "function_rows": [
+      "eng1.dispatch_local_262a0"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 156541,
+     "size": 5,
+     "sha256": "aff4fda3c0dca78190bf09058966db7e1a1e6161f610b0f43a8ca2ea501f7d1c",
+     "instruction": "mov eax, dword ptr [0x1007200c]",
+     "function_rows": [
+      "eng1.dispatch_local_262a0"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 156877,
+     "size": 6,
+     "sha256": "926de81f87468322b0b2fed586415ef36ef1346085837019307fe985bbc747d1",
+     "instruction": "mov ecx, dword ptr [0x1007200c]",
+     "function_rows": [
+      "eng1.call_26480"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    }
+   ],
+   "zero_tail": {
+    "section": ".data",
+    "start_rva": 452608,
+    "end_rva": 476760,
+    "inside_zero_tail_for_size": [
+     4
+    ]
+   },
+   "data_directory_overlaps": [],
+   "fixups_inside_extent": [],
+   "overlapping_native_accesses": [],
+   "owner_disposition": "native form passes; existing actor_pipeline_storage.c emits it at offset 2240 in a 2244-byte .bss aggregate."
+  },
+  "_g_player_flag_707f4": {
+   "rva": "0x707f4",
+   "candidate_size": 4,
+   "native_reference_count": 16,
+   "access_widths": [
+    4
+   ],
+   "direct_scalar_count": 16,
+   "writers": 9,
+   "readers": 7,
+   "one_width_offset_zero": true,
+   "references_complete": true,
+   "anchors_outside_pending": [
+    {
+     "rva": 229605,
+     "size": 5,
+     "sha256": "3cf48812e9f77005ffda2f218391f7b7638feec72531bfd0a132f725b9dee703",
+     "instruction": "mov dword ptr [0x100707f4], eax",
+     "function_rows": [
+      "eng1.38090"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 229737,
+     "size": 6,
+     "sha256": "1f76c3b93feadb6235b5d489698c0412725ff8ee0bc407e978c865e0e8839703",
+     "instruction": "mov ecx, dword ptr [0x100707f4]",
+     "function_rows": [
+      "eng1.38100"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 233305,
+     "size": 5,
+     "sha256": "9158c1aa8b69e99f349272490eddf5e511c9089cb5699a17fd559a350e4e881a",
+     "instruction": "mov eax, dword ptr [0x100707f4]",
+     "function_rows": [
+      "eng1.38f50"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 233415,
+     "size": 5,
+     "sha256": "3cf48812e9f77005ffda2f218391f7b7638feec72531bfd0a132f725b9dee703",
+     "instruction": "mov dword ptr [0x100707f4], eax",
+     "function_rows": [
+      "eng1.38f50"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 234190,
+     "size": 6,
+     "sha256": "1f76c3b93feadb6235b5d489698c0412725ff8ee0bc407e978c865e0e8839703",
+     "instruction": "mov ecx, dword ptr [0x100707f4]",
+     "function_rows": [
+      "eng1.39090"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 234236,
+     "size": 10,
+     "sha256": "c606ce5efb069897e12926919821f1a6626bd58b85d1debaf8bac07d43cf6e4b",
+     "instruction": "mov dword ptr [0x100707f4], 0",
+     "function_rows": [
+      "eng1.39090"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 237353,
+     "size": 5,
+     "sha256": "9158c1aa8b69e99f349272490eddf5e511c9089cb5699a17fd559a350e4e881a",
+     "instruction": "mov eax, dword ptr [0x100707f4]",
+     "function_rows": [
+      "eng1.39f20"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 237460,
+     "size": 5,
+     "sha256": "3cf48812e9f77005ffda2f218391f7b7638feec72531bfd0a132f725b9dee703",
+     "instruction": "mov dword ptr [0x100707f4], eax",
+     "function_rows": [
+      "eng1.39f20"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 238253,
+     "size": 6,
+     "sha256": "1f76c3b93feadb6235b5d489698c0412725ff8ee0bc407e978c865e0e8839703",
+     "instruction": "mov ecx, dword ptr [0x100707f4]",
+     "function_rows": [
+      "eng1.3a040"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 238311,
+     "size": 10,
+     "sha256": "c606ce5efb069897e12926919821f1a6626bd58b85d1debaf8bac07d43cf6e4b",
+     "instruction": "mov dword ptr [0x100707f4], 0",
+     "function_rows": [
+      "eng1.3a040"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 246144,
+     "size": 10,
+     "sha256": "c606ce5efb069897e12926919821f1a6626bd58b85d1debaf8bac07d43cf6e4b",
+     "instruction": "mov dword ptr [0x100707f4], 0",
+     "function_rows": [
+      "eng1.3c170"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    }
+   ],
+   "zero_tail": {
+    "section": ".data",
+    "start_rva": 452608,
+    "end_rva": 476760,
+    "inside_zero_tail_for_size": [
+     4
+    ]
+   },
+   "data_directory_overlaps": [],
+   "fixups_inside_extent": [],
+   "overlapping_native_accesses": [],
+   "owner_disposition": "exact-size COMMON in the lane owner object; pass in focused rows eng1.37fa0 and eng1.38490."
+  },
+  "_g_player_palette_707e0": {
+   "rva": "0x707e0",
+   "candidate_size": 4,
+   "native_reference_count": 9,
+   "access_widths": [
+    4
+   ],
+   "direct_scalar_count": 9,
+   "writers": 5,
+   "readers": 4,
+   "one_width_offset_zero": true,
+   "references_complete": true,
+   "anchors_outside_pending": [
+    {
+     "rva": 227099,
+     "size": 5,
+     "sha256": "e149b6f72d718cbf9e7d173e280154e3d120a5b03bff3445763a4f6c85dc75e4",
+     "instruction": "mov dword ptr [0x100707e0], eax",
+     "function_rows": [
+      "eng1.374c0"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 229962,
+     "size": 6,
+     "sha256": "a5644880f44ebb16c3689eee536798ba4d58b96d84e2afb3096d7ab7cfa6d034",
+     "instruction": "mov edx, dword ptr [0x100707e0]",
+     "function_rows": [
+      "eng1.38100"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 230015,
+     "size": 10,
+     "sha256": "c922c56ae2e80b4bf83158be16122507f18ce541ee2002db12b8763b6bca94c5",
+     "instruction": "mov dword ptr [0x100707e0], 0x100636f0",
+     "function_rows": [
+      "eng1.38100"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 233958,
+     "size": 6,
+     "sha256": "21214e2249cadb598d3f84748d45a18793674f9101a8cb89282aa727638b9ebf",
+     "instruction": "mov ecx, dword ptr [0x100707e0]",
+     "function_rows": [
+      "eng1.39090"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 234008,
+     "size": 10,
+     "sha256": "fc869ff8cdb88ef520d24be5c8de2c452e47566beab4acfff29442574a55b716",
+     "instruction": "mov dword ptr [0x100707e0], 0x10063ef8",
+     "function_rows": [
+      "eng1.39090"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 237757,
+     "size": 6,
+     "sha256": "21214e2249cadb598d3f84748d45a18793674f9101a8cb89282aa727638b9ebf",
+     "instruction": "mov ecx, dword ptr [0x100707e0]",
+     "function_rows": [
+      "eng1.3a040"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    },
+    {
+     "rva": 237807,
+     "size": 10,
+     "sha256": "cea74930e28f1fd4a3786f333952f78e0d2024dee21933f01d735413a4c886d7",
+     "instruction": "mov dword ptr [0x100707e0], 0x10064270",
+     "function_rows": [
+      "eng1.3a040"
+     ],
+     "pending_overlap": [],
+     "highlow_verified": true
+    }
+   ],
+   "zero_tail": {
+    "section": ".data",
+    "start_rva": 452608,
+    "end_rva": 476760,
+    "inside_zero_tail_for_size": [
+     4
+    ]
+   },
+   "data_directory_overlaps": [],
+   "fixups_inside_extent": [],
+   "overlapping_native_accesses": [],
+   "owner_disposition": "exact-size COMMON in the lane owner object; no complete caller row check because eng1.38610 also needs stopped camera/data/function symbols."
+  }
+ },
+ "owner_compiler_receipts": [
+  {
+   "source": "src/eng1/loader_zero_cells_c4_eng1.c",
+   "source_sha256": "fd77fedac4b0fe7424b73e9ae0568bbf3513b878860553f7229521eaa20e9ea4",
+   "event": "work/velocity_c/compiler_events/a89cf67913684538a56b52b4dbc670e9.json",
+   "started_utc": "2026-10-26T13:59:35.079442+00:00",
+   "toolchain": "msvc5_rtm",
+   "object_sha256": "30102f0c49f9ab7cf5a7a57243e310a299e2f78d819b6c6d4f94a4154b1302b7",
+   "sections": [
+    {
+     "index": 1,
+     "name": ".drectve",
+     "size": 38,
+     "raw_bytes": 38
+    }
+   ],
+   "symbols": [
+    {
+     "symbol": "_g_72874",
+     "coff_matches": 1,
+     "storage": 2,
+     "section": 0,
+     "value": 4,
+     "type": 0
+    },
+    {
+     "symbol": "_g_player_flag_707f4",
+     "coff_matches": 1,
+     "storage": 2,
+     "section": 0,
+     "value": 4,
+     "type": 0
+    },
+    {
+     "symbol": "_g_player_palette_707e0",
+     "coff_matches": 1,
+     "storage": 2,
+     "section": 0,
+     "value": 4,
+     "type": 0
+    }
+   ]
+  },
+  {
+   "source": "src/eng1/camera_storage.c",
+   "source_sha256": "96f1ee73f7d583451a9c9099bed4b0e76c8bb9e51fa8866b0c40e8ec051dfe0d",
+   "event": "work/velocity_c/compiler_events/208a336a0c374f35b9f62ad38c7a6b15.json",
+   "started_utc": "2026-10-26T13:59:35.173454+00:00",
+   "toolchain": "msvc5_rtm",
+   "object_sha256": "9ac3c4bce645c8ca48f935d883d96b0960493d3c683e7183f35d9fd9d4100452",
+   "sections": [
+    {
+     "index": 1,
+     "name": ".drectve",
+     "size": 38,
+     "raw_bytes": 38
+    },
+    {
+     "index": 2,
+     "name": ".data",
+     "size": 152,
+     "raw_bytes": 152
+    },
+    {
+     "index": 3,
+     "name": ".bss",
+     "size": 136,
+     "raw_bytes": 0
+    }
+   ],
+   "symbols": [
+    {
+     "symbol": "_g_camera_x_70ca0",
+     "coff_matches": 1,
+     "storage": 2,
+     "section": 3,
+     "value": 32,
+     "type": 0
+    },
+    {
+     "symbol": "_g_camera_y_70ca4",
+     "coff_matches": 1,
+     "storage": 2,
+     "section": 3,
+     "value": 36,
+     "type": 0
+    }
+   ]
+  },
+  {
+   "source": "src/eng1/dispatch_storage.c",
+   "source_sha256": "96bcf0af67619d613768784a544ff693669574a196e6301c4a5c16b03e5e62bc",
+   "event": "work/velocity_c/compiler_events/2bd0005e36da491c9d925a0be4d5db84.json",
+   "started_utc": "2026-10-26T14:02:08.769126+00:00",
+   "toolchain": "msvc5_rtm",
+   "object_sha256": "df678f30a9dc2b664a46b7a3cef2dd87417495d4f396708e43def95566530b6c",
+   "sections": [
+    {
+     "index": 1,
+     "name": ".drectve",
+     "size": 38,
+     "raw_bytes": 38
+    },
+    {
+     "index": 2,
+     "name": ".bss",
+     "size": 80,
+     "raw_bytes": 0
+    },
+    {
+     "index": 3,
+     "name": ".data",
+     "size": 10,
+     "raw_bytes": 10
+    }
+   ],
+   "symbols": [
+    {
+     "symbol": "_g_dispatch_key_7286c",
+     "coff_matches": 1,
+     "storage": 2,
+     "section": 2,
+     "value": 4,
+     "type": 0
+    },
+    {
+     "symbol": "_g_dispatch_word_6ee80",
+     "coff_matches": 1,
+     "storage": 2,
+     "section": 2,
+     "value": 8,
+     "type": 0
+    }
+   ]
+  },
+  {
+   "source": "src/eng1/actor_pipeline_storage.c",
+   "source_sha256": "900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668",
+   "event": "work/velocity_c/compiler_events/b9b40b8bb151449f9363a987da6b184d.json",
+   "started_utc": "2026-10-26T14:02:08.825265+00:00",
+   "toolchain": "msvc5_rtm",
+   "object_sha256": "e869032cdfc3c480cb849da7a0e7dcceb8513fe4b42f2bd3193936844c632d18",
+   "sections": [
+    {
+     "index": 1,
+     "name": ".drectve",
+     "size": 38,
+     "raw_bytes": 38
+    },
+    {
+     "index": 2,
+     "name": ".bss",
+     "size": 2244,
+     "raw_bytes": 0
+    }
+   ],
+   "symbols": [
+    {
+     "symbol": "_g_pipeline_actor_7200c",
+     "coff_matches": 1,
+     "storage": 2,
+     "section": 2,
+     "value": 2240,
+     "type": 0
+    }
+   ]
+  }
+ ],
+ "row_results": [
+  {
+   "id": "eng1.call_01e50",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_descriptor_rows_5a690",
+     "kind": "data_file"
+    },
+    {
+     "symbol": "_g_camera_x_70ca0",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_camera_y_70ca4",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_pipeline_actor_7200c",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.frame_target_00e400",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_tile_draw_2ff0",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_g_camera_x_70ca0",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_camera_y_70ca4",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.36c40",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_tile_draw_2ff0",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_g_camera_x_70ca0",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_camera_y_70ca4",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.37fa0",
+   "disposition": "checked",
+   "result": "PASS: RELOCATED EXACT; all row relocations verified.",
+   "queue_blockers": [
+    {
+     "symbol": "_g_player_flag_707f4",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.38490",
+   "disposition": "checked",
+   "result": "PASS: RELOCATED EXACT; all row relocations verified.",
+   "queue_blockers": [
+    {
+     "symbol": "_g_player_flag_707f4",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.38590",
+   "disposition": "checked_stop",
+   "result": "STOP: owner verifier failed for existing camera cell; compile emitted .data/aggregate form, not exact-size COMMON.",
+   "queue_blockers": [
+    {
+     "symbol": "_g_camera_x_70ca0",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_player_flag_707f4",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.38610",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_g_72874",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_camera_x_70ca0",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_player_flag_707f4",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_player_palette_63a78",
+     "kind": "data_file"
+    },
+    {
+     "symbol": "_g_player_palette_707e0",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3c600",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_g_camera_x_70ca0",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_frame_config_5df08",
+     "kind": "data_file"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3ca80",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_native_code_target_002b130",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_eng1_native_code_target_0041000",
+     "kind": "function_unknown"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3ce10",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_native_code_target_002b130",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_eng1_native_code_target_0041000",
+     "kind": "function_unknown"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3d310",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_native_code_target_002b130",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_eng1_native_code_target_0041000",
+     "kind": "function_unknown"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3d800",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_native_code_target_002b130",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_eng1_native_code_target_0041000",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_g_platform_directions_686c0",
+     "kind": "data_file"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3db90",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_native_code_target_002b130",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_eng1_native_code_target_0041000",
+     "kind": "function_unknown"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3ebc0",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_native_code_target_002b130",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_g_lane_sprites_66040",
+     "kind": "data_file"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3edf0",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_native_code_target_002b130",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_g_lane_sprites_66040",
+     "kind": "data_file"
+    }
+   ]
+  },
+  {
+   "id": "eng1.color_fade_step_5d50",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_g_dispatch_key_7286c",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_dispatch_setting_4d858",
+     "kind": "data_file"
+    },
+    {
+     "symbol": "_g_dispatch_word_6ee80",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_frame_word_6ee84",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.color_rgb_forward_5a30",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_frame_color_write_5e00",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_g_frame_global_734f0",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_frame_global_734f1",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_frame_global_734f2",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_frame_word_6ee84",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3adc0",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_g_dispatch_key_7286c",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_dispatch_setting_4d858",
+     "kind": "data_file"
+    },
+    {
+     "symbol": "_g_dispatch_word_6ee80",
+     "kind": "data_zero"
+    }
+   ]
+  }
+ ],
+ "inherited_stops": [
+  {
+   "symbol": "_eng1_native_code_target_002b130",
+   "source": "work/velocity_b/fn_eng1/fn_eng1_review_2026_10_26.json#function_identities._eng1_native_code_target_002b130",
+   "reason": "Identity status remains incomplete; the 496-byte body proposal says the next-entry call witness is still unpinned and source body/fresh own-shape are absent. Do not repeat without new evidence."
+  },
+  {
+   "symbol": "_eng1_native_code_target_0041000",
+   "source": "evidence/eng1_classifier_child_41000.json#native_contract",
+   "reason": "The only supplied call witness at 0x3cb38 lies inside pending eng1.3ca80; no independent caller was established."
+  }
+ ],
+ "filedata_stops": [
+  {
+   "symbol": "_eng1_descriptor_rows_5a690",
+   "source": "evidence/eng1_data_evidence_manifest.json#providers[0].fields[9]",
+   "reason": "288-byte record is marked scope=prefix; no complete extent/payload hash."
+  },
+  {
+   "symbol": "_g_dispatch_setting_4d858",
+   "source": "evidence/eng1_data_evidence_manifest.json#providers[1].fields[4]",
+   "reason": "2-byte record is marked scope=prefix; no complete extent/payload hash."
+  },
+  {
+   "symbol": "_g_frame_config_5df08",
+   "reason": "No accepted complete file-backed identity record for this COFF name."
+  },
+  {
+   "symbol": "_g_player_palette_63a78",
+   "reason": "No accepted complete file-backed identity record for this COFF name."
+  },
+  {
+   "symbol": "_g_platform_directions_686c0",
+   "reason": "No accepted complete file-backed identity record found in lane evidence."
+  },
+  {
+   "symbol": "_g_lane_sprites_66040",
+   "reason": "No accepted complete file-backed identity record found in lane evidence."
+  }
+ ],
+ "other_function_stops": [
+  {
+   "symbol": "_eng1_tile_draw_2ff0",
+   "source": "evidence/eng1_tile_draw_2ff0.json",
+   "reason": "Existing contract gives a body proposal; no independent direct-call/identity record was reused for this lane."
+  },
+  {
+   "symbol": "_eng1_frame_color_write_5e00",
+   "source": "src/eng1/color.c; evidence/eng1_runtime_color.json",
+   "reason": "Source is present, but no native entry/extent/ABI identity record was established."
+  },
+  {
+   "symbol": "_eng1_color_profile_5dc0",
+   "reason": "Current row status is CODEGEN_SIMILAR; no accepted function identity record."
+  },
+  {
+   "symbol": "_eng1_color_rgb_forward_5a30",
+   "reason": "Assigned row is not checked as a callee because its own reference inventory is blocked by overlapping frame cells and frame_color_write identity."
+  }
+ ],
+ "row_review": [
+  {
+   "id": "eng1.call_01e50",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_descriptor_rows_5a690",
+     "kind": "data_file"
+    },
+    {
+     "symbol": "_g_camera_x_70ca0",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_camera_y_70ca4",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_pipeline_actor_7200c",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.frame_target_00e400",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_tile_draw_2ff0",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_g_camera_x_70ca0",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_camera_y_70ca4",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.36c40",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_tile_draw_2ff0",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_g_camera_x_70ca0",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_camera_y_70ca4",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.37fa0",
+   "disposition": "checked",
+   "result": "PASS: RELOCATED EXACT; all row relocations verified.",
+   "queue_blockers": [
+    {
+     "symbol": "_g_player_flag_707f4",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.38490",
+   "disposition": "checked",
+   "result": "PASS: RELOCATED EXACT; all row relocations verified.",
+   "queue_blockers": [
+    {
+     "symbol": "_g_player_flag_707f4",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.38590",
+   "disposition": "checked_stop",
+   "result": "STOP: owner verifier failed for existing camera cell; compile emitted .data/aggregate form, not exact-size COMMON.",
+   "queue_blockers": [
+    {
+     "symbol": "_g_camera_x_70ca0",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_player_flag_707f4",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.38610",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_g_72874",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_camera_x_70ca0",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_player_flag_707f4",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_player_palette_63a78",
+     "kind": "data_file"
+    },
+    {
+     "symbol": "_g_player_palette_707e0",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3c600",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_g_camera_x_70ca0",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_frame_config_5df08",
+     "kind": "data_file"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3ca80",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_native_code_target_002b130",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_eng1_native_code_target_0041000",
+     "kind": "function_unknown"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3ce10",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_native_code_target_002b130",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_eng1_native_code_target_0041000",
+     "kind": "function_unknown"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3d310",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_native_code_target_002b130",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_eng1_native_code_target_0041000",
+     "kind": "function_unknown"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3d800",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_native_code_target_002b130",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_eng1_native_code_target_0041000",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_g_platform_directions_686c0",
+     "kind": "data_file"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3db90",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_native_code_target_002b130",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_eng1_native_code_target_0041000",
+     "kind": "function_unknown"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3ebc0",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_native_code_target_002b130",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_g_lane_sprites_66040",
+     "kind": "data_file"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3edf0",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_native_code_target_002b130",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_g_lane_sprites_66040",
+     "kind": "data_file"
+    }
+   ]
+  },
+  {
+   "id": "eng1.color_fade_step_5d50",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_g_dispatch_key_7286c",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_dispatch_setting_4d858",
+     "kind": "data_file"
+    },
+    {
+     "symbol": "_g_dispatch_word_6ee80",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_frame_word_6ee84",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.color_rgb_forward_5a30",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_eng1_frame_color_write_5e00",
+     "kind": "function_unknown"
+    },
+    {
+     "symbol": "_g_frame_global_734f0",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_frame_global_734f1",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_frame_global_734f2",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_frame_word_6ee84",
+     "kind": "data_zero"
+    }
+   ]
+  },
+  {
+   "id": "eng1.3adc0",
+   "disposition": "not_run_after_shared_blocker",
+   "result": "Not run; first blocker already established in native/identity review. See blockers and do not replay the same stop without new evidence.",
+   "queue_blockers": [
+    {
+     "symbol": "_g_dispatch_key_7286c",
+     "kind": "data_zero"
+    },
+    {
+     "symbol": "_g_dispatch_setting_4d858",
+     "kind": "data_file"
+    },
+    {
+     "symbol": "_g_dispatch_word_6ee80",
+     "kind": "data_zero"
+    }
+   ]
+  }
+ ],
+ "focused_checks": [
+  {
+   "command": "python scripts/match.py references eng1.37fa0 --bindings work/velocity_c/c4_eng1/bindings_eng1_37fa0.json",
+   "result": "PASS: RELOCATED EXACT 64 bytes; 5 verified references; 0 non-reference differences."
+  },
+  {
+   "command": "python scripts/match.py references eng1.38490 --bindings work/velocity_c/c4_eng1/bindings_eng1_38490.json",
+   "result": "PASS: RELOCATED EXACT 48 bytes; 4 verified references; 0 non-reference differences."
+  },
+  {
+   "command": "python scripts/match.py references eng1.38590 --bindings work/velocity_c/c4_eng1/bindings_eng1_38590.json",
+   "result": "STOP: Loader-zero owner must be one complete exact-size COMMON definition; camera_storage.c produced a .data object with 152-byte data and symbols at offsets 32/36."
+  },
+  {
+   "command": "Initial references eng1.37fa0 with scalar-only bindings (superseded)",
+   "result": "STOP: Binding inventory differs from referenced COFF symbols; replaced by the complete successful binding."
+  }
+ ],
+ "binding_documents": [
+  {
+   "path": "work/velocity_c/c4_eng1/bindings_eng1_37fa0.json",
+   "sha256": "44c59aa6e6d020e5649acd0d8bc30a0b04777f07421c55eaaf1b4c5f4288e824"
+  },
+  {
+   "path": "work/velocity_c/c4_eng1/bindings_eng1_38490.json",
+   "sha256": "aa95fc948f4740111e2de236a1b99ccc77806b9b585ced53922d16f4908339eb"
+  },
+  {
+   "path": "work/velocity_c/c4_eng1/bindings_eng1_38590.json",
+   "sha256": "897bf06223c85761c5897f6bb88b46736f621dfaeb01750e106faa53b8bc2c47"
+  }
+ ],
+ "compiler_calls": {
+  "total": 11,
+  "budget": 24,
+  "event_receipts": [
+   {
+    "event": "work/velocity_c/compiler_events/02df6e148bb04083b9fe1f74d9c7af34.json",
+    "source": "src/eng1/loader_zero_cells_c4_eng1.c",
+    "source_sha256": "fd77fedac4b0fe7424b73e9ae0568bbf3513b878860553f7229521eaa20e9ea4",
+    "started_utc": "2026-10-26T13:54:42.868371+00:00",
+    "returncode": 0
+   },
+   {
+    "event": "work/velocity_c/compiler_events/0825327a604a4b2cae39a43e95cb24bd.json",
+    "source": "src/eng1/player_unit_36030.c",
+    "source_sha256": "a5f53b808e44ad54681b8b2a935269a64352e6ff35e9c7dfaf69a755e21a4830",
+    "started_utc": "2026-10-26T13:54:42.924029+00:00",
+    "returncode": 0
+   },
+   {
+    "event": "work/velocity_c/compiler_events/208a336a0c374f35b9f62ad38c7a6b15.json",
+    "source": "src/eng1/camera_storage.c",
+    "source_sha256": "96f1ee73f7d583451a9c9099bed4b0e76c8bb9e51fa8866b0c40e8ec051dfe0d",
+    "started_utc": "2026-10-26T13:59:35.173454+00:00",
+    "returncode": 0
+   },
+   {
+    "event": "work/velocity_c/compiler_events/2bd0005e36da491c9d925a0be4d5db84.json",
+    "source": "src/eng1/dispatch_storage.c",
+    "source_sha256": "96bcf0af67619d613768784a544ff693669574a196e6301c4a5c16b03e5e62bc",
+    "started_utc": "2026-10-26T14:02:08.769126+00:00",
+    "returncode": 0
+   },
+   {
+    "event": "work/velocity_c/compiler_events/5e6a8be4f26942f3b1685eea2c7ebe7b.json",
+    "source": "src/eng1/player_unit_36030.c",
+    "source_sha256": "a5f53b808e44ad54681b8b2a935269a64352e6ff35e9c7dfaf69a755e21a4830",
+    "started_utc": "2026-10-26T13:59:35.280642+00:00",
+    "returncode": 0
+   },
+   {
+    "event": "work/velocity_c/compiler_events/83159663960844cdafa9c98ee6259b14.json",
+    "source": "src/eng1/player_unit_36030.c",
+    "source_sha256": "a5f53b808e44ad54681b8b2a935269a64352e6ff35e9c7dfaf69a755e21a4830",
+    "started_utc": "2026-10-26T13:59:21.495644+00:00",
+    "returncode": 0
+   },
+   {
+    "event": "work/velocity_c/compiler_events/89435e0ac9dd4f0ba44fae3f7f482576.json",
+    "source": "src/eng1/loader_zero_cells_c4_eng1.c",
+    "source_sha256": "fd77fedac4b0fe7424b73e9ae0568bbf3513b878860553f7229521eaa20e9ea4",
+    "started_utc": "2026-10-26T13:59:21.440586+00:00",
+    "returncode": 0
+   },
+   {
+    "event": "work/velocity_c/compiler_events/a89cf67913684538a56b52b4dbc670e9.json",
+    "source": "src/eng1/loader_zero_cells_c4_eng1.c",
+    "source_sha256": "fd77fedac4b0fe7424b73e9ae0568bbf3513b878860553f7229521eaa20e9ea4",
+    "started_utc": "2026-10-26T13:59:35.079442+00:00",
+    "returncode": 0
+   },
+   {
+    "event": "work/velocity_c/compiler_events/b9b40b8bb151449f9363a987da6b184d.json",
+    "source": "src/eng1/actor_pipeline_storage.c",
+    "source_sha256": "900cd3b4a477932d4fb26804e50aa8bb2c50a5474581c13bb5a8c202a10d5668",
+    "started_utc": "2026-10-26T14:02:08.825265+00:00",
+    "returncode": 0
+   },
+   {
+    "event": "work/velocity_c/compiler_events/e5f13e14387f48feb7bec2e17c200153.json",
+    "source": "src/eng1/loader_zero_cells_c4_eng1.c",
+    "source_sha256": "fd77fedac4b0fe7424b73e9ae0568bbf3513b878860553f7229521eaa20e9ea4",
+    "started_utc": "2026-10-26T13:59:30.830865+00:00",
+    "returncode": 0
+   },
+   {
+    "event": "work/velocity_c/compiler_events/fe74be554cd64baaa3cc46d31f47d333.json",
+    "source": "src/eng1/player_unit_36030.c",
+    "source_sha256": "a5f53b808e44ad54681b8b2a935269a64352e6ff35e9c7dfaf69a755e21a4830",
+    "started_utc": "2026-10-26T13:59:30.876420+00:00",
+    "returncode": 0
+   }
+  ]
+ },
+ "deferred_rows": [],
+ "acceptance": "None. Native scalar evidence, owner-form checks, and focused caller equality are distinct; no recovery.json change requested."
+}

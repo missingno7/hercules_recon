@@ -1,0 +1,5684 @@
+{
+ "schema": 1,
+ "task_id": "c10_eng3",
+ "future_durable_path": "evidence/c10_eng3_review_2026_10_26.json",
+ "function_ids": [
+  "eng3.24a80",
+  "eng3.24b00",
+  "eng3.28390",
+  "eng3.29040",
+  "eng3.shared_07e70",
+  "eng3.shared_0acb0",
+  "eng3.shared_0ad20",
+  "eng3.shared_1f830",
+  "eng3.04bc0",
+  "eng3.153b0",
+  "eng3.16670",
+  "eng3.18d00",
+  "eng3.1aac0",
+  "eng3.1aaf0",
+  "eng3.1b8c0",
+  "eng3.1b9c0",
+  "eng3.shared_1d860",
+  "eng3.shared_1d9b0"
+ ],
+ "scope": "Read-only native relocation/access and source-owner review; focused references commands are diagnostic only, with no recovery acceptance claim.",
+ "target": {
+  "module": "ENG3.DLL",
+  "path": "assets/pc/HERCULES/ENG3.DLL",
+  "sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "image_base": "0x10000000"
+ },
+ "inputs": {
+  "native_scan": {
+   "path": "work/velocity_c/c10_eng3/native_inventory.json",
+   "sha256": "ccd93a716ae26e7e676f21874ca108c43be16bdb3a61542cece993013a3f0226"
+  },
+  "scan_script": {
+   "path": "work/velocity_c/c10_eng3/scan_cells.py",
+   "sha256": "b1261d076544531fbeba5c71b3fd3fd80ef3fc055cf5cb694cd3c60e0aebcdad"
+  },
+  "assigned_source_hashes": {
+   "src/eng1/color.c": "aa79a33301a644f8773760afafbb8e5d55ab3b8cdadd2fc42adb4adba4480862",
+   "src/eng1/level_frame_01e50.c": "0499866aec5e068f0b4db3e0b3f559c2b82006680a3aef0a358bb1ab53877d87",
+   "src/eng1/sprite_unit_03cd0.c": "7a2b277a8b213f3e8d85846dd04ca8888ce7d410334d599d77565aa4f01ef185",
+   "src/eng3/handlers_023a0.c": "081e10eec0e08ab77d9155bd931b9b7f52931c7fd4306904b6c13e652296e8da",
+   "src/eng3/handlers_14190.cpp": "cbd957c12e6e1b3f3ee522cfd68303ee645b34b241eb718a86aea4f4fe40658a",
+   "src/eng3/handlers_16240.cpp": "3e415a77c6e8b8d0ea0b54baeb7909cc763fc557097c53be2b09d89534d1686e",
+   "src/eng3/handlers_26b40.c": "299b6098e43028edea8d7083659d18d60022548c214a6c8d17667060b4643867",
+   "src/eng3/handlers_28ae0.c": "315c3b01ada991606116f55237a517e71482d0f4db0c70ee2a375a554a2a7f64",
+   "src/eng3/render_unit_22f00.cpp": "2daa8f8452946436b18ee991896f25d992a24defb364b4deb02a37c8cdc7d7ac",
+   "src/title/u06bb0.cpp": "e5f2779970d47ebef4e1cbb92544a2a54f8acab075f5b0cd8f97bf916ae6ee1b",
+   "src/title/u0c1f0.c": "4253028c1a7d4c452f6f8120609bdce019f6093a1505c3ea9c909548ae084631"
+  },
+  "new_owner_source": {
+   "path": "src/eng3/loader_zero_cells_c10_eng3.c",
+   "sha256": "b798bd4e574bc962f9838057ec706d6e590d8e0da1013c5c06bcd78ed8eb64ac"
+  },
+  "base_revision": "b4947978061799aa35993b3892db442192cb6198",
+  "recovery_sha256_observed_at_scan": "18bf490419c6489f66bd16b433a5fa386d25198973c6690ce49d06ad2753607b",
+  "queue_sha256_observed_at_scan": "bc61842cf570c5ed322bd85f2db0fb7ad7f9816366d968646af803d671d3c9c9"
+ },
+ "method": {
+  "native_reference_scan": "Enumerate ENG3.DLL HIGHLOW base relocations in file-backed executable code, disassemble the containing instruction with Capstone, retain absolute memory operand width/access and full instruction hash; independently compute target RVA from decoded absolute operand minus image base.",
+  "identity_limits": "Queue implied destinations and source name suffixes are corroborating labels only. A cell is bindable only with one target RVA, a complete direct scalar access survey, one writer survey, an independent HIGHLOW MOV/LEA/PUSH anchor outside the 18 pending rows, and a fresh exact-size owner check in the references command.",
+  "decoder": "capstone 5.0.7; PE parsing dependency pefile 2024.8.26; toolchain compiled references are logged separately."
+ },
+ "native_storage": {
+  "cells": {
+   "_g_2bf2c": {
+    "rva_from_native_absolute_operands": 265100,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     265100
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 58,
+    "read_count": 57,
+    "write_count": 1,
+    "owner_source": "src/title/title_common.c",
+    "status": "candidate:needs-caller-reference-review",
+    "anchor": {
+     "rva": 6760,
+     "size": 5,
+     "operand": 1,
+     "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+     "instruction": "mov eax, dword ptr [0x10040b8c]",
+     "fixup_field_rva": 6761,
+     "function_id": "eng3.shared_019b0",
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 6760,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 6761,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_019b0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 6790,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 6791,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_019b0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 12973,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 12974,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.03290"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 13034,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 13035,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.03290"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 14860,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 14861,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.03610"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 15023,
+      "size": 6,
+      "bytes": "8b0d8c0b0410",
+      "sha256": "765cdf122e9f65ae0d3e55c5db9bf9820f1a0176d280ea40664acd73bd76cc58",
+      "asm": "mov ecx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 15025,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.03610"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 20830,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 20832,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.05070"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 61269,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 61271,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_0eeb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 61333,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 61334,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_0eeb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 64302,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 64303,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.0fab0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 64385,
+      "size": 6,
+      "bytes": "8b0d8c0b0410",
+      "sha256": "765cdf122e9f65ae0d3e55c5db9bf9820f1a0176d280ea40664acd73bd76cc58",
+      "asm": "mov ecx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 64387,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.0fab0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 65593,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 65594,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.0ffd0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 65678,
+      "size": 6,
+      "bytes": "8b0d8c0b0410",
+      "sha256": "765cdf122e9f65ae0d3e55c5db9bf9820f1a0176d280ea40664acd73bd76cc58",
+      "asm": "mov ecx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 65680,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.0ffd0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 67905,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 67906,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_10590"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 69263,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 69265,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_10df0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 69345,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 69347,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_10df0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 73179,
+      "size": 6,
+      "bytes": "8b0d8c0b0410",
+      "sha256": "765cdf122e9f65ae0d3e55c5db9bf9820f1a0176d280ea40664acd73bd76cc58",
+      "asm": "mov ecx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 73181,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.11d80"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 74422,
+      "size": 6,
+      "bytes": "8b0d8c0b0410",
+      "sha256": "765cdf122e9f65ae0d3e55c5db9bf9820f1a0176d280ea40664acd73bd76cc58",
+      "asm": "mov ecx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 74424,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.12250"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 74489,
+      "size": 6,
+      "bytes": "8b0d8c0b0410",
+      "sha256": "765cdf122e9f65ae0d3e55c5db9bf9820f1a0176d280ea40664acd73bd76cc58",
+      "asm": "mov ecx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 74491,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.12250"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 78845,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 78846,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.133b0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 78920,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 78921,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.133b0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 80025,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 80026,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.13860"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 80086,
+      "size": 6,
+      "bytes": "8b0d8c0b0410",
+      "sha256": "765cdf122e9f65ae0d3e55c5db9bf9820f1a0176d280ea40664acd73bd76cc58",
+      "asm": "mov ecx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 80088,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.13860"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 80158,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 80160,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.13860"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 80230,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 80231,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.13860"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 80301,
+      "size": 6,
+      "bytes": "8b0d8c0b0410",
+      "sha256": "765cdf122e9f65ae0d3e55c5db9bf9820f1a0176d280ea40664acd73bd76cc58",
+      "asm": "mov ecx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 80303,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.13860"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 80385,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 80387,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.13860"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 81660,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 81661,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.13ea0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 81727,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 81728,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.13ea0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 97282,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 97283,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 97474,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 97475,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 97671,
+      "size": 6,
+      "bytes": "8b0d8c0b0410",
+      "sha256": "765cdf122e9f65ae0d3e55c5db9bf9820f1a0176d280ea40664acd73bd76cc58",
+      "asm": "mov ecx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 97673,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 97740,
+      "size": 6,
+      "bytes": "8b0d8c0b0410",
+      "sha256": "765cdf122e9f65ae0d3e55c5db9bf9820f1a0176d280ea40664acd73bd76cc58",
+      "asm": "mov ecx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 97742,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 113906,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 113908,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_1b9f0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 114348,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 114349,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.1bd40"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 114459,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 114460,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.1bd40"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 117479,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 117480,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 121449,
+      "size": 6,
+      "bytes": "89158c0b0410",
+      "sha256": "33cd5ac1a6837e809105e3f09ceddcd6345e200f577ca1f4af9404c9b9e20231",
+      "asm": "mov dword ptr [0x10040b8c], edx",
+      "fixup_field_rva": 121451,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_1d9b0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 142487,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 142488,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.22bd0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 142774,
+      "size": 6,
+      "bytes": "8b0d8c0b0410",
+      "sha256": "765cdf122e9f65ae0d3e55c5db9bf9820f1a0176d280ea40664acd73bd76cc58",
+      "asm": "mov ecx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 142776,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.22cb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 153582,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 153584,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.25770"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 153782,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 153784,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.25770"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 154257,
+      "size": 6,
+      "bytes": "8b0d8c0b0410",
+      "sha256": "765cdf122e9f65ae0d3e55c5db9bf9820f1a0176d280ea40664acd73bd76cc58",
+      "asm": "mov ecx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 154259,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.259e0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 156725,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 156727,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.26340"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 157743,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 157745,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_26770"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 159441,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 159442,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.26eb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 161396,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 161398,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 161488,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 161490,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 161563,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 161565,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 161638,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 161640,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 161713,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 161715,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 161810,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 161811,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 165313,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 165315,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.284f0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 166041,
+      "size": 6,
+      "bytes": "8b0d8c0b0410",
+      "sha256": "765cdf122e9f65ae0d3e55c5db9bf9820f1a0176d280ea40664acd73bd76cc58",
+      "asm": "mov ecx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 166043,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.28840"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 166094,
+      "size": 6,
+      "bytes": "8b158c0b0410",
+      "sha256": "d17eb2398a24360d8fbc3183fd6073e67a49acc021f61d8117ded46f7359ca03",
+      "asm": "mov edx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 166096,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.28840"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 166917,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 166918,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.28ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 167248,
+      "size": 5,
+      "bytes": "a18c0b0410",
+      "sha256": "80da004713592d6a0976044783c31efee9d414bb3d2b85c659ef63bb79c9dc0a",
+      "asm": "mov eax, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 167249,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.28ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 169461,
+      "size": 6,
+      "bytes": "8b0d8c0b0410",
+      "sha256": "765cdf122e9f65ae0d3e55c5db9bf9820f1a0176d280ea40664acd73bd76cc58",
+      "asm": "mov ecx, dword ptr [0x10040b8c]",
+      "fixup_field_rva": 169463,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.292f0"
+     }
+    ]
+   },
+   "_g_2bf34": {
+    "rva_from_native_absolute_operands": 265112,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     265112
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 33,
+    "read_count": 32,
+    "write_count": 1,
+    "owner_source": "src/title/title_common.c",
+    "status": "candidate:needs-caller-reference-review",
+    "anchor": {
+     "rva": 8804,
+     "size": 5,
+     "operand": 1,
+     "sha256": "5c3c72f4d524b39552ee179011300e5ff8a2d35086d8caa551f277a763ad3451",
+     "instruction": "mov eax, dword ptr [0x10040b98]",
+     "fixup_field_rva": 8805,
+     "function_id": null,
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 8804,
+      "size": 5,
+      "bytes": "a1980b0410",
+      "sha256": "5c3c72f4d524b39552ee179011300e5ff8a2d35086d8caa551f277a763ad3451",
+      "asm": "mov eax, dword ptr [0x10040b98]",
+      "fixup_field_rva": 8805,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 11592,
+      "size": 6,
+      "bytes": "8b0d980b0410",
+      "sha256": "8788f1a8b445ec0ec11ba7bade95d480f54ead81e463fb3b1ac5e8f4f3b4b022",
+      "asm": "mov ecx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 11594,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.02ac0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 13626,
+      "size": 5,
+      "bytes": "a1980b0410",
+      "sha256": "5c3c72f4d524b39552ee179011300e5ff8a2d35086d8caa551f277a763ad3451",
+      "asm": "mov eax, dword ptr [0x10040b98]",
+      "fixup_field_rva": 13627,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.033f0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 18475,
+      "size": 6,
+      "bytes": "8b0d980b0410",
+      "sha256": "8788f1a8b445ec0ec11ba7bade95d480f54ead81e463fb3b1ac5e8f4f3b4b022",
+      "asm": "mov ecx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 18477,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.04650"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 21661,
+      "size": 6,
+      "bytes": "8b15980b0410",
+      "sha256": "dbda584a6f2630ee7ac70814b2a65be661aee7a6abce8a9ebf117a8efcacc544",
+      "asm": "mov edx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 21663,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.053f0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 24528,
+      "size": 6,
+      "bytes": "8b0d980b0410",
+      "sha256": "8788f1a8b445ec0ec11ba7bade95d480f54ead81e463fb3b1ac5e8f4f3b4b022",
+      "asm": "mov ecx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 24530,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.05ee0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 26883,
+      "size": 6,
+      "bytes": "8b0d980b0410",
+      "sha256": "8788f1a8b445ec0ec11ba7bade95d480f54ead81e463fb3b1ac5e8f4f3b4b022",
+      "asm": "mov ecx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 26885,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 28200,
+      "size": 6,
+      "bytes": "8b0d980b0410",
+      "sha256": "8788f1a8b445ec0ec11ba7bade95d480f54ead81e463fb3b1ac5e8f4f3b4b022",
+      "asm": "mov ecx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 28202,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 54090,
+      "size": 5,
+      "bytes": "a1980b0410",
+      "sha256": "5c3c72f4d524b39552ee179011300e5ff8a2d35086d8caa551f277a763ad3451",
+      "asm": "mov eax, dword ptr [0x10040b98]",
+      "fixup_field_rva": 54091,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 54154,
+      "size": 6,
+      "bytes": "8b15980b0410",
+      "sha256": "dbda584a6f2630ee7ac70814b2a65be661aee7a6abce8a9ebf117a8efcacc544",
+      "asm": "mov edx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 54156,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 57108,
+      "size": 5,
+      "bytes": "a1980b0410",
+      "sha256": "5c3c72f4d524b39552ee179011300e5ff8a2d35086d8caa551f277a763ad3451",
+      "asm": "mov eax, dword ptr [0x10040b98]",
+      "fixup_field_rva": 57109,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 58860,
+      "size": 5,
+      "bytes": "a1980b0410",
+      "sha256": "5c3c72f4d524b39552ee179011300e5ff8a2d35086d8caa551f277a763ad3451",
+      "asm": "mov eax, dword ptr [0x10040b98]",
+      "fixup_field_rva": 58861,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.0e2f0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 60233,
+      "size": 5,
+      "bytes": "a1980b0410",
+      "sha256": "5c3c72f4d524b39552ee179011300e5ff8a2d35086d8caa551f277a763ad3451",
+      "asm": "mov eax, dword ptr [0x10040b98]",
+      "fixup_field_rva": 60234,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.0e960"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 61870,
+      "size": 6,
+      "bytes": "8b0d980b0410",
+      "sha256": "8788f1a8b445ec0ec11ba7bade95d480f54ead81e463fb3b1ac5e8f4f3b4b022",
+      "asm": "mov ecx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 61872,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_0eeb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 64068,
+      "size": 5,
+      "bytes": "a1980b0410",
+      "sha256": "5c3c72f4d524b39552ee179011300e5ff8a2d35086d8caa551f277a763ad3451",
+      "asm": "mov eax, dword ptr [0x10040b98]",
+      "fixup_field_rva": 64069,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.0f980"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 64133,
+      "size": 6,
+      "bytes": "8b15980b0410",
+      "sha256": "dbda584a6f2630ee7ac70814b2a65be661aee7a6abce8a9ebf117a8efcacc544",
+      "asm": "mov edx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 64135,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.0f980"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 65381,
+      "size": 6,
+      "bytes": "8b15980b0410",
+      "sha256": "dbda584a6f2630ee7ac70814b2a65be661aee7a6abce8a9ebf117a8efcacc544",
+      "asm": "mov edx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 65383,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.0fec0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 65447,
+      "size": 6,
+      "bytes": "8b0d980b0410",
+      "sha256": "8788f1a8b445ec0ec11ba7bade95d480f54ead81e463fb3b1ac5e8f4f3b4b022",
+      "asm": "mov ecx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 65449,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.0fec0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 68054,
+      "size": 6,
+      "bytes": "8b0d980b0410",
+      "sha256": "8788f1a8b445ec0ec11ba7bade95d480f54ead81e463fb3b1ac5e8f4f3b4b022",
+      "asm": "mov ecx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 68056,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_10590"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 69774,
+      "size": 5,
+      "bytes": "a1980b0410",
+      "sha256": "5c3c72f4d524b39552ee179011300e5ff8a2d35086d8caa551f277a763ad3451",
+      "asm": "mov eax, dword ptr [0x10040b98]",
+      "fixup_field_rva": 69775,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_10df0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 79441,
+      "size": 5,
+      "bytes": "a1980b0410",
+      "sha256": "5c3c72f4d524b39552ee179011300e5ff8a2d35086d8caa551f277a763ad3451",
+      "asm": "mov eax, dword ptr [0x10040b98]",
+      "fixup_field_rva": 79442,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.133b0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 113614,
+      "size": 6,
+      "bytes": "8b0d980b0410",
+      "sha256": "8788f1a8b445ec0ec11ba7bade95d480f54ead81e463fb3b1ac5e8f4f3b4b022",
+      "asm": "mov ecx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 113616,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_1b9f0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 114245,
+      "size": 6,
+      "bytes": "8b15980b0410",
+      "sha256": "dbda584a6f2630ee7ac70814b2a65be661aee7a6abce8a9ebf117a8efcacc544",
+      "asm": "mov edx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 114247,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.1bd40"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 119039,
+      "size": 5,
+      "bytes": "a1980b0410",
+      "sha256": "5c3c72f4d524b39552ee179011300e5ff8a2d35086d8caa551f277a763ad3451",
+      "asm": "mov eax, dword ptr [0x10040b98]",
+      "fixup_field_rva": 119040,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 121473,
+      "size": 6,
+      "bytes": "8915980b0410",
+      "sha256": "40160690391cbe1e6d8be96fbbbf857e5b785cb195d479190f3ebdf0eb289e49",
+      "asm": "mov dword ptr [0x10040b98], edx",
+      "fixup_field_rva": 121475,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_1d9b0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 128086,
+      "size": 6,
+      "bytes": "8b15980b0410",
+      "sha256": "dbda584a6f2630ee7ac70814b2a65be661aee7a6abce8a9ebf117a8efcacc544",
+      "asm": "mov edx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 128088,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.1f410"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 142363,
+      "size": 6,
+      "bytes": "8b0d980b0410",
+      "sha256": "8788f1a8b445ec0ec11ba7bade95d480f54ead81e463fb3b1ac5e8f4f3b4b022",
+      "asm": "mov ecx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 142365,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.22bd0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 142625,
+      "size": 6,
+      "bytes": "8b15980b0410",
+      "sha256": "dbda584a6f2630ee7ac70814b2a65be661aee7a6abce8a9ebf117a8efcacc544",
+      "asm": "mov edx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 142627,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.22cb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 158246,
+      "size": 6,
+      "bytes": "8b0d980b0410",
+      "sha256": "8788f1a8b445ec0ec11ba7bade95d480f54ead81e463fb3b1ac5e8f4f3b4b022",
+      "asm": "mov ecx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 158248,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_26770"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 169615,
+      "size": 6,
+      "bytes": "8b0d980b0410",
+      "sha256": "8788f1a8b445ec0ec11ba7bade95d480f54ead81e463fb3b1ac5e8f4f3b4b022",
+      "asm": "mov ecx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 169617,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.292f0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 170790,
+      "size": 6,
+      "bytes": "8b15980b0410",
+      "sha256": "dbda584a6f2630ee7ac70814b2a65be661aee7a6abce8a9ebf117a8efcacc544",
+      "asm": "mov edx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 170792,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.29a10"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 171248,
+      "size": 5,
+      "bytes": "a1980b0410",
+      "sha256": "5c3c72f4d524b39552ee179011300e5ff8a2d35086d8caa551f277a763ad3451",
+      "asm": "mov eax, dword ptr [0x10040b98]",
+      "fixup_field_rva": 171249,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.29a10"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 171861,
+      "size": 6,
+      "bytes": "8b0d980b0410",
+      "sha256": "8788f1a8b445ec0ec11ba7bade95d480f54ead81e463fb3b1ac5e8f4f3b4b022",
+      "asm": "mov ecx, dword ptr [0x10040b98]",
+      "fixup_field_rva": 171863,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.29ea0"
+     }
+    ]
+   },
+   "_g_2bf38": {
+    "rva_from_native_absolute_operands": 265116,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     265116
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     2
+    ],
+    "access_count": 8,
+    "read_count": 7,
+    "write_count": 1,
+    "owner_source": "src/title/title_common.c",
+    "status": "candidate:needs-caller-reference-review",
+    "anchor": {
+     "rva": 119665,
+     "size": 7,
+     "operand": 1,
+     "sha256": "d6639a841febc860e70d23836a51fd9bd009167efbb682cd622fb9dfbbd440bf",
+     "instruction": "mov dx, word ptr [0x10040b9c]",
+     "fixup_field_rva": 119668,
+     "function_id": "eng3.shared_1d320",
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 119637,
+      "size": 7,
+      "bytes": "6639059c0b0410",
+      "sha256": "b874a9ca01035709e54cf717d0f0673848022338d5b716f1c8f63731f846bd16",
+      "asm": "cmp word ptr [0x10040b9c], ax",
+      "fixup_field_rva": 119640,
+      "operand_index": 0,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_1d320"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 119665,
+      "size": 7,
+      "bytes": "668b159c0b0410",
+      "sha256": "d6639a841febc860e70d23836a51fd9bd009167efbb682cd622fb9dfbbd440bf",
+      "asm": "mov dx, word ptr [0x10040b9c]",
+      "fixup_field_rva": 119668,
+      "operand_index": 1,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_1d320"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 121624,
+      "size": 7,
+      "bytes": "66892d9c0b0410",
+      "sha256": "e6e85dfbc36b788fd564a30d08428c4183f84717e28e4622dcd5100ca3bb4a3e",
+      "asm": "mov word ptr [0x10040b9c], bp",
+      "fixup_field_rva": 121627,
+      "operand_index": 0,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_1d9b0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 127844,
+      "size": 7,
+      "bytes": "66393d9c0b0410",
+      "sha256": "549569a89ada2e7ccbc645eb6df5db7f3c7567db43de41879da573ff93209b2e",
+      "asm": "cmp word ptr [0x10040b9c], di",
+      "fixup_field_rva": 127847,
+      "operand_index": 0,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_1f360"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 127899,
+      "size": 7,
+      "bytes": "668b159c0b0410",
+      "sha256": "d6639a841febc860e70d23836a51fd9bd009167efbb682cd622fb9dfbbd440bf",
+      "asm": "mov dx, word ptr [0x10040b9c]",
+      "fixup_field_rva": 127902,
+      "operand_index": 1,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_1f360"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 127936,
+      "size": 7,
+      "bytes": "668b0d9c0b0410",
+      "sha256": "f94222a524c4a593d16ffe860e7bb93c72877f137884a96c7d8147cd9b2ab2df",
+      "asm": "mov cx, word ptr [0x10040b9c]",
+      "fixup_field_rva": 127939,
+      "operand_index": 1,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_1f3c0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 128211,
+      "size": 7,
+      "bytes": "66390d9c0b0410",
+      "sha256": "32b5b3b152173e067c33fc7e56bf166d6d440e9ee6938f5406c356d03a6d52cd",
+      "asm": "cmp word ptr [0x10040b9c], cx",
+      "fixup_field_rva": 128214,
+      "operand_index": 0,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_1f4d0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 128311,
+      "size": 7,
+      "bytes": "663b0d9c0b0410",
+      "sha256": "ffa2d4fe6f108d057a30d5e24c0f3b3ce04c0e3249c315d6c86e6407c11774de",
+      "asm": "cmp cx, word ptr [0x10040b9c]",
+      "fixup_field_rva": 128314,
+      "operand_index": 1,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_1f4d0"
+     }
+    ]
+   },
+   "_g_2bf3c": {
+    "rva_from_native_absolute_operands": 265120,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     265120
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 5,
+    "read_count": 4,
+    "write_count": 1,
+    "owner_source": "src/title/title_common.c",
+    "status": "candidate:needs-caller-reference-review",
+    "anchor": {
+     "rva": 99591,
+     "size": 6,
+     "operand": 1,
+     "sha256": "9c4a99177e397a89574e9dacf684debe35bcfdb17bbf2c2b6565a991c2bbd6ee",
+     "instruction": "mov edx, dword ptr [0x10040ba0]",
+     "fixup_field_rva": 99593,
+     "function_id": "eng3.18370",
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 99591,
+      "size": 6,
+      "bytes": "8b15a00b0410",
+      "sha256": "9c4a99177e397a89574e9dacf684debe35bcfdb17bbf2c2b6565a991c2bbd6ee",
+      "asm": "mov edx, dword ptr [0x10040ba0]",
+      "fixup_field_rva": 99593,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.18370"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 121591,
+      "size": 6,
+      "bytes": "8915a00b0410",
+      "sha256": "40a44a7567ff8eef6bc6adfd6ee7e9d221578b816f2a4b646ed9cef36563e6ad",
+      "asm": "mov dword ptr [0x10040ba0], edx",
+      "fixup_field_rva": 121593,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_1d9b0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 122041,
+      "size": 6,
+      "bytes": "8b0da00b0410",
+      "sha256": "c243ddce2d9dd3e096453584ccb2d2cbd5d7ddd37540346e826654393a92dc3d",
+      "asm": "mov ecx, dword ptr [0x10040ba0]",
+      "fixup_field_rva": 122043,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_1dbc0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 122063,
+      "size": 5,
+      "bytes": "a1a00b0410",
+      "sha256": "beb7b70c279556c88e17ac859d819a5e56559f97a71936f5bb14dbc4dd1e5397",
+      "asm": "mov eax, dword ptr [0x10040ba0]",
+      "fixup_field_rva": 122064,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_1dbc0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 123129,
+      "size": 6,
+      "bytes": "8b15a00b0410",
+      "sha256": "9c4a99177e397a89574e9dacf684debe35bcfdb17bbf2c2b6565a991c2bbd6ee",
+      "asm": "mov edx, dword ptr [0x10040ba0]",
+      "fixup_field_rva": 123131,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.1e000"
+     }
+    ]
+   },
+   "_g_2bf48": {
+    "rva_from_native_absolute_operands": 265132,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     265132
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 5,
+    "read_count": 4,
+    "write_count": 1,
+    "owner_source": "src/title/title_common.c",
+    "status": "candidate:needs-caller-reference-review",
+    "anchor": {
+     "rva": 119011,
+     "size": 6,
+     "operand": 1,
+     "sha256": "1217ca2e463b5ec045835238277b32609eb9adbedca95d4214f2b0894b9baf60",
+     "instruction": "mov edx, dword ptr [0x10040bac]",
+     "fixup_field_rva": 119013,
+     "function_id": null,
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 119011,
+      "size": 6,
+      "bytes": "8b15ac0b0410",
+      "sha256": "1217ca2e463b5ec045835238277b32609eb9adbedca95d4214f2b0894b9baf60",
+      "asm": "mov edx, dword ptr [0x10040bac]",
+      "fixup_field_rva": 119013,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 119027,
+      "size": 6,
+      "bytes": "8b0dac0b0410",
+      "sha256": "a21a232acc604b5971de1f2fc63d98f6b37902fef832064505917ae06379c06a",
+      "asm": "mov ecx, dword ptr [0x10040bac]",
+      "fixup_field_rva": 119029,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 119139,
+      "size": 6,
+      "bytes": "8b0dac0b0410",
+      "sha256": "a21a232acc604b5971de1f2fc63d98f6b37902fef832064505917ae06379c06a",
+      "asm": "mov ecx, dword ptr [0x10040bac]",
+      "fixup_field_rva": 119141,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.create_middle_actor"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 119155,
+      "size": 5,
+      "bytes": "a1ac0b0410",
+      "sha256": "fb5fdc63570bca3894eb71389c031f780516f288cc1fa77950fff81911fd07dc",
+      "asm": "mov eax, dword ptr [0x10040bac]",
+      "fixup_field_rva": 119156,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.create_middle_actor"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 121461,
+      "size": 6,
+      "bytes": "890dac0b0410",
+      "sha256": "4b6904ff7ab492ab8ca03cc7875c7fd71f0bfd84b547ebfcaa1398e1d387a332",
+      "asm": "mov dword ptr [0x10040bac], ecx",
+      "fixup_field_rva": 121463,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_1d9b0"
+     }
+    ]
+   },
+   "_g_2bf4c": {
+    "rva_from_native_absolute_operands": 265136,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     265136
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     2
+    ],
+    "access_count": 3,
+    "read_count": 2,
+    "write_count": 1,
+    "owner_source": "src/title/title_common.c",
+    "status": "candidate:needs-caller-reference-review",
+    "anchor": {
+     "rva": 127862,
+     "size": 6,
+     "operand": 1,
+     "sha256": "2d7e65644e2d901e32972b87aef6d64abc0294855c661355f2e34b62d3095fd3",
+     "instruction": "mov ax, word ptr [0x10040bb0]",
+     "fixup_field_rva": 127864,
+     "function_id": "eng3.shared_1f360",
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 121537,
+      "size": 7,
+      "bytes": "66892db00b0410",
+      "sha256": "aa10c083ba5ccfcc589980743de1d4899e9ba2fefb68e0d8028bbd2a80066b1a",
+      "asm": "mov word ptr [0x10040bb0], bp",
+      "fixup_field_rva": 121540,
+      "operand_index": 0,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_1d9b0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 127862,
+      "size": 6,
+      "bytes": "66a1b00b0410",
+      "sha256": "2d7e65644e2d901e32972b87aef6d64abc0294855c661355f2e34b62d3095fd3",
+      "asm": "mov ax, word ptr [0x10040bb0]",
+      "fixup_field_rva": 127864,
+      "operand_index": 1,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_1f360"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 128025,
+      "size": 6,
+      "bytes": "66a1b00b0410",
+      "sha256": "2d7e65644e2d901e32972b87aef6d64abc0294855c661355f2e34b62d3095fd3",
+      "asm": "mov ax, word ptr [0x10040bb0]",
+      "fixup_field_rva": 128027,
+      "operand_index": 1,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.1f410"
+     }
+    ]
+   },
+   "_g_2bf50": {
+    "rva_from_native_absolute_operands": 265268,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     265268
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 2,
+    "read_count": 1,
+    "write_count": 1,
+    "owner_source": "src/title/title_common.c",
+    "status": "candidate:needs-caller-reference-review",
+    "anchor": {
+     "rva": 114707,
+     "size": 5,
+     "operand": 1,
+     "sha256": "0e8c9c616fea3fbb2566746aa0dbcb3e238446c6e1fd8cbd2614e36595e46c8a",
+     "instruction": "mov eax, dword ptr [0x10040c34]",
+     "fixup_field_rva": 114708,
+     "function_id": null,
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 114707,
+      "size": 5,
+      "bytes": "a1340c0410",
+      "sha256": "0e8c9c616fea3fbb2566746aa0dbcb3e238446c6e1fd8cbd2614e36595e46c8a",
+      "asm": "mov eax, dword ptr [0x10040c34]",
+      "fixup_field_rva": 114708,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 121653,
+      "size": 6,
+      "bytes": "8915340c0410",
+      "sha256": "3015d5c4f74ab1156813dc5407172ffd442fabc85420719d698c9004b1892115",
+      "asm": "mov dword ptr [0x10040c34], edx",
+      "fixup_field_rva": 121655,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_1d9b0"
+     }
+    ]
+   },
+   "_g_2bf54": {
+    "rva_from_native_absolute_operands": 265140,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     265140
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 34,
+    "read_count": 33,
+    "write_count": 1,
+    "owner_source": "src/title/title_common.c",
+    "status": "candidate:needs-caller-reference-review",
+    "anchor": {
+     "rva": 8700,
+     "size": 6,
+     "operand": 1,
+     "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+     "instruction": "mov ecx, dword ptr [0x10040bb4]",
+     "fixup_field_rva": 8702,
+     "function_id": null,
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 8700,
+      "size": 6,
+      "bytes": "8b0db40b0410",
+      "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+      "asm": "mov ecx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 8702,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 11455,
+      "size": 6,
+      "bytes": "8b0db40b0410",
+      "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+      "asm": "mov ecx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 11457,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.02ac0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 16924,
+      "size": 6,
+      "bytes": "8b15b40b0410",
+      "sha256": "90f0f82aca52fd050da2da0f8e898428a21acf2048f4fe0461b65c3669519d30",
+      "asm": "mov edx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 16926,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.04100"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 18352,
+      "size": 6,
+      "bytes": "8b15b40b0410",
+      "sha256": "90f0f82aca52fd050da2da0f8e898428a21acf2048f4fe0461b65c3669519d30",
+      "asm": "mov edx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 18354,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.04650"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 24445,
+      "size": 6,
+      "bytes": "8b15b40b0410",
+      "sha256": "90f0f82aca52fd050da2da0f8e898428a21acf2048f4fe0461b65c3669519d30",
+      "asm": "mov edx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 24447,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.05ee0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 26792,
+      "size": 6,
+      "bytes": "8b15b40b0410",
+      "sha256": "90f0f82aca52fd050da2da0f8e898428a21acf2048f4fe0461b65c3669519d30",
+      "asm": "mov edx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 26794,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 28061,
+      "size": 6,
+      "bytes": "8b15b40b0410",
+      "sha256": "90f0f82aca52fd050da2da0f8e898428a21acf2048f4fe0461b65c3669519d30",
+      "asm": "mov edx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 28063,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 54543,
+      "size": 6,
+      "bytes": "8b15b40b0410",
+      "sha256": "90f0f82aca52fd050da2da0f8e898428a21acf2048f4fe0461b65c3669519d30",
+      "asm": "mov edx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 54545,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 57026,
+      "size": 6,
+      "bytes": "8b0db40b0410",
+      "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+      "asm": "mov ecx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 57028,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 58778,
+      "size": 6,
+      "bytes": "8b0db40b0410",
+      "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+      "asm": "mov ecx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 58780,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.0e2f0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 59439,
+      "size": 6,
+      "bytes": "8b0db40b0410",
+      "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+      "asm": "mov ecx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 59441,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.0e7b0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 61778,
+      "size": 6,
+      "bytes": "8b0db40b0410",
+      "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+      "asm": "mov ecx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 61780,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_0eeb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 64538,
+      "size": 6,
+      "bytes": "8b15b40b0410",
+      "sha256": "90f0f82aca52fd050da2da0f8e898428a21acf2048f4fe0461b65c3669519d30",
+      "asm": "mov edx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 64540,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.0fab0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 64659,
+      "size": 6,
+      "bytes": "8b0db40b0410",
+      "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+      "asm": "mov ecx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 64661,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.0fab0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 67841,
+      "size": 5,
+      "bytes": "a1b40b0410",
+      "sha256": "bdaf54a89f8d386a84ac73d8fa39b00bf4501b6a30d28645cc79c8746ab33a7b",
+      "asm": "mov eax, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 67842,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_10590"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 69672,
+      "size": 6,
+      "bytes": "8b15b40b0410",
+      "sha256": "90f0f82aca52fd050da2da0f8e898428a21acf2048f4fe0461b65c3669519d30",
+      "asm": "mov edx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 69674,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_10df0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 79344,
+      "size": 6,
+      "bytes": "8b15b40b0410",
+      "sha256": "90f0f82aca52fd050da2da0f8e898428a21acf2048f4fe0461b65c3669519d30",
+      "asm": "mov edx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 79346,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.133b0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 113427,
+      "size": 6,
+      "bytes": "8b0db40b0410",
+      "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+      "asm": "mov ecx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 113429,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_1b9f0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 114145,
+      "size": 6,
+      "bytes": "8b15b40b0410",
+      "sha256": "90f0f82aca52fd050da2da0f8e898428a21acf2048f4fe0461b65c3669519d30",
+      "asm": "mov edx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 114147,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.1bd40"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 114408,
+      "size": 5,
+      "bytes": "a1b40b0410",
+      "sha256": "bdaf54a89f8d386a84ac73d8fa39b00bf4501b6a30d28645cc79c8746ab33a7b",
+      "asm": "mov eax, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 114409,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.1bd40"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 120289,
+      "size": 6,
+      "bytes": "8b0db40b0410",
+      "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+      "asm": "mov ecx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 120291,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 120407,
+      "size": 6,
+      "bytes": "8b0db40b0410",
+      "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+      "asm": "mov ecx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 120409,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_1d600"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 121511,
+      "size": 6,
+      "bytes": "8915b40b0410",
+      "sha256": "6d02fe262734d8bcd8cfa9f515e21cad88216834728bf63183dc5013d174bfa8",
+      "asm": "mov dword ptr [0x10040bb4], edx",
+      "fixup_field_rva": 121513,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_1d9b0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 142425,
+      "size": 5,
+      "bytes": "a1b40b0410",
+      "sha256": "bdaf54a89f8d386a84ac73d8fa39b00bf4501b6a30d28645cc79c8746ab33a7b",
+      "asm": "mov eax, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 142426,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.22bd0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 142675,
+      "size": 5,
+      "bytes": "a1b40b0410",
+      "sha256": "bdaf54a89f8d386a84ac73d8fa39b00bf4501b6a30d28645cc79c8746ab33a7b",
+      "asm": "mov eax, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 142676,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.22cb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 158168,
+      "size": 6,
+      "bytes": "8b15b40b0410",
+      "sha256": "90f0f82aca52fd050da2da0f8e898428a21acf2048f4fe0461b65c3669519d30",
+      "asm": "mov edx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 158170,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_26770"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 160790,
+      "size": 6,
+      "bytes": "8b0db40b0410",
+      "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+      "asm": "mov ecx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 160792,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 160899,
+      "size": 6,
+      "bytes": "8b0db40b0410",
+      "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+      "asm": "mov ecx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 160901,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 161008,
+      "size": 6,
+      "bytes": "8b0db40b0410",
+      "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+      "asm": "mov ecx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 161010,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 161119,
+      "size": 6,
+      "bytes": "8b0db40b0410",
+      "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+      "asm": "mov ecx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 161121,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 162707,
+      "size": 5,
+      "bytes": "a1b40b0410",
+      "sha256": "bdaf54a89f8d386a84ac73d8fa39b00bf4501b6a30d28645cc79c8746ab33a7b",
+      "asm": "mov eax, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 162708,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.27b50"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 166770,
+      "size": 6,
+      "bytes": "8b15b40b0410",
+      "sha256": "90f0f82aca52fd050da2da0f8e898428a21acf2048f4fe0461b65c3669519d30",
+      "asm": "mov edx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 166772,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.28ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 169387,
+      "size": 6,
+      "bytes": "8b0db40b0410",
+      "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+      "asm": "mov ecx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 169389,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.292f0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 171170,
+      "size": 6,
+      "bytes": "8b0db40b0410",
+      "sha256": "4e410b83f2ccc830f80df0df5de7808147f5e7b65dbe17d7ee6a70c8b13a304c",
+      "asm": "mov ecx, dword ptr [0x10040bb4]",
+      "fixup_field_rva": 171172,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.29a10"
+     }
+    ]
+   },
+   "_g_2bf5c": {
+    "rva_from_native_absolute_operands": 265148,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     265148
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 5,
+    "read_count": 4,
+    "write_count": 1,
+    "owner_source": "src/title/title_common.c",
+    "status": "candidate:needs-caller-reference-review",
+    "anchor": {
+     "rva": 120261,
+     "size": 5,
+     "operand": 1,
+     "sha256": "86a3a241bc46241e3de4c54d9c65f7414a1b60bdac64c95e90e057a7dc2d792a",
+     "instruction": "mov eax, dword ptr [0x10040bbc]",
+     "fixup_field_rva": 120262,
+     "function_id": null,
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 120261,
+      "size": 5,
+      "bytes": "a1bc0b0410",
+      "sha256": "86a3a241bc46241e3de4c54d9c65f7414a1b60bdac64c95e90e057a7dc2d792a",
+      "asm": "mov eax, dword ptr [0x10040bbc]",
+      "fixup_field_rva": 120262,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 120277,
+      "size": 6,
+      "bytes": "8b15bc0b0410",
+      "sha256": "e933068b7d9b450e687f765bb2b60a12b5120a36edf5af2f1402b2df0b59b767",
+      "asm": "mov edx, dword ptr [0x10040bbc]",
+      "fixup_field_rva": 120279,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 120497,
+      "size": 6,
+      "bytes": "8b0dbc0b0410",
+      "sha256": "2383a1c91a1bb4e380b5fa98dfb0295364d5739d5a672ae73a8c36c0cc0d4b60",
+      "asm": "mov ecx, dword ptr [0x10040bbc]",
+      "fixup_field_rva": 120499,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.create_kind_actor"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 120513,
+      "size": 5,
+      "bytes": "a1bc0b0410",
+      "sha256": "86a3a241bc46241e3de4c54d9c65f7414a1b60bdac64c95e90e057a7dc2d792a",
+      "asm": "mov eax, dword ptr [0x10040bbc]",
+      "fixup_field_rva": 120514,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.create_kind_actor"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 121499,
+      "size": 6,
+      "bytes": "890dbc0b0410",
+      "sha256": "73bf3567e58a3f81c21b71df14cc13deefe1739338eda0cbd5f5d21b4ac27066",
+      "asm": "mov dword ptr [0x10040bbc], ecx",
+      "fixup_field_rva": 121501,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_1d9b0"
+     }
+    ]
+   },
+   "_g_2bf68": {
+    "rva_from_native_absolute_operands": 265160,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     265160
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 1,
+    "read_count": 0,
+    "write_count": 1,
+    "owner_source": "src/title/title_common.c",
+    "status": "stop:no-independent-anchor-outside-assigned-writer",
+    "anchor": null,
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 121579,
+      "size": 6,
+      "bytes": "890dc80b0410",
+      "sha256": "8f147b319a6a886692f2f5becfcf8842c50cbe986c2d9a75b12c711f4294ccaa",
+      "asm": "mov dword ptr [0x10040bc8], ecx",
+      "fixup_field_rva": 121581,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_1d9b0"
+     }
+    ]
+   },
+   "_g_2bf74": {
+    "rva_from_native_absolute_operands": 265272,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     265272
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 3,
+    "read_count": 2,
+    "write_count": 1,
+    "owner_source": "src/title/title_common.c",
+    "status": "stop:duplicate-native-coff-symbol-at-existing-cell",
+    "anchor": {
+     "rva": 142132,
+     "size": 6,
+     "operand": 1,
+     "sha256": "3664e1fc9ba3659d9f8f69abb0b0682e46e31d710ea2397bb298fb5dc3ba2af0",
+     "instruction": "mov edx, dword ptr [0x10040c38]",
+     "fixup_field_rva": 142134,
+     "function_id": "eng3.22b30",
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 121659,
+      "size": 5,
+      "bytes": "a3380c0410",
+      "sha256": "2d28010f69fbf9e003a80e987e5dabd562464facf35d9a7b889a7532762772b9",
+      "asm": "mov dword ptr [0x10040c38], eax",
+      "fixup_field_rva": 121660,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_1d9b0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 142132,
+      "size": 6,
+      "bytes": "8b15380c0410",
+      "sha256": "3664e1fc9ba3659d9f8f69abb0b0682e46e31d710ea2397bb298fb5dc3ba2af0",
+      "asm": "mov edx, dword ptr [0x10040c38]",
+      "fixup_field_rva": 142134,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.22b30"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 142246,
+      "size": 6,
+      "bytes": "8b0d380c0410",
+      "sha256": "8c76b134ee65fe6ff3e1ab962654717bfa402504c8b1a41b05a9005ba42ac995",
+      "asm": "mov ecx, dword ptr [0x10040c38]",
+      "fixup_field_rva": 142248,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.22b90"
+     }
+    ]
+   },
+   "_g_2bf78": {
+    "rva_from_native_absolute_operands": 265172,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     265172
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 2,
+    "read_count": 1,
+    "write_count": 1,
+    "owner_source": "src/title/title_common.c",
+    "status": "stop:duplicate-native-coff-symbol-at-existing-cell",
+    "anchor": {
+     "rva": 142149,
+     "size": 6,
+     "operand": 1,
+     "sha256": "e4b074433660dc1aa3a15e09590c4148c35114650bcaacb6aa870899f8d76967",
+     "instruction": "mov edx, dword ptr [0x10040bd4]",
+     "fixup_field_rva": 142151,
+     "function_id": "eng3.22b30",
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 121647,
+      "size": 6,
+      "bytes": "890dd40b0410",
+      "sha256": "2d15f56c0c2b1efa9e8acd6d9cbff0647476ac5ea2eeacab0407172085974b7a",
+      "asm": "mov dword ptr [0x10040bd4], ecx",
+      "fixup_field_rva": 121649,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_1d9b0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 142149,
+      "size": 6,
+      "bytes": "8b15d40b0410",
+      "sha256": "e4b074433660dc1aa3a15e09590c4148c35114650bcaacb6aa870899f8d76967",
+      "asm": "mov edx, dword ptr [0x10040bd4]",
+      "fixup_field_rva": 142151,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.22b30"
+     }
+    ]
+   },
+   "_g_2c000": {
+    "rva_from_native_absolute_operands": 266336,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     266336
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     1
+    ],
+    "access_count": 1,
+    "read_count": 0,
+    "write_count": 1,
+    "owner_source": "src/title/title_common.c",
+    "status": "stop:no-independent-anchor-outside-assigned-writer",
+    "anchor": null,
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 121279,
+      "size": 6,
+      "bytes": "881560100410",
+      "sha256": "719b1cf92d40f524ca0f09260fdf02d4b0ae89435d0405d90245567e7113765b",
+      "asm": "mov byte ptr [0x10041060], dl",
+      "fixup_field_rva": 121281,
+      "operand_index": 0,
+      "operand_width": 1,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_1d9b0"
+     }
+    ]
+   },
+   "_g_dispatch_key_7286c": {
+    "rva_from_native_absolute_operands": 271692,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     271692
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     1
+    ],
+    "access_count": 8,
+    "read_count": 2,
+    "write_count": 6,
+    "owner_source": "src/eng1/dispatch_storage.c",
+    "status": "stop:existing-owner-is-initialized-multi-object-unit-not-exact-common-owner",
+    "anchor": {
+     "rva": 31632,
+     "size": 5,
+     "operand": 1,
+     "sha256": "65a741e57438999afa483ec6e5fc887026758c0653e0402c800abe3995bffe0a",
+     "instruction": "mov al, byte ptr [0x1004254c]",
+     "fixup_field_rva": 31633,
+     "function_id": null,
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 31632,
+      "size": 5,
+      "bytes": "a04c250410",
+      "sha256": "65a741e57438999afa483ec6e5fc887026758c0653e0402c800abe3995bffe0a",
+      "asm": "mov al, byte ptr [0x1004254c]",
+      "fixup_field_rva": 31633,
+      "operand_index": 1,
+      "operand_width": 1,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 44208,
+      "size": 6,
+      "bytes": "8a0d4c250410",
+      "sha256": "f6d12f0af18f09e797c83457205cc4d4ef61df49f5bbff682b7ec76fedd2d494",
+      "asm": "mov cl, byte ptr [0x1004254c]",
+      "fixup_field_rva": 44210,
+      "operand_index": 1,
+      "operand_width": 1,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_0acb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 44270,
+      "size": 6,
+      "bytes": "88154c250410",
+      "sha256": "39841105302d73d2218289841d074637ff17473a2f24c06ce47cb3bdc42df0fb",
+      "asm": "mov byte ptr [0x1004254c], dl",
+      "fixup_field_rva": 44272,
+      "operand_index": 0,
+      "operand_width": 1,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_0acb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 99463,
+      "size": 7,
+      "bytes": "c6054c250410f8",
+      "sha256": "0692be837be2d41d653f60a93e18902907b65d8341e5f4537c307777d54bb55b",
+      "asm": "mov byte ptr [0x1004254c], 0xf8",
+      "fixup_field_rva": 99465,
+      "operand_index": 0,
+      "operand_width": 1,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.18370"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 105361,
+      "size": 7,
+      "bytes": "c6054c250410f8",
+      "sha256": "0692be837be2d41d653f60a93e18902907b65d8341e5f4537c307777d54bb55b",
+      "asm": "mov byte ptr [0x1004254c], 0xf8",
+      "fixup_field_rva": 105363,
+      "operand_index": 0,
+      "operand_width": 1,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.19b70"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 105694,
+      "size": 7,
+      "bytes": "c6054c250410f8",
+      "sha256": "0692be837be2d41d653f60a93e18902907b65d8341e5f4537c307777d54bb55b",
+      "asm": "mov byte ptr [0x1004254c], 0xf8",
+      "fixup_field_rva": 105696,
+      "operand_index": 0,
+      "operand_width": 1,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.19cd0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 107928,
+      "size": 7,
+      "bytes": "c6054c25041000",
+      "sha256": "f11aa4a87ef5207042802b08f416ee6b1078fa47410151a40e06997dc51e1f24",
+      "asm": "mov byte ptr [0x1004254c], 0",
+      "fixup_field_rva": 107930,
+      "operand_index": 0,
+      "operand_width": 1,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.1a560"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 109806,
+      "size": 7,
+      "bytes": "c6054c25041008",
+      "sha256": "bc45491bdd07a1d5232693f0402f876cd8d921b8be3c5499644f46a0625a7524",
+      "asm": "mov byte ptr [0x1004254c], 8",
+      "fixup_field_rva": 109808,
+      "operand_index": 0,
+      "operand_width": 1,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.eng3_1abb0"
+     }
+    ]
+   },
+   "_g_dispatch_word_6ee80": {
+    "rva_from_native_absolute_operands": 260672,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     260672
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     2
+    ],
+    "access_count": 5,
+    "read_count": 1,
+    "write_count": 4,
+    "owner_source": "src/eng1/dispatch_storage.c",
+    "status": "stop:existing-owner-is-initialized-multi-object-unit-not-exact-common-owner",
+    "anchor": {
+     "rva": 99479,
+     "size": 7,
+     "operand": 0,
+     "sha256": "f3bada366197abfa1d3d461017af7d6958194b3cf53851bbb54220921ada810b",
+     "instruction": "mov word ptr [0x1003fa40], bx",
+     "fixup_field_rva": 99482,
+     "function_id": "eng3.18370",
+     "access": [
+      "write"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 44255,
+      "size": 7,
+      "bytes": "668b0d40fa0310",
+      "sha256": "fdbe356504b3807a8156ea380058a5726568e7fbb0067f8cac26d2467b444757",
+      "asm": "mov cx, word ptr [0x1003fa40]",
+      "fixup_field_rva": 44258,
+      "operand_index": 1,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_0acb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 99479,
+      "size": 7,
+      "bytes": "66891d40fa0310",
+      "sha256": "f3bada366197abfa1d3d461017af7d6958194b3cf53851bbb54220921ada810b",
+      "asm": "mov word ptr [0x1003fa40], bx",
+      "fixup_field_rva": 99482,
+      "operand_index": 0,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.18370"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 105377,
+      "size": 9,
+      "bytes": "66c70540fa03100000",
+      "sha256": "37586917a14831ca3a13c21572b16e4e08c3f11d77869c407e2c1139aa88fa0d",
+      "asm": "mov word ptr [0x1003fa40], 0",
+      "fixup_field_rva": 105380,
+      "operand_index": 0,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.19b70"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 105710,
+      "size": 9,
+      "bytes": "66c70540fa03100000",
+      "sha256": "37586917a14831ca3a13c21572b16e4e08c3f11d77869c407e2c1139aa88fa0d",
+      "asm": "mov word ptr [0x1003fa40], 0",
+      "fixup_field_rva": 105713,
+      "operand_index": 0,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.19cd0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 109820,
+      "size": 7,
+      "bytes": "66891d40fa0310",
+      "sha256": "f3bada366197abfa1d3d461017af7d6958194b3cf53851bbb54220921ada810b",
+      "asm": "mov word ptr [0x1003fa40], bx",
+      "fixup_field_rva": 109823,
+      "operand_index": 0,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.eng3_1abb0"
+     }
+    ]
+   },
+   "_g_eng3_3fb40": {
+    "rva_from_native_absolute_operands": 260928,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     260928
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 9,
+    "read_count": 1,
+    "write_count": 8,
+    "owner_source": "src/eng3/loader_zero_cells_c10_eng3.c",
+    "status": "direct-width4-bss-ready",
+    "anchor": {
+     "rva": 97997,
+     "size": 6,
+     "operand": 0,
+     "sha256": "9e8a77fed21d8532b2f7b1460530c560ac7024a77d740f8bec81d83f39343f3e",
+     "instruction": "mov dword ptr [0x1003fb40], ebp",
+     "fixup_field_rva": 97999,
+     "function_id": "eng3.17ae0",
+     "access": [
+      "write"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 97997,
+      "size": 6,
+      "bytes": "892d40fb0310",
+      "sha256": "9e8a77fed21d8532b2f7b1460530c560ac7024a77d740f8bec81d83f39343f3e",
+      "asm": "mov dword ptr [0x1003fb40], ebp",
+      "fixup_field_rva": 97999,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 98005,
+      "size": 6,
+      "bytes": "893d40fb0310",
+      "sha256": "fcad48e58b0d09300f331c76180979fcbdf338659122d998511d23073b4a4aa3",
+      "asm": "mov dword ptr [0x1003fb40], edi",
+      "fixup_field_rva": 98007,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 98042,
+      "size": 6,
+      "bytes": "892d40fb0310",
+      "sha256": "9e8a77fed21d8532b2f7b1460530c560ac7024a77d740f8bec81d83f39343f3e",
+      "asm": "mov dword ptr [0x1003fb40], ebp",
+      "fixup_field_rva": 98044,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 98063,
+      "size": 6,
+      "bytes": "892d40fb0310",
+      "sha256": "9e8a77fed21d8532b2f7b1460530c560ac7024a77d740f8bec81d83f39343f3e",
+      "asm": "mov dword ptr [0x1003fb40], ebp",
+      "fixup_field_rva": 98065,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 98255,
+      "size": 6,
+      "bytes": "892d40fb0310",
+      "sha256": "9e8a77fed21d8532b2f7b1460530c560ac7024a77d740f8bec81d83f39343f3e",
+      "asm": "mov dword ptr [0x1003fb40], ebp",
+      "fixup_field_rva": 98257,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 98277,
+      "size": 6,
+      "bytes": "892d40fb0310",
+      "sha256": "9e8a77fed21d8532b2f7b1460530c560ac7024a77d740f8bec81d83f39343f3e",
+      "asm": "mov dword ptr [0x1003fb40], ebp",
+      "fixup_field_rva": 98279,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 98331,
+      "size": 6,
+      "bytes": "893d40fb0310",
+      "sha256": "fcad48e58b0d09300f331c76180979fcbdf338659122d998511d23073b4a4aa3",
+      "asm": "mov dword ptr [0x1003fb40], edi",
+      "fixup_field_rva": 98333,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 101699,
+      "size": 6,
+      "bytes": "8b0d40fb0310",
+      "sha256": "a89a38062f167cb664a5c71dac6d3e594c2c6aa05862a7c56d1f22b9ba168037",
+      "asm": "mov ecx, dword ptr [0x1003fb40]",
+      "fixup_field_rva": 101701,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.18d00"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 101733,
+      "size": 5,
+      "bytes": "a340fb0310",
+      "sha256": "3c9a399130376b77193c49bd5f4dbefa8a4d372a721075296b0c65773ab093a7",
+      "asm": "mov dword ptr [0x1003fb40], eax",
+      "fixup_field_rva": 101734,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.18d00"
+     }
+    ]
+   },
+   "_g_eng3_3fb44": {
+    "rva_from_native_absolute_operands": 260932,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     260932
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 10,
+    "read_count": 1,
+    "write_count": 9,
+    "owner_source": "src/eng3/loader_zero_cells_c10_eng3.c",
+    "status": "direct-width4-bss-ready",
+    "anchor": {
+     "rva": 97991,
+     "size": 6,
+     "operand": 0,
+     "sha256": "c4114b2c932be704256339c979e6fa5eaefac5660a0d827137fe3a97aeba4633",
+     "instruction": "mov dword ptr [0x1003fb44], edi",
+     "fixup_field_rva": 97993,
+     "function_id": "eng3.17ae0",
+     "access": [
+      "write"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 97991,
+      "size": 6,
+      "bytes": "893d44fb0310",
+      "sha256": "c4114b2c932be704256339c979e6fa5eaefac5660a0d827137fe3a97aeba4633",
+      "asm": "mov dword ptr [0x1003fb44], edi",
+      "fixup_field_rva": 97993,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 98011,
+      "size": 6,
+      "bytes": "892d44fb0310",
+      "sha256": "15d268bbded96e1f01272756df46af16f5e4537aa1cfbc442410a16ca5e8cdf5",
+      "asm": "mov dword ptr [0x1003fb44], ebp",
+      "fixup_field_rva": 98013,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 98028,
+      "size": 6,
+      "bytes": "893d44fb0310",
+      "sha256": "c4114b2c932be704256339c979e6fa5eaefac5660a0d827137fe3a97aeba4633",
+      "asm": "mov dword ptr [0x1003fb44], edi",
+      "fixup_field_rva": 98030,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 98036,
+      "size": 6,
+      "bytes": "893d44fb0310",
+      "sha256": "c4114b2c932be704256339c979e6fa5eaefac5660a0d827137fe3a97aeba4633",
+      "asm": "mov dword ptr [0x1003fb44], edi",
+      "fixup_field_rva": 98038,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 98057,
+      "size": 6,
+      "bytes": "893d44fb0310",
+      "sha256": "c4114b2c932be704256339c979e6fa5eaefac5660a0d827137fe3a97aeba4633",
+      "asm": "mov dword ptr [0x1003fb44], edi",
+      "fixup_field_rva": 98059,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 98249,
+      "size": 6,
+      "bytes": "893d44fb0310",
+      "sha256": "c4114b2c932be704256339c979e6fa5eaefac5660a0d827137fe3a97aeba4633",
+      "asm": "mov dword ptr [0x1003fb44], edi",
+      "fixup_field_rva": 98251,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 98271,
+      "size": 6,
+      "bytes": "893d44fb0310",
+      "sha256": "c4114b2c932be704256339c979e6fa5eaefac5660a0d827137fe3a97aeba4633",
+      "asm": "mov dword ptr [0x1003fb44], edi",
+      "fixup_field_rva": 98273,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 98325,
+      "size": 6,
+      "bytes": "893d44fb0310",
+      "sha256": "c4114b2c932be704256339c979e6fa5eaefac5660a0d827137fe3a97aeba4633",
+      "asm": "mov dword ptr [0x1003fb44], edi",
+      "fixup_field_rva": 98327,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.17ae0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 101779,
+      "size": 6,
+      "bytes": "8b0d44fb0310",
+      "sha256": "8cae672c5dc3d4ab32afd8cc403f3d669eecbf125e97b1b853e9ac2292844f1e",
+      "asm": "mov ecx, dword ptr [0x1003fb44]",
+      "fixup_field_rva": 101781,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.18d00"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 101813,
+      "size": 5,
+      "bytes": "a344fb0310",
+      "sha256": "a42827d23817a74e3baf32d0c8be5ffe0dccf2e570c7b95366abaf0028d284c5",
+      "asm": "mov dword ptr [0x1003fb44], eax",
+      "fixup_field_rva": 101814,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.18d00"
+     }
+    ]
+   },
+   "_g_eng3_3fb94": {
+    "rva_from_native_absolute_operands": 261012,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     261012
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 4,
+    "read_count": 3,
+    "write_count": 1,
+    "owner_source": "src/eng3/loader_zero_cells_c10_eng3.c",
+    "status": "direct-width4-bss-ready",
+    "anchor": {
+     "rva": 13840,
+     "size": 5,
+     "operand": 1,
+     "sha256": "917d698db4f271da160788e087e9604119aeba49e16769f8d45147f052119a82",
+     "instruction": "mov eax, dword ptr [0x1003fb94]",
+     "fixup_field_rva": 13841,
+     "function_id": "eng3.03610",
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 13840,
+      "size": 5,
+      "bytes": "a194fb0310",
+      "sha256": "917d698db4f271da160788e087e9604119aeba49e16769f8d45147f052119a82",
+      "asm": "mov eax, dword ptr [0x1003fb94]",
+      "fixup_field_rva": 13841,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.03610"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 19392,
+      "size": 5,
+      "bytes": "a194fb0310",
+      "sha256": "917d698db4f271da160788e087e9604119aeba49e16769f8d45147f052119a82",
+      "asm": "mov eax, dword ptr [0x1003fb94]",
+      "fixup_field_rva": 19393,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.04bc0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 113282,
+      "size": 6,
+      "bytes": "8b1594fb0310",
+      "sha256": "d5811ac5306e5494fa58df66e1b66c74ef084effc0157df801d91ce88242e5ff",
+      "asm": "mov edx, dword ptr [0x1003fb94]",
+      "fixup_field_rva": 113284,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_1b9f0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 113359,
+      "size": 5,
+      "bytes": "a394fb0310",
+      "sha256": "5f5874e5c001a9616a14d89a43c74730baff0113a42c1eb5602f681962999c49",
+      "asm": "mov dword ptr [0x1003fb94], eax",
+      "fixup_field_rva": 113360,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.eng3_1b9f0"
+     }
+    ]
+   },
+   "_g_eng3_3fb98": {
+    "rva_from_native_absolute_operands": 261016,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     261016
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 3,
+    "read_count": 2,
+    "write_count": 1,
+    "owner_source": "src/eng3/loader_zero_cells_c10_eng3.c",
+    "status": "direct-width4-bss-ready",
+    "anchor": {
+     "rva": 13845,
+     "size": 6,
+     "operand": 1,
+     "sha256": "867f2204dabf587c2b4f6fa8ff5d09a2276f1772040385bab4ba94b7f2bea60a",
+     "instruction": "mov edx, dword ptr [0x1003fb98]",
+     "fixup_field_rva": 13847,
+     "function_id": "eng3.03610",
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 13845,
+      "size": 6,
+      "bytes": "8b1598fb0310",
+      "sha256": "867f2204dabf587c2b4f6fa8ff5d09a2276f1772040385bab4ba94b7f2bea60a",
+      "asm": "mov edx, dword ptr [0x1003fb98]",
+      "fixup_field_rva": 13847,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.03610"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 19397,
+      "size": 6,
+      "bytes": "8b1598fb0310",
+      "sha256": "867f2204dabf587c2b4f6fa8ff5d09a2276f1772040385bab4ba94b7f2bea60a",
+      "asm": "mov edx, dword ptr [0x1003fb98]",
+      "fixup_field_rva": 19399,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.04bc0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 113353,
+      "size": 6,
+      "bytes": "891598fb0310",
+      "sha256": "bfefb895174d1d49d39f2e1e7579cb937a0359ad5f6af1496626a20d0d61a9bd",
+      "asm": "mov dword ptr [0x1003fb98], edx",
+      "fixup_field_rva": 113355,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.eng3_1b9f0"
+     }
+    ]
+   },
+   "_g_eng3_40b92": {
+    "rva_from_native_absolute_operands": 265106,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     265106
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     2
+    ],
+    "access_count": 4,
+    "read_count": 3,
+    "write_count": 2,
+    "owner_source": "none: extern only; no independent owner",
+    "status": "stop:no-qualifying-anchor-outside-assigned-row",
+    "anchor": null,
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 91472,
+      "size": 8,
+      "bytes": "66833d920b041000",
+      "sha256": "1d1920222e7dfd44e1240d431a72e941e2798cfab9130d31604881299894b3f6",
+      "asm": "cmp word ptr [0x10040b92], 0",
+      "fixup_field_rva": 91475,
+      "operand_index": 0,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.16550"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 113108,
+      "size": 9,
+      "bytes": "66c705920b04100300",
+      "sha256": "338b484b73445ba9130fcac90ac6ed20826230644d913e5f81c7d78457facb30",
+      "asm": "mov word ptr [0x10040b92], 3",
+      "fixup_field_rva": 113111,
+      "operand_index": 0,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.1b9c0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 114030,
+      "size": 7,
+      "bytes": "66392d920b0410",
+      "sha256": "53591766814fa79d2c2a4bc3e82ec5cafd8c3cd803be0f4fe7621c056f63a05c",
+      "asm": "cmp word ptr [0x10040b92], bp",
+      "fixup_field_rva": 114033,
+      "operand_index": 0,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.1bd40"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 114053,
+      "size": 7,
+      "bytes": "66ff0d920b0410",
+      "sha256": "54097471895754e5dbcaea75eb3b52ac53407b5e2cc5beb935a5a1854dfa1c7e",
+      "asm": "dec word ptr [0x10040b92]",
+      "fixup_field_rva": 114056,
+      "operand_index": 0,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read",
+       "write"
+      ],
+      "function_id": "eng3.1bd40"
+     }
+    ]
+   },
+   "_g_eng3_ranges_4078c": {
+    "rva_from_native_absolute_operands": 264076,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     264076
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 12,
+    "read_count": 12,
+    "write_count": 0,
+    "owner_source": "none: indexed BSS has no supported scalar owner",
+    "status": "stop:indexed-interior-bss-access",
+    "anchor": {
+     "rva": 91495,
+     "size": 6,
+     "operand": 1,
+     "sha256": "26286c287932671526b35f20f4853a95d62387368eb17567fa107716586dec9a",
+     "instruction": "mov esi, dword ptr [0x1004078c]",
+     "fixup_field_rva": 91497,
+     "function_id": "eng3.16550",
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 91495,
+      "size": 6,
+      "bytes": "8b358c070410",
+      "sha256": "26286c287932671526b35f20f4853a95d62387368eb17567fa107716586dec9a",
+      "asm": "mov esi, dword ptr [0x1004078c]",
+      "fixup_field_rva": 91497,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.16550"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 112643,
+      "size": 6,
+      "bytes": "8b1d8c070410",
+      "sha256": "b13b9cfa6d60b9f77900b980e4c96056d4c57ec667021160c2c1932dfe315071",
+      "asm": "mov ebx, dword ptr [0x1004078c]",
+      "fixup_field_rva": 112645,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.1b7f0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 112930,
+      "size": 6,
+      "bytes": "8b358c070410",
+      "sha256": "26286c287932671526b35f20f4853a95d62387368eb17567fa107716586dec9a",
+      "asm": "mov esi, dword ptr [0x1004078c]",
+      "fixup_field_rva": 112932,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.1b920"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 115352,
+      "size": 6,
+      "bytes": "8b158c070410",
+      "sha256": "05c6443fc0b45ff7321c640145ac790b6223e9d5c14dbfe228d32511d7659ca7",
+      "asm": "mov edx, dword ptr [0x1004078c]",
+      "fixup_field_rva": 115354,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 115791,
+      "size": 6,
+      "bytes": "8b158c070410",
+      "sha256": "05c6443fc0b45ff7321c640145ac790b6223e9d5c14dbfe228d32511d7659ca7",
+      "asm": "mov edx, dword ptr [0x1004078c]",
+      "fixup_field_rva": 115793,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 132364,
+      "size": 6,
+      "bytes": "8b158c070410",
+      "sha256": "05c6443fc0b45ff7321c640145ac790b6223e9d5c14dbfe228d32511d7659ca7",
+      "asm": "mov edx, dword ptr [0x1004078c]",
+      "fixup_field_rva": 132366,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_204c0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 132398,
+      "size": 6,
+      "bytes": "8b3d8c070410",
+      "sha256": "aba6631fb6a27314e172cf343f6af616ceb14ea768a11e35397f4cde2e959aad",
+      "asm": "mov edi, dword ptr [0x1004078c]",
+      "fixup_field_rva": 132400,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_204c0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 132533,
+      "size": 6,
+      "bytes": "8b3d8c070410",
+      "sha256": "aba6631fb6a27314e172cf343f6af616ceb14ea768a11e35397f4cde2e959aad",
+      "asm": "mov edi, dword ptr [0x1004078c]",
+      "fixup_field_rva": 132535,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_204c0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 141200,
+      "size": 5,
+      "bytes": "a18c070410",
+      "sha256": "473102bc96c9a18bca168505c770a5110a5c472792f2e651cc1a9ea1f3281ac3",
+      "asm": "mov eax, dword ptr [0x1004078c]",
+      "fixup_field_rva": 141201,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_22790"
+     },
+     {
+      "role": "address-use",
+      "instruction_rva": 141242,
+      "size": 5,
+      "bytes": "688c070410",
+      "sha256": "106bebe9af7f0efd27305de20677ab639dfa33739f2943615f50fde8e8bc46de",
+      "asm": "push 0x1004078c",
+      "fixup_field_rva": 141243,
+      "operand_index": 0,
+      "operand_width": null,
+      "direct_absolute": false,
+      "access_names": [],
+      "function_id": "eng3.eng3_22790"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 141359,
+      "size": 6,
+      "bytes": "8b158c070410",
+      "sha256": "05c6443fc0b45ff7321c640145ac790b6223e9d5c14dbfe228d32511d7659ca7",
+      "asm": "mov edx, dword ptr [0x1004078c]",
+      "fixup_field_rva": 141361,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_22790"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 150170,
+      "size": 5,
+      "bytes": "a18c070410",
+      "sha256": "473102bc96c9a18bca168505c770a5110a5c472792f2e651cc1a9ea1f3281ac3",
+      "asm": "mov eax, dword ptr [0x1004078c]",
+      "fixup_field_rva": 150171,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.24a80"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 150272,
+      "size": 6,
+      "bytes": "8b0d8c070410",
+      "sha256": "846329e05d87b3c150951d5bd75aa951799c3a9904139c9abd27f432f3791adf",
+      "asm": "mov ecx, dword ptr [0x1004078c]",
+      "fixup_field_rva": 150274,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.24b00"
+     }
+    ]
+   },
+   "_g_frame_global_73488": {
+    "rva_from_native_absolute_operands": 274792,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     274792
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 3,
+    "read_count": 2,
+    "write_count": 1,
+    "owner_source": "src/eng1/color_storage.c",
+    "status": "direct-width4-bss-ready-existing-owner",
+    "anchor": {
+     "rva": 29412,
+     "size": 6,
+     "operand": 1,
+     "sha256": "e1452eb34398d49eece1b028a6cabd1c1d7426e3a28afaec0a585368575be6e8",
+     "instruction": "mov ecx, dword ptr [0x10043168]",
+     "fixup_field_rva": 29414,
+     "function_id": null,
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 29412,
+      "size": 6,
+      "bytes": "8b0d68310410",
+      "sha256": "e1452eb34398d49eece1b028a6cabd1c1d7426e3a28afaec0a585368575be6e8",
+      "asm": "mov ecx, dword ptr [0x10043168]",
+      "fixup_field_rva": 29414,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 44362,
+      "size": 6,
+      "bytes": "891568310410",
+      "sha256": "e409c7d82b90b63d616024d38656154282b7949fc9be843b1cc08e1835f2709e",
+      "asm": "mov dword ptr [0x10043168], edx",
+      "fixup_field_rva": 44364,
+      "operand_index": 0,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_0ad20"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 153200,
+      "size": 6,
+      "bytes": "8b0d68310410",
+      "sha256": "e1452eb34398d49eece1b028a6cabd1c1d7426e3a28afaec0a585368575be6e8",
+      "asm": "mov ecx, dword ptr [0x10043168]",
+      "fixup_field_rva": 153202,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.25620"
+     }
+    ]
+   },
+   "_g_frame_word_6ee84": {
+    "rva_from_native_absolute_operands": 260676,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     260676
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     1,
+     2
+    ],
+    "access_count": 9,
+    "read_count": 6,
+    "write_count": 3,
+    "owner_source": "src/eng1/frame_data.c",
+    "status": "stop:mixed-byte-and-word-access-widths",
+    "anchor": {
+     "rva": 107935,
+     "size": 7,
+     "operand": 0,
+     "sha256": "8c5813a4ed839c576c88cfe94f4301612cd187c29ea0f96acb89952b4e9dd213",
+     "instruction": "mov word ptr [0x1003fa44], si",
+     "fixup_field_rva": 107938,
+     "function_id": "eng3.1a560",
+     "access": [
+      "write"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 32263,
+      "size": 7,
+      "bytes": "0fbf3544fa0310",
+      "sha256": "63b174309bb6d1bdea13fa3a564b1c1300e2cc45b4a7da30fd42acef6f222735",
+      "asm": "movsx esi, word ptr [0x1003fa44]",
+      "fixup_field_rva": 32266,
+      "operand_index": 1,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_07e00"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 43691,
+      "size": 7,
+      "bytes": "0fbf0544fa0310",
+      "sha256": "7f0e7cb6ea9562b15f20c2164a03e58a27d7695323440230bc9863b77332ea59",
+      "asm": "movsx eax, word ptr [0x1003fa44]",
+      "fixup_field_rva": 43694,
+      "operand_index": 1,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 44173,
+      "size": 7,
+      "bytes": "0fbf0544fa0310",
+      "sha256": "7f0e7cb6ea9562b15f20c2164a03e58a27d7695323440230bc9863b77332ea59",
+      "asm": "movsx eax, word ptr [0x1003fa44]",
+      "fixup_field_rva": 44176,
+      "operand_index": 1,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 44220,
+      "size": 6,
+      "bytes": "66a144fa0310",
+      "sha256": "ac3ce19c4cf91fbda0e57eb6b0eb972bd2776830f3af8a919da3102777f7eca0",
+      "asm": "mov ax, word ptr [0x1003fa44]",
+      "fixup_field_rva": 44222,
+      "operand_index": 1,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_0acb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 44236,
+      "size": 6,
+      "bytes": "66a344fa0310",
+      "sha256": "7eacc4bd002c79da9a6a6517351f2ccdfc16d55f592559cf08a0cddd55c20a40",
+      "asm": "mov word ptr [0x1003fa44], ax",
+      "fixup_field_rva": 44238,
+      "operand_index": 0,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_0acb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 44276,
+      "size": 6,
+      "bytes": "66a344fa0310",
+      "sha256": "7eacc4bd002c79da9a6a6517351f2ccdfc16d55f592559cf08a0cddd55c20a40",
+      "asm": "mov word ptr [0x1003fa44], ax",
+      "fixup_field_rva": 44278,
+      "operand_index": 0,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.shared_0acb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 44291,
+      "size": 6,
+      "bytes": "8a0d44fa0310",
+      "sha256": "0709169722f30fc1b05d37700a2e150f74db5667d2c00f41cf2e33d91ae602e9",
+      "asm": "mov cl, byte ptr [0x1003fa44]",
+      "fixup_field_rva": 44293,
+      "operand_index": 1,
+      "operand_width": 1,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_0acb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 45199,
+      "size": 7,
+      "bytes": "0fbf0d44fa0310",
+      "sha256": "fe6964386b129c037839db3a05a41e607ee3a98025e2d7e96960674d2cb154a7",
+      "asm": "movsx ecx, word ptr [0x1003fa44]",
+      "fixup_field_rva": 45202,
+      "operand_index": 1,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.od_0b059"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 107935,
+      "size": 7,
+      "bytes": "66893544fa0310",
+      "sha256": "8c5813a4ed839c576c88cfe94f4301612cd187c29ea0f96acb89952b4e9dd213",
+      "asm": "mov word ptr [0x1003fa44], si",
+      "fixup_field_rva": 107938,
+      "operand_index": 0,
+      "operand_width": 2,
+      "direct_absolute": true,
+      "access_names": [
+       "write"
+      ],
+      "function_id": "eng3.1a560"
+     }
+    ]
+   },
+   "_g_sine_table_70f34": {
+    "rva_from_native_absolute_operands": 264116,
+    "candidate_rvas_from_independent_instruction_decoding": [
+     264116
+    ],
+    "all_scanned_accesses_direct_absolute": true,
+    "access_widths": [
+     4
+    ],
+    "access_count": 80,
+    "read_count": 80,
+    "write_count": 0,
+    "owner_source": "none: interior field of g_engine_interface",
+    "status": "stop:interior-field-of-g_engine_interface",
+    "anchor": {
+     "rva": 7897,
+     "size": 6,
+     "operand": 1,
+     "sha256": "572772a2605ebda953abbbc07a0ef54f1de560d3a6a8dc8fbb9b1d790f69e75c",
+     "instruction": "mov ebx, dword ptr [0x100407b4]",
+     "fixup_field_rva": 7899,
+     "function_id": null,
+     "access": [
+      "read"
+     ]
+    },
+    "access_survey": [
+     {
+      "role": "memory-access",
+      "instruction_rva": 7897,
+      "size": 6,
+      "bytes": "8b1db4070410",
+      "sha256": "572772a2605ebda953abbbc07a0ef54f1de560d3a6a8dc8fbb9b1d790f69e75c",
+      "asm": "mov ebx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 7899,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 10681,
+      "size": 6,
+      "bytes": "8b1db4070410",
+      "sha256": "572772a2605ebda953abbbc07a0ef54f1de560d3a6a8dc8fbb9b1d790f69e75c",
+      "asm": "mov ebx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 10683,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_028f0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 19692,
+      "size": 6,
+      "bytes": "8b2db4070410",
+      "sha256": "44790c1152ab900e339c7899631908f8e6be38563895c74ffac9680b8b7998e6",
+      "asm": "mov ebp, dword ptr [0x100407b4]",
+      "fixup_field_rva": 19694,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.04ca0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 19738,
+      "size": 6,
+      "bytes": "8b3db4070410",
+      "sha256": "cb3d9139f6164d30f134db5e3bf8305f948d49e60d98b30cfdf2d286e93c5d95",
+      "asm": "mov edi, dword ptr [0x100407b4]",
+      "fixup_field_rva": 19740,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.04ca0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 21059,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 21061,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.05070"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 26403,
+      "size": 6,
+      "bytes": "8b35b4070410",
+      "sha256": "b4c8468edd18acd28e6b4b145f59bf04f394787f036fd620c3268426bb506230",
+      "asm": "mov esi, dword ptr [0x100407b4]",
+      "fixup_field_rva": 26405,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 27570,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 27572,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 32399,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 32401,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_07e70"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 56082,
+      "size": 6,
+      "bytes": "8b2db4070410",
+      "sha256": "44790c1152ab900e339c7899631908f8e6be38563895c74ffac9680b8b7998e6",
+      "asm": "mov ebp, dword ptr [0x100407b4]",
+      "fixup_field_rva": 56084,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 56474,
+      "size": 5,
+      "bytes": "a1b4070410",
+      "sha256": "5c48fc989dc8e4fa66242ca13bb8eca7ee7710e1ea9da74214f43e265c5474ad",
+      "asm": "mov eax, dword ptr [0x100407b4]",
+      "fixup_field_rva": 56475,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 58333,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 58335,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.0e2f0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 60547,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 60549,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.0ec60"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 61430,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 61432,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_0eeb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 61520,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 61522,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_0eeb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 70867,
+      "size": 6,
+      "bytes": "8b1db4070410",
+      "sha256": "572772a2605ebda953abbbc07a0ef54f1de560d3a6a8dc8fbb9b1d790f69e75c",
+      "asm": "mov ebx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 70869,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.11470"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 72364,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 72366,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.11a80"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 72815,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 72817,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.11b90"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 74634,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 74636,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.12250"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 75898,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 75900,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_12820"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 76495,
+      "size": 6,
+      "bytes": "8b2db4070410",
+      "sha256": "44790c1152ab900e339c7899631908f8e6be38563895c74ffac9680b8b7998e6",
+      "asm": "mov ebp, dword ptr [0x100407b4]",
+      "fixup_field_rva": 76497,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.12aa0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 76909,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 76911,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.12c40"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 80583,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 80585,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.13a90"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 81809,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 81811,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.13ea0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 81888,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 81890,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.13ea0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 81967,
+      "size": 5,
+      "bytes": "a1b4070410",
+      "sha256": "5c48fc989dc8e4fa66242ca13bb8eca7ee7710e1ea9da74214f43e265c5474ad",
+      "asm": "mov eax, dword ptr [0x100407b4]",
+      "fixup_field_rva": 81968,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.13ea0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 134033,
+      "size": 6,
+      "bytes": "8b1db4070410",
+      "sha256": "572772a2605ebda953abbbc07a0ef54f1de560d3a6a8dc8fbb9b1d790f69e75c",
+      "asm": "mov ebx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 134035,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_20b60"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 135763,
+      "size": 6,
+      "bytes": "8b1db4070410",
+      "sha256": "572772a2605ebda953abbbc07a0ef54f1de560d3a6a8dc8fbb9b1d790f69e75c",
+      "asm": "mov ebx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 135765,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_21200"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 135837,
+      "size": 6,
+      "bytes": "8b2db4070410",
+      "sha256": "44790c1152ab900e339c7899631908f8e6be38563895c74ffac9680b8b7998e6",
+      "asm": "mov ebp, dword ptr [0x100407b4]",
+      "fixup_field_rva": 135839,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_21200"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 135876,
+      "size": 6,
+      "bytes": "8b2db4070410",
+      "sha256": "44790c1152ab900e339c7899631908f8e6be38563895c74ffac9680b8b7998e6",
+      "asm": "mov ebp, dword ptr [0x100407b4]",
+      "fixup_field_rva": 135878,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_21200"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 136201,
+      "size": 6,
+      "bytes": "8b1db4070410",
+      "sha256": "572772a2605ebda953abbbc07a0ef54f1de560d3a6a8dc8fbb9b1d790f69e75c",
+      "asm": "mov ebx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 136203,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 136316,
+      "size": 6,
+      "bytes": "8b1db4070410",
+      "sha256": "572772a2605ebda953abbbc07a0ef54f1de560d3a6a8dc8fbb9b1d790f69e75c",
+      "asm": "mov ebx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 136318,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 136368,
+      "size": 6,
+      "bytes": "8b1db4070410",
+      "sha256": "572772a2605ebda953abbbc07a0ef54f1de560d3a6a8dc8fbb9b1d790f69e75c",
+      "asm": "mov ebx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 136370,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 136485,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 136487,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 136521,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 136523,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 136633,
+      "size": 6,
+      "bytes": "8b1db4070410",
+      "sha256": "572772a2605ebda953abbbc07a0ef54f1de560d3a6a8dc8fbb9b1d790f69e75c",
+      "asm": "mov ebx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 136635,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 136691,
+      "size": 6,
+      "bytes": "8b1db4070410",
+      "sha256": "572772a2605ebda953abbbc07a0ef54f1de560d3a6a8dc8fbb9b1d790f69e75c",
+      "asm": "mov ebx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 136693,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 136813,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 136815,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 136849,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 136851,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 136967,
+      "size": 6,
+      "bytes": "8b1db4070410",
+      "sha256": "572772a2605ebda953abbbc07a0ef54f1de560d3a6a8dc8fbb9b1d790f69e75c",
+      "asm": "mov ebx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 136969,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 137075,
+      "size": 6,
+      "bytes": "8b1db4070410",
+      "sha256": "572772a2605ebda953abbbc07a0ef54f1de560d3a6a8dc8fbb9b1d790f69e75c",
+      "asm": "mov ebx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 137077,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 137127,
+      "size": 6,
+      "bytes": "8b1db4070410",
+      "sha256": "572772a2605ebda953abbbc07a0ef54f1de560d3a6a8dc8fbb9b1d790f69e75c",
+      "asm": "mov ebx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 137129,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 137245,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 137247,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 137281,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 137283,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 137393,
+      "size": 6,
+      "bytes": "8b1db4070410",
+      "sha256": "572772a2605ebda953abbbc07a0ef54f1de560d3a6a8dc8fbb9b1d790f69e75c",
+      "asm": "mov ebx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 137395,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 137442,
+      "size": 6,
+      "bytes": "8b1db4070410",
+      "sha256": "572772a2605ebda953abbbc07a0ef54f1de560d3a6a8dc8fbb9b1d790f69e75c",
+      "asm": "mov ebx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 137444,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 137563,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 137565,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 137601,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 137603,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.21390"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 137928,
+      "size": 6,
+      "bytes": "8b2db4070410",
+      "sha256": "44790c1152ab900e339c7899631908f8e6be38563895c74ffac9680b8b7998e6",
+      "asm": "mov ebp, dword ptr [0x100407b4]",
+      "fixup_field_rva": 137930,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_21a10"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 138111,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 138113,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_21a10"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 138147,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 138149,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_21a10"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 138407,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 138409,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_21a10"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 138443,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 138445,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_21a10"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 138645,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 138647,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_21a10"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 138803,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 138805,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_21a10"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 138838,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 138840,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_21a10"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 139096,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 139098,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_21a10"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 139130,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 139132,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_21a10"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 139477,
+      "size": 6,
+      "bytes": "8b2db4070410",
+      "sha256": "44790c1152ab900e339c7899631908f8e6be38563895c74ffac9680b8b7998e6",
+      "asm": "mov ebp, dword ptr [0x100407b4]",
+      "fixup_field_rva": 139479,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 139666,
+      "size": 6,
+      "bytes": "8b2db4070410",
+      "sha256": "44790c1152ab900e339c7899631908f8e6be38563895c74ffac9680b8b7998e6",
+      "asm": "mov ebp, dword ptr [0x100407b4]",
+      "fixup_field_rva": 139668,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": null
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 141489,
+      "size": 5,
+      "bytes": "a1b4070410",
+      "sha256": "5c48fc989dc8e4fa66242ca13bb8eca7ee7710e1ea9da74214f43e265c5474ad",
+      "asm": "mov eax, dword ptr [0x100407b4]",
+      "fixup_field_rva": 141490,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_22790"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 141747,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 141749,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_22790"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 141851,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 141853,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_22790"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 141889,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 141891,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_22790"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 141956,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 141958,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_22790"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 142005,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 142007,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_22790"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 149503,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 149505,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.shared_247e0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 150572,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 150574,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_24bb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 150815,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 150817,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_24bb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 150920,
+      "size": 6,
+      "bytes": "8b2db4070410",
+      "sha256": "44790c1152ab900e339c7899631908f8e6be38563895c74ffac9680b8b7998e6",
+      "asm": "mov ebp, dword ptr [0x100407b4]",
+      "fixup_field_rva": 150922,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_24bb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 150959,
+      "size": 6,
+      "bytes": "8b2db4070410",
+      "sha256": "44790c1152ab900e339c7899631908f8e6be38563895c74ffac9680b8b7998e6",
+      "asm": "mov ebp, dword ptr [0x100407b4]",
+      "fixup_field_rva": 150961,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_24bb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 151278,
+      "size": 5,
+      "bytes": "a1b4070410",
+      "sha256": "5c48fc989dc8e4fa66242ca13bb8eca7ee7710e1ea9da74214f43e265c5474ad",
+      "asm": "mov eax, dword ptr [0x100407b4]",
+      "fixup_field_rva": 151279,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_24bb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 151304,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 151306,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_24bb0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 154120,
+      "size": 6,
+      "bytes": "8b3db4070410",
+      "sha256": "cb3d9139f6164d30f134db5e3bf8305f948d49e60d98b30cfdf2d286e93c5d95",
+      "asm": "mov edi, dword ptr [0x100407b4]",
+      "fixup_field_rva": 154122,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.259e0"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 154618,
+      "size": 6,
+      "bytes": "8b3db4070410",
+      "sha256": "cb3d9139f6164d30f134db5e3bf8305f948d49e60d98b30cfdf2d286e93c5d95",
+      "asm": "mov edi, dword ptr [0x100407b4]",
+      "fixup_field_rva": 154620,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_25b60"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 154678,
+      "size": 6,
+      "bytes": "8b3db4070410",
+      "sha256": "cb3d9139f6164d30f134db5e3bf8305f948d49e60d98b30cfdf2d286e93c5d95",
+      "asm": "mov edi, dword ptr [0x100407b4]",
+      "fixup_field_rva": 154680,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_25b60"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 154735,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 154737,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.eng3_25b60"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 156776,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 156778,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.26340"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 156819,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 156821,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.26340"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 160167,
+      "size": 6,
+      "bytes": "8b0db4070410",
+      "sha256": "6187ea31ea1b3bab5a32db8c96e84551fd45ab74681ede1b2d964d8671d8dbcc",
+      "asm": "mov ecx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 160169,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.27180"
+     },
+     {
+      "role": "memory-access",
+      "instruction_rva": 172280,
+      "size": 6,
+      "bytes": "8b15b4070410",
+      "sha256": "ef3726efbee39e29f86b503d601f8c5fa5d0eabdc832c7c463cff7122aa01cfa",
+      "asm": "mov edx, dword ptr [0x100407b4]",
+      "fixup_field_rva": 172282,
+      "operand_index": 1,
+      "operand_width": 4,
+      "direct_absolute": true,
+      "access_names": [
+       "read"
+      ],
+      "function_id": "eng3.2a090"
+     }
+    ]
+   }
+  }
+ },
+ "prior_stops": {
+  "_g_eng3_ranges_4078c": {
+   "reason": "indexed and aliased BSS access; unsupported as a loader-zero scalar",
+   "prior_review": "evidence/eng3_ranges_identity_review_2026_10_26.json"
+  },
+  "_g_frame_word_6ee84": {
+   "reason": "mixed byte and word widths at offset zero",
+   "prior_review": "evidence/scalar_eng3_4_review_2026_10_26.json"
+  },
+  "_g_sine_table_70f34": {
+   "reason": "ENG3 target is the +0x14 interior field of _g_engine_interface; interior BSS binding is unsupported",
+   "prior_review": "evidence/scalar_eng1_1_review_2026_10_26.json"
+  },
+  "ENG3 file-backed candidates": {
+   "reason": "prior scan established neither independent symbol-to-RVA identity nor complete payload extent/hash; section membership and four-byte samples are insufficient",
+   "prior_review": "work/velocity_b/eng3_filedata/native_review.json"
+  },
+  "TITLE function identities reused in ENG3": {
+   "reason": "prior title-menu own-shape records identify TITLE.DLL entries; this ENG3 caller requires ENG3.DLL entries",
+   "prior_review": "work/velocity_b/title_menu/native_review.json"
+  }
+ }
+}
