@@ -101,3 +101,30 @@ Next candidates: a reviewed bulk method for native callee identities (entry from
 the function map, extent, independent outside callers, ABI) for `function_unknown`
 symbols; capacity evidence for indexed BSS; re-anchoring accepted proofs whose
 anchors sit inside pending functions (`scripts/reanchor.py`).
+
+## Wave d (same day, night)
+
+**Published: 5 more RELOCATED functions / 928 bytes (ENG3 14f00, 15170, 17090, 26600, 27f10);
+1,048 accepted.** About 940 compiler invocations went into 12 Luna lanes, two promotion runs and the
+investigators: 0.5 functions per 100 calls. A fresh `blocker_queue.py` run placed zero-section
+cells in 643 of 1,000 pending rows; for 229 they are the only blocker.
+
+- Investigator routing: Sol-class tasks went to gpt-6.1-terra first. All three Terra runs returned in
+  1–2 minutes with triage only (no compiles, no controls) and were escalated to gpt-6.1-sol.
+- Zero-section cells (Sol): unanchored isolation is unsound on original evidence. An ENG3 `REP MOVSD`
+  writes 1,000 bytes across 0x407b4 from another base, and cell addresses escape into interface
+  callbacks. The existing independent-anchor rule stays.
+- Library members (Sol): pinned libcmt/nafxcw sections compared with native bytes. 120 graph
+  members close, including CDialog::EndDialog, CWnd::EnableWindow/ShowWindow/SetWindowPos,
+  CSliderCtrl::SetRange, `__ftol` and `_strncmp`. No pending row is fully closed yet: compiler
+  `$L` labels, MFC vtables and CRT/MFC globals remain. **None of the 14 accepted EXE rows that use
+  the 8 weak identities closes**, and operator delete has no unique independent location. The
+  owner decides whether to demote them.
+- Near-miss and new-callee lanes: one RAW-exact fix (`eng3.initialize_alternate_actor`), and
+  instruction-equal `eng3_19f30`, `host_music_apply_1000`, ENG1 0x27410/0x27450 and 0x17ff0. None
+  could land.
+- **Main structural blocker:** accepted proofs pin canonical source hashes, unit contexts and
+  binding `evidence_files` (including src/ files). 973 of 1,195 pending rows live in sources that
+  cannot change without breaking a proof. promote.py correctly refused the `actor_pools.c` fix. A
+  reviewed re-pin path (fresh peer equality, snapshot-preserved evidence, journaled re-pin) is under
+  investigation; until it exists, source-changing lanes cannot pay.
