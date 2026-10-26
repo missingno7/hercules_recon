@@ -40,10 +40,13 @@ def accepted_rows(rows, raw_only=False):
     return result
 
 
-def unit_inventory(obj):
+def unit_inventory(obj, original_root=None):
     """Complete timestamp-independent object identity, not native data equality."""
     coff = COFF(obj)
     content = dict(sections=coff.sections, symbols=coff.symbols)
+    if original_root is not None:
+        from original_evidence import inventory_with_original_paths
+        content = inventory_with_original_paths(coff, ROOT, original_root)
     return digest(json.dumps(content, sort_keys=True, default=lambda value: value.hex()).encode())
 
 
@@ -52,12 +55,12 @@ def context_proof(context):
             for p, h in context.items()}
 
 
-def validate_unit_proof(row, context, obj=None):
+def validate_unit_proof(row, context, obj=None, original_root=None):
     proof = row.get('proof', {})
     if 'unit_inventory_sha256' in proof:
         if not proof.get('context_sha256') or context_proof(context) != proof['context_sha256']:
             raise ValueError('Accepted unit source/header context changed: ' + row['id'])
-        if obj is not None and unit_inventory(obj) != proof['unit_inventory_sha256']:
+        if obj is not None and unit_inventory(obj, original_root) != proof['unit_inventory_sha256']:
             raise ValueError('Accepted complete unit inventory changed: ' + row['id'])
 
 
@@ -189,7 +192,7 @@ def check(row, source=None, toolchain=DEFAULT_TOOLCHAIN, original_root=None):
     if context:
         if compile_inputs(source, row['flags'], toolchain) != context:
             raise ValueError('Compile context changed during verification')
-        validate_unit_proof(row, context, obj)
+        validate_unit_proof(row, context, obj, original_root)
     result.update(id=row["id"], source_sha256=digest(source_before), command=command,
                   toolchain=verify_toolchain(toolchain))
     if original_root is not None:
@@ -254,15 +257,20 @@ class ReferenceSnapshot:
     Verification still hashes all frozen inputs at its original guard points.
     Publication starts another snapshot and checks it again before writing.
     """
-    def __init__(self):
+    def __init__(self, original_root=None, historical_evidence=None):
         self.files = {}
         self.documents = {}
+        self.original_root = original_root
+        self.historical_evidence = historical_evidence or {}
 
     def read(self, path, row):
+        snapshots = dict(self.historical_evidence)
+        snapshots.update(row.get('proof', {}).get('reference_snapshots', {}))
         path = (ROOT / path).resolve()
         if not path.is_relative_to(ROOT.resolve()):
             raise ValueError('Reference bindings must be repository evidence')
-        if path not in self.documents:
+        cache_key = (path, reference_digest(snapshots))
+        if cache_key not in self.documents:
             content = path.read_bytes()
             actual = digest(content)
             if path in self.files and self.files[path] != actual:
@@ -273,8 +281,13 @@ class ReferenceSnapshot:
                 raise ValueError('Reference bindings need versioned, pinned independent evidence')
             observed = {path: actual}
             for name, expected in document['evidence_files'].items():
-                item = (ROOT / name).resolve()
-                if (not any(item.is_relative_to(root.resolve()) for root in (ROOT, DEFAULT_TOOLCHAIN)) or
+                from original_evidence import original_evidence_path
+                item, original = original_evidence_path(ROOT, name, self.original_root)
+                from reviewed_evidence import snapshot_path
+                historical = snapshot_path(ROOT, name, expected, snapshots)
+                if historical is not None:
+                    item, original = historical, False
+                if (not original and not any(item.is_relative_to(root.resolve()) for root in (ROOT, DEFAULT_TOOLCHAIN)) or
                         item == ROOT / 'recovery.json'):
                     raise ValueError('Reference evidence must be repository evidence or pinned SDK inputs, independent of recovery state')
                 if item not in self.files:
@@ -284,8 +297,8 @@ class ReferenceSnapshot:
                 observed[item] = expected
             identity = {k: v for k, v in document.items() if k not in ('functions', 'evidence_files')}
             context = dict(files=document['evidence_files'], identity_sha256=reference_digest(identity))
-            self.documents[path] = document, context, observed
-        document, context, observed = self.documents[path]
+            self.documents[cache_key] = document, context, observed
+        document, context, observed = self.documents[cache_key]
         from masked import binding_records
         binding_records(document['functions'][row['id']])
         # Callers cannot alter a later row's frozen metadata by mutating a result.
@@ -302,7 +315,8 @@ def reference_inputs(path, row, *, snapshot=None):
     return (snapshot if snapshot is not None else ReferenceSnapshot()).read(path, row)
 
 
-def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocation_candidates=None):
+def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocation_candidates=None,
+                historical_evidence=None):
     """One fresh compile per immutable source/ordered-profile group, per run only."""
     started = time.perf_counter()
     toolchain = toolchain.resolve()
@@ -315,7 +329,7 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
         raise ValueError('Relocation candidates must be included in verification')
     groups, targets, references, evidence_inputs = {}, {}, {}, {}
     storage_profiles, storage_evidence, alias_records = {}, {}, {}
-    reference_snapshot = ReferenceSnapshot()
+    reference_snapshot = ReferenceSnapshot(original_root, historical_evidence)
     for row in rows:
         source, target = (ROOT / row['source']).resolve(), ((original_root or ROOT) / row['target']).resolve()
         if row['status'] not in ACCEPTED and row['id'] not in pending:
@@ -482,7 +496,7 @@ def verify_rows(rows, toolchain=DEFAULT_TOOLCHAIN, original_root=None, relocatio
         # Full object identity guards all sections, symbols, auxiliaries and
         # relocations against mutation; it is not a cross-build identity/cache.
         for row in members:
-            validate_unit_proof(row, contexts[(source, flags)], obj)
+            validate_unit_proof(row, contexts[(source, flags)], obj, original_root)
             if row['id'] in references:
                 from masked import relocated_compare
                 binding, evidence, path = references[row['id']]

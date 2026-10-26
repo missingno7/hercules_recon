@@ -500,7 +500,7 @@ def assert_verified_inputs(rows, results, original_root=None):
     # Publication gets its own snapshot, separate from the verification pass.
     # Repeated bindings can share evidence files, but all of those inputs are
     # freshly rehashed once more at the end of this phase.
-    reference_snapshot = ReferenceSnapshot()
+    reference_snapshot = ReferenceSnapshot(original_root)
     for row in rows:
         result = by_id[row['id']]
         if digest(Path(result['object']).read_bytes()) != result['object_sha256']:

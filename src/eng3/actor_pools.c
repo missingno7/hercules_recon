@@ -31,7 +31,7 @@ struct ActorCore {
     unsigned short field_02c;
     ActorKind kind;
     unsigned short field_030;
-    unsigned short field_032;
+    short field_032;
     unsigned short field_034;
     unsigned short field_036;
     unsigned short field_038;
@@ -243,66 +243,48 @@ ActorNormal *allocate_normal_actor(ActorKind kind)
     return &pool[index];
 }
 
-void initialize_alternate_actor(ActorCore *actor)
+void initialize_alternate_actor(void *slot)
 {
-    actor->field_01d = 0xff;
-    actor->field_01e = 0xff;
-    actor->field_01c = 0xff;
-    actor->field_054 = 0x80000000UL;
-    actor->field_01f = 0;
-    actor->category = 1;
-    actor->field_030 = 0;
-    actor->kind = 0;
-    actor->field_050 = 2;
-    actor->field_032 = 0xffff;
-    actor->field_038 = 0;
-    actor->field_036 = 0;
-    actor->field_034 = 0;
-    actor->field_012 = 0;
-    actor->field_010 = 0;
-    actor->field_00e = 0;
-    actor->field_00c = 0;
-    actor->field_076 = 0;
-    actor->field_074 = 0;
-    actor->field_072 = 0;
-    actor->field_070 = 0;
-    actor->field_03e = 0x100;
-    actor->field_03c = 0x100;
-    actor->field_03a = 0x100;
-    actor->field_08c = 0;
-    actor->field_08a = 0;
-    actor->field_088 = 0;
-    actor->field_048 = 0xffff;
-    actor->field_042 = 0xffff;
-    actor->field_046 = 0xffff;
-    actor->field_044 = 0xffff;
-    actor->field_040 = 0xffff;
-    actor->field_092 = 0;
-    actor->field_090 = 0;
-    actor->field_020 = 0xff;
-    actor->field_08e = 0;
-    actor->field_023 = 0;
-    actor->field_02a = 0;
-    actor->field_06c = 0;
-    actor->field_068 = 0;
-    actor->field_064 = 0;
-    actor->field_058 = 0;
-    actor->field_05c = 0;
-    actor->field_060 = 0;
-    actor->z = 0;
-    actor->y = 0;
-    actor->x = 0;
-    actor->field_04a = 0x80;
-    actor->field_024 = 0x80;
-    actor->field_02c = 0;
-    actor->field_026 = 0;
-    actor->field_021 = 0;
-    actor->field_04c = 0;
-    actor->field_025 = 0;
-    actor->field_018 = 0;
-    actor->field_016 = 0;
-    actor->field_014 = 0;
-    actor->field_028 = 0;
+    ActorCore *p;
+
+    p = (ActorCore *)slot;
+    p->field_01d = 0xff;
+    p->field_01e = 0xff;
+    p->field_01c = 0xff;
+    p->field_054 = 0x80000000;
+    p->field_01f = 0;
+    p->category = 1;
+    p->kind = p->field_030 = 0;
+    p->field_050 = 2;
+    p->field_032 = -1;
+    p->field_034 = p->field_036 = p->field_038 = 0;
+    p->field_00c = p->field_00e = p->field_010 = p->field_012 = 0;
+    p->field_070 = p->field_072 = p->field_074 = p->field_076 = 0;
+    p->field_088 = p->field_08a = p->field_08c = 0;
+    p->field_08e = p->field_090 = p->field_092 = 0;
+    p->field_03a = p->field_03c = p->field_03e = 0x100;
+    p->field_048 = 0xffff;
+    p->field_042 = 0xffff;
+    p->field_046 = 0xffff;
+    p->field_044 = 0xffff;
+    p->field_040 = 0xffff;
+    p->field_020 = 0xff;
+    p->field_023 = 0;
+    p->field_02a = 0;
+    p->field_064 = p->field_068 = p->field_06c = 0;
+    p->field_058 = 0;
+    p->field_05c = 0;
+    p->field_060 = 0;
+    p->x = p->y = p->z = 0;
+    p->field_04a = 0x80;
+    p->field_024 = 0x80;
+    p->field_02c = 0;
+    p->field_026 = 0;
+    p->field_021 = 0;
+    p->field_04c = 0;
+    p->field_025 = 0;
+    p->field_014 = p->field_016 = p->field_018 = 0;
+    p->field_028 = 0;
 }
 
 void initialize_middle_actor(ActorMiddle *actor)

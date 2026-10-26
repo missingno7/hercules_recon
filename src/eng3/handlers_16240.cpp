@@ -2448,6 +2448,8 @@ void eng3_19d40(void)
 
 void eng3_19f30(void)
 {
+    long delta;
+
     if (g_eng3_actor_42540->unknown_a8 != g_eng3_actor_42540->unknown_ac) {
         if (g_eng3_actor_42540->unknown_a8 > g_eng3_actor_42540->unknown_ac) {
             g_eng3_actor_42540->unknown_a8 -= g_eng3_actor_42540->unknown_b4;
@@ -2460,9 +2462,10 @@ void eng3_19f30(void)
         }
     }
     if (g_eng3_actor_42540->unknown_94)
-        g_eng3_actor_42540->x += g_eng3_actor_42540->unknown_f0 - g_eng3_actor_42540->unknown_a8;
+        delta = g_eng3_actor_42540->unknown_f0 - g_eng3_actor_42540->unknown_a8;
     else
-        g_eng3_actor_42540->x += g_eng3_actor_42540->unknown_a8 + g_eng3_actor_42540->unknown_f0;
+        delta = g_eng3_actor_42540->unknown_a8 + g_eng3_actor_42540->unknown_f0;
+    g_eng3_actor_42540->x += delta;
     eng3_empty_2390();
 }
 

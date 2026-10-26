@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "scope": "ENG3 0x19f30 complete reference binding; independently identified actor owner and accepted empty callee; source re-pin review.",
+  "evidence_files": {
+    "evidence/eng3_tracks_review_2026_10_26.json": "789662548675e963076eb140a6d27573fdd7a1a57e510825eab1059e2e788e61",
+    "evidence/eng3_track_unit_2026_10_20.json": "ba8a0bcf2adda96c859caa61b87dee839ba83185df3e8440ee66ba73c848f53e",
+    "evidence/eng3_handlers_12190_16240_2026_10_20.json": "1693d3e38ebba6419615f4b7bf9dc8b015bfd574b91744a86c06d0505abe728c",
+    "src/eng3/eng3_track_storage.c": "fa195f28be6b16daef489fafada76d724dbc70f2d995c3aa090678874e0d270b",
+    "src/eng3/eng3_actor_storage.c": "76c7c4aa5048041e60d71eeddc7a8a04830c39fa66f6d6f5e0a32d46b939d61e",
+    "evidence/eng3_tracks_bindings_2026_10_26.json": "c202809e82ebe4b022c34bf5bd993f3b028adc74b9bece07dc4a23742a8d0529",
+    "evidence/cross_module_empty_entries.json": "8aed2e4486810f2bac4f9216511c8f4a177f7e97dfbc1ca2f1f97d69dc6fd4a9",
+    "evidence/repin_native_review_2026_10_26.json": "4fbf5b74abce754690f09f80cfd996c2db1fefc114d3a6515f0bd5b793669ca7"
+  },
+  "function_identities": {
+    "eng3.empty_2390": {
+      "symbol": "_eng3_empty_2390",
+      "rva": 9104,
+      "size": 16,
+      "target": "assets/pc/HERCULES/ENG3.DLL",
+      "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+      "source": "src/shared/empty_entries.c",
+      "source_sha256": "a52e56e14dec826c3fa6e7127582cac6f9dfcba675857c61c0eca1775250551b",
+      "ledger_status": "FUNCTION_MATCH",
+      "ledger_proof_scope": "complete relocation-free function COFF contribution",
+      "identity_basis": [
+        "evidence/cross_module_empty_entries.json#rows[eng3.empty_2390]"
+      ]
+    }
+  },
+  "functions": {
+    "eng3.19f30": {
+      "symbols": {
+        "_g_eng3_actor_42540": {
+          "kind": "bss",
+          "rva": 271680,
+          "size": 4,
+          "owner": {
+            "source": "src/eng3/eng3_actor_storage.c",
+            "flags": [
+              "/O2"
+            ],
+            "symbol": "_g_eng3_actor_42540"
+          },
+          "identity": {
+            "rva": 107341,
+            "size": 5,
+            "operand": 0,
+            "sha256": "a35e0043fade5d463e7d01231d9e0fcb39809eb2da6d111fbee8893fa212e056"
+          },
+          "evidence": [
+            "evidence/eng3_tracks_review_2026_10_26.json#native_storage.bss_anchor_verification._g_eng3_actor_42540"
+          ],
+          "references": [
+            {
+              "offset": 1,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 36,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 73,
+              "type": 6,
+              "addend": 0
+            },
+            {
+              "offset": 100,
+              "type": 6,
+              "addend": 0
+            }
+          ]
+        },
+        "_eng3_empty_2390": {
+          "kind": "function",
+          "rva": 9104,
+          "size": 16,
+          "evidence": [
+            "function_identities:eng3.empty_2390"
+          ],
+          "references": [
+            {
+              "offset": 147,
+              "type": 20,
+              "addend": 0
+            }
+          ]
+        }
+      }
+    }
+  }
+}
