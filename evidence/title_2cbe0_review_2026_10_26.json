@@ -1,0 +1,561 @@
+{
+ "schema": 1,
+ "task_id": "title_2cbe0",
+ "target": {
+  "path": "assets/pc/HERCULES/TITLE.DLL",
+  "sha256": "b17a37fb1bd5002c54cedb6dba1509bc1ca2d8483fa9724d8e4ade04fe79188b",
+  "image_base": "0x10000000"
+ },
+ "procedure": "Offline PE disassembly of each ledger function span; relocation rows copied from work/velocity_b/classify.json. This review is diagnostic only.",
+ "functions": [
+  {
+   "id": "title.184c0",
+   "target_rva": "0x184c0",
+   "size": 320,
+   "symbol": "_title_184c0",
+   "source": "src/title/u17cb0.cpp",
+   "source_sha256": "24f0718161e0e687793d32041ec5c9b541820f5e45e5e58d2f4a629d0b3fb010",
+   "native_extent_sha256": "2695bd16ee8bf20c5716e4e16cbc155c8d290119c6a7091e153ab3b7c83061cf",
+   "classifier_relocations": [
+    {
+     "sym": "_g_2cbe0",
+     "kind": "data_undefined",
+     "off": 83,
+     "typ": 6,
+     "addend": 8,
+     "dest": 183264
+    }
+   ],
+   "source_review": {
+    "source_lines": [
+     "src/title/u17cb0.cpp:586-638",
+     "src/title/u17cb0.cpp:613",
+     "src/title/u17cb0.cpp:164-166"
+    ],
+    "expression": "g_2cbe8 macro expands to g_2cbe0[2]; one DWORD load."
+   },
+   "native_relocation_instructions": [
+    {
+     "symbol": "_g_2cbe0",
+     "relocation": {
+      "offset": 83,
+      "type": 6,
+      "addend": 8,
+      "implied_destination_rva": "0x2cbe0"
+     },
+     "native_field_rva": "0x18513",
+     "instruction_rva": "0x18511",
+     "instruction_bytes": "8b0de8cb0210",
+     "decoded": "mov ecx, dword ptr [0x1002cbe8]"
+    }
+   ],
+   "decision": {
+    "decision": "bind",
+    "reason": "Reuses accepted identity in evidence/matching_third_bindings_2026_10_25.json; bounded +8 DWORD load and independent native initializer anchor."
+   }
+  },
+  {
+   "id": "title.05080",
+   "target_rva": "0x5080",
+   "size": 48,
+   "symbol": "_title_05080",
+   "source": "src/title/r04d80.c",
+   "source_sha256": "3da3ac403e6a26d434960c8e3db31d21161e32fb906ef551ae3f0581db035e74",
+   "native_extent_sha256": "82f3418d78fca8f41e1514a70ae1683296cdacfa317e0783825d6fe48bf3593e",
+   "classifier_relocations": [
+    {
+     "sym": "_g_2cca0",
+     "kind": "data_common",
+     "off": 8,
+     "typ": 6,
+     "addend": 8,
+     "dest": 183456
+    },
+    {
+     "sym": "_g_2cca0",
+     "kind": "data_common",
+     "off": 32,
+     "typ": 6,
+     "addend": 1544,
+     "dest": 183456
+    }
+   ],
+   "source_review": {
+    "source_lines": [
+     "src/title/r04d80.c:36",
+     "src/title/r04d80.c:231-244"
+    ],
+    "expression": "Indexes 24 TitleRec64 records; classifier addends are +8 and +1544, the second native operand is the field-offset end sentinel at RVA 0x2d2a8."
+   },
+   "native_relocation_instructions": [
+    {
+     "symbol": "_g_2cca0",
+     "relocation": {
+      "offset": 8,
+      "type": 6,
+      "addend": 8,
+      "implied_destination_rva": "0x2cca0"
+     },
+     "native_field_rva": "0x5088",
+     "instruction_rva": "0x5087",
+     "instruction_bytes": "b9a8cc0210",
+     "decoded": "mov ecx, 0x1002cca8"
+    },
+    {
+     "symbol": "_g_2cca0",
+     "relocation": {
+      "offset": 32,
+      "type": 6,
+      "addend": 1544,
+      "implied_destination_rva": "0x2cca0"
+     },
+     "native_field_rva": "0x50a0",
+     "instruction_rva": "0x509e",
+     "instruction_bytes": "81f9a8d20210",
+     "decoded": "cmp ecx, 0x1002d2a8"
+    }
+   ],
+   "decision": {
+    "decision": "stop",
+    "reason": "TITLE RVA 0x2cca0 lies in the unbacked zero tail; this row dynamically indexes records and references +0x608 as a field-offset end sentinel. The BSS matching gate disallows indexed and one-past uses."
+   }
+  },
+  {
+   "id": "title.02a80",
+   "target_rva": "0x2a80",
+   "size": 240,
+   "symbol": "_title_02a80",
+   "source": "src/title/r02a80.c",
+   "source_sha256": "2db4569538803f75757586ff3b4dce5674b7b475bfc587c3960f53d546c50a6c",
+   "native_extent_sha256": "45c723eb7271328d530e82c40910601901d5c06f50ed06bb056ca25a21c67c07",
+   "classifier_relocations": [
+    {
+     "sym": "_g_2cc08",
+     "kind": "data_undefined",
+     "off": 1,
+     "typ": 6,
+     "addend": 0,
+     "dest": 183304
+    },
+    {
+     "sym": "_title_0cab0",
+     "kind": "function_shape_equal",
+     "callee": "title.0cab0",
+     "off": 22,
+     "typ": 20,
+     "addend": 0,
+     "dest": 51888
+    },
+    {
+     "sym": "_g_2cc08",
+     "kind": "data_undefined",
+     "off": 28,
+     "typ": 6,
+     "addend": 0,
+     "dest": 183304
+    },
+    {
+     "sym": "_title_0cab0",
+     "kind": "function_shape_equal",
+     "callee": "title.0cab0",
+     "off": 59,
+     "typ": 20,
+     "addend": 0,
+     "dest": 51888
+    },
+    {
+     "sym": "_g_2cc08",
+     "kind": "data_undefined",
+     "off": 65,
+     "typ": 6,
+     "addend": 0,
+     "dest": 183304
+    },
+    {
+     "sym": "_title_0ca80",
+     "kind": "function_shape_equal",
+     "callee": "title.0ca80",
+     "off": 93,
+     "typ": 20,
+     "addend": 0,
+     "dest": 51840
+    },
+    {
+     "sym": "_g_2cc08",
+     "kind": "data_undefined",
+     "off": 98,
+     "typ": 6,
+     "addend": 0,
+     "dest": 183304
+    },
+    {
+     "sym": "_title_0ca80",
+     "kind": "function_shape_equal",
+     "callee": "title.0ca80",
+     "off": 124,
+     "typ": 20,
+     "addend": 0,
+     "dest": 51840
+    },
+    {
+     "sym": "_g_2cc08",
+     "kind": "data_undefined",
+     "off": 130,
+     "typ": 6,
+     "addend": 0,
+     "dest": 183304
+    },
+    {
+     "sym": "_g_2cc08",
+     "kind": "data_undefined",
+     "off": 146,
+     "typ": 6,
+     "addend": 0,
+     "dest": 183304
+    },
+    {
+     "sym": "_g_2cc08",
+     "kind": "data_undefined",
+     "off": 155,
+     "typ": 6,
+     "addend": 0,
+     "dest": 183304
+    },
+    {
+     "sym": "_g_2cc08",
+     "kind": "data_undefined",
+     "off": 168,
+     "typ": 6,
+     "addend": 0,
+     "dest": 183304
+    },
+    {
+     "sym": "_g_2cc08",
+     "kind": "data_undefined",
+     "off": 178,
+     "typ": 6,
+     "addend": 0,
+     "dest": 183304
+    },
+    {
+     "sym": "_g_2cc08",
+     "kind": "data_undefined",
+     "off": 192,
+     "typ": 6,
+     "addend": 0,
+     "dest": 183304
+    },
+    {
+     "sym": "_g_2cc08",
+     "kind": "data_undefined",
+     "off": 204,
+     "typ": 6,
+     "addend": 0,
+     "dest": 183304
+    },
+    {
+     "sym": "_g_2cc08",
+     "kind": "data_undefined",
+     "off": 217,
+     "typ": 6,
+     "addend": 0,
+     "dest": 183304
+    }
+   ],
+   "source_review": {
+    "source_lines": [
+     "src/title/r02a80.c:6-20",
+     "src/title/title_gpu.h:43-44"
+    ],
+    "expression": "Loads the g_2cc08 pointer cell and then accesses both pointed-to buffers."
+   },
+   "native_relocation_instructions": [
+    {
+     "symbol": "_g_2cc08",
+     "relocation": {
+      "offset": 1,
+      "type": 6,
+      "addend": 0,
+      "implied_destination_rva": "0x2cc08"
+     },
+     "native_field_rva": "0x2a81",
+     "instruction_rva": "0x2a80",
+     "instruction_bytes": "a108cc0210",
+     "decoded": "mov eax, dword ptr [0x1002cc08]"
+    },
+    {
+     "symbol": "_g_2cc08",
+     "relocation": {
+      "offset": 28,
+      "type": 6,
+      "addend": 0,
+      "implied_destination_rva": "0x2cc08"
+     },
+     "native_field_rva": "0x2a9c",
+     "instruction_rva": "0x2a9a",
+     "instruction_bytes": "8b0d08cc0210",
+     "decoded": "mov ecx, dword ptr [0x1002cc08]"
+    },
+    {
+     "symbol": "_g_2cc08",
+     "relocation": {
+      "offset": 65,
+      "type": 6,
+      "addend": 0,
+      "implied_destination_rva": "0x2cc08"
+     },
+     "native_field_rva": "0x2ac1",
+     "instruction_rva": "0x2abf",
+     "instruction_bytes": "8b1508cc0210",
+     "decoded": "mov edx, dword ptr [0x1002cc08]"
+    },
+    {
+     "symbol": "_g_2cc08",
+     "relocation": {
+      "offset": 98,
+      "type": 6,
+      "addend": 0,
+      "implied_destination_rva": "0x2cc08"
+     },
+     "native_field_rva": "0x2ae2",
+     "instruction_rva": "0x2ae1",
+     "instruction_bytes": "a108cc0210",
+     "decoded": "mov eax, dword ptr [0x1002cc08]"
+    },
+    {
+     "symbol": "_g_2cc08",
+     "relocation": {
+      "offset": 130,
+      "type": 6,
+      "addend": 0,
+      "implied_destination_rva": "0x2cc08"
+     },
+     "native_field_rva": "0x2b02",
+     "instruction_rva": "0x2b00",
+     "instruction_bytes": "8b0d08cc0210",
+     "decoded": "mov ecx, dword ptr [0x1002cc08]"
+    },
+    {
+     "symbol": "_g_2cc08",
+     "relocation": {
+      "offset": 146,
+      "type": 6,
+      "addend": 0,
+      "implied_destination_rva": "0x2cc08"
+     },
+     "native_field_rva": "0x2b12",
+     "instruction_rva": "0x2b10",
+     "instruction_bytes": "8b1508cc0210",
+     "decoded": "mov edx, dword ptr [0x1002cc08]"
+    },
+    {
+     "symbol": "_g_2cc08",
+     "relocation": {
+      "offset": 155,
+      "type": 6,
+      "addend": 0,
+      "implied_destination_rva": "0x2cc08"
+     },
+     "native_field_rva": "0x2b1b",
+     "instruction_rva": "0x2b1a",
+     "instruction_bytes": "a108cc0210",
+     "decoded": "mov eax, dword ptr [0x1002cc08]"
+    },
+    {
+     "symbol": "_g_2cc08",
+     "relocation": {
+      "offset": 168,
+      "type": 6,
+      "addend": 0,
+      "implied_destination_rva": "0x2cc08"
+     },
+     "native_field_rva": "0x2b28",
+     "instruction_rva": "0x2b26",
+     "instruction_bytes": "8b0d08cc0210",
+     "decoded": "mov ecx, dword ptr [0x1002cc08]"
+    },
+    {
+     "symbol": "_g_2cc08",
+     "relocation": {
+      "offset": 178,
+      "type": 6,
+      "addend": 0,
+      "implied_destination_rva": "0x2cc08"
+     },
+     "native_field_rva": "0x2b32",
+     "instruction_rva": "0x2b30",
+     "instruction_bytes": "8b1508cc0210",
+     "decoded": "mov edx, dword ptr [0x1002cc08]"
+    },
+    {
+     "symbol": "_g_2cc08",
+     "relocation": {
+      "offset": 192,
+      "type": 6,
+      "addend": 0,
+      "implied_destination_rva": "0x2cc08"
+     },
+     "native_field_rva": "0x2b40",
+     "instruction_rva": "0x2b3f",
+     "instruction_bytes": "a108cc0210",
+     "decoded": "mov eax, dword ptr [0x1002cc08]"
+    },
+    {
+     "symbol": "_g_2cc08",
+     "relocation": {
+      "offset": 204,
+      "type": 6,
+      "addend": 0,
+      "implied_destination_rva": "0x2cc08"
+     },
+     "native_field_rva": "0x2b4c",
+     "instruction_rva": "0x2b4a",
+     "instruction_bytes": "8b0d08cc0210",
+     "decoded": "mov ecx, dword ptr [0x1002cc08]"
+    },
+    {
+     "symbol": "_g_2cc08",
+     "relocation": {
+      "offset": 217,
+      "type": 6,
+      "addend": 0,
+      "implied_destination_rva": "0x2cc08"
+     },
+     "native_field_rva": "0x2b59",
+     "instruction_rva": "0x2b57",
+     "instruction_bytes": "8b1508cc0210",
+     "decoded": "mov edx, dword ptr [0x1002cc08]"
+    }
+   ],
+   "decision": {
+    "decision": "stop",
+    "reason": "TITLE RVA 0x2cc08 lies in the unbacked zero tail. Existing evidence identifies a four-byte pointer cell and direct native accesses, but the only current provider defines two explicit-zero pointer cells together; no verifier-compatible standalone owner proof is published."
+   }
+  },
+  {
+   "id": "title.1d790",
+   "target_rva": "0x1d790",
+   "size": 32,
+   "symbol": "_title_1d790",
+   "source": "src/title/r1c430.c",
+   "source_sha256": "98ce85e7a4be444bdcd98f499c0ee4448e9f0ffe0334c7972c417aeb3834b670",
+   "native_extent_sha256": "5d5cca15a7c2d1cc2de1cb0677e01b5cc70162cd738a821b49452a9d75a5dd81",
+   "classifier_relocations": [
+    {
+     "sym": "_g_2cc08",
+     "kind": "data_undefined",
+     "off": 2,
+     "typ": 6,
+     "addend": 0,
+     "dest": 183304
+    },
+    {
+     "sym": "_g_2cc08",
+     "kind": "data_undefined",
+     "off": 15,
+     "typ": 6,
+     "addend": 0,
+     "dest": 183304
+    }
+   ],
+   "source_review": {
+    "source_lines": [
+     "src/title/r1c430.c:170-173",
+     "src/title/title_gpu.h:43-44"
+    ],
+    "expression": "Loads the g_2cc08 pointer cell before writing the first two buffers."
+   },
+   "native_relocation_instructions": [
+    {
+     "symbol": "_g_2cc08",
+     "relocation": {
+      "offset": 2,
+      "type": 6,
+      "addend": 0,
+      "implied_destination_rva": "0x2cc08"
+     },
+     "native_field_rva": "0x1d792",
+     "instruction_rva": "0x1d790",
+     "instruction_bytes": "8b0d08cc0210",
+     "decoded": "mov ecx, dword ptr [0x1002cc08]"
+    },
+    {
+     "symbol": "_g_2cc08",
+     "relocation": {
+      "offset": 15,
+      "type": 6,
+      "addend": 0,
+      "implied_destination_rva": "0x2cc08"
+     },
+     "native_field_rva": "0x1d79f",
+     "instruction_rva": "0x1d79d",
+     "instruction_bytes": "8b1508cc0210",
+     "decoded": "mov edx, dword ptr [0x1002cc08]"
+    }
+   ],
+   "decision": {
+    "decision": "stop",
+    "reason": "Same unresolved _g_2cc08 owner as title.02a80; native accesses are direct DWORD pointer-cell loads, but current provider does not give a verifier-compatible standalone owner proof."
+   }
+  }
+ ],
+ "section_review": [
+  {
+   "rva": "0x2cbe0",
+   "section": ".data",
+   "section_rva": "0x22000",
+   "virtual_size": "0xd0f8",
+   "raw_size": "0x7200",
+   "raw_end_rva": "0x29200",
+   "raw_backed": false,
+   "characteristics": "0xc0000040"
+  },
+  {
+   "rva": "0x2cc08",
+   "section": ".data",
+   "section_rva": "0x22000",
+   "virtual_size": "0xd0f8",
+   "raw_size": "0x7200",
+   "raw_end_rva": "0x29200",
+   "raw_backed": false,
+   "characteristics": "0xc0000040"
+  },
+  {
+   "rva": "0x2cca0",
+   "section": ".data",
+   "section_rva": "0x22000",
+   "virtual_size": "0xd0f8",
+   "raw_size": "0x7200",
+   "raw_end_rva": "0x29200",
+   "raw_backed": false,
+   "characteristics": "0xc0000040"
+  },
+  {
+   "rva": "0x2d2a8",
+   "section": ".data",
+   "section_rva": "0x22000",
+   "virtual_size": "0xd0f8",
+   "raw_size": "0x7200",
+   "raw_end_rva": "0x29200",
+   "raw_backed": false,
+   "characteristics": "0xc0000040"
+  }
+ ],
+ "supporting_evidence": [
+  {
+   "path": "evidence/title_buffer_cells_adoption_2026_10_11.json",
+   "sha256": "6542989bf9290800d2059055a0987a062eb8223c5f49d5f77e970397ed4615b7",
+   "use": "Documents both four-byte loader-zero pointer cells and explicitly limits the claim: original owner/TU/aggregate/placement are not established."
+  },
+  {
+   "path": "src/title/title_buffer_cells.c",
+   "sha256": "49ada3fbbf599700c49b1b8c768eee3eabdd804e4a23919e0e70cdbe782183f7",
+   "use": "Current provider defines g_2cc04 and g_2cc08 as two explicit-zero external pointer objects in one translation unit."
+  },
+  {
+   "path": "docs/matching.md",
+   "sha256": "4572d89b1fd5a9776e379ac8d2f9978ec8be59f539077cdfb27dc905306b9057",
+   "use": "BSS bindings require a current exact owner and independent anchor; BSS use gate does not support indexed or one-past uses."
+  }
+ ]
+}

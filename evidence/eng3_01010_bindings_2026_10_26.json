@@ -1,0 +1,294 @@
+{
+ "schema": 1,
+ "scope": "Private focused-reference binding proposal for four ENG3 callers of the independently reviewed native RNG provider at RVA 0x1010; not acceptance.",
+ "methodology": [
+  "The callee identity is established from its own file-backed native span, state references, decoded body, and independent ABI witness, not from these pending callers operands.",
+  "The existing source src/eng3/rng_state_01010.c is a NEAR candidate only; this binding does not claim instruction equality or source ownership.",
+  "Each listed COFF REL32 use is freshly validated by the focused references check."
+ ],
+ "evidence_files": {
+  "evidence/eng3_initializer_rng_review_2026_10_26.json": "b011421ed6720f8842a3a9e320c70933e8a6161b9fd10d8ea5fd6a857ee7b2ea",
+  "evidence/eng3_rng_provider_2026_10_25.json": "9065d84486464d690e69aeecf4d670d976ad725f3de02d819e00f38751b5c33c",
+  "assets/pc/HERCULES/ENG3.DLL": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+  "evidence/engine_helper_matching_2026_10_24.json": "ef7a5225b7afad18d3cb64b64cbf395351e135837f88df580663e167a7184771"
+ },
+ "function_identities": {
+  "eng3.1eeb0": {
+   "symbol": "_eng3_1eeb0",
+   "rva": 126640,
+   "size": 160,
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "source": "calibration/eng3/actor_services_1e000.c",
+   "source_sha256": "d2734246b7304b8bcbc1f9b5f44010bca5e743542276934054d5765b6e798475",
+   "native_function_sha256": "1cd275619c62e9dabd29f48d19fb5125120fd8a54dd3bc0b69968d4dcbbdc359",
+   "fresh_own_shape_equal": true,
+   "origin": "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1eeb0; own native span and independent entry witnesses"
+  },
+  "eng3.15340": {
+   "symbol": "_eng3_15340",
+   "rva": 86848,
+   "size": 112,
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "source": "calibration/eng3/handlers_14190.cpp",
+   "source_sha256": "cbd957c12e6e1b3f3ee522cfd68303ee645b34b241eb718a86aea4f4fe40658a",
+   "native_function_sha256": "271df7842ae16fd89bada81d91d011027453a1b5db9e74ea70af18cebb0d7db4",
+   "fresh_own_shape_equal": true,
+   "origin": "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.15340; own native span and independent entry witnesses"
+  },
+  "eng3.select_frame": {
+   "symbol": "_select_frame",
+   "rva": 123616,
+   "size": 48,
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "source": "src/shared/frame_state.c",
+   "source_sha256": "132e3f19b7f61030a70811999473e49b572891bf86e8c24de42199c0db7c9859",
+   "native_function_sha256": "917b682e51b774b82e968a1ae690c864e90200f4e5a4476a50708f8ee1ea28af",
+   "fresh_own_shape_equal": true,
+   "origin": "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.select_frame; own native span and independent entry witnesses"
+  },
+  "eng3.shared_1d600": {
+   "symbol": "_attach_actor",
+   "rva": 120320,
+   "size": 112,
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "source": "src/eng1/behavioral/actor_links.c",
+   "source_sha256": "17bfe6a5baa9f096dd1ddd05d048635b3780c11e43435187c923c0e3a9fcef0b",
+   "native_function_sha256": "202a815304a8d56b2419c6d3be7880f06d4735f51ff8e036414c0e09284c4552",
+   "fresh_own_shape_equal": true,
+   "origin": "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.shared_1d600; own native span and independent entry witnesses"
+  },
+  "eng3.native_rng_provider_01010": {
+   "rva": 4112,
+   "size": 64,
+   "target": "assets/pc/HERCULES/ENG3.DLL",
+   "target_sha256": "aefa1147deae55c4cb2290282f5142df00baa49a9cd59f671f7a3ce5b8b7fca7",
+   "native_function_sha256": "c733b08ff5bb8e1f58f8d6b3f6e301749f7493d4c691d6acbcbd168f72bf36f9",
+   "origin": "Independent ENG3 native body decode, initialized state, and ABI witness in the cited native review; no original source or translation-unit claim."
+  }
+ },
+ "functions": {
+  "eng3.13010": {
+   "symbols": {
+    "_eng3_01010": {
+     "kind": "function",
+     "rva": 4112,
+     "size": 64,
+     "evidence": [
+      "evidence/eng3_initializer_rng_review_2026_10_26.json#provider",
+      "evidence/eng3_initializer_rng_review_2026_10_26.json#abi_witness",
+      "evidence/eng3_rng_provider_2026_10_25.json#native_abi_witness"
+     ],
+     "references": [
+      {
+       "offset": 4,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 64,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 115,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 135,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 154,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng3_1eeb0": {
+     "kind": "function",
+     "rva": 126640,
+     "size": 160,
+     "evidence": [
+      "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1eeb0"
+     ],
+     "references": [
+      {
+       "offset": 170,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng3_15340": {
+     "kind": "function",
+     "rva": 86848,
+     "size": 112,
+     "evidence": [
+      "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.15340"
+     ],
+     "references": [
+      {
+       "offset": 179,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_select_frame": {
+     "kind": "function",
+     "rva": 123616,
+     "size": 48,
+     "evidence": [
+      "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.select_frame"
+     ],
+     "references": [
+      {
+       "offset": 190,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "eng3.13a40": {
+   "symbols": {
+    "_eng3_1eeb0": {
+     "kind": "function",
+     "rva": 126640,
+     "size": 160,
+     "evidence": [
+      "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1eeb0"
+     ],
+     "references": [
+      {
+       "offset": 26,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng3_01010": {
+     "kind": "function",
+     "rva": 4112,
+     "size": 64,
+     "evidence": [
+      "evidence/eng3_initializer_rng_review_2026_10_26.json#provider",
+      "evidence/eng3_initializer_rng_review_2026_10_26.json#abi_witness",
+      "evidence/eng3_rng_provider_2026_10_25.json#native_abi_witness"
+     ],
+     "references": [
+      {
+       "offset": 54,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "eng3.15e90": {
+   "symbols": {
+    "_attach_actor": {
+     "kind": "function",
+     "rva": 120320,
+     "size": 112,
+     "evidence": [
+      "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.shared_1d600"
+     ],
+     "references": [
+      {
+       "offset": 41,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng3_01010": {
+     "kind": "function",
+     "rva": 4112,
+     "size": 64,
+     "evidence": [
+      "evidence/eng3_initializer_rng_review_2026_10_26.json#provider",
+      "evidence/eng3_initializer_rng_review_2026_10_26.json#abi_witness",
+      "evidence/eng3_rng_provider_2026_10_25.json#native_abi_witness"
+     ],
+     "references": [
+      {
+       "offset": 51,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  },
+  "eng3.26550": {
+   "symbols": {
+    "_eng3_1eeb0": {
+     "kind": "function",
+     "rva": 126640,
+     "size": 160,
+     "evidence": [
+      "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.1eeb0"
+     ],
+     "references": [
+      {
+       "offset": 52,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_select_frame": {
+     "kind": "function",
+     "rva": 123616,
+     "size": 48,
+     "evidence": [
+      "evidence/engine_helper_matching_2026_10_24.json#callee_identities.eng3.select_frame"
+     ],
+     "references": [
+      {
+       "offset": 63,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    },
+    "_eng3_01010": {
+     "kind": "function",
+     "rva": 4112,
+     "size": 64,
+     "evidence": [
+      "evidence/eng3_initializer_rng_review_2026_10_26.json#provider",
+      "evidence/eng3_initializer_rng_review_2026_10_26.json#abi_witness",
+      "evidence/eng3_rng_provider_2026_10_25.json#native_abi_witness"
+     ],
+     "references": [
+      {
+       "offset": 109,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 121,
+       "type": 20,
+       "addend": 0
+      },
+      {
+       "offset": 141,
+       "type": 20,
+       "addend": 0
+      }
+     ]
+    }
+   }
+  }
+ }
+}

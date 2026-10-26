@@ -1,0 +1,1021 @@
+{
+ "task_id": "exe_host_iface",
+ "target": {
+  "path": "work/discs/pc_install/HERCULES.EXE",
+  "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "image_base": 4194304,
+  "size_of_image": 8048640,
+  "characteristics": "0x10f",
+  "relocation_directory": {
+   "rva": 0,
+   "size": 0,
+   "usable": false
+  },
+  "sections": [
+   {
+    "name": ".text",
+    "virtual_address": 4096,
+    "virtual_size": 183742,
+    "raw_size": 183808,
+    "raw_pointer": 1024,
+    "characteristics": 1610612768
+   },
+   {
+    "name": ".rdata",
+    "virtual_address": 188416,
+    "virtual_size": 24744,
+    "raw_size": 25088,
+    "raw_pointer": 184832,
+    "characteristics": 1073741888
+   },
+   {
+    "name": ".data",
+    "virtual_address": 217088,
+    "virtual_size": 7797544,
+    "raw_size": 38400,
+    "raw_pointer": 209920,
+    "characteristics": 3221225536
+   },
+   {
+    "name": ".idata",
+    "virtual_address": 8015872,
+    "virtual_size": 8368,
+    "raw_size": 8704,
+    "raw_pointer": 248320,
+    "characteristics": 3221225536
+   },
+   {
+    "name": ".rsrc",
+    "virtual_address": 8028160,
+    "virtual_size": 18548,
+    "raw_size": 18944,
+    "raw_pointer": 257024,
+    "characteristics": 1073741888
+   }
+  ]
+ },
+ "interface_storage": {
+  "rva": 221624,
+  "va": "0x4361b8",
+  "size": 1000,
+  "file_offset": 214456,
+  "sha256": "52654fb050caa552b03c692bd3a1da0e700675bb50605394c8afb92595a039f8",
+  "section": ".data",
+  "file_backed": true,
+  "end_rva_exclusive": "0x365a0",
+  "adjacent_pointer_cell": {
+   "rva": "0x365a0",
+   "bytes": "b8614300",
+   "value_va": "0x4361b8",
+   "points_to_interface": true
+  },
+  "source_identity": {
+   "current_type": "src/shared/engine_interface.h: EngineInterface, sizeof 1000, context_004 offset 4",
+   "pointer_cell_source": "src/pc/host_source_table_pointer_cell_365a0.c",
+   "original_table_owner_translation_unit": "unidentified; data is not a BSS object and no first-party owner is selected"
+  }
+ },
+ "independent_native_review": {
+  "table_identity_evidence": "evidence/engine_interface_binding.json:source_table",
+  "storage_evidence": "evidence/host_interface_provider_audit_2026_10_11.json:table",
+  "native_pointer_cell_evidence": "evidence/engine_interface_binding.json:host_dispatch",
+  "code_anchor_rva": "0x5ef3",
+  "code_anchor_disassembly": {
+   "module": "HERCULES.EXE",
+   "rva": "0x5ef3",
+   "size": 33,
+   "warning": "Explicit range, not an inferred function boundary. Linear-decode xrefs are leads; indirect calls are not resolved.",
+   "instructions": [
+    {
+     "rva": "0x5ef3",
+     "hex": "8b15a0654300",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x4365a0]"
+    },
+    {
+     "rva": "0x5ef9",
+     "hex": "33c9",
+     "mnemonic": "xor",
+     "operands": "ecx, ecx"
+    },
+    {
+     "rva": "0x5efb",
+     "hex": "8a0dfc01ba00",
+     "mnemonic": "mov",
+     "operands": "cl, byte ptr [0xba01fc]"
+    },
+    {
+     "rva": "0x5f01",
+     "hex": "51",
+     "mnemonic": "push",
+     "operands": "ecx"
+    },
+    {
+     "rva": "0x5f02",
+     "hex": "52",
+     "mnemonic": "push",
+     "operands": "edx"
+    },
+    {
+     "rva": "0x5f03",
+     "hex": "ffd0",
+     "mnemonic": "call",
+     "operands": "eax"
+    },
+    {
+     "rva": "0x5f05",
+     "hex": "83c408",
+     "mnemonic": "add",
+     "operands": "esp, 8"
+    },
+    {
+     "rva": "0x5f08",
+     "hex": "c70564c4910000000000",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x91c464], 0"
+    },
+    {
+     "rva": "0x5f12",
+     "hex": "5d",
+     "mnemonic": "pop",
+     "operands": "ebp"
+    },
+    {
+     "rva": "0x5f13",
+     "hex": "c3",
+     "mnemonic": "ret",
+     "operands": ""
+    }
+   ],
+   "incoming_references": [
+    {
+     "source_rva": 24305,
+     "target_rva": 24328,
+     "kind": "linear_branch"
+    }
+   ],
+   "outgoing_references": [
+    {
+     "source_rva": 24307,
+     "target_rva": 222624,
+     "kind": "linear_memory"
+    },
+    {
+     "source_rva": 24315,
+     "target_rva": 7995900,
+     "kind": "linear_memory"
+    },
+    {
+     "source_rva": 24328,
+     "target_rva": 5358692,
+     "kind": "linear_memory"
+    }
+   ],
+   "referenced_strings": []
+  },
+  "additional_context_rva": "0x5c20",
+  "additional_context_disassembly": {
+   "module": "HERCULES.EXE",
+   "rva": "0x5c20",
+   "size": 169,
+   "warning": "Explicit range, not an inferred function boundary. Linear-decode xrefs are leads; indirect calls are not resolved.",
+   "instructions": [
+    {
+     "rva": "0x5c20",
+     "hex": "a168c49100",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x91c468]"
+    },
+    {
+     "rva": "0x5c25",
+     "hex": "57",
+     "mnemonic": "push",
+     "operands": "edi"
+    },
+    {
+     "rva": "0x5c26",
+     "hex": "85c0",
+     "mnemonic": "test",
+     "operands": "eax, eax"
+    },
+    {
+     "rva": "0x5c28",
+     "hex": "c70560c4910000000000",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x91c460], 0"
+    },
+    {
+     "rva": "0x5c32",
+     "hex": "7416",
+     "mnemonic": "je",
+     "operands": "0x405c4a"
+    },
+    {
+     "rva": "0x5c34",
+     "hex": "a168c49100",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x91c468]"
+    },
+    {
+     "rva": "0x5c39",
+     "hex": "50",
+     "mnemonic": "push",
+     "operands": "eax"
+    },
+    {
+     "rva": "0x5c3a",
+     "hex": "ff15a458ba00",
+     "mnemonic": "call",
+     "operands": "dword ptr [0xba58a4]"
+    },
+    {
+     "rva": "0x5c40",
+     "hex": "c70568c4910000000000",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x91c468], 0"
+    },
+    {
+     "rva": "0x5c4a",
+     "hex": "bfd8bb9100",
+     "mnemonic": "mov",
+     "operands": "edi, 0x91bbd8"
+    },
+    {
+     "rva": "0x5c4f",
+     "hex": "83c9ff",
+     "mnemonic": "or",
+     "operands": "ecx, 0xffffffff"
+    },
+    {
+     "rva": "0x5c52",
+     "hex": "33c0",
+     "mnemonic": "xor",
+     "operands": "eax, eax"
+    },
+    {
+     "rva": "0x5c54",
+     "hex": "f2ae",
+     "mnemonic": "repne scasb",
+     "operands": "al, byte ptr es:[edi]"
+    },
+    {
+     "rva": "0x5c56",
+     "hex": "f7d1",
+     "mnemonic": "not",
+     "operands": "ecx"
+    },
+    {
+     "rva": "0x5c58",
+     "hex": "49",
+     "mnemonic": "dec",
+     "operands": "ecx"
+    },
+    {
+     "rva": "0x5c59",
+     "hex": "b05c",
+     "mnemonic": "mov",
+     "operands": "al, 0x5c"
+    },
+    {
+     "rva": "0x5c5b",
+     "hex": "3881d8bb9100",
+     "mnemonic": "cmp",
+     "operands": "byte ptr [ecx + 0x91bbd8], al"
+    },
+    {
+     "rva": "0x5c61",
+     "hex": "740b",
+     "mnemonic": "je",
+     "operands": "0x405c6e"
+    },
+    {
+     "rva": "0x5c63",
+     "hex": "8a91d7bb9100",
+     "mnemonic": "mov",
+     "operands": "dl, byte ptr [ecx + 0x91bbd7]"
+    },
+    {
+     "rva": "0x5c69",
+     "hex": "49",
+     "mnemonic": "dec",
+     "operands": "ecx"
+    },
+    {
+     "rva": "0x5c6a",
+     "hex": "3ad0",
+     "mnemonic": "cmp",
+     "operands": "dl, al"
+    },
+    {
+     "rva": "0x5c6c",
+     "hex": "75f5",
+     "mnemonic": "jne",
+     "operands": "0x405c63"
+    },
+    {
+     "rva": "0x5c6e",
+     "hex": "8d89d9bb9100",
+     "mnemonic": "lea",
+     "operands": "ecx, [ecx + 0x91bbd9]"
+    },
+    {
+     "rva": "0x5c74",
+     "hex": "51",
+     "mnemonic": "push",
+     "operands": "ecx"
+    },
+    {
+     "rva": "0x5c75",
+     "hex": "ff159c58ba00",
+     "mnemonic": "call",
+     "operands": "dword ptr [0xba589c]"
+    },
+    {
+     "rva": "0x5c7b",
+     "hex": "a368c49100",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x91c468], eax"
+    },
+    {
+     "rva": "0x5c80",
+     "hex": "a168c49100",
+     "mnemonic": "mov",
+     "operands": "eax, dword ptr [0x91c468]"
+    },
+    {
+     "rva": "0x5c85",
+     "hex": "85c0",
+     "mnemonic": "test",
+     "operands": "eax, eax"
+    },
+    {
+     "rva": "0x5c87",
+     "hex": "741b",
+     "mnemonic": "je",
+     "operands": "0x405ca4"
+    },
+    {
+     "rva": "0x5c89",
+     "hex": "8b1568c49100",
+     "mnemonic": "mov",
+     "operands": "edx, dword ptr [0x91c468]"
+    },
+    {
+     "rva": "0x5c8f",
+     "hex": "6868684300",
+     "mnemonic": "push",
+     "operands": "0x436868"
+    },
+    {
+     "rva": "0x5c94",
+     "hex": "52",
+     "mnemonic": "push",
+     "operands": "edx"
+    },
+    {
+     "rva": "0x5c95",
+     "hex": "ff15ac58ba00",
+     "mnemonic": "call",
+     "operands": "dword ptr [0xba58ac]"
+    },
+    {
+     "rva": "0x5c9b",
+     "hex": "85c0",
+     "mnemonic": "test",
+     "operands": "eax, eax"
+    },
+    {
+     "rva": "0x5c9d",
+     "hex": "a35cc49100",
+     "mnemonic": "mov",
+     "operands": "dword ptr [0x91c45c], eax"
+    },
+    {
+     "rva": "0x5ca2",
+     "hex": "7524",
+     "mnemonic": "jne",
+     "operands": "0x405cc8"
+    },
+    {
+     "rva": "0x5ca4",
+     "hex": "68d8bb9100",
+     "mnemonic": "push",
+     "operands": "0x91bbd8"
+    },
+    {
+     "rva": "0x5ca9",
+     "hex": "6860684300",
+     "mnemonic": "push",
+     "operands": "0x436860"
+    },
+    {
+     "rva": "0x5cae",
+     "hex": "6840c09100",
+     "mnemonic": "push",
+     "operands": "0x91c040"
+    },
+    {
+     "rva": "0x5cb3",
+     "hex": "e888b20000",
+     "mnemonic": "call",
+     "operands": "0x410f40"
+    },
+    {
+     "rva": "0x5cb8",
+     "hex": "83c40c",
+     "mnemonic": "add",
+     "operands": "esp, 0xc"
+    },
+    {
+     "rva": "0x5cbb",
+     "hex": "6840c09100",
+     "mnemonic": "push",
+     "operands": "0x91c040"
+    },
+    {
+     "rva": "0x5cc0",
+     "hex": "e89ba70000",
+     "mnemonic": "call",
+     "operands": "0x410460"
+    },
+    {
+     "rva": "0x5cc5",
+     "hex": "83c404",
+     "mnemonic": "add",
+     "operands": "esp, 4"
+    },
+    {
+     "rva": "0x5cc8",
+     "hex": "5f",
+     "mnemonic": "pop",
+     "operands": "edi"
+    }
+   ],
+   "incoming_references": [
+    {
+     "source_rva": 23602,
+     "target_rva": 23626,
+     "kind": "linear_branch"
+    },
+    {
+     "source_rva": 23649,
+     "target_rva": 23662,
+     "kind": "linear_branch"
+    },
+    {
+     "source_rva": 23660,
+     "target_rva": 23651,
+     "kind": "linear_branch"
+    },
+    {
+     "source_rva": 23687,
+     "target_rva": 23716,
+     "kind": "linear_branch"
+    },
+    {
+     "source_rva": 23714,
+     "target_rva": 23752,
+     "kind": "linear_branch"
+    },
+    {
+     "source_rva": 24062,
+     "target_rva": 23584,
+     "kind": "linear_call"
+    },
+    {
+     "source_rva": 24293,
+     "target_rva": 23584,
+     "kind": "linear_call"
+    }
+   ],
+   "outgoing_references": [
+    {
+     "source_rva": 23584,
+     "target_rva": 5358696,
+     "kind": "linear_memory"
+    },
+    {
+     "source_rva": 23592,
+     "target_rva": 5358688,
+     "kind": "linear_memory"
+    },
+    {
+     "source_rva": 23602,
+     "target_rva": 23626,
+     "kind": "linear_branch"
+    },
+    {
+     "source_rva": 23604,
+     "target_rva": 5358696,
+     "kind": "linear_memory"
+    },
+    {
+     "source_rva": 23610,
+     "target_rva": 8018084,
+     "kind": "linear_memory"
+    },
+    {
+     "source_rva": 23616,
+     "target_rva": 5358696,
+     "kind": "linear_memory"
+    },
+    {
+     "source_rva": 23626,
+     "target_rva": 5356504,
+     "kind": "linear_immediate"
+    },
+    {
+     "source_rva": 23643,
+     "target_rva": 5356504,
+     "kind": "linear_memory"
+    },
+    {
+     "source_rva": 23649,
+     "target_rva": 23662,
+     "kind": "linear_branch"
+    },
+    {
+     "source_rva": 23651,
+     "target_rva": 5356503,
+     "kind": "linear_memory"
+    },
+    {
+     "source_rva": 23660,
+     "target_rva": 23651,
+     "kind": "linear_branch"
+    },
+    {
+     "source_rva": 23662,
+     "target_rva": 5356505,
+     "kind": "linear_memory"
+    },
+    {
+     "source_rva": 23669,
+     "target_rva": 8018076,
+     "kind": "linear_memory"
+    },
+    {
+     "source_rva": 23675,
+     "target_rva": 5358696,
+     "kind": "linear_memory"
+    },
+    {
+     "source_rva": 23680,
+     "target_rva": 5358696,
+     "kind": "linear_memory"
+    },
+    {
+     "source_rva": 23687,
+     "target_rva": 23716,
+     "kind": "linear_branch"
+    },
+    {
+     "source_rva": 23689,
+     "target_rva": 5358696,
+     "kind": "linear_memory"
+    },
+    {
+     "source_rva": 23695,
+     "target_rva": 223336,
+     "kind": "linear_immediate"
+    },
+    {
+     "source_rva": 23701,
+     "target_rva": 8018092,
+     "kind": "linear_memory"
+    },
+    {
+     "source_rva": 23709,
+     "target_rva": 5358684,
+     "kind": "linear_memory"
+    },
+    {
+     "source_rva": 23714,
+     "target_rva": 23752,
+     "kind": "linear_branch"
+    },
+    {
+     "source_rva": 23716,
+     "target_rva": 5356504,
+     "kind": "linear_immediate"
+    },
+    {
+     "source_rva": 23721,
+     "target_rva": 223328,
+     "kind": "linear_immediate"
+    },
+    {
+     "source_rva": 23726,
+     "target_rva": 5357632,
+     "kind": "linear_immediate"
+    },
+    {
+     "source_rva": 23731,
+     "target_rva": 69440,
+     "kind": "linear_call"
+    },
+    {
+     "source_rva": 23739,
+     "target_rva": 5357632,
+     "kind": "linear_immediate"
+    },
+    {
+     "source_rva": 23744,
+     "target_rva": 66656,
+     "kind": "linear_call"
+    }
+   ],
+   "referenced_strings": [
+    {
+     "rva": 223336,
+     "value": "PC_DLLEngineMain"
+    }
+   ]
+  }
+ },
+ "rows": [
+  {
+   "id": "exe.host_01b40",
+   "rva": "0x1b40",
+   "size": 80,
+   "source": "src/pc/host_sound_015d0.cpp",
+   "source_sha256": "4a6bd91f5daa514c90e6d6ca5f99837d5b69e1cbbb1787093fe59797083e2892",
+   "refs": [
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 2,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 19,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 30,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 46,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_host_0c200",
+     "kind": "function_shape_equal",
+     "callee": "exe.host_0c200",
+     "off": 60,
+     "typ": 20,
+     "addend": 0,
+     "dest": 49664
+    }
+   ],
+   "native_disassembly": "exe.host_01b40 | CODEGEN_SIMILAR | HERCULES.EXE RVA 0x1b40 | 80 bytes\nSource: src/pc/host_sound_015d0.cpp (_host_01b40); flags: /O2\nlane h1 (2026-10-20): Sonix sound control 0x15d0..0x1b90, C++ (base/index order of 0x1610/0x16b0/0x1a00 equal only as C++). Calls to 0xbe30 use per-shape short-parameter stub prototypes (hypothesis: distinct empty PSX-API stubs folded by the linker; the original pushes unextended words, so the call sites saw short prototypes).\n   0x1b40  8b0dbc614300         mov     ecx, dword ptr [0x4361bc]\n   0x1b46  b869000000           mov     eax, 0x69\n   0x1b4b  89812c1b0000         mov     dword ptr [ecx + 0x1b2c], eax\n   0x1b51  8b15bc614300         mov     edx, dword ptr [0x4361bc]\n   0x1b57  8982281b0000         mov     dword ptr [edx + 0x1b28], eax\n   0x1b5d  a1bc614300           mov     eax, dword ptr [0x4361bc]\n   0x1b62  c780301b000001000000 mov     dword ptr [eax + 0x1b30], 1\n   0x1b6c  8b0dbc614300         mov     ecx, dword ptr [0x4361bc]\n   0x1b72  668b81281b0000       mov     ax, word ptr [ecx + 0x1b28]\n   0x1b79  50                   push    eax\n   0x1b7a  50                   push    eax\n   0x1b7b  e880a60000           call    0x40c200\n   0x1b80  83c408               add     esp, 8\n   0x1b83  c3                   ret     \n   0x1b84  90                   nop     \n   0x1b85  90                   nop     \n   0x1b86  90                   nop     \n   0x1b87  90                   nop     \n   0x1b88  90                   nop     \n   0x1b89  90                   nop     \n   0x1b8a  90                   nop     \n   0x1b8b  90                   nop     \n   0x1b8c  90                   nop     \n   0x1b8d  90                   nop     \n   0x1b8e  90                   nop     \n   0x1b8f  90                   nop     \nExternal incoming leads: 0x17d3, 0x18f3\nOutgoing leads: 0x361bc (linear_memory), 0x361bc (linear_memory), 0x361bc (linear_memory), 0x361bc (linear_memory), 0xc200 (linear_call)\nExplicit range, not an inferred function boundary. Linear-decode xrefs are leads; indirect calls are not resolved.\n"
+  },
+  {
+   "id": "exe.host_01b90",
+   "rva": "0x1b90",
+   "size": 64,
+   "source": "src/pc/host_sound_015d0.cpp",
+   "source_sha256": "4a6bd91f5daa514c90e6d6ca5f99837d5b69e1cbbb1787093fe59797083e2892",
+   "refs": [
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 1,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 16,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    }
+   ],
+   "native_disassembly": "exe.host_01b90 | CODEGEN_SIMILAR | HERCULES.EXE RVA 0x1b90 | 64 bytes\nSource: src/pc/host_sound_015d0.cpp (_host_01b90); flags: /O2\nlane h1 (2026-10-20): Sonix sound control 0x15d0..0x1b90, C++ (base/index order of 0x1610/0x16b0/0x1a00 equal only as C++). Calls to 0xbe30 use per-shape short-parameter stub prototypes (hypothesis: distinct empty PSX-API stubs folded by the linker; the original pushes unextended words, so the call sites saw short prototypes).\n   0x1b90  a1bc614300           mov     eax, dword ptr [0x4361bc]\n   0x1b95  c780301b000001000000 mov     dword ptr [eax + 0x1b30], 1\n   0x1b9f  a1bc614300           mov     eax, dword ptr [0x4361bc]\n   0x1ba4  83b8fc1a0000ff       cmp     dword ptr [eax + 0x1afc], -1\n   0x1bab  741d                 je      0x401bca\n   0x1bad  8b4c2404             mov     ecx, dword ptr [esp + 4]\n   0x1bb1  85c9                 test    ecx, ecx\n   0x1bb3  750b                 jne     0x401bc0\n   0x1bb5  c7802c1b000069000000 mov     dword ptr [eax + 0x1b2c], 0x69\n   0x1bbf  c3                   ret     \n   0x1bc0  c7802c1b000000000000 mov     dword ptr [eax + 0x1b2c], 0\n   0x1bca  c3                   ret     \n   0x1bcb  90                   nop     \n   0x1bcc  90                   nop     \n   0x1bcd  90                   nop     \n   0x1bce  90                   nop     \n   0x1bcf  90                   nop     \nExternal incoming leads: \nOutgoing leads: 0x361bc (linear_memory), 0x361bc (linear_memory), 0x1bca (linear_branch), 0x1bc0 (linear_branch)\nExplicit range, not an inferred function boundary. Linear-decode xrefs are leads; indirect calls are not resolved.\n"
+  },
+  {
+   "id": "exe.host_01d00",
+   "rva": "0x1d00",
+   "size": 48,
+   "source": "src/pc/host_psx_shim_01bd0.c",
+   "source_sha256": "6cba0b43356f23c3b05492167776251a0ccf04555c4612521785552c0392d711",
+   "refs": [
+    {
+     "sym": "_host_set_callback_one",
+     "kind": "function_shape_equal",
+     "callee": "exe.host_set_callback_one",
+     "off": 3,
+     "typ": 20,
+     "addend": 0,
+     "dest": 48592
+    },
+    {
+     "sym": "_host_zero_callback",
+     "kind": "function_accepted",
+     "callee": "exe.host_zero_callback",
+     "off": 13,
+     "typ": 20,
+     "addend": 0,
+     "dest": 41792
+    },
+    {
+     "sym": "_host_sequence_next",
+     "kind": "function_shape_equal",
+     "callee": "exe.host_sequence_next",
+     "off": 23,
+     "typ": 20,
+     "addend": 0,
+     "dest": 44048
+    },
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 28,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    }
+   ],
+   "native_disassembly": "exe.host_01d00 | CODEGEN_SIMILAR | HERCULES.EXE RVA 0x1d00 | 48 bytes\nSource: src/pc/host_psx_shim_01bd0.c (_host_01d00); flags: /O2\nlane h1 (2026-10-20): PSX shim (display/VSync, XA speech, pad) 0x1bd0..0x1f60, C; surrounds the recorded host_file_prepare 0x1d60.\n   0x1d00  6a00                 push    0\n   0x1d02  e8c9a00000           call    0x40bdd0\n   0x1d07  83c404               add     esp, 4\n   0x1d0a  6a00                 push    0\n   0x1d0c  e82f860000           call    0x40a340\n   0x1d11  83c404               add     esp, 4\n   0x1d14  6a00                 push    0\n   0x1d16  e8f58e0000           call    0x40ac10\n   0x1d1b  a1bc614300           mov     eax, dword ptr [0x4361bc]\n   0x1d20  83c404               add     esp, 4\n   0x1d23  c6802901000000       mov     byte ptr [eax + 0x129], 0\n   0x1d2a  c3                   ret     \n   0x1d2b  90                   nop     \n   0x1d2c  90                   nop     \n   0x1d2d  90                   nop     \n   0x1d2e  90                   nop     \n   0x1d2f  90                   nop     \nExternal incoming leads: 0x1bd1\nOutgoing leads: 0xbdd0 (linear_call), 0xa340 (linear_call), 0xac10 (linear_call), 0x361bc (linear_memory)\nExplicit range, not an inferred function boundary. Linear-decode xrefs are leads; indirect calls are not resolved.\n"
+  },
+  {
+   "id": "exe.host_01d30",
+   "rva": "0x1d30",
+   "size": 48,
+   "source": "src/pc/host_psx_shim_01bd0.c",
+   "source_sha256": "6cba0b43356f23c3b05492167776251a0ccf04555c4612521785552c0392d711",
+   "refs": [
+    {
+     "sym": "_host_set_callback_one",
+     "kind": "function_shape_equal",
+     "callee": "exe.host_set_callback_one",
+     "off": 3,
+     "typ": 20,
+     "addend": 0,
+     "dest": 48592
+    },
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 8,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_host_01d30",
+     "kind": "local",
+     "off": 22,
+     "typ": 6,
+     "addend": 0,
+     "dest": 7472
+    },
+    {
+     "sym": "_host_set_callback_one",
+     "kind": "function_shape_equal",
+     "callee": "exe.host_set_callback_one",
+     "off": 34,
+     "typ": 20,
+     "addend": 0,
+     "dest": 48592
+    }
+   ],
+   "native_disassembly": "exe.host_01d30 | CODEGEN_SIMILAR | HERCULES.EXE RVA 0x1d30 | 48 bytes\nSource: src/pc/host_psx_shim_01bd0.c (_host_01d30); flags: /O2\nlane h1 (2026-10-20): PSX shim (display/VSync, XA speech, pad) 0x1bd0..0x1f60, C; surrounds the recorded host_file_prepare 0x1d60.\n   0x1d30  6a00                 push    0\n   0x1d32  e899a00000           call    0x40bdd0\n   0x1d37  a1bc614300           mov     eax, dword ptr [0x4361bc]\n   0x1d3c  83c404               add     esp, 4\n   0x1d3f  8b9024010000         mov     edx, dword ptr [eax + 0x124]\n   0x1d45  68301d4000           push    0x401d30\n   0x1d4a  42                   inc     edx\n   0x1d4b  899024010000         mov     dword ptr [eax + 0x124], edx\n   0x1d51  e87aa00000           call    0x40bdd0\n   0x1d56  83c404               add     esp, 4\n   0x1d59  c3                   ret     \n   0x1d5a  90                   nop     \n   0x1d5b  90                   nop     \n   0x1d5c  90                   nop     \n   0x1d5d  90                   nop     \n   0x1d5e  90                   nop     \n   0x1d5f  90                   nop     \nExternal incoming leads: \nOutgoing leads: 0xbdd0 (linear_call), 0x361bc (linear_memory), 0x1d30 (linear_immediate), 0xbdd0 (linear_call)\nExplicit range, not an inferred function boundary. Linear-decode xrefs are leads; indirect calls are not resolved.\n"
+  },
+  {
+   "id": "exe.host_context_level_bytes",
+   "rva": "0x1fb0",
+   "size": 32,
+   "source": "src/pc/host_config_context_setters.c",
+   "source_sha256": "c1a94d80e4ca97258205981ca8cffba7e4e8e0de1c2303139695760a438cf970",
+   "refs": [
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 2,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 15,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    }
+   ],
+   "native_disassembly": "exe.host_context_level_bytes | CODEGEN_SIMILAR | HERCULES.EXE RVA 0x1fb0 | 32 bytes\nSource: src/pc/host_config_context_setters.c (_cleanup_native_1fb0); flags: /O2\nMasked equal in its recorded source; stale RECONSTRUCTED status upgraded (scan 2026-10-20). Previously: evidence/host_config_recovery.json:24 named finite original/fresh-source scenarios with separate actual providers and synthetic SDK endpoints. Raw function equality is false; no FUNCTION_MATCH, original source/TU/native layout or playable-game acceptance.\n   0x1fb0  8b0dbc614300         mov     ecx, dword ptr [0x4361bc]\n   0x1fb6  8a442404             mov     al, byte ptr [esp + 4]\n   0x1fba  88410b               mov     byte ptr [ecx + 0xb], al\n   0x1fbd  8b15bc614300         mov     edx, dword ptr [0x4361bc]\n   0x1fc3  88420c               mov     byte ptr [edx + 0xc], al\n   0x1fc6  c3                   ret     \n   0x1fc7  90                   nop     \n   0x1fc8  90                   nop     \n   0x1fc9  90                   nop     \n   0x1fca  90                   nop     \n   0x1fcb  90                   nop     \n   0x1fcc  90                   nop     \n   0x1fcd  90                   nop     \n   0x1fce  90                   nop     \n   0x1fcf  90                   nop     \nExternal incoming leads: 0x4ae2\nOutgoing leads: 0x361bc (linear_memory), 0x361bc (linear_memory)\nExplicit range, not an inferred function boundary. Linear-decode xrefs are leads; indirect calls are not resolved.\n"
+  },
+  {
+   "id": "exe.host_context_mode_byte",
+   "rva": "0x1fd0",
+   "size": 16,
+   "source": "src/pc/host_config_context_setters.c",
+   "source_sha256": "c1a94d80e4ca97258205981ca8cffba7e4e8e0de1c2303139695760a438cf970",
+   "refs": [
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 2,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    }
+   ],
+   "native_disassembly": "exe.host_context_mode_byte | CODEGEN_SIMILAR | HERCULES.EXE RVA 0x1fd0 | 16 bytes\nSource: src/pc/host_config_context_setters.c (_cleanup_native_1fd0); flags: /O2\nMasked equal in its recorded source; stale RECONSTRUCTED status upgraded (scan 2026-10-20). Previously: evidence/host_config_recovery.json:24 named finite original/fresh-source scenarios with separate actual providers and synthetic SDK endpoints. Raw function equality is false; no FUNCTION_MATCH, original source/TU/native layout or playable-game acceptance.\n   0x1fd0  8b0dbc614300         mov     ecx, dword ptr [0x4361bc]\n   0x1fd6  8a442404             mov     al, byte ptr [esp + 4]\n   0x1fda  88410e               mov     byte ptr [ecx + 0xe], al\n   0x1fdd  c3                   ret     \n   0x1fde  90                   nop     \n   0x1fdf  90                   nop     \nExternal incoming leads: 0x4af5\nOutgoing leads: 0x361bc (linear_memory)\nExplicit range, not an inferred function boundary. Linear-decode xrefs are leads; indirect calls are not resolved.\n"
+  },
+  {
+   "id": "exe.cleanup_native_1fe0",
+   "rva": "0x1fe0",
+   "size": 16,
+   "source": "src/pc/cleanup_registry.c",
+   "source_sha256": "0b3224f0d37a309347b0bc2da7ba93419d35f4e2b58c30c1a00dbdf678a22782",
+   "refs": [
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 1,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    }
+   ],
+   "native_disassembly": "exe.cleanup_native_1fe0 | CODEGEN_SIMILAR | HERCULES.EXE RVA 0x1fe0 | 16 bytes\nSource: src/pc/cleanup_registry.c (_cleanup_native_1fe0); flags: /O2\nevidence/registry_storage_adoption_2026_10_11.json; actual host interface context_004 member, writable config/literal declarations; complete masked equality only, original full extent/TU/layout unknown\n   0x1fe0  a1bc614300           mov     eax, dword ptr [0x4361bc]\n   0x1fe5  0fbe400e             movsx   eax, byte ptr [eax + 0xe]\n   0x1fe9  c3                   ret     \n   0x1fea  90                   nop     \n   0x1feb  90                   nop     \n   0x1fec  90                   nop     \n   0x1fed  90                   nop     \n   0x1fee  90                   nop     \n   0x1fef  90                   nop     \nExternal incoming leads: 0x4b00\nOutgoing leads: 0x361bc (linear_memory)\nExplicit range, not an inferred function boundary. Linear-decode xrefs are leads; indirect calls are not resolved.\n"
+  },
+  {
+   "id": "exe.host_sector_seek",
+   "rva": "0x3ce0",
+   "size": 32,
+   "source": "src/pc/host_sector_io.c",
+   "source_sha256": "58015138be5dada683de04342cb4970f43c0d14ebd6045af2de61a87a9d11dd7",
+   "refs": [
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 6,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_virtual_file_seek",
+     "kind": "function_shape_equal",
+     "callee": "exe.virtual_file_seek",
+     "off": 24,
+     "typ": 20,
+     "addend": 0,
+     "dest": 41600
+    }
+   ],
+   "native_disassembly": "exe.host_sector_seek | CODEGEN_SIMILAR | HERCULES.EXE RVA 0x3ce0 | 32 bytes\nSource: src/pc/host_sector_io.c (_host_sector_seek); flags: /O2\nNative sector adapter passes LIVE interface.context_004.virtual_handle_0b8, sector << 11 and origin 0 to existing virtual_file_seek at 0xa280. The complete 32-byte contribution, including the final RET, freshly passes the masked gate. Existing interface and ResourceCallbackContext views are reused. Original return/formal types, source and TU remain unproved. work/root_host_sectors_23/measurement.json.\n   0x3ce0  8b442404             mov     eax, dword ptr [esp + 4]\n   0x3ce4  8b0dbc614300         mov     ecx, dword ptr [0x4361bc]\n   0x3cea  c1e00b               shl     eax, 0xb\n   0x3ced  8b91b8000000         mov     edx, dword ptr [ecx + 0xb8]\n   0x3cf3  6a00                 push    0\n   0x3cf5  50                   push    eax\n   0x3cf6  52                   push    edx\n   0x3cf7  e884650000           call    0x40a280\n   0x3cfc  83c40c               add     esp, 0xc\n   0x3cff  c3                   ret     \nExternal incoming leads: \nOutgoing leads: 0x361bc (linear_memory), 0xa280 (linear_call)\nExplicit range, not an inferred function boundary. Linear-decode xrefs are leads; indirect calls are not resolved.\n"
+  },
+  {
+   "id": "exe.host_sector_read",
+   "rva": "0x3d00",
+   "size": 48,
+   "source": "src/pc/host_sector_io.c",
+   "source_sha256": "58015138be5dada683de04342cb4970f43c0d14ebd6045af2de61a87a9d11dd7",
+   "refs": [
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 6,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_virtual_file_read",
+     "kind": "function_shape_equal",
+     "callee": "exe.virtual_file_read",
+     "off": 27,
+     "typ": 20,
+     "addend": 0,
+     "dest": 41712
+    }
+   ],
+   "native_disassembly": "exe.host_sector_read | CODEGEN_SIMILAR | HERCULES.EXE RVA 0x3d00 | 48 bytes\nSource: src/pc/host_sector_io.c (_host_sector_read); flags: /O2\nInitialized host table cell 0x36254 independently identifies 0x3d00. Native reads LIVE context + 0xb8 and passes destination and sectors << 11 to existing virtual_file_read at 0xa2f0. The complete 48-byte contribution, including 13 NOPs, freshly passes the masked gate. evidence/host_interface_entry_seeds_2026_10_11.json; work/root_host_sectors_23/measurement.json. Original types and TU remain unproved.\n   0x3d00  8b442408             mov     eax, dword ptr [esp + 8]\n   0x3d04  8b15bc614300         mov     edx, dword ptr [0x4361bc]\n   0x3d0a  8b4c2404             mov     ecx, dword ptr [esp + 4]\n   0x3d0e  c1e00b               shl     eax, 0xb\n   0x3d11  50                   push    eax\n   0x3d12  8b82b8000000         mov     eax, dword ptr [edx + 0xb8]\n   0x3d18  51                   push    ecx\n   0x3d19  50                   push    eax\n   0x3d1a  e8d1650000           call    0x40a2f0\n   0x3d1f  83c40c               add     esp, 0xc\n   0x3d22  c3                   ret     \n   0x3d23  90                   nop     \n   0x3d24  90                   nop     \n   0x3d25  90                   nop     \n   0x3d26  90                   nop     \n   0x3d27  90                   nop     \n   0x3d28  90                   nop     \n   0x3d29  90                   nop     \n   0x3d2a  90                   nop     \n   0x3d2b  90                   nop     \n   0x3d2c  90                   nop     \n   0x3d2d  90                   nop     \n   0x3d2e  90                   nop     \n   0x3d2f  90                   nop     \nExternal incoming leads: \nOutgoing leads: 0x361bc (linear_memory), 0xa2f0 (linear_call)\nExplicit range, not an inferred function boundary. Linear-decode xrefs are leads; indirect calls are not resolved.\n"
+  },
+  {
+   "id": "exe.host_04280",
+   "rva": "0x4280",
+   "size": 96,
+   "source": "src/pc/host_psx_shim_041a0.c",
+   "source_sha256": "c0247b8c7b9ba283cd056ea68609405a09ca91c7d4514a5990c9a1de1580e351",
+   "refs": [
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 1,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 18,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 41,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 65,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 88,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    }
+   ],
+   "native_disassembly": "exe.host_04280 | CODEGEN_SIMILAR | HERCULES.EXE RVA 0x4280 | 96 bytes\nSource: src/pc/host_psx_shim_041a0.c (_host_04280); flags: /O2\nlane h4 (2026-10-20): PSX shim continuation (pad read, display put, bounded random, generator), C.\n   0x4280  a1bc614300           mov     eax, dword ptr [0x4361bc]\n   0x4285  8b484c               mov     ecx, dword ptr [eax + 0x4c]\n   0x4288  8b5048               mov     edx, dword ptr [eax + 0x48]\n   0x428b  03d1                 add     edx, ecx\n   0x428d  895048               mov     dword ptr [eax + 0x48], edx\n   0x4290  8b0dbc614300         mov     ecx, dword ptr [0x4361bc]\n   0x4296  8b4148               mov     eax, dword ptr [ecx + 0x48]\n   0x4299  3dffff0000           cmp     eax, 0xffff\n   0x429e  7629                 jbe     0x4042c9\n   0x42a0  25ffff0000           and     eax, 0xffff\n   0x42a5  894148               mov     dword ptr [ecx + 0x48], eax\n   0x42a8  a1bc614300           mov     eax, dword ptr [0x4361bc]\n   0x42ad  8b5048               mov     edx, dword ptr [eax + 0x48]\n   0x42b0  8b484c               mov     ecx, dword ptr [eax + 0x4c]\n   0x42b3  8d540a01             lea     edx, [edx + ecx + 1]\n   0x42b7  81e2ffff0000         and     edx, 0xffff\n   0x42bd  89504c               mov     dword ptr [eax + 0x4c], edx\n   0x42c0  a1bc614300           mov     eax, dword ptr [0x4361bc]\n   0x42c5  8b404c               mov     eax, dword ptr [eax + 0x4c]\n   0x42c8  c3                   ret     \n   0x42c9  8b514c               mov     edx, dword ptr [ecx + 0x4c]\n   0x42cc  03d0                 add     edx, eax\n   0x42ce  81e2ffff0000         and     edx, 0xffff\n   0x42d4  89514c               mov     dword ptr [ecx + 0x4c], edx\n   0x42d7  a1bc614300           mov     eax, dword ptr [0x4361bc]\n   0x42dc  8b404c               mov     eax, dword ptr [eax + 0x4c]\n   0x42df  c3                   ret     \nExternal incoming leads: 0x426d\nOutgoing leads: 0x361bc (linear_memory), 0x361bc (linear_memory), 0x42c9 (linear_branch), 0x361bc (linear_memory), 0x361bc (linear_memory), 0x361bc (linear_memory)\nExplicit range, not an inferred function boundary. Linear-decode xrefs are leads; indirect calls are not resolved.\n"
+  },
+  {
+   "id": "exe.host_resource_reset_10760",
+   "rva": "0x10760",
+   "size": 96,
+   "source": "src/pc/host_setup.c",
+   "source_sha256": "dd22f55c679aa7b0ae2c2e3cbc23f169b34bfc828a7b78e9d014cbe71ad9307c",
+   "refs": [
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 2,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 17,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 29,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 41,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    },
+    {
+     "sym": "_g_host_engine_interface",
+     "kind": "data_undefined",
+     "off": 74,
+     "typ": 6,
+     "addend": 4,
+     "dest": 221624
+    }
+   ],
+   "native_disassembly": "exe.host_resource_reset_10760 | CODEGEN_SIMILAR | HERCULES.EXE RVA 0x10760 | 96 bytes\nSource: src/pc/host_setup.c (_host_resource_reset_10760); flags: /O2\nRe-verified 2026-10-20 under the current masked gate: fresh pinned compilation of the unchanged recorded source is relocation-masked equal with a consistent implied symbol map (upgraded from a legacy proof-less row). Previously: evidence/host_setup_recovery.json (historical first recovery); evidence/host_file_close_integration.json (current ownership and execution): all five setup code contributions preserved, with three proven relocation identities rebound to the existing public file count/handles and virtual_file_close. Eleven bounded PC/source comparisons execute the actual virtual/archive close chain. Input capacities and common ignored-argument prototypes remain open. Raw new contributions differ; no exact promotion or whole startup/game acceptance.\n  0x10760  8b0dbc614300         mov     ecx, dword ptr [0x4361bc]\n  0x10766  33c0                 xor     eax, eax\n  0x10768  6689819c000000       mov     word ptr [ecx + 0x9c], ax\n  0x1076f  8b15bc614300         mov     edx, dword ptr [0x4361bc]\n  0x10775  8882df000000         mov     byte ptr [edx + 0xdf], al\n  0x1077b  8b0dbc614300         mov     ecx, dword ptr [0x4361bc]\n  0x10781  668981dc000000       mov     word ptr [ecx + 0xdc], ax\n  0x10788  a1bc614300           mov     eax, dword ptr [0x4361bc]\n  0x1078d  8d506c               lea     edx, [eax + 0x6c]\n  0x10790  83c07c               add     eax, 0x7c\n  0x10793  8b0a                 mov     ecx, dword ptr [edx]\n  0x10795  8908                 mov     dword ptr [eax], ecx\n  0x10797  8b4a04               mov     ecx, dword ptr [edx + 4]\n  0x1079a  894804               mov     dword ptr [eax + 4], ecx\n  0x1079d  8b4a08               mov     ecx, dword ptr [edx + 8]\n  0x107a0  894808               mov     dword ptr [eax + 8], ecx\n  0x107a3  8b520c               mov     edx, dword ptr [edx + 0xc]\n  0x107a6  89500c               mov     dword ptr [eax + 0xc], edx\n  0x107a9  a1bc614300           mov     eax, dword ptr [0x4361bc]\n  0x107ae  8a480e               mov     cl, byte ptr [eax + 0xe]\n  0x107b1  88480f               mov     byte ptr [eax + 0xf], cl\n  0x107b4  c3                   ret     \n  0x107b5  90                   nop     \n  0x107b6  90                   nop     \n  0x107b7  90                   nop     \n  0x107b8  90                   nop     \n  0x107b9  90                   nop     \n  0x107ba  90                   nop     \n  0x107bb  90                   nop     \n  0x107bc  90                   nop     \n  0x107bd  90                   nop     \n  0x107be  90                   nop     \n  0x107bf  90                   nop     \nExternal incoming leads: 0x10727\nOutgoing leads: 0x361bc (linear_memory), 0x361bc (linear_memory), 0x361bc (linear_memory), 0x361bc (linear_memory), 0x361bc (linear_memory)\nExplicit range, not an inferred function boundary. Linear-decode xrefs are leads; indirect calls are not resolved.\n"
+  }
+ ],
+ "storage_decision": "initialized file-backed 1000-byte data object at RVA 0x361b8; do not use bss/zero-section-v1. The stripped PE has RELOCS_STRIPPED and a zero base-relocation directory, so no HIGHLOW anchor is available or needed for this complete file-backed data binding."
+}
