@@ -1,0 +1,606 @@
+{
+ "schema": 1,
+ "scope": "Lane native review candidate for reference bindings only; not durable until integrator lands evidence/bind1_review_2026_10_27.json. Does not promote recovery status.",
+ "target_identity": {
+  "path": "work/discs/pc_install/HERCULES.EXE",
+  "sha256": "587ae2e90fd2d1827dab6a2745340240e500846f974f718278e2a50199769c1d",
+  "image_base": "0x400000",
+  "format": "PE32 i386",
+  "base_relocation_directory": {
+   "rva": "0x0",
+   "size": 0,
+   "absent": true
+  }
+ },
+ "recovery_sha256": "b30e15ee4ca20c13e6d381dbcbd17823822adafc3ec049ad129af12eef5ba708",
+ "source_sha256": {
+  "src/pc/host_music.c": "cf3083fcce8bc9d4dfda718efb81838c1003e623d35652a1c4c74467e97e3f3f",
+  "src/pc/host_options_keyboard.cpp": "b96a4365363c7a345c9ffe675c19c94b4f8b8fabad2f0c514ebb27e5f9efa88b",
+  "src/pc/host_bitmap_copy.cpp": "9349e3790e519f0024a7272ae821d897d92781ad402fbdbfddf7c5e704b55bb6",
+  "src/shared/registry_storage.c": "e9f7c60fd443f486260a622e2beb5cde2be2d7a500b2cd486afab6ccbe35eda7"
+ },
+ "method": "Read only native section mapping and byte scans. File-backed object starts were located from complete native payload bytes and independent section/object boundaries; no pending function operand was used as an identity witness. Fresh VC5 COFF data contributions show each string has exactly text+NUL bytes in its own .data section; zero bytes between native starts are linker alignment gaps and are recorded separately.",
+ "file_backed_data": {
+  "_g_config_default_values_rva_36158": {
+   "rva": "0x36158",
+   "va": "0x436158",
+   "size": 36,
+   "sha256": "ce045a7f01f8a40183ac5e22912bef9e2010e92f78b392300eb93123029a1ab3",
+   "file_offset": 214360,
+   "native_bytes": "26000000280000002500000027000000580000005a000000430000004400000053000000",
+   "section": ".data",
+   "evidence": [
+    "evidence/host_config_recovery.json#startup_storage[0]",
+    "evidence/host_config_recovery.json#native_fields.config_default_cells"
+   ]
+  }
+ },
+ "keyboard_string_objects": [
+  {
+   "symbol": "??_C@_08FMFA@Keyboard?$AA@",
+   "text": "Keyboard",
+   "native_rva": "0x372fc",
+   "size": 9,
+   "payload_hex": "4b6579626f61726400",
+   "sha256": "9e8859d19bd4b56c5880ce41fea4dd58f4e2f7d926efb99f7a4b82826aac1444",
+   "object_start_occurrences": 1,
+   "payload_occurrences": [
+    {
+     "rva": "0x372fc",
+     "object_start": true
+    }
+   ],
+   "compiled_data_section": {
+    "name": ".data",
+    "section_index": 16,
+    "value": 0,
+    "size": 9,
+    "bytes": "4b6579626f61726400"
+   },
+   "zero_alignment_padding": 0,
+   "native_linker_gap_after_literal": {
+    "rva": "0x37305",
+    "size": 3,
+    "bytes": "000000",
+    "included_in_object": false
+   },
+   "native_bytes": "4b6579626f61726400"
+  },
+  {
+   "symbol": "??_C@_0L@LLBK@Reset?5Keys?$AA@",
+   "text": "Reset Keys",
+   "native_rva": "0x372f0",
+   "size": 11,
+   "payload_hex": "5265736574204b65797300",
+   "sha256": "88468d1255f57d5ea758548ade0ec843c64d3c35d434daf221265a21e0fe8b75",
+   "object_start_occurrences": 1,
+   "payload_occurrences": [
+    {
+     "rva": "0x372f0",
+     "object_start": true
+    }
+   ],
+   "compiled_data_section": {
+    "name": ".data",
+    "section_index": 15,
+    "value": 0,
+    "size": 11,
+    "bytes": "5265736574204b65797300"
+   },
+   "zero_alignment_padding": 0,
+   "native_linker_gap_after_literal": {
+    "rva": "0x372fb",
+    "size": 1,
+    "bytes": "00",
+    "included_in_object": false
+   },
+   "native_bytes": "5265736574204b65797300"
+  },
+  {
+   "symbol": "??_C@_02NCFM@Up?$AA@",
+   "text": "Up",
+   "native_rva": "0x3729c",
+   "size": 3,
+   "payload_hex": "557000",
+   "sha256": "9d5d6c5a03bbafc93a256a74e74dcd9f8af3dedfdb9c127422ab9db28366a880",
+   "object_start_occurrences": 1,
+   "payload_occurrences": [
+    {
+     "rva": "0x3729c",
+     "object_start": true
+    },
+    {
+     "rva": "0x372c4",
+     "object_start": false
+    }
+   ],
+   "compiled_data_section": {
+    "name": ".data",
+    "section_index": 14,
+    "value": 0,
+    "size": 3,
+    "bytes": "557000"
+   },
+   "zero_alignment_padding": 0,
+   "native_linker_gap_after_literal": {
+    "rva": "0x3729f",
+    "size": 1,
+    "bytes": "00",
+    "included_in_object": false
+   },
+   "native_bytes": "557000"
+  },
+  {
+   "symbol": "??_C@_04IH@Down?$AA@",
+   "text": "Down",
+   "native_rva": "0x3728c",
+   "size": 5,
+   "payload_hex": "446f776e00",
+   "sha256": "5ef698f1b1762bf5e27a25d9d31ef6267926f862851d5a5b7a650f65ce60d62c",
+   "object_start_occurrences": 1,
+   "payload_occurrences": [
+    {
+     "rva": "0x3728c",
+     "object_start": true
+    },
+    {
+     "rva": "0x372b8",
+     "object_start": false
+    }
+   ],
+   "compiled_data_section": {
+    "name": ".data",
+    "section_index": 13,
+    "value": 0,
+    "size": 5,
+    "bytes": "446f776e00"
+   },
+   "zero_alignment_padding": 0,
+   "native_linker_gap_after_literal": {
+    "rva": "0x37291",
+    "size": 3,
+    "bytes": "000000",
+    "included_in_object": false
+   },
+   "native_bytes": "446f776e00"
+  },
+  {
+   "symbol": "??_C@_04MKGK@Left?$AA@",
+   "text": "Left",
+   "native_rva": "0x372a0",
+   "size": 5,
+   "payload_hex": "4c65667400",
+   "sha256": "450f91e6210638503f50b91e34d90c1429fe44498718c5f408a1cc5583ab1cde",
+   "object_start_occurrences": 1,
+   "payload_occurrences": [
+    {
+     "rva": "0x372a0",
+     "object_start": true
+    }
+   ],
+   "compiled_data_section": {
+    "name": ".data",
+    "section_index": 12,
+    "value": 0,
+    "size": 5,
+    "bytes": "4c65667400"
+   },
+   "zero_alignment_padding": 0,
+   "native_linker_gap_after_literal": {
+    "rva": "0x372a5",
+    "size": 3,
+    "bytes": "000000",
+    "included_in_object": false
+   },
+   "native_bytes": "4c65667400"
+  },
+  {
+   "symbol": "??_C@_05PNPP@Right?$AA@",
+   "text": "Right",
+   "native_rva": "0x37294",
+   "size": 6,
+   "payload_hex": "526967687400",
+   "sha256": "18fcd754252f60553150404fd6d53e1e6a65dba4102b361987318efed5925bae",
+   "object_start_occurrences": 1,
+   "payload_occurrences": [
+    {
+     "rva": "0x37294",
+     "object_start": true
+    }
+   ],
+   "compiled_data_section": {
+    "name": ".data",
+    "section_index": 11,
+    "value": 0,
+    "size": 6,
+    "bytes": "526967687400"
+   },
+   "zero_alignment_padding": 0,
+   "native_linker_gap_after_literal": {
+    "rva": "0x3729a",
+    "size": 2,
+    "bytes": "0000",
+    "included_in_object": false
+   },
+   "native_bytes": "526967687400"
+  },
+  {
+   "symbol": "??_C@_05DGOK@Sword?$AA@",
+   "text": "Sword",
+   "native_rva": "0x36cb8",
+   "size": 6,
+   "payload_hex": "53776f726400",
+   "sha256": "5196028cc1d92e3caf5c137abb2debf19227de0f2c468f07742f58aae2817c18",
+   "object_start_occurrences": 1,
+   "payload_occurrences": [
+    {
+     "rva": "0x36cb8",
+     "object_start": true
+    }
+   ],
+   "compiled_data_section": {
+    "name": ".data",
+    "section_index": 10,
+    "value": 0,
+    "size": 6,
+    "bytes": "53776f726400"
+   },
+   "zero_alignment_padding": 0,
+   "native_linker_gap_after_literal": {
+    "rva": "0x36cbe",
+    "size": 2,
+    "bytes": "0000",
+    "included_in_object": false
+   },
+   "native_bytes": "53776f726400"
+  },
+  {
+   "symbol": "??_C@_04BABL@Jump?$AA@",
+   "text": "Jump",
+   "native_rva": "0x36cb0",
+   "size": 5,
+   "payload_hex": "4a756d7000",
+   "sha256": "ada03a427e33fe136a13d5190f0e3ad674fe3841db5c743a3138ccb185d8f45e",
+   "object_start_occurrences": 1,
+   "payload_occurrences": [
+    {
+     "rva": "0x36cb0",
+     "object_start": true
+    }
+   ],
+   "compiled_data_section": {
+    "name": ".data",
+    "section_index": 9,
+    "value": 0,
+    "size": 5,
+    "bytes": "4a756d7000"
+   },
+   "zero_alignment_padding": 0,
+   "native_linker_gap_after_literal": {
+    "rva": "0x36cb5",
+    "size": 3,
+    "bytes": "000000",
+    "included_in_object": false
+   },
+   "native_bytes": "4a756d7000"
+  },
+  {
+   "symbol": "??_C@_05EMNA@Punch?$AA@",
+   "text": "Punch",
+   "native_rva": "0x36ca8",
+   "size": 6,
+   "payload_hex": "50756e636800",
+   "sha256": "2b6b8a6cab472506eca8ec91e492d2a72c3bba9281300e1041e73e98b49b8490",
+   "object_start_occurrences": 1,
+   "payload_occurrences": [
+    {
+     "rva": "0x36ca2",
+     "object_start": false
+    },
+    {
+     "rva": "0x36ca8",
+     "object_start": true
+    }
+   ],
+   "compiled_data_section": {
+    "name": ".data",
+    "section_index": 8,
+    "value": 0,
+    "size": 6,
+    "bytes": "50756e636800"
+   },
+   "zero_alignment_padding": 0,
+   "native_linker_gap_after_literal": {
+    "rva": "0x36cae",
+    "size": 2,
+    "bytes": "0000",
+    "included_in_object": false
+   },
+   "native_bytes": "50756e636800"
+  },
+  {
+   "symbol": "??_C@_0M@DPGE@Power?5Punch?$AA@",
+   "text": "Power Punch",
+   "native_rva": "0x36c9c",
+   "size": 12,
+   "payload_hex": "506f7765722050756e636800",
+   "sha256": "fbf7ddf99d4c1d4ae317dbc168f5353a6eeea0d72e33552b273dd6ca60a7a5e7",
+   "object_start_occurrences": 1,
+   "payload_occurrences": [
+    {
+     "rva": "0x36c9c",
+     "object_start": true
+    }
+   ],
+   "compiled_data_section": {
+    "name": ".data",
+    "section_index": 7,
+    "value": 0,
+    "size": 12,
+    "bytes": "506f7765722050756e636800"
+   },
+   "zero_alignment_padding": 0,
+   "native_linker_gap_after_literal": {
+    "rva": "0x36ca8",
+    "size": 0,
+    "bytes": "",
+    "included_in_object": false
+   },
+   "native_bytes": "506f7765722050756e636800"
+  },
+  {
+   "symbol": "??_C@_06DNLJ@Weapon?$AA@",
+   "text": "Weapon",
+   "native_rva": "0x36c94",
+   "size": 7,
+   "payload_hex": "576561706f6e00",
+   "sha256": "0702f8133e1e2a0efa2bbc366e7ebbe1c1973d7d45b0051a100e7c100c210805",
+   "object_start_occurrences": 1,
+   "payload_occurrences": [
+    {
+     "rva": "0x36c94",
+     "object_start": true
+    }
+   ],
+   "compiled_data_section": {
+    "name": ".data",
+    "section_index": 6,
+    "value": 0,
+    "size": 7,
+    "bytes": "576561706f6e00"
+   },
+   "zero_alignment_padding": 0,
+   "native_linker_gap_after_literal": {
+    "rva": "0x36c9b",
+    "size": 1,
+    "bytes": "00",
+    "included_in_object": false
+   },
+   "native_bytes": "576561706f6e00"
+  },
+  {
+   "symbol": "??_C@_0M@KDDI@Keys?5are?5ON?$AA@",
+   "text": "Keys are ON",
+   "native_rva": "0x37318",
+   "size": 12,
+   "payload_hex": "4b65797320617265204f4e00",
+   "sha256": "b5a06b18c88dfa38984b3bbed8e01f29a714208c9705fc44e0b4e7da36713cba",
+   "object_start_occurrences": 1,
+   "payload_occurrences": [
+    {
+     "rva": "0x37318",
+     "object_start": true
+    }
+   ],
+   "compiled_data_section": {
+    "name": ".data",
+    "section_index": 22,
+    "value": 0,
+    "size": 12,
+    "bytes": "4b65797320617265204f4e00"
+   },
+   "zero_alignment_padding": 0,
+   "native_linker_gap_after_literal": {
+    "rva": "0x37324",
+    "size": 0,
+    "bytes": "",
+    "included_in_object": false
+   },
+   "native_bytes": "4b65797320617265204f4e00"
+  },
+  {
+   "symbol": "??_C@_0N@PHEF@Keys?5are?5OFF?$AA@",
+   "text": "Keys are OFF",
+   "native_rva": "0x37308",
+   "size": 13,
+   "payload_hex": "4b65797320617265204f464600",
+   "sha256": "97f2ef76c42072f9a37d9822dac4532b6adace0d3ae1dd16693334a0a9e3ca18",
+   "object_start_occurrences": 1,
+   "payload_occurrences": [
+    {
+     "rva": "0x37308",
+     "object_start": true
+    }
+   ],
+   "compiled_data_section": {
+    "name": ".data",
+    "section_index": 21,
+    "value": 0,
+    "size": 13,
+    "bytes": "4b65797320617265204f464600"
+   },
+   "zero_alignment_padding": 0,
+   "native_linker_gap_after_literal": {
+    "rva": "0x37315",
+    "size": 3,
+    "bytes": "000000",
+    "included_in_object": false
+   },
+   "native_bytes": "4b65797320617265204f464600"
+  }
+ ],
+ "independent_string_witnesses": {
+  "method": "Each complete compiled literal payload (text plus NUL; no compiler-emitted trailing padding) was scanned in the file-backed .data section. Native linker alignment gaps were recorded separately. The object start must be DWORD aligned and preceded by section start or a NUL delimiter. For Up/Down, another byte match is only the suffix inside PageUp/PageDown, not an object start. Native key-label table cells at RVA 0x36d84..0x36d90 independently point to Left/Up/Right/Down outside the selected rows.",
+  "outside_table_cells": [
+   {
+    "cell_rva": "0x36d84",
+    "target_rva": "0x372a0",
+    "text": "Left",
+    "native_va_value": "0x4372a0",
+    "file_offset": 217476,
+    "bytes": "a0724300"
+   },
+   {
+    "cell_rva": "0x36d88",
+    "target_rva": "0x3729c",
+    "text": "Up",
+    "native_va_value": "0x43729c",
+    "file_offset": 217480,
+    "bytes": "9c724300"
+   },
+   {
+    "cell_rva": "0x36d8c",
+    "target_rva": "0x37294",
+    "text": "Right",
+    "native_va_value": "0x437294",
+    "file_offset": 217484,
+    "bytes": "94724300"
+   },
+   {
+    "cell_rva": "0x36d90",
+    "target_rva": "0x3728c",
+    "text": "Down",
+    "native_va_value": "0x43728c",
+    "file_offset": 217488,
+    "bytes": "8c724300"
+   }
+  ],
+  "source_evidence": "evidence/host_options_keyboard_recovery.json#state.key_table"
+ },
+ "loader_zero_config": {
+  "symbol": "_g_registry_config",
+  "rva": "0x79e858",
+  "size": 72,
+  "native_sha256": "834a709ba2534ebe3ee1397fd4f7bd288b2acc1d20a08d6c862dcd99b6f04400",
+  "native_backing": "zero-filled .data virtual tail; no file-backed bytes",
+  "owner": {
+   "source": "src/shared/registry_storage.c",
+   "flags": [
+    "/O2"
+   ],
+   "symbol": "_g_registry_config",
+   "representation": "zero-section-v1"
+  },
+  "independent_native_anchor": {
+   "rva": "0x4d23",
+   "bytes": "6858e8b900",
+   "size": 5,
+   "sha256": "252ef2b5576d31d936250fa564fc2635cbcaf901300596cfd1fbb90d2d665709",
+   "instruction": "push 0x00b9e858",
+   "operand": 0,
+   "use": "independent native Config writer outside selected rows"
+  },
+  "blocker": "No HERCULES.EXE base-relocation directory exists. The loader-zero verifier requires the anchor immediate to have one exact original HIGHLOW relocation, which this image cannot supply. Address and object owner are measured; this does not establish a bindable zero object under the verifier form."
+ },
+ "bitmap_copy_same_unit_data": {
+  "compiled_symbol": "$T201",
+  "compiled_section": ".rdata",
+  "compiled_value": 0,
+  "compiled_size": 4,
+  "compiled_payload_hex": "00000000",
+  "compiled_payload_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+  "native_candidate_rva_from_planning_only": "0x2e168",
+  "native_candidate_bytes": "00000000",
+  "aligned_zero_dword_occurrences_in_file_backed_rdata": 1897,
+  "native_pointer_operand_rvas": [
+   "0x65aa",
+   "0x65c0"
+  ],
+  "pending_function_extent": "0x6530..0x661f",
+  "independent_pointer_witnesses_outside_pending_function": [],
+  "blocker": "The exact payload is four zero bytes, present at many .rdata positions, with no independently located owner boundary or outside native pointer. The only two native pointer operands to the candidate address are inside the pending function. Do not bind $T201 from that caller."
+ },
+ "crt_identity": {
+  "symbol": "__ftol",
+  "status": "blocked",
+  "reason": "Closed library-member identity has not landed as repository evidence. No work/ identity file is cited. Bind only after the identity is added to durable repository evidence."
+ },
+ "limits": [
+  "No source identity or whole-image claim.",
+  "No native execution.",
+  "No identity is inferred from a selected caller operand."
+ ],
+ "compiler_literal_contributions": {
+  "object_sha256": "b194eccb8b8cb4b0523e893cba484242e9365be2ac84076cce16b362154d00be",
+  "source": "src/pc/host_options_keyboard.cpp",
+  "symbols": {
+   "??_C@_08FMFA@Keyboard?$AA@": {
+    "section_index": 16,
+    "size": 9,
+    "bytes": "4b6579626f61726400"
+   },
+   "??_C@_0L@LLBK@Reset?5Keys?$AA@": {
+    "section_index": 15,
+    "size": 11,
+    "bytes": "5265736574204b65797300"
+   },
+   "??_C@_02NCFM@Up?$AA@": {
+    "section_index": 14,
+    "size": 3,
+    "bytes": "557000"
+   },
+   "??_C@_04IH@Down?$AA@": {
+    "section_index": 13,
+    "size": 5,
+    "bytes": "446f776e00"
+   },
+   "??_C@_04MKGK@Left?$AA@": {
+    "section_index": 12,
+    "size": 5,
+    "bytes": "4c65667400"
+   },
+   "??_C@_05PNPP@Right?$AA@": {
+    "section_index": 11,
+    "size": 6,
+    "bytes": "526967687400"
+   },
+   "??_C@_05DGOK@Sword?$AA@": {
+    "section_index": 10,
+    "size": 6,
+    "bytes": "53776f726400"
+   },
+   "??_C@_04BABL@Jump?$AA@": {
+    "section_index": 9,
+    "size": 5,
+    "bytes": "4a756d7000"
+   },
+   "??_C@_05EMNA@Punch?$AA@": {
+    "section_index": 8,
+    "size": 6,
+    "bytes": "50756e636800"
+   },
+   "??_C@_0M@DPGE@Power?5Punch?$AA@": {
+    "section_index": 7,
+    "size": 12,
+    "bytes": "506f7765722050756e636800"
+   },
+   "??_C@_06DNLJ@Weapon?$AA@": {
+    "section_index": 6,
+    "size": 7,
+    "bytes": "576561706f6e00"
+   },
+   "??_C@_0M@KDDI@Keys?5are?5ON?$AA@": {
+    "section_index": 22,
+    "size": 12,
+    "bytes": "4b65797320617265204f4e00"
+   },
+   "??_C@_0N@PHEF@Keys?5are?5OFF?$AA@": {
+    "section_index": 21,
+    "size": 13,
+    "bytes": "4b65797320617265204f464600"
+   }
+  },
+  "note": "Generated object is build scratch and not cited as durable binding evidence."
+ },
+ "future_durable_path": "evidence/bind1_review_2026_10_27.json"
+}
