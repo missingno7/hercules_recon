@@ -154,5 +154,23 @@ class SecondRepinTests(unittest.TestCase):
         self.assertEqual(seen, {**earlier, **added})
         self.assertEqual(row['proof']['reference_snapshots'], earlier)  # the ledger copy is untouched
 
+    def test_pins_of_current_and_preserved_older_versions_resolve_to_their_own_address(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            old, current = b'old source\n', b'new source\n'
+            stored = root / 'evidence/repin_snapshots' / (repin.sha(old) + '.txt')
+            stored.parent.mkdir(parents=True)
+            stored.write_bytes(old)
+            with patch.object(repin, 'ROOT', root):
+                self.assertEqual(repin.pin_snapshot('src/a.c', repin.sha(old), current),
+                                 'evidence/repin_snapshots/' + repin.sha(old) + '.txt')
+                self.assertEqual(repin.pin_snapshot('src/a.c', repin.sha(current), current),
+                                 'evidence/repin_snapshots/' + repin.sha(current) + '.txt')
+                with self.assertRaises(ValueError):  # an older pin with no preserved bytes refuses
+                    repin.pin_snapshot('src/a.c', repin.sha(b'never preserved\n'), current)
+                stored.write_bytes(b'tampered\n')
+                with self.assertRaises(ValueError):  # a snapshot whose bytes do not match its address refuses
+                    repin.pin_snapshot('src/a.c', repin.sha(old), current)
+
 
 if __name__=='__main__':unittest.main()

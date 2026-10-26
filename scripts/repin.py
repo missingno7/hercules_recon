@@ -73,6 +73,18 @@ def snapshot(name, data):
     return relative
 
 
+def pin_snapshot(name, expected, current):
+    """Content address satisfying one direct pin of a changed source, or refuse."""
+    if expected == sha(current):
+        return snapshot(name, current)
+    from reviewed_evidence import snapshot_path
+    relative = 'evidence/repin_snapshots/' + expected + '.txt'
+    path = snapshot_path(ROOT, name, expected, {name: relative})
+    if not path.exists() or sha(path.read_bytes()) != expected:
+        raise ValueError('Preservation failed: historical source pin has no preserved snapshot: ' + name)
+    return relative
+
+
 def frozen_before(state, results, original_root, baseline):
     """Validate continuation of the completed before phase, never reuse its builds
     for after acceptance. Exact old objects remain preservation witnesses only.
@@ -187,9 +199,11 @@ def apply(plan_path, before_path, original_root, directory):
             snapshots[name] = snapshot(name, data)
         # An explicit review binds EVERY direct pin, including unused documents.
         for pin in audit['direct_pins']:
-            require_equal(pin['sha256'], sha(source_before[pin['path']]), 'historical source pin')
+            # A pin of the current bytes is snapshotted now; a pin of an older version must
+            # already be preserved, by an earlier re-pin, at its own content address.
+            address = pin_snapshot(pin['path'], pin['sha256'], source_before[pin['path']])
             pin.update(document_sha256=sha((ROOT/pin['document']).read_bytes()),
-                       snapshot=snapshots[pin['path']],
+                       snapshot=address,
                        usage='historical source provenance; live compiler inputs remain canonical')
         old_rows = accepted_rows(state['functions'])
         affected = []
@@ -197,7 +211,9 @@ def apply(plan_path, before_path, original_root, directory):
             proof = row['proof']
             path = proof.get('bindings_path')
             pins = docs.get(path, {}).get('evidence_files', {})
-            mapping = {n: snapshots[n] for n in snapshots if n in pins}
+            # Each pin of a changed source reads the snapshot of exactly the hash it pins.
+            mapping = {n: ('evidence/repin_snapshots/' + pins[n] + '.txt' if n in source_before else snapshots[n])
+                       for n in snapshots if n in pins}
             if mapping:
                 # Merge: a row may already read older pins through earlier snapshots.
                 proof['reference_snapshots'] = {**proof.get('reference_snapshots', {}), **mapping}

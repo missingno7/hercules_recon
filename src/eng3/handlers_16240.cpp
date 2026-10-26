@@ -3554,7 +3554,8 @@ void eng3_1b9f0(void)
         }
     }
     for (i = g_eng3_40b94; i < g_eng3_40bcc; i++) {
-        a = &g_eng3_actor_42540[i];
+        Actor *base = g_eng3_actor_42540;
+        a = base + i;
         if (a->kind) {
             flags = a->flags;
             if (!(flags & 0x800)) {

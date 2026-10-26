@@ -952,8 +952,11 @@ void eng1_34210(Actor *p)
     } else {
         apply_frame_motion_2d(p);
         eng1_interpret_signed_pairs(p);
-        if (!eng1_29c20(p) ||
-            ((w = g_configuration_dword_713bc[dispatch_local_2a170(p->x + (p->direction_x ? -0x180000 : 0x180000), p->y,
+        if (!eng1_29c20(p)) {
+            p->x = p->saved_x;
+            p->y = p->saved_y;
+            select_frame(p, 8);
+        } else if (((w = g_configuration_dword_713bc[dispatch_local_2a170(p->x + (p->direction_x ? -0x180000 : 0x180000), p->y,
                                                               (p->z + 0x400000) & 0xf800000, p->profile)]) & 6)) {
             p->x = p->saved_x;
             p->y = p->saved_y;
@@ -1172,8 +1175,11 @@ void eng1_34910(Actor *p)
     } else {
         apply_frame_motion_2d(p);
         eng1_interpret_signed_pairs(p);
-        if (!eng1_29c20(p) ||
-            ((w = g_configuration_dword_713bc[dispatch_local_2a170(p->x + (p->direction_x ? -0x180000 : 0x180000), p->y,
+        if (!eng1_29c20(p)) {
+            p->x = p->saved_x;
+            p->y = p->saved_y;
+            select_frame(p, 0xc);
+        } else if (((w = g_configuration_dword_713bc[dispatch_local_2a170(p->x + (p->direction_x ? -0x180000 : 0x180000), p->y,
                                                               p->z, p->profile)]) & 7)) {
             p->x = p->saved_x;
             p->y = p->saved_y;
